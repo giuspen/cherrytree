@@ -33,6 +33,8 @@ public:
     CtTreeView();
     virtual ~CtTreeView();
     void setExpandedCollapsed(CtTreeStore& ctTreestore);
+    void set_cursor_safe(const Gtk::TreeIter& iter);
+
 protected:
 };
 
@@ -41,7 +43,10 @@ class CtTextView : public Gsv::View
 public:
     CtTextView();
     virtual ~CtTextView();
+
     void setupForSyntax(const std::string& syntaxHighlighting);
+    void set_pixels_inside_wrap(int space_around_lines, int relative_wrapped_space);
+
     static const double TEXT_SCROLL_MARGIN;
 protected:
     void _setFontForSyntax(const std::string& syntaxHighlighting);

@@ -36,6 +36,8 @@ CtTextCell::~CtTextCell()
 }
 
 
+const Gsv::DrawSpacesFlags CtCodebox::DRAW_SPACES_FLAGS = Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE;
+
 CtCodebox::CtCodebox(const Glib::ustring& textContent,
                      const Glib::ustring& syntaxHighlighting,
                      const int& frameWidth,

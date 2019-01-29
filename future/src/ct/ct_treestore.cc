@@ -274,6 +274,7 @@ void CtTreeStore::updateNodeData(Gtk::TreeIter treeIter, const CtNodeData& nodeD
     row[_columns.colAnchoredWidgets] = nodeData.anchoredWidgets;
 
     add_used_tags(nodeData.tags);
+    _nodes_names_dict[nodeData.nodeId] = nodeData.name;
 }
 
 void CtTreeStore::updateNodeAuxIcon(Gtk::TreeIter treeIter)

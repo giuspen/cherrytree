@@ -10,11 +10,13 @@
 #include "ct_misc_utils.h"
 #include "ct_image.h"
 #include "ct_dialogs.h"
+#include "ct_codebox.h"
 
-CtPrefDlg::CtPrefDlg(Gtk::Window& parent, CtMenu* pCtMenu)
-    : Gtk::Dialog (_("Preferences"), parent, true)
+CtPrefDlg::CtPrefDlg(CtMainWin* parent, CtMenu* pCtMenu)
+    : Gtk::Dialog (_("Preferences"), *parent, true)
 {
     _restartReasons = 0;
+    _pCtMainWin = parent;
     _pCtMenu = pCtMenu;
 
     Gtk::Notebook* pNotebook = Gtk::manage(new Gtk::Notebook());
@@ -184,44 +186,45 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
         if (ct_dialogs::question_dialog(reset_warning, *this))
             textview_special_chars->get_buffer()->set_text(CtConst::SPECIAL_CHARS_DEFAULT);
     });
-    spinbutton_tab_width->signal_value_changed().connect([config, spinbutton_tab_width](){
+    spinbutton_tab_width->signal_value_changed().connect([this, config, spinbutton_tab_width](){
         config->tabsWidth = spinbutton_tab_width->get_value_as_int();
-        //dad.sourceview.set_tab_width(dad.tabs_width)
+        _pCtMainWin->get_text_view().set_tab_width(config->tabsWidth);
     });
-    spinbutton_wrapping_indent->signal_value_changed().connect([config, spinbutton_wrapping_indent](){
+    spinbutton_wrapping_indent->signal_value_changed().connect([this, config, spinbutton_wrapping_indent](){
         config->wrappingIndent = spinbutton_wrapping_indent->get_value_as_int();
-        //dad.sourceview.set_indent(dad.wrapping_indent)
+        _pCtMainWin->get_text_view().set_indent(config->wrappingIndent);
     });
-    spinbutton_relative_wrapped_space->signal_value_changed().connect([config, spinbutton_relative_wrapped_space](){
+    spinbutton_relative_wrapped_space->signal_value_changed().connect([this, config, spinbutton_relative_wrapped_space](){
        config->relativeWrappedSpace = spinbutton_relative_wrapped_space->get_value_as_int();
-       //dad.sourceview.set_pixels_inside_wrap(get_pixels_inside_wrap(dad.space_around_lines, dad.relative_wrapped_space))
+       _pCtMainWin->get_text_view().set_pixels_inside_wrap(config->spaceAroundLines, config->relativeWrappedSpace);
     });
-    spinbutton_space_around_lines->signal_value_changed().connect([config, spinbutton_space_around_lines](){
+    spinbutton_space_around_lines->signal_value_changed().connect([this, config, spinbutton_space_around_lines](){
         config->spaceAroundLines = spinbutton_space_around_lines->get_value_as_int();
-        //dad.sourceview.set_pixels_above_lines(dad.space_around_lines)
-        //dad.sourceview.set_pixels_below_lines(dad.space_around_lines)
-        //dad.sourceview.set_pixels_inside_wrap(get_pixels_inside_wrap(dad.space_around_lines, dad.relative_wrapped_space))
+        _pCtMainWin->get_text_view().set_pixels_above_lines(config->spaceAroundLines);
+        _pCtMainWin->get_text_view().set_pixels_below_lines(config->spaceAroundLines);
+        _pCtMainWin->get_text_view().set_pixels_inside_wrap(config->spaceAroundLines, config->relativeWrappedSpace);
     });
-    checkbutton_spaces_tabs->signal_toggled().connect([config, checkbutton_spaces_tabs](){
+    checkbutton_spaces_tabs->signal_toggled().connect([this, config, checkbutton_spaces_tabs](){
         config->spacesInsteadTabs = checkbutton_spaces_tabs->get_active();
-        //dad.sourceview.set_insert_spaces_instead_of_tabs(dad.spaces_instead_tabs)
+        _pCtMainWin->get_text_view().set_insert_spaces_instead_of_tabs(config->spacesInsteadTabs);
     });
-    checkbutton_line_wrap->signal_toggled().connect([config, checkbutton_line_wrap](){
+    checkbutton_line_wrap->signal_toggled().connect([this, config, checkbutton_line_wrap](){
         config->lineWrapping = checkbutton_line_wrap->get_active();
-        //dad.sourceview.set_wrap_mode(gtk.WRAP_WORD_CHAR if dad.line_wrapping else gtk.WRAP_NONE)
+        _pCtMainWin->get_text_view().set_wrap_mode(config->lineWrapping ? Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
     });
     checkbutton_auto_indent->signal_toggled().connect([config, checkbutton_auto_indent](){
         config->autoIndent = checkbutton_auto_indent->get_active();
     });
-    checkbutton_line_nums->signal_toggled().connect([config, checkbutton_line_nums](){
+    checkbutton_line_nums->signal_toggled().connect([this, config, checkbutton_line_nums](){
         config->showLineNumbers = checkbutton_line_nums->get_active();
-        //dad.sourceview.set_show_line_numbers(dad.show_line_numbers)
+        _pCtMainWin->get_text_view().set_show_line_numbers(config->showLineNumbers);
     });
     entry_timestamp_format->signal_changed().connect([config, entry_timestamp_format](){
         config->timestampFormat = entry_timestamp_format->get_text();
     });
     button_strftime_help->signal_clicked().connect([](){
-        //webbrowser.open("https://docs.python.org/2/library/time.html#time.strftime")
+        system("xdg-open https://docs.python.org/2/library/time.html#time.strftime");
+        // webbrowser.open("https://docs.python.org/2/library/time.html#time.strftime")
     });
     entry_horizontal_rule->signal_changed().connect([config, entry_horizontal_rule](){
         config->hRule = entry_horizontal_rule->get_text();
@@ -463,15 +466,15 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
         config->monospaceBg = CtRgbUtil::rgb_any_to_24(colorbutton_monospace_bg->get_rgba());
         need_restart(RESTART_REASON::MONOSPACE);
     });
-    checkbutton_rt_show_white_spaces->signal_toggled().connect([config, checkbutton_rt_show_white_spaces](){
+    checkbutton_rt_show_white_spaces->signal_toggled().connect([this, config, checkbutton_rt_show_white_spaces](){
         config->rtShowWhiteSpaces = checkbutton_rt_show_white_spaces->get_active();
-        //if dad.syntax_highlighting == cons.RICH_TEXT_ID:
-        //    dad.sourceview.set_draw_spaces(codeboxes.DRAW_SPACES_FLAGS if dad.rt_show_white_spaces else 0)
+        if (config->syntaxHighlighting == CtConst::RICH_TEXT_ID)
+            _pCtMainWin->get_text_view().set_draw_spaces(config->rtShowWhiteSpaces ? CtCodebox::DRAW_SPACES_FLAGS : (Gsv::DrawSpacesFlags)0);
     });
-    checkbutton_rt_highl_curr_line->signal_toggled().connect([config, checkbutton_rt_highl_curr_line](){
+    checkbutton_rt_highl_curr_line->signal_toggled().connect([this, config, checkbutton_rt_highl_curr_line](){
         config->rtHighlCurrLine = checkbutton_rt_highl_curr_line->get_active();
-        //if dad.syntax_highlighting == cons.RICH_TEXT_ID:
-        //    dad.sourceview.set_highlight_current_line(dad.rt_highl_curr_line)
+        if (config->syntaxHighlighting == CtConst::RICH_TEXT_ID)
+            _pCtMainWin->get_text_view().set_highlight_current_line(config->rtHighlCurrLine);
     });
     checkbutton_codebox_auto_resize->signal_toggled().connect([config, checkbutton_codebox_auto_resize](){
         config->codeboxAutoResize = checkbutton_codebox_auto_resize->get_active();
@@ -587,15 +590,15 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
         config->styleSchemeId = combobox_style_scheme->get_active_text();
         need_restart(RESTART_REASON::SCHEME);
     });
-    checkbutton_pt_show_white_spaces->signal_toggled().connect([config, checkbutton_pt_show_white_spaces](){
+    checkbutton_pt_show_white_spaces->signal_toggled().connect([this, config, checkbutton_pt_show_white_spaces](){
         config->ptShowWhiteSpaces = checkbutton_pt_show_white_spaces->get_active();
-        //if dad->syntax_highlighting != cons->RICH_TEXT_ID:
-        //    dad->sourceview->set_draw_spaces(codeboxes->DRAW_SPACES_FLAGS if dad->pt_show_white_spaces else 0)
+        if (config->syntaxHighlighting != CtConst::RICH_TEXT_ID)
+            _pCtMainWin->get_text_view().set_draw_spaces(config->ptShowWhiteSpaces ? CtCodebox::DRAW_SPACES_FLAGS : (Gsv::DrawSpacesFlags)0);
     });
-    checkbutton_pt_highl_curr_line->signal_toggled().connect([config, checkbutton_pt_highl_curr_line](){
+    checkbutton_pt_highl_curr_line->signal_toggled().connect([this, config, checkbutton_pt_highl_curr_line](){
         config->ptHighlCurrLine = checkbutton_pt_highl_curr_line->get_active();
-        //if dad->syntax_highlighting != cons->RICH_TEXT_ID:
-        //    dad->sourceview->set_highlight_current_line(dad->pt_highl_curr_line)
+        if (config->syntaxHighlighting != CtConst::RICH_TEXT_ID)
+            _pCtMainWin->get_text_view().set_highlight_current_line(config->ptHighlCurrLine);
     });
     ((Gtk::CellRendererText*)treeview->get_column(2)->get_cells()[0])->signal_edited().connect([this, config, liststore](const Glib::ustring& path, const Glib::ustring& new_command){
         auto row = liststore->get_iter(path);
@@ -788,15 +791,16 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
         config->nodesIcons = "n";
         //dad.treeview_refresh(change_icon=True)
     });
-    c_icon_button->signal_clicked().connect([config, c_icon_button](){
-        //icon_n_label_list = []
-        //for key in cons.NODES_STOCKS_KEYS:
-        //    icon_n_label_list.append([str(key), cons.NODES_STOCKS[key], ""])
-        //sel_key = support.dialog_choose_element_in_list(pref_dialog, _("Select Node Icon"), [], "", icon_n_label_list)
-        //if sel_key:
-        //    dad.default_icon_text = int(sel_key)
-        //    c_icon_button.set_image(gtk.image_new_from_stock(cons.NODES_STOCKS[dad.default_icon_text], gtk.ICON_SIZE_BUTTON))
-        //    dad.treeview_refresh(change_icon=True)
+    c_icon_button->signal_clicked().connect([this, config, c_icon_button](){
+        auto itemStore = ct_dialogs::CtChooseDialogListStore::create();
+        for (auto& pair: CtConst::NODES_STOCKS)
+            itemStore->add_row(pair.second, std::to_string(pair.first), "");
+        auto res = ct_dialogs::choose_item_dialog(*this, _("Select Node Icon"), itemStore);
+        if (res) {
+            config->defaultIconText = std::stoi(res->get_value(itemStore->columns.key));
+            c_icon_button->set_image(*CtImage::new_image_from_stock(res->get_value(itemStore->columns.stock_id), Gtk::ICON_SIZE_BUTTON));
+            //    dad.treeview_refresh(change_icon=True)
+        }
     });
     radiobutton_nodes_startup_expand->signal_toggled().connect([config, radiobutton_nodes_startup_expand, checkbutton_nodes_bookm_exp](){
         if (!radiobutton_nodes_startup_expand->get_active()) return;
@@ -942,7 +946,7 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
     pMainBox->set_spacing(3);
     pMainBox->pack_start(*frame_fonts, false, false);
 
-    fontbutton_rt->signal_font_set().connect([config, fontbutton_rt](){
+    fontbutton_rt->signal_font_set().connect([this, config, fontbutton_rt](){
         config->rtFont = fontbutton_rt->get_font_name();
         //if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
         //    dad.sourceview.modify_font(pango.FontDescription(dad.rt_font))
@@ -1462,15 +1466,6 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     return pMainBox;
 }
 
-Glib::RefPtr<Gdk::Pixbuf> CtPrefDlg::get_icon(const std::string& name)
-{
-    if (CtApp::R_icontheme->has_icon(name))
-        return CtApp::R_icontheme->load_icon(name, CtConst::NODE_ICON_SIZE);
-    else if (Gtk::IconTheme::get_default()->has_icon(name))
-        return Gtk::IconTheme::get_default()->load_icon(name, CtConst::NODE_ICON_SIZE);
-    return Glib::RefPtr<Gdk::Pixbuf>();
-}
-
 void CtPrefDlg::need_restart(RESTART_REASON reason, const gchar* msg /*= nullptr*/)
 {
     if (!(_restartReasons & (int)reason)) {
@@ -1506,7 +1501,7 @@ void CtPrefDlg::fill_commands_model(Glib::RefPtr<Gtk::ListStore> model)
             command = CtConst::CODE_EXEC_TYPE_CMD_DEFAULT.at(key);
 
         Gtk::TreeModel::Row row = *(model->append());
-        row[_commandModelColumns.icon] = get_icon(CtConst::getStockIdForCodeType(key));
+        row[_commandModelColumns.icon] = CtImage::get_icon(CtConst::getStockIdForCodeType(key), CtConst::NODE_ICON_SIZE);
         row[_commandModelColumns.key] = key;
         row[_commandModelColumns.desc] = command;
     }
@@ -1564,7 +1559,7 @@ void CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeModel::iterator row, cons
         desc = action->desc;
     }
 
-    if (icon != "") row->set_value(_toolbarModelColumns.icon, get_icon(icon));
+    if (icon != "") row->set_value(_toolbarModelColumns.icon, CtImage::get_icon(icon, CtConst::NODE_ICON_SIZE));
     row->set_value(_toolbarModelColumns.key, key);
     row->set_value(_toolbarModelColumns.desc, desc);
 }
@@ -1613,7 +1608,7 @@ void CtPrefDlg::fill_shortcut_model(Glib::RefPtr<Gtk::TreeStore> model)
             cat_row[_shortcutModelColumns.desc] = action.category;
         }
         auto row = *model->append(cat_row.children());
-        if (action.image != "") row[_shortcutModelColumns.icon] = get_icon(action.image);
+        if (action.image != "") row[_shortcutModelColumns.icon] = CtImage::get_icon(action.image, CtConst::NODE_ICON_SIZE);
         row[_shortcutModelColumns.key] = action.id;
         row[_shortcutModelColumns.desc] = action.desc;
         row[_shortcutModelColumns.shortcut] = action.get_shortcut();

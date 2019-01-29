@@ -47,6 +47,12 @@ void CtTreeView::setExpandedCollapsed(CtTreeStore& ctTreestore)
     ctTreestore.setExpandedCollapsed(this, ctTreestore.getRootChildren(), mapExpandedCollapsed);
 }
 
+void CtTreeView::set_cursor_safe(const Gtk::TreeIter& iter)
+{
+    auto parent = iter->parent();
+    if (parent) expand_row(get_model()->get_path(parent), false);
+    set_cursor(get_model()->get_path(iter));
+}
 
 const double CtTextView::TEXT_SCROLL_MARGIN{0.3};
 
@@ -98,6 +104,12 @@ void CtTextView::setupForSyntax(const std::string& syntax)
         }
     }
     _setFontForSyntax(syntax);
+}
+
+void CtTextView::set_pixels_inside_wrap(int space_around_lines, int relative_wrapped_space)
+{
+    int pixels_around_wrap = (space_around_lines * (relative_wrapped_space / 100.0));
+    Gtk::TextView::set_pixels_inside_wrap(pixels_around_wrap);
 }
 
 void CtTextView::_setFontForSyntax(const std::string& syntaxHighlighting)

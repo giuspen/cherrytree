@@ -188,7 +188,7 @@ void CtApp::quit_application()
 
 void CtApp::dialog_preferences()
 {
-    CtPrefDlg prefDlg(*get_windows()[0], _pCtMenu);
+    CtPrefDlg prefDlg(get_main_win(), _pCtMenu);
     prefDlg.show();
     prefDlg.run();
     prefDlg.hide();

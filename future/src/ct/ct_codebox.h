@@ -42,6 +42,9 @@ protected:
 class CtCodebox : public CtAnchoredWidget, public CtTextCell
 {
 public:
+    static const Gsv::DrawSpacesFlags DRAW_SPACES_FLAGS;
+
+public:
     CtCodebox(const Glib::ustring& textContent,
               const Glib::ustring& syntaxHighlighting,
               const int& frameWidth,

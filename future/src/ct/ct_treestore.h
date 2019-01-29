@@ -137,9 +137,10 @@ protected:
 
     Glib::RefPtr<Gsv::Buffer> _getNodeTextBuffer(const Gtk::TreeIter& treeIter);
 
-    CtTreeModelColumns           _columns;
-    Glib::RefPtr<Gtk::TreeStore> _rTreeStore;
-    std::set<gint64>             _bookmarks;
-    std::set<std::string>        _usedTags;
-    CtSQLiteRead*                _pCtSQLiteRead{nullptr};
+    CtTreeModelColumns             _columns;
+    Glib::RefPtr<Gtk::TreeStore>   _rTreeStore;
+    std::set<gint64>               _bookmarks;
+    std::set<std::string>          _usedTags;
+    std::map<guint64, std::string> _nodes_names_dict; // for link tooltips
+    CtSQLiteRead*                  _pCtSQLiteRead{nullptr};
 };
