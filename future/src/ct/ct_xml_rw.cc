@@ -91,12 +91,7 @@ Gtk::TreeIter CtXmlRead::_xmlNodeProcess(xmlpp::Element* pNodeElement, const Gtk
     nodeData.isRO = Glib::str_has_prefix(pNodeElement->get_attribute_value("readonly"), "T");
     nodeData.customIconId = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("custom_icon_id").c_str());
     nodeData.isBold = Glib::str_has_prefix(pNodeElement->get_attribute_value("is_bold"), "T");
-    Glib::ustring foregroundRgb24 = pNodeElement->get_attribute_value("foreground");
-    nodeData.fgOverride = !foregroundRgb24.empty();
-    if (nodeData.fgOverride)
-    {
-        g_strlcpy(nodeData.foregroundRgb24, foregroundRgb24.c_str(), 8);
-    }
+    nodeData.foregroundRgb24 = pNodeElement->get_attribute_value("foreground");
     nodeData.tsCreation = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("ts_creation").c_str());
     nodeData.tsLastSave = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("ts_lastSave").c_str());
     nodeData.rTextBuffer = getTextBuffer(nodeData.syntax, nodeData.anchoredWidgets, pNodeElement);

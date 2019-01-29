@@ -248,11 +248,7 @@ void CtTreeStore::getNodeData(Gtk::TreeIter treeIter, CtNodeData& nodeData)
     //row[_columns.rColPixbufAux] = ;
     nodeData.customIconId = row[_columns.colCustomIconId];
     nodeData.isBold = _getBold(row[_columns.colWeight]);
-
-    nodeData.fgOverride = false;
-    nodeData.foregroundRgb24[0] = 0;
     //row[_columns.colForeground] = ;
-
     nodeData.tsCreation = row[_columns.colTsCreation];
     nodeData.tsLastSave = row[_columns.colTsLastSave];
     nodeData.anchoredWidgets = row[_columns.colAnchoredWidgets];

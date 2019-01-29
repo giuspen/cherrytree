@@ -314,10 +314,11 @@ CtNodeData CtSQLiteRead::_sqlite3GetNodeProperties(gint64 nodeId)
         nodeData.customIconId = readonly_n_custom_icon_id >> 1;
         gint64 richtxt_bold_foreground = sqlite3_column_int64(p_stmt, 4);
         nodeData.isBold = static_cast<bool>((richtxt_bold_foreground >> 1) & 0x01);
-        nodeData.fgOverride = static_cast<bool>((richtxt_bold_foreground >> 2) & 0x01);
-        if (nodeData.fgOverride)
+        if (static_cast<bool>((richtxt_bold_foreground >> 2) & 0x01))
         {
-            CtRgbUtil::setRgb24StrFromRgb24Int((richtxt_bold_foreground >> 3) & 0xffffff, nodeData.foregroundRgb24);
+            char foregroundRgb24[8];
+            CtRgbUtil::setRgb24StrFromRgb24Int((richtxt_bold_foreground >> 3) & 0xffffff, foregroundRgb24);
+            nodeData.foregroundRgb24 = foregroundRgb24;
         }
         nodeData.tsCreation = sqlite3_column_int64(p_stmt, 5);
         nodeData.tsLastSave = sqlite3_column_int64(p_stmt, 6);
