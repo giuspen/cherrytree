@@ -10,7 +10,7 @@
 class CtPrefDlg : public Gtk::Dialog
 {
 public:
-    CtPrefDlg(Gtk::Window& parent, CtMenu* pCtMenu);
+    CtPrefDlg(CtMainWin* parent, CtMenu* pCtMenu);
 
 private:
     Gtk::Widget* build_tab_text_n_code();
@@ -35,10 +35,8 @@ private:
     const std::string reset_warning = std::string("<b>")+_("Are you sure to Reset to Default?")+"</b>";
 
 private:
-    Glib::RefPtr<Gdk::Pixbuf> get_icon(const std::string& name);
-    void                      need_restart(RESTART_REASON reason, const gchar* msg = nullptr);
+    void need_restart(RESTART_REASON reason, const gchar* msg = nullptr);
 
-private:
     std::string get_code_exec_term_run();
 
     void fill_commands_model(Glib::RefPtr<Gtk::ListStore> model);
@@ -67,6 +65,7 @@ private:
     UniversalModelColumns _commandModelColumns;
     UniversalModelColumns _toolbarModelColumns;
     UniversalModelColumns _shortcutModelColumns;
+    CtMainWin*            _pCtMainWin;
     CtMenu*               _pCtMenu;
     int                   _restartReasons;
 };
