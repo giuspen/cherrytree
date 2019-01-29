@@ -26,8 +26,18 @@ void CtActions::_node_add(bool duplicate, bool add_child)
      {
         if (!is_there_selected_node_or_error()) return;
         _ctTreestore->getNodeData(_ctMainWin->curr_tree_iter(), nodeData);
-        nodeData.anchoredWidgets.clear();
-        nodeData.rTextBuffer.clear();
+
+        if (nodeData.syntax != CtConst::RICH_TEXT_ID) {
+            nodeData.rTextBuffer = CtMiscUtil::getNewTextBuffer(nodeData.syntax, nodeData.rTextBuffer->get_text());
+            nodeData.anchoredWidgets.clear();
+        } else {
+            //state = self.state_machine.requested_state_previous(self.treestore[tree_iter_from][3])
+            //self.load_buffer_from_state(state, given_tree_iter=new_node_iter)
+
+            // todo: temporary solution
+            nodeData.anchoredWidgets.clear();
+            nodeData.rTextBuffer = CtMiscUtil::getNewTextBuffer(nodeData.syntax, nodeData.rTextBuffer->get_text());
+        }
     }
     else
     {
@@ -35,6 +45,7 @@ void CtActions::_node_add(bool duplicate, bool add_child)
         std::string title = add_child ? _("New Child Node Properties") : _("New Node Properties");
         nodeData = dialog_node_prop(title, *_ctMainWin, "", false, "", 0, CtConst::RICH_TEXT_ID, false, "", _ctTreestore->get_used_tags());
         if (nodeData.name.empty()) return;
+        nodeData.rTextBuffer = CtMiscUtil::getNewTextBuffer(nodeData.syntax);
     }
 
     nodeData.tsCreation = std::time(nullptr);
@@ -56,21 +67,7 @@ void CtActions::_node_add(bool duplicate, bool add_child)
     _ctTreestore->ctdb_handler()->pending_new_db_node(nodeData.nodeId);
     _ctTreestore->nodes_sequences_fix(_ctMainWin->curr_tree_iter()->parent(), false);
     _ctTreestore->updateNodeAuxIcon(nodeIter);
-    /* todo
-    self.nodes_names_dict[new_node_id] = ret_name
-    if self.node_add_is_duplication:
-        if self.syntax_highlighting != cons.RICH_TEXT_ID:
-            text_buffer_from = self.treestore[tree_iter_from][2]
-            text_buffer_to = self.treestore[new_node_iter][2]
-            content = text_buffer_from.get_text(*text_buffer_from.get_bounds())
-            text_buffer_to.begin_not_undoable_action()
-            text_buffer_to.set_text(content)
-            text_buffer_to.end_not_undoable_action()
-        else:
-            state = self.state_machine.requested_state_previous(self.treestore[tree_iter_from][3])
-            self.load_buffer_from_state(state, given_tree_iter=new_node_iter)
-    */
-    _ctMainWin->get_tree_view().set_cursor(_ctTreestore->get_path(nodeIter));
+    _ctMainWin->get_tree_view().set_cursor_safe(nodeIter);
     _ctMainWin->get_text_view().grab_focus();
 }
 
