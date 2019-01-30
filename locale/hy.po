@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-02 09:21+0000\n"
-"PO-Revision-Date: 2018-12-03 02:34+0400\n"
+"PO-Revision-Date: 2019-01-27 20:46+0400\n"
 "Last-Translator: Seda Stamboltsyan <sedastam@yandex.com>\n"
 "Language-Team: Armenian\n"
 "Language: hy\n"
@@ -250,7 +250,7 @@ msgstr "սեղմել այստեղ"
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:3452
 #: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:920
 msgid "Node Name"
-msgstr "Ճյուղի անվանում"
+msgstr "Ճյուղի անուն"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:3456
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:4968
@@ -292,7 +292,7 @@ msgstr "Ընտրել գոյություն ունեցող պիտակ"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:3530
 msgid "Tag Name"
-msgstr "Պիտակի անվանում"
+msgstr "Պիտակի անուն"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:3557
 #: /home/giuspen/Software/git_cherrytree/modules/config.py:1617
@@ -317,7 +317,7 @@ msgstr "Դնել խարիսխ"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:3716
 msgid "No CodeBox is Selected"
-msgstr "Որևէ այլագրավանդակ չի ընտրված"
+msgstr "Որևէ այլագրատուփ չի ընտրված"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:3724
 #, python-format
@@ -411,7 +411,7 @@ msgstr "Աղյուսակների քանակը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:3972
 msgid "Number of CodeBoxes"
-msgstr "Այլագրավանդակների քանակը"
+msgstr "Այլագրատուփերի քանակը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:3975
 msgid "Number of Anchors"
@@ -449,7 +449,7 @@ msgstr "Դնել/խմբագրել հղում"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:4555
 msgid "Link Name"
-msgstr "Հղման անվանում"
+msgstr "Հղման անուն"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:4567
 msgid "The Cursor is Not into a Paragraph"
@@ -474,7 +474,7 @@ msgstr "Հղումը տանում է այլևս գոյություն չունե�
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:4826
 #, python-format
 msgid "No anchor named '%s' found"
-msgstr "«%s» անվանումով խարիսխ չգտնվեց"
+msgstr "«%s» անունով խարիսխ չգտնվեց"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:4967
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:4971
@@ -645,11 +645,11 @@ msgstr "Փնտրել բոլոր ճյուղերում"
 
 #: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:526
 msgid "Replace in Node Names..."
-msgstr "Փոխարինել ճյուղերի անվանումներում..."
+msgstr "Փոխարինել ճյուղերի անուններում..."
 
 #: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:527
 msgid "Search For a Node Name..."
-msgstr "Փնտրել ճյուղի անվանում կամ պիտակ..."
+msgstr "Փնտրել ճյուղի անուն կամ պիտակ..."
 
 #: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:867
 msgid "No Previous Search Was Performed During This Session"
@@ -873,12 +873,12 @@ msgstr "Դնել աղյուսակ"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:191
 msgid "Insert _CodeBox"
-msgstr "Դնել այլա_գրավանդակ"
+msgstr "Դնել այլա_գրատուփ"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:191
 #: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:224
 msgid "Insert a CodeBox"
-msgstr "Դնել այլագրավանդակ"
+msgstr "Դնել այլագրատուփ"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:192
 msgid "Insert _File"
@@ -1401,11 +1401,11 @@ msgstr "Գտնել ընտրված ճյուղի և ենթաճյուղերի պա�
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:256
 msgid "Find in _Nodes Names and Tags"
-msgstr "Գտնել _ճյուղերի անվանումներում ու պիտակներում"
+msgstr "Գտնել _ճյուղերի անուններում ու պիտակներում"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:256
 msgid "Find in Nodes Names and Tags"
-msgstr "Գտնել ճյուղերի անվանումներում ու պիտակներում"
+msgstr "Գտնել ճյուղերի անուններում ու պիտակներում"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:257
 msgid "Find _Again"
@@ -1449,11 +1449,11 @@ msgstr "Փոխարինել ընտրված ճյուղի ու ենթաճյուղե
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:262
 msgid "Replace in Nodes _Names"
-msgstr "Փոխարինել ճյուղերի անվանումներում"
+msgstr "Փոխարինել ճյուղերի անուններում"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:262
 msgid "Replace in Nodes Names"
-msgstr "Փոխարինել ճյուղերի անվանումներում"
+msgstr "Փոխարինել ճյուղերի անուններում"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:263
 msgid "Replace _Again"
@@ -1897,7 +1897,7 @@ msgstr "Խմբագրել նկարին առնչվող հղումը"
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:319
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:594
 msgid "D_ismiss Link"
-msgstr "Հանել հղման _ընդգծումը"
+msgstr "Հանել հղումը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:319
 msgid "Dismiss the Link Associated to the Image"
@@ -2032,7 +2032,7 @@ msgstr "Պատճենել ընտրված հղումը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:594
 msgid "Dismiss the Selected Link"
-msgstr "Հանել ընտրված հղման ընդգծումը"
+msgstr "Հանել ընտրված հղումը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:595
 msgid "_Delete Link"
@@ -2152,11 +2152,11 @@ msgstr "Դնել տողահատիչի գրանշանը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:646
 msgid "Change CodeBox _Properties"
-msgstr "Փոխել այլագրավանդակի հատկությունները"
+msgstr "Փոխել այլագրատուփի հատկությունները"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:646
 msgid "Edit the Properties of the CodeBox"
-msgstr "Խմբագրել այլագրավանդակի հատկությունները"
+msgstr "Խմբագրել այլագրատուփի հատկությունները"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:647
 msgid "_Execute CodeBox Code"
@@ -2168,83 +2168,83 @@ msgstr "Գործարկել այլագիրը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:648
 msgid "CodeBox _Load From Text File"
-msgstr "Այլագրավանդակի պարունակությունը՝ _տեքստային նիշքից"
+msgstr "Այլագրատուփի պարունակությունը՝ _տեքստային նիշքից"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:648
 msgid "Load the CodeBox Content From a Text File"
-msgstr "Այլագրավանդակի պարունակությունը ներմուծել տեքստային նիշքից"
+msgstr "Այլագրատուփի պարունակությունը ներմուծել տեքստային նիշքից"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:649
 msgid "CodeBox _Save To Text File"
-msgstr "Այլագրավանդակի պարունակությունը՝ որպես տե_քստային նիշք"
+msgstr "Այլագրատուփի պարունակությունը՝ որպես տե_քստային նիշք"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:649
 msgid "Save the CodeBox Content To a Text File"
-msgstr "Այլագրավանդակի պարունակությունը պահպանել որպես տեքստային նիշք"
+msgstr "Այլագրատուփի պարունակությունը պահպանել որպես տեքստային նիշք"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:651
 msgid "C_ut CodeBox"
-msgstr "_Կտրել այլագրավանդակը"
+msgstr "_Կտրել այլագրատուփը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:651
 msgid "Cut the Selected CodeBox"
-msgstr "Կտրել այլագրավանդակը"
+msgstr "Կտրել այլագրատուփը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:652
 msgid "_Copy CodeBox"
-msgstr "Պատ_ճենել այլագրավանդակը"
+msgstr "Պատ_ճենել այլագրատուփը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:652
 msgid "Copy the Selected CodeBox"
-msgstr "Պատճենել այլագրավանդակը"
+msgstr "Պատճենել այլագրատուփը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:653
 msgid "_Delete CodeBox"
-msgstr "Ջնջել այլագրավանդակը"
+msgstr "Ջնջել այլագրատուփը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:653
 msgid "Delete the Selected CodeBox"
-msgstr "Ջնջել այլագրավանդակը"
+msgstr "Ջնջել այլագրատուփը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:654
 msgid "Delete CodeBox _Keep Content"
-msgstr "Այլագրավանդակը ջնջել, _պարունակությունը պահել"
+msgstr "Այլագրատուփը ջնջել, _պարունակությունը պահել"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:654
 msgid "Delete the Selected CodeBox But Keep Its Content"
-msgstr "Այլագրավանդակը ջնջել, պարունակությունը պահել"
+msgstr "Այլագրատուփը ջնջել, պարունակությունը պահել"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:656
 msgid "Increase CodeBox Width"
-msgstr "Լայնացնել այլագրավանդակը"
+msgstr "Լայնացնել այլագրատուփը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:656
 msgid "Increase the Width of the CodeBox"
-msgstr "Լայնացնել այլագրավանդակը"
+msgstr "Լայնացնել այլագրատուփը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:657
 msgid "Decrease CodeBox Width"
-msgstr "Նեղացնել այլագրավանդակը"
+msgstr "Նեղացնել այլագրատուփը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:657
 msgid "Decrease the Width of the CodeBox"
-msgstr "Նեղացնել այլագրավանդակը"
+msgstr "Նեղացնել այլագրատուփը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:658
 msgid "Increase CodeBox Height"
-msgstr "Մեծացնել այլագրավանդակի բարձրությունը"
+msgstr "Մեծացնել այլագրատուփի բարձրությունը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:658
 msgid "Increase the Height of the CodeBox"
-msgstr "Մեծացնել այլագրավանդակի բարձրությունը"
+msgstr "Մեծացնել այլագրատուփի բարձրությունը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:659
 msgid "Decrease CodeBox Height"
-msgstr "Փոքրացնել այլագրավանդակի բարձրությունը"
+msgstr "Փոքրացնել այլագրատուփի բարձրությունը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:659
 msgid "Decrease the Height of the CodeBox"
-msgstr "Փոքրացնել այլագրավանդակի բարձրությունը"
+msgstr "Փոքրացնել այլագրատուփի բարձրությունը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/imports.py:2617
 msgid "Downloading"
@@ -2378,7 +2378,7 @@ msgstr "Գունանշել ընթացիկ տողը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/config.py:1061
 msgid "Expand CodeBoxes Automatically"
-msgstr "Այլագրավանդակների ինքնաշխատ ընդարձակում"
+msgstr "Այլագրատուփի ինքնաշխատ ընդարձակում"
 
 #: /home/giuspen/Software/git_cherrytree/modules/config.py:1065
 msgid "Embedded File Icon Size"
@@ -2407,7 +2407,7 @@ msgstr "Ավելացնել"
 
 #: /home/giuspen/Software/git_cherrytree/modules/config.py:1325
 msgid "Command per Node/CodeBox Type"
-msgstr "Հրաման ամեն ճյուղի/այլագրավանդակի տեսակի համար"
+msgstr "Հրաման ամեն ճյուղի/այլագրատուփի տեսակի համար"
 
 #: /home/giuspen/Software/git_cherrytree/modules/config.py:1329
 msgid "Terminal Command"
@@ -2727,7 +2727,7 @@ msgstr "Ընտրանքներ"
 
 #: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:383
 msgid "Edit CodeBox"
-msgstr "Խմբագրել այլագրավանդակը"
+msgstr "Խմբագրել այլագրատուփը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:723
 msgid "Save File as"
@@ -2916,7 +2916,7 @@ msgstr "Կամենո՞ւմ եք պահպանել փոփոխություններ�
 
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1343
 msgid "Anchor Name (optional)"
-msgstr "Խարիսխի անվանում (ըստ ցանկության)"
+msgstr "Խարիսխի անուն (ըստ ցանկության)"
 
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1430
 msgid "There are No Anchors in the Selected Node"
@@ -2928,7 +2928,7 @@ msgstr "Ընտրել գոյություն ունեցող խարիսխ"
 
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1432
 msgid "Anchor Name"
-msgstr "Խարիսխի անվանում"
+msgstr "Խարիսխի անուն"
 
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1496
 msgid "Choose Storage Type"
@@ -3002,7 +3002,7 @@ msgstr "Ամբողջ ծառը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1691
 msgid "Include Node Name"
-msgstr "Ներառել ճյուղի անվանումը"
+msgstr "Ներառել ճյուղի անունը"
 
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1697
 msgid "Links Tree in Every Page"
