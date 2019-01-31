@@ -473,5 +473,8 @@ Gtk::TreePath CtTreeStore::get_path(Gtk::TreeIter tree_iter)
     return _rTreeStore->get_path(tree_iter);
 }
 
-
+CtTreeIter CtTreeStore::to_ct_tree_iter(Gtk::TreeIter tree_iter)
+{
+    return CtTreeIter(tree_iter, &get_columns());
+}
 

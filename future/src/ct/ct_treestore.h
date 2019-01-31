@@ -142,6 +142,7 @@ public:
     Gtk::TreeIter iter_parent(Gtk::TreeIter tree_iter);
     int           iter_depth(Gtk::TreeIter tree_iter);
     Gtk::TreePath get_path(Gtk::TreeIter tree_iter);
+    CtTreeIter    to_ct_tree_iter(Gtk::TreeIter tree_iter);
 
     void nodes_sequences_fix(Gtk::TreeIter father_iter, bool process_children) { /* todo: */ }
     CtSQLiteRead* ctdb_handler() { return _pCtSQLiteRead; }

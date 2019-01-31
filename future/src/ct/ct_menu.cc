@@ -146,7 +146,7 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     _actions.push_back(CtAction{tree_cat, "tree_dup_node", "tree-node-dupl", _("_Duplicate Node"), KB_CONTROL+KB_SHIFT+"D", _("Duplicate the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_dublicate)});
     _actions.push_back(CtAction{tree_cat, "tree_node_prop", "cherry_edit", _("Change Node _Properties"), "F2", _("Edit the Properties of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_edit)});
     _actions.push_back(CtAction{tree_cat, "tree_node_toggle_ro", "locked", _("Toggle _Read Only"), KB_CONTROL+KB_ALT+"R", _("Toggle the Read Only Property of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_toggle_read_only)});
-    _actions.push_back(CtAction{tree_cat, "tree_node_date", "calendar", _("Insert Today's Node"), "F8", _("Insert a Node with Hierarchy Year/Month/Day"), sigc::signal<void>() /* dad.node_date */});
+    _actions.push_back(CtAction{tree_cat, "tree_node_date", "calendar", _("Insert Today's Node"), "F8", _("Insert a Node with Hierarchy Year/Month/Day"), sigc::mem_fun(*pActions, &CtActions::node_date)});
     _actions.push_back(CtAction{tree_cat, "tree_parse_info", "gtk-info", _("Tree _Info"), None, _("Tree Summary Information"), sigc::signal<void>() /* dad.tree_info */});
     _actions.push_back(CtAction{tree_cat, "tree_node_up", "gtk-go-up", _("Node _Up"), KB_SHIFT+CtConst::STR_KEY_UP, _("Move the Selected Node Up"), sigc::signal<void>() /* dad.node_up */});
     _actions.push_back(CtAction{tree_cat, "tree_node_down", "gtk-go-down", _("Node _Down"), KB_SHIFT+CtConst::STR_KEY_DOWN, _("Move the Selected Node Down"), sigc::signal<void>() /* dad.node_down */});

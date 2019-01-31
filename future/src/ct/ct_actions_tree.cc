@@ -5,7 +5,7 @@
 #include "ct_app.h"
 #include "ct_dialogs.h"
 #include "ct_doc_rw.h"
-
+#include <time.h>
 
 bool dialog_node_prop(std::string title, Gtk::Window& parent, CtNodeData& nodeData, const std::set<std::string>& tags_set);
 
@@ -46,9 +46,14 @@ void CtActions::_node_add(bool duplicate, bool add_child)
         nodeData.isRO = false;
         if (!dialog_node_prop(title, *_ctMainWin, nodeData, _ctTreestore->get_used_tags()))
             return;
-        nodeData.rTextBuffer = CtMiscUtil::getNewTextBuffer(nodeData.syntax);
     }
+    _node_add_with_data(_ctMainWin->curr_tree_iter(), nodeData, add_child);
+}
 
+void CtActions::_node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeData, bool add_child)
+{
+    if (!nodeData.rTextBuffer)
+        nodeData.rTextBuffer = CtMiscUtil::getNewTextBuffer(nodeData.syntax);
     nodeData.tsCreation = std::time(nullptr);
     nodeData.tsLastSave = nodeData.tsCreation;
     nodeData.nodeId = _ctTreestore->node_id_get();
@@ -58,18 +63,35 @@ void CtActions::_node_add(bool duplicate, bool add_child)
 
     Gtk::TreeIter nodeIter;
     if (add_child) {
-        const Gtk::TreeIter parent = _ctMainWin->curr_tree_iter();
-        nodeIter = _ctTreestore->appendNode(&nodeData, &parent);
-    } else if (_ctMainWin->curr_tree_iter())
-        nodeIter = _ctTreestore->insertNode(&nodeData, _ctMainWin->curr_tree_iter());
+        nodeIter = _ctTreestore->appendNode(&nodeData, &curr_iter /* as parent */);
+    } else if (curr_iter)
+        nodeIter = _ctTreestore->insertNode(&nodeData, curr_iter /* after */);
     else
         nodeIter = _ctTreestore->appendNode(&nodeData);
 
     _ctTreestore->ctdb_handler()->pending_new_db_node(nodeData.nodeId);
-    _ctTreestore->nodes_sequences_fix(_ctMainWin->curr_tree_iter()->parent(), false);
+    _ctTreestore->nodes_sequences_fix(curr_iter ? curr_iter->parent() : Gtk::TreeIter(), false);
     _ctTreestore->updateNodeAuxIcon(nodeIter);
     _ctMainWin->get_tree_view().set_cursor_safe(nodeIter);
     _ctMainWin->get_text_view().grab_focus();
+}
+
+
+void CtActions::_node_child_exist_or_create(Gtk::TreeIter parentIter, const std::string& nodeName)
+{
+    Gtk::TreeIter childIter = parentIter ? parentIter->children().begin() : _ctTreestore->get_iter_first();
+    for (; childIter; ++childIter)
+        if (_ctTreestore->to_ct_tree_iter(childIter).get_node_name() == nodeName) {
+            _ctMainWin->get_tree_view().set_cursor_safe(childIter);
+            return;
+        }
+    CtNodeData nodeData;
+    nodeData.name = nodeName;
+    nodeData.isBold = false;
+    nodeData.customIconId = 0;
+    nodeData.syntax = CtConst::RICH_TEXT_ID;
+    nodeData.isRO = false;
+    _node_add_with_data(parentIter, nodeData, true);
 }
 
 void CtActions::node_edit()
@@ -130,6 +152,22 @@ void CtActions::node_toggle_read_only()
     _ctTreestore->updateNodeAuxIcon(_ctMainWin->curr_tree_iter());
     _ctMainWin->update_window_save_needed("npro");
     _ctMainWin->get_text_view().grab_focus();
+}
+
+void CtActions::node_date()
+{
+    std::string months[12] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    std::string days[7] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+    time_t time = std::time(nullptr);
+    tm* tmTime = std::localtime(&time);
+
+    std::string year = std::to_string(tmTime->tm_year + 1900);
+    std::string month = months[tmTime->tm_mon];
+    std::string day = days[tmTime->tm_wday] + " " + std::to_string(tmTime->tm_mday);
+
+    _node_child_exist_or_create(Gtk::TreeIter(), year);
+    _node_child_exist_or_create(_ctMainWin->curr_tree_iter(), month);
+    _node_child_exist_or_create(_ctMainWin->curr_tree_iter(), day);
 }
 
 bool dialog_node_prop(std::string title, Gtk::Window& parent, CtNodeData& nodeData, const std::set<std::string>& tags_set)
