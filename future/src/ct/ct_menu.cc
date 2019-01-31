@@ -150,8 +150,8 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     _actions.push_back(CtAction{tree_cat, "tree_parse_info", "gtk-info", _("Tree _Info"), None, _("Tree Summary Information"), sigc::signal<void>() /* dad.tree_info */});
     _actions.push_back(CtAction{tree_cat, "tree_node_up", "gtk-go-up", _("Node _Up"), KB_SHIFT+CtConst::STR_KEY_UP, _("Move the Selected Node Up"), sigc::mem_fun(*pActions, &CtActions::node_up)});
     _actions.push_back(CtAction{tree_cat, "tree_node_down", "gtk-go-down", _("Node _Down"), KB_SHIFT+CtConst::STR_KEY_DOWN, _("Move the Selected Node Down"), sigc::mem_fun(*pActions, &CtActions::node_down)});
-    _actions.push_back(CtAction{tree_cat, "tree_node_left", "gtk-go-back", _("Node _Left"), KB_SHIFT+CtConst::STR_KEY_LEFT, _("Move the Selected Node Left"), sigc::signal<void>() /* dad.node_left */});
-    _actions.push_back(CtAction{tree_cat, "tree_node_right", "gtk-go-forward", _("Node _Right"), KB_SHIFT+CtConst::STR_KEY_RIGHT, _("Move the Selected Node Right"), sigc::signal<void>() /* dad.node_right */});
+    _actions.push_back(CtAction{tree_cat, "tree_node_left", "gtk-go-back", _("Node _Left"), KB_SHIFT+CtConst::STR_KEY_LEFT, _("Move the Selected Node Left"), sigc::mem_fun(*pActions, &CtActions::node_left)});
+    _actions.push_back(CtAction{tree_cat, "tree_node_right", "gtk-go-forward", _("Node _Right"), KB_SHIFT+CtConst::STR_KEY_RIGHT, _("Move the Selected Node Right"), sigc::mem_fun(*pActions, &CtActions::node_right)});
     _actions.push_back(CtAction{tree_cat, "tree_node_new_father", "gtk-jump-to", _("Node Change _Parent"), KB_CONTROL+KB_SHIFT+CtConst::STR_KEY_RIGHT, _("Change the Selected Node's Parent"), sigc::signal<void>() /* dad.node_change_father */});
     _actions.push_back(CtAction{tree_cat, "tree_all_sort_asc", "gtk-sort-ascending", _("Sort Tree _Ascending"), None, _("Sort the Tree Ascending"), sigc::signal<void>() /* dad.tree_sort_ascending */});
     _actions.push_back(CtAction{tree_cat, "tree_all_sort_desc", "gtk-sort-descending", _("Sort Tree _Descending"), None, _("Sort the Tree Descending"), sigc::signal<void>() /* dad.tree_sort_descending */});

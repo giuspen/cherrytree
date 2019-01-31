@@ -103,6 +103,8 @@ public:
     void window_header_update_last_visited();
     void window_header_update_num_last_visited();
 
+    void treeview_set_colors();
+
 protected:
     void                _onTheTreeviewSignalCursorChanged();
     bool                _onTheTreeviewSignalButtonPressEvent(GdkEventButton* event);

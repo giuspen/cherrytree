@@ -136,14 +136,10 @@ public:
     const std::set<std::string>& get_used_tags() { return _usedTags; }
 
 public:
-    Gtk::TreeIter get_iter_first();
-    Gtk::TreeIter iter_children(Gtk::TreeIter tree_iter);
-    Gtk::TreeIter iter_next(Gtk::TreeIter tree_iter);
-    Gtk::TreeIter iter_parent(Gtk::TreeIter tree_iter);
-    int           iter_depth(Gtk::TreeIter tree_iter);
-    Gtk::TreePath get_path(Gtk::TreeIter tree_iter);
-    CtTreeIter    to_ct_tree_iter(Gtk::TreeIter tree_iter);
-    void          iter_swap(const Gtk::TreeIter& iter1, const Gtk::TreeIter& iter2);
+    Gtk::TreeStore* get_store();
+    Gtk::TreeIter   get_iter_first();
+    Gtk::TreePath   get_path(Gtk::TreeIter tree_iter);
+    CtTreeIter      to_ct_tree_iter(Gtk::TreeIter tree_iter);
 
     void nodes_sequences_fix(Gtk::TreeIter father_iter, bool process_children) { /* todo: */ }
     CtSQLiteRead* ctdb_handler() { return _pCtSQLiteRead; }
