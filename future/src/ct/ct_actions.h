@@ -22,4 +22,5 @@ public:
     void node_dublicate() { _node_add(true, false);  }
     void node_child_add() { _node_add(false, true); }
     void node_edit();
+    void node_toggle_read_only();
 };

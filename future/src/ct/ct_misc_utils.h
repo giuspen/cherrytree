@@ -103,6 +103,8 @@ namespace str {
 
 bool endswith(const std::string& str, const std::string& ending);
 
+std::string escape(const std::string& text);
+
 template<class String>
 String replace(String& subjectStr, const gchar* searchStr, const gchar* replaceStr)
 {

@@ -83,11 +83,29 @@ public:
     Gtk::TreeModelColumn<std::list<CtAnchoredWidget*>> colAnchoredWidgets;
 };
 
+class CtTreeIter : public Gtk::TreeIter
+{
+private:
+    const CtTreeModelColumns* _columns;
+
+public:
+    CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* _columns);
+
+    bool        get_node_read_only();
+    void        set_node_read_only(bool val);
+    gint64      get_node_id();
+    std::string get_node_name();
+    std::string get_node_foreground();
+
+    
+};
+
 class CtTextView;
 class CtSQLiteRead;
 
 class CtTreeStore : public sigc::trackable
 {
+    friend class CtTreeIter;
 public:
     CtTreeStore();
     virtual ~CtTreeStore();
@@ -127,6 +145,7 @@ public:
 
     void nodes_sequences_fix(Gtk::TreeIter father_iter, bool process_children) { /* todo: */ }
     CtSQLiteRead* ctdb_handler() { return _pCtSQLiteRead; }
+    const CtTreeModelColumns& get_columns() { return _columns; }
 
 protected:
     guint16                   _getPangoWeight(bool isBold);

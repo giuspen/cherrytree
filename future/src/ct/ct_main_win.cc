@@ -120,7 +120,6 @@ void CtTextView::_setFontForSyntax(const std::string& syntaxHighlighting)
     rStyleContext->add_provider(CtApp::R_cssProvider, GTK_STYLE_PROVIDER_PRIORITY_USER);
 }
 
-
 CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow()
 {
     set_icon(CtApp::R_icontheme->load_icon("cherrytree", 48));
@@ -128,6 +127,7 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow()
     _scrolledwindowText.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindowTree.add(_ctTreeview);
     _scrolledwindowText.add(_ctTextview);
+    _vboxText.pack_start(_initWindowHeader(), false, false);
     _vboxText.pack_start(_scrolledwindowText);
     if (CtApp::P_ctCfg->treeRightSide)
     {
@@ -171,6 +171,56 @@ void CtMainWin::configApply()
 {
     _hPaned.property_position() = CtApp::P_ctCfg->hpanedPos;
     set_size_request(CtApp::P_ctCfg->winRect[2], CtApp::P_ctCfg->winRect[3]);
+}
+
+Gtk::EventBox& CtMainWin::_initWindowHeader()
+{
+    _windowHeader.nameLabel.set_padding(10, 0);
+    _windowHeader.nameLabel.set_ellipsize(Pango::EllipsizeMode::ELLIPSIZE_MIDDLE);
+    _windowHeader.lockIcon.set_from_icon_name("locked", Gtk::ICON_SIZE_MENU);
+    _windowHeader.lockIcon.hide();
+    _windowHeader.bookmarkIcon.set_from_icon_name("pin", Gtk::ICON_SIZE_MENU);
+    _windowHeader.bookmarkIcon.hide();
+    _windowHeader.headerBox.pack_start(_windowHeader.buttonBox, false, false);
+    _windowHeader.headerBox.pack_start(_windowHeader.nameLabel, true, true);
+    _windowHeader.headerBox.pack_start(_windowHeader.lockIcon, false, false);
+    _windowHeader.headerBox.pack_start(_windowHeader.bookmarkIcon, false, false);
+    _windowHeader.eventBox.add(_windowHeader.headerBox);
+    return _windowHeader.eventBox;
+}
+
+void CtMainWin::window_header_update()
+{
+    // based on update_node_name_header
+    std::string name = curr_tree_iter().get_node_name();
+    _windowHeader.eventBox.override_background_color(Gdk::RGBA(CtApp::P_ctCfg->ttDefBg));
+    std::string foreground = curr_tree_iter().get_node_foreground();
+    foreground = foreground.empty() ? CtApp::P_ctCfg->ttDefFg : foreground;
+    _windowHeader.nameLabel.set_markup(
+                "<b><span foreground=\"" + foreground + "\" size=\"xx-large\">"
+                + str::escape(name) + "</span></b>");
+    window_header_update_last_visited();
+}
+
+void CtMainWin::window_header_update_lock_icon(bool show)
+{
+    show ? _windowHeader.lockIcon.show() : _windowHeader.lockIcon.hide();
+}
+
+void CtMainWin::window_header_update_bookmark_icon(bool show)
+{
+    show ? _windowHeader.bookmarkIcon.show() : _windowHeader.bookmarkIcon.hide();
+}
+
+
+void CtMainWin::window_header_update_last_visited()
+{
+    // todo: update_node_name_header_latest_visited
+}
+
+void CtMainWin::window_header_update_num_last_visited()
+{
+    // todo: update_node_name_header_num_latest_visited
 }
 
 void update_window_save_needed(const std::string& update_type = "",
@@ -245,8 +295,12 @@ bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, cons
 
 void CtMainWin::_onTheTreeviewSignalCursorChanged()
 {
-    Gtk::TreeIter treeIter = _ctTreeview.get_selection()->get_selected();
+    CtTreeIter treeIter = curr_tree_iter();
     _ctTreestore.applyTextBufferToCtTextView(treeIter, &_ctTextview);
+
+    window_header_update();
+    window_header_update_lock_icon(treeIter.get_node_read_only());
+    window_header_update_bookmark_icon(false);
 }
 
 bool CtMainWin::_onTheTreeviewSignalButtonPressEvent(GdkEventButton* event)
@@ -281,9 +335,9 @@ void CtMainWin::_titleUpdate(bool saveNeeded)
     set_title(title);
 }
 
-Gtk::TreeIter CtMainWin::curr_tree_iter()
+CtTreeIter CtMainWin::curr_tree_iter()
 {
-    return _ctTreeview.get_selection()->get_selected();
+    return CtTreeIter(_ctTreeview.get_selection()->get_selected(), &_ctTreestore.get_columns());
 }
 
 CtTreeStore& CtMainWin::get_tree_store()

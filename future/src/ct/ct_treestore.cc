@@ -21,9 +21,9 @@
 
 #include <assert.h>
 #include <algorithm>
-#include "ct_treestore.h"
 #include "ct_doc_rw.h"
 #include "ct_app.h"
+#include "ct_treestore.h"
 
 CtAnchoredWidget::CtAnchoredWidget(const int& charOffset, const std::string& justification)
 {
@@ -44,6 +44,39 @@ void CtAnchoredWidget::insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer)
         Glib::ustring tagName = CtMiscUtil::getTextTagNameExistOrCreate(CtConst::TAG_JUSTIFICATION, _justification);
         rTextBuffer->apply_tag_by_name(tagName, textIterStart, textIterEnd);
     }
+}
+
+CtTreeIter::CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* columns)
+    : Gtk::TreeIter(iter), _columns(columns)
+{
+}
+
+bool CtTreeIter::get_node_read_only()
+{
+    return (*this) && (*this)->get_value(_columns->colNodeRO);
+}
+
+void CtTreeIter::set_node_read_only(bool val)
+{
+    (*this)->set_value(_columns->colNodeRO, val);
+}
+
+gint64 CtTreeIter::get_node_id()
+{
+    if (*this) return (*this)->get_value(_columns->colNodeUniqueId);
+    return -1;
+}
+
+std::string CtTreeIter::get_node_name()
+{
+    if (*this) return (*this)->get_value(_columns->colNodeName);
+    return std::string();
+}
+
+std::string CtTreeIter::get_node_foreground()
+{
+    if (*this) return (*this)->get_value(_columns->colForeground);
+    return std::string();
 }
 
 
@@ -439,4 +472,6 @@ Gtk::TreePath CtTreeStore::get_path(Gtk::TreeIter tree_iter)
 {
     return _rTreeStore->get_path(tree_iter);
 }
+
+
 
