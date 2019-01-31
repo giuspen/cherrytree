@@ -9,7 +9,7 @@
 
 bool dialog_node_prop(std::string title, Gtk::Window& parent, CtNodeData& nodeData, const std::set<std::string>& tags_set);
 
-bool CtActions::is_there_selected_node_or_error()
+bool CtActions::_is_there_selected_node_or_error()
 {
     if (_ctMainWin->curr_tree_iter()) return true;
     ct_dialogs::warning_dialog(_("No Node is Selected"), *_ctMainWin);
@@ -21,7 +21,7 @@ void CtActions::_node_add(bool duplicate, bool add_child)
     CtNodeData nodeData;
     if (duplicate)
      {
-        if (!is_there_selected_node_or_error()) return;
+        if (!_is_there_selected_node_or_error()) return;
         _ctTreestore->getNodeData(_ctMainWin->curr_tree_iter(), nodeData);
 
         if (nodeData.syntax != CtConst::RICH_TEXT_ID) {
@@ -38,7 +38,7 @@ void CtActions::_node_add(bool duplicate, bool add_child)
     }
     else
     {
-        if (add_child && !is_there_selected_node_or_error()) return;
+        if (add_child && !_is_there_selected_node_or_error()) return;
         std::string title = add_child ? _("New Child Node Properties") : _("New Node Properties");
         nodeData.isBold = false;
         nodeData.customIconId = 0;
@@ -96,7 +96,7 @@ void CtActions::_node_child_exist_or_create(Gtk::TreeIter parentIter, const std:
 
 void CtActions::node_edit()
 {
-    if (!is_there_selected_node_or_error()) return;
+    if (!_is_there_selected_node_or_error()) return;
     CtNodeData nodeData;
     _ctTreestore->getNodeData(_ctMainWin->curr_tree_iter(), nodeData);
     CtNodeData newData = nodeData;
@@ -143,7 +143,7 @@ void CtActions::node_edit()
 
 void CtActions::node_toggle_read_only()
 {
-    if (!is_there_selected_node_or_error()) return;
+    if (!_is_there_selected_node_or_error()) return;
     bool node_is_ro = !_ctMainWin->curr_tree_iter().get_node_read_only();
     _ctMainWin->curr_tree_iter().set_node_read_only(node_is_ro);
     _ctMainWin->get_text_view().set_editable(!node_is_ro);
@@ -168,6 +168,42 @@ void CtActions::node_date()
     _node_child_exist_or_create(Gtk::TreeIter(), year);
     _node_child_exist_or_create(_ctMainWin->curr_tree_iter(), month);
     _node_child_exist_or_create(_ctMainWin->curr_tree_iter(), day);
+}
+
+void CtActions::node_up()
+{
+    if (!_is_there_selected_node_or_error()) return;
+    auto prev_iter = --_ctMainWin->curr_tree_iter();
+    if (!prev_iter) return;
+    _ctTreestore->iter_swap(_ctMainWin->curr_tree_iter(), prev_iter);
+    //self.nodes_sequences_swap(self.curr_tree_iter, prev_iter)
+    //self.ctdb_handler.pending_edit_db_node_hier(self.treestore[self.curr_tree_iter][3])
+    //self.ctdb_handler.pending_edit_db_node_hier(self.treestore[prev_iter][3])
+    _ctMainWin->get_tree_view().set_cursor(_ctTreestore->get_path(_ctMainWin->curr_tree_iter()));
+    _ctMainWin->update_window_save_needed();
+}
+
+void CtActions::node_down()
+{
+    if (!_is_there_selected_node_or_error()) return;
+    auto next_iter = ++_ctMainWin->curr_tree_iter();
+    if (!next_iter) return;
+    _ctTreestore->iter_swap(_ctMainWin->curr_tree_iter(), next_iter);
+    //self.nodes_sequences_swap(self.curr_tree_iter, subseq_iter)
+    //self.ctdb_handler.pending_edit_db_node_hier(self.treestore[self.curr_tree_iter][3])
+    //self.ctdb_handler.pending_edit_db_node_hier(self.treestore[subseq_iter][3])
+    _ctMainWin->get_tree_view().set_cursor(_ctTreestore->get_path(_ctMainWin->curr_tree_iter()));
+    _ctMainWin->update_window_save_needed();
+}
+
+void CtActions::node_right()
+{
+    if (!_is_there_selected_node_or_error()) return;
+}
+
+void CtActions::node_left()
+{
+    if (!_is_there_selected_node_or_error()) return;
 }
 
 bool dialog_node_prop(std::string title, Gtk::Window& parent, CtNodeData& nodeData, const std::set<std::string>& tags_set)

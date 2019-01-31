@@ -478,3 +478,8 @@ CtTreeIter CtTreeStore::to_ct_tree_iter(Gtk::TreeIter tree_iter)
     return CtTreeIter(tree_iter, &get_columns());
 }
 
+void CtTreeStore::iter_swap(const Gtk::TreeIter& iter1, const Gtk::TreeIter& iter2)
+{
+    _rTreeStore->iter_swap(iter1, iter2);
+}
+

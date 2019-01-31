@@ -156,7 +156,9 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow()
     _ctTreestore.viewConnect(&_ctTreeview);
     _ctTreeview.signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalCursorChanged));
     _ctTreeview.signal_button_release_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalButtonPressEvent));
+    _ctTreeview.signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalKeyPressEvent), false);
     _ctTreeview.signal_popup_menu().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalPopupMenu));
+
     configApply();
     _titleUpdate(false/*saveNeeded*/);
     show_all();
@@ -309,6 +311,23 @@ bool CtMainWin::_onTheTreeviewSignalButtonPressEvent(GdkEventButton* event)
     {
         _pNodePopup->popup(event->button, event->time);
         return true;
+    }
+    return false;
+}
+
+bool CtMainWin::_onTheTreeviewSignalKeyPressEvent(GdkEventKey* event)
+{
+    if (!curr_tree_iter()) return false;
+    if (event->state & GDK_SHIFT_MASK)
+    {
+        if (event->keyval == GDK_KEY_Up) {
+            CtApp::P_ctActions->node_up();
+            return true;
+        }
+        if (event->keyval == GDK_KEY_Down) {
+            CtApp::P_ctActions->node_down();
+            return true;
+        }
     }
     return false;
 }

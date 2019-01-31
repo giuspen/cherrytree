@@ -13,7 +13,7 @@ private:
     CtTreeStore* _ctTreestore;
 
 private:
-    bool          is_there_selected_node_or_error();
+    bool          _is_there_selected_node_or_error();
     void          _node_add(bool duplicate, bool add_child);
     void          _node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeData, bool add_child);
     void          _node_child_exist_or_create(Gtk::TreeIter parentIter, const std::string& nodeName);
@@ -26,4 +26,8 @@ public:
     void node_edit();
     void node_toggle_read_only();
     void node_date();
+    void node_up();
+    void node_down();
+    void node_right();
+    void node_left();
 };

@@ -76,6 +76,7 @@ struct CtWinHeader
 };
 
 class CtMenu;
+class CtActions;
 class CtMainWin : public Gtk::ApplicationWindow
 {
 public:
@@ -105,6 +106,7 @@ public:
 protected:
     void                _onTheTreeviewSignalCursorChanged();
     bool                _onTheTreeviewSignalButtonPressEvent(GdkEventButton* event);
+    bool                _onTheTreeviewSignalKeyPressEvent(GdkEventKey* event);
     bool                _onTheTreeviewSignalPopupMenu();
     void                _titleUpdate(bool saveNeeded);
 
