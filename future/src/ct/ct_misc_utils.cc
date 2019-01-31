@@ -415,3 +415,18 @@ bool str::endswith(const std::string& str, const std::string& ending) {
     return false;
 }
 
+std::string str::escape(const std::string& text) {
+    std::string buffer;
+    buffer.reserve(text.size());
+    for(size_t pos = 0; pos != text.size(); ++pos) {
+        switch(text[pos]) {
+            case '&':  buffer.append("&amp;");       break;
+            case '\"': buffer.append("&quot;");      break;
+            case '\'': buffer.append("&apos;");      break;
+            case '<':  buffer.append("&lt;");        break;
+            case '>':  buffer.append("&gt;");        break;
+            default:   buffer.append(&text[pos], 1); break;
+        }
+    }
+    return buffer;
+}

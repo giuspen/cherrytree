@@ -746,12 +746,12 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     colorbutton_tree_fg->signal_color_set().connect([this, config, colorbutton_tree_fg](){
         config->ttDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_fg->get_rgba());
         //dad.treeview_set_colors()
-        //if dad.curr_tree_iter: dad.update_node_name_header()
+        if (_pCtMainWin->curr_tree_iter()) _pCtMainWin->window_header_update();
     });
     colorbutton_tree_bg->signal_color_set().connect([this, config, colorbutton_tree_bg](){
         config->ttDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_bg->get_rgba());
         //dad.treeview_set_colors()
-        //if dad.curr_tree_iter: dad.update_node_name_header()
+        if (_pCtMainWin->curr_tree_iter()) _pCtMainWin->window_header_update();
     });
     radiobutton_tt_col_light->signal_toggled().connect([radiobutton_tt_col_light, colorbutton_tree_fg, colorbutton_tree_bg](){
         if (!radiobutton_tt_col_light->get_active()) return;
@@ -895,9 +895,9 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_2()
     checkbutton_tree_click_expand->signal_toggled().connect([config, checkbutton_tree_click_expand](){
         config->treeClickExpand = checkbutton_tree_click_expand->get_active();
     });
-    spinbutton_nodes_on_node_name_header->signal_value_changed().connect([config, spinbutton_nodes_on_node_name_header](){
+    spinbutton_nodes_on_node_name_header->signal_value_changed().connect([this, config, spinbutton_nodes_on_node_name_header](){
         config->nodesOnNodeNameHeader = spinbutton_nodes_on_node_name_header->get_value_as_int();
-        //dad.update_node_name_header_num_latest_visited()
+        _pCtMainWin->window_header_update_num_last_visited();
     });
 
     return pMainBox;

@@ -65,6 +65,16 @@ protected:
     Gtk::Entry _entry;
 };
 
+struct CtWinHeader
+{
+    Gtk::HBox        headerBox;
+    Gtk::HButtonBox  buttonBox;
+    Gtk::Label       nameLabel;
+    Gtk::Image       lockIcon;
+    Gtk::Image       bookmarkIcon;
+    Gtk::EventBox    eventBox;
+};
+
 class CtMenu;
 class CtMainWin : public Gtk::ApplicationWindow
 {
@@ -77,10 +87,20 @@ public:
     void update_window_save_needed(const std::string& update_type = "",
                                    bool new_machine_state = false, void* give_tree_iter = nullptr) { /* todo: */ }
 
-    Gtk::TreeIter curr_tree_iter();
+    CtTreeIter    curr_tree_iter();
     CtTreeStore&  get_tree_store();
     CtTreeView&   get_tree_view();
     CtTextView&   get_text_view();
+
+private:
+    Gtk::EventBox& _initWindowHeader();
+
+public:
+    void window_header_update();
+    void window_header_update_lock_icon(bool show);
+    void window_header_update_bookmark_icon(bool show);
+    void window_header_update_last_visited();
+    void window_header_update_num_last_visited();
 
 protected:
     void                _onTheTreeviewSignalCursorChanged();
@@ -93,6 +113,7 @@ protected:
     Gtk::HPaned         _hPaned;
     Gtk::MenuBar*       _pMenu;
     Gtk::Menu*          _pNodePopup;
+    CtWinHeader         _windowHeader;
     Gtk::ScrolledWindow _scrolledwindowTree;
     Gtk::ScrolledWindow _scrolledwindowText;
     CtTreeStore         _ctTreestore;

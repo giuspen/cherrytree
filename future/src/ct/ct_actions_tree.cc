@@ -113,7 +113,21 @@ void CtActions::node_edit()
     //self.update_selected_node_statusbar_info()
     _ctTreestore->updateNodeAuxIcon(_ctMainWin->curr_tree_iter());
     //self.treeview_set_colors()
-    //self.update_node_name_header()
+    _ctMainWin->window_header_update();
+    _ctMainWin->window_header_update_lock_icon(newData.isRO);
+    _ctMainWin->update_window_save_needed("npro");
+    _ctMainWin->get_text_view().grab_focus();
+}
+
+void CtActions::node_toggle_read_only()
+{
+    if (!is_there_selected_node_or_error()) return;
+    bool node_is_ro = !_ctMainWin->curr_tree_iter().get_node_read_only();
+    _ctMainWin->curr_tree_iter().set_node_read_only(node_is_ro);
+    _ctMainWin->get_text_view().set_editable(!node_is_ro);
+    _ctMainWin->window_header_update_lock_icon(node_is_ro);
+    //self.update_selected_node_statusbar_info()
+    _ctTreestore->updateNodeAuxIcon(_ctMainWin->curr_tree_iter());
     _ctMainWin->update_window_save_needed("npro");
     _ctMainWin->get_text_view().grab_focus();
 }
