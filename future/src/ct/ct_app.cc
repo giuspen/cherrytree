@@ -24,6 +24,7 @@
 #include "ct_pref_dlg.h"
 
 CtConfig* CtApp::P_ctCfg{nullptr};
+CtActions* CtApp::P_ctActions{nullptr};
 Glib::RefPtr<Gtk::IconTheme> CtApp::R_icontheme;
 CtTmp* CtApp::P_ctTmp{nullptr};
 Glib::RefPtr<Gtk::TextTagTable> CtApp::R_textTagTable;
@@ -39,6 +40,10 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
     {
         P_ctCfg = new CtConfig();
         //std::cout << P_ctCfg->specialChars.size() << "\t" << P_ctCfg->specialChars << std::endl;
+    }
+    if (nullptr == P_ctActions)
+    {
+        P_ctActions = new CtActions();
     }
     if (!R_icontheme)
     {
@@ -66,9 +71,8 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
         R_cssProvider = Gtk::CssProvider::create();
     }
 
-    _pCtActions = new CtActions();
     _pCtMenu = new CtMenu();
-    _pCtMenu->init_actions(this, _pCtActions);
+    _pCtMenu->init_actions(this, P_ctActions);
 }
 
 CtApp::~CtApp()
@@ -77,11 +81,13 @@ CtApp::~CtApp()
     delete P_ctCfg;
     P_ctCfg = nullptr;
 
+    delete P_ctActions;
+    P_ctActions = nullptr;
+
     delete P_ctTmp;
     P_ctTmp = nullptr;
 
     delete _pCtMenu;
-    delete _pCtActions;
 }
 
 Glib::RefPtr<CtApp> CtApp::create()
@@ -112,7 +118,7 @@ void CtApp::_iconthemeInit()
 CtMainWin* CtApp::create_appwindow()
 {
     auto pMainWin = new CtMainWin(_pCtMenu);
-    _pCtActions->init(pMainWin, &pMainWin->get_tree_store());
+    CtApp::P_ctActions->init(pMainWin, &pMainWin->get_tree_store());
 
     add_window(*pMainWin);
 

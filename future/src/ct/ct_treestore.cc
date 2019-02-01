@@ -281,7 +281,7 @@ void CtTreeStore::getNodeData(Gtk::TreeIter treeIter, CtNodeData& nodeData)
     //row[_columns.rColPixbufAux] = ;
     nodeData.customIconId = row[_columns.colCustomIconId];
     nodeData.isBold = _getBold(row[_columns.colWeight]);
-    //row[_columns.colForeground] = ;
+    nodeData.foregroundRgb24 = row[_columns.colForeground];
     nodeData.tsCreation = row[_columns.colTsCreation];
     nodeData.tsLastSave = row[_columns.colTsLastSave];
     nodeData.anchoredWidgets = row[_columns.colAnchoredWidgets];
@@ -301,7 +301,7 @@ void CtTreeStore::updateNodeData(Gtk::TreeIter treeIter, const CtNodeData& nodeD
     //row[_columns.rColPixbufAux] = ;
     row[_columns.colCustomIconId] = nodeData.customIconId;
     row[_columns.colWeight] = _getPangoWeight(nodeData.isBold);
-    //row[_columns.colForeground] = ;
+    row[_columns.colForeground] = nodeData.foregroundRgb24;
     row[_columns.colTsCreation] = nodeData.tsCreation;
     row[_columns.colTsLastSave] = nodeData.tsLastSave;
     row[_columns.colAnchoredWidgets] = nodeData.anchoredWidgets;
@@ -443,29 +443,14 @@ void CtTreeStore::add_used_tags(const std::string& tags)
     }
 }
 
+Gtk::TreeStore* CtTreeStore::get_store()
+{
+    return _rTreeStore.get();
+}
+
 Gtk::TreeIter CtTreeStore::get_iter_first()
 {
     return _rTreeStore->get_iter("0");
-}
-
-Gtk::TreeIter CtTreeStore::iter_children(Gtk::TreeIter tree_iter)
-{
-    return tree_iter->children().begin();
-}
-
-Gtk::TreeIter CtTreeStore::iter_next(Gtk::TreeIter tree_iter)
-{
-    return ++tree_iter;
-}
-
-Gtk::TreeIter CtTreeStore::iter_parent(Gtk::TreeIter tree_iter)
-{
-    return tree_iter->parent();
-}
-
-int CtTreeStore::iter_depth(Gtk::TreeIter tree_iter)
-{
-    return _rTreeStore->iter_depth(tree_iter);
 }
 
 Gtk::TreePath CtTreeStore::get_path(Gtk::TreeIter tree_iter)
@@ -473,5 +458,7 @@ Gtk::TreePath CtTreeStore::get_path(Gtk::TreeIter tree_iter)
     return _rTreeStore->get_path(tree_iter);
 }
 
-
-
+CtTreeIter CtTreeStore::to_ct_tree_iter(Gtk::TreeIter tree_iter)
+{
+    return CtTreeIter(tree_iter, &get_columns());
+}

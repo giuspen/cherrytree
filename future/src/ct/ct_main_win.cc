@@ -156,7 +156,9 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow()
     _ctTreestore.viewConnect(&_ctTreeview);
     _ctTreeview.signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalCursorChanged));
     _ctTreeview.signal_button_release_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalButtonPressEvent));
+    _ctTreeview.signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalKeyPressEvent), false);
     _ctTreeview.signal_popup_menu().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalPopupMenu));
+
     configApply();
     _titleUpdate(false/*saveNeeded*/);
     show_all();
@@ -223,10 +225,10 @@ void CtMainWin::window_header_update_num_last_visited()
     // todo: update_node_name_header_num_latest_visited
 }
 
-void update_window_save_needed(const std::string& update_type = "",
-                               bool new_machine_state = false, void* give_tree_iter = nullptr)
+void CtMainWin::treeview_set_colors()
 {
-    // todo:
+    std::string fg = curr_tree_iter().get_node_foreground();
+    CtMiscUtil::widget_set_colors(_ctTreeview, CtApp::P_ctCfg->ttDefFg, CtApp::P_ctCfg->ttDefBg, false, fg);
 }
 
 bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, const bool isImport)
@@ -298,6 +300,7 @@ void CtMainWin::_onTheTreeviewSignalCursorChanged()
     CtTreeIter treeIter = curr_tree_iter();
     _ctTreestore.applyTextBufferToCtTextView(treeIter, &_ctTextview);
 
+    treeview_set_colors();
     window_header_update();
     window_header_update_lock_icon(treeIter.get_node_read_only());
     window_header_update_bookmark_icon(false);
@@ -309,6 +312,23 @@ bool CtMainWin::_onTheTreeviewSignalButtonPressEvent(GdkEventButton* event)
     {
         _pNodePopup->popup(event->button, event->time);
         return true;
+    }
+    return false;
+}
+
+bool CtMainWin::_onTheTreeviewSignalKeyPressEvent(GdkEventKey* event)
+{
+    if (!curr_tree_iter()) return false;
+    if (event->state & GDK_SHIFT_MASK)
+    {
+        if (event->keyval == GDK_KEY_Up) {
+            CtApp::P_ctActions->node_up();
+            return true;
+        }
+        if (event->keyval == GDK_KEY_Down) {
+            CtApp::P_ctActions->node_down();
+            return true;
+        }
     }
     return false;
 }

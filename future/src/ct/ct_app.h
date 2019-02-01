@@ -58,6 +58,7 @@ public:
     static Glib::RefPtr<CtApp> create();
 
     static CtConfig* P_ctCfg;
+    static CtActions* P_ctActions;
     static Glib::RefPtr<Gtk::IconTheme> R_icontheme;
     static CtTmp* P_ctTmp;
     static Glib::RefPtr<Gtk::TextTagTable> R_textTagTable;
@@ -67,7 +68,6 @@ public:
 
 private:
     CtMenu* _pCtMenu;
-    CtActions* _pCtActions;
 
 protected:
     void on_activate() override;

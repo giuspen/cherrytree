@@ -745,12 +745,12 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
 
     colorbutton_tree_fg->signal_color_set().connect([this, config, colorbutton_tree_fg](){
         config->ttDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_fg->get_rgba());
-        //dad.treeview_set_colors()
+        _pCtMainWin->treeview_set_colors();
         if (_pCtMainWin->curr_tree_iter()) _pCtMainWin->window_header_update();
     });
     colorbutton_tree_bg->signal_color_set().connect([this, config, colorbutton_tree_bg](){
         config->ttDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_bg->get_rgba());
-        //dad.treeview_set_colors()
+        _pCtMainWin->treeview_set_colors();
         if (_pCtMainWin->curr_tree_iter()) _pCtMainWin->window_header_update();
     });
     radiobutton_tt_col_light->signal_toggled().connect([radiobutton_tt_col_light, colorbutton_tree_fg, colorbutton_tree_bg](){
