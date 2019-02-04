@@ -31,4 +31,9 @@ public:
     void node_down();
     void node_right();
     void node_left();
+    void node_change_father();
+    void tree_sort_ascending();
+    void tree_sort_descending();
+    void node_siblings_sort_ascending();
+    void node_siblings_sort_descending();
 };

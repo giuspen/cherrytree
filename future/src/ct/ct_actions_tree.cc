@@ -249,6 +249,55 @@ void CtActions::node_left()
     //if (CtApp::P_ctCfg->nodesIcons == "c") self.treeview_refresh(change_icon=True)
 }
 
+void CtActions::node_change_father()
+{
+    if (!_is_there_selected_node_or_error()) return;
+    CtTreeIter old_father_iter = _ctMainWin->curr_tree_iter().parent();
+    CtTreeIter father_iter = _ctTreestore->to_ct_tree_iter(ct_dialogs::choose_node_dialog(*_ctMainWin,
+                                   _ctMainWin->get_tree_view(), _("Select the New Parent"), _ctTreestore, _ctMainWin->curr_tree_iter()));
+    if (!father_iter) return;
+    gint64 curr_node_id = _ctMainWin->curr_tree_iter().get_node_id();
+    gint64 old_father_node_id = old_father_iter.get_node_id();
+    gint64 new_father_node_id = father_iter.get_node_id();
+    if (curr_node_id == new_father_node_id) {
+        ct_dialogs::error_dialog(_("The new parent can't be the very node to move!"), *_ctMainWin);
+        return;
+    }
+    if (old_father_node_id != -1 && new_father_node_id == old_father_node_id) {
+        ct_dialogs::info_dialog(_("The new chosen parent is still the old parent!"), *_ctMainWin);
+        return;
+    }
+    for (CtTreeIter move_towards_top_iter = father_iter.parent(); move_towards_top_iter; move_towards_top_iter = move_towards_top_iter.parent())
+        if (move_towards_top_iter.get_node_id() == curr_node_id) {
+            ct_dialogs::error_dialog(_("The new parent can't be one of his children!"), *_ctMainWin);
+            return;
+        }
+
+    _node_move_after(_ctMainWin->curr_tree_iter(), father_iter);
+    //if self.nodes_icons == "c": self.treeview_refresh(change_icon=True)
+}
+
+void CtActions::tree_sort_ascending()
+{
+
+}
+
+void CtActions::tree_sort_descending()
+{
+
+}
+
+void CtActions::node_siblings_sort_ascending()
+{
+
+}
+
+void CtActions::node_siblings_sort_descending()
+{
+
+}
+
+
 bool dialog_node_prop(std::string title, Gtk::Window& parent, CtNodeData& nodeData, const std::set<std::string>& tags_set)
 {
     auto dialog = Gtk::Dialog(title, parent, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);

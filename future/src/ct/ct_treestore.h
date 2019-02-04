@@ -91,13 +91,13 @@ private:
 public:
     CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* _columns);
 
+    CtTreeIter  parent();
+
     bool        get_node_read_only();
     void        set_node_read_only(bool val);
     gint64      get_node_id();
     std::string get_node_name();
     std::string get_node_foreground();
-
-    
 };
 
 class CtTextView;
@@ -135,11 +135,14 @@ public:
     void                         add_used_tags(const std::string& tags);
     const std::set<std::string>& get_used_tags() { return _usedTags; }
 
+    std::string get_tree_expanded_collapsed_string(Gtk::TreeView& treeView);
+    void        set_tree_expanded_collapsed_string(const std::string& expanded_collapsed_string, Gtk::TreeView& treeView, bool nodes_bookm_exp);
+
 public:
-    Gtk::TreeStore* get_store();
-    Gtk::TreeIter   get_iter_first();
-    Gtk::TreePath   get_path(Gtk::TreeIter tree_iter);
-    CtTreeIter      to_ct_tree_iter(Gtk::TreeIter tree_iter);
+    Glib::RefPtr<Gtk::TreeStore>    get_store();
+    Gtk::TreeIter                   get_iter_first();
+    Gtk::TreePath                   get_path(Gtk::TreeIter tree_iter);
+    CtTreeIter                      to_ct_tree_iter(Gtk::TreeIter tree_iter);
 
     void nodes_sequences_fix(Gtk::TreeIter father_iter, bool process_children) { /* todo: */ }
     CtSQLiteRead* ctdb_handler() { return _pCtSQLiteRead; }
