@@ -129,6 +129,22 @@ void CtActions::_node_move_after(Gtk::TreeIter iter_to_move, Gtk::TreeIter fathe
     _ctMainWin->update_window_save_needed();
 }
 
+bool CtActions::_need_node_swap(Gtk::TreeIter& leftIter, Gtk::TreeIter& rightIter, bool ascending)
+{
+    int cmp = _ctTreestore->to_ct_tree_iter(leftIter).get_node_name().compare(_ctTreestore->to_ct_tree_iter(rightIter).get_node_name());
+    return ascending ? cmp > 0 : cmp < 0;
+}
+
+bool CtActions::_tree_sort_level_and_sublevels(const Gtk::TreeNodeChildren& children, bool ascending)
+{
+    auto need_swap = [this,&ascending](Gtk::TreeIter& l, Gtk::TreeIter& r) { return _need_node_swap(l, r, ascending); };
+    bool swap_excecuted = CtMiscUtil::node_siblings_sort_iteration(_ctTreestore->get_store(), children, need_swap);
+    for (auto& child: children)
+        if (_tree_sort_level_and_sublevels(child.children(), ascending))
+            swap_excecuted = true;
+    return swap_excecuted;
+}
+
 void CtActions::node_edit()
 {
     if (!_is_there_selected_node_or_error()) return;
@@ -277,26 +293,49 @@ void CtActions::node_change_father()
     //if self.nodes_icons == "c": self.treeview_refresh(change_icon=True)
 }
 
+//"""Sorts the Tree Ascending"""
 void CtActions::tree_sort_ascending()
 {
-
+    if (_tree_sort_level_and_sublevels(_ctTreestore->get_store()->children(), true)) {
+        _ctTreestore->nodes_sequences_fix(Gtk::TreeIter(), true);
+        _ctMainWin->update_window_save_needed();
+    }
 }
 
+//"""Sorts the Tree Ascending"""
 void CtActions::tree_sort_descending()
 {
-
+    if (_tree_sort_level_and_sublevels(_ctTreestore->get_store()->children(), false)) {
+        _ctTreestore->nodes_sequences_fix(Gtk::TreeIter(), true);
+        _ctMainWin->update_window_save_needed();
+    }
 }
 
+//"""Sorts all the Siblings of the Selected Node Ascending"""
 void CtActions::node_siblings_sort_ascending()
 {
-
+    if (!_is_there_selected_node_or_error()) return;
+    Gtk::TreeIter father_iter = _ctMainWin->curr_tree_iter()->parent();
+    const Gtk::TreeNodeChildren& children = father_iter ? father_iter->children() : _ctTreestore->get_store()->children();
+    auto need_swap = [this](Gtk::TreeIter& l, Gtk::TreeIter& r) { return _need_node_swap(l, r, true); };
+    if (CtMiscUtil::node_siblings_sort_iteration(_ctTreestore->get_store(), children, need_swap)) {
+        _ctTreestore->nodes_sequences_fix(father_iter, true);
+        _ctMainWin->update_window_save_needed();
+    }
 }
 
+//"""Sorts all the Siblings of the Selected Node Descending"""
 void CtActions::node_siblings_sort_descending()
 {
-
+    if (!_is_there_selected_node_or_error()) return;
+    Gtk::TreeIter father_iter = _ctMainWin->curr_tree_iter()->parent();
+    const Gtk::TreeNodeChildren& children = father_iter ? father_iter->children() : _ctTreestore->get_store()->children();
+    auto need_swap = [this](Gtk::TreeIter& l, Gtk::TreeIter& r) { return _need_node_swap(l, r, false); };
+    if (CtMiscUtil::node_siblings_sort_iteration(_ctTreestore->get_store(), children, need_swap)) {
+        _ctTreestore->nodes_sequences_fix(father_iter, true);
+        _ctMainWin->update_window_save_needed();
+    }
 }
-
 
 bool dialog_node_prop(std::string title, Gtk::Window& parent, CtNodeData& nodeData, const std::set<std::string>& tags_set)
 {

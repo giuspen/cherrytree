@@ -241,6 +241,32 @@ void CtMiscUtil::widget_set_colors(Gtk::Widget& widget, const std::string& fg, c
     widget.override_background_color(style->get_background_color(Gtk::StateFlags::STATE_FLAG_SELECTED), Gtk::StateFlags::STATE_FLAG_ACTIVE);
 }
 
+bool CtMiscUtil::node_siblings_sort_iteration(Glib::RefPtr<Gtk::TreeStore> model, const Gtk::TreeNodeChildren& children,
+                                              std::function<bool(Gtk::TreeIter&, Gtk::TreeIter&)> need_swap)
+{
+    if (children.empty()) return false;
+    auto next_iter = [](Gtk::TreeIter iter) { return ++iter; };
+    auto sort_iteration = [&need_swap, &model, &next_iter](Gtk::TreeIter curr_sibling) -> bool {
+        bool swap_executed = false;
+        Gtk::TreeIter next_sibling = next_iter(curr_sibling);
+        while (next_sibling) {
+            if (need_swap(curr_sibling, next_sibling)) {
+                model->iter_swap(curr_sibling, next_sibling);
+                swap_executed = true;
+            } else {
+                curr_sibling = next_sibling;
+            }
+            next_sibling = next_iter(curr_sibling);
+        }
+        return swap_executed;
+    };
+
+    bool swap_executed = false;
+    while (sort_iteration(children.begin()))
+        swap_executed = true;
+    return swap_executed;
+}
+
 bool CtStrUtil::isStrTrue(const Glib::ustring& inStr)
 {
     bool retVal{false};
