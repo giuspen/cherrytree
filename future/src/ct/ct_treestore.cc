@@ -51,6 +51,11 @@ CtTreeIter::CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* columns)
 {
 }
 
+CtTreeIter CtTreeIter::parent()
+{
+    return  CtTreeIter((*this)->parent(), _columns);
+}
+
 bool CtTreeIter::get_node_read_only()
 {
     return (*this) && (*this)->get_value(_columns->colNodeRO);
@@ -443,9 +448,43 @@ void CtTreeStore::add_used_tags(const std::string& tags)
     }
 }
 
-Gtk::TreeStore* CtTreeStore::get_store()
+std::string CtTreeStore::get_tree_expanded_collapsed_string(Gtk::TreeView& treeView)
 {
-    return _rTreeStore.get();
+    std::vector<std::string> expanded_collapsed_vec;
+    _rTreeStore->foreach([this, &treeView, &expanded_collapsed_vec](const Gtk::TreePath& path, const Gtk::TreeIter& iter)->bool{
+        expanded_collapsed_vec.push_back(std::to_string(iter->get_value(_columns.colNodeUniqueId))
+                                         + ","
+                                         + (treeView.row_expanded(path) ? "True" : "False"));
+        return false; /* false for continue */
+    });
+    return str::join(expanded_collapsed_vec, "_");
+}
+
+void CtTreeStore::set_tree_expanded_collapsed_string(const std::string& expanded_collapsed_string, Gtk::TreeView& treeView, bool nodes_bookm_exp)
+{
+    std::map<gint64, bool> expanded_collapsed_dict;
+    auto expand_collapsed_vec = str::split(expanded_collapsed_string, "_");
+    for (const std::string& element: expand_collapsed_vec) {
+        auto couple = str::split(element, ",");
+        if (couple.size() == 2)
+            expanded_collapsed_dict[std::stoll(couple[0])] = CtStrUtil::isStrTrue(couple[1]);
+    }
+
+    treeView.collapse_all();
+    _rTreeStore->foreach([this, &treeView, &expanded_collapsed_dict, &nodes_bookm_exp](const Gtk::TreePath& path, const Gtk::TreeIter& iter)->bool{
+        gint64 node_id = iter->get_value(_columns.colNodeUniqueId);
+        if (map::exists(expanded_collapsed_dict, node_id) && expanded_collapsed_dict.at(node_id))
+            treeView.expand_row(path, false);
+        else if (nodes_bookm_exp && set::exists(_bookmarks, node_id) && iter->parent())
+            treeView.expand_to_path(_rTreeStore->get_path(iter->parent()));
+        return false; /* false for continue */
+    });
+}
+
+
+Glib::RefPtr<Gtk::TreeStore> CtTreeStore::get_store()
+{
+    return _rTreeStore;
 }
 
 Gtk::TreeIter CtTreeStore::get_iter_first()

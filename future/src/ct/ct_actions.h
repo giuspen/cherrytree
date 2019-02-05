@@ -19,6 +19,8 @@ private:
     void          _node_child_exist_or_create(Gtk::TreeIter parentIter, const std::string& nodeName);
     void          _node_move_after(Gtk::TreeIter iter_to_move, Gtk::TreeIter father_iter,
                                    Gtk::TreeIter brother_iter = Gtk::TreeIter(), bool set_first = false);
+    bool          _need_node_swap(Gtk::TreeIter& leftIter, Gtk::TreeIter& rightIter, bool ascendings);
+    bool          _tree_sort_level_and_sublevels(const Gtk::TreeNodeChildren& children, bool ascending);
 public:
     // tree actions
     void node_add()       { _node_add(false, false); }
@@ -31,4 +33,9 @@ public:
     void node_down();
     void node_right();
     void node_left();
+    void node_change_father();
+    void tree_sort_ascending();
+    void tree_sort_descending();
+    void node_siblings_sort_ascending();
+    void node_siblings_sort_descending();
 };

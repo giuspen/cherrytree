@@ -129,6 +129,22 @@ void CtActions::_node_move_after(Gtk::TreeIter iter_to_move, Gtk::TreeIter fathe
     _ctMainWin->update_window_save_needed();
 }
 
+bool CtActions::_need_node_swap(Gtk::TreeIter& leftIter, Gtk::TreeIter& rightIter, bool ascending)
+{
+    int cmp = _ctTreestore->to_ct_tree_iter(leftIter).get_node_name().compare(_ctTreestore->to_ct_tree_iter(rightIter).get_node_name());
+    return ascending ? cmp > 0 : cmp < 0;
+}
+
+bool CtActions::_tree_sort_level_and_sublevels(const Gtk::TreeNodeChildren& children, bool ascending)
+{
+    auto need_swap = [this,&ascending](Gtk::TreeIter& l, Gtk::TreeIter& r) { return _need_node_swap(l, r, ascending); };
+    bool swap_excecuted = CtMiscUtil::node_siblings_sort_iteration(_ctTreestore->get_store(), children, need_swap);
+    for (auto& child: children)
+        if (_tree_sort_level_and_sublevels(child.children(), ascending))
+            swap_excecuted = true;
+    return swap_excecuted;
+}
+
 void CtActions::node_edit()
 {
     if (!_is_there_selected_node_or_error()) return;
@@ -247,6 +263,78 @@ void CtActions::node_left()
     if (!father_iter) return;
     _node_move_after(_ctMainWin->curr_tree_iter(), father_iter->parent(), father_iter);
     //if (CtApp::P_ctCfg->nodesIcons == "c") self.treeview_refresh(change_icon=True)
+}
+
+void CtActions::node_change_father()
+{
+    if (!_is_there_selected_node_or_error()) return;
+    CtTreeIter old_father_iter = _ctMainWin->curr_tree_iter().parent();
+    CtTreeIter father_iter = _ctTreestore->to_ct_tree_iter(ct_dialogs::choose_node_dialog(*_ctMainWin,
+                                   _ctMainWin->get_tree_view(), _("Select the New Parent"), _ctTreestore, _ctMainWin->curr_tree_iter()));
+    if (!father_iter) return;
+    gint64 curr_node_id = _ctMainWin->curr_tree_iter().get_node_id();
+    gint64 old_father_node_id = old_father_iter.get_node_id();
+    gint64 new_father_node_id = father_iter.get_node_id();
+    if (curr_node_id == new_father_node_id) {
+        ct_dialogs::error_dialog(_("The new parent can't be the very node to move!"), *_ctMainWin);
+        return;
+    }
+    if (old_father_node_id != -1 && new_father_node_id == old_father_node_id) {
+        ct_dialogs::info_dialog(_("The new chosen parent is still the old parent!"), *_ctMainWin);
+        return;
+    }
+    for (CtTreeIter move_towards_top_iter = father_iter.parent(); move_towards_top_iter; move_towards_top_iter = move_towards_top_iter.parent())
+        if (move_towards_top_iter.get_node_id() == curr_node_id) {
+            ct_dialogs::error_dialog(_("The new parent can't be one of his children!"), *_ctMainWin);
+            return;
+        }
+
+    _node_move_after(_ctMainWin->curr_tree_iter(), father_iter);
+    //if self.nodes_icons == "c": self.treeview_refresh(change_icon=True)
+}
+
+//"""Sorts the Tree Ascending"""
+void CtActions::tree_sort_ascending()
+{
+    if (_tree_sort_level_and_sublevels(_ctTreestore->get_store()->children(), true)) {
+        _ctTreestore->nodes_sequences_fix(Gtk::TreeIter(), true);
+        _ctMainWin->update_window_save_needed();
+    }
+}
+
+//"""Sorts the Tree Ascending"""
+void CtActions::tree_sort_descending()
+{
+    if (_tree_sort_level_and_sublevels(_ctTreestore->get_store()->children(), false)) {
+        _ctTreestore->nodes_sequences_fix(Gtk::TreeIter(), true);
+        _ctMainWin->update_window_save_needed();
+    }
+}
+
+//"""Sorts all the Siblings of the Selected Node Ascending"""
+void CtActions::node_siblings_sort_ascending()
+{
+    if (!_is_there_selected_node_or_error()) return;
+    Gtk::TreeIter father_iter = _ctMainWin->curr_tree_iter()->parent();
+    const Gtk::TreeNodeChildren& children = father_iter ? father_iter->children() : _ctTreestore->get_store()->children();
+    auto need_swap = [this](Gtk::TreeIter& l, Gtk::TreeIter& r) { return _need_node_swap(l, r, true); };
+    if (CtMiscUtil::node_siblings_sort_iteration(_ctTreestore->get_store(), children, need_swap)) {
+        _ctTreestore->nodes_sequences_fix(father_iter, true);
+        _ctMainWin->update_window_save_needed();
+    }
+}
+
+//"""Sorts all the Siblings of the Selected Node Descending"""
+void CtActions::node_siblings_sort_descending()
+{
+    if (!_is_there_selected_node_or_error()) return;
+    Gtk::TreeIter father_iter = _ctMainWin->curr_tree_iter()->parent();
+    const Gtk::TreeNodeChildren& children = father_iter ? father_iter->children() : _ctTreestore->get_store()->children();
+    auto need_swap = [this](Gtk::TreeIter& l, Gtk::TreeIter& r) { return _need_node_swap(l, r, false); };
+    if (CtMiscUtil::node_siblings_sort_iteration(_ctTreestore->get_store(), children, need_swap)) {
+        _ctTreestore->nodes_sequences_fix(father_iter, true);
+        _ctMainWin->update_window_save_needed();
+    }
 }
 
 bool dialog_node_prop(std::string title, Gtk::Window& parent, CtNodeData& nodeData, const std::set<std::string>& tags_set)

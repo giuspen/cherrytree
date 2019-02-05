@@ -5,6 +5,7 @@
 #include <gtkmm/cellrendererpixbuf.h>
 #include <gtkmm/colorchooserdialog.h>
 #include "ct_app.h"
+#include "ct_treestore.h"
 
 using namespace ct_dialogs;
 
@@ -129,4 +130,69 @@ void ct_dialogs::error_dialog(const std::string& message, Gtk::Window& parent)
     dialog.set_secondary_text(message);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.run();
+}
+
+// Dialog to Select a Node
+Gtk::TreeIter ct_dialogs::choose_node_dialog(Gtk::Window& parent, Gtk::TreeView& parentTreeView, const std::string& title, CtTreeStore* treestore, Gtk::TreeIter sel_tree_iter)
+{
+    Gtk::Dialog dialog(title, parent, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
+    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    dialog.set_default_size(600, 500);
+    auto treeview_2 = Gtk::TreeView(treestore->get_store());
+    treeview_2.set_headers_visible(false);
+    treeview_2.set_search_column(1);
+    treeview_2.append_column("", treestore->get_columns().rColPixbuf);
+    treeview_2.append_column("", treestore->get_columns().colNodeName);
+    auto scrolledwindow = Gtk::ScrolledWindow();
+    scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+    scrolledwindow.add(treeview_2);
+    auto content_area = dialog.get_content_area();
+    content_area->pack_start(scrolledwindow);
+
+    auto expand_collapse_row = [&treeview_2](Gtk::TreePath path) {
+        if (treeview_2.row_expanded(path))
+            treeview_2.collapse_row(path);
+        else
+            treeview_2.expand_row(path, false);
+    };
+
+    treeview_2.signal_event().connect([&treeview_2, &expand_collapse_row](GdkEvent* event)->bool{
+        if (event->type != GDK_BUTTON_PRESS && event->type!= GDK_2BUTTON_PRESS && event->type != GDK_KEY_PRESS)
+            return false;
+        if (event->type == GDK_BUTTON_PRESS && event->button.button == 2) {
+            Gtk::TreePath path_at_click;
+            if (treeview_2.get_path_at_pos(event->button.x, event->button.y, path_at_click)) {
+                expand_collapse_row(path_at_click);
+                return true;
+            }
+        } else if (event->type == GDK_2BUTTON_PRESS && event->button.button == 1) {
+            if (treeview_2.get_selection()->get_selected()) {
+                expand_collapse_row(treeview_2.get_model()->get_path(treeview_2.get_selection()->get_selected()));
+                return true;
+            }
+        } else if (event->type == GDK_KEY_PRESS && treeview_2.get_selection()->get_selected()) {
+            if (event->key.keyval == GDK_KEY_Left)
+                treeview_2.collapse_row(treeview_2.get_model()->get_path(treeview_2.get_selection()->get_selected()));
+            else if (event->key.keyval == GDK_KEY_Right)
+                treeview_2.expand_row(treeview_2.get_model()->get_path(treeview_2.get_selection()->get_selected()), false);
+            else
+                return false;
+            return true;
+        }
+        return false;
+    });
+    
+    content_area->show_all();
+    std::string expanded_collapsed_string = treestore->get_tree_expanded_collapsed_string(parentTreeView);
+    treestore->set_tree_expanded_collapsed_string(expanded_collapsed_string, treeview_2, CtApp::P_ctCfg->nodesBookmExp);
+    if (sel_tree_iter) {
+        Gtk::TreePath sel_path = treeview_2.get_model()->get_path(sel_tree_iter);
+        treeview_2.expand_to_path(sel_path);
+        treeview_2.set_cursor(sel_path);
+        treeview_2.scroll_to_row(sel_path);
+    }
+
+    return dialog.run() == Gtk::RESPONSE_ACCEPT ? treeview_2.get_selection()->get_selected() : Gtk::TreeIter();
 }

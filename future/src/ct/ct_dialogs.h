@@ -1,7 +1,9 @@
 #pragma once
-#include "gtkmm/dialog.h"
+#include <gtkmm/dialog.h>
 #include <gtkmm/liststore.h>
+#include <gtkmm/treeview.h>
 
+class CtTreeStore;
 namespace ct_dialogs {
 
 class CtChooseDialogListStore : public Gtk::ListStore
@@ -38,5 +40,8 @@ void warning_dialog(const std::string& message, Gtk::Window& parent);
 
 // The Error dialog
 void error_dialog(const std::string& message, Gtk::Window& parent);
+
+// Dialog to Select a Node
+Gtk::TreeIter choose_node_dialog(Gtk::Window& parent, Gtk::TreeView& parentTreeView, const std::string& title, CtTreeStore* treestore, Gtk::TreeIter sel_tree_iter);
 
 } // namespace ct_dialogs
