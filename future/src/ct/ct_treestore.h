@@ -98,6 +98,7 @@ public:
     gint64      get_node_id();
     std::string get_node_name();
     std::string get_node_foreground();
+    void        set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf);
 };
 
 class CtTextView;
@@ -115,7 +116,7 @@ public:
     bool          readNodesFromFilepath(const char* filepath, const bool isImport, const Gtk::TreeIter* pParentIter=nullptr);
     void          getNodeData(Gtk::TreeIter treeIter, CtNodeData& nodeData);
     void          updateNodeData(Gtk::TreeIter treeIter, const CtNodeData& nodeData);
-    void          updateNodeAuxIcon(Gtk::TreeIter treeIter);
+    void          updateNodeAuxIcon(CtTreeIter treeIter);
     Gtk::TreeIter appendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter=nullptr);
     Gtk::TreeIter insertNode(CtNodeData* pNodeData, const Gtk::TreeIter& afterIter);
 
@@ -161,6 +162,6 @@ protected:
     Glib::RefPtr<Gtk::TreeStore>   _rTreeStore;
     std::set<gint64>               _bookmarks;
     std::set<std::string>          _usedTags;
-    std::map<guint64, std::string> _nodes_names_dict; // for link tooltips
+    std::map<gint64, std::string>  _nodes_names_dict; // for link tooltips
     CtSQLiteRead*                  _pCtSQLiteRead{nullptr};
 };

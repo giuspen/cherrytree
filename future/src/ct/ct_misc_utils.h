@@ -184,7 +184,7 @@ bool exists(const VEC& vec, const VAL& val)
 namespace set {
 
 template<class SET, class KEY>
-bool exists(const SET& m, KEY& key) {
+bool exists(const SET& m, const KEY& key) {
     return m.find(key) != m.end();
 }
 
@@ -193,7 +193,7 @@ bool exists(const SET& m, KEY& key) {
 namespace map {
 
 template<class MAP, class KEY>
-bool exists(const MAP& m, KEY& key) {
+bool exists(const MAP& m, const KEY& key) {
     return m.find(key) != m.end();
 }
 

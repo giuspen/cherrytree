@@ -24,6 +24,7 @@
 #include "ct_doc_rw.h"
 #include "ct_app.h"
 #include "ct_treestore.h"
+#include "ct_misc_utils.h"
 
 CtAnchoredWidget::CtAnchoredWidget(const int& charOffset, const std::string& justification)
 {
@@ -82,6 +83,11 @@ std::string CtTreeIter::get_node_foreground()
 {
     if (*this) return (*this)->get_value(_columns->colForeground);
     return std::string();
+}
+
+void CtTreeIter::set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf)
+{
+    (*this)->set_value(_columns->rColPixbufAux, rPixbuf);
 }
 
 
@@ -311,13 +317,24 @@ void CtTreeStore::updateNodeData(Gtk::TreeIter treeIter, const CtNodeData& nodeD
     row[_columns.colTsLastSave] = nodeData.tsLastSave;
     row[_columns.colAnchoredWidgets] = nodeData.anchoredWidgets;
 
+    updateNodeAuxIcon(to_ct_tree_iter(treeIter));
     add_used_tags(nodeData.tags);
     _nodes_names_dict[nodeData.nodeId] = nodeData.name;
 }
 
-void CtTreeStore::updateNodeAuxIcon(Gtk::TreeIter treeIter)
+void CtTreeStore::updateNodeAuxIcon(CtTreeIter treeIter)
 {
-    // todo:
+    bool is_ro = treeIter.get_node_read_only();
+    bool is_bookmark = set::exists(_bookmarks, treeIter.get_node_id());
+    std::string stock_id;
+    if (is_ro && is_bookmark) stock_id = "lockpin";
+    else if (is_ro)           stock_id = "locked";
+    else if (is_bookmark)     stock_id = "pin";
+
+    if (stock_id.empty())
+        treeIter.set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf>());
+    else
+        treeIter.set_node_aux_icon(CtApp::R_icontheme->load_icon(stock_id, CtConst::NODE_ICON_SIZE));
 }
 
 
