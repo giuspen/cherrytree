@@ -32,7 +32,6 @@ class CtTreeView : public Gtk::TreeView
 public:
     CtTreeView();
     virtual ~CtTreeView();
-    void setExpandedCollapsed(CtTreeStore& ctTreestore);
     void set_cursor_safe(const Gtk::TreeIter& iter);
 
 protected:

@@ -31,22 +31,6 @@ CtTreeView::~CtTreeView()
 {
 }
 
-void CtTreeView::setExpandedCollapsed(CtTreeStore& ctTreestore)
-{
-    collapse_all();
-    std::vector<std::string> vecExpandedCollapsed = str::split(CtApp::P_ctCfg->expandedCollapsedString, "_");
-    std::map<gint64,bool> mapExpandedCollapsed;
-    for (const std::string& element : vecExpandedCollapsed)
-    {
-        std::vector<std::string> vecElem = str::split(element, ",");
-        if (2 == vecElem.size())
-        {
-            mapExpandedCollapsed[std::stoi(vecElem[0])] = CtStrUtil::isStrTrue(vecElem[1]);
-        }
-    }
-    ctTreestore.setExpandedCollapsed(this, ctTreestore.getRootChildren(), mapExpandedCollapsed);
-}
-
 void CtTreeView::set_cursor_safe(const Gtk::TreeIter& iter)
 {
     auto parent = iter->parent();
@@ -287,7 +271,9 @@ bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, cons
                 {
                     CtApp::P_ctCfg->expandedCollapsedString = "";
                 }
-                _ctTreeview.setExpandedCollapsed(_ctTreestore);
+                _ctTreestore.set_tree_expanded_collapsed_string(CtApp::P_ctCfg->expandedCollapsedString,
+                                                                _ctTreeview,
+                                                                CtApp::P_ctCfg->nodesBookmExp);
             }
             _ctTreestore.setTreePathTextCursorFromConfig(&_ctTreeview, &_ctTextview);
         }

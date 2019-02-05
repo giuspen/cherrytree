@@ -121,27 +121,6 @@ void CtTreeStore::_iterDeleteAnchoredWidgets(const Gtk::TreeModel::Children& chi
     }
 }
 
-void CtTreeStore::setExpandedCollapsed(Gtk::TreeView* pTreeView,
-                                       const Gtk::TreeModel::Children& children,
-                                       const std::map<gint64,bool>& mapExpandedCollapsed)
-{
-    for (Gtk::TreeIter treeIter = children.begin(); treeIter != children.end(); ++treeIter)
-    {
-        Gtk::TreeRow row = *treeIter;
-        gint64 nodeId = row.get_value(_columns.colNodeUniqueId);
-        std::map<gint64,bool>::const_iterator it = mapExpandedCollapsed.find(nodeId);
-        if (it != mapExpandedCollapsed.end() && it->second)
-        {
-            pTreeView->expand_row(_rTreeStore->get_path(treeIter), false/*open_all*/);
-        }
-        else if (CtApp::P_ctCfg->nodesBookmExp && _bookmarks.count(nodeId) > 0)
-        {
-            expandToTreeRow(pTreeView, row);
-        }
-        setExpandedCollapsed(pTreeView, row.children(), mapExpandedCollapsed);
-    }
-}
-
 void CtTreeStore::expandToTreeRow(Gtk::TreeView* pTreeView, Gtk::TreeRow& row)
 {
     Gtk::TreeIter iterParent = row.parent();
@@ -201,8 +180,9 @@ void CtTreeStore::viewAppendColumns(Gtk::TreeView* pTreeView)
     Gtk::TreeView::Column* pColumns = Gtk::manage(new Gtk::TreeView::Column(""));
     pColumns->pack_start(_columns.rColPixbuf, /*expand=*/false);
     pColumns->pack_start(_columns.colNodeName);
-    pColumns->pack_start(_columns.rColPixbufAux, /*expand=*/false);
+    pColumns->set_expand(true);
     pTreeView->append_column(*pColumns);
+    pTreeView->append_column("", _columns.rColPixbufAux);
 }
 
 bool CtTreeStore::readNodesFromFilepath(const char* filepath, const bool isImport, const Gtk::TreeIter* pParentIter)
@@ -317,24 +297,24 @@ void CtTreeStore::updateNodeData(Gtk::TreeIter treeIter, const CtNodeData& nodeD
     row[_columns.colTsLastSave] = nodeData.tsLastSave;
     row[_columns.colAnchoredWidgets] = nodeData.anchoredWidgets;
 
-    updateNodeAuxIcon(to_ct_tree_iter(treeIter));
+    updateNodeAuxIcon(treeIter);
     add_used_tags(nodeData.tags);
     _nodes_names_dict[nodeData.nodeId] = nodeData.name;
 }
 
-void CtTreeStore::updateNodeAuxIcon(CtTreeIter treeIter)
+void CtTreeStore::updateNodeAuxIcon(Gtk::TreeIter treeIter)
 {
-    bool is_ro = treeIter.get_node_read_only();
-    bool is_bookmark = set::exists(_bookmarks, treeIter.get_node_id());
+    bool is_ro = treeIter->get_value(_columns.colNodeRO);
+    bool is_bookmark = set::exists(_bookmarks, treeIter->get_value(_columns.colNodeUniqueId));
     std::string stock_id;
     if (is_ro && is_bookmark) stock_id = "lockpin";
     else if (is_ro)           stock_id = "locked";
     else if (is_bookmark)     stock_id = "pin";
 
     if (stock_id.empty())
-        treeIter.set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf>());
+        treeIter->set_value(_columns.rColPixbufAux, Glib::RefPtr<Gdk::Pixbuf>());
     else
-        treeIter.set_node_aux_icon(CtApp::R_icontheme->load_icon(stock_id, CtConst::NODE_ICON_SIZE));
+        treeIter->set_value(_columns.rColPixbufAux, CtApp::R_icontheme->load_icon(stock_id, CtConst::NODE_ICON_SIZE));
 }
 
 

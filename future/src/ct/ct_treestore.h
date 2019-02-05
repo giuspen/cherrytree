@@ -116,7 +116,7 @@ public:
     bool          readNodesFromFilepath(const char* filepath, const bool isImport, const Gtk::TreeIter* pParentIter=nullptr);
     void          getNodeData(Gtk::TreeIter treeIter, CtNodeData& nodeData);
     void          updateNodeData(Gtk::TreeIter treeIter, const CtNodeData& nodeData);
-    void          updateNodeAuxIcon(CtTreeIter treeIter);
+    void          updateNodeAuxIcon(Gtk::TreeIter treeIter);
     Gtk::TreeIter appendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter=nullptr);
     Gtk::TreeIter insertNode(CtNodeData* pNodeData, const Gtk::TreeIter& afterIter);
 
@@ -125,9 +125,6 @@ public:
 
     void applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pTextView);
     const Gtk::TreeModel::Children getRootChildren() { return _rTreeStore->children(); }
-    void setExpandedCollapsed(Gtk::TreeView* pTreeView,
-                              const Gtk::TreeModel::Children& children,
-                              const std::map<gint64,bool>& mapExpandedCollapsed);
     void expandToTreeRow(Gtk::TreeView* pTreeView, Gtk::TreeRow& row);
     void setTreePathTextCursorFromConfig(Gtk::TreeView* pTreeView, Gsv::View* pTextView);
     void treeviewSafeSetCursor(Gtk::TreeView* pTreeView, Gtk::TreeIter& iter);
