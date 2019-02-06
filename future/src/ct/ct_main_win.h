@@ -103,6 +103,7 @@ public:
     void window_header_update_num_last_visited();
 
     void treeview_set_colors();
+    void menu_tree_update_for_bookmarked_node(bool is_bookmarked);
 
 protected:
     void                _onTheTreeviewSignalCursorChanged();
@@ -115,6 +116,7 @@ protected:
     Gtk::VBox           _vboxText;
     Gtk::HPaned         _hPaned;
     Gtk::MenuBar*       _pMenu;
+    CtMenu*             _ctMenu;
     Gtk::Menu*          _pNodePopup;
     CtWinHeader         _windowHeader;
     Gtk::ScrolledWindow _scrolledwindowTree;

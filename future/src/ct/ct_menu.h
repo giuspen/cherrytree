@@ -37,6 +37,9 @@ struct CtAction
     std::string desc;
     sigc::slot<void> run_action;
 
+    sigc::signal<void, bool> signal_set_sensitive;
+    sigc::signal<void, bool> signal_set_visible;
+
     const std::string& get_shortcut() const;
 };
 
@@ -54,7 +57,7 @@ public:
     CtMenu();
 
     void init_actions(CtApp* pApp, CtActions* pActions);
-    CtAction const* find_action(const std::string& id);
+    CtAction* find_action(const std::string& id);
     const std::list<CtAction>& get_actions() { return _actions; }
 
     GtkAccelGroup* default_accel_group();
@@ -73,7 +76,10 @@ private:
     GtkWidget* walk_menu_xml(GtkWidget* pMenu, const char* document, const char* xpath);
     void       walk_menu_xml(GtkWidget* pMenu, xmlpp::Node* pNode);
     GtkWidget* add_submenu(GtkWidget* pMenu, const char* name, const char* image);
-    GtkWidget* add_menu_item(GtkWidget* pMenu, const char* name, const char* image, const char*shortcut, const char* desc, gpointer action_data);
+    GtkWidget* add_menu_item(GtkWidget* pMenu, const char* name, const char* image, const char*shortcut,
+                             const char* desc, gpointer action_data,
+                             sigc::signal<void, bool>* signal_set_sensitive = nullptr,
+                             sigc::signal<void, bool>* signal_set_visible = nullptr);
     GtkWidget* add_separator(GtkWidget* pMenu);
     void       add_menu_item_image_or_label(Gtk::Widget* pMenuItem, const char* image, GtkWidget* pLabel);
 

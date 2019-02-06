@@ -104,7 +104,7 @@ void CtTextView::_setFontForSyntax(const std::string& syntaxHighlighting)
     rStyleContext->add_provider(CtApp::R_cssProvider, GTK_STYLE_PROVIDER_PRIORITY_USER);
 }
 
-CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow()
+CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow(), _ctMenu(pCtMenu)
 {
     set_icon(CtApp::R_icontheme->load_icon("cherrytree", 48));
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
@@ -215,6 +215,12 @@ void CtMainWin::treeview_set_colors()
     CtMiscUtil::widget_set_colors(_ctTreeview, CtApp::P_ctCfg->ttDefFg, CtApp::P_ctCfg->ttDefBg, false, fg);
 }
 
+void CtMainWin::menu_tree_update_for_bookmarked_node(bool is_bookmarked)
+{
+    _ctMenu->find_action("node_bookmark")->signal_set_visible.emit(!is_bookmarked);
+    _ctMenu->find_action("node_unbookmark")->signal_set_visible.emit(is_bookmarked);
+}
+
 bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, const bool isImport)
 {
     bool retOk{false};
@@ -286,6 +292,7 @@ void CtMainWin::_onTheTreeviewSignalCursorChanged()
     CtTreeIter treeIter = curr_tree_iter();
     _ctTreestore.applyTextBufferToCtTextView(treeIter, &_ctTextview);
 
+    menu_tree_update_for_bookmarked_node(_ctTreestore.is_node_bookmarked(treeIter.get_node_id()));
     treeview_set_colors();
     window_header_update();
     window_header_update_lock_icon(treeIter.get_node_read_only());

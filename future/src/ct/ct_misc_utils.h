@@ -188,6 +188,17 @@ bool exists(const SET& m, const KEY& key) {
     return m.find(key) != m.end();
 }
 
+template<class SET, class VAL>
+bool remove(SET& set, const VAL& val)
+{
+    auto it = std::find(set.begin(), set.end(), val);
+    if (it != set.end()) {
+        set.erase(it);
+        return true;
+    }
+    return false;
+}
+
 } // namespace set
 
 namespace map {

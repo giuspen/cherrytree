@@ -337,6 +337,38 @@ void CtActions::node_siblings_sort_descending()
     }
 }
 
+void CtActions::bookmark_curr_node()
+{
+    if (!_is_there_selected_node_or_error()) return;
+    gint64 node_id = _ctMainWin->curr_tree_iter().get_node_id();
+
+    if (_ctTreestore->onRequestAddBookmark(node_id)) {
+        //support.set_bookmarks_menu_items(self)
+        _ctTreestore->updateNodeAuxIcon(_ctMainWin->curr_tree_iter());
+        _ctMainWin->update_window_save_needed("book");
+        _ctMainWin->menu_tree_update_for_bookmarked_node(true);
+    }
+}
+
+void CtActions::bookmark_curr_node_remove()
+{
+    if (!_is_there_selected_node_or_error()) return;
+    gint64 node_id = _ctMainWin->curr_tree_iter().get_node_id();
+
+    if (_ctTreestore->onRequestRemoveBookmark(node_id)) {
+        //support.set_bookmarks_menu_items(self)
+        _ctTreestore->updateNodeAuxIcon(_ctMainWin->curr_tree_iter());
+        _ctMainWin->update_window_save_needed("book");
+        _ctMainWin->menu_tree_update_for_bookmarked_node(false);
+    }
+
+}
+
+void CtActions::bookmarks_handle()
+{
+
+}
+
 bool dialog_node_prop(std::string title, Gtk::Window& parent, CtNodeData& nodeData, const std::set<std::string>& tags_set)
 {
     auto dialog = Gtk::Dialog(title, parent, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);

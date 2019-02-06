@@ -342,9 +342,17 @@ Gtk::TreeIter CtTreeStore::insertNode(CtNodeData* pNodeData, const Gtk::TreeIter
     return newIter;
 }
 
-void CtTreeStore::onRequestAddBookmark(gint64 nodeId)
+bool CtTreeStore::onRequestAddBookmark(gint64 nodeId)
 {
+    bool added = !set::exists(_bookmarks, nodeId);
     _bookmarks.insert(nodeId);
+    return added;
+}
+
+bool CtTreeStore::onRequestRemoveBookmark(gint64 nodeId)
+{
+    bool removed = set::exists(_bookmarks, nodeId);
+    return set::remove(_bookmarks, nodeId);
 }
 
 guint16 CtTreeStore::_getPangoWeight(bool isBold)
@@ -443,6 +451,11 @@ void CtTreeStore::add_used_tags(const std::string& tags)
         if (!tag.empty())
             _usedTags.insert(tag);
     }
+}
+
+bool CtTreeStore::is_node_bookmarked(gint64 node_id)
+{
+    return set::exists(_bookmarks, node_id);
 }
 
 std::string CtTreeStore::get_tree_expanded_collapsed_string(Gtk::TreeView& treeView)

@@ -120,7 +120,8 @@ public:
     Gtk::TreeIter appendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter=nullptr);
     Gtk::TreeIter insertNode(CtNodeData* pNodeData, const Gtk::TreeIter& afterIter);
 
-    void          onRequestAddBookmark(gint64 nodeId);
+    bool          onRequestAddBookmark(gint64 nodeId);
+    bool          onRequestRemoveBookmark(gint64 nodeId);
     Gtk::TreeIter onRequestAppendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter);
 
     void applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pTextView);
@@ -132,6 +133,7 @@ public:
     gint64                       node_id_get();
     void                         add_used_tags(const std::string& tags);
     const std::set<std::string>& get_used_tags() { return _usedTags; }
+    bool                         is_node_bookmarked(gint64 node_id);
 
     std::string get_tree_expanded_collapsed_string(Gtk::TreeView& treeView);
     void        set_tree_expanded_collapsed_string(const std::string& expanded_collapsed_string, Gtk::TreeView& treeView, bool nodes_bookm_exp);

@@ -232,7 +232,7 @@ void CtMiscUtil::widget_set_colors(Gtk::Widget& widget, const std::string& fg, c
                        bool syntax_highl, const std::string& gdk_col_fg)
 {
     if (syntax_highl) return;
-    widget.override_background_color(Gdk::RGBA(bg), Gtk::StateFlags::STATE_FLAG_NORMAL);
+    //widget.override_background_color(Gdk::RGBA(bg), Gtk::StateFlags::STATE_FLAG_NORMAL);
     widget.override_color(Gdk::RGBA(fg), Gtk::StateFlags::STATE_FLAG_NORMAL);
     Glib::RefPtr<Gtk::StyleContext> style = widget.get_style_context();
     // gtk.STATE_NORMAL, gtk.STATE_ACTIVE, gtk.STATE_PRELIGHT, gtk.STATE_SELECTED, gtk.STATE_INSENSITIVE

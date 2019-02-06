@@ -159,9 +159,9 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     _actions.push_back(CtAction{tree_cat, "tree_sibl_sort_desc", "gtk-sort-descending", _("Sort Siblings D_escending"), None, _("Sort all the Siblings of the Selected Node Descending"), sigc::mem_fun(*pActions, &CtActions::node_siblings_sort_descending)});
     _actions.push_back(CtAction{tree_cat, "child_nodes_inherit_syntax", "gtk-execute", _("_Inherit Syntax"), None, _("Change the Selected Node's Children Syntax Highlighting to the Parent's Syntax Highlighting"), sigc::signal<void>() /* dad.node_inherit_syntax */});
     _actions.push_back(CtAction{tree_cat, "tree_node_del", "edit-delete", _("De_lete Node"), "Delete", _("Delete the Selected Node"), sigc::signal<void>() /* dad.node_delete */});
-    _actions.push_back(CtAction{tree_cat, "node_bookmark", "pin-add", _("Add to _Bookmarks"), KB_CONTROL+KB_SHIFT+"B", _("Add the Current Node to the Bookmarks List"), sigc::signal<void>() /* dad.bookmark_curr_node */});
-    _actions.push_back(CtAction{tree_cat, "node_unbookmark", "pin-remove", _("_Remove from Bookmarks"), KB_CONTROL+KB_ALT+"B", _("Remove the Current Node from the Bookmarks List"), sigc::signal<void>() /* dad.bookmark_curr_node_remove */});
-    _actions.push_back(CtAction{tree_cat, "handle_bookmarks", "gtk-edit", _("_Handle Bookmarks"), None, _("Handle the Bookmarks List"), sigc::signal<void>() /* dad.bookmarks_handle */});
+    _actions.push_back(CtAction{tree_cat, "node_bookmark", "pin-add", _("Add to _Bookmarks"), KB_CONTROL+KB_SHIFT+"B", _("Add the Current Node to the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmark_curr_node)});
+    _actions.push_back(CtAction{tree_cat, "node_unbookmark", "pin-remove", _("_Remove from Bookmarks"), KB_CONTROL+KB_ALT+"B", _("Remove the Current Node from the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmark_curr_node_remove)});
+    _actions.push_back(CtAction{tree_cat, "handle_bookmarks", "gtk-edit", _("_Handle Bookmarks"), None, _("Handle the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmarks_handle)});
     _actions.push_back(CtAction{tree_cat, "go_node_prev", "gtk-go-back", _("Go _Back"), KB_ALT+CtConst::STR_KEY_LEFT, _("Go to the Previous Visited Node"), sigc::signal<void>() /* dad.go_back */});
     _actions.push_back(CtAction{tree_cat, "go_node_next", "gtk-go-forward", _("Go _Forward"), KB_ALT+CtConst::STR_KEY_RIGHT, _("Go to the Next Visited Node"), sigc::signal<void>() /* dad.go_forward */});
     const char* find_cat = _("Find/Replace");
@@ -241,7 +241,7 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     }
 }
 
-CtAction const* CtMenu::find_action(const std::string& id)
+CtAction* CtMenu::find_action(const std::string& id)
 {
     for (CtAction& action : _actions)
     {
@@ -395,8 +395,9 @@ void CtMenu::walk_menu_xml(GtkWidget* pMenu, xmlpp::Node* pNode)
         }
         else if (pNodeIter->get_name() == "menuitem")
         {
-            CtAction const* pAction = find_action(get_attribute(pNodeIter, "action")->get_value());
-            add_menu_item(pMenu, pAction->name.c_str(), pAction->image.c_str(), pAction->get_shortcut().c_str(), pAction->desc.c_str(), (gpointer)pAction);
+            CtAction* pAction = find_action(get_attribute(pNodeIter, "action")->get_value());
+            add_menu_item(pMenu, pAction->name.c_str(), pAction->image.c_str(), pAction->get_shortcut().c_str(),
+                          pAction->desc.c_str(), (gpointer)pAction, &pAction->signal_set_sensitive, &pAction->signal_set_visible);
         }
         else if (pNodeIter->get_name() == "separator")
         {
@@ -424,7 +425,10 @@ GtkWidget* CtMenu::add_submenu(GtkWidget* pMenu, const char* name, const char* i
 }
 
 // based on inkscape/src/ui/interface.cpp
-GtkWidget* CtMenu::add_menu_item(GtkWidget* pMenu, const char* name, const char* image, const char* shortcut, const char* desc, gpointer action_data)
+GtkWidget* CtMenu::add_menu_item(GtkWidget* pMenu, const char* name, const char* image, const char* shortcut,
+                                 const char* desc, gpointer action_data,
+                                 sigc::signal<void, bool>* signal_set_sensitive /* = nullptr */,
+                                 sigc::signal<void, bool>* signal_set_visible /* = nullptr */)
 {
     Gtk::Widget* pMenuItem = Gtk::manage(new Gtk::MenuItem());
 
@@ -457,6 +461,17 @@ GtkWidget* CtMenu::add_menu_item(GtkWidget* pMenu, const char* name, const char*
     gtk_accel_label_set_accel_widget(GTK_ACCEL_LABEL(pLabel), pMenuItem->gobj());
 
     add_menu_item_image_or_label(pMenuItem, image, pLabel);
+
+    if (signal_set_sensitive)
+        signal_set_sensitive->connect(
+            sigc::bind<0>(
+                sigc::ptr_fun(&gtk_widget_set_sensitive),
+                pMenuItem->gobj()));
+    if (signal_set_visible)
+        signal_set_visible->connect(
+            sigc::bind<0>(
+                sigc::ptr_fun(&gtk_widget_set_visible),
+                pMenuItem->gobj()));
 
     gtk_widget_set_events(pMenuItem->gobj(), GDK_KEY_PRESS_MASK);
     g_signal_connect(G_OBJECT(pMenuItem->gobj()), "activate", G_CALLBACK(on_menu_activate), action_data);
