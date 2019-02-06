@@ -1,5 +1,6 @@
 
 // g++ codebox.cc -o codebox `pkg-config gtkmm-3.0 --cflags --libs`
+// g++ codebox.cc -o codebox `pkg-config gtkmm-2.4 --cflags --libs`
 
 #include <iostream>
 #include <gtkmm.h>
