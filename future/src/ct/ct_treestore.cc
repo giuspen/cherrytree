@@ -344,15 +344,21 @@ Gtk::TreeIter CtTreeStore::insertNode(CtNodeData* pNodeData, const Gtk::TreeIter
 
 bool CtTreeStore::onRequestAddBookmark(gint64 nodeId)
 {
-    bool added = !set::exists(_bookmarks, nodeId);
+    if (set::exists(_bookmarks, nodeId))
+        return false;
     _bookmarks.insert(nodeId);
-    return added;
+    _bookmarks_order.push_back(nodeId);
+    return true;
 }
 
 bool CtTreeStore::onRequestRemoveBookmark(gint64 nodeId)
 {
-    bool removed = set::exists(_bookmarks, nodeId);
-    return set::remove(_bookmarks, nodeId);
+    if (!set::exists(_bookmarks, nodeId))
+        return false;
+
+    set::remove(_bookmarks, nodeId);
+    vec::remove(_bookmarks_order, nodeId);
+    return true;
 }
 
 guint16 CtTreeStore::_getPangoWeight(bool isBold)
@@ -453,10 +459,39 @@ void CtTreeStore::add_used_tags(const std::string& tags)
     }
 }
 
-bool CtTreeStore::is_node_bookmarked(gint64 node_id)
+bool CtTreeStore::is_node_bookmarked(const gint64& node_id)
 {
     return set::exists(_bookmarks, node_id);
 }
+
+std::string CtTreeStore::get_node_name_from_node_id(const gint64& node_id)
+{
+    return _nodes_names_dict.at(node_id);
+}
+
+Gtk::TreeIter CtTreeStore::get_tree_iter_from_node_id(const gint64& node_id)
+{
+    Gtk::TreeIter find_iter;
+    _rTreeStore->foreach_iter([&node_id, &find_iter, this](const Gtk::TreeIter& iter) {
+        if (iter->get_value(_columns.colNodeUniqueId) != node_id) return false; /* continue */
+        find_iter = iter;
+        return true;
+    });
+    return find_iter;
+}
+
+const std::list<gint64>& CtTreeStore::get_bookmarks()
+{
+    return _bookmarks_order;
+}
+
+void CtTreeStore::set_bookmarks(const std::list<gint64>& bookmarks_order)
+{
+    _bookmarks_order = bookmarks_order;
+    _bookmarks.clear();
+    std::copy(_bookmarks_order.begin(), _bookmarks_order.end(), std::inserter(_bookmarks, _bookmarks.begin()));
+}
+
 
 std::string CtTreeStore::get_tree_expanded_collapsed_string(Gtk::TreeView& treeView)
 {

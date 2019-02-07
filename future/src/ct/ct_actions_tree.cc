@@ -366,7 +366,7 @@ void CtActions::bookmark_curr_node_remove()
 
 void CtActions::bookmarks_handle()
 {
-
+    ct_dialogs::bookmarks_handle_dialog(_ctMainWin);
 }
 
 bool dialog_node_prop(std::string title, Gtk::Window& parent, CtNodeData& nodeData, const std::set<std::string>& tags_set)
