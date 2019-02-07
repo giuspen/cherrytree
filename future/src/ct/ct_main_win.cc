@@ -126,6 +126,7 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow(), _ctMenu(pCtMen
 
     _pMenu = pCtMenu->build_menubar();
     _pMenu->set_name("MenuBar");
+    _pBookmarksSubmenu = CtMenu::find_menu_item(_pMenu, "BookmarksMenu");
     _pMenu->show_all();
     gtk_window_add_accel_group (GTK_WINDOW(gobj()), pCtMenu->default_accel_group());
     _pNodePopup = pCtMenu->build_popup_menu_node();
@@ -221,6 +222,21 @@ void CtMainWin::menu_tree_update_for_bookmarked_node(bool is_bookmarked)
     _ctMenu->find_action("node_unbookmark")->signal_set_visible.emit(is_bookmarked);
 }
 
+void CtMainWin::bookmark_action_select_node(gint64 node_id)
+{
+    Gtk::TreeIter tree_iter = _ctTreestore.get_tree_iter_from_node_id(node_id);
+    get_tree_view().set_cursor_safe(tree_iter);
+}
+
+void CtMainWin::set_bookmarks_menu_items()
+{
+    std::list<std::tuple<gint64, std::string>> bookmarks;
+    for (const gint64& node_id: _ctTreestore.get_bookmarks())
+        bookmarks.push_back(std::make_tuple(node_id, _ctTreestore.get_node_name_from_node_id(node_id)));
+    sigc::slot<void, gint64> bookmark_action = sigc::mem_fun(*this, &CtMainWin::bookmark_action_select_node);
+    _pBookmarksSubmenu->set_submenu(*_ctMenu->build_bookmarks_menu(bookmarks, bookmark_action));
+}
+
 bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, const bool isImport)
 {
     bool retOk{false};
@@ -263,6 +279,7 @@ bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, cons
         _currFileName = Glib::path_get_basename(filepath);
         _currFileDir = Glib::path_get_dirname(filepath);
         _titleUpdate(false/*saveNeeded*/);
+        set_bookmarks_menu_items();
 
         if ((_currFileName == CtApp::P_ctCfg->fileName) &&
             (_currFileDir == CtApp::P_ctCfg->fileDir))

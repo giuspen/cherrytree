@@ -62,6 +62,8 @@ public:
 
     GtkAccelGroup* default_accel_group();
 
+    static Gtk::MenuItem* find_menu_item(Gtk::MenuBar* menuBar, std::string name);
+
     Gtk::Toolbar* build_toolbar();
     Gtk::MenuBar* build_menubar();
     Gtk::Menu*    build_popup_menu_node();
@@ -71,17 +73,19 @@ public:
     Gtk::Menu*    build_popup_menu_table();
     Gtk::Menu*    build_popup_menu_table_cell();
     Gtk::Menu*    build_popup_menu_table_codebox();
+    Gtk::Menu*    build_bookmarks_menu(std::list<std::tuple<gint64, std::string>>& bookmarks, sigc::slot<void, gint64>& bookmark_action);
 
 private:
-    GtkWidget* walk_menu_xml(GtkWidget* pMenu, const char* document, const char* xpath);
-    void       walk_menu_xml(GtkWidget* pMenu, xmlpp::Node* pNode);
-    GtkWidget* add_submenu(GtkWidget* pMenu, const char* name, const char* image);
-    GtkWidget* add_menu_item(GtkWidget* pMenu, const char* name, const char* image, const char*shortcut,
-                             const char* desc, gpointer action_data,
-                             sigc::signal<void, bool>* signal_set_sensitive = nullptr,
-                             sigc::signal<void, bool>* signal_set_visible = nullptr);
-    GtkWidget* add_separator(GtkWidget* pMenu);
-    void       add_menu_item_image_or_label(Gtk::Widget* pMenuItem, const char* image, GtkWidget* pLabel);
+    GtkWidget*     walk_menu_xml(GtkWidget* pMenu, const char* document, const char* xpath);
+    void           walk_menu_xml(GtkWidget* pMenu, xmlpp::Node* pNode);
+    GtkWidget*     add_submenu(GtkWidget* pMenu, const char* id, const char* name, const char* image);
+    Gtk::MenuItem* add_menu_item(GtkWidget* pMenu, CtAction* pAction);
+    Gtk::MenuItem* add_menu_item(GtkWidget* pMenu, const char* name, const char* image, const char*shortcut,
+                                 const char* desc, gpointer action_data,
+                                 sigc::signal<void, bool>* signal_set_sensitive = nullptr,
+                                 sigc::signal<void, bool>* signal_set_visible = nullptr);
+    GtkWidget*     add_separator(GtkWidget* pMenu);
+    void           add_menu_item_image_or_label(Gtk::Widget* pMenuItem, const char* image, GtkWidget* pLabel);
 
     std::string get_toolbar_ui_str();
     const char* get_menu_ui_str();

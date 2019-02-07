@@ -343,7 +343,7 @@ void CtActions::bookmark_curr_node()
     gint64 node_id = _ctMainWin->curr_tree_iter().get_node_id();
 
     if (_ctTreestore->onRequestAddBookmark(node_id)) {
-        //support.set_bookmarks_menu_items(self)
+        _ctMainWin->set_bookmarks_menu_items();
         _ctTreestore->updateNodeAuxIcon(_ctMainWin->curr_tree_iter());
         _ctMainWin->update_window_save_needed("book");
         _ctMainWin->menu_tree_update_for_bookmarked_node(true);
@@ -356,7 +356,7 @@ void CtActions::bookmark_curr_node_remove()
     gint64 node_id = _ctMainWin->curr_tree_iter().get_node_id();
 
     if (_ctTreestore->onRequestRemoveBookmark(node_id)) {
-        //support.set_bookmarks_menu_items(self)
+        _ctMainWin->set_bookmarks_menu_items();
         _ctTreestore->updateNodeAuxIcon(_ctMainWin->curr_tree_iter());
         _ctMainWin->update_window_save_needed("book");
         _ctMainWin->menu_tree_update_for_bookmarked_node(false);

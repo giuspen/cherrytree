@@ -104,6 +104,8 @@ public:
 
     void treeview_set_colors();
     void menu_tree_update_for_bookmarked_node(bool is_bookmarked);
+    void bookmark_action_select_node(gint64 node_id);
+    void set_bookmarks_menu_items();
 
 protected:
     void                _onTheTreeviewSignalCursorChanged();
@@ -117,6 +119,7 @@ protected:
     Gtk::HPaned         _hPaned;
     Gtk::MenuBar*       _pMenu;
     CtMenu*             _ctMenu;
+    Gtk::MenuItem*      _pBookmarksSubmenu;
     Gtk::Menu*          _pNodePopup;
     CtWinHeader         _windowHeader;
     Gtk::ScrolledWindow _scrolledwindowTree;
