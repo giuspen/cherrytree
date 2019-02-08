@@ -31,22 +31,6 @@ CtTreeView::~CtTreeView()
 {
 }
 
-void CtTreeView::setExpandedCollapsed(CtTreeStore& ctTreestore)
-{
-    collapse_all();
-    std::vector<std::string> vecExpandedCollapsed = str::split(CtApp::P_ctCfg->expandedCollapsedString, "_");
-    std::map<gint64,bool> mapExpandedCollapsed;
-    for (const std::string& element : vecExpandedCollapsed)
-    {
-        std::vector<std::string> vecElem = str::split(element, ",");
-        if (2 == vecElem.size())
-        {
-            mapExpandedCollapsed[std::stoi(vecElem[0])] = CtStrUtil::isStrTrue(vecElem[1]);
-        }
-    }
-    ctTreestore.setExpandedCollapsed(this, ctTreestore.getRootChildren(), mapExpandedCollapsed);
-}
-
 void CtTreeView::set_cursor_safe(const Gtk::TreeIter& iter)
 {
     auto parent = iter->parent();
@@ -120,7 +104,7 @@ void CtTextView::_setFontForSyntax(const std::string& syntaxHighlighting)
     rStyleContext->add_provider(CtApp::R_cssProvider, GTK_STYLE_PROVIDER_PRIORITY_USER);
 }
 
-CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow()
+CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow(), _ctMenu(pCtMenu)
 {
     set_icon(CtApp::R_icontheme->load_icon("cherrytree", 48));
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
@@ -142,6 +126,7 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow()
 
     _pMenu = pCtMenu->build_menubar();
     _pMenu->set_name("MenuBar");
+    _pBookmarksSubmenu = CtMenu::find_menu_item(_pMenu, "BookmarksMenu");
     _pMenu->show_all();
     gtk_window_add_accel_group (GTK_WINDOW(gobj()), pCtMenu->default_accel_group());
     _pNodePopup = pCtMenu->build_popup_menu_node();
@@ -231,6 +216,27 @@ void CtMainWin::treeview_set_colors()
     CtMiscUtil::widget_set_colors(_ctTreeview, CtApp::P_ctCfg->ttDefFg, CtApp::P_ctCfg->ttDefBg, false, fg);
 }
 
+void CtMainWin::menu_tree_update_for_bookmarked_node(bool is_bookmarked)
+{
+    _ctMenu->find_action("node_bookmark")->signal_set_visible.emit(!is_bookmarked);
+    _ctMenu->find_action("node_unbookmark")->signal_set_visible.emit(is_bookmarked);
+}
+
+void CtMainWin::bookmark_action_select_node(gint64 node_id)
+{
+    Gtk::TreeIter tree_iter = _ctTreestore.get_tree_iter_from_node_id(node_id);
+    get_tree_view().set_cursor_safe(tree_iter);
+}
+
+void CtMainWin::set_bookmarks_menu_items()
+{
+    std::list<std::tuple<gint64, std::string>> bookmarks;
+    for (const gint64& node_id: _ctTreestore.get_bookmarks())
+        bookmarks.push_back(std::make_tuple(node_id, _ctTreestore.get_node_name_from_node_id(node_id)));
+    sigc::slot<void, gint64> bookmark_action = sigc::mem_fun(*this, &CtMainWin::bookmark_action_select_node);
+    _pBookmarksSubmenu->set_submenu(*_ctMenu->build_bookmarks_menu(bookmarks, bookmark_action));
+}
+
 bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, const bool isImport)
 {
     bool retOk{false};
@@ -273,6 +279,7 @@ bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, cons
         _currFileName = Glib::path_get_basename(filepath);
         _currFileDir = Glib::path_get_dirname(filepath);
         _titleUpdate(false/*saveNeeded*/);
+        set_bookmarks_menu_items();
 
         if ((_currFileName == CtApp::P_ctCfg->fileName) &&
             (_currFileDir == CtApp::P_ctCfg->fileDir))
@@ -287,7 +294,9 @@ bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, cons
                 {
                     CtApp::P_ctCfg->expandedCollapsedString = "";
                 }
-                _ctTreeview.setExpandedCollapsed(_ctTreestore);
+                _ctTreestore.set_tree_expanded_collapsed_string(CtApp::P_ctCfg->expandedCollapsedString,
+                                                                _ctTreeview,
+                                                                CtApp::P_ctCfg->nodesBookmExp);
             }
             _ctTreestore.setTreePathTextCursorFromConfig(&_ctTreeview, &_ctTextview);
         }
@@ -300,6 +309,7 @@ void CtMainWin::_onTheTreeviewSignalCursorChanged()
     CtTreeIter treeIter = curr_tree_iter();
     _ctTreestore.applyTextBufferToCtTextView(treeIter, &_ctTextview);
 
+    menu_tree_update_for_bookmarked_node(_ctTreestore.is_node_bookmarked(treeIter.get_node_id()));
     treeview_set_colors();
     window_header_update();
     window_header_update_lock_icon(treeIter.get_node_read_only());

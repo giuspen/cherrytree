@@ -98,6 +98,7 @@ public:
     gint64      get_node_id();
     std::string get_node_name();
     std::string get_node_foreground();
+    void        set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf);
 };
 
 class CtTextView;
@@ -119,14 +120,12 @@ public:
     Gtk::TreeIter appendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter=nullptr);
     Gtk::TreeIter insertNode(CtNodeData* pNodeData, const Gtk::TreeIter& afterIter);
 
-    void          onRequestAddBookmark(gint64 nodeId);
+    bool          onRequestAddBookmark(gint64 nodeId);
+    bool          onRequestRemoveBookmark(gint64 nodeId);
     Gtk::TreeIter onRequestAppendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter);
 
     void applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pTextView);
     const Gtk::TreeModel::Children getRootChildren() { return _rTreeStore->children(); }
-    void setExpandedCollapsed(Gtk::TreeView* pTreeView,
-                              const Gtk::TreeModel::Children& children,
-                              const std::map<gint64,bool>& mapExpandedCollapsed);
     void expandToTreeRow(Gtk::TreeView* pTreeView, Gtk::TreeRow& row);
     void setTreePathTextCursorFromConfig(Gtk::TreeView* pTreeView, Gsv::View* pTextView);
     void treeviewSafeSetCursor(Gtk::TreeView* pTreeView, Gtk::TreeIter& iter);
@@ -134,6 +133,12 @@ public:
     gint64                       node_id_get();
     void                         add_used_tags(const std::string& tags);
     const std::set<std::string>& get_used_tags() { return _usedTags; }
+    bool                         is_node_bookmarked(const gint64& node_id);
+    std::string                  get_node_name_from_node_id(const gint64& node_id);
+    Gtk::TreeIter                get_tree_iter_from_node_id(const gint64& node_id);
+    const std::list<gint64>&     get_bookmarks();
+    void                         set_bookmarks(const std::list<gint64>& bookmarks_order);
+
 
     std::string get_tree_expanded_collapsed_string(Gtk::TreeView& treeView);
     void        set_tree_expanded_collapsed_string(const std::string& expanded_collapsed_string, Gtk::TreeView& treeView, bool nodes_bookm_exp);
@@ -160,7 +165,8 @@ protected:
     CtTreeModelColumns             _columns;
     Glib::RefPtr<Gtk::TreeStore>   _rTreeStore;
     std::set<gint64>               _bookmarks;
+    std::list<gint64>              _bookmarks_order;
     std::set<std::string>          _usedTags;
-    std::map<guint64, std::string> _nodes_names_dict; // for link tooltips
+    std::map<gint64, std::string>  _nodes_names_dict; // for link tooltips
     CtSQLiteRead*                  _pCtSQLiteRead{nullptr};
 };

@@ -33,7 +33,7 @@ public:
     CtDocRead() {};
     virtual ~CtDocRead() {};
     virtual void treeWalk(const Gtk::TreeIter* pParentIter=nullptr)=0;
-    sigc::signal<void, gint64> signalAddBookmark;
+    sigc::signal<bool, gint64> signalAddBookmark;
     sigc::signal<Gtk::TreeIter, CtNodeData*, const Gtk::TreeIter*> signalAppendNode;
 };
 

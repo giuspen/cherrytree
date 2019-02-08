@@ -38,4 +38,8 @@ public:
     void tree_sort_descending();
     void node_siblings_sort_ascending();
     void node_siblings_sort_descending();
+
+    void bookmark_curr_node();
+    void bookmark_curr_node_remove();
+    void bookmarks_handle();
 };

@@ -184,8 +184,19 @@ bool exists(const VEC& vec, const VAL& val)
 namespace set {
 
 template<class SET, class KEY>
-bool exists(const SET& m, KEY& key) {
+bool exists(const SET& m, const KEY& key) {
     return m.find(key) != m.end();
+}
+
+template<class SET, class VAL>
+bool remove(SET& set, const VAL& val)
+{
+    auto it = std::find(set.begin(), set.end(), val);
+    if (it != set.end()) {
+        set.erase(it);
+        return true;
+    }
+    return false;
 }
 
 } // namespace set
@@ -193,7 +204,7 @@ bool exists(const SET& m, KEY& key) {
 namespace map {
 
 template<class MAP, class KEY>
-bool exists(const MAP& m, KEY& key) {
+bool exists(const MAP& m, const KEY& key) {
     return m.find(key) != m.end();
 }
 
