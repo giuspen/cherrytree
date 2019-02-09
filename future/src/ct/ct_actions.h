@@ -14,6 +14,9 @@ private:
 
 private:
     bool          _is_there_selected_node_or_error();
+
+private:
+    // helpers for tree actions
     void          _node_add(bool duplicate, bool add_child);
     void          _node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeData, bool add_child);
     void          _node_child_exist_or_create(Gtk::TreeIter parentIter, const std::string& nodeName);
@@ -21,6 +24,7 @@ private:
                                    Gtk::TreeIter brother_iter = Gtk::TreeIter(), bool set_first = false);
     bool          _need_node_swap(Gtk::TreeIter& leftIter, Gtk::TreeIter& rightIter, bool ascendings);
     bool          _tree_sort_level_and_sublevels(const Gtk::TreeNodeChildren& children, bool ascending);
+
 public:
     // tree actions
     void node_add()       { _node_add(false, false); }
@@ -42,4 +46,22 @@ public:
     void bookmark_curr_node();
     void bookmark_curr_node_remove();
     void bookmarks_handle();
+
+private:
+    // helpers for find actions
+
+public:
+    // find actions
+    void find_in_selected_node();
+    void find_in_all_nodes();
+    void find_in_sel_node_and_subnodes();
+    void find_a_node();
+    void find_again();
+    void find_back();
+    void replace_in_selected_node();
+    void replace_in_all_nodes();
+    void replace_in_sel_node_and_subnodes();
+    void replace_in_nodes_names();
+    void replace_again();
+    void find_allmatchesdialog_restore();
 };

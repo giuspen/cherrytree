@@ -113,6 +113,8 @@ bool endswith(const std::string& str, const std::string& ending);
 
 std::string escape(const std::string& text);
 
+std::string time_format(const std::string& format, const std::time_t& time);
+
 template<class String>
 String replace(String& subjectStr, const gchar* searchStr, const gchar* replaceStr)
 {

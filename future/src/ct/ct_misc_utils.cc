@@ -25,6 +25,7 @@
 #include <assert.h>
 #include "ct_misc_utils.h"
 #include "ct_app.h"
+#include <ctime>
 
 CtDocType CtMiscUtil::getDocType(std::string fileName)
 {
@@ -447,13 +448,15 @@ std::string CtRgbUtil::rgb_any_to_24(Gdk::RGBA color)
     return rgb24StrOut;
 }
 
-bool str::endswith(const std::string& str, const std::string& ending) {
+bool str::endswith(const std::string& str, const std::string& ending)
+{
     if (str.length() >= ending.length())
         return (0 == str.compare(str.length() - ending.length(), ending.length(), ending));
     return false;
 }
 
-std::string str::escape(const std::string& text) {
+std::string str::escape(const std::string& text)
+{
     std::string buffer;
     buffer.reserve(text.size());
     for(size_t pos = 0; pos != text.size(); ++pos) {
@@ -467,4 +470,15 @@ std::string str::escape(const std::string& text) {
         }
     }
     return buffer;
+}
+
+std::string str::time_format(const std::string& format, const std::time_t& time)
+{
+    std::tm* localtime = std::localtime(&time);
+    char buffer[100];
+    if (strftime(buffer, sizeof(buffer), format.c_str(), localtime))
+        return buffer;
+    else if (strftime(buffer, sizeof(buffer), CtConst::TIMESTAMP_FORMAT_DEFAULT, localtime))
+        return buffer;
+    return "";
 }
