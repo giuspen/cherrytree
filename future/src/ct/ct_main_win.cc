@@ -96,6 +96,20 @@ void CtTextView::set_pixels_inside_wrap(int space_around_lines, int relative_wra
     Gtk::TextView::set_pixels_inside_wrap(pixels_around_wrap);
 }
 
+void CtTextView::set_selection_at_offset_n_delta(int offset, int delta, Glib::RefPtr<Gtk::TextBuffer> text_buffer /*=Glib::RefPtr<Gtk::TextBuffer>()*/)
+{
+    text_buffer = text_buffer ? text_buffer : get_buffer();
+    if (Gtk::TextIter target = text_buffer->get_iter_at_offset(offset)) {
+        text_buffer->place_cursor(target);
+        if (!target.forward_chars(delta)) {
+            // #print "? bad offset=%s, delta=%s on node %s" % (offset, delta, self.treestore[self.curr_tree_iter][1])
+        }
+        text_buffer->move_mark(text_buffer->get_selection_bound(), target);
+    } else {
+        // # print "! bad offset=%s, delta=%s on node %s" % (offset, delta, self.treestore[self.curr_tree_iter][1])
+    }
+}
+
 void CtTextView::_setFontForSyntax(const std::string& syntaxHighlighting)
 {
     Glib::RefPtr<Gtk::StyleContext> rStyleContext = get_style_context();
@@ -103,6 +117,7 @@ void CtTextView::_setFontForSyntax(const std::string& syntaxHighlighting)
     CtApp::R_cssProvider->load_from_data(fontCss);
     rStyleContext->add_provider(CtApp::R_cssProvider, GTK_STYLE_PROVIDER_PRIORITY_USER);
 }
+
 
 CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow(), _ctMenu(pCtMenu)
 {
@@ -185,7 +200,7 @@ void CtMainWin::window_header_update()
     foreground = foreground.empty() ? CtApp::P_ctCfg->ttDefFg : foreground;
     _windowHeader.nameLabel.set_markup(
                 "<b><span foreground=\"" + foreground + "\" size=\"xx-large\">"
-                + str::escape(name) + "</span></b>");
+                + str::xml_escape(name) + "</span></b>");
     window_header_update_last_visited();
 }
 

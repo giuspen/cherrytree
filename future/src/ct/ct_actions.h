@@ -49,6 +49,16 @@ public:
 
 private:
     // helpers for find actions
+    bool                _parse_node_content_iter(const CtTreeIter& tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, const std::string& pattern,
+                                                bool forward, bool first_fromsel, bool all_matches, bool first_node);
+    Gtk::TextIter       _get_inner_start_iter(Glib::RefPtr<Gtk::TextBuffer> text_buffer, bool forward, const gint64& node_id);
+    bool                _is_node_within_time_filter(const CtTreeIter& node_iter);
+    bool                _find_pattern(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, std::string pattern,
+                                      Gtk::TextIter start_iter, bool forward, bool all_matches);
+    std::string         _get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter text_iter);
+    std::array<int, 2>  _check_pattern_in_object_between(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Glib::RefPtr<Glib::Regex> pattern,
+                                                         int start_offset, int end_offset, bool forward, std::string& obj_content);
+    int                 _get_num_objs_before_offset(Glib::RefPtr<Gtk::TextBuffer> text_buffer, int max_offset);
 
 public:
     // find actions

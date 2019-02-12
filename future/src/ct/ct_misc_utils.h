@@ -25,6 +25,7 @@
 #include <gtkmm/treeiter.h>
 #include <gtkmm/treestore.h>
 #include <set>
+#include "ct_treestore.h"
 
 enum class CtDocType : int {None=0, XML=1, SQLite=2};
 enum class CtDocEncrypt : int {None=0, True=1, False=2};
@@ -44,6 +45,11 @@ void widget_set_colors(Gtk::Widget& widget, const std::string& fg, const std::st
 
 bool node_siblings_sort_iteration(Glib::RefPtr<Gtk::TreeStore> model, const Gtk::TreeNodeChildren& children,
                                   std::function<bool(Gtk::TreeIter&, Gtk::TreeIter&)> need_swap);
+
+std::string get_node_hierarchical_name(CtTreeIter tree_iter, const char* separator="--",
+                                       bool for_filename=true, bool root_to_leaf=true, const char* trailer="");
+
+std::string clean_from_chars_not_for_filename(std::string filename);
 
 } // namespace CtMiscUtil
 
@@ -111,7 +117,9 @@ namespace str {
 
 bool endswith(const std::string& str, const std::string& ending);
 
-std::string escape(const std::string& text);
+std::string xml_escape(const std::string& text);
+
+std::string re_escape(const std::string& text);
 
 std::string time_format(const std::string& format, const std::time_t& time);
 

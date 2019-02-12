@@ -119,10 +119,44 @@ const gchar    CtConst::STR_KEY_DOWN[]              {"Down"};
 const gchar    CtConst::STR_KEY_LEFT[]              {"Left"};
 const gchar    CtConst::STR_KEY_RIGHT[]             {"Right"};
 const gchar    CtConst::STR_STOCK_CT_IMP[]          {"import_in_cherrytree"};
-const gchar    CtConst::CHAR_NEWLINE[]              {"\n"};
-const gchar    CtConst::CHAR_STAR[]                 {"*"};
+
+const int      CtConst::MAX_FILE_NAME_LEN           {142};
+
 const gchar    CtConst::CHAR_SPACE[]                {" "};
+const gchar    CtConst::CHAR_NEWLINE[]              {"\n"};
+const gchar    CtConst::CHAR_NEWPAGE[]              {"\x0c"};
+const gchar    CtConst::CHAR_CR[]                   {"\r"};
+const gchar    CtConst::CHAR_TAB[]                  {"\t"};
+const gchar    CtConst::CHARS_LISTNUM[]             {".)->"};
+const gchar    CtConst::CHAR_TILDE[]                {"~"};
+const gchar    CtConst::CHAR_MINUS[]                {"-"};
+const gchar    CtConst::CHAR_DQUOTE[]               {"\""};
+const gchar    CtConst::CHAR_SMART_DQUOTE_0[]       {"“"};
+const gchar    CtConst::CHAR_SMART_DQUOTE_1[]       {"”"};
+const gchar    CtConst::CHAR_SQUOTE[]               {"'"};
+const gchar    CtConst::CHAR_SMART_SQUOTE_0[]       {"‘"};
+const gchar    CtConst::CHAR_SMART_SQUOTE_1[]       {"’"};
+const gchar    CtConst::CHAR_GRAVE[]                {"`"};
+const gchar    CtConst::CHAR_SLASH[]                {"/"};
+const gchar    CtConst::CHAR_BSLASH[]               {"\\"};
+const gchar    CtConst::CHAR_SQ_BR_OPEN[]           {"["};
+const gchar    CtConst::CHAR_SQ_BR_CLOSE[]          {"]"};
+const gchar    CtConst::CHAR_PARENTH_OPEN[]         {"("};
+const gchar    CtConst::CHAR_PARENTH_CLOSE[]        {")"};
+const gchar    CtConst::CHAR_LESSER[]               {"<"};
+const gchar    CtConst::CHAR_GREATER[]              {">"};
+const gchar    CtConst::CHAR_STAR[]                 {"*"};
 const gchar    CtConst::CHAR_QUESTION[]             {"?"};
+const gchar    CtConst::CHAR_COMMA[]                {","};
+const gchar    CtConst::CHAR_COLON[]                {":"};
+const gchar    CtConst::CHAR_SEMICOLON[]            {";"};
+const gchar    CtConst::CHAR_USCORE[]               {"_"};
+const gchar    CtConst::CHAR_EQUAL[]                {"="};
+const gchar    CtConst::CHAR_BR_OPEN[]              {"{"};
+const gchar    CtConst::CHAR_BR_CLOSE[]             {"}"};
+const gchar    CtConst::CHAR_CARET[]                {"^"};
+const gchar    CtConst::CHAR_PIPE[]                 {"|"};
+const gchar    CtConst::CHAR_AMPERSAND[]            {"&"};
 
 const std::set<const gchar*> CtConst::TEXT_SYNTAXES {
     RICH_TEXT_ID,

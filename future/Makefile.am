@@ -27,7 +27,7 @@ AM_CPPFLAGS = ${CHERRYTREE_CFLAGS} \
 	-Wno-deprecated \
 	-Wno-cpp
 
-AM_CXXFLAGS = -std=c++14
+AM_CXXFLAGS = -std=c++17
 
 bin_PROGRAMS = cherrytree
 

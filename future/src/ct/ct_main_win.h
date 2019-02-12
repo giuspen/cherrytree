@@ -45,6 +45,7 @@ public:
 
     void setupForSyntax(const std::string& syntaxHighlighting);
     void set_pixels_inside_wrap(int space_around_lines, int relative_wrapped_space);
+    void set_selection_at_offset_n_delta(int offset, int delta, Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>());
 
     static const double TEXT_SCROLL_MARGIN;
 protected:

@@ -57,7 +57,7 @@ CtTreeIter CtTreeIter::parent()
     return  CtTreeIter((*this)->parent(), _columns);
 }
 
-bool CtTreeIter::get_node_read_only()
+bool CtTreeIter::get_node_read_only() const
 {
     return (*this) && (*this)->get_value(_columns->colNodeRO);
 }
@@ -67,22 +67,34 @@ void CtTreeIter::set_node_read_only(bool val)
     (*this)->set_value(_columns->colNodeRO, val);
 }
 
-gint64 CtTreeIter::get_node_id()
+gint64 CtTreeIter::get_node_id() const
 {
     if (*this) return (*this)->get_value(_columns->colNodeUniqueId);
     return -1;
 }
 
-std::string CtTreeIter::get_node_name()
+std::string CtTreeIter::get_node_name() const
 {
     if (*this) return (*this)->get_value(_columns->colNodeName);
     return std::string();
 }
 
-std::string CtTreeIter::get_node_foreground()
+std::string CtTreeIter::get_node_foreground() const
 {
     if (*this) return (*this)->get_value(_columns->colForeground);
     return std::string();
+}
+
+std::time_t CtTreeIter::get_node_creating_time() const
+{
+    if (*this) return (*this)->get_value(_columns->colTsCreation);
+    return 0;
+}
+
+std::time_t CtTreeIter::get_node_modification_time() const
+{
+    if (*this) return (*this)->get_value(_columns->colTsLastSave);
+    return 0;
 }
 
 void CtTreeIter::set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf)

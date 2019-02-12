@@ -93,11 +93,13 @@ public:
 
     CtTreeIter  parent();
 
-    bool        get_node_read_only();
+    bool        get_node_read_only() const;
     void        set_node_read_only(bool val);
-    gint64      get_node_id();
-    std::string get_node_name();
-    std::string get_node_foreground();
+    gint64      get_node_id() const;
+    std::string get_node_name() const;
+    std::string get_node_foreground() const;
+    std::time_t get_node_creating_time() const;
+    std::time_t get_node_modification_time() const;
     void        set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf);
 };
 
