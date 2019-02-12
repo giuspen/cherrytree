@@ -3404,7 +3404,7 @@ iter_end, exclude_iter_sel_end=True)
         if not self.is_curr_node_not_read_only_or_error(): return
         text_view, text_buffer, syntax_highl, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
-        text_buffer.insert_at_cursor(cons.CHAR_NEWLINE+self.h_rule+cons.CHAR_NEWLINE)
+        text_buffer.insert_at_cursor(self.h_rule+cons.CHAR_NEWLINE)
 
     def dialog_nodeprop(self, title, name="", syntax_highl=cons.RICH_TEXT_ID, tags="", ro=False, c_icon_id=0, is_bold=False, fg=None):
         """Opens the Node Properties Dialog"""
