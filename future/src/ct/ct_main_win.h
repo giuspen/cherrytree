@@ -92,6 +92,7 @@ public:
     CtTreeStore&  get_tree_store();
     CtTreeView&   get_tree_view();
     CtTextView&   get_text_view();
+    CtMenu&       get_ct_menu();
 
 private:
     Gtk::EventBox& _initWindowHeader();

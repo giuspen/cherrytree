@@ -54,4 +54,49 @@ Gtk::TreeIter choose_node_dialog(Gtk::Window& parent, Gtk::TreeView& parentTreeV
 // Handle the Bookmarks List
 void bookmarks_handle_dialog(CtMainWin* ctMainWin);
 
+// Dialog to select a Date
+std::time_t date_select_dialog(Gtk::Window& parent, const std::string& title, const std::time_t& curr_time);
+
+class CtMatchDialogStore : public Gtk::TreeStore
+{
+public:
+    struct CtMatchModelColumns : public Gtk::TreeModel::ColumnRecord
+    {
+       Gtk::TreeModelColumn<gint64>         node_id;
+       Gtk::TreeModelColumn<Glib::ustring>  node_name;
+       Gtk::TreeModelColumn<Glib::ustring>  node_hier_name;
+       Gtk::TreeModelColumn<int>            start_offset;
+       Gtk::TreeModelColumn<int>            end_offset;
+       Gtk::TreeModelColumn<int>            line_num;
+       Gtk::TreeModelColumn<Glib::ustring>  line_content;
+       CtMatchModelColumns() { add(node_id); add(node_name); add(node_hier_name);
+                               add(start_offset); add(end_offset); add(line_num); add(line_content); }
+    } columns;
+
+    std::array<int, 2> dlg_size;
+    std::array<int, 2> dlg_pos;
+    Gtk::TreePath      saved_path;
+
+public:
+    static Glib::RefPtr<CtMatchDialogStore> create()
+    {
+        Glib::RefPtr<CtMatchDialogStore> model(new CtMatchDialogStore());
+        model->set_column_types(model->columns);
+        return model;
+    }
+    void add_row(gint64 node_id, const std::string& node_name, const std::string& node_hier_name,
+                 int start_offset, int end_offset, int line_num, const std::string& line_content)
+    {
+        auto row = *append();
+        row[columns.node_hier_name] = node_hier_name;
+        row[columns.node_id] = node_id;             row[columns.node_name] = node_name;
+        row[columns.start_offset] = start_offset;   row[columns.end_offset] = end_offset;
+        row[columns.line_num] = line_num;           row[columns.line_content] = line_content;
+
+    }
+};
+
+// the All Matches Dialog
+void match_dialog(const std::string& title, CtMainWin& ctMainWin, Glib::RefPtr<CtMatchDialogStore> model);
+
 } // namespace ct_dialogs

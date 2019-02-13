@@ -6,7 +6,7 @@ class CtMainWin;
 class CtActions
 {
 public:
-    void init(CtMainWin* mainWin, CtTreeStore* treeStore) { _ctMainWin = mainWin; _ctTreestore = treeStore; }
+    void init(CtMainWin* mainWin, CtTreeStore* treeStore) { _ctMainWin = mainWin; _ctTreestore = treeStore; _find_init(); }
 
 private:
     CtMainWin*   _ctMainWin;
@@ -49,6 +49,7 @@ public:
 
 private:
     // helpers for find actions
+    void                _find_init();
     bool                _parse_node_content_iter(const CtTreeIter& tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, const std::string& pattern,
                                                 bool forward, bool first_fromsel, bool all_matches, bool first_node);
     Gtk::TextIter       _get_inner_start_iter(Glib::RefPtr<Gtk::TextBuffer> text_buffer, bool forward, const gint64& node_id);

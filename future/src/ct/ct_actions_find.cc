@@ -7,6 +7,7 @@
 #include "ct_app.h"
 #include "ct_dialogs.h"
 #include "ct_doc_rw.h"
+#include "src/fmt/fmt.h"
 
 std::string dialog_search(Gtk::Window& parent, const std::string& title, bool replace_on, bool multiple_nodes, bool pattern_required);
 
@@ -20,33 +21,47 @@ struct SearchOptions {
     time_search ts_cre_before;
     time_search ts_mod_after;
     time_search ts_mod_before;
-    std::string search_replace_dict_find;
-    std::string search_replace_dict_replace;
-    bool        search_replace_dict_fw;
-    int         search_replace_dict_a_ff_fa;
-    bool        search_replace_dict_match_case;
-    bool        search_replace_dict_reg_exp;
-    bool        search_replace_dict_whole_word;
-    bool        search_replace_dict_start_word;
-    bool        search_replace_dict_idialog;
+    std::string search_replace_dict_find        = "";
+    std::string search_replace_dict_replace     = "";
+    bool        search_replace_dict_match_case  = false;
+    bool        search_replace_dict_reg_exp     = false;
+    bool        search_replace_dict_whole_word  = false;
+    bool        search_replace_dict_start_word  = false;
+    bool        search_replace_dict_fw          = true;
+    int         search_replace_dict_a_ff_fa     = 0;
+    bool        search_replace_dict_idialog     = true;
 } s_options;
 
 struct SearchState {
-    bool        from_find_iterated;
-    bool        replace_active;
-    std::string curr_find_where;
-    std::string curr_find_pattern;
-    bool        from_find_back;
-    int         matches_num;
-    bool        user_active; //?
-    bool        newline_trick;
-    bool        all_matches_first_in_node;
-    bool        replace_subsequent;
+    bool         replace_active     = false;
+    bool         replace_subsequent = false;
+    std::string  curr_find_where    = "";
+    std::string  curr_find_pattern  = "";
+    bool         from_find_iterated = false;
+    bool         from_find_back     = false;
+    bool         newline_trick      = false;
+    Gtk::Dialog* iteratedfinddialog = nullptr;
+    int          matches_num;
+    bool         user_active; //?
+    bool         all_matches_first_in_node = false;
 
-    int         latest_node_offset;
-    gint64      latest_node_offset_node_id;
+    int          latest_node_offset = -1;
+    gint64       latest_node_offset_node_id = -1;
+
+    Glib::RefPtr<ct_dialogs::CtMatchDialogStore> match_store;
 
 } s_state;
+
+void CtActions::_find_init()
+{
+    s_state.match_store = ct_dialogs::CtMatchDialogStore::create();
+    std::time_t curr_time = std::time(nullptr);
+    std::time_t yesterday_time = curr_time - 86400; //24*60*60
+    s_options.ts_cre_after  = {yesterday_time, false};
+    s_options.ts_mod_after  = {yesterday_time, false};
+    s_options.ts_cre_before = {curr_time, false};
+    s_options.ts_mod_before = {curr_time, false};
+}
 
 //"""Search for a pattern in the selected Node"""
 void CtActions::find_in_selected_node()
@@ -88,9 +103,8 @@ void CtActions::find_in_selected_node()
     bool user_active_restore = s_state.user_active;
     s_state.user_active = false;
 
-    /*
     if (all_matches) {
-        find.allmatches_liststore.clear();
+        s_state.match_store->clear();
         s_state.all_matches_first_in_node = true;
         while (_parse_node_content_iter(_ctMainWin->curr_tree_iter(), curr_buffer, pattern, forward, first_fromsel, all_matches, true))
             s_state.matches_num += 1;
@@ -98,14 +112,15 @@ void CtActions::find_in_selected_node()
     else if (_parse_node_content_iter(_ctMainWin->curr_tree_iter(), curr_buffer, pattern, forward, first_fromsel, all_matches, true))
         s_state.matches_num = 1;
     if (s_state.matches_num == 0)
-        ct_dialogs::info_dialog(_("The pattern '%s' was not found") % pattern, *_ctMainWin);
+        ct_dialogs::info_dialog(fmt::format(_("The pattern '%s' was not found"), pattern), *_ctMainWin);
     else if (all_matches) {
-        self.allmatches_title = str(self.matches_num) + cons.CHAR_SPACE + _("Matches")
-        self.allmatchesdialog_show();
+        std::string title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
+        ct_dialogs::match_dialog(title, *_ctMainWin, s_state.match_store);
     }
-    else if(s_options.search_replace_dict_idialog)
-        self.iterated_find_dialog();
-    */
+    else if (s_options.search_replace_dict_idialog) {
+        // todo:
+        //self.iterated_find_dialog();
+    }
     s_state.user_active = user_active_restore;
 }
 
@@ -164,60 +179,7 @@ void CtActions::find_allmatchesdialog_restore()
 
 }
 
-//"""Dialog to select a Date"""
-std::time_t dialog_date_select(Gtk::Window& parent, const std::string& title, const std::time_t& curr_time)
-{
-    Gtk::Dialog dialog(title, parent, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
-    dialog.set_transient_for(parent);
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
-    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
-    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
-
-    std::tm struct_time = *std::localtime(&curr_time);
-
-    auto content_area = dialog.get_content_area();
-    auto calendar = Gtk::Calendar();
-    calendar.select_month(struct_time.tm_mon-1, struct_time.tm_year); // month 0-11
-    calendar.select_day(struct_time.tm_mday); // day 1-31
-    auto adj_h = Gtk::Adjustment::create(struct_time.tm_hour, 0, 23, 1);
-    auto spinbutton_h = Gtk::SpinButton(adj_h);
-    spinbutton_h.set_value(struct_time.tm_hour);
-    auto adj_m = Gtk::Adjustment::create(struct_time.tm_min, 0, 59, 1);
-    auto spinbutton_m = Gtk::SpinButton(adj_m);
-    spinbutton_m.set_value(struct_time.tm_min);
-    auto hbox = Gtk::HBox();
-    hbox.pack_start(spinbutton_h);
-    hbox.pack_start(spinbutton_m);
-    content_area->pack_start(calendar);
-    content_area->pack_start(hbox);
-
-    dialog.signal_button_press_event().connect([&dialog](GdkEventButton* event)->bool {
-        if (event->button == 1 && event->type == GDK_2BUTTON_PRESS)
-            return false;
-        dialog.response(Gtk::RESPONSE_ACCEPT);
-        return true;
-    });
-    content_area->show_all();
-
-    if (dialog.run() != Gtk::RESPONSE_ACCEPT)
-        return 0;
-
-    guint new_year, new_month, new_day;
-    calendar.get_date(new_year, new_month, new_day);
-
-    std::tm tmtime = {0};
-    tmtime.tm_year = new_year;
-    tmtime.tm_mon = new_month + 1;
-    tmtime.tm_mday = new_day;
-    tmtime.tm_hour = spinbutton_h.get_value_as_int();
-    tmtime.tm_min = spinbutton_m.get_value_as_int();
-
-    std::time_t new_time = std::mktime(&tmtime);
-    return new_time;
-}
-
-//    """Opens the Search Dialog"""
+// Opens the Search Dialog
 std::string dialog_search(Gtk::Window& parent, const std::string& title, bool replace_on, bool multiple_nodes, bool pattern_required)
 {
     Gtk::Dialog dialog(title, parent, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
@@ -338,7 +300,7 @@ std::string dialog_search(Gtk::Window& parent, const std::string& title, bool re
         ts_frame->add(*ts_node_vbox);
 
         auto on_ts_node_button_clicked = [&dialog, &ts_format](Gtk::Button* button, const char* title, std::time_t& ts_value) {
-            std::time_t new_time = dialog_date_select(dialog, title, ts_value);
+            std::time_t new_time = ct_dialogs::date_select_dialog(dialog, title, ts_value);
             if (new_time == 0) return;
              ts_value = new_time;
              button->set_label(str::time_format(ts_format, new_time));
@@ -410,7 +372,7 @@ std::string dialog_search(Gtk::Window& parent, const std::string& title, bool re
     return s_options.search_replace_dict_find;
 }
 
-//"""Returns True if pattern was find, False otherwise"""
+// Returns True if pattern was find, False otherwise
 bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, const std::string& pattern,
                              bool forward, bool first_fromsel, bool all_matches, bool first_node)
 {
@@ -449,7 +411,7 @@ bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter, Glib::RefP
     return pattern_found;
 }
 
-//"""Get start_iter when not at beginning or end"""
+// Get start_iter when not at beginning or end
 Gtk::TextIter CtActions::_get_inner_start_iter(Glib::RefPtr<Gtk::TextBuffer> text_buffer, bool forward, const gint64& node_id)
 {
     Gtk::TextIter start_iter, min_iter, max_iter;
@@ -565,8 +527,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer
         std::string line_content = obj_match_offsets[0] != -1 ? obj_content : _get_line_content(text_buffer, iter_insert);
         int line_num = text_buffer->get_iter_at_offset(start_offset).get_line();
         if (!s_state.newline_trick) line_num += 1;
-        // todo
-        //self.allmatches_liststore.append([node_id, start_offset, end_offset, node_name, line_content, line_num, cgi.escape(node_hier_name)]);
+        s_state.match_store->add_row(node_id, node_name, str::xml_escape(node_hier_name), start_offset, end_offset, line_num, line_content);
         // #print line_num, self.matches_num
     } else {
         _ctMainWin->get_text_view().scroll_to(mark_insert, CtTextView::TEXT_SCROLL_MARGIN);

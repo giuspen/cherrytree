@@ -481,7 +481,7 @@ std::string CtTreeStore::get_node_name_from_node_id(const gint64& node_id)
     return _nodes_names_dict.at(node_id);
 }
 
-Gtk::TreeIter CtTreeStore::get_tree_iter_from_node_id(const gint64& node_id)
+CtTreeIter CtTreeStore::get_tree_iter_from_node_id(const gint64& node_id)
 {
     Gtk::TreeIter find_iter;
     _rTreeStore->foreach_iter([&node_id, &find_iter, this](const Gtk::TreeIter& iter) {
@@ -489,7 +489,7 @@ Gtk::TreeIter CtTreeStore::get_tree_iter_from_node_id(const gint64& node_id)
         find_iter = iter;
         return true;
     });
-    return find_iter;
+    return to_ct_tree_iter(find_iter);
 }
 
 const std::list<gint64>& CtTreeStore::get_bookmarks()

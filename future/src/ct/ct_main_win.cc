@@ -400,6 +400,11 @@ CtTextView& CtMainWin::get_text_view()
     return _ctTextview;
 }
 
+CtMenu& CtMainWin::get_ct_menu()
+{
+    return *_ctMenu;
+}
+
 
 CtDialogTextEntry::CtDialogTextEntry(const char* title, const bool forPassword, Gtk::Window* pParent)
 {

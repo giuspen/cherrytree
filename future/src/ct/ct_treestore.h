@@ -137,7 +137,7 @@ public:
     const std::set<std::string>& get_used_tags() { return _usedTags; }
     bool                         is_node_bookmarked(const gint64& node_id);
     std::string                  get_node_name_from_node_id(const gint64& node_id);
-    Gtk::TreeIter                get_tree_iter_from_node_id(const gint64& node_id);
+    CtTreeIter                   get_tree_iter_from_node_id(const gint64& node_id);
     const std::list<gint64>&     get_bookmarks();
     void                         set_bookmarks(const std::list<gint64>& bookmarks_order);
 

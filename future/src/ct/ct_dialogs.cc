@@ -6,6 +6,7 @@
 #include <gtkmm/colorchooserdialog.h>
 #include "ct_app.h"
 #include "ct_treestore.h"
+#include "src/fmt/fmt.h"
 
 using namespace ct_dialogs;
 
@@ -339,4 +340,125 @@ void ct_dialogs::bookmarks_handle_dialog(CtMainWin* ctMainWin)
     ctMainWin->set_bookmarks_menu_items();
     //dad.ctdb_handler.pending_edit_db_bookmarks()
     ctMainWin->update_window_save_needed("book");
+}
+
+// Dialog to select a Date
+std::time_t ct_dialogs::date_select_dialog(Gtk::Window& parent, const std::string& title, const std::time_t& curr_time)
+{
+    Gtk::Dialog dialog(title, parent, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    dialog.set_transient_for(parent);
+    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
+    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
+    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+
+    std::tm struct_time = *std::localtime(&curr_time);
+
+    auto content_area = dialog.get_content_area();
+    auto calendar = Gtk::Calendar();
+    calendar.select_month(struct_time.tm_mon-1, struct_time.tm_year); // month 0-11
+    calendar.select_day(struct_time.tm_mday); // day 1-31
+    auto adj_h = Gtk::Adjustment::create(struct_time.tm_hour, 0, 23, 1);
+    auto spinbutton_h = Gtk::SpinButton(adj_h);
+    spinbutton_h.set_value(struct_time.tm_hour);
+    auto adj_m = Gtk::Adjustment::create(struct_time.tm_min, 0, 59, 1);
+    auto spinbutton_m = Gtk::SpinButton(adj_m);
+    spinbutton_m.set_value(struct_time.tm_min);
+    auto hbox = Gtk::HBox();
+    hbox.pack_start(spinbutton_h);
+    hbox.pack_start(spinbutton_m);
+    content_area->pack_start(calendar);
+    content_area->pack_start(hbox);
+
+    dialog.signal_button_press_event().connect([&dialog](GdkEventButton* event)->bool {
+        if (event->button == 1 && event->type == GDK_2BUTTON_PRESS)
+            return false;
+        dialog.response(Gtk::RESPONSE_ACCEPT);
+        return true;
+    });
+    content_area->show_all();
+
+    if (dialog.run() != Gtk::RESPONSE_ACCEPT)
+        return 0;
+
+    guint new_year, new_month, new_day;
+    calendar.get_date(new_year, new_month, new_day);
+
+    std::tm tmtime = {0};
+    tmtime.tm_year = new_year;
+    tmtime.tm_mon = new_month + 1;
+    tmtime.tm_mday = new_day;
+    tmtime.tm_hour = spinbutton_h.get_value_as_int();
+    tmtime.tm_min = spinbutton_m.get_value_as_int();
+
+    std::time_t new_time = std::mktime(&tmtime);
+    return new_time;
+}
+
+void ct_dialogs::match_dialog(const std::string& title, CtMainWin& ctMainWin, Glib::RefPtr<CtMatchDialogStore> model)
+{
+    Gtk::Dialog* allmatchesdialog = Gtk::manage(new Gtk::Dialog(title, ctMainWin, Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT));
+    allmatchesdialog->set_transient_for(ctMainWin);
+    if (model->dlg_size[0] > 0) {
+        allmatchesdialog->set_default_size(model->dlg_size[0], model->dlg_size[1]);
+        allmatchesdialog->move(model->dlg_pos[0], model->dlg_pos[1]);
+    } else {
+        allmatchesdialog->set_default_size(700, 350);
+        allmatchesdialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
+    }
+    CtAction* action = ctMainWin.get_ct_menu().find_action("toggle_show_allmatches_dlg");
+    auto button_hide = allmatchesdialog->add_button(fmt::format(_("Hide (Restore with '%s')"), action->get_shortcut()), Gtk::RESPONSE_CLOSE);
+    button_hide->set_image_from_icon_name(Gtk::Stock::CLOSE.id, Gtk::ICON_SIZE_BUTTON);
+    auto treeview = Gtk::manage(new Gtk::TreeView(model));
+    treeview->append_column(_("Node Name"), model->columns.node_name);
+    treeview->append_column(_("Line"), model->columns.line_num);
+    treeview->append_column(_("Line Content"), model->columns.line_content);
+    treeview->append_column("", model->columns.node_hier_name);
+    treeview->get_column(3)->property_visible() = false;
+    treeview->set_tooltip_column(3);
+    auto scrolledwindow_allmatches = Gtk::manage(new Gtk::ScrolledWindow());
+    scrolledwindow_allmatches->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+    scrolledwindow_allmatches->add(*treeview);
+    auto content_area = allmatchesdialog->get_content_area();
+    content_area->pack_start(*scrolledwindow_allmatches);
+
+    if (model->saved_path) {
+        treeview->set_cursor(model->saved_path);
+        treeview->scroll_to_row(model->saved_path, 0.5);
+    }
+
+    treeview->signal_event_after().connect([&treeview, &model, &ctMainWin](GdkEvent* event) {
+        if (event->type != GDK_BUTTON_PRESS && event->type != GDK_KEY_PRESS) return;
+        Gtk::TreeIter list_iter = treeview->get_selection()->get_selected();
+        if (!list_iter) return;
+        gint64 node_id = list_iter->get_value(model->columns.node_id);
+        CtTreeIter tree_iter = ctMainWin.get_tree_store().get_tree_iter_from_node_id(node_id);
+        if (!tree_iter) {
+            ct_dialogs::error_dialog(fmt::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), node_id), ctMainWin);
+            model->erase(list_iter);
+            return;
+        }
+        ctMainWin.get_tree_view().set_cursor_safe(tree_iter);
+        auto curr_buffer = ctMainWin.get_text_view().get_buffer();
+        curr_buffer->move_mark(curr_buffer->get_insert(),
+                               curr_buffer->get_iter_at_offset(list_iter->get_value(model->columns.start_offset)));
+        curr_buffer->move_mark(curr_buffer->get_selection_bound(),
+                               curr_buffer->get_iter_at_offset(list_iter->get_value(model->columns.end_offset)));
+        ctMainWin.get_text_view().scroll_to(curr_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
+    });
+    auto save_data = [&treeview, &allmatchesdialog, &model](GdkEventAny*) -> bool{
+        allmatchesdialog->get_position(model->dlg_pos[0], model->dlg_pos[1]);
+        model->dlg_size[0] = allmatchesdialog->get_allocation().get_width();
+        model->dlg_size[1] = allmatchesdialog->get_allocation().get_height();
+        auto list_iter = treeview->get_selection()->get_selected();
+        model->saved_path = treeview->get_model()->get_path(list_iter);
+        return false;
+    };
+    treeview->signal_delete_event().connect(save_data);
+    button_hide->signal_clicked().connect([&allmatchesdialog, &save_data](){
+       save_data(nullptr);
+       allmatchesdialog->close();
+    });
+
+    allmatchesdialog->show_all();
 }
