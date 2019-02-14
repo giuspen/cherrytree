@@ -23,6 +23,7 @@
 
 #include <gtkmm.h>
 #include <gtksourceviewmm.h>
+#include <gtkmm/statusbar.h>
 #include "ct_treestore.h"
 #include "ct_misc_utils.h"
 #include "ct_menu.h"
@@ -65,6 +66,22 @@ protected:
     Gtk::Entry _entry;
 };
 
+struct CtStatusBar
+{
+    Gtk::Statusbar   statusBar;
+    guint            statusId;
+    Gtk::ProgressBar progressBar;
+    Gtk::Button      stopButton;
+    Gtk::Frame       frame;
+    Gtk::HBox        hbox;
+
+    void set_progress_stop(bool stop) { _progress_stop = stop; }
+    bool is_progress_stop()           { return _progress_stop; }
+
+private:
+    bool _progress_stop;
+};
+
 struct CtWinHeader
 {
     Gtk::HBox        headerBox;
@@ -88,13 +105,15 @@ public:
     void update_window_save_needed(const std::string& update_type = "",
                                    bool new_machine_state = false, void* give_tree_iter = nullptr) { /* todo: */ }
 
-    CtTreeIter    curr_tree_iter();
-    CtTreeStore&  get_tree_store();
-    CtTreeView&   get_tree_view();
-    CtTextView&   get_text_view();
-    CtMenu&       get_ct_menu();
+    CtTreeIter    curr_tree_iter()  { return _ctTreestore.to_ct_tree_iter(_ctTreeview.get_selection()->get_selected()); }
+    CtTreeStore&  get_tree_store()  { return _ctTreestore; }
+    CtTreeView&   get_tree_view()   { return _ctTreeview; }
+    CtTextView&   get_text_view()   { return _ctTextview; }
+    CtMenu&       get_ct_menu()     { return *_ctMenu; }
+    CtStatusBar&  get_status_bar()  { return _ctStatusBar; }
 
 private:
+    Gtk::HBox&    _initStatusBar();
     Gtk::EventBox& _initWindowHeader();
 
 public:
@@ -121,9 +140,10 @@ protected:
     Gtk::HPaned         _hPaned;
     Gtk::MenuBar*       _pMenu;
     CtMenu*             _ctMenu;
+    CtStatusBar         _ctStatusBar;
+    CtWinHeader         _ctWinHeader;
     Gtk::MenuItem*      _pBookmarksSubmenu;
     Gtk::Menu*          _pNodePopup;
-    CtWinHeader         _windowHeader;
     Gtk::ScrolledWindow _scrolledwindowTree;
     Gtk::ScrolledWindow _scrolledwindowText;
     CtTreeStore         _ctTreestore;

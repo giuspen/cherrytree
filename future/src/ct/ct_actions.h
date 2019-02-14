@@ -51,6 +51,7 @@ private:
     // helpers for find actions
     void                _find_init();
     void                _find_in_all_nodes(bool for_current_node);
+    std::string         _dialog_search(const std::string& title, bool replace_on, bool multiple_nodes, bool pattern_required);
     bool                _parse_given_node_content(CtTreeIter node_iter, Glib::ustring pattern, bool forward, bool first_fromsel, bool all_matches);
     bool                _parse_node_content_iter(const CtTreeIter& tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, const std::string& pattern,
                                                 bool forward, bool first_fromsel, bool all_matches, bool first_node);
@@ -63,6 +64,7 @@ private:
                                                          int start_offset, int end_offset, bool forward, std::string& obj_content);
     int                 _get_num_objs_before_offset(Glib::RefPtr<Gtk::TextBuffer> text_buffer, int max_offset);
     void                _iterated_find_dialog();
+    void                _update_all_matches_progress();
 
 public:
     // find actions

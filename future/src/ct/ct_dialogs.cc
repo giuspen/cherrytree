@@ -397,7 +397,8 @@ std::time_t ct_dialogs::date_select_dialog(Gtk::Window& parent, const std::strin
 
 void ct_dialogs::match_dialog(const std::string& title, CtMainWin& ctMainWin, Glib::RefPtr<CtMatchDialogStore> model)
 {
-    Gtk::Dialog* allmatchesdialog = Gtk::manage(new Gtk::Dialog(title, ctMainWin, Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT));
+    /* will be delete on hide event */
+    Gtk::Dialog* allmatchesdialog = new Gtk::Dialog(title, ctMainWin, Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
     allmatchesdialog->set_transient_for(ctMainWin);
     if (model->dlg_size[0] > 0) {
         allmatchesdialog->set_default_size(model->dlg_size[0], model->dlg_size[1]);
@@ -446,18 +447,16 @@ void ct_dialogs::match_dialog(const std::string& title, CtMainWin& ctMainWin, Gl
                                curr_buffer->get_iter_at_offset(list_iter->get_value(model->columns.end_offset)));
         ctMainWin.get_text_view().scroll_to(curr_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
     });
-    auto save_data = [treeview, allmatchesdialog, model](GdkEventAny*) -> bool{
+    button_hide->signal_clicked().connect([allmatchesdialog](){
+        allmatchesdialog->hide();
+    });
+    allmatchesdialog->signal_hide().connect([allmatchesdialog, treeview, model]() {
         allmatchesdialog->get_position(model->dlg_pos[0], model->dlg_pos[1]);
-        model->dlg_size[0] = allmatchesdialog->get_allocation().get_width();
-        model->dlg_size[1] = allmatchesdialog->get_allocation().get_height();
+        allmatchesdialog->get_size(model->dlg_size[0], model->dlg_size[1]);
         auto list_iter = treeview->get_selection()->get_selected();
         model->saved_path = treeview->get_model()->get_path(list_iter);
-        return false;
-    };
-    treeview->signal_delete_event().connect(save_data);
-    button_hide->signal_clicked().connect([allmatchesdialog, save_data](){
-       save_data(nullptr);
-       allmatchesdialog->close();
+
+        delete allmatchesdialog;
     });
 
     allmatchesdialog->show_all();

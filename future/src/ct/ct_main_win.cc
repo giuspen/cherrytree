@@ -33,8 +33,7 @@ CtTreeView::~CtTreeView()
 
 void CtTreeView::set_cursor_safe(const Gtk::TreeIter& iter)
 {
-    auto parent = iter->parent();
-    if (parent) expand_row(get_model()->get_path(parent), false);
+    expand_to_path(get_model()->get_path(iter));
     set_cursor(get_model()->get_path(iter));
 }
 
@@ -152,6 +151,7 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow(), _ctMenu(pCtMen
     _vboxMain.pack_start(*_pMenu, false, false);
     _vboxMain.pack_start(*pToolbar, false, false);
     _vboxMain.pack_start(_hPaned);
+    _vboxMain.pack_start(_initStatusBar(), false, false);
     add(_vboxMain);
     _ctTreestore.viewAppendColumns(&_ctTreeview);
     _ctTreestore.viewConnect(&_ctTreeview);
@@ -174,32 +174,52 @@ void CtMainWin::configApply()
 {
     _hPaned.property_position() = CtApp::P_ctCfg->hpanedPos;
     set_size_request(CtApp::P_ctCfg->winRect[2], CtApp::P_ctCfg->winRect[3]);
+    _ctStatusBar.progressBar.hide();
+    _ctStatusBar.stopButton.hide();
+}
+
+Gtk::HBox& CtMainWin::_initStatusBar()
+{
+    _ctStatusBar.statusId = _ctStatusBar.statusBar.get_context_id("");
+    _ctStatusBar.frame.set_shadow_type(Gtk::SHADOW_NONE);
+    _ctStatusBar.frame.set_border_width(1);
+    _ctStatusBar.frame.add(_ctStatusBar.progressBar);
+    _ctStatusBar.stopButton.set_image_from_icon_name("gtk-stop", Gtk::ICON_SIZE_MENU);
+    _ctStatusBar.hbox.pack_start(_ctStatusBar.statusBar, true, true);
+    _ctStatusBar.hbox.pack_start(_ctStatusBar.frame, false, true);
+    _ctStatusBar.hbox.pack_start(_ctStatusBar.stopButton, false, true);
+    _ctStatusBar.stopButton.signal_clicked().connect([this](){
+        _ctStatusBar.set_progress_stop(true);
+        _ctStatusBar.stopButton.hide();
+    });
+    _ctStatusBar.set_progress_stop(false);
+    return _ctStatusBar.hbox;
 }
 
 Gtk::EventBox& CtMainWin::_initWindowHeader()
 {
-    _windowHeader.nameLabel.set_padding(10, 0);
-    _windowHeader.nameLabel.set_ellipsize(Pango::EllipsizeMode::ELLIPSIZE_MIDDLE);
-    _windowHeader.lockIcon.set_from_icon_name("locked", Gtk::ICON_SIZE_MENU);
-    _windowHeader.lockIcon.hide();
-    _windowHeader.bookmarkIcon.set_from_icon_name("pin", Gtk::ICON_SIZE_MENU);
-    _windowHeader.bookmarkIcon.hide();
-    _windowHeader.headerBox.pack_start(_windowHeader.buttonBox, false, false);
-    _windowHeader.headerBox.pack_start(_windowHeader.nameLabel, true, true);
-    _windowHeader.headerBox.pack_start(_windowHeader.lockIcon, false, false);
-    _windowHeader.headerBox.pack_start(_windowHeader.bookmarkIcon, false, false);
-    _windowHeader.eventBox.add(_windowHeader.headerBox);
-    return _windowHeader.eventBox;
+    _ctWinHeader.nameLabel.set_padding(10, 0);
+    _ctWinHeader.nameLabel.set_ellipsize(Pango::EllipsizeMode::ELLIPSIZE_MIDDLE);
+    _ctWinHeader.lockIcon.set_from_icon_name("locked", Gtk::ICON_SIZE_MENU);
+    _ctWinHeader.lockIcon.hide();
+    _ctWinHeader.bookmarkIcon.set_from_icon_name("pin", Gtk::ICON_SIZE_MENU);
+    _ctWinHeader.bookmarkIcon.hide();
+    _ctWinHeader.headerBox.pack_start(_ctWinHeader.buttonBox, false, false);
+    _ctWinHeader.headerBox.pack_start(_ctWinHeader.nameLabel, true, true);
+    _ctWinHeader.headerBox.pack_start(_ctWinHeader.lockIcon, false, false);
+    _ctWinHeader.headerBox.pack_start(_ctWinHeader.bookmarkIcon, false, false);
+    _ctWinHeader.eventBox.add(_ctWinHeader.headerBox);
+    return _ctWinHeader.eventBox;
 }
 
 void CtMainWin::window_header_update()
 {
     // based on update_node_name_header
     std::string name = curr_tree_iter().get_node_name();
-    _windowHeader.eventBox.override_background_color(Gdk::RGBA(CtApp::P_ctCfg->ttDefBg));
+    _ctWinHeader.eventBox.override_background_color(Gdk::RGBA(CtApp::P_ctCfg->ttDefBg));
     std::string foreground = curr_tree_iter().get_node_foreground();
     foreground = foreground.empty() ? CtApp::P_ctCfg->ttDefFg : foreground;
-    _windowHeader.nameLabel.set_markup(
+    _ctWinHeader.nameLabel.set_markup(
                 "<b><span foreground=\"" + foreground + "\" size=\"xx-large\">"
                 + str::xml_escape(name) + "</span></b>");
     window_header_update_last_visited();
@@ -207,12 +227,12 @@ void CtMainWin::window_header_update()
 
 void CtMainWin::window_header_update_lock_icon(bool show)
 {
-    show ? _windowHeader.lockIcon.show() : _windowHeader.lockIcon.hide();
+    show ? _ctWinHeader.lockIcon.show() : _ctWinHeader.lockIcon.hide();
 }
 
 void CtMainWin::window_header_update_bookmark_icon(bool show)
 {
-    show ? _windowHeader.bookmarkIcon.show() : _windowHeader.bookmarkIcon.hide();
+    show ? _ctWinHeader.bookmarkIcon.show() : _ctWinHeader.bookmarkIcon.hide();
 }
 
 
@@ -380,32 +400,6 @@ void CtMainWin::_titleUpdate(bool saveNeeded)
     title += CtConst::CT_VERSION;
     set_title(title);
 }
-
-CtTreeIter CtMainWin::curr_tree_iter()
-{
-    return CtTreeIter(_ctTreeview.get_selection()->get_selected(), &_ctTreestore.get_columns());
-}
-
-CtTreeStore& CtMainWin::get_tree_store()
-{
-    return _ctTreestore;
-}
-
-CtTreeView& CtMainWin::get_tree_view()
-{
-    return _ctTreeview;
-}
-
-CtTextView& CtMainWin::get_text_view()
-{
-    return _ctTextview;
-}
-
-CtMenu& CtMainWin::get_ct_menu()
-{
-    return *_ctMenu;
-}
-
 
 CtDialogTextEntry::CtDialogTextEntry(const char* title, const bool forPassword, Gtk::Window* pParent)
 {
