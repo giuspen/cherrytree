@@ -431,7 +431,7 @@ std::string CtActions::_dialog_search(const std::string& title, bool replace_on,
         ts_frame->set_shadow_type(Gtk::SHADOW_NONE);
         ts_frame->add(*ts_node_vbox);
 
-        auto on_ts_node_button_clicked = [&dialog, &ts_format](Gtk::Button* button, const char* title, std::time_t& ts_value) {
+        auto on_ts_node_button_clicked = [&dialog, ts_format](Gtk::Button* button, const char* title, std::time_t& ts_value) {
             std::time_t new_time = ct_dialogs::date_select_dialog(dialog, title, ts_value);
             if (new_time == 0) return;
              ts_value = new_time;
@@ -533,7 +533,7 @@ bool CtActions::_parse_given_node_content(CtTreeIter node_iter, Glib::ustring pa
     }
     // check for children
     if (!node_iter->children().empty()) {
-        Gtk::TreeIter child_iter = forward ? node_iter->children().begin() : node_iter->children().end();
+        Gtk::TreeIter child_iter = forward ? node_iter->children().begin() : --node_iter->children().end();
         while (child_iter && !_ctMainWin->get_status_bar().is_progress_stop()) {
             s_state.all_matches_first_in_node = true;
             while (_parse_given_node_content(_ctTreestore->to_ct_tree_iter(child_iter), pattern, forward, first_fromsel, all_matches)) {
