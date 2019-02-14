@@ -350,6 +350,17 @@ std::string dialog_search(Gtk::Window& parent, const std::string& title, bool re
     content_area->show_all();
     search_entry.grab_focus();
 
+    auto press_enter = [&dialog, &button_ok](GdkEventKey* key){
+        if (key->keyval == GDK_KEY_Return)
+            if (button_ok && button_ok->get_sensitive()) {
+                dialog.response(Gtk::RESPONSE_ACCEPT);
+                return true;
+            }
+        return false;
+    };
+    dialog.signal_key_press_event().connect(press_enter);
+    search_entry.signal_key_press_event().connect(press_enter, false);
+
     if (dialog.run() != Gtk::RESPONSE_ACCEPT)
         return "";
 
@@ -463,6 +474,10 @@ bool CtActions::_is_node_within_time_filter(const CtTreeIter& node_iter)
 bool CtActions::_find_pattern(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, std::string pattern,
                   Gtk::TextIter start_iter, bool forward, bool all_matches)
 {
+    /* Gtk::TextBuffer uses symbols positions
+     * Glib::Regex uses byte positions
+     */
+
     Glib::ustring text = text_buffer->get_text();
     if (!s_options.search_replace_dict_reg_exp) // NOT REGULAR EXPRESSION
     {
@@ -482,17 +497,22 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer
     std::array<int, 2> match_offsets = {-1, -1};
     if (forward) {
         Glib::MatchInfo match;
-        if (re_pattern->match(pattern, start_offset, match))
+        if (re_pattern->match(text, str::symb_pos_to_byte_pos(text, start_offset), match))
             if (match.matches())
                 match.fetch_pos(0, match_offsets[0], match_offsets[1]);
     } else {
         Glib::MatchInfo match;
-        re_pattern->match(pattern, start_offset /*as len*/, 0 /*as offset*/, match);
+        re_pattern->match(text, str::symb_pos_to_byte_pos(text, start_offset) /*as len*/, 0 /*as start position*/, match);
         while (match.matches()) {
             match.fetch_pos(0, match_offsets[0], match_offsets[1]);
             match.next();
         }
     }
+    if (match_offsets[0] != -1) {
+        match_offsets[0] = str::byte_pos_to_symb_pos(text, match_offsets[0]);
+        match_offsets[1] = str::byte_pos_to_symb_pos(text, match_offsets[1]);
+    }
+
     std::array<int,2> obj_match_offsets = {-1, -1};
     std::string obj_content;
     if (!s_state.replace_active) {

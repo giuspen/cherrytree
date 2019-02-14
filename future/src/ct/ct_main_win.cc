@@ -99,7 +99,8 @@ void CtTextView::set_pixels_inside_wrap(int space_around_lines, int relative_wra
 void CtTextView::set_selection_at_offset_n_delta(int offset, int delta, Glib::RefPtr<Gtk::TextBuffer> text_buffer /*=Glib::RefPtr<Gtk::TextBuffer>()*/)
 {
     text_buffer = text_buffer ? text_buffer : get_buffer();
-    if (Gtk::TextIter target = text_buffer->get_iter_at_offset(offset)) {
+    Gtk::TextIter target = text_buffer->get_iter_at_offset(offset);
+    if (target) {
         text_buffer->place_cursor(target);
         if (!target.forward_chars(delta)) {
             // #print "? bad offset=%s, delta=%s on node %s" % (offset, delta, self.treestore[self.curr_tree_iter][1])

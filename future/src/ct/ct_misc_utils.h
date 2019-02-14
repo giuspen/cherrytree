@@ -123,6 +123,9 @@ std::string re_escape(const std::string& text);
 
 std::string time_format(const std::string& format, const std::time_t& time);
 
+int symb_pos_to_byte_pos(const Glib::ustring& text, int symb_pos);
+int byte_pos_to_symb_pos(const Glib::ustring& text, int byte_pos);
+
 template<class String>
 String replace(String& subjectStr, const gchar* searchStr, const gchar* replaceStr)
 {

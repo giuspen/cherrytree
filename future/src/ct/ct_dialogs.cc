@@ -409,7 +409,7 @@ void ct_dialogs::match_dialog(const std::string& title, CtMainWin& ctMainWin, Gl
     CtAction* action = ctMainWin.get_ct_menu().find_action("toggle_show_allmatches_dlg");
     auto button_hide = allmatchesdialog->add_button(fmt::format(_("Hide (Restore with '%s')"), action->get_shortcut()), Gtk::RESPONSE_CLOSE);
     button_hide->set_image_from_icon_name(Gtk::Stock::CLOSE.id, Gtk::ICON_SIZE_BUTTON);
-    auto treeview = Gtk::manage(new Gtk::TreeView(model));
+    Gtk::TreeView* treeview = Gtk::manage(new Gtk::TreeView(model));
     treeview->append_column(_("Node Name"), model->columns.node_name);
     treeview->append_column(_("Line"), model->columns.line_num);
     treeview->append_column(_("Line Content"), model->columns.line_content);
@@ -427,7 +427,7 @@ void ct_dialogs::match_dialog(const std::string& title, CtMainWin& ctMainWin, Gl
         treeview->scroll_to_row(model->saved_path, 0.5);
     }
 
-    treeview->signal_event_after().connect([&treeview, &model, &ctMainWin](GdkEvent* event) {
+    treeview->signal_event_after().connect([treeview, model, &ctMainWin](GdkEvent* event) {
         if (event->type != GDK_BUTTON_PRESS && event->type != GDK_KEY_PRESS) return;
         Gtk::TreeIter list_iter = treeview->get_selection()->get_selected();
         if (!list_iter) return;
@@ -446,7 +446,7 @@ void ct_dialogs::match_dialog(const std::string& title, CtMainWin& ctMainWin, Gl
                                curr_buffer->get_iter_at_offset(list_iter->get_value(model->columns.end_offset)));
         ctMainWin.get_text_view().scroll_to(curr_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
     });
-    auto save_data = [&treeview, &allmatchesdialog, &model](GdkEventAny*) -> bool{
+    auto save_data = [treeview, allmatchesdialog, model](GdkEventAny*) -> bool{
         allmatchesdialog->get_position(model->dlg_pos[0], model->dlg_pos[1]);
         model->dlg_size[0] = allmatchesdialog->get_allocation().get_width();
         model->dlg_size[1] = allmatchesdialog->get_allocation().get_height();
@@ -455,7 +455,7 @@ void ct_dialogs::match_dialog(const std::string& title, CtMainWin& ctMainWin, Gl
         return false;
     };
     treeview->signal_delete_event().connect(save_data);
-    button_hide->signal_clicked().connect([&allmatchesdialog, &save_data](){
+    button_hide->signal_clicked().connect([allmatchesdialog, save_data](){
        save_data(nullptr);
        allmatchesdialog->close();
     });

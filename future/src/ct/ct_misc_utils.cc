@@ -530,3 +530,14 @@ std::string str::time_format(const std::string& format, const std::time_t& time)
         return buffer;
     return "";
 }
+
+int str::symb_pos_to_byte_pos(const Glib::ustring& text, int symb_pos)
+{
+    gchar* pointer = g_utf8_offset_to_pointer(text.data(), symb_pos);
+    return (int)(pointer - text.data());
+}
+
+int str::byte_pos_to_symb_pos(const Glib::ustring& text, int byte_pos)
+{
+    return g_utf8_pointer_to_offset(text.data(), text.data() + byte_pos);
+}
