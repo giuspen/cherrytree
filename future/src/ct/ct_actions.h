@@ -60,6 +60,7 @@ private:
     std::array<int, 2>  _check_pattern_in_object_between(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Glib::RefPtr<Glib::Regex> pattern,
                                                          int start_offset, int end_offset, bool forward, std::string& obj_content);
     int                 _get_num_objs_before_offset(Glib::RefPtr<Gtk::TextBuffer> text_buffer, int max_offset);
+    void                _iterated_find_dialog();
 
 public:
     // find actions

@@ -40,13 +40,14 @@ struct SearchState {
     bool         from_find_iterated = false;
     bool         from_find_back     = false;
     bool         newline_trick      = false;
-    Gtk::Dialog* iteratedfinddialog = nullptr;
     int          matches_num;
     bool         user_active; //?
     bool         all_matches_first_in_node = false;
 
     int          latest_node_offset = -1;
     gint64       latest_node_offset_node_id = -1;
+
+    Gtk::Dialog* iteratedfinddialog = nullptr;
 
     Glib::RefPtr<ct_dialogs::CtMatchDialogStore> match_store;
 
@@ -118,8 +119,7 @@ void CtActions::find_in_selected_node()
         ct_dialogs::match_dialog(title, *_ctMainWin, s_state.match_store);
     }
     else if (s_options.search_replace_dict_idialog) {
-        // todo:
-        //self.iterated_find_dialog();
+        _iterated_find_dialog();
     }
     s_state.user_active = user_active_restore;
 }
@@ -621,7 +621,7 @@ int CtActions::_get_num_objs_before_offset(Glib::RefPtr<Gtk::TextBuffer> text_bu
     return num_objs;
 }
 
-// """Returns the Line Content Given the Text Iter"""
+// Returns the Line Content Given the Text Iter
 std::string CtActions::_get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter text_iter)
 {
     auto line_start = text_iter;
@@ -637,3 +637,56 @@ std::string CtActions::_get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buff
             break;
     return text_buffer->get_text(line_start, line_end);
 }
+
+// Iterated Find/Replace Dialog
+void CtActions::_iterated_find_dialog()
+{
+    if (!s_state.iteratedfinddialog)
+    {
+        auto dialog = Gtk::manage(new Gtk::Dialog(_("Iterate Latest Find/Replace"), *_ctMainWin, Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT));
+        auto button_close = dialog->add_button(_("Close"), 0);
+        auto button_find_bw = dialog->add_button(_("Find Previous"), 4);
+        auto button_find_fw = dialog->add_button(_("Find Next"), 1);
+        auto button_replace = dialog->add_button(_("Replace"), 2);
+        auto button_undo = dialog->add_button(_("Undo"), 3);
+        dialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
+        button_close->set_image_from_icon_name(Gtk::Stock::CLOSE.id, Gtk::ICON_SIZE_BUTTON);
+        button_find_bw->set_image_from_icon_name("find_back", Gtk::ICON_SIZE_BUTTON);
+        button_find_fw->set_image_from_icon_name("find_again", Gtk::ICON_SIZE_BUTTON);
+        button_replace->set_image_from_icon_name("find_replace", Gtk::ICON_SIZE_BUTTON);
+        button_undo->set_image_from_icon_name(Gtk::Stock::UNDO.id, Gtk::ICON_SIZE_BUTTON);
+
+        button_find_fw->grab_focus();
+        button_find_fw->grab_default();
+
+        button_close->signal_clicked().connect([dialog](){
+            dialog->hide();
+        });
+        button_find_fw->signal_clicked().connect([this, dialog](){
+            dialog->hide();
+            s_state.replace_active = false;
+            find_again();
+        });
+        button_find_bw->signal_clicked().connect([this, dialog](){
+            dialog->hide();
+            s_state.replace_active = false;
+            find_back();
+        });
+        button_replace->signal_clicked().connect([this, dialog](){
+           dialog->hide();
+           s_state.replace_active = true;
+           s_state.replace_subsequent = true;
+           find_again();
+           s_state.replace_subsequent = false;
+        });
+        button_undo->signal_clicked().connect([this](){
+           // todo:
+           // self.dad.requested_step_back()
+        });
+
+        s_state.iteratedfinddialog = dialog;
+    }
+    s_state.iteratedfinddialog->show();
+}
+
+
