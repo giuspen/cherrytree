@@ -207,14 +207,11 @@ void CtActions::node_toggle_read_only()
 
 void CtActions::node_date()
 {
-    std::string months[12] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-    std::string days[7] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
     time_t time = std::time(nullptr);
-    tm* tmTime = std::localtime(&time);
 
-    std::string year = std::to_string(tmTime->tm_year + 1900);
-    std::string month = months[tmTime->tm_mon];
-    std::string day = days[tmTime->tm_wday] + " " + std::to_string(tmTime->tm_mday);
+    std::string year = str::time_format("%Y", time);
+    std::string month = str::time_format("%B", time);
+    std::string day = str::time_format("%d %a", time);
 
     _node_child_exist_or_create(Gtk::TreeIter(), year);
     _node_child_exist_or_create(_ctMainWin->curr_tree_iter(), month);
