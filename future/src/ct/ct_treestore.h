@@ -101,6 +101,8 @@ public:
     std::time_t get_node_creating_time() const;
     std::time_t get_node_modification_time() const;
     void        set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf);
+
+    Glib::RefPtr<Gsv::Buffer> get_node_text_buffer() const;
 };
 
 class CtTextView;
@@ -148,6 +150,8 @@ public:
 public:
     Glib::RefPtr<Gtk::TreeStore>    get_store();
     Gtk::TreeIter                   get_iter_first();
+    Gtk::TreeIter                   get_tree_iter_last_sibling(const Gtk::TreeNodeChildren& children);
+    Gtk::TreeIter                   get_tree_iter_prev_sibling(Gtk::TreeIter tree_iter);
     Gtk::TreePath                   get_path(Gtk::TreeIter tree_iter);
     CtTreeIter                      to_ct_tree_iter(Gtk::TreeIter tree_iter);
 

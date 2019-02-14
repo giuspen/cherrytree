@@ -50,6 +50,8 @@ public:
 private:
     // helpers for find actions
     void                _find_init();
+    void                _find_in_all_nodes(bool for_current_node);
+    bool                _parse_given_node_content(CtTreeIter node_iter, Glib::ustring pattern, bool forward, bool first_fromsel, bool all_matches);
     bool                _parse_node_content_iter(const CtTreeIter& tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, const std::string& pattern,
                                                 bool forward, bool first_fromsel, bool all_matches, bool first_node);
     Gtk::TextIter       _get_inner_start_iter(Glib::RefPtr<Gtk::TextBuffer> text_buffer, bool forward, const gint64& node_id);
@@ -65,8 +67,8 @@ private:
 public:
     // find actions
     void find_in_selected_node();
-    void find_in_all_nodes();
-    void find_in_sel_node_and_subnodes();
+    void find_in_all_nodes()             { _find_in_all_nodes(false); }
+    void find_in_sel_node_and_subnodes() { _find_in_all_nodes(true); }
     void find_a_node();
     void find_again();
     void find_back();

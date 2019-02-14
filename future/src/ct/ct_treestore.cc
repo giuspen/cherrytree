@@ -102,6 +102,13 @@ void CtTreeIter::set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf)
     (*this)->set_value(_columns->rColPixbufAux, rPixbuf);
 }
 
+Glib::RefPtr<Gsv::Buffer> CtTreeIter::get_node_text_buffer() const
+{
+    if (*this) return (*this)->get_value(_columns->rColTextBuffer);
+    return Glib::RefPtr<Gsv::Buffer>();
+}
+
+
 
 CtTreeStore::CtTreeStore()
 {
@@ -547,6 +554,17 @@ Glib::RefPtr<Gtk::TreeStore> CtTreeStore::get_store()
 Gtk::TreeIter CtTreeStore::get_iter_first()
 {
     return _rTreeStore->get_iter("0");
+}
+
+Gtk::TreeIter CtTreeStore::get_tree_iter_last_sibling(const Gtk::TreeNodeChildren& children)
+{
+    if (children.empty()) return Gtk::TreeIter();
+    return children.end();
+}
+
+Gtk::TreeIter CtTreeStore::get_tree_iter_prev_sibling(Gtk::TreeIter tree_iter)
+{
+    return --tree_iter;
 }
 
 Gtk::TreePath CtTreeStore::get_path(Gtk::TreeIter tree_iter)
