@@ -97,6 +97,8 @@ public:
     void        set_node_read_only(bool val);
     gint64      get_node_id() const;
     std::string get_node_name() const;
+    void        set_node_name(const Glib::ustring& node_name);
+    std::string get_node_tags() const;
     std::string get_node_foreground() const;
     std::time_t get_node_creating_time() const;
     std::time_t get_node_modification_time() const;

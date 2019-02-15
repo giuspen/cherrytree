@@ -511,13 +511,10 @@ std::string str::xml_escape(const std::string& text)
     return buffer;
 }
 
-namespace  {
-    std::regex REGEX_SPEC_CHARS { R"([-\/\\^$*+?.()|[\]{}])" };
-}
 
 std::string str::re_escape(const std::string& text)
 {
-    return std::regex_replace(text, REGEX_SPEC_CHARS, R"(\$&)");
+    return Glib::Regex::escape_string(text);
 }
 
 std::string str::time_format(const std::string& format, const std::time_t& time)

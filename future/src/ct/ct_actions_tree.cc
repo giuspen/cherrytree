@@ -16,6 +16,15 @@ bool CtActions::_is_there_selected_node_or_error()
     return false;
 }
 
+bool CtActions::_is_tree_not_empty_or_error()
+{
+    if (!_ctTreestore->get_iter_first()) {
+        ct_dialogs::error_dialog(_("The Tree is Empty!"), *_ctMainWin);
+        return false;
+    }
+    return true;
+}
+
 void CtActions::_node_add(bool duplicate, bool add_child)
 {
     CtNodeData nodeData;

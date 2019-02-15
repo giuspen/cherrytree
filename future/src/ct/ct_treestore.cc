@@ -79,6 +79,17 @@ std::string CtTreeIter::get_node_name() const
     return std::string();
 }
 
+void CtTreeIter::set_node_name(const Glib::ustring& node_name)
+{
+    (*this)->set_value(_columns->colNodeName, node_name);
+}
+
+std::string CtTreeIter::get_node_tags() const
+{
+    if (*this) return (*this)->get_value(_columns->colNodeTags);
+    return std::string();
+}
+
 std::string CtTreeIter::get_node_foreground() const
 {
     if (*this) return (*this)->get_value(_columns->colForeground);

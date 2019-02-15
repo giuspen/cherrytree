@@ -267,7 +267,85 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
 
 void CtActions::find_a_node()
 {
+    if (!_is_tree_not_empty_or_error()) return;
+    Glib::ustring pattern;
+    if (!s_state.from_find_iterated) {
+        std::string title = s_state.replace_active ? _("Replace in Node Names...") : _("Search For a Node Name...");
+        pattern = _dialog_search(title, s_state.replace_active, true, false);
+        if (pattern.empty()) return;
+        s_state.curr_find_where = "a_node";
+        s_state.curr_find_pattern = pattern;
+    }
+    else
+        pattern = s_state.curr_find_pattern;
+    if (!s_options.search_replace_dict_reg_exp) {           // NOT REGULAR EXPRESSION
+        pattern = str::re_escape(pattern);      // backslashes all non alphanum chars => to not spoil re
+        if (s_options.search_replace_dict_whole_word)       // WHOLE WORD
+            pattern = "\\b" + pattern + "\\b";
+        else if (s_options.search_replace_dict_start_word)  // START WORD
+            pattern = "\\b" + pattern;
+    }
 
+    Glib::RefPtr<Glib::Regex> re_pattern;
+    if (s_options.search_replace_dict_match_case) // CASE SENSITIVE
+        re_pattern = Glib::Regex::create(pattern, Glib::RegexCompileFlags::REGEX_MULTILINE);
+    else
+        re_pattern = Glib::Regex::create(pattern, Glib::RegexCompileFlags::REGEX_MULTILINE | Glib::RegexCompileFlags::REGEX_CASELESS);
+    bool forward = s_options.search_replace_dict_fw;
+    if (s_state.from_find_back) {
+        forward = !forward;
+        s_state.from_find_back = false;
+    }
+    bool first_fromsel = s_options.search_replace_dict_a_ff_fa == 1;
+    bool all_matches = s_options.search_replace_dict_a_ff_fa == 0;
+    Gtk::TreeIter node_iter;
+    if (first_fromsel) {
+        node_iter = forward ? ++_ctMainWin->curr_tree_iter() : --_ctMainWin->curr_tree_iter();
+        Gtk::TreeIter top_node_iter = _ctMainWin->curr_tree_iter();
+        while (!node_iter) {
+            node_iter = top_node_iter;
+            node_iter = forward ? ++node_iter : --node_iter;
+            top_node_iter = top_node_iter->parent();
+            if (!top_node_iter) break;
+        }
+    }
+    else
+        node_iter = forward ? _ctTreestore->get_iter_first() : _ctTreestore->get_tree_iter_last_sibling(_ctTreestore->get_store()->children());;
+
+    s_state.matches_num = 0;
+    if (all_matches)
+        s_state.match_store->clear();
+    // searching start
+    while (node_iter) {
+        if (_parse_node_name(_ctTreestore->to_ct_tree_iter(node_iter), re_pattern, forward, all_matches)) {
+            s_state.matches_num += 1;
+            if (!all_matches) break;
+        }
+        Gtk::TreeIter last_top_node_iter = node_iter; //  we need this if we start from a node that is not in top level
+        node_iter = forward ? ++node_iter : --node_iter;
+        //  code that, in case we start from a node that is not top level, climbs towards the top
+        while (!node_iter) {
+            node_iter = last_top_node_iter->parent();
+            if (node_iter) {
+                last_top_node_iter = node_iter;
+                // we do not check the parent on purpose, only the uncles in the proper direction
+                node_iter = forward ? ++node_iter : --node_iter;
+            }
+            else
+                break;
+        }
+    }
+    // todo: self.dad.objects_buffer_refresh()
+    if (s_state.matches_num == 0)
+        ct_dialogs::info_dialog(str::format(_("The pattern '%s' was not found"), pattern.c_str()), *_ctMainWin);
+    else if (all_matches) {
+        std::string title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
+        ct_dialogs::match_dialog(title, *_ctMainWin, s_state.match_store);
+    }
+    else if (s_options.search_replace_dict_idialog)
+        _iterated_find_dialog();
+    if (s_state.matches_num && s_state.replace_active)
+        _ctMainWin->update_window_save_needed();
 }
 
 void CtActions::find_again()
@@ -295,9 +373,10 @@ void CtActions::replace_in_sel_node_and_subnodes()
 
 }
 
+// Search for a pattern between all the Node's Names
 void CtActions::replace_in_nodes_names()
 {
-
+    if (!_is_tree_not_empty_or_error()) return;
 }
 
 void CtActions::replace_again()
@@ -512,6 +591,55 @@ std::string CtActions::_dialog_search(const std::string& title, bool replace_on,
     s_options.ts_mod_before.on = multiple_nodes ? ts_node_modified_before_checkbutton->get_active() : false;
     s_options.search_replace_dict_idialog = iter_dialog_checkbutton.get_active();
     return s_options.search_replace_dict_find;
+}
+
+
+// Recursive function that searchs for the given pattern
+bool CtActions::_parse_node_name(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex> re_pattern, bool forward, bool all_matches)
+{
+    Glib::MatchInfo match;
+    if (_is_node_within_time_filter(node_iter)) {
+        Glib::ustring text_name = node_iter.get_node_name();
+        if (!re_pattern->match(text_name, match)) {
+            Glib::ustring text_tags = node_iter.get_node_tags();
+            re_pattern->match(text_tags, match);
+        }
+    }
+    if (match.matches()) {
+        if (all_matches) {
+            gint64 node_id = node_iter.get_node_id();
+            Glib::ustring node_name = node_iter.get_node_name();
+            Glib::ustring node_hier_name = CtMiscUtil::get_node_hierarchical_name(node_iter, " << ", false, false);
+            Glib::ustring line_content = _get_first_line_content(node_iter.get_node_text_buffer());
+            s_state.match_store->add_row(node_id, node_name, str::xml_escape(node_hier_name), 0, 0, 1, line_content);
+        }
+        if (s_state.replace_active && !node_iter.get_node_read_only()) {
+            std::string replacer_text = s_options.search_replace_dict_replace;
+            Glib::ustring text_name = node_iter.get_node_name();
+            str::replace(text_name, s_state.curr_find_pattern.c_str(), replacer_text.c_str());
+            node_iter.set_node_name(text_name);
+            // todo: self.dad.ctdb_handler.pending_edit_db_node_prop(self.dad.treestore[node_iter][3])
+        }
+        if (!all_matches) {
+            _ctMainWin->get_tree_view().set_cursor_safe(node_iter);
+            _ctMainWin->get_text_view().grab_focus();
+            return true;
+        }
+        else
+            s_state.matches_num += 1;
+    }
+
+    // check for children
+    if (!node_iter->children().empty()) {
+        Gtk::TreeIter child_iter = forward ? node_iter->children().begin() : --node_iter->children().end();
+        while (child_iter) {
+            if (_parse_node_name(_ctTreestore->to_ct_tree_iter(child_iter), re_pattern, forward, all_matches)
+                    && !all_matches)
+                return true;
+            child_iter = forward ? ++child_iter : --child_iter;
+        }
+    }
+    return false;
 }
 
 // Returns True if pattern was found, False otherwise
@@ -805,6 +933,20 @@ std::string CtActions::_get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buff
     return text_buffer->get_text(line_start, line_end);
 }
 
+// Returns the First Not Empty Line Content Given the Text Buffer
+std::string CtActions::_get_first_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer)
+{
+    Gtk::TextIter start_iter = text_buffer->get_iter_at_offset(0);
+    while (start_iter.get_char() == CtConst::CHAR_NEWLINE[0])
+        if (!start_iter.forward_char())
+            return "";
+    Gtk::TextIter end_iter = start_iter;
+    while (end_iter.get_char() != CtConst::CHAR_NEWLINE[0])
+        if (!end_iter.forward_char())
+            break;
+    return text_buffer->get_text(start_iter, end_iter);
+}
+
 // Iterated Find/Replace Dialog
 void CtActions::_iterated_find_dialog()
 {
@@ -858,6 +1000,7 @@ void CtActions::_iterated_find_dialog()
 
 void CtActions::_update_all_matches_progress()
 {
+    // todo: progress bar doesn't show the progress of the bar
     double frac = double(s_state.processed_nodes)/double(s_state.counted_nodes);
     _ctMainWin->get_status_bar().progressBar.set_fraction(frac);
     if (s_state.matches_num != s_state.latest_matches) {
@@ -865,3 +1008,4 @@ void CtActions::_update_all_matches_progress()
         _ctMainWin->get_status_bar().progressBar.set_text(std::to_string(s_state.matches_num));
     }
 }
+
