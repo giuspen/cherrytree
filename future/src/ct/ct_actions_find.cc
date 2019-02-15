@@ -882,8 +882,10 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer
     }
     if (s_state.replace_active) {
         if (_ctMainWin->curr_tree_iter().get_node_read_only()) return false;
-        std::string replacer_text = s_options.search_replace_dict_replace;
-        text_buffer->delete_mark(text_buffer->get_selection_bound());
+        Glib::ustring replacer_text = s_options.search_replace_dict_replace; /* should be Glib::ustring to count symbols */
+        Gtk::TextIter sel_start, sel_end;
+        text_buffer->get_selection_bounds(sel_start, sel_end);
+        text_buffer->erase(sel_start, sel_end);
         text_buffer->insert_at_cursor(replacer_text);
         if (!all_matches)
             _ctMainWin->get_text_view().set_selection_at_offset_n_delta(match_offsets[0] + num_objs, replacer_text.size());
