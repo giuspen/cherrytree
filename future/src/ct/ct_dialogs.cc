@@ -6,7 +6,6 @@
 #include <gtkmm/colorchooserdialog.h>
 #include "ct_app.h"
 #include "ct_treestore.h"
-#include "src/fmt/fmt.h"
 
 using namespace ct_dialogs;
 
@@ -408,7 +407,7 @@ void ct_dialogs::match_dialog(const std::string& title, CtMainWin& ctMainWin, Gl
         allmatchesdialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
     }
     CtAction* action = ctMainWin.get_ct_menu().find_action("toggle_show_allmatches_dlg");
-    auto button_hide = allmatchesdialog->add_button(fmt::format(_("Hide (Restore with '%s')"), action->get_shortcut()), Gtk::RESPONSE_CLOSE);
+    auto button_hide = allmatchesdialog->add_button(str::format(_("Hide (Restore with '%s')"), action->get_shortcut()), Gtk::RESPONSE_CLOSE);
     button_hide->set_image_from_icon_name(Gtk::Stock::CLOSE.id, Gtk::ICON_SIZE_BUTTON);
     Gtk::TreeView* treeview = Gtk::manage(new Gtk::TreeView(model));
     treeview->append_column(_("Node Name"), model->columns.node_name);
@@ -435,7 +434,7 @@ void ct_dialogs::match_dialog(const std::string& title, CtMainWin& ctMainWin, Gl
         gint64 node_id = list_iter->get_value(model->columns.node_id);
         CtTreeIter tree_iter = ctMainWin.get_tree_store().get_tree_iter_from_node_id(node_id);
         if (!tree_iter) {
-            ct_dialogs::error_dialog(fmt::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), node_id), ctMainWin);
+            ct_dialogs::error_dialog(str::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), node_id), ctMainWin);
             model->erase(list_iter);
             return;
         }

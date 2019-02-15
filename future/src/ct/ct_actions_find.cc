@@ -7,7 +7,6 @@
 #include "ct_app.h"
 #include "ct_dialogs.h"
 #include "ct_doc_rw.h"
-#include "src/fmt/fmt.h"
 
 
 struct SearchOptions {
@@ -118,7 +117,7 @@ void CtActions::find_in_selected_node()
     else if (_parse_node_content_iter(_ctMainWin->curr_tree_iter(), curr_buffer, pattern, forward, first_fromsel, all_matches, true))
         s_state.matches_num = 1;
     if (s_state.matches_num == 0)
-        ct_dialogs::info_dialog(fmt::format(_("The pattern '%s' was not found"), pattern), *_ctMainWin);
+        ct_dialogs::info_dialog(str::format(_("The pattern '%s' was not found"), pattern), *_ctMainWin);
     else if (all_matches) {
         std::string title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
         ct_dialogs::match_dialog(title, *_ctMainWin, s_state.match_store);
@@ -247,7 +246,7 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
         _ctMainWin->get_text_view().scroll_to(curr_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
     }
     if (!s_state.matches_num)
-        ct_dialogs::info_dialog(fmt::format(_("The pattern '%s' was not found"), std::string(pattern)), *_ctMainWin);
+        ct_dialogs::info_dialog(str::format(_("The pattern '%s' was not found"), std::string(pattern)), *_ctMainWin);
     else {
         if (all_matches) {
             std::string title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");

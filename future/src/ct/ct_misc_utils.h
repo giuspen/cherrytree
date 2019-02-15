@@ -26,6 +26,7 @@
 #include <gtkmm/treestore.h>
 #include <set>
 #include "ct_treestore.h"
+#include "src/fmt/fmt.h"
 
 enum class CtDocType : int {None=0, XML=1, SQLite=2};
 enum class CtDocEncrypt : int {None=0, True=1, False=2};
@@ -145,6 +146,13 @@ String trim(String s)
     s.erase(std::find_if(s.rbegin(), s.rend(), [](int ch) { return !std::isspace(ch); }).base(), s.end());
     return s;
 }
+
+template <typename ...Args>
+std::string format(std::string str, const Args &... args)
+{
+    return fmt::format(str::replace(str, "%s", "{}"), args...);
+}
+
 
 template<class STRING = std::string>
 std::vector<STRING> split(const std::string& str, const std::string& delimiter)
