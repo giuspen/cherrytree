@@ -45,7 +45,6 @@ struct SearchState {
     int          latest_matches     = 0;
 
     int          matches_num;
-    bool         user_active; //?
     bool         all_matches_first_in_node = false;
 
     int          latest_node_offset = -1;
@@ -106,8 +105,8 @@ void CtActions::find_in_selected_node()
     s_state.matches_num = 0;
 
     // searching start
-    bool user_active_restore = s_state.user_active;
-    s_state.user_active = false;
+    bool user_active_restore = _ctMainWin->user_active();
+    _ctMainWin->user_active() = false;
 
     if (all_matches) {
         s_state.match_store->clear();
@@ -126,7 +125,7 @@ void CtActions::find_in_selected_node()
     else if (s_options.search_replace_dict_idialog) {
         _iterated_find_dialog();
     }
-    s_state.user_active = user_active_restore;
+    _ctMainWin->user_active() = user_active_restore;
 }
 
 static int _count_nodes(const Gtk::TreeNodeChildren& children) {
@@ -192,8 +191,8 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
 
     std::string tree_expanded_collapsed_string = _ctTreestore->get_tree_expanded_collapsed_string(_ctMainWin->get_tree_view());
     // searching start
-    bool user_active_restore = s_state.user_active;
-    s_state.user_active = false;
+    bool user_active_restore = _ctMainWin->user_active();
+    _ctMainWin->user_active() = false;
     s_state.processed_nodes = 0;
     s_state.latest_matches = 0;
     s_state.counted_nodes = for_current_node ? _count_nodes(_ctMainWin->curr_tree_iter()->children()) : (_count_nodes(_ctTreestore->get_store()->children()) - 1);
@@ -237,7 +236,7 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
     std::time_t search_end_time = std::time(nullptr);
     std::cout << search_end_time - search_start_time << " sec" << std::endl;
 
-    s_state.user_active = user_active_restore;
+    _ctMainWin->user_active() = user_active_restore;
     _ctTreestore->set_tree_expanded_collapsed_string(tree_expanded_collapsed_string, _ctMainWin->get_tree_view(), CtApp::P_ctCfg->nodesBookmExp);
     if (!s_state.matches_num || all_matches) {
         _ctMainWin->get_tree_view().set_cursor_safe(starting_tree_iter);

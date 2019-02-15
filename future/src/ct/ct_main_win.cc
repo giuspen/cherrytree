@@ -163,6 +163,9 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow(), _ctMenu(pCtMen
     configApply();
     _titleUpdate(false/*saveNeeded*/);
     show_all();
+
+    _ctStatusBar.progressBar.hide();
+    _ctStatusBar.stopButton.hide();
 }
 
 CtMainWin::~CtMainWin()
@@ -174,8 +177,6 @@ void CtMainWin::configApply()
 {
     _hPaned.property_position() = CtApp::P_ctCfg->hpanedPos;
     set_size_request(CtApp::P_ctCfg->winRect[2], CtApp::P_ctCfg->winRect[3]);
-    _ctStatusBar.progressBar.hide();
-    _ctStatusBar.stopButton.hide();
 }
 
 Gtk::HBox& CtMainWin::_initStatusBar()
