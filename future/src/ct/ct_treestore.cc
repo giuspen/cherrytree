@@ -57,7 +57,7 @@ CtTreeIter CtTreeIter::parent()
     return  CtTreeIter((*this)->parent(), _columns);
 }
 
-bool CtTreeIter::get_node_read_only()
+bool CtTreeIter::get_node_read_only() const
 {
     return (*this) && (*this)->get_value(_columns->colNodeRO);
 }
@@ -67,28 +67,58 @@ void CtTreeIter::set_node_read_only(bool val)
     (*this)->set_value(_columns->colNodeRO, val);
 }
 
-gint64 CtTreeIter::get_node_id()
+gint64 CtTreeIter::get_node_id() const
 {
     if (*this) return (*this)->get_value(_columns->colNodeUniqueId);
     return -1;
 }
 
-std::string CtTreeIter::get_node_name()
+std::string CtTreeIter::get_node_name() const
 {
     if (*this) return (*this)->get_value(_columns->colNodeName);
     return std::string();
 }
 
-std::string CtTreeIter::get_node_foreground()
+void CtTreeIter::set_node_name(const Glib::ustring& node_name)
+{
+    (*this)->set_value(_columns->colNodeName, node_name);
+}
+
+std::string CtTreeIter::get_node_tags() const
+{
+    if (*this) return (*this)->get_value(_columns->colNodeTags);
+    return std::string();
+}
+
+std::string CtTreeIter::get_node_foreground() const
 {
     if (*this) return (*this)->get_value(_columns->colForeground);
     return std::string();
+}
+
+std::time_t CtTreeIter::get_node_creating_time() const
+{
+    if (*this) return (*this)->get_value(_columns->colTsCreation);
+    return 0;
+}
+
+std::time_t CtTreeIter::get_node_modification_time() const
+{
+    if (*this) return (*this)->get_value(_columns->colTsLastSave);
+    return 0;
 }
 
 void CtTreeIter::set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf)
 {
     (*this)->set_value(_columns->rColPixbufAux, rPixbuf);
 }
+
+Glib::RefPtr<Gsv::Buffer> CtTreeIter::get_node_text_buffer() const
+{
+    if (*this) return (*this)->get_value(_columns->rColTextBuffer);
+    return Glib::RefPtr<Gsv::Buffer>();
+}
+
 
 
 CtTreeStore::CtTreeStore()
@@ -469,7 +499,7 @@ std::string CtTreeStore::get_node_name_from_node_id(const gint64& node_id)
     return _nodes_names_dict.at(node_id);
 }
 
-Gtk::TreeIter CtTreeStore::get_tree_iter_from_node_id(const gint64& node_id)
+CtTreeIter CtTreeStore::get_tree_iter_from_node_id(const gint64& node_id)
 {
     Gtk::TreeIter find_iter;
     _rTreeStore->foreach_iter([&node_id, &find_iter, this](const Gtk::TreeIter& iter) {
@@ -477,7 +507,7 @@ Gtk::TreeIter CtTreeStore::get_tree_iter_from_node_id(const gint64& node_id)
         find_iter = iter;
         return true;
     });
-    return find_iter;
+    return to_ct_tree_iter(find_iter);
 }
 
 const std::list<gint64>& CtTreeStore::get_bookmarks()
@@ -535,6 +565,17 @@ Glib::RefPtr<Gtk::TreeStore> CtTreeStore::get_store()
 Gtk::TreeIter CtTreeStore::get_iter_first()
 {
     return _rTreeStore->get_iter("0");
+}
+
+Gtk::TreeIter CtTreeStore::get_tree_iter_last_sibling(const Gtk::TreeNodeChildren& children)
+{
+    if (children.empty()) return Gtk::TreeIter();
+    return --children.end();
+}
+
+Gtk::TreeIter CtTreeStore::get_tree_iter_prev_sibling(Gtk::TreeIter tree_iter)
+{
+    return --tree_iter;
 }
 
 Gtk::TreePath CtTreeStore::get_path(Gtk::TreeIter tree_iter)

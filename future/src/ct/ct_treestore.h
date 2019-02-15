@@ -93,12 +93,18 @@ public:
 
     CtTreeIter  parent();
 
-    bool        get_node_read_only();
+    bool        get_node_read_only() const;
     void        set_node_read_only(bool val);
-    gint64      get_node_id();
-    std::string get_node_name();
-    std::string get_node_foreground();
+    gint64      get_node_id() const;
+    std::string get_node_name() const;
+    void        set_node_name(const Glib::ustring& node_name);
+    std::string get_node_tags() const;
+    std::string get_node_foreground() const;
+    std::time_t get_node_creating_time() const;
+    std::time_t get_node_modification_time() const;
     void        set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf);
+
+    Glib::RefPtr<Gsv::Buffer> get_node_text_buffer() const;
 };
 
 class CtTextView;
@@ -135,7 +141,7 @@ public:
     const std::set<std::string>& get_used_tags() { return _usedTags; }
     bool                         is_node_bookmarked(const gint64& node_id);
     std::string                  get_node_name_from_node_id(const gint64& node_id);
-    Gtk::TreeIter                get_tree_iter_from_node_id(const gint64& node_id);
+    CtTreeIter                   get_tree_iter_from_node_id(const gint64& node_id);
     const std::list<gint64>&     get_bookmarks();
     void                         set_bookmarks(const std::list<gint64>& bookmarks_order);
 
@@ -146,6 +152,8 @@ public:
 public:
     Glib::RefPtr<Gtk::TreeStore>    get_store();
     Gtk::TreeIter                   get_iter_first();
+    Gtk::TreeIter                   get_tree_iter_last_sibling(const Gtk::TreeNodeChildren& children);
+    Gtk::TreeIter                   get_tree_iter_prev_sibling(Gtk::TreeIter tree_iter);
     Gtk::TreePath                   get_path(Gtk::TreeIter tree_iter);
     CtTreeIter                      to_ct_tree_iter(Gtk::TreeIter tree_iter);
 

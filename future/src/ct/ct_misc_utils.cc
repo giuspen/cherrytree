@@ -25,6 +25,8 @@
 #include <assert.h>
 #include "ct_misc_utils.h"
 #include "ct_app.h"
+#include <ctime>
+#include <regex>
 
 CtDocType CtMiscUtil::getDocType(std::string fileName)
 {
@@ -267,6 +269,44 @@ bool CtMiscUtil::node_siblings_sort_iteration(Glib::RefPtr<Gtk::TreeStore> model
     return swap_executed;
 }
 
+//"""Get the Node Hierarchical Name"""
+std::string CtMiscUtil::get_node_hierarchical_name(CtTreeIter tree_iter, const char* separator/*="--"*/,
+                                                   bool for_filename/*=true*/, bool root_to_leaf/*=true*/, const char* trailer/*=""*/)
+{
+    std::string hierarchical_name = str::trim(tree_iter.get_node_name());// todo: exports.clean_text_to_utf8(dad.treestore[tree_iter][1]).strip()
+    CtTreeIter father_iter = tree_iter.parent();
+    while (father_iter) {
+        std::string father_name = str::trim(father_iter.get_node_name());// todo: exports.clean_text_to_utf8(dad.treestore[father_iter][1]).strip()
+        if (root_to_leaf)
+            hierarchical_name = father_name + separator + hierarchical_name;
+        else
+            hierarchical_name = hierarchical_name + separator + father_name;
+        father_iter = father_iter.parent();
+    }
+    if (trailer)
+        hierarchical_name += trailer;
+    if (for_filename) {
+        hierarchical_name = clean_from_chars_not_for_filename(hierarchical_name);
+        if (hierarchical_name.size() > CtConst::MAX_FILE_NAME_LEN)
+            hierarchical_name = hierarchical_name.substr(hierarchical_name.size() - CtConst::MAX_FILE_NAME_LEN);
+    }
+    return hierarchical_name;
+}
+
+std::string CtMiscUtil::clean_from_chars_not_for_filename(std::string filename)
+{
+    filename = str::replace(filename, CtConst::CHAR_SLASH, CtConst::CHAR_MINUS);
+    filename = str::replace(filename, CtConst::CHAR_BSLASH, CtConst::CHAR_MINUS);
+    for (auto& str: {CtConst::CHAR_STAR, CtConst::CHAR_QUESTION, CtConst::CHAR_COLON, CtConst::CHAR_LESSER,
+         CtConst::CHAR_GREATER, CtConst::CHAR_PIPE, CtConst::CHAR_DQUOTE, CtConst::CHAR_NEWLINE, CtConst::CHAR_CR}) {
+        filename = str::replace(filename, str, "");
+    }
+    filename = str::trim(filename);
+    filename = str::replace(filename, CtConst::CHAR_SPACE, CtConst::CHAR_USCORE);
+    return filename;
+}
+
+
 bool CtStrUtil::isStrTrue(const Glib::ustring& inStr)
 {
     bool retVal{false};
@@ -447,13 +487,15 @@ std::string CtRgbUtil::rgb_any_to_24(Gdk::RGBA color)
     return rgb24StrOut;
 }
 
-bool str::endswith(const std::string& str, const std::string& ending) {
+bool str::endswith(const std::string& str, const std::string& ending)
+{
     if (str.length() >= ending.length())
         return (0 == str.compare(str.length() - ending.length(), ending.length(), ending));
     return false;
 }
 
-std::string str::escape(const std::string& text) {
+std::string str::xml_escape(const std::string& text)
+{
     std::string buffer;
     buffer.reserve(text.size());
     for(size_t pos = 0; pos != text.size(); ++pos) {
@@ -467,4 +509,32 @@ std::string str::escape(const std::string& text) {
         }
     }
     return buffer;
+}
+
+
+std::string str::re_escape(const std::string& text)
+{
+    return Glib::Regex::escape_string(text);
+}
+
+std::string str::time_format(const std::string& format, const std::time_t& time)
+{
+    std::tm* localtime = std::localtime(&time);
+    char buffer[100];
+    if (strftime(buffer, sizeof(buffer), format.c_str(), localtime))
+        return buffer;
+    else if (strftime(buffer, sizeof(buffer), CtConst::TIMESTAMP_FORMAT_DEFAULT, localtime))
+        return buffer;
+    return "";
+}
+
+int str::symb_pos_to_byte_pos(const Glib::ustring& text, int symb_pos)
+{
+    gchar* pointer = g_utf8_offset_to_pointer(text.data(), symb_pos);
+    return (int)(pointer - text.data());
+}
+
+int str::byte_pos_to_symb_pos(const Glib::ustring& text, int byte_pos)
+{
+    return g_utf8_pointer_to_offset(text.data(), text.data() + byte_pos);
 }

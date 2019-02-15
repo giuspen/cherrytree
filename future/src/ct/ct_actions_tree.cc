@@ -16,6 +16,15 @@ bool CtActions::_is_there_selected_node_or_error()
     return false;
 }
 
+bool CtActions::_is_tree_not_empty_or_error()
+{
+    if (!_ctTreestore->get_iter_first()) {
+        ct_dialogs::error_dialog(_("The Tree is Empty!"), *_ctMainWin);
+        return false;
+    }
+    return true;
+}
+
 void CtActions::_node_add(bool duplicate, bool add_child)
 {
     CtNodeData nodeData;
@@ -28,6 +37,7 @@ void CtActions::_node_add(bool duplicate, bool add_child)
             nodeData.rTextBuffer = CtMiscUtil::getNewTextBuffer(nodeData.syntax, nodeData.rTextBuffer->get_text());
             nodeData.anchoredWidgets.clear();
         } else {
+            // todo:
             //state = self.state_machine.requested_state_previous(self.treestore[tree_iter_from][3])
             //self.load_buffer_from_state(state, given_tree_iter=new_node_iter)
 
@@ -117,7 +127,7 @@ void CtActions::_node_move_after(Gtk::TreeIter iter_to_move, Gtk::TreeIter fathe
 
     // now we can remove the old iter (and all children)
     _ctTreestore->get_store()->erase(iter_to_move);
-    //self.ctdb_handler.pending_edit_db_node_hier(self.treestore[new_node_iter][3])
+    //todo: self.ctdb_handler.pending_edit_db_node_hier(self.treestore[new_node_iter][3])
     _ctTreestore->nodes_sequences_fix(Gtk::TreeIter(), true);
     if (father_iter)
         _ctMainWin->get_tree_view().expand_row(_ctTreestore->get_path(father_iter), false);
@@ -180,10 +190,10 @@ void CtActions::node_edit()
         }
     }
     _ctTreestore->updateNodeData(_ctMainWin->curr_tree_iter(), newData);
-    //if self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
+    //todo: if self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
     //  self.set_sourcebuffer_syntax_highlight(self.curr_buffer, self.syntax_highlighting)
     _ctMainWin->get_text_view().set_editable(!newData.isRO);
-    //self.update_selected_node_statusbar_info()
+    //todo: self.update_selected_node_statusbar_info()
     _ctTreestore->updateNodeAuxIcon(_ctMainWin->curr_tree_iter());
     _ctMainWin->treeview_set_colors();
     _ctMainWin->window_header_update();
@@ -199,7 +209,7 @@ void CtActions::node_toggle_read_only()
     _ctMainWin->curr_tree_iter().set_node_read_only(node_is_ro);
     _ctMainWin->get_text_view().set_editable(!node_is_ro);
     _ctMainWin->window_header_update_lock_icon(node_is_ro);
-    //self.update_selected_node_statusbar_info()
+    //todo: self.update_selected_node_statusbar_info()
     _ctTreestore->updateNodeAuxIcon(_ctMainWin->curr_tree_iter());
     _ctMainWin->update_window_save_needed("npro");
     _ctMainWin->get_text_view().grab_focus();
@@ -207,14 +217,11 @@ void CtActions::node_toggle_read_only()
 
 void CtActions::node_date()
 {
-    std::string months[12] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-    std::string days[7] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
     time_t time = std::time(nullptr);
-    tm* tmTime = std::localtime(&time);
 
-    std::string year = std::to_string(tmTime->tm_year + 1900);
-    std::string month = months[tmTime->tm_mon];
-    std::string day = days[tmTime->tm_wday] + " " + std::to_string(tmTime->tm_mday);
+    std::string year = str::time_format("%Y", time);
+    std::string month = str::time_format("%B", time);
+    std::string day = str::time_format("%d %a", time);
 
     _node_child_exist_or_create(Gtk::TreeIter(), year);
     _node_child_exist_or_create(_ctMainWin->curr_tree_iter(), month);
@@ -227,7 +234,7 @@ void CtActions::node_up()
     auto prev_iter = --_ctMainWin->curr_tree_iter();
     if (!prev_iter) return;
     _ctTreestore->get_store()->iter_swap(_ctMainWin->curr_tree_iter(), prev_iter);
-    //self.nodes_sequences_swap(self.curr_tree_iter, prev_iter)
+    //todo: self.nodes_sequences_swap(self.curr_tree_iter, prev_iter)
     //self.ctdb_handler.pending_edit_db_node_hier(self.treestore[self.curr_tree_iter][3])
     //self.ctdb_handler.pending_edit_db_node_hier(self.treestore[prev_iter][3])
     _ctMainWin->get_tree_view().set_cursor(_ctTreestore->get_path(_ctMainWin->curr_tree_iter()));
@@ -240,7 +247,7 @@ void CtActions::node_down()
     auto next_iter = ++_ctMainWin->curr_tree_iter();
     if (!next_iter) return;
     _ctTreestore->get_store()->iter_swap(_ctMainWin->curr_tree_iter(), next_iter);
-    //self.nodes_sequences_swap(self.curr_tree_iter, subseq_iter)
+    //todo: self.nodes_sequences_swap(self.curr_tree_iter, subseq_iter)
     //self.ctdb_handler.pending_edit_db_node_hier(self.treestore[self.curr_tree_iter][3])
     //self.ctdb_handler.pending_edit_db_node_hier(self.treestore[subseq_iter][3])
     _ctMainWin->get_tree_view().set_cursor(_ctTreestore->get_path(_ctMainWin->curr_tree_iter()));
@@ -253,7 +260,7 @@ void CtActions::node_right()
     auto prev_iter = --_ctMainWin->curr_tree_iter();
     if (!prev_iter) return;
     _node_move_after(_ctMainWin->curr_tree_iter(), prev_iter);
-    //if (CtApp::P_ctCfg->nodesIcons == "c") self.treeview_refresh(change_icon=True)
+    //todo: if (CtApp::P_ctCfg->nodesIcons == "c") self.treeview_refresh(change_icon=True)
 }
 
 void CtActions::node_left()
@@ -262,7 +269,7 @@ void CtActions::node_left()
     Gtk::TreeIter father_iter = _ctMainWin->curr_tree_iter()->parent();
     if (!father_iter) return;
     _node_move_after(_ctMainWin->curr_tree_iter(), father_iter->parent(), father_iter);
-    //if (CtApp::P_ctCfg->nodesIcons == "c") self.treeview_refresh(change_icon=True)
+    //todo: if (CtApp::P_ctCfg->nodesIcons == "c") self.treeview_refresh(change_icon=True)
 }
 
 void CtActions::node_change_father()
@@ -290,7 +297,7 @@ void CtActions::node_change_father()
         }
 
     _node_move_after(_ctMainWin->curr_tree_iter(), father_iter);
-    //if self.nodes_icons == "c": self.treeview_refresh(change_icon=True)
+    //todo: if self.nodes_icons == "c": self.treeview_refresh(change_icon=True)
 }
 
 //"""Sorts the Tree Ascending"""
