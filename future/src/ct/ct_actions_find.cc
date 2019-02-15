@@ -54,6 +54,7 @@ struct SearchState {
     Gtk::Dialog* iteratedfinddialog = nullptr;
 
     Glib::RefPtr<ct_dialogs::CtMatchDialogStore> match_store;
+    std::string   match_dialog_title;
 
 } s_state;
 
@@ -119,8 +120,8 @@ void CtActions::find_in_selected_node()
     if (s_state.matches_num == 0)
         ct_dialogs::info_dialog(str::format(_("The pattern '%s' was not found"), pattern), *_ctMainWin);
     else if (all_matches) {
-        std::string title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
-        ct_dialogs::match_dialog(title, *_ctMainWin, s_state.match_store);
+        s_state.match_dialog_title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
+        ct_dialogs::match_dialog(s_state.match_dialog_title, *_ctMainWin, s_state.match_store);
     }
     else if (s_options.search_replace_dict_idialog) {
         _iterated_find_dialog();
@@ -249,8 +250,8 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
         ct_dialogs::info_dialog(str::format(_("The pattern '%s' was not found"), std::string(pattern)), *_ctMainWin);
     else {
         if (all_matches) {
-            std::string title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
-            ct_dialogs::match_dialog(title, *_ctMainWin, s_state.match_store);
+            s_state.match_dialog_title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
+            ct_dialogs::match_dialog(s_state.match_dialog_title, *_ctMainWin, s_state.match_store);
         } else {
             _ctMainWin->get_tree_view().set_cursor_safe(_ctMainWin->curr_tree_iter());
             if (s_options.search_replace_dict_idialog)
@@ -339,8 +340,8 @@ void CtActions::find_a_node()
     if (s_state.matches_num == 0)
         ct_dialogs::info_dialog(str::format(_("The pattern '%s' was not found"), pattern.c_str()), *_ctMainWin);
     else if (all_matches) {
-        std::string title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
-        ct_dialogs::match_dialog(title, *_ctMainWin, s_state.match_store);
+        s_state.match_dialog_title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
+        ct_dialogs::match_dialog(s_state.match_dialog_title, *_ctMainWin, s_state.match_store);
     }
     else if (s_options.search_replace_dict_idialog)
         _iterated_find_dialog();
@@ -348,45 +349,78 @@ void CtActions::find_a_node()
         _ctMainWin->update_window_save_needed();
 }
 
+// Continue the previous search (a_node/in_selected_node/in_all_nodes)
 void CtActions::find_again()
 {
-
+    s_options.search_replace_dict_idialog = false;
+    s_state.from_find_iterated = true;
+    if (s_state.curr_find_where.empty()) ct_dialogs::warning_dialog(_("No Previous Search Was Performed During This Session"), *_ctMainWin);
+    else if (s_state.curr_find_where == "in_selected_node") find_in_selected_node();
+    else if (s_state.curr_find_where == "in_all_nodes")     _find_in_all_nodes(false);
+    else if (s_state.curr_find_where == "in_sel_nod_n_sub") _find_in_all_nodes(true);
+    else if (s_state.curr_find_where == "a_node")           find_a_node();
+    s_state.from_find_iterated = false;
 }
 
+// Continue the previous search (a_node/in_selected_node/in_all_nodes) but in Opposite Direction
 void CtActions::find_back()
 {
-
+    s_options.search_replace_dict_idialog = false;
+    s_state.from_find_back = true;
+    s_state.replace_active = false;
+    find_again();
 }
 
+// Replace a pattern in the selected Node
 void CtActions::replace_in_selected_node()
 {
-
+    if (!_is_there_selected_node_or_error()) return;
+    s_state.replace_active = true;
+    find_in_selected_node();
+    s_state.replace_active = false;
 }
 
+// Replace the pattern in all the Tree Nodes
 void CtActions::replace_in_all_nodes()
 {
-
+    if (!_is_tree_not_empty_or_error()) return;
+    s_state.replace_active = true;
+    _find_in_all_nodes(false);
+    s_state.replace_active = false;
 }
 
+// Replace the pattern Selected Node and SubNodes
 void CtActions::replace_in_sel_node_and_subnodes()
 {
-
+    if (!_is_tree_not_empty_or_error()) return;
+    s_state.replace_active = true;
+    _find_in_all_nodes(true);
+    s_state.replace_active = false;
 }
 
 // Search for a pattern between all the Node's Names
 void CtActions::replace_in_nodes_names()
 {
     if (!_is_tree_not_empty_or_error()) return;
+    s_state.replace_active = true;
+    find_a_node();
+    s_state.replace_active = false;
 }
 
+// Continue the previous replace (a_node/in_selected_node/in_all_nodes)
 void CtActions::replace_again()
 {
-
+    s_state.replace_active = true;
+    s_state.replace_subsequent = true;
+    find_again();
+    s_state.replace_active = false;
+    s_state.replace_subsequent = false;
 }
 
+// Restore AllMatchesDialog
 void CtActions::find_allmatchesdialog_restore()
 {
-
+    ct_dialogs::match_dialog(s_state.match_dialog_title, *_ctMainWin, s_state.match_store);
 }
 
 // Opens the Search Dialog
