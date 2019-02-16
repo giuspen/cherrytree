@@ -132,6 +132,7 @@ public:
     void show_hide_toolbar(bool visible)    { _pToolbar->property_visible() = visible; }
     void show_hide_tree_view(bool visible)  { _scrolledwindowTree.property_visible() = visible; }
     void show_hide_win_header(bool visible) { _ctWinHeader.headerBox.property_visible() = visible; }
+    void set_toolbar_icon_size(int size)    { _pToolbar->property_icon_size() = CtMiscUtil::getIconSize(size); }
 
 protected:
     void                _onTheTreeviewSignalCursorChanged();

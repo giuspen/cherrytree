@@ -306,6 +306,18 @@ std::string CtMiscUtil::clean_from_chars_not_for_filename(std::string filename)
     return filename;
 }
 
+Gtk::BuiltinIconSize CtMiscUtil::getIconSize(int size)
+{
+    switch (size) {
+        case 1:  return Gtk::BuiltinIconSize::ICON_SIZE_MENU;
+        case 2:  return Gtk::BuiltinIconSize::ICON_SIZE_SMALL_TOOLBAR;
+        case 3:  return Gtk::BuiltinIconSize::ICON_SIZE_LARGE_TOOLBAR;
+        case 4:  return Gtk::BuiltinIconSize::ICON_SIZE_DND;
+        case 5:  return Gtk::BuiltinIconSize::ICON_SIZE_DIALOG;
+        default: return Gtk::BuiltinIconSize::ICON_SIZE_MENU;
+    }
+}
+
 
 bool CtStrUtil::isStrTrue(const Glib::ustring& inStr)
 {

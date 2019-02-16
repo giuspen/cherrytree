@@ -177,8 +177,12 @@ void CtMainWin::configApply()
     _hPaned.property_position() = CtApp::P_ctCfg->hpanedPos;
     set_size_request(CtApp::P_ctCfg->winRect[2], CtApp::P_ctCfg->winRect[3]);
     show_hide_tree_view(CtApp::P_ctCfg->treeVisible);
-    show_hide_toolbar(CtApp::P_ctCfg->toolbarVisible);
     show_hide_win_header(CtApp::P_ctCfg->showNodeNameHeader);
+
+    show_hide_toolbar(CtApp::P_ctCfg->toolbarVisible);
+    _pToolbar->set_toolbar_style(Gtk::ToolbarStyle::TOOLBAR_ICONS);
+    set_toolbar_icon_size(CtApp::P_ctCfg->toolbarIconSize);
+
     _ctStatusBar.progressBar.hide();
     _ctStatusBar.stopButton.hide();
 }
