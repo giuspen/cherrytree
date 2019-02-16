@@ -136,6 +136,7 @@ public:
 protected:
     void                _onTheTreeviewSignalCursorChanged();
     bool                _onTheTreeviewSignalButtonPressEvent(GdkEventButton* event);
+    bool                _onTheWindowSignalKeyPressEvent(GdkEventKey* event);
     bool                _onTheTreeviewSignalKeyPressEvent(GdkEventKey* event);
     bool                _onTheTreeviewSignalPopupMenu();
     void                _titleUpdate(bool saveNeeded);

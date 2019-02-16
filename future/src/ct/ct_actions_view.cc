@@ -44,7 +44,10 @@ void CtActions::toggle_show_hide_node_name_header()
 
 void CtActions::toggle_tree_text()
 {
-
+    if (_ctMainWin->get_tree_view().has_focus())
+        _ctMainWin->get_text_view().grab_focus();
+    else
+        _ctMainWin->get_tree_view().grab_focus();
 }
 
 void CtActions::nodes_expand_all()

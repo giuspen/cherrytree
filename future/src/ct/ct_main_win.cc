@@ -160,6 +160,8 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow(), _ctMenu(pCtMen
     _ctTreeview.signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalKeyPressEvent), false);
     _ctTreeview.signal_popup_menu().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalPopupMenu));
 
+    signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheWindowSignalKeyPressEvent), false);
+
     _titleUpdate(false/*saveNeeded*/);
     show_all();
     configApply(); // after show_all()
@@ -365,17 +367,39 @@ bool CtMainWin::_onTheTreeviewSignalButtonPressEvent(GdkEventButton* event)
     return false;
 }
 
+bool CtMainWin::_onTheWindowSignalKeyPressEvent(GdkEventKey* event)
+{
+    if (event->state & GDK_CONTROL_MASK) {
+        if (event->keyval == GDK_KEY_Tab) {
+            CtApp::P_ctActions->toggle_tree_text();
+            return true;
+        }
+    }
+    return false;
+}
+
 bool CtMainWin::_onTheTreeviewSignalKeyPressEvent(GdkEventKey* event)
 {
     if (!curr_tree_iter()) return false;
-    if (event->state & GDK_SHIFT_MASK)
-    {
+    if (event->state & GDK_SHIFT_MASK) {
         if (event->keyval == GDK_KEY_Up) {
             CtApp::P_ctActions->node_up();
             return true;
         }
         if (event->keyval == GDK_KEY_Down) {
             CtApp::P_ctActions->node_down();
+            return true;
+        }
+    }
+    else if (event->state & GDK_MOD1_MASK) {
+
+    }
+    else if (event->state & GDK_CONTROL_MASK) {
+
+    }
+    else {
+        if (event->keyval == GDK_KEY_Tab) {
+            CtApp::P_ctActions->toggle_tree_text();
             return true;
         }
     }
