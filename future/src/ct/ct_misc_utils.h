@@ -52,6 +52,8 @@ std::string get_node_hierarchical_name(CtTreeIter tree_iter, const char* separat
 
 std::string clean_from_chars_not_for_filename(std::string filename);
 
+Gtk::BuiltinIconSize getIconSize(int size);
+
 } // namespace CtMiscUtil
 
 namespace CtStrUtil {

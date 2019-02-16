@@ -63,7 +63,7 @@ public:
     std::string                                 linkType{CtConst::LINK_TYPE_WEBS};
     bool                                        showNodeNameHeader{true};
     int                                         nodesOnNodeNameHeader{3};
-    int                                         toolbarIconSize{Gtk::BuiltinIconSize::ICON_SIZE_MENU};
+    int                                         toolbarIconSize{1};
     std::unordered_map<gchar, std::string>      currColors{{'f', ""}, {'b', ""}, {'n', ""}};
 
     // [tree]

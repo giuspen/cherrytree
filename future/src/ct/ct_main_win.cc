@@ -146,10 +146,10 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow(), _ctMenu(pCtMen
     gtk_window_add_accel_group (GTK_WINDOW(gobj()), pCtMenu->default_accel_group());
     _pNodePopup = pCtMenu->build_popup_menu_node();
     _pNodePopup->show_all();
-    Gtk::Toolbar* pToolbar = pCtMenu->build_toolbar();
+    _pToolbar = pCtMenu->build_toolbar();
 
     _vboxMain.pack_start(*_pMenu, false, false);
-    _vboxMain.pack_start(*pToolbar, false, false);
+    _vboxMain.pack_start(*_pToolbar, false, false);
     _vboxMain.pack_start(_hPaned);
     _vboxMain.pack_start(_initStatusBar(), false, false);
     add(_vboxMain);
@@ -160,12 +160,11 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow(), _ctMenu(pCtMen
     _ctTreeview.signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalKeyPressEvent), false);
     _ctTreeview.signal_popup_menu().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalPopupMenu));
 
-    configApply();
+    signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheWindowSignalKeyPressEvent), false);
+
     _titleUpdate(false/*saveNeeded*/);
     show_all();
-
-    _ctStatusBar.progressBar.hide();
-    _ctStatusBar.stopButton.hide();
+    configApply(); // after show_all()
 }
 
 CtMainWin::~CtMainWin()
@@ -177,6 +176,15 @@ void CtMainWin::configApply()
 {
     _hPaned.property_position() = CtApp::P_ctCfg->hpanedPos;
     set_size_request(CtApp::P_ctCfg->winRect[2], CtApp::P_ctCfg->winRect[3]);
+    show_hide_tree_view(CtApp::P_ctCfg->treeVisible);
+    show_hide_win_header(CtApp::P_ctCfg->showNodeNameHeader);
+
+    show_hide_toolbar(CtApp::P_ctCfg->toolbarVisible);
+    _pToolbar->set_toolbar_style(Gtk::ToolbarStyle::TOOLBAR_ICONS);
+    set_toolbar_icon_size(CtApp::P_ctCfg->toolbarIconSize);
+
+    _ctStatusBar.progressBar.hide();
+    _ctStatusBar.stopButton.hide();
 }
 
 Gtk::HBox& CtMainWin::_initStatusBar()
@@ -363,17 +371,39 @@ bool CtMainWin::_onTheTreeviewSignalButtonPressEvent(GdkEventButton* event)
     return false;
 }
 
+bool CtMainWin::_onTheWindowSignalKeyPressEvent(GdkEventKey* event)
+{
+    if (event->state & GDK_CONTROL_MASK) {
+        if (event->keyval == GDK_KEY_Tab) {
+            CtApp::P_ctActions->toggle_tree_text();
+            return true;
+        }
+    }
+    return false;
+}
+
 bool CtMainWin::_onTheTreeviewSignalKeyPressEvent(GdkEventKey* event)
 {
     if (!curr_tree_iter()) return false;
-    if (event->state & GDK_SHIFT_MASK)
-    {
+    if (event->state & GDK_SHIFT_MASK) {
         if (event->keyval == GDK_KEY_Up) {
             CtApp::P_ctActions->node_up();
             return true;
         }
         if (event->keyval == GDK_KEY_Down) {
             CtApp::P_ctActions->node_down();
+            return true;
+        }
+    }
+    else if (event->state & GDK_MOD1_MASK) {
+
+    }
+    else if (event->state & GDK_CONTROL_MASK) {
+
+    }
+    else {
+        if (event->keyval == GDK_KEY_Tab) {
+            CtApp::P_ctActions->toggle_tree_text();
             return true;
         }
     }

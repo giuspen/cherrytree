@@ -129,9 +129,15 @@ public:
     void bookmark_action_select_node(gint64 node_id);
     void set_bookmarks_menu_items();
 
+    void show_hide_toolbar(bool visible)    { _pToolbar->property_visible() = visible; }
+    void show_hide_tree_view(bool visible)  { _scrolledwindowTree.property_visible() = visible; }
+    void show_hide_win_header(bool visible) { _ctWinHeader.headerBox.property_visible() = visible; }
+    void set_toolbar_icon_size(int size)    { _pToolbar->property_icon_size() = CtMiscUtil::getIconSize(size); }
+
 protected:
     void                _onTheTreeviewSignalCursorChanged();
     bool                _onTheTreeviewSignalButtonPressEvent(GdkEventButton* event);
+    bool                _onTheWindowSignalKeyPressEvent(GdkEventKey* event);
     bool                _onTheTreeviewSignalKeyPressEvent(GdkEventKey* event);
     bool                _onTheTreeviewSignalPopupMenu();
     void                _titleUpdate(bool saveNeeded);
@@ -140,6 +146,7 @@ protected:
     Gtk::VBox           _vboxText;
     Gtk::HPaned         _hPaned;
     Gtk::MenuBar*       _pMenu;
+    Gtk::Toolbar*       _pToolbar;
     CtMenu*             _ctMenu;
     CtStatusBar         _ctStatusBar;
     CtWinHeader         _ctWinHeader;
