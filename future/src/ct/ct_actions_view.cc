@@ -26,7 +26,8 @@
 // Toggle Show/Hide the Tree
 void CtActions::toggle_show_hide_tree()
 {
-
+    CtApp::P_ctCfg->treeVisible = !CtApp::P_ctCfg->treeVisible;
+    _ctMainWin->show_hide_tree_view(CtApp::P_ctCfg->treeVisible);
 }
 
 void CtActions::toggle_show_hide_toolbar()

@@ -174,6 +174,7 @@ void CtMainWin::configApply()
 {
     _hPaned.property_position() = CtApp::P_ctCfg->hpanedPos;
     set_size_request(CtApp::P_ctCfg->winRect[2], CtApp::P_ctCfg->winRect[3]);
+    show_hide_tree_view(CtApp::P_ctCfg->treeVisible);
     show_hide_toolbar(CtApp::P_ctCfg->toolbarVisible);
     _ctStatusBar.progressBar.hide();
     _ctStatusBar.stopButton.hide();

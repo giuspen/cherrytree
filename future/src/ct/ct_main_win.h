@@ -130,7 +130,7 @@ public:
     void set_bookmarks_menu_items();
 
     void show_hide_toolbar(bool visible) { _pToolbar->property_visible() = visible; }
-
+    void show_hide_tree_view(bool visible) { _scrolledwindowTree.property_visible() = visible; }
 protected:
     void                _onTheTreeviewSignalCursorChanged();
     bool                _onTheTreeviewSignalButtonPressEvent(GdkEventButton* event);
