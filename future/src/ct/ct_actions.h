@@ -1,3 +1,24 @@
+/*
+ * ct_actions.h
+ *
+ * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ */
+
 #pragma once
 #include "ct_main_win.h"
 
@@ -69,7 +90,6 @@ private:
     void                _iterated_find_dialog();
     void                _update_all_matches_progress();
 
-
 public:
     // find actions
     void find_in_selected_node();
@@ -84,4 +104,19 @@ public:
     void replace_in_nodes_names();
     void replace_again();
     void find_allmatchesdialog_restore();
+
+private:
+    // helpers for view actions
+
+public:
+    // view actions
+    void toggle_show_hide_tree();
+    void toggle_show_hide_toolbar();
+    void toggle_show_hide_node_name_header();
+    void toggle_tree_text();
+    void nodes_expand_all();
+    void nodes_collapse_all();
+    void toolbar_icons_size_increase();
+    void toolbar_icons_size_decrease();
+    void fullscreen_toggle();
 };

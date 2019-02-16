@@ -146,10 +146,10 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow(), _ctMenu(pCtMen
     gtk_window_add_accel_group (GTK_WINDOW(gobj()), pCtMenu->default_accel_group());
     _pNodePopup = pCtMenu->build_popup_menu_node();
     _pNodePopup->show_all();
-    Gtk::Toolbar* pToolbar = pCtMenu->build_toolbar();
+    _pToolbar = pCtMenu->build_toolbar();
 
     _vboxMain.pack_start(*_pMenu, false, false);
-    _vboxMain.pack_start(*pToolbar, false, false);
+    _vboxMain.pack_start(*_pToolbar, false, false);
     _vboxMain.pack_start(_hPaned);
     _vboxMain.pack_start(_initStatusBar(), false, false);
     add(_vboxMain);
@@ -160,12 +160,9 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow(), _ctMenu(pCtMen
     _ctTreeview.signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalKeyPressEvent), false);
     _ctTreeview.signal_popup_menu().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalPopupMenu));
 
-    configApply();
     _titleUpdate(false/*saveNeeded*/);
     show_all();
-
-    _ctStatusBar.progressBar.hide();
-    _ctStatusBar.stopButton.hide();
+    configApply(); // after show_all()
 }
 
 CtMainWin::~CtMainWin()
@@ -177,6 +174,9 @@ void CtMainWin::configApply()
 {
     _hPaned.property_position() = CtApp::P_ctCfg->hpanedPos;
     set_size_request(CtApp::P_ctCfg->winRect[2], CtApp::P_ctCfg->winRect[3]);
+    show_hide_toolbar(CtApp::P_ctCfg->toolbarVisible);
+    _ctStatusBar.progressBar.hide();
+    _ctStatusBar.stopButton.hide();
 }
 
 Gtk::HBox& CtMainWin::_initStatusBar()

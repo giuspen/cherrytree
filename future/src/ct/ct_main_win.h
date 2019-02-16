@@ -129,6 +129,8 @@ public:
     void bookmark_action_select_node(gint64 node_id);
     void set_bookmarks_menu_items();
 
+    void show_hide_toolbar(bool visible) { _pToolbar->property_visible() = visible; }
+
 protected:
     void                _onTheTreeviewSignalCursorChanged();
     bool                _onTheTreeviewSignalButtonPressEvent(GdkEventButton* event);
@@ -140,6 +142,7 @@ protected:
     Gtk::VBox           _vboxText;
     Gtk::HPaned         _hPaned;
     Gtk::MenuBar*       _pMenu;
+    Gtk::Toolbar*       _pToolbar;
     CtMenu*             _ctMenu;
     CtStatusBar         _ctStatusBar;
     CtWinHeader         _ctWinHeader;
