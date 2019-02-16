@@ -38,7 +38,8 @@ void CtActions::toggle_show_hide_toolbar()
 
 void CtActions::toggle_show_hide_node_name_header()
 {
-
+    CtApp::P_ctCfg->showNodeNameHeader = !CtApp::P_ctCfg->showNodeNameHeader;
+    _ctMainWin->show_hide_win_header(CtApp::P_ctCfg->showNodeNameHeader);
 }
 
 void CtActions::toggle_tree_text()

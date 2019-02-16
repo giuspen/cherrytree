@@ -176,6 +176,7 @@ void CtMainWin::configApply()
     set_size_request(CtApp::P_ctCfg->winRect[2], CtApp::P_ctCfg->winRect[3]);
     show_hide_tree_view(CtApp::P_ctCfg->treeVisible);
     show_hide_toolbar(CtApp::P_ctCfg->toolbarVisible);
+    show_hide_win_header(CtApp::P_ctCfg->showNodeNameHeader);
     _ctStatusBar.progressBar.hide();
     _ctStatusBar.stopButton.hide();
 }

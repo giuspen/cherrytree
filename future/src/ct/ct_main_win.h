@@ -129,8 +129,10 @@ public:
     void bookmark_action_select_node(gint64 node_id);
     void set_bookmarks_menu_items();
 
-    void show_hide_toolbar(bool visible) { _pToolbar->property_visible() = visible; }
-    void show_hide_tree_view(bool visible) { _scrolledwindowTree.property_visible() = visible; }
+    void show_hide_toolbar(bool visible)    { _pToolbar->property_visible() = visible; }
+    void show_hide_tree_view(bool visible)  { _scrolledwindowTree.property_visible() = visible; }
+    void show_hide_win_header(bool visible) { _ctWinHeader.headerBox.property_visible() = visible; }
+
 protected:
     void                _onTheTreeviewSignalCursorChanged();
     bool                _onTheTreeviewSignalButtonPressEvent(GdkEventButton* event);
