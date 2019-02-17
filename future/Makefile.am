@@ -58,6 +58,7 @@ COMMON_SOURCES = \
 	src/ct/ct_menu.cc \
 	src/ct/ct_pref_dlg.cc \
 	src/ct/ct_actions_find.cc \
+	src/ct/ct_actions_format.cc \
 	src/ct/ct_actions_tree.cc \
 	src/ct/ct_actions_view.cc \
 	src/ct/ct_dialogs.cc

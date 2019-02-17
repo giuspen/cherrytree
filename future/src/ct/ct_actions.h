@@ -119,4 +119,31 @@ public:
     void toolbar_icons_size_increase();
     void toolbar_icons_size_decrease();
     void fullscreen_toggle();
+
+private:
+    // helper for format actions
+
+public:
+    void apply_tag_latest();
+    void remove_text_formatting();
+    void apply_tag_foreground();
+    void apply_tag_background();
+    void apply_tag_bold();
+    void apply_tag_italic();
+    void apply_tag_underline();
+    void apply_tag_strikethrough();
+    void apply_tag_h1();
+    void apply_tag_h2();
+    void apply_tag_h3();
+    void apply_tag_small();
+    void apply_tag_superscript();
+    void apply_tag_subscript();
+    void apply_tag_monospace();
+    void list_bulleted_handler();
+    void list_numbered_handler();
+    void list_todo_handler();
+    void apply_tag_justify_left();
+    void apply_tag_justify_center();
+    void apply_tag_justify_right();
+    void apply_tag_justify_fill();
 };
