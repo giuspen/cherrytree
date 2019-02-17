@@ -31,6 +31,7 @@ CtAnchoredWidget::CtAnchoredWidget(const int& charOffset, const std::string& jus
     _charOffset = charOffset;
     _justification = justification;
     _frame.set_shadow_type(Gtk::ShadowType::SHADOW_NONE);
+    signal_button_press_event().connect([](GdkEventButton* pEvent){ return true; });
     add(_frame);
 }
 

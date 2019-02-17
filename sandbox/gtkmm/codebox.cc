@@ -1,6 +1,6 @@
 
-// g++ codebox.cc -o codebox `pkg-config gtkmm-3.0 --cflags --libs`
-// g++ codebox.cc -o codebox `pkg-config gtkmm-2.4 --cflags --libs`
+// g++ codebox.cc -o codebox3 `pkg-config gtkmm-3.0 --cflags --libs`
+// g++ codebox.cc -o codebox2 `pkg-config gtkmm-2.4 --cflags --libs`
 
 #include <iostream>
 #include <gtkmm.h>
@@ -35,6 +35,9 @@ int main(int argc, char *argv[])
 
     window.add(textViewBase);
     window.show_all();
+
+    textViewNested.signal_button_press_event().connect([](GdkEventButton* pEvent){ return true; });
+
     Gtk::Main::run(window);
     return EXIT_SUCCESS;
 }
