@@ -2,7 +2,7 @@
 #
 #       core.py
 #
-#       Copyright 2009-2018 Giuseppe Penone <giuspen@gmail.com>
+#       Copyright 2009-2019 Giuseppe Penone <giuspen@gmail.com>
 #
 #       This program is free software; you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
@@ -3734,9 +3734,17 @@ iter_end, exclude_iter_sel_end=True)
             return # the user did not confirm
         with open(filepath_src_tmp, 'w') as fd:
             fd.write(code_val)
-        ret_code = subprocess.call(terminal_cmd, shell=True)
-        if ret_code and terminal_cmd.startswith("xterm ") and subprocess.call("xterm -version", shell=True):
-            support.dialog_error(_("Install the package 'xterm' or configure a different terminal in the Preferences Dialog"), self.window)
+        try:
+            ret_code = subprocess.call(terminal_cmd, shell=True)
+        except:
+            ret_code = 1
+        if ret_code and terminal_cmd.startswith("xterm "):
+            try:
+                ret_code = subprocess.call("xterm -version", shell=True)
+            except:
+                ret_code = 1
+            if ret_code:
+                support.dialog_error(_("Install the package 'xterm' or configure a different terminal in the Preferences Dialog"), self.window)
         self.ctdb_handler.remove_at_quit_set.add(filepath_src_tmp)
         self.ctdb_handler.remove_at_quit_set.add(filepath_bin_tmp)
 
