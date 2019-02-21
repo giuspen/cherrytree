@@ -1,4 +1,13 @@
 
+0.38.8 (February 21st, 2019)
+  * Improved implementation of deletion of recent documents entry (#382)
+  * Ctrl+Space to toggle To-Do List Item State (#438)
+  * Fix detection of missing installation of xterm required in code execution on linux (with default settings)
+  * Horizontal rule insert without hard coded newline before (still newline after)
+  * updated Spanish language (Daniel)
+  * updated Greek language (Delphina)
+  * updated Armenian language (Seda)
+
 0.38.7 (December 16th, 2018)
   * bugfix - problem of locale.getdefaultlocale behavioural change in python (#412)
   * bugfix - must not allow deletion of a node that is read only (#419)
