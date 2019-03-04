@@ -25,20 +25,7 @@
 #include <gtksourceviewmm.h>
 #include <set>
 
-class CtAnchoredWidget : public Gtk::EventBox
-{
-public:
-    CtAnchoredWidget(const int& charOffset, const std::string& justification);
-    void insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer);
-    Glib::RefPtr<Gtk::TextChildAnchor> getTextChildAnchor() { return _rTextChildAnchor; }
-    virtual void applyWidthHeight(int parentTextWidth) {}
-protected:
-    Gtk::Frame _frame;
-    Gtk::Label _labelWidget;
-    int _charOffset;
-    std::string _justification;
-    Glib::RefPtr<Gtk::TextChildAnchor> _rTextChildAnchor;
-};
+class CtAnchoredWidget;
 
 struct CtNodeData
 {

@@ -49,6 +49,7 @@ public:
                                             std::list<CtAnchoredWidget*>& anchoredWidgets,
                                             xmlpp::Element* pNodeElement=nullptr);
     void populateTableMatrix(CtTableMatrix& tableMatrix, xmlpp::Element* pNodeElement=nullptr);
+
 private:
     void _xmlTreeWalkIter(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter);
     Gtk::TreeIter _xmlNodeProcess(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter);
@@ -56,6 +57,13 @@ private:
     void _getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
                             std::list<CtAnchoredWidget*>& anchoredWidgets,
                             xmlpp::Node *pNodeParent);
+};
+
+class CtXmlWrite : public xmlpp::Document
+{
+public:
+    CtXmlWrite(const char* filepath);
+    virtual ~CtXmlWrite();
 };
 
 class CtSQLiteRead : public CtDocRead

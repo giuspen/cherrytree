@@ -93,7 +93,6 @@ const std::string& getFontForSyntaxHighlighting(const std::string& syntaxHighlig
 
 std::string getFontCssForSyntaxHighlighting(const std::string& syntaxHighlighting);
 
-
 } // namespace CtFontUtil
 
 namespace CtRgbUtil {
@@ -112,9 +111,7 @@ std::string rgb_to_string(Gdk::RGBA color);
 
 std::string rgb_any_to_24(Gdk::RGBA color);
 
-
 } // namespace CtRgbUtil
-
 
 namespace str {
 
@@ -150,11 +147,10 @@ String trim(String s)
 }
 
 template <typename ...Args>
-std::string format(std::string str, const Args &... args)
+std::string format(std::string in_str, const Args&... args)
 {
-    return fmt::format(str::replace(str, "%s", "{}"), args...);
+    return fmt::format(str::replace(in_str, "%s", "{}"), args...);
 }
-
 
 template<class STRING = std::string>
 std::vector<STRING> split(const std::string& str, const std::string& delimiter)
@@ -182,7 +178,6 @@ std::string join(const std::vector<STRING>& cnt, const std::string& delimer)
     }
     return ss.str();
 }
-
 
 } // namespace str
 

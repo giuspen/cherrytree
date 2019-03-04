@@ -24,6 +24,7 @@
 #include <gtkmm.h>
 #include "ct_const.h"
 #include "ct_main_win.h"
+#include "ct_codebox.h"
 
 class CtImage : public CtAnchoredWidget
 {
