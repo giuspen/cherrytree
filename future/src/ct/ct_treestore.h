@@ -130,7 +130,7 @@ public:
     std::string                  get_node_name_from_node_id(const gint64& node_id);
     CtTreeIter                   get_tree_iter_from_node_id(const gint64& node_id);
     const std::list<gint64>&     get_bookmarks();
-    void                         set_bookmarks(const std::list<gint64>& bookmarks_order);
+    void                         set_bookmarks(const std::list<gint64>& bookmarks);
 
 
     std::string get_tree_expanded_collapsed_string(Gtk::TreeView& treeView);
@@ -154,13 +154,11 @@ protected:
     Glib::RefPtr<Gdk::Pixbuf> _getNodeIcon(int nodeDepth, const std::string &syntax, guint32 customIconId);
     void                      _iterDeleteAnchoredWidgets(const Gtk::TreeModel::Children& children);
 
-
     Glib::RefPtr<Gsv::Buffer> _getNodeTextBuffer(const Gtk::TreeIter& treeIter);
 
     CtTreeModelColumns             _columns;
     Glib::RefPtr<Gtk::TreeStore>   _rTreeStore;
-    std::set<gint64>               _bookmarks;
-    std::list<gint64>              _bookmarks_order;
+    std::list<gint64>              _bookmarks;
     std::set<std::string>          _usedTags;
     std::map<gint64, std::string>  _nodes_names_dict; // for link tooltips
     CtSQLiteRead*                  _pCtSQLiteRead{nullptr};

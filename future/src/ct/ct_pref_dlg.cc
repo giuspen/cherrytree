@@ -223,8 +223,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
         config->timestampFormat = entry_timestamp_format->get_text();
     });
     button_strftime_help->signal_clicked().connect([](){
-        system("xdg-open https://docs.python.org/2/library/time.html#time.strftime");
-        // webbrowser.open("https://docs.python.org/2/library/time.html#time.strftime")
+        if (0 != system("xdg-open https://docs.python.org/2/library/time.html#time.strftime")) g_print("? xdg-open");
     });
     entry_horizontal_rule->signal_changed().connect([config, entry_horizontal_rule](){
         config->hRule = entry_horizontal_rule->get_text();

@@ -335,7 +335,7 @@ void CtTreeStore::updateNodeData(Gtk::TreeIter treeIter, const CtNodeData& nodeD
 void CtTreeStore::updateNodeAuxIcon(Gtk::TreeIter treeIter)
 {
     bool is_ro = treeIter->get_value(_columns.colNodeRO);
-    bool is_bookmark = set::exists(_bookmarks, treeIter->get_value(_columns.colNodeUniqueId));
+    bool is_bookmark = vec::exists(_bookmarks, treeIter->get_value(_columns.colNodeUniqueId));
     std::string stock_id;
     if (is_ro && is_bookmark) stock_id = "lockpin";
     else if (is_ro)           stock_id = "locked";
@@ -373,23 +373,21 @@ Gtk::TreeIter CtTreeStore::insertNode(CtNodeData* pNodeData, const Gtk::TreeIter
 
 bool CtTreeStore::onRequestAddBookmark(gint64 nodeId)
 {
-    if (set::exists(_bookmarks, nodeId))
+    if (vec::exists(_bookmarks, nodeId))
     {
         return false;
     }
-    _bookmarks.insert(nodeId);
-    _bookmarks_order.push_back(nodeId);
+    _bookmarks.push_back(nodeId);
     return true;
 }
 
 bool CtTreeStore::onRequestRemoveBookmark(gint64 nodeId)
 {
-    if (!set::exists(_bookmarks, nodeId))
+    if (!vec::exists(_bookmarks, nodeId))
     {
         return false;
     }
-    set::remove(_bookmarks, nodeId);
-    vec::remove(_bookmarks_order, nodeId);
+    vec::remove(_bookmarks, nodeId);
     return true;
 }
 
@@ -493,7 +491,7 @@ void CtTreeStore::add_used_tags(const std::string& tags)
 
 bool CtTreeStore::is_node_bookmarked(const gint64& node_id)
 {
-    return set::exists(_bookmarks, node_id);
+    return vec::exists(_bookmarks, node_id);
 }
 
 std::string CtTreeStore::get_node_name_from_node_id(const gint64& node_id)
@@ -514,26 +512,26 @@ CtTreeIter CtTreeStore::get_tree_iter_from_node_id(const gint64& node_id)
 
 const std::list<gint64>& CtTreeStore::get_bookmarks()
 {
-    return _bookmarks_order;
+    return _bookmarks;
 }
 
-void CtTreeStore::set_bookmarks(const std::list<gint64>& bookmarks_order)
+void CtTreeStore::set_bookmarks(const std::list<gint64>& bookmarks)
 {
-    _bookmarks_order = bookmarks_order;
-    _bookmarks.clear();
-    std::copy(_bookmarks_order.begin(), _bookmarks_order.end(), std::inserter(_bookmarks, _bookmarks.begin()));
+    _bookmarks = bookmarks;
 }
-
 
 std::string CtTreeStore::get_tree_expanded_collapsed_string(Gtk::TreeView& treeView)
 {
     std::vector<std::string> expanded_collapsed_vec;
-    _rTreeStore->foreach([this, &treeView, &expanded_collapsed_vec](const Gtk::TreePath& path, const Gtk::TreeIter& iter)->bool{
-        expanded_collapsed_vec.push_back(std::to_string(iter->get_value(_columns.colNodeUniqueId))
-                                         + ","
-                                         + (treeView.row_expanded(path) ? "True" : "False"));
-        return false; /* false for continue */
-    });
+    _rTreeStore->foreach(
+        [this, &treeView, &expanded_collapsed_vec](const Gtk::TreePath& path, const Gtk::TreeIter& iter)->bool
+        {
+            expanded_collapsed_vec.push_back(std::to_string(iter->get_value(_columns.colNodeUniqueId))
+                                             + ","
+                                             + (treeView.row_expanded(path) ? "True" : "False"));
+            return false; /* false for continue */
+        }
+    );
     return str::join(expanded_collapsed_vec, "_");
 }
 
@@ -541,23 +539,31 @@ void CtTreeStore::set_tree_expanded_collapsed_string(const std::string& expanded
 {
     std::map<gint64, bool> expanded_collapsed_dict;
     auto expand_collapsed_vec = str::split(expanded_collapsed_string, "_");
-    for (const std::string& element: expand_collapsed_vec) {
+    for (const std::string& element: expand_collapsed_vec)
+    {
         auto couple = str::split(element, ",");
         if (couple.size() == 2)
+        {
             expanded_collapsed_dict[std::stoll(couple[0])] = CtStrUtil::isStrTrue(couple[1]);
+        }
     }
-
     treeView.collapse_all();
-    _rTreeStore->foreach([this, &treeView, &expanded_collapsed_dict, &nodes_bookm_exp](const Gtk::TreePath& path, const Gtk::TreeIter& iter)->bool{
-        gint64 node_id = iter->get_value(_columns.colNodeUniqueId);
-        if (map::exists(expanded_collapsed_dict, node_id) && expanded_collapsed_dict.at(node_id))
-            treeView.expand_row(path, false);
-        else if (nodes_bookm_exp && set::exists(_bookmarks, node_id) && iter->parent())
-            treeView.expand_to_path(_rTreeStore->get_path(iter->parent()));
-        return false; /* false for continue */
-    });
+    _rTreeStore->foreach(
+        [this, &treeView, &expanded_collapsed_dict, &nodes_bookm_exp](const Gtk::TreePath& path, const Gtk::TreeIter& iter)->bool
+        {
+            gint64 node_id = iter->get_value(_columns.colNodeUniqueId);
+            if (map::exists(expanded_collapsed_dict, node_id) && expanded_collapsed_dict.at(node_id))
+            {
+                treeView.expand_row(path, false);
+            }
+            else if (nodes_bookm_exp && vec::exists(_bookmarks, node_id) && iter->parent())
+            {
+                treeView.expand_to_path(_rTreeStore->get_path(iter->parent()));
+            }
+            return false; /* false for continue */
+        }
+    );
 }
-
 
 Glib::RefPtr<Gtk::TreeStore> CtTreeStore::get_store()
 {
