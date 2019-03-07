@@ -241,9 +241,12 @@ Gtk::Widget* CtPrefDlg::build_tab_text()
 
     Gtk::VBox* vbox_editor = Gtk::manage(new Gtk::VBox());
     Gtk::CheckButton* checkbutton_auto_smart_quotes = Gtk::manage(new Gtk::CheckButton(_("Enable Smart Quotes Auto Replacement")));
+    Gtk::CheckButton* checkbutton_enable_symbol_autoreplace = Gtk::manage(new Gtk::CheckButton(_("Enable Symbol Auto Replacement")));
     checkbutton_auto_smart_quotes->set_active(config->autoSmartQuotes);
+    checkbutton_enable_symbol_autoreplace->set_active(config->enableSymbolAutoreplace);
 
     vbox_editor->pack_start(*checkbutton_auto_smart_quotes, false, false);
+    vbox_editor->pack_start(*checkbutton_enable_symbol_autoreplace, false, false);
 
     Gtk::Frame* frame_editor = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Text Editor")+"</b>"));
     ((Gtk::Label*)frame_editor->get_label_widget())->set_use_markup(true);
@@ -259,6 +262,9 @@ Gtk::Widget* CtPrefDlg::build_tab_text()
 
     checkbutton_auto_smart_quotes->signal_toggled().connect([config, checkbutton_auto_smart_quotes](){
         config->autoSmartQuotes = checkbutton_auto_smart_quotes->get_active();
+    });
+    checkbutton_enable_symbol_autoreplace->signal_toggled().connect([config, checkbutton_enable_symbol_autoreplace](){
+        config->enableSymbolAutoreplace = checkbutton_enable_symbol_autoreplace->get_active();
     });
     return pMainBox;
 }
