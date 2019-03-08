@@ -66,17 +66,6 @@ guint32 getUint32FromHexChars(const char* hexChars, guint8 numChars);
 
 std::vector<gint64> gstringSplit2int64(const gchar* inStr, const gchar* delimiter, gint max_tokens=-1);
 
-template<class String> void stringJoin4int64(const std::vector<gint64>& inInt64Vec, String& outString, const gchar* delimiter=" ")
-{
-    bool firstIteration{true};
-    for(const gint64& element : inInt64Vec)
-    {
-        if (!firstIteration) outString += delimiter;
-        else firstIteration = false;
-        outString += std::to_string(element);
-    }
-}
-
 bool isPgcharInPgcharSet(const gchar* pGcharNeedle, const std::set<const gchar*>& setPgcharHaystack);
 
 } // namespace CtStrUtil
@@ -177,6 +166,18 @@ std::string join(const std::vector<STRING>& cnt, const std::string& delimer)
         ss << v;
     }
     return ss.str();
+}
+
+template<class String, class Vector>
+void join_numbers(const Vector& in_numbers_vec, String& outString, const gchar* delimiter=" ")
+{
+    bool firstIteration{true};
+    for(const auto& element : in_numbers_vec)
+    {
+        if (!firstIteration) outString += delimiter;
+        else firstIteration = false;
+        outString += std::to_string(element);
+    }
 }
 
 } // namespace str

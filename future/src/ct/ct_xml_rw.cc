@@ -291,3 +291,19 @@ CtXmlWrite::CtXmlWrite(const char* filepath)
 CtXmlWrite::~CtXmlWrite()
 {
 }
+
+void CtXmlWrite::append_bookmarks(const std::list<gint64>& bookmarks)
+{
+    xmlpp::Element* p_bookmarks_node = get_root_node()->add_child("bookmarks");
+    Glib::ustring rejoined;
+    str::join_numbers(bookmarks, rejoined, ",");
+    p_bookmarks_node->set_attribute("list", rejoined);
+}
+
+void CtXmlWrite::append_dom_node(xmlpp::Element* p_node_parent)
+{
+    if (nullptr == p_node_parent)
+    {
+        p_node_parent = get_root_node();
+    }
+}
