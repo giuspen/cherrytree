@@ -214,6 +214,7 @@ void CtConfig::_populateFromKeyfile()
     _populateIntFromKeyfile("embfile_max_size", &embfileMaxSize);
     _populateBoolFromKeyfile("line_wrapping", &lineWrapping);
     _populateBoolFromKeyfile("auto_smart_quotes", &autoSmartQuotes);
+    _populateBoolFromKeyfile("enable_symbol_autoreplace", &enableSymbolAutoreplace);
     _populateIntFromKeyfile("wrapping_indent", &wrappingIndent);
     _populateBoolFromKeyfile("auto_indent", &autoIndent);
     _populateBoolFromKeyfile("rt_show_white_spaces", &rtShowWhiteSpaces);

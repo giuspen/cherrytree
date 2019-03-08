@@ -410,7 +410,7 @@ def on_sourceview_event_after_key_press(dad, text_view, event, syntax_highl):
                     new_num += 1
                     list_info = dad.lists_handler.get_next_list_info_on_level(iter_start, curr_level)
         else: # keyname == cons.STR_KEY_SPACE
-            if is_code is False and iter_start.backward_chars(2):
+            if is_code is False and iter_start.backward_chars(2) and dad.enable_symbol_autoreplace:
                 if iter_start.get_char() == cons.CHAR_GREATER and iter_start.backward_char():
                     if iter_start.get_line_offset() == 0:
                         # at line start

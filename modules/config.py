@@ -270,6 +270,7 @@ def config_file_load(dad):
         dad.embfile_max_size = cfg.getint(section, "embfile_max_size") if cfg.has_option(section, "embfile_max_size") else MAX_SIZE_EMBFILE_MB_DEFAULT
         dad.line_wrapping = cfg.getboolean(section, "line_wrapping") if cfg.has_option(section, "line_wrapping") else True
         dad.auto_smart_quotes = cfg.getboolean(section, "auto_smart_quotes") if cfg.has_option(section, "auto_smart_quotes") else True
+        dad.enable_symbol_autoreplace = cfg.getboolean(section, "enable_symbol_autoreplace") if cfg.has_option(section, "enable_symbol_autoreplace") else True
         dad.wrapping_indent = cfg.getint(section, "wrapping_indent") if cfg.has_option(section, "wrapping_indent") else -14
         dad.auto_indent = cfg.getboolean(section, "auto_indent") if cfg.has_option(section, "auto_indent") else True
         dad.rt_show_white_spaces = cfg.getboolean(section, "rt_show_white_spaces") if cfg.has_option(section, "rt_show_white_spaces") else False
@@ -416,6 +417,7 @@ def config_file_load(dad):
         dad.embfile_max_size = MAX_SIZE_EMBFILE_MB_DEFAULT
         dad.line_wrapping = True
         dad.auto_smart_quotes = True
+        dad.enable_symbol_autoreplace = True
         dad.wrapping_indent = -14
         dad.auto_indent = True
         dad.toolbar_ui_list = menus.TOOLBAR_VEC_DEFAULT
@@ -608,6 +610,7 @@ def config_file_save(dad):
     cfg.set(section, "embfile_max_size", dad.embfile_max_size)
     cfg.set(section, "line_wrapping", dad.line_wrapping)
     cfg.set(section, "auto_smart_quotes", dad.auto_smart_quotes)
+    cfg.set(section, "enable_symbol_autoreplace", dad.enable_symbol_autoreplace)
     cfg.set(section, "wrapping_indent", dad.wrapping_indent)
     cfg.set(section, "auto_indent", dad.auto_indent)
     cfg.set(section, "rt_show_white_spaces", dad.rt_show_white_spaces)
@@ -1205,7 +1208,11 @@ def preferences_tab_text(dad, vbox_text, pref_dialog):
     checkbutton_auto_smart_quotes = gtk.CheckButton(_("Enable Smart Quotes Auto Replacement"))
     checkbutton_auto_smart_quotes.set_active(dad.auto_smart_quotes)
 
+    checkbutton_enable_symbol_autoreplace = gtk.CheckButton(_("Enable Symbol Auto Replacement"))
+    checkbutton_enable_symbol_autoreplace.set_active(dad.enable_symbol_autoreplace)
+
     vbox_editor.pack_start(checkbutton_auto_smart_quotes, expand=False)
+    vbox_editor.pack_start(checkbutton_enable_symbol_autoreplace, expand=False)
 
     frame_editor = gtk.Frame(label="<b>"+_("Text Editor")+"</b>")
     frame_editor.get_label_widget().set_use_markup(True)
@@ -1218,7 +1225,10 @@ def preferences_tab_text(dad, vbox_text, pref_dialog):
     vbox_text.pack_start(frame_editor, expand=False)
     def on_checkbutton_auto_smart_quotes_toggled(checkbutton):
         dad.auto_smart_quotes = checkbutton.get_active()
+    def on_checkbutton_enable_symbol_autoreplace_toggled(checkbutton):
+        dad.enable_symbol_autoreplace = checkbutton.get_active()
     checkbutton_auto_smart_quotes.connect('toggled', on_checkbutton_auto_smart_quotes_toggled)
+    checkbutton_enable_symbol_autoreplace.connect('toggled', on_checkbutton_enable_symbol_autoreplace_toggled)
 
 def preferences_tab_plain_text_n_code(dad, vbox_code_nodes, pref_dialog):
     """Preferences Dialog, Plain Text and Code Tab"""

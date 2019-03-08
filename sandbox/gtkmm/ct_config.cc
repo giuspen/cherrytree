@@ -210,6 +210,7 @@ public:
     int                                         m_embfile_max_size;
     bool                                        m_line_wrapping;
     bool                                        m_auto_smart_quotes;
+    bool                                        m_enable_symbol_autoreplace;
     int                                         m_wrapping_indent;
     bool                                        m_auto_indent;
     bool                                        m_rt_show_white_spaces;
@@ -371,6 +372,7 @@ void CTConfig::_populate_with_defaults()
     m_embfile_max_size = 10;
     m_line_wrapping = true;
     m_auto_smart_quotes = true;
+    m_enable_symbol_autoreplace = true;
     m_wrapping_indent = -14;
     m_auto_indent = true;
     m_rt_show_white_spaces = false;
@@ -636,6 +638,7 @@ void CTConfig::_populate_from_keyfile()
     _populate_int_from_keyfile("embfile_max_size", &m_embfile_max_size);
     _populate_bool_from_keyfile("line_wrapping", &m_line_wrapping);
     _populate_bool_from_keyfile("auto_smart_quotes", &m_auto_smart_quotes);
+    _populate_bool_from_keyfile("enable_symbol_autoreplace", &m_enable_symbol_autoreplace);
     _populate_int_from_keyfile("wrapping_indent", &m_wrapping_indent);
     _populate_bool_from_keyfile("auto_indent", &m_auto_indent);
     _populate_bool_from_keyfile("rt_show_white_spaces", &m_rt_show_white_spaces);

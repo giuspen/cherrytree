@@ -94,6 +94,7 @@ public:
     int                                         embfileMaxSize{10};
     bool                                        lineWrapping{true};
     bool                                        autoSmartQuotes{true};
+    bool                                        enableSymbolAutoreplace{true};
     int                                         wrappingIndent{-14};
     bool                                        autoIndent{true};
     bool                                        rtShowWhiteSpaces{false};
