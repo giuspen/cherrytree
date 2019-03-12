@@ -26,7 +26,7 @@
 
 
 CtConfig::CtConfig()
- : _filepath(Glib::build_filename(Glib::get_user_config_dir(), "cherrytree", "config.cfg"))
+ : _filepath(Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME, "config.cfg"))
 {
     bool config_found = _checkLoadFromFile();
     std::cout << _filepath << " " << (config_found ? "parsed":"missing") << std::endl;
@@ -214,6 +214,7 @@ void CtConfig::_populateFromKeyfile()
     _populateIntFromKeyfile("embfile_max_size", &embfileMaxSize);
     _populateBoolFromKeyfile("line_wrapping", &lineWrapping);
     _populateBoolFromKeyfile("auto_smart_quotes", &autoSmartQuotes);
+    _populateBoolFromKeyfile("enable_symbol_autoreplace", &enableSymbolAutoreplace);
     _populateIntFromKeyfile("wrapping_indent", &wrappingIndent);
     _populateBoolFromKeyfile("auto_indent", &autoIndent);
     _populateBoolFromKeyfile("rt_show_white_spaces", &rtShowWhiteSpaces);

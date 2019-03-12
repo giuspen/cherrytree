@@ -1,10 +1,11 @@
-cherrytree (0.38.7-0) bionic; urgency=low
+cherrytree (0.38.8-0) bionic; urgency=low
 
-  * bugfix - problem of locale.getdefaultlocale behavioural change in python (#412)
-  * bugfix - must not allow deletion of a node that is read only (#419)
-  * allow deletion of a recent documents entry via entry submenu (#382)
-  * renamed two iterated find dialog labels from Find & Find to Find Previous & Find Next (#423)
-  * moved python-appindicator from Depends: to Recommends: (#401)
-  * export to html, include node name not working without links tree (#417)
+  * Improved implementation of deletion of recent documents entry (#382)
+  * Ctrl+Space to toggle To-Do List Item State (#438)
+  * Fix detection of missing installation of xterm required in code execution on linux (with default settings)
+  * Horizontal rule insert without hard coded newline before (still newline after)
+  * updated Spanish language (Daniel)
+  * updated Greek language (Delphina)
+  * updated Armenian language (Seda)
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sun, 16 Dec 2018 13:34:08 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Thu, 21 Feb 2019 06:18:00 +0000

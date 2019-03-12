@@ -69,17 +69,6 @@ guint32 getUint32FromHexChars(const char* hexChars, guint8 numChars);
 
 std::vector<gint64> gstringSplit2int64(const gchar* inStr, const gchar* delimiter, gint max_tokens=-1);
 
-template<class String> void stringJoin4int64(const std::vector<gint64>& inInt64Vec, String& outString, const gchar* delimiter=" ")
-{
-    bool firstIteration{true};
-    for(const gint64& element : inInt64Vec)
-    {
-        if (!firstIteration) outString += delimiter;
-        else firstIteration = false;
-        outString += std::to_string(element);
-    }
-}
-
 bool isPgcharInPgcharSet(const gchar* pGcharNeedle, const std::set<const gchar*>& setPgcharHaystack);
 
 } // namespace CtStrUtil
@@ -95,7 +84,6 @@ std::string getFontCss(const std::string& fontStr);
 const std::string& getFontForSyntaxHighlighting(const std::string& syntaxHighlighting);
 
 std::string getFontCssForSyntaxHighlighting(const std::string& syntaxHighlighting);
-
 
 } // namespace CtFontUtil
 
@@ -115,9 +103,7 @@ std::string rgb_to_string(Gdk::RGBA color);
 
 std::string rgb_any_to_24(Gdk::RGBA color);
 
-
 } // namespace CtRgbUtil
-
 
 namespace str {
 
@@ -158,19 +144,18 @@ String trim(String s)
     return s;
 }
 
-template <typename ...Args>
-std::string format(std::string str, const Args &... args)
+template<typename ...Args>
+std::string format(std::string in_str, const Args&... args)
 {
-    return fmt::format(str::replace(str, "%s", "{}"), args...);
+    return fmt::format(str::replace(in_str, "%s", "{}"), args...);
 }
-
 
 template<class STRING = std::string>
 std::vector<STRING> split(const std::string& str, const std::string& delimiter)
 {
     std::vector<STRING> vecOfStrings;
-    gchar **arrayOfStrings = g_strsplit(str.c_str(), delimiter.c_str(), -1);
-    for(gchar **ptr = arrayOfStrings; *ptr; ptr++)
+    gchar** arrayOfStrings = g_strsplit(str.c_str(), delimiter.c_str(), -1);
+    for (gchar** ptr = arrayOfStrings; *ptr; ptr++)
     {
         vecOfStrings.push_back(*ptr);
     }
@@ -185,30 +170,43 @@ std::string join(const std::vector<STRING>& cnt, const std::string& delimer)
     std::stringstream ss;
     for (auto& v: cnt)
     {
-      if (!firstTime) ss << delimer;
-      else firstTime = false;
-      ss << v;
+        if (!firstTime) ss << delimer;
+        else firstTime = false;
+        ss << v;
     }
     return ss.str();
 }
 
+template<class String, class Vector>
+void join_numbers(const Vector& in_numbers_vec, String& outString, const gchar* delimiter=" ")
+{
+    bool firstIteration{true};
+    for(const auto& element : in_numbers_vec)
+    {
+        if (!firstIteration) outString += delimiter;
+        else firstIteration = false;
+        outString += std::to_string(element);
+    }
+}
 
 } // namespace str
 
 namespace vec {
 
 template<class VEC, class VAL>
-void remove(VEC& vec, const VAL& val)
+void remove(VEC& v, const VAL& val)
 {
-    auto it = std::find(vec.begin(), vec.end(), val);
-    if (it != vec.end())
-        vec.erase(it);
+    auto it = std::find(v.begin(), v.end(), val);
+    if (it != v.end())
+    {
+        v.erase(it);
+    }
 }
 
 template<class VEC, class VAL>
-bool exists(const VEC& vec, const VAL& val)
+bool exists(const VEC& v, const VAL& val)
 {
-    return std::find(vec.begin(), vec.end(), val) != vec.end();
+    return std::find(v.begin(), v.end(), val) != v.end();
 }
 
 } // namespace vec
@@ -216,16 +214,18 @@ bool exists(const VEC& vec, const VAL& val)
 namespace set {
 
 template<class SET, class KEY>
-bool exists(const SET& m, const KEY& key) {
-    return m.find(key) != m.end();
+bool exists(const SET& s, const KEY& key)
+{
+    return s.find(key) != s.end();
 }
 
 template<class SET, class VAL>
-bool remove(SET& set, const VAL& val)
+bool remove(SET& s, const VAL& val)
 {
-    auto it = std::find(set.begin(), set.end(), val);
-    if (it != set.end()) {
-        set.erase(it);
+    auto it = s.find(val);
+    if (it != s.end())
+    {
+        s.erase(it);
         return true;
     }
     return false;
@@ -236,8 +236,10 @@ bool remove(SET& set, const VAL& val)
 namespace map {
 
 template<class MAP, class KEY>
-bool exists(const MAP& m, const KEY& key) {
+bool exists(const MAP& m, const KEY& key)
+{
     return m.find(key) != m.end();
 }
 
 } // namespace map
+

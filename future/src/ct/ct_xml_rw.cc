@@ -47,10 +47,10 @@ CtXmlRead::~CtXmlRead()
 
 void CtXmlRead::treeWalk(const Gtk::TreeIter* pParentIter)
 {
-    xmlpp::Document *pDocument = get_document();
+    xmlpp::Document* pDocument = get_document();
     assert(nullptr != pDocument);
-    xmlpp::Element *pRoot = pDocument->get_root_node();
-    assert("cherrytree" == pRoot->get_name());
+    xmlpp::Element* pRoot = pDocument->get_root_node();
+    assert(CtConst::APP_NAME == pRoot->get_name());
     for (xmlpp::Node* pNode : pRoot->get_children())
     {
         if ("node" == pNode->get_name())
@@ -60,7 +60,7 @@ void CtXmlRead::treeWalk(const Gtk::TreeIter* pParentIter)
         else if ("bookmarks" == pNode->get_name())
         {
             Glib::ustring bookmarks_csv = static_cast<xmlpp::Element*>(pNode)->get_attribute_value("list");
-            for (gint64 &nodeId : CtStrUtil::gstringSplit2int64(bookmarks_csv.c_str(), ","))
+            for (gint64& nodeId : CtStrUtil::gstringSplit2int64(bookmarks_csv.c_str(), ","))
             {
                 signalAddBookmark.emit(nodeId);
             }
@@ -280,4 +280,32 @@ Glib::RefPtr<Gsv::Buffer> CtXmlRead::getTextBuffer(const std::string& syntax,
     rRetTextBuffer->end_not_undoable_action();
     rRetTextBuffer->set_modified(false);
     return rRetTextBuffer;
+}
+
+
+CtXmlWrite::CtXmlWrite(const char* filepath)
+{
+    create_root_node(CtConst::APP_NAME);
+}
+
+CtXmlWrite::~CtXmlWrite()
+{
+}
+
+void CtXmlWrite::append_bookmarks(const std::list<gint64>& bookmarks)
+{
+    xmlpp::Element* p_bookmarks_node = get_root_node()->add_child("bookmarks");
+    Glib::ustring rejoined;
+    str::join_numbers(bookmarks, rejoined, ",");
+    p_bookmarks_node->set_attribute("list", rejoined);
+}
+
+void CtXmlWrite::append_dom_node(const CtTreeIter& ct_tree_iter, xmlpp::Element* p_node_parent)
+{
+    if (nullptr == p_node_parent)
+    {
+        p_node_parent = get_root_node();
+    }
+    xmlpp::Element* p_node_node = p_node_parent->add_child("node");
+    
 }

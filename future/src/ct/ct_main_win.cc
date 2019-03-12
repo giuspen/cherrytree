@@ -121,7 +121,7 @@ void CtTextView::_setFontForSyntax(const std::string& syntaxHighlighting)
 
 CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow(), _ctMenu(pCtMenu)
 {
-    set_icon(CtApp::R_icontheme->load_icon("cherrytree", 48));
+    set_icon(CtApp::R_icontheme->load_icon(CtConst::APP_NAME, 48));
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindowText.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindowTree.add(_ctTreeview);

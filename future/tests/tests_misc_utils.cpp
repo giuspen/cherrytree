@@ -98,21 +98,6 @@ TEST(MiscUtilsGroup, gstringSplit2int64)
     CHECK(std::vector<gint64>({-1, 1, 0, 1000}) == splittedVec);
 }
 
-TEST(MiscUtilsGroup, stringJoin4int64)
-{
-    std::vector<gint64> vecToJoin({-1, 1, 0, 1000});
-    {
-        Glib::ustring rejoined;
-        CtStrUtil::stringJoin4int64(vecToJoin, rejoined, ",");
-        STRCMP_EQUAL("-1,1,0,1000", rejoined.c_str());
-    }
-    {
-        std::string rejoined;
-        CtStrUtil::stringJoin4int64(vecToJoin, rejoined);
-        STRCMP_EQUAL("-1 1 0 1000", rejoined.c_str());
-    }
-}
-
 TEST(MiscUtilsGroup, isPgcharInPgcharSet)
 {
     CHECK(CtStrUtil::isPgcharInPgcharSet(CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROPERTIES));
@@ -186,6 +171,21 @@ TEST(MiscUtilsGroup, str__join)
         std::vector<std::string> vecToJoin({"", "a", "bc", "", "d", ""});
         std::string rejoined = str::join(vecToJoin, " ");
         STRCMP_EQUAL(" a bc  d ", rejoined.c_str());
+    }
+}
+
+TEST(MiscUtilsGroup, str__join_numbers)
+{
+    std::vector<gint64> vecToJoin({-1, 1, 0, 1000});
+    {
+        Glib::ustring rejoined;
+        str::join_numbers(vecToJoin, rejoined, ",");
+        STRCMP_EQUAL("-1,1,0,1000", rejoined.c_str());
+    }
+    {
+        std::string rejoined;
+        str::join_numbers(vecToJoin, rejoined);
+        STRCMP_EQUAL("-1 1 0 1000", rejoined.c_str());
     }
 }
 
