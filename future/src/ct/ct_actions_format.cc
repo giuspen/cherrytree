@@ -26,6 +26,7 @@
 #include <glibmm/base64.h>
 #include "ct_dialogs.h"
 #include "ct_list.h"
+#include <optional>
 
 namespace  {
     ct_dialogs::CtLinkEntry glb_link_entry;
@@ -47,7 +48,7 @@ void CtActions::remove_text_formatting()
     if (!_is_there_selected_node_or_error()) return;
     if (!_is_curr_node_not_syntax_highlighting_or_error()) return;
     auto curr_buffer = _ctMainWin->get_text_view().get_buffer();
-    if (!curr_buffer->get_has_selection() && !_apply_tag_try_automatic_bounds()) {
+    if (!curr_buffer->get_has_selection() && !_apply_tag_try_automatic_bounds(curr_buffer, curr_buffer->get_insert()->get_iter())) {
         ct_dialogs::warning_dialog(_("No Text is Selected"), *_ctMainWin);
         return;
     }
@@ -223,9 +224,10 @@ void CtActions::apply_tag_justify_fill()
 }
 
 // Apply a tag
-void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring property_value /*=""*/,
-                          Gtk::TextIter iter_sel_start /*=Gtk::TextIter()*/, Gtk::TextIter iter_sel_end /*=Gtk::TextIter()*/,
-                          Glib::RefPtr<Gtk::TextBuffer> text_buffer /*=Glib::RefPtr<Gtk::TextBuffer>()*/)
+void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring property_value /*= ""*/,
+                std::optional<Gtk::TextIter> iter_sel_start /*= std::nullopt*/,
+                std::optional<Gtk::TextIter> iter_sel_end /*= std::nullopt*/,
+                Glib::RefPtr<Gtk::TextBuffer> text_buffer /*= Glib::RefPtr<Gtk::TextBuffer>()*/)
 {
     if (_ctMainWin->user_active() && !_is_curr_node_not_syntax_highlighting_or_error()) return;
     if (!text_buffer) text_buffer = curr_buffer();
@@ -238,14 +240,14 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
                 glb_link_entry = ct_dialogs::CtLinkEntry(); // resent data
             if (!text_buffer->get_has_selection()) {
                 if (tag_property != CtConst::TAG_LINK) {
-                    if (!_apply_tag_try_automatic_bounds()) {
+                    if (!_apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter())) {
                         ct_dialogs::warning_dialog(_("No Text is Selected"), *_ctMainWin);
                         return;
                     }
                 } else {
                     Glib::ustring tag_property_value = _link_check_around_cursor();
                     if (tag_property_value == "") {
-                        if (!_apply_tag_try_automatic_bounds()) {
+                        if (!_apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter())) {
                             Glib::ustring link_name = ct_dialogs::img_n_entry_dialog(*_ctMainWin, _("Link Name"), "", "link_handle");
                             if (link_name.empty()) return;
                             int start_offset = text_buffer->get_insert()->get_iter().get_offset();
@@ -260,7 +262,7 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
                     }
                 }
             }
-            text_buffer->get_selection_bounds(iter_sel_start, iter_sel_end);
+            text_buffer->get_selection_bounds(*iter_sel_start, *iter_sel_end);
          } else {
             ct_dialogs::warning_dialog(_("The Cursor is Not into a Paragraph"), *_ctMainWin);
             return;
@@ -268,12 +270,12 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
     }
     if (property_value.empty()) {
         if (tag_property == CtConst::TAG_LINK) {
-            if (CtMiscUtil::get_next_chars_from_iter_are(iter_sel_start, CtConst::WEB_LINK_STARTERS)) {
+            if (CtMiscUtil::get_next_chars_from_iter_are(*iter_sel_start, CtConst::WEB_LINK_STARTERS)) {
                 glb_link_entry.type = CtConst::LINK_TYPE_WEBS;
-                glb_link_entry.webs = text_buffer->get_text(iter_sel_start, iter_sel_end);
+                glb_link_entry.webs = text_buffer->get_text(*iter_sel_start, *iter_sel_end);
             }
-            int insert_offset = iter_sel_start.get_offset();
-            int bound_offset = iter_sel_end.get_offset();
+            int insert_offset = iter_sel_start->get_offset();
+            int bound_offset = iter_sel_end->get_offset();
             Gtk::TreeIter sel_tree_iter;
             if (glb_link_entry.node_id != -1)
                 sel_tree_iter = _ctTreestore->get_tree_iter_from_node_id(glb_link_entry.node_id);
@@ -295,12 +297,12 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
         CtApp::P_ctCfg->latestTagProp = tag_property;
         CtApp::P_ctCfg->latestTagVal = property_value;
     }
-    int sel_start_offset = iter_sel_start.get_offset();
-    int sel_end_offset = iter_sel_end.get_offset();
+    int sel_start_offset = iter_sel_start->get_offset();
+    int sel_end_offset = iter_sel_end->get_offset();
     // if there's already a tag about this property, we remove it before apply the new one
     for (int offset = sel_start_offset; offset < sel_end_offset; ++offset) {
         auto iter_sel_start = text_buffer->get_iter_at_offset(offset);
-        auto curr_tags = iter_sel_start.get_tags();
+        std::vector<Glib::RefPtr<Gtk::TextTag>> curr_tags = iter_sel_start.get_tags();
         for (auto& curr_tag: curr_tags) {
             Glib::ustring tag_name = curr_tag->property_name();
             //#print tag_name
@@ -416,12 +418,8 @@ CtActions::text_view_n_buffer_codebox_proof CtActions::_get_text_view_n_buffer_c
 }
 
 // Try to Select a Word Forward/Backward the Cursor
-bool CtActions::_apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> text_buffer /*=Glib::RefPtr<Gtk::TextBuffer>()*/,
-                                     Gtk::TextIter iter_start /*=Gtk::TextIter()*/)
+bool CtActions::_apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start)
 {
-
-    if (!text_buffer) text_buffer = _ctMainWin->get_text_view().get_buffer();
-    if (!iter_start) iter_start = text_buffer->get_insert()->get_iter();
     Gtk::TextIter iter_end = iter_start;
     auto curr_char = iter_end.get_char();
     auto re = Glib::Regex::create("\\w");
@@ -448,7 +446,7 @@ bool CtActions::_apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> te
         curr_char = iter_start.get_char();
         match = re->match(Glib::ustring(1, curr_char));
     }
-    if (!match && CtApp::P_ctCfg->selwordChars.find(curr_char) != Glib::ustring::npos)
+    if (!match && CtApp::P_ctCfg->selwordChars.find(curr_char) == Glib::ustring::npos)
         iter_start.forward_char();
     // 2) remove non alphanumeric from borders
     iter_end.backward_char();

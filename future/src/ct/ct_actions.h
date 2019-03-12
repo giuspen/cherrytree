@@ -22,6 +22,7 @@
 #pragma once
 #include "ct_main_win.h"
 #include "ct_dialogs.h"
+#include <optional>
 
 class CtMainWin;
 class CtActions
@@ -127,7 +128,8 @@ public:
 private:
     // helper for format actions
     void _apply_tag(const Glib::ustring& tag_property, Glib::ustring property_value = "",
-                    Gtk::TextIter iter_sel_start = Gtk::TextIter(), Gtk::TextIter iter_sel_end = Gtk::TextIter(),
+                    std::optional<Gtk::TextIter> iter_sel_start = std::nullopt,
+                    std::optional<Gtk::TextIter> iter_sel_end = std::nullopt,
                     Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>());
     Glib::ustring _apply_tag_exist_or_create(const Glib::ustring& tag_property, Glib::ustring property_value);
 
@@ -138,8 +140,7 @@ private:
         bool                            from_codebox;
     };
     text_view_n_buffer_codebox_proof _get_text_view_n_buffer_codebox_proof();
-    bool _apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>(),
-                                         Gtk::TextIter iter_start = Gtk::TextIter());
+    bool _apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start);
 
     bool _links_entries_pre_dialog(const Glib::ustring& curr_link, ct_dialogs::CtLinkEntry& link_entry);
     Glib::ustring _links_entries_post_dialog(ct_dialogs::CtLinkEntry& link_entry);
