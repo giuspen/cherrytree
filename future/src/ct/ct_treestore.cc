@@ -56,7 +56,7 @@ gint64 CtTreeIter::get_node_id() const
     return -1;
 }
 
-std::string CtTreeIter::get_node_name() const
+Glib::ustring CtTreeIter::get_node_name() const
 {
     if (*this)
     {
@@ -70,7 +70,7 @@ void CtTreeIter::set_node_name(const Glib::ustring& node_name)
     (*this)->set_value(_columns->colNodeName, node_name);
 }
 
-std::string CtTreeIter::get_node_tags() const
+Glib::ustring CtTreeIter::get_node_tags() const
 {
     if (*this)
     {
@@ -471,10 +471,13 @@ gint64 CtTreeStore::node_id_get()
     // todo: this function works differently from python code
     // it's easer to find max than check every id is not used through all tree
     gint64 max_id = 0;
-    _rTreeStore->foreach([&max_id, this](const Gtk::TreeModel::Path&, const Gtk::TreeIter& iter) -> bool{
-        max_id = std::max(max_id, iter->get_value(_columns.colNodeUniqueId));
-        return false;
-    });
+    _rTreeStore->foreach(
+        [&max_id, this](const Gtk::TreeModel::Path&, const Gtk::TreeIter& iter)->bool
+        {
+            max_id = std::max(max_id, iter->get_value(_columns.colNodeUniqueId));
+            return false;
+        }
+    );
     return max_id+1;
 }
 

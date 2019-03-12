@@ -65,7 +65,7 @@ public:
     CtXmlWrite(const char* filepath);
     virtual ~CtXmlWrite();
     void append_bookmarks(const std::list<gint64>& bookmarks);
-    void append_dom_node(xmlpp::Element* p_node_parent=nullptr);
+    void append_dom_node(const CtTreeIter& ct_tree_iter, xmlpp::Element* p_node_parent=nullptr);
 };
 
 class CtSQLiteRead : public CtDocRead
