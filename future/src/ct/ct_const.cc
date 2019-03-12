@@ -122,7 +122,7 @@ const gchar    CtConst::STR_STOCK_CT_IMP[]          {"import_in_cherrytree"};
 
 const int      CtConst::MAX_FILE_NAME_LEN           {142};
 
-const gchar    CtConst::CHAR_SPACE[]                {" "};
+const Glib::ustring CtConst::CHAR_SPACE             {" "};
 const gchar    CtConst::CHAR_NEWLINE[]              {"\n"};
 const gchar    CtConst::CHAR_NEWPAGE[]              {"\x0c"};
 const gchar    CtConst::CHAR_CR[]                   {"\r"};

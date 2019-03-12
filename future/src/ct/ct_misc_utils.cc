@@ -302,7 +302,7 @@ std::string CtMiscUtil::clean_from_chars_not_for_filename(std::string filename)
         filename = str::replace(filename, str, "");
     }
     filename = str::trim(filename);
-    filename = str::replace(filename, CtConst::CHAR_SPACE, CtConst::CHAR_USCORE);
+    filename = str::replace(filename, " " /*todo: CtConst::CHAR_SPACE*/, CtConst::CHAR_USCORE);
     return filename;
 }
 

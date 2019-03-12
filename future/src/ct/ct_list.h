@@ -40,7 +40,7 @@ struct CtTextRange
 {
     Gtk::TextIter iter_start;
     Gtk::TextIter iter_end;
-    int leading_chars_num;
+    int leading_chars_num = 0;
 };
 
 class CtList
@@ -57,8 +57,7 @@ public:
     CtListInfo  get_prev_list_info_on_level(Gtk::TextIter iter_start, int level);
     CtListInfo  get_next_list_info_on_level(Gtk::TextIter iter_start, int level);
     CtListInfo  get_paragraph_list_info(Gtk::TextIter iter_start_orig);
-    CtTextRange get_paragraph_iters(Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>(),
-                                    Gtk::TextIter force_iter = Gtk::TextIter());
+    CtTextRange get_paragraph_iters(Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>(), Gtk::TextIter* force_iter = nullptr);
     bool        is_list_todo_beginning(Gtk::TextIter square_bracket_open_iter);
     void        todo_list_rotate_status(Gtk::TextIter todo_char_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer);
     bool        char_iter_forward_to_newline(Gtk::TextIter& char_iter);

@@ -125,7 +125,7 @@ extern const gchar    STR_KEY_RIGHT[];
 extern const gchar    STR_STOCK_CT_IMP[];
 extern const int      MAX_FILE_NAME_LEN;
 extern const gchar    CHAR_NEWLINE[];
-extern const gchar    CHAR_SPACE[];
+extern const Glib::ustring CHAR_SPACE;
 extern const gchar    CHAR_NEWLINE[];
 extern const gchar    CHAR_NEWPAGE[];
 extern const gchar    CHAR_CR[];

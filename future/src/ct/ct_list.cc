@@ -56,7 +56,7 @@ void CtList::list_handler(CtListInfo::LIST_TYPE target_list_num_id, Glib::RefPtr
     }
     while (new_par_offset < end_offset) {
         // std::cout << new_par_offset << " " << end_offset;
-        range = get_paragraph_iters(text_buffer, range.iter_start);
+        range = get_paragraph_iters(text_buffer, &range.iter_start);
         if (!range.iter_start) {
             // empty line
             if (leading_num_count.empty()) {
@@ -310,7 +310,7 @@ CtListInfo CtList::get_paragraph_list_info(Gtk::TextIter iter_start_orig)
 
 // Generates and Returns two iters indicating the paragraph bounds
 CtTextRange CtList::get_paragraph_iters(Glib::RefPtr<Gtk::TextBuffer> text_buffer /*= Glib::RefPtr<Gtk::TextBuffer>()*/,
-                                        Gtk::TextIter force_iter /*= Gtk::TextIter()*/)
+                                        Gtk::TextIter* force_iter /*= nullptr*/)
 {
     Gtk::TextIter iter_start, iter_end;
     if (!text_buffer) text_buffer = _curr_buffer;
@@ -319,7 +319,7 @@ CtTextRange CtList::get_paragraph_iters(Glib::RefPtr<Gtk::TextBuffer> text_buffe
     else {
         // there's not a selection/iter forced
         if (!force_iter) iter_start = text_buffer->get_insert()->get_iter();
-        else                          iter_start = force_iter;
+        else             iter_start = *force_iter;
         iter_end = iter_start;
         if (iter_start.get_char() == CtConst::CHAR_NEWLINE[0]) {
             // we're upon a row end
@@ -349,8 +349,8 @@ bool CtList::is_list_todo_beginning(Gtk::TextIter square_bracket_open_iter)
 {
     if (CtApp::P_ctCfg->charsTodo.find(square_bracket_open_iter.get_char()) != Glib::ustring::npos) {
         CtListInfo list_info = get_paragraph_list_info(square_bracket_open_iter);
-            if (list_info.type == CtListInfo::TODO)
-                return true;
+        if (list_info.type == CtListInfo::TODO)
+            return true;
     }
     return false;
 }
