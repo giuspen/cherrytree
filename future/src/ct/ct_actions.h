@@ -21,7 +21,7 @@
 
 #pragma once
 #include "ct_main_win.h"
-
+#include "ct_dialogs.h"
 
 class CtMainWin;
 class CtActions
@@ -34,8 +34,12 @@ private:
     CtTreeStore* _ctTreestore;
 
 private:
+    Glib::RefPtr<Gtk::TextBuffer> curr_buffer();
+
     bool          _is_there_selected_node_or_error();
     bool          _is_tree_not_empty_or_error();
+    bool          _is_curr_node_not_read_only_or_error();
+    bool          _is_curr_node_not_syntax_highlighting_or_error(bool plain_text_ok = false);
 
 private:
     // helpers for tree actions
@@ -122,6 +126,24 @@ public:
 
 private:
     // helper for format actions
+    void _apply_tag(const Glib::ustring& tag_property, Glib::ustring property_value = "",
+                    Gtk::TextIter iter_sel_start = Gtk::TextIter(), Gtk::TextIter iter_sel_end = Gtk::TextIter(),
+                    Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>());
+    Glib::ustring _apply_tag_exist_or_create(const Glib::ustring& tag_property, Glib::ustring property_value);
+
+    struct text_view_n_buffer_codebox_proof {
+        Gtk::TextView*                  text_view;
+        Glib::RefPtr<Gtk::TextBuffer>   text_buffer;
+        std::string                     syntax_highl;
+        bool                            from_codebox;
+    };
+    text_view_n_buffer_codebox_proof _get_text_view_n_buffer_codebox_proof();
+    bool _apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>(),
+                                         Gtk::TextIter iter_start = Gtk::TextIter());
+
+    bool _links_entries_pre_dialog(const Glib::ustring& curr_link, ct_dialogs::CtLinkEntry& link_entry);
+    Glib::ustring _links_entries_post_dialog(ct_dialogs::CtLinkEntry& link_entry);
+    Glib::ustring _link_check_around_cursor();
 
 public:
     void apply_tag_latest();

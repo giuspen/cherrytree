@@ -22,6 +22,7 @@
 #pragma once
 
 #include <gtkmm/textbuffer.h>
+#include <glibmm/refptr.h>
 
 struct CtListInfo
 {
@@ -45,7 +46,9 @@ struct CtTextRange
 class CtList
 {
 public:
-    void        list_handler(CtListInfo::LIST_TYPE target_list_num_id, Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtf<Gtk::TextBuffer>());
+    CtList(Glib::RefPtr<Gtk::TextBuffer> curr_buffer) : _curr_buffer(curr_buffer) {}
+
+    void        list_handler(CtListInfo::LIST_TYPE target_list_num_id, Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>());
     CtTextRange list_check_n_remove_old_list_type_leading(Gtk::TextIter iter_start, Gtk::TextIter iter_end,
                                                           Glib::RefPtr<Gtk::TextBuffer> text_buffer);
     int         get_leading_chars_num(CtListInfo::LIST_TYPE type, int list_info_num);
@@ -62,6 +65,6 @@ public:
     bool        char_iter_backward_to_newline(Gtk::TextIter& char_iter);
     void        todo_lists_old_to_new_conversion(Glib::RefPtr<Gtk::TextBuffer> text_buffer);
 
-    Glib::RefPtr<Gtk::TextBuffer> curr_buffer();
-
+private:
+    Glib::RefPtr<Gtk::TextBuffer> _curr_buffer;
 };

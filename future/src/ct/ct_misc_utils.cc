@@ -318,6 +318,27 @@ Gtk::BuiltinIconSize CtMiscUtil::getIconSize(int size)
     }
 }
 
+// Returns True if one set of the Given Chars are the first after iter
+bool CtMiscUtil::get_next_chars_from_iter_are(Gtk::TextIter text_iter, const Glib::ustring& chars_list)
+{
+    for (size_t i = 0; i < chars_list.size(); ++i)
+    {
+        if (text_iter.get_char() != chars_list[i])
+            return false;
+        if (!text_iter.forward_char() && i+1 != chars_list.size())
+            return false;
+    }
+    return true;
+}
+
+bool CtMiscUtil::get_next_chars_from_iter_are(Gtk::TextIter text_iter, const std::vector<Glib::ustring>& chars_list_vec)
+{
+    for (const auto& chars_list: chars_list_vec)
+        if (get_next_chars_from_iter_are(text_iter, chars_list))
+            return true;
+    return false;
+}
+
 
 bool CtStrUtil::isStrTrue(const Glib::ustring& inStr)
 {
@@ -499,11 +520,30 @@ std::string CtRgbUtil::rgb_any_to_24(Gdk::RGBA color)
     return rgb24StrOut;
 }
 
+bool str::startswith(const std::string& str, const std::string& starting)
+{
+    if (str.length() >= starting.length())
+        return (0 == str.compare(0, starting.length(), starting));
+    return false;
+}
+
 bool str::endswith(const std::string& str, const std::string& ending)
 {
     if (str.length() >= ending.length())
         return (0 == str.compare(str.length() - ending.length(), ending.length(), ending));
     return false;
+}
+
+int str::indexOf(const Glib::ustring& str, const Glib::ustring& lookup_str)
+{
+    size_t index = str.find(lookup_str);
+    return index != std::string::npos ? static_cast<int>(index) : -1;
+}
+
+int str::indexOf(const Glib::ustring& str, const gunichar& uc)
+{
+    size_t index = str.find(Glib::ustring(1, uc));
+    return index != std::string::npos ? static_cast<int>(index) : -1;
 }
 
 std::string str::xml_escape(const std::string& text)

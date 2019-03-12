@@ -30,6 +30,11 @@
 
 bool dialog_node_prop(std::string title, Gtk::Window& parent, CtNodeData& nodeData, const std::set<std::string>& tags_set);
 
+Glib::RefPtr<Gtk::TextBuffer> CtActions::curr_buffer()
+{
+    return _ctMainWin->get_text_view().get_buffer();
+}
+
 bool CtActions::_is_there_selected_node_or_error()
 {
     if (_ctMainWin->curr_tree_iter()) return true;
@@ -44,6 +49,28 @@ bool CtActions::_is_tree_not_empty_or_error()
         return false;
     }
     return true;
+}
+
+bool CtActions::_is_curr_node_not_read_only_or_error()
+{
+    if (_ctMainWin->curr_tree_iter().get_node_read_only()) {
+        ct_dialogs::error_dialog(_("The Selected Node is Read Only"), *_ctMainWin);
+        return false;
+    }
+    return true;
+}
+
+// Returns True if ok (no syntax highlighting) or False and prompts error dialog
+bool CtActions::_is_curr_node_not_syntax_highlighting_or_error(bool plain_text_ok /*=false*/)
+{
+    if (_ctMainWin->curr_tree_iter().get_node_syntax_highlighting() == CtConst::RICH_TEXT_ID
+        || (plain_text_ok && _ctMainWin->curr_tree_iter().get_node_syntax_highlighting() == CtConst::PLAIN_TEXT_ID))
+        return true;
+    if (!plain_text_ok)
+        ct_dialogs::warning_dialog(_("This Feature is Available Only in Rich Text Nodes"), *_ctMainWin);
+    else
+        ct_dialogs::warning_dialog(_("This Feature is Not Available in Automatic Syntax Highlighting Nodes"), *_ctMainWin);
+    return false;
 }
 
 void CtActions::_node_add(bool duplicate, bool add_child)

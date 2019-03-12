@@ -45,7 +45,7 @@ void CtList::list_handler(CtListInfo::LIST_TYPE target_list_num_id, Glib::RefPtr
     int new_par_offset = -1;
     std::list<LevelCount> leading_num_count;
 
-    if (!text_buffer) text_buffer = curr_buffer();
+    if (!text_buffer) text_buffer = _curr_buffer;
     if (text_buffer->get_has_selection()) {
         Gtk::TextIter sel_end;
         text_buffer->get_selection_bounds(range.iter_start, sel_end);
@@ -168,14 +168,14 @@ CtListInfo CtList::list_get_number_n_level(Gtk::TextIter iter_first_paragraph)
     int level = 0;
     while (iter_start) {
         auto ch = iter_start.get_char();
-        if (set::exists(CtApp::P_ctCfg->charsListbul, ch)) {
+        if (str::indexOf(CtApp::P_ctCfg->charsListbul, ch) != -1) {
             if (iter_start.forward_char() && iter_start.get_char() == CtConst::CHAR_SPACE[0]) {
-                int num = (str::indexOf(CtApp::P_ctCfg->charsListbul, Glib::ustring(1,ch)) + 1);
+                int num = (str::indexOf(CtApp::P_ctCfg->charsListbul, ch) + 1);
                 return CtListInfo{CtListInfo::BULLET, num, level, -1, -1};
             }
             break;
         }
-        if (set::exists(CtApp::P_ctCfg->charsTodo, ch)) {
+        if (str::indexOf(CtApp::P_ctCfg->charsTodo, ch) != -1) {
             if (iter_start.forward_char() && iter_start.get_char() == CtConst::CHAR_SPACE[0])
                 return CtListInfo{CtListInfo::TODO, 0, level, -1, -1};
             break;
@@ -195,9 +195,9 @@ CtListInfo CtList::list_get_number_n_level(Gtk::TextIter iter_first_paragraph)
             while (iter_start.forward_char() && iter_start.get_char() >= '0' && iter_start.get_char() <= '9')
                 number_str += iter_start.get_char();
             ch = iter_start.get_char();
-            if (set::exists(CtConst::CHARS_LISTNUM, ch) && iter_start.forward_char() && iter_start.get_char() == CtConst::CHAR_SPACE[0]) {
+            if (str::indexOf(CtConst::CHARS_LISTNUM, ch) != -1 && iter_start.forward_char() && iter_start.get_char() == CtConst::CHAR_SPACE[0]) {
                 int num = std::stoi(number_str);
-                auto aux = str::indexOf(CtConst::CHARS_LISTNUM, Glib::ustring(1, ch));
+                auto aux = str::indexOf(CtConst::CHARS_LISTNUM, ch);
                 return CtListInfo{CtListInfo::NUMBER, num, level, aux, -1};
             }
             break;
@@ -313,7 +313,7 @@ CtTextRange CtList::get_paragraph_iters(Glib::RefPtr<Gtk::TextBuffer> text_buffe
                                         Gtk::TextIter force_iter /*= Gtk::TextIter()*/)
 {
     Gtk::TextIter iter_start, iter_end;
-    if (!text_buffer) text_buffer = curr_buffer();
+    if (!text_buffer) text_buffer = _curr_buffer;
     if (!force_iter && text_buffer->get_has_selection())
          text_buffer->get_selection_bounds(iter_start, iter_end); // there's a selection
     else {

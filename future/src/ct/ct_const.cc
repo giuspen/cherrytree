@@ -128,6 +128,7 @@ const gchar    CtConst::CHAR_NEWPAGE[]              {"\x0c"};
 const gchar    CtConst::CHAR_CR[]                   {"\r"};
 const gchar    CtConst::CHAR_TAB[]                  {"\t"};
 const gchar    CtConst::CHARS_LISTNUM[]             {".)->"};
+const int      CtConst::NUM_CHARS_LISTNUM           {sizeof(CtConst::CHARS_LISTNUM)};
 const gchar    CtConst::CHAR_TILDE[]                {"~"};
 const gchar    CtConst::CHAR_MINUS[]                {"-"};
 const gchar    CtConst::CHAR_DQUOTE[]               {"\""};
@@ -157,6 +158,10 @@ const gchar    CtConst::CHAR_BR_CLOSE[]             {"}"};
 const gchar    CtConst::CHAR_CARET[]                {"^"};
 const gchar    CtConst::CHAR_PIPE[]                 {"|"};
 const gchar    CtConst::CHAR_AMPERSAND[]            {"&"};
+
+const std::vector<Glib::ustring> CtConst::WEB_LINK_STARTERS {
+    "http://", "https://", "www.", "ftp://"
+};
 
 const std::set<const gchar*> CtConst::TEXT_SYNTAXES {
     RICH_TEXT_ID,
