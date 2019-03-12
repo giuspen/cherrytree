@@ -88,6 +88,15 @@ std::string CtTreeIter::get_node_foreground() const
     return std::string();
 }
 
+std::string CtTreeIter::get_node_syntax_highlighting() const
+{
+    if (*this)
+    {
+        return (*this)->get_value(_columns->colSyntaxHighlighting);
+    }
+    return std::string();
+}
+
 std::time_t CtTreeIter::get_node_creating_time() const
 {
     if (*this)

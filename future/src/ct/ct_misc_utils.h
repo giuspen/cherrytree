@@ -54,6 +54,9 @@ std::string clean_from_chars_not_for_filename(std::string filename);
 
 Gtk::BuiltinIconSize getIconSize(int size);
 
+bool get_next_chars_from_iter_are(Gtk::TextIter text_iter, const Glib::ustring& chars_list);
+
+bool get_next_chars_from_iter_are(Gtk::TextIter text_iter, const std::vector<Glib::ustring>& chars_list_vec);
 } // namespace CtMiscUtil
 
 namespace CtStrUtil {
@@ -104,7 +107,13 @@ std::string rgb_any_to_24(Gdk::RGBA color);
 
 namespace str {
 
+bool startswith(const std::string& str, const std::string& starting);
+
 bool endswith(const std::string& str, const std::string& ending);
+
+int indexOf(const Glib::ustring& str, const Glib::ustring& lookup_str);
+
+int indexOf(const Glib::ustring& str, const gunichar& uc);
 
 std::string xml_escape(const std::string& text);
 

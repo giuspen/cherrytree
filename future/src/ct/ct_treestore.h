@@ -84,6 +84,7 @@ public:
     void          set_node_name(const Glib::ustring& node_name);
     Glib::ustring get_node_tags() const;
     std::string   get_node_foreground() const;
+    std::string   get_node_syntax_highlighting() const;
     std::time_t   get_node_creating_time() const;
     std::time_t   get_node_modification_time() const;
     void          set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf);

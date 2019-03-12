@@ -99,4 +99,37 @@ public:
 // the All Matches Dialog
 void match_dialog(const std::string& title, CtMainWin& ctMainWin, Glib::RefPtr<CtMatchDialogStore> model);
 
+// Insert/Edit Anchor Name
+Glib::ustring img_n_entry_dialog(Gtk::Window& parent, const char* title,
+                                 const Glib::ustring& entry_content, const char* img_stock);
+
+struct CtLinkEntry
+{
+    Glib::ustring type;
+    gint64        node_id = -1;
+    Glib::ustring webs;
+    Glib::ustring file;
+    Glib::ustring fold;
+    Glib::ustring anch;
+    Gtk::TreeIter prev_node;
+};
+
+// Dialog to Insert/Edit Links
+bool link_handle_dialog(CtMainWin& ctMainWin, const Glib::ustring& title, Gtk::TreeIter sel_tree_iter,
+                        CtLinkEntry& link_entries);
+
+struct file_select_args
+{
+    Gtk::Window*                parent = nullptr;
+    Glib::ustring               curr_folder;
+    Glib::ustring               filter_name;
+    std::vector<Glib::ustring>  filter_pattern;
+    std::vector<Glib::ustring>  filter_mime;
+};
+// The Select file dialog, Returns the retrieved filepath or None
+Glib::ustring file_select_dialog(ct_dialogs::file_select_args args);
+
+// The Select folder dialog, returns the retrieved folderpath or None
+Glib::ustring folder_select_dialog(Glib::ustring curr_folder, Gtk::Window* parent = nullptr);
+
 } // namespace ct_dialogs
