@@ -307,5 +307,14 @@ void CtXmlWrite::append_dom_node(const CtTreeIter& ct_tree_iter, xmlpp::Element*
         p_node_parent = get_root_node();
     }
     xmlpp::Element* p_node_node = p_node_parent->add_child("node");
-    
+    p_node_node->set_attribute("name", ct_tree_iter.get_node_name());
+    p_node_node->set_attribute("unique_id", std::to_string(ct_tree_iter.get_node_id()));
+    p_node_node->set_attribute("prog_lang", ct_tree_iter.get_node_syntax_highlighting());
+    p_node_node->set_attribute("tags", ct_tree_iter.get_node_tags());
+    p_node_node->set_attribute("readonly", std::to_string(ct_tree_iter.get_node_read_only()));
+    p_node_node->set_attribute("custom_icon_id", std::to_string(ct_tree_iter.get_node_custom_icon_id()));
+    p_node_node->set_attribute("is_bold", std::to_string(ct_tree_iter.get_node_is_bold()));
+    p_node_node->set_attribute("foreground", ct_tree_iter.get_node_foreground());
+    p_node_node->set_attribute("ts_creation", std::to_string(ct_tree_iter.get_node_creating_time()));
+    p_node_node->set_attribute("ts_lastsave", std::to_string(ct_tree_iter.get_node_modification_time()));
 }

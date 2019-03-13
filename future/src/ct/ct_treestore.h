@@ -77,9 +77,11 @@ public:
 
     CtTreeIter  parent();
 
+    bool          get_node_is_bold() const;
     bool          get_node_read_only() const;
     void          set_node_read_only(bool val);
     gint64        get_node_id() const;
+    guint16       get_node_custom_icon_id() const;
     Glib::ustring get_node_name() const;
     void          set_node_name(const Glib::ustring& node_name);
     Glib::ustring get_node_tags() const;
@@ -91,6 +93,9 @@ public:
 
     Glib::RefPtr<Gsv::Buffer> get_node_text_buffer() const;
 
+    static guint16 get_pango_weight_from_is_bold(bool isBold);
+    static bool    get_is_bold_from_pango_weight(guint16 pangoWeight);
+
 private:
     const CtTreeModelColumns* _columns;
 };
@@ -100,8 +105,6 @@ class CtSQLiteRead;
 
 class CtTreeStore : public sigc::trackable
 {
-friend class CtTreeIter;
-
 public:
     CtTreeStore();
     virtual ~CtTreeStore();
@@ -150,8 +153,6 @@ public:
     const CtTreeModelColumns& get_columns() { return _columns; }
 
 protected:
-    guint16                   _getPangoWeight(bool isBold);
-    bool                      _getBold(guint16 pangoWeight);
     Glib::RefPtr<Gdk::Pixbuf> _getNodeIcon(int nodeDepth, const std::string &syntax, guint32 customIconId);
     void                      _iterDeleteAnchoredWidgets(const Gtk::TreeModel::Children& children);
 

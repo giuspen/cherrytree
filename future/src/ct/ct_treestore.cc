@@ -49,20 +49,22 @@ void CtTreeIter::set_node_read_only(bool val)
 
 gint64 CtTreeIter::get_node_id() const
 {
-    if (*this)
-    {
-        return (*this)->get_value(_columns->colNodeUniqueId);
-    }
-    return -1;
+    return (*this) ? (*this)->get_value(_columns->colNodeUniqueId) : -1;
+}
+
+bool CtTreeIter::get_node_is_bold() const
+{
+    return (*this) && get_is_bold_from_pango_weight((*this)->get_value(_columns->colWeight));
+}
+
+guint16 CtTreeIter::get_node_custom_icon_id() const
+{
+    return (*this) ? (*this)->get_value(_columns->colCustomIconId) : 0;
 }
 
 Glib::ustring CtTreeIter::get_node_name() const
 {
-    if (*this)
-    {
-        return (*this)->get_value(_columns->colNodeName);
-    }
-    return std::string();
+    return (*this) ? (*this)->get_value(_columns->colNodeName) : "";
 }
 
 void CtTreeIter::set_node_name(const Glib::ustring& node_name)
@@ -72,47 +74,27 @@ void CtTreeIter::set_node_name(const Glib::ustring& node_name)
 
 Glib::ustring CtTreeIter::get_node_tags() const
 {
-    if (*this)
-    {
-        return (*this)->get_value(_columns->colNodeTags);
-    }
-    return std::string();
+    return (*this) ? (*this)->get_value(_columns->colNodeTags) : "";
 }
 
 std::string CtTreeIter::get_node_foreground() const
 {
-    if (*this)
-    {
-        return (*this)->get_value(_columns->colForeground);
-    }
-    return std::string();
+    return (*this) ? (*this)->get_value(_columns->colForeground) : "";
 }
 
 std::string CtTreeIter::get_node_syntax_highlighting() const
 {
-    if (*this)
-    {
-        return (*this)->get_value(_columns->colSyntaxHighlighting);
-    }
-    return std::string();
+    return (*this) ? (*this)->get_value(_columns->colSyntaxHighlighting) : "";
 }
 
 std::time_t CtTreeIter::get_node_creating_time() const
 {
-    if (*this)
-    {
-        return (*this)->get_value(_columns->colTsCreation);
-    }
-    return 0;
+    return (*this) ? (*this)->get_value(_columns->colTsCreation) : 0;
 }
 
 std::time_t CtTreeIter::get_node_modification_time() const
 {
-    if (*this)
-    {
-        return (*this)->get_value(_columns->colTsLastSave);
-    }
-    return 0;
+    return (*this) ? (*this)->get_value(_columns->colTsLastSave) : 0;
 }
 
 void CtTreeIter::set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf)
@@ -122,11 +104,17 @@ void CtTreeIter::set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf)
 
 Glib::RefPtr<Gsv::Buffer> CtTreeIter::get_node_text_buffer() const
 {
-    if (*this)
-    {
-        return (*this)->get_value(_columns->rColTextBuffer);
-    }
-    return Glib::RefPtr<Gsv::Buffer>();
+    return (*this) ? (*this)->get_value(_columns->rColTextBuffer) : Glib::RefPtr<Gsv::Buffer>();
+}
+
+guint16 CtTreeIter::get_pango_weight_from_is_bold(bool isBold)
+{
+    return isBold ? PANGO_WEIGHT_HEAVY : PANGO_WEIGHT_NORMAL;
+}
+
+bool CtTreeIter::get_is_bold_from_pango_weight(guint16 pangoWeight)
+{
+    return pangoWeight == PANGO_WEIGHT_HEAVY;
 }
 
 
@@ -310,7 +298,7 @@ void CtTreeStore::getNodeData(Gtk::TreeIter treeIter, CtNodeData& nodeData)
     nodeData.isRO = row[_columns.colNodeRO];
     //row[_columns.rColPixbufAux] = ;
     nodeData.customIconId = row[_columns.colCustomIconId];
-    nodeData.isBold = _getBold(row[_columns.colWeight]);
+    nodeData.isBold = CtTreeIter::get_is_bold_from_pango_weight(row[_columns.colWeight]);
     nodeData.foregroundRgb24 = row[_columns.colForeground];
     nodeData.tsCreation = row[_columns.colTsCreation];
     nodeData.tsLastSave = row[_columns.colTsLastSave];
@@ -330,7 +318,7 @@ void CtTreeStore::updateNodeData(Gtk::TreeIter treeIter, const CtNodeData& nodeD
     row[_columns.colNodeRO] = nodeData.isRO;
     //row[_columns.rColPixbufAux] = ;
     row[_columns.colCustomIconId] = nodeData.customIconId;
-    row[_columns.colWeight] = _getPangoWeight(nodeData.isBold);
+    row[_columns.colWeight] = CtTreeIter::get_pango_weight_from_is_bold(nodeData.isBold);
     row[_columns.colForeground] = nodeData.foregroundRgb24;
     row[_columns.colTsCreation] = nodeData.tsCreation;
     row[_columns.colTsLastSave] = nodeData.tsLastSave;
@@ -398,16 +386,6 @@ bool CtTreeStore::onRequestRemoveBookmark(gint64 nodeId)
     }
     vec::remove(_bookmarks, nodeId);
     return true;
-}
-
-guint16 CtTreeStore::_getPangoWeight(bool isBold)
-{
-    return isBold ? PANGO_WEIGHT_HEAVY : PANGO_WEIGHT_NORMAL;
-}
-
-bool CtTreeStore::_getBold(guint16 pangoWeight)
-{
-    return pangoWeight == PANGO_WEIGHT_HEAVY;
 }
 
 Gtk::TreeIter CtTreeStore::onRequestAppendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter)
