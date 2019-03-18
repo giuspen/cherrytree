@@ -64,9 +64,11 @@ void CtActions::embfile_insert()
 
 }
 
+// The Link Insert Button was Pressed
 void CtActions::apply_tag_link()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    _apply_tag(CtConst::TAG_LINK);
 }
 
 void CtActions::anchor_handle()

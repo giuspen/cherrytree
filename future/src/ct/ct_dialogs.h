@@ -133,7 +133,6 @@ struct CtLinkEntry
     Glib::ustring file;
     Glib::ustring fold;
     Glib::ustring anch;
-    Gtk::TreeIter prev_node;
 };
 
 // Dialog to Insert/Edit Links

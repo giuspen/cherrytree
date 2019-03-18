@@ -623,7 +623,6 @@ bool ct_dialogs::link_handle_dialog(CtMainWin& ctMainWin, const Glib::ustring& t
     radiobutton_folder.set_active(link_entries.type == CtConst::LINK_TYPE_FOLD);
 
     bool first_in = true;
-    sel_tree_iter = sel_tree_iter ? sel_tree_iter : link_entries.prev_node;
 
     auto link_type_changed_on_dialog = [&]() {
         entry_webs.set_sensitive(link_entries.type == CtConst::LINK_TYPE_WEBS);
@@ -763,7 +762,7 @@ bool ct_dialogs::link_handle_dialog(CtMainWin& ctMainWin, const Glib::ustring& t
     link_entries.file = str::trim(entry_file.get_text());
     link_entries.fold = str::trim(entry_folder.get_text());
     link_entries.anch = str::trim(entry_anchor.get_text());
-    link_entries.prev_node = sel_tree_iter;
+    link_entries.node_id = ctTreestore.to_ct_tree_iter(sel_tree_iter).get_node_id();
     return true;
 }
 
