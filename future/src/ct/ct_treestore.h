@@ -76,6 +76,7 @@ public:
     CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* _columns);
 
     CtTreeIter  parent();
+    CtTreeIter  first_child();
 
     bool          get_node_is_bold() const;
     bool          get_node_read_only() const;

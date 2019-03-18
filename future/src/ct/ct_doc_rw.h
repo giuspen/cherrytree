@@ -65,7 +65,18 @@ public:
     CtXmlWrite(const char* filepath);
     virtual ~CtXmlWrite();
     void append_bookmarks(const std::list<gint64>& bookmarks);
-    void append_dom_node(const CtTreeIter& ct_tree_iter, xmlpp::Element* p_node_parent=nullptr);
+    void append_dom_node(CtTreeIter& ct_tree_iter,
+                         xmlpp::Element* p_node_parent=nullptr,
+                         bool to_disk=true,
+                         bool skip_children=true,
+                         const std::pair<int,int>& offset_range=std::make_pair(-1,-1));
+
+private:
+    void _rich_txt_serialize(xmlpp::Element* p_node_parent,
+                             Gtk::TextIter start_iter,
+                             Gtk::TextIter end_iter,
+                             std::map<const gchar*, std::string>& curr_attributes,
+                             gchar change_case='n');
 };
 
 class CtSQLiteRead : public CtDocRead

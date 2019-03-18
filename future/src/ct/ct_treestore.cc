@@ -37,6 +37,11 @@ CtTreeIter CtTreeIter::parent()
     return CtTreeIter((*this)->parent(), _columns);
 }
 
+CtTreeIter CtTreeIter::first_child()
+{
+    return CtTreeIter((*this)->children().begin(), _columns);
+}
+
 bool CtTreeIter::get_node_read_only() const
 {
     return (*this) && (*this)->get_value(_columns->colNodeRO);

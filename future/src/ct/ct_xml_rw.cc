@@ -300,7 +300,11 @@ void CtXmlWrite::append_bookmarks(const std::list<gint64>& bookmarks)
     p_bookmarks_node->set_attribute("list", rejoined);
 }
 
-void CtXmlWrite::append_dom_node(const CtTreeIter& ct_tree_iter, xmlpp::Element* p_node_parent)
+void CtXmlWrite::append_dom_node(CtTreeIter& ct_tree_iter,
+                                 xmlpp::Element* p_node_parent,
+                                 bool to_disk,
+                                 bool skip_children,
+                                 const std::pair<int,int>& offset_range)
 {
     if (nullptr == p_node_parent)
     {
@@ -317,4 +321,50 @@ void CtXmlWrite::append_dom_node(const CtTreeIter& ct_tree_iter, xmlpp::Element*
     p_node_node->set_attribute("foreground", ct_tree_iter.get_node_foreground());
     p_node_node->set_attribute("ts_creation", std::to_string(ct_tree_iter.get_node_creating_time()));
     p_node_node->set_attribute("ts_lastsave", std::to_string(ct_tree_iter.get_node_modification_time()));
+
+    Glib::RefPtr<Gsv::Buffer> rTextBuffer = ct_tree_iter.get_node_text_buffer();
+    Gtk::TextIter start_iter = offset_range.first >= 0 ? rTextBuffer->get_iter_at_offset(offset_range.first) : rTextBuffer->begin();
+    Gtk::TextIter end_iter = offset_range.second >= 0 ? rTextBuffer->get_iter_at_offset(offset_range.second) : rTextBuffer->end();
+
+    std::map<const gchar*, std::string> curr_attributes;
+
+
+
+
+
+    if (!skip_children)
+    {
+        CtTreeIter ct_tree_iter_child = ct_tree_iter.first_child();
+        while (ct_tree_iter_child)
+        {
+            append_dom_node(ct_tree_iter_child, p_node_node, to_disk, skip_children, offset_range);
+            ct_tree_iter_child++;
+        }
+    }
+}
+
+void CtXmlWrite::_rich_txt_serialize(xmlpp::Element* p_node_parent,
+                                     Gtk::TextIter start_iter,
+                                     Gtk::TextIter end_iter,
+                                     std::map<const gchar*, std::string>& curr_attributes,
+                                     const gchar change_case)
+{
+    xmlpp::Element* p_rich_text_node = p_node_parent->add_child("rich_text");
+    for (auto map_iter : curr_attributes)
+    {
+        p_rich_text_node->set_attribute(map_iter.first, map_iter.second);
+    }
+    Glib::ustring slot_text = start_iter.get_text(end_iter);
+    if ('n' != change_case)
+    {
+        if ('l' == change_case) slot_text = slot_text.lowercase();
+        else if ('u' == change_case) slot_text = slot_text.uppercase();
+        else if (('t' == change_case) && (slot_text.size() > 0))
+        {
+            if (std::isupper(slot_text.at(0))) slot_text = slot_text.lowercase();
+            else slot_text = slot_text.lowercase();
+        }
+    }
+    
+    
 }
