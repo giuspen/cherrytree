@@ -82,9 +82,16 @@ void CtActions::toc_insert()
 
 }
 
+// Insert Timestamp
 void CtActions::timestamp_insert()
 {
+    text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
+    if (!proof.text_buffer) return;
+    if (!_is_curr_node_not_read_only_or_error()) return;
 
+    time_t time = std::time(nullptr);
+    std::string timestamp = str::time_format(CtApp::P_ctCfg->timestampFormat, time);
+    proof.text_buffer->insert_at_cursor(timestamp);
 }
 
 void CtActions::horizontal_rule_insert()
