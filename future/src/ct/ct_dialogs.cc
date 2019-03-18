@@ -820,3 +820,102 @@ Glib::ustring ct_dialogs::folder_select_dialog(Glib::ustring curr_folder, Gtk::W
         return chooser.get_filename();
     return "";
 }
+
+// Insert/Edit Image
+Glib::RefPtr<Gdk::Pixbuf> ct_dialogs::image_handle_dialog(Gtk::Window& father_win, Glib::ustring title,
+                                                          Glib::RefPtr<Gdk::Pixbuf> original_pixbuf)
+{
+    int width = original_pixbuf->get_width();
+    int height = original_pixbuf->get_height();
+    double image_w_h_ration = double(width)/height;
+
+    Gtk::Dialog dialog(title, father_win, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
+    auto ok_button = dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
+    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    dialog.set_default_size(600, 500);
+    auto button_rotate_90_ccw = Gtk::Button();
+    button_rotate_90_ccw.set_image_from_icon_name("object-rotate-left", Gtk::ICON_SIZE_DND);
+    auto button_rotate_90_cw = Gtk::Button();
+    button_rotate_90_cw.set_image_from_icon_name("object-rotate-right", Gtk::ICON_SIZE_DND);
+    auto scrolledwindow = Gtk::ScrolledWindow();
+    scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+    auto hadj = Gtk::Adjustment::create(width, 1, height, 1);
+    auto vadj = Gtk::Adjustment::create(width, 1, width, 1);
+    auto viewport = Gtk::Viewport(hadj, vadj);
+    auto image = Gtk::Image(original_pixbuf);
+    scrolledwindow.add(viewport);
+    viewport.add(image);
+    auto hbox_1 = Gtk::HBox();
+    hbox_1.pack_start(button_rotate_90_ccw, false, false);
+    hbox_1.pack_start(scrolledwindow);
+    hbox_1.pack_start(button_rotate_90_cw, false, false);
+    hbox_1.set_spacing(2);
+    auto label_width = Gtk::Label(_("Width"));
+    auto adj_width = Gtk::Adjustment::create(width, 1, 10000, 1);
+    auto spinbutton_width = Gtk::SpinButton(adj_width);
+    auto label_height = Gtk::Label(_("Height"));
+    auto adj_height = Gtk::Adjustment::create(height, 1, 10000, 1);
+    auto spinbutton_height = Gtk::SpinButton(adj_height);
+    auto hbox_2 = Gtk::HBox();
+    hbox_2.pack_start(label_width);
+    hbox_2.pack_start(spinbutton_width);
+    hbox_2.pack_start(label_height);
+    hbox_2.pack_start(spinbutton_height);
+    auto content_area = dialog.get_content_area();
+    content_area->pack_start(hbox_1);
+    content_area->pack_start(hbox_2, false, false);
+    content_area->set_spacing(6);
+
+    auto image_load_into_dialog = [&]() {
+        spinbutton_width.set_value(width);
+        spinbutton_height.set_value(height);
+        Glib::RefPtr<Gdk::Pixbuf> pixbuf;
+        if (width <= 900 && height <= 600) {
+            // original size into the dialog
+            pixbuf = original_pixbuf->scale_simple(width, height, Gdk::INTERP_BILINEAR);
+        } else {
+            // reduced size visible into the dialog
+            if (width > 900) {
+                int img_parms_width = 900;
+                int img_parms_height = img_parms_width / image_w_h_ration;
+                pixbuf = original_pixbuf->scale_simple(img_parms_width, img_parms_height, Gdk::INTERP_BILINEAR);
+            } else {
+                int img_parms_height = 600;
+                int img_parms_width = img_parms_height * image_w_h_ration;
+                pixbuf = original_pixbuf->scale_simple(img_parms_width, img_parms_height, Gdk::INTERP_BILINEAR);
+            }
+        }
+        image.set(pixbuf);
+    };
+    button_rotate_90_cw.signal_clicked().connect([&]() {
+        original_pixbuf = original_pixbuf->rotate_simple(Gdk::PixbufRotation::PIXBUF_ROTATE_CLOCKWISE);
+        image_w_h_ration = 1./image_w_h_ration;
+        std::swap(width, height); // new width is the former height and vice versa
+        image_load_into_dialog();
+    });
+    button_rotate_90_ccw.signal_clicked().connect([&]() {
+        original_pixbuf = original_pixbuf->rotate_simple(Gdk::PixbufRotation::PIXBUF_ROTATE_COUNTERCLOCKWISE);
+        image_w_h_ration = 1./image_w_h_ration;
+        std::swap(width, height); // new width is the former height and vice versa
+        image_load_into_dialog();
+    });
+    spinbutton_width.signal_value_changed().connect([&]() {
+        width = spinbutton_width.get_value_as_int();
+        height = width/image_w_h_ration;
+        image_load_into_dialog();
+    });
+    spinbutton_height.signal_value_changed().connect([&]() {
+        height = spinbutton_height.get_value_as_int();
+        width = height*image_w_h_ration;
+        image_load_into_dialog();
+    });
+    image_load_into_dialog();
+    content_area->show_all();
+    ok_button->grab_focus();
+
+    if (Gtk::RESPONSE_ACCEPT != dialog.run())
+        return Glib::RefPtr<Gdk::Pixbuf>();
+    return original_pixbuf->scale_simple(width, height, Gdk::INTERP_BILINEAR);
+}

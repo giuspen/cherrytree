@@ -41,6 +41,7 @@ private:
     bool          _is_tree_not_empty_or_error();
     bool          _is_curr_node_not_read_only_or_error();
     bool          _is_curr_node_not_syntax_highlighting_or_error(bool plain_text_ok = false);
+    bool          _node_sel_and_rich_text();
 
 private:
     // helpers for tree actions
@@ -170,6 +171,13 @@ public:
     void apply_tag_justify_center();
     void apply_tag_justify_right();
     void apply_tag_justify_fill();
+
+private:
+    // helper for edit actions
+    void          _image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> pixbuf, Gtk::TextIter insert_iter, Gtk::TextIter* iter_bound);
+    Glib::ustring _get_iter_alignment(Gtk::TextIter text_iter);
+    void          _image_insert(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> pixbuf,
+                                Glib::ustring image_justification = "", Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>());
 
 public:
     // edit actions

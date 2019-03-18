@@ -32,9 +32,21 @@ void CtActions::requested_step_ahead()
     // todo
 }
 
+// Insert/Edit Image
 void CtActions::image_handle()
 {
+    if (!_node_sel_and_rich_text()) return;
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    ct_dialogs::file_select_args args = {.parent=_ctMainWin, .curr_folder=CtApp::P_ctCfg->pickDirImg};
+    Glib::ustring filename = ct_dialogs::file_select_dialog(args);
+    if (filename.empty()) return;
+    // todo: self.pick_dir_img = os.path.dirname(filename)
 
+    auto pixbuf = Gdk::Pixbuf::create_from_file(filename);
+    if (pixbuf)
+        _image_edit_dialog(pixbuf, curr_buffer()->get_insert()->get_iter(), nullptr);
+    else
+        ct_dialogs::error_dialog(_("Image Format Not Recognized"), *_ctMainWin);
 }
 
 void CtActions::table_handle()
@@ -146,4 +158,81 @@ void CtActions::text_row_down()
 void CtActions::strip_trailing_spaces()
 {
 
+}
+
+// Insert/Edit Image Dialog
+void CtActions::_image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> pixbuf, Gtk::TextIter insert_iter, Gtk::TextIter* iter_bound)
+{
+    Glib::RefPtr<Gdk::Pixbuf> ret_pixbuf = ct_dialogs::image_handle_dialog(*_ctMainWin, _("Image Properties"), pixbuf);
+    if (!ret_pixbuf) return;
+    // todo: what is that? ret_pixbuf.link = "";
+    Glib::ustring image_justification;
+    if (iter_bound) { // only in case of modify
+        image_justification = _get_iter_alignment(insert_iter);
+        int image_offset = insert_iter.get_offset();
+        curr_buffer()->erase(insert_iter, *iter_bound);
+        insert_iter = curr_buffer()->get_iter_at_offset(image_offset);
+    }
+    _image_insert(insert_iter, ret_pixbuf, image_justification);
+}
+
+// Get the Alignment Value of the given Iter
+Glib::ustring CtActions::_get_iter_alignment(Gtk::TextIter text_iter)
+{
+    auto align_center = _apply_tag_exist_or_create(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_CENTER);
+    if (text_iter.has_tag(CtApp::R_textTagTable->lookup(align_center)))
+        return CtConst::TAG_PROP_VAL_CENTER;
+    auto align_fill = _apply_tag_exist_or_create(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_FILL);
+    if (text_iter.has_tag(CtApp::R_textTagTable->lookup(align_fill)))
+        return CtConst::TAG_PROP_VAL_FILL;
+    auto align_right = _apply_tag_exist_or_create(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_RIGHT);
+    if (text_iter.has_tag(CtApp::R_textTagTable->lookup(align_right)))
+        return CtConst::TAG_PROP_VAL_RIGHT;
+    return CtConst::TAG_PROP_VAL_LEFT;
+}
+
+void CtActions::_image_insert(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> pixbuf,
+                              Glib::ustring image_justification /*=""*/, Glib::RefPtr<Gtk::TextBuffer> text_buffer /*= Glib:RefPtr<Gtk::TextBuffer>()*/)
+{
+    if (!pixbuf) return;
+    if (!text_buffer) text_buffer = curr_buffer();
+    int image_offset = iter_insert.get_offset();
+    /* todo:
+    auto anchor = text_buffer->create_child_anchor(iter_insert);
+    anchor.pixbuf = pixbuf
+    anchor.eventbox = gtk.EventBox()
+    anchor.eventbox.set_visible_window(False)
+    anchor.frame = gtk.Frame()
+    anchor.frame.set_shadow_type(gtk.SHADOW_NONE)
+    pixbuf_attrs = dir(pixbuf)
+    if not hasattr(anchor.pixbuf, "link"): anchor.pixbuf.link = ""
+    if "anchor" in pixbuf_attrs:
+        anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_anchor, anchor)
+        anchor.eventbox.set_tooltip_text(pixbuf.anchor)
+    elif "filename" in pixbuf_attrs:
+        anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_file, anchor)
+        self.embfile_set_tooltip(anchor)
+        if self.embfile_show_filename:
+            anchor_label = gtk.Label()
+            anchor_label.set_markup("<b><small>"+pixbuf.filename+"</small></b>")
+            anchor_label.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
+            anchor.frame.set_label_widget(anchor_label)
+    else:
+        anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_image, anchor)
+        anchor.eventbox.connect("visibility-notify-event", self.on_image_visibility_notify_event)
+        if anchor.pixbuf.link:
+            self.image_link_apply_frame_label(anchor)
+    anchor.image = gtk.Image()
+    anchor.frame.add(anchor.image)
+    anchor.eventbox.add(anchor.frame)
+    anchor.image.set_from_pixbuf(anchor.pixbuf)
+    self.sourceview.add_child_at_anchor(anchor.eventbox, anchor)
+    anchor.eventbox.show_all()
+    if image_justification:
+        text_iter = text_buffer.get_iter_at_offset(image_offset)
+        self.state_machine.apply_object_justification(text_iter, image_justification, text_buffer)
+    elif self.user_active:
+        # if I apply a justification, the state is already updated
+        self.state_machine.update_state()
+        */
 }

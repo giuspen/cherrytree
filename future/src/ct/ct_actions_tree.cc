@@ -73,6 +73,14 @@ bool CtActions::_is_curr_node_not_syntax_highlighting_or_error(bool plain_text_o
     return false;
 }
 
+// Returns True if there's not a node selected or is not rich text
+bool CtActions::_node_sel_and_rich_text()
+{
+    if (!_is_there_selected_node_or_error()) return false;
+    if (!_is_curr_node_not_syntax_highlighting_or_error()) return false;
+    return true;
+}
+
 void CtActions::_node_add(bool duplicate, bool add_child)
 {
     CtNodeData nodeData;
