@@ -318,8 +318,8 @@ Gtk::BuiltinIconSize CtMiscUtil::getIconSize(int size)
     }
 }
 
-// Returns True if one set of the Given Chars are the first after iter
-bool CtMiscUtil::get_next_chars_from_iter_are(Gtk::TextIter text_iter, const Glib::ustring& chars_list)
+
+bool CtTextIterUtil::get_next_chars_from_iter_are(Gtk::TextIter text_iter, const Glib::ustring& chars_list)
 {
     for (size_t i = 0; i < chars_list.size(); ++i)
     {
@@ -331,12 +331,56 @@ bool CtMiscUtil::get_next_chars_from_iter_are(Gtk::TextIter text_iter, const Gli
     return true;
 }
 
-bool CtMiscUtil::get_next_chars_from_iter_are(Gtk::TextIter text_iter, const std::vector<Glib::ustring>& chars_list_vec)
+bool CtTextIterUtil::get_next_chars_from_iter_are(Gtk::TextIter text_iter, const std::vector<Glib::ustring>& chars_list_vec)
 {
     for (const auto& chars_list: chars_list_vec)
         if (get_next_chars_from_iter_are(text_iter, chars_list))
             return true;
     return false;
+}
+
+void CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter, std::map<const gchar*, std::string>& curr_attributes)
+{
+    std::vector<Glib::RefPtr<const Gtk::TextTag>> toggled_off = text_iter.get_toggled_tags(false/*toggled_on*/);
+    for (const auto& r_curr_tag : toggled_off)
+    {
+        const Glib::ustring tag_name = r_curr_tag->property_name();
+        if (tag_name.empty() || CtConst::GTKSPELLCHECK_TAG_NAME == tag_name)
+        {
+            continue;
+        }
+        if (str::startswith(tag_name, "weight_")) curr_attributes[CtConst::TAG_WEIGHT] = "";
+        else if (str::startswith(tag_name, "foreground_")) curr_attributes[CtConst::TAG_FOREGROUND] = "";
+        else if (str::startswith(tag_name, "background_")) curr_attributes[CtConst::TAG_BACKGROUND] = "";
+        else if (str::startswith(tag_name, "style_")) curr_attributes[CtConst::TAG_STYLE] = "";
+        else if (str::startswith(tag_name, "underline_")) curr_attributes[CtConst::TAG_UNDERLINE] = "";
+        else if (str::startswith(tag_name, "strikethrough_")) curr_attributes[CtConst::TAG_STRIKETHROUGH] = "";
+        else if (str::startswith(tag_name, "scale_")) curr_attributes[CtConst::TAG_SCALE] = "";
+        else if (str::startswith(tag_name, "justification_")) curr_attributes[CtConst::TAG_JUSTIFICATION] = "";
+        else if (str::startswith(tag_name, "link_")) curr_attributes[CtConst::TAG_LINK] = "";
+        else if (str::startswith(tag_name, "family_")) curr_attributes[CtConst::TAG_FAMILY] = "";
+        else std::cerr << "Failure processing the toggling OFF tag " << tag_name << std::endl;
+    }
+    std::vector<Glib::RefPtr<const Gtk::TextTag>> toggled_on = text_iter.get_toggled_tags(true/*toggled_on*/);
+    for (const auto& r_curr_tag : toggled_on)
+    {
+        const Glib::ustring tag_name = r_curr_tag->property_name();
+        if (tag_name.empty() || CtConst::GTKSPELLCHECK_TAG_NAME == tag_name)
+        {
+            continue;
+        }
+        if (str::startswith(tag_name, "weight_")) curr_attributes[CtConst::TAG_WEIGHT] = tag_name.substr(7);
+        else if (str::startswith(tag_name, "foreground_")) curr_attributes[CtConst::TAG_FOREGROUND] = tag_name.substr(11);
+        else if (str::startswith(tag_name, "background_")) curr_attributes[CtConst::TAG_BACKGROUND] = tag_name.substr(11);
+        else if (str::startswith(tag_name, "scale_")) curr_attributes[CtConst::TAG_SCALE] = tag_name.substr(6);
+        else if (str::startswith(tag_name, "justification_")) curr_attributes[CtConst::TAG_JUSTIFICATION] = tag_name.substr(14);
+        else if (str::startswith(tag_name, "style_")) curr_attributes[CtConst::TAG_STYLE] = tag_name.substr(6);
+        else if (str::startswith(tag_name, "underline_")) curr_attributes[CtConst::TAG_UNDERLINE] = tag_name.substr(10);
+        else if (str::startswith(tag_name, "strikethrough_")) curr_attributes[CtConst::TAG_STRIKETHROUGH] = tag_name.substr(14);
+        else if (str::startswith(tag_name, "link_")) curr_attributes[CtConst::TAG_LINK] = tag_name.substr(5);
+        else if (str::startswith(tag_name, "family_")) curr_attributes[CtConst::TAG_FAMILY] = tag_name.substr(7);
+        else std::cerr << "Failure processing the toggling ON tag " << tag_name << std::endl;
+    }
 }
 
 

@@ -77,7 +77,7 @@ void CtList::list_handler(CtListInfo::LIST_TYPE target_list_num_id, Glib::RefPtr
             end_offset -= range.leading_chars_num;
             if (!list_info || list_info.type != target_list_num_id){
                 // the target list type differs from this paragraph list type
-                while (CtMiscUtil::get_next_chars_from_iter_are(range.iter_start, Glib::ustring(3, CtConst::CHAR_SPACE[0])))
+                while (CtTextIterUtil::get_next_chars_from_iter_are(range.iter_start, Glib::ustring(3, CtConst::CHAR_SPACE[0])))
                     range.iter_start.forward_chars(3);
                 if (target_list_num_id == CtListInfo::TODO) {
                     new_par_offset = range.iter_end.get_offset() + 2;
@@ -181,7 +181,7 @@ CtListInfo CtList::list_get_number_n_level(Gtk::TextIter iter_first_paragraph)
             break;
         }
         if (ch == CtConst::CHAR_SPACE[0]) {
-            if (CtMiscUtil::get_next_chars_from_iter_are(iter_start, Glib::ustring(3, CtConst::CHAR_SPACE[0]))) {
+            if (CtTextIterUtil::get_next_chars_from_iter_are(iter_start, Glib::ustring(3, CtConst::CHAR_SPACE[0]))) {
                 iter_start.forward_chars(3);
                 level += 1;
             } else

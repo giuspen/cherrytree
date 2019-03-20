@@ -54,10 +54,17 @@ std::string clean_from_chars_not_for_filename(std::string filename);
 
 Gtk::BuiltinIconSize getIconSize(int size);
 
+} // namespace CtMiscUtil
+
+namespace CtTextIterUtil {
+
 bool get_next_chars_from_iter_are(Gtk::TextIter text_iter, const Glib::ustring& chars_list);
 
 bool get_next_chars_from_iter_are(Gtk::TextIter text_iter, const std::vector<Glib::ustring>& chars_list_vec);
-} // namespace CtMiscUtil
+
+void rich_text_attributes_update(const Gtk::TextIter& text_iter, std::map<const gchar*, std::string>& curr_attributes);
+
+} // namespace CtTextIterUtil
 
 namespace CtStrUtil {
 

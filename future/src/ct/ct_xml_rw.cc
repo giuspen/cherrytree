@@ -327,10 +327,14 @@ void CtXmlWrite::append_dom_node(CtTreeIter& ct_tree_iter,
     Gtk::TextIter end_iter = offset_range.second >= 0 ? rTextBuffer->get_iter_at_offset(offset_range.second) : rTextBuffer->end();
 
     std::map<const gchar*, std::string> curr_attributes;
-
-
-
-
+    if (CtConst::RICH_TEXT_ID == ct_tree_iter.get_node_syntax_highlighting())
+    {
+        
+    }
+    else
+    {
+        _rich_txt_serialize(p_node_node, start_iter, end_iter, curr_attributes);
+    }
 
     if (!skip_children)
     {
@@ -350,7 +354,7 @@ void CtXmlWrite::_rich_txt_serialize(xmlpp::Element* p_node_parent,
                                      const gchar change_case)
 {
     xmlpp::Element* p_rich_text_node = p_node_parent->add_child("rich_text");
-    for (auto map_iter : curr_attributes)
+    for (const auto& map_iter : curr_attributes)
     {
         p_rich_text_node->set_attribute(map_iter.first, map_iter.second);
     }
@@ -362,9 +366,8 @@ void CtXmlWrite::_rich_txt_serialize(xmlpp::Element* p_node_parent,
         else if (('t' == change_case) && (slot_text.size() > 0))
         {
             if (std::isupper(slot_text.at(0))) slot_text = slot_text.lowercase();
-            else slot_text = slot_text.lowercase();
+            else slot_text = slot_text.uppercase();
         }
     }
-    
-    
+    xmlpp::TextNode* p_text_node = p_rich_text_node->add_child_text(slot_text);
 }

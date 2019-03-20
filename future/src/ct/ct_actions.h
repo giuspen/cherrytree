@@ -28,11 +28,16 @@ class CtMainWin;
 class CtActions
 {
 public:
-    void init(CtMainWin* mainWin, CtTreeStore* treeStore) { _ctMainWin = mainWin; _ctTreestore = treeStore; _find_init(); }
+    void init(CtMainWin* pCtMainWin, CtTreeStore* pCtTreeStore)
+    {
+        _pCtMainWin = pCtMainWin;
+        _pCtTreestore = pCtTreeStore;
+        _find_init();
+    }
 
 private:
-    CtMainWin*   _ctMainWin;
-    CtTreeStore* _ctTreestore;
+    CtMainWin*   _pCtMainWin;
+    CtTreeStore* _pCtTreestore;
 
 private:
     Glib::RefPtr<Gtk::TextBuffer> curr_buffer();

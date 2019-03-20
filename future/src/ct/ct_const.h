@@ -88,6 +88,7 @@ extern const gchar*   TREE_TEXT_DARK_FG;
 extern const gchar*   TREE_TEXT_DARK_BG;
 extern const gchar*   TREE_TEXT_LIGHT_FG;
 extern const gchar*   TREE_TEXT_LIGHT_BG;
+extern const gchar    GTKSPELLCHECK_TAG_NAME[];
 extern const gchar    TAG_WEIGHT[];
 extern const gchar    TAG_FOREGROUND[];
 extern const gchar    TAG_BACKGROUND[];
