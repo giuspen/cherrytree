@@ -64,6 +64,8 @@ bool get_next_chars_from_iter_are(Gtk::TextIter text_iter, const std::vector<Gli
 
 void rich_text_attributes_update(const Gtk::TextIter& text_iter, std::map<const gchar*, std::string>& curr_attributes);
 
+bool tag_richtext_toggling_on_or_off(const Gtk::TextIter& text_iter);
+
 } // namespace CtTextIterUtil
 
 namespace CtStrUtil {
@@ -214,6 +216,34 @@ template<class VEC, class VAL>
 bool exists(const VEC& v, const VAL& val)
 {
     return std::find(v.begin(), v.end(), val) != v.end();
+}
+
+/**
+ * Extend a vector with elements, without destroying source one.
+ */
+template<typename VEC>
+void vector_extend(std::vector<VEC>& v, const std::vector<VEC>& ext)
+{
+    v.reserve(v.size() + ext.size());
+    v.insert(std::end(v), std::begin(ext), std::end(ext));
+}
+
+/**
+ * Extend a vector with elements with move semantics.
+ */
+template<typename VEC>
+void vector_extend(std::vector<VEC>& v, std::vector<VEC>&& ext)
+{
+    if (v.empty())
+    {
+        v = std::move(ext);
+    }
+    else
+    {
+        v.reserve(v.size() + ext.size());
+        std::move(std::begin(ext), std::end(ext), std::back_inserter(v));
+        ext.clear();
+    }
 }
 
 } // namespace vec

@@ -329,7 +329,13 @@ void CtXmlWrite::append_dom_node(CtTreeIter& ct_tree_iter,
     std::map<const gchar*, std::string> curr_attributes;
     if (CtConst::RICH_TEXT_ID == ct_tree_iter.get_node_syntax_highlighting())
     {
-        
+        Gtk::TextIter curr_iter{start_iter};
+        CtTextIterUtil::rich_text_attributes_update(curr_iter, curr_attributes);
+        bool tag_found = curr_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr});
+        while (tag_found)
+        {
+            
+        }
     }
     else
     {

@@ -383,6 +383,36 @@ void CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter,
     }
 }
 
+bool CtTextIterUtil::tag_richtext_toggling_on_or_off(const Gtk::TextIter& text_iter)
+{
+    bool retVal{false};
+    std::vector<Glib::RefPtr<const Gtk::TextTag>> toggled_tags = text_iter.get_toggled_tags(false/*toggled_on*/);
+    ::vec::vector_extend(toggled_tags, text_iter.get_toggled_tags(true/*toggled_on*/));
+    for (const Glib::RefPtr<const Gtk::TextTag>& r_curr_tag : toggled_tags)
+    {
+        const Glib::ustring tag_name = r_curr_tag->property_name();
+        if (tag_name.empty() || CtConst::GTKSPELLCHECK_TAG_NAME == tag_name)
+        {
+            continue;
+        }
+        if ( (str::startswith(tag_name, "weight_")) ||
+             (str::startswith(tag_name, "foreground_")) ||
+             (str::startswith(tag_name, "background_")) ||
+             (str::startswith(tag_name, "scale_")) ||
+             (str::startswith(tag_name, "justification_")) ||
+             (str::startswith(tag_name, "style_")) ||
+             (str::startswith(tag_name, "underline_")) ||
+             (str::startswith(tag_name, "strikethrough_")) ||
+             (str::startswith(tag_name, "link_")) ||
+             (str::startswith(tag_name, "family_")) )
+        {
+            retVal = true;
+            break;
+        }
+    }
+    return retVal;
+}
+
 
 bool CtStrUtil::isStrTrue(const Glib::ustring& inStr)
 {
