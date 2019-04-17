@@ -2574,6 +2574,10 @@ class HTMLHandler(HTMLParser.HTMLParser):
                 self.insert_image(img_path)
             elif tag == "pre": self.pre_tag = "p"
             elif tag == "code": self.curr_attributes[cons.TAG_FAMILY] = cons.TAG_PROP_MONOSPACE
+            elif tag == "dt":
+                self.rich_text_serialize(cons.CHAR_NEWLINE)
+            elif tag == "dd":
+                self.rich_text_serialize(cons.CHAR_NEWLINE+cons.CHAR_TAB)
         elif self.curr_state == 2:
             if tag == "table": # nested tables
                 self.curr_table = []
