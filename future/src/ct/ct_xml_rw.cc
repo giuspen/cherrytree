@@ -331,10 +331,27 @@ void CtXmlWrite::append_dom_node(CtTreeIter& ct_tree_iter,
     {
         Gtk::TextIter curr_iter{start_iter};
         CtTextIterUtil::rich_text_attributes_update(curr_iter, curr_attributes);
-        bool tag_found = curr_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr});
-        while (tag_found)
+        while (curr_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr}))
         {
-            
+            if (!CtTextIterUtil::tag_richtext_toggling_on_or_off(curr_iter))
+            {
+                if (!curr_iter.forward_char())
+                {
+                    break;
+                }
+                continue;
+            }
+            _rich_txt_serialize(p_node_node, start_iter, curr_iter, curr_attributes);
+            if (curr_iter.compare(end_iter) >= 0)
+            {
+                break;
+            }
+            CtTextIterUtil::rich_text_attributes_update(curr_iter, curr_attributes);
+            start_iter.set_offset(curr_iter.get_offset());
+        }
+        if (curr_iter.compare(end_iter) < 0)
+        {
+            _rich_txt_serialize(p_node_node, start_iter, curr_iter, curr_attributes);
         }
     }
     else
