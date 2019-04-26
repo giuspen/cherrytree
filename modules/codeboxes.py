@@ -380,7 +380,6 @@ class CodeBoxesHandler:
         if not self.dialog_codeboxhandle(_("Edit CodeBox")): return
         self.curr_codebox_anchor.syntax_highlighting = self.dad.codebox_syn_highl
         self.dad.set_sourcebuffer_syntax_highlight(self.curr_codebox_anchor.sourcebuffer, self.curr_codebox_anchor.syntax_highlighting)
-        anchor.sourceview.modify_font(pango.FontDescription(self.dad.code_font))
         self.curr_codebox_anchor.frame_width = int(self.dad.codebox_width)
         self.curr_codebox_anchor.frame_height = int(self.dad.codebox_height)
         self.curr_codebox_anchor.width_in_pixels = self.dad.codebox_width_pixels
