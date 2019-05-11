@@ -22,6 +22,7 @@ body {
     font-size: 13px;
     font-family: "Open Sans", sans-serif !important;
     padding: 20x; 
+    white-space: pre-wrap;
 }
 
 div.main {
