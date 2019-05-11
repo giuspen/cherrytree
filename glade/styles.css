@@ -112,6 +112,7 @@ td {
 
 div.main h1 {
     font-weight: bold;
+    display: inline;
 }
 
 div.main h2 {
@@ -120,6 +121,7 @@ div.main h2 {
     font-weight: bold;
     font-size: 150%;
     color: #666666;
+    display: inline;
 }
 
 div.main h3 {
@@ -127,6 +129,7 @@ div.main h3 {
     font-weight: bold;
     font-size: 125%;
     color: #666666;
+    display: inline;
 }
 
 /* LINKS */
