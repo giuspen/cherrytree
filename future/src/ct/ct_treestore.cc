@@ -28,88 +28,88 @@
 
 CtTreeIter::CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* columns)
  : Gtk::TreeIter(iter),
-   _columns(columns)
+   _pColumns(columns)
 {
 }
 
 CtTreeIter CtTreeIter::parent()
 {
-    return CtTreeIter((*this)->parent(), _columns);
+    return CtTreeIter((*this)->parent(), _pColumns);
 }
 
 CtTreeIter CtTreeIter::first_child()
 {
-    return CtTreeIter((*this)->children().begin(), _columns);
+    return CtTreeIter((*this)->children().begin(), _pColumns);
 }
 
 bool CtTreeIter::get_node_read_only() const
 {
-    return (*this) && (*this)->get_value(_columns->colNodeRO);
+    return (*this) && (*this)->get_value(_pColumns->colNodeRO);
 }
 
 void CtTreeIter::set_node_read_only(bool val)
 {
-    (*this)->set_value(_columns->colNodeRO, val);
+    (*this)->set_value(_pColumns->colNodeRO, val);
 }
 
 gint64 CtTreeIter::get_node_id() const
 {
-    return (*this) ? (*this)->get_value(_columns->colNodeUniqueId) : -1;
+    return (*this) ? (*this)->get_value(_pColumns->colNodeUniqueId) : -1;
 }
 
 bool CtTreeIter::get_node_is_bold() const
 {
-    return (*this) && get_is_bold_from_pango_weight((*this)->get_value(_columns->colWeight));
+    return (*this) && get_is_bold_from_pango_weight((*this)->get_value(_pColumns->colWeight));
 }
 
 guint16 CtTreeIter::get_node_custom_icon_id() const
 {
-    return (*this) ? (*this)->get_value(_columns->colCustomIconId) : 0;
+    return (*this) ? (*this)->get_value(_pColumns->colCustomIconId) : 0;
 }
 
 Glib::ustring CtTreeIter::get_node_name() const
 {
-    return (*this) ? (*this)->get_value(_columns->colNodeName) : "";
+    return (*this) ? (*this)->get_value(_pColumns->colNodeName) : "";
 }
 
 void CtTreeIter::set_node_name(const Glib::ustring& node_name)
 {
-    (*this)->set_value(_columns->colNodeName, node_name);
+    (*this)->set_value(_pColumns->colNodeName, node_name);
 }
 
 Glib::ustring CtTreeIter::get_node_tags() const
 {
-    return (*this) ? (*this)->get_value(_columns->colNodeTags) : "";
+    return (*this) ? (*this)->get_value(_pColumns->colNodeTags) : "";
 }
 
 std::string CtTreeIter::get_node_foreground() const
 {
-    return (*this) ? (*this)->get_value(_columns->colForeground) : "";
+    return (*this) ? (*this)->get_value(_pColumns->colForeground) : "";
 }
 
 std::string CtTreeIter::get_node_syntax_highlighting() const
 {
-    return (*this) ? (*this)->get_value(_columns->colSyntaxHighlighting) : "";
+    return (*this) ? (*this)->get_value(_pColumns->colSyntaxHighlighting) : "";
 }
 
 std::time_t CtTreeIter::get_node_creating_time() const
 {
-    return (*this) ? (*this)->get_value(_columns->colTsCreation) : 0;
+    return (*this) ? (*this)->get_value(_pColumns->colTsCreation) : 0;
 }
 
 std::time_t CtTreeIter::get_node_modification_time() const
 {
-    return (*this) ? (*this)->get_value(_columns->colTsLastSave) : 0;
+    return (*this) ? (*this)->get_value(_pColumns->colTsLastSave) : 0;
 }
 
 void CtTreeIter::set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf)
 {
-    (*this)->set_value(_columns->rColPixbufAux, rPixbuf);
+    (*this)->set_value(_pColumns->rColPixbufAux, rPixbuf);
 }
 
 Glib::RefPtr<Gsv::Buffer> CtTreeIter::get_node_text_buffer() const
 {
-    return (*this) ? (*this)->get_value(_columns->rColTextBuffer) : Glib::RefPtr<Gsv::Buffer>();
+    return (*this) ? (*this)->get_value(_pColumns->rColTextBuffer) : Glib::RefPtr<Gsv::Buffer>();
 }
 
 guint16 CtTreeIter::get_pango_weight_from_is_bold(bool isBold)
@@ -120,6 +120,39 @@ guint16 CtTreeIter::get_pango_weight_from_is_bold(bool isBold)
 bool CtTreeIter::get_is_bold_from_pango_weight(guint16 pangoWeight)
 {
     return pangoWeight == PANGO_WEIGHT_HEAVY;
+}
+
+std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes(CtForPrint forPrint,
+                                                                               const std::pair<int,int>& offset_range)
+{
+    std::list<CtAnchoredWidget*> retAnchoredWidgetsList;
+    if ((*this) && (*this)->get_value(_pColumns->colAnchoredWidgets).size() > 0)
+    {
+        Glib::RefPtr<Gsv::Buffer> rTextBuffer = get_node_text_buffer();
+        Gtk::TextIter curr_iter = offset_range.first >= 0 ? rTextBuffer->get_iter_at_offset(offset_range.first) : rTextBuffer->begin();
+        do
+        {
+            if ((offset_range.second >= 0) && (curr_iter.get_offset() > offset_range.second))
+            {
+                break;
+            }
+            Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = curr_iter.get_child_anchor();
+            if (rChildAnchor)
+            {
+                for (CtAnchoredWidget* pCtAnchoredWidget : (*this)->get_value(_pColumns->colAnchoredWidgets))
+                {
+                    if (rChildAnchor == pCtAnchoredWidget->getTextChildAnchor())
+                    {
+                        pCtAnchoredWidget->updateOffset(curr_iter.get_offset());
+                        //rChildAnchor->updateJustification(); TODO
+                        retAnchoredWidgetsList.push_back(pCtAnchoredWidget);
+                    }
+                }
+            }
+        }
+        while (curr_iter.forward_char());
+    }
+    return retAnchoredWidgetsList;
 }
 
 

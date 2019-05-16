@@ -353,6 +353,10 @@ void CtXmlWrite::append_dom_node(CtTreeIter& ct_tree_iter,
         {
             _rich_txt_serialize(p_node_node, start_iter, curr_iter, curr_attributes);
         }
+        if (to_disk)
+        {
+            
+        }
     }
     else
     {
