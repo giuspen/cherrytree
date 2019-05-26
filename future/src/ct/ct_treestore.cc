@@ -144,8 +144,9 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes(C
                     if (rChildAnchor == pCtAnchoredWidget->getTextChildAnchor())
                     {
                         pCtAnchoredWidget->updateOffset(curr_iter.get_offset());
-                        //rChildAnchor->updateJustification(); TODO
+                        pCtAnchoredWidget->updateJustification(CtMiscUtil::getTextIterAlignment(curr_iter));
                         retAnchoredWidgetsList.push_back(pCtAnchoredWidget);
+                        break;
                     }
                 }
             }

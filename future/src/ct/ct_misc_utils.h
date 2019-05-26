@@ -41,6 +41,8 @@ Glib::RefPtr<Gsv::Buffer> getNewTextBuffer(const std::string& syntax, const Glib
 
 const Glib::ustring getTextTagNameExistOrCreate(Glib::ustring propertyName, Glib::ustring propertyValue);
 
+const gchar* getTextIterAlignment(const Gtk::TextIter& textIter);
+
 void widget_set_colors(Gtk::Widget& widget, const std::string& fg, const std::string& bg,
                        bool syntax_highl, const std::string& gdk_col_fg);
 

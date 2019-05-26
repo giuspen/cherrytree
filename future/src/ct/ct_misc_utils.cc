@@ -89,6 +89,23 @@ Glib::RefPtr<Gsv::Buffer> CtMiscUtil::getNewTextBuffer(const std::string& syntax
     return rRetTextBuffer;
 }
 
+const gchar* CtMiscUtil::getTextIterAlignment(const Gtk::TextIter& textIter)
+{
+    const char* retVal{CtConst::TAG_PROP_VAL_LEFT};
+    for (const char* currAlignType : std::list{CtConst::TAG_PROP_VAL_LEFT,
+                                               CtConst::TAG_PROP_VAL_CENTER,
+                                               CtConst::TAG_PROP_VAL_FILL,
+                                               CtConst::TAG_PROP_VAL_RIGHT})
+    {
+        if (textIter.has_tag(CtApp::R_textTagTable->lookup(getTextTagNameExistOrCreate(CtConst::TAG_JUSTIFICATION, currAlignType))))
+        {
+            retVal = currAlignType;
+            break;
+        }
+    }
+    return retVal;
+}
+
 const Glib::ustring CtMiscUtil::getTextTagNameExistOrCreate(Glib::ustring propertyName, Glib::ustring propertyValue)
 {
     const Glib::ustring tagName{propertyName + "_" + propertyValue};
