@@ -590,3 +590,20 @@ int str::byte_pos_to_symb_pos(const Glib::ustring& text, int byte_pos)
 {
     return g_utf8_pointer_to_offset(text.data(), text.data() + byte_pos);
 }
+
+Glib::ustring str::swapcase(const Glib::ustring& text)
+{
+    Glib::ustring ret_text;
+    for (size_t index = 0; index < text.size(); ++index)
+    {
+        // takes every symbol and tries to figure out if it's uppercase or not
+        // to change the case
+        Glib::ustring test_text(text, index, 1);
+        if (test_text == test_text.uppercase())
+            test_text = test_text.lowercase();
+        else
+            test_text = test_text.uppercase();
+        ret_text += test_text;
+    }
+    return ret_text;
+}

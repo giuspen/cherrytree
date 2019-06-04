@@ -189,6 +189,11 @@ TEST(MiscUtilsGroup, str__join_numbers)
     }
 }
 
+TEST(MiscUtilsGroup, str__swapcase)
+{
+    STRCMP_EQUAL("CheRrY", str::swapcase("cHErRy").c_str());
+}
+
 TEST(MiscUtilsGroup, vec_remove)
 {
     std::vector<int> empty_v;
