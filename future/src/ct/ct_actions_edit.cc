@@ -51,17 +51,17 @@ void CtActions::image_handle()
 
 void CtActions::table_handle()
 {
-
+    // todo:
 }
 
 void CtActions::codebox_handle()
 {
-
+    // todo:
 }
 
 void CtActions::embfile_insert()
 {
-
+    // todo:
 }
 
 // The Link Insert Button was Pressed
@@ -73,65 +73,72 @@ void CtActions::apply_tag_link()
 
 void CtActions::anchor_handle()
 {
-
-
+    // todo:
 }
 
 void CtActions::toc_insert()
 {
-
+    // todo:
 }
 
 // Insert Timestamp
 void CtActions::timestamp_insert()
 {
+    if (!_is_curr_node_not_read_only_or_error()) return;
+
     text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
     if (!proof.text_buffer) return;
-    if (!_is_curr_node_not_read_only_or_error()) return;
 
     time_t time = std::time(nullptr);
     std::string timestamp = str::time_format(CtApp::P_ctCfg->timestampFormat, time);
     proof.text_buffer->insert_at_cursor(timestamp);
 }
 
+// Insert a Horizontal Line
 void CtActions::horizontal_rule_insert()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
+    if (!proof.text_buffer) return;
+    proof.text_buffer->insert_at_cursor(CtApp::P_ctCfg->hRule + CtConst::CHAR_NEWLINE);
 }
 
+// Lowers the Case of the Selected Text/the Underlying Word
 void CtActions::text_selection_lower_case()
 {
-
+    _text_selection_change_case("l");
 }
 
+// Uppers the Case of the Selected Text/the Underlying Word
 void CtActions::text_selection_upper_case()
 {
-
+    _text_selection_change_case("u");
 }
 
+// Toggles the Case of the Selected Text/the Underlying Word
 void CtActions::text_selection_toggle_case()
 {
-
+    _text_selection_change_case("t");
 }
 
 void CtActions::toggle_ena_dis_spellcheck()
 {
-
+    // todo:
 }
 
 void CtActions::cut_as_plain_text()
 {
-
+    // todo:
 }
 
 void CtActions::copy_as_plain_text()
 {
-
+    // todo:
 }
 
 void CtActions::paste_as_plain_text()
 {
-
+    // todo:
 }
 
 void CtActions::text_row_cut()
@@ -244,4 +251,51 @@ void CtActions::_image_insert(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbu
         # if I apply a justification, the state is already updated
         self.state_machine.update_state()
         */
+}
+
+// Change the Case of the Selected Text/the Underlying Word"""
+void CtActions::_text_selection_change_case(const Glib::ustring& change_type)
+{
+    text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
+    Glib::RefPtr<Gtk::TextBuffer> text_buffer = proof.text_buffer;
+    if (!text_buffer) return;
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (!text_buffer->get_has_selection() && !_apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter()))
+    {
+        ct_dialogs::warning_dialog(_("No Text is Selected"), *_ctMainWin);
+        return;
+    }
+
+    Gtk::TextIter iter_start, iter_end;
+    text_buffer->get_selection_bounds(iter_start, iter_end);
+    Glib::ustring text_to_change_case, rich_text;
+    if (proof.from_codebox || proof.syntax_highl != CtConst::RICH_TEXT_ID)
+    {
+        text_to_change_case = text_buffer->get_text(iter_start, iter_end);
+        if (change_type == "l")         text_to_change_case = text_to_change_case.lowercase();
+        else if (change_type == "u")    text_to_change_case = text_to_change_case.uppercase();
+        else if (change_type == "t")    text_to_change_case = str::swapcase(text_to_change_case);
+    }
+    else
+    {
+        //todo:
+    //    rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(text_buffer,
+    //        iter_start,
+    //        iter_end,
+    //        change_case=change_type)
+    }
+    int start_offset = iter_start.get_offset();
+    text_buffer->erase(iter_start, iter_end);
+    Gtk::TextIter iter_insert = text_buffer->get_iter_at_offset(start_offset);
+    if (proof.from_codebox || proof.syntax_highl != CtConst::RICH_TEXT_ID)
+    {
+        text_buffer->insert(iter_insert, text_to_change_case);
+    }
+    else
+    {
+        text_buffer->move_mark(text_buffer->get_insert(), iter_insert);
+        //self.clipboard_handler.from_xml_string_to_buffer(rich_text)
+        text_buffer->select_range(text_buffer->get_iter_at_offset(start_offset),
+                             text_buffer->get_iter_at_offset(start_offset + (int)rich_text.size()));
+    }
 }
