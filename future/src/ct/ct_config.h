@@ -190,7 +190,7 @@ protected:
     template<class String> bool _populateStringFromKeyfile(const gchar* key, String* pTarget)
     {
         bool gotIt{false};
-        if (_pKeyFile->has_key(_currentGroup, key))
+        if (_pKeyFile->has_group(_currentGroup) && _pKeyFile->has_key(_currentGroup, key))
         {
             try
             {
