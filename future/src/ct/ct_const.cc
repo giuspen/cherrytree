@@ -82,6 +82,7 @@ const gchar*   CtConst::TREE_TEXT_DARK_BG      {COLOR_24_BLUEBG};
 const gchar*   CtConst::TREE_TEXT_LIGHT_FG     {COLOR_24_LBLACK};
 const gchar*   CtConst::TREE_TEXT_LIGHT_BG     {COLOR_24_GRAY};
 
+const gchar    CtConst::GTKSPELLCHECK_TAG_NAME[] {"gtkspellchecker-misspelled"};
 const gchar    CtConst::TAG_WEIGHT[]           {"weight"};
 const gchar    CtConst::TAG_FOREGROUND[]       {"foreground"};
 const gchar    CtConst::TAG_BACKGROUND[]       {"background"};

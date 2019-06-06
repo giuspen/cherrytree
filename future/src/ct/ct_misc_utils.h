@@ -41,6 +41,8 @@ Glib::RefPtr<Gsv::Buffer> getNewTextBuffer(const std::string& syntax, const Glib
 
 const Glib::ustring getTextTagNameExistOrCreate(Glib::ustring propertyName, Glib::ustring propertyValue);
 
+const gchar* getTextIterAlignment(const Gtk::TextIter& textIter);
+
 void widget_set_colors(Gtk::Widget& widget, const std::string& fg, const std::string& bg,
                        bool syntax_highl, const std::string& gdk_col_fg);
 
@@ -54,10 +56,19 @@ std::string clean_from_chars_not_for_filename(std::string filename);
 
 Gtk::BuiltinIconSize getIconSize(int size);
 
+} // namespace CtMiscUtil
+
+namespace CtTextIterUtil {
+
 bool get_next_chars_from_iter_are(Gtk::TextIter text_iter, const Glib::ustring& chars_list);
 
 bool get_next_chars_from_iter_are(Gtk::TextIter text_iter, const std::vector<Glib::ustring>& chars_list_vec);
-} // namespace CtMiscUtil
+
+void rich_text_attributes_update(const Gtk::TextIter& text_iter, std::map<const gchar*, std::string>& curr_attributes);
+
+bool tag_richtext_toggling_on_or_off(const Gtk::TextIter& text_iter);
+
+} // namespace CtTextIterUtil
 
 namespace CtStrUtil {
 
@@ -209,6 +220,34 @@ template<class VEC, class VAL>
 bool exists(const VEC& v, const VAL& val)
 {
     return std::find(v.begin(), v.end(), val) != v.end();
+}
+
+/**
+ * Extend a vector with elements, without destroying source one.
+ */
+template<typename VEC>
+void vector_extend(std::vector<VEC>& v, const std::vector<VEC>& ext)
+{
+    v.reserve(v.size() + ext.size());
+    v.insert(std::end(v), std::begin(ext), std::end(ext));
+}
+
+/**
+ * Extend a vector with elements with move semantics.
+ */
+template<typename VEC>
+void vector_extend(std::vector<VEC>& v, std::vector<VEC>&& ext)
+{
+    if (v.empty())
+    {
+        v = std::move(ext);
+    }
+    else
+    {
+        v.reserve(v.size() + ext.size());
+        std::move(std::begin(ext), std::end(ext), std::back_inserter(v));
+        ext.clear();
+    }
 }
 
 } // namespace vec

@@ -37,7 +37,7 @@ void CtActions::apply_tag_latest()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
     if (CtApp::P_ctCfg->latestTagProp.empty())
-        ct_dialogs::warning_dialog(_("No Previous Text Format Was Performed During This Session"), *_ctMainWin);
+        ct_dialogs::warning_dialog(_("No Previous Text Format Was Performed During This Session"), *_pCtMainWin);
     else
         _apply_tag(CtApp::P_ctCfg->latestTagProp, CtApp::P_ctCfg->latestTagVal);
 }
@@ -47,9 +47,9 @@ void CtActions::remove_text_formatting()
 {
     if (!_is_there_selected_node_or_error()) return;
     if (!_is_curr_node_not_syntax_highlighting_or_error()) return;
-    auto curr_buffer = _ctMainWin->get_text_view().get_buffer();
+    auto curr_buffer = _pCtMainWin->get_text_view().get_buffer();
     if (!curr_buffer->get_has_selection() && !_apply_tag_try_automatic_bounds(curr_buffer, curr_buffer->get_insert()->get_iter())) {
-        ct_dialogs::warning_dialog(_("No Text is Selected"), *_ctMainWin);
+        ct_dialogs::warning_dialog(_("No Text is Selected"), *_pCtMainWin);
         return;
     }
     Gtk::TextIter iter_sel_start, iter_sel_end;
@@ -57,7 +57,7 @@ void CtActions::remove_text_formatting()
     curr_buffer->remove_all_tags(iter_sel_start, iter_sel_end);
 
     // todo: if self.enable_spell_check: self.spell_check_set_on()
-    _ctMainWin->update_window_save_needed("nbuf", true);
+    _pCtMainWin->update_window_save_needed("nbuf", true);
 }
 
 // The Foreground Color Chooser Button was Pressed
@@ -229,7 +229,7 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
                 std::optional<Gtk::TextIter> iter_sel_end /*= std::nullopt*/,
                 Glib::RefPtr<Gtk::TextBuffer> text_buffer /*= Glib::RefPtr<Gtk::TextBuffer>()*/)
 {
-    if (_ctMainWin->user_active() && !_is_curr_node_not_syntax_highlighting_or_error()) return;
+    if (_pCtMainWin->user_active() && !_is_curr_node_not_syntax_highlighting_or_error()) return;
     if (!text_buffer) text_buffer = curr_buffer();
 
 
@@ -241,14 +241,14 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
             if (!text_buffer->get_has_selection()) {
                 if (tag_property != CtConst::TAG_LINK) {
                     if (!_apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter())) {
-                        ct_dialogs::warning_dialog(_("No Text is Selected"), *_ctMainWin);
+                        ct_dialogs::warning_dialog(_("No Text is Selected"), *_pCtMainWin);
                         return;
                     }
                 } else {
                     Glib::ustring tag_property_value = _link_check_around_cursor();
                     if (tag_property_value == "") {
                         if (!_apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter())) {
-                            Glib::ustring link_name = ct_dialogs::img_n_entry_dialog(*_ctMainWin, _("Link Name"), "", "link_handle");
+                            Glib::ustring link_name = ct_dialogs::img_n_entry_dialog(*_pCtMainWin, _("Link Name"), "", "link_handle");
                             if (link_name.empty()) return;
                             int start_offset = text_buffer->get_insert()->get_iter().get_offset();
                             text_buffer->insert_at_cursor(link_name);
@@ -264,13 +264,13 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
             }
             text_buffer->get_selection_bounds(*iter_sel_start, *iter_sel_end);
          } else {
-            ct_dialogs::warning_dialog(_("The Cursor is Not into a Paragraph"), *_ctMainWin);
+            ct_dialogs::warning_dialog(_("The Cursor is Not into a Paragraph"), *_pCtMainWin);
             return;
         }
     }
     if (property_value.empty()) {
         if (tag_property == CtConst::TAG_LINK) {
-            if (CtMiscUtil::get_next_chars_from_iter_are(*iter_sel_start, CtConst::WEB_LINK_STARTERS)) {
+            if (CtTextIterUtil::get_next_chars_from_iter_are(*iter_sel_start, CtConst::WEB_LINK_STARTERS)) {
                 glb_link_entry.type = CtConst::LINK_TYPE_WEBS;
                 glb_link_entry.webs = text_buffer->get_text(*iter_sel_start, *iter_sel_end);
             }
@@ -278,8 +278,8 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
             int bound_offset = iter_sel_end->get_offset();
             Gtk::TreeIter sel_tree_iter;
             if (glb_link_entry.node_id != -1)
-                sel_tree_iter = _ctTreestore->get_tree_iter_from_node_id(glb_link_entry.node_id);
-            if (!ct_dialogs::link_handle_dialog(*_ctMainWin, _("Insert/Edit Link"), sel_tree_iter, glb_link_entry))
+                sel_tree_iter = _pCtTreestore->get_tree_iter_from_node_id(glb_link_entry.node_id);
+            if (!ct_dialogs::link_handle_dialog(*_pCtMainWin, _("Insert/Edit Link"), sel_tree_iter, glb_link_entry))
                 return;
             iter_sel_start = text_buffer->get_iter_at_offset(insert_offset);
             iter_sel_end = text_buffer->get_iter_at_offset(bound_offset);
@@ -287,13 +287,13 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
         } else {
             // todo: assert tag_property[0] in ['f', 'b'], "!! bad tag_property '%s'" % tag_property
             Gdk::RGBA ret_color = Gdk::RGBA(CtApp::P_ctCfg->currColors.at(tag_property[0]));
-            if (!ct_dialogs::color_pick_dialog(*_ctMainWin, ret_color))
+            if (!ct_dialogs::color_pick_dialog(*_pCtMainWin, ret_color))
                 return;
             CtApp::P_ctCfg->currColors[tag_property[0]] = CtRgbUtil::rgb_to_string(ret_color);
             property_value = CtRgbUtil::rgb_to_string(ret_color);
         }
     }
-    if (_ctMainWin->user_active() && tag_property != CtConst::TAG_LINK) {
+    if (_pCtMainWin->user_active() && tag_property != CtConst::TAG_LINK) {
         CtApp::P_ctCfg->latestTagProp = tag_property;
         CtApp::P_ctCfg->latestTagVal = property_value;
     }
@@ -303,7 +303,7 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
     for (int offset = sel_start_offset; offset < sel_end_offset; ++offset) {
         auto iter_sel_start = text_buffer->get_iter_at_offset(offset);
         std::vector<Glib::RefPtr<Gtk::TextTag>> curr_tags = iter_sel_start.get_tags();
-        for (auto& curr_tag: curr_tags) {
+        for (auto& curr_tag : curr_tags) {
             Glib::ustring tag_name = curr_tag->property_name();
             //#print tag_name
             if (tag_name.empty()) continue;
@@ -336,8 +336,8 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
         text_buffer->apply_tag_by_name(_apply_tag_exist_or_create(tag_property, property_value),
                                       text_buffer->get_iter_at_offset(sel_start_offset),
                                       text_buffer->get_iter_at_offset(sel_end_offset));
-    if (_ctMainWin->user_active())
-        _ctMainWin->update_window_save_needed("nbuf", true);
+    if (_pCtMainWin->user_active())
+        _pCtMainWin->update_window_save_needed("nbuf", true);
 }
 
 // Check into the Tags Table whether the Tag Exists, if Not Creates it
@@ -411,9 +411,9 @@ CtActions::text_view_n_buffer_codebox_proof CtActions::_get_text_view_n_buffer_c
         syntax_highl = self.syntax_highlighting
         from_codebox = False
      */
-    return text_view_n_buffer_codebox_proof{&_ctMainWin->get_text_view(),
-                _ctMainWin->get_text_view().get_buffer(),
-                _ctMainWin->curr_tree_iter().get_node_syntax_highlighting(),
+    return text_view_n_buffer_codebox_proof{&_pCtMainWin->get_text_view(),
+                _pCtMainWin->get_text_view().get_buffer(),
+                _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting(),
                 false};
 }
 
@@ -484,7 +484,7 @@ bool CtActions::_links_entries_pre_dialog(const Glib::ustring& curr_link, ct_dia
             else                 link_entry.anch = curr_link.substr(vec[0].size() + vec[1].size() + 2);
         }
     } else {
-        ct_dialogs::error_dialog(str::format("Tag Name Not Recognized! (%s)", std::string(link_entry.type)), *_ctMainWin);
+        ct_dialogs::error_dialog(str::format("Tag Name Not Recognized! (%s)", std::string(link_entry.type)), *_pCtMainWin);
         link_entry.type = CtConst::LINK_TYPE_WEBS;
         return false;
     }

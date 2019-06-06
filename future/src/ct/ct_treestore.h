@@ -70,12 +70,15 @@ public:
     Gtk::TreeModelColumn<std::list<CtAnchoredWidget*>> colAnchoredWidgets;
 };
 
+enum class CtForPrint : int {No=0, YesPdf=1, YesHtml=2};
+
 class CtTreeIter : public Gtk::TreeIter
 {
 public:
     CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* _columns);
 
     CtTreeIter  parent();
+    CtTreeIter  first_child();
 
     bool          get_node_is_bold() const;
     bool          get_node_read_only() const;
@@ -90,6 +93,8 @@ public:
     std::time_t   get_node_creating_time() const;
     std::time_t   get_node_modification_time() const;
     void          set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf);
+    std::list<CtAnchoredWidget*> get_embedded_pixbufs_tables_codeboxes(CtForPrint forPrint=CtForPrint::No,
+                                                                       const std::pair<int,int>& offset_range=std::make_pair(-1,-1));
 
     Glib::RefPtr<Gsv::Buffer> get_node_text_buffer() const;
 
@@ -97,7 +102,7 @@ public:
     static bool    get_is_bold_from_pango_weight(guint16 pangoWeight);
 
 private:
-    const CtTreeModelColumns* _columns;
+    const CtTreeModelColumns* _pColumns;
 };
 
 class CtTextView;

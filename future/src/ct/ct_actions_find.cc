@@ -93,7 +93,7 @@ void CtActions::_find_init()
 void CtActions::find_in_selected_node()
 {
     if (!_is_there_selected_node_or_error()) return;
-    Glib::RefPtr<Gtk::TextBuffer> curr_buffer = _ctMainWin->get_text_view().get_buffer();
+    Glib::RefPtr<Gtk::TextBuffer> curr_buffer = _pCtMainWin->get_text_view().get_buffer();
 
     std::string entry_hint;
     std::string pattern;
@@ -126,27 +126,27 @@ void CtActions::find_in_selected_node()
     s_state.matches_num = 0;
 
     // searching start
-    bool user_active_restore = _ctMainWin->user_active();
-    _ctMainWin->user_active() = false;
+    bool user_active_restore = _pCtMainWin->user_active();
+    _pCtMainWin->user_active() = false;
 
     if (all_matches) {
         s_state.match_store->clear();
         s_state.all_matches_first_in_node = true;
-        while (_parse_node_content_iter(_ctMainWin->curr_tree_iter(), curr_buffer, pattern, forward, first_fromsel, all_matches, true))
+        while (_parse_node_content_iter(_pCtMainWin->curr_tree_iter(), curr_buffer, pattern, forward, first_fromsel, all_matches, true))
             s_state.matches_num += 1;
     }
-    else if (_parse_node_content_iter(_ctMainWin->curr_tree_iter(), curr_buffer, pattern, forward, first_fromsel, all_matches, true))
+    else if (_parse_node_content_iter(_pCtMainWin->curr_tree_iter(), curr_buffer, pattern, forward, first_fromsel, all_matches, true))
         s_state.matches_num = 1;
     if (s_state.matches_num == 0)
-        ct_dialogs::info_dialog(str::format(_("The pattern '%s' was not found"), pattern), *_ctMainWin);
+        ct_dialogs::info_dialog(str::format(_("The pattern '%s' was not found"), pattern), *_pCtMainWin);
     else if (all_matches) {
         s_state.match_dialog_title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
-        ct_dialogs::match_dialog(s_state.match_dialog_title, *_ctMainWin, s_state.match_store);
+        ct_dialogs::match_dialog(s_state.match_dialog_title, *_pCtMainWin, s_state.match_store);
     }
     else if (s_options.search_replace_dict_idialog) {
         _iterated_find_dialog();
     }
-    _ctMainWin->user_active() = user_active_restore;
+    _pCtMainWin->user_active() = user_active_restore;
 }
 
 static int _count_nodes(const Gtk::TreeNodeChildren& children) {
@@ -158,8 +158,8 @@ static int _count_nodes(const Gtk::TreeNodeChildren& children) {
 void CtActions::_find_in_all_nodes(bool for_current_node)
 {
     if (!_is_there_selected_node_or_error()) return;
-    Glib::RefPtr<Gtk::TextBuffer> curr_buffer = _ctMainWin->get_text_view().get_buffer();
-    CtStatusBar& ctStatusBar = _ctMainWin->get_status_bar();
+    Glib::RefPtr<Gtk::TextBuffer> curr_buffer = _pCtMainWin->get_text_view().get_buffer();
+    CtStatusBar& ctStatusBar = _pCtMainWin->get_status_bar();
 
     Glib::ustring title;
     Glib::ustring pattern;
@@ -189,7 +189,7 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
     else
         pattern = s_state.curr_find_pattern;
 
-    CtTreeIter starting_tree_iter = _ctMainWin->curr_tree_iter();
+    CtTreeIter starting_tree_iter = _pCtMainWin->curr_tree_iter();
     Gtk::TreeIter node_iter;
     int current_cursor_pos = curr_buffer->property_cursor_position();
     bool forward = s_options.search_replace_dict_fw;
@@ -201,22 +201,22 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
     bool all_matches = s_options.search_replace_dict_a_ff_fa == 0;
     if (first_fromsel || for_current_node) {
         s_state.first_useful_node = false; // no one node content was parsed yet
-        node_iter = _ctMainWin->curr_tree_iter();
+        node_iter = _pCtMainWin->curr_tree_iter();
     }
     else {
         s_state.first_useful_node = true; // all range will be parsed so no matter
-        node_iter = forward ? _ctTreestore->get_iter_first() : _ctTreestore->get_tree_iter_last_sibling(_ctTreestore->get_store()->children());
+        node_iter = forward ? _pCtTreestore->get_iter_first() : _pCtTreestore->get_tree_iter_last_sibling(_pCtTreestore->get_store()->children());
     }
     s_state.matches_num = 0;
     if (all_matches) s_state.match_store->clear();
 
-    std::string tree_expanded_collapsed_string = _ctTreestore->get_tree_expanded_collapsed_string(_ctMainWin->get_tree_view());
+    std::string tree_expanded_collapsed_string = _pCtTreestore->get_tree_expanded_collapsed_string(_pCtMainWin->get_tree_view());
     // searching start
-    bool user_active_restore = _ctMainWin->user_active();
-    _ctMainWin->user_active() = false;
+    bool user_active_restore = _pCtMainWin->user_active();
+    _pCtMainWin->user_active() = false;
     s_state.processed_nodes = 0;
     s_state.latest_matches = 0;
-    s_state.counted_nodes = for_current_node ? _count_nodes(_ctMainWin->curr_tree_iter()->children()) : (_count_nodes(_ctTreestore->get_store()->children()) - 1);
+    s_state.counted_nodes = for_current_node ? _count_nodes(_pCtMainWin->curr_tree_iter()->children()) : (_count_nodes(_pCtTreestore->get_store()->children()) - 1);
     if (all_matches) {
         ctStatusBar.progressBar.set_text("0");
         ctStatusBar.progressBar.show();
@@ -227,7 +227,7 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
     std::time_t search_start_time = std::time(nullptr);
     while (node_iter) {
         s_state.all_matches_first_in_node = true;
-        CtTreeIter ct_node_iter = _ctTreestore->to_ct_tree_iter(node_iter);
+        CtTreeIter ct_node_iter = _pCtTreestore->to_ct_tree_iter(node_iter);
         while (_parse_given_node_content(ct_node_iter, pattern, forward, first_fromsel, all_matches)) {
             s_state.matches_num += 1;
             if (!all_matches ||  ctStatusBar.is_progress_stop()) break;
@@ -257,23 +257,23 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
     std::time_t search_end_time = std::time(nullptr);
     std::cout << search_end_time - search_start_time << " sec" << std::endl;
 
-    _ctMainWin->user_active() = user_active_restore;
-    _ctTreestore->set_tree_expanded_collapsed_string(tree_expanded_collapsed_string, _ctMainWin->get_tree_view(), CtApp::P_ctCfg->nodesBookmExp);
+    _pCtMainWin->user_active() = user_active_restore;
+    _pCtTreestore->set_tree_expanded_collapsed_string(tree_expanded_collapsed_string, _pCtMainWin->get_tree_view(), CtApp::P_ctCfg->nodesBookmExp);
     if (!s_state.matches_num || all_matches) {
-        _ctMainWin->get_tree_view().set_cursor_safe(starting_tree_iter);
+        _pCtMainWin->get_tree_view().set_cursor_safe(starting_tree_iter);
         //todo: self.dad.objects_buffer_refresh()
-        _ctMainWin->get_text_view().grab_focus();
+        _pCtMainWin->get_text_view().grab_focus();
         curr_buffer->place_cursor(curr_buffer->get_iter_at_offset(current_cursor_pos));
-        _ctMainWin->get_text_view().scroll_to(curr_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
+        _pCtMainWin->get_text_view().scroll_to(curr_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
     }
     if (!s_state.matches_num)
-        ct_dialogs::info_dialog(str::format(_("The pattern '%s' was not found"), std::string(pattern)), *_ctMainWin);
+        ct_dialogs::info_dialog(str::format(_("The pattern '%s' was not found"), std::string(pattern)), *_pCtMainWin);
     else {
         if (all_matches) {
             s_state.match_dialog_title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
-            ct_dialogs::match_dialog(s_state.match_dialog_title, *_ctMainWin, s_state.match_store);
+            ct_dialogs::match_dialog(s_state.match_dialog_title, *_pCtMainWin, s_state.match_store);
         } else {
-            _ctMainWin->get_tree_view().set_cursor_safe(_ctMainWin->curr_tree_iter());
+            _pCtMainWin->get_tree_view().set_cursor_safe(_pCtMainWin->curr_tree_iter());
             if (s_options.search_replace_dict_idialog)
                 _iterated_find_dialog();
         }
@@ -321,8 +321,8 @@ void CtActions::find_a_node()
     bool all_matches = s_options.search_replace_dict_a_ff_fa == 0;
     Gtk::TreeIter node_iter;
     if (first_fromsel) {
-        node_iter = forward ? ++_ctMainWin->curr_tree_iter() : --_ctMainWin->curr_tree_iter();
-        Gtk::TreeIter top_node_iter = _ctMainWin->curr_tree_iter();
+        node_iter = forward ? ++_pCtMainWin->curr_tree_iter() : --_pCtMainWin->curr_tree_iter();
+        Gtk::TreeIter top_node_iter = _pCtMainWin->curr_tree_iter();
         while (!node_iter) {
             node_iter = top_node_iter;
             node_iter = forward ? ++node_iter : --node_iter;
@@ -331,14 +331,14 @@ void CtActions::find_a_node()
         }
     }
     else
-        node_iter = forward ? _ctTreestore->get_iter_first() : _ctTreestore->get_tree_iter_last_sibling(_ctTreestore->get_store()->children());;
+        node_iter = forward ? _pCtTreestore->get_iter_first() : _pCtTreestore->get_tree_iter_last_sibling(_pCtTreestore->get_store()->children());;
 
     s_state.matches_num = 0;
     if (all_matches)
         s_state.match_store->clear();
     // searching start
     while (node_iter) {
-        if (_parse_node_name(_ctTreestore->to_ct_tree_iter(node_iter), re_pattern, forward, all_matches)) {
+        if (_parse_node_name(_pCtTreestore->to_ct_tree_iter(node_iter), re_pattern, forward, all_matches)) {
             s_state.matches_num += 1;
             if (!all_matches) break;
         }
@@ -358,15 +358,15 @@ void CtActions::find_a_node()
     }
     // todo: self.dad.objects_buffer_refresh()
     if (s_state.matches_num == 0)
-        ct_dialogs::info_dialog(str::format(_("The pattern '%s' was not found"), pattern.c_str()), *_ctMainWin);
+        ct_dialogs::info_dialog(str::format(_("The pattern '%s' was not found"), pattern.c_str()), *_pCtMainWin);
     else if (all_matches) {
         s_state.match_dialog_title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
-        ct_dialogs::match_dialog(s_state.match_dialog_title, *_ctMainWin, s_state.match_store);
+        ct_dialogs::match_dialog(s_state.match_dialog_title, *_pCtMainWin, s_state.match_store);
     }
     else if (s_options.search_replace_dict_idialog)
         _iterated_find_dialog();
     if (s_state.matches_num && s_state.replace_active)
-        _ctMainWin->update_window_save_needed();
+        _pCtMainWin->update_window_save_needed();
 }
 
 // Continue the previous search (a_node/in_selected_node/in_all_nodes)
@@ -374,7 +374,7 @@ void CtActions::find_again()
 {
     s_options.search_replace_dict_idialog = false;
     s_state.from_find_iterated = true;
-    if (s_state.curr_find_where.empty()) ct_dialogs::warning_dialog(_("No Previous Search Was Performed During This Session"), *_ctMainWin);
+    if (s_state.curr_find_where.empty()) ct_dialogs::warning_dialog(_("No Previous Search Was Performed During This Session"), *_pCtMainWin);
     else if (s_state.curr_find_where == "in_selected_node") find_in_selected_node();
     else if (s_state.curr_find_where == "in_all_nodes")     _find_in_all_nodes(false);
     else if (s_state.curr_find_where == "in_sel_nod_n_sub") _find_in_all_nodes(true);
@@ -440,14 +440,14 @@ void CtActions::replace_again()
 // Restore AllMatchesDialog
 void CtActions::find_allmatchesdialog_restore()
 {
-    ct_dialogs::match_dialog(s_state.match_dialog_title, *_ctMainWin, s_state.match_store);
+    ct_dialogs::match_dialog(s_state.match_dialog_title, *_pCtMainWin, s_state.match_store);
 }
 
 // Opens the Search Dialog
 std::string CtActions::_dialog_search(const std::string& title, bool replace_on, bool multiple_nodes, bool pattern_required)
 {
-    Gtk::Dialog dialog(title, *_ctMainWin, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
-    dialog.set_transient_for(*_ctMainWin);
+    Gtk::Dialog dialog(title, *_pCtMainWin, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    dialog.set_transient_for(*_pCtMainWin);
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
     dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
     dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
@@ -675,8 +675,8 @@ bool CtActions::_parse_node_name(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex>
             // todo: self.dad.ctdb_handler.pending_edit_db_node_prop(self.dad.treestore[node_iter][3])
         }
         if (!all_matches) {
-            _ctMainWin->get_tree_view().set_cursor_safe(node_iter);
-            _ctMainWin->get_text_view().grab_focus();
+            _pCtMainWin->get_tree_view().set_cursor_safe(node_iter);
+            _pCtMainWin->get_text_view().grab_focus();
             return true;
         }
         else
@@ -687,7 +687,7 @@ bool CtActions::_parse_node_name(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex>
     if (!node_iter->children().empty()) {
         Gtk::TreeIter child_iter = forward ? node_iter->children().begin() : --node_iter->children().end();
         while (child_iter) {
-            if (_parse_node_name(_ctTreestore->to_ct_tree_iter(child_iter), re_pattern, forward, all_matches)
+            if (_parse_node_name(_pCtTreestore->to_ct_tree_iter(child_iter), re_pattern, forward, all_matches)
                     && !all_matches)
                 return true;
             child_iter = forward ? ++child_iter : --child_iter;
@@ -702,7 +702,7 @@ bool CtActions::_parse_given_node_content(CtTreeIter node_iter, Glib::ustring pa
     auto text_buffer = node_iter.get_node_text_buffer();
     if (!s_state.first_useful_node) {
         // first_fromsel plus first_node not already parsed
-        if (!_ctMainWin->curr_tree_iter() || node_iter.get_node_id() == _ctMainWin->curr_tree_iter().get_node_id()) {
+        if (!_pCtMainWin->curr_tree_iter() || node_iter.get_node_id() == _pCtMainWin->curr_tree_iter().get_node_id()) {
             s_state.first_useful_node = true; // a first_node was parsed
             if (_parse_node_content_iter(node_iter, text_buffer, pattern, forward, first_fromsel, all_matches, true))
                 return true; // first_node node, first_fromsel
@@ -715,11 +715,11 @@ bool CtActions::_parse_given_node_content(CtTreeIter node_iter, Glib::ustring pa
     // check for children
     if (!node_iter->children().empty()) {
         Gtk::TreeIter child_iter = forward ? node_iter->children().begin() : --node_iter->children().end();
-        while (child_iter && !_ctMainWin->get_status_bar().is_progress_stop()) {
+        while (child_iter && !_pCtMainWin->get_status_bar().is_progress_stop()) {
             s_state.all_matches_first_in_node = true;
-            while (_parse_given_node_content(_ctTreestore->to_ct_tree_iter(child_iter), pattern, forward, first_fromsel, all_matches)) {
+            while (_parse_given_node_content(_pCtTreestore->to_ct_tree_iter(child_iter), pattern, forward, first_fromsel, all_matches)) {
                 s_state.matches_num += 1;
-                if (!all_matches || _ctMainWin->get_status_bar().is_progress_stop()) break;
+                if (!all_matches || _pCtMainWin->get_status_bar().is_progress_stop()) break;
             }
             if (s_state.matches_num == 1 && !all_matches) break;
             if (forward) child_iter = ++child_iter;
@@ -767,7 +767,7 @@ bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter, Glib::RefP
         if (restore_modified) text_buffer->set_modified(false);
     }
     if (s_state.replace_active && pattern_found)
-        _ctMainWin->update_window_save_needed("nbuf", tree_iter);
+        _pCtMainWin->update_window_save_needed("nbuf", tree_iter);
     return pattern_found;
 }
 
@@ -880,9 +880,9 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer
     // #print "IN", final_start_offset, final_delta_offset, self.dad.treestore[tree_iter][1]
     // #for count in range(final_delta_offset):
     // #    print count, text_buffer.get_iter_at_offset(final_start_offset+count).get_char()
-    if (!_ctMainWin->curr_tree_iter() || _ctMainWin->curr_tree_iter().get_node_id() != tree_iter.get_node_id())
-        _ctMainWin->get_tree_view().set_cursor_safe(tree_iter);
-    _ctMainWin->get_text_view().set_selection_at_offset_n_delta(final_start_offset, final_delta_offset);
+    if (!_pCtMainWin->curr_tree_iter() || _pCtMainWin->curr_tree_iter().get_node_id() != tree_iter.get_node_id())
+        _pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
+    _pCtMainWin->get_text_view().set_selection_at_offset_n_delta(final_start_offset, final_delta_offset);
     // #print "OUT"
     auto mark_insert = text_buffer->get_insert();
     Gtk::TextIter iter_insert = text_buffer->get_iter_at_mark(mark_insert);
@@ -899,17 +899,17 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer
         s_state.match_store->add_row(node_id, node_name, str::xml_escape(node_hier_name), start_offset, end_offset, line_num, line_content);
         // #print line_num, self.matches_num
     } else {
-        _ctMainWin->get_text_view().scroll_to(mark_insert, CtTextView::TEXT_SCROLL_MARGIN);
+        _pCtMainWin->get_text_view().scroll_to(mark_insert, CtTextView::TEXT_SCROLL_MARGIN);
     }
     if (s_state.replace_active) {
-        if (_ctMainWin->curr_tree_iter().get_node_read_only()) return false;
+        if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return false;
         Glib::ustring replacer_text = s_options.search_replace_dict_replace; /* should be Glib::ustring to count symbols */
         Gtk::TextIter sel_start, sel_end;
         text_buffer->get_selection_bounds(sel_start, sel_end);
         text_buffer->erase(sel_start, sel_end);
         text_buffer->insert_at_cursor(replacer_text);
         if (!all_matches)
-            _ctMainWin->get_text_view().set_selection_at_offset_n_delta(match_offsets[0] + num_objs, replacer_text.size());
+            _pCtMainWin->get_text_view().set_selection_at_offset_n_delta(match_offsets[0] + num_objs, replacer_text.size());
         // todo:
         //self.dad.state_machine.update_state();
         //self.dad.ctdb_handler.pending_edit_db_node_buff(self.dad.treestore[tree_iter][3], force_user_active=True)
@@ -1008,7 +1008,7 @@ void CtActions::_iterated_find_dialog()
 {
     if (!s_state.iteratedfinddialog)
     {
-        auto dialog = new Gtk::Dialog(_("Iterate Latest Find/Replace"), *_ctMainWin, Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+        auto dialog = new Gtk::Dialog(_("Iterate Latest Find/Replace"), *_pCtMainWin, Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
         auto button_close = dialog->add_button(_("Close"), 0);
         auto button_find_bw = dialog->add_button(_("Find Previous"), 4);
         auto button_find_fw = dialog->add_button(_("Find Next"), 1);
@@ -1058,10 +1058,10 @@ void CtActions::_update_all_matches_progress()
 {
     // todo: progress bar doesn't show the progress of the bar
     double frac = double(s_state.processed_nodes)/double(s_state.counted_nodes);
-    _ctMainWin->get_status_bar().progressBar.set_fraction(frac);
+    _pCtMainWin->get_status_bar().progressBar.set_fraction(frac);
     if (s_state.matches_num != s_state.latest_matches) {
         s_state.latest_matches = s_state.matches_num;
-        _ctMainWin->get_status_bar().progressBar.set_text(std::to_string(s_state.matches_num));
+        _pCtMainWin->get_status_bar().progressBar.set_text(std::to_string(s_state.matches_num));
     }
 }
 

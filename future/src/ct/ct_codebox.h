@@ -26,6 +26,8 @@
 #include "ct_const.h"
 #include "ct_main_win.h"
 
+enum class CtPixTabCBox : int {Pixbuf=0, Table=1, CodeBox=2};
+
 class CtAnchoredWidget : public Gtk::EventBox
 {
 public:
@@ -33,6 +35,8 @@ public:
     void insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer);
     Glib::RefPtr<Gtk::TextChildAnchor> getTextChildAnchor() { return _rTextChildAnchor; }
     virtual void applyWidthHeight(int parentTextWidth) {}
+    void updateOffset(int charOffset) { _charOffset = charOffset; }
+    void updateJustification(std::string justification) { _justification = justification; }
 
 protected:
     Gtk::Frame _frame;

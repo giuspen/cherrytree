@@ -4885,7 +4885,7 @@ iter_end, exclude_iter_sel_end=True)
                 list_info = self.lists_handler.get_paragraph_list_info(iter_insert)
                 if list_info and list_info["num"] == 0:
                     if self.is_curr_node_not_read_only_or_error():
-                        iter_start_list = self.curr_buffer.get_iter_at_offset(list_info["startoffs"])
+                        iter_start_list = self.curr_buffer.get_iter_at_offset(list_info["startoffs"]+3*list_info["level"])
                         self.lists_handler.todo_list_rotate_status(iter_start_list, self.curr_buffer)
                         return True
             elif keyname == cons.STR_KEY_RETURN:
