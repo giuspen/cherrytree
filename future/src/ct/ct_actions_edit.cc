@@ -37,7 +37,7 @@ void CtActions::image_handle()
 {
     if (!_node_sel_and_rich_text()) return;
     if (!_is_curr_node_not_read_only_or_error()) return;
-    ct_dialogs::file_select_args args = {.parent=_ctMainWin, .curr_folder=CtApp::P_ctCfg->pickDirImg};
+    ct_dialogs::file_select_args args = {.parent=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirImg};
     Glib::ustring filename = ct_dialogs::file_select_dialog(args);
     if (filename.empty()) return;
     // todo: self.pick_dir_img = os.path.dirname(filename)
@@ -46,7 +46,7 @@ void CtActions::image_handle()
     if (pixbuf)
         _image_edit_dialog(pixbuf, curr_buffer()->get_insert()->get_iter(), nullptr);
     else
-        ct_dialogs::error_dialog(_("Image Format Not Recognized"), *_ctMainWin);
+        ct_dialogs::error_dialog(_("Image Format Not Recognized"), *_pCtMainWin);
 }
 
 void CtActions::table_handle()
@@ -179,7 +179,7 @@ void CtActions::strip_trailing_spaces()
 // Insert/Edit Image Dialog
 void CtActions::_image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> pixbuf, Gtk::TextIter insert_iter, Gtk::TextIter* iter_bound)
 {
-    Glib::RefPtr<Gdk::Pixbuf> ret_pixbuf = ct_dialogs::image_handle_dialog(*_ctMainWin, _("Image Properties"), pixbuf);
+    Glib::RefPtr<Gdk::Pixbuf> ret_pixbuf = ct_dialogs::image_handle_dialog(*_pCtMainWin, _("Image Properties"), pixbuf);
     if (!ret_pixbuf) return;
     // todo: what is that? ret_pixbuf.link = "";
     Glib::ustring image_justification;
@@ -262,7 +262,7 @@ void CtActions::_text_selection_change_case(const Glib::ustring& change_type)
     if (!_is_curr_node_not_read_only_or_error()) return;
     if (!text_buffer->get_has_selection() && !_apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter()))
     {
-        ct_dialogs::warning_dialog(_("No Text is Selected"), *_ctMainWin);
+        ct_dialogs::warning_dialog(_("No Text is Selected"), *_pCtMainWin);
         return;
     }
 
