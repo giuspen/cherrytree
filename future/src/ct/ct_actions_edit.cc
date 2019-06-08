@@ -21,6 +21,7 @@
 
 #include "ct_actions.h"
 #include <gtkmm/dialog.h>
+#include "ct_clipboard.h"
 
 void CtActions::requested_step_back()
 {
@@ -106,19 +107,19 @@ void CtActions::horizontal_rule_insert()
 // Lowers the Case of the Selected Text/the Underlying Word
 void CtActions::text_selection_lower_case()
 {
-    _text_selection_change_case("l");
+    _text_selection_change_case('l');
 }
 
 // Uppers the Case of the Selected Text/the Underlying Word
 void CtActions::text_selection_upper_case()
 {
-    _text_selection_change_case("u");
+    _text_selection_change_case('u');
 }
 
 // Toggles the Case of the Selected Text/the Underlying Word
 void CtActions::text_selection_toggle_case()
 {
-    _text_selection_change_case("t");
+    _text_selection_change_case('t');
 }
 
 void CtActions::toggle_ena_dis_spellcheck()
@@ -254,7 +255,7 @@ void CtActions::_image_insert(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbu
 }
 
 // Change the Case of the Selected Text/the Underlying Word"""
-void CtActions::_text_selection_change_case(const Glib::ustring& change_type)
+void CtActions::_text_selection_change_case(gchar change_type)
 {
     text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
     Glib::RefPtr<Gtk::TextBuffer> text_buffer = proof.text_buffer;
@@ -272,19 +273,17 @@ void CtActions::_text_selection_change_case(const Glib::ustring& change_type)
     if (proof.from_codebox || proof.syntax_highl != CtConst::RICH_TEXT_ID)
     {
         text_to_change_case = text_buffer->get_text(iter_start, iter_end);
-        if (change_type == "l")         text_to_change_case = text_to_change_case.lowercase();
-        else if (change_type == "u")    text_to_change_case = text_to_change_case.uppercase();
-        else if (change_type == "t")    text_to_change_case = str::swapcase(text_to_change_case);
+        if (change_type == 'l')         text_to_change_case = text_to_change_case.lowercase();
+        else if (change_type == 'u')    text_to_change_case = text_to_change_case.uppercase();
+        else if (change_type == 't')    text_to_change_case = str::swapcase(text_to_change_case);
     }
     else
     {
-        //todo:
-    //    rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(text_buffer,
-    //        iter_start,
-    //        iter_end,
-    //        change_case=change_type)
+        rich_text = CtClipboard().rich_text_get_from_text_buffer_selection(_pCtMainWin->curr_tree_iter(), text_buffer, iter_start, iter_end, change_type);
     }
+
     int start_offset = iter_start.get_offset();
+    int end_offset = iter_end.get_offset();
     text_buffer->erase(iter_start, iter_end);
     Gtk::TextIter iter_insert = text_buffer->get_iter_at_offset(start_offset);
     if (proof.from_codebox || proof.syntax_highl != CtConst::RICH_TEXT_ID)
@@ -294,8 +293,8 @@ void CtActions::_text_selection_change_case(const Glib::ustring& change_type)
     else
     {
         text_buffer->move_mark(text_buffer->get_insert(), iter_insert);
-        //self.clipboard_handler.from_xml_string_to_buffer(rich_text)
-        text_buffer->select_range(text_buffer->get_iter_at_offset(start_offset),
-                             text_buffer->get_iter_at_offset(start_offset + (int)rich_text.size()));
+        CtClipboard().from_xml_string_to_buffer(text_buffer, rich_text);
     }
+    text_buffer->select_range(text_buffer->get_iter_at_offset(start_offset),
+                              text_buffer->get_iter_at_offset(end_offset));
 }

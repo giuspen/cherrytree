@@ -48,15 +48,19 @@ public:
     Glib::RefPtr<Gsv::Buffer> getTextBuffer(const std::string& syntax,
                                             std::list<CtAnchoredWidget*>& anchoredWidgets,
                                             xmlpp::Element* pNodeElement=nullptr);
-    void populateTableMatrix(CtTableMatrix& tableMatrix, xmlpp::Element* pNodeElement=nullptr);
 
 private:
     void _xmlTreeWalkIter(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter);
     Gtk::TreeIter _xmlNodeProcess(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter);
-    CtXmlNodeType _xmlNodeGetTypeFromName(const Glib::ustring& xmlNodeName);
-    void _getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
-                            std::list<CtAnchoredWidget*>& anchoredWidgets,
-                            xmlpp::Node *pNodeParent);
+
+private:
+    static CtXmlNodeType _xmlNodeGetTypeFromName(const Glib::ustring& xmlNodeName);
+
+public:
+    static void getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk::TextIter* insertIter,
+                                  std::list<CtAnchoredWidget*>& anchoredWidgets,
+                                  xmlpp::Node *pNodeParent);
+    static void populateTableMatrix(CtTableMatrix& tableMatrix, xmlpp::Element* pNodeElement=nullptr);
 };
 
 class CtXmlWrite : public xmlpp::Document
@@ -71,12 +75,12 @@ public:
                          bool skip_children=true,
                          const std::pair<int,int>& offset_range=std::make_pair(-1,-1));
 
-private:
-    void _rich_txt_serialize(xmlpp::Element* p_node_parent,
-                             Gtk::TextIter start_iter,
-                             Gtk::TextIter end_iter,
-                             std::map<const gchar*, std::string>& curr_attributes,
-                             gchar change_case='n');
+public:
+    static void rich_txt_serialize(xmlpp::Element* p_node_parent,
+                                   Gtk::TextIter start_iter,
+                                   Gtk::TextIter end_iter,
+                                   std::map<const gchar*, std::string>& curr_attributes,
+                                   gchar change_case='n');
 };
 
 class CtSQLiteRead : public CtDocRead

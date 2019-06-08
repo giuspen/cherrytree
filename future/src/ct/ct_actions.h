@@ -183,7 +183,7 @@ private:
     Glib::ustring _get_iter_alignment(Gtk::TextIter text_iter);
     void          _image_insert(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> pixbuf,
                                 Glib::ustring image_justification = "", Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>());
-    void          _text_selection_change_case(const Glib::ustring& change_type);
+    void          _text_selection_change_case(gchar change_type);
 
 public:
     // edit actions
