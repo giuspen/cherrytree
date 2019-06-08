@@ -63,7 +63,8 @@ COMMON_SOURCES = \
 	src/ct/ct_actions_tree.cc \
 	src/ct/ct_actions_view.cc \
 	src/ct/ct_dialogs.cc \
-	src/ct/ct_list.cc
+	src/ct/ct_list.cc \
+	src/ct/ct_clipboard.cc
 
 cherrytree_SOURCES = \
 	src/ct/ct_main.cc \
