@@ -133,7 +133,6 @@ struct CtLinkEntry
     Glib::ustring file;
     Glib::ustring fold;
     Glib::ustring anch;
-    Gtk::TreeIter prev_node;
 };
 
 // Dialog to Insert/Edit Links
@@ -153,5 +152,9 @@ Glib::ustring file_select_dialog(ct_dialogs::file_select_args args);
 
 // The Select folder dialog, returns the retrieved folderpath or None
 Glib::ustring folder_select_dialog(Glib::ustring curr_folder, Gtk::Window* parent = nullptr);
+
+// Insert/Edit Image
+Glib::RefPtr<Gdk::Pixbuf> image_handle_dialog(Gtk::Window& father_win, Glib::ustring title,
+                                              Glib::RefPtr<Gdk::Pixbuf> original_pixbuf);
 
 } // namespace ct_dialogs

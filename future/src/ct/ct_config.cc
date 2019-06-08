@@ -44,7 +44,7 @@ CtConfig::~CtConfig()
 bool CtConfig::_populateBoolFromKeyfile(const gchar* key, bool* pTarget)
 {
     bool gotIt{false};
-    if (_pKeyFile->has_key(_currentGroup, key))
+    if (_pKeyFile->has_group(_currentGroup) && _pKeyFile->has_key(_currentGroup, key))
     {
         try
         {
@@ -72,7 +72,7 @@ bool CtConfig::_populateBoolFromKeyfile(const gchar* key, bool* pTarget)
 bool CtConfig::_populateIntFromKeyfile(const gchar* key, int* pTarget)
 {
     bool gotIt{false};
-    if (_pKeyFile->has_key(_currentGroup, key))
+    if (_pKeyFile->has_group(_currentGroup) && _pKeyFile->has_key(_currentGroup, key))
     {
         try
         {
@@ -90,7 +90,7 @@ bool CtConfig::_populateIntFromKeyfile(const gchar* key, int* pTarget)
 bool CtConfig::_populateDoubleFromKeyfile(const gchar* key, double* pTarget)
 {
     bool gotIt{false};
-    if (_pKeyFile->has_key(_currentGroup, key))
+    if (_pKeyFile->has_group(_currentGroup) && _pKeyFile->has_key(_currentGroup, key))
     {
         try
         {
@@ -107,9 +107,12 @@ bool CtConfig::_populateDoubleFromKeyfile(const gchar* key, double* pTarget)
 
 void CtConfig::_populateMapFromCurrentGroup(std::map<std::string, std::string> *p_map)
 {
-    for (std::string key : _pKeyFile->get_keys(_currentGroup))
+    if (_pKeyFile->has_group(_currentGroup))
     {
-        (*p_map)[key] = _pKeyFile->get_value(_currentGroup, key);
+        for (std::string key : _pKeyFile->get_keys(_currentGroup))
+        {
+            (*p_map)[key] = _pKeyFile->get_value(_currentGroup, key);
+        }
     }
 }
 

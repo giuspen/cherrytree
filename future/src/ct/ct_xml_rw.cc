@@ -122,9 +122,9 @@ CtXmlNodeType CtXmlRead::_xmlNodeGetTypeFromName(const Glib::ustring& xmlNodeNam
     return retXmlNodeType;
 }
 
-void CtXmlRead::_getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
-                                   std::list<CtAnchoredWidget*>& anchoredWidgets,
-                                   xmlpp::Node* pNodeParent)
+void CtXmlRead::getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk::TextIter* insertIter,
+                                  std::list<CtAnchoredWidget*>& anchoredWidgets,
+                                  xmlpp::Node* pNodeParent)
 {
     CtXmlNodeType xmlNodeType = _xmlNodeGetTypeFromName(pNodeParent->get_name());
     if (CtXmlNodeType::RichText == xmlNodeType)
@@ -146,13 +146,14 @@ void CtXmlRead::_getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
                         tagsNames.push_back(tagName);
                     }
                 }
+                Gtk::TextIter iter = insertIter ? *insertIter : rTextBuffer->end();
                 if (tagsNames.size() > 0)
                 {
-                    rTextBuffer->insert_with_tags_by_name(rTextBuffer->end(), textContent, tagsNames);
+                    rTextBuffer->insert_with_tags_by_name(iter, textContent, tagsNames);
                 }
                 else
                 {
-                    rTextBuffer->insert(rTextBuffer->end(), textContent);
+                    rTextBuffer->insert(iter, textContent);
                 }
             }
         }
@@ -237,12 +238,6 @@ void CtXmlRead::_getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
 
 void CtXmlRead::populateTableMatrix(CtTableMatrix& tableMatrix, xmlpp::Element* pNodeElement)
 {
-    if (nullptr == pNodeElement)
-    {
-        xmlpp::Document *pDocument = get_document();
-        assert(nullptr != pDocument);
-        pNodeElement = pDocument->get_root_node();
-    }
     for (xmlpp::Node* pNodeRow : pNodeElement->get_children())
     {
         if ("row" == pNodeRow->get_name())
@@ -275,7 +270,7 @@ Glib::RefPtr<Gsv::Buffer> CtXmlRead::getTextBuffer(const std::string& syntax,
     rRetTextBuffer->begin_not_undoable_action();
     for (xmlpp::Node* pNode : pNodeElement->get_children())
     {
-        _getTextBufferIter(rRetTextBuffer, anchoredWidgets, pNode);
+        getTextBufferIter(rRetTextBuffer, nullptr, anchoredWidgets, pNode);
     }
     rRetTextBuffer->end_not_undoable_action();
     rRetTextBuffer->set_modified(false);
@@ -341,7 +336,7 @@ void CtXmlWrite::append_dom_node(CtTreeIter& ct_tree_iter,
                 }
                 continue;
             }
-            _rich_txt_serialize(p_node_node, start_iter, curr_iter, curr_attributes);
+            rich_txt_serialize(p_node_node, start_iter, curr_iter, curr_attributes);
             if (curr_iter.compare(end_iter) >= 0)
             {
                 break;
@@ -351,7 +346,7 @@ void CtXmlWrite::append_dom_node(CtTreeIter& ct_tree_iter,
         }
         if (curr_iter.compare(end_iter) < 0)
         {
-            _rich_txt_serialize(p_node_node, start_iter, curr_iter, curr_attributes);
+            rich_txt_serialize(p_node_node, start_iter, curr_iter, curr_attributes);
         }
         if (to_disk)
         {
@@ -360,7 +355,7 @@ void CtXmlWrite::append_dom_node(CtTreeIter& ct_tree_iter,
     }
     else
     {
-        _rich_txt_serialize(p_node_node, start_iter, end_iter, curr_attributes);
+        rich_txt_serialize(p_node_node, start_iter, end_iter, curr_attributes);
     }
 
     if (!skip_children)
@@ -374,11 +369,11 @@ void CtXmlWrite::append_dom_node(CtTreeIter& ct_tree_iter,
     }
 }
 
-void CtXmlWrite::_rich_txt_serialize(xmlpp::Element* p_node_parent,
-                                     Gtk::TextIter start_iter,
-                                     Gtk::TextIter end_iter,
-                                     std::map<const gchar*, std::string>& curr_attributes,
-                                     const gchar change_case)
+void CtXmlWrite::rich_txt_serialize(xmlpp::Element* p_node_parent,
+                                    Gtk::TextIter start_iter,
+                                    Gtk::TextIter end_iter,
+                                    std::map<const gchar*, std::string>& curr_attributes,
+                                    const gchar change_case)
 {
     xmlpp::Element* p_rich_text_node = p_node_parent->add_child("rich_text");
     for (const auto& map_iter : curr_attributes)
@@ -390,11 +385,7 @@ void CtXmlWrite::_rich_txt_serialize(xmlpp::Element* p_node_parent,
     {
         if ('l' == change_case) slot_text = slot_text.lowercase();
         else if ('u' == change_case) slot_text = slot_text.uppercase();
-        else if (('t' == change_case) && (slot_text.size() > 0))
-        {
-            if (std::isupper(slot_text.at(0))) slot_text = slot_text.lowercase();
-            else slot_text = slot_text.uppercase();
-        }
+        else if ('t' == change_case) slot_text = str::swapcase(slot_text);
     }
     xmlpp::TextNode* p_text_node = p_rich_text_node->add_child_text(slot_text);
 }

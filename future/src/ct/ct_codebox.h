@@ -38,6 +38,9 @@ public:
     void updateOffset(int charOffset) { _charOffset = charOffset; }
     void updateJustification(std::string justification) { _justification = justification; }
 
+    int getOffset() { return _charOffset; }
+    std::string getJustification() { return _justification; }
+
 protected:
     Gtk::Frame _frame;
     Gtk::Label _labelWidget;

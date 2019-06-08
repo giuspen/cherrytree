@@ -207,7 +207,8 @@ void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTex
             const int colMax = sqlite3_column_int64(pp_stmt[i], 5);
             CtXmlRead ctXmlRead(nullptr, textContent);
             CtTableMatrix tableMatrix;
-            ctXmlRead.populateTableMatrix(tableMatrix);
+            assert(nullptr != ctXmlRead.get_document());
+            ctXmlRead.populateTableMatrix(tableMatrix, ctXmlRead.get_document()->get_root_node());
 
             pAnchoredWidget = new CtTable(tableMatrix, colMin, colMax, charOffset[i], justification[i]);
             //std::cout << "table " << charOffset[i] << std::endl;
