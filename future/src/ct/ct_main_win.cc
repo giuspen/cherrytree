@@ -142,6 +142,7 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow(), _ctMenu(pCtMen
     _pMenu = pCtMenu->build_menubar();
     _pMenu->set_name("MenuBar");
     _pBookmarksSubmenu = CtMenu::find_menu_item(_pMenu, "BookmarksMenu");
+    _pSpecialCharsSubmenu = CtMenu::find_menu_item(_pMenu, "SpecialCharsMenu");
     _pMenu->show_all();
     gtk_window_add_accel_group (GTK_WINDOW(gobj()), pCtMenu->default_accel_group());
     _pNodePopup = pCtMenu->build_popup_menu_node();
@@ -165,6 +166,7 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow(), _ctMenu(pCtMen
     _titleUpdate(false/*saveNeeded*/);
     show_all();
     configApply(); // after show_all()
+    set_menu_items_special_chars();
 }
 
 CtMainWin::~CtMainWin()
@@ -280,6 +282,12 @@ void CtMainWin::set_bookmarks_menu_items()
         bookmarks.push_back(std::make_tuple(node_id, _ctTreestore.get_node_name_from_node_id(node_id)));
     sigc::slot<void, gint64> bookmark_action = sigc::mem_fun(*this, &CtMainWin::bookmark_action_select_node);
     _pBookmarksSubmenu->set_submenu(*_ctMenu->build_bookmarks_menu(bookmarks, bookmark_action));
+}
+
+void CtMainWin::set_menu_items_special_chars()
+{
+    sigc::slot<void, gunichar> spec_char_action = sigc::mem_fun(*CtApp::P_ctActions, &CtActions::insert_spec_char_action);
+    _pSpecialCharsSubmenu->set_submenu(*_ctMenu->build_special_chars_menu(CtApp::P_ctCfg->specialChars, spec_char_action));
 }
 
 bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, const bool isImport)

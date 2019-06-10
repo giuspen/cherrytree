@@ -74,6 +74,7 @@ public:
     Gtk::Menu*    build_popup_menu_table_cell();
     Gtk::Menu*    build_popup_menu_table_codebox();
     Gtk::Menu*    build_bookmarks_menu(std::list<std::tuple<gint64, std::string>>& bookmarks, sigc::slot<void, gint64>& bookmark_action);
+    Gtk::Menu*    build_special_chars_menu(const Glib::ustring& specialChars, sigc::slot<void, gunichar>& spec_char_action);
 
 private:
     GtkWidget*     walk_menu_xml(GtkWidget* pMenu, const char* document, const char* xpath);

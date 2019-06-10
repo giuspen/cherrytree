@@ -187,6 +187,7 @@ private:
 
 public:
     // edit actions
+    void insert_spec_char_action(gunichar ch);
     void requested_step_back();
     void requested_step_ahead();
     void image_handle();

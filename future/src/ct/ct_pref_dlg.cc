@@ -173,13 +173,13 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     pMainBox->pack_start(*frame_text_editor, false, false);
     pMainBox->pack_start(*frame_misc_all, false, false);
 
-    textview_special_chars->get_buffer()->signal_changed().connect([config, textview_special_chars](){
+    textview_special_chars->get_buffer()->signal_changed().connect([this, config, textview_special_chars](){
         Glib::ustring new_special_chars = textview_special_chars->get_buffer()->get_text();
         str::replace(new_special_chars, CtConst::CHAR_NEWLINE, "");
         if (config->specialChars != new_special_chars)
         {
             config->specialChars = new_special_chars;
-            //support.set_menu_items_special_chars();
+            _pCtMainWin->set_menu_items_special_chars();
         }
     });
     button_reset->signal_clicked().connect([this, textview_special_chars](){

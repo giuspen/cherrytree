@@ -23,6 +23,15 @@
 #include <gtkmm/dialog.h>
 #include "ct_clipboard.h"
 
+// A Special character insert was Requested
+void CtActions::insert_spec_char_action(gunichar ch)
+{
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    if (!proof.text_buffer) return;
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    proof.text_buffer->insert_at_cursor(Glib::ustring(1, ch));
+}
+
 void CtActions::requested_step_back()
 {
     // todo
