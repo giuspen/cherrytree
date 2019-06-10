@@ -172,9 +172,56 @@ void CtActions::text_row_down()
 
 }
 
+// Remove trailing spaces/tabs
 void CtActions::strip_trailing_spaces()
 {
+    Glib::RefPtr<Gtk::TextBuffer> text_buffer = curr_buffer();
+    int cleaned_lines = 0;
+    bool removed_something = true;
+    while (removed_something)
+    {
+        removed_something = false;
+        Gtk::TextIter curr_iter = text_buffer->begin();
+        int curr_state = 0;
+        int start_offset = 0;
+        while (curr_iter)
+        {
+            gunichar curr_char = curr_iter.get_char();
+            if (curr_state == 0)
+            {
+                if (curr_char == CtConst::CHAR_SPACE[0] || curr_char ==  CtConst::CHAR_TAB[0])
+                {
+                    start_offset = curr_iter.get_offset();
+                    curr_state = 1;
+                }
+            }
+            else if (curr_state == 1)
+            {
+                if (curr_char == CtConst::CHAR_NEWLINE[0])
+                {
+                    text_buffer->erase(text_buffer->get_iter_at_offset(start_offset), curr_iter);
+                    removed_something = true;
+                    cleaned_lines += 1;
+                    break;
+                }
+                else if (curr_char != CtConst::CHAR_SPACE[0] && curr_char !=  CtConst::CHAR_TAB[0])
+                {
+                    curr_state = 0;
+                }
+            }
+            if (!curr_iter.forward_char())
+            {
+                if (curr_state == 1)
+                {
+                    text_buffer->erase(text_buffer->get_iter_at_offset(start_offset), curr_iter);
+                    cleaned_lines += 1;
+                }
+                break;
+            }
+        }
+    }
 
+    ct_dialogs::info_dialog(std::to_string(cleaned_lines) + " " + _("Lines Stripped"), *_pCtMainWin);
 }
 
 // Insert/Edit Image Dialog
