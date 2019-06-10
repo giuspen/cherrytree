@@ -51,20 +51,20 @@ void CtXmlRead::treeWalk(const Gtk::TreeIter* pParentIter)
     assert(nullptr != pDocument);
     xmlpp::Element* pRoot = pDocument->get_root_node();
     assert(CtConst::APP_NAME == pRoot->get_name());
-    for (xmlpp::Node* pNode : pRoot->get_children())
+
+    // load bookmarks before node to update bookmark icon
+    for (xmlpp::Node* pNode : pRoot->get_children("bookmarks"))
     {
-        if ("node" == pNode->get_name())
+        Glib::ustring bookmarks_csv = static_cast<xmlpp::Element*>(pNode)->get_attribute_value("list");
+        for (gint64& nodeId : CtStrUtil::gstringSplit2int64(bookmarks_csv.c_str(), ","))
         {
-            _xmlTreeWalkIter(static_cast<xmlpp::Element*>(pNode), pParentIter);
+            signalAddBookmark.emit(nodeId);
         }
-        else if ("bookmarks" == pNode->get_name())
-        {
-            Glib::ustring bookmarks_csv = static_cast<xmlpp::Element*>(pNode)->get_attribute_value("list");
-            for (gint64& nodeId : CtStrUtil::gstringSplit2int64(bookmarks_csv.c_str(), ","))
-            {
-                signalAddBookmark.emit(nodeId);
-            }
-        }
+    }
+
+    for (xmlpp::Node* pNode : pRoot->get_children("node"))
+    {
+        _xmlTreeWalkIter(static_cast<xmlpp::Element*>(pNode), pParentIter);
     }
 }
 
