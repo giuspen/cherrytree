@@ -288,12 +288,12 @@ class XMLHandler:
         return self.dom.toxml()
 
     def treestore_sel_node_only_to_dom(self, tree_iter, sel_range=None):
-        """Parse the Given Node and Subnodes and Generate an XML Cherry Tree Document"""
+        """Parse the Given Node and Generate an XML Cherry Tree Document"""
         if "dom" in dir(self): del self.dom
         self.dom = xml.dom.minidom.Document()
         cherrytree = self.dom.createElement(cons.APP_NAME)
         self.dom.appendChild(cherrytree)
-        # given node and subnodes parsing
+        # given node parsing
         self.append_dom_node(tree_iter, cherrytree, to_disk=True, skip_children=True, sel_range=sel_range)
         return self.dom.toxml()
 
@@ -740,8 +740,8 @@ class StateMachine:
 
     def table_to_dict(self, anchor):
         """Given an Anchor, Returns the Embedded Table as a dictionary"""
-        columns_num = len(anchor.headers)
         table_dict = {'matrix':[], 'col_min': anchor.table_col_min, 'col_max': anchor.table_col_max}
+        columns_num = len(anchor.headers)
         tree_iter = anchor.liststore.get_iter_first()
         while tree_iter != None:
             row = []
@@ -773,12 +773,12 @@ class StateMachine:
     def get_iter_alignment(self, iter_text):
         """Get the Alignment Value of the given Iter"""
         align_center = self.dad.apply_tag_exist_or_create(cons.TAG_JUSTIFICATION, cons.TAG_PROP_CENTER)
-        align_fill = self.dad.apply_tag_exist_or_create(cons.TAG_JUSTIFICATION, cons.TAG_PROP_FILL)
-        align_right = self.dad.apply_tag_exist_or_create(cons.TAG_JUSTIFICATION, cons.TAG_PROP_RIGHT)
         if iter_text.has_tag(self.dad.tag_table.lookup(align_center)):
             return cons.TAG_PROP_CENTER
+        align_fill = self.dad.apply_tag_exist_or_create(cons.TAG_JUSTIFICATION, cons.TAG_PROP_FILL)
         if iter_text.has_tag(self.dad.tag_table.lookup(align_fill)):
             return cons.TAG_PROP_FILL
+        align_right = self.dad.apply_tag_exist_or_create(cons.TAG_JUSTIFICATION, cons.TAG_PROP_RIGHT)
         if iter_text.has_tag(self.dad.tag_table.lookup(align_right)):
             return cons.TAG_PROP_RIGHT
         return cons.TAG_PROP_LEFT

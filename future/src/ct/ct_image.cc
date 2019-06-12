@@ -24,7 +24,7 @@
 
 CtImage::CtImage(const std::string& rawBlob,
                  const char* mimeType,
-                 const int& charOffset,
+                 const int charOffset,
                  const std::string& justification)
  : CtAnchoredWidget(charOffset, justification)
 {
@@ -39,8 +39,8 @@ CtImage::CtImage(const std::string& rawBlob,
 }
 
 CtImage::CtImage(const char* stockImage,
-                 const int& size,
-                 const int& charOffset,
+                 const int size,
+                 const int charOffset,
                  const std::string& justification)
  : CtAnchoredWidget(charOffset, justification)
 {
@@ -49,6 +49,12 @@ CtImage::CtImage(const char* stockImage,
     _image.set(_rPixbuf);
     _frame.add(_image);
     show_all();
+}
+
+void CtImage::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
+{
+    CtAnchoredWidget::to_xml(p_node_parent, offset_adjustment);
+    //todo
 }
 
 Glib::RefPtr<Gdk::Pixbuf> CtImage::get_icon(const std::string& name, int size)
@@ -69,7 +75,7 @@ Gtk::Image* CtImage::new_image_from_stock(const std::string& stockImage, int siz
 
 CtImagePng::CtImagePng(const std::string& rawBlob,
                        const Glib::ustring& link,
-                       const int& charOffset,
+                       const int charOffset,
                        const std::string& justification)
  : CtImage(rawBlob, "image/png", charOffset, justification),
    _link(link)
@@ -93,7 +99,7 @@ void CtImagePng::updateLabelWidget()
 
 
 CtImageAnchor::CtImageAnchor(const Glib::ustring& anchorName,
-                             const int& charOffset,
+                             const int charOffset,
                              const std::string& justification)
  : CtImage("anchor", CtApp::P_ctCfg->anchorSize, charOffset, justification),
    _anchorName(anchorName)
@@ -110,7 +116,7 @@ void CtImageAnchor::updateTooltip()
 CtImageEmbFile::CtImageEmbFile(const Glib::ustring& fileName,
                                const std::string& rawBlob,
                                const double& timeSeconds,
-                               const int& charOffset,
+                               const int charOffset,
                                const std::string& justification)
  : CtImage("file_icon", CtApp::P_ctCfg->embfileSize, charOffset, justification),
    _fileName(fileName),

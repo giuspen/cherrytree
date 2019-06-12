@@ -35,18 +35,22 @@ CtTableCell::~CtTableCell()
 
 
 CtTable::CtTable(const CtTableMatrix& tableMatrix,
-                 const int& colMin,
-                 const int& colMax,
-                 const int& charOffset,
+                 const int colMin,
+                 const int colMax,
+                 const bool headFront,
+                 const int charOffset,
                  const std::string& justification)
  : _tableMatrix(tableMatrix),
    _colMin(colMin),
    _colMax(colMax),
    CtAnchoredWidget(charOffset, justification)
 {
-    CtTableRow headerRow = _tableMatrix.back();
-    _tableMatrix.pop_back();
-    _tableMatrix.push_front(headerRow);
+    if (!headFront)
+    {
+        CtTableRow headerRow = _tableMatrix.back();
+        _tableMatrix.pop_back();
+        _tableMatrix.push_front(headerRow);
+    }
     int i{0};
     for (CtTableRow& tableRow : _tableMatrix)
     {
@@ -71,4 +75,41 @@ CtTable::~CtTable()
             delete pTableCell;
         }
     }
+}
+
+void CtTable::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
+{
+    CtAnchoredWidget::to_xml(p_node_parent, offset_adjustment);
+    xmlpp::Element* p_table_node = p_node_parent->add_child("table");
+    p_table_node->set_attribute("char_offset", std::to_string(_charOffset));
+    p_table_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
+    p_table_node->set_attribute("col_min", std::to_string(_colMin));
+    p_table_node->set_attribute("col_max", std::to_string(_colMax));
+    p_table_node->set_attribute("head_front", std::to_string(true));
+    for (const CtTableRow& tableRow : _tableMatrix)
+    {
+        xmlpp::Element* p_row_node = p_table_node->add_child("row");
+        
+    }
+    //todo
+    
+    /*
+    table_dict = {'matrix':[], 'col_min': anchor.table_col_min, 'col_max': anchor.table_col_max}
+    columns_num = len(anchor.headers)
+    tree_iter = anchor.liststore.get_iter_first()
+    while tree_iter != None:
+        row = []
+        for column in range(columns_num): row.append(anchor.liststore[tree_iter][column])
+        table_dict['matrix'].append(row)
+        tree_iter = anchor.liststore.iter_next(tree_iter)
+    table_dict['matrix'].append(copy.deepcopy(anchor.headers))
+    for row in element[1]['matrix']:
+        dom_row = dom.createElement("row")
+        dom_iter.appendChild(dom_row)
+        for cell in row:
+            dom_cell = dom.createElement("cell")
+            dom_row.appendChild(dom_cell)
+            text_iter = dom.createTextNode(cell)
+            dom_cell.appendChild(text_iter)
+    */
 }

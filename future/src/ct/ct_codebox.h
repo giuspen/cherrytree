@@ -31,10 +31,13 @@ enum class CtPixTabCBox : int {Pixbuf=0, Table=1, CodeBox=2};
 class CtAnchoredWidget : public Gtk::EventBox
 {
 public:
-    CtAnchoredWidget(const int& charOffset, const std::string& justification);
+    CtAnchoredWidget(const int charOffset, const std::string& justification);
     void insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer);
     Glib::RefPtr<Gtk::TextChildAnchor> getTextChildAnchor() { return _rTextChildAnchor; }
-    virtual void applyWidthHeight(int parentTextWidth) {}
+
+    virtual void applyWidthHeight(const int parentTextWidth) = 0;
+    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) { _charOffset += offset_adjustment; }
+
     void updateOffset(int charOffset) { _charOffset = charOffset; }
     void updateJustification(std::string justification) { _justification = justification; }
 
@@ -70,21 +73,25 @@ public:
 public:
     CtCodebox(const Glib::ustring& textContent,
               const Glib::ustring& syntaxHighlighting,
-              const int& frameWidth,
-              const int& frameHeight,
-              const int& charOffset,
+              const int frameWidth,
+              const int frameHeight,
+              const int charOffset,
               const std::string& justification);
     virtual ~CtCodebox();
 
-    virtual void applyWidthHeight(int parentTextWidth);
-    void setWidthInPixels(const bool& widthInPixels) { _widthInPixels = widthInPixels; }
-    void setHighlightBrackets(const bool& highlightBrackets);
-    void setShowLineNumbers(const bool& showLineNumbers);
-    void applyCursorPos(const int& cursorPos);
+    virtual void applyWidthHeight(const int parentTextWidth);
+    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment);
+
+    void setWidthInPixels(const bool widthInPixels) { _widthInPixels = widthInPixels; }
+    void setHighlightBrackets(const bool highlightBrackets);
+    void setShowLineNumbers(const bool showLineNumbers);
+    void applyCursorPos(const int cursorPos);
 
 protected:
     int _frameWidth;
     int _frameHeight;
     bool _widthInPixels{true};
+    bool _highlightBrackets{true};
+    bool _showLineNumbers{false};
     Gtk::ScrolledWindow _scrolledwindow;
 };
