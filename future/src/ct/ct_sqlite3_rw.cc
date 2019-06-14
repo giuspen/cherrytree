@@ -205,13 +205,12 @@ void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTex
             const char* textContent = reinterpret_cast<const char*>(sqlite3_column_text(pp_stmt[i], 3));
             const int colMin = sqlite3_column_int64(pp_stmt[i], 4);
             const int colMax = sqlite3_column_int64(pp_stmt[i], 5);
-            const bool headFront = false; // todo
             CtXmlRead ctXmlRead(nullptr, textContent);
             CtTableMatrix tableMatrix;
             assert(nullptr != ctXmlRead.get_document());
-            ctXmlRead.populateTableMatrix(tableMatrix, ctXmlRead.get_document()->get_root_node());
+            const bool isHeadFront = ctXmlRead.populateTableMatrixGetIsHeadFront(tableMatrix, ctXmlRead.get_document()->get_root_node());
 
-            pAnchoredWidget = new CtTable(tableMatrix, colMin, colMax, headFront, charOffset[i], justification[i]);
+            pAnchoredWidget = new CtTable(tableMatrix, colMin, colMax, isHeadFront, charOffset[i], justification[i]);
             //std::cout << "table " << charOffset[i] << std::endl;
             charOffset[i] = cOffsetRead;
         }

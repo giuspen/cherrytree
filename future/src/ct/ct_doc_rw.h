@@ -60,7 +60,7 @@ public:
     static void getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk::TextIter* insertIter,
                                   std::list<CtAnchoredWidget*>& anchoredWidgets,
                                   xmlpp::Node *pNodeParent);
-    static void populateTableMatrix(CtTableMatrix& tableMatrix, xmlpp::Element* pNodeElement=nullptr);
+    static bool populateTableMatrixGetIsHeadFront(CtTableMatrix& tableMatrix, xmlpp::Element* pNodeElement);
 };
 
 class CtXmlWrite : public xmlpp::Document

@@ -89,27 +89,10 @@ void CtTable::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
     for (const CtTableRow& tableRow : _tableMatrix)
     {
         xmlpp::Element* p_row_node = p_table_node->add_child("row");
-        
+        for (const CtTableCell* pTableCell : tableRow)
+        {
+            xmlpp::Element* p_cell_node = p_row_node->add_child("cell");
+            xmlpp::TextNode* p_text_node = p_cell_node->add_child_text(pTableCell->getTextContent());
+        }
     }
-    //todo
-    
-    /*
-    table_dict = {'matrix':[], 'col_min': anchor.table_col_min, 'col_max': anchor.table_col_max}
-    columns_num = len(anchor.headers)
-    tree_iter = anchor.liststore.get_iter_first()
-    while tree_iter != None:
-        row = []
-        for column in range(columns_num): row.append(anchor.liststore[tree_iter][column])
-        table_dict['matrix'].append(row)
-        tree_iter = anchor.liststore.iter_next(tree_iter)
-    table_dict['matrix'].append(copy.deepcopy(anchor.headers))
-    for row in element[1]['matrix']:
-        dom_row = dom.createElement("row")
-        dom_iter.appendChild(dom_row)
-        for cell in row:
-            dom_cell = dom.createElement("cell")
-            dom_row.appendChild(dom_cell)
-            text_iter = dom.createTextNode(cell)
-            dom_cell.appendChild(text_iter)
-    */
 }

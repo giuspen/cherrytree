@@ -59,6 +59,13 @@ CtTextCell::~CtTextCell()
 {
 }
 
+Glib::ustring CtTextCell::getTextContent() const
+{
+    Gtk::TextIter start_iter = _rTextBuffer->begin();
+    Gtk::TextIter end_iter = _rTextBuffer->end();
+    return start_iter.get_text(end_iter);
+}
+
 
 const Gsv::DrawSpacesFlags CtCodebox::DRAW_SPACES_FLAGS = Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE;
 
@@ -101,10 +108,7 @@ void CtCodebox::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustmen
     p_codebox_node->set_attribute("syntax_highlighting", _syntaxHighlighting);
     p_codebox_node->set_attribute("highlight_brackets", std::to_string(_highlightBrackets));
     p_codebox_node->set_attribute("show_line_numbers", std::to_string(_showLineNumbers));
-    Gtk::TextIter start_iter = _rTextBuffer->begin();
-    Gtk::TextIter end_iter = _rTextBuffer->end();
-    Glib::ustring slot_text = start_iter.get_text(end_iter);
-    xmlpp::TextNode* p_text_node = p_codebox_node->add_child_text(slot_text);
+    xmlpp::TextNode* p_text_node = p_codebox_node->add_child_text(getTextContent());
 }
 
 void CtCodebox::setShowLineNumbers(const bool showLineNumbers)
