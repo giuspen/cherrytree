@@ -51,12 +51,6 @@ CtImage::CtImage(const char* stockImage,
     show_all();
 }
 
-void CtImage::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
-{
-    CtAnchoredWidget::to_xml(p_node_parent, offset_adjustment);
-    //todo
-}
-
 Glib::RefPtr<Gdk::Pixbuf> CtImage::get_icon(const std::string& name, int size)
 {
     if (CtApp::R_icontheme->has_icon(name))
@@ -83,6 +77,22 @@ CtImagePng::CtImagePng(const std::string& rawBlob,
     updateLabelWidget();
 }
 
+void CtImagePng::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
+{
+    CtAnchoredWidget::to_xml(p_node_parent, offset_adjustment);
+    xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
+    p_image_node->set_attribute("char_offset", std::to_string(_charOffset));
+    p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
+    p_image_node->set_attribute("link", _link);
+    gchar* pBuffer{NULL};
+    gsize  buffer_size;
+    _rPixbuf->save_to_buffer(pBuffer, buffer_size, "png");
+    const std::string rawBlob = std::string(pBuffer, buffer_size);
+    g_free(pBuffer);
+    const std::string encodedBlob = Glib::Base64::encode(rawBlob);
+    xmlpp::TextNode* p_text_node = p_image_node->add_child_text(encodedBlob);
+}
+
 void CtImagePng::updateLabelWidget()
 {
     if (!_link.empty())
@@ -107,6 +117,15 @@ CtImageAnchor::CtImageAnchor(const Glib::ustring& anchorName,
     updateTooltip();
 }
 
+void CtImageAnchor::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
+{
+    CtAnchoredWidget::to_xml(p_node_parent, offset_adjustment);
+    xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
+    p_image_node->set_attribute("char_offset", std::to_string(_charOffset));
+    p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
+    p_image_node->set_attribute("anchor", _anchorName);
+}
+
 void CtImageAnchor::updateTooltip()
 {
     set_tooltip_text(_anchorName);
@@ -127,7 +146,18 @@ CtImageEmbFile::CtImageEmbFile(const Glib::ustring& fileName,
     updateLabelWidget();
 }
 
-void  CtImageEmbFile::updateLabelWidget()
+void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
+{
+    CtAnchoredWidget::to_xml(p_node_parent, offset_adjustment);
+    xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
+    p_image_node->set_attribute("char_offset", std::to_string(_charOffset));
+    p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
+    p_image_node->set_attribute("time", std::to_string(_timeSeconds));
+    const std::string encodedBlob = Glib::Base64::encode(_rawBlob);
+    xmlpp::TextNode* p_text_node = p_image_node->add_child_text(encodedBlob);
+}
+
+void CtImageEmbFile::updateLabelWidget()
 {
     if (CtApp::P_ctCfg->embfileShowFileName)
     {

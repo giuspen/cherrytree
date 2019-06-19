@@ -40,7 +40,6 @@ public:
     virtual ~CtImage() {}
 
     virtual void applyWidthHeight(const int parentTextWidth) {}
-    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment);
 
 public:
     static Glib::RefPtr<Gdk::Pixbuf> get_icon(const std::string& name, int size);
@@ -59,7 +58,11 @@ public:
                const int charOffset,
                const std::string& justification);
     virtual ~CtImagePng() {}
+
+    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment);
+
     void updateLabelWidget();
+
 protected:
     Glib::ustring _link;
 };
@@ -71,7 +74,11 @@ public:
                   const int charOffset,
                   const std::string& justification);
     virtual ~CtImageAnchor() {}
+
+    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment);
+
     void updateTooltip();
+
 protected:
     Glib::ustring _anchorName;
 };
@@ -85,8 +92,12 @@ public:
                    const int charOffset,
                    const std::string& justification);
     virtual ~CtImageEmbFile() {}
+
+    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment);
+
     void updateTooltip();
     void updateLabelWidget();
+
 protected:
     Glib::ustring _fileName;
     std::string _rawBlob;
