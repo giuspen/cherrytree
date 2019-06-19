@@ -38,11 +38,15 @@ class CtTable : public CtAnchoredWidget
 {
 public:
     CtTable(const CtTableMatrix& tableMatrix,
-            const int& colMin,
-            const int& colMax,
-            const int& charOffset,
+            const int colMin,
+            const int colMax,
+            const bool headFront,
+            const int charOffset,
             const std::string& justification);
     virtual ~CtTable();
+
+    virtual void applyWidthHeight(const int parentTextWidth) {}
+    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment);
 
 protected:
     CtTableMatrix _tableMatrix;

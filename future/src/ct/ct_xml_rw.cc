@@ -203,8 +203,8 @@ void CtXmlRead::getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk::T
             const int colMin = std::stoi(pNodeElement->get_attribute_value("col_min"));
             const int colMax = std::stoi(pNodeElement->get_attribute_value("col_max"));
             CtTableMatrix tableMatrix;
-            populateTableMatrix(tableMatrix, pNodeElement);
-            pAnchoredWidget = new CtTable(tableMatrix, colMin, colMax, charOffset, justification);
+            const bool isHeadFront = populateTableMatrixGetIsHeadFront(tableMatrix, pNodeElement);
+            pAnchoredWidget = new CtTable(tableMatrix, colMin, colMax, isHeadFront, charOffset, justification);
         }
         else if (CtXmlNodeType::CodeBox == xmlNodeType)
         {
@@ -236,7 +236,7 @@ void CtXmlRead::getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk::T
     }
 }
 
-void CtXmlRead::populateTableMatrix(CtTableMatrix& tableMatrix, xmlpp::Element* pNodeElement)
+bool CtXmlRead::populateTableMatrixGetIsHeadFront(CtTableMatrix& tableMatrix, xmlpp::Element* pNodeElement)
 {
     for (xmlpp::Node* pNodeRow : pNodeElement->get_children())
     {
@@ -254,6 +254,7 @@ void CtXmlRead::populateTableMatrix(CtTableMatrix& tableMatrix, xmlpp::Element* 
             }
         }
     }
+    return !pNodeElement->get_attribute_value("head_front").empty();
 }
 
 Glib::RefPtr<Gsv::Buffer> CtXmlRead::getTextBuffer(const std::string& syntax,
@@ -350,7 +351,10 @@ void CtXmlWrite::append_dom_node(CtTreeIter& ct_tree_iter,
         }
         if (to_disk)
         {
-            
+            for (CtAnchoredWidget* pAnchoredWidget : ct_tree_iter.get_embedded_pixbufs_tables_codeboxes())
+            {
+                pAnchoredWidget->to_xml(p_node_node, offset_range.first >= 0 ? -offset_range.first : 0);
+            }
         }
     }
     else

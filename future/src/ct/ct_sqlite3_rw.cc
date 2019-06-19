@@ -208,9 +208,9 @@ void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTex
             CtXmlRead ctXmlRead(nullptr, textContent);
             CtTableMatrix tableMatrix;
             assert(nullptr != ctXmlRead.get_document());
-            ctXmlRead.populateTableMatrix(tableMatrix, ctXmlRead.get_document()->get_root_node());
+            const bool isHeadFront = ctXmlRead.populateTableMatrixGetIsHeadFront(tableMatrix, ctXmlRead.get_document()->get_root_node());
 
-            pAnchoredWidget = new CtTable(tableMatrix, colMin, colMax, charOffset[i], justification[i]);
+            pAnchoredWidget = new CtTable(tableMatrix, colMin, colMax, isHeadFront, charOffset[i], justification[i]);
             //std::cout << "table " << charOffset[i] << std::endl;
             charOffset[i] = cOffsetRead;
         }

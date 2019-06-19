@@ -31,13 +31,15 @@ class CtImage : public CtAnchoredWidget
 public:
     CtImage(const std::string& rawBlob,
             const char* mimeType,
-            const int& charOffset,
+            const int charOffset,
             const std::string& justification);
     CtImage(const char* stockImage,
-            const int& size,
-            const int& charOffset,
+            const int size,
+            const int charOffset,
             const std::string& justification);
     virtual ~CtImage() {}
+
+    virtual void applyWidthHeight(const int parentTextWidth) {}
 
 public:
     static Glib::RefPtr<Gdk::Pixbuf> get_icon(const std::string& name, int size);
@@ -53,10 +55,14 @@ class CtImagePng : public CtImage
 public:
     CtImagePng(const std::string& rawBlob,
                const Glib::ustring& link,
-               const int& charOffset,
+               const int charOffset,
                const std::string& justification);
     virtual ~CtImagePng() {}
+
+    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment);
+
     void updateLabelWidget();
+
 protected:
     Glib::ustring _link;
 };
@@ -65,10 +71,14 @@ class CtImageAnchor : public CtImage
 {
 public:
     CtImageAnchor(const Glib::ustring& anchorName,
-                  const int& charOffset,
+                  const int charOffset,
                   const std::string& justification);
     virtual ~CtImageAnchor() {}
+
+    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment);
+
     void updateTooltip();
+
 protected:
     Glib::ustring _anchorName;
 };
@@ -79,11 +89,15 @@ public:
     CtImageEmbFile(const Glib::ustring& fileName,
                    const std::string& rawBlob,
                    const double& timeSeconds,
-                   const int& charOffset,
+                   const int charOffset,
                    const std::string& justification);
     virtual ~CtImageEmbFile() {}
+
+    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment);
+
     void updateTooltip();
     void updateLabelWidget();
+
 protected:
     Glib::ustring _fileName;
     std::string _rawBlob;

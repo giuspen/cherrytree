@@ -23,7 +23,7 @@
 #include "ct_app.h"
 
 
-CtAnchoredWidget::CtAnchoredWidget(const int& charOffset, const std::string& justification)
+CtAnchoredWidget::CtAnchoredWidget(const int charOffset, const std::string& justification)
 {
     _charOffset = charOffset;
     _justification = justification;
@@ -59,14 +59,21 @@ CtTextCell::~CtTextCell()
 {
 }
 
+Glib::ustring CtTextCell::getTextContent() const
+{
+    Gtk::TextIter start_iter = _rTextBuffer->begin();
+    Gtk::TextIter end_iter = _rTextBuffer->end();
+    return start_iter.get_text(end_iter);
+}
+
 
 const Gsv::DrawSpacesFlags CtCodebox::DRAW_SPACES_FLAGS = Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE;
 
 CtCodebox::CtCodebox(const Glib::ustring& textContent,
                      const Glib::ustring& syntaxHighlighting,
-                     const int& frameWidth,
-                     const int& frameHeight,
-                     const int& charOffset,
+                     const int frameWidth,
+                     const int frameHeight,
+                     const int charOffset,
                      const std::string& justification)
  : _frameWidth(frameWidth),
    _frameHeight(frameHeight),
@@ -83,23 +90,40 @@ CtCodebox::~CtCodebox()
 {
 }
 
-void CtCodebox::applyWidthHeight(int parentTextWidth)
+void CtCodebox::applyWidthHeight(const int parentTextWidth)
 {
     int frameWidth = _widthInPixels ? _frameWidth : parentTextWidth*_frameWidth/100;
     _scrolledwindow.set_size_request(frameWidth, _frameHeight);
 }
 
-void CtCodebox::setShowLineNumbers(const bool& showLineNumbers)
+void CtCodebox::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
 {
-    _ctTextview.set_show_line_numbers(showLineNumbers);
+    CtAnchoredWidget::to_xml(p_node_parent, offset_adjustment);
+    xmlpp::Element* p_codebox_node = p_node_parent->add_child("codebox");
+    p_codebox_node->set_attribute("char_offset", std::to_string(_charOffset));
+    p_codebox_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
+    p_codebox_node->set_attribute("frame_width", std::to_string(_frameWidth));
+    p_codebox_node->set_attribute("frame_height", std::to_string(_frameHeight));
+    p_codebox_node->set_attribute("width_in_pixels", std::to_string(_widthInPixels));
+    p_codebox_node->set_attribute("syntax_highlighting", _syntaxHighlighting);
+    p_codebox_node->set_attribute("highlight_brackets", std::to_string(_highlightBrackets));
+    p_codebox_node->set_attribute("show_line_numbers", std::to_string(_showLineNumbers));
+    xmlpp::TextNode* p_text_node = p_codebox_node->add_child_text(getTextContent());
 }
 
-void CtCodebox::setHighlightBrackets(const bool& highlightBrackets)
+void CtCodebox::setShowLineNumbers(const bool showLineNumbers)
 {
-    _rTextBuffer->set_highlight_matching_brackets(highlightBrackets);
+    _showLineNumbers = showLineNumbers;
+    _ctTextview.set_show_line_numbers(_showLineNumbers);
 }
 
-void CtCodebox::applyCursorPos(const int& cursorPos)
+void CtCodebox::setHighlightBrackets(const bool highlightBrackets)
+{
+    _highlightBrackets = highlightBrackets;
+    _rTextBuffer->set_highlight_matching_brackets(_highlightBrackets);
+}
+
+void CtCodebox::applyCursorPos(const int cursorPos)
 {
     if (cursorPos > 0)
     {

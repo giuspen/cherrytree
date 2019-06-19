@@ -24,7 +24,7 @@
 
 CtImage::CtImage(const std::string& rawBlob,
                  const char* mimeType,
-                 const int& charOffset,
+                 const int charOffset,
                  const std::string& justification)
  : CtAnchoredWidget(charOffset, justification)
 {
@@ -39,8 +39,8 @@ CtImage::CtImage(const std::string& rawBlob,
 }
 
 CtImage::CtImage(const char* stockImage,
-                 const int& size,
-                 const int& charOffset,
+                 const int size,
+                 const int charOffset,
                  const std::string& justification)
  : CtAnchoredWidget(charOffset, justification)
 {
@@ -69,12 +69,28 @@ Gtk::Image* CtImage::new_image_from_stock(const std::string& stockImage, int siz
 
 CtImagePng::CtImagePng(const std::string& rawBlob,
                        const Glib::ustring& link,
-                       const int& charOffset,
+                       const int charOffset,
                        const std::string& justification)
  : CtImage(rawBlob, "image/png", charOffset, justification),
    _link(link)
 {
     updateLabelWidget();
+}
+
+void CtImagePng::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
+{
+    CtAnchoredWidget::to_xml(p_node_parent, offset_adjustment);
+    xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
+    p_image_node->set_attribute("char_offset", std::to_string(_charOffset));
+    p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
+    p_image_node->set_attribute("link", _link);
+    gchar* pBuffer{NULL};
+    gsize  buffer_size;
+    _rPixbuf->save_to_buffer(pBuffer, buffer_size, "png");
+    const std::string rawBlob = std::string(pBuffer, buffer_size);
+    g_free(pBuffer);
+    const std::string encodedBlob = Glib::Base64::encode(rawBlob);
+    xmlpp::TextNode* p_text_node = p_image_node->add_child_text(encodedBlob);
 }
 
 void CtImagePng::updateLabelWidget()
@@ -93,12 +109,21 @@ void CtImagePng::updateLabelWidget()
 
 
 CtImageAnchor::CtImageAnchor(const Glib::ustring& anchorName,
-                             const int& charOffset,
+                             const int charOffset,
                              const std::string& justification)
  : CtImage("anchor", CtApp::P_ctCfg->anchorSize, charOffset, justification),
    _anchorName(anchorName)
 {
     updateTooltip();
+}
+
+void CtImageAnchor::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
+{
+    CtAnchoredWidget::to_xml(p_node_parent, offset_adjustment);
+    xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
+    p_image_node->set_attribute("char_offset", std::to_string(_charOffset));
+    p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
+    p_image_node->set_attribute("anchor", _anchorName);
 }
 
 void CtImageAnchor::updateTooltip()
@@ -110,7 +135,7 @@ void CtImageAnchor::updateTooltip()
 CtImageEmbFile::CtImageEmbFile(const Glib::ustring& fileName,
                                const std::string& rawBlob,
                                const double& timeSeconds,
-                               const int& charOffset,
+                               const int charOffset,
                                const std::string& justification)
  : CtImage("file_icon", CtApp::P_ctCfg->embfileSize, charOffset, justification),
    _fileName(fileName),
@@ -121,7 +146,18 @@ CtImageEmbFile::CtImageEmbFile(const Glib::ustring& fileName,
     updateLabelWidget();
 }
 
-void  CtImageEmbFile::updateLabelWidget()
+void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
+{
+    CtAnchoredWidget::to_xml(p_node_parent, offset_adjustment);
+    xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
+    p_image_node->set_attribute("char_offset", std::to_string(_charOffset));
+    p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
+    p_image_node->set_attribute("time", std::to_string(_timeSeconds));
+    const std::string encodedBlob = Glib::Base64::encode(_rawBlob);
+    xmlpp::TextNode* p_text_node = p_image_node->add_child_text(encodedBlob);
+}
+
+void CtImageEmbFile::updateLabelWidget()
 {
     if (CtApp::P_ctCfg->embfileShowFileName)
     {
