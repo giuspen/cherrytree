@@ -56,6 +56,8 @@ public:
                const Glib::ustring& syntaxHighlighting);
     virtual ~CtTextCell();
 
+    Glib::ustring getSyntaxHighlighting() { return _syntaxHighlighting; }
+
 protected:
     Glib::ustring _syntaxHighlighting;
     Glib::RefPtr<Gsv::Buffer> _rTextBuffer{nullptr};

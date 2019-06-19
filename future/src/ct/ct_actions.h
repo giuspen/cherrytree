@@ -39,14 +39,18 @@ private:
     CtMainWin*   _pCtMainWin;
     CtTreeStore* _pCtTreestore;
 
+public:
+    CtMainWin*   getCtMainWin() { return _pCtMainWin; }
+
 private:
     Glib::RefPtr<Gtk::TextBuffer> curr_buffer();
+    bool          _node_sel_and_rich_text();
 
+public: // todo: fix naming
     bool          _is_there_selected_node_or_error();
     bool          _is_tree_not_empty_or_error();
     bool          _is_curr_node_not_read_only_or_error();
     bool          _is_curr_node_not_syntax_highlighting_or_error(bool plain_text_ok = false);
-    bool          _node_sel_and_rich_text();
 
 private:
     // helpers for tree actions

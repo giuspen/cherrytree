@@ -24,9 +24,23 @@
 #include <gtkmm/textiter.h>
 #include <ct_treestore.h>
 #include <libxml++/libxml++.h>
+#include "ct_codebox.h"
 
 class CtClipboard
 {
+public:
+    CtClipboard();
+
+public:
+    static void on_cut_clipboard(GtkTextView* pTextView, gpointer codebox);
+    static void on_copy_clipboard(GtkTextView* pTextView, gpointer codebox);
+    static void on_paste_clipboard(GtkTextView* pTextView, gpointer codebox);
+
+public:
+    void cut_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox);
+    void copy_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox);
+    void paste_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox);
+
 public:
     Glib::ustring rich_text_get_from_text_buffer_selection(CtTreeIter node_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_sel_start, Gtk::TextIter iter_sel_end,
                                                      gchar change_case = 'n', bool exclude_iter_sel_end = false);
@@ -36,4 +50,10 @@ private:
     void _rich_text_process_slot(xmlpp::Element* root, int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> text_buffer,
                                  CtAnchoredWidget* obj_element, gchar change_case = 'n');
     void _dom_node_to_rich_text(Glib::RefPtr<Gtk::TextBuffer> text_buffer, xmlpp::Node* dom_node);
+
+private:
+    void _selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextView* sourceview, Gtk::TextIter iter_sel_start, Gtk::TextIter iter_sel_end, int num_chars, CtCodebox* pCodebox);
+
+private:
+    bool _force_plain_text;
 };

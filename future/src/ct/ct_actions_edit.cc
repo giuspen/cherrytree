@@ -22,6 +22,7 @@
 #include "ct_actions.h"
 #include <gtkmm/dialog.h>
 #include "ct_clipboard.h"
+#include "ct_list.h"
 
 // A Special character insert was Requested
 void CtActions::insert_spec_char_action(gunichar ch)
@@ -151,9 +152,17 @@ void CtActions::paste_as_plain_text()
     // todo:
 }
 
+// Cut a Whole Row
 void CtActions::text_row_cut()
 {
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    if (!proof.text_buffer) return;
+    if (!_is_curr_node_not_read_only_or_error()) return;
 
+    CtTextRange range = CtList(proof.text_buffer).get_paragraph_iters();
+    if (!range.iter_end.forward_char() && !range.iter_start.backward_char()) return;
+    proof.text_buffer->select_range(range.iter_start, range.iter_end);
+    //CtClipboard().cut_clipboard(proof.text_view);
 }
 
 void CtActions::text_row_copy()

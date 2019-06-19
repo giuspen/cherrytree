@@ -247,6 +247,29 @@ const Glib::ustring CtMiscUtil::getTextTagNameExistOrCreate(Glib::ustring proper
     return tagName;
 }
 
+// Get the tooltip for the underlying link
+Glib::ustring CtMiscUtil::sourceview_hovering_link_get_tooltip(const Glib::ustring& link)
+{
+    Glib::ustring tooltip;
+    auto vec = str::split(link, " ");
+    if (vec[0] == CtConst::LINK_TYPE_FILE || vec[0] == CtConst::LINK_TYPE_FOLD)
+        tooltip = Glib::Base64::decode(vec[1]);
+    else
+    {
+        if (vec[0] == CtConst::LINK_TYPE_NODE)
+            tooltip = CtApp::P_ctActions->getCtMainWin()->get_tree_store().get_node_name_from_node_id(std::stol(vec[1]));
+        else
+            tooltip = str::replace(vec[1], "amp;", "");
+        if (vec.size() >= 3)
+        {
+            if (vec.size() == 3) tooltip += "#" + vec[2];
+            else
+                tooltip += "#" + link.substr(vec[0].length() + vec[1].length() + 2);
+        }
+    }
+    return tooltip;
+}
+
 void CtMiscUtil::widget_set_colors(Gtk::Widget& widget, const std::string& fg, const std::string& bg,
                        bool syntax_highl, const std::string& gdk_col_fg)
 {

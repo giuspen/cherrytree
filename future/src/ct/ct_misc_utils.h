@@ -43,6 +43,8 @@ const Glib::ustring getTextTagNameExistOrCreate(Glib::ustring propertyName, Glib
 
 const gchar* getTextIterAlignment(const Gtk::TextIter& textIter);
 
+Glib::ustring sourceview_hovering_link_get_tooltip(const Glib::ustring& link);
+
 void widget_set_colors(Gtk::Widget& widget, const std::string& fg, const std::string& bg,
                        bool syntax_highl, const std::string& gdk_col_fg);
 
