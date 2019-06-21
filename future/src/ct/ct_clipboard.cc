@@ -24,6 +24,7 @@
 #include "ct_codebox.h"
 #include "ct_doc_rw.h"
 #include <ct_image.h>
+#include "ct_export2txt.h"
 
 
 CtClipboard::CtClipboard()
@@ -191,77 +192,80 @@ void CtClipboard::from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_b
 // Write the Selected Content to the Clipboard
 void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextView* sourceview, Gtk::TextIter iter_sel_start, Gtk::TextIter iter_sel_end, int num_chars, CtCodebox* pCodebox)
 {
-     CtImage* pixbuf_target = nullptr;
-     if (!pCodebox && CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_node_syntax_highlighting() == CtConst::RICH_TEXT_ID && num_chars == 1)
-     {
-         std::list<CtAnchoredWidget*> widget_vector = CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(CtForPrint::No, std::make_pair(iter_sel_start.get_offset(), iter_sel_end.get_offset()));
-         if (widget_vector.size() > 0)
-         {
-             if (CtImage* ctImage = dynamic_cast<CtImage*>(widget_vector.front()))
-             {
-                 pixbuf_target = ctImage;
-             }
-             else if (CtTable* ctTable = dynamic_cast<CtTable*>(widget_vector.front()))
-             {
-                /*
-                 table_dict = self.dad.state_machine.table_to_dict(anchor)
-                 html_text = self.dad.html_handler.table_export_to_html(table_dict)
-                 txt_handler = exports.Export2Txt(self.dad)
-                 text_offsets_range = [iter_sel_start.get_offset(), iter_sel_end.get_offset()]
-                 plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=text_offsets_range, check_link_target=True)
-                 self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_TABLE, TARGETS_HTML[0], TARGET_CTD_PLAIN_TEXT)],
-                                              self.get_func,
-                                              self.clear_func,
-                                              (plain_text, None, html_text, table_dict))
-                 */
-                 return;
-             }
-             else if (CtCodebox* ctCodebox = dynamic_cast<CtCodebox*>(widget_vector.front()))
-             {
-                 /*
-                 codebox_dict = self.dad.state_machine.codebox_to_dict(anchor, for_print=0)
-                 codebox_dict_html = self.dad.state_machine.codebox_to_dict(anchor, for_print=2)
-                 html_text = self.dad.html_handler.codebox_export_to_html(codebox_dict_html)
-                 txt_handler = exports.Export2Txt(self.dad)
-                 text_offsets_range = [iter_sel_start.get_offset(), iter_sel_end.get_offset()]
-                 plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=text_offsets_range, check_link_target=True)
-                 self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_CODEBOX, TARGETS_HTML[0], TARGET_CTD_PLAIN_TEXT)],
-                                              self.get_func,
-                                              self.clear_func,
-                                              (plain_text, None, html_text, codebox_dict))
-                                              */
-                 return;
-             }
-         }
-     }
-     /*
-     html_text = self.dad.html_handler.selection_export_to_html(text_buffer, iter_sel_start, iter_sel_end,
-         self.dad.syntax_highlighting if not from_codebox else cons.PLAIN_TEXT_ID)
-     if not from_codebox and self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
-         txt_handler = exports.Export2Txt(self.dad)
-         text_offsets_range = [iter_sel_start.get_offset(), iter_sel_end.get_offset()]
-         plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=text_offsets_range, check_link_target=True)
-         rich_text = self.rich_text_get_from_text_buffer_selection(text_buffer, iter_sel_start, iter_sel_end)
-         if not self.force_plain_text:
-             targets_vector = [TARGET_CTD_PLAIN_TEXT, TARGET_CTD_RICH_TEXT, TARGETS_HTML[0], TARGETS_HTML[1]]
-             if pixbuf_target:
-                 targets_vector.append(TARGETS_IMAGES[0])
-         else:
-             targets_vector = [TARGET_CTD_PLAIN_TEXT]
-         self.clipboard.set_with_data([(t, 0, 0) for t in targets_vector],
-             self.get_func,
-             self.clear_func,
-             (plain_text, rich_text, html_text, pixbuf_target))
-     else:
-         plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
-         if not self.force_plain_text:
-             targets_vector = [TARGET_CTD_PLAIN_TEXT, TARGETS_HTML[0], TARGETS_HTML[1]]
-         else:
-             targets_vector = [TARGET_CTD_PLAIN_TEXT]
-         self.clipboard.set_with_data([(t, 0, 0) for t in targets_vector],
-                                      self.get_func,
-                                      self.clear_func,
-                                      (plain_text, None, html_text, pixbuf_target))
+    CtImage* pixbuf_target = nullptr;
+    if (true || !pCodebox && CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_node_syntax_highlighting() == CtConst::RICH_TEXT_ID && num_chars == 1)
+    {
+        std::list<CtAnchoredWidget*> widget_vector = CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(CtForPrint::No, std::make_pair(iter_sel_start.get_offset(), iter_sel_end.get_offset()));
+        if (widget_vector.size() > 0)
+        {
+            if (CtImage* ctImage = dynamic_cast<CtImage*>(widget_vector.front()))
+            {
+                pixbuf_target = ctImage;
+            }
+            else if (CtTable* ctTable = dynamic_cast<CtTable*>(widget_vector.front()))
+            {
+               /*
+                table_dict = self.dad.state_machine.table_to_dict(anchor)
+                html_text = self.dad.html_handler.table_export_to_html(table_dict)
+                txt_handler = exports.Export2Txt(self.dad)
+                text_offsets_range = [iter_sel_start.get_offset(), iter_sel_end.get_offset()]
+                plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=text_offsets_range, check_link_target=True)
+                self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_TABLE, TARGETS_HTML[0], TARGET_CTD_PLAIN_TEXT)],
+                                             self.get_func,
+                                             self.clear_func,
+                                             (plain_text, None, html_text, table_dict))
+                */
+                auto sel_range = std::make_pair(iter_sel_start.get_offset(), iter_sel_end.get_offset());
+                Glib::ustring plain_text = CtExport2Txt().node_export_to_txt(text_buffer, sel_range, nullptr, true);
 
-                                      */
+                return;
+            }
+            else if (CtCodebox* ctCodebox = dynamic_cast<CtCodebox*>(widget_vector.front()))
+            {
+                /*
+                codebox_dict = self.dad.state_machine.codebox_to_dict(anchor, for_print=0)
+                codebox_dict_html = self.dad.state_machine.codebox_to_dict(anchor, for_print=2)
+                html_text = self.dad.html_handler.codebox_export_to_html(codebox_dict_html)
+                txt_handler = exports.Export2Txt(self.dad)
+                text_offsets_range = [iter_sel_start.get_offset(), iter_sel_end.get_offset()]
+                plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=text_offsets_range, check_link_target=True)
+                self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_CODEBOX, TARGETS_HTML[0], TARGET_CTD_PLAIN_TEXT)],
+                                             self.get_func,
+                                             self.clear_func,
+                                             (plain_text, None, html_text, codebox_dict))
+                                             */
+                return;
+            }
+        }
+    }
+    /*
+    html_text = self.dad.html_handler.selection_export_to_html(text_buffer, iter_sel_start, iter_sel_end,
+        self.dad.syntax_highlighting if not from_codebox else cons.PLAIN_TEXT_ID)
+    if not from_codebox and self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
+        txt_handler = exports.Export2Txt(self.dad)
+        text_offsets_range = [iter_sel_start.get_offset(), iter_sel_end.get_offset()]
+        plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=text_offsets_range, check_link_target=True)
+        rich_text = self.rich_text_get_from_text_buffer_selection(text_buffer, iter_sel_start, iter_sel_end)
+        if not self.force_plain_text:
+            targets_vector = [TARGET_CTD_PLAIN_TEXT, TARGET_CTD_RICH_TEXT, TARGETS_HTML[0], TARGETS_HTML[1]]
+            if pixbuf_target:
+                targets_vector.append(TARGETS_IMAGES[0])
+        else:
+            targets_vector = [TARGET_CTD_PLAIN_TEXT]
+        self.clipboard.set_with_data([(t, 0, 0) for t in targets_vector],
+            self.get_func,
+            self.clear_func,
+            (plain_text, rich_text, html_text, pixbuf_target))
+    else:
+        plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
+        if not self.force_plain_text:
+            targets_vector = [TARGET_CTD_PLAIN_TEXT, TARGETS_HTML[0], TARGETS_HTML[1]]
+        else:
+            targets_vector = [TARGET_CTD_PLAIN_TEXT]
+        self.clipboard.set_with_data([(t, 0, 0) for t in targets_vector],
+                                     self.get_func,
+                                     self.clear_func,
+                                     (plain_text, None, html_text, pixbuf_target))
+
+                                     */
 }

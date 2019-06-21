@@ -162,7 +162,7 @@ void CtActions::text_row_cut()
     CtTextRange range = CtList(proof.text_buffer).get_paragraph_iters();
     if (!range.iter_end.forward_char() && !range.iter_start.backward_char()) return;
     proof.text_buffer->select_range(range.iter_start, range.iter_end);
-    //CtClipboard().cut_clipboard(proof.text_view);
+    g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
 }
 
 void CtActions::text_row_copy()

@@ -28,10 +28,11 @@ CtExport2Txt::CtExport2Txt()
 }
 
 // Export the Selected Node To Txt
-Glib::ustring CtExport2Txt::node_export_to_txt(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Glib::ustring filepath, sel_range=None, tree_iter_for_node_name=None, check_link_target=False)
+Glib::ustring CtExport2Txt::node_export_to_txt(Glib::RefPtr<Gtk::TextBuffer> text_buffer, std::pair<int, int> sel_range,
+                                               CtTreeIter* tree_iter_for_node_name /*=nullptr*/, bool check_link_target /*=false*/, Glib::ustring filepath /*=""*/)
 {
     Glib::ustring plain_text;
-    std::vector<CtAnchoredWidget*> widgets = CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(CtForPrint::No, sel_range);
+    std::list<CtAnchoredWidget*> widgets = CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(CtForPrint::No, sel_range);
 
     int start_offset = sel_range.first >= 0 ? sel_range.first : 0;
     for (CtAnchoredWidget* widget: widgets)
@@ -46,11 +47,11 @@ Glib::ustring CtExport2Txt::node_export_to_txt(Glib::RefPtr<Gtk::TextBuffer> tex
     if (sel_range.second < 0)
         plain_text += _plain_process_slot(start_offset, -1, text_buffer, check_link_target && widgets.empty());
     else
-        plain_text += _plain_process_slot(start_offset, sel_range, text_buffer, check_link_target && widgets.empty())
+        plain_text += _plain_process_slot(start_offset, sel_range.second, text_buffer, check_link_target && widgets.empty());
 
     if (tree_iter_for_node_name)
     {
-        Glib::ustring node_name = CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_node_name(); // todo: clean_text_to_utf8(self.dad.treestore[tree_iter_for_node_name][1])
+        Glib::ustring node_name = tree_iter_for_node_name->get_node_name(); // todo: clean_text_to_utf8(self.dad.treestore[tree_iter_for_node_name][1])
         plain_text = node_name.uppercase() + CtConst::CHAR_NEWLINE + plain_text;
     }
 
@@ -104,12 +105,17 @@ Glib::ustring CtExport2Txt::_get_table_plain(CtTable* table_orig)
     {
         table_plain += CtConst::CHAR_PIPE;
         for (const auto& cell: row)
-            table_plain += CtConst::CHAR_PIPE + cell->
-       table = copy.deepcopy(table_orig)
-       table[1]['matrix'].insert(0, table[1]['matrix'].pop())
-       for j, row in enumerate(table[1]['matrix']):
-           table_plain += cons.CHAR_PIPE
-           for cell in row:
-               table_plain += cons.CHAR_SPACE + cell + cons.CHAR_SPACE + cons.CHAR_PIPE
-           table_plain += cons.CHAR_NEWLINE
-       return table_plain
+            table_plain += CtConst::CHAR_SPACE + cell->getTextContent() + CtConst::CHAR_SPACE + CtConst::CHAR_PIPE;
+        table_plain += CtConst::CHAR_NEWLINE;
+    }
+    return table_plain;
+}
+
+// Returns the plain CodeBox
+Glib::ustring CtExport2Txt::_get_codebox_plain(CtCodebox* codebox)
+{
+    Glib::ustring codebox_plain = CtConst::CHAR_NEWLINE + CtApp::P_ctCfg->hRule + CtConst::CHAR_NEWLINE;
+    codebox_plain += codebox->getTextContent();
+    codebox_plain += CtConst::CHAR_NEWLINE + CtApp::P_ctCfg->hRule + CtConst::CHAR_NEWLINE;
+    return codebox_plain;
+}

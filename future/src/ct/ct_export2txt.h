@@ -30,8 +30,13 @@ class CtExport2Txt
 public:
     CtExport2Txt();
 
+public:
+    Glib::ustring node_export_to_txt(Glib::RefPtr<Gtk::TextBuffer> text_buffer, std::pair<int, int> sel_range,
+                                     CtTreeIter* tree_iter_for_node_name =nullptr, bool check_link_target = false, Glib::ustring filepath = "");
+
 private:
     Glib::ustring _plain_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer, bool check_link_target);
     Glib::ustring _tag_link_in_given_iter(Gtk::TextIter iter);
     Glib::ustring _get_table_plain(CtTable* table_orig);
+    Glib::ustring _get_codebox_plain(CtCodebox* codebox);
 };
