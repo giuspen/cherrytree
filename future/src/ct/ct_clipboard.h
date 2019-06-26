@@ -37,17 +37,6 @@ struct CtClipboardData
 
 class CtClipboard
 {
-private:
-    const Glib::ustring TARGET_CTD_PLAIN_TEXT = "UTF8_STRING";
-    const Glib::ustring TARGET_CTD_RICH_TEXT = "CTD_RICH";
-    const Glib::ustring TARGET_CTD_TABLE = "CTD_TABLE";
-    const Glib::ustring TARGET_CTD_CODEBOX = "CTD_CODEBOX";
-    const std::vector<Glib::ustring> TARGETS_HTML = {"text/html", "HTML Format"};
-    const Glib::ustring TARGET_URI_LIST = "text/uri-list";
-    const std::vector<Glib::ustring> TARGETS_PLAIN_TEXT = {"UTF8_STRING", "COMPOUND_TEXT", "STRING", "TEXT"};
-    const std::vector<Glib::ustring> TARGETS_IMAGES = {"image/png", "image/jpeg", "image/bmp", "image/tiff", "image/x-MS-bmp", "image/x-bmp"};
-    const Glib::ustring TARGET_WINDOWS_FILE_NAME = "FileName";
-
 public:
     CtClipboard();
 
@@ -82,4 +71,14 @@ private:
 
 private:
     bool _force_plain_text;
+};
+
+
+// This class adds support for Windows "HTML Format" clipboard content type
+// Code is based on example code from http://code.activestate.com/recipes/474121/
+// written by Phillip Piper (jppx1[at]bigfoot.com)
+class Win32HtmlFormat
+{
+public:
+    Glib::ustring encode(Glib::ustring html_in);
 };

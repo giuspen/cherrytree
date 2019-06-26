@@ -26,6 +26,18 @@
 #include <ct_image.h>
 #include "ct_export2html.h"
 #include "ct_export2txt.h"
+#include "src/fmt/ostream.h"
+
+
+const Glib::ustring TARGET_CTD_PLAIN_TEXT = "UTF8_STRING";
+const Glib::ustring TARGET_CTD_RICH_TEXT = "CTD_RICH";
+const Glib::ustring TARGET_CTD_TABLE = "CTD_TABLE";
+const Glib::ustring TARGET_CTD_CODEBOX = "CTD_CODEBOX";
+const std::vector<Glib::ustring> TARGETS_HTML = {"text/html", "HTML Format"};
+const Glib::ustring TARGET_URI_LIST = "text/uri-list";
+const std::vector<Glib::ustring> TARGETS_PLAIN_TEXT = {"UTF8_STRING", "COMPOUND_TEXT", "STRING", "TEXT"};
+const std::vector<Glib::ustring> TARGETS_IMAGES = {"image/png", "image/jpeg", "image/bmp", "image/tiff", "image/x-MS-bmp", "image/x-bmp"};
+const Glib::ustring TARGET_WINDOWS_FILE_NAME = "FileName";
 
 
 CtClipboard::CtClipboard()
@@ -231,12 +243,82 @@ void CtClipboard::_set_clipboard_data(const std::vector<std::string>& targets_li
     Gtk::Clipboard::get()->set(target_entries, sigc::bind(clip_data_get, clip_data), sigc::bind(clip_data_clear, clip_data));
 }
 
+// based on def get_func(self, clipboard, selectiondata, info, data)
 void  CtClipboard::_clip_data_get_signal(Gtk::SelectionData& selection_data, guint info, CtClipboardData* clip_data)
 {
-
+    Glib::ustring target = selection_data.get_target();
+    if (target == TARGET_CTD_PLAIN_TEXT)
+        selection_data.set(target, 8, (guint8*)clip_data->plain_text.c_str(), clip_data->plain_text.bytes());
+    else if (target == TARGET_CTD_RICH_TEXT)
+        selection_data.set("UTF8_STRING", 8, (guint8*)clip_data->rich_text.c_str(), clip_data->rich_text.bytes());
+    else if (vec::exists(TARGETS_HTML, target))
+    {
+        if (!CtConst::IS_WIN_OS)
+            selection_data.set(target, 8, (guint8*)clip_data->html_text.c_str(), clip_data->html_text.bytes());
+        else
+            if (target == TARGETS_HTML[0])
+            {
+                glong utf16text_len = 0;
+                gunichar2* utf16text = g_utf8_to_utf16(clip_data->html_text.c_str(), clip_data->html_text.bytes(), 0, &utf16text_len, 0);
+                if (utf16text && utf16text_len > 0)
+                    selection_data.set(target, 8, (guint8*)utf16text, utf16text_len);
+                g_free(utf16text);
+            }
+            else
+            {
+                Glib::ustring html = Win32HtmlFormat().encode(clip_data->html_text);
+                selection_data.set(target, 8, (guint8*)html.c_str(), html.bytes());
+            }
+    }
+    else if (target == TARGET_CTD_CODEBOX)
+    {
+        Glib::ustring xml = clip_data->xml_doc.write_to_string();
+        selection_data.set("UTF8_STRING", 8, (guint8*)xml.c_str(), xml.bytes());
+    }
+    else if (target == TARGET_CTD_TABLE)
+    {
+        Glib::ustring xml = clip_data->xml_doc.write_to_string();
+        selection_data.set("UTF8_STRING", 8, (guint8*)xml.c_str(), xml.bytes());
+    }
+    else if (target == TARGETS_IMAGES[0])
+        selection_data.set_pixbuf(clip_data->pix_buf);
 }
 
 void CtClipboard::_clip_data_clear_signal(CtClipboardData* clip_data)
 {
+    delete clip_data;
+}
 
+
+Glib::ustring Win32HtmlFormat::encode(Glib::ustring html_in)
+{
+    std::string MARKER_BLOCK_OUTPUT = \
+            "Version:1.0\r\n" \
+            "StartHTML:{:09d}\r\n" \
+            "EndHTML:{:09d}\r\n" \
+            "StartFragment:{:09d}\r\n" \
+            "EndFragment:{:09d}\r\n" \
+            "StartSelection:{:09d}\r\n" \
+            "EndSelection{:09d}\r\n" \
+            "SourceURL:{}\r\n";
+
+    std::string DEFAULT_HTML_BODY = \
+            "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">" \
+            "<HTML><HEAD>{}</HEAD><BODY><!--StartFragment-->{}<!--EndFragment--></BODY></HTML>";
+
+    Glib::ustring head = "", source = CtConst::APP_NAME + Glib::ustring(CtConst::CT_VERSION);
+    Glib::ustring html = fmt::format(DEFAULT_HTML_BODY, head, html_in);
+    Glib::ustring::size_type fragmentStart = html.find(html_in);
+    Glib::ustring::size_type fragmentEnd = fragmentStart + html_in.size();
+
+    // How long is the prefix going to be?
+    Glib::ustring dummyPrefix = fmt::format(MARKER_BLOCK_OUTPUT, 0, 0, 0, 0, 0, 0, source);
+    Glib::ustring::size_type lenPrefix = dummyPrefix.size();
+
+    Glib::ustring prefix = fmt::format(MARKER_BLOCK_OUTPUT,
+                lenPrefix, html.size() + lenPrefix,
+                fragmentStart + lenPrefix, fragmentEnd + lenPrefix,
+                fragmentStart + lenPrefix, fragmentEnd + lenPrefix,
+                source);
+    return prefix + html;
 }

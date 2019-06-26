@@ -36,7 +36,7 @@ private:
       <link rel="stylesheet" href="styles.css" type="text/css" />
     </head>
     <body>)HTML";
-    const Glib::ustring HTML_FOOTER = R"HTML(</body></html>')HTML";
+    const Glib::ustring HTML_FOOTER = R"HTML(</body></html>)HTML";
 
 public:
     CtExport2Html();
