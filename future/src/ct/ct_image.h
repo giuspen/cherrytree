@@ -41,6 +41,9 @@ public:
 
     virtual void applyWidthHeight(const int parentTextWidth) {}
 
+    void save(const Glib::ustring& file_name, const Glib::ustring& type);
+    Glib::RefPtr<Gdk::Pixbuf> getPixBuf() { return _rPixbuf; }
+
 public:
     static Glib::RefPtr<Gdk::Pixbuf> get_icon(const std::string& name, int size);
     static Gtk::Image*               new_image_from_stock(const std::string& stockImage, int size);
@@ -62,6 +65,7 @@ public:
     virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment);
 
     void updateLabelWidget();
+    const Glib::ustring& getLink() { return _link; }
 
 protected:
     Glib::ustring _link;
@@ -76,6 +80,8 @@ public:
     virtual ~CtImageAnchor() {}
 
     virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment);
+
+    const Glib::ustring& getAnchorName() { return _anchorName; }
 
     void updateTooltip();
 

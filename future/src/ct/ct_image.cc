@@ -51,6 +51,11 @@ CtImage::CtImage(const char* stockImage,
     show_all();
 }
 
+void CtImage::save(const Glib::ustring& file_name, const Glib::ustring& type)
+{
+    _rPixbuf->save(file_name, type);
+}
+
 Glib::RefPtr<Gdk::Pixbuf> CtImage::get_icon(const std::string& name, int size)
 {
     if (CtApp::R_icontheme->has_icon(name))

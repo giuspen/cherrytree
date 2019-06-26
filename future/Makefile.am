@@ -57,15 +57,16 @@ COMMON_SOURCES = \
 	src/ct/icons.gresource.cc \
 	src/ct/ct_menu.cc \
 	src/ct/ct_pref_dlg.cc \
-    src/ct/ct_actions_edit.cc \
-    src/ct/ct_actions_find.cc \
+        src/ct/ct_actions_edit.cc \
+        src/ct/ct_actions_find.cc \
 	src/ct/ct_actions_format.cc \
 	src/ct/ct_actions_tree.cc \
 	src/ct/ct_actions_view.cc \
 	src/ct/ct_dialogs.cc \
 	src/ct/ct_list.cc \
         src/ct/ct_clipboard.cc \
-        src/ct/ct_export2txt.cc
+        src/ct/ct_export2txt.cc \
+        src/ct/ct_export2html.cc
 
 cherrytree_SOURCES = \
 	src/ct/ct_main.cc \

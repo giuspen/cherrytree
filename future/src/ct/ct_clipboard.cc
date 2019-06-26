@@ -24,6 +24,7 @@
 #include "ct_codebox.h"
 #include "ct_doc_rw.h"
 #include <ct_image.h>
+#include "ct_export2html.h"
 #include "ct_export2txt.h"
 
 
@@ -112,54 +113,14 @@ void CtClipboard::_rich_text_process_slot(xmlpp::Element* root, int start_offset
                                           CtAnchoredWidget* obj_element, gchar change_case /*="n"*/)
 {
     xmlpp::Element* dom_iter = root->add_child("slot");
-    // #print "process slot (%s->%s)" % (start_offset, end_offset)
-    // begin operations
-    std::map<const gchar*, std::string> curr_attributes;
-    for (auto tag_property: CtConst::TAG_PROPERTIES)
-        curr_attributes[tag_property] = "";
-    Gtk::TextIter start_iter = text_buffer->get_iter_at_offset(start_offset);
-    Gtk::TextIter curr_iter = start_iter;
-    CtTextIterUtil::rich_text_attributes_update(curr_iter, curr_attributes);
-
-    bool tag_found = curr_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr});
-    bool one_more_serialize = true;
-    while (tag_found)
-    {
-        if (curr_iter.get_offset() > end_offset)
-            curr_iter = text_buffer->get_iter_at_offset(end_offset);
+    CtTextIterUtil::generic_process_slot(start_offset, end_offset, text_buffer,
+                                         [&](Gtk::TextIter& start_iter, Gtk::TextIter& curr_iter, std::map<const gchar*, std::string>& curr_attributes) {
         CtXmlWrite::rich_txt_serialize(dom_iter, start_iter, curr_iter, curr_attributes, change_case);
-
-        int offset_old = curr_iter.get_offset();
-        if (offset_old >= end_offset)
-        {
-            one_more_serialize = false;
-            break;
-        }
-        else
-        {
-            CtTextIterUtil::rich_text_attributes_update(curr_iter, curr_attributes);
-            start_iter.set_offset(offset_old);
-            tag_found = curr_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr});
-            if (curr_iter.get_offset() == offset_old)
-            {
-                one_more_serialize = false;
-                break;
-            }
-        }
-    }
-    if (one_more_serialize)
-    {
-        if (curr_iter.get_offset() > end_offset)
-            curr_iter = text_buffer->get_iter_at_offset(end_offset);
-        CtXmlWrite::rich_txt_serialize(dom_iter, start_iter, curr_iter, curr_attributes, change_case);
-    }
+    });
 
     if (obj_element != nullptr)
     {
-        // todo:
-        // if obj_element[0] == "pixbuf": self.dad.xml_handler.pixbuf_element_to_xml(obj_element[1], dom_iter, dom)
-        // elif obj_element[0] == "table": self.dad.xml_handler.table_element_to_xml(obj_element[1], dom_iter, dom)
-        // elif obj_element[0] == "codebox": self.dad.xml_handler.codebox_element_to_xml(obj_element[1], dom_iter, dom)
+        obj_element->to_xml(root, 0);
     }
 }
 
@@ -192,80 +153,90 @@ void CtClipboard::from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_b
 // Write the Selected Content to the Clipboard
 void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextView* sourceview, Gtk::TextIter iter_sel_start, Gtk::TextIter iter_sel_end, int num_chars, CtCodebox* pCodebox)
 {
+    Glib::ustring node_syntax_high = CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_node_syntax_highlighting();
     CtImage* pixbuf_target = nullptr;
-    if (true || !pCodebox && CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_node_syntax_highlighting() == CtConst::RICH_TEXT_ID && num_chars == 1)
+    if (!pCodebox && node_syntax_high == CtConst::RICH_TEXT_ID && num_chars == 1)
     {
         std::list<CtAnchoredWidget*> widget_vector = CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(CtForPrint::No, std::make_pair(iter_sel_start.get_offset(), iter_sel_end.get_offset()));
         if (widget_vector.size() > 0)
         {
-            if (CtImage* ctImage = dynamic_cast<CtImage*>(widget_vector.front()))
+            if (CtImage* image = dynamic_cast<CtImage*>(widget_vector.front()))
             {
-                pixbuf_target = ctImage;
+                pixbuf_target = image;
             }
-            else if (CtTable* ctTable = dynamic_cast<CtTable*>(widget_vector.front()))
+            else if (CtTable* table = dynamic_cast<CtTable*>(widget_vector.front()))
             {
-               /*
-                table_dict = self.dad.state_machine.table_to_dict(anchor)
-                html_text = self.dad.html_handler.table_export_to_html(table_dict)
-                txt_handler = exports.Export2Txt(self.dad)
-                text_offsets_range = [iter_sel_start.get_offset(), iter_sel_end.get_offset()]
-                plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=text_offsets_range, check_link_target=True)
-                self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_TABLE, TARGETS_HTML[0], TARGET_CTD_PLAIN_TEXT)],
-                                             self.get_func,
-                                             self.clear_func,
-                                             (plain_text, None, html_text, table_dict))
-                */
-                auto sel_range = std::make_pair(iter_sel_start.get_offset(), iter_sel_end.get_offset());
-                Glib::ustring plain_text = CtExport2Txt().node_export_to_txt(text_buffer, sel_range, nullptr, true);
+                CtClipboardData* clip_data = new CtClipboardData();
+                table->to_xml(clip_data->xml_doc.create_root_node("root"), 0);
+                clip_data->html_text = CtExport2Html().table_export_to_html(table);
+                clip_data->plain_text = CtExport2Txt().get_table_plain(table);
 
+                _set_clipboard_data({TARGET_CTD_TABLE, TARGETS_HTML[0], TARGET_CTD_PLAIN_TEXT}, clip_data);
                 return;
             }
-            else if (CtCodebox* ctCodebox = dynamic_cast<CtCodebox*>(widget_vector.front()))
+            else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widget_vector.front()))
             {
-                /*
-                codebox_dict = self.dad.state_machine.codebox_to_dict(anchor, for_print=0)
-                codebox_dict_html = self.dad.state_machine.codebox_to_dict(anchor, for_print=2)
-                html_text = self.dad.html_handler.codebox_export_to_html(codebox_dict_html)
-                txt_handler = exports.Export2Txt(self.dad)
-                text_offsets_range = [iter_sel_start.get_offset(), iter_sel_end.get_offset()]
-                plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=text_offsets_range, check_link_target=True)
-                self.clipboard.set_with_data([(t, 0, 0) for t in (TARGET_CTD_CODEBOX, TARGETS_HTML[0], TARGET_CTD_PLAIN_TEXT)],
-                                             self.get_func,
-                                             self.clear_func,
-                                             (plain_text, None, html_text, codebox_dict))
-                                             */
+                CtClipboardData* clip_data = new CtClipboardData();
+                codebox->to_xml(clip_data->xml_doc.create_root_node("root"), 0);
+                clip_data->html_text = CtExport2Html().codebox_export_to_html(codebox);
+                clip_data->plain_text = CtExport2Txt().get_codebox_plain(codebox);
+
+                _set_clipboard_data({TARGET_CTD_CODEBOX, TARGETS_HTML[0], TARGET_CTD_PLAIN_TEXT}, clip_data);
                 return;
             }
         }
     }
-    /*
-    html_text = self.dad.html_handler.selection_export_to_html(text_buffer, iter_sel_start, iter_sel_end,
-        self.dad.syntax_highlighting if not from_codebox else cons.PLAIN_TEXT_ID)
-    if not from_codebox and self.dad.syntax_highlighting == cons.RICH_TEXT_ID:
-        txt_handler = exports.Export2Txt(self.dad)
-        text_offsets_range = [iter_sel_start.get_offset(), iter_sel_end.get_offset()]
-        plain_text = txt_handler.node_export_to_txt(text_buffer, "", sel_range=text_offsets_range, check_link_target=True)
-        rich_text = self.rich_text_get_from_text_buffer_selection(text_buffer, iter_sel_start, iter_sel_end)
-        if not self.force_plain_text:
-            targets_vector = [TARGET_CTD_PLAIN_TEXT, TARGET_CTD_RICH_TEXT, TARGETS_HTML[0], TARGETS_HTML[1]]
-            if pixbuf_target:
-                targets_vector.append(TARGETS_IMAGES[0])
-        else:
-            targets_vector = [TARGET_CTD_PLAIN_TEXT]
-        self.clipboard.set_with_data([(t, 0, 0) for t in targets_vector],
-            self.get_func,
-            self.clear_func,
-            (plain_text, rich_text, html_text, pixbuf_target))
-    else:
-        plain_text = text_buffer.get_text(iter_sel_start, iter_sel_end)
-        if not self.force_plain_text:
-            targets_vector = [TARGET_CTD_PLAIN_TEXT, TARGETS_HTML[0], TARGETS_HTML[1]]
-        else:
-            targets_vector = [TARGET_CTD_PLAIN_TEXT]
-        self.clipboard.set_with_data([(t, 0, 0) for t in targets_vector],
-                                     self.get_func,
-                                     self.clear_func,
-                                     (plain_text, None, html_text, pixbuf_target))
 
-                                     */
+    CtClipboardData* clip_data = new CtClipboardData();
+    clip_data->html_text = CtExport2Html().selection_export_to_html(text_buffer, iter_sel_start, iter_sel_end, !pCodebox ? node_syntax_high : CtConst::PLAIN_TEXT_ID);
+    if (!pCodebox && node_syntax_high == CtConst::RICH_TEXT_ID)
+    {
+        std::vector<std::string> targets_vector;
+        std::pair<int,int> text_offsets_range = std::make_pair(iter_sel_start.get_offset(), iter_sel_end.get_offset());
+        clip_data->plain_text = CtExport2Txt().node_export_to_txt(text_buffer, text_offsets_range, true);
+        clip_data->rich_text = rich_text_get_from_text_buffer_selection(CtApp::P_ctActions->getCtMainWin()->curr_tree_iter(), text_buffer, iter_sel_start, iter_sel_end);
+        if (!_force_plain_text)
+        {
+            targets_vector = {TARGET_CTD_PLAIN_TEXT, TARGET_CTD_RICH_TEXT, TARGETS_HTML[0], TARGETS_HTML[1]};
+            if (pixbuf_target)
+            {
+                clip_data->pix_buf = pixbuf_target->getPixBuf();
+                targets_vector.push_back(TARGETS_IMAGES[0]);
+            }
+        }
+        else
+            targets_vector = {TARGET_CTD_PLAIN_TEXT};
+
+        _set_clipboard_data(targets_vector, clip_data);
+    }
+    else
+    {
+        clip_data->plain_text = text_buffer->get_text(iter_sel_start, iter_sel_end);
+        std::vector<std::string> targets_vector;
+        if (!_force_plain_text)
+            targets_vector = {TARGET_CTD_PLAIN_TEXT, TARGETS_HTML[0], TARGETS_HTML[1]};
+        else
+            targets_vector = {TARGET_CTD_PLAIN_TEXT};
+        _set_clipboard_data(targets_vector, clip_data);
+    }
+}
+
+void CtClipboard::_set_clipboard_data(const std::vector<std::string>& targets_list, CtClipboardData* clip_data)
+{
+    std::vector<Gtk::TargetEntry> target_entries;
+    for (auto& target: targets_list)
+        target_entries.push_back(Gtk::TargetEntry(target));
+    sigc::slot<void, Gtk::SelectionData&, guint, CtClipboardData*> clip_data_get = sigc::mem_fun(*this, &CtClipboard::_clip_data_get_signal);
+    sigc::slot<void, CtClipboardData*> clip_data_clear = sigc::mem_fun(*this, &CtClipboard::_clip_data_clear_signal);
+    Gtk::Clipboard::get()->set(target_entries, sigc::bind(clip_data_get, clip_data), sigc::bind(clip_data_clear, clip_data));
+}
+
+void  CtClipboard::_clip_data_get_signal(Gtk::SelectionData& selection_data, guint info, CtClipboardData* clip_data)
+{
+
+}
+
+void CtClipboard::_clip_data_clear_signal(CtClipboardData* clip_data)
+{
+
 }

@@ -453,6 +453,49 @@ bool CtTextIterUtil::tag_richtext_toggling_on_or_off(const Gtk::TextIter& text_i
     return retVal;
 }
 
+void CtTextIterUtil::generic_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                                          std::function<void(Gtk::TextIter&/*start_iter*/, Gtk::TextIter&/*curr_iter*/, std::map<const gchar*, std::string>&/*curr_attributes*/)> serialize_func)
+{
+    std::map<const gchar*, std::string> curr_attributes;
+    for (auto tag_property: CtConst::TAG_PROPERTIES)
+        curr_attributes[tag_property] = "";
+    Gtk::TextIter start_iter = text_buffer->get_iter_at_offset(start_offset);
+    Gtk::TextIter curr_iter = start_iter;
+    CtTextIterUtil::rich_text_attributes_update(curr_iter, curr_attributes);
+
+    bool tag_found = curr_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr});
+    bool one_more_serialize = true;
+    while (tag_found)
+    {
+        if (curr_iter.get_offset() > end_offset)
+            curr_iter = text_buffer->get_iter_at_offset(end_offset);
+        serialize_func(start_iter, curr_iter, curr_attributes);
+
+        int offset_old = curr_iter.get_offset();
+        if (offset_old >= end_offset)
+        {
+            one_more_serialize = false;
+            break;
+        }
+        else
+        {
+            CtTextIterUtil::rich_text_attributes_update(curr_iter, curr_attributes);
+            start_iter.set_offset(offset_old);
+            tag_found = curr_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr});
+            if (curr_iter.get_offset() == offset_old)
+            {
+                one_more_serialize = false;
+                break;
+            }
+        }
+    }
+    if (one_more_serialize)
+    {
+        if (curr_iter.get_offset() > end_offset)
+            curr_iter = text_buffer->get_iter_at_offset(end_offset);
+        serialize_func(start_iter, curr_iter, curr_attributes);
+    }
+}
 
 bool CtStrUtil::isStrTrue(const Glib::ustring& inStr)
 {
@@ -605,6 +648,48 @@ char* CtRgbUtil::setRgb24StrFromStrAny(const char* rgbStrAny, char* rgb24StrOut)
     return rgb24StrOut;
 }
 
+Glib::ustring CtRgbUtil::rgb_to_no_white(Glib::ustring in_rgb)
+{
+    char out_rgb[16] = {};
+    const char* scanStart = in_rgb[0] == '#' ? in_rgb.c_str() + 1 : in_rgb.c_str();
+    if (strlen(scanStart) == 12)
+    {
+        guint16 r = (guint16)CtStrUtil::getUint32FromHexChars(scanStart, 4);
+        guint16 g = (guint16)CtStrUtil::getUint32FromHexChars(scanStart+4, 4);
+        guint16 b = (guint16)CtStrUtil::getUint32FromHexChars(scanStart+8, 4);
+        // r+g+b black is 0
+        // r+g+b white is 3*65535
+        int max_48 = 65535;
+        if (r+g+b > 2.2 * max_48)
+        {
+            r = max_48 - r;
+            g = max_48 - g;
+            b = max_48 - b;
+            sprintf(out_rgb, "#%.4x%.4x%.4x", r, g, b);
+            return out_rgb;
+        }
+    }
+    else
+    {
+        guint32 rgb24Int = getRgb24IntFromStrAny(scanStart);
+        guint8 r = (rgb24Int >> 16) & 0xff;
+        guint8 g = (rgb24Int >> 8) & 0xff;
+        guint8 b = rgb24Int & 0xff;
+        // r+g+b black is 0
+        // r+g+b white is 3*255
+        int max_24 = 255;
+        if (r+g+b > 2.2*max_24)
+        {
+            r = max_24 - r;
+            g = max_24 - g;
+            b = max_24 - b;
+            sprintf(out_rgb, "#%.2x%.2x%.2x", r, g, b);
+            return out_rgb;
+        }
+    }
+    return in_rgb;
+}
+
 std::string CtRgbUtil::getRgb24StrFromStrAny(const std::string& rgbStrAny)
 {
     char rgb24Str[8];
@@ -720,4 +805,20 @@ Glib::ustring str::swapcase(const Glib::ustring& text)
         ret_text += test_text;
     }
     return ret_text;
+}
+
+Glib::ustring CtFileSystem::get_proper_platform_filepath(Glib::ustring filepath)
+{
+    if (CtConst::IS_WIN_OS)
+        filepath = str::replace(filepath, CtConst::CHAR_SLASH, CtConst::CHAR_BSLASH);
+    else
+        filepath = str::replace(filepath, CtConst::CHAR_BSLASH, CtConst::CHAR_SLASH);
+    return filepath;
+}
+
+
+Glib::ustring CtFileSystem::join(const Glib::ustring& path1, const Glib::ustring& path2)
+{
+    const gchar* sep = CtConst::IS_WIN_OS ? CtConst::CHAR_BSLASH : CtConst::CHAR_SLASH;
+    return path1 + sep + path2;
 }

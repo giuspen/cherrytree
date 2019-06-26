@@ -70,6 +70,9 @@ void rich_text_attributes_update(const Gtk::TextIter& text_iter, std::map<const 
 
 bool tag_richtext_toggling_on_or_off(const Gtk::TextIter& text_iter);
 
+void generic_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                          std::function<void(Gtk::TextIter&/*start_iter*/, Gtk::TextIter&/*curr_iter*/, std::map<const gchar*, std::string>&/*curr_attributes*/)> serialize_func);
+
 } // namespace CtTextIterUtil
 
 namespace CtStrUtil {
@@ -107,6 +110,8 @@ void setRgb24StrFromRgb24Int(guint32 rgb24Int, char* rgb24StrOut);
 guint32 getRgb24IntFromRgb24Str(const char* rgb24Str);
 
 char* setRgb24StrFromStrAny(const char* rgbStrAny, char* rgb24StrOut);
+
+Glib::ustring rgb_to_no_white(Glib::ustring in_rgb);
 
 std::string getRgb24StrFromStrAny(const std::string& rgbStrAny);
 
@@ -286,3 +291,11 @@ bool exists(const MAP& m, const KEY& key)
 
 } // namespace map
 
+namespace CtFileSystem {
+
+// From Slash to Backslash when needed
+Glib::ustring get_proper_platform_filepath(Glib::ustring filepath);
+
+Glib::ustring join(const Glib::ustring& path1, const Glib::ustring& path2);
+
+} // namespace CtFileSystem
