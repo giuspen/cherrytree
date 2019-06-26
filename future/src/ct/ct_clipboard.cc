@@ -28,7 +28,7 @@
 #include "ct_export2txt.h"
 #include "src/fmt/ostream.h"
 
-
+// keep defines out of class scope, so _clip_data_get_signal can use them
 const Glib::ustring TARGET_CTD_PLAIN_TEXT = "UTF8_STRING";
 const Glib::ustring TARGET_CTD_RICH_TEXT = "CTD_RICH";
 const Glib::ustring TARGET_CTD_TABLE = "CTD_TABLE";
@@ -40,9 +40,10 @@ const std::vector<Glib::ustring> TARGETS_IMAGES = {"image/png", "image/jpeg", "i
 const Glib::ustring TARGET_WINDOWS_FILE_NAME = "FileName";
 
 
+bool CtClipboard::_static_force_plain_text = false;
+
 CtClipboard::CtClipboard()
 {
-    _force_plain_text = false;
 }
 
 /*static*/ void CtClipboard::on_cut_clipboard(GtkTextView* pTextView,  gpointer codebox)
@@ -84,7 +85,7 @@ void CtClipboard::cut_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox)
             }
         }
     }
-    _force_plain_text = false;
+    CtClipboard::_static_force_plain_text = false;
 }
 
 void copy_clipboard(Gtk::TextView* pTextView)
@@ -207,7 +208,7 @@ void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buf
         std::pair<int,int> text_offsets_range = std::make_pair(iter_sel_start.get_offset(), iter_sel_end.get_offset());
         clip_data->plain_text = CtExport2Txt().node_export_to_txt(text_buffer, text_offsets_range, true);
         clip_data->rich_text = rich_text_get_from_text_buffer_selection(CtApp::P_ctActions->getCtMainWin()->curr_tree_iter(), text_buffer, iter_sel_start, iter_sel_end);
-        if (!_force_plain_text)
+        if (!CtClipboard::_static_force_plain_text)
         {
             targets_vector = {TARGET_CTD_PLAIN_TEXT, TARGET_CTD_RICH_TEXT, TARGETS_HTML[0], TARGETS_HTML[1]};
             if (pixbuf_target)
@@ -225,7 +226,7 @@ void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buf
     {
         clip_data->plain_text = text_buffer->get_text(iter_sel_start, iter_sel_end);
         std::vector<std::string> targets_vector;
-        if (!_force_plain_text)
+        if (!CtClipboard::_static_force_plain_text)
             targets_vector = {TARGET_CTD_PLAIN_TEXT, TARGETS_HTML[0], TARGETS_HTML[1]};
         else
             targets_vector = {TARGET_CTD_PLAIN_TEXT};

@@ -137,9 +137,13 @@ void CtActions::toggle_ena_dis_spellcheck()
     // todo:
 }
 
+// Copy as Plain Text
 void CtActions::cut_as_plain_text()
 {
-    // todo:
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    CtClipboard::force_plain_text();
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "cut-clipboard");
 }
 
 void CtActions::copy_as_plain_text()
@@ -170,9 +174,17 @@ void CtActions::text_row_copy()
 
 }
 
+// Deletes the Whole Row
 void CtActions::text_row_delete()
 {
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    if (!proof.text_buffer) return;
+    if (!_is_curr_node_not_read_only_or_error()) return;
 
+    CtTextRange range = CtList(proof.text_buffer).get_paragraph_iters();
+    if (!range.iter_end.forward_char() && !range.iter_start.backward_char()) return;
+    proof.text_buffer->erase(range.iter_start, range.iter_end);
+    // todo: self.state_machine.update_state()
 }
 
 void CtActions::text_row_selection_duplicate()

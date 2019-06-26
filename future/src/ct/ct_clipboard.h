@@ -45,6 +45,7 @@ public:
     static void on_copy_clipboard(GtkTextView* pTextView, gpointer codebox);
     static void on_paste_clipboard(GtkTextView* pTextView, gpointer codebox);
 
+    static void force_plain_text() { _static_force_plain_text = true; }
 public:
     void cut_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox);
     void copy_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox);
@@ -70,7 +71,7 @@ private:
     void _clip_data_clear_signal(CtClipboardData* clip_data);
 
 private:
-    bool _force_plain_text;
+    static bool _static_force_plain_text;
 };
 
 
