@@ -379,6 +379,23 @@ bool CtTextIterUtil::get_next_chars_from_iter_are(Gtk::TextIter text_iter, const
     return false;
 }
 
+// Returns True if one set of the Given Chars are the first of in_string
+bool CtTextIterUtil::get_first_chars_of_string_at_offset_are(const Glib::ustring& in_string, int offset, const std::vector<Glib::ustring>& chars_list_vec)
+{
+    for (const auto& chars_list: chars_list_vec)
+    {
+        size_t len = chars_list.size();
+        if (in_string.size() - offset < len)
+            continue;
+        bool good = true;
+        for (size_t i = 0; good && i < len; ++i)
+            good = in_string[offset + i] == chars_list[i];
+        if (good)
+            return true;
+    }
+    return false;
+}
+
 void CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter, std::map<const gchar*, std::string>& curr_attributes)
 {
     std::vector<Glib::RefPtr<const Gtk::TextTag>> toggled_off = text_iter.get_toggled_tags(false/*toggled_on*/);
@@ -816,6 +833,17 @@ Glib::ustring CtFileSystem::get_proper_platform_filepath(Glib::ustring filepath)
     return filepath;
 }
 
+bool CtFileSystem::isdir(const Glib::ustring& path)
+{
+    // todo:
+    return false;
+}
+
+bool CtFileSystem::isfile(const Glib::ustring& path)
+{
+    // todo:
+    return false;
+}
 
 Glib::ustring CtFileSystem::join(const Glib::ustring& path1, const Glib::ustring& path2)
 {

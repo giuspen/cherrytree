@@ -66,7 +66,8 @@ COMMON_SOURCES = \
 	src/ct/ct_list.cc \
         src/ct/ct_clipboard.cc \
         src/ct/ct_export2txt.cc \
-        src/ct/ct_export2html.cc
+        src/ct/ct_export2html.cc \
+        src/ct/ct_imports.cc
 
 cherrytree_SOURCES = \
 	src/ct/ct_main.cc \

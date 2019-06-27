@@ -72,6 +72,15 @@ private:
     void _on_clip_data_clear(CtClipboardData* clip_data);
 
 private:
+    void _on_received_to_plain_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool force_plain_text);
+    void _on_received_to_rich_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
+    void _on_received_to_codebox(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
+    void _on_received_to_table(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
+    void _on_received_to_html(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
+    void _on_received_to_image(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
+    void _on_received_to_uri_list(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
+
+private:
     static bool _static_force_plain_text;
 };
 

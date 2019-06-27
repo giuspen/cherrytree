@@ -71,6 +71,8 @@ bool get_next_chars_from_iter_are(Gtk::TextIter text_iter, const Glib::ustring& 
 
 bool get_next_chars_from_iter_are(Gtk::TextIter text_iter, const std::vector<Glib::ustring>& chars_list_vec);
 
+bool get_first_chars_of_string_at_offset_are(const Glib::ustring& in_string, int offset, const std::vector<Glib::ustring>& chars_list_vec);
+
 void rich_text_attributes_update(const Gtk::TextIter& text_iter, std::map<const gchar*, std::string>& curr_attributes);
 
 bool tag_richtext_toggling_on_or_off(const Gtk::TextIter& text_iter);
@@ -300,6 +302,9 @@ namespace CtFileSystem {
 
 // From Slash to Backslash when needed
 Glib::ustring get_proper_platform_filepath(Glib::ustring filepath);
+
+bool isdir(const Glib::ustring& path);
+bool isfile(const Glib::ustring& path);
 
 Glib::ustring join(const Glib::ustring& path1, const Glib::ustring& path2);
 

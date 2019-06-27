@@ -154,9 +154,12 @@ void CtActions::copy_as_plain_text()
     g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "copy-clipboard");
 }
 
+// Paste as Plain Text
 void CtActions::paste_as_plain_text()
 {
-    // todo:
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    CtClipboard::force_plain_text();
+    g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "paste-clipboard");
 }
 
 // Cut a Whole Row
@@ -283,13 +286,13 @@ void CtActions::_image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> pixbuf, Gtk::TextIt
 // Get the Alignment Value of the given Iter
 Glib::ustring CtActions::_get_iter_alignment(Gtk::TextIter text_iter)
 {
-    auto align_center = _apply_tag_exist_or_create(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_CENTER);
+    auto align_center = apply_tag_exist_or_create(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_CENTER);
     if (text_iter.has_tag(CtApp::R_textTagTable->lookup(align_center)))
         return CtConst::TAG_PROP_VAL_CENTER;
-    auto align_fill = _apply_tag_exist_or_create(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_FILL);
+    auto align_fill = apply_tag_exist_or_create(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_FILL);
     if (text_iter.has_tag(CtApp::R_textTagTable->lookup(align_fill)))
         return CtConst::TAG_PROP_VAL_FILL;
-    auto align_right = _apply_tag_exist_or_create(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_RIGHT);
+    auto align_right = apply_tag_exist_or_create(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_RIGHT);
     if (text_iter.has_tag(CtApp::R_textTagTable->lookup(align_right)))
         return CtConst::TAG_PROP_VAL_RIGHT;
     return CtConst::TAG_PROP_VAL_LEFT;
