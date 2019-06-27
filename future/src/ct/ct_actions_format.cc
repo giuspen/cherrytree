@@ -333,7 +333,7 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
         }
     }
     if (!property_value.empty())
-        text_buffer->apply_tag_by_name(_apply_tag_exist_or_create(tag_property, property_value),
+        text_buffer->apply_tag_by_name(apply_tag_exist_or_create(tag_property, property_value),
                                       text_buffer->get_iter_at_offset(sel_start_offset),
                                       text_buffer->get_iter_at_offset(sel_end_offset));
     if (_pCtMainWin->user_active())
@@ -341,7 +341,7 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
 }
 
 // Check into the Tags Table whether the Tag Exists, if Not Creates it
-Glib::ustring CtActions::_apply_tag_exist_or_create(const Glib::ustring& tag_property, Glib::ustring property_value)
+Glib::ustring CtActions::apply_tag_exist_or_create(const Glib::ustring& tag_property, Glib::ustring property_value)
 {
     if (property_value == "large")      property_value = CtConst::TAG_PROP_VAL_H1;
     else if (property_value == "largo") property_value = CtConst::TAG_PROP_VAL_H2;

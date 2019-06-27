@@ -27,9 +27,14 @@
 #include <set>
 #include "ct_treestore.h"
 #include "src/fmt/fmt.h"
+#include <type_traits>
 
 enum class CtDocType : int {None=0, XML=1, SQLite=2};
 enum class CtDocEncrypt : int {None=0, True=1, False=2};
+
+template<class F> auto scope_guard(F&& f) {
+    return std::unique_ptr<void, typename std::decay<F>::type>{(void*)1, std::forward<F>(f)};
+}
 
 namespace CtMiscUtil {
 
@@ -42,6 +47,8 @@ Glib::RefPtr<Gsv::Buffer> getNewTextBuffer(const std::string& syntax, const Glib
 const Glib::ustring getTextTagNameExistOrCreate(Glib::ustring propertyName, Glib::ustring propertyValue);
 
 const gchar* getTextIterAlignment(const Gtk::TextIter& textIter);
+
+Glib::ustring sourceview_hovering_link_get_tooltip(const Glib::ustring& link);
 
 void widget_set_colors(Gtk::Widget& widget, const std::string& fg, const std::string& bg,
                        bool syntax_highl, const std::string& gdk_col_fg);
@@ -64,9 +71,14 @@ bool get_next_chars_from_iter_are(Gtk::TextIter text_iter, const Glib::ustring& 
 
 bool get_next_chars_from_iter_are(Gtk::TextIter text_iter, const std::vector<Glib::ustring>& chars_list_vec);
 
+bool get_first_chars_of_string_at_offset_are(const Glib::ustring& in_string, int offset, const std::vector<Glib::ustring>& chars_list_vec);
+
 void rich_text_attributes_update(const Gtk::TextIter& text_iter, std::map<const gchar*, std::string>& curr_attributes);
 
 bool tag_richtext_toggling_on_or_off(const Gtk::TextIter& text_iter);
+
+void generic_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                          std::function<void(Gtk::TextIter&/*start_iter*/, Gtk::TextIter&/*curr_iter*/, std::map<const gchar*, std::string>&/*curr_attributes*/)> serialize_func);
 
 } // namespace CtTextIterUtil
 
@@ -105,6 +117,8 @@ void setRgb24StrFromRgb24Int(guint32 rgb24Int, char* rgb24StrOut);
 guint32 getRgb24IntFromRgb24Str(const char* rgb24Str);
 
 char* setRgb24StrFromStrAny(const char* rgbStrAny, char* rgb24StrOut);
+
+Glib::ustring rgb_to_no_white(Glib::ustring in_rgb);
 
 std::string getRgb24StrFromStrAny(const std::string& rgbStrAny);
 
@@ -284,3 +298,14 @@ bool exists(const MAP& m, const KEY& key)
 
 } // namespace map
 
+namespace CtFileSystem {
+
+// From Slash to Backslash when needed
+Glib::ustring get_proper_platform_filepath(Glib::ustring filepath);
+
+bool isdir(const Glib::ustring& path);
+bool isfile(const Glib::ustring& path);
+
+Glib::ustring join(const Glib::ustring& path1, const Glib::ustring& path2);
+
+} // namespace CtFileSystem

@@ -247,6 +247,29 @@ const Glib::ustring CtMiscUtil::getTextTagNameExistOrCreate(Glib::ustring proper
     return tagName;
 }
 
+// Get the tooltip for the underlying link
+Glib::ustring CtMiscUtil::sourceview_hovering_link_get_tooltip(const Glib::ustring& link)
+{
+    Glib::ustring tooltip;
+    auto vec = str::split(link, " ");
+    if (vec[0] == CtConst::LINK_TYPE_FILE || vec[0] == CtConst::LINK_TYPE_FOLD)
+        tooltip = Glib::Base64::decode(vec[1]);
+    else
+    {
+        if (vec[0] == CtConst::LINK_TYPE_NODE)
+            tooltip = CtApp::P_ctActions->getCtMainWin()->get_tree_store().get_node_name_from_node_id(std::stol(vec[1]));
+        else
+            tooltip = str::replace(vec[1], "amp;", "");
+        if (vec.size() >= 3)
+        {
+            if (vec.size() == 3) tooltip += "#" + vec[2];
+            else
+                tooltip += "#" + link.substr(vec[0].length() + vec[1].length() + 2);
+        }
+    }
+    return tooltip;
+}
+
 void CtMiscUtil::widget_set_colors(Gtk::Widget& widget, const std::string& fg, const std::string& bg,
                        bool syntax_highl, const std::string& gdk_col_fg)
 {
@@ -356,6 +379,23 @@ bool CtTextIterUtil::get_next_chars_from_iter_are(Gtk::TextIter text_iter, const
     return false;
 }
 
+// Returns True if one set of the Given Chars are the first of in_string
+bool CtTextIterUtil::get_first_chars_of_string_at_offset_are(const Glib::ustring& in_string, int offset, const std::vector<Glib::ustring>& chars_list_vec)
+{
+    for (const auto& chars_list: chars_list_vec)
+    {
+        size_t len = chars_list.size();
+        if (in_string.size() - offset < len)
+            continue;
+        bool good = true;
+        for (size_t i = 0; good && i < len; ++i)
+            good = in_string[offset + i] == chars_list[i];
+        if (good)
+            return true;
+    }
+    return false;
+}
+
 void CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter, std::map<const gchar*, std::string>& curr_attributes)
 {
     std::vector<Glib::RefPtr<const Gtk::TextTag>> toggled_off = text_iter.get_toggled_tags(false/*toggled_on*/);
@@ -430,6 +470,49 @@ bool CtTextIterUtil::tag_richtext_toggling_on_or_off(const Gtk::TextIter& text_i
     return retVal;
 }
 
+void CtTextIterUtil::generic_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                                          std::function<void(Gtk::TextIter&/*start_iter*/, Gtk::TextIter&/*curr_iter*/, std::map<const gchar*, std::string>&/*curr_attributes*/)> serialize_func)
+{
+    std::map<const gchar*, std::string> curr_attributes;
+    for (auto tag_property: CtConst::TAG_PROPERTIES)
+        curr_attributes[tag_property] = "";
+    Gtk::TextIter start_iter = text_buffer->get_iter_at_offset(start_offset);
+    Gtk::TextIter curr_iter = start_iter;
+    CtTextIterUtil::rich_text_attributes_update(curr_iter, curr_attributes);
+
+    bool tag_found = curr_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr});
+    bool one_more_serialize = true;
+    while (tag_found)
+    {
+        if (curr_iter.get_offset() > end_offset)
+            curr_iter = text_buffer->get_iter_at_offset(end_offset);
+        serialize_func(start_iter, curr_iter, curr_attributes);
+
+        int offset_old = curr_iter.get_offset();
+        if (offset_old >= end_offset)
+        {
+            one_more_serialize = false;
+            break;
+        }
+        else
+        {
+            CtTextIterUtil::rich_text_attributes_update(curr_iter, curr_attributes);
+            start_iter.set_offset(offset_old);
+            tag_found = curr_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr});
+            if (curr_iter.get_offset() == offset_old)
+            {
+                one_more_serialize = false;
+                break;
+            }
+        }
+    }
+    if (one_more_serialize)
+    {
+        if (curr_iter.get_offset() > end_offset)
+            curr_iter = text_buffer->get_iter_at_offset(end_offset);
+        serialize_func(start_iter, curr_iter, curr_attributes);
+    }
+}
 
 bool CtStrUtil::isStrTrue(const Glib::ustring& inStr)
 {
@@ -582,6 +665,48 @@ char* CtRgbUtil::setRgb24StrFromStrAny(const char* rgbStrAny, char* rgb24StrOut)
     return rgb24StrOut;
 }
 
+Glib::ustring CtRgbUtil::rgb_to_no_white(Glib::ustring in_rgb)
+{
+    char out_rgb[16] = {};
+    const char* scanStart = in_rgb[0] == '#' ? in_rgb.c_str() + 1 : in_rgb.c_str();
+    if (strlen(scanStart) == 12)
+    {
+        guint16 r = (guint16)CtStrUtil::getUint32FromHexChars(scanStart, 4);
+        guint16 g = (guint16)CtStrUtil::getUint32FromHexChars(scanStart+4, 4);
+        guint16 b = (guint16)CtStrUtil::getUint32FromHexChars(scanStart+8, 4);
+        // r+g+b black is 0
+        // r+g+b white is 3*65535
+        int max_48 = 65535;
+        if (r+g+b > 2.2 * max_48)
+        {
+            r = max_48 - r;
+            g = max_48 - g;
+            b = max_48 - b;
+            sprintf(out_rgb, "#%.4x%.4x%.4x", r, g, b);
+            return out_rgb;
+        }
+    }
+    else
+    {
+        guint32 rgb24Int = getRgb24IntFromStrAny(scanStart);
+        guint8 r = (rgb24Int >> 16) & 0xff;
+        guint8 g = (rgb24Int >> 8) & 0xff;
+        guint8 b = rgb24Int & 0xff;
+        // r+g+b black is 0
+        // r+g+b white is 3*255
+        int max_24 = 255;
+        if (r+g+b > 2.2*max_24)
+        {
+            r = max_24 - r;
+            g = max_24 - g;
+            b = max_24 - b;
+            sprintf(out_rgb, "#%.2x%.2x%.2x", r, g, b);
+            return out_rgb;
+        }
+    }
+    return in_rgb;
+}
+
 std::string CtRgbUtil::getRgb24StrFromStrAny(const std::string& rgbStrAny)
 {
     char rgb24Str[8];
@@ -697,4 +822,31 @@ Glib::ustring str::swapcase(const Glib::ustring& text)
         ret_text += test_text;
     }
     return ret_text;
+}
+
+Glib::ustring CtFileSystem::get_proper_platform_filepath(Glib::ustring filepath)
+{
+    if (CtConst::IS_WIN_OS)
+        filepath = str::replace(filepath, CtConst::CHAR_SLASH, CtConst::CHAR_BSLASH);
+    else
+        filepath = str::replace(filepath, CtConst::CHAR_BSLASH, CtConst::CHAR_SLASH);
+    return filepath;
+}
+
+bool CtFileSystem::isdir(const Glib::ustring& path)
+{
+    // todo:
+    return false;
+}
+
+bool CtFileSystem::isfile(const Glib::ustring& path)
+{
+    // todo:
+    return false;
+}
+
+Glib::ustring CtFileSystem::join(const Glib::ustring& path1, const Glib::ustring& path2)
+{
+    const gchar* sep = CtConst::IS_WIN_OS ? CtConst::CHAR_BSLASH : CtConst::CHAR_SLASH;
+    return path1 + sep + path2;
 }

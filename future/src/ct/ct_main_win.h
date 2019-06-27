@@ -129,6 +129,8 @@ public:
     void bookmark_action_select_node(gint64 node_id);
     void set_bookmarks_menu_items();
 
+    void set_menu_items_special_chars();
+
     void show_hide_toolbar(bool visible)    { _pToolbar->property_visible() = visible; }
     void show_hide_tree_view(bool visible)  { _scrolledwindowTree.property_visible() = visible; }
     void show_hide_win_header(bool visible) { _ctWinHeader.headerBox.property_visible() = visible; }
@@ -151,6 +153,7 @@ protected:
     CtStatusBar         _ctStatusBar;
     CtWinHeader         _ctWinHeader;
     Gtk::MenuItem*      _pBookmarksSubmenu;
+    Gtk::MenuItem*      _pSpecialCharsSubmenu;
     Gtk::Menu*          _pNodePopup;
     Gtk::ScrolledWindow _scrolledwindowTree;
     Gtk::ScrolledWindow _scrolledwindowText;

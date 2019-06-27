@@ -65,6 +65,7 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     _actions.push_back(CtAction{"", "TreeSortMenu", "gtk-sort-ascending", _("Nodes _Sort"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"", "TreeImportMenu", CtConst::STR_STOCK_CT_IMP, _("Nodes _Import"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"", "TreeExportMenu", "export_from_cherrytree", _("Nodes E_xport"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtAction{"", "SpecialCharsMenu", "insert", _("Insert _Special Character"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"", "ChangeCaseMenu", "case_toggle", _("C_hange Case"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"", "SearchMenu", None, _("_Search"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"", "ViewMenu", None, _("_View"), None, None, sigc::signal<void>()});
@@ -261,10 +262,20 @@ GtkAccelGroup* CtMenu::default_accel_group()
 Gtk::MenuItem* CtMenu::find_menu_item(Gtk::MenuBar* menuBar, std::string name)
 {
     for (Gtk::Widget* child: menuBar->get_children())
-        if (auto menuItem = dynamic_cast<Gtk::MenuItem*>(child)){
+        if (auto menuItem = dynamic_cast<Gtk::MenuItem*>(child))
             if (menuItem->get_name() == name)
                 return menuItem;
-        }
+
+    // check first level menu items, these menu items have complicated structure
+    for (Gtk::Widget* child: menuBar->get_children())
+        if (auto menuItem = dynamic_cast<Gtk::MenuItem*>(child))
+            if (Gtk::Menu* subMenu = menuItem->get_submenu())
+                for (Gtk::Widget* subChild: subMenu->get_children())
+                    if (auto subItem = dynamic_cast<Gtk::MenuItem*>(subChild))
+                        if (Gtk::Widget* subItemChild = subItem->get_child())
+                            if (subItemChild->get_name() == name)
+                                return subItem; // it's right, not a subItemChild
+
     return nullptr;
 }
 
@@ -380,6 +391,18 @@ Gtk::Menu* CtMenu::build_bookmarks_menu(std::list<std::tuple<gint64, std::string
     return pMenu;
 }
 
+Gtk::Menu* CtMenu::build_special_chars_menu(const Glib::ustring& specialChars, sigc::slot<void, gunichar>& spec_char_action)
+{
+    Gtk::Menu* pMenu = Gtk::manage(new Gtk::Menu());
+    for (gunichar ch: specialChars)
+    {
+        Glib::ustring name = Glib::ustring(1, ch);
+        Gtk::MenuItem* menuItem = add_menu_item(GTK_WIDGET(pMenu->gobj()), name.c_str(), nullptr, nullptr, name.c_str(), nullptr);
+        menuItem->signal_activate().connect(sigc::bind(spec_char_action, ch));
+    }
+    return pMenu;
+}
+
 GtkWidget* CtMenu::walk_menu_xml(GtkWidget* pMenu, const char* document, const char* xpath)
 {
     xmlpp::DomParser parser;
@@ -442,6 +465,7 @@ GtkWidget* CtMenu::add_submenu(GtkWidget* pMenu, const char* id, const char* nam
     gtk_misc_set_alignment(GTK_MISC(pLabel), 0.0, 0.5);
 #endif
     add_menu_item_image_or_label(pMenuItem, image, pLabel);
+    pMenuItem->get_child()->set_name(id); // for find_menu_item()
 
     GtkWidget* pSubmenu = gtk_menu_new();
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(pMenuItem->gobj()), GTK_WIDGET(pSubmenu));
@@ -451,9 +475,10 @@ GtkWidget* CtMenu::add_submenu(GtkWidget* pMenu, const char* id, const char* nam
 
 Gtk::MenuItem* CtMenu::add_menu_item(GtkWidget* pMenu, CtAction* pAction)
 {
-    return add_menu_item(pMenu, pAction->name.c_str(), pAction->image.c_str(), pAction->get_shortcut().c_str(),
-                  pAction->desc.c_str(), (gpointer)pAction, &pAction->signal_set_sensitive, &pAction->signal_set_visible);
-
+    Gtk::MenuItem* pMenuItem = add_menu_item(pMenu, pAction->name.c_str(), pAction->image.c_str(), pAction->get_shortcut().c_str(),
+                                             pAction->desc.c_str(), (gpointer)pAction, &pAction->signal_set_sensitive, &pAction->signal_set_visible);
+    pMenuItem->get_child()->set_name(pAction->id); // for find_menu_item();
+    return pMenuItem;
 }
 
 // based on inkscape/src/ui/interface.cpp
@@ -608,6 +633,8 @@ const char* CtMenu::get_menu_ui_str()
     <menuitem action='handle_anchor'/>
     <menuitem action='insert_toc'/>
     <menuitem action='insert_timestamp'/>
+    <menu action='SpecialCharsMenu'>
+    </menu>
     <menuitem action='insert_horiz_rule'/>
     <menuitem action='strip_trail_spaces'/>
     <separator/>

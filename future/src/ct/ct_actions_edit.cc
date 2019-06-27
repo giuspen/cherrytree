@@ -22,6 +22,16 @@
 #include "ct_actions.h"
 #include <gtkmm/dialog.h>
 #include "ct_clipboard.h"
+#include "ct_list.h"
+
+// A Special character insert was Requested
+void CtActions::insert_spec_char_action(gunichar ch)
+{
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    if (!proof.text_buffer) return;
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    proof.text_buffer->insert_at_cursor(Glib::ustring(1, ch));
+}
 
 void CtActions::requested_step_back()
 {
@@ -127,34 +137,67 @@ void CtActions::toggle_ena_dis_spellcheck()
     // todo:
 }
 
+// Copy as Plain Text
 void CtActions::cut_as_plain_text()
 {
-    // todo:
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    CtClipboard::force_plain_text();
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "cut-clipboard");
 }
 
+// Copy as Plain Text
 void CtActions::copy_as_plain_text()
 {
-    // todo:
+    CtClipboard::force_plain_text();
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "copy-clipboard");
 }
 
+// Paste as Plain Text
 void CtActions::paste_as_plain_text()
 {
-    // todo:
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    CtClipboard::force_plain_text();
+    g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "paste-clipboard");
 }
 
+// Cut a Whole Row
 void CtActions::text_row_cut()
 {
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    if (!proof.text_buffer) return;
+    if (!_is_curr_node_not_read_only_or_error()) return;
 
+    CtTextRange range = CtList(proof.text_buffer).get_paragraph_iters();
+    if (!range.iter_end.forward_char() && !range.iter_start.backward_char()) return;
+    proof.text_buffer->select_range(range.iter_start, range.iter_end);
+    g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "cut-clipboard");
 }
 
+// Copy a Whole Row
 void CtActions::text_row_copy()
 {
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    if (!proof.text_buffer) return;
 
+    CtTextRange range = CtList(proof.text_buffer).get_paragraph_iters();
+    if (!range.iter_end.forward_char() && !range.iter_start.backward_char()) return;
+    proof.text_buffer->select_range(range.iter_start, range.iter_end);
+    g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "copy-clipboard");
 }
 
+// Deletes the Whole Row
 void CtActions::text_row_delete()
 {
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    if (!proof.text_buffer) return;
+    if (!_is_curr_node_not_read_only_or_error()) return;
 
+    CtTextRange range = CtList(proof.text_buffer).get_paragraph_iters();
+    if (!range.iter_end.forward_char() && !range.iter_start.backward_char()) return;
+    proof.text_buffer->erase(range.iter_start, range.iter_end);
+    // todo: self.state_machine.update_state()
 }
 
 void CtActions::text_row_selection_duplicate()
@@ -172,9 +215,56 @@ void CtActions::text_row_down()
 
 }
 
+// Remove trailing spaces/tabs
 void CtActions::strip_trailing_spaces()
 {
+    Glib::RefPtr<Gtk::TextBuffer> text_buffer = curr_buffer();
+    int cleaned_lines = 0;
+    bool removed_something = true;
+    while (removed_something)
+    {
+        removed_something = false;
+        Gtk::TextIter curr_iter = text_buffer->begin();
+        int curr_state = 0;
+        int start_offset = 0;
+        while (curr_iter)
+        {
+            gunichar curr_char = curr_iter.get_char();
+            if (curr_state == 0)
+            {
+                if (curr_char == CtConst::CHAR_SPACE[0] || curr_char ==  CtConst::CHAR_TAB[0])
+                {
+                    start_offset = curr_iter.get_offset();
+                    curr_state = 1;
+                }
+            }
+            else if (curr_state == 1)
+            {
+                if (curr_char == CtConst::CHAR_NEWLINE[0])
+                {
+                    text_buffer->erase(text_buffer->get_iter_at_offset(start_offset), curr_iter);
+                    removed_something = true;
+                    cleaned_lines += 1;
+                    break;
+                }
+                else if (curr_char != CtConst::CHAR_SPACE[0] && curr_char !=  CtConst::CHAR_TAB[0])
+                {
+                    curr_state = 0;
+                }
+            }
+            if (!curr_iter.forward_char())
+            {
+                if (curr_state == 1)
+                {
+                    text_buffer->erase(text_buffer->get_iter_at_offset(start_offset), curr_iter);
+                    cleaned_lines += 1;
+                }
+                break;
+            }
+        }
+    }
 
+    ct_dialogs::info_dialog(std::to_string(cleaned_lines) + " " + _("Lines Stripped"), *_pCtMainWin);
 }
 
 // Insert/Edit Image Dialog
@@ -196,13 +286,13 @@ void CtActions::_image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> pixbuf, Gtk::TextIt
 // Get the Alignment Value of the given Iter
 Glib::ustring CtActions::_get_iter_alignment(Gtk::TextIter text_iter)
 {
-    auto align_center = _apply_tag_exist_or_create(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_CENTER);
+    auto align_center = apply_tag_exist_or_create(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_CENTER);
     if (text_iter.has_tag(CtApp::R_textTagTable->lookup(align_center)))
         return CtConst::TAG_PROP_VAL_CENTER;
-    auto align_fill = _apply_tag_exist_or_create(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_FILL);
+    auto align_fill = apply_tag_exist_or_create(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_FILL);
     if (text_iter.has_tag(CtApp::R_textTagTable->lookup(align_fill)))
         return CtConst::TAG_PROP_VAL_FILL;
-    auto align_right = _apply_tag_exist_or_create(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_RIGHT);
+    auto align_right = apply_tag_exist_or_create(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_RIGHT);
     if (text_iter.has_tag(CtApp::R_textTagTable->lookup(align_right)))
         return CtConst::TAG_PROP_VAL_RIGHT;
     return CtConst::TAG_PROP_VAL_LEFT;

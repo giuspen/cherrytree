@@ -48,6 +48,8 @@ public:
     virtual void applyWidthHeight(const int parentTextWidth) {}
     virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment);
 
+    const CtTableMatrix& getTableMatrix() { return _tableMatrix; }
+
 protected:
     CtTableMatrix _tableMatrix;
     int _colMin;

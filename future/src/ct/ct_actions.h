@@ -39,14 +39,18 @@ private:
     CtMainWin*   _pCtMainWin;
     CtTreeStore* _pCtTreestore;
 
+public:
+    CtMainWin*   getCtMainWin() { return _pCtMainWin; }
+
 private:
     Glib::RefPtr<Gtk::TextBuffer> curr_buffer();
+    bool          _node_sel_and_rich_text();
 
+public: // todo: fix naming
     bool          _is_there_selected_node_or_error();
     bool          _is_tree_not_empty_or_error();
     bool          _is_curr_node_not_read_only_or_error();
     bool          _is_curr_node_not_syntax_highlighting_or_error(bool plain_text_ok = false);
-    bool          _node_sel_and_rich_text();
 
 private:
     // helpers for tree actions
@@ -137,8 +141,10 @@ private:
                     std::optional<Gtk::TextIter> iter_sel_start = std::nullopt,
                     std::optional<Gtk::TextIter> iter_sel_end = std::nullopt,
                     Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>());
-    Glib::ustring _apply_tag_exist_or_create(const Glib::ustring& tag_property, Glib::ustring property_value);
+public:
+    Glib::ustring apply_tag_exist_or_create(const Glib::ustring& tag_property, Glib::ustring property_value);
 
+private:
     struct text_view_n_buffer_codebox_proof {
         Gtk::TextView*                  text_view;
         Glib::RefPtr<Gtk::TextBuffer>   text_buffer;
@@ -187,6 +193,7 @@ private:
 
 public:
     // edit actions
+    void insert_spec_char_action(gunichar ch);
     void requested_step_back();
     void requested_step_ahead();
     void image_handle();

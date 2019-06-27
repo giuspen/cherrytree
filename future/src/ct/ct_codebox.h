@@ -60,6 +60,7 @@ public:
     virtual ~CtTextCell();
 
     Glib::ustring getTextContent() const;
+    Glib::RefPtr<Gsv::Buffer> getBuffer() { return _rTextBuffer; }
 
 protected:
     Glib::ustring _syntaxHighlighting;
