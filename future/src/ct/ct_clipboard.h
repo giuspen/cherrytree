@@ -46,10 +46,11 @@ public:
     static void on_paste_clipboard(GtkTextView* pTextView, gpointer codebox);
 
     static void force_plain_text() { _static_force_plain_text = true; }
-public:
-    void cut_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox);
-    void copy_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox);
-    void paste_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox);
+
+private:
+    void _cut_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox);
+    void _copy_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox);
+    void _paste_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox);
 
 public:
     Glib::ustring rich_text_get_from_text_buffer_selection(CtTreeIter node_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer,
@@ -67,8 +68,8 @@ private:
 
 private:
     void _set_clipboard_data(const std::vector<std::string>& targets_list, CtClipboardData* clip_data);
-    void _clip_data_get_signal(Gtk::SelectionData& selection_data, guint info, CtClipboardData* clip_data);
-    void _clip_data_clear_signal(CtClipboardData* clip_data);
+    void _on_clip_data_getl(Gtk::SelectionData& selection_data, guint info, CtClipboardData* clip_data);
+    void _on_clip_data_clear(CtClipboardData* clip_data);
 
 private:
     static bool _static_force_plain_text;

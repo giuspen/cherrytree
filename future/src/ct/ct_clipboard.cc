@@ -28,7 +28,7 @@
 #include "ct_export2txt.h"
 #include "src/fmt/ostream.h"
 
-// keep defines out of class scope, so _clip_data_get_signal can use them
+// keep defines out of class scope, so _on_clip_data_getl can use them
 const Glib::ustring TARGET_CTD_PLAIN_TEXT = "UTF8_STRING";
 const Glib::ustring TARGET_CTD_RICH_TEXT = "CTD_RICH";
 const Glib::ustring TARGET_CTD_TABLE = "CTD_TABLE";
@@ -48,12 +48,12 @@ CtClipboard::CtClipboard()
 
 /*static*/ void CtClipboard::on_cut_clipboard(GtkTextView* pTextView,  gpointer codebox)
 {
-    CtClipboard().cut_clipboard(Glib::wrap(pTextView), static_cast<CtCodebox*>(codebox));
+    CtClipboard()._cut_clipboard(Glib::wrap(pTextView), static_cast<CtCodebox*>(codebox));
 }
 
 /*static*/ void CtClipboard::on_copy_clipboard(GtkTextView* pTextView, gpointer codebox)
 {
-
+    CtClipboard()._copy_clipboard(Glib::wrap(pTextView), static_cast<CtCodebox*>(codebox));
 }
 
 /*static*/ void CtClipboard::on_paste_clipboard(GtkTextView* pTextView, gpointer codebox)
@@ -62,8 +62,9 @@ CtClipboard::CtClipboard()
 }
 
 // Cut to Clipboard"
-void CtClipboard::cut_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox)
+void CtClipboard::_cut_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox)
 {
+    auto on_scope_exit = scope_guard([&](void*) { CtClipboard::_static_force_plain_text = false; });
     auto text_buffer = pTextView->get_buffer();
     if (text_buffer->get_has_selection())
     {
@@ -85,15 +86,32 @@ void CtClipboard::cut_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox)
             }
         }
     }
-    CtClipboard::_static_force_plain_text = false;
+
 }
 
-void copy_clipboard(Gtk::TextView* pTextView)
+// Copy to Clipboard
+void CtClipboard::_copy_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox)
 {
-    // todo:
+    auto on_scope_exit = scope_guard([&](void*) { CtClipboard::_static_force_plain_text = false; });
+    auto text_buffer = pTextView->get_buffer();
+    if (text_buffer->get_has_selection())
+    {
+        Gtk::TextIter iter_sel_start, iter_sel_end;
+        text_buffer->get_selection_bounds(iter_sel_start, iter_sel_end);
+        int num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset();
+        if ((pCodebox || CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_node_syntax_highlighting() != CtConst::RICH_TEXT_ID) && num_chars > 30000)
+        {
+            std::cout << "copy-clipboard is not overridden for num_chars " << num_chars << std::endl;
+        }
+        else
+        {
+            g_signal_stop_emission_by_name(G_OBJECT(pTextView->gobj()), "copy-clipboard");
+            _selection_to_clipboard(text_buffer, pTextView, iter_sel_start, iter_sel_end, num_chars, pCodebox);
+        }
+    }
 }
 
-void paste_clipboard(Gtk::TextView* pTextView)
+void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox)
 {
     // todo:
 }
@@ -239,13 +257,13 @@ void CtClipboard::_set_clipboard_data(const std::vector<std::string>& targets_li
     std::vector<Gtk::TargetEntry> target_entries;
     for (auto& target: targets_list)
         target_entries.push_back(Gtk::TargetEntry(target));
-    sigc::slot<void, Gtk::SelectionData&, guint, CtClipboardData*> clip_data_get = sigc::mem_fun(*this, &CtClipboard::_clip_data_get_signal);
-    sigc::slot<void, CtClipboardData*> clip_data_clear = sigc::mem_fun(*this, &CtClipboard::_clip_data_clear_signal);
+    sigc::slot<void, Gtk::SelectionData&, guint, CtClipboardData*> clip_data_get = sigc::mem_fun(*this, &CtClipboard::_on_clip_data_getl);
+    sigc::slot<void, CtClipboardData*> clip_data_clear = sigc::mem_fun(*this, &CtClipboard::_on_clip_data_clear);
     Gtk::Clipboard::get()->set(target_entries, sigc::bind(clip_data_get, clip_data), sigc::bind(clip_data_clear, clip_data));
 }
 
 // based on def get_func(self, clipboard, selectiondata, info, data)
-void  CtClipboard::_clip_data_get_signal(Gtk::SelectionData& selection_data, guint info, CtClipboardData* clip_data)
+void  CtClipboard::_on_clip_data_getl(Gtk::SelectionData& selection_data, guint info, CtClipboardData* clip_data)
 {
     Glib::ustring target = selection_data.get_target();
     if (target == TARGET_CTD_PLAIN_TEXT)
@@ -285,7 +303,7 @@ void  CtClipboard::_clip_data_get_signal(Gtk::SelectionData& selection_data, gui
         selection_data.set_pixbuf(clip_data->pix_buf);
 }
 
-void CtClipboard::_clip_data_clear_signal(CtClipboardData* clip_data)
+void CtClipboard::_on_clip_data_clear(CtClipboardData* clip_data)
 {
     delete clip_data;
 }

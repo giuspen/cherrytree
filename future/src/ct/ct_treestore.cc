@@ -330,7 +330,7 @@ void CtTreeStore::getNodeData(Gtk::TreeIter treeIter, CtNodeData& nodeData)
 
     nodeData.name =  row[_columns.colNodeName];
     nodeData.rTextBuffer = row[_columns.rColTextBuffer];
-    nodeData.nodeId = nodeData.nodeId = row[_columns.colNodeUniqueId];
+    nodeData.nodeId = row[_columns.colNodeUniqueId];
     nodeData.syntax = row[_columns.colSyntaxHighlighting];
     //row[_columns.colNodeSequence] = ;
     nodeData.tags = row[_columns.colNodeTags];

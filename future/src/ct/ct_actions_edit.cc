@@ -146,9 +146,12 @@ void CtActions::cut_as_plain_text()
     g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "cut-clipboard");
 }
 
+// Copy as Plain Text
 void CtActions::copy_as_plain_text()
 {
-    // todo:
+    CtClipboard::force_plain_text();
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "copy-clipboard");
 }
 
 void CtActions::paste_as_plain_text()
@@ -166,12 +169,19 @@ void CtActions::text_row_cut()
     CtTextRange range = CtList(proof.text_buffer).get_paragraph_iters();
     if (!range.iter_end.forward_char() && !range.iter_start.backward_char()) return;
     proof.text_buffer->select_range(range.iter_start, range.iter_end);
-    g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
+    g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "cut-clipboard");
 }
 
+// Copy a Whole Row
 void CtActions::text_row_copy()
 {
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    if (!proof.text_buffer) return;
 
+    CtTextRange range = CtList(proof.text_buffer).get_paragraph_iters();
+    if (!range.iter_end.forward_char() && !range.iter_start.backward_char()) return;
+    proof.text_buffer->select_range(range.iter_start, range.iter_end);
+    g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "copy-clipboard");
 }
 
 // Deletes the Whole Row
