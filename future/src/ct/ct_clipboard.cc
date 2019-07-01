@@ -412,9 +412,17 @@ void CtClipboard::_on_received_to_plain_text(const Gtk::SelectionData& selection
     pTextView->scroll_to(curr_buffer->get_insert());
 }
 
+// From Clipboard to Rich Text
 void CtClipboard::_on_received_to_rich_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
-
+    Glib::ustring rich_text = selection_data.get_text();
+    if (rich_text.empty())
+    {
+        std::cout << "? no clipboard rich text" << std::endl;
+        return;
+    }
+    from_xml_string_to_buffer(pTextView->get_buffer(), rich_text);
+    pTextView->scroll_to(pTextView->get_buffer()->get_insert());
 }
 
 void CtClipboard::_on_received_to_codebox(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
