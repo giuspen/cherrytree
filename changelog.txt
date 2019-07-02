@@ -1,4 +1,11 @@
 
+0.38.9 (July ???, 2019)
+  * Auto replacement of symbols as you type is now configurable in preferences dialog, tab Text (work of trololo88)
+  * Ctrl+Space to toggle To-Do List Item State; fixed multilevel bug
+  * Paste/import from html - added basic support for <dt><dd>
+  * In codeboxes use code font for both plain text and syntax hilighting (work of akwala)
+  * Export to html, stylesheet revamp (work of gonzalezjo)
+
 0.38.8 (February 21st, 2019)
   * Improved implementation of deletion of recent documents entry (#382)
   * Ctrl+Space to toggle To-Do List Item State (#438)

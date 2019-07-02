@@ -198,7 +198,7 @@ class ClipboardHandler:
             self.clipboard.set_with_data([(t, 0, 0) for t in targets_vector],
                                          self.get_func,
                                          self.clear_func,
-                                         (plain_text, None, html_text, pixbuf_target))
+                                         (plain_text, None, html_text, None))
 
     def get_func(self, clipboard, selectiondata, info, data):
         """Connected with clipboard.set_with_data"""

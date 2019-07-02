@@ -15,6 +15,8 @@ The current (python) version requires:
 
 Then, after cloning, run in the top folder `./cherrytree` or `python2 cherrytree`.
 
+NOTE: The dictionaries for the spellcheck have packages names like hunspell-it, hunspell-fr, ...
+
 ### Installation
 Look at [giuspen.com/cherrytree/#downl](https://www.giuspen.com/cherrytree/#downl) for available installers.
 
