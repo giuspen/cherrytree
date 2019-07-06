@@ -12,8 +12,8 @@
 # https://cpputest.github.io/
 
 
-
-sudo apt install build-essential libtool autoconf libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev libcpputest-dev
+# packages for building
+sudo apt install build-essential libtool autoconf libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev libcpputest-dev autopoint gettext intltool python3-lxml libxml2-utils
 
 
 ./autogen.sh
@@ -26,7 +26,7 @@ make check
 ./run_tests
 
 
-
+# packages for documentation
 sudo apt install libgtkmm-3.0-doc libgtksourceviewmm-3.0-doc libglibmm-2.4-doc libpangomm-1.4-doc libxml++2.6-doc
 
 # =>
