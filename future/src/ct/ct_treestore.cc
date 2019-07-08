@@ -492,6 +492,27 @@ void CtTreeStore::applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtT
     pTextView->grab_focus();
 }
 
+void CtTreeStore::addAnchoredWidgets(Gtk::TreeIter treeIter, std::list<CtAnchoredWidget*> anchoredWidgetList, Gtk::TextView* pTextView)
+{
+    auto widgets = treeIter->get_value(_columns.colAnchoredWidgets);
+    for (auto new_widget: anchoredWidgetList)
+        widgets.push_back(new_widget);
+    treeIter->set_value(_columns.colAnchoredWidgets, widgets);
+
+    for (CtAnchoredWidget* pCtAnchoredWidget : anchoredWidgetList)
+    {
+        Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
+        if (rChildAnchor)
+        {
+            if (0 == rChildAnchor->get_widgets().size())
+            {
+                pTextView->add_child_at_anchor(*pCtAnchoredWidget, rChildAnchor);
+                pCtAnchoredWidget->applyWidthHeight(pTextView->get_allocation().get_width());
+            }
+        }
+    }
+}
+
 gint64 CtTreeStore::node_id_get()
 {
     // todo: this function works differently from python code

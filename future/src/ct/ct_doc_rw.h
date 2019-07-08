@@ -59,7 +59,7 @@ private:
 public:
     static void getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk::TextIter* insertIter,
                                   std::list<CtAnchoredWidget*>& anchoredWidgets,
-                                  xmlpp::Node *pNodeParent);
+                                  xmlpp::Node *pNodeParent, int forceCharOffset = -1);
     static bool populateTableMatrixGetIsHeadFront(CtTableMatrix& tableMatrix, xmlpp::Element* pNodeElement);
 };
 
