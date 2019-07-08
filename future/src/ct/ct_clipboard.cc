@@ -511,10 +511,9 @@ void CtClipboard::_on_received_to_html(const Gtk::SelectionData& selection_data,
 // From Clipboard to Image
 void CtClipboard::_on_received_to_image(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
-    auto pixbuf = selection_data.get_pixbuf();
-    // todo:
-    //pixbuf.link = ""
-    //self.dad.image_insert(self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert()), pixbuf)
+    Glib::RefPtr<const Gdk::Pixbuf> pixbuf = selection_data.get_pixbuf();
+    Glib::ustring link = "";
+    CtApp::P_ctActions->image_insert(pTextView->get_buffer()->get_insert()->get_iter(), pixbuf->copy(), link);
     pTextView->scroll_to(pTextView->get_buffer()->get_insert());
 }
 

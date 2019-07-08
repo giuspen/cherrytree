@@ -37,6 +37,9 @@ public:
             const int size,
             const int charOffset,
             const std::string& justification);
+    CtImage(Glib::RefPtr<Gdk::Pixbuf> pixBuf,
+            const int charOffset,
+            const std::string& justification);
     virtual ~CtImage() {}
 
     virtual void applyWidthHeight(const int parentTextWidth) {}
@@ -57,6 +60,10 @@ class CtImagePng : public CtImage
 {
 public:
     CtImagePng(const std::string& rawBlob,
+               const Glib::ustring& link,
+               const int charOffset,
+               const std::string& justification);
+    CtImagePng(Glib::RefPtr<Gdk::Pixbuf> pixBuf,
                const Glib::ustring& link,
                const int charOffset,
                const std::string& justification);

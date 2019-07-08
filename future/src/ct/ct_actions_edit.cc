@@ -23,6 +23,7 @@
 #include <gtkmm/dialog.h>
 #include "ct_clipboard.h"
 #include "ct_list.h"
+#include "ct_image.h"
 
 // A Special character insert was Requested
 void CtActions::insert_spec_char_action(gunichar ch)
@@ -272,7 +273,7 @@ void CtActions::_image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> pixbuf, Gtk::TextIt
 {
     Glib::RefPtr<Gdk::Pixbuf> ret_pixbuf = ct_dialogs::image_handle_dialog(*_pCtMainWin, _("Image Properties"), pixbuf);
     if (!ret_pixbuf) return;
-    // todo: what is that? ret_pixbuf.link = "";
+    Glib::ustring link = "";
     Glib::ustring image_justification;
     if (iter_bound) { // only in case of modify
         image_justification = _get_iter_alignment(insert_iter);
@@ -280,7 +281,7 @@ void CtActions::_image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> pixbuf, Gtk::TextIt
         curr_buffer()->erase(insert_iter, *iter_bound);
         insert_iter = curr_buffer()->get_iter_at_offset(image_offset);
     }
-    _image_insert(insert_iter, ret_pixbuf, image_justification);
+    image_insert(insert_iter, ret_pixbuf, link, image_justification);
 }
 
 // Get the Alignment Value of the given Iter
@@ -298,50 +299,20 @@ Glib::ustring CtActions::_get_iter_alignment(Gtk::TextIter text_iter)
     return CtConst::TAG_PROP_VAL_LEFT;
 }
 
-void CtActions::_image_insert(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> pixbuf,
+void CtActions::image_insert(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> pixbuf, Glib::ustring link,
                               Glib::ustring image_justification /*=""*/, Glib::RefPtr<Gtk::TextBuffer> text_buffer /*= Glib:RefPtr<Gtk::TextBuffer>()*/)
 {
     if (!pixbuf) return;
     if (!text_buffer) text_buffer = curr_buffer();
-    int image_offset = iter_insert.get_offset();
-    /* todo:
-    auto anchor = text_buffer->create_child_anchor(iter_insert);
-    anchor.pixbuf = pixbuf
-    anchor.eventbox = gtk.EventBox()
-    anchor.eventbox.set_visible_window(False)
-    anchor.frame = gtk.Frame()
-    anchor.frame.set_shadow_type(gtk.SHADOW_NONE)
-    pixbuf_attrs = dir(pixbuf)
-    if not hasattr(anchor.pixbuf, "link"): anchor.pixbuf.link = ""
-    if "anchor" in pixbuf_attrs:
-        anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_anchor, anchor)
-        anchor.eventbox.set_tooltip_text(pixbuf.anchor)
-    elif "filename" in pixbuf_attrs:
-        anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_file, anchor)
-        self.embfile_set_tooltip(anchor)
-        if self.embfile_show_filename:
-            anchor_label = gtk.Label()
-            anchor_label.set_markup("<b><small>"+pixbuf.filename+"</small></b>")
-            anchor_label.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
-            anchor.frame.set_label_widget(anchor_label)
-    else:
-        anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_image, anchor)
-        anchor.eventbox.connect("visibility-notify-event", self.on_image_visibility_notify_event)
-        if anchor.pixbuf.link:
-            self.image_link_apply_frame_label(anchor)
-    anchor.image = gtk.Image()
-    anchor.frame.add(anchor.image)
-    anchor.eventbox.add(anchor.frame)
-    anchor.image.set_from_pixbuf(anchor.pixbuf)
-    self.sourceview.add_child_at_anchor(anchor.eventbox, anchor)
-    anchor.eventbox.show_all()
-    if image_justification:
-        text_iter = text_buffer.get_iter_at_offset(image_offset)
-        self.state_machine.apply_object_justification(text_iter, image_justification, text_buffer)
-    elif self.user_active:
-        # if I apply a justification, the state is already updated
-        self.state_machine.update_state()
-        */
+    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(text_buffer);
+
+    int charOffset = iter_insert.get_offset();
+
+    CtAnchoredWidget* pAnchoredWidget = new CtImagePng(pixbuf, link, charOffset, image_justification);
+    pAnchoredWidget->insertInTextBuffer(gsv_buffer);
+
+    getCtMainWin()->get_tree_store().addAnchoredWidgets(getCtMainWin()->curr_tree_iter(),
+        {pAnchoredWidget}, &getCtMainWin()->get_text_view());
 }
 
 // Change the Case of the Selected Text/the Underlying Word"""

@@ -51,6 +51,18 @@ CtImage::CtImage(const char* stockImage,
     show_all();
 }
 
+CtImage::CtImage(Glib::RefPtr<Gdk::Pixbuf> pixBuf,
+                 const int charOffset,
+                 const std::string& justification)
+ : CtAnchoredWidget(charOffset, justification)
+{
+    _rPixbuf = pixBuf;
+
+    _image.set(_rPixbuf);
+    _frame.add(_image);
+    show_all();
+}
+
 void CtImage::save(const Glib::ustring& file_name, const Glib::ustring& type)
 {
     _rPixbuf->save(file_name, type);
@@ -77,6 +89,16 @@ CtImagePng::CtImagePng(const std::string& rawBlob,
                        const int charOffset,
                        const std::string& justification)
  : CtImage(rawBlob, "image/png", charOffset, justification),
+   _link(link)
+{
+    updateLabelWidget();
+}
+
+CtImagePng::CtImagePng(Glib::RefPtr<Gdk::Pixbuf> pixBuf,
+                       const Glib::ustring& link,
+                       const int charOffset,
+                       const std::string& justification)
+ : CtImage(pixBuf, charOffset, justification),
    _link(link)
 {
     updateLabelWidget();
