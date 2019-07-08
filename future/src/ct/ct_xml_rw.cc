@@ -279,13 +279,23 @@ Glib::RefPtr<Gsv::Buffer> CtXmlRead::getTextBuffer(const std::string& syntax,
 }
 
 
-CtXmlWrite::CtXmlWrite(const char* filepath)
+CtXmlWrite::CtXmlWrite()
 {
     create_root_node(CtConst::APP_NAME);
 }
 
 CtXmlWrite::~CtXmlWrite()
 {
+}
+
+void CtXmlWrite::treestore_to_dom(const std::list<gint64>& bookmarks, CtTreeIter& ct_tree_iter)
+{
+    append_bookmarks(bookmarks);
+    while (ct_tree_iter)
+    {
+        append_dom_node(ct_tree_iter, nullptr/*p_node_parent*/, true/*to_disk*/, false/*skip_children*/);
+        ct_tree_iter++;
+    }
 }
 
 void CtXmlWrite::append_bookmarks(const std::list<gint64>& bookmarks)
