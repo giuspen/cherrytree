@@ -67,6 +67,8 @@ Gtk::BuiltinIconSize getIconSize(int size);
 
 namespace CtTextIterUtil {
 
+bool get_first_chars_of_string_are(const Glib::ustring& text, const std::vector<Glib::ustring>& chars_list);
+
 bool get_next_chars_from_iter_are(Gtk::TextIter text_iter, const Glib::ustring& chars_list);
 
 bool get_next_chars_from_iter_are(Gtk::TextIter text_iter, const std::vector<Glib::ustring>& chars_list_vec);

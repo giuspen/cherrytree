@@ -27,6 +27,7 @@
 #include "ct_app.h"
 #include <ctime>
 #include <regex>
+#include <filesystem>
 
 CtDocType CtMiscUtil::getDocType(std::string fileName)
 {
@@ -358,6 +359,14 @@ Gtk::BuiltinIconSize CtMiscUtil::getIconSize(int size)
     }
 }
 
+// Returns True if one set of the Given Chars are the first of in_string
+bool CtTextIterUtil::get_first_chars_of_string_are(const Glib::ustring& text, const std::vector<Glib::ustring>& chars_list)
+{
+    for (auto& chars: chars_list)
+        if (str::startswith(text, chars))
+            return true;
+    return false;
+}
 
 bool CtTextIterUtil::get_next_chars_from_iter_are(Gtk::TextIter text_iter, const Glib::ustring& chars_list)
 {
@@ -835,18 +844,17 @@ Glib::ustring CtFileSystem::get_proper_platform_filepath(Glib::ustring filepath)
 
 bool CtFileSystem::isdir(const Glib::ustring& path)
 {
-    // todo:
-    return false;
+    return std::filesystem::is_directory(std::filesystem::path(path));
 }
 
 bool CtFileSystem::isfile(const Glib::ustring& path)
 {
-    // todo:
-    return false;
+    return std::filesystem::is_regular_file(std::filesystem::path(path));
 }
 
 Glib::ustring CtFileSystem::join(const Glib::ustring& path1, const Glib::ustring& path2)
 {
+    // todo: improve the trick
     const gchar* sep = CtConst::IS_WIN_OS ? CtConst::CHAR_BSLASH : CtConst::CHAR_SLASH;
     return path1 + sep + path2;
 }

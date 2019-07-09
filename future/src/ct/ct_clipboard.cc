@@ -28,6 +28,7 @@
 #include "ct_export2txt.h"
 #include "ct_imports.h"
 #include "src/fmt/ostream.h"
+#include <gio/gio.h> // to get mime type
 
 // keep defines out of class scope, so _on_clip_data_getl can use them
 const Glib::ustring TARGET_CTD_PLAIN_TEXT = "UTF8_STRING";
@@ -517,9 +518,84 @@ void CtClipboard::_on_received_to_image(const Gtk::SelectionData& selection_data
     pTextView->scroll_to(pTextView->get_buffer()->get_insert());
 }
 
+// From Clipboard to URI list
 void CtClipboard::_on_received_to_uri_list(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
+    // todo: selection_data = re.sub(cons.BAD_CHARS, "", selectiondata.data)
+    if (CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_node_syntax_highlighting() != CtConst::RICH_TEXT_ID)
+    {
+        Gtk::TextIter iter_insert = pTextView->get_buffer()->get_insert()->get_iter();
+        pTextView->get_buffer()->insert(iter_insert, selection_data.get_text());
+    }
+    else
+    {
+        std::vector<Glib::ustring> uri_list = selection_data.get_uris();
+        for (auto& element: uri_list)
+        {
+            if (element.empty()) continue;
+            Gtk::TextIter iter_insert = pTextView->get_buffer()->get_insert()->get_iter();
 
+            Glib::ustring property_value;
+            if (CtTextIterUtil::get_first_chars_of_string_are(element, CtConst::WEB_LINK_STARTERS))
+            {
+                property_value = "webs " + element;
+            }
+            else if (str::startswith(element, "file://"))
+            {
+                Glib::ustring file_path = element.substr(7);
+                file_path = str::replace(file_path, "%20", CtConst::CHAR_SPACE.c_str());
+                gchar* mimetype = g_content_type_guess(file_path.c_str(), nullptr, 0, nullptr);
+                if (mimetype && str::startswith(mimetype, "image/") && CtFileSystem::isfile(file_path))
+                {
+                    try
+                    {
+                        auto pixbuf = Gdk::Pixbuf::create_from_file(file_path);
+                        CtApp::P_ctActions->image_insert(iter_insert, pixbuf, "");
+                        iter_insert = pTextView->get_buffer()->get_insert()->get_iter();
+                        for (int i = 0; i < 3; ++i)
+                            pTextView->get_buffer()->insert(iter_insert, CtConst::CHAR_SPACE);
+                        continue;
+                    }
+                    catch (...) {}
+                }
+                if (CtFileSystem::isdir(file_path))
+                {
+                    property_value = "fold " + Glib::Base64::encode(file_path);
+                }
+                else if (CtFileSystem::isfile(file_path))
+                {
+                    property_value = "file " + Glib::Base64::encode(file_path);
+                }
+                else
+                {
+                    property_value = "";
+                    std::cout << "ERROR: discarded file uri " << file_path << std::endl;
+                }
+            }
+            else
+            {
+                if (CtFileSystem::isdir(element))
+                    property_value = "fold " + Glib::Base64::encode(element);
+                else if (CtFileSystem::isfile(element))
+                    property_value = "file " + Glib::Base64::encode(element);
+                else
+                {
+                    property_value = "";
+                    std::cout << "ERROR: discarded ? uri " << element << std::endl;
+                }
+            }
+            int start_offset = iter_insert.get_offset();
+            pTextView->get_buffer()->insert(iter_insert, element + CtConst::CHAR_NEWLINE);
+            if (!property_value.empty())
+            {
+                Gtk::TextIter iter_sel_start = pTextView->get_buffer()->get_iter_at_offset(start_offset);
+                Gtk::TextIter iter_sel_end = pTextView->get_buffer()->get_iter_at_offset(start_offset + element.length());
+                pTextView->get_buffer()->apply_tag_by_name(CtApp::P_ctActions->apply_tag_exist_or_create(CtConst::TAG_LINK, property_value),
+                                                       iter_sel_start, iter_sel_end);
+            }
+        }
+    }
+    pTextView->scroll_to(pTextView->get_buffer()->get_insert());
 }
 
 Glib::ustring Win32HtmlFormat::encode(Glib::ustring html_in)
