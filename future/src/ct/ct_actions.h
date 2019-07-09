@@ -146,7 +146,7 @@ public:
 
 private:
     struct text_view_n_buffer_codebox_proof {
-        Gtk::TextView*                  text_view;
+        CtTextView*                     text_view;
         Glib::RefPtr<Gtk::TextBuffer>   text_buffer;
         std::string                     syntax_highl;
         bool                            from_codebox;
@@ -187,9 +187,12 @@ private:
     // helper for edit actions
     void          _image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> pixbuf, Gtk::TextIter insert_iter, Gtk::TextIter* iter_bound);
     Glib::ustring _get_iter_alignment(Gtk::TextIter text_iter);
-    void          _image_insert(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> pixbuf,
-                                Glib::ustring image_justification = "", Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>());
     void          _text_selection_change_case(gchar change_type);
+
+public:
+    void          image_insert(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> pixbuf, Glib::ustring link,
+                               Glib::ustring image_justification = "", Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>());
+
 
 public:
     // edit actions

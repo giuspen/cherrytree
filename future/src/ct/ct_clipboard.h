@@ -68,7 +68,7 @@ private:
 
 private:
     void _set_clipboard_data(const std::vector<std::string>& targets_list, CtClipboardData* clip_data);
-    void _on_clip_data_getl(Gtk::SelectionData& selection_data, guint info, CtClipboardData* clip_data);
+    void _on_clip_data_get(Gtk::SelectionData& selection_data, guint info, CtClipboardData* clip_data);
     void _on_clip_data_clear(CtClipboardData* clip_data);
 
 private:

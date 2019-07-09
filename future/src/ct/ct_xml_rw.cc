@@ -124,7 +124,7 @@ CtXmlNodeType CtXmlRead::_xmlNodeGetTypeFromName(const Glib::ustring& xmlNodeNam
 
 void CtXmlRead::getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk::TextIter* insertIter,
                                   std::list<CtAnchoredWidget*>& anchoredWidgets,
-                                  xmlpp::Node* pNodeParent)
+                                  xmlpp::Node* pNodeParent, int forceCharOffset /*=-1*/)
 {
     CtXmlNodeType xmlNodeType = _xmlNodeGetTypeFromName(pNodeParent->get_name());
     if (CtXmlNodeType::RichText == xmlNodeType)
@@ -161,7 +161,7 @@ void CtXmlRead::getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk::T
     else if (CtXmlNodeType::None != xmlNodeType)
     {
         xmlpp::Element* pNodeElement = static_cast<xmlpp::Element*>(pNodeParent);
-        const int charOffset = std::stoi(pNodeElement->get_attribute_value("char_offset"));
+        const int charOffset = forceCharOffset != -1 ? forceCharOffset : std::stoi(pNodeElement->get_attribute_value("char_offset"));
         Glib::ustring justification = pNodeElement->get_attribute_value(CtConst::TAG_JUSTIFICATION);
         if (justification.empty())
         {

@@ -23,6 +23,7 @@
 #include <gtkmm/dialog.h>
 #include "ct_clipboard.h"
 #include "ct_list.h"
+#include "ct_image.h"
 
 // A Special character insert was Requested
 void CtActions::insert_spec_char_action(gunichar ch)
@@ -200,19 +201,246 @@ void CtActions::text_row_delete()
     // todo: self.state_machine.update_state()
 }
 
+// Duplicates the Whole Row or a Selection
 void CtActions::text_row_selection_duplicate()
 {
-
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    if (!proof.text_buffer) return;
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    auto text_buffer = proof.text_buffer;
+    if (proof.text_buffer->get_has_selection())
+    {
+        Gtk::TextIter iter_start, iter_end;
+        text_buffer->get_selection_bounds(iter_start, iter_end);
+        int sel_start_offset = iter_start.get_offset();
+        int sel_end_offset = iter_end.get_offset();
+        if (proof.from_codebox || proof.syntax_highl != CtConst::RICH_TEXT_ID)
+        {
+            Glib::ustring text_to_duplicate = text_buffer->get_text(iter_start, iter_end);
+            if (text_to_duplicate.find(CtConst::CHAR_NEWLINE) != Glib::ustring::npos)
+                text_to_duplicate = CtConst::CHAR_NEWLINE + text_to_duplicate;
+            text_buffer->insert(iter_end, text_to_duplicate);
+        }
+        else
+        {
+            Glib::ustring rich_text = CtClipboard().rich_text_get_from_text_buffer_selection(_pCtMainWin->curr_tree_iter(), text_buffer, iter_start, iter_end);
+            if (rich_text.find(CtConst::CHAR_NEWLINE) != Glib::ustring::npos)
+            {
+                text_buffer->insert(iter_end, CtConst::CHAR_NEWLINE);
+                iter_end = proof.text_buffer->get_iter_at_offset(sel_end_offset+1);
+                text_buffer->move_mark(proof.text_buffer->get_insert(), iter_end);
+            }
+            CtClipboard().from_xml_string_to_buffer(text_buffer, rich_text);
+        }
+        text_buffer->select_range(text_buffer->get_iter_at_offset(sel_start_offset),
+                                 text_buffer->get_iter_at_offset(sel_end_offset));
+    }
+    else
+    {
+        int cursor_offset = text_buffer->get_iter_at_mark(text_buffer->get_insert()).get_offset();
+        CtTextRange range = CtList(proof.text_buffer).get_paragraph_iters();
+        if (range.iter_start.get_offset() == range.iter_end.get_offset())
+        {
+            Gtk::TextIter iter_start = text_buffer->get_iter_at_mark(text_buffer->get_insert());
+            text_buffer->insert(iter_start, CtConst::CHAR_NEWLINE);
+        }
+        else
+        {
+            if (proof.from_codebox || proof.syntax_highl != CtConst::RICH_TEXT_ID)
+            {
+                Glib::ustring text_to_duplicate = text_buffer->get_text(range.iter_start, range.iter_end);
+                text_buffer->insert(range.iter_end, CtConst::CHAR_NEWLINE + text_to_duplicate);
+            }
+            else
+            {
+                Glib::ustring rich_text = CtClipboard().rich_text_get_from_text_buffer_selection(_pCtMainWin->curr_tree_iter(), text_buffer, range.iter_start, range.iter_end);
+                int sel_end_offset = range.iter_end.get_offset();
+                text_buffer->insert(range.iter_end, CtConst::CHAR_NEWLINE);
+                range.iter_end = text_buffer->get_iter_at_offset(sel_end_offset+1);
+                text_buffer->move_mark(text_buffer->get_insert(), range.iter_end);
+                CtClipboard().from_xml_string_to_buffer(proof.text_buffer, rich_text);
+                text_buffer->place_cursor(text_buffer->get_iter_at_offset(cursor_offset));
+            }
+        }
+    }
+    // todo: self.state_machine.update_state()
 }
 
+// Moves Up the Current Row/Selected Rows
 void CtActions::text_row_up()
 {
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    if (!proof.text_buffer) return;
+    if (!_is_curr_node_not_read_only_or_error()) return;
 
+    auto text_buffer = proof.text_buffer;
+    CtTextRange range = CtList(text_buffer).get_paragraph_iters();
+    int last_line_situation = false;
+    range.iter_end.forward_char();
+    bool missing_leading_newline = false;
+    Gtk::TextIter destination_iter = range.iter_start;
+
+    if (!destination_iter.backward_char()) return;
+    if (!destination_iter.backward_char())
+        missing_leading_newline = true;
+    else
+    {
+        while (destination_iter.get_char() != CtConst::CHAR_NEWLINE[0])
+            if (!destination_iter.backward_char())
+            {
+                missing_leading_newline = true;
+                break;
+            }
+    }
+    if (!missing_leading_newline) destination_iter.forward_char();
+    int destination_offset = destination_iter.get_offset();
+    int start_offset = range.iter_start.get_offset();
+    int end_offset = range.iter_end.get_offset();
+    //#print "iter_start %s %s '%s'" % (start_offset, ord(iter_start.get_char()), iter_start.get_char())
+    //#print "iter_end %s %s '%s'" % (end_offset, ord(iter_end.get_char()), iter_end.get_char())
+    //#print "destination_iter %s %s '%s'" % (destination_offset, ord(destination_iter.get_char()), destination_iter.get_char())
+    Glib::ustring text_to_move = text_buffer->get_text(range.iter_start, range.iter_end);
+    int diff_offsets = end_offset - start_offset;
+    if (proof.from_codebox || proof.syntax_highl != CtConst::RICH_TEXT_ID)
+    {
+        text_buffer->erase(range.iter_start, range.iter_end);
+        destination_iter = text_buffer->get_iter_at_offset(destination_offset);
+        if (text_to_move.empty() || text_to_move[text_to_move.length()-1] != CtConst::CHAR_NEWLINE[0])
+        {
+            diff_offsets += 1;
+            text_to_move += CtConst::CHAR_NEWLINE;
+        }
+        text_buffer->move_mark(text_buffer->get_insert(), destination_iter);
+        text_buffer->insert(destination_iter, text_to_move);
+        proof.text_view->set_selection_at_offset_n_delta(destination_offset, diff_offsets-1);
+    }
+    else
+    {
+        Glib::ustring rich_text = CtClipboard().rich_text_get_from_text_buffer_selection(_pCtMainWin->curr_tree_iter(),
+                                                                                         text_buffer, range.iter_start, range.iter_end, 'n', true /*exclude_iter_sel_end*/);
+        text_buffer->erase(range.iter_start, range.iter_end);
+        destination_iter = text_buffer->get_iter_at_offset(destination_offset);
+        if (destination_offset > 0)
+        {
+            // clear the newline from any tag
+            Gtk::TextIter clr_start_iter = text_buffer->get_iter_at_offset(destination_offset-1);
+            text_buffer->remove_all_tags(clr_start_iter, destination_iter);
+        }
+        bool append_newline = false;
+        if (text_to_move.empty() || text_to_move[text_to_move.length()-1] != CtConst::CHAR_NEWLINE[0])
+        {
+            diff_offsets += 1;
+            append_newline = true;
+        }
+        text_buffer->move_mark(text_buffer->get_insert(), destination_iter);
+        // trick of space to prevent subsequent text to take pasted text tag(s)
+        text_buffer->insert_at_cursor(CtConst::CHAR_SPACE);
+        destination_iter = text_buffer->get_iter_at_offset(destination_offset);
+        text_buffer->move_mark(text_buffer->get_insert(), destination_iter);
+        // write moved line
+        CtClipboard().from_xml_string_to_buffer(text_buffer, rich_text);
+        if (append_newline)
+            text_buffer->insert_at_cursor(CtConst::CHAR_NEWLINE);
+        // clear space trick
+        Gtk::TextIter cursor_iter = text_buffer->get_iter_at_mark(text_buffer->get_insert());
+        text_buffer->erase(cursor_iter, text_buffer->get_iter_at_offset(cursor_iter.get_offset()+1));
+        // selection
+        proof.text_view->set_selection_at_offset_n_delta(destination_offset, diff_offsets-1);
+    }
+    // todo: self.state_machine.update_state()
 }
 
+// Moves Down the Current Row/Selected Rows
 void CtActions::text_row_down()
 {
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    if (!proof.text_buffer) return;
+    if (!_is_curr_node_not_read_only_or_error()) return;
 
+    auto text_buffer = proof.text_buffer;
+    CtTextRange range = CtList(text_buffer).get_paragraph_iters();
+    if (!range.iter_end.forward_char()) return;
+    int missing_leading_newline = false;
+    Gtk::TextIter destination_iter = range.iter_end;
+    while (destination_iter.get_char() != CtConst::CHAR_NEWLINE[0])
+        if (!destination_iter.forward_char())
+        {
+            missing_leading_newline = true;
+            break;
+        }
+    destination_iter.forward_char();
+    int destination_offset = destination_iter.get_offset();
+    int start_offset = range.iter_start.get_offset();
+    int end_offset = range.iter_end.get_offset();
+    //#print "iter_start %s %s '%s'" % (start_offset, ord(iter_start.get_char()), iter_start.get_char())
+    //#print "iter_end %s %s '%s'" % (end_offset, ord(iter_end.get_char()), iter_end.get_char())
+    //#print "destination_iter %s %s '%s'" % (destination_offset, ord(destination_iter.get_char()), destination_iter.get_char())
+    Glib::ustring text_to_move = text_buffer->get_text(range.iter_start, range.iter_end);
+    int diff_offsets = end_offset - start_offset;
+    if (proof.from_codebox || proof.syntax_highl != CtConst::RICH_TEXT_ID)
+    {
+        text_buffer->erase(range.iter_start, range.iter_end);
+        destination_offset -= diff_offsets;
+        destination_iter = text_buffer->get_iter_at_offset(destination_offset);
+        if (text_to_move.empty() || text_to_move[text_to_move.length() - 1] != CtConst::CHAR_NEWLINE[0])
+        {
+            diff_offsets += 1;
+            text_to_move += CtConst::CHAR_NEWLINE;
+        }
+        if (missing_leading_newline)
+        {
+            diff_offsets += 1;
+            text_to_move = CtConst::CHAR_NEWLINE + text_to_move;
+        }
+        text_buffer->insert(destination_iter, text_to_move);
+        if (!missing_leading_newline)
+            proof.text_view->set_selection_at_offset_n_delta(destination_offset, diff_offsets-1);
+        else
+            proof.text_view->set_selection_at_offset_n_delta(destination_offset+1, diff_offsets-2);
+    }
+    else
+    {
+        Glib::ustring rich_text = CtClipboard().rich_text_get_from_text_buffer_selection(_pCtMainWin->curr_tree_iter(), text_buffer,
+                                                                                         range.iter_start, range.iter_end, 'n', true /*exclude_iter_sel_end*/);
+        text_buffer->erase(range.iter_start, range.iter_end);
+        destination_offset -= diff_offsets;
+        destination_iter = text_buffer->get_iter_at_offset(destination_offset);
+        if (destination_offset > 0)
+        {
+            // clear the newline from any tag
+            Gtk::TextIter clr_start_iter = text_buffer->get_iter_at_offset(destination_offset-1);
+            text_buffer->remove_all_tags(clr_start_iter, destination_iter);
+        }
+        bool append_newline = false;
+        if (text_to_move.empty() || text_to_move[text_to_move.length()-1] != CtConst::CHAR_NEWLINE[0])
+        {
+            diff_offsets += 1;
+            append_newline = true;
+        }
+        text_buffer->move_mark(text_buffer->get_insert(), destination_iter);
+        if (missing_leading_newline)
+        {
+            diff_offsets += 1;
+            text_buffer->insert_at_cursor(CtConst::CHAR_NEWLINE);
+        }
+        // trick of space to prevent subsequent text to take pasted text tag(s)
+        text_buffer->insert_at_cursor(CtConst::CHAR_SPACE);
+        destination_iter = text_buffer->get_iter_at_offset(destination_offset);
+        text_buffer->move_mark(text_buffer->get_insert(), destination_iter);
+        // write moved line
+        CtClipboard().from_xml_string_to_buffer(text_buffer, rich_text);
+        if (append_newline)
+            text_buffer->insert_at_cursor(CtConst::CHAR_NEWLINE);
+        // clear space trick
+        Gtk::TextIter cursor_iter = text_buffer->get_iter_at_mark(text_buffer->get_insert());
+        text_buffer->erase(cursor_iter, text_buffer->get_iter_at_offset(cursor_iter.get_offset()+1));
+        // selection
+        if (!missing_leading_newline)
+            proof.text_view->set_selection_at_offset_n_delta(destination_offset, diff_offsets-1);
+        else
+            proof.text_view->set_selection_at_offset_n_delta(destination_offset+1, diff_offsets-2);
+    }
+    // self.state_machine.update_state()
 }
 
 // Remove trailing spaces/tabs
@@ -272,7 +500,7 @@ void CtActions::_image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> pixbuf, Gtk::TextIt
 {
     Glib::RefPtr<Gdk::Pixbuf> ret_pixbuf = ct_dialogs::image_handle_dialog(*_pCtMainWin, _("Image Properties"), pixbuf);
     if (!ret_pixbuf) return;
-    // todo: what is that? ret_pixbuf.link = "";
+    Glib::ustring link = "";
     Glib::ustring image_justification;
     if (iter_bound) { // only in case of modify
         image_justification = _get_iter_alignment(insert_iter);
@@ -280,7 +508,7 @@ void CtActions::_image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> pixbuf, Gtk::TextIt
         curr_buffer()->erase(insert_iter, *iter_bound);
         insert_iter = curr_buffer()->get_iter_at_offset(image_offset);
     }
-    _image_insert(insert_iter, ret_pixbuf, image_justification);
+    image_insert(insert_iter, ret_pixbuf, link, image_justification);
 }
 
 // Get the Alignment Value of the given Iter
@@ -298,50 +526,20 @@ Glib::ustring CtActions::_get_iter_alignment(Gtk::TextIter text_iter)
     return CtConst::TAG_PROP_VAL_LEFT;
 }
 
-void CtActions::_image_insert(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> pixbuf,
+void CtActions::image_insert(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> pixbuf, Glib::ustring link,
                               Glib::ustring image_justification /*=""*/, Glib::RefPtr<Gtk::TextBuffer> text_buffer /*= Glib:RefPtr<Gtk::TextBuffer>()*/)
 {
     if (!pixbuf) return;
     if (!text_buffer) text_buffer = curr_buffer();
-    int image_offset = iter_insert.get_offset();
-    /* todo:
-    auto anchor = text_buffer->create_child_anchor(iter_insert);
-    anchor.pixbuf = pixbuf
-    anchor.eventbox = gtk.EventBox()
-    anchor.eventbox.set_visible_window(False)
-    anchor.frame = gtk.Frame()
-    anchor.frame.set_shadow_type(gtk.SHADOW_NONE)
-    pixbuf_attrs = dir(pixbuf)
-    if not hasattr(anchor.pixbuf, "link"): anchor.pixbuf.link = ""
-    if "anchor" in pixbuf_attrs:
-        anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_anchor, anchor)
-        anchor.eventbox.set_tooltip_text(pixbuf.anchor)
-    elif "filename" in pixbuf_attrs:
-        anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_file, anchor)
-        self.embfile_set_tooltip(anchor)
-        if self.embfile_show_filename:
-            anchor_label = gtk.Label()
-            anchor_label.set_markup("<b><small>"+pixbuf.filename+"</small></b>")
-            anchor_label.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
-            anchor.frame.set_label_widget(anchor_label)
-    else:
-        anchor.eventbox.connect("button-press-event", self.on_mouse_button_clicked_image, anchor)
-        anchor.eventbox.connect("visibility-notify-event", self.on_image_visibility_notify_event)
-        if anchor.pixbuf.link:
-            self.image_link_apply_frame_label(anchor)
-    anchor.image = gtk.Image()
-    anchor.frame.add(anchor.image)
-    anchor.eventbox.add(anchor.frame)
-    anchor.image.set_from_pixbuf(anchor.pixbuf)
-    self.sourceview.add_child_at_anchor(anchor.eventbox, anchor)
-    anchor.eventbox.show_all()
-    if image_justification:
-        text_iter = text_buffer.get_iter_at_offset(image_offset)
-        self.state_machine.apply_object_justification(text_iter, image_justification, text_buffer)
-    elif self.user_active:
-        # if I apply a justification, the state is already updated
-        self.state_machine.update_state()
-        */
+    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(text_buffer);
+
+    int charOffset = iter_insert.get_offset();
+
+    CtAnchoredWidget* pAnchoredWidget = new CtImagePng(pixbuf, link, charOffset, image_justification);
+    pAnchoredWidget->insertInTextBuffer(gsv_buffer);
+
+    getCtMainWin()->get_tree_store().addAnchoredWidgets(getCtMainWin()->curr_tree_iter(),
+        {pAnchoredWidget}, &getCtMainWin()->get_text_view());
 }
 
 // Change the Case of the Selected Text/the Underlying Word"""

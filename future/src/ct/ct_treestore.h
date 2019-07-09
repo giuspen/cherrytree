@@ -128,6 +128,7 @@ public:
     Gtk::TreeIter onRequestAppendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter);
 
     void applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pTextView);
+    void addAnchoredWidgets(Gtk::TreeIter treeIter, std::list<CtAnchoredWidget*> anchoredWidgetList, Gtk::TextView* pTextView);
     const Gtk::TreeModel::Children getRootChildren() { return _rTreeStore->children(); }
     void expandToTreeRow(Gtk::TreeView* pTreeView, Gtk::TreeRow& row);
     void setTreePathTextCursorFromConfig(Gtk::TreeView* pTreeView, Gsv::View* pTextView);

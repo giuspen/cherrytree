@@ -389,6 +389,7 @@ Glib::ustring CtExport2Html::_link_process_folderpath(const Glib::ustring& folde
 {
     Glib::ustring folderpath_orig = Glib::Base64::decode(folderpath_raw);
     Glib::ustring folderpath = CtFileSystem::get_proper_platform_filepath(folderpath_orig);
+    // todo:
     //if not os.path.isabs(folderpath) and os.path.isdir(os.path.join(self.file_dir, folderpath)):
     //    folderpath = os.path.join(self.file_dir, folderpath)
     return folderpath;
