@@ -146,7 +146,7 @@ public:
 
 private:
     struct text_view_n_buffer_codebox_proof {
-        Gtk::TextView*                  text_view;
+        CtTextView*                     text_view;
         Glib::RefPtr<Gtk::TextBuffer>   text_buffer;
         std::string                     syntax_highl;
         bool                            from_codebox;
