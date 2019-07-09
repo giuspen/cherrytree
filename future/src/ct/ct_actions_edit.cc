@@ -350,9 +350,97 @@ void CtActions::text_row_up()
     // todo: self.state_machine.update_state()
 }
 
+// Moves Down the Current Row/Selected Rows
 void CtActions::text_row_down()
 {
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    if (!proof.text_buffer) return;
+    if (!_is_curr_node_not_read_only_or_error()) return;
 
+    auto text_buffer = proof.text_buffer;
+    CtTextRange range = CtList(text_buffer).get_paragraph_iters();
+    if (!range.iter_end.forward_char()) return;
+    int missing_leading_newline = false;
+    Gtk::TextIter destination_iter = range.iter_end;
+    while (destination_iter.get_char() != CtConst::CHAR_NEWLINE[0])
+        if (!destination_iter.forward_char())
+        {
+            missing_leading_newline = true;
+            break;
+        }
+    destination_iter.forward_char();
+    int destination_offset = destination_iter.get_offset();
+    int start_offset = range.iter_start.get_offset();
+    int end_offset = range.iter_end.get_offset();
+    //#print "iter_start %s %s '%s'" % (start_offset, ord(iter_start.get_char()), iter_start.get_char())
+    //#print "iter_end %s %s '%s'" % (end_offset, ord(iter_end.get_char()), iter_end.get_char())
+    //#print "destination_iter %s %s '%s'" % (destination_offset, ord(destination_iter.get_char()), destination_iter.get_char())
+    Glib::ustring text_to_move = text_buffer->get_text(range.iter_start, range.iter_end);
+    int diff_offsets = end_offset - start_offset;
+    if (proof.from_codebox || proof.syntax_highl != CtConst::RICH_TEXT_ID)
+    {
+        text_buffer->erase(range.iter_start, range.iter_end);
+        destination_offset -= diff_offsets;
+        destination_iter = text_buffer->get_iter_at_offset(destination_offset);
+        if (text_to_move.empty() || text_to_move[text_to_move.length() - 1] != CtConst::CHAR_NEWLINE[0])
+        {
+            diff_offsets += 1;
+            text_to_move += CtConst::CHAR_NEWLINE;
+        }
+        if (missing_leading_newline)
+        {
+            diff_offsets += 1;
+            text_to_move = CtConst::CHAR_NEWLINE + text_to_move;
+        }
+        text_buffer->insert(destination_iter, text_to_move);
+        if (!missing_leading_newline)
+            proof.text_view->set_selection_at_offset_n_delta(destination_offset, diff_offsets-1);
+        else
+            proof.text_view->set_selection_at_offset_n_delta(destination_offset+1, diff_offsets-2);
+    }
+    else
+    {
+        Glib::ustring rich_text = CtClipboard().rich_text_get_from_text_buffer_selection(_pCtMainWin->curr_tree_iter(), text_buffer,
+                                                                                         range.iter_start, range.iter_end, 'n', true /*exclude_iter_sel_end*/);
+        text_buffer->erase(range.iter_start, range.iter_end);
+        destination_offset -= diff_offsets;
+        destination_iter = text_buffer->get_iter_at_offset(destination_offset);
+        if (destination_offset > 0)
+        {
+            // clear the newline from any tag
+            Gtk::TextIter clr_start_iter = text_buffer->get_iter_at_offset(destination_offset-1);
+            text_buffer->remove_all_tags(clr_start_iter, destination_iter);
+        }
+        bool append_newline = false;
+        if (text_to_move.empty() || text_to_move[text_to_move.length()-1] != CtConst::CHAR_NEWLINE[0])
+        {
+            diff_offsets += 1;
+            append_newline = true;
+        }
+        text_buffer->move_mark(text_buffer->get_insert(), destination_iter);
+        if (missing_leading_newline)
+        {
+            diff_offsets += 1;
+            text_buffer->insert_at_cursor(CtConst::CHAR_NEWLINE);
+        }
+        // trick of space to prevent subsequent text to take pasted text tag(s)
+        text_buffer->insert_at_cursor(CtConst::CHAR_SPACE);
+        destination_iter = text_buffer->get_iter_at_offset(destination_offset);
+        text_buffer->move_mark(text_buffer->get_insert(), destination_iter);
+        // write moved line
+        CtClipboard().from_xml_string_to_buffer(text_buffer, rich_text);
+        if (append_newline)
+            text_buffer->insert_at_cursor(CtConst::CHAR_NEWLINE);
+        // clear space trick
+        Gtk::TextIter cursor_iter = text_buffer->get_iter_at_mark(text_buffer->get_insert());
+        text_buffer->erase(cursor_iter, text_buffer->get_iter_at_offset(cursor_iter.get_offset()+1));
+        // selection
+        if (!missing_leading_newline)
+            proof.text_view->set_selection_at_offset_n_delta(destination_offset, diff_offsets-1);
+        else
+            proof.text_view->set_selection_at_offset_n_delta(destination_offset+1, diff_offsets-2);
+    }
+    // self.state_machine.update_state()
 }
 
 // Remove trailing spaces/tabs
