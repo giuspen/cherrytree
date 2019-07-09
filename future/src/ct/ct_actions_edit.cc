@@ -201,9 +201,69 @@ void CtActions::text_row_delete()
     // todo: self.state_machine.update_state()
 }
 
+// Duplicates the Whole Row or a Selection
 void CtActions::text_row_selection_duplicate()
 {
-
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    if (!proof.text_buffer) return;
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    auto text_buffer = proof.text_buffer;
+    if (proof.text_buffer->get_has_selection())
+    {
+        Gtk::TextIter iter_start, iter_end;
+        text_buffer->get_selection_bounds(iter_start, iter_end);
+        int sel_start_offset = iter_start.get_offset();
+        int sel_end_offset = iter_end.get_offset();
+        if (proof.from_codebox || proof.syntax_highl != CtConst::RICH_TEXT_ID)
+        {
+            Glib::ustring text_to_duplicate = text_buffer->get_text(iter_start, iter_end);
+            if (text_to_duplicate.find(CtConst::CHAR_NEWLINE) != Glib::ustring::npos)
+                text_to_duplicate = CtConst::CHAR_NEWLINE + text_to_duplicate;
+            text_buffer->insert(iter_end, text_to_duplicate);
+        }
+        else
+        {
+            Glib::ustring rich_text = CtClipboard().rich_text_get_from_text_buffer_selection(_pCtMainWin->curr_tree_iter(), text_buffer, iter_start, iter_end);
+            if (rich_text.find(CtConst::CHAR_NEWLINE) != Glib::ustring::npos)
+            {
+                text_buffer->insert(iter_end, CtConst::CHAR_NEWLINE);
+                iter_end = proof.text_buffer->get_iter_at_offset(sel_end_offset+1);
+                text_buffer->move_mark(proof.text_buffer->get_insert(), iter_end);
+            }
+            CtClipboard().from_xml_string_to_buffer(text_buffer, rich_text);
+        }
+        text_buffer->select_range(text_buffer->get_iter_at_offset(sel_start_offset),
+                                 text_buffer->get_iter_at_offset(sel_end_offset));
+    }
+    else
+    {
+        int cursor_offset = text_buffer->get_iter_at_mark(text_buffer->get_insert()).get_offset();
+        CtTextRange range = CtList(proof.text_buffer).get_paragraph_iters();
+        if (range.iter_start.get_offset() == range.iter_end.get_offset())
+        {
+            Gtk::TextIter iter_start = text_buffer->get_iter_at_mark(text_buffer->get_insert());
+            text_buffer->insert(iter_start, CtConst::CHAR_NEWLINE);
+        }
+        else
+        {
+            if (proof.from_codebox || proof.syntax_highl != CtConst::RICH_TEXT_ID)
+            {
+                Glib::ustring text_to_duplicate = text_buffer->get_text(range.iter_start, range.iter_end);
+                text_buffer->insert(range.iter_end, CtConst::CHAR_NEWLINE + text_to_duplicate);
+            }
+            else
+            {
+                Glib::ustring rich_text = CtClipboard().rich_text_get_from_text_buffer_selection(_pCtMainWin->curr_tree_iter(), text_buffer, range.iter_start, range.iter_end);
+                int sel_end_offset = range.iter_end.get_offset();
+                text_buffer->insert(range.iter_end, CtConst::CHAR_NEWLINE);
+                range.iter_end = text_buffer->get_iter_at_offset(sel_end_offset+1);
+                text_buffer->move_mark(text_buffer->get_insert(), range.iter_end);
+                CtClipboard().from_xml_string_to_buffer(proof.text_buffer, rich_text);
+                text_buffer->place_cursor(text_buffer->get_iter_at_offset(cursor_offset));
+            }
+        }
+    }
+    // todo: self.state_machine.update_state()
 }
 
 void CtActions::text_row_up()
