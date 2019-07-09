@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-02 09:21+0000\n"
-"PO-Revision-Date: 2018-12-02 19:52+0300\n"
+"POT-Creation-Date: 2019-07-02 08:22+0100\n"
+"PO-Revision-Date: 2019-07-03 20:18+0300\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Russian <kovtunos@yandex.ru>\n"
 "Language: ru\n"
@@ -71,9 +71,9 @@ msgid "Failed to Retrieve Latest Version Information - Try Again Later"
 msgstr "Неможливо перевірити наявність нової версії. Спробуйте пізніше"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:328
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3921
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4549
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:5030
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3929
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4557
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5044
 msgid "No Text is Selected"
 msgstr "Текст не виділено"
 
@@ -239,13 +239,13 @@ msgid "Use Selected Color"
 msgstr "Використовувати вибраний колір"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:3434
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1505
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1515
 msgid "Use Selected Icon"
 msgstr "Використовувати іконку"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:3440
 #: /home/giuspen/Software/git_cherrytree/modules/tablez.py:322
-#: /home/giuspen/Software/git_cherrytree/modules/imports.py:2729
+#: /home/giuspen/Software/git_cherrytree/modules/imports.py:2733
 msgid "click me"
 msgstr "натисни сюди"
 
@@ -255,15 +255,15 @@ msgid "Node Name"
 msgstr "Назва гілки"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:3456
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4968
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1659
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2365
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4982
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1669
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2375
 msgid "Rich Text"
 msgstr "Форматований текст"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:3457
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4969
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1660
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4983
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1670
 #: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:95
 msgid "Plain Text"
 msgstr "Звичайний текст"
@@ -276,7 +276,7 @@ msgid "Automatic Syntax Highlighting"
 msgstr "Автоматичне підсвічування синтаксису"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:3479
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4967
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4981
 msgid "Node Type"
 msgstr "Тип гілки"
 
@@ -297,7 +297,7 @@ msgid "Tag Name"
 msgstr "Назва тегу"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:3557
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1617
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1627
 msgid "Select Node Icon"
 msgstr "Іконка для гілки"
 
@@ -334,175 +334,175 @@ msgstr ""
 msgid "Do you want to Execute the Code?"
 msgstr "Ви хочете виконати код?"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3739
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3747
 msgid ""
 "Install the package 'xterm' or configure a different terminal in the "
 "Preferences Dialog"
 msgstr ""
 "Встановіть пакет 'xterm' або налаштуйте інший термінал в діалозі налаштувань"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3752
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3760
 #, python-format
 msgid "The Maximum Size for Embedded Files is %s MB"
 msgstr "Максимальний розмір файлів %s Мб"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3815
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3823
 msgid "Cannot Edit Embedded File in Read Only Node"
 msgstr "Неможливо редагувати файли в гілках тільки для читання"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3829
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3837
 msgid "Embedded File Automatically Updated:"
 msgstr "Файл автоматично оновлено:"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3878
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3886
 msgid "Not Any H1, H2 or H3 Formatting Found"
 msgstr "jНе знайдені заголовки H1, H2, H3"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3898
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3906
 msgid "This Feature is Available Only in Rich Text Nodes"
 msgstr "Ця функція доступна лише в режимі форматованого тексту"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3900
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3908
 msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes"
 msgstr "Ця функція не доступна в режимі підсвічування синтаксису"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3906
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4964
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3914
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4978
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1417
 msgid "No Node is Selected"
 msgstr "Гілку не виділено"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3913
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3921
 msgid "The Tree is Empty!"
 msgstr "Дерево пусте!"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3933
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3941
 msgid "The Selected Node is Read Only"
 msgstr "Виділена гілка в режимі тільки для читання"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3946
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3954
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:239
 msgid "Tree Summary Information"
 msgstr "Сумарна інформація про дерево"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3954
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3962
 msgid "Number of Rich Text Nodes"
 msgstr "Кількість гілок з форматованим текстом"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3957
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3965
 msgid "Number of Plain Text Nodes"
 msgstr "Кількість гілок з простим текстом"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3960
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3968
 msgid "Number of Code Nodes"
 msgstr "Кількість гілок з кодом"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3963
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3971
 msgid "Number of Images"
 msgstr "Кількість зображень"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3966
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3974
 msgid "Number of Embedded Files"
 msgstr "Кількість вставлених файлів"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3969
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3977
 msgid "Number of Tables"
 msgstr "Кількість таблиць"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3972
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3980
 msgid "Number of CodeBoxes"
 msgstr "Кількість блоків коду"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3975
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3983
 msgid "Number of Anchors"
 msgstr "Кількість якорів"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4063
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4071
 msgid "Image Format Not Recognized"
 msgstr "Формат зображення не розпізнаний"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4088
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4096
 msgid "Image Properties"
 msgstr "Параметри зображення"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4169
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4177
 msgid "PNG Image"
 msgstr "Зображення PNG"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4175
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4183
 #, python-format
 msgid "Write to %s Failed"
 msgstr "Записати в %s не вдалося"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4288
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4296
 msgid "Lines Stripped"
 msgstr "Очищені рядки"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4422
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4430
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "В цій сесії не було операцій форматування тексту"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4510
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4577
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4518
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4585
 msgid "Insert/Edit Link"
 msgstr "Вставити / Редагувати посилання"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4555
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4563
 msgid "Link Name"
 msgstr "Назва посилання"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4567
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4575
 msgid "The Cursor is Not into a Paragraph"
 msgstr "Курсор за межами абзацу"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4795
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4803
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "Посилання на файл '%s' некоректне"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4804
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4812
 #, python-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "Посилання на каталог '%s' некоректне"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4813
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4821
 #: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:960
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Посилання на неіснуючу гілку (Id = %s)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4826
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4834
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Якір з назвою '%s' знайдено"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4967
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4971
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4973
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4975
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4979
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4983
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4981
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4985
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4987
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4989
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4993
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4997
 msgid ": "
 msgstr ": "
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4971
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4985
 msgid "Tags"
 msgstr "Теги"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4973
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:995
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4987
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:998
 msgid "Spell Check"
 msgstr "Перевірка орфографії"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4975
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4989
 msgid "Word Count"
 msgstr "Кількість слів"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4979
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4993
 msgid "Date Created"
 msgstr "Дата створення"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4983
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4997
 msgid "Date Modified"
 msgstr "Дата зміни"
 
@@ -752,7 +752,7 @@ msgstr "Відкрити файл"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:175
 #: /home/giuspen/Software/git_cherrytree/modules/config.py:131
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1854
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1857
 msgid "Open a CherryTree Document"
 msgstr "Відкрийте документ CherryTree"
 
@@ -835,7 +835,7 @@ msgid "_Preferences"
 msgstr "Параметри"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:185
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2351
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2361
 msgid "Preferences"
 msgstr "Параметри"
 
@@ -1562,7 +1562,7 @@ msgid "_Handle Bookmarks"
 msgstr "Керування закладками"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:276
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1909
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1907
 msgid "Handle the Bookmarks List"
 msgstr "Керування списком закладок"
 
@@ -2244,452 +2244,456 @@ msgstr "Зменшити висоту блока коду"
 msgid "Decrease the Height of the CodeBox"
 msgstr "Зменшити висоту блока коду"
 
-#: /home/giuspen/Software/git_cherrytree/modules/imports.py:2617
+#: /home/giuspen/Software/git_cherrytree/modules/imports.py:2621
 msgid "Downloading"
 msgstr "Завантаження"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:788
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:791
 msgid "Tab Width"
 msgstr "Ширина табуляції"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:794
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:797
 msgid "Insert Spaces Instead of Tabs"
 msgstr "Використовувати пробіли замість табуляції"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:796
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:799
 msgid "Use Line Wrapping"
 msgstr "Ввімкнути режим перенесення тексту"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:800
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:803
 msgid "Line Wrapping Indentation"
 msgstr "Відступ для перенесення тексту"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:806
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:809
 msgid "Enable Automatic Indentation"
 msgstr "Ввімкнути автоматичний відступ"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:808
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:811
 #: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:151
 msgid "Show Line Numbers"
 msgstr "Показати номери рядків"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:812
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:815
 msgid "Vertical Space Around Lines"
 msgstr "Вертикальний відступ"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:820
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:823
 msgid "Vertical Space in Wrapped Lines"
 msgstr "Вертикальний відступ для рядків"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:837
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1210
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1247
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:840
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1217
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1257
 msgid "Text Editor"
 msgstr "Текстовий редактор"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:847
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:850
 msgid "Timestamp Format"
 msgstr "Формат дати"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:857
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:860
 msgid "Horizontal Rule"
 msgstr "Горизонтальна лінія"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:865
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:868
 msgid "Special Characters"
 msgstr "Спеціальні символи"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:869
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1306
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1318
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1911
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2087
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:872
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1316
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1328
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1921
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2097
 msgid "Reset to Default"
 msgstr "Скинути налаштування"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:892
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:895
 msgid "Chars to Select at Double Click"
 msgstr "Символи для виділення подвійним нажаттям"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:904
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1087
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1420
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1818
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2227
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2373
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:907
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1090
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1430
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1828
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2237
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2383
 msgid "Miscellaneous"
 msgstr "Різне"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:922
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1372
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2044
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2130
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:925
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1382
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2054
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2140
 msgid "Are you sure to Reset to Default?"
 msgstr "Ви впевнені, що хочете скинути налаштування?"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:978
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:981
 msgid "Enable Spell Check"
 msgstr "Включити перевірку орфографії"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:982
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:985
 msgid "Spell Check Language"
 msgstr "Мова перевірки орфографії"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1005
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1466
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1008
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1476
 msgid "Light Background, Dark Text"
 msgstr "Світлий фон, темний текст"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1006
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1467
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1009
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1477
 msgid "Dark Background, Light Text"
 msgstr "Темний фон, світлий текст"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1008
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1469
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1011
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1479
 msgid "Custom Background"
 msgstr "Інший колір фону"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1013
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1474
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1016
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1484
 msgid "and Text"
 msgstr "і текст"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1019
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1022
 msgid "Monospace Background"
 msgstr "Колір фону моноширинного шрифту"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1031
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1484
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1034
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1494
 msgid "Theme"
 msgstr "Тема"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1057
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1238
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1060
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1248
 msgid "Show White Spaces"
 msgstr "Відображувати пробільні символи"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1059
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1240
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1062
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1250
 msgid "Highlight Current Line"
 msgstr "Підсвічування пробільні символи"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1061
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1064
 msgid "Expand CodeBoxes Automatically"
 msgstr "Автоматично розтягувати блоки коду"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1065
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1068
 msgid "Embedded File Icon Size"
 msgstr "Розмір іконки вставленого файлу"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1071
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1074
 msgid "Show File Name on Top of Embedded File Icon"
 msgstr "Показувати назву файлу над іконкою"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1073
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1076
 msgid "Limit of Undoable Steps Per Node"
 msgstr "Ліміт операцій відміни"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1205
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1208
 msgid "Enable Smart Quotes Auto Replacement"
 msgstr "Ввімкнути автозаміну лапок"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1230
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1211
+msgid "Enable Symbol Auto Replacement"
+msgstr "Ввімкнути автозаміну символів"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1240
 msgid "Style Scheme"
 msgstr "Колірна тема"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1303
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2081
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1313
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2091
 msgid "Add"
 msgstr "Додати"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1325
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1335
 msgid "Command per Node/CodeBox Type"
 msgstr "Команда по типу гілки/блоку коду"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1329
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1339
 msgid "Terminal Command"
 msgstr "Команда терміналу"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1334
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1344
 msgid "Code Execution"
 msgstr "Виконання коду"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1365
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2115
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1375
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2125
 msgid "Select Element to Add"
 msgstr "Виберіть елемент для додання"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1394
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1404
 msgid "Tree Nodes Names Wrapping Width"
 msgstr "Ширина перенесення назв гілок"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1400
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1410
 msgid "Display Tree on the Right Side"
 msgstr "Відображати дерево праворуч"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1402
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1412
 msgid "Move Focus to Text at Mouse Click"
 msgstr "Перенести фокус на текст кліком мишки"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1404
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1414
 msgid "Expand Node at Mouse Click"
 msgstr "Розгорнути гілку кліком мишки"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1408
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1418
 msgid "Last Visited Nodes on Node Name Header"
 msgstr "Останні відвідані гілки у заголовку"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1504
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1514
 msgid "Use Different Cherries per Level"
 msgstr "Різні вишні на кожному рівні"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1507
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1517
 msgid "No Icon"
 msgstr "Без іконки"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1509
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1519
 msgid "Hide Right Side Auxiliary Icon"
 msgstr "Сховати допоміжну іконку з правої сторони"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1523
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1533
 msgid "Default Text Nodes Icons"
 msgstr "Іконки для текстових гілок"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1537
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1547
 msgid "Restore Expanded/Collapsed Status"
 msgstr "Зберігати статус гілок"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1538
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1548
 msgid "Expand all Nodes"
 msgstr "Розгорнути гілки"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1540
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1550
 msgid "Collapse all Nodes"
 msgstr "Згорнути гілки"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1542
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1552
 msgid "Nodes in Bookmarks Always Visible"
 msgstr "Завжди видимі гілки в закладках"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1550
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1560
 msgid "Nodes Status at Startup"
 msgstr "Статус гілок після запуску"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1661
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1671
 msgid "Code Font"
 msgstr "Шрифт коду  "
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1662
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1672
 msgid "Tree Font"
 msgstr "Шрифт дерева  "
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1683
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2369
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1693
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2379
 msgid "Fonts"
 msgstr "Шрифти"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1724
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1734
 msgid "Enable Custom Web Link Clicked Action"
 msgstr "Відкривати веб-посилання"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1726
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1736
 msgid "Enable Custom File Link Clicked Action"
 msgstr "Відкривати файли"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1728
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1738
 msgid "Enable Custom Folder Link Clicked Action"
 msgstr "Відкривати каталоги"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1737
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1747
 msgid "Custom Actions"
 msgstr "Інші дії"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1762
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1772
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1266
 msgid "To WebSite"
 msgstr "Вебсайт"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1769
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1779
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1307
 msgid "To Node"
 msgstr "Гілка"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1776
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1786
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1277
 msgid "To File"
 msgstr "Файл"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1783
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1793
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1292
 msgid "To Folder"
 msgstr "Каталог"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1793
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1803
 msgid "Colors"
 msgstr "Кольори"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1802
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1812
 msgid "Underline Links"
 msgstr "Підкреслювати посилання"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1804
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1814
 msgid "Use Relative Paths for Files And Folders"
 msgstr "Використовувати відносні шляхи до файлів та каталогів"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1808
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1818
 msgid "Anchor Size"
 msgstr "Розмір якора"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1908
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1918
 msgid "Change Selected"
 msgstr "Змінити виділене"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1921
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1931
 msgid "File"
 msgstr "Файл"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1922
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2367
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2368
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1932
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2377
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2378
 msgid "Tree"
 msgstr "Дерево"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1923
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1933
 msgid "Editor"
 msgstr "Редагування"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1924
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1934
 msgid "Format"
 msgstr "Форматування"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1925
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1935
 msgid "Find/Replace"
 msgstr "Пошук/Заміна"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1926
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1936
 msgid "View"
 msgstr "Вид"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1927
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1937
 msgid "Export"
 msgstr "Експорт"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1928
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1938
 msgid "Import"
 msgstr "Імпорт"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1948
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1958
 msgid "Edit Keyboard Shortcut"
 msgstr "Редагувати клавіші"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1955
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1965
 msgid "No Keyboard Shortcut"
 msgstr "Немає клавіші"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2025
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2035
 #, python-format
 msgid "The Keyboard Shortcut '%s' is already in use"
 msgstr "Клавіша '%s' вже використовується"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2025
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2035
 #, python-format
 msgid "The current associated action is '%s'"
 msgstr "Поточна дія '%s'"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2025
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2035
 msgid "Do you want to steal the shortcut?"
 msgstr "Ви хочете перепризначити клавішу?"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2084
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2094
 msgid "Remove Selected"
 msgstr "Видалити виділене"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2151
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2161
 msgid "Enable System Tray Docking"
 msgstr "Сховати в системний трей"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2152
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2162
 msgid "Start Minimized in the System Tray"
 msgstr "Звернути в трей після запуску"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2153
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2163
 msgid "Use AppIndicator for Docking"
 msgstr "Використовувати AppIndicator"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2158
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2168
 msgid "System Tray"
 msgstr "Системний лоток"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2175
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2185
 msgid "Autosave Every"
 msgstr "Автоматично зберігати кожні"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2178
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2188
 msgid "Minutes"
 msgstr "хвилин"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2182
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2192
 msgid "Autosave on Quit"
 msgstr "Збереження при закритті"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2183
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2193
 msgid "Create a Backup Copy Before Saving"
 msgstr "Створити резервну копію перед збереженням"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2186
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2196
 msgid "Number of Backups to Keep"
 msgstr "Кількість резервних копій"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2204
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2214
 msgid "Saving"
 msgstr "Збереження"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2213
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2223
 msgid "Automatically Check for Newer Version"
 msgstr "Автоматично перевіряти оновлення"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2214
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2224
 msgid "Enable Word Count in Statusbar"
 msgstr "Ввімкнути лічильник слів в статусному рядку"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2215
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2225
 msgid "Reload Document From Last Session"
 msgstr "Завантажити документ з останньої сесії"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2216
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2226
 msgid "Reload After External Update to CT* File"
 msgstr "Перезавантажити документ після оновлення файлу іншою програмою"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2243
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2253
 msgid "Language"
 msgstr "Мова"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2343
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2353
 msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "Зміна мови набуде чинності після перезапускання CherryTree"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2363
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2373
 msgid "Text and Code"
 msgstr "Текст і код"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2364
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2374
 msgid "Text"
 msgstr "Текст"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2366
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2376
 msgid "Plain Text and Code"
 msgstr "Звичайний текст і код"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2370
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2380
 msgid "Links"
 msgstr "Посилання"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2371
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2381
 msgid "Toolbar"
 msgstr "Панель інструментів"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2372
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2382
 msgid "Keyboard Shortcuts"
 msgstr "Клавіатурні прив'язування"
 
@@ -2723,7 +2727,7 @@ msgstr "Підсвічування відповідних дужок"
 msgid "Options"
 msgstr "Налаштування"
 
-#: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:383
+#: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:380
 msgid "Edit CodeBox"
 msgstr "Редагувати блок коду"
 
@@ -3015,20 +3019,20 @@ msgstr "Новугілку з нової сторінки"
 msgid "Pick a Color"
 msgstr "Вибор кольору"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1837
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1826
 msgid "Remove from list"
 msgstr "Видалити з списку"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1846
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1849
 msgid "_Recent Documents"
 msgstr "Недавні документи"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1848
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1855
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1851
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1858
 msgid "Open a Recent CherryTree Document"
 msgstr "Відкрити недавній документ CherryTree"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1881
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1884
 #, python-format
 msgid "The Document %s was Not Found"
 msgstr "Документ '%s' не знайдено"
@@ -3037,7 +3041,7 @@ msgstr "Документ '%s' не знайдено"
 msgid "PDF File"
 msgstr "Файл PDF"
 
-#: /home/giuspen/Software/git_cherrytree/modules/exports.py:701
+#: /home/giuspen/Software/git_cherrytree/modules/exports.py:700
 msgid "Index"
 msgstr "Зміст"
 

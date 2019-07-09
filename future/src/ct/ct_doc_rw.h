@@ -66,8 +66,9 @@ public:
 class CtXmlWrite : public xmlpp::Document
 {
 public:
-    CtXmlWrite(const char* filepath);
+    CtXmlWrite();
     virtual ~CtXmlWrite();
+    void treestore_to_dom(const std::list<gint64>& bookmarks, CtTreeIter& ct_tree_iter);
     void append_bookmarks(const std::list<gint64>& bookmarks);
     void append_dom_node(CtTreeIter& ct_tree_iter,
                          xmlpp::Element* p_node_parent=nullptr,

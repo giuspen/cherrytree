@@ -12,3 +12,4 @@ for po_filepath in glob.glob(os.path.join(SCRIPT_DIR, "*.po")):
                  po_filepath,
                  APP_NAME+".pot"]
     subprocess.call(shell_cmd)
+    #subprocess.call(["zip", "-j", "-9", po_filepath+".zip", po_filepath])
