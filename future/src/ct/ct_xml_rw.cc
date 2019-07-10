@@ -89,7 +89,7 @@ Gtk::TreeIter CtXmlRead::_xmlNodeProcess(xmlpp::Element* pNodeElement, const Gtk
     nodeData.syntax = pNodeElement->get_attribute_value("prog_lang");
     nodeData.tags = pNodeElement->get_attribute_value("tags");
     nodeData.isRO = Glib::str_has_prefix(pNodeElement->get_attribute_value("readonly"), "T");
-    nodeData.customIconId = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("custom_icon_id").c_str());
+    nodeData.customIconId = (guint32)CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("custom_icon_id").c_str());
     nodeData.isBold = Glib::str_has_prefix(pNodeElement->get_attribute_value("is_bold"), "T");
     nodeData.foregroundRgb24 = pNodeElement->get_attribute_value("foreground");
     nodeData.tsCreation = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("ts_creation").c_str());
@@ -401,5 +401,5 @@ void CtXmlWrite::rich_txt_serialize(xmlpp::Element* p_node_parent,
         else if ('u' == change_case) slot_text = slot_text.uppercase();
         else if ('t' == change_case) slot_text = str::swapcase(slot_text);
     }
-    xmlpp::TextNode* p_text_node = p_rich_text_node->add_child_text(slot_text);
+    p_rich_text_node->add_child_text(slot_text);
 }

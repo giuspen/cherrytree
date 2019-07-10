@@ -275,7 +275,6 @@ void CtActions::text_row_up()
 
     auto text_buffer = proof.text_buffer;
     CtTextRange range = CtList(text_buffer).get_paragraph_iters();
-    int last_line_situation = false;
     range.iter_end.forward_char();
     bool missing_leading_newline = false;
     Gtk::TextIter destination_iter = range.iter_start;

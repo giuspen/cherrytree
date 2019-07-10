@@ -767,7 +767,7 @@ bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter, Glib::RefP
         if (restore_modified) text_buffer->set_modified(false);
     }
     if (s_state.replace_active && pattern_found)
-        _pCtMainWin->update_window_save_needed("nbuf", tree_iter);
+        _pCtMainWin->update_window_save_needed("nbuf", false, &tree_iter);
     return pattern_found;
 }
 
@@ -958,7 +958,7 @@ std::pair<int, int> CtActions::_check_pattern_in_object_between(Glib::RefPtr<Gtk
     std::pair<int, int> sel_range = {start_offset, end_offset};
     if (!forward) std::swap(sel_range.first, sel_range.second);
 
-    std::list<CtAnchoredWidget*> obj_vec = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(CtForPrint::No, sel_range);
+    std::list<CtAnchoredWidget*> obj_vec = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(sel_range);
     if (!forward)
         std::reverse(obj_vec.begin(), obj_vec.end());
     for (auto element: obj_vec)
@@ -1065,7 +1065,7 @@ void CtActions::_iterated_find_dialog()
            find_again();
            s_state.replace_subsequent = false;
         });
-        button_undo->signal_clicked().connect([this](){
+        button_undo->signal_clicked().connect([](){
            // todo:
            // self.dad.requested_step_back()
         });

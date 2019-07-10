@@ -27,7 +27,7 @@
 std::vector<std::pair<int, int>> CtImports::get_web_links_offsets_from_plain_text(const Glib::ustring& plain_text)
 {
     std::vector<std::pair<int, int>> web_links;
-    int max_end_offset = plain_text.size();
+    int max_end_offset = (int)plain_text.size();
     int max_start_offset = max_end_offset - 7;
     int start_offset = 0;
     while (start_offset < max_start_offset)
@@ -36,8 +36,8 @@ std::vector<std::pair<int, int>> CtImports::get_web_links_offsets_from_plain_tex
         {
             int end_offset = start_offset + 3;
             while (end_offset < max_end_offset
-                   && plain_text[end_offset] != CtConst::CHAR_SPACE[0]
-                   && plain_text[end_offset] != CtConst::CHAR_NEWLINE[0])
+                   && plain_text[(size_t)end_offset] != CtConst::CHAR_SPACE[0]
+                   && plain_text[(size_t)end_offset] != CtConst::CHAR_NEWLINE[0])
                 end_offset += 1;
             web_links.push_back(std::make_pair(start_offset, end_offset));
             start_offset = end_offset + 1;

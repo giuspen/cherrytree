@@ -22,6 +22,7 @@
 #include <glib/gstdio.h>
 #include "ct_app.h"
 #include "ct_pref_dlg.h"
+#include "config.h"
 
 CtConfig* CtApp::P_ctCfg{nullptr};
 CtActions* CtApp::P_ctActions{nullptr};
@@ -164,7 +165,7 @@ void CtApp::on_hide_window(Gtk::Window* pWindow)
     delete pWindow;
 }
 
-void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint)
+void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& /*hint*/)
 {
     // app run with arguments
     CtMainWin* pAppWindow = get_main_win();
@@ -231,7 +232,7 @@ const gchar* CtTmp::getHiddenDirPath(const std::string& visiblePath)
 {
     if (!_mapHiddenDirs.count(visiblePath))
     {
-        _mapHiddenDirs[visiblePath] = g_dir_make_tmp(NULL, NULL);
+        _mapHiddenDirs[visiblePath] = g_dir_make_tmp(nullptr, nullptr);
     }
     return _mapHiddenDirs.at(visiblePath);
 }

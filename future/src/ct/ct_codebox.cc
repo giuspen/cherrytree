@@ -28,7 +28,7 @@ CtAnchoredWidget::CtAnchoredWidget(const int charOffset, const std::string& just
     _charOffset = charOffset;
     _justification = justification;
     _frame.set_shadow_type(Gtk::ShadowType::SHADOW_NONE);
-    signal_button_press_event().connect([](GdkEventButton* pEvent){ return true; });
+    signal_button_press_event().connect([](GdkEventButton* /*pEvent*/){ return true; });
     add(_frame);
 }
 
@@ -75,10 +75,10 @@ CtCodebox::CtCodebox(const Glib::ustring& textContent,
                      const int frameHeight,
                      const int charOffset,
                      const std::string& justification)
- : _frameWidth(frameWidth),
-   _frameHeight(frameHeight),
-   CtAnchoredWidget(charOffset, justification),
-   CtTextCell(textContent, syntaxHighlighting)
+ : CtAnchoredWidget(charOffset, justification),
+   CtTextCell(textContent, syntaxHighlighting),
+   _frameWidth(frameWidth),
+   _frameHeight(frameHeight)
 {
     _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindow.add(_ctTextview);
@@ -108,7 +108,7 @@ void CtCodebox::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustmen
     p_codebox_node->set_attribute("syntax_highlighting", _syntaxHighlighting);
     p_codebox_node->set_attribute("highlight_brackets", std::to_string(_highlightBrackets));
     p_codebox_node->set_attribute("show_line_numbers", std::to_string(_showLineNumbers));
-    xmlpp::TextNode* p_text_node = p_codebox_node->add_child_text(getTextContent());
+    p_codebox_node->add_child_text(getTextContent());
 }
 
 void CtCodebox::setShowLineNumbers(const bool showLineNumbers)

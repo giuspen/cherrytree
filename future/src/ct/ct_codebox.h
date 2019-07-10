@@ -36,7 +36,7 @@ public:
     Glib::RefPtr<Gtk::TextChildAnchor> getTextChildAnchor() { return _rTextChildAnchor; }
 
     virtual void applyWidthHeight(const int parentTextWidth) = 0;
-    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) { _charOffset += offset_adjustment; }
+    virtual void to_xml(xmlpp::Element* /*p_node_parent*/, const int offset_adjustment) { _charOffset += offset_adjustment; }
 
     void updateOffset(int charOffset) { _charOffset = charOffset; }
     void updateJustification(std::string justification) { _justification = justification; }

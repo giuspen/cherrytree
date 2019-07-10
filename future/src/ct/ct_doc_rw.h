@@ -30,8 +30,8 @@
 class CtDocRead
 {
 public:
-    CtDocRead() {};
-    virtual ~CtDocRead() {};
+    CtDocRead() {}
+    virtual ~CtDocRead();
     virtual void treeWalk(const Gtk::TreeIter* pParentIter=nullptr)=0;
     sigc::signal<bool, gint64> signalAddBookmark;
     sigc::signal<Gtk::TreeIter, CtNodeData*, const Gtk::TreeIter*> signalAppendNode;
@@ -93,7 +93,7 @@ public:
     Glib::RefPtr<Gsv::Buffer> getTextBuffer(const std::string& syntax,
                                             std::list<CtAnchoredWidget*>& anchoredWidgets,
                                             const gint64& nodeId);
-    void pending_new_db_node(gint64 node_id) { /* todo: */ }
+    void pending_new_db_node(gint64 /*node_id*/) { /* todo: */ }
 
 private:
     sqlite3* _pDb;

@@ -102,8 +102,8 @@ public:
 
     bool readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, const bool isImport);
     void configApply();
-    void update_window_save_needed(const std::string& update_type = "",
-                                   bool new_machine_state = false, void* give_tree_iter = nullptr) { /* todo: */ }
+    void update_window_save_needed(std::string update_type = "",
+                                   bool new_machine_state = false, const CtTreeIter* give_tree_iter = nullptr) { /* todo: */ }
 
     CtTreeIter    curr_tree_iter()  { return _ctTreestore.to_ct_tree_iter(_ctTreeview.get_selection()->get_selected()); }
     CtTreeStore&  get_tree_store()  { return _ctTreestore; }

@@ -29,10 +29,10 @@ CtExport2Txt::CtExport2Txt()
 
 // Export the Selected Node To Txt
 Glib::ustring CtExport2Txt::node_export_to_txt(Glib::RefPtr<Gtk::TextBuffer> text_buffer, std::pair<int, int> sel_range,
-                                               bool check_link_target /*=false*/, Glib::ustring filepath /*=""*/, CtTreeIter* tree_iter_for_node_name /*=nullptr*/)
+                                               bool check_link_target /*=false*/, Glib::ustring /*filepath*/ /*=""*/, CtTreeIter* tree_iter_for_node_name /*=nullptr*/)
 {
     Glib::ustring plain_text;
-    std::list<CtAnchoredWidget*> widgets = CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(CtForPrint::No, sel_range);
+    std::list<CtAnchoredWidget*> widgets = CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(sel_range);
 
     int start_offset = sel_range.first >= 0 ? sel_range.first : 0;
     for (CtAnchoredWidget* widget: widgets)

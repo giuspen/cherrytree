@@ -40,10 +40,10 @@ CtTable::CtTable(const CtTableMatrix& tableMatrix,
                  const bool headFront,
                  const int charOffset,
                  const std::string& justification)
- : _tableMatrix(tableMatrix),
+ : CtAnchoredWidget(charOffset, justification),
+   _tableMatrix(tableMatrix),
    _colMin(colMin),
-   _colMax(colMax),
-   CtAnchoredWidget(charOffset, justification)
+   _colMax(colMax)
 {
     if (!headFront)
     {
@@ -92,7 +92,7 @@ void CtTable::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
         for (const CtTableCell* pTableCell : tableRow)
         {
             xmlpp::Element* p_cell_node = p_row_node->add_child("cell");
-            xmlpp::TextNode* p_text_node = p_cell_node->add_child_text(pTableCell->getTextContent());
+            p_cell_node->add_child_text(pTableCell->getTextContent());
         }
     }
 }

@@ -20,6 +20,7 @@
  */
 
 #pragma once
+#include <glib/gtypes.h>
 
 namespace CtP7zaIface {
 

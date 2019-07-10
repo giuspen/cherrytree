@@ -40,16 +40,16 @@ public:
     CtImage(Glib::RefPtr<Gdk::Pixbuf> pixBuf,
             const int charOffset,
             const std::string& justification);
-    virtual ~CtImage() {}
+    virtual ~CtImage();
 
-    virtual void applyWidthHeight(const int parentTextWidth) {}
+    virtual void applyWidthHeight(const int /*parentTextWidth*/) {}
 
     void save(const Glib::ustring& file_name, const Glib::ustring& type);
     Glib::RefPtr<Gdk::Pixbuf> getPixBuf() { return _rPixbuf; }
 
 public:
     static Glib::RefPtr<Gdk::Pixbuf> get_icon(const std::string& name, int size);
-    static Gtk::Image*               new_image_from_stock(const std::string& stockImage, int size);
+    static Gtk::Image*               new_image_from_stock(const std::string& stockImage, Gtk::BuiltinIconSize size);
 
 protected:
     Gtk::Image _image;
@@ -107,6 +107,8 @@ public:
     virtual ~CtImageEmbFile() {}
 
     virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment);
+
+    const Glib::ustring& getFileName() { return _fileName; }
 
     void updateTooltip();
     void updateLabelWidget();

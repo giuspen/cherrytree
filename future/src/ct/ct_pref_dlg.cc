@@ -12,6 +12,11 @@
 #include "ct_dialogs.h"
 #include "ct_codebox.h"
 
+CtPrefDlg::UniversalModelColumns::~UniversalModelColumns()
+{
+
+}
+
 CtPrefDlg::CtPrefDlg(CtMainWin* parent, CtMenu* pCtMenu)
     : Gtk::Dialog (_("Preferences"), *parent, true)
 {
@@ -188,7 +193,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     });
     spinbutton_tab_width->signal_value_changed().connect([this, config, spinbutton_tab_width](){
         config->tabsWidth = spinbutton_tab_width->get_value_as_int();
-        _pCtMainWin->get_text_view().set_tab_width(config->tabsWidth);
+        _pCtMainWin->get_text_view().set_tab_width((guint)config->tabsWidth);
     });
     spinbutton_wrapping_indent->signal_value_changed().connect([this, config, spinbutton_wrapping_indent](){
         config->wrappingIndent = spinbutton_wrapping_indent->get_value_as_int();
@@ -412,18 +417,18 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
         //else: dad.spell_check_set_off(True)
         combobox_spell_check_lang->set_sensitive(config->enableSpellCheck);
     });
-    combobox_spell_check_lang->signal_changed().connect([config, combobox_spell_check_lang](){
+    combobox_spell_check_lang->signal_changed().connect([/*config, combobox_spell_check_lang*/](){
         //new_iter = combobox.get_active_iter()
         //new_lang_code = dad.spell_check_lang_liststore[new_iter][0]
         //if new_lang_code != dad.spell_check_lang: dad.spell_check_set_new_lang(new_lang_code)
     });
-    colorbutton_text_fg->signal_color_set().connect([this, config, colorbutton_text_fg](){
+    colorbutton_text_fg->signal_color_set().connect([/*this, */config, colorbutton_text_fg](){
         config->rtDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_text_fg->get_rgba());
         //if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
         //    dad.widget_set_colors(dad.sourceview, dad.rt_def_fg, dad.rt_def_bg, False)
         //    support.rich_text_node_modify_codeboxes_color(dad.curr_buffer.get_start_iter(), dad)
     });
-    colorbutton_text_bg->signal_color_set().connect([this, config, colorbutton_text_bg](){
+    colorbutton_text_bg->signal_color_set().connect([/*this, */config, colorbutton_text_bg](){
         config->rtDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_text_bg->get_rgba());
         //if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
         //    if dad.rt_highl_curr_line:
@@ -951,7 +956,7 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
     pMainBox->set_spacing(3);
     pMainBox->pack_start(*frame_fonts, false, false);
 
-    fontbutton_rt->signal_font_set().connect([this, config, fontbutton_rt](){
+    fontbutton_rt->signal_font_set().connect([/*this, */config, fontbutton_rt](){
         config->rtFont = fontbutton_rt->get_font_name();
         //if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
         //    dad.sourceview.modify_font(pango.FontDescription(dad.rt_font))
@@ -1457,7 +1462,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
         config->wordCountOn = checkbutton_word_count->get_active();
         //dad.update_selected_node_statusbar_info()
     });
-    combobox_country_language->signal_changed().connect([this, config, combobox_country_language](){
+    combobox_country_language->signal_changed().connect([this, /*config, */combobox_country_language](){
         Glib::ustring new_lang = combobox_country_language->get_active_text();
         need_restart(RESTART_REASON::LANG, _("The New Language will be Available Only After Restarting CherryTree"));
         // config->countryLang = new_lang;
@@ -1512,7 +1517,7 @@ void CtPrefDlg::fill_commands_model(Glib::RefPtr<Gtk::ListStore> model)
     }
 }
 
-void CtPrefDlg::add_new_command_in_model(Glib::RefPtr<Gtk::ListStore> model)
+void CtPrefDlg::add_new_command_in_model(Glib::RefPtr<Gtk::ListStore> /*model*/)
 {
     std::set<std::string> used_code_exec_keys;
     for (auto& it: CtApp::P_ctCfg->customCodexecType)
@@ -1695,7 +1700,7 @@ bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut)
         Glib::ustring keyname = gdk_keyval_name(key->keyval);
         if (keyname.size() == 1) keyname = keyname.uppercase();
         key_entry->set_text(keyname);
-        key_entry->select_region(0, keyname.size());
+        key_entry->select_region(0, (int)keyname.size());
         return true;
     }, false);
 

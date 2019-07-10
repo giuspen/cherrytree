@@ -577,7 +577,7 @@ bool dialog_node_prop(std::string title, Gtk::Window& parent, CtNodeData& nodeDa
             itemStore->add_row(pair.second, std::to_string(pair.first), "");
         auto res = ct_dialogs::choose_item_dialog(parent, _("Select Node Icon"), itemStore);
         if (res) {
-            nodeData.customIconId = std::stoi(res->get_value(itemStore->columns.key));
+            nodeData.customIconId = static_cast<guint32>(std::stoi(res->get_value(itemStore->columns.key)));
             c_icon_button.set_label("");
             c_icon_button.set_image(*CtImage::new_image_from_stock(res->get_value(itemStore->columns.stock_id), Gtk::ICON_SIZE_BUTTON));
         }

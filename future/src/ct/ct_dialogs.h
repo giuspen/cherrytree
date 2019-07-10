@@ -45,8 +45,20 @@ public:
     } columns;
 
 public:
-    static Glib::RefPtr<CtChooseDialogStore<GtkStoreBase>> create();
-    void add_row(const std::string& stock_id, const std::string& key, const std::string& desc, gint64 node_id = 0);
+    static Glib::RefPtr<CtChooseDialogStore<GtkStoreBase>> create()
+    {
+        Glib::RefPtr<CtChooseDialogStore<GtkStoreBase>> model(new CtChooseDialogStore<GtkStoreBase>());
+        model->set_column_types(model->columns);
+        return model;
+    }
+    void add_row(const std::string& stock_id, const std::string& key, const std::string& desc, gint64 node_id = 0)
+    {
+        auto row = *GtkStoreBase::append();
+        row[columns.stock_id] = stock_id;
+        row[columns.key] = key;
+        row[columns.desc] = desc;
+        row[columns.node_id] = node_id;
+    }
 };
 typedef CtChooseDialogStore<Gtk::ListStore> CtChooseDialogListStore;
 typedef CtChooseDialogStore<Gtk::TreeStore> CtChooseDialogTreeStore;
@@ -93,6 +105,7 @@ public:
        Gtk::TreeModelColumn<Glib::ustring>  line_content;
        CtMatchModelColumns() { add(node_id); add(node_name); add(node_hier_name);
                                add(start_offset); add(end_offset); add(line_num); add(line_content); }
+       virtual ~CtMatchModelColumns();
     } columns;
 
     std::array<int, 2> dlg_size;
@@ -100,6 +113,8 @@ public:
     Gtk::TreePath      saved_path;
 
 public:
+    virtual ~CtMatchDialogStore();
+
     static Glib::RefPtr<CtMatchDialogStore> create()
     {
         Glib::RefPtr<CtMatchDialogStore> model(new CtMatchDialogStore());

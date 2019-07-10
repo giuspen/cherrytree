@@ -286,10 +286,11 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
             property_value = _links_entries_post_dialog(glb_link_entry);
         } else {
             // todo: assert tag_property[0] in ['f', 'b'], "!! bad tag_property '%s'" % tag_property
-            Gdk::RGBA ret_color = Gdk::RGBA(CtApp::P_ctCfg->currColors.at(tag_property[0]));
+            gchar color_for = tag_property[0] == 'f' ? 'f' : 'b';
+            Gdk::RGBA ret_color = Gdk::RGBA(CtApp::P_ctCfg->currColors.at(color_for));
             if (!ct_dialogs::color_pick_dialog(*_pCtMainWin, ret_color))
                 return;
-            CtApp::P_ctCfg->currColors[tag_property[0]] = CtRgbUtil::rgb_to_string(ret_color);
+            CtApp::P_ctCfg->currColors[color_for] = CtRgbUtil::rgb_to_string(ret_color);
             property_value = CtRgbUtil::rgb_to_string(ret_color);
         }
     }
