@@ -48,7 +48,7 @@ CtTextView::CtTextView()
     set_left_margin(7);
     set_right_margin(7);
     set_insert_spaces_instead_of_tabs(CtApp::P_ctCfg->spacesInsteadTabs);
-    set_tab_width(CtApp::P_ctCfg->tabsWidth);
+    set_tab_width((guint)CtApp::P_ctCfg->tabsWidth);
     if (CtApp::P_ctCfg->lineWrapping)
     {
         set_wrap_mode(Gtk::WrapMode::WRAP_WORD_CHAR);
@@ -93,7 +93,7 @@ void CtTextView::setupForSyntax(const std::string& syntax)
 
 void CtTextView::set_pixels_inside_wrap(int space_around_lines, int relative_wrapped_space)
 {
-    int pixels_around_wrap = (space_around_lines * (relative_wrapped_space / 100.0));
+    int pixels_around_wrap = (int)((double)space_around_lines * ((double)relative_wrapped_space / 100.0));
     Gtk::TextView::set_pixels_inside_wrap(pixels_around_wrap);
 }
 
@@ -163,9 +163,9 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow(), _ctMenu(pCtMen
     _ctTreeview.signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalKeyPressEvent), false);
     _ctTreeview.signal_popup_menu().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalPopupMenu));
 
-    g_signal_connect(G_OBJECT(_ctTextview.gobj()), "cut-clipboard", G_CALLBACK(CtClipboard::on_cut_clipboard), 0 /*from_codebox*/);
-    g_signal_connect(G_OBJECT(_ctTextview.gobj()), "copy-clipboard", G_CALLBACK(CtClipboard::on_copy_clipboard), 0 /*from_codebox*/);
-    g_signal_connect(G_OBJECT(_ctTextview.gobj()), "paste-clipboard", G_CALLBACK(CtClipboard::on_paste_clipboard), 0 /*from_codebox*/);
+    g_signal_connect(G_OBJECT(_ctTextview.gobj()), "cut-clipboard", G_CALLBACK(CtClipboard::on_cut_clipboard), nullptr /*from_codebox*/);
+    g_signal_connect(G_OBJECT(_ctTextview.gobj()), "copy-clipboard", G_CALLBACK(CtClipboard::on_copy_clipboard), nullptr /*from_codebox*/);
+    g_signal_connect(G_OBJECT(_ctTextview.gobj()), "paste-clipboard", G_CALLBACK(CtClipboard::on_paste_clipboard), nullptr /*from_codebox*/);
 
     signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheWindowSignalKeyPressEvent), false);
 
@@ -301,7 +301,7 @@ bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, cons
     bool retOk{false};
     std::string filepath{r_file->get_path()};
     CtDocEncrypt docEncrypt = CtMiscUtil::getDocEncrypt(filepath);
-    const gchar* pFilepath{NULL};
+    const gchar* pFilepath{nullptr};
     if (CtDocEncrypt::True == docEncrypt)
     {
         gchar* title = g_strdup_printf(_("Enter Password for %s"), Glib::path_get_basename(filepath).c_str());
@@ -329,7 +329,7 @@ bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, cons
     {
         pFilepath = filepath.c_str();
     }
-    if (NULL != pFilepath)
+    if (pFilepath)
     {
         retOk = _ctTreestore.readNodesFromFilepath(pFilepath, isImport);
     }
@@ -484,7 +484,7 @@ bool CtDialogTextEntry::_onEntryKeyPress(GdkEventKey *eventKey)
     return false;
 }
 
-void CtDialogTextEntry::_onEntryIconPress(Gtk::EntryIconPosition iconPosition, const GdkEventButton* event)
+void CtDialogTextEntry::_onEntryIconPress(Gtk::EntryIconPosition /*iconPosition*/, const GdkEventButton* /*event*/)
 {
     _entry.set_text("");
 }

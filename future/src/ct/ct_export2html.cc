@@ -38,7 +38,7 @@ Glib::ustring CtExport2Html::selection_export_to_html(Glib::RefPtr<Gtk::TextBuff
         Glib::ustring tempFolder = CtApp::P_ctTmp->getHiddenDirPath("IMAGE_TEMP_FOLDER");
 
         int start_offset = start_iter.get_offset();
-        std::list<CtAnchoredWidget*> widgets = CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(CtForPrint::No, std::make_pair(start_iter.get_offset(), end_iter.get_offset()));
+        std::list<CtAnchoredWidget*> widgets = CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(std::make_pair(start_iter.get_offset(), end_iter.get_offset()));
         for (CtAnchoredWidget* widget: widgets)
         {
             int end_offset = widget->getOffset();

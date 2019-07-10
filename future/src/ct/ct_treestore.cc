@@ -26,6 +26,11 @@
 #include "ct_treestore.h"
 #include "ct_misc_utils.h"
 
+CtTreeModelColumns::~CtTreeModelColumns()
+{
+
+}
+
 CtTreeIter::CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* columns)
  : Gtk::TreeIter(iter),
    _pColumns(columns)
@@ -122,8 +127,7 @@ bool CtTreeIter::get_is_bold_from_pango_weight(guint16 pangoWeight)
     return pangoWeight == PANGO_WEIGHT_HEAVY;
 }
 
-std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes(CtForPrint forPrint,
-                                                                               const std::pair<int,int>& offset_range)
+std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes(const std::pair<int,int>& offset_range)
 {
     std::list<CtAnchoredWidget*> retAnchoredWidgetsList;
     if ((*this) && (*this)->get_value(_pColumns->colAnchoredWidgets).size() > 0)
@@ -289,7 +293,7 @@ Glib::RefPtr<Gdk::Pixbuf> CtTreeStore::_getNodeIcon(int nodeDepth, const std::st
     if (0 != customIconId)
     {
         // customIconId
-        rPixbuf = CtApp::R_icontheme->load_icon(CtConst::NODES_STOCKS.at(customIconId), CtConst::NODE_ICON_SIZE);
+        rPixbuf = CtApp::R_icontheme->load_icon(CtConst::NODES_STOCKS.at((int)customIconId), CtConst::NODE_ICON_SIZE);
     }
     else if (CtConst::NODE_ICON_TYPE_NONE == CtApp::P_ctCfg->nodesIcons)
     {
@@ -356,7 +360,7 @@ void CtTreeStore::updateNodeData(Gtk::TreeIter treeIter, const CtNodeData& nodeD
     row[_columns.colNodeTags] = nodeData.tags;
     row[_columns.colNodeRO] = nodeData.isRO;
     //row[_columns.rColPixbufAux] = ;
-    row[_columns.colCustomIconId] = nodeData.customIconId;
+    row[_columns.colCustomIconId] = (guint16)nodeData.customIconId;
     row[_columns.colWeight] = CtTreeIter::get_pango_weight_from_is_bold(nodeData.isBold);
     row[_columns.colForeground] = nodeData.foregroundRgb24;
     row[_columns.colTsCreation] = nodeData.tsCreation;
@@ -473,7 +477,7 @@ void CtTreeStore::applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtT
         {
             if (0 == rChildAnchor->get_widgets().size())
             {
-                Gtk::TextIter textIter = rTextBuffer->get_iter_at_child_anchor(rChildAnchor);
+                // Gtk::TextIter textIter = rTextBuffer->get_iter_at_child_anchor(rChildAnchor);
                 pTextView->add_child_at_anchor(*pCtAnchoredWidget, rChildAnchor);
                 pCtAnchoredWidget->applyWidthHeight(pTextView->get_allocation().get_width());
             }

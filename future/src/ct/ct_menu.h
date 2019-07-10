@@ -37,8 +37,8 @@ struct CtAction
     std::string desc;
     sigc::slot<void> run_action;
 
-    sigc::signal<void, bool> signal_set_sensitive;
-    sigc::signal<void, bool> signal_set_visible;
+    sigc::signal<void, bool> signal_set_sensitive = sigc::signal<void, bool>();
+    sigc::signal<void, bool> signal_set_visible = sigc::signal<void, bool>();
 
     const std::string& get_shortcut() const;
 };

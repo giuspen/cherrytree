@@ -27,6 +27,12 @@
 #include "ct_image.h"
 #include "ct_table.h"
 
+CtDocRead::~CtDocRead()
+{
+
+}
+
+
 CtSQLiteRead::CtSQLiteRead(const char* filepath)
 {
     int ret_code = sqlite3_open(filepath, &_pDb);
@@ -45,7 +51,7 @@ CtSQLiteRead::~CtSQLiteRead()
 void CtSQLiteRead::treeWalk(const Gtk::TreeIter* pParentIter)
 {
     sqlite3_stmt *p_stmt;
-    if (sqlite3_prepare_v2(_pDb, "SELECT node_id FROM bookmark ORDER BY sequence ASC", -1, &p_stmt, 0) != SQLITE_OK)
+    if (sqlite3_prepare_v2(_pDb, "SELECT node_id FROM bookmark ORDER BY sequence ASC", -1, &p_stmt, nullptr) != SQLITE_OK)
     {
         std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
         exit(EXIT_FAILURE);
@@ -71,7 +77,7 @@ Glib::RefPtr<Gsv::Buffer> CtSQLiteRead::getTextBuffer(const std::string& syntax,
     Glib::RefPtr<Gsv::Buffer> rRetTextBuffer{nullptr};
 
     sqlite3_stmt *p_stmt;
-    if (sqlite3_prepare_v2(_pDb, "SELECT txt, has_codebox, has_table, has_image FROM node WHERE node_id=?", -1, &p_stmt, 0) != SQLITE_OK)
+    if (sqlite3_prepare_v2(_pDb, "SELECT txt, has_codebox, has_table, has_image FROM node WHERE node_id=?", -1, &p_stmt, nullptr) != SQLITE_OK)
     {
         std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
         exit(EXIT_FAILURE);
@@ -81,7 +87,7 @@ Glib::RefPtr<Gsv::Buffer> CtSQLiteRead::getTextBuffer(const std::string& syntax,
     bool has_table{false};
     bool has_image{false};
 
-    sqlite3_bind_int(p_stmt, 1, nodeId);
+    sqlite3_bind_int64(p_stmt, 1, nodeId);
     if (sqlite3_step(p_stmt) == SQLITE_ROW)
     {
         const char* textContent = reinterpret_cast<const char*>(sqlite3_column_text(p_stmt, 0));
@@ -135,13 +141,13 @@ void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTex
             char query_buff[64];
             snprintf(query_buff, 64, "SELECT * FROM %s WHERE node_id=? ORDER BY offset ASC", table_name[i]);
             //std::cout << query_buff << std::endl;
-            if (SQLITE_OK != sqlite3_prepare_v2(_pDb, query_buff, -1, &pp_stmt[i], 0))
+            if (SQLITE_OK != sqlite3_prepare_v2(_pDb, query_buff, -1, &pp_stmt[i], nullptr))
             {
                 std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
             }
             else
             {
-                sqlite3_bind_int(pp_stmt[i], 1, nodeId);
+                sqlite3_bind_int64(pp_stmt[i], 1, nodeId);
                 charOffset[i] = cOffsetRead;
             }
         }
@@ -155,7 +161,7 @@ void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTex
             {
                 if (SQLITE_ROW == sqlite3_step(pp_stmt[i]))
                 {
-                    charOffset[i] = sqlite3_column_int64(pp_stmt[i], 1);
+                    charOffset[i] = sqlite3_column_int(pp_stmt[i], 1);
                     justification[i] = reinterpret_cast<const char*>(sqlite3_column_text(pp_stmt[i], 2));
                     if (justification[i].empty())
                     {
@@ -177,8 +183,8 @@ void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTex
             const int i{0};
             const Glib::ustring textContent = reinterpret_cast<const char*>(sqlite3_column_text(pp_stmt[i], 3));
             const Glib::ustring syntaxHighlighting = reinterpret_cast<const char*>(sqlite3_column_text(pp_stmt[i], 4));
-            const int frameWidth = sqlite3_column_int64(pp_stmt[i], 5);
-            const int frameHeight = sqlite3_column_int64(pp_stmt[i], 6);
+            const int frameWidth = sqlite3_column_int(pp_stmt[i], 5);
+            const int frameHeight = sqlite3_column_int(pp_stmt[i], 6);
             const bool widthInPixels = sqlite3_column_int64(pp_stmt[i], 7);
             const bool highlightBrackets = sqlite3_column_int64(pp_stmt[i], 8);
             const bool showLineNumbers = sqlite3_column_int64(pp_stmt[i], 9);
@@ -203,8 +209,8 @@ void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTex
             // table
             const int i{1};
             const char* textContent = reinterpret_cast<const char*>(sqlite3_column_text(pp_stmt[i], 3));
-            const int colMin = sqlite3_column_int64(pp_stmt[i], 4);
-            const int colMax = sqlite3_column_int64(pp_stmt[i], 5);
+            const int colMin = sqlite3_column_int(pp_stmt[i], 4);
+            const int colMax = sqlite3_column_int(pp_stmt[i], 5);
             CtXmlRead ctXmlRead(nullptr, textContent);
             CtTableMatrix tableMatrix;
             assert(nullptr != ctXmlRead.get_document());
@@ -230,7 +236,7 @@ void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTex
                 const Glib::ustring fileName = reinterpret_cast<const char*>(sqlite3_column_text(pp_stmt[i], 5));
                 const void* pBlob = sqlite3_column_blob(pp_stmt[i], 4);
                 const int blobSize = sqlite3_column_bytes(pp_stmt[i], 4);
-                const std::string rawBlob(reinterpret_cast<const char*>(pBlob), blobSize);
+                const std::string rawBlob(reinterpret_cast<const char*>(pBlob), static_cast<size_t>(blobSize));
                 if (!fileName.empty())
                 {
                     const double timeDouble = sqlite3_column_int64(pp_stmt[i], 7);
@@ -279,12 +285,12 @@ std::list<gint64> CtSQLiteRead::_sqlite3GetChildrenNodeIdFromFatherId(gint64 fat
 {
     std::list<gint64> ret_children;
     sqlite3_stmt *p_stmt;
-    if (sqlite3_prepare_v2(_pDb, "SELECT node_id FROM children WHERE father_id=? ORDER BY sequence ASC", -1, &p_stmt, 0) != SQLITE_OK)
+    if (sqlite3_prepare_v2(_pDb, "SELECT node_id FROM children WHERE father_id=? ORDER BY sequence ASC", -1, &p_stmt, nullptr) != SQLITE_OK)
     {
         std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
         exit(EXIT_FAILURE);
     }
-    sqlite3_bind_int(p_stmt, 1, father_id);
+    sqlite3_bind_int64(p_stmt, 1, father_id);
     while (sqlite3_step(p_stmt) == SQLITE_ROW)
     {
         gint64 nodeId = sqlite3_column_int64(p_stmt, 0);
@@ -299,12 +305,12 @@ CtNodeData CtSQLiteRead::_sqlite3GetNodeProperties(gint64 nodeId)
     CtNodeData nodeData;
     nodeData.nodeId = nodeId;
     sqlite3_stmt *p_stmt;
-    if (sqlite3_prepare_v2(_pDb, "SELECT name, syntax, tags, is_ro, is_richtxt, ts_creation, ts_lastsave FROM node WHERE node_id=?", -1, &p_stmt, 0) != SQLITE_OK)
+    if (sqlite3_prepare_v2(_pDb, "SELECT name, syntax, tags, is_ro, is_richtxt, ts_creation, ts_lastsave FROM node WHERE node_id=?", -1, &p_stmt, nullptr) != SQLITE_OK)
     {
         std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
         exit(EXIT_FAILURE);
     }
-    sqlite3_bind_int(p_stmt, 1, nodeId);
+    sqlite3_bind_int64(p_stmt, 1, nodeId);
     if (sqlite3_step(p_stmt) == SQLITE_ROW)
     {
         nodeData.name = reinterpret_cast<const char*>(sqlite3_column_text(p_stmt, 0));

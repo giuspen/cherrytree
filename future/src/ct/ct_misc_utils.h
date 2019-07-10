@@ -154,13 +154,13 @@ int byte_pos_to_symb_pos(const Glib::ustring& text, int byte_pos);
 Glib::ustring swapcase(const Glib::ustring& text);
 
 template<class String>
-String replace(String& subjectStr, const gchar* searchStr, const gchar* replaceStr)
+String replace(String& subjectStr, const Glib::ustring& searchStr, const Glib::ustring& replaceStr)
 {
     size_t pos = 0;
     while ((pos = subjectStr.find(searchStr, pos)) != std::string::npos)
     {
-        subjectStr.replace(pos, strlen(searchStr), replaceStr);
-        pos += strlen(replaceStr);
+        subjectStr.replace(pos, searchStr.size(), replaceStr);
+        pos += replaceStr.size();
     }
     return subjectStr;
 }

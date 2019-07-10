@@ -86,8 +86,8 @@ void CtList::list_handler(CtListInfo::LIST_TYPE target_list_num_id, Glib::RefPtr
                 } else if (target_list_num_id == CtListInfo::BULLET) {
                     new_par_offset = range.iter_end.get_offset() + 2;
                     end_offset += 2;
-                    int bull_idx = (!list_info) ? 0 : list_info.level % CtApp::P_ctCfg->charsListbul.size();
-                    text_buffer->insert(range.iter_start, CtApp::P_ctCfg->charsListbul[bull_idx] + CtConst::CHAR_SPACE);
+                    int bull_idx = (!list_info) ? 0 : (list_info.level % (int)CtApp::P_ctCfg->charsListbul.size());
+                    text_buffer->insert(range.iter_start, CtApp::P_ctCfg->charsListbul.substr((size_t)bull_idx, 1) + CtConst::CHAR_SPACE);
                 } else {
                     int index;
                     if (!list_info) {
@@ -117,8 +117,8 @@ void CtList::list_handler(CtListInfo::LIST_TYPE target_list_num_id, Glib::RefPtr
                              }
                          }
                     }
-                    Glib::ustring leading_str = std::to_string(leading_num_count.back().count) + CtConst::CHARS_LISTNUM[index] + CtConst::CHAR_SPACE;
-                    new_par_offset = range.iter_end.get_offset() + leading_str.size();
+                    Glib::ustring leading_str = std::to_string(leading_num_count.back().count) + CtConst::CHARS_LISTNUM.substr((size_t)index, 1) + CtConst::CHAR_SPACE;
+                    new_par_offset = range.iter_end.get_offset() + (int)leading_str.size();
                     end_offset += leading_str.size();
                     text_buffer->insert(range.iter_start, leading_str);
                 }
@@ -157,7 +157,7 @@ CtTextRange CtList::list_check_n_remove_old_list_type_leading(Gtk::TextIter iter
 int CtList::get_leading_chars_num(CtListInfo::LIST_TYPE type, int list_info_num)
 {
     if (type == CtListInfo::NUMBER)
-        return ("%" + std::to_string(list_info_num) + ". ").size();
+        return (int)("%" + std::to_string(list_info_num) + ". ").size();
     return 2;
 }
 

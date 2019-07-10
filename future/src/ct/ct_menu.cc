@@ -32,7 +32,7 @@ static xmlpp::Attribute* get_attribute(xmlpp::Node* pNode, char const* name)
     return pElement->get_attribute(name);
 }
 
-static void on_menu_activate(void* pObject, CtAction* pAction)
+static void on_menu_activate(void* /*pObject*/, CtAction* pAction)
 {
     if (pAction)
     {

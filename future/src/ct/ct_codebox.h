@@ -32,17 +32,19 @@ class CtAnchoredWidget : public Gtk::EventBox
 {
 public:
     CtAnchoredWidget(const int charOffset, const std::string& justification);
+    virtual ~CtAnchoredWidget();
+
     void insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer);
     Glib::RefPtr<Gtk::TextChildAnchor> getTextChildAnchor() { return _rTextChildAnchor; }
 
     virtual void applyWidthHeight(const int parentTextWidth) = 0;
-    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) { _charOffset += offset_adjustment; }
+    virtual void to_xml(xmlpp::Element* /*p_node_parent*/, const int offset_adjustment) { _charOffset += offset_adjustment; }
 
     void updateOffset(int charOffset) { _charOffset = charOffset; }
     void updateJustification(std::string justification) { _justification = justification; }
 
     int getOffset() { return _charOffset; }
-    std::string getJustification() { return _justification; }
+    const std::string& getJustification() { return _justification; }
 
 protected:
     Gtk::Frame _frame;

@@ -11,6 +11,7 @@ class CtPrefDlg : public Gtk::Dialog
 {
 public:
     CtPrefDlg(CtMainWin* parent, CtMenu* pCtMenu);
+    virtual ~CtPrefDlg();
 
 private:
     Gtk::Widget* build_tab_text_n_code();
@@ -59,6 +60,7 @@ private:
        Gtk::TreeModelColumn<Glib::ustring>              desc;
        Gtk::TreeModelColumn<Glib::ustring>              shortcut;
        UniversalModelColumns() { add(icon); add(key); add(desc); add(shortcut); }
+       virtual ~UniversalModelColumns();
     };
 
 private:

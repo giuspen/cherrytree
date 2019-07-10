@@ -175,7 +175,7 @@ void CtConfig::_populateFromKeyfile()
         restoreExpColl = static_cast<CtRestoreExpColl>(rest_exp_coll);
     }
     _populateStringFromKeyfile("expanded_collapsed_string", &expandedCollapsedString);
-    recentDocsRestore.resize(CtConst::MAX_RECENT_DOCS_RESTORE);
+    recentDocsRestore.resize((size_t)CtConst::MAX_RECENT_DOCS_RESTORE);
     for (i=0; i<=CtConst::MAX_RECENT_DOCS_RESTORE; i++)
     {
         snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollnam%d", i+1);

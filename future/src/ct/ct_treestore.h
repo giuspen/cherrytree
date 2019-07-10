@@ -53,6 +53,7 @@ public:
         add(rColPixbufAux); add(colCustomIconId); add(colWeight); add(colForeground);
         add(colTsCreation); add(colTsLastSave); add(colAnchoredWidgets);
     }
+    virtual ~CtTreeModelColumns();
     Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>  rColPixbuf;
     Gtk::TreeModelColumn<Glib::ustring>              colNodeName;
     Gtk::TreeModelColumn<Glib::RefPtr<Gsv::Buffer>>  rColTextBuffer;
@@ -69,8 +70,6 @@ public:
     Gtk::TreeModelColumn<gint64>                     colTsLastSave;
     Gtk::TreeModelColumn<std::list<CtAnchoredWidget*>> colAnchoredWidgets;
 };
-
-enum class CtForPrint : int {No=0, YesPdf=1, YesHtml=2};
 
 class CtTreeIter : public Gtk::TreeIter
 {
@@ -93,8 +92,7 @@ public:
     std::time_t   get_node_creating_time() const;
     std::time_t   get_node_modification_time() const;
     void          set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf);
-    std::list<CtAnchoredWidget*> get_embedded_pixbufs_tables_codeboxes(CtForPrint forPrint=CtForPrint::No,
-                                                                       const std::pair<int,int>& offset_range=std::make_pair(-1,-1));
+    std::list<CtAnchoredWidget*> get_embedded_pixbufs_tables_codeboxes(const std::pair<int,int>& offset_range=std::make_pair(-1,-1));
 
     Glib::RefPtr<Gsv::Buffer> get_node_text_buffer() const;
 
@@ -154,7 +152,7 @@ public:
     Gtk::TreePath                   get_path(Gtk::TreeIter tree_iter);
     CtTreeIter                      to_ct_tree_iter(Gtk::TreeIter tree_iter);
 
-    void nodes_sequences_fix(Gtk::TreeIter father_iter, bool process_children) { /* todo: */ }
+    void nodes_sequences_fix(Gtk::TreeIter /*father_iter*/, bool /*process_children*/) { /* todo: */ }
     CtSQLiteRead* ctdb_handler() { return _pCtSQLiteRead; }
     const CtTreeModelColumns& get_columns() { return _columns; }
 

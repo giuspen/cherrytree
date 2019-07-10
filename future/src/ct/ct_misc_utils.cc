@@ -271,7 +271,7 @@ Glib::ustring CtMiscUtil::sourceview_hovering_link_get_tooltip(const Glib::ustri
     return tooltip;
 }
 
-void CtMiscUtil::widget_set_colors(Gtk::Widget& widget, const std::string& fg, const std::string& bg,
+void CtMiscUtil::widget_set_colors(Gtk::Widget& widget, const std::string& fg, const std::string& /*bg*/,
                        bool syntax_highl, const std::string& gdk_col_fg)
 {
     if (syntax_highl) return;
@@ -328,8 +328,8 @@ std::string CtMiscUtil::get_node_hierarchical_name(CtTreeIter tree_iter, const c
         hierarchical_name += trailer;
     if (for_filename) {
         hierarchical_name = clean_from_chars_not_for_filename(hierarchical_name);
-        if (hierarchical_name.size() > CtConst::MAX_FILE_NAME_LEN)
-            hierarchical_name = hierarchical_name.substr(hierarchical_name.size() - CtConst::MAX_FILE_NAME_LEN);
+        if (hierarchical_name.size() > (size_t)CtConst::MAX_FILE_NAME_LEN)
+            hierarchical_name = hierarchical_name.substr(hierarchical_name.size() - (size_t)CtConst::MAX_FILE_NAME_LEN);
     }
     return hierarchical_name;
 }
@@ -394,11 +394,11 @@ bool CtTextIterUtil::get_first_chars_of_string_at_offset_are(const Glib::ustring
     for (const auto& chars_list: chars_list_vec)
     {
         size_t len = chars_list.size();
-        if (in_string.size() - offset < len)
+        if (in_string.size() < (size_t)offset + len)
             continue;
         bool good = true;
         for (size_t i = 0; good && i < len; ++i)
-            good = in_string[offset + i] == chars_list[i];
+            good = in_string[(size_t)offset + i] == chars_list[i];
         if (good)
             return true;
     }
@@ -539,11 +539,11 @@ gint64 CtStrUtil::gint64FromGstring(const gchar* inGstring, bool hexPrefix)
     gint64 retVal;
     if (hexPrefix || g_strrstr(inGstring, "0x"))
     {
-        retVal = g_ascii_strtoll(inGstring, NULL, 16);
+        retVal = g_ascii_strtoll(inGstring, nullptr, 16);
     }
     else
     {
-        retVal = g_ascii_strtoll(inGstring, NULL, 10);
+        retVal = g_ascii_strtoll(inGstring, nullptr, 10);
     }
     return retVal;
 }
@@ -554,7 +554,7 @@ guint32 CtStrUtil::getUint32FromHexChars(const char* hexChars, guint8 numChars)
     assert(numChars < 9);
     strncpy(hexstring, hexChars, numChars);
     hexstring[numChars] = 0;
-    return (guint32)strtoul(hexstring, NULL, 16);
+    return (guint32)strtoul(hexstring, nullptr, 16);
 }
 
 std::vector<gint64> CtStrUtil::gstringSplit2int64(const gchar* inStr, const gchar* delimiter, gint max_tokens)
@@ -639,9 +639,9 @@ void CtRgbUtil::setRgb24StrFromRgb24Int(guint32 rgb24Int, char* rgb24StrOut)
 guint32 CtRgbUtil::getRgb24IntFromRgb24Str(const char* rgb24Str)
 {
     const char* scanStart = g_str_has_prefix(rgb24Str, "#") ? rgb24Str + 1 : rgb24Str;
-    guint8 r = (guint8)CtStrUtil::getUint32FromHexChars(scanStart, 2);
-    guint8 g = (guint8)CtStrUtil::getUint32FromHexChars(scanStart+2, 2);
-    guint8 b = (guint8)CtStrUtil::getUint32FromHexChars(scanStart+4, 2);
+    guint32 r = CtStrUtil::getUint32FromHexChars(scanStart, 2);
+    guint32 g = CtStrUtil::getUint32FromHexChars(scanStart+2, 2);
+    guint32 b = CtStrUtil::getUint32FromHexChars(scanStart+4, 2);
     return (r << 16 | g << 8 | b);
 }
 
@@ -680,12 +680,12 @@ Glib::ustring CtRgbUtil::rgb_to_no_white(Glib::ustring in_rgb)
     const char* scanStart = in_rgb[0] == '#' ? in_rgb.c_str() + 1 : in_rgb.c_str();
     if (strlen(scanStart) == 12)
     {
-        guint16 r = (guint16)CtStrUtil::getUint32FromHexChars(scanStart, 4);
-        guint16 g = (guint16)CtStrUtil::getUint32FromHexChars(scanStart+4, 4);
-        guint16 b = (guint16)CtStrUtil::getUint32FromHexChars(scanStart+8, 4);
+        guint32 r = CtStrUtil::getUint32FromHexChars(scanStart, 4);
+        guint32 g = CtStrUtil::getUint32FromHexChars(scanStart+4, 4);
+        guint32 b = CtStrUtil::getUint32FromHexChars(scanStart+8, 4);
         // r+g+b black is 0
         // r+g+b white is 3*65535
-        int max_48 = 65535;
+        guint32 max_48 = 65535;
         if (r+g+b > 2.2 * max_48)
         {
             r = max_48 - r;
@@ -698,12 +698,12 @@ Glib::ustring CtRgbUtil::rgb_to_no_white(Glib::ustring in_rgb)
     else
     {
         guint32 rgb24Int = getRgb24IntFromStrAny(scanStart);
-        guint8 r = (rgb24Int >> 16) & 0xff;
-        guint8 g = (rgb24Int >> 8) & 0xff;
-        guint8 b = rgb24Int & 0xff;
+        guint32 r = (rgb24Int >> 16) & 0xff;
+        guint32 g = (rgb24Int >> 8) & 0xff;
+        guint32 b = rgb24Int & 0xff;
         // r+g+b black is 0
         // r+g+b white is 3*255
-        int max_24 = 255;
+        guint32 max_24 = 255;
         if (r+g+b > 2.2*max_24)
         {
             r = max_24 - r;
@@ -813,7 +813,7 @@ int str::symb_pos_to_byte_pos(const Glib::ustring& text, int symb_pos)
 
 int str::byte_pos_to_symb_pos(const Glib::ustring& text, int byte_pos)
 {
-    return g_utf8_pointer_to_offset(text.data(), text.data() + byte_pos);
+    return (int)g_utf8_pointer_to_offset(text.data(), text.data() + byte_pos);
 }
 
 Glib::ustring str::swapcase(const Glib::ustring& text)
@@ -855,6 +855,6 @@ bool CtFileSystem::isfile(const Glib::ustring& path)
 Glib::ustring CtFileSystem::join(const Glib::ustring& path1, const Glib::ustring& path2)
 {
     // todo: improve the trick
-    const gchar* sep = CtConst::IS_WIN_OS ? CtConst::CHAR_BSLASH : CtConst::CHAR_SLASH;
+    const auto sep = CtConst::IS_WIN_OS ? CtConst::CHAR_BSLASH : CtConst::CHAR_SLASH;
     return path1 + sep + path2;
 }

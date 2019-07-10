@@ -114,7 +114,7 @@ void CtClipboard::_copy_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox)
 }
 
 // Paste from Clipboard
-void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox)
+void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* /*pCodebox*/)
 {
     auto on_scope_exit = scope_guard([&](void*) { CtClipboard::_static_force_plain_text = false; });
 
@@ -176,7 +176,7 @@ Glib::ustring CtClipboard::rich_text_get_from_text_buffer_selection(CtTreeIter n
     int iter_sel_end_offset = iter_sel_end.get_offset();
     if (exclude_iter_sel_end)
         iter_sel_end_offset -= 1;
-    std::list<CtAnchoredWidget*> widget_vector = node_iter.get_embedded_pixbufs_tables_codeboxes(CtForPrint::No, std::make_pair(iter_sel_start_offset, iter_sel_end_offset));
+    std::list<CtAnchoredWidget*> widget_vector = node_iter.get_embedded_pixbufs_tables_codeboxes(std::make_pair(iter_sel_start_offset, iter_sel_end_offset));
 
     xmlpp::Document doc;
     auto root = doc.create_root_node("root");
@@ -242,13 +242,13 @@ void CtClipboard::from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_b
 }
 
 // Write the Selected Content to the Clipboard
-void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextView* sourceview, Gtk::TextIter iter_sel_start, Gtk::TextIter iter_sel_end, int num_chars, CtCodebox* pCodebox)
+void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextView* /*sourceview*/, Gtk::TextIter iter_sel_start, Gtk::TextIter iter_sel_end, int num_chars, CtCodebox* pCodebox)
 {
     Glib::ustring node_syntax_high = CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_node_syntax_highlighting();
     CtImage* pixbuf_target = nullptr;
     if (!pCodebox && node_syntax_high == CtConst::RICH_TEXT_ID && num_chars == 1)
     {
-        std::list<CtAnchoredWidget*> widget_vector = CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(CtForPrint::No, std::make_pair(iter_sel_start.get_offset(), iter_sel_end.get_offset()));
+        std::list<CtAnchoredWidget*> widget_vector = CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(std::make_pair(iter_sel_start.get_offset(), iter_sel_end.get_offset()));
         if (widget_vector.size() > 0)
         {
             if (CtImage* image = dynamic_cast<CtImage*>(widget_vector.front()))
@@ -323,7 +323,7 @@ void CtClipboard::_set_clipboard_data(const std::vector<std::string>& targets_li
 }
 
 // based on def get_func(self, clipboard, selectiondata, info, data)
-void  CtClipboard::_on_clip_data_get(Gtk::SelectionData& selection_data, guint info, CtClipboardData* clip_data)
+void  CtClipboard::_on_clip_data_get(Gtk::SelectionData& selection_data, guint /*info*/, CtClipboardData* clip_data)
 {
     Glib::ustring target = selection_data.get_target();
     if (target == TARGET_CTD_PLAIN_TEXT)
@@ -390,7 +390,7 @@ void CtClipboard::_on_received_to_plain_text(const Gtk::SelectionData& selection
             {
                 Gtk::TextIter iter_sel_start = curr_buffer->get_iter_at_offset(start_offset + offset.first);
                 Gtk::TextIter iter_sel_end = curr_buffer->get_iter_at_offset(start_offset + offset.second);
-                Glib::ustring link_url = plain_text.substr(offset.first, offset.second - offset.first);
+                Glib::ustring link_url = plain_text.substr((size_t)offset.first, (size_t)(offset.second - offset.first));
                 if (!str::startswith(link_url, "htt") && !str::startswith(link_url, "ftp"))
                     link_url = "http://" + link_url;
                 Glib::ustring property_value = "webs " + link_url;
@@ -504,7 +504,7 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
 }
 
 // From Clipboard to HTML Text
-void CtClipboard::_on_received_to_html(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
+void CtClipboard::_on_received_to_html(const Gtk::SelectionData& /*selection_data*/, Gtk::TextView* /*pTextView*/, bool)
 {
     // todo:
 }
@@ -589,7 +589,7 @@ void CtClipboard::_on_received_to_uri_list(const Gtk::SelectionData& selection_d
             if (!property_value.empty())
             {
                 Gtk::TextIter iter_sel_start = pTextView->get_buffer()->get_iter_at_offset(start_offset);
-                Gtk::TextIter iter_sel_end = pTextView->get_buffer()->get_iter_at_offset(start_offset + element.length());
+                Gtk::TextIter iter_sel_end = pTextView->get_buffer()->get_iter_at_offset(start_offset + (int)element.length());
                 pTextView->get_buffer()->apply_tag_by_name(CtApp::P_ctActions->apply_tag_exist_or_create(CtConst::TAG_LINK, property_value),
                                                        iter_sel_start, iter_sel_end);
             }

@@ -63,6 +63,11 @@ CtImage::CtImage(Glib::RefPtr<Gdk::Pixbuf> pixBuf,
     show_all();
 }
 
+CtImage::~CtImage()
+{
+
+}
+
 void CtImage::save(const Glib::ustring& file_name, const Glib::ustring& type)
 {
     _rPixbuf->save(file_name, type);
@@ -75,11 +80,10 @@ Glib::RefPtr<Gdk::Pixbuf> CtImage::get_icon(const std::string& name, int size)
     return Glib::RefPtr<Gdk::Pixbuf>();
 }
 
-Gtk::Image* CtImage::new_image_from_stock(const std::string& stockImage, int size)
+Gtk::Image* CtImage::new_image_from_stock(const std::string& stockImage, Gtk::BuiltinIconSize size)
 {
     Gtk::Image* image = Gtk::manage(new Gtk::Image());
-    image->set_from_icon_name(stockImage, Gtk::BuiltinIconSize::ICON_SIZE_BUTTON);
-    //image->set(get_icon(stockImage, size));
+    image->set_from_icon_name(stockImage, size);
     return image;
 }
 
@@ -111,13 +115,13 @@ void CtImagePng::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustme
     p_image_node->set_attribute("char_offset", std::to_string(_charOffset));
     p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
     p_image_node->set_attribute("link", _link);
-    gchar* pBuffer{NULL};
+    gchar* pBuffer{nullptr};
     gsize  buffer_size;
     _rPixbuf->save_to_buffer(pBuffer, buffer_size, "png");
     const std::string rawBlob = std::string(pBuffer, buffer_size);
     g_free(pBuffer);
     const std::string encodedBlob = Glib::Base64::encode(rawBlob);
-    xmlpp::TextNode* p_text_node = p_image_node->add_child_text(encodedBlob);
+    p_image_node->add_child_text(encodedBlob);
 }
 
 void CtImagePng::updateLabelWidget()
@@ -181,7 +185,7 @@ void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent, const int offset_adju
     p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
     p_image_node->set_attribute("time", std::to_string(_timeSeconds));
     const std::string encodedBlob = Glib::Base64::encode(_rawBlob);
-    xmlpp::TextNode* p_text_node = p_image_node->add_child_text(encodedBlob);
+    p_image_node->add_child_text(encodedBlob);
 }
 
 void CtImageEmbFile::updateLabelWidget()

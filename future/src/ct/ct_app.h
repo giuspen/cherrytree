@@ -52,7 +52,7 @@ class CtApp: public Gtk::Application
 {
 protected:
     CtApp();
-    virtual ~CtApp();
+    virtual ~CtApp() override;
 
 public:
     static Glib::RefPtr<CtApp> create();

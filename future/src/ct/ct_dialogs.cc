@@ -30,29 +30,8 @@
 
 using namespace ct_dialogs;
 
-namespace ct_dialogs {
-template class CtChooseDialogStore<Gtk::ListStore>;
-template class CtChooseDialogStore<Gtk::TreeStore>;
-}
-
-template<class GtkStoreBase>
-Glib::RefPtr<CtChooseDialogStore<GtkStoreBase>> CtChooseDialogStore<GtkStoreBase>::create()
-{
-    Glib::RefPtr<CtChooseDialogStore<GtkStoreBase>> model(new CtChooseDialogStore<GtkStoreBase>());
-    model->set_column_types(model->columns);
-    return model;
-}
-
-template<class GtkStoreBase>
-void CtChooseDialogStore<GtkStoreBase>::add_row(const std::string& stock_id, const std::string& key, const std::string& desc, gint64 node_id /*=0*/)
-{
-    auto row = *GtkStoreBase::append();
-    row[columns.stock_id] = stock_id;
-    row[columns.key] = key;
-    row[columns.desc] = desc;
-    row[columns.node_id] = node_id;
-}
-
+ct_dialogs::CtMatchDialogStore::~CtMatchDialogStore() {}
+ct_dialogs::CtMatchDialogStore::CtMatchModelColumns::~CtMatchModelColumns() {}
 
 Gtk::TreeModel::iterator ct_dialogs::choose_item_dialog(Gtk::Window& parent, const std::string& title,
                                                         Glib::RefPtr<CtChooseDialogListStore> model,
@@ -192,7 +171,7 @@ Gtk::TreeIter ct_dialogs::choose_node_dialog(Gtk::Window& parent, Gtk::TreeView&
             return false;
         if (event->type == GDK_BUTTON_PRESS && event->button.button == 2) {
             Gtk::TreePath path_at_click;
-            if (treeview_2.get_path_at_pos(event->button.x, event->button.y, path_at_click)) {
+            if (treeview_2.get_path_at_pos((int)event->button.x, (int)event->button.y, path_at_click)) {
                 expand_collapse_row(path_at_click);
                 return true;
             }
@@ -292,7 +271,7 @@ void ct_dialogs::bookmarks_handle_dialog(CtMainWin* ctMainWin)
     treeview.signal_button_press_event().connect([&treeview, &model, &ctMainWin, &ctTreestore](GdkEventButton* event) -> bool {
         if (event->button != 1 || event->type != GDK_2BUTTON_PRESS) return false;
         Gtk::TreePath clicked_path;
-        if (!treeview.get_path_at_pos(event->x, event->y, clicked_path)) return false;
+        if (!treeview.get_path_at_pos((int)event->x, (int)event->y, clicked_path)) return false;
         Gtk::TreeIter clicked_iter = model->get_iter(clicked_path);
         gint64 node_id = clicked_iter->get_value(model->columns.node_id);
         Gtk::TreeIter tree_iter = ctTreestore.get_tree_iter_from_node_id(node_id);
@@ -376,8 +355,8 @@ std::time_t ct_dialogs::date_select_dialog(Gtk::Window& parent, const std::strin
 
     auto content_area = dialog.get_content_area();
     auto calendar = Gtk::Calendar();
-    calendar.select_month(struct_time.tm_mon-1, struct_time.tm_year); // month 0-11
-    calendar.select_day(struct_time.tm_mday); // day 1-31
+    calendar.select_month((guint)(struct_time.tm_mon-1), (guint)struct_time.tm_year); // month 0-11
+    calendar.select_day((guint)struct_time.tm_mday); // day 1-31
     auto adj_h = Gtk::Adjustment::create(struct_time.tm_hour, 0, 23, 1);
     auto spinbutton_h = Gtk::SpinButton(adj_h);
     spinbutton_h.set_value(struct_time.tm_hour);
@@ -404,10 +383,10 @@ std::time_t ct_dialogs::date_select_dialog(Gtk::Window& parent, const std::strin
     guint new_year, new_month, new_day;
     calendar.get_date(new_year, new_month, new_day);
 
-    std::tm tmtime = {0};
-    tmtime.tm_year = new_year;
-    tmtime.tm_mon = new_month + 1;
-    tmtime.tm_mday = new_day;
+    std::tm tmtime = {};
+    tmtime.tm_year = (int)new_year;
+    tmtime.tm_mon = (int)(new_month) + 1;
+    tmtime.tm_mday = (int)new_day;
     tmtime.tm_hour = spinbutton_h.get_value_as_int();
     tmtime.tm_min = spinbutton_m.get_value_as_int();
 
@@ -719,7 +698,7 @@ bool ct_dialogs::link_handle_dialog(CtMainWin& ctMainWin, const Glib::ustring& t
         sel_tree_iter = treeview_2.get_selection()->get_selected();
         if (event->type == GDK_BUTTON_PRESS && event->button.button == 2) {
             Gtk::TreePath path_at_click;
-            if (treeview_2.get_path_at_pos(event->button.x, event->button.y, path_at_click)) {
+            if (treeview_2.get_path_at_pos((int)event->button.x, (int)event->button.y, path_at_click)) {
                 if (treeview_2.row_expanded(path_at_click))
                     treeview_2.collapse_row(path_at_click);
                 else
@@ -878,11 +857,11 @@ Glib::RefPtr<Gdk::Pixbuf> ct_dialogs::image_handle_dialog(Gtk::Window& father_wi
             // reduced size visible into the dialog
             if (width > 900) {
                 int img_parms_width = 900;
-                int img_parms_height = img_parms_width / image_w_h_ration;
+                int img_parms_height = (int)(img_parms_width / image_w_h_ration);
                 pixbuf = original_pixbuf->scale_simple(img_parms_width, img_parms_height, Gdk::INTERP_BILINEAR);
             } else {
                 int img_parms_height = 600;
-                int img_parms_width = img_parms_height * image_w_h_ration;
+                int img_parms_width = (int)(img_parms_height * image_w_h_ration);
                 pixbuf = original_pixbuf->scale_simple(img_parms_width, img_parms_height, Gdk::INTERP_BILINEAR);
             }
         }
@@ -902,12 +881,12 @@ Glib::RefPtr<Gdk::Pixbuf> ct_dialogs::image_handle_dialog(Gtk::Window& father_wi
     });
     spinbutton_width.signal_value_changed().connect([&]() {
         width = spinbutton_width.get_value_as_int();
-        height = width/image_w_h_ration;
+        height = (int)(width/image_w_h_ration);
         image_load_into_dialog();
     });
     spinbutton_height.signal_value_changed().connect([&]() {
         height = spinbutton_height.get_value_as_int();
-        width = height*image_w_h_ration;
+        width = (int)(height*image_w_h_ration);
         image_load_into_dialog();
     });
     image_load_into_dialog();
