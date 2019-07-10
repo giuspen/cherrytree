@@ -11,6 +11,7 @@ class CtPrefDlg : public Gtk::Dialog
 {
 public:
     CtPrefDlg(CtMainWin* parent, CtMenu* pCtMenu);
+    virtual ~CtPrefDlg();
 
 private:
     Gtk::Widget* build_tab_text_n_code();

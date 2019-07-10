@@ -44,6 +44,11 @@ CtPrefDlg::CtPrefDlg(CtMainWin* parent, CtMenu* pCtMenu)
     add_button(Gtk::Stock::CLOSE, 1);
 }
 
+CtPrefDlg::~CtPrefDlg()
+{
+
+}
+
 Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
 {
     CtConfig* config = CtApp::P_ctCfg;

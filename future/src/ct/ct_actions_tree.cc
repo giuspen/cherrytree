@@ -26,7 +26,7 @@
 #include "ct_app.h"
 #include "ct_dialogs.h"
 #include "ct_doc_rw.h"
-#include <time.h>
+#include <ctime>
 
 bool dialog_node_prop(std::string title, Gtk::Window& parent, CtNodeData& nodeData, const std::set<std::string>& tags_set);
 
@@ -505,7 +505,7 @@ bool dialog_node_prop(std::string title, Gtk::Window& parent, CtNodeData& nodeDa
     ((Gtk::Label*)type_frame.get_label_widget())->set_use_markup(true);
     type_frame.set_shadow_type(Gtk::SHADOW_NONE);
     type_frame.add(type_vbox);
-    type_frame.set_sensitive(nodeData.isRO == false);
+    type_frame.set_sensitive(!nodeData.isRO);
     auto tags_hbox = Gtk::HBox();
     tags_hbox.set_spacing(2);
     auto tags_entry = Gtk::Entry();

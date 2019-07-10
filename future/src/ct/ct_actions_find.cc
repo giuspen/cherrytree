@@ -97,7 +97,7 @@ void CtActions::find_in_selected_node()
 
     std::string entry_hint;
     std::string pattern;
-    if (s_state.from_find_iterated == false) {
+    if (!s_state.from_find_iterated) {
         s_state.latest_node_offset = -1;
         auto iter_insert = curr_buffer->get_iter_at_mark(curr_buffer->get_insert());
         auto iter_bound = curr_buffer->get_iter_at_mark(curr_buffer->get_selection_bound());
