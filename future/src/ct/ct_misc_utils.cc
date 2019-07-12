@@ -27,7 +27,6 @@
 #include "ct_app.h"
 #include <ctime>
 #include <regex>
-#include <experimental/filesystem>
 
 CtDocType CtMiscUtil::getDocType(std::string fileName)
 {
@@ -844,12 +843,12 @@ Glib::ustring CtFileSystem::get_proper_platform_filepath(Glib::ustring filepath)
 
 bool CtFileSystem::isdir(const Glib::ustring& path)
 {
-    return std::experimental::filesystem::is_directory(std::experimental::filesystem::path(path));
+    return Glib::file_test(path, Glib::FILE_TEST_IS_DIR);
 }
 
 bool CtFileSystem::isfile(const Glib::ustring& path)
 {
-    return std::experimental::filesystem::is_regular_file(std::experimental::filesystem::path(path));
+    return Glib::file_test(path, Glib::FILE_TEST_IS_REGULAR);
 }
 
 Glib::ustring CtFileSystem::join(const Glib::ustring& path1, const Glib::ustring& path2)
