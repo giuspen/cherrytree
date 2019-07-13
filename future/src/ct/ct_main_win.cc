@@ -147,8 +147,6 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow(), _ctMenu(pCtMen
     _pSpecialCharsSubmenu = CtMenu::find_menu_item(_pMenu, "SpecialCharsMenu");
     _pMenu->show_all();
     gtk_window_add_accel_group (GTK_WINDOW(gobj()), pCtMenu->default_accel_group());
-    _pNodePopup = pCtMenu->build_popup_menu_node();
-    _pNodePopup->show_all();
     _pToolbar = pCtMenu->build_toolbar();
 
     _vboxMain.pack_start(*_pMenu, false, false);
@@ -379,7 +377,7 @@ bool CtMainWin::_onTheTreeviewSignalButtonPressEvent(GdkEventButton* event)
 {
     if (event->button == 3)
     {
-        _pNodePopup->popup(event->button, event->time);
+        _ctMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(event->button, event->time);
         return true;
     }
     return false;
@@ -426,7 +424,7 @@ bool CtMainWin::_onTheTreeviewSignalKeyPressEvent(GdkEventKey* event)
 
 bool CtMainWin::_onTheTreeviewSignalPopupMenu()
 {
-    _pNodePopup->popup(0, 0);
+    _ctMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(0, 0);
     return true;
 }
 

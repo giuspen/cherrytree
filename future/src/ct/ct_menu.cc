@@ -240,6 +240,8 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     {
         pApp->add_action(action.id, action.run_action);
     }
+
+    _build_popup_menus();
 }
 
 CtAction* CtMenu::find_action(const std::string& id)
@@ -282,110 +284,26 @@ Gtk::MenuItem* CtMenu::find_menu_item(Gtk::MenuBar* menuBar, std::string name)
 Gtk::Toolbar* CtMenu::build_toolbar()
 {
     Gtk::Toolbar* pToolbar = nullptr;
-    _rGtkBuilder->add_from_string(get_toolbar_ui_str());
+    _rGtkBuilder->add_from_string(_get_ui_str_toolbar());
     _rGtkBuilder->get_widget("ToolBar", pToolbar);
     return pToolbar;
 }
 
 Gtk::MenuBar* CtMenu::build_menubar()
 {
-    return Glib::wrap(GTK_MENU_BAR(walk_menu_xml(gtk_menu_bar_new(), get_menu_ui_str(), nullptr)));
-}
-
-Gtk::Menu* CtMenu::build_popup_menu_node()
-{
-    // look for the TreeMenu node in the menubar to show it in popup
-    return Glib::wrap(GTK_MENU(walk_menu_xml(gtk_menu_new(), get_menu_ui_str(), "/menubar/menu[@action='TreeMenu']/*")));
-}
-
-Gtk::Menu* CtMenu::build_popup_menu_text()
-{
-    return Glib::wrap(GTK_MENU(walk_menu_xml(gtk_menu_new(), get_popup_menu_text_ui_str(), nullptr)));
-}
-
-Gtk::Menu* CtMenu::build_popup_menu_code()
-{
-    return Glib::wrap(GTK_MENU(walk_menu_xml(gtk_menu_new(), get_popup_menu_code_ui_str(), nullptr)));
-}
-
-Gtk::Menu* CtMenu::build_popup_menu_link()
-{
-    GtkWidget* pMenu = gtk_menu_new();
-    add_separator(pMenu);
-    add_menu_item(pMenu, _("Edit _Link"), "link_handle", nullptr, _("Edit the Underlying Link"), nullptr /*dad.apply_tag_link*/);
-    add_separator(pMenu);
-    add_menu_item(pMenu, _("C_ut Link"), "edit-cut", nullptr, _("Cut the Selected Link"), nullptr /*dad.link_cut*/);
-    add_menu_item(pMenu, _("_Copy Link"), "edit-copy", nullptr, _("Copy the Selected Link"), nullptr /*dad.link_copy*/);
-    add_menu_item(pMenu, _("D_ismiss Link"), "gtk-clear", nullptr, _("Dismiss the Selected Link"), nullptr /*dad.link_dismiss*/);
-    add_menu_item(pMenu, _("_Delete Link"), "edit-delete", nullptr, _("Delete the Selected Link"), nullptr /*dad.link_delete*/);
-    return Glib::wrap(GTK_MENU(pMenu));
-}
-
-Gtk::Menu* CtMenu::build_popup_menu_table()
-{
-    GtkWidget* pMenu = gtk_menu_new();
-    add_menu_item(pMenu, _("C_ut Table"), "edit-cut", nullptr, _("Cut the Selected Table"), nullptr /*dad.tables_handler.table_cut*/);
-    add_menu_item(pMenu, _("_Copy Table"), "edit-copy", nullptr, _("Copy the Selected Table"), nullptr /*dad.tables_handler.table_copy*/);
-    add_menu_item(pMenu, _("_Delete Table"), "edit-delete", nullptr, _("Delete the Selected Table"), nullptr /*dad.tables_handler.table_delete*/);
-    add_separator(pMenu);
-    add_menu_item(pMenu, _("_Add Row"), "gtk-add", (KB_CONTROL+"comma").c_str(), _("Add a Table Row"), nullptr /*dad.tables_handler.table_row_add*/);
-    add_menu_item(pMenu, _("Cu_t Row"), "edit-cut", nullptr, _("Cut a Table Row"), nullptr /*dad.tables_handler.table_row_cut*/);
-    add_menu_item(pMenu, _("_Copy Row"), "edit-copy", nullptr, _("Copy a Table Row"), nullptr /*dad.tables_handler.table_row_copy*/);
-    add_menu_item(pMenu, _("_Paste Row"), "edit-paste", nullptr, _("Paste a Table Row"), nullptr /*dad.tables_handler.table_row_paste*/);
-    add_menu_item(pMenu, _("De_lete Row"), "edit-delete", (KB_CONTROL+KB_ALT+"comma").c_str(), _("Delete the Selected Table Row"), nullptr /*dad.tables_handler.table_row_delete*/);
-    add_separator(pMenu);
-    add_menu_item(pMenu, _("Move Row _Up"), "gtk-go-up", (KB_CONTROL+KB_ALT+"period").c_str(), _("Move the Selected Row Up"), nullptr /*dad.tables_handler.table_row_up*/);
-    add_menu_item(pMenu, _("Move Row _Down"), "gtk-go-down", (KB_CONTROL+"period").c_str(), _("Move the Selected Row Down"), nullptr /*dad.tables_handler.table_row_down*/);
-    add_menu_item(pMenu, _("Sort Rows De_scending"), "gtk-sort-descending", nullptr, _("Sort all the Rows Descending"), nullptr /*dad.tables_handler.table_rows_sort_descending*/);
-    add_menu_item(pMenu, _("Sort Rows As_cending"), "gtk-sort-ascending", nullptr, _("Sort all the Rows Ascending"), nullptr /*dad.tables_handler.table_rows_sort_ascending*/);
-    add_separator(pMenu);
-    add_menu_item(pMenu, _("_Edit Table Properties"), "table_edit", nullptr, _("Edit the Table Properties"), nullptr /*dad.tables_handler.table_edit_properties*/);
-    add_menu_item(pMenu, _("_Table Export"), "table_save", nullptr, _("Export Table as CSV File"), nullptr /*dad.tables_handler.table_export*/);
-    return Glib::wrap(GTK_MENU(pMenu));
-}
-
-Gtk::Menu* CtMenu::build_popup_menu_table_cell()
-{
-    GtkWidget* pMenu = gtk_menu_new();
-    add_separator(pMenu);
-    add_menu_item(pMenu, _("Insert _NewLine"), "insert", (KB_CONTROL+"period").c_str(), _("Insert NewLine Char"), nullptr /*dad.curr_table_cell_insert_newline*/);
-    return Glib::wrap(GTK_MENU(pMenu));
-}
-
-Gtk::Menu* CtMenu::build_popup_menu_table_codebox()
-{
-    GtkWidget* pMenu = gtk_menu_new();
-    add_separator(pMenu);
-    add_menu_item(pMenu, _("Cu_t as Plain Text"), "edit-cut", (KB_CONTROL+KB_SHIFT+"X").c_str(), _("Cut as Plain Text, Discard the Rich Text Formatting"), nullptr /*dad.dad.cut_as_plain_text*/);
-    add_menu_item(pMenu, _("_Copy as Plain Text"), "edit-copy", (KB_CONTROL+KB_SHIFT+"C").c_str(), _("Copy as Plain Text, Discard the Rich Text Formatting"), nullptr /*dad.dad.copy_as_plain_text*/);
-    add_separator(pMenu);
-    add_menu_item(pMenu, _("Change CodeBox _Properties"), "codebox_edit", nullptr, _("Edit the Properties of the CodeBox"), nullptr /*dad.codebox_change_properties*/);
-    add_menu_item(pMenu, _("_Execute CodeBox Code"), "gtk-execute", nullptr, _("Execute CodeBox Code"), nullptr /*dad.dad.exec_code*/);
-    add_menu_item(pMenu, _("CodeBox _Load From Text File"), "from_txt", nullptr, _("Load the CodeBox Content From a Text File"), nullptr /*dad.codebox_load_from_file*/);
-    add_menu_item(pMenu, _("CodeBox _Save To Text File"), "to_txt", nullptr, _("Save the CodeBox Content To a Text File"), nullptr /*dad.codebox_save_to_file*/);
-    add_separator(pMenu);
-    add_menu_item(pMenu, _("C_ut CodeBox"), "edit-cut", nullptr, _("Cut the Selected CodeBox"), nullptr /*dad.codebox_cut*/);
-    add_menu_item(pMenu, _("_Copy CodeBox"), "edit-copy", nullptr, _("Copy the Selected CodeBox"), nullptr /*dad.codebox_copy*/);
-    add_menu_item(pMenu, _("_Delete CodeBox"), "edit-delete", nullptr, _("Delete the Selected CodeBox"), nullptr /*dad.codebox_delete*/);
-    add_menu_item(pMenu, _("Delete CodeBox _Keep Content"), "edit-delete", nullptr, _("Delete the Selected CodeBox But Keep Its Content"), nullptr /*dad.codebox_delete_keeping_text*/);
-    add_separator(pMenu);
-    add_menu_item(pMenu, _("Increase CodeBox Width"), "gtk-go-forward", (KB_CONTROL+"period").c_str(), _("Increase the Width of the CodeBox"), nullptr /*dad.codebox_increase_width*/);
-    add_menu_item(pMenu, _("Decrease CodeBox Width"), "gtk-go-back", (KB_CONTROL+KB_ALT+"period").c_str(), _("Decrease the Width of the CodeBox"), nullptr /*dad.codebox_decrease_width*/);
-    add_menu_item(pMenu, _("Increase CodeBox Height"), "gtk-go-down", (KB_CONTROL+"comma").c_str(), _("Increase the Height of the CodeBox"), nullptr /*dad.codebox_increase_height*/);
-    add_menu_item(pMenu, _("Decrease CodeBox Height"), "gtk-go-up", (KB_CONTROL+KB_ALT+"comma").c_str(), _("Decrease the Height of the CodeBox"), nullptr /*dad.codebox_decrease_height*/);
-    return Glib::wrap(GTK_MENU(pMenu));
+    return Glib::wrap(GTK_MENU_BAR(_walk_menu_xml(gtk_menu_bar_new(), _get_ui_str_menu(), nullptr)));
 }
 
 Gtk::Menu* CtMenu::build_bookmarks_menu(std::list<std::tuple<gint64, std::string>>& bookmarks, sigc::slot<void, gint64>& bookmark_action)
 {
     Gtk::Menu* pMenu = Gtk::manage(new Gtk::Menu());
-    add_menu_item(GTK_WIDGET(pMenu->gobj()), find_action("handle_bookmarks"));
-    add_separator(GTK_WIDGET(pMenu->gobj()));
+    _add_menu_item(GTK_WIDGET(pMenu->gobj()), find_action("handle_bookmarks"));
+    _add_separator(GTK_WIDGET(pMenu->gobj()));
     for (const auto& bookmark: bookmarks)
     {
         const gint64& node_id = std::get<0>(bookmark);
         const std::string& node_name = std::get<1>(bookmark);
-        Gtk::MenuItem* menuItem = add_menu_item(GTK_WIDGET(pMenu->gobj()), node_name.c_str(), "pin", nullptr, node_name.c_str(), nullptr);
+        Gtk::MenuItem* menuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), node_name.c_str(), "pin", nullptr, node_name.c_str(), nullptr);
         menuItem->signal_activate().connect(sigc::bind(bookmark_action, node_id));
     }
     return pMenu;
@@ -397,63 +315,139 @@ Gtk::Menu* CtMenu::build_special_chars_menu(const Glib::ustring& specialChars, s
     for (gunichar ch: specialChars)
     {
         Glib::ustring name = Glib::ustring(1, ch);
-        Gtk::MenuItem* menuItem = add_menu_item(GTK_WIDGET(pMenu->gobj()), name.c_str(), nullptr, nullptr, name.c_str(), nullptr);
+        Gtk::MenuItem* menuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), name.c_str(), nullptr, nullptr, name.c_str(), nullptr);
         menuItem->signal_activate().connect(sigc::bind(spec_char_action, ch));
     }
     return pMenu;
 }
 
-GtkWidget* CtMenu::walk_menu_xml(GtkWidget* pMenu, const char* document, const char* xpath)
+Gtk::Menu* CtMenu::get_popup_menu(POPUP_MENU_TYPE popupMenuType)
+{
+    return _popupMenus[popupMenuType];
+}
+
+void CtMenu::_build_popup_menus()
+{
+    _popupMenus[CtMenu::POPUP_MENU_TYPE::Node] = Glib::wrap(GTK_MENU(_walk_menu_xml(gtk_menu_new(), _get_ui_str_menu(), "/menubar/menu[@action='TreeMenu']/*")));
+    _popupMenus[CtMenu::POPUP_MENU_TYPE::Text] = Glib::wrap(GTK_MENU(_walk_menu_xml(gtk_menu_new(), _get_popup_menu_ui_str_text(), nullptr)));
+    _popupMenus[CtMenu::POPUP_MENU_TYPE::Code] = Glib::wrap(GTK_MENU(_walk_menu_xml(gtk_menu_new(), _get_popup_menu_ui_str_code(), nullptr)));
+    _popupMenus[CtMenu::POPUP_MENU_TYPE::Image] = Glib::wrap(GTK_MENU(_walk_menu_xml(gtk_menu_new(), _get_popup_menu_ui_str_image(), nullptr)));
+    _popupMenus[CtMenu::POPUP_MENU_TYPE::Anchor] = Glib::wrap(GTK_MENU(_walk_menu_xml(gtk_menu_new(), _get_popup_menu_ui_str_anchor(), nullptr)));
+    _popupMenus[CtMenu::POPUP_MENU_TYPE::EmbFile] = Glib::wrap(GTK_MENU(_walk_menu_xml(gtk_menu_new(), _get_popup_menu_ui_str_embfile(), nullptr)));
+
+    {
+        GtkWidget* pMenu = gtk_menu_new();
+        _add_separator(pMenu);
+        _add_menu_item(pMenu, _("Edit _Link"), "link_handle", nullptr, _("Edit the Underlying Link"), nullptr /*dad.apply_tag_link*/);
+        _add_separator(pMenu);
+        _add_menu_item(pMenu, _("C_ut Link"), "edit-cut", nullptr, _("Cut the Selected Link"), nullptr /*dad.link_cut*/);
+        _add_menu_item(pMenu, _("_Copy Link"), "edit-copy", nullptr, _("Copy the Selected Link"), nullptr /*dad.link_copy*/);
+        _add_menu_item(pMenu, _("D_ismiss Link"), "gtk-clear", nullptr, _("Dismiss the Selected Link"), nullptr /*dad.link_dismiss*/);
+        _add_menu_item(pMenu, _("_Delete Link"), "edit-delete", nullptr, _("Delete the Selected Link"), nullptr /*dad.link_delete*/);
+        _popupMenus[CtMenu::POPUP_MENU_TYPE::Link] = Glib::wrap(GTK_MENU(pMenu));
+    }
+    {
+        GtkWidget* pMenu = gtk_menu_new();
+        _add_menu_item(pMenu, _("C_ut Table"), "edit-cut", nullptr, _("Cut the Selected Table"), nullptr /*dad.tables_handler.table_cut*/);
+        _add_menu_item(pMenu, _("_Copy Table"), "edit-copy", nullptr, _("Copy the Selected Table"), nullptr /*dad.tables_handler.table_copy*/);
+        _add_menu_item(pMenu, _("_Delete Table"), "edit-delete", nullptr, _("Delete the Selected Table"), nullptr /*dad.tables_handler.table_delete*/);
+        _add_separator(pMenu);
+        _add_menu_item(pMenu, _("_Add Row"), "gtk-add", (KB_CONTROL+"comma").c_str(), _("Add a Table Row"), nullptr /*dad.tables_handler.table_row_add*/);
+        _add_menu_item(pMenu, _("Cu_t Row"), "edit-cut", nullptr, _("Cut a Table Row"), nullptr /*dad.tables_handler.table_row_cut*/);
+        _add_menu_item(pMenu, _("_Copy Row"), "edit-copy", nullptr, _("Copy a Table Row"), nullptr /*dad.tables_handler.table_row_copy*/);
+        _add_menu_item(pMenu, _("_Paste Row"), "edit-paste", nullptr, _("Paste a Table Row"), nullptr /*dad.tables_handler.table_row_paste*/);
+        _add_menu_item(pMenu, _("De_lete Row"), "edit-delete", (KB_CONTROL+KB_ALT+"comma").c_str(), _("Delete the Selected Table Row"), nullptr /*dad.tables_handler.table_row_delete*/);
+        _add_separator(pMenu);
+        _add_menu_item(pMenu, _("Move Row _Up"), "gtk-go-up", (KB_CONTROL+KB_ALT+"period").c_str(), _("Move the Selected Row Up"), nullptr /*dad.tables_handler.table_row_up*/);
+        _add_menu_item(pMenu, _("Move Row _Down"), "gtk-go-down", (KB_CONTROL+"period").c_str(), _("Move the Selected Row Down"), nullptr /*dad.tables_handler.table_row_down*/);
+        _add_menu_item(pMenu, _("Sort Rows De_scending"), "gtk-sort-descending", nullptr, _("Sort all the Rows Descending"), nullptr /*dad.tables_handler.table_rows_sort_descending*/);
+        _add_menu_item(pMenu, _("Sort Rows As_cending"), "gtk-sort-ascending", nullptr, _("Sort all the Rows Ascending"), nullptr /*dad.tables_handler.table_rows_sort_ascending*/);
+        _add_separator(pMenu);
+        _add_menu_item(pMenu, _("_Edit Table Properties"), "table_edit", nullptr, _("Edit the Table Properties"), nullptr /*dad.tables_handler.table_edit_properties*/);
+        _add_menu_item(pMenu, _("_Table Export"), "table_save", nullptr, _("Export Table as CSV File"), nullptr /*dad.tables_handler.table_export*/);
+        _popupMenus[CtMenu::POPUP_MENU_TYPE::Table] = Glib::wrap(GTK_MENU(pMenu));
+    }
+    {
+        GtkWidget* pMenu = gtk_menu_new();
+        _add_separator(pMenu);
+        _add_menu_item(pMenu, _("Insert _NewLine"), "insert", (KB_CONTROL+"period").c_str(), _("Insert NewLine Char"), nullptr /*dad.curr_table_cell_insert_newline*/);
+        _popupMenus[CtMenu::POPUP_MENU_TYPE::TableCell] =  Glib::wrap(GTK_MENU(pMenu));
+    }
+    {
+        GtkWidget* pMenu = gtk_menu_new();
+        _add_separator(pMenu);
+        _add_menu_item(pMenu, _("Cu_t as Plain Text"), "edit-cut", (KB_CONTROL+KB_SHIFT+"X").c_str(), _("Cut as Plain Text, Discard the Rich Text Formatting"), nullptr /*dad.dad.cut_as_plain_text*/);
+        _add_menu_item(pMenu, _("_Copy as Plain Text"), "edit-copy", (KB_CONTROL+KB_SHIFT+"C").c_str(), _("Copy as Plain Text, Discard the Rich Text Formatting"), nullptr /*dad.dad.copy_as_plain_text*/);
+        _add_separator(pMenu);
+        _add_menu_item(pMenu, _("Change CodeBox _Properties"), "codebox_edit", nullptr, _("Edit the Properties of the CodeBox"), nullptr /*dad.codebox_change_properties*/);
+        _add_menu_item(pMenu, _("_Execute CodeBox Code"), "gtk-execute", nullptr, _("Execute CodeBox Code"), nullptr /*dad.dad.exec_code*/);
+        _add_menu_item(pMenu, _("CodeBox _Load From Text File"), "from_txt", nullptr, _("Load the CodeBox Content From a Text File"), nullptr /*dad.codebox_load_from_file*/);
+        _add_menu_item(pMenu, _("CodeBox _Save To Text File"), "to_txt", nullptr, _("Save the CodeBox Content To a Text File"), nullptr /*dad.codebox_save_to_file*/);
+        _add_separator(pMenu);
+        _add_menu_item(pMenu, _("C_ut CodeBox"), "edit-cut", nullptr, _("Cut the Selected CodeBox"), nullptr /*dad.codebox_cut*/);
+        _add_menu_item(pMenu, _("_Copy CodeBox"), "edit-copy", nullptr, _("Copy the Selected CodeBox"), nullptr /*dad.codebox_copy*/);
+        _add_menu_item(pMenu, _("_Delete CodeBox"), "edit-delete", nullptr, _("Delete the Selected CodeBox"), nullptr /*dad.codebox_delete*/);
+        _add_menu_item(pMenu, _("Delete CodeBox _Keep Content"), "edit-delete", nullptr, _("Delete the Selected CodeBox But Keep Its Content"), nullptr /*dad.codebox_delete_keeping_text*/);
+        _add_separator(pMenu);
+        _add_menu_item(pMenu, _("Increase CodeBox Width"), "gtk-go-forward", (KB_CONTROL+"period").c_str(), _("Increase the Width of the CodeBox"), nullptr /*dad.codebox_increase_width*/);
+        _add_menu_item(pMenu, _("Decrease CodeBox Width"), "gtk-go-back", (KB_CONTROL+KB_ALT+"period").c_str(), _("Decrease the Width of the CodeBox"), nullptr /*dad.codebox_decrease_width*/);
+        _add_menu_item(pMenu, _("Increase CodeBox Height"), "gtk-go-down", (KB_CONTROL+"comma").c_str(), _("Increase the Height of the CodeBox"), nullptr /*dad.codebox_increase_height*/);
+        _add_menu_item(pMenu, _("Decrease CodeBox Height"), "gtk-go-up", (KB_CONTROL+KB_ALT+"comma").c_str(), _("Decrease the Height of the CodeBox"), nullptr /*dad.codebox_decrease_height*/);
+        _popupMenus[CtMenu::POPUP_MENU_TYPE::Codebox] =  Glib::wrap(GTK_MENU(pMenu));
+    }
+}
+
+GtkWidget* CtMenu::_walk_menu_xml(GtkWidget* pMenu, const char* document, const char* xpath)
 {
     xmlpp::DomParser parser;
     parser.parse_memory(document);
     if (xpath)
     {
-        walk_menu_xml(pMenu, parser.get_document()->get_root_node()->find(xpath)[0]);
+        _walk_menu_xml(pMenu, parser.get_document()->get_root_node()->find(xpath)[0]);
     }
     else
     {
-        walk_menu_xml(pMenu, parser.get_document()->get_root_node());
+        _walk_menu_xml(pMenu, parser.get_document()->get_root_node());
     }
     return pMenu;
 }
 
-void CtMenu::walk_menu_xml(GtkWidget* pMenu, xmlpp::Node* pNode)
+void CtMenu::_walk_menu_xml(GtkWidget* pMenu, xmlpp::Node* pNode)
 {
     for (xmlpp::Node* pNodeIter = pNode; pNodeIter; pNodeIter = pNodeIter->get_next_sibling())
     {
         if (pNodeIter->get_name() == "menubar" || pNodeIter->get_name() == "popup")
         {
-            walk_menu_xml(pMenu, pNodeIter->get_first_child());
+            _walk_menu_xml(pMenu, pNodeIter->get_first_child());
         }
         else if (pNodeIter->get_name() == "menu")
         {
             if (xmlpp::Attribute* pAttrName = get_attribute(pNodeIter, "_name")) // menu name which need to be translated
             {
                 xmlpp::Attribute* pAttrImage = get_attribute(pNodeIter, "image");
-                GtkWidget* pSubmenu = add_submenu(pMenu, pAttrName->get_value().c_str(), _(pAttrName->get_value().c_str()), pAttrImage->get_value().c_str());
-                walk_menu_xml(pSubmenu, pNodeIter->get_first_child());
+                GtkWidget* pSubmenu = _add_submenu(pMenu, pAttrName->get_value().c_str(), _(pAttrName->get_value().c_str()), pAttrImage->get_value().c_str());
+                _walk_menu_xml(pSubmenu, pNodeIter->get_first_child());
             }
             else // otherwise it is an action id
             {
                 CtAction const* pAction = find_action(get_attribute(pNodeIter, "action")->get_value());
-                GtkWidget* pSubmenu = add_submenu(pMenu, pAction->id.c_str(), pAction->name.c_str(), pAction->image.c_str());
-                walk_menu_xml(pSubmenu, pNodeIter->get_first_child());
+                GtkWidget* pSubmenu = _add_submenu(pMenu, pAction->id.c_str(), pAction->name.c_str(), pAction->image.c_str());
+                _walk_menu_xml(pSubmenu, pNodeIter->get_first_child());
             }
         }
         else if (pNodeIter->get_name() == "menuitem")
         {
             CtAction* pAction = find_action(get_attribute(pNodeIter, "action")->get_value());
-            add_menu_item(pMenu, pAction);
+            _add_menu_item(pMenu, pAction);
         }
         else if (pNodeIter->get_name() == "separator")
         {
-            add_separator(pMenu);
+            _add_separator(pMenu);
         }
     }
 }
 
-GtkWidget* CtMenu::add_submenu(GtkWidget* pMenu, const char* id, const char* name, const char* image)
+GtkWidget* CtMenu::_add_submenu(GtkWidget* pMenu, const char* id, const char* name, const char* image)
 {
     Gtk::MenuItem* pMenuItem = Gtk::manage(new Gtk::MenuItem());
     pMenuItem->set_name(id);
@@ -464,7 +458,7 @@ GtkWidget* CtMenu::add_submenu(GtkWidget* pMenu, const char* id, const char* nam
 #else
     gtk_misc_set_alignment(GTK_MISC(pLabel), 0.0, 0.5);
 #endif
-    add_menu_item_image_or_label(pMenuItem, image, pLabel);
+    _add_menu_item_image_or_label(pMenuItem, image, pLabel);
     pMenuItem->get_child()->set_name(id); // for find_menu_item()
 
     GtkWidget* pSubmenu = gtk_menu_new();
@@ -473,16 +467,16 @@ GtkWidget* CtMenu::add_submenu(GtkWidget* pMenu, const char* id, const char* nam
     return pSubmenu;
 }
 
-Gtk::MenuItem* CtMenu::add_menu_item(GtkWidget* pMenu, CtAction* pAction)
+Gtk::MenuItem* CtMenu::_add_menu_item(GtkWidget* pMenu, CtAction* pAction)
 {
-    Gtk::MenuItem* pMenuItem = add_menu_item(pMenu, pAction->name.c_str(), pAction->image.c_str(), pAction->get_shortcut().c_str(),
+    Gtk::MenuItem* pMenuItem = _add_menu_item(pMenu, pAction->name.c_str(), pAction->image.c_str(), pAction->get_shortcut().c_str(),
                                              pAction->desc.c_str(), (gpointer)pAction, &pAction->signal_set_sensitive, &pAction->signal_set_visible);
     pMenuItem->get_child()->set_name(pAction->id); // for find_menu_item();
     return pMenuItem;
 }
 
 // based on inkscape/src/ui/interface.cpp
-Gtk::MenuItem* CtMenu::add_menu_item(GtkWidget* pMenu, const char* name, const char* image, const char* shortcut,
+Gtk::MenuItem* CtMenu::_add_menu_item(GtkWidget* pMenu, const char* name, const char* image, const char* shortcut,
                                  const char* desc, gpointer action_data,
                                  sigc::signal<void, bool>* signal_set_sensitive /* = nullptr */,
                                  sigc::signal<void, bool>* signal_set_visible /* = nullptr */)
@@ -517,7 +511,7 @@ Gtk::MenuItem* CtMenu::add_menu_item(GtkWidget* pMenu, const char* name, const c
     }
     gtk_accel_label_set_accel_widget(GTK_ACCEL_LABEL(pLabel), GTK_WIDGET(pMenuItem->gobj()));
 
-    add_menu_item_image_or_label(pMenuItem, image, pLabel);
+    _add_menu_item_image_or_label(pMenuItem, image, pLabel);
 
     if (signal_set_sensitive)
         signal_set_sensitive->connect(
@@ -539,7 +533,7 @@ Gtk::MenuItem* CtMenu::add_menu_item(GtkWidget* pMenu, const char* name, const c
     return pMenuItem;
 }
 
-void CtMenu::add_menu_item_image_or_label(Gtk::Widget* pMenuItem, const char* image, GtkWidget* pLabel)
+void CtMenu::_add_menu_item_image_or_label(Gtk::Widget* pMenuItem, const char* image, GtkWidget* pLabel)
 {
     if (image && strlen(image))
     {
@@ -560,7 +554,7 @@ void CtMenu::add_menu_item_image_or_label(Gtk::Widget* pMenuItem, const char* im
     }
 }
 
-GtkWidget* CtMenu::add_separator(GtkWidget* pMenu)
+GtkWidget* CtMenu::_add_separator(GtkWidget* pMenu)
 {
     Gtk::Widget* pSeparatorItem = Gtk::manage(new Gtk::SeparatorMenuItem());
     pSeparatorItem->show_all();
@@ -568,7 +562,7 @@ GtkWidget* CtMenu::add_separator(GtkWidget* pMenu)
     return pSeparatorItem->gobj();
 }
 
-std::string CtMenu::get_toolbar_ui_str()
+std::string CtMenu::_get_ui_str_toolbar()
 {
     std::vector<std::string> vecToolbarElements = str::split(CtApp::P_ctCfg->toolbarUiList, ",");
     std::string toolbarUIStr;
@@ -598,7 +592,7 @@ std::string CtMenu::get_toolbar_ui_str()
 }
 
 
-const char* CtMenu::get_menu_ui_str()
+const char* CtMenu::_get_ui_str_menu()
 {
     return R"MARKUP(
 <menubar name='MenuBar'>
@@ -830,7 +824,7 @@ const char* CtMenu::get_menu_ui_str()
     )MARKUP";
 }
 
-const char* CtMenu::get_popup_menu_text_ui_str()
+const char* CtMenu::_get_popup_menu_ui_str_text()
 {
     return R"MARKUP(
 <popup>
@@ -915,7 +909,7 @@ const char* CtMenu::get_popup_menu_text_ui_str()
     )MARKUP";
 }
 
-const char* CtMenu::get_popup_menu_code_ui_str()
+const char* CtMenu::_get_popup_menu_ui_str_code()
 {
     return R"MARKUP(
 <popup>
@@ -959,6 +953,51 @@ const char* CtMenu::get_popup_menu_code_ui_str()
       <menuitem action='replace_iter_fw'/>
       <menuitem action='find_iter_bw'/>
   </menu>
+</popup>
+    )MARKUP";
+}
+
+
+const char* CtMenu::_get_popup_menu_ui_str_image()
+{
+    return R"MARKUP(
+<popup>
+   <menuitem action='img_cut'/>
+   <menuitem action='img_copy'/>
+   <menuitem action='img_del'/>
+   <separator/>
+   <menuitem action='img_edit'/>
+   <menuitem action='img_save'/>
+   <separator/>
+   <menuitem action='img_link_edit'/>
+   <menuitem action='img_link_dismiss'/>
+</popup>
+    )MARKUP";
+}
+
+const char* CtMenu::_get_popup_menu_ui_str_anchor()
+{
+    return R"MARKUP(
+<popup>
+  <menuitem action='anch_cut'/>
+  <menuitem action='anch_copy'/>
+  <menuitem action='anch_del'/>
+  <separator/>
+  <menuitem action='anch_edit'/>
+</popup>
+    )MARKUP";
+}
+
+const char* CtMenu::_get_popup_menu_ui_str_embfile()
+{
+    return R"MARKUP(
+<popup>
+  <menuitem action='emb_file_cut'/>
+  <menuitem action='emb_file_copy'/>
+  <menuitem action='emb_file_del'/>
+  <separator/>
+  <menuitem action='emb_file_open'/>
+  <menuitem action='emb_file_save'/>
 </popup>
     )MARKUP";
 }

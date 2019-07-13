@@ -154,7 +154,6 @@ protected:
     CtWinHeader         _ctWinHeader;
     Gtk::MenuItem*      _pBookmarksSubmenu;
     Gtk::MenuItem*      _pSpecialCharsSubmenu;
-    Gtk::Menu*          _pNodePopup;
     Gtk::ScrolledWindow _scrolledwindowTree;
     Gtk::ScrolledWindow _scrolledwindowText;
     CtTreeStore         _ctTreestore;

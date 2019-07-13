@@ -54,6 +54,9 @@ public:
     const std::string KB_ALT     = "<alt>";
 
 public:
+    enum POPUP_MENU_TYPE {Node, Text, Code, Link, Table, TableCell, Codebox, Image, Anchor, EmbFile, PopupMenuNum };
+
+public:
     CtMenu();
 
     void init_actions(CtApp* pApp, CtActions* pActions);
@@ -66,36 +69,36 @@ public:
 
     Gtk::Toolbar* build_toolbar();
     Gtk::MenuBar* build_menubar();
-    Gtk::Menu*    build_popup_menu_node();
-    Gtk::Menu*    build_popup_menu_text();
-    Gtk::Menu*    build_popup_menu_code();
-    Gtk::Menu*    build_popup_menu_link();
-    Gtk::Menu*    build_popup_menu_table();
-    Gtk::Menu*    build_popup_menu_table_cell();
-    Gtk::Menu*    build_popup_menu_table_codebox();
     Gtk::Menu*    build_bookmarks_menu(std::list<std::tuple<gint64, std::string>>& bookmarks, sigc::slot<void, gint64>& bookmark_action);
     Gtk::Menu*    build_special_chars_menu(const Glib::ustring& specialChars, sigc::slot<void, gunichar>& spec_char_action);
 
+    Gtk::Menu*    get_popup_menu(POPUP_MENU_TYPE popupMenuType);
+
 private:
-    GtkWidget*     walk_menu_xml(GtkWidget* pMenu, const char* document, const char* xpath);
-    void           walk_menu_xml(GtkWidget* pMenu, xmlpp::Node* pNode);
-    GtkWidget*     add_submenu(GtkWidget* pMenu, const char* id, const char* name, const char* image);
-    Gtk::MenuItem* add_menu_item(GtkWidget* pMenu, CtAction* pAction);
-    Gtk::MenuItem* add_menu_item(GtkWidget* pMenu, const char* name, const char* image, const char*shortcut,
+    void           _build_popup_menus();
+
+    GtkWidget*     _walk_menu_xml(GtkWidget* pMenu, const char* document, const char* xpath);
+    void           _walk_menu_xml(GtkWidget* pMenu, xmlpp::Node* pNode);
+    GtkWidget*     _add_submenu(GtkWidget* pMenu, const char* id, const char* name, const char* image);
+    Gtk::MenuItem* _add_menu_item(GtkWidget* pMenu, CtAction* pAction);
+    Gtk::MenuItem* _add_menu_item(GtkWidget* pMenu, const char* name, const char* image, const char*shortcut,
                                  const char* desc, gpointer action_data,
                                  sigc::signal<void, bool>* signal_set_sensitive = nullptr,
                                  sigc::signal<void, bool>* signal_set_visible = nullptr);
-    GtkWidget*     add_separator(GtkWidget* pMenu);
-    void           add_menu_item_image_or_label(Gtk::Widget* pMenuItem, const char* image, GtkWidget* pLabel);
+    GtkWidget*     _add_separator(GtkWidget* pMenu);
+    void           _add_menu_item_image_or_label(Gtk::Widget* pMenuItem, const char* image, GtkWidget* pLabel);
 
-    std::string get_toolbar_ui_str();
-    const char* get_menu_ui_str();
-    const char* get_popup_menu_text_ui_str();
-    const char* get_popup_menu_code_ui_str();
+    std::string _get_ui_str_toolbar();
+    const char* _get_ui_str_menu();
+    const char* _get_popup_menu_ui_str_text();
+    const char* _get_popup_menu_ui_str_code();
+    const char* _get_popup_menu_ui_str_image();
+    const char* _get_popup_menu_ui_str_anchor();
+    const char* _get_popup_menu_ui_str_embfile();
 
 private:
     std::list<CtAction>        _actions;
     Glib::RefPtr<Gtk::Builder> _rGtkBuilder;
     GtkAccelGroup*             _pAccelGroup;
-
+    Gtk::Menu*                 _popupMenus[POPUP_MENU_TYPE::PopupMenuNum] = {};
 };
