@@ -215,23 +215,23 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     _actions.push_back(CtAction{import_cat, "import_tuxcards", CtConst::STR_STOCK_CT_IMP, _("From _TuxCards File"), None, _("Add Nodes of a TuxCards File to the Current Tree"), sigc::signal<void>() /* dad.nodes_add_from_tuxcards_file */});
     _actions.push_back(CtAction{import_cat, "import_zim", CtConst::STR_STOCK_CT_IMP, _("From _Zim Folder"), None, _("Add Nodes of a Zim Folder to the Current Tree"), sigc::signal<void>() /* dad.nodes_add_from_zim_folder */});
     const char* others_cat = "";
-    _actions.push_back(CtAction{others_cat, "anch_cut", "edit-cut", _("C_ut Anchor"), None, _("Cut the Selected Anchor"), sigc::signal<void>() /* dad.anchor_cut */});
-    _actions.push_back(CtAction{others_cat, "anch_copy", "edit-copy", _("_Copy Anchor"), None, _("Copy the Selected Anchor"), sigc::signal<void>() /* dad.anchor_copy */});
-    _actions.push_back(CtAction{others_cat, "anch_del", "edit-delete", _("_Delete Anchor"), None, _("Delete the Selected Anchor"), sigc::signal<void>() /* dad.anchor_delete */});
-    _actions.push_back(CtAction{others_cat, "anch_edit", "anchor_edit", _("Edit _Anchor"), None, _("Edit the Underlying Anchor"), sigc::signal<void>() /* dad.anchor_edit */});
-    _actions.push_back(CtAction{others_cat, "emb_file_cut", "edit-cut", _("C_ut Embedded File"), None, _("Cut the Selected Embedded File"), sigc::signal<void>() /* dad.embfile_cut */});
-    _actions.push_back(CtAction{others_cat, "emb_file_copy", "edit-copy", _("_Copy Embedded File"), None, _("Copy the Selected Embedded File"), sigc::signal<void>() /* dad.embfile_copy */});
-    _actions.push_back(CtAction{others_cat, "emb_file_del", "edit-delete", _("_Delete Embedded File"), None, _("Delete the Selected Embedded File"), sigc::signal<void>() /* dad.embfile_delete */});
-    _actions.push_back(CtAction{others_cat, "emb_file_save", "gtk-save-as", _("Save _As"), None, _("Save File As"), sigc::signal<void>() /* dad.embfile_save */});
-    _actions.push_back(CtAction{others_cat, "emb_file_open", "gtk-open", _("_Open File"), None, _("Open Embedded File"), sigc::signal<void>() /* dad.embfile_open */});
-    _actions.push_back(CtAction{others_cat, "img_save", "image_save", _("_Save Image as PNG"), None, _("Save the Selected Image as a PNG file"), sigc::signal<void>() /* dad.image_save */});
-    _actions.push_back(CtAction{others_cat, "img_edit", "image_edit", _("_Edit Image"), None, _("Edit the Selected Image"), sigc::signal<void>() /* dad.image_edit */});
-    _actions.push_back(CtAction{others_cat, "img_cut", "edit-cut", _("C_ut Image"), None, _("Cut the Selected Image"), sigc::signal<void>() /* dad.image_cut */});
-    _actions.push_back(CtAction{others_cat, "img_copy", "edit-copy", _("_Copy Image"), None, _("Copy the Selected Image"), sigc::signal<void>() /* dad.image_copy */});
-    _actions.push_back(CtAction{others_cat, "img_del", "edit-delete", _("_Delete Image"), None, _("Delete the Selected Image"), sigc::signal<void>() /* dad.image_delete */});
-    _actions.push_back(CtAction{others_cat, "img_link_edit", "link_handle", _("Edit _Link"), None, _("Edit the Link Associated to the Image"), sigc::signal<void>() /* dad.image_link_edit */});
-    _actions.push_back(CtAction{others_cat, "img_link_dismiss", "gtk-clear", _("D_ismiss Link"), None, _("Dismiss the Link Associated to the Image"), sigc::signal<void>() /* dad.image_link_dismiss */});
-    _actions.push_back(CtAction{others_cat, "toggle_show_mainwin", CtConst::APP_NAME, _("Show/Hide _CherryTree"), None, _("Toggle Show/Hide CherryTree"), sigc::signal<void>() /* dad.toggle_show_hide_main_window */});
+    _actions.push_back(CtAction{others_cat, "anch_cut", "edit-cut", _("C_ut Anchor"), None, _("Cut the Selected Anchor"), sigc::mem_fun(*pActions, &CtActions::anchor_cut)});
+    _actions.push_back(CtAction{others_cat, "anch_copy", "edit-copy", _("_Copy Anchor"), None, _("Copy the Selected Anchor"), sigc::mem_fun(*pActions, &CtActions::anchor_copy)});
+    _actions.push_back(CtAction{others_cat, "anch_del", "edit-delete", _("_Delete Anchor"), None, _("Delete the Selected Anchor"), sigc::mem_fun(*pActions, &CtActions::anchor_delete)});
+    _actions.push_back(CtAction{others_cat, "anch_edit", "anchor_edit", _("Edit _Anchor"), None, _("Edit the Underlying Anchor"), sigc::mem_fun(*pActions, &CtActions::anchor_edit)});
+    _actions.push_back(CtAction{others_cat, "emb_file_cut", "edit-cut", _("C_ut Embedded File"), None, _("Cut the Selected Embedded File"), sigc::mem_fun(*pActions, &CtActions::embfile_cut)});
+    _actions.push_back(CtAction{others_cat, "emb_file_copy", "edit-copy", _("_Copy Embedded File"), None, _("Copy the Selected Embedded File"), sigc::mem_fun(*pActions, &CtActions::embfile_copy)});
+    _actions.push_back(CtAction{others_cat, "emb_file_del", "edit-delete", _("_Delete Embedded File"), None, _("Delete the Selected Embedded File"), sigc::mem_fun(*pActions, &CtActions::embfile_delete)});
+    _actions.push_back(CtAction{others_cat, "emb_file_save", "gtk-save-as", _("Save _As"), None, _("Save File As"), sigc::mem_fun(*pActions, &CtActions::embfile_save)});
+    _actions.push_back(CtAction{others_cat, "emb_file_open", "gtk-open", _("_Open File"), None, _("Open Embedded File"), sigc::mem_fun(*pActions, &CtActions::embfile_open)});
+    _actions.push_back(CtAction{others_cat, "img_save", "image_save", _("_Save Image as PNG"), None, _("Save the Selected Image as a PNG file"), sigc::mem_fun(*pActions, &CtActions::image_save)});
+    _actions.push_back(CtAction{others_cat, "img_edit", "image_edit", _("_Edit Image"), None, _("Edit the Selected Image"), sigc::mem_fun(*pActions, &CtActions::image_edit)});
+    _actions.push_back(CtAction{others_cat, "img_cut", "edit-cut", _("C_ut Image"), None, _("Cut the Selected Image"), sigc::mem_fun(*pActions, &CtActions::image_cut)});
+    _actions.push_back(CtAction{others_cat, "img_copy", "edit-copy", _("_Copy Image"), None, _("Copy the Selected Image"), sigc::mem_fun(*pActions, &CtActions::image_copy)});
+    _actions.push_back(CtAction{others_cat, "img_del", "edit-delete", _("_Delete Image"), None, _("Delete the Selected Image"), sigc::mem_fun(*pActions, &CtActions::image_delete)});
+    _actions.push_back(CtAction{others_cat, "img_link_edit", "link_handle", _("Edit _Link"), None, _("Edit the Link Associated to the Image"), sigc::mem_fun(*pActions, &CtActions::image_link_edit)});
+    _actions.push_back(CtAction{others_cat, "img_link_dismiss", "gtk-clear", _("D_ismiss Link"), None, _("Dismiss the Link Associated to the Image"), sigc::mem_fun(*pActions, &CtActions::image_link_dismiss)});
+    _actions.push_back(CtAction{others_cat, "toggle_show_mainwin", CtConst::APP_NAME, _("Show/Hide _CherryTree"), None, _("Toggle Show/Hide CherryTree"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_main_window)});
 
     // add actions in the Applicaton for the toolbar
     // by default actions will have prefix 'app.'

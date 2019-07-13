@@ -223,4 +223,27 @@ public:
     void text_row_up();
     void text_row_down();
     void strip_trailing_spaces();
+
+private:
+    // helper for others actions
+
+public:
+    // others actions
+    void anchor_cut();
+    void anchor_copy();
+    void anchor_delete();
+    void anchor_edit();
+    void embfile_cut();
+    void embfile_copy();
+    void embfile_delete();
+    void embfile_save();
+    void embfile_open();
+    void image_save();
+    void image_edit();
+    void image_cut();
+    void image_copy();
+    void image_delete();
+    void image_link_edit();
+    void image_link_dismiss();
+    void toggle_show_hide_main_window();
 };
