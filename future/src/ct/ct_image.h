@@ -23,8 +23,8 @@
 
 #include <gtkmm.h>
 #include "ct_const.h"
-#include "ct_main_win.h"
 #include "ct_codebox.h"
+#include "ct_widgets.h"
 
 class CtImage : public CtAnchoredWidget
 {
@@ -91,6 +91,9 @@ public:
     const Glib::ustring& getAnchorName() { return _anchorName; }
 
     void updateTooltip();
+
+private:
+    bool _onButtonPressEvent(GdkEventButton* event);
 
 protected:
     Glib::ustring _anchorName;

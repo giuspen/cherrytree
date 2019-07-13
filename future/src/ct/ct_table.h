@@ -22,6 +22,7 @@
 #pragma once
 
 #include "ct_codebox.h"
+#include "ct_widgets.h"
 
 class CtTableCell : public CtTextCell, public Gtk::Bin
 {

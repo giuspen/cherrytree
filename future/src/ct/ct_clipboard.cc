@@ -27,6 +27,8 @@
 #include "ct_export2html.h"
 #include "ct_export2txt.h"
 #include "ct_imports.h"
+#include "ct_misc_utils.h"
+#include "ct_app.h"
 #include "src/fmt/ostream.h"
 #include <gio/gio.h> // to get mime type
 
@@ -514,7 +516,7 @@ void CtClipboard::_on_received_to_image(const Gtk::SelectionData& selection_data
 {
     Glib::RefPtr<const Gdk::Pixbuf> pixbuf = selection_data.get_pixbuf();
     Glib::ustring link = "";
-    CtApp::P_ctActions->image_insert(pTextView->get_buffer()->get_insert()->get_iter(), pixbuf->copy(), link);
+    CtApp::P_ctActions->image_insert_png(pTextView->get_buffer()->get_insert()->get_iter(), pixbuf->copy(), link, "");
     pTextView->scroll_to(pTextView->get_buffer()->get_insert());
 }
 
@@ -550,7 +552,7 @@ void CtClipboard::_on_received_to_uri_list(const Gtk::SelectionData& selection_d
                     try
                     {
                         auto pixbuf = Gdk::Pixbuf::create_from_file(file_path);
-                        CtApp::P_ctActions->image_insert(iter_insert, pixbuf, "");
+                        CtApp::P_ctActions->image_insert_png(iter_insert, pixbuf, "", "");
                         iter_insert = pTextView->get_buffer()->get_insert()->get_iter();
                         for (int i = 0; i < 3; ++i)
                             pTextView->get_buffer()->insert(iter_insert, CtConst::CHAR_SPACE);

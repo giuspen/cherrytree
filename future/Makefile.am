@@ -60,6 +60,7 @@ COMMON_SOURCES = \
         src/ct/ct_actions_edit.cc \
         src/ct/ct_actions_find.cc \
 	src/ct/ct_actions_format.cc \
+        src/ct/ct_actions_others.cc \
 	src/ct/ct_actions_tree.cc \
 	src/ct/ct_actions_view.cc \
 	src/ct/ct_dialogs.cc \
@@ -67,7 +68,8 @@ COMMON_SOURCES = \
         src/ct/ct_clipboard.cc \
         src/ct/ct_export2txt.cc \
         src/ct/ct_export2html.cc \
-        src/ct/ct_imports.cc
+        src/ct/ct_imports.cc \
+        src/ct/ct_widgets.cc
 
 cherrytree_SOURCES = \
 	src/ct/ct_main.cc \

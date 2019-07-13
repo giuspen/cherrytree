@@ -21,6 +21,7 @@
 
 #include "ct_export2html.h"
 #include "ct_misc_utils.h"
+#include "ct_app.h"
 
 CtExport2Html::CtExport2Html()
 {

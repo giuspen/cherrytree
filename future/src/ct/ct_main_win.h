@@ -27,31 +27,8 @@
 #include "ct_treestore.h"
 #include "ct_misc_utils.h"
 #include "ct_menu.h"
+#include "ct_widgets.h"
 
-class CtTreeView : public Gtk::TreeView
-{
-public:
-    CtTreeView();
-    virtual ~CtTreeView();
-    void set_cursor_safe(const Gtk::TreeIter& iter);
-
-protected:
-};
-
-class CtTextView : public Gsv::View
-{
-public:
-    CtTextView();
-    virtual ~CtTextView();
-
-    void setupForSyntax(const std::string& syntaxHighlighting);
-    void set_pixels_inside_wrap(int space_around_lines, int relative_wrapped_space);
-    void set_selection_at_offset_n_delta(int offset, int delta, Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>());
-
-    static const double TEXT_SCROLL_MARGIN;
-protected:
-    void _setFontForSyntax(const std::string& syntaxHighlighting);
-};
 
 class CtDialogTextEntry : public Gtk::Dialog
 {
@@ -113,6 +90,8 @@ public:
     CtStatusBar&  get_status_bar()  { return _ctStatusBar; }
     bool&         user_active()     { return _userActive; }
 
+    Glib::RefPtr<Gtk::TextBuffer> curr_buffer() { return _ctTextview.get_buffer(); }
+
 private:
     Gtk::HBox&    _initStatusBar();
     Gtk::EventBox& _initWindowHeader();
@@ -137,13 +116,18 @@ public:
     void set_toolbar_icon_size(int size)    { _pToolbar->property_icon_size() = CtMiscUtil::getIconSize(size); }
 
 protected:
+    bool                _onTheWindowSignalKeyPressEvent(GdkEventKey* event);
+
     void                _onTheTreeviewSignalCursorChanged();
     bool                _onTheTreeviewSignalButtonPressEvent(GdkEventButton* event);
-    bool                _onTheWindowSignalKeyPressEvent(GdkEventKey* event);
     bool                _onTheTreeviewSignalKeyPressEvent(GdkEventKey* event);
     bool                _onTheTreeviewSignalPopupMenu();
+
+    bool                _onTheTextviewEvent(GdkEvent* event);
+
     void                _titleUpdate(bool saveNeeded);
 
+protected:
     Gtk::VBox           _vboxMain;
     Gtk::VBox           _vboxText;
     Gtk::HPaned         _hPaned;

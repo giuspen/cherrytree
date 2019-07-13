@@ -145,6 +145,7 @@ CtImageAnchor::CtImageAnchor(const Glib::ustring& anchorName,
  : CtImage("anchor", CtApp::P_ctCfg->anchorSize, charOffset, justification),
    _anchorName(anchorName)
 {
+    signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageAnchor::_onButtonPressEvent), false);
     updateTooltip();
 }
 
@@ -162,6 +163,18 @@ void CtImageAnchor::updateTooltip()
     set_tooltip_text(_anchorName);
 }
 
+// Catches mouse buttons clicks upon anchor images
+bool CtImageAnchor::_onButtonPressEvent(GdkEventButton* event)
+{
+    CtApp::P_ctActions->curr_anchor_anchor = this;
+    CtApp::P_ctActions->object_set_selection(this);
+    if (event->button == 3)
+        CtApp::P_ctActions->getCtMainWin()->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->popup(event->button, event->time);
+    else if (event->type == GDK_2BUTTON_PRESS)
+        CtApp::P_ctActions->anchor_edit();
+
+    return true; // do not propagate the event
+}
 
 CtImageEmbFile::CtImageEmbFile(const Glib::ustring& fileName,
                                const std::string& rawBlob,

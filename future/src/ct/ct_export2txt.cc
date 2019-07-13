@@ -20,7 +20,7 @@
  */
 
 #include "ct_export2txt.h"
-
+#include "ct_app.h"
 
 CtExport2Txt::CtExport2Txt()
 {
