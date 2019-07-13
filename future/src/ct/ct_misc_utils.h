@@ -307,7 +307,12 @@ Glib::ustring get_proper_platform_filepath(Glib::ustring filepath);
 
 bool isdir(const Glib::ustring& path);
 bool isfile(const Glib::ustring& path);
-
+Glib::ustring basename(const Glib::ustring& path);
+Glib::ustring dirname(const Glib::ustring& path);
 Glib::ustring join(const Glib::ustring& path1, const Glib::ustring& path2);
+
+time_t getmtime(const Glib::ustring& path);
+
+void external_filepath_open(const Glib::ustring& filepath, bool open_fold_if_no_app_error);
 
 } // namespace CtFileSystem

@@ -758,8 +758,8 @@ Glib::ustring ct_dialogs::file_select_dialog(ct_dialogs::file_select_args args)
         chooser.set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
     } else
         chooser.set_position(Gtk::WIN_POS_CENTER);
-    if (args.curr_folder.empty() /* todo: || os.path.isdir(curr_folder) == False */)
-        chooser.set_current_folder("~" /* todo: os.path.expanduser('~')*/);
+    if (args.curr_folder.empty() || !CtFileSystem::isdir(args.curr_folder))
+        chooser.set_current_folder(g_get_home_dir());
     else
         chooser.set_current_folder(args.curr_folder);
     if (args.filter_pattern.size() || args.filter_mime.size()) {
@@ -790,13 +790,50 @@ Glib::ustring ct_dialogs::folder_select_dialog(Glib::ustring curr_folder, Gtk::W
     }
     else
         chooser.set_position(Gtk::WIN_POS_CENTER);
-    if (curr_folder.empty() /* todo: ||  os.path.isdir(curr_folder) == False */)
-        chooser.set_current_folder("~" /* todo: os.path.expanduser('~')*/);
+    if (curr_folder.empty() || !CtFileSystem::isdir(curr_folder))
+        chooser.set_current_folder(g_get_home_dir());
     else
         chooser.set_current_folder(curr_folder);
     if (chooser.run() == Gtk::RESPONSE_ACCEPT)
         return chooser.get_filename();
     return "";
+}
+
+// The Save file as dialog, Returns the retrieved filepath or None
+Glib::ustring ct_dialogs::file_save_as_dialog(ct_dialogs::file_select_args args)
+{
+    auto chooser = Gtk::FileChooserDialog(_("Save File as"), Gtk::FILE_CHOOSER_ACTION_SAVE);
+    chooser.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
+    chooser.add_button(Gtk::Stock::SAVE, Gtk::RESPONSE_ACCEPT);
+    chooser.set_do_overwrite_confirmation(true);
+    if (args.parent)
+    {
+        chooser.set_transient_for(*args.parent);
+        chooser.set_property("modal", true);
+        chooser.set_property("destroy-with-parent", true);
+        chooser.set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
+    }
+    else
+        chooser.set_position(Gtk::WIN_POS_CENTER);
+    if (args.curr_folder.empty() || !CtFileSystem::isdir(args.curr_folder))
+        args.curr_folder = g_get_home_dir();
+    chooser.set_current_folder(args.curr_folder);
+    if (!args.curr_file_name.empty())
+        chooser.set_current_name(args.curr_file_name);
+    if (!args.filter_pattern.empty())
+    {
+        auto filter = Gtk::FileFilter::create();
+        filter->set_name(args.filter_name);
+        for (auto& element: args.filter_pattern)
+            filter->add_pattern(element);
+        for (auto& element: args.filter_mime)
+            filter->add_mime_type(element);
+        chooser.add_filter(filter);
+    }
+    if (chooser.run() != Gtk::RESPONSE_ACCEPT)
+        return "";
+
+    return chooser.get_filename();
 }
 
 // Insert/Edit Image

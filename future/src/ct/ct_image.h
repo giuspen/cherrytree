@@ -112,12 +112,18 @@ public:
     virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment);
 
     const Glib::ustring& getFileName() { return _fileName; }
+    const std::string&   getRawBlob() { return _rawBlob; }
+    void                 setRawBlob(char* buffer, size_t size) { _rawBlob = std::string(buffer, size);}
+    void                 setTime(time_t time) { _timeSeconds = time; }
 
     void updateTooltip();
     void updateLabelWidget();
 
+private:
+    bool _onButtonPressEvent(GdkEventButton* event);
+
 protected:
     Glib::ustring _fileName;
-    std::string _rawBlob;
-    double _timeSeconds;
+    std::string   _rawBlob;      // raw data, not a string
+    double        _timeSeconds;
 };

@@ -47,6 +47,11 @@ public:
     CtImageEmbFile* curr_file_anchor = nullptr;
 
 private:
+    size_t                          _next_opened_emb_file_id = 1;
+    std::map<Glib::ustring, time_t> _embfiles_opened;
+    sigc::connection                _embfiles_timeout_connection;
+
+private:
     CtMainWin*   _pCtMainWin;
     CtTreeStore* _pCtTreestore;
 
@@ -241,6 +246,7 @@ public:
 private:
     // helper for others actions
     void _anchor_edit_dialog(CtImageAnchor* anchor, Gtk::TextIter insert_iter, Gtk::TextIter* iter_bound);
+    bool _on_embfiles_sentinel_timeout();
 
 public:
     // others actions

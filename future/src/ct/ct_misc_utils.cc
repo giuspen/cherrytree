@@ -27,6 +27,7 @@
 #include "ct_app.h"
 #include <ctime>
 #include <regex>
+#include <glib/gstdio.h> // to get stats
 
 CtDocType CtMiscUtil::getDocType(std::string fileName)
 {
@@ -851,9 +852,52 @@ bool CtFileSystem::isfile(const Glib::ustring& path)
     return Glib::file_test(path, Glib::FILE_TEST_IS_REGULAR);
 }
 
+Glib::ustring CtFileSystem::basename(const Glib::ustring& path)
+{
+    const gchar* allocated_name = g_path_get_basename(path.c_str());
+    Glib::ustring name = allocated_name;
+    g_free((gpointer)allocated_name);
+    return name;
+}
+
+Glib::ustring CtFileSystem::dirname(const Glib::ustring& path)
+{
+    const gchar* allocated_dir = g_path_get_dirname(path.c_str());
+    Glib::ustring dir = allocated_dir;
+    g_free((gpointer)allocated_dir);
+    return dir;
+}
+
 Glib::ustring CtFileSystem::join(const Glib::ustring& path1, const Glib::ustring& path2)
 {
     // todo: improve the trick
     const auto sep = CtConst::IS_WIN_OS ? CtConst::CHAR_BSLASH : CtConst::CHAR_SLASH;
     return path1 + sep + path2;
+}
+
+time_t CtFileSystem::getmtime(const Glib::ustring& path)
+{
+    time_t time = 0;
+    GStatBuf st;
+    if (g_stat(path.c_str(), &st) == 0)
+        time = st.st_mtime;
+    return time;
+}
+
+// Open Filepath with External App
+void CtFileSystem::external_filepath_open(const Glib::ustring& filepath, bool open_fold_if_no_app_error)
+{
+    /* todo:
+    if self.filelink_custom_action[0]:
+        if cons.IS_WIN_OS: filepath = cons.CHAR_DQUOTE + filepath + cons.CHAR_DQUOTE
+        else: filepath = re.escape(filepath)
+        subprocess.call(self.filelink_custom_action[1] % filepath, shell=True)
+    else:
+        if cons.IS_WIN_OS:
+            try: os.startfile(filepath)
+            except:
+                if open_fold_if_no_app_error: os.startfile(os.path.dirname(filepath))
+        else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
+        */
+    g_app_info_launch_default_for_uri(("file://" + filepath).c_str(), nullptr, nullptr);
 }

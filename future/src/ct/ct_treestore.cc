@@ -127,6 +127,11 @@ bool CtTreeIter::get_is_bold_from_pango_weight(guint16 pangoWeight)
     return pangoWeight == PANGO_WEIGHT_HEAVY;
 }
 
+std::list<CtAnchoredWidget*> CtTreeIter::get_all_embedded_widgets()
+{
+    return (*this) ? (*this)->get_value(_pColumns->colAnchoredWidgets) : std::list<CtAnchoredWidget*>();
+}
+
 std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes(const std::pair<int,int>& offset_range)
 {
     std::list<CtAnchoredWidget*> retAnchoredWidgetsList;
