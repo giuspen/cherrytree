@@ -507,7 +507,7 @@ void CtActions::_image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> pixbuf, Gtk::TextIt
         curr_buffer()->erase(insert_iter, *iter_bound);
         insert_iter = curr_buffer()->get_iter_at_offset(image_offset);
     }
-    image_insert(insert_iter, ret_pixbuf, link, image_justification);
+    image_insert_png(insert_iter, ret_pixbuf, link, image_justification);
 }
 
 // Get the Alignment Value of the given Iter
@@ -525,16 +525,24 @@ Glib::ustring CtActions::_get_iter_alignment(Gtk::TextIter text_iter)
     return CtConst::TAG_PROP_VAL_LEFT;
 }
 
-void CtActions::image_insert(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> pixbuf, Glib::ustring link,
-                              Glib::ustring image_justification /*=""*/, Glib::RefPtr<Gtk::TextBuffer> text_buffer /*= Glib:RefPtr<Gtk::TextBuffer>()*/)
+void CtActions::image_insert_png(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> pixbuf,
+                                 const Glib::ustring& link, const Glib::ustring& image_justification)
 {
     if (!pixbuf) return;
-    if (!text_buffer) text_buffer = curr_buffer();
-    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(text_buffer);
-
     int charOffset = iter_insert.get_offset();
-
     CtAnchoredWidget* pAnchoredWidget = new CtImagePng(pixbuf, link, charOffset, image_justification);
+    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(curr_buffer());
+    pAnchoredWidget->insertInTextBuffer(gsv_buffer);
+
+    getCtMainWin()->get_tree_store().addAnchoredWidgets(getCtMainWin()->curr_tree_iter(),
+        {pAnchoredWidget}, &getCtMainWin()->get_text_view());
+}
+
+void CtActions::image_insert_anchor(Gtk::TextIter iter_insert, const Glib::ustring &name, const Glib::ustring &image_justification)
+{
+    int charOffset = iter_insert.get_offset();
+    CtAnchoredWidget* pAnchoredWidget = new CtImageAnchor(name, charOffset, image_justification);
+    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(curr_buffer());
     pAnchoredWidget->insertInTextBuffer(gsv_buffer);
 
     getCtMainWin()->get_tree_store().addAnchoredWidgets(getCtMainWin()->curr_tree_iter(),

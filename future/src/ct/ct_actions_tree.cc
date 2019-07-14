@@ -73,6 +73,17 @@ bool CtActions::_is_curr_node_not_syntax_highlighting_or_error(bool plain_text_o
     return false;
 }
 
+// Put Selection Upon the achrored widget
+void CtActions::object_set_selection(CtAnchoredWidget* widget)
+{
+    Gtk::TextIter iter_object = curr_buffer()->get_iter_at_child_anchor(widget->getTextChildAnchor());
+    Gtk::TextIter iter_bound = iter_object;
+    iter_bound.forward_char();
+    if (dynamic_cast<CtImage*>(widget))
+        _pCtMainWin->get_text_view().grab_focus();
+    curr_buffer()->select_range(iter_object, iter_bound);
+}
+
 // Returns True if there's not a node selected or is not rich text
 bool CtActions::_node_sel_and_rich_text()
 {
@@ -457,7 +468,7 @@ bool dialog_node_prop(std::string title, Gtk::Window& parent, CtNodeData& nodeDa
     c_icon_checkbutton.set_active(map::exists(CtConst::NODES_STOCKS, nodeData.customIconId));
     auto c_icon_button = Gtk::Button();
     if (c_icon_checkbutton.get_active())
-        c_icon_button.set_image(*CtImage::new_image_from_stock(CtConst::NODES_STOCKS.at(nodeData.customIconId), Gtk::ICON_SIZE_BUTTON));
+        c_icon_button.set_image(*CtImage::new_image_from_stock(CtConst::NODES_STOCKS.at((int)nodeData.customIconId), Gtk::ICON_SIZE_BUTTON));
     else {
         c_icon_button.set_label(_("click me"));
         c_icon_button.set_sensitive(false);

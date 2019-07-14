@@ -158,6 +158,7 @@ struct file_select_args
 {
     Gtk::Window*                parent = nullptr;
     Glib::ustring               curr_folder;
+    Glib::ustring               curr_file_name;
     Glib::ustring               filter_name;
     std::vector<Glib::ustring>  filter_pattern;
     std::vector<Glib::ustring>  filter_mime;
@@ -167,6 +168,9 @@ Glib::ustring file_select_dialog(ct_dialogs::file_select_args args);
 
 // The Select folder dialog, returns the retrieved folderpath or None
 Glib::ustring folder_select_dialog(Glib::ustring curr_folder, Gtk::Window* parent = nullptr);
+
+// The Save file as dialog, Returns the retrieved filepath or None
+Glib::ustring file_save_as_dialog(ct_dialogs::file_select_args args);
 
 // Insert/Edit Image
 Glib::RefPtr<Gdk::Pixbuf> image_handle_dialog(Gtk::Window& father_win, Glib::ustring title,

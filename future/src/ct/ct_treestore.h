@@ -92,6 +92,8 @@ public:
     std::time_t   get_node_creating_time() const;
     std::time_t   get_node_modification_time() const;
     void          set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf);
+
+    std::list<CtAnchoredWidget*> get_all_embedded_widgets();
     std::list<CtAnchoredWidget*> get_embedded_pixbufs_tables_codeboxes(const std::pair<int,int>& offset_range=std::make_pair(-1,-1));
 
     Glib::RefPtr<Gsv::Buffer> get_node_text_buffer() const;

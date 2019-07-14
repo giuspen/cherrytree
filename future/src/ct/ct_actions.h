@@ -20,8 +20,12 @@
  */
 
 #pragma once
-#include "ct_main_win.h"
+
 #include "ct_dialogs.h"
+#include "ct_codebox.h"
+#include "ct_image.h"
+#include "ct_table.h"
+#include "ct_main_win.h"
 #include <optional>
 
 class CtMainWin;
@@ -34,6 +38,18 @@ public:
         _pCtTreestore = pCtTreeStore;
         _find_init();
     }
+
+public:
+    CtCodebox*      curr_codebox_anchor = nullptr;
+    CtTable*        curr_table_anchor = nullptr;
+    CtImageAnchor*  curr_anchor_anchor = nullptr;
+    CtImagePng*     curr_image_anchor = nullptr;
+    CtImageEmbFile* curr_file_anchor = nullptr;
+
+private:
+    size_t                          _next_opened_emb_file_id = 1;
+    std::map<Glib::ustring, time_t> _embfiles_opened;
+    sigc::connection                _embfiles_timeout_connection;
 
 private:
     CtMainWin*   _pCtMainWin;
@@ -51,6 +67,9 @@ public: // todo: fix naming
     bool          _is_tree_not_empty_or_error();
     bool          _is_curr_node_not_read_only_or_error();
     bool          _is_curr_node_not_syntax_highlighting_or_error(bool plain_text_ok = false);
+
+public:
+    void object_set_selection(CtAnchoredWidget* widget);
 
 private:
     // helpers for tree actions
@@ -191,9 +210,9 @@ private:
     void          _text_selection_change_case(gchar change_type);
 
 public:
-    void          image_insert(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> pixbuf, Glib::ustring link,
-                               Glib::ustring image_justification = "", Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>());
-
+    void          image_insert_png(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> pixbuf,
+                                   const Glib::ustring& link, const Glib::ustring& image_justification);
+    void          image_insert_anchor(Gtk::TextIter iter_insert, const Glib::ustring& name, const Glib::ustring& image_justification);
 
 public:
     // edit actions
@@ -223,4 +242,29 @@ public:
     void text_row_up();
     void text_row_down();
     void strip_trailing_spaces();
+
+private:
+    // helper for others actions
+    void _anchor_edit_dialog(CtImageAnchor* anchor, Gtk::TextIter insert_iter, Gtk::TextIter* iter_bound);
+    bool _on_embfiles_sentinel_timeout();
+
+public:
+    // others actions
+    void anchor_cut();
+    void anchor_copy();
+    void anchor_delete();
+    void anchor_edit();
+    void embfile_cut();
+    void embfile_copy();
+    void embfile_delete();
+    void embfile_save();
+    void embfile_open();
+    void image_save();
+    void image_edit();
+    void image_cut();
+    void image_copy();
+    void image_delete();
+    void image_link_edit();
+    void image_link_dismiss();
+    void toggle_show_hide_main_window();
 };

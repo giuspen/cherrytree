@@ -145,6 +145,7 @@ CtImageAnchor::CtImageAnchor(const Glib::ustring& anchorName,
  : CtImage("anchor", CtApp::P_ctCfg->anchorSize, charOffset, justification),
    _anchorName(anchorName)
 {
+    signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageAnchor::_onButtonPressEvent), false);
     updateTooltip();
 }
 
@@ -162,6 +163,18 @@ void CtImageAnchor::updateTooltip()
     set_tooltip_text(_anchorName);
 }
 
+// Catches mouse buttons clicks upon anchor images
+bool CtImageAnchor::_onButtonPressEvent(GdkEventButton* event)
+{
+    CtApp::P_ctActions->curr_anchor_anchor = this;
+    CtApp::P_ctActions->object_set_selection(this);
+    if (event->button == 3)
+        CtApp::P_ctActions->getCtMainWin()->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->popup(event->button, event->time);
+    else if (event->type == GDK_2BUTTON_PRESS)
+        CtApp::P_ctActions->anchor_edit();
+
+    return true; // do not propagate the event
+}
 
 CtImageEmbFile::CtImageEmbFile(const Glib::ustring& fileName,
                                const std::string& rawBlob,
@@ -173,6 +186,7 @@ CtImageEmbFile::CtImageEmbFile(const Glib::ustring& fileName,
    _rawBlob(rawBlob),
    _timeSeconds(timeSeconds)
 {
+    signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageEmbFile::_onButtonPressEvent), false);
     updateTooltip();
     updateLabelWidget();
 }
@@ -183,6 +197,7 @@ void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent, const int offset_adju
     xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
     p_image_node->set_attribute("char_offset", std::to_string(_charOffset));
     p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
+    p_image_node->set_attribute("filename", _fileName);
     p_image_node->set_attribute("time", std::to_string(_timeSeconds));
     const std::string encodedBlob = Glib::Base64::encode(_rawBlob);
     p_image_node->add_child_text(encodedBlob);
@@ -221,4 +236,17 @@ void CtImageEmbFile::updateTooltip()
     char buffTooltip[128];
     snprintf(buffTooltip, 128, "%s\n%s (%ld Bytes)\n%s", _fileName.c_str(), humanReadableSize, embfileBytes, strDateTime.c_str());
     set_tooltip_text(buffTooltip);
+}
+
+// Catches mouse buttons clicks upon files images
+bool CtImageEmbFile::_onButtonPressEvent(GdkEventButton* event)
+{
+    CtApp::P_ctActions->curr_file_anchor = this;
+    CtApp::P_ctActions->object_set_selection(this);
+    if (event->button == 3)
+        CtApp::P_ctActions->getCtMainWin()->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::EmbFile)->popup(event->button, event->time);
+    else if (event->type == GDK_2BUTTON_PRESS)
+        CtApp::P_ctActions->embfile_open();
+
+    return true; // do not propagate the event
 }

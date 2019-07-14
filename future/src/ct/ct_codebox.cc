@@ -23,34 +23,6 @@
 #include "ct_app.h"
 
 
-CtAnchoredWidget::CtAnchoredWidget(const int charOffset, const std::string& justification)
-{
-    _charOffset = charOffset;
-    _justification = justification;
-    _frame.set_shadow_type(Gtk::ShadowType::SHADOW_NONE);
-    signal_button_press_event().connect([](GdkEventButton* /*pEvent*/){ return true; });
-    add(_frame);
-}
-
-CtAnchoredWidget::~CtAnchoredWidget()
-{
-
-}
-
-void CtAnchoredWidget::insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer)
-{
-    _rTextChildAnchor = rTextBuffer->create_child_anchor(rTextBuffer->get_iter_at_offset(_charOffset));
-    if (!_justification.empty())
-    {
-        Gtk::TextIter textIterStart = rTextBuffer->get_iter_at_child_anchor(_rTextChildAnchor);
-        Gtk::TextIter textIterEnd = textIterStart;
-        textIterEnd.forward_char();
-        Glib::ustring tagName = CtMiscUtil::getTextTagNameExistOrCreate(CtConst::TAG_JUSTIFICATION, _justification);
-        rTextBuffer->apply_tag_by_name(tagName, textIterStart, textIterEnd);
-    }
-}
-
-
 CtTextCell::CtTextCell(const Glib::ustring& textContent,
                        const Glib::ustring& syntaxHighlighting)
  : _syntaxHighlighting(syntaxHighlighting)

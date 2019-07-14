@@ -24,6 +24,7 @@
 #include "ct_table.h"
 #include "ct_codebox.h"
 #include "ct_image.h"
+#include "ct_treestore.h"
 
 class CtExport2Html
 {
