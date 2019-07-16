@@ -183,7 +183,7 @@ void CtMainWin::menu_tree_update_for_bookmarked_node(bool is_bookmarked)
 
 void CtMainWin::bookmark_action_select_node(gint64 node_id)
 {
-    Gtk::TreeIter tree_iter = _ctTreestore.get_tree_iter_from_node_id(node_id);
+    Gtk::TreeIter tree_iter = _ctTreestore.get_node_from_node_id(node_id);
     get_tree_view().set_cursor_safe(tree_iter);
 }
 

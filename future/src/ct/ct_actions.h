@@ -47,6 +47,9 @@ public:
     CtImageEmbFile* curr_file_anchor = nullptr;
 
 private:
+    ct_dialogs::CtLinkEntry _link_entry;
+
+private:
     size_t                          _next_opened_emb_file_id = 1;
     std::map<Glib::ustring, time_t> _embfiles_opened;
     sigc::connection                _embfiles_timeout_connection;
@@ -267,4 +270,6 @@ public:
     void image_link_edit();
     void image_link_dismiss();
     void toggle_show_hide_main_window();
+
+    void link_clicked(const Glib::ustring& tag_property_value, bool from_wheel);
 };

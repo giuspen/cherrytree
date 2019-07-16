@@ -30,6 +30,7 @@ const int      CtConst::NODE_ICON_CODE_ID           {38};
 const int      CtConst::NODE_ICON_BULLET_ID         {25};
 const int      CtConst::NODE_ICON_NO_ICON_ID        {26};
 const int      CtConst::NODE_ICON_SIZE              {16};
+const int      CtConst::MAX_TOOLTIP_LINK_CHARS      {150};
 const gchar    CtConst::LINK_TYPE_WEBS[]       {"webs"};
 const gchar    CtConst::LINK_TYPE_FILE[]       {"file"};
 const gchar    CtConst::LINK_TYPE_FOLD[]       {"fold"};

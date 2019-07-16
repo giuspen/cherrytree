@@ -55,8 +55,10 @@ private:
     Glib::ustring _html_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer);
     Glib::ustring _html_text_serialize(Gtk::TextIter start_iter, Gtk::TextIter end_iter, const std::map<const gchar*, std::string>& curr_attributes);
     Glib::ustring _get_href_from_link_prop_val(Glib::ustring link_prop_val);
-    Glib::ustring _link_process_filepath(const Glib::ustring& filepath_raw);
-    Glib::ustring _link_process_folderpath(const Glib::ustring& folderpath_raw);
     Glib::ustring _get_html_filename(CtTreeIter tree_iter);
+public:
+
+    static Glib::ustring _link_process_filepath(const Glib::ustring& filepath_raw);
+    static Glib::ustring _link_process_folderpath(const Glib::ustring& folderpath_raw);
 };
 

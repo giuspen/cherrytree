@@ -95,6 +95,8 @@ CtImagePng::CtImagePng(const std::string& rawBlob,
  : CtImage(rawBlob, "image/png", charOffset, justification),
    _link(link)
 {
+    signal_button_press_event().connect(sigc::mem_fun(*this, &CtImagePng::_onButtonPressEvent), false);
+    // todo: DEPRECATED signal_visibility_notify_event().connect([this](){ this->queue_draw(); return false; });    // Problem of image colored frame disappearing
     updateLabelWidget();
 }
 
@@ -105,6 +107,8 @@ CtImagePng::CtImagePng(Glib::RefPtr<Gdk::Pixbuf> pixBuf,
  : CtImage(pixBuf, charOffset, justification),
    _link(link)
 {
+    signal_button_press_event().connect(sigc::mem_fun(*this, &CtImagePng::_onButtonPressEvent), false);
+    // todo: DEPRECATED signal_visibility_notify_event().connect([this](){ this->queue_draw(); return false; });    // Problem of image colored frame disappearing
     updateLabelWidget();
 }
 
@@ -136,6 +140,25 @@ void CtImagePng::updateLabelWidget()
     {
         _labelWidget.hide();
     }
+}
+
+bool CtImagePng::_onButtonPressEvent(GdkEventButton* event)
+{
+    CtApp::P_ctActions->curr_image_anchor = this;
+    CtApp::P_ctActions->object_set_selection(this);
+    if (event->button == 1 || event->button == 2)
+    {
+        if (event->type == GDK_2BUTTON_PRESS)
+            CtApp::P_ctActions->image_edit();
+        else if(!_link.empty())
+            CtApp::P_ctActions->link_clicked(_link, event->button == 2);
+    }
+    else if (event->button == 3)
+    {
+        CtApp::P_ctActions->getCtMainWin()->get_ct_menu().find_action("img_link_dismiss")->signal_set_visible.emit(!_link.empty());
+        CtApp::P_ctActions->getCtMainWin()->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup(event->button, event->time);
+    }
+    return true; // do not propagate the event
 }
 
 

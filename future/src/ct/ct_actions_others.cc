@@ -20,6 +20,7 @@
  */
 
 #include "ct_actions.h"
+#include "ct_export2html.h"
 #include <gtkmm/dialog.h>
 #include <gtkmm/stock.h>
 #include <fstream>
@@ -119,44 +120,167 @@ void CtActions::embfile_open()
         _embfiles_timeout_connection = Glib::signal_timeout().connect(sigc::mem_fun(*this, &CtActions::_on_embfiles_sentinel_timeout), 500);
 }
 
+// Save to Disk the selected Image
 void CtActions::image_save()
 {
-  // todo:
+    ct_dialogs::file_select_args args = {.parent=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirImg, .filter_name=_("PNG Image"), .filter_pattern={"*.png"}};
+    Glib::ustring filename = ct_dialogs::file_save_as_dialog(args);
+    if (filename.empty()) return;
+
+    CtApp::P_ctCfg->pickDirImg = CtFileSystem::dirname(filename);
+    if (!str::endswith(filename, ".png")) filename += ".png";
+    try {
+       curr_image_anchor->save(filename, "png");
+    }
+    catch (...) {
+        ct_dialogs::error_dialog(str::format(_("Write to %s Failed"), std::string(filename)), *_pCtMainWin);
+    }
 }
 
+// Edit the selected Image
 void CtActions::image_edit()
 {
-  // todo:
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    Gtk::TextIter iter_insert = curr_buffer()->get_iter_at_child_anchor(curr_image_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_bound = iter_insert;
+    iter_bound.forward_char();
+    _image_edit_dialog(curr_image_anchor->getPixBuf(), iter_insert, &iter_bound);
 }
 
+// Cut Image
 void CtActions::image_cut()
 {
-  // todo:
+    object_set_selection(curr_image_anchor);
+    g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
 }
 
+// Copy Image
 void CtActions::image_copy()
 {
-  // todo:
+    object_set_selection(curr_image_anchor);
+    g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "copy-clipboard");
 }
 
+// Delete Image
 void CtActions::image_delete()
 {
-  // todo:
+    object_set_selection(curr_image_anchor);
+    curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
+    _pCtMainWin->get_text_view().grab_focus();
 }
 
+// Edit the Link Associated to the Image
 void CtActions::image_link_edit()
 {
-  // todo:
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    _link_entry = ct_dialogs::CtLinkEntry();
+    if  (curr_image_anchor->getLink().empty())
+        _link_entry.type = CtConst::LINK_TYPE_WEBS; // default value
+    else if (!_links_entries_pre_dialog(curr_image_anchor->getLink(), _link_entry))
+       return;
+    CtTreeIter sel_tree_iter = _pCtTreestore->get_node_from_node_id(_link_entry.node_id);
+    if (!ct_dialogs::link_handle_dialog(*_pCtMainWin, _("Insert/Edit Link"), sel_tree_iter, _link_entry))
+        return;
+    Glib::ustring property_value = _links_entries_post_dialog(_link_entry);
+    if (!property_value.empty())
+    {
+        curr_image_anchor->setLink(property_value);
+        curr_image_anchor->updateLabelWidget();
+        // todo: self.objects_buffer_refresh()
+        _pCtMainWin->update_window_save_needed("nbuf", true);
+    }
 }
 
+// Dismiss the Link Associated to the Image
 void CtActions::image_link_dismiss()
 {
-  // todo:
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    curr_image_anchor->setLink("");
+    curr_image_anchor->updateLabelWidget();
+    _pCtMainWin->update_window_save_needed("nbuf", true);
 }
 
 void CtActions::toggle_show_hide_main_window()
 {
   // todo:
+}
+
+// Function Called at Every Link Click
+void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_wheel)
+{
+     auto vec = str::split(tag_property_value, " ");
+     if (vec[0] == CtConst::LINK_TYPE_WEBS) // link to webpage
+     {
+         Glib::ustring clean_weblink = str::replace(vec[1], "amp;", "");
+         if (CtApp::P_ctCfg->weblinkCustomOn)
+         {
+             // todo: subprocess.call(self.weblink_custom_action[1] % clean_weblink, shell=True)
+         }
+         else g_app_info_launch_default_for_uri(clean_weblink.c_str(), nullptr, nullptr); // todo: ?
+     }
+     else if (vec[0] == CtConst::LINK_TYPE_FILE) // link to file
+     {
+         Glib::ustring filepath = CtExport2Html::_link_process_filepath(vec[1]);
+         if (!CtFileSystem::isfile(filepath))
+         {
+             ct_dialogs::error_dialog(str::format(_("The File Link '%s' is Not Valid"), std::string(filepath)), *_pCtMainWin);
+             return;
+         }
+         if (from_wheel)
+             filepath = CtFileSystem::dirname(CtFileSystem::abspath(filepath));
+         CtFileSystem::external_filepath_open(filepath, true);
+     }
+     else if (vec[0] == CtConst::LINK_TYPE_FOLD) // link to folder
+     {
+         Glib::ustring folderpath = CtExport2Html::_link_process_folderpath(vec[1]);
+         if (!CtFileSystem::isdir(folderpath))
+         {
+             ct_dialogs::error_dialog(str::format(_("The Folder Link '%s' is Not Valid"), std::string(folderpath)), *_pCtMainWin);
+             return;
+         }
+         if (from_wheel)
+             folderpath = CtFileSystem::dirname(CtFileSystem::abspath(folderpath));
+         CtFileSystem::external_folderpath_open(folderpath);
+     }
+     else if (vec[0] == CtConst::LINK_TYPE_NODE) // link to a tree node
+     {
+         CtTreeIter tree_iter = _pCtTreestore->get_node_from_node_id(std::stol(vec[1]));
+         if (!tree_iter)
+         {
+             ct_dialogs::error_dialog(str::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), std::string(vec[1])), *_pCtMainWin);
+             return;
+         }
+         _pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
+         _pCtMainWin->get_text_view().grab_focus();
+         // todo: self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
+         _pCtMainWin->get_text_view().set_tooltip_text("");
+         if (vec.size() >= 3)
+         {
+             Glib::ustring anchor_name;
+             if (vec.size() == 3) anchor_name = vec[2];
+             else anchor_name = tag_property_value.substr(vec[0].size() + vec[1].size() + 2);
+
+             CtImageAnchor* imageAnchor = nullptr;
+             for (auto& widget: tree_iter.get_all_embedded_widgets())
+                 if (CtImageAnchor* anchor = dynamic_cast<CtImageAnchor*>(widget))
+                     if (anchor->getAnchorName() == anchor_name)
+                         imageAnchor = anchor;
+             if (!imageAnchor)
+             {
+                 if (anchor_name.size() > (size_t)CtConst::MAX_TOOLTIP_LINK_CHARS)
+                     anchor_name = anchor_name.substr(0, (size_t)CtConst::MAX_TOOLTIP_LINK_CHARS) + "...";
+                 ct_dialogs::warning_dialog(str::format(_("No anchor named '%s' found"), std::string(anchor_name)), *_pCtMainWin);
+             }
+             else
+             {
+                 Gtk::TextIter iter_anchor = curr_buffer()->get_iter_at_child_anchor(imageAnchor->getTextChildAnchor());
+                 curr_buffer()->place_cursor(iter_anchor);
+                 _pCtMainWin->get_text_view().scroll_to(curr_buffer()->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
+             }
+         }
+     }
+     else
+         ct_dialogs::error_dialog(str::format("Tag Name Not Recognized! (%s)", std::string(vec[0])), *_pCtMainWin);
 }
 
 // Anchor Edit Dialog
@@ -196,7 +320,7 @@ bool CtActions::_on_embfiles_sentinel_timeout()
            gint64 node_id = std::stoll(data_vec[0]);
            size_t embfile_id = std::stol(data_vec[1]);
 
-           CtTreeIter tree_iter = _pCtMainWin->get_tree_store().get_tree_iter_from_node_id(node_id);
+           CtTreeIter tree_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(node_id);
            if (!tree_iter) continue;
            if (tree_iter.get_node_read_only())
            {

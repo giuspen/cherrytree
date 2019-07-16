@@ -52,7 +52,7 @@ void CtActions::image_handle()
     ct_dialogs::file_select_args args = {.parent=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirImg};
     Glib::ustring filename = ct_dialogs::file_select_dialog(args);
     if (filename.empty()) return;
-    // todo: self.pick_dir_img = os.path.dirname(filename)
+    CtApp::P_ctCfg->pickDirImg = CtFileSystem::dirname(filename);
 
     auto pixbuf = Gdk::Pixbuf::create_from_file(filename);
     if (pixbuf)

@@ -868,6 +868,12 @@ Glib::ustring CtFileSystem::dirname(const Glib::ustring& path)
     return dir;
 }
 
+Glib::ustring CtFileSystem::abspath(const Glib::ustring& path)
+{
+    // todo:
+    return path;
+}
+
 Glib::ustring CtFileSystem::join(const Glib::ustring& path1, const Glib::ustring& path2)
 {
     // todo: improve the trick
@@ -900,4 +906,19 @@ void CtFileSystem::external_filepath_open(const Glib::ustring& filepath, bool op
         else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
         */
     g_app_info_launch_default_for_uri(("file://" + filepath).c_str(), nullptr, nullptr);
+}
+
+// Open Folderpath with External App
+void CtFileSystem::external_folderpath_open(const Glib::ustring& folderpath)
+{
+    /* todo:
+    if self.folderlink_custom_action[0]:
+        if cons.IS_WIN_OS: filepath = cons.CHAR_DQUOTE + filepath + cons.CHAR_DQUOTE
+        else: filepath = re.escape(filepath)
+        subprocess.call(self.folderlink_custom_action[1] % filepath, shell=True)
+    else:
+        if cons.IS_WIN_OS: os.startfile(filepath)
+        else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
+        */
+    g_app_info_launch_default_for_uri(("folder://" + folderpath).c_str(), nullptr, nullptr);
 }
