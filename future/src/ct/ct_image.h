@@ -73,6 +73,10 @@ public:
 
     void updateLabelWidget();
     const Glib::ustring& getLink() { return _link; }
+    void setLink(const Glib::ustring& link) { _link = link; }
+
+private:
+    bool _onButtonPressEvent(GdkEventButton* event);
 
 protected:
     Glib::ustring _link;

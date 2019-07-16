@@ -274,7 +274,7 @@ void ct_dialogs::bookmarks_handle_dialog(CtMainWin* ctMainWin)
         if (!treeview.get_path_at_pos((int)event->x, (int)event->y, clicked_path)) return false;
         Gtk::TreeIter clicked_iter = model->get_iter(clicked_path);
         gint64 node_id = clicked_iter->get_value(model->columns.node_id);
-        Gtk::TreeIter tree_iter = ctTreestore.get_tree_iter_from_node_id(node_id);
+        Gtk::TreeIter tree_iter = ctTreestore.get_node_from_node_id(node_id);
         ctMainWin->get_tree_view().set_cursor_safe(tree_iter);
         return true;
     });
@@ -328,7 +328,7 @@ void ct_dialogs::bookmarks_handle_dialog(CtMainWin* ctMainWin)
     ctTreestore.set_bookmarks(temp_bookmarks_order);
     gint64 curr_node_id = ctMainWin->curr_tree_iter().get_node_id();
     for (gint64& node_id: removed_bookmarks) {
-        Gtk::TreeIter tree_iter = ctTreestore.get_tree_iter_from_node_id(node_id);
+        Gtk::TreeIter tree_iter = ctTreestore.get_node_from_node_id(node_id);
         if (tree_iter) {
             ctTreestore.updateNodeAuxIcon(tree_iter);
             if (curr_node_id == node_id)
@@ -432,7 +432,7 @@ void ct_dialogs::match_dialog(const std::string& title, CtMainWin& ctMainWin, Gl
         Gtk::TreeIter list_iter = treeview->get_selection()->get_selected();
         if (!list_iter) return;
         gint64 node_id = list_iter->get_value(model->columns.node_id);
-        CtTreeIter tree_iter = ctMainWin.get_tree_store().get_tree_iter_from_node_id(node_id);
+        CtTreeIter tree_iter = ctMainWin.get_tree_store().get_node_from_node_id(node_id);
         if (!tree_iter) {
             ct_dialogs::error_dialog(str::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), node_id), ctMainWin);
             model->erase(list_iter);
@@ -648,7 +648,7 @@ bool ct_dialogs::link_handle_dialog(CtMainWin& ctMainWin, const Glib::ustring& t
     button_browse_file.signal_clicked().connect([&](){
         auto filepath = ct_dialogs::file_select_dialog({.parent=&dialog, .curr_folder=CtApp::P_ctCfg->pickDirFile});
         if (filepath.empty()) return;
-        CtApp::P_ctCfg->pickDirFile = filepath; /* todo: os.path.dirname(filepath)*/;
+        CtApp::P_ctCfg->pickDirFile = CtFileSystem::dirname(filepath);
         if (CtApp::P_ctCfg->linksRelative) {
             /* todo: filepath = os.path.relpath(filepath, dad.file_dir) */
         }

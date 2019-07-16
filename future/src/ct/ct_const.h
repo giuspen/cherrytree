@@ -37,6 +37,7 @@ extern const int      NODE_ICON_CODE_ID;
 extern const int      NODE_ICON_BULLET_ID;
 extern const int      NODE_ICON_NO_ICON_ID;
 extern const int      NODE_ICON_SIZE;
+extern const int      MAX_TOOLTIP_LINK_CHARS;
 extern const gchar    LINK_TYPE_WEBS[];
 extern const gchar    LINK_TYPE_FILE[];
 extern const gchar    LINK_TYPE_FOLD[];

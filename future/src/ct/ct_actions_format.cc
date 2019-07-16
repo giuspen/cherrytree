@@ -28,9 +28,6 @@
 #include "ct_list.h"
 #include <optional>
 
-namespace  {
-    ct_dialogs::CtLinkEntry glb_link_entry;
-}
 
 // The Iterate Tagging Button was Pressed
 void CtActions::apply_tag_latest()
@@ -237,7 +234,7 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
         if (tag_property != CtConst::TAG_JUSTIFICATION) {
             if (!_is_there_selected_node_or_error()) return;
             if (tag_property == CtConst::TAG_LINK)
-                glb_link_entry = ct_dialogs::CtLinkEntry(); // reset
+                _link_entry = ct_dialogs::CtLinkEntry(); // reset
             if (!text_buffer->get_has_selection()) {
                 if (tag_property != CtConst::TAG_LINK) {
                     if (!_apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter())) {
@@ -255,9 +252,9 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
                             int end_offset = text_buffer->get_insert()->get_iter().get_offset();
                             text_buffer->select_range(text_buffer->get_iter_at_offset(start_offset), text_buffer->get_iter_at_offset(end_offset));
                         }
-                        glb_link_entry.type = CtConst::LINK_TYPE_WEBS; // default value
+                        _link_entry.type = CtConst::LINK_TYPE_WEBS; // default value
                     } else {
-                        if (!_links_entries_pre_dialog(tag_property_value, glb_link_entry))
+                        if (!_links_entries_pre_dialog(tag_property_value, _link_entry))
                             return;
                     }
                 }
@@ -271,19 +268,19 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
     if (property_value.empty()) {
         if (tag_property == CtConst::TAG_LINK) {
             if (CtTextIterUtil::get_next_chars_from_iter_are(*iter_sel_start, CtConst::WEB_LINK_STARTERS)) {
-                glb_link_entry.type = CtConst::LINK_TYPE_WEBS;
-                glb_link_entry.webs = text_buffer->get_text(*iter_sel_start, *iter_sel_end);
+                _link_entry.type = CtConst::LINK_TYPE_WEBS;
+                _link_entry.webs = text_buffer->get_text(*iter_sel_start, *iter_sel_end);
             }
             int insert_offset = iter_sel_start->get_offset();
             int bound_offset = iter_sel_end->get_offset();
             Gtk::TreeIter sel_tree_iter;
-            if (glb_link_entry.node_id != -1)
-                sel_tree_iter = _pCtTreestore->get_tree_iter_from_node_id(glb_link_entry.node_id);
-            if (!ct_dialogs::link_handle_dialog(*_pCtMainWin, _("Insert/Edit Link"), sel_tree_iter, glb_link_entry))
+            if (_link_entry.node_id != -1)
+                sel_tree_iter = _pCtTreestore->get_node_from_node_id(_link_entry.node_id);
+            if (!ct_dialogs::link_handle_dialog(*_pCtMainWin, _("Insert/Edit Link"), sel_tree_iter, _link_entry))
                 return;
             iter_sel_start = text_buffer->get_iter_at_offset(insert_offset);
             iter_sel_end = text_buffer->get_iter_at_offset(bound_offset);
-            property_value = _links_entries_post_dialog(glb_link_entry);
+            property_value = _links_entries_post_dialog(_link_entry);
         } else {
             // todo: assert tag_property[0] in ['f', 'b'], "!! bad tag_property '%s'" % tag_property
             gchar color_for = tag_property[0] == 'f' ? 'f' : 'b';
