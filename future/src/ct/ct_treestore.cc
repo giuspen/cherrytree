@@ -470,12 +470,16 @@ void CtTreeStore::applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtT
         std::cerr << "!! treeIter" << std::endl;
         return;
     }
-    Gtk::TreeRow treeRow = *treeIter;
-    std::cout << treeRow.get_value(_columns.colNodeName) << std::endl;
+    CtTreeIter node = to_ct_tree_iter(treeIter);
+    std::cout << node.get_node_name() << std::endl;
+
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = _getNodeTextBuffer(treeIter);
-    pTextView->setupForSyntax(treeRow.get_value(_columns.colSyntaxHighlighting));
+    pTextView->setupForSyntax(node.get_node_syntax_highlighting());
     pTextView->set_buffer(rTextBuffer);
-    for (CtAnchoredWidget* pCtAnchoredWidget : treeRow.get_value(_columns.colAnchoredWidgets))
+    pTextView->set_sensitive(true);
+    pTextView->set_editable(!node.get_node_read_only());
+
+    for (CtAnchoredWidget* pCtAnchoredWidget : node.get_all_embedded_widgets())
     {
         Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
         if (rChildAnchor)

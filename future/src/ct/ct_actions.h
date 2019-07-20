@@ -272,4 +272,9 @@ public:
     void toggle_show_hide_main_window();
 
     void link_clicked(const Glib::ustring& tag_property_value, bool from_wheel);
+    void codebox_increase_width();
+    void codebox_decrease_width();
+    void codebox_increase_height();
+    void codebox_decrease_height();
+
 };

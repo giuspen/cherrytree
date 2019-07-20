@@ -104,16 +104,38 @@ CtTextView::~CtTextView()
 
 void CtTextView::setupForSyntax(const std::string& syntax)
 {
+    get_buffer()->signal_modified_changed().connect([](){
+        // todo: elf.on_modified_changed
+
+    });
+    get_buffer()->signal_insert().connect([](const Gtk::TextIter&,const Glib::ustring&, int){
+        // todo: self.on_text_insertion
+        // if self.user_active:
+        //            self.state_machine.text_variation(self.treestore[self.curr_tree_iter][3], text_inserted)
+    });
+    get_buffer()->signal_erase().connect([](const Gtk::TextIter, const Gtk::TextIter){
+        // todo:  self.on_text_removal
+        // if self.user_active and self.curr_tree_iter:
+        //            self.state_machine.text_variation(self.treestore[self.curr_tree_iter][3], sourcebuffer.get_text(start_iter, end_iter))
+    });
+    // todo: exclude for codebox?
+    get_buffer()->signal_mark_set().connect([](const Gtk::TextIter&,const Glib::RefPtr<Gtk::TextMark>){
+        // todo: self.on_textbuffer_mark_set
+    });
+
     if (CtConst::RICH_TEXT_ID == syntax)
     {
+        // todo: self.widget_set_colors(self.sourceview, self.rt_def_fg, self.rt_def_bg, False)
         set_highlight_current_line(CtApp::P_ctCfg->rtHighlCurrLine);
         if (CtApp::P_ctCfg->rtShowWhiteSpaces)
         {
             set_draw_spaces(Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE);
         }
+
     }
     else
     {
+        // todo: self.widget_set_colors(self.sourceview, self.rt_def_fg, self.rt_def_bg, True)
         set_highlight_current_line(CtApp::P_ctCfg->ptHighlCurrLine);
         if (CtApp::P_ctCfg->ptShowWhiteSpaces)
         {

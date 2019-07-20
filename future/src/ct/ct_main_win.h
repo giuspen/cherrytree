@@ -89,7 +89,7 @@ public:
     CtTextView&   get_text_view()   { return _ctTextview; }
     CtMenu&       get_ct_menu()     { return *_ctMenu; }
     CtStatusBar&  get_status_bar()  { return _ctStatusBar; }
-    bool&         user_active()     { return _userActive; }
+    bool&         user_active()     { return _userActive; } // use as a function, because it's easer to put breakpoint
 
     Glib::RefPtr<Gtk::TextBuffer> curr_buffer() { return _ctTextview.get_buffer(); }
 

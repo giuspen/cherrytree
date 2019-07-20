@@ -50,6 +50,12 @@ class CtCodebox : public CtAnchoredWidget, public CtTextCell
 public:
     static const Gsv::DrawSpacesFlags DRAW_SPACES_FLAGS;
 
+    enum { CB_WIDTH_HEIGHT_STEP_PIX = 15,
+           CB_WIDTH_HEIGHT_STEP_PERC = 9,
+           CB_WIDTH_LIMIT_MIN = 40,
+           CB_HEIGHT_LIMIT_MIN = 30
+         };
+
 public:
     CtCodebox(const Glib::ustring& textContent,
               const Glib::ustring& syntaxHighlighting,
@@ -62,10 +68,18 @@ public:
     virtual void applyWidthHeight(const int parentTextWidth);
     virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment);
 
+    void setWidthHeight(int newWidth, int newHeight);
     void setWidthInPixels(const bool widthInPixels) { _widthInPixels = widthInPixels; }
     void setHighlightBrackets(const bool highlightBrackets);
     void setShowLineNumbers(const bool showLineNumbers);
     void applyCursorPos(const int cursorPos);
+
+    bool getWidthInPixels() { return _widthInPixels; }
+    int  getFrameWidth() { return _frameWidth; }
+    int  getFrameHeight() { return _frameHeight; }
+
+private:
+    bool _onKeyPressEvent(GdkEventKey* event);
 
 protected:
     int _frameWidth;
@@ -74,4 +88,5 @@ protected:
     bool _highlightBrackets{true};
     bool _showLineNumbers{false};
     Gtk::ScrolledWindow _scrolledwindow;
+    bool _key_down;
 };

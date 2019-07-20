@@ -349,3 +349,44 @@ bool CtActions::_on_embfiles_sentinel_timeout()
     }
     return true; // this way we keep the timer alive
 }
+
+// Increase CodeBox Width
+void CtActions::codebox_increase_width()
+{
+    if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
+    if (curr_codebox_anchor->getWidthInPixels())
+         curr_codebox_anchor->setWidthHeight(curr_codebox_anchor->getFrameWidth() + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX, 0);
+     else
+         curr_codebox_anchor->setWidthHeight(curr_codebox_anchor->getFrameWidth() + CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC, 0);
+}
+
+// Decrease CodeBox Width
+void CtActions::codebox_decrease_width()
+{
+     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
+     if (curr_codebox_anchor->getWidthInPixels())
+     {
+         if (curr_codebox_anchor->getFrameWidth() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX >= CtCodebox::CB_WIDTH_LIMIT_MIN)
+             curr_codebox_anchor->setWidthHeight(curr_codebox_anchor->getFrameWidth() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX, 0);
+     }
+     else
+     {
+         if (curr_codebox_anchor->getFrameWidth() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC >= CtCodebox::CB_WIDTH_LIMIT_MIN)
+             curr_codebox_anchor->setWidthHeight(curr_codebox_anchor->getFrameWidth() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC, 0);
+     }
+}
+
+// Increase CodeBox Height
+void CtActions::codebox_increase_height()
+{
+     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
+     curr_codebox_anchor->setWidthHeight(0, curr_codebox_anchor->getFrameHeight() + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
+}
+
+// Decrease CodeBox Height
+void CtActions::codebox_decrease_height()
+{
+     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
+     if (curr_codebox_anchor->getFrameHeight() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX >= CtCodebox::CB_HEIGHT_LIMIT_MIN)
+         curr_codebox_anchor->setWidthHeight(0, curr_codebox_anchor->getFrameHeight() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
+}
