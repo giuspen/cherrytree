@@ -170,7 +170,7 @@ CtListInfo CtList::list_get_number_n_level(Gtk::TextIter iter_first_paragraph)
         auto ch = iter_start.get_char();
         if (str::indexOf(CtApp::P_ctCfg->charsListbul, ch) != -1) {
             if (iter_start.forward_char() && iter_start.get_char() == CtConst::CHAR_SPACE[0]) {
-                int num = (str::indexOf(CtApp::P_ctCfg->charsListbul, ch) + 1);
+                int num = str::indexOf(CtApp::P_ctCfg->charsListbul, ch);
                 return CtListInfo{CtListInfo::BULLET, num, level, -1, -1};
             }
             break;
@@ -279,7 +279,7 @@ CtListInfo CtList::get_paragraph_list_info(Gtk::TextIter iter_start_orig)
         if (!iter_start.backward_char())
             buffer_start = true; // if we are exactly on the paragraph end
     if (!buffer_start) {
-        while (iter_start)
+        while (true)
             if (iter_start.get_char() == CtConst::CHAR_NEWLINE[0])
                 break; // we got the previous paragraph start
             else if (!iter_start.backward_char()) {

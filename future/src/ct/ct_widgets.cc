@@ -172,3 +172,83 @@ void CtTextView::_setFontForSyntax(const std::string& syntaxHighlighting)
     CtApp::R_cssProvider->load_from_data(fontCss);
     rStyleContext->add_provider(CtApp::R_cssProvider, GTK_STYLE_PROVIDER_PRIORITY_USER);
 }
+
+// Called at list indent/unindent time
+void CtTextView::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& list_info, bool level_increase)
+{
+    if (!CtApp::P_ctActions->_is_curr_node_not_read_only_or_error()) return;
+
+    auto on_scope_exit = scope_guard([&](void*) { CtApp::P_ctActions->getCtMainWin()->user_active() = true; });
+    CtApp::P_ctActions->getCtMainWin()->user_active() = false;
+
+    int curr_offset = list_info.startoffs;
+    int end_offset = CtList(get_buffer()).get_multiline_list_element_end_offset(iter_insert, list_info);
+    int curr_level = list_info.level;
+    int next_level = level_increase ? curr_level+1 : curr_level-1;
+    Gtk::TextIter iter_start = get_buffer()->get_iter_at_offset(curr_offset);
+    CtListInfo prev_list_info = CtList(get_buffer()).get_prev_list_info_on_level(iter_start, next_level);
+    // print prev_list_info
+    if (list_info.type != CtListInfo::TODO)
+    {
+        int bull_offset = curr_offset + 3*list_info.level;
+        int bull_idx;
+        if (list_info.type == CtListInfo::BULLET)
+        {
+            if (prev_list_info && prev_list_info.type == CtListInfo::BULLET)
+                bull_idx = prev_list_info.num;
+            else
+            {
+                int idx_old = list_info.num;
+                int idx_offset = idx_old - curr_level % (int)CtApp::P_ctCfg->charsListbul.size();
+                bull_idx = (next_level + idx_offset) % (int)CtApp::P_ctCfg->charsListbul.size();
+            }
+            replace_text(Glib::ustring(1, CtApp::P_ctCfg->charsListbul[(size_t)bull_idx]), bull_offset, bull_offset+1);
+        }
+        else if (list_info.type == CtListInfo::NUMBER)
+        {
+            int this_num, index;
+            if (prev_list_info && prev_list_info.type == CtListInfo::NUMBER)
+            {
+                this_num = prev_list_info.num + 1;
+                index = prev_list_info.aux;
+            }
+            else
+            {
+                this_num = 1;
+                int idx_old = list_info.aux;
+                int idx_offset = idx_old - curr_level % CtConst::NUM_CHARS_LISTNUM;
+                index = (next_level + idx_offset) % CtConst::NUM_CHARS_LISTNUM;
+            }
+            Glib::ustring text_to = std::to_string(this_num) + Glib::ustring(1, CtConst::CHARS_LISTNUM[(size_t)index]) + CtConst::CHAR_SPACE;
+            replace_text(text_to, bull_offset, bull_offset+ CtList(get_buffer()).get_leading_chars_num(list_info.type, list_info.num));
+        }
+    }
+    iter_start = get_buffer()->get_iter_at_offset(curr_offset);
+    // print "%s -> %s" % (curr_offset, end_offset)
+    while (curr_offset < end_offset)
+    {
+        if (level_increase)
+        {
+            get_buffer()->insert(iter_start, Glib::ustring(3, CtConst::CHAR_SPACE[0]));
+            end_offset += 3;
+            iter_start = get_buffer()->get_iter_at_offset(curr_offset+3);
+        }
+        else
+        {
+            get_buffer()->erase(iter_start, get_buffer()->get_iter_at_offset(curr_offset+3));
+            end_offset -= 3;
+            iter_start = get_buffer()->get_iter_at_offset(curr_offset+1);
+        }
+        if (!CtList(get_buffer()).char_iter_forward_to_newline(iter_start) || !iter_start.forward_char())
+            break;
+        curr_offset = iter_start.get_offset();
+    }
+    CtApp::P_ctActions->getCtMainWin()->user_active() = true;
+    CtApp::P_ctActions->getCtMainWin()->update_window_save_needed("nbuf", true);
+}
+
+void CtTextView::replace_text(const Glib::ustring& text, int start_offset, int end_offset)
+{
+    get_buffer()->erase(get_buffer()->get_iter_at_offset(start_offset), get_buffer()->get_iter_at_offset(end_offset));
+    get_buffer()->insert(get_buffer()->get_iter_at_offset(start_offset), text);
+}

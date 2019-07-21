@@ -28,10 +28,10 @@ struct CtListInfo
 {
     enum LIST_TYPE {NONE, SOMETHING, TODO, BULLET, NUMBER};
     LIST_TYPE type = NONE;
-    int       num;
-    int       level;
-    int       aux;
-    int       startoffs;
+    int       num = -1;   // todo: fix that for bullet and number it has different meanings
+    int       level = -1;
+    int       aux = -1;
+    int       startoffs = -1;
 
     operator bool() { return type != LIST_TYPE::NONE; }
 };

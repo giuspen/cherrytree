@@ -80,6 +80,8 @@ CtCodebox::CtCodebox(const Glib::ustring& textContent,
     _frame.add(_scrolledwindow);
     show_all();
 
+    _ctTextview.set_monospace(true); // todo: remove than styles are implemented
+
     // signals
     _ctTextview.signal_populate_popup().connect([this](Gtk::Menu* menu){
         if (!CtApp::P_ctActions->getCtMainWin()->user_active()) return;
@@ -204,7 +206,8 @@ bool CtCodebox::_onKeyPressEvent(GdkEventKey* event)
             return true;
         }
     }
-    if (event->keyval == GDK_KEY_ISO_Left_Tab)
+    //std::cout << "keyval " << event->keyval << std::endl;
+    if (event->keyval == GDK_KEY_Tab || event->keyval == GDK_KEY_ISO_Left_Tab)
     {
         auto text_buffer = _ctTextview.get_buffer();
         if (!text_buffer->get_has_selection())
@@ -216,12 +219,12 @@ bool CtCodebox::_onKeyPressEvent(GdkEventKey* event)
             {
                 if (backward && list_info.level)
                 {
-                    //support.on_sourceview_list_change_level(self.dad, iter_insert, list_info, text_buffer, False)
+                    _ctTextview.list_change_level(iter_insert, list_info, false);
                     return true;
                 }
                 else if (!backward)
                 {
-                    //support.on_sourceview_list_change_level(self.dad, iter_insert, list_info, text_buffer, True)
+                    _ctTextview.list_change_level(iter_insert, list_info, true);
                     return true;
                 }
             }
