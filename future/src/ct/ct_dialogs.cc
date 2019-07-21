@@ -1057,7 +1057,7 @@ bool ct_dialogs::codeboxhandle_dialog(Gtk::Window& father_win, const Glib::ustri
         return false;
     });
     radiobutton_codebox_pixels.signal_toggled().connect([&radiobutton_codebox_pixels, &spinbutton_width](){
-        if (radiobutton_codebox_pixels.activate())
+        if (radiobutton_codebox_pixels.get_active())
             spinbutton_width.set_value(700);
         else if (spinbutton_width.get_value() > 100)
             spinbutton_width.set_value(90);

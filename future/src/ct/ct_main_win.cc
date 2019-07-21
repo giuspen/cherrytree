@@ -25,7 +25,7 @@
 #include <glib-object.h>
 
 
-CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow(), _ctMenu(pCtMenu), _userActive(true)
+CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow(), _ctMenu(pCtMenu), _userActive(true), _prevTextviewWidth(0)
 {
     set_icon(CtApp::R_icontheme->load_icon(CtConst::APP_NAME, 48));
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
@@ -67,6 +67,7 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu) : Gtk::ApplicationWindow(), _ctMenu(pCtMen
     _ctTreeview.signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalKeyPressEvent), false);
     _ctTreeview.signal_popup_menu().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalPopupMenu));
 
+    _ctTextview.signal_size_allocate().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTextviewSizeAllocate));
     _ctTextview.signal_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTextviewEvent));
 
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "cut-clipboard", G_CALLBACK(CtClipboard::on_cut_clipboard), nullptr /*from_codebox*/);
@@ -334,6 +335,21 @@ bool CtMainWin::_onTheTreeviewSignalPopupMenu()
 {
     _ctMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(0, 0);
     return true;
+}
+
+void CtMainWin::_onTheTextviewSizeAllocate(Gtk::Allocation& allocation)
+{
+    if (_prevTextviewWidth == 0)
+        _prevTextviewWidth = allocation.get_width();
+    else if (_prevTextviewWidth != allocation.get_width())
+    {
+        _prevTextviewWidth = allocation.get_width();
+        auto widgets = curr_tree_iter().get_all_embedded_widgets();
+        for (auto& widget: widgets)
+            if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widget))
+                if (!codebox->getWidthInPixels())
+                    codebox->applyWidthHeight(allocation.get_width());
+    }
 }
 
 bool CtMainWin::_onTheTextviewEvent(GdkEvent* event)

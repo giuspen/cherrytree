@@ -46,6 +46,20 @@ Glib::ustring CtTextCell::getTextContent() const
     return start_iter.get_text(end_iter);
 }
 
+void CtTextCell::setSyntaxHighlighting(const Glib::ustring& syntaxHighlighting)
+{
+    _syntaxHighlighting = syntaxHighlighting;
+    if (CtConst::RICH_TEXT_ID != syntaxHighlighting)
+    {
+        if (CtConst::PLAIN_TEXT_ID == syntaxHighlighting)
+            _rTextBuffer->set_highlight_syntax(false);
+        else
+        {
+            _rTextBuffer->set_language(CtApp::R_languageManager->get_language(syntaxHighlighting));
+            _rTextBuffer->set_highlight_syntax(true);
+        }
+    }
+}
 
 const Gsv::DrawSpacesFlags CtCodebox::DRAW_SPACES_FLAGS = Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE;
 
@@ -110,7 +124,7 @@ CtCodebox::~CtCodebox()
 
 void CtCodebox::applyWidthHeight(const int parentTextWidth)
 {
-    int frameWidth = _widthInPixels ? _frameWidth : parentTextWidth*_frameWidth/100;
+    int frameWidth = _widthInPixels ? _frameWidth : (parentTextWidth*_frameWidth)/100;
     _scrolledwindow.set_size_request(frameWidth, _frameHeight);
 }
 
@@ -139,7 +153,7 @@ void CtCodebox::setWidthHeight(int newWidth, int newHeight)
 {
     if (newWidth) _frameWidth = newWidth;
     if (newHeight) _frameHeight = newHeight;
-    applyWidthHeight(CtApp::P_ctActions->getCtMainWin()->get_allocation().get_width());
+    applyWidthHeight(CtApp::P_ctActions->getCtMainWin()->get_text_view().get_allocation().get_width());
 }
 
 void CtCodebox::setHighlightBrackets(const bool highlightBrackets)

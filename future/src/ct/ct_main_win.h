@@ -124,6 +124,7 @@ protected:
     bool                _onTheTreeviewSignalKeyPressEvent(GdkEventKey* event);
     bool                _onTheTreeviewSignalPopupMenu();
 
+    void                _onTheTextviewSizeAllocate(Gtk::Allocation& allocation);
     bool                _onTheTextviewEvent(GdkEvent* event);
 
     void                _titleUpdate(bool saveNeeded);
@@ -147,4 +148,5 @@ protected:
     std::string         _currFileName;
     std::string         _currFileDir;
     bool                _userActive;
+    int                 _prevTextviewWidth;
 };

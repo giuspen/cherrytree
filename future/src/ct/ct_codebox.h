@@ -41,6 +41,8 @@ public:
     CtTextView& getTextView() { return _ctTextview; }
     const Glib::ustring& getSyntaxHighlighting() { return _syntaxHighlighting; }
 
+    void setSyntaxHighlighting(const Glib::ustring& syntaxHighlighting);
+
 protected:
     Glib::ustring _syntaxHighlighting;
     Glib::RefPtr<Gsv::Buffer> _rTextBuffer{nullptr};
@@ -79,6 +81,8 @@ public:
     bool getWidthInPixels() { return _widthInPixels; }
     int  getFrameWidth() { return _frameWidth; }
     int  getFrameHeight() { return _frameHeight; }
+    bool getHighlightBrackets() { return _highlightBrackets; }
+    bool getShowLineNumbers() { return _showLineNumbers; }
 
 private:
     bool _onKeyPressEvent(GdkEventKey* event);

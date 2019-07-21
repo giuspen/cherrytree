@@ -131,7 +131,6 @@ void CtTextView::setupForSyntax(const std::string& syntax)
         {
             set_draw_spaces(Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE);
         }
-
     }
     else
     {

@@ -321,9 +321,25 @@ void CtActions::codebox_delete_keeping_text()
     curr_buffer()->insert_at_cursor(content);
 }
 
+// Change CodeBox Properties
 void CtActions::codebox_change_properties()
 {
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    CtApp::P_ctCfg->codeboxWidth = curr_codebox_anchor->getFrameWidth();
+    CtApp::P_ctCfg->codeboxWidthPixels = curr_codebox_anchor->getWidthInPixels();
+    CtApp::P_ctCfg->codeboxHeight = curr_codebox_anchor->getFrameHeight();
+    CtApp::P_ctCfg->codeboxLineNum = curr_codebox_anchor->getShowLineNumbers();
+    CtApp::P_ctCfg->codeboxMatchBra = curr_codebox_anchor->getHighlightBrackets();
+    CtApp::P_ctCfg->codeboxSynHighl = curr_codebox_anchor->getSyntaxHighlighting();
 
+    if (!ct_dialogs::codeboxhandle_dialog(*_pCtMainWin, _("Edit CodeBox"))) return;
+
+    curr_codebox_anchor->setSyntaxHighlighting(CtApp::P_ctCfg->codeboxSynHighl);
+    curr_codebox_anchor->setWidthInPixels(CtApp::P_ctCfg->codeboxWidthPixels);
+    curr_codebox_anchor->setWidthHeight((int)CtApp::P_ctCfg->codeboxWidth, (int)CtApp::P_ctCfg->codeboxHeight);
+    curr_codebox_anchor->setShowLineNumbers(CtApp::P_ctCfg->codeboxLineNum);
+    curr_codebox_anchor->setHighlightBrackets(CtApp::P_ctCfg->codeboxMatchBra);
+    _pCtMainWin->update_window_save_needed("nbuf", true);
 }
 
 void CtActions::exec_code()
