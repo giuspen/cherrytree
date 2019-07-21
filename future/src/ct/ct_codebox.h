@@ -38,6 +38,8 @@ public:
 
     Glib::ustring getTextContent() const;
     Glib::RefPtr<Gsv::Buffer> getBuffer() { return _rTextBuffer; }
+    CtTextView& getTextView() { return _ctTextview; }
+    const Glib::ustring& getSyntaxHighlighting() { return _syntaxHighlighting; }
 
 protected:
     Glib::ustring _syntaxHighlighting;

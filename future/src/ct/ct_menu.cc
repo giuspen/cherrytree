@@ -266,16 +266,14 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     const char* table_cell_cat = "";
     _actions.push_back(CtAction{table_cell_cat, "curr_table_cell_insert_newline", "insert", _("Insert _NewLine"), KB_CONTROL+"period", _("Insert NewLine Char"), sigc::signal<void>() /*dad.curr_table_cell_insert_newline*/});
     const char* codebox_cat = "";
-    _actions.push_back(CtAction{codebox_cat, "cut_as_plain_text", "edit-cut", _("Cu_t as Plain Text"), KB_CONTROL+KB_SHIFT+"X", _("Cut as Plain Text, Discard the Rich Text Formatting"), sigc::signal<void>() /*dad.dad.cut_as_plain_text*/});
-    _actions.push_back(CtAction{codebox_cat, "copy_as_plain_text", "edit-copy", _("_Copy as Plain Text"), KB_CONTROL+KB_SHIFT+"C", _("Copy as Plain Text, Discard the Rich Text Formatting"), sigc::signal<void>() /*dad.dad.copy_as_plain_text*/});
-    _actions.push_back(CtAction{codebox_cat, "codebox_change_properties", "codebox_edit", _("Change CodeBox _Properties"), None, _("Edit the Properties of the CodeBox"), sigc::signal<void>() /*dad.codebox_change_properties*/});
-    _actions.push_back(CtAction{codebox_cat, "exec_code", "gtk-execute", _("_Execute CodeBox Code"), None, _("Execute CodeBox Code"), sigc::signal<void>() /*dad.dad.exec_code*/});
-    _actions.push_back(CtAction{codebox_cat, "codebox_load_from_file", "from_txt", _("CodeBox _Load From Text File"), None, _("Load the CodeBox Content From a Text File"), sigc::signal<void>() /*dad.codebox_load_from_file*/});
-    _actions.push_back(CtAction{codebox_cat, "codebox_save_to_file", "to_txt", _("CodeBox _Save To Text File"), None, _("Save the CodeBox Content To a Text File"), sigc::signal<void>() /*dad.codebox_save_to_file*/});
-    _actions.push_back(CtAction{codebox_cat, "codebox_cut", "edit-cut", _("C_ut CodeBox"), None, _("Cut the Selected CodeBox"), sigc::signal<void>() /*dad.codebox_cut*/});
-    _actions.push_back(CtAction{codebox_cat, "codebox_copy", "edit-copy", _("_Copy CodeBox"), None, _("Copy the Selected CodeBox"), sigc::signal<void>() /*dad.codebox_copy*/});
-    _actions.push_back(CtAction{codebox_cat, "codebox_delete", "edit-delete", _("_Delete CodeBox"), None, _("Delete the Selected CodeBox"), sigc::signal<void>() /*dad.codebox_delete*/});
-    _actions.push_back(CtAction{codebox_cat, "codebox_delete_keeping_text", "edit-delete", _("Delete CodeBox _Keep Content"), None, _("Delete the Selected CodeBox But Keep Its Content"), sigc::signal<void>() /*dad.codebox_delete_keeping_text*/});
+    _actions.push_back(CtAction{codebox_cat, "codebox_change_properties", "codebox_edit", _("Change CodeBox _Properties"), None, _("Edit the Properties of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_change_properties)});
+    _actions.push_back(CtAction{codebox_cat, "exec_code", "gtk-execute", _("_Execute CodeBox Code"), None, _("Execute CodeBox Code"), sigc::mem_fun(*pActions, &CtActions::exec_code)});
+    _actions.push_back(CtAction{codebox_cat, "codebox_load_from_file", "from_txt", _("CodeBox _Load From Text File"), None, _("Load the CodeBox Content From a Text File"), sigc::mem_fun(*pActions, &CtActions::codebox_load_from_file)});
+    _actions.push_back(CtAction{codebox_cat, "codebox_save_to_file", "to_txt", _("CodeBox _Save To Text File"), None, _("Save the CodeBox Content To a Text File"), sigc::mem_fun(*pActions, &CtActions::codebox_save_to_file)});
+    _actions.push_back(CtAction{codebox_cat, "codebox_cut", "edit-cut", _("C_ut CodeBox"), None, _("Cut the Selected CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_cut)});
+    _actions.push_back(CtAction{codebox_cat, "codebox_copy", "edit-copy", _("_Copy CodeBox"), None, _("Copy the Selected CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_copy)});
+    _actions.push_back(CtAction{codebox_cat, "codebox_delete", "edit-delete", _("_Delete CodeBox"), None, _("Delete the Selected CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_delete)});
+    _actions.push_back(CtAction{codebox_cat, "codebox_delete_keeping_text", "edit-delete", _("Delete CodeBox _Keep Content"), None, _("Delete the Selected CodeBox But Keep Its Content"), sigc::mem_fun(*pActions, &CtActions::codebox_delete_keeping_text)});
     _actions.push_back(CtAction{codebox_cat, "codebox_increase_width", "gtk-go-forward", _("Increase CodeBox Width"), KB_CONTROL+"period", _("Increase the Width of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_increase_width)});
     _actions.push_back(CtAction{codebox_cat, "codebox_decrease_width", "gtk-go-back", _("Decrease CodeBox Width"), KB_CONTROL+KB_ALT+"period", _("Decrease the Width of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_decrease_width)});
     _actions.push_back(CtAction{codebox_cat, "codebox_increase_height", "gtk-go-down", _("Increase CodeBox Height"), KB_CONTROL+"comma", _("Increase the Height of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_increase_height)});
@@ -418,8 +416,8 @@ Gtk::Menu* CtMenu::build_popup_menu(GtkWidget* pMenu,  POPUP_MENU_TYPE popupMenu
     case CtMenu::POPUP_MENU_TYPE::Codebox:
     {
         _add_separator(pMenu);
-        _add_menu_item(pMenu, find_action("cut_as_plain_text"));
-        _add_menu_item(pMenu, find_action("copy_as_plain_text"));
+        _add_menu_item(pMenu, find_action("cut_plain"));
+        _add_menu_item(pMenu, find_action("copy_plain"));
         _add_separator(pMenu);
         _add_menu_item(pMenu, find_action("codebox_change_properties"));
         _add_menu_item(pMenu, find_action("exec_code"));

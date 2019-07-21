@@ -22,6 +22,7 @@
 #include "ct_codebox.h"
 #include "ct_app.h"
 #include "ct_list.h"
+#include "ct_clipboard.h"
 
 
 CtTextCell::CtTextCell(const Glib::ustring& textContent,
@@ -65,21 +66,42 @@ CtCodebox::CtCodebox(const Glib::ustring& textContent,
     _frame.add(_scrolledwindow);
     show_all();
 
+    // signals
     _ctTextview.signal_populate_popup().connect([this](Gtk::Menu* menu){
         if (!CtApp::P_ctActions->getCtMainWin()->user_active()) return;
         CtApp::P_ctActions->curr_codebox_anchor = this;
         CtApp::P_ctActions->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::Codebox);
     });
-
     _ctTextview.signal_key_press_event().connect(sigc::mem_fun(*this, &CtCodebox::_onKeyPressEvent), false);
-    /*&anchor.sourceview.connect('key_press_event', self.on_key_press_sourceview_codebox, anchor)
-    anchor.sourceview.connect('key_release_event', self.on_key_release_sourceview_codebox, anchor)
-    anchor.sourceview.connect('button-press-event', self.on_mouse_button_clicked_codebox, anchor)
-    anchor.sourceview.connect("event-after", self.on_sourceview_event_after_codebox, anchor)
-    anchor.sourceview.connect("motion-notify-event", self.on_sourceview_motion_notify_event_codebox)
-    anchor.sourceview.connect("copy-clipboard", self.dad.clipboard_handler.copy, True)
-    anchor.sourceview.connect("cut-clipboard", self.dad.clipboard_handler.cut, True)
-            */
+    _ctTextview.signal_key_release_event().connect([this](GdkEventKey*) { _key_down = false; return false; }, false);
+    _ctTextview.signal_button_press_event().connect([this](GdkEventButton* event){
+        if (!CtApp::P_ctActions->getCtMainWin()->user_active()) return false;
+        CtApp::P_ctActions->curr_codebox_anchor = this;
+        if (event->button != 3 /* right button */)
+            CtApp::P_ctActions->object_set_selection(this);
+        return false;
+    });
+    _ctTextview.signal_event_after().connect([](GdkEvent*){
+        if (!CtApp::P_ctActions->getCtMainWin()->user_active()) return;
+        /*if event.type == gtk.gdk._2BUTTON_PRESS and event.button == 1:
+            support.on_sourceview_event_after_double_click_button1(self.dad, text_view, event)
+        elif event.type == gtk.gdk.BUTTON_PRESS:
+            return support.on_sourceview_event_after_button_press(self.dad, text_view, event)
+        elif event.type == gtk.gdk.KEY_PRESS:
+            return support.on_sourceview_event_after_key_press(self.dad, text_view, event, self.curr_codebox_anchor.syntax_highlighting)
+        elif event.type == gtk.gdk.SCROLL:
+            return support.on_sourceview_event_after_scroll(self.dad, text_view, event)*/
+    });
+    _ctTextview.signal_motion_notify_event().connect([](GdkEventMotion*){
+        /* if not self.dad.user_active: return False
+        text_view.set_editable(not self.dad.get_node_read_only())
+        x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
+        support.sourceview_cursor_and_tooltips_handler(self.dad, text_view, x, y)
+        */
+        return false;
+    });
+    g_signal_connect(G_OBJECT(_ctTextview.gobj()), "cut-clipboard", G_CALLBACK(CtClipboard::on_cut_clipboard), this /*from_codebox*/);
+    g_signal_connect(G_OBJECT(_ctTextview.gobj()), "copy-clipboard", G_CALLBACK(CtClipboard::on_copy_clipboard), this /*from_codebox*/);
 }
 
 CtCodebox::~CtCodebox()
@@ -149,6 +171,7 @@ bool CtCodebox::_onKeyPressEvent(GdkEventKey* event)
                 CtApp::P_ctActions->codebox_decrease_width();
             else
                 CtApp::P_ctActions->codebox_increase_width();
+            return true;
         }
         else if (event->keyval == GDK_KEY_comma)
         {
@@ -156,6 +179,7 @@ bool CtCodebox::_onKeyPressEvent(GdkEventKey* event)
                 CtApp::P_ctActions->codebox_decrease_height();
             else
                 CtApp::P_ctActions->codebox_increase_height();
+            return true;
         }
         else if (event->keyval == GDK_KEY_space)
         {
@@ -163,6 +187,7 @@ bool CtCodebox::_onKeyPressEvent(GdkEventKey* event)
             text_iter.forward_char();
             CtApp::P_ctActions->getCtMainWin()->get_text_view().get_buffer()->place_cursor(text_iter);
             CtApp::P_ctActions->getCtMainWin()->get_text_view().grab_focus();
+            return true;
         }
     }
     if (event->keyval == GDK_KEY_ISO_Left_Tab)

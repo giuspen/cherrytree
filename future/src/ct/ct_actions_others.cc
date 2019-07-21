@@ -44,6 +44,7 @@ void CtActions::anchor_delete()
 {
     object_set_selection(curr_anchor_anchor);
     curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
+    curr_anchor_anchor = nullptr;
     _pCtMainWin->get_text_view().grab_focus();
 }
 
@@ -76,6 +77,7 @@ void CtActions::embfile_delete()
 {
     object_set_selection(curr_file_anchor);
     curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
+    curr_file_anchor = nullptr;
     _pCtMainWin->get_text_view().grab_focus();
 }
 
@@ -166,6 +168,7 @@ void CtActions::image_delete()
 {
     object_set_selection(curr_image_anchor);
     curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
+    curr_image_anchor = nullptr;
     _pCtMainWin->get_text_view().grab_focus();
 }
 
@@ -283,6 +286,102 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
          ct_dialogs::error_dialog(str::format("Tag Name Not Recognized! (%s)", std::string(vec[0])), *_pCtMainWin);
 }
 
+// Cut CodeBox
+void CtActions::codebox_cut()
+{
+    object_set_selection(curr_codebox_anchor);
+    g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
+}
+
+// Copy CodeBox
+void CtActions::codebox_copy()
+{
+    object_set_selection(curr_codebox_anchor);
+    g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "copy-clipboard");
+}
+
+// Delete CodeBox
+void CtActions::codebox_delete()
+{
+    object_set_selection(curr_codebox_anchor);
+    curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
+    curr_codebox_anchor = nullptr;
+   _pCtMainWin->get_text_view().grab_focus();
+}
+
+// Delete CodeBox but keep the Text
+void CtActions::codebox_delete_keeping_text()
+{
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    Glib::ustring content = curr_codebox_anchor->getTextContent();
+    object_set_selection(curr_codebox_anchor);
+    curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
+    curr_codebox_anchor = nullptr;
+    _pCtMainWin->get_text_view().grab_focus();
+    curr_buffer()->insert_at_cursor(content);
+}
+
+void CtActions::codebox_change_properties()
+{
+
+}
+
+void CtActions::exec_code()
+{
+
+}
+
+void CtActions::codebox_load_from_file()
+{
+
+}
+
+void CtActions::codebox_save_to_file()
+{
+
+}
+
+// Increase CodeBox Width
+void CtActions::codebox_increase_width()
+{
+    if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
+    if (curr_codebox_anchor->getWidthInPixels())
+         curr_codebox_anchor->setWidthHeight(curr_codebox_anchor->getFrameWidth() + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX, 0);
+     else
+         curr_codebox_anchor->setWidthHeight(curr_codebox_anchor->getFrameWidth() + CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC, 0);
+}
+
+// Decrease CodeBox Width
+void CtActions::codebox_decrease_width()
+{
+     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
+     if (curr_codebox_anchor->getWidthInPixels())
+     {
+         if (curr_codebox_anchor->getFrameWidth() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX >= CtCodebox::CB_WIDTH_LIMIT_MIN)
+             curr_codebox_anchor->setWidthHeight(curr_codebox_anchor->getFrameWidth() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX, 0);
+     }
+     else
+     {
+         if (curr_codebox_anchor->getFrameWidth() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC >= CtCodebox::CB_WIDTH_LIMIT_MIN)
+             curr_codebox_anchor->setWidthHeight(curr_codebox_anchor->getFrameWidth() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC, 0);
+     }
+}
+
+// Increase CodeBox Height
+void CtActions::codebox_increase_height()
+{
+     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
+     curr_codebox_anchor->setWidthHeight(0, curr_codebox_anchor->getFrameHeight() + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
+}
+
+// Decrease CodeBox Height
+void CtActions::codebox_decrease_height()
+{
+     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
+     if (curr_codebox_anchor->getFrameHeight() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX >= CtCodebox::CB_HEIGHT_LIMIT_MIN)
+         curr_codebox_anchor->setWidthHeight(0, curr_codebox_anchor->getFrameHeight() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
+}
+
 // Anchor Edit Dialog
 void CtActions::_anchor_edit_dialog(CtImageAnchor* anchor, Gtk::TextIter insert_iter, Gtk::TextIter* iter_bound)
 {
@@ -348,45 +447,4 @@ bool CtActions::_on_embfiles_sentinel_timeout()
         }
     }
     return true; // this way we keep the timer alive
-}
-
-// Increase CodeBox Width
-void CtActions::codebox_increase_width()
-{
-    if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
-    if (curr_codebox_anchor->getWidthInPixels())
-         curr_codebox_anchor->setWidthHeight(curr_codebox_anchor->getFrameWidth() + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX, 0);
-     else
-         curr_codebox_anchor->setWidthHeight(curr_codebox_anchor->getFrameWidth() + CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC, 0);
-}
-
-// Decrease CodeBox Width
-void CtActions::codebox_decrease_width()
-{
-     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
-     if (curr_codebox_anchor->getWidthInPixels())
-     {
-         if (curr_codebox_anchor->getFrameWidth() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX >= CtCodebox::CB_WIDTH_LIMIT_MIN)
-             curr_codebox_anchor->setWidthHeight(curr_codebox_anchor->getFrameWidth() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX, 0);
-     }
-     else
-     {
-         if (curr_codebox_anchor->getFrameWidth() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC >= CtCodebox::CB_WIDTH_LIMIT_MIN)
-             curr_codebox_anchor->setWidthHeight(curr_codebox_anchor->getFrameWidth() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC, 0);
-     }
-}
-
-// Increase CodeBox Height
-void CtActions::codebox_increase_height()
-{
-     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
-     curr_codebox_anchor->setWidthHeight(0, curr_codebox_anchor->getFrameHeight() + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
-}
-
-// Decrease CodeBox Height
-void CtActions::codebox_decrease_height()
-{
-     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
-     if (curr_codebox_anchor->getFrameHeight() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX >= CtCodebox::CB_HEIGHT_LIMIT_MIN)
-         curr_codebox_anchor->setWidthHeight(0, curr_codebox_anchor->getFrameHeight() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
 }

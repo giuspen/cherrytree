@@ -396,23 +396,30 @@ Glib::ustring CtActions::apply_tag_exist_or_create(const Glib::ustring& tag_prop
 
 CtActions::text_view_n_buffer_codebox_proof CtActions::_get_text_view_n_buffer_codebox_proof()
 {
-    /* todo:
-    anchor = self.codeboxes_handler.codebox_in_use_get_anchor()
-    if anchor is not None:
-        text_view = anchor.sourceview
-        text_buffer = text_view.get_buffer()
-        syntax_highl = anchor.syntax_highlighting
-        from_codebox = True
-    else:
-        text_buffer = self.curr_buffer
-        text_view = self.sourceview
-        syntax_highl = self.syntax_highlighting
-        from_codebox = False
-     */
-    return text_view_n_buffer_codebox_proof{&_pCtMainWin->get_text_view(),
-                _pCtMainWin->get_text_view().get_buffer(),
-                _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting(),
-                false};
+    CtCodebox* codebox = _codebox_in_use();
+    if (codebox)
+        return text_view_n_buffer_codebox_proof{&codebox->getTextView(),
+                    codebox->getTextView().get_buffer(),
+                    codebox->getSyntaxHighlighting(),
+                    true};
+    else
+        return text_view_n_buffer_codebox_proof{&_pCtMainWin->get_text_view(),
+                    _pCtMainWin->get_text_view().get_buffer(),
+                    _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting(),
+                    false};
+}
+
+// Returns a CodeBox SourceView if Currently in Use or None
+CtCodebox* CtActions::_codebox_in_use()
+{
+    if (!curr_codebox_anchor) return nullptr;
+    if (!curr_buffer()) return nullptr;
+    Gtk::TextIter iter_sel_start = curr_buffer()->get_insert()->get_iter();
+    auto widgets = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes({iter_sel_start.get_offset(), iter_sel_start.get_offset()});
+    if (widgets.empty()) return nullptr;
+    if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widgets.front()))
+        return codebox;
+    return nullptr;
 }
 
 // Try to Select a Word Forward/Backward the Cursor
