@@ -344,17 +344,35 @@ void CtActions::codebox_change_properties()
 
 void CtActions::exec_code()
 {
-
+    // todo:
 }
 
+// Load the CodeBox Content From a Text Fil
 void CtActions::codebox_load_from_file()
 {
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    ct_dialogs::file_select_args args = {.parent=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirCbox};
+    Glib::ustring filepath = ct_dialogs::file_select_dialog(args);
+    if (filepath.empty()) return;
+    CtApp::P_ctCfg->pickDirCbox = CtFileSystem::dirname(filepath);
 
+    auto file = std::fstream(filepath, std::ios::in);
+    std::string buffer(std::istreambuf_iterator<char>(file), {});
+    file.close();
+
+    curr_codebox_anchor->getBuffer()->set_text(buffer);
 }
 
+// Save the CodeBox Content To a Text File
 void CtActions::codebox_save_to_file()
 {
+    ct_dialogs::file_select_args args = {.parent=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirCbox};
+    Glib::ustring filepath = ct_dialogs::file_save_as_dialog(args);
+    if (filepath.empty()) return;
+    CtApp::P_ctCfg->pickDirCbox = CtFileSystem::dirname(filepath);
 
+    Glib::ustring text = curr_codebox_anchor->getTextContent();
+    g_file_set_contents(filepath.c_str(), text.c_str(), (gssize)text.bytes(), nullptr);
 }
 
 // Increase CodeBox Width
