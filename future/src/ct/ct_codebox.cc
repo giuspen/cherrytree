@@ -124,6 +124,10 @@ CtCodebox::CtCodebox(const Glib::ustring& textContent,
     });
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "cut-clipboard", G_CALLBACK(CtClipboard::on_cut_clipboard), this /*from_codebox*/);
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "copy-clipboard", G_CALLBACK(CtClipboard::on_copy_clipboard), this /*from_codebox*/);
+
+    // todo: maybe find the better solution
+    //_scrolledwindow.get_vscrollbar()->signal_event_after().connect(sigc::mem_fun(*this, &CtCodebox::_onVScrollEventAfter));
+    //_scrolledwindow.get_hscrollbar()->signal_event_after().connect(sigc::mem_fun(*this, &CtCodebox::_onHScrollEventAfter));
 }
 
 CtCodebox::~CtCodebox()
@@ -239,4 +243,3 @@ bool CtCodebox::_onKeyPressEvent(GdkEventKey* event)
 
     return false;
 }
-
