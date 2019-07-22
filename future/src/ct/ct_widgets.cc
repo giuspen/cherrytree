@@ -124,6 +124,13 @@ void CtTextView::setupForSyntax(const std::string& syntax)
     });
 
     if (CtConst::RICH_TEXT_ID == syntax)
+        get_style_context()->add_class("rich-text");
+    else if (CtConst::PLAIN_TEXT_ID == syntax)
+        get_style_context()->add_class("plain-text");
+    else
+        get_style_context()->add_class("code");
+
+    if (CtConst::RICH_TEXT_ID == syntax)
     {
         // todo: self.widget_set_colors(self.sourceview, self.rt_def_fg, self.rt_def_bg, False)
         set_highlight_current_line(CtApp::P_ctCfg->rtHighlCurrLine);

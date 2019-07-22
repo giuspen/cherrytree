@@ -80,6 +80,7 @@ public:
 
     bool readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, const bool isImport);
     void configApply();
+    void configureTheme();
     void update_window_save_needed(std::string update_type = "",
                                    bool new_machine_state = false, const CtTreeIter* give_tree_iter = nullptr) { /* todo: */ }
 
@@ -154,6 +155,9 @@ protected:
     CtTextView          _ctTextview; /* todo: rename? because _ctTextview and _ctTreeview look the same */
     std::string         _currFileName;
     std::string         _currFileDir;
+
+    Glib::RefPtr<Gtk::CssProvider> _css_provider_theme;
+    Glib::RefPtr<Gtk::CssProvider> _css_provider_theme_font;
 
 private:
     bool                _userActive;

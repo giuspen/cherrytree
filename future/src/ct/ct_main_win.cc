@@ -69,6 +69,9 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu)
     _ctTreeview.signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalKeyPressEvent), false);
     _ctTreeview.signal_popup_menu().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalPopupMenu));
 
+
+    _ctTextview.get_style_context()->add_class("ct_textview");
+
     _ctTextview.signal_populate_popup().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTextviewPopulateMenu));
     _ctTextview.signal_motion_notify_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTextviewMotionNotifyEvent));
     _ctTextview.signal_visibility_notify_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTextviewVisibilityNotifyEvent));
@@ -113,6 +116,34 @@ void CtMainWin::configApply()
 
     _ctStatusBar.progressBar.hide();
     _ctStatusBar.stopButton.hide();
+
+    configureTheme();
+}
+
+void CtMainWin::configureTheme()
+{
+    auto to_string = [](Pango::FontDescription font) { return " { font-family: " + font.get_family() + "; font-size: " + std::to_string(font.get_size()/1024) + "px; } "; };
+
+    std::string rtFont = to_string(Pango::FontDescription(CtApp::P_ctCfg->rtFont));
+    std::string plFont = to_string(Pango::FontDescription(CtApp::P_ctCfg->ptFont));
+    std::string codeFont = to_string(Pango::FontDescription(CtApp::P_ctCfg->codeFont));
+    std::string treeFont = to_string(Pango::FontDescription(CtApp::P_ctCfg->codeFont));
+
+    auto screen = get_screen();
+    if(_css_provider_theme_font)
+        Gtk::StyleContext::remove_provider_for_screen(screen, _css_provider_theme_font);
+    _css_provider_theme_font = Gtk::CssProvider::create();
+
+    std::string font_css;
+    font_css += ".ct_textview.rich-text" + rtFont;
+    font_css += ".ct_textview.plain-text" + plFont;
+    font_css += ".ct_textview.code" + codeFont;
+    font_css += ".codebox.rich-text" + rtFont;
+    font_css += ".codebox.plain-text" + plFont;
+    font_css += ".codebox.code" + codeFont;
+
+    _css_provider_theme_font->load_from_data(font_css);
+    get_style_context()->add_provider_for_screen(screen, _css_provider_theme_font, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 }
 
 Gtk::HBox& CtMainWin::_initStatusBar()

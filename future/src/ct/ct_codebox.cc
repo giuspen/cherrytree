@@ -32,7 +32,6 @@ CtTextCell::CtTextCell(const Glib::ustring& textContent,
     _rTextBuffer = CtMiscUtil::getNewTextBuffer(syntaxHighlighting, textContent);
     _ctTextview.set_buffer(_rTextBuffer);
     _ctTextview.setupForSyntax(_syntaxHighlighting);
-    // todo: anchor.sourceview.modify_font(pango.FontDescription(self.dad.code_font))
 }
 
 CtTextCell::~CtTextCell()
@@ -75,6 +74,8 @@ CtCodebox::CtCodebox(const Glib::ustring& textContent,
    _frameHeight(frameHeight),
    _key_down(false)
 {
+    _ctTextview.get_style_context()->add_class("codebox");
+
     _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindow.add(_ctTextview);
     _frame.add(_scrolledwindow);
