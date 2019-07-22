@@ -24,16 +24,17 @@
 #include <gtkmm/textbuffer.h>
 #include <glibmm/refptr.h>
 
+enum class CtListType { None, Todo, Bullet, Number };
+
 struct CtListInfo
 {
-    enum class LIST_TYPE {NONE, TODO, BULLET, NUMBER};
-    LIST_TYPE type = LIST_TYPE::NONE;
-    int       num = -1;   // todo: fix that for bullet and number it has different meanings
-    int       level = -1; // can be valid for NONE to use with return+shift
-    int       aux = -1;
-    int       startoffs = -1;
+    CtListType type = CtListType::None;
+    int        num = -1;   // todo: fix that for bullet and number it has different meanings
+    int        level = -1; // can be filled for NONE to use with shift+return
+    int        aux = -1;
+    int        startoffs = -1;
 
-    operator bool() { return type != LIST_TYPE::NONE; }
+    operator bool() { return type != CtListType::None; }
 };
 
 struct CtTextRange
@@ -48,9 +49,9 @@ class CtList
 public:
     CtList(Glib::RefPtr<Gtk::TextBuffer> curr_buffer) : _curr_buffer(curr_buffer) {}
 
-    void        list_handler(CtListInfo::LIST_TYPE target_list_num_id);
+    void        list_handler(CtListType target_list_num_id);
     CtTextRange list_check_n_remove_old_list_type_leading(Gtk::TextIter iter_start, Gtk::TextIter iter_end);
-    int         get_leading_chars_num(CtListInfo::LIST_TYPE type, int list_info_num);
+    int         get_leading_chars_num(CtListType type, int list_info_num);
     CtListInfo  list_get_number_n_level(Gtk::TextIter iter_first_paragraph);
     int         get_multiline_list_element_end_offset(Gtk::TextIter curr_iter, CtListInfo list_info);
     CtListInfo  get_prev_list_info_on_level(Gtk::TextIter iter_start, int level);

@@ -188,13 +188,13 @@ void CtTextView::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& 
     Gtk::TextIter iter_start = get_buffer()->get_iter_at_offset(curr_offset);
     CtListInfo prev_list_info = CtList(get_buffer()).get_prev_list_info_on_level(iter_start, next_level);
     // print prev_list_info
-    if (list_info.type != CtListInfo::LIST_TYPE::TODO)
+    if (list_info.type != CtListType::Todo)
     {
         int bull_offset = curr_offset + 3*list_info.level;
         int bull_idx;
-        if (list_info.type == CtListInfo::LIST_TYPE::BULLET)
+        if (list_info.type == CtListType::Bullet)
         {
-            if (prev_list_info && prev_list_info.type == CtListInfo::LIST_TYPE::BULLET)
+            if (prev_list_info && prev_list_info.type == CtListType::Bullet)
                 bull_idx = prev_list_info.num;
             else
             {
@@ -204,10 +204,10 @@ void CtTextView::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& 
             }
             replace_text(Glib::ustring(1, CtApp::P_ctCfg->charsListbul[(size_t)bull_idx]), bull_offset, bull_offset+1);
         }
-        else if (list_info.type == CtListInfo::LIST_TYPE::NUMBER)
+        else if (list_info.type == CtListType::Number)
         {
             int this_num, index;
-            if (prev_list_info && prev_list_info.type == CtListInfo::LIST_TYPE::NUMBER)
+            if (prev_list_info && prev_list_info.type == CtListType::Number)
             {
                 this_num = prev_list_info.num + 1;
                 index = prev_list_info.aux;
@@ -418,11 +418,11 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
             // list new element
             int curr_level = list_info.level;
             Glib::ustring pre_spaces = curr_level ? Glib::ustring((size_t)(3*curr_level), CtConst::CHAR_SPACE[0]) : "";
-            if (list_info.type == CtListInfo::LIST_TYPE::BULLET)
+            if (list_info.type == CtListType::Bullet)
             {
                 text_buffer->insert(iter_insert, pre_spaces+config->charsListbul[(size_t)list_info.num]+CtConst::CHAR_SPACE);
             }
-            else if (list_info.type == CtListInfo::LIST_TYPE::TODO)
+            else if (list_info.type == CtListType::Todo)
                 text_buffer->insert(iter_insert, pre_spaces+config->charsTodo[0]+CtConst::CHAR_SPACE);
             else
             {
@@ -434,7 +434,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                 CtList(text_buffer).char_iter_forward_to_newline(iter_start);
                 list_info = CtList(text_buffer).get_next_list_info_on_level(iter_start, curr_level);
                 // print list_info
-                while (list_info && list_info.type == CtListInfo::LIST_TYPE::NUMBER)
+                while (list_info && list_info.type == CtListType::Number)
                 {
                     iter_start = text_buffer->get_iter_at_offset(list_info.startoffs);
                     int end_offset = CtList(text_buffer).get_multiline_list_element_end_offset(iter_start, list_info);

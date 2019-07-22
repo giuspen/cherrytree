@@ -471,7 +471,7 @@ bool CtMainWin::_onTheTextviewEvent(GdkEvent* event)
                 return true;
             }
         CtListInfo list_info = CtList(curr_buffer).get_paragraph_list_info(iter_insert);
-        if (list_info && list_info.type == CtListInfo::LIST_TYPE::TODO)
+        if (list_info && list_info.type == CtListType::Todo)
             if (CtApp::P_ctActions->_is_curr_node_not_read_only_or_error())
             {
                 auto iter_start_list = curr_buffer->get_iter_at_offset(list_info.startoffs + 3*list_info.level);
