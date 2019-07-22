@@ -352,7 +352,7 @@ bool CtList::is_list_todo_beginning(Gtk::TextIter square_bracket_open_iter)
 }
 
 // Rotate status between ☐ and ☑ and ☒
-void CtList::Todo_list_rotate_status(Gtk::TextIter todo_char_iter)
+void CtList::todo_list_rotate_status(Gtk::TextIter todo_char_iter)
 {
     int iter_offset = todo_char_iter.get_offset();
     if (todo_char_iter.get_char() == CtApp::P_ctCfg->charsTodo[0]) {
@@ -387,7 +387,7 @@ bool CtList::char_iter_backward_to_newline(Gtk::TextIter& char_iter)
 }
 
 // Conversion of todo lists from old to new type for a node
-void CtList::Todo_lists_old_to_new_conversion()
+void CtList::todo_lists_old_to_new_conversion()
 {
     Gtk::TextIter curr_iter = _curr_buffer->begin();
     bool keep_cleaning = false;
