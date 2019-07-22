@@ -287,7 +287,7 @@ void CtTextView::for_event_after_button_press(GdkEvent* event)
         }
         if (CtList(text_buffer).is_list_todo_beginning(text_iter))
             if (CtApp::P_ctActions->_is_curr_node_not_read_only_or_error())
-                CtList(text_buffer).todo_list_rotate_status(text_iter, text_buffer);
+                CtList(text_buffer).todo_list_rotate_status(text_iter);
     }
     else if (event->button.button == 3 && !text_buffer->get_has_selection())
     {
@@ -600,7 +600,7 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
 // Increase or Decrease Text Font
 void CtTextView::zoom_text(bool is_increase)
 {
-    /*
+    /* todo:
     std::vector<Glib::ustring> font_vec;
     if (syntax_highl == CtConst::RICH_TEXT_ID)
         font_vec = str::split(rt_font.split(cons.CHAR_SPACE)

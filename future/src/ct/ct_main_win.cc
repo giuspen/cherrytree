@@ -475,7 +475,7 @@ bool CtMainWin::_onTheTextviewEvent(GdkEvent* event)
             if (CtApp::P_ctActions->_is_curr_node_not_read_only_or_error())
             {
                 auto iter_start_list = curr_buffer->get_iter_at_offset(list_info.startoffs + 3*list_info.level);
-                CtList(curr_buffer).todo_list_rotate_status(iter_start_list, curr_buffer);
+                CtList(curr_buffer).todo_list_rotate_status(iter_start_list);
                 return true;
             }
     }
