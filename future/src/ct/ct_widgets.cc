@@ -387,7 +387,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
             if (iter_start.backward_char() && iter_start.get_char() == CtConst::CHAR_NEWLINE[0])
                 return; // former was an empty row
             CtListInfo list_info = CtList(text_buffer).get_paragraph_list_info(iter_start);
-            if (!list_info || list_info.type == CtListInfo::LIST_TYPE::SOMETHING)
+            if (!list_info)
             {
                 if (config->autoIndent)
                 {

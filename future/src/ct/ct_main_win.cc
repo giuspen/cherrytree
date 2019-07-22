@@ -453,7 +453,7 @@ bool CtMainWin::_onTheTextviewEvent(GdkEvent* event)
         {
             auto iter_insert = curr_buffer->get_insert()->get_iter();
             CtListInfo list_info = CtList(curr_buffer).get_paragraph_list_info(iter_insert);
-            if (list_info && list_info.level && list_info.type != CtListInfo::LIST_TYPE::SOMETHING)
+            if (list_info && list_info.level)
             {
                 get_text_view().list_change_level(iter_insert, list_info, false);
                 return true;
@@ -521,7 +521,7 @@ bool CtMainWin::_onTheTextviewEvent(GdkEvent* event)
         {
             auto iter_insert = curr_buffer->get_insert()->get_iter();
             CtListInfo list_info = CtList(curr_buffer).get_paragraph_list_info(iter_insert);
-            if (list_info && list_info.type != CtListInfo::LIST_TYPE::SOMETHING)
+            if (list_info)
              {
                 get_text_view().list_change_level(iter_insert, list_info, true);
                 return true;

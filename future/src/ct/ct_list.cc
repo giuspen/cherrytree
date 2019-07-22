@@ -202,7 +202,7 @@ CtListInfo CtList::list_get_number_n_level(Gtk::TextIter iter_first_paragraph)
         }
     }
 
-    return CtListInfo{CtListInfo::LIST_TYPE::SOMETHING, -1, level, -1, -1};
+    return CtListInfo{CtListInfo::LIST_TYPE::NONE, -1, level, -1, -1};
 }
 
 // Get the list end offset
@@ -222,7 +222,7 @@ int CtList::get_multiline_list_element_end_offset(Gtk::TextIter curr_iter, CtLis
     }
     CtListInfo number_n_level = list_get_number_n_level(iter_start);
     // print number_n_level
-    if (number_n_level.type == CtListInfo::LIST_TYPE::SOMETHING && number_n_level.level == list_info.level+1) {
+    if (number_n_level.type == CtListInfo::LIST_TYPE::NONE && number_n_level.level == list_info.level+1) {
         // multiline indentation
         return get_multiline_list_element_end_offset(iter_start, list_info);
     }
@@ -290,7 +290,7 @@ CtListInfo CtList::get_paragraph_list_info(Gtk::TextIter iter_start_orig)
     // get the number of the paragraph starting with iter_start
     CtListInfo number_n_level = list_get_number_n_level(iter_start);
     int curr_level = number_n_level.level;
-    if (number_n_level.type != CtListInfo::LIST_TYPE::NONE)
+    if (number_n_level)
         return CtListInfo{number_n_level.type, number_n_level.num, curr_level, number_n_level.aux, iter_start.get_offset()};
     // print number_n_level
     if (!buffer_start && curr_level > 0) {
@@ -299,8 +299,8 @@ CtListInfo CtList::get_paragraph_list_info(Gtk::TextIter iter_start_orig)
         CtListInfo list_info = get_paragraph_list_info(iter_start);
         // print list_info
         if (list_info)
-            if ((list_info.type != CtListInfo::LIST_TYPE::SOMETHING && list_info.level == (curr_level-1))
-                 || (list_info.type == CtListInfo::LIST_TYPE::SOMETHING && list_info.level == curr_level))
+            if ((list_info && list_info.level == (curr_level-1))
+                 || (!list_info && list_info.level == curr_level) /* it's used for shift+return */)
                     return list_info;
     }
     return CtListInfo(); // this paragraph is not a list
@@ -309,7 +309,7 @@ CtListInfo CtList::get_paragraph_list_info(Gtk::TextIter iter_start_orig)
 // Generates and Returns two iters indicating the paragraph bounds
 CtTextRange CtList::get_paragraph_iters(Gtk::TextIter* force_iter /*= nullptr*/)
 {
-    Gtk::TextIter iter_start, iter_end;
+    Gtk::TextIter iter_start, iter_end, iter_invalid = _curr_buffer->end();
     if (!force_iter && _curr_buffer->get_has_selection())
          _curr_buffer->get_selection_bounds(iter_start, iter_end); // there's a selection
     else {
@@ -319,8 +319,8 @@ CtTextRange CtList::get_paragraph_iters(Gtk::TextIter* force_iter /*= nullptr*/)
         iter_end = iter_start;
         if (iter_start.get_char() == CtConst::CHAR_NEWLINE[0]) {
             // we're upon a row end
-            if (!iter_start.backward_char()) return CtTextRange();
-            if (iter_start.get_char() == CtConst::CHAR_NEWLINE[0]) return CtTextRange();
+            if (!iter_start.backward_char()) return CtTextRange{iter_invalid, iter_invalid};
+            if (iter_start.get_char() == CtConst::CHAR_NEWLINE[0]) return CtTextRange{iter_invalid, iter_invalid};
         }
     }
     while (iter_end) {

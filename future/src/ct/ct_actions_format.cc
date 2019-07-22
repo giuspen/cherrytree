@@ -160,7 +160,7 @@ void CtActions::list_bulleted_handler()
     text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
     if (!proof.text_buffer) return;
     if (proof.from_codebox || _is_curr_node_not_syntax_highlighting_or_error(true))
-        CtList(curr_buffer()).list_handler(CtListInfo::LIST_TYPE::BULLET);
+        CtList(proof.text_buffer).list_handler(CtListInfo::LIST_TYPE::BULLET);
 }
 
 // Handler of the Numbered List
@@ -170,7 +170,7 @@ void CtActions::list_numbered_handler()
     text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
     if (!proof.text_buffer) return;
     if (proof.from_codebox || _is_curr_node_not_syntax_highlighting_or_error(true))
-        CtList(curr_buffer()).list_handler(CtListInfo::LIST_TYPE::NUMBER);
+        CtList(proof.text_buffer).list_handler(CtListInfo::LIST_TYPE::NUMBER);
 }
 
 // Handler of the ToDo List
@@ -180,7 +180,7 @@ void CtActions::list_todo_handler()
     text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
     if (!proof.text_buffer) return;
     if (proof.from_codebox || _is_curr_node_not_syntax_highlighting_or_error(true))
-        CtList(curr_buffer()).list_handler(CtListInfo::LIST_TYPE::TODO);
+        CtList(proof.text_buffer).list_handler(CtListInfo::LIST_TYPE::TODO);
 }
 
 // The Justify Left Button was Pressed

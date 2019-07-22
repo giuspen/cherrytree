@@ -221,7 +221,7 @@ bool CtCodebox::_onKeyPressEvent(GdkEventKey* event)
             Gtk::TextIter iter_insert = text_buffer->get_insert()->get_iter();
             CtListInfo list_info = CtList(text_buffer).get_paragraph_list_info(iter_insert);
             bool backward = event->state & Gdk::SHIFT_MASK;
-            if (list_info && list_info.type != CtListInfo::LIST_TYPE::SOMETHING)
+            if (list_info)
             {
                 if (backward && list_info.level)
                 {

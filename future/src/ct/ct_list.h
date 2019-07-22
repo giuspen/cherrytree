@@ -26,10 +26,10 @@
 
 struct CtListInfo
 {
-    enum class LIST_TYPE {NONE, SOMETHING /* todo: remove because behaves is as NONE */, TODO, BULLET, NUMBER};
+    enum class LIST_TYPE {NONE, TODO, BULLET, NUMBER};
     LIST_TYPE type = LIST_TYPE::NONE;
     int       num = -1;   // todo: fix that for bullet and number it has different meanings
-    int       level = -1;
+    int       level = -1; // can be valid for NONE to use with return+shift
     int       aux = -1;
     int       startoffs = -1;
 
