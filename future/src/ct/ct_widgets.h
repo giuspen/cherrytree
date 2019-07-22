@@ -76,6 +76,18 @@ public:
     void list_change_level(Gtk::TextIter iter_insert, const CtListInfo& list_info, bool level_increase);
     void replace_text(const Glib::ustring& text, int start_offset, int end_offset);
 
+    void for_event_after_double_click_button1(GdkEvent* event);
+    void for_event_after_button_press(GdkEvent* event);
+    void for_event_after_key_press(GdkEvent* event, const Glib::ustring& syntaxHighlighting);
+
+    void cursor_and_tooltips_handler(int x, int y);
+    void zoom_text(bool is_increase);
+
+private:
+    bool          _apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor);
+    Glib::ustring _get_former_line_indentation(Gtk::TextIter iter_start);
+    void          _special_char_replace(gunichar special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_insert);
+
 public:
     static const double TEXT_SCROLL_MARGIN;
 

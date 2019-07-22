@@ -573,6 +573,17 @@ CtTreeIter CtTreeStore::get_node_from_node_id(const gint64& node_id)
     return to_ct_tree_iter(find_iter);
 }
 
+CtTreeIter CtTreeStore::get_node_from_node_name(const Glib::ustring& node_name)
+{
+    Gtk::TreeIter find_iter;
+    _rTreeStore->foreach_iter([&node_name, &find_iter, this](const Gtk::TreeIter& iter) {
+        if (iter->get_value(_columns.colNodeName) != node_name) return false; /* continue */
+        find_iter = iter;
+        return true;
+    });
+    return to_ct_tree_iter(find_iter);
+
+}
 const std::list<gint64>& CtTreeStore::get_bookmarks()
 {
     return _bookmarks;

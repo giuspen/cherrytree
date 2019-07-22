@@ -22,7 +22,6 @@
 #include "ct_actions.h"
 #include <gtkmm/dialog.h>
 #include <gtkmm/stock.h>
-#include <glibmm/regex.h>
 #include <glibmm/base64.h>
 #include "ct_dialogs.h"
 #include "ct_list.h"
@@ -45,7 +44,7 @@ void CtActions::remove_text_formatting()
     if (!_is_there_selected_node_or_error()) return;
     if (!_is_curr_node_not_syntax_highlighting_or_error()) return;
     auto curr_buffer = _pCtMainWin->get_text_view().get_buffer();
-    if (!curr_buffer->get_has_selection() && !_apply_tag_try_automatic_bounds(curr_buffer, curr_buffer->get_insert()->get_iter())) {
+    if (!curr_buffer->get_has_selection() && !CtTextIterUtil::apply_tag_try_automatic_bounds(curr_buffer, curr_buffer->get_insert()->get_iter())) {
         ct_dialogs::warning_dialog(_("No Text is Selected"), *_pCtMainWin);
         return;
     }
@@ -161,7 +160,7 @@ void CtActions::list_bulleted_handler()
     text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
     if (!proof.text_buffer) return;
     if (proof.from_codebox || _is_curr_node_not_syntax_highlighting_or_error(true))
-        CtList(curr_buffer()).list_handler(CtListInfo::BULLET, proof.text_buffer);
+        CtList(curr_buffer()).list_handler(CtListInfo::LIST_TYPE::BULLET, proof.text_buffer);
 }
 
 // Handler of the Numbered List
@@ -171,7 +170,7 @@ void CtActions::list_numbered_handler()
     text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
     if (!proof.text_buffer) return;
     if (proof.from_codebox || _is_curr_node_not_syntax_highlighting_or_error(true))
-        CtList(curr_buffer()).list_handler(CtListInfo::NUMBER, proof.text_buffer);
+        CtList(curr_buffer()).list_handler(CtListInfo::LIST_TYPE::NUMBER, proof.text_buffer);
 }
 
 // Handler of the ToDo List
@@ -181,7 +180,7 @@ void CtActions::list_todo_handler()
     text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
     if (!proof.text_buffer) return;
     if (proof.from_codebox || _is_curr_node_not_syntax_highlighting_or_error(true))
-        CtList(curr_buffer()).list_handler(CtListInfo::TODO, proof.text_buffer);
+        CtList(curr_buffer()).list_handler(CtListInfo::LIST_TYPE::TODO, proof.text_buffer);
 }
 
 // The Justify Left Button was Pressed
@@ -237,14 +236,14 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
                 _link_entry = ct_dialogs::CtLinkEntry(); // reset
             if (!text_buffer->get_has_selection()) {
                 if (tag_property != CtConst::TAG_LINK) {
-                    if (!_apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter())) {
+                    if (!CtTextIterUtil::apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter())) {
                         ct_dialogs::warning_dialog(_("No Text is Selected"), *_pCtMainWin);
                         return;
                     }
                 } else {
                     Glib::ustring tag_property_value = _link_check_around_cursor();
                     if (tag_property_value == "") {
-                        if (!_apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter())) {
+                        if (!CtTextIterUtil::apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter())) {
                             Glib::ustring link_name = ct_dialogs::img_n_entry_dialog(*_pCtMainWin, _("Link Name"), "", "link_handle");
                             if (link_name.empty()) return;
                             int start_offset = text_buffer->get_insert()->get_iter().get_offset();
@@ -420,58 +419,6 @@ CtCodebox* CtActions::_codebox_in_use()
     if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widgets.front()))
         return codebox;
     return nullptr;
-}
-
-// Try to Select a Word Forward/Backward the Cursor
-bool CtActions::_apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start)
-{
-    Gtk::TextIter iter_end = iter_start;
-    auto curr_char = iter_end.get_char();
-    auto re = Glib::Regex::create("\\w");
-    // 1) select alphanumeric + special
-    bool match = re->match(Glib::ustring(1, curr_char));
-    if (!match && CtApp::P_ctCfg->selwordChars.find(curr_char) == Glib::ustring::npos) {
-        iter_start.backward_char();
-        iter_end.backward_char();
-        curr_char = iter_end.get_char();
-        match = re->match(Glib::ustring(1, curr_char));
-        if (!match && CtApp::P_ctCfg->selwordChars.find(curr_char) == Glib::ustring::npos)
-            return false;
-    }
-    while (match || CtApp::P_ctCfg->selwordChars.find(curr_char) != Glib::ustring::npos) {
-        if (!iter_end.forward_char()) break; // end of buffer
-        curr_char = iter_end.get_char();
-        match = re->match(Glib::ustring(1, curr_char));
-    }
-    iter_start.backward_char();
-    curr_char = iter_start.get_char();
-    match = re->match(Glib::ustring(1, curr_char));
-    while (match || CtApp::P_ctCfg->selwordChars.find(curr_char) != Glib::ustring::npos) {
-        if (!iter_start.backward_char()) break; // start of buffer
-        curr_char = iter_start.get_char();
-        match = re->match(Glib::ustring(1, curr_char));
-    }
-    if (!match && CtApp::P_ctCfg->selwordChars.find(curr_char) == Glib::ustring::npos)
-        iter_start.forward_char();
-    // 2) remove non alphanumeric from borders
-    iter_end.backward_char();
-    curr_char = iter_end.get_char();
-    while (CtApp::P_ctCfg->selwordChars.find(curr_char) != Glib::ustring::npos) {
-        if (!iter_end.backward_char()) break; // start of buffer
-        curr_char = iter_end.get_char();
-    }
-    iter_end.forward_char();
-    curr_char = iter_start.get_char();
-    while (CtApp::P_ctCfg->selwordChars.find(curr_char) != Glib::ustring::npos) {
-        if (!iter_start.forward_char()) break; // end of buffer
-        curr_char = iter_start.get_char();
-    }
-    if (iter_end.compare(iter_start) > 0) {
-        text_buffer->move_mark(text_buffer->get_insert(), iter_start);
-        text_buffer->move_mark(text_buffer->get_selection_bound(), iter_end);
-        return true;
-    }
-    return false;
 }
 
 // Prepare Global Links Variables for Dialog

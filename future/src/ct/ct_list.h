@@ -26,8 +26,8 @@
 
 struct CtListInfo
 {
-    enum LIST_TYPE {NONE, SOMETHING, TODO, BULLET, NUMBER};
-    LIST_TYPE type = NONE;
+    enum class LIST_TYPE {NONE, SOMETHING, TODO, BULLET, NUMBER};
+    LIST_TYPE type = LIST_TYPE::NONE;
     int       num = -1;   // todo: fix that for bullet and number it has different meanings
     int       level = -1;
     int       aux = -1;
@@ -49,8 +49,7 @@ public:
     CtList(Glib::RefPtr<Gtk::TextBuffer> curr_buffer) : _curr_buffer(curr_buffer) {}
 
     void        list_handler(CtListInfo::LIST_TYPE target_list_num_id, Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>());
-    CtTextRange list_check_n_remove_old_list_type_leading(Gtk::TextIter iter_start, Gtk::TextIter iter_end,
-                                                          Glib::RefPtr<Gtk::TextBuffer> text_buffer);
+    CtTextRange list_check_n_remove_old_list_type_leading(Gtk::TextIter iter_start, Gtk::TextIter iter_end);
     int         get_leading_chars_num(CtListInfo::LIST_TYPE type, int list_info_num);
     CtListInfo  list_get_number_n_level(Gtk::TextIter iter_first_paragraph);
     int         get_multiline_list_element_end_offset(Gtk::TextIter curr_iter, CtListInfo list_info);

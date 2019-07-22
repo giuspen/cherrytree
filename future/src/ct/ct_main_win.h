@@ -89,7 +89,10 @@ public:
     CtTextView&   get_text_view()   { return _ctTextview; }
     CtMenu&       get_ct_menu()     { return *_ctMenu; }
     CtStatusBar&  get_status_bar()  { return _ctStatusBar; }
+
     bool&         user_active()     { return _userActive; } // use as a function, because it's easer to put breakpoint
+    int&          cursor_key_press() { return _cursorKeyPress; }
+    int&          hovering_link_iter_offset() { return _hovering_link_iter_offset; }
 
     Glib::RefPtr<Gtk::TextBuffer> curr_buffer() { return _ctTextview.get_buffer(); }
 
@@ -124,8 +127,12 @@ protected:
     bool                _onTheTreeviewSignalKeyPressEvent(GdkEventKey* event);
     bool                _onTheTreeviewSignalPopupMenu();
 
+    void                _onTheTextviewPopulateMenu(Gtk::Menu* menu);
+    bool                _onTheTextviewMotionNotifyEvent(GdkEventMotion* event);
+    bool                _onTheTextviewVisibilityNotifyEvent(GdkEventVisibility* event);
     void                _onTheTextviewSizeAllocate(Gtk::Allocation& allocation);
     bool                _onTheTextviewEvent(GdkEvent* event);
+    void                _onTheTextviewEventAfter(GdkEvent* event);
 
     void                _titleUpdate(bool saveNeeded);
 
@@ -144,9 +151,13 @@ protected:
     Gtk::ScrolledWindow _scrolledwindowText;
     CtTreeStore         _ctTreestore;
     CtTreeView          _ctTreeview;
-    CtTextView          _ctTextview;
+    CtTextView          _ctTextview; /* todo: rename? because _ctTextview and _ctTreeview look the same */
     std::string         _currFileName;
     std::string         _currFileDir;
+
+private:
     bool                _userActive;
+    int                 _cursorKeyPress;
+    int                 _hovering_link_iter_offset;
     int                 _prevTextviewWidth;
 };

@@ -97,23 +97,29 @@ CtCodebox::CtCodebox(const Glib::ustring& textContent,
             CtApp::P_ctActions->object_set_selection(this);
         return false;
     });
-    _ctTextview.signal_event_after().connect([](GdkEvent*){
+    _ctTextview.signal_event_after().connect([this](GdkEvent* event){
         if (!CtApp::P_ctActions->getCtMainWin()->user_active()) return;
-        /*if event.type == gtk.gdk._2BUTTON_PRESS and event.button == 1:
-            support.on_sourceview_event_after_double_click_button1(self.dad, text_view, event)
-        elif event.type == gtk.gdk.BUTTON_PRESS:
-            return support.on_sourceview_event_after_button_press(self.dad, text_view, event)
-        elif event.type == gtk.gdk.KEY_PRESS:
-            return support.on_sourceview_event_after_key_press(self.dad, text_view, event, self.curr_codebox_anchor.syntax_highlighting)
-        elif event.type == gtk.gdk.SCROLL:
-            return support.on_sourceview_event_after_scroll(self.dad, text_view, event)*/
+        if (event->type == GDK_2BUTTON_PRESS && event->button.button == 1)
+            _ctTextview.for_event_after_double_click_button1(event);
+        else if (event->type == GDK_BUTTON_PRESS)
+            _ctTextview.for_event_after_button_press(event);
+        else if (event->type == GDK_KEY_PRESS)
+            _ctTextview.for_event_after_key_press(event, _syntaxHighlighting);
     });
-    _ctTextview.signal_motion_notify_event().connect([](GdkEventMotion*){
-        /* if not self.dad.user_active: return False
-        text_view.set_editable(not self.dad.get_node_read_only())
-        x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
-        support.sourceview_cursor_and_tooltips_handler(self.dad, text_view, x, y)
-        */
+    _ctTextview.signal_motion_notify_event().connect([this](GdkEventMotion* event){
+        if (!CtApp::P_ctActions->getCtMainWin()->user_active()) return false;
+        _ctTextview.set_editable(!CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_node_read_only());
+        int x, y;
+        _ctTextview.window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, int(event->x), int(event->y), x, y);
+        _ctTextview.cursor_and_tooltips_handler(x, y);
+        return false;
+    });
+    _ctTextview.signal_scroll_event().connect([this](GdkEventScroll* event){
+        if (event->state & GDK_CONTROL_MASK && (event->direction == GDK_SCROLL_UP || event->direction == GDK_SCROLL_DOWN))
+        {
+            _ctTextview.zoom_text(event->direction == GDK_SCROLL_UP);
+            return true;
+        }
         return false;
     });
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "cut-clipboard", G_CALLBACK(CtClipboard::on_cut_clipboard), this /*from_codebox*/);
@@ -215,7 +221,7 @@ bool CtCodebox::_onKeyPressEvent(GdkEventKey* event)
             Gtk::TextIter iter_insert = text_buffer->get_insert()->get_iter();
             CtListInfo list_info = CtList(text_buffer).get_paragraph_list_info(iter_insert);
             bool backward = event->state & Gdk::SHIFT_MASK;
-            if (list_info)
+            if (list_info && list_info.type != CtListInfo::LIST_TYPE::SOMETHING)
             {
                 if (backward && list_info.level)
                 {

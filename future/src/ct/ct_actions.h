@@ -158,7 +158,7 @@ public:
     void toolbar_icons_size_decrease();
     void fullscreen_toggle();
 
-private:
+public:
     // helper for format actions
     void _apply_tag(const Glib::ustring& tag_property, Glib::ustring property_value = "",
                     std::optional<Gtk::TextIter> iter_sel_start = std::nullopt,
@@ -176,7 +176,6 @@ private:
     };
     text_view_n_buffer_codebox_proof _get_text_view_n_buffer_codebox_proof();
     CtCodebox* _codebox_in_use();
-    bool _apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start);
 
     bool _links_entries_pre_dialog(const Glib::ustring& curr_link, ct_dialogs::CtLinkEntry& link_entry);
     Glib::ustring _links_entries_post_dialog(ct_dialogs::CtLinkEntry& link_entry);

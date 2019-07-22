@@ -588,7 +588,7 @@ void CtActions::_text_selection_change_case(gchar change_type)
     Glib::RefPtr<Gtk::TextBuffer> text_buffer = proof.text_buffer;
     if (!text_buffer) return;
     if (!_is_curr_node_not_read_only_or_error()) return;
-    if (!text_buffer->get_has_selection() && !_apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter()))
+    if (!text_buffer->get_has_selection() && !CtTextIterUtil::apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter()))
     {
         ct_dialogs::warning_dialog(_("No Text is Selected"), *_pCtMainWin);
         return;
