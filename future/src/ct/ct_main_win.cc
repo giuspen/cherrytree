@@ -69,7 +69,7 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu)
     _ctTreeview.signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalKeyPressEvent), false);
     _ctTreeview.signal_popup_menu().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalPopupMenu));
 
-
+    _ctTreeview.get_style_context()->add_class("ct_node_view");
     _ctTextview.get_style_context()->add_class("ct_textview");
 
     _ctTextview.signal_populate_popup().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTextviewPopulateMenu));
@@ -127,10 +127,10 @@ void CtMainWin::configureTheme()
     std::string rtFont = to_string(Pango::FontDescription(CtApp::P_ctCfg->rtFont));
     std::string plFont = to_string(Pango::FontDescription(CtApp::P_ctCfg->ptFont));
     std::string codeFont = to_string(Pango::FontDescription(CtApp::P_ctCfg->codeFont));
-    std::string treeFont = to_string(Pango::FontDescription(CtApp::P_ctCfg->codeFont));
+    std::string treeFont = to_string(Pango::FontDescription(CtApp::P_ctCfg->treeFont));
 
     auto screen = get_screen();
-    if(_css_provider_theme_font)
+    if (_css_provider_theme_font)
         Gtk::StyleContext::remove_provider_for_screen(screen, _css_provider_theme_font);
     _css_provider_theme_font = Gtk::CssProvider::create();
 
@@ -141,9 +141,23 @@ void CtMainWin::configureTheme()
     font_css += ".codebox.rich-text" + rtFont;
     font_css += ".codebox.plain-text" + plFont;
     font_css += ".codebox.code" + codeFont;
+    font_css += ".ct_node_view" + treeFont;
 
     _css_provider_theme_font->load_from_data(font_css);
     get_style_context()->add_provider_for_screen(screen, _css_provider_theme_font, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+
+    // can do more complicated things than just changing colors
+    if (_css_provider_theme)
+        Gtk::StyleContext::remove_provider_for_screen(screen, _css_provider_theme);
+    _css_provider_theme = Gtk::CssProvider::create();
+    std::string theme_css;
+    theme_css += ".ct_textview.rich-text > text { color: " + CtApp::P_ctCfg->rtDefFg + "; background-color: " + CtApp::P_ctCfg->rtDefBg + "; } ";
+    theme_css += ".ct_node_view { color: " + CtApp::P_ctCfg->ttDefFg + "; background-color: " + CtApp::P_ctCfg->ttDefBg + "; } ";
+    theme_css += ".ct_header { background-color: " + CtApp::P_ctCfg->ttDefBg + "; } ";
+
+    _css_provider_theme->load_from_data(theme_css);
+    get_style_context()->add_provider_for_screen(screen, _css_provider_theme, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 }
 
 Gtk::HBox& CtMainWin::_initStatusBar()
@@ -177,6 +191,7 @@ Gtk::EventBox& CtMainWin::_initWindowHeader()
     _ctWinHeader.headerBox.pack_start(_ctWinHeader.lockIcon, false, false);
     _ctWinHeader.headerBox.pack_start(_ctWinHeader.bookmarkIcon, false, false);
     _ctWinHeader.eventBox.add(_ctWinHeader.headerBox);
+    _ctWinHeader.eventBox.get_style_context()->add_class("ct_header");
     return _ctWinHeader.eventBox;
 }
 
@@ -184,7 +199,6 @@ void CtMainWin::window_header_update()
 {
     // based on update_node_name_header
     std::string name = curr_tree_iter().get_node_name();
-    _ctWinHeader.eventBox.override_background_color(Gdk::RGBA(CtApp::P_ctCfg->ttDefBg));
     std::string foreground = curr_tree_iter().get_node_foreground();
     foreground = foreground.empty() ? CtApp::P_ctCfg->ttDefFg : foreground;
     _ctWinHeader.nameLabel.set_markup(
@@ -212,12 +226,6 @@ void CtMainWin::window_header_update_last_visited()
 void CtMainWin::window_header_update_num_last_visited()
 {
     // todo: update_node_name_header_num_latest_visited
-}
-
-void CtMainWin::treeview_set_colors()
-{
-    std::string fg = curr_tree_iter().get_node_foreground();
-    CtMiscUtil::widget_set_colors(_ctTreeview, CtApp::P_ctCfg->ttDefFg, CtApp::P_ctCfg->ttDefBg, false, fg);
 }
 
 void CtMainWin::menu_tree_update_for_bookmarked_node(bool is_bookmarked)
@@ -320,7 +328,6 @@ void CtMainWin::_onTheTreeviewSignalCursorChanged()
     _ctTreestore.applyTextBufferToCtTextView(treeIter, &_ctTextview);
 
     menu_tree_update_for_bookmarked_node(_ctTreestore.is_node_bookmarked(treeIter.get_node_id()));
-    treeview_set_colors();
     window_header_update();
     window_header_update_lock_icon(treeIter.get_node_read_only());
     window_header_update_bookmark_icon(false);

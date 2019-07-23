@@ -108,7 +108,6 @@ public:
     void window_header_update_last_visited();
     void window_header_update_num_last_visited();
 
-    void treeview_set_colors();
     void menu_tree_update_for_bookmarked_node(bool is_bookmarked);
     void bookmark_action_select_node(gint64 node_id);
     void set_bookmarks_menu_items();

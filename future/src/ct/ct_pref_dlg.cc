@@ -427,14 +427,16 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
         //new_lang_code = dad.spell_check_lang_liststore[new_iter][0]
         //if new_lang_code != dad.spell_check_lang: dad.spell_check_set_new_lang(new_lang_code)
     });
-    colorbutton_text_fg->signal_color_set().connect([/*this, */config, colorbutton_text_fg](){
+    colorbutton_text_fg->signal_color_set().connect([this, config, colorbutton_text_fg](){
         config->rtDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_text_fg->get_rgba());
+        _pCtMainWin->configureTheme();
         //if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
         //    dad.widget_set_colors(dad.sourceview, dad.rt_def_fg, dad.rt_def_bg, False)
         //    support.rich_text_node_modify_codeboxes_color(dad.curr_buffer.get_start_iter(), dad)
     });
-    colorbutton_text_bg->signal_color_set().connect([/*this, */config, colorbutton_text_bg](){
+    colorbutton_text_bg->signal_color_set().connect([this, config, colorbutton_text_bg](){
         config->rtDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_text_bg->get_rgba());
+        _pCtMainWin->configureTheme();
         //if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
         //    if dad.rt_highl_curr_line:
         //        dad.set_sourcebuffer_with_style_scheme()
@@ -760,13 +762,11 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
 
     colorbutton_tree_fg->signal_color_set().connect([this, config, colorbutton_tree_fg](){
         config->ttDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_fg->get_rgba());
-        _pCtMainWin->treeview_set_colors();
-        if (_pCtMainWin->curr_tree_iter()) _pCtMainWin->window_header_update();
+        _pCtMainWin->configureTheme();
     });
     colorbutton_tree_bg->signal_color_set().connect([this, config, colorbutton_tree_bg](){
         config->ttDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_bg->get_rgba());
-        _pCtMainWin->treeview_set_colors();
-        if (_pCtMainWin->curr_tree_iter()) _pCtMainWin->window_header_update();
+        _pCtMainWin->configureTheme();
     });
     radiobutton_tt_col_light->signal_toggled().connect([radiobutton_tt_col_light, colorbutton_tree_fg, colorbutton_tree_bg](){
         if (!radiobutton_tt_col_light->get_active()) return;

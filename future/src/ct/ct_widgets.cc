@@ -123,12 +123,14 @@ void CtTextView::setupForSyntax(const std::string& syntax)
         // todo: self.on_textbuffer_mark_set
     });
 
-    if (CtConst::RICH_TEXT_ID == syntax)
-        get_style_context()->add_class("rich-text");
-    else if (CtConst::PLAIN_TEXT_ID == syntax)
-        get_style_context()->add_class("plain-text");
-    else
-        get_style_context()->add_class("code");
+    std::string new_class;
+    if (CtConst::RICH_TEXT_ID == syntax)         new_class = "rich-text";
+    else if (CtConst::PLAIN_TEXT_ID == syntax)   new_class = "plain-text";
+    else                                         new_class = "code";
+    get_style_context()->remove_class("rich-text");
+    get_style_context()->remove_class("plain-text");
+    get_style_context()->remove_class("code");
+    get_style_context()->add_class(new_class);
 
     if (CtConst::RICH_TEXT_ID == syntax)
     {
