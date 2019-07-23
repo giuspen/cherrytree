@@ -176,4 +176,7 @@ Glib::ustring file_save_as_dialog(ct_dialogs::file_select_args args);
 Glib::RefPtr<Gdk::Pixbuf> image_handle_dialog(Gtk::Window& father_win, Glib::ustring title,
                                               Glib::RefPtr<Gdk::Pixbuf> original_pixbuf);
 
+// Opens the CodeBox Handle Dialog
+bool codeboxhandle_dialog(Gtk::Window& father_win, const Glib::ustring& title);
+
 } // namespace ct_dialogs

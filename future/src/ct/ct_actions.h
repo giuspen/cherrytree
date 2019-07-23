@@ -158,7 +158,7 @@ public:
     void toolbar_icons_size_decrease();
     void fullscreen_toggle();
 
-private:
+public:
     // helper for format actions
     void _apply_tag(const Glib::ustring& tag_property, Glib::ustring property_value = "",
                     std::optional<Gtk::TextIter> iter_sel_start = std::nullopt,
@@ -175,7 +175,7 @@ private:
         bool                            from_codebox;
     };
     text_view_n_buffer_codebox_proof _get_text_view_n_buffer_codebox_proof();
-    bool _apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start);
+    CtCodebox* _codebox_in_use();
 
     bool _links_entries_pre_dialog(const Glib::ustring& curr_link, ct_dialogs::CtLinkEntry& link_entry);
     Glib::ustring _links_entries_post_dialog(ct_dialogs::CtLinkEntry& link_entry);
@@ -272,4 +272,18 @@ public:
     void toggle_show_hide_main_window();
 
     void link_clicked(const Glib::ustring& tag_property_value, bool from_wheel);
+
+    void codebox_cut();
+    void codebox_copy();
+    void codebox_delete();
+    void codebox_delete_keeping_text();
+    void codebox_change_properties();
+    void exec_code();
+    void codebox_load_from_file();
+    void codebox_save_to_file();
+    void codebox_increase_width();
+    void codebox_decrease_width();
+    void codebox_increase_height();
+    void codebox_decrease_height();
+
 };

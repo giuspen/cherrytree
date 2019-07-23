@@ -24,16 +24,17 @@
 #include <gtkmm/textbuffer.h>
 #include <glibmm/refptr.h>
 
+enum class CtListType { None, Todo, Bullet, Number };
+
 struct CtListInfo
 {
-    enum LIST_TYPE {NONE, SOMETHING, TODO, BULLET, NUMBER};
-    LIST_TYPE type = NONE;
-    int       num;
-    int       level;
-    int       aux;
-    int       startoffs;
+    CtListType type = CtListType::None;
+    int        num = -1;   // todo: fix that for bullet and number it has different meanings
+    int        level = -1; // can be filled for NONE to use with shift+return
+    int        aux = -1;
+    int        startoffs = -1;
 
-    operator bool() { return type != LIST_TYPE::NONE; }
+    operator bool() { return type != CtListType::None; }
 };
 
 struct CtTextRange
@@ -48,21 +49,20 @@ class CtList
 public:
     CtList(Glib::RefPtr<Gtk::TextBuffer> curr_buffer) : _curr_buffer(curr_buffer) {}
 
-    void        list_handler(CtListInfo::LIST_TYPE target_list_num_id, Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>());
-    CtTextRange list_check_n_remove_old_list_type_leading(Gtk::TextIter iter_start, Gtk::TextIter iter_end,
-                                                          Glib::RefPtr<Gtk::TextBuffer> text_buffer);
-    int         get_leading_chars_num(CtListInfo::LIST_TYPE type, int list_info_num);
+    void        list_handler(CtListType target_list_num_id);
+    CtTextRange list_check_n_remove_old_list_type_leading(Gtk::TextIter iter_start, Gtk::TextIter iter_end);
+    int         get_leading_chars_num(CtListType type, int list_info_num);
     CtListInfo  list_get_number_n_level(Gtk::TextIter iter_first_paragraph);
     int         get_multiline_list_element_end_offset(Gtk::TextIter curr_iter, CtListInfo list_info);
     CtListInfo  get_prev_list_info_on_level(Gtk::TextIter iter_start, int level);
     CtListInfo  get_next_list_info_on_level(Gtk::TextIter iter_start, int level);
     CtListInfo  get_paragraph_list_info(Gtk::TextIter iter_start_orig);
-    CtTextRange get_paragraph_iters(Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>(), Gtk::TextIter* force_iter = nullptr);
+    CtTextRange get_paragraph_iters(Gtk::TextIter* force_iter = nullptr);
     bool        is_list_todo_beginning(Gtk::TextIter square_bracket_open_iter);
-    void        todo_list_rotate_status(Gtk::TextIter todo_char_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer);
+    void        todo_list_rotate_status(Gtk::TextIter todo_char_iter);
     bool        char_iter_forward_to_newline(Gtk::TextIter& char_iter);
     bool        char_iter_backward_to_newline(Gtk::TextIter& char_iter);
-    void        todo_lists_old_to_new_conversion(Glib::RefPtr<Gtk::TextBuffer> text_buffer);
+    void        todo_lists_old_to_new_conversion();
 
 private:
     Glib::RefPtr<Gtk::TextBuffer> _curr_buffer;

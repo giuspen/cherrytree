@@ -262,7 +262,6 @@ void CtActions::node_edit()
     _pCtMainWin->get_text_view().set_editable(!newData.isRO);
     //todo: self.update_selected_node_statusbar_info()
     _pCtTreestore->updateNodeAuxIcon(_pCtMainWin->curr_tree_iter());
-    _pCtMainWin->treeview_set_colors();
     _pCtMainWin->window_header_update();
     _pCtMainWin->window_header_update_lock_icon(newData.isRO);
     _pCtMainWin->update_window_save_needed("npro");

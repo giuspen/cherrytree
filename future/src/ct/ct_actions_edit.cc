@@ -66,9 +66,41 @@ void CtActions::table_handle()
     // todo:
 }
 
+// Insert Code Box
 void CtActions::codebox_handle()
 {
-    // todo:
+    if (!_node_sel_and_rich_text()) return;
+    if (!_is_curr_node_not_read_only_or_error()) return;
+
+    Glib::ustring textContent, justification;
+    Gtk::TextIter iter_sel_start, iter_sel_end;
+    if (curr_buffer()->get_has_selection())
+    {
+        curr_buffer()->get_selection_bounds(iter_sel_start, iter_sel_end);
+        textContent = iter_sel_start.get_text(iter_sel_end);
+    }
+    if (!ct_dialogs::codeboxhandle_dialog(*_pCtMainWin, _("Insert a CodeBox")))
+        return;
+
+    if (!textContent.empty())
+        curr_buffer()->erase(iter_sel_start, iter_sel_end);
+
+    Gtk::TextIter iter_insert = curr_buffer()->get_insert()->get_iter();
+
+    CtCodebox* pCtCodebox = new CtCodebox(textContent,
+                                          CtApp::P_ctCfg->codeboxSynHighl,
+                                          (int)CtApp::P_ctCfg->codeboxWidth,
+                                          (int)CtApp::P_ctCfg->codeboxHeight,
+                                          iter_insert.get_offset(),
+                                          justification);
+    pCtCodebox->setWidthInPixels(CtApp::P_ctCfg->codeboxWidthPixels);
+    pCtCodebox->setHighlightBrackets(CtApp::P_ctCfg->codeboxMatchBra);
+    pCtCodebox->setShowLineNumbers(CtApp::P_ctCfg->codeboxLineNum);
+    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(curr_buffer());
+    pCtCodebox->insertInTextBuffer(gsv_buffer);
+
+    getCtMainWin()->get_tree_store().addAnchoredWidgets(getCtMainWin()->curr_tree_iter(),
+        {pCtCodebox}, &getCtMainWin()->get_text_view());
 }
 
 void CtActions::embfile_insert()
@@ -556,7 +588,7 @@ void CtActions::_text_selection_change_case(gchar change_type)
     Glib::RefPtr<Gtk::TextBuffer> text_buffer = proof.text_buffer;
     if (!text_buffer) return;
     if (!_is_curr_node_not_read_only_or_error()) return;
-    if (!text_buffer->get_has_selection() && !_apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter()))
+    if (!text_buffer->get_has_selection() && !CtTextIterUtil::apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter()))
     {
         ct_dialogs::warning_dialog(_("No Text is Selected"), *_pCtMainWin);
         return;

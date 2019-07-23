@@ -934,3 +934,150 @@ Glib::RefPtr<Gdk::Pixbuf> ct_dialogs::image_handle_dialog(Gtk::Window& father_wi
         return Glib::RefPtr<Gdk::Pixbuf>();
     return original_pixbuf->scale_simple(width, height, Gdk::INTERP_BILINEAR);
 }
+
+// Opens the CodeBox Handle Dialog
+bool ct_dialogs::codeboxhandle_dialog(Gtk::Window& father_win, const Glib::ustring& title)
+{
+    auto dialog = Gtk::Dialog(title, father_win, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
+    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    dialog.set_default_size(300, -1);
+    dialog.set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
+
+    CtConfig* config = CtApp::P_ctCfg;
+
+    auto button_prog_lang = Gtk::Button();
+    Glib::ustring button_label = config->codeboxSynHighl != CtConst::PLAIN_TEXT_ID ? config->codeboxSynHighl : config->autoSynHighl;
+    Glib::ustring button_stock_id = CtConst::getStockIdForCodeType(button_label);
+    button_prog_lang.set_label(button_label);
+    button_prog_lang.set_image(*CtImage::new_image_from_stock(button_stock_id, Gtk::ICON_SIZE_MENU));
+    auto radiobutton_plain_text = Gtk::RadioButton(_("Plain Text"));
+    auto radiobutton_auto_syntax_highl = Gtk::RadioButton(_("Automatic Syntax Highlighting"));
+    radiobutton_auto_syntax_highl.join_group(radiobutton_plain_text);
+    if (config->codeboxSynHighl == CtConst::PLAIN_TEXT_ID)
+    {
+        radiobutton_plain_text.set_active(true);
+        button_prog_lang.set_sensitive(false);
+    }
+    else
+        radiobutton_auto_syntax_highl.set_active(true);
+    auto type_vbox = Gtk::VBox();
+    type_vbox.pack_start(radiobutton_plain_text);
+    type_vbox.pack_start(radiobutton_auto_syntax_highl);
+    type_vbox.pack_start(button_prog_lang);
+    auto type_frame = Gtk::Frame(std::string("<b>")+_("Type")+"</b>");
+    dynamic_cast<Gtk::Label*>(type_frame.get_label_widget())->set_use_markup(true);
+    type_frame.set_shadow_type(Gtk::SHADOW_NONE);
+    type_frame.add(type_vbox);
+
+    auto label_width = Gtk::Label(_("Width"));
+    auto adj_width = Gtk::Adjustment::create(config->codeboxWidth, 1, 10000);
+    auto spinbutton_width = Gtk::SpinButton(adj_width);
+    spinbutton_width.set_value(config->codeboxWidth);
+    auto label_height = Gtk::Label(_("Height"));
+    auto adj_height = Gtk::Adjustment::create(config->codeboxHeight, 1, 10000);
+    auto spinbutton_height = Gtk::SpinButton(adj_height);
+    spinbutton_height.set_value(config->codeboxHeight);
+
+    auto radiobutton_codebox_pixels = Gtk::RadioButton(_("pixels"));
+    auto radiobutton_codebox_percent = Gtk::RadioButton("%");
+    radiobutton_codebox_percent.join_group(radiobutton_codebox_pixels);
+    radiobutton_codebox_pixels.set_active(config->codeboxWidthPixels);
+    radiobutton_codebox_percent.set_active(!config->codeboxWidthPixels);
+
+    auto vbox_pix_perc = Gtk::VBox();
+    vbox_pix_perc.pack_start(radiobutton_codebox_pixels);
+    vbox_pix_perc.pack_start(radiobutton_codebox_percent);
+    auto hbox_width = Gtk::HBox();
+    hbox_width.pack_start(label_width, false, false);
+    hbox_width.pack_start(spinbutton_width, false, false);
+    hbox_width.pack_start(vbox_pix_perc);
+    hbox_width.set_spacing(5);
+    auto hbox_height = Gtk::HBox();
+    hbox_height.pack_start(label_height, false, false);
+    hbox_height.pack_start(spinbutton_height, false, false);
+    hbox_height.set_spacing(5);
+    auto vbox_size = Gtk::VBox();
+    vbox_size.pack_start(hbox_width);
+    vbox_size.pack_start(hbox_height);
+    auto size_align = Gtk::Alignment();
+    size_align.set_padding(0, 6, 6, 6);
+    size_align.add(vbox_size);
+
+    auto size_frame = Gtk::Frame(std::string("<b>")+_("Size")+"</b>");
+    dynamic_cast<Gtk::Label*>(size_frame.get_label_widget())->set_use_markup(true);
+    size_frame.set_shadow_type(Gtk::SHADOW_NONE);
+    size_frame.add(size_align);
+
+    auto checkbutton_codebox_linenumbers = Gtk::CheckButton(_("Show Line Numbers"));
+    checkbutton_codebox_linenumbers.set_active(config->codeboxLineNum);
+    auto checkbutton_codebox_matchbrackets = Gtk::CheckButton(_("Highlight Matching Brackets"));
+    checkbutton_codebox_matchbrackets.set_active(config->codeboxMatchBra);
+    auto vbox_options = Gtk::VBox();
+    vbox_options.pack_start(checkbutton_codebox_linenumbers);
+    vbox_options.pack_start(checkbutton_codebox_matchbrackets);
+    auto opt_align = Gtk::Alignment();
+    opt_align.set_padding(6, 6, 6, 6);
+    opt_align.add(vbox_options);
+
+    auto options_frame = Gtk::Frame(std::string("<b>")+_("Options")+"</b>");
+    dynamic_cast<Gtk::Label*>(options_frame.get_label_widget())->set_use_markup(true);
+    options_frame.set_shadow_type(Gtk::SHADOW_NONE);
+    options_frame.add(opt_align);
+
+    auto content_area = dialog.get_content_area();
+    content_area->set_spacing(5);
+    content_area->pack_start(type_frame);
+    content_area->pack_start(size_frame);
+    content_area->pack_start(options_frame);
+    content_area->show_all();
+
+    button_prog_lang.signal_clicked().connect([&button_prog_lang, &dialog](){
+        auto itemStore = ct_dialogs::CtChooseDialogListStore::create();
+        for (auto lang: CtApp::R_languageManager->get_language_ids())
+            itemStore->add_row(CtConst::getStockIdForCodeType(lang), "", lang);
+        auto res = ct_dialogs::choose_item_dialog(dialog, _("Automatic Syntax Highlighting"), itemStore);
+        if (res) {
+            std::string stock_id = res->get_value(itemStore->columns.desc);
+            button_prog_lang.set_label(stock_id);
+            button_prog_lang.set_image(*CtImage::new_image_from_stock(stock_id, Gtk::ICON_SIZE_MENU));
+        }
+    });
+    radiobutton_auto_syntax_highl.signal_toggled().connect([&radiobutton_auto_syntax_highl, &button_prog_lang](){
+        button_prog_lang.set_sensitive(radiobutton_auto_syntax_highl.get_active());
+    });
+    dialog.signal_key_press_event().connect([&](GdkEventKey* key){
+        if (key->keyval == GDK_KEY_Return)
+        {
+            spinbutton_width.update();
+            spinbutton_height.update();
+            dialog.response(Gtk::RESPONSE_ACCEPT);
+            return true;
+        }
+        return false;
+    });
+    radiobutton_codebox_pixels.signal_toggled().connect([&radiobutton_codebox_pixels, &spinbutton_width](){
+        if (radiobutton_codebox_pixels.get_active())
+            spinbutton_width.set_value(700);
+        else if (spinbutton_width.get_value() > 100)
+            spinbutton_width.set_value(90);
+    });
+
+    auto response = dialog.run();
+    dialog.hide();
+
+    if (response == Gtk::RESPONSE_ACCEPT)
+    {
+        config->codeboxWidth = spinbutton_width.get_value_as_int();
+        config->codeboxWidthPixels = radiobutton_codebox_pixels.get_active();
+        config->codeboxHeight = spinbutton_height.get_value();
+        config->codeboxLineNum = checkbutton_codebox_linenumbers.get_active();
+        config->codeboxMatchBra = checkbutton_codebox_matchbrackets.get_active();
+        if (radiobutton_plain_text.get_active())
+            config->codeboxSynHighl = CtConst::PLAIN_TEXT_ID;
+        else
+            config->codeboxSynHighl = button_prog_lang.get_label();
+        return true;
+    }
+    return false;
+}

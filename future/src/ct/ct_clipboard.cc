@@ -450,7 +450,7 @@ void CtClipboard::_on_received_to_codebox(const Gtk::SelectionData& selection_da
     xmlpp::DomParser parser;
     parser.parse_memory(xml_text);
     xmlpp::Document* doc = parser.get_document();
-    if (doc->get_root_node()->get_name() != "codebox")
+    if (doc->get_root_node()->get_name() != "root" || !doc->get_root_node()->get_first_child("codebox"))
     {
         std::cout << "codebox from clipboard error" << std::endl;
         return;
@@ -459,7 +459,7 @@ void CtClipboard::_on_received_to_codebox(const Gtk::SelectionData& selection_da
     std::list<CtAnchoredWidget*> widgets;
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(pTextView->get_buffer());
     Gtk::TextIter insert_iter = pTextView->get_buffer()->get_insert()->get_iter();
-    CtXmlRead::getTextBufferIter(gsv_buffer, &insert_iter, widgets, doc->get_root_node(), insert_iter.get_offset());
+    CtXmlRead::getTextBufferIter(gsv_buffer, &insert_iter, widgets, doc->get_root_node()->get_first_child("codebox"), insert_iter.get_offset());
     if (!widgets.empty())
     {
         CtApp::P_ctActions->getCtMainWin()->get_tree_store().addAnchoredWidgets(
@@ -467,7 +467,6 @@ void CtClipboard::_on_received_to_codebox(const Gtk::SelectionData& selection_da
                     widgets, &CtApp::P_ctActions->getCtMainWin()->get_text_view());
         // ? self.state_machine.update_state()
     }
-
     pTextView->scroll_to(pTextView->get_buffer()->get_insert());
 }
 
@@ -484,7 +483,7 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
     xmlpp::DomParser parser;
     parser.parse_memory(xml_text);
     xmlpp::Document* doc = parser.get_document();
-    if (doc->get_root_node()->get_name() != "table")
+    if (doc->get_root_node()->get_name() != "root" || !doc->get_root_node()->get_first_child("table"))
     {
         std::cout << "table from clipboard error" << std::endl;
         return;
@@ -493,7 +492,7 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
     std::list<CtAnchoredWidget*> widgets;
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(pTextView->get_buffer());
     Gtk::TextIter insert_iter = pTextView->get_buffer()->get_insert()->get_iter();
-    CtXmlRead::getTextBufferIter(gsv_buffer, &insert_iter, widgets, doc->get_root_node(), insert_iter.get_offset());
+    CtXmlRead::getTextBufferIter(gsv_buffer, &insert_iter, widgets, doc->get_root_node()->get_first_child("table"), insert_iter.get_offset());
     if (!widgets.empty())
     {
         CtApp::P_ctActions->getCtMainWin()->get_tree_store().addAnchoredWidgets(

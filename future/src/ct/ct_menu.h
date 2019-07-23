@@ -73,10 +73,9 @@ public:
     Gtk::Menu*    build_special_chars_menu(const Glib::ustring& specialChars, sigc::slot<void, gunichar>& spec_char_action);
 
     Gtk::Menu*    get_popup_menu(POPUP_MENU_TYPE popupMenuType);
+    Gtk::Menu*    build_popup_menu(GtkWidget* pMenu, POPUP_MENU_TYPE popupMenuType);
 
 private:
-    void           _build_popup_menus();
-
     GtkWidget*     _walk_menu_xml(GtkWidget* pMenu, const char* document, const char* xpath);
     void           _walk_menu_xml(GtkWidget* pMenu, xmlpp::Node* pNode);
     GtkWidget*     _add_submenu(GtkWidget* pMenu, const char* id, const char* name, const char* image);

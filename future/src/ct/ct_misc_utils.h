@@ -67,6 +67,10 @@ Gtk::BuiltinIconSize getIconSize(int size);
 
 namespace CtTextIterUtil {
 
+bool apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start);
+
+bool get_is_camel_case(Gtk::TextIter iter_start, int num_chars);
+
 bool get_first_chars_of_string_are(const Glib::ustring& text, const std::vector<Glib::ustring>& chars_list);
 
 bool get_next_chars_from_iter_are(Gtk::TextIter text_iter, const Glib::ustring& chars_list);

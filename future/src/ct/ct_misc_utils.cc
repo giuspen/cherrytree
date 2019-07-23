@@ -359,6 +359,93 @@ Gtk::BuiltinIconSize CtMiscUtil::getIconSize(int size)
     }
 }
 
+// Try to Select a Word Forward/Backward the Cursor
+bool CtTextIterUtil::apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start)
+{
+    Gtk::TextIter iter_end = iter_start;
+    auto curr_char = iter_end.get_char();
+    auto re = Glib::Regex::create("\\w");
+    // 1) select alphanumeric + special
+    bool match = re->match(Glib::ustring(1, curr_char));
+    if (!match && CtApp::P_ctCfg->selwordChars.find(curr_char) == Glib::ustring::npos) {
+        iter_start.backward_char();
+        iter_end.backward_char();
+        curr_char = iter_end.get_char();
+        match = re->match(Glib::ustring(1, curr_char));
+        if (!match && CtApp::P_ctCfg->selwordChars.find(curr_char) == Glib::ustring::npos)
+            return false;
+    }
+    while (match || CtApp::P_ctCfg->selwordChars.find(curr_char) != Glib::ustring::npos) {
+        if (!iter_end.forward_char()) break; // end of buffer
+        curr_char = iter_end.get_char();
+        match = re->match(Glib::ustring(1, curr_char));
+    }
+    iter_start.backward_char();
+    curr_char = iter_start.get_char();
+    match = re->match(Glib::ustring(1, curr_char));
+    while (match || CtApp::P_ctCfg->selwordChars.find(curr_char) != Glib::ustring::npos) {
+        if (!iter_start.backward_char()) break; // start of buffer
+        curr_char = iter_start.get_char();
+        match = re->match(Glib::ustring(1, curr_char));
+    }
+    if (!match && CtApp::P_ctCfg->selwordChars.find(curr_char) == Glib::ustring::npos)
+        iter_start.forward_char();
+    // 2) remove non alphanumeric from borders
+    iter_end.backward_char();
+    curr_char = iter_end.get_char();
+    while (CtApp::P_ctCfg->selwordChars.find(curr_char) != Glib::ustring::npos) {
+        if (!iter_end.backward_char()) break; // start of buffer
+        curr_char = iter_end.get_char();
+    }
+    iter_end.forward_char();
+    curr_char = iter_start.get_char();
+    while (CtApp::P_ctCfg->selwordChars.find(curr_char) != Glib::ustring::npos) {
+        if (!iter_start.forward_char()) break; // end of buffer
+        curr_char = iter_start.get_char();
+    }
+    if (iter_end.compare(iter_start) > 0) {
+        text_buffer->move_mark(text_buffer->get_insert(), iter_start);
+        text_buffer->move_mark(text_buffer->get_selection_bound(), iter_end);
+        return true;
+    }
+    return false;
+}
+
+// Returns True if the characters compose a camel case word
+bool CtTextIterUtil::get_is_camel_case(Gtk::TextIter iter_start, int num_chars)
+{
+    Gtk::TextIter text_iter = iter_start;
+    int curr_state = 0;
+    auto re = Glib::Regex::create("\\w");
+    for (int i = 0; i < num_chars; ++i)
+    {
+        auto curr_char = text_iter.get_char();
+        bool alphanumeric = re->match(Glib::ustring(1, curr_char));
+        if (!alphanumeric)
+        {
+            curr_state = -1;
+            break;
+        }
+        if (curr_state == 0)
+        {
+            if (g_unichar_islower(curr_char))
+                curr_state = 1;
+        }
+        else if (curr_state == 1)
+        {
+            if (g_unichar_isupper(curr_char))
+                curr_state = 2;
+        }
+        else if (curr_state == 2)
+        {
+            if (g_unichar_islower(curr_char))
+                curr_state = 3;
+        }
+        text_iter.forward_char();
+    }
+    return curr_state == 3;
+}
+
 // Returns True if one set of the Given Chars are the first of in_string
 bool CtTextIterUtil::get_first_chars_of_string_are(const Glib::ustring& text, const std::vector<Glib::ustring>& chars_list)
 {
