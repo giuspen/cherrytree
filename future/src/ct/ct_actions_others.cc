@@ -125,7 +125,13 @@ void CtActions::embfile_open()
 // Save to Disk the selected Image
 void CtActions::image_save()
 {
-    ct_dialogs::file_select_args args = {.parent=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirImg, .filter_name=_("PNG Image"), .filter_pattern={"*.png"}};
+    ct_dialogs::file_select_args args{
+        .parent=_pCtMainWin,
+        .curr_folder=CtApp::P_ctCfg->pickDirImg,
+        .curr_file_name="",
+        .filter_name=_("PNG Image"),
+        .filter_pattern={"*.png"}
+    };
     Glib::ustring filename = ct_dialogs::file_save_as_dialog(args);
     if (filename.empty()) return;
 
