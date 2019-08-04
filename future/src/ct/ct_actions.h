@@ -75,6 +75,13 @@ public:
     void object_set_selection(CtAnchoredWidget* widget);
 
 private:
+    // helpers for file actions
+
+public:
+    // file actions
+    void file_save_as();
+
+private:
     // helpers for tree actions
     void          _node_add(bool duplicate, bool add_child);
     void          _node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeData, bool add_child);

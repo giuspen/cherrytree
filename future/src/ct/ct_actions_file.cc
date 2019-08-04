@@ -1,0 +1,36 @@
+/*
+ * ct_actions_file.cc
+ *
+ * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ */
+
+#include "ct_actions.h"
+#include "ct_doc_rw.h"
+
+
+// Save the file providing a new name
+void CtActions::file_save_as()
+{
+    if (!_is_tree_not_empty_or_error()) return;
+    // todo: support all document types and destination path
+    CtXmlWrite ctXmlWrite;
+    ctXmlWrite.treestore_to_dom(_pCtTreestore->get_bookmarks(), _pCtTreestore->get_ct_iter_first());
+    const Glib::ustring filepath{"/tmp/test.ctd"};
+    ctXmlWrite.write_to_file(filepath);
+    std::cout << "written " << filepath << std::endl;
+}

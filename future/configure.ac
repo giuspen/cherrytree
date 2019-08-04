@@ -11,7 +11,7 @@ AC_PROG_CXX
 AC_PROG_RANLIB
 AM_PROG_AR
 
-AX_CXX_COMPILE_STDCXX_14
+AX_CXX_COMPILE_STDCXX_17
 
 PKG_CHECK_MODULES([CHERRYTREE], [gtkmm-3.0 gtksourceviewmm-3.0 glibmm-2.4 pangomm-1.4 libxml++-2.6 sqlite3 cpputest])
 

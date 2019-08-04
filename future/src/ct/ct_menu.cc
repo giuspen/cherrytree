@@ -80,7 +80,7 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     _actions.push_back(CtAction{file_cat, "ct_open_file", "gtk-open", _("_Open File"), KB_CONTROL+"O", _("Open a CherryTree Document"), sigc::signal<void>() /* dad.file_open */});
     _actions.push_back(CtAction{file_cat, "ct_save", "gtk-save", _("_Save"), KB_CONTROL+"S", _("Save File"), sigc::signal<void>() /* dad.file_save */});
     _actions.push_back(CtAction{file_cat, "ct_vacuum", "gtk-clear", _("Save and _Vacuum"), None, _("Save File and Vacuum"), sigc::signal<void>() /* dad.file_vacuum */});
-    _actions.push_back(CtAction{file_cat, "ct_save_as", "gtk-save-as", _("Save _As"), KB_CONTROL+KB_SHIFT+"S", _("Save File As"), sigc::signal<void>() /* dad.file_save_as */});
+    _actions.push_back(CtAction{file_cat, "ct_save_as", "gtk-save-as", _("Save _As"), KB_CONTROL+KB_SHIFT+"S", _("Save File As"), sigc::mem_fun(*pActions, &CtActions::file_save_as)});
     _actions.push_back(CtAction{file_cat, "exec_code", "gtk-execute", _("_Execute Code"), "F5", _("Execute Code"), sigc::signal<void>() /* dad.exec_code */});
     _actions.push_back(CtAction{file_cat, "open_cfg_folder", "gtk-directory", _("Open Preferences _Directory"), None, _("Open the Directory with Preferences Files"), sigc::signal<void>() /* dad.folder_cfg_open */});
     _actions.push_back(CtAction{file_cat, "print_page_setup", "gtk-print", _("Pa_ge Setup"), KB_CONTROL+KB_SHIFT+"P", _("Set up the Page for Printing"), sigc::signal<void>() /* dad.export_print_page_setup */});

@@ -288,7 +288,7 @@ CtXmlWrite::~CtXmlWrite()
 {
 }
 
-void CtXmlWrite::treestore_to_dom(const std::list<gint64>& bookmarks, CtTreeIter& ct_tree_iter)
+void CtXmlWrite::treestore_to_dom(const std::list<gint64>& bookmarks, CtTreeIter ct_tree_iter)
 {
     append_bookmarks(bookmarks);
     while (ct_tree_iter)
@@ -329,35 +329,35 @@ void CtXmlWrite::append_dom_node(CtTreeIter& ct_tree_iter,
     p_node_node->set_attribute("ts_lastsave", std::to_string(ct_tree_iter.get_node_modification_time()));
 
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = ct_tree_iter.get_node_text_buffer();
-    Gtk::TextIter start_iter = offset_range.first >= 0 ? rTextBuffer->get_iter_at_offset(offset_range.first) : rTextBuffer->begin();
-    Gtk::TextIter end_iter = offset_range.second >= 0 ? rTextBuffer->get_iter_at_offset(offset_range.second) : rTextBuffer->end();
+    Gtk::TextIter curr_start_iter = offset_range.first >= 0 ? rTextBuffer->get_iter_at_offset(offset_range.first) : rTextBuffer->begin();
+    const Gtk::TextIter end_iter = offset_range.second >= 0 ? rTextBuffer->get_iter_at_offset(offset_range.second) : rTextBuffer->end();
 
     std::map<const gchar*, std::string> curr_attributes;
     if (CtConst::RICH_TEXT_ID == ct_tree_iter.get_node_syntax_highlighting())
     {
-        Gtk::TextIter curr_iter{start_iter};
-        CtTextIterUtil::rich_text_attributes_update(curr_iter, curr_attributes);
-        while (curr_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr}))
+        Gtk::TextIter curr_end_iter{curr_start_iter};
+        CtTextIterUtil::rich_text_attributes_update(curr_end_iter, curr_attributes);
+        while (curr_end_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr}))
         {
-            if (!CtTextIterUtil::tag_richtext_toggling_on_or_off(curr_iter))
+            if (!CtTextIterUtil::tag_richtext_toggling_on_or_off(curr_end_iter))
             {
-                if (!curr_iter.forward_char())
+                if (!curr_end_iter.forward_char())
                 {
                     break;
                 }
                 continue;
             }
-            rich_txt_serialize(p_node_node, start_iter, curr_iter, curr_attributes);
-            if (curr_iter.compare(end_iter) >= 0)
+            rich_txt_serialize(p_node_node, curr_start_iter, curr_end_iter, curr_attributes);
+            if (curr_end_iter.compare(end_iter) >= 0)
             {
                 break;
             }
-            CtTextIterUtil::rich_text_attributes_update(curr_iter, curr_attributes);
-            start_iter.set_offset(curr_iter.get_offset());
+            CtTextIterUtil::rich_text_attributes_update(curr_end_iter, curr_attributes);
+            curr_start_iter.set_offset(curr_end_iter.get_offset());
         }
-        if (curr_iter.compare(end_iter) < 0)
+        if (curr_start_iter.compare(end_iter) < 0)
         {
-            rich_txt_serialize(p_node_node, start_iter, curr_iter, curr_attributes);
+            rich_txt_serialize(p_node_node, curr_start_iter, end_iter, curr_attributes);
         }
         if (to_disk)
         {
@@ -369,7 +369,7 @@ void CtXmlWrite::append_dom_node(CtTreeIter& ct_tree_iter,
     }
     else
     {
-        rich_txt_serialize(p_node_node, start_iter, end_iter, curr_attributes);
+        rich_txt_serialize(p_node_node, curr_start_iter, end_iter, curr_attributes);
     }
 
     if (!skip_children)

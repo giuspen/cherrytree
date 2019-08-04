@@ -649,6 +649,11 @@ Gtk::TreeIter CtTreeStore::get_iter_first()
     return _rTreeStore->get_iter("0");
 }
 
+CtTreeIter CtTreeStore::get_ct_iter_first()
+{
+    return to_ct_tree_iter(get_iter_first());
+}
+
 Gtk::TreeIter CtTreeStore::get_tree_iter_last_sibling(const Gtk::TreeNodeChildren& children)
 {
     if (children.empty()) return Gtk::TreeIter();

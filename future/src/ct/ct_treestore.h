@@ -150,6 +150,7 @@ public:
 
     Glib::RefPtr<Gtk::TreeStore>    get_store();
     Gtk::TreeIter                   get_iter_first();
+    CtTreeIter                      get_ct_iter_first();
     Gtk::TreeIter                   get_tree_iter_last_sibling(const Gtk::TreeNodeChildren& children);
     Gtk::TreeIter                   get_tree_iter_prev_sibling(Gtk::TreeIter tree_iter);
     Gtk::TreePath                   get_path(Gtk::TreeIter tree_iter);
