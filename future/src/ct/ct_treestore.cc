@@ -117,12 +117,12 @@ Glib::RefPtr<Gsv::Buffer> CtTreeIter::get_node_text_buffer() const
     return (*this) ? (*this)->get_value(_pColumns->rColTextBuffer) : Glib::RefPtr<Gsv::Buffer>();
 }
 
-guint16 CtTreeIter::get_pango_weight_from_is_bold(bool isBold)
+int CtTreeIter::get_pango_weight_from_is_bold(bool isBold)
 {
     return isBold ? PANGO_WEIGHT_HEAVY : PANGO_WEIGHT_NORMAL;
 }
 
-bool CtTreeIter::get_is_bold_from_pango_weight(guint16 pangoWeight)
+bool CtTreeIter::get_is_bold_from_pango_weight(int pangoWeight)
 {
     return pangoWeight == PANGO_WEIGHT_HEAVY;
 }
@@ -258,6 +258,17 @@ void CtTreeStore::viewAppendColumns(Gtk::TreeView* pTreeView)
     pColumns->set_expand(true);
     pTreeView->append_column(*pColumns);
     pTreeView->append_column("", _columns.rColPixbufAux);
+    Gtk::TreeViewColumn* pTVCol0 = pTreeView->get_column(0);
+    std::vector<Gtk::CellRenderer*> cellRenderers0 = pTVCol0->get_cells();
+    if (cellRenderers0.size() > 1)
+    {
+        Gtk::CellRendererText *pCellRendererText = dynamic_cast<Gtk::CellRendererText*>(cellRenderers0[1]);
+        if (nullptr != pCellRendererText)
+        {
+            pTVCol0->add_attribute(pCellRendererText->property_foreground(), _columns.colForeground);
+            pTVCol0->add_attribute(pCellRendererText->property_weight(), _columns.colWeight);
+        }
+    }
 }
 
 bool CtTreeStore::readNodesFromFilepath(const char* filepath, const bool isImport, const Gtk::TreeIter* pParentIter)
@@ -367,7 +378,7 @@ void CtTreeStore::updateNodeData(Gtk::TreeIter treeIter, const CtNodeData& nodeD
     //row[_columns.rColPixbufAux] = ;
     row[_columns.colCustomIconId] = (guint16)nodeData.customIconId;
     row[_columns.colWeight] = CtTreeIter::get_pango_weight_from_is_bold(nodeData.isBold);
-    row[_columns.colForeground] = nodeData.foregroundRgb24;
+    row[_columns.colForeground] = nodeData.foregroundRgb24.empty() ? CtApp::P_ctCfg->ttDefFg : nodeData.foregroundRgb24;
     row[_columns.colTsCreation] = nodeData.tsCreation;
     row[_columns.colTsLastSave] = nodeData.tsLastSave;
     row[_columns.colAnchoredWidgets] = nodeData.anchoredWidgets;

@@ -93,8 +93,11 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu)
     signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheWindowSignalKeyPressEvent), false);
 
     _titleUpdate(false/*saveNeeded*/);
+
+    config_apply_before_show_all();
     show_all();
-    configApply(); // after show_all()
+    config_apply_after_show_all();
+
     set_menu_items_special_chars();
 }
 
@@ -103,10 +106,22 @@ CtMainWin::~CtMainWin()
     //printf("~CtMainWin\n");
 }
 
-void CtMainWin::configApply()
+void CtMainWin::config_apply_before_show_all()
 {
+    move(CtApp::P_ctCfg->winRect[0], CtApp::P_ctCfg->winRect[1]);
+    if (CtApp::P_ctCfg->winIsMaximised)
+    {
+        maximize();
+    }
+    else
+    {
+        set_default_size(CtApp::P_ctCfg->winRect[2], CtApp::P_ctCfg->winRect[3]);
+    }
     _hPaned.property_position() = CtApp::P_ctCfg->hpanedPos;
-    set_size_request(CtApp::P_ctCfg->winRect[2], CtApp::P_ctCfg->winRect[3]);
+}
+
+void CtMainWin::config_apply_after_show_all()
+{
     show_hide_tree_view(CtApp::P_ctCfg->treeVisible);
     show_hide_win_header(CtApp::P_ctCfg->showNodeNameHeader);
 
@@ -122,16 +137,23 @@ void CtMainWin::configApply()
 
 void CtMainWin::configureTheme()
 {
-    auto to_string = [](Pango::FontDescription font) { return " { font-family: " + font.get_family() + "; font-size: " + std::to_string(font.get_size()/1024) + "px; } "; };
+    auto font_to_string = [](Pango::FontDescription font)
+    {
+        return " { font-family: " + font.get_family() +
+               "; font-size: " + std::to_string(font.get_size()/Pango::SCALE) +
+               "pt; } ";
+    };
 
-    std::string rtFont = to_string(Pango::FontDescription(CtApp::P_ctCfg->rtFont));
-    std::string plFont = to_string(Pango::FontDescription(CtApp::P_ctCfg->ptFont));
-    std::string codeFont = to_string(Pango::FontDescription(CtApp::P_ctCfg->codeFont));
-    std::string treeFont = to_string(Pango::FontDescription(CtApp::P_ctCfg->treeFont));
+    std::string rtFont = font_to_string(Pango::FontDescription(CtApp::P_ctCfg->rtFont));
+    std::string plFont = font_to_string(Pango::FontDescription(CtApp::P_ctCfg->ptFont));
+    std::string codeFont = font_to_string(Pango::FontDescription(CtApp::P_ctCfg->codeFont));
+    std::string treeFont = font_to_string(Pango::FontDescription(CtApp::P_ctCfg->treeFont));
 
     auto screen = get_screen();
     if (_css_provider_theme_font)
+    {
         Gtk::StyleContext::remove_provider_for_screen(screen, _css_provider_theme_font);
+    }
     _css_provider_theme_font = Gtk::CssProvider::create();
 
     std::string font_css;
@@ -139,20 +161,22 @@ void CtMainWin::configureTheme()
     font_css += ".ct_textview.plain-text" + plFont;
     font_css += ".ct_textview.code" + codeFont;
     font_css += ".codebox.rich-text" + rtFont;
-    font_css += ".codebox.plain-text" + plFont;
+    font_css += ".codebox.plain-text" + codeFont;
     font_css += ".codebox.code" + codeFont;
     font_css += ".ct_node_view" + treeFont;
 
     _css_provider_theme_font->load_from_data(font_css);
     get_style_context()->add_provider_for_screen(screen, _css_provider_theme_font, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-
     // can do more complicated things than just changing colors
     if (_css_provider_theme)
+    {
         Gtk::StyleContext::remove_provider_for_screen(screen, _css_provider_theme);
+    }
     _css_provider_theme = Gtk::CssProvider::create();
     std::string theme_css;
-    theme_css += ".ct_textview.rich-text > text { color: " + CtApp::P_ctCfg->rtDefFg + "; background-color: " + CtApp::P_ctCfg->rtDefBg + "; } ";
+    // todo: rich text fix light selected line with dark theme
+    //theme_css += ".ct_textview.rich-text > text { color: " + CtApp::P_ctCfg->rtDefFg + "; background-color: " + CtApp::P_ctCfg->rtDefBg + "; } ";
     theme_css += ".ct_node_view { color: " + CtApp::P_ctCfg->ttDefFg + "; background-color: " + CtApp::P_ctCfg->ttDefBg + "; } ";
     theme_css += ".ct_header { background-color: " + CtApp::P_ctCfg->ttDefBg + "; } ";
 

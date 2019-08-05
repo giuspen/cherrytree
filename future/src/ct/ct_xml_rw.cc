@@ -88,9 +88,9 @@ Gtk::TreeIter CtXmlRead::_xmlNodeProcess(xmlpp::Element* pNodeElement, const Gtk
     nodeData.name = pNodeElement->get_attribute_value("name");
     nodeData.syntax = pNodeElement->get_attribute_value("prog_lang");
     nodeData.tags = pNodeElement->get_attribute_value("tags");
-    nodeData.isRO = Glib::str_has_prefix(pNodeElement->get_attribute_value("readonly"), "T");
+    nodeData.isRO = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("readonly"));
     nodeData.customIconId = (guint32)CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("custom_icon_id").c_str());
-    nodeData.isBold = Glib::str_has_prefix(pNodeElement->get_attribute_value("is_bold"), "T");
+    nodeData.isBold = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("is_bold"));
     nodeData.foregroundRgb24 = pNodeElement->get_attribute_value("foreground");
     nodeData.tsCreation = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("ts_creation").c_str());
     nodeData.tsLastSave = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("ts_lastSave").c_str());
@@ -392,7 +392,10 @@ void CtXmlWrite::rich_txt_serialize(xmlpp::Element* p_node_parent,
     xmlpp::Element* p_rich_text_node = p_node_parent->add_child("rich_text");
     for (const auto& map_iter : curr_attributes)
     {
-        p_rich_text_node->set_attribute(map_iter.first, map_iter.second);
+        if (!map_iter.second.empty())
+        {
+            p_rich_text_node->set_attribute(map_iter.first, map_iter.second);
+        }
     }
     Glib::ustring slot_text = start_iter.get_text(end_iter);
     if ('n' != change_case)

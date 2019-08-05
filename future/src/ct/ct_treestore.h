@@ -64,7 +64,7 @@ public:
     Gtk::TreeModelColumn<bool>                       colNodeRO;
     Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>  rColPixbufAux;
     Gtk::TreeModelColumn<guint16>                    colCustomIconId;
-    Gtk::TreeModelColumn<guint16>                    colWeight;
+    Gtk::TreeModelColumn<int>                        colWeight;
     Gtk::TreeModelColumn<std::string>                colForeground;
     Gtk::TreeModelColumn<gint64>                     colTsCreation;
     Gtk::TreeModelColumn<gint64>                     colTsLastSave;
@@ -98,8 +98,8 @@ public:
 
     Glib::RefPtr<Gsv::Buffer> get_node_text_buffer() const;
 
-    static guint16 get_pango_weight_from_is_bold(bool isBold);
-    static bool    get_is_bold_from_pango_weight(guint16 pangoWeight);
+    static int  get_pango_weight_from_is_bold(bool isBold);
+    static bool get_is_bold_from_pango_weight(int pangoWeight);
 
 private:
     const CtTreeModelColumns* _pColumns;

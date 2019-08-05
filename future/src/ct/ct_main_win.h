@@ -79,7 +79,8 @@ public:
     virtual ~CtMainWin();
 
     bool readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, const bool isImport);
-    void configApply();
+    void config_apply_before_show_all();
+    void config_apply_after_show_all();
     void configureTheme();
     void update_window_save_needed(std::string update_type = "",
                                    bool new_machine_state = false, const CtTreeIter* give_tree_iter = nullptr) { /* todo: */ }
