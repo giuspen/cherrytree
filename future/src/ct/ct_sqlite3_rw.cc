@@ -27,13 +27,8 @@
 #include "ct_image.h"
 #include "ct_table.h"
 
-CtDocRead::~CtDocRead()
-{
 
-}
-
-
-CtSQLiteRead::CtSQLiteRead(const char* filepath)
+CtSQLite::CtSQLite(const char* filepath)
 {
     int ret_code = sqlite3_open(filepath, &_pDb);
     if (ret_code != SQLITE_OK)
@@ -43,10 +38,12 @@ CtSQLiteRead::CtSQLiteRead(const char* filepath)
     }
 }
 
-CtSQLiteRead::~CtSQLiteRead()
+CtSQLite::~CtSQLite()
 {
     sqlite3_close(_pDb);
+    //printf("db closed\n");
 }
+
 
 void CtSQLiteRead::treeWalk(const Gtk::TreeIter* pParentIter)
 {
@@ -343,4 +340,122 @@ Gtk::TreeIter CtSQLiteRead::_sqlite3NodeProcess(gint64 nodeId, const Gtk::TreeIt
     CtNodeData nodeData = _sqlite3GetNodeProperties(nodeId);
     Gtk::TreeIter newIter = signalAppendNode.emit(&nodeData, pParentIter);
     return newIter;
+}
+
+
+const char CtSQLiteWrite::TABLE_NODE_CREATE[]{"CREATE TABLE node ("
+"node_id INTEGER UNIQUE,"
+"name TEXT,"
+"txt TEXT,"
+"syntax TEXT,"
+"tags TEXT,"
+"is_ro INTEGER,"
+"is_richtxt INTEGER,"
+"has_codebox INTEGER,"
+"has_table INTEGER,"
+"has_image INTEGER,"
+"level INTEGER,"
+"ts_creation INTEGER,"
+"ts_lastsave INTEGER"
+")"
+};
+
+const char CtSQLiteWrite::TABLE_CODEBOX_CREATE[]{"CREATE TABLE codebox ("
+"node_id INTEGER,"
+"offset INTEGER,"
+"justification TEXT,"
+"txt TEXT,"
+"syntax TEXT,"
+"width INTEGER,"
+"height INTEGER,"
+"is_width_pix INTEGER,"
+"do_highl_bra INTEGER,"
+"do_show_linenum INTEGER"
+")"
+};
+
+const char CtSQLiteWrite::TABLE_TABLE_CREATE[]{"CREATE TABLE grid ("
+"node_id INTEGER,"
+"offset INTEGER,"
+"justification TEXT,"
+"txt TEXT,"
+"col_min INTEGER,"
+"col_max INTEGER"
+")"
+};
+
+const char CtSQLiteWrite::TABLE_IMAGE_CREATE[]{"CREATE TABLE image ("
+"node_id INTEGER,"
+"offset INTEGER,"
+"justification TEXT,"
+"anchor TEXT,"
+"png BLOB,"
+"filename TEXT,"
+"link TEXT,"
+"time INTEGER"
+")"
+};
+
+const char CtSQLiteWrite::TABLE_CHILDREN_CREATE[]{"CREATE TABLE children ("
+"node_id INTEGER UNIQUE,"
+"father_id INTEGER,"
+"sequence INTEGER"
+")"
+};
+
+const char CtSQLiteWrite::TABLE_BOOKMARK_CREATE[]{"CREATE TABLE bookmark ("
+"node_id INTEGER UNIQUE,"
+"sequence INTEGER"
+")"
+};
+
+bool CtSQLiteWrite::_exec_no_callback(const char* sqlCmd)
+{
+    bool retVal{true};
+    char *p_err_msg{nullptr};
+    const int ret_code = sqlite3_exec(_pDb, sqlCmd, 0, 0, &p_err_msg);
+    if (SQLITE_OK != ret_code)
+    {
+        std::cerr << "!! sqlite3 '" << sqlCmd << "': " << p_err_msg << std::endl;
+        sqlite3_free(p_err_msg);
+        retVal = false;
+    }
+    return retVal;
+}
+
+bool CtSQLiteWrite::_create_all_tables()
+{
+    bool retVal{false};
+    if ( _exec_no_callback(TABLE_NODE_CREATE) &&
+         _exec_no_callback(TABLE_CODEBOX_CREATE) &&
+         _exec_no_callback(TABLE_TABLE_CREATE) &&
+         _exec_no_callback(TABLE_IMAGE_CREATE) &&
+         _exec_no_callback(TABLE_CHILDREN_CREATE) &&
+         _exec_no_callback(TABLE_BOOKMARK_CREATE) )
+    {
+        retVal = true;
+    }
+    return retVal;
+}
+
+bool CtSQLiteWrite::_write_db_full(const std::list<gint64>& bookmarks,
+                                   CtTreeIter ct_tree_iter,
+                                   const CtExporting exporting,
+                                   const std::pair<int,int>& offset_range)
+{
+    bool retVal{false};
+    
+    return retVal;
+}
+
+bool CtSQLiteWrite::_write_db_node(CtTreeIter ct_tree_iter,
+                                   const gint64 sequence,
+                                   const gint64 node_father_id,
+                                   const CtNodeWriteDict write_dict,
+                                   const CtExporting exporting,
+                                   const std::pair<int,int>& offset_range)
+{
+    bool retVal{false};
+    
+    return retVal;
 }
