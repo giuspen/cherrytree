@@ -71,10 +71,12 @@ public:
     Gtk::TreeModelColumn<std::list<CtAnchoredWidget*>> colAnchoredWidgets;
 };
 
+class CtSQLiteRead;
+
 class CtTreeIter : public Gtk::TreeIter
 {
 public:
-    CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* _columns);
+    CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* _columns, const CtSQLiteRead* pCtSQLiteRead);
 
     CtTreeIter  parent();
     CtTreeIter  first_child();
@@ -89,6 +91,7 @@ public:
     Glib::ustring get_node_tags() const;
     std::string   get_node_foreground() const;
     std::string   get_node_syntax_highlighting() const;
+    bool          get_node_is_rich_text() const;
     std::time_t   get_node_creating_time() const;
     std::time_t   get_node_modification_time() const;
     void          set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf);
@@ -102,11 +105,11 @@ public:
     static bool get_is_bold_from_pango_weight(int pangoWeight);
 
 private:
-    const CtTreeModelColumns* _pColumns;
+    const CtTreeModelColumns* _pColumns{nullptr};
+    const CtSQLiteRead* _pCtSQLiteRead{nullptr};
 };
 
 class CtTextView;
-class CtSQLiteRead;
 
 class CtTreeStore : public sigc::trackable
 {

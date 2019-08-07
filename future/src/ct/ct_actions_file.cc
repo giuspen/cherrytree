@@ -28,7 +28,7 @@ void CtActions::file_save_as()
 {
     if (!_is_tree_not_empty_or_error()) return;
     // todo: support all document types and destination path
-    CtXmlWrite ctXmlWrite;
+    CtXmlWrite ctXmlWrite(CtConst::APP_NAME);
     ctXmlWrite.treestore_to_dom(_pCtTreestore->get_bookmarks(), _pCtTreestore->get_ct_iter_first());
     const Glib::ustring filepath{"/tmp/test.ctd"};
     ctXmlWrite.write_to_file(filepath);

@@ -279,9 +279,9 @@ Glib::RefPtr<Gsv::Buffer> CtXmlRead::getTextBuffer(const std::string& syntax,
 }
 
 
-CtXmlWrite::CtXmlWrite()
+CtXmlWrite::CtXmlWrite(const char* root_name)
 {
-    create_root_node(CtConst::APP_NAME);
+    create_root_node(root_name);
 }
 
 CtXmlWrite::~CtXmlWrite()
@@ -306,28 +306,11 @@ void CtXmlWrite::append_bookmarks(const std::list<gint64>& bookmarks)
     p_bookmarks_node->set_attribute("list", rejoined);
 }
 
-void CtXmlWrite::append_dom_node(CtTreeIter& ct_tree_iter,
-                                 xmlpp::Element* p_node_parent,
-                                 bool to_disk,
-                                 bool skip_children,
-                                 const std::pair<int,int>& offset_range)
+void CtXmlWrite::append_node_buffer(CtTreeIter& ct_tree_iter,
+                                    xmlpp::Element* p_node_node,
+                                    bool serialise_anchored_widgets,
+                                    const std::pair<int,int>& offset_range)
 {
-    if (nullptr == p_node_parent)
-    {
-        p_node_parent = get_root_node();
-    }
-    xmlpp::Element* p_node_node = p_node_parent->add_child("node");
-    p_node_node->set_attribute("name", ct_tree_iter.get_node_name());
-    p_node_node->set_attribute("unique_id", std::to_string(ct_tree_iter.get_node_id()));
-    p_node_node->set_attribute("prog_lang", ct_tree_iter.get_node_syntax_highlighting());
-    p_node_node->set_attribute("tags", ct_tree_iter.get_node_tags());
-    p_node_node->set_attribute("readonly", std::to_string(ct_tree_iter.get_node_read_only()));
-    p_node_node->set_attribute("custom_icon_id", std::to_string(ct_tree_iter.get_node_custom_icon_id()));
-    p_node_node->set_attribute("is_bold", std::to_string(ct_tree_iter.get_node_is_bold()));
-    p_node_node->set_attribute("foreground", ct_tree_iter.get_node_foreground());
-    p_node_node->set_attribute("ts_creation", std::to_string(ct_tree_iter.get_node_creating_time()));
-    p_node_node->set_attribute("ts_lastsave", std::to_string(ct_tree_iter.get_node_modification_time()));
-
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = ct_tree_iter.get_node_text_buffer();
     Gtk::TextIter curr_start_iter = offset_range.first >= 0 ? rTextBuffer->get_iter_at_offset(offset_range.first) : rTextBuffer->begin();
     const Gtk::TextIter end_iter = offset_range.second >= 0 ? rTextBuffer->get_iter_at_offset(offset_range.second) : rTextBuffer->end();
@@ -359,7 +342,7 @@ void CtXmlWrite::append_dom_node(CtTreeIter& ct_tree_iter,
         {
             rich_txt_serialize(p_node_node, curr_start_iter, end_iter, curr_attributes);
         }
-        if (to_disk)
+        if (serialise_anchored_widgets)
         {
             for (CtAnchoredWidget* pAnchoredWidget : ct_tree_iter.get_embedded_pixbufs_tables_codeboxes())
             {
@@ -371,6 +354,31 @@ void CtXmlWrite::append_dom_node(CtTreeIter& ct_tree_iter,
     {
         rich_txt_serialize(p_node_node, curr_start_iter, end_iter, curr_attributes);
     }
+}
+
+void CtXmlWrite::append_dom_node(CtTreeIter& ct_tree_iter,
+                                 xmlpp::Element* p_node_parent,
+                                 bool to_disk,
+                                 bool skip_children,
+                                 const std::pair<int,int>& offset_range)
+{
+    if (nullptr == p_node_parent)
+    {
+        p_node_parent = get_root_node();
+    }
+    xmlpp::Element* p_node_node = p_node_parent->add_child("node");
+    p_node_node->set_attribute("name", ct_tree_iter.get_node_name());
+    p_node_node->set_attribute("unique_id", std::to_string(ct_tree_iter.get_node_id()));
+    p_node_node->set_attribute("prog_lang", ct_tree_iter.get_node_syntax_highlighting());
+    p_node_node->set_attribute("tags", ct_tree_iter.get_node_tags());
+    p_node_node->set_attribute("readonly", std::to_string(ct_tree_iter.get_node_read_only()));
+    p_node_node->set_attribute("custom_icon_id", std::to_string(ct_tree_iter.get_node_custom_icon_id()));
+    p_node_node->set_attribute("is_bold", std::to_string(ct_tree_iter.get_node_is_bold()));
+    p_node_node->set_attribute("foreground", ct_tree_iter.get_node_foreground());
+    p_node_node->set_attribute("ts_creation", std::to_string(ct_tree_iter.get_node_creating_time()));
+    p_node_node->set_attribute("ts_lastsave", std::to_string(ct_tree_iter.get_node_modification_time()));
+
+    append_node_buffer(ct_tree_iter, p_node_node, to_disk, offset_range);
 
     if (!skip_children)
     {

@@ -65,7 +65,7 @@ public:
 class CtXmlWrite : public xmlpp::Document
 {
 public:
-    CtXmlWrite();
+    CtXmlWrite(const char* root_name);
     virtual ~CtXmlWrite();
     void treestore_to_dom(const std::list<gint64>& bookmarks, CtTreeIter ct_tree_iter);
     void append_bookmarks(const std::list<gint64>& bookmarks);
@@ -74,6 +74,10 @@ public:
                          bool to_disk=true,
                          bool skip_children=true,
                          const std::pair<int,int>& offset_range=std::make_pair(-1,-1));
+    void append_node_buffer(CtTreeIter& ct_tree_iter,
+                            xmlpp::Element* p_node_node,
+                            bool serialise_anchored_widgets,
+                            const std::pair<int,int>& offset_range=std::make_pair(-1,-1));
 
 public:
     static void rich_txt_serialize(xmlpp::Element* p_node_parent,
@@ -101,7 +105,7 @@ public:
     virtual void treeWalk(const Gtk::TreeIter* pParentIter=nullptr);
     Glib::RefPtr<Gsv::Buffer> getTextBuffer(const std::string& syntax,
                                             std::list<CtAnchoredWidget*>& anchoredWidgets,
-                                            const gint64& nodeId);
+                                            const gint64& nodeId) const;
     void pending_new_db_node(gint64 /*node_id*/) { /* todo: */ }
 
 private:
@@ -114,7 +118,7 @@ private:
                                        const gint64& nodeId,
                                        const bool& has_codebox,
                                        const bool& has_table,
-                                       const bool& has_image);
+                                       const bool& has_image) const;
 };
 
 class CtSQLiteWrite : public CtSQLite

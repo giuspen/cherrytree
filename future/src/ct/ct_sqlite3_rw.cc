@@ -69,7 +69,7 @@ void CtSQLiteRead::treeWalk(const Gtk::TreeIter* pParentIter)
 
 Glib::RefPtr<Gsv::Buffer> CtSQLiteRead::getTextBuffer(const std::string& syntax,
                                                       std::list<CtAnchoredWidget*>& anchoredWidgets,
-                                                      const gint64& nodeId)
+                                                      const gint64& nodeId) const
 {
     Glib::RefPtr<Gsv::Buffer> rRetTextBuffer{nullptr};
 
@@ -121,7 +121,7 @@ void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTex
                                                  const gint64& nodeId,
                                                  const bool& has_codebox,
                                                  const bool& has_table,
-                                                 const bool& has_image)
+                                                 const bool& has_image) const
 {
     const bool has_it[3]{has_codebox, has_table, has_image};
     sqlite3_stmt *pp_stmt[3]{nullptr, nullptr, nullptr};
@@ -456,6 +456,25 @@ bool CtSQLiteWrite::_write_db_node(CtTreeIter ct_tree_iter,
                                    const std::pair<int,int>& offset_range)
 {
     bool retVal{false};
-    
+    // is_ro is packed with additional bitfield data
+    gint64 is_ro = ct_tree_iter.get_node_read_only() ? 0x01 : 0x00;
+    is_ro |= ct_tree_iter.get_node_custom_icon_id() << 1;
+    // is_richtxt is packed with additional bitfield data
+    gint64 is_richtxt = ct_tree_iter.get_node_is_rich_text() ? 0x01 : 0x00;
+    if (ct_tree_iter.get_node_is_bold())
+    {
+        is_richtxt |= 0x02;
+    }
+    if (!ct_tree_iter.get_node_foreground().empty())
+    {
+        is_richtxt |= 0x04;
+        is_richtxt |= CtRgbUtil::getRgb24IntFromStrAny(ct_tree_iter.get_node_foreground().c_str()+1) << 3;
+    }
+    if (write_dict.buff)
+    {
+        CtXmlWrite ctXmlWrite("node");
+        ctXmlWrite.append_node_buffer(ct_tree_iter, ctXmlWrite.get_root_node(), false/*serialise_anchored_widgets*/, offset_range);
+        
+    }
     return retVal;
 }

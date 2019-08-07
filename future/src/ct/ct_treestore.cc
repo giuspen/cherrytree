@@ -31,20 +31,21 @@ CtTreeModelColumns::~CtTreeModelColumns()
 
 }
 
-CtTreeIter::CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* columns)
+CtTreeIter::CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* pColumns, const CtSQLiteRead* pCtSQLiteRead)
  : Gtk::TreeIter(iter),
-   _pColumns(columns)
+   _pColumns(pColumns),
+   _pCtSQLiteRead(pCtSQLiteRead)
 {
 }
 
 CtTreeIter CtTreeIter::parent()
 {
-    return CtTreeIter((*this)->parent(), _pColumns);
+    return CtTreeIter((*this)->parent(), _pColumns, _pCtSQLiteRead);
 }
 
 CtTreeIter CtTreeIter::first_child()
 {
-    return CtTreeIter((*this)->children().begin(), _pColumns);
+    return CtTreeIter((*this)->children().begin(), _pColumns, _pCtSQLiteRead);
 }
 
 bool CtTreeIter::get_node_read_only() const
@@ -97,6 +98,11 @@ std::string CtTreeIter::get_node_syntax_highlighting() const
     return (*this) ? (*this)->get_value(_pColumns->colSyntaxHighlighting) : "";
 }
 
+bool CtTreeIter::get_node_is_rich_text() const
+{
+    return get_node_syntax_highlighting() == CtConst::RICH_TEXT_ID;
+}
+
 std::time_t CtTreeIter::get_node_creating_time() const
 {
     return (*this) ? (*this)->get_value(_pColumns->colTsCreation) : 0;
@@ -114,7 +120,23 @@ void CtTreeIter::set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf)
 
 Glib::RefPtr<Gsv::Buffer> CtTreeIter::get_node_text_buffer() const
 {
-    return (*this) ? (*this)->get_value(_pColumns->rColTextBuffer) : Glib::RefPtr<Gsv::Buffer>();
+    Glib::RefPtr<Gsv::Buffer> rRetTextBuffer{nullptr};
+    if (*this)
+    {
+        rRetTextBuffer = (*this)->get_value(_pColumns->rColTextBuffer);
+        if (!rRetTextBuffer)
+        {
+            // SQLite text buffer not yet populated
+            assert(nullptr != _pCtSQLiteRead);
+            std::list<CtAnchoredWidget*> anchoredWidgetList;
+            rRetTextBuffer = _pCtSQLiteRead->getTextBuffer((*this)->get_value(_pColumns->colSyntaxHighlighting),
+                                                           anchoredWidgetList,
+                                                           (*this)->get_value(_pColumns->colNodeUniqueId));
+            (*this)->set_value(_pColumns->colAnchoredWidgets, anchoredWidgetList);
+            (*this)->set_value(_pColumns->rColTextBuffer, rRetTextBuffer);
+        }
+    }
+    return rRetTextBuffer;
 }
 
 int CtTreeIter::get_pango_weight_from_is_bold(bool isBold)
@@ -454,24 +476,11 @@ Gtk::TreeIter CtTreeStore::onRequestAppendNode(CtNodeData* pNodeData, const Gtk:
 
 Glib::RefPtr<Gsv::Buffer> CtTreeStore::_getNodeTextBuffer(const Gtk::TreeIter& treeIter)
 {
-    Glib::RefPtr<Gsv::Buffer> rRetTextBuffer{nullptr};
     if (treeIter)
     {
-        Gtk::TreeRow treeRow = *treeIter;
-        rRetTextBuffer = treeRow.get_value(_columns.rColTextBuffer);
-        if (!rRetTextBuffer)
-        {
-            // SQLite text buffer not yet populated
-            assert(nullptr != _pCtSQLiteRead);
-            std::list<CtAnchoredWidget*> anchoredWidgetList = treeRow.get_value(_columns.colAnchoredWidgets);
-            rRetTextBuffer = _pCtSQLiteRead->getTextBuffer(treeRow.get_value(_columns.colSyntaxHighlighting),
-                                                           anchoredWidgetList,
-                                                           treeRow.get_value(_columns.colNodeUniqueId));
-            treeRow.set_value(_columns.colAnchoredWidgets, anchoredWidgetList);
-            treeRow.set_value(_columns.rColTextBuffer, rRetTextBuffer);
-        }
+        return to_ct_tree_iter(treeIter).get_node_text_buffer();
     }
-    return rRetTextBuffer;
+    return Glib::RefPtr<Gsv::Buffer>();
 }
 
 void CtTreeStore::applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pTextView)
@@ -683,5 +692,5 @@ Gtk::TreePath CtTreeStore::get_path(Gtk::TreeIter tree_iter)
 
 CtTreeIter CtTreeStore::to_ct_tree_iter(Gtk::TreeIter tree_iter)
 {
-    return CtTreeIter(tree_iter, &get_columns());
+    return CtTreeIter(tree_iter, &get_columns(), _pCtSQLiteRead);
 }
