@@ -143,9 +143,8 @@ void CtCodebox::applyWidthHeight(const int parentTextWidth)
 
 void CtCodebox::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
 {
-    CtAnchoredWidget::to_xml(p_node_parent, offset_adjustment);
     xmlpp::Element* p_codebox_node = p_node_parent->add_child("codebox");
-    p_codebox_node->set_attribute("char_offset", std::to_string(_charOffset));
+    p_codebox_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
     p_codebox_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
     p_codebox_node->set_attribute("frame_width", std::to_string(_frameWidth));
     p_codebox_node->set_attribute("frame_height", std::to_string(_frameHeight));
@@ -154,6 +153,37 @@ void CtCodebox::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustmen
     p_codebox_node->set_attribute("highlight_brackets", std::to_string(_highlightBrackets));
     p_codebox_node->set_attribute("show_line_numbers", std::to_string(_showLineNumbers));
     p_codebox_node->add_child_text(getTextContent());
+}
+
+bool CtCodebox::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment)
+{
+    bool retVal{true};
+    sqlite3_stmt *p_stmt;
+    if (sqlite3_prepare_v2(pDb, "INSERT INTO codebox VALUES(?,?,?,?,?,?,?,?,?,?)", -1, &p_stmt, nullptr) != SQLITE_OK)
+    {
+        std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(pDb) << std::endl;
+        retVal = false;
+    }
+    else
+    {
+        sqlite3_bind_int64(p_stmt, 1, node_id);
+        sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
+        sqlite3_bind_text(p_stmt, 3, _justification.c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 4, getTextContent().c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 5, _syntaxHighlighting.c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_int64(p_stmt, 6, _frameWidth);
+        sqlite3_bind_int64(p_stmt, 7, _frameHeight);
+        sqlite3_bind_int64(p_stmt, 8, _widthInPixels);
+        sqlite3_bind_int64(p_stmt, 9, _highlightBrackets);
+        sqlite3_bind_int64(p_stmt, 10, _showLineNumbers);
+        if (sqlite3_step(p_stmt) != SQLITE_DONE)
+        {
+            std::cerr << "!! sqlite3_step: " << sqlite3_errmsg(pDb) << std::endl;
+            retVal = false;
+        }
+        sqlite3_finalize(p_stmt);
+    }
+    return retVal;
 }
 
 void CtCodebox::setShowLineNumbers(const bool showLineNumbers)

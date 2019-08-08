@@ -358,7 +358,7 @@ void CtXmlWrite::append_node_buffer(CtTreeIter& ct_tree_iter,
         }
         if (serialise_anchored_widgets)
         {
-            for (CtAnchoredWidget* pAnchoredWidget : ct_tree_iter.get_embedded_pixbufs_tables_codeboxes())
+            for (CtAnchoredWidget* pAnchoredWidget : ct_tree_iter.get_embedded_pixbufs_tables_codeboxes(offset_range))
             {
                 pAnchoredWidget->to_xml(p_node_node, offset_range.first >= 0 ? -offset_range.first : 0);
             }

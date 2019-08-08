@@ -220,7 +220,7 @@ void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTex
             {
                 if (SQLITE_ROW == sqlite3_step(pp_stmt[i]))
                 {
-                    charOffset[i] = sqlite3_column_int(pp_stmt[i], 1);
+                    charOffset[i] = sqlite3_column_int64(pp_stmt[i], 1);
                     justification[i] = reinterpret_cast<const char*>(sqlite3_column_text(pp_stmt[i], 2));
                     if (justification[i].empty())
                     {
@@ -242,8 +242,8 @@ void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTex
             const int i{0};
             const Glib::ustring textContent = reinterpret_cast<const char*>(sqlite3_column_text(pp_stmt[i], 3));
             const Glib::ustring syntaxHighlighting = reinterpret_cast<const char*>(sqlite3_column_text(pp_stmt[i], 4));
-            const int frameWidth = sqlite3_column_int(pp_stmt[i], 5);
-            const int frameHeight = sqlite3_column_int(pp_stmt[i], 6);
+            const int frameWidth = sqlite3_column_int64(pp_stmt[i], 5);
+            const int frameHeight = sqlite3_column_int64(pp_stmt[i], 6);
             const bool widthInPixels = sqlite3_column_int64(pp_stmt[i], 7);
             const bool highlightBrackets = sqlite3_column_int64(pp_stmt[i], 8);
             const bool showLineNumbers = sqlite3_column_int64(pp_stmt[i], 9);
@@ -268,8 +268,8 @@ void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTex
             // table
             const int i{1};
             const char* textContent = reinterpret_cast<const char*>(sqlite3_column_text(pp_stmt[i], 3));
-            const int colMin = sqlite3_column_int(pp_stmt[i], 4);
-            const int colMax = sqlite3_column_int(pp_stmt[i], 5);
+            const int colMin = sqlite3_column_int64(pp_stmt[i], 4);
+            const int colMax = sqlite3_column_int64(pp_stmt[i], 5);
             CtXmlRead ctXmlRead(nullptr, textContent);
             CtTableMatrix tableMatrix;
             if (nullptr != ctXmlRead.get_document())
@@ -531,7 +531,8 @@ bool CtSQLiteWrite::_write_db_node(CtTreeIter ct_tree_iter,
                                    const CtExporting exporting,
                                    const std::pair<int,int>& offset_range)
 {
-    bool retVal{false};
+    bool soFarSoGood{true};
+    const gint64 node_id = ct_tree_iter.get_node_id();
     // is_ro is packed with additional bitfield data
     gint64 is_ro = ct_tree_iter.get_node_read_only() ? 0x01 : 0x00;
     is_ro |= ct_tree_iter.get_node_custom_icon_id() << 1;
@@ -550,7 +551,23 @@ bool CtSQLiteWrite::_write_db_node(CtTreeIter ct_tree_iter,
     {
         CtXmlWrite ctXmlWrite("node");
         ctXmlWrite.append_node_buffer(ct_tree_iter, ctXmlWrite.get_root_node(), false/*serialise_anchored_widgets*/, offset_range);
-        
+        if (write_dict.upd && (is_richtxt & 0x01))
+        {
+            soFarSoGood = ( _exec_bind_int64("DELETE FROM codebox WHERE node_id=?", node_id) &&
+                            _exec_bind_int64("DELETE FROM grid WHERE node_id=?", node_id) &&
+                            _exec_bind_int64("DELETE FROM image WHERE node_id=?", node_id) );
+            if (soFarSoGood)
+            {
+                for (CtAnchoredWidget* pAnchoredWidget : ct_tree_iter.get_embedded_pixbufs_tables_codeboxes(offset_range))
+                {
+                    soFarSoGood = pAnchoredWidget->to_sqlite(_pDb, node_id, offset_range.first >= 0 ? -offset_range.first : 0);
+                    if (!soFarSoGood)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
     }
-    return retVal;
+    return soFarSoGood;
 }

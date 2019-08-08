@@ -69,7 +69,8 @@ public:
                const std::string& justification);
     virtual ~CtImagePng() {}
 
-    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment);
+    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) override;
+    virtual bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) override;
 
     void updateLabelWidget();
     const Glib::ustring& getLink() { return _link; }
@@ -90,7 +91,8 @@ public:
                   const std::string& justification);
     virtual ~CtImageAnchor() {}
 
-    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment);
+    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) override;
+    virtual bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) override;
 
     const Glib::ustring& getAnchorName() { return _anchorName; }
 
@@ -113,7 +115,8 @@ public:
                    const std::string& justification);
     virtual ~CtImageEmbFile() {}
 
-    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment);
+    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) override;
+    virtual bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) override;
 
     const Glib::ustring& getFileName() { return _fileName; }
     const std::string&   getRawBlob() { return _rawBlob; }

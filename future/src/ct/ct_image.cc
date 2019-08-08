@@ -114,9 +114,8 @@ CtImagePng::CtImagePng(Glib::RefPtr<Gdk::Pixbuf> pixBuf,
 
 void CtImagePng::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
 {
-    CtAnchoredWidget::to_xml(p_node_parent, offset_adjustment);
     xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
-    p_image_node->set_attribute("char_offset", std::to_string(_charOffset));
+    p_image_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
     p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
     p_image_node->set_attribute("link", _link);
     gchar* pBuffer{nullptr};
@@ -126,6 +125,12 @@ void CtImagePng::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustme
     g_free(pBuffer);
     const std::string encodedBlob = Glib::Base64::encode(rawBlob);
     p_image_node->add_child_text(encodedBlob);
+}
+
+bool CtImagePng::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment)
+{
+    bool retVal{false};
+    return retVal;
 }
 
 void CtImagePng::updateLabelWidget()
@@ -174,11 +179,16 @@ CtImageAnchor::CtImageAnchor(const Glib::ustring& anchorName,
 
 void CtImageAnchor::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
 {
-    CtAnchoredWidget::to_xml(p_node_parent, offset_adjustment);
     xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
-    p_image_node->set_attribute("char_offset", std::to_string(_charOffset));
+    p_image_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
     p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
     p_image_node->set_attribute("anchor", _anchorName);
+}
+
+bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment)
+{
+    bool retVal{false};
+    return retVal;
 }
 
 void CtImageAnchor::updateTooltip()
@@ -216,14 +226,19 @@ CtImageEmbFile::CtImageEmbFile(const Glib::ustring& fileName,
 
 void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
 {
-    CtAnchoredWidget::to_xml(p_node_parent, offset_adjustment);
     xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
-    p_image_node->set_attribute("char_offset", std::to_string(_charOffset));
+    p_image_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
     p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
     p_image_node->set_attribute("filename", _fileName);
     p_image_node->set_attribute("time", std::to_string(_timeSeconds));
     const std::string encodedBlob = Glib::Base64::encode(_rawBlob);
     p_image_node->add_child_text(encodedBlob);
+}
+
+bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment)
+{
+    bool retVal{false};
+    return retVal;
 }
 
 void CtImageEmbFile::updateLabelWidget()

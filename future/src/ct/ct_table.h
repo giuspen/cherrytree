@@ -46,8 +46,9 @@ public:
             const std::string& justification);
     virtual ~CtTable();
 
-    virtual void applyWidthHeight(const int /*parentTextWidth*/) {}
-    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment);
+    virtual void applyWidthHeight(const int /*parentTextWidth*/) override {}
+    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) override;
+    virtual bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) override;
 
     const CtTableMatrix& getTableMatrix() { return _tableMatrix; }
 
@@ -56,4 +57,6 @@ protected:
     int _colMin;
     int _colMax;
     Gtk::Grid _grid;
+
+    void _populate_xml_rows_cells(xmlpp::Element* p_table_node);
 };
