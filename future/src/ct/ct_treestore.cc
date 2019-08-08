@@ -19,7 +19,6 @@
  * MA 02110-1301, USA.
  */
 
-#include <assert.h>
 #include <algorithm>
 #include "ct_doc_rw.h"
 #include "ct_app.h"
@@ -124,10 +123,9 @@ Glib::RefPtr<Gsv::Buffer> CtTreeIter::get_node_text_buffer() const
     if (*this)
     {
         rRetTextBuffer = (*this)->get_value(_pColumns->rColTextBuffer);
-        if (!rRetTextBuffer)
+        if (!rRetTextBuffer && nullptr != _pCtSQLiteRead)
         {
             // SQLite text buffer not yet populated
-            assert(nullptr != _pCtSQLiteRead);
             std::list<CtAnchoredWidget*> anchoredWidgetList;
             rRetTextBuffer = _pCtSQLiteRead->getTextBuffer((*this)->get_value(_pColumns->colSyntaxHighlighting),
                                                            anchoredWidgetList,
@@ -300,17 +298,25 @@ bool CtTreeStore::readNodesFromFilepath(const char* filepath, const bool isImpor
     CtDocRead* pCtDocRead{nullptr};
     if (CtDocType::XML == docType)
     {
-        pCtDocRead = new CtXmlRead(filepath, nullptr);
+        CtXmlRead* pCtXmlRead = new CtXmlRead(filepath, nullptr);
+        if (pCtXmlRead && (nullptr != pCtXmlRead->get_document()))
+        {
+            pCtDocRead = pCtXmlRead;
+        }
     }
     else if (CtDocType::SQLite == docType)
     {
-        pCtDocRead = new CtSQLiteRead(filepath);
+        CtSQLiteRead* pCtSQLiteRead = new CtSQLiteRead(filepath);
+        if (pCtSQLiteRead && pCtSQLiteRead->getDbOpenOk())
+        {
+            pCtDocRead = pCtSQLiteRead;
+        }
     }
     if (pCtDocRead != nullptr)
     {
         pCtDocRead->signalAddBookmark.connect(sigc::mem_fun(this, &CtTreeStore::onRequestAddBookmark));
         pCtDocRead->signalAppendNode.connect(sigc::mem_fun(this, &CtTreeStore::onRequestAppendNode));
-        pCtDocRead->treeWalk(pParentIter);
+        retOk = pCtDocRead->treeWalk(pParentIter);
         if (!isImport && (CtDocType::SQLite == docType))
         {
             _pCtSQLiteRead = dynamic_cast<CtSQLiteRead*>(pCtDocRead);
@@ -319,7 +325,6 @@ bool CtTreeStore::readNodesFromFilepath(const char* filepath, const bool isImpor
         {
             delete pCtDocRead;
         }
-        retOk = true;
     }
     return retOk;
 }

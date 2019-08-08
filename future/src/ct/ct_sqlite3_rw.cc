@@ -30,11 +30,14 @@
 
 CtSQLite::CtSQLite(const char* filepath)
 {
-    int ret_code = sqlite3_open(filepath, &_pDb);
-    if (ret_code != SQLITE_OK)
+    const int ret_code = sqlite3_open(filepath, &_pDb);
+    if (SQLITE_OK == ret_code)
+    {
+        _dbOpenOk = true;
+    }
+    else
     {
         std::cerr << "!! sqlite3_open: " << sqlite3_errmsg(_pDb) << std::endl;
-        exit(EXIT_FAILURE);
     }
 }
 
@@ -44,27 +47,76 @@ CtSQLite::~CtSQLite()
     //printf("db closed\n");
 }
 
-
-void CtSQLiteRead::treeWalk(const Gtk::TreeIter* pParentIter)
+bool CtSQLite::_exec_no_callback(const char* sqlCmd)
 {
+    bool retVal{true};
+    char *p_err_msg{nullptr};
+    const int ret_code = sqlite3_exec(_pDb, sqlCmd, 0, 0, &p_err_msg);
+    if (SQLITE_OK != ret_code)
+    {
+        std::cerr << "!! sqlite3 '" << sqlCmd << "': " << p_err_msg << std::endl;
+        sqlite3_free(p_err_msg);
+        retVal = false;
+    }
+    return retVal;
+}
+
+bool CtSQLite::_exec_bind_int64(const char* sqlCmd, const gint64 bind_int64)
+{
+    bool retVal{true};
+    sqlite3_stmt *p_stmt;
+    if (sqlite3_prepare_v2(_pDb, sqlCmd, -1, &p_stmt, nullptr) != SQLITE_OK)
+    {
+        std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
+        retVal = false;
+    }
+    else
+    {
+        sqlite3_bind_int64(p_stmt, 1, bind_int64);
+        if (sqlite3_step(p_stmt) != SQLITE_DONE)
+        {
+            std::cerr << "!! sqlite3_step: " << sqlite3_errmsg(_pDb) << std::endl;
+            retVal = false;
+        }
+        sqlite3_finalize(p_stmt);
+    }
+    return retVal;
+}
+
+
+bool CtSQLiteRead::treeWalk(const Gtk::TreeIter* pParentIter)
+{
+    bool retVal{true};
     sqlite3_stmt *p_stmt;
     if (sqlite3_prepare_v2(_pDb, "SELECT node_id FROM bookmark ORDER BY sequence ASC", -1, &p_stmt, nullptr) != SQLITE_OK)
     {
         std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
-        exit(EXIT_FAILURE);
+        retVal = false;
     }
-    while (sqlite3_step(p_stmt) == SQLITE_ROW)
+    else
     {
-        gint64 nodeId = sqlite3_column_int64(p_stmt, 0);
-        signalAddBookmark.emit(nodeId);
-    }
-    sqlite3_finalize(p_stmt);
+        while (sqlite3_step(p_stmt) == SQLITE_ROW)
+        {
+            gint64 nodeId = sqlite3_column_int64(p_stmt, 0);
+            signalAddBookmark.emit(nodeId);
+        }
+        sqlite3_finalize(p_stmt);
 
-    std::list<gint64> top_nodes_ids = _sqlite3GetChildrenNodeIdFromFatherId(0);
-    for (gint64 &top_node_id : top_nodes_ids)
-    {
-        _sqlite3TreeWalkIter(top_node_id, pParentIter);
+        std::list<gint64> top_nodes_ids;
+        retVal = _sqlite3GetChildrenNodeIdFromFatherId(0, top_nodes_ids);
+        if (retVal)
+        {
+            for (gint64 &top_node_id : top_nodes_ids)
+            {
+                if (!_sqlite3TreeWalkIter(top_node_id, pParentIter))
+                {
+                    retVal = false;
+                    break;
+                }
+            }
+        }
     }
+    return retVal;
 }
 
 Glib::RefPtr<Gsv::Buffer> CtSQLiteRead::getTextBuffer(const std::string& syntax,
@@ -77,40 +129,50 @@ Glib::RefPtr<Gsv::Buffer> CtSQLiteRead::getTextBuffer(const std::string& syntax,
     if (sqlite3_prepare_v2(_pDb, "SELECT txt, has_codebox, has_table, has_image FROM node WHERE node_id=?", -1, &p_stmt, nullptr) != SQLITE_OK)
     {
         std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
-        exit(EXIT_FAILURE);
-    }
-
-    bool has_codebox{false};
-    bool has_table{false};
-    bool has_image{false};
-
-    sqlite3_bind_int64(p_stmt, 1, nodeId);
-    if (sqlite3_step(p_stmt) == SQLITE_ROW)
-    {
-        const char* textContent = reinterpret_cast<const char*>(sqlite3_column_text(p_stmt, 0));
-        if (CtConst::RICH_TEXT_ID != syntax)
-        {
-            rRetTextBuffer = CtMiscUtil::getNewTextBuffer(syntax, textContent);
-        }
-        else
-        {
-            CtXmlRead ctXmlRead(nullptr, textContent);
-            rRetTextBuffer = ctXmlRead.getTextBuffer(syntax, anchoredWidgets);
-
-            has_codebox = sqlite3_column_int64(p_stmt, 1);
-            has_table = sqlite3_column_int64(p_stmt, 2);
-            has_image = sqlite3_column_int64(p_stmt, 3);
-        }
     }
     else
     {
-        std::cerr << "!! missing node properties for id " << nodeId << std::endl;
-    }
-    sqlite3_finalize(p_stmt);
+        bool has_codebox{false};
+        bool has_table{false};
+        bool has_image{false};
 
-    if (has_codebox || has_table || has_image)
-    {
-        _getTextBufferAnchoredWidgets(rRetTextBuffer, anchoredWidgets, nodeId, has_codebox, has_table, has_image);
+        sqlite3_bind_int64(p_stmt, 1, nodeId);
+        if (sqlite3_step(p_stmt) == SQLITE_ROW)
+        {
+            const char* textContent = reinterpret_cast<const char*>(sqlite3_column_text(p_stmt, 0));
+            if (CtConst::RICH_TEXT_ID != syntax)
+            {
+                rRetTextBuffer = CtMiscUtil::getNewTextBuffer(syntax, textContent);
+            }
+            else
+            {
+                CtXmlRead ctXmlRead(nullptr, textContent);
+                if (nullptr != ctXmlRead.get_document())
+                {
+                    rRetTextBuffer = ctXmlRead.getTextBuffer(syntax, anchoredWidgets);
+                    if (rRetTextBuffer)
+                    {
+                        has_codebox = sqlite3_column_int64(p_stmt, 1);
+                        has_table = sqlite3_column_int64(p_stmt, 2);
+                        has_image = sqlite3_column_int64(p_stmt, 3);
+                    }
+                }
+                else
+                {
+                    std::cerr << "!! xml read: " << textContent << std::endl;
+                }
+            }
+        }
+        else
+        {
+            std::cerr << "!! missing node properties for id " << nodeId << std::endl;
+        }
+        sqlite3_finalize(p_stmt);
+
+        if (has_codebox || has_table || has_image)
+        {
+            _getTextBufferAnchoredWidgets(rRetTextBuffer, anchoredWidgets, nodeId, has_codebox, has_table, has_image);
+        }
     }
 
     return rRetTextBuffer;
@@ -210,12 +272,18 @@ void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTex
             const int colMax = sqlite3_column_int(pp_stmt[i], 5);
             CtXmlRead ctXmlRead(nullptr, textContent);
             CtTableMatrix tableMatrix;
-            assert(nullptr != ctXmlRead.get_document());
-            const bool isHeadFront = ctXmlRead.populateTableMatrixGetIsHeadFront(tableMatrix, ctXmlRead.get_document()->get_root_node());
+            if (nullptr != ctXmlRead.get_document())
+            {
+                const bool isHeadFront = ctXmlRead.populateTableMatrixGetIsHeadFront(tableMatrix, ctXmlRead.get_document()->get_root_node());
 
-            pAnchoredWidget = new CtTable(tableMatrix, colMin, colMax, isHeadFront, charOffset[i], justification[i]);
-            //std::cout << "table " << charOffset[i] << std::endl;
-            charOffset[i] = cOffsetRead;
+                pAnchoredWidget = new CtTable(tableMatrix, colMin, colMax, isHeadFront, charOffset[i], justification[i]);
+                //std::cout << "table " << charOffset[i] << std::endl;
+                charOffset[i] = cOffsetRead;
+            }
+            else
+            {
+                std::cerr << "!! table xml read: " << textContent << std::endl;
+            }
         }
         else if (charOffset[2] >= 0 &&
                  (charOffset[0] < 0 || charOffset[0] >= charOffset[2]) &&
@@ -267,79 +335,101 @@ void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTex
     }
 }
 
-void CtSQLiteRead::_sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIter* pParentIter)
+bool CtSQLiteRead::_sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIter* pParentIter)
 {
-    Gtk::TreeIter newIter = _sqlite3NodeProcess(nodeId, pParentIter);
-
-    std::list<gint64> children_nodes_ids = _sqlite3GetChildrenNodeIdFromFatherId(nodeId);
-    for (gint64 &child_node_id : children_nodes_ids)
+    Gtk::TreeIter newIter;
+    bool retVal = _sqlite3NodeProcess(nodeId, pParentIter, newIter);
+    if (retVal)
     {
-        _sqlite3TreeWalkIter(child_node_id, &newIter);
+        std::list<gint64> children_nodes_ids;
+        retVal = _sqlite3GetChildrenNodeIdFromFatherId(nodeId, children_nodes_ids);
+        if (retVal)
+        {
+            for (gint64 &child_node_id : children_nodes_ids)
+            {
+                if (!_sqlite3TreeWalkIter(child_node_id, &newIter))
+                {
+                    retVal = false;
+                    break;
+                }
+            }
+        }
     }
+    return retVal;
 }
 
-std::list<gint64> CtSQLiteRead::_sqlite3GetChildrenNodeIdFromFatherId(gint64 father_id)
+bool CtSQLiteRead::_sqlite3GetChildrenNodeIdFromFatherId(gint64 father_id, std::list<gint64>& ret_children)
 {
-    std::list<gint64> ret_children;
+    bool retVal{false};
     sqlite3_stmt *p_stmt;
     if (sqlite3_prepare_v2(_pDb, "SELECT node_id FROM children WHERE father_id=? ORDER BY sequence ASC", -1, &p_stmt, nullptr) != SQLITE_OK)
     {
         std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
-        exit(EXIT_FAILURE);
     }
-    sqlite3_bind_int64(p_stmt, 1, father_id);
-    while (sqlite3_step(p_stmt) == SQLITE_ROW)
+    else
     {
-        gint64 nodeId = sqlite3_column_int64(p_stmt, 0);
-        ret_children.push_back(nodeId);
+        sqlite3_bind_int64(p_stmt, 1, father_id);
+        while (sqlite3_step(p_stmt) == SQLITE_ROW)
+        {
+            gint64 nodeId = sqlite3_column_int64(p_stmt, 0);
+            ret_children.push_back(nodeId);
+        }
+        sqlite3_finalize(p_stmt);
+        retVal = true;
     }
-    sqlite3_finalize(p_stmt);
-    return ret_children;
+    return retVal;
 }
 
-CtNodeData CtSQLiteRead::_sqlite3GetNodeProperties(gint64 nodeId)
+bool CtSQLiteRead::_sqlite3GetNodeProperties(gint64 nodeId, CtNodeData& nodeData)
 {
-    CtNodeData nodeData;
+    bool retVal{false};
     nodeData.nodeId = nodeId;
     sqlite3_stmt *p_stmt;
     if (sqlite3_prepare_v2(_pDb, "SELECT name, syntax, tags, is_ro, is_richtxt, ts_creation, ts_lastsave FROM node WHERE node_id=?", -1, &p_stmt, nullptr) != SQLITE_OK)
     {
         std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    sqlite3_bind_int64(p_stmt, 1, nodeId);
-    if (sqlite3_step(p_stmt) == SQLITE_ROW)
-    {
-        nodeData.name = reinterpret_cast<const char*>(sqlite3_column_text(p_stmt, 0));
-        nodeData.syntax = reinterpret_cast<const char*>(sqlite3_column_text(p_stmt, 1));
-        nodeData.tags = reinterpret_cast<const char*>(sqlite3_column_text(p_stmt, 2));
-        gint64 readonly_n_custom_icon_id = sqlite3_column_int64(p_stmt, 3);
-        nodeData.isRO = static_cast<bool>(readonly_n_custom_icon_id & 0x01);
-        nodeData.customIconId = readonly_n_custom_icon_id >> 1;
-        gint64 richtxt_bold_foreground = sqlite3_column_int64(p_stmt, 4);
-        nodeData.isBold = static_cast<bool>((richtxt_bold_foreground >> 1) & 0x01);
-        if (static_cast<bool>((richtxt_bold_foreground >> 2) & 0x01))
-        {
-            char foregroundRgb24[8];
-            CtRgbUtil::setRgb24StrFromRgb24Int((richtxt_bold_foreground >> 3) & 0xffffff, foregroundRgb24);
-            nodeData.foregroundRgb24 = foregroundRgb24;
-        }
-        nodeData.tsCreation = sqlite3_column_int64(p_stmt, 5);
-        nodeData.tsLastSave = sqlite3_column_int64(p_stmt, 6);
     }
     else
     {
-        std::cerr << "!! missing node properties for id " << nodeId << std::endl;
+        sqlite3_bind_int64(p_stmt, 1, nodeId);
+        if (sqlite3_step(p_stmt) == SQLITE_ROW)
+        {
+            nodeData.name = reinterpret_cast<const char*>(sqlite3_column_text(p_stmt, 0));
+            nodeData.syntax = reinterpret_cast<const char*>(sqlite3_column_text(p_stmt, 1));
+            nodeData.tags = reinterpret_cast<const char*>(sqlite3_column_text(p_stmt, 2));
+            gint64 readonly_n_custom_icon_id = sqlite3_column_int64(p_stmt, 3);
+            nodeData.isRO = static_cast<bool>(readonly_n_custom_icon_id & 0x01);
+            nodeData.customIconId = readonly_n_custom_icon_id >> 1;
+            gint64 richtxt_bold_foreground = sqlite3_column_int64(p_stmt, 4);
+            nodeData.isBold = static_cast<bool>((richtxt_bold_foreground >> 1) & 0x01);
+            if (static_cast<bool>((richtxt_bold_foreground >> 2) & 0x01))
+            {
+                char foregroundRgb24[8];
+                CtRgbUtil::setRgb24StrFromRgb24Int((richtxt_bold_foreground >> 3) & 0xffffff, foregroundRgb24);
+                nodeData.foregroundRgb24 = foregroundRgb24;
+            }
+            nodeData.tsCreation = sqlite3_column_int64(p_stmt, 5);
+            nodeData.tsLastSave = sqlite3_column_int64(p_stmt, 6);
+            retVal = true;
+        }
+        else
+        {
+            std::cerr << "!! missing node properties for id " << nodeId << std::endl;
+        }
+        sqlite3_finalize(p_stmt);
     }
-    sqlite3_finalize(p_stmt);
-    return nodeData;
+    return retVal;
 }
 
-Gtk::TreeIter CtSQLiteRead::_sqlite3NodeProcess(gint64 nodeId, const Gtk::TreeIter* pParentIter)
+bool CtSQLiteRead::_sqlite3NodeProcess(gint64 nodeId, const Gtk::TreeIter* pParentIter, Gtk::TreeIter& newIter)
 {
-    CtNodeData nodeData = _sqlite3GetNodeProperties(nodeId);
-    Gtk::TreeIter newIter = signalAppendNode.emit(&nodeData, pParentIter);
-    return newIter;
+    CtNodeData nodeData;
+    bool retVal = _sqlite3GetNodeProperties(nodeId, nodeData);
+    if (retVal)
+    {
+        newIter = signalAppendNode.emit(&nodeData, pParentIter);
+    }
+    return retVal;
 }
 
 
@@ -408,20 +498,6 @@ const char CtSQLiteWrite::TABLE_BOOKMARK_CREATE[]{"CREATE TABLE bookmark ("
 "sequence INTEGER"
 ")"
 };
-
-bool CtSQLiteWrite::_exec_no_callback(const char* sqlCmd)
-{
-    bool retVal{true};
-    char *p_err_msg{nullptr};
-    const int ret_code = sqlite3_exec(_pDb, sqlCmd, 0, 0, &p_err_msg);
-    if (SQLITE_OK != ret_code)
-    {
-        std::cerr << "!! sqlite3 '" << sqlCmd << "': " << p_err_msg << std::endl;
-        sqlite3_free(p_err_msg);
-        retVal = false;
-    }
-    return retVal;
-}
 
 bool CtSQLiteWrite::_create_all_tables()
 {

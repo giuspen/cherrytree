@@ -22,7 +22,6 @@
 #include <pangomm.h>
 #include <iostream>
 #include <string.h>
-#include <assert.h>
 #include "ct_misc_utils.h"
 #include "ct_app.h"
 #include <ctime>
@@ -638,7 +637,10 @@ gint64 CtStrUtil::gint64FromGstring(const gchar* inGstring, bool hexPrefix)
 guint32 CtStrUtil::getUint32FromHexChars(const char* hexChars, guint8 numChars)
 {
     char hexstring[9];
-    assert(numChars < 9);
+    if (numChars > 8)
+    {
+        numChars = 8;
+    }
     strncpy(hexstring, hexChars, numChars);
     hexstring[numChars] = 0;
     return (guint32)strtoul(hexstring, nullptr, 16);

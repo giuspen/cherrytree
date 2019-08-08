@@ -20,7 +20,6 @@
  */
 
 #include <iostream>
-#include <assert.h>
 #include "ct_doc_rw.h"
 #include "ct_misc_utils.h"
 #include "ct_const.h"
@@ -45,27 +44,37 @@ CtXmlRead::~CtXmlRead()
 {
 }
 
-void CtXmlRead::treeWalk(const Gtk::TreeIter* pParentIter)
+bool CtXmlRead::treeWalk(const Gtk::TreeIter* pParentIter)
 {
     xmlpp::Document* pDocument = get_document();
-    assert(nullptr != pDocument);
-    xmlpp::Element* pRoot = pDocument->get_root_node();
-    assert(CtConst::APP_NAME == pRoot->get_name());
-
-    // load bookmarks before node to update bookmark icon
-    for (xmlpp::Node* pNode : pRoot->get_children("bookmarks"))
+    bool retVal = (nullptr != pDocument);
+    if (retVal)
     {
-        Glib::ustring bookmarks_csv = static_cast<xmlpp::Element*>(pNode)->get_attribute_value("list");
-        for (gint64& nodeId : CtStrUtil::gstringSplit2int64(bookmarks_csv.c_str(), ","))
+        xmlpp::Element* pRoot = pDocument->get_root_node();
+        if (CtConst::APP_NAME == pRoot->get_name())
         {
-            signalAddBookmark.emit(nodeId);
+            // load bookmarks before node to update bookmark icon
+            for (xmlpp::Node* pNode : pRoot->get_children("bookmarks"))
+            {
+                Glib::ustring bookmarks_csv = static_cast<xmlpp::Element*>(pNode)->get_attribute_value("list");
+                for (gint64& nodeId : CtStrUtil::gstringSplit2int64(bookmarks_csv.c_str(), ","))
+                {
+                    signalAddBookmark.emit(nodeId);
+                }
+            }
+
+            for (xmlpp::Node* pNode : pRoot->get_children("node"))
+            {
+                _xmlTreeWalkIter(static_cast<xmlpp::Element*>(pNode), pParentIter);
+            }
+        }
+        else
+        {
+            std::cerr << "!! xml root node: " << pRoot->get_name() << std::endl;
+            retVal = false;
         }
     }
-
-    for (xmlpp::Node* pNode : pRoot->get_children("node"))
-    {
-        _xmlTreeWalkIter(static_cast<xmlpp::Element*>(pNode), pParentIter);
-    }
+    return retVal;
 }
 
 void CtXmlRead::_xmlTreeWalkIter(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter)
@@ -265,16 +274,21 @@ Glib::RefPtr<Gsv::Buffer> CtXmlRead::getTextBuffer(const std::string& syntax,
     if (nullptr == pNodeElement)
     {
         xmlpp::Document *pDocument = get_document();
-        assert(nullptr != pDocument);
-        pNodeElement = pDocument->get_root_node();
+        if (nullptr != pDocument)
+        {
+            pNodeElement = pDocument->get_root_node();
+        }
     }
-    rRetTextBuffer->begin_not_undoable_action();
-    for (xmlpp::Node* pNode : pNodeElement->get_children())
+    if (nullptr != pNodeElement)
     {
-        getTextBufferIter(rRetTextBuffer, nullptr, anchoredWidgets, pNode);
+        rRetTextBuffer->begin_not_undoable_action();
+        for (xmlpp::Node* pNode : pNodeElement->get_children())
+        {
+            getTextBufferIter(rRetTextBuffer, nullptr, anchoredWidgets, pNode);
+        }
+        rRetTextBuffer->end_not_undoable_action();
+        rRetTextBuffer->set_modified(false);
     }
-    rRetTextBuffer->end_not_undoable_action();
-    rRetTextBuffer->set_modified(false);
     return rRetTextBuffer;
 }
 
