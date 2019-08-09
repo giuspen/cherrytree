@@ -330,7 +330,7 @@ void CtXmlWrite::append_node_buffer(CtTreeIter& ct_tree_iter,
     const Gtk::TextIter end_iter = offset_range.second >= 0 ? rTextBuffer->get_iter_at_offset(offset_range.second) : rTextBuffer->end();
 
     std::map<const gchar*, std::string> curr_attributes;
-    if (CtConst::RICH_TEXT_ID == ct_tree_iter.get_node_syntax_highlighting())
+    if (ct_tree_iter.get_node_is_rich_text())
     {
         Gtk::TextIter curr_end_iter{curr_start_iter};
         CtTextIterUtil::rich_text_attributes_update(curr_end_iter, curr_attributes);

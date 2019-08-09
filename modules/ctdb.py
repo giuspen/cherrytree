@@ -394,9 +394,7 @@ class CTDBHandler:
         else: tree_iter = self.dad.curr_tree_iter
         sequence = 0
         node_father_id = 0
-        if exporting == "n":
-            write_dict = {'upd': False, 'prop': True, 'buff': True, 'hier': True, 'child': False}
-        else: write_dict = {'upd': False, 'prop': True, 'buff': True, 'hier': True, 'child': True}
+        write_dict = {'upd': False, 'prop': True, 'buff': True, 'hier': True, 'child': exporting != "n"}
         while tree_iter != None:
             sequence += 1
             self.write_db_node(db, tree_iter, sequence, node_father_id, write_dict, exporting, sel_range)

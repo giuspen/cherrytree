@@ -162,7 +162,7 @@ bool CtCodebox::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_a
     sqlite3_stmt *p_stmt;
     if (sqlite3_prepare_v2(pDb, CtSQLiteWrite::TABLE_CODEBOX_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
     {
-        std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(pDb) << std::endl;
+        std::cerr << CtSQLiteWrite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(pDb) << std::endl;
         retVal = false;
     }
     else
@@ -179,7 +179,7 @@ bool CtCodebox::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_a
         sqlite3_bind_int64(p_stmt, 10, _showLineNumbers);
         if (sqlite3_step(p_stmt) != SQLITE_DONE)
         {
-            std::cerr << "!! sqlite3_step: " << sqlite3_errmsg(pDb) << std::endl;
+            std::cerr << CtSQLiteWrite::ERR_SQLITE_STEP << sqlite3_errmsg(pDb) << std::endl;
             retVal = false;
         }
         sqlite3_finalize(p_stmt);

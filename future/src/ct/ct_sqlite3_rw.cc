@@ -67,7 +67,7 @@ bool CtSQLite::_exec_bind_int64(const char* sqlCmd, const gint64 bind_int64)
     sqlite3_stmt *p_stmt;
     if (sqlite3_prepare_v2(_pDb, sqlCmd, -1, &p_stmt, nullptr) != SQLITE_OK)
     {
-        std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
+        std::cerr << CtSQLiteWrite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(_pDb) << std::endl;
         retVal = false;
     }
     else
@@ -75,7 +75,7 @@ bool CtSQLite::_exec_bind_int64(const char* sqlCmd, const gint64 bind_int64)
         sqlite3_bind_int64(p_stmt, 1, bind_int64);
         if (sqlite3_step(p_stmt) != SQLITE_DONE)
         {
-            std::cerr << "!! sqlite3_step: " << sqlite3_errmsg(_pDb) << std::endl;
+            std::cerr << CtSQLiteWrite::ERR_SQLITE_STEP << sqlite3_errmsg(_pDb) << std::endl;
             retVal = false;
         }
         sqlite3_finalize(p_stmt);
@@ -90,7 +90,7 @@ bool CtSQLiteRead::treeWalk(const Gtk::TreeIter* pParentIter)
     sqlite3_stmt *p_stmt;
     if (sqlite3_prepare_v2(_pDb, "SELECT node_id FROM bookmark ORDER BY sequence ASC", -1, &p_stmt, nullptr) != SQLITE_OK)
     {
-        std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
+        std::cerr << CtSQLiteWrite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(_pDb) << std::endl;
         retVal = false;
     }
     else
@@ -128,7 +128,7 @@ Glib::RefPtr<Gsv::Buffer> CtSQLiteRead::getTextBuffer(const std::string& syntax,
     sqlite3_stmt *p_stmt;
     if (sqlite3_prepare_v2(_pDb, "SELECT txt, has_codebox, has_table, has_image FROM node WHERE node_id=?", -1, &p_stmt, nullptr) != SQLITE_OK)
     {
-        std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
+        std::cerr << CtSQLiteWrite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(_pDb) << std::endl;
     }
     else
     {
@@ -202,7 +202,7 @@ void CtSQLiteRead::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTex
             //std::cout << query_buff << std::endl;
             if (SQLITE_OK != sqlite3_prepare_v2(_pDb, query_buff, -1, &pp_stmt[i], nullptr))
             {
-                std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
+                std::cerr << CtSQLiteWrite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(_pDb) << std::endl;
             }
             else
             {
@@ -364,7 +364,7 @@ bool CtSQLiteRead::_sqlite3GetChildrenNodeIdFromFatherId(gint64 father_id, std::
     sqlite3_stmt *p_stmt;
     if (sqlite3_prepare_v2(_pDb, "SELECT node_id FROM children WHERE father_id=? ORDER BY sequence ASC", -1, &p_stmt, nullptr) != SQLITE_OK)
     {
-        std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
+        std::cerr << CtSQLiteWrite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(_pDb) << std::endl;
     }
     else
     {
@@ -387,7 +387,7 @@ bool CtSQLiteRead::_sqlite3GetNodeProperties(gint64 nodeId, CtNodeData& nodeData
     sqlite3_stmt *p_stmt;
     if (sqlite3_prepare_v2(_pDb, "SELECT name, syntax, tags, is_ro, is_richtxt, ts_creation, ts_lastsave FROM node WHERE node_id=?", -1, &p_stmt, nullptr) != SQLITE_OK)
     {
-        std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(_pDb) << std::endl;
+        std::cerr << CtSQLiteWrite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(_pDb) << std::endl;
     }
     else
     {
@@ -505,6 +505,9 @@ const char CtSQLiteWrite::TABLE_BOOKMARK_CREATE[]{"CREATE TABLE bookmark ("
 };
 const char CtSQLiteWrite::TABLE_BOOKMARK_INSERT[]{"INSERT INTO bookmark VALUES(?,?)"};
 
+const char CtSQLiteWrite::ERR_SQLITE_PREPV2[]{"!! sqlite3_prepare_v2: "};
+const char CtSQLiteWrite::ERR_SQLITE_STEP[]{"!! sqlite3_step: "};
+
 bool CtSQLiteWrite::_create_all_tables()
 {
     bool retVal{false};
@@ -520,14 +523,77 @@ bool CtSQLiteWrite::_create_all_tables()
     return retVal;
 }
 
+bool CtSQLiteWrite::_write_db_bookmarks(const std::list<gint64>& bookmarks)
+{
+    bool soFarSoGood = _exec_no_callback("DELETE FROM bookmark");
+    if (soFarSoGood)
+    {
+        gint64 sequence{0};
+        for (gint64 bookmark : bookmarks)
+        {
+            sequence++;
+            sqlite3_stmt *p_stmt;
+            if (sqlite3_prepare_v2(_pDb, CtSQLiteWrite::TABLE_BOOKMARK_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
+            {
+                std::cerr << CtSQLiteWrite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(_pDb) << std::endl;
+                soFarSoGood = false;
+            }
+            else
+            {
+                sqlite3_bind_int64(p_stmt, 1, bookmark);
+                sqlite3_bind_int64(p_stmt, 2, sequence);
+                if (sqlite3_step(p_stmt) != SQLITE_DONE)
+                {
+                    std::cerr << CtSQLiteWrite::ERR_SQLITE_STEP << sqlite3_errmsg(_pDb) << std::endl;
+                    soFarSoGood = false;
+                }
+                sqlite3_finalize(p_stmt);
+            }
+        }
+    }
+    return soFarSoGood;
+}
+
 bool CtSQLiteWrite::_write_db_full(const std::list<gint64>& bookmarks,
                                    CtTreeIter ct_tree_iter,
                                    const CtExporting exporting,
                                    const std::pair<int,int>& offset_range)
 {
-    bool retVal{false};
-    
-    return retVal;
+    bool soFarSoGood{true};
+    gint64 sequence{0};
+    const gint64 node_father_id{0};
+    CtNodeWriteDict write_dict;
+    write_dict.prop = true;
+    write_dict.buff = true;
+    write_dict.hier = true;
+    write_dict.child = CtExporting::NodeOnly != exporting;
+    while (ct_tree_iter)
+    {
+        sequence++;
+        soFarSoGood = _write_db_node(ct_tree_iter,
+                                     sequence,
+                                     node_father_id,
+                                     write_dict,
+                                     exporting,
+                                     offset_range);
+        if (!soFarSoGood)
+        {
+            break;
+        }
+        if (CtExporting::No == exporting || CtExporting::All == exporting)
+        {
+            ct_tree_iter++;
+        }
+        else
+        {
+            break;
+        }
+    }
+    if (CtExporting::No == exporting || CtExporting::All == exporting)
+    {
+        soFarSoGood = _write_db_bookmarks(bookmarks);
+    }
+    return soFarSoGood;
 }
 
 bool CtSQLiteWrite::_write_db_node(CtTreeIter ct_tree_iter,
@@ -556,10 +622,15 @@ bool CtSQLiteWrite::_write_db_node(CtTreeIter ct_tree_iter,
     bool has_codebox{false};
     bool has_table{false};
     bool has_image{false};
+    Glib::ustring node_txt;
     if (write_dict.buff)
     {
+        // prepare node txt for later
         CtXmlWrite ctXmlWrite("node");
         ctXmlWrite.append_node_buffer(ct_tree_iter, ctXmlWrite.get_root_node(), false/*serialise_anchored_widgets*/, offset_range);
+        node_txt = is_richtxt & 0x01 ? ctXmlWrite.write_to_string() :
+            static_cast<xmlpp::Element*>(ctXmlWrite.get_root_node())->get_child_text()->get_content();
+        // anchored widgets
         if (write_dict.upd && (is_richtxt & 0x01))
         {
             soFarSoGood = ( _exec_bind_int64("DELETE FROM codebox WHERE node_id=?", node_id) &&
@@ -583,27 +654,143 @@ bool CtSQLiteWrite::_write_db_node(CtTreeIter ct_tree_iter,
                 }
             }
         }
+    }
+    if (soFarSoGood)
+    {
+        if (write_dict.prop && write_dict.buff)
+        {
+            // full node rewrite
+            if (write_dict.upd)
+            {
+                soFarSoGood = _exec_bind_int64("DELETE FROM node WHERE node_id=?", node_id);
+            }
+            if (soFarSoGood)
+            {
+                sqlite3_stmt *p_stmt;
+                if (sqlite3_prepare_v2(_pDb, CtSQLiteWrite::TABLE_NODE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
+                {
+                    std::cerr << CtSQLiteWrite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(_pDb) << std::endl;
+                    soFarSoGood = false;
+                }
+                else
+                {
+                    sqlite3_bind_int64(p_stmt, 1, node_id);
+                    sqlite3_bind_text(p_stmt, 2, ct_tree_iter.get_node_name().c_str(), -1, SQLITE_STATIC);
+                    sqlite3_bind_text(p_stmt, 3, node_txt.c_str(), -1, SQLITE_STATIC);
+                    sqlite3_bind_text(p_stmt, 4, ct_tree_iter.get_node_syntax_highlighting().c_str(), -1, SQLITE_STATIC);
+                    sqlite3_bind_text(p_stmt, 5, ct_tree_iter.get_node_tags().c_str(), -1, SQLITE_STATIC);
+                    sqlite3_bind_int64(p_stmt, 6, is_ro);
+                    sqlite3_bind_int64(p_stmt, 7, is_richtxt);
+                    sqlite3_bind_int64(p_stmt, 8, has_codebox);
+                    sqlite3_bind_int64(p_stmt, 9, has_table);
+                    sqlite3_bind_int64(p_stmt, 10, has_image);
+                    sqlite3_bind_int64(p_stmt, 11, 0); // todo: get rid of unused column 'level'
+                    sqlite3_bind_int64(p_stmt, 12, ct_tree_iter.get_node_creating_time());
+                    sqlite3_bind_int64(p_stmt, 13, ct_tree_iter.get_node_modification_time());
+                    if (sqlite3_step(p_stmt) != SQLITE_DONE)
+                    {
+                        std::cerr << CtSQLiteWrite::ERR_SQLITE_STEP << sqlite3_errmsg(_pDb) << std::endl;
+                        soFarSoGood = false;
+                    }
+                    sqlite3_finalize(p_stmt);
+                }
+            }
+        }
+        else if (write_dict.buff)
+        {
+            // only node buff rewrite
+            sqlite3_stmt *p_stmt;
+            if (sqlite3_prepare_v2(_pDb, "UPDATE node SET txt=?, syntax=?, is_richtxt=?, has_codebox=?, has_table=?, has_image=?, ts_lastsave=? WHERE node_id=?", -1, &p_stmt, nullptr) != SQLITE_OK)
+            {
+                std::cerr << CtSQLiteWrite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(_pDb) << std::endl;
+                soFarSoGood = false;
+            }
+            else
+            {
+                sqlite3_bind_text(p_stmt, 1, node_txt.c_str(), -1, SQLITE_STATIC);
+                sqlite3_bind_text(p_stmt, 2, ct_tree_iter.get_node_syntax_highlighting().c_str(), -1, SQLITE_STATIC);
+                sqlite3_bind_int64(p_stmt, 3, is_richtxt);
+                sqlite3_bind_int64(p_stmt, 4, has_codebox);
+                sqlite3_bind_int64(p_stmt, 5, has_table);
+                sqlite3_bind_int64(p_stmt, 6, has_image);
+                sqlite3_bind_int64(p_stmt, 7, ct_tree_iter.get_node_modification_time());
+                sqlite3_bind_int64(p_stmt, 8, node_id);
+                if (sqlite3_step(p_stmt) != SQLITE_DONE)
+                {
+                    std::cerr << CtSQLiteWrite::ERR_SQLITE_STEP << sqlite3_errmsg(_pDb) << std::endl;
+                    soFarSoGood = false;
+                }
+                sqlite3_finalize(p_stmt);
+            }
+        }
+        else if (write_dict.prop)
+        {
+            // only node prop rewrite
+            sqlite3_stmt *p_stmt;
+            if (sqlite3_prepare_v2(_pDb, "UPDATE node SET name=?, syntax=?, tags=?, is_ro=?, is_richtxt=? WHERE node_id=?", -1, &p_stmt, nullptr) != SQLITE_OK)
+            {
+                std::cerr << CtSQLiteWrite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(_pDb) << std::endl;
+                soFarSoGood = false;
+            }
+            else
+            {
+                sqlite3_bind_text(p_stmt, 1, ct_tree_iter.get_node_name().c_str(), -1, SQLITE_STATIC);
+                sqlite3_bind_text(p_stmt, 2, ct_tree_iter.get_node_syntax_highlighting().c_str(), -1, SQLITE_STATIC);
+                sqlite3_bind_text(p_stmt, 3, ct_tree_iter.get_node_tags().c_str(), -1, SQLITE_STATIC);
+                sqlite3_bind_int64(p_stmt, 4, is_ro);
+                sqlite3_bind_int64(p_stmt, 5, is_richtxt);
+                sqlite3_bind_int64(p_stmt, 6, node_id);
+                if (sqlite3_step(p_stmt) != SQLITE_DONE)
+                {
+                    std::cerr << CtSQLiteWrite::ERR_SQLITE_STEP << sqlite3_errmsg(_pDb) << std::endl;
+                    soFarSoGood = false;
+                }
+                sqlite3_finalize(p_stmt);
+            }
+        }
+    }
+    if (soFarSoGood && write_dict.hier)
+    {
+        if (write_dict.upd)
+        {
+            soFarSoGood = _exec_bind_int64("DELETE FROM children WHERE node_id=?", node_id);
+        }
         if (soFarSoGood)
         {
-            if (write_dict.prop && write_dict.buff)
+            sqlite3_stmt *p_stmt;
+            if (sqlite3_prepare_v2(_pDb, CtSQLiteWrite::TABLE_CHILDREN_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
             {
-                if (write_dict.upd)
+                std::cerr << CtSQLiteWrite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(_pDb) << std::endl;
+                soFarSoGood = false;
+            }
+            else
+            {
+                sqlite3_bind_int64(p_stmt, 1, node_id);
+                sqlite3_bind_int64(p_stmt, 2, node_father_id);
+                sqlite3_bind_int64(p_stmt, 3, sequence);
+                if (sqlite3_step(p_stmt) != SQLITE_DONE)
                 {
-                    soFarSoGood = _exec_bind_int64("DELETE FROM node WHERE node_id=?", node_id);
+                    std::cerr << CtSQLiteWrite::ERR_SQLITE_STEP << sqlite3_errmsg(_pDb) << std::endl;
+                    soFarSoGood = false;
                 }
-                if (soFarSoGood)
-                {
-                    
-                }
+                sqlite3_finalize(p_stmt);
             }
-            else if (write_dict.buff)
-            {
-                
-            }
-            else if (write_dict.prop)
-            {
-                
-            }
+        }
+    }
+    if (soFarSoGood && write_dict.child)
+    {
+        CtTreeIter ct_tree_iter_child = ct_tree_iter.first_child();
+        gint64 child_sequence{0};
+        while (ct_tree_iter_child)
+        {
+            child_sequence++;
+            _write_db_node(ct_tree_iter_child,
+                           child_sequence,
+                           node_id,
+                           write_dict,
+                           exporting,
+                           offset_range);
+            ct_tree_iter_child++;
         }
     }
     return soFarSoGood;

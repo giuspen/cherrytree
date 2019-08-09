@@ -153,6 +153,8 @@ public:
     static const char TABLE_CHILDREN_INSERT[];
     static const char TABLE_BOOKMARK_CREATE[];
     static const char TABLE_BOOKMARK_INSERT[];
+    static const char ERR_SQLITE_PREPV2[];
+    static const char ERR_SQLITE_STEP[];
 
 private:
     bool _create_all_tables();
@@ -166,4 +168,5 @@ private:
                         const CtNodeWriteDict write_dict,
                         const CtExporting exporting=CtExporting::No,
                         const std::pair<int,int>& offset_range=std::make_pair(-1,-1));
+    bool _write_db_bookmarks(const std::list<gint64>& bookmarks);
 };
