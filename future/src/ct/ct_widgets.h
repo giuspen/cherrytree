@@ -27,6 +27,8 @@
 #include <sqlite3.h>
 #include "ct_list.h"
 
+enum class CtAnchWidgType { CodeBox, Table, ImagePng, ImageAnchor, ImageEmbFile };
+
 class CtAnchoredWidget : public Gtk::EventBox
 {
 public:
@@ -39,6 +41,7 @@ public:
     virtual void applyWidthHeight(const int parentTextWidth) = 0;
     virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) = 0;
     virtual bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) = 0;
+    virtual CtAnchWidgType get_type() = 0;
 
     void updateOffset(int charOffset) { _charOffset = charOffset; }
     void updateJustification(std::string justification) { _justification = justification; }

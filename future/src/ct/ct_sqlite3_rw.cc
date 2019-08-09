@@ -449,6 +449,7 @@ const char CtSQLiteWrite::TABLE_NODE_CREATE[]{"CREATE TABLE node ("
 "ts_lastsave INTEGER"
 ")"
 };
+const char CtSQLiteWrite::TABLE_NODE_INSERT[]{"INSERT INTO node VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"};
 
 const char CtSQLiteWrite::TABLE_CODEBOX_CREATE[]{"CREATE TABLE codebox ("
 "node_id INTEGER,"
@@ -463,6 +464,7 @@ const char CtSQLiteWrite::TABLE_CODEBOX_CREATE[]{"CREATE TABLE codebox ("
 "do_show_linenum INTEGER"
 ")"
 };
+const char CtSQLiteWrite::TABLE_CODEBOX_INSERT[]{"INSERT INTO codebox VALUES(?,?,?,?,?,?,?,?,?,?)"};
 
 const char CtSQLiteWrite::TABLE_TABLE_CREATE[]{"CREATE TABLE grid ("
 "node_id INTEGER,"
@@ -473,6 +475,7 @@ const char CtSQLiteWrite::TABLE_TABLE_CREATE[]{"CREATE TABLE grid ("
 "col_max INTEGER"
 ")"
 };
+const char CtSQLiteWrite::TABLE_TABLE_INSERT[]{"INSERT INTO grid VALUES(?,?,?,?,?,?)"};
 
 const char CtSQLiteWrite::TABLE_IMAGE_CREATE[]{"CREATE TABLE image ("
 "node_id INTEGER,"
@@ -485,6 +488,7 @@ const char CtSQLiteWrite::TABLE_IMAGE_CREATE[]{"CREATE TABLE image ("
 "time INTEGER"
 ")"
 };
+const char CtSQLiteWrite::TABLE_IMAGE_INSERT[]{"INSERT INTO image VALUES(?,?,?,?,?,?,?,?)"};
 
 const char CtSQLiteWrite::TABLE_CHILDREN_CREATE[]{"CREATE TABLE children ("
 "node_id INTEGER UNIQUE,"
@@ -492,12 +496,14 @@ const char CtSQLiteWrite::TABLE_CHILDREN_CREATE[]{"CREATE TABLE children ("
 "sequence INTEGER"
 ")"
 };
+const char CtSQLiteWrite::TABLE_CHILDREN_INSERT[]{"INSERT INTO children VALUES(?,?,?)"};
 
 const char CtSQLiteWrite::TABLE_BOOKMARK_CREATE[]{"CREATE TABLE bookmark ("
 "node_id INTEGER UNIQUE,"
 "sequence INTEGER"
 ")"
 };
+const char CtSQLiteWrite::TABLE_BOOKMARK_INSERT[]{"INSERT INTO bookmark VALUES(?,?)"};
 
 bool CtSQLiteWrite::_create_all_tables()
 {
@@ -547,6 +553,9 @@ bool CtSQLiteWrite::_write_db_node(CtTreeIter ct_tree_iter,
         is_richtxt |= 0x04;
         is_richtxt |= CtRgbUtil::getRgb24IntFromStrAny(ct_tree_iter.get_node_foreground().c_str()+1) << 3;
     }
+    bool has_codebox{false};
+    bool has_table{false};
+    bool has_image{false};
     if (write_dict.buff)
     {
         CtXmlWrite ctXmlWrite("node");
@@ -565,7 +574,35 @@ bool CtSQLiteWrite::_write_db_node(CtTreeIter ct_tree_iter,
                     {
                         break;
                     }
+                    switch (pAnchoredWidget->get_type())
+                    {
+                        case CtAnchWidgType::CodeBox: has_codebox = true; break;
+                        case CtAnchWidgType::Table: has_table = true; break;
+                        default: has_image = true;
+                    }
                 }
+            }
+        }
+        if (soFarSoGood)
+        {
+            if (write_dict.prop && write_dict.buff)
+            {
+                if (write_dict.upd)
+                {
+                    soFarSoGood = _exec_bind_int64("DELETE FROM node WHERE node_id=?", node_id);
+                }
+                if (soFarSoGood)
+                {
+                    
+                }
+            }
+            else if (write_dict.buff)
+            {
+                
+            }
+            else if (write_dict.prop)
+            {
+                
             }
         }
     }

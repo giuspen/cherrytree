@@ -141,14 +141,20 @@ public:
         bool child{false};
     };
 
-private:
     static const char TABLE_NODE_CREATE[];
+    static const char TABLE_NODE_INSERT[];
     static const char TABLE_CODEBOX_CREATE[];
+    static const char TABLE_CODEBOX_INSERT[];
     static const char TABLE_TABLE_CREATE[];
+    static const char TABLE_TABLE_INSERT[];
     static const char TABLE_IMAGE_CREATE[];
+    static const char TABLE_IMAGE_INSERT[];
     static const char TABLE_CHILDREN_CREATE[];
+    static const char TABLE_CHILDREN_INSERT[];
     static const char TABLE_BOOKMARK_CREATE[];
+    static const char TABLE_BOOKMARK_INSERT[];
 
+private:
     bool _create_all_tables();
     bool _write_db_full(const std::list<gint64>& bookmarks,
                         CtTreeIter ct_tree_iter,

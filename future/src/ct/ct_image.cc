@@ -20,6 +20,7 @@
  */
 
 #include "ct_image.h"
+#include "ct_doc_rw.h"
 #include "ct_app.h"
 
 CtImage::CtImage(const std::string& rawBlob,
@@ -129,7 +130,34 @@ void CtImagePng::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustme
 
 bool CtImagePng::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment)
 {
-    bool retVal{false};
+    bool retVal{true};
+    sqlite3_stmt *p_stmt;
+    if (sqlite3_prepare_v2(pDb, CtSQLiteWrite::TABLE_IMAGE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
+    {
+        std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(pDb) << std::endl;
+        retVal = false;
+    }
+    else
+    {
+        gchar* pBuffer{nullptr};
+        gsize  buffer_size;
+        _rPixbuf->save_to_buffer(pBuffer, buffer_size, "png");
+        sqlite3_bind_int64(p_stmt, 1, node_id);
+        sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
+        sqlite3_bind_text(p_stmt, 3, _justification.c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 4, "", -1, SQLITE_STATIC); // anchor name
+        sqlite3_bind_blob(p_stmt, 5, pBuffer, buffer_size, SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 6, "", -1, SQLITE_STATIC); // filename
+        sqlite3_bind_text(p_stmt, 7, _link.c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_int64(p_stmt, 8, 0); // time
+        g_free(pBuffer);
+        if (sqlite3_step(p_stmt) != SQLITE_DONE)
+        {
+            std::cerr << "!! sqlite3_step: " << sqlite3_errmsg(pDb) << std::endl;
+            retVal = false;
+        }
+        sqlite3_finalize(p_stmt);
+    }
     return retVal;
 }
 
@@ -187,7 +215,30 @@ void CtImageAnchor::to_xml(xmlpp::Element* p_node_parent, const int offset_adjus
 
 bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment)
 {
-    bool retVal{false};
+    bool retVal{true};
+    sqlite3_stmt *p_stmt;
+    if (sqlite3_prepare_v2(pDb, CtSQLiteWrite::TABLE_IMAGE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
+    {
+        std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(pDb) << std::endl;
+        retVal = false;
+    }
+    else
+    {
+        sqlite3_bind_int64(p_stmt, 1, node_id);
+        sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
+        sqlite3_bind_text(p_stmt, 3, _justification.c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 4, _anchorName.c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_blob(p_stmt, 5, nullptr, 0, SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 6, "", -1, SQLITE_STATIC); // filename
+        sqlite3_bind_text(p_stmt, 7, "", -1, SQLITE_STATIC); // link
+        sqlite3_bind_int64(p_stmt, 8, 0); // time
+        if (sqlite3_step(p_stmt) != SQLITE_DONE)
+        {
+            std::cerr << "!! sqlite3_step: " << sqlite3_errmsg(pDb) << std::endl;
+            retVal = false;
+        }
+        sqlite3_finalize(p_stmt);
+    }
     return retVal;
 }
 
@@ -237,7 +288,30 @@ void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent, const int offset_adju
 
 bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment)
 {
-    bool retVal{false};
+    bool retVal{true};
+    sqlite3_stmt *p_stmt;
+    if (sqlite3_prepare_v2(pDb, CtSQLiteWrite::TABLE_IMAGE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
+    {
+        std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(pDb) << std::endl;
+        retVal = false;
+    }
+    else
+    {
+        sqlite3_bind_int64(p_stmt, 1, node_id);
+        sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
+        sqlite3_bind_text(p_stmt, 3, _justification.c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 4, "", -1, SQLITE_STATIC); // anchor
+        sqlite3_bind_blob(p_stmt, 5, _rawBlob.c_str(), _rawBlob.size(), SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 6, _fileName.c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 7, "", -1, SQLITE_STATIC); // link
+        sqlite3_bind_int64(p_stmt, 8, _timeSeconds);
+        if (sqlite3_step(p_stmt) != SQLITE_DONE)
+        {
+            std::cerr << "!! sqlite3_step: " << sqlite3_errmsg(pDb) << std::endl;
+            retVal = false;
+        }
+        sqlite3_finalize(p_stmt);
+    }
     return retVal;
 }
 

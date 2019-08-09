@@ -20,6 +20,7 @@
  */
 
 #include "ct_codebox.h"
+#include "ct_doc_rw.h"
 #include "ct_app.h"
 #include "ct_list.h"
 #include "ct_clipboard.h"
@@ -159,7 +160,7 @@ bool CtCodebox::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_a
 {
     bool retVal{true};
     sqlite3_stmt *p_stmt;
-    if (sqlite3_prepare_v2(pDb, "INSERT INTO codebox VALUES(?,?,?,?,?,?,?,?,?,?)", -1, &p_stmt, nullptr) != SQLITE_OK)
+    if (sqlite3_prepare_v2(pDb, CtSQLiteWrite::TABLE_CODEBOX_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
     {
         std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(pDb) << std::endl;
         retVal = false;

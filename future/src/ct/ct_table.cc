@@ -106,7 +106,7 @@ bool CtTable::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adj
 {
     bool retVal{true};
     sqlite3_stmt *p_stmt;
-    if (sqlite3_prepare_v2(pDb, "INSERT INTO codebox VALUES(?,?,?,?,?,?,?,?,?,?)", -1, &p_stmt, nullptr) != SQLITE_OK)
+    if (sqlite3_prepare_v2(pDb, CtSQLiteWrite::TABLE_TABLE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
     {
         std::cerr << "!! sqlite3_prepare_v2: " << sqlite3_errmsg(pDb) << std::endl;
         retVal = false;
