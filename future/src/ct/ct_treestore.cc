@@ -30,21 +30,21 @@ CtTreeModelColumns::~CtTreeModelColumns()
 
 }
 
-CtTreeIter::CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* pColumns, const CtSQLiteRead* pCtSQLiteRead)
+CtTreeIter::CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* pColumns, const CtSQLite* pCtSQLite)
  : Gtk::TreeIter(iter),
    _pColumns(pColumns),
-   _pCtSQLiteRead(pCtSQLiteRead)
+   _pCtSQLite(pCtSQLite)
 {
 }
 
 CtTreeIter CtTreeIter::parent()
 {
-    return CtTreeIter((*this)->parent(), _pColumns, _pCtSQLiteRead);
+    return CtTreeIter((*this)->parent(), _pColumns, _pCtSQLite);
 }
 
 CtTreeIter CtTreeIter::first_child()
 {
-    return CtTreeIter((*this)->children().begin(), _pColumns, _pCtSQLiteRead);
+    return CtTreeIter((*this)->children().begin(), _pColumns, _pCtSQLite);
 }
 
 bool CtTreeIter::get_node_read_only() const
@@ -123,11 +123,11 @@ Glib::RefPtr<Gsv::Buffer> CtTreeIter::get_node_text_buffer() const
     if (*this)
     {
         rRetTextBuffer = (*this)->get_value(_pColumns->rColTextBuffer);
-        if (!rRetTextBuffer && nullptr != _pCtSQLiteRead)
+        if (!rRetTextBuffer && nullptr != _pCtSQLite)
         {
             // SQLite text buffer not yet populated
             std::list<CtAnchoredWidget*> anchoredWidgetList;
-            rRetTextBuffer = _pCtSQLiteRead->getTextBuffer((*this)->get_value(_pColumns->colSyntaxHighlighting),
+            rRetTextBuffer = _pCtSQLite->getTextBuffer((*this)->get_value(_pColumns->colSyntaxHighlighting),
                                                            anchoredWidgetList,
                                                            (*this)->get_value(_pColumns->colNodeUniqueId));
             (*this)->set_value(_pColumns->colAnchoredWidgets, anchoredWidgetList);
@@ -194,9 +194,9 @@ CtTreeStore::CtTreeStore()
 CtTreeStore::~CtTreeStore()
 {
     _iterDeleteAnchoredWidgets(getRootChildren());
-    if (nullptr != _pCtSQLiteRead)
+    if (nullptr != _pCtSQLite)
     {
-        delete _pCtSQLiteRead;
+        delete _pCtSQLite;
     }
 }
 
@@ -306,10 +306,10 @@ bool CtTreeStore::readNodesFromFilepath(const char* filepath, const bool isImpor
     }
     else if (CtDocType::SQLite == docType)
     {
-        CtSQLiteRead* pCtSQLiteRead = new CtSQLiteRead(filepath);
-        if (pCtSQLiteRead && pCtSQLiteRead->getDbOpenOk())
+        CtSQLite* pCtSQLite = new CtSQLite(filepath);
+        if (pCtSQLite && pCtSQLite->getDbOpenOk())
         {
-            pCtDocRead = pCtSQLiteRead;
+            pCtDocRead = pCtSQLite;
         }
     }
     if (pCtDocRead != nullptr)
@@ -319,7 +319,7 @@ bool CtTreeStore::readNodesFromFilepath(const char* filepath, const bool isImpor
         retOk = pCtDocRead->treeWalk(pParentIter);
         if (!isImport && (CtDocType::SQLite == docType))
         {
-            _pCtSQLiteRead = dynamic_cast<CtSQLiteRead*>(pCtDocRead);
+            _pCtSQLite = dynamic_cast<CtSQLite*>(pCtDocRead);
         }
         else
         {
@@ -697,5 +697,5 @@ Gtk::TreePath CtTreeStore::get_path(Gtk::TreeIter tree_iter)
 
 CtTreeIter CtTreeStore::to_ct_tree_iter(Gtk::TreeIter tree_iter)
 {
-    return CtTreeIter(tree_iter, &get_columns(), _pCtSQLiteRead);
+    return CtTreeIter(tree_iter, &get_columns(), _pCtSQLite);
 }

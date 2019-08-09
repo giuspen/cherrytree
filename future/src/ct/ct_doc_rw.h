@@ -43,7 +43,7 @@ class CtXmlRead : public CtDocRead, public xmlpp::DomParser
 public:
     CtXmlRead(const char* filepath, const char* textContent);
     virtual ~CtXmlRead();
-    virtual bool treeWalk(const Gtk::TreeIter* pParentIter=nullptr);
+    virtual bool treeWalk(const Gtk::TreeIter* pParentIter=nullptr) override;
     Glib::RefPtr<Gsv::Buffer> getTextBuffer(const std::string& syntax,
                                             std::list<CtAnchoredWidget*>& anchoredWidgets,
                                             xmlpp::Element* pNodeElement=nullptr);
@@ -87,50 +87,19 @@ public:
                                    gchar change_case='n');
 };
 
-class CtSQLite
+class CtSQLite : public CtDocRead
 {
 public:
     CtSQLite(const char* filepath);
     virtual ~CtSQLite();
     bool getDbOpenOk() { return _dbOpenOk; }
 
-protected:
-    bool _exec_no_callback(const char* sqlCmd);
-    bool _exec_bind_int64(const char* sqlCmd, const gint64 bind_int64);
+    virtual bool treeWalk(const Gtk::TreeIter* pParentIter=nullptr) override;
 
-    sqlite3* _pDb{nullptr};
-    bool     _dbOpenOk{false};
-};
-
-class CtSQLiteRead : public CtSQLite, public CtDocRead
-{
-public:
-    CtSQLiteRead(const char* filepath) : CtSQLite(filepath) {}
-    virtual ~CtSQLiteRead() {}
-    virtual bool treeWalk(const Gtk::TreeIter* pParentIter=nullptr);
     Glib::RefPtr<Gsv::Buffer> getTextBuffer(const std::string& syntax,
                                             std::list<CtAnchoredWidget*>& anchoredWidgets,
                                             const gint64& nodeId) const;
     void pending_new_db_node(gint64 /*node_id*/) { /* todo: */ }
-
-private:
-    bool _sqlite3GetChildrenNodeIdFromFatherId(gint64 father_id, std::list<gint64>& ret_children);
-    bool _sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIter* pParentIter);
-    bool _sqlite3GetNodeProperties(gint64 nodeId, CtNodeData& nodeData);
-    bool _sqlite3NodeProcess(gint64 nodeId, const Gtk::TreeIter* pParentIter, Gtk::TreeIter& newIter);
-    void _getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
-                                       std::list<CtAnchoredWidget*>& anchoredWidgets,
-                                       const gint64& nodeId,
-                                       const bool& has_codebox,
-                                       const bool& has_table,
-                                       const bool& has_image) const;
-};
-
-class CtSQLiteWrite : public CtSQLite
-{
-public:
-    CtSQLiteWrite(const char* filepath) : CtSQLite(filepath) {}
-    virtual ~CtSQLiteWrite() {}
 
     struct CtNodeWriteDict
     {
@@ -139,6 +108,12 @@ public:
         bool buff{false};
         bool hier{false};
         bool child{false};
+    };
+    struct CtSyncPending
+    {
+        std::unordered_map<gint64,CtNodeWriteDict> nodes_to_write_dict;
+        std::set<gint64> nodes_to_rm_set;
+        bool bookmarks_to_write{false};
     };
 
     static const char TABLE_NODE_CREATE[];
@@ -156,7 +131,20 @@ public:
     static const char ERR_SQLITE_PREPV2[];
     static const char ERR_SQLITE_STEP[];
 
-private:
+protected:
+    bool _sqlite3GetChildrenNodeIdFromFatherId(gint64 father_id, std::list<gint64>& ret_children);
+    bool _sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIter* pParentIter);
+    bool _sqlite3GetNodeProperties(gint64 nodeId, CtNodeData& nodeData);
+    bool _sqlite3NodeProcess(gint64 nodeId, const Gtk::TreeIter* pParentIter, Gtk::TreeIter& newIter);
+    void _getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
+                                       std::list<CtAnchoredWidget*>& anchoredWidgets,
+                                       const gint64& nodeId,
+                                       const bool& has_codebox,
+                                       const bool& has_table,
+                                       const bool& has_image) const;
+
+    bool _exec_no_callback(const char* sqlCmd);
+    bool _exec_bind_int64(const char* sqlCmd, const gint64 bind_int64);
     bool _create_all_tables();
     bool _write_db_full(const std::list<gint64>& bookmarks,
                         CtTreeIter ct_tree_iter,
@@ -169,4 +157,8 @@ private:
                         const CtExporting exporting=CtExporting::No,
                         const std::pair<int,int>& offset_range=std::make_pair(-1,-1));
     bool _write_db_bookmarks(const std::list<gint64>& bookmarks);
+
+    sqlite3* _pDb{nullptr};
+    bool     _dbOpenOk{false};
+    CtSyncPending _syncPending;
 };

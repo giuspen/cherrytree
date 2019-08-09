@@ -71,12 +71,12 @@ public:
     Gtk::TreeModelColumn<std::list<CtAnchoredWidget*>> colAnchoredWidgets;
 };
 
-class CtSQLiteRead;
+class CtSQLite;
 
 class CtTreeIter : public Gtk::TreeIter
 {
 public:
-    CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* _columns, const CtSQLiteRead* pCtSQLiteRead);
+    CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* _columns, const CtSQLite* pCtSQLite);
 
     CtTreeIter  parent();
     CtTreeIter  first_child();
@@ -106,7 +106,7 @@ public:
 
 private:
     const CtTreeModelColumns* _pColumns{nullptr};
-    const CtSQLiteRead* _pCtSQLiteRead{nullptr};
+    const CtSQLite* _pCtSQLite{nullptr};
 };
 
 class CtTextView;
@@ -160,7 +160,7 @@ public:
     CtTreeIter                      to_ct_tree_iter(Gtk::TreeIter tree_iter);
 
     void nodes_sequences_fix(Gtk::TreeIter /*father_iter*/, bool /*process_children*/) { /* todo: */ }
-    CtSQLiteRead* ctdb_handler() { return _pCtSQLiteRead; }
+    CtSQLite* ctdb_handler() { return _pCtSQLite; }
     const CtTreeModelColumns& get_columns() { return _columns; }
 
 protected:
@@ -174,5 +174,5 @@ protected:
     std::list<gint64>              _bookmarks;
     std::set<std::string>          _usedTags;
     std::map<gint64, std::string>  _nodes_names_dict; // for link tooltips
-    CtSQLiteRead*                  _pCtSQLiteRead{nullptr};
+    CtSQLite*                      _pCtSQLite{nullptr};
 };

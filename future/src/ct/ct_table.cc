@@ -106,9 +106,9 @@ bool CtTable::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adj
 {
     bool retVal{true};
     sqlite3_stmt *p_stmt;
-    if (sqlite3_prepare_v2(pDb, CtSQLiteWrite::TABLE_TABLE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
+    if (sqlite3_prepare_v2(pDb, CtSQLite::TABLE_TABLE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
     {
-        std::cerr << CtSQLiteWrite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(pDb) << std::endl;
+        std::cerr << CtSQLite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(pDb) << std::endl;
         retVal = false;
     }
     else
@@ -123,7 +123,7 @@ bool CtTable::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adj
         sqlite3_bind_int64(p_stmt, 6, _colMax);
         if (sqlite3_step(p_stmt) != SQLITE_DONE)
         {
-            std::cerr << CtSQLiteWrite::ERR_SQLITE_STEP << sqlite3_errmsg(pDb) << std::endl;
+            std::cerr << CtSQLite::ERR_SQLITE_STEP << sqlite3_errmsg(pDb) << std::endl;
             retVal = false;
         }
         sqlite3_finalize(p_stmt);
