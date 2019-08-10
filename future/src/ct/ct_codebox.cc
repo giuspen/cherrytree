@@ -27,7 +27,7 @@
 
 
 CtTextCell::CtTextCell(const Glib::ustring& textContent,
-                       const Glib::ustring& syntaxHighlighting)
+                       const std::string& syntaxHighlighting)
  : _syntaxHighlighting(syntaxHighlighting)
 {
     _rTextBuffer = CtMiscUtil::getNewTextBuffer(syntaxHighlighting, textContent);
@@ -46,7 +46,7 @@ Glib::ustring CtTextCell::getTextContent() const
     return start_iter.get_text(end_iter);
 }
 
-void CtTextCell::setSyntaxHighlighting(const Glib::ustring& syntaxHighlighting)
+void CtTextCell::setSyntaxHighlighting(const std::string& syntaxHighlighting)
 {
     _syntaxHighlighting = syntaxHighlighting;
     if (CtConst::RICH_TEXT_ID != syntaxHighlighting)
@@ -64,7 +64,7 @@ void CtTextCell::setSyntaxHighlighting(const Glib::ustring& syntaxHighlighting)
 const Gsv::DrawSpacesFlags CtCodebox::DRAW_SPACES_FLAGS = Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE;
 
 CtCodebox::CtCodebox(const Glib::ustring& textContent,
-                     const Glib::ustring& syntaxHighlighting,
+                     const std::string& syntaxHighlighting,
                      const int frameWidth,
                      const int frameHeight,
                      const int charOffset,
@@ -167,7 +167,7 @@ bool CtCodebox::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_a
     }
     else
     {
-        const Glib::ustring codebox_txt = getTextContent();
+        const std::string codebox_txt = Glib::locale_from_utf8(getTextContent());
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
         sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);

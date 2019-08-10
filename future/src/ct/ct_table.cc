@@ -115,7 +115,7 @@ bool CtTable::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adj
     {
         CtXmlWrite ctXmlWrite("table");
         _populate_xml_rows_cells(ctXmlWrite.get_root_node());
-        const Glib::ustring table_txt = ctXmlWrite.write_to_string();
+        const std::string table_txt = Glib::locale_from_utf8(ctXmlWrite.write_to_string());
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
         sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);

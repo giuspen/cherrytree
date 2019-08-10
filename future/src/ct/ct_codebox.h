@@ -33,18 +33,18 @@ class CtTextCell
 {
 public:
     CtTextCell(const Glib::ustring& textContent,
-               const Glib::ustring& syntaxHighlighting);
+               const std::string& syntaxHighlighting);
     virtual ~CtTextCell();
 
     Glib::ustring getTextContent() const;
     Glib::RefPtr<Gsv::Buffer> getBuffer() { return _rTextBuffer; }
     CtTextView& getTextView() { return _ctTextview; }
-    const Glib::ustring& getSyntaxHighlighting() { return _syntaxHighlighting; }
+    const std::string& getSyntaxHighlighting() { return _syntaxHighlighting; }
 
-    void setSyntaxHighlighting(const Glib::ustring& syntaxHighlighting);
+    void setSyntaxHighlighting(const std::string& syntaxHighlighting);
 
 protected:
-    Glib::ustring _syntaxHighlighting;
+    std::string _syntaxHighlighting;
     Glib::RefPtr<Gsv::Buffer> _rTextBuffer{nullptr};
     CtTextView _ctTextview;
 };
@@ -62,7 +62,7 @@ public:
 
 public:
     CtCodebox(const Glib::ustring& textContent,
-              const Glib::ustring& syntaxHighlighting,
+              const std::string& syntaxHighlighting,
               const int frameWidth,
               const int frameHeight,
               const int charOffset,

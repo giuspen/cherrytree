@@ -624,7 +624,7 @@ bool CtSQLite::_write_db_node(CtTreeIter ct_tree_iter,
     bool has_codebox{false};
     bool has_table{false};
     bool has_image{false};
-    Glib::ustring node_txt;
+    std::string node_txt;
     if (write_dict.buff)
     {
         // prepare node txt for later
@@ -632,7 +632,7 @@ bool CtSQLite::_write_db_node(CtTreeIter ct_tree_iter,
         ctXmlWrite.append_node_buffer(ct_tree_iter, ctXmlWrite.get_root_node(), false/*serialise_anchored_widgets*/, offset_range);
         if (is_richtxt & 0x01)
         {
-            node_txt = ctXmlWrite.write_to_string();
+            node_txt = Glib::locale_from_utf8(ctXmlWrite.write_to_string());
             // anchored widgets
             if (write_dict.upd)
             {
@@ -666,7 +666,7 @@ bool CtSQLite::_write_db_node(CtTreeIter ct_tree_iter,
                 xmlpp::TextNode* pTextNode = static_cast<xmlpp::Element*>(matches[0])->get_child_text();
                 if (pTextNode)
                 {
-                    node_txt = pTextNode->get_content();
+                    node_txt = Glib::locale_from_utf8(pTextNode->get_content());
                 }
             }
         }
@@ -690,9 +690,9 @@ bool CtSQLite::_write_db_node(CtTreeIter ct_tree_iter,
                 }
                 else
                 {
-                    const Glib::ustring node_name = ct_tree_iter.get_node_name();
-                    const Glib::ustring node_syntax = ct_tree_iter.get_node_syntax_highlighting();
-                    const Glib::ustring node_tags = ct_tree_iter.get_node_tags();
+                    const std::string node_name = Glib::locale_from_utf8(ct_tree_iter.get_node_name());
+                    const std::string node_syntax = ct_tree_iter.get_node_syntax_highlighting();
+                    const std::string node_tags = Glib::locale_from_utf8(ct_tree_iter.get_node_tags());
                     sqlite3_bind_int64(p_stmt, 1, node_id);
                     sqlite3_bind_text(p_stmt, 2, node_name.c_str(), node_name.size(), SQLITE_STATIC);
                     sqlite3_bind_text(p_stmt, 3, node_txt.c_str(), node_txt.size(), SQLITE_STATIC);
@@ -726,7 +726,7 @@ bool CtSQLite::_write_db_node(CtTreeIter ct_tree_iter,
             }
             else
             {
-                const Glib::ustring node_syntax = ct_tree_iter.get_node_syntax_highlighting();
+                const std::string node_syntax = ct_tree_iter.get_node_syntax_highlighting();
                 sqlite3_bind_text(p_stmt, 1, node_txt.c_str(), node_txt.size(), SQLITE_STATIC);
                 sqlite3_bind_text(p_stmt, 2, node_syntax.c_str(), node_syntax.size(), SQLITE_STATIC);
                 sqlite3_bind_int64(p_stmt, 3, is_richtxt);
@@ -754,9 +754,9 @@ bool CtSQLite::_write_db_node(CtTreeIter ct_tree_iter,
             }
             else
             {
-                const Glib::ustring node_name = ct_tree_iter.get_node_name();
-                const Glib::ustring node_syntax = ct_tree_iter.get_node_syntax_highlighting();
-                const Glib::ustring node_tags = ct_tree_iter.get_node_tags();
+                const std::string node_name = Glib::locale_from_utf8(ct_tree_iter.get_node_name());
+                const std::string node_syntax = ct_tree_iter.get_node_syntax_highlighting();
+                const std::string node_tags = Glib::locale_from_utf8(ct_tree_iter.get_node_tags());
                 sqlite3_bind_text(p_stmt, 1, node_name.c_str(), node_name.size(), SQLITE_STATIC);
                 sqlite3_bind_text(p_stmt, 2, node_syntax.c_str(), node_syntax.size(), SQLITE_STATIC);
                 sqlite3_bind_text(p_stmt, 3, node_tags.c_str(), node_tags.size(), SQLITE_STATIC);
