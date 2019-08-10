@@ -633,25 +633,13 @@ bool CtSQLite::_write_db_node(CtTreeIter ct_tree_iter,
         if (is_richtxt & 0x01)
         {
             node_txt = ctXmlWrite.write_to_string();
-        }
-        else
-        {
-            auto matches = ctXmlWrite.get_root_node()->find("node/rich_text");
-            if (1 == matches.size())
+            // anchored widgets
+            if (write_dict.upd)
             {
-                xmlpp::TextNode* pTextNode = static_cast<xmlpp::Element*>(matches[0])->get_child_text();
-                if (pTextNode)
-                {
-                    node_txt = pTextNode->get_content();
-                }
+                soFarSoGood = ( _exec_bind_int64("DELETE FROM codebox WHERE node_id=?", node_id) &&
+                                _exec_bind_int64("DELETE FROM grid WHERE node_id=?", node_id) &&
+                                _exec_bind_int64("DELETE FROM image WHERE node_id=?", node_id) );
             }
-        }
-        // anchored widgets
-        if (write_dict.upd && (is_richtxt & 0x01))
-        {
-            soFarSoGood = ( _exec_bind_int64("DELETE FROM codebox WHERE node_id=?", node_id) &&
-                            _exec_bind_int64("DELETE FROM grid WHERE node_id=?", node_id) &&
-                            _exec_bind_int64("DELETE FROM image WHERE node_id=?", node_id) );
             if (soFarSoGood)
             {
                 for (CtAnchoredWidget* pAnchoredWidget : ct_tree_iter.get_embedded_pixbufs_tables_codeboxes(offset_range))
@@ -667,6 +655,18 @@ bool CtSQLite::_write_db_node(CtTreeIter ct_tree_iter,
                         case CtAnchWidgType::Table: has_table = true; break;
                         default: has_image = true;
                     }
+                }
+            }
+        }
+        else
+        {
+            auto matches = ctXmlWrite.get_root_node()->find("rich_text");
+            if (1 == matches.size())
+            {
+                xmlpp::TextNode* pTextNode = static_cast<xmlpp::Element*>(matches[0])->get_child_text();
+                if (pTextNode)
+                {
+                    node_txt = pTextNode->get_content();
                 }
             }
         }
@@ -690,11 +690,14 @@ bool CtSQLite::_write_db_node(CtTreeIter ct_tree_iter,
                 }
                 else
                 {
+                    const Glib::ustring node_name = ct_tree_iter.get_node_name();
+                    const Glib::ustring node_syntax = ct_tree_iter.get_node_syntax_highlighting();
+                    const Glib::ustring node_tags = ct_tree_iter.get_node_tags();
                     sqlite3_bind_int64(p_stmt, 1, node_id);
-                    sqlite3_bind_text(p_stmt, 2, ct_tree_iter.get_node_name().c_str(), -1, SQLITE_STATIC);
-                    sqlite3_bind_text(p_stmt, 3, node_txt.c_str(), -1, SQLITE_STATIC);
-                    sqlite3_bind_text(p_stmt, 4, ct_tree_iter.get_node_syntax_highlighting().c_str(), -1, SQLITE_STATIC);
-                    sqlite3_bind_text(p_stmt, 5, ct_tree_iter.get_node_tags().c_str(), -1, SQLITE_STATIC);
+                    sqlite3_bind_text(p_stmt, 2, node_name.c_str(), node_name.size(), SQLITE_STATIC);
+                    sqlite3_bind_text(p_stmt, 3, node_txt.c_str(), node_txt.size(), SQLITE_STATIC);
+                    sqlite3_bind_text(p_stmt, 4, node_syntax.c_str(), node_syntax.size(), SQLITE_STATIC);
+                    sqlite3_bind_text(p_stmt, 5, node_tags.c_str(), node_tags.size(), SQLITE_STATIC);
                     sqlite3_bind_int64(p_stmt, 6, is_ro);
                     sqlite3_bind_int64(p_stmt, 7, is_richtxt);
                     sqlite3_bind_int64(p_stmt, 8, has_codebox);
@@ -723,8 +726,9 @@ bool CtSQLite::_write_db_node(CtTreeIter ct_tree_iter,
             }
             else
             {
-                sqlite3_bind_text(p_stmt, 1, node_txt.c_str(), -1, SQLITE_STATIC);
-                sqlite3_bind_text(p_stmt, 2, ct_tree_iter.get_node_syntax_highlighting().c_str(), -1, SQLITE_STATIC);
+                const Glib::ustring node_syntax = ct_tree_iter.get_node_syntax_highlighting();
+                sqlite3_bind_text(p_stmt, 1, node_txt.c_str(), node_txt.size(), SQLITE_STATIC);
+                sqlite3_bind_text(p_stmt, 2, node_syntax.c_str(), node_syntax.size(), SQLITE_STATIC);
                 sqlite3_bind_int64(p_stmt, 3, is_richtxt);
                 sqlite3_bind_int64(p_stmt, 4, has_codebox);
                 sqlite3_bind_int64(p_stmt, 5, has_table);
@@ -750,9 +754,12 @@ bool CtSQLite::_write_db_node(CtTreeIter ct_tree_iter,
             }
             else
             {
-                sqlite3_bind_text(p_stmt, 1, ct_tree_iter.get_node_name().c_str(), -1, SQLITE_STATIC);
-                sqlite3_bind_text(p_stmt, 2, ct_tree_iter.get_node_syntax_highlighting().c_str(), -1, SQLITE_STATIC);
-                sqlite3_bind_text(p_stmt, 3, ct_tree_iter.get_node_tags().c_str(), -1, SQLITE_STATIC);
+                const Glib::ustring node_name = ct_tree_iter.get_node_name();
+                const Glib::ustring node_syntax = ct_tree_iter.get_node_syntax_highlighting();
+                const Glib::ustring node_tags = ct_tree_iter.get_node_tags();
+                sqlite3_bind_text(p_stmt, 1, node_name.c_str(), node_name.size(), SQLITE_STATIC);
+                sqlite3_bind_text(p_stmt, 2, node_syntax.c_str(), node_syntax.size(), SQLITE_STATIC);
+                sqlite3_bind_text(p_stmt, 3, node_tags.c_str(), node_tags.size(), SQLITE_STATIC);
                 sqlite3_bind_int64(p_stmt, 4, is_ro);
                 sqlite3_bind_int64(p_stmt, 5, is_richtxt);
                 sqlite3_bind_int64(p_stmt, 6, node_id);

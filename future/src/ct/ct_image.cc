@@ -113,18 +113,23 @@ CtImagePng::CtImagePng(Glib::RefPtr<Gdk::Pixbuf> pixBuf,
     updateLabelWidget();
 }
 
+const std::string CtImagePng::get_raw_blob()
+{
+    gchar* pBuffer{nullptr};
+    gsize  buffer_size;
+    _rPixbuf->save_to_buffer(pBuffer, buffer_size, "png");
+    const std::string rawBlob = std::string(pBuffer, buffer_size);
+    g_free(pBuffer);
+    return rawBlob;
+}
+
 void CtImagePng::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
 {
     xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
     p_image_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
     p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
     p_image_node->set_attribute("link", _link);
-    gchar* pBuffer{nullptr};
-    gsize  buffer_size;
-    _rPixbuf->save_to_buffer(pBuffer, buffer_size, "png");
-    const std::string rawBlob = std::string(pBuffer, buffer_size);
-    g_free(pBuffer);
-    const std::string encodedBlob = Glib::Base64::encode(rawBlob);
+    const std::string encodedBlob = Glib::Base64::encode(get_raw_blob());
     p_image_node->add_child_text(encodedBlob);
 }
 
@@ -139,18 +144,15 @@ bool CtImagePng::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_
     }
     else
     {
-        gchar* pBuffer{nullptr};
-        gsize  buffer_size;
-        _rPixbuf->save_to_buffer(pBuffer, buffer_size, "png");
+        const std::string rawBlob = get_raw_blob();
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
-        sqlite3_bind_text(p_stmt, 3, _justification.c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 4, "", -1, SQLITE_STATIC); // anchor name
-        sqlite3_bind_blob(p_stmt, 5, pBuffer, buffer_size, SQLITE_STATIC);
+        sqlite3_bind_blob(p_stmt, 5, rawBlob.c_str(), rawBlob.size(), SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 6, "", -1, SQLITE_STATIC); // filename
-        sqlite3_bind_text(p_stmt, 7, _link.c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 7, _link.c_str(), _link.size(), SQLITE_STATIC);
         sqlite3_bind_int64(p_stmt, 8, 0); // time
-        g_free(pBuffer);
         if (sqlite3_step(p_stmt) != SQLITE_DONE)
         {
             std::cerr << CtSQLite::ERR_SQLITE_STEP << sqlite3_errmsg(pDb) << std::endl;
@@ -226,8 +228,8 @@ bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offs
     {
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
-        sqlite3_bind_text(p_stmt, 3, _justification.c_str(), -1, SQLITE_STATIC);
-        sqlite3_bind_text(p_stmt, 4, _anchorName.c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 4, _anchorName.c_str(), _anchorName.size(), SQLITE_STATIC);
         sqlite3_bind_blob(p_stmt, 5, nullptr, 0, SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 6, "", -1, SQLITE_STATIC); // filename
         sqlite3_bind_text(p_stmt, 7, "", -1, SQLITE_STATIC); // link
@@ -299,10 +301,10 @@ bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int off
     {
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
-        sqlite3_bind_text(p_stmt, 3, _justification.c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 4, "", -1, SQLITE_STATIC); // anchor
         sqlite3_bind_blob(p_stmt, 5, _rawBlob.c_str(), _rawBlob.size(), SQLITE_STATIC);
-        sqlite3_bind_text(p_stmt, 6, _fileName.c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 6, _fileName.c_str(), _fileName.size(), SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 7, "", -1, SQLITE_STATIC); // link
         sqlite3_bind_int64(p_stmt, 8, _timeSeconds);
         if (sqlite3_step(p_stmt) != SQLITE_DONE)

@@ -85,12 +85,12 @@ void CtTable::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
     p_table_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
     p_table_node->set_attribute("col_min", std::to_string(_colMin));
     p_table_node->set_attribute("col_max", std::to_string(_colMax));
-    p_table_node->set_attribute("head_front", std::to_string(true));
     _populate_xml_rows_cells(p_table_node);
 }
 
 void CtTable::_populate_xml_rows_cells(xmlpp::Element* p_table_node)
 {
+    p_table_node->set_attribute("head_front", std::to_string(true));
     for (const CtTableRow& tableRow : _tableMatrix)
     {
         xmlpp::Element* p_row_node = p_table_node->add_child("row");
@@ -115,10 +115,11 @@ bool CtTable::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adj
     {
         CtXmlWrite ctXmlWrite("table");
         _populate_xml_rows_cells(ctXmlWrite.get_root_node());
+        const Glib::ustring table_txt = ctXmlWrite.write_to_string();
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
-        sqlite3_bind_text(p_stmt, 3, _justification.c_str(), -1, SQLITE_STATIC);
-        sqlite3_bind_text(p_stmt, 4, ctXmlWrite.write_to_string().c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 4, table_txt.c_str(), table_txt.size(), SQLITE_STATIC);
         sqlite3_bind_int64(p_stmt, 5, _colMin);
         sqlite3_bind_int64(p_stmt, 6, _colMax);
         if (sqlite3_step(p_stmt) != SQLITE_DONE)

@@ -167,11 +167,12 @@ bool CtCodebox::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_a
     }
     else
     {
+        const Glib::ustring codebox_txt = getTextContent();
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
-        sqlite3_bind_text(p_stmt, 3, _justification.c_str(), -1, SQLITE_STATIC);
-        sqlite3_bind_text(p_stmt, 4, getTextContent().c_str(), -1, SQLITE_STATIC);
-        sqlite3_bind_text(p_stmt, 5, _syntaxHighlighting.c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 4, codebox_txt.c_str(), codebox_txt.size(), SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 5, _syntaxHighlighting.c_str(), _syntaxHighlighting.size(), SQLITE_STATIC);
         sqlite3_bind_int64(p_stmt, 6, _frameWidth);
         sqlite3_bind_int64(p_stmt, 7, _frameHeight);
         sqlite3_bind_int64(p_stmt, 8, _widthInPixels);
