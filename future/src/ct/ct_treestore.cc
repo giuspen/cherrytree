@@ -285,8 +285,20 @@ void CtTreeStore::viewAppendColumns(Gtk::TreeView* pTreeView)
         Gtk::CellRendererText *pCellRendererText = dynamic_cast<Gtk::CellRendererText*>(cellRenderers0[1]);
         if (nullptr != pCellRendererText)
         {
-            pTVCol0->add_attribute(pCellRendererText->property_foreground(), _columns.colForeground);
             pTVCol0->add_attribute(pCellRendererText->property_weight(), _columns.colWeight);
+            pTVCol0->set_cell_data_func(*pCellRendererText,
+                [this](Gtk::CellRenderer* pCell, const Gtk::TreeIter& treeIter)
+                {
+                    Gtk::TreeRow row = *treeIter;
+                    if (row.get_value(_columns.colForeground).empty())
+                    {
+                        dynamic_cast<Gtk::CellRendererText*>(pCell)->property_foreground() = CtApp::P_ctCfg->ttDefFg;
+                    }
+                    else
+                    {
+                        dynamic_cast<Gtk::CellRendererText*>(pCell)->property_foreground() = row.get_value(_columns.colForeground);
+                    }
+                });
         }
     }
 }
@@ -316,7 +328,7 @@ bool CtTreeStore::readNodesFromFilepath(const char* filepath, const bool isImpor
     {
         pCtDocRead->signalAddBookmark.connect(sigc::mem_fun(this, &CtTreeStore::onRequestAddBookmark));
         pCtDocRead->signalAppendNode.connect(sigc::mem_fun(this, &CtTreeStore::onRequestAppendNode));
-        retOk = pCtDocRead->treeWalk(pParentIter);
+        retOk = pCtDocRead->read_populate_tree(pParentIter);
         if (!isImport && (CtDocType::SQLite == docType))
         {
             _pCtSQLite = dynamic_cast<CtSQLite*>(pCtDocRead);
@@ -405,7 +417,7 @@ void CtTreeStore::updateNodeData(Gtk::TreeIter treeIter, const CtNodeData& nodeD
     //row[_columns.rColPixbufAux] = ;
     row[_columns.colCustomIconId] = (guint16)nodeData.customIconId;
     row[_columns.colWeight] = CtTreeIter::get_pango_weight_from_is_bold(nodeData.isBold);
-    row[_columns.colForeground] = nodeData.foregroundRgb24.empty() ? CtApp::P_ctCfg->ttDefFg : nodeData.foregroundRgb24;
+    row[_columns.colForeground] = nodeData.foregroundRgb24;
     row[_columns.colTsCreation] = nodeData.tsCreation;
     row[_columns.colTsLastSave] = nodeData.tsLastSave;
     row[_columns.colAnchoredWidgets] = nodeData.anchoredWidgets;

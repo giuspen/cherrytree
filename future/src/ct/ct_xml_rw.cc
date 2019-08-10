@@ -44,7 +44,7 @@ CtXmlRead::~CtXmlRead()
 {
 }
 
-bool CtXmlRead::treeWalk(const Gtk::TreeIter* pParentIter)
+bool CtXmlRead::read_populate_tree(const Gtk::TreeIter* pParentIter)
 {
     xmlpp::Document* pDocument = get_document();
     bool retVal = (nullptr != pDocument);

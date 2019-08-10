@@ -33,7 +33,7 @@ enum class CtExporting { No, All, NodeOnly, NodeAndSubnodes };
 class CtDocRead
 {
 public:
-    virtual bool treeWalk(const Gtk::TreeIter* pParentIter=nullptr)=0;
+    virtual bool read_populate_tree(const Gtk::TreeIter* pParentIter=nullptr)=0;
     sigc::signal<bool, gint64> signalAddBookmark;
     sigc::signal<Gtk::TreeIter, CtNodeData*, const Gtk::TreeIter*> signalAppendNode;
 };
@@ -43,7 +43,7 @@ class CtXmlRead : public CtDocRead, public xmlpp::DomParser
 public:
     CtXmlRead(const char* filepath, const char* textContent);
     virtual ~CtXmlRead();
-    virtual bool treeWalk(const Gtk::TreeIter* pParentIter=nullptr) override;
+    bool read_populate_tree(const Gtk::TreeIter* pParentIter=nullptr) override;
     Glib::RefPtr<Gsv::Buffer> getTextBuffer(const std::string& syntax,
                                             std::list<CtAnchoredWidget*>& anchoredWidgets,
                                             xmlpp::Element* pNodeElement=nullptr);
@@ -94,7 +94,11 @@ public:
     virtual ~CtSQLite();
     bool getDbOpenOk() { return _dbOpenOk; }
 
-    virtual bool treeWalk(const Gtk::TreeIter* pParentIter=nullptr) override;
+    bool read_populate_tree(const Gtk::TreeIter* pParentIter=nullptr) override;
+    bool write_db_full(const std::list<gint64>& bookmarks,
+                       CtTreeIter ct_tree_iter,
+                       const CtExporting exporting=CtExporting::No,
+                       const std::pair<int,int>& offset_range=std::make_pair(-1,-1));
 
     Glib::RefPtr<Gsv::Buffer> getTextBuffer(const std::string& syntax,
                                             std::list<CtAnchoredWidget*>& anchoredWidgets,
@@ -142,14 +146,9 @@ protected:
                                        const bool& has_codebox,
                                        const bool& has_table,
                                        const bool& has_image) const;
-
     bool _exec_no_callback(const char* sqlCmd);
     bool _exec_bind_int64(const char* sqlCmd, const gint64 bind_int64);
     bool _create_all_tables();
-    bool _write_db_full(const std::list<gint64>& bookmarks,
-                        CtTreeIter ct_tree_iter,
-                        const CtExporting exporting=CtExporting::No,
-                        const std::pair<int,int>& offset_range=std::make_pair(-1,-1));
     bool _write_db_node(CtTreeIter ct_tree_iter,
                         const gint64 sequence,
                         const gint64 node_father_id,

@@ -160,7 +160,7 @@ bool CtSQLite::_exec_bind_int64(const char* sqlCmd, const gint64 bind_int64)
     return retVal;
 }
 
-bool CtSQLite::treeWalk(const Gtk::TreeIter* pParentIter)
+bool CtSQLite::read_populate_tree(const Gtk::TreeIter* pParentIter)
 {
     bool retVal{true};
     sqlite3_stmt *p_stmt;
@@ -554,20 +554,20 @@ bool CtSQLite::_write_db_bookmarks(const std::list<gint64>& bookmarks)
     return soFarSoGood;
 }
 
-bool CtSQLite::_write_db_full(const std::list<gint64>& bookmarks,
-                              CtTreeIter ct_tree_iter,
-                              const CtExporting exporting,
-                              const std::pair<int,int>& offset_range)
+bool CtSQLite::write_db_full(const std::list<gint64>& bookmarks,
+                             CtTreeIter ct_tree_iter,
+                             const CtExporting exporting,
+                             const std::pair<int,int>& offset_range)
 {
-    bool soFarSoGood{true};
     gint64 sequence{0};
     const gint64 node_father_id{0};
     CtNodeWriteDict write_dict;
     write_dict.prop = true;
     write_dict.buff = true;
     write_dict.hier = true;
-    write_dict.child = CtExporting::NodeOnly != exporting;
-    while (ct_tree_iter)
+    write_dict.child = (CtExporting::NodeOnly != exporting);
+    bool soFarSoGood = _create_all_tables();
+    while (soFarSoGood && ct_tree_iter)
     {
         sequence++;
         soFarSoGood = _write_db_node(ct_tree_iter,
@@ -576,10 +576,6 @@ bool CtSQLite::_write_db_full(const std::list<gint64>& bookmarks,
                                      write_dict,
                                      exporting,
                                      offset_range);
-        if (!soFarSoGood)
-        {
-            break;
-        }
         if (CtExporting::No == exporting || CtExporting::All == exporting)
         {
             ct_tree_iter++;
@@ -589,11 +585,11 @@ bool CtSQLite::_write_db_full(const std::list<gint64>& bookmarks,
             break;
         }
     }
-    if (CtExporting::No == exporting || CtExporting::All == exporting)
+    if (soFarSoGood && (CtExporting::No == exporting || CtExporting::All == exporting))
     {
         soFarSoGood = _write_db_bookmarks(bookmarks);
     }
-    if (soFarSoGood && CtExporting::No == exporting)
+    if (soFarSoGood && (CtExporting::No == exporting))
     {
         _syncPending.bookmarks_to_write = false;
         _syncPending.nodes_to_rm_set.clear();
@@ -634,8 +630,22 @@ bool CtSQLite::_write_db_node(CtTreeIter ct_tree_iter,
         // prepare node txt for later
         CtXmlWrite ctXmlWrite("node");
         ctXmlWrite.append_node_buffer(ct_tree_iter, ctXmlWrite.get_root_node(), false/*serialise_anchored_widgets*/, offset_range);
-        node_txt = is_richtxt & 0x01 ? ctXmlWrite.write_to_string() :
-            static_cast<xmlpp::Element*>(ctXmlWrite.get_root_node())->get_child_text()->get_content();
+        if (is_richtxt & 0x01)
+        {
+            node_txt = ctXmlWrite.write_to_string();
+        }
+        else
+        {
+            auto matches = ctXmlWrite.get_root_node()->find("node/rich_text");
+            if (1 == matches.size())
+            {
+                xmlpp::TextNode* pTextNode = static_cast<xmlpp::Element*>(matches[0])->get_child_text();
+                if (pTextNode)
+                {
+                    node_txt = pTextNode->get_content();
+                }
+            }
+        }
         // anchored widgets
         if (write_dict.upd && (is_richtxt & 0x01))
         {
