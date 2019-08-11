@@ -145,13 +145,14 @@ bool CtImagePng::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_
     else
     {
         const std::string rawBlob = get_raw_blob();
+        const std::string link = Glib::locale_from_utf8(_link);
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
         sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 4, "", -1, SQLITE_STATIC); // anchor name
         sqlite3_bind_blob(p_stmt, 5, rawBlob.c_str(), rawBlob.size(), SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 6, "", -1, SQLITE_STATIC); // filename
-        sqlite3_bind_text(p_stmt, 7, _link.c_str(), _link.size(), SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 7, link.c_str(), link.size(), SQLITE_STATIC);
         sqlite3_bind_int64(p_stmt, 8, 0); // time
         if (sqlite3_step(p_stmt) != SQLITE_DONE)
         {
@@ -226,10 +227,11 @@ bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offs
     }
     else
     {
+        const std::string anchor_name = Glib::locale_from_utf8(_anchorName);
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
         sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);
-        sqlite3_bind_text(p_stmt, 4, _anchorName.c_str(), _anchorName.size(), SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 4, anchor_name.c_str(), anchor_name.size(), SQLITE_STATIC);
         sqlite3_bind_blob(p_stmt, 5, nullptr, 0, SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 6, "", -1, SQLITE_STATIC); // filename
         sqlite3_bind_text(p_stmt, 7, "", -1, SQLITE_STATIC); // link
@@ -299,12 +301,13 @@ bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int off
     }
     else
     {
+        const std::string file_name = Glib::locale_from_utf8(_fileName);
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
         sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 4, "", -1, SQLITE_STATIC); // anchor
         sqlite3_bind_blob(p_stmt, 5, _rawBlob.c_str(), _rawBlob.size(), SQLITE_STATIC);
-        sqlite3_bind_text(p_stmt, 6, _fileName.c_str(), _fileName.size(), SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 6, file_name.c_str(), file_name.size(), SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 7, "", -1, SQLITE_STATIC); // link
         sqlite3_bind_int64(p_stmt, 8, _timeSeconds);
         if (sqlite3_step(p_stmt) != SQLITE_DONE)

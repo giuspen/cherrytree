@@ -251,10 +251,6 @@ const gchar* CtTmp::getHiddenFilePath(const std::string& visiblePath)
         {
             basename.replace(basename.end()-1, basename.end(), "d");
         }
-        else
-        {
-            std::cerr << "!! unexpected basename " << basename << std::endl;
-        }
         _mapHiddenFiles[visiblePath] = g_build_filename(tempDir, basename.c_str(), NULL);
     }
     return _mapHiddenFiles.at(visiblePath);

@@ -108,6 +108,7 @@ public:
     void pending_edit_db_node_buff(const gint64 node_id);
     void pending_edit_db_node_hier(const gint64 node_id);
     void pending_new_db_node(const gint64 node_id);
+    std::set<gint64> get_nodes_pending_rm() { return _syncPending.nodes_to_rm_set; }
 
     struct CtNodeWriteDict
     {

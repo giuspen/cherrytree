@@ -607,23 +607,37 @@ void CtTreeStore::addAnchoredWidgets(Gtk::TreeIter treeIter, std::list<CtAnchore
     }
 }
 
-gint64 CtTreeStore::node_id_get()
+gint64 CtTreeStore::node_id_get(gint64 original_id, std::unordered_map<gint64,gint64> remapping_ids)
 {
-    // todo: this function works differently from python code
-    // it's easer to find max than check every id is not used through all tree
-    // todo giuspen: this is to be changed to support the complex management of the ids
-    //               of the original cherrytree, in particular
-    //               - the id must not be in (sqlite) nodes_to_rm_set
-    //               - the mechanism to support maintaining valid links between nodes in imported documents
-    gint64 max_id = 0;
-    _rTreeStore->foreach(
-        [&max_id, this](const Gtk::TreeModel::Path&, const Gtk::TreeIter& iter)->bool
+    gint64 new_node_id{1};
+    if ((original_id > 0) && (1 == remapping_ids.count(original_id)))
+    {
+        new_node_id = remapping_ids[original_id];
+    }
+    else
+    {
+        std::set<gint64> allocated_for_remapping_ids;
+        for (const auto& curr_pair : remapping_ids)
         {
-            max_id = std::max(max_id, iter->get_value(_columns.colNodeUniqueId));
-            return false;
+            allocated_for_remapping_ids.insert(curr_pair.second);
         }
-    );
-    return max_id+1;
+        std::set<gint64> nodes_pending_rm;
+        if (nullptr != _pCtSQLite)
+        {
+            nodes_pending_rm = _pCtSQLite->get_nodes_pending_rm();
+        }
+        while ( (0 != allocated_for_remapping_ids.count(new_node_id)) ||
+                (0 != nodes_pending_rm.count(new_node_id)) ||
+                is_node_id_in_use(new_node_id) )
+        {
+            new_node_id++;
+        }
+        if (original_id > 0)
+        {
+            remapping_ids[original_id] = new_node_id;
+        }
+    }
+    return new_node_id;
 }
 
 void CtTreeStore::add_used_tags(const std::string& tags)
@@ -637,17 +651,32 @@ void CtTreeStore::add_used_tags(const std::string& tags)
     }
 }
 
-bool CtTreeStore::is_node_bookmarked(const gint64& node_id)
+bool CtTreeStore::is_node_bookmarked(const gint64 node_id)
 {
     return vec::exists(_bookmarks, node_id);
 }
 
-std::string CtTreeStore::get_node_name_from_node_id(const gint64& node_id)
+std::string CtTreeStore::get_node_name_from_node_id(const gint64 node_id)
 {
     return _nodes_names_dict.at(node_id);
 }
 
-CtTreeIter CtTreeStore::get_node_from_node_id(const gint64& node_id)
+bool CtTreeStore::is_node_id_in_use(const gint64 node_id)
+{
+    bool is_in_use{false};
+    _rTreeStore->foreach_iter([&node_id, &is_in_use, this](const Gtk::TreeIter& iter)
+    {
+        if (iter->get_value(_columns.colNodeUniqueId) != node_id)
+        {
+            return false; /* continue */
+        }
+        is_in_use = true;
+        return true; /* stop here */
+    });
+    return is_in_use;
+}
+
+CtTreeIter CtTreeStore::get_node_from_node_id(const gint64 node_id)
 {
     Gtk::TreeIter find_iter;
     _rTreeStore->foreach_iter([&node_id, &find_iter, this](const Gtk::TreeIter& iter) {

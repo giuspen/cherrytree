@@ -59,7 +59,7 @@ a</rich_text>
 		<rich_text>second rich
 </rich_text>
 	</node>
-	<node custom_icon_id="0" foreground="" is_bold="False" name="e" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1565008774.8" ts_lastsave="1565442560.3" unique_id="5">
+	<node custom_icon_id="0" foreground="" is_bold="False" name="e" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1565008774.8" ts_lastsave="1565539891.55" unique_id="5">
 		<rich_text>anchored widgets:
 
 codebox:
@@ -94,7 +94,7 @@ embedded file:
 		<rich_text link="node 4">link to node</rich_text>
 		<rich_text>
 </rich_text>
-		<rich_text link="node 5 anchor_name">link to node+anchor</rich_text>
+		<rich_text link="node 5 йцукенгшщз">link to node+anchor</rich_text>
 		<rich_text>
 </rich_text>
 		<rich_text link="fold L2V0Yw==">link to folder</rich_text>
