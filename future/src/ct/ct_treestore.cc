@@ -30,7 +30,7 @@ CtTreeModelColumns::~CtTreeModelColumns()
 
 }
 
-CtTreeIter::CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* pColumns, const CtSQLite* pCtSQLite)
+CtTreeIter::CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* pColumns, CtSQLite* pCtSQLite)
  : Gtk::TreeIter(iter),
    _pColumns(pColumns),
    _pCtSQLite(pCtSQLite)
@@ -185,6 +185,50 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes(c
     return retAnchoredWidgetsList;
 }
 
+void CtTreeIter::pending_edit_db_node_prop()
+{
+    if (nullptr != _pCtSQLite)
+    {
+        const gint64 node_id = get_node_id();
+        _pCtSQLite->pending_edit_db_node_prop(node_id);
+    }
+}
+
+void CtTreeIter::pending_edit_db_node_buff()
+{
+    if (nullptr != _pCtSQLite)
+    {
+        const gint64 node_id = get_node_id();
+        _pCtSQLite->pending_edit_db_node_buff(node_id);
+    }
+}
+
+void CtTreeIter::pending_edit_db_node_hier()
+{
+    if (nullptr != _pCtSQLite)
+    {
+        const gint64 node_id = get_node_id();
+        _pCtSQLite->pending_edit_db_node_hier(node_id);
+    }
+}
+
+void CtTreeIter::pending_new_db_node()
+{
+    if (nullptr != _pCtSQLite)
+    {
+        const gint64 node_id = get_node_id();
+        _pCtSQLite->pending_new_db_node(node_id);
+    }
+}
+
+
+void CtTreeStore::pending_edit_db_bookmarks()
+{
+    if (nullptr != _pCtSQLite)
+    {
+        _pCtSQLite->pending_edit_db_bookmarks();
+    }
+}
 
 CtTreeStore::CtTreeStore()
 {
@@ -567,6 +611,10 @@ gint64 CtTreeStore::node_id_get()
 {
     // todo: this function works differently from python code
     // it's easer to find max than check every id is not used through all tree
+    // todo giuspen: this is to be changed to support the complex management of the ids
+    //               of the original cherrytree, in particular
+    //               - the id must not be in (sqlite) nodes_to_rm_set
+    //               - the mechanism to support maintaining valid links between nodes in imported documents
     gint64 max_id = 0;
     _rTreeStore->foreach(
         [&max_id, this](const Gtk::TreeModel::Path&, const Gtk::TreeIter& iter)->bool

@@ -146,7 +146,7 @@ void CtActions::_node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeDat
     else
         nodeIter = _pCtTreestore->appendNode(&nodeData);
 
-    _pCtTreestore->ctdb_handler()->pending_new_db_node(nodeData.nodeId);
+    _pCtTreestore->to_ct_tree_iter(nodeIter).pending_new_db_node();
     _pCtTreestore->nodes_sequences_fix(curr_iter ? curr_iter->parent() : Gtk::TreeIter(), false);
     _pCtTreestore->updateNodeAuxIcon(nodeIter);
     _pCtMainWin->get_tree_view().set_cursor_safe(nodeIter);

@@ -76,7 +76,7 @@ class CtSQLite;
 class CtTreeIter : public Gtk::TreeIter
 {
 public:
-    CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* _columns, const CtSQLite* pCtSQLite);
+    CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* _columns, CtSQLite* pCtSQLite);
 
     CtTreeIter  parent();
     CtTreeIter  first_child();
@@ -101,12 +101,17 @@ public:
 
     Glib::RefPtr<Gsv::Buffer> get_node_text_buffer() const;
 
+    void pending_edit_db_node_prop();
+    void pending_edit_db_node_buff();
+    void pending_edit_db_node_hier();
+    void pending_new_db_node();
+
     static int  get_pango_weight_from_is_bold(bool isBold);
     static bool get_is_bold_from_pango_weight(int pangoWeight);
 
 private:
     const CtTreeModelColumns* _pColumns{nullptr};
-    const CtSQLite* _pCtSQLite{nullptr};
+    CtSQLite* _pCtSQLite{nullptr};
 };
 
 class CtTextView;
@@ -160,8 +165,9 @@ public:
     CtTreeIter                      to_ct_tree_iter(Gtk::TreeIter tree_iter);
 
     void nodes_sequences_fix(Gtk::TreeIter /*father_iter*/, bool /*process_children*/) { /* todo: */ }
-    CtSQLite* ctdb_handler() { return _pCtSQLite; }
     const CtTreeModelColumns& get_columns() { return _columns; }
+
+    void pending_edit_db_bookmarks();
 
 protected:
     Glib::RefPtr<Gdk::Pixbuf> _getNodeIcon(int nodeDepth, const std::string &syntax, guint32 customIconId);

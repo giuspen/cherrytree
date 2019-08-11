@@ -103,7 +103,11 @@ public:
     Glib::RefPtr<Gsv::Buffer> getTextBuffer(const std::string& syntax,
                                             std::list<CtAnchoredWidget*>& anchoredWidgets,
                                             const gint64& nodeId) const;
-    void pending_new_db_node(gint64 /*node_id*/) { /* todo: */ }
+    void pending_edit_db_bookmarks();
+    void pending_edit_db_node_prop(const gint64 node_id);
+    void pending_edit_db_node_buff(const gint64 node_id);
+    void pending_edit_db_node_hier(const gint64 node_id);
+    void pending_new_db_node(const gint64 node_id);
 
     struct CtNodeWriteDict
     {
@@ -122,21 +126,27 @@ public:
 
     static const char TABLE_NODE_CREATE[];
     static const char TABLE_NODE_INSERT[];
+    static const char TABLE_NODE_DELETE[];
     static const char TABLE_CODEBOX_CREATE[];
     static const char TABLE_CODEBOX_INSERT[];
+    static const char TABLE_CODEBOX_DELETE[];
     static const char TABLE_TABLE_CREATE[];
     static const char TABLE_TABLE_INSERT[];
+    static const char TABLE_TABLE_DELETE[];
     static const char TABLE_IMAGE_CREATE[];
     static const char TABLE_IMAGE_INSERT[];
+    static const char TABLE_IMAGE_DELETE[];
     static const char TABLE_CHILDREN_CREATE[];
     static const char TABLE_CHILDREN_INSERT[];
+    static const char TABLE_CHILDREN_DELETE[];
     static const char TABLE_BOOKMARK_CREATE[];
     static const char TABLE_BOOKMARK_INSERT[];
+    static const char TABLE_BOOKMARK_DELETE[];
     static const char ERR_SQLITE_PREPV2[];
     static const char ERR_SQLITE_STEP[];
 
 protected:
-    bool _sqlite3GetChildrenNodeIdFromFatherId(gint64 father_id, std::list<gint64>& ret_children);
+    bool _get_children_node_ids_from_father_id(gint64 father_id, std::list<gint64>& ret_children);
     bool _sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIter* pParentIter);
     bool _sqlite3GetNodeProperties(gint64 nodeId, CtNodeData& nodeData);
     bool _sqlite3NodeProcess(gint64 nodeId, const Gtk::TreeIter* pParentIter, Gtk::TreeIter& newIter);
@@ -148,6 +158,7 @@ protected:
                                        const bool& has_image) const;
     bool _exec_no_callback(const char* sqlCmd);
     bool _exec_bind_int64(const char* sqlCmd, const gint64 bind_int64);
+    bool _remove_db_node_n_children(const gint64 node_id);
     bool _create_all_tables();
     bool _write_db_node(CtTreeIter ct_tree_iter,
                         const gint64 sequence,

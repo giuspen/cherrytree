@@ -44,6 +44,7 @@ const char CtSQLite::TABLE_NODE_CREATE[]{"CREATE TABLE node ("
 ")"
 };
 const char CtSQLite::TABLE_NODE_INSERT[]{"INSERT INTO node VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"};
+const char CtSQLite::TABLE_NODE_DELETE[]{"DELETE FROM node WHERE node_id=?"};
 
 const char CtSQLite::TABLE_CODEBOX_CREATE[]{"CREATE TABLE codebox ("
 "node_id INTEGER,"
@@ -59,6 +60,7 @@ const char CtSQLite::TABLE_CODEBOX_CREATE[]{"CREATE TABLE codebox ("
 ")"
 };
 const char CtSQLite::TABLE_CODEBOX_INSERT[]{"INSERT INTO codebox VALUES(?,?,?,?,?,?,?,?,?,?)"};
+const char CtSQLite::TABLE_CODEBOX_DELETE[]{"DELETE FROM codebox WHERE node_id=?"};
 
 const char CtSQLite::TABLE_TABLE_CREATE[]{"CREATE TABLE grid ("
 "node_id INTEGER,"
@@ -70,6 +72,7 @@ const char CtSQLite::TABLE_TABLE_CREATE[]{"CREATE TABLE grid ("
 ")"
 };
 const char CtSQLite::TABLE_TABLE_INSERT[]{"INSERT INTO grid VALUES(?,?,?,?,?,?)"};
+const char CtSQLite::TABLE_TABLE_DELETE[]{"DELETE FROM grid WHERE node_id=?"};
 
 const char CtSQLite::TABLE_IMAGE_CREATE[]{"CREATE TABLE image ("
 "node_id INTEGER,"
@@ -83,6 +86,7 @@ const char CtSQLite::TABLE_IMAGE_CREATE[]{"CREATE TABLE image ("
 ")"
 };
 const char CtSQLite::TABLE_IMAGE_INSERT[]{"INSERT INTO image VALUES(?,?,?,?,?,?,?,?)"};
+const char CtSQLite::TABLE_IMAGE_DELETE[]{"DELETE FROM image WHERE node_id=?"};
 
 const char CtSQLite::TABLE_CHILDREN_CREATE[]{"CREATE TABLE children ("
 "node_id INTEGER UNIQUE,"
@@ -91,6 +95,7 @@ const char CtSQLite::TABLE_CHILDREN_CREATE[]{"CREATE TABLE children ("
 ")"
 };
 const char CtSQLite::TABLE_CHILDREN_INSERT[]{"INSERT INTO children VALUES(?,?,?)"};
+const char CtSQLite::TABLE_CHILDREN_DELETE[]{"DELETE FROM children WHERE node_id=?"};
 
 const char CtSQLite::TABLE_BOOKMARK_CREATE[]{"CREATE TABLE bookmark ("
 "node_id INTEGER UNIQUE,"
@@ -98,6 +103,7 @@ const char CtSQLite::TABLE_BOOKMARK_CREATE[]{"CREATE TABLE bookmark ("
 ")"
 };
 const char CtSQLite::TABLE_BOOKMARK_INSERT[]{"INSERT INTO bookmark VALUES(?,?)"};
+const char CtSQLite::TABLE_BOOKMARK_DELETE[]{"DELETE FROM bookmark"};
 
 const char CtSQLite::ERR_SQLITE_PREPV2[]{"!! sqlite3_prepare_v2: "};
 const char CtSQLite::ERR_SQLITE_STEP[]{"!! sqlite3_step: "};
@@ -179,7 +185,7 @@ bool CtSQLite::read_populate_tree(const Gtk::TreeIter* pParentIter)
         sqlite3_finalize(p_stmt);
 
         std::list<gint64> top_nodes_ids;
-        retVal = _sqlite3GetChildrenNodeIdFromFatherId(0, top_nodes_ids);
+        retVal = _get_children_node_ids_from_father_id(0, top_nodes_ids);
         if (retVal)
         {
             for (gint64 &top_node_id : top_nodes_ids)
@@ -418,7 +424,7 @@ bool CtSQLite::_sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIter* pParentI
     if (retVal)
     {
         std::list<gint64> children_nodes_ids;
-        retVal = _sqlite3GetChildrenNodeIdFromFatherId(nodeId, children_nodes_ids);
+        retVal = _get_children_node_ids_from_father_id(nodeId, children_nodes_ids);
         if (retVal)
         {
             for (gint64 &child_node_id : children_nodes_ids)
@@ -434,7 +440,7 @@ bool CtSQLite::_sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIter* pParentI
     return retVal;
 }
 
-bool CtSQLite::_sqlite3GetChildrenNodeIdFromFatherId(gint64 father_id, std::list<gint64>& ret_children)
+bool CtSQLite::_get_children_node_ids_from_father_id(gint64 father_id, std::list<gint64>& ret_children)
 {
     bool retVal{false};
     sqlite3_stmt *p_stmt;
@@ -525,7 +531,7 @@ bool CtSQLite::_create_all_tables()
 
 bool CtSQLite::_write_db_bookmarks(const std::list<gint64>& bookmarks)
 {
-    bool soFarSoGood = _exec_no_callback("DELETE FROM bookmark");
+    bool soFarSoGood = _exec_no_callback(CtSQLite::TABLE_BOOKMARK_DELETE);
     if (soFarSoGood)
     {
         gint64 sequence{0};
@@ -598,6 +604,91 @@ bool CtSQLite::write_db_full(const std::list<gint64>& bookmarks,
     return soFarSoGood;
 }
 
+void CtSQLite::pending_edit_db_bookmarks()
+{
+    _syncPending.bookmarks_to_write = true;
+}
+
+void CtSQLite::pending_edit_db_node_prop(const gint64 node_id)
+{
+    if (0 != _syncPending.nodes_to_write_dict.count(node_id))
+    {
+        _syncPending.nodes_to_write_dict[node_id].prop = true;
+    }
+    else
+    {
+        CtNodeWriteDict write_dict;
+        write_dict.upd = true;
+        write_dict.prop = true;
+        _syncPending.nodes_to_write_dict[node_id] = write_dict;
+    }
+}
+
+void CtSQLite::pending_edit_db_node_buff(const gint64 node_id)
+{
+    if (0 != _syncPending.nodes_to_write_dict.count(node_id))
+    {
+        _syncPending.nodes_to_write_dict[node_id].buff = true;
+    }
+    else
+    {
+        CtNodeWriteDict write_dict;
+        write_dict.upd = true;
+        write_dict.buff = true;
+        _syncPending.nodes_to_write_dict[node_id] = write_dict;
+    }
+}
+
+void CtSQLite::pending_edit_db_node_hier(const gint64 node_id)
+{
+    if (0 != _syncPending.nodes_to_write_dict.count(node_id))
+    {
+        _syncPending.nodes_to_write_dict[node_id].hier = true;
+    }
+    else
+    {
+        CtNodeWriteDict write_dict;
+        write_dict.upd = true;
+        write_dict.hier = true;
+        _syncPending.nodes_to_write_dict[node_id] = write_dict;
+    }
+}
+
+void CtSQLite::pending_new_db_node(const gint64 node_id)
+{
+    CtNodeWriteDict write_dict;
+    write_dict.prop = true;
+    write_dict.buff = true;
+    write_dict.hier = true;
+    _syncPending.nodes_to_write_dict[node_id] = write_dict;
+}
+
+bool CtSQLite::_remove_db_node_n_children(const gint64 node_id)
+{
+    bool soFarSoGood = ( _exec_bind_int64(CtSQLite::TABLE_CODEBOX_DELETE, node_id) &&
+                         _exec_bind_int64(CtSQLite::TABLE_TABLE_DELETE, node_id) &&
+                         _exec_bind_int64(CtSQLite::TABLE_IMAGE_DELETE, node_id) &&
+                         _exec_bind_int64(CtSQLite::TABLE_NODE_DELETE, node_id) &&
+                         _exec_bind_int64(CtSQLite::TABLE_CHILDREN_DELETE, node_id) );
+    if (soFarSoGood)
+    {
+        std::list<gint64> children_node_ids;
+        soFarSoGood = _get_children_node_ids_from_father_id(node_id, children_node_ids);
+        if (soFarSoGood)
+        {
+            for (const gint64 child_node_id : children_node_ids)
+            {
+                soFarSoGood = _remove_db_node_n_children(child_node_id);
+                if (!soFarSoGood)
+                {
+                    break;
+                }
+            }
+        }
+    }
+    return soFarSoGood;
+}
+
 bool CtSQLite::_write_db_node(CtTreeIter ct_tree_iter,
                               const gint64 sequence,
                               const gint64 node_father_id,
@@ -636,9 +727,9 @@ bool CtSQLite::_write_db_node(CtTreeIter ct_tree_iter,
             // anchored widgets
             if (write_dict.upd)
             {
-                soFarSoGood = ( _exec_bind_int64("DELETE FROM codebox WHERE node_id=?", node_id) &&
-                                _exec_bind_int64("DELETE FROM grid WHERE node_id=?", node_id) &&
-                                _exec_bind_int64("DELETE FROM image WHERE node_id=?", node_id) );
+                soFarSoGood = ( _exec_bind_int64(CtSQLite::TABLE_CODEBOX_DELETE, node_id) &&
+                                _exec_bind_int64(CtSQLite::TABLE_TABLE_DELETE, node_id) &&
+                                _exec_bind_int64(CtSQLite::TABLE_IMAGE_DELETE, node_id) );
             }
             if (soFarSoGood)
             {
@@ -678,7 +769,7 @@ bool CtSQLite::_write_db_node(CtTreeIter ct_tree_iter,
             // full node rewrite
             if (write_dict.upd)
             {
-                soFarSoGood = _exec_bind_int64("DELETE FROM node WHERE node_id=?", node_id);
+                soFarSoGood = _exec_bind_int64(CtSQLite::TABLE_NODE_DELETE, node_id);
             }
             if (soFarSoGood)
             {
@@ -776,7 +867,7 @@ bool CtSQLite::_write_db_node(CtTreeIter ct_tree_iter,
     {
         if (write_dict.upd)
         {
-            soFarSoGood = _exec_bind_int64("DELETE FROM children WHERE node_id=?", node_id);
+            soFarSoGood = _exec_bind_int64(CtSQLite::TABLE_CHILDREN_DELETE, node_id);
         }
         if (soFarSoGood)
         {

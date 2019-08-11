@@ -337,7 +337,7 @@ void ct_dialogs::bookmarks_handle_dialog(CtMainWin* ctMainWin)
     }
 
     ctMainWin->set_bookmarks_menu_items();
-    //dad.ctdb_handler.pending_edit_db_bookmarks()
+    ctTreestore.pending_edit_db_bookmarks();
     ctMainWin->update_window_save_needed("book");
 }
 

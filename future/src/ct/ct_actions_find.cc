@@ -672,7 +672,7 @@ bool CtActions::_parse_node_name(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex>
             Glib::ustring text_name = node_iter.get_node_name();
             str::replace(text_name, s_state.curr_find_pattern.c_str(), replacer_text.c_str());
             node_iter.set_node_name(text_name);
-            // todo: self.dad.ctdb_handler.pending_edit_db_node_prop(self.dad.treestore[node_iter][3])
+            node_iter.pending_edit_db_node_prop();
         }
         if (!all_matches) {
             _pCtMainWin->get_tree_view().set_cursor_safe(node_iter);
@@ -912,7 +912,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer
             _pCtMainWin->get_text_view().set_selection_at_offset_n_delta(match_offsets.first + num_objs, (int)replacer_text.size());
         // todo:
         //self.dad.state_machine.update_state();
-        //self.dad.ctdb_handler.pending_edit_db_node_buff(self.dad.treestore[tree_iter][3], force_user_active=True)
+        tree_iter.pending_edit_db_node_buff();
     }
     return true;
 }
