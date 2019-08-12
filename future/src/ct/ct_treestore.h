@@ -147,7 +147,6 @@ public:
     void                         add_used_tags(const std::string& tags);
     const std::set<std::string>& get_used_tags() { return _usedTags; }
     bool                         is_node_bookmarked(const gint64 node_id);
-    bool                         is_node_id_in_use(const gint64 node_id);
     std::string                  get_node_name_from_node_id(const gint64 node_id);
     CtTreeIter                   get_node_from_node_id(const gint64 node_id);
     CtTreeIter                   get_node_from_node_name(const Glib::ustring& node_name);

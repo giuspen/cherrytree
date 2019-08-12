@@ -609,34 +609,56 @@ void CtTreeStore::addAnchoredWidgets(Gtk::TreeIter treeIter, std::list<CtAnchore
 
 gint64 CtTreeStore::node_id_get(gint64 original_id, std::unordered_map<gint64,gint64> remapping_ids)
 {
-    gint64 new_node_id{1};
+    // check if remapping was set
     if ((original_id > 0) && (1 == remapping_ids.count(original_id)))
     {
-        new_node_id = remapping_ids[original_id];
+        return remapping_ids[original_id];
     }
-    else
+
+    // prepare sets of ids not to be used
+    std::set<gint64> allocated_for_remapping_ids;
+    for (const auto& curr_pair : remapping_ids)
     {
-        std::set<gint64> allocated_for_remapping_ids;
-        for (const auto& curr_pair : remapping_ids)
+        allocated_for_remapping_ids.insert(curr_pair.second);
+    }
+    std::set<gint64> nodes_pending_rm;
+    if (nullptr != _pCtSQLite)
+    {
+        nodes_pending_rm = _pCtSQLite->get_nodes_pending_rm();
+    }
+    // (@txe) this function works differently from python code
+    // it's easer to find max than check every id is not used through all tree
+    gint64 max_node_id{0};
+    _rTreeStore->foreach_iter([&max_node_id, this](const Gtk::TreeIter& iter)
+    {
+        if (iter->get_value(_columns.colNodeUniqueId) > max_node_id)
         {
-            allocated_for_remapping_ids.insert(curr_pair.second);
+            max_node_id = iter->get_value(_columns.colNodeUniqueId);
         }
-        std::set<gint64> nodes_pending_rm;
-        if (nullptr != _pCtSQLite)
+        return false; /* continue */
+    });
+    for (const gint64 curr_id : allocated_for_remapping_ids)
+    {
+        if (curr_id > max_node_id)
         {
-            nodes_pending_rm = _pCtSQLite->get_nodes_pending_rm();
-        }
-        while ( (0 != allocated_for_remapping_ids.count(new_node_id)) ||
-                (0 != nodes_pending_rm.count(new_node_id)) ||
-                is_node_id_in_use(new_node_id) )
-        {
-            new_node_id++;
-        }
-        if (original_id > 0)
-        {
-            remapping_ids[original_id] = new_node_id;
+            max_node_id = curr_id;
         }
     }
+    for (const gint64 curr_id : nodes_pending_rm)
+    {
+        if (curr_id > max_node_id)
+        {
+            max_node_id = curr_id;
+        }
+    }
+    const gint64 new_node_id = max_node_id+1;
+
+    // remapping set up
+    if (original_id > 0)
+    {
+        remapping_ids[original_id] = new_node_id;
+    }
+
     return new_node_id;
 }
 
@@ -659,21 +681,6 @@ bool CtTreeStore::is_node_bookmarked(const gint64 node_id)
 std::string CtTreeStore::get_node_name_from_node_id(const gint64 node_id)
 {
     return _nodes_names_dict.at(node_id);
-}
-
-bool CtTreeStore::is_node_id_in_use(const gint64 node_id)
-{
-    bool is_in_use{false};
-    _rTreeStore->foreach_iter([&node_id, &is_in_use, this](const Gtk::TreeIter& iter)
-    {
-        if (iter->get_value(_columns.colNodeUniqueId) != node_id)
-        {
-            return false; /* continue */
-        }
-        is_in_use = true;
-        return true; /* stop here */
-    });
-    return is_in_use;
 }
 
 CtTreeIter CtTreeStore::get_node_from_node_id(const gint64 node_id)
