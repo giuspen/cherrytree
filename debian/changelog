@@ -3,6 +3,7 @@ cherrytree (0.38.8-0) bionic; urgency=low
   * Improved implementation of deletion of recent documents entry (#382)
   * Ctrl+Space to toggle To-Do List Item State (#438)
   * Fix detection of missing installation of xterm required in code execution on linux (with default settings)
+  * Fix paste as plain text into CodeBox cause losing CodeBox content (#538)
   * Horizontal rule insert without hard coded newline before (still newline after)
   * updated Spanish language (Daniel)
   * updated Greek language (Delphina)

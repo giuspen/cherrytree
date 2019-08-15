@@ -4207,7 +4207,9 @@ iter_end, exclude_iter_sel_end=True)
     def paste_as_plain_text(self, *args):
         """Paste as Plain Text"""
         self.clipboard_handler.force_plain_text = True
-        self.sourceview.emit("paste-clipboard")
+        anchor = self.codeboxes_handler.codebox_in_use_get_anchor()
+        if anchor is not None: anchor.sourceview.emit("paste-clipboard")
+        else: self.sourceview.emit("paste-clipboard")
 
     def image_cut(self, *args):
         """Cut Image"""
