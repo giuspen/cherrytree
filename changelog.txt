@@ -4,6 +4,7 @@
   * Ctrl+Space to toggle To-Do List Item State; fixed multilevel bug
   * Paste/import from html - added basic support for <dt><dd>
   * In codeboxes use code font for both plain text and syntax hilighting (work of akwala)
+  * Fix paste as plain text into CodeBox cause losing CodeBox content (#538)
   * Export to html, stylesheet revamp (work of gonzalezjo)
 
 0.38.8 (February 21st, 2019)

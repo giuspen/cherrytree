@@ -1,12 +1,10 @@
-cherrytree (0.38.8-0) bionic; urgency=low
+cherrytree (0.38.9-0) bionic; urgency=low
 
-  * Improved implementation of deletion of recent documents entry (#382)
-  * Ctrl+Space to toggle To-Do List Item State (#438)
-  * Fix detection of missing installation of xterm required in code execution on linux (with default settings)
+  * Auto replacement of symbols as you type is now configurable in preferences dialog, tab Text (work of trololo88)
+  * Ctrl+Space to toggle To-Do List Item State; fixed multilevel bug
+  * Paste/import from html - added basic support for <dt><dd>
+  * In codeboxes use code font for both plain text and syntax hilighting (work of akwala)
   * Fix paste as plain text into CodeBox cause losing CodeBox content (#538)
-  * Horizontal rule insert without hard coded newline before (still newline after)
-  * updated Spanish language (Daniel)
-  * updated Greek language (Delphina)
-  * updated Armenian language (Seda)
+  * Export to html, stylesheet revamp (work of gonzalezjo)
 
- -- Giuseppe Penone <giuspen@gmail.com>  Thu, 21 Feb 2019 06:18:00 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Sat, 17 Aug 2019 12:04:52 +0100
