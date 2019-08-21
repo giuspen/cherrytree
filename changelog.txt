@@ -1,5 +1,5 @@
 
-0.38.9 (July ???, 2019)
+0.38.9 (August 17th, 2019)
   * Auto replacement of symbols as you type is now configurable in preferences dialog, tab Text (work of trololo88)
   * Ctrl+Space to toggle To-Do List Item State; fixed multilevel bug
   * Paste/import from html - added basic support for <dt><dd>

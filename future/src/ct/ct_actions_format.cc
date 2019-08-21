@@ -43,6 +43,7 @@ void CtActions::remove_text_formatting()
 {
     if (!_is_there_selected_node_or_error()) return;
     if (!_is_curr_node_not_syntax_highlighting_or_error()) return;
+    if (!_is_curr_node_not_read_only_or_error()) return;
     auto curr_buffer = _pCtMainWin->get_text_view().get_buffer();
     if (!curr_buffer->get_has_selection() && !CtTextIterUtil::apply_tag_try_automatic_bounds(curr_buffer, curr_buffer->get_insert()->get_iter())) {
         ct_dialogs::warning_dialog(_("No Text is Selected"), *_pCtMainWin);

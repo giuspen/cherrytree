@@ -5042,6 +5042,7 @@ iter_end, exclude_iter_sel_end=True)
     def remove_text_formatting(self, *args):
         """Cleans the Selected Text from All Formatting Tags"""
         if not self.node_sel_and_rich_text(): return
+        if not self.is_curr_node_not_read_only_or_error(): return
         if not self.curr_buffer.get_has_selection() and not support.apply_tag_try_automatic_bounds(self):
             support.dialog_warning(_("No Text is Selected"), self.window)
             return
