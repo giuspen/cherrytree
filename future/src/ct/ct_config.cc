@@ -232,6 +232,8 @@ void CtConfig::_populateFromKeyfile()
     _populateStringFromKeyfile("chars_listbul", &charsListbul);
     _populateStringFromKeyfile("chars_toc", &charsToc);
     _populateStringFromKeyfile("chars_todo", &charsTodo);
+    _populateStringFromKeyfile("chars_smart_dquote", &chars_smart_dquote);
+    _populateStringFromKeyfile("chars_smart_squote", &chars_smart_squote);
     _populateStringFromKeyfile("latest_tag_prop", &latestTagProp);
     _populateStringFromKeyfile("latest_tag_val", &latestTagVal);
     _populateStringFromKeyfile("timestamp_format", &timestampFormat);

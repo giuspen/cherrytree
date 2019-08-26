@@ -313,12 +313,12 @@ def on_sourceview_event_after_key_press(dad, text_view, event, syntax_highl):
             if offset_1 > 0:
                 if keyname == cons.STR_KEY_DQUOTE:
                     start_char = cons.CHAR_DQUOTE
-                    char_0 = cons.CHAR_SMART_DQUOTE_0
-                    char_1 = cons.CHAR_SMART_DQUOTE_1
+                    char_0 = dad.chars_smart_dquote[0]
+                    char_1 = dad.chars_smart_dquote[1]
                 else:
                     start_char = cons.CHAR_SQUOTE
-                    char_0 = cons.CHAR_SMART_SQUOTE_0
-                    char_1 = cons.CHAR_SMART_SQUOTE_1
+                    char_0 = dad.chars_smart_squote[0]
+                    char_1 = dad.chars_smart_squote[1]
                 iter_start = text_buffer.get_iter_at_offset(offset_1-1)
                 offset_0 = -1
                 while iter_start:

@@ -109,6 +109,8 @@ public:
     Glib::ustring                               charsListbul{CtConst::CHARS_LISTBUL_DEFAULT};
     Glib::ustring                               charsToc{CtConst::CHARS_TOC_DEFAULT};
     Glib::ustring                               charsTodo{CtConst::CHARS_TODO_DEFAULT};
+    Glib::ustring                               chars_smart_dquote{CtConst::CHARS_SMART_DQUOTE_DEFAULT};
+    Glib::ustring                               chars_smart_squote{CtConst::CHARS_SMART_SQUOTE_DEFAULT};
     std::string                                 latestTagProp;
     std::string                                 latestTagVal;
     Glib::ustring                               timestampFormat{CtConst::TIMESTAMP_FORMAT_DEFAULT};

@@ -78,6 +78,8 @@ SELWORD_CHARS_DEFAULT = unicode(".-@", cons.STR_UTF8, cons.STR_IGNORE)
 CHARS_LISTBUL_DEFAULT = unicode("•◇▪-→⇒", cons.STR_UTF8, cons.STR_IGNORE)
 CHARS_TODO_DEFAULT = unicode("☐☑☒", cons.STR_UTF8, cons.STR_IGNORE)
 CHARS_TOC_DEFAULT = unicode("▸•◇▪", cons.STR_UTF8, cons.STR_IGNORE)
+CHARS_SMART_DQUOTE_DEFAULT = unicode("“”", cons.STR_UTF8, cons.STR_IGNORE)
+CHARS_SMART_SQUOTE_DEFAULT = unicode("‘’", cons.STR_UTF8, cons.STR_IGNORE)
 NODES_ON_NODE_NAME_HEADER_DEFAULT = 3
 TIMESTAMP_FORMAT_DEFAULT = "%Y/%m/%d - %H:%M"
 SEPARATOR_ASCII_REPR = "---------"
@@ -285,6 +287,8 @@ def config_file_load(dad):
         dad.chars_listbul = unicode(cfg.get(section, "chars_listbul"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "chars_listbul") else CHARS_LISTBUL_DEFAULT
         dad.chars_todo = unicode(cfg.get(section, "chars_todo"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "chars_todo") else CHARS_TODO_DEFAULT
         dad.chars_toc = unicode(cfg.get(section, "chars_toc"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "chars_toc") else CHARS_TOC_DEFAULT
+        dad.chars_smart_dquote = unicode(cfg.get(section, "chars_smart_dquote"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "chars_smart_dquote") else CHARS_SMART_DQUOTE_DEFAULT
+        dad.chars_smart_squote = unicode(cfg.get(section, "chars_smart_squote"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "chars_smart_squote") else CHARS_SMART_SQUOTE_DEFAULT
         if cfg.has_option(section, "latest_tag_prop") and cfg.has_option(section, "latest_tag_val"):
             dad.latest_tag[0] = cfg.get(section, "latest_tag_prop")
             dad.latest_tag[1] = cfg.get(section, "latest_tag_val")
@@ -406,6 +410,8 @@ def config_file_load(dad):
         dad.chars_listbul = CHARS_LISTBUL_DEFAULT
         dad.chars_todo = CHARS_TODO_DEFAULT
         dad.chars_toc = CHARS_TOC_DEFAULT
+        dad.chars_smart_dquote = CHARS_SMART_DQUOTE_DEFAULT
+        dad.chars_smart_squote = CHARS_SMART_SQUOTE_DEFAULT
         dad.enable_spell_check = False
         dad.spell_check_lang = SPELL_CHECK_LANG_DEFAULT
         dad.show_line_numbers = False
@@ -625,6 +631,8 @@ def config_file_save(dad):
     cfg.set(section, "chars_listbul", dad.chars_listbul)
     cfg.set(section, "chars_todo", dad.chars_todo)
     cfg.set(section, "chars_toc", dad.chars_toc)
+    cfg.set(section, "chars_smart_dquote", dad.chars_smart_dquote)
+    cfg.set(section, "chars_smart_squote", dad.chars_smart_squote)
     cfg.set(section, "latest_tag_prop", dad.latest_tag[0])
     cfg.set(section, "latest_tag_val", dad.latest_tag[1])
     cfg.set(section, "timestamp_format", dad.timestamp_format)

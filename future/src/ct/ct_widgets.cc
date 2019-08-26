@@ -325,14 +325,14 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
             if (event->key.keyval == GDK_KEY_quotedbl)
             {
                 start_char = CtConst::CHAR_DQUOTE;
-                char_0 = CtConst::CHAR_SMART_DQUOTE_0;
-                char_1 = CtConst::CHAR_SMART_DQUOTE_1;
+                char_0 = config->chars_smart_dquote[0];
+                char_1 = config->chars_smart_dquote[1];
             }
             else
             {
                 start_char = CtConst::CHAR_SQUOTE;
-                char_0 = CtConst::CHAR_SMART_SQUOTE_0;
-                char_1 = CtConst::CHAR_SMART_SQUOTE_1;
+                char_0 = config->chars_smart_squote[0];
+                char_1 = config->chars_smart_squote[1];
             }
             Gtk::TextIter iter_start = text_buffer->get_iter_at_offset(offset_1-1);
             int offset_0 = -1;
