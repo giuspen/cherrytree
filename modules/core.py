@@ -3166,11 +3166,23 @@ iter_end, exclude_iter_sel_end=True)
                     self.ctdb_handler.pending_edit_db_node_prop(self.treestore[tree_iter][3])
             elif update_type == "ndel":
                 if tree_iter:
-                    self.ctdb_handler.pending_rm_db_node(self.treestore[tree_iter][3])
-                    self.state_machine.delete_states(self.treestore[tree_iter][3])
+                    # the removal will also affect children
+                    top_node_id = self.get_node_id_from_tree_iter(tree_iter)
+                    for node_id in ([top_node_id] + self.get_children_node_ids(tree_iter)):
+                        self.ctdb_handler.pending_rm_db_node(node_id)
+                        self.state_machine.delete_states(node_id)
             elif update_type == "book": self.ctdb_handler.pending_edit_db_bookmarks()
         if new_state_machine and tree_iter:
             self.state_machine.update_state()
+
+    def get_children_node_ids(self, parent_iter):
+        ret_list = []
+        tree_iter = self.treestore.iter_children(parent_iter)
+        while not (tree_iter is None):
+            ret_list.append(self.get_node_id_from_tree_iter(tree_iter))
+            ret_list += self.get_children_node_ids(tree_iter)
+            tree_iter = self.treestore.iter_next(tree_iter)
+        return ret_list
 
     def update_window_save_not_needed(self):
         """Window title not preceeded by an asterix"""

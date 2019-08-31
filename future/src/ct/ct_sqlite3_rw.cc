@@ -663,6 +663,16 @@ void CtSQLite::pending_new_db_node(const gint64 node_id)
     _syncPending.nodes_to_write_dict[node_id] = write_dict;
 }
 
+void CtSQLite::pending_rm_db_node(const gint64 node_id)
+{
+    if (0 != _syncPending.nodes_to_write_dict.count(node_id))
+    {
+        // no need to write changes to a node that got to be removed
+        _syncPending.nodes_to_write_dict.erase(node_id);
+    }
+    _syncPending.nodes_to_rm_set.insert(node_id);
+}
+
 bool CtSQLite::_remove_db_node_n_children(const gint64 node_id)
 {
     bool soFarSoGood = ( _exec_bind_int64(CtSQLite::TABLE_CODEBOX_DELETE, node_id) &&

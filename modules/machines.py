@@ -893,9 +893,9 @@ class StateMachine:
 
     def delete_states(self, node_id):
         """Delete the states for the given node_id"""
-        del self.nodes_indexes[node_id]
-        del self.nodes_vectors[node_id]
-        del self.nodes_indicators[node_id]
+        if node_id in self.nodes_indexes: del self.nodes_indexes[node_id]
+        if node_id in self.nodes_vectors: del self.nodes_vectors[node_id]
+        if node_id in self.nodes_indicators: del self.nodes_indicators[node_id]
         if node_id in self.visited_nodes_list:
             self.visited_nodes_list.remove(node_id)
             self.visited_nodes_idx = len(self.visited_nodes_list)-1
