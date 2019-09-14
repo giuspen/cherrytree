@@ -673,6 +673,59 @@ void CtSQLite::pending_rm_db_node(const gint64 node_id)
     _syncPending.nodes_to_rm_set.insert(node_id);
 }
 
+bool CtSQLite::pending_data_write(CtTreeStore* pTreeStore,
+                                  const std::list<gint64>& bookmarks,
+                                  const bool run_vacuum)
+{
+    bool allGood{true};
+    if (_syncPending.bookmarks_to_write)
+    {
+        if (false == _write_db_bookmarks(bookmarks))
+        {
+            allGood = false;
+        }
+    }
+    if (allGood)
+    {
+        _syncPending.bookmarks_to_write = false;
+        for (const auto& node_pair : _syncPending.nodes_to_write_dict)
+        {
+            CtTreeIter ct_tree_iter = pTreeStore->get_node_from_node_id(node_pair.first);
+            CtTreeIter ct_tree_iter_parent = ct_tree_iter.parent();
+            if (false == _write_db_node(ct_tree_iter,
+                           ct_tree_iter.get_node_sequence(),
+                           ct_tree_iter_parent ? ct_tree_iter_parent.get_node_id() : 0,
+                           node_pair.second))
+            {
+                allGood = false;
+                break;
+            }
+        }
+    }
+    if (allGood)
+    {
+        _syncPending.nodes_to_write_dict.clear();
+        for (const auto node_id : _syncPending.nodes_to_rm_set)
+        {
+            if (false == _remove_db_node_n_children(node_id))
+            {
+                allGood = false;
+                break;
+            }
+        }
+    }
+    if (allGood)
+    {
+        _syncPending.nodes_to_rm_set.clear();
+        if (run_vacuum)
+        {
+            (void)_exec_no_callback("VACUUM");
+            (void)_exec_no_callback("REINDEX");
+        }
+    }
+    return allGood;
+}
+
 bool CtSQLite::_remove_db_node_n_children(const gint64 node_id)
 {
     bool soFarSoGood = ( _exec_bind_int64(CtSQLite::TABLE_CODEBOX_DELETE, node_id) &&

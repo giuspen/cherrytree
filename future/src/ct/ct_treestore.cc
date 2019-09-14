@@ -62,6 +62,11 @@ gint64 CtTreeIter::get_node_id() const
     return (*this) ? (*this)->get_value(_pColumns->colNodeUniqueId) : -1;
 }
 
+gint64 CtTreeIter::get_node_sequence() const
+{
+    return (*this) ? (*this)->get_value(_pColumns->colNodeSequence) : -1;
+}
+
 bool CtTreeIter::get_node_is_bold() const
 {
     return (*this) && get_is_bold_from_pango_weight((*this)->get_value(_pColumns->colWeight));

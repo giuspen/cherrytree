@@ -59,7 +59,7 @@ public:
     Gtk::TreeModelColumn<Glib::RefPtr<Gsv::Buffer>>  rColTextBuffer;
     Gtk::TreeModelColumn<gint64>                     colNodeUniqueId;
     Gtk::TreeModelColumn<std::string>                colSyntaxHighlighting;
-    Gtk::TreeModelColumn<guint16>                    colNodeSequence;
+    Gtk::TreeModelColumn<gint64>                     colNodeSequence;
     Gtk::TreeModelColumn<Glib::ustring>              colNodeTags;
     Gtk::TreeModelColumn<bool>                       colNodeRO;
     Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>  rColPixbufAux;
@@ -84,6 +84,7 @@ public:
     bool          get_node_is_bold() const;
     bool          get_node_read_only() const;
     void          set_node_read_only(bool val);
+    gint64        get_node_sequence() const;
     gint64        get_node_id() const;
     guint16       get_node_custom_icon_id() const;
     Glib::ustring get_node_name() const;

@@ -50,7 +50,7 @@ class CTDBHandler:
         if self.bookmarks_to_write:
             self.write_db_bookmarks(db)
             need_to_commit = True
-        self.bookmarks_to_write = False
+            self.bookmarks_to_write = False
         for node_id_to_write in self.nodes_to_write_dict:
             #print "node_id_to_write", node_id_to_write
             write_dict = self.nodes_to_write_dict[node_id_to_write]
