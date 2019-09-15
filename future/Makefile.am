@@ -26,6 +26,7 @@ AM_CPPFLAGS = ${CHERRYTREE_CFLAGS} \
 	-D_UNITTEST_DATA_DIR=\"${top_srcdir}/tests/data\" \
 	-Wno-deprecated \
 	-Wno-cpp
+	-std=c++17
 
 bin_PROGRAMS = cherrytree
 
