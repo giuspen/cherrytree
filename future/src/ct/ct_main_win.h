@@ -82,6 +82,7 @@ public:
     void config_apply_before_show_all();
     void config_apply_after_show_all();
     void configureTheme();
+    std::string get_curr_document_filepath();
     void update_window_save_needed(std::string update_type = "",
                                    bool new_machine_state = false, const CtTreeIter* give_tree_iter = nullptr) { /* todo: */ }
 
@@ -89,10 +90,10 @@ public:
     CtTreeStore&  get_tree_store()  { return _ctTreestore; }
     CtTreeView&   get_tree_view()   { return _ctTreeview; }
     CtTextView&   get_text_view()   { return _ctTextview; }
-    CtMenu&       get_ct_menu()     { return *_ctMenu; }
+    CtMenu&       get_ct_menu()     { return *_pCtMenu; }
     CtStatusBar&  get_status_bar()  { return _ctStatusBar; }
 
-    bool&         user_active()     { return _userActive; } // use as a function, because it's easer to put breakpoint
+    bool&         user_active()     { return _userActive; } // use as a function, because it's easier to put breakpoint
     int&          cursor_key_press() { return _cursorKeyPress; }
     int&          hovering_link_iter_offset() { return _hovering_link_iter_offset; }
 
@@ -141,9 +142,9 @@ protected:
     Gtk::VBox           _vboxMain;
     Gtk::VBox           _vboxText;
     Gtk::HPaned         _hPaned;
-    Gtk::MenuBar*       _pMenu;
+    Gtk::MenuBar*       _pMenuBar;
     Gtk::Toolbar*       _pToolbar;
-    CtMenu*             _ctMenu;
+    CtMenu*             _pCtMenu;
     CtStatusBar         _ctStatusBar;
     CtWinHeader         _ctWinHeader;
     Gtk::MenuItem*      _pBookmarksSubmenu;

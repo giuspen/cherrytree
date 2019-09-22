@@ -26,8 +26,12 @@
 
 
 CtMainWin::CtMainWin(CtMenu* pCtMenu)
-    : Gtk::ApplicationWindow(), _ctMenu(pCtMenu),
-      _userActive(true), _cursorKeyPress(-1), _hovering_link_iter_offset(-1), _prevTextviewWidth(0)
+ : Gtk::ApplicationWindow(),
+   _pCtMenu(pCtMenu),
+   _userActive(true),
+   _cursorKeyPress(-1),
+   _hovering_link_iter_offset(-1),
+   _prevTextviewWidth(0)
 {
     set_icon(CtApp::R_icontheme->load_icon(CtConst::APP_NAME, 48));
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
@@ -47,15 +51,15 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu)
         _hPaned.add2(_vboxText);
     }
 
-    _pMenu = pCtMenu->build_menubar();
-    _pMenu->set_name("MenuBar");
-    _pBookmarksSubmenu = CtMenu::find_menu_item(_pMenu, "BookmarksMenu");
-    _pSpecialCharsSubmenu = CtMenu::find_menu_item(_pMenu, "SpecialCharsMenu");
-    _pMenu->show_all();
+    _pMenuBar = pCtMenu->build_menubar();
+    _pMenuBar->set_name("MenuBar");
+    _pBookmarksSubmenu = CtMenu::find_menu_item(_pMenuBar, "BookmarksMenu");
+    _pSpecialCharsSubmenu = CtMenu::find_menu_item(_pMenuBar, "SpecialCharsMenu");
+    _pMenuBar->show_all();
     gtk_window_add_accel_group (GTK_WINDOW(gobj()), pCtMenu->default_accel_group());
     _pToolbar = pCtMenu->build_toolbar();
 
-    _vboxMain.pack_start(*_pMenu, false, false);
+    _vboxMain.pack_start(*_pMenuBar, false, false);
     _vboxMain.pack_start(*_pToolbar, false, false);
     _vboxMain.pack_start(_hPaned);
     _vboxMain.pack_start(_initStatusBar(), false, false);
@@ -254,8 +258,8 @@ void CtMainWin::window_header_update_num_last_visited()
 
 void CtMainWin::menu_tree_update_for_bookmarked_node(bool is_bookmarked)
 {
-    _ctMenu->find_action("node_bookmark")->signal_set_visible.emit(!is_bookmarked);
-    _ctMenu->find_action("node_unbookmark")->signal_set_visible.emit(is_bookmarked);
+    _pCtMenu->find_action("node_bookmark")->signal_set_visible.emit(!is_bookmarked);
+    _pCtMenu->find_action("node_unbookmark")->signal_set_visible.emit(is_bookmarked);
 }
 
 void CtMainWin::bookmark_action_select_node(gint64 node_id)
@@ -270,13 +274,13 @@ void CtMainWin::set_bookmarks_menu_items()
     for (const gint64& node_id: _ctTreestore.get_bookmarks())
         bookmarks.push_back(std::make_tuple(node_id, _ctTreestore.get_node_name_from_node_id(node_id)));
     sigc::slot<void, gint64> bookmark_action = sigc::mem_fun(*this, &CtMainWin::bookmark_action_select_node);
-    _pBookmarksSubmenu->set_submenu(*_ctMenu->build_bookmarks_menu(bookmarks, bookmark_action));
+    _pBookmarksSubmenu->set_submenu(*_pCtMenu->build_bookmarks_menu(bookmarks, bookmark_action));
 }
 
 void CtMainWin::set_menu_items_special_chars()
 {
     sigc::slot<void, gunichar> spec_char_action = sigc::mem_fun(*CtApp::P_ctActions, &CtActions::insert_spec_char_action);
-    _pSpecialCharsSubmenu->set_submenu(*_ctMenu->build_special_chars_menu(CtApp::P_ctCfg->specialChars, spec_char_action));
+    _pSpecialCharsSubmenu->set_submenu(*_pCtMenu->build_special_chars_menu(CtApp::P_ctCfg->specialChars, spec_char_action));
 }
 
 bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, const bool isImport)
@@ -346,6 +350,16 @@ bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, cons
     return retOk;
 }
 
+std::string CtMainWin::get_curr_document_filepath()
+{
+    std::string ret_doc_path;
+    if (false == _currFileName.empty())
+    {
+        ret_doc_path = Glib::build_filename(_currFileDir, _currFileName);
+    }
+    return ret_doc_path;
+}
+
 void CtMainWin::_onTheTreeviewSignalCursorChanged()
 {
     CtTreeIter treeIter = curr_tree_iter();
@@ -361,7 +375,7 @@ bool CtMainWin::_onTheTreeviewSignalButtonPressEvent(GdkEventButton* event)
 {
     if (event->button == 3)
     {
-        _ctMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(event->button, event->time);
+        _pCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(event->button, event->time);
         return true;
     }
     return false;
@@ -410,7 +424,7 @@ bool CtMainWin::_onTheTreeviewSignalKeyPressEvent(GdkEventKey* event)
 
 bool CtMainWin::_onTheTreeviewSignalPopupMenu()
 {
-    _ctMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(0, 0);
+    _pCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(0, 0);
     return true;
 }
 
@@ -565,14 +579,14 @@ bool CtMainWin::_onTheTextviewEvent(GdkEvent* event)
             {
                 CtApp::P_ctActions->curr_anchor_anchor = anchor;
                 CtApp::P_ctActions->object_set_selection(anchor);
-                _ctMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->popup(3, event->button.time);
+                _pCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->popup(3, event->button.time);
             }
             else if (CtImagePng* image = dynamic_cast<CtImagePng*>(widgets.front()))
             {
                 CtApp::P_ctActions->curr_image_anchor = image;
                 CtApp::P_ctActions->object_set_selection(image);
-                _ctMenu->find_action("img_link_dismiss")->signal_set_visible.emit(!image->getLink().empty());
-                _ctMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup(3, event->button.time);
+                _pCtMenu->find_action("img_link_dismiss")->signal_set_visible.emit(!image->getLink().empty());
+                _pCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup(3, event->button.time);
             }
             return true;
         }

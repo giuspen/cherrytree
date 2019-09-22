@@ -76,9 +76,12 @@ public:
 
 private:
     // helpers for file actions
+    void _file_save(const bool run_vacuum=false);
 
 public:
     // file actions
+    void file_save();
+    void file_vacuum();
     void file_save_as();
 
 private:

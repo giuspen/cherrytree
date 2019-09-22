@@ -23,6 +23,30 @@
 #include "ct_doc_rw.h"
 #include <glib/gstdio.h>
 
+void CtActions::_file_save(const bool run_vacuum)
+{
+    const std::string doc_filepath = _pCtMainWin->get_curr_document_filepath();
+    if (doc_filepath.empty())
+    {
+        file_save_as();
+    }
+    else
+    {
+        // todo
+    }
+}
+
+// Save the file
+void CtActions::file_save()
+{
+    _file_save();
+}
+
+// Save the file and vacuum the db
+void CtActions::file_vacuum()
+{
+    _file_save(true/*run_vacuum*/);
+}
 
 // Save the file providing a new name
 void CtActions::file_save_as()
