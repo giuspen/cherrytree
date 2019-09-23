@@ -27,6 +27,11 @@ import tempfile
 VERSION = "0.38.9"
 APP_NAME = "cherrytree"
 NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
+IS_MAC_OS = False
+
+if sys.platform == 'darwin':
+    IS_MAC_OS = True
+
 if sys.platform.startswith("win"):
     IS_WIN_OS = True
     SZA_PATH = '"'+os.path.join(SHARE_PATH, "7za.exe")+'"'
