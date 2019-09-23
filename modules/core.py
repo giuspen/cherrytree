@@ -1865,7 +1865,7 @@ iter_end, exclude_iter_sel_end=True)
             return False
         dialog.connect("key_press_event", on_key_press_enter_password_dialog)
         dialog.show_all()
-        if not cons.IS_WIN_OS:
+        if not cons.IS_WIN_OS and not cons.IS_MAC_OS:
             the_window = dialog.get_window()
             the_window.focus(gtk.gdk.x11_get_server_time(the_window))
         dialog.present()

@@ -40,7 +40,7 @@ ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON
               4: gtk.ICON_SIZE_DND, 5: gtk.ICON_SIZE_DIALOG}
 
 LINK_CUSTOM_ACTION_DEFAULT_WEB = "firefox %s &"
-LINK_CUSTOM_ACTION_DEFAULT_FILE = "xdg-open %s &"
+LINK_CUSTOM_ACTION_DEFAULT_FILE = "open %s &" if cons.IS_MAC_OS else "xdg-open %s &"
 CODE_EXEC_TMP_SRC = "<tmp_src_path>"
 CODE_EXEC_TMP_BIN = "<tmp_bin_path>"
 CODE_EXEC_COMMAND = "<command>"
