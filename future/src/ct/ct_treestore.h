@@ -77,6 +77,7 @@ class CtTreeIter : public Gtk::TreeIter
 {
 public:
     CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* _columns, CtSQLite* pCtSQLite);
+    CtTreeIter() {} // invalid, casting to bool will give false
 
     CtTreeIter  parent();
     CtTreeIter  first_child();
@@ -136,7 +137,7 @@ public:
     bool          onRequestRemoveBookmark(gint64 nodeId);
     Gtk::TreeIter onRequestAppendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter);
 
-    void applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pTextView);
+    void apply_textbuffer_to_textview(const CtTreeIter& treeIter, CtTextView* pTextView);
     void addAnchoredWidgets(Gtk::TreeIter treeIter, std::list<CtAnchoredWidget*> anchoredWidgetList, Gtk::TextView* pTextView);
     const Gtk::TreeModel::Children getRootChildren() { return _rTreeStore->children(); }
     void expandToTreeRow(Gtk::TreeView* pTreeView, Gtk::TreeRow& row);

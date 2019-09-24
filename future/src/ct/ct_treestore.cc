@@ -549,9 +549,9 @@ Glib::RefPtr<Gsv::Buffer> CtTreeStore::_getNodeTextBuffer(const Gtk::TreeIter& t
     return Glib::RefPtr<Gsv::Buffer>();
 }
 
-void CtTreeStore::applyTextBufferToCtTextView(const Gtk::TreeIter& treeIter, CtTextView* pTextView)
+void CtTreeStore::apply_textbuffer_to_textview(const CtTreeIter& treeIter, CtTextView* pTextView)
 {
-    if (!treeIter)
+    if (false == static_cast<bool>(treeIter))
     {
         std::cerr << "!! treeIter" << std::endl;
         return;

@@ -124,7 +124,7 @@ public:
 protected:
     bool                _onTheWindowSignalKeyPressEvent(GdkEventKey* event);
 
-    void                _onTheTreeviewSignalCursorChanged();
+    void                _on_treeview_cursor_changed();
     bool                _onTheTreeviewSignalButtonPressEvent(GdkEventButton* event);
     bool                _onTheTreeviewSignalKeyPressEvent(GdkEventKey* event);
     bool                _onTheTreeviewSignalPopupMenu();
@@ -161,8 +161,10 @@ protected:
     Glib::RefPtr<Gtk::CssProvider> _css_provider_theme_font;
 
 private:
-    bool                _userActive;
-    int                 _cursorKeyPress;
-    int                 _hovering_link_iter_offset;
-    int                 _prevTextviewWidth;
+    bool                _userActive{true}; // pygtk2: user_active
+    int                 _cursorKeyPress{-1};
+    int                 _hovering_link_iter_offset{-1};
+    int                 _prevTextviewWidth{0};
+    bool                _fileSaveNeeded{false}; // pygtk2: file_update
+    CtTreeIter          _prevTreeIter;
 };

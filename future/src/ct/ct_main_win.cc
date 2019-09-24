@@ -27,11 +27,7 @@
 
 CtMainWin::CtMainWin(CtMenu* pCtMenu)
  : Gtk::ApplicationWindow(),
-   _pCtMenu(pCtMenu),
-   _userActive(true),
-   _cursorKeyPress(-1),
-   _hovering_link_iter_offset(-1),
-   _prevTextviewWidth(0)
+   _pCtMenu(pCtMenu)
 {
     set_icon(CtApp::R_icontheme->load_icon(CtConst::APP_NAME, 48));
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
@@ -68,7 +64,7 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu)
     _ctTreestore.viewAppendColumns(&_ctTreeview);
     _ctTreestore.viewConnect(&_ctTreeview);
 
-    _ctTreeview.signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalCursorChanged));
+    _ctTreeview.signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_cursor_changed));
     _ctTreeview.signal_button_release_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalButtonPressEvent));
     _ctTreeview.signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalKeyPressEvent), false);
     _ctTreeview.signal_popup_menu().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalPopupMenu));
@@ -360,15 +356,27 @@ std::string CtMainWin::get_curr_document_filepath()
     return ret_doc_path;
 }
 
-void CtMainWin::_onTheTreeviewSignalCursorChanged()
+void CtMainWin::_on_treeview_cursor_changed()
 {
+    if (_prevTreeIter)
+    {
+        Glib::RefPtr<Gsv::Buffer> rTextBuffer = _prevTreeIter.get_node_text_buffer();
+        if (rTextBuffer->get_modified())
+        {
+            _fileSaveNeeded = true;
+            rTextBuffer->set_modified(false);
+            //self.state_machine.update_state()
+        }
+    }
     CtTreeIter treeIter = curr_tree_iter();
-    _ctTreestore.applyTextBufferToCtTextView(treeIter, &_ctTextview);
+    _ctTreestore.apply_textbuffer_to_textview(treeIter, &_ctTextview);
 
     menu_tree_update_for_bookmarked_node(_ctTreestore.is_node_bookmarked(treeIter.get_node_id()));
     window_header_update();
     window_header_update_lock_icon(treeIter.get_node_read_only());
     window_header_update_bookmark_icon(false);
+
+    _prevTreeIter = treeIter;
 }
 
 bool CtMainWin::_onTheTreeviewSignalButtonPressEvent(GdkEventButton* event)
