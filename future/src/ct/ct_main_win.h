@@ -70,6 +70,8 @@ struct CtWinHeader
     Gtk::EventBox    eventBox;
 };
 
+enum class CtSaveNeededUpdType { None, nbuf, npro, ndel, book };
+
 class CtMenu;
 class CtActions;
 class CtMainWin : public Gtk::ApplicationWindow
@@ -83,8 +85,10 @@ public:
     void config_apply_after_show_all();
     void configureTheme();
     std::string get_curr_document_filepath();
-    void update_window_save_needed(std::string update_type = "",
-                                   bool new_machine_state = false, const CtTreeIter* give_tree_iter = nullptr) { /* todo: */ }
+    void window_title_update(const bool save_needed);
+    void update_window_save_needed(const CtSaveNeededUpdType update_type = CtSaveNeededUpdType::None,
+                                   const bool new_machine_state = false,
+                                   const CtTreeIter* give_tree_iter = nullptr);
 
     CtTreeIter    curr_tree_iter()  { return _ctTreestore.to_ct_tree_iter(_ctTreeview.get_selection()->get_selected()); }
     CtTreeStore&  get_tree_store()  { return _ctTreestore; }

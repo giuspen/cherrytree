@@ -338,7 +338,7 @@ void ct_dialogs::bookmarks_handle_dialog(CtMainWin* ctMainWin)
 
     ctMainWin->set_bookmarks_menu_items();
     ctTreestore.pending_edit_db_bookmarks();
-    ctMainWin->update_window_save_needed("book");
+    ctMainWin->update_window_save_needed(CtSaveNeededUpdType::book);
 }
 
 // Dialog to select a Date

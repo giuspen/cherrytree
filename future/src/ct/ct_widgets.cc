@@ -253,7 +253,7 @@ void CtTextView::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& 
         curr_offset = iter_start.get_offset();
     }
     CtApp::P_ctActions->getCtMainWin()->user_active() = true;
-    CtApp::P_ctActions->getCtMainWin()->update_window_save_needed("nbuf", true);
+    CtApp::P_ctActions->getCtMainWin()->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
 void CtTextView::replace_text(const Glib::ustring& text, int start_offset, int end_offset)

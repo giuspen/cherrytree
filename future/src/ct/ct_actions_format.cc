@@ -54,7 +54,7 @@ void CtActions::remove_text_formatting()
     curr_buffer->remove_all_tags(iter_sel_start, iter_sel_end);
 
     // todo: if self.enable_spell_check: self.spell_check_set_on()
-    _pCtMainWin->update_window_save_needed("nbuf", true);
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
 // The Foreground Color Chooser Button was Pressed
@@ -335,7 +335,7 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
                                       text_buffer->get_iter_at_offset(sel_start_offset),
                                       text_buffer->get_iter_at_offset(sel_end_offset));
     if (_pCtMainWin->user_active())
-        _pCtMainWin->update_window_save_needed("nbuf", true);
+        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
 // Check into the Tags Table whether the Tag Exists, if Not Creates it

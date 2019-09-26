@@ -767,7 +767,7 @@ bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter, Glib::RefP
         if (restore_modified) text_buffer->set_modified(false);
     }
     if (s_state.replace_active && pattern_found)
-        _pCtMainWin->update_window_save_needed("nbuf", false, &tree_iter);
+        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, false/*new_machine_state*/, &tree_iter);
     return pattern_found;
 }
 

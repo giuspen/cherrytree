@@ -168,6 +168,7 @@ void CtMainWin::configureTheme()
     _css_provider_theme_font->load_from_data(font_css);
     get_style_context()->add_provider_for_screen(screen, _css_provider_theme_font, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
+#ifdef THEME_FIXES_REQUIRED
     // can do more complicated things than just changing colors
     if (_css_provider_theme)
     {
@@ -176,12 +177,14 @@ void CtMainWin::configureTheme()
     _css_provider_theme = Gtk::CssProvider::create();
     std::string theme_css;
     // todo: rich text fix light selected line with dark theme
-    //theme_css += ".ct_textview.rich-text > text { color: " + CtApp::P_ctCfg->rtDefFg + "; background-color: " + CtApp::P_ctCfg->rtDefBg + "; } ";
+    theme_css += ".ct_textview.rich-text > text { color: " + CtApp::P_ctCfg->rtDefFg + "; background-color: " + CtApp::P_ctCfg->rtDefBg + "; } ";
+    // todo: tree selected node highlight no longer working
     theme_css += ".ct_node_view { color: " + CtApp::P_ctCfg->ttDefFg + "; background-color: " + CtApp::P_ctCfg->ttDefBg + "; } ";
     theme_css += ".ct_header { background-color: " + CtApp::P_ctCfg->ttDefBg + "; } ";
 
     _css_provider_theme->load_from_data(theme_css);
     get_style_context()->add_provider_for_screen(screen, _css_provider_theme, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+#endif // THEME_FIXES_REQUIRED
 }
 
 Gtk::HBox& CtMainWin::_initStatusBar()
@@ -240,7 +243,6 @@ void CtMainWin::window_header_update_bookmark_icon(bool show)
 {
     show ? _ctWinHeader.bookmarkIcon.show() : _ctWinHeader.bookmarkIcon.hide();
 }
-
 
 void CtMainWin::window_header_update_last_visited()
 {
@@ -354,6 +356,33 @@ std::string CtMainWin::get_curr_document_filepath()
         ret_doc_path = Glib::build_filename(_currFileDir, _currFileName);
     }
     return ret_doc_path;
+}
+
+void CtMainWin::window_title_update(const bool save_needed)
+{
+    // window_title_str_get
+    //if self.file_name: return self.file_name + " - " + self.file_dir + " - CherryTree %s" % cons.VERSION
+    //return "CherryTree %s" % cons.VERSION
+    
+    //if save_needed: self.window.set_title("*" + self.window_title_str_get())
+    //else: self.window.set_title(self.window_title_str_get())
+}
+
+void CtMainWin::update_window_save_needed(const CtSaveNeededUpdType update_type,
+                                          const bool new_machine_state,
+                                          const CtTreeIter* give_tree_iter)
+{
+    CtTreeIter treeIter = (nullptr != give_tree_iter ? *give_tree_iter : curr_tree_iter());
+    if (treeIter.get_node_is_rich_text())
+    {
+        treeIter.get_node_text_buffer()->set_modified(true);
+    }
+    if (false == _fileSaveNeeded)
+    {
+        window_title_update(true/*save_needed*/);
+        _fileSaveNeeded = true;
+    }
+    
 }
 
 void CtMainWin::_on_treeview_cursor_changed()

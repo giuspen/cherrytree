@@ -196,7 +196,7 @@ void CtActions::image_link_edit()
         curr_image_anchor->setLink(property_value);
         curr_image_anchor->updateLabelWidget();
         // todo: self.objects_buffer_refresh()
-        _pCtMainWin->update_window_save_needed("nbuf", true);
+        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
     }
 }
 
@@ -206,7 +206,7 @@ void CtActions::image_link_dismiss()
     if (!_is_curr_node_not_read_only_or_error()) return;
     curr_image_anchor->setLink("");
     curr_image_anchor->updateLabelWidget();
-    _pCtMainWin->update_window_save_needed("nbuf", true);
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
 void CtActions::toggle_show_hide_main_window()
@@ -345,7 +345,7 @@ void CtActions::codebox_change_properties()
     curr_codebox_anchor->setWidthHeight((int)CtApp::P_ctCfg->codeboxWidth, (int)CtApp::P_ctCfg->codeboxHeight);
     curr_codebox_anchor->setShowLineNumbers(CtApp::P_ctCfg->codeboxLineNum);
     curr_codebox_anchor->setHighlightBrackets(CtApp::P_ctCfg->codeboxMatchBra);
-    _pCtMainWin->update_window_save_needed("nbuf", true);
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
 void CtActions::exec_code()
@@ -479,7 +479,7 @@ bool CtActions::_on_embfiles_sentinel_timeout()
                         embFile->setTime(std::time(nullptr));
                         embFile->updateTooltip();
 
-                        _pCtMainWin->update_window_save_needed("nbuf");
+                        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
                         _pCtMainWin->get_status_bar().update_status(_("Embedded File Automatically Updated:") + CtConst::CHAR_SPACE + embFile->getFileName());
                         break;
                     }

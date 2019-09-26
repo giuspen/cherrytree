@@ -264,7 +264,7 @@ void CtActions::node_edit()
     _pCtTreestore->updateNodeAuxIcon(_pCtMainWin->curr_tree_iter());
     _pCtMainWin->window_header_update();
     _pCtMainWin->window_header_update_lock_icon(newData.isRO);
-    _pCtMainWin->update_window_save_needed("npro");
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::npro);
     _pCtMainWin->get_text_view().grab_focus();
 }
 
@@ -277,7 +277,7 @@ void CtActions::node_toggle_read_only()
     _pCtMainWin->window_header_update_lock_icon(node_is_ro);
     //todo: self.update_selected_node_statusbar_info()
     _pCtTreestore->updateNodeAuxIcon(_pCtMainWin->curr_tree_iter());
-    _pCtMainWin->update_window_save_needed("npro");
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::npro);
     _pCtMainWin->get_text_view().grab_focus();
 }
 
@@ -418,7 +418,7 @@ void CtActions::bookmark_curr_node()
     if (_pCtTreestore->onRequestAddBookmark(node_id)) {
         _pCtMainWin->set_bookmarks_menu_items();
         _pCtTreestore->updateNodeAuxIcon(_pCtMainWin->curr_tree_iter());
-        _pCtMainWin->update_window_save_needed("book");
+        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::book);
         _pCtMainWin->menu_tree_update_for_bookmarked_node(true);
     }
 }
@@ -431,7 +431,7 @@ void CtActions::bookmark_curr_node_remove()
     if (_pCtTreestore->onRequestRemoveBookmark(node_id)) {
         _pCtMainWin->set_bookmarks_menu_items();
         _pCtTreestore->updateNodeAuxIcon(_pCtMainWin->curr_tree_iter());
-        _pCtMainWin->update_window_save_needed("book");
+        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::book);
         _pCtMainWin->menu_tree_update_for_bookmarked_node(false);
     }
 
