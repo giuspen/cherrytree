@@ -85,7 +85,6 @@ public:
     void config_apply_after_show_all();
     void configureTheme();
     std::string get_curr_document_filepath();
-    void window_title_update(const bool save_needed);
     void update_window_save_needed(const CtSaveNeededUpdType update_type = CtSaveNeededUpdType::None,
                                    const bool new_machine_state = false,
                                    const CtTreeIter* give_tree_iter = nullptr);
@@ -128,7 +127,7 @@ public:
 protected:
     bool                _onTheWindowSignalKeyPressEvent(GdkEventKey* event);
 
-    void                _on_treeview_cursor_changed();
+    void                _on_treeview_cursor_changed(); // pygtk: on_node_changed
     bool                _onTheTreeviewSignalButtonPressEvent(GdkEventButton* event);
     bool                _onTheTreeviewSignalKeyPressEvent(GdkEventKey* event);
     bool                _onTheTreeviewSignalPopupMenu();
@@ -137,10 +136,10 @@ protected:
     bool                _onTheTextviewMotionNotifyEvent(GdkEventMotion* event);
     bool                _onTheTextviewVisibilityNotifyEvent(GdkEventVisibility* event);
     void                _onTheTextviewSizeAllocate(Gtk::Allocation& allocation);
-    bool                _onTheTextviewEvent(GdkEvent* event);
-    void                _onTheTextviewEventAfter(GdkEvent* event);
+    bool                _on_textview_event(GdkEvent* event); // pygtk: on_sourceview_event
+    void                _on_textview_event_after(GdkEvent* event); // pygtk: on_sourceview_event_after
 
-    void                _titleUpdate(bool saveNeeded);
+    void                _title_update(const bool saveNeeded); // pygtk: window_title_update
 
 protected:
     Gtk::VBox           _vboxMain;
@@ -158,17 +157,17 @@ protected:
     CtTreeStore         _ctTreestore;
     CtTreeView          _ctTreeview;
     CtTextView          _ctTextview; /* todo: rename? because _ctTextview and _ctTreeview look the same */
-    std::string         _currFileName;
-    std::string         _currFileDir;
+    std::string         _currFileName; // pygtk: file_name
+    std::string         _currFileDir; // pygtk: file_dir
 
     Glib::RefPtr<Gtk::CssProvider> _css_provider_theme;
     Glib::RefPtr<Gtk::CssProvider> _css_provider_theme_font;
 
 private:
-    bool                _userActive{true}; // pygtk2: user_active
+    bool                _userActive{true}; // pygtk: user_active
     int                 _cursorKeyPress{-1};
     int                 _hovering_link_iter_offset{-1};
     int                 _prevTextviewWidth{0};
-    bool                _fileSaveNeeded{false}; // pygtk2: file_update
+    bool                _fileSaveNeeded{false}; // pygtk: file_update
     CtTreeIter          _prevTreeIter;
 };

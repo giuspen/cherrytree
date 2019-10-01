@@ -76,8 +76,8 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu)
     _ctTextview.signal_motion_notify_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTextviewMotionNotifyEvent));
     _ctTextview.signal_visibility_notify_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTextviewVisibilityNotifyEvent));
     _ctTextview.signal_size_allocate().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTextviewSizeAllocate));
-    _ctTextview.signal_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTextviewEvent));
-    _ctTextview.signal_event_after().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTextviewEventAfter));
+    _ctTextview.signal_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_event));
+    _ctTextview.signal_event_after().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_event_after));
     _ctTextview.signal_scroll_event().connect([this](GdkEventScroll* event){
         if (event->state & GDK_CONTROL_MASK && (event->direction == GDK_SCROLL_UP || event->direction == GDK_SCROLL_DOWN))
         {
@@ -92,7 +92,7 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu)
 
     signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheWindowSignalKeyPressEvent), false);
 
-    _titleUpdate(false/*saveNeeded*/);
+    _title_update(false/*saveNeeded*/);
 
     config_apply_before_show_all();
     show_all();
@@ -322,7 +322,7 @@ bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, cons
     {
         _currFileName = Glib::path_get_basename(filepath);
         _currFileDir = Glib::path_get_dirname(filepath);
-        _titleUpdate(false/*saveNeeded*/);
+        _title_update(false/*saveNeeded*/);
         set_bookmarks_menu_items();
 
         if ((_currFileName == CtApp::P_ctCfg->fileName) &&
@@ -358,16 +358,6 @@ std::string CtMainWin::get_curr_document_filepath()
     return ret_doc_path;
 }
 
-void CtMainWin::window_title_update(const bool save_needed)
-{
-    // window_title_str_get
-    //if self.file_name: return self.file_name + " - " + self.file_dir + " - CherryTree %s" % cons.VERSION
-    //return "CherryTree %s" % cons.VERSION
-    
-    //if save_needed: self.window.set_title("*" + self.window_title_str_get())
-    //else: self.window.set_title(self.window_title_str_get())
-}
-
 void CtMainWin::update_window_save_needed(const CtSaveNeededUpdType update_type,
                                           const bool new_machine_state,
                                           const CtTreeIter* give_tree_iter)
@@ -379,7 +369,7 @@ void CtMainWin::update_window_save_needed(const CtSaveNeededUpdType update_type,
     }
     if (false == _fileSaveNeeded)
     {
-        window_title_update(true/*save_needed*/);
+        _title_update(true/*save_needed*/);
         _fileSaveNeeded = true;
     }
     
@@ -554,7 +544,7 @@ void CtMainWin::_onTheTextviewSizeAllocate(Gtk::Allocation& allocation)
     }
 }
 
-bool CtMainWin::_onTheTextviewEvent(GdkEvent* event)
+bool CtMainWin::_on_textview_event(GdkEvent* event)
 {
     if (event->type != GDK_KEY_PRESS)
         return false;
@@ -663,7 +653,7 @@ bool CtMainWin::_onTheTextviewEvent(GdkEvent* event)
 }
 
 // Called after every event on the SourceView
-void CtMainWin::_onTheTextviewEventAfter(GdkEvent* event)
+void CtMainWin::_on_textview_event_after(GdkEvent* event)
 {
     if (event->type == GDK_2BUTTON_PRESS && event->button.button == 1)
         get_text_view().for_event_after_double_click_button1(event);
@@ -689,14 +679,14 @@ void CtMainWin::_onTheTextviewEventAfter(GdkEvent* event)
     }
 }
 
-void CtMainWin::_titleUpdate(bool saveNeeded)
+void CtMainWin::_title_update(const bool saveNeeded)
 {
     Glib::ustring title;
     if (saveNeeded)
     {
         title += "*";
     }
-    if (!_currFileName.empty())
+    if (false == _currFileName.empty())
     {
         title += _currFileName + " - " + _currFileDir + " - ";
     }
