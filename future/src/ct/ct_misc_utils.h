@@ -42,7 +42,7 @@ CtDocType getDocType(std::string fileName);
 
 CtDocEncrypt getDocEncrypt(std::string fileName);
 
-Glib::RefPtr<Gsv::Buffer> getNewTextBuffer(const std::string& syntax, const Glib::ustring& textContent="");
+Glib::RefPtr<Gsv::Buffer> get_new_text_buffer(const std::string& syntax, const Glib::ustring& textContent=""); // pygtk: buffer_create
 
 const Glib::ustring getTextTagNameExistOrCreate(Glib::ustring propertyName, Glib::ustring propertyValue);
 

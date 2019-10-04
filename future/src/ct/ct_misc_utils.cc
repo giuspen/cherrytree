@@ -60,7 +60,7 @@ CtDocEncrypt CtMiscUtil::getDocEncrypt(std::string fileName)
     return retDocEncrypt;
 }
 
-Glib::RefPtr<Gsv::Buffer> CtMiscUtil::getNewTextBuffer(const std::string& syntax, const Glib::ustring& textContent)
+Glib::RefPtr<Gsv::Buffer> CtMiscUtil::get_new_text_buffer(const std::string& syntax, const Glib::ustring& textContent)
 {
     Glib::RefPtr<Gsv::Buffer> rRetTextBuffer{nullptr};
     rRetTextBuffer = Gsv::Buffer::create(CtApp::R_textTagTable);

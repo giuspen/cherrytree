@@ -30,7 +30,7 @@ CtTextCell::CtTextCell(const Glib::ustring& textContent,
                        const std::string& syntaxHighlighting)
  : _syntaxHighlighting(syntaxHighlighting)
 {
-    _rTextBuffer = CtMiscUtil::getNewTextBuffer(syntaxHighlighting, textContent);
+    _rTextBuffer = CtMiscUtil::get_new_text_buffer(syntaxHighlighting, textContent);
     _ctTextview.set_buffer(_rTextBuffer);
     _ctTextview.setupForSyntax(_syntaxHighlighting);
 }

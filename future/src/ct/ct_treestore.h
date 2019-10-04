@@ -155,7 +155,6 @@ public:
     const std::list<gint64>&     get_bookmarks();
     void                         set_bookmarks(const std::list<gint64>& bookmarks);
 
-
     std::string get_tree_expanded_collapsed_string(Gtk::TreeView& treeView);
     void        set_tree_expanded_collapsed_string(const std::string& expanded_collapsed_string, Gtk::TreeView& treeView, bool nodes_bookm_exp);
 
@@ -176,7 +175,9 @@ protected:
     Glib::RefPtr<Gdk::Pixbuf> _getNodeIcon(int nodeDepth, const std::string &syntax, guint32 customIconId);
     void                      _iterDeleteAnchoredWidgets(const Gtk::TreeModel::Children& children);
 
-    Glib::RefPtr<Gsv::Buffer> _getNodeTextBuffer(const Gtk::TreeIter& treeIter);
+    void _on_textbuffer_modified_changed(); // pygtk: on_modified_changed
+    void _on_textbuffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int bytes); // pygtk: on_text_insertion
+    void _on_textbuffer_erase(const Gtk::TextBuffer::iterator& range_start, const Gtk::TextBuffer::iterator& range_end); // pygtk: on_text_removal
 
     CtTreeModelColumns             _columns;
     Glib::RefPtr<Gtk::TreeStore>   _rTreeStore;

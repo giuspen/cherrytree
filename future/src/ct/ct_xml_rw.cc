@@ -270,7 +270,7 @@ Glib::RefPtr<Gsv::Buffer> CtXmlRead::getTextBuffer(const std::string& syntax,
                                                    std::list<CtAnchoredWidget*>& anchoredWidgets,
                                                    xmlpp::Element* pNodeElement)
 {
-    Glib::RefPtr<Gsv::Buffer> rRetTextBuffer = CtMiscUtil::getNewTextBuffer(syntax);
+    Glib::RefPtr<Gsv::Buffer> rRetTextBuffer = CtMiscUtil::get_new_text_buffer(syntax);
     if (nullptr == pNodeElement)
     {
         xmlpp::Document *pDocument = get_document();

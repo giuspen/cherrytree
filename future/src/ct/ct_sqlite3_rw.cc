@@ -224,7 +224,7 @@ Glib::RefPtr<Gsv::Buffer> CtSQLite::getTextBuffer(const std::string& syntax,
             const char* textContent = reinterpret_cast<const char*>(sqlite3_column_text(p_stmt, 0));
             if (CtConst::RICH_TEXT_ID != syntax)
             {
-                rRetTextBuffer = CtMiscUtil::getNewTextBuffer(syntax, textContent);
+                rRetTextBuffer = CtMiscUtil::get_new_text_buffer(syntax, textContent);
             }
             else
             {

@@ -540,13 +540,19 @@ Gtk::TreeIter CtTreeStore::onRequestAppendNode(CtNodeData* pNodeData, const Gtk:
     return appendNode(pNodeData, pParentIter);
 }
 
-Glib::RefPtr<Gsv::Buffer> CtTreeStore::_getNodeTextBuffer(const Gtk::TreeIter& treeIter)
+void CtTreeStore::_on_textbuffer_modified_changed()
 {
-    if (treeIter)
-    {
-        return to_ct_tree_iter(treeIter).get_node_text_buffer();
-    }
-    return Glib::RefPtr<Gsv::Buffer>();
+    // todo
+}
+
+void CtTreeStore::_on_textbuffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int bytes)
+{
+    // todo
+}
+
+void CtTreeStore::_on_textbuffer_erase(const Gtk::TextBuffer::iterator& range_start, const Gtk::TextBuffer::iterator& range_end)
+{
+    // todo
 }
 
 void CtTreeStore::apply_textbuffer_to_textview(const CtTreeIter& treeIter, CtTextView* pTextView)
@@ -559,7 +565,7 @@ void CtTreeStore::apply_textbuffer_to_textview(const CtTreeIter& treeIter, CtTex
     CtTreeIter node = to_ct_tree_iter(treeIter);
     std::cout << node.get_node_name() << std::endl;
 
-    Glib::RefPtr<Gsv::Buffer> rTextBuffer = _getNodeTextBuffer(treeIter);
+    Glib::RefPtr<Gsv::Buffer> rTextBuffer = node.get_node_text_buffer();
     pTextView->setupForSyntax(node.get_node_syntax_highlighting());
     pTextView->set_buffer(rTextBuffer);
     pTextView->set_sensitive(true);
