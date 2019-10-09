@@ -119,10 +119,19 @@ public:
     bool                                        weblinkCustomOn{false};
     bool                                        filelinkCustomOn{false};
     bool                                        folderlinkCustomOn{false};
+#if defined(_WIN32) || defined(_WIN64)
+    std::string                                 weblinkCustomAct{"explorer %s &"};
+    std::string                                 filelinkCustomAct{"explorer %s &"};
+    std::string                                 folderlinkCustomAct{"explorer %s &"};
+#elif __APPLE__
+    std::string                                 weblinkCustomAct{"open %s &"};
+    std::string                                 filelinkCustomAct{"open %s &"};
+    std::string                                 folderlinkCustomAct{"open %s &"};
+#else
     std::string                                 weblinkCustomAct{"firefox %s &"};
     std::string                                 filelinkCustomAct{"xdg-open %s &"};
     std::string                                 folderlinkCustomAct{"xdg-open %s &"};
-
+#endif
     // [codebox]
     double                                      codeboxWidth{500};
     double                                      codeboxHeight{100};

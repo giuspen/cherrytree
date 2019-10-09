@@ -38,9 +38,17 @@ if cons.HAS_APPINDICATOR: import appindicator
 
 ICONS_SIZE = {1: gtk.ICON_SIZE_MENU, 2: gtk.ICON_SIZE_SMALL_TOOLBAR, 3: gtk.ICON_SIZE_LARGE_TOOLBAR,
               4: gtk.ICON_SIZE_DND, 5: gtk.ICON_SIZE_DIALOG}
+if cons.IS_WIN_OS:
+    LINK_CUSTOM_ACTION_DEFAULT_WEB = "explorer %s &"
+else:
+    LINK_CUSTOM_ACTION_DEFAULT_WEB = "firefox %s &"
+if cons.IS_WIN_OS:
+    LINK_CUSTOM_ACTION_DEFAULT_FILE = "explorer %s &"
+elif cons.IS_MAC_OS:
+    LINK_CUSTOM_ACTION_DEFAULT_FILE = "open %s &"
+else:
+    LINK_CUSTOM_ACTION_DEFAULT_FILE = "xdg-open %s &"
 
-LINK_CUSTOM_ACTION_DEFAULT_WEB = "firefox %s &"
-LINK_CUSTOM_ACTION_DEFAULT_FILE = "open %s &" if cons.IS_MAC_OS else "xdg-open %s &"
 CODE_EXEC_TMP_SRC = "<tmp_src_path>"
 CODE_EXEC_TMP_BIN = "<tmp_bin_path>"
 CODE_EXEC_COMMAND = "<command>"
@@ -73,7 +81,7 @@ COLOR_PALETTE_DEFAULT = ["#000000", "#ffffff", "#7f7f7f", "#ff0000", "#a020f0",
                          "#0000ff", "#add8e6", "#00ff00", "#ffff00", "#ffa500",
                          "#e6e6fa", "#a52a2a", "#8b6914", "#1e90ff", "#ffc0cb",
                          "#90ee90", "#1a1a1a", "#4d4d4d", "#bfbfbf", "#e5e5e5"]
-SPECIAL_CHARS_DEFAULT = unicode("“”„‘’•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝", cons.STR_UTF8, cons.STR_IGNORE)
+SPECIAL_CHARS_DEFAULT = unicode("“”„‘’•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣσΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝", cons.STR_UTF8, cons.STR_IGNORE)
 SELWORD_CHARS_DEFAULT = unicode(".-@", cons.STR_UTF8, cons.STR_IGNORE)
 CHARS_LISTBUL_DEFAULT = unicode("•◇▪-→⇒", cons.STR_UTF8, cons.STR_IGNORE)
 CHARS_TODO_DEFAULT = unicode("☐☑☒", cons.STR_UTF8, cons.STR_IGNORE)

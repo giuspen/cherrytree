@@ -56,7 +56,7 @@ const gchar    CtConst::STYLE_SCHEME_LIGHT[]   {"classic"};
 const gchar    CtConst::STYLE_SCHEME_DARK[]    {"cobalt"};
 const gchar    CtConst::STYLE_SCHEME_GRAY[]    {"oblivion"};
 const gchar    CtConst::TIMESTAMP_FORMAT_DEFAULT[] {"%Y/%m/%d - %H:%M"};
-const Glib::ustring CtConst::SPECIAL_CHARS_DEFAULT     {"“”„‘’•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝"};
+const Glib::ustring CtConst::SPECIAL_CHARS_DEFAULT     {"“”„‘’•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑σ√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝"};
 const Glib::ustring CtConst::SPECIAL_CHAR_ARROW_RIGHT   {"→"};
 const Glib::ustring CtConst::SPECIAL_CHAR_ARROW_RIGHT2  {"⇒"};
 const Glib::ustring CtConst::SPECIAL_CHAR_ARROW_LEFT    {"←"};
