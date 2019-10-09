@@ -63,7 +63,7 @@ class PrintHandler:
         print_operation_action = gtk.PRINT_OPERATION_ACTION_EXPORT if self.pdf_filepath else gtk.PRINT_OPERATION_ACTION_PRINT_DIALOG
         try: res = print_operation.run(print_operation_action, parent)
         except gobject.GError, ex:
-            support.dialog_error("Error printing file:\n%s (exception catched)" % str(ex), parent)
+            support.dialog_error("Error printing file:\n%s (exception caught)" % str(ex), parent)
         else:
             if res == gtk.PRINT_OPERATION_RESULT_ERROR:
                 support.dialog_error("Error printing file (bad res)", parent)
