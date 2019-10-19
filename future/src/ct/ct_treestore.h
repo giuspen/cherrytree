@@ -175,7 +175,7 @@ protected:
     Glib::RefPtr<Gdk::Pixbuf> _getNodeIcon(int nodeDepth, const std::string &syntax, guint32 customIconId);
     void                      _iterDeleteAnchoredWidgets(const Gtk::TreeModel::Children& children);
 
-    void _on_textbuffer_modified_changed(); // pygtk: on_modified_changed
+    void _on_textbuffer_modified_changed(Glib::RefPtr<Gtk::TextBuffer> rTextBuffer); // pygtk: on_modified_changed
     void _on_textbuffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int bytes); // pygtk: on_text_insertion
     void _on_textbuffer_erase(const Gtk::TextBuffer::iterator& range_start, const Gtk::TextBuffer::iterator& range_end); // pygtk: on_text_removal
 

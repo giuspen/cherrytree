@@ -57,7 +57,6 @@ protected:
     Glib::RefPtr<Gtk::TextChildAnchor> _rTextChildAnchor;
 };
 
-
 class CtTreeView : public Gtk::TreeView
 {
 public:
@@ -68,14 +67,13 @@ public:
 protected:
 };
 
-
 class CtTextView : public Gsv::View
 {
 public:
     CtTextView();
     virtual ~CtTextView();
 
-    void setupForSyntax(const std::string& syntaxHighlighting);
+    void setupForSyntax(const std::string& syntaxHighlighting); // pygtk: sourceview_set_properties
     void set_pixels_inside_wrap(int space_around_lines, int relative_wrapped_space);
     void set_selection_at_offset_n_delta(int offset, int delta, Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>());
     void list_change_level(Gtk::TextIter iter_insert, const CtListInfo& list_info, bool level_increase);

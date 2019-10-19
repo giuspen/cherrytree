@@ -103,7 +103,7 @@ void CtActions::apply_tag_strikethrough()
 void CtActions::apply_tag_h1()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList(curr_buffer()).get_paragraph_iters();
+    CtTextRange range = CtList(_curr_buffer()).get_paragraph_iters();
     if (!range.iter_start) return;
     _apply_tag(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H1, range.iter_start, range.iter_end);
 }
@@ -112,7 +112,7 @@ void CtActions::apply_tag_h1()
 void CtActions::apply_tag_h2()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList(curr_buffer()).get_paragraph_iters();
+    CtTextRange range = CtList(_curr_buffer()).get_paragraph_iters();
     if (!range.iter_start) return;
     _apply_tag(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H2, range.iter_start, range.iter_end);
 }
@@ -121,7 +121,7 @@ void CtActions::apply_tag_h2()
 void CtActions::apply_tag_h3()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList(curr_buffer()).get_paragraph_iters();
+    CtTextRange range = CtList(_curr_buffer()).get_paragraph_iters();
     if (!range.iter_start) return;
     _apply_tag(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H3, range.iter_start, range.iter_end);
 }
@@ -188,7 +188,7 @@ void CtActions::list_todo_handler()
 void CtActions::apply_tag_justify_left()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList(curr_buffer()).get_paragraph_iters();
+    CtTextRange range = CtList(_curr_buffer()).get_paragraph_iters();
     if (!range.iter_start) return;
     _apply_tag(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_LEFT, range.iter_start, range.iter_end);
 }
@@ -197,7 +197,7 @@ void CtActions::apply_tag_justify_left()
 void CtActions::apply_tag_justify_center()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList(curr_buffer()).get_paragraph_iters();
+    CtTextRange range = CtList(_curr_buffer()).get_paragraph_iters();
     if (!range.iter_start) return;
     _apply_tag(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_CENTER, range.iter_start, range.iter_end);
 }
@@ -206,7 +206,7 @@ void CtActions::apply_tag_justify_center()
 void CtActions::apply_tag_justify_right()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList(curr_buffer()).get_paragraph_iters();
+    CtTextRange range = CtList(_curr_buffer()).get_paragraph_iters();
     if (!range.iter_start) return;
     _apply_tag(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_RIGHT, range.iter_start, range.iter_end);
 }
@@ -215,7 +215,7 @@ void CtActions::apply_tag_justify_right()
 void CtActions::apply_tag_justify_fill()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList(curr_buffer()).get_paragraph_iters();
+    CtTextRange range = CtList(_curr_buffer()).get_paragraph_iters();
     if (!range.iter_start) return;
     _apply_tag(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_FILL, range.iter_start, range.iter_end);
 }
@@ -227,7 +227,7 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
                 Glib::RefPtr<Gtk::TextBuffer> text_buffer /*= Glib::RefPtr<Gtk::TextBuffer>()*/)
 {
     if (_pCtMainWin->user_active() && !_is_curr_node_not_syntax_highlighting_or_error()) return;
-    if (!text_buffer) text_buffer = curr_buffer();
+    if (!text_buffer) text_buffer = _curr_buffer();
 
 
     if (!iter_sel_start && !iter_sel_end) {
@@ -413,8 +413,8 @@ CtActions::text_view_n_buffer_codebox_proof CtActions::_get_text_view_n_buffer_c
 CtCodebox* CtActions::_codebox_in_use()
 {
     if (!curr_codebox_anchor) return nullptr;
-    if (!curr_buffer()) return nullptr;
-    Gtk::TextIter iter_sel_start = curr_buffer()->get_insert()->get_iter();
+    if (!_curr_buffer()) return nullptr;
+    Gtk::TextIter iter_sel_start = _curr_buffer()->get_insert()->get_iter();
     auto widgets = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes({iter_sel_start.get_offset(), iter_sel_start.get_offset()});
     if (widgets.empty()) return nullptr;
     if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widgets.front()))
@@ -485,7 +485,7 @@ Glib::ustring CtActions::_link_check_around_cursor()
         }
         return "";
     };
-    auto text_iter = curr_buffer()->get_insert()->get_iter();
+    auto text_iter = _curr_buffer()->get_insert()->get_iter();
     Glib::ustring tag_name = link_check_around_cursor_iter(text_iter);
     if (tag_name.empty()) {
         if (text_iter.get_char() == CtConst::CHAR_SPACE[0] && text_iter.backward_char()) {
@@ -508,7 +508,7 @@ Glib::ustring CtActions::_link_check_around_cursor()
         }
     }
     if (text_iter == iter_end) return "";
-    curr_buffer()->move_mark(curr_buffer()->get_insert(), iter_end);
-    curr_buffer()->move_mark(curr_buffer()->get_selection_bound(), text_iter);
+    _curr_buffer()->move_mark(_curr_buffer()->get_insert(), iter_end);
+    _curr_buffer()->move_mark(_curr_buffer()->get_selection_bound(), text_iter);
     return tag_name.substr(5);
 }

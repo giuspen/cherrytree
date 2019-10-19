@@ -40,17 +40,17 @@ public:
     }
 
 public:
-    CtCodebox*      curr_codebox_anchor = nullptr;
-    CtTable*        curr_table_anchor = nullptr;
-    CtImageAnchor*  curr_anchor_anchor = nullptr;
-    CtImagePng*     curr_image_anchor = nullptr;
-    CtImageEmbFile* curr_file_anchor = nullptr;
+    CtCodebox*      curr_codebox_anchor{nullptr};
+    CtTable*        curr_table_anchor{nullptr};
+    CtImageAnchor*  curr_anchor_anchor{nullptr};
+    CtImagePng*     curr_image_anchor{nullptr};
+    CtImageEmbFile* curr_file_anchor{nullptr};
 
 private:
     ct_dialogs::CtLinkEntry _link_entry;
 
 private:
-    size_t                          _next_opened_emb_file_id = 1;
+    size_t                          _next_opened_emb_file_id{1};
     std::map<Glib::ustring, time_t> _embfiles_opened;
     sigc::connection                _embfiles_timeout_connection;
 
@@ -62,7 +62,7 @@ public:
     CtMainWin*   getCtMainWin() { return _pCtMainWin; }
 
 private:
-    Glib::RefPtr<Gtk::TextBuffer> curr_buffer();
+    Glib::RefPtr<Gtk::TextBuffer> _curr_buffer() { return _pCtMainWin->get_text_view().get_buffer(); }
     bool          _node_sel_and_rich_text();
 
 public: // todo: fix naming
@@ -295,5 +295,4 @@ public:
     void codebox_decrease_width();
     void codebox_increase_height();
     void codebox_decrease_height();
-
 };

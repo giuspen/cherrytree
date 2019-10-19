@@ -104,6 +104,7 @@ CtTextView::~CtTextView()
 
 void CtTextView::setupForSyntax(const std::string& syntax)
 {
+#if 0
     get_buffer()->signal_modified_changed().connect([](){
         // todo: elf.on_modified_changed
 
@@ -122,7 +123,7 @@ void CtTextView::setupForSyntax(const std::string& syntax)
     get_buffer()->signal_mark_set().connect([](const Gtk::TextIter&,const Glib::RefPtr<Gtk::TextMark>){
         // todo: self.on_textbuffer_mark_set
     });
-
+#endif // 0
     std::string new_class;
     if (CtConst::RICH_TEXT_ID == syntax)         new_class = "rich-text";
     else if (CtConst::PLAIN_TEXT_ID == syntax)   new_class = "plain-text";

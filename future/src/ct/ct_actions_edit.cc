@@ -56,7 +56,7 @@ void CtActions::image_handle()
 
     auto pixbuf = Gdk::Pixbuf::create_from_file(filename);
     if (pixbuf)
-        _image_edit_dialog(pixbuf, curr_buffer()->get_insert()->get_iter(), nullptr);
+        _image_edit_dialog(pixbuf, _curr_buffer()->get_insert()->get_iter(), nullptr);
     else
         ct_dialogs::error_dialog(_("Image Format Not Recognized"), *_pCtMainWin);
 }
@@ -74,18 +74,18 @@ void CtActions::codebox_handle()
 
     Glib::ustring textContent, justification;
     Gtk::TextIter iter_sel_start, iter_sel_end;
-    if (curr_buffer()->get_has_selection())
+    if (_curr_buffer()->get_has_selection())
     {
-        curr_buffer()->get_selection_bounds(iter_sel_start, iter_sel_end);
+        _curr_buffer()->get_selection_bounds(iter_sel_start, iter_sel_end);
         textContent = iter_sel_start.get_text(iter_sel_end);
     }
     if (!ct_dialogs::codeboxhandle_dialog(*_pCtMainWin, _("Insert a CodeBox")))
         return;
 
     if (!textContent.empty())
-        curr_buffer()->erase(iter_sel_start, iter_sel_end);
+        _curr_buffer()->erase(iter_sel_start, iter_sel_end);
 
-    Gtk::TextIter iter_insert = curr_buffer()->get_insert()->get_iter();
+    Gtk::TextIter iter_insert = _curr_buffer()->get_insert()->get_iter();
 
     CtCodebox* pCtCodebox = new CtCodebox(textContent,
                                           CtApp::P_ctCfg->codeboxSynHighl,
@@ -96,7 +96,7 @@ void CtActions::codebox_handle()
     pCtCodebox->setWidthInPixels(CtApp::P_ctCfg->codeboxWidthPixels);
     pCtCodebox->setHighlightBrackets(CtApp::P_ctCfg->codeboxMatchBra);
     pCtCodebox->setShowLineNumbers(CtApp::P_ctCfg->codeboxLineNum);
-    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(curr_buffer());
+    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
     pCtCodebox->insertInTextBuffer(gsv_buffer);
 
     getCtMainWin()->get_tree_store().addAnchoredWidgets(getCtMainWin()->curr_tree_iter(),
@@ -477,7 +477,7 @@ void CtActions::text_row_down()
 // Remove trailing spaces/tabs
 void CtActions::strip_trailing_spaces()
 {
-    Glib::RefPtr<Gtk::TextBuffer> text_buffer = curr_buffer();
+    Glib::RefPtr<Gtk::TextBuffer> text_buffer = _curr_buffer();
     int cleaned_lines = 0;
     bool removed_something = true;
     while (removed_something)
@@ -536,8 +536,8 @@ void CtActions::_image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> pixbuf, Gtk::TextIt
     if (iter_bound) { // only in case of modify
         image_justification = _get_iter_alignment(insert_iter);
         int image_offset = insert_iter.get_offset();
-        curr_buffer()->erase(insert_iter, *iter_bound);
-        insert_iter = curr_buffer()->get_iter_at_offset(image_offset);
+        _curr_buffer()->erase(insert_iter, *iter_bound);
+        insert_iter = _curr_buffer()->get_iter_at_offset(image_offset);
     }
     image_insert_png(insert_iter, ret_pixbuf, link, image_justification);
 }
@@ -563,7 +563,7 @@ void CtActions::image_insert_png(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pi
     if (!pixbuf) return;
     int charOffset = iter_insert.get_offset();
     CtAnchoredWidget* pAnchoredWidget = new CtImagePng(pixbuf, link, charOffset, image_justification);
-    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(curr_buffer());
+    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
     pAnchoredWidget->insertInTextBuffer(gsv_buffer);
 
     getCtMainWin()->get_tree_store().addAnchoredWidgets(getCtMainWin()->curr_tree_iter(),
@@ -574,7 +574,7 @@ void CtActions::image_insert_anchor(Gtk::TextIter iter_insert, const Glib::ustri
 {
     int charOffset = iter_insert.get_offset();
     CtAnchoredWidget* pAnchoredWidget = new CtImageAnchor(name, charOffset, image_justification);
-    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(curr_buffer());
+    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
     pAnchoredWidget->insertInTextBuffer(gsv_buffer);
 
     getCtMainWin()->get_tree_store().addAnchoredWidgets(getCtMainWin()->curr_tree_iter(),

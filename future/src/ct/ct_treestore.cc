@@ -540,9 +540,12 @@ Gtk::TreeIter CtTreeStore::onRequestAppendNode(CtNodeData* pNodeData, const Gtk:
     return appendNode(pNodeData, pParentIter);
 }
 
-void CtTreeStore::_on_textbuffer_modified_changed()
+void CtTreeStore::_on_textbuffer_modified_changed(Glib::RefPtr<Gtk::TextBuffer> rTextBuffer)
 {
-    // todo
+    //if (CtApp::P_ctActions->getCtMainWin()->user_active() && )
+    {
+        
+    }
 }
 
 void CtTreeStore::_on_textbuffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int bytes)
@@ -593,6 +596,10 @@ void CtTreeStore::apply_textbuffer_to_textview(const CtTreeIter& treeIter, CtTex
             std::cerr << "!! rChildAnchor" << std::endl;
         }
     }
+
+    // connect signals
+    rTextBuffer->signal_modified_changed().connect(sigc::bind<Glib::RefPtr<Gtk::TextBuffer>>(sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_modified_changed), rTextBuffer));
+
     pTextView->show_all();
     pTextView->grab_focus();
 }

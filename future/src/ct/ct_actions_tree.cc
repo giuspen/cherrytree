@@ -30,11 +30,6 @@
 
 bool dialog_node_prop(std::string title, Gtk::Window& parent, CtNodeData& nodeData, const std::set<std::string>& tags_set);
 
-Glib::RefPtr<Gtk::TextBuffer> CtActions::curr_buffer()
-{
-    return _pCtMainWin->get_text_view().get_buffer();
-}
-
 bool CtActions::_is_there_selected_node_or_error()
 {
     if (_pCtMainWin->curr_tree_iter()) return true;
@@ -76,12 +71,12 @@ bool CtActions::_is_curr_node_not_syntax_highlighting_or_error(bool plain_text_o
 // Put Selection Upon the achrored widget
 void CtActions::object_set_selection(CtAnchoredWidget* widget)
 {
-    Gtk::TextIter iter_object = curr_buffer()->get_iter_at_child_anchor(widget->getTextChildAnchor());
+    Gtk::TextIter iter_object = _curr_buffer()->get_iter_at_child_anchor(widget->getTextChildAnchor());
     Gtk::TextIter iter_bound = iter_object;
     iter_bound.forward_char();
     if (dynamic_cast<CtImage*>(widget))
         _pCtMainWin->get_text_view().grab_focus();
-    curr_buffer()->select_range(iter_object, iter_bound);
+    _curr_buffer()->select_range(iter_object, iter_bound);
 }
 
 // Returns True if there's not a node selected or is not rich text

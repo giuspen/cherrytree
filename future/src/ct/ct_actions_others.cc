@@ -43,7 +43,7 @@ void CtActions::anchor_copy()
 void CtActions::anchor_delete()
 {
     object_set_selection(curr_anchor_anchor);
-    curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
+    _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
     curr_anchor_anchor = nullptr;
     _pCtMainWin->get_text_view().grab_focus();
 }
@@ -52,7 +52,7 @@ void CtActions::anchor_delete()
 void CtActions::anchor_edit()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
-    Gtk::TextIter iter_insert = curr_buffer()->get_iter_at_child_anchor(curr_anchor_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_insert = _curr_buffer()->get_iter_at_child_anchor(curr_anchor_anchor->getTextChildAnchor());
     Gtk::TextIter iter_bound = iter_insert;
     iter_bound.forward_char();
     _anchor_edit_dialog(curr_anchor_anchor, iter_insert, &iter_bound);
@@ -76,7 +76,7 @@ void CtActions::embfile_copy()
 void CtActions::embfile_delete()
 {
     object_set_selection(curr_file_anchor);
-    curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
+    _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
     curr_file_anchor = nullptr;
     _pCtMainWin->get_text_view().grab_focus();
 }
@@ -149,7 +149,7 @@ void CtActions::image_save()
 void CtActions::image_edit()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
-    Gtk::TextIter iter_insert = curr_buffer()->get_iter_at_child_anchor(curr_image_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_insert = _curr_buffer()->get_iter_at_child_anchor(curr_image_anchor->getTextChildAnchor());
     Gtk::TextIter iter_bound = iter_insert;
     iter_bound.forward_char();
     _image_edit_dialog(curr_image_anchor->getPixBuf(), iter_insert, &iter_bound);
@@ -173,7 +173,7 @@ void CtActions::image_copy()
 void CtActions::image_delete()
 {
     object_set_selection(curr_image_anchor);
-    curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
+    _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
     curr_image_anchor = nullptr;
     _pCtMainWin->get_text_view().grab_focus();
 }
@@ -282,9 +282,9 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
              }
              else
              {
-                 Gtk::TextIter iter_anchor = curr_buffer()->get_iter_at_child_anchor(imageAnchor->getTextChildAnchor());
-                 curr_buffer()->place_cursor(iter_anchor);
-                 _pCtMainWin->get_text_view().scroll_to(curr_buffer()->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
+                 Gtk::TextIter iter_anchor = _curr_buffer()->get_iter_at_child_anchor(imageAnchor->getTextChildAnchor());
+                 _curr_buffer()->place_cursor(iter_anchor);
+                 _pCtMainWin->get_text_view().scroll_to(_curr_buffer()->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
              }
          }
      }
@@ -310,7 +310,7 @@ void CtActions::codebox_copy()
 void CtActions::codebox_delete()
 {
     object_set_selection(curr_codebox_anchor);
-    curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
+    _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
     curr_codebox_anchor = nullptr;
    _pCtMainWin->get_text_view().grab_focus();
 }
@@ -321,10 +321,10 @@ void CtActions::codebox_delete_keeping_text()
     if (!_is_curr_node_not_read_only_or_error()) return;
     Glib::ustring content = curr_codebox_anchor->getTextContent();
     object_set_selection(curr_codebox_anchor);
-    curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
+    _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
     curr_codebox_anchor = nullptr;
     _pCtMainWin->get_text_view().grab_focus();
-    curr_buffer()->insert_at_cursor(content);
+    _curr_buffer()->insert_at_cursor(content);
 }
 
 // Change CodeBox Properties
@@ -434,8 +434,8 @@ void CtActions::_anchor_edit_dialog(CtImageAnchor* anchor, Gtk::TextIter insert_
     {
         image_justification = _get_iter_alignment(insert_iter);
         int image_offset = insert_iter.get_offset();
-        curr_buffer()->erase(insert_iter, *iter_bound);
-        insert_iter = curr_buffer()->get_iter_at_offset(image_offset);
+        _curr_buffer()->erase(insert_iter, *iter_bound);
+        insert_iter = _curr_buffer()->get_iter_at_offset(image_offset);
     }
     image_insert_anchor(insert_iter, ret_anchor_name, image_justification);
 }
