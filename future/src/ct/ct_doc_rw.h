@@ -155,12 +155,12 @@ protected:
     bool _sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIter* pParentIter);
     bool _sqlite3GetNodeProperties(gint64 nodeId, CtNodeData& nodeData);
     bool _sqlite3NodeProcess(gint64 nodeId, const Gtk::TreeIter* pParentIter, Gtk::TreeIter& newIter);
-    void _getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
-                                       std::list<CtAnchoredWidget*>& anchoredWidgets,
-                                       const gint64& nodeId,
-                                       const bool& has_codebox,
-                                       const bool& has_table,
-                                       const bool& has_image) const;
+    void _get_text_buffer_anchored_widgets(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
+                                           std::list<CtAnchoredWidget*>& anchoredWidgets,
+                                           const gint64& nodeId,
+                                           const bool& has_codebox,
+                                           const bool& has_table,
+                                           const bool& has_image) const;
     bool _exec_no_callback(const char* sqlCmd);
     bool _exec_bind_int64(const char* sqlCmd, const gint64 bind_int64);
     bool _remove_db_node_n_children(const gint64 node_id);

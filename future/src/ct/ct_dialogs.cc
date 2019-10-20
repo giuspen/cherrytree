@@ -330,7 +330,7 @@ void ct_dialogs::bookmarks_handle_dialog(CtMainWin* ctMainWin)
     for (gint64& node_id: removed_bookmarks) {
         Gtk::TreeIter tree_iter = ctTreestore.get_node_from_node_id(node_id);
         if (tree_iter) {
-            ctTreestore.updateNodeAuxIcon(tree_iter);
+            ctTreestore.update_node_aux_icon(tree_iter);
             if (curr_node_id == node_id)
                 ctMainWin->menu_tree_update_for_bookmarked_node(false);
         }

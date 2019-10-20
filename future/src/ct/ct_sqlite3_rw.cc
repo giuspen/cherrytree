@@ -253,19 +253,19 @@ Glib::RefPtr<Gsv::Buffer> CtSQLite::getTextBuffer(const std::string& syntax,
 
         if (has_codebox || has_table || has_image)
         {
-            _getTextBufferAnchoredWidgets(rRetTextBuffer, anchoredWidgets, nodeId, has_codebox, has_table, has_image);
+            _get_text_buffer_anchored_widgets(rRetTextBuffer, anchoredWidgets, nodeId, has_codebox, has_table, has_image);
         }
     }
 
     return rRetTextBuffer;
 }
 
-void CtSQLite::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
-                                             std::list<CtAnchoredWidget*>& anchoredWidgets,
-                                             const gint64& nodeId,
-                                             const bool& has_codebox,
-                                             const bool& has_table,
-                                             const bool& has_image) const
+void CtSQLite::_get_text_buffer_anchored_widgets(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
+                                                 std::list<CtAnchoredWidget*>& anchoredWidgets,
+                                                 const gint64& nodeId,
+                                                 const bool& has_codebox,
+                                                 const bool& has_table,
+                                                 const bool& has_image) const
 {
     const bool has_it[3]{has_codebox, has_table, has_image};
     sqlite3_stmt *pp_stmt[3]{nullptr, nullptr, nullptr};
@@ -400,7 +400,10 @@ void CtSQLite::_getTextBufferAnchoredWidgets(Glib::RefPtr<Gsv::Buffer>& rTextBuf
         }
         if (nullptr != pAnchoredWidget)
         {
+            rTextBuffer->begin_not_undoable_action();
             pAnchoredWidget->insertInTextBuffer(rTextBuffer);
+            rTextBuffer->end_not_undoable_action();
+            rTextBuffer->set_modified(false);
             anchoredWidgets.push_back(pAnchoredWidget);
         }
     }

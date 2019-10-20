@@ -91,9 +91,9 @@ void CtActions::_node_add(bool duplicate, bool add_child)
 {
     CtNodeData nodeData;
     if (duplicate)
-     {
+    {
         if (!_is_there_selected_node_or_error()) return;
-        _pCtTreestore->getNodeData(_pCtMainWin->curr_tree_iter(), nodeData);
+        _pCtTreestore->get_node_data(_pCtMainWin->curr_tree_iter(), nodeData);
 
         if (nodeData.syntax != CtConst::RICH_TEXT_ID) {
             nodeData.rTextBuffer = CtMiscUtil::get_new_text_buffer(nodeData.syntax, nodeData.rTextBuffer->get_text());
@@ -143,7 +143,7 @@ void CtActions::_node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeDat
 
     _pCtTreestore->to_ct_tree_iter(nodeIter).pending_new_db_node();
     _pCtTreestore->nodes_sequences_fix(curr_iter ? curr_iter->parent() : Gtk::TreeIter(), false);
-    _pCtTreestore->updateNodeAuxIcon(nodeIter);
+    _pCtTreestore->update_node_aux_icon(nodeIter);
     _pCtMainWin->get_tree_view().set_cursor_safe(nodeIter);
     _pCtMainWin->get_text_view().grab_focus();
 }
@@ -178,8 +178,8 @@ void CtActions::_node_move_after(Gtk::TreeIter iter_to_move, Gtk::TreeIter fathe
     std::function<void(Gtk::TreeIter&,Gtk::TreeIter&)> node_move_data_and_children;
     node_move_data_and_children = [this, &node_move_data_and_children](Gtk::TreeIter& old_iter,Gtk::TreeIter& new_iter) {
         CtNodeData node_data;
-        _pCtTreestore->getNodeData(old_iter, node_data);
-        _pCtTreestore->updateNodeData(new_iter, node_data);
+        _pCtTreestore->get_node_data(old_iter, node_data);
+        _pCtTreestore->update_node_data(new_iter, node_data);
         for (Gtk::TreeIter child: old_iter->children()) {
             Gtk::TreeIter new_child = _pCtTreestore->get_store()->append(new_iter->children());
             node_move_data_and_children(child, new_child);
@@ -221,7 +221,7 @@ void CtActions::node_edit()
 {
     if (!_is_there_selected_node_or_error()) return;
     CtNodeData nodeData;
-    _pCtTreestore->getNodeData(_pCtMainWin->curr_tree_iter(), nodeData);
+    _pCtTreestore->get_node_data(_pCtMainWin->curr_tree_iter(), nodeData);
     CtNodeData newData = nodeData;
     if (!dialog_node_prop(_("Node Properties"), *_pCtMainWin, newData, _pCtTreestore->get_used_tags()))
         return;
@@ -251,12 +251,12 @@ void CtActions::node_edit()
             // self.sourceview.modify_font(pango.FontDescription(self.pt_font))
         }
     }
-    _pCtTreestore->updateNodeData(_pCtMainWin->curr_tree_iter(), newData);
+    _pCtTreestore->update_node_data(_pCtMainWin->curr_tree_iter(), newData);
     //todo: if self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
     //  self.set_sourcebuffer_syntax_highlight(self.curr_buffer, self.syntax_highlighting)
     _pCtMainWin->get_text_view().set_editable(!newData.isRO);
     //todo: self.update_selected_node_statusbar_info()
-    _pCtTreestore->updateNodeAuxIcon(_pCtMainWin->curr_tree_iter());
+    _pCtTreestore->update_node_aux_icon(_pCtMainWin->curr_tree_iter());
     _pCtMainWin->window_header_update();
     _pCtMainWin->window_header_update_lock_icon(newData.isRO);
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::npro);
@@ -271,7 +271,7 @@ void CtActions::node_toggle_read_only()
     _pCtMainWin->get_text_view().set_editable(!node_is_ro);
     _pCtMainWin->window_header_update_lock_icon(node_is_ro);
     //todo: self.update_selected_node_statusbar_info()
-    _pCtTreestore->updateNodeAuxIcon(_pCtMainWin->curr_tree_iter());
+    _pCtTreestore->update_node_aux_icon(_pCtMainWin->curr_tree_iter());
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::npro);
     _pCtMainWin->get_text_view().grab_focus();
 }
@@ -412,7 +412,7 @@ void CtActions::bookmark_curr_node()
 
     if (_pCtTreestore->onRequestAddBookmark(node_id)) {
         _pCtMainWin->set_bookmarks_menu_items();
-        _pCtTreestore->updateNodeAuxIcon(_pCtMainWin->curr_tree_iter());
+        _pCtTreestore->update_node_aux_icon(_pCtMainWin->curr_tree_iter());
         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::book);
         _pCtMainWin->menu_tree_update_for_bookmarked_node(true);
     }
@@ -425,7 +425,7 @@ void CtActions::bookmark_curr_node_remove()
 
     if (_pCtTreestore->onRequestRemoveBookmark(node_id)) {
         _pCtMainWin->set_bookmarks_menu_items();
-        _pCtTreestore->updateNodeAuxIcon(_pCtMainWin->curr_tree_iter());
+        _pCtTreestore->update_node_aux_icon(_pCtMainWin->curr_tree_iter());
         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::book);
         _pCtMainWin->menu_tree_update_for_bookmarked_node(false);
     }

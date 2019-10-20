@@ -61,8 +61,8 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu)
     _vboxMain.pack_start(_initStatusBar(), false, false);
     add(_vboxMain);
 
-    _ctTreestore.viewAppendColumns(&_ctTreeview);
-    _ctTreestore.viewConnect(&_ctTreeview);
+    _ctTreestore.view_append_columns(&_ctTreeview);
+    _ctTreestore.view_connect(&_ctTreeview);
 
     _ctTreeview.signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_cursor_changed));
     _ctTreeview.signal_button_release_event().connect(sigc::mem_fun(*this, &CtMainWin::_onTheTreeviewSignalButtonPressEvent));
@@ -316,7 +316,7 @@ bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, cons
     }
     if (pFilepath)
     {
-        retOk = _ctTreestore.readNodesFromFilepath(pFilepath, isImport);
+        retOk = _ctTreestore.read_nodes_from_filepath(pFilepath, isImport);
     }
     if (retOk && !isImport)
     {
@@ -342,7 +342,7 @@ bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, cons
                                                                 _ctTreeview,
                                                                 CtApp::P_ctCfg->nodesBookmExp);
             }
-            _ctTreestore.setTreePathTextCursorFromConfig(&_ctTreeview, &_ctTextview);
+            _ctTreestore.set_tree_path_n_text_cursor_from_config(&_ctTreeview, &_ctTextview);
         }
     }
     return retOk;
