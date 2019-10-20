@@ -10,3 +10,4 @@ linux/cherrytree.1.gz
 *.sin
 *Makefile
 debian/files
+.vscode

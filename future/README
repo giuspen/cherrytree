@@ -12,7 +12,9 @@
 # https://cpputest.github.io/
 
 
-# packages for building
+# ---- Building Cherrytree in Ubuntu ----
+
+# Install Dependencies
 sudo apt install build-essential libtool autoconf libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev libcpputest-dev autopoint gettext intltool python3-lxml libxml2-utils
 
 # for debug with gdb
@@ -37,3 +39,60 @@ xdg-open /usr/share/doc/libgtksourceviewmm-3.0-doc/reference/html/index.html
 xdg-open /usr/share/doc/libglibmm-2.4-doc/reference/html/index.html
 xdg-open /usr/share/doc/libpangomm-1.4-doc/reference/html/index.html
 xdg-open /usr/share/doc/libxml++2.6-doc/reference/html/index.html
+
+
+# ---- Building Cherrytree in Fedora ----
+
+# Install Dependencies
+# ====================
+sudo dnf install @development-tools gcc-c++ libtool autoconf gtkmm30-devel gtksourceviewmm3-devel libxml++-devel libsq3-devel gettext-devel gettext intltool python3-lxml libxml2
+
+
+# Install CppUTest 
+# ================
+git clone git://github.com/cpputest/cpputest.git
+cd cpputest/cpputest_build
+autoreconf .. -i
+../configure
+sudo make install
+
+# (OPTIONAL) See https://cpputest.github.io/ for more information on CppUTest
+
+
+# Build Cherrytree
+# ================
+git clone https://github.com/giuspen/cherrytree.git
+cd cherrytree/future
+
+# for debug with gdb (See #troubleshooting below if you encounter errors.)
+CXXFLAGS="-g -O0" ./autogen.sh
+# or for release
+./autogen.sh
+
+make
+./cherrytree
+
+make check
+./run_tests
+
+
+# Troubleshooting
+
+# If autogen.sh fails because cpputest is not found, set PKG_CONFIG_PATH and try running autogen again.
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+
+# If cpputest is still not found, reboot, set PKG_CONFIG_PATH again, run autogen.sh again.
+
+
+# (OPTIONAL) Download Documentation
+===================================
+sudo dnf install gtkmm30-doc gtksourceviewmm3-doc glibmm24-doc glibmm24-doc libxml++-doc
+
+
+# (OPTIONAL) Open Documentation 
+===============================
+xdg-open /usr/share/doc/gtkmm-3.0/reference/html/index.html
+xdg-open /usr/share/doc/gtksourceviewmm-3.0/reference/html/index.html
+xdg-open /usr/share/doc/glibmm-2.4/reference/html/index.html
+xdg-open /usr/share/doc/pangomm-1.4/reference/html/index.html
+xdg-open /usr/share/doc/libxml++2.6/reference/html/index.html
