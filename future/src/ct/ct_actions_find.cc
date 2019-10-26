@@ -806,12 +806,12 @@ Gtk::TextIter CtActions::_get_inner_start_iter(Glib::RefPtr<Gtk::TextBuffer> tex
 //"""Returns True if the given node_iter is within the Time Filter"""
 bool CtActions::_is_node_within_time_filter(const CtTreeIter& node_iter)
 {
-    std::time_t ts_cre = node_iter.get_node_creating_time();
+    gint64 ts_cre = node_iter.get_node_creating_time();
     if (s_options.ts_cre_after.on && ts_cre < s_options.ts_cre_after.time)
         return false;
     if (s_options.ts_cre_before.on && ts_cre > s_options.ts_cre_before.time)
         return false;
-    std::time_t ts_mod = node_iter.get_node_modification_time();
+    gint64 ts_mod = node_iter.get_node_modification_time();
     if (s_options.ts_mod_after.on && ts_mod < s_options.ts_mod_after.time)
         return false;
     if (s_options.ts_mod_before.on && ts_mod > s_options.ts_mod_before.time)

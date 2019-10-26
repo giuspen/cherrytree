@@ -115,11 +115,10 @@ CtImagePng::CtImagePng(Glib::RefPtr<Gdk::Pixbuf> pixBuf,
 
 const std::string CtImagePng::get_raw_blob()
 {
-    gchar* pBuffer{nullptr};
-    gsize  buffer_size;
+    g_autofree gchar* pBuffer{NULL};
+    gsize buffer_size;
     _rPixbuf->save_to_buffer(pBuffer, buffer_size, "png");
     const std::string rawBlob = std::string(pBuffer, buffer_size);
-    g_free(pBuffer);
     return rawBlob;
 }
 

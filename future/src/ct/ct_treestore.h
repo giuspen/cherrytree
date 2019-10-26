@@ -94,8 +94,10 @@ public:
     std::string   get_node_foreground() const;
     std::string   get_node_syntax_highlighting() const;
     bool          get_node_is_rich_text() const;
-    std::time_t   get_node_creating_time() const;
-    std::time_t   get_node_modification_time() const;
+    gint64        get_node_creating_time() const;
+    gint64        get_node_modification_time() const;
+
+    void          set_node_modification_time(const gint64 modification_time);
     void          set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf);
 
     std::list<CtAnchoredWidget*> get_all_embedded_widgets();

@@ -340,10 +340,9 @@ void  CtClipboard::_on_clip_data_get(Gtk::SelectionData& selection_data, guint /
             if (target == TARGETS_HTML[0])
             {
                 glong utf16text_len = 0;
-                gunichar2* utf16text = g_utf8_to_utf16(clip_data->html_text.c_str(), (glong)clip_data->html_text.bytes(), nullptr, &utf16text_len, nullptr);
+                g_autofree gunichar2* utf16text = g_utf8_to_utf16(clip_data->html_text.c_str(), (glong)clip_data->html_text.bytes(), nullptr, &utf16text_len, nullptr);
                 if (utf16text && utf16text_len > 0)
                     selection_data.set(target, 8, (guint8*)utf16text, (int)utf16text_len);
-                g_free(utf16text);
             }
             else
             {

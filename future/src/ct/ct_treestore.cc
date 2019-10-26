@@ -107,14 +107,19 @@ bool CtTreeIter::get_node_is_rich_text() const
     return get_node_syntax_highlighting() == CtConst::RICH_TEXT_ID;
 }
 
-std::time_t CtTreeIter::get_node_creating_time() const
+gint64 CtTreeIter::get_node_creating_time() const
 {
     return (*this) ? (*this)->get_value(_pColumns->colTsCreation) : 0;
 }
 
-std::time_t CtTreeIter::get_node_modification_time() const
+gint64 CtTreeIter::get_node_modification_time() const
 {
     return (*this) ? (*this)->get_value(_pColumns->colTsLastSave) : 0;
+}
+
+void CtTreeIter::set_node_modification_time(const gint64 modification_time)
+{
+    if (*this) (*this)->set_value(_pColumns->colTsLastSave, modification_time);
 }
 
 void CtTreeIter::set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf)

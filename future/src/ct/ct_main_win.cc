@@ -289,7 +289,7 @@ bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, cons
     const gchar* pFilepath{nullptr};
     if (CtDocEncrypt::True == docEncrypt)
     {
-        gchar* title = g_strdup_printf(_("Enter Password for %s"), Glib::path_get_basename(filepath).c_str());
+        g_autofree gchar* title = g_strdup_printf(_("Enter Password for %s"), Glib::path_get_basename(filepath).c_str());
         while (true)
         {
             CtDialogTextEntry dialogTextEntry(title, true/*forPassword*/, this);
@@ -308,7 +308,6 @@ bool CtMainWin::readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, cons
                 break;
             }
         }
-        g_free(title);
     }
     else if (CtDocEncrypt::False == docEncrypt)
     {
@@ -365,14 +364,31 @@ void CtMainWin::update_window_save_needed(const CtSaveNeededUpdType update_type,
     CtTreeIter treeIter = (nullptr != give_tree_iter ? *give_tree_iter : curr_tree_iter());
     if (treeIter.get_node_is_rich_text())
     {
-        treeIter.get_node_text_buffer()->set_modified(true);
+        treeIter.get_node_text_buffer()->set_modified(true); // support possible change inside anchored widget which doesn't toggle modified flag
     }
     if (false == _fileSaveNeeded)
     {
         _title_update(true/*save_needed*/);
         _fileSaveNeeded = true;
     }
-    
+    switch (update_type)
+    {
+        case CtSaveNeededUpdType::None:
+            break;
+        case CtSaveNeededUpdType::nbuf:
+        {
+            treeIter.pending_edit_db_node_buff();
+            g_autoptr(GDateTime) pGDateTime = g_date_time_new_now_local();
+            const gint64 curr_time = g_date_time_to_unix(pGDateTime);
+            treeIter.set_node_modification_time(curr_time);
+#if 0
+                    if (not node_id in self.latest_statusbar_update_time.keys())\
+                    or (curr_time - self.latest_statusbar_update_time[node_id] > 60):
+                        self.latest_statusbar_update_time[node_id] = curr_time
+                        self.update_selected_node_statusbar_info()
+#endif // 0
+        } break;
+    }
 }
 
 void CtMainWin::_on_treeview_cursor_changed()

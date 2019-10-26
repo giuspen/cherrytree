@@ -688,13 +688,12 @@ std::string CtFontUtil::getFontSizeStr(const std::string& fontStr)
 
 std::string CtFontUtil::getFontCss(const std::string& fontStr)
 {
-    gchar* pFontCss = g_strdup_printf(
+    g_autofree gchar* pFontCss = g_strdup_printf(
         "textview text {"
         "    font-family: %s;"
         "    font-size: %spx;"
         "}", getFontFamily(fontStr).c_str(), getFontSizeStr(fontStr).c_str());
     std::string fontCss(pFontCss);
-    g_free(pFontCss);
     return fontCss;
 }
 
@@ -943,17 +942,15 @@ bool CtFileSystem::isfile(const Glib::ustring& path)
 
 Glib::ustring CtFileSystem::basename(const Glib::ustring& path)
 {
-    const gchar* allocated_name = g_path_get_basename(path.c_str());
+    g_autofree const gchar* allocated_name = g_path_get_basename(path.c_str());
     Glib::ustring name = allocated_name;
-    g_free((gpointer)allocated_name);
     return name;
 }
 
 Glib::ustring CtFileSystem::dirname(const Glib::ustring& path)
 {
-    const gchar* allocated_dir = g_path_get_dirname(path.c_str());
+    g_autofree const gchar* allocated_dir = g_path_get_dirname(path.c_str());
     Glib::ustring dir = allocated_dir;
-    g_free((gpointer)allocated_dir);
     return dir;
 }
 
