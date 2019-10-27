@@ -79,14 +79,15 @@ public:
     CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* _columns, CtSQLite* pCtSQLite);
     CtTreeIter() {} // invalid, casting to bool will give false
 
-    CtTreeIter  parent();
-    CtTreeIter  first_child();
+    CtTreeIter  parent() const;
+    CtTreeIter  first_child() const;
 
     bool          get_node_is_bold() const;
     bool          get_node_read_only() const;
     void          set_node_read_only(bool val);
     gint64        get_node_sequence() const;
     gint64        get_node_id() const;
+    std::vector<gint64> get_children_node_ids() const;
     guint16       get_node_custom_icon_id() const;
     Glib::ustring get_node_name() const;
     void          set_node_name(const Glib::ustring& node_name);
@@ -172,6 +173,7 @@ public:
     const CtTreeModelColumns& get_columns() { return _columns; }
 
     void pending_edit_db_bookmarks();
+    void pending_rm_db_nodes(const std::vector<gint64>& node_ids);
 
 protected:
     Glib::RefPtr<Gdk::Pixbuf> _get_node_icon(int nodeDepth, const std::string &syntax, guint32 customIconId);

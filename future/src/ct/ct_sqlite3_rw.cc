@@ -666,14 +666,17 @@ void CtSQLite::pending_new_db_node(const gint64 node_id)
     _syncPending.nodes_to_write_dict[node_id] = write_dict;
 }
 
-void CtSQLite::pending_rm_db_node(const gint64 node_id)
+void CtSQLite::pending_rm_db_nodes(const std::vector<gint64>& node_ids)
 {
-    if (0 != _syncPending.nodes_to_write_dict.count(node_id))
+    for (const gint64 node_id : node_ids)
     {
-        // no need to write changes to a node that got to be removed
-        _syncPending.nodes_to_write_dict.erase(node_id);
+        if (0 != _syncPending.nodes_to_write_dict.count(node_id))
+        {
+            // no need to write changes to a node that got to be removed
+            _syncPending.nodes_to_write_dict.erase(node_id);
+        }
+        _syncPending.nodes_to_rm_set.insert(node_id);
     }
-    _syncPending.nodes_to_rm_set.insert(node_id);
 }
 
 bool CtSQLite::pending_data_write(CtTreeStore* pTreeStore,

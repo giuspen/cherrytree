@@ -108,7 +108,7 @@ public:
     void pending_edit_db_node_buff(const gint64 node_id);
     void pending_edit_db_node_hier(const gint64 node_id);
     void pending_new_db_node(const gint64 node_id);
-    void pending_rm_db_node(const gint64 node_id);
+    void pending_rm_db_nodes(const std::vector<gint64>& node_ids);
     bool pending_data_write(CtTreeStore* pTreeStore,
                             const std::list<gint64>& bookmarks,
                             const bool run_vacuum=false);

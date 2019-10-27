@@ -29,17 +29,16 @@
 #include "ct_menu.h"
 #include "ct_widgets.h"
 
-
 class CtDialogTextEntry : public Gtk::Dialog
 {
 public:
     CtDialogTextEntry(const char* title, const bool forPassword, Gtk::Window* pParent);
     virtual ~CtDialogTextEntry();
-    Glib::ustring getEntryText();
+    Glib::ustring get_entry_text();
 
 protected:
-    bool _onEntryKeyPress(GdkEventKey* eventKey);
-    void _onEntryIconPress(Gtk::EntryIconPosition iconPosition, const GdkEventButton* event);
+    bool _on_entry_key_press(GdkEventKey* eventKey);
+    void _on_entry_icon_press(Gtk::EntryIconPosition iconPosition, const GdkEventButton* event);
     Gtk::Entry _entry;
 };
 
@@ -80,10 +79,10 @@ public:
     CtMainWin(CtMenu* pCtMenu);
     virtual ~CtMainWin();
 
-    bool readNodesFromGioFile(const Glib::RefPtr<Gio::File>& r_file, const bool isImport);
+    bool read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, const bool isImport);
     void config_apply_before_show_all();
     void config_apply_after_show_all();
-    void configureTheme();
+    void configure_theme();
     std::string get_curr_document_filepath();
     void update_window_save_needed(const CtSaveNeededUpdType update_type = CtSaveNeededUpdType::None,
                                    const bool new_machine_state = false,
@@ -103,8 +102,8 @@ public:
     Glib::RefPtr<Gtk::TextBuffer> curr_buffer() { return _ctTextview.get_buffer(); }
 
 private:
-    Gtk::HBox&    _initStatusBar();
-    Gtk::EventBox& _initWindowHeader();
+    Gtk::HBox&     _init_status_bar();
+    Gtk::EventBox& _init_window_header();
 
 public:
     void window_header_update();
@@ -125,17 +124,17 @@ public:
     void set_toolbar_icon_size(int size)    { _pToolbar->property_icon_size() = CtMiscUtil::getIconSize(size); }
 
 protected:
-    bool                _onTheWindowSignalKeyPressEvent(GdkEventKey* event);
+    bool                _on_window_key_press_event(GdkEventKey* event);
 
     void                _on_treeview_cursor_changed(); // pygtk: on_node_changed
-    bool                _onTheTreeviewSignalButtonPressEvent(GdkEventButton* event);
-    bool                _onTheTreeviewSignalKeyPressEvent(GdkEventKey* event);
-    bool                _onTheTreeviewSignalPopupMenu();
+    bool                _on_treeview_button_release_event(GdkEventButton* event);
+    bool                _on_treeview_key_press_event(GdkEventKey* event);
+    bool                _on_treeview_popup_menu();
 
-    void                _onTheTextviewPopulateMenu(Gtk::Menu* menu);
-    bool                _onTheTextviewMotionNotifyEvent(GdkEventMotion* event);
-    bool                _onTheTextviewVisibilityNotifyEvent(GdkEventVisibility* event);
-    void                _onTheTextviewSizeAllocate(Gtk::Allocation& allocation);
+    void                _on_textview_populate_popup(Gtk::Menu* menu);
+    bool                _on_textview_motion_notify_event(GdkEventMotion* event);
+    bool                _on_textview_visibility_notify_event(GdkEventVisibility* event);
+    void                _on_textview_size_allocate(Gtk::Allocation& allocation);
     bool                _on_textview_event(GdkEvent* event); // pygtk: on_sourceview_event
     void                _on_textview_event_after(GdkEvent* event); // pygtk: on_sourceview_event_after
 
@@ -169,5 +168,6 @@ private:
     int                 _hovering_link_iter_offset{-1};
     int                 _prevTextviewWidth{0};
     bool                _fileSaveNeeded{false}; // pygtk: file_update
+    std::unordered_map<gint64, gint64> _latestStatusbarUpdateTime; // pygtk: latest_statusbar_update_time
     CtTreeIter          _prevTreeIter;
 };

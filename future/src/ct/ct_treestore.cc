@@ -37,12 +37,12 @@ CtTreeIter::CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* pColumns, C
 {
 }
 
-CtTreeIter CtTreeIter::parent()
+CtTreeIter CtTreeIter::parent() const
 {
     return CtTreeIter((*this)->parent(), _pColumns, _pCtSQLite);
 }
 
-CtTreeIter CtTreeIter::first_child()
+CtTreeIter CtTreeIter::first_child() const
 {
     return CtTreeIter((*this)->children().begin(), _pColumns, _pCtSQLite);
 }
@@ -60,6 +60,23 @@ void CtTreeIter::set_node_read_only(bool val)
 gint64 CtTreeIter::get_node_id() const
 {
     return (*this) ? (*this)->get_value(_pColumns->colNodeUniqueId) : -1;
+}
+
+std::vector<gint64> CtTreeIter::get_children_node_ids() const
+{
+    std::vector<gint64> retVec;
+    CtTreeIter iterChild = first_child();
+    while (iterChild)
+    {
+        retVec.push_back(iterChild.get_node_id());
+        std::vector<gint64> children_node_ids = iterChild.get_children_node_ids();
+        if (false == children_node_ids.empty())
+        {
+            vec::vector_extend(retVec, children_node_ids);
+        }
+        iterChild++;
+    }
+    return retVec;
 }
 
 gint64 CtTreeIter::get_node_sequence() const
@@ -228,6 +245,14 @@ void CtTreeIter::pending_new_db_node()
     {
         const gint64 node_id = get_node_id();
         _pCtSQLite->pending_new_db_node(node_id);
+    }
+}
+
+void CtTreeStore::pending_rm_db_nodes(const std::vector<gint64>& node_ids)
+{
+    if (nullptr != _pCtSQLite)
+    {
+        _pCtSQLite->pending_rm_db_nodes(node_ids);
     }
 }
 

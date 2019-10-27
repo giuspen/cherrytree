@@ -148,7 +148,7 @@ void CtApp::on_activate()
         Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(filePath);
         if (r_file->query_exists())
         {
-            if (!pAppWindow->readNodesFromGioFile(r_file, false/*isImport*/))
+            if (!pAppWindow->read_nodes_from_gio_file(r_file, false/*isImport*/))
             {
                 _printHelpMessage();
             }
@@ -174,7 +174,7 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
     {
         if (r_file->query_exists())
         {
-            if (!pAppWindow->readNodesFromGioFile(r_file, false/*isImport*/))
+            if (!pAppWindow->read_nodes_from_gio_file(r_file, false/*isImport*/))
             {
                 _printHelpMessage();
             }
