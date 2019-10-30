@@ -25,13 +25,19 @@
 
 void CtActions::_file_save(const bool run_vacuum)
 {
-    const std::string doc_filepath = _pCtMainWin->get_curr_document_filepath();
+    const std::string doc_filepath = _pCtMainWin->get_curr_doc_file_path();
     if (doc_filepath.empty())
     {
         file_save_as();
     }
     else
     {
+        if (_pCtMainWin->get_file_save_needed())
+        {
+            _pCtMainWin->curr_file_monitor_handle(false/*doEnable*/);
+            
+            
+        }
         // todo
     }
 }

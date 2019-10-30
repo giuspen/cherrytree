@@ -97,14 +97,12 @@ public:
     bool          get_node_is_rich_text() const;
     gint64        get_node_creating_time() const;
     gint64        get_node_modification_time() const;
-
     void          set_node_modification_time(const gint64 modification_time);
     void          set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf);
+    Glib::RefPtr<Gsv::Buffer> get_node_text_buffer() const;
 
     std::list<CtAnchoredWidget*> get_all_embedded_widgets();
     std::list<CtAnchoredWidget*> get_embedded_pixbufs_tables_codeboxes(const std::pair<int,int>& offset_range=std::make_pair(-1,-1));
-
-    Glib::RefPtr<Gsv::Buffer> get_node_text_buffer() const;
 
     void pending_edit_db_node_prop();
     void pending_edit_db_node_buff();

@@ -319,13 +319,12 @@ bool CtMainWin::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, 
     }
     if (retOk && !isImport)
     {
-        _currFileName = Glib::path_get_basename(filepath);
-        _currFileDir = Glib::path_get_dirname(filepath);
+        _ctCurrFile.rFile = r_file;
         _title_update(false/*saveNeeded*/);
         set_bookmarks_menu_items();
 
-        if ((_currFileName == CtApp::P_ctCfg->fileName) &&
-            (_currFileDir == CtApp::P_ctCfg->fileDir))
+        if ((get_curr_doc_file_name() == CtApp::P_ctCfg->fileName) &&
+            (get_curr_doc_file_dir() == CtApp::P_ctCfg->fileDir))
         {
             if (CtRestoreExpColl::ALL_EXP == CtApp::P_ctCfg->restoreExpColl)
             {
@@ -347,14 +346,14 @@ bool CtMainWin::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, 
     return retOk;
 }
 
-std::string CtMainWin::get_curr_document_filepath()
+bool CtMainWin::get_file_save_needed()
 {
-    std::string ret_doc_path;
-    if (false == _currFileName.empty())
-    {
-        ret_doc_path = Glib::build_filename(_currFileDir, _currFileName);
-    }
-    return ret_doc_path;
+    return (_fileSaveNeeded || (_prevTreeIter && _prevTreeIter.get_node_text_buffer()->get_modified()));
+}
+
+void CtMainWin::curr_file_monitor_handle(const bool doEnable)
+{
+    
 }
 
 void CtMainWin::update_window_save_needed(const CtSaveNeededUpdType update_type,
@@ -723,9 +722,9 @@ void CtMainWin::_title_update(const bool saveNeeded)
     {
         title += "*";
     }
-    if (false == _currFileName.empty())
+    if (_ctCurrFile.rFile)
     {
-        title += _currFileName + " - " + _currFileDir + " - ";
+        title += get_curr_doc_file_name() + " - " + get_curr_doc_file_dir() + " - ";
     }
     title += "CherryTree ";
     title += CtConst::CT_VERSION;

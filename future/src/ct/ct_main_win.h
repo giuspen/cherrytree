@@ -83,10 +83,14 @@ public:
     void config_apply_before_show_all();
     void config_apply_after_show_all();
     void configure_theme();
-    std::string get_curr_document_filepath();
     void update_window_save_needed(const CtSaveNeededUpdType update_type = CtSaveNeededUpdType::None,
                                    const bool new_machine_state = false,
                                    const CtTreeIter* give_tree_iter = nullptr);
+    bool get_file_save_needed();
+    std::string get_curr_doc_file_path() { return (_ctCurrFile.rFile ? _ctCurrFile.rFile->get_path():""); }
+    std::string get_curr_doc_file_name() { return (_ctCurrFile.rFile ? Glib::path_get_basename(_ctCurrFile.rFile->get_path()):""); } // pygtk: file_name
+    std::string get_curr_doc_file_dir() { return (_ctCurrFile.rFile ? Glib::path_get_dirname(_ctCurrFile.rFile->get_path()):""); } // pygtk: file_dir
+    void curr_file_monitor_handle(const bool doEnable); // pygtk: modification_time_update_value
 
     CtTreeIter    curr_tree_iter()  { return _ctTreestore.to_ct_tree_iter(_ctTreeview.get_selection()->get_selected()); }
     CtTreeStore&  get_tree_store()  { return _ctTreestore; }
@@ -123,7 +127,7 @@ public:
     void show_hide_win_header(bool visible) { _ctWinHeader.headerBox.property_visible() = visible; }
     void set_toolbar_icon_size(int size)    { _pToolbar->property_icon_size() = CtMiscUtil::getIconSize(size); }
 
-protected:
+private:
     bool                _on_window_key_press_event(GdkEventKey* event);
 
     void                _on_treeview_cursor_changed(); // pygtk: on_node_changed
@@ -140,7 +144,7 @@ protected:
 
     void                _title_update(const bool saveNeeded); // pygtk: window_title_update
 
-protected:
+private:
     Gtk::VBox           _vboxMain;
     Gtk::VBox           _vboxText;
     Gtk::HPaned         _hPaned;
@@ -156,8 +160,14 @@ protected:
     CtTreeStore         _ctTreestore;
     CtTreeView          _ctTreeview;
     CtTextView          _ctTextview; /* todo: rename? because _ctTextview and _ctTreeview look the same */
-    std::string         _currFileName; // pygtk: file_name
-    std::string         _currFileDir; // pygtk: file_dir
+
+    struct CtCurrFile
+    {
+        Glib::RefPtr<Gio::File> rFile;
+        Glib::RefPtr<Gio::FileMonitor> rFileMonitor;
+        Glib::RefPtr<Gio::Cancellable> rCancellable;
+    };
+    CtCurrFile _ctCurrFile;
 
     Glib::RefPtr<Gtk::CssProvider> _css_provider_theme;
     Glib::RefPtr<Gtk::CssProvider> _css_provider_theme_font;
