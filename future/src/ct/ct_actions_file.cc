@@ -37,6 +37,8 @@ void CtActions::_file_save(const bool run_vacuum)
             _pCtMainWin->curr_file_monitor_handle(false/*doEnable*/);
             
             
+            
+            _pCtMainWin->curr_file_monitor_handle(true/*doEnable*/);
         }
         // todo
     }

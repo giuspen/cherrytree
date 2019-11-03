@@ -353,7 +353,20 @@ bool CtMainWin::get_file_save_needed()
 
 void CtMainWin::curr_file_monitor_handle(const bool doEnable)
 {
-    
+    if (doEnable && CtApp::P_ctCfg->modTimeSentinel)
+    {
+        if (false == static_cast<bool>(_ctCurrFile.rFileMonitor))
+        {
+            
+        }
+    }
+    else
+    {
+        if (static_cast<bool>(_ctCurrFile.rFileMonitor))
+        {
+            
+        }
+    }
 }
 
 void CtMainWin::update_window_save_needed(const CtSaveNeededUpdType update_type,
