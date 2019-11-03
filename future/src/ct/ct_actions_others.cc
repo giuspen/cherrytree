@@ -84,12 +84,12 @@ void CtActions::embfile_delete()
 // Embedded File Save Dialog
 void CtActions::embfile_save()
 {
-    ct_dialogs::file_select_args args = {.parent=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirFile, .curr_file_name=curr_file_anchor->getFileName()};
+    ct_dialogs::file_select_args args = {.parent=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirFile, .curr_file_name=curr_file_anchor->get_file_name()};
     Glib::ustring filepath = ct_dialogs::file_save_as_dialog(args);
     if (filepath.empty()) return;
 
     CtApp::P_ctCfg->pickDirFile = CtFileSystem::dirname(filepath);
-    g_file_set_contents(filepath.c_str(), curr_file_anchor->getRawBlob().c_str(), (gssize)curr_file_anchor->getRawBlob().size(), nullptr);
+    g_file_set_contents(filepath.c_str(), curr_file_anchor->get_raw_blob().c_str(), (gssize)curr_file_anchor->get_raw_blob().size(), nullptr);
 }
 
 // Embedded File Open
@@ -106,11 +106,11 @@ void CtActions::embfile_open()
     Glib::ustring filename = std::to_string(_pCtMainWin->curr_tree_iter().get_node_id()) +
             CtConst::CHAR_MINUS + std::to_string(open_id) +
             CtConst::CHAR_MINUS + std::to_string(getpid())+
-            CtConst::CHAR_MINUS + curr_file_anchor->getFileName();
+            CtConst::CHAR_MINUS + curr_file_anchor->get_file_name();
     Glib::ustring filepath = CtApp::P_ctTmp->getHiddenFilePath(filename);
     std::fstream file(filepath, std::ios::out | std::ios::binary);
-    long size = (long)curr_file_anchor->getRawBlob().size();
-    file.write(curr_file_anchor->getRawBlob().c_str(), size);
+    long size = (long)curr_file_anchor->get_raw_blob().size();
+    file.write(curr_file_anchor->get_raw_blob().c_str(), size);
     file.close();
 
     std::cout << "embfile_open " << filepath << std::endl;
@@ -152,7 +152,7 @@ void CtActions::image_edit()
     Gtk::TextIter iter_insert = _curr_buffer()->get_iter_at_child_anchor(curr_image_anchor->getTextChildAnchor());
     Gtk::TextIter iter_bound = iter_insert;
     iter_bound.forward_char();
-    _image_edit_dialog(curr_image_anchor->getPixBuf(), iter_insert, &iter_bound);
+    _image_edit_dialog(curr_image_anchor->get_pixbuf(), iter_insert, &iter_bound);
 }
 
 // Cut Image
@@ -183,9 +183,9 @@ void CtActions::image_link_edit()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
     _link_entry = ct_dialogs::CtLinkEntry();
-    if  (curr_image_anchor->getLink().empty())
+    if  (curr_image_anchor->get_link().empty())
         _link_entry.type = CtConst::LINK_TYPE_WEBS; // default value
-    else if (!_links_entries_pre_dialog(curr_image_anchor->getLink(), _link_entry))
+    else if (!_links_entries_pre_dialog(curr_image_anchor->get_link(), _link_entry))
        return;
     CtTreeIter sel_tree_iter = _pCtTreestore->get_node_from_node_id(_link_entry.node_id);
     if (!ct_dialogs::link_handle_dialog(*_pCtMainWin, _("Insert/Edit Link"), sel_tree_iter, _link_entry))
@@ -193,8 +193,8 @@ void CtActions::image_link_edit()
     Glib::ustring property_value = _links_entries_post_dialog(_link_entry);
     if (!property_value.empty())
     {
-        curr_image_anchor->setLink(property_value);
-        curr_image_anchor->updateLabelWidget();
+        curr_image_anchor->set_link(property_value);
+        curr_image_anchor->update_label_widget();
         // todo: self.objects_buffer_refresh()
         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
     }
@@ -204,8 +204,8 @@ void CtActions::image_link_edit()
 void CtActions::image_link_dismiss()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
-    curr_image_anchor->setLink("");
-    curr_image_anchor->updateLabelWidget();
+    curr_image_anchor->set_link("");
+    curr_image_anchor->update_label_widget();
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
@@ -272,7 +272,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
              CtImageAnchor* imageAnchor = nullptr;
              for (auto& widget: tree_iter.get_all_embedded_widgets())
                  if (CtImageAnchor* anchor = dynamic_cast<CtImageAnchor*>(widget))
-                     if (anchor->getAnchorName() == anchor_name)
+                     if (anchor->get_anchor_name() == anchor_name)
                          imageAnchor = anchor;
              if (!imageAnchor)
              {
@@ -319,7 +319,7 @@ void CtActions::codebox_delete()
 void CtActions::codebox_delete_keeping_text()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
-    Glib::ustring content = curr_codebox_anchor->getTextContent();
+    Glib::ustring content = curr_codebox_anchor->get_text_content();
     object_set_selection(curr_codebox_anchor);
     _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
     curr_codebox_anchor = nullptr;
@@ -331,20 +331,20 @@ void CtActions::codebox_delete_keeping_text()
 void CtActions::codebox_change_properties()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
-    CtApp::P_ctCfg->codeboxWidth = curr_codebox_anchor->getFrameWidth();
-    CtApp::P_ctCfg->codeboxWidthPixels = curr_codebox_anchor->getWidthInPixels();
-    CtApp::P_ctCfg->codeboxHeight = curr_codebox_anchor->getFrameHeight();
-    CtApp::P_ctCfg->codeboxLineNum = curr_codebox_anchor->getShowLineNumbers();
-    CtApp::P_ctCfg->codeboxMatchBra = curr_codebox_anchor->getHighlightBrackets();
-    CtApp::P_ctCfg->codeboxSynHighl = curr_codebox_anchor->getSyntaxHighlighting();
+    CtApp::P_ctCfg->codeboxWidth = curr_codebox_anchor->get_frame_width();
+    CtApp::P_ctCfg->codeboxWidthPixels = curr_codebox_anchor->get_width_in_pixels();
+    CtApp::P_ctCfg->codeboxHeight = curr_codebox_anchor->get_frame_height();
+    CtApp::P_ctCfg->codeboxLineNum = curr_codebox_anchor->get_show_line_numbers();
+    CtApp::P_ctCfg->codeboxMatchBra = curr_codebox_anchor->get_highlight_brackets();
+    CtApp::P_ctCfg->codeboxSynHighl = curr_codebox_anchor->get_syntax_highlighting();
 
     if (!ct_dialogs::codeboxhandle_dialog(*_pCtMainWin, _("Edit CodeBox"))) return;
 
-    curr_codebox_anchor->setSyntaxHighlighting(CtApp::P_ctCfg->codeboxSynHighl);
-    curr_codebox_anchor->setWidthInPixels(CtApp::P_ctCfg->codeboxWidthPixels);
-    curr_codebox_anchor->setWidthHeight((int)CtApp::P_ctCfg->codeboxWidth, (int)CtApp::P_ctCfg->codeboxHeight);
-    curr_codebox_anchor->setShowLineNumbers(CtApp::P_ctCfg->codeboxLineNum);
-    curr_codebox_anchor->setHighlightBrackets(CtApp::P_ctCfg->codeboxMatchBra);
+    curr_codebox_anchor->set_syntax_highlighting(CtApp::P_ctCfg->codeboxSynHighl);
+    curr_codebox_anchor->set_width_in_pixels(CtApp::P_ctCfg->codeboxWidthPixels);
+    curr_codebox_anchor->set_width_height((int)CtApp::P_ctCfg->codeboxWidth, (int)CtApp::P_ctCfg->codeboxHeight);
+    curr_codebox_anchor->set_show_line_numbers(CtApp::P_ctCfg->codeboxLineNum);
+    curr_codebox_anchor->set_highlight_brackets(CtApp::P_ctCfg->codeboxMatchBra);
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
@@ -366,7 +366,7 @@ void CtActions::codebox_load_from_file()
     std::string buffer(std::istreambuf_iterator<char>(file), {});
     file.close();
 
-    curr_codebox_anchor->getBuffer()->set_text(buffer);
+    curr_codebox_anchor->get_buffer()->set_text(buffer);
 }
 
 // Save the CodeBox Content To a Text File
@@ -377,7 +377,7 @@ void CtActions::codebox_save_to_file()
     if (filepath.empty()) return;
     CtApp::P_ctCfg->pickDirCbox = CtFileSystem::dirname(filepath);
 
-    Glib::ustring text = curr_codebox_anchor->getTextContent();
+    Glib::ustring text = curr_codebox_anchor->get_text_content();
     g_file_set_contents(filepath.c_str(), text.c_str(), (gssize)text.bytes(), nullptr);
 }
 
@@ -385,25 +385,25 @@ void CtActions::codebox_save_to_file()
 void CtActions::codebox_increase_width()
 {
     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
-    if (curr_codebox_anchor->getWidthInPixels())
-         curr_codebox_anchor->setWidthHeight(curr_codebox_anchor->getFrameWidth() + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX, 0);
+    if (curr_codebox_anchor->get_width_in_pixels())
+         curr_codebox_anchor->set_width_height(curr_codebox_anchor->get_frame_width() + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX, 0);
      else
-         curr_codebox_anchor->setWidthHeight(curr_codebox_anchor->getFrameWidth() + CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC, 0);
+         curr_codebox_anchor->set_width_height(curr_codebox_anchor->get_frame_width() + CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC, 0);
 }
 
 // Decrease CodeBox Width
 void CtActions::codebox_decrease_width()
 {
      if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
-     if (curr_codebox_anchor->getWidthInPixels())
+     if (curr_codebox_anchor->get_width_in_pixels())
      {
-         if (curr_codebox_anchor->getFrameWidth() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX >= CtCodebox::CB_WIDTH_LIMIT_MIN)
-             curr_codebox_anchor->setWidthHeight(curr_codebox_anchor->getFrameWidth() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX, 0);
+         if (curr_codebox_anchor->get_frame_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX >= CtCodebox::CB_WIDTH_LIMIT_MIN)
+             curr_codebox_anchor->set_width_height(curr_codebox_anchor->get_frame_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX, 0);
      }
      else
      {
-         if (curr_codebox_anchor->getFrameWidth() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC >= CtCodebox::CB_WIDTH_LIMIT_MIN)
-             curr_codebox_anchor->setWidthHeight(curr_codebox_anchor->getFrameWidth() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC, 0);
+         if (curr_codebox_anchor->get_frame_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC >= CtCodebox::CB_WIDTH_LIMIT_MIN)
+             curr_codebox_anchor->set_width_height(curr_codebox_anchor->get_frame_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC, 0);
      }
 }
 
@@ -411,22 +411,22 @@ void CtActions::codebox_decrease_width()
 void CtActions::codebox_increase_height()
 {
      if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
-     curr_codebox_anchor->setWidthHeight(0, curr_codebox_anchor->getFrameHeight() + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
+     curr_codebox_anchor->set_width_height(0, curr_codebox_anchor->get_frame_height() + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
 }
 
 // Decrease CodeBox Height
 void CtActions::codebox_decrease_height()
 {
      if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
-     if (curr_codebox_anchor->getFrameHeight() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX >= CtCodebox::CB_HEIGHT_LIMIT_MIN)
-         curr_codebox_anchor->setWidthHeight(0, curr_codebox_anchor->getFrameHeight() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
+     if (curr_codebox_anchor->get_frame_height() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX >= CtCodebox::CB_HEIGHT_LIMIT_MIN)
+         curr_codebox_anchor->set_width_height(0, curr_codebox_anchor->get_frame_height() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
 }
 
 // Anchor Edit Dialog
 void CtActions::_anchor_edit_dialog(CtImageAnchor* anchor, Gtk::TextIter insert_iter, Gtk::TextIter* iter_bound)
 {
-    Glib::ustring dialog_title = anchor->getAnchorName().empty() ? _("Insert Anchor") :  _("Edit Anchor");
-    Glib::ustring ret_anchor_name = ct_dialogs::img_n_entry_dialog(*_pCtMainWin, dialog_title.c_str(), anchor->getAnchorName(), "anchor");
+    Glib::ustring dialog_title = anchor->get_anchor_name().empty() ? _("Insert Anchor") :  _("Edit Anchor");
+    Glib::ustring ret_anchor_name = ct_dialogs::img_n_entry_dialog(*_pCtMainWin, dialog_title.c_str(), anchor->get_anchor_name(), "anchor");
     if (ret_anchor_name.empty()) return;
 
     Glib::ustring image_justification;
@@ -475,12 +475,12 @@ bool CtActions::_on_embfiles_sentinel_timeout()
                         auto file = std::fstream(filepath, std::ios::in | std::ios::binary);
                         std::vector<char> buffer(std::istreambuf_iterator<char>(file), {});
                         file.close();
-                        embFile->setRawBlob(buffer.data(), buffer.size());
-                        embFile->setTime(std::time(nullptr));
-                        embFile->updateTooltip();
+                        embFile->set_raw_blob(buffer.data(), buffer.size());
+                        embFile->set_time(std::time(nullptr));
+                        embFile->update_tooltip();
 
                         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
-                        _pCtMainWin->get_status_bar().update_status(_("Embedded File Automatically Updated:") + CtConst::CHAR_SPACE + embFile->getFileName());
+                        _pCtMainWin->get_status_bar().update_status(_("Embedded File Automatically Updated:") + CtConst::CHAR_SPACE + embFile->get_file_name());
                         break;
                     }
            }

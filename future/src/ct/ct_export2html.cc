@@ -83,7 +83,7 @@ Glib::ustring CtExport2Html::codebox_export_to_html(CtCodebox* codebox)
 Glib::ustring CtExport2Html::_get_image_html(CtImage* image, const Glib::ustring& images_dir, int& images_count, CtTreeIter* tree_iter)
 {
     if (CtImageAnchor* imageAnchor = dynamic_cast<CtImageAnchor*>(image))
-        return "<a name=\"" + imageAnchor->getAnchorName() + "\"></a>";
+        return "<a name=\"" + imageAnchor->get_anchor_name() + "\"></a>";
 
     images_count += 1;
     Glib::ustring image_name, image_rel_path;
@@ -101,7 +101,7 @@ Glib::ustring CtExport2Html::_get_image_html(CtImage* image, const Glib::ustring
     Glib::ustring image_html = "<img src=\"" + image_rel_path + "\" alt=\"" + image_rel_path + "\" />";
     if (CtImagePng* png = dynamic_cast<CtImagePng*>(image))
     {
-        Glib::ustring href = _get_href_from_link_prop_val(png->getLink());
+        Glib::ustring href = _get_href_from_link_prop_val(png->get_link());
         image_html = "<a href=\"" + href + "\">" + image_html + "</a>";
     }
 
@@ -113,7 +113,7 @@ Glib::ustring CtExport2Html::_get_image_html(CtImage* image, const Glib::ustring
 Glib::ustring CtExport2Html::_get_codebox_html(CtCodebox* codebox)
 {
     Glib::ustring codebox_html = "<div class=\"codebox\">";
-    codebox_html += _html_get_from_code_buffer(codebox->getBuffer(), std::make_pair(-1, -1));
+    codebox_html += _html_get_from_code_buffer(codebox->get_buffer(), std::make_pair(-1, -1));
     codebox_html += "</div>";
     return codebox_html;
 }
@@ -122,16 +122,16 @@ Glib::ustring CtExport2Html::_get_codebox_html(CtCodebox* codebox)
 Glib::ustring CtExport2Html::_get_table_html(CtTable* table)
 {
     Glib::ustring table_html = "<table class=\"table\">";
-    for (auto row: table->getTableMatrix())
+    for (auto row: table->get_table_matrix())
     {
         table_html += "<tr>";
         bool first = true;
         for (auto cell: row)
             if (first) {
-                table_html += "<th>" + str::xml_escape(cell->getTextContent()) + "</th>";
+                table_html += "<th>" + str::xml_escape(cell->get_text_content()) + "</th>";
                 first = false;
             } else {
-                table_html += "<td>" + str::xml_escape(cell->getTextContent()) + "</td>";
+                table_html += "<td>" + str::xml_escape(cell->get_text_content()) + "</td>";
             }
         table_html += "</tr>";
     }

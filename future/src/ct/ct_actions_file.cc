@@ -34,11 +34,12 @@ void CtActions::_file_save(const bool run_vacuum)
     {
         if (_pCtMainWin->get_file_save_needed())
         {
-            _pCtMainWin->curr_file_monitor_handle(false/*doEnable*/);
-            
-            
-            
-            _pCtMainWin->curr_file_monitor_handle(true/*doEnable*/);
+            _pCtMainWin->curr_file_mod_time_update_value(false/*doEnable*/);
+            if (false == _is_tree_not_empty_or_error())
+            {
+                
+            }
+            _pCtMainWin->curr_file_mod_time_update_value(true/*doEnable*/);
         }
         // todo
     }

@@ -154,9 +154,9 @@ Glib::RefPtr<Gsv::Buffer> CtTreeIter::get_node_text_buffer() const
         {
             // SQLite text buffer not yet populated
             std::list<CtAnchoredWidget*> anchoredWidgetList;
-            rRetTextBuffer = _pCtSQLite->getTextBuffer((*this)->get_value(_pColumns->colSyntaxHighlighting),
-                                                       anchoredWidgetList,
-                                                       (*this)->get_value(_pColumns->colNodeUniqueId));
+            rRetTextBuffer = _pCtSQLite->get_text_buffer((*this)->get_value(_pColumns->colSyntaxHighlighting),
+                                                         anchoredWidgetList,
+                                                         (*this)->get_value(_pColumns->colNodeUniqueId));
             (*this)->set_value(_pColumns->colAnchoredWidgets, anchoredWidgetList);
             (*this)->set_value(_pColumns->rColTextBuffer, rRetTextBuffer);
         }
@@ -397,7 +397,7 @@ bool CtTreeStore::read_nodes_from_filepath(const char* filepath, const bool isIm
     else if (CtDocType::SQLite == docType)
     {
         CtSQLite* pCtSQLite = new CtSQLite(filepath);
-        if (pCtSQLite && pCtSQLite->getDbOpenOk())
+        if (pCtSQLite && pCtSQLite->get_db_open_ok())
         {
             pCtDocRead = pCtSQLite;
         }
@@ -606,7 +606,7 @@ void CtTreeStore::apply_textbuffer_to_textview(const CtTreeIter& treeIter, CtTex
     std::cout << node.get_node_name() << std::endl;
 
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = node.get_node_text_buffer();
-    pTextView->setupForSyntax(node.get_node_syntax_highlighting());
+    pTextView->setup_for_syntax(node.get_node_syntax_highlighting());
     pTextView->set_buffer(rTextBuffer);
     pTextView->set_sensitive(true);
     pTextView->set_editable(!node.get_node_read_only());
@@ -620,7 +620,7 @@ void CtTreeStore::apply_textbuffer_to_textview(const CtTreeIter& treeIter, CtTex
             {
                 // Gtk::TextIter textIter = rTextBuffer->get_iter_at_child_anchor(rChildAnchor);
                 pTextView->add_child_at_anchor(*pCtAnchoredWidget, rChildAnchor);
-                pCtAnchoredWidget->applyWidthHeight(pTextView->get_allocation().get_width());
+                pCtAnchoredWidget->apply_width_height(pTextView->get_allocation().get_width());
             }
             else
             {
@@ -660,7 +660,7 @@ void CtTreeStore::addAnchoredWidgets(Gtk::TreeIter treeIter, std::list<CtAnchore
             if (0 == rChildAnchor->get_widgets().size())
             {
                 pTextView->add_child_at_anchor(*pCtAnchoredWidget, rChildAnchor);
-                pCtAnchoredWidget->applyWidthHeight(pTextView->get_allocation().get_width());
+                pCtAnchoredWidget->apply_width_height(pTextView->get_allocation().get_width());
             }
         }
     }

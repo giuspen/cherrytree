@@ -93,9 +93,9 @@ void CtActions::codebox_handle()
                                           (int)CtApp::P_ctCfg->codeboxHeight,
                                           iter_insert.get_offset(),
                                           justification);
-    pCtCodebox->setWidthInPixels(CtApp::P_ctCfg->codeboxWidthPixels);
-    pCtCodebox->setHighlightBrackets(CtApp::P_ctCfg->codeboxMatchBra);
-    pCtCodebox->setShowLineNumbers(CtApp::P_ctCfg->codeboxLineNum);
+    pCtCodebox->set_width_in_pixels(CtApp::P_ctCfg->codeboxWidthPixels);
+    pCtCodebox->set_highlight_brackets(CtApp::P_ctCfg->codeboxMatchBra);
+    pCtCodebox->set_show_line_numbers(CtApp::P_ctCfg->codeboxLineNum);
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
     pCtCodebox->insertInTextBuffer(gsv_buffer);
 

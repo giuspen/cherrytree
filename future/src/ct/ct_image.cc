@@ -96,9 +96,9 @@ CtImagePng::CtImagePng(const std::string& rawBlob,
  : CtImage(rawBlob, "image/png", charOffset, justification),
    _link(link)
 {
-    signal_button_press_event().connect(sigc::mem_fun(*this, &CtImagePng::_onButtonPressEvent), false);
+    signal_button_press_event().connect(sigc::mem_fun(*this, &CtImagePng::_on_button_press_event), false);
     // todo: DEPRECATED signal_visibility_notify_event().connect([this](){ this->queue_draw(); return false; });    // Problem of image colored frame disappearing
-    updateLabelWidget();
+    update_label_widget();
 }
 
 CtImagePng::CtImagePng(Glib::RefPtr<Gdk::Pixbuf> pixBuf,
@@ -108,9 +108,9 @@ CtImagePng::CtImagePng(Glib::RefPtr<Gdk::Pixbuf> pixBuf,
  : CtImage(pixBuf, charOffset, justification),
    _link(link)
 {
-    signal_button_press_event().connect(sigc::mem_fun(*this, &CtImagePng::_onButtonPressEvent), false);
+    signal_button_press_event().connect(sigc::mem_fun(*this, &CtImagePng::_on_button_press_event), false);
     // todo: DEPRECATED signal_visibility_notify_event().connect([this](){ this->queue_draw(); return false; });    // Problem of image colored frame disappearing
-    updateLabelWidget();
+    update_label_widget();
 }
 
 const std::string CtImagePng::get_raw_blob()
@@ -163,7 +163,7 @@ bool CtImagePng::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_
     return retVal;
 }
 
-void CtImagePng::updateLabelWidget()
+void CtImagePng::update_label_widget()
 {
     if (!_link.empty())
     {
@@ -177,7 +177,7 @@ void CtImagePng::updateLabelWidget()
     }
 }
 
-bool CtImagePng::_onButtonPressEvent(GdkEventButton* event)
+bool CtImagePng::_on_button_press_event(GdkEventButton* event)
 {
     CtApp::P_ctActions->curr_image_anchor = this;
     CtApp::P_ctActions->object_set_selection(this);
@@ -203,8 +203,8 @@ CtImageAnchor::CtImageAnchor(const Glib::ustring& anchorName,
  : CtImage("anchor", CtApp::P_ctCfg->anchorSize, charOffset, justification),
    _anchorName(anchorName)
 {
-    signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageAnchor::_onButtonPressEvent), false);
-    updateTooltip();
+    signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageAnchor::_on_button_press_event), false);
+    update_tooltip();
 }
 
 void CtImageAnchor::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
@@ -245,13 +245,13 @@ bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offs
     return retVal;
 }
 
-void CtImageAnchor::updateTooltip()
+void CtImageAnchor::update_tooltip()
 {
     set_tooltip_text(_anchorName);
 }
 
 // Catches mouse buttons clicks upon anchor images
-bool CtImageAnchor::_onButtonPressEvent(GdkEventButton* event)
+bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
 {
     CtApp::P_ctActions->curr_anchor_anchor = this;
     CtApp::P_ctActions->object_set_selection(this);
@@ -273,9 +273,9 @@ CtImageEmbFile::CtImageEmbFile(const Glib::ustring& fileName,
    _rawBlob(rawBlob),
    _timeSeconds(timeSeconds)
 {
-    signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageEmbFile::_onButtonPressEvent), false);
-    updateTooltip();
-    updateLabelWidget();
+    signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageEmbFile::_on_button_press_event), false);
+    update_tooltip();
+    update_label_widget();
 }
 
 void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
@@ -319,7 +319,7 @@ bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int off
     return retVal;
 }
 
-void CtImageEmbFile::updateLabelWidget()
+void CtImageEmbFile::update_label_widget()
 {
     if (CtApp::P_ctCfg->embfileShowFileName)
     {
@@ -333,7 +333,7 @@ void CtImageEmbFile::updateLabelWidget()
     }
 }
 
-void CtImageEmbFile::updateTooltip()
+void CtImageEmbFile::update_tooltip()
 {
     char humanReadableSize[16];
     const long unsigned embfileBytes{_rawBlob.size()};
@@ -355,7 +355,7 @@ void CtImageEmbFile::updateTooltip()
 }
 
 // Catches mouse buttons clicks upon files images
-bool CtImageEmbFile::_onButtonPressEvent(GdkEventButton* event)
+bool CtImageEmbFile::_on_button_press_event(GdkEventButton* event)
 {
     CtApp::P_ctActions->curr_file_anchor = this;
     CtApp::P_ctActions->object_set_selection(this);

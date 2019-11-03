@@ -97,7 +97,7 @@ void CtTable::_populate_xml_rows_cells(xmlpp::Element* p_table_node)
         for (const CtTableCell* pTableCell : tableRow)
         {
             xmlpp::Element* p_cell_node = p_row_node->add_child("cell");
-            p_cell_node->add_child_text(pTableCell->getTextContent());
+            p_cell_node->add_child_text(pTableCell->get_text_content());
         }
     }
 }
@@ -130,4 +130,15 @@ bool CtTable::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adj
         sqlite3_finalize(p_stmt);
     }
     return retVal;
+}
+
+void CtTable::set_modified_false()
+{
+    for (CtTableRow& tableRow : _tableMatrix)
+    {
+        for (CtTableCell* pTableCell : tableRow)
+        {
+            pTableCell->set_text_buffer_modified_false();
+        }
+    }
 }

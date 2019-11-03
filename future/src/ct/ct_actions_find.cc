@@ -922,22 +922,22 @@ Glib::ustring CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> patt
 {
     if (CtImageEmbFile* image = dynamic_cast<CtImageEmbFile*>(obj))
     {
-        if (pattern->match(image->getFileName())) return image->getFileName();
+        if (pattern->match(image->get_file_name())) return image->get_file_name();
     }
     else if (CtImageAnchor* image = dynamic_cast<CtImageAnchor*>(obj))
     {
-        if (pattern->match(image->getAnchorName())) return image->getAnchorName();
+        if (pattern->match(image->get_anchor_name())) return image->get_anchor_name();
     }
     else if (CtTable* table = dynamic_cast<CtTable*>(obj))
     {
-        for (auto& row: table->getTableMatrix())
+        for (auto& row: table->get_table_matrix())
             for (auto& col: row)
-                if (pattern->match(col->getTextContent()))
+                if (pattern->match(col->get_text_content()))
                     return "<table>";
     }
     else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(obj))
     {
-        if (pattern->match(codebox->getTextContent())) return "<codebox>";
+        if (pattern->match(codebox->get_text_content())) return "<codebox>";
     }
     return "";
 }

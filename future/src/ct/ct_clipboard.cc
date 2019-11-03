@@ -230,7 +230,7 @@ void CtClipboard::from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_b
         {
             Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(text_buffer);
             Gtk::TextIter insert_iter = text_buffer->get_insert()->get_iter();
-            CtXmlRead::getTextBufferIter(gsv_buffer, &insert_iter, widgets, child_node, insert_iter.get_offset());
+            CtXmlRead::get_text_buffer_slot(gsv_buffer, &insert_iter, widgets, child_node, insert_iter.get_offset());
         }
     }
     if (!widgets.empty())
@@ -293,7 +293,7 @@ void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buf
             targets_vector = {TARGET_CTD_PLAIN_TEXT, TARGET_CTD_RICH_TEXT, TARGETS_HTML[0], TARGETS_HTML[1]};
             if (pixbuf_target)
             {
-                clip_data->pix_buf = pixbuf_target->getPixBuf();
+                clip_data->pix_buf = pixbuf_target->get_pixbuf();
                 targets_vector.push_back(TARGETS_IMAGES[0]);
             }
         }
@@ -458,7 +458,7 @@ void CtClipboard::_on_received_to_codebox(const Gtk::SelectionData& selection_da
     std::list<CtAnchoredWidget*> widgets;
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(pTextView->get_buffer());
     Gtk::TextIter insert_iter = pTextView->get_buffer()->get_insert()->get_iter();
-    CtXmlRead::getTextBufferIter(gsv_buffer, &insert_iter, widgets, doc->get_root_node()->get_first_child("codebox"), insert_iter.get_offset());
+    CtXmlRead::get_text_buffer_slot(gsv_buffer, &insert_iter, widgets, doc->get_root_node()->get_first_child("codebox"), insert_iter.get_offset());
     if (!widgets.empty())
     {
         CtApp::P_ctActions->getCtMainWin()->get_tree_store().addAnchoredWidgets(
@@ -491,7 +491,7 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
     std::list<CtAnchoredWidget*> widgets;
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(pTextView->get_buffer());
     Gtk::TextIter insert_iter = pTextView->get_buffer()->get_insert()->get_iter();
-    CtXmlRead::getTextBufferIter(gsv_buffer, &insert_iter, widgets, doc->get_root_node()->get_first_child("table"), insert_iter.get_offset());
+    CtXmlRead::get_text_buffer_slot(gsv_buffer, &insert_iter, widgets, doc->get_root_node()->get_first_child("table"), insert_iter.get_offset());
     if (!widgets.empty())
     {
         CtApp::P_ctActions->getCtMainWin()->get_tree_store().addAnchoredWidgets(

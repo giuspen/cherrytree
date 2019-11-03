@@ -32,21 +32,21 @@ CtTextCell::CtTextCell(const Glib::ustring& textContent,
 {
     _rTextBuffer = CtMiscUtil::get_new_text_buffer(syntaxHighlighting, textContent);
     _ctTextview.set_buffer(_rTextBuffer);
-    _ctTextview.setupForSyntax(_syntaxHighlighting);
+    _ctTextview.setup_for_syntax(_syntaxHighlighting);
 }
 
 CtTextCell::~CtTextCell()
 {
 }
 
-Glib::ustring CtTextCell::getTextContent() const
+Glib::ustring CtTextCell::get_text_content() const
 {
     Gtk::TextIter start_iter = _rTextBuffer->begin();
     Gtk::TextIter end_iter = _rTextBuffer->end();
     return start_iter.get_text(end_iter);
 }
 
-void CtTextCell::setSyntaxHighlighting(const std::string& syntaxHighlighting)
+void CtTextCell::set_syntax_highlighting(const std::string& syntaxHighlighting)
 {
     _syntaxHighlighting = syntaxHighlighting;
     if (CtConst::RICH_TEXT_ID != syntaxHighlighting)
@@ -90,7 +90,7 @@ CtCodebox::CtCodebox(const Glib::ustring& textContent,
         CtApp::P_ctActions->curr_codebox_anchor = this;
         CtApp::P_ctActions->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::Codebox);
     });
-    _ctTextview.signal_key_press_event().connect(sigc::mem_fun(*this, &CtCodebox::_onKeyPressEvent), false);
+    _ctTextview.signal_key_press_event().connect(sigc::mem_fun(*this, &CtCodebox::_on_key_press_event), false);
     _ctTextview.signal_key_release_event().connect([this](GdkEventKey*) { _key_down = false; return false; }, false);
     _ctTextview.signal_button_press_event().connect([this](GdkEventButton* event){
         if (!CtApp::P_ctActions->getCtMainWin()->user_active()) return false;
@@ -136,7 +136,7 @@ CtCodebox::~CtCodebox()
 {
 }
 
-void CtCodebox::applyWidthHeight(const int parentTextWidth)
+void CtCodebox::apply_width_height(const int parentTextWidth)
 {
     int frameWidth = _widthInPixels ? _frameWidth : (parentTextWidth*_frameWidth)/100;
     _scrolledwindow.set_size_request(frameWidth, _frameHeight);
@@ -153,7 +153,7 @@ void CtCodebox::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustmen
     p_codebox_node->set_attribute("syntax_highlighting", _syntaxHighlighting);
     p_codebox_node->set_attribute("highlight_brackets", std::to_string(_highlightBrackets));
     p_codebox_node->set_attribute("show_line_numbers", std::to_string(_showLineNumbers));
-    p_codebox_node->add_child_text(getTextContent());
+    p_codebox_node->add_child_text(get_text_content());
 }
 
 bool CtCodebox::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment)
@@ -167,7 +167,7 @@ bool CtCodebox::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_a
     }
     else
     {
-        const std::string codebox_txt = Glib::locale_from_utf8(getTextContent());
+        const std::string codebox_txt = Glib::locale_from_utf8(get_text_content());
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
         sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);
@@ -188,26 +188,26 @@ bool CtCodebox::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_a
     return retVal;
 }
 
-void CtCodebox::setShowLineNumbers(const bool showLineNumbers)
+void CtCodebox::set_show_line_numbers(const bool showLineNumbers)
 {
     _showLineNumbers = showLineNumbers;
     _ctTextview.set_show_line_numbers(_showLineNumbers);
 }
 
-void CtCodebox::setWidthHeight(int newWidth, int newHeight)
+void CtCodebox::set_width_height(int newWidth, int newHeight)
 {
     if (newWidth) _frameWidth = newWidth;
     if (newHeight) _frameHeight = newHeight;
-    applyWidthHeight(CtApp::P_ctActions->getCtMainWin()->get_text_view().get_allocation().get_width());
+    apply_width_height(CtApp::P_ctActions->getCtMainWin()->get_text_view().get_allocation().get_width());
 }
 
-void CtCodebox::setHighlightBrackets(const bool highlightBrackets)
+void CtCodebox::set_highlight_brackets(const bool highlightBrackets)
 {
     _highlightBrackets = highlightBrackets;
     _rTextBuffer->set_highlight_matching_brackets(_highlightBrackets);
 }
 
-void CtCodebox::applyCursorPos(const int cursorPos)
+void CtCodebox::apply_cursor_pos(const int cursorPos)
 {
     if (cursorPos > 0)
     {
@@ -216,7 +216,7 @@ void CtCodebox::applyCursorPos(const int cursorPos)
 }
 
 // Catches CodeBox Key Presses
-bool CtCodebox::_onKeyPressEvent(GdkEventKey* event)
+bool CtCodebox::_on_key_press_event(GdkEventKey* event)
 {
     _key_down = true;
     if (!CtApp::P_ctActions->getCtMainWin()->user_active())

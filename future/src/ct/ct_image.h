@@ -42,10 +42,11 @@ public:
             const std::string& justification);
     virtual ~CtImage();
 
-    virtual void applyWidthHeight(const int /*parentTextWidth*/) {}
+    void apply_width_height(const int /*parentTextWidth*/) override {}
+    void set_modified_false() override {}
 
     void save(const Glib::ustring& file_name, const Glib::ustring& type);
-    Glib::RefPtr<Gdk::Pixbuf> getPixBuf() { return _rPixbuf; }
+    Glib::RefPtr<Gdk::Pixbuf> get_pixbuf() { return _rPixbuf; }
 
 public:
     static Glib::RefPtr<Gdk::Pixbuf> get_icon(const std::string& name, int size);
@@ -74,12 +75,12 @@ public:
     CtAnchWidgType get_type() override { return CtAnchWidgType::ImagePng; }
 
     const std::string get_raw_blob();
-    void updateLabelWidget();
-    const Glib::ustring& getLink() { return _link; }
-    void setLink(const Glib::ustring& link) { _link = link; }
+    void update_label_widget();
+    const Glib::ustring& get_link() { return _link; }
+    void set_link(const Glib::ustring& link) { _link = link; }
 
 private:
-    bool _onButtonPressEvent(GdkEventButton* event);
+    bool _on_button_press_event(GdkEventButton* event);
 
 protected:
     Glib::ustring _link;
@@ -97,12 +98,12 @@ public:
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) override;
     CtAnchWidgType get_type() override { return CtAnchWidgType::ImageAnchor; }
 
-    const Glib::ustring& getAnchorName() { return _anchorName; }
+    const Glib::ustring& get_anchor_name() { return _anchorName; }
 
-    void updateTooltip();
+    void update_tooltip();
 
 private:
-    bool _onButtonPressEvent(GdkEventButton* event);
+    bool _on_button_press_event(GdkEventButton* event);
 
 protected:
     Glib::ustring _anchorName;
@@ -122,16 +123,16 @@ public:
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) override;
     CtAnchWidgType get_type() override { return CtAnchWidgType::ImageEmbFile; }
 
-    const Glib::ustring& getFileName() { return _fileName; }
-    const std::string&   getRawBlob() { return _rawBlob; }
-    void                 setRawBlob(char* buffer, size_t size) { _rawBlob = std::string(buffer, size);}
-    void                 setTime(time_t time) { _timeSeconds = time; }
+    const Glib::ustring& get_file_name() { return _fileName; }
+    const std::string&   get_raw_blob() { return _rawBlob; }
+    void                 set_raw_blob(char* buffer, size_t size) { _rawBlob = std::string(buffer, size);}
+    void                 set_time(time_t time) { _timeSeconds = time; }
 
-    void updateTooltip();
-    void updateLabelWidget();
+    void update_tooltip();
+    void update_label_widget();
 
 private:
-    bool _onButtonPressEvent(GdkEventButton* event);
+    bool _on_button_press_event(GdkEventButton* event);
 
 protected:
     Glib::ustring _fileName;

@@ -38,9 +38,10 @@ public:
     void insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer);
     Glib::RefPtr<Gtk::TextChildAnchor> getTextChildAnchor() { return _rTextChildAnchor; }
 
-    virtual void applyWidthHeight(const int parentTextWidth) = 0;
+    virtual void apply_width_height(const int parentTextWidth) = 0;
     virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) = 0;
     virtual bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) = 0;
+    virtual void set_modified_false() = 0;
     virtual CtAnchWidgType get_type() = 0;
 
     void updateOffset(int charOffset) { _charOffset = charOffset; }
@@ -73,7 +74,7 @@ public:
     CtTextView();
     virtual ~CtTextView();
 
-    void setupForSyntax(const std::string& syntaxHighlighting); // pygtk: sourceview_set_properties
+    void setup_for_syntax(const std::string& syntaxHighlighting); // pygtk: sourceview_set_properties
     void set_pixels_inside_wrap(int space_around_lines, int relative_wrapped_space);
     void set_selection_at_offset_n_delta(int offset, int delta, Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>());
     void list_change_level(Gtk::TextIter iter_insert, const CtListInfo& list_info, bool level_increase);

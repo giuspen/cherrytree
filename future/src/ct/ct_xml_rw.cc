@@ -65,7 +65,7 @@ bool CtXmlRead::read_populate_tree(const Gtk::TreeIter* pParentIter)
 
             for (xmlpp::Node* pNode : pRoot->get_children("node"))
             {
-                _xmlTreeWalkIter(static_cast<xmlpp::Element*>(pNode), pParentIter);
+                _read_populate_tree_iter(static_cast<xmlpp::Element*>(pNode), pParentIter);
             }
         }
         else
@@ -77,20 +77,20 @@ bool CtXmlRead::read_populate_tree(const Gtk::TreeIter* pParentIter)
     return retVal;
 }
 
-void CtXmlRead::_xmlTreeWalkIter(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter)
+void CtXmlRead::_read_populate_tree_iter(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter)
 {
-    Gtk::TreeIter newIter = _xmlNodeProcess(pNodeElement, pParentIter);
+    Gtk::TreeIter newIter = _read_node(pNodeElement, pParentIter);
 
     for (xmlpp::Node* pNode : pNodeElement->get_children())
     {
         if ("node" == pNode->get_name())
         {
-            _xmlTreeWalkIter(static_cast<xmlpp::Element*>(pNode), &newIter);
+            _read_populate_tree_iter(static_cast<xmlpp::Element*>(pNode), &newIter);
         }
     }
 }
 
-Gtk::TreeIter CtXmlRead::_xmlNodeProcess(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter)
+Gtk::TreeIter CtXmlRead::_read_node(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter)
 {
     CtNodeData nodeData;
     nodeData.nodeId = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("unique_id").c_str());
@@ -103,13 +103,13 @@ Gtk::TreeIter CtXmlRead::_xmlNodeProcess(xmlpp::Element* pNodeElement, const Gtk
     nodeData.foregroundRgb24 = pNodeElement->get_attribute_value("foreground");
     nodeData.tsCreation = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("ts_creation").c_str());
     nodeData.tsLastSave = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("ts_lastSave").c_str());
-    nodeData.rTextBuffer = getTextBuffer(nodeData.syntax, nodeData.anchoredWidgets, pNodeElement);
+    nodeData.rTextBuffer = get_text_buffer(nodeData.syntax, nodeData.anchoredWidgets, pNodeElement);
 
     Gtk::TreeIter newIter = signalAppendNode.emit(&nodeData, pParentIter);
     return newIter;
 }
 
-CtXmlNodeType CtXmlRead::_xmlNodeGetTypeFromName(const Glib::ustring& xmlNodeName)
+CtXmlNodeType CtXmlRead::_node_get_type_from_name(const Glib::ustring& xmlNodeName)
 {
     CtXmlNodeType retXmlNodeType{CtXmlNodeType::None};
     if ("rich_text" == xmlNodeName)
@@ -131,11 +131,11 @@ CtXmlNodeType CtXmlRead::_xmlNodeGetTypeFromName(const Glib::ustring& xmlNodeNam
     return retXmlNodeType;
 }
 
-void CtXmlRead::getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk::TextIter* insertIter,
-                                  std::list<CtAnchoredWidget*>& anchoredWidgets,
-                                  xmlpp::Node* pNodeParent, int forceCharOffset /*=-1*/)
+void CtXmlRead::get_text_buffer_slot(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk::TextIter* insertIter,
+                                     std::list<CtAnchoredWidget*>& anchoredWidgets,
+                                     xmlpp::Node* pNodeParent, int forceCharOffset /*=-1*/)
 {
-    CtXmlNodeType xmlNodeType = _xmlNodeGetTypeFromName(pNodeParent->get_name());
+    CtXmlNodeType xmlNodeType = _node_get_type_from_name(pNodeParent->get_name());
     if (CtXmlNodeType::RichText == xmlNodeType)
     {
         xmlpp::Element* pNodeElement = static_cast<xmlpp::Element*>(pNodeParent);
@@ -212,7 +212,7 @@ void CtXmlRead::getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk::T
             const int colMin = std::stoi(pNodeElement->get_attribute_value("col_min"));
             const int colMax = std::stoi(pNodeElement->get_attribute_value("col_max"));
             CtTableMatrix tableMatrix;
-            const bool isHeadFront = populateTableMatrixGetIsHeadFront(tableMatrix, pNodeElement);
+            const bool isHeadFront = populate_table_matrix_get_is_head_front(tableMatrix, pNodeElement);
             pAnchoredWidget = new CtTable(tableMatrix, colMin, colMax, isHeadFront, charOffset, justification);
         }
         else if (CtXmlNodeType::CodeBox == xmlNodeType)
@@ -232,9 +232,9 @@ void CtXmlRead::getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk::T
                                                   frameHeight,
                                                   charOffset,
                                                   justification);
-            pCtCodebox->setWidthInPixels(widthInPixels);
-            pCtCodebox->setHighlightBrackets(highlightBrackets);
-            pCtCodebox->setShowLineNumbers(showLineNumbers);
+            pCtCodebox->set_width_in_pixels(widthInPixels);
+            pCtCodebox->set_highlight_brackets(highlightBrackets);
+            pCtCodebox->set_show_line_numbers(showLineNumbers);
             pAnchoredWidget = pCtCodebox;
         }
         if (nullptr != pAnchoredWidget)
@@ -245,7 +245,7 @@ void CtXmlRead::getTextBufferIter(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk::T
     }
 }
 
-bool CtXmlRead::populateTableMatrixGetIsHeadFront(CtTableMatrix& tableMatrix, xmlpp::Element* pNodeElement)
+bool CtXmlRead::populate_table_matrix_get_is_head_front(CtTableMatrix& tableMatrix, xmlpp::Element* pNodeElement)
 {
     for (xmlpp::Node* pNodeRow : pNodeElement->get_children())
     {
@@ -266,9 +266,9 @@ bool CtXmlRead::populateTableMatrixGetIsHeadFront(CtTableMatrix& tableMatrix, xm
     return !pNodeElement->get_attribute_value("head_front").empty();
 }
 
-Glib::RefPtr<Gsv::Buffer> CtXmlRead::getTextBuffer(const std::string& syntax,
-                                                   std::list<CtAnchoredWidget*>& anchoredWidgets,
-                                                   xmlpp::Element* pNodeElement)
+Glib::RefPtr<Gsv::Buffer> CtXmlRead::get_text_buffer(const std::string& syntax,
+                                                     std::list<CtAnchoredWidget*>& anchoredWidgets,
+                                                     xmlpp::Element* pNodeElement)
 {
     Glib::RefPtr<Gsv::Buffer> rRetTextBuffer = CtMiscUtil::get_new_text_buffer(syntax);
     if (nullptr == pNodeElement)
@@ -284,7 +284,7 @@ Glib::RefPtr<Gsv::Buffer> CtXmlRead::getTextBuffer(const std::string& syntax,
         rRetTextBuffer->begin_not_undoable_action();
         for (xmlpp::Node* pNode : pNodeElement->get_children())
         {
-            getTextBufferIter(rRetTextBuffer, nullptr, anchoredWidgets, pNode);
+            get_text_buffer_slot(rRetTextBuffer, nullptr, anchoredWidgets, pNode);
         }
         rRetTextBuffer->end_not_undoable_action();
         rRetTextBuffer->set_modified(false);

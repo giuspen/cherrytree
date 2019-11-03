@@ -351,20 +351,39 @@ bool CtMainWin::get_file_save_needed()
     return (_fileSaveNeeded || (_prevTreeIter && _prevTreeIter.get_node_text_buffer()->get_modified()));
 }
 
-void CtMainWin::curr_file_monitor_handle(const bool doEnable)
+void CtMainWin::curr_file_mod_time_update_value(const bool doEnable)
 {
-    if (doEnable && CtApp::P_ctCfg->modTimeSentinel)
+    if (doEnable && _ctCurrFile.rFile->query_exists())
     {
-        if (false == static_cast<bool>(_ctCurrFile.rFileMonitor))
+        Glib::RefPtr<Gio::FileInfo> rFileInfo = _ctCurrFile.rFile->query_info();
+        if (rFileInfo)
         {
-            
+            Glib::TimeVal timeVal = rFileInfo->modification_time();
+            if (timeVal.valid())
+            {
+                _ctCurrFile.modTime = timeVal.as_double();
+            }
         }
     }
     else
     {
-        if (static_cast<bool>(_ctCurrFile.rFileMonitor))
+        _ctCurrFile.modTime = 0;
+    }
+}
+
+void CtMainWin::update_window_save_not_needed()
+{
+    _title_update(false/*save_needed*/);
+    _fileSaveNeeded = false;
+    CtTreeIter treeIter = curr_tree_iter();
+    if (treeIter)
+    {
+        Glib::RefPtr<Gsv::Buffer> rTextBuffer = treeIter.get_node_text_buffer();
+        rTextBuffer->set_modified(false);
+        std::list<CtAnchoredWidget*> anchoredWidgets = treeIter.get_all_embedded_widgets();
+        for (CtAnchoredWidget* pAnchoredWidget : anchoredWidgets)
         {
-            
+            pAnchoredWidget->set_modified_false();
         }
     }
 }
@@ -588,8 +607,8 @@ void CtMainWin::_on_textview_size_allocate(Gtk::Allocation& allocation)
         auto widgets = curr_tree_iter().get_all_embedded_widgets();
         for (auto& widget: widgets)
             if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widget))
-                if (!codebox->getWidthInPixels())
-                    codebox->applyWidthHeight(allocation.get_width());
+                if (!codebox->get_width_in_pixels())
+                    codebox->apply_width_height(allocation.get_width());
     }
 }
 
@@ -619,7 +638,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
         if (!widgets.empty())
             if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widgets.front()))
             {
-                codebox->getTextView().grab_focus();
+                codebox->get_text_view().grab_focus();
                 return true;
             }
         CtListInfo list_info = CtList(curr_buffer).get_paragraph_list_info(iter_insert);
@@ -661,7 +680,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             {
                 CtApp::P_ctActions->curr_image_anchor = image;
                 CtApp::P_ctActions->object_set_selection(image);
-                _pCtMenu->find_action("img_link_dismiss")->signal_set_visible.emit(!image->getLink().empty());
+                _pCtMenu->find_action("img_link_dismiss")->signal_set_visible.emit(!image->get_link().empty());
                 _pCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup(3, event->button.time);
             }
             return true;

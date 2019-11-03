@@ -398,9 +398,9 @@ CtActions::text_view_n_buffer_codebox_proof CtActions::_get_text_view_n_buffer_c
 {
     CtCodebox* codebox = _codebox_in_use();
     if (codebox)
-        return text_view_n_buffer_codebox_proof{&codebox->getTextView(),
-                    codebox->getTextView().get_buffer(),
-                    codebox->getSyntaxHighlighting(),
+        return text_view_n_buffer_codebox_proof{&codebox->get_text_view(),
+                    codebox->get_text_view().get_buffer(),
+                    codebox->get_syntax_highlighting(),
                     true};
     else
         return text_view_n_buffer_codebox_proof{&_pCtMainWin->get_text_view(),

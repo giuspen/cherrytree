@@ -36,12 +36,12 @@ public:
                const std::string& syntaxHighlighting);
     virtual ~CtTextCell();
 
-    Glib::ustring getTextContent() const;
-    Glib::RefPtr<Gsv::Buffer> getBuffer() { return _rTextBuffer; }
-    CtTextView& getTextView() { return _ctTextview; }
-    const std::string& getSyntaxHighlighting() { return _syntaxHighlighting; }
-
-    void setSyntaxHighlighting(const std::string& syntaxHighlighting);
+    Glib::ustring get_text_content() const;
+    Glib::RefPtr<Gsv::Buffer> get_buffer() { return _rTextBuffer; }
+    CtTextView& get_text_view() { return _ctTextview; }
+    const std::string& get_syntax_highlighting() { return _syntaxHighlighting; }
+    void set_syntax_highlighting(const std::string& syntaxHighlighting);
+    void set_text_buffer_modified_false() { _rTextBuffer->set_modified(false); }
 
 protected:
     std::string _syntaxHighlighting;
@@ -69,27 +69,28 @@ public:
               const std::string& justification);
     virtual ~CtCodebox();
 
-    virtual void applyWidthHeight(const int parentTextWidth) override;
-    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) override;
-    virtual bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) override;
-    virtual CtAnchWidgType get_type() override { return CtAnchWidgType::CodeBox; }
+    void apply_width_height(const int parentTextWidth) override;
+    void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) override;
+    bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) override;
+    void set_modified_false() override { set_text_buffer_modified_false(); }
+    CtAnchWidgType get_type() override { return CtAnchWidgType::CodeBox; }
 
-    void setWidthHeight(int newWidth, int newHeight);
-    void setWidthInPixels(const bool widthInPixels) { _widthInPixels = widthInPixels; }
-    void setHighlightBrackets(const bool highlightBrackets);
-    void setShowLineNumbers(const bool showLineNumbers);
-    void applyCursorPos(const int cursorPos);
+    void set_width_height(int newWidth, int newHeight);
+    void set_width_in_pixels(const bool widthInPixels) { _widthInPixels = widthInPixels; }
+    void set_highlight_brackets(const bool highlightBrackets);
+    void set_show_line_numbers(const bool showLineNumbers);
+    void apply_cursor_pos(const int cursorPos);
 
-    bool getWidthInPixels() { return _widthInPixels; }
-    int  getFrameWidth() { return _frameWidth; }
-    int  getFrameHeight() { return _frameHeight; }
-    bool getHighlightBrackets() { return _highlightBrackets; }
-    bool getShowLineNumbers() { return _showLineNumbers; }
+    bool get_width_in_pixels() { return _widthInPixels; }
+    int  get_frame_width() { return _frameWidth; }
+    int  get_frame_height() { return _frameHeight; }
+    bool get_highlight_brackets() { return _highlightBrackets; }
+    bool get_show_line_numbers() { return _showLineNumbers; }
 
 private:
-    bool _onKeyPressEvent(GdkEventKey* event);
+    bool _on_key_press_event(GdkEventKey* event);
 
-protected:
+private:
     int _frameWidth;
     int _frameHeight;
     bool _widthInPixels{true};

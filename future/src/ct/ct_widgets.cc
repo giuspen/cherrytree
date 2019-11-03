@@ -102,7 +102,7 @@ CtTextView::~CtTextView()
 {
 }
 
-void CtTextView::setupForSyntax(const std::string& syntax)
+void CtTextView::setup_for_syntax(const std::string& syntax)
 {
 #if 0
     get_buffer()->signal_modified_changed().connect([](){
@@ -580,10 +580,10 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
             auto widgets = CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes({iter_anchor.get_offset(), iter_anchor.get_offset()});
             if (!widgets.empty())
                 if (CtImagePng* image = dynamic_cast<CtImagePng*>(widgets.front()))
-                    if (!image->getLink().empty())
+                    if (!image->get_link().empty())
                     {
                         hovering_link_iter_offset = text_iter.get_offset();
-                        tooltip = CtMiscUtil::sourceview_hovering_link_get_tooltip(image->getLink());
+                        tooltip = CtMiscUtil::sourceview_hovering_link_get_tooltip(image->get_link());
                         break;
                     }
         }

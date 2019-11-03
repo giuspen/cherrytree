@@ -68,11 +68,11 @@ Glib::ustring CtExport2Txt::node_export_to_txt(Glib::RefPtr<Gtk::TextBuffer> tex
 Glib::ustring CtExport2Txt::get_table_plain(CtTable* table_orig)
 {
     Glib::ustring table_plain = CtConst::CHAR_NEWLINE;
-    for (const auto& row: table_orig->getTableMatrix())
+    for (const auto& row: table_orig->get_table_matrix())
     {
         table_plain += CtConst::CHAR_PIPE;
         for (const auto& cell: row)
-            table_plain += CtConst::CHAR_SPACE + cell->getTextContent() + CtConst::CHAR_SPACE + CtConst::CHAR_PIPE;
+            table_plain += CtConst::CHAR_SPACE + cell->get_text_content() + CtConst::CHAR_SPACE + CtConst::CHAR_PIPE;
         table_plain += CtConst::CHAR_NEWLINE;
     }
     return table_plain;
@@ -82,7 +82,7 @@ Glib::ustring CtExport2Txt::get_table_plain(CtTable* table_orig)
 Glib::ustring CtExport2Txt::get_codebox_plain(CtCodebox* codebox)
 {
     Glib::ustring codebox_plain = CtConst::CHAR_NEWLINE + CtApp::P_ctCfg->hRule + CtConst::CHAR_NEWLINE;
-    codebox_plain += codebox->getTextContent();
+    codebox_plain += codebox->get_text_content();
     codebox_plain += CtConst::CHAR_NEWLINE + CtApp::P_ctCfg->hRule + CtConst::CHAR_NEWLINE;
     return codebox_plain;
 }

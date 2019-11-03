@@ -190,7 +190,7 @@ bool CtSQLite::read_populate_tree(const Gtk::TreeIter* pParentIter)
         {
             for (gint64 &top_node_id : top_nodes_ids)
             {
-                if (!_sqlite3TreeWalkIter(top_node_id, pParentIter))
+                if (!_read_populate_tree_iter(top_node_id, pParentIter))
                 {
                     retVal = false;
                     break;
@@ -201,9 +201,9 @@ bool CtSQLite::read_populate_tree(const Gtk::TreeIter* pParentIter)
     return retVal;
 }
 
-Glib::RefPtr<Gsv::Buffer> CtSQLite::getTextBuffer(const std::string& syntax,
-                                                  std::list<CtAnchoredWidget*>& anchoredWidgets,
-                                                  const gint64& nodeId) const
+Glib::RefPtr<Gsv::Buffer> CtSQLite::get_text_buffer(const std::string& syntax,
+                                                    std::list<CtAnchoredWidget*>& anchoredWidgets,
+                                                    const gint64& nodeId) const
 {
     Glib::RefPtr<Gsv::Buffer> rRetTextBuffer{nullptr};
 
@@ -231,7 +231,7 @@ Glib::RefPtr<Gsv::Buffer> CtSQLite::getTextBuffer(const std::string& syntax,
                 CtXmlRead ctXmlRead(nullptr, textContent);
                 if (nullptr != ctXmlRead.get_document())
                 {
-                    rRetTextBuffer = ctXmlRead.getTextBuffer(syntax, anchoredWidgets);
+                    rRetTextBuffer = ctXmlRead.get_text_buffer(syntax, anchoredWidgets);
                     if (rRetTextBuffer)
                     {
                         has_codebox = sqlite3_column_int64(p_stmt, 1);
@@ -336,9 +336,9 @@ void CtSQLite::_get_text_buffer_anchored_widgets(Glib::RefPtr<Gsv::Buffer>& rTex
                                                   frameHeight,
                                                   charOffset[i],
                                                   justification[i]);
-            pCtCodebox->setWidthInPixels(widthInPixels);
-            pCtCodebox->setHighlightBrackets(highlightBrackets);
-            pCtCodebox->setShowLineNumbers(showLineNumbers);
+            pCtCodebox->set_width_in_pixels(widthInPixels);
+            pCtCodebox->set_highlight_brackets(highlightBrackets);
+            pCtCodebox->set_show_line_numbers(showLineNumbers);
             pAnchoredWidget = pCtCodebox;
             //std::cout << "codebox " << charOffset[i] << std::endl;
             charOffset[i] = cOffsetRead;
@@ -356,7 +356,7 @@ void CtSQLite::_get_text_buffer_anchored_widgets(Glib::RefPtr<Gsv::Buffer>& rTex
             CtTableMatrix tableMatrix;
             if (nullptr != ctXmlRead.get_document())
             {
-                const bool isHeadFront = ctXmlRead.populateTableMatrixGetIsHeadFront(tableMatrix, ctXmlRead.get_document()->get_root_node());
+                const bool isHeadFront = ctXmlRead.populate_table_matrix_get_is_head_front(tableMatrix, ctXmlRead.get_document()->get_root_node());
 
                 pAnchoredWidget = new CtTable(tableMatrix, colMin, colMax, isHeadFront, charOffset[i], justification[i]);
                 //std::cout << "table " << charOffset[i] << std::endl;
@@ -420,10 +420,10 @@ void CtSQLite::_get_text_buffer_anchored_widgets(Glib::RefPtr<Gsv::Buffer>& rTex
     }
 }
 
-bool CtSQLite::_sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIter* pParentIter)
+bool CtSQLite::_read_populate_tree_iter(gint64 nodeId, const Gtk::TreeIter* pParentIter)
 {
     Gtk::TreeIter newIter;
-    bool retVal = _sqlite3NodeProcess(nodeId, pParentIter, newIter);
+    bool retVal = _read_node(nodeId, pParentIter, newIter);
     if (retVal)
     {
         std::list<gint64> children_nodes_ids;
@@ -432,7 +432,7 @@ bool CtSQLite::_sqlite3TreeWalkIter(gint64 nodeId, const Gtk::TreeIter* pParentI
         {
             for (gint64 &child_node_id : children_nodes_ids)
             {
-                if (!_sqlite3TreeWalkIter(child_node_id, &newIter))
+                if (!_read_populate_tree_iter(child_node_id, &newIter))
                 {
                     retVal = false;
                     break;
@@ -465,7 +465,7 @@ bool CtSQLite::_get_children_node_ids_from_father_id(gint64 father_id, std::list
     return retVal;
 }
 
-bool CtSQLite::_sqlite3GetNodeProperties(gint64 nodeId, CtNodeData& nodeData)
+bool CtSQLite::_get_node_properties(gint64 nodeId, CtNodeData& nodeData)
 {
     bool retVal{false};
     nodeData.nodeId = nodeId;
@@ -506,10 +506,10 @@ bool CtSQLite::_sqlite3GetNodeProperties(gint64 nodeId, CtNodeData& nodeData)
     return retVal;
 }
 
-bool CtSQLite::_sqlite3NodeProcess(gint64 nodeId, const Gtk::TreeIter* pParentIter, Gtk::TreeIter& newIter)
+bool CtSQLite::_read_node(gint64 nodeId, const Gtk::TreeIter* pParentIter, Gtk::TreeIter& newIter)
 {
     CtNodeData nodeData;
-    bool retVal = _sqlite3GetNodeProperties(nodeId, nodeData);
+    bool retVal = _get_node_properties(nodeId, nodeData);
     if (retVal)
     {
         newIter = signalAppendNode.emit(&nodeData, pParentIter);
