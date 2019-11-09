@@ -69,7 +69,7 @@ void CtActions::nodes_collapse_all()
 void CtActions::toolbar_icons_size_increase()
 {
     if (CtApp::P_ctCfg->toolbarIconSize == 5) {
-        ct_dialogs::info_dialog(_("The Size of the Toolbar Icons is already at the Maximum Value"), *_pCtMainWin);
+        CtDialogs::info_dialog(_("The Size of the Toolbar Icons is already at the Maximum Value"), *_pCtMainWin);
         return;
     }
     CtApp::P_ctCfg->toolbarIconSize += 1;
@@ -80,7 +80,7 @@ void CtActions::toolbar_icons_size_increase()
 void CtActions::toolbar_icons_size_decrease()
 {
     if (CtApp::P_ctCfg->toolbarIconSize == 1) {
-        ct_dialogs::info_dialog(_("The Size of the Toolbar Icons is already at the Minimum Value"), *_pCtMainWin);
+        CtDialogs::info_dialog(_("The Size of the Toolbar Icons is already at the Minimum Value"), *_pCtMainWin);
         return;
     }
     CtApp::P_ctCfg->toolbarIconSize -= 1;

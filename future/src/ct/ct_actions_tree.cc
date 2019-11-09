@@ -33,14 +33,14 @@ bool dialog_node_prop(std::string title, Gtk::Window& parent, CtNodeData& nodeDa
 bool CtActions::_is_there_selected_node_or_error()
 {
     if (_pCtMainWin->curr_tree_iter()) return true;
-    ct_dialogs::warning_dialog(_("No Node is Selected"), *_pCtMainWin);
+    CtDialogs::warning_dialog(_("No Node is Selected"), *_pCtMainWin);
     return false;
 }
 
 bool CtActions::_is_tree_not_empty_or_error()
 {
     if (!_pCtTreestore->get_iter_first()) {
-        ct_dialogs::error_dialog(_("The Tree is Empty!"), *_pCtMainWin);
+        CtDialogs::error_dialog(_("The Tree is Empty!"), *_pCtMainWin);
         return false;
     }
     return true;
@@ -49,7 +49,7 @@ bool CtActions::_is_tree_not_empty_or_error()
 bool CtActions::_is_curr_node_not_read_only_or_error()
 {
     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) {
-        ct_dialogs::error_dialog(_("The Selected Node is Read Only"), *_pCtMainWin);
+        CtDialogs::error_dialog(_("The Selected Node is Read Only"), *_pCtMainWin);
         return false;
     }
     return true;
@@ -62,9 +62,9 @@ bool CtActions::_is_curr_node_not_syntax_highlighting_or_error(bool plain_text_o
         || (plain_text_ok && _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting() == CtConst::PLAIN_TEXT_ID))
         return true;
     if (!plain_text_ok)
-        ct_dialogs::warning_dialog(_("This Feature is Available Only in Rich Text Nodes"), *_pCtMainWin);
+        CtDialogs::warning_dialog(_("This Feature is Available Only in Rich Text Nodes"), *_pCtMainWin);
     else
-        ct_dialogs::warning_dialog(_("This Feature is Not Available in Automatic Syntax Highlighting Nodes"), *_pCtMainWin);
+        CtDialogs::warning_dialog(_("This Feature is Not Available in Automatic Syntax Highlighting Nodes"), *_pCtMainWin);
     return false;
 }
 
@@ -230,7 +230,7 @@ void CtActions::node_edit()
     if (nodeData.syntax !=  newData.syntax) {
         if (nodeData.syntax == CtConst::RICH_TEXT_ID) {
             // leaving rich text
-            if (!ct_dialogs::question_dialog(_("Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"), *_pCtMainWin)) {
+            if (!CtDialogs::question_dialog(_("Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"), *_pCtMainWin)) {
                 return;
             }
             // todo:
@@ -337,23 +337,23 @@ void CtActions::node_change_father()
 {
     if (!_is_there_selected_node_or_error()) return;
     CtTreeIter old_father_iter = _pCtMainWin->curr_tree_iter().parent();
-    CtTreeIter father_iter = _pCtTreestore->to_ct_tree_iter(ct_dialogs::choose_node_dialog(*_pCtMainWin,
+    CtTreeIter father_iter = _pCtTreestore->to_ct_tree_iter(CtDialogs::choose_node_dialog(*_pCtMainWin,
                                    _pCtMainWin->get_tree_view(), _("Select the New Parent"), _pCtTreestore, _pCtMainWin->curr_tree_iter()));
     if (!father_iter) return;
     gint64 curr_node_id = _pCtMainWin->curr_tree_iter().get_node_id();
     gint64 old_father_node_id = old_father_iter.get_node_id();
     gint64 new_father_node_id = father_iter.get_node_id();
     if (curr_node_id == new_father_node_id) {
-        ct_dialogs::error_dialog(_("The new parent can't be the very node to move!"), *_pCtMainWin);
+        CtDialogs::error_dialog(_("The new parent can't be the very node to move!"), *_pCtMainWin);
         return;
     }
     if (old_father_node_id != -1 && new_father_node_id == old_father_node_id) {
-        ct_dialogs::info_dialog(_("The new chosen parent is still the old parent!"), *_pCtMainWin);
+        CtDialogs::info_dialog(_("The new chosen parent is still the old parent!"), *_pCtMainWin);
         return;
     }
     for (CtTreeIter move_towards_top_iter = father_iter.parent(); move_towards_top_iter; move_towards_top_iter = move_towards_top_iter.parent())
         if (move_towards_top_iter.get_node_id() == curr_node_id) {
-            ct_dialogs::error_dialog(_("The new parent can't be one of his children!"), *_pCtMainWin);
+            CtDialogs::error_dialog(_("The new parent can't be one of his children!"), *_pCtMainWin);
             return;
         }
 
@@ -434,7 +434,7 @@ void CtActions::bookmark_curr_node_remove()
 
 void CtActions::bookmarks_handle()
 {
-    ct_dialogs::bookmarks_handle_dialog(_pCtMainWin);
+    CtDialogs::bookmarks_handle_dialog(_pCtMainWin);
 }
 
 bool dialog_node_prop(std::string title, Gtk::Window& parent, CtNodeData& nodeData, const std::set<std::string>& tags_set)
@@ -536,10 +536,10 @@ bool dialog_node_prop(std::string title, Gtk::Window& parent, CtNodeData& nodeDa
     name_entry.grab_focus();
 
     button_prog_lang.signal_clicked().connect([&parent, &button_prog_lang](){
-        auto itemStore = ct_dialogs::CtChooseDialogListStore::create();
+        auto itemStore = CtChooseDialogListStore::create();
         for (auto lang: CtApp::R_languageManager->get_language_ids())
             itemStore->add_row(CtConst::getStockIdForCodeType(lang), "", lang);
-        auto res = ct_dialogs::choose_item_dialog(parent, _("Automatic Syntax Highlighting"), itemStore);
+        auto res = CtDialogs::choose_item_dialog(parent, _("Automatic Syntax Highlighting"), itemStore);
         if (res) {
             std::string stock_id = res->get_value(itemStore->columns.desc);
             button_prog_lang.set_label(stock_id);
@@ -550,10 +550,10 @@ bool dialog_node_prop(std::string title, Gtk::Window& parent, CtNodeData& nodeDa
        button_prog_lang.set_sensitive(radiobutton_auto_syntax_highl.get_active());
     });
     button_browse_tags.signal_clicked().connect([&parent, &tags_entry, &tags_set](){
-        auto itemStore = ct_dialogs::CtChooseDialogListStore::create();
+        auto itemStore = CtChooseDialogListStore::create();
         for (const auto& tag: tags_set)
             itemStore->add_row("", "", tag);
-        auto res = ct_dialogs::choose_item_dialog(parent, _("Choose Existing Tag"), itemStore, _("Tag Name"));
+        auto res = CtDialogs::choose_item_dialog(parent, _("Choose Existing Tag"), itemStore, _("Tag Name"));
         if (res) {
             std::string cur_tag = tags_entry.get_text();
             if  (str::endswith(cur_tag, CtConst::CHAR_SPACE))
@@ -570,17 +570,17 @@ bool dialog_node_prop(std::string title, Gtk::Window& parent, CtNodeData& nodeDa
     });
     fg_colorbutton.signal_pressed().connect([&parent, &fg_colorbutton](){
         Gdk::RGBA ret_color = fg_colorbutton.get_rgba();
-        if (ct_dialogs::color_pick_dialog(parent, ret_color))
+        if (CtDialogs::color_pick_dialog(parent, ret_color))
             fg_colorbutton.set_rgba(ret_color);
     });
     c_icon_checkbutton.signal_toggled().connect([&c_icon_checkbutton, &c_icon_button](){
         c_icon_button.set_sensitive(c_icon_checkbutton.get_active());
     });
     c_icon_button.signal_clicked().connect([&parent, &c_icon_button, &nodeData](){
-        auto itemStore = ct_dialogs::CtChooseDialogListStore::create();
+        auto itemStore = CtChooseDialogListStore::create();
         for (auto& pair: CtConst::NODES_ICONS)
             itemStore->add_row(pair.second, std::to_string(pair.first), "");
-        auto res = ct_dialogs::choose_item_dialog(parent, _("Select Node Icon"), itemStore);
+        auto res = CtDialogs::choose_item_dialog(parent, _("Select Node Icon"), itemStore);
         if (res) {
             nodeData.customIconId = static_cast<guint32>(std::stoi(res->get_value(itemStore->columns.key)));
             c_icon_button.set_label("");

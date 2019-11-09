@@ -49,16 +49,16 @@ void CtActions::image_handle()
 {
     if (!_node_sel_and_rich_text()) return;
     if (!_is_curr_node_not_read_only_or_error()) return;
-    ct_dialogs::file_select_args args = {.parent=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirImg};
-    Glib::ustring filename = ct_dialogs::file_select_dialog(args);
+    CtDialogs::file_select_args args = {.parent=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirImg};
+    Glib::ustring filename = CtDialogs::file_select_dialog(args);
     if (filename.empty()) return;
     CtApp::P_ctCfg->pickDirImg = CtFileSystem::dirname(filename);
 
-    auto pixbuf = Gdk::Pixbuf::create_from_file(filename);
-    if (pixbuf)
-        _image_edit_dialog(pixbuf, _curr_buffer()->get_insert()->get_iter(), nullptr);
+    Glib::RefPtr<Gdk::Pixbuf> rPixbuf = Gdk::Pixbuf::create_from_file(filename);
+    if (rPixbuf)
+        _image_edit_dialog(rPixbuf, _curr_buffer()->get_insert()->get_iter(), nullptr);
     else
-        ct_dialogs::error_dialog(_("Image Format Not Recognized"), *_pCtMainWin);
+        CtDialogs::error_dialog(_("Image Format Not Recognized"), *_pCtMainWin);
 }
 
 void CtActions::table_handle()
@@ -79,7 +79,7 @@ void CtActions::codebox_handle()
         _curr_buffer()->get_selection_bounds(iter_sel_start, iter_sel_end);
         textContent = iter_sel_start.get_text(iter_sel_end);
     }
-    if (!ct_dialogs::codeboxhandle_dialog(*_pCtMainWin, _("Insert a CodeBox")))
+    if (!CtDialogs::codeboxhandle_dialog(*_pCtMainWin, _("Insert a CodeBox")))
         return;
 
     if (!textContent.empty())
@@ -523,13 +523,15 @@ void CtActions::strip_trailing_spaces()
         }
     }
 
-    ct_dialogs::info_dialog(std::to_string(cleaned_lines) + " " + _("Lines Stripped"), *_pCtMainWin);
+    CtDialogs::info_dialog(std::to_string(cleaned_lines) + " " + _("Lines Stripped"), *_pCtMainWin);
 }
 
 // Insert/Edit Image Dialog
-void CtActions::_image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> pixbuf, Gtk::TextIter insert_iter, Gtk::TextIter* iter_bound)
+void CtActions::_image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
+                                   Gtk::TextIter insert_iter,
+                                   Gtk::TextIter* iter_bound)
 {
-    Glib::RefPtr<Gdk::Pixbuf> ret_pixbuf = ct_dialogs::image_handle_dialog(*_pCtMainWin, _("Image Properties"), pixbuf);
+    Glib::RefPtr<Gdk::Pixbuf> ret_pixbuf = CtDialogs::image_handle_dialog(*_pCtMainWin, _("Image Properties"), rPixbuf);
     if (!ret_pixbuf) return;
     Glib::ustring link = "";
     Glib::ustring image_justification;
@@ -557,12 +559,12 @@ Glib::ustring CtActions::_get_iter_alignment(Gtk::TextIter text_iter)
     return CtConst::TAG_PROP_VAL_LEFT;
 }
 
-void CtActions::image_insert_png(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> pixbuf,
+void CtActions::image_insert_png(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
                                  const Glib::ustring& link, const Glib::ustring& image_justification)
 {
-    if (!pixbuf) return;
+    if (!rPixbuf) return;
     int charOffset = iter_insert.get_offset();
-    CtAnchoredWidget* pAnchoredWidget = new CtImagePng(pixbuf, link, charOffset, image_justification);
+    CtAnchoredWidget* pAnchoredWidget = new CtImagePng(rPixbuf, link, charOffset, image_justification);
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
     pAnchoredWidget->insertInTextBuffer(gsv_buffer);
 
@@ -590,7 +592,7 @@ void CtActions::_text_selection_change_case(gchar change_type)
     if (!_is_curr_node_not_read_only_or_error()) return;
     if (!text_buffer->get_has_selection() && !CtTextIterUtil::apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter()))
     {
-        ct_dialogs::warning_dialog(_("No Text is Selected"), *_pCtMainWin);
+        CtDialogs::warning_dialog(_("No Text is Selected"), *_pCtMainWin);
         return;
     }
 

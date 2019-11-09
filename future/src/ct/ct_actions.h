@@ -47,7 +47,7 @@ public:
     CtImageEmbFile* curr_file_anchor{nullptr};
 
 private:
-    ct_dialogs::CtLinkEntry _link_entry;
+    CtDialogs::CtLinkEntry _link_entry;
 
 private:
     size_t                          _next_opened_emb_file_id{1};
@@ -187,8 +187,8 @@ private:
     text_view_n_buffer_codebox_proof _get_text_view_n_buffer_codebox_proof();
     CtCodebox* _codebox_in_use();
 
-    bool _links_entries_pre_dialog(const Glib::ustring& curr_link, ct_dialogs::CtLinkEntry& link_entry);
-    Glib::ustring _links_entries_post_dialog(ct_dialogs::CtLinkEntry& link_entry);
+    bool _links_entries_pre_dialog(const Glib::ustring& curr_link, CtDialogs::CtLinkEntry& link_entry);
+    Glib::ustring _links_entries_post_dialog(CtDialogs::CtLinkEntry& link_entry);
     Glib::ustring _link_check_around_cursor();
 
 public:
@@ -218,7 +218,9 @@ public:
 
 private:
     // helper for edit actions
-    void          _image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> pixbuf, Gtk::TextIter insert_iter, Gtk::TextIter* iter_bound);
+    void          _image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
+                                     Gtk::TextIter insertIter,
+                                     Gtk::TextIter* pIterBound);
     Glib::ustring _get_iter_alignment(Gtk::TextIter text_iter);
     void          _text_selection_change_case(gchar change_type);
 

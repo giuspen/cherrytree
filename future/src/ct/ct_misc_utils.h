@@ -274,12 +274,6 @@ void vector_extend(std::vector<VEC>& v, std::vector<VEC>&& ext)
 
 namespace set {
 
-template<class SET, class KEY>
-bool exists(const SET& s, const KEY& key)
-{
-    return s.find(key) != s.end();
-}
-
 template<class SET, class VAL>
 bool remove(SET& s, const VAL& val)
 {

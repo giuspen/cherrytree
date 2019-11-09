@@ -193,7 +193,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
         }
     });
     button_reset->signal_clicked().connect([this, textview_special_chars](){
-        if (ct_dialogs::question_dialog(reset_warning, *this))
+        if (CtDialogs::question_dialog(reset_warning, *this))
             textview_special_chars->get_buffer()->set_text(CtConst::SPECIAL_CHARS_DEFAULT);
     });
     spinbutton_tab_width->signal_value_changed().connect([this, config, spinbutton_tab_width](){
@@ -631,13 +631,13 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
         add_new_command_in_model(liststore);
     });
     button_reset_cmds->signal_clicked().connect([this, config, liststore](){
-        if (ct_dialogs::question_dialog(reset_warning, *this)) {
+        if (CtDialogs::question_dialog(reset_warning, *this)) {
             config->customCodexecType.clear();
             fill_commands_model(liststore);
         }
     });
     button_reset_term->signal_clicked().connect([this, config, entry_term_run](){
-        if (ct_dialogs::question_dialog(reset_warning, *this)) {
+        if (CtDialogs::question_dialog(reset_warning, *this)) {
             config->customCodexecTerm.clear();
             entry_term_run->set_text(get_code_exec_term_run());
         }
@@ -807,10 +807,10 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
         //dad.treeview_refresh(change_icon=True)
     });
     c_icon_button->signal_clicked().connect([this, config, c_icon_button](){
-        auto itemStore = ct_dialogs::CtChooseDialogListStore::create();
+        auto itemStore = CtChooseDialogListStore::create();
         for (auto& pair: CtConst::NODES_STOCKS)
             itemStore->add_row(pair.second, std::to_string(pair.first), "");
-        auto res = ct_dialogs::choose_item_dialog(*this, _("Select Node Icon"), itemStore);
+        auto res = CtDialogs::choose_item_dialog(*this, _("Select Node Icon"), itemStore);
         if (res) {
             config->defaultIconText = std::stoi(res->get_value(itemStore->columns.key));
             c_icon_button->set_image(*CtImage::new_image_from_stock(res->get_value(itemStore->columns.stock_id), Gtk::ICON_SIZE_BUTTON));
@@ -1207,7 +1207,7 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
         need_restart(RESTART_REASON::TOOLBAR);
     });
     button_reset->signal_clicked().connect([this, config, liststore](){
-        if (ct_dialogs::question_dialog(reset_warning, *this)) {
+        if (CtDialogs::question_dialog(reset_warning, *this)) {
             config->toolbarUiList = CtConst::TOOLBAR_VEC_DEFAULT;
             fill_toolbar_model(liststore);
             need_restart(RESTART_REASON::TOOLBAR);
@@ -1269,7 +1269,7 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
             need_restart(RESTART_REASON::SHORTCUT);
     });
     button_reset->signal_clicked().connect([this, config, treestore](){
-        if (ct_dialogs::question_dialog(reset_warning, *this)) {
+        if (CtDialogs::question_dialog(reset_warning, *this)) {
             config->customKbShortcuts.clear();
             fill_shortcut_model(treestore);
             need_restart(RESTART_REASON::SHORTCUT);
@@ -1489,7 +1489,7 @@ void CtPrefDlg::need_restart(RESTART_REASON reason, const gchar* msg /*= nullptr
 {
     if (!(_restartReasons & (int)reason)) {
         _restartReasons |= (int)reason;
-        ct_dialogs::info_dialog(msg ? msg : _("This Change will have Effect Only After Restarting CherryTree"), *this);
+        CtDialogs::info_dialog(msg ? msg : _("This Change will have Effect Only After Restarting CherryTree"), *this);
     }
 }
 
@@ -1558,7 +1558,7 @@ void CtPrefDlg::fill_toolbar_model(Glib::RefPtr<Gtk::ListStore> model)
         add_new_item_in_toolbar_model(model->append(), key);
 }
 
-void CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeModel::iterator row, const Glib::ustring& key)
+void CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeIter row, const Glib::ustring& key)
 {
     Glib::ustring icon, desc;
     if (key == CtConst::TAG_SEPARATOR)
@@ -1585,7 +1585,7 @@ void CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeModel::iterator row, cons
 
 bool CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeView* treeview, Glib::RefPtr<Gtk::ListStore> model)
 {
-    auto itemStore = ct_dialogs::CtChooseDialogListStore::create();
+    auto itemStore = CtChooseDialogListStore::create();
     itemStore->add_row("", CtConst::TAG_SEPARATOR, CtConst::TAG_SEPARATOR_ANSI_REPR);
     for (const CtAction& action: _pCtMenu->get_actions())
     {
@@ -1595,7 +1595,7 @@ bool CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeView* treeview, Glib::Ref
         itemStore->add_row(action.image, action.id, action.desc);
     }
 
-    auto chosen_row = ct_dialogs::choose_item_dialog(*this, _("Select Element to Add"), itemStore);
+    auto chosen_row = CtDialogs::choose_item_dialog(*this, _("Select Element to Add"), itemStore);
     if (chosen_row) {
         auto selected_row = treeview->get_selection()->get_selected();
         auto new_row = selected_row ? model->insert_after(*selected_row) : model->append();
@@ -1645,7 +1645,7 @@ bool CtPrefDlg::edit_shortcut(Gtk::TreeView* treeview)
             for(const CtAction& action: _pCtMenu->get_actions())
                 if (action.get_shortcut() == shortcut && action.id != id) {
                     // todo: this is a shorter version from python code
-                    if (!ct_dialogs::question_dialog(std::string("<b>") + _("The Keyboard Shortcut '%s' is already in use") + "</b>", *this))
+                    if (!CtDialogs::question_dialog(std::string("<b>") + _("The Keyboard Shortcut '%s' is already in use") + "</b>", *this))
                         return false;
                     CtApp::P_ctCfg->customKbShortcuts[action.id] = "";
                 }

@@ -33,7 +33,7 @@ private:
                          SCHEME            = 1 << 6, LANG         = 1 << 7,
                          TOOLBAR           = 1 << 8, SHORTCUT     = 1 << 9};
 
-    const std::string reset_warning = std::string("<b>")+_("Are you sure to Reset to Default?")+"</b>";
+    const Glib::ustring reset_warning = Glib::ustring("<b>")+_("Are you sure to Reset to Default?")+"</b>";
 
 private:
     void need_restart(RESTART_REASON reason, const gchar* msg = nullptr);
@@ -44,7 +44,7 @@ private:
     void add_new_command_in_model(Glib::RefPtr<Gtk::ListStore> model);
 
     void fill_toolbar_model(Glib::RefPtr<Gtk::ListStore> model);
-    void add_new_item_in_toolbar_model(Gtk::TreeModel::iterator row, const Glib::ustring& key);
+    void add_new_item_in_toolbar_model(Gtk::TreeIter row, const Glib::ustring& key);
     bool add_new_item_in_toolbar_model(Gtk::TreeView* treeview, Glib::RefPtr<Gtk::ListStore> model);
     void update_config_toolbar_from_model(Glib::RefPtr<Gtk::ListStore> model);
 

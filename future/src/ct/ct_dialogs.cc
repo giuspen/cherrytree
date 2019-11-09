@@ -28,68 +28,131 @@
 #include "ct_app.h"
 #include "ct_treestore.h"
 
-using namespace ct_dialogs;
-
-ct_dialogs::CtMatchDialogStore::~CtMatchDialogStore() {}
-ct_dialogs::CtMatchDialogStore::CtMatchModelColumns::~CtMatchModelColumns() {}
-
-Gtk::TreeModel::iterator ct_dialogs::choose_item_dialog(Gtk::Window& parent, const std::string& title,
-                                                        Glib::RefPtr<CtChooseDialogListStore> model,
-                                                        const gchar* one_columns_name /* = nullptr */)
+CtDialogTextEntry::CtDialogTextEntry(const Glib::ustring& title,
+                                     const bool forPassword,
+                                     Gtk::Window* pParent)
 {
-    Gtk::Dialog dialog(title, parent, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    set_title(title);
+    set_transient_for(*pParent);
+    set_modal();
+
+    add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
+    add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
+
+    _entry.set_icon_from_stock(Gtk::Stock::CLEAR, Gtk::ENTRY_ICON_SECONDARY);
+    _entry.set_size_request(350, -1);
+    if (forPassword)
+    {
+        _entry.set_visibility(false);
+    }
+    get_vbox()->pack_start(_entry, true, true, 0);
+
+    // Special signals which correspond to the underlying X-Windows events are suffixed by _event.
+    // By default, your signal handlers are called after any previously-connected signal handlers. However, this can be a problem with the X Event signals. For instance, the existing signal handlers, or the default signal handler, might return true to stop other signal handlers from being called. To specify that your signal handler should be called before the other signal handlers, so that it will always be called, you can specify false for the optional after parameter
+    _entry.signal_key_press_event().connect(sigc::mem_fun(*this, &CtDialogTextEntry::_on_entry_key_press_event), false/*call me before other*/);
+
+    _entry.signal_icon_press().connect(sigc::mem_fun(*this, &CtDialogTextEntry::_on_entry_icon_press));
+
+    get_vbox()->show_all();
+}
+
+CtDialogTextEntry::~CtDialogTextEntry()
+{
+}
+
+bool CtDialogTextEntry::_on_entry_key_press_event(GdkEventKey *eventKey)
+{
+    if (GDK_KEY_Return == eventKey->keyval)
+    {
+        Gtk::Button *pButton = static_cast<Gtk::Button*>(get_widget_for_response(Gtk::RESPONSE_OK));
+        pButton->clicked();
+        return true;
+    }
+    return false;
+}
+
+void CtDialogTextEntry::_on_entry_icon_press(Gtk::EntryIconPosition /*iconPosition*/, const GdkEventButton* /*event*/)
+{
+    _entry.set_text("");
+}
+
+Glib::ustring CtDialogTextEntry::get_entry_text()
+{
+    return _entry.get_text();
+}
+
+
+Gtk::TreeIter CtDialogs::choose_item_dialog(Gtk::Window& parent,
+                                            const Glib::ustring& title,
+                                            Glib::RefPtr<CtChooseDialogListStore> rModel,
+                                            const gchar* single_column_name /* = nullptr */)
+{
+    Gtk::Dialog dialog(title,
+                       parent,
+                       Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
     dialog.set_transient_for(parent);
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
     dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
     dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(400, 300);
-    Gtk::ScrolledWindow* scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow());
-    scrolledwindow->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-    Gtk::TreeView* elements_treeview = Gtk::manage(new Gtk::TreeView(model));
-    elements_treeview->set_headers_visible(false);
-    Gtk::CellRendererPixbuf pix_buf_renderer;
-    if (one_columns_name == nullptr) {
-        int col_num = elements_treeview->append_column("", pix_buf_renderer) - 1;
-        elements_treeview->get_column(col_num)->add_attribute(pix_buf_renderer, "icon-name", model->columns.stock_id);
+    Gtk::ScrolledWindow* pScrolledwindow = Gtk::manage(new Gtk::ScrolledWindow());
+    pScrolledwindow->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+    Gtk::TreeView* pElementsTreeview = Gtk::manage(new Gtk::TreeView(rModel));
+    pElementsTreeview->set_headers_visible(false);
+    Gtk::CellRendererPixbuf pixbuf_renderer;
+    if (nullptr == single_column_name)
+    {
+        int col_num = pElementsTreeview->append_column("", pixbuf_renderer) - 1;
+        pElementsTreeview->get_column(col_num)->add_attribute(pixbuf_renderer, "icon-name", rModel->columns.stock_id);
+        pElementsTreeview->append_column("", rModel->columns.desc);
     }
-    elements_treeview->append_column(one_columns_name ? one_columns_name : "", model->columns.desc);
-    scrolledwindow->add(*elements_treeview);
+    else
+    {
+        pElementsTreeview->append_column(single_column_name, rModel->columns.desc);
+    }
+    pScrolledwindow->add(*pElementsTreeview);
     //list_parms->sel_iter = elements_liststore->get_iter_first()
     //if list_parms->sel_iter:
-    //    elements_treeview->set_cursor(elements_liststore->get_path(list_parms->sel_iter))
-    auto content_area = dialog.get_content_area();
-    content_area->pack_start(*scrolledwindow);
-    content_area->show_all();
-    elements_treeview->grab_focus();
+    //    pElementsTreeview->set_cursor(elements_liststore->get_path(list_parms->sel_iter))
+    Gtk::Box* pContentArea = dialog.get_content_area();
+    pContentArea->pack_start(*pScrolledwindow);
+    pContentArea->show_all();
+    pElementsTreeview->grab_focus();
 
-    if (dialog.run() != Gtk::RESPONSE_ACCEPT) return Gtk::TreeModel::iterator();
-    return elements_treeview->get_selection()->get_selected();
+    return (Gtk::RESPONSE_ACCEPT == dialog.run() ? pElementsTreeview->get_selection()->get_selected() : Gtk::TreeIter());
 }
 
 // Dialog to select a color, featuring a palette
-bool ct_dialogs::color_pick_dialog(Gtk::Window& parent, Gdk::RGBA& color)
+bool CtDialogs::color_pick_dialog(Gtk::Window& parent, Gdk::RGBA& color)
 {
-    Gtk::ColorChooserDialog dialog(_("Pick a Color"), parent);
+    Gtk::ColorChooserDialog dialog(_("Pick a Color"),
+                                   parent);
     dialog.set_transient_for(parent);
     dialog.set_modal(true);
     dialog.set_property("destroy-with-parent", true);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     std::vector<std::string> colors = str::split(CtApp::P_ctCfg->colorPalette, ":");
     std::vector<Gdk::RGBA> rgbas;
-    for (const auto& c: colors)
-        rgbas.push_back(Gdk::RGBA(c));
+    for (const std::string& color : colors)
+    {
+        rgbas.push_back(Gdk::RGBA(color));
+    }
     dialog.add_palette(Gtk::Orientation::ORIENTATION_HORIZONTAL, 10, rgbas);
     dialog.set_rgba(color);
 
     if (Gtk::RESPONSE_OK != dialog.run())
+    {
         return false;
+    }
 
     std::string ret_color_hex8 = CtRgbUtil::rgb_any_to_24(dialog.get_rgba());
     size_t color_qty = colors.size();
     colors.erase(std::find(colors.begin(), colors.end(), ret_color_hex8));
     if (color_qty == colors.size())
+    {
         colors.pop_back();
+    }
     colors.insert(colors.begin(), ret_color_hex8);
 
     color = dialog.get_rgba();
@@ -97,156 +160,206 @@ bool ct_dialogs::color_pick_dialog(Gtk::Window& parent, Gdk::RGBA& color)
 }
 
 // The Question dialog, returns True if the user presses OK
-bool ct_dialogs::question_dialog(const std::string& message, Gtk::Window& parent)
+bool CtDialogs::question_dialog(const Glib::ustring& message,
+                                Gtk::Window& parent)
 {
-    Gtk::MessageDialog dialog(parent, _("Question"),
-              true /* use_markup */, Gtk::MESSAGE_QUESTION,
-              Gtk::BUTTONS_OK_CANCEL, true /* modal */);
+    Gtk::MessageDialog dialog(parent,
+                              _("Question"),
+                              true/* use_markup */,
+                              Gtk::MESSAGE_QUESTION,
+                              Gtk::BUTTONS_OK_CANCEL,
+                              true/* modal */);
     dialog.set_secondary_text(message);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
-    return dialog.run() == Gtk::RESPONSE_OK;
+    return (Gtk::RESPONSE_OK == dialog.run());
 }
 
 // The Info dialog
-void ct_dialogs::info_dialog(const std::string& message, Gtk::Window& parent)
+void CtDialogs::info_dialog(const Glib::ustring& message,
+                            Gtk::Window& parent)
 {
-    Gtk::MessageDialog dialog(parent, _("Info"),
-              true /* use_markup */, Gtk::MESSAGE_INFO,
-              Gtk::BUTTONS_OK, true /* modal */);
+    Gtk::MessageDialog dialog(parent,
+                              _("Info"),
+                              true/* use_markup */,
+                              Gtk::MESSAGE_INFO,
+                              Gtk::BUTTONS_OK,
+                              true/* modal */);
     dialog.set_secondary_text(message);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.run();
 }
 
 // The Warning dialog
-void ct_dialogs::warning_dialog(const std::string& message, Gtk::Window& parent)
+void CtDialogs::warning_dialog(const Glib::ustring& message,
+                               Gtk::Window& parent)
 {
-    Gtk::MessageDialog dialog(parent, _("Warning"),
-              true /* use_markup */, Gtk::MESSAGE_WARNING,
-              Gtk::BUTTONS_OK, true /* modal */);
+    Gtk::MessageDialog dialog(parent,
+                              _("Warning"),
+                              true/* use_markup */,
+                              Gtk::MESSAGE_WARNING,
+                              Gtk::BUTTONS_OK,
+                              true/* modal */);
     dialog.set_secondary_text(message);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.run();
 }
 
 // The Error dialog
-void ct_dialogs::error_dialog(const std::string& message, Gtk::Window& parent)
+void CtDialogs::error_dialog(const Glib::ustring& message, Gtk::Window& parent)
 {
-    Gtk::MessageDialog dialog(parent, _("Error"),
-              true /* use_markup */, Gtk::MESSAGE_ERROR,
-              Gtk::BUTTONS_OK, true /* modal */);
+    Gtk::MessageDialog dialog(parent,
+                              _("Error"),
+                              true/* use_markup */,
+                              Gtk::MESSAGE_ERROR,
+                              Gtk::BUTTONS_OK,
+                              true/* modal */);
     dialog.set_secondary_text(message);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.run();
 }
 
 // Dialog to Select a Node
-Gtk::TreeIter ct_dialogs::choose_node_dialog(Gtk::Window& parent, Gtk::TreeView& parentTreeView, const std::string& title, CtTreeStore* treestore, Gtk::TreeIter sel_tree_iter)
+Gtk::TreeIter CtDialogs::choose_node_dialog(Gtk::Window& parent,
+                                            Gtk::TreeView& parentTreeView,
+                                            const Glib::ustring& title,
+                                            CtTreeStore* treestore,
+                                            Gtk::TreeIter sel_tree_iter)
 {
-    Gtk::Dialog dialog(title, parent, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    Gtk::Dialog dialog(title,
+                       parent,
+                       Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
     dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(600, 500);
-    auto treeview_2 = Gtk::TreeView(treestore->get_store());
+    Gtk::TreeView treeview_2(treestore->get_store());
     treeview_2.set_headers_visible(false);
     treeview_2.set_search_column(1);
     treeview_2.append_column("", treestore->get_columns().rColPixbuf);
     treeview_2.append_column("", treestore->get_columns().colNodeName);
-    auto scrolledwindow = Gtk::ScrolledWindow();
+    Gtk::ScrolledWindow scrolledwindow;
     scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     scrolledwindow.add(treeview_2);
-    auto content_area = dialog.get_content_area();
-    content_area->pack_start(scrolledwindow);
+    Gtk::Box* pContentArea = dialog.get_content_area();
+    pContentArea->pack_start(scrolledwindow);
 
-    auto expand_collapse_row = [&treeview_2](Gtk::TreePath path) {
+    auto expand_collapse_row = [&treeview_2](Gtk::TreePath path)
+    {
         if (treeview_2.row_expanded(path))
+        {
             treeview_2.collapse_row(path);
+        }
         else
+        {
             treeview_2.expand_row(path, false);
+        }
     };
 
-    treeview_2.signal_event().connect([&treeview_2, &expand_collapse_row](GdkEvent* event)->bool{
-        if (event->type != GDK_BUTTON_PRESS && event->type!= GDK_2BUTTON_PRESS && event->type != GDK_KEY_PRESS)
-            return false;
-        if (event->type == GDK_BUTTON_PRESS && event->button.button == 2) {
-            Gtk::TreePath path_at_click;
-            if (treeview_2.get_path_at_pos((int)event->button.x, (int)event->button.y, path_at_click)) {
-                expand_collapse_row(path_at_click);
-                return true;
-            }
-        } else if (event->type == GDK_2BUTTON_PRESS && event->button.button == 1) {
-            if (treeview_2.get_selection()->get_selected()) {
-                expand_collapse_row(treeview_2.get_model()->get_path(treeview_2.get_selection()->get_selected()));
-                return true;
-            }
-        } else if (event->type == GDK_KEY_PRESS && treeview_2.get_selection()->get_selected()) {
-            if (event->key.keyval == GDK_KEY_Left)
-                treeview_2.collapse_row(treeview_2.get_model()->get_path(treeview_2.get_selection()->get_selected()));
-            else if (event->key.keyval == GDK_KEY_Right)
-                treeview_2.expand_row(treeview_2.get_model()->get_path(treeview_2.get_selection()->get_selected()), false);
-            else
-                return false;
-            return true;
+    treeview_2.signal_event().connect([&treeview_2, &expand_collapse_row](GdkEvent* event)->bool
+    {
+        bool retVal{false}; // propagate event
+        if ( (event->type != GDK_BUTTON_PRESS) &&
+             (event->type != GDK_2BUTTON_PRESS) &&
+             (event->type != GDK_KEY_PRESS) )
+        {
+            // do nothing
         }
-        return false;
+        else if ( (event->type == GDK_BUTTON_PRESS) &&
+             (event->button.button == 2) )
+        {
+            Gtk::TreePath path_at_click;
+            if (treeview_2.get_path_at_pos((int)event->button.x, (int)event->button.y, path_at_click))
+            {
+                expand_collapse_row(path_at_click);
+                retVal = true; // stop event
+            }
+        }
+        else if ( (event->type == GDK_2BUTTON_PRESS) &&
+                  (event->button.button == 1) )
+        {
+            if (treeview_2.get_selection()->get_selected())
+            {
+                expand_collapse_row(treeview_2.get_model()->get_path(treeview_2.get_selection()->get_selected()));
+                retVal = true; // stop event
+            }
+        }
+        else if ( (event->type == GDK_KEY_PRESS) &&
+                  (treeview_2.get_selection()->get_selected()) )
+        {
+            if (event->key.keyval == GDK_KEY_Left)
+            {
+                treeview_2.collapse_row(treeview_2.get_model()->get_path(treeview_2.get_selection()->get_selected()));
+                retVal = true; // stop event
+            }
+            else if (event->key.keyval == GDK_KEY_Right)
+            {
+                treeview_2.expand_row(treeview_2.get_model()->get_path(treeview_2.get_selection()->get_selected()), false);
+                retVal = true; // stop event
+            }
+        }
+        return retVal;
     });
     
-    content_area->show_all();
+    pContentArea->show_all();
     std::string expanded_collapsed_string = treestore->get_tree_expanded_collapsed_string(parentTreeView);
     treestore->set_tree_expanded_collapsed_string(expanded_collapsed_string, treeview_2, CtApp::P_ctCfg->nodesBookmExp);
-    if (sel_tree_iter) {
+    if (sel_tree_iter)
+    {
         Gtk::TreePath sel_path = treeview_2.get_model()->get_path(sel_tree_iter);
         treeview_2.expand_to_path(sel_path);
         treeview_2.set_cursor(sel_path);
         treeview_2.scroll_to_row(sel_path);
     }
 
-    return dialog.run() == Gtk::RESPONSE_ACCEPT ? treeview_2.get_selection()->get_selected() : Gtk::TreeIter();
+    return (dialog.run() == Gtk::RESPONSE_ACCEPT ? treeview_2.get_selection()->get_selected() : Gtk::TreeIter());
 }
 
 // Handle the Bookmarks List
-void ct_dialogs::bookmarks_handle_dialog(CtMainWin* ctMainWin)
+void CtDialogs::bookmarks_handle_dialog(CtMainWin* ctMainWin)
 {
     CtTreeStore& ctTreestore = ctMainWin->get_tree_store();
     const std::list<gint64>& bookmarks = ctTreestore.get_bookmarks();
 
-    Gtk::Dialog dialog(_("Handle the Bookmarks List"), *ctMainWin, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    Gtk::Dialog dialog(_("Handle the Bookmarks List"),
+                       *ctMainWin,
+                       Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
     dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(500, 400);
 
-    auto model = ct_dialogs::CtChooseDialogTreeStore::create();
-    for (const gint64& node_id: bookmarks)
-        model->add_row("pin", "", ctTreestore.get_node_name_from_node_id(node_id), node_id);
+    auto rModel = CtChooseDialogTreeStore::create();
+    for (const gint64& node_id : bookmarks)
+    {
+        rModel->add_row("pin", "", ctTreestore.get_node_name_from_node_id(node_id), node_id);
+    }
 
-    auto treeview = Gtk::TreeView(model);
+    Gtk::TreeView treeview(rModel);
     treeview.set_headers_visible(false);
     treeview.set_reorderable(true);
-    Gtk::CellRendererPixbuf pix_buf_renderer;
-    int col_num = treeview.append_column("", pix_buf_renderer) - 1;
-    treeview.get_column(col_num)->add_attribute(pix_buf_renderer, "icon-name", model->columns.stock_id);
-    treeview.append_column("", model->columns.desc);
-    auto scrolledwindow = Gtk::ScrolledWindow();
+    Gtk::CellRendererPixbuf pixbuf_renderer;
+    int col_num = treeview.append_column("", pixbuf_renderer) - 1;
+    treeview.get_column(col_num)->add_attribute(pixbuf_renderer, "icon-name", rModel->columns.stock_id);
+    treeview.append_column("", rModel->columns.desc);
+    Gtk::ScrolledWindow scrolledwindow;
     scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     scrolledwindow.add(treeview);
-    auto content_area = dialog.get_content_area();
+    Gtk::Box* pContentArea = dialog.get_content_area();
 
-    auto button_move_up = Gtk::Button();
+    Gtk::Button button_move_up;
     button_move_up.set_image_from_icon_name("gtk-go-up", Gtk::ICON_SIZE_DND);
-    auto button_move_down = Gtk::Button();
+    Gtk::Button button_move_down;
     button_move_down.set_image_from_icon_name("gtk-go-down", Gtk::ICON_SIZE_DND);
-    auto button_delete = Gtk::Button();
+    Gtk::Button button_delete;
     button_delete.set_image_from_icon_name("gtk-clear", Gtk::ICON_SIZE_DND);
-    auto button_sort_desc = Gtk::Button();
+    Gtk::Button button_sort_desc;
     button_sort_desc.set_image_from_icon_name("gtk-sort-descending", Gtk::ICON_SIZE_DND);
-    auto button_sort_asc = Gtk::Button();
+    Gtk::Button button_sort_asc;
     button_sort_asc.set_image_from_icon_name("gtk-sort-ascending", Gtk::ICON_SIZE_DND);
-    auto label1 = Gtk::Label();
-    auto label2 = Gtk::Label();
-    auto hbox = Gtk::HBox();
-    auto vbox = Gtk::VBox();
+    Gtk::Label label1;
+    Gtk::Label label2;
+    Gtk::HBox hbox;
+    Gtk::VBox vbox;
     vbox.set_spacing(1);
     vbox.pack_start(button_move_up, false, false);
     vbox.pack_start(button_move_down, false, false);
@@ -257,82 +370,120 @@ void ct_dialogs::bookmarks_handle_dialog(CtMainWin* ctMainWin)
     vbox.pack_start(label2, true, false);
     hbox.pack_start(scrolledwindow, true, true);
     hbox.pack_start(vbox, false, false);
-    content_area->pack_start(hbox);
-    content_area->show_all();
+    pContentArea->pack_start(hbox);
+    pContentArea->show_all();
 
-    treeview.signal_key_press_event().connect([&model, &treeview](GdkEventKey* key) -> bool {
-        if (key->keyval == GDK_KEY_Delete) {
+    treeview.signal_key_press_event().connect([&rModel, &treeview](GdkEventKey* key)->bool
+    {
+        if (key->keyval == GDK_KEY_Delete)
+        {
             Gtk::TreeIter tree_iter = treeview.get_selection()->get_selected();
-            if (tree_iter) model->erase(tree_iter);
-            return true;
+            if (tree_iter)
+            {
+                rModel->erase(tree_iter);
+            }
+            return true; // stop event
         }
-        return false;
+        return false; // propagate event
     });
-    treeview.signal_button_press_event().connect([&treeview, &model, &ctMainWin, &ctTreestore](GdkEventButton* event) -> bool {
-        if (event->button != 1 || event->type != GDK_2BUTTON_PRESS) return false;
+    treeview.signal_button_press_event().connect([&treeview, &rModel, &ctMainWin, &ctTreestore](GdkEventButton* event)->bool
+    {
+        if (event->button != 1 || event->type != GDK_2BUTTON_PRESS)
+        {
+            return false; // propagate event
+        }
         Gtk::TreePath clicked_path;
-        if (!treeview.get_path_at_pos((int)event->x, (int)event->y, clicked_path)) return false;
-        Gtk::TreeIter clicked_iter = model->get_iter(clicked_path);
-        gint64 node_id = clicked_iter->get_value(model->columns.node_id);
+        if (false == treeview.get_path_at_pos((int)event->x, (int)event->y, clicked_path))
+        {
+            return false; // propagate event
+        }
+        Gtk::TreeIter clicked_iter = rModel->get_iter(clicked_path);
+        gint64 node_id = clicked_iter->get_value(rModel->columns.node_id);
         Gtk::TreeIter tree_iter = ctTreestore.get_node_from_node_id(node_id);
         ctMainWin->get_tree_view().set_cursor_safe(tree_iter);
-        return true;
+        return true; // stop event
     });
-    button_move_up.signal_clicked().connect([&treeview, &model](){
+    button_move_up.signal_clicked().connect([&treeview, &rModel]()
+    {
         Gtk::TreeIter curr_iter = treeview.get_selection()->get_selected();
         Gtk::TreeIter prev_iter = --treeview.get_selection()->get_selected();
-        if (curr_iter && prev_iter) model->iter_swap(curr_iter, prev_iter);
+        if (curr_iter && prev_iter)
+        {
+            rModel->iter_swap(curr_iter, prev_iter);
+        }
     });
-    button_move_down.signal_clicked().connect([&treeview, &model](){
+    button_move_down.signal_clicked().connect([&treeview, &rModel]()
+    {
         Gtk::TreeIter curr_iter = treeview.get_selection()->get_selected();
         Gtk::TreeIter next_iter = ++treeview.get_selection()->get_selected();
-        if (curr_iter && next_iter) model->iter_swap(curr_iter, next_iter);
+        if (curr_iter && next_iter)
+        {
+            rModel->iter_swap(curr_iter, next_iter);
+        }
     });
-    button_delete.signal_clicked().connect([&treeview, &model](){
+    button_delete.signal_clicked().connect([&treeview, &rModel]()
+    {
         Gtk::TreeIter tree_iter = treeview.get_selection()->get_selected();
-        if (tree_iter) model->erase(tree_iter);
+        if (tree_iter)
+        {
+            rModel->erase(tree_iter);
+        }
     });
-    button_sort_asc.signal_clicked().connect([&model](){
-        auto need_swap = [&model](Gtk::TreeIter& l, Gtk::TreeIter& r) {
-            int cmp = l->get_value(model->columns.desc).compare(r->get_value(model->columns.desc));
-            return cmp > 0;
+    button_sort_asc.signal_clicked().connect([&rModel]()
+    {
+        auto need_swap = [&rModel](Gtk::TreeIter& l, Gtk::TreeIter& r)
+        {
+            int cmp = l->get_value(rModel->columns.desc).compare(r->get_value(rModel->columns.desc));
+            return (cmp > 0);
         };
-        CtMiscUtil::node_siblings_sort_iteration(model, model->children(), need_swap);
+        CtMiscUtil::node_siblings_sort_iteration(rModel, rModel->children(), need_swap);
     });
-    button_sort_desc.signal_clicked().connect([&model](){
-        auto need_swap = [&model](Gtk::TreeIter& l, Gtk::TreeIter& r) {
-            int cmp = l->get_value(model->columns.desc).compare(r->get_value(model->columns.desc));
-            return cmp < 0;
+    button_sort_desc.signal_clicked().connect([&rModel]()
+    {
+        auto need_swap = [&rModel](Gtk::TreeIter& l, Gtk::TreeIter& r)
+        {
+            int cmp = l->get_value(rModel->columns.desc).compare(r->get_value(rModel->columns.desc));
+            return (cmp < 0);
         };
-        CtMiscUtil::node_siblings_sort_iteration(model, model->children(), need_swap);
+        CtMiscUtil::node_siblings_sort_iteration(rModel, rModel->children(), need_swap);
     });
 
     if (dialog.run() != Gtk::RESPONSE_ACCEPT)
+    {
         return;
-
+    }
 
     std::set<gint64> temp_bookmarks;
     std::list<gint64> temp_bookmarks_order;
-    model->foreach_iter([&temp_bookmarks, &temp_bookmarks_order, &model](const Gtk::TreeIter& iter) {
-        gint64 node_id = iter->get_value(model->columns.node_id);
+    rModel->foreach_iter([&temp_bookmarks, &temp_bookmarks_order, &rModel](const Gtk::TreeIter& iter)
+    {
+        gint64 node_id = iter->get_value(rModel->columns.node_id);
         temp_bookmarks.insert(node_id);
         temp_bookmarks_order.push_back(node_id);
         return false; /* to continue */
     });
 
     std::list<gint64> removed_bookmarks;
-    for (const gint64& node_id: bookmarks)
-        if (!set::exists(temp_bookmarks, node_id))
+    for (const gint64& node_id : bookmarks)
+    {
+        if (0 == temp_bookmarks.count(node_id))
+        {
             removed_bookmarks.push_back(node_id);
+        }
+    }
 
     ctTreestore.set_bookmarks(temp_bookmarks_order);
     gint64 curr_node_id = ctMainWin->curr_tree_iter().get_node_id();
-    for (gint64& node_id: removed_bookmarks) {
+    for (gint64& node_id: removed_bookmarks)
+    {
         Gtk::TreeIter tree_iter = ctTreestore.get_node_from_node_id(node_id);
-        if (tree_iter) {
+        if (tree_iter)
+        {
             ctTreestore.update_node_aux_icon(tree_iter);
             if (curr_node_id == node_id)
+            {
                 ctMainWin->menu_tree_update_for_bookmarked_node(false);
+            }
         }
     }
 
@@ -342,9 +493,13 @@ void ct_dialogs::bookmarks_handle_dialog(CtMainWin* ctMainWin)
 }
 
 // Dialog to select a Date
-std::time_t ct_dialogs::date_select_dialog(Gtk::Window& parent, const std::string& title, const std::time_t& curr_time)
+std::time_t CtDialogs::date_select_dialog(Gtk::Window& parent,
+                                          const Glib::ustring& title,
+                                          const std::time_t& curr_time)
 {
-    Gtk::Dialog dialog(title, parent, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    Gtk::Dialog dialog(title,
+                       parent,
+                       Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
     dialog.set_transient_for(parent);
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
     dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
@@ -353,32 +508,38 @@ std::time_t ct_dialogs::date_select_dialog(Gtk::Window& parent, const std::strin
 
     std::tm struct_time = *std::localtime(&curr_time);
 
-    auto content_area = dialog.get_content_area();
-    auto calendar = Gtk::Calendar();
+    Gtk::Box* pContentArea = dialog.get_content_area();
+    Gtk::Calendar calendar;
     calendar.select_month((guint)(struct_time.tm_mon-1), (guint)struct_time.tm_year); // month 0-11
     calendar.select_day((guint)struct_time.tm_mday); // day 1-31
-    auto adj_h = Gtk::Adjustment::create(struct_time.tm_hour, 0, 23, 1);
-    auto spinbutton_h = Gtk::SpinButton(adj_h);
+    Glib::RefPtr<Gtk::Adjustment> rAdj_h = Gtk::Adjustment::create(struct_time.tm_hour, 0, 23, 1);
+    Gtk::SpinButton spinbutton_h(rAdj_h);
     spinbutton_h.set_value(struct_time.tm_hour);
-    auto adj_m = Gtk::Adjustment::create(struct_time.tm_min, 0, 59, 1);
-    auto spinbutton_m = Gtk::SpinButton(adj_m);
+    Glib::RefPtr<Gtk::Adjustment> rAdj_m = Gtk::Adjustment::create(struct_time.tm_min, 0, 59, 1);
+    Gtk::SpinButton spinbutton_m(rAdj_m);
     spinbutton_m.set_value(struct_time.tm_min);
-    auto hbox = Gtk::HBox();
+    Gtk::HBox hbox;
     hbox.pack_start(spinbutton_h);
     hbox.pack_start(spinbutton_m);
-    content_area->pack_start(calendar);
-    content_area->pack_start(hbox);
+    pContentArea->pack_start(calendar);
+    pContentArea->pack_start(hbox);
 
-    dialog.signal_button_press_event().connect([&dialog](GdkEventButton* event)->bool {
-        if (event->button == 1 && event->type == GDK_2BUTTON_PRESS)
+    dialog.signal_button_press_event().connect([&dialog](GdkEventButton* event)->bool
+    {
+        if ( (event->button == 1) &&
+             (event->type == GDK_2BUTTON_PRESS) )
+        {
             return false;
+        }
         dialog.response(Gtk::RESPONSE_ACCEPT);
         return true;
     });
-    content_area->show_all();
+    pContentArea->show_all();
 
     if (dialog.run() != Gtk::RESPONSE_ACCEPT)
+    {
         return 0;
+    }
 
     guint new_year, new_month, new_day;
     calendar.get_date(new_year, new_month, new_day);
@@ -394,76 +555,97 @@ std::time_t ct_dialogs::date_select_dialog(Gtk::Window& parent, const std::strin
     return new_time;
 }
 
-void ct_dialogs::match_dialog(const std::string& title, CtMainWin& ctMainWin, Glib::RefPtr<CtMatchDialogStore> model)
+void CtDialogs::match_dialog(const Glib::ustring& title,
+                             CtMainWin& ctMainWin,
+                             Glib::RefPtr<CtMatchDialogStore> rModel)
 {
-    /* will be delete on hide event */
-    Gtk::Dialog* allmatchesdialog = new Gtk::Dialog(title, ctMainWin, Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
-    allmatchesdialog->set_transient_for(ctMainWin);
-    if (model->dlg_size[0] > 0) {
-        allmatchesdialog->set_default_size(model->dlg_size[0], model->dlg_size[1]);
-        allmatchesdialog->move(model->dlg_pos[0], model->dlg_pos[1]);
-    } else {
-        allmatchesdialog->set_default_size(700, 350);
-        allmatchesdialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
+    /* will be deleted on hide event */
+    Gtk::Dialog* pAllMatchesDialog = new Gtk::Dialog(title,
+                                                     ctMainWin,
+                                                     Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    pAllMatchesDialog->set_transient_for(ctMainWin);
+    if (rModel->dlg_size[0] > 0)
+    {
+        pAllMatchesDialog->set_default_size(rModel->dlg_size[0], rModel->dlg_size[1]);
+        pAllMatchesDialog->move(rModel->dlg_pos[0], rModel->dlg_pos[1]);
     }
-    CtAction* action = ctMainWin.get_ct_menu().find_action("toggle_show_allmatches_dlg");
-    auto button_hide = allmatchesdialog->add_button(str::format(_("Hide (Restore with '%s')"), action->get_shortcut()), Gtk::RESPONSE_CLOSE);
-    button_hide->set_image_from_icon_name(Gtk::Stock::CLOSE.id, Gtk::ICON_SIZE_BUTTON);
-    Gtk::TreeView* treeview = Gtk::manage(new Gtk::TreeView(model));
-    treeview->append_column(_("Node Name"), model->columns.node_name);
-    treeview->append_column(_("Line"), model->columns.line_num);
-    treeview->append_column(_("Line Content"), model->columns.line_content);
-    treeview->append_column("", model->columns.node_hier_name);
-    treeview->get_column(3)->property_visible() = false;
-    treeview->set_tooltip_column(3);
-    auto scrolledwindow_allmatches = Gtk::manage(new Gtk::ScrolledWindow());
-    scrolledwindow_allmatches->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-    scrolledwindow_allmatches->add(*treeview);
-    auto content_area = allmatchesdialog->get_content_area();
-    content_area->pack_start(*scrolledwindow_allmatches);
+    else
+    {
+        pAllMatchesDialog->set_default_size(700, 350);
+        pAllMatchesDialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
+    }
+    CtAction* pAction = ctMainWin.get_ct_menu().find_action("toggle_show_allmatches_dlg");
+    Gtk::Button* pButtonHide = pAllMatchesDialog->add_button(str::format(_("Hide (Restore with '%s')"), pAction->get_shortcut()), Gtk::RESPONSE_CLOSE);
+    pButtonHide->set_image_from_icon_name(Gtk::Stock::CLOSE.id, Gtk::ICON_SIZE_BUTTON);
+    Gtk::TreeView* pTreeview = Gtk::manage(new Gtk::TreeView(rModel));
+    pTreeview->append_column(_("Node Name"), rModel->columns.node_name);
+    pTreeview->append_column(_("Line"), rModel->columns.line_num);
+    pTreeview->append_column(_("Line Content"), rModel->columns.line_content);
+    pTreeview->append_column("", rModel->columns.node_hier_name);
+    pTreeview->get_column(3)->property_visible() = false;
+    pTreeview->set_tooltip_column(3);
+    Gtk::ScrolledWindow* pScrolledwindowAllmatches = Gtk::manage(new Gtk::ScrolledWindow());
+    pScrolledwindowAllmatches->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+    pScrolledwindowAllmatches->add(*pTreeview);
+    Gtk::Box* pContentArea = pAllMatchesDialog->get_content_area();
+    pContentArea->pack_start(*pScrolledwindowAllmatches);
 
-    if (model->saved_path) {
-        treeview->set_cursor(model->saved_path);
-        treeview->scroll_to_row(model->saved_path, 0.5);
+    if (rModel->saved_path)
+    {
+        pTreeview->set_cursor(rModel->saved_path);
+        pTreeview->scroll_to_row(rModel->saved_path, 0.5);
     }
 
-    treeview->signal_event_after().connect([treeview, model, &ctMainWin](GdkEvent* event) {
-        if (event->type != GDK_BUTTON_PRESS && event->type != GDK_KEY_PRESS) return;
-        Gtk::TreeIter list_iter = treeview->get_selection()->get_selected();
-        if (!list_iter) return;
-        gint64 node_id = list_iter->get_value(model->columns.node_id);
+    pTreeview->signal_event_after().connect([pTreeview, rModel, &ctMainWin](GdkEvent* event)
+    {
+        if ( (event->type != GDK_BUTTON_PRESS) &&
+             (event->type != GDK_KEY_PRESS) )
+        {
+            return;
+        }
+        Gtk::TreeIter list_iter = pTreeview->get_selection()->get_selected();
+        if (!list_iter)
+        {
+            return;
+        }
+        gint64 node_id = list_iter->get_value(rModel->columns.node_id);
         CtTreeIter tree_iter = ctMainWin.get_tree_store().get_node_from_node_id(node_id);
-        if (!tree_iter) {
-            ct_dialogs::error_dialog(str::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), node_id), ctMainWin);
-            model->erase(list_iter);
+        if (!tree_iter)
+        {
+            CtDialogs::error_dialog(str::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), node_id), ctMainWin);
+            rModel->erase(list_iter);
             return;
         }
         ctMainWin.get_tree_view().set_cursor_safe(tree_iter);
         auto curr_buffer = ctMainWin.get_text_view().get_buffer();
         curr_buffer->move_mark(curr_buffer->get_insert(),
-                               curr_buffer->get_iter_at_offset(list_iter->get_value(model->columns.start_offset)));
+                               curr_buffer->get_iter_at_offset(list_iter->get_value(rModel->columns.start_offset)));
         curr_buffer->move_mark(curr_buffer->get_selection_bound(),
-                               curr_buffer->get_iter_at_offset(list_iter->get_value(model->columns.end_offset)));
+                               curr_buffer->get_iter_at_offset(list_iter->get_value(rModel->columns.end_offset)));
         ctMainWin.get_text_view().scroll_to(curr_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
     });
-    button_hide->signal_clicked().connect([allmatchesdialog](){
-        allmatchesdialog->hide();
+    pButtonHide->signal_clicked().connect([pAllMatchesDialog]()
+    {
+        pAllMatchesDialog->hide();
     });
-    allmatchesdialog->signal_hide().connect([allmatchesdialog, treeview, model]() {
-        allmatchesdialog->get_position(model->dlg_pos[0], model->dlg_pos[1]);
-        allmatchesdialog->get_size(model->dlg_size[0], model->dlg_size[1]);
-        auto list_iter = treeview->get_selection()->get_selected();
-        model->saved_path = treeview->get_model()->get_path(list_iter);
+    pAllMatchesDialog->signal_hide().connect([pAllMatchesDialog, pTreeview, rModel]()
+    {
+        pAllMatchesDialog->get_position(rModel->dlg_pos[0], rModel->dlg_pos[1]);
+        pAllMatchesDialog->get_size(rModel->dlg_size[0], rModel->dlg_size[1]);
+        Gtk::TreeIter list_iter = pTreeview->get_selection()->get_selected();
+        rModel->saved_path = pTreeview->get_model()->get_path(list_iter);
 
-        delete allmatchesdialog;
+        delete pAllMatchesDialog;
     });
 
-    allmatchesdialog->show_all();
+    pAllMatchesDialog->show_all();
 }
 
 // Insert/Edit Anchor Name
-Glib::ustring ct_dialogs::img_n_entry_dialog(Gtk::Window& parent, const char* title,
-                                             const Glib::ustring& entry_content, const char* img_stock)
+Glib::ustring CtDialogs::img_n_entry_dialog(Gtk::Window& parent,
+                                             const Glib::ustring& title,
+                                             const Glib::ustring& entry_content,
+                                             const char* img_stock)
 {
     Gtk::Dialog dialog(title, parent, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
@@ -479,9 +661,9 @@ Glib::ustring ct_dialogs::img_n_entry_dialog(Gtk::Window& parent, const char* ti
     hbox.pack_start(image, false, false);
     hbox.pack_start(entry);
     hbox.set_spacing(5);
-    auto content_area = dialog.get_content_area();
-    content_area->pack_start(hbox);
-    content_area->show_all();
+    Gtk::Box* pContentArea = dialog.get_content_area();
+    pContentArea->pack_start(hbox);
+    pContentArea->show_all();
     entry.grab_focus();
     if (Gtk::RESPONSE_ACCEPT != dialog.run())
         return "";
@@ -489,7 +671,9 @@ Glib::ustring ct_dialogs::img_n_entry_dialog(Gtk::Window& parent, const char* ti
 }
 
 // Dialog to Insert/Edit Links
-bool ct_dialogs::link_handle_dialog(CtMainWin& ctMainWin, const Glib::ustring& title, Gtk::TreeIter sel_tree_iter,
+bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
+                                    const Glib::ustring& title,
+                                    Gtk::TreeIter sel_tree_iter,
                                     CtLinkEntry& link_entries)
 {
     CtTreeStore& ctTreestore = ctMainWin.get_tree_store();
@@ -588,13 +772,13 @@ bool ct_dialogs::link_handle_dialog(CtMainWin& ctMainWin, const Glib::ustring& t
     hbox_detail.pack_start(scrolledwindow);
     hbox_detail.pack_start(vbox_anchor, false, false);
 
-    auto content_area = dialog.get_content_area();
-    content_area->pack_start(hbox_webs, false, false);
-    content_area->pack_start(hbox_file, false, false);
-    content_area->pack_start(hbox_folder, false, false);
-    content_area->pack_start(hbox_node, false, false);
-    content_area->pack_start(hbox_detail);
-    content_area->set_spacing(5);
+    Gtk::Box* pContentArea = dialog.get_content_area();
+    pContentArea->pack_start(hbox_webs, false, false);
+    pContentArea->pack_start(hbox_file, false, false);
+    pContentArea->pack_start(hbox_folder, false, false);
+    pContentArea->pack_start(hbox_node, false, false);
+    pContentArea->pack_start(hbox_detail);
+    pContentArea->set_spacing(5);
 
     radiobutton_webs.set_active(link_entries.type == CtConst::LINK_TYPE_WEBS);
     radiobutton_node.set_active(link_entries.type == CtConst::LINK_TYPE_NODE);
@@ -646,7 +830,7 @@ bool ct_dialogs::link_handle_dialog(CtMainWin& ctMainWin, const Glib::ustring& t
         link_type_changed_on_dialog();
     });
     button_browse_file.signal_clicked().connect([&](){
-        auto filepath = ct_dialogs::file_select_dialog({.parent=&dialog, .curr_folder=CtApp::P_ctCfg->pickDirFile});
+        auto filepath = CtDialogs::file_select_dialog({.parent=&dialog, .curr_folder=CtApp::P_ctCfg->pickDirFile});
         if (filepath.empty()) return;
         CtApp::P_ctCfg->pickDirFile = CtFileSystem::dirname(filepath);
         if (CtApp::P_ctCfg->linksRelative) {
@@ -655,7 +839,7 @@ bool ct_dialogs::link_handle_dialog(CtMainWin& ctMainWin, const Glib::ustring& t
         entry_file.set_text(filepath);
     });
     button_browse_folder.signal_clicked().connect([&](){
-        auto filepath = ct_dialogs::folder_select_dialog(CtApp::P_ctCfg->pickDirFile, &dialog);
+        auto filepath = CtDialogs::folder_select_dialog(CtApp::P_ctCfg->pickDirFile, &dialog);
         if (filepath.empty()) return;
         CtApp::P_ctCfg->pickDirFile = filepath;
         if (CtApp::P_ctCfg->linksRelative) {
@@ -667,7 +851,7 @@ bool ct_dialogs::link_handle_dialog(CtMainWin& ctMainWin, const Glib::ustring& t
     });
     button_browse_anchor.signal_clicked().connect([&](){
         if (!sel_tree_iter) {
-            ct_dialogs::warning_dialog(_("No Node is Selected"), dialog);
+            CtDialogs::warning_dialog(_("No Node is Selected"), dialog);
             return;
         }
         //anchors_list = [];
@@ -731,7 +915,7 @@ bool ct_dialogs::link_handle_dialog(CtMainWin& ctMainWin, const Glib::ustring& t
         return false;
     });
 
-    content_area->show_all();
+    pContentArea->show_all();
     link_type_changed_on_dialog();
 
     if (dialog.run() != GTK_RESPONSE_ACCEPT)
@@ -746,7 +930,7 @@ bool ct_dialogs::link_handle_dialog(CtMainWin& ctMainWin, const Glib::ustring& t
 }
 
 // The Select file dialog, Returns the retrieved filepath or None
-Glib::ustring ct_dialogs::file_select_dialog(ct_dialogs::file_select_args args)
+Glib::ustring CtDialogs::file_select_dialog(CtDialogs::file_select_args args)
 {
     auto chooser = Gtk::FileChooserDialog(_("Select File"), Gtk::FILE_CHOOSER_ACTION_OPEN);
     chooser.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
@@ -777,7 +961,7 @@ Glib::ustring ct_dialogs::file_select_dialog(ct_dialogs::file_select_args args)
 }
 
 // The Select folder dialog, returns the retrieved folderpath or None
-Glib::ustring ct_dialogs::folder_select_dialog(Glib::ustring curr_folder, Gtk::Window* parent /*= nullptr*/)
+Glib::ustring CtDialogs::folder_select_dialog(Glib::ustring curr_folder, Gtk::Window* parent /*= nullptr*/)
 {
     auto chooser = Gtk::FileChooserDialog(_("Select Folder"), Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
     chooser.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
@@ -800,7 +984,7 @@ Glib::ustring ct_dialogs::folder_select_dialog(Glib::ustring curr_folder, Gtk::W
 }
 
 // The Save file as dialog, Returns the retrieved filepath or None
-Glib::ustring ct_dialogs::file_save_as_dialog(ct_dialogs::file_select_args args)
+Glib::ustring CtDialogs::file_save_as_dialog(CtDialogs::file_select_args args)
 {
     auto chooser = Gtk::FileChooserDialog(_("Save File as"), Gtk::FILE_CHOOSER_ACTION_SAVE);
     chooser.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
@@ -837,7 +1021,8 @@ Glib::ustring ct_dialogs::file_save_as_dialog(ct_dialogs::file_select_args args)
 }
 
 // Insert/Edit Image
-Glib::RefPtr<Gdk::Pixbuf> ct_dialogs::image_handle_dialog(Gtk::Window& father_win, Glib::ustring title,
+Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& father_win,
+                                                          const Glib::ustring& title,
                                                           Glib::RefPtr<Gdk::Pixbuf> original_pixbuf)
 {
     int width = original_pixbuf->get_width();
@@ -878,10 +1063,10 @@ Glib::RefPtr<Gdk::Pixbuf> ct_dialogs::image_handle_dialog(Gtk::Window& father_wi
     hbox_2.pack_start(spinbutton_width);
     hbox_2.pack_start(label_height);
     hbox_2.pack_start(spinbutton_height);
-    auto content_area = dialog.get_content_area();
-    content_area->pack_start(hbox_1);
-    content_area->pack_start(hbox_2, false, false);
-    content_area->set_spacing(6);
+    Gtk::Box* pContentArea = dialog.get_content_area();
+    pContentArea->pack_start(hbox_1);
+    pContentArea->pack_start(hbox_2, false, false);
+    pContentArea->set_spacing(6);
 
     auto image_load_into_dialog = [&]() {
         spinbutton_width.set_value(width);
@@ -927,7 +1112,7 @@ Glib::RefPtr<Gdk::Pixbuf> ct_dialogs::image_handle_dialog(Gtk::Window& father_wi
         image_load_into_dialog();
     });
     image_load_into_dialog();
-    content_area->show_all();
+    pContentArea->show_all();
     ok_button->grab_focus();
 
     if (Gtk::RESPONSE_ACCEPT != dialog.run())
@@ -936,7 +1121,8 @@ Glib::RefPtr<Gdk::Pixbuf> ct_dialogs::image_handle_dialog(Gtk::Window& father_wi
 }
 
 // Opens the CodeBox Handle Dialog
-bool ct_dialogs::codeboxhandle_dialog(Gtk::Window& father_win, const Glib::ustring& title)
+bool CtDialogs::codeboxhandle_dialog(Gtk::Window& father_win,
+                                      const Glib::ustring& title)
 {
     auto dialog = Gtk::Dialog(title, father_win, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
@@ -1025,18 +1211,18 @@ bool ct_dialogs::codeboxhandle_dialog(Gtk::Window& father_win, const Glib::ustri
     options_frame.set_shadow_type(Gtk::SHADOW_NONE);
     options_frame.add(opt_align);
 
-    auto content_area = dialog.get_content_area();
-    content_area->set_spacing(5);
-    content_area->pack_start(type_frame);
-    content_area->pack_start(size_frame);
-    content_area->pack_start(options_frame);
-    content_area->show_all();
+    Gtk::Box* pContentArea = dialog.get_content_area();
+    pContentArea->set_spacing(5);
+    pContentArea->pack_start(type_frame);
+    pContentArea->pack_start(size_frame);
+    pContentArea->pack_start(options_frame);
+    pContentArea->show_all();
 
     button_prog_lang.signal_clicked().connect([&button_prog_lang, &dialog](){
-        auto itemStore = ct_dialogs::CtChooseDialogListStore::create();
+        auto itemStore = CtChooseDialogListStore::create();
         for (auto lang: CtApp::R_languageManager->get_language_ids())
             itemStore->add_row(CtConst::getStockIdForCodeType(lang), "", lang);
-        auto res = ct_dialogs::choose_item_dialog(dialog, _("Automatic Syntax Highlighting"), itemStore);
+        auto res = CtDialogs::choose_item_dialog(dialog, _("Automatic Syntax Highlighting"), itemStore);
         if (res) {
             std::string stock_id = res->get_value(itemStore->columns.desc);
             button_prog_lang.set_label(stock_id);

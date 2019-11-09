@@ -73,14 +73,14 @@ struct SearchState {
 
     Gtk::Dialog* iteratedfinddialog = nullptr;
 
-    Glib::RefPtr<ct_dialogs::CtMatchDialogStore> match_store;
+    Glib::RefPtr<CtMatchDialogStore> match_store;
     std::string   match_dialog_title;
 
 } s_state;
 
 void CtActions::_find_init()
 {
-    s_state.match_store = ct_dialogs::CtMatchDialogStore::create();
+    s_state.match_store = CtMatchDialogStore::create();
     std::time_t curr_time = std::time(nullptr);
     std::time_t yesterday_time = curr_time - 86400; //24*60*60
     s_options.ts_cre_after  = {yesterday_time, false};
@@ -138,10 +138,10 @@ void CtActions::find_in_selected_node()
     else if (_parse_node_content_iter(_pCtMainWin->curr_tree_iter(), curr_buffer, pattern, forward, first_fromsel, all_matches, true))
         s_state.matches_num = 1;
     if (s_state.matches_num == 0)
-        ct_dialogs::info_dialog(str::format(_("The pattern '%s' was not found"), pattern), *_pCtMainWin);
+        CtDialogs::info_dialog(str::format(_("The pattern '%s' was not found"), pattern), *_pCtMainWin);
     else if (all_matches) {
         s_state.match_dialog_title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
-        ct_dialogs::match_dialog(s_state.match_dialog_title, *_pCtMainWin, s_state.match_store);
+        CtDialogs::match_dialog(s_state.match_dialog_title, *_pCtMainWin, s_state.match_store);
     }
     else if (s_options.search_replace_dict_idialog) {
         _iterated_find_dialog();
@@ -267,11 +267,11 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
         _pCtMainWin->get_text_view().scroll_to(curr_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
     }
     if (!s_state.matches_num)
-        ct_dialogs::info_dialog(str::format(_("The pattern '%s' was not found"), std::string(pattern)), *_pCtMainWin);
+        CtDialogs::info_dialog(str::format(_("The pattern '%s' was not found"), std::string(pattern)), *_pCtMainWin);
     else {
         if (all_matches) {
             s_state.match_dialog_title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
-            ct_dialogs::match_dialog(s_state.match_dialog_title, *_pCtMainWin, s_state.match_store);
+            CtDialogs::match_dialog(s_state.match_dialog_title, *_pCtMainWin, s_state.match_store);
         } else {
             _pCtMainWin->get_tree_view().set_cursor_safe(_pCtMainWin->curr_tree_iter());
             if (s_options.search_replace_dict_idialog)
@@ -358,10 +358,10 @@ void CtActions::find_a_node()
     }
     // todo: self.dad.objects_buffer_refresh()
     if (s_state.matches_num == 0)
-        ct_dialogs::info_dialog(str::format(_("The pattern '%s' was not found"), pattern.c_str()), *_pCtMainWin);
+        CtDialogs::info_dialog(str::format(_("The pattern '%s' was not found"), pattern.c_str()), *_pCtMainWin);
     else if (all_matches) {
         s_state.match_dialog_title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
-        ct_dialogs::match_dialog(s_state.match_dialog_title, *_pCtMainWin, s_state.match_store);
+        CtDialogs::match_dialog(s_state.match_dialog_title, *_pCtMainWin, s_state.match_store);
     }
     else if (s_options.search_replace_dict_idialog)
         _iterated_find_dialog();
@@ -374,7 +374,7 @@ void CtActions::find_again()
 {
     s_options.search_replace_dict_idialog = false;
     s_state.from_find_iterated = true;
-    if (s_state.curr_find_where.empty()) ct_dialogs::warning_dialog(_("No Previous Search Was Performed During This Session"), *_pCtMainWin);
+    if (s_state.curr_find_where.empty()) CtDialogs::warning_dialog(_("No Previous Search Was Performed During This Session"), *_pCtMainWin);
     else if (s_state.curr_find_where == "in_selected_node") find_in_selected_node();
     else if (s_state.curr_find_where == "in_all_nodes")     _find_in_all_nodes(false);
     else if (s_state.curr_find_where == "in_sel_nod_n_sub") _find_in_all_nodes(true);
@@ -440,7 +440,7 @@ void CtActions::replace_again()
 // Restore AllMatchesDialog
 void CtActions::find_allmatchesdialog_restore()
 {
-    ct_dialogs::match_dialog(s_state.match_dialog_title, *_pCtMainWin, s_state.match_store);
+    CtDialogs::match_dialog(s_state.match_dialog_title, *_pCtMainWin, s_state.match_store);
 }
 
 // Opens the Search Dialog
@@ -564,7 +564,7 @@ std::string CtActions::_dialog_search(const std::string& title, bool replace_on,
         ts_frame->add(*ts_node_vbox);
 
         auto on_ts_node_button_clicked = [&dialog, ts_format](Gtk::Button* button, const char* title, std::time_t& ts_value) {
-            std::time_t new_time = ct_dialogs::date_select_dialog(dialog, title, ts_value);
+            std::time_t new_time = CtDialogs::date_select_dialog(dialog, title, ts_value);
             if (new_time == 0) return;
              ts_value = new_time;
              button->set_label(str::time_format(ts_format, new_time));

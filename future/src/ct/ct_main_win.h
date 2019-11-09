@@ -29,19 +29,6 @@
 #include "ct_menu.h"
 #include "ct_widgets.h"
 
-class CtDialogTextEntry : public Gtk::Dialog
-{
-public:
-    CtDialogTextEntry(const char* title, const bool forPassword, Gtk::Window* pParent);
-    virtual ~CtDialogTextEntry();
-    Glib::ustring get_entry_text();
-
-protected:
-    bool _on_entry_key_press(GdkEventKey* eventKey);
-    void _on_entry_icon_press(Gtk::EntryIconPosition iconPosition, const GdkEventButton* event);
-    Gtk::Entry _entry;
-};
-
 struct CtStatusBar
 {
     Gtk::Statusbar   statusBar;
