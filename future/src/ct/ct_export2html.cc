@@ -90,12 +90,12 @@ Glib::ustring CtExport2Html::_get_image_html(CtImage* image, const Glib::ustring
     if (tree_iter)
     {
         image_name = std::to_string(tree_iter->get_node_id()) + "-" + std::to_string(images_count) + ".png";
-        image_rel_path = CtFileSystem::join("images", image_name);
+        image_rel_path = Glib::build_filename ("images", image_name);
     }
     else
     {
         image_name = std::to_string(images_count) + ".png";
-        image_rel_path = "file://" + CtFileSystem::join(images_dir, image_name);
+        image_rel_path = "file://" + Glib::build_filename (images_dir, image_name);
     }
 
     Glib::ustring image_html = "<img src=\"" + image_rel_path + "\" alt=\"" + image_rel_path + "\" />";
@@ -105,7 +105,7 @@ Glib::ustring CtExport2Html::_get_image_html(CtImage* image, const Glib::ustring
         image_html = "<a href=\"" + href + "\">" + image_html + "</a>";
     }
 
-    image->save(CtFileSystem::join(images_dir, image_name), "png");
+    image->save(Glib::build_filename (images_dir, image_name), "png");
     return image_html;
 }
 

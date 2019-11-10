@@ -39,8 +39,8 @@ public:
     Glib::ustring get_entry_text() { return _entry.get_text(); }
 
 protected:
-    bool _on_entry_key_press_event(GdkEventKey* eventKey);
-    void _on_entry_icon_press(Gtk::EntryIconPosition iconPosition, const GdkEventButton* event) { _entry.set_text(""); }
+    bool _on_entry_key_press_event(GdkEventKey* pEventKey);
+    void _on_entry_icon_press(Gtk::EntryIconPosition iconPosition, const GdkEventButton* pEvent) { _entry.set_text(""); }
     Gtk::Entry _entry;
 };
 
@@ -49,7 +49,7 @@ template<class GtkStoreBase> class CtChooseDialogStore : public GtkStoreBase
 public:
     struct CtChooseDialogModelColumns : public Gtk::TreeModel::ColumnRecord
     {
-        Gtk::TreeModelColumn<std::string> stock_id;
+        Gtk::TreeModelColumn<std::string>   stock_id;
         Gtk::TreeModelColumn<Glib::ustring> key;
         Gtk::TreeModelColumn<Glib::ustring> desc;
         Gtk::TreeModelColumn<gint64>        node_id;
@@ -75,7 +75,7 @@ public:
                  const std::string& desc,
                  gint64 node_id = 0)
     {
-        auto row = *GtkStoreBase::append();
+        Gtk::TreeRow row = *GtkStoreBase::append();
         row[columns.stock_id] = stock_id;
         row[columns.key] = key;
         row[columns.desc] = desc;
@@ -120,9 +120,9 @@ public:
 
     static Glib::RefPtr<CtMatchDialogStore> create()
     {
-        Glib::RefPtr<CtMatchDialogStore> model{new CtMatchDialogStore()};
-        model->set_column_types(model->columns);
-        return model;
+        Glib::RefPtr<CtMatchDialogStore> rModel{new CtMatchDialogStore()};
+        rModel->set_column_types(rModel->columns);
+        return rModel;
     }
     void add_row(gint64 node_id,
                  const Glib::ustring& node_name,
@@ -132,7 +132,7 @@ public:
                  int line_num,
                  const Glib::ustring& line_content)
     {
-        auto row = *append();
+        Gtk::TreeRow row = *append();
         row[columns.node_id] = node_id;
         row[columns.node_name] = node_name;
         row[columns.node_hier_name] = node_hier_name;
@@ -151,19 +151,24 @@ Gtk::TreeIter choose_item_dialog(Gtk::Window& parent,
                                  const gchar* single_column_name = nullptr);
 
 // Dialog to select a color, featuring a palette
-bool color_pick_dialog(Gtk::Window& parent, Gdk::RGBA& color);
+bool color_pick_dialog(Gtk::Window& parent,
+                       Gdk::RGBA& color);
 
 // The Question dialog, returns True if the user presses OK
-bool question_dialog(const Glib::ustring& message, Gtk::Window& parent);
+bool question_dialog(const Glib::ustring& message,
+                     Gtk::Window& parent);
 
 // The Info dialog
-void info_dialog(const Glib::ustring& message, Gtk::Window& parent);
+void info_dialog(const Glib::ustring& message,
+                 Gtk::Window& parent);
 
 // The Warning dialog
-void warning_dialog(const Glib::ustring& message, Gtk::Window& parent);
+void warning_dialog(const Glib::ustring& message,
+                    Gtk::Window& parent);
 
 // The Error dialog
-void error_dialog(const Glib::ustring& message, Gtk::Window& parent);
+void error_dialog(const Glib::ustring& message,
+                  Gtk::Window& parent);
 
 // Dialog to Select a Node
 Gtk::TreeIter choose_node_dialog(Gtk::Window& parent,
@@ -173,7 +178,7 @@ Gtk::TreeIter choose_node_dialog(Gtk::Window& parent,
                                  Gtk::TreeIter sel_tree_iter);
 
 // Handle the Bookmarks List
-void bookmarks_handle_dialog(CtMainWin* ctMainWin);
+void bookmarks_handle_dialog(CtMainWin* pCtMainWin);
 
 // Dialog to select a Date
 std::time_t date_select_dialog(Gtk::Window& parent,
@@ -194,7 +199,7 @@ Glib::ustring img_n_entry_dialog(Gtk::Window& parent,
 struct CtLinkEntry
 {
     Glib::ustring type;
-    gint64        node_id = -1;
+    gint64        node_id{-1};
     Glib::ustring webs;
     Glib::ustring file;
     Glib::ustring fold;
@@ -209,22 +214,23 @@ bool link_handle_dialog(CtMainWin& ctMainWin,
 
 struct file_select_args
 {
-    Gtk::Window*                parent = nullptr;
+    Gtk::Window*                pParent{nullptr};
     std::string                 curr_folder;
     std::string                 curr_file_name;
     Glib::ustring               filter_name;
-    std::vector<Glib::ustring>  filter_pattern;
-    std::vector<Glib::ustring>  filter_mime;
+    std::vector<std::string>    filter_pattern;
+    std::vector<std::string>    filter_mime;
 };
 
 // The Select file dialog, Returns the retrieved filepath or None
-std::string file_select_dialog(file_select_args args);
+std::string file_select_dialog(const file_select_args& args);
 
 // The Select folder dialog, returns the retrieved folderpath or None
-std::string folder_select_dialog(std::string curr_folder, Gtk::Window* parent = nullptr);
+std::string folder_select_dialog(const std::string& curr_folder,
+                                 Gtk::Window* pParent = nullptr);
 
 // The Save file as dialog, Returns the retrieved filepath or None
-std::string file_save_as_dialog(file_select_args args);
+std::string file_save_as_dialog(const file_select_args& args);
 
 // Insert/Edit Image
 Glib::RefPtr<Gdk::Pixbuf> image_handle_dialog(Gtk::Window& father_win,

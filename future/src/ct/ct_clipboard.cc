@@ -405,9 +405,9 @@ void CtClipboard::_on_received_to_plain_text(const Gtk::SelectionData& selection
             if (plain_text.find(CtConst::CHAR_NEWLINE) == Glib::ustring::npos)
             {
                 Glib::ustring property_value;
-                if (CtFileSystem::isdir(plain_text))
+                if (Glib::file_test(plain_text, Glib::FILE_TEST_IS_DIR))
                     property_value = "fold " + Glib::Base64::encode(plain_text);
-                else if (CtFileSystem::isfile(plain_text))
+                else if (Glib::file_test(plain_text, Glib::FILE_TEST_IS_REGULAR))
                     property_value = "file " + Glib::Base64::encode(plain_text);
                 if (property_value != "")
                 {
@@ -545,7 +545,7 @@ void CtClipboard::_on_received_to_uri_list(const Gtk::SelectionData& selection_d
                 Glib::ustring file_path = element.substr(7);
                 file_path = str::replace(file_path, "%20", CtConst::CHAR_SPACE.c_str());
                 gchar* mimetype = g_content_type_guess(file_path.c_str(), nullptr, 0, nullptr);
-                if (mimetype && str::startswith(mimetype, "image/") && CtFileSystem::isfile(file_path))
+                if (mimetype && str::startswith(mimetype, "image/") && Glib::file_test(file_path, Glib::FILE_TEST_IS_REGULAR))
                 {
                     try
                     {
@@ -558,11 +558,11 @@ void CtClipboard::_on_received_to_uri_list(const Gtk::SelectionData& selection_d
                     }
                     catch (...) {}
                 }
-                if (CtFileSystem::isdir(file_path))
+                if (Glib::file_test(file_path, Glib::FILE_TEST_IS_DIR))
                 {
                     property_value = "fold " + Glib::Base64::encode(file_path);
                 }
-                else if (CtFileSystem::isfile(file_path))
+                else if (Glib::file_test(file_path, Glib::FILE_TEST_IS_REGULAR))
                 {
                     property_value = "file " + Glib::Base64::encode(file_path);
                 }
@@ -574,9 +574,9 @@ void CtClipboard::_on_received_to_uri_list(const Gtk::SelectionData& selection_d
             }
             else
             {
-                if (CtFileSystem::isdir(element))
+                if (Glib::file_test(element, Glib::FILE_TEST_IS_DIR))
                     property_value = "fold " + Glib::Base64::encode(element);
-                else if (CtFileSystem::isfile(element))
+                else if (Glib::file_test(element, Glib::FILE_TEST_IS_REGULAR))
                     property_value = "file " + Glib::Base64::encode(element);
                 else
                 {

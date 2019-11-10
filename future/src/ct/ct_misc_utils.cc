@@ -921,7 +921,7 @@ Glib::ustring str::swapcase(const Glib::ustring& text)
     return ret_text;
 }
 
-Glib::ustring CtFileSystem::get_proper_platform_filepath(Glib::ustring filepath)
+std::string CtFileSystem::get_proper_platform_filepath(std::string filepath)
 {
     if (CtConst::IS_WIN_OS)
         filepath = str::replace(filepath, CtConst::CHAR_SLASH, CtConst::CHAR_BSLASH);
@@ -930,44 +930,13 @@ Glib::ustring CtFileSystem::get_proper_platform_filepath(Glib::ustring filepath)
     return filepath;
 }
 
-bool CtFileSystem::isdir(const Glib::ustring& path)
+std::string CtFileSystem::abspath(const std::string& path)
 {
-    return Glib::file_test(path, Glib::FILE_TEST_IS_DIR);
+    Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(path);
+    return rFile->get_path();
 }
 
-bool CtFileSystem::isfile(const Glib::ustring& path)
-{
-    return Glib::file_test(path, Glib::FILE_TEST_IS_REGULAR);
-}
-
-Glib::ustring CtFileSystem::basename(const Glib::ustring& path)
-{
-    g_autofree const gchar* allocated_name = g_path_get_basename(path.c_str());
-    Glib::ustring name = allocated_name;
-    return name;
-}
-
-Glib::ustring CtFileSystem::dirname(const Glib::ustring& path)
-{
-    g_autofree const gchar* allocated_dir = g_path_get_dirname(path.c_str());
-    Glib::ustring dir = allocated_dir;
-    return dir;
-}
-
-Glib::ustring CtFileSystem::abspath(const Glib::ustring& path)
-{
-    // todo:
-    return path;
-}
-
-Glib::ustring CtFileSystem::join(const Glib::ustring& path1, const Glib::ustring& path2)
-{
-    // todo: improve the trick
-    const auto sep = CtConst::IS_WIN_OS ? CtConst::CHAR_BSLASH : CtConst::CHAR_SLASH;
-    return path1 + sep + path2;
-}
-
-time_t CtFileSystem::getmtime(const Glib::ustring& path)
+time_t CtFileSystem::getmtime(const std::string& path)
 {
     time_t time = 0;
     GStatBuf st;
@@ -977,7 +946,7 @@ time_t CtFileSystem::getmtime(const Glib::ustring& path)
 }
 
 // Open Filepath with External App
-void CtFileSystem::external_filepath_open(const Glib::ustring& filepath, bool open_fold_if_no_app_error)
+void CtFileSystem::external_filepath_open(const std::string& filepath, bool open_fold_if_no_app_error)
 {
     /* todo:
     if self.filelink_custom_action[0]:
@@ -995,7 +964,7 @@ void CtFileSystem::external_filepath_open(const Glib::ustring& filepath, bool op
 }
 
 // Open Folderpath with External App
-void CtFileSystem::external_folderpath_open(const Glib::ustring& folderpath)
+void CtFileSystem::external_folderpath_open(const std::string& folderpath)
 {
     /* todo:
     if self.folderlink_custom_action[0]:

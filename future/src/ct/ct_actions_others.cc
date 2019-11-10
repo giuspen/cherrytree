@@ -84,11 +84,11 @@ void CtActions::embfile_delete()
 // Embedded File Save Dialog
 void CtActions::embfile_save()
 {
-    CtDialogs::file_select_args args = {.parent=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirFile, .curr_file_name=curr_file_anchor->get_file_name()};
+    CtDialogs::file_select_args args = {.pParent=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirFile, .curr_file_name=curr_file_anchor->get_file_name()};
     std::string filepath = CtDialogs::file_save_as_dialog(args);
     if (filepath.empty()) return;
 
-    CtApp::P_ctCfg->pickDirFile = CtFileSystem::dirname(filepath);
+    CtApp::P_ctCfg->pickDirFile = Glib::path_get_dirname(filepath);
     g_file_set_contents(filepath.c_str(), curr_file_anchor->get_raw_blob().c_str(), (gssize)curr_file_anchor->get_raw_blob().size(), nullptr);
 }
 
@@ -126,7 +126,7 @@ void CtActions::embfile_open()
 void CtActions::image_save()
 {
     CtDialogs::file_select_args args{
-        .parent=_pCtMainWin,
+        .pParent=_pCtMainWin,
         .curr_folder=CtApp::P_ctCfg->pickDirImg,
         .curr_file_name="",
         .filter_name=_("PNG Image"),
@@ -135,7 +135,7 @@ void CtActions::image_save()
     std::string filename = CtDialogs::file_save_as_dialog(args);
     if (filename.empty()) return;
 
-    CtApp::P_ctCfg->pickDirImg = CtFileSystem::dirname(filename);
+    CtApp::P_ctCfg->pickDirImg = Glib::path_get_dirname(filename);
     if (!str::endswith(filename, ".png")) filename += ".png";
     try {
        curr_image_anchor->save(filename, "png");
@@ -230,25 +230,25 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
      else if (vec[0] == CtConst::LINK_TYPE_FILE) // link to file
      {
          Glib::ustring filepath = CtExport2Html::_link_process_filepath(vec[1]);
-         if (!CtFileSystem::isfile(filepath))
+         if (!Glib::file_test(filepath, Glib::FILE_TEST_IS_REGULAR))
          {
              CtDialogs::error_dialog(str::format(_("The File Link '%s' is Not Valid"), std::string(filepath)), *_pCtMainWin);
              return;
          }
          if (from_wheel)
-             filepath = CtFileSystem::dirname(CtFileSystem::abspath(filepath));
+             filepath = Glib::path_get_dirname(CtFileSystem::abspath(filepath));
          CtFileSystem::external_filepath_open(filepath, true);
      }
      else if (vec[0] == CtConst::LINK_TYPE_FOLD) // link to folder
      {
          Glib::ustring folderpath = CtExport2Html::_link_process_folderpath(vec[1]);
-         if (!CtFileSystem::isdir(folderpath))
+         if (!Glib::file_test(folderpath, Glib::FILE_TEST_IS_DIR))
          {
              CtDialogs::error_dialog(str::format(_("The Folder Link '%s' is Not Valid"), std::string(folderpath)), *_pCtMainWin);
              return;
          }
          if (from_wheel)
-             folderpath = CtFileSystem::dirname(CtFileSystem::abspath(folderpath));
+             folderpath = Glib::path_get_dirname(CtFileSystem::abspath(folderpath));
          CtFileSystem::external_folderpath_open(folderpath);
      }
      else if (vec[0] == CtConst::LINK_TYPE_NODE) // link to a tree node
@@ -357,10 +357,10 @@ void CtActions::exec_code()
 void CtActions::codebox_load_from_file()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
-    CtDialogs::file_select_args args = {.parent=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirCbox};
+    CtDialogs::file_select_args args = {.pParent=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirCbox};
     std::string filepath = CtDialogs::file_select_dialog(args);
     if (filepath.empty()) return;
-    CtApp::P_ctCfg->pickDirCbox = CtFileSystem::dirname(filepath);
+    CtApp::P_ctCfg->pickDirCbox = Glib::path_get_dirname(filepath);
 
     auto file = std::fstream(filepath, std::ios::in);
     std::string buffer(std::istreambuf_iterator<char>(file), {});
@@ -372,10 +372,10 @@ void CtActions::codebox_load_from_file()
 // Save the CodeBox Content To a Text File
 void CtActions::codebox_save_to_file()
 {
-    CtDialogs::file_select_args args = {.parent=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirCbox};
+    CtDialogs::file_select_args args = {.pParent=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirCbox};
     std::string filepath = CtDialogs::file_save_as_dialog(args);
     if (filepath.empty()) return;
-    CtApp::P_ctCfg->pickDirCbox = CtFileSystem::dirname(filepath);
+    CtApp::P_ctCfg->pickDirCbox = Glib::path_get_dirname(filepath);
 
     Glib::ustring text = curr_codebox_anchor->get_text_content();
     g_file_set_contents(filepath.c_str(), text.c_str(), (gssize)text.bytes(), nullptr);
@@ -446,7 +446,7 @@ bool CtActions::_on_embfiles_sentinel_timeout()
     for(auto& item: _embfiles_opened)
     {
         const Glib::ustring& filepath = item.first;
-        if (!CtFileSystem::isfile(filepath))
+        if (!Glib::file_test(filepath, Glib::FILE_TEST_IS_REGULAR))
         {
             std::cout << "embdrop" << filepath;
             _embfiles_opened.erase(filepath);
@@ -455,7 +455,7 @@ bool CtActions::_on_embfiles_sentinel_timeout()
         if (item.second != CtFileSystem::getmtime(filepath))
         {
            _embfiles_opened[filepath] = CtFileSystem::getmtime(filepath);
-           auto data_vec = str::split(CtFileSystem::basename(filepath), CtConst::CHAR_MINUS);
+           auto data_vec = str::split(Glib::path_get_basename(filepath), CtConst::CHAR_MINUS);
            gint64 node_id = std::stoll(data_vec[0]);
            size_t embfile_id = std::stol(data_vec[1]);
 

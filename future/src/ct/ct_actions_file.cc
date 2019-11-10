@@ -64,7 +64,7 @@ void CtActions::file_save_as()
     // todo: support all document types and destination path
     {
         const Glib::ustring filepath{"/tmp/test.ctb"};
-        if (CtFileSystem::isfile(filepath))
+        if (Glib::file_test(filepath, Glib::FILE_TEST_IS_REGULAR))
         {
             g_remove(filepath.c_str());
         }

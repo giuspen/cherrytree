@@ -301,18 +301,13 @@ bool exists(const MAP& m, const KEY& key)
 namespace CtFileSystem {
 
 // From Slash to Backslash when needed
-Glib::ustring get_proper_platform_filepath(Glib::ustring filepath);
+std::string get_proper_platform_filepath(std::string filepath);
 
-bool isdir(const Glib::ustring& path);
-bool isfile(const Glib::ustring& path);
-Glib::ustring basename(const Glib::ustring& path);
-Glib::ustring dirname(const Glib::ustring& path);
-Glib::ustring abspath(const Glib::ustring& path);
-Glib::ustring join(const Glib::ustring& path1, const Glib::ustring& path2);
+std::string abspath(const std::string& path);
 
-time_t getmtime(const Glib::ustring& path);
+time_t getmtime(const std::string& path);
 
-void external_filepath_open(const Glib::ustring& filepath, bool open_fold_if_no_app_error);
-void external_folderpath_open(const Glib::ustring& folderpath);
+void external_filepath_open(const std::string& filepath, bool open_fold_if_no_app_error);
+void external_folderpath_open(const std::string& folderpath);
 
 } // namespace CtFileSystem
