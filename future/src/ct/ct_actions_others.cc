@@ -85,7 +85,7 @@ void CtActions::embfile_delete()
 void CtActions::embfile_save()
 {
     CtDialogs::file_select_args args = {.parent=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirFile, .curr_file_name=curr_file_anchor->get_file_name()};
-    Glib::ustring filepath = CtDialogs::file_save_as_dialog(args);
+    std::string filepath = CtDialogs::file_save_as_dialog(args);
     if (filepath.empty()) return;
 
     CtApp::P_ctCfg->pickDirFile = CtFileSystem::dirname(filepath);
@@ -132,7 +132,7 @@ void CtActions::image_save()
         .filter_name=_("PNG Image"),
         .filter_pattern={"*.png"}
     };
-    Glib::ustring filename = CtDialogs::file_save_as_dialog(args);
+    std::string filename = CtDialogs::file_save_as_dialog(args);
     if (filename.empty()) return;
 
     CtApp::P_ctCfg->pickDirImg = CtFileSystem::dirname(filename);
@@ -358,7 +358,7 @@ void CtActions::codebox_load_from_file()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
     CtDialogs::file_select_args args = {.parent=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirCbox};
-    Glib::ustring filepath = CtDialogs::file_select_dialog(args);
+    std::string filepath = CtDialogs::file_select_dialog(args);
     if (filepath.empty()) return;
     CtApp::P_ctCfg->pickDirCbox = CtFileSystem::dirname(filepath);
 
@@ -373,7 +373,7 @@ void CtActions::codebox_load_from_file()
 void CtActions::codebox_save_to_file()
 {
     CtDialogs::file_select_args args = {.parent=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirCbox};
-    Glib::ustring filepath = CtDialogs::file_save_as_dialog(args);
+    std::string filepath = CtDialogs::file_save_as_dialog(args);
     if (filepath.empty()) return;
     CtApp::P_ctCfg->pickDirCbox = CtFileSystem::dirname(filepath);
 

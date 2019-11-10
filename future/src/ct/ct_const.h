@@ -175,16 +175,16 @@ extern const std::set<const gchar*> TAG_PROPERTIES;
 extern const gchar    TOOLBAR_VEC_DEFAULT[];
 extern const std::vector<std::string> TOOLBAR_VEC_BLACKLIST;
 extern const gchar*   AVAILABLE_LANGS[20];
-extern const std::unordered_map<int, Glib::ustring> NODES_STOCKS;
-extern const std::unordered_map<int, Glib::ustring> NODES_ICONS;
-extern const std::map<Glib::ustring, Glib::ustring> CODE_ICONS;
+extern const std::unordered_map<int, std::string> NODES_STOCKS;
+extern const std::unordered_map<int, std::string> NODES_ICONS;
+extern const std::map<std::string, std::string> CODE_ICONS;
 
-extern const Glib::ustring CODE_EXEC_TMP_SRC;
-extern const Glib::ustring CODE_EXEC_TMP_BIN;
-extern const Glib::ustring CODE_EXEC_COMMAND;
-extern const std::map<Glib::ustring, Glib::ustring> CODE_EXEC_TYPE_CMD_DEFAULT;
-extern const std::map<Glib::ustring, Glib::ustring> CODE_EXEC_TERM_RUN_DEFAULT;
+extern const std::string CODE_EXEC_TMP_SRC;
+extern const std::string CODE_EXEC_TMP_BIN;
+extern const std::string CODE_EXEC_COMMAND;
+extern const std::map<std::string, std::string> CODE_EXEC_TYPE_CMD_DEFAULT;
+extern const std::map<std::string, std::string> CODE_EXEC_TERM_RUN_DEFAULT;
 
-Glib::ustring getStockIdForCodeType(Glib::ustring code_type);
+std::string getStockIdForCodeType(std::string code_type);
 
 }; // namespace CtConst

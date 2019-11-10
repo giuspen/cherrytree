@@ -209,7 +209,7 @@ const gchar* CtConst::AVAILABLE_LANGS[20] {
     "ja", "lt", "nl", "pl", "pt_BR", "ru", "sl", "tr", "uk", "zh_CN"
 };
 
-const std::unordered_map<int, Glib::ustring> CtConst::NODES_STOCKS {
+const std::unordered_map<int, std::string> CtConst::NODES_STOCKS {
     { 1, "circle-green"},
     { 2, "circle-yellow"},
     { 3, "circle-red"},
@@ -260,7 +260,7 @@ const std::unordered_map<int, Glib::ustring> CtConst::NODES_STOCKS {
     {48, "cpp"},
 };
 
-const std::unordered_map<int, Glib::ustring> CtConst::NODES_ICONS {
+const std::unordered_map<int, std::string> CtConst::NODES_ICONS {
     { 0, CHERRY_RED},
     { 1, CHERRY_BLUE},
     { 2, CHERRY_ORANGE},
@@ -275,7 +275,7 @@ const std::unordered_map<int, Glib::ustring> CtConst::NODES_ICONS {
     {-1, CHERRY_GRAY},
 };
 
-const std::map<Glib::ustring, Glib::ustring> CtConst::CODE_ICONS {
+const std::map<std::string, std::string> CtConst::CODE_ICONS {
     {"python", "python"},
     {"python3", "python"},
     {"perl", "perl"},
@@ -290,10 +290,10 @@ const std::map<Glib::ustring, Glib::ustring> CtConst::CODE_ICONS {
 };
 
 
-const Glib::ustring CtConst::CODE_EXEC_TMP_SRC  {"<tmp_src_path>"};
-const Glib::ustring CtConst::CODE_EXEC_TMP_BIN  {"<tmp_bin_path>"};
-const Glib::ustring CtConst::CODE_EXEC_COMMAND  {"<command>"};
-const std::map<Glib::ustring, Glib::ustring> CtConst::CODE_EXEC_TYPE_CMD_DEFAULT {
+const std::string CtConst::CODE_EXEC_TMP_SRC  {"<tmp_src_path>"};
+const std::string CtConst::CODE_EXEC_TMP_BIN  {"<tmp_bin_path>"};
+const std::string CtConst::CODE_EXEC_COMMAND  {"<command>"};
+const std::map<std::string, std::string> CtConst::CODE_EXEC_TYPE_CMD_DEFAULT {
     {"c",        "gcc -o "+CtConst::CODE_EXEC_TMP_BIN+" "+CtConst::CODE_EXEC_TMP_SRC+" && "+CtConst::CODE_EXEC_TMP_BIN},
     {"cpp",      "g++ -o "+CtConst::CODE_EXEC_TMP_BIN+" "+CtConst::CODE_EXEC_TMP_SRC+" && "+CtConst::CODE_EXEC_TMP_BIN},
     {"dosbatch", "call "+CtConst::CODE_EXEC_TMP_SRC},
@@ -302,12 +302,12 @@ const std::map<Glib::ustring, Glib::ustring> CtConst::CODE_EXEC_TYPE_CMD_DEFAULT
     {"python3",  "python3 "+CtConst::CODE_EXEC_TMP_SRC},
     {"sh",       "sh "+CtConst::CODE_EXEC_TMP_SRC}
 };
-const std::map<Glib::ustring, Glib::ustring> CtConst::CODE_EXEC_TERM_RUN_DEFAULT {
+const std::map<std::string, std::string> CtConst::CODE_EXEC_TERM_RUN_DEFAULT {
     {"linux", "xterm -hold -geometry 180x45 -e \""+CtConst::CODE_EXEC_COMMAND+"\""},
     {"win",   "start cmd /k \""+CtConst::CODE_EXEC_COMMAND+"\""}
 };
 
-Glib::ustring CtConst::getStockIdForCodeType(Glib::ustring code_type)
+std::string CtConst::getStockIdForCodeType(std::string code_type)
 {
     return (1 == CODE_ICONS.count(code_type) ? CODE_ICONS.at(code_type) : NODES_STOCKS.at(NODE_ICON_CODE_ID));
 }

@@ -35,12 +35,12 @@ public:
     CtDialogTextEntry(const Glib::ustring& title,
                       const bool forPassword,
                       Gtk::Window* pParent);
-    virtual ~CtDialogTextEntry();
-    Glib::ustring get_entry_text();
+    virtual ~CtDialogTextEntry() {}
+    Glib::ustring get_entry_text() { return _entry.get_text(); }
 
 protected:
     bool _on_entry_key_press_event(GdkEventKey* eventKey);
-    void _on_entry_icon_press(Gtk::EntryIconPosition iconPosition, const GdkEventButton* event);
+    void _on_entry_icon_press(Gtk::EntryIconPosition iconPosition, const GdkEventButton* event) { _entry.set_text(""); }
     Gtk::Entry _entry;
 };
 
@@ -218,13 +218,13 @@ struct file_select_args
 };
 
 // The Select file dialog, Returns the retrieved filepath or None
-Glib::ustring file_select_dialog(file_select_args args);
+std::string file_select_dialog(file_select_args args);
 
 // The Select folder dialog, returns the retrieved folderpath or None
-Glib::ustring folder_select_dialog(Glib::ustring curr_folder, Gtk::Window* parent = nullptr);
+std::string folder_select_dialog(std::string curr_folder, Gtk::Window* parent = nullptr);
 
 // The Save file as dialog, Returns the retrieved filepath or None
-Glib::ustring file_save_as_dialog(file_select_args args);
+std::string file_save_as_dialog(file_select_args args);
 
 // Insert/Edit Image
 Glib::RefPtr<Gdk::Pixbuf> image_handle_dialog(Gtk::Window& father_win,

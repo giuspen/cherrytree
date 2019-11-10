@@ -38,6 +38,7 @@ CtDialogTextEntry::CtDialogTextEntry(const Glib::ustring& title,
 
     add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
     add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
+    set_default_response(Gtk::RESPONSE_OK);
 
     _entry.set_icon_from_stock(Gtk::Stock::CLEAR, Gtk::ENTRY_ICON_SECONDARY);
     _entry.set_size_request(350, -1);
@@ -56,10 +57,6 @@ CtDialogTextEntry::CtDialogTextEntry(const Glib::ustring& title,
     get_vbox()->show_all();
 }
 
-CtDialogTextEntry::~CtDialogTextEntry()
-{
-}
-
 bool CtDialogTextEntry::_on_entry_key_press_event(GdkEventKey *eventKey)
 {
     if (GDK_KEY_Return == eventKey->keyval)
@@ -69,16 +66,6 @@ bool CtDialogTextEntry::_on_entry_key_press_event(GdkEventKey *eventKey)
         return true;
     }
     return false;
-}
-
-void CtDialogTextEntry::_on_entry_icon_press(Gtk::EntryIconPosition /*iconPosition*/, const GdkEventButton* /*event*/)
-{
-    _entry.set_text("");
-}
-
-Glib::ustring CtDialogTextEntry::get_entry_text()
-{
-    return _entry.get_text();
 }
 
 
@@ -643,21 +630,23 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
 
 // Insert/Edit Anchor Name
 Glib::ustring CtDialogs::img_n_entry_dialog(Gtk::Window& parent,
-                                             const Glib::ustring& title,
-                                             const Glib::ustring& entry_content,
-                                             const char* img_stock)
+                                            const Glib::ustring& title,
+                                            const Glib::ustring& entry_content,
+                                            const char* img_stock)
 {
-    Gtk::Dialog dialog(title, parent, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    Gtk::Dialog dialog(title,
+                       parent,
+                       Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
     dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
     dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(300, -1);
-    auto image = Gtk::Image();
+    Gtk::Image image;
     image.set_from_icon_name(img_stock, Gtk::ICON_SIZE_BUTTON);
-    auto entry = Gtk::Entry();
+    Gtk::Entry entry;
     entry.set_text(entry_content);
-    auto hbox = Gtk::HBox();
+    Gtk::HBox hbox;
     hbox.pack_start(image, false, false);
     hbox.pack_start(entry);
     hbox.set_spacing(5);
@@ -665,44 +654,44 @@ Glib::ustring CtDialogs::img_n_entry_dialog(Gtk::Window& parent,
     pContentArea->pack_start(hbox);
     pContentArea->show_all();
     entry.grab_focus();
-    if (Gtk::RESPONSE_ACCEPT != dialog.run())
-        return "";
-    return str::trim(entry.get_text());
+    return (Gtk::RESPONSE_ACCEPT == dialog.run() ? str::trim(entry.get_text()) : "");
 }
 
 // Dialog to Insert/Edit Links
 bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
-                                    const Glib::ustring& title,
-                                    Gtk::TreeIter sel_tree_iter,
-                                    CtLinkEntry& link_entries)
+                                   const Glib::ustring& title,
+                                   Gtk::TreeIter sel_tree_iter,
+                                   CtLinkEntry& link_entries)
 {
     CtTreeStore& ctTreestore = ctMainWin.get_tree_store();
-    Gtk::Dialog dialog(title, ctMainWin, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    Gtk::Dialog dialog(title,
+                       ctMainWin,
+                       Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
     dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
     dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(600, 500);
 
-    auto hbox_webs = Gtk::HBox();
-    auto image_webs = Gtk::Image();
+    Gtk::HBox hbox_webs;
+    Gtk::Image image_webs;
     image_webs.set_from_icon_name("link_website", Gtk::ICON_SIZE_BUTTON);
-    auto radiobutton_webs = Gtk::RadioButton(_("To WebSite"));
-    auto entry_webs = Gtk::Entry();
+    Gtk::RadioButton radiobutton_webs(_("To WebSite"));
+    Gtk::Entry entry_webs;
     entry_webs.set_text(link_entries.webs);
     hbox_webs.pack_start(image_webs, false, false);
     hbox_webs.pack_start(radiobutton_webs, false, false);
     hbox_webs.pack_start(entry_webs);
     hbox_webs.set_spacing(5);
 
-    auto hbox_file = Gtk::HBox();
-    auto image_file = Gtk::Image();
+    Gtk::HBox hbox_file;
+    Gtk::Image image_file;
     image_file.set_from_icon_name(Gtk::Stock::FILE.id, Gtk::ICON_SIZE_BUTTON);
-    auto radiobutton_file = Gtk::RadioButton(_("To File"));
+    Gtk::RadioButton radiobutton_file(_("To File"));
     radiobutton_file.join_group(radiobutton_webs);
-    auto entry_file = Gtk::Entry();
+    Gtk::Entry entry_file;
     entry_file.set_text(link_entries.file);
-    auto button_browse_file = Gtk::Button();
+    Gtk::Button button_browse_file;
     button_browse_file.set_image_from_icon_name("find", Gtk::ICON_SIZE_BUTTON);
     hbox_file.pack_start(image_file, false, false);
     hbox_file.pack_start(radiobutton_file, false, false);
@@ -710,14 +699,14 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     hbox_file.pack_start(button_browse_file, false, false);
     hbox_file.set_spacing(5);
 
-    auto hbox_folder = Gtk::HBox();
-    auto image_folder = Gtk::Image();
+    Gtk::HBox hbox_folder;
+    Gtk::Image image_folder;
     image_folder.set_from_icon_name(Gtk::Stock::DIRECTORY.id, Gtk::ICON_SIZE_BUTTON);
-    auto radiobutton_folder = Gtk::RadioButton(_("To Folder"));
+    Gtk::RadioButton radiobutton_folder(_("To Folder"));
     radiobutton_folder.join_group(radiobutton_webs);
-    auto entry_folder = Gtk::Entry();
+    Gtk::Entry entry_folder;
     entry_folder.set_text(link_entries.fold);
-    auto button_browse_folder = Gtk::Button();
+    Gtk::Button button_browse_folder;
     button_browse_folder.set_image_from_icon_name("find", Gtk::ICON_SIZE_BUTTON);
     hbox_folder.pack_start(image_folder, false, false);
     hbox_folder.pack_start(radiobutton_folder, false, false);
@@ -725,42 +714,42 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     hbox_folder.pack_start(button_browse_folder, false, false);
     hbox_folder.set_spacing(5);
 
-    auto hbox_node = Gtk::HBox();
-    auto image_node = Gtk::Image();
+    Gtk::HBox hbox_node;
+    Gtk::Image image_node;
     image_node.set_from_icon_name("cherrytree", Gtk::ICON_SIZE_BUTTON);
-    auto radiobutton_node = Gtk::RadioButton(_("To Node"));
+    Gtk::RadioButton radiobutton_node(_("To Node"));
     radiobutton_node.join_group(radiobutton_webs);
     hbox_node.pack_start(image_node, false, false);
     hbox_node.pack_start(radiobutton_node);
     hbox_node.set_spacing(5);
 
-    auto hbox_detail = Gtk::HBox();
+    Gtk::HBox hbox_detail;
 
-    auto treeview_2 = Gtk::TreeView(ctMainWin.get_tree_store().get_store());
+    Gtk::TreeView treeview_2(ctMainWin.get_tree_store().get_store());
     treeview_2.set_headers_visible(false);
     treeview_2.set_search_column(1);
-    auto renderer_pixbuf_2 = Gtk::CellRendererPixbuf();
-    auto renderer_text_2 = Gtk::CellRendererText();
-    auto column_2 = Gtk::TreeViewColumn();
+    Gtk::CellRendererPixbuf renderer_pixbuf_2;
+    Gtk::CellRendererText renderer_text_2;
+    Gtk::TreeViewColumn column_2;
     treeview_2.append_column("", ctMainWin.get_tree_store().get_columns().rColPixbuf);
     treeview_2.append_column("", ctMainWin.get_tree_store().get_columns().colNodeName);
-    auto scrolledwindow = Gtk::ScrolledWindow();
+    Gtk::ScrolledWindow scrolledwindow;
     scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     scrolledwindow.add(treeview_2);
 
-    auto vbox_anchor = Gtk::VBox();
-    auto label_over = Gtk::Label();
-    auto label_below = Gtk::Label();
+    Gtk::VBox vbox_anchor;
+    Gtk::Label label_over;
+    Gtk::Label label_below;
 
-    auto hbox_anchor = Gtk::HBox();
-    auto entry_anchor = Gtk::Entry();
+    Gtk::HBox hbox_anchor;
+    Gtk::Entry entry_anchor;
     entry_anchor.set_text(link_entries.anch);
-    auto button_browse_anchor = Gtk::Button();
+    Gtk::Button button_browse_anchor;
     button_browse_anchor.set_image_from_icon_name("anchor", Gtk::ICON_SIZE_BUTTON);
     hbox_anchor.pack_start(entry_anchor);
     hbox_anchor.pack_start(button_browse_anchor, false, false);
 
-    auto frame_anchor = Gtk::Frame(std::string("<b>")+_("Anchor Name (optional)")+"</b>");
+    Gtk::Frame frame_anchor(std::string("<b>")+_("Anchor Name (optional)")+"</b>");
     dynamic_cast<Gtk::Label*>(frame_anchor.get_label_widget())->set_use_markup(true);
     frame_anchor.set_shadow_type(Gtk::SHADOW_NONE);
     frame_anchor.add(hbox_anchor);
@@ -785,81 +774,124 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     radiobutton_file.set_active(link_entries.type == CtConst::LINK_TYPE_FILE);
     radiobutton_folder.set_active(link_entries.type == CtConst::LINK_TYPE_FOLD);
 
-    bool first_in = true;
+    bool first_in{true};
 
-    auto link_type_changed_on_dialog = [&]() {
+    auto link_type_changed_on_dialog = [&]()
+    {
         entry_webs.set_sensitive(link_entries.type == CtConst::LINK_TYPE_WEBS);
         hbox_detail.set_sensitive(link_entries.type == CtConst::LINK_TYPE_NODE);
         entry_file.set_sensitive(link_entries.type == CtConst::LINK_TYPE_FILE);
         entry_folder.set_sensitive(link_entries.type == CtConst::LINK_TYPE_FOLD);
         if (link_entries.type == CtConst::LINK_TYPE_WEBS)
+        {
             entry_webs.grab_focus();
-        else if (link_entries.type == CtConst::LINK_TYPE_NODE) {
+        }
+        else if (link_entries.type == CtConst::LINK_TYPE_NODE)
+        {
             treeview_2.grab_focus();
-            if (first_in) {
+            if (first_in)
+            {
                 first_in = false;
-                auto exp_colpsd_str = ctTreestore.get_tree_expanded_collapsed_string(ctMainWin.get_tree_view());
+                std::string exp_colpsd_str = ctTreestore.get_tree_expanded_collapsed_string(ctMainWin.get_tree_view());
                 ctTreestore.set_tree_expanded_collapsed_string(exp_colpsd_str, treeview_2, CtApp::P_ctCfg->nodesBookmExp);
             }
-            if (!sel_tree_iter) sel_tree_iter = ctTreestore.get_iter_first();
-            auto sel_path = ctTreestore.get_path(sel_tree_iter);
+            if (!sel_tree_iter)
+            {
+                sel_tree_iter = ctTreestore.get_iter_first();
+            }
+            Gtk::TreePath sel_path = ctTreestore.get_path(sel_tree_iter);
             treeview_2.expand_to_path(sel_path);
             treeview_2.set_cursor(sel_path);
             treeview_2.scroll_to_row(sel_path);
         }
         else if (link_entries.type == CtConst::LINK_TYPE_FILE)
+        {
             entry_file.grab_focus();
+        }
         else
+        {
             entry_folder.grab_focus();
+        }
     };
 
-    radiobutton_webs.signal_toggled().connect([&](){
-        if (radiobutton_webs.get_active()) link_entries.type = CtConst::LINK_TYPE_WEBS;
+    radiobutton_webs.signal_toggled().connect([&]()
+    {
+        if (radiobutton_webs.get_active())
+        {
+            link_entries.type = CtConst::LINK_TYPE_WEBS;
+        }
         link_type_changed_on_dialog();
     });
-    radiobutton_node.signal_toggled().connect([&](){
-        if (radiobutton_node.get_active()) link_entries.type = CtConst::LINK_TYPE_NODE;
+    radiobutton_node.signal_toggled().connect([&]()
+    {
+        if (radiobutton_node.get_active())
+        {
+            link_entries.type = CtConst::LINK_TYPE_NODE;
+        }
         link_type_changed_on_dialog();
     });
-    radiobutton_file.signal_toggled().connect([&](){
-        if (radiobutton_file.get_active()) link_entries.type = CtConst::LINK_TYPE_FILE;
+    radiobutton_file.signal_toggled().connect([&]()
+    {
+        if (radiobutton_file.get_active())
+        {
+            link_entries.type = CtConst::LINK_TYPE_FILE;
+        }
         link_type_changed_on_dialog();
     });
-    radiobutton_folder.signal_toggled().connect([&](){
-        if (radiobutton_folder.get_active()) link_entries.type = CtConst::LINK_TYPE_FOLD;
+    radiobutton_folder.signal_toggled().connect([&]()
+    {
+        if (radiobutton_folder.get_active()){
+            link_entries.type = CtConst::LINK_TYPE_FOLD;
+        }
         link_type_changed_on_dialog();
     });
-    button_browse_file.signal_clicked().connect([&](){
-        auto filepath = CtDialogs::file_select_dialog({.parent=&dialog, .curr_folder=CtApp::P_ctCfg->pickDirFile});
-        if (filepath.empty()) return;
+    button_browse_file.signal_clicked().connect([&]()
+    {
+        std::string filepath = CtDialogs::file_select_dialog({.parent=&dialog, .curr_folder=CtApp::P_ctCfg->pickDirFile});
+        if (filepath.empty())
+        {
+            return;
+        }
         CtApp::P_ctCfg->pickDirFile = CtFileSystem::dirname(filepath);
-        if (CtApp::P_ctCfg->linksRelative) {
-            /* todo: filepath = os.path.relpath(filepath, dad.file_dir) */
+        if (CtApp::P_ctCfg->linksRelative)
+        {
+            Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(filepath);
+            Glib::RefPtr<Gio::File> rDir = Gio::File::create_for_path(ctMainWin.get_curr_doc_file_dir());
+            filepath = rFile->get_relative_path(rDir);
         }
         entry_file.set_text(filepath);
     });
-    button_browse_folder.signal_clicked().connect([&](){
-        auto filepath = CtDialogs::folder_select_dialog(CtApp::P_ctCfg->pickDirFile, &dialog);
-        if (filepath.empty()) return;
+    button_browse_folder.signal_clicked().connect([&]()
+    {
+        std::string filepath = CtDialogs::folder_select_dialog(CtApp::P_ctCfg->pickDirFile, &dialog);
+        if (filepath.empty())
+        {
+            return;
+        }
         CtApp::P_ctCfg->pickDirFile = filepath;
-        if (CtApp::P_ctCfg->linksRelative) {
-            /* todo: try: filepath = os.path.relpath(filepath, dad.file_dir)
-            except: print "cannot set relative path for different drives"
-            */
+        if (CtApp::P_ctCfg->linksRelative)
+        {
+            Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(filepath);
+            Glib::RefPtr<Gio::File> rDir = Gio::File::create_for_path(ctMainWin.get_curr_doc_file_dir());
+            filepath = rFile->get_relative_path(rDir);
         }
         entry_folder.set_text(filepath);
     });
-    button_browse_anchor.signal_clicked().connect([&](){
-        if (!sel_tree_iter) {
+    button_browse_anchor.signal_clicked().connect([&]()
+    {
+        if (!sel_tree_iter)
+        {
             CtDialogs::warning_dialog(_("No Node is Selected"), dialog);
             return;
         }
         //anchors_list = [];
-        auto text_buffer = ctTreestore.to_ct_tree_iter(sel_tree_iter).get_node_text_buffer();
-        auto curr_iter = text_buffer->begin();
-        while (true) {
+        Glib::RefPtr<Gsv::Buffer> rTextBuffer = ctTreestore.to_ct_tree_iter(sel_tree_iter).get_node_text_buffer();
+        Gtk::TextIter curr_iter = rTextBuffer->begin();
+        while (true)
+        {
             auto anchor = curr_iter.get_child_anchor();
-            if (anchor) {
+            if (anchor) 
+            {
                 /* todo:
                 if "pixbuf" in dir(anchor) and "anchor" in dir(anchor.pixbuf):
                     anchors_list.append([anchor.pixbuf.anchor])
@@ -930,7 +962,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
 }
 
 // The Select file dialog, Returns the retrieved filepath or None
-Glib::ustring CtDialogs::file_select_dialog(CtDialogs::file_select_args args)
+std::string CtDialogs::file_select_dialog(CtDialogs::file_select_args args)
 {
     auto chooser = Gtk::FileChooserDialog(_("Select File"), Gtk::FILE_CHOOSER_ACTION_OPEN);
     chooser.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
@@ -961,7 +993,7 @@ Glib::ustring CtDialogs::file_select_dialog(CtDialogs::file_select_args args)
 }
 
 // The Select folder dialog, returns the retrieved folderpath or None
-Glib::ustring CtDialogs::folder_select_dialog(Glib::ustring curr_folder, Gtk::Window* parent /*= nullptr*/)
+std::string CtDialogs::folder_select_dialog(std::string curr_folder, Gtk::Window* parent /*= nullptr*/)
 {
     auto chooser = Gtk::FileChooserDialog(_("Select Folder"), Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
     chooser.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
@@ -984,7 +1016,7 @@ Glib::ustring CtDialogs::folder_select_dialog(Glib::ustring curr_folder, Gtk::Wi
 }
 
 // The Save file as dialog, Returns the retrieved filepath or None
-Glib::ustring CtDialogs::file_save_as_dialog(CtDialogs::file_select_args args)
+std::string CtDialogs::file_save_as_dialog(CtDialogs::file_select_args args)
 {
     auto chooser = Gtk::FileChooserDialog(_("Save File as"), Gtk::FILE_CHOOSER_ACTION_SAVE);
     chooser.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
@@ -1021,7 +1053,7 @@ Glib::ustring CtDialogs::file_save_as_dialog(CtDialogs::file_select_args args)
 }
 
 // Insert/Edit Image
-Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& father_win,
+Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& perent_win,
                                                           const Glib::ustring& title,
                                                           Glib::RefPtr<Gdk::Pixbuf> original_pixbuf)
 {
@@ -1029,7 +1061,7 @@ Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& father_win
     int height = original_pixbuf->get_height();
     double image_w_h_ration = double(width)/height;
 
-    Gtk::Dialog dialog(title, father_win, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    Gtk::Dialog dialog(title, perent_win, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
     auto ok_button = dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
     dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
@@ -1121,10 +1153,12 @@ Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& father_win
 }
 
 // Opens the CodeBox Handle Dialog
-bool CtDialogs::codeboxhandle_dialog(Gtk::Window& father_win,
-                                      const Glib::ustring& title)
+bool CtDialogs::codeboxhandle_dialog(Gtk::Window& perent_win,
+                                     const Glib::ustring& title)
 {
-    auto dialog = Gtk::Dialog(title, father_win, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    Gtk::Dialog dialog(title,
+                       perent_win,
+                       Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
     dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
     dialog.set_default_size(300, -1);
@@ -1132,13 +1166,13 @@ bool CtDialogs::codeboxhandle_dialog(Gtk::Window& father_win,
 
     CtConfig* config = CtApp::P_ctCfg;
 
-    auto button_prog_lang = Gtk::Button();
-    Glib::ustring button_label = config->codeboxSynHighl != CtConst::PLAIN_TEXT_ID ? config->codeboxSynHighl : config->autoSynHighl;
-    Glib::ustring button_stock_id = CtConst::getStockIdForCodeType(button_label);
+    Gtk::Button button_prog_lang;
+    Glib::ustring button_label = (config->codeboxSynHighl != CtConst::PLAIN_TEXT_ID ? config->codeboxSynHighl : config->autoSynHighl);
+    std::string button_stock_id = CtConst::getStockIdForCodeType(button_label);
     button_prog_lang.set_label(button_label);
     button_prog_lang.set_image(*CtImage::new_image_from_stock(button_stock_id, Gtk::ICON_SIZE_MENU));
-    auto radiobutton_plain_text = Gtk::RadioButton(_("Plain Text"));
-    auto radiobutton_auto_syntax_highl = Gtk::RadioButton(_("Automatic Syntax Highlighting"));
+    Gtk::RadioButton radiobutton_plain_text(_("Plain Text"));
+    Gtk::RadioButton radiobutton_auto_syntax_highl(_("Automatic Syntax Highlighting"));
     radiobutton_auto_syntax_highl.join_group(radiobutton_plain_text);
     if (config->codeboxSynHighl == CtConst::PLAIN_TEXT_ID)
     {
@@ -1146,67 +1180,69 @@ bool CtDialogs::codeboxhandle_dialog(Gtk::Window& father_win,
         button_prog_lang.set_sensitive(false);
     }
     else
+    {
         radiobutton_auto_syntax_highl.set_active(true);
-    auto type_vbox = Gtk::VBox();
+    }
+    Gtk::VBox type_vbox;
     type_vbox.pack_start(radiobutton_plain_text);
     type_vbox.pack_start(radiobutton_auto_syntax_highl);
     type_vbox.pack_start(button_prog_lang);
-    auto type_frame = Gtk::Frame(std::string("<b>")+_("Type")+"</b>");
+    Gtk::Frame type_frame(std::string("<b>")+_("Type")+"</b>");
     dynamic_cast<Gtk::Label*>(type_frame.get_label_widget())->set_use_markup(true);
     type_frame.set_shadow_type(Gtk::SHADOW_NONE);
     type_frame.add(type_vbox);
 
-    auto label_width = Gtk::Label(_("Width"));
-    auto adj_width = Gtk::Adjustment::create(config->codeboxWidth, 1, 10000);
-    auto spinbutton_width = Gtk::SpinButton(adj_width);
+    Gtk::Label label_width(_("Width"));
+    Glib::RefPtr<Gtk::Adjustment> rAdj_width = Gtk::Adjustment::create(config->codeboxWidth, 1, 10000);
+    Gtk::SpinButton spinbutton_width(rAdj_width);
     spinbutton_width.set_value(config->codeboxWidth);
-    auto label_height = Gtk::Label(_("Height"));
-    auto adj_height = Gtk::Adjustment::create(config->codeboxHeight, 1, 10000);
-    auto spinbutton_height = Gtk::SpinButton(adj_height);
+    Gtk::Label label_height(_("Height"));
+    Glib::RefPtr<Gtk::Adjustment> rAdj_height = Gtk::Adjustment::create(config->codeboxHeight, 1, 10000);
+    Gtk::SpinButton spinbutton_height(rAdj_height);
     spinbutton_height.set_value(config->codeboxHeight);
 
-    auto radiobutton_codebox_pixels = Gtk::RadioButton(_("pixels"));
-    auto radiobutton_codebox_percent = Gtk::RadioButton("%");
+    Gtk::RadioButton radiobutton_codebox_pixels(_("pixels"));
+    Gtk::RadioButton radiobutton_codebox_percent("%");
     radiobutton_codebox_percent.join_group(radiobutton_codebox_pixels);
     radiobutton_codebox_pixels.set_active(config->codeboxWidthPixels);
     radiobutton_codebox_percent.set_active(!config->codeboxWidthPixels);
 
-    auto vbox_pix_perc = Gtk::VBox();
+    Gtk::VBox vbox_pix_perc;
     vbox_pix_perc.pack_start(radiobutton_codebox_pixels);
     vbox_pix_perc.pack_start(radiobutton_codebox_percent);
-    auto hbox_width = Gtk::HBox();
+    Gtk::HBox hbox_width;
     hbox_width.pack_start(label_width, false, false);
     hbox_width.pack_start(spinbutton_width, false, false);
     hbox_width.pack_start(vbox_pix_perc);
     hbox_width.set_spacing(5);
-    auto hbox_height = Gtk::HBox();
+    Gtk::HBox hbox_height;
     hbox_height.pack_start(label_height, false, false);
     hbox_height.pack_start(spinbutton_height, false, false);
     hbox_height.set_spacing(5);
-    auto vbox_size = Gtk::VBox();
+    Gtk::VBox vbox_size;
     vbox_size.pack_start(hbox_width);
     vbox_size.pack_start(hbox_height);
-    auto size_align = Gtk::Alignment();
+    Gtk::Alignment size_align;
     size_align.set_padding(0, 6, 6, 6);
     size_align.add(vbox_size);
 
-    auto size_frame = Gtk::Frame(std::string("<b>")+_("Size")+"</b>");
+    Gtk::Frame size_frame(std::string("<b>")+_("Size")+"</b>");
     dynamic_cast<Gtk::Label*>(size_frame.get_label_widget())->set_use_markup(true);
     size_frame.set_shadow_type(Gtk::SHADOW_NONE);
     size_frame.add(size_align);
 
-    auto checkbutton_codebox_linenumbers = Gtk::CheckButton(_("Show Line Numbers"));
+    Gtk::CheckButton checkbutton_codebox_linenumbers(_("Show Line Numbers"));
     checkbutton_codebox_linenumbers.set_active(config->codeboxLineNum);
-    auto checkbutton_codebox_matchbrackets = Gtk::CheckButton(_("Highlight Matching Brackets"));
+    Gtk::CheckButton checkbutton_codebox_matchbrackets(_("Highlight Matching Brackets"));
     checkbutton_codebox_matchbrackets.set_active(config->codeboxMatchBra);
-    auto vbox_options = Gtk::VBox();
+    Gtk::VBox vbox_options;
     vbox_options.pack_start(checkbutton_codebox_linenumbers);
     vbox_options.pack_start(checkbutton_codebox_matchbrackets);
-    auto opt_align = Gtk::Alignment();
+    Gtk::Alignment opt_align;
     opt_align.set_padding(6, 6, 6, 6);
     opt_align.add(vbox_options);
 
-    auto options_frame = Gtk::Frame(std::string("<b>")+_("Options")+"</b>");
+    Gtk::Frame options_frame(std::string("<b>")+_("Options")+"</b>");
     dynamic_cast<Gtk::Label*>(options_frame.get_label_widget())->set_use_markup(true);
     options_frame.set_shadow_type(Gtk::SHADOW_NONE);
     options_frame.add(opt_align);
@@ -1218,21 +1254,27 @@ bool CtDialogs::codeboxhandle_dialog(Gtk::Window& father_win,
     pContentArea->pack_start(options_frame);
     pContentArea->show_all();
 
-    button_prog_lang.signal_clicked().connect([&button_prog_lang, &dialog](){
+    button_prog_lang.signal_clicked().connect([&button_prog_lang, &dialog]()
+    {
         auto itemStore = CtChooseDialogListStore::create();
-        for (auto lang: CtApp::R_languageManager->get_language_ids())
+        for (const std::string& lang : CtApp::R_languageManager->get_language_ids())
+        {
             itemStore->add_row(CtConst::getStockIdForCodeType(lang), "", lang);
-        auto res = CtDialogs::choose_item_dialog(dialog, _("Automatic Syntax Highlighting"), itemStore);
-        if (res) {
+        }
+        Gtk::TreeIter res = CtDialogs::choose_item_dialog(dialog, _("Automatic Syntax Highlighting"), itemStore);
+        if (res)
+        {
             std::string stock_id = res->get_value(itemStore->columns.desc);
             button_prog_lang.set_label(stock_id);
             button_prog_lang.set_image(*CtImage::new_image_from_stock(stock_id, Gtk::ICON_SIZE_MENU));
         }
     });
-    radiobutton_auto_syntax_highl.signal_toggled().connect([&radiobutton_auto_syntax_highl, &button_prog_lang](){
+    radiobutton_auto_syntax_highl.signal_toggled().connect([&radiobutton_auto_syntax_highl, &button_prog_lang]()
+    {
         button_prog_lang.set_sensitive(radiobutton_auto_syntax_highl.get_active());
     });
-    dialog.signal_key_press_event().connect([&](GdkEventKey* key){
+    dialog.signal_key_press_event().connect([&](GdkEventKey* key)
+    {
         if (key->keyval == GDK_KEY_Return)
         {
             spinbutton_width.update();
@@ -1242,14 +1284,19 @@ bool CtDialogs::codeboxhandle_dialog(Gtk::Window& father_win,
         }
         return false;
     });
-    radiobutton_codebox_pixels.signal_toggled().connect([&radiobutton_codebox_pixels, &spinbutton_width](){
+    radiobutton_codebox_pixels.signal_toggled().connect([&radiobutton_codebox_pixels, &spinbutton_width]()
+    {
         if (radiobutton_codebox_pixels.get_active())
+        {
             spinbutton_width.set_value(700);
+        }
         else if (spinbutton_width.get_value() > 100)
+        {
             spinbutton_width.set_value(90);
+        }
     });
 
-    auto response = dialog.run();
+    const int response = dialog.run();
     dialog.hide();
 
     if (response == Gtk::RESPONSE_ACCEPT)
@@ -1260,9 +1307,13 @@ bool CtDialogs::codeboxhandle_dialog(Gtk::Window& father_win,
         config->codeboxLineNum = checkbutton_codebox_linenumbers.get_active();
         config->codeboxMatchBra = checkbutton_codebox_matchbrackets.get_active();
         if (radiobutton_plain_text.get_active())
+        {
             config->codeboxSynHighl = CtConst::PLAIN_TEXT_ID;
+        }
         else
+        {
             config->codeboxSynHighl = button_prog_lang.get_label();
+        }
         return true;
     }
     return false;
