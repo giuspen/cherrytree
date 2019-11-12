@@ -49,7 +49,7 @@ void CtActions::image_handle()
 {
     if (!_node_sel_and_rich_text()) return;
     if (!_is_curr_node_not_read_only_or_error()) return;
-    CtDialogs::file_select_args args = {.pParent=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirImg};
+    CtDialogs::file_select_args args = {.pParentWin=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirImg};
     std::string filename = CtDialogs::file_select_dialog(args);
     if (filename.empty()) return;
     CtApp::P_ctCfg->pickDirImg = Glib::path_get_dirname(filename);

@@ -21,6 +21,8 @@
 
 #pragma once
 
+#include "ct_misc_utils.h"
+
 #include <gtkmm/dialog.h>
 #include <gtkmm/liststore.h>
 #include <gtkmm/treestore.h>
@@ -34,7 +36,7 @@ class CtDialogTextEntry : public Gtk::Dialog
 public:
     CtDialogTextEntry(const Glib::ustring& title,
                       const bool forPassword,
-                      Gtk::Window* pParent);
+                      Gtk::Window* pParentWin);
     virtual ~CtDialogTextEntry() {}
     Glib::ustring get_entry_text() { return _entry.get_text(); }
 
@@ -214,7 +216,7 @@ bool link_handle_dialog(CtMainWin& ctMainWin,
 
 struct file_select_args
 {
-    Gtk::Window*                pParent{nullptr};
+    Gtk::Window*                pParentWin{nullptr};
     std::string                 curr_folder;
     std::string                 curr_file_name;
     Glib::ustring               filter_name;
@@ -227,7 +229,7 @@ std::string file_select_dialog(const file_select_args& args);
 
 // The Select folder dialog, returns the retrieved folderpath or None
 std::string folder_select_dialog(const std::string& curr_folder,
-                                 Gtk::Window* pParent = nullptr);
+                                 Gtk::Window* pParentWin = nullptr);
 
 // The Save file as dialog, Returns the retrieved filepath or None
 std::string file_save_as_dialog(const file_select_args& args);
@@ -240,5 +242,16 @@ Glib::RefPtr<Gdk::Pixbuf> image_handle_dialog(Gtk::Window& father_win,
 // Opens the CodeBox Handle Dialog
 bool codeboxhandle_dialog(Gtk::Window& father_win,
                           const Glib::ustring& title);
+
+struct storage_select_args
+{
+    Gtk::Window*  pParentWin{nullptr};
+    CtDocType     ctDocType{CtDocType::None};
+    CtDocEncrypt  ctDocEncrypt{CtDocEncrypt::None};
+    std::string   password;
+};
+
+// Choose the CherryTree data storage type (xml or db) and protection
+bool choose_data_storage_dialog(storage_select_args& args);
 
 } // namespace CtDialogs

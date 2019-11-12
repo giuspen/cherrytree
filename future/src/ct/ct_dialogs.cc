@@ -30,10 +30,10 @@
 
 CtDialogTextEntry::CtDialogTextEntry(const Glib::ustring& title,
                                      const bool forPassword,
-                                     Gtk::Window* pParent)
+                                     Gtk::Window* pParentWin)
 {
     set_title(title);
-    set_transient_for(*pParent);
+    set_transient_for(*pParentWin);
     set_modal();
 
     add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
@@ -751,7 +751,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     hbox_anchor.pack_start(entry_anchor);
     hbox_anchor.pack_start(button_browse_anchor, false, false);
 
-    Gtk::Frame frame_anchor(std::string("<b>")+_("Anchor Name (optional)")+"</b>");
+    Gtk::Frame frame_anchor(Glib::ustring("<b>")+_("Anchor Name (optional)")+"</b>");
     dynamic_cast<Gtk::Label*>(frame_anchor.get_label_widget())->set_use_markup(true);
     frame_anchor.set_shadow_type(Gtk::SHADOW_NONE);
     frame_anchor.add(hbox_anchor);
@@ -850,7 +850,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     });
     button_browse_file.signal_clicked().connect([&]()
     {
-        std::string filepath = file_select_dialog({.pParent=&dialog, .curr_folder=CtApp::P_ctCfg->pickDirFile});
+        std::string filepath = file_select_dialog({.pParentWin=&dialog, .curr_folder=CtApp::P_ctCfg->pickDirFile});
         if (filepath.empty())
         {
             return;
@@ -991,9 +991,9 @@ std::string CtDialogs::file_select_dialog(const file_select_args& args)
                                    Gtk::FILE_CHOOSER_ACTION_OPEN);
     chooser.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
     chooser.add_button(Gtk::Stock::OPEN, Gtk::RESPONSE_ACCEPT);
-    if (args.pParent)
+    if (args.pParentWin)
     {
-        chooser.set_transient_for(*args.pParent);
+        chooser.set_transient_for(*args.pParentWin);
         chooser.property_modal() = true;
         chooser.property_destroy_with_parent() = true;
         chooser.set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
@@ -1029,15 +1029,15 @@ std::string CtDialogs::file_select_dialog(const file_select_args& args)
 
 // The Select folder dialog, returns the retrieved folderpath or None
 std::string CtDialogs::folder_select_dialog(const std::string& curr_folder,
-                                            Gtk::Window* pParent /*= nullptr*/)
+                                            Gtk::Window* pParentWin /*= nullptr*/)
 {
     Gtk::FileChooserDialog chooser(_("Select Folder"),
                                    Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
     chooser.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
     chooser.add_button(Gtk::Stock::OPEN, Gtk::RESPONSE_ACCEPT);
-    if (pParent)
+    if (pParentWin)
     {
-        chooser.set_transient_for(*pParent);
+        chooser.set_transient_for(*pParentWin);
         chooser.property_modal() = true;
         chooser.property_destroy_with_parent() = true;
         chooser.set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
@@ -1065,9 +1065,9 @@ std::string CtDialogs::file_save_as_dialog(const file_select_args& args)
     chooser.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
     chooser.add_button(Gtk::Stock::SAVE, Gtk::RESPONSE_ACCEPT);
     chooser.set_do_overwrite_confirmation(true);
-    if (args.pParent)
+    if (args.pParentWin)
     {
-        chooser.set_transient_for(*args.pParent);
+        chooser.set_transient_for(*args.pParentWin);
         chooser.property_modal() = true;
         chooser.property_destroy_with_parent() = true;
         chooser.set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
@@ -1251,7 +1251,7 @@ bool CtDialogs::codeboxhandle_dialog(Gtk::Window& parent_win,
     type_vbox.pack_start(radiobutton_plain_text);
     type_vbox.pack_start(radiobutton_auto_syntax_highl);
     type_vbox.pack_start(button_prog_lang);
-    Gtk::Frame type_frame(std::string("<b>")+_("Type")+"</b>");
+    Gtk::Frame type_frame(Glib::ustring("<b>")+_("Type")+"</b>");
     dynamic_cast<Gtk::Label*>(type_frame.get_label_widget())->set_use_markup(true);
     type_frame.set_shadow_type(Gtk::SHADOW_NONE);
     type_frame.add(type_vbox);
@@ -1290,7 +1290,7 @@ bool CtDialogs::codeboxhandle_dialog(Gtk::Window& parent_win,
     size_align.set_padding(0, 6, 6, 6);
     size_align.add(vbox_size);
 
-    Gtk::Frame size_frame(std::string("<b>")+_("Size")+"</b>");
+    Gtk::Frame size_frame(Glib::ustring("<b>")+_("Size")+"</b>");
     dynamic_cast<Gtk::Label*>(size_frame.get_label_widget())->set_use_markup(true);
     size_frame.set_shadow_type(Gtk::SHADOW_NONE);
     size_frame.add(size_align);
@@ -1306,7 +1306,7 @@ bool CtDialogs::codeboxhandle_dialog(Gtk::Window& parent_win,
     opt_align.set_padding(6, 6, 6, 6);
     opt_align.add(vbox_options);
 
-    Gtk::Frame options_frame(std::string("<b>")+_("Options")+"</b>");
+    Gtk::Frame options_frame(Glib::ustring("<b>")+_("Options")+"</b>");
     dynamic_cast<Gtk::Label*>(options_frame.get_label_widget())->set_use_markup(true);
     options_frame.set_shadow_type(Gtk::SHADOW_NONE);
     options_frame.add(opt_align);
@@ -1381,4 +1381,151 @@ bool CtDialogs::codeboxhandle_dialog(Gtk::Window& parent_win,
         return true;
     }
     return false;
+}
+
+// Choose the CherryTree data storage type (xml or db) and protection
+bool CtDialogs::choose_data_storage_dialog(storage_select_args& args)
+{
+    Gtk::Dialog dialog(_("Choose Storage Type"),
+                       *args.pParentWin,
+                       Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
+    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    dialog.set_default_size(350, -1);
+    dialog.set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
+
+    Glib::ustring labelPrefixSQLite{"SQLite, "};
+    Glib::ustring labelPrefixXML{"XML, "};
+    Gtk::RadioButton radiobutton_sqlite_not_protected(labelPrefixSQLite + _("Not Protected") + " (.ctb)");
+    Gtk::RadioButton::Group rbGroup = radiobutton_sqlite_not_protected.get_group();
+    Gtk::RadioButton radiobutton_sqlite_pass_protected(rbGroup, labelPrefixSQLite + _("Password Protected") + " (.ctx)");
+    Gtk::RadioButton radiobutton_xml_not_protected(rbGroup, labelPrefixXML + _("Not Protected") + " (.ctd)");
+    Gtk::RadioButton radiobutton_xml_pass_protected(rbGroup, labelPrefixXML + _("Password Protected") + " (.ctz)");
+
+    Gtk::VBox type_vbox;
+    type_vbox.pack_start(radiobutton_sqlite_not_protected);
+    type_vbox.pack_start(radiobutton_sqlite_pass_protected);
+    type_vbox.pack_start(radiobutton_xml_not_protected);
+    type_vbox.pack_start(radiobutton_xml_pass_protected);
+
+    Gtk::Frame type_frame(Glib::ustring("<b>")+_("Storage Type")+"</b>");
+    dynamic_cast<Gtk::Label*>(type_frame.get_label_widget())->set_use_markup(true);
+    type_frame.set_shadow_type(Gtk::SHADOW_NONE);
+    type_frame.add(type_vbox);
+
+    Gtk::Entry entry_passw_1;
+    entry_passw_1.set_visibility(false);
+    Gtk::Entry entry_passw_2;
+    entry_passw_2.set_visibility(false);
+    Gtk::Label label_passwd(_("CT saves the document in an encrypted 7zip archive. When viewing or editing the document, CT extracts the encrypted archive to a temporary folder, and works on the unencrypted copy. When closing, the unencrypted copy is deleted from the temporary directory. Note that in the case of application or system crash, the unencrypted document will remain in the temporary folder."));
+    label_passwd.set_width_chars(70);
+    label_passwd.set_line_wrap(true);
+    Gtk::VBox vbox_passw;
+    vbox_passw.pack_start(entry_passw_1);
+    vbox_passw.pack_start(entry_passw_2);
+    vbox_passw.pack_start(label_passwd);
+
+    Gtk::Frame passw_frame(Glib::ustring("<b>")+_("Enter the New Password Twice")+"</b>");
+    dynamic_cast<Gtk::Label*>(passw_frame.get_label_widget())->set_use_markup(true);
+    passw_frame.set_shadow_type(Gtk::SHADOW_NONE);
+    passw_frame.add(vbox_passw);
+
+    if (args.ctDocEncrypt == CtDocEncrypt::False)
+    {
+        passw_frame.set_sensitive(false);
+        if (args.ctDocType == CtDocType::SQLite)
+        {
+            radiobutton_sqlite_not_protected.set_active(true);
+        }
+        else if (args.ctDocType == CtDocType::XML)
+        {
+            radiobutton_xml_not_protected.set_active(true);
+        }
+    }
+    else if (args.ctDocEncrypt == CtDocEncrypt::True)
+    {
+        passw_frame.set_sensitive(true);
+        if (args.ctDocType == CtDocType::SQLite)
+        {
+            radiobutton_sqlite_pass_protected.set_active(true);
+        }
+        else
+        {
+            radiobutton_xml_pass_protected.set_active(true);
+        }
+    }
+
+    Gtk::Box* pContentArea = dialog.get_content_area();
+    pContentArea->set_spacing(5);
+    pContentArea->pack_start(type_frame);
+    pContentArea->pack_start(passw_frame);
+    pContentArea->show_all();
+
+    auto on_radiobutton_savetype_toggled = [&]()
+    {
+        if ( radiobutton_sqlite_pass_protected.get_active() ||
+             radiobutton_xml_pass_protected.get_active() )
+        {
+            passw_frame.set_sensitive(true);
+            entry_passw_1.grab_focus();
+        }
+        else
+        {
+            passw_frame.set_sensitive(false);
+        }
+    };
+    auto on_key_press_edit_data_storage_type_dialog = [&](GdkEventKey *pEventKey)->bool
+    {
+        if (GDK_KEY_Return == pEventKey->keyval)
+        {
+            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT));
+            pButton->clicked();
+            return true;
+        }
+        return false;
+    };
+    radiobutton_sqlite_not_protected.signal_toggled().connect(on_radiobutton_savetype_toggled);
+    radiobutton_sqlite_pass_protected.signal_toggled().connect(on_radiobutton_savetype_toggled);
+    radiobutton_xml_not_protected.signal_toggled().connect(on_radiobutton_savetype_toggled);
+    dialog.signal_key_press_event().connect(on_key_press_edit_data_storage_type_dialog, false/*call me before other*/);
+
+    const int response = dialog.run();
+
+    args.ctDocType = (radiobutton_xml_not_protected.get_active() || radiobutton_xml_pass_protected.get_active() ? CtDocType::XML : CtDocType::SQLite);
+    args.ctDocEncrypt = (radiobutton_sqlite_pass_protected.get_active() || radiobutton_xml_pass_protected.get_active() ? CtDocEncrypt::True : CtDocEncrypt::False);
+    //args.password = 
+    //todo
+
+#if 0
+
+    storage_type_is_xml = 
+    new_protection = {'on': ,
+                      'p1': unicode(entry_passw_1.get_text(), cons.STR_UTF8, cons.STR_IGNORE),
+                      'p2': unicode(entry_passw_2.get_text(), cons.STR_UTF8, cons.STR_IGNORE)}
+    dialog.destroy()
+    if response != gtk.RESPONSE_ACCEPT: return False
+    if new_protection['on']:
+        if new_protection['p1'] == "":
+            dialog_error(_("The Password Fields Must be Filled"), dad.window)
+            return False
+        if new_protection['p1'] != new_protection['p2']:
+            dialog_error(_("The Two Inserted Passwords Do Not Match"), dad.window)
+            return False
+        for bad_char in cons.CHARS_NOT_FOR_PASSWD:
+            if bad_char in new_protection['p1']:
+                dialog_error(_("The Characters  %s  are Not Allowed") % cons.CHAR_SPACE.join(cons.CHARS_NOT_FOR_PASSWD), dad.window)
+                return False
+        if not new_protection['p1'] or not dad.is_7za_available(): return False
+        dad.password = new_protection['p1']
+    else: dad.password = None
+    if storage_type_is_xml:
+        if dad.password: dad.filetype = "z"
+        else: dad.filetype = "d"
+    else:
+        if dad.password: dad.filetype = "x"
+        else: dad.filetype = "b"
+    //#print "dad.filetype = '%s'" % dad.filetype
+#endif // 0
+
+    return true;
 }
