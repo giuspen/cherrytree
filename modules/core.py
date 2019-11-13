@@ -2222,13 +2222,13 @@ iter_end, exclude_iter_sel_end=True)
                                             self.print_handler.page_setup,
                                             self.print_handler.settings)
 
-    def export_to_pdf(self, action):
+    def export_to_pdf(self, *args):
         """Start Export to PDF Operations"""
         self.print_handler.pdf_filepath = cons.CHAR_TILDE
-        self.export_print(action)
+        self.export_print(args)
         self.print_handler.pdf_filepath = ""
 
-    def export_print(self, action):
+    def export_print(self, args):
         """Start Print Operations"""
         if not self.is_there_selected_node_or_error(): return
         export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True, also_include_node_name=True, also_new_node_page=True)

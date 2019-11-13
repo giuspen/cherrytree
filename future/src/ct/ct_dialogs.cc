@@ -1490,42 +1490,29 @@ bool CtDialogs::choose_data_storage_dialog(storage_select_args& args)
     dialog.signal_key_press_event().connect(on_key_press_edit_data_storage_type_dialog, false/*call me before other*/);
 
     const int response = dialog.run();
+    dialog.hide();
 
-    args.ctDocType = (radiobutton_xml_not_protected.get_active() || radiobutton_xml_pass_protected.get_active() ? CtDocType::XML : CtDocType::SQLite);
-    args.ctDocEncrypt = (radiobutton_sqlite_pass_protected.get_active() || radiobutton_xml_pass_protected.get_active() ? CtDocEncrypt::True : CtDocEncrypt::False);
-    //args.password = 
-    //todo
-
-#if 0
-
-    storage_type_is_xml = 
-    new_protection = {'on': ,
-                      'p1': unicode(entry_passw_1.get_text(), cons.STR_UTF8, cons.STR_IGNORE),
-                      'p2': unicode(entry_passw_2.get_text(), cons.STR_UTF8, cons.STR_IGNORE)}
-    dialog.destroy()
-    if response != gtk.RESPONSE_ACCEPT: return False
-    if new_protection['on']:
-        if new_protection['p1'] == "":
-            dialog_error(_("The Password Fields Must be Filled"), dad.window)
-            return False
-        if new_protection['p1'] != new_protection['p2']:
-            dialog_error(_("The Two Inserted Passwords Do Not Match"), dad.window)
-            return False
-        for bad_char in cons.CHARS_NOT_FOR_PASSWD:
-            if bad_char in new_protection['p1']:
-                dialog_error(_("The Characters  %s  are Not Allowed") % cons.CHAR_SPACE.join(cons.CHARS_NOT_FOR_PASSWD), dad.window)
-                return False
-        if not new_protection['p1'] or not dad.is_7za_available(): return False
-        dad.password = new_protection['p1']
-    else: dad.password = None
-    if storage_type_is_xml:
-        if dad.password: dad.filetype = "z"
-        else: dad.filetype = "d"
-    else:
-        if dad.password: dad.filetype = "x"
-        else: dad.filetype = "b"
-    //#print "dad.filetype = '%s'" % dad.filetype
-#endif // 0
-
-    return true;
+    bool retVal{Gtk::RESPONSE_ACCEPT == response};
+    if (retVal)
+    {
+        args.ctDocType = (radiobutton_xml_not_protected.get_active() || radiobutton_xml_pass_protected.get_active() ?
+                         CtDocType::XML : CtDocType::SQLite);
+        args.ctDocEncrypt = (radiobutton_sqlite_pass_protected.get_active() || radiobutton_xml_pass_protected.get_active() ?
+                            CtDocEncrypt::True : CtDocEncrypt::False);
+        if (CtDocEncrypt::True == args.ctDocEncrypt)
+        {
+            args.password = entry_passw_1.get_text();
+            if (args.password.empty())
+            {
+                error_dialog(_("The Password Fields Must be Filled"), *args.pParentWin);
+                retVal = false;
+            }
+            else if (args.password != entry_passw_2.get_text())
+            {
+                error_dialog(_("The Two Inserted Passwords Do Not Match"), *args.pParentWin);
+                retVal = false;
+            }
+        }
+    }
+    return retVal;
 }
