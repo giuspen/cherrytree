@@ -2231,7 +2231,10 @@ iter_end, exclude_iter_sel_end=True)
     def export_print(self, args):
         """Start Print Operations"""
         if not self.is_there_selected_node_or_error(): return
-        export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True, also_include_node_name=True, also_new_node_page=True)
+        if args and args[0] == "Auto":
+            export_type = 3
+        else:
+            export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True, also_include_node_name=True, also_new_node_page=True)
         if export_type == 0: return
         pdf_handler = exports.ExportPrint(self)
         if export_type == 1:
@@ -2251,7 +2254,12 @@ iter_end, exclude_iter_sel_end=True)
             pdf_handler.nodes_all_export_print(self.curr_tree_iter, self.last_include_node_name, self.last_new_node_page)
         elif export_type == 3:
             # all nodes
-            if self.print_handler.pdf_filepath == cons.CHAR_TILDE:
+            if args and args[0] == "Auto":
+                self.print_handler.pdf_filepath = args[1]
+                export_overwrite = args[2]
+                if not export_overwrite and os.path.isfile(self.print_handler.pdf_filepath):
+                    return
+            elif self.print_handler.pdf_filepath == cons.CHAR_TILDE:
                 pdf_filepath = pdf_handler.get_pdf_filepath(self.file_name)
                 if not pdf_filepath: return
                 self.print_handler.pdf_filepath = pdf_filepath
