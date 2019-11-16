@@ -28,7 +28,7 @@
 #include <regex>
 #include <glib/gstdio.h> // to get stats
 
-CtDocType CtMiscUtil::getDocType(std::string fileName)
+CtDocType CtMiscUtil::getDocType(const std::string& fileName)
 {
     CtDocType retDocType{CtDocType::None};
     if ( (Glib::str_has_suffix(fileName, ".ctd")) ||
@@ -44,7 +44,7 @@ CtDocType CtMiscUtil::getDocType(std::string fileName)
     return retDocType;
 }
 
-CtDocEncrypt CtMiscUtil::getDocEncrypt(std::string fileName)
+CtDocEncrypt CtMiscUtil::getDocEncrypt(const std::string& fileName)
 {
     CtDocEncrypt retDocEncrypt{CtDocEncrypt::None};
     if ( (Glib::str_has_suffix(fileName, ".ctd")) ||
@@ -59,6 +59,35 @@ CtDocEncrypt CtMiscUtil::getDocEncrypt(std::string fileName)
     }
     return retDocEncrypt;
 }
+
+const gchar* CtMiscUtil::getDocExtension(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt)
+{
+    const gchar* retVal{""};
+    if (CtDocType::XML == ctDocType)
+    {
+        if (CtDocEncrypt::False == ctDocEncrypt)
+        {
+            retVal = CtConst::CTDOC_XML_NOENC;
+        }
+        else if (CtDocEncrypt::True == ctDocEncrypt)
+        {
+            retVal = CtConst::CTDOC_XML_ENC;
+        }
+    }
+    else if (CtDocType::SQLite == ctDocType)
+    {
+        if (CtDocEncrypt::False == ctDocEncrypt)
+        {
+            retVal = CtConst::CTDOC_SQLITE_NOENC;
+        }
+        else if (CtDocEncrypt::True == ctDocEncrypt)
+        {
+            retVal = CtConst::CTDOC_SQLITE_ENC;
+        }
+    }
+    return retVal;
+}
+
 
 Glib::RefPtr<Gsv::Buffer> CtMiscUtil::get_new_text_buffer(const std::string& syntax, const Glib::ustring& textContent)
 {

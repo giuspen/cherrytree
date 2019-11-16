@@ -60,7 +60,26 @@ void CtActions::file_vacuum()
 // Save the file providing a new name
 void CtActions::file_save_as()
 {
-    if (!_is_tree_not_empty_or_error()) return;
+    if (false == _is_tree_not_empty_or_error()) return;
+    CtDialogs::storage_select_args storageSelArgs{ .pParentWin = _pCtMainWin };
+    std::string currDocFilepath = _pCtMainWin->get_curr_doc_file_path();
+    if (false == currDocFilepath.empty())
+    {
+        storageSelArgs.ctDocType = CtMiscUtil::getDocType(currDocFilepath);
+        storageSelArgs.ctDocEncrypt = CtMiscUtil::getDocEncrypt(currDocFilepath);
+    }
+    if (false == CtDialogs::choose_data_storage_dialog(storageSelArgs)) return;
+    CtDialogs::file_select_args fileSelArgs{ .pParentWin = _pCtMainWin };
+    if (false == currDocFilepath.empty())
+    {
+        fileSelArgs.curr_folder = Glib::path_get_dirname(currDocFilepath);
+        fileSelArgs.curr_file_name = Glib::path_get_basename(currDocFilepath);
+    }
+    fileSelArgs.filter_name = _("CherryTree Document");
+    std::string fileExtension = CtMiscUtil::getDocExtension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);
+    fileSelArgs.filter_pattern.push_back(std::string{CtConst::CHAR_STAR}+fileExtension);
+    std::string filepath = CtDialogs::file_save_as_dialog(fileSelArgs);
+#if 0
     // todo: support all document types and destination path
     {
         const Glib::ustring filepath{"/tmp/test.ctb"};
@@ -85,4 +104,5 @@ void CtActions::file_save_as()
         ctXmlWrite.write_to_file(filepath);
         std::cout << "written " << filepath << std::endl;
     }
+#endif // 0
 }
