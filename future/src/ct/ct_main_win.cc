@@ -285,7 +285,7 @@ bool CtMainWin::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, 
 {
     bool retOk{false};
     std::string filepath{r_file->get_path()};
-    CtDocEncrypt docEncrypt = CtMiscUtil::getDocEncrypt(filepath);
+    CtDocEncrypt docEncrypt = CtMiscUtil::get_doc_encrypt(filepath);
     const gchar* pFilepath{nullptr};
     if (CtDocEncrypt::True == docEncrypt)
     {

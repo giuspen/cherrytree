@@ -35,13 +35,14 @@ void CtActions::_file_save(const bool run_vacuum)
         if (_pCtMainWin->get_file_save_needed())
         {
             _pCtMainWin->curr_file_mod_time_update_value(false/*doEnable*/);
-            if (false == _is_tree_not_empty_or_error())
+            if ( (false == _is_tree_not_empty_or_error()) &&
+                 _file_write(doc_filepath, false/*firstWrite*/) )
             {
-                
+                _pCtMainWin->update_window_save_not_needed();
+                // ? self.state_machine.update_state()
             }
             _pCtMainWin->curr_file_mod_time_update_value(true/*doEnable*/);
         }
-        // todo
     }
 }
 
@@ -60,15 +61,21 @@ void CtActions::file_vacuum()
 // Save the file providing a new name
 void CtActions::file_save_as()
 {
-    if (false == _is_tree_not_empty_or_error()) return;
+    if (false == _is_tree_not_empty_or_error())
+    {
+        return;
+    }
     CtDialogs::storage_select_args storageSelArgs{ .pParentWin = _pCtMainWin };
     std::string currDocFilepath = _pCtMainWin->get_curr_doc_file_path();
     if (false == currDocFilepath.empty())
     {
-        storageSelArgs.ctDocType = CtMiscUtil::getDocType(currDocFilepath);
-        storageSelArgs.ctDocEncrypt = CtMiscUtil::getDocEncrypt(currDocFilepath);
+        storageSelArgs.ctDocType = CtMiscUtil::get_doc_type(currDocFilepath);
+        storageSelArgs.ctDocEncrypt = CtMiscUtil::get_doc_encrypt(currDocFilepath);
     }
-    if (false == CtDialogs::choose_data_storage_dialog(storageSelArgs)) return;
+    if (false == CtDialogs::choose_data_storage_dialog(storageSelArgs))
+    {
+        return;
+    }
     CtDialogs::file_select_args fileSelArgs{ .pParentWin = _pCtMainWin };
     if (false == currDocFilepath.empty())
     {
@@ -76,13 +83,27 @@ void CtActions::file_save_as()
         fileSelArgs.curr_file_name = Glib::path_get_basename(currDocFilepath);
     }
     fileSelArgs.filter_name = _("CherryTree Document");
-    std::string fileExtension = CtMiscUtil::getDocExtension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);
+    std::string fileExtension = CtMiscUtil::get_doc_extension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);
     fileSelArgs.filter_pattern.push_back(std::string{CtConst::CHAR_STAR}+fileExtension);
     std::string filepath = CtDialogs::file_save_as_dialog(fileSelArgs);
+    if (filepath.empty())
+    {
+        return;
+    }
+    _pCtMainWin->curr_file_mod_time_update_value(false/*doEnable*/);
+    CtMiscUtil::filepath_extension_fix(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt, filepath);
+    if (_file_write(filepath, true/*firstWrite*/))
+    {
+        _pCtMainWin->set_new_curr_doc(filepath);
+        // support.add_recent_document(self, filepath)
+        _pCtMainWin->update_window_save_not_needed();
+        // ? self.state_machine.update_state()
+    }
+    _pCtMainWin->curr_file_mod_time_update_value(true/*doEnable*/);
 #if 0
     // todo: support all document types and destination path
     {
-        const Glib::ustring filepath{"/tmp/test.ctb"};
+        const std::string filepath{"/tmp/test.ctb"};
         if (Glib::file_test(filepath, Glib::FILE_TEST_IS_REGULAR))
         {
             g_remove(filepath.c_str());
@@ -100,9 +121,15 @@ void CtActions::file_save_as()
     {
         CtXmlWrite ctXmlWrite(CtConst::APP_NAME);
         ctXmlWrite.treestore_to_dom(_pCtTreestore->get_bookmarks(), _pCtTreestore->get_ct_iter_first());
-        const Glib::ustring filepath{"/tmp/test.ctd"};
+        const std::string filepath{"/tmp/test.ctd"};
         ctXmlWrite.write_to_file(filepath);
         std::cout << "written " << filepath << std::endl;
     }
 #endif // 0
+}
+
+bool CtActions::_file_write(const std::string& filepath, const bool firstWrite)
+{
+    // todo
+    return false;
 }

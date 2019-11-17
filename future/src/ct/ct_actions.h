@@ -77,6 +77,7 @@ public:
 private:
     // helpers for file actions
     void _file_save(const bool run_vacuum=false);
+    bool _file_write(const std::string& filepath, const bool firstWrite);
 
 public:
     // file actions

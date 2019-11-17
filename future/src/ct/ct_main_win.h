@@ -78,6 +78,7 @@ public:
     std::string get_curr_doc_file_path() { return (_ctCurrFile.rFile ? _ctCurrFile.rFile->get_path():""); }
     std::string get_curr_doc_file_name() { return (_ctCurrFile.rFile ? Glib::path_get_basename(_ctCurrFile.rFile->get_path()):""); } // pygtk: file_name
     std::string get_curr_doc_file_dir() { return (_ctCurrFile.rFile ? Glib::path_get_dirname(_ctCurrFile.rFile->get_path()):""); } // pygtk: file_dir
+    void set_new_curr_doc(const std::string& filepath) { _ctCurrFile.rFile = Gio::File::create_for_path(filepath); }
     void curr_file_mod_time_update_value(const bool doEnable); // pygtk: modification_time_update_value
 
     CtTreeIter    curr_tree_iter()  { return _ctTreestore.to_ct_tree_iter(_ctTreeview.get_selection()->get_selected()); }

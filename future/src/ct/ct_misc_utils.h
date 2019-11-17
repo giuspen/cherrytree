@@ -38,11 +38,13 @@ template<class F> auto scope_guard(F&& f) {
 
 namespace CtMiscUtil {
 
-CtDocType getDocType(const std::string& fileName);
+CtDocType get_doc_type(const std::string& fileName);
 
-CtDocEncrypt getDocEncrypt(const std::string& fileName);
+CtDocEncrypt get_doc_encrypt(const std::string& fileName);
 
-const gchar* getDocExtension(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt);
+const gchar* get_doc_extension(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt);
+
+void filepath_extension_fix(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt, std::string& filepath);
 
 Glib::RefPtr<Gsv::Buffer> get_new_text_buffer(const std::string& syntax, const Glib::ustring& textContent=""); // pygtk: buffer_create
 

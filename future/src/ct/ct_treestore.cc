@@ -384,7 +384,7 @@ void CtTreeStore::view_append_columns(Gtk::TreeView* pTreeView)
 bool CtTreeStore::read_nodes_from_filepath(const char* filepath, const bool isImport, const Gtk::TreeIter* pParentIter)
 {
     bool retOk{false};
-    CtDocType docType = CtMiscUtil::getDocType(filepath);
+    CtDocType docType = CtMiscUtil::get_doc_type(filepath);
     CtDocRead* pCtDocRead{nullptr};
     if (CtDocType::XML == docType)
     {

@@ -28,7 +28,7 @@
 #include <regex>
 #include <glib/gstdio.h> // to get stats
 
-CtDocType CtMiscUtil::getDocType(const std::string& fileName)
+CtDocType CtMiscUtil::get_doc_type(const std::string& fileName)
 {
     CtDocType retDocType{CtDocType::None};
     if ( (Glib::str_has_suffix(fileName, ".ctd")) ||
@@ -44,7 +44,7 @@ CtDocType CtMiscUtil::getDocType(const std::string& fileName)
     return retDocType;
 }
 
-CtDocEncrypt CtMiscUtil::getDocEncrypt(const std::string& fileName)
+CtDocEncrypt CtMiscUtil::get_doc_encrypt(const std::string& fileName)
 {
     CtDocEncrypt retDocEncrypt{CtDocEncrypt::None};
     if ( (Glib::str_has_suffix(fileName, ".ctd")) ||
@@ -60,7 +60,7 @@ CtDocEncrypt CtMiscUtil::getDocEncrypt(const std::string& fileName)
     return retDocEncrypt;
 }
 
-const gchar* CtMiscUtil::getDocExtension(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt)
+const gchar* CtMiscUtil::get_doc_extension(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt)
 {
     const gchar* retVal{""};
     if (CtDocType::XML == ctDocType)
@@ -88,6 +88,14 @@ const gchar* CtMiscUtil::getDocExtension(const CtDocType ctDocType, const CtDocE
     return retVal;
 }
 
+void CtMiscUtil::filepath_extension_fix(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt, std::string& filepath)
+{
+    const std::string docExt{get_doc_extension(ctDocType, ctDocEncrypt)};
+    if (false == Glib::str_has_suffix(filepath, docExt))
+    {
+        filepath += docExt;
+    }
+}
 
 Glib::RefPtr<Gsv::Buffer> CtMiscUtil::get_new_text_buffer(const std::string& syntax, const Glib::ustring& textContent)
 {
