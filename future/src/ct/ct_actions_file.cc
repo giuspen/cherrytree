@@ -176,7 +176,8 @@ bool CtActions::_file_write(const std::string& filepath, const bool firstWrite)
 {
     if (false == _backups_handling(filepath))
     {
-        CtDialogs::error_dialog(_("You Have No Write Access to ") + Glib::path_get_dirname(filepath), *_pCtMainWin);
+        g_autofree gchar* title = g_strdup_printf(_("You Have No Write Access to %s"), Glib::path_get_dirname(filepath).c_str());
+        CtDialogs::error_dialog(title, *_pCtMainWin);
         return false;
     }
     // todo
