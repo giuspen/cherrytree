@@ -128,8 +128,57 @@ void CtActions::file_save_as()
 #endif // 0
 }
 
+bool CtActions::_backups_handling(const std::string& filepath)
+{
+    bool retVal{true};
+    if (CtApp::P_ctCfg->backupCopy && CtApp::P_ctCfg->backupNum > 0)
+    {
+        std::string tildesToBackup;
+        int tildesLeft{CtApp::P_ctCfg->backupNum-1};
+        while (tildesLeft > 0)
+        {
+            tildesToBackup += CtConst::CHAR_TILDE;
+            tildesLeft--;
+        }
+        std::string filepathTildes = filepath + tildesToBackup;
+        for (int b=CtApp::P_ctCfg->backupNum; b>0; b--)
+        {
+            Glib::RefPtr<Gio::File> rFileFrom = Gio::File::create_for_path(filepathTildes);
+            if (rFileFrom->query_exists())
+            {
+                Glib::RefPtr<Gio::File> rFileTo = Gio::File::create_for_path(filepathTildes+CtConst::CHAR_TILDE);
+                if (b > 1)
+                {
+                    // from and to are both backups
+                    retVal = rFileFrom->move(rFileTo);
+                }
+                else
+                {
+                    // from is the document we have open
+                    retVal = rFileFrom->copy(rFileTo);
+                }
+                if (false == retVal)
+                {
+                    // write access issues
+                    break;
+                }
+            }
+            if (b > 1)
+            {
+                filepathTildes = filepathTildes.substr(0, filepathTildes.size()-1);
+            }
+        }
+    }
+    return retVal;
+}
+
 bool CtActions::_file_write(const std::string& filepath, const bool firstWrite)
 {
+    if (false == _backups_handling(filepath))
+    {
+        CtDialogs::error_dialog(_("You Have No Write Access to ") + Glib::path_get_dirname(filepath), *_pCtMainWin);
+        return false;
+    }
     // todo
     return false;
 }
