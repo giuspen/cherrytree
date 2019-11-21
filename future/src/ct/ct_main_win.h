@@ -56,10 +56,9 @@ struct CtWinHeader
     Gtk::EventBox    eventBox;
 };
 
-enum class CtSaveNeededUpdType { None, nbuf, npro, ndel, book };
-
 class CtMenu;
 class CtActions;
+
 class CtMainWin : public Gtk::ApplicationWindow
 {
 public:

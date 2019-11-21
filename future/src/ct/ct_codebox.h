@@ -26,9 +26,6 @@
 #include "ct_const.h"
 #include "ct_widgets.h"
 
-
-enum class CtPixTabCBox : int {Pixbuf=0, Table=1, CodeBox=2};
-
 class CtTextCell
 {
 public:

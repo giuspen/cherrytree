@@ -264,6 +264,14 @@ void CtTreeStore::pending_edit_db_bookmarks()
     }
 }
 
+bool CtTreeStore::pending_data_write(const bool run_vacuum)
+{
+    if (nullptr != _pCtSQLite)
+    {
+        _pCtSQLite->pending_data_write(this, _bookmarks, run_vacuum);
+    }
+}
+
 CtTreeStore::CtTreeStore()
 {
     _rTreeStore = Gtk::TreeStore::create(_columns);
@@ -417,6 +425,18 @@ bool CtTreeStore::read_nodes_from_filepath(const char* filepath, const bool isIm
         }
     }
     return retOk;
+}
+
+void CtTreeStore::set_new_curr_doc(CtSQLite* pCtSQLite)
+{
+    if (nullptr != _pCtSQLite)
+    {
+        delete _pCtSQLite;
+    }
+    if (nullptr != pCtSQLite)
+    {
+        _pCtSQLite = pCtSQLite;
+    }
 }
 
 Glib::RefPtr<Gdk::Pixbuf> CtTreeStore::_get_node_icon(int nodeDepth, const std::string &syntax, guint32 customIconId)

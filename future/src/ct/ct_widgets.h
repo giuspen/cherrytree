@@ -26,8 +26,7 @@
 #include <libxml++/libxml++.h>
 #include <sqlite3.h>
 #include "ct_list.h"
-
-enum class CtAnchWidgType { CodeBox, Table, ImagePng, ImageAnchor, ImageEmbFile };
+#include "ct_enums.h"
 
 class CtAnchoredWidget : public Gtk::EventBox
 {

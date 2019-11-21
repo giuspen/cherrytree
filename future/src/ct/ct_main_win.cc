@@ -284,8 +284,8 @@ void CtMainWin::set_menu_items_special_chars()
 bool CtMainWin::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, const bool isImport)
 {
     bool retOk{false};
-    std::string filepath{r_file->get_path()};
-    CtDocEncrypt docEncrypt = CtMiscUtil::get_doc_encrypt(filepath);
+    const std::string filepath{r_file->get_path()};
+    const CtDocEncrypt docEncrypt = CtMiscUtil::get_doc_encrypt(filepath);
     const gchar* pFilepath{nullptr};
     if (CtDocEncrypt::True == docEncrypt)
     {

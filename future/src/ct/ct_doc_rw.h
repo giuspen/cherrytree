@@ -26,9 +26,7 @@
 #include <gtkmm.h>
 #include "ct_treestore.h"
 #include "ct_table.h"
-
-enum class CtXmlNodeType { None, RichText, EncodedPng, Table, CodeBox };
-enum class CtExporting { No, All, NodeOnly, NodeAndSubnodes };
+#include "ct_enums.h"
 
 class CtDocRead
 {

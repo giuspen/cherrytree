@@ -24,10 +24,7 @@
 #include <unordered_map>
 #include <glibmm.h>
 #include "ct_const.h"
-
-enum class CtRestoreExpColl : int {FROM_STR=0, ALL_EXP=1, ALL_COLL=2};
-
-enum class CtTableColMode : int {RENAME=0, ADD=1, DELETE=2, RIGHT=3, LEFT=4};
+#include "ct_enums.h"
 
 struct CtRecentDocRestore
 {

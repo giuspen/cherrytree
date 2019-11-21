@@ -26,9 +26,11 @@
 #include "ct_image.h"
 #include "ct_table.h"
 #include "ct_main_win.h"
+#include "ct_enums.h"
 #include <optional>
 
 class CtMainWin;
+
 class CtActions
 {
 public:
@@ -77,7 +79,14 @@ public:
 private:
     // helpers for file actions
     void _file_save(const bool run_vacuum=false);
-    bool _file_write(const std::string& filepath, const bool firstWrite);
+    bool _file_write(const std::string& filepath,
+                     const bool firstWrite,
+                     const bool run_vacuum=false);
+    bool _file_write_low_level(const std::string& filepath,
+                               const bool firstWrite,
+                               const bool run_vacuum=false,
+                               const CtExporting exporting=CtExporting::No,
+                               const std::pair<int,int>& offset_range=std::make_pair(-1,-1));
     bool _backups_handling(const std::string& filepath);
 
 public:

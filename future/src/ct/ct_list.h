@@ -23,8 +23,7 @@
 
 #include <gtkmm/textbuffer.h>
 #include <glibmm/refptr.h>
-
-enum class CtListType { None, Todo, Bullet, Number };
+#include "ct_enums.h"
 
 struct CtListInfo
 {

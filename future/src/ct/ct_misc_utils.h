@@ -26,11 +26,9 @@
 #include <gtkmm/treestore.h>
 #include <set>
 #include "ct_treestore.h"
+#include "ct_enums.h"
 #include "src/fmt/fmt.h"
 #include <type_traits>
-
-enum class CtDocType : int {None=0, XML=1, SQLite=2};
-enum class CtDocEncrypt : int {None=0, True=1, False=2};
 
 template<class F> auto scope_guard(F&& f) {
     return std::unique_ptr<void, typename std::decay<F>::type>{(void*)1, std::forward<F>(f)};

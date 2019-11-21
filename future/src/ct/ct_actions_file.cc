@@ -36,7 +36,7 @@ void CtActions::_file_save(const bool run_vacuum)
         {
             _pCtMainWin->curr_file_mod_time_update_value(false/*doEnable*/);
             if ( (false == _is_tree_not_empty_or_error()) &&
-                 _file_write(doc_filepath, false/*firstWrite*/) )
+                 _file_write(doc_filepath, false/*firstWrite*/, run_vacuum) )
             {
                 _pCtMainWin->update_window_save_not_needed();
                 // ? self.state_machine.update_state()
@@ -100,32 +100,6 @@ void CtActions::file_save_as()
         // ? self.state_machine.update_state()
     }
     _pCtMainWin->curr_file_mod_time_update_value(true/*doEnable*/);
-#if 0
-    // todo: support all document types and destination path
-    {
-        const std::string filepath{"/tmp/test.ctb"};
-        if (Glib::file_test(filepath, Glib::FILE_TEST_IS_REGULAR))
-        {
-            g_remove(filepath.c_str());
-        }
-        CtSQLite ctSQLite(filepath.c_str());
-        if (ctSQLite.write_db_full(_pCtTreestore->get_bookmarks(), _pCtTreestore->get_ct_iter_first()))
-        {
-            std::cout << "written " << filepath << std::endl;
-        }
-        else
-        {
-            std::cerr << "!! " << filepath << std::endl;
-        }
-    }
-    {
-        CtXmlWrite ctXmlWrite(CtConst::APP_NAME);
-        ctXmlWrite.treestore_to_dom(_pCtTreestore->get_bookmarks(), _pCtTreestore->get_ct_iter_first());
-        const std::string filepath{"/tmp/test.ctd"};
-        ctXmlWrite.write_to_file(filepath);
-        std::cout << "written " << filepath << std::endl;
-    }
-#endif // 0
 }
 
 bool CtActions::_backups_handling(const std::string& filepath)
@@ -147,14 +121,18 @@ bool CtActions::_backups_handling(const std::string& filepath)
             if (rFileFrom->query_exists())
             {
                 Glib::RefPtr<Gio::File> rFileTo = Gio::File::create_for_path(filepathTildes+CtConst::CHAR_TILDE);
-                if (b > 1)
+                if ( (b > 1) ||
+                     (CtDocType::XML == CtMiscUtil::get_doc_type(filepath)) ||
+                     (CtDocEncrypt::True == CtMiscUtil::get_doc_encrypt(filepath)) )
                 {
-                    // from and to are both backups
+                    // from and to are both backups or
+                    // from is our document but xml which we don't keep open or
+                    // from is our document sqlite but after encryption so not the open db
                     retVal = rFileFrom->move(rFileTo);
                 }
                 else
                 {
-                    // from is the document we have open
+                    // from is the sqlite document we have open, cannot move it
                     retVal = rFileFrom->copy(rFileTo);
                 }
                 if (false == retVal)
@@ -172,7 +150,9 @@ bool CtActions::_backups_handling(const std::string& filepath)
     return retVal;
 }
 
-bool CtActions::_file_write(const std::string& filepath, const bool firstWrite)
+bool CtActions::_file_write(const std::string& filepath,
+                            const bool firstWrite,
+                            const bool run_vacuum)
 {
     if (false == _backups_handling(filepath))
     {
@@ -180,6 +160,68 @@ bool CtActions::_file_write(const std::string& filepath, const bool firstWrite)
         CtDialogs::error_dialog(title, *_pCtMainWin);
         return false;
     }
+    // self.statusbar.push(self.statusbar_context_id, _("Writing to Disk..."))
+    while (gtk_events_pending()) gtk_main_iteration();
+    bool retVal = _file_write_low_level(filepath, firstWrite, run_vacuum);
+    // self.statusbar.pop(self.statusbar_context_id)
+    return retVal;
+}
+
+bool CtActions::_file_write_low_level(const std::string& filepath,
+                                      const bool firstWrite,
+                                      const bool run_vacuum,
+                                      const CtExporting exporting,
+                                      const std::pair<int,int>& offset_range)
+{
+    bool retVal{false};
+    const CtDocEncrypt docEncrypt = CtMiscUtil::get_doc_encrypt(filepath);
+    const CtDocType docType = CtMiscUtil::get_doc_type(filepath);
+    const char* filepath_tmp = (CtDocEncrypt::True == docEncrypt ? CtApp::P_ctTmp->getHiddenFilePath(filepath) : filepath.c_str());
+    if (CtDocType::XML == docType)
+    {
+        // xml, full
+        CtXmlWrite ctXmlWrite(CtConst::APP_NAME);
+        ctXmlWrite.treestore_to_dom(_pCtTreestore->get_bookmarks(), _pCtTreestore->get_ct_iter_first());
+        ctXmlWrite.write_to_file(filepath_tmp);
+        if (CtExporting::No == exporting)
+        {
+            _pCtTreestore->set_new_curr_doc(nullptr/*pCtSQLite*/);
+        }
+        std::cout << "W " << filepath_tmp << std::endl;
+        retVal = true;
+    }
+    else if ( firstWrite ||
+              (CtExporting::No != exporting) )
+    {
+        // sqlite, full
+        CtSQLite* pCtSQLite = new CtSQLite(filepath_tmp);
+        if (pCtSQLite->write_db_full(_pCtTreestore->get_bookmarks(),
+                                     _pCtTreestore->get_ct_iter_first(),
+                                     exporting,
+                                     offset_range))
+        {
+            if (CtExporting::No == exporting)
+            {
+                _pCtTreestore->set_new_curr_doc(pCtSQLite);
+            }
+            else
+            {
+                delete pCtSQLite;
+            }
+            std::cout << "W " << filepath_tmp << std::endl;
+            retVal = true;
+        }
+        else
+        {
+            std::cerr << "!! W " << filepath_tmp << std::endl;
+        }
+    }
+    else
+    {
+        // sqlite, update
+        _pCtTreestore->pending_data_write(run_vacuum);
+    }
     // todo
-    return false;
+    
+    return retVal;
 }

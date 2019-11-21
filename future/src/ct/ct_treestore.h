@@ -155,6 +155,7 @@ public:
     CtTreeIter                   get_node_from_node_name(const Glib::ustring& node_name);
     const std::list<gint64>&     get_bookmarks();
     void                         set_bookmarks(const std::list<gint64>& bookmarks);
+    void                         set_new_curr_doc(CtSQLite* pCtSQLite);
 
     std::string get_tree_expanded_collapsed_string(Gtk::TreeView& treeView);
     void        set_tree_expanded_collapsed_string(const std::string& expanded_collapsed_string, Gtk::TreeView& treeView, bool nodes_bookm_exp);
@@ -172,6 +173,7 @@ public:
 
     void pending_edit_db_bookmarks();
     void pending_rm_db_nodes(const std::vector<gint64>& node_ids);
+    bool pending_data_write(const bool run_vacuum=false);
 
 protected:
     Glib::RefPtr<Gdk::Pixbuf> _get_node_icon(int nodeDepth, const std::string &syntax, guint32 customIconId);
