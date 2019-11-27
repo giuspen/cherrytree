@@ -21,6 +21,7 @@
 
 #include "ct_actions.h"
 #include "ct_doc_rw.h"
+#include "ct_p7za_iface.h"
 #include <glib/gstdio.h>
 
 void CtActions::_file_save(const bool run_vacuum)
@@ -36,7 +37,7 @@ void CtActions::_file_save(const bool run_vacuum)
         {
             _pCtMainWin->curr_file_mod_time_update_value(false/*doEnable*/);
             if ( (false == _is_tree_not_empty_or_error()) &&
-                 _file_write(doc_filepath, false/*firstWrite*/, run_vacuum) )
+                 _file_write(doc_filepath, _pCtMainWin->get_curr_doc_password(), false/*firstWrite*/, run_vacuum) )
             {
                 _pCtMainWin->update_window_save_not_needed();
                 // ? self.state_machine.update_state()
@@ -92,9 +93,9 @@ void CtActions::file_save_as()
     }
     _pCtMainWin->curr_file_mod_time_update_value(false/*doEnable*/);
     CtMiscUtil::filepath_extension_fix(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt, filepath);
-    if (_file_write(filepath, true/*firstWrite*/))
+    if (_file_write(filepath, storageSelArgs.password, true/*firstWrite*/))
     {
-        _pCtMainWin->set_new_curr_doc(filepath);
+        _pCtMainWin->set_new_curr_doc(filepath, storageSelArgs.password);
         // support.add_recent_document(self, filepath)
         _pCtMainWin->update_window_save_not_needed();
         // ? self.state_machine.update_state()
@@ -151,6 +152,7 @@ bool CtActions::_backups_handling(const std::string& filepath)
 }
 
 bool CtActions::_file_write(const std::string& filepath,
+                            const std::string& password,
                             const bool firstWrite,
                             const bool run_vacuum)
 {
@@ -162,12 +164,13 @@ bool CtActions::_file_write(const std::string& filepath,
     }
     // self.statusbar.push(self.statusbar_context_id, _("Writing to Disk..."))
     while (gtk_events_pending()) gtk_main_iteration();
-    bool retVal = _file_write_low_level(filepath, firstWrite, run_vacuum);
+    bool retVal = _file_write_low_level(filepath, password, firstWrite, run_vacuum);
     // self.statusbar.pop(self.statusbar_context_id)
     return retVal;
 }
 
 bool CtActions::_file_write_low_level(const std::string& filepath,
+                                      const std::string& password,
                                       const bool firstWrite,
                                       const bool run_vacuum,
                                       const CtExporting exporting,
@@ -219,9 +222,15 @@ bool CtActions::_file_write_low_level(const std::string& filepath,
     else
     {
         // sqlite, update
-        _pCtTreestore->pending_data_write(run_vacuum);
+        retVal = _pCtTreestore->pending_data_write(run_vacuum);
     }
-    // todo
-    
+    if ( retVal and
+         (CtDocEncrypt::True == docEncrypt) )
+    {
+        retVal = ( (0 == CtP7zaIface::p7za_archive(filepath_tmp,
+                                                   filepath.c_str(),
+                                                   password.c_str())) and
+                    Glib::file_test(filepath, Glib::FILE_TEST_IS_REGULAR) );
+    }
     return retVal;
 }

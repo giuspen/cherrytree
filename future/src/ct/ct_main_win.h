@@ -74,10 +74,11 @@ public:
                                    const CtTreeIter* give_tree_iter = nullptr);
     void update_window_save_not_needed();
     bool get_file_save_needed();
+    std::string get_curr_doc_password() { return _ctCurrFile.password; }
     std::string get_curr_doc_file_path() { return (_ctCurrFile.rFile ? _ctCurrFile.rFile->get_path():""); }
     std::string get_curr_doc_file_name() { return (_ctCurrFile.rFile ? Glib::path_get_basename(_ctCurrFile.rFile->get_path()):""); } // pygtk: file_name
     std::string get_curr_doc_file_dir() { return (_ctCurrFile.rFile ? Glib::path_get_dirname(_ctCurrFile.rFile->get_path()):""); } // pygtk: file_dir
-    void set_new_curr_doc(const std::string& filepath) { _ctCurrFile.rFile = Gio::File::create_for_path(filepath); }
+    void set_new_curr_doc(const std::string& filepath, const std::string& password);
     void curr_file_mod_time_update_value(const bool doEnable); // pygtk: modification_time_update_value
 
     CtTreeIter    curr_tree_iter()  { return _ctTreestore.to_ct_tree_iter(_ctTreeview.get_selection()->get_selected()); }
@@ -131,6 +132,7 @@ private:
     void                _on_textview_event_after(GdkEvent* event); // pygtk: on_sourceview_event_after
 
     void                _title_update(const bool saveNeeded); // pygtk: window_title_update
+    void                _set_new_curr_doc(const Glib::RefPtr<Gio::File>& r_file, const std::string& password);
 
 private:
     Gtk::VBox           _vboxMain;
@@ -153,6 +155,7 @@ private:
     {
         Glib::RefPtr<Gio::File> rFile;
         double modTime{0};
+        std::string password;
     };
     CtCurrFile _ctCurrFile;
 

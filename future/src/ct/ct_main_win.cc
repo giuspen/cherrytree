@@ -281,12 +281,25 @@ void CtMainWin::set_menu_items_special_chars()
     _pSpecialCharsSubmenu->set_submenu(*_pCtMenu->build_special_chars_menu(CtApp::P_ctCfg->specialChars, spec_char_action));
 }
 
+void CtMainWin::_set_new_curr_doc(const Glib::RefPtr<Gio::File>& r_file, const std::string& password)
+{
+    _ctCurrFile.rFile = r_file;
+    _ctCurrFile.password = password;
+}
+
+void CtMainWin::set_new_curr_doc(const std::string& filepath, const std::string& password)
+{
+    Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(filepath);
+    _set_new_curr_doc(r_file, password);
+}
+
 bool CtMainWin::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, const bool isImport)
 {
     bool retOk{false};
     const std::string filepath{r_file->get_path()};
     const CtDocEncrypt docEncrypt = CtMiscUtil::get_doc_encrypt(filepath);
     const gchar* pFilepath{nullptr};
+    std::string password;
     if (CtDocEncrypt::True == docEncrypt)
     {
         g_autofree gchar* title = g_strdup_printf(_("Enter Password for %s"), Glib::path_get_basename(filepath).c_str());
@@ -298,7 +311,7 @@ bool CtMainWin::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, 
             {
                 break;
             }
-            Glib::ustring password = dialogTextEntry.get_entry_text();
+            password = dialogTextEntry.get_entry_text();
             if (0 == CtP7zaIface::p7za_extract(filepath.c_str(),
                                                CtApp::P_ctTmp->getHiddenDirPath(filepath),
                                                password.c_str()) &&
@@ -317,9 +330,9 @@ bool CtMainWin::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, 
     {
         retOk = _ctTreestore.read_nodes_from_filepath(pFilepath, isImport);
     }
-    if (retOk && !isImport)
+    if (retOk && not isImport)
     {
-        _ctCurrFile.rFile = r_file;
+        _set_new_curr_doc(r_file, password);
         _title_update(false/*saveNeeded*/);
         set_bookmarks_menu_items();
 

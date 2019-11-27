@@ -80,9 +80,11 @@ private:
     // helpers for file actions
     void _file_save(const bool run_vacuum=false);
     bool _file_write(const std::string& filepath,
+                     const std::string& password,
                      const bool firstWrite,
                      const bool run_vacuum=false);
     bool _file_write_low_level(const std::string& filepath,
+                               const std::string& password,
                                const bool firstWrite,
                                const bool run_vacuum=false,
                                const CtExporting exporting=CtExporting::No,
