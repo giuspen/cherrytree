@@ -36,7 +36,7 @@ void CtActions::_file_save(const bool run_vacuum)
         if (_pCtMainWin->get_file_save_needed())
         {
             _pCtMainWin->curr_file_mod_time_update_value(false/*doEnable*/);
-            if ( (false == _is_tree_not_empty_or_error()) &&
+            if ( _is_tree_not_empty_or_error() and
                  _file_write(doc_filepath, _pCtMainWin->get_curr_doc_password(), false/*firstWrite*/, run_vacuum) )
             {
                 _pCtMainWin->update_window_save_not_needed();
@@ -62,7 +62,7 @@ void CtActions::file_vacuum()
 // Save the file providing a new name
 void CtActions::file_save_as()
 {
-    if (false == _is_tree_not_empty_or_error())
+    if (not _is_tree_not_empty_or_error())
     {
         return;
     }
@@ -106,7 +106,7 @@ void CtActions::file_save_as()
 bool CtActions::_backups_handling(const std::string& filepath)
 {
     bool retVal{true};
-    if (CtApp::P_ctCfg->backupCopy && CtApp::P_ctCfg->backupNum > 0)
+    if (CtApp::P_ctCfg->backupCopy and CtApp::P_ctCfg->backupNum > 0)
     {
         std::string tildesToBackup;
         int tildesLeft{CtApp::P_ctCfg->backupNum-1};
@@ -121,9 +121,14 @@ bool CtActions::_backups_handling(const std::string& filepath)
             Glib::RefPtr<Gio::File> rFileFrom = Gio::File::create_for_path(filepathTildes);
             if (rFileFrom->query_exists())
             {
-                Glib::RefPtr<Gio::File> rFileTo = Gio::File::create_for_path(filepathTildes+CtConst::CHAR_TILDE);
-                if ( (b > 1) ||
-                     (CtDocType::XML == CtMiscUtil::get_doc_type(filepath)) ||
+                const std::string fileToFilepath{filepathTildes+CtConst::CHAR_TILDE};
+                Glib::RefPtr<Gio::File> rFileTo = Gio::File::create_for_path(fileToFilepath);
+                if (Glib::file_test(fileToFilepath, Glib::FILE_TEST_IS_REGULAR) && (0 != g_remove(fileToFilepath.c_str())))
+                {
+                    std::cerr << "!! g_remove" << std::endl;
+                }
+                if ( (b > 1) or
+                     (CtDocType::XML == CtMiscUtil::get_doc_type(filepath)) or
                      (CtDocEncrypt::True == CtMiscUtil::get_doc_encrypt(filepath)) )
                 {
                     // from and to are both backups or
@@ -193,7 +198,7 @@ bool CtActions::_file_write_low_level(const std::string& filepath,
         std::cout << "W " << filepath_tmp << std::endl;
         retVal = true;
     }
-    else if ( firstWrite ||
+    else if ( firstWrite or
               (CtExporting::No != exporting) )
     {
         // sqlite, full

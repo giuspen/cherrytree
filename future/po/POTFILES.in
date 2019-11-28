@@ -16,6 +16,7 @@ src/ct/ct_menu.cc
 src/ct/ct_dialogs.cc
 src/ct/ct_pref_dlg.cc
 src/ct/ct_pref_dlg.h
+src/ct/ct_actions_file.cc
 src/ct/ct_actions_tree.cc
 src/ct/ct_actions_find.cc
 src/ct/ct_actions_view.cc

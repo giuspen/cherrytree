@@ -36,7 +36,8 @@ int CtP7zaIface::p7za_extract(const gchar* input_path, const gchar* out_dir, con
 
 int CtP7zaIface::p7za_archive(const gchar* input_path, const gchar* output_path, const gchar* passwd)
 {
-    g_autofree gchar* p_args = g_strdup_printf("7za a -p%s -w%s -mx1 -bd -y %s %s", passwd, g_get_tmp_dir(), output_path, input_path);
+    g_autofree gchar* p_workspace_dir = g_path_get_dirname(output_path);
+    g_autofree gchar* p_args = g_strdup_printf("7za a -p%s -w%s -mx1 -bd -y %s %s", passwd, p_workspace_dir, output_path, input_path);
     gchar** pp_args = g_strsplit(p_args, " ", 0);
     int ret_val = p7za_exec(9, pp_args);
     g_strfreev(pp_args);
