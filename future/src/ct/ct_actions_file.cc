@@ -68,20 +68,21 @@ void CtActions::file_save_as()
     }
     CtDialogs::storage_select_args storageSelArgs{ .pParentWin = _pCtMainWin };
     std::string currDocFilepath = _pCtMainWin->get_curr_doc_file_path();
-    if (false == currDocFilepath.empty())
+    if (not currDocFilepath.empty())
     {
         storageSelArgs.ctDocType = CtMiscUtil::get_doc_type(currDocFilepath);
         storageSelArgs.ctDocEncrypt = CtMiscUtil::get_doc_encrypt(currDocFilepath);
     }
-    if (false == CtDialogs::choose_data_storage_dialog(storageSelArgs))
+    if (not CtDialogs::choose_data_storage_dialog(storageSelArgs))
     {
         return;
     }
     CtDialogs::file_select_args fileSelArgs{ .pParentWin = _pCtMainWin };
-    if (false == currDocFilepath.empty())
+    if (not currDocFilepath.empty())
     {
         fileSelArgs.curr_folder = Glib::path_get_dirname(currDocFilepath);
-        fileSelArgs.curr_file_name = Glib::path_get_basename(currDocFilepath);
+        const std::string suggested_basename = Glib::path_get_basename(currDocFilepath);
+        fileSelArgs.curr_file_name = suggested_basename.substr(0, suggested_basename.size()-4)+CtMiscUtil::get_doc_extension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);
     }
     fileSelArgs.filter_name = _("CherryTree Document");
     std::string fileExtension = CtMiscUtil::get_doc_extension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);
@@ -141,7 +142,7 @@ bool CtActions::_backups_handling(const std::string& filepath)
                     // from is the sqlite document we have open, cannot move it
                     retVal = rFileFrom->copy(rFileTo);
                 }
-                if (false == retVal)
+                if (not retVal)
                 {
                     // write access issues
                     break;
@@ -161,7 +162,7 @@ bool CtActions::_file_write(const std::string& filepath,
                             const bool firstWrite,
                             const bool run_vacuum)
 {
-    if (false == _backups_handling(filepath))
+    if (not _backups_handling(filepath))
     {
         g_autofree gchar* title = g_strdup_printf(_("You Have No Write Access to %s"), Glib::path_get_dirname(filepath).c_str());
         CtDialogs::error_dialog(title, *_pCtMainWin);
