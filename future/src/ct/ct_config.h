@@ -176,7 +176,7 @@ public:
     bool                                        checkVersion{false};
     bool                                        wordCountOn{false};
     bool                                        reloadDocLast{true};
-    bool                                        modTimeSentinel{true};
+    bool                                        modTimeSentinel{false};
     bool                                        backupCopy{true};
     int                                         backupNum{3};
     bool                                        autosaveOnQuit{false};

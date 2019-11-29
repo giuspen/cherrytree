@@ -112,7 +112,8 @@ class XMLHandler:
                     node_sequence += 1
                     self.append_tree_node(dom_iter, tree_father, discard_ids, node_sequence)
                 elif dom_iter.nodeName == "bookmarks":
-                    self.dad.bookmarks = dom_iter.attributes['list'].value.split(",")
+                    if dom_iter.attributes['list'].value:
+                        self.dad.bookmarks = dom_iter.attributes['list'].value.split(",")
                 dom_iter = dom_iter.nextSibling
             return True
 

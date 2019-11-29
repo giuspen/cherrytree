@@ -367,7 +367,7 @@ def config_file_load(dad):
         dad.check_version = cfg.getboolean(section, "check_version") if cfg.has_option(section, "check_version") else False
         dad.word_count = cfg.getboolean(section, "word_count") if cfg.has_option(section, "word_count") else False
         dad.reload_doc_last = cfg.getboolean(section, "reload_doc_last") if cfg.has_option(section, "reload_doc_last") else True
-        dad.enable_mod_time_sentinel = cfg.getboolean(section, "mod_time_sent") if cfg.has_option(section, "mod_time_sent") else True
+        dad.enable_mod_time_sentinel = cfg.getboolean(section, "mod_time_sent") if cfg.has_option(section, "mod_time_sent") else False
         dad.backup_copy = cfg.getboolean(section, "backup_copy") if cfg.has_option(section, "backup_copy") else True
         dad.backup_num = cfg.getint(section, "backup_num") if cfg.has_option(section, "backup_num") else 3
         dad.autosave_on_quit = cfg.getboolean(section, "autosave_on_quit") if cfg.has_option(section, "autosave_on_quit") else False
@@ -480,7 +480,7 @@ def config_file_load(dad):
         dad.check_version = False
         dad.word_count = False
         dad.reload_doc_last = True
-        dad.enable_mod_time_sentinel = True
+        dad.enable_mod_time_sentinel = False
         dad.backup_copy = True
         dad.backup_num = 3
         dad.autosave_on_quit = False
