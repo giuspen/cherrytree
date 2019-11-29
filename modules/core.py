@@ -1635,7 +1635,7 @@ iter_end, exclude_iter_sel_end=True)
             else:
                 esc_tmp_folder = re.escape(tree_tmp_folder)
                 esc_filepath = re.escape(filepath)
-                esc_filepath_tmp = re.escape(filepath_tmp)
+                esc_filepath_tmp = re.escape(filepath_tmp.decode('utf-8'))
             dot_tmp_existing = False
             if os.path.isfile(filepath+".tmp"):
                 try: os.remove(filepath+".tmp")
@@ -1909,7 +1909,7 @@ iter_end, exclude_iter_sel_end=True)
                     esc_filepath = support.windows_cmd_prepare_path(filepath)
                 else:
                     esc_tmp_folder = re.escape(tree_tmp_folder_tmp)
-                    esc_filepath = re.escape(filepath)
+                    esc_filepath = re.escape(filepath.decode('utf-8'))
                 bash_str = '%s e -p%s -w%s -bd -y -o%s %s' % (cons.SZA_PATH,
                     password_str,
                     esc_tmp_folder,
