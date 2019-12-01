@@ -287,10 +287,13 @@ void CtMainWin::_set_new_curr_doc(const Glib::RefPtr<Gio::File>& r_file, const s
     _ctCurrFile.password = password;
 }
 
-void CtMainWin::set_new_curr_doc(const std::string& filepath, const std::string& password)
+void CtMainWin::set_new_curr_doc(const std::string& filepath,
+                                 const std::string& password,
+                                 CtSQLite* const pCtSQLite)
 {
     Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(filepath);
     _set_new_curr_doc(r_file, password);
+    _ctTreestore.set_new_curr_sqlite_doc(pCtSQLite);
 }
 
 bool CtMainWin::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, const bool isImport)

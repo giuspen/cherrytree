@@ -155,7 +155,7 @@ public:
     CtTreeIter                   get_node_from_node_name(const Glib::ustring& node_name);
     const std::list<gint64>&     get_bookmarks();
     void                         set_bookmarks(const std::list<gint64>& bookmarks);
-    void                         set_new_curr_doc(CtSQLite* pCtSQLite);
+    void                         set_new_curr_sqlite_doc(CtSQLite* const pCtSQLite);
 
     std::string get_tree_expanded_collapsed_string(Gtk::TreeView& treeView);
     void        set_tree_expanded_collapsed_string(const std::string& expanded_collapsed_string, Gtk::TreeView& treeView, bool nodes_bookm_exp);

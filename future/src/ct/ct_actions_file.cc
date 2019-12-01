@@ -37,7 +37,7 @@ void CtActions::_file_save(const bool run_vacuum)
         {
             _pCtMainWin->curr_file_mod_time_update_value(false/*doEnable*/);
             if ( _is_tree_not_empty_or_error() and
-                 _file_write(doc_filepath, _pCtMainWin->get_curr_doc_password(), false/*firstWrite*/, run_vacuum) )
+                 _file_write(doc_filepath, _pCtMainWin->get_curr_doc_password(), false/*firstWrite*/, nullptr/*ppReturnCtSQLite*/, run_vacuum) )
             {
                 _pCtMainWin->update_window_save_not_needed();
                 // ? self.state_machine.update_state()
@@ -94,9 +94,10 @@ void CtActions::file_save_as()
     }
     _pCtMainWin->curr_file_mod_time_update_value(false/*doEnable*/);
     CtMiscUtil::filepath_extension_fix(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt, filepath);
-    if (_file_write(filepath, storageSelArgs.password, true/*firstWrite*/))
+    CtSQLite* pReturnCtSQLite{nullptr};
+    if (_file_write(filepath, storageSelArgs.password, true/*firstWrite*/, &pReturnCtSQLite))
     {
-        _pCtMainWin->set_new_curr_doc(filepath, storageSelArgs.password);
+        _pCtMainWin->set_new_curr_doc(filepath, storageSelArgs.password, pReturnCtSQLite);
         // support.add_recent_document(self, filepath)
         _pCtMainWin->update_window_save_not_needed();
         // ? self.state_machine.update_state()
@@ -160,6 +161,7 @@ bool CtActions::_backups_handling(const std::string& filepath)
 bool CtActions::_file_write(const std::string& filepath,
                             const std::string& password,
                             const bool firstWrite,
+                            CtSQLite** ppReturnCtSQLite,
                             const bool run_vacuum)
 {
     if (not _backups_handling(filepath))
@@ -170,7 +172,7 @@ bool CtActions::_file_write(const std::string& filepath,
     }
     // self.statusbar.push(self.statusbar_context_id, _("Writing to Disk..."))
     while (gtk_events_pending()) gtk_main_iteration();
-    bool retVal = _file_write_low_level(filepath, password, firstWrite, run_vacuum);
+    bool retVal = _file_write_low_level(filepath, password, firstWrite, ppReturnCtSQLite, run_vacuum);
     // self.statusbar.pop(self.statusbar_context_id)
     return retVal;
 }
@@ -178,6 +180,7 @@ bool CtActions::_file_write(const std::string& filepath,
 bool CtActions::_file_write_low_level(const std::string& filepath,
                                       const std::string& password,
                                       const bool firstWrite,
+                                      CtSQLite** ppReturnCtSQLite,
                                       const bool run_vacuum,
                                       const CtExporting exporting,
                                       const std::pair<int,int>& offset_range)
@@ -192,10 +195,6 @@ bool CtActions::_file_write_low_level(const std::string& filepath,
         CtXmlWrite ctXmlWrite(CtConst::APP_NAME);
         ctXmlWrite.treestore_to_dom(_pCtTreestore->get_bookmarks(), _pCtTreestore->get_ct_iter_first());
         ctXmlWrite.write_to_file(filepath_tmp);
-        if (CtExporting::No == exporting)
-        {
-            _pCtTreestore->set_new_curr_doc(nullptr/*pCtSQLite*/);
-        }
         std::cout << "W " << filepath_tmp << std::endl;
         retVal = true;
     }
@@ -209,9 +208,9 @@ bool CtActions::_file_write_low_level(const std::string& filepath,
                                      exporting,
                                      offset_range))
         {
-            if (CtExporting::No == exporting)
+            if (nullptr != ppReturnCtSQLite)
             {
-                _pCtTreestore->set_new_curr_doc(pCtSQLite);
+                *ppReturnCtSQLite = pCtSQLite;
             }
             else
             {

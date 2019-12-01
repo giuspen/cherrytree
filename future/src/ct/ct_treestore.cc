@@ -427,14 +427,14 @@ bool CtTreeStore::read_nodes_from_filepath(const char* filepath, const bool isIm
     return retOk;
 }
 
-void CtTreeStore::set_new_curr_doc(CtSQLite* pCtSQLite)
+void CtTreeStore::set_new_curr_sqlite_doc(CtSQLite* const pCtSQLite)
 {
-    if (nullptr != _pCtSQLite)
+    if (pCtSQLite != _pCtSQLite)
     {
-        delete _pCtSQLite;
-    }
-    if (nullptr != pCtSQLite)
-    {
+        if (nullptr != _pCtSQLite)
+        {
+            delete _pCtSQLite;
+        }
         _pCtSQLite = pCtSQLite;
     }
 }
