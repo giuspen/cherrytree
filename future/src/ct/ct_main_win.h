@@ -82,6 +82,7 @@ public:
                           const std::string& password,
                           CtSQLite* const pCtSQLite);
     void curr_file_mod_time_update_value(const bool doEnable); // pygtk: modification_time_update_value
+    void update_selected_node_statusbar_info();
 
     CtTreeIter    curr_tree_iter()  { return _ctTreestore.to_ct_tree_iter(_ctTreeview.get_selection()->get_selected()); }
     CtTreeStore&  get_tree_store()  { return _ctTreestore; }

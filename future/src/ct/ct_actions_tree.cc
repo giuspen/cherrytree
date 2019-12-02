@@ -255,7 +255,7 @@ void CtActions::node_edit()
     //todo: if self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
     //  self.set_sourcebuffer_syntax_highlight(self.curr_buffer, self.syntax_highlighting)
     _pCtMainWin->get_text_view().set_editable(!newData.isRO);
-    //todo: self.update_selected_node_statusbar_info()
+    _pCtMainWin->update_selected_node_statusbar_info();
     _pCtTreestore->update_node_aux_icon(_pCtMainWin->curr_tree_iter());
     _pCtMainWin->window_header_update();
     _pCtMainWin->window_header_update_lock_icon(newData.isRO);
@@ -270,7 +270,7 @@ void CtActions::node_toggle_read_only()
     _pCtMainWin->curr_tree_iter().set_node_read_only(node_is_ro);
     _pCtMainWin->get_text_view().set_editable(!node_is_ro);
     _pCtMainWin->window_header_update_lock_icon(node_is_ro);
-    //todo: self.update_selected_node_statusbar_info()
+    _pCtMainWin->update_selected_node_statusbar_info();
     _pCtTreestore->update_node_aux_icon(_pCtMainWin->curr_tree_iter());
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::npro);
     _pCtMainWin->get_text_view().grab_focus();

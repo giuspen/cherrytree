@@ -1467,9 +1467,9 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_newer_version->signal_toggled().connect([config, checkbutton_newer_version](){
         config->checkVersion = checkbutton_newer_version->get_active();
     });
-    checkbutton_word_count->signal_toggled().connect([config, checkbutton_word_count](){
+    checkbutton_word_count->signal_toggled().connect([&](){
         config->wordCountOn = checkbutton_word_count->get_active();
-        //dad.update_selected_node_statusbar_info()
+        _pCtMainWin->update_selected_node_statusbar_info();
     });
     combobox_country_language->signal_changed().connect([this, /*config, */combobox_country_language](){
         Glib::ustring new_lang = combobox_country_language->get_active_text();

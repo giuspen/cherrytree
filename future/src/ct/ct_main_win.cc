@@ -387,6 +387,58 @@ void CtMainWin::curr_file_mod_time_update_value(const bool doEnable)
     }
 }
 
+void CtMainWin::update_selected_node_statusbar_info()
+{
+#if 0
+    CtTreeIter treeIter = curr_tree_iter();
+    Glib::ustring statusbar_text;
+    if (not treeIter)
+    {
+        statusbar_text = _("No Node is Selected");
+    }
+    else
+    {
+        const std::string separator_text{"  -  "};
+        statusbar_text = _("Node Type") + _(": ");
+        const std::string syntaxHighl = treeIter.get_node_syntax_highlighting();
+        if (CtConst::RICH_TEXT_ID == syntaxHighl)
+        {
+            statusbar_text += _("Rich Text");
+        }
+        else if (CtConst::PLAIN_TEXT_ID == syntaxHighl)
+        {
+            statusbar_text += _("Plain Text");
+        }
+        else
+        {
+            statusbar_text += syntaxHighl;
+        }
+        if (not treeIter.get_node_tags().empty())
+        {
+            statusbar_text += separator_text + _("Tags") + _(": ") + treeIter.get_node_tags();
+        }
+        // todo spellCheck
+        //if self.enable_spell_check and self.syntax_highlighting == cons.RICH_TEXT_ID:
+        //    statusbar_text += separator_text + _("Spell Check") + _(": ") + self.spell_check_lang
+        // todo wordCount
+        //if self.word_count:
+        //    statusbar_text += separator_text + _("Word Count") + _(": ") + str(support.get_word_count(self))
+        if (treeIter.get_node_creating_time() > 0)
+        {
+            str::time_format(CtApp::P_ctCfg->timestampFormat, treeIter.get_node_creating_time());
+            statusbar_text += separator_text + _("Date Created") + _(": ") + timestamp_creation
+        }
+        if (treeIter.get_node_modification_time() > 0)
+        {
+            str::time_format(CtApp::P_ctCfg->timestampFormat, treeIter.get_node_modification_time());
+            statusbar_text += separator_text + _("Date Modified") + _(": ") + timestamp_lastsave
+        }
+    }
+    self.statusbar.pop(self.statusbar_context_id)
+    self.statusbar.push(self.statusbar_context_id, statusbar_text)
+#endif // 0
+}
+
 void CtMainWin::update_window_save_not_needed()
 {
     _title_update(false/*save_needed*/);
@@ -433,8 +485,7 @@ void CtMainWin::update_window_save_needed(const CtSaveNeededUpdType update_type,
                  (curr_time - _latestStatusbarUpdateTime.at(node_id) > 60) )
             {
                 _latestStatusbarUpdateTime[node_id] = curr_time;
-                //todo
-                //self.update_selected_node_statusbar_info()
+                update_selected_node_statusbar_info();
             }
         } break;
         case CtSaveNeededUpdType::npro:
@@ -478,6 +529,7 @@ void CtMainWin::_on_treeview_cursor_changed()
     window_header_update();
     window_header_update_lock_icon(treeIter.get_node_read_only());
     window_header_update_bookmark_icon(false);
+    update_selected_node_statusbar_info();
 
     _prevTreeIter = treeIter;
 }
@@ -756,10 +808,12 @@ void CtMainWin::_on_textview_event_after(GdkEvent* event)
     else if (event->type == GDK_KEY_RELEASE)
     {
         if (event->key.keyval == GDK_KEY_Return || event->key.keyval == GDK_KEY_space)
+        {
             if (CtApp::P_ctCfg->wordCountOn)
             {
-                // todo: update_selected_node_statusbar_info();
+                update_selected_node_statusbar_info();
             }
+        }
     }
 }
 
