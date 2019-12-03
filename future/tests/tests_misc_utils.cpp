@@ -83,7 +83,7 @@ TEST(MiscUtilsGroup, getUint32FromHexChars)
 TEST(MiscUtilsGroup, str__split)
 {
     {
-        std::vector<std::string> splittedVec = str::split(":a:bc::d:", ":");
+        std::vector<std::string> splittedVec = str::split<std::string>(":a:bc::d:", ":");
         CHECK(std::vector<std::string>({"", "a", "bc", "", "d", ""}) == splittedVec);
     }
     {

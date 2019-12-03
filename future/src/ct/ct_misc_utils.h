@@ -185,11 +185,11 @@ std::string format(std::string in_str, const Args&... args)
     return fmt::format(str::replace(in_str, "%s", "{}"), args...);
 }
 
-template<class STRING = std::string>
-std::vector<STRING> split(const std::string& str, const std::string& delimiter)
+template<class STRING>
+std::vector<STRING> split(const STRING& strToSplit, const char* delimiter)
 {
     std::vector<STRING> vecOfStrings;
-    gchar** arrayOfStrings = g_strsplit(str.c_str(), delimiter.c_str(), -1);
+    gchar** arrayOfStrings = g_strsplit(strToSplit.c_str(), delimiter, -1);
     for (gchar** ptr = arrayOfStrings; *ptr; ptr++)
     {
         vecOfStrings.push_back(*ptr);

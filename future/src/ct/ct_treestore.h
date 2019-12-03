@@ -145,17 +145,17 @@ public:
     void set_tree_path_n_text_cursor_from_config(Gtk::TreeView* pTreeView, Gsv::View* pTextView);
     void treeview_safe_set_cursor(Gtk::TreeView* pTreeView, Gtk::TreeIter& iter);
 
-    gint64                       node_id_get(gint64 original_id=-1,
-                                             std::unordered_map<gint64,gint64> remapping_ids=std::unordered_map<gint64,gint64>{});
-    void                         add_used_tags(const std::string& tags);
-    const std::set<std::string>& get_used_tags() { return _usedTags; }
-    bool                         is_node_bookmarked(const gint64 node_id);
-    std::string                  get_node_name_from_node_id(const gint64 node_id);
-    CtTreeIter                   get_node_from_node_id(const gint64 node_id);
-    CtTreeIter                   get_node_from_node_name(const Glib::ustring& node_name);
-    const std::list<gint64>&     get_bookmarks();
-    void                         set_bookmarks(const std::list<gint64>& bookmarks);
-    void                         set_new_curr_sqlite_doc(CtSQLite* const pCtSQLite);
+    gint64                         node_id_get(gint64 original_id=-1,
+                                               std::unordered_map<gint64,gint64> remapping_ids=std::unordered_map<gint64,gint64>{});
+    void                           add_used_tags(const Glib::ustring& tags);
+    const std::set<Glib::ustring>& get_used_tags() { return _usedTags; }
+    bool                           is_node_bookmarked(const gint64 node_id);
+    std::string                    get_node_name_from_node_id(const gint64 node_id);
+    CtTreeIter                     get_node_from_node_id(const gint64 node_id);
+    CtTreeIter                     get_node_from_node_name(const Glib::ustring& node_name);
+    const std::list<gint64>&       get_bookmarks();
+    void                           set_bookmarks(const std::list<gint64>& bookmarks);
+    void                           set_new_curr_sqlite_doc(CtSQLite* const pCtSQLite);
 
     std::string get_tree_expanded_collapsed_string(Gtk::TreeView& treeView);
     void        set_tree_expanded_collapsed_string(const std::string& expanded_collapsed_string, Gtk::TreeView& treeView, bool nodes_bookm_exp);
@@ -183,11 +183,11 @@ protected:
     void _on_textbuffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int bytes); // pygtk: on_text_insertion
     void _on_textbuffer_erase(const Gtk::TextBuffer::iterator& range_start, const Gtk::TextBuffer::iterator& range_end); // pygtk: on_text_removal
 
-    CtTreeModelColumns             _columns;
-    Glib::RefPtr<Gtk::TreeStore>   _rTreeStore;
-    std::list<gint64>              _bookmarks;
-    std::set<std::string>          _usedTags;
-    std::map<gint64, std::string>  _nodes_names_dict; // for link tooltips
-    std::list<sigc::connection>    _curr_node_sigc_conn;
-    CtSQLite*                      _pCtSQLite{nullptr};
+    CtTreeModelColumns              _columns;
+    Glib::RefPtr<Gtk::TreeStore>    _rTreeStore;
+    std::list<gint64>               _bookmarks;
+    std::set<Glib::ustring>         _usedTags;
+    std::map<gint64, Glib::ustring> _nodes_names_dict; // for link tooltips
+    std::list<sigc::connection>     _curr_node_sigc_conn;
+    CtSQLite*                       _pCtSQLite{nullptr};
 };

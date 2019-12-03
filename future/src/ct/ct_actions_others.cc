@@ -455,7 +455,7 @@ bool CtActions::_on_embfiles_sentinel_timeout()
         if (item.second != CtFileSystem::getmtime(filepath))
         {
            _embfiles_opened[filepath] = CtFileSystem::getmtime(filepath);
-           auto data_vec = str::split(Glib::path_get_basename(filepath), CtConst::CHAR_MINUS);
+           auto data_vec = str::split(Glib::path_get_basename(filepath), CtConst::CHAR_MINUS.c_str());
            gint64 node_id = std::stoll(data_vec[0]);
            size_t embfile_id = std::stol(data_vec[1]);
 

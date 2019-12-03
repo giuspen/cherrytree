@@ -741,14 +741,16 @@ gint64 CtTreeStore::node_id_get(gint64 original_id, std::unordered_map<gint64,gi
     return new_node_id;
 }
 
-void CtTreeStore::add_used_tags(const std::string& tags)
+void CtTreeStore::add_used_tags(const Glib::ustring& tags)
 {
-    std::vector<std::string> tagVec = str::split(tags, CtConst::CHAR_SPACE);
-    for (auto& tag: tagVec)
+    std::vector<Glib::ustring> tagVec = str::split(tags, CtConst::CHAR_SPACE.c_str());
+    for (auto& tag : tagVec)
     {
         tag = str::trim(tag);
-        if (!tag.empty())
+        if (not tag.empty())
+        {
             _usedTags.insert(tag);
+        }
     }
 }
 
