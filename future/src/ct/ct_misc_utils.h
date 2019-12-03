@@ -152,7 +152,7 @@ std::string xml_escape(const std::string& text);
 
 std::string re_escape(const std::string& text);
 
-std::string time_format(const std::string& format, const std::time_t& time);
+std::string time_format(const std::string& format, const gint64& time);
 
 int symb_pos_to_byte_pos(const Glib::ustring& text, int symb_pos);
 int byte_pos_to_symb_pos(const Glib::ustring& text, int byte_pos);

@@ -31,13 +31,13 @@
 CtDocType CtMiscUtil::get_doc_type(const std::string& fileName)
 {
     CtDocType retDocType{CtDocType::None};
-    if ( (Glib::str_has_suffix(fileName, ".ctd")) ||
-         (Glib::str_has_suffix(fileName, ".ctz")) )
+    if ( (Glib::str_has_suffix(fileName, CtConst::CTDOC_XML_NOENC)) ||
+         (Glib::str_has_suffix(fileName, CtConst::CTDOC_XML_ENC)) )
     {
         retDocType = CtDocType::XML;
     }
-    else if ( (Glib::str_has_suffix(fileName, ".ctb")) ||
-              (Glib::str_has_suffix(fileName, ".ctx")) )
+    else if ( (Glib::str_has_suffix(fileName, CtConst::CTDOC_SQLITE_NOENC)) ||
+              (Glib::str_has_suffix(fileName, CtConst::CTDOC_SQLITE_ENC)) )
     {
         retDocType = CtDocType::SQLite;
     }
@@ -47,13 +47,13 @@ CtDocType CtMiscUtil::get_doc_type(const std::string& fileName)
 CtDocEncrypt CtMiscUtil::get_doc_encrypt(const std::string& fileName)
 {
     CtDocEncrypt retDocEncrypt{CtDocEncrypt::None};
-    if ( (Glib::str_has_suffix(fileName, ".ctd")) ||
-         (Glib::str_has_suffix(fileName, ".ctb")) )
+    if ( (Glib::str_has_suffix(fileName, CtConst::CTDOC_XML_NOENC)) ||
+         (Glib::str_has_suffix(fileName, CtConst::CTDOC_SQLITE_NOENC)) )
     {
         retDocEncrypt = CtDocEncrypt::False;
     }
-    else if ( (Glib::str_has_suffix(fileName, ".ctz")) ||
-              (Glib::str_has_suffix(fileName, ".ctx")) )
+    else if ( (Glib::str_has_suffix(fileName, CtConst::CTDOC_XML_ENC)) ||
+              (Glib::str_has_suffix(fileName, CtConst::CTDOC_SQLITE_ENC)) )
     {
         retDocEncrypt = CtDocEncrypt::True;
     }
@@ -913,13 +913,12 @@ std::string str::xml_escape(const std::string& text)
     return buffer;
 }
 
-
 std::string str::re_escape(const std::string& text)
 {
     return Glib::Regex::escape_string(text);
 }
 
-std::string str::time_format(const std::string& format, const std::time_t& time)
+std::string str::time_format(const std::string& format, const gint64& time)
 {
     std::tm* localtime = std::localtime(&time);
     char buffer[100];

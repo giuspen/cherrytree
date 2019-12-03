@@ -389,7 +389,6 @@ void CtMainWin::curr_file_mod_time_update_value(const bool doEnable)
 
 void CtMainWin::update_selected_node_statusbar_info()
 {
-#if 0
     CtTreeIter treeIter = curr_tree_iter();
     Glib::ustring statusbar_text;
     if (not treeIter)
@@ -399,7 +398,7 @@ void CtMainWin::update_selected_node_statusbar_info()
     else
     {
         const std::string separator_text{"  -  "};
-        statusbar_text = _("Node Type") + _(": ");
+        statusbar_text = Glib::ustring{_("Node Type")} + _(": ");
         const std::string syntaxHighl = treeIter.get_node_syntax_highlighting();
         if (CtConst::RICH_TEXT_ID == syntaxHighl)
         {
@@ -425,18 +424,16 @@ void CtMainWin::update_selected_node_statusbar_info()
         //    statusbar_text += separator_text + _("Word Count") + _(": ") + str(support.get_word_count(self))
         if (treeIter.get_node_creating_time() > 0)
         {
-            str::time_format(CtApp::P_ctCfg->timestampFormat, treeIter.get_node_creating_time());
-            statusbar_text += separator_text + _("Date Created") + _(": ") + timestamp_creation
+            const std::string timestamp_creation = str::time_format(CtApp::P_ctCfg->timestampFormat, treeIter.get_node_creating_time());
+            statusbar_text += separator_text + _("Date Created") + _(": ") + timestamp_creation;
         }
         if (treeIter.get_node_modification_time() > 0)
         {
-            str::time_format(CtApp::P_ctCfg->timestampFormat, treeIter.get_node_modification_time());
-            statusbar_text += separator_text + _("Date Modified") + _(": ") + timestamp_lastsave
+            const std::string timestamp_lastsave = str::time_format(CtApp::P_ctCfg->timestampFormat, treeIter.get_node_modification_time());
+            statusbar_text += separator_text + _("Date Modified") + _(": ") + timestamp_lastsave;
         }
     }
-    self.statusbar.pop(self.statusbar_context_id)
-    self.statusbar.push(self.statusbar_context_id, statusbar_text)
-#endif // 0
+    _ctStatusBar.update_status(statusbar_text);
 }
 
 void CtMainWin::update_window_save_not_needed()
