@@ -95,6 +95,8 @@ private:
 
 public:
     // file actions
+    void file_new();
+    void file_open();
     void file_save();
     void file_vacuum();
     void file_save_as();

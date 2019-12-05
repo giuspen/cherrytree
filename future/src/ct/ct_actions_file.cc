@@ -239,3 +239,23 @@ bool CtActions::_file_write_low_level(const std::string& filepath,
     }
     return retVal;
 }
+
+void CtActions::file_new()
+{
+    //todo
+}
+
+void CtActions::file_open()
+{
+    CtDialogs::file_select_args args = {
+        .pParentWin=_pCtMainWin,
+        .curr_folder=_pCtMainWin->get_curr_doc_file_dir()
+    };
+    args.filter_name = _("CherryTree Document");
+    args.filter_pattern.push_back("*.ct*");
+    std::string filepath = CtDialogs::file_select_dialog(args);
+    if (not filepath.empty())
+    {
+        _pCtMainWin->filepath_open(filepath);
+    }
+}

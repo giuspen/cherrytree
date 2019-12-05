@@ -31,7 +31,7 @@ struct CtRecentDocRestore
     std::string   doc_name;
     std::string   exp_coll_str;
     std::string   node_path;
-    int           cursor_pos;
+    int           cursor_pos{0};
 };
 
 class CtConfig

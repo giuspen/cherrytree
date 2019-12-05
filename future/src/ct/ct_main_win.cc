@@ -281,6 +281,20 @@ void CtMainWin::set_menu_items_special_chars()
     _pSpecialCharsSubmenu->set_submenu(*_pCtMenu->build_special_chars_menu(CtApp::P_ctCfg->specialChars, spec_char_action));
 }
 
+void CtMainWin::filepath_open(std::string& filepath, const bool force_reset)
+{
+    CtRecentDocRestore prevDocRestore;
+    prevDocRestore.doc_name = get_curr_doc_file_name();
+    prevDocRestore.exp_coll_str = _ctTreestore.get_tree_expanded_collapsed_string(_ctTreeview);
+    const CtTreeIter prevTreeIter = curr_tree_iter();
+    if (prevTreeIter)
+    {
+        prevDocRestore.node_path = _ctTreestore.get_path(prevTreeIter).to_string();
+        
+    }
+    //todo
+}
+
 void CtMainWin::_set_new_curr_doc(const Glib::RefPtr<Gio::File>& r_file, const std::string& password)
 {
     _ctCurrFile.rFile = r_file;
