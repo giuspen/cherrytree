@@ -114,7 +114,7 @@ void CtActions::_node_add(bool duplicate, bool add_child)
         nodeData.customIconId = 0;
         nodeData.syntax = CtConst::RICH_TEXT_ID;
         nodeData.isRO = false;
-        if (not CtDialogs::dialog_node_prop(title, *_pCtMainWin, nodeData, _pCtTreestore->get_used_tags()))
+        if (not CtDialogs::node_prop_dialog(title, *_pCtMainWin, nodeData, _pCtTreestore->get_used_tags()))
             return;
     }
     _node_add_with_data(_pCtMainWin->curr_tree_iter(), nodeData, add_child);
@@ -221,7 +221,7 @@ void CtActions::node_edit()
     CtNodeData nodeData;
     _pCtTreestore->get_node_data(_pCtMainWin->curr_tree_iter(), nodeData);
     CtNodeData newData = nodeData;
-    if (not CtDialogs::dialog_node_prop(_("Node Properties"), *_pCtMainWin, newData, _pCtTreestore->get_used_tags()))
+    if (not CtDialogs::node_prop_dialog(_("Node Properties"), *_pCtMainWin, newData, _pCtTreestore->get_used_tags()))
         return;
 
     CtApp::P_ctCfg->syntaxHighlighting = newData.syntax;

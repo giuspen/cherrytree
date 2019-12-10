@@ -69,6 +69,8 @@ public:
     void config_apply_before_show_all();
     void config_apply_after_show_all();
     void filepath_open(std::string& filepath, const bool force_reset = false);
+    bool reset(const bool force_reset = false);
+    bool check_unsaved();
     void configure_theme();
     void update_window_save_needed(const CtSaveNeededUpdType update_type = CtSaveNeededUpdType::None,
                                    const bool new_machine_state = false,

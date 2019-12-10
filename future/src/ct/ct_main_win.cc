@@ -290,9 +290,36 @@ void CtMainWin::filepath_open(std::string& filepath, const bool force_reset)
     if (prevTreeIter)
     {
         prevDocRestore.node_path = _ctTreestore.get_path(prevTreeIter).to_string();
-        
+        const Glib::RefPtr<Gsv::Buffer> rTextBuffer = prevTreeIter.get_node_text_buffer();
+        prevDocRestore.cursor_pos = rTextBuffer->property_cursor_position();
+    }
+    if (not reset(force_reset))
+    {
+        return;
     }
     //todo
+}
+
+bool CtMainWin::reset(const bool force_reset)
+{
+    if (not force_reset and
+        _ctTreestore.get_iter_first() and
+        not check_unsaved())
+    {
+        return false;
+    }
+    _prevTreeIter = CtTreeIter();
+    //todo
+}
+
+bool CtMainWin::check_unsaved()
+{
+    if (get_file_save_needed())
+    {
+        
+        //todo
+    }
+    return true;
 }
 
 void CtMainWin::_set_new_curr_doc(const Glib::RefPtr<Gio::File>& r_file, const std::string& password)
@@ -378,7 +405,7 @@ bool CtMainWin::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, 
 
 bool CtMainWin::get_file_save_needed()
 {
-    return (_fileSaveNeeded || (_prevTreeIter && _prevTreeIter.get_node_text_buffer()->get_modified()));
+    return (_fileSaveNeeded || (curr_tree_iter() && curr_tree_iter().get_node_text_buffer()->get_modified()));
 }
 
 void CtMainWin::curr_file_mod_time_update_value(const bool doEnable)

@@ -254,9 +254,11 @@ struct storage_select_args
 // Choose the CherryTree data storage type (xml or db) and protection
 bool choose_data_storage_dialog(storage_select_args& args);
 
-bool dialog_node_prop(const Glib::ustring &title,
+bool node_prop_dialog(const Glib::ustring &title,
                       Gtk::Window& parent,
                       CtNodeData& nodeData,
                       const std::set<Glib::ustring>& tags_set);
+
+CtYesNoCancel exit_save_dialog(Gtk::Window& parent);
 
 } // namespace CtDialogs

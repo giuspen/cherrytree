@@ -21,13 +21,15 @@
 
 #pragma once
 
-enum class CtDocType {None, XML, SQLite};
+enum class CtYesNoCancel { Yes, No, Cancel };
 
-enum class CtDocEncrypt {None, True, False};
+enum class CtDocType { None, XML, SQLite };
+
+enum class CtDocEncrypt { None, True, False };
 
 enum class CtAnchWidgType { CodeBox, Table, ImagePng, ImageAnchor, ImageEmbFile };
 
-enum class CtPixTabCBox {Pixbuf, Table, CodeBox};
+enum class CtPixTabCBox { Pixbuf, Table, CodeBox };
 
 enum class CtSaveNeededUpdType { None, nbuf, npro, ndel, book };
 
@@ -37,6 +39,6 @@ enum class CtExporting { No, All, NodeOnly, NodeAndSubnodes };
 
 enum class CtListType { None, Todo, Bullet, Number };
 
-enum class CtRestoreExpColl : int {FROM_STR=0, ALL_EXP=1, ALL_COLL=2};
+enum class CtRestoreExpColl : int { FROM_STR=0, ALL_EXP=1, ALL_COLL=2 };
 
-enum class CtTableColMode : int {RENAME=0, ADD=1, DELETE=2, RIGHT=3, LEFT=4};
+enum class CtTableColMode : int { RENAME=0, ADD=1, DELETE=2, RIGHT=3, LEFT=4 };

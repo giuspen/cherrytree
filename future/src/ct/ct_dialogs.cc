@@ -1517,7 +1517,7 @@ bool CtDialogs::choose_data_storage_dialog(storage_select_args& args)
     return retVal;
 }
 
-bool CtDialogs::dialog_node_prop(const Glib::ustring &title,
+bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
                                  Gtk::Window& parent,
                                  CtNodeData& nodeData,
                                  const std::set<Glib::ustring>& tags_set)
@@ -1750,4 +1750,46 @@ bool CtDialogs::dialog_node_prop(const Glib::ustring &title,
         CtApp::P_ctCfg->currColors['n'] = nodeData.foregroundRgb24;
     }
     return true;
+}
+
+CtYesNoCancel CtDialogs::exit_save_dialog(Gtk::Window& parent)
+{
+    Gtk::Dialog dialog = Gtk::Dialog(_("Warning"),
+                                     parent,
+                                     Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
+    dialog.add_button(Gtk::Stock::CLEAR, Gtk::RESPONSE_NO);
+    dialog.add_button(Gtk::Stock::SAVE, Gtk::RESPONSE_YES);
+    dialog.set_default_response(Gtk::RESPONSE_YES);
+    dialog.set_default_size(350, 150);
+    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    Gtk::Image image;
+    image.set_from_icon_name(Gtk::Stock::DIALOG_WARNING.id, Gtk::ICON_SIZE_DIALOG);
+    Gtk::Label label(Glib::ustring("<b>")+_("The Current Document was Updated.")+"</b>\n\n<b>"+_("Do you want to Save the Changes?")+"</b>");
+    label.set_use_markup(true);
+#if 0
+    hbox = gtk.HBox()
+    hbox.pack_start(image)
+    hbox.pack_start(label)
+    hbox.set_spacing(5)
+    content_area = dialog.get_content_area()
+    content_area.pack_start(hbox)
+    def on_key_press_exitdialog(widget, event):
+        keyname = gtk.gdk.keyval_name(event.keyval)
+        if keyname == cons.STR_KEY_RETURN:
+            try: dialog.get_widget_for_response(2).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
+            return True
+        elif keyname == "Escape":
+            try: dialog.get_widget_for_response(6).clicked()
+            except: print cons.STR_PYGTK_222_REQUIRED
+            return True
+        return False
+    dialog.connect('key_press_event', on_key_press_exitdialog)
+    content_area.show_all()
+    response = dialog.run()
+    dialog.hide()
+    return response
+#endif // 0
+    return CtYesNoCancel::Cancel;
 }
