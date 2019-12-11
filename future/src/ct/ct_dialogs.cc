@@ -1767,29 +1767,39 @@ CtYesNoCancel CtDialogs::exit_save_dialog(Gtk::Window& parent)
     image.set_from_icon_name(Gtk::Stock::DIALOG_WARNING.id, Gtk::ICON_SIZE_DIALOG);
     Gtk::Label label(Glib::ustring("<b>")+_("The Current Document was Updated.")+"</b>\n\n<b>"+_("Do you want to Save the Changes?")+"</b>");
     label.set_use_markup(true);
-#if 0
-    hbox = gtk.HBox()
-    hbox.pack_start(image)
-    hbox.pack_start(label)
-    hbox.set_spacing(5)
-    content_area = dialog.get_content_area()
-    content_area.pack_start(hbox)
-    def on_key_press_exitdialog(widget, event):
-        keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == cons.STR_KEY_RETURN:
-            try: dialog.get_widget_for_response(2).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
-            return True
-        elif keyname == "Escape":
-            try: dialog.get_widget_for_response(6).clicked()
-            except: print cons.STR_PYGTK_222_REQUIRED
-            return True
-        return False
-    dialog.connect('key_press_event', on_key_press_exitdialog)
-    content_area.show_all()
-    response = dialog.run()
-    dialog.hide()
-    return response
-#endif // 0
+    Gtk::HBox hbox;
+    hbox.pack_start(image);
+    hbox.pack_start(label);
+    hbox.set_spacing(5);
+    Gtk::Box* pContentArea = dialog.get_content_area();
+    pContentArea->pack_start(hbox);
+    auto on_key_press_exit_dialog = [&](GdkEventKey *pEventKey)->bool
+    {
+        if (GDK_KEY_Return == pEventKey->keyval)
+        {
+            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_YES));
+            pButton->clicked();
+            return true;
+        }
+        if (GDK_KEY_Escape == pEventKey->keyval)
+        {
+            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_CANCEL));
+            pButton->clicked();
+            return true;
+        }
+        return false;
+    };
+    dialog.signal_key_press_event().connect(on_key_press_exit_dialog, false/*call me before other*/);
+    pContentArea->show_all();
+    const int response = dialog.run();
+    dialog.hide();
+    if (Gtk::RESPONSE_YES == response)
+    {
+        return CtYesNoCancel::Yes;
+    }
+    if (Gtk::RESPONSE_NO == response)
+    {
+        return CtYesNoCancel::No;
+    }
     return CtYesNoCancel::Cancel;
 }

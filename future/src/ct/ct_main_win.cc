@@ -308,6 +308,11 @@ bool CtMainWin::reset(const bool force_reset)
     {
         return false;
     }
+    curr_file_mod_time_update_value(false/*doEnable*/);
+
+    auto on_scope_exit = scope_guard([&](void*) { user_active() = true; });
+    user_active() = false;
+
     _prevTreeIter = CtTreeIter();
     //todo
 }
@@ -316,8 +321,20 @@ bool CtMainWin::check_unsaved()
 {
     if (get_file_save_needed())
     {
-        
-        //todo
+        const CtYesNoCancel yesNoCancel = CtApp::P_ctCfg->autosaveOnQuit ? CtYesNoCancel::Yes : CtDialogs::exit_save_dialog(*this);
+        if (CtYesNoCancel::Cancel == yesNoCancel)
+        {
+            return false;
+        }
+        if (CtYesNoCancel::Yes == yesNoCancel)
+        {
+            CtApp::P_ctActions->file_save();
+            if (get_file_save_needed())
+            {
+                // something went wrong in the save
+                return false;
+            }
+        }
     }
     return true;
 }
