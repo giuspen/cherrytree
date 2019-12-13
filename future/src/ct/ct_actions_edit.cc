@@ -99,7 +99,7 @@ void CtActions::codebox_handle()
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
     pCtCodebox->insertInTextBuffer(gsv_buffer);
 
-    getCtMainWin()->get_tree_store().addAnchoredWidgets(getCtMainWin()->curr_tree_iter(),
+    getCtMainWin()->curr_tree_store().addAnchoredWidgets(getCtMainWin()->curr_tree_iter(),
         {pCtCodebox}, &getCtMainWin()->get_text_view());
 }
 
@@ -568,7 +568,7 @@ void CtActions::image_insert_png(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pi
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
     pAnchoredWidget->insertInTextBuffer(gsv_buffer);
 
-    getCtMainWin()->get_tree_store().addAnchoredWidgets(getCtMainWin()->curr_tree_iter(),
+    getCtMainWin()->curr_tree_store().addAnchoredWidgets(getCtMainWin()->curr_tree_iter(),
         {pAnchoredWidget}, &getCtMainWin()->get_text_view());
 }
 
@@ -579,7 +579,7 @@ void CtActions::image_insert_anchor(Gtk::TextIter iter_insert, const Glib::ustri
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
     pAnchoredWidget->insertInTextBuffer(gsv_buffer);
 
-    getCtMainWin()->get_tree_store().addAnchoredWidgets(getCtMainWin()->curr_tree_iter(),
+    getCtMainWin()->curr_tree_store().addAnchoredWidgets(getCtMainWin()->curr_tree_iter(),
         {pAnchoredWidget}, &getCtMainWin()->get_text_view());
 }
 

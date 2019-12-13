@@ -306,7 +306,7 @@ Gtk::TreeIter CtDialogs::choose_node_dialog(Gtk::Window& parent,
 // Handle the Bookmarks List
 void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
 {
-    CtTreeStore& ctTreestore = pCtMainWin->get_tree_store();
+    CtTreeStore& ctTreestore = pCtMainWin->curr_tree_store();
     const std::list<gint64>& bookmarks = ctTreestore.get_bookmarks();
 
     Gtk::Dialog dialog(_("Handle the Bookmarks List"),
@@ -598,7 +598,7 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
             return;
         }
         gint64 node_id = list_iter->get_value(rModel->columns.node_id);
-        CtTreeIter tree_iter = ctMainWin.get_tree_store().get_node_from_node_id(node_id);
+        CtTreeIter tree_iter = ctMainWin.curr_tree_store().get_node_from_node_id(node_id);
         if (!tree_iter)
         {
             CtDialogs::error_dialog(str::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), node_id), ctMainWin);
@@ -665,7 +665,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
                                    Gtk::TreeIter sel_tree_iter,
                                    CtLinkEntry& link_entries)
 {
-    CtTreeStore& ctTreestore = ctMainWin.get_tree_store();
+    CtTreeStore& ctTreestore = ctMainWin.curr_tree_store();
     Gtk::Dialog dialog(title,
                        ctMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
@@ -727,14 +727,14 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
 
     Gtk::HBox hbox_detail;
 
-    Gtk::TreeView treeview_2(ctMainWin.get_tree_store().get_store());
+    Gtk::TreeView treeview_2(ctMainWin.curr_tree_store().get_store());
     treeview_2.set_headers_visible(false);
     treeview_2.set_search_column(1);
     Gtk::CellRendererPixbuf renderer_pixbuf_2;
     Gtk::CellRendererText renderer_text_2;
     Gtk::TreeViewColumn column_2;
-    treeview_2.append_column("", ctMainWin.get_tree_store().get_columns().rColPixbuf);
-    treeview_2.append_column("", ctMainWin.get_tree_store().get_columns().colNodeName);
+    treeview_2.append_column("", ctMainWin.curr_tree_store().get_columns().rColPixbuf);
+    treeview_2.append_column("", ctMainWin.curr_tree_store().get_columns().colNodeName);
     Gtk::ScrolledWindow scrolledwindow;
     scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     scrolledwindow.add(treeview_2);

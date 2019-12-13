@@ -294,7 +294,7 @@ Glib::ustring CtMiscUtil::sourceview_hovering_link_get_tooltip(const Glib::ustri
     else
     {
         if (vec[0] == CtConst::LINK_TYPE_NODE)
-            tooltip = CtApp::P_ctActions->getCtMainWin()->get_tree_store().get_node_name_from_node_id(std::stol(vec[1]));
+            tooltip = CtApp::P_ctActions->getCtMainWin()->curr_tree_store().get_node_name_from_node_id(std::stol(vec[1]));
         else
             tooltip = str::replace(vec[1], "amp;", "");
         if (vec.size() >= 3)

@@ -361,7 +361,7 @@ Glib::ustring CtExport2Html::_get_href_from_link_prop_val(Glib::ustring link_pro
     }
     else if (vec[0] == CtConst::LINK_TYPE_NODE)
     {
-        CtTreeIter node = CtApp::P_ctActions->getCtMainWin()->get_tree_store().get_node_from_node_id(std::stol(vec[1]));
+        CtTreeIter node = CtApp::P_ctActions->getCtMainWin()->curr_tree_store().get_node_from_node_id(std::stol(vec[1]));
         if (node)
         {
             href = _get_html_filename(node);

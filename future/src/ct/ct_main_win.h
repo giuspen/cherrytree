@@ -87,8 +87,8 @@ public:
     void curr_file_mod_time_update_value(const bool doEnable); // pygtk: modification_time_update_value
     void update_selected_node_statusbar_info();
 
-    CtTreeIter    curr_tree_iter()  { return _ctTreestore.to_ct_tree_iter(_ctTreeview.get_selection()->get_selected()); }
-    CtTreeStore&  get_tree_store()  { return _ctTreestore; }
+    CtTreeIter    curr_tree_iter()  { return _uCtTreestore->to_ct_tree_iter(_ctTreeview.get_selection()->get_selected()); }
+    CtTreeStore&  curr_tree_store()  { return *_uCtTreestore; }
     CtTreeView&   get_tree_view()   { return _ctTreeview; }
     CtTextView&   get_text_view()   { return _ctTextview; }
     CtMenu&       get_ct_menu()     { return *_pCtMenu; }
@@ -139,23 +139,24 @@ private:
 
     void                _title_update(const bool saveNeeded); // pygtk: window_title_update
     void                _set_new_curr_doc(const Glib::RefPtr<Gio::File>& r_file, const std::string& password);
+    void                _reset_CtTreestore();
 
 private:
     Gtk::VBox           _vboxMain;
     Gtk::VBox           _vboxText;
     Gtk::HPaned         _hPaned;
-    Gtk::MenuBar*       _pMenuBar;
-    Gtk::Toolbar*       _pToolbar;
-    CtMenu*             _pCtMenu;
+    Gtk::MenuBar*       _pMenuBar{nullptr};
+    Gtk::Toolbar*       _pToolbar{nullptr};
+    CtMenu*             _pCtMenu{nullptr};
     CtStatusBar         _ctStatusBar;
     CtWinHeader         _ctWinHeader;
-    Gtk::MenuItem*      _pBookmarksSubmenu;
-    Gtk::MenuItem*      _pSpecialCharsSubmenu;
+    Gtk::MenuItem*      _pBookmarksSubmenu{nullptr};
+    Gtk::MenuItem*      _pSpecialCharsSubmenu{nullptr};
     Gtk::ScrolledWindow _scrolledwindowTree;
     Gtk::ScrolledWindow _scrolledwindowText;
-    CtTreeStore         _ctTreestore;
+    std::unique_ptr<CtTreeStore> _uCtTreestore;
     CtTreeView          _ctTreeview;
-    CtTextView          _ctTextview; /* todo: rename? because _ctTextview and _ctTreeview look the same */
+    CtTextView          _ctTextview;
 
     struct CtCurrFile
     {

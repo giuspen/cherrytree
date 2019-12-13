@@ -61,8 +61,7 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu)
     _vboxMain.pack_start(_init_status_bar(), false, false);
     add(_vboxMain);
 
-    _ctTreestore.view_append_columns(&_ctTreeview);
-    _ctTreestore.view_connect(&_ctTreeview);
+    _reset_CtTreestore();
 
     _ctTreeview.signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_cursor_changed));
     _ctTreeview.signal_button_release_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_button_release_event));
@@ -104,6 +103,14 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu)
 CtMainWin::~CtMainWin()
 {
     //printf("~CtMainWin\n");
+}
+
+void CtMainWin::_reset_CtTreestore()
+{
+    _prevTreeIter = CtTreeIter();
+    _uCtTreestore.reset(new CtTreeStore);
+    _uCtTreestore->view_append_columns(&_ctTreeview);
+    _uCtTreestore->view_connect(&_ctTreeview);
 }
 
 void CtMainWin::config_apply_before_show_all()
@@ -262,15 +269,15 @@ void CtMainWin::menu_tree_update_for_bookmarked_node(bool is_bookmarked)
 
 void CtMainWin::bookmark_action_select_node(gint64 node_id)
 {
-    Gtk::TreeIter tree_iter = _ctTreestore.get_node_from_node_id(node_id);
+    Gtk::TreeIter tree_iter = _uCtTreestore->get_node_from_node_id(node_id);
     get_tree_view().set_cursor_safe(tree_iter);
 }
 
 void CtMainWin::set_bookmarks_menu_items()
 {
     std::list<std::tuple<gint64, std::string>> bookmarks;
-    for (const gint64& node_id: _ctTreestore.get_bookmarks())
-        bookmarks.push_back(std::make_tuple(node_id, _ctTreestore.get_node_name_from_node_id(node_id)));
+    for (const gint64& node_id: _uCtTreestore->get_bookmarks())
+        bookmarks.push_back(std::make_tuple(node_id, _uCtTreestore->get_node_name_from_node_id(node_id)));
     sigc::slot<void, gint64> bookmark_action = sigc::mem_fun(*this, &CtMainWin::bookmark_action_select_node);
     _pBookmarksSubmenu->set_submenu(*_pCtMenu->build_bookmarks_menu(bookmarks, bookmark_action));
 }
@@ -285,11 +292,11 @@ void CtMainWin::filepath_open(std::string& filepath, const bool force_reset)
 {
     CtRecentDocRestore prevDocRestore;
     prevDocRestore.doc_name = get_curr_doc_file_name();
-    prevDocRestore.exp_coll_str = _ctTreestore.get_tree_expanded_collapsed_string(_ctTreeview);
+    prevDocRestore.exp_coll_str = _uCtTreestore->get_tree_expanded_collapsed_string(_ctTreeview);
     const CtTreeIter prevTreeIter = curr_tree_iter();
     if (prevTreeIter)
     {
-        prevDocRestore.node_path = _ctTreestore.get_path(prevTreeIter).to_string();
+        prevDocRestore.node_path = _uCtTreestore->get_path(prevTreeIter).to_string();
         const Glib::RefPtr<Gsv::Buffer> rTextBuffer = prevTreeIter.get_node_text_buffer();
         prevDocRestore.cursor_pos = rTextBuffer->property_cursor_position();
     }
@@ -303,7 +310,7 @@ void CtMainWin::filepath_open(std::string& filepath, const bool force_reset)
 bool CtMainWin::reset(const bool force_reset)
 {
     if (not force_reset and
-        _ctTreestore.get_iter_first() and
+        _uCtTreestore->get_iter_first() and
         not check_unsaved())
     {
         return false;
@@ -313,7 +320,7 @@ bool CtMainWin::reset(const bool force_reset)
     auto on_scope_exit = scope_guard([&](void*) { user_active() = true; });
     user_active() = false;
 
-    _prevTreeIter = CtTreeIter();
+    _reset_CtTreestore();
     //todo
 }
 
@@ -351,7 +358,7 @@ void CtMainWin::set_new_curr_doc(const std::string& filepath,
 {
     Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(filepath);
     _set_new_curr_doc(r_file, password);
-    _ctTreestore.set_new_curr_sqlite_doc(pCtSQLite);
+    _uCtTreestore->set_new_curr_sqlite_doc(pCtSQLite);
 }
 
 bool CtMainWin::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, const bool isImport)
@@ -389,7 +396,7 @@ bool CtMainWin::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, 
     }
     if (pFilepath)
     {
-        retOk = _ctTreestore.read_nodes_from_filepath(pFilepath, isImport);
+        retOk = _uCtTreestore->read_nodes_from_filepath(pFilepath, isImport);
     }
     if (retOk && not isImport)
     {
@@ -410,11 +417,11 @@ bool CtMainWin::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, 
                 {
                     CtApp::P_ctCfg->expandedCollapsedString = "";
                 }
-                _ctTreestore.set_tree_expanded_collapsed_string(CtApp::P_ctCfg->expandedCollapsedString,
+                _uCtTreestore->set_tree_expanded_collapsed_string(CtApp::P_ctCfg->expandedCollapsedString,
                                                                 _ctTreeview,
                                                                 CtApp::P_ctCfg->nodesBookmExp);
             }
-            _ctTreestore.set_tree_path_n_text_cursor_from_config(&_ctTreeview, &_ctTextview);
+            _uCtTreestore->set_tree_path_n_text_cursor_from_config(&_ctTreeview, &_ctTextview);
         }
     }
     return retOk;
@@ -552,13 +559,13 @@ void CtMainWin::update_window_save_needed(const CtSaveNeededUpdType update_type,
             const gint64 top_node_id = treeIter.get_node_id();
             std::vector<gint64> rm_node_ids = treeIter.get_children_node_ids();
             rm_node_ids.push_back(top_node_id);
-            _ctTreestore.pending_rm_db_nodes(rm_node_ids);
+            _uCtTreestore->pending_rm_db_nodes(rm_node_ids);
             //todo
             //self.state_machine.delete_states(node_id) 
         } break;
         case CtSaveNeededUpdType::book:
         {
-            _ctTreestore.pending_edit_db_bookmarks();
+            _uCtTreestore->pending_edit_db_bookmarks();
         } break;
     }
     //todo
@@ -578,9 +585,9 @@ void CtMainWin::_on_treeview_cursor_changed()
         }
     }
     CtTreeIter treeIter = curr_tree_iter();
-    _ctTreestore.apply_textbuffer_to_textview(treeIter, &_ctTextview);
+    _uCtTreestore->apply_textbuffer_to_textview(treeIter, &_ctTextview);
 
-    menu_tree_update_for_bookmarked_node(_ctTreestore.is_node_bookmarked(treeIter.get_node_id()));
+    menu_tree_update_for_bookmarked_node(_uCtTreestore->is_node_bookmarked(treeIter.get_node_id()));
     window_header_update();
     window_header_update_lock_icon(treeIter.get_node_read_only());
     window_header_update_bookmark_icon(false);

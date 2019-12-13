@@ -119,7 +119,7 @@ void CtApp::_iconthemeInit()
 CtMainWin* CtApp::create_appwindow()
 {
     auto pMainWin = new CtMainWin(_pCtMenu);
-    CtApp::P_ctActions->init(pMainWin, &pMainWin->get_tree_store());
+    CtApp::P_ctActions->init(pMainWin);
 
     add_window(*pMainWin);
 

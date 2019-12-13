@@ -649,7 +649,7 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
     auto apply_tag_try_node_name = [this](Gtk::TextIter iter_start, Gtk::TextIter iter_end)
     {
         Glib::ustring node_name = get_buffer()->get_text(iter_start, iter_end);
-        CtTreeIter node_dest = CtApp::P_ctActions->getCtMainWin()->get_tree_store().get_node_from_node_name(node_name);
+        CtTreeIter node_dest = CtApp::P_ctActions->getCtMainWin()->curr_tree_store().get_node_from_node_name(node_name);
         if (node_dest)
         {
             get_buffer()->select_range(iter_start, iter_end);

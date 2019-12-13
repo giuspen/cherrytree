@@ -193,7 +193,7 @@ bool CtActions::_file_write_low_level(const std::string& filepath,
     {
         // xml, full
         CtXmlWrite ctXmlWrite(CtConst::APP_NAME);
-        ctXmlWrite.treestore_to_dom(_pCtTreestore->get_bookmarks(), _pCtTreestore->get_ct_iter_first());
+        ctXmlWrite.treestore_to_dom(_pCtMainWin->curr_tree_store().get_bookmarks(), _pCtMainWin->curr_tree_store().get_ct_iter_first());
         ctXmlWrite.write_to_file(filepath_tmp);
         std::cout << "W " << filepath_tmp << std::endl;
         retVal = true;
@@ -203,8 +203,8 @@ bool CtActions::_file_write_low_level(const std::string& filepath,
     {
         // sqlite, full
         CtSQLite* pCtSQLite = new CtSQLite(filepath_tmp);
-        if (pCtSQLite->write_db_full(_pCtTreestore->get_bookmarks(),
-                                     _pCtTreestore->get_ct_iter_first(),
+        if (pCtSQLite->write_db_full(_pCtMainWin->curr_tree_store().get_bookmarks(),
+                                     _pCtMainWin->curr_tree_store().get_ct_iter_first(),
                                      exporting,
                                      offset_range))
         {
@@ -227,7 +227,7 @@ bool CtActions::_file_write_low_level(const std::string& filepath,
     else
     {
         // sqlite, update
-        retVal = _pCtTreestore->pending_data_write(run_vacuum);
+        retVal = _pCtMainWin->curr_tree_store().pending_data_write(run_vacuum);
     }
     if ( retVal and
          (CtDocEncrypt::True == docEncrypt) )

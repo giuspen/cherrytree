@@ -235,7 +235,7 @@ void CtClipboard::from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_b
     }
     if (!widgets.empty())
     {
-        CtApp::P_ctActions->getCtMainWin()->get_tree_store().addAnchoredWidgets(
+        CtApp::P_ctActions->getCtMainWin()->curr_tree_store().addAnchoredWidgets(
                     CtApp::P_ctActions->getCtMainWin()->curr_tree_iter(),
                     widgets, &CtApp::P_ctActions->getCtMainWin()->get_text_view());
         // ? self.state_machine.update_state()
@@ -461,7 +461,7 @@ void CtClipboard::_on_received_to_codebox(const Gtk::SelectionData& selection_da
     CtXmlRead::get_text_buffer_slot(gsv_buffer, &insert_iter, widgets, doc->get_root_node()->get_first_child("codebox"), insert_iter.get_offset());
     if (!widgets.empty())
     {
-        CtApp::P_ctActions->getCtMainWin()->get_tree_store().addAnchoredWidgets(
+        CtApp::P_ctActions->getCtMainWin()->curr_tree_store().addAnchoredWidgets(
                     CtApp::P_ctActions->getCtMainWin()->curr_tree_iter(),
                     widgets, &CtApp::P_ctActions->getCtMainWin()->get_text_view());
         // ? self.state_machine.update_state()
@@ -494,7 +494,7 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
     CtXmlRead::get_text_buffer_slot(gsv_buffer, &insert_iter, widgets, doc->get_root_node()->get_first_child("table"), insert_iter.get_offset());
     if (!widgets.empty())
     {
-        CtApp::P_ctActions->getCtMainWin()->get_tree_store().addAnchoredWidgets(
+        CtApp::P_ctActions->getCtMainWin()->curr_tree_store().addAnchoredWidgets(
                     CtApp::P_ctActions->getCtMainWin()->curr_tree_iter(),
                     widgets, &CtApp::P_ctActions->getCtMainWin()->get_text_view());
         // ? self.state_machine.update_state()

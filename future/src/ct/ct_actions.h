@@ -34,10 +34,9 @@ class CtMainWin;
 class CtActions
 {
 public:
-    void init(CtMainWin* pCtMainWin, CtTreeStore* pCtTreeStore)
+    void init(CtMainWin* pCtMainWin)
     {
         _pCtMainWin = pCtMainWin;
-        _pCtTreestore = pCtTreeStore;
         _find_init();
     }
 
@@ -58,7 +57,6 @@ private:
 
 private:
     CtMainWin*   _pCtMainWin;
-    CtTreeStore* _pCtTreestore;
 
 public:
     CtMainWin*   getCtMainWin() { return _pCtMainWin; }
