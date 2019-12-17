@@ -611,7 +611,8 @@ void CtTreeStore::apply_textbuffer_to_textview(const CtTreeIter& treeIter, CtTex
 {
     if (false == static_cast<bool>(treeIter))
     {
-        std::cerr << "!! treeIter" << std::endl;
+        pTextView->set_buffer(Glib::RefPtr<Gsv::Buffer>{});
+        pTextView->set_sensitive(false);
         return;
     }
 

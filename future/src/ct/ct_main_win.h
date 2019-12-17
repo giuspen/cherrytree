@@ -68,7 +68,7 @@ public:
     bool read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, const bool isImport);
     void config_apply_before_show_all();
     void config_apply_after_show_all();
-    void filepath_open(std::string& filepath, const bool force_reset = false);
+    void filepath_open(const std::string& filepath, const bool force_reset = false);
     bool reset(const bool force_reset = false);
     bool check_unsaved();
     void configure_theme();

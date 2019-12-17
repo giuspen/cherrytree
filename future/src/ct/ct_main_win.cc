@@ -62,6 +62,7 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu)
     add(_vboxMain);
 
     _reset_CtTreestore();
+    _uCtTreestore->view_append_columns(&_ctTreeview);
 
     _ctTreeview.signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_cursor_changed));
     _ctTreeview.signal_button_release_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_button_release_event));
@@ -109,7 +110,6 @@ void CtMainWin::_reset_CtTreestore()
 {
     _prevTreeIter = CtTreeIter();
     _uCtTreestore.reset(new CtTreeStore);
-    _uCtTreestore->view_append_columns(&_ctTreeview);
     _uCtTreestore->view_connect(&_ctTreeview);
 }
 
@@ -288,7 +288,7 @@ void CtMainWin::set_menu_items_special_chars()
     _pSpecialCharsSubmenu->set_submenu(*_pCtMenu->build_special_chars_menu(CtApp::P_ctCfg->specialChars, spec_char_action));
 }
 
-void CtMainWin::filepath_open(std::string& filepath, const bool force_reset)
+void CtMainWin::filepath_open(const std::string& filepath, const bool force_reset)
 {
     CtRecentDocRestore prevDocRestore;
     prevDocRestore.doc_name = get_curr_doc_file_name();
@@ -303,6 +303,44 @@ void CtMainWin::filepath_open(std::string& filepath, const bool force_reset)
     if (not reset(force_reset))
     {
         return;
+    }
+    const std::string new_file_name = Glib::path_get_basename(filepath);
+    if (new_file_name != prevDocRestore.doc_name)
+    {
+        int i{0};
+        for (; i<CtConst::MAX_RECENT_DOCS_RESTORE; i++)
+        {
+            if (new_file_name == CtApp::P_ctCfg->recentDocsRestore[i].doc_name)
+            {
+                CtApp::P_ctCfg->recentDocsRestore[i] = prevDocRestore;
+                break;
+            }
+        }
+        if (CtConst::MAX_RECENT_DOCS_RESTORE == i)
+        {
+            for (i=0; i<CtConst::MAX_RECENT_DOCS_RESTORE; i++)
+            {
+                if (CtApp::P_ctCfg->recentDocsRestore[i].doc_name.empty())
+                {
+                    CtApp::P_ctCfg->recentDocsRestore[i] = prevDocRestore;
+                    break;
+                }
+            }
+            if (CtConst::MAX_RECENT_DOCS_RESTORE == i)
+            {
+                for (i=CtConst::MAX_RECENT_DOCS_RESTORE-1; i>=0; i--)
+                {
+                    if (i > 0)
+                    {
+                        CtApp::P_ctCfg->recentDocsRestore[i] = CtApp::P_ctCfg->recentDocsRestore[i-1];
+                    }
+                    else
+                    {
+                        CtApp::P_ctCfg->recentDocsRestore[i] = prevDocRestore;
+                    }
+                }
+            }
+        }
     }
     //todo
 }
@@ -321,7 +359,12 @@ bool CtMainWin::reset(const bool force_reset)
     user_active() = false;
 
     _reset_CtTreestore();
+    _latestStatusbarUpdateTime.clear();
+    _set_new_curr_doc(Glib::RefPtr<Gio::File>{nullptr}, "");
+
+    update_window_save_not_needed();
     //todo
+    //self.state_machine.reset()
 }
 
 bool CtMainWin::check_unsaved()
