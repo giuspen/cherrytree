@@ -123,13 +123,12 @@ void CtConfig::_unexpectedKeyfileError(const gchar* key, const Glib::KeyFileErro
 
 void CtConfig::_populateFromKeyfile()
 {
-    guint8  i;
-    const uint8_t MAX_TEMP_KEY_SIZE {16};
+    const uint8_t MAX_TEMP_KEY_SIZE{16};
     gchar temp_key[MAX_TEMP_KEY_SIZE];
     // [state]
     _currentGroup = "state";
     _populateStringFromKeyfile("file_dir", &fileDir);
-    _populateStringFromKeyfile("file_name", &fileName);
+    _populateStringFromKeyfile("file_name", &recentDocsRestore[0].doc_name);
     _populateBoolFromKeyfile("toolbar_visible", &toolbarVisible);
     _populateBoolFromKeyfile("win_is_maximized", &winIsMaximised);
     _populateIntFromKeyfile("win_position_x", &winRect[0]);
@@ -138,20 +137,19 @@ void CtConfig::_populateFromKeyfile()
     _populateIntFromKeyfile("win_size_h", &winRect[3]);
     _populateIntFromKeyfile("hpaned_pos", &hpanedPos);
     _populateBoolFromKeyfile("tree_visible", &treeVisible);
-    if (_populateStringFromKeyfile("node_path", &nodePath))
+    if (_populateStringFromKeyfile("node_path", &recentDocsRestore[0].node_path))
     {
-        str::replace(nodePath, " ", ":");
-        _populateIntFromKeyfile("cursor_position", &cursorPosition);
+        _populateIntFromKeyfile("cursor_position", &recentDocsRestore[0].cursor_pos);
     }
-    for (i=0; i<CtConst::MAX_RECENT_DOCS; i++)
+    for (guint i=0; i<recentDocsFilepaths.size(); ++i)
     {
         snprintf(temp_key, MAX_TEMP_KEY_SIZE, "doc_%d", i);
-        Glib::ustring recent_doc;
-        if (!_populateStringFromKeyfile(temp_key, &recent_doc))
+        std::string recent_doc;
+        if (not _populateStringFromKeyfile(temp_key, &recent_doc))
         {
             break;
         }
-        recentDocs.push_back(recent_doc);
+        recentDocsFilepaths[i] = recent_doc;
     }
     _populateStringFromKeyfile("pick_dir_import", &pickDirImport);
     _populateStringFromKeyfile("pick_dir_export", &pickDirExport);
@@ -174,21 +172,21 @@ void CtConfig::_populateFromKeyfile()
     {
         restoreExpColl = static_cast<CtRestoreExpColl>(rest_exp_coll);
     }
-    _populateStringFromKeyfile("expanded_collapsed_string", &expandedCollapsedString);
-    recentDocsRestore.resize((size_t)CtConst::MAX_RECENT_DOCS_RESTORE);
-    for (i=0; i<=CtConst::MAX_RECENT_DOCS_RESTORE; i++)
+    _populateStringFromKeyfile("expanded_collapsed_string", &recentDocsRestore[0].exp_coll_str);
+    for (guint i=1; i<recentDocsRestore.size(); ++i)
     {
-        snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollnam%d", i+1);
-        if (!_populateStringFromKeyfile(temp_key, &recentDocsRestore[i].doc_name))
+        snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollnam%d", i);
+        if (_populateStringFromKeyfile(temp_key, &recentDocsRestore[i].doc_name))
         {
-            break;
+            snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollstr%d", i);
+            _populateStringFromKeyfile(temp_key, &recentDocsRestore[i].exp_coll_str);
+            snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollsel%d", i);
+            if (_populateStringFromKeyfile(temp_key, &recentDocsRestore[i].node_path))
+            {
+                snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollcur%d", i);
+                _populateIntFromKeyfile(temp_key, &recentDocsRestore[i].cursor_pos);
+            }
         }
-        snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollstr%d", i+1);
-        _populateStringFromKeyfile(temp_key, &recentDocsRestore[i].exp_coll_str);
-        snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollsel%d", i+1);
-        _populateStringFromKeyfile(temp_key, &recentDocsRestore[i].node_path);
-        snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollcur%d", i+1);
-        _populateIntFromKeyfile(temp_key, &recentDocsRestore[i].cursor_pos);
     }
     _populateBoolFromKeyfile("nodes_bookm_exp", &nodesBookmExp);
     _populateStringFromKeyfile("nodes_icons", &nodesIcons);

@@ -31,12 +31,12 @@
 CtDocType CtMiscUtil::get_doc_type(const std::string& fileName)
 {
     CtDocType retDocType{CtDocType::None};
-    if ( (Glib::str_has_suffix(fileName, CtConst::CTDOC_XML_NOENC)) ||
+    if ( (Glib::str_has_suffix(fileName, CtConst::CTDOC_XML_NOENC)) or
          (Glib::str_has_suffix(fileName, CtConst::CTDOC_XML_ENC)) )
     {
         retDocType = CtDocType::XML;
     }
-    else if ( (Glib::str_has_suffix(fileName, CtConst::CTDOC_SQLITE_NOENC)) ||
+    else if ( (Glib::str_has_suffix(fileName, CtConst::CTDOC_SQLITE_NOENC)) or
               (Glib::str_has_suffix(fileName, CtConst::CTDOC_SQLITE_ENC)) )
     {
         retDocType = CtDocType::SQLite;
@@ -47,12 +47,12 @@ CtDocType CtMiscUtil::get_doc_type(const std::string& fileName)
 CtDocEncrypt CtMiscUtil::get_doc_encrypt(const std::string& fileName)
 {
     CtDocEncrypt retDocEncrypt{CtDocEncrypt::None};
-    if ( (Glib::str_has_suffix(fileName, CtConst::CTDOC_XML_NOENC)) ||
+    if ( (Glib::str_has_suffix(fileName, CtConst::CTDOC_XML_NOENC)) or
          (Glib::str_has_suffix(fileName, CtConst::CTDOC_SQLITE_NOENC)) )
     {
         retDocEncrypt = CtDocEncrypt::False;
     }
-    else if ( (Glib::str_has_suffix(fileName, CtConst::CTDOC_XML_ENC)) ||
+    else if ( (Glib::str_has_suffix(fileName, CtConst::CTDOC_XML_ENC)) or
               (Glib::str_has_suffix(fileName, CtConst::CTDOC_SQLITE_ENC)) )
     {
         retDocEncrypt = CtDocEncrypt::True;
@@ -116,7 +116,7 @@ Glib::RefPtr<Gsv::Buffer> CtMiscUtil::get_new_text_buffer(const std::string& syn
         }
         rRetTextBuffer->set_highlight_matching_brackets(true);
     }
-    if (!textContent.empty())
+    if (not textContent.empty())
     {
         rRetTextBuffer->begin_not_undoable_action();
         rRetTextBuffer->set_text(textContent);
@@ -147,11 +147,11 @@ const Glib::ustring CtMiscUtil::getTextTagNameExistOrCreate(Glib::ustring proper
 {
     const Glib::ustring tagName{propertyName + "_" + propertyValue};
     Glib::RefPtr<Gtk::TextTag> rTextTag = CtApp::R_textTagTable->lookup(tagName);
-    if (!rTextTag)
+    if (not rTextTag)
     {
         bool identified{true};
         rTextTag = Gtk::TextTag::create(tagName);
-        if (CtConst::TAG_WEIGHT == propertyName && CtConst::TAG_PROP_VAL_HEAVY == propertyValue)
+        if (CtConst::TAG_WEIGHT == propertyName and CtConst::TAG_PROP_VAL_HEAVY == propertyValue)
         {
             rTextTag->property_weight() = PANGO_WEIGHT_HEAVY;
         }
@@ -181,7 +181,7 @@ const Glib::ustring CtMiscUtil::getTextTagNameExistOrCreate(Glib::ustring proper
             {
                 rTextTag->property_scale() = PANGO_SCALE_LARGE;
             }
-            else if (CtConst::TAG_PROP_VAL_SUB == propertyValue || CtConst::TAG_PROP_VAL_SUP == propertyValue)
+            else if (CtConst::TAG_PROP_VAL_SUB == propertyValue or CtConst::TAG_PROP_VAL_SUP == propertyValue)
             {
                 rTextTag->property_scale() = PANGO_SCALE_X_SMALL;
                 int propRise = Pango::FontDescription(CtApp::P_ctCfg->rtFont).get_size();
@@ -200,11 +200,11 @@ const Glib::ustring CtMiscUtil::getTextTagNameExistOrCreate(Glib::ustring proper
                 identified = false;
             }
         }
-        else if (CtConst::TAG_STYLE == propertyName && CtConst::TAG_PROP_VAL_ITALIC == propertyValue)
+        else if (CtConst::TAG_STYLE == propertyName and CtConst::TAG_PROP_VAL_ITALIC == propertyValue)
         {
             rTextTag->property_style() = Pango::Style::STYLE_ITALIC;
         }
-        else if (CtConst::TAG_UNDERLINE == propertyName && CtConst::TAG_PROP_VAL_SINGLE == propertyValue)
+        else if (CtConst::TAG_UNDERLINE == propertyName and CtConst::TAG_PROP_VAL_SINGLE == propertyValue)
         {
             rTextTag->property_underline() = Pango::Underline::UNDERLINE_SINGLE;
         }
@@ -231,19 +231,19 @@ const Glib::ustring CtMiscUtil::getTextTagNameExistOrCreate(Glib::ustring proper
                 identified = false;
             }
         }
-        else if (CtConst::TAG_FAMILY == propertyName && CtConst::TAG_PROP_VAL_MONOSPACE == propertyValue)
+        else if (CtConst::TAG_FAMILY == propertyName and CtConst::TAG_PROP_VAL_MONOSPACE == propertyValue)
         {
             rTextTag->property_family() = CtConst::TAG_PROP_VAL_MONOSPACE;
-            if (!CtApp::P_ctCfg->monospaceBg.empty())
+            if (not CtApp::P_ctCfg->monospaceBg.empty())
             {
                 rTextTag->property_background() = CtApp::P_ctCfg->monospaceBg;
             }
         }
-        else if (CtConst::TAG_STRIKETHROUGH == propertyName && CtConst::TAG_PROP_VAL_TRUE == propertyValue)
+        else if (CtConst::TAG_STRIKETHROUGH == propertyName and CtConst::TAG_PROP_VAL_TRUE == propertyValue)
         {
             rTextTag->property_strikethrough() = true;
         }
-        else if (CtConst::TAG_LINK == propertyName && propertyValue.size() > 4)
+        else if (CtConst::TAG_LINK == propertyName and propertyValue.size() > 4)
         {
             if (CtApp::P_ctCfg->linksUnderline)
             {
@@ -275,7 +275,7 @@ const Glib::ustring CtMiscUtil::getTextTagNameExistOrCreate(Glib::ustring proper
         {
             identified = false;
         }
-        if (!identified)
+        if (not identified)
         {
             std::cerr << "!! unsupported propertyName=" << propertyName << " propertyValue=" << propertyValue << std::endl;
         }
@@ -289,7 +289,7 @@ Glib::ustring CtMiscUtil::sourceview_hovering_link_get_tooltip(const Glib::ustri
 {
     Glib::ustring tooltip;
     auto vec = str::split(link, " ");
-    if (vec[0] == CtConst::LINK_TYPE_FILE || vec[0] == CtConst::LINK_TYPE_FOLD)
+    if (vec[0] == CtConst::LINK_TYPE_FILE or vec[0] == CtConst::LINK_TYPE_FOLD)
         tooltip = Glib::Base64::decode(vec[1]);
     else
     {
@@ -403,40 +403,40 @@ bool CtTextIterUtil::apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer
     auto re = Glib::Regex::create("\\w");
     // 1) select alphanumeric + special
     bool match = re->match(Glib::ustring(1, curr_char));
-    if (!match && CtApp::P_ctCfg->selwordChars.find(curr_char) == Glib::ustring::npos) {
+    if (not match and CtApp::P_ctCfg->selwordChars.find(curr_char) == Glib::ustring::npos) {
         iter_start.backward_char();
         iter_end.backward_char();
         curr_char = iter_end.get_char();
         match = re->match(Glib::ustring(1, curr_char));
-        if (!match && CtApp::P_ctCfg->selwordChars.find(curr_char) == Glib::ustring::npos)
+        if (not match and CtApp::P_ctCfg->selwordChars.find(curr_char) == Glib::ustring::npos)
             return false;
     }
-    while (match || CtApp::P_ctCfg->selwordChars.find(curr_char) != Glib::ustring::npos) {
-        if (!iter_end.forward_char()) break; // end of buffer
+    while (match or CtApp::P_ctCfg->selwordChars.find(curr_char) != Glib::ustring::npos) {
+        if (not iter_end.forward_char()) break; // end of buffer
         curr_char = iter_end.get_char();
         match = re->match(Glib::ustring(1, curr_char));
     }
     iter_start.backward_char();
     curr_char = iter_start.get_char();
     match = re->match(Glib::ustring(1, curr_char));
-    while (match || CtApp::P_ctCfg->selwordChars.find(curr_char) != Glib::ustring::npos) {
-        if (!iter_start.backward_char()) break; // start of buffer
+    while (match or CtApp::P_ctCfg->selwordChars.find(curr_char) != Glib::ustring::npos) {
+        if (not iter_start.backward_char()) break; // start of buffer
         curr_char = iter_start.get_char();
         match = re->match(Glib::ustring(1, curr_char));
     }
-    if (!match && CtApp::P_ctCfg->selwordChars.find(curr_char) == Glib::ustring::npos)
+    if (not match and CtApp::P_ctCfg->selwordChars.find(curr_char) == Glib::ustring::npos)
         iter_start.forward_char();
     // 2) remove non alphanumeric from borders
     iter_end.backward_char();
     curr_char = iter_end.get_char();
     while (CtApp::P_ctCfg->selwordChars.find(curr_char) != Glib::ustring::npos) {
-        if (!iter_end.backward_char()) break; // start of buffer
+        if (not iter_end.backward_char()) break; // start of buffer
         curr_char = iter_end.get_char();
     }
     iter_end.forward_char();
     curr_char = iter_start.get_char();
     while (CtApp::P_ctCfg->selwordChars.find(curr_char) != Glib::ustring::npos) {
-        if (!iter_start.forward_char()) break; // end of buffer
+        if (not iter_start.forward_char()) break; // end of buffer
         curr_char = iter_start.get_char();
     }
     if (iter_end.compare(iter_start) > 0) {
@@ -457,7 +457,7 @@ bool CtTextIterUtil::get_is_camel_case(Gtk::TextIter iter_start, int num_chars)
     {
         auto curr_char = text_iter.get_char();
         bool alphanumeric = re->match(Glib::ustring(1, curr_char));
-        if (!alphanumeric)
+        if (not alphanumeric)
         {
             curr_state = -1;
             break;
@@ -497,7 +497,7 @@ bool CtTextIterUtil::get_next_chars_from_iter_are(Gtk::TextIter text_iter, const
     {
         if (text_iter.get_char() != chars_list[i])
             return false;
-        if (!text_iter.forward_char() && i+1 != chars_list.size())
+        if (not text_iter.forward_char() and i+1 != chars_list.size())
             return false;
     }
     return true;
@@ -520,7 +520,7 @@ bool CtTextIterUtil::get_first_chars_of_string_at_offset_are(const Glib::ustring
         if (in_string.size() < (size_t)offset + len)
             continue;
         bool good = true;
-        for (size_t i = 0; good && i < len; ++i)
+        for (size_t i = 0; good and i < len; ++i)
             good = in_string[(size_t)offset + i] == chars_list[i];
         if (good)
             return true;
@@ -534,7 +534,7 @@ void CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter,
     for (const auto& r_curr_tag : toggled_off)
     {
         const Glib::ustring tag_name = r_curr_tag->property_name();
-        if (tag_name.empty() || CtConst::GTKSPELLCHECK_TAG_NAME == tag_name)
+        if (tag_name.empty() or CtConst::GTKSPELLCHECK_TAG_NAME == tag_name)
         {
             continue;
         }
@@ -554,7 +554,7 @@ void CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter,
     for (const auto& r_curr_tag : toggled_on)
     {
         const Glib::ustring tag_name = r_curr_tag->property_name();
-        if (tag_name.empty() || CtConst::GTKSPELLCHECK_TAG_NAME == tag_name)
+        if (tag_name.empty() or CtConst::GTKSPELLCHECK_TAG_NAME == tag_name)
         {
             continue;
         }
@@ -580,19 +580,19 @@ bool CtTextIterUtil::tag_richtext_toggling_on_or_off(const Gtk::TextIter& text_i
     for (const Glib::RefPtr<const Gtk::TextTag>& r_curr_tag : toggled_tags)
     {
         const Glib::ustring tag_name = r_curr_tag->property_name();
-        if (tag_name.empty() || CtConst::GTKSPELLCHECK_TAG_NAME == tag_name)
+        if (tag_name.empty() or CtConst::GTKSPELLCHECK_TAG_NAME == tag_name)
         {
             continue;
         }
-        if ( (str::startswith(tag_name, "weight_")) ||
-             (str::startswith(tag_name, "foreground_")) ||
-             (str::startswith(tag_name, "background_")) ||
-             (str::startswith(tag_name, "scale_")) ||
-             (str::startswith(tag_name, "justification_")) ||
-             (str::startswith(tag_name, "style_")) ||
-             (str::startswith(tag_name, "underline_")) ||
-             (str::startswith(tag_name, "strikethrough_")) ||
-             (str::startswith(tag_name, "link_")) ||
+        if ( (str::startswith(tag_name, "weight_")) or
+             (str::startswith(tag_name, "foreground_")) or
+             (str::startswith(tag_name, "background_")) or
+             (str::startswith(tag_name, "scale_")) or
+             (str::startswith(tag_name, "justification_")) or
+             (str::startswith(tag_name, "style_")) or
+             (str::startswith(tag_name, "underline_")) or
+             (str::startswith(tag_name, "strikethrough_")) or
+             (str::startswith(tag_name, "link_")) or
              (str::startswith(tag_name, "family_")) )
         {
             retVal = true;
@@ -649,7 +649,7 @@ void CtTextIterUtil::generic_process_slot(int start_offset, int end_offset, Glib
 bool CtStrUtil::isStrTrue(const Glib::ustring& inStr)
 {
     bool retVal{false};
-    if (CtConst::TAG_PROP_VAL_TRUE == inStr.lowercase() ||
+    if (CtConst::TAG_PROP_VAL_TRUE == inStr.lowercase() or
         "1" == inStr)
     {
         retVal = true;
@@ -660,7 +660,7 @@ bool CtStrUtil::isStrTrue(const Glib::ustring& inStr)
 gint64 CtStrUtil::gint64FromGstring(const gchar* inGstring, bool hexPrefix)
 {
     gint64 retVal;
-    if (hexPrefix || g_strrstr(inGstring, "0x"))
+    if (hexPrefix or g_strrstr(inGstring, "0x"))
     {
         retVal = g_ascii_strtoll(inGstring, nullptr, 16);
     }
@@ -694,20 +694,6 @@ std::vector<gint64> CtStrUtil::gstringSplit2int64(const gchar* inStr, const gcha
     }
     g_strfreev(arrayOfStrings);
     return retVec;
-}
-
-bool CtStrUtil::isPgcharInPgcharSet(const gchar* pGcharNeedle, const std::set<const gchar*>& setPgcharHaystack)
-{
-    bool gotcha{false};
-    for (const gchar* pGcharHaystack : setPgcharHaystack)
-    {
-        if (0 == g_strcmp0(pGcharHaystack, pGcharNeedle))
-        {
-            gotcha = true;
-            break;
-        }
-    }
-    return gotcha;
 }
 
 

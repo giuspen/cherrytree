@@ -24,7 +24,7 @@
 #include <gtksourceviewmm.h>
 #include <gtkmm/treeiter.h>
 #include <gtkmm/treestore.h>
-#include <set>
+#include <unordered_set>
 #include "ct_treestore.h"
 #include "ct_enums.h"
 #include "src/fmt/fmt.h"
@@ -100,7 +100,20 @@ guint32 getUint32FromHexChars(const char* hexChars, guint8 numChars);
 
 std::vector<gint64> gstringSplit2int64(const gchar* inStr, const gchar* delimiter, gint max_tokens=-1);
 
-bool isPgcharInPgcharSet(const gchar* pGcharNeedle, const std::set<const gchar*>& setPgcharHaystack);
+template<class IterableOfPgchar>
+bool isPgcharInPgcharIterable(const gchar* pGcharNeedle, const IterableOfPgchar& haystackOfPgchar)
+{
+    bool gotcha{false};
+    for (const gchar* pGcharHaystack : haystackOfPgchar)
+    {
+        if (0 == g_strcmp0(pGcharHaystack, pGcharNeedle))
+        {
+            gotcha = true;
+            break;
+        }
+    }
+    return gotcha;
+}
 
 } // namespace CtStrUtil
 
@@ -205,7 +218,7 @@ std::string join(const std::vector<STRING>& cnt, const std::string& delimer)
     std::stringstream ss;
     for (auto& v: cnt)
     {
-        if (!firstTime) ss << delimer;
+        if (not firstTime) ss << delimer;
         else firstTime = false;
         ss << v;
     }
@@ -218,7 +231,7 @@ void join_numbers(const Vector& in_numbers_vec, String& outString, const gchar* 
     bool firstIteration{true};
     for(const auto& element : in_numbers_vec)
     {
-        if (!firstIteration) outString += delimiter;
+        if (not firstIteration) outString += delimiter;
         else firstIteration = false;
         outString += std::to_string(element);
     }

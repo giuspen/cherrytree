@@ -21,9 +21,8 @@
 
 #pragma once
 
-#include <map>
 #include <unordered_map>
-#include <set>
+#include <unordered_set>
 #include <glibmm.h>
 
 namespace CtConst {
@@ -31,8 +30,6 @@ namespace CtConst {
 extern const gchar    CT_VERSION[];
 extern const gchar    APP_NAME[];
 extern const bool     IS_WIN_OS;
-extern const int      MAX_RECENT_DOCS;
-extern const int      MAX_RECENT_DOCS_RESTORE;
 extern const int      NODE_ICON_CODE_ID;
 extern const int      NODE_ICON_BULLET_ID;
 extern const int      NODE_ICON_NO_ICON_ID;
@@ -174,20 +171,20 @@ extern const Glib::ustring  CHAR_CARET;
 extern const Glib::ustring  CHAR_PIPE;
 extern const Glib::ustring  CHAR_AMPERSAND;
 extern const std::vector<Glib::ustring> WEB_LINK_STARTERS;
-extern const std::set<const gchar*> TEXT_SYNTAXES;
-extern const std::set<const gchar*> TAG_PROPERTIES;
+extern const std::unordered_set<const gchar*> TEXT_SYNTAXES;
+extern const std::unordered_set<const gchar*> TAG_PROPERTIES;
 extern const gchar    TOOLBAR_VEC_DEFAULT[];
 extern const std::vector<std::string> TOOLBAR_VEC_BLACKLIST;
 extern const gchar*   AVAILABLE_LANGS[20];
 extern const std::unordered_map<int, std::string> NODES_STOCKS;
 extern const std::unordered_map<int, std::string> NODES_ICONS;
-extern const std::map<std::string, std::string> CODE_ICONS;
+extern const std::unordered_map<std::string, std::string> CODE_ICONS;
 
 extern const std::string CODE_EXEC_TMP_SRC;
 extern const std::string CODE_EXEC_TMP_BIN;
 extern const std::string CODE_EXEC_COMMAND;
-extern const std::map<std::string, std::string> CODE_EXEC_TYPE_CMD_DEFAULT;
-extern const std::map<std::string, std::string> CODE_EXEC_TERM_RUN_DEFAULT;
+extern const std::unordered_map<std::string, std::string> CODE_EXEC_TYPE_CMD_DEFAULT;
+extern const std::unordered_map<std::string, std::string> CODE_EXEC_TERM_RUN_DEFAULT;
 
 std::string getStockIdForCodeType(std::string code_type);
 

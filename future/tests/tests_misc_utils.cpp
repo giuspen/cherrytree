@@ -34,10 +34,10 @@ TEST(MiscUtilsGroup, isStrTrue)
     CHECK(CtStrUtil::isStrTrue("True"));
     CHECK(CtStrUtil::isStrTrue("TRUE"));
     CHECK(CtStrUtil::isStrTrue("1"));
-    CHECK(!CtStrUtil::isStrTrue("false"));
-    CHECK(!CtStrUtil::isStrTrue("False"));
-    CHECK(!CtStrUtil::isStrTrue("FALSE"));
-    CHECK(!CtStrUtil::isStrTrue("0"));
+    CHECK(not CtStrUtil::isStrTrue("false"));
+    CHECK(not CtStrUtil::isStrTrue("False"));
+    CHECK(not CtStrUtil::isStrTrue("FALSE"));
+    CHECK(not CtStrUtil::isStrTrue("0"));
 }
 
 TEST(MiscUtilsGroup, str__replace)
@@ -98,10 +98,10 @@ TEST(MiscUtilsGroup, gstringSplit2int64)
     CHECK(std::vector<gint64>({-1, 1, 0, 1000}) == splittedVec);
 }
 
-TEST(MiscUtilsGroup, isPgcharInPgcharSet)
+TEST(MiscUtilsGroup, isPgcharInPgcharIterable)
 {
-    CHECK(CtStrUtil::isPgcharInPgcharSet(CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROPERTIES));
-    CHECK(!CtStrUtil::isPgcharInPgcharSet("something surely missing", CtConst::TAG_PROPERTIES));
+    CHECK(CtStrUtil::isPgcharInPgcharIterable(CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROPERTIES));
+    CHECK(not CtStrUtil::isPgcharInPgcharIterable("something surely missing", CtConst::TAG_PROPERTIES));
 }
 
 TEST(MiscUtilsGroup, getFontMisc)
@@ -148,8 +148,8 @@ TEST(MiscUtilsGroup, str__endswith)
     CHECK(str::endswith("", ""));
     CHECK(str::endswith("123", ""));
     CHECK(str::endswith("123", "23"));
-    CHECK(!str::endswith("123", "1"));
-    CHECK(!str::endswith("", "1"));
+    CHECK(not str::endswith("123", "1"));
+    CHECK(not str::endswith("", "1"));
 }
 
 TEST(MiscUtilsGroup, str__join)

@@ -41,16 +41,14 @@ public:
     virtual ~CtConfig();
 
     // [state]
+    std::array<CtRecentDocRestore, 4>           recentDocsRestore;
     std::string                                 fileDir;
-    std::string                                 fileName;
     bool                                        toolbarVisible{true};
     bool                                        winIsMaximised{false};
     int                                         winRect[4]{10, 10, 963, 630};
     int                                         hpanedPos{170};
     bool                                        treeVisible{true};
-    std::string                                 nodePath;
-    int                                         cursorPosition;
-    std::list<std::string>                      recentDocs;
+    std::array<std::string, 10>                 recentDocsFilepaths;
     std::string                                 pickDirImport;
     std::string                                 pickDirExport;
     std::string                                 pickDirFile;
@@ -65,8 +63,6 @@ public:
 
     // [tree]
     CtRestoreExpColl                            restoreExpColl{CtRestoreExpColl::FROM_STR};
-    std::string                                 expandedCollapsedString;
-    std::vector<CtRecentDocRestore>             recentDocsRestore;
     bool                                        nodesBookmExp{false};
     std::string                                 nodesIcons{CtConst::NODE_ICON_TYPE_CHERRY};
     bool                                        auxIconHide{false};

@@ -49,7 +49,7 @@ CtTreeIter CtTreeIter::first_child() const
 
 bool CtTreeIter::get_node_read_only() const
 {
-    return (*this) && (*this)->get_value(_pColumns->colNodeRO);
+    return (*this) and (*this)->get_value(_pColumns->colNodeRO);
 }
 
 void CtTreeIter::set_node_read_only(bool val)
@@ -70,7 +70,7 @@ std::vector<gint64> CtTreeIter::get_children_node_ids() const
     {
         retVec.push_back(iterChild.get_node_id());
         std::vector<gint64> children_node_ids = iterChild.get_children_node_ids();
-        if (false == children_node_ids.empty())
+        if (not children_node_ids.empty())
         {
             vec::vector_extend(retVec, children_node_ids);
         }
@@ -86,7 +86,7 @@ gint64 CtTreeIter::get_node_sequence() const
 
 bool CtTreeIter::get_node_is_bold() const
 {
-    return (*this) && get_is_bold_from_pango_weight((*this)->get_value(_pColumns->colWeight));
+    return (*this) and get_is_bold_from_pango_weight((*this)->get_value(_pColumns->colWeight));
 }
 
 guint16 CtTreeIter::get_node_custom_icon_id() const
@@ -150,7 +150,7 @@ Glib::RefPtr<Gsv::Buffer> CtTreeIter::get_node_text_buffer() const
     if (*this)
     {
         rRetTextBuffer = (*this)->get_value(_pColumns->rColTextBuffer);
-        if (!rRetTextBuffer && nullptr != _pCtSQLite)
+        if (not rRetTextBuffer and nullptr != _pCtSQLite)
         {
             // SQLite text buffer not yet populated
             std::list<CtAnchoredWidget*> anchoredWidgetList;
@@ -182,13 +182,13 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_all_embedded_widgets()
 std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes(const std::pair<int,int>& offset_range)
 {
     std::list<CtAnchoredWidget*> retAnchoredWidgetsList;
-    if ((*this) && (*this)->get_value(_pColumns->colAnchoredWidgets).size() > 0)
+    if ((*this) and (*this)->get_value(_pColumns->colAnchoredWidgets).size() > 0)
     {
         Glib::RefPtr<Gsv::Buffer> rTextBuffer = get_node_text_buffer();
         Gtk::TextIter curr_iter = offset_range.first >= 0 ? rTextBuffer->get_iter_at_offset(offset_range.first) : rTextBuffer->begin();
         do
         {
-            if ((offset_range.second >= 0) && (curr_iter.get_offset() > offset_range.second))
+            if ((offset_range.second >= 0) and (curr_iter.get_offset() > offset_range.second))
             {
                 break;
             }
@@ -318,12 +318,15 @@ void CtTreeStore::treeview_safe_set_cursor(Gtk::TreeView* pTreeView, Gtk::TreeIt
     pTreeView->set_cursor(_rTreeStore->get_path(treeIter));
 }
 
-void CtTreeStore::set_tree_path_n_text_cursor_from_config(Gtk::TreeView* pTreeView, Gsv::View* pTextView)
+void CtTreeStore::set_tree_path_n_text_cursor(Gtk::TreeView* pTreeView,
+                                              Gsv::View* pTextView,
+                                              const std::string& node_path,
+                                              const int cursor_pos)
 {
     bool treeSelFromConfig{false};
-    if (!CtApp::P_ctCfg->nodePath.empty())
+    if (not node_path.empty())
     {
-        Gtk::TreeIter treeIter = _rTreeStore->get_iter(CtApp::P_ctCfg->nodePath);
+        Gtk::TreeIter treeIter = _rTreeStore->get_iter(node_path);
         if (static_cast<bool>(treeIter))
         {
             treeview_safe_set_cursor(pTreeView, treeIter);
@@ -333,7 +336,7 @@ void CtTreeStore::set_tree_path_n_text_cursor_from_config(Gtk::TreeView* pTreeVi
                 pTreeView->expand_row(_rTreeStore->get_path(treeIter), false/*open_all*/);
             }
             Glib::RefPtr<Gsv::Buffer> rTextBuffer = (*treeIter).get_value(_columns.rColTextBuffer);
-            Gtk::TextIter textIter = rTextBuffer->get_iter_at_offset(CtApp::P_ctCfg->cursorPosition);
+            Gtk::TextIter textIter = rTextBuffer->get_iter_at_offset(cursor_pos);
             if (static_cast<bool>(textIter))
             {
                 rTextBuffer->place_cursor(textIter);
@@ -341,9 +344,9 @@ void CtTreeStore::set_tree_path_n_text_cursor_from_config(Gtk::TreeView* pTreeVi
             }
         }
     }
-    if (!treeSelFromConfig)
+    if (not treeSelFromConfig)
     {
-        Gtk::TreeIter treeIter = _rTreeStore->get_iter("0");
+        const Gtk::TreeIter treeIter = get_iter_first();
         if (static_cast<bool>(treeIter))
         {
             pTreeView->set_cursor(_rTreeStore->get_path(treeIter));
@@ -397,7 +400,7 @@ bool CtTreeStore::read_nodes_from_filepath(const char* filepath, const bool isIm
     if (CtDocType::XML == docType)
     {
         CtXmlRead* pCtXmlRead = new CtXmlRead(filepath, nullptr);
-        if (pCtXmlRead && (nullptr != pCtXmlRead->get_document()))
+        if (pCtXmlRead and (nullptr != pCtXmlRead->get_document()))
         {
             pCtDocRead = pCtXmlRead;
         }
@@ -405,7 +408,7 @@ bool CtTreeStore::read_nodes_from_filepath(const char* filepath, const bool isIm
     else if (CtDocType::SQLite == docType)
     {
         CtSQLite* pCtSQLite = new CtSQLite(filepath);
-        if (pCtSQLite && pCtSQLite->get_db_open_ok())
+        if (pCtSQLite and pCtSQLite->get_db_open_ok())
         {
             pCtDocRead = pCtSQLite;
         }
@@ -415,7 +418,7 @@ bool CtTreeStore::read_nodes_from_filepath(const char* filepath, const bool isIm
         pCtDocRead->signalAddBookmark.connect(sigc::mem_fun(this, &CtTreeStore::onRequestAddBookmark));
         pCtDocRead->signalAppendNode.connect(sigc::mem_fun(this, &CtTreeStore::onRequestAppendNode));
         retOk = pCtDocRead->read_populate_tree(pParentIter);
-        if (!isImport && (CtDocType::SQLite == docType))
+        if (not isImport and (CtDocType::SQLite == docType))
         {
             _pCtSQLite = dynamic_cast<CtSQLite*>(pCtDocRead);
         }
@@ -453,7 +456,7 @@ Glib::RefPtr<Gdk::Pixbuf> CtTreeStore::_get_node_icon(int nodeDepth, const std::
         // NODE_ICON_TYPE_NONE
         rPixbuf = CtApp::R_icontheme->load_icon(CtConst::NODES_STOCKS.at(CtConst::NODE_ICON_NO_ICON_ID), CtConst::NODE_ICON_SIZE);
     }
-    else if (CtStrUtil::isPgcharInPgcharSet(syntax.c_str(), CtConst::TEXT_SYNTAXES))
+    else if (CtStrUtil::isPgcharInPgcharIterable(syntax.c_str(), CtConst::TEXT_SYNTAXES))
     {
         // text node
         if (CtConst::NODE_ICON_TYPE_CHERRY == CtApp::P_ctCfg->nodesIcons)
@@ -530,7 +533,7 @@ void CtTreeStore::update_node_aux_icon(const Gtk::TreeIter& treeIter)
     bool is_ro = treeIter->get_value(_columns.colNodeRO);
     bool is_bookmark = vec::exists(_bookmarks, treeIter->get_value(_columns.colNodeUniqueId));
     std::string stock_id;
-    if (is_ro && is_bookmark) stock_id = "lockpin";
+    if (is_ro and is_bookmark) stock_id = "lockpin";
     else if (is_ro)           stock_id = "locked";
     else if (is_bookmark)     stock_id = "pin";
 
@@ -576,7 +579,7 @@ bool CtTreeStore::onRequestAddBookmark(gint64 nodeId)
 
 bool CtTreeStore::onRequestRemoveBookmark(gint64 nodeId)
 {
-    if (!vec::exists(_bookmarks, nodeId))
+    if (not vec::exists(_bookmarks, nodeId))
     {
         return false;
     }
@@ -591,7 +594,7 @@ Gtk::TreeIter CtTreeStore::onRequestAppendNode(CtNodeData* pNodeData, const Gtk:
 
 void CtTreeStore::_on_textbuffer_modified_changed(Glib::RefPtr<Gtk::TextBuffer> rTextBuffer)
 {
-    if (CtApp::P_ctActions->getCtMainWin()->user_active() && rTextBuffer->get_modified())
+    if (CtApp::P_ctActions->getCtMainWin()->user_active() and rTextBuffer->get_modified())
     {
         CtApp::P_ctActions->getCtMainWin()->update_window_save_needed(CtSaveNeededUpdType::nbuf);
     }
@@ -609,7 +612,7 @@ void CtTreeStore::_on_textbuffer_erase(const Gtk::TextBuffer::iterator& range_st
 
 void CtTreeStore::apply_textbuffer_to_textview(const CtTreeIter& treeIter, CtTextView* pTextView)
 {
-    if (false == static_cast<bool>(treeIter))
+    if (not static_cast<bool>(treeIter))
     {
         pTextView->set_buffer(Glib::RefPtr<Gsv::Buffer>{});
         pTextView->set_sensitive(false);
@@ -630,7 +633,7 @@ void CtTreeStore::apply_textbuffer_to_textview(const CtTreeIter& treeIter, CtTex
     pTextView->setup_for_syntax(node.get_node_syntax_highlighting());
     pTextView->set_buffer(rTextBuffer);
     pTextView->set_sensitive(true);
-    pTextView->set_editable(!node.get_node_read_only());
+    pTextView->set_editable(not node.get_node_read_only());
 
     for (CtAnchoredWidget* pCtAnchoredWidget : node.get_all_embedded_widgets())
     {
@@ -690,7 +693,7 @@ void CtTreeStore::addAnchoredWidgets(Gtk::TreeIter treeIter, std::list<CtAnchore
 gint64 CtTreeStore::node_id_get(gint64 original_id, std::unordered_map<gint64,gint64> remapping_ids)
 {
     // check if remapping was set
-    if ((original_id > 0) && (1 == remapping_ids.count(original_id)))
+    if ((original_id > 0) and (1 == remapping_ids.count(original_id)))
     {
         return remapping_ids[original_id];
     }
@@ -829,11 +832,11 @@ void CtTreeStore::set_tree_expanded_collapsed_string(const std::string& expanded
         [this, &treeView, &expanded_collapsed_dict, &nodes_bookm_exp](const Gtk::TreePath& path, const Gtk::TreeIter& iter)->bool
         {
             gint64 node_id = iter->get_value(_columns.colNodeUniqueId);
-            if (map::exists(expanded_collapsed_dict, node_id) && expanded_collapsed_dict.at(node_id))
+            if (map::exists(expanded_collapsed_dict, node_id) and expanded_collapsed_dict.at(node_id))
             {
                 treeView.expand_row(path, false);
             }
-            else if (nodes_bookm_exp && vec::exists(_bookmarks, node_id) && iter->parent())
+            else if (nodes_bookm_exp and vec::exists(_bookmarks, node_id) and iter->parent())
             {
                 treeView.expand_to_path(_rTreeStore->get_path(iter->parent()));
             }

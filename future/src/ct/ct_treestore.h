@@ -142,7 +142,10 @@ public:
     void addAnchoredWidgets(Gtk::TreeIter treeIter, std::list<CtAnchoredWidget*> anchoredWidgetList, Gtk::TextView* pTextView);
     const Gtk::TreeModel::Children get_root_children() { return _rTreeStore->children(); }
     void expand_to_tree_row(Gtk::TreeView* pTreeView, Gtk::TreeRow& row);
-    void set_tree_path_n_text_cursor_from_config(Gtk::TreeView* pTreeView, Gsv::View* pTextView);
+    void set_tree_path_n_text_cursor(Gtk::TreeView* pTreeView,
+                                     Gsv::View* pTextView,
+                                     const std::string& node_path,
+                                     const int cursor_pos);
     void treeview_safe_set_cursor(Gtk::TreeView* pTreeView, Gtk::TreeIter& iter);
 
     gint64                         node_id_get(gint64 original_id=-1,

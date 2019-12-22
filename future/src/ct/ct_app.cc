@@ -46,7 +46,7 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
     {
         P_ctActions = new CtActions();
     }
-    if (!R_icontheme)
+    if (not R_icontheme)
     {
         _iconthemeInit();
     }
@@ -55,19 +55,19 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
         P_ctTmp = new CtTmp();
         //std::cout << P_ctTmp->get_root_dirpath() << std::endl;
     }
-    if (!R_textTagTable)
+    if (not R_textTagTable)
     {
         R_textTagTable = Gtk::TextTagTable::create();
     }
-    if (!R_languageManager)
+    if (not R_languageManager)
     {
         R_languageManager = Gsv::LanguageManager::create();
     }
-    if (!R_styleSchemeManager)
+    if (not R_styleSchemeManager)
     {
         R_styleSchemeManager = Gsv::StyleSchemeManager::create();
     }
-    if (!R_cssProvider)
+    if (not R_cssProvider)
     {
         R_cssProvider = Gtk::CssProvider::create();
     }
@@ -141,14 +141,13 @@ void CtApp::on_activate()
     auto pAppWindow = create_appwindow();
     pAppWindow->present();
 
-
-    if (!CtApp::P_ctCfg->fileName.empty())
+    if (not CtApp::P_ctCfg->recentDocsRestore.front().doc_name.empty())
     {
-        std::string filePath = Glib::build_filename(CtApp::P_ctCfg->fileDir, CtApp::P_ctCfg->fileName);
+        std::string filePath = Glib::build_filename(CtApp::P_ctCfg->fileDir, CtApp::P_ctCfg->recentDocsRestore.front().doc_name);
         Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(filePath);
         if (r_file->query_exists())
         {
-            if (!pAppWindow->read_nodes_from_gio_file(r_file, false/*isImport*/))
+            if (not pAppWindow->read_nodes_from_gio_file(r_file, false/*isImport*/))
             {
                 _printHelpMessage();
             }
@@ -174,7 +173,7 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
     {
         if (r_file->query_exists())
         {
-            if (!pAppWindow->read_nodes_from_gio_file(r_file, false/*isImport*/))
+            if (not pAppWindow->read_nodes_from_gio_file(r_file, false/*isImport*/))
             {
                 _printHelpMessage();
             }
@@ -212,7 +211,7 @@ CtTmp::~CtTmp()
     //std::cout << "~CtTmp()" << std::endl;
     for (const auto& currPair : _mapHiddenFiles)
     {
-        if (g_file_test(currPair.second, G_FILE_TEST_IS_REGULAR) && (0 != g_remove(currPair.second)))
+        if (g_file_test(currPair.second, G_FILE_TEST_IS_REGULAR) and (0 != g_remove(currPair.second)))
         {
             std::cerr << "!! g_remove" << std::endl;
         }
@@ -220,7 +219,7 @@ CtTmp::~CtTmp()
     }
     for (const auto& currPair : _mapHiddenDirs)
     {
-        if (g_file_test(currPair.second, G_FILE_TEST_IS_DIR) && (0 != g_rmdir(currPair.second)))
+        if (g_file_test(currPair.second, G_FILE_TEST_IS_DIR) and (0 != g_rmdir(currPair.second)))
         {
             std::cerr << "!! g_rmdir" << std::endl;
         }
@@ -230,7 +229,7 @@ CtTmp::~CtTmp()
 
 const gchar* CtTmp::getHiddenDirPath(const std::string& visiblePath)
 {
-    if (!_mapHiddenDirs.count(visiblePath))
+    if (not _mapHiddenDirs.count(visiblePath))
     {
         _mapHiddenDirs[visiblePath] = g_dir_make_tmp(nullptr, nullptr);
     }
@@ -239,7 +238,7 @@ const gchar* CtTmp::getHiddenDirPath(const std::string& visiblePath)
 
 const gchar* CtTmp::getHiddenFilePath(const std::string& visiblePath)
 {
-    if (!_mapHiddenFiles.count(visiblePath))
+    if (not _mapHiddenFiles.count(visiblePath))
     {
         const gchar* tempDir{getHiddenDirPath(visiblePath)};
         std::string basename{Glib::path_get_basename(visiblePath)};

@@ -143,13 +143,13 @@ void CtXmlRead::get_text_buffer_slot(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk
         if (pTextNode)
         {
             const Glib::ustring textContent = pTextNode->get_content();
-            if (!textContent.empty())
+            if (not textContent.empty())
             {
                 const std::list<xmlpp::Attribute*> attributeList = pNodeElement->get_attributes();
                 std::vector<Glib::ustring> tagsNames;
                 for (const xmlpp::Attribute* pAttribute : attributeList)
                 {
-                    if (CtStrUtil::isPgcharInPgcharSet(pAttribute->get_name().c_str(), CtConst::TAG_PROPERTIES))
+                    if (CtStrUtil::isPgcharInPgcharIterable(pAttribute->get_name().c_str(), CtConst::TAG_PROPERTIES))
                     {
                         Glib::ustring tagName = CtMiscUtil::getTextTagNameExistOrCreate(pAttribute->get_name(), pAttribute->get_value());
                         tagsNames.push_back(tagName);
@@ -180,7 +180,7 @@ void CtXmlRead::get_text_buffer_slot(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk
         if (CtXmlNodeType::EncodedPng == xmlNodeType)
         {
             const Glib::ustring anchorName = pNodeElement->get_attribute_value("anchor");
-            if (!anchorName.empty())
+            if (not anchorName.empty())
             {
                 pAnchoredWidget = new CtImageAnchor(anchorName, charOffset, justification);
             }
@@ -190,7 +190,7 @@ void CtXmlRead::get_text_buffer_slot(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk
                 xmlpp::TextNode* pTextNode = pNodeElement->get_child_text();
                 const std::string encodedBlob = pTextNode ? pTextNode->get_content() : "";
                 const std::string rawBlob = Glib::Base64::decode(encodedBlob);
-                if (!fileName.empty())
+                if (not fileName.empty())
                 {
                     std::string timeStr = pNodeElement->get_attribute_value("time");
                     if (timeStr.empty())
@@ -263,7 +263,7 @@ bool CtXmlRead::populate_table_matrix_get_is_head_front(CtTableMatrix& tableMatr
             }
         }
     }
-    return !pNodeElement->get_attribute_value("head_front").empty();
+    return not pNodeElement->get_attribute_value("head_front").empty();
 }
 
 Glib::RefPtr<Gsv::Buffer> CtXmlRead::get_text_buffer(const std::string& syntax,
@@ -336,9 +336,9 @@ void CtXmlWrite::append_node_buffer(CtTreeIter& ct_tree_iter,
         CtTextIterUtil::rich_text_attributes_update(curr_end_iter, curr_attributes);
         while (curr_end_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr}))
         {
-            if (!CtTextIterUtil::tag_richtext_toggling_on_or_off(curr_end_iter))
+            if (not CtTextIterUtil::tag_richtext_toggling_on_or_off(curr_end_iter))
             {
-                if (!curr_end_iter.forward_char())
+                if (not curr_end_iter.forward_char())
                 {
                     break;
                 }
@@ -394,7 +394,7 @@ void CtXmlWrite::append_dom_node(CtTreeIter& ct_tree_iter,
 
     append_node_buffer(ct_tree_iter, p_node_node, to_disk, offset_range);
 
-    if (!skip_children)
+    if (not skip_children)
     {
         CtTreeIter ct_tree_iter_child = ct_tree_iter.first_child();
         while (ct_tree_iter_child)
@@ -414,7 +414,7 @@ void CtXmlWrite::rich_txt_serialize(xmlpp::Element* p_node_parent,
     xmlpp::Element* p_rich_text_node = p_node_parent->add_child("rich_text");
     for (const auto& map_iter : curr_attributes)
     {
-        if (!map_iter.second.empty())
+        if (not map_iter.second.empty())
         {
             p_rich_text_node->set_attribute(map_iter.first, map_iter.second);
         }
