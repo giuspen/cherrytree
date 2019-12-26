@@ -26,7 +26,7 @@
 #include <gtkmm/treestore.h>
 #include <unordered_set>
 #include "ct_treestore.h"
-#include "ct_enums.h"
+#include "ct_types.h"
 #include "src/fmt/fmt.h"
 #include <type_traits>
 

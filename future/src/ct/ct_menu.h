@@ -69,7 +69,8 @@ public:
 
     Gtk::Toolbar* build_toolbar();
     Gtk::MenuBar* build_menubar();
-    Gtk::Menu*    build_bookmarks_menu(std::list<std::tuple<gint64, std::string>>& bookmarks, sigc::slot<void, gint64>& bookmark_action);
+    Gtk::Menu*    build_bookmarks_menu(std::list<std::pair<gint64, std::string>>& bookmarks, sigc::slot<void, gint64>& bookmark_action);
+    Gtk::Menu*    build_recent_docs_menu(const CtRecentDocsFilepaths& recentDocsFilepaths, sigc::slot<void, const std::string&, const bool>& recent_doc_action);
     Gtk::Menu*    build_special_chars_menu(const Glib::ustring& specialChars, sigc::slot<void, gunichar>& spec_char_action);
 
     Gtk::Menu*    get_popup_menu(POPUP_MENU_TYPE popupMenuType);

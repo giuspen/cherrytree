@@ -26,7 +26,7 @@
 #include "ct_image.h"
 #include "ct_table.h"
 #include "ct_main_win.h"
-#include "ct_enums.h"
+#include "ct_types.h"
 #include <optional>
 
 class CtMainWin;

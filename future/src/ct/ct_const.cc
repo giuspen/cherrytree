@@ -231,7 +231,7 @@ const std::unordered_map<int, std::string> CtConst::NODES_STOCKS {
     {17, "html"},
     {18, "notes"},
     {19, "timestamp"},
-    {20, "calendar"},
+    {20, "calend"},
     {21, "terminal"},
     {22, "terminal-red"},
     {23, "python"},

@@ -24,15 +24,7 @@
 #include <unordered_map>
 #include <glibmm.h>
 #include "ct_const.h"
-#include "ct_enums.h"
-
-struct CtRecentDocRestore
-{
-    std::string   doc_name;
-    std::string   exp_coll_str;
-    std::string   node_path;
-    int           cursor_pos{0};
-};
+#include "ct_types.h"
 
 class CtConfig
 {
@@ -41,14 +33,14 @@ public:
     virtual ~CtConfig();
 
     // [state]
-    std::array<CtRecentDocRestore, 4>           recentDocsRestore;
+    CtRecentDocsRestore                         recentDocsRestore;
     std::string                                 fileDir;
     bool                                        toolbarVisible{true};
     bool                                        winIsMaximised{false};
     int                                         winRect[4]{10, 10, 963, 630};
     int                                         hpanedPos{170};
     bool                                        treeVisible{true};
-    std::array<std::string, 10>                 recentDocsFilepaths;
+    CtRecentDocsFilepaths                       recentDocsFilepaths;
     std::string                                 pickDirImport;
     std::string                                 pickDirExport;
     std::string                                 pickDirFile;

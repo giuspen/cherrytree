@@ -139,6 +139,7 @@ void CtConfig::_populateFromKeyfile()
     _populateBoolFromKeyfile("tree_visible", &treeVisible);
     if (_populateStringFromKeyfile("node_path", &recentDocsRestore[0].node_path))
     {
+        str::replace(recentDocsRestore[0].node_path, " ", ":");
         _populateIntFromKeyfile("cursor_position", &recentDocsRestore[0].cursor_pos);
     }
     for (guint i=0; i<recentDocsFilepaths.size(); ++i)
@@ -183,6 +184,7 @@ void CtConfig::_populateFromKeyfile()
             snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollsel%d", i);
             if (_populateStringFromKeyfile(temp_key, &recentDocsRestore[i].node_path))
             {
+                str::replace(recentDocsRestore[i].node_path, " ", ":");
                 snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollcur%d", i);
                 _populateIntFromKeyfile(temp_key, &recentDocsRestore[i].cursor_pos);
             }

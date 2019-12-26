@@ -26,7 +26,7 @@
 #include <gtkmm.h>
 #include "ct_treestore.h"
 #include "ct_table.h"
-#include "ct_enums.h"
+#include "ct_types.h"
 
 class CtDocRead
 {

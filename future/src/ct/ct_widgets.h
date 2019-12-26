@@ -26,7 +26,7 @@
 #include <libxml++/libxml++.h>
 #include <sqlite3.h>
 #include "ct_list.h"
-#include "ct_enums.h"
+#include "ct_types.h"
 
 class CtAnchoredWidget : public Gtk::EventBox
 {

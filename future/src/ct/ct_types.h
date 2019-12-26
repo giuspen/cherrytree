@@ -1,5 +1,5 @@
 /*
- * ct_enums.h
+ * ct_types.h
  *
  * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
  *
@@ -42,3 +42,15 @@ enum class CtListType { None, Todo, Bullet, Number };
 enum class CtRestoreExpColl : int { FROM_STR=0, ALL_EXP=1, ALL_COLL=2 };
 
 enum class CtTableColMode : int { RENAME=0, ADD=1, DELETE=2, RIGHT=3, LEFT=4 };
+
+struct CtRecentDocRestore
+{
+    std::string   doc_name;
+    std::string   exp_coll_str;
+    std::string   node_path;
+    int           cursor_pos{0};
+};
+
+typedef std::array<CtRecentDocRestore, 4>   CtRecentDocsRestore;
+
+typedef std::array<std::string, 10>         CtRecentDocsFilepaths;

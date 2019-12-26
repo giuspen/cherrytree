@@ -65,7 +65,8 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     _actions.push_back(CtAction{"", "TreeSortMenu", "gtk-sort-ascending", _("Nodes _Sort"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"", "TreeImportMenu", CtConst::STR_STOCK_CT_IMP, _("Nodes _Import"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"", "TreeExportMenu", "export_from_cherrytree", _("Nodes E_xport"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtAction{"", "SpecialCharsMenu", "insert", _("Insert _Special Character"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtAction{"", "RecentDocsMenu", "gtk-open", _("_Recent Documents"), None, _("Open a Recent CherryTree Document"), sigc::signal<void>()});
+    _actions.push_back(CtAction{"", "SpecialCharsMenu", "insert", _("Insert _Special Character"), None, _("Insert a Special Character"), sigc::signal<void>()});
     _actions.push_back(CtAction{"", "ChangeCaseMenu", "case_toggle", _("C_hange Case"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"", "SearchMenu", None, _("_Search"), None, None, sigc::signal<void>()});
     _actions.push_back(CtAction{"", "ViewMenu", None, _("_View"), None, None, sigc::signal<void>()});
@@ -147,7 +148,7 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     _actions.push_back(CtAction{tree_cat, "tree_dup_node", "tree-node-dupl", _("_Duplicate Node"), KB_CONTROL+KB_SHIFT+"D", _("Duplicate the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_dublicate)});
     _actions.push_back(CtAction{tree_cat, "tree_node_prop", "cherry_edit", _("Change Node _Properties"), "F2", _("Edit the Properties of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_edit)});
     _actions.push_back(CtAction{tree_cat, "tree_node_toggle_ro", "locked", _("Toggle _Read Only"), KB_CONTROL+KB_ALT+"R", _("Toggle the Read Only Property of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_toggle_read_only)});
-    _actions.push_back(CtAction{tree_cat, "tree_node_date", "calendar", _("Insert Today's Node"), "F8", _("Insert a Node with Hierarchy Year/Month/Day"), sigc::mem_fun(*pActions, &CtActions::node_date)});
+    _actions.push_back(CtAction{tree_cat, "tree_node_date", "calend", _("Insert Today's Node"), "F8", _("Insert a Node with Hierarchy Year/Month/Day"), sigc::mem_fun(*pActions, &CtActions::node_date)});
     _actions.push_back(CtAction{tree_cat, "tree_parse_info", "gtk-info", _("Tree _Info"), None, _("Tree Summary Information"), sigc::signal<void>() /* dad.tree_info */});
     _actions.push_back(CtAction{tree_cat, "tree_node_up", "gtk-go-up", _("Node _Up"), KB_SHIFT+CtConst::STR_KEY_UP, _("Move the Selected Node Up"), sigc::mem_fun(*pActions, &CtActions::node_up)});
     _actions.push_back(CtAction{tree_cat, "tree_node_down", "gtk-go-down", _("Node _Down"), KB_SHIFT+CtConst::STR_KEY_DOWN, _("Move the Selected Node Down"), sigc::mem_fun(*pActions, &CtActions::node_down)});
@@ -331,17 +332,32 @@ Gtk::MenuBar* CtMenu::build_menubar()
     return Glib::wrap(GTK_MENU_BAR(_walk_menu_xml(gtk_menu_bar_new(), _get_ui_str_menu(), nullptr)));
 }
 
-Gtk::Menu* CtMenu::build_bookmarks_menu(std::list<std::tuple<gint64, std::string>>& bookmarks, sigc::slot<void, gint64>& bookmark_action)
+Gtk::Menu* CtMenu::build_bookmarks_menu(std::list<std::pair<gint64, std::string>>& bookmarks, sigc::slot<void, gint64>& bookmark_action)
 {
     Gtk::Menu* pMenu = Gtk::manage(new Gtk::Menu());
     _add_menu_item(GTK_WIDGET(pMenu->gobj()), find_action("handle_bookmarks"));
     _add_separator(GTK_WIDGET(pMenu->gobj()));
-    for (const auto& bookmark: bookmarks)
+    for (const auto& bookmark : bookmarks)
     {
-        const gint64& node_id = std::get<0>(bookmark);
-        const std::string& node_name = std::get<1>(bookmark);
+        const gint64& node_id = bookmark.first;
+        const std::string& node_name = bookmark.second;
         Gtk::MenuItem* menuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), node_name.c_str(), "pin", nullptr, node_name.c_str(), nullptr);
         menuItem->signal_activate().connect(sigc::bind(bookmark_action, node_id));
+    }
+    return pMenu;
+}
+
+Gtk::Menu* CtMenu::build_recent_docs_menu(const CtRecentDocsFilepaths& recentDocsFilepaths, sigc::slot<void, const std::string&, const bool>& recent_doc_action)
+{
+    Gtk::Menu* pMenu = Gtk::manage(new Gtk::Menu());
+    for (const std::string& filepath : recentDocsFilepaths)
+    {
+        if (filepath.empty())
+        {
+            break;
+        }
+        Gtk::MenuItem* menuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), filepath.c_str(), "gtk-open", nullptr, filepath.c_str(), nullptr);
+        menuItem->signal_activate().connect(sigc::bind(recent_doc_action, filepath, false/*force_reset*/));
     }
     return pMenu;
 }
@@ -349,7 +365,7 @@ Gtk::Menu* CtMenu::build_bookmarks_menu(std::list<std::tuple<gint64, std::string
 Gtk::Menu* CtMenu::build_special_chars_menu(const Glib::ustring& specialChars, sigc::slot<void, gunichar>& spec_char_action)
 {
     Gtk::Menu* pMenu = Gtk::manage(new Gtk::Menu());
-    for (gunichar ch: specialChars)
+    for (gunichar ch : specialChars)
     {
         Glib::ustring name = Glib::ustring(1, ch);
         Gtk::MenuItem* menuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), name.c_str(), nullptr, nullptr, name.c_str(), nullptr);
@@ -520,10 +536,14 @@ Gtk::MenuItem* CtMenu::_add_menu_item(GtkWidget* pMenu, CtAction* pAction)
 }
 
 // based on inkscape/src/ui/interface.cpp
-Gtk::MenuItem* CtMenu::_add_menu_item(GtkWidget* pMenu, const char* name, const char* image, const char* shortcut,
-                                 const char* desc, gpointer action_data,
-                                 sigc::signal<void, bool>* signal_set_sensitive /* = nullptr */,
-                                 sigc::signal<void, bool>* signal_set_visible /* = nullptr */)
+Gtk::MenuItem* CtMenu::_add_menu_item(GtkWidget* pMenu,
+                                      const char* name,
+                                      const char* image,
+                                      const char* shortcut,
+                                      const char* desc,
+                                      gpointer action_data,
+                                      sigc::signal<void, bool>* signal_set_sensitive /* = nullptr */,
+                                      sigc::signal<void, bool>* signal_set_visible /* = nullptr */)
 {
     Gtk::MenuItem* pMenuItem = Gtk::manage(new Gtk::MenuItem());
 
@@ -643,6 +663,8 @@ const char* CtMenu::_get_ui_str_menu()
   <menu action='FileMenu'>
     <menuitem action='ct_new_inst'/>
     <menuitem action='ct_open_file'/>
+    <menu action='RecentDocsMenu'>
+    </menu>
     <separator/>
     <menuitem action='ct_vacuum'/>
     <menuitem action='ct_save'/>

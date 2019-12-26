@@ -50,6 +50,7 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu)
     _pMenuBar = pCtMenu->build_menubar();
     _pMenuBar->set_name("MenuBar");
     _pBookmarksSubmenu = CtMenu::find_menu_item(_pMenuBar, "BookmarksMenu");
+    _pRecentDocsSubmenu = CtMenu::find_menu_item(_pMenuBar, "RecentDocsMenu");
     _pSpecialCharsSubmenu = CtMenu::find_menu_item(_pMenuBar, "SpecialCharsMenu");
     _pMenuBar->show_all();
     gtk_window_add_accel_group (GTK_WINDOW(gobj()), pCtMenu->default_accel_group());
@@ -98,6 +99,7 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu)
     show_all();
     config_apply_after_show_all();
 
+    set_menu_items_recent_documents();
     set_menu_items_special_chars();
 }
 
@@ -275,11 +277,19 @@ void CtMainWin::bookmark_action_select_node(gint64 node_id)
 
 void CtMainWin::set_bookmarks_menu_items()
 {
-    std::list<std::tuple<gint64, std::string>> bookmarks;
-    for (const gint64& node_id: _uCtTreestore->get_bookmarks())
-        bookmarks.push_back(std::make_tuple(node_id, _uCtTreestore->get_node_name_from_node_id(node_id)));
+    std::list<std::pair<gint64, std::string>> bookmarks;
+    for (const gint64& node_id : _uCtTreestore->get_bookmarks())
+    {
+        bookmarks.push_back(std::make_pair(node_id, _uCtTreestore->get_node_name_from_node_id(node_id)));
+    }
     sigc::slot<void, gint64> bookmark_action = sigc::mem_fun(*this, &CtMainWin::bookmark_action_select_node);
     _pBookmarksSubmenu->set_submenu(*_pCtMenu->build_bookmarks_menu(bookmarks, bookmark_action));
+}
+
+void CtMainWin::set_menu_items_recent_documents()
+{
+    sigc::slot<void, const std::string&, const bool> recent_doc_action = sigc::mem_fun(*this, &CtMainWin::filepath_open);
+    _pRecentDocsSubmenu->set_submenu(*_pCtMenu->build_recent_docs_menu(CtApp::P_ctCfg->recentDocsFilepaths, recent_doc_action));
 }
 
 void CtMainWin::set_menu_items_special_chars()

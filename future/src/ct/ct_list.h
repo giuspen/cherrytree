@@ -23,7 +23,7 @@
 
 #include <gtkmm/textbuffer.h>
 #include <glibmm/refptr.h>
-#include "ct_enums.h"
+#include "ct_types.h"
 
 struct CtListInfo
 {

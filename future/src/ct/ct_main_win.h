@@ -115,6 +115,7 @@ public:
     void bookmark_action_select_node(gint64 node_id);
     void set_bookmarks_menu_items();
 
+    void set_menu_items_recent_documents();
     void set_menu_items_special_chars();
 
     void show_hide_toolbar(bool visible)    { _pToolbar->property_visible() = visible; }
@@ -152,6 +153,7 @@ private:
     CtWinHeader         _ctWinHeader;
     Gtk::MenuItem*      _pBookmarksSubmenu{nullptr};
     Gtk::MenuItem*      _pSpecialCharsSubmenu{nullptr};
+    Gtk::MenuItem*      _pRecentDocsSubmenu{nullptr};
     Gtk::ScrolledWindow _scrolledwindowTree;
     Gtk::ScrolledWindow _scrolledwindowText;
     std::unique_ptr<CtTreeStore> _uCtTreestore;
