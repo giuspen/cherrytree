@@ -288,8 +288,26 @@ void CtMainWin::set_bookmarks_menu_items()
 
 void CtMainWin::set_menu_items_recent_documents()
 {
-    sigc::slot<void, const std::string&, const bool> recent_doc_action = sigc::mem_fun(*this, &CtMainWin::filepath_open);
-    _pRecentDocsSubmenu->set_submenu(*_pCtMenu->build_recent_docs_menu(CtApp::P_ctCfg->recentDocsFilepaths, recent_doc_action));
+    sigc::slot<void, const std::string&> recent_doc_open_action = [&](const std::string& filepath)
+    {
+        if (Glib::file_test(filepath, Glib::FILE_TEST_IS_REGULAR))
+        {
+            filepath_open(filepath);
+        }
+        else
+        {
+            g_autofree gchar* title = g_strdup_printf(_("The Document %s was Not Found"), filepath.c_str());
+            CtDialogs::error_dialog(Glib::ustring{title}, *this);
+            
+        }
+    };
+    sigc::slot<void, const std::string&> recent_doc_rm_action = [](const std::string& filepath)
+    {
+        
+    };
+    _pRecentDocsSubmenu->set_submenu(*_pCtMenu->build_recent_docs_menu(CtApp::P_ctCfg->recentDocsFilepaths,
+                                                                       recent_doc_open_action,
+                                                                       recent_doc_rm_action));
 }
 
 void CtMainWin::set_menu_items_special_chars()

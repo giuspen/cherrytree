@@ -341,13 +341,15 @@ Gtk::Menu* CtMenu::build_bookmarks_menu(std::list<std::pair<gint64, std::string>
     {
         const gint64& node_id = bookmark.first;
         const std::string& node_name = bookmark.second;
-        Gtk::MenuItem* menuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), node_name.c_str(), "pin", nullptr, node_name.c_str(), nullptr);
-        menuItem->signal_activate().connect(sigc::bind(bookmark_action, node_id));
+        Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), node_name.c_str(), "pin", nullptr, node_name.c_str(), nullptr);
+        pMenuItem->signal_activate().connect(sigc::bind(bookmark_action, node_id));
     }
     return pMenu;
 }
 
-Gtk::Menu* CtMenu::build_recent_docs_menu(const CtRecentDocsFilepaths& recentDocsFilepaths, sigc::slot<void, const std::string&, const bool>& recent_doc_action)
+Gtk::Menu* CtMenu::build_recent_docs_menu(const CtRecentDocsFilepaths& recentDocsFilepaths,
+                                          sigc::slot<void, const std::string&>& recent_doc_open_action,
+                                          sigc::slot<void, const std::string&>& recent_doc_rm_action)
 {
     Gtk::Menu* pMenu = Gtk::manage(new Gtk::Menu());
     for (const std::string& filepath : recentDocsFilepaths)
@@ -356,8 +358,20 @@ Gtk::Menu* CtMenu::build_recent_docs_menu(const CtRecentDocsFilepaths& recentDoc
         {
             break;
         }
-        Gtk::MenuItem* menuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), filepath.c_str(), "gtk-open", nullptr, filepath.c_str(), nullptr);
-        menuItem->signal_activate().connect(sigc::bind(recent_doc_action, filepath, false/*force_reset*/));
+        Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), filepath.c_str(), "gtk-open", nullptr, filepath.c_str(), nullptr);
+        pMenuItem->signal_activate().connect(sigc::bind(recent_doc_open_action, filepath));
+    }
+    Gtk::MenuItem* pMenuItemRm = _add_menu_item(GTK_WIDGET(pMenu->gobj()), _("Remove from list"), "edit-delete", nullptr, _("Remove from list"), nullptr);
+    Gtk::Menu* pMenuRm = Gtk::manage(new Gtk::Menu());
+    pMenuItemRm->set_submenu(*pMenuRm);
+    for (const std::string& filepath : recentDocsFilepaths)
+    {
+        if (filepath.empty())
+        {
+            break;
+        }
+        Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenuRm->gobj()), filepath.c_str(), "edit-delete", nullptr, filepath.c_str(), nullptr);
+        pMenuItem->signal_activate().connect(sigc::bind(recent_doc_rm_action, filepath));
     }
     return pMenu;
 }
@@ -368,8 +382,8 @@ Gtk::Menu* CtMenu::build_special_chars_menu(const Glib::ustring& specialChars, s
     for (gunichar ch : specialChars)
     {
         Glib::ustring name = Glib::ustring(1, ch);
-        Gtk::MenuItem* menuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), name.c_str(), nullptr, nullptr, name.c_str(), nullptr);
-        menuItem->signal_activate().connect(sigc::bind(spec_char_action, ch));
+        Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), name.c_str(), nullptr, nullptr, name.c_str(), nullptr);
+        pMenuItem->signal_activate().connect(sigc::bind(spec_char_action, ch));
     }
     return pMenu;
 }

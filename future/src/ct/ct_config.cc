@@ -145,12 +145,10 @@ void CtConfig::_populateFromKeyfile()
     for (guint i=0; i<recentDocsFilepaths.size(); ++i)
     {
         snprintf(temp_key, MAX_TEMP_KEY_SIZE, "doc_%d", i);
-        std::string recent_doc;
-        if (not _populateStringFromKeyfile(temp_key, &recent_doc))
+        if (not _populateStringFromKeyfile(temp_key, &recentDocsFilepaths[i]))
         {
             break;
         }
-        recentDocsFilepaths[i] = recent_doc;
     }
     _populateStringFromKeyfile("pick_dir_import", &pickDirImport);
     _populateStringFromKeyfile("pick_dir_export", &pickDirExport);
