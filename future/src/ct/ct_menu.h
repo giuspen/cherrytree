@@ -1,7 +1,7 @@
 /*
  * ct_menu.h
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -67,7 +67,7 @@ public:
 
     static Gtk::MenuItem* find_menu_item(Gtk::MenuBar* menuBar, std::string name);
 
-    Gtk::Toolbar* build_toolbar();
+    Gtk::Toolbar* build_toolbar(Gtk::MenuToolButton*& pRecentDocsMenuToolButton);
     Gtk::MenuBar* build_menubar();
     Gtk::Menu*    build_bookmarks_menu(std::list<std::pair<gint64, std::string>>& bookmarks,
                                        sigc::slot<void, gint64>& bookmark_action);

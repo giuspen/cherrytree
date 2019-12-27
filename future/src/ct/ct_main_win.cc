@@ -53,8 +53,8 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu)
     _pRecentDocsSubmenu = CtMenu::find_menu_item(_pMenuBar, "RecentDocsMenu");
     _pSpecialCharsSubmenu = CtMenu::find_menu_item(_pMenuBar, "SpecialCharsMenu");
     _pMenuBar->show_all();
-    gtk_window_add_accel_group (GTK_WINDOW(gobj()), pCtMenu->default_accel_group());
-    _pToolbar = pCtMenu->build_toolbar();
+    gtk_window_add_accel_group(GTK_WINDOW(gobj()), pCtMenu->default_accel_group());
+    _pToolbar = pCtMenu->build_toolbar(_pRecentDocsMenuToolButton);
 
     _vboxMain.pack_start(*_pMenuBar, false, false);
     _vboxMain.pack_start(*_pToolbar, false, false);
@@ -79,7 +79,8 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu)
     _ctTextview.signal_size_allocate().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_size_allocate));
     _ctTextview.signal_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_event));
     _ctTextview.signal_event_after().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_event_after));
-    _ctTextview.signal_scroll_event().connect([this](GdkEventScroll* event){
+    _ctTextview.signal_scroll_event().connect([this](GdkEventScroll* event)
+    {
         if (event->state & GDK_CONTROL_MASK and (event->direction == GDK_SCROLL_UP or event->direction == GDK_SCROLL_DOWN))
         {
             _ctTextview.zoom_text(event->direction == GDK_SCROLL_UP);
@@ -111,6 +112,7 @@ CtMainWin::~CtMainWin()
 void CtMainWin::_reset_CtTreestore()
 {
     _prevTreeIter = CtTreeIter();
+    _ctTreeview.unset_model();
     _uCtTreestore.reset(new CtTreeStore);
     _uCtTreestore->view_connect(&_ctTreeview);
 }
@@ -118,13 +120,10 @@ void CtMainWin::_reset_CtTreestore()
 void CtMainWin::config_apply_before_show_all()
 {
     move(CtApp::P_ctCfg->winRect[0], CtApp::P_ctCfg->winRect[1]);
+    set_default_size(CtApp::P_ctCfg->winRect[2], CtApp::P_ctCfg->winRect[3]);
     if (CtApp::P_ctCfg->winIsMaximised)
     {
         maximize();
-    }
-    else
-    {
-        set_default_size(CtApp::P_ctCfg->winRect[2], CtApp::P_ctCfg->winRect[3]);
     }
     _hPaned.property_position() = CtApp::P_ctCfg->hpanedPos;
 }
@@ -311,11 +310,23 @@ void CtMainWin::set_menu_items_recent_documents()
         CtApp::P_ctCfg->recentDocsFilepaths.remove(filepath);
         set_menu_items_recent_documents();
     };
-    Gtk::Menu* pMenu = _pRecentDocsSubmenu->get_submenu();
-    delete pMenu;
-    _pRecentDocsSubmenu->set_submenu(*_pCtMenu->build_recent_docs_menu(CtApp::P_ctCfg->recentDocsFilepaths,
-                                                                       recent_doc_open_action,
-                                                                       recent_doc_rm_action));
+    if (_pRecentDocsSubmenu)
+    {
+        Gtk::Menu* pMenu = _pRecentDocsSubmenu->get_submenu();
+        delete pMenu;
+        _pRecentDocsSubmenu->set_submenu(*_pCtMenu->build_recent_docs_menu(CtApp::P_ctCfg->recentDocsFilepaths,
+                                                                           recent_doc_open_action,
+                                                                           recent_doc_rm_action));
+    }
+    if (_pRecentDocsMenuToolButton)
+    {
+        _pRecentDocsMenuToolButton->set_arrow_tooltip_text(_("Open a Recent CherryTree Document"));
+        Gtk::Menu* pMenu = _pRecentDocsMenuToolButton->get_menu();
+        delete pMenu;
+        _pRecentDocsMenuToolButton->set_menu(*_pCtMenu->build_recent_docs_menu(CtApp::P_ctCfg->recentDocsFilepaths,
+                                                                               recent_doc_open_action,
+                                                                               recent_doc_rm_action));
+    }
 }
 
 void CtMainWin::set_menu_items_special_chars()

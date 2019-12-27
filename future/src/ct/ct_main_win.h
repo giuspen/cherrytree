@@ -143,22 +143,23 @@ private:
     void                _reset_CtTreestore();
 
 private:
-    Gtk::VBox           _vboxMain;
-    Gtk::VBox           _vboxText;
-    Gtk::HPaned         _hPaned;
-    Gtk::MenuBar*       _pMenuBar{nullptr};
-    Gtk::Toolbar*       _pToolbar{nullptr};
-    CtMenu*             _pCtMenu{nullptr};
-    CtStatusBar         _ctStatusBar;
-    CtWinHeader         _ctWinHeader;
-    Gtk::MenuItem*      _pBookmarksSubmenu{nullptr};
-    Gtk::MenuItem*      _pSpecialCharsSubmenu{nullptr};
-    Gtk::MenuItem*      _pRecentDocsSubmenu{nullptr};
-    Gtk::ScrolledWindow _scrolledwindowTree;
-    Gtk::ScrolledWindow _scrolledwindowText;
+    Gtk::VBox            _vboxMain;
+    Gtk::VBox            _vboxText;
+    Gtk::HPaned          _hPaned;
+    Gtk::MenuBar*        _pMenuBar{nullptr};
+    Gtk::Toolbar*        _pToolbar{nullptr};
+    CtMenu*              _pCtMenu{nullptr};
+    CtStatusBar          _ctStatusBar;
+    CtWinHeader          _ctWinHeader;
+    Gtk::MenuItem*       _pBookmarksSubmenu{nullptr};
+    Gtk::MenuItem*       _pSpecialCharsSubmenu{nullptr};
+    Gtk::MenuItem*       _pRecentDocsSubmenu{nullptr};
+    Gtk::MenuToolButton* _pRecentDocsMenuToolButton{nullptr};
+    Gtk::ScrolledWindow  _scrolledwindowTree;
+    Gtk::ScrolledWindow  _scrolledwindowText;
     std::unique_ptr<CtTreeStore> _uCtTreestore;
-    CtTreeView          _ctTreeview;
-    CtTextView          _ctTextview;
+    CtTreeView           _ctTreeview;
+    CtTextView           _ctTextview;
 
     struct CtCurrFile
     {

@@ -236,7 +236,7 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     // add actions in the Applicaton for the toolbar
     // by default actions will have prefix 'app.'
     // (the menu uses not actions, but accelerators)
-    for (const CtAction& action: _actions)
+    for (const CtAction& action : _actions)
     {
         pApp->add_action(action.id, action.run_action);
     }
@@ -301,16 +301,16 @@ GtkAccelGroup* CtMenu::default_accel_group()
 
 Gtk::MenuItem* CtMenu::find_menu_item(Gtk::MenuBar* menuBar, std::string name)
 {
-    for (Gtk::Widget* child: menuBar->get_children())
+    for (Gtk::Widget* child : menuBar->get_children())
         if (auto menuItem = dynamic_cast<Gtk::MenuItem*>(child))
             if (menuItem->get_name() == name)
                 return menuItem;
 
     // check first level menu items, these menu items have complicated structure
-    for (Gtk::Widget* child: menuBar->get_children())
+    for (Gtk::Widget* child : menuBar->get_children())
         if (auto menuItem = dynamic_cast<Gtk::MenuItem*>(child))
             if (Gtk::Menu* subMenu = menuItem->get_submenu())
-                for (Gtk::Widget* subChild: subMenu->get_children())
+                for (Gtk::Widget* subChild : subMenu->get_children())
                     if (auto subItem = dynamic_cast<Gtk::MenuItem*>(subChild))
                         if (Gtk::Widget* subItemChild = subItem->get_child())
                             if (subItemChild->get_name() == name)
@@ -319,11 +319,12 @@ Gtk::MenuItem* CtMenu::find_menu_item(Gtk::MenuBar* menuBar, std::string name)
     return nullptr;
 }
 
-Gtk::Toolbar* CtMenu::build_toolbar()
+Gtk::Toolbar* CtMenu::build_toolbar(Gtk::MenuToolButton*& pRecentDocsMenuToolButton)
 {
-    Gtk::Toolbar* pToolbar = nullptr;
+    Gtk::Toolbar* pToolbar{nullptr};
     _rGtkBuilder->add_from_string(_get_ui_str_toolbar());
     _rGtkBuilder->get_widget("ToolBar", pToolbar);
+    _rGtkBuilder->get_widget("RecentDocs", pRecentDocsMenuToolButton);
     return pToolbar;
 }
 
@@ -636,21 +637,28 @@ std::string CtMenu::_get_ui_str_toolbar()
 {
     std::vector<std::string> vecToolbarElements = str::split(CtApp::P_ctCfg->toolbarUiList, ",");
     std::string toolbarUIStr;
-    for (const std::string& element: vecToolbarElements)
+    for (const std::string& element : vecToolbarElements)
     {
         if (element == CtConst::TAG_SEPARATOR)
         {
             toolbarUIStr += "<child><object class='GtkSeparatorToolItem'/></child>";
         }
-        else if (CtAction const* pAction = find_action(element))
+        else
         {
-            toolbarUIStr += "<child><object class='GtkToolButton'>";
-            toolbarUIStr += "<property name='action-name'>app." + pAction->id + "</property>"; // 'app.' is a default action group in Application
-            toolbarUIStr += "<property name='icon-name'>" + pAction->image + "</property>";
-            toolbarUIStr += "<property name='label'>" + pAction->name + "</property>";
-            toolbarUIStr += "<property name='tooltip-text'>" + pAction->desc + "</property>";
-            toolbarUIStr += "<property name='visible'>True</property>";
-            toolbarUIStr += "</object></child>";
+            const bool isOpenRecent{element == CtConst::CHAR_STAR};
+            CtAction const* pAction = isOpenRecent ? find_action("ct_open_file") : find_action(element);
+            if (pAction)
+            {
+                if (isOpenRecent) toolbarUIStr += "<child><object class='GtkMenuToolButton' id='RecentDocs'>";
+                else toolbarUIStr += "<child><object class='GtkToolButton'>";
+                toolbarUIStr += "<property name='action-name'>app." + pAction->id + "</property>"; // 'app.' is a default action group in Application
+                toolbarUIStr += "<property name='icon-name'>" + pAction->image + "</property>";
+                toolbarUIStr += "<property name='label'>" + pAction->name + "</property>";
+                toolbarUIStr += "<property name='tooltip-text'>" + pAction->desc + "</property>";
+                toolbarUIStr += "<property name='visible'>True</property>";
+                toolbarUIStr += "<property name='use_underline'>True</property>";
+                toolbarUIStr += "</object></child>";
+            }
         }
     }
     toolbarUIStr = "<interface><object class='GtkToolbar' id='ToolBar'>"
