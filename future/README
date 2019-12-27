@@ -31,10 +31,7 @@ sudo apt install build-essential libtool autoconf libgtkmm-3.0-dev libgtksourcev
 ./build.sh
 # or build Release
 ./build.sh R
-
 ./cherrytree
-
-./run_tests
 
 
 # packages for documentation
@@ -75,10 +72,7 @@ cd cherrytree/future
 ./build.sh
 # or build Release
 ./build.sh R
-
 ./cherrytree
-
-./run_tests
 
 
 # Troubleshooting

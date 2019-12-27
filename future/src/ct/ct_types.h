@@ -1,7 +1,7 @@
 /*
  * ct_types.h
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +20,10 @@
  */
 
 #pragma once
+
+#include <string>
+#include <list>
+#include <array>
 
 enum class CtYesNoCancel { Yes, No, Cancel };
 
@@ -53,4 +57,35 @@ struct CtRecentDocRestore
 
 typedef std::array<CtRecentDocRestore, 4>   CtRecentDocsRestore;
 
-typedef std::array<std::string, 10>         CtRecentDocsFilepaths;
+template<class TYPE>
+class CtMaxSizedList : public std::list<TYPE>
+{
+public:
+    CtMaxSizedList(const int size) : maxSize{size} {}
+    const int maxSize;
+    void move_or_push_back(const TYPE& element)
+    {
+        std::list<TYPE>::remove(element);
+        std::list<TYPE>::push_back(element);
+        _check_size();
+    }
+    void move_or_push_front(const TYPE& element)
+    {
+        std::list<TYPE>::remove(element);
+        std::list<TYPE>::push_front(element);
+        _check_size();
+    }
+private:
+    void _check_size()
+    {
+        while (std::list<TYPE>::size() > maxSize)
+        {
+            std::list<TYPE>::pop_back();
+        }
+    }
+};
+
+struct CtRecentDocsFilepaths : public CtMaxSizedList<std::string>
+{
+    CtRecentDocsFilepaths() : CtMaxSizedList<std::string>{10} {}
+};

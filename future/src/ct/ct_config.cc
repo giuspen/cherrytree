@@ -1,7 +1,7 @@
 /*
  * ct_config.cc
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -142,13 +142,15 @@ void CtConfig::_populateFromKeyfile()
         str::replace(recentDocsRestore[0].node_path, " ", ":");
         _populateIntFromKeyfile("cursor_position", &recentDocsRestore[0].cursor_pos);
     }
-    for (guint i=0; i<recentDocsFilepaths.size(); ++i)
+    for (guint i=0; i<recentDocsFilepaths.maxSize; ++i)
     {
         snprintf(temp_key, MAX_TEMP_KEY_SIZE, "doc_%d", i);
-        if (not _populateStringFromKeyfile(temp_key, &recentDocsFilepaths[i]))
+        std::string tmpStr;
+        if (not _populateStringFromKeyfile(temp_key, &tmpStr))
         {
             break;
         }
+        recentDocsFilepaths.push_back(tmpStr);
     }
     _populateStringFromKeyfile("pick_dir_import", &pickDirImport);
     _populateStringFromKeyfile("pick_dir_export", &pickDirExport);

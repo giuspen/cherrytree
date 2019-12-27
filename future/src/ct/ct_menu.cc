@@ -1,7 +1,7 @@
 /*
  * ct_menu.cc
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -354,10 +354,6 @@ Gtk::Menu* CtMenu::build_recent_docs_menu(const CtRecentDocsFilepaths& recentDoc
     Gtk::Menu* pMenu = Gtk::manage(new Gtk::Menu());
     for (const std::string& filepath : recentDocsFilepaths)
     {
-        if (filepath.empty())
-        {
-            break;
-        }
         Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), filepath.c_str(), "gtk-open", nullptr, filepath.c_str(), nullptr);
         pMenuItem->signal_activate().connect(sigc::bind(recent_doc_open_action, filepath));
     }
@@ -366,10 +362,6 @@ Gtk::Menu* CtMenu::build_recent_docs_menu(const CtRecentDocsFilepaths& recentDoc
     pMenuItemRm->set_submenu(*pMenuRm);
     for (const std::string& filepath : recentDocsFilepaths)
     {
-        if (filepath.empty())
-        {
-            break;
-        }
         Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenuRm->gobj()), filepath.c_str(), "edit-delete", nullptr, filepath.c_str(), nullptr);
         pMenuItem->signal_activate().connect(sigc::bind(recent_doc_rm_action, filepath));
     }

@@ -78,7 +78,8 @@ cherrytree_SOURCES = \
 run_tests_SOURCES = \
 	${COMMON_SOURCES} \
 	tests/tests_misc_utils.cpp \
-	tests/tests_tmp_n_p7zip.cpp
+	tests/tests_tmp_n_p7zip.cpp \
+	tests/tests_types.cpp
 
 libp7za_a_SOURCES = \
 	src/7za/C/7zCrc.c \

@@ -1,7 +1,7 @@
 /*
  * ct_actions_file.cc
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -254,8 +254,10 @@ void CtActions::file_open()
     args.filter_name = _("CherryTree Document");
     args.filter_pattern.push_back("*.ct*");
     std::string filepath = CtDialogs::file_select_dialog(args);
-    if (not filepath.empty())
+    if (not filepath.empty() and
+        _pCtMainWin->filepath_open(filepath))
     {
-        _pCtMainWin->filepath_open(filepath);
+        CtApp::P_ctCfg->recentDocsFilepaths.move_or_push_front(filepath);
+        _pCtMainWin->set_menu_items_recent_documents();
     }
 }

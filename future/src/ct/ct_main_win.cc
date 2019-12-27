@@ -1,7 +1,7 @@
 ﻿/*
  * ct_main_win.cc
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -292,19 +292,27 @@ void CtMainWin::set_menu_items_recent_documents()
     {
         if (Glib::file_test(filepath, Glib::FILE_TEST_IS_REGULAR))
         {
-            filepath_open(filepath);
+            if (filepath_open(filepath))
+            {
+                CtApp::P_ctCfg->recentDocsFilepaths.move_or_push_front(filepath);
+                set_menu_items_recent_documents();
+            }
         }
         else
         {
             g_autofree gchar* title = g_strdup_printf(_("The Document %s was Not Found"), filepath.c_str());
             CtDialogs::error_dialog(Glib::ustring{title}, *this);
-            
+            CtApp::P_ctCfg->recentDocsFilepaths.move_or_push_back(filepath);
+            set_menu_items_recent_documents();
         }
     };
-    sigc::slot<void, const std::string&> recent_doc_rm_action = [](const std::string& filepath)
+    sigc::slot<void, const std::string&> recent_doc_rm_action = [&](const std::string& filepath)
     {
-        
+        CtApp::P_ctCfg->recentDocsFilepaths.remove(filepath);
+        set_menu_items_recent_documents();
     };
+    Gtk::Menu* pMenu = _pRecentDocsSubmenu->get_submenu();
+    delete pMenu;
     _pRecentDocsSubmenu->set_submenu(*_pCtMenu->build_recent_docs_menu(CtApp::P_ctCfg->recentDocsFilepaths,
                                                                        recent_doc_open_action,
                                                                        recent_doc_rm_action));
@@ -316,7 +324,7 @@ void CtMainWin::set_menu_items_special_chars()
     _pSpecialCharsSubmenu->set_submenu(*_pCtMenu->build_special_chars_menu(CtApp::P_ctCfg->specialChars, spec_char_action));
 }
 
-void CtMainWin::filepath_open(const std::string& filepath, const bool force_reset)
+bool CtMainWin::filepath_open(const std::string& filepath, const bool force_reset)
 {
     CtRecentDocRestore prevDocRestore;
     prevDocRestore.doc_name = get_curr_doc_file_name();
@@ -330,7 +338,7 @@ void CtMainWin::filepath_open(const std::string& filepath, const bool force_rese
     }
     if (not reset(force_reset))
     {
-        return;
+        return false;
     }
     const std::string new_file_name = Glib::path_get_basename(filepath);
     if (new_file_name != prevDocRestore.doc_name)
@@ -374,7 +382,7 @@ void CtMainWin::filepath_open(const std::string& filepath, const bool force_rese
             }
         }
     }
-    read_nodes_from_gio_file(Gio::File::create_for_path(filepath),  false/*isImport*/);
+    return read_nodes_from_gio_file(Gio::File::create_for_path(filepath), false/*isImport*/);
 }
 
 bool CtMainWin::reset(const bool force_reset)

@@ -1,7 +1,7 @@
 /*
  * ct_main_win.h
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -68,7 +68,7 @@ public:
     bool read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, const bool isImport);
     void config_apply_before_show_all();
     void config_apply_after_show_all();
-    void filepath_open(const std::string& filepath, const bool force_reset = false);
+    bool filepath_open(const std::string& filepath, const bool force_reset = false);
     bool reset(const bool force_reset = false);
     bool check_unsaved();
     void configure_theme();
