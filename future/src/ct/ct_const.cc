@@ -220,7 +220,7 @@ const std::unordered_map<int, std::string> CtConst::NODES_STOCKS {
     { 6, "remove"},
     { 7, "done"},
     { 8, "cancel"},
-    { 9, "edit-delete"},
+    { 9, "edit_delete"},
     {10, "warning"},
     {11, "star"},
     {12, "information"},

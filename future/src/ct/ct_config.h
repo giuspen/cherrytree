@@ -34,7 +34,6 @@ public:
 
     // [state]
     CtRecentDocsRestore                         recentDocsRestore;
-    std::string                                 fileDir;
     bool                                        toolbarVisible{true};
     bool                                        winIsMaximised{false};
     int                                         winRect[4]{10, 10, 963, 630};

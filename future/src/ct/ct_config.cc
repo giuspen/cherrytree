@@ -35,10 +35,7 @@ CtConfig::CtConfig()
 CtConfig::~CtConfig()
 {
     //std::cout << "~CtConfig()" << std::endl;
-    if (_pKeyFile != nullptr)
-    {
-        delete _pKeyFile;
-    }
+    delete _pKeyFile;
 }
 
 bool CtConfig::_populateBoolFromKeyfile(const gchar* key, bool* pTarget)
@@ -127,21 +124,6 @@ void CtConfig::_populateFromKeyfile()
     gchar temp_key[MAX_TEMP_KEY_SIZE];
     // [state]
     _currentGroup = "state";
-    _populateStringFromKeyfile("file_dir", &fileDir);
-    _populateStringFromKeyfile("file_name", &recentDocsRestore[0].doc_name);
-    _populateBoolFromKeyfile("toolbar_visible", &toolbarVisible);
-    _populateBoolFromKeyfile("win_is_maximized", &winIsMaximised);
-    _populateIntFromKeyfile("win_position_x", &winRect[0]);
-    _populateIntFromKeyfile("win_position_y", &winRect[1]);
-    _populateIntFromKeyfile("win_size_w", &winRect[2]);
-    _populateIntFromKeyfile("win_size_h", &winRect[3]);
-    _populateIntFromKeyfile("hpaned_pos", &hpanedPos);
-    _populateBoolFromKeyfile("tree_visible", &treeVisible);
-    if (_populateStringFromKeyfile("node_path", &recentDocsRestore[0].node_path))
-    {
-        str::replace(recentDocsRestore[0].node_path, " ", ":");
-        _populateIntFromKeyfile("cursor_position", &recentDocsRestore[0].cursor_pos);
-    }
     for (guint i=0; i<recentDocsFilepaths.maxSize; ++i)
     {
         snprintf(temp_key, MAX_TEMP_KEY_SIZE, "doc_%d", i);
@@ -151,6 +133,35 @@ void CtConfig::_populateFromKeyfile()
             break;
         }
         recentDocsFilepaths.push_back(tmpStr);
+    }
+    bool lastFileOk{false};
+    {
+        std::string fileDir, fileName;
+        if ( _populateStringFromKeyfile("file_dir", &fileDir) and
+             _populateStringFromKeyfile("file_name", &fileName) )
+        {
+            const std::string filePath = Glib::build_filename(fileDir, fileName);
+            recentDocsFilepaths.move_or_push_front(filePath);
+            lastFileOk = true;
+        }
+    }
+    _populateBoolFromKeyfile("toolbar_visible", &toolbarVisible);
+    _populateBoolFromKeyfile("win_is_maximized", &winIsMaximised);
+    _populateIntFromKeyfile("win_position_x", &winRect[0]);
+    _populateIntFromKeyfile("win_position_y", &winRect[1]);
+    _populateIntFromKeyfile("win_size_w", &winRect[2]);
+    _populateIntFromKeyfile("win_size_h", &winRect[3]);
+    _populateIntFromKeyfile("hpaned_pos", &hpanedPos);
+    _populateBoolFromKeyfile("tree_visible", &treeVisible);
+    if (lastFileOk)
+    {
+        CtRecentDocRestore recentDocRestore;
+        if (_populateStringFromKeyfile("node_path", &recentDocRestore.node_path))
+        {
+            str::replace(recentDocRestore.node_path, " ", ":");
+            _populateIntFromKeyfile("cursor_position", &recentDocRestore.cursor_pos);
+            recentDocsRestore[recentDocsFilepaths.front()] = recentDocRestore;
+        }
     }
     _populateStringFromKeyfile("pick_dir_import", &pickDirImport);
     _populateStringFromKeyfile("pick_dir_export", &pickDirExport);
@@ -173,21 +184,42 @@ void CtConfig::_populateFromKeyfile()
     {
         restoreExpColl = static_cast<CtRestoreExpColl>(rest_exp_coll);
     }
-    _populateStringFromKeyfile("expanded_collapsed_string", &recentDocsRestore[0].exp_coll_str);
-    for (guint i=1; i<recentDocsRestore.size(); ++i)
+    if (lastFileOk)
     {
-        snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollnam%d", i);
-        if (_populateStringFromKeyfile(temp_key, &recentDocsRestore[i].doc_name))
+        std::string exp_coll_str;
+        if (_populateStringFromKeyfile("expanded_collapsed_string", &exp_coll_str))
         {
-            snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollstr%d", i);
-            _populateStringFromKeyfile(temp_key, &recentDocsRestore[i].exp_coll_str);
-            snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollsel%d", i);
-            if (_populateStringFromKeyfile(temp_key, &recentDocsRestore[i].node_path))
+            recentDocsRestore[recentDocsFilepaths.front()].exp_coll_str = exp_coll_str;
+        }
+    }
+    for (guint i=1; i<=recentDocsFilepaths.maxSize; ++i)
+    {
+        std::string docName;
+        snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollnam%d", i);
+        if (_populateStringFromKeyfile(temp_key, &docName))
+        {
+            for (const std::string& filepath : recentDocsFilepaths)
             {
-                str::replace(recentDocsRestore[i].node_path, " ", ":");
-                snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollcur%d", i);
-                _populateIntFromKeyfile(temp_key, &recentDocsRestore[i].cursor_pos);
+                if ( (filepath == docName) or
+                     (Glib::path_get_basename(filepath) == docName) )
+                {
+                    CtRecentDocRestore recentDocRestore;
+                    snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollstr%d", i);
+                    _populateStringFromKeyfile(temp_key, &recentDocRestore.exp_coll_str);
+                    snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollsel%d", i);
+                    if (_populateStringFromKeyfile(temp_key, &recentDocRestore.node_path))
+                    {
+                        str::replace(recentDocRestore.node_path, " ", ":");
+                        snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollcur%d", i);
+                        _populateIntFromKeyfile(temp_key, &recentDocRestore.cursor_pos);
+                    }
+                    recentDocsRestore[filepath] = recentDocRestore;
+                }
             }
+        }
+        else
+        {
+            break;
         }
     }
     _populateBoolFromKeyfile("nodes_bookm_exp", &nodesBookmExp);

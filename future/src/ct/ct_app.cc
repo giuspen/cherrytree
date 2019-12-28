@@ -1,7 +1,7 @@
 /*
  * ct_app.cc
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -141,10 +141,9 @@ void CtApp::on_activate()
     auto pAppWindow = create_appwindow();
     pAppWindow->present();
 
-    if (not CtApp::P_ctCfg->recentDocsRestore.front().doc_name.empty())
+    if (not CtApp::P_ctCfg->recentDocsFilepaths.empty())
     {
-        std::string filePath = Glib::build_filename(CtApp::P_ctCfg->fileDir, CtApp::P_ctCfg->recentDocsRestore.front().doc_name);
-        Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(filePath);
+        Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(CtApp::P_ctCfg->recentDocsFilepaths.front());
         if (r_file->query_exists())
         {
             if (not pAppWindow->read_nodes_from_gio_file(r_file, false/*isImport*/))
@@ -154,7 +153,9 @@ void CtApp::on_activate()
         }
         else
         {
-            std::cout << "? not found " << filePath << std::endl;
+            std::cout << "? not found " << CtApp::P_ctCfg->recentDocsFilepaths.front() << std::endl;
+            CtApp::P_ctCfg->recentDocsFilepaths.move_or_push_back(CtApp::P_ctCfg->recentDocsFilepaths.front());
+            pAppWindow->set_menu_items_recent_documents();
         }
     }
 }

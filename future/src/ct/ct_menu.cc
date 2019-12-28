@@ -109,12 +109,12 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     _actions.push_back(CtAction{editor_cat, "case_up", "case_upper", _("_Upper Case of Selection/Word"), KB_CONTROL+KB_SHIFT+"W", _("Upper the Case of the Selection/the Underlying Word"), sigc::mem_fun(*pActions, &CtActions::text_selection_upper_case)});
     _actions.push_back(CtAction{editor_cat, "case_tggl", "case_toggle", _("_Toggle Case of Selection/Word"), KB_CONTROL+"G", _("Toggle the Case of the Selection/the Underlying Word"), sigc::mem_fun(*pActions, &CtActions::text_selection_toggle_case)});
     _actions.push_back(CtAction{editor_cat, "spellcheck_toggle", "gtk-spell-check", _("Enable/Disable _Spell Check"), KB_CONTROL+KB_ALT+"S", _("Toggle Enable/Disable Spell Check"), sigc::mem_fun(*pActions, &CtActions::toggle_ena_dis_spellcheck)});
-    _actions.push_back(CtAction{editor_cat, "cut_plain", "edit-cut", _("Cu_t as Plain Text"), KB_CONTROL+KB_SHIFT+"X", _("Cut as Plain Text, Discard the Rich Text Formatting"), sigc::mem_fun(*pActions, &CtActions::cut_as_plain_text)});
-    _actions.push_back(CtAction{editor_cat, "copy_plain", "edit-copy", _("_Copy as Plain Text"), KB_CONTROL+KB_SHIFT+"C", _("Copy as Plain Text, Discard the Rich Text Formatting"), sigc::mem_fun(*pActions, &CtActions::copy_as_plain_text)});
-    _actions.push_back(CtAction{editor_cat, "paste_plain", "edit-paste", _("_Paste as Plain Text"), KB_CONTROL+KB_SHIFT+"V", _("Paste as Plain Text, Discard the Rich Text Formatting"), sigc::mem_fun(*pActions, &CtActions::paste_as_plain_text)});
-    _actions.push_back(CtAction{editor_cat, "cut_row", "edit-cut", _("Cu_t Row"), KB_SHIFT+KB_ALT+"X", _("Cut the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_cut)});
-    _actions.push_back(CtAction{editor_cat, "copy_row", "edit-copy", _("_Copy Row"), KB_SHIFT+KB_ALT+"C", _("Copy the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_copy)});
-    _actions.push_back(CtAction{editor_cat, "del_row", "edit-delete", _("De_lete Row"), KB_CONTROL+"K", _("Delete the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_delete)});
+    _actions.push_back(CtAction{editor_cat, "cut_plain", "edit_cut", _("Cu_t as Plain Text"), KB_CONTROL+KB_SHIFT+"X", _("Cut as Plain Text, Discard the Rich Text Formatting"), sigc::mem_fun(*pActions, &CtActions::cut_as_plain_text)});
+    _actions.push_back(CtAction{editor_cat, "copy_plain", "edit_copy", _("_Copy as Plain Text"), KB_CONTROL+KB_SHIFT+"C", _("Copy as Plain Text, Discard the Rich Text Formatting"), sigc::mem_fun(*pActions, &CtActions::copy_as_plain_text)});
+    _actions.push_back(CtAction{editor_cat, "paste_plain", "edit_paste", _("_Paste as Plain Text"), KB_CONTROL+KB_SHIFT+"V", _("Paste as Plain Text, Discard the Rich Text Formatting"), sigc::mem_fun(*pActions, &CtActions::paste_as_plain_text)});
+    _actions.push_back(CtAction{editor_cat, "cut_row", "edit_cut", _("Cu_t Row"), KB_SHIFT+KB_ALT+"X", _("Cut the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_cut)});
+    _actions.push_back(CtAction{editor_cat, "copy_row", "edit_copy", _("_Copy Row"), KB_SHIFT+KB_ALT+"C", _("Copy the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_copy)});
+    _actions.push_back(CtAction{editor_cat, "del_row", "edit_delete", _("De_lete Row"), KB_CONTROL+"K", _("Delete the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_delete)});
     _actions.push_back(CtAction{editor_cat, "dup_row", "gtk-add", _("_Duplicate Row"), KB_CONTROL+"D", _("Duplicate the Current Row/Selection"), sigc::mem_fun(*pActions, &CtActions::text_row_selection_duplicate)});
     _actions.push_back(CtAction{editor_cat, "mv_up_row", "gtk-go-up", _("Move _Up Row"), KB_ALT+CtConst::STR_KEY_UP, _("Move Up the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_up)});
     _actions.push_back(CtAction{editor_cat, "mv_down_row", "gtk-go-down", _("Move _Down Row"), KB_ALT+CtConst::STR_KEY_DOWN, _("Move Down the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_down)});
@@ -160,7 +160,7 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     _actions.push_back(CtAction{tree_cat, "tree_sibl_sort_asc", "gtk-sort-ascending", _("Sort Siblings A_scending"), None, _("Sort all the Siblings of the Selected Node Ascending"), sigc::mem_fun(*pActions, &CtActions::node_siblings_sort_ascending)});
     _actions.push_back(CtAction{tree_cat, "tree_sibl_sort_desc", "gtk-sort-descending", _("Sort Siblings D_escending"), None, _("Sort all the Siblings of the Selected Node Descending"), sigc::mem_fun(*pActions, &CtActions::node_siblings_sort_descending)});
     _actions.push_back(CtAction{tree_cat, "child_nodes_inherit_syntax", "gtk-execute", _("_Inherit Syntax"), None, _("Change the Selected Node's Children Syntax Highlighting to the Parent's Syntax Highlighting"), sigc::signal<void>() /* dad.node_inherit_syntax */});
-    _actions.push_back(CtAction{tree_cat, "tree_node_del", "edit-delete", _("De_lete Node"), "Delete", _("Delete the Selected Node"), sigc::signal<void>() /* dad.node_delete */});
+    _actions.push_back(CtAction{tree_cat, "tree_node_del", "edit_delete", _("De_lete Node"), "Delete", _("Delete the Selected Node"), sigc::signal<void>() /* dad.node_delete */});
     _actions.push_back(CtAction{tree_cat, "node_bookmark", "pin-add", _("Add to _Bookmarks"), KB_CONTROL+KB_SHIFT+"B", _("Add the Current Node to the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmark_curr_node)});
     _actions.push_back(CtAction{tree_cat, "node_unbookmark", "pin-remove", _("_Remove from Bookmarks"), KB_CONTROL+KB_ALT+"B", _("Remove the Current Node from the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmark_curr_node_remove)});
     _actions.push_back(CtAction{tree_cat, "handle_bookmarks", "gtk-edit", _("_Handle Bookmarks"), None, _("Handle the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmarks_handle)});
@@ -216,20 +216,20 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     _actions.push_back(CtAction{import_cat, "import_tuxcards", CtConst::STR_STOCK_CT_IMP, _("From _TuxCards File"), None, _("Add Nodes of a TuxCards File to the Current Tree"), sigc::signal<void>() /* dad.nodes_add_from_tuxcards_file */});
     _actions.push_back(CtAction{import_cat, "import_zim", CtConst::STR_STOCK_CT_IMP, _("From _Zim Folder"), None, _("Add Nodes of a Zim Folder to the Current Tree"), sigc::signal<void>() /* dad.nodes_add_from_zim_folder */});
     const char* others_cat = "";
-    _actions.push_back(CtAction{others_cat, "anch_cut", "edit-cut", _("C_ut Anchor"), None, _("Cut the Selected Anchor"), sigc::mem_fun(*pActions, &CtActions::anchor_cut)});
-    _actions.push_back(CtAction{others_cat, "anch_copy", "edit-copy", _("_Copy Anchor"), None, _("Copy the Selected Anchor"), sigc::mem_fun(*pActions, &CtActions::anchor_copy)});
-    _actions.push_back(CtAction{others_cat, "anch_del", "edit-delete", _("_Delete Anchor"), None, _("Delete the Selected Anchor"), sigc::mem_fun(*pActions, &CtActions::anchor_delete)});
+    _actions.push_back(CtAction{others_cat, "anch_cut", "edit_cut", _("C_ut Anchor"), None, _("Cut the Selected Anchor"), sigc::mem_fun(*pActions, &CtActions::anchor_cut)});
+    _actions.push_back(CtAction{others_cat, "anch_copy", "edit_copy", _("_Copy Anchor"), None, _("Copy the Selected Anchor"), sigc::mem_fun(*pActions, &CtActions::anchor_copy)});
+    _actions.push_back(CtAction{others_cat, "anch_del", "edit_delete", _("_Delete Anchor"), None, _("Delete the Selected Anchor"), sigc::mem_fun(*pActions, &CtActions::anchor_delete)});
     _actions.push_back(CtAction{others_cat, "anch_edit", "anchor_edit", _("Edit _Anchor"), None, _("Edit the Underlying Anchor"), sigc::mem_fun(*pActions, &CtActions::anchor_edit)});
-    _actions.push_back(CtAction{others_cat, "emb_file_cut", "edit-cut", _("C_ut Embedded File"), None, _("Cut the Selected Embedded File"), sigc::mem_fun(*pActions, &CtActions::embfile_cut)});
-    _actions.push_back(CtAction{others_cat, "emb_file_copy", "edit-copy", _("_Copy Embedded File"), None, _("Copy the Selected Embedded File"), sigc::mem_fun(*pActions, &CtActions::embfile_copy)});
-    _actions.push_back(CtAction{others_cat, "emb_file_del", "edit-delete", _("_Delete Embedded File"), None, _("Delete the Selected Embedded File"), sigc::mem_fun(*pActions, &CtActions::embfile_delete)});
+    _actions.push_back(CtAction{others_cat, "emb_file_cut", "edit_cut", _("C_ut Embedded File"), None, _("Cut the Selected Embedded File"), sigc::mem_fun(*pActions, &CtActions::embfile_cut)});
+    _actions.push_back(CtAction{others_cat, "emb_file_copy", "edit_copy", _("_Copy Embedded File"), None, _("Copy the Selected Embedded File"), sigc::mem_fun(*pActions, &CtActions::embfile_copy)});
+    _actions.push_back(CtAction{others_cat, "emb_file_del", "edit_delete", _("_Delete Embedded File"), None, _("Delete the Selected Embedded File"), sigc::mem_fun(*pActions, &CtActions::embfile_delete)});
     _actions.push_back(CtAction{others_cat, "emb_file_save", "gtk-save-as", _("Save _As"), None, _("Save File As"), sigc::mem_fun(*pActions, &CtActions::embfile_save)});
     _actions.push_back(CtAction{others_cat, "emb_file_open", "gtk-open", _("_Open File"), None, _("Open Embedded File"), sigc::mem_fun(*pActions, &CtActions::embfile_open)});
     _actions.push_back(CtAction{others_cat, "img_save", "image_save", _("_Save Image as PNG"), None, _("Save the Selected Image as a PNG file"), sigc::mem_fun(*pActions, &CtActions::image_save)});
     _actions.push_back(CtAction{others_cat, "img_edit", "image_edit", _("_Edit Image"), None, _("Edit the Selected Image"), sigc::mem_fun(*pActions, &CtActions::image_edit)});
-    _actions.push_back(CtAction{others_cat, "img_cut", "edit-cut", _("C_ut Image"), None, _("Cut the Selected Image"), sigc::mem_fun(*pActions, &CtActions::image_cut)});
-    _actions.push_back(CtAction{others_cat, "img_copy", "edit-copy", _("_Copy Image"), None, _("Copy the Selected Image"), sigc::mem_fun(*pActions, &CtActions::image_copy)});
-    _actions.push_back(CtAction{others_cat, "img_del", "edit-delete", _("_Delete Image"), None, _("Delete the Selected Image"), sigc::mem_fun(*pActions, &CtActions::image_delete)});
+    _actions.push_back(CtAction{others_cat, "img_cut", "edit_cut", _("C_ut Image"), None, _("Cut the Selected Image"), sigc::mem_fun(*pActions, &CtActions::image_cut)});
+    _actions.push_back(CtAction{others_cat, "img_copy", "edit_copy", _("_Copy Image"), None, _("Copy the Selected Image"), sigc::mem_fun(*pActions, &CtActions::image_copy)});
+    _actions.push_back(CtAction{others_cat, "img_del", "edit_delete", _("_Delete Image"), None, _("Delete the Selected Image"), sigc::mem_fun(*pActions, &CtActions::image_delete)});
     _actions.push_back(CtAction{others_cat, "img_link_edit", "link_handle", _("Edit _Link"), None, _("Edit the Link Associated to the Image"), sigc::mem_fun(*pActions, &CtActions::image_link_edit)});
     _actions.push_back(CtAction{others_cat, "img_link_dismiss", "gtk-clear", _("D_ismiss Link"), None, _("Dismiss the Link Associated to the Image"), sigc::mem_fun(*pActions, &CtActions::image_link_dismiss)});
     _actions.push_back(CtAction{others_cat, "toggle_show_mainwin", CtConst::APP_NAME, _("Show/Hide _CherryTree"), None, _("Toggle Show/Hide CherryTree"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_main_window)});
@@ -245,19 +245,19 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     // for popup menus
     const char* link_cat = "";
     _actions.push_back(CtAction{link_cat, "apply_tag_link", "link_handle", _("Edit _Link"), None, _("Edit the Underlying Link"), sigc::signal<void>() /*dad.apply_tag_link*/});
-    _actions.push_back(CtAction{link_cat, "link_cut", "edit-cut", _("C_ut Link"), None, _("Cut the Selected Link"), sigc::signal<void>() /*dad.link_cut*/});
-    _actions.push_back(CtAction{link_cat, "link_copy", "edit-copy", _("_Copy Link"), None, _("Copy the Selected Link"), sigc::signal<void>() /*dad.link_copy*/});
+    _actions.push_back(CtAction{link_cat, "link_cut", "edit_cut", _("C_ut Link"), None, _("Cut the Selected Link"), sigc::signal<void>() /*dad.link_cut*/});
+    _actions.push_back(CtAction{link_cat, "link_copy", "edit_copy", _("_Copy Link"), None, _("Copy the Selected Link"), sigc::signal<void>() /*dad.link_copy*/});
     _actions.push_back(CtAction{link_cat, "link_dismiss", "gtk-clear", _("D_ismiss Link"), None, _("Dismiss the Selected Link"), sigc::signal<void>() /*dad.link_dismiss*/});
-    _actions.push_back(CtAction{link_cat, "link_delete", "edit-delete", _("_Delete Link"), None, _("Delete the Selected Link"), sigc::signal<void>() /*dad.link_delete*/});
+    _actions.push_back(CtAction{link_cat, "link_delete", "edit_delete", _("_Delete Link"), None, _("Delete the Selected Link"), sigc::signal<void>() /*dad.link_delete*/});
     const char* table_cat = "";
-    _actions.push_back(CtAction{table_cat, "table_cut", "edit-cut", _("C_ut Table"), None, _("Cut the Selected Table"), sigc::signal<void>() /*dad.tables_handler.table_cut*/});
-    _actions.push_back(CtAction{table_cat, "table_copy", "edit-copy", _("_Copy Table"), None, _("Copy the Selected Table"), sigc::signal<void>() /*dad.tables_handler.table_copy*/});
-    _actions.push_back(CtAction{table_cat, "table_delete", "edit-delete", _("_Delete Table"), None, _("Delete the Selected Table"), sigc::signal<void>() /*dad.tables_handler.table_delete*/});
+    _actions.push_back(CtAction{table_cat, "table_cut", "edit_cut", _("C_ut Table"), None, _("Cut the Selected Table"), sigc::signal<void>() /*dad.tables_handler.table_cut*/});
+    _actions.push_back(CtAction{table_cat, "table_copy", "edit_copy", _("_Copy Table"), None, _("Copy the Selected Table"), sigc::signal<void>() /*dad.tables_handler.table_copy*/});
+    _actions.push_back(CtAction{table_cat, "table_delete", "edit_delete", _("_Delete Table"), None, _("Delete the Selected Table"), sigc::signal<void>() /*dad.tables_handler.table_delete*/});
     _actions.push_back(CtAction{table_cat, "table_row_add", "gtk-add", _("_Add Row"), KB_CONTROL+"comma", _("Add a Table Row"), sigc::signal<void>() /*dad.tables_handler.table_row_add*/});
-    _actions.push_back(CtAction{table_cat, "table_row_cut", "edit-cut", _("Cu_t Row"), None, _("Cut a Table Row"), sigc::signal<void>() /*dad.tables_handler.table_row_cut*/});
-    _actions.push_back(CtAction{table_cat, "table_row_copy", "edit-copy", _("_Copy Row"), None, _("Copy a Table Row"), sigc::signal<void>() /*dad.tables_handler.table_row_copy*/});
-    _actions.push_back(CtAction{table_cat, "table_row_paste", "edit-paste", _("_Paste Row"), None, _("Paste a Table Row"), sigc::signal<void>() /*dad.tables_handler.table_row_paste*/});
-    _actions.push_back(CtAction{table_cat, "table_row_delete", "edit-delete", _("De_lete Row"), KB_CONTROL+KB_ALT+"comma", _("Delete the Selected Table Row"), sigc::signal<void>() /*dad.tables_handler.table_row_delete*/});
+    _actions.push_back(CtAction{table_cat, "table_row_cut", "edit_cut", _("Cu_t Row"), None, _("Cut a Table Row"), sigc::signal<void>() /*dad.tables_handler.table_row_cut*/});
+    _actions.push_back(CtAction{table_cat, "table_row_copy", "edit_copy", _("_Copy Row"), None, _("Copy a Table Row"), sigc::signal<void>() /*dad.tables_handler.table_row_copy*/});
+    _actions.push_back(CtAction{table_cat, "table_row_paste", "edit_paste", _("_Paste Row"), None, _("Paste a Table Row"), sigc::signal<void>() /*dad.tables_handler.table_row_paste*/});
+    _actions.push_back(CtAction{table_cat, "table_row_delete", "edit_delete", _("De_lete Row"), KB_CONTROL+KB_ALT+"comma", _("Delete the Selected Table Row"), sigc::signal<void>() /*dad.tables_handler.table_row_delete*/});
     _actions.push_back(CtAction{table_cat, "table_row_up", "gtk-go-up", _("Move Row _Up"), KB_CONTROL+KB_ALT+"period", _("Move the Selected Row Up"), sigc::signal<void>() /*dad.tables_handler.table_row_up*/});
     _actions.push_back(CtAction{table_cat, "table_row_down", "gtk-go-down", _("Move Row _Down"), KB_CONTROL+"period", _("Move the Selected Row Down"), sigc::signal<void>() /*dad.tables_handler.table_row_down*/});
     _actions.push_back(CtAction{table_cat, "table_rows_sort_descending", "gtk-sort-descending", _("Sort Rows De_scending"), None, _("Sort all the Rows Descending"), sigc::signal<void>() /*dad.tables_handler.table_rows_sort_descending*/});
@@ -271,15 +271,14 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     _actions.push_back(CtAction{codebox_cat, "exec_code", "gtk-execute", _("_Execute CodeBox Code"), None, _("Execute CodeBox Code"), sigc::mem_fun(*pActions, &CtActions::exec_code)});
     _actions.push_back(CtAction{codebox_cat, "codebox_load_from_file", "from_txt", _("CodeBox _Load From Text File"), None, _("Load the CodeBox Content From a Text File"), sigc::mem_fun(*pActions, &CtActions::codebox_load_from_file)});
     _actions.push_back(CtAction{codebox_cat, "codebox_save_to_file", "to_txt", _("CodeBox _Save To Text File"), None, _("Save the CodeBox Content To a Text File"), sigc::mem_fun(*pActions, &CtActions::codebox_save_to_file)});
-    _actions.push_back(CtAction{codebox_cat, "codebox_cut", "edit-cut", _("C_ut CodeBox"), None, _("Cut the Selected CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_cut)});
-    _actions.push_back(CtAction{codebox_cat, "codebox_copy", "edit-copy", _("_Copy CodeBox"), None, _("Copy the Selected CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_copy)});
-    _actions.push_back(CtAction{codebox_cat, "codebox_delete", "edit-delete", _("_Delete CodeBox"), None, _("Delete the Selected CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_delete)});
-    _actions.push_back(CtAction{codebox_cat, "codebox_delete_keeping_text", "edit-delete", _("Delete CodeBox _Keep Content"), None, _("Delete the Selected CodeBox But Keep Its Content"), sigc::mem_fun(*pActions, &CtActions::codebox_delete_keeping_text)});
+    _actions.push_back(CtAction{codebox_cat, "codebox_cut", "edit_cut", _("C_ut CodeBox"), None, _("Cut the Selected CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_cut)});
+    _actions.push_back(CtAction{codebox_cat, "codebox_copy", "edit_copy", _("_Copy CodeBox"), None, _("Copy the Selected CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_copy)});
+    _actions.push_back(CtAction{codebox_cat, "codebox_delete", "edit_delete", _("_Delete CodeBox"), None, _("Delete the Selected CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_delete)});
+    _actions.push_back(CtAction{codebox_cat, "codebox_delete_keeping_text", "edit_delete", _("Delete CodeBox _Keep Content"), None, _("Delete the Selected CodeBox But Keep Its Content"), sigc::mem_fun(*pActions, &CtActions::codebox_delete_keeping_text)});
     _actions.push_back(CtAction{codebox_cat, "codebox_increase_width", "gtk-go-forward", _("Increase CodeBox Width"), KB_CONTROL+"period", _("Increase the Width of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_increase_width)});
     _actions.push_back(CtAction{codebox_cat, "codebox_decrease_width", "gtk-go-back", _("Decrease CodeBox Width"), KB_CONTROL+KB_ALT+"period", _("Decrease the Width of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_decrease_width)});
     _actions.push_back(CtAction{codebox_cat, "codebox_increase_height", "gtk-go-down", _("Increase CodeBox Height"), KB_CONTROL+"comma", _("Increase the Height of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_increase_height)});
     _actions.push_back(CtAction{codebox_cat, "codebox_decrease_height", "gtk-go-up", _("Decrease CodeBox Height"), KB_CONTROL+KB_ALT+"comma", _("Decrease the Height of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_decrease_height)});
-
 }
 
 CtAction* CtMenu::find_action(const std::string& id)
@@ -358,12 +357,12 @@ Gtk::Menu* CtMenu::build_recent_docs_menu(const CtRecentDocsFilepaths& recentDoc
         Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), filepath.c_str(), "gtk-open", nullptr, filepath.c_str(), nullptr);
         pMenuItem->signal_activate().connect(sigc::bind(recent_doc_open_action, filepath));
     }
-    Gtk::MenuItem* pMenuItemRm = _add_menu_item(GTK_WIDGET(pMenu->gobj()), _("Remove from list"), "edit-delete", nullptr, _("Remove from list"), nullptr);
+    Gtk::MenuItem* pMenuItemRm = _add_menu_item(GTK_WIDGET(pMenu->gobj()), _("Remove from list"), "edit_delete", nullptr, _("Remove from list"), nullptr);
     Gtk::Menu* pMenuRm = Gtk::manage(new Gtk::Menu());
     pMenuItemRm->set_submenu(*pMenuRm);
     for (const std::string& filepath : recentDocsFilepaths)
     {
-        Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenuRm->gobj()), filepath.c_str(), "edit-delete", nullptr, filepath.c_str(), nullptr);
+        Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenuRm->gobj()), filepath.c_str(), "edit_delete", nullptr, filepath.c_str(), nullptr);
         pMenuItem->signal_activate().connect(sigc::bind(recent_doc_rm_action, filepath));
     }
     return pMenu;

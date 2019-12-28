@@ -337,8 +337,8 @@ void CtMainWin::set_menu_items_special_chars()
 
 bool CtMainWin::filepath_open(const std::string& filepath, const bool force_reset)
 {
+    const std::string prevFilepath = get_curr_doc_file_path();
     CtRecentDocRestore prevDocRestore;
-    prevDocRestore.doc_name = get_curr_doc_file_name();
     prevDocRestore.exp_coll_str = _uCtTreestore->get_tree_expanded_collapsed_string(_ctTreeview);
     const CtTreeIter prevTreeIter = curr_tree_iter();
     if (prevTreeIter)
@@ -347,51 +347,10 @@ bool CtMainWin::filepath_open(const std::string& filepath, const bool force_rese
         const Glib::RefPtr<Gsv::Buffer> rTextBuffer = prevTreeIter.get_node_text_buffer();
         prevDocRestore.cursor_pos = rTextBuffer->property_cursor_position();
     }
+    CtApp::P_ctCfg->recentDocsRestore[filepath] = prevDocRestore;
     if (not reset(force_reset))
     {
         return false;
-    }
-    const std::string new_file_name = Glib::path_get_basename(filepath);
-    if (new_file_name != prevDocRestore.doc_name)
-    {
-        int i{1}; // element 0 is reserved for last used document when closing cherrytree down
-        for (; i<CtApp::P_ctCfg->recentDocsRestore.size(); ++i)
-        {
-            // look for same name
-            if (new_file_name == CtApp::P_ctCfg->recentDocsRestore.at(i).doc_name)
-            {
-                CtApp::P_ctCfg->recentDocsRestore[i] = prevDocRestore;
-                break;
-            }
-        }
-        if (CtApp::P_ctCfg->recentDocsRestore.size() == i)
-        {
-            // no same name found
-            for (i=1; i<CtApp::P_ctCfg->recentDocsRestore.size(); ++i)
-            {
-                // look for empty name
-                if (CtApp::P_ctCfg->recentDocsRestore.at(i).doc_name.empty())
-                {
-                    CtApp::P_ctCfg->recentDocsRestore[i] = prevDocRestore;
-                    break;
-                }
-            }
-            if (CtApp::P_ctCfg->recentDocsRestore.size() == i)
-            {
-                // no empty found
-                for (i=CtApp::P_ctCfg->recentDocsRestore.size()-1; i>0; --i)
-                {
-                    if (i > 0)
-                    {
-                        CtApp::P_ctCfg->recentDocsRestore[i] = CtApp::P_ctCfg->recentDocsRestore.at(i-1);
-                    }
-                    else
-                    {
-                        CtApp::P_ctCfg->recentDocsRestore[i] = prevDocRestore;
-                    }
-                }
-            }
-        }
     }
     return read_nodes_from_gio_file(Gio::File::create_for_path(filepath), false/*isImport*/);
 }
@@ -464,13 +423,12 @@ bool CtMainWin::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, 
 {
     bool retOk{false};
     const std::string filepath{r_file->get_path()};
-    const std::string filename{Glib::path_get_basename(filepath)};
     const CtDocEncrypt docEncrypt = CtMiscUtil::get_doc_encrypt(filepath);
-    const gchar* pFilepath{nullptr};
+    const gchar* pFilepathNoEncrypt{nullptr};
     std::string password;
     if (CtDocEncrypt::True == docEncrypt)
     {
-        g_autofree gchar* title = g_strdup_printf(_("Enter Password for %s"), filename.c_str());
+        g_autofree gchar* title = g_strdup_printf(_("Enter Password for %s"), Glib::path_get_basename(filepath).c_str());
         while (true)
         {
             CtDialogTextEntry dialogTextEntry(title, true/*forPassword*/, this);
@@ -485,46 +443,54 @@ bool CtMainWin::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, 
                                                password.c_str()) and
                 g_file_test(CtApp::P_ctTmp->getHiddenFilePath(filepath), G_FILE_TEST_IS_REGULAR))
             {
-                pFilepath = CtApp::P_ctTmp->getHiddenFilePath(filepath);
+                pFilepathNoEncrypt = CtApp::P_ctTmp->getHiddenFilePath(filepath);
                 break;
             }
         }
     }
     else if (CtDocEncrypt::False == docEncrypt)
     {
-        pFilepath = filepath.c_str();
+        pFilepathNoEncrypt = filepath.c_str();
     }
-    if (pFilepath)
+    if (pFilepathNoEncrypt)
     {
-        retOk = _uCtTreestore->read_nodes_from_filepath(pFilepath, isImport);
+        retOk = _uCtTreestore->read_nodes_from_filepath(pFilepathNoEncrypt, isImport);
     }
     if (retOk and not isImport)
     {
         _set_new_curr_doc(r_file, password);
         _title_update(false/*saveNeeded*/);
         set_bookmarks_menu_items();
-
-        for (CtRecentDocRestore& recentDoc : CtApp::P_ctCfg->recentDocsRestore)
+        const CtRecentDocsRestore::iterator iterDocsRestore{CtApp::P_ctCfg->recentDocsRestore.find(filepath)};
+        switch (CtApp::P_ctCfg->restoreExpColl)
         {
-            if (filename == recentDoc.doc_name)
+            case CtRestoreExpColl::ALL_EXP:
             {
-                if (CtRestoreExpColl::ALL_EXP == CtApp::P_ctCfg->restoreExpColl)
+                _ctTreeview.expand_all();
+            } break;
+            case CtRestoreExpColl::ALL_COLL:
+            {
+                _ctTreeview.expand_all();
+                _uCtTreestore->set_tree_expanded_collapsed_string("",
+                                                                  _ctTreeview,
+                                                                  CtApp::P_ctCfg->nodesBookmExp);
+            } break;
+            default:
+            {
+                if (iterDocsRestore != CtApp::P_ctCfg->recentDocsRestore.end())
                 {
-                    _ctTreeview.expand_all();
-                }
-                else
-                {
-                    if (CtRestoreExpColl::ALL_COLL == CtApp::P_ctCfg->restoreExpColl)
-                    {
-                        recentDoc.exp_coll_str.clear();
-                    }
-                    _uCtTreestore->set_tree_expanded_collapsed_string(recentDoc.exp_coll_str,
+                    _uCtTreestore->set_tree_expanded_collapsed_string(iterDocsRestore->second.exp_coll_str,
                                                                       _ctTreeview,
                                                                       CtApp::P_ctCfg->nodesBookmExp);
                 }
-                _uCtTreestore->set_tree_path_n_text_cursor(&_ctTreeview, &_ctTextview, recentDoc.node_path, recentDoc.cursor_pos);
-                break;
-            }
+            } break;
+        }
+        if (iterDocsRestore != CtApp::P_ctCfg->recentDocsRestore.end())
+        {
+            _uCtTreestore->set_tree_path_n_text_cursor(&_ctTreeview,
+                                                       &_ctTextview,
+                                                       iterDocsRestore->second.node_path,
+                                                       iterDocsRestore->second.cursor_pos);
         }
     }
     return retOk;

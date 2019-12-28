@@ -23,7 +23,7 @@
 
 #include <string>
 #include <list>
-#include <array>
+#include <unordered_map>
 
 enum class CtYesNoCancel { Yes, No, Cancel };
 
@@ -49,13 +49,12 @@ enum class CtTableColMode : int { RENAME=0, ADD=1, DELETE=2, RIGHT=3, LEFT=4 };
 
 struct CtRecentDocRestore
 {
-    std::string   doc_name;
     std::string   exp_coll_str;
     std::string   node_path;
     int           cursor_pos{0};
 };
 
-typedef std::array<CtRecentDocRestore, 4>   CtRecentDocsRestore;
+typedef std::unordered_map<std::string, CtRecentDocRestore>   CtRecentDocsRestore;
 
 template<class TYPE>
 class CtMaxSizedList : public std::list<TYPE>
