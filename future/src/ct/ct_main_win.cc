@@ -32,7 +32,6 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu)
     set_icon(CtApp::R_icontheme->load_icon(CtConst::APP_NAME, 48));
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindowText.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-    _scrolledwindowTree.add(_ctTreeview);
     _scrolledwindowText.add(_ctTextview);
     _vboxText.pack_start(_init_window_header(), false, false);
     _vboxText.pack_start(_scrolledwindowText);
@@ -62,15 +61,8 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu)
     _vboxMain.pack_start(_init_status_bar(), false, false);
     add(_vboxMain);
 
-    _reset_CtTreestore();
-    _uCtTreestore->view_append_columns(&_ctTreeview);
+    _reset_CtTreestore_CtTreeview();
 
-    _ctTreeview.signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_cursor_changed));
-    _ctTreeview.signal_button_release_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_button_release_event));
-    _ctTreeview.signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_key_press_event), false);
-    _ctTreeview.signal_popup_menu().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_popup_menu));
-
-    _ctTreeview.get_style_context()->add_class("ct_node_view");
     _ctTextview.get_style_context()->add_class("ct_textview");
 
     _ctTextview.signal_populate_popup().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_populate_popup));
@@ -109,12 +101,25 @@ CtMainWin::~CtMainWin()
     //printf("~CtMainWin\n");
 }
 
-void CtMainWin::_reset_CtTreestore()
+void CtMainWin::_reset_CtTreestore_CtTreeview()
 {
     _prevTreeIter = CtTreeIter();
-    _ctTreeview.unset_model();
+
+    _scrolledwindowTree.remove();
+    _uCtTreeview.reset(new CtTreeView);
+    _scrolledwindowTree.add(*_uCtTreeview);
+    _uCtTreeview->show();
+
     _uCtTreestore.reset(new CtTreeStore);
-    _uCtTreestore->view_connect(&_ctTreeview);
+    _uCtTreestore->view_connect(_uCtTreeview.get());
+    _uCtTreestore->view_append_columns(_uCtTreeview.get());
+
+    _uCtTreeview->signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_cursor_changed));
+    _uCtTreeview->signal_button_release_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_button_release_event));
+    _uCtTreeview->signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_key_press_event), false);
+    _uCtTreeview->signal_popup_menu().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_popup_menu));
+
+    _uCtTreeview->get_style_context()->add_class("ct_node_view");
 }
 
 void CtMainWin::config_apply_before_show_all()
@@ -271,7 +276,7 @@ void CtMainWin::menu_tree_update_for_bookmarked_node(bool is_bookmarked)
 void CtMainWin::bookmark_action_select_node(gint64 node_id)
 {
     Gtk::TreeIter tree_iter = _uCtTreestore->get_node_from_node_id(node_id);
-    get_tree_view().set_cursor_safe(tree_iter);
+    _uCtTreeview->set_cursor_safe(tree_iter);
 }
 
 void CtMainWin::set_bookmarks_menu_items()
@@ -339,7 +344,7 @@ bool CtMainWin::filepath_open(const std::string& filepath, const bool force_rese
 {
     const std::string prevFilepath = get_curr_doc_file_path();
     CtRecentDocRestore prevDocRestore;
-    prevDocRestore.exp_coll_str = _uCtTreestore->get_tree_expanded_collapsed_string(_ctTreeview);
+    prevDocRestore.exp_coll_str = _uCtTreestore->get_tree_expanded_collapsed_string(*_uCtTreeview);
     const CtTreeIter prevTreeIter = curr_tree_iter();
     if (prevTreeIter)
     {
@@ -368,7 +373,7 @@ bool CtMainWin::reset(const bool force_reset)
     auto on_scope_exit = scope_guard([&](void*) { user_active() = true; });
     user_active() = false;
 
-    _reset_CtTreestore();
+    _reset_CtTreestore_CtTreeview();
     _latestStatusbarUpdateTime.clear();
     _set_new_curr_doc(Glib::RefPtr<Gio::File>{nullptr}, "");
 
@@ -466,13 +471,13 @@ bool CtMainWin::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, 
         {
             case CtRestoreExpColl::ALL_EXP:
             {
-                _ctTreeview.expand_all();
+                _uCtTreeview->expand_all();
             } break;
             case CtRestoreExpColl::ALL_COLL:
             {
-                _ctTreeview.expand_all();
+                _uCtTreeview->expand_all();
                 _uCtTreestore->set_tree_expanded_collapsed_string("",
-                                                                  _ctTreeview,
+                                                                  *_uCtTreeview,
                                                                   CtApp::P_ctCfg->nodesBookmExp);
             } break;
             default:
@@ -480,14 +485,14 @@ bool CtMainWin::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, 
                 if (iterDocsRestore != CtApp::P_ctCfg->recentDocsRestore.end())
                 {
                     _uCtTreestore->set_tree_expanded_collapsed_string(iterDocsRestore->second.exp_coll_str,
-                                                                      _ctTreeview,
+                                                                      *_uCtTreeview,
                                                                       CtApp::P_ctCfg->nodesBookmExp);
                 }
             } break;
         }
         if (iterDocsRestore != CtApp::P_ctCfg->recentDocsRestore.end())
         {
-            _uCtTreestore->set_tree_path_n_text_cursor(&_ctTreeview,
+            _uCtTreestore->set_tree_path_n_text_cursor(_uCtTreeview.get(),
                                                        &_ctTextview,
                                                        iterDocsRestore->second.node_path,
                                                        iterDocsRestore->second.cursor_pos);

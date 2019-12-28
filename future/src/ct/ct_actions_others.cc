@@ -1,7 +1,7 @@
 /*
  * ct_actions_others.cc
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -259,7 +259,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
              CtDialogs::error_dialog(str::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), std::string(vec[1])), *_pCtMainWin);
              return;
          }
-         _pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
+         _pCtMainWin->curr_tree_view().set_cursor_safe(tree_iter);
          _pCtMainWin->get_text_view().grab_focus();
          // todo: self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
          _pCtMainWin->get_text_view().set_tooltip_text("");
@@ -466,7 +466,7 @@ bool CtActions::_on_embfiles_sentinel_timeout()
                CtDialogs::warning_dialog(_("Cannot Edit Embedded File in Read Only Node"), *_pCtMainWin);
                continue;
            }
-           _pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
+           _pCtMainWin->curr_tree_view().set_cursor_safe(tree_iter);
            for (auto& widget: tree_iter.get_all_embedded_widgets())
            {
                 if (CtImageEmbFile* embFile = dynamic_cast<CtImageEmbFile*>(widget))

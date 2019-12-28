@@ -1,7 +1,7 @@
 /*
  * ct_actions_tree.cc
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -142,7 +142,7 @@ void CtActions::_node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeDat
     _pCtMainWin->curr_tree_store().to_ct_tree_iter(nodeIter).pending_new_db_node();
     _pCtMainWin->curr_tree_store().nodes_sequences_fix(curr_iter ? curr_iter->parent() : Gtk::TreeIter(), false);
     _pCtMainWin->curr_tree_store().update_node_aux_icon(nodeIter);
-    _pCtMainWin->get_tree_view().set_cursor_safe(nodeIter);
+    _pCtMainWin->curr_tree_view().set_cursor_safe(nodeIter);
     _pCtMainWin->get_text_view().grab_focus();
 }
 
@@ -151,7 +151,7 @@ void CtActions::_node_child_exist_or_create(Gtk::TreeIter parentIter, const std:
     Gtk::TreeIter childIter = parentIter ? parentIter->children().begin() : _pCtMainWin->curr_tree_store().get_iter_first();
     for (; childIter; ++childIter)
         if (_pCtMainWin->curr_tree_store().to_ct_tree_iter(childIter).get_node_name() == nodeName) {
-            _pCtMainWin->get_tree_view().set_cursor_safe(childIter);
+            _pCtMainWin->curr_tree_view().set_cursor_safe(childIter);
             return;
         }
     CtNodeData nodeData;
@@ -190,12 +190,12 @@ void CtActions::_node_move_after(Gtk::TreeIter iter_to_move, Gtk::TreeIter fathe
     //todo: self.ctdb_handler.pending_edit_db_node_hier(self.treestore[new_node_iter][3])
     _pCtMainWin->curr_tree_store().nodes_sequences_fix(Gtk::TreeIter(), true);
     if (father_iter)
-        _pCtMainWin->get_tree_view().expand_row(_pCtMainWin->curr_tree_store().get_path(father_iter), false);
+        _pCtMainWin->curr_tree_view().expand_row(_pCtMainWin->curr_tree_store().get_path(father_iter), false);
     else
-        _pCtMainWin->get_tree_view().expand_row(_pCtMainWin->curr_tree_store().get_path(new_node_iter), false);
+        _pCtMainWin->curr_tree_view().expand_row(_pCtMainWin->curr_tree_store().get_path(new_node_iter), false);
     Gtk::TreePath new_node_path = _pCtMainWin->curr_tree_store().get_path(new_node_iter);
-    _pCtMainWin->get_tree_view().collapse_row(new_node_path);
-    _pCtMainWin->get_tree_view().set_cursor(new_node_path);
+    _pCtMainWin->curr_tree_view().collapse_row(new_node_path);
+    _pCtMainWin->curr_tree_view().set_cursor(new_node_path);
     _pCtMainWin->update_window_save_needed();
 }
 
@@ -296,7 +296,7 @@ void CtActions::node_up()
     //todo: self.nodes_sequences_swap(self.curr_tree_iter, prev_iter)
     //self.ctdb_handler.pending_edit_db_node_hier(self.treestore[self.curr_tree_iter][3])
     //self.ctdb_handler.pending_edit_db_node_hier(self.treestore[prev_iter][3])
-    _pCtMainWin->get_tree_view().set_cursor(_pCtMainWin->curr_tree_store().get_path(_pCtMainWin->curr_tree_iter()));
+    _pCtMainWin->curr_tree_view().set_cursor(_pCtMainWin->curr_tree_store().get_path(_pCtMainWin->curr_tree_iter()));
     _pCtMainWin->update_window_save_needed();
 }
 
@@ -309,7 +309,7 @@ void CtActions::node_down()
     //todo: self.nodes_sequences_swap(self.curr_tree_iter, subseq_iter)
     //self.ctdb_handler.pending_edit_db_node_hier(self.treestore[self.curr_tree_iter][3])
     //self.ctdb_handler.pending_edit_db_node_hier(self.treestore[subseq_iter][3])
-    _pCtMainWin->get_tree_view().set_cursor(_pCtMainWin->curr_tree_store().get_path(_pCtMainWin->curr_tree_iter()));
+    _pCtMainWin->curr_tree_view().set_cursor(_pCtMainWin->curr_tree_store().get_path(_pCtMainWin->curr_tree_iter()));
     _pCtMainWin->update_window_save_needed();
 }
 
@@ -336,7 +336,7 @@ void CtActions::node_change_father()
     if (!_is_there_selected_node_or_error()) return;
     CtTreeIter old_father_iter = _pCtMainWin->curr_tree_iter().parent();
     CtTreeIter father_iter = _pCtMainWin->curr_tree_store().to_ct_tree_iter(CtDialogs::choose_node_dialog(*_pCtMainWin,
-                                   _pCtMainWin->get_tree_view(), _("Select the New Parent"), &_pCtMainWin->curr_tree_store(), _pCtMainWin->curr_tree_iter()));
+                                   _pCtMainWin->curr_tree_view(), _("Select the New Parent"), &_pCtMainWin->curr_tree_store(), _pCtMainWin->curr_tree_iter()));
     if (!father_iter) return;
     gint64 curr_node_id = _pCtMainWin->curr_tree_iter().get_node_id();
     gint64 old_father_node_id = old_father_iter.get_node_id();

@@ -1,7 +1,7 @@
 /*
  * ct_actions_find.cc
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -210,7 +210,7 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
     s_state.matches_num = 0;
     if (all_matches) s_state.match_store->clear();
 
-    std::string tree_expanded_collapsed_string = _pCtMainWin->curr_tree_store().get_tree_expanded_collapsed_string(_pCtMainWin->get_tree_view());
+    std::string tree_expanded_collapsed_string = _pCtMainWin->curr_tree_store().get_tree_expanded_collapsed_string(_pCtMainWin->curr_tree_view());
     // searching start
     bool user_active_restore = _pCtMainWin->user_active();
     _pCtMainWin->user_active() = false;
@@ -258,9 +258,9 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
     std::cout << search_end_time - search_start_time << " sec" << std::endl;
 
     _pCtMainWin->user_active() = user_active_restore;
-    _pCtMainWin->curr_tree_store().set_tree_expanded_collapsed_string(tree_expanded_collapsed_string, _pCtMainWin->get_tree_view(), CtApp::P_ctCfg->nodesBookmExp);
+    _pCtMainWin->curr_tree_store().set_tree_expanded_collapsed_string(tree_expanded_collapsed_string, _pCtMainWin->curr_tree_view(), CtApp::P_ctCfg->nodesBookmExp);
     if (!s_state.matches_num || all_matches) {
-        _pCtMainWin->get_tree_view().set_cursor_safe(starting_tree_iter);
+        _pCtMainWin->curr_tree_view().set_cursor_safe(starting_tree_iter);
         //todo: self.dad.objects_buffer_refresh()
         _pCtMainWin->get_text_view().grab_focus();
         curr_buffer->place_cursor(curr_buffer->get_iter_at_offset(current_cursor_pos));
@@ -273,7 +273,7 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
             s_state.match_dialog_title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
             CtDialogs::match_dialog(s_state.match_dialog_title, *_pCtMainWin, s_state.match_store);
         } else {
-            _pCtMainWin->get_tree_view().set_cursor_safe(_pCtMainWin->curr_tree_iter());
+            _pCtMainWin->curr_tree_view().set_cursor_safe(_pCtMainWin->curr_tree_iter());
             if (s_options.search_replace_dict_idialog)
                 _iterated_find_dialog();
         }
@@ -675,7 +675,7 @@ bool CtActions::_parse_node_name(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex>
             node_iter.pending_edit_db_node_prop();
         }
         if (!all_matches) {
-            _pCtMainWin->get_tree_view().set_cursor_safe(node_iter);
+            _pCtMainWin->curr_tree_view().set_cursor_safe(node_iter);
             _pCtMainWin->get_text_view().grab_focus();
             return true;
         }
@@ -881,7 +881,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer
     // #for count in range(final_delta_offset):
     // #    print count, text_buffer.get_iter_at_offset(final_start_offset+count).get_char()
     if (!_pCtMainWin->curr_tree_iter() || _pCtMainWin->curr_tree_iter().get_node_id() != tree_iter.get_node_id())
-        _pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
+        _pCtMainWin->curr_tree_view().set_cursor_safe(tree_iter);
     _pCtMainWin->get_text_view().set_selection_at_offset_n_delta(final_start_offset, final_delta_offset);
     // #print "OUT"
     auto mark_insert = text_buffer->get_insert();

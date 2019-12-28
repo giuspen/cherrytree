@@ -1,7 +1,7 @@
 /*
  * ct_dialogs.cc
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -389,7 +389,7 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
         Gtk::TreeIter clicked_iter = rModel->get_iter(clicked_path);
         gint64 node_id = clicked_iter->get_value(rModel->columns.node_id);
         Gtk::TreeIter tree_iter = ctTreestore.get_node_from_node_id(node_id);
-        pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
+        pCtMainWin->curr_tree_view().set_cursor_safe(tree_iter);
         return true; // stop event
     });
     button_move_up.signal_clicked().connect([&treeview, &rModel]()
@@ -605,7 +605,7 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
             rModel->erase(list_iter);
             return;
         }
-        ctMainWin.get_tree_view().set_cursor_safe(tree_iter);
+        ctMainWin.curr_tree_view().set_cursor_safe(tree_iter);
         auto rCurrBuffer = ctMainWin.get_text_view().get_buffer();
         rCurrBuffer->move_mark(rCurrBuffer->get_insert(),
                                rCurrBuffer->get_iter_at_offset(list_iter->get_value(rModel->columns.start_offset)));
@@ -794,7 +794,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
             if (first_in)
             {
                 first_in = false;
-                std::string exp_colpsd_str = ctTreestore.get_tree_expanded_collapsed_string(ctMainWin.get_tree_view());
+                std::string exp_colpsd_str = ctTreestore.get_tree_expanded_collapsed_string(ctMainWin.curr_tree_view());
                 ctTreestore.set_tree_expanded_collapsed_string(exp_colpsd_str, treeview_2, CtApp::P_ctCfg->nodesBookmExp);
             }
             if (!sel_tree_iter)

@@ -1,7 +1,7 @@
 /*
  * ct_actions_view.cc
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,22 +47,22 @@ void CtActions::toggle_show_hide_node_name_header()
 // Toggle Focus Between Tree and Text
 void CtActions::toggle_tree_text()
 {
-    if (_pCtMainWin->get_tree_view().has_focus())
+    if (_pCtMainWin->curr_tree_view().has_focus())
         _pCtMainWin->get_text_view().grab_focus();
     else
-        _pCtMainWin->get_tree_view().grab_focus();
+        _pCtMainWin->curr_tree_view().grab_focus();
 }
 
 // Expand all Tree Nodes
 void CtActions::nodes_expand_all()
 {
-    _pCtMainWin->get_tree_view().expand_all();
+    _pCtMainWin->curr_tree_view().expand_all();
 }
 
 // Collapse all Tree Nodes
 void CtActions::nodes_collapse_all()
 {
-    _pCtMainWin->get_tree_view().collapse_all();
+    _pCtMainWin->curr_tree_view().collapse_all();
 }
 
 // Increase the Size of the Toolbar Icons

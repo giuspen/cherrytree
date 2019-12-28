@@ -87,9 +87,9 @@ public:
     void curr_file_mod_time_update_value(const bool doEnable); // pygtk: modification_time_update_value
     void update_selected_node_statusbar_info();
 
-    CtTreeIter    curr_tree_iter()  { return _uCtTreestore->to_ct_tree_iter(_ctTreeview.get_selection()->get_selected()); }
+    CtTreeIter    curr_tree_iter()  { return _uCtTreestore->to_ct_tree_iter(_uCtTreeview->get_selection()->get_selected()); }
     CtTreeStore&  curr_tree_store()  { return *_uCtTreestore; }
-    CtTreeView&   get_tree_view()   { return _ctTreeview; }
+    CtTreeView&   curr_tree_view()   { return *_uCtTreeview; }
     CtTextView&   get_text_view()   { return _ctTextview; }
     CtMenu&       get_ct_menu()     { return *_pCtMenu; }
     CtStatusBar&  get_status_bar()  { return _ctStatusBar; }
@@ -140,7 +140,7 @@ private:
 
     void                _title_update(const bool saveNeeded); // pygtk: window_title_update
     void                _set_new_curr_doc(const Glib::RefPtr<Gio::File>& r_file, const std::string& password);
-    void                _reset_CtTreestore();
+    void                _reset_CtTreestore_CtTreeview();
 
 private:
     Gtk::VBox            _vboxMain;
@@ -158,7 +158,7 @@ private:
     Gtk::ScrolledWindow  _scrolledwindowTree;
     Gtk::ScrolledWindow  _scrolledwindowText;
     std::unique_ptr<CtTreeStore> _uCtTreestore;
-    CtTreeView           _ctTreeview;
+    std::unique_ptr<CtTreeView>  _uCtTreeview;
     CtTextView           _ctTextview;
 
     struct CtCurrFile
