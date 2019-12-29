@@ -2,7 +2,7 @@
 #
 #       config.py
 #
-#       Copyright 2009-2019 Giuseppe Penone <giuspen@gmail.com>
+#       Copyright 2009-2020 Giuseppe Penone <giuspen@gmail.com>
 #
 #       This program is free software; you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
@@ -223,6 +223,13 @@ def config_file_load(dad):
                 dad.recent_docs.append(cfg.get(section, curr_key))
             else:
                 break
+        if not dad.file_name and dad.recent_docs:
+            # supporting saved from gtkmm
+            dad.file_name = os.path.basename(dad.recent_docs[0])
+            dad.file_dir = os.path.dirname(dad.recent_docs[0])
+            saved_from_gtkmm = True
+        else:
+            saved_from_gtkmm = False
         dad.pick_dir_import = cfg.get(section, "pick_dir_import") if cfg.has_option(section, "pick_dir_import") else ""
         dad.pick_dir_export = cfg.get(section, "pick_dir_export") if cfg.has_option(section, "pick_dir_export") else ""
         dad.pick_dir_file = cfg.get(section, "pick_dir_file") if cfg.has_option(section, "pick_dir_file") else ""

@@ -68,6 +68,7 @@ public:
     bool read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, const bool isImport);
     void config_apply_before_show_all();
     void config_apply_after_show_all();
+    void config_update_data_from_curr_status();
     bool filepath_open(const std::string& filepath, const bool force_reset = false);
     bool reset(const bool force_reset = false);
     bool check_unsaved();
@@ -141,6 +142,7 @@ private:
     void                _title_update(const bool saveNeeded); // pygtk: window_title_update
     void                _set_new_curr_doc(const Glib::RefPtr<Gio::File>& r_file, const std::string& password);
     void                _reset_CtTreestore_CtTreeview();
+    void                _ensure_curr_doc_in_recent_docs();
 
 private:
     Gtk::VBox            _vboxMain;

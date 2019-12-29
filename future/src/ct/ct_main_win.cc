@@ -148,6 +148,18 @@ void CtMainWin::config_apply_after_show_all()
     configure_theme();
 }
 
+void CtMainWin::config_update_data_from_curr_status()
+{
+    CtApp::P_ctCfg->winIsMaximised = is_maximized();
+    if (not CtApp::P_ctCfg->winIsMaximised)
+    {
+        get_position(CtApp::P_ctCfg->winRect[0], CtApp::P_ctCfg->winRect[1]);
+        get_size(CtApp::P_ctCfg->winRect[2], CtApp::P_ctCfg->winRect[3]);
+    }
+    CtApp::P_ctCfg->hpanedPos = _hPaned.property_position();
+    _ensure_curr_doc_in_recent_docs();
+}
+
 void CtMainWin::configure_theme()
 {
     auto font_to_string = [](Pango::FontDescription font)
@@ -340,19 +352,28 @@ void CtMainWin::set_menu_items_special_chars()
     _pSpecialCharsSubmenu->set_submenu(*_pCtMenu->build_special_chars_menu(CtApp::P_ctCfg->specialChars, spec_char_action));
 }
 
+void CtMainWin::_ensure_curr_doc_in_recent_docs()
+{
+    const std::string currDocFilePath = get_curr_doc_file_path();
+    if (not currDocFilePath.empty())
+    {
+        CtApp::P_ctCfg->recentDocsFilepaths.move_or_push_front(currDocFilePath);
+        CtRecentDocRestore prevDocRestore;
+        prevDocRestore.exp_coll_str = _uCtTreestore->get_tree_expanded_collapsed_string(*_uCtTreeview);
+        const CtTreeIter prevTreeIter = curr_tree_iter();
+        if (prevTreeIter)
+        {
+            prevDocRestore.node_path = _uCtTreestore->get_path(prevTreeIter).to_string();
+            const Glib::RefPtr<Gsv::Buffer> rTextBuffer = prevTreeIter.get_node_text_buffer();
+            prevDocRestore.cursor_pos = rTextBuffer->property_cursor_position();
+        }
+        CtApp::P_ctCfg->recentDocsRestore[currDocFilePath] = prevDocRestore;
+    }
+}
+
 bool CtMainWin::filepath_open(const std::string& filepath, const bool force_reset)
 {
-    const std::string prevFilepath = get_curr_doc_file_path();
-    CtRecentDocRestore prevDocRestore;
-    prevDocRestore.exp_coll_str = _uCtTreestore->get_tree_expanded_collapsed_string(*_uCtTreeview);
-    const CtTreeIter prevTreeIter = curr_tree_iter();
-    if (prevTreeIter)
-    {
-        prevDocRestore.node_path = _uCtTreestore->get_path(prevTreeIter).to_string();
-        const Glib::RefPtr<Gsv::Buffer> rTextBuffer = prevTreeIter.get_node_text_buffer();
-        prevDocRestore.cursor_pos = rTextBuffer->property_cursor_position();
-    }
-    CtApp::P_ctCfg->recentDocsRestore[filepath] = prevDocRestore;
+    _ensure_curr_doc_in_recent_docs();
     if (not reset(force_reset))
     {
         return false;

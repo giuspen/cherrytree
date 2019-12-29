@@ -118,13 +118,13 @@ void CtApp::_iconthemeInit()
 
 CtMainWin* CtApp::create_appwindow()
 {
-    auto pMainWin = new CtMainWin(_pCtMenu);
-    CtApp::P_ctActions->init(pMainWin);
+    CtMainWin* pCtMainWin = new CtMainWin(_pCtMenu);
+    CtApp::P_ctActions->init(pCtMainWin);
 
-    add_window(*pMainWin);
+    add_window(*pCtMainWin);
 
-    pMainWin->signal_hide().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(*this, &CtApp::on_hide_window), pMainWin));
-    return pMainWin;
+    pCtMainWin->signal_hide().connect(sigc::bind<CtMainWin*>(sigc::mem_fun(*this, &CtApp::on_hide_window), pCtMainWin));
+    return pCtMainWin;
 }
 
 CtMainWin* CtApp::get_main_win()
@@ -160,9 +160,11 @@ void CtApp::on_activate()
     }
 }
 
-void CtApp::on_hide_window(Gtk::Window* pWindow)
+void CtApp::on_hide_window(CtMainWin* pCtMainWin)
 {
-    delete pWindow;
+    pCtMainWin->config_update_data_from_curr_status();
+    P_ctCfg->write_to_file();
+    delete pCtMainWin;
 }
 
 void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& /*hint*/)

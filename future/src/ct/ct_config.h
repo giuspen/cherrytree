@@ -1,7 +1,7 @@
 /*
  * ct_config.h
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,6 +31,9 @@ class CtConfig
 public:
     CtConfig();
     virtual ~CtConfig();
+
+    bool load_from_file(const std::string& filepath=_defaultFilepath);
+    bool write_to_file(const std::string& filepath=_defaultFilepath);
 
     // [state]
     CtRecentDocsRestore                         recentDocsRestore;
@@ -185,29 +188,32 @@ protected:
     template<class String> bool _populateStringFromKeyfile(const gchar* key, String* pTarget)
     {
         bool gotIt{false};
-        if (_pKeyFile->has_group(_currentGroup) && _pKeyFile->has_key(_currentGroup, key))
+        if (_uKeyFile->has_group(_currentGroup) && _uKeyFile->has_key(_currentGroup, key))
         {
             try
             {
-                *pTarget = _pKeyFile->get_value(_currentGroup, key);
+                *pTarget = _uKeyFile->get_value(_currentGroup, key);
                 gotIt = true;
             }
             catch (Glib::KeyFileError& kferror)
             {
-                _unexpectedKeyfileError(key, kferror);
+                _unexpected_keyfile_error(key, kferror);
             }
         }
         return gotIt;
     }
-    bool _populateBoolFromKeyfile(const gchar* key, bool* pTarget);
-    bool _populateIntFromKeyfile(const gchar* key, int* pTarget);
-    bool _populateDoubleFromKeyfile(const gchar* key, double* pTarget);
-    void _populateMapFromCurrentGroup(std::map<std::string, std::string>* pTarget);
-    void _populateFromKeyfile();
-    bool _checkLoadFromFile();
-    void _unexpectedKeyfileError(const gchar* key, const Glib::KeyFileError& kferror);
+    bool _populate_bool_from_keyfile(const gchar* key, bool* pTarget);
+    bool _populate_int_from_keyfile(const gchar* key, int* pTarget);
+    bool _populate_double_from_key_file(const gchar* key, double* pTarget);
+    void _populate_map_from_current_group(std::map<std::string, std::string>* pTarget);
+    void _populate_data_from_keyfile();
+    void _populate_keyfile_from_data();
+    void _unexpected_keyfile_error(const gchar* key, const Glib::KeyFileError& kferror);
 
-    std::string _filepath;
-    Glib::KeyFile* _pKeyFile{nullptr};
+    static const uint8_t _maxTempKeySize{16};
+    static const std::string _defaultFilepath;
+
+    gchar _tempKey[_maxTempKeySize];
+    std::unique_ptr<Glib::KeyFile> _uKeyFile;
     std::string _currentGroup;
 };

@@ -24,28 +24,50 @@
 #include "ct_config.h"
 #include "ct_misc_utils.h"
 
+const std::string CtConfig::_defaultFilepath{Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME, "config.cfg")};
 
 CtConfig::CtConfig()
- : _filepath(Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME, "config.cfg"))
 {
-    bool config_found = _checkLoadFromFile();
-    std::cout << _filepath << " " << (config_found ? "parsed":"missing") << std::endl;
+    (void)load_from_file();
 }
 
 CtConfig::~CtConfig()
 {
     //std::cout << "~CtConfig()" << std::endl;
-    delete _pKeyFile;
 }
 
-bool CtConfig::_populateBoolFromKeyfile(const gchar* key, bool* pTarget)
+bool CtConfig::load_from_file(const std::string& filepath)
+{
+    if (Glib::file_test(filepath, Glib::FILE_TEST_EXISTS))
+    {
+        _uKeyFile.reset(new Glib::KeyFile);
+        _uKeyFile->load_from_file(filepath);
+        _populate_data_from_keyfile();
+        _uKeyFile.reset(nullptr);
+        std::cout << filepath << " parsed" << std::endl;
+        return true;
+    }
+    std::cout << filepath << " missing" << std::endl;
+    return false;
+}
+
+bool CtConfig::write_to_file(const std::string& filepath)
+{
+    _uKeyFile.reset(new Glib::KeyFile);
+    _populate_keyfile_from_data();
+    const bool writeSucceeded = _uKeyFile->save_to_file(filepath+"todo");
+    _uKeyFile.reset(nullptr);
+    return writeSucceeded;
+}
+
+bool CtConfig::_populate_bool_from_keyfile(const gchar* key, bool* pTarget)
 {
     bool gotIt{false};
-    if (_pKeyFile->has_group(_currentGroup) && _pKeyFile->has_key(_currentGroup, key))
+    if (_uKeyFile->has_group(_currentGroup) && _uKeyFile->has_key(_currentGroup, key))
     {
         try
         {
-            *pTarget = _pKeyFile->get_boolean(_currentGroup, key);
+            *pTarget = _uKeyFile->get_boolean(_currentGroup, key);
             gotIt = true;
         }
         catch (Glib::KeyFileError& kferror)
@@ -53,113 +75,133 @@ bool CtConfig::_populateBoolFromKeyfile(const gchar* key, bool* pTarget)
             if (kferror.code() == Glib::KeyFileError::Code::INVALID_VALUE)
             {
                 // booleans from python ConfigParser
-                Glib::ustring bool_str = _pKeyFile->get_value(_currentGroup, key);
+                Glib::ustring bool_str = _uKeyFile->get_value(_currentGroup, key);
                 *pTarget = (bool_str == "True");
                 gotIt = true;
             }
             else
             {
-                _unexpectedKeyfileError(key, kferror);
+                _unexpected_keyfile_error(key, kferror);
             }
         }
     }
     return gotIt;
 }
 
-bool CtConfig::_populateIntFromKeyfile(const gchar* key, int* pTarget)
+bool CtConfig::_populate_int_from_keyfile(const gchar* key, int* pTarget)
 {
     bool gotIt{false};
-    if (_pKeyFile->has_group(_currentGroup) && _pKeyFile->has_key(_currentGroup, key))
+    if (_uKeyFile->has_group(_currentGroup) && _uKeyFile->has_key(_currentGroup, key))
     {
         try
         {
-            *pTarget = _pKeyFile->get_integer(_currentGroup, key);
+            *pTarget = _uKeyFile->get_integer(_currentGroup, key);
             gotIt = true;
         }
         catch (Glib::KeyFileError& kferror)
         {
-            _unexpectedKeyfileError(key, kferror);
+            _unexpected_keyfile_error(key, kferror);
         }
     }
     return gotIt;
 }
 
-bool CtConfig::_populateDoubleFromKeyfile(const gchar* key, double* pTarget)
+bool CtConfig::_populate_double_from_key_file(const gchar* key, double* pTarget)
 {
     bool gotIt{false};
-    if (_pKeyFile->has_group(_currentGroup) && _pKeyFile->has_key(_currentGroup, key))
+    if (_uKeyFile->has_group(_currentGroup) && _uKeyFile->has_key(_currentGroup, key))
     {
         try
         {
-            *pTarget = _pKeyFile->get_double(_currentGroup, key);
+            *pTarget = _uKeyFile->get_double(_currentGroup, key);
             gotIt = true;
         }
         catch (Glib::KeyFileError& kferror)
         {
-            _unexpectedKeyfileError(key, kferror);
+            _unexpected_keyfile_error(key, kferror);
         }
     }
     return gotIt;
 }
 
-void CtConfig::_populateMapFromCurrentGroup(std::map<std::string, std::string> *p_map)
+void CtConfig::_populate_map_from_current_group(std::map<std::string, std::string> *p_map)
 {
-    if (_pKeyFile->has_group(_currentGroup))
+    if (_uKeyFile->has_group(_currentGroup))
     {
-        for (std::string key : _pKeyFile->get_keys(_currentGroup))
+        for (std::string key : _uKeyFile->get_keys(_currentGroup))
         {
-            (*p_map)[key] = _pKeyFile->get_value(_currentGroup, key);
+            (*p_map)[key] = _uKeyFile->get_value(_currentGroup, key);
         }
     }
 }
 
-void CtConfig::_unexpectedKeyfileError(const gchar* key, const Glib::KeyFileError& kferror)
+void CtConfig::_unexpected_keyfile_error(const gchar* key, const Glib::KeyFileError& kferror)
 {
     std::cerr << "!! " << key << " error code " << kferror.code() << std::endl;
 }
 
-void CtConfig::_populateFromKeyfile()
+void CtConfig::_populate_keyfile_from_data()
 {
-    const uint8_t MAX_TEMP_KEY_SIZE{16};
-    gchar temp_key[MAX_TEMP_KEY_SIZE];
+    // [state]
+    _currentGroup = "state";
+    guint i{0};
+    for (const std::string& filepath : recentDocsFilepaths)
+    {
+        snprintf(_tempKey, _maxTempKeySize, "doc_%d", i);
+        _uKeyFile->set_string(_currentGroup, _tempKey, filepath);
+        ++i;
+    }
+    _uKeyFile->set_boolean(_currentGroup, "toolbar_visible", toolbarVisible);
+    _uKeyFile->set_boolean(_currentGroup, "win_is_maximized", winIsMaximised);
+    _uKeyFile->set_integer(_currentGroup, "win_position_x", winRect[0]);
+    _uKeyFile->set_integer(_currentGroup, "win_position_y", winRect[1]);
+    _uKeyFile->set_integer(_currentGroup, "win_size_w", winRect[2]);
+    _uKeyFile->set_integer(_currentGroup, "win_size_h", winRect[3]);
+    _uKeyFile->set_integer(_currentGroup, "hpaned_pos", hpanedPos);
+    _uKeyFile->set_boolean(_currentGroup, "tree_visible", treeVisible);
+    
+}
+
+void CtConfig::_populate_data_from_keyfile()
+{
     // [state]
     _currentGroup = "state";
     for (guint i=0; i<recentDocsFilepaths.maxSize; ++i)
     {
-        snprintf(temp_key, MAX_TEMP_KEY_SIZE, "doc_%d", i);
+        snprintf(_tempKey, _maxTempKeySize, "doc_%d", i);
         std::string tmpStr;
-        if (not _populateStringFromKeyfile(temp_key, &tmpStr))
+        if (not _populateStringFromKeyfile(_tempKey, &tmpStr))
         {
             break;
         }
         recentDocsFilepaths.push_back(tmpStr);
     }
-    bool lastFileOk{false};
+    bool savedFromPyGtk{false};
     {
-        std::string fileDir, fileName;
-        if ( _populateStringFromKeyfile("file_dir", &fileDir) and
-             _populateStringFromKeyfile("file_name", &fileName) )
+        std::string fileName, fileDir;
+        if ( _populateStringFromKeyfile("file_name", &fileName) and
+             _populateStringFromKeyfile("file_dir", &fileDir) )
         {
             const std::string filePath = Glib::build_filename(fileDir, fileName);
             recentDocsFilepaths.move_or_push_front(filePath);
-            lastFileOk = true;
+            savedFromPyGtk = true;
         }
     }
-    _populateBoolFromKeyfile("toolbar_visible", &toolbarVisible);
-    _populateBoolFromKeyfile("win_is_maximized", &winIsMaximised);
-    _populateIntFromKeyfile("win_position_x", &winRect[0]);
-    _populateIntFromKeyfile("win_position_y", &winRect[1]);
-    _populateIntFromKeyfile("win_size_w", &winRect[2]);
-    _populateIntFromKeyfile("win_size_h", &winRect[3]);
-    _populateIntFromKeyfile("hpaned_pos", &hpanedPos);
-    _populateBoolFromKeyfile("tree_visible", &treeVisible);
-    if (lastFileOk)
+    _populate_bool_from_keyfile("toolbar_visible", &toolbarVisible);
+    _populate_bool_from_keyfile("win_is_maximized", &winIsMaximised);
+    _populate_int_from_keyfile("win_position_x", &winRect[0]);
+    _populate_int_from_keyfile("win_position_y", &winRect[1]);
+    _populate_int_from_keyfile("win_size_w", &winRect[2]);
+    _populate_int_from_keyfile("win_size_h", &winRect[3]);
+    _populate_int_from_keyfile("hpaned_pos", &hpanedPos);
+    _populate_bool_from_keyfile("tree_visible", &treeVisible);
+    if (savedFromPyGtk)
     {
         CtRecentDocRestore recentDocRestore;
         if (_populateStringFromKeyfile("node_path", &recentDocRestore.node_path))
         {
             str::replace(recentDocRestore.node_path, " ", ":");
-            _populateIntFromKeyfile("cursor_position", &recentDocRestore.cursor_pos);
+            _populate_int_from_keyfile("cursor_position", &recentDocRestore.cursor_pos);
             recentDocsRestore[recentDocsFilepaths.front()] = recentDocRestore;
         }
     }
@@ -170,9 +212,9 @@ void CtConfig::_populateFromKeyfile()
     _populateStringFromKeyfile("pick_dir_csv", &pickDirCsv);
     _populateStringFromKeyfile("pick_dir_cbox", &pickDirCbox);
     _populateStringFromKeyfile("link_type", &linkType);
-    _populateBoolFromKeyfile("show_node_name_header", &showNodeNameHeader);
-    _populateIntFromKeyfile("nodes_on_node_name_header", &nodesOnNodeNameHeader);
-    _populateIntFromKeyfile("toolbar_icon_size", &toolbarIconSize);
+    _populate_bool_from_keyfile("show_node_name_header", &showNodeNameHeader);
+    _populate_int_from_keyfile("nodes_on_node_name_header", &nodesOnNodeNameHeader);
+    _populate_int_from_keyfile("toolbar_icon_size", &toolbarIconSize);
     _populateStringFromKeyfile("fg", &currColors['f']);
     _populateStringFromKeyfile("bg", &currColors['b']);
     _populateStringFromKeyfile("nn", &currColors['n']);
@@ -180,84 +222,83 @@ void CtConfig::_populateFromKeyfile()
     // [tree]
     _currentGroup = "tree";
     int rest_exp_coll;
-    if (_populateIntFromKeyfile("rest_exp_coll", &rest_exp_coll))
+    if (_populate_int_from_keyfile("rest_exp_coll", &rest_exp_coll))
     {
         restoreExpColl = static_cast<CtRestoreExpColl>(rest_exp_coll);
     }
-    if (lastFileOk)
+    if (savedFromPyGtk)
     {
         std::string exp_coll_str;
         if (_populateStringFromKeyfile("expanded_collapsed_string", &exp_coll_str))
         {
             recentDocsRestore[recentDocsFilepaths.front()].exp_coll_str = exp_coll_str;
         }
-    }
-    for (guint i=1; i<=recentDocsFilepaths.maxSize; ++i)
-    {
-        std::string docName;
-        snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollnam%d", i);
-        if (_populateStringFromKeyfile(temp_key, &docName))
+        for (guint i=1; i<=3; ++i)
         {
-            for (const std::string& filepath : recentDocsFilepaths)
+            std::string docName;
+            snprintf(_tempKey, _maxTempKeySize, "expcollnam%d", i);
+            if (_populateStringFromKeyfile(_tempKey, &docName))
             {
-                if ( (filepath == docName) or
-                     (Glib::path_get_basename(filepath) == docName) )
+                for (const std::string& filepath : recentDocsFilepaths)
                 {
-                    CtRecentDocRestore recentDocRestore;
-                    snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollstr%d", i);
-                    _populateStringFromKeyfile(temp_key, &recentDocRestore.exp_coll_str);
-                    snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollsel%d", i);
-                    if (_populateStringFromKeyfile(temp_key, &recentDocRestore.node_path))
+                    if (Glib::path_get_basename(filepath) == docName)
                     {
-                        str::replace(recentDocRestore.node_path, " ", ":");
-                        snprintf(temp_key, MAX_TEMP_KEY_SIZE, "expcollcur%d", i);
-                        _populateIntFromKeyfile(temp_key, &recentDocRestore.cursor_pos);
+                        CtRecentDocRestore recentDocRestore;
+                        snprintf(_tempKey, _maxTempKeySize, "expcollstr%d", i);
+                        _populateStringFromKeyfile(_tempKey, &recentDocRestore.exp_coll_str);
+                        snprintf(_tempKey, _maxTempKeySize, "expcollsel%d", i);
+                        if (_populateStringFromKeyfile(_tempKey, &recentDocRestore.node_path))
+                        {
+                            str::replace(recentDocRestore.node_path, " ", ":");
+                            snprintf(_tempKey, _maxTempKeySize, "expcollcur%d", i);
+                            _populate_int_from_keyfile(_tempKey, &recentDocRestore.cursor_pos);
+                        }
+                        recentDocsRestore[filepath] = recentDocRestore;
                     }
-                    recentDocsRestore[filepath] = recentDocRestore;
                 }
             }
-        }
-        else
-        {
-            break;
+            else
+            {
+                break;
+            }
         }
     }
-    _populateBoolFromKeyfile("nodes_bookm_exp", &nodesBookmExp);
+    _populate_bool_from_keyfile("nodes_bookm_exp", &nodesBookmExp);
     _populateStringFromKeyfile("nodes_icons", &nodesIcons);
-    _populateBoolFromKeyfile("aux_icon_hide", &auxIconHide);
-    _populateIntFromKeyfile("default_icon_text", &defaultIconText);
-    _populateBoolFromKeyfile("tree_right_side", &treeRightSide);
-    _populateIntFromKeyfile("cherry_wrap_width", &cherryWrapWidth);
-    _populateBoolFromKeyfile("tree_click_focus_text", &treeClickFocusText);
-    _populateBoolFromKeyfile("tree_click_expand", &treeClickExpand);
+    _populate_bool_from_keyfile("aux_icon_hide", &auxIconHide);
+    _populate_int_from_keyfile("default_icon_text", &defaultIconText);
+    _populate_bool_from_keyfile("tree_right_side", &treeRightSide);
+    _populate_int_from_keyfile("cherry_wrap_width", &cherryWrapWidth);
+    _populate_bool_from_keyfile("tree_click_focus_text", &treeClickFocusText);
+    _populate_bool_from_keyfile("tree_click_expand", &treeClickExpand);
 
     // [editor]
     _currentGroup = "editor";
     _populateStringFromKeyfile("syntax_highlighting", &syntaxHighlighting);
     _populateStringFromKeyfile("auto_syn_highl", &autoSynHighl);
     _populateStringFromKeyfile("style_scheme", &styleSchemeId);
-    if (_populateBoolFromKeyfile("enable_spell_check", &enableSpellCheck))
+    if (_populate_bool_from_keyfile("enable_spell_check", &enableSpellCheck))
     {
         _populateStringFromKeyfile("spell_check_lang", &spellCheckLang);
     }
-    _populateBoolFromKeyfile("show_line_numbers", &showLineNumbers);
-    _populateBoolFromKeyfile("spaces_instead_tabs", &spacesInsteadTabs);
-    _populateIntFromKeyfile("tabs_width", &tabsWidth);
-    _populateIntFromKeyfile("anchor_size", &anchorSize);
-    _populateIntFromKeyfile("embfile_size", &embfileSize);
-    _populateBoolFromKeyfile("embfile_show_filename", &embfileShowFileName);
-    _populateIntFromKeyfile("embfile_max_size", &embfileMaxSize);
-    _populateBoolFromKeyfile("line_wrapping", &lineWrapping);
-    _populateBoolFromKeyfile("auto_smart_quotes", &autoSmartQuotes);
-    _populateBoolFromKeyfile("enable_symbol_autoreplace", &enableSymbolAutoreplace);
-    _populateIntFromKeyfile("wrapping_indent", &wrappingIndent);
-    _populateBoolFromKeyfile("auto_indent", &autoIndent);
-    _populateBoolFromKeyfile("rt_show_white_spaces", &rtShowWhiteSpaces);
-    _populateBoolFromKeyfile("pt_show_white_spaces", &ptShowWhiteSpaces);
-    _populateBoolFromKeyfile("rt_highl_curr_line", &rtHighlCurrLine);
-    _populateBoolFromKeyfile("pt_highl_curr_line", &ptHighlCurrLine);
-    _populateIntFromKeyfile("space_around_lines", &spaceAroundLines);
-    _populateIntFromKeyfile("relative_wrapped_space", &relativeWrappedSpace);
+    _populate_bool_from_keyfile("show_line_numbers", &showLineNumbers);
+    _populate_bool_from_keyfile("spaces_instead_tabs", &spacesInsteadTabs);
+    _populate_int_from_keyfile("tabs_width", &tabsWidth);
+    _populate_int_from_keyfile("anchor_size", &anchorSize);
+    _populate_int_from_keyfile("embfile_size", &embfileSize);
+    _populate_bool_from_keyfile("embfile_show_filename", &embfileShowFileName);
+    _populate_int_from_keyfile("embfile_max_size", &embfileMaxSize);
+    _populate_bool_from_keyfile("line_wrapping", &lineWrapping);
+    _populate_bool_from_keyfile("auto_smart_quotes", &autoSmartQuotes);
+    _populate_bool_from_keyfile("enable_symbol_autoreplace", &enableSymbolAutoreplace);
+    _populate_int_from_keyfile("wrapping_indent", &wrappingIndent);
+    _populate_bool_from_keyfile("auto_indent", &autoIndent);
+    _populate_bool_from_keyfile("rt_show_white_spaces", &rtShowWhiteSpaces);
+    _populate_bool_from_keyfile("pt_show_white_spaces", &ptShowWhiteSpaces);
+    _populate_bool_from_keyfile("rt_highl_curr_line", &rtHighlCurrLine);
+    _populate_bool_from_keyfile("pt_highl_curr_line", &ptHighlCurrLine);
+    _populate_int_from_keyfile("space_around_lines", &spaceAroundLines);
+    _populate_int_from_keyfile("relative_wrapped_space", &relativeWrappedSpace);
     _populateStringFromKeyfile("h_rule", &hRule);
     _populateStringFromKeyfile("special_chars", &specialChars);
     _populateStringFromKeyfile("selword_chars", &selwordChars);
@@ -269,36 +310,36 @@ void CtConfig::_populateFromKeyfile()
     _populateStringFromKeyfile("latest_tag_prop", &latestTagProp);
     _populateStringFromKeyfile("latest_tag_val", &latestTagVal);
     _populateStringFromKeyfile("timestamp_format", &timestampFormat);
-    _populateBoolFromKeyfile("links_underline", &linksUnderline);
-    _populateBoolFromKeyfile("links_relative", &linksRelative);
-    _populateBoolFromKeyfile("weblink_custom_on", &weblinkCustomOn);
-    _populateBoolFromKeyfile("filelink_custom_on", &filelinkCustomOn);
-    _populateBoolFromKeyfile("folderlink_custom_on", &folderlinkCustomOn);
+    _populate_bool_from_keyfile("links_underline", &linksUnderline);
+    _populate_bool_from_keyfile("links_relative", &linksRelative);
+    _populate_bool_from_keyfile("weblink_custom_on", &weblinkCustomOn);
+    _populate_bool_from_keyfile("filelink_custom_on", &filelinkCustomOn);
+    _populate_bool_from_keyfile("folderlink_custom_on", &folderlinkCustomOn);
     _populateStringFromKeyfile("weblink_custom_act", &weblinkCustomAct);
     _populateStringFromKeyfile("filelink_custom_act", &filelinkCustomAct);
     _populateStringFromKeyfile("folderlink_custom_act", &folderlinkCustomAct);
 
     // [codebox]
     _currentGroup = "codebox";
-    _populateDoubleFromKeyfile("codebox_width", &codeboxWidth);
-    _populateDoubleFromKeyfile("codebox_height", &codeboxHeight);
-    _populateBoolFromKeyfile("codebox_width_pixels", &codeboxWidthPixels);
-    _populateBoolFromKeyfile("codebox_line_num", &codeboxLineNum);
-    _populateBoolFromKeyfile("codebox_match_bra", &codeboxMatchBra);
+    _populate_double_from_key_file("codebox_width", &codeboxWidth);
+    _populate_double_from_key_file("codebox_height", &codeboxHeight);
+    _populate_bool_from_keyfile("codebox_width_pixels", &codeboxWidthPixels);
+    _populate_bool_from_keyfile("codebox_line_num", &codeboxLineNum);
+    _populate_bool_from_keyfile("codebox_match_bra", &codeboxMatchBra);
     _populateStringFromKeyfile("codebox_syn_highl", &codeboxSynHighl);
-    _populateBoolFromKeyfile("codebox_auto_resize", &codeboxAutoResize);
+    _populate_bool_from_keyfile("codebox_auto_resize", &codeboxAutoResize);
 
     // [table]
     _currentGroup = "table";
-    _populateIntFromKeyfile("table_rows", &tableRows);
-    _populateIntFromKeyfile("table_columns", &tableColumns);
+    _populate_int_from_keyfile("table_rows", &tableRows);
+    _populate_int_from_keyfile("table_columns", &tableColumns);
     int table_col_mode;
-    if (_populateIntFromKeyfile("table_col_mode", &table_col_mode))
+    if (_populate_int_from_keyfile("table_col_mode", &table_col_mode))
     {
         tableColMode = static_cast<CtTableColMode>(table_col_mode);
     }
-    _populateIntFromKeyfile("table_col_min", &tableColMin);
-    _populateIntFromKeyfile("table_col_max", &tableColMax);
+    _populate_int_from_keyfile("table_col_min", &tableColMin);
+    _populate_int_from_keyfile("table_col_max", &tableColMax);
 
     // [fonts]
     _currentGroup = "fonts";
@@ -323,23 +364,23 @@ void CtConfig::_populateFromKeyfile()
     // [misc]
     _currentGroup = "misc";
     _populateStringFromKeyfile("toolbar_ui_list", &toolbarUiList);
-    _populateBoolFromKeyfile("systray", &systrayOn);
-    _populateBoolFromKeyfile("start_on_systray", &startOnSystray);
-    _populateBoolFromKeyfile("use_appind", &useAppInd);
-    _populateBoolFromKeyfile("autosave_on", &autosaveOn);
-    _populateIntFromKeyfile("autosave_val", &autosaveVal);
-    _populateBoolFromKeyfile("check_version", &checkVersion);
-    _populateBoolFromKeyfile("word_count", &wordCountOn);
-    _populateBoolFromKeyfile("reload_doc_last", &reloadDocLast);
-    _populateBoolFromKeyfile("mod_time_sentinel", &modTimeSentinel);
-    _populateBoolFromKeyfile("backup_copy", &backupCopy);
-    _populateIntFromKeyfile("backup_num", &backupNum);
-    _populateBoolFromKeyfile("autosave_on_quit", &autosaveOnQuit);
-    _populateIntFromKeyfile("limit_undoable_steps", &limitUndoableSteps);
+    _populate_bool_from_keyfile("systray", &systrayOn);
+    _populate_bool_from_keyfile("start_on_systray", &startOnSystray);
+    _populate_bool_from_keyfile("use_appind", &useAppInd);
+    _populate_bool_from_keyfile("autosave_on", &autosaveOn);
+    _populate_int_from_keyfile("autosave_val", &autosaveVal);
+    _populate_bool_from_keyfile("check_version", &checkVersion);
+    _populate_bool_from_keyfile("word_count", &wordCountOn);
+    _populate_bool_from_keyfile("reload_doc_last", &reloadDocLast);
+    _populate_bool_from_keyfile("mod_time_sentinel", &modTimeSentinel);
+    _populate_bool_from_keyfile("backup_copy", &backupCopy);
+    _populate_int_from_keyfile("backup_num", &backupNum);
+    _populate_bool_from_keyfile("autosave_on_quit", &autosaveOnQuit);
+    _populate_int_from_keyfile("limit_undoable_steps", &limitUndoableSteps);
 
     // [keyboard]
     _currentGroup = "keyboard";
-    _populateMapFromCurrentGroup(&customKbShortcuts);
+    _populate_map_from_current_group(&customKbShortcuts);
 
     // [codexec_term]
     _currentGroup = "codexec_term";
@@ -347,21 +388,9 @@ void CtConfig::_populateFromKeyfile()
 
     // [codexec_type]
     _currentGroup = "codexec_type";
-    _populateMapFromCurrentGroup(&customCodexecType);
+    _populate_map_from_current_group(&customCodexecType);
 
     // [codexec_ext]
     _currentGroup = "codexec_ext";
-    _populateMapFromCurrentGroup(&customCodexecExt);
-}
-
-bool CtConfig::_checkLoadFromFile()
-{
-    if (Glib::file_test(_filepath, Glib::FILE_TEST_EXISTS))
-    {
-        _pKeyFile = new Glib::KeyFile();
-        _pKeyFile->load_from_file(_filepath);
-        _populateFromKeyfile();
-        return true;
-    }
-    return false;
+    _populate_map_from_current_group(&customCodexecExt);
 }
