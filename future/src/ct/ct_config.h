@@ -185,7 +185,7 @@ public:
     std::map<std::string, std::string>          customCodexecExt;
 
 protected:
-    template<class String> bool _populateStringFromKeyfile(const gchar* key, String* pTarget)
+    template<class String> bool _populate_string_from_keyfile(const gchar* key, String* pTarget)
     {
         bool gotIt{false};
         if (_uKeyFile->has_group(_currentGroup) && _uKeyFile->has_key(_currentGroup, key))

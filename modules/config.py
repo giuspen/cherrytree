@@ -217,19 +217,29 @@ def config_file_load(dad):
             dad.cursor_position = cfg.getint(section, "cursor_position") if cfg.has_option(section, "cursor_position") else 0
         else: dad.node_path = None
         dad.recent_docs = []
+        saved_from_gtkmm = False
         for i in range(cons.MAX_RECENT_DOCS):
             curr_key = "doc_%s" % i
             if cfg.has_option(section, curr_key):
                 dad.recent_docs.append(cfg.get(section, curr_key))
+                # supporting saved from gtkmm
+                if not dad.file_name or saved_from_gtkmm is True:
+                    if i == 0:
+                        dad.file_name = os.path.basename(dad.recent_docs[0])
+                        dad.file_dir = os.path.dirname(dad.recent_docs[0])
+                        if cfg.has_option(section, "nodep_0"):
+                            saved_from_gtkmm = True
+                            dad.node_path = get_node_path_from_str(cfg.get(section, "nodep_0").replace(":", " "))
+                            dad.cursor_position = cfg.getint(section, "curs_0")
+                            dad.expanded_collapsed_string = cfg.get(section, "expcol_0")
+                    elif i in (1,2,3):
+                        if cfg.has_option(section, "nodep_%s" % i):
+                            setattr(dad, "expcollnam%s" % i, os.path.basename(dad.recent_docs[i]))
+                            setattr(dad, "expcollstr%s" % i, cfg.get(section, "expcol_%s" % i))
+                            setattr(dad, "expcollsel%s" % i, cfg.get(section, "nodep_%s" % i))
+                            setattr(dad, "expcollcur%s" % i, cfg.get(section, "curs_%s" % i))
             else:
                 break
-        if not dad.file_name and dad.recent_docs:
-            # supporting saved from gtkmm
-            dad.file_name = os.path.basename(dad.recent_docs[0])
-            dad.file_dir = os.path.dirname(dad.recent_docs[0])
-            saved_from_gtkmm = True
-        else:
-            saved_from_gtkmm = False
         dad.pick_dir_import = cfg.get(section, "pick_dir_import") if cfg.has_option(section, "pick_dir_import") else ""
         dad.pick_dir_export = cfg.get(section, "pick_dir_export") if cfg.has_option(section, "pick_dir_export") else ""
         dad.pick_dir_file = cfg.get(section, "pick_dir_file") if cfg.has_option(section, "pick_dir_file") else ""
@@ -250,19 +260,23 @@ def config_file_load(dad):
 
         section = "tree"
         dad.rest_exp_coll = cfg.getint(section, "rest_exp_coll") if cfg.has_option(section, "rest_exp_coll") else 0
-        dad.expanded_collapsed_string = cfg.get(section, "expanded_collapsed_string") if cfg.has_option(section, "expanded_collapsed_string") else ""
-        dad.expcollnam1 = unicode(cfg.get(section, "expcollnam1"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "expcollnam1") else ""
-        dad.expcollstr1 = cfg.get(section, "expcollstr1") if cfg.has_option(section, "expcollstr1") else ""
-        dad.expcollsel1 = cfg.get(section, "expcollsel1") if cfg.has_option(section, "expcollsel1") else ""
-        dad.expcollcur1 = cfg.getint(section, "expcollcur1") if cfg.has_option(section, "expcollcur1") else 0
-        dad.expcollnam2 = unicode(cfg.get(section, "expcollnam2"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "expcollnam2") else ""
-        dad.expcollstr2 = cfg.get(section, "expcollstr2") if cfg.has_option(section, "expcollstr2") else ""
-        dad.expcollsel2 = cfg.get(section, "expcollsel2") if cfg.has_option(section, "expcollsel2") else ""
-        dad.expcollcur2 = cfg.getint(section, "expcollcur2") if cfg.has_option(section, "expcollcur2") else 0
-        dad.expcollnam3 = unicode(cfg.get(section, "expcollnam3"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "expcollnam3") else ""
-        dad.expcollstr3 = cfg.get(section, "expcollstr3") if cfg.has_option(section, "expcollstr3") else ""
-        dad.expcollsel3 = cfg.get(section, "expcollsel3") if cfg.has_option(section, "expcollsel3") else ""
-        dad.expcollcur3 = cfg.getint(section, "expcollcur3") if cfg.has_option(section, "expcollcur3") else 0
+        if not hasattr(dad, "expanded_collapsed_string"):
+            dad.expanded_collapsed_string = cfg.get(section, "expanded_collapsed_string") if cfg.has_option(section, "expanded_collapsed_string") else ""
+        if not hasattr(dad, "expcollnam1"):
+            dad.expcollnam1 = unicode(cfg.get(section, "expcollnam1"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "expcollnam1") else ""
+            dad.expcollstr1 = cfg.get(section, "expcollstr1") if cfg.has_option(section, "expcollstr1") else ""
+            dad.expcollsel1 = cfg.get(section, "expcollsel1") if cfg.has_option(section, "expcollsel1") else ""
+            dad.expcollcur1 = cfg.getint(section, "expcollcur1") if cfg.has_option(section, "expcollcur1") else 0
+        if not hasattr(dad, "expcollnam2"):
+            dad.expcollnam2 = unicode(cfg.get(section, "expcollnam2"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "expcollnam2") else ""
+            dad.expcollstr2 = cfg.get(section, "expcollstr2") if cfg.has_option(section, "expcollstr2") else ""
+            dad.expcollsel2 = cfg.get(section, "expcollsel2") if cfg.has_option(section, "expcollsel2") else ""
+            dad.expcollcur2 = cfg.getint(section, "expcollcur2") if cfg.has_option(section, "expcollcur2") else 0
+        if not hasattr(dad, "expcollnam3"):
+            dad.expcollnam3 = unicode(cfg.get(section, "expcollnam3"), cons.STR_UTF8, cons.STR_IGNORE) if cfg.has_option(section, "expcollnam3") else ""
+            dad.expcollstr3 = cfg.get(section, "expcollstr3") if cfg.has_option(section, "expcollstr3") else ""
+            dad.expcollsel3 = cfg.get(section, "expcollsel3") if cfg.has_option(section, "expcollsel3") else ""
+            dad.expcollcur3 = cfg.getint(section, "expcollcur3") if cfg.has_option(section, "expcollcur3") else 0
         dad.nodes_bookm_exp = cfg.getboolean(section, "nodes_bookm_exp") if cfg.has_option(section, "nodes_bookm_exp") else False
         dad.nodes_icons = cfg.get(section, "nodes_icons") if cfg.has_option(section, "nodes_icons") else "c"
         dad.aux_icon_hide = cfg.getboolean(section, "aux_icon_hide") if cfg.has_option(section, "aux_icon_hide") else False

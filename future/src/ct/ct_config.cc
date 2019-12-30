@@ -149,6 +149,16 @@ void CtConfig::_populate_keyfile_from_data()
     {
         snprintf(_tempKey, _maxTempKeySize, "doc_%d", i);
         _uKeyFile->set_string(_currentGroup, _tempKey, filepath);
+        const CtRecentDocsRestore::iterator mapIt = recentDocsRestore.find(filepath);
+        if (mapIt != recentDocsRestore.end())
+        {
+            snprintf(_tempKey, _maxTempKeySize, "expcol_%d", i);
+            _uKeyFile->set_string(_currentGroup, _tempKey, mapIt->second.exp_coll_str);
+            snprintf(_tempKey, _maxTempKeySize, "nodep_%d", i);
+            _uKeyFile->set_string(_currentGroup, _tempKey, mapIt->second.node_path);
+            snprintf(_tempKey, _maxTempKeySize, "curs_%d", i);
+            _uKeyFile->set_integer(_currentGroup, _tempKey, mapIt->second.cursor_pos);
+        }
         ++i;
     }
     _uKeyFile->set_boolean(_currentGroup, "toolbar_visible", toolbarVisible);
@@ -159,32 +169,69 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_integer(_currentGroup, "win_size_h", winRect[3]);
     _uKeyFile->set_integer(_currentGroup, "hpaned_pos", hpanedPos);
     _uKeyFile->set_boolean(_currentGroup, "tree_visible", treeVisible);
-    
+    _uKeyFile->set_string(_currentGroup, "pick_dir_import", pickDirImport);
+    _uKeyFile->set_string(_currentGroup, "pick_dir_export", pickDirExport);
+    _uKeyFile->set_string(_currentGroup, "pick_dir_file", pickDirFile);
+    _uKeyFile->set_string(_currentGroup, "pick_dir_img", pickDirImg);
+    _uKeyFile->set_string(_currentGroup, "pick_dir_csv", pickDirCsv);
+    _uKeyFile->set_string(_currentGroup, "pick_dir_cbox", pickDirCbox);
+    _uKeyFile->set_string(_currentGroup, "link_type", linkType);
+    _uKeyFile->set_boolean(_currentGroup, "show_node_name_header", showNodeNameHeader);
+    _uKeyFile->set_integer(_currentGroup, "nodes_on_node_name_header", nodesOnNodeNameHeader);
+    _uKeyFile->set_integer(_currentGroup, "toolbar_icon_size", toolbarIconSize);
+    _uKeyFile->set_string(_currentGroup, "fg", currColors['f']);
+    _uKeyFile->set_string(_currentGroup, "bg", currColors['b']);
+    _uKeyFile->set_string(_currentGroup, "nn", currColors['n']);
+
+    // [tree]
+    _currentGroup = "tree";
+    _uKeyFile->set_integer(_currentGroup, "rest_exp_coll", static_cast<int>(restoreExpColl));
+    _uKeyFile->set_boolean(_currentGroup, "nodes_bookm_exp", nodesBookmExp);
+    _uKeyFile->set_string(_currentGroup, "nodes_icons", nodesIcons);
+    _uKeyFile->set_boolean(_currentGroup, "aux_icon_hide", auxIconHide);
+    _uKeyFile->set_integer(_currentGroup, "default_icon_text", defaultIconText);
+    _uKeyFile->set_boolean(_currentGroup, "tree_right_side", treeRightSide);
+    _uKeyFile->set_integer(_currentGroup, "cherry_wrap_width", cherryWrapWidth);
+    _uKeyFile->set_boolean(_currentGroup, "tree_click_focus_text", treeClickFocusText);
+    _uKeyFile->set_boolean(_currentGroup, "tree_click_expand", treeClickExpand);
 }
 
 void CtConfig::_populate_data_from_keyfile()
 {
     // [state]
     _currentGroup = "state";
-    for (guint i=0; i<recentDocsFilepaths.maxSize; ++i)
-    {
-        snprintf(_tempKey, _maxTempKeySize, "doc_%d", i);
-        std::string tmpStr;
-        if (not _populateStringFromKeyfile(_tempKey, &tmpStr))
-        {
-            break;
-        }
-        recentDocsFilepaths.push_back(tmpStr);
-    }
     bool savedFromPyGtk{false};
     {
         std::string fileName, fileDir;
-        if ( _populateStringFromKeyfile("file_name", &fileName) and
-             _populateStringFromKeyfile("file_dir", &fileDir) )
+        if ( _populate_string_from_keyfile("file_name", &fileName) and
+             _populate_string_from_keyfile("file_dir", &fileDir) )
         {
             const std::string filePath = Glib::build_filename(fileDir, fileName);
             recentDocsFilepaths.move_or_push_front(filePath);
             savedFromPyGtk = true;
+        }
+    }
+    for (guint i=0; i<recentDocsFilepaths.maxSize; ++i)
+    {
+        snprintf(_tempKey, _maxTempKeySize, "doc_%d", i);
+        std::string filepath;
+        if (not _populate_string_from_keyfile(_tempKey, &filepath))
+        {
+            break;
+        }
+        recentDocsFilepaths.push_back(filepath);
+        if (not savedFromPyGtk)
+        {
+            CtRecentDocRestore recentDocRestore;
+            snprintf(_tempKey, _maxTempKeySize, "nodep_%d", i);
+            if (_populate_string_from_keyfile(_tempKey, &recentDocRestore.node_path))
+            {
+                snprintf(_tempKey, _maxTempKeySize, "expcol_%d", i);
+                _populate_string_from_keyfile(_tempKey, &recentDocRestore.exp_coll_str);
+                snprintf(_tempKey, _maxTempKeySize, "curs_%d", i);
+                _populate_int_from_keyfile(_tempKey, &recentDocRestore.cursor_pos);
+                recentDocsRestore[filepath] = recentDocRestore;
+            }
         }
     }
     _populate_bool_from_keyfile("toolbar_visible", &toolbarVisible);
@@ -198,26 +245,26 @@ void CtConfig::_populate_data_from_keyfile()
     if (savedFromPyGtk)
     {
         CtRecentDocRestore recentDocRestore;
-        if (_populateStringFromKeyfile("node_path", &recentDocRestore.node_path))
+        if (_populate_string_from_keyfile("node_path", &recentDocRestore.node_path))
         {
             str::replace(recentDocRestore.node_path, " ", ":");
             _populate_int_from_keyfile("cursor_position", &recentDocRestore.cursor_pos);
             recentDocsRestore[recentDocsFilepaths.front()] = recentDocRestore;
         }
     }
-    _populateStringFromKeyfile("pick_dir_import", &pickDirImport);
-    _populateStringFromKeyfile("pick_dir_export", &pickDirExport);
-    _populateStringFromKeyfile("pick_dir_file", &pickDirFile);
-    _populateStringFromKeyfile("pick_dir_img", &pickDirImg);
-    _populateStringFromKeyfile("pick_dir_csv", &pickDirCsv);
-    _populateStringFromKeyfile("pick_dir_cbox", &pickDirCbox);
-    _populateStringFromKeyfile("link_type", &linkType);
+    _populate_string_from_keyfile("pick_dir_import", &pickDirImport);
+    _populate_string_from_keyfile("pick_dir_export", &pickDirExport);
+    _populate_string_from_keyfile("pick_dir_file", &pickDirFile);
+    _populate_string_from_keyfile("pick_dir_img", &pickDirImg);
+    _populate_string_from_keyfile("pick_dir_csv", &pickDirCsv);
+    _populate_string_from_keyfile("pick_dir_cbox", &pickDirCbox);
+    _populate_string_from_keyfile("link_type", &linkType);
     _populate_bool_from_keyfile("show_node_name_header", &showNodeNameHeader);
     _populate_int_from_keyfile("nodes_on_node_name_header", &nodesOnNodeNameHeader);
     _populate_int_from_keyfile("toolbar_icon_size", &toolbarIconSize);
-    _populateStringFromKeyfile("fg", &currColors['f']);
-    _populateStringFromKeyfile("bg", &currColors['b']);
-    _populateStringFromKeyfile("nn", &currColors['n']);
+    _populate_string_from_keyfile("fg", &currColors['f']);
+    _populate_string_from_keyfile("bg", &currColors['b']);
+    _populate_string_from_keyfile("nn", &currColors['n']);
 
     // [tree]
     _currentGroup = "tree";
@@ -229,7 +276,7 @@ void CtConfig::_populate_data_from_keyfile()
     if (savedFromPyGtk)
     {
         std::string exp_coll_str;
-        if (_populateStringFromKeyfile("expanded_collapsed_string", &exp_coll_str))
+        if (_populate_string_from_keyfile("expanded_collapsed_string", &exp_coll_str))
         {
             recentDocsRestore[recentDocsFilepaths.front()].exp_coll_str = exp_coll_str;
         }
@@ -237,7 +284,7 @@ void CtConfig::_populate_data_from_keyfile()
         {
             std::string docName;
             snprintf(_tempKey, _maxTempKeySize, "expcollnam%d", i);
-            if (_populateStringFromKeyfile(_tempKey, &docName))
+            if (_populate_string_from_keyfile(_tempKey, &docName))
             {
                 for (const std::string& filepath : recentDocsFilepaths)
                 {
@@ -245,9 +292,9 @@ void CtConfig::_populate_data_from_keyfile()
                     {
                         CtRecentDocRestore recentDocRestore;
                         snprintf(_tempKey, _maxTempKeySize, "expcollstr%d", i);
-                        _populateStringFromKeyfile(_tempKey, &recentDocRestore.exp_coll_str);
+                        _populate_string_from_keyfile(_tempKey, &recentDocRestore.exp_coll_str);
                         snprintf(_tempKey, _maxTempKeySize, "expcollsel%d", i);
-                        if (_populateStringFromKeyfile(_tempKey, &recentDocRestore.node_path))
+                        if (_populate_string_from_keyfile(_tempKey, &recentDocRestore.node_path))
                         {
                             str::replace(recentDocRestore.node_path, " ", ":");
                             snprintf(_tempKey, _maxTempKeySize, "expcollcur%d", i);
@@ -264,7 +311,7 @@ void CtConfig::_populate_data_from_keyfile()
         }
     }
     _populate_bool_from_keyfile("nodes_bookm_exp", &nodesBookmExp);
-    _populateStringFromKeyfile("nodes_icons", &nodesIcons);
+    _populate_string_from_keyfile("nodes_icons", &nodesIcons);
     _populate_bool_from_keyfile("aux_icon_hide", &auxIconHide);
     _populate_int_from_keyfile("default_icon_text", &defaultIconText);
     _populate_bool_from_keyfile("tree_right_side", &treeRightSide);
@@ -274,12 +321,12 @@ void CtConfig::_populate_data_from_keyfile()
 
     // [editor]
     _currentGroup = "editor";
-    _populateStringFromKeyfile("syntax_highlighting", &syntaxHighlighting);
-    _populateStringFromKeyfile("auto_syn_highl", &autoSynHighl);
-    _populateStringFromKeyfile("style_scheme", &styleSchemeId);
+    _populate_string_from_keyfile("syntax_highlighting", &syntaxHighlighting);
+    _populate_string_from_keyfile("auto_syn_highl", &autoSynHighl);
+    _populate_string_from_keyfile("style_scheme", &styleSchemeId);
     if (_populate_bool_from_keyfile("enable_spell_check", &enableSpellCheck))
     {
-        _populateStringFromKeyfile("spell_check_lang", &spellCheckLang);
+        _populate_string_from_keyfile("spell_check_lang", &spellCheckLang);
     }
     _populate_bool_from_keyfile("show_line_numbers", &showLineNumbers);
     _populate_bool_from_keyfile("spaces_instead_tabs", &spacesInsteadTabs);
@@ -299,25 +346,25 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_bool_from_keyfile("pt_highl_curr_line", &ptHighlCurrLine);
     _populate_int_from_keyfile("space_around_lines", &spaceAroundLines);
     _populate_int_from_keyfile("relative_wrapped_space", &relativeWrappedSpace);
-    _populateStringFromKeyfile("h_rule", &hRule);
-    _populateStringFromKeyfile("special_chars", &specialChars);
-    _populateStringFromKeyfile("selword_chars", &selwordChars);
-    _populateStringFromKeyfile("chars_listbul", &charsListbul);
-    _populateStringFromKeyfile("chars_toc", &charsToc);
-    _populateStringFromKeyfile("chars_todo", &charsTodo);
-    _populateStringFromKeyfile("chars_smart_dquote", &chars_smart_dquote);
-    _populateStringFromKeyfile("chars_smart_squote", &chars_smart_squote);
-    _populateStringFromKeyfile("latest_tag_prop", &latestTagProp);
-    _populateStringFromKeyfile("latest_tag_val", &latestTagVal);
-    _populateStringFromKeyfile("timestamp_format", &timestampFormat);
+    _populate_string_from_keyfile("h_rule", &hRule);
+    _populate_string_from_keyfile("special_chars", &specialChars);
+    _populate_string_from_keyfile("selword_chars", &selwordChars);
+    _populate_string_from_keyfile("chars_listbul", &charsListbul);
+    _populate_string_from_keyfile("chars_toc", &charsToc);
+    _populate_string_from_keyfile("chars_todo", &charsTodo);
+    _populate_string_from_keyfile("chars_smart_dquote", &chars_smart_dquote);
+    _populate_string_from_keyfile("chars_smart_squote", &chars_smart_squote);
+    _populate_string_from_keyfile("latest_tag_prop", &latestTagProp);
+    _populate_string_from_keyfile("latest_tag_val", &latestTagVal);
+    _populate_string_from_keyfile("timestamp_format", &timestampFormat);
     _populate_bool_from_keyfile("links_underline", &linksUnderline);
     _populate_bool_from_keyfile("links_relative", &linksRelative);
     _populate_bool_from_keyfile("weblink_custom_on", &weblinkCustomOn);
     _populate_bool_from_keyfile("filelink_custom_on", &filelinkCustomOn);
     _populate_bool_from_keyfile("folderlink_custom_on", &folderlinkCustomOn);
-    _populateStringFromKeyfile("weblink_custom_act", &weblinkCustomAct);
-    _populateStringFromKeyfile("filelink_custom_act", &filelinkCustomAct);
-    _populateStringFromKeyfile("folderlink_custom_act", &folderlinkCustomAct);
+    _populate_string_from_keyfile("weblink_custom_act", &weblinkCustomAct);
+    _populate_string_from_keyfile("filelink_custom_act", &filelinkCustomAct);
+    _populate_string_from_keyfile("folderlink_custom_act", &folderlinkCustomAct);
 
     // [codebox]
     _currentGroup = "codebox";
@@ -326,7 +373,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_bool_from_keyfile("codebox_width_pixels", &codeboxWidthPixels);
     _populate_bool_from_keyfile("codebox_line_num", &codeboxLineNum);
     _populate_bool_from_keyfile("codebox_match_bra", &codeboxMatchBra);
-    _populateStringFromKeyfile("codebox_syn_highl", &codeboxSynHighl);
+    _populate_string_from_keyfile("codebox_syn_highl", &codeboxSynHighl);
     _populate_bool_from_keyfile("codebox_auto_resize", &codeboxAutoResize);
 
     // [table]
@@ -343,27 +390,27 @@ void CtConfig::_populate_data_from_keyfile()
 
     // [fonts]
     _currentGroup = "fonts";
-    _populateStringFromKeyfile("rt_font", &rtFont);
-    _populateStringFromKeyfile("pt_font", &ptFont);
-    _populateStringFromKeyfile("tree_font", &treeFont);
-    _populateStringFromKeyfile("code_font", &codeFont);
+    _populate_string_from_keyfile("rt_font", &rtFont);
+    _populate_string_from_keyfile("pt_font", &ptFont);
+    _populate_string_from_keyfile("tree_font", &treeFont);
+    _populate_string_from_keyfile("code_font", &codeFont);
 
     // [colors]
     _currentGroup = "colors";
-    _populateStringFromKeyfile("rt_def_fg", &rtDefFg);
-    _populateStringFromKeyfile("rt_def_bg", &rtDefBg);
-    _populateStringFromKeyfile("tt_def_fg", &ttDefFg);
-    _populateStringFromKeyfile("tt_def_bg", &ttDefBg);
-    _populateStringFromKeyfile("monospace_bg", &monospaceBg);
-    _populateStringFromKeyfile("color_palette", &colorPalette);
-    _populateStringFromKeyfile("col_link_webs", &colLinkWebs);
-    _populateStringFromKeyfile("col_link_node", &colLinkNode);
-    _populateStringFromKeyfile("col_link_file", &colLinkFile);
-    _populateStringFromKeyfile("col_link_fold", &colLinkFold);
+    _populate_string_from_keyfile("rt_def_fg", &rtDefFg);
+    _populate_string_from_keyfile("rt_def_bg", &rtDefBg);
+    _populate_string_from_keyfile("tt_def_fg", &ttDefFg);
+    _populate_string_from_keyfile("tt_def_bg", &ttDefBg);
+    _populate_string_from_keyfile("monospace_bg", &monospaceBg);
+    _populate_string_from_keyfile("color_palette", &colorPalette);
+    _populate_string_from_keyfile("col_link_webs", &colLinkWebs);
+    _populate_string_from_keyfile("col_link_node", &colLinkNode);
+    _populate_string_from_keyfile("col_link_file", &colLinkFile);
+    _populate_string_from_keyfile("col_link_fold", &colLinkFold);
 
     // [misc]
     _currentGroup = "misc";
-    _populateStringFromKeyfile("toolbar_ui_list", &toolbarUiList);
+    _populate_string_from_keyfile("toolbar_ui_list", &toolbarUiList);
     _populate_bool_from_keyfile("systray", &systrayOn);
     _populate_bool_from_keyfile("start_on_systray", &startOnSystray);
     _populate_bool_from_keyfile("use_appind", &useAppInd);
@@ -384,7 +431,7 @@ void CtConfig::_populate_data_from_keyfile()
 
     // [codexec_term]
     _currentGroup = "codexec_term";
-    _populateStringFromKeyfile("custom_codexec_term", &customCodexecTerm);
+    _populate_string_from_keyfile("custom_codexec_term", &customCodexecTerm);
 
     // [codexec_type]
     _currentGroup = "codexec_type";
