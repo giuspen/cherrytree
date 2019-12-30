@@ -55,7 +55,7 @@ bool CtConfig::write_to_file(const std::string& filepath)
 {
     _uKeyFile.reset(new Glib::KeyFile);
     _populate_keyfile_from_data();
-    const bool writeSucceeded = _uKeyFile->save_to_file(filepath+"todo");
+    const bool writeSucceeded = _uKeyFile->save_to_file(filepath);
     _uKeyFile.reset(nullptr);
     return writeSucceeded;
 }
@@ -106,7 +106,7 @@ bool CtConfig::_populate_int_from_keyfile(const gchar* key, int* pTarget)
     return gotIt;
 }
 
-bool CtConfig::_populate_double_from_key_file(const gchar* key, double* pTarget)
+bool CtConfig::_populate_double_from_keyfile(const gchar* key, double* pTarget)
 {
     bool gotIt{false};
     if (_uKeyFile->has_group(_currentGroup) && _uKeyFile->has_key(_currentGroup, key))
@@ -132,6 +132,14 @@ void CtConfig::_populate_map_from_current_group(std::map<std::string, std::strin
         {
             (*p_map)[key] = _uKeyFile->get_value(_currentGroup, key);
         }
+    }
+}
+
+void CtConfig::_populate_current_group_from_map(const std::map<std::string, std::string>& map)
+{
+    for (const auto& pair : map)
+    {
+        _uKeyFile->set_value(_currentGroup, pair.first, pair.second);
     }
 }
 
@@ -179,9 +187,9 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_boolean(_currentGroup, "show_node_name_header", showNodeNameHeader);
     _uKeyFile->set_integer(_currentGroup, "nodes_on_node_name_header", nodesOnNodeNameHeader);
     _uKeyFile->set_integer(_currentGroup, "toolbar_icon_size", toolbarIconSize);
-    _uKeyFile->set_string(_currentGroup, "fg", currColors['f']);
-    _uKeyFile->set_string(_currentGroup, "bg", currColors['b']);
-    _uKeyFile->set_string(_currentGroup, "nn", currColors['n']);
+    if (not currColors['f'].empty()) _uKeyFile->set_string(_currentGroup, "fg", currColors['f']);
+    if (not currColors['b'].empty()) _uKeyFile->set_string(_currentGroup, "bg", currColors['b']);
+    if (not currColors['n'].empty()) _uKeyFile->set_string(_currentGroup, "nn", currColors['n']);
 
     // [tree]
     _currentGroup = "tree";
@@ -194,6 +202,122 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_integer(_currentGroup, "cherry_wrap_width", cherryWrapWidth);
     _uKeyFile->set_boolean(_currentGroup, "tree_click_focus_text", treeClickFocusText);
     _uKeyFile->set_boolean(_currentGroup, "tree_click_expand", treeClickExpand);
+
+    // [editor]
+    _currentGroup = "editor";
+    _uKeyFile->set_string(_currentGroup, "syntax_highlighting", syntaxHighlighting);
+    _uKeyFile->set_string(_currentGroup, "auto_syn_highl", autoSynHighl);
+    _uKeyFile->set_string(_currentGroup, "style_scheme", styleSchemeId);
+    _uKeyFile->set_boolean(_currentGroup, "enable_spell_check", enableSpellCheck);
+    _uKeyFile->set_string(_currentGroup, "spell_check_lang", spellCheckLang);
+    _uKeyFile->set_boolean(_currentGroup, "show_line_numbers", showLineNumbers);
+    _uKeyFile->set_boolean(_currentGroup, "spaces_instead_tabs", spacesInsteadTabs);
+    _uKeyFile->set_integer(_currentGroup, "tabs_width", tabsWidth);
+    _uKeyFile->set_integer(_currentGroup, "anchor_size", anchorSize);
+    _uKeyFile->set_integer(_currentGroup, "embfile_size", embfileSize);
+    _uKeyFile->set_boolean(_currentGroup, "embfile_show_filename", embfileShowFileName);
+    _uKeyFile->set_integer(_currentGroup, "embfile_max_size", embfileMaxSize);
+    _uKeyFile->set_boolean(_currentGroup, "line_wrapping", lineWrapping);
+    _uKeyFile->set_boolean(_currentGroup, "auto_smart_quotes", autoSmartQuotes);
+    _uKeyFile->set_boolean(_currentGroup, "enable_symbol_autoreplace", enableSymbolAutoreplace);
+    _uKeyFile->set_integer(_currentGroup, "wrapping_indent", wrappingIndent);
+    _uKeyFile->set_boolean(_currentGroup, "auto_indent", autoIndent);
+    _uKeyFile->set_boolean(_currentGroup, "rt_show_white_spaces", rtShowWhiteSpaces);
+    _uKeyFile->set_boolean(_currentGroup, "pt_show_white_spaces", ptShowWhiteSpaces);
+    _uKeyFile->set_boolean(_currentGroup, "rt_highl_curr_line", rtHighlCurrLine);
+    _uKeyFile->set_boolean(_currentGroup, "pt_highl_curr_line", ptHighlCurrLine);
+    _uKeyFile->set_integer(_currentGroup, "space_around_lines", spaceAroundLines);
+    _uKeyFile->set_integer(_currentGroup, "relative_wrapped_space", relativeWrappedSpace);
+    _uKeyFile->set_string(_currentGroup, "h_rule", hRule);
+    _uKeyFile->set_string(_currentGroup, "special_chars", specialChars);
+    _uKeyFile->set_string(_currentGroup, "selword_chars", selwordChars);
+    _uKeyFile->set_string(_currentGroup, "chars_listbul", charsListbul);
+    _uKeyFile->set_string(_currentGroup, "chars_toc", charsToc);
+    _uKeyFile->set_string(_currentGroup, "chars_todo", charsTodo);
+    _uKeyFile->set_string(_currentGroup, "chars_smart_dquote", chars_smart_dquote);
+    _uKeyFile->set_string(_currentGroup, "chars_smart_squote", chars_smart_squote);
+    _uKeyFile->set_string(_currentGroup, "latest_tag_prop", latestTagProp);
+    _uKeyFile->set_string(_currentGroup, "latest_tag_val", latestTagVal);
+    _uKeyFile->set_string(_currentGroup, "timestamp_format", timestampFormat);
+    _uKeyFile->set_boolean(_currentGroup, "links_underline", linksUnderline);
+    _uKeyFile->set_boolean(_currentGroup, "links_relative", linksRelative);
+    _uKeyFile->set_boolean(_currentGroup, "weblink_custom_on", weblinkCustomOn);
+    _uKeyFile->set_boolean(_currentGroup, "filelink_custom_on", filelinkCustomOn);
+    _uKeyFile->set_boolean(_currentGroup, "folderlink_custom_on", folderlinkCustomOn);
+    _uKeyFile->set_string(_currentGroup, "weblink_custom_act", weblinkCustomAct);
+    _uKeyFile->set_string(_currentGroup, "filelink_custom_act", filelinkCustomAct);
+    _uKeyFile->set_string(_currentGroup, "folderlink_custom_act", folderlinkCustomAct);
+
+    // [codebox]
+    _currentGroup = "codebox";
+    _uKeyFile->set_double(_currentGroup, "codebox_width", codeboxWidth);
+    _uKeyFile->set_double(_currentGroup, "codebox_height", codeboxHeight);
+    _uKeyFile->set_boolean(_currentGroup, "codebox_width_pixels", codeboxWidthPixels);
+    _uKeyFile->set_boolean(_currentGroup, "codebox_line_num", codeboxLineNum);
+    _uKeyFile->set_boolean(_currentGroup, "codebox_match_bra", codeboxMatchBra);
+    _uKeyFile->set_string(_currentGroup, "codebox_syn_highl", codeboxSynHighl);
+    _uKeyFile->set_boolean(_currentGroup, "codebox_auto_resize", codeboxAutoResize);
+
+    // [table]
+    _currentGroup = "table";
+    _uKeyFile->set_integer(_currentGroup, "table_rows", tableRows);
+    _uKeyFile->set_integer(_currentGroup, "table_columns", tableColumns);
+    _uKeyFile->set_integer(_currentGroup, "table_col_mode", static_cast<int>(tableColMode));
+    _uKeyFile->set_integer(_currentGroup, "table_col_min", tableColMin);
+    _uKeyFile->set_integer(_currentGroup, "table_col_max", tableColMax);
+
+    // [fonts]
+    _currentGroup = "fonts";
+    _uKeyFile->set_string(_currentGroup, "rt_font", rtFont);
+    _uKeyFile->set_string(_currentGroup, "pt_font", ptFont);
+    _uKeyFile->set_string(_currentGroup, "tree_font", treeFont);
+    _uKeyFile->set_string(_currentGroup, "code_font", codeFont);
+
+    // [colors]
+    _currentGroup = "colors";
+    _uKeyFile->set_string(_currentGroup, "rt_def_fg", rtDefFg);
+    _uKeyFile->set_string(_currentGroup, "rt_def_bg", rtDefBg);
+    _uKeyFile->set_string(_currentGroup, "tt_def_fg", ttDefFg);
+    _uKeyFile->set_string(_currentGroup, "tt_def_bg", ttDefBg);
+    _uKeyFile->set_string(_currentGroup, "monospace_bg", monospaceBg);
+    _uKeyFile->set_string(_currentGroup, "color_palette", colorPalette);
+    _uKeyFile->set_string(_currentGroup, "col_link_webs", colLinkWebs);
+    _uKeyFile->set_string(_currentGroup, "col_link_node", colLinkNode);
+    _uKeyFile->set_string(_currentGroup, "col_link_file", colLinkFile);
+    _uKeyFile->set_string(_currentGroup, "col_link_fold", colLinkFold);
+
+    // [misc]
+    _currentGroup = "misc";
+    _uKeyFile->set_string(_currentGroup, "toolbar_ui_list", toolbarUiList);
+    _uKeyFile->set_boolean(_currentGroup, "systray", systrayOn);
+    _uKeyFile->set_boolean(_currentGroup, "start_on_systray", startOnSystray);
+    _uKeyFile->set_boolean(_currentGroup, "use_appind", useAppInd);
+    _uKeyFile->set_boolean(_currentGroup, "autosave_on", autosaveOn);
+    _uKeyFile->set_integer(_currentGroup, "autosave_val", autosaveVal);
+    _uKeyFile->set_boolean(_currentGroup, "check_version", checkVersion);
+    _uKeyFile->set_boolean(_currentGroup, "word_count", wordCountOn);
+    _uKeyFile->set_boolean(_currentGroup, "reload_doc_last", reloadDocLast);
+    _uKeyFile->set_boolean(_currentGroup, "mod_time_sentinel", modTimeSentinel);
+    _uKeyFile->set_boolean(_currentGroup, "backup_copy", backupCopy);
+    _uKeyFile->set_integer(_currentGroup, "backup_num", backupNum);
+    _uKeyFile->set_boolean(_currentGroup, "autosave_on_quit", autosaveOnQuit);
+    _uKeyFile->set_integer(_currentGroup, "limit_undoable_steps", limitUndoableSteps);
+
+    // [keyboard]
+    _currentGroup = "keyboard";
+    _populate_current_group_from_map(customKbShortcuts);
+
+    // [codexec_term]
+    _currentGroup = "codexec_term";
+    _uKeyFile->set_string(_currentGroup, "custom_codexec_term", customCodexecTerm);
+
+    // [codexec_type]
+    _currentGroup = "codexec_type";
+    _populate_current_group_from_map(customCodexecType);
+
+    // [codexec_ext]
+    _currentGroup = "codexec_ext";
+    _populate_current_group_from_map(customCodexecExt);
 }
 
 void CtConfig::_populate_data_from_keyfile()
@@ -368,8 +492,8 @@ void CtConfig::_populate_data_from_keyfile()
 
     // [codebox]
     _currentGroup = "codebox";
-    _populate_double_from_key_file("codebox_width", &codeboxWidth);
-    _populate_double_from_key_file("codebox_height", &codeboxHeight);
+    _populate_double_from_keyfile("codebox_width", &codeboxWidth);
+    _populate_double_from_keyfile("codebox_height", &codeboxHeight);
     _populate_bool_from_keyfile("codebox_width_pixels", &codeboxWidthPixels);
     _populate_bool_from_keyfile("codebox_line_num", &codeboxLineNum);
     _populate_bool_from_keyfile("codebox_match_bra", &codeboxMatchBra);

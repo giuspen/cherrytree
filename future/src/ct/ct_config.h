@@ -204,8 +204,9 @@ protected:
     }
     bool _populate_bool_from_keyfile(const gchar* key, bool* pTarget);
     bool _populate_int_from_keyfile(const gchar* key, int* pTarget);
-    bool _populate_double_from_key_file(const gchar* key, double* pTarget);
+    bool _populate_double_from_keyfile(const gchar* key, double* pTarget);
     void _populate_map_from_current_group(std::map<std::string, std::string>* pTarget);
+    void _populate_current_group_from_map(const std::map<std::string, std::string>& map);
     void _populate_data_from_keyfile();
     void _populate_keyfile_from_data();
     void _unexpected_keyfile_error(const gchar* key, const Glib::KeyFileError& kferror);
