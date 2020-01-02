@@ -47,6 +47,10 @@ enum class CtRestoreExpColl : int { FROM_STR=0, ALL_EXP=1, ALL_COLL=2 };
 
 enum class CtTableColMode : int { RENAME=0, ADD=1, DELETE=2, RIGHT=3, LEFT=4 };
 
+class CtCodebox;
+class CtMainWin;
+typedef std::pair<CtCodebox*, CtMainWin*>   CtPairCodeboxMainWin;
+
 struct CtRecentDocRestore
 {
     std::string   exp_coll_str;

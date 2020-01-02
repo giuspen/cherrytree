@@ -1,7 +1,7 @@
 /*
  * ct_misc_utils.h
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,14 +44,6 @@ const gchar* get_doc_extension(const CtDocType ctDocType, const CtDocEncrypt ctD
 
 void filepath_extension_fix(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt, std::string& filepath);
 
-Glib::RefPtr<Gsv::Buffer> get_new_text_buffer(const std::string& syntax, const Glib::ustring& textContent=""); // pygtk: buffer_create
-
-const Glib::ustring getTextTagNameExistOrCreate(Glib::ustring propertyName, Glib::ustring propertyValue);
-
-const gchar* getTextIterAlignment(const Gtk::TextIter& textIter);
-
-Glib::ustring sourceview_hovering_link_get_tooltip(const Glib::ustring& link);
-
 void widget_set_colors(Gtk::Widget& widget, const std::string& fg, const std::string& bg,
                        bool syntax_highl, const std::string& gdk_col_fg);
 
@@ -69,8 +61,6 @@ Gtk::BuiltinIconSize getIconSize(int size);
 
 namespace CtTextIterUtil {
 
-bool apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start);
-
 bool get_is_camel_case(Gtk::TextIter iter_start, int num_chars);
 
 bool get_first_chars_of_string_are(const Glib::ustring& text, const std::vector<Glib::ustring>& chars_list);
@@ -85,23 +75,27 @@ void rich_text_attributes_update(const Gtk::TextIter& text_iter, std::map<const 
 
 bool tag_richtext_toggling_on_or_off(const Gtk::TextIter& text_iter);
 
-void generic_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+void generic_process_slot(int start_offset,
+                          int end_offset,
+                          Glib::RefPtr<Gtk::TextBuffer>& text_buffer,
                           std::function<void(Gtk::TextIter&/*start_iter*/, Gtk::TextIter&/*curr_iter*/, std::map<const gchar*, std::string>&/*curr_attributes*/)> serialize_func);
+
+const gchar* get_text_iter_alignment(const Gtk::TextIter& textIter, CtMainWin* pCtMainWin);
 
 } // namespace CtTextIterUtil
 
 namespace CtStrUtil {
 
-bool isStrTrue(const Glib::ustring& inStr);
+bool is_str_true(const Glib::ustring& inStr);
 
-gint64 gint64FromGstring(const gchar* inGstring, bool hexPrefix=false);
+gint64 gint64_from_gstring(const gchar* inGstring, bool hexPrefix=false);
 
-guint32 getUint32FromHexChars(const char* hexChars, guint8 numChars);
+guint32 guint32_from_hex_chars(const char* hexChars, guint8 numChars);
 
-std::vector<gint64> gstringSplit2int64(const gchar* inStr, const gchar* delimiter, gint max_tokens=-1);
+std::vector<gint64> gstring_split_to_int64(const gchar* inStr, const gchar* delimiter, gint max_tokens=-1);
 
 template<class IterableOfPgchar>
-bool isPgcharInPgcharIterable(const gchar* pGcharNeedle, const IterableOfPgchar& haystackOfPgchar)
+bool is_pgchar_in_pgchar_iterable(const gchar* pGcharNeedle, const IterableOfPgchar& haystackOfPgchar)
 {
     bool gotcha{false};
     for (const gchar* pGcharHaystack : haystackOfPgchar)
@@ -119,31 +113,25 @@ bool isPgcharInPgcharIterable(const gchar* pGcharNeedle, const IterableOfPgchar&
 
 namespace CtFontUtil {
 
-std::string getFontFamily(const std::string& fontStr);
+std::string get_font_family(const std::string& fontStr);
 
-std::string getFontSizeStr(const std::string& fontStr);
-
-std::string getFontCss(const std::string& fontStr);
-
-const std::string& getFontForSyntaxHighlighting(const std::string& syntaxHighlighting);
-
-std::string getFontCssForSyntaxHighlighting(const std::string& syntaxHighlighting);
+std::string get_font_size_str(const std::string& fontStr);
 
 } // namespace CtFontUtil
 
 namespace CtRgbUtil {
 
-void setRgb24StrFromRgb24Int(guint32 rgb24Int, char* rgb24StrOut);
+void set_rgb24str_from_rgb24int(guint32 rgb24Int, char* rgb24StrOut);
 
-guint32 getRgb24IntFromRgb24Str(const char* rgb24Str);
+guint32 get_rgb24int_from_rgb24str(const char* rgb24Str);
 
-char* setRgb24StrFromStrAny(const char* rgbStrAny, char* rgb24StrOut);
+char* set_rgb24str_from_str_any(const char* rgbStrAny, char* rgb24StrOut);
 
 Glib::ustring rgb_to_no_white(Glib::ustring in_rgb);
 
-std::string getRgb24StrFromStrAny(const std::string& rgbStrAny);
+std::string get_rgb24str_from_str_any(const std::string& rgbStrAny);
 
-guint32 getRgb24IntFromStrAny(const char* rgbStrAny);
+guint32 get_rgb24int_from_str_any(const char* rgbStrAny);
 
 std::string rgb_to_string(Gdk::RGBA color);
 

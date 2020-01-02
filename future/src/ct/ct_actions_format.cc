@@ -1,7 +1,7 @@
 /*
  * ct_actions_format.cc
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,21 +31,21 @@
 // The Iterate Tagging Button was Pressed
 void CtActions::apply_tag_latest()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
-    if (CtApp::P_ctCfg->latestTagProp.empty())
+    if (not _is_curr_node_not_read_only_or_error()) return;
+    if (_pCtMainWin->get_ct_config()->latestTagProp.empty())
         CtDialogs::warning_dialog(_("No Previous Text Format Was Performed During This Session"), *_pCtMainWin);
     else
-        _apply_tag(CtApp::P_ctCfg->latestTagProp, CtApp::P_ctCfg->latestTagVal);
+        _apply_tag(_pCtMainWin->get_ct_config()->latestTagProp, _pCtMainWin->get_ct_config()->latestTagVal);
 }
 
 // Cleans the Selected Text from All Formatting Tags
 void CtActions::remove_text_formatting()
 {
-    if (!_is_there_selected_node_or_error()) return;
-    if (!_is_curr_node_not_syntax_highlighting_or_error()) return;
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_there_selected_node_or_error()) return;
+    if (not _is_curr_node_not_syntax_highlighting_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     auto curr_buffer = _pCtMainWin->get_text_view().get_buffer();
-    if (!curr_buffer->get_has_selection() && !CtTextIterUtil::apply_tag_try_automatic_bounds(curr_buffer, curr_buffer->get_insert()->get_iter())) {
+    if (not curr_buffer->get_has_selection() and !_pCtMainWin->apply_tag_try_automatic_bounds(curr_buffer, curr_buffer->get_insert()->get_iter())) {
         CtDialogs::warning_dialog(_("No Text is Selected"), *_pCtMainWin);
         return;
     }
@@ -60,163 +60,163 @@ void CtActions::remove_text_formatting()
 // The Foreground Color Chooser Button was Pressed
 void CtActions::apply_tag_foreground()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     _apply_tag(CtConst::TAG_FOREGROUND);
 }
 
 // The Background Color Chooser Button was Pressed
 void CtActions::apply_tag_background()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     _apply_tag(CtConst::TAG_BACKGROUND);
 }
 
 // The Bold Button was Pressed
 void CtActions::apply_tag_bold()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     _apply_tag(CtConst::TAG_WEIGHT, CtConst::TAG_PROP_VAL_HEAVY);
 }
 
 // The Italic Button was Pressed
 void CtActions::apply_tag_italic()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     _apply_tag(CtConst::TAG_STYLE, CtConst::TAG_PROP_VAL_ITALIC);
 }
 
 // The Underline Button was Pressed
 void CtActions::apply_tag_underline()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     _apply_tag(CtConst::TAG_UNDERLINE, CtConst::TAG_PROP_VAL_SINGLE);
 }
 
 // The Strikethrough Button was Pressed
 void CtActions::apply_tag_strikethrough()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     _apply_tag(CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROP_VAL_TRUE);
 }
 
 // The H1 Button was Pressed
 void CtActions::apply_tag_h1()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList(_curr_buffer()).get_paragraph_iters();
-    if (!range.iter_start) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
+    CtTextRange range = CtList(_pCtMainWin, _curr_buffer()).get_paragraph_iters();
+    if (not range.iter_start) return;
     _apply_tag(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H1, range.iter_start, range.iter_end);
 }
 
 // The H2 Button was Pressed
 void CtActions::apply_tag_h2()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList(_curr_buffer()).get_paragraph_iters();
-    if (!range.iter_start) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
+    CtTextRange range = CtList(_pCtMainWin, _curr_buffer()).get_paragraph_iters();
+    if (not range.iter_start) return;
     _apply_tag(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H2, range.iter_start, range.iter_end);
 }
 
 // The H3 Button was Pressed
 void CtActions::apply_tag_h3()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList(_curr_buffer()).get_paragraph_iters();
-    if (!range.iter_start) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
+    CtTextRange range = CtList(_pCtMainWin, _curr_buffer()).get_paragraph_iters();
+    if (not range.iter_start) return;
     _apply_tag(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H3, range.iter_start, range.iter_end);
 }
 
 // The Small Button was Pressed
 void CtActions::apply_tag_small()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     _apply_tag(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SMALL);
 }
 
 // The Superscript Button was Pressed
 void CtActions::apply_tag_superscript()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     _apply_tag(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SUP);
 }
 
 // The Subscript Button was Pressed
 void CtActions::apply_tag_subscript()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     _apply_tag(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SUB);
 }
 
 // The Monospace Button was Pressed
 void CtActions::apply_tag_monospace()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     _apply_tag(CtConst::TAG_FAMILY, CtConst::TAG_PROP_VAL_MONOSPACE);
 }
 
 // Handler of the Bulleted List
 void CtActions::list_bulleted_handler()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
-    if (!proof.text_buffer) return;
-    if (proof.from_codebox || _is_curr_node_not_syntax_highlighting_or_error(true))
-        CtList(proof.text_buffer).list_handler(CtListType::Bullet);
+    if (not proof.text_buffer) return;
+    if (proof.from_codebox or _is_curr_node_not_syntax_highlighting_or_error(true))
+        CtList(_pCtMainWin, proof.text_buffer).list_handler(CtListType::Bullet);
 }
 
 // Handler of the Numbered List
 void CtActions::list_numbered_handler()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
-    if (!proof.text_buffer) return;
-    if (proof.from_codebox || _is_curr_node_not_syntax_highlighting_or_error(true))
-        CtList(proof.text_buffer).list_handler(CtListType::Number);
+    if (not proof.text_buffer) return;
+    if (proof.from_codebox or _is_curr_node_not_syntax_highlighting_or_error(true))
+        CtList(_pCtMainWin, proof.text_buffer).list_handler(CtListType::Number);
 }
 
 // Handler of the ToDo List
 void CtActions::list_todo_handler()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
-    if (!proof.text_buffer) return;
-    if (proof.from_codebox || _is_curr_node_not_syntax_highlighting_or_error(true))
-        CtList(proof.text_buffer).list_handler(CtListType::Todo);
+    if (not proof.text_buffer) return;
+    if (proof.from_codebox or _is_curr_node_not_syntax_highlighting_or_error(true))
+        CtList(_pCtMainWin, proof.text_buffer).list_handler(CtListType::Todo);
 }
 
 // The Justify Left Button was Pressed
 void CtActions::apply_tag_justify_left()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList(_curr_buffer()).get_paragraph_iters();
-    if (!range.iter_start) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
+    CtTextRange range = CtList(_pCtMainWin, _curr_buffer()).get_paragraph_iters();
+    if (not range.iter_start) return;
     _apply_tag(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_LEFT, range.iter_start, range.iter_end);
 }
 
 // The Justify Center Button was Pressed
 void CtActions::apply_tag_justify_center()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList(_curr_buffer()).get_paragraph_iters();
-    if (!range.iter_start) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
+    CtTextRange range = CtList(_pCtMainWin, _curr_buffer()).get_paragraph_iters();
+    if (not range.iter_start) return;
     _apply_tag(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_CENTER, range.iter_start, range.iter_end);
 }
 
 // The Justify Right Button was Pressed
 void CtActions::apply_tag_justify_right()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList(_curr_buffer()).get_paragraph_iters();
-    if (!range.iter_start) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
+    CtTextRange range = CtList(_pCtMainWin, _curr_buffer()).get_paragraph_iters();
+    if (not range.iter_start) return;
     _apply_tag(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_RIGHT, range.iter_start, range.iter_end);
 }
 
 // The Justify Fill Button was Pressed
 void CtActions::apply_tag_justify_fill()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList(_curr_buffer()).get_paragraph_iters();
-    if (!range.iter_start) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
+    CtTextRange range = CtList(_pCtMainWin, _curr_buffer()).get_paragraph_iters();
+    if (not range.iter_start) return;
     _apply_tag(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_FILL, range.iter_start, range.iter_end);
 }
 
@@ -226,25 +226,25 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
                 std::optional<Gtk::TextIter> iter_sel_end /*= std::nullopt*/,
                 Glib::RefPtr<Gtk::TextBuffer> text_buffer /*= Glib::RefPtr<Gtk::TextBuffer>()*/)
 {
-    if (_pCtMainWin->user_active() && !_is_curr_node_not_syntax_highlighting_or_error()) return;
-    if (!text_buffer) text_buffer = _curr_buffer();
+    if (_pCtMainWin->user_active() and !_is_curr_node_not_syntax_highlighting_or_error()) return;
+    if (not text_buffer) text_buffer = _curr_buffer();
 
 
-    if (!iter_sel_start && !iter_sel_end) {
+    if (not iter_sel_start and !iter_sel_end) {
         if (tag_property != CtConst::TAG_JUSTIFICATION) {
-            if (!_is_there_selected_node_or_error()) return;
+            if (not _is_there_selected_node_or_error()) return;
             if (tag_property == CtConst::TAG_LINK)
                 _link_entry = CtDialogs::CtLinkEntry(); // reset
-            if (!text_buffer->get_has_selection()) {
+            if (not text_buffer->get_has_selection()) {
                 if (tag_property != CtConst::TAG_LINK) {
-                    if (!CtTextIterUtil::apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter())) {
+                    if (not _pCtMainWin->apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter())) {
                         CtDialogs::warning_dialog(_("No Text is Selected"), *_pCtMainWin);
                         return;
                     }
                 } else {
                     Glib::ustring tag_property_value = _link_check_around_cursor();
                     if (tag_property_value == "") {
-                        if (!CtTextIterUtil::apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter())) {
+                        if (not _pCtMainWin->apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter())) {
                             Glib::ustring link_name = CtDialogs::img_n_entry_dialog(*_pCtMainWin, _("Link Name"), "", "link_handle");
                             if (link_name.empty()) return;
                             int start_offset = text_buffer->get_insert()->get_iter().get_offset();
@@ -254,7 +254,7 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
                         }
                         _link_entry.type = CtConst::LINK_TYPE_WEBS; // default value
                     } else {
-                        if (!_links_entries_pre_dialog(tag_property_value, _link_entry))
+                        if (not _links_entries_pre_dialog(tag_property_value, _link_entry))
                             return;
                     }
                 }
@@ -276,7 +276,7 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
             Gtk::TreeIter sel_tree_iter;
             if (_link_entry.node_id != -1)
                 sel_tree_iter = _pCtMainWin->curr_tree_store().get_node_from_node_id(_link_entry.node_id);
-            if (!CtDialogs::link_handle_dialog(*_pCtMainWin, _("Insert/Edit Link"), sel_tree_iter, _link_entry))
+            if (not CtDialogs::link_handle_dialog(*_pCtMainWin, _("Insert/Edit Link"), sel_tree_iter, _link_entry))
                 return;
             iter_sel_start = text_buffer->get_iter_at_offset(insert_offset);
             iter_sel_end = text_buffer->get_iter_at_offset(bound_offset);
@@ -284,16 +284,16 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
         } else {
             // todo: assert tag_property[0] in ['f', 'b'], "!! bad tag_property '%s'" % tag_property
             gchar color_for = tag_property[0] == 'f' ? 'f' : 'b';
-            Gdk::RGBA ret_color = Gdk::RGBA(CtApp::P_ctCfg->currColors.at(color_for));
-            if (!CtDialogs::color_pick_dialog(*_pCtMainWin, ret_color))
+            Gdk::RGBA ret_color = Gdk::RGBA(_pCtMainWin->get_ct_config()->currColors.at(color_for));
+            if (not CtDialogs::color_pick_dialog(_pCtMainWin, ret_color))
                 return;
-            CtApp::P_ctCfg->currColors[color_for] = CtRgbUtil::rgb_to_string(ret_color);
+            _pCtMainWin->get_ct_config()->currColors[color_for] = CtRgbUtil::rgb_to_string(ret_color);
             property_value = CtRgbUtil::rgb_to_string(ret_color);
         }
     }
-    if (_pCtMainWin->user_active() && tag_property != CtConst::TAG_LINK) {
-        CtApp::P_ctCfg->latestTagProp = tag_property;
-        CtApp::P_ctCfg->latestTagVal = property_value;
+    if (_pCtMainWin->user_active() and tag_property != CtConst::TAG_LINK) {
+        _pCtMainWin->get_ct_config()->latestTagProp = tag_property;
+        _pCtMainWin->get_ct_config()->latestTagVal = property_value;
     }
     int sel_start_offset = iter_sel_start->get_offset();
     int sel_end_offset = iter_sel_end->get_offset();
@@ -306,92 +306,40 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
             //#print tag_name
             if (tag_name.empty()) continue;
             auto iter_sel_end = text_buffer->get_iter_at_offset(offset+1);
-            if ((tag_property == CtConst::TAG_WEIGHT && str::startswith(tag_name, "weight_"))
-               || (tag_property == CtConst::TAG_STYLE && str::startswith(tag_name, "style_"))
-               || (tag_property == CtConst::TAG_UNDERLINE && str::startswith(tag_name, "underline_"))
-               || (tag_property == CtConst::TAG_STRIKETHROUGH && str::startswith(tag_name, "strikethrough_"))
-               || (tag_property == CtConst::TAG_FAMILY && str::startswith(tag_name, "family_")))
+            if ((tag_property == CtConst::TAG_WEIGHT and str::startswith(tag_name, "weight_"))
+               or (tag_property == CtConst::TAG_STYLE and str::startswith(tag_name, "style_"))
+               or (tag_property == CtConst::TAG_UNDERLINE and str::startswith(tag_name, "underline_"))
+               or (tag_property == CtConst::TAG_STRIKETHROUGH and str::startswith(tag_name, "strikethrough_"))
+               or (tag_property == CtConst::TAG_FAMILY and str::startswith(tag_name, "family_")))
             {
                 text_buffer->remove_tag(curr_tag, iter_sel_start, iter_sel_end);
                 property_value = ""; // just tag removal
             }
-            else if (tag_property == CtConst::TAG_SCALE && str::startswith(tag_name, "scale_"))
+            else if (tag_property == CtConst::TAG_SCALE and str::startswith(tag_name, "scale_"))
             {
                 text_buffer->remove_tag(curr_tag, iter_sel_start, iter_sel_end);
                 // #print property_value, tag_name[6:]
                 if (property_value == tag_name.substr(6))
                     property_value = ""; // just tag removal
             }
-            else if (tag_property == CtConst::TAG_JUSTIFICATION && str::startswith(tag_name, "justification_"))
+            else if (tag_property == CtConst::TAG_JUSTIFICATION and str::startswith(tag_name, "justification_"))
                 text_buffer->remove_tag(curr_tag, iter_sel_start, iter_sel_end);
-            else if ((tag_property == CtConst::TAG_FOREGROUND && str::startswith(tag_name, "foreground_"))
-               || (tag_property == CtConst::TAG_BACKGROUND && str::startswith(tag_name, "background_"))
-               || (tag_property == CtConst::TAG_LINK && str::startswith(tag_name, "link_")))
+            else if ((tag_property == CtConst::TAG_FOREGROUND and str::startswith(tag_name, "foreground_"))
+               or (tag_property == CtConst::TAG_BACKGROUND and str::startswith(tag_name, "background_"))
+               or (tag_property == CtConst::TAG_LINK and str::startswith(tag_name, "link_")))
                 text_buffer->remove_tag(curr_tag, iter_sel_start, iter_sel_end);
         }
     }
-    if (!property_value.empty())
-        text_buffer->apply_tag_by_name(apply_tag_exist_or_create(tag_property, property_value),
-                                      text_buffer->get_iter_at_offset(sel_start_offset),
-                                      text_buffer->get_iter_at_offset(sel_end_offset));
-    if (_pCtMainWin->user_active())
-        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
-}
-
-// Check into the Tags Table whether the Tag Exists, if Not Creates it
-Glib::ustring CtActions::apply_tag_exist_or_create(const Glib::ustring& tag_property, Glib::ustring property_value)
-{
-    if (property_value == "large")      property_value = CtConst::TAG_PROP_VAL_H1;
-    else if (property_value == "largo") property_value = CtConst::TAG_PROP_VAL_H2;
-    Glib::ustring tag_name = tag_property + "_" + property_value;
-    auto tag = CtApp::R_textTagTable->lookup(tag_name);
-    if (!tag) {
-        tag = Gtk::TextTag::create(tag_name);
-        if (property_value == CtConst::TAG_PROP_VAL_HEAVY)       tag->set_property(tag_property, Pango::WEIGHT_HEAVY);
-        else if (property_value == CtConst::TAG_PROP_VAL_SMALL)  tag->set_property(tag_property, Pango::SCALE_SMALL);
-        else if (property_value == CtConst::TAG_PROP_VAL_H1)     tag->set_property(tag_property, Pango::SCALE_XX_LARGE);
-        else if (property_value == CtConst::TAG_PROP_VAL_H2)     tag->set_property(tag_property, Pango::SCALE_X_LARGE);
-        else if (property_value == CtConst::TAG_PROP_VAL_H3)     tag->set_property(tag_property, Pango::SCALE_LARGE);
-        else if (property_value == CtConst::TAG_PROP_VAL_ITALIC) tag->set_property(tag_property, Pango::STYLE_ITALIC);
-        else if (property_value == CtConst::TAG_PROP_VAL_SINGLE) tag->set_property(tag_property, Pango::UNDERLINE_SINGLE);
-        else if (property_value == CtConst::TAG_PROP_VAL_TRUE)   tag->set_property(tag_property, true);
-        else if (property_value == CtConst::TAG_PROP_VAL_LEFT)   tag->set_property(tag_property, Gtk::JUSTIFY_LEFT);
-        else if (property_value == CtConst::TAG_PROP_VAL_RIGHT)  tag->set_property(tag_property, Gtk::JUSTIFY_RIGHT);
-        else if (property_value == CtConst::TAG_PROP_VAL_CENTER) tag->set_property(tag_property, Gtk::JUSTIFY_CENTER);
-        else if (property_value == CtConst::TAG_PROP_VAL_FILL)   tag->set_property(tag_property, Gtk::JUSTIFY_FILL);
-        else if (property_value == CtConst::TAG_PROP_VAL_MONOSPACE) {
-            tag->set_property(tag_property, property_value);
-            if (CtApp::P_ctCfg->monospaceBg != "")
-                tag->set_property(CtConst::TAG_BACKGROUND, CtApp::P_ctCfg->monospaceBg);
-        } else if (property_value == CtConst::TAG_PROP_VAL_SUB) {
-            tag->set_property(CtConst::TAG_SCALE, Pango::SCALE_X_SMALL);
-            auto rise = Pango::FontDescription(CtApp::P_ctCfg->rtFont).get_size() / -4;
-            tag->set_property("rise", rise);
-        } else if (property_value == CtConst::TAG_PROP_VAL_SUP) {
-            tag->set_property(CtConst::TAG_SCALE, Pango::SCALE_X_SMALL);
-            auto rise = Pango::FontDescription(CtApp::P_ctCfg->rtFont).get_size() / 2;
-            tag->set_property("rise", rise);
-        } else if (str::startswith(property_value, CtConst::LINK_TYPE_WEBS)) {
-            if (CtApp::P_ctCfg->linksUnderline)
-                tag->set_property(CtConst::TAG_UNDERLINE, Pango::UNDERLINE_SINGLE);
-            tag->set_property(CtConst::TAG_FOREGROUND, CtApp::P_ctCfg->colLinkWebs);
-        } else if (str::startswith(property_value, CtConst::LINK_TYPE_NODE)) {
-            if (CtApp::P_ctCfg->linksUnderline)
-                tag->set_property(CtConst::TAG_UNDERLINE, Pango::UNDERLINE_SINGLE);
-            tag->set_property(CtConst::TAG_FOREGROUND, CtApp::P_ctCfg->colLinkNode);
-        } else if (str::startswith(property_value, CtConst::LINK_TYPE_FILE)) {
-            if (CtApp::P_ctCfg->linksUnderline)
-                tag->set_property(CtConst::TAG_UNDERLINE, Pango::UNDERLINE_SINGLE);
-            tag->set_property(CtConst::TAG_FOREGROUND, CtApp::P_ctCfg->colLinkFile);
-        } else if (str::startswith(property_value, CtConst::LINK_TYPE_FOLD)) {
-            if (CtApp::P_ctCfg->linksUnderline)
-                tag->set_property(CtConst::TAG_UNDERLINE, Pango::UNDERLINE_SINGLE);
-            tag->set_property(CtConst::TAG_FOREGROUND, CtApp::P_ctCfg->colLinkFold);
-        } else
-            tag->set_property(tag_property, property_value);
-        CtApp::R_textTagTable->add(tag);
+    if (not property_value.empty())
+    {
+        text_buffer->apply_tag_by_name(_pCtMainWin->get_text_tag_name_exist_or_create(tag_property, property_value),
+                                       text_buffer->get_iter_at_offset(sel_start_offset),
+                                       text_buffer->get_iter_at_offset(sel_end_offset));
     }
-    return tag_name;
+    if (_pCtMainWin->user_active())
+    {
+        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
+    }
 }
 
 CtActions::text_view_n_buffer_codebox_proof CtActions::_get_text_view_n_buffer_codebox_proof()
@@ -412,8 +360,8 @@ CtActions::text_view_n_buffer_codebox_proof CtActions::_get_text_view_n_buffer_c
 // Returns a CodeBox SourceView if Currently in Use or None
 CtCodebox* CtActions::_codebox_in_use()
 {
-    if (!curr_codebox_anchor) return nullptr;
-    if (!_curr_buffer()) return nullptr;
+    if (not curr_codebox_anchor) return nullptr;
+    if (not _curr_buffer()) return nullptr;
     Gtk::TextIter iter_sel_start = _curr_buffer()->get_insert()->get_iter();
     auto widgets = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes({iter_sel_start.get_offset(), iter_sel_start.get_offset()});
     if (widgets.empty()) return nullptr;
@@ -450,15 +398,15 @@ Glib::ustring CtActions::_links_entries_post_dialog(CtDialogs::CtLinkEntry& link
      Glib::ustring property_value = "";
      if (link_entry.type == CtConst::LINK_TYPE_WEBS) {
          std::string link_url = link_entry.webs;
-         if (!link_url.empty()) {
+         if (not link_url.empty()) {
              if (link_url.size() < 8
-                || (!str::startswith(link_url, "http://") && !str::startswith(link_url, "https://")))
+                or (not str::startswith(link_url, "http://") and not str::startswith(link_url, "https://")))
                 link_url = "http://" + link_url;
              property_value = std::string(CtConst::LINK_TYPE_WEBS) + CtConst::CHAR_SPACE + link_url;
          }
-    } else if (link_entry.type == CtConst::LINK_TYPE_FILE || link_entry.type == CtConst::LINK_TYPE_FOLD) {
+    } else if (link_entry.type == CtConst::LINK_TYPE_FILE or link_entry.type == CtConst::LINK_TYPE_FOLD) {
         Glib::ustring link_uri = link_entry.type == CtConst::LINK_TYPE_FILE ? link_entry.file : link_entry.fold;
-        if (!link_uri.empty()) {
+        if (not link_uri.empty()) {
             link_uri = Glib::Base64::encode(link_uri);
             property_value = link_entry.type + CtConst::CHAR_SPACE + link_uri;
         }
@@ -467,7 +415,7 @@ Glib::ustring CtActions::_links_entries_post_dialog(CtDialogs::CtLinkEntry& link
         if (node_id != -1) {
             auto link_anchor = link_entry.anch;
             property_value = std::string(CtConst::LINK_TYPE_NODE) + CtConst::CHAR_SPACE + std::to_string(node_id);
-            if (!link_anchor.empty()) property_value += CtConst::CHAR_SPACE + link_anchor;
+            if (not link_anchor.empty()) property_value += CtConst::CHAR_SPACE + link_anchor;
         }
     }
     return property_value;
@@ -488,7 +436,7 @@ Glib::ustring CtActions::_link_check_around_cursor()
     auto text_iter = _curr_buffer()->get_insert()->get_iter();
     Glib::ustring tag_name = link_check_around_cursor_iter(text_iter);
     if (tag_name.empty()) {
-        if (text_iter.get_char() == CtConst::CHAR_SPACE[0] && text_iter.backward_char()) {
+        if (text_iter.get_char() == CtConst::CHAR_SPACE[0] and text_iter.backward_char()) {
             tag_name = link_check_around_cursor_iter(text_iter);
             if (tag_name.empty()) return "";
         } else

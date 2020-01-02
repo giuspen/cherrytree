@@ -1,7 +1,7 @@
 /*
  * ct_image.cc
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,13 +21,15 @@
 
 #include "ct_image.h"
 #include "ct_doc_rw.h"
-#include "ct_app.h"
+#include "ct_main_win.h"
+#include "ct_actions.h"
 
-CtImage::CtImage(const std::string& rawBlob,
+CtImage::CtImage(CtMainWin* pCtMainWin,
+                 const std::string& rawBlob,
                  const char* mimeType,
                  const int charOffset,
                  const std::string& justification)
- : CtAnchoredWidget(charOffset, justification)
+ : CtAnchoredWidget(pCtMainWin, charOffset, justification)
 {
     Glib::RefPtr<Gdk::PixbufLoader> rPixbufLoader = Gdk::PixbufLoader::create(mimeType, true);
     rPixbufLoader->write(reinterpret_cast<const guint8*>(rawBlob.c_str()), rawBlob.size());
@@ -39,23 +41,25 @@ CtImage::CtImage(const std::string& rawBlob,
     show_all();
 }
 
-CtImage::CtImage(const char* stockImage,
+CtImage::CtImage(CtMainWin* pCtMainWin,
+                 const char* stockImage,
                  const int size,
                  const int charOffset,
                  const std::string& justification)
- : CtAnchoredWidget(charOffset, justification)
+ : CtAnchoredWidget(pCtMainWin, charOffset, justification)
 {
-    _rPixbuf = CtApp::R_icontheme->load_icon(stockImage, size);
+    _rPixbuf = _pCtMainWin->get_icon_theme()->load_icon(stockImage, size);
 
     _image.set(_rPixbuf);
     _frame.add(_image);
     show_all();
 }
 
-CtImage::CtImage(Glib::RefPtr<Gdk::Pixbuf> pixBuf,
+CtImage::CtImage(CtMainWin* pCtMainWin,
+                 Glib::RefPtr<Gdk::Pixbuf> pixBuf,
                  const int charOffset,
                  const std::string& justification)
- : CtAnchoredWidget(charOffset, justification)
+ : CtAnchoredWidget(pCtMainWin, charOffset, justification)
 {
     _rPixbuf = pixBuf;
 
@@ -66,7 +70,6 @@ CtImage::CtImage(Glib::RefPtr<Gdk::Pixbuf> pixBuf,
 
 CtImage::~CtImage()
 {
-
 }
 
 void CtImage::save(const Glib::ustring& file_name, const Glib::ustring& type)
@@ -74,26 +77,13 @@ void CtImage::save(const Glib::ustring& file_name, const Glib::ustring& type)
     _rPixbuf->save(file_name, type);
 }
 
-Glib::RefPtr<Gdk::Pixbuf> CtImage::get_icon(const std::string& name, int size)
-{
-    if (CtApp::R_icontheme->has_icon(name))
-        return CtApp::R_icontheme->load_icon(name, size);
-    return Glib::RefPtr<Gdk::Pixbuf>();
-}
 
-Gtk::Image* CtImage::new_image_from_stock(const std::string& stockImage, Gtk::BuiltinIconSize size)
-{
-    Gtk::Image* image = Gtk::manage(new Gtk::Image());
-    image->set_from_icon_name(stockImage, size);
-    return image;
-}
-
-
-CtImagePng::CtImagePng(const std::string& rawBlob,
+CtImagePng::CtImagePng(CtMainWin* pCtMainWin,
+                       const std::string& rawBlob,
                        const Glib::ustring& link,
                        const int charOffset,
                        const std::string& justification)
- : CtImage(rawBlob, "image/png", charOffset, justification),
+ : CtImage(pCtMainWin, rawBlob, "image/png", charOffset, justification),
    _link(link)
 {
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImagePng::_on_button_press_event), false);
@@ -101,11 +91,12 @@ CtImagePng::CtImagePng(const std::string& rawBlob,
     update_label_widget();
 }
 
-CtImagePng::CtImagePng(Glib::RefPtr<Gdk::Pixbuf> pixBuf,
+CtImagePng::CtImagePng(CtMainWin* pCtMainWin,
+                       Glib::RefPtr<Gdk::Pixbuf> pixBuf,
                        const Glib::ustring& link,
                        const int charOffset,
                        const std::string& justification)
- : CtImage(pixBuf, charOffset, justification),
+ : CtImage(pCtMainWin, pixBuf, charOffset, justification),
    _link(link)
 {
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImagePng::_on_button_press_event), false);
@@ -179,28 +170,29 @@ void CtImagePng::update_label_widget()
 
 bool CtImagePng::_on_button_press_event(GdkEventButton* event)
 {
-    CtApp::P_ctActions->curr_image_anchor = this;
-    CtApp::P_ctActions->object_set_selection(this);
+    _pCtMainWin->get_ct_actions()->curr_image_anchor = this;
+    _pCtMainWin->get_ct_actions()->object_set_selection(this);
     if (event->button == 1 || event->button == 2)
     {
         if (event->type == GDK_2BUTTON_PRESS)
-            CtApp::P_ctActions->image_edit();
+            _pCtMainWin->get_ct_actions()->image_edit();
         else if(!_link.empty())
-            CtApp::P_ctActions->link_clicked(_link, event->button == 2);
+            _pCtMainWin->get_ct_actions()->link_clicked(_link, event->button == 2);
     }
     else if (event->button == 3)
     {
-        CtApp::P_ctActions->getCtMainWin()->get_ct_menu().find_action("img_link_dismiss")->signal_set_visible.emit(!_link.empty());
-        CtApp::P_ctActions->getCtMainWin()->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup(event->button, event->time);
+        _pCtMainWin->get_ct_actions()->getCtMainWin()->get_ct_menu().find_action("img_link_dismiss")->signal_set_visible.emit(!_link.empty());
+        _pCtMainWin->get_ct_actions()->getCtMainWin()->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup(event->button, event->time);
     }
     return true; // do not propagate the event
 }
 
 
-CtImageAnchor::CtImageAnchor(const Glib::ustring& anchorName,
+CtImageAnchor::CtImageAnchor(CtMainWin* pCtMainWin,
+                             const Glib::ustring& anchorName,
                              const int charOffset,
                              const std::string& justification)
- : CtImage("anchor", CtApp::P_ctCfg->anchorSize, charOffset, justification),
+ : CtImage(pCtMainWin, "anchor", _pCtMainWin->get_ct_config()->anchorSize, charOffset, justification),
    _anchorName(anchorName)
 {
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageAnchor::_on_button_press_event), false);
@@ -253,22 +245,23 @@ void CtImageAnchor::update_tooltip()
 // Catches mouse buttons clicks upon anchor images
 bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
 {
-    CtApp::P_ctActions->curr_anchor_anchor = this;
-    CtApp::P_ctActions->object_set_selection(this);
+    _pCtMainWin->get_ct_actions()->curr_anchor_anchor = this;
+    _pCtMainWin->get_ct_actions()->object_set_selection(this);
     if (event->button == 3)
-        CtApp::P_ctActions->getCtMainWin()->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->popup(event->button, event->time);
+        _pCtMainWin->get_ct_actions()->getCtMainWin()->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->popup(event->button, event->time);
     else if (event->type == GDK_2BUTTON_PRESS)
-        CtApp::P_ctActions->anchor_edit();
+        _pCtMainWin->get_ct_actions()->anchor_edit();
 
     return true; // do not propagate the event
 }
 
-CtImageEmbFile::CtImageEmbFile(const Glib::ustring& fileName,
+CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
+                               const Glib::ustring& fileName,
                                const std::string& rawBlob,
                                const double& timeSeconds,
                                const int charOffset,
                                const std::string& justification)
- : CtImage("file_icon", CtApp::P_ctCfg->embfileSize, charOffset, justification),
+ : CtImage(pCtMainWin, "file_icon", _pCtMainWin->get_ct_config()->embfileSize, charOffset, justification),
    _fileName(fileName),
    _rawBlob(rawBlob),
    _timeSeconds(timeSeconds)
@@ -321,7 +314,7 @@ bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int off
 
 void CtImageEmbFile::update_label_widget()
 {
-    if (CtApp::P_ctCfg->embfileShowFileName)
+    if (_pCtMainWin->get_ct_config()->embfileShowFileName)
     {
         _labelWidget.set_markup("<b><small>"+_fileName+"</small></b>");
         _labelWidget.show();
@@ -348,7 +341,7 @@ void CtImageEmbFile::update_tooltip()
         snprintf(humanReadableSize, 16, "%.1f KB", embfileKbytes);
     }
     const Glib::DateTime dateTime{Glib::DateTime::create_now_local(static_cast<gint64>(_timeSeconds))};
-    const Glib::ustring strDateTime = dateTime.format(CtApp::P_ctCfg->timestampFormat);
+    const Glib::ustring strDateTime = dateTime.format(_pCtMainWin->get_ct_config()->timestampFormat);
     char buffTooltip[128];
     snprintf(buffTooltip, 128, "%s\n%s (%ld Bytes)\n%s", _fileName.c_str(), humanReadableSize, embfileBytes, strDateTime.c_str());
     set_tooltip_text(buffTooltip);
@@ -357,12 +350,12 @@ void CtImageEmbFile::update_tooltip()
 // Catches mouse buttons clicks upon files images
 bool CtImageEmbFile::_on_button_press_event(GdkEventButton* event)
 {
-    CtApp::P_ctActions->curr_file_anchor = this;
-    CtApp::P_ctActions->object_set_selection(this);
+    _pCtMainWin->get_ct_actions()->curr_file_anchor = this;
+    _pCtMainWin->get_ct_actions()->object_set_selection(this);
     if (event->button == 3)
-        CtApp::P_ctActions->getCtMainWin()->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::EmbFile)->popup(event->button, event->time);
+        _pCtMainWin->get_ct_actions()->getCtMainWin()->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::EmbFile)->popup(event->button, event->time);
     else if (event->type == GDK_2BUTTON_PRESS)
-        CtApp::P_ctActions->embfile_open();
+        _pCtMainWin->get_ct_actions()->embfile_open();
 
     return true; // do not propagate the event
 }

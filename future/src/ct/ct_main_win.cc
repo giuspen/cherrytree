@@ -19,23 +19,41 @@
  * MA 02110-1301, USA.
  */
 
-#include "ct_app.h"
+#include "ct_main_win.h"
+#include "ct_config.h"
 #include "ct_p7za_iface.h"
 #include "ct_clipboard.h"
+#include "ct_actions.h"
 #include <glib-object.h>
 
-
-CtMainWin::CtMainWin(CtMenu* pCtMenu)
+CtMainWin::CtMainWin(CtConfig*        pCtConfig,
+                     CtActions*       pCtActions,
+                     CtTmp*           pCtTmp,
+                     CtMenu*          pCtMenu,
+                     Gtk::IconTheme*  pGtkIconTheme,
+                     Glib::RefPtr<Gtk::TextTagTable> rGtkTextTagTable,
+                     Glib::RefPtr<Gtk::CssProvider> rGtkCssProvider,
+                     Gsv::LanguageManager*    pGsvLanguageManager,
+                     Gsv::StyleSchemeManager* pGsvStyleSchemeManager)
  : Gtk::ApplicationWindow(),
-   _pCtMenu(pCtMenu)
+   _pCtConfig(pCtConfig),
+   _pCtActions(pCtActions),
+   _pCtTmp(pCtTmp),
+   _pCtMenu(pCtMenu),
+   _pGtkIconTheme(pGtkIconTheme),
+   _rGtkTextTagTable(rGtkTextTagTable),
+   _rGtkCssProvider(rGtkCssProvider),
+   _pGsvLanguageManager(pGsvLanguageManager),
+   _pGsvStyleSchemeManager(pGsvStyleSchemeManager),
+   _ctTextview(this)
 {
-    set_icon(CtApp::R_icontheme->load_icon(CtConst::APP_NAME, 48));
+    set_icon(_pGtkIconTheme->load_icon(CtConst::APP_NAME, 48));
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindowText.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindowText.add(_ctTextview);
     _vboxText.pack_start(_init_window_header(), false, false);
     _vboxText.pack_start(_scrolledwindowText);
-    if (CtApp::P_ctCfg->treeRightSide)
+    if (_pCtConfig->treeRightSide)
     {
         _hPaned.add1(_vboxText);
         _hPaned.add2(_scrolledwindowTree);
@@ -80,9 +98,10 @@ CtMainWin::CtMainWin(CtMenu* pCtMenu)
         }
         return false;
     });
-    g_signal_connect(G_OBJECT(_ctTextview.gobj()), "cut-clipboard", G_CALLBACK(CtClipboard::on_cut_clipboard), nullptr /*from_codebox*/);
-    g_signal_connect(G_OBJECT(_ctTextview.gobj()), "copy-clipboard", G_CALLBACK(CtClipboard::on_copy_clipboard), nullptr /*from_codebox*/);
-    g_signal_connect(G_OBJECT(_ctTextview.gobj()), "paste-clipboard", G_CALLBACK(CtClipboard::on_paste_clipboard), nullptr /*from_codebox*/);
+    _uCtPairCodeboxMainWin.reset(new CtPairCodeboxMainWin{nullptr, this});
+    g_signal_connect(G_OBJECT(_ctTextview.gobj()), "cut-clipboard", G_CALLBACK(CtClipboard::on_cut_clipboard), _uCtPairCodeboxMainWin.get());
+    g_signal_connect(G_OBJECT(_ctTextview.gobj()), "copy-clipboard", G_CALLBACK(CtClipboard::on_copy_clipboard), _uCtPairCodeboxMainWin.get());
+    g_signal_connect(G_OBJECT(_ctTextview.gobj()), "paste-clipboard", G_CALLBACK(CtClipboard::on_paste_clipboard), _uCtPairCodeboxMainWin.get());
 
     signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_window_key_press_event), false);
 
@@ -101,6 +120,294 @@ CtMainWin::~CtMainWin()
     //printf("~CtMainWin\n");
 }
 
+Glib::RefPtr<Gdk::Pixbuf> CtMainWin::get_icon(const std::string& name, int size)
+{
+    if (_pGtkIconTheme->has_icon(name))
+        return _pGtkIconTheme->load_icon(name, size);
+    return Glib::RefPtr<Gdk::Pixbuf>();
+}
+
+Gtk::Image* CtMainWin::new_image_from_stock(const std::string& stockImage, Gtk::BuiltinIconSize size)
+{
+    Gtk::Image* image = Gtk::manage(new Gtk::Image());
+    image->set_from_icon_name(stockImage, size);
+    return image;
+}
+
+Glib::RefPtr<Gsv::Buffer> CtMainWin::get_new_text_buffer(const std::string& syntax, const Glib::ustring& textContent)
+{
+    Glib::RefPtr<Gsv::Buffer> rRetTextBuffer;
+    rRetTextBuffer = Gsv::Buffer::create(_rGtkTextTagTable);
+    rRetTextBuffer->set_max_undo_levels(_pCtConfig->limitUndoableSteps);
+    if (CtConst::RICH_TEXT_ID != syntax)
+    {
+        rRetTextBuffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(_pCtConfig->styleSchemeId));
+        if (CtConst::PLAIN_TEXT_ID == syntax)
+        {
+            rRetTextBuffer->set_highlight_syntax(false);
+        }
+        else
+        {
+            rRetTextBuffer->set_language(_pGsvLanguageManager->get_language(syntax));
+            rRetTextBuffer->set_highlight_syntax(true);
+        }
+        rRetTextBuffer->set_highlight_matching_brackets(true);
+    }
+    if (not textContent.empty())
+    {
+        rRetTextBuffer->begin_not_undoable_action();
+        rRetTextBuffer->set_text(textContent);
+        rRetTextBuffer->end_not_undoable_action();
+        rRetTextBuffer->set_modified(false);
+    }
+    return rRetTextBuffer;
+}
+
+const std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string& propertyName, const std::string& propertyValue)
+{
+    const std::string tagName{propertyName + "_" + propertyValue};
+    Glib::RefPtr<Gtk::TextTag> rTextTag = _rGtkTextTagTable->lookup(tagName);
+    if (not rTextTag)
+    {
+        bool identified{true};
+        rTextTag = Gtk::TextTag::create(tagName);
+        if (CtConst::TAG_WEIGHT == propertyName and CtConst::TAG_PROP_VAL_HEAVY == propertyValue)
+        {
+            rTextTag->property_weight() = PANGO_WEIGHT_HEAVY;
+        }
+        else if (CtConst::TAG_FOREGROUND == propertyName)
+        {
+            rTextTag->property_foreground() = propertyValue;
+        }
+        else if (CtConst::TAG_BACKGROUND == propertyName)
+        {
+            rTextTag->property_background() = propertyValue;
+        }
+        else if (CtConst::TAG_SCALE == propertyName)
+        {
+            if (CtConst::TAG_PROP_VAL_SMALL == propertyValue)
+            {
+                rTextTag->property_scale() = PANGO_SCALE_SMALL;
+            }
+            else if (CtConst::TAG_PROP_VAL_H1 == propertyValue)
+            {
+                rTextTag->property_scale() = PANGO_SCALE_XX_LARGE;
+            }
+            else if (CtConst::TAG_PROP_VAL_H2 == propertyValue)
+            {
+                rTextTag->property_scale() = PANGO_SCALE_X_LARGE;
+            }
+            else if (CtConst::TAG_PROP_VAL_H3 == propertyValue)
+            {
+                rTextTag->property_scale() = PANGO_SCALE_LARGE;
+            }
+            else if (CtConst::TAG_PROP_VAL_SUB == propertyValue or CtConst::TAG_PROP_VAL_SUP == propertyValue)
+            {
+                rTextTag->property_scale() = PANGO_SCALE_X_SMALL;
+                int propRise = Pango::FontDescription(_pCtConfig->rtFont).get_size();
+                if (CtConst::TAG_PROP_VAL_SUB == propertyValue)
+                {
+                    propRise /= -4;
+                }
+                else
+                {
+                    propRise /= 2;
+                }
+                rTextTag->property_rise() = propRise;
+            }
+            else
+            {
+                identified = false;
+            }
+        }
+        else if (CtConst::TAG_STYLE == propertyName and CtConst::TAG_PROP_VAL_ITALIC == propertyValue)
+        {
+            rTextTag->property_style() = Pango::Style::STYLE_ITALIC;
+        }
+        else if (CtConst::TAG_UNDERLINE == propertyName and CtConst::TAG_PROP_VAL_SINGLE == propertyValue)
+        {
+            rTextTag->property_underline() = Pango::Underline::UNDERLINE_SINGLE;
+        }
+        else if (CtConst::TAG_JUSTIFICATION == propertyName)
+        {
+            if (CtConst::TAG_PROP_VAL_LEFT == propertyValue)
+            {
+                rTextTag->property_justification() = Gtk::Justification::JUSTIFY_LEFT;
+            }
+            else if (CtConst::TAG_PROP_VAL_RIGHT == propertyValue)
+            {
+                rTextTag->property_justification() = Gtk::Justification::JUSTIFY_RIGHT;
+            }
+            else if (CtConst::TAG_PROP_VAL_CENTER == propertyValue)
+            {
+                rTextTag->property_justification() = Gtk::Justification::JUSTIFY_CENTER;
+            }
+            else if (CtConst::TAG_PROP_VAL_FILL == propertyValue)
+            {
+                rTextTag->property_justification() = Gtk::Justification::JUSTIFY_FILL;
+            }
+            else
+            {
+                identified = false;
+            }
+        }
+        else if (CtConst::TAG_FAMILY == propertyName and CtConst::TAG_PROP_VAL_MONOSPACE == propertyValue)
+        {
+            rTextTag->property_family() = CtConst::TAG_PROP_VAL_MONOSPACE;
+            if (not _pCtConfig->monospaceBg.empty())
+            {
+                rTextTag->property_background() = _pCtConfig->monospaceBg;
+            }
+        }
+        else if (CtConst::TAG_STRIKETHROUGH == propertyName and CtConst::TAG_PROP_VAL_TRUE == propertyValue)
+        {
+            rTextTag->property_strikethrough() = true;
+        }
+        else if (CtConst::TAG_LINK == propertyName and propertyValue.size() > 4)
+        {
+            if (_pCtConfig->linksUnderline)
+            {
+                rTextTag->property_underline() = Pango::Underline::UNDERLINE_SINGLE;
+            }
+            Glib::ustring linkType = propertyValue.substr(0, 4);
+            if (CtConst::LINK_TYPE_WEBS == linkType)
+            {
+                rTextTag->property_foreground() = _pCtConfig->colLinkWebs;
+            }
+            else if (CtConst::LINK_TYPE_NODE == linkType)
+            {
+                rTextTag->property_foreground() = _pCtConfig->colLinkNode;
+            }
+            else if (CtConst::LINK_TYPE_FILE == linkType)
+            {
+                rTextTag->property_foreground() = _pCtConfig->colLinkFile;
+            }
+            else if (CtConst::LINK_TYPE_FOLD == linkType)
+            {
+                rTextTag->property_foreground() = _pCtConfig->colLinkFold;
+            }
+            else
+            {
+                identified = false;
+            }
+        }
+        else
+        {
+            identified = false;
+        }
+        if (not identified)
+        {
+            std::cerr << "!! unsupported propertyName=" << propertyName << " propertyValue=" << propertyValue << std::endl;
+        }
+        _rGtkTextTagTable->add(rTextTag);
+    }
+    return tagName;
+}
+
+// Get the tooltip for the underlying link
+Glib::ustring CtMainWin::sourceview_hovering_link_get_tooltip(const Glib::ustring& link)
+{
+    Glib::ustring tooltip;
+    auto vec = str::split(link, " ");
+    if (vec[0] == CtConst::LINK_TYPE_FILE or vec[0] == CtConst::LINK_TYPE_FOLD)
+        tooltip = Glib::Base64::decode(vec[1]);
+    else
+    {
+        if (vec[0] == CtConst::LINK_TYPE_NODE)
+            tooltip = _uCtTreestore->get_node_name_from_node_id(std::stol(vec[1]));
+        else
+            tooltip = str::replace(vec[1], "amp;", "");
+        if (vec.size() >= 3)
+        {
+            if (vec.size() == 3) tooltip += "#" + vec[2];
+            else
+                tooltip += "#" + link.substr(vec[0].length() + vec[1].length() + 2);
+        }
+    }
+    return tooltip;
+}
+
+// Try to Select a Word Forward/Backward the Cursor
+bool CtMainWin::apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start)
+{
+    Gtk::TextIter iter_end = iter_start;
+    auto curr_char = iter_end.get_char();
+    auto re = Glib::Regex::create("\\w");
+    // 1) select alphanumeric + special
+    bool match = re->match(Glib::ustring(1, curr_char));
+    if (not match and _pCtConfig->selwordChars.find(curr_char) == Glib::ustring::npos) {
+        iter_start.backward_char();
+        iter_end.backward_char();
+        curr_char = iter_end.get_char();
+        match = re->match(Glib::ustring(1, curr_char));
+        if (not match and _pCtConfig->selwordChars.find(curr_char) == Glib::ustring::npos)
+            return false;
+    }
+    while (match or _pCtConfig->selwordChars.find(curr_char) != Glib::ustring::npos) {
+        if (not iter_end.forward_char()) break; // end of buffer
+        curr_char = iter_end.get_char();
+        match = re->match(Glib::ustring(1, curr_char));
+    }
+    iter_start.backward_char();
+    curr_char = iter_start.get_char();
+    match = re->match(Glib::ustring(1, curr_char));
+    while (match or _pCtConfig->selwordChars.find(curr_char) != Glib::ustring::npos) {
+        if (not iter_start.backward_char()) break; // start of buffer
+        curr_char = iter_start.get_char();
+        match = re->match(Glib::ustring(1, curr_char));
+    }
+    if (not match and _pCtConfig->selwordChars.find(curr_char) == Glib::ustring::npos)
+        iter_start.forward_char();
+    // 2) remove non alphanumeric from borders
+    iter_end.backward_char();
+    curr_char = iter_end.get_char();
+    while (_pCtConfig->selwordChars.find(curr_char) != Glib::ustring::npos) {
+        if (not iter_end.backward_char()) break; // start of buffer
+        curr_char = iter_end.get_char();
+    }
+    iter_end.forward_char();
+    curr_char = iter_start.get_char();
+    while (_pCtConfig->selwordChars.find(curr_char) != Glib::ustring::npos) {
+        if (not iter_start.forward_char()) break; // end of buffer
+        curr_char = iter_start.get_char();
+    }
+    if (iter_end.compare(iter_start) > 0) {
+        text_buffer->move_mark(text_buffer->get_insert(), iter_start);
+        text_buffer->move_mark(text_buffer->get_selection_bound(), iter_end);
+        return true;
+    }
+    return false;
+}
+
+std::string CtMainWin::get_font_css(const std::string& fontStr)
+{
+    g_autofree gchar* pFontCss = g_strdup_printf(
+        "textview text {"
+        "    font-family: %s;"
+        "    font-size: %spx;"
+        "}", CtFontUtil::get_font_family(fontStr).c_str(), CtFontUtil::get_font_size_str(fontStr).c_str());
+    std::string fontCss(pFontCss);
+    return fontCss;
+}
+
+const std::string& CtMainWin::get_font_for_syntax_highlighting(const std::string& syntaxHighlighting)
+{
+    if (0 == syntaxHighlighting.compare(CtConst::RICH_TEXT_ID))
+    {
+        return _pCtConfig->rtFont;
+    }
+    if (0 == syntaxHighlighting.compare(CtConst::PLAIN_TEXT_ID))
+    {
+        return _pCtConfig->ptFont;
+    }
+    return _pCtConfig->codeFont;
+}
+
+std::string CtMainWin::get_font_css_for_syntax_highlighting(const std::string& syntaxHighlighting)
+{
+    return get_font_css(get_font_for_syntax_highlighting(syntaxHighlighting));
+}
+
 void CtMainWin::_reset_CtTreestore_CtTreeview()
 {
     _prevTreeIter = CtTreeIter();
@@ -110,7 +417,7 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
     _scrolledwindowTree.add(*_uCtTreeview);
     _uCtTreeview->show();
 
-    _uCtTreestore.reset(new CtTreeStore);
+    _uCtTreestore.reset(new CtTreeStore(this));
     _uCtTreestore->view_connect(_uCtTreeview.get());
     _uCtTreestore->view_append_columns(_uCtTreeview.get());
 
@@ -124,23 +431,23 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
 
 void CtMainWin::config_apply_before_show_all()
 {
-    move(CtApp::P_ctCfg->winRect[0], CtApp::P_ctCfg->winRect[1]);
-    set_default_size(CtApp::P_ctCfg->winRect[2], CtApp::P_ctCfg->winRect[3]);
-    if (CtApp::P_ctCfg->winIsMaximised)
+    move(_pCtConfig->winRect[0], _pCtConfig->winRect[1]);
+    set_default_size(_pCtConfig->winRect[2], _pCtConfig->winRect[3]);
+    if (_pCtConfig->winIsMaximised)
     {
         maximize();
     }
-    _hPaned.property_position() = CtApp::P_ctCfg->hpanedPos;
+    _hPaned.property_position() = _pCtConfig->hpanedPos;
 }
 
 void CtMainWin::config_apply_after_show_all()
 {
-    show_hide_tree_view(CtApp::P_ctCfg->treeVisible);
-    show_hide_win_header(CtApp::P_ctCfg->showNodeNameHeader);
+    show_hide_tree_view(_pCtConfig->treeVisible);
+    show_hide_win_header(_pCtConfig->showNodeNameHeader);
 
-    show_hide_toolbar(CtApp::P_ctCfg->toolbarVisible);
+    show_hide_toolbar(_pCtConfig->toolbarVisible);
     _pToolbar->set_toolbar_style(Gtk::ToolbarStyle::TOOLBAR_ICONS);
-    set_toolbar_icon_size(CtApp::P_ctCfg->toolbarIconSize);
+    set_toolbar_icon_size(_pCtConfig->toolbarIconSize);
 
     _ctStatusBar.progressBar.hide();
     _ctStatusBar.stopButton.hide();
@@ -150,13 +457,13 @@ void CtMainWin::config_apply_after_show_all()
 
 void CtMainWin::config_update_data_from_curr_status()
 {
-    CtApp::P_ctCfg->winIsMaximised = is_maximized();
-    if (not CtApp::P_ctCfg->winIsMaximised)
+    _pCtConfig->winIsMaximised = is_maximized();
+    if (not _pCtConfig->winIsMaximised)
     {
-        get_position(CtApp::P_ctCfg->winRect[0], CtApp::P_ctCfg->winRect[1]);
-        get_size(CtApp::P_ctCfg->winRect[2], CtApp::P_ctCfg->winRect[3]);
+        get_position(_pCtConfig->winRect[0], _pCtConfig->winRect[1]);
+        get_size(_pCtConfig->winRect[2], _pCtConfig->winRect[3]);
     }
-    CtApp::P_ctCfg->hpanedPos = _hPaned.property_position();
+    _pCtConfig->hpanedPos = _hPaned.property_position();
     _ensure_curr_doc_in_recent_docs();
 }
 
@@ -169,10 +476,10 @@ void CtMainWin::configure_theme()
                "pt; } ";
     };
 
-    std::string rtFont = font_to_string(Pango::FontDescription(CtApp::P_ctCfg->rtFont));
-    std::string plFont = font_to_string(Pango::FontDescription(CtApp::P_ctCfg->ptFont));
-    std::string codeFont = font_to_string(Pango::FontDescription(CtApp::P_ctCfg->codeFont));
-    std::string treeFont = font_to_string(Pango::FontDescription(CtApp::P_ctCfg->treeFont));
+    std::string rtFont = font_to_string(Pango::FontDescription(_pCtConfig->rtFont));
+    std::string plFont = font_to_string(Pango::FontDescription(_pCtConfig->ptFont));
+    std::string codeFont = font_to_string(Pango::FontDescription(_pCtConfig->codeFont));
+    std::string treeFont = font_to_string(Pango::FontDescription(_pCtConfig->treeFont));
 
     auto screen = get_screen();
     if (_css_provider_theme_font)
@@ -202,10 +509,10 @@ void CtMainWin::configure_theme()
     _css_provider_theme = Gtk::CssProvider::create();
     std::string theme_css;
     // todo: rich text fix light selected line with dark theme
-    theme_css += ".ct_textview.rich-text > text { color: " + CtApp::P_ctCfg->rtDefFg + "; background-color: " + CtApp::P_ctCfg->rtDefBg + "; } ";
+    theme_css += ".ct_textview.rich-text > text { color: " + _pCtConfig->rtDefFg + "; background-color: " + _pCtConfig->rtDefBg + "; } ";
     // todo: tree selected node highlight no longer working
-    theme_css += ".ct_node_view { color: " + CtApp::P_ctCfg->ttDefFg + "; background-color: " + CtApp::P_ctCfg->ttDefBg + "; } ";
-    theme_css += ".ct_header { background-color: " + CtApp::P_ctCfg->ttDefBg + "; } ";
+    theme_css += ".ct_node_view { color: " + _pCtConfig->ttDefFg + "; background-color: " + _pCtConfig->ttDefBg + "; } ";
+    theme_css += ".ct_header { background-color: " + _pCtConfig->ttDefBg + "; } ";
 
     _css_provider_theme->load_from_data(theme_css);
     get_style_context()->add_provider_for_screen(screen, _css_provider_theme, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -252,7 +559,7 @@ void CtMainWin::window_header_update()
     // based on update_node_name_header
     std::string name = curr_tree_iter().get_node_name();
     std::string foreground = curr_tree_iter().get_node_foreground();
-    foreground = foreground.empty() ? CtApp::P_ctCfg->ttDefFg : foreground;
+    foreground = foreground.empty() ? _pCtConfig->ttDefFg : foreground;
     _ctWinHeader.nameLabel.set_markup(
                 "<b><span foreground=\"" + foreground + "\" size=\"xx-large\">"
                 + str::xml_escape(name) + "</span></b>");
@@ -310,7 +617,7 @@ void CtMainWin::set_menu_items_recent_documents()
         {
             if (filepath_open(filepath))
             {
-                CtApp::P_ctCfg->recentDocsFilepaths.move_or_push_front(filepath);
+                _pCtConfig->recentDocsFilepaths.move_or_push_front(filepath);
                 set_menu_items_recent_documents();
             }
         }
@@ -318,20 +625,20 @@ void CtMainWin::set_menu_items_recent_documents()
         {
             g_autofree gchar* title = g_strdup_printf(_("The Document %s was Not Found"), filepath.c_str());
             CtDialogs::error_dialog(Glib::ustring{title}, *this);
-            CtApp::P_ctCfg->recentDocsFilepaths.move_or_push_back(filepath);
+            _pCtConfig->recentDocsFilepaths.move_or_push_back(filepath);
             set_menu_items_recent_documents();
         }
     };
     sigc::slot<void, const std::string&> recent_doc_rm_action = [&](const std::string& filepath)
     {
-        CtApp::P_ctCfg->recentDocsFilepaths.remove(filepath);
+        _pCtConfig->recentDocsFilepaths.remove(filepath);
         set_menu_items_recent_documents();
     };
     if (_pRecentDocsSubmenu)
     {
         Gtk::Menu* pMenu = _pRecentDocsSubmenu->get_submenu();
         delete pMenu;
-        _pRecentDocsSubmenu->set_submenu(*_pCtMenu->build_recent_docs_menu(CtApp::P_ctCfg->recentDocsFilepaths,
+        _pRecentDocsSubmenu->set_submenu(*_pCtMenu->build_recent_docs_menu(_pCtConfig->recentDocsFilepaths,
                                                                            recent_doc_open_action,
                                                                            recent_doc_rm_action));
     }
@@ -340,7 +647,7 @@ void CtMainWin::set_menu_items_recent_documents()
         _pRecentDocsMenuToolButton->set_arrow_tooltip_text(_("Open a Recent CherryTree Document"));
         Gtk::Menu* pMenu = _pRecentDocsMenuToolButton->get_menu();
         delete pMenu;
-        _pRecentDocsMenuToolButton->set_menu(*_pCtMenu->build_recent_docs_menu(CtApp::P_ctCfg->recentDocsFilepaths,
+        _pRecentDocsMenuToolButton->set_menu(*_pCtMenu->build_recent_docs_menu(_pCtConfig->recentDocsFilepaths,
                                                                                recent_doc_open_action,
                                                                                recent_doc_rm_action));
     }
@@ -348,8 +655,8 @@ void CtMainWin::set_menu_items_recent_documents()
 
 void CtMainWin::set_menu_items_special_chars()
 {
-    sigc::slot<void, gunichar> spec_char_action = sigc::mem_fun(*CtApp::P_ctActions, &CtActions::insert_spec_char_action);
-    _pSpecialCharsSubmenu->set_submenu(*_pCtMenu->build_special_chars_menu(CtApp::P_ctCfg->specialChars, spec_char_action));
+    sigc::slot<void, gunichar> spec_char_action = sigc::mem_fun(*_pCtActions, &CtActions::insert_spec_char_action);
+    _pSpecialCharsSubmenu->set_submenu(*_pCtMenu->build_special_chars_menu(_pCtConfig->specialChars, spec_char_action));
 }
 
 void CtMainWin::_ensure_curr_doc_in_recent_docs()
@@ -357,7 +664,7 @@ void CtMainWin::_ensure_curr_doc_in_recent_docs()
     const std::string currDocFilePath = get_curr_doc_file_path();
     if (not currDocFilePath.empty())
     {
-        CtApp::P_ctCfg->recentDocsFilepaths.move_or_push_front(currDocFilePath);
+        _pCtConfig->recentDocsFilepaths.move_or_push_front(currDocFilePath);
         CtRecentDocRestore prevDocRestore;
         prevDocRestore.exp_coll_str = _uCtTreestore->get_tree_expanded_collapsed_string(*_uCtTreeview);
         const CtTreeIter prevTreeIter = curr_tree_iter();
@@ -367,7 +674,7 @@ void CtMainWin::_ensure_curr_doc_in_recent_docs()
             const Glib::RefPtr<Gsv::Buffer> rTextBuffer = prevTreeIter.get_node_text_buffer();
             prevDocRestore.cursor_pos = rTextBuffer->property_cursor_position();
         }
-        CtApp::P_ctCfg->recentDocsRestore[currDocFilePath] = prevDocRestore;
+        _pCtConfig->recentDocsRestore[currDocFilePath] = prevDocRestore;
     }
 }
 
@@ -408,14 +715,14 @@ bool CtMainWin::check_unsaved()
 {
     if (get_file_save_needed())
     {
-        const CtYesNoCancel yesNoCancel = CtApp::P_ctCfg->autosaveOnQuit ? CtYesNoCancel::Yes : CtDialogs::exit_save_dialog(*this);
+        const CtYesNoCancel yesNoCancel = _pCtConfig->autosaveOnQuit ? CtYesNoCancel::Yes : CtDialogs::exit_save_dialog(*this);
         if (CtYesNoCancel::Cancel == yesNoCancel)
         {
             return false;
         }
         if (CtYesNoCancel::Yes == yesNoCancel)
         {
-            CtApp::P_ctActions->file_save();
+            _pCtActions->file_save();
             if (get_file_save_needed())
             {
                 // something went wrong in the save
@@ -465,11 +772,11 @@ bool CtMainWin::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, 
             }
             password = dialogTextEntry.get_entry_text();
             if (0 == CtP7zaIface::p7za_extract(filepath.c_str(),
-                                               CtApp::P_ctTmp->getHiddenDirPath(filepath),
+                                               _pCtTmp->getHiddenDirPath(filepath),
                                                password.c_str()) and
-                g_file_test(CtApp::P_ctTmp->getHiddenFilePath(filepath), G_FILE_TEST_IS_REGULAR))
+                g_file_test(_pCtTmp->getHiddenFilePath(filepath), G_FILE_TEST_IS_REGULAR))
             {
-                pFilepathNoEncrypt = CtApp::P_ctTmp->getHiddenFilePath(filepath);
+                pFilepathNoEncrypt = _pCtTmp->getHiddenFilePath(filepath);
                 break;
             }
         }
@@ -487,8 +794,8 @@ bool CtMainWin::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, 
         _set_new_curr_doc(r_file, password);
         _title_update(false/*saveNeeded*/);
         set_bookmarks_menu_items();
-        const CtRecentDocsRestore::iterator iterDocsRestore{CtApp::P_ctCfg->recentDocsRestore.find(filepath)};
-        switch (CtApp::P_ctCfg->restoreExpColl)
+        const CtRecentDocsRestore::iterator iterDocsRestore{_pCtConfig->recentDocsRestore.find(filepath)};
+        switch (_pCtConfig->restoreExpColl)
         {
             case CtRestoreExpColl::ALL_EXP:
             {
@@ -499,19 +806,19 @@ bool CtMainWin::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, 
                 _uCtTreeview->expand_all();
                 _uCtTreestore->set_tree_expanded_collapsed_string("",
                                                                   *_uCtTreeview,
-                                                                  CtApp::P_ctCfg->nodesBookmExp);
+                                                                  _pCtConfig->nodesBookmExp);
             } break;
             default:
             {
-                if (iterDocsRestore != CtApp::P_ctCfg->recentDocsRestore.end())
+                if (iterDocsRestore != _pCtConfig->recentDocsRestore.end())
                 {
                     _uCtTreestore->set_tree_expanded_collapsed_string(iterDocsRestore->second.exp_coll_str,
                                                                       *_uCtTreeview,
-                                                                      CtApp::P_ctCfg->nodesBookmExp);
+                                                                      _pCtConfig->nodesBookmExp);
                 }
             } break;
         }
-        if (iterDocsRestore != CtApp::P_ctCfg->recentDocsRestore.end())
+        if (iterDocsRestore != _pCtConfig->recentDocsRestore.end())
         {
             _uCtTreestore->set_tree_path_n_text_cursor(_uCtTreeview.get(),
                                                        &_ctTextview,
@@ -584,12 +891,12 @@ void CtMainWin::update_selected_node_statusbar_info()
         //    statusbar_text += separator_text + _("Word Count") + _(": ") + str(support.get_word_count(self))
         if (treeIter.get_node_creating_time() > 0)
         {
-            const std::string timestamp_creation = str::time_format(CtApp::P_ctCfg->timestampFormat, treeIter.get_node_creating_time());
+            const std::string timestamp_creation = str::time_format(_pCtConfig->timestampFormat, treeIter.get_node_creating_time());
             statusbar_text += separator_text + _("Date Created") + _(": ") + timestamp_creation;
         }
         if (treeIter.get_node_modification_time() > 0)
         {
-            const std::string timestamp_lastsave = str::time_format(CtApp::P_ctCfg->timestampFormat, treeIter.get_node_modification_time());
+            const std::string timestamp_lastsave = str::time_format(_pCtConfig->timestampFormat, treeIter.get_node_modification_time());
             statusbar_text += separator_text + _("Date Modified") + _(": ") + timestamp_lastsave;
         }
     }
@@ -706,7 +1013,7 @@ bool CtMainWin::_on_window_key_press_event(GdkEventKey* event)
     // todo:
     if (event->state & GDK_CONTROL_MASK) {
         if (event->keyval == GDK_KEY_Tab) {
-            CtApp::P_ctActions->toggle_tree_text();
+            _pCtActions->toggle_tree_text();
             return true;
         }
     }
@@ -719,11 +1026,11 @@ bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
     if (not curr_tree_iter()) return false;
     if (event->state & GDK_SHIFT_MASK) {
         if (event->keyval == GDK_KEY_Up) {
-            CtApp::P_ctActions->node_up();
+            _pCtActions->node_up();
             return true;
         }
         if (event->keyval == GDK_KEY_Down) {
-            CtApp::P_ctActions->node_down();
+            _pCtActions->node_down();
             return true;
         }
     }
@@ -735,7 +1042,7 @@ bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
     }
     else {
         if (event->keyval == GDK_KEY_Tab) {
-            CtApp::P_ctActions->toggle_tree_text();
+            _pCtActions->toggle_tree_text();
             return true;
         }
     }
@@ -779,14 +1086,15 @@ void CtMainWin::_on_textview_populate_popup(Gtk::Menu* menu)
                 }
                 if (do_set_cursor) curr_buffer()->place_cursor(target_iter);
             }
-            CtApp::P_ctActions->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::Link);
+            get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::Link);
         }
         else
-            CtApp::P_ctActions->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::Text);
+            get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::Text);
     }
     else
-        CtApp::P_ctActions->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::Code);
+        _pCtActions->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::Code);
 }
+
 // Update the cursor image if the pointer moved
 bool CtMainWin::_on_textview_motion_notify_event(GdkEventMotion* event)
 {
@@ -848,7 +1156,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
         if (event->key.keyval == GDK_KEY_ISO_Left_Tab and !curr_buffer->get_has_selection())
         {
             auto iter_insert = curr_buffer->get_insert()->get_iter();
-            CtListInfo list_info = CtList(curr_buffer).get_paragraph_list_info(iter_insert);
+            CtListInfo list_info = CtList(this, curr_buffer).get_paragraph_list_info(iter_insert);
             if (list_info and list_info.level)
             {
                 get_text_view().list_change_level(iter_insert, list_info, false);
@@ -866,12 +1174,12 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
                 codebox->get_text_view().grab_focus();
                 return true;
             }
-        CtListInfo list_info = CtList(curr_buffer).get_paragraph_list_info(iter_insert);
+        CtListInfo list_info = CtList(this, curr_buffer).get_paragraph_list_info(iter_insert);
         if (list_info and list_info.type == CtListType::Todo)
-            if (CtApp::P_ctActions->_is_curr_node_not_read_only_or_error())
+            if (_pCtActions->_is_curr_node_not_read_only_or_error())
             {
                 auto iter_start_list = curr_buffer->get_iter_at_offset(list_info.startoffs + 3*list_info.level);
-                CtList(curr_buffer).todo_list_rotate_status(iter_start_list);
+                CtList(this, curr_buffer).todo_list_rotate_status(iter_start_list);
                 return true;
             }
     }
@@ -897,14 +1205,14 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             if (widgets.empty()) return false;
             if (CtImageAnchor* anchor = dynamic_cast<CtImageAnchor*>(widgets.front()))
             {
-                CtApp::P_ctActions->curr_anchor_anchor = anchor;
-                CtApp::P_ctActions->object_set_selection(anchor);
+                _pCtActions->curr_anchor_anchor = anchor;
+                _pCtActions->object_set_selection(anchor);
                 _pCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->popup(3, event->button.time);
             }
             else if (CtImagePng* image = dynamic_cast<CtImagePng*>(widgets.front()))
             {
-                CtApp::P_ctActions->curr_image_anchor = image;
-                CtApp::P_ctActions->object_set_selection(image);
+                _pCtActions->curr_image_anchor = image;
+                _pCtActions->object_set_selection(image);
                 _pCtMenu->find_action("img_link_dismiss")->signal_set_visible.emit(not image->get_link().empty());
                 _pCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup(3, event->button.time);
             }
@@ -916,7 +1224,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
         if (not curr_buffer->get_has_selection())
         {
             auto iter_insert = curr_buffer->get_insert()->get_iter();
-            CtListInfo list_info = CtList(curr_buffer).get_paragraph_list_info(iter_insert);
+            CtListInfo list_info = CtList(this, curr_buffer).get_paragraph_list_info(iter_insert);
             if (list_info)
             {
                 get_text_view().list_change_level(iter_insert, list_info, true);
@@ -979,7 +1287,7 @@ void CtMainWin::_on_textview_event_after(GdkEvent* event)
     {
         if (event->key.keyval == GDK_KEY_Return or event->key.keyval == GDK_KEY_space)
         {
-            if (CtApp::P_ctCfg->wordCountOn)
+            if (_pCtConfig->wordCountOn)
             {
                 update_selected_node_statusbar_info();
             }

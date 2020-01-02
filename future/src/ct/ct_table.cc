@@ -1,7 +1,7 @@
 /*
  * ct_table.cc
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,11 +21,11 @@
 
 #include "ct_table.h"
 #include "ct_doc_rw.h"
-#include "ct_app.h"
 
-CtTableCell::CtTableCell(const Glib::ustring& textContent,
+CtTableCell::CtTableCell(CtMainWin* pCtMainWin,
+                         const Glib::ustring& textContent,
                          const Glib::ustring& syntaxHighlighting)
- : CtTextCell(textContent, syntaxHighlighting)
+ : CtTextCell(pCtMainWin, textContent, syntaxHighlighting)
 {
     add(_ctTextview);
 }
@@ -35,13 +35,14 @@ CtTableCell::~CtTableCell()
 }
 
 
-CtTable::CtTable(const CtTableMatrix& tableMatrix,
+CtTable::CtTable(CtMainWin* pCtMainWin,
+                 const CtTableMatrix& tableMatrix,
                  const int colMin,
                  const int colMax,
                  const bool headFront,
                  const int charOffset,
                  const std::string& justification)
- : CtAnchoredWidget(charOffset, justification),
+ : CtAnchoredWidget(pCtMainWin, charOffset, justification),
    _tableMatrix(tableMatrix),
    _colMin(colMin),
    _colMax(colMax)

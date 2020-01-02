@@ -1,7 +1,7 @@
 /*
  * ct_widgets.cc
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,15 +22,71 @@
 #include "ct_widgets.h"
 #include "ct_misc_utils.h"
 #include "ct_const.h"
-#include "ct_app.h"
+#include "ct_main_win.h"
+#include "ct_actions.h"
+#include <glib/gstdio.h>
+
+CtTmp::CtTmp()
+{
+}
+
+CtTmp::~CtTmp()
+{
+    //std::cout << "~CtTmp()" << std::endl;
+    for (const auto& currPair : _mapHiddenFiles)
+    {
+        if (g_file_test(currPair.second, G_FILE_TEST_IS_REGULAR) and (0 != g_remove(currPair.second)))
+        {
+            std::cerr << "!! g_remove" << std::endl;
+        }
+        g_free(currPair.second);
+    }
+    for (const auto& currPair : _mapHiddenDirs)
+    {
+        if (g_file_test(currPair.second, G_FILE_TEST_IS_DIR) and (0 != g_rmdir(currPair.second)))
+        {
+            std::cerr << "!! g_rmdir" << std::endl;
+        }
+        g_free(currPair.second);
+    }
+}
+
+const gchar* CtTmp::getHiddenDirPath(const std::string& visiblePath)
+{
+    if (not _mapHiddenDirs.count(visiblePath))
+    {
+        _mapHiddenDirs[visiblePath] = g_dir_make_tmp(nullptr, nullptr);
+    }
+    return _mapHiddenDirs.at(visiblePath);
+}
+
+const gchar* CtTmp::getHiddenFilePath(const std::string& visiblePath)
+{
+    if (not _mapHiddenFiles.count(visiblePath))
+    {
+        const gchar* tempDir{getHiddenDirPath(visiblePath)};
+        std::string basename{Glib::path_get_basename(visiblePath)};
+        if (Glib::str_has_suffix(basename, ".ctx"))
+        {
+            basename.replace(basename.end()-1, basename.end(), "b");
+        }
+        else if (Glib::str_has_suffix(basename, ".ctz"))
+        {
+            basename.replace(basename.end()-1, basename.end(), "d");
+        }
+        _mapHiddenFiles[visiblePath] = g_build_filename(tempDir, basename.c_str(), NULL);
+    }
+    return _mapHiddenFiles.at(visiblePath);
+}
+
 
 const double CtTextView::TEXT_SCROLL_MARGIN{0.3};
 
-
-CtAnchoredWidget::CtAnchoredWidget(const int charOffset, const std::string& justification)
+CtAnchoredWidget::CtAnchoredWidget(CtMainWin* pCtMainWin, const int charOffset, const std::string& justification)
+ : _pCtMainWin(pCtMainWin),
+   _charOffset(charOffset),
+   _justification(justification)
 {
-    _charOffset = charOffset;
-    _justification = justification;
     _frame.set_shadow_type(Gtk::ShadowType::SHADOW_NONE);
     signal_button_press_event().connect([](GdkEventButton* /*pEvent*/){ return true; });
     add(_frame);
@@ -38,24 +94,25 @@ CtAnchoredWidget::CtAnchoredWidget(const int charOffset, const std::string& just
 
 CtAnchoredWidget::~CtAnchoredWidget()
 {
-
 }
 
-
+void CtAnchoredWidget::updateJustification(const Gtk::TextIter& textIter)
+{
+    updateJustification(CtTextIterUtil::get_text_iter_alignment(textIter, _pCtMainWin));
+}
 
 void CtAnchoredWidget::insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer)
 {
     _rTextChildAnchor = rTextBuffer->create_child_anchor(rTextBuffer->get_iter_at_offset(_charOffset));
-    if (!_justification.empty())
+    if (not _justification.empty())
     {
         Gtk::TextIter textIterStart = rTextBuffer->get_iter_at_child_anchor(_rTextChildAnchor);
         Gtk::TextIter textIterEnd = textIterStart;
         textIterEnd.forward_char();
-        Glib::ustring tagName = CtMiscUtil::getTextTagNameExistOrCreate(CtConst::TAG_JUSTIFICATION, _justification);
+        Glib::ustring tagName = _pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_JUSTIFICATION, _justification);
         rTextBuffer->apply_tag_by_name(tagName, textIterStart, textIterEnd);
     }
 }
-
 
 
 CtTreeView::CtTreeView()
@@ -73,15 +130,17 @@ void CtTreeView::set_cursor_safe(const Gtk::TreeIter& iter)
     set_cursor(get_model()->get_path(iter));
 }
 
-CtTextView::CtTextView()
+
+CtTextView::CtTextView(CtMainWin* pCtMainWin)
+ : _pCtMainWin(pCtMainWin)
 {
     //set_sensitive(false);
     set_smart_home_end(Gsv::SMART_HOME_END_AFTER);
     set_left_margin(7);
     set_right_margin(7);
-    set_insert_spaces_instead_of_tabs(CtApp::P_ctCfg->spacesInsteadTabs);
-    set_tab_width((guint)CtApp::P_ctCfg->tabsWidth);
-    if (CtApp::P_ctCfg->lineWrapping)
+    set_insert_spaces_instead_of_tabs(_pCtMainWin->get_ct_config()->spacesInsteadTabs);
+    set_tab_width((guint)_pCtMainWin->get_ct_config()->tabsWidth);
+    if (_pCtMainWin->get_ct_config()->lineWrapping)
     {
         set_wrap_mode(Gtk::WrapMode::WRAP_WORD_CHAR);
     }
@@ -136,8 +195,8 @@ void CtTextView::setup_for_syntax(const std::string& syntax)
     if (CtConst::RICH_TEXT_ID == syntax)
     {
         // todo: self.widget_set_colors(self.sourceview, self.rt_def_fg, self.rt_def_bg, False)
-        set_highlight_current_line(CtApp::P_ctCfg->rtHighlCurrLine);
-        if (CtApp::P_ctCfg->rtShowWhiteSpaces)
+        set_highlight_current_line(_pCtMainWin->get_ct_config()->rtHighlCurrLine);
+        if (_pCtMainWin->get_ct_config()->rtShowWhiteSpaces)
         {
             set_draw_spaces(Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE);
         }
@@ -145,8 +204,8 @@ void CtTextView::setup_for_syntax(const std::string& syntax)
     else
     {
         // todo: self.widget_set_colors(self.sourceview, self.rt_def_fg, self.rt_def_bg, True)
-        set_highlight_current_line(CtApp::P_ctCfg->ptHighlCurrLine);
-        if (CtApp::P_ctCfg->ptShowWhiteSpaces)
+        set_highlight_current_line(_pCtMainWin->get_ct_config()->ptHighlCurrLine);
+        if (_pCtMainWin->get_ct_config()->ptShowWhiteSpaces)
         {
             set_draw_spaces(Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE);
         }
@@ -166,7 +225,7 @@ void CtTextView::set_selection_at_offset_n_delta(int offset, int delta, Glib::Re
     Gtk::TextIter target = text_buffer->get_iter_at_offset(offset);
     if (target) {
         text_buffer->place_cursor(target);
-        if (!target.forward_chars(delta)) {
+        if (not target.forward_chars(delta)) {
             // #print "? bad offset=%s, delta=%s on node %s" % (offset, delta, self.treestore[self.curr_tree_iter][1])
         }
         text_buffer->move_mark(text_buffer->get_selection_bound(), target);
@@ -178,25 +237,25 @@ void CtTextView::set_selection_at_offset_n_delta(int offset, int delta, Glib::Re
 void CtTextView::_setFontForSyntax(const std::string& syntaxHighlighting)
 {
     Glib::RefPtr<Gtk::StyleContext> rStyleContext = get_style_context();
-    std::string fontCss = CtFontUtil::getFontCssForSyntaxHighlighting(syntaxHighlighting);
-    CtApp::R_cssProvider->load_from_data(fontCss);
-    rStyleContext->add_provider(CtApp::R_cssProvider, GTK_STYLE_PROVIDER_PRIORITY_USER);
+    std::string fontCss = _pCtMainWin->get_font_css_for_syntax_highlighting(syntaxHighlighting);
+    _pCtMainWin->get_css_provider()->load_from_data(fontCss);
+    rStyleContext->add_provider(_pCtMainWin->get_css_provider(), GTK_STYLE_PROVIDER_PRIORITY_USER);
 }
 
 // Called at list indent/unindent time
 void CtTextView::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& list_info, bool level_increase)
 {
-    if (!CtApp::P_ctActions->_is_curr_node_not_read_only_or_error()) return;
+    if (not _pCtMainWin->get_ct_actions()->_is_curr_node_not_read_only_or_error()) return;
 
-    auto on_scope_exit = scope_guard([&](void*) { CtApp::P_ctActions->getCtMainWin()->user_active() = true; });
-    CtApp::P_ctActions->getCtMainWin()->user_active() = false;
+    auto on_scope_exit = scope_guard([&](void*) { _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active() = true; });
+    _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active() = false;
 
     int curr_offset = list_info.startoffs;
-    int end_offset = CtList(get_buffer()).get_multiline_list_element_end_offset(iter_insert, list_info);
+    int end_offset = CtList(_pCtMainWin, get_buffer()).get_multiline_list_element_end_offset(iter_insert, list_info);
     int curr_level = list_info.level;
     int next_level = level_increase ? curr_level+1 : curr_level-1;
     Gtk::TextIter iter_start = get_buffer()->get_iter_at_offset(curr_offset);
-    CtListInfo prev_list_info = CtList(get_buffer()).get_prev_list_info_on_level(iter_start, next_level);
+    CtListInfo prev_list_info = CtList(_pCtMainWin, get_buffer()).get_prev_list_info_on_level(iter_start, next_level);
     // print prev_list_info
     if (list_info.type != CtListType::Todo)
     {
@@ -204,20 +263,20 @@ void CtTextView::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& 
         int bull_idx;
         if (list_info.type == CtListType::Bullet)
         {
-            if (prev_list_info && prev_list_info.type == CtListType::Bullet)
+            if (prev_list_info and prev_list_info.type == CtListType::Bullet)
                 bull_idx = prev_list_info.num;
             else
             {
                 int idx_old = list_info.num;
-                int idx_offset = idx_old - curr_level % (int)CtApp::P_ctCfg->charsListbul.size();
-                bull_idx = (next_level + idx_offset) % (int)CtApp::P_ctCfg->charsListbul.size();
+                int idx_offset = idx_old - curr_level % (int)_pCtMainWin->get_ct_config()->charsListbul.size();
+                bull_idx = (next_level + idx_offset) % (int)_pCtMainWin->get_ct_config()->charsListbul.size();
             }
-            replace_text(Glib::ustring(1, CtApp::P_ctCfg->charsListbul[(size_t)bull_idx]), bull_offset, bull_offset+1);
+            replace_text(Glib::ustring(1, _pCtMainWin->get_ct_config()->charsListbul[(size_t)bull_idx]), bull_offset, bull_offset+1);
         }
         else if (list_info.type == CtListType::Number)
         {
             int this_num, index;
-            if (prev_list_info && prev_list_info.type == CtListType::Number)
+            if (prev_list_info and prev_list_info.type == CtListType::Number)
             {
                 this_num = prev_list_info.num + 1;
                 index = prev_list_info.aux;
@@ -230,7 +289,7 @@ void CtTextView::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& 
                 index = (next_level + idx_offset) % CtConst::NUM_CHARS_LISTNUM;
             }
             Glib::ustring text_to = std::to_string(this_num) + Glib::ustring(1, CtConst::CHARS_LISTNUM[(size_t)index]) + CtConst::CHAR_SPACE;
-            replace_text(text_to, bull_offset, bull_offset+ CtList(get_buffer()).get_leading_chars_num(list_info.type, list_info.num));
+            replace_text(text_to, bull_offset, bull_offset + CtList(_pCtMainWin, get_buffer()).get_leading_chars_num(list_info.type, list_info.num));
         }
     }
     iter_start = get_buffer()->get_iter_at_offset(curr_offset);
@@ -249,12 +308,12 @@ void CtTextView::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& 
             end_offset -= 3;
             iter_start = get_buffer()->get_iter_at_offset(curr_offset+1);
         }
-        if (!CtList(get_buffer()).char_iter_forward_to_newline(iter_start) || !iter_start.forward_char())
+        if (not CtList(_pCtMainWin, get_buffer()).char_iter_forward_to_newline(iter_start) or not iter_start.forward_char())
             break;
         curr_offset = iter_start.get_offset();
     }
-    CtApp::P_ctActions->getCtMainWin()->user_active() = true;
-    CtApp::P_ctActions->getCtMainWin()->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
+    _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active() = true;
+    _pCtMainWin->get_ct_actions()->getCtMainWin()->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
 void CtTextView::replace_text(const Glib::ustring& text, int start_offset, int end_offset)
@@ -271,14 +330,14 @@ void CtTextView::for_event_after_double_click_button1(GdkEvent* event)
     window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
     Gtk::TextIter iter_start;
     get_iter_at_location(iter_start, x, y);
-    CtTextIterUtil::apply_tag_try_automatic_bounds(text_buffer, iter_start);
+    _pCtMainWin->apply_tag_try_automatic_bounds(text_buffer, iter_start);
 }
 
 // Called after every gtk.gdk.BUTTON_PRESS on the SourceView
 void CtTextView::for_event_after_button_press(GdkEvent* event)
 {
     auto text_buffer = get_buffer();
-    if (event->button.button == 1 || event->button.button == 2)
+    if (event->button.button == 1 or event->button.button == 2)
     {
         int x, y;
         window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
@@ -291,15 +350,15 @@ void CtTextView::for_event_after_button_press(GdkEvent* event)
             Glib::ustring tag_name = tag->property_name();
             if (str::startswith(tag_name, CtConst::TAG_LINK))
             {
-                CtApp::P_ctActions->link_clicked(tag_name.substr(5), event->button.button == 2);
+                _pCtMainWin->get_ct_actions()->link_clicked(tag_name.substr(5), event->button.button == 2);
                 return;
             }
         }
-        if (CtList(text_buffer).is_list_todo_beginning(text_iter))
-            if (CtApp::P_ctActions->_is_curr_node_not_read_only_or_error())
-                CtList(text_buffer).todo_list_rotate_status(text_iter);
+        if (CtList(_pCtMainWin, text_buffer).is_list_todo_beginning(text_iter))
+            if (_pCtMainWin->get_ct_actions()->_is_curr_node_not_read_only_or_error())
+                CtList(_pCtMainWin, text_buffer).todo_list_rotate_status(text_iter);
     }
-    else if (event->button.button == 3 && !text_buffer->get_has_selection())
+    else if (event->button.button == 3 and not text_buffer->get_has_selection())
     {
         int x, y;
         window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
@@ -313,10 +372,10 @@ void CtTextView::for_event_after_button_press(GdkEvent* event)
 void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring& syntaxHighlighting)
 {
     auto text_buffer = get_buffer();
-    auto config = CtApp::P_ctCfg;
-    bool is_code = syntaxHighlighting != CtConst::RICH_TEXT_ID && syntaxHighlighting != CtConst::PLAIN_TEXT_ID;
+    auto config = _pCtMainWin->get_ct_config();
+    bool is_code = syntaxHighlighting != CtConst::RICH_TEXT_ID and syntaxHighlighting != CtConst::PLAIN_TEXT_ID;
 
-    if (!is_code && config->autoSmartQuotes && (event->key.keyval == GDK_KEY_quotedbl || event->key.keyval == GDK_KEY_apostrophe))
+    if (not is_code and config->autoSmartQuotes and (event->key.keyval == GDK_KEY_quotedbl or event->key.keyval == GDK_KEY_apostrophe))
     {
         Gtk::TextIter iter_insert = text_buffer->get_insert()->get_iter();
         int offset_1 = iter_insert.get_offset()-1;
@@ -343,15 +402,15 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                 if (curr_char == start_char[0])
                 {
                     int candidate_offset = iter_start.get_offset();
-                    if (!iter_start.backward_char()
-                            || iter_start.get_char() == CtConst::CHAR_NEWLINE[0]
-                            || iter_start.get_char() == CtConst::CHAR_SPACE[0]
-                            || iter_start.get_char() == CtConst::CHAR_TAB[0])
+                    if (not iter_start.backward_char()
+                            or iter_start.get_char() == CtConst::CHAR_NEWLINE[0]
+                            or iter_start.get_char() == CtConst::CHAR_SPACE[0]
+                            or iter_start.get_char() == CtConst::CHAR_TAB[0])
                         offset_0 = candidate_offset;
                     break;
                 }
                 if (curr_char == CtConst::CHAR_NEWLINE[0]) break;
-                if (!iter_start.backward_char()) break;
+                if (not iter_start.backward_char()) break;
             }
             if (offset_0 >= 0)
             {
@@ -367,12 +426,12 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
             Gtk::TextIter iter_insert = text_buffer->get_insert()->get_iter();
             Gtk::TextIter iter_start = iter_insert;
             iter_start.backward_char();
-            CtListInfo list_info = CtList(text_buffer).get_paragraph_list_info(iter_start);
+            CtListInfo list_info = CtList(_pCtMainWin, text_buffer).get_paragraph_list_info(iter_start);
             if (list_info)
                 text_buffer->insert(iter_insert, Glib::ustring(3*(1+(size_t)list_info.level), CtConst::CHAR_SPACE[0]));
         }
     }
-    else if (event->key.keyval == GDK_KEY_Return || event->key.keyval == GDK_KEY_space)
+    else if (event->key.keyval == GDK_KEY_Return or event->key.keyval == GDK_KEY_space)
     {
         Gtk::TextIter iter_insert = text_buffer->get_insert()->get_iter();
         if (syntaxHighlighting == CtConst::RICH_TEXT_ID)
@@ -387,29 +446,29 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
         {
             int cursor_key_press = iter_insert.get_offset();
             //print "cursor_key_press", cursor_key_press
-            if (cursor_key_press == CtApp::P_ctActions->getCtMainWin()->cursor_key_press())
+            if (cursor_key_press == _pCtMainWin->get_ct_actions()->getCtMainWin()->cursor_key_press())
             {
                 // problem of event-after called twice, once before really executing
                 return;
             }
-            if (!iter_start.backward_char()) return;
+            if (not iter_start.backward_char()) return;
             if (iter_start.get_char() != CtConst::CHAR_NEWLINE[0]) return;
-            if (iter_start.backward_char() && iter_start.get_char() == CtConst::CHAR_NEWLINE[0])
+            if (iter_start.backward_char() and iter_start.get_char() == CtConst::CHAR_NEWLINE[0])
                 return; // former was an empty row
-            CtListInfo list_info = CtList(text_buffer).get_paragraph_list_info(iter_start);
-            if (!list_info)
+            CtListInfo list_info = CtList(_pCtMainWin, text_buffer).get_paragraph_list_info(iter_start);
+            if (not list_info)
             {
                 if (config->autoIndent)
                 {
                     iter_start = iter_insert;
                     Glib::ustring former_line_indent = _get_former_line_indentation(iter_start);
-                    if (!former_line_indent.empty()) text_buffer->insert_at_cursor(former_line_indent);
+                    if (not former_line_indent.empty()) text_buffer->insert_at_cursor(former_line_indent);
                 }
                 return; // former was not a list
             }
             // possible enter on empty list element
             int insert_offset = iter_insert.get_offset();
-            int chars_to_startoffs = 1 + CtList(text_buffer).get_leading_chars_num(list_info.type, list_info.num) + 3*list_info.level;
+            int chars_to_startoffs = 1 + CtList(_pCtMainWin, text_buffer).get_leading_chars_num(list_info.type, list_info.num) + 3*list_info.level;
             if ((insert_offset - list_info.startoffs) == chars_to_startoffs)
             {
                 Gtk::TextIter iter_list_quit;
@@ -441,29 +500,29 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                 text_buffer->insert(iter_insert, pre_spaces + std::to_string(new_num) + CtConst::CHARS_LISTNUM[(size_t)index] + CtConst::CHAR_SPACE);
                 new_num += 1;
                 iter_start = text_buffer->get_iter_at_offset(insert_offset);
-                CtList(text_buffer).char_iter_forward_to_newline(iter_start);
-                list_info = CtList(text_buffer).get_next_list_info_on_level(iter_start, curr_level);
+                CtList(_pCtMainWin, text_buffer).char_iter_forward_to_newline(iter_start);
+                list_info = CtList(_pCtMainWin, text_buffer).get_next_list_info_on_level(iter_start, curr_level);
                 // print list_info
-                while (list_info && list_info.type == CtListType::Number)
+                while (list_info and list_info.type == CtListType::Number)
                 {
                     iter_start = text_buffer->get_iter_at_offset(list_info.startoffs);
-                    int end_offset = CtList(text_buffer).get_multiline_list_element_end_offset(iter_start, list_info);
+                    int end_offset = CtList(_pCtMainWin, text_buffer).get_multiline_list_element_end_offset(iter_start, list_info);
                     Gtk::TextIter iter_end = text_buffer->get_iter_at_offset(end_offset);
-                    CtTextRange range = CtList(text_buffer).list_check_n_remove_old_list_type_leading(iter_start, iter_end);
+                    CtTextRange range = CtList(_pCtMainWin, text_buffer).list_check_n_remove_old_list_type_leading(iter_start, iter_end);
                     end_offset -= range.leading_chars_num;
                     text_buffer->insert(iter_start, std::to_string(new_num) + Glib::ustring(1, CtConst::CHARS_LISTNUM[(size_t)index]) + CtConst::CHAR_SPACE);
-                    end_offset += CtList(text_buffer).get_leading_chars_num(list_info.type, new_num);
+                    end_offset += CtList(_pCtMainWin, text_buffer).get_leading_chars_num(list_info.type, new_num);
                     iter_start = text_buffer->get_iter_at_offset(end_offset);
                     new_num += 1;
-                    list_info = CtList(text_buffer).get_next_list_info_on_level(iter_start, curr_level);
+                    list_info = CtList(_pCtMainWin, text_buffer).get_next_list_info_on_level(iter_start, curr_level);
                 }
             }
         }
         else // keyname == CtConst::STR_KEY_SPACE
         {
-            if (!is_code && config->enableSymbolAutoreplace && iter_start.backward_chars(2))
+            if (not is_code and config->enableSymbolAutoreplace and iter_start.backward_chars(2))
             {
-                if (iter_start.get_char() == CtConst::CHAR_GREATER[0] && iter_start.backward_char())
+                if (iter_start.get_char() == CtConst::CHAR_GREATER[0] and iter_start.backward_char())
                 {
                     if (iter_start.get_line_offset() == 0)
                     {
@@ -478,7 +537,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                             // "=> " becoming "⇒ "
                             _special_char_replace(CtConst::CHARS_LISTBUL_DEFAULT[5], iter_start, iter_insert);
                     }
-                    else if (iter_start.get_char() == CtConst::CHAR_MINUS[0] && iter_start.backward_char())
+                    else if (iter_start.get_char() == CtConst::CHAR_MINUS[0] and iter_start.backward_char())
                     {
                         if (iter_start.get_char() == CtConst::CHAR_LESSER[0])
                             // "<-> " becoming "↔ "
@@ -487,7 +546,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                             // "--> " becoming "→ "
                             _special_char_replace(CtConst::SPECIAL_CHAR_ARROW_RIGHT[0], iter_start, iter_insert);
                     }
-                    else if (iter_start.get_char() == CtConst::CHAR_EQUAL[0] && iter_start.backward_char())
+                    else if (iter_start.get_char() == CtConst::CHAR_EQUAL[0] and iter_start.backward_char())
                     {
                         if (iter_start.get_char() == CtConst::CHAR_LESSER[0])
                             // "<=> " becoming "⇔ "
@@ -497,44 +556,44 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                             _special_char_replace(CtConst::SPECIAL_CHAR_ARROW_RIGHT2[0], iter_start, iter_insert);
                     }
                 }
-                else if (iter_start.get_char() == CtConst::CHAR_MINUS[0] && iter_start.backward_char()
-                        && iter_start.get_char() == CtConst::CHAR_MINUS[0] && iter_start.backward_char()
-                        && iter_start.get_char() == CtConst::CHAR_LESSER[0])
+                else if (iter_start.get_char() == CtConst::CHAR_MINUS[0] and iter_start.backward_char()
+                        and iter_start.get_char() == CtConst::CHAR_MINUS[0] and iter_start.backward_char()
+                        and iter_start.get_char() == CtConst::CHAR_LESSER[0])
                         // "<-- " becoming "← "
                         _special_char_replace(CtConst::SPECIAL_CHAR_ARROW_LEFT[0], iter_start, iter_insert);
-                else if (iter_start.get_char() == CtConst::CHAR_EQUAL[0] && iter_start.backward_char()
-                        && iter_start.get_char() == CtConst::CHAR_EQUAL[0] && iter_start.backward_char()
-                        && iter_start.get_char() == CtConst::CHAR_LESSER[0])
+                else if (iter_start.get_char() == CtConst::CHAR_EQUAL[0] and iter_start.backward_char()
+                        and iter_start.get_char() == CtConst::CHAR_EQUAL[0] and iter_start.backward_char()
+                        and iter_start.get_char() == CtConst::CHAR_LESSER[0])
                         // "<== " becoming "⇐ "
                         _special_char_replace(CtConst::SPECIAL_CHAR_ARROW_LEFT2[0], iter_start, iter_insert);
-                else if (iter_start.get_char() == CtConst::CHAR_PARENTH_CLOSE[0] && iter_start.backward_char())
+                else if (iter_start.get_char() == CtConst::CHAR_PARENTH_CLOSE[0] and iter_start.backward_char())
                 {
-                    if (g_unichar_tolower(iter_start.get_char()) == 'c' && iter_start.backward_char()
-                       && iter_start.get_char() == CtConst::CHAR_PARENTH_OPEN[0])
+                    if (g_unichar_tolower(iter_start.get_char()) == 'c' and iter_start.backward_char()
+                       and iter_start.get_char() == CtConst::CHAR_PARENTH_OPEN[0])
                         // "(c) " becoming "© "
                         _special_char_replace(CtConst::SPECIAL_CHAR_COPYRIGHT[0], iter_start, iter_insert);
-                    else if (g_unichar_tolower(iter_start.get_char()) == 'r' && iter_start.backward_char()
-                            && iter_start.get_char() == CtConst::CHAR_PARENTH_OPEN[0])
+                    else if (g_unichar_tolower(iter_start.get_char()) == 'r' and iter_start.backward_char()
+                            and iter_start.get_char() == CtConst::CHAR_PARENTH_OPEN[0])
                             // "(r) " becoming "® "
                             _special_char_replace(CtConst::SPECIAL_CHAR_REGISTERED_TRADEMARK[0], iter_start, iter_insert);
-                    else if (g_unichar_tolower(iter_start.get_char()) == 'm' && iter_start.backward_char()
-                            && g_unichar_tolower(iter_start.get_char()) == 't' && iter_start.backward_char()
-                            && iter_start.get_char() == CtConst::CHAR_PARENTH_OPEN[0])
+                    else if (g_unichar_tolower(iter_start.get_char()) == 'm' and iter_start.backward_char()
+                            and g_unichar_tolower(iter_start.get_char()) == 't' and iter_start.backward_char()
+                            and iter_start.get_char() == CtConst::CHAR_PARENTH_OPEN[0])
                             // "(tm) " becoming "™ "
                             _special_char_replace(CtConst::SPECIAL_CHAR_UNREGISTERED_TRADEMARK[0], iter_start, iter_insert);
                 }
-                else if (iter_start.get_char() == CtConst::CHAR_STAR[0] && iter_start.get_line_offset() == 0)
+                else if (iter_start.get_char() == CtConst::CHAR_STAR[0] and iter_start.get_line_offset() == 0)
                     // "* " becoming "• " at line start
                     _special_char_replace(CtConst::CHARS_LISTBUL_DEFAULT[0], iter_start, iter_insert);
-                else if (iter_start.get_char() == CtConst::CHAR_SQ_BR_CLOSE[0] && iter_start.backward_char())
+                else if (iter_start.get_char() == CtConst::CHAR_SQ_BR_CLOSE[0] and iter_start.backward_char())
                 {
-                    if (iter_start.get_line_offset() == 0 && iter_start.get_char() == CtConst::CHAR_SQ_BR_OPEN[0])
+                    if (iter_start.get_line_offset() == 0 and iter_start.get_char() == CtConst::CHAR_SQ_BR_OPEN[0])
                         // "[] " becoming "☐ " at line start
                         _special_char_replace(config->charsTodo[0], iter_start, iter_insert);
                 }
-                else if (iter_start.get_char() == CtConst::CHAR_COLON[0] && iter_start.backward_char())
+                else if (iter_start.get_char() == CtConst::CHAR_COLON[0] and iter_start.backward_char())
                 {
-                    if (iter_start.get_line_offset() == 0 && iter_start.get_char() == CtConst::CHAR_COLON[0])
+                    if (iter_start.get_line_offset() == 0 and iter_start.get_char() == CtConst::CHAR_COLON[0])
                         // ":: " becoming "▪ " at line start
                         _special_char_replace(CtConst::CHARS_LISTBUL_DEFAULT[2], iter_start, iter_insert);
                 }
@@ -552,7 +611,7 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
     Gtk::TextIter text_iter;
     get_iter_at_location(text_iter, x, y);
 
-    if (CtList(get_buffer()).is_list_todo_beginning(text_iter))
+    if (CtList(_pCtMainWin, get_buffer()).is_list_todo_beginning(text_iter))
     {
         get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::X_CURSOR));
         set_tooltip_text("");
@@ -567,33 +626,33 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
         {
             find_link = true;
             hovering_link_iter_offset = text_iter.get_offset();
-            tooltip = CtMiscUtil::sourceview_hovering_link_get_tooltip(tag_name.substr(5));
+            tooltip = _pCtMainWin->sourceview_hovering_link_get_tooltip(tag_name.substr(5));
             break;
         }
     }
-    if (!find_link)
+    if (not find_link)
     {
         Gtk::TextIter iter_anchor = text_iter;
         for (int i: {0, 1})
         {
             if (i == 1) iter_anchor.backward_char();
-            auto widgets = CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes({iter_anchor.get_offset(), iter_anchor.get_offset()});
-            if (!widgets.empty())
+            auto widgets = _pCtMainWin->get_ct_actions()->getCtMainWin()->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes({iter_anchor.get_offset(), iter_anchor.get_offset()});
+            if (not widgets.empty())
                 if (CtImagePng* image = dynamic_cast<CtImagePng*>(widgets.front()))
-                    if (!image->get_link().empty())
+                    if (not image->get_link().empty())
                     {
                         hovering_link_iter_offset = text_iter.get_offset();
-                        tooltip = CtMiscUtil::sourceview_hovering_link_get_tooltip(image->get_link());
+                        tooltip = _pCtMainWin->sourceview_hovering_link_get_tooltip(image->get_link());
                         break;
                     }
         }
     }
-    if (CtApp::P_ctActions->getCtMainWin()->hovering_link_iter_offset() != hovering_link_iter_offset)
+    if (_pCtMainWin->get_ct_actions()->getCtMainWin()->hovering_link_iter_offset() != hovering_link_iter_offset)
     {
-        CtApp::P_ctActions->getCtMainWin()->hovering_link_iter_offset() = hovering_link_iter_offset;
+        _pCtMainWin->get_ct_actions()->getCtMainWin()->hovering_link_iter_offset() = hovering_link_iter_offset;
         // print "link", dad.hovering_link_iter_offset
     }
-    if (CtApp::P_ctActions->getCtMainWin()->hovering_link_iter_offset() >= 0)
+    if (_pCtMainWin->get_ct_actions()->getCtMainWin()->hovering_link_iter_offset() >= 0)
     {
         get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::HAND2));
         if (tooltip.size() > (size_t)CtConst::MAX_TOOLTIP_LINK_CHARS)
@@ -649,12 +708,12 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
     auto apply_tag_try_node_name = [this](Gtk::TextIter iter_start, Gtk::TextIter iter_end)
     {
         Glib::ustring node_name = get_buffer()->get_text(iter_start, iter_end);
-        CtTreeIter node_dest = CtApp::P_ctActions->getCtMainWin()->curr_tree_store().get_node_from_node_name(node_name);
+        CtTreeIter node_dest = _pCtMainWin->get_ct_actions()->getCtMainWin()->curr_tree_store().get_node_from_node_name(node_name);
         if (node_dest)
         {
             get_buffer()->select_range(iter_start, iter_end);
             Glib::ustring property_value = CtConst::LINK_TYPE_NODE + CtConst::CHAR_SPACE + std::to_string(node_dest.get_node_id());
-            CtApp::P_ctActions->_apply_tag(CtConst::TAG_LINK, property_value);
+            _pCtMainWin->get_ct_actions()->_apply_tag(CtConst::TAG_LINK, property_value);
             return true;
         }
         return false;
@@ -662,8 +721,8 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
 
     bool tag_applied = false;
     Gtk::TextIter iter_start = iter_end;
-    if (iter_start.backward_char() && iter_start.get_char() == CtConst::CHAR_SQ_BR_CLOSE[0]
-        && iter_start.backward_char() && iter_start.get_char() == CtConst::CHAR_SQ_BR_CLOSE[0])
+    if (iter_start.backward_char() and iter_start.get_char() == CtConst::CHAR_SQ_BR_CLOSE[0]
+        and iter_start.backward_char() and iter_start.get_char() == CtConst::CHAR_SQ_BR_CLOSE[0])
     {
         int curr_state = 0;
         while (iter_start.backward_char())
@@ -702,27 +761,27 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
         while (iter_start.backward_char())
         {
             auto curr_char = iter_start.get_char();
-            if (curr_char == CtConst::CHAR_SPACE[0] || curr_char == CtConst::CHAR_NEWLINE[0] || curr_char == CtConst::CHAR_CR[0] || curr_char == CtConst::CHAR_TAB[0])
+            if (curr_char == CtConst::CHAR_SPACE[0] or curr_char == CtConst::CHAR_NEWLINE[0] or curr_char == CtConst::CHAR_CR[0] or curr_char == CtConst::CHAR_TAB[0])
             {
                 iter_start.forward_char();
                 break;
             }
         }
         int num_chars = iter_end.get_offset() - iter_start.get_offset();
-        if (num_chars > 4 && CtTextIterUtil::get_next_chars_from_iter_are(iter_start, CtConst::WEB_LINK_STARTERS))
+        if (num_chars > 4 and CtTextIterUtil::get_next_chars_from_iter_are(iter_start, CtConst::WEB_LINK_STARTERS))
          {
             get_buffer()->select_range(iter_start, iter_end);
             Glib::ustring link_url = get_buffer()->get_text(iter_start, iter_end);
-            if (!str::startswith(link_url, "htt") && !str::startswith(link_url, "ftp")) link_url = "http://" + link_url;
+            if (not str::startswith(link_url, "htt") and !str::startswith(link_url, "ftp")) link_url = "http://" + link_url;
             Glib::ustring property_value = CtConst::LINK_TYPE_WEBS + CtConst::CHAR_SPACE + link_url;
-            CtApp::P_ctActions->_apply_tag(CtConst::TAG_LINK, property_value);
+            _pCtMainWin->get_ct_actions()->_apply_tag(CtConst::TAG_LINK, property_value);
             tag_applied = true;
         }
-        else if (num_chars > 2 && CtTextIterUtil::get_is_camel_case(iter_start, num_chars))
+        else if (num_chars > 2 and CtTextIterUtil::get_is_camel_case(iter_start, num_chars))
             if (apply_tag_try_node_name(iter_start, iter_end))
                 tag_applied = true;
     }
-    if (tag_applied && offset_cursor != -1)
+    if (tag_applied and offset_cursor != -1)
         get_buffer()->place_cursor(get_buffer()->get_iter_at_offset(offset_cursor));
     return tag_applied;
 }
@@ -730,33 +789,33 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
 // Returns the indentation of the former paragraph or empty string
 Glib::ustring CtTextView::_get_former_line_indentation(Gtk::TextIter iter_start)
 {
-     if (!iter_start.backward_chars(2) || iter_start.get_char() == CtConst::CHAR_NEWLINE[0]) return "";
-     bool buffer_start = false;
-     while (true)
-     {
-         if (iter_start.get_char() == CtConst::CHAR_NEWLINE[0]) break; // we got the previous paragraph start
-         else if (!iter_start.backward_char())
-         {
-             buffer_start = true;
-             break; // we reached the buffer start
-         }
-     }
-     if (!buffer_start) iter_start.forward_char();
-     if (iter_start.get_char() == CtConst::CHAR_SPACE[0])
-     {
-         size_t num_spaces = 1;
-         while (iter_start.forward_char() && iter_start.get_char() == CtConst::CHAR_SPACE[0])
-             num_spaces += 1;
-         return Glib::ustring(num_spaces, CtConst::CHAR_SPACE[0]);
-     }
-     if (iter_start.get_char() == CtConst::CHAR_TAB[0])
-     {
-         size_t num_tabs = 1;
-         while (iter_start.forward_char() && iter_start.get_char() == CtConst::CHAR_TAB[0])
-             num_tabs += 1;
-         return Glib::ustring(num_tabs, CtConst::CHAR_TAB[0]);
-     }
-     return "";
+    if (not iter_start.backward_chars(2) or iter_start.get_char() == CtConst::CHAR_NEWLINE[0]) return "";
+    bool buffer_start = false;
+    while (true)
+    {
+        if (iter_start.get_char() == CtConst::CHAR_NEWLINE[0]) break; // we got the previous paragraph start
+        else if (not iter_start.backward_char())
+        {
+            buffer_start = true;
+            break; // we reached the buffer start
+        }
+    }
+    if (not buffer_start) iter_start.forward_char();
+    if (iter_start.get_char() == CtConst::CHAR_SPACE[0])
+    {
+        size_t num_spaces = 1;
+        while (iter_start.forward_char() and iter_start.get_char() == CtConst::CHAR_SPACE[0])
+            num_spaces += 1;
+        return Glib::ustring(num_spaces, CtConst::CHAR_SPACE[0]);
+    }
+    if (iter_start.get_char() == CtConst::CHAR_TAB[0])
+    {
+        size_t num_tabs = 1;
+        while (iter_start.forward_char() and iter_start.get_char() == CtConst::CHAR_TAB[0])
+            num_tabs += 1;
+        return Glib::ustring(num_tabs, CtConst::CHAR_TAB[0]);
+    }
+    return "";
 }
 
 // A special char replacement is triggered

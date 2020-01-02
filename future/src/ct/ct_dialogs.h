@@ -1,7 +1,7 @@
 /*
  * ct_dialogs.h
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -153,7 +153,7 @@ Gtk::TreeIter choose_item_dialog(Gtk::Window& parent,
                                  const gchar* single_column_name = nullptr);
 
 // Dialog to select a color, featuring a palette
-bool color_pick_dialog(Gtk::Window& parent,
+bool color_pick_dialog(CtMainWin* pCtMainWin,
                        Gdk::RGBA& color);
 
 // The Question dialog, returns True if the user presses OK
@@ -173,7 +173,7 @@ void error_dialog(const Glib::ustring& message,
                   Gtk::Window& parent);
 
 // Dialog to Select a Node
-Gtk::TreeIter choose_node_dialog(Gtk::Window& parent,
+Gtk::TreeIter choose_node_dialog(CtMainWin* pCtMainWin,
                                  Gtk::TreeView& parentTreeView,
                                  const Glib::ustring& title,
                                  CtTreeStore* treestore,
@@ -240,7 +240,7 @@ Glib::RefPtr<Gdk::Pixbuf> image_handle_dialog(Gtk::Window& father_win,
                                               Glib::RefPtr<Gdk::Pixbuf> rOriginalPixbuf);
 
 // Opens the CodeBox Handle Dialog
-bool codeboxhandle_dialog(Gtk::Window& father_win,
+bool codeboxhandle_dialog(CtMainWin* pCtMainWin,
                           const Glib::ustring& title);
 
 struct storage_select_args
@@ -255,7 +255,7 @@ struct storage_select_args
 bool choose_data_storage_dialog(storage_select_args& args);
 
 bool node_prop_dialog(const Glib::ustring &title,
-                      Gtk::Window& parent,
+                      CtMainWin* pCtMainWin,
                       CtNodeData& nodeData,
                       const std::set<Glib::ustring>& tags_set);
 

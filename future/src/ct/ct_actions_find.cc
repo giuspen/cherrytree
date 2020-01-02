@@ -25,7 +25,6 @@
 #include <glibmm/regex.h>
 #include <regex>
 #include "ct_image.h"
-#include "ct_app.h"
 #include "ct_dialogs.h"
 #include "ct_doc_rw.h"
 
@@ -258,7 +257,7 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
     std::cout << search_end_time - search_start_time << " sec" << std::endl;
 
     _pCtMainWin->user_active() = user_active_restore;
-    _pCtMainWin->curr_tree_store().set_tree_expanded_collapsed_string(tree_expanded_collapsed_string, _pCtMainWin->curr_tree_view(), CtApp::P_ctCfg->nodesBookmExp);
+    _pCtMainWin->curr_tree_store().set_tree_expanded_collapsed_string(tree_expanded_collapsed_string, _pCtMainWin->curr_tree_view(), _pCtMainWin->get_ct_config()->nodesBookmExp);
     if (!s_state.matches_num || all_matches) {
         _pCtMainWin->curr_tree_view().set_cursor_safe(starting_tree_iter);
         //todo: self.dad.objects_buffer_refresh()

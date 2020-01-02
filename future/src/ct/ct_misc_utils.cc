@@ -1,7 +1,7 @@
 /*
  * ct_misc_utils.cc
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,8 @@
 #include <iostream>
 #include <string.h>
 #include "ct_misc_utils.h"
-#include "ct_app.h"
+#include "ct_const.h"
+#include "ct_main_win.h"
 #include <ctime>
 #include <regex>
 #include <glib/gstdio.h> // to get stats
@@ -95,216 +96,6 @@ void CtMiscUtil::filepath_extension_fix(const CtDocType ctDocType, const CtDocEn
     {
         filepath += docExt;
     }
-}
-
-Glib::RefPtr<Gsv::Buffer> CtMiscUtil::get_new_text_buffer(const std::string& syntax, const Glib::ustring& textContent)
-{
-    Glib::RefPtr<Gsv::Buffer> rRetTextBuffer{nullptr};
-    rRetTextBuffer = Gsv::Buffer::create(CtApp::R_textTagTable);
-    rRetTextBuffer->set_max_undo_levels(CtApp::P_ctCfg->limitUndoableSteps);
-    if (CtConst::RICH_TEXT_ID != syntax)
-    {
-        rRetTextBuffer->set_style_scheme(CtApp::R_styleSchemeManager->get_scheme(CtApp::P_ctCfg->styleSchemeId));
-        if (CtConst::PLAIN_TEXT_ID == syntax)
-        {
-            rRetTextBuffer->set_highlight_syntax(false);
-        }
-        else
-        {
-            rRetTextBuffer->set_language(CtApp::R_languageManager->get_language(syntax));
-            rRetTextBuffer->set_highlight_syntax(true);
-        }
-        rRetTextBuffer->set_highlight_matching_brackets(true);
-    }
-    if (not textContent.empty())
-    {
-        rRetTextBuffer->begin_not_undoable_action();
-        rRetTextBuffer->set_text(textContent);
-        rRetTextBuffer->end_not_undoable_action();
-        rRetTextBuffer->set_modified(false);
-    }
-    return rRetTextBuffer;
-}
-
-const gchar* CtMiscUtil::getTextIterAlignment(const Gtk::TextIter& textIter)
-{
-    const char* retVal{CtConst::TAG_PROP_VAL_LEFT};
-    for (const char* currAlignType : std::list{CtConst::TAG_PROP_VAL_LEFT,
-                                               CtConst::TAG_PROP_VAL_CENTER,
-                                               CtConst::TAG_PROP_VAL_FILL,
-                                               CtConst::TAG_PROP_VAL_RIGHT})
-    {
-        if (textIter.has_tag(CtApp::R_textTagTable->lookup(getTextTagNameExistOrCreate(CtConst::TAG_JUSTIFICATION, currAlignType))))
-        {
-            retVal = currAlignType;
-            break;
-        }
-    }
-    return retVal;
-}
-
-const Glib::ustring CtMiscUtil::getTextTagNameExistOrCreate(Glib::ustring propertyName, Glib::ustring propertyValue)
-{
-    const Glib::ustring tagName{propertyName + "_" + propertyValue};
-    Glib::RefPtr<Gtk::TextTag> rTextTag = CtApp::R_textTagTable->lookup(tagName);
-    if (not rTextTag)
-    {
-        bool identified{true};
-        rTextTag = Gtk::TextTag::create(tagName);
-        if (CtConst::TAG_WEIGHT == propertyName and CtConst::TAG_PROP_VAL_HEAVY == propertyValue)
-        {
-            rTextTag->property_weight() = PANGO_WEIGHT_HEAVY;
-        }
-        else if (CtConst::TAG_FOREGROUND == propertyName)
-        {
-            rTextTag->property_foreground() = propertyValue;
-        }
-        else if (CtConst::TAG_BACKGROUND == propertyName)
-        {
-            rTextTag->property_background() = propertyValue;
-        }
-        else if (CtConst::TAG_SCALE == propertyName)
-        {
-            if (CtConst::TAG_PROP_VAL_SMALL == propertyValue)
-            {
-                rTextTag->property_scale() = PANGO_SCALE_SMALL;
-            }
-            else if (CtConst::TAG_PROP_VAL_H1 == propertyValue)
-            {
-                rTextTag->property_scale() = PANGO_SCALE_XX_LARGE;
-            }
-            else if (CtConst::TAG_PROP_VAL_H2 == propertyValue)
-            {
-                rTextTag->property_scale() = PANGO_SCALE_X_LARGE;
-            }
-            else if (CtConst::TAG_PROP_VAL_H3 == propertyValue)
-            {
-                rTextTag->property_scale() = PANGO_SCALE_LARGE;
-            }
-            else if (CtConst::TAG_PROP_VAL_SUB == propertyValue or CtConst::TAG_PROP_VAL_SUP == propertyValue)
-            {
-                rTextTag->property_scale() = PANGO_SCALE_X_SMALL;
-                int propRise = Pango::FontDescription(CtApp::P_ctCfg->rtFont).get_size();
-                if (CtConst::TAG_PROP_VAL_SUB == propertyValue)
-                {
-                    propRise /= -4;
-                }
-                else
-                {
-                    propRise /= 2;
-                }
-                rTextTag->property_rise() = propRise;
-            }
-            else
-            {
-                identified = false;
-            }
-        }
-        else if (CtConst::TAG_STYLE == propertyName and CtConst::TAG_PROP_VAL_ITALIC == propertyValue)
-        {
-            rTextTag->property_style() = Pango::Style::STYLE_ITALIC;
-        }
-        else if (CtConst::TAG_UNDERLINE == propertyName and CtConst::TAG_PROP_VAL_SINGLE == propertyValue)
-        {
-            rTextTag->property_underline() = Pango::Underline::UNDERLINE_SINGLE;
-        }
-        else if (CtConst::TAG_JUSTIFICATION == propertyName)
-        {
-            if (CtConst::TAG_PROP_VAL_LEFT == propertyValue)
-            {
-                rTextTag->property_justification() = Gtk::Justification::JUSTIFY_LEFT;
-            }
-            else if (CtConst::TAG_PROP_VAL_RIGHT == propertyValue)
-            {
-                rTextTag->property_justification() = Gtk::Justification::JUSTIFY_RIGHT;
-            }
-            else if (CtConst::TAG_PROP_VAL_CENTER == propertyValue)
-            {
-                rTextTag->property_justification() = Gtk::Justification::JUSTIFY_CENTER;
-            }
-            else if (CtConst::TAG_PROP_VAL_FILL == propertyValue)
-            {
-                rTextTag->property_justification() = Gtk::Justification::JUSTIFY_FILL;
-            }
-            else
-            {
-                identified = false;
-            }
-        }
-        else if (CtConst::TAG_FAMILY == propertyName and CtConst::TAG_PROP_VAL_MONOSPACE == propertyValue)
-        {
-            rTextTag->property_family() = CtConst::TAG_PROP_VAL_MONOSPACE;
-            if (not CtApp::P_ctCfg->monospaceBg.empty())
-            {
-                rTextTag->property_background() = CtApp::P_ctCfg->monospaceBg;
-            }
-        }
-        else if (CtConst::TAG_STRIKETHROUGH == propertyName and CtConst::TAG_PROP_VAL_TRUE == propertyValue)
-        {
-            rTextTag->property_strikethrough() = true;
-        }
-        else if (CtConst::TAG_LINK == propertyName and propertyValue.size() > 4)
-        {
-            if (CtApp::P_ctCfg->linksUnderline)
-            {
-                rTextTag->property_underline() = Pango::Underline::UNDERLINE_SINGLE;
-            }
-            Glib::ustring linkType = propertyValue.substr(0, 4);
-            if (CtConst::LINK_TYPE_WEBS == linkType)
-            {
-                rTextTag->property_foreground() = CtApp::P_ctCfg->colLinkWebs;
-            }
-            else if (CtConst::LINK_TYPE_NODE == linkType)
-            {
-                rTextTag->property_foreground() = CtApp::P_ctCfg->colLinkNode;
-            }
-            else if (CtConst::LINK_TYPE_FILE == linkType)
-            {
-                rTextTag->property_foreground() = CtApp::P_ctCfg->colLinkFile;
-            }
-            else if (CtConst::LINK_TYPE_FOLD == linkType)
-            {
-                rTextTag->property_foreground() = CtApp::P_ctCfg->colLinkFold;
-            }
-            else
-            {
-                identified = false;
-            }
-        }
-        else
-        {
-            identified = false;
-        }
-        if (not identified)
-        {
-            std::cerr << "!! unsupported propertyName=" << propertyName << " propertyValue=" << propertyValue << std::endl;
-        }
-        CtApp::R_textTagTable->add(rTextTag);
-    }
-    return tagName;
-}
-
-// Get the tooltip for the underlying link
-Glib::ustring CtMiscUtil::sourceview_hovering_link_get_tooltip(const Glib::ustring& link)
-{
-    Glib::ustring tooltip;
-    auto vec = str::split(link, " ");
-    if (vec[0] == CtConst::LINK_TYPE_FILE or vec[0] == CtConst::LINK_TYPE_FOLD)
-        tooltip = Glib::Base64::decode(vec[1]);
-    else
-    {
-        if (vec[0] == CtConst::LINK_TYPE_NODE)
-            tooltip = CtApp::P_ctActions->getCtMainWin()->curr_tree_store().get_node_name_from_node_id(std::stol(vec[1]));
-        else
-            tooltip = str::replace(vec[1], "amp;", "");
-        if (vec.size() >= 3)
-        {
-            if (vec.size() == 3) tooltip += "#" + vec[2];
-            else
-                tooltip += "#" + link.substr(vec[0].length() + vec[1].length() + 2);
-        }
-    }
-    return tooltip;
 }
 
 void CtMiscUtil::widget_set_colors(Gtk::Widget& widget, const std::string& fg, const std::string& /*bg*/,
@@ -393,58 +184,6 @@ Gtk::BuiltinIconSize CtMiscUtil::getIconSize(int size)
         case 5:  return Gtk::BuiltinIconSize::ICON_SIZE_DIALOG;
         default: return Gtk::BuiltinIconSize::ICON_SIZE_MENU;
     }
-}
-
-// Try to Select a Word Forward/Backward the Cursor
-bool CtTextIterUtil::apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start)
-{
-    Gtk::TextIter iter_end = iter_start;
-    auto curr_char = iter_end.get_char();
-    auto re = Glib::Regex::create("\\w");
-    // 1) select alphanumeric + special
-    bool match = re->match(Glib::ustring(1, curr_char));
-    if (not match and CtApp::P_ctCfg->selwordChars.find(curr_char) == Glib::ustring::npos) {
-        iter_start.backward_char();
-        iter_end.backward_char();
-        curr_char = iter_end.get_char();
-        match = re->match(Glib::ustring(1, curr_char));
-        if (not match and CtApp::P_ctCfg->selwordChars.find(curr_char) == Glib::ustring::npos)
-            return false;
-    }
-    while (match or CtApp::P_ctCfg->selwordChars.find(curr_char) != Glib::ustring::npos) {
-        if (not iter_end.forward_char()) break; // end of buffer
-        curr_char = iter_end.get_char();
-        match = re->match(Glib::ustring(1, curr_char));
-    }
-    iter_start.backward_char();
-    curr_char = iter_start.get_char();
-    match = re->match(Glib::ustring(1, curr_char));
-    while (match or CtApp::P_ctCfg->selwordChars.find(curr_char) != Glib::ustring::npos) {
-        if (not iter_start.backward_char()) break; // start of buffer
-        curr_char = iter_start.get_char();
-        match = re->match(Glib::ustring(1, curr_char));
-    }
-    if (not match and CtApp::P_ctCfg->selwordChars.find(curr_char) == Glib::ustring::npos)
-        iter_start.forward_char();
-    // 2) remove non alphanumeric from borders
-    iter_end.backward_char();
-    curr_char = iter_end.get_char();
-    while (CtApp::P_ctCfg->selwordChars.find(curr_char) != Glib::ustring::npos) {
-        if (not iter_end.backward_char()) break; // start of buffer
-        curr_char = iter_end.get_char();
-    }
-    iter_end.forward_char();
-    curr_char = iter_start.get_char();
-    while (CtApp::P_ctCfg->selwordChars.find(curr_char) != Glib::ustring::npos) {
-        if (not iter_start.forward_char()) break; // end of buffer
-        curr_char = iter_start.get_char();
-    }
-    if (iter_end.compare(iter_start) > 0) {
-        text_buffer->move_mark(text_buffer->get_insert(), iter_start);
-        text_buffer->move_mark(text_buffer->get_selection_bound(), iter_end);
-        return true;
-    }
-    return false;
 }
 
 // Returns True if the characters compose a camel case word
@@ -602,7 +341,9 @@ bool CtTextIterUtil::tag_richtext_toggling_on_or_off(const Gtk::TextIter& text_i
     return retVal;
 }
 
-void CtTextIterUtil::generic_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+void CtTextIterUtil::generic_process_slot(int start_offset,
+                                          int end_offset,
+                                          Glib::RefPtr<Gtk::TextBuffer>& text_buffer,
                                           std::function<void(Gtk::TextIter&/*start_iter*/, Gtk::TextIter&/*curr_iter*/, std::map<const gchar*, std::string>&/*curr_attributes*/)> serialize_func)
 {
     std::map<const gchar*, std::string> curr_attributes;
@@ -646,7 +387,25 @@ void CtTextIterUtil::generic_process_slot(int start_offset, int end_offset, Glib
     }
 }
 
-bool CtStrUtil::isStrTrue(const Glib::ustring& inStr)
+const gchar* CtTextIterUtil::get_text_iter_alignment(const Gtk::TextIter& textIter, CtMainWin* pCtMainWin)
+{
+    const char* retVal{CtConst::TAG_PROP_VAL_LEFT};
+    for (const char* currAlignType : std::list{CtConst::TAG_PROP_VAL_LEFT,
+                                               CtConst::TAG_PROP_VAL_CENTER,
+                                               CtConst::TAG_PROP_VAL_FILL,
+                                               CtConst::TAG_PROP_VAL_RIGHT})
+    {
+        const std::string tagName = pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_JUSTIFICATION, currAlignType);
+        if (textIter.has_tag(pCtMainWin->get_text_tag_table()->lookup(tagName)))
+        {
+            retVal = currAlignType;
+            break;
+        }
+    }
+    return retVal;
+}
+
+bool CtStrUtil::is_str_true(const Glib::ustring& inStr)
 {
     bool retVal{false};
     if (CtConst::TAG_PROP_VAL_TRUE == inStr.lowercase() or
@@ -657,7 +416,7 @@ bool CtStrUtil::isStrTrue(const Glib::ustring& inStr)
     return retVal;
 }
 
-gint64 CtStrUtil::gint64FromGstring(const gchar* inGstring, bool hexPrefix)
+gint64 CtStrUtil::gint64_from_gstring(const gchar* inGstring, bool hexPrefix)
 {
     gint64 retVal;
     if (hexPrefix or g_strrstr(inGstring, "0x"))
@@ -671,7 +430,7 @@ gint64 CtStrUtil::gint64FromGstring(const gchar* inGstring, bool hexPrefix)
     return retVal;
 }
 
-guint32 CtStrUtil::getUint32FromHexChars(const char* hexChars, guint8 numChars)
+guint32 CtStrUtil::guint32_from_hex_chars(const char* hexChars, guint8 numChars)
 {
     char hexstring[9];
     if (numChars > 8)
@@ -683,13 +442,13 @@ guint32 CtStrUtil::getUint32FromHexChars(const char* hexChars, guint8 numChars)
     return (guint32)strtoul(hexstring, nullptr, 16);
 }
 
-std::vector<gint64> CtStrUtil::gstringSplit2int64(const gchar* inStr, const gchar* delimiter, gint max_tokens)
+std::vector<gint64> CtStrUtil::gstring_split_to_int64(const gchar* inStr, const gchar* delimiter, gint max_tokens)
 {
     std::vector<gint64> retVec;
     gchar** arrayOfStrings = g_strsplit(inStr, delimiter, max_tokens);
     for (gchar** ptr = arrayOfStrings; *ptr; ptr++)
     {
-        gint64 curr_int = gint64FromGstring(*ptr);
+        gint64 curr_int = gint64_from_gstring(*ptr);
         retVec.push_back(curr_int);
     }
     g_strfreev(arrayOfStrings);
@@ -697,49 +456,20 @@ std::vector<gint64> CtStrUtil::gstringSplit2int64(const gchar* inStr, const gcha
 }
 
 
-std::string CtFontUtil::getFontFamily(const std::string& fontStr)
+std::string CtFontUtil::get_font_family(const std::string& fontStr)
 {
     std::vector<std::string> splFont = str::split(fontStr, " ");
     return splFont.size() > 0 ? splFont.at(0) : "";
 }
 
-std::string CtFontUtil::getFontSizeStr(const std::string& fontStr)
+std::string CtFontUtil::get_font_size_str(const std::string& fontStr)
 {
     std::vector<std::string> splFont = str::split(fontStr, " ");
     return splFont.size() > 1 ? splFont.at(1) : "";
 }
 
-std::string CtFontUtil::getFontCss(const std::string& fontStr)
-{
-    g_autofree gchar* pFontCss = g_strdup_printf(
-        "textview text {"
-        "    font-family: %s;"
-        "    font-size: %spx;"
-        "}", getFontFamily(fontStr).c_str(), getFontSizeStr(fontStr).c_str());
-    std::string fontCss(pFontCss);
-    return fontCss;
-}
 
-const std::string& CtFontUtil::getFontForSyntaxHighlighting(const std::string& syntaxHighlighting)
-{
-    if (0 == syntaxHighlighting.compare(CtConst::RICH_TEXT_ID))
-    {
-        return CtApp::P_ctCfg->rtFont;
-    }
-    if (0 == syntaxHighlighting.compare(CtConst::PLAIN_TEXT_ID))
-    {
-        return CtApp::P_ctCfg->ptFont;
-    }
-    return CtApp::P_ctCfg->codeFont;
-}
-
-std::string CtFontUtil::getFontCssForSyntaxHighlighting(const std::string& syntaxHighlighting)
-{
-    return getFontCss(getFontForSyntaxHighlighting(syntaxHighlighting));
-}
-
-
-void CtRgbUtil::setRgb24StrFromRgb24Int(guint32 rgb24Int, char* rgb24StrOut)
+void CtRgbUtil::set_rgb24str_from_rgb24int(guint32 rgb24Int, char* rgb24StrOut)
 {
     guint8 r = (rgb24Int >> 16) & 0xff;
     guint8 g = (rgb24Int >> 8) & 0xff;
@@ -747,25 +477,25 @@ void CtRgbUtil::setRgb24StrFromRgb24Int(guint32 rgb24Int, char* rgb24StrOut)
     sprintf(rgb24StrOut, "#%.2x%.2x%.2x", r, g, b);
 }
 
-guint32 CtRgbUtil::getRgb24IntFromRgb24Str(const char* rgb24Str)
+guint32 CtRgbUtil::get_rgb24int_from_rgb24str(const char* rgb24Str)
 {
     const char* scanStart = g_str_has_prefix(rgb24Str, "#") ? rgb24Str + 1 : rgb24Str;
-    guint32 r = CtStrUtil::getUint32FromHexChars(scanStart, 2);
-    guint32 g = CtStrUtil::getUint32FromHexChars(scanStart+2, 2);
-    guint32 b = CtStrUtil::getUint32FromHexChars(scanStart+4, 2);
+    guint32 r = CtStrUtil::guint32_from_hex_chars(scanStart, 2);
+    guint32 g = CtStrUtil::guint32_from_hex_chars(scanStart+2, 2);
+    guint32 b = CtStrUtil::guint32_from_hex_chars(scanStart+4, 2);
     return (r << 16 | g << 8 | b);
 }
 
-char* CtRgbUtil::setRgb24StrFromStrAny(const char* rgbStrAny, char* rgb24StrOut)
+char* CtRgbUtil::set_rgb24str_from_str_any(const char* rgbStrAny, char* rgb24StrOut)
 {
     const char* scanStart = g_str_has_prefix(rgbStrAny, "#") ? rgbStrAny + 1 : rgbStrAny;
     switch(strlen(scanStart))
     {
         case 12:
         {
-            guint16 r = (guint16)CtStrUtil::getUint32FromHexChars(scanStart, 4);
-            guint16 g = (guint16)CtStrUtil::getUint32FromHexChars(scanStart+4, 4);
-            guint16 b = (guint16)CtStrUtil::getUint32FromHexChars(scanStart+8, 4);
+            guint16 r = (guint16)CtStrUtil::guint32_from_hex_chars(scanStart, 4);
+            guint16 g = (guint16)CtStrUtil::guint32_from_hex_chars(scanStart+4, 4);
+            guint16 b = (guint16)CtStrUtil::guint32_from_hex_chars(scanStart+8, 4);
             r >>= 8;
             g >>= 8;
             b >>= 8;
@@ -779,7 +509,7 @@ char* CtRgbUtil::setRgb24StrFromStrAny(const char* rgbStrAny, char* rgb24StrOut)
             sprintf(rgb24StrOut, "#%c%c%c%c%c%c", scanStart[0], scanStart[0], scanStart[1], scanStart[1], scanStart[2], scanStart[2]);
         break;
         default:
-            std::cerr << "!! setRgb24StrFromStrAny " << rgbStrAny << std::endl;
+            std::cerr << "!! set_rgb24str_from_str_any " << rgbStrAny << std::endl;
             sprintf(rgb24StrOut, "#");
     }
     return rgb24StrOut;
@@ -791,9 +521,9 @@ Glib::ustring CtRgbUtil::rgb_to_no_white(Glib::ustring in_rgb)
     const char* scanStart = in_rgb[0] == '#' ? in_rgb.c_str() + 1 : in_rgb.c_str();
     if (strlen(scanStart) == 12)
     {
-        guint32 r = CtStrUtil::getUint32FromHexChars(scanStart, 4);
-        guint32 g = CtStrUtil::getUint32FromHexChars(scanStart+4, 4);
-        guint32 b = CtStrUtil::getUint32FromHexChars(scanStart+8, 4);
+        guint32 r = CtStrUtil::guint32_from_hex_chars(scanStart, 4);
+        guint32 g = CtStrUtil::guint32_from_hex_chars(scanStart+4, 4);
+        guint32 b = CtStrUtil::guint32_from_hex_chars(scanStart+8, 4);
         // r+g+b black is 0
         // r+g+b white is 3*65535
         guint32 max_48 = 65535;
@@ -808,7 +538,7 @@ Glib::ustring CtRgbUtil::rgb_to_no_white(Glib::ustring in_rgb)
     }
     else
     {
-        guint32 rgb24Int = getRgb24IntFromStrAny(scanStart);
+        guint32 rgb24Int = get_rgb24int_from_str_any(scanStart);
         guint32 r = (rgb24Int >> 16) & 0xff;
         guint32 g = (rgb24Int >> 8) & 0xff;
         guint32 b = rgb24Int & 0xff;
@@ -827,19 +557,19 @@ Glib::ustring CtRgbUtil::rgb_to_no_white(Glib::ustring in_rgb)
     return in_rgb;
 }
 
-std::string CtRgbUtil::getRgb24StrFromStrAny(const std::string& rgbStrAny)
+std::string CtRgbUtil::get_rgb24str_from_str_any(const std::string& rgbStrAny)
 {
     char rgb24Str[8];
-    setRgb24StrFromStrAny(rgbStrAny.c_str(), rgb24Str);
+    set_rgb24str_from_str_any(rgbStrAny.c_str(), rgb24Str);
     return rgb24Str;
 }
 
 
-guint32 CtRgbUtil::getRgb24IntFromStrAny(const char* rgbStrAny)
+guint32 CtRgbUtil::get_rgb24int_from_str_any(const char* rgbStrAny)
 {
     char rgb24Str[8];
-    setRgb24StrFromStrAny(rgbStrAny, rgb24Str);
-    return getRgb24IntFromRgb24Str(rgb24Str);
+    set_rgb24str_from_str_any(rgbStrAny, rgb24Str);
+    return get_rgb24int_from_rgb24str(rgb24Str);
 }
 
 std::string CtRgbUtil::rgb_to_string(Gdk::RGBA color)
@@ -852,7 +582,7 @@ std::string CtRgbUtil::rgb_to_string(Gdk::RGBA color)
 std::string CtRgbUtil::rgb_any_to_24(Gdk::RGBA color)
 {
     char rgb24StrOut[16];
-    CtRgbUtil::setRgb24StrFromStrAny(CtRgbUtil::rgb_to_string(color).c_str(), rgb24StrOut);
+    CtRgbUtil::set_rgb24str_from_str_any(CtRgbUtil::rgb_to_string(color).c_str(), rgb24StrOut);
     return rgb24StrOut;
 }
 

@@ -1,7 +1,7 @@
 /*
  * ct_export2html.cc
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,11 +21,11 @@
 
 #include "ct_export2html.h"
 #include "ct_misc_utils.h"
-#include "ct_app.h"
+#include "ct_main_win.h"
 
-CtExport2Html::CtExport2Html()
+CtExport2Html::CtExport2Html(CtMainWin* pCtMainWin)
+ : _pCtMainWin(pCtMainWin)
 {
-
 }
 
 // Returns the HTML given the text buffer and iter bounds
@@ -36,10 +36,10 @@ Glib::ustring CtExport2Html::selection_export_to_html(Glib::RefPtr<Gtk::TextBuff
     if (syntax_highlighting == CtConst::RICH_TEXT_ID)
     {
         int images_count = 0;
-        Glib::ustring tempFolder = CtApp::P_ctTmp->getHiddenDirPath("IMAGE_TEMP_FOLDER");
+        Glib::ustring tempFolder = _pCtMainWin->get_ct_tmp()->getHiddenDirPath("IMAGE_TEMP_FOLDER");
 
         int start_offset = start_iter.get_offset();
-        std::list<CtAnchoredWidget*> widgets = CtApp::P_ctActions->getCtMainWin()->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(std::make_pair(start_iter.get_offset(), end_iter.get_offset()));
+        std::list<CtAnchoredWidget*> widgets = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(std::make_pair(start_iter.get_offset(), end_iter.get_offset()));
         for (CtAnchoredWidget* widget: widgets)
         {
             int end_offset = widget->getOffset();
@@ -172,7 +172,7 @@ Glib::ustring CtExport2Html::_html_get_from_code_buffer(Glib::RefPtr<Gsv::Buffer
                     if (span_opened) html_text += "</span>";
                     // start of tag
                     Glib::ustring color = CtRgbUtil::rgb_to_no_white(curr_tag_str);
-                    color = CtRgbUtil::getRgb24StrFromStrAny(color);
+                    color = CtRgbUtil::get_rgb24str_from_str_any(color);
                     html_text += "<span style=\"color:" + color + ";font-weight:" + std::to_string(font_weight) + "\">";
                     span_opened = true;
                 }
@@ -245,13 +245,13 @@ Glib::ustring CtExport2Html::_html_text_serialize(Gtk::TextIter start_iter, Gtk:
             // color:#FFFF00
             tag_property = "color";
             Glib::ustring color_no_white = CtRgbUtil::rgb_to_no_white(property_value);
-            property_value = CtRgbUtil::getRgb24StrFromStrAny(color_no_white);
+            property_value = CtRgbUtil::get_rgb24str_from_str_any(color_no_white);
         }
         else if (tag_property == CtConst::TAG_BACKGROUND)
         {
             // background-color:#FFFF00
             tag_property = "background-color";
-            property_value = CtRgbUtil::getRgb24StrFromStrAny(property_value);
+            property_value = CtRgbUtil::get_rgb24str_from_str_any(property_value);
         }
         else if (tag_property == CtConst::TAG_STYLE)
         {
@@ -361,7 +361,7 @@ Glib::ustring CtExport2Html::_get_href_from_link_prop_val(Glib::ustring link_pro
     }
     else if (vec[0] == CtConst::LINK_TYPE_NODE)
     {
-        CtTreeIter node = CtApp::P_ctActions->getCtMainWin()->curr_tree_store().get_node_from_node_id(std::stol(vec[1]));
+        CtTreeIter node = _pCtMainWin->curr_tree_store().get_node_from_node_id(std::stol(vec[1]));
         if (node)
         {
             href = _get_html_filename(node);

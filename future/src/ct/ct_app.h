@@ -32,23 +32,10 @@
 #include "ct_menu.h"
 #include "ct_actions.h"
 
-class CtTmp
-{
-public:
-    CtTmp();
-    virtual ~CtTmp();
-    const gchar* getHiddenDirPath(const std::string& visiblePath);
-    const gchar* getHiddenFilePath(const std::string& visiblePath);
-
-protected:
-    std::unordered_map<std::string,gchar*> _mapHiddenDirs;
-    std::unordered_map<std::string,gchar*> _mapHiddenFiles;
-};
-
 class CtMenu;
 class CtMainWin;
 class CtActions;
-class CtApp: public Gtk::Application
+class CtApp : public Gtk::Application
 {
 protected:
     CtApp();
@@ -57,17 +44,16 @@ protected:
 public:
     static Glib::RefPtr<CtApp> create();
 
-    static CtConfig* P_ctCfg;
-    static CtActions* P_ctActions;
-    static Glib::RefPtr<Gtk::IconTheme> R_icontheme;
-    static CtTmp* P_ctTmp;
-    static Glib::RefPtr<Gtk::TextTagTable> R_textTagTable;
-    static Glib::RefPtr<Gsv::LanguageManager> R_languageManager;
-    static Glib::RefPtr<Gsv::StyleSchemeManager> R_styleSchemeManager;
-    static Glib::RefPtr<Gtk::CssProvider> R_cssProvider;
-
 private:
-    CtMenu* _pCtMenu;
+    std::unique_ptr<CtConfig> _uCtCfg;
+    std::unique_ptr<CtActions> _uCtActions;
+    std::unique_ptr<CtTmp> _uCtTmp;
+    std::unique_ptr<CtMenu> _uCtMenu;
+    Glib::RefPtr<Gtk::IconTheme> _rIcontheme;
+    Glib::RefPtr<Gtk::TextTagTable> _rTextTagTable;
+    Glib::RefPtr<Gtk::CssProvider> _rCssProvider;
+    Glib::RefPtr<Gsv::LanguageManager> _rLanguageManager;
+    Glib::RefPtr<Gsv::StyleSchemeManager> _rStyleSchemeManager;
 
 protected:
     void on_activate() override;

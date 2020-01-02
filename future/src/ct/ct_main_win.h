@@ -21,13 +21,19 @@
 
 #pragma once
 
+#include <iostream>
+#include <unordered_map>
+
+#include <glibmm/i18n.h>
 #include <gtkmm.h>
 #include <gtksourceviewmm.h>
-#include <gtkmm/statusbar.h>
 #include "ct_treestore.h"
 #include "ct_misc_utils.h"
 #include "ct_menu.h"
 #include "ct_widgets.h"
+#include "ct_config.h"
+#include "ct_table.h"
+#include "ct_image.h"
 
 struct CtStatusBar
 {
@@ -56,13 +62,23 @@ struct CtWinHeader
     Gtk::EventBox    eventBox;
 };
 
-class CtMenu;
+class CtConfig;
 class CtActions;
+class CtTmp;
+class CtMenu;
 
 class CtMainWin : public Gtk::ApplicationWindow
 {
 public:
-    CtMainWin(CtMenu* pCtMenu);
+    CtMainWin(CtConfig*                pCtConfig,
+              CtActions*               pCtActions,
+              CtTmp*                   pCtTmp,
+              CtMenu*                  pCtMenu,
+              Gtk::IconTheme*          pGtkIconTheme,
+              Glib::RefPtr<Gtk::TextTagTable> rGtkTextTagTable,
+              Glib::RefPtr<Gtk::CssProvider> rGtkCssProvider,
+              Gsv::LanguageManager*    pGsvLanguageManager,
+              Gsv::StyleSchemeManager* pGsvStyleSchemeManager);
     virtual ~CtMainWin();
 
     bool read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, const bool isImport);
@@ -88,18 +104,37 @@ public:
     void curr_file_mod_time_update_value(const bool doEnable); // pygtk: modification_time_update_value
     void update_selected_node_statusbar_info();
 
-    CtTreeIter    curr_tree_iter()  { return _uCtTreestore->to_ct_tree_iter(_uCtTreeview->get_selection()->get_selected()); }
-    CtTreeStore&  curr_tree_store()  { return *_uCtTreestore; }
-    CtTreeView&   curr_tree_view()   { return *_uCtTreeview; }
-    CtTextView&   get_text_view()   { return _ctTextview; }
-    CtMenu&       get_ct_menu()     { return *_pCtMenu; }
-    CtStatusBar&  get_status_bar()  { return _ctStatusBar; }
+    CtTreeIter               curr_tree_iter()  { return _uCtTreestore->to_ct_tree_iter(_uCtTreeview->get_selection()->get_selected()); }
+    CtTreeStore&             curr_tree_store() { return *_uCtTreestore; }
+    CtTreeView&              curr_tree_view()  { return *_uCtTreeview; }
+    CtTextView&              get_text_view()   { return _ctTextview; }
+    CtStatusBar&             get_status_bar()  { return _ctStatusBar; }
+    CtMenu&                  get_ct_menu()     { return *_pCtMenu; }
+    CtConfig*                get_ct_config()   { return _pCtConfig; }
+    CtActions*               get_ct_actions()  { return _pCtActions; }
+    CtTmp*                   get_ct_tmp()      { return _pCtTmp; }
+    Gtk::IconTheme*          get_icon_theme()  { return _pGtkIconTheme; }
+    Glib::RefPtr<Gtk::TextTagTable>&  get_text_tag_table() { return _rGtkTextTagTable; }
+    Glib::RefPtr<Gtk::CssProvider>&   get_css_provider()   { return _rGtkCssProvider; }
+    Gsv::LanguageManager*    get_language_manager() { return _pGsvLanguageManager; }
+    Gsv::StyleSchemeManager* get_style_scheme_manager() { return _pGsvStyleSchemeManager; }
 
     bool&         user_active()     { return _userActive; } // use as a function, because it's easier to put breakpoint
     int&          cursor_key_press() { return _cursorKeyPress; }
     int&          hovering_link_iter_offset() { return _hovering_link_iter_offset; }
 
     Glib::RefPtr<Gtk::TextBuffer> curr_buffer() { return _ctTextview.get_buffer(); }
+
+public:
+    Glib::RefPtr<Gdk::Pixbuf> get_icon(const std::string& name, int size);
+    Gtk::Image*               new_image_from_stock(const std::string& stockImage, Gtk::BuiltinIconSize size);
+    Glib::RefPtr<Gsv::Buffer> get_new_text_buffer(const std::string& syntax, const Glib::ustring& textContent=""); // pygtk: buffer_create
+    const std::string get_text_tag_name_exist_or_create(const std::string& propertyName, const std::string& propertyValue);
+    Glib::ustring sourceview_hovering_link_get_tooltip(const Glib::ustring& link);
+    bool apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start);
+    std::string get_font_css(const std::string& fontStr);
+    const std::string& get_font_for_syntax_highlighting(const std::string& syntaxHighlighting);
+    std::string get_font_css_for_syntax_highlighting(const std::string& syntaxHighlighting);
 
 private:
     Gtk::HBox&     _init_status_bar();
@@ -145,23 +180,32 @@ private:
     void                _ensure_curr_doc_in_recent_docs();
 
 private:
-    Gtk::VBox            _vboxMain;
-    Gtk::VBox            _vboxText;
-    Gtk::HPaned          _hPaned;
-    Gtk::MenuBar*        _pMenuBar{nullptr};
-    Gtk::Toolbar*        _pToolbar{nullptr};
-    CtMenu*              _pCtMenu{nullptr};
-    CtStatusBar          _ctStatusBar;
-    CtWinHeader          _ctWinHeader;
-    Gtk::MenuItem*       _pBookmarksSubmenu{nullptr};
-    Gtk::MenuItem*       _pSpecialCharsSubmenu{nullptr};
-    Gtk::MenuItem*       _pRecentDocsSubmenu{nullptr};
-    Gtk::MenuToolButton* _pRecentDocsMenuToolButton{nullptr};
-    Gtk::ScrolledWindow  _scrolledwindowTree;
-    Gtk::ScrolledWindow  _scrolledwindowText;
+    CtConfig*                    _pCtConfig;
+    CtActions*                   _pCtActions;
+    CtTmp*                       _pCtTmp;
+    CtMenu*                      _pCtMenu;
+    Gtk::IconTheme*              _pGtkIconTheme;
+    Glib::RefPtr<Gtk::TextTagTable> _rGtkTextTagTable;
+    Glib::RefPtr<Gtk::CssProvider>  _rGtkCssProvider;
+    Gsv::LanguageManager*        _pGsvLanguageManager;
+    Gsv::StyleSchemeManager*     _pGsvStyleSchemeManager;
+    Gtk::VBox                    _vboxMain;
+    Gtk::VBox                    _vboxText;
+    Gtk::HPaned                  _hPaned;
+    Gtk::MenuBar*                _pMenuBar{nullptr};
+    Gtk::Toolbar*                _pToolbar{nullptr};
+    CtStatusBar                  _ctStatusBar;
+    CtWinHeader                  _ctWinHeader;
+    Gtk::MenuItem*               _pBookmarksSubmenu{nullptr};
+    Gtk::MenuItem*               _pSpecialCharsSubmenu{nullptr};
+    Gtk::MenuItem*               _pRecentDocsSubmenu{nullptr};
+    Gtk::MenuToolButton*         _pRecentDocsMenuToolButton{nullptr};
+    Gtk::ScrolledWindow          _scrolledwindowTree;
+    Gtk::ScrolledWindow          _scrolledwindowText;
     std::unique_ptr<CtTreeStore> _uCtTreestore;
     std::unique_ptr<CtTreeView>  _uCtTreeview;
-    CtTextView           _ctTextview;
+    CtTextView                   _ctTextview;
+    std::unique_ptr<CtPairCodeboxMainWin> _uCtPairCodeboxMainWin;
 
     struct CtCurrFile
     {

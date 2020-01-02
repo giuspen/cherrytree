@@ -23,7 +23,6 @@
 #include <gtkmm/dialog.h>
 #include <gtkmm/stock.h>
 #include "ct_image.h"
-#include "ct_app.h"
 #include "ct_dialogs.h"
 #include "ct_doc_rw.h"
 #include <ctime>
@@ -94,7 +93,7 @@ void CtActions::_node_add(bool duplicate, bool add_child)
         _pCtMainWin->curr_tree_store().get_node_data(_pCtMainWin->curr_tree_iter(), nodeData);
 
         if (nodeData.syntax != CtConst::RICH_TEXT_ID) {
-            nodeData.rTextBuffer = CtMiscUtil::get_new_text_buffer(nodeData.syntax, nodeData.rTextBuffer->get_text());
+            nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer(nodeData.syntax, nodeData.rTextBuffer->get_text());
             nodeData.anchoredWidgets.clear();
         } else {
             // todo:
@@ -103,7 +102,7 @@ void CtActions::_node_add(bool duplicate, bool add_child)
 
             // todo: temporary solution
             nodeData.anchoredWidgets.clear();
-            nodeData.rTextBuffer = CtMiscUtil::get_new_text_buffer(nodeData.syntax, nodeData.rTextBuffer->get_text());
+            nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer(nodeData.syntax, nodeData.rTextBuffer->get_text());
         }
     }
     else
@@ -114,7 +113,7 @@ void CtActions::_node_add(bool duplicate, bool add_child)
         nodeData.customIconId = 0;
         nodeData.syntax = CtConst::RICH_TEXT_ID;
         nodeData.isRO = false;
-        if (not CtDialogs::node_prop_dialog(title, *_pCtMainWin, nodeData, _pCtMainWin->curr_tree_store().get_used_tags()))
+        if (not CtDialogs::node_prop_dialog(title, _pCtMainWin, nodeData, _pCtMainWin->curr_tree_store().get_used_tags()))
             return;
     }
     _node_add_with_data(_pCtMainWin->curr_tree_iter(), nodeData, add_child);
@@ -123,13 +122,13 @@ void CtActions::_node_add(bool duplicate, bool add_child)
 void CtActions::_node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeData, bool add_child)
 {
     if (!nodeData.rTextBuffer)
-        nodeData.rTextBuffer = CtMiscUtil::get_new_text_buffer(nodeData.syntax);
+        nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer(nodeData.syntax);
     nodeData.tsCreation = std::time(nullptr);
     nodeData.tsLastSave = nodeData.tsCreation;
     nodeData.nodeId = _pCtMainWin->curr_tree_store().node_id_get();
 
     _pCtMainWin->update_window_save_needed();
-    CtApp::P_ctCfg->syntaxHighlighting = nodeData.syntax;
+    _pCtMainWin->get_ct_config()->syntaxHighlighting = nodeData.syntax;
 
     Gtk::TreeIter nodeIter;
     if (add_child) {
@@ -221,10 +220,10 @@ void CtActions::node_edit()
     CtNodeData nodeData;
     _pCtMainWin->curr_tree_store().get_node_data(_pCtMainWin->curr_tree_iter(), nodeData);
     CtNodeData newData = nodeData;
-    if (not CtDialogs::node_prop_dialog(_("Node Properties"), *_pCtMainWin, newData, _pCtMainWin->curr_tree_store().get_used_tags()))
+    if (not CtDialogs::node_prop_dialog(_("Node Properties"), _pCtMainWin, newData, _pCtMainWin->curr_tree_store().get_used_tags()))
         return;
 
-    CtApp::P_ctCfg->syntaxHighlighting = newData.syntax;
+    _pCtMainWin->get_ct_config()->syntaxHighlighting = newData.syntax;
     if (nodeData.syntax !=  newData.syntax) {
         if (nodeData.syntax == CtConst::RICH_TEXT_ID) {
             // leaving rich text
@@ -319,7 +318,7 @@ void CtActions::node_right()
     auto prev_iter = --_pCtMainWin->curr_tree_iter();
     if (!prev_iter) return;
     _node_move_after(_pCtMainWin->curr_tree_iter(), prev_iter);
-    //todo: if (CtApp::P_ctCfg->nodesIcons == "c") self.treeview_refresh(change_icon=True)
+    //todo: if (_pCtMainWin->get_ct_config()->nodesIcons == "c") self.treeview_refresh(change_icon=True)
 }
 
 void CtActions::node_left()
@@ -328,14 +327,14 @@ void CtActions::node_left()
     Gtk::TreeIter father_iter = _pCtMainWin->curr_tree_iter()->parent();
     if (!father_iter) return;
     _node_move_after(_pCtMainWin->curr_tree_iter(), father_iter->parent(), father_iter);
-    //todo: if (CtApp::P_ctCfg->nodesIcons == "c") self.treeview_refresh(change_icon=True)
+    //todo: if (_pCtMainWin->get_ct_config()->nodesIcons == "c") self.treeview_refresh(change_icon=True)
 }
 
 void CtActions::node_change_father()
 {
     if (!_is_there_selected_node_or_error()) return;
     CtTreeIter old_father_iter = _pCtMainWin->curr_tree_iter().parent();
-    CtTreeIter father_iter = _pCtMainWin->curr_tree_store().to_ct_tree_iter(CtDialogs::choose_node_dialog(*_pCtMainWin,
+    CtTreeIter father_iter = _pCtMainWin->curr_tree_store().to_ct_tree_iter(CtDialogs::choose_node_dialog(_pCtMainWin,
                                    _pCtMainWin->curr_tree_view(), _("Select the New Parent"), &_pCtMainWin->curr_tree_store(), _pCtMainWin->curr_tree_iter()));
     if (!father_iter) return;
     gint64 curr_node_id = _pCtMainWin->curr_tree_iter().get_node_id();

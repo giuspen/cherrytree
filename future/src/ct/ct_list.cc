@@ -1,7 +1,7 @@
 /*
  * ct_list.cc
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,8 +20,9 @@
  */
 
 #include "ct_list.h"
+#include "ct_const.h"
+#include "ct_main_win.h"
 #include <gtkmm/textbuffer.h>
-#include "ct_app.h"
 
 /*
 std::string CtList::get_list_type(int list_num_id)
@@ -61,8 +62,8 @@ void CtList::list_handler(CtListType target_list_num_id)
             if (leading_num_count.empty()) {
                 // this is the first iteration
                 range.iter_start = _curr_buffer->get_insert()->get_iter();
-                if (target_list_num_id == CtListType::Todo)        _curr_buffer->insert(range.iter_start, CtApp::P_ctCfg->charsTodo[0] + CtConst::CHAR_SPACE);
-                else if (target_list_num_id == CtListType::Bullet) _curr_buffer->insert(range.iter_start, CtApp::P_ctCfg->charsListbul[0] + CtConst::CHAR_SPACE);
+                if (target_list_num_id == CtListType::Todo)        _curr_buffer->insert(range.iter_start, _pCtMainWin->get_ct_config()->charsTodo[0] + CtConst::CHAR_SPACE);
+                else if (target_list_num_id == CtListType::Bullet) _curr_buffer->insert(range.iter_start, _pCtMainWin->get_ct_config()->charsListbul[0] + CtConst::CHAR_SPACE);
                 else                                                          _curr_buffer->insert(range.iter_start, "1. ");
             }
             break;
@@ -81,12 +82,12 @@ void CtList::list_handler(CtListType target_list_num_id)
                 if (target_list_num_id == CtListType::Todo) {
                     new_par_offset = range.iter_end.get_offset() + 2;
                     end_offset += 2;
-                    _curr_buffer->insert(range.iter_start, CtApp::P_ctCfg->charsTodo[0] + CtConst::CHAR_SPACE);
+                    _curr_buffer->insert(range.iter_start, _pCtMainWin->get_ct_config()->charsTodo[0] + CtConst::CHAR_SPACE);
                 } else if (target_list_num_id == CtListType::Bullet) {
                     new_par_offset = range.iter_end.get_offset() + 2;
                     end_offset += 2;
-                    int bull_idx = (!list_info) ? 0 : (list_info.level % (int)CtApp::P_ctCfg->charsListbul.size());
-                    _curr_buffer->insert(range.iter_start, CtApp::P_ctCfg->charsListbul.substr((size_t)bull_idx, 1) + CtConst::CHAR_SPACE);
+                    int bull_idx = (!list_info) ? 0 : (list_info.level % (int)_pCtMainWin->get_ct_config()->charsListbul.size());
+                    _curr_buffer->insert(range.iter_start, _pCtMainWin->get_ct_config()->charsListbul.substr((size_t)bull_idx, 1) + CtConst::CHAR_SPACE);
                 } else {
                     int index;
                     if (!list_info) {
@@ -166,14 +167,14 @@ CtListInfo CtList::list_get_number_n_level(Gtk::TextIter iter_first_paragraph)
     int level = 0;
     while (iter_start) {
         auto ch = iter_start.get_char();
-        if (str::indexOf(CtApp::P_ctCfg->charsListbul, ch) != -1) {
+        if (str::indexOf(_pCtMainWin->get_ct_config()->charsListbul, ch) != -1) {
             if (iter_start.forward_char() && iter_start.get_char() == CtConst::CHAR_SPACE[0]) {
-                int num = str::indexOf(CtApp::P_ctCfg->charsListbul, ch);
+                int num = str::indexOf(_pCtMainWin->get_ct_config()->charsListbul, ch);
                 return CtListInfo{CtListType::Bullet, num, level, -1, -1};
             }
             break;
         }
-        if (str::indexOf(CtApp::P_ctCfg->charsTodo, ch) != -1) {
+        if (str::indexOf(_pCtMainWin->get_ct_config()->charsTodo, ch) != -1) {
             if (iter_start.forward_char() && iter_start.get_char() == CtConst::CHAR_SPACE[0])
                 return CtListInfo{CtListType::Todo, 0, level, -1, -1};
             break;
@@ -343,7 +344,7 @@ CtTextRange CtList::get_paragraph_iters(Gtk::TextIter* force_iter /*= nullptr*/)
 // Check if ☐ or ☑ or ☒
 bool CtList::is_list_todo_beginning(Gtk::TextIter square_bracket_open_iter)
 {
-    if (CtApp::P_ctCfg->charsTodo.find(square_bracket_open_iter.get_char()) != Glib::ustring::npos) {
+    if (_pCtMainWin->get_ct_config()->charsTodo.find(square_bracket_open_iter.get_char()) != Glib::ustring::npos) {
         CtListInfo list_info = get_paragraph_list_info(square_bracket_open_iter);
         if (list_info.type == CtListType::Todo)
             return true;
@@ -355,15 +356,15 @@ bool CtList::is_list_todo_beginning(Gtk::TextIter square_bracket_open_iter)
 void CtList::todo_list_rotate_status(Gtk::TextIter todo_char_iter)
 {
     int iter_offset = todo_char_iter.get_offset();
-    if (todo_char_iter.get_char() == CtApp::P_ctCfg->charsTodo[0]) {
+    if (todo_char_iter.get_char() == _pCtMainWin->get_ct_config()->charsTodo[0]) {
         _curr_buffer->erase(todo_char_iter, _curr_buffer->get_iter_at_offset(iter_offset+1));
-        _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), Glib::ustring(1, CtApp::P_ctCfg->charsTodo[1]));
-    } else if (todo_char_iter.get_char() == CtApp::P_ctCfg->charsTodo[1]) {
+        _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), Glib::ustring(1, _pCtMainWin->get_ct_config()->charsTodo[1]));
+    } else if (todo_char_iter.get_char() == _pCtMainWin->get_ct_config()->charsTodo[1]) {
         _curr_buffer->erase(todo_char_iter, _curr_buffer->get_iter_at_offset(iter_offset+1));
-        _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), Glib::ustring(1, CtApp::P_ctCfg->charsTodo[2]));
-    } else if (todo_char_iter.get_char() == CtApp::P_ctCfg->charsTodo[2]) {
+        _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), Glib::ustring(1, _pCtMainWin->get_ct_config()->charsTodo[2]));
+    } else if (todo_char_iter.get_char() == _pCtMainWin->get_ct_config()->charsTodo[2]) {
         _curr_buffer->erase(todo_char_iter, _curr_buffer->get_iter_at_offset(iter_offset+1));
-        _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), Glib::ustring(1, CtApp::P_ctCfg->charsTodo[0]));
+        _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), Glib::ustring(1, _pCtMainWin->get_ct_config()->charsTodo[0]));
     }
 }
 
@@ -421,7 +422,7 @@ void CtList::todo_lists_old_to_new_conversion()
                     first_iter.backward_chars(3);
                     int iter_offset = first_iter.get_offset();
                     _curr_buffer->erase(first_iter, curr_iter);
-                    auto todo_char = middle_char == CtConst::CHAR_SPACE[0] ? CtApp::P_ctCfg->charsTodo[0] : CtApp::P_ctCfg->charsTodo[1];
+                    auto todo_char = middle_char == CtConst::CHAR_SPACE[0] ? _pCtMainWin->get_ct_config()->charsTodo[0] : _pCtMainWin->get_ct_config()->charsTodo[1];
                     _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), Glib::ustring(1, todo_char));
                     Gtk::TextIter curr_iter = _curr_buffer->get_iter_at_offset(iter_offset);
                     if (middle_char != CtConst::CHAR_SPACE[0]) {

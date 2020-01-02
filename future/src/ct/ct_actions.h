@@ -1,7 +1,7 @@
 /*
  * ct_actions.h
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -189,8 +189,6 @@ public:
                     std::optional<Gtk::TextIter> iter_sel_start = std::nullopt,
                     std::optional<Gtk::TextIter> iter_sel_end = std::nullopt,
                     Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>());
-public:
-    Glib::ustring apply_tag_exist_or_create(const Glib::ustring& tag_property, Glib::ustring property_value);
 
 private:
     struct text_view_n_buffer_codebox_proof {
@@ -236,7 +234,6 @@ private:
     void          _image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
                                      Gtk::TextIter insertIter,
                                      Gtk::TextIter* pIterBound);
-    Glib::ustring _get_iter_alignment(Gtk::TextIter text_iter);
     void          _text_selection_change_case(gchar change_type);
 
 public:

@@ -27,21 +27,21 @@
 // Toggle Show/Hide the Tree
 void CtActions::toggle_show_hide_tree()
 {
-    CtApp::P_ctCfg->treeVisible = !CtApp::P_ctCfg->treeVisible;
-    _pCtMainWin->show_hide_tree_view(CtApp::P_ctCfg->treeVisible);
+    _pCtMainWin->get_ct_config()->treeVisible = !_pCtMainWin->get_ct_config()->treeVisible;
+    _pCtMainWin->show_hide_tree_view(_pCtMainWin->get_ct_config()->treeVisible);
 }
 
 // Toggle Show/Hide the Toolbar
 void CtActions::toggle_show_hide_toolbar()
 {
-    CtApp::P_ctCfg->toolbarVisible = !CtApp::P_ctCfg->toolbarVisible;
-    _pCtMainWin->show_hide_toolbar(CtApp::P_ctCfg->toolbarVisible);
+    _pCtMainWin->get_ct_config()->toolbarVisible = !_pCtMainWin->get_ct_config()->toolbarVisible;
+    _pCtMainWin->show_hide_toolbar(_pCtMainWin->get_ct_config()->toolbarVisible);
 }
 
 void CtActions::toggle_show_hide_node_name_header()
 {
-    CtApp::P_ctCfg->showNodeNameHeader = !CtApp::P_ctCfg->showNodeNameHeader;
-    _pCtMainWin->show_hide_win_header(CtApp::P_ctCfg->showNodeNameHeader);
+    _pCtMainWin->get_ct_config()->showNodeNameHeader = !_pCtMainWin->get_ct_config()->showNodeNameHeader;
+    _pCtMainWin->show_hide_win_header(_pCtMainWin->get_ct_config()->showNodeNameHeader);
 }
 
 // Toggle Focus Between Tree and Text
@@ -68,23 +68,23 @@ void CtActions::nodes_collapse_all()
 // Increase the Size of the Toolbar Icons
 void CtActions::toolbar_icons_size_increase()
 {
-    if (CtApp::P_ctCfg->toolbarIconSize == 5) {
+    if (_pCtMainWin->get_ct_config()->toolbarIconSize == 5) {
         CtDialogs::info_dialog(_("The Size of the Toolbar Icons is already at the Maximum Value"), *_pCtMainWin);
         return;
     }
-    CtApp::P_ctCfg->toolbarIconSize += 1;
-    _pCtMainWin->set_toolbar_icon_size(CtApp::P_ctCfg->toolbarIconSize);
+    _pCtMainWin->get_ct_config()->toolbarIconSize += 1;
+    _pCtMainWin->set_toolbar_icon_size(_pCtMainWin->get_ct_config()->toolbarIconSize);
 }
 
 // Decrease the Size of the Toolbar Icons
 void CtActions::toolbar_icons_size_decrease()
 {
-    if (CtApp::P_ctCfg->toolbarIconSize == 1) {
+    if (_pCtMainWin->get_ct_config()->toolbarIconSize == 1) {
         CtDialogs::info_dialog(_("The Size of the Toolbar Icons is already at the Minimum Value"), *_pCtMainWin);
         return;
     }
-    CtApp::P_ctCfg->toolbarIconSize -= 1;
-    _pCtMainWin->set_toolbar_icon_size(CtApp::P_ctCfg->toolbarIconSize);
+    _pCtMainWin->get_ct_config()->toolbarIconSize -= 1;
+    _pCtMainWin->set_toolbar_icon_size(_pCtMainWin->get_ct_config()->toolbarIconSize);
 }
 
 // Toggle Fullscreen State

@@ -28,16 +28,16 @@ TEST_GROUP(MiscUtilsGroup)
 {
 };
 
-TEST(MiscUtilsGroup, isStrTrue)
+TEST(MiscUtilsGroup, is_str_true)
 {
-    CHECK(CtStrUtil::isStrTrue("true"));
-    CHECK(CtStrUtil::isStrTrue("True"));
-    CHECK(CtStrUtil::isStrTrue("TRUE"));
-    CHECK(CtStrUtil::isStrTrue("1"));
-    CHECK(not CtStrUtil::isStrTrue("false"));
-    CHECK(not CtStrUtil::isStrTrue("False"));
-    CHECK(not CtStrUtil::isStrTrue("FALSE"));
-    CHECK(not CtStrUtil::isStrTrue("0"));
+    CHECK(CtStrUtil::is_str_true("true"));
+    CHECK(CtStrUtil::is_str_true("True"));
+    CHECK(CtStrUtil::is_str_true("TRUE"));
+    CHECK(CtStrUtil::is_str_true("1"));
+    CHECK(not CtStrUtil::is_str_true("false"));
+    CHECK(not CtStrUtil::is_str_true("False"));
+    CHECK(not CtStrUtil::is_str_true("FALSE"));
+    CHECK(not CtStrUtil::is_str_true("0"));
 }
 
 TEST(MiscUtilsGroup, str__replace)
@@ -64,20 +64,20 @@ TEST(MiscUtilsGroup, str__trim)
     }
 }
 
-TEST(MiscUtilsGroup, gint64FromGstring)
+TEST(MiscUtilsGroup, gint64_from_gstring)
 {
-    CHECK_EQUAL(0, CtStrUtil::gint64FromGstring(""));
-    CHECK_EQUAL(0x7fffffffffffffff, CtStrUtil::gint64FromGstring("0x7fffffffffffffff"));
-    CHECK_EQUAL(-0x8000000000000000, CtStrUtil::gint64FromGstring("-0x8000000000000000"));
-    CHECK_EQUAL(1234, CtStrUtil::gint64FromGstring("1234"));
-    CHECK_EQUAL(-1234, CtStrUtil::gint64FromGstring("-1234"));
-    CHECK_EQUAL(0x123f, CtStrUtil::gint64FromGstring("123f", true));
+    CHECK_EQUAL(0, CtStrUtil::gint64_from_gstring(""));
+    CHECK_EQUAL(0x7fffffffffffffff, CtStrUtil::gint64_from_gstring("0x7fffffffffffffff"));
+    CHECK_EQUAL(-0x8000000000000000, CtStrUtil::gint64_from_gstring("-0x8000000000000000"));
+    CHECK_EQUAL(1234, CtStrUtil::gint64_from_gstring("1234"));
+    CHECK_EQUAL(-1234, CtStrUtil::gint64_from_gstring("-1234"));
+    CHECK_EQUAL(0x123f, CtStrUtil::gint64_from_gstring("123f", true));
 }
 
-TEST(MiscUtilsGroup, getUint32FromHexChars)
+TEST(MiscUtilsGroup, guint32_from_hex_chars)
 {
-    CHECK_EQUAL(0xaf, CtStrUtil::getUint32FromHexChars("aff", 2));
-    CHECK_EQUAL(0xa, CtStrUtil::getUint32FromHexChars("aff", 1));
+    CHECK_EQUAL(0xaf, CtStrUtil::guint32_from_hex_chars("aff", 2));
+    CHECK_EQUAL(0xa, CtStrUtil::guint32_from_hex_chars("aff", 1));
 }
 
 TEST(MiscUtilsGroup, str__split)
@@ -92,55 +92,55 @@ TEST(MiscUtilsGroup, str__split)
     }
 }
 
-TEST(MiscUtilsGroup, gstringSplit2int64)
+TEST(MiscUtilsGroup, gstring_split_to_int64)
 {
-    std::vector<gint64> splittedVec = CtStrUtil::gstringSplit2int64("-1, 1,0, 1000", ",");
+    std::vector<gint64> splittedVec = CtStrUtil::gstring_split_to_int64("-1, 1,0, 1000", ",");
     CHECK(std::vector<gint64>({-1, 1, 0, 1000}) == splittedVec);
 }
 
-TEST(MiscUtilsGroup, isPgcharInPgcharIterable)
+TEST(MiscUtilsGroup, is_pgchar_in_pgchar_iterable)
 {
-    CHECK(CtStrUtil::isPgcharInPgcharIterable(CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROPERTIES));
-    CHECK(not CtStrUtil::isPgcharInPgcharIterable("something surely missing", CtConst::TAG_PROPERTIES));
+    CHECK(CtStrUtil::is_pgchar_in_pgchar_iterable(CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROPERTIES));
+    CHECK(not CtStrUtil::is_pgchar_in_pgchar_iterable("something surely missing", CtConst::TAG_PROPERTIES));
 }
 
 TEST(MiscUtilsGroup, getFontMisc)
 {
-    CHECK("Sans" == CtFontUtil::getFontFamily("Sans 9"));
-    CHECK("9" == CtFontUtil::getFontSizeStr("Sans 9"));
+    CHECK("Sans" == CtFontUtil::get_font_family("Sans 9"));
+    CHECK("9" == CtFontUtil::get_font_size_str("Sans 9"));
 }
 
 
-TEST(MiscUtilsGroup, setRgb24StrFromRgb24Int)
+TEST(MiscUtilsGroup, set_rgb24str_from_rgb24int)
 {
     guint32 int24 = (0xf1 << 16) | (0xab << 8) | 0x57;
     char rgb24Str[8];
-    CtRgbUtil::setRgb24StrFromRgb24Int(int24, rgb24Str);
+    CtRgbUtil::set_rgb24str_from_rgb24int(int24, rgb24Str);
     STRCMP_EQUAL("#f1ab57", rgb24Str);
 }
 
-TEST(MiscUtilsGroup, getRgb24IntFromRgb24Str)
+TEST(MiscUtilsGroup, get_rgb24int_from_rgb24str)
 {
     guint32 expectedInt24 = (0xf1 << 16) | (0xab << 8) | 0x57;
-    CHECK_EQUAL(expectedInt24, CtRgbUtil::getRgb24IntFromRgb24Str("#f1ab57"));
-    CHECK_EQUAL(expectedInt24, CtRgbUtil::getRgb24IntFromRgb24Str("f1ab57"));
+    CHECK_EQUAL(expectedInt24, CtRgbUtil::get_rgb24int_from_rgb24str("#f1ab57"));
+    CHECK_EQUAL(expectedInt24, CtRgbUtil::get_rgb24int_from_rgb24str("f1ab57"));
 }
 
-TEST(MiscUtilsGroup, setRgb24StrFromStrAny)
+TEST(MiscUtilsGroup, set_rgb24str_from_str_any)
 {
     char rgb24Str[8];
-    STRCMP_EQUAL("#f1ab57", CtRgbUtil::setRgb24StrFromStrAny("#f1ab57", rgb24Str));
-    STRCMP_EQUAL("#ffaabb", CtRgbUtil::setRgb24StrFromStrAny("#fab", rgb24Str));
-    STRCMP_EQUAL("#123456", CtRgbUtil::setRgb24StrFromStrAny("#122334455667", rgb24Str));
-    STRCMP_EQUAL("#123456", CtRgbUtil::setRgb24StrFromStrAny("122334455667", rgb24Str));
+    STRCMP_EQUAL("#f1ab57", CtRgbUtil::set_rgb24str_from_str_any("#f1ab57", rgb24Str));
+    STRCMP_EQUAL("#ffaabb", CtRgbUtil::set_rgb24str_from_str_any("#fab", rgb24Str));
+    STRCMP_EQUAL("#123456", CtRgbUtil::set_rgb24str_from_str_any("#122334455667", rgb24Str));
+    STRCMP_EQUAL("#123456", CtRgbUtil::set_rgb24str_from_str_any("122334455667", rgb24Str));
 }
 
-TEST(MiscUtilsGroup, getRgb24IntFromStrAny)
+TEST(MiscUtilsGroup, get_rgb24int_from_str_any)
 {
     guint32 expectedInt24 = (0xf1 << 16) | (0xab << 8) | 0x57;
-    CHECK_EQUAL(expectedInt24, CtRgbUtil::getRgb24IntFromStrAny("#f1ab57"));
-    CHECK_EQUAL(expectedInt24, CtRgbUtil::getRgb24IntFromStrAny("f1ab57"));
-    CHECK_EQUAL(expectedInt24, CtRgbUtil::getRgb24IntFromStrAny("f122ab335744"));
+    CHECK_EQUAL(expectedInt24, CtRgbUtil::get_rgb24int_from_str_any("#f1ab57"));
+    CHECK_EQUAL(expectedInt24, CtRgbUtil::get_rgb24int_from_str_any("f1ab57"));
+    CHECK_EQUAL(expectedInt24, CtRgbUtil::get_rgb24int_from_str_any("f122ab335744"));
 }
 
 TEST(MiscUtilsGroup, str__endswith)

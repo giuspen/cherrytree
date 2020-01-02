@@ -21,6 +21,10 @@
 
 #include "ct_menu.h"
 #include "ct_const.h"
+#include "ct_config.h"
+#include "ct_actions.h"
+#include "ct_app.h"
+#include <glibmm/i18n.h>
 #include <sigc++/sigc++.h>
 #include <gtk/gtk.h>
 #include <glib-object.h>
@@ -40,15 +44,15 @@ static void on_menu_activate(void* /*pObject*/, CtAction* pAction)
     }
 }
 
-const std::string& CtAction::get_shortcut() const
+const std::string& CtAction::get_shortcut(CtConfig* pCtConfig) const
 {
-    auto it = CtApp::P_ctCfg->customKbShortcuts.find(id);
-    return it != CtApp::P_ctCfg->customKbShortcuts.end() ? it->second : built_in_shortcut;
+    auto it = pCtConfig->customKbShortcuts.find(id);
+    return it != pCtConfig->customKbShortcuts.end() ? it->second : built_in_shortcut;
 }
 
 
-
-CtMenu::CtMenu()
+CtMenu::CtMenu(CtConfig* pCtConfig)
+ : _pCtConfig(pCtConfig)
 {
     _pAccelGroup = gtk_accel_group_new();
     _rGtkBuilder = Gtk::Builder::create();
@@ -535,8 +539,14 @@ GtkWidget* CtMenu::_add_submenu(GtkWidget* pMenu, const char* id, const char* na
 
 Gtk::MenuItem* CtMenu::_add_menu_item(GtkWidget* pMenu, CtAction* pAction)
 {
-    Gtk::MenuItem* pMenuItem = _add_menu_item(pMenu, pAction->name.c_str(), pAction->image.c_str(), pAction->get_shortcut().c_str(),
-                                             pAction->desc.c_str(), (gpointer)pAction, &pAction->signal_set_sensitive, &pAction->signal_set_visible);
+    Gtk::MenuItem* pMenuItem = _add_menu_item(pMenu,
+                                              pAction->name.c_str(),
+                                              pAction->image.c_str(),
+                                              pAction->get_shortcut(_pCtConfig).c_str(),
+                                              pAction->desc.c_str(),
+                                              (gpointer)pAction,
+                                              &pAction->signal_set_sensitive,
+                                              &pAction->signal_set_visible);
     pMenuItem->get_child()->set_name(pAction->id); // for find_menu_item();
     return pMenuItem;
 }
@@ -634,7 +644,7 @@ GtkWidget* CtMenu::_add_separator(GtkWidget* pMenu)
 
 std::string CtMenu::_get_ui_str_toolbar()
 {
-    std::vector<std::string> vecToolbarElements = str::split(CtApp::P_ctCfg->toolbarUiList, ",");
+    std::vector<std::string> vecToolbarElements = str::split(_pCtConfig->toolbarUiList, ",");
     std::string toolbarUIStr;
     for (const std::string& element : vecToolbarElements)
     {

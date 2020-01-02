@@ -1,7 +1,7 @@
 /*
  * ct_codebox.h
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,8 @@
 class CtTextCell
 {
 public:
-    CtTextCell(const Glib::ustring& textContent,
+    CtTextCell(CtMainWin* pCtMainWin,
+               const Glib::ustring& textContent,
                const std::string& syntaxHighlighting);
     virtual ~CtTextCell();
 
@@ -37,13 +38,14 @@ public:
     Glib::RefPtr<Gsv::Buffer> get_buffer() { return _rTextBuffer; }
     CtTextView& get_text_view() { return _ctTextview; }
     const std::string& get_syntax_highlighting() { return _syntaxHighlighting; }
-    void set_syntax_highlighting(const std::string& syntaxHighlighting);
+    void set_syntax_highlighting(const std::string& syntaxHighlighting, Gsv::LanguageManager* pGsvLanguageManager);
     void set_text_buffer_modified_false() { _rTextBuffer->set_modified(false); }
 
 protected:
     std::string _syntaxHighlighting;
     Glib::RefPtr<Gsv::Buffer> _rTextBuffer{nullptr};
     CtTextView _ctTextview;
+    std::unique_ptr<CtPairCodeboxMainWin> _uCtPairCodeboxMainWin;
 };
 
 class CtCodebox : public CtAnchoredWidget, public CtTextCell
@@ -58,7 +60,8 @@ public:
          };
 
 public:
-    CtCodebox(const Glib::ustring& textContent,
+    CtCodebox(CtMainWin* pCtMainWin,
+              const Glib::ustring& textContent,
               const std::string& syntaxHighlighting,
               const int frameWidth,
               const int frameHeight,

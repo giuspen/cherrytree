@@ -1,7 +1,7 @@
 /*
  * ct_widgets.h
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,13 +25,30 @@
 #include <gtksourceviewmm.h>
 #include <libxml++/libxml++.h>
 #include <sqlite3.h>
+#include <iostream>
+#include <unordered_map>
 #include "ct_list.h"
 #include "ct_types.h"
+
+class CtTmp
+{
+public:
+    CtTmp();
+    virtual ~CtTmp();
+    const gchar* getHiddenDirPath(const std::string& visiblePath);
+    const gchar* getHiddenFilePath(const std::string& visiblePath);
+
+protected:
+    std::unordered_map<std::string,gchar*> _mapHiddenDirs;
+    std::unordered_map<std::string,gchar*> _mapHiddenFiles;
+};
+
+class CtMainWin;
 
 class CtAnchoredWidget : public Gtk::EventBox
 {
 public:
-    CtAnchoredWidget(const int charOffset, const std::string& justification);
+    CtAnchoredWidget(CtMainWin* pCtMainWin, const int charOffset, const std::string& justification);
     virtual ~CtAnchoredWidget();
 
     void insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer);
@@ -44,16 +61,18 @@ public:
     virtual CtAnchWidgType get_type() = 0;
 
     void updateOffset(int charOffset) { _charOffset = charOffset; }
-    void updateJustification(std::string justification) { _justification = justification; }
+    void updateJustification(const std::string& justification) { _justification = justification; }
+    void updateJustification(const Gtk::TextIter& textIter);
 
     int getOffset() { return _charOffset; }
     const std::string& getJustification() { return _justification; }
 
 protected:
-    Gtk::Frame _frame;
-    Gtk::Label _labelWidget;
+    CtMainWin* _pCtMainWin;
     int _charOffset;
     std::string _justification;
+    Gtk::Frame _frame;
+    Gtk::Label _labelWidget;
     Glib::RefPtr<Gtk::TextChildAnchor> _rTextChildAnchor;
 };
 
@@ -63,14 +82,12 @@ public:
     CtTreeView();
     virtual ~CtTreeView();
     void set_cursor_safe(const Gtk::TreeIter& iter);
-
-protected:
 };
 
 class CtTextView : public Gsv::View
 {
 public:
-    CtTextView();
+    CtTextView(CtMainWin* pCtMainWin);
     virtual ~CtTextView();
 
     void setup_for_syntax(const std::string& syntaxHighlighting); // pygtk: sourceview_set_properties
@@ -90,6 +107,7 @@ private:
     bool          _apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor);
     Glib::ustring _get_former_line_indentation(Gtk::TextIter iter_start);
     void          _special_char_replace(gunichar special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_insert);
+    CtMainWin* _pCtMainWin;
 
 public:
     static const double TEXT_SCROLL_MARGIN;

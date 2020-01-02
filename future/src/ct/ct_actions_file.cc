@@ -108,17 +108,17 @@ void CtActions::file_save_as()
 bool CtActions::_backups_handling(const std::string& filepath)
 {
     bool retVal{true};
-    if (CtApp::P_ctCfg->backupCopy and CtApp::P_ctCfg->backupNum > 0)
+    if (_pCtMainWin->get_ct_config()->backupCopy and _pCtMainWin->get_ct_config()->backupNum > 0)
     {
         std::string tildesToBackup;
-        int tildesLeft{CtApp::P_ctCfg->backupNum-1};
+        int tildesLeft{_pCtMainWin->get_ct_config()->backupNum-1};
         while (tildesLeft > 0)
         {
             tildesToBackup += CtConst::CHAR_TILDE;
             tildesLeft--;
         }
         std::string filepathTildes = filepath + tildesToBackup;
-        for (int b=CtApp::P_ctCfg->backupNum; b>0; b--)
+        for (int b=_pCtMainWin->get_ct_config()->backupNum; b>0; b--)
         {
             Glib::RefPtr<Gio::File> rFileFrom = Gio::File::create_for_path(filepathTildes);
             if (rFileFrom->query_exists())
@@ -188,7 +188,7 @@ bool CtActions::_file_write_low_level(const std::string& filepath,
     bool retVal{false};
     const CtDocEncrypt docEncrypt = CtMiscUtil::get_doc_encrypt(filepath);
     const CtDocType docType = CtMiscUtil::get_doc_type(filepath);
-    const char* filepath_tmp = (CtDocEncrypt::True == docEncrypt ? CtApp::P_ctTmp->getHiddenFilePath(filepath) : filepath.c_str());
+    const char* filepath_tmp = (CtDocEncrypt::True == docEncrypt ? _pCtMainWin->get_ct_tmp()->getHiddenFilePath(filepath) : filepath.c_str());
     if (CtDocType::XML == docType)
     {
         // xml, full
@@ -202,7 +202,7 @@ bool CtActions::_file_write_low_level(const std::string& filepath,
               (CtExporting::No != exporting) )
     {
         // sqlite, full
-        CtSQLite* pCtSQLite = new CtSQLite(filepath_tmp);
+        CtSQLite* pCtSQLite = new CtSQLite(_pCtMainWin, filepath_tmp);
         if (pCtSQLite->write_db_full(_pCtMainWin->curr_tree_store().get_bookmarks(),
                                      _pCtMainWin->curr_tree_store().get_ct_iter_first(),
                                      exporting,
@@ -257,7 +257,7 @@ void CtActions::file_open()
     if (not filepath.empty() and
         _pCtMainWin->filepath_open(filepath))
     {
-        CtApp::P_ctCfg->recentDocsFilepaths.move_or_push_front(filepath);
+        _pCtMainWin->get_ct_config()->recentDocsFilepaths.move_or_push_front(filepath);
         _pCtMainWin->set_menu_items_recent_documents();
     }
 }

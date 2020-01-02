@@ -1,7 +1,7 @@
 /*
  * ct_clipboard.h
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,16 +38,18 @@ struct CtClipboardData
 class CtClipboard
 {
 public:
-    CtClipboard();
+    CtClipboard() {} // use from static, need to set pCtMainWin manually just before usage
+    CtClipboard(CtMainWin* pCtMainWin);
 
 public:
     static void on_cut_clipboard(GtkTextView* pTextView, gpointer codebox);
     static void on_copy_clipboard(GtkTextView* pTextView, gpointer codebox);
     static void on_paste_clipboard(GtkTextView* pTextView, gpointer codebox);
-
     static void force_plain_text() { _static_force_plain_text = true; }
+    static CtMainWin* pCtMainWin;
 
 private:
+    CtMainWin* _get_CtMainWin();
     void _cut_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox);
     void _copy_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox);
     void _paste_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox);
@@ -82,6 +84,7 @@ private:
 
 private:
     static bool _static_force_plain_text;
+    CtMainWin*   _pCtMainWin;
 };
 
 

@@ -1,4 +1,18 @@
 
+0.38.10 (January ???, 2020)
+  * bugfix: error opening encrypted documents when path contains non-ASCII characters (#399)
+  * bugfix: removing the text formatting was possible in read-only Node (#543)
+  * bugfix: collapse all nodes at startup doesn't work with enabled expand tree at mouse click (#569)
+  * added support for export to pdf from command line (#584)
+  * supporting new syntax highlighting for language kotlin
+  * 'reload after external update to ct* file' disabled by default (#602)
+  * 'smart quotes auto replacement' replacing characters configurable manually editing config.cfg
+  * added small sigma to default special chars (#563)
+  * support mac osx for open link to file, default custom action (#564)
+  * added dollar as character not to be used in passwords; note that all chars will be instead usable in upcoming gtkmm3 version (#545)
+  * minor changes to support reading a document that has been edited from the upcoming gtkmm3 version of cherrytree
+  * minor changes to support reading a config.cfg that has been edited from the upcoming gtkmm3 version of cherrytree
+
 0.38.9 (August 17th, 2019)
   * Auto replacement of symbols as you type is now configurable in preferences dialog, tab Text (work of trololo88)
   * Ctrl+Space to toggle To-Do List Item State; fixed multilevel bug

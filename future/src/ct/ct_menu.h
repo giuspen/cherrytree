@@ -21,11 +21,12 @@
 
 #pragma once
 
-#include "ct_app.h"
-
 #include <string>
 #include <libxml++/libxml++.h>
 #include <gtkmm.h>
+#include "ct_types.h"
+
+class CtConfig;
 
 struct CtAction
 {
@@ -40,25 +41,26 @@ struct CtAction
     sigc::signal<void, bool> signal_set_sensitive = sigc::signal<void, bool>();
     sigc::signal<void, bool> signal_set_visible = sigc::signal<void, bool>();
 
-    const std::string& get_shortcut() const;
+    const std::string& get_shortcut(CtConfig* pCtConfig) const;
 };
 
 class CtApp;
 class CtActions;
+
 class CtMenu
 {
+public:
+    CtMenu(CtConfig* pCtConfig);
+
 public:
     const char*       None       = "";
     const std::string KB_CONTROL = "<control>";
     const std::string KB_SHIFT   = "<shift>";
     const std::string KB_ALT     = "<alt>";
 
-public:
     enum POPUP_MENU_TYPE {Node, Text, Code, Link, Table, TableCell, Codebox, Image, Anchor, EmbFile, PopupMenuNum };
 
 public:
-    CtMenu();
-
     void init_actions(CtApp* pApp, CtActions* pActions);
     CtAction* find_action(const std::string& id);
     const std::list<CtAction>& get_actions() { return _actions; }
@@ -101,6 +103,7 @@ private:
     const char* _get_popup_menu_ui_str_embfile();
 
 private:
+    CtConfig*                  _pCtConfig;
     std::list<CtAction>        _actions;
     Glib::RefPtr<Gtk::Builder> _rGtkBuilder;
     GtkAccelGroup*             _pAccelGroup;

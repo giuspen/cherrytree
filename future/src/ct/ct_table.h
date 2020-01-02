@@ -1,7 +1,7 @@
 /*
  * ct_table.h
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,8 @@
 class CtTableCell : public CtTextCell, public Gtk::Bin
 {
 public:
-    CtTableCell(const Glib::ustring& textContent,
+    CtTableCell(CtMainWin* pCtMainWin,
+                const Glib::ustring& textContent,
                 const Glib::ustring& syntaxHighlighting);
     virtual ~CtTableCell();
 };
@@ -38,7 +39,8 @@ typedef std::list<CtTableRow> CtTableMatrix;
 class CtTable : public CtAnchoredWidget
 {
 public:
-    CtTable(const CtTableMatrix& tableMatrix,
+    CtTable(CtMainWin* pCtMainWin,
+            const CtTableMatrix& tableMatrix,
             const int colMin,
             const int colMax,
             const bool headFront,

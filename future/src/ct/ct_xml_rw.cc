@@ -1,7 +1,7 @@
 /*
  * ct_xml_rw.cc
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,12 +23,13 @@
 #include "ct_doc_rw.h"
 #include "ct_misc_utils.h"
 #include "ct_const.h"
-#include "ct_app.h"
 #include "ct_codebox.h"
 #include "ct_image.h"
 #include "ct_table.h"
+#include "ct_main_win.h"
 
-CtXmlRead::CtXmlRead(const char* filepath, const char* textContent)
+CtXmlRead::CtXmlRead(CtMainWin* pCtMainWin, const char* filepath, const char* textContent)
+ : CtDocRead(pCtMainWin)
 {
     if (nullptr != filepath)
     {
@@ -57,7 +58,7 @@ bool CtXmlRead::read_populate_tree(const Gtk::TreeIter* pParentIter)
             for (xmlpp::Node* pNode : pRoot->get_children("bookmarks"))
             {
                 Glib::ustring bookmarks_csv = static_cast<xmlpp::Element*>(pNode)->get_attribute_value("list");
-                for (gint64& nodeId : CtStrUtil::gstringSplit2int64(bookmarks_csv.c_str(), ","))
+                for (gint64& nodeId : CtStrUtil::gstring_split_to_int64(bookmarks_csv.c_str(), ","))
                 {
                     signalAddBookmark.emit(nodeId);
                 }
@@ -93,16 +94,16 @@ void CtXmlRead::_read_populate_tree_iter(xmlpp::Element* pNodeElement, const Gtk
 Gtk::TreeIter CtXmlRead::_read_node(xmlpp::Element* pNodeElement, const Gtk::TreeIter* pParentIter)
 {
     CtNodeData nodeData;
-    nodeData.nodeId = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("unique_id").c_str());
+    nodeData.nodeId = CtStrUtil::gint64_from_gstring(pNodeElement->get_attribute_value("unique_id").c_str());
     nodeData.name = pNodeElement->get_attribute_value("name");
     nodeData.syntax = pNodeElement->get_attribute_value("prog_lang");
     nodeData.tags = pNodeElement->get_attribute_value("tags");
-    nodeData.isRO = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("readonly"));
-    nodeData.customIconId = (guint32)CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("custom_icon_id").c_str());
-    nodeData.isBold = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("is_bold"));
+    nodeData.isRO = CtStrUtil::is_str_true(pNodeElement->get_attribute_value("readonly"));
+    nodeData.customIconId = (guint32)CtStrUtil::gint64_from_gstring(pNodeElement->get_attribute_value("custom_icon_id").c_str());
+    nodeData.isBold = CtStrUtil::is_str_true(pNodeElement->get_attribute_value("is_bold"));
     nodeData.foregroundRgb24 = pNodeElement->get_attribute_value("foreground");
-    nodeData.tsCreation = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("ts_creation").c_str());
-    nodeData.tsLastSave = CtStrUtil::gint64FromGstring(pNodeElement->get_attribute_value("ts_lastSave").c_str());
+    nodeData.tsCreation = CtStrUtil::gint64_from_gstring(pNodeElement->get_attribute_value("ts_creation").c_str());
+    nodeData.tsLastSave = CtStrUtil::gint64_from_gstring(pNodeElement->get_attribute_value("ts_lastSave").c_str());
     nodeData.rTextBuffer = get_text_buffer(nodeData.syntax, nodeData.anchoredWidgets, pNodeElement);
 
     Gtk::TreeIter newIter = signalAppendNode.emit(&nodeData, pParentIter);
@@ -131,9 +132,11 @@ CtXmlNodeType CtXmlRead::_node_get_type_from_name(const Glib::ustring& xmlNodeNa
     return retXmlNodeType;
 }
 
-void CtXmlRead::get_text_buffer_slot(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk::TextIter* insertIter,
+void CtXmlRead::get_text_buffer_slot(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
+                                     Gtk::TextIter* insertIter,
                                      std::list<CtAnchoredWidget*>& anchoredWidgets,
-                                     xmlpp::Node* pNodeParent, int forceCharOffset /*=-1*/)
+                                     xmlpp::Node* pNodeParent,
+                                     int forceCharOffset /*=-1*/)
 {
     CtXmlNodeType xmlNodeType = _node_get_type_from_name(pNodeParent->get_name());
     if (CtXmlNodeType::RichText == xmlNodeType)
@@ -149,9 +152,9 @@ void CtXmlRead::get_text_buffer_slot(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk
                 std::vector<Glib::ustring> tagsNames;
                 for (const xmlpp::Attribute* pAttribute : attributeList)
                 {
-                    if (CtStrUtil::isPgcharInPgcharIterable(pAttribute->get_name().c_str(), CtConst::TAG_PROPERTIES))
+                    if (CtStrUtil::is_pgchar_in_pgchar_iterable(pAttribute->get_name().c_str(), CtConst::TAG_PROPERTIES))
                     {
-                        Glib::ustring tagName = CtMiscUtil::getTextTagNameExistOrCreate(pAttribute->get_name(), pAttribute->get_value());
+                        Glib::ustring tagName = _pCtMainWin->get_text_tag_name_exist_or_create(pAttribute->get_name(), pAttribute->get_value());
                         tagsNames.push_back(tagName);
                     }
                 }
@@ -182,7 +185,7 @@ void CtXmlRead::get_text_buffer_slot(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk
             const Glib::ustring anchorName = pNodeElement->get_attribute_value("anchor");
             if (not anchorName.empty())
             {
-                pAnchoredWidget = new CtImageAnchor(anchorName, charOffset, justification);
+                pAnchoredWidget = new CtImageAnchor(_pCtMainWin, anchorName, charOffset, justification);
             }
             else
             {
@@ -198,12 +201,12 @@ void CtXmlRead::get_text_buffer_slot(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk
                         timeStr = "0";
                     }
                     double timeDouble = std::stod(timeStr);
-                    pAnchoredWidget = new CtImageEmbFile(fileName, rawBlob, timeDouble, charOffset, justification);
+                    pAnchoredWidget = new CtImageEmbFile(_pCtMainWin, fileName, rawBlob, timeDouble, charOffset, justification);
                 }
                 else
                 {
                     const Glib::ustring link = pNodeElement->get_attribute_value("link");
-                    pAnchoredWidget = new CtImagePng(rawBlob, link, charOffset, justification);
+                    pAnchoredWidget = new CtImagePng(_pCtMainWin, rawBlob, link, charOffset, justification);
                 }
             }
         }
@@ -213,7 +216,7 @@ void CtXmlRead::get_text_buffer_slot(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk
             const int colMax = std::stoi(pNodeElement->get_attribute_value("col_max"));
             CtTableMatrix tableMatrix;
             const bool isHeadFront = populate_table_matrix_get_is_head_front(tableMatrix, pNodeElement);
-            pAnchoredWidget = new CtTable(tableMatrix, colMin, colMax, isHeadFront, charOffset, justification);
+            pAnchoredWidget = new CtTable(_pCtMainWin, tableMatrix, colMin, colMax, isHeadFront, charOffset, justification);
         }
         else if (CtXmlNodeType::CodeBox == xmlNodeType)
         {
@@ -222,11 +225,12 @@ void CtXmlRead::get_text_buffer_slot(Glib::RefPtr<Gsv::Buffer>& rTextBuffer, Gtk
             const Glib::ustring syntaxHighlighting = pNodeElement->get_attribute_value("syntax_highlighting");
             const int frameWidth = std::stoi(pNodeElement->get_attribute_value("frame_width"));
             const int frameHeight = std::stoi(pNodeElement->get_attribute_value("frame_height"));
-            const bool widthInPixels = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("width_in_pixels"));
-            const bool highlightBrackets = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("highlight_brackets"));
-            const bool showLineNumbers = CtStrUtil::isStrTrue(pNodeElement->get_attribute_value("show_line_numbers"));
+            const bool widthInPixels = CtStrUtil::is_str_true(pNodeElement->get_attribute_value("width_in_pixels"));
+            const bool highlightBrackets = CtStrUtil::is_str_true(pNodeElement->get_attribute_value("highlight_brackets"));
+            const bool showLineNumbers = CtStrUtil::is_str_true(pNodeElement->get_attribute_value("show_line_numbers"));
 
-            CtCodebox* pCtCodebox = new CtCodebox(textContent,
+            CtCodebox* pCtCodebox = new CtCodebox(_pCtMainWin,
+                                                  textContent,
                                                   syntaxHighlighting,
                                                   frameWidth,
                                                   frameHeight,
@@ -258,7 +262,7 @@ bool CtXmlRead::populate_table_matrix_get_is_head_front(CtTableMatrix& tableMatr
                 {
                     xmlpp::TextNode* pTextNode = static_cast<xmlpp::Element*>(pNodeCell)->get_child_text();
                     const Glib::ustring textContent = pTextNode ? pTextNode->get_content() : "";
-                    tableMatrix.back().push_back(new CtTableCell(textContent, CtConst::PLAIN_TEXT_ID));
+                    tableMatrix.back().push_back(new CtTableCell(_pCtMainWin, textContent, CtConst::PLAIN_TEXT_ID));
                 }
             }
         }
@@ -270,7 +274,7 @@ Glib::RefPtr<Gsv::Buffer> CtXmlRead::get_text_buffer(const std::string& syntax,
                                                      std::list<CtAnchoredWidget*>& anchoredWidgets,
                                                      xmlpp::Element* pNodeElement)
 {
-    Glib::RefPtr<Gsv::Buffer> rRetTextBuffer = CtMiscUtil::get_new_text_buffer(syntax);
+    Glib::RefPtr<Gsv::Buffer> rRetTextBuffer = _pCtMainWin->get_new_text_buffer(syntax);
     if (nullptr == pNodeElement)
     {
         xmlpp::Document *pDocument = get_document();

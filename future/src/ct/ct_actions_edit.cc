@@ -1,7 +1,7 @@
 /*
  * ct_actions_find.cc
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,8 +29,8 @@
 void CtActions::insert_spec_char_action(gunichar ch)
 {
     auto proof = _get_text_view_n_buffer_codebox_proof();
-    if (!proof.text_buffer) return;
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not proof.text_buffer) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     proof.text_buffer->insert_at_cursor(Glib::ustring(1, ch));
 }
 
@@ -47,12 +47,12 @@ void CtActions::requested_step_ahead()
 // Insert/Edit Image
 void CtActions::image_handle()
 {
-    if (!_node_sel_and_rich_text()) return;
-    if (!_is_curr_node_not_read_only_or_error()) return;
-    CtDialogs::file_select_args args = {.pParentWin=_pCtMainWin, .curr_folder=CtApp::P_ctCfg->pickDirImg};
+    if (not _node_sel_and_rich_text()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
+    CtDialogs::file_select_args args = {.pParentWin=_pCtMainWin, .curr_folder=_pCtMainWin->get_ct_config()->pickDirImg};
     std::string filename = CtDialogs::file_select_dialog(args);
     if (filename.empty()) return;
-    CtApp::P_ctCfg->pickDirImg = Glib::path_get_dirname(filename);
+    _pCtMainWin->get_ct_config()->pickDirImg = Glib::path_get_dirname(filename);
 
     Glib::RefPtr<Gdk::Pixbuf> rPixbuf = Gdk::Pixbuf::create_from_file(filename);
     if (rPixbuf)
@@ -69,8 +69,8 @@ void CtActions::table_handle()
 // Insert Code Box
 void CtActions::codebox_handle()
 {
-    if (!_node_sel_and_rich_text()) return;
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _node_sel_and_rich_text()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
 
     Glib::ustring textContent, justification;
     Gtk::TextIter iter_sel_start, iter_sel_end;
@@ -79,23 +79,24 @@ void CtActions::codebox_handle()
         _curr_buffer()->get_selection_bounds(iter_sel_start, iter_sel_end);
         textContent = iter_sel_start.get_text(iter_sel_end);
     }
-    if (!CtDialogs::codeboxhandle_dialog(*_pCtMainWin, _("Insert a CodeBox")))
+    if (not CtDialogs::codeboxhandle_dialog(_pCtMainWin, _("Insert a CodeBox")))
         return;
 
-    if (!textContent.empty())
+    if (not textContent.empty())
         _curr_buffer()->erase(iter_sel_start, iter_sel_end);
 
     Gtk::TextIter iter_insert = _curr_buffer()->get_insert()->get_iter();
 
-    CtCodebox* pCtCodebox = new CtCodebox(textContent,
-                                          CtApp::P_ctCfg->codeboxSynHighl,
-                                          (int)CtApp::P_ctCfg->codeboxWidth,
-                                          (int)CtApp::P_ctCfg->codeboxHeight,
+    CtCodebox* pCtCodebox = new CtCodebox(_pCtMainWin,
+                                          textContent,
+                                          _pCtMainWin->get_ct_config()->codeboxSynHighl,
+                                          (int)_pCtMainWin->get_ct_config()->codeboxWidth,
+                                          (int)_pCtMainWin->get_ct_config()->codeboxHeight,
                                           iter_insert.get_offset(),
                                           justification);
-    pCtCodebox->set_width_in_pixels(CtApp::P_ctCfg->codeboxWidthPixels);
-    pCtCodebox->set_highlight_brackets(CtApp::P_ctCfg->codeboxMatchBra);
-    pCtCodebox->set_show_line_numbers(CtApp::P_ctCfg->codeboxLineNum);
+    pCtCodebox->set_width_in_pixels(_pCtMainWin->get_ct_config()->codeboxWidthPixels);
+    pCtCodebox->set_highlight_brackets(_pCtMainWin->get_ct_config()->codeboxMatchBra);
+    pCtCodebox->set_show_line_numbers(_pCtMainWin->get_ct_config()->codeboxLineNum);
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
     pCtCodebox->insertInTextBuffer(gsv_buffer);
 
@@ -111,7 +112,7 @@ void CtActions::embfile_insert()
 // The Link Insert Button was Pressed
 void CtActions::apply_tag_link()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     _apply_tag(CtConst::TAG_LINK);
 }
 
@@ -128,23 +129,23 @@ void CtActions::toc_insert()
 // Insert Timestamp
 void CtActions::timestamp_insert()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
 
     text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
-    if (!proof.text_buffer) return;
+    if (not proof.text_buffer) return;
 
     time_t time = std::time(nullptr);
-    std::string timestamp = str::time_format(CtApp::P_ctCfg->timestampFormat, time);
+    std::string timestamp = str::time_format(_pCtMainWin->get_ct_config()->timestampFormat, time);
     proof.text_buffer->insert_at_cursor(timestamp);
 }
 
 // Insert a Horizontal Line
 void CtActions::horizontal_rule_insert()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
-    if (!proof.text_buffer) return;
-    proof.text_buffer->insert_at_cursor(CtApp::P_ctCfg->hRule + CtConst::CHAR_NEWLINE);
+    if (not proof.text_buffer) return;
+    proof.text_buffer->insert_at_cursor(_pCtMainWin->get_ct_config()->hRule + CtConst::CHAR_NEWLINE);
 }
 
 // Lowers the Case of the Selected Text/the Underlying Word
@@ -173,7 +174,7 @@ void CtActions::toggle_ena_dis_spellcheck()
 // Copy as Plain Text
 void CtActions::cut_as_plain_text()
 {
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     CtClipboard::force_plain_text();
     auto proof = _get_text_view_n_buffer_codebox_proof();
     g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "cut-clipboard");
@@ -199,11 +200,11 @@ void CtActions::paste_as_plain_text()
 void CtActions::text_row_cut()
 {
     auto proof = _get_text_view_n_buffer_codebox_proof();
-    if (!proof.text_buffer) return;
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not proof.text_buffer) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
 
-    CtTextRange range = CtList(proof.text_buffer).get_paragraph_iters();
-    if (!range.iter_end.forward_char() && !range.iter_start.backward_char()) return;
+    CtTextRange range = CtList(_pCtMainWin, proof.text_buffer).get_paragraph_iters();
+    if (not range.iter_end.forward_char() and !range.iter_start.backward_char()) return;
     proof.text_buffer->select_range(range.iter_start, range.iter_end);
     g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "cut-clipboard");
 }
@@ -212,10 +213,10 @@ void CtActions::text_row_cut()
 void CtActions::text_row_copy()
 {
     auto proof = _get_text_view_n_buffer_codebox_proof();
-    if (!proof.text_buffer) return;
+    if (not proof.text_buffer) return;
 
-    CtTextRange range = CtList(proof.text_buffer).get_paragraph_iters();
-    if (!range.iter_end.forward_char() && !range.iter_start.backward_char()) return;
+    CtTextRange range = CtList(_pCtMainWin, proof.text_buffer).get_paragraph_iters();
+    if (not range.iter_end.forward_char() and !range.iter_start.backward_char()) return;
     proof.text_buffer->select_range(range.iter_start, range.iter_end);
     g_signal_emit_by_name(G_OBJECT(proof.text_view->gobj()), "copy-clipboard");
 }
@@ -224,11 +225,11 @@ void CtActions::text_row_copy()
 void CtActions::text_row_delete()
 {
     auto proof = _get_text_view_n_buffer_codebox_proof();
-    if (!proof.text_buffer) return;
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not proof.text_buffer) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
 
-    CtTextRange range = CtList(proof.text_buffer).get_paragraph_iters();
-    if (!range.iter_end.forward_char() && !range.iter_start.backward_char()) return;
+    CtTextRange range = CtList(_pCtMainWin, proof.text_buffer).get_paragraph_iters();
+    if (not range.iter_end.forward_char() and !range.iter_start.backward_char()) return;
     proof.text_buffer->erase(range.iter_start, range.iter_end);
     // todo: self.state_machine.update_state()
 }
@@ -237,8 +238,8 @@ void CtActions::text_row_delete()
 void CtActions::text_row_selection_duplicate()
 {
     auto proof = _get_text_view_n_buffer_codebox_proof();
-    if (!proof.text_buffer) return;
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not proof.text_buffer) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
     auto text_buffer = proof.text_buffer;
     if (proof.text_buffer->get_has_selection())
     {
@@ -246,7 +247,7 @@ void CtActions::text_row_selection_duplicate()
         text_buffer->get_selection_bounds(iter_start, iter_end);
         int sel_start_offset = iter_start.get_offset();
         int sel_end_offset = iter_end.get_offset();
-        if (proof.from_codebox || proof.syntax_highl != CtConst::RICH_TEXT_ID)
+        if (proof.from_codebox or proof.syntax_highl != CtConst::RICH_TEXT_ID)
         {
             Glib::ustring text_to_duplicate = text_buffer->get_text(iter_start, iter_end);
             if (text_to_duplicate.find(CtConst::CHAR_NEWLINE) != Glib::ustring::npos)
@@ -255,14 +256,14 @@ void CtActions::text_row_selection_duplicate()
         }
         else
         {
-            Glib::ustring rich_text = CtClipboard().rich_text_get_from_text_buffer_selection(_pCtMainWin->curr_tree_iter(), text_buffer, iter_start, iter_end);
+            Glib::ustring rich_text = CtClipboard(_pCtMainWin).rich_text_get_from_text_buffer_selection(_pCtMainWin->curr_tree_iter(), text_buffer, iter_start, iter_end);
             if (rich_text.find(CtConst::CHAR_NEWLINE) != Glib::ustring::npos)
             {
                 text_buffer->insert(iter_end, CtConst::CHAR_NEWLINE);
                 iter_end = proof.text_buffer->get_iter_at_offset(sel_end_offset+1);
                 text_buffer->move_mark(proof.text_buffer->get_insert(), iter_end);
             }
-            CtClipboard().from_xml_string_to_buffer(text_buffer, rich_text);
+            CtClipboard(_pCtMainWin).from_xml_string_to_buffer(text_buffer, rich_text);
         }
         text_buffer->select_range(text_buffer->get_iter_at_offset(sel_start_offset),
                                  text_buffer->get_iter_at_offset(sel_end_offset));
@@ -270,7 +271,7 @@ void CtActions::text_row_selection_duplicate()
     else
     {
         int cursor_offset = text_buffer->get_iter_at_mark(text_buffer->get_insert()).get_offset();
-        CtTextRange range = CtList(proof.text_buffer).get_paragraph_iters();
+        CtTextRange range = CtList(_pCtMainWin, proof.text_buffer).get_paragraph_iters();
         if (range.iter_start.get_offset() == range.iter_end.get_offset())
         {
             Gtk::TextIter iter_start = text_buffer->get_iter_at_mark(text_buffer->get_insert());
@@ -278,19 +279,19 @@ void CtActions::text_row_selection_duplicate()
         }
         else
         {
-            if (proof.from_codebox || proof.syntax_highl != CtConst::RICH_TEXT_ID)
+            if (proof.from_codebox or proof.syntax_highl != CtConst::RICH_TEXT_ID)
             {
                 Glib::ustring text_to_duplicate = text_buffer->get_text(range.iter_start, range.iter_end);
                 text_buffer->insert(range.iter_end, CtConst::CHAR_NEWLINE + text_to_duplicate);
             }
             else
             {
-                Glib::ustring rich_text = CtClipboard().rich_text_get_from_text_buffer_selection(_pCtMainWin->curr_tree_iter(), text_buffer, range.iter_start, range.iter_end);
+                Glib::ustring rich_text = CtClipboard(_pCtMainWin).rich_text_get_from_text_buffer_selection(_pCtMainWin->curr_tree_iter(), text_buffer, range.iter_start, range.iter_end);
                 int sel_end_offset = range.iter_end.get_offset();
                 text_buffer->insert(range.iter_end, CtConst::CHAR_NEWLINE);
                 range.iter_end = text_buffer->get_iter_at_offset(sel_end_offset+1);
                 text_buffer->move_mark(text_buffer->get_insert(), range.iter_end);
-                CtClipboard().from_xml_string_to_buffer(proof.text_buffer, rich_text);
+                CtClipboard(_pCtMainWin).from_xml_string_to_buffer(proof.text_buffer, rich_text);
                 text_buffer->place_cursor(text_buffer->get_iter_at_offset(cursor_offset));
             }
         }
@@ -302,28 +303,28 @@ void CtActions::text_row_selection_duplicate()
 void CtActions::text_row_up()
 {
     auto proof = _get_text_view_n_buffer_codebox_proof();
-    if (!proof.text_buffer) return;
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not proof.text_buffer) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
 
     auto text_buffer = proof.text_buffer;
-    CtTextRange range = CtList(text_buffer).get_paragraph_iters();
+    CtTextRange range = CtList(_pCtMainWin, text_buffer).get_paragraph_iters();
     range.iter_end.forward_char();
     bool missing_leading_newline = false;
     Gtk::TextIter destination_iter = range.iter_start;
 
-    if (!destination_iter.backward_char()) return;
-    if (!destination_iter.backward_char())
+    if (not destination_iter.backward_char()) return;
+    if (not destination_iter.backward_char())
         missing_leading_newline = true;
     else
     {
         while (destination_iter.get_char() != CtConst::CHAR_NEWLINE[0])
-            if (!destination_iter.backward_char())
+            if (not destination_iter.backward_char())
             {
                 missing_leading_newline = true;
                 break;
             }
     }
-    if (!missing_leading_newline) destination_iter.forward_char();
+    if (not missing_leading_newline) destination_iter.forward_char();
     int destination_offset = destination_iter.get_offset();
     int start_offset = range.iter_start.get_offset();
     int end_offset = range.iter_end.get_offset();
@@ -332,11 +333,11 @@ void CtActions::text_row_up()
     //#print "destination_iter %s %s '%s'" % (destination_offset, ord(destination_iter.get_char()), destination_iter.get_char())
     Glib::ustring text_to_move = text_buffer->get_text(range.iter_start, range.iter_end);
     int diff_offsets = end_offset - start_offset;
-    if (proof.from_codebox || proof.syntax_highl != CtConst::RICH_TEXT_ID)
+    if (proof.from_codebox or proof.syntax_highl != CtConst::RICH_TEXT_ID)
     {
         text_buffer->erase(range.iter_start, range.iter_end);
         destination_iter = text_buffer->get_iter_at_offset(destination_offset);
-        if (text_to_move.empty() || text_to_move[text_to_move.length()-1] != CtConst::CHAR_NEWLINE[0])
+        if (text_to_move.empty() or text_to_move[text_to_move.length()-1] != CtConst::CHAR_NEWLINE[0])
         {
             diff_offsets += 1;
             text_to_move += CtConst::CHAR_NEWLINE;
@@ -347,7 +348,7 @@ void CtActions::text_row_up()
     }
     else
     {
-        Glib::ustring rich_text = CtClipboard().rich_text_get_from_text_buffer_selection(_pCtMainWin->curr_tree_iter(),
+        Glib::ustring rich_text = CtClipboard(_pCtMainWin).rich_text_get_from_text_buffer_selection(_pCtMainWin->curr_tree_iter(),
                                                                                          text_buffer, range.iter_start, range.iter_end, 'n', true /*exclude_iter_sel_end*/);
         text_buffer->erase(range.iter_start, range.iter_end);
         destination_iter = text_buffer->get_iter_at_offset(destination_offset);
@@ -358,7 +359,7 @@ void CtActions::text_row_up()
             text_buffer->remove_all_tags(clr_start_iter, destination_iter);
         }
         bool append_newline = false;
-        if (text_to_move.empty() || text_to_move[text_to_move.length()-1] != CtConst::CHAR_NEWLINE[0])
+        if (text_to_move.empty() or text_to_move[text_to_move.length()-1] != CtConst::CHAR_NEWLINE[0])
         {
             diff_offsets += 1;
             append_newline = true;
@@ -369,7 +370,7 @@ void CtActions::text_row_up()
         destination_iter = text_buffer->get_iter_at_offset(destination_offset);
         text_buffer->move_mark(text_buffer->get_insert(), destination_iter);
         // write moved line
-        CtClipboard().from_xml_string_to_buffer(text_buffer, rich_text);
+        CtClipboard(_pCtMainWin).from_xml_string_to_buffer(text_buffer, rich_text);
         if (append_newline)
             text_buffer->insert_at_cursor(CtConst::CHAR_NEWLINE);
         // clear space trick
@@ -385,16 +386,16 @@ void CtActions::text_row_up()
 void CtActions::text_row_down()
 {
     auto proof = _get_text_view_n_buffer_codebox_proof();
-    if (!proof.text_buffer) return;
-    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (not proof.text_buffer) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
 
     auto text_buffer = proof.text_buffer;
-    CtTextRange range = CtList(text_buffer).get_paragraph_iters();
-    if (!range.iter_end.forward_char()) return;
+    CtTextRange range = CtList(_pCtMainWin, text_buffer).get_paragraph_iters();
+    if (not range.iter_end.forward_char()) return;
     int missing_leading_newline = false;
     Gtk::TextIter destination_iter = range.iter_end;
     while (destination_iter.get_char() != CtConst::CHAR_NEWLINE[0])
-        if (!destination_iter.forward_char())
+        if (not destination_iter.forward_char())
         {
             missing_leading_newline = true;
             break;
@@ -408,12 +409,12 @@ void CtActions::text_row_down()
     //#print "destination_iter %s %s '%s'" % (destination_offset, ord(destination_iter.get_char()), destination_iter.get_char())
     Glib::ustring text_to_move = text_buffer->get_text(range.iter_start, range.iter_end);
     int diff_offsets = end_offset - start_offset;
-    if (proof.from_codebox || proof.syntax_highl != CtConst::RICH_TEXT_ID)
+    if (proof.from_codebox or proof.syntax_highl != CtConst::RICH_TEXT_ID)
     {
         text_buffer->erase(range.iter_start, range.iter_end);
         destination_offset -= diff_offsets;
         destination_iter = text_buffer->get_iter_at_offset(destination_offset);
-        if (text_to_move.empty() || text_to_move[text_to_move.length() - 1] != CtConst::CHAR_NEWLINE[0])
+        if (text_to_move.empty() or text_to_move[text_to_move.length() - 1] != CtConst::CHAR_NEWLINE[0])
         {
             diff_offsets += 1;
             text_to_move += CtConst::CHAR_NEWLINE;
@@ -424,14 +425,14 @@ void CtActions::text_row_down()
             text_to_move = CtConst::CHAR_NEWLINE + text_to_move;
         }
         text_buffer->insert(destination_iter, text_to_move);
-        if (!missing_leading_newline)
+        if (not missing_leading_newline)
             proof.text_view->set_selection_at_offset_n_delta(destination_offset, diff_offsets-1);
         else
             proof.text_view->set_selection_at_offset_n_delta(destination_offset+1, diff_offsets-2);
     }
     else
     {
-        Glib::ustring rich_text = CtClipboard().rich_text_get_from_text_buffer_selection(_pCtMainWin->curr_tree_iter(), text_buffer,
+        Glib::ustring rich_text = CtClipboard(_pCtMainWin).rich_text_get_from_text_buffer_selection(_pCtMainWin->curr_tree_iter(), text_buffer,
                                                                                          range.iter_start, range.iter_end, 'n', true /*exclude_iter_sel_end*/);
         text_buffer->erase(range.iter_start, range.iter_end);
         destination_offset -= diff_offsets;
@@ -443,7 +444,7 @@ void CtActions::text_row_down()
             text_buffer->remove_all_tags(clr_start_iter, destination_iter);
         }
         bool append_newline = false;
-        if (text_to_move.empty() || text_to_move[text_to_move.length()-1] != CtConst::CHAR_NEWLINE[0])
+        if (text_to_move.empty() or text_to_move[text_to_move.length()-1] != CtConst::CHAR_NEWLINE[0])
         {
             diff_offsets += 1;
             append_newline = true;
@@ -459,14 +460,14 @@ void CtActions::text_row_down()
         destination_iter = text_buffer->get_iter_at_offset(destination_offset);
         text_buffer->move_mark(text_buffer->get_insert(), destination_iter);
         // write moved line
-        CtClipboard().from_xml_string_to_buffer(text_buffer, rich_text);
+        CtClipboard(_pCtMainWin).from_xml_string_to_buffer(text_buffer, rich_text);
         if (append_newline)
             text_buffer->insert_at_cursor(CtConst::CHAR_NEWLINE);
         // clear space trick
         Gtk::TextIter cursor_iter = text_buffer->get_iter_at_mark(text_buffer->get_insert());
         text_buffer->erase(cursor_iter, text_buffer->get_iter_at_offset(cursor_iter.get_offset()+1));
         // selection
-        if (!missing_leading_newline)
+        if (not missing_leading_newline)
             proof.text_view->set_selection_at_offset_n_delta(destination_offset, diff_offsets-1);
         else
             proof.text_view->set_selection_at_offset_n_delta(destination_offset+1, diff_offsets-2);
@@ -491,7 +492,7 @@ void CtActions::strip_trailing_spaces()
             gunichar curr_char = curr_iter.get_char();
             if (curr_state == 0)
             {
-                if (curr_char == CtConst::CHAR_SPACE[0] || curr_char ==  CtConst::CHAR_TAB[0])
+                if (curr_char == CtConst::CHAR_SPACE[0] or curr_char ==  CtConst::CHAR_TAB[0])
                 {
                     start_offset = curr_iter.get_offset();
                     curr_state = 1;
@@ -506,12 +507,12 @@ void CtActions::strip_trailing_spaces()
                     cleaned_lines += 1;
                     break;
                 }
-                else if (curr_char != CtConst::CHAR_SPACE[0] && curr_char !=  CtConst::CHAR_TAB[0])
+                else if (curr_char != CtConst::CHAR_SPACE[0] and curr_char !=  CtConst::CHAR_TAB[0])
                 {
                     curr_state = 0;
                 }
             }
-            if (!curr_iter.forward_char())
+            if (not curr_iter.forward_char())
             {
                 if (curr_state == 1)
                 {
@@ -532,11 +533,11 @@ void CtActions::_image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
                                    Gtk::TextIter* iter_bound)
 {
     Glib::RefPtr<Gdk::Pixbuf> ret_pixbuf = CtDialogs::image_handle_dialog(*_pCtMainWin, _("Image Properties"), rPixbuf);
-    if (!ret_pixbuf) return;
+    if (not ret_pixbuf) return;
     Glib::ustring link = "";
     Glib::ustring image_justification;
     if (iter_bound) { // only in case of modify
-        image_justification = _get_iter_alignment(insert_iter);
+        image_justification = CtTextIterUtil::get_text_iter_alignment(insert_iter, _pCtMainWin);
         int image_offset = insert_iter.get_offset();
         _curr_buffer()->erase(insert_iter, *iter_bound);
         insert_iter = _curr_buffer()->get_iter_at_offset(image_offset);
@@ -544,27 +545,12 @@ void CtActions::_image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
     image_insert_png(insert_iter, ret_pixbuf, link, image_justification);
 }
 
-// Get the Alignment Value of the given Iter
-Glib::ustring CtActions::_get_iter_alignment(Gtk::TextIter text_iter)
-{
-    auto align_center = apply_tag_exist_or_create(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_CENTER);
-    if (text_iter.has_tag(CtApp::R_textTagTable->lookup(align_center)))
-        return CtConst::TAG_PROP_VAL_CENTER;
-    auto align_fill = apply_tag_exist_or_create(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_FILL);
-    if (text_iter.has_tag(CtApp::R_textTagTable->lookup(align_fill)))
-        return CtConst::TAG_PROP_VAL_FILL;
-    auto align_right = apply_tag_exist_or_create(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_RIGHT);
-    if (text_iter.has_tag(CtApp::R_textTagTable->lookup(align_right)))
-        return CtConst::TAG_PROP_VAL_RIGHT;
-    return CtConst::TAG_PROP_VAL_LEFT;
-}
-
 void CtActions::image_insert_png(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
                                  const Glib::ustring& link, const Glib::ustring& image_justification)
 {
-    if (!rPixbuf) return;
+    if (not rPixbuf) return;
     int charOffset = iter_insert.get_offset();
-    CtAnchoredWidget* pAnchoredWidget = new CtImagePng(rPixbuf, link, charOffset, image_justification);
+    CtAnchoredWidget* pAnchoredWidget = new CtImagePng(_pCtMainWin, rPixbuf, link, charOffset, image_justification);
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
     pAnchoredWidget->insertInTextBuffer(gsv_buffer);
 
@@ -575,7 +561,7 @@ void CtActions::image_insert_png(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pi
 void CtActions::image_insert_anchor(Gtk::TextIter iter_insert, const Glib::ustring &name, const Glib::ustring &image_justification)
 {
     int charOffset = iter_insert.get_offset();
-    CtAnchoredWidget* pAnchoredWidget = new CtImageAnchor(name, charOffset, image_justification);
+    CtAnchoredWidget* pAnchoredWidget = new CtImageAnchor(_pCtMainWin, name, charOffset, image_justification);
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
     pAnchoredWidget->insertInTextBuffer(gsv_buffer);
 
@@ -588,9 +574,9 @@ void CtActions::_text_selection_change_case(gchar change_type)
 {
     text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
     Glib::RefPtr<Gtk::TextBuffer> text_buffer = proof.text_buffer;
-    if (!text_buffer) return;
-    if (!_is_curr_node_not_read_only_or_error()) return;
-    if (!text_buffer->get_has_selection() && !CtTextIterUtil::apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter()))
+    if (not text_buffer) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
+    if (not text_buffer->get_has_selection() and not _pCtMainWin->apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter()))
     {
         CtDialogs::warning_dialog(_("No Text is Selected"), *_pCtMainWin);
         return;
@@ -599,7 +585,7 @@ void CtActions::_text_selection_change_case(gchar change_type)
     Gtk::TextIter iter_start, iter_end;
     text_buffer->get_selection_bounds(iter_start, iter_end);
     Glib::ustring text_to_change_case, rich_text;
-    if (proof.from_codebox || proof.syntax_highl != CtConst::RICH_TEXT_ID)
+    if (proof.from_codebox or proof.syntax_highl != CtConst::RICH_TEXT_ID)
     {
         text_to_change_case = text_buffer->get_text(iter_start, iter_end);
         if (change_type == 'l')         text_to_change_case = text_to_change_case.lowercase();
@@ -608,21 +594,21 @@ void CtActions::_text_selection_change_case(gchar change_type)
     }
     else
     {
-        rich_text = CtClipboard().rich_text_get_from_text_buffer_selection(_pCtMainWin->curr_tree_iter(), text_buffer, iter_start, iter_end, change_type);
+        rich_text = CtClipboard(_pCtMainWin).rich_text_get_from_text_buffer_selection(_pCtMainWin->curr_tree_iter(), text_buffer, iter_start, iter_end, change_type);
     }
 
     int start_offset = iter_start.get_offset();
     int end_offset = iter_end.get_offset();
     text_buffer->erase(iter_start, iter_end);
     Gtk::TextIter iter_insert = text_buffer->get_iter_at_offset(start_offset);
-    if (proof.from_codebox || proof.syntax_highl != CtConst::RICH_TEXT_ID)
+    if (proof.from_codebox or proof.syntax_highl != CtConst::RICH_TEXT_ID)
     {
         text_buffer->insert(iter_insert, text_to_change_case);
     }
     else
     {
         text_buffer->move_mark(text_buffer->get_insert(), iter_insert);
-        CtClipboard().from_xml_string_to_buffer(text_buffer, rich_text);
+        CtClipboard(_pCtMainWin).from_xml_string_to_buffer(text_buffer, rich_text);
     }
     text_buffer->select_range(text_buffer->get_iter_at_offset(start_offset),
                               text_buffer->get_iter_at_offset(end_offset));

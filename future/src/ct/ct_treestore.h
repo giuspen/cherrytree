@@ -1,7 +1,7 @@
 /*
  * ct_treestore.h
  *
- * Copyright 2017-2019 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,6 +25,7 @@
 #include <gtksourceviewmm.h>
 #include <set>
 
+class CtMainWin;
 class CtAnchoredWidget;
 
 struct CtNodeData
@@ -122,7 +123,7 @@ class CtTextView;
 class CtTreeStore : public sigc::trackable
 {
 public:
-    CtTreeStore();
+    CtTreeStore(CtMainWin* pCtMainWin);
     virtual ~CtTreeStore();
 
     void          view_connect(Gtk::TreeView* pTreeView);
@@ -193,4 +194,5 @@ protected:
     std::map<gint64, Glib::ustring> _nodes_names_dict; // for link tooltips
     std::list<sigc::connection>     _curr_node_sigc_conn;
     CtSQLite*                       _pCtSQLite{nullptr};
+    CtMainWin*                      _pCtMainWin;
 };
