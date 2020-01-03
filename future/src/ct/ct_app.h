@@ -61,7 +61,6 @@ protected:
 
     void _printHelpMessage();
     void _printGresourceIcons();
-    void _iconthemeInit();
 
 public:
     void quit_application();
@@ -69,6 +68,6 @@ public:
 
 private:
     CtMainWin* create_appwindow();
-    CtMainWin* get_main_win();
+    CtMainWin* get_main_win(const std::string& filepath="");
     void on_hide_window(CtMainWin* pCtMainWin);
 };

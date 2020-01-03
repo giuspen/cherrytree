@@ -33,7 +33,9 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
 
     _uCtActions.reset(new CtActions());
 
-    _iconthemeInit();
+    _rIcontheme = Gtk::IconTheme::get_default();
+    _rIcontheme->add_resource_path("/icons/");
+    //_printGresourceIcons();
 
     _uCtTmp.reset(new CtTmp());
     //std::cout << _uCtTmp->get_root_dirpath() << std::endl;
@@ -73,13 +75,6 @@ void CtApp::_printGresourceIcons()
     }
 }
 
-void CtApp::_iconthemeInit()
-{
-    _rIcontheme = Gtk::IconTheme::get_default();
-    _rIcontheme->add_resource_path("/icons/");
-    //_printGresourceIcons();
-}
-
 CtMainWin* CtApp::create_appwindow()
 {
     CtMainWin* pCtMainWin = new CtMainWin(_uCtCfg.get(),
@@ -99,37 +94,46 @@ CtMainWin* CtApp::create_appwindow()
     return pCtMainWin;
 }
 
-CtMainWin* CtApp::get_main_win()
+CtMainWin* CtApp::get_main_win(const std::string& filepath)
 {
-    auto windows_list = get_windows();
-    if (windows_list.size() > 0)
-        return dynamic_cast<CtMainWin*>(windows_list[0]);
-    return create_appwindow();
+    for (Gtk::Window* pWin : get_windows())
+    {
+        CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(pWin);
+        if (filepath.empty() or filepath == pCtMainWin->get_curr_doc_file_path())
+        {
+            return pCtMainWin;
+        }
+    }
+    return nullptr;
 }
 
 void CtApp::on_activate()
 {
     // app run without arguments
-    auto pAppWindow = create_appwindow();
-    pAppWindow->present();
-
-    if (not CtApp::_uCtCfg->recentDocsFilepaths.empty())
+    CtMainWin* pAppWindow = get_main_win();
+    if (nullptr == pAppWindow)
     {
-        Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(CtApp::_uCtCfg->recentDocsFilepaths.front());
-        if (r_file->query_exists())
+        // there is not a window already running
+        pAppWindow = create_appwindow();
+        if (not CtApp::_uCtCfg->recentDocsFilepaths.empty())
         {
-            if (not pAppWindow->read_nodes_from_gio_file(r_file, false/*isImport*/))
+            Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(CtApp::_uCtCfg->recentDocsFilepaths.front());
+            if (r_file->query_exists())
             {
-                _printHelpMessage();
+                if (not pAppWindow->read_nodes_from_gio_file(r_file, false/*isImport*/))
+                {
+                    _printHelpMessage();
+                }
+            }
+            else
+            {
+                std::cout << "? not found " << CtApp::_uCtCfg->recentDocsFilepaths.front() << std::endl;
+                CtApp::_uCtCfg->recentDocsFilepaths.move_or_push_back(CtApp::_uCtCfg->recentDocsFilepaths.front());
+                pAppWindow->set_menu_items_recent_documents();
             }
         }
-        else
-        {
-            std::cout << "? not found " << CtApp::_uCtCfg->recentDocsFilepaths.front() << std::endl;
-            CtApp::_uCtCfg->recentDocsFilepaths.move_or_push_back(CtApp::_uCtCfg->recentDocsFilepaths.front());
-            pAppWindow->set_menu_items_recent_documents();
-        }
     }
+    pAppWindow->present();
 }
 
 void CtApp::on_hide_window(CtMainWin* pCtMainWin)
@@ -142,24 +146,28 @@ void CtApp::on_hide_window(CtMainWin* pCtMainWin)
 void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& /*hint*/)
 {
     // app run with arguments
-    CtMainWin* pAppWindow = get_main_win();
-
     for (const Glib::RefPtr<Gio::File>& r_file : files)
     {
         if (r_file->query_exists())
         {
-            if (not pAppWindow->read_nodes_from_gio_file(r_file, false/*isImport*/))
+            CtMainWin* pAppWindow = get_main_win(r_file->get_path());
+            if (nullptr == pAppWindow)
             {
-                _printHelpMessage();
+                // there is not a window already running with that document
+                pAppWindow = create_appwindow();
+                if (not pAppWindow->read_nodes_from_gio_file(r_file, false/*isImport*/))
+                {
+                    _printHelpMessage();
+                }
             }
+            pAppWindow->present();
         }
         else
         {
             std::cout << "!! Missing file " << r_file->get_path() << std::endl;
+            _printHelpMessage();
         }
     }
-
-    pAppWindow->present();
 }
 
 void CtApp::quit_application()
