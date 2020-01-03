@@ -75,7 +75,12 @@ void CtApp::_printGresourceIcons()
     }
 }
 
-CtMainWin* CtApp::create_appwindow()
+void CtApp::file_new()
+{
+    _create_appwindow()->present();
+}
+
+CtMainWin* CtApp::_create_appwindow()
 {
     CtMainWin* pCtMainWin = new CtMainWin(_uCtCfg.get(),
                                           _uCtActions.get(),
@@ -90,19 +95,34 @@ CtMainWin* CtApp::create_appwindow()
 
     add_window(*pCtMainWin);
 
-    pCtMainWin->signal_hide().connect(sigc::bind<CtMainWin*>(sigc::mem_fun(*this, &CtApp::on_hide_window), pCtMainWin));
+    pCtMainWin->signal_hide().connect(sigc::bind<CtMainWin*>(sigc::mem_fun(*this, &CtApp::_on_hide_window), pCtMainWin));
     return pCtMainWin;
 }
 
-CtMainWin* CtApp::get_main_win(const std::string& filepath)
+CtMainWin* CtApp::_get_main_win(const std::string& filepath)
 {
+    // 1) look for exact filepath match
     for (Gtk::Window* pWin : get_windows())
     {
         CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(pWin);
-        if (filepath.empty() or filepath == pCtMainWin->get_curr_doc_file_path())
+        if (filepath == pCtMainWin->get_curr_doc_file_path())
         {
             return pCtMainWin;
         }
+    }
+    // 2) look for window with no loaded document
+    for (Gtk::Window* pWin : get_windows())
+    {
+        CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(pWin);
+        if (pCtMainWin->get_curr_doc_file_path().empty())
+        {
+            return pCtMainWin;
+        }
+    }
+    // 3) if our filepath is empty, just get the first window
+    if (filepath.empty() and get_windows().size() > 0)
+    {
+        return dynamic_cast<CtMainWin*>(get_windows().front());
     }
     return nullptr;
 }
@@ -110,11 +130,11 @@ CtMainWin* CtApp::get_main_win(const std::string& filepath)
 void CtApp::on_activate()
 {
     // app run without arguments
-    CtMainWin* pAppWindow = get_main_win();
+    CtMainWin* pAppWindow = _get_main_win();
     if (nullptr == pAppWindow)
     {
         // there is not a window already running
-        pAppWindow = create_appwindow();
+        pAppWindow = _create_appwindow();
         if (not CtApp::_uCtCfg->recentDocsFilepaths.empty())
         {
             Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(CtApp::_uCtCfg->recentDocsFilepaths.front());
@@ -136,7 +156,7 @@ void CtApp::on_activate()
     pAppWindow->present();
 }
 
-void CtApp::on_hide_window(CtMainWin* pCtMainWin)
+void CtApp::_on_hide_window(CtMainWin* pCtMainWin)
 {
     pCtMainWin->config_update_data_from_curr_status();
     _uCtCfg->write_to_file();
@@ -150,11 +170,11 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
     {
         if (r_file->query_exists())
         {
-            CtMainWin* pAppWindow = get_main_win(r_file->get_path());
+            CtMainWin* pAppWindow = _get_main_win(r_file->get_path());
             if (nullptr == pAppWindow)
             {
                 // there is not a window already running with that document
-                pAppWindow = create_appwindow();
+                pAppWindow = _create_appwindow();
                 if (not pAppWindow->read_nodes_from_gio_file(r_file, false/*isImport*/))
                 {
                     _printHelpMessage();
@@ -177,7 +197,7 @@ void CtApp::quit_application()
 
 void CtApp::dialog_preferences()
 {
-    CtPrefDlg prefDlg(get_main_win());
+    CtPrefDlg prefDlg(_get_main_win());
     prefDlg.show();
     prefDlg.run();
     prefDlg.hide();

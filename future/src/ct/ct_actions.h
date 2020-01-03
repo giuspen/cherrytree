@@ -93,7 +93,6 @@ private:
 
 public:
     // file actions
-    void file_new();
     void file_open();
     void file_save();
     void file_vacuum();

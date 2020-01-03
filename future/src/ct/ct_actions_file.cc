@@ -240,11 +240,6 @@ bool CtActions::_file_write_low_level(const std::string& filepath,
     return retVal;
 }
 
-void CtActions::file_new()
-{
-    //todo
-}
-
 void CtActions::file_open()
 {
     CtDialogs::file_select_args args = {

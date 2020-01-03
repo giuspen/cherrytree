@@ -65,9 +65,10 @@ protected:
 public:
     void quit_application();
     void dialog_preferences();
+    void file_new();
 
 private:
-    CtMainWin* create_appwindow();
-    CtMainWin* get_main_win(const std::string& filepath="");
-    void on_hide_window(CtMainWin* pCtMainWin);
+    CtMainWin* _create_appwindow();
+    CtMainWin* _get_main_win(const std::string& filepath="");
+    void _on_hide_window(CtMainWin* pCtMainWin);
 };

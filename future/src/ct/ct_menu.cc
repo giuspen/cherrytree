@@ -81,7 +81,7 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
 
     // main actions
     const char* file_cat = _("File");
-    _actions.push_back(CtAction{file_cat, "ct_new_inst", "new-instance", _("New _Instance"), None, _("Start a New Instance of CherryTree"), sigc::mem_fun(*pActions, &CtActions::file_new)});
+    _actions.push_back(CtAction{file_cat, "ct_new_inst", "new-instance", _("New _Instance"), None, _("Start a New Instance of CherryTree"), sigc::mem_fun(*pApp, &CtApp::file_new)});
     _actions.push_back(CtAction{file_cat, "ct_open_file", "gtk-open", _("_Open File"), KB_CONTROL+"O", _("Open a CherryTree Document"), sigc::mem_fun(*pActions, &CtActions::file_open)});
     _actions.push_back(CtAction{file_cat, "ct_save", "gtk-save", _("_Save"), KB_CONTROL+"S", _("Save File"), sigc::mem_fun(*pActions, &CtActions::file_save)});
     _actions.push_back(CtAction{file_cat, "ct_vacuum", "gtk-clear", _("Save and _Vacuum"), None, _("Save File and Vacuum"), sigc::mem_fun(*pActions, &CtActions::file_vacuum)});
