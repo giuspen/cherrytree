@@ -192,7 +192,7 @@ CtImageAnchor::CtImageAnchor(CtMainWin* pCtMainWin,
                              const Glib::ustring& anchorName,
                              const int charOffset,
                              const std::string& justification)
- : CtImage(pCtMainWin, "anchor", _pCtMainWin->get_ct_config()->anchorSize, charOffset, justification),
+ : CtImage(pCtMainWin, "anchor", pCtMainWin->get_ct_config()->anchorSize, charOffset, justification),
    _anchorName(anchorName)
 {
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageAnchor::_on_button_press_event), false);
@@ -261,7 +261,7 @@ CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
                                const double& timeSeconds,
                                const int charOffset,
                                const std::string& justification)
- : CtImage(pCtMainWin, "file_icon", _pCtMainWin->get_ct_config()->embfileSize, charOffset, justification),
+ : CtImage(pCtMainWin, "file_icon", pCtMainWin->get_ct_config()->embfileSize, charOffset, justification),
    _fileName(fileName),
    _rawBlob(rawBlob),
    _timeSeconds(timeSeconds)

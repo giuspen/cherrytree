@@ -1,5 +1,5 @@
 
-0.38.10 (January ???, 2020)
+0.38.10 (January 4th, 2020)
   * bugfix: error opening encrypted documents when path contains non-ASCII characters (#399)
   * bugfix: removing the text formatting was possible in read-only Node (#543)
   * bugfix: collapse all nodes at startup doesn't work with enabled expand tree at mouse click (#569)
