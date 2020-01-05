@@ -86,9 +86,10 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     _actions.push_back(CtAction{file_cat, "ct_save", "gtk-save", _("_Save"), KB_CONTROL+"S", _("Save File"), sigc::mem_fun(*pActions, &CtActions::file_save)});
     _actions.push_back(CtAction{file_cat, "ct_vacuum", "gtk-clear", _("Save and _Vacuum"), None, _("Save File and Vacuum"), sigc::mem_fun(*pActions, &CtActions::file_vacuum)});
     _actions.push_back(CtAction{file_cat, "ct_save_as", "gtk-save-as", _("Save _As"), KB_CONTROL+KB_SHIFT+"S", _("Save File As"), sigc::mem_fun(*pActions, &CtActions::file_save_as)});
+    _actions.push_back(CtAction{file_cat, "command_palette", "gtk-execute", _("Command Palette"), KB_CONTROL+KB_SHIFT+"P", _("Command Palette"), sigc::signal<void>() /* dad.export_to_pdf */});
     _actions.push_back(CtAction{file_cat, "exec_code", "gtk-execute", _("_Execute Code"), "F5", _("Execute Code"), sigc::signal<void>() /* dad.exec_code */});
     _actions.push_back(CtAction{file_cat, "open_cfg_folder", "gtk-directory", _("Open Preferences _Directory"), None, _("Open the Directory with Preferences Files"), sigc::signal<void>() /* dad.folder_cfg_open */});
-    _actions.push_back(CtAction{file_cat, "print_page_setup", "gtk-print", _("Pa_ge Setup"), KB_CONTROL+KB_SHIFT+"P", _("Set up the Page for Printing"), sigc::signal<void>() /* dad.export_print_page_setup */});
+    _actions.push_back(CtAction{file_cat, "print_page_setup", "gtk-print", _("Pa_ge Setup"), None, _("Set up the Page for Printing"), sigc::signal<void>() /* dad.export_print_page_setup */});
     _actions.push_back(CtAction{file_cat, "do_print", "gtk-print", _("_Print"), KB_CONTROL+"P", _("Print"), sigc::signal<void>() /* dad.export_print */});
     _actions.push_back(CtAction{file_cat, "quit_app", "quit-app", _("_Quit"), KB_CONTROL+"Q", _("Quit the Application"), sigc::mem_fun(*pApp, &CtApp::quit_application) /* dad.quit_application */});
     _actions.push_back(CtAction{file_cat, "exit_app", "quit-app", _("_Exit CherryTree"), KB_CONTROL+KB_SHIFT+"Q", _("Exit from CherryTree"), sigc::signal<void>() /* dad.quit_application_totally */});
@@ -696,6 +697,7 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='print_page_setup'/>
     <menuitem action='do_print'/>
     <separator/>
+    <menuitem action='command_palette'/>
     <menuitem action='exec_code'/>
     <separator/>
     <menuitem action='quit_app'/>
