@@ -2222,13 +2222,13 @@ iter_end, exclude_iter_sel_end=True)
                                             self.print_handler.page_setup,
                                             self.print_handler.settings)
 
-    def export_to_pdf(self, *args):
+    def export_to_pdf(self, action):
         """Start Export to PDF Operations"""
         self.print_handler.pdf_filepath = cons.CHAR_TILDE
-        self.export_print(args)
+        self.export_print(action)
         self.print_handler.pdf_filepath = ""
 
-    def export_print(self, args):
+    def export_print(self, *args):
         """Start Print Operations"""
         if not self.is_there_selected_node_or_error(): return
         if args and args[0] == "Auto":

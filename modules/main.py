@@ -82,7 +82,7 @@ class CherryTreeHandler():
         elif args.export_to_pdf_path:
             if args.filepath:
                 ghost_window = core.CherryTree(self.lang_str, args.filepath, args.node, self, True, True, True)
-                ghost_window.export_to_pdf("Auto", args.export_to_pdf_path, args.export_overwrite)
+                ghost_window.export_print("Auto", args.export_to_pdf_path, args.export_overwrite)
             else:
                 print "Export error: input not specified"
         else:
