@@ -1,16 +1,5 @@
-cherrytree (0.38.10-0) bionic; urgency=low
+cherrytree (0.38.11-0) bionic; urgency=low
 
-  * bugfix: error opening encrypted documents when path contains non-ASCII characters (#399)
-  * bugfix: removing the text formatting was possible in read-only Node (#543)
-  * bugfix: collapse all nodes at startup doesn't work with enabled expand tree at mouse click (#569)
-  * added support for export to pdf from command line (#584)
-  * supporting new syntax highlighting for language kotlin
-  * 'reload after external update to ct* file' disabled by default (#602)
-  * 'smart quotes auto replacement' replacing characters configurable manually editing config.cfg
-  * added small sigma to default special chars (#563)
-  * support mac osx for open link to file, default custom action (#564)
-  * added dollar as character not to be used in passwords; note that all chars will be instead usable in upcoming gtkmm3 version (#545)
-  * minor changes to support reading a document that has been edited from the upcoming gtkmm3 version of cherrytree
-  * minor changes to support reading a config.cfg that has been edited from the upcoming gtkmm3 version of cherrytree
+  * fixed regression of 0.38.10, could no longer print
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sat, 04 Jan 2020 20:44:27 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Thu, 09 Jan 2020 08:07:00 +0000

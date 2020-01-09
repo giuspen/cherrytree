@@ -1,4 +1,7 @@
 
+0.38.11 (January 9th, 2020)
+  * fixed regression of 0.38.10, could no longer print
+
 0.38.10 (January 4th, 2020)
   * bugfix: error opening encrypted documents when path contains non-ASCII characters (#399)
   * bugfix: removing the text formatting was possible in read-only Node (#543)

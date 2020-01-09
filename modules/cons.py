@@ -24,7 +24,7 @@ import sys
 import tempfile
 
 
-VERSION = "0.38.10"
+VERSION = "0.38.11"
 APP_NAME = "cherrytree"
 NEWER_VERSION_URL = "http://www.giuspen.com/software/version_cherrytree"
 IS_MAC_OS = False
