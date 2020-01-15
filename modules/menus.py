@@ -34,6 +34,7 @@ CONFIG_ACTIONS_DICT = {
 "ct_save_as",
 "print_page_setup",
 "do_print",
+"command_palette",
 "exec_code",
 "quit_app",
 "exit_app",
@@ -178,7 +179,7 @@ def load_menudict(dad):
 "ct_save_as": {"sk": "gtk-save-as", "sd": _("Save _As"), "kb": KB_CONTROL+KB_SHIFT+"S", "dn": _("Save File As"), "cb": dad.file_save_as},
 "exec_code": {"sk": "gtk-execute", "sd": _("_Execute Code"), "kb": "F5", "dn": _("Execute Code"), "cb": dad.exec_code},
 "open_cfg_folder": {"sk": "gtk-directory", "sd": _("Open Preferences _Directory"), "kb": None, "dn": _("Open the Directory with Preferences Files"), "cb": dad.folder_cfg_open},
-"print_page_setup": {"sk": "gtk-print", "sd": _("Pa_ge Setup"), "kb": KB_CONTROL+KB_SHIFT+"P", "dn": _("Set up the Page for Printing"), "cb": dad.export_print_page_setup},
+"print_page_setup": {"sk": "gtk-print", "sd": _("Pa_ge Setup"), "kb": None, "dn": _("Set up the Page for Printing"), "cb": dad.export_print_page_setup},
 "do_print": {"sk": "gtk-print", "sd": _("_Print"), "kb": KB_CONTROL+"P", "dn": _("Print"), "cb": dad.export_print},
 "quit_app": {"sk": "quit-app", "sd": _("_Quit"), "kb": KB_CONTROL+"Q", "dn": _("Quit the Application"), "cb": dad.quit_application},
 "exit_app": {"sk": "quit-app", "sd": _("_Exit CherryTree"), "kb": KB_CONTROL+KB_SHIFT+"Q", "dn": _("Exit from CherryTree"), "cb": dad.quit_application_totally},
@@ -294,6 +295,7 @@ def load_menudict(dad):
 "import_tuxcards": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _TuxCards File"), "kb": None, "dn": _("Add Nodes of a TuxCards File to the Current Tree"), "cb": dad.nodes_add_from_tuxcards_file},
 "import_zim": {"sk": cons.STR_STOCK_CT_IMP, "sd": _("From _Zim Folder"), "kb": None, "dn": _("Add Nodes of a Zim Folder to the Current Tree"), "cb": dad.nodes_add_from_zim_folder},
 "export_pdf": {"sk": "to_pdf", "sd": _("Export To _PDF"), "kb": None, "dn": _("Export To PDF"), "cb": dad.export_to_pdf},
+"command_palette": {"sk": "gtk-execute", "sd": _("Command Palette"), "kb": KB_CONTROL+KB_SHIFT+"P", "dn": _("Command Palette"), "cb": dad.show_command_palette},
 "export_html": {"sk": "to_html", "sd": _("Export To _HTML"), "kb": None, "dn": _("Export To HTML"), "cb": dad.export_to_html},
 "export_txt_multiple": {"sk": "to_txt", "sd": _("Export to Multiple Plain _Text Files"), "kb": None, "dn": _("Export to Multiple Plain Text Files"), "cb": dad.export_to_txt_multiple},
 "export_txt_single": {"sk": "to_txt", "sd": _("Export to _Single Plain Text File"), "kb": None, "dn": _("Export to Single Plain Text File"), "cb": dad.export_to_txt_single},
@@ -673,6 +675,7 @@ UI_INFO = """
       <menuitem action='print_page_setup'/>
       <menuitem action='do_print'/>
       <separator/>
+      <menuitem action='command_palette'/>
       <menuitem action='exec_code'/>
       <separator/>
       <menuitem action='quit_app'/>

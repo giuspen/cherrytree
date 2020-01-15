@@ -2228,6 +2228,78 @@ iter_end, exclude_iter_sel_end=True)
         self.export_print(action)
         self.print_handler.pdf_filepath = ""
 
+    def command_palette_dialog(self, title):
+        """Command Palette Dialog box"""
+        dialog = gtk.Dialog(title=title,
+                            parent=self.window,
+                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+                            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+        dialog.set_default_size(400, 300)
+        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        try:
+            button_ok = dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT)
+        except:
+            print cons.STR_PYGTK_222_REQUIRED
+            button_ok = None
+        commands_liststore = gtk.ListStore(str,str)
+        for key in self.menudict:
+            commands_liststore.append([key,self.menudict[key]['dn']])
+        treeview = gtk.TreeView(commands_liststore)
+        treeview.set_enable_search(True)
+        def is_subsequence(x, y):
+            """Test whether x is a subsequence of y"""
+            x = list(x)
+            for letter in y:
+                if x and x[0] == letter:
+                    x.pop(0)
+            return not x
+        def search_function(model, column, key, rowiter):
+            '''
+                True: Search does not match
+            '''
+            row = model[rowiter]
+            query = key.lower()
+            data = row[1].lower()
+            return (not is_subsequence(query,data) )
+            # return (not re.search(query, data, re.IGNORECASE) )
+            # return (row[1].find(key) == -1)
+
+
+        treeview.set_search_equal_func(search_function)
+        renderer_text_node = gtk.CellRendererText()
+        renderer_text_linenum = gtk.CellRendererText()
+        renderer_text_linecontent = gtk.CellRendererText()
+        command_column = gtk.TreeViewColumn(_("Command Name"), renderer_text_node, text=1)
+        treeview.append_column(command_column)
+        # treeview.set_search_entry(search_entry)
+        # treeview.set_enable_search(True)
+        scrolledwindow_allmatches = gtk.ScrolledWindow()
+        scrolledwindow_allmatches.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        scrolledwindow_allmatches.add(treeview)
+
+        content_area = dialog.get_content_area()
+        content_area.add(scrolledwindow_allmatches)
+        content_area.show_all()
+        def on_entry_event_after(treeview2, event):
+            """Catches mouse buttons clicks"""
+            if event.type not in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]: return
+            keyname = gtk.gdk.keyval_name(event.keyval)
+            if keyname == cons.STR_KEY_RETURN:
+                button_ok.clicked()
+        treeview.connect('event-after', on_entry_event_after)
+        response = dialog.run()
+        dialog.hide()
+        if response == gtk.RESPONSE_ACCEPT:
+            model, list_iter = treeview.get_selection().get_selected()
+            key = model[list_iter][0]
+            self.menudict[key]['cb'](self)
+            return 1
+        return None
+
+    def show_command_palette(self, *args):
+        self.command_palette_dialog("Command Palette")
+
     def export_print(self, *args):
         """Start Print Operations"""
         if not self.is_there_selected_node_or_error(): return
