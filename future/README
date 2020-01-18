@@ -45,6 +45,13 @@ xdg-open /usr/share/doc/libpangomm-1.4-doc/reference/html/index.html
 xdg-open /usr/share/doc/libxml++2.6-doc/reference/html/index.html
 
 
+# ---- Building Cherrytree in Arch ----
+
+# Install Dependencies
+sudo pacman -S gtksourceviewmm libxml++2.6 python-lxml
+sudo pamac build cpputest
+
+
 # ---- Building Cherrytree in Fedora ----
 
 # Install Dependencies

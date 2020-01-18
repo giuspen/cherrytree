@@ -7,7 +7,7 @@ import os
 import subprocess
 import glob
 from lxml import etree
-import cgi
+import html
 
 SCRIPTS_DIR = os.path.dirname(os.path.realpath(__file__))
 ROOT_DIR = os.path.dirname(SCRIPTS_DIR)
@@ -31,7 +31,7 @@ def main(args):
     gresource_Element = etree.SubElement(gresources_Element, "gresource", prefix="/icons")
     for svg_filepath in glob.glob(os.path.join(ICONS_DIR, "*.svg")):
         file_Element = etree.SubElement(gresource_Element, "file", preprocess="xml-stripblanks", compressed="true")
-        file_Element.text = cgi.escape(os.path.basename(svg_filepath))
+        file_Element.text = html.escape(os.path.basename(svg_filepath))
     gresources_ElementTree = etree.ElementTree(gresources_Element)
     gresources_ElementTree.write(GRESOURCE_XML_FILEPATH, xml_declaration=True, encoding='UTF-8', pretty_print=True)
 
