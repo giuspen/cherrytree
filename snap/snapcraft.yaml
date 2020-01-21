@@ -95,6 +95,13 @@ parts:
     source-depth: 1
     plugin: python
     python-version: python2
+    override-build: |
+      #mkdir -p /usr/share/icons/hicolor/96x96/apps/cherrytree
+      #cp glade/cherrytree.png /usr/share/icons/hicolor/96x96/apps/cherrytree/
+      sed -i 's|^Icon=.*|Icon=${SNAP}/meta/gui/cherrytree.png|' linux/cherrytree.desktop
+      snapcraftctl build
+      mkdir -p $SNAPCRAFT_PART_INSTALL/meta/gui/
+      cp glade/cherrytree.png $SNAPCRAFT_PART_INSTALL/meta/gui/
     build-packages:
       - gettext
       - desktop-file-utils
