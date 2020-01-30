@@ -46,6 +46,9 @@ apps:
     desktop: share/applications/cherrytree.desktop
     environment:
       PATH: $SNAP/usr/lib/p7zip:$PATH
+      GTK_PATH: $SNAP/lib/gtk-2.0
+      GTK_DATA_PREFIX: $SNAP
+      XDG_DATA_DIRS: $SNAP/share:$XDG_DATA_DIRS
 
 parts:
   desktop-gtk:
