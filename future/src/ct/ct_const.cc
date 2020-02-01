@@ -208,7 +208,7 @@ const std::vector<std::string> CtConst::TOOLBAR_VEC_BLACKLIST {
 
 const gchar* CtConst::AVAILABLE_LANGS[20] {
     "default", "cs", "de", "el", "en", "es", "fi", "fr", "hy", "it",
-    "ja", "lt", "nl", "pl", "pt_BR", "ru", "sl", "tr", "uk", "zh_CN"
+    "ja", "lt", "nl", "pl", "pt_BR", "ru", "sl", "sv", "tr", "uk", "zh_CN"
 };
 
 const std::unordered_map<int, std::string> CtConst::NODES_STOCKS {

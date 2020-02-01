@@ -2,7 +2,7 @@
 #
 #       support.py
 #
-#       Copyright 2009-2019 Giuseppe Penone <giuspen@gmail.com>
+#       Copyright 2009-2020 Giuseppe Penone <giuspen@gmail.com>
 #
 #       This program is free software; you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
@@ -862,7 +862,7 @@ def dialog_about(dad):
     dialog = gtk.AboutDialog()
     dialog.set_program_name("CherryTree")
     dialog.set_version(cons.VERSION)
-    dialog.set_copyright("""Copyright © 2009-2017
+    dialog.set_copyright("""Copyright © 2009-2020
 Giuseppe Penone <giuspen@gmail.com>""")
     dialog.set_comments(_("A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting"))
     dialog.set_license(_("""
@@ -884,7 +884,8 @@ MA 02110-1301, USA.
     dialog.set_website("http://www.giuspen.com/cherrytree/")
     dialog.set_authors(["Giuseppe Penone <giuspen@gmail.com>"])
     dialog.set_artists(["OCAL <http://www.openclipart.org/>", "Zeltak <zeltak@gmail.com>", "Angelo Penone <angelo.penone@gmail.com>"])
-    dialog.set_translator_credits(_("Armenian")+" (hy) Seda Stamboltsyan <sedastam@yandex.com>"+cons.CHAR_NEWLINE+
+    dialog.set_translator_credits(
+_("Armenian")+" (hy) Seda Stamboltsyan <sedastam@yandex.com>"+cons.CHAR_NEWLINE+
 _("Chinese Simplified")+" (zh_CN) Channing Wong <channing.wong@qq.com>"+cons.CHAR_NEWLINE+
 _("Czech")+" (cs) Pavel Fric <fripohled@blogspot.com>"+cons.CHAR_NEWLINE+
 _("Dutch")+" (nl) Luuk Geurts, Patrick Vijgeboom <pj.vijgeboom@gmail.com>"+cons.CHAR_NEWLINE+
@@ -900,6 +901,7 @@ _("Portuguese Brazil")+" (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>"+c
 _("Russian")+" (ru) Andriy Kovtun <kovtunos@yandex.ru>"+cons.CHAR_NEWLINE+
 _("Slovenian")+" (sl) Erik Lovrič <erik.lovric@gmail.com>"+cons.CHAR_NEWLINE+
 _("Spanish")+" (es) Daniel MC <i.e.betel@gmail.com>"+cons.CHAR_NEWLINE+
+_("Swedish")+" (sv) Åke Engelbrektson <eson@svenskasprakfiler.se>"+cons.CHAR_NEWLINE+
 _("Turkish")+" (tr) Ferhat Aydin <ferhataydin44@gmail.com>"+cons.CHAR_NEWLINE+
 _("Ukrainian")+" (uk) Andriy Kovtun <kovtunos@yandex.ru>")
     dialog.set_logo(gtk.gdk.pixbuf_new_from_file(os.path.join(cons.GLADE_PATH, "cherrytree.png")))
