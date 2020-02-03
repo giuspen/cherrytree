@@ -34,6 +34,7 @@
 #include "ct_config.h"
 #include "ct_table.h"
 #include "ct_image.h"
+#include "ct_print.h"
 
 struct CtStatusBar
 {
@@ -66,6 +67,7 @@ class CtConfig;
 class CtActions;
 class CtTmp;
 class CtMenu;
+class CtPrint;
 
 class CtMainWin : public Gtk::ApplicationWindow
 {
@@ -74,6 +76,7 @@ public:
               CtActions*               pCtActions,
               CtTmp*                   pCtTmp,
               CtMenu*                  pCtMenu,
+              CtPrint*                 pCtPrint,
               Gtk::IconTheme*          pGtkIconTheme,
               Glib::RefPtr<Gtk::TextTagTable> rGtkTextTagTable,
               Glib::RefPtr<Gtk::CssProvider> rGtkCssProvider,
@@ -110,6 +113,7 @@ public:
     CtTextView&              get_text_view()   { return _ctTextview; }
     CtStatusBar&             get_status_bar()  { return _ctStatusBar; }
     CtMenu&                  get_ct_menu()     { return *_pCtMenu; }
+    CtPrint&                 get_ct_print()    { return *_pCtPrint; }
     CtConfig*                get_ct_config()   { return _pCtConfig; }
     CtActions*               get_ct_actions()  { return _pCtActions; }
     CtTmp*                   get_ct_tmp()      { return _pCtTmp; }
@@ -184,6 +188,7 @@ private:
     CtActions*                   _pCtActions;
     CtTmp*                       _pCtTmp;
     CtMenu*                      _pCtMenu;
+    CtPrint*                     _pCtPrint;
     Gtk::IconTheme*              _pGtkIconTheme;
     Glib::RefPtr<Gtk::TextTagTable> _rGtkTextTagTable;
     Glib::RefPtr<Gtk::CssProvider>  _rGtkCssProvider;

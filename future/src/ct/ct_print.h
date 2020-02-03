@@ -21,10 +21,18 @@
 
 #pragma once
 
+#include "ct_main_win.h"
 
 class CtPrint
 {
 public:
     CtPrint();
+
+public:
+    void run_page_setup_dialog(Gtk::Window* pMainWin);
+
+private:
+    Glib::RefPtr<Gtk::PrintSettings> _pPrintSettings;
+    Glib::RefPtr<Gtk::PageSetup> _pPageSetup;
 };
 

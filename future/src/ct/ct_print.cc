@@ -23,5 +23,10 @@
 
 CtPrint::CtPrint()
 {
+    _pPrintSettings = Gtk::PrintSettings::create();
+}
 
+void CtPrint::run_page_setup_dialog(Gtk::Window* pMainWin)
+{
+    _pPageSetup = Gtk::run_page_setup_dialog(*pMainWin, _pPageSetup, _pPrintSettings);
 }

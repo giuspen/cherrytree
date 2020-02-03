@@ -21,9 +21,10 @@
 
 #include "ct_actions.h"
 
+// Print Page Setup Operations
 void CtActions::export_print_page_setup()
 {
-
+    _pCtMainWin->get_ct_print().run_page_setup_dialog(_pCtMainWin);
 }
 
 void CtActions::export_print()
