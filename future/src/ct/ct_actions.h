@@ -308,4 +308,17 @@ public:
     void codebox_decrease_width();
     void codebox_increase_height();
     void codebox_decrease_height();
+
+private:
+    // helper for export actions
+
+public:
+    // export actions
+    void export_print_page_setup();
+    void export_print();
+    void export_to_pdf();
+    void export_to_html();
+    void export_to_txt_multiple();
+    void export_to_txt_single();
+    void export_to_ctd();
 };
