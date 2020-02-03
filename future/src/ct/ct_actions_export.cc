@@ -29,6 +29,10 @@ void CtActions::export_print_page_setup()
 
 void CtActions::export_print()
 {
+    if (!_is_there_selected_node_or_error()) return;
+    auto export_type = CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, true, &_last_include_node_name, &_last_new_node_page, nullptr);
+    if (export_type == CtDialogs::CtProcessNode::NONE) return;
+
 
 }
 
