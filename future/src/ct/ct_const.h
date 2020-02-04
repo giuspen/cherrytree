@@ -175,7 +175,7 @@ extern const std::unordered_set<const gchar*> TEXT_SYNTAXES;
 extern const std::unordered_set<const gchar*> TAG_PROPERTIES;
 extern const gchar    TOOLBAR_VEC_DEFAULT[];
 extern const std::vector<std::string> TOOLBAR_VEC_BLACKLIST;
-extern const gchar*   AVAILABLE_LANGS[20];
+extern const gchar*   AVAILABLE_LANGS[21];
 extern const std::unordered_map<int, std::string> NODES_STOCKS;
 extern const std::unordered_map<int, std::string> NODES_ICONS;
 extern const std::unordered_map<std::string, std::string> CODE_ICONS;
