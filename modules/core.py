@@ -2228,9 +2228,9 @@ iter_end, exclude_iter_sel_end=True)
         self.export_print(action)
         self.print_handler.pdf_filepath = ""
 
-    def command_palette_dialog(self, title):
+    def show_command_palette(self, *args):
         """Command Palette Dialog box"""
-        dialog = gtk.Dialog(title=title,
+        dialog = gtk.Dialog(title=_("Command Palette"),
                             parent=self.window,
                             flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
                             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
@@ -2265,8 +2265,8 @@ iter_end, exclude_iter_sel_end=True)
             # return (not re.search(query, data, re.IGNORECASE) )
             # return (row[1].find(key) == -1)
 
-
         treeview.set_search_equal_func(search_function)
+        treeview.set_tooltip_text(_("Type To Search..."))
         renderer_text_node = gtk.CellRendererText()
         renderer_text_linenum = gtk.CellRendererText()
         renderer_text_linecontent = gtk.CellRendererText()
@@ -2282,11 +2282,11 @@ iter_end, exclude_iter_sel_end=True)
         content_area.add(scrolledwindow_allmatches)
         content_area.show_all()
         def on_entry_event_after(treeview2, event):
-            """Catches mouse buttons clicks"""
-            if event.type not in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]: return
-            keyname = gtk.gdk.keyval_name(event.keyval)
-            if keyname == cons.STR_KEY_RETURN:
-                button_ok.clicked()
+            """Catches key presses"""
+            if event.type == gtk.gdk.KEY_PRESS:
+                keyname = gtk.gdk.keyval_name(event.keyval)
+                if keyname == cons.STR_KEY_RETURN:
+                    button_ok.clicked()
         treeview.connect('event-after', on_entry_event_after)
         response = dialog.run()
         dialog.hide()
@@ -2294,11 +2294,6 @@ iter_end, exclude_iter_sel_end=True)
             model, list_iter = treeview.get_selection().get_selected()
             key = model[list_iter][0]
             self.menudict[key]['cb'](self)
-            return 1
-        return None
-
-    def show_command_palette(self, *args):
-        self.command_palette_dialog("Command Palette")
 
     def export_print(self, *args):
         """Start Print Operations"""
