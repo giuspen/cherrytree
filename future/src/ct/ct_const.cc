@@ -206,7 +206,7 @@ const std::vector<std::string> CtConst::TOOLBAR_VEC_BLACKLIST {
     "img_link_edit", "img_link_dismiss", "toggle_show_mainwin"
 };
 
-const gchar* CtConst::AVAILABLE_LANGS[20] {
+const gchar* CtConst::AVAILABLE_LANGS[21] {
     "default", "cs", "de", "el", "en", "es", "fi", "fr", "hy", "it",
     "ja", "lt", "nl", "pl", "pt_BR", "ru", "sl", "sv", "tr", "uk", "zh_CN"
 };
