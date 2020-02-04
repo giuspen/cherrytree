@@ -74,6 +74,7 @@ public: // todo: fix naming
     bool          _is_tree_not_empty_or_error();
     bool          _is_curr_node_not_read_only_or_error();
     bool          _is_curr_node_not_syntax_highlighting_or_error(bool plain_text_ok = false);
+    bool          _is_there_text_selection_or_error();
 
 public:
     void object_set_selection(CtAnchoredWidget* widget);
@@ -315,6 +316,8 @@ public:
 
 private:
     // helper for export actions
+    void _export_print(bool save_to_pdf, Glib::ustring auto_path, bool auto_overwrite);
+    Glib::ustring _get_pdf_filepath(Glib::ustring proposed_name);
 
 public:
     // export actions

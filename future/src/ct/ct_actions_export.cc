@@ -20,6 +20,7 @@
  */
 
 #include "ct_actions.h"
+#include "ct_export.h"
 
 // Print Page Setup Operations
 void CtActions::export_print_page_setup()
@@ -29,16 +30,12 @@ void CtActions::export_print_page_setup()
 
 void CtActions::export_print()
 {
-    if (!_is_there_selected_node_or_error()) return;
-    auto export_type = CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, true, &_last_include_node_name, &_last_new_node_page, nullptr);
-    if (export_type == CtDialogs::CtProcessNode::NONE) return;
-
-
+    _export_print(false, "", false);
 }
 
 void CtActions::export_to_pdf()
 {
-
+    _export_print(true, "", false);
 }
 
 void CtActions::export_to_html()
@@ -59,4 +56,74 @@ void CtActions::export_to_txt_single()
 void CtActions::export_to_ctd()
 {
 
+}
+
+void CtActions::_export_print(bool save_to_pdf, Glib::ustring auto_path, bool auto_overwrite)
+{
+    if (!_is_there_selected_node_or_error()) return;
+    auto export_type = auto_path != "" ? CtDialogs::CtProcessNode::ALL_TREE : CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, true, &_last_include_node_name, &_last_new_node_page, nullptr);
+    if (export_type == CtDialogs::CtProcessNode::NONE) return;
+
+    Glib::ustring pdf_filepath;
+    if (export_type == CtDialogs::CtProcessNode::CURRENT_NODE)
+    {
+        if (save_to_pdf)
+        {
+            pdf_filepath = CtMiscUtil::get_node_hierarchical_name(_pCtMainWin->curr_tree_iter());
+            pdf_filepath = _get_pdf_filepath(pdf_filepath);
+            if (pdf_filepath == "") return;
+        }
+        CtExportPrint(_pCtMainWin).node_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _last_include_node_name, -1, -1);
+    }
+    else if (export_type == CtDialogs::CtProcessNode::CURRENT_NODE_AND_SUBNODES)
+    {
+        if (save_to_pdf)
+        {
+            pdf_filepath = _get_pdf_filepath(_pCtMainWin->get_curr_doc_file_name());
+            if (pdf_filepath == "") return;
+        }
+        CtExportPrint(_pCtMainWin).node_and_subnodes_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _last_include_node_name, _last_new_node_page);
+    }
+    else if (export_type == CtDialogs::CtProcessNode::ALL_TREE)
+    {
+        if (auto_path != "")
+        {
+            pdf_filepath = auto_path;
+            // todo: if (!auto_overwrite && Gio::File:: os.path.isfile(self.print_handler.pdf_filepath):
+            //    return
+        }
+        else if (save_to_pdf)
+        {
+            pdf_filepath = _get_pdf_filepath(_pCtMainWin->get_curr_doc_file_name());
+            if (pdf_filepath == "") return;
+        }
+        CtExportPrint(_pCtMainWin).tree_export_print(pdf_filepath, _pCtMainWin->curr_tree_store().get_ct_iter_first(), _last_include_node_name, _last_new_node_page);
+    }
+    else if (export_type == CtDialogs::CtProcessNode::SELECTED_TEXT)
+    {
+        if (!_is_there_text_selection_or_error()) return;
+        Gtk::TextIter iter_start, iter_end;
+        _curr_buffer()->get_selection_bounds(iter_start, iter_end);
+
+        if (save_to_pdf)
+        {
+            pdf_filepath = CtMiscUtil::get_node_hierarchical_name(_pCtMainWin->curr_tree_iter());
+            pdf_filepath = _get_pdf_filepath(pdf_filepath);
+            if (pdf_filepath == "") return;
+        }
+        CtExportPrint(_pCtMainWin).node_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _last_include_node_name, iter_start.get_offset(), iter_end.get_offset());
+    }
+}
+
+Glib::ustring CtActions::_get_pdf_filepath(Glib::ustring proposed_name)
+{
+    CtDialogs::file_select_args args = {.pParentWin=_pCtMainWin, .curr_folder=_pCtMainWin->get_ct_config()->pickDirExport, .curr_file_name=proposed_name + ".pdf",
+                                       .filter_name=("PDF File"), .filter_pattern={"*.pdf"}};
+    Glib::ustring filename = CtDialogs::file_save_as_dialog(args);
+    if (filename != "")
+    {
+        if (str::endswith(filename, ".pdf")) filename += ".pdf";
+        _pCtMainWin->get_ct_config()->pickDirExport = Glib::path_get_dirname(filename);
+    }
+    return filename;
 }
