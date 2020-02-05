@@ -138,6 +138,8 @@ extern const gchar    STR_KEY_LEFT[];
 extern const gchar    STR_KEY_RIGHT[];
 extern const gchar    STR_STOCK_CT_IMP[];
 extern const int      MAX_FILE_NAME_LEN;
+extern const int      WHITE_SPACE_BETW_PIXB_AND_TEXT;
+extern const int      GRID_SLIP_OFFSET;
 extern const Glib::ustring  CHAR_SPACE;
 extern const Glib::ustring  CHAR_NEWLINE;
 extern const Glib::ustring  CHAR_NEWPAGE;

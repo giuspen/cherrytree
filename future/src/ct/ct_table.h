@@ -55,6 +55,8 @@ public:
     CtAnchWidgType get_type() override { return CtAnchWidgType::Table; }
 
     const CtTableMatrix& get_table_matrix() { return _tableMatrix; }
+    int get_col_max() { return _colMax; }
+    int get_col_min() { return _colMin; }
 
 protected:
     CtTableMatrix _tableMatrix;

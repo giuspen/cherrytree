@@ -112,6 +112,7 @@ void CtExportPrint::_nodes_all_export_print_iter(CtTreeIter tree_iter, bool incl
         {
             node_pango_slots[0] = CtConst::CHAR_NEWPAGE + CtConst::CHAR_NEWPAGE + node_pango_slots[0];
             vec::vector_extend(tree_pango_slots, node_pango_slots);
+            node_widgets.insert(node_widgets.begin(), nullptr);
         }
         else
         {

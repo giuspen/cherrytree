@@ -135,7 +135,9 @@ const gchar    CtConst::STR_KEY_LEFT[]              {"Left"};
 const gchar    CtConst::STR_KEY_RIGHT[]             {"Right"};
 const gchar    CtConst::STR_STOCK_CT_IMP[]          {"import_in_cherrytree"};
 
-const int      CtConst::MAX_FILE_NAME_LEN           {142};
+const int      CtConst::MAX_FILE_NAME_LEN              {142};
+const int      CtConst::WHITE_SPACE_BETW_PIXB_AND_TEXT {3};
+const int      CtConst::GRID_SLIP_OFFSET               {3};
 
 const Glib::ustring CtConst::CHAR_SPACE             {" "};
 const Glib::ustring CtConst::CHAR_NEWLINE           {"\n"};
