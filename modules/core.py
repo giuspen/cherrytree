@@ -2259,11 +2259,9 @@ iter_end, exclude_iter_sel_end=True)
                 True: Search does not match
             '''
             row = model[rowiter]
-            query = key.lower()
-            data = row[1].lower()
-            return (not is_subsequence(query,data) )
-            # return (not re.search(query, data, re.IGNORECASE) )
-            # return (row[1].find(key) == -1)
+            data = row[1].lower().replace(" ", "")
+            query = key.lower().replace(" ", "")
+            return not (data.find(query) >= 0)
 
         treeview.set_search_equal_func(search_function)
         treeview.set_tooltip_text(_("Type To Search..."))
