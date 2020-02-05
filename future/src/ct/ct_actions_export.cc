@@ -122,7 +122,7 @@ Glib::ustring CtActions::_get_pdf_filepath(Glib::ustring proposed_name)
     Glib::ustring filename = CtDialogs::file_save_as_dialog(args);
     if (filename != "")
     {
-        if (str::endswith(filename, ".pdf")) filename += ".pdf";
+        if (!str::endswith(filename, ".pdf")) filename += ".pdf";
         _pCtMainWin->get_ct_config()->pickDirExport = Glib::path_get_dirname(filename);
     }
     return filename;

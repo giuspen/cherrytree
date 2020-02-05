@@ -53,7 +53,7 @@ public:
 
     std::shared_ptr<CtPrintTableProxy> create_new_with(int row_num) { return std::shared_ptr<CtPrintTableProxy>(new CtPrintTableProxy(_table, _startRow, row_num)); }
 
-    void     remove_first_rows(int row_num) { _startRow += row_num; }
+    void     remove_first_rows(int remove_row_num) { _startRow += remove_row_num; _rowNum -= remove_row_num; }
     CtTable* get_table()                    { return _table; }
     int      get_row_num()                  { return _rowNum; }
     int      get_col_num()                  { return (int)_table->get_table_matrix().begin()->size(); }
@@ -112,6 +112,7 @@ struct CtPrintData
     std::vector<int>                                layout_num_lines;
     std::vector<std::pair<int, int>>                page_breaks;
     std::vector<double>                             all_lines_y;
+    Glib::ustring                                   warning;
 };
 
 class CtPrint

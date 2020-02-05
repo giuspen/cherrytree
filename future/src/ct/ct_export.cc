@@ -41,13 +41,8 @@ void CtExportPrint::node_export_print(const Glib::ustring& pdf_filepath, CtTreeI
     if (include_node_name)
         _add_node_name(tree_iter.get_node_name(), pango_slots);
 
-    /*self.dad.print_handler.print_text(self.dad.window,
-        self.pango_text,
-        self.text_font,
-        self.dad.code_font,
-        self.pixbuf_table_codebox_vector,
-        self.dad.get_text_window_width())
-        */
+    _pCtMainWin->get_ct_print().print_text(_pCtMainWin, pdf_filepath, pango_slots, text_font, _pCtMainWin->get_ct_config()->codeFont,
+                                           widgets, _pCtMainWin->get_text_view().get_allocation().get_width());
 }
 
 void CtExportPrint::node_and_subnodes_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, bool include_node_name, bool new_node_in_new_page)
@@ -57,14 +52,8 @@ void CtExportPrint::node_and_subnodes_export_print(const Glib::ustring& pdf_file
     Glib::ustring text_font = _pCtMainWin->get_ct_config()->codeFont;
     _nodes_all_export_print_iter(tree_iter, include_node_name, new_node_in_new_page, tree_pango_slots, tree_widgets, text_font);
 
-   // todo: self.dad.objects_buffer_refresh()
-    /*self.dad.print_handler.print_text(self.dad.window,
-        self.pango_text,
-        self.text_font,
-        self.dad.code_font,
-        self.pixbuf_table_codebox_vector,
-        self.dad.get_text_window_width())
-        */
+    _pCtMainWin->get_ct_print().print_text(_pCtMainWin, pdf_filepath, tree_pango_slots, text_font, _pCtMainWin->get_ct_config()->codeFont,
+                                           tree_widgets, _pCtMainWin->get_text_view().get_allocation().get_width());
 }
 
 void CtExportPrint::tree_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, bool include_node_name, bool new_node_in_new_page)
@@ -77,14 +66,8 @@ void CtExportPrint::tree_export_print(const Glib::ustring& pdf_filepath, CtTreeI
         _nodes_all_export_print_iter(tree_iter, include_node_name, new_node_in_new_page, tree_pango_slots, tree_widgets, text_font);
         ++tree_iter;
     }
-    // todo: self.dad.objects_buffer_refresh()
-    /*self.dad.print_handler.print_text(self.dad.window,
-        self.pango_text,
-        self.text_font,
-        self.dad.code_font,
-        self.pixbuf_table_codebox_vector,
-        self.dad.get_text_window_width())
-        */
+    _pCtMainWin->get_ct_print().print_text(_pCtMainWin, pdf_filepath, tree_pango_slots, text_font, _pCtMainWin->get_ct_config()->codeFont,
+                                           tree_widgets, _pCtMainWin->get_text_view().get_allocation().get_width());
 }
 
 void CtExportPrint::_nodes_all_export_print_iter(CtTreeIter tree_iter, bool include_node_name, bool new_node_in_new_page,

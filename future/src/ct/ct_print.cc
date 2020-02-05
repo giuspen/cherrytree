@@ -77,6 +77,9 @@ void CtPrint::print_text(CtMainWin* pCtMainWin, const Glib::ustring& pdf_filepat
     {
         CtDialogs::error_dialog("Error printing file:\n" + ex.what() + " (exception caught)", *pCtMainWin);
     }
+    if (print_data.warning != "")
+        _pCtMainWin->get_status_bar().update_status(print_data.warning);
+
     // remove proxy widgets
     _widgets.clear();
   }
@@ -236,9 +239,8 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
     print_data->operation->set_n_pages((int)print_data->page_breaks.size() + 1);
     if (any_image_resized)
     {
-        Glib::ustring message = Glib::ustring(_("Warning: One or More Images Were Reduced to Enter the Page")) + " ("
-                + std::to_string(int(_page_width))+ "x" + std::to_string(int(_page_height)) + ")";
-        _pCtMainWin->get_status_bar().update_status(message);
+        print_data->warning = Glib::ustring(_("Warning: One or More Images Were Reduced to Enter the Page")) + " ("
+                                       + std::to_string(int(_page_width))+ "x" + std::to_string(int(_page_height)) + ")";
     }
 }
 
@@ -384,7 +386,7 @@ std::vector<std::vector<Glib::RefPtr<Pango::Layout>>> CtPrint::_get_table_layout
     for (int i = 0; i < tableProxy->get_row_num(); ++i)
     {
         std::vector<Glib::RefPtr<Pango::Layout>> layouts;
-        for (int j = 0; j < tableProxy->get_col_num(); ++i)
+        for (int j = 0; j < tableProxy->get_col_num(); ++j)
         {
             Glib::ustring text = str::xml_escape(tableProxy->get_cell(i, j));
             if (i == 0) text = "<b>" + text + "</b>";
