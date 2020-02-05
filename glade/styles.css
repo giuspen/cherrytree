@@ -23,29 +23,49 @@ body {
     font-family: "Open Sans", sans-serif !important;
     padding: 20x; 
     white-space: pre-wrap;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    height: 100%;
 }
 
 div.main {
-    width: 100%;
+    width: 100vw;
+    height: inherit;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    overflow-y: hidden;
 }
 
 div.tree {
-    width: 300px;
+    flex: 19vw;
     /*background-color: #EEEEEE;
     border-top: 1px solid #DDDDDD;
     border-bottom: 1px solid #DDDDDD;
     margin-bottom: 20px;*/
-    padding: 0.75em 0 0.75em 20px;
-    float: left;
-    position: fixed;
-    height: 97%;
+    /*margin: 0.75em 0 0.75em 20px;*/
+    margin-left: 1vw;
+    height: 100vh;
     overflow: auto;
 }
 
 div.page {
-    width: 100%;
-    padding-left: 380px; /* div.tree width + L/R margins + padding */
+    flex: 80vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+}
+
+iframe.page {
+    width: 79vw;
+    margin-left: 1vw;
+    border: 0px;
+    margin-top: 0px;
+    height: 100vh;
     box-sizing: border-box;
+    overflow-y: auto;
 }
 
 .clear {
