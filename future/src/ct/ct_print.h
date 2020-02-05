@@ -31,14 +31,18 @@ public:
     virtual ~CtPrintWidgetProxy() {}
 };
 
+// helper to keep resized pixbuf
 class CtPrintImageProxy : public CtPrintWidgetProxy
 {
 public:
     CtPrintImageProxy(CtImage* image) : _image(image) {}
-    CtImage* get_image() { return _image; }
+    CtImage*                  get_image()  { return _image; }
+    Glib::RefPtr<Gdk::Pixbuf> get_pixbuf() { return _pixbuf ? _pixbuf : _image->get_pixbuf(); }
+    void                      set_pixbuf(Glib::RefPtr<Gdk::Pixbuf> pixbuf) { _pixbuf = pixbuf; }
 
 private:
     CtImage* _image;
+    Glib::RefPtr<Gdk::Pixbuf> _pixbuf;
 };
 
 // helper to split tables
@@ -47,13 +51,16 @@ class CtPrintTableProxy : public CtPrintWidgetProxy
 public:
     CtPrintTableProxy(CtTable* table, int startRow, int rowNum): _table(table), _startRow(startRow), _rowNum(rowNum) {}
 
-    std::shared_ptr<CtPrintTableProxy> copy(int row_num) { return std::shared_ptr<CtPrintTableProxy>(new CtPrintTableProxy(_table, _startRow, row_num)); }
-    void remove_first_rows(int row_num) { _startRow + row_num; }    CtTable* get_table() { return _table; }
-    int  get_row_num()                  { return _rowNum + 1 /* header */; }
-    int  get_col_num()                  { return (int)_table->get_table_matrix().begin()->size(); }
-    // todo: it works quite slow because of moving iterators every time, to fix: replace list by vector
+    std::shared_ptr<CtPrintTableProxy> create_new_with(int row_num) { return std::shared_ptr<CtPrintTableProxy>(new CtPrintTableProxy(_table, _startRow, row_num)); }
+
+    void     remove_first_rows(int row_num) { _startRow += row_num; }
+    CtTable* get_table()                    { return _table; }
+    int      get_row_num()                  { return _rowNum; }
+    int      get_col_num()                  { return (int)_table->get_table_matrix().begin()->size(); }
+    // todo: it can works slow because of moving iterators every time; to fix: replace list by vector or use cache
     Glib::ustring get_cell(int row, int col) {
-        row = (row == 0) ? row : row - 1 + _startRow;
+        // 0 row is always header row, 1 row starts from _startRow
+        row = (row == 0) ? 0 : row - 1 + _startRow;
         auto tableRow = _table->get_table_matrix().begin();
         std::advance(tableRow, row);
         auto tableCell = tableRow->begin();
@@ -63,8 +70,8 @@ public:
 
 private:
     CtTable* _table;
-    int _startRow; // can be -1;
-    int _rowNum;   // can be -1; don't include header row
+    int _startRow;  // never starts from header row (because proxy copies have the same header)
+    int _rowNum;    // includes header row
 
 };
 
@@ -72,26 +79,27 @@ private:
 class CtPrintCodeboxProxy : public CtPrintWidgetProxy
 {
 public:
-    CtPrintCodeboxProxy(CtCodebox* codebox, const Glib::ustring& proxy_text) : _codebox(codebox), _proxy_text(proxy_text) {}
+    CtPrintCodeboxProxy(CtCodebox* codebox) : _codebox(codebox), _use_proxy_text(false) {}
+    CtPrintCodeboxProxy(CtCodebox* codebox, const Glib::ustring& proxy_text) : _codebox(codebox),_proxy_text(proxy_text), _use_proxy_text(true)  {}
     CtCodebox*          get_codebox()          { return _codebox; }
     bool                get_width_in_pixels()  { return _codebox->get_width_in_pixels(); }
     int                 get_frame_width()      { return _codebox->get_frame_width(); }
-    const Glib::ustring get_text_content()     { return _proxy_text.empty() ? _codebox->get_text_content() : _proxy_text; }
-    void                set_text_contenxt(const Glib::ustring& text) { _proxy_text = text; }
+    const Glib::ustring get_text_content()     { return _use_proxy_text ? _proxy_text : _codebox->get_text_content(); }
+    void                set_proxy_content(const Glib::ustring& text) { _proxy_text = text; _use_proxy_text = true; }
 
 private:
     CtCodebox* _codebox;
     Glib::ustring _proxy_text;
+    bool          _use_proxy_text;
 };
 
+// helper for nullptr and others
 class CtPrintSomeProxy : public CtPrintWidgetProxy
 {
 public:
-    CtPrintSomeProxy(CtAnchoredWidget* widget) : _widget(widget) {}
-
-private:
-    CtAnchoredWidget* _widget;
+    CtPrintSomeProxy(CtAnchoredWidget*) {}
 };
+
 
 // Print Operation Data
 struct CtPrintData
@@ -104,7 +112,6 @@ struct CtPrintData
     std::vector<int>                                layout_num_lines;
     std::vector<std::pair<int, int>>                page_breaks;
     std::vector<double>                             all_lines_y;
-    std::map<CtImage*, Glib::RefPtr<Gdk::Pixbuf>>   modified_pixbuf;
 };
 
 class CtPrint
@@ -139,6 +146,16 @@ private:
     double                      _get_table_height_from_grid(std::pair<std::vector<double>, std::vector<double>>& table_grid);
     void                        _table_long_split(size_t idx, const Glib::RefPtr<Gtk::PrintContext>& context, CtPrintData* print_data);
     void                        _codebox_long_split(size_t idx, const Glib::RefPtr<Gtk::PrintContext>& context, CtPrintData* print_data);
+
+    void _codebox_draw_box(Cairo::RefPtr<Cairo::Context> cairo_context, double x0, double y0, double codebox_width, double codebox_height);
+    void _codebox_draw_code(Cairo::RefPtr<Cairo::Context> cairo_context, Glib::RefPtr<Pango::Layout> codebox_layout, double x0, double y0);
+    void _table_draw_grid(Cairo::RefPtr<Cairo::Context> cairo_context, const std::pair<std::vector<double>, std::vector<double>>& table_grid,
+                          double x0, double y0, double table_width, double table_height);
+    void _table_draw_text(Cairo::RefPtr<Cairo::Context> cairo_context,
+                          const std::pair<std::vector<double>, std::vector<double>>& table_grid,
+                          const std::vector<std::vector<Glib::RefPtr<Pango::Layout>>>& table_layouts,
+                          double x0, double y0);
+
 private:
     std::vector<std::shared_ptr<CtPrintWidgetProxy>> _widgets;
 

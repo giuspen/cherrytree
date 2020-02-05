@@ -28,9 +28,9 @@ CtPrint::CtPrint()
     _pPageSetup = Gtk::PageSetup::create();
 }
 
-void CtPrint::run_page_setup_dialog(Gtk::Window* pMainWin)
+void CtPrint::run_page_setup_dialog(Gtk::Window* pWin)
 {
-    _pPageSetup = Gtk::run_page_setup_dialog(*pMainWin, _pPageSetup, _pPrintSettings);
+    _pPageSetup = Gtk::run_page_setup_dialog(*pWin, _pPageSetup, _pPrintSettings);
 }
 
 // Start the Print Operations for Text
@@ -43,40 +43,42 @@ void CtPrint::print_text(CtMainWin* pCtMainWin, const Glib::ustring& pdf_filepat
     _text_window_width = text_window_width;
     _table_text_row_height = _pango_font.get_size()/Pango::SCALE;
     _table_line_thickness = 6;
-    _widgets.clear();
+    // convert to proxy widgets
     for (auto& widget: widgets)
     {
-        if (CtImage* image = dynamic_cast<CtImage*>(widget)) _widgets.push_back(std::shared_ptr<CtPrintImageProxy>(new CtPrintImageProxy(image)));
-        else if (CtTable* table = dynamic_cast<CtTable*>(widget)) _widgets.push_back(std::shared_ptr<CtPrintTableProxy>(new CtPrintTableProxy(table, 1, table->get_table_matrix().size() - 1)));
-        else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widget)) _widgets.push_back(std::shared_ptr<CtPrintCodeboxProxy>(new CtPrintCodeboxProxy(codebox, "")));
-        else _widgets.push_back(std::shared_ptr<CtPrintSomeProxy>(new CtPrintSomeProxy(widget)));
+        if (CtImage* image = dynamic_cast<CtImage*>(widget))            _widgets.push_back(std::shared_ptr<CtPrintImageProxy>(new CtPrintImageProxy(image)));
+        else if (CtTable* table = dynamic_cast<CtTable*>(widget))       _widgets.push_back(std::shared_ptr<CtPrintTableProxy>(new CtPrintTableProxy(table, 1, table->get_table_matrix().size())));
+        else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widget)) _widgets.push_back(std::shared_ptr<CtPrintCodeboxProxy>(new CtPrintCodeboxProxy(codebox)));
+        else                                                            _widgets.push_back(std::shared_ptr<CtPrintSomeProxy>(new CtPrintSomeProxy(widget)));
     }
 
-    CtPrintData* print_data = new CtPrintData();
-    print_data->text = pango_text;
+    CtPrintData print_data;
+    print_data.text = pango_text;
 
     sigc::slot<void, const Glib::RefPtr<Gtk::PrintContext>&, CtPrintData*> fun_begin_print_text = sigc::mem_fun(*this, &CtPrint::_on_begin_print_text);
     sigc::slot<void,const Glib::RefPtr<Gtk::PrintContext>&,int, CtPrintData*> fun_draw_page_text = sigc::mem_fun(*this, &CtPrint::_on_draw_page_text);
 
-    print_data->operation = Gtk::PrintOperation::create();
-    print_data->operation->set_show_progress(true);
-    print_data->operation->set_default_page_setup(_pPageSetup);
-    print_data->operation->set_print_settings(_pPrintSettings);
-    print_data->operation->signal_begin_print().connect(sigc::bind(fun_begin_print_text, print_data));
-    print_data->operation->signal_draw_page().connect(sigc::bind(fun_draw_page_text, print_data));
-    print_data->operation->set_export_filename(pdf_filepath);
+    print_data.operation = Gtk::PrintOperation::create();
+    print_data.operation->set_show_progress(true);
+    print_data.operation->set_default_page_setup(_pPageSetup);
+    print_data.operation->set_print_settings(_pPrintSettings);
+    print_data.operation->signal_begin_print().connect(sigc::bind(fun_begin_print_text, &print_data));
+    print_data.operation->signal_draw_page().connect(sigc::bind(fun_draw_page_text, &print_data));
+    print_data.operation->set_export_filename(pdf_filepath);
     try
     {
-        auto res = print_data->operation->run(pdf_filepath != "" ? Gtk::PRINT_OPERATION_ACTION_EXPORT : Gtk::PRINT_OPERATION_ACTION_PRINT_DIALOG);
+        auto res = print_data.operation->run(pdf_filepath != "" ? Gtk::PRINT_OPERATION_ACTION_EXPORT : Gtk::PRINT_OPERATION_ACTION_PRINT_DIALOG);
         if (res == Gtk::PRINT_OPERATION_RESULT_ERROR)
             CtDialogs::error_dialog("Error printing file: (bad res)", *pCtMainWin);
         else if (res == Gtk::PRINT_OPERATION_RESULT_APPLY)
-            _pPrintSettings = print_data->operation->get_print_settings();
+            _pPrintSettings = print_data.operation->get_print_settings();
     }
     catch (Glib::Error& ex)
     {
         CtDialogs::error_dialog("Error printing file:\n" + ex.what() + " (exception caught)", *pCtMainWin);
     }
+    // remove proxy widgets
+    _widgets.clear();
   }
 
 
@@ -96,7 +98,12 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
 
     while (1)
     {
-        // todo clean up
+        print_data->layout.clear();
+        print_data->forced_page_break.clear();
+        print_data->layout_is_new_line.clear();
+        print_data->layout_num_lines.clear();
+        print_data->all_lines_y.clear();
+
         bool exit_ok = true;
         for (Glib::ustring& text_slot: print_data->text)
         {
@@ -113,6 +120,8 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
             layout->set_markup(is_forced_page_break ? text_slot.substr(2) : text_slot);
             print_data->layout_num_lines.push_back(layout->get_line_count());
         }
+
+        print_data->page_breaks.clear();
         _y_idx = 0;
         double curr_y = 0;
         double inline_pending_height = 0;
@@ -198,7 +207,7 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
                     if (pixbuf_was_resized)
                     {
                         any_image_resized = true;
-                        print_data->modified_pixbuf[image] = pixbuf;
+                        imageProxy->set_pixbuf(pixbuf);
                     }
                     pixbuf_height = pixbuf->get_height() + CtConst::WHITE_SPACE_BETW_PIXB_AND_TEXT;
                     if (inline_pending_height < pixbuf_height)
@@ -236,7 +245,86 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
 // This Function is Called For Each Page Set in on_begin_print_text
 void CtPrint::_on_draw_page_text(const Glib::RefPtr<Gtk::PrintContext>& context, int page_nr, CtPrintData* print_data)
 {
+    // layout num, line num
+    std::pair<int, int> start_line_num = page_nr == 0 ? std::make_pair(0, 0) : print_data->page_breaks[page_nr - 1];
+    std::pair<int, int> end_line_num = page_nr < (int)print_data->page_breaks.size() ? print_data->page_breaks[page_nr] : std::make_pair((int)print_data->layout.size()-1, print_data->layout_num_lines.back());
+    auto operation = print_data->operation;
+    auto cairo_context = context->get_cairo_context();
+    cairo_context->set_source_rgb(0.5, 0.5, 0.5);
+    cairo_context->set_font_size(12);
+    Glib::ustring page_num_str = std::to_string(page_nr+1) + "/" + std::to_string(operation->property_n_pages());
+    cairo_context->move_to(_page_width/2., _page_height+17);
+    cairo_context->show_text(page_num_str);
 
+    double curr_x = 0.;
+    int i = start_line_num.first;
+    int layout_line_idx = start_line_num.second;
+    while (i <= end_line_num.first)
+    {
+        // text
+        cairo_context->set_source_rgb(0, 0, 0);
+        if (i > start_line_num.first)
+            layout_line_idx = 0; //reset line idx
+        while (layout_line_idx < print_data->layout_num_lines[i])
+        {
+            auto layout_line = print_data->layout[i]->get_line(layout_line_idx);
+            auto [line_width, line_height] = _layout_line_get_width_height(layout_line);
+            // process the line
+            if (line_width > 0)
+            {
+                cairo_context->move_to(curr_x, print_data->all_lines_y[_y_idx]);
+                layout_line->show_in_cairo_context(cairo_context);
+                curr_x += line_width;
+            }
+            if (layout_line_idx < print_data->layout_num_lines[i]-1 || print_data->layout_is_new_line[i])
+            {
+                curr_x = 0.0;
+                _y_idx += 1;
+            }
+            layout_line_idx += 1;
+            if (i >= end_line_num.first && layout_line_idx >= end_line_num.second)
+                return;
+        }
+        // pixbuf or table or codebox
+        if (i < (int)print_data->layout.size() - 1) // the latest element is supposed to be text
+        {
+            if (CtPrintImageProxy* imageProxy = dynamic_cast<CtPrintImageProxy*>(_widgets[i].get()))
+            {
+                auto pixbuf = imageProxy->get_pixbuf();
+                int pixbuf_width = pixbuf->get_width();
+                int pixbuf_height = pixbuf->get_height();
+                Gdk::Cairo::set_source_pixbuf(cairo_context, pixbuf, curr_x, print_data->all_lines_y[_y_idx] - pixbuf_height);
+                cairo_context->paint();
+                curr_x += pixbuf_width;
+            }
+            else if (CtPrintTableProxy* tableProxy = dynamic_cast<CtPrintTableProxy*>(_widgets[i].get()))
+            {
+                auto table_layouts = _get_table_layouts(context, tableProxy);
+                auto table_grid = _get_table_grid(table_layouts, tableProxy->get_table()->get_col_min());
+                double table_width = _get_table_width_from_grid(table_grid);
+                double table_height = _get_table_height_from_grid(table_grid);
+                _table_draw_grid(cairo_context, table_grid, curr_x,
+                                 print_data->all_lines_y[_y_idx] - table_height,
+                                 table_width, table_height);
+                _table_draw_text(cairo_context, table_grid, table_layouts, curr_x,
+                                 print_data->all_lines_y[_y_idx] - table_height);
+                curr_x += table_width;
+            }
+            else if (CtPrintCodeboxProxy* codeboxProxy = dynamic_cast<CtPrintCodeboxProxy*>(_widgets[i].get()))
+            {
+                auto codebox_layout = _get_codebox_layout(context, codeboxProxy);
+                double codebox_height = _get_height_from_layout(codebox_layout);
+                double codebox_width = _get_width_from_layout(codebox_layout);
+                _codebox_draw_box(cairo_context, curr_x,
+                                  print_data->all_lines_y[_y_idx] - codebox_height,
+                                  codebox_width, codebox_height);
+                _codebox_draw_code(cairo_context, codebox_layout, curr_x,
+                                   print_data->all_lines_y[_y_idx] - codebox_height);
+                curr_x += codebox_width;
+            }
+        }
+        i += 1; // layout increment
+    }
 }
 
 // Returns Width and Height of a layout line
@@ -361,21 +449,21 @@ void CtPrint::_table_long_split(size_t idx, const Glib::RefPtr<Gtk::PrintContext
     CtPrintTableProxy* tableProxy = dynamic_cast<CtPrintTableProxy*>(_widgets[(size_t)idx].get());
     std::vector<std::shared_ptr<CtPrintTableProxy>> new_tables;
     std::shared_ptr<CtPrintTableProxy> new_table;
-    for (int row_num = 1 /* with header */; row_num < tableProxy->get_row_num() - 1 /* minus header */; ++row_num)
+    for (int row_num = 1 /*header row*/ + 1 /*next row*/; row_num < tableProxy->get_row_num(); ++row_num)
     {
-        new_table = tableProxy->copy(row_num);
+        new_table = tableProxy->create_new_with(row_num);
         auto table_layouts = _get_table_layouts(context, new_table.get());
         auto table_grid = _get_table_grid(table_layouts, new_table->get_table()->get_col_min());
         double table_height = _get_table_height_from_grid(table_grid);
         if (table_height + BOX_OFFSET > (_page_height - _layout_newline_height)) // hit upper limit
         {
             // this slot is done
-            new_table = tableProxy->copy(row_num - 1); // todo: hmm, what if it will be just header?
+            new_table = tableProxy->create_new_with(row_num - 1); // todo: hmm, what if it will be just header?
             new_tables.push_back(new_table);
             new_table.reset();
             // start cycle again with reduced tabled
-            tableProxy->remove_first_rows(row_num -1);
-            row_num = 0; // will be incremented to 1
+            tableProxy->remove_first_rows(row_num - 1 - 1 /* skip header */);
+            row_num = 1; // will be incremented to 2
         }
     }
     if (new_table && new_table->get_row_num() > 1)
@@ -442,14 +530,98 @@ void CtPrint::_codebox_long_split(size_t idx, const Glib::RefPtr<Gtk::PrintConte
     for (size_t i = 0; i < result_pango.size(); ++i)
     {
         if (i == 0)
-            codeboxProxy->set_text_contenxt(result_pango[i]);
+            codeboxProxy->set_proxy_content(result_pango[i]);
         else
         {
             size_t index = idx+i;
             // add a newline
             print_data->text.insert(print_data->text.begin() + index, CtConst::CHAR_NEWLINE);
             // add a codebox
-            _widgets.insert(_widgets.begin() + index, std::shared_ptr<CtPrintCodeboxProxy>(new CtPrintCodeboxProxy(codeboxProxy->get_codebox(), result_pango[i])));
+            auto proxy = std::shared_ptr<CtPrintCodeboxProxy>(new CtPrintCodeboxProxy(codeboxProxy->get_codebox(), result_pango[i]));
+            _widgets.insert(_widgets.begin() + index, proxy);
         }
+    }
+}
+
+// Draw the CodeBox Box
+void CtPrint::_codebox_draw_box(Cairo::RefPtr<Cairo::Context> cairo_context, double x0, double y0, double codebox_width, double codebox_height)
+{
+    cairo_context->set_source_rgba(0, 0, 0, 0.3);
+    cairo_context->rectangle(x0, y0, codebox_width, codebox_height);
+    cairo_context->stroke();
+}
+
+// Draw the code inside of the Box
+void CtPrint::_codebox_draw_code(Cairo::RefPtr<Cairo::Context> cairo_context, Glib::RefPtr<Pango::Layout> codebox_layout, double x0, double y0)
+{
+    double y = y0;
+    cairo_context->set_source_rgb(0, 0, 0);
+    for (int layout_line_idx = 0; layout_line_idx < codebox_layout->get_line_count(); ++layout_line_idx)
+    {
+        auto layout_line = codebox_layout->get_line(layout_line_idx);
+        auto [line_width, line_height] = _layout_line_get_width_height(layout_line);
+        cairo_context->move_to(x0 + CtConst::GRID_SLIP_OFFSET, y + line_height);
+        y += line_height;
+        layout_line->show_in_cairo_context(cairo_context);
+    }
+}
+
+// Draw the Table Grid
+void CtPrint::_table_draw_grid(Cairo::RefPtr<Cairo::Context> cairo_context, const std::pair<std::vector<double>, std::vector<double>>& table_grid,
+                               double x0, double y0, double table_width, double table_height)
+{
+    double x = x0;
+    double y = y0;
+    cairo_context->set_source_rgba(0, 0, 0, 0.3);
+    // draw lines
+    cairo_context->move_to(x, y);
+    cairo_context->line_to(x + table_width, y);
+    for (auto& row_h: table_grid.first)
+    {
+        y += row_h + _table_line_thickness;
+        cairo_context->move_to(x, y);
+        cairo_context->line_to(x + table_width, y);
+    }
+    // draw columns
+    y = y0;
+    cairo_context->move_to(x, y);
+    cairo_context->line_to(x, y + table_height);
+    for (auto& col_w: table_grid.second)
+    {
+        x += col_w + _table_line_thickness;
+        cairo_context->move_to(x, y);
+        cairo_context->line_to(x, y + table_height);
+    }
+    cairo_context->stroke();
+}
+
+// Draw the text inside of the Table Cells
+void CtPrint::_table_draw_text(Cairo::RefPtr<Cairo::Context> cairo_context,
+                              const std::pair<std::vector<double>, std::vector<double>>& table_grid,
+                              const std::vector<std::vector<Glib::RefPtr<Pango::Layout>>>& table_layouts,
+                              double x0, double y0)
+{
+    cairo_context->set_source_rgb(0, 0, 0);
+    double y = y0;
+    for (size_t i = 0; i < table_grid.first.size(); ++i)
+    {
+        double row_h = table_grid.first[i];
+        double x = x0 + CtConst::GRID_SLIP_OFFSET;
+        for (size_t j = 0; j < table_grid.second.size(); ++j)
+        {
+            double col_w = table_grid.second[i];
+            auto layout_cell = table_layouts[i][j];
+            double local_y = y;
+            for (int layout_line_id = 0; layout_line_id < layout_cell->get_line_count(); ++layout_line_id)
+            {
+                auto layout_line = layout_cell->get_line(layout_line_id);
+                auto [line_width, line_height] = _layout_line_get_width_height(layout_line);
+                cairo_context->move_to(x, local_y + line_height);
+                local_y += line_height;
+                layout_line->show_in_cairo_context(cairo_context);
+            }
+            x += col_w + _table_line_thickness;
+        }
+        y += row_h + _table_line_thickness;
     }
 }
