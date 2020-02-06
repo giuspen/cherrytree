@@ -89,8 +89,8 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     _actions.push_back(CtAction{file_cat, "command_palette", "gtk-execute", _("Command Palette"), KB_CONTROL+KB_SHIFT+"P", _("Command Palette"), sigc::signal<void>() /* dad.export_to_pdf */});
     _actions.push_back(CtAction{file_cat, "exec_code", "gtk-execute", _("_Execute Code"), "F5", _("Execute Code"), sigc::signal<void>() /* dad.exec_code */});
     _actions.push_back(CtAction{file_cat, "open_cfg_folder", "gtk-directory", _("Open Preferences _Directory"), None, _("Open the Directory with Preferences Files"), sigc::signal<void>() /* dad.folder_cfg_open */});
-    _actions.push_back(CtAction{file_cat, "print_page_setup", "gtk-print", _("Pa_ge Setup"), None, _("Set up the Page for Printing"), sigc::signal<void>() /* dad.export_print_page_setup */});
-    _actions.push_back(CtAction{file_cat, "do_print", "gtk-print", _("_Print"), KB_CONTROL+"P", _("Print"), sigc::signal<void>() /* dad.export_print */});
+    _actions.push_back(CtAction{file_cat, "print_page_setup", "gtk-print", _("Pa_ge Setup"), None, _("Set up the Page for Printing"), sigc::mem_fun(*pActions, &CtActions::export_print_page_setup)});
+    _actions.push_back(CtAction{file_cat, "do_print", "gtk-print", _("_Print"), KB_CONTROL+"P", _("Print"), sigc::mem_fun(*pActions, &CtActions::export_print)});
     _actions.push_back(CtAction{file_cat, "quit_app", "quit-app", _("_Quit"), KB_CONTROL+"Q", _("Quit the Application"), sigc::mem_fun(*pApp, &CtApp::quit_application) /* dad.quit_application */});
     _actions.push_back(CtAction{file_cat, "exit_app", "quit-app", _("_Exit CherryTree"), KB_CONTROL+KB_SHIFT+"Q", _("Exit from CherryTree"), sigc::signal<void>() /* dad.quit_application_totally */});
     _actions.push_back(CtAction{file_cat, "preferences_dlg", "gtk-preferences", _("_Preferences"), KB_CONTROL+KB_ALT+"P", _("Preferences"), sigc::mem_fun(*pApp, &CtApp::dialog_preferences) });
@@ -195,11 +195,11 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     _actions.push_back(CtAction{view_cat, "toolbar_icons_size_m", "gtk-remove", _("_Decrease Toolbar Icons Size"), None, _("Decrease the Size of the Toolbar Icons"), sigc::mem_fun(*pActions, &CtActions::toolbar_icons_size_decrease)});
     _actions.push_back(CtAction{view_cat, "toggle_fullscreen", "gtk-fullscreen", _("_Full Screen On/Off"), "F11", _("Toggle Full Screen On/Off"), sigc::mem_fun(*pActions, &CtActions::fullscreen_toggle)});
     const char* export_cat = _("Export");
-    _actions.push_back(CtAction{export_cat, "export_pdf", "to_pdf", _("Export To _PDF"), None, _("Export To PDF"), sigc::signal<void>() /* dad.export_to_pdf */});
-    _actions.push_back(CtAction{export_cat, "export_html", "to_html", _("Export To _HTML"), None, _("Export To HTML"), sigc::signal<void>() /* dad.export_to_html */});
-    _actions.push_back(CtAction{export_cat, "export_txt_multiple", "to_txt", _("Export to Multiple Plain _Text Files"), None, _("Export to Multiple Plain Text Files"), sigc::signal<void>() /* dad.export_to_txt_multiple */});
-    _actions.push_back(CtAction{export_cat, "export_txt_single", "to_txt", _("Export to _Single Plain Text File"), None, _("Export to Single Plain Text File"), sigc::signal<void>() /* dad.export_to_txt_single */});
-    _actions.push_back(CtAction{export_cat, "export_ctd", "to_cherrytree", _("_Export To CherryTree Document"), None, _("Export To CherryTree Document"), sigc::signal<void>() /* dad.export_to_ctd */});
+    _actions.push_back(CtAction{export_cat, "export_pdf", "to_pdf", _("Export To _PDF"), None, _("Export To PDF"), sigc::mem_fun(*pActions, &CtActions::export_to_pdf)});
+    _actions.push_back(CtAction{export_cat, "export_html", "to_html", _("Export To _HTML"), None, _("Export To HTML"), sigc::mem_fun(*pActions, &CtActions::export_to_html)});
+    _actions.push_back(CtAction{export_cat, "export_txt_multiple", "to_txt", _("Export to Multiple Plain _Text Files"), None, _("Export to Multiple Plain Text Files"), sigc::mem_fun(*pActions, &CtActions::export_to_txt_multiple)});
+    _actions.push_back(CtAction{export_cat, "export_txt_single", "to_txt", _("Export to _Single Plain Text File"), None, _("Export to Single Plain Text File"), sigc::mem_fun(*pActions, &CtActions::export_to_txt_single)});
+    _actions.push_back(CtAction{export_cat, "export_ctd", "to_cherrytree", _("_Export To CherryTree Document"), None, _("Export To CherryTree Document"), sigc::mem_fun(*pActions, &CtActions::export_to_ctd)});
     const char* import_cat = _("Import");
     _actions.push_back(CtAction{import_cat, "import_cherrytree", "from_cherrytree", _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), sigc::signal<void>() /* dad.nodes_add_from_cherrytree_file */});
     _actions.push_back(CtAction{import_cat, "import_txt_file", "from_txt", _("From _Plain Text File"), None, _("Add Node from a Plain Text File to the Current Tree"), sigc::signal<void>() /* dad.nodes_add_from_plain_text_file */});

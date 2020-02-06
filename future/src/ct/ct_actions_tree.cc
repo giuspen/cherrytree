@@ -65,6 +65,18 @@ bool CtActions::_is_curr_node_not_syntax_highlighting_or_error(bool plain_text_o
     return false;
 }
 
+// Returns True if ok (there's a selection) or False and prompts error dialog
+bool CtActions::_is_there_text_selection_or_error()
+{
+    if (!_is_there_selected_node_or_error()) return false;
+    if (!_curr_buffer()->get_has_selection())
+    {
+        CtDialogs::error_dialog(_("No Text is Selected"), *_pCtMainWin);
+        return false;
+    }
+    return true;
+}
+
 // Put Selection Upon the achrored widget
 void CtActions::object_set_selection(CtAnchoredWidget* widget)
 {

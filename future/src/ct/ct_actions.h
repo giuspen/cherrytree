@@ -58,6 +58,10 @@ private:
 private:
     CtMainWin*   _pCtMainWin;
 
+private:
+    bool         _last_include_node_name{true};
+    bool         _last_new_node_page{false};
+    bool         _last_index_in_page{true};
 public:
     CtMainWin*   getCtMainWin() { return _pCtMainWin; }
 
@@ -70,6 +74,7 @@ public: // todo: fix naming
     bool          _is_tree_not_empty_or_error();
     bool          _is_curr_node_not_read_only_or_error();
     bool          _is_curr_node_not_syntax_highlighting_or_error(bool plain_text_ok = false);
+    bool          _is_there_text_selection_or_error();
 
 public:
     void object_set_selection(CtAnchoredWidget* widget);
@@ -308,4 +313,19 @@ public:
     void codebox_decrease_width();
     void codebox_increase_height();
     void codebox_decrease_height();
+
+private:
+    // helper for export actions
+    void _export_print(bool save_to_pdf, Glib::ustring auto_path, bool auto_overwrite);
+    Glib::ustring _get_pdf_filepath(Glib::ustring proposed_name);
+
+public:
+    // export actions
+    void export_print_page_setup();
+    void export_print();
+    void export_to_pdf();
+    void export_to_html();
+    void export_to_txt_multiple();
+    void export_to_txt_single();
+    void export_to_ctd();
 };

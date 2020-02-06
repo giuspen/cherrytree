@@ -204,7 +204,7 @@ void CtCodebox::set_width_height(int newWidth, int newHeight)
 {
     if (newWidth) _frameWidth = newWidth;
     if (newHeight) _frameHeight = newHeight;
-    apply_width_height(_pCtMainWin->get_ct_actions()->getCtMainWin()->get_text_view().get_allocation().get_width());
+    apply_width_height(_pCtMainWin->get_text_view().get_allocation().get_width());
 }
 
 void CtCodebox::set_highlight_brackets(const bool highlightBrackets)

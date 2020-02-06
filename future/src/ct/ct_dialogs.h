@@ -147,10 +147,19 @@ public:
 
 namespace CtDialogs {
 
+
 Gtk::TreeIter choose_item_dialog(Gtk::Window& parent,
                                  const Glib::ustring& title,
                                  Glib::RefPtr<CtChooseDialogListStore> model,
                                  const gchar* single_column_name = nullptr);
+
+// Dialog to select between the Selected Node/Selected Node + Subnodes/All Tree
+enum CtProcessNode { NONE, SELECTED_TEXT, CURRENT_NODE, CURRENT_NODE_AND_SUBNODES, ALL_TREE };
+CtProcessNode selnode_selnodeandsub_alltree_dialog(Gtk::Window& parent,
+                                                   bool also_selection,
+                                                   bool* last_include_node_name /*= nullptr*/,
+                                                   bool* last_new_node_page /*= nullptr*/,
+                                                   bool* last_index_in_page /*= nullptr*/);
 
 // Dialog to select a color, featuring a palette
 bool color_pick_dialog(CtMainWin* pCtMainWin,

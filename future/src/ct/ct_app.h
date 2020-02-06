@@ -31,6 +31,7 @@
 #include "ct_main_win.h"
 #include "ct_menu.h"
 #include "ct_actions.h"
+#include "ct_print.h"
 
 class CtMenu;
 class CtMainWin;
@@ -49,6 +50,7 @@ private:
     std::unique_ptr<CtActions> _uCtActions;
     std::unique_ptr<CtTmp> _uCtTmp;
     std::unique_ptr<CtMenu> _uCtMenu;
+    std::unique_ptr<CtPrint> _uCtPrint;
     Glib::RefPtr<Gtk::IconTheme> _rIcontheme;
     Glib::RefPtr<Gtk::TextTagTable> _rTextTagTable;
     Glib::RefPtr<Gtk::CssProvider> _rCssProvider;

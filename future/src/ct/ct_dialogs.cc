@@ -110,6 +110,76 @@ Gtk::TreeIter CtDialogs::choose_item_dialog(Gtk::Window& parent,
     return (Gtk::RESPONSE_ACCEPT == dialog.run() ? pElementsTreeview->get_selection()->get_selected() : Gtk::TreeIter());
 }
 
+// Dialog to select between the Selected Node/Selected Node + Subnodes/All Tree
+CtDialogs::CtProcessNode CtDialogs::selnode_selnodeandsub_alltree_dialog(Gtk::Window& parent,
+                                                                         bool also_selection,
+                                                                         bool* last_include_node_name,
+                                                                         bool* last_new_node_page,
+                                                                         bool* last_index_in_page)
+{
+    Gtk::Dialog dialog(_("Involved Nodes"),
+                       parent,
+                       Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    dialog.set_transient_for(parent);
+    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
+    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
+    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    //dialog.set_default_size(400, 300);
+
+    auto radiobutton_selection = Gtk::RadioButton(_("Selected Text Only"));
+    auto radiobutton_selnode = Gtk::RadioButton(_("Selected Node Only"));
+    auto radiobutton_selnodeandsub = Gtk::RadioButton(_("Selected Node and Subnodes"));
+    auto radiobutton_alltree = Gtk::RadioButton(_("All the Tree"));
+    radiobutton_selnodeandsub.join_group(radiobutton_selnode);
+    radiobutton_alltree.join_group(radiobutton_selnode);
+
+    auto content_area = dialog.get_content_area();
+    if (also_selection)
+    {
+        radiobutton_selection.join_group(radiobutton_selnode);
+        content_area->pack_start(radiobutton_selection);
+    }
+    content_area->pack_start(radiobutton_selnode);
+    content_area->pack_start(radiobutton_selnodeandsub);
+    content_area->pack_start(radiobutton_alltree);
+
+    auto separator_item_1 = Gtk::HSeparator();
+    auto checkbutton_node_name = Gtk::CheckButton(_("Include Node Name"));
+    if (last_include_node_name != nullptr)
+    {
+        checkbutton_node_name.set_active(*last_include_node_name);
+        content_area->pack_start(separator_item_1);
+        content_area->pack_start(checkbutton_node_name);
+    }
+    auto separator_item_2 = Gtk::HSeparator();
+    auto checkbutton_index_in_page = Gtk::CheckButton(_("Links Tree in Every Page"));
+    if (last_index_in_page != nullptr)
+    {
+        checkbutton_index_in_page.set_active(*last_index_in_page);
+        content_area->pack_start(separator_item_2);
+        content_area->pack_start(checkbutton_index_in_page);
+    }
+    auto checkbutton_new_node_page = Gtk::CheckButton(_("New Node in New Page"));
+    if (last_new_node_page != nullptr)
+    {
+        checkbutton_new_node_page.set_active(*last_new_node_page);
+        content_area->pack_start(checkbutton_new_node_page);
+    }
+    content_area->show_all();
+    int response = dialog.run();
+
+    if (last_include_node_name != nullptr) *last_include_node_name = checkbutton_node_name.get_active();
+    if (last_index_in_page != nullptr) *last_index_in_page = checkbutton_index_in_page.get_active();
+    if (last_new_node_page != nullptr) *last_new_node_page = checkbutton_new_node_page.get_active();
+
+    if (response != Gtk::RESPONSE_ACCEPT)            return CtDialogs::CtProcessNode::NONE;
+    else if (radiobutton_selnode.get_active())       return CtDialogs::CtProcessNode::CURRENT_NODE;
+    else if (radiobutton_selnodeandsub.get_active()) return CtDialogs::CtProcessNode::CURRENT_NODE_AND_SUBNODES;
+    else if (radiobutton_alltree.get_active())       return CtDialogs::CtProcessNode::ALL_TREE;
+    else                                             return CtDialogs::CtProcessNode::SELECTED_TEXT;
+}
+
 // Dialog to select a color, featuring a palette
 bool CtDialogs::color_pick_dialog(CtMainWin* pCtMainWin,
                                   Gdk::RGBA& color)

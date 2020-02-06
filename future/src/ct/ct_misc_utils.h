@@ -248,8 +248,8 @@ bool exists(const VEC& v, const VAL& val)
 /**
  * Extend a vector with elements, without destroying source one.
  */
-template<typename VEC>
-void vector_extend(std::vector<VEC>& v, const std::vector<VEC>& ext)
+template<typename VEC, typename CONTAINER>
+void vector_extend(std::vector<VEC>& v, const CONTAINER& ext)
 {
     v.reserve(v.size() + ext.size());
     v.insert(std::end(v), std::begin(ext), std::end(ext));
