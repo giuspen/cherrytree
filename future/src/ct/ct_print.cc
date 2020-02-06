@@ -616,7 +616,7 @@ void CtPrint::_table_draw_text(Cairo::RefPtr<Cairo::Context> cairo_context,
         double x = x0 + CtConst::GRID_SLIP_OFFSET;
         for (size_t j = 0; j < table_grid.second.size(); ++j)
         {
-            double col_w = table_grid.second[i];
+            double col_w = table_grid.second[j];
             auto layout_cell = table_layouts[i][j];
             double local_y = y;
             for (int layout_line_id = 0; layout_line_id < layout_cell->get_line_count(); ++layout_line_id)
