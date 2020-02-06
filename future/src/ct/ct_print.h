@@ -24,28 +24,28 @@
 #include "ct_main_win.h"
 #include <iterator>
 
-// helper to split tables and codebox
+// base class for proxy
 class CtPrintWidgetProxy
 {
 public:
     virtual ~CtPrintWidgetProxy() {}
 };
 
-// helper to keep resized pixbuf
+// proxy to keep resized pixbuf
 class CtPrintImageProxy : public CtPrintWidgetProxy
 {
 public:
     CtPrintImageProxy(CtImage* image) : _image(image) {}
     CtImage*                  get_image()  { return _image; }
-    Glib::RefPtr<Gdk::Pixbuf> get_pixbuf() { return _pixbuf ? _pixbuf : _image->get_pixbuf(); }
-    void                      set_pixbuf(Glib::RefPtr<Gdk::Pixbuf> pixbuf) { _pixbuf = pixbuf; }
+    Glib::RefPtr<Gdk::Pixbuf> get_pixbuf() { return _proxy_pixbuf ? _proxy_pixbuf : _image->get_pixbuf(); }
+    void                      set_pixbuf(Glib::RefPtr<Gdk::Pixbuf> pixbuf) { _proxy_pixbuf = pixbuf; }
 
 private:
-    CtImage* _image;
-    Glib::RefPtr<Gdk::Pixbuf> _pixbuf;
+    CtImage*                  _image;
+    Glib::RefPtr<Gdk::Pixbuf> _proxy_pixbuf;
 };
 
-// helper to split tables
+// proxy to split tables
 class CtPrintTableProxy : public CtPrintWidgetProxy
 {
 public:
@@ -57,7 +57,7 @@ public:
     CtTable* get_table()                    { return _table; }
     int      get_row_num()                  { return _rowNum; }
     int      get_col_num()                  { return (int)_table->get_table_matrix().begin()->size(); }
-    // todo: it can works slow because of moving iterators every time; to fix: replace list by vector or use cache
+    // todo: it can work slow because of moving iterators every time; to fix: replace list by vector or use cache
     Glib::ustring get_cell(int row, int col) {
         // 0 row is always header row, 1 row starts from _startRow
         row = (row == 0) ? 0 : row - 1 + _startRow;
@@ -70,12 +70,12 @@ public:
 
 private:
     CtTable* _table;
-    int _startRow;  // never starts from header row (because proxy copies have the same header)
-    int _rowNum;    // includes header row
+    int      _startRow;  // never starts from header row (because proxies for the same table have the same header)
+    int      _rowNum;    // includes header row
 
 };
 
-// helper to split codebox
+// proxy to split codebox
 class CtPrintCodeboxProxy : public CtPrintWidgetProxy
 {
 public:
@@ -87,15 +87,15 @@ public:
     const Glib::ustring get_text_content()     { return _use_proxy_text ? _proxy_text : pango_from_code_buffer(_codebox); }
     void                set_proxy_content(const Glib::ustring& text) { _proxy_text = text; _use_proxy_text = true; }
 
-    Glib::ustring       pango_from_code_buffer(CtCodebox* codebox); // cannot use CtExport2Pango in .h, so created helper function
+    Glib::ustring       pango_from_code_buffer(CtCodebox* codebox); // couldn't use CtExport2Pango in .h, so created helper function
 
 private:
-    CtCodebox* _codebox;
+    CtCodebox*    _codebox;
     Glib::ustring _proxy_text;
     bool          _use_proxy_text;
 };
 
-// helper for nullptr and others
+// proxy for nullptr and others
 class CtPrintSomeProxy : public CtPrintWidgetProxy
 {
 public:
@@ -117,6 +117,8 @@ struct CtPrintData
     Glib::ustring                                   warning;
 };
 
+
+
 class CtPrint
 {
 public:
@@ -137,7 +139,7 @@ private:
     void _on_draw_page_text(const Glib::RefPtr<Gtk::PrintContext>& context, int page_nr, CtPrintData* print_data);
 
 private:
-    std::pair<double, double>   _layout_line_get_width_height(Glib::RefPtr<const Pango::LayoutLine> line);
+    Cairo::Rectangle            _layout_line_get_width_height(Glib::RefPtr<const Pango::LayoutLine> line);
     double                      _get_height_from_layout(Glib::RefPtr<Pango::Layout> layout);
     double                      _get_width_from_layout(Glib::RefPtr<Pango::Layout> layout);
     Glib::RefPtr<Pango::Layout> _get_codebox_layout(const Glib::RefPtr<Gtk::PrintContext>& context, CtPrintCodeboxProxy* codeboxProxy);

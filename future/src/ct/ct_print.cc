@@ -100,9 +100,8 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
     layout_newline->set_font_description(_pango_font);
     layout_newline->set_width(int(_page_width * Pango::SCALE));
     layout_newline->set_markup(CtConst::CHAR_NEWLINE);
-    double line_width;
-    std::tie(line_width, _layout_newline_height) = _layout_line_get_width_height(layout_newline->get_line(0));
-    int codebox_height, table_height;
+    _layout_newline_height = _layout_line_get_width_height(layout_newline->get_line(0)).height;
+    int codebox_height, table_height; // to keep data for current slot from previous slot
 
     while (1)
     {
@@ -146,7 +145,7 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
             while (layout_line_idx < print_data->layout_num_lines[i])
             {
                 auto layout_line = layout->get_line(layout_line_idx);
-                auto [line_width, line_height] = _layout_line_get_width_height(layout_line);
+                auto line_height = _layout_line_get_width_height(layout_line).height;
                 // process the line
                 if (line_height > inline_pending_height) inline_pending_height = line_height;
                 if (layout_line_idx < print_data->layout_num_lines[i] - 1 || print_data->layout_is_new_line[i])
@@ -157,7 +156,7 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
                         curr_y = 0;
                         if (inline_pending_height > _page_height)
                         {
-                            CtPrintCodeboxProxy* codebox= dynamic_cast<CtPrintCodeboxProxy*>(_widgets[i-1].get());
+                            CtPrintCodeboxProxy* codebox = dynamic_cast<CtPrintCodeboxProxy*>(_widgets[i-1].get());
                             CtPrintTableProxy* table = dynamic_cast<CtPrintTableProxy*>(_widgets[i-1].get());
                             if (codebox && codebox_height > _page_height)
                             {
@@ -275,7 +274,7 @@ void CtPrint::_on_draw_page_text(const Glib::RefPtr<Gtk::PrintContext>& context,
         while (layout_line_idx < print_data->layout_num_lines[i])
         {
             auto layout_line = print_data->layout[i]->get_line(layout_line_idx);
-            auto [line_width, line_height] = _layout_line_get_width_height(layout_line);
+            double line_width = _layout_line_get_width_height(layout_line).width;
             // process the line
             if (line_width > 0)
             {
@@ -335,11 +334,14 @@ void CtPrint::_on_draw_page_text(const Glib::RefPtr<Gtk::PrintContext>& context,
 }
 
 // Returns Width and Height of a layout line
-std::pair<double, double> CtPrint::_layout_line_get_width_height(Glib::RefPtr<const Pango::LayoutLine> line)
+Cairo::Rectangle CtPrint::_layout_line_get_width_height(Glib::RefPtr<const Pango::LayoutLine> line)
 {
     Pango::Rectangle ink_rect, logical_rect;
     line->get_extents(ink_rect, logical_rect);
-    return std::make_pair(logical_rect.get_width() / 1024.0, logical_rect.get_height() / 1024.0);
+    Cairo::Rectangle rect;
+    rect.width = logical_rect.get_width() / Pango::SCALE;
+    rect.height = logical_rect.get_height() / Pango::SCALE;
+    return rect;
 }
 
 // Returns the Height given the Layout
@@ -349,7 +351,7 @@ double CtPrint::_get_height_from_layout(Glib::RefPtr<Pango::Layout> layout)
     for (int layout_line_idx = 0; layout_line_idx < layout->get_line_count(); ++layout_line_idx)
     {
         Glib::RefPtr<const Pango::LayoutLine> layout_line = layout->get_line(layout_line_idx);
-        auto [line_width, line_height] = _layout_line_get_width_height(layout_line);
+        double line_height = _layout_line_get_width_height(layout_line).height;
         height += line_height;
     }
 
@@ -363,7 +365,7 @@ double CtPrint::_get_width_from_layout(Glib::RefPtr<Pango::Layout> layout)
     for (int layout_line_idx = 0; layout_line_idx < layout->get_line_count(); ++layout_line_idx)
     {
         Glib::RefPtr<const Pango::LayoutLine> layout_line = layout->get_line(layout_line_idx);
-        auto [line_width, line_height] = _layout_line_get_width_height(layout_line);
+        double line_width = _layout_line_get_width_height(layout_line).width;
         if (line_width > width)
             width = line_width;
     }
@@ -422,9 +424,9 @@ std::pair<std::vector<double>, std::vector<double>> CtPrint::_get_table_grid(std
             for (int layout_line_idx = 0; layout_line_idx < layout_cell->get_line_count(); ++ layout_line_idx)
             {
                 auto layout_line = layout_cell->get_line(layout_line_idx);
-                auto [line_width, line_height] = _layout_line_get_width_height(layout_line);
-                cell_height += line_height;
-                if (cols_w[j] < line_width) cols_w[j] = line_width;
+                auto line_size = _layout_line_get_width_height(layout_line);
+                cell_height += line_size.height;
+                if (cols_w[j] < line_size.width) cols_w[j] = line_size.width;
             }
             if (rows_h[i] < cell_height) rows_h[i] = cell_height;
         }
@@ -566,7 +568,7 @@ void CtPrint::_codebox_draw_code(Cairo::RefPtr<Cairo::Context> cairo_context, Gl
     for (int layout_line_idx = 0; layout_line_idx < codebox_layout->get_line_count(); ++layout_line_idx)
     {
         auto layout_line = codebox_layout->get_line(layout_line_idx);
-        auto [line_width, line_height] = _layout_line_get_width_height(layout_line);
+        double line_height = _layout_line_get_width_height(layout_line).height;
         cairo_context->move_to(x0 + CtConst::GRID_SLIP_OFFSET, y + line_height);
         y += line_height;
         layout_line->show_in_cairo_context(cairo_context);
@@ -622,7 +624,7 @@ void CtPrint::_table_draw_text(Cairo::RefPtr<Cairo::Context> cairo_context,
             for (int layout_line_id = 0; layout_line_id < layout_cell->get_line_count(); ++layout_line_id)
             {
                 auto layout_line = layout_cell->get_line(layout_line_id);
-                auto [line_width, line_height] = _layout_line_get_width_height(layout_line);
+                double line_height = _layout_line_get_width_height(layout_line).height;
                 cairo_context->move_to(x, local_y + line_height);
                 local_y += line_height;
                 layout_line->show_in_cairo_context(cairo_context);
