@@ -46,8 +46,8 @@ class CtExport2Pango
 {
 public:
     Glib::ustring pango_get_from_code_buffer(Glib::RefPtr<Gsv::Buffer> code_buffer, int sel_start, int sel_end);
-    void pango_get_from_treestore_node(CtTreeIter node_iter, int sel_start, int sel_end,
-                                       std::vector<Glib::ustring>& out_slots, std::list<CtAnchoredWidget*>& out_widgets);
+    void pango_get_from_treestore_node(CtTreeIter node_iter, int sel_start, int sel_end, std::vector<Glib::ustring>& out_slots,
+                                       bool excude_anchors, std::list<CtAnchoredWidget*>& out_widgets);
 private:
     Glib::ustring _pango_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer);
     Glib::ustring _pango_text_serialize(Gtk::TextIter start_iter, Gtk::TextIter end_iter, const std::map<const gchar*, std::string>& curr_attributes);

@@ -30,7 +30,7 @@ void CtExportPrint::node_export_print(const Glib::ustring& pdf_filepath, CtTreeI
     Glib::ustring text_font;
     if (tree_iter.get_node_is_rich_text())
     {
-        CtExport2Pango().pango_get_from_treestore_node(tree_iter, sel_start, sel_end, pango_slots, widgets);
+        CtExport2Pango().pango_get_from_treestore_node(tree_iter, sel_start, sel_end, pango_slots, true /*exclude anchors*/, widgets);
         text_font = _pCtMainWin->get_ct_config()->rtFont;
     }
     else
@@ -78,7 +78,7 @@ void CtExportPrint::_nodes_all_export_print_iter(CtTreeIter tree_iter, bool incl
     std::list<CtAnchoredWidget*> node_widgets;
     if (tree_iter.get_node_is_rich_text())
     {
-        CtExport2Pango().pango_get_from_treestore_node(tree_iter, -1, -1, node_pango_slots, node_widgets);
+        CtExport2Pango().pango_get_from_treestore_node(tree_iter, -1, -1, node_pango_slots, true /*exclude anchors*/, node_widgets);
         text_font =_pCtMainWin->get_ct_config()->rtFont; // text font for all (also eventual code nodes)
     }
     else
@@ -184,11 +184,13 @@ Glib::ustring CtExport2Pango::pango_get_from_code_buffer(Glib::RefPtr<Gsv::Buffe
 }
 
 // Given a treestore iter returns the Pango rich text
-void CtExport2Pango::pango_get_from_treestore_node(CtTreeIter node_iter, int sel_start, int sel_end,
-                                                   std::vector<Glib::ustring>& out_slots, std::list<CtAnchoredWidget*>& out_widgets)
+void CtExport2Pango::pango_get_from_treestore_node(CtTreeIter node_iter, int sel_start, int sel_end, std::vector<Glib::ustring>& out_slots,
+                                                   bool exclude_anchors, std::list<CtAnchoredWidget*>& out_widgets)
 {
     auto curr_buffer = node_iter.get_node_text_buffer();
     out_widgets = node_iter.get_embedded_pixbufs_tables_codeboxes(std::make_pair(sel_start, sel_end));
+    if (exclude_anchors)
+        out_widgets.remove_if([](CtAnchoredWidget* widget) { return dynamic_cast<CtImageAnchor*>(widget);});
     out_slots.clear();
     int start_offset = sel_start < 1 ? 0 : sel_start;
     for (auto widget: out_widgets)
