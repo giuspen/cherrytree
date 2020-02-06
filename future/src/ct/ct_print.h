@@ -84,8 +84,10 @@ public:
     CtCodebox*          get_codebox()          { return _codebox; }
     bool                get_width_in_pixels()  { return _codebox->get_width_in_pixels(); }
     int                 get_frame_width()      { return _codebox->get_frame_width(); }
-    const Glib::ustring get_text_content()     { return _use_proxy_text ? _proxy_text : _codebox->get_text_content(); }
+    const Glib::ustring get_text_content()     { return _use_proxy_text ? _proxy_text : pango_from_code_buffer(_codebox); }
     void                set_proxy_content(const Glib::ustring& text) { _proxy_text = text; _use_proxy_text = true; }
+
+    Glib::ustring       pango_from_code_buffer(CtCodebox* codebox); // cannot use CtExport2Pango in .h, so created helper function
 
 private:
     CtCodebox* _codebox;

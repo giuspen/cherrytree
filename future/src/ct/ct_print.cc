@@ -21,6 +21,9 @@
 
 #include "ct_print.h"
 #include "ct_dialogs.h"
+#include "ct_export.h"
+
+Glib::ustring CtPrintCodeboxProxy::pango_from_code_buffer(CtCodebox* codebox) { return CtExport2Pango().pango_get_from_code_buffer(codebox->get_buffer(), -1, -1); }
 
 CtPrint::CtPrint()
 {
