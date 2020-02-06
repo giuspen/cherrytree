@@ -29,6 +29,7 @@ CtPrint::CtPrint()
 {
     _pPrintSettings = Gtk::PrintSettings::create();
     _pPageSetup = Gtk::PageSetup::create();
+    _pPageSetup->set_paper_size(Gtk::PaperSize("A4"));
 }
 
 void CtPrint::run_page_setup_dialog(Gtk::Window* pWin)
@@ -41,6 +42,7 @@ void CtPrint::print_text(CtMainWin* pCtMainWin, const Glib::ustring& pdf_filepat
                          const std::vector<Glib::ustring>& pango_text, const Glib::ustring& text_font, const Glib::ustring& code_font,
                          const std::list<CtAnchoredWidget*>& widgets, int text_window_width)
 {
+    _pCtMainWin = pCtMainWin;
     _pango_font = Pango::FontDescription(text_font);
     _codebox_font = Pango::FontDescription(code_font);
     _text_window_width = text_window_width;
