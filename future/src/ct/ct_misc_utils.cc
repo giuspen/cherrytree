@@ -28,6 +28,7 @@
 #include <ctime>
 #include <regex>
 #include <glib/gstdio.h> // to get stats
+#include <fstream>
 
 CtDocType CtMiscUtil::get_doc_type(const std::string& fileName)
 {
@@ -680,6 +681,13 @@ std::string CtFileSystem::get_proper_platform_filepath(std::string filepath)
     else
         filepath = str::replace(filepath, CtConst::CHAR_BSLASH, CtConst::CHAR_SLASH);
     return filepath;
+}
+
+void CtFileSystem::copy_file(Glib::ustring from_file, Glib::ustring to_file)
+{
+    std::ifstream  src(from_file, std::ios::binary);
+    std::ofstream  dst(to_file,   std::ios::binary);
+    dst << src.rdbuf();
 }
 
 std::string CtFileSystem::abspath(const std::string& path)

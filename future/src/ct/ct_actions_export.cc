@@ -1,4 +1,4 @@
-/*
+﻿/*
  * ct_actions_export.cc
  *
  * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
@@ -21,6 +21,7 @@
 
 #include "ct_actions.h"
 #include "ct_export.h"
+#include "ct_export2html.h"
 
 // Print Page Setup Operations
 void CtActions::export_print_page_setup()
@@ -126,4 +127,48 @@ Glib::ustring CtActions::_get_pdf_filepath(Glib::ustring proposed_name)
         _pCtMainWin->get_ct_config()->pickDirExport = Glib::path_get_dirname(filename);
     }
     return filename;
+}
+
+// Export to HTML
+void CtActions::_export_to_html(Glib::ustring auto_path, bool auto_overwrite)
+{
+    if (!_is_there_selected_node_or_error()) return;
+    auto export_type = auto_path != "" ? CtDialogs::CtProcessNode::ALL_TREE : CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, true, &_last_include_node_name, &_last_new_node_page, nullptr);
+    if (export_type == CtDialogs::CtProcessNode::NONE) return;
+
+    if (export_type == CtDialogs::CtProcessNode::CURRENT_NODE)
+    {
+        Glib::ustring folder_name = CtMiscUtil::get_node_hierarchical_name(_pCtMainWin->curr_tree_iter());
+        CtExport2Html(_pCtMainWin).node_export_to_html(folder_name, _pCtMainWin->curr_tree_iter(),
+                                                       _last_index_in_page, _last_include_node_name, false, -1, -1);
+    }
+    else if (export_type == CtDialogs::CtProcessNode::CURRENT_NODE_AND_SUBNODES)
+    {
+        Glib::ustring folder_name = CtMiscUtil::get_node_hierarchical_name(_pCtMainWin->curr_tree_iter());
+        //CtExport2Html().nodes_all_export_to_html(folder_name, _pCtMainWin->curr_tree_iter());
+        // todo:
+        //if self.filetype in ["b", "x"] and self.curr_tree_iter:
+        //  self.state_machine.update_state()
+        //  self.objects_buffer_refresh()
+    }
+    else if (export_type == CtDialogs::CtProcessNode::ALL_TREE)
+    {
+        Glib::ustring folder_name = _pCtMainWin->get_curr_doc_file_name();
+        Glib::ustring folder_path = auto_path;
+        //CtExport2Html().nodes_all_export_to_html(folder_name, folder_path);
+        // todo:
+        //if self.filetype in ["b", "x"] and self.curr_tree_iter:
+        //    self.state_machine.update_state()
+        //    self.objects_buffer_refresh()
+    }
+    else if (export_type == CtDialogs::CtProcessNode::SELECTED_TEXT)
+    {
+        if (!_is_there_text_selection_or_error()) return;
+        Gtk::TextIter iter_start, iter_end;
+        _curr_buffer()->get_selection_bounds(iter_start, iter_end);
+
+        Glib::ustring folder_name = CtMiscUtil::get_node_hierarchical_name(_pCtMainWin->curr_tree_iter());
+        CtExport2Html(_pCtMainWin).node_export_to_html(folder_name, _pCtMainWin->curr_tree_iter(),
+                                                       _last_index_in_page, _last_include_node_name, false, iter_start.get_offset(), iter_end.get_offset());
+    }
 }
