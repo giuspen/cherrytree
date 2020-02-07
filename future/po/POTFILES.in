@@ -23,4 +23,7 @@ src/ct/ct_actions_view.cc
 src/ct/ct_actions_format.cc
 src/ct/ct_actions_edit.cc
 src/ct/ct_actions_others.cc
+src/ct/ct_actions_export.cc
+src/ct/ct_print.cc
+src/ct/ct_export2html.cc
 src/fmt/format.h
