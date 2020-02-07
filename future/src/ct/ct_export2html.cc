@@ -52,9 +52,9 @@ bool CtExport2Html::prepare_html_folder(Glib::ustring dir_place, Glib::ustring n
     Glib::ustring styles_css_filepath = Glib::build_filename(config_dir, "styles.css");
     if (!Glib::file_test(styles_css_filepath, Glib::FILE_TEST_IS_REGULAR))
     {
-        throw "work in progress"; // todo: CtFileSystem::copy_file(Glib::build_filename(CtConst::GLADE_PATH, "styles.css"), styles_css_filepath);
+        throw "put css file into .config folder (or export by pygtk version)"; // todo: CtFileSystem::copy_file(Glib::build_filename(CtConst::GLADE_PATH, "styles.css"), styles_css_filepath);
     }
-    CtFileSystem::copy_file(styles_css_filepath, _export_dir);
+    CtFileSystem::copy_file(styles_css_filepath, Glib::build_filename(_export_dir, "styles.css"));
 
     return true;
 }
@@ -113,7 +113,7 @@ void CtExport2Html::nodes_all_export_to_html(bool all_tree, const CtExportOption
 
     // create tree links text
     Glib::ustring tree_links_text = "<div class=\"tree\">\n";
-    tree_links_text += "<p><strong>Index</strong></p>\n";
+    tree_links_text += "<p><strong>Index</strong></p>";
     CtTreeIter tree_iter = all_tree ? _pCtMainWin->curr_tree_store().get_ct_iter_first() : _pCtMainWin->curr_tree_iter();
     for (;tree_iter; ++tree_iter)
     {
@@ -503,6 +503,10 @@ Glib::ustring CtExport2Html::_html_text_serialize(Gtk::TextIter start_iter, Gtk:
 Glib::ustring CtExport2Html::_get_href_from_link_prop_val(Glib::ustring link_prop_val)
 {
     // todo: I saw the same function before, we need to join them
+
+    if (link_prop_val == "")
+        return "";
+
     Glib::ustring href = "";
     auto vec = str::split(link_prop_val, " ");
     if (vec[0] == CtConst::LINK_TYPE_WEBS)
@@ -568,16 +572,16 @@ void CtExport2Html::_tree_links_text_iter(CtTreeIter tree_iter, Glib::ustring& t
     Glib::ustring href = _get_html_filename(tree_iter);
     Glib::ustring tabs = str::repeat("  ", tree_count_level);
     if (tree_count_level == 1)
-        tree_links_text += tabs + "<p><a href=\"" + href + "\">" + tree_iter.get_node_name() + "</a></p>\n";
+        tree_links_text += tabs + "<p><a href=\"" + href + "\">" + tree_iter.get_node_name() + "</a></p>";
     else
-        tree_links_text += tabs + "<li><a href=\"" + href + "\">" + tree_iter.get_node_name() + "</a></li>\n";
+        tree_links_text += tabs + "<li><a href=\"" + href + "\">" + tree_iter.get_node_name() + "</a></li>";
 
     if (!tree_iter->children().empty())
     {
-        tree_links_text += tabs + "<ol>\n";
+        tree_links_text += tabs + "<ol>";
         for (auto& child: tree_iter->children())
             _tree_links_text_iter(_pCtMainWin->curr_tree_store().to_ct_tree_iter(child), tree_links_text, tree_count_level + 1);
-        tree_links_text += tabs + "</ol>\n";
+        tree_links_text += tabs + "</ol>";
     }
 }
 

@@ -41,7 +41,7 @@ void CtActions::export_to_pdf()
 
 void CtActions::export_to_html()
 {
-
+    _export_to_html("", false);
 }
 
 void CtActions::export_to_txt_multiple()
