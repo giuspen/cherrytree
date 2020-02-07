@@ -23,7 +23,7 @@
 #include "ct_dialogs.h"
 
 
-void CtExportPrint::node_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, bool include_node_name, int sel_start, int sel_end)
+void CtExportPrint::node_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options, int sel_start, int sel_end)
 {
     std::vector<Glib::ustring> pango_slots;
     std::list<CtAnchoredWidget*> widgets;
@@ -38,39 +38,39 @@ void CtExportPrint::node_export_print(const Glib::ustring& pdf_filepath, CtTreeI
         pango_slots.push_back(CtExport2Pango().pango_get_from_code_buffer(tree_iter.get_node_text_buffer(), sel_start, sel_end));
         text_font = tree_iter.get_node_syntax_highlighting() != CtConst::PLAIN_TEXT_ID ? _pCtMainWin->get_ct_config()->codeFont : _pCtMainWin->get_ct_config()->ptFont;
     }
-    if (include_node_name)
+    if (options.include_node_name)
         _add_node_name(tree_iter.get_node_name(), pango_slots);
 
     _pCtMainWin->get_ct_print().print_text(_pCtMainWin, pdf_filepath, pango_slots, text_font, _pCtMainWin->get_ct_config()->codeFont,
                                            widgets, _pCtMainWin->get_text_view().get_allocation().get_width());
 }
 
-void CtExportPrint::node_and_subnodes_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, bool include_node_name, bool new_node_in_new_page)
+void CtExportPrint::node_and_subnodes_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options)
 {
     std::vector<Glib::ustring> tree_pango_slots;
     std::list<CtAnchoredWidget*> tree_widgets;
     Glib::ustring text_font = _pCtMainWin->get_ct_config()->codeFont;
-    _nodes_all_export_print_iter(tree_iter, include_node_name, new_node_in_new_page, tree_pango_slots, tree_widgets, text_font);
+    _nodes_all_export_print_iter(tree_iter, options, tree_pango_slots, tree_widgets, text_font);
 
     _pCtMainWin->get_ct_print().print_text(_pCtMainWin, pdf_filepath, tree_pango_slots, text_font, _pCtMainWin->get_ct_config()->codeFont,
                                            tree_widgets, _pCtMainWin->get_text_view().get_allocation().get_width());
 }
 
-void CtExportPrint::tree_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, bool include_node_name, bool new_node_in_new_page)
+void CtExportPrint::tree_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options)
 {
     std::vector<Glib::ustring> tree_pango_slots;
     std::list<CtAnchoredWidget*> tree_widgets;
     Glib::ustring text_font = _pCtMainWin->get_ct_config()->codeFont;
     while (tree_iter)
     {
-        _nodes_all_export_print_iter(tree_iter, include_node_name, new_node_in_new_page, tree_pango_slots, tree_widgets, text_font);
+        _nodes_all_export_print_iter(tree_iter, options, tree_pango_slots, tree_widgets, text_font);
         ++tree_iter;
     }
     _pCtMainWin->get_ct_print().print_text(_pCtMainWin, pdf_filepath, tree_pango_slots, text_font, _pCtMainWin->get_ct_config()->codeFont,
                                            tree_widgets, _pCtMainWin->get_text_view().get_allocation().get_width());
 }
 
-void CtExportPrint::_nodes_all_export_print_iter(CtTreeIter tree_iter, bool include_node_name, bool new_node_in_new_page,
+void CtExportPrint::_nodes_all_export_print_iter(CtTreeIter tree_iter, const CtExportOptions& options,
                                                  std::vector<Glib::ustring>& tree_pango_slots, std::list<CtAnchoredWidget*>& tree_widgets, Glib::ustring& text_font)
 {
     // todo: no need? self.dad.get_textbuffer_from_tree_iter(tree_iter)
@@ -85,13 +85,13 @@ void CtExportPrint::_nodes_all_export_print_iter(CtTreeIter tree_iter, bool incl
     {
         node_pango_slots.push_back(CtExport2Pango().pango_get_from_code_buffer(tree_iter.get_node_text_buffer(), -1, -1));
     }
-    if (include_node_name)
+    if (options.include_node_name)
         _add_node_name(tree_iter.get_node_name(), node_pango_slots);
     if (tree_pango_slots.empty())
         tree_pango_slots = node_pango_slots;
     else
     {
-        if (new_node_in_new_page)
+        if (options.new_node_page)
         {
             node_pango_slots[0] = CtConst::CHAR_NEWPAGE + CtConst::CHAR_NEWPAGE + node_pango_slots[0];
             vec::vector_extend(tree_pango_slots, node_pango_slots);
@@ -109,8 +109,7 @@ void CtExportPrint::_nodes_all_export_print_iter(CtTreeIter tree_iter, bool incl
     }
     tree_widgets.insert(std::end(tree_widgets), std::begin(node_widgets), std::end(node_widgets));
     for (auto iter: tree_iter->children())
-        _nodes_all_export_print_iter(_pCtMainWin->curr_tree_store().to_ct_tree_iter(iter), include_node_name, new_node_in_new_page,
-                                     tree_pango_slots, tree_widgets, text_font);
+        _nodes_all_export_print_iter(_pCtMainWin->curr_tree_store().to_ct_tree_iter(iter), options, tree_pango_slots, tree_widgets, text_font);
 }
 
 // Add Node Name to Pango Text Vector

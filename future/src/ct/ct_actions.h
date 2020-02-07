@@ -59,9 +59,8 @@ private:
     CtMainWin*   _pCtMainWin;
 
 private:
-    bool         _last_include_node_name{true};
-    bool         _last_new_node_page{false};
-    bool         _last_index_in_page{true};
+    CtExportOptions _export_options;
+
 public:
     CtMainWin*   getCtMainWin() { return _pCtMainWin; }
 

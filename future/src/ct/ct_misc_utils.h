@@ -28,6 +28,7 @@
 #include "ct_treestore.h"
 #include "ct_types.h"
 #include "src/fmt/fmt.h"
+#include "src/fmt/ostream.h" // to support Glib::ustring formatting
 #include <type_traits>
 
 template<class F> auto scope_guard(F&& f) {
@@ -224,6 +225,8 @@ void join_numbers(const Vector& in_numbers_vec, String& outString, const gchar* 
         outString += std::to_string(element);
     }
 }
+
+Glib::ustring repeat(const Glib::ustring& input, int num);
 
 } // namespace str
 

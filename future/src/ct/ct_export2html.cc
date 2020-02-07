@@ -30,18 +30,42 @@ CtExport2Html::CtExport2Html(CtMainWin* pCtMainWin)
 {
 }
 
-// Export a Node To HTML
-void CtExport2Html::node_export_to_html(const Glib::ustring& folder_name, CtTreeIter tree_iter,
-                                        bool index_in_page, bool include_node_name, bool export_overwrite, int sel_start, int sel_end)
+//Prepare the website folder
+bool CtExport2Html::prepare_html_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool export_overwrite)
 {
-    Glib::ustring new_path, images_dir, embed_dir;
-    if (!_prepare_html_folder("", folder_name, export_overwrite, new_path, images_dir, embed_dir))
-        return;
+    if (dir_place == "")
+    {
+        dir_place = CtDialogs::folder_select_dialog(_pCtMainWin->get_ct_config()->pickDirExport, _pCtMainWin);
+        if (dir_place == "")
+            return false;
+    }
+    new_folder = CtMiscUtil::clean_from_chars_not_for_filename(new_folder) + "_HTML";
+    new_folder = _prepare_export_folder(dir_place, new_folder, export_overwrite);
+    _export_dir = Glib::build_filename(dir_place, new_folder);
+    _images_dir = Glib::build_filename(_export_dir, "images");
+    _embed_dir = Glib::build_filename(_export_dir, "EmbeddedFiles");
+    g_mkdir_with_parents(_export_dir.c_str(), 0777);
+    g_mkdir_with_parents(_images_dir.c_str(), 0777);
+    g_mkdir_with_parents(_embed_dir.c_str(), 0777);
 
+    Glib::ustring config_dir = Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME);
+    Glib::ustring styles_css_filepath = Glib::build_filename(config_dir, "styles.css");
+    if (!Glib::file_test(styles_css_filepath, Glib::FILE_TEST_IS_REGULAR))
+    {
+        throw "work in progress"; // todo: CtFileSystem::copy_file(Glib::build_filename(CtConst::GLADE_PATH, "styles.css"), styles_css_filepath);
+    }
+    CtFileSystem::copy_file(styles_css_filepath, _export_dir);
+
+    return true;
+}
+
+// Export a Node To HTML
+void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOptions& options, const Glib::ustring& index, int sel_start, int sel_end)
+{
     Glib::ustring html_text = str::format(HTML_HEADER, tree_iter.get_node_name());
-    if (_tree_links_text != "" && index_in_page)
-        html_text += "<div class=\"main\">" + _tree_links_text + "<div class=\"page\">";
-    if (include_node_name)
+    if (index != "" && options.index_in_page)
+        html_text += "<div class=\"main\">" + index + "<div class=\"page\">";
+    if (options.include_node_name)
         html_text += "<h1><b><u>" + tree_iter.get_node_name() + "</u></b></h1>";
     // todo: ? self.dad.get_textbuffer_from_tree_iter(tree_iter)
 
@@ -57,9 +81,9 @@ void CtExport2Html::node_export_to_html(const Glib::ustring& folder_name, CtTree
             if (i < widgets.size())
             {
                 if (CtImageEmbFile* embfile = dynamic_cast<CtImageEmbFile*>(widgets[i]))
-                    html_text += _get_embfile_html(embfile, tree_iter, embed_dir);
+                    html_text += _get_embfile_html(embfile, tree_iter, _embed_dir);
                 else if (CtImage* image = dynamic_cast<CtImage*>(widgets[i]))
-                    html_text += _get_image_html(image, images_dir, images_count, &tree_iter);
+                    html_text += _get_image_html(image, _images_dir, images_count, &tree_iter);
                 else if (CtTable* table = dynamic_cast<CtTable*>(widgets[i]))
                     html_text += _get_table_html(table);
                 else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widgets[i]))
@@ -70,16 +94,56 @@ void CtExport2Html::node_export_to_html(const Glib::ustring& folder_name, CtTree
     else
         html_text += _html_get_from_code_buffer(tree_iter.get_node_text_buffer(), sel_start, sel_end);
 
-    if (_tree_links_text != "" && !index_in_page)
+    if (index != "" && !options.index_in_page)
         html_text += Glib::ustring("<p align=\"center\">") + Glib::build_filename("images", "home.png") +
                 "<img src=\"" "\" height=\"22\" width=\"22\">" +
                 CtConst::CHAR_SPACE + CtConst::CHAR_SPACE + "<a href=\"index.html\">\"" + _("Index") + "</a></p>";
-    if (_tree_links_text != "" && index_in_page)
+    if (index != "" && options.index_in_page)
         html_text += "</div></div>\n";
     html_text += HTML_FOOTER;
 
-    Glib::ustring node_html_filepath = Glib::build_filename(new_path, _get_html_filename(tree_iter));
+    Glib::ustring node_html_filepath = Glib::build_filename(_export_dir, _get_html_filename(tree_iter));
     g_file_set_contents(node_html_filepath.c_str(), html_text.c_str(), (gssize)html_text.bytes(), nullptr);
+}
+
+// Export All Nodes To HTML
+void CtExport2Html::nodes_all_export_to_html(bool all_tree, const CtExportOptions& options)
+{
+    // todo: shutil.copy(os.path.join(cons.GLADE_PATH, "home.png"), self.images_dir)
+
+    // create tree links text
+    Glib::ustring tree_links_text = "<div class=\"tree\">\n";
+    tree_links_text += "<p><strong>Index</strong></p>\n";
+    CtTreeIter tree_iter = all_tree ? _pCtMainWin->curr_tree_store().get_ct_iter_first() : _pCtMainWin->curr_tree_iter();
+    for (;tree_iter; ++tree_iter)
+    {
+        _tree_links_text_iter(tree_iter, tree_links_text, 1);
+        if (!all_tree) break;
+    }
+    tree_links_text += "</div>\n";
+
+    // create index html page
+    Glib::ustring html_text = str::format(HTML_HEADER, _pCtMainWin->get_curr_doc_file_name());
+    html_text += tree_links_text + HTML_FOOTER;
+    Glib::ustring node_html_filepath = Glib::build_filename(_export_dir, "index.html");
+    g_file_set_contents(node_html_filepath.c_str(), html_text.c_str(), (gssize)html_text.bytes(), nullptr);
+
+    // create html pages
+    // function to iterate nodes
+    std::function<void(CtTreeIter)> traverseFunc;
+    traverseFunc = [this, &traverseFunc, &options, &tree_links_text](CtTreeIter tree_iter) {
+        node_export_to_html(tree_iter, options, tree_links_text, -1, -1);
+        for (auto& child: tree_iter->children())
+            traverseFunc(_pCtMainWin->curr_tree_store().to_ct_tree_iter(child));
+    };
+    // start to iterarte nodes
+    tree_iter = all_tree ? _pCtMainWin->curr_tree_store().get_ct_iter_first() : _pCtMainWin->curr_tree_iter();
+    for (;tree_iter; ++tree_iter)
+    {
+        traverseFunc(tree_iter);
+        if (!all_tree) break;
+    }
+    // todo: self.dad.objects_buffer_refresh()
 }
 
 // Returns the HTML given the text buffer and iter bounds
@@ -498,6 +562,25 @@ Glib::ustring CtExport2Html::_get_object_alignment_string(Glib::ustring alignmen
     return "display:inline-table";
 }
 
+// Creating the Tree Links Text - iter
+void CtExport2Html::_tree_links_text_iter(CtTreeIter tree_iter, Glib::ustring& tree_links_text, int tree_count_level)
+{
+    Glib::ustring href = _get_html_filename(tree_iter);
+    Glib::ustring tabs = str::repeat("  ", tree_count_level);
+    if (tree_count_level == 1)
+        tree_links_text += tabs + "<p><a href=\"" + href + "\">" + tree_iter.get_node_name() + "</a></p>\n";
+    else
+        tree_links_text += tabs + "<li><a href=\"" + href + "\">" + tree_iter.get_node_name() + "</a></li>\n";
+
+    if (!tree_iter->children().empty())
+    {
+        tree_links_text += tabs + "<ol>\n";
+        for (auto& child: tree_iter->children())
+            _tree_links_text_iter(_pCtMainWin->curr_tree_store().to_ct_tree_iter(child), tree_links_text, tree_count_level + 1);
+        tree_links_text += tabs + "</ol>\n";
+    }
+}
+
 // Get the HTML page filename given the tree iter
 Glib::ustring CtExport2Html::_get_html_filename(CtTreeIter tree_iter)
 {
@@ -505,33 +588,6 @@ Glib::ustring CtExport2Html::_get_html_filename(CtTreeIter tree_iter)
     return str::replace(name, "#", "~");
 }
 
-//Prepare the website folder
-bool CtExport2Html::_prepare_html_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool export_overwrite,
-                                         Glib::ustring& new_path, Glib::ustring& images_dir, Glib::ustring& embed_dir)
-{
-    if (dir_place == "")
-    {
-        dir_place = CtDialogs::folder_select_dialog(_pCtMainWin->get_ct_config()->pickDirExport, _pCtMainWin);
-        if (dir_place == "")
-            return false;
-    }
-    new_folder = CtMiscUtil::clean_from_chars_not_for_filename(new_folder) + "_HTML";
-    new_folder = _prepare_export_folder(dir_place, new_folder, export_overwrite);
-    new_path = Glib::build_filename(dir_place, new_folder);
-    images_dir = Glib::build_filename(new_path, "images");
-    embed_dir = Glib::build_filename(new_path, "EmbeddedFiles");
-    g_mkdir_with_parents(new_path.c_str(), 0777);
-    g_mkdir_with_parents(images_dir.c_str(), 0777);
-    g_mkdir_with_parents(embed_dir.c_str(), 0777);
-
-    Glib::ustring config_dir = Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME);
-    Glib::ustring styles_css_filepath = Glib::build_filename(config_dir, "styles.css");
-    if (!Glib::file_test(styles_css_filepath, Glib::FILE_TEST_IS_REGULAR))
-        CtFileSystem::copy_file(Glib::build_filename(CtConst::GLADE_PATH, "styles.css"), styles_css_filepath);
-    CtFileSystem::copy_file(styles_css_filepath, new_path);
-
-    return true;
-}
 
 Glib::ustring CtExport2Html::_prepare_export_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool overwrite_existing)
 {
@@ -542,9 +598,9 @@ Glib::ustring CtExport2Html::_prepare_export_folder(Glib::ustring dir_place, Gli
             throw "work in progress"; // todo: shutil.rmtree(os.path.join(dir_place, new_folder))
 
         int n = 2;
-        while (Glib::file_test(Glib::build_filename(dir_place, new_folder + fmt::format("{:03d}", n)), Glib::FILE_TEST_IS_DIR))
+        while (Glib::file_test(Glib::build_filename(dir_place, new_folder + str::format("{:03d}", n)), Glib::FILE_TEST_IS_DIR))
             n += 1;
-        new_folder += fmt::format("{:03d}", n);
+        new_folder += str::format("{:03d}", n);
     }
     return new_folder;
 }

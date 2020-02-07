@@ -62,7 +62,9 @@ void CtActions::export_to_ctd()
 void CtActions::_export_print(bool save_to_pdf, Glib::ustring auto_path, bool auto_overwrite)
 {
     if (!_is_there_selected_node_or_error()) return;
-    auto export_type = auto_path != "" ? CtDialogs::CtProcessNode::ALL_TREE : CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, true, &_last_include_node_name, &_last_new_node_page, nullptr);
+    auto export_type = auto_path != "" ? CtDialogs::CtProcessNode::ALL_TREE
+                                       : CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, true, &_export_options.include_node_name,
+                                                                                         &_export_options.new_node_page, nullptr);
     if (export_type == CtDialogs::CtProcessNode::NONE) return;
 
     Glib::ustring pdf_filepath;
@@ -74,7 +76,7 @@ void CtActions::_export_print(bool save_to_pdf, Glib::ustring auto_path, bool au
             pdf_filepath = _get_pdf_filepath(pdf_filepath);
             if (pdf_filepath == "") return;
         }
-        CtExportPrint(_pCtMainWin).node_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _last_include_node_name, -1, -1);
+        CtExportPrint(_pCtMainWin).node_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _export_options, -1, -1);
     }
     else if (export_type == CtDialogs::CtProcessNode::CURRENT_NODE_AND_SUBNODES)
     {
@@ -83,7 +85,7 @@ void CtActions::_export_print(bool save_to_pdf, Glib::ustring auto_path, bool au
             pdf_filepath = _get_pdf_filepath(_pCtMainWin->get_curr_doc_file_name());
             if (pdf_filepath == "") return;
         }
-        CtExportPrint(_pCtMainWin).node_and_subnodes_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _last_include_node_name, _last_new_node_page);
+        CtExportPrint(_pCtMainWin).node_and_subnodes_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _export_options);
     }
     else if (export_type == CtDialogs::CtProcessNode::ALL_TREE)
     {
@@ -98,7 +100,7 @@ void CtActions::_export_print(bool save_to_pdf, Glib::ustring auto_path, bool au
             pdf_filepath = _get_pdf_filepath(_pCtMainWin->get_curr_doc_file_name());
             if (pdf_filepath == "") return;
         }
-        CtExportPrint(_pCtMainWin).tree_export_print(pdf_filepath, _pCtMainWin->curr_tree_store().get_ct_iter_first(), _last_include_node_name, _last_new_node_page);
+        CtExportPrint(_pCtMainWin).tree_export_print(pdf_filepath, _pCtMainWin->curr_tree_store().get_ct_iter_first(), _export_options);
     }
     else if (export_type == CtDialogs::CtProcessNode::SELECTED_TEXT)
     {
@@ -112,7 +114,7 @@ void CtActions::_export_print(bool save_to_pdf, Glib::ustring auto_path, bool au
             pdf_filepath = _get_pdf_filepath(pdf_filepath);
             if (pdf_filepath == "") return;
         }
-        CtExportPrint(_pCtMainWin).node_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _last_include_node_name, iter_start.get_offset(), iter_end.get_offset());
+        CtExportPrint(_pCtMainWin).node_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _export_options, iter_start.get_offset(), iter_end.get_offset());
     }
 }
 
@@ -133,33 +135,37 @@ Glib::ustring CtActions::_get_pdf_filepath(Glib::ustring proposed_name)
 void CtActions::_export_to_html(Glib::ustring auto_path, bool auto_overwrite)
 {
     if (!_is_there_selected_node_or_error()) return;
-    auto export_type = auto_path != "" ? CtDialogs::CtProcessNode::ALL_TREE : CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, true, &_last_include_node_name, &_last_new_node_page, nullptr);
+    auto export_type = auto_path != "" ? CtDialogs::CtProcessNode::ALL_TREE
+                                       : CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, true, &_export_options.include_node_name,
+                                                                                         nullptr, &_export_options.index_in_page);
     if (export_type == CtDialogs::CtProcessNode::NONE) return;
 
+    CtExport2Html export2html(_pCtMainWin);
     if (export_type == CtDialogs::CtProcessNode::CURRENT_NODE)
     {
         Glib::ustring folder_name = CtMiscUtil::get_node_hierarchical_name(_pCtMainWin->curr_tree_iter());
-        CtExport2Html(_pCtMainWin).node_export_to_html(folder_name, _pCtMainWin->curr_tree_iter(),
-                                                       _last_index_in_page, _last_include_node_name, false, -1, -1);
+        if (export2html.prepare_html_folder("", folder_name, false))
+            export2html.node_export_to_html(_pCtMainWin->curr_tree_iter(), _export_options, "", -1, -1);
     }
     else if (export_type == CtDialogs::CtProcessNode::CURRENT_NODE_AND_SUBNODES)
     {
         Glib::ustring folder_name = CtMiscUtil::get_node_hierarchical_name(_pCtMainWin->curr_tree_iter());
-        //CtExport2Html().nodes_all_export_to_html(folder_name, _pCtMainWin->curr_tree_iter());
+        if (export2html.prepare_html_folder("", folder_name, false))
+            export2html.nodes_all_export_to_html(false, _export_options);
         // todo:
-        //if self.filetype in ["b", "x"] and self.curr_tree_iter:
-        //  self.state_machine.update_state()
-        //  self.objects_buffer_refresh()
+        // if self.filetype in ["b", "x"] and self.curr_tree_iter:
+        //   self.state_machine.update_state()
+        //   self.objects_buffer_refresh()
     }
     else if (export_type == CtDialogs::CtProcessNode::ALL_TREE)
     {
         Glib::ustring folder_name = _pCtMainWin->get_curr_doc_file_name();
-        Glib::ustring folder_path = auto_path;
-        //CtExport2Html().nodes_all_export_to_html(folder_name, folder_path);
+        if (export2html.prepare_html_folder(auto_path, folder_name, auto_overwrite))
+            export2html.nodes_all_export_to_html(true, _export_options);
         // todo:
-        //if self.filetype in ["b", "x"] and self.curr_tree_iter:
-        //    self.state_machine.update_state()
-        //    self.objects_buffer_refresh()
+        // if self.filetype in ["b", "x"] and self.curr_tree_iter:
+        //     self.state_machine.update_state()
+        //     self.objects_buffer_refresh()
     }
     else if (export_type == CtDialogs::CtProcessNode::SELECTED_TEXT)
     {
@@ -168,7 +174,7 @@ void CtActions::_export_to_html(Glib::ustring auto_path, bool auto_overwrite)
         _curr_buffer()->get_selection_bounds(iter_start, iter_end);
 
         Glib::ustring folder_name = CtMiscUtil::get_node_hierarchical_name(_pCtMainWin->curr_tree_iter());
-        CtExport2Html(_pCtMainWin).node_export_to_html(folder_name, _pCtMainWin->curr_tree_iter(),
-                                                       _last_index_in_page, _last_include_node_name, false, iter_start.get_offset(), iter_end.get_offset());
+        if (export2html.prepare_html_folder("", folder_name, false))
+            export2html.node_export_to_html(_pCtMainWin->curr_tree_iter(), _export_options, "", iter_start.get_offset(), iter_end.get_offset());
     }
 }

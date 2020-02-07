@@ -674,6 +674,16 @@ Glib::ustring str::swapcase(const Glib::ustring& text)
     return ret_text;
 }
 
+Glib::ustring str::repeat(const Glib::ustring& input, int num)
+{
+    Glib::ustring ret;
+    if (num <= 0) return ret;
+    ret.reserve(input.size() * num);
+    while (num--)
+        ret += input;
+    return ret;
+}
+
 std::string CtFileSystem::get_proper_platform_filepath(std::string filepath)
 {
     if (CtConst::IS_WIN_OS)
