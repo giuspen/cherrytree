@@ -110,6 +110,10 @@ bool is_pgchar_in_pgchar_iterable(const gchar* pGcharNeedle, const IterableOfPgc
     return gotcha;
 }
 
+// https://stackoverflow.com/questions/642213/how-to-implement-a-natural-sort-algorithm-in-c
+int natural_sort(const Glib::ustring& left, const Glib::ustring& right);
+
+
 } // namespace CtStrUtil
 
 namespace CtFontUtil {

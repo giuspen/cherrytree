@@ -143,6 +143,33 @@ TEST(MiscUtilsGroup, get_rgb24int_from_str_any)
     CHECK_EQUAL(expectedInt24, CtRgbUtil::get_rgb24int_from_str_any("f122ab335744"));
 }
 
+TEST(MiscUtilsGroup, natural_sort)
+{
+    CHECK(CtStrUtil::natural_sort("","") == 0);
+    CHECK(CtStrUtil::natural_sort("","a") < 0);
+    CHECK(CtStrUtil::natural_sort("a","") > 0);
+    CHECK(CtStrUtil::natural_sort("a","a") == 0);
+    CHECK(CtStrUtil::natural_sort("","9") < 0);
+    CHECK(CtStrUtil::natural_sort("9","") > 0);
+    CHECK(CtStrUtil::natural_sort("1","1") == 0);
+    CHECK(CtStrUtil::natural_sort("1","2") < 0);
+    CHECK(CtStrUtil::natural_sort("3","2") > 0);
+    CHECK(CtStrUtil::natural_sort("a1","a1") == 0);
+    CHECK(CtStrUtil::natural_sort("a1","a2") < 0);
+    CHECK(CtStrUtil::natural_sort("a2","a1") > 0);
+    CHECK(CtStrUtil::natural_sort("a1a2","a1a3") < 0);
+    CHECK(CtStrUtil::natural_sort("a1a2","a1a0") > 0);
+    CHECK(CtStrUtil::natural_sort("134","122") > 0);
+    CHECK(CtStrUtil::natural_sort("12a3","12a3") == 0);
+    CHECK(CtStrUtil::natural_sort("12a1","12a0") > 0);
+    CHECK(CtStrUtil::natural_sort("12a1","12a2") < 0);
+    CHECK(CtStrUtil::natural_sort("a","aa") < 0);
+    CHECK(CtStrUtil::natural_sort("aaa","aa") > 0);
+    CHECK(CtStrUtil::natural_sort("Alpha 2","Alpha 2") == 0);
+    CHECK(CtStrUtil::natural_sort("Alpha 2","Alpha 2A") < 0);
+    CHECK(CtStrUtil::natural_sort("Alpha 2 B","Alpha 2") > 0);
+}
+
 TEST(MiscUtilsGroup, str__endswith)
 {
     CHECK(str::endswith("", ""));
