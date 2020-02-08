@@ -25,7 +25,7 @@
 
   <metadata>
     <property name="mimetypes">text/x-kotlin</property>
-    <property name="globs">*.kt</property>
+    <property name="globs">*.kt;*.kts</property>
     <property name="line-comment-start">//</property>
     <property name="block-comment-start">/*</property>
     <property name="block-comment-end">*/</property>
@@ -363,6 +363,8 @@
 
     <context id="kotlin" class="no-spell-check">
       <include>
+        <context ref="def:c-like-comment"/>
+        <context ref="def:c-like-close-comment-outside-comment"/>
         <context ref="annotation"/>
         <context ref="block-comment"/>
         <context ref="builtin"/>

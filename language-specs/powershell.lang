@@ -20,7 +20,7 @@
  MA 02110-1301, USA.
 
 -->
-<language id="powershell" _name="PowerShell" version="2.0" _section="Sources">
+<language id="powershell" name="PowerShell" version="2.0" _section="Source">
   <metadata>
     <property name="mimetypes">text/x-powershell;text/x-ps</property>
     <property name="globs">*.ps1;*.psm1;*.psd1</property>
@@ -30,20 +30,20 @@
   </metadata>
 
   <styles>
-    <style id="comment" _name="Comment" map-to="def:comment"/>
-    <style id="multiline-comment" _name="Comment" map-to="def:doc-comment-element"/>
-    <style id="string" _name="String" map-to="def:string"/>
-    <style id="char" _name="Character" map-to="def:special-char"/>
-    <style id="keyword" _name="Keyword" map-to="def:keyword"/>
-    <style id="function-param" _name="Parameter Attribute" map-to="def:statement"/>
-    <style id="operator" _name="Operator" map-to="def:keyword"/>
-    <style id="symbol" _name="Symbol" map-to="def:identifier"/>
-    <style id="variable" _name="Variable" map-to="def:shebang"/>
-    <style id="builtin-function" _name="Builtin Function" map-to="def:builtin"/>
-    <style id="user-function" _name="User Function" map-to="def:constant"/>
-    <style id="builtin-parameters" _name="CmdLet Parameters" map-to="def:preprocessor"/>
-    <style id="datatype" _name="Data Type" map-to="def:type"/>
-    <style id="number" _name="Number" map-to="def:special-char"/>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="multiline-comment" name="Comment" map-to="def:doc-comment-element"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="char" name="Character" map-to="def:special-char"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="function-param" name="Parameter Attribute" map-to="def:statement"/>
+    <style id="operator" name="Operator" map-to="def:keyword"/>
+    <style id="symbol" name="Symbol" map-to="def:identifier"/>
+    <style id="variable" name="Variable" map-to="def:shebang"/>
+    <style id="builtin-function" name="Builtin Function" map-to="def:builtin"/>
+    <style id="user-function" name="User Function" map-to="def:constant"/>
+    <style id="builtin-parameters" name="CmdLet Parameters" map-to="def:preprocessor"/>
+    <style id="datatype" name="Data Type" map-to="def:type"/>
+    <style id="number" name="Number" map-to="def:special-char"/>
   </styles>
 
   <default-regex-options case-sensitive="false"/>
