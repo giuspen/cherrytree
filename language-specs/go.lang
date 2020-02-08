@@ -31,41 +31,61 @@
   </metadata>
 
   <styles>
-    <style id="comment"           name="Comment"             map-to="def:comment"/>
-    <style id="error"             name="Error"               map-to="def:error"/>
-    <style id="string"            name="String"              map-to="def:string"/>
-    <style id="char"              name="Character"           map-to="def:character"/>
-    <style id="keyword"           name="Keyword"             map-to="def:keyword"/>
-    <style id="type"              name="Data Type"           map-to="def:type"/>
-    <style id="printf"            name="printf Conversion"   map-to="def:special-char"/>
-    <style id="escaped-character" name="Escaped Character"   map-to="def:special-char"/>
+    <style id="comment"           name="Comment"               map-to="def:comment"/>
+    <style id="error"             name="Error"                 map-to="def:error"/>
+    <style id="string"            name="String"                map-to="def:string"/>
+    <style id="char"              name="Character"             map-to="def:character"/>
+    <style id="keyword"           name="Keyword"               map-to="def:keyword"/>
+    <style id="external"          name="External"              map-to="def:preprocessor"/>
+    <style id="type"              name="Data Type"             map-to="def:type"/>
+    <style id="printf"            name="printf Conversion"     map-to="def:special-char"/>
+    <style id="escaped-character" name="Escaped Character"     map-to="def:special-char"/>
     <style id="floating-point"    name="Floating point number" map-to="def:floating-point"/>
-    <style id="imaginary"         name="Imaginary number"    map-to="def:number"/>
-    <style id="decimal"           name="Decimal number"      map-to="def:decimal"/>
-    <style id="octal"             name="Octal number"        map-to="def:base-n-integer"/>
-    <style id="hexadecimal"       name="Hexadecimal number"  map-to="def:base-n-integer"/>
-    <style id="boolean"           name="Boolean value"       map-to="def:boolean"/>
-    <style id="builtin-constant"  name="Builtin Constant"    map-to="def:special-constant"/>
-    <style id="builtin-function"  name="Builtin Function"    map-to="def:builtin"/>
+    <style id="imaginary"         name="Imaginary number"      map-to="def:number"/>
+    <style id="binary"            name="Binary number"         map-to="def:base-n-integer"/>
+    <style id="decimal"           name="Decimal number"        map-to="def:decimal"/>
+    <style id="octal"             name="Octal number"          map-to="def:base-n-integer"/>
+    <style id="hexadecimal"       name="Hexadecimal number"    map-to="def:base-n-integer"/>
+    <style id="boolean"           name="Boolean value"         map-to="def:boolean"/>
+    <style id="builtin-constant"  name="Builtin Constant"      map-to="def:special-constant"/>
+    <style id="builtin-function"  name="Builtin Function"      map-to="def:builtin"/>
   </styles>
 
   <definitions>
     <define-regex id="escaped-character" extended="true">
-      \\(                   # leading backslash
-      [\\\"\'nrbtfav\?] |   # escaped character
-      [0-7]{1,3} |          # one, two, or three octal digits
-      x[0-9A-Fa-f]+         # 'x' followed by hex digits
+      \\(                  # leading backslash
+      [\\\"\'nrbtfav\?] |  # escaped character
+      [0-7]{3} |           # three octal digits
+      x[0-9A-Fa-f]{2} |    # 'x' followed by two hex digits
+      u[0-9A-Fa-f]{4} |    # Little Unicode escape, 'u' followed by four hex digits
+      U[0-9A-Fa-f]{8}      # Big Unicode escape, 'U' followed by eight hex digits
       )
+    </define-regex>
+    
+    <define-regex id="oct" extended="true">
+      0[Oo]?(_?[0-7])+
+    </define-regex>
+    
+    <define-regex id="dec" extended="true">
+      (0|[1-9](_?[0-9])*)
+    </define-regex>
+    
+    <define-regex id="bin" extended="true">
+      0[Bb](_?[01])+
+    </define-regex>
+    
+    <define-regex id="hex" extended="true">
+      0[Xx](_?[0-9A-Fa-f])+
     </define-regex>
 
     <!--contexts NOT used on the main context-->
     <context id="printf" style-ref="printf" extend-parent="false">
       <match extended="true">
         \%\%|\%
-        [#0\-\ \+\*]*        # flags
-        (?:[1-9][0-9]*|\*)?  # width
-        (?:\.(?:[0-9]+|\*))? # precision
-        [vTtbcdoqxXUeEfgGsp] # conversion specifier
+        [#0\-\ \+]*                            # flags
+        (?:[1-9][0-9]*|\[[1-9][0-9]*\]\*)?       # width
+        (?:\.(?:[0-9]+|\[[1-9][0-9]*\]\*))?      # precision
+        (\[[1-9][0-9]*\])?[vTtbcdoOqxXUeEfFgGsp] # conversion specifier
       </match>
     </context>
 
@@ -115,12 +135,14 @@
     </context>
 
     <define-regex id="float" extended="true">
-      ((\.[0-9]+ | [0-9]+\.[0-9]*) ([Ee][+-]?[0-9]+)? |
-      ([0-9]+[Ee][+-]?[0-9]+))
+      ((\.[0-9](_?[0-9])* | [0-9](_?[0-9])*\.[0-9]?(_?[0-9])*) ([Ee][+-]?[0-9](_?[0-9])*)? |
+      ([0-9](_?[0-9])*[Ee][+-]?[0-9](_?[0-9])*) |
+      0[Xx]_?(\.[0-9A-Fa-f](_?[0-9A-Fa-f])* | [0-9A-Fa-f](_?[0-9A-Fa-f])*\.?([0-9A-Fa-f](_?[0-9A-Fa-f])*)?)[Pp][+-]?[0-9](_?[0-9])*
+      )
     </define-regex>
 
     <context id="imaginary" style-ref="imaginary">
-      <match>(?&lt;![\w\.])(\%{float}|\[0-9]+)[i]\b</match>
+      <match>(?&lt;![\w\.])(\%{float}|\%{oct}|\%{bin}|\%{hex}|\[0-9]+)[i]\b</match>
     </context>
 
     <context id="float" style-ref="floating-point">
@@ -130,7 +152,15 @@
     <context id="hexadecimal" style-ref="hexadecimal">
       <match extended="true">
         (?&lt;![\w\.])
-        0[xX][a-fA-F0-9]+
+        \%{hex}
+        (?![\w\.])
+      </match>
+    </context>
+    
+    <context id="binary" style-ref="binary">
+      <match extended="true">
+        (?&lt;![\w\.])
+        \%{bin}
         (?![\w\.])
       </match>
     </context>
@@ -138,7 +168,7 @@
     <context id="invalid-hexadecimal" style-ref="error">
       <match extended="true">
         (?&lt;![\w\.])
-        0[xX][a-fA-F0-9]*[g-zG-Z][a-zA-Z0-9]*
+        0[xX][a-fA-F0-9]*[ghj-zGHJ-Z][a-zA-Z0-9]*
         (?![\w\.])
       </match>
     </context>
@@ -146,7 +176,7 @@
     <context id="octal" style-ref="octal">
       <match extended="true">
         (?&lt;![\w\.])
-        0[0-7]+
+        \%{oct}
         (?![\w\.])
       </match>
     </context>
@@ -154,7 +184,7 @@
     <context id="invalid-octal" style-ref="error">
       <match extended="true">
         (?&lt;![\w\.])
-        0[0-7]*[89][0-9]*
+        0[Oo]?[0-7]*[89][0-9]*
         (?![\w\.])
       </match>
     </context>
@@ -162,7 +192,7 @@
     <context id="decimal" style-ref="decimal">
       <match extended="true">
         (?&lt;![\w\.])
-        (0|[1-9][0-9]*)
+        \%{dec}
         (?![\w\.])
       </match>
     </context>
@@ -173,6 +203,11 @@
         (true|false)
         (?![\w\.])
       </match>
+    </context>
+
+    <context id="externals" style-ref="external">
+      <keyword>import</keyword>
+      <keyword>package</keyword>
     </context>
 
     <context id="keywords" style-ref="keyword">
@@ -189,9 +224,7 @@
       <keyword>go</keyword>
       <keyword>goto</keyword>
       <keyword>if</keyword>
-      <keyword>import</keyword>
       <keyword>interface</keyword>
-      <keyword>package</keyword>
       <keyword>range</keyword>
       <keyword>return</keyword>
       <keyword>select</keyword>
@@ -256,14 +289,17 @@
         <context ref="quoted-string"/>
         <context ref="backquote-string"/>
         <context ref="char"/>
+        <context ref="binary"/>
         <context ref="float"/>
         <context ref="hexadecimal"/>
+        <context ref="imaginary"/>
         <context ref="invalid-hexadecimal"/>
         <context ref="octal"/>
         <context ref="invalid-octal"/>
         <context ref="decimal"/>
         <context ref="boolean"/>
         <context ref="keywords"/>
+        <context ref="externals"/>
         <context ref="types"/>
         <context ref="builtin-constant"/>
         <context ref="builtin-function"/>

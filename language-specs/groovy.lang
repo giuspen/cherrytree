@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<language id="groovy" _name="Groovy" version="2.0" _section="Sources">
+<!--
+
+ This file is part of GtkSourceView
+
+ Copyright (C) 2003 Gustavo Giráldez <gustavo.giraldez@gmx.net>
+ Copyright (C) 2006 Jeff Walden <jwalden@mit.edu>
+ Copyright (C) 2017 Roman Donchenko
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="groovy" name="Groovy" version="2.0" _section="Source">
   <metadata>
-    <property name="mimetypes">text/x-groovy</property>
     <property name="globs">*.groovy</property>
     <property name="line-comment-start">//</property>
     <property name="block-comment-start">/*</property>
@@ -9,67 +30,91 @@
   </metadata>
 
   <styles>
-    <style id="comment" _name="Comment" map-to="def:comment"/>
-    <style id="error" _name="Error" map-to="def:error"/>
-    <style id="string" _name="String" map-to="def:string"/>
-    <style id="external" _name="External" map-to="def:preprocessor"/>
-    <style id="declaration" _name="Declaration" map-to="def:type"/>
-    <style id="storage-class" _name="Storage Class" map-to="def:type"/>
-    <style id="scope-declaration" _name="Scope Declaration" map-to="def:type"/>
-    <style id="keyword" _name="Keyword" map-to="def:keyword"/>
-    <style id="null-value" _name="Null Value" map-to="def:special-constant"/>
-    <style id="boolean" _name="Boolean value" map-to="def:boolean"/>
-    <style id="number" _name="Number" map-to="def:decimal"/>
-    <style id="reserved" _name="Future Reserved Keywords" map-to="def:error"/>
-    <style id="type" _name="Data Type" map-to="def:type"/>
-    <style id="enum-constant" _name="Enum Constant" map-to="def:special-constant"/>
-    <style id="builtin" _name="Built-in Identifier" map-to="def:builtin"/>
-    <style id="escaped-character" _name="Escaped Character" map-to="def:special-char"/>
-    <style id="identifier" _name="Identifier" map-to="def:identifier"/>
-    <style id="underlined" _name="Underlined" map-to="def:underlined"/>
+    <style id="comment"           name="Comment"                   map-to="def:comment"/>
+    <style id="escaped-character" name="Escaped Character"         map-to="def:special-char"/>
+    <style id="interpolation"     name="Interpolation Syntax"      map-to="def:special-char"/>
+    <style id="interpolated"      name="Interpolated Expression"   map-to="def:identifier"/>
+    <style id="string"            name="String"                    map-to="def:string"/>
+    <style id="external"          name="External"                  map-to="def:preprocessor"/>
+    <style id="declaration"       name="Declaration"               map-to="def:type"/>
+    <style id="storage-class"     name="Storage Class"             map-to="def:type"/>
+    <style id="scope-declaration" name="Scope Declaration"         map-to="def:type"/>
+    <style id="operator"          name="Operator"                  map-to="def:operator"/>
+    <style id="keyword"           name="Keyword"                   map-to="def:keyword"/>
+    <style id="null-value"        name="Null Value"                map-to="def:special-constant"/>
+    <style id="boolean"           name="Boolean value"             map-to="def:boolean"/>
+    <style id="number"            name="Number"                    map-to="def:number"/>
+    <style id="type"              name="Data Type"                 map-to="def:type"/>
   </styles>
 
   <definitions>
-
     <define-regex id="escaped-character" extended="true">
-      \\(               # leading backslash
-      [\\\"\'nrbtf] |   # escaped character
-      [0-9]{1,3}    |   # latin encoded char
-      u[0-9]{1,4}       # unicode char
+      \\(
+        # character escape
+        [nrtbf"'\\$] |
+        # unicode escape
+        u[0-9A-Fa-f]{4} |
+        # octal escape
+        [0-3] ([0-7] [0-7]?)? | [4-7] [0-7]?
       )
     </define-regex>
 
-    <define-regex id="class-name" extended="true">
-      \b[_A-Z][\w]*\b
+    <define-regex id="letter" extended="true">
+      [a-zA-Z\x{c0}-\x{d6}\x{d8}-\x{f6}\x{f8}-\x{ff}\x{100}-\x{fffe}_]
     </define-regex>
 
-    <context id="escaped-character" style-ref="escaped-character">
-      <match>\%{escaped-character}</match>
-    </context>
-
-    <context id="gstring-var" style-ref="identifier">
-      <match>\$[\w]+</match>
-    </context>
-
-    <context id="gstring-eval" style-ref="identifier">
-      <start>\${</start>
-      <end>}</end>
+    <context id="escaped-character">
       <include>
-        <context ref="groovy:*"/>
+        <context style-ref="escaped-character">
+          <match>\%{escaped-character}</match>
+        </context>
+        <context ref="def:line-continue"/>
+        <context style-ref="def:error">
+          <!-- backslashes not part of a valid escape sequence are erroneous -->
+          <match>\\</match>
+        </context>
       </include>
     </context>
 
-    <context id="gstring" style-ref="string" end-at-line-end="true">
-      <start>"</start>
-      <end>"</end>
+    <context id="placeholder">
+      <include>
+        <context style-ref="interpolated">
+          <match extended="true">
+            (\$)
+            # one or more dollarless identifiers separated by dots
+            \%{letter} (\%{letter} | \d)*
+            (\. \%{letter} (\%{letter} | \d)*)*
+          </match>
+          <include>
+            <context sub-pattern="1" style-ref="interpolation"/>
+          </include>
+        </context>
+        <context style-ref="interpolated">
+          <start>\$\{</start>
+          <end>\}</end>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="interpolation"/>
+            <context sub-pattern="0" where="end" style-ref="interpolation"/>
+            <context ref="groovy"/>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <!-- a dollar that isn't part of a placeholder is erroneous in some instances -->
+    <context id="bad-placeholder" style-ref="def:error">
+      <match>\$</match>
+    </context>
+
+    <context id="triple-single-quoted-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>'''</start>
+      <end>'''</end>
       <include>
         <context ref="escaped-character"/>
-        <context ref="gstring-var"/>
-        <context ref="gstring-eval"/>
       </include>
     </context>
 
-    <context id="string" style-ref="string" end-at-line-end="true">
+    <context id="single-quoted-string" end-at-line-end="true" style-ref="string" class="string" class-disabled="no-spell-check">
       <start>'</start>
       <end>'</end>
       <include>
@@ -77,24 +122,99 @@
       </include>
     </context>
 
-    <context id="line-comment" style-ref="comment" end-at-line-end="true">
-      <start>//</start>
+    <context id="triple-double-quoted-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>"""</start>
+      <end>"""</end>
       <include>
-        <context ref="def:in-line-comment"/>
+        <context ref="escaped-character"/>
+        <context ref="placeholder"/>
+        <context ref="bad-placeholder"/>
       </include>
     </context>
 
-    <context id="block-comment" style-ref="comment">
-      <start>/\*</start>
-      <end>\*/</end>
+    <context id="double-quoted-string" end-at-line-end="true" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
       <include>
-        <context ref="def:in-comment"/>
+        <context ref="escaped-character"/>
+        <context ref="placeholder"/>
+        <context ref="bad-placeholder"/>
       </include>
     </context>
 
-    <context id="close-comment-outside-comment" style-ref="error">
-      <match>\*/(?!\*)</match>
+    <context id="slashy-string" style-ref="string" class="string">
+      <start extended="true">
+        # The initial slash must not be preceded by a token that can end an expression.
+        # Otherwise, it's interpreted as a division operator, not the start of a slashy string.
+        # It'd be complicated to verify whole tokens with a regex, but the last non-space
+        # character is a good indicator by itself. We can use a negative lookbehind assertion
+        # to verify that it's not a character that an expression-ending token can end with.
+
+        # Trouble is, a lookbehind assertion has to consist of fixed-length alternatives, so
+        # we can't have it match an arbitrary amount of whitespace. Thus, we do an approximate
+        # check, only trying zero and one spaces.
+
+        (?&lt;! \+\+   | --   | [])}'"\$\d]   | \%{letter} |
+                \+\+\s | --\s | [])}'"\$\d]\s | \%{letter}\s )
+
+        /
+      </start>
+      <end>/</end>
+      <include>
+        <context style-ref="escaped-character">
+          <match>\\/</match>
+        </context>
+        <context ref="def:line-continue"/>
+        <context ref="placeholder"/>
+        <!-- standalone dollars and backslashes are interpreted literally -->
+      </include>
     </context>
+
+    <context id="dollar-slashy-string" style-ref="string" class="string">
+      <start extended="true">
+        \$/
+
+        # Dollar slashy strings can't be empty (a would-be empty one is parsed
+        # as a dollar followed by a single-line comment instead).
+        (?! /\$)
+      </start>
+      <end>/\$</end>
+      <include>
+        <context style-ref="escaped-character">
+          <match>\$[$/]</match>
+        </context>
+        <context ref="def:line-continue"/>
+        <context ref="placeholder"/>
+      </include>
+    </context>
+
+    <context id="numeric" style-ref="number">
+      <match extended="true">
+        \b (
+          # floating-point
+          \d ([\d_]* \d)? (
+            \. \d ([\d_]* \d)? ([eE] [+-]? [\d_]* \d)? [dDfFgG]? |
+            [eE] [+-]? [\d_]* \d [dDfFgG]? |
+            [dDfF]
+          ) |
+          # integer
+          (
+            0 | # decimal zero
+            0[bB] [01] ([01_]* [01])? | # binary
+            0 [0-7] ([0-7_]* [0-7])? | # octal
+            [1-9] ([\d_]* \d)? | # decimal
+            0[xX] [\da-fA-F] ([\da-fA-F_]* [\da-fA-F])? # hexadecimal
+          ) [iIlLgG]?
+        ) \b
+      </match>
+    </context>
+
+    <!--
+      Some of the Java keywords are reserved in Groovy. We don't mark them
+      with a special style, though, because in some instances keywords can
+      be used as identifiers (e.g. when used as a member name), and even
+      reserved keywords are valid when used like that.
+    -->
 
     <context id="externals" style-ref="external">
       <keyword>import</keyword>
@@ -106,7 +226,6 @@
       <keyword>enum</keyword>
       <keyword>extends</keyword>
       <keyword>implements</keyword>
-      <keyword>instanceof</keyword>
       <keyword>interface</keyword>
       <keyword>native</keyword>
       <keyword>throws</keyword>
@@ -126,16 +245,9 @@
       <keyword>void</keyword>
     </context>
 
-    <context id="complex-types" style-ref="type">
-      <match>\%{class-name}</match>
-    </context>
-
-    <context id="annotation" style-ref="enum-constant">
-      <match>@\%{class-name}</match>
-    </context>
-
     <context id="storage-class" style-ref="storage-class">
       <keyword>abstract</keyword>
+      <keyword>const</keyword>
       <keyword>final</keyword>
       <keyword>static</keyword>
       <keyword>strictfp</keyword>
@@ -151,7 +263,6 @@
     </context>
 
     <context id="flow" style-ref="keyword">
-      <keyword>as</keyword>
       <keyword>assert</keyword>
       <keyword>break</keyword>
       <keyword>case</keyword>
@@ -159,29 +270,25 @@
       <keyword>continue</keyword>
       <keyword>default</keyword>
       <keyword>do</keyword>
-      <keyword>each</keyword>
       <keyword>else</keyword>
       <keyword>finally</keyword>
       <keyword>for</keyword>
+      <keyword>goto</keyword>
       <keyword>if</keyword>
-      <keyword>render</keyword>
       <keyword>return</keyword>
       <keyword>throw</keyword>
       <keyword>switch</keyword>
       <keyword>try</keyword>
       <keyword>while</keyword>
-      <keyword>with</keyword>
     </context>
 
-    <context id="memory" style-ref="keyword">
+    <context id="operator" style-ref="operator">
+      <keyword>as</keyword>
+      <keyword>in</keyword>
+      <keyword>instanceof</keyword>
       <keyword>new</keyword>
       <keyword>super</keyword>
       <keyword>this</keyword>
-    </context>
-
-    <context id="future-reserved-words" style-ref="reserved">
-      <keyword>const</keyword>
-      <keyword>goto</keyword>
     </context>
 
     <context id="null-value" style-ref="null-value">
@@ -193,58 +300,44 @@
       <keyword>true</keyword>
     </context>
 
-    <context id="numeric" style-ref="number">
-      <match extended="true">
-        (\b([0-9]+|0[xX][0-9a-fA-F]+)[Ll]?\b|
-         \b(([0-9]+[Ee][-]?[0-9]+|
-            ([0-9]*\.[0-9]+|[0-9]+\.)([Ee][-]?[0-9]+)?)[fFdD]?|
-            [0-9]+[FfDd]))
-      </match>
-    </context>
-
-    <context id="enum-constant" style-ref="enum-constant">
-      <match extended="true">
-        (\b[A-Z]+(_[0-9A-Z]+)*\b)
-      </match>
-    </context>
-
-    <context id="builtin" style-ref="builtin">
-      <keyword>print</keyword>
-      <keyword>println</keyword>
-      <keyword>with</keyword>
-    </context>
-
-    <context id="map-key" style-ref="identifier">
-      <match extended="true">
-        (([\w]+)[\s]*:)
-      </match>
-    </context>
-
-    <context id="groovy">
+    <context id="groovy" class="no-spell-check">
       <include>
-        <context ref="gstring"/>
-        <context ref="string"/>
-        <context ref="line-comment"/>
-        <context ref="block-comment"/>
-        <context ref="close-comment-outside-comment"/>
+        <context ref="def:shebang" style-ref="comment"/>
+        <context ref="def:c-like-comment" style-ref="comment"/>
+        <context ref="def:c-like-comment-multiline" style-ref="comment"/>
+        <context ref="def:line-continue"/>
+
+        <context ref="triple-single-quoted-string"/>
+        <context ref="single-quoted-string"/>
+        <context ref="triple-double-quoted-string"/>
+        <context ref="double-quoted-string"/>
+        <context ref="slashy-string"/>
+        <context ref="dollar-slashy-string"/>
+        <context ref="numeric"/>
+
         <context ref="externals"/>
         <context ref="declarations"/>
-        <context ref="enum-constant"/>
-        <context ref="annotation"/>
         <context ref="primitive-types"/>
-        <context ref="complex-types"/>
         <context ref="storage-class"/>
         <context ref="scope-declarations"/>
         <context ref="flow"/>
-        <context ref="memory"/>
-        <context ref="future-reserved-words"/>
+        <context ref="operator"/>
         <context ref="null-value"/>
         <context ref="boolean"/>
-        <context ref="numeric"/>
-        <context ref="builtin"/>
-        <context ref="map-key"/>
+
+        <!--
+          To be able to tell apart closing braces that end a ${} placeholder
+          and ones that end a block inside such a placeholder,
+          treat braced blocks as nested contexts.
+        -->
+        <context>
+          <start>\{</start>
+          <end>\}</end>
+          <include>
+            <context ref="groovy"/>
+          </include>
+        </context>
       </include>
     </context>
-
   </definitions>
 </language>
