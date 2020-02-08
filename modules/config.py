@@ -221,7 +221,7 @@ def config_file_load(dad):
         for i in range(cons.MAX_RECENT_DOCS):
             curr_key = "doc_%s" % i
             if cfg.has_option(section, curr_key):
-                dad.recent_docs.append(cfg.get(section, curr_key))
+                dad.recent_docs.append(unicode(cfg.get(section, curr_key), cons.STR_UTF8, cons.STR_IGNORE))
                 # supporting saved from gtkmm
                 if not dad.file_name or saved_from_gtkmm is True:
                     if i == 0:
