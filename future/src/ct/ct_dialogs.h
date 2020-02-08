@@ -31,6 +31,13 @@
 class CtMainWin;
 class CtTreeStore;
 
+struct CtExportOptions
+{
+    bool include_node_name{true};
+    bool new_node_page{false};
+    bool index_in_page{true};
+};
+
 class CtDialogTextEntry : public Gtk::Dialog
 {
 public:

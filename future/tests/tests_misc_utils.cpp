@@ -194,6 +194,13 @@ TEST(MiscUtilsGroup, str__swapcase)
     STRCMP_EQUAL("CheRrY", str::swapcase("cHErRy").c_str());
 }
 
+TEST(MiscUtilsGroup, str__repeat)
+{
+    STRCMP_EQUAL("", str::repeat("**", 0).c_str());
+    STRCMP_EQUAL("**", str::repeat("**", 1).c_str());
+    STRCMP_EQUAL("******", str::repeat("**", 3).c_str());
+}
+
 TEST(MiscUtilsGroup, vec_remove)
 {
     std::vector<int> empty_v;

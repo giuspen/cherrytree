@@ -22,10 +22,128 @@
 #include "ct_export2html.h"
 #include "ct_misc_utils.h"
 #include "ct_main_win.h"
+#include "ct_dialogs.h"
+#include <fstream>
 
 CtExport2Html::CtExport2Html(CtMainWin* pCtMainWin)
  : _pCtMainWin(pCtMainWin)
 {
+}
+
+//Prepare the website folder
+bool CtExport2Html::prepare_html_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool export_overwrite)
+{
+    if (dir_place == "")
+    {
+        dir_place = CtDialogs::folder_select_dialog(_pCtMainWin->get_ct_config()->pickDirExport, _pCtMainWin);
+        if (dir_place == "")
+            return false;
+    }
+    new_folder = CtMiscUtil::clean_from_chars_not_for_filename(new_folder) + "_HTML";
+    new_folder = _prepare_export_folder(dir_place, new_folder, export_overwrite);
+    _export_dir = Glib::build_filename(dir_place, new_folder);
+    _images_dir = Glib::build_filename(_export_dir, "images");
+    _embed_dir = Glib::build_filename(_export_dir, "EmbeddedFiles");
+    g_mkdir_with_parents(_export_dir.c_str(), 0777);
+    g_mkdir_with_parents(_images_dir.c_str(), 0777);
+    g_mkdir_with_parents(_embed_dir.c_str(), 0777);
+
+    Glib::ustring config_dir = Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME);
+    Glib::ustring styles_css_filepath = Glib::build_filename(config_dir, "styles.css");
+    if (!Glib::file_test(styles_css_filepath, Glib::FILE_TEST_IS_REGULAR))
+    {
+        throw "put css file into .config folder (or export by pygtk version)"; // todo: CtFileSystem::copy_file(Glib::build_filename(CtConst::GLADE_PATH, "styles.css"), styles_css_filepath);
+    }
+    CtFileSystem::copy_file(styles_css_filepath, Glib::build_filename(_export_dir, "styles.css"));
+
+    return true;
+}
+
+// Export a Node To HTML
+void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOptions& options, const Glib::ustring& index, int sel_start, int sel_end)
+{
+    Glib::ustring html_text = str::format(HTML_HEADER, tree_iter.get_node_name());
+    if (index != "" && options.index_in_page)
+        html_text += "<div class=\"main\">" + index + "<div class=\"page\">";
+    if (options.include_node_name)
+        html_text += "<h1><b><u>" + tree_iter.get_node_name() + "</u></b></h1>";
+    // todo: ? self.dad.get_textbuffer_from_tree_iter(tree_iter)
+
+    std::vector<Glib::ustring> html_slots;
+    std::vector<CtAnchoredWidget*> widgets;
+    if (tree_iter.get_node_is_rich_text())
+    {
+        _html_get_from_treestore_node(tree_iter, sel_start, sel_end, html_slots, widgets);
+        int images_count = 0;
+        for (size_t i = 0; i < html_slots.size(); ++i)
+        {
+            html_text += html_slots[i];
+            if (i < widgets.size())
+            {
+                if (CtImageEmbFile* embfile = dynamic_cast<CtImageEmbFile*>(widgets[i]))
+                    html_text += _get_embfile_html(embfile, tree_iter, _embed_dir);
+                else if (CtImage* image = dynamic_cast<CtImage*>(widgets[i]))
+                    html_text += _get_image_html(image, _images_dir, images_count, &tree_iter);
+                else if (CtTable* table = dynamic_cast<CtTable*>(widgets[i]))
+                    html_text += _get_table_html(table);
+                else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widgets[i]))
+                    html_text += _get_codebox_html(codebox);
+            }
+        }
+    }
+    else
+        html_text += _html_get_from_code_buffer(tree_iter.get_node_text_buffer(), sel_start, sel_end);
+
+    if (index != "" && !options.index_in_page)
+        html_text += Glib::ustring("<p align=\"center\">") + Glib::build_filename("images", "home.png") +
+                "<img src=\"" "\" height=\"22\" width=\"22\">" +
+                CtConst::CHAR_SPACE + CtConst::CHAR_SPACE + "<a href=\"index.html\">\"" + _("Index") + "</a></p>";
+    if (index != "" && options.index_in_page)
+        html_text += "</div></div>\n";
+    html_text += HTML_FOOTER;
+
+    Glib::ustring node_html_filepath = Glib::build_filename(_export_dir, _get_html_filename(tree_iter));
+    g_file_set_contents(node_html_filepath.c_str(), html_text.c_str(), (gssize)html_text.bytes(), nullptr);
+}
+
+// Export All Nodes To HTML
+void CtExport2Html::nodes_all_export_to_html(bool all_tree, const CtExportOptions& options)
+{
+    // todo: shutil.copy(os.path.join(cons.GLADE_PATH, "home.png"), self.images_dir)
+
+    // create tree links text
+    Glib::ustring tree_links_text = "<div class=\"tree\">\n";
+    tree_links_text += "<p><strong>Index</strong></p>";
+    CtTreeIter tree_iter = all_tree ? _pCtMainWin->curr_tree_store().get_ct_iter_first() : _pCtMainWin->curr_tree_iter();
+    for (;tree_iter; ++tree_iter)
+    {
+        _tree_links_text_iter(tree_iter, tree_links_text, 1);
+        if (!all_tree) break;
+    }
+    tree_links_text += "</div>\n";
+
+    // create index html page
+    Glib::ustring html_text = str::format(HTML_HEADER, _pCtMainWin->get_curr_doc_file_name());
+    html_text += tree_links_text + HTML_FOOTER;
+    Glib::ustring node_html_filepath = Glib::build_filename(_export_dir, "index.html");
+    g_file_set_contents(node_html_filepath.c_str(), html_text.c_str(), (gssize)html_text.bytes(), nullptr);
+
+    // create html pages
+    // function to iterate nodes
+    std::function<void(CtTreeIter)> traverseFunc;
+    traverseFunc = [this, &traverseFunc, &options, &tree_links_text](CtTreeIter tree_iter) {
+        node_export_to_html(tree_iter, options, tree_links_text, -1, -1);
+        for (auto& child: tree_iter->children())
+            traverseFunc(_pCtMainWin->curr_tree_store().to_ct_tree_iter(child));
+    };
+    // start to iterarte nodes
+    tree_iter = all_tree ? _pCtMainWin->curr_tree_store().get_ct_iter_first() : _pCtMainWin->curr_tree_iter();
+    for (;tree_iter; ++tree_iter)
+    {
+        traverseFunc(tree_iter);
+        if (!all_tree) break;
+    }
+    // todo: self.dad.objects_buffer_refresh()
 }
 
 // Returns the HTML given the text buffer and iter bounds
@@ -43,19 +161,18 @@ Glib::ustring CtExport2Html::selection_export_to_html(Glib::RefPtr<Gtk::TextBuff
         for (CtAnchoredWidget* widget: widgets)
         {
             int end_offset = widget->getOffset();
-            Glib::ustring text_slot = _html_process_slot(start_offset, end_offset, text_buffer);
-            html_text += text_slot;
+            html_text +=_html_process_slot(start_offset, end_offset, text_buffer);
             if (CtImage* image = dynamic_cast<CtImage*>(widget)) html_text += _get_image_html(image, tempFolder, images_count, nullptr);
             else if (CtTable* table = dynamic_cast<CtTable*>(widget)) html_text += _get_table_html(table);
             else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widget)) html_text += _get_codebox_html(codebox);
             start_offset = end_offset;
         }
-        _html_process_slot(start_offset, end_iter.get_offset(), text_buffer);
+        html_text += _html_process_slot(start_offset, end_iter.get_offset(), text_buffer);
     }
     else
     {
         Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(text_buffer);
-        html_text += _html_get_from_code_buffer(gsv_buffer, std::make_pair(start_iter.get_offset(), end_iter.get_offset()));
+        html_text += _html_get_from_code_buffer(gsv_buffer, start_iter.get_offset(), end_iter.get_offset());
     }
     html_text += HTML_FOOTER;
     return html_text;
@@ -77,6 +194,23 @@ Glib::ustring CtExport2Html::codebox_export_to_html(CtCodebox* codebox)
     html_text += _get_codebox_html(codebox);
     html_text += HTML_FOOTER;
     return html_text;
+}
+
+// Returns the HTML embedded file
+Glib::ustring CtExport2Html::_get_embfile_html(CtImageEmbFile* embfile, CtTreeIter tree_iter, Glib::ustring embed_dir)
+{
+    Glib::ustring embfile_align_text = _get_object_alignment_string(embfile->getJustification());
+    Glib::ustring embfile_name = std::to_string(tree_iter.get_node_id()) + "-" +  embfile->get_file_name();
+    Glib::ustring embfile_rel_path = Glib::build_filename("EmbeddedFiles", embfile_name);
+    Glib::ustring embfile_html = "<table style=\"" + embfile_align_text + "\"><tr><td><a href=\"" +
+            embfile_rel_path + "\">Linked file: " + embfile->get_file_name() + " </a></td></tr></table>";
+
+    std::fstream file(Glib::build_filename(embed_dir, embfile_name), std::ios::out | std::ios::binary);
+    long size = (long)embfile->get_raw_blob().size();
+    file.write(embfile->get_raw_blob().c_str(), size);
+    file.close();
+
+    return embfile_html;
 }
 
 // Returns the HTML Image
@@ -113,7 +247,7 @@ Glib::ustring CtExport2Html::_get_image_html(CtImage* image, const Glib::ustring
 Glib::ustring CtExport2Html::_get_codebox_html(CtCodebox* codebox)
 {
     Glib::ustring codebox_html = "<div class=\"codebox\">";
-    codebox_html += _html_get_from_code_buffer(codebox->get_buffer(), std::make_pair(-1, -1));
+    codebox_html += _html_get_from_code_buffer(codebox->get_buffer(), -1, -1);
     codebox_html += "</div>";
     return codebox_html;
 }
@@ -140,9 +274,9 @@ Glib::ustring CtExport2Html::_get_table_html(CtTable* table)
 }
 
 // Get rich text from syntax highlighted code node
-Glib::ustring CtExport2Html::_html_get_from_code_buffer(Glib::RefPtr<Gsv::Buffer> code_buffer, std::pair<int, int> sel_range)
+Glib::ustring CtExport2Html::_html_get_from_code_buffer(Glib::RefPtr<Gsv::Buffer> code_buffer, int sel_start, int sel_end)
 {
-    Gtk::TextIter curr_iter = sel_range.first >= 0 ? code_buffer->get_iter_at_offset(sel_range.first) : code_buffer->begin();
+    Gtk::TextIter curr_iter = sel_start >= 0 ? code_buffer->get_iter_at_offset(sel_start) : code_buffer->begin();
     code_buffer->ensure_highlight(curr_iter, code_buffer->end());
     Glib::ustring html_text = "";
     Glib::ustring former_tag_str = CtConst::COLOR_48_BLACK;
@@ -186,7 +320,7 @@ Glib::ustring CtExport2Html::_html_get_from_code_buffer(Glib::RefPtr<Gsv::Buffer
         }
         Glib::ustring sym = str::xml_escape(Glib::ustring(1, curr_iter.get_char()));
         html_text += str::replace(sym, " ", "&nbsp;");
-        if (!curr_iter.forward_char() || (sel_range.second >= 0 && curr_iter.get_offset() > sel_range.second))
+        if (!curr_iter.forward_char() || (sel_end >= 0 && curr_iter.get_offset() > sel_end))
         {
             if (span_opened) html_text += "</span>";
             break;
@@ -196,6 +330,29 @@ Glib::ustring CtExport2Html::_html_get_from_code_buffer(Glib::RefPtr<Gsv::Buffer
     html_text = str::replace(html_text, CtConst::CHAR_NEWLINE, "<br />");
     return "<div class=\"codebox\">" + html_text + "</div>";
 }
+
+// Given a treestore iter returns the HTML rich text
+void CtExport2Html::_html_get_from_treestore_node(CtTreeIter node_iter, int sel_start, int sel_end,
+                                                  std::vector<Glib::ustring>& out_slots, std::vector<CtAnchoredWidget*>& out_widgets)
+{
+    auto curr_buffer = node_iter.get_node_text_buffer();
+    auto widgets = node_iter.get_embedded_pixbufs_tables_codeboxes(std::make_pair(sel_start, sel_end));
+    out_widgets = std::vector<CtAnchoredWidget*>(widgets.begin(), widgets.end()); // copy from list to vector
+
+    out_slots.clear();
+    int start_offset = sel_start == -1 ? 0 : sel_start;
+    for (auto widget: out_widgets)
+    {
+        int end_offset = widget->getOffset();
+        out_slots.push_back(_html_process_slot(start_offset, end_offset, curr_buffer));
+        start_offset = end_offset;
+    }
+    if (sel_end == -1)
+        out_slots.push_back(_html_process_slot(start_offset, -1, curr_buffer));
+    else
+        out_slots.push_back(_html_process_slot(start_offset, sel_end, curr_buffer));
+}
+
 
 // Process a Single HTML Slot
 Glib::ustring CtExport2Html::_html_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer)
@@ -345,6 +502,10 @@ Glib::ustring CtExport2Html::_html_text_serialize(Gtk::TextIter start_iter, Gtk:
 Glib::ustring CtExport2Html::_get_href_from_link_prop_val(Glib::ustring link_prop_val)
 {
     // todo: I saw the same function before, we need to join them
+
+    if (link_prop_val == "")
+        return "";
+
     Glib::ustring href = "";
     auto vec = str::split(link_prop_val, " ");
     if (vec[0] == CtConst::LINK_TYPE_WEBS)
@@ -396,9 +557,53 @@ Glib::ustring CtExport2Html::_link_process_folderpath(const Glib::ustring& folde
     return folderpath;
 }
 
+// Returns the style attribute(s) according to the alignment
+Glib::ustring CtExport2Html::_get_object_alignment_string(Glib::ustring alignment)
+{
+    if (alignment == CtConst::TAG_PROP_VAL_CENTER) return "margin-left:auto;margin-right:auto";
+    if (alignment == CtConst::TAG_PROP_VAL_RIGHT) return "margin-left:auto";
+    return "display:inline-table";
+}
+
+// Creating the Tree Links Text - iter
+void CtExport2Html::_tree_links_text_iter(CtTreeIter tree_iter, Glib::ustring& tree_links_text, int tree_count_level)
+{
+    Glib::ustring href = _get_html_filename(tree_iter);
+    Glib::ustring tabs = str::repeat("  ", tree_count_level);
+    if (tree_count_level == 1)
+        tree_links_text += tabs + "<p><a href=\"" + href + "\">" + tree_iter.get_node_name() + "</a></p>\n";
+    else
+        tree_links_text += tabs + "<li><a href=\"" + href + "\">" + tree_iter.get_node_name() + "</a></li>";
+
+    if (!tree_iter->children().empty())
+    {
+        tree_links_text += tabs + "<ol>";
+        for (auto& child: tree_iter->children())
+            _tree_links_text_iter(_pCtMainWin->curr_tree_store().to_ct_tree_iter(child), tree_links_text, tree_count_level + 1);
+        tree_links_text += tabs + "</ol>";
+    }
+}
+
 // Get the HTML page filename given the tree iter
 Glib::ustring CtExport2Html::_get_html_filename(CtTreeIter tree_iter)
 {
     Glib::ustring name = CtMiscUtil::get_node_hierarchical_name(tree_iter, "--", true, true, ".html");
     return str::replace(name, "#", "~");
+}
+
+
+Glib::ustring CtExport2Html::_prepare_export_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool overwrite_existing)
+{
+    if (Glib::file_test(Glib::build_filename(dir_place, new_folder), Glib::FILE_TEST_IS_DIR))
+    {
+        // todo:
+        if (overwrite_existing)
+            throw "work in progress"; // todo: shutil.rmtree(os.path.join(dir_place, new_folder))
+
+        int n = 2;
+        while (Glib::file_test(Glib::build_filename(dir_place, new_folder + str::format("{:03d}", n)), Glib::FILE_TEST_IS_DIR))
+            n += 1;
+        new_folder += str::format("{:03d}", n);
+    }
+    return new_folder;
 }

@@ -59,9 +59,8 @@ private:
     CtMainWin*   _pCtMainWin;
 
 private:
-    bool         _last_include_node_name{true};
-    bool         _last_new_node_page{false};
-    bool         _last_index_in_page{true};
+    CtExportOptions _export_options;
+
 public:
     CtMainWin*   getCtMainWin() { return _pCtMainWin; }
 
@@ -318,6 +317,7 @@ private:
     // helper for export actions
     void _export_print(bool save_to_pdf, Glib::ustring auto_path, bool auto_overwrite);
     Glib::ustring _get_pdf_filepath(Glib::ustring proposed_name);
+    void _export_to_html(Glib::ustring auto_path, bool auto_overwrite);
 
 public:
     // export actions

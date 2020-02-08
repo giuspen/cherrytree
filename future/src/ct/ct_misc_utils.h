@@ -28,6 +28,7 @@
 #include "ct_treestore.h"
 #include "ct_types.h"
 #include "src/fmt/fmt.h"
+#include "src/fmt/ostream.h" // to support Glib::ustring formatting
 #include <type_traits>
 
 template<class F> auto scope_guard(F&& f) {
@@ -225,6 +226,8 @@ void join_numbers(const Vector& in_numbers_vec, String& outString, const gchar* 
     }
 }
 
+Glib::ustring repeat(const Glib::ustring& input, int num);
+
 } // namespace str
 
 namespace vec {
@@ -305,6 +308,8 @@ namespace CtFileSystem {
 
 // From Slash to Backslash when needed
 std::string get_proper_platform_filepath(std::string filepath);
+
+void copy_file(Glib::ustring from_file, Glib::ustring to_file);
 
 std::string abspath(const std::string& path);
 

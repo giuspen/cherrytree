@@ -22,18 +22,19 @@
 #pragma once
 
 #include "ct_main_win.h"
+#include "ct_dialogs.h"
 
 class CtExportPrint
 {
 public:
     CtExportPrint(CtMainWin* pCtMainWin) { _pCtMainWin = pCtMainWin; }
 
-    void node_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, bool include_node_name, int sel_start, int sel_end);
-    void node_and_subnodes_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, bool include_node_name, bool new_node_in_new_page);
-    void tree_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, bool include_node_name, bool new_node_in_new_page);
+    void node_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options, int sel_start, int sel_end);
+    void node_and_subnodes_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options);
+    void tree_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options);
 
 private:
-    void _nodes_all_export_print_iter(CtTreeIter tree_iter, bool include_node_name, bool new_node_in_new_page,
+    void _nodes_all_export_print_iter(CtTreeIter tree_iter, const CtExportOptions& options,
                                       std::vector<Glib::ustring>& tree_pango_slots, std::list<CtAnchoredWidget*>& tree_widgets, Glib::ustring& text_font);
     void _add_node_name(Glib::ustring node_name, std::vector<Glib::ustring>& pango_slots);
 

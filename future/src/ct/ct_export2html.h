@@ -25,6 +25,7 @@
 #include "ct_codebox.h"
 #include "ct_image.h"
 #include "ct_treestore.h"
+#include "ct_dialogs.h" // CtExportOptions
 
 class CtExport2Html
 {
@@ -42,24 +43,43 @@ private:
 public:
     CtExport2Html(CtMainWin* pCtMainWin);
 
+    void          node_export_to_html(CtTreeIter tree_iter, const CtExportOptions& options, const Glib::ustring& index, int sel_start, int sel_end);
+    void          nodes_all_export_to_html(bool all_tree, const CtExportOptions& options);
     Glib::ustring selection_export_to_html(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter start_iter,
                                            Gtk::TextIter end_iter, const Glib::ustring& syntax_highlighting);
     Glib::ustring table_export_to_html(CtTable* table);
     Glib::ustring codebox_export_to_html(CtCodebox* codebox);
+    bool          prepare_html_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool export_overwrite);
 
 private:
+    Glib::ustring _get_embfile_html(CtImageEmbFile* embfile, CtTreeIter tree_iter, Glib::ustring embed_dir);
     Glib::ustring _get_image_html(CtImage* image, const Glib::ustring& images_dir, int& images_count, CtTreeIter* tree_iter);
     Glib::ustring _get_codebox_html(CtCodebox* codebox);
     Glib::ustring _get_table_html(CtTable* table);
-    Glib::ustring _html_get_from_code_buffer(Glib::RefPtr<Gsv::Buffer> code_buffer, std::pair<int, int> sel_range);
+
+    Glib::ustring _html_get_from_code_buffer(Glib::RefPtr<Gsv::Buffer> code_buffer, int sel_start, int sel_end);
+    void          _html_get_from_treestore_node(CtTreeIter node_iter, int sel_start, int sel_end,
+                                       std::vector<Glib::ustring>& out_slots, std::vector<CtAnchoredWidget*>& out_widgets);
     Glib::ustring _html_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer);
     Glib::ustring _html_text_serialize(Gtk::TextIter start_iter, Gtk::TextIter end_iter, const std::map<const gchar*, std::string>& curr_attributes);
     Glib::ustring _get_href_from_link_prop_val(Glib::ustring link_prop_val);
-    Glib::ustring _get_html_filename(CtTreeIter tree_iter);
-public:
+    Glib::ustring _get_object_alignment_string(Glib::ustring alignment);
 
+    void          _tree_links_text_iter(CtTreeIter tree_iter, Glib::ustring& tree_links_text, int tree_count_level);
+
+
+    Glib::ustring _get_html_filename(CtTreeIter tree_iter);
+
+    Glib::ustring _prepare_export_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool overwrite_existing);
+
+public:
     static Glib::ustring _link_process_filepath(const Glib::ustring& filepath_raw);
     static Glib::ustring _link_process_folderpath(const Glib::ustring& folderpath_raw);
-    CtMainWin* _pCtMainWin;
+
+private:
+    CtMainWin*    _pCtMainWin;
+    Glib::ustring _export_dir;
+    Glib::ustring _images_dir;
+    Glib::ustring _embed_dir;
 };
 

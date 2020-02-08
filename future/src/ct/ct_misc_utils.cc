@@ -28,6 +28,7 @@
 #include <ctime>
 #include <regex>
 #include <glib/gstdio.h> // to get stats
+#include <fstream>
 
 CtDocType CtMiscUtil::get_doc_type(const std::string& fileName)
 {
@@ -346,45 +347,77 @@ void CtTextIterUtil::generic_process_slot(int start_offset,
                                           Glib::RefPtr<Gtk::TextBuffer>& text_buffer,
                                           std::function<void(Gtk::TextIter&/*start_iter*/, Gtk::TextIter&/*curr_iter*/, std::map<const gchar*, std::string>&/*curr_attributes*/)> serialize_func)
 {
+/*    if (end_offset == -1)
+        end_offset = text_buffer->end().get_offset();
+
+    std::map<const gchar*, std::string> curr_attributes;
+     for (auto tag_property: CtConst::TAG_PROPERTIES)
+         curr_attributes[tag_property] = "";
+     Gtk::TextIter start_iter = text_buffer->get_iter_at_offset(start_offset);
+     Gtk::TextIter curr_iter = start_iter;
+     CtTextIterUtil::rich_text_attributes_update(curr_iter, curr_attributes);
+
+     bool tag_found = curr_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr});
+     bool one_more_serialize = true;
+     while (tag_found)
+     {
+         if (curr_iter.get_offset() > end_offset)
+             curr_iter = text_buffer->get_iter_at_offset(end_offset);
+         serialize_func(start_iter, curr_iter, curr_attributes);
+
+         int offset_old = curr_iter.get_offset();
+         if (offset_old >= end_offset)
+         {
+             one_more_serialize = false;
+             break;
+         }
+         else
+         {
+             CtTextIterUtil::rich_text_attributes_update(curr_iter, curr_attributes);
+             start_iter.set_offset(offset_old);
+             tag_found = curr_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr});
+             if (curr_iter.get_offset() == offset_old)
+             {
+                 one_more_serialize = false;
+                 break;
+             }
+         }
+     }
+     if (one_more_serialize)
+     {
+         if (curr_iter.get_offset() > end_offset)
+             curr_iter = text_buffer->get_iter_at_offset(end_offset);
+         serialize_func(start_iter, curr_iter, curr_attributes);
+     }
+     */
+    // todo: make the upper code less ugly
+    // if there is an issue, then try the upper code
+
     std::map<const gchar*, std::string> curr_attributes;
     for (auto tag_property: CtConst::TAG_PROPERTIES)
         curr_attributes[tag_property] = "";
-    Gtk::TextIter start_iter = text_buffer->get_iter_at_offset(start_offset);
-    Gtk::TextIter curr_iter = start_iter;
-    CtTextIterUtil::rich_text_attributes_update(curr_iter, curr_attributes);
 
-    bool tag_found = curr_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr});
-    bool one_more_serialize = true;
-    while (tag_found)
+    Gtk::TextIter curr_start_iter = text_buffer->get_iter_at_offset(start_offset);
+    Gtk::TextIter curr_end_iter = curr_start_iter;
+    Gtk::TextIter real_end_iter = end_offset == -1 ? text_buffer->end() : text_buffer->get_iter_at_offset(end_offset);
+
+    CtTextIterUtil::rich_text_attributes_update(curr_end_iter, curr_attributes);
+    while (curr_end_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr}))
     {
-        if (curr_iter.get_offset() > end_offset)
-            curr_iter = text_buffer->get_iter_at_offset(end_offset);
-        serialize_func(start_iter, curr_iter, curr_attributes);
-
-        int offset_old = curr_iter.get_offset();
-        if (offset_old >= end_offset)
-        {
-            one_more_serialize = false;
+        if (curr_end_iter.compare(real_end_iter) >= 0)
             break;
-        }
-        else
-        {
-            CtTextIterUtil::rich_text_attributes_update(curr_iter, curr_attributes);
-            start_iter.set_offset(offset_old);
-            tag_found = curr_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr});
-            if (curr_iter.get_offset() == offset_old)
-            {
-                one_more_serialize = false;
-                break;
-            }
-        }
+
+        serialize_func(curr_start_iter, curr_end_iter, curr_attributes);
+
+        CtTextIterUtil::rich_text_attributes_update(curr_end_iter, curr_attributes);
+        curr_start_iter = curr_end_iter;
     }
-    if (one_more_serialize)
+
+    if (curr_start_iter.compare(real_end_iter) < 0)
     {
-        if (curr_iter.get_offset() > end_offset)
-            curr_iter = text_buffer->get_iter_at_offset(end_offset);
-        serialize_func(start_iter, curr_iter, curr_attributes);
+        serialize_func(curr_start_iter, real_end_iter, curr_attributes);
     }
+
 }
 
 const gchar* CtTextIterUtil::get_text_iter_alignment(const Gtk::TextIter& textIter, CtMainWin* pCtMainWin)
@@ -673,6 +706,16 @@ Glib::ustring str::swapcase(const Glib::ustring& text)
     return ret_text;
 }
 
+Glib::ustring str::repeat(const Glib::ustring& input, int num)
+{
+    Glib::ustring ret;
+    if (num <= 0) return ret;
+    ret.reserve(input.size() * num);
+    while (num--)
+        ret += input;
+    return ret;
+}
+
 std::string CtFileSystem::get_proper_platform_filepath(std::string filepath)
 {
     if (CtConst::IS_WIN_OS)
@@ -680,6 +723,13 @@ std::string CtFileSystem::get_proper_platform_filepath(std::string filepath)
     else
         filepath = str::replace(filepath, CtConst::CHAR_BSLASH, CtConst::CHAR_SLASH);
     return filepath;
+}
+
+void CtFileSystem::copy_file(Glib::ustring from_file, Glib::ustring to_file)
+{
+    std::ifstream  src(from_file, std::ios::binary);
+    std::ofstream  dst(to_file,   std::ios::binary);
+    dst << src.rdbuf();
 }
 
 std::string CtFileSystem::abspath(const std::string& path)
