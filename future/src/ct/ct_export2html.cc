@@ -161,14 +161,13 @@ Glib::ustring CtExport2Html::selection_export_to_html(Glib::RefPtr<Gtk::TextBuff
         for (CtAnchoredWidget* widget: widgets)
         {
             int end_offset = widget->getOffset();
-            Glib::ustring text_slot = _html_process_slot(start_offset, end_offset, text_buffer);
-            html_text += text_slot;
+            html_text +=_html_process_slot(start_offset, end_offset, text_buffer);
             if (CtImage* image = dynamic_cast<CtImage*>(widget)) html_text += _get_image_html(image, tempFolder, images_count, nullptr);
             else if (CtTable* table = dynamic_cast<CtTable*>(widget)) html_text += _get_table_html(table);
             else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widget)) html_text += _get_codebox_html(codebox);
             start_offset = end_offset;
         }
-        _html_process_slot(start_offset, end_iter.get_offset(), text_buffer);
+        html_text += _html_process_slot(start_offset, end_iter.get_offset(), text_buffer);
     }
     else
     {
@@ -572,7 +571,7 @@ void CtExport2Html::_tree_links_text_iter(CtTreeIter tree_iter, Glib::ustring& t
     Glib::ustring href = _get_html_filename(tree_iter);
     Glib::ustring tabs = str::repeat("  ", tree_count_level);
     if (tree_count_level == 1)
-        tree_links_text += tabs + "<p><a href=\"" + href + "\">" + tree_iter.get_node_name() + "</a></p>";
+        tree_links_text += tabs + "<p><a href=\"" + href + "\">" + tree_iter.get_node_name() + "</a></p>\n";
     else
         tree_links_text += tabs + "<li><a href=\"" + href + "\">" + tree_iter.get_node_name() + "</a></li>";
 
