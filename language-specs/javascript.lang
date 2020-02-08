@@ -1,0 +1,829 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Scott Martin <scott@coffeeblack.org>
+ Copyright (C) 2004 Scott Martin <scott@coffeeblack.org>
+ Copyright (C) 2005 Stef Walter (formerly Nate Nielsen) <stef@memberwebs.com>
+ Copyright (C) 2005-2007 Marco Barisione <barisione@gmail.com>
+ Copyright (C) 2005-2007 Emanuele Aina
+ Copyright (C) 2019 Jeffery To <jeffery.to@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="js" name="JavaScript" version="2.0" _section="Script">
+  <metadata>
+    <property name="mimetypes">application/javascript;application/x-javascript;text/x-javascript;text/javascript;text/x-js</property>
+    <property name="globs">*.js</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+
+    <!-- General -->
+    <style id="comment"               name="Comment"                map-to="def:comment"/>
+    <style id="doc-comment"           name="Documentation comment"  map-to="def:doc-comment"/>
+    <style id="error"                 name="Error"                  map-to="def:error"/>
+    <style id="keyword"               name="Keyword"                map-to="def:keyword"/>
+    <style id="reserved-word"         name="Reserved word"          map-to="def:reserved"/>
+    <style id="directive"             name="Directive"              map-to="def:preprocessor"/>
+
+    <!-- Literals -->
+    <style id="null-value"            name="Null value"             map-to="def:special-constant"/>
+    <style id="boolean"               name="Boolean value"          map-to="def:boolean"/>
+    <style id="decimal"               name="Decimal number"         map-to="def:decimal"/>
+    <style id="base-n-integer"        name="Base-n integer"         map-to="def:base-n-integer"/>
+    <style id="binary-integer"        name="Binary integer"         map-to="js:base-n-integer"/>
+    <style id="octal-integer"         name="Octal integer"          map-to="js:base-n-integer"/>
+    <style id="hex-integer"           name="Hexadecimal integer"    map-to="js:base-n-integer"/>
+    <style id="escape"                name="Escaped character"      map-to="def:special-char"/>
+    <style id="string"                name="String"                 map-to="def:string"/>
+    <style id="included-file"         name="Included file"          map-to="js:string"/>
+    <style id="regex"                 name="Regular expression"     map-to="def:string"/>
+    <style id="regex-class"           name="RE character class"     map-to="def:special-char"/>
+    <style id="regex-group"           name="RE group name"          map-to="def:identifier"/>
+    <style id="regex-flag"            name="RE flag"                map-to="def:special-constant"/>
+    <style id="template-literal"      name="Template literal"       map-to="js:string"/>
+    <style id="template-placeholder"  name="Template placeholder"   map-to="def:preprocessor"/>
+
+    <!-- Built-in values -->
+    <style id="built-in-value"        name="Built-in value"         map-to="def:special-constant"/>
+    <style id="built-in-function"     name="Built-in function"      map-to="def:builtin"/>
+    <style id="built-in-constructor"  name="Built-in constructor"   map-to="def:type"/>
+    <style id="built-in-object"       name="Built-in object"        map-to="def:builtin"/>
+    <style id="built-in-property"     name="Built-in property"      map-to="def:statement"/>
+    <style id="built-in-method"       name="Built-in method"        map-to="js:built-in-function"/>
+
+    <!-- The following are for debugging use -->
+
+    <!-- General -->
+    <style id="identifier"                    name="Identifier"/>
+    <style id="rest-syntax"                   name="Rest syntax"/>
+    <style id="spread-syntax"                 name="Spread syntax"/>
+    <style id="array-destructuring"           name="Array destructuring"/>
+    <style id="object-destructuring"          name="Object destructuring"/>
+
+    <!-- Literals -->
+    <style id="array-literal"                 name="Array literal"/>
+    <style id="object-literal"                name="Object literal"/>
+
+    <!-- Functions and classes -->
+    <style id="function-expression"           name="Function expression"/>
+    <style id="class-expression"              name="Class expression"/>
+
+    <!-- Expressions -->
+    <style id="grouping"                      name="Grouping"/>
+    <style id="grouping-operator"             name="Grouping operator"/>
+    <style id="increment-decrement-operator"  name="Increment decrement operator"/>
+    <style id="unary-operator"                name="Unary operator"/>
+    <style id="binary-operator"               name="Binary operator"/>
+    <style id="comma-operator"                name="Comma operator"/>
+    <style id="ternary-operator"              name="Ternary operator"/>
+    <style id="expression"                    name="Expression"/>
+
+    <!-- Statements -->
+    <style id="block-statement"               name="Block statement"/>
+    <style id="break-statement"               name="Break statement"/>
+    <style id="continue-statement"            name="Continue statement"/>
+    <style id="debugger-statement"            name="Debugger statement"/>
+    <style id="expression-statement"          name="Expression statement"/>
+    <style id="for-statement"                 name="For statement"/>
+    <style id="if-statement"                  name="If statement"/>
+    <style id="else-statement"                name="Else statement"/>
+    <style id="label-statement"               name="Label statement"/>
+    <style id="return-statement"              name="Return statement"/>
+    <style id="switch-statement"              name="Switch statement"/>
+    <style id="throw-statement"               name="Throw statement"/>
+    <style id="try-catch-statement"           name="Try catch statement"/>
+    <style id="variable-declaration"          name="Variable declaration"/>
+    <style id="while-statement"               name="While statement"/>
+    <style id="with-statement"                name="With statement"/>
+
+    <!-- Modules -->
+    <style id="export-import-declaration"     name="Export import declaration"/>
+
+  </styles>
+
+  <!-- from identifier-char -->
+  <keyword-char-class>[\p{L}\p{Nl}\x{1885}-\x{1886}\x{2118}\x{212E}\x{309B}-\x{309C}\p{Mn}\p{Mc}\p{Nd}\p{Pc}\x{00B7}\x{0387}\x{1369}-\x{1371}\x{19DA}$\x{200C}\x{200D}]</keyword-char-class>
+
+  <definitions>
+
+    <!--
+         "Tags" (e.g. <Script>) or section numbers (e.g. 13.2 Block)
+         inside comments refer to relevant productions or sections from
+         the ECMAScript Language Specification, respectively.
+
+         Current draft: https://tc39.es/ecma262/
+
+         Supported level: ES2020
+
+         Supported ES2021 proposals:
+         * (none yet)
+
+         Features from Annex B of the spec are not highlighted to
+         discourage their use, except:
+         * Legacy octal number literals: Highlighted as errors to
+           reduce accidental usage
+         * Legacy octal escape sequences: Highlighted as normal escapes
+           as they are inside strings; the string and error styles may
+           conflict with each other
+
+         Not supported yet:
+         * SharedArrayBuffer and Atomics (ES2017): Browser support is
+           minimal / disabled to mitigate speculative side-channel
+           attacks (Meltdown / Spectre)
+         * RegExp lookbehind assertions (ES2018): Lookahead assertions
+           are not highlighted either
+
+
+         Also supported:
+         * ECMAScript Internationalization API
+           Current draft: https://tc39.es/ecma402/
+           Supported level: 2018
+         * WebAssembly JavaScript Interface
+           Editor's draft: https://webassembly.github.io/spec/js-api/
+           Supported level: Candidate Recommendation, 18 July 2019
+         * WebAssembly Web API
+           Editor's draft: https://webassembly.github.io/spec/web-api/
+           Supported level: Candidate Recommendation, 18 July 2019
+
+
+         Naming convention for contexts:
+         * Prefixes:
+           * "_" (underscore): "Private" to one or more "public"
+             contexts (can still be overriden by child languages)
+           * "ordered-": Wrapper for another context so that it can only
+             match in a referenced position (has once-only="true")
+           * "last-": An "ordered-" wrapper with end-parent="true",
+              which will end the parent under all circumstances
+           * "choice-": One option in a group where only one can be
+              selected (has end-parent="true")
+         * Suffixes:
+           * Plural: Can match multiple times
+           * Singular: Has once-only="true"
+           * "-end-parent": Has end-parent="true"
+           * "-no-extend-parent": Has extend-parent="false"
+           * "-content": Holds children of container contexts
+
+         End-parent contexts are container contexts to avoid the
+         end-parent bug:
+         https://gitlab.gnome.org/GNOME/gtksourceview/issues/14
+    -->
+
+
+    <!-- # General -->
+
+    <!-- <UnicodeEscapeSequence> -->
+    <define-regex id="unicode-escape" extended="true">
+      (?: \\u (?: [0-9a-fA-F]{4} | \{ [0-9a-fA-F]{1,} \} ) )
+    </define-regex> <!-- /unicode-escape -->
+
+    <!-- <IdentifierStart> -->
+    <define-regex id="identifier-start" extended="true">
+      (?: \%{def:unicode-id-start} | [$_] | \%{unicode-escape} )
+    </define-regex> <!-- /identifier-start -->
+
+    <!-- for lookbehinds
+
+         U+200C Zero-width non-joiner <ZWNJ>
+         U+200D Zero-width joiner <ZWJ>
+    -->
+    <define-regex id="identifier-char" extended="true">
+      (?: \%{def:unicode-id-continue} | [$\x{200C}\x{200D}] )
+    </define-regex> <!-- /identifier-char -->
+
+    <!-- <IdentifierPart> -->
+    <define-regex id="identifier-part" extended="true">
+      (?: \%{identifier-char} | \%{unicode-escape} )
+    </define-regex> <!-- /identifier-part -->
+
+    <!-- <IdentifierName> -->
+    <define-regex id="identifier" extended="true">
+      (?: \%{identifier-start} \%{identifier-part}* )
+    </define-regex> <!-- /identifier-->
+
+    <!-- <WhiteSpace> -->
+    <!-- does not include characters from <LineTerminator>,
+         to only allow space separators when we want match a
+         "whitespace" character
+
+         U+0009 Character tabulation <TAB>
+         U+000B Line tabulation <VT>
+         U+000C Form feed <FF>
+         U+0020 Space <SP>
+         U+00A0 No-break space <NBSP>
+         U+FEFF Zero width no-break space <ZWNBSP>
+         Zs Space_Separator category <USP>
+    -->
+    <define-regex id="whitespace" extended="true">
+      [\t\x{000B}\f \x{00A0}\x{FEFF}\p{Zs}]
+    </define-regex> <!-- /whitespace -->
+
+    <!-- includes characters from <LineTerminator>,
+         to ignore line terminators when we want to match a "not
+         whitespace" character
+
+         U+000A Line feed <LF>
+         U+000D Carriage return <CR>
+         U+2028 Line separator <LS>
+         U+2029 Paragraph separator <PS>
+    -->
+    <define-regex id="not-whitespace" extended="true">
+      [^\t\x{000B}\f \x{00A0}\x{FEFF}\p{Zs}\n\r\x{2028}\x{2029}]
+    </define-regex> <!-- /not-whitespace -->
+
+    <define-regex id="before-next-token" extended="true">
+      (?= \%{not-whitespace} )
+    </define-regex> <!-- /before-next-token -->
+
+    <define-regex id="statement-end" extended="true">
+      (?: ; | \%{before-next-token} )
+    </define-regex> <!-- /statement-end -->
+
+    <define-regex id="statement-end-or-end-of-line" extended="true">
+      (?: \%{statement-end} | $ )
+    </define-regex> <!-- /statement-end-or-end-of-line -->
+
+    <!-- wherever this is used, the highlighting will be more brittle,
+         because comments can span multiple lines -->
+    <define-regex id="optional-whitespace-or-comments" extended="true">
+      (?&gt; (?: \%{whitespace}+ | /\*.*?\*/ )* )
+    </define-regex> <!-- /optional-whitespace-or-comments -->
+
+    <define-regex id="generator-modifier">\*</define-regex>
+
+    <!-- "unknown id" errors can occur when using a regex defined in one
+          component file in another component file
+          https://gitlab.gnome.org/GNOME/gtksourceview/issues/67
+
+          so we move the definitions of these regexes here
+    -->
+
+    <define-regex id="import-function-keyword-suffix" extended="true">
+      (?:
+        \%{optional-whitespace-or-comments}
+        \(
+      )
+    </define-regex> <!-- /import-function-keyword-suffix -->
+
+    <define-regex id="new-target-object-keyword-suffix" extended="true">
+      (?:
+        \%{optional-whitespace-or-comments}
+        \.
+        \%{optional-whitespace-or-comments}
+        target \%]
+      )
+    </define-regex> <!-- /new-target-object-keyword-suffix -->
+
+    <!-- async function (ES2017)
+         no line terminator allowed between "async" and "function" -->
+    <define-regex id="function-expression-keyword" extended="true">
+      (?:
+        (?:
+          \%[ async \%]
+          \%{optional-whitespace-or-comments}
+        )?
+        \%[ function \%]
+      )
+    </define-regex> <!-- /function-expression-keyword -->
+
+    <define-regex id="class-expression-keyword" extended="true">
+      (?: \%[ class \%] )
+    </define-regex> <!-- /class-expression-keyword -->
+
+    <!-- ## Embedded lang hooks
+         a placeholder context where an embedding language (e.g. html)
+         can <replace>
+    -->
+
+    <context id="embedded-lang-hooks"/>
+
+    <!-- ## Comments -->
+
+    <context id="_comment-content" class-disabled="no-spell-check">
+      <include>
+        <context ref="embedded-lang-hooks"/>
+        <context ref="def:in-comment"/>
+      </include>
+    </context> <!-- /_comment-content -->
+
+    <!-- line continuations are not allowed inside single-line comments -->
+    <context id="_single-line-comments" style-ref="comment" end-at-line-end="true" class-disabled="no-spell-check" class="comment">
+      <start>//</start>
+      <include>
+        <context ref="_comment-content"/>
+      </include>
+    </context> <!-- /_single-line-comments -->
+
+    <context id="_multiline-comments" style-ref="comment" class-disabled="no-spell-check" class="comment">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="_comment-content"/>
+      </include>
+    </context> <!-- /_multiline-comments -->
+
+    <context id="_single-line-comments-no-extend-parent" style-ref="comment" end-at-line-end="true" class-disabled="no-spell-check" class="comment" extend-parent="false">
+      <start>//</start>
+      <include>
+        <context ref="_comment-content"/>
+      </include>
+    </context> <!-- /_single-line-comments-no-extend-parent -->
+
+    <context id="_multiline-comments-no-extend-parent" style-ref="comment" class-disabled="no-spell-check" class="comment" extend-parent="false">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="_comment-content"/>
+      </include>
+    </context> <!-- /_multiline-comments-no-extend-parent -->
+
+    <context id="_jsdoc-embedded-lang-hooks">
+      <include>
+        <context ref="embedded-lang-hooks"/>
+
+        <context end-parent="true">
+          <start>(?=\*/)</start>
+          <end>\%{def:always-match}</end>
+        </context>
+
+        <context ref="jsdoc:embedded-lang-hooks" original="true"/>
+      </include>
+    </context> <!-- /_jsdoc-embedded-lang-hooks -->
+
+    <replace id="jsdoc:embedded-lang-hooks" ref="_jsdoc-embedded-lang-hooks"/>
+
+    <context id="_doc-comment-content">
+      <include>
+        <context ref="_comment-content"/>
+        <context ref="jsdoc:jsdoc"/>
+      </include>
+    </context> <!-- /_doc-comment-content -->
+
+    <context id="_doc-comments" style-ref="doc-comment" class-disabled="no-spell-check" class="comment">
+      <start>/\*\*(?![\*/])</start>
+      <end>\*/</end>
+      <include>
+        <context ref="_doc-comment-content"/>
+      </include>
+    </context> <!-- /_doc-comments -->
+
+    <context id="_doc-comments-no-extend-parent" style-ref="doc-comment" class-disabled="no-spell-check" class="comment" extend-parent="false">
+      <start>/\*\*(?![\*/])</start>
+      <end>\*/</end>
+      <include>
+        <context ref="_doc-comment-content"/>
+      </include>
+    </context> <!-- /_doc-comments-no-extend-parent -->
+
+    <context id="comments">
+      <include>
+        <context ref="_single-line-comments"/>
+        <context ref="_doc-comments"/>
+        <context ref="_multiline-comments"/>
+        <context ref="def:c-like-close-comment-outside-comment" style-ref="error"/>
+      </include>
+    </context> <!-- /comments -->
+
+    <!-- for statements that cannot contain line terminators -->
+    <context id="comments-no-extend-parent">
+      <include>
+        <context ref="_single-line-comments-no-extend-parent"/>
+        <context ref="_doc-comments-no-extend-parent"/>
+        <context ref="_multiline-comments-no-extend-parent"/>
+        <context ref="def:c-like-close-comment-outside-comment" style-ref="error"/>
+      </include>
+    </context> <!-- /comments-no-extend-parent -->
+
+    <!-- ## Identifiers -->
+
+    <!-- <ReservedWord> -->
+    <context id="_reserved-words">
+      <include>
+
+        <!-- <Keyword> -->
+        <context id="_keywords" style-ref="reserved-word">
+          <keyword>await</keyword> <!-- ES2017 -->
+          <keyword>break</keyword>
+          <keyword>case</keyword>
+          <keyword>catch</keyword>
+          <keyword>class</keyword>
+          <keyword>const</keyword>
+          <keyword>continue</keyword>
+          <keyword>debugger</keyword>
+          <keyword>default</keyword>
+          <keyword>delete</keyword>
+          <keyword>do</keyword>
+          <keyword>else</keyword>
+          <keyword>export</keyword>
+          <keyword>extends</keyword>
+          <keyword>finally</keyword>
+          <keyword>for</keyword>
+          <keyword>function</keyword>
+          <keyword>if</keyword>
+          <keyword>import</keyword>
+          <keyword>instanceof</keyword>
+          <keyword>in</keyword>
+          <keyword>new</keyword>
+          <keyword>return</keyword>
+          <keyword>super</keyword>
+          <keyword>switch</keyword>
+          <keyword>this</keyword>
+          <keyword>throw</keyword>
+          <keyword>try</keyword>
+          <keyword>typeof</keyword>
+          <keyword>var</keyword>
+          <keyword>void</keyword>
+          <keyword>while</keyword>
+          <keyword>with</keyword>
+          <keyword>yield</keyword> <!-- allowed as a variable name in non-strict mode -->
+        </context> <!-- /_keywords -->
+
+        <!-- "treated as reserved words through static semantic
+             restrictions"
+             https://tc39.github.io/ecma262/#sec-keywords -->
+        <context id="_strict-mode-keywords" style-ref="reserved-word">
+          <keyword>let</keyword>
+          <keyword>static</keyword>
+        </context> <!-- /_strict-mode-keywords -->
+
+        <!-- <FutureReservedWord> -->
+        <context id="_future-reserved-words" style-ref="reserved-word">
+          <keyword>enum</keyword>
+        </context> <!-- /_future-reserved-words -->
+
+        <!-- usage in strict mode "restricted using static semantic
+             restrictions"
+             https://tc39.github.io/ecma262/#sec-future-reserved-words -->
+        <context id="_strict-mode-future-reserved-words" style-ref="reserved-word">
+          <keyword>implements</keyword>
+          <keyword>interface</keyword>
+          <keyword>package</keyword>
+          <keyword>private</keyword>
+          <keyword>protected</keyword>
+          <keyword>public</keyword>
+        </context> <!-- /_strict-mode-future-reserved-words -->
+
+        <context ref="js-lit:null-value" style-ref="reserved-word"/>
+        <context ref="js-lit:boolean" style-ref="reserved-word"/>
+      </include>
+    </context> <!-- /_reserved-words -->
+
+    <context id="_identifier-names" style-ref="identifier">
+      <match>\%{identifier}</match>
+    </context> <!-- /_identifier-names -->
+
+    <context id="_identifier-name-content">
+      <include>
+        <context ref="_identifier-names"/>
+      </include>
+    </context> <!-- /_identifier-name-content -->
+
+    <context id="identifier-name" once-only="true">
+      <start>(?=\%{identifier-start})</start>
+      <end>\%{def:always-match}</end>
+      <include>
+        <!-- no embedded-lang-hooks here -->
+        <!-- no comments here -->
+        <!-- do not extend the context by matching comments or
+             embedded-lang-hooks, which may lead to multiple identifiers -->
+        <context ref="_identifier-name-content"/>
+      </include>
+    </context> <!-- /choice-identifier-name -->
+
+    <context id="choice-identifier-name" end-parent="true">
+      <start>(?=\%{identifier-start})</start>
+      <end>\%{def:always-match}</end>
+      <include>
+        <!-- no embedded-lang-hooks here -->
+        <!-- no comments here -->
+        <!-- do not extend the context by matching comments or
+             embedded-lang-hooks, which may lead to multiple identifiers -->
+        <context ref="_identifier-name-content"/>
+      </include>
+    </context> <!-- /choice-identifier-name -->
+
+    <context id="_identifier-content">
+      <include>
+        <context ref="_reserved-words"/>
+        <context ref="_identifier-names"/>
+      </include>
+    </context> <!-- /_identifier-content -->
+
+    <context id="identifier" once-only="true">
+      <start>(?=\%{identifier-start})</start>
+      <end>\%{def:always-match}</end>
+      <include>
+        <!-- no embedded-lang-hooks here -->
+        <!-- no comments here -->
+        <!-- do not extend the context by matching comments or
+             embedded-lang-hooks, which may lead to multiple identifiers -->
+        <context ref="_identifier-content"/>
+      </include>
+    </context> <!-- /identifier -->
+
+    <context id="choice-identifier" end-parent="true">
+      <start>(?=\%{identifier-start})</start>
+      <end>\%{def:always-match}</end>
+      <include>
+        <!-- no embedded-lang-hooks here -->
+        <!-- no comments here -->
+        <!-- do not extend the context by matching comments or
+             embedded-lang-hooks, which may lead to multiple identifiers -->
+        <context ref="_identifier-content"/>
+      </include>
+    </context> <!-- /choice-identifier -->
+
+    <context id="ordered-identifier" once-only="true">
+      <start>\%{before-next-token}</start>
+      <end>\%{before-next-token}</end>
+      <include>
+        <context ref="identifier"/>
+      </include>
+    </context> <!-- /ordered-identifier -->
+
+    <!-- ## Default value assignment -->
+
+    <!-- <Initializer> -->
+    <context id="_default-value-assignment" once-only="true">
+      <start>=</start>
+      <end>\%{before-next-token}</end>
+      <include>
+        <context ref="embedded-lang-hooks"/>
+        <context ref="comments"/>
+
+        <context id="_default-value-assignment-content">
+          <include>
+            <context ref="js-expr:expression-without-comma"/>
+          </include>
+        </context> <!-- /_default-value-assignment-content -->
+
+      </include>
+    </context> <!-- /_default-value-assignment -->
+
+    <context id="ordered-default-value-assignment" once-only="true">
+      <start>\%{before-next-token}</start>
+      <end>\%{before-next-token}</end>
+      <include>
+        <context ref="_default-value-assignment"/>
+      </include>
+    </context> <!-- /ordered-default-value-assignment -->
+
+    <!-- ## Misc syntax -->
+
+    <context id="_keyword-dot" style-ref="keyword" once-only="true">
+      <match>\.</match>
+    </context> <!-- /_keyword-dot -->
+
+    <context id="ordered-keyword-dot" once-only="true">
+      <start>\%{before-next-token}</start>
+      <end>\%{before-next-token}</end>
+      <include>
+        <context ref="_keyword-dot"/>
+      </include>
+    </context> <!-- /ordered-keyword-dot -->
+
+    <context id="_rest-syntax" style-ref="rest-syntax" once-only="true">
+      <match>\.\.\.</match>
+    </context> <!-- /_rest-syntax -->
+
+    <context id="ordered-rest-syntax" once-only="true">
+      <start>\%{before-next-token}</start>
+      <end>\%{before-next-token}</end>
+      <include>
+        <context ref="_rest-syntax"/>
+      </include>
+    </context> <!-- /ordered-rest-syntax -->
+
+    <context id="_spread-syntax" style-ref="spread-syntax" once-only="true">
+      <match>\.\.\.</match>
+    </context> <!-- /_spread-syntax -->
+
+    <context id="ordered-spread-syntax" once-only="true">
+      <start>\%{before-next-token}</start>
+      <end>\%{before-next-token}</end>
+      <include>
+        <context ref="_spread-syntax"/>
+      </include>
+    </context> <!-- /ordered-spread-syntax -->
+
+    <context id="generator-modifier" once-only="true">
+      <match>\%{generator-modifier}</match>
+    </context> <!-- /generator-modifier -->
+
+    <context id="ordered-generator-modifier" once-only="true">
+      <start>\%{before-next-token}</start>
+      <end>\%{before-next-token}</end>
+      <include>
+        <context ref="generator-modifier"/>
+      </include>
+    </context> <!-- /ordered-generator-modifier -->
+
+
+    <!-- # Assignment target -->
+
+    <!-- ## Array destructuring
+
+         [ a, b, ...rest ] = [ 1, 2, 3, 4 ]
+         [ a = 1, b = 2, c = 3 ] = [ 11, 12 ]
+    -->
+
+    <context id="_array-destructuring-element-content">
+      <include>
+        <context ref="ordered-rest-syntax"/>
+        <context ref="ordered-assignment-target"/>
+        <context ref="ordered-default-value-assignment"/>
+      </include>
+    </context> <!-- /_array-destructuring-element-content -->
+
+    <!-- <ArrayBindingPattern> -->
+    <context id="_choice-array-destructuring" style-ref="array-destructuring" end-parent="true">
+      <start>\[</start>
+      <end>]</end>
+      <include>
+        <context ref="embedded-lang-hooks"/>
+        <context ref="comments"/>
+
+        <context id="_array-destructuring-content">
+          <include>
+
+            <context id="_array-destructuring-first-element" once-only="true">
+              <start>\%{before-next-token}</start>
+              <end>\%{before-next-token}</end>
+              <include>
+                <context ref="embedded-lang-hooks"/>
+                <context ref="comments"/>
+                <context ref="_array-destructuring-element-content"/>
+              </include>
+            </context> <!-- /_array-destructuring-first-element -->
+
+            <context id="_array-destructuring-elements">
+              <start>,</start>
+              <end>\%{before-next-token}</end>
+              <include>
+                <context ref="embedded-lang-hooks"/>
+                <context ref="comments"/>
+                <context ref="_array-destructuring-element-content"/>
+              </include>
+            </context> <!-- /_array-destructuring-elements -->
+
+          </include>
+        </context> <!-- /_array-destructuring-content -->
+
+      </include>
+    </context> <!-- /_choice-array-destructuring -->
+
+    <!-- ## Object destructuring
+
+         { a, y: b, ...rest } = { a: 1, y: 2, i: 3, y: 4 }
+         { a = 1, y: b = 2, c = 3 } = { a: 11, y: 12 }
+    -->
+
+    <context id="_object-destructuring-assignment-target" once-only="true">
+      <start>:</start>
+      <end>\%{before-next-token}</end>
+      <include>
+        <context ref="embedded-lang-hooks"/>
+        <context ref="comments"/>
+
+        <context id="_object-destructuring-assignment-target-content">
+          <include>
+            <context ref="ordered-assignment-target"/>
+          </include>
+        </context> <!-- /_object-destructuring-assignment-target-content -->
+
+      </include>
+    </context> <!-- /_object-destructuring-assignment-target -->
+
+    <context id="_ordered-object-destructuring-assignment-target" once-only="true">
+      <start>\%{before-next-token}</start>
+      <end>\%{before-next-token}</end>
+      <include>
+        <context ref="_object-destructuring-assignment-target"/>
+      </include>
+    </context> <!-- /_ordered-object-destructuring-assignment-target -->
+
+    <context id="_object-destructuring-property-content">
+      <include>
+        <context ref="ordered-rest-syntax"/> <!-- ES2018 -->
+        <context ref="js-lit:ordered-property-name"/>
+        <context ref="_ordered-object-destructuring-assignment-target"/>
+        <context ref="ordered-default-value-assignment"/>
+      </include>
+    </context> <!-- /_object-destructuring-property-content -->
+
+    <!-- <ObjectBindingPattern> -->
+    <context id="_choice-object-destructuring" style-ref="object-destructuring" end-parent="true">
+      <start>{</start>
+      <end>}</end>
+      <include>
+        <context ref="embedded-lang-hooks"/>
+        <context ref="comments"/>
+
+        <context id="_object-destructuring-content">
+          <include>
+
+            <context id="_object-destructuring-first-property" once-only="true">
+              <start>\%{before-next-token}</start>
+              <end>\%{before-next-token}</end>
+              <include>
+                <context ref="embedded-lang-hooks"/>
+                <context ref="comments"/>
+                <context ref="_object-destructuring-property-content"/>
+              </include>
+            </context> <!-- /_object-destructuring-properties -->
+
+            <context id="_object-destructuring-properties">
+              <start>,</start>
+              <end>\%{before-next-token}</end>
+              <include>
+                <context ref="embedded-lang-hooks"/>
+                <context ref="comments"/>
+                <context ref="_object-destructuring-property-content"/>
+              </include>
+            </context> <!-- /_object-destructuring-properties -->
+
+          </include>
+        </context> <!-- /_object-destructuring-content -->
+
+      </include>
+    </context> <!-- /_choice-object-destructuring -->
+
+    <!-- ## Assignment target
+
+         Things that can appear on the left side of an equals sign
+         (identifier or array/object destructuring assignment), in all
+         places (function parameters, variable declaration) *except* in
+         assignment expressions (array/object literals will match for
+         array/object destructuring)
+    -->
+
+    <!-- <VariableDeclaration> / <LexicalBinding> -->
+    <context id="_assignment-target" once-only="true">
+      <start>\%{before-next-token}</start>
+      <end>\%{before-next-token}</end>
+      <include>
+        <context ref="embedded-lang-hooks"/>
+        <context ref="comments"/>
+
+        <context id="_assignment-target-content">
+          <include>
+            <context ref="_choice-array-destructuring"/>
+            <context ref="_choice-object-destructuring"/>
+            <context ref="choice-identifier"/>
+          </include>
+        </context> <!-- /_assignment-target-content -->
+
+      </include>
+    </context> <!-- /_assignment-target -->
+
+    <context id="ordered-assignment-target" once-only="true">
+      <start>\%{before-next-token}</start>
+      <end>\%{before-next-token}</end>
+      <include>
+        <context ref="_assignment-target"/>
+      </include>
+    </context> <!-- /ordered-assignment-target -->
+
+
+    <!-- Approximate code order for component files:
+         * javascript-literals.lang
+         * javascript-values.lang
+         * javascript-functions-classes.lang
+         * javascript-expressions.lang
+         * javascript-statements.lang
+         * javascript-modules.lang
+    -->
+
+
+    <!-- # Main context -->
+
+    <context id="js" class="no-spell-check">
+      <include>
+        <context ref="embedded-lang-hooks"/>
+        <context ref="comments"/>
+        <context ref="js-st:directives"/>
+        <context ref="js-mod:export-declarations"/>
+        <context ref="js-mod:import-declarations"/>
+        <context ref="js-st:statements"/>
+      </include>
+    </context> <!-- /js -->
+
+  </definitions>
+</language>
