@@ -2388,6 +2388,16 @@ iter_end, exclude_iter_sel_end=True)
             self.nodes_sequences_fix(father_iter, False)
             self.update_window_save_needed()
 
+    def natural_compare(self, left_string, right_string):
+        """natural sorting"""
+        convert = lambda text: int(text) if text.isdigit() else text.lower() 
+        alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ]
+        left_key = alphanum_key(left_string)
+        right_key = alphanum_key(right_string)
+        if left_key < right_key: return -1
+        if left_key > right_key: return +1
+        return 0
+
     def node_siblings_sort_iteration(self, model, father_iter, ascending, column):
         """Runs One Sorting Iteration, Returns True if Any Swap was Necessary"""
         if father_iter: curr_sibling = model.iter_children(father_iter)
@@ -2396,8 +2406,8 @@ iter_end, exclude_iter_sel_end=True)
         next_sibling = model.iter_next(curr_sibling)
         swap_executed = False
         while next_sibling != None:
-            if (ascending and model[next_sibling][column].lower() < model[curr_sibling][column].lower())\
-            or (not ascending and model[next_sibling][column].lower() > model[curr_sibling][column].lower()):
+            diff = self.natural_compare(model[next_sibling][column].lower(), model[curr_sibling][column].lower())
+            if (ascending and diff < 0) or (not ascending and diff > 0):
                 model.swap(next_sibling, curr_sibling)
                 swap_executed = True
             else: curr_sibling = next_sibling

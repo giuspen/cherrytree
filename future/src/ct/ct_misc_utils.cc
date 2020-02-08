@@ -488,6 +488,57 @@ std::vector<gint64> CtStrUtil::gstring_split_to_int64(const gchar* inStr, const 
     return retVec;
 }
 
+int CtStrUtil::natural_compare(const Glib::ustring& left, const Glib::ustring& right)
+{
+    enum mode_t { STRING, NUMBER } mode = STRING;
+    auto l = left.begin();
+    auto r = right.begin();
+    while (l != left.end() && r != right.end())
+    {
+        if (mode == STRING)
+        {
+            while (l != left.end() && r != right.end())
+            {
+                auto l_char = *l, r_char = *r;
+                const gint l_digit = g_unichar_digit_value(l_char), r_digit = g_unichar_digit_value(r_char);
+                if (l_digit != -1 && r_digit != -1)
+                {
+                    mode = NUMBER;
+                    break;
+                }
+                if (l_digit != -1) return -1;       // if only the left character is a digit, we have a result
+                if(r_digit != -1) return +1;        // if only the right character is a digit, we have a result
+                const int diff = Glib::ustring(1, l_char).compare(Glib::ustring(1, r_char)); // compute the difference of both characters
+                if (diff != 0) return diff;         // if they differ we have a result
+                // otherwise process the next characters
+                ++l;
+                ++r;
+            }
+        }
+        else // mode = NUMBER
+        {
+            Glib::ustring l_number;
+            for (; l != left.end() && g_unichar_digit_value(*l) != -1; ++l)
+                l_number += *l;
+            Glib::ustring r_number;
+            for (; r != right.end() && g_unichar_digit_value(*r) != -1; ++r)
+                r_number += *r;
+            // converting number to integer can give INT overflow, so comparing them as strings
+            int max_str_len = std::max(l_number.size(), r_number.size());
+            l_number = str::repeat("0", max_str_len - l_number.size()) + l_number; // padding with '0' for easer comparing
+            r_number = str::repeat("0", max_str_len - r_number.size()) + r_number; // padding with '0' for easer comparing
+            const int diff = l_number.compare(r_number);
+            if (diff != 0)
+                return diff;
+            // continue the next substring
+            mode = STRING;
+        }
+    }
+    if (l != left.end()) return +1;
+    if (r != right.end()) return -1;
+    return 0;
+}
+
 
 std::string CtFontUtil::get_font_family(const std::string& fontStr)
 {
