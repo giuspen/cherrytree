@@ -215,7 +215,9 @@ def initializations():
 def arg_filepath_fix(filepath):
     """Fix a FilePath to an Absolute Path"""
     if not filepath: return ""
-    filepath = filepath.decode(sys.getfilesystemencoding()).encode(cons.STR_UTF8, cons.STR_IGNORE)
+    # for win32 it is already utf-8
+    if not sys.platform.startswith("win"):
+        filepath = filepath.decode(sys.getfilesystemencoding()).encode(cons.STR_UTF8, cons.STR_IGNORE)
     if not os.path.dirname(filepath):
         filepath = os.path.join(os.getcwd(), filepath)
     else:
