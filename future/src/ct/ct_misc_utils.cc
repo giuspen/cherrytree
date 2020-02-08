@@ -488,7 +488,7 @@ std::vector<gint64> CtStrUtil::gstring_split_to_int64(const gchar* inStr, const 
     return retVec;
 }
 
-int CtStrUtil::natural_sort(const Glib::ustring& left, const Glib::ustring& right)
+int CtStrUtil::natural_compare(const Glib::ustring& left, const Glib::ustring& right)
 {
     enum mode_t { STRING, NUMBER } mode = STRING;
     auto l = left.begin();

@@ -215,7 +215,7 @@ bool CtActions::_need_node_swap(Gtk::TreeIter& leftIter, Gtk::TreeIter& rightIte
     Glib::ustring left_node_name = _pCtMainWin->curr_tree_store().to_ct_tree_iter(leftIter).get_node_name().lowercase();
     Glib::ustring right_node_name = _pCtMainWin->curr_tree_store().to_ct_tree_iter(rightIter).get_node_name().lowercase();
     //int cmp = left_node_name.compare(right_node_name);
-    int cmp = CtStrUtil::natural_sort(left_node_name, right_node_name);
+    int cmp = CtStrUtil::natural_compare(left_node_name, right_node_name);
 
     return ascending ? cmp > 0 : cmp < 0;
 }
