@@ -2980,6 +2980,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def node_date(self, *args):
         """Insert Date Node in Tree"""
+        self.last_command = "node_date"
         curr_time = time.time()
         now_year = support.get_timestamp_str("%Y", curr_time)
         now_month = support.get_timestamp_str("%B", curr_time)
@@ -2991,18 +2992,22 @@ iter_end, exclude_iter_sel_end=True)
                 if self.treestore[self.curr_tree_iter][1] == now_year:
                     self.node_child_exist_or_create(self.curr_tree_iter, now_month)
                     self.node_date()
+                    self.last_command = ""
                     return
             else:
                 if self.treestore[self.curr_tree_iter][1] == now_month\
                 and self.treestore[self.treestore.iter_parent(self.curr_tree_iter)][1] == now_year:
                     self.node_child_exist_or_create(self.curr_tree_iter, now_day)
+                    self.last_command = ""
                     return
                 if self.treestore[self.curr_tree_iter][1] == now_year:
                     self.node_child_exist_or_create(self.curr_tree_iter, now_month)
                     self.node_date()
+                    self.last_command = ""
                     return
         self.node_child_exist_or_create(None, now_year)
         self.node_date()
+        self.last_command = ""
 
     def get_node_children_list(self, father_tree_iter, level):
         """Return a string listing the node children"""

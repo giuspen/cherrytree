@@ -29,6 +29,7 @@ import cons
 import config
 import support
 import exports
+import time
 
 
 def get_blob_buffer_from_pixbuf(pixbuf):
@@ -845,6 +846,22 @@ class StateMachine:
             #print "last_index",  len(self.visited_nodes_list) - 1
             return None
 
+    def is_today_node(self, dad, node_id):
+        self = dad
+        curr_depth = self.treestore.iter_depth(self.curr_tree_iter)
+        if(curr_depth !=2 ): return False
+
+        curr_time = time.time()
+        now_day = support.get_timestamp_str(self.journal_day_format, curr_time)
+        curr_node_name = self.treestore[self.curr_tree_iter][1]
+        if (curr_node_name != now_day): return False
+
+        now_year = support.get_timestamp_str("%Y", curr_time)
+        now_month = support.get_timestamp_str("%B", curr_time)
+        p_node_name = self.treestore[self.treestore.iter_parent(self.curr_tree_iter)][1]
+        pp_node_name = self.treestore[self.treestore.iter_parent(self.treestore.iter_parent(self.curr_tree_iter))][1]
+        return (p_node_name == now_month) and (pp_node_name == now_year)
+
     def node_selected_changed(self, node_id):
         """When a New Node is Selected"""
         if self.dad.user_active and not self.dad.go_bk_fw_click:
@@ -852,6 +869,9 @@ class StateMachine:
             if self.visited_nodes_idx != last_index: del self.visited_nodes_list[self.visited_nodes_idx+1:last_index+1]
             if node_id in self.visited_nodes_list:
                 self.visited_nodes_list.remove(node_id)
+            # Todo: Do this in node_date method
+            if (hasattr(self.dad, 'last_command')) and (self.dad.last_command == "node_date") and (self.is_today_node(self.dad, node_id)):
+                self.visited_nodes_list = self.visited_nodes_list[:-2]
             self.visited_nodes_list.append(node_id)
             self.visited_nodes_idx = len(self.visited_nodes_list) - 1
         if node_id not in self.nodes_vectors:
