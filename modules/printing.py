@@ -175,29 +175,12 @@ class PrintHandler:
                 if i < len(print_data.layout) - 1: # the latest element is supposed to be text
                     if self.pixbuf_table_codebox_vector[i][0] == "pixbuf":
                         pixbuf = self.pixbuf_table_codebox_vector[i][1][1]
-                        pixbuf_was_resized = False
-                        pixbuf_width = pixbuf.get_width()
-                        pixbuf_height = pixbuf.get_height()
-                        if pixbuf_width > self.page_width:
-                            image_w_h_ration = float(pixbuf_width)/pixbuf_height
-                            image_width = self.page_width
-                            image_height = image_width / image_w_h_ration
-                            pixbuf = pixbuf.scale_simple(int(image_width), int(image_height), gtk.gdk.INTERP_BILINEAR)
-                            pixbuf_width = pixbuf.get_width()
-                            pixbuf_height = pixbuf.get_height()
-                            pixbuf_was_resized = True
-                        if pixbuf_height > (self.page_height-self.layout_newline_height-cons.WHITE_SPACE_BETW_PIXB_AND_TEXT):
-                            image_w_h_ration = float(pixbuf_width)/pixbuf_height
-                            image_height = self.page_height-self.layout_newline_height-cons.WHITE_SPACE_BETW_PIXB_AND_TEXT
-                            image_width = image_height * image_w_h_ration
-                            pixbuf = pixbuf.scale_simple(int(image_width), int(image_height), gtk.gdk.INTERP_BILINEAR)
-                            pixbuf_width = pixbuf.get_width()
-                            pixbuf_height = pixbuf.get_height()
-                            pixbuf_was_resized = True
-                        if pixbuf_was_resized:
-                            any_image_resized = True
-                            self.pixbuf_table_codebox_vector[i][1][1] = pixbuf
-                        pixbuf_height = pixbuf.get_height() + cons.WHITE_SPACE_BETW_PIXB_AND_TEXT
+                        # don't know curr_x, so will recalc scale again in draw function
+                        scale_w = float(self.page_width) / pixbuf.get_width()
+                        scale_h =  float(self.page_height-self.layout_newline_height-cons.WHITE_SPACE_BETW_PIXB_AND_TEXT)/pixbuf.get_height()
+                        scale = min(scale_w, scale_h)
+                        if scale > 1.0: scale = 1.0
+                        pixbuf_height = pixbuf.get_height() * scale + cons.WHITE_SPACE_BETW_PIXB_AND_TEXT
                         if inline_pending_height < pixbuf_height: inline_pending_height = pixbuf_height
                     elif self.pixbuf_table_codebox_vector[i][0] == "table":
                         table = self.pixbuf_table_codebox_vector[i][1][1]
@@ -256,11 +239,20 @@ class PrintHandler:
             if i < len(print_data.layout) - 1: # the latest element is supposed to be text
                 if self.pixbuf_table_codebox_vector[i][0] == "pixbuf":
                     pixbuf = self.pixbuf_table_codebox_vector[i][1][1]
-                    pixbuf_width = pixbuf.get_width()
-                    pixbuf_height = pixbuf.get_height()
+                    # should recalc scale because curr_x is changed
+                    scale_w = float(self.page_width- curr_x) / pixbuf.get_width()
+                    scale_h =  float(self.page_height-self.layout_newline_height-cons.WHITE_SPACE_BETW_PIXB_AND_TEXT)/pixbuf.get_height()
+                    scale = min(scale_w, scale_h)
+                    if scale > 1.0: scale = 1.0
+                    pixbuf_width = pixbuf.get_width() * scale
+                    pixbuf_height = pixbuf.get_height() * scale
                     #print "pixbuf (%s, %s) to (%s, %s)" % (pixbuf_width, pixbuf_height, curr_x, print_data.all_lines_y[self.y_idx]-pixbuf_height)
-                    cairo_context.set_source_pixbuf(pixbuf, curr_x, print_data.all_lines_y[self.y_idx] - pixbuf_height)
+                    cairo_context.save()
+                    cairo_context.scale(scale, scale)
+                    cairo_context.set_source_pixbuf(pixbuf, curr_x / scale, 
+                                                    (print_data.all_lines_y[self.y_idx] - pixbuf_height) / scale)
                     cairo_context.paint()
+                    cairo_context.restore()
                     curr_x += pixbuf_width
                 elif self.pixbuf_table_codebox_vector[i][0] == "table":
                     table = self.pixbuf_table_codebox_vector[i][1][1]
