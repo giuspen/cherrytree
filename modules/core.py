@@ -2984,8 +2984,10 @@ iter_end, exclude_iter_sel_end=True)
         now_year = support.get_timestamp_str("%Y", curr_time)
         now_month = support.get_timestamp_str("%B", curr_time)
         now_day = support.get_timestamp_str(self.journal_day_format, curr_time)
+        list_before_start = list(self.state_machine.visited_nodes_list)
         self.node_child_exist_or_create(None, now_year)
         self.node_child_exist_or_create(self.curr_tree_iter, now_month)
+        self.state_machine.visited_nodes_list = list_before_start
         self.node_child_exist_or_create(self.curr_tree_iter, now_day)
 
     def get_node_children_list(self, father_tree_iter, level):
