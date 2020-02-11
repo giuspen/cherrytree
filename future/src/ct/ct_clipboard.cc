@@ -311,8 +311,7 @@ void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buf
     if (not pCodebox and node_syntax_high == CtConst::RICH_TEXT_ID)
     {
         std::vector<std::string> targets_vector;
-        std::pair<int,int> text_offsets_range = std::make_pair(iter_sel_start.get_offset(), iter_sel_end.get_offset());
-        clip_data->plain_text = CtExport2Txt(_get_CtMainWin()).node_export_to_txt(text_buffer, text_offsets_range, true);
+        clip_data->plain_text = CtExport2Txt(_get_CtMainWin()).selection_export_to_txt(text_buffer, iter_sel_start.get_offset(), iter_sel_end.get_offset(), true);
         clip_data->rich_text = rich_text_get_from_text_buffer_selection(_get_CtMainWin()->curr_tree_iter(), text_buffer, iter_sel_start, iter_sel_end);
         if (not CtClipboard::_static_force_plain_text)
         {

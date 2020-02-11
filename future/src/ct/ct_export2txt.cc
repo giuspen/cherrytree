@@ -28,13 +28,23 @@ CtExport2Txt::CtExport2Txt(CtMainWin* pCtMainWin)
 }
 
 // Export the Selected Node To Txt
-Glib::ustring CtExport2Txt::node_export_to_txt(Glib::RefPtr<Gtk::TextBuffer> text_buffer, std::pair<int, int> sel_range,
-                                               bool check_link_target /*=false*/, Glib::ustring /*filepath*/ /*=""*/, CtTreeIter* tree_iter_for_node_name /*=nullptr*/)
+void CtExport2Txt::node_export_to_txt(CtTreeIter tree_iter, Glib::ustring filepath, CtExportOptions export_options, int sel_start, int sel_end)
 {
     Glib::ustring plain_text;
-    std::list<CtAnchoredWidget*> widgets = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(sel_range);
+    if (export_options.include_node_name)
+        plain_text = tree_iter.get_node_name().uppercase() + CtConst::CHAR_NEWLINE;
+    plain_text += selection_export_to_txt(tree_iter.get_node_text_buffer(), sel_start, sel_end, false);
+    plain_text += CtConst::CHAR_NEWLINE + CtConst::CHAR_NEWLINE;
+    g_file_set_contents(filepath.c_str(), plain_text.c_str(), (gssize)plain_text.bytes(), nullptr);
+}
 
-    int start_offset = sel_range.first >= 0 ? sel_range.first : 0;
+// Export the Buffer To Txt
+Glib::ustring CtExport2Txt::selection_export_to_txt(Glib::RefPtr<Gtk::TextBuffer> text_buffer, int sel_start, int sel_end, bool check_link_target)
+{
+    Glib::ustring plain_text;
+    std::list<CtAnchoredWidget*> widgets = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(std::make_pair(sel_start, sel_end));
+
+    int start_offset = sel_start >= 0 ? sel_start : 0;
     for (CtAnchoredWidget* widget: widgets)
     {
         int end_offset = widget->getOffset();
@@ -44,23 +54,7 @@ Glib::ustring CtExport2Txt::node_export_to_txt(Glib::RefPtr<Gtk::TextBuffer> tex
         else if (CtCodebox* ctCodebox = dynamic_cast<CtCodebox*>(widget)) plain_text += get_codebox_plain(ctCodebox);
         start_offset = end_offset;
     }
-    if (sel_range.second < 0)
-        plain_text += _plain_process_slot(start_offset, -1, text_buffer, check_link_target && widgets.empty());
-    else
-        plain_text += _plain_process_slot(start_offset, sel_range.second, text_buffer, check_link_target && widgets.empty());
-
-    if (tree_iter_for_node_name)
-    {
-        Glib::ustring node_name = tree_iter_for_node_name->get_node_name(); // todo: clean_text_to_utf8(self.dad.treestore[tree_iter_for_node_name][1])
-        plain_text = node_name.uppercase() + CtConst::CHAR_NEWLINE + plain_text;
-    }
-
-    // todo:
-    /*if filepath:
-        file_descriptor = open(filepath, 'a')
-        file_descriptor.write(plain_text + 2*cons.CHAR_NEWLINE)
-        file_descriptor.close()
-    */
+    plain_text += _plain_process_slot(start_offset, sel_end, text_buffer, check_link_target && widgets.empty());
     return plain_text;
 }
 
@@ -95,6 +89,7 @@ Glib::ustring CtExport2Txt::_plain_process_slot(int start_offset, int end_offset
         // begin operations
         Gtk::TextIter start_iter = curr_buffer->get_iter_at_offset(start_offset);
         Gtk::TextIter end_iter = curr_buffer->get_iter_at_offset(end_offset);
+        // todo: check how check_link_target works
         if (!check_link_target)
             return curr_buffer->get_text(start_iter, end_iter);
 
