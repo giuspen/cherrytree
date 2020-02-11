@@ -322,4 +322,6 @@ time_t getmtime(const std::string& path);
 void external_filepath_open(const std::string& filepath, bool open_fold_if_no_app_error);
 void external_folderpath_open(const std::string& folderpath);
 
+Glib::ustring prepare_export_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool overwrite_existing);
+
 } // namespace CtFileSystem

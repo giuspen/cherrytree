@@ -28,14 +28,46 @@ CtExport2Txt::CtExport2Txt(CtMainWin* pCtMainWin)
 }
 
 // Export the Selected Node To Txt
-void CtExport2Txt::node_export_to_txt(CtTreeIter tree_iter, Glib::ustring filepath, CtExportOptions export_options, int sel_start, int sel_end)
+Glib::ustring CtExport2Txt::node_export_to_txt(CtTreeIter tree_iter, Glib::ustring filepath, CtExportOptions export_options, int sel_start, int sel_end)
 {
     Glib::ustring plain_text;
     if (export_options.include_node_name)
         plain_text = tree_iter.get_node_name().uppercase() + CtConst::CHAR_NEWLINE;
     plain_text += selection_export_to_txt(tree_iter.get_node_text_buffer(), sel_start, sel_end, false);
     plain_text += CtConst::CHAR_NEWLINE + CtConst::CHAR_NEWLINE;
-    g_file_set_contents(filepath.c_str(), plain_text.c_str(), (gssize)plain_text.bytes(), nullptr);
+    if (filepath != "")
+        g_file_set_contents(filepath.c_str(), plain_text.c_str(), (gssize)plain_text.bytes(), nullptr);
+    return plain_text;
+}
+
+// Export All Nodes To Txt
+void CtExport2Txt::nodes_all_export_to_txt(bool all_tree, Glib::ustring export_dir, Glib::ustring single_txt_filepath, CtExportOptions export_options)
+{
+    // function to iterate nodes
+    Glib::ustring tree_plain_text;
+    std::function<void(CtTreeIter)> traverseFunc;
+    traverseFunc = [this, &traverseFunc, &export_options, &tree_plain_text, &export_dir](CtTreeIter tree_iter) {
+        if (export_dir == "")
+            tree_plain_text += node_export_to_txt(tree_iter, "", export_options, -1, -1);
+        else
+        {
+            Glib::ustring filepath = Glib::build_filename(export_dir, CtMiscUtil::get_node_hierarchical_name(tree_iter) + ".txt");
+            node_export_to_txt(tree_iter, filepath, export_options, -1, -1);
+        }
+        for (auto& child: tree_iter->children())
+            traverseFunc(_pCtMainWin->curr_tree_store().to_ct_tree_iter(child));
+    };
+    // start to iterarte nodes
+    CtTreeIter tree_iter = all_tree ? _pCtMainWin->curr_tree_store().get_ct_iter_first() : _pCtMainWin->curr_tree_iter();
+    for (;tree_iter; ++tree_iter)
+    {
+        traverseFunc(tree_iter);
+        if (!all_tree) break;
+    }
+
+    if (single_txt_filepath != "")
+        g_file_set_contents(single_txt_filepath.c_str(), tree_plain_text.c_str(), (gssize)tree_plain_text.bytes(), nullptr);
+    // todo: self.dad.objects_buffer_refresh()
 }
 
 // Export the Buffer To Txt

@@ -830,3 +830,20 @@ void CtFileSystem::external_folderpath_open(const std::string& folderpath)
         */
     g_app_info_launch_default_for_uri(("folder://" + folderpath).c_str(), nullptr, nullptr);
 }
+
+Glib::ustring CtFileSystem::prepare_export_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool overwrite_existing)
+{
+    if (Glib::file_test(Glib::build_filename(dir_place, new_folder), Glib::FILE_TEST_IS_DIR))
+    {
+        // todo:
+        if (overwrite_existing)
+            throw "work in progress"; // todo: shutil.rmtree(os.path.join(dir_place, new_folder))
+
+        int n = 2;
+        while (Glib::file_test(Glib::build_filename(dir_place, new_folder + str::format("{:03d}", n)), Glib::FILE_TEST_IS_DIR))
+            n += 1;
+        new_folder += str::format("{:03d}", n);
+    }
+    return new_folder;
+}
+

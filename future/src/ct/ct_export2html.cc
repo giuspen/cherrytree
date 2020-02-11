@@ -40,7 +40,7 @@ bool CtExport2Html::prepare_html_folder(Glib::ustring dir_place, Glib::ustring n
             return false;
     }
     new_folder = CtMiscUtil::clean_from_chars_not_for_filename(new_folder) + "_HTML";
-    new_folder = _prepare_export_folder(dir_place, new_folder, export_overwrite);
+    new_folder = CtFileSystem::prepare_export_folder(dir_place, new_folder, export_overwrite);
     _export_dir = Glib::build_filename(dir_place, new_folder);
     _images_dir = Glib::build_filename(_export_dir, "images");
     _embed_dir = Glib::build_filename(_export_dir, "EmbeddedFiles");
@@ -591,19 +591,3 @@ Glib::ustring CtExport2Html::_get_html_filename(CtTreeIter tree_iter)
     return str::replace(name, "#", "~");
 }
 
-
-Glib::ustring CtExport2Html::_prepare_export_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool overwrite_existing)
-{
-    if (Glib::file_test(Glib::build_filename(dir_place, new_folder), Glib::FILE_TEST_IS_DIR))
-    {
-        // todo:
-        if (overwrite_existing)
-            throw "work in progress"; // todo: shutil.rmtree(os.path.join(dir_place, new_folder))
-
-        int n = 2;
-        while (Glib::file_test(Glib::build_filename(dir_place, new_folder + str::format("{:03d}", n)), Glib::FILE_TEST_IS_DIR))
-            n += 1;
-        new_folder += str::format("{:03d}", n);
-    }
-    return new_folder;
-}

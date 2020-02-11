@@ -321,6 +321,7 @@ private:
 
    Glib::ustring _get_pdf_filepath(Glib::ustring proposed_name);
    Glib::ustring _get_txt_filepath(Glib::ustring proposed_name);
+   Glib::ustring _get_txt_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool export_overwrite);
 
 public:
     // export actions
