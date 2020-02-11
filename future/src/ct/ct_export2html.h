@@ -67,10 +67,7 @@ private:
 
     void          _tree_links_text_iter(CtTreeIter tree_iter, Glib::ustring& tree_links_text, int tree_count_level);
 
-
     Glib::ustring _get_html_filename(CtTreeIter tree_iter);
-
-    Glib::ustring _prepare_export_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool overwrite_existing);
 
 public:
     static Glib::ustring _link_process_filepath(const Glib::ustring& filepath_raw);

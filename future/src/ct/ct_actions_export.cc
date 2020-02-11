@@ -22,6 +22,8 @@
 #include "ct_actions.h"
 #include "ct_export.h"
 #include "ct_export2html.h"
+#include "ct_export2txt.h"
+#include <glib/gstdio.h>
 
 // Print Page Setup Operations
 void CtActions::export_print_page_setup()
@@ -46,12 +48,12 @@ void CtActions::export_to_html()
 
 void CtActions::export_to_txt_multiple()
 {
-
+    _export_to_txt(false, "", false);
 }
 
 void CtActions::export_to_txt_single()
 {
-
+    _export_to_txt(true, "", false);
 }
 
 void CtActions::export_to_ctd()
@@ -118,19 +120,6 @@ void CtActions::_export_print(bool save_to_pdf, Glib::ustring auto_path, bool au
     }
 }
 
-Glib::ustring CtActions::_get_pdf_filepath(Glib::ustring proposed_name)
-{
-    CtDialogs::file_select_args args = {.pParentWin=_pCtMainWin, .curr_folder=_pCtMainWin->get_ct_config()->pickDirExport, .curr_file_name=proposed_name + ".pdf",
-                                       .filter_name=("PDF File"), .filter_pattern={"*.pdf"}};
-    Glib::ustring filename = CtDialogs::file_save_as_dialog(args);
-    if (filename != "")
-    {
-        if (!str::endswith(filename, ".pdf")) filename += ".pdf";
-        _pCtMainWin->get_ct_config()->pickDirExport = Glib::path_get_dirname(filename);
-    }
-    return filename;
-}
-
 // Export to HTML
 void CtActions::_export_to_html(Glib::ustring auto_path, bool auto_overwrite)
 {
@@ -177,4 +166,118 @@ void CtActions::_export_to_html(Glib::ustring auto_path, bool auto_overwrite)
         if (export2html.prepare_html_folder("", folder_name, false))
             export2html.node_export_to_html(_pCtMainWin->curr_tree_iter(), _export_options, "", iter_start.get_offset(), iter_end.get_offset());
     }
+}
+
+// Export To Plain Text Multiple (or single) Files
+void CtActions::_export_to_txt(bool is_single, Glib::ustring auto_path, bool auto_overwrite)
+{
+    if (!_is_there_selected_node_or_error()) return;
+    CtDialogs::CtProcessNode export_type;
+    if (auto_path != "")
+    {
+        _export_options.include_node_name = true;
+        export_type = CtDialogs::CtProcessNode::ALL_TREE;
+    }
+    else
+        export_type = CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, true, &_export_options.include_node_name, nullptr, nullptr);
+    if (export_type == CtDialogs::CtProcessNode::NONE) return;
+
+    if (export_type == CtDialogs::CtProcessNode::CURRENT_NODE)
+    {
+        Glib::ustring txt_filepath = CtMiscUtil::get_node_hierarchical_name(_pCtMainWin->curr_tree_iter());
+        txt_filepath = _get_txt_filepath(txt_filepath);
+        if (txt_filepath == "") return;
+        CtExport2Txt(_pCtMainWin).node_export_to_txt(_pCtMainWin->curr_tree_iter(), txt_filepath, _export_options, -1, -1);
+    }
+    else if (export_type == CtDialogs::CtProcessNode::CURRENT_NODE_AND_SUBNODES)
+    {
+        if (is_single)
+        {
+           Glib::ustring txt_filepath = _get_txt_filepath(_pCtMainWin->get_curr_doc_file_name());
+           if (txt_filepath == "") return;
+           CtExport2Txt(_pCtMainWin).nodes_all_export_to_txt(false, "", txt_filepath, _export_options);
+        }
+        else
+        {
+            Glib::ustring folder_path = _get_txt_folder("", CtMiscUtil::get_node_hierarchical_name(_pCtMainWin->curr_tree_iter()), false);
+            if (folder_path == "") return;
+            CtExport2Txt(_pCtMainWin).nodes_all_export_to_txt(false, folder_path, "", _export_options);
+        }
+    }
+    else if (export_type == CtDialogs::CtProcessNode::ALL_TREE)
+    {
+        if (is_single)
+        {
+            Glib::ustring txt_filepath = _get_txt_filepath(_pCtMainWin->get_curr_doc_file_name());
+            if (txt_filepath == "") return;
+            CtExport2Txt(_pCtMainWin).nodes_all_export_to_txt(true, "", txt_filepath, _export_options);
+        }
+        else
+        {
+            Glib::ustring folder_path;
+            if (auto_path != "")
+                folder_path = _get_txt_folder(auto_path, _pCtMainWin->get_curr_doc_file_name(), auto_overwrite);
+            else
+                folder_path = _get_txt_folder("", _pCtMainWin->get_curr_doc_file_name(), false);
+            if (folder_path == "") return;
+            CtExport2Txt(_pCtMainWin).nodes_all_export_to_txt(true, folder_path, "", _export_options);
+        }
+    }
+    else if (export_type == CtDialogs::CtProcessNode::SELECTED_TEXT)
+    {
+        if (!_is_there_text_selection_or_error()) return;
+        Gtk::TextIter iter_start, iter_end;
+        _curr_buffer()->get_selection_bounds(iter_start, iter_end);
+
+        Glib::ustring txt_filepath = CtMiscUtil::get_node_hierarchical_name(_pCtMainWin->curr_tree_iter());
+        txt_filepath = _get_txt_filepath(txt_filepath);
+        if (txt_filepath == "") return;
+        CtExport2Txt(_pCtMainWin).node_export_to_txt(_pCtMainWin->curr_tree_iter(), txt_filepath, _export_options, iter_start.get_offset(), iter_end.get_offset());
+    }
+}
+
+Glib::ustring CtActions::_get_pdf_filepath(Glib::ustring proposed_name)
+{
+    CtDialogs::file_select_args args = {.pParentWin=_pCtMainWin, .curr_folder=_pCtMainWin->get_ct_config()->pickDirExport, .curr_file_name=proposed_name + ".pdf",
+                                       .filter_name=_("PDF File"), .filter_pattern={"*.pdf"}};
+    Glib::ustring filename = CtDialogs::file_save_as_dialog(args);
+    if (filename != "")
+    {
+        if (!str::endswith(filename, ".pdf")) filename += ".pdf";
+        _pCtMainWin->get_ct_config()->pickDirExport = Glib::path_get_dirname(filename);
+    }
+    return filename;
+}
+
+// Prepare for the txt file save
+Glib::ustring CtActions::_get_txt_filepath(Glib::ustring proposed_name)
+{
+    CtDialogs::file_select_args args = {.pParentWin=_pCtMainWin, .curr_folder=_pCtMainWin->get_ct_config()->pickDirExport, .curr_file_name=proposed_name + ".txt",
+                                       .filter_name=_("Plain Text Document"), .filter_pattern={"*.txt"}};
+    Glib::ustring filename = CtDialogs::file_save_as_dialog(args);
+    if (filename != "")
+    {
+        if (!str::endswith(filename, ".txt")) filename += ".txt";
+        _pCtMainWin->get_ct_config()->pickDirExport = Glib::path_get_dirname(filename);
+
+        if (Glib::file_test(filename, Glib::FILE_TEST_IS_REGULAR))
+            g_remove(filename.c_str());
+    }
+    return filename;
+}
+
+Glib::ustring CtActions::_get_txt_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool export_overwrite)
+{
+    if (dir_place == "")
+    {
+        dir_place = CtDialogs::folder_select_dialog(_pCtMainWin->get_ct_config()->pickDirExport, _pCtMainWin);
+        if (dir_place == "")
+            return "";
+    }
+    new_folder = CtMiscUtil::clean_from_chars_not_for_filename(new_folder) + "_TXT";
+    new_folder = CtFileSystem::prepare_export_folder(dir_place, new_folder, export_overwrite);
+    Glib::ustring export_dir = Glib::build_filename(dir_place, new_folder);
+    g_mkdir_with_parents(export_dir.c_str(), 0777);
+
+    return export_dir;
 }

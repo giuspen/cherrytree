@@ -24,6 +24,7 @@
 #include <gtkmm/textiter.h>
 #include "ct_treestore.h"
 #include "ct_table.h"
+#include "ct_dialogs.h"
 
 class CtExport2Txt
 {
@@ -31,8 +32,9 @@ public:
     CtExport2Txt(CtMainWin* pCtMainWin);
 
 public:
-    Glib::ustring node_export_to_txt(Glib::RefPtr<Gtk::TextBuffer> text_buffer, std::pair<int, int> sel_range,
-                                     bool check_link_target = false, Glib::ustring filepath = "", CtTreeIter* tree_iter_for_node_name = nullptr);
+    Glib::ustring node_export_to_txt(CtTreeIter tree_iter, Glib::ustring filepath, CtExportOptions export_options, int sel_start, int sel_end);
+    void          nodes_all_export_to_txt(bool all_tree, Glib::ustring export_dir, Glib::ustring single_txt_filepath, CtExportOptions export_options);
+    Glib::ustring selection_export_to_txt(Glib::RefPtr<Gtk::TextBuffer> text_buffer, int sel_start, int sel_end, bool check_link_target);
 
     Glib::ustring get_table_plain(CtTable* table_orig);
     Glib::ustring get_codebox_plain(CtCodebox* codebox);
@@ -40,5 +42,7 @@ public:
 private:
     Glib::ustring _plain_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer, bool check_link_target);
     Glib::ustring _tag_link_in_given_iter(Gtk::TextIter iter);
+
+private:
     CtMainWin* _pCtMainWin;
 };

@@ -316,8 +316,12 @@ public:
 private:
     // helper for export actions
     void _export_print(bool save_to_pdf, Glib::ustring auto_path, bool auto_overwrite);
-    Glib::ustring _get_pdf_filepath(Glib::ustring proposed_name);
     void _export_to_html(Glib::ustring auto_path, bool auto_overwrite);
+    void _export_to_txt(bool is_single, Glib::ustring auto_path, bool auto_overwrite);
+
+   Glib::ustring _get_pdf_filepath(Glib::ustring proposed_name);
+   Glib::ustring _get_txt_filepath(Glib::ustring proposed_name);
+   Glib::ustring _get_txt_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool export_overwrite);
 
 public:
     // export actions
