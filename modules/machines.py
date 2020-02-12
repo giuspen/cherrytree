@@ -107,23 +107,28 @@ class XMLHandler:
         else:
             dom_iter = cherrytree.firstChild
             node_sequence = self.dad.nodes_sequences_get_max_siblings(tree_father)
+            next_id_box = [self.dad.node_id_get()]
             while dom_iter!= None:
                 if dom_iter.nodeName == "node":
                     node_sequence += 1
-                    self.append_tree_node(dom_iter, tree_father, discard_ids, node_sequence)
+                    self.append_tree_node(dom_iter, tree_father, discard_ids, node_sequence, next_id_box)
                 elif dom_iter.nodeName == "bookmarks":
                     if dom_iter.attributes['list'].value:
                         self.dad.bookmarks = dom_iter.attributes['list'].value.split(",")
                 dom_iter = dom_iter.nextSibling
             return True
 
-    def append_tree_node(self, dom_iter, tree_father, discard_ids, node_sequence):
+    def append_tree_node(self, dom_iter, tree_father, discard_ids, node_sequence, next_id_box):
         """Given the dom_iter node, adds it to the tree"""
-        original_id = long(dom_iter.attributes['unique_id'].value) if dom_iter.hasAttribute('unique_id') else self.dad.node_id_get()
-        if discard_ids is None:
-            unique_id = original_id
+        if dom_iter.hasAttribute('unique_id'):
+            original_id = long(dom_iter.attributes['unique_id'].value)
+            if discard_ids is None:
+                unique_id = original_id
+            else:
+                unique_id = self.dad.node_id_get(original_id, discard_ids)
         else:
-            unique_id = self.dad.node_id_get(original_id, discard_ids)
+            unique_id = next_id_box[0]
+            next_id_box[0] = self.dad.node_id_get_simplified(next_id_box[0] + 1)
         node_tags = dom_iter.attributes['tags'].value if dom_iter.hasAttribute('tags') else ""
         if node_tags: self.dad.tags_add_from_node(node_tags)
         readonly = (dom_iter.attributes['readonly'].value == "True") if dom_iter.hasAttribute('readonly') else False
@@ -182,7 +187,7 @@ class XMLHandler:
         while child_dom_iter!= None:
             if child_dom_iter.nodeName == "node":
                 child_sequence += 1
-                self.append_tree_node(child_dom_iter, tree_iter, discard_ids, child_sequence)
+                self.append_tree_node(child_dom_iter, tree_iter, discard_ids, child_sequence, next_id_box)
             elif child_dom_iter.nodeName == 'rich_text':
                 support.dialog_error("Rich text instead of child node??!!", self.dad.window)
                 break
