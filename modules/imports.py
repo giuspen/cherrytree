@@ -345,13 +345,6 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
 
     def rich_text_serialize(self, text_data):
         """Appends a new part to the XML rich text"""
-        # special condition when a lot of spaces and &nbsp;
-        # don't create a new element but add to the previous
-        #if text_data == u' ' or text_data == u'\xa0':
-            # if last element is made of spaces
-        #    if self.nodes_list[-1].lastChild.firstChild.data.replace(u' ', u'') == u'':
-        #        self.nodes_list[-1].lastChild.firstChild.data += u' '
-        #        return
         # accumulate data (+= string is to slow) to udpate element lately
         if self.prev_attributes == self.curr_attributes:
             if self.nodes_list[-1].lastChild != None:
