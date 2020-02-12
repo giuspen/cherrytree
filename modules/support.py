@@ -1025,6 +1025,7 @@ def dialog_image_handle(father_win, title, original_pixbuf):
             self.width = original_pixbuf.get_width()
             self.height = original_pixbuf.get_height()
             self.image_w_h_ration = float(self.width)/self.height
+            self.in_udpate_process = False
     img_parms = ImgParms(original_pixbuf)
     dialog = gtk.Dialog(title=title,
         parent=father_win,
@@ -1064,6 +1065,9 @@ def dialog_image_handle(father_win, title, original_pixbuf):
     content_area.pack_start(hbox_2, expand=False)
     content_area.set_spacing(6)
     def image_load_into_dialog():
+        # spin update calls image_load_into_dialog again
+        if img_parms.in_udpate_process == True: return
+        img_parms.in_udpate_process = True
         spinbutton_width.set_value(img_parms.width)
         spinbutton_height.set_value(img_parms.height)
         if img_parms.width <= 900 and img_parms.height <= 600:
@@ -1079,6 +1083,7 @@ def dialog_image_handle(father_win, title, original_pixbuf):
                 img_parms_width = img_parms_height * img_parms.image_w_h_ration
             pixbuf = img_parms.original_pixbuf.scale_simple(int(img_parms_width), int(img_parms_height), gtk.gdk.INTERP_HYPER)
         image.set_from_pixbuf(pixbuf)
+        img_parms.in_udpate_process = False
     def on_button_rotate_90_cw_clicked(*args):
         img_parms.original_pixbuf = img_parms.original_pixbuf.rotate_simple(270)
         img_parms.image_w_h_ration = 1/img_parms.image_w_h_ration
@@ -1095,10 +1100,16 @@ def dialog_image_handle(father_win, title, original_pixbuf):
         image_load_into_dialog()
     def on_spinbutton_image_width_value_changed(spinbutton):
         img_parms.width = spinbutton_width.get_value()
+        if cons.IS_WIN_OS: # scale works really bad for small numbers
+            if img_parms.width < 10.0: img_parms.width = 10.0
+            if img_parms.width/img_parms.image_w_h_ration < 10.0: img_parms.width = 10.0 * img_parms.image_w_h_ration
         img_parms.height = img_parms.width/img_parms.image_w_h_ration
         image_load_into_dialog()
     def on_spinbutton_image_height_value_changed(spinbutton):
         img_parms.height = spinbutton_height.get_value()
+        if cons.IS_WIN_OS: # scale works really bad for small numbers
+            if img_parms.height < 10.0: img_parms.heigth = 10.0
+            if img_parms.height * img_parms.image_w_h_ration < 10.0: img_parms.height = 10.0 /img_parms.image_w_h_ration
         img_parms.width = img_parms.height*img_parms.image_w_h_ration
         image_load_into_dialog()
     def on_key_press_imagehandledialog(widget, event):
