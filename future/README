@@ -52,6 +52,41 @@ sudo pacman -S gtksourceviewmm libxml++2.6 python-lxml
 sudo pamac build cpputest
 
 
+# ---- Building Cherrytree in Windows ----
+
+# install MSYS2: https://www.msys2.org/ (we cover here the packages for 64 bit installation)
+
+# run the following command multiple times in the 'MSYS2 MinGW 64-bit' terminal until there are no more updates:
+pacman -Syuu
+
+# install required packages to build cherrytree:
+# toolchain
+pacman -S mingw-w64-x86_64-toolchain
+# make and autotools
+pacman -S make pkgconfig autoconf automake automake-wrapper libtool intltool
+# gtkmm3, libxml++, sqlite3
+pacman -S mingw-w64-x86_64-gtkmm3 mingw-w64-x86_64-gtksourceviewmm3 gettext-devel mingw-w64-x86_64-libxml++2.6 mingw-w64-x86_64-sqlite3
+# python3-lxml
+pacman -S mingw-w64-x86_64-python3-lxml
+# other
+pacman -S perl tar nano p7zip git
+# cpputest (missing package, we need to build manually)
+wget https://github.com/cpputest/cpputest/releases/download/v3.8/cpputest-3.8.tar.gz
+tar xf cpputest-3.8.tar.gz
+cd cpputest-3.8
+./autogen.sh
+./configure
+make
+make install
+
+# build and run cherrytree
+# build Debug
+./build.sh
+# or build Release
+./build.sh R
+./cherrytree
+
+
 # ---- Building Cherrytree in Fedora ----
 
 # Install Dependencies
