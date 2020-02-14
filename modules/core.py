@@ -5019,6 +5019,8 @@ iter_end, exclude_iter_sel_end=True)
         """Called after every event on the SourceView"""
         if event.type == gtk.gdk._2BUTTON_PRESS and event.button == 1:
             support.on_sourceview_event_after_double_click_button1(self, text_view, event)
+        elif event.type == gtk.gdk._3BUTTON_PRESS and event.button == 1:
+            support.on_sourceview_event_after_triple_click_button1(self, text_view, event)
         elif event.type in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]:
             if self.syntax_highlighting == cons.RICH_TEXT_ID\
             and self.curr_tree_iter and not self.curr_buffer.get_modified():

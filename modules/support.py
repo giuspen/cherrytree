@@ -196,12 +196,48 @@ def apply_tag_try_automatic_bounds(dad, text_buffer=None, iter_start=None):
         return True
     return False
 
+def apply_tag_try_automatic_bounds_triple_click(dad, text_buffer=None, iter_start=None):
+    """Try to select the full paragraph"""
+    if not text_buffer: text_buffer = dad.curr_buffer
+    if not iter_start: iter_start = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+    iter_end = iter_start.copy()
+    iter_end.forward_to_line_end()
+
+    iter_end.forward_char()
+    next_char = iter_end.get_char()
+    while next_char != '\n' and next_char != ' ':
+        # forward to the end of the line, if the next char
+        # is not a new line or space then repeat
+        iter_end.forward_to_line_end()
+        if not iter_end.forward_char(): break
+        next_char = iter_end.get_char()
+    
+    # reverse to beginning of line to check for space indicating line
+    # selected is the first line of a paragraph
+    iter_start.backward_chars(iter_start.get_visible_line_offset())
+    # reverse until either a new line or a space is found
+    while iter_start.get_char() != '\n' and iter_start.get_char() != ' ':
+        if not iter_start.backward_line(): break
+        
+    if iter_start.get_char() == '\n':
+        iter_start.forward_chars(1)
+
+    text_buffer.move_mark(text_buffer.get_insert(), iter_start)
+    text_buffer.move_mark(text_buffer.get_selection_bound(), iter_end)
+
 def on_sourceview_event_after_double_click_button1(dad, text_view, event):
     """Called after every Double Click with button 1"""
     text_buffer = text_view.get_buffer()
     x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
     iter_start = text_view.get_iter_at_location(x, y)
     apply_tag_try_automatic_bounds(dad, text_buffer=text_buffer, iter_start=iter_start)
+
+def on_sourceview_event_after_triple_click_button1(dad, text_view, event):
+    """Called after every Triple Click with button 1"""
+    text_buffer = text_view.get_buffer()
+    x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
+    iter_start = text_view.get_iter_at_location(x, y)
+    apply_tag_try_automatic_bounds_triple_click(dad, text_buffer=text_buffer, iter_start=iter_start)
 
 def on_sourceview_event_after_button_press(dad, text_view, event):
     """Called after every gtk.gdk.BUTTON_PRESS on the SourceView"""
