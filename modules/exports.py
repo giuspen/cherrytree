@@ -606,15 +606,20 @@ class Export2Html:
         self.tree_links_nums = ["1"]
         shutil.copy(os.path.join(cons.GLADE_PATH, "home.png"), self.images_dir)
         self.tree_links_text = '<div class="tree">\n'
-        self.tree_links_text += '<p><strong>Index</strong></p>\n'
+        self.tree_links_text += '''<p>
+<strong>Index</strong></br>
+<button onclick="expandAllSubtrees()">Expand All</button> <button onclick="collapseAllSubtrees()">Collapse All</button>
+</p>\n'''
         if not top_tree_iter: tree_iter = self.dad.treestore.get_iter_first()
         else: tree_iter = top_tree_iter.copy()
         self.tree_count_level = 1
+        self.tree_links_text += '<ul class="outermost">\n'
         while tree_iter:
-            self.tree_links_text_iter(tree_iter)
+            self.tree_links_text += self.tree_links_text_iter(tree_iter)
             self.tree_links_nums[-1] = str( int(self.tree_links_nums[-1]) + 1 )
             if top_tree_iter: break
             tree_iter = self.dad.treestore.iter_next(tree_iter)
+        self.tree_links_text += '</ul>\n'
         if self.tree_count_level > 1:
             print self.tree_count_level-1
             self.tree_links_text += '</ol>'*(self.tree_count_level-1)
@@ -641,27 +646,20 @@ class Export2Html:
 
     def tree_links_text_iter(self, tree_iter):
         """Creating the Tree Links Text - iter"""
+        if(not tree_iter): return ""
         href = self.get_html_filename(tree_iter)
         node_name = clean_text_to_utf8(self.dad.treestore[tree_iter][1])
-        if self.tree_count_level < len(self.tree_links_nums):
-            self.tree_count_level += 1
-            self.tree_links_text += '<ol>\n'
-        elif self.tree_count_level > len(self.tree_links_nums):
-            i = self.tree_count_level - len(self.tree_links_nums)
-            self.tree_links_text += '</ol>\n' * i
-            self.tree_count_level -= i
-        if self.tree_count_level == 1:
-            self.tree_links_text += '<p><a href="#" onclick="changeFrame(\'' + href + '\')">' + node_name + '</a></p>\n'
-        else:
-            self.tree_links_text += '<li><a href="#" onclick="changeFrame(\'' + href + '\')">' + node_name + '</a></li>'
-        self.tree_links_text += '\n'
         child_tree_iter = self.dad.treestore.iter_children(tree_iter)
-        self.tree_links_nums.append("1")
+        if(not child_tree_iter):
+            return '''<li class="leaf"><a href="#" onclick="changeFrame('%s')">%s</a></li>\n''' % (href, node_name)
+        html = '''<li><button onclick="toggleSubTree(this)">+</button> <a href="#" onclick="changeFrame('%s')">%s</a></li>
+''' % (href, node_name)
+        html += '<ul class="hide subtree">\n'
         while child_tree_iter:
-            self.tree_links_text_iter(child_tree_iter)
-            self.tree_links_nums[-1] = str( int(self.tree_links_nums[-1]) + 1 )
+            html += self.tree_links_text_iter(child_tree_iter)
             child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
-        self.tree_links_nums.pop()
+        html += '</ul>\n'
+        return html
 
     def create_tree_index_page(self):
         """Write the index html file for the tree"""

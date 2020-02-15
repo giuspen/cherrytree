@@ -79,6 +79,7 @@ iframe.page {
 div.tree {
     font-size: 12px;
     color: #666666;
+    border-right: 3px solid;
 }
 
 div.tree a, div.tree a:visited {
@@ -90,24 +91,27 @@ div.tree a:hover {
     text-decoration: underline;
 }
 
-div.tree ol {
-    padding-left: 1em;
-    list-style-type: square;
+div.tree ul {
+    padding-inline-start: 20px;
+    list-style-type: none;
 }
 
-div.tree ol ol {
-    list-style-type: circle;
+div.tree ul.outermost {
+    padding-inline-start: 0;
 }
 
-div.tree ol ol ol {
-    list-style-type: disc;
+div.tree li {
+    padding-inline-start: 0;
 }
-
-div.tree ol ol ol ol, div.tree ol ol ol ol ol, div.tree ol ol ol ol ol ol {
-    list-style-type: disc;
+div.tree li.leaf {
+    padding-inline-start: 10px;
 }
 
 div.tree a.show, div.tree a.hide { display: none; }
+
+.hide {
+    display: none;
+}
 
 /*******************************************************************************
  * NODE PAGES
