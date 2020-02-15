@@ -381,6 +381,8 @@ class SpellChecker(object):
             start.forward_word_end()
             start.backward_word_start()
         word_start = start.copy()
+        if word_start.get_line() != 0 and word_start.get_char() == '“':
+            word_start.forward_char()
         while word_start.compare(end) < 0:
             word_end = word_start.copy()
             word_end.forward_word_end()
