@@ -652,9 +652,9 @@ class Export2Html:
         child_tree_iter = self.dad.treestore.iter_children(tree_iter)
         if(not child_tree_iter):
             return '''<li class="leaf"><a href="#" onclick="changeFrame('%s')">%s</a></li>\n''' % (href, node_name)
-        html = '''<li><button onclick="toggleSubTree(this)">+</button> <a href="#" onclick="changeFrame('%s')">%s</a></li>
+        html = '''<li><button onclick="toggleSubTree(this)">-</button> <a href="#" onclick="changeFrame('%s')">%s</a></li>
 ''' % (href, node_name)
-        html += '<ul class="hide subtree">\n'
+        html += '<ul class="subtree">\n'
         while child_tree_iter:
             html += self.tree_links_text_iter(child_tree_iter)
             child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)

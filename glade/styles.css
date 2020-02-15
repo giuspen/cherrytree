@@ -94,6 +94,7 @@ div.tree a:hover {
 div.tree ul {
     padding-inline-start: 20px;
     list-style-type: none;
+    line-height: 0.3;
 }
 
 div.tree ul.outermost {
@@ -105,6 +106,7 @@ div.tree li {
 }
 div.tree li.leaf {
     padding-inline-start: 10px;
+    line-height: 2;
 }
 
 div.tree a.show, div.tree a.hide { display: none; }
