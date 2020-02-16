@@ -366,7 +366,7 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
         self.nodes_list[-1].appendChild(dom_iter)
         text_iter = self.dom.createTextNode(text_data)
         dom_iter.appendChild(text_iter)
-        self.prev_attributes = self.curr_attributes
+        self.prev_attributes = self.curr_attributes.copy()
 
     def start_parsing(self):
         """Start the Parsing"""
