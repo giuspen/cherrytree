@@ -340,16 +340,33 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
         self.dad = dad
         self.folderpath = folderpath
         self.xml_handler = machines.XMLHandler(self)
+        self.prev_attributes = {}
+        self.prev_accumulator = []
 
     def rich_text_serialize(self, text_data):
         """Appends a new part to the XML rich text"""
+        # accumulate data (+= string is to slow) to udpate element lately
+        if self.prev_attributes == self.curr_attributes:
+            if self.nodes_list[-1].lastChild != None:
+                self.prev_accumulator.append(text_data)
+                return
+
+        # attributes changes, so finally can update prev element
+        if (self.prev_accumulator):
+            self.nodes_list[-1].lastChild.firstChild.data += "".join(self.prev_accumulator)
+            self.prev_accumulator = []
+
         dom_iter = self.dom.createElement("rich_text")
-        for tag_property in cons.TAG_PROPERTIES:
-            if self.curr_attributes[tag_property] != "":
-                dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
+        if self.curr_attributes:
+            for tag_property in cons.TAG_PROPERTIES:
+                if tag_property in self.curr_attributes:
+                    if self.curr_attributes[tag_property] != "":
+                        dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
+                        
         self.nodes_list[-1].appendChild(dom_iter)
         text_iter = self.dom.createTextNode(text_data)
         dom_iter.appendChild(text_iter)
+        self.prev_attributes = self.curr_attributes.copy()
 
     def start_parsing(self):
         """Start the Parsing"""
@@ -377,12 +394,19 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
         self.curr_state = 0
         # curr_state 0: standby, taking no data
         # curr_state 1: waiting for node content, take many data
-        for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
+        #for tag_property in cons.TAG_PROPERTIES: self.curr_attributes[tag_property] = ""
+        self.curr_attributes = {}
+        self.prev_attributes = {}
+        self.prev_accumulator = []
         self.latest_span = []
         self.pixbuf_vector = []
         self.curr_folder = node_folder
         self.chars_counter = 0
         self.feed(node_string.decode(cons.STR_UTF8, cons.STR_IGNORE))
+        # after parsing
+        if (self.prev_accumulator):
+            self.nodes_list[-1].lastChild.firstChild.data += "".join(self.prev_accumulator)
+
         for pixbuf_element in self.pixbuf_vector:
             self.xml_handler.pixbuf_element_to_xml(pixbuf_element, self.nodes_list[-1], self.dom)
         # check if the node has children

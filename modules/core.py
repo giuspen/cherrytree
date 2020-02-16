@@ -1436,6 +1436,19 @@ iter_end, exclude_iter_sel_end=True)
         elif event.button == 3: self.ui.get_widget("/SysTrayMenu").popup(None, None, None, event.button, event.time)
         return False
 
+    def max_node_id(self, tree_iter=None):
+        """Returns the max node id"""
+        if tree_iter == None: tree_iter = self.treestore.get_iter_first()
+        max_node_id = 0
+        while tree_iter != None:
+            max_node_id = max(max_node_id, self.treestore[tree_iter][3])
+            child_iter = self.treestore.iter_children(tree_iter)
+            while child_iter != None:
+                max_node_id = max(max_node_id, self.max_node_id(child_iter))
+                child_iter = self.treestore.iter_next(child_iter)
+            tree_iter = self.treestore.iter_next(tree_iter)
+        return max_node_id
+    
     def node_id_get(self, original_id=None, discard_ids=None):
         """Returns the node_ids, all Different Each Other"""
         if discard_ids is not None and original_id in discard_ids:
@@ -1444,13 +1457,18 @@ iter_end, exclude_iter_sel_end=True)
         else:
             discard_ids_allocated = []
             if discard_ids is not None: discard_ids_allocated += [discard_ids[o] for o in discard_ids]
-            new_node_id = 1
-            while (self.get_tree_iter_from_node_id(new_node_id)\
-               or (new_node_id in self.ctdb_handler.nodes_to_rm_set)\
+
+            new_node_id = self.max_node_id() + 1            
+            while ((new_node_id in self.ctdb_handler.nodes_to_rm_set)\
                or (new_node_id in discard_ids_allocated)):
                 new_node_id += 1
             if discard_ids is not None:
                 discard_ids[original_id] = new_node_id
+        return new_node_id
+
+    def node_id_get_simplified(self, new_node_id):
+        while (new_node_id in self.ctdb_handler.nodes_to_rm_set):
+                new_node_id += 1
         return new_node_id
 
     def set_treeview_font(self):
