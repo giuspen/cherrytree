@@ -358,10 +358,11 @@ class KeepnoteHandler(HTMLParser.HTMLParser):
 
         dom_iter = self.dom.createElement("rich_text")
         if self.curr_attributes:
-        for tag_property in cons.TAG_PROPERTIES:
+            for tag_property in cons.TAG_PROPERTIES:
                 if tag_property in self.curr_attributes:
-            if self.curr_attributes[tag_property] != "":
-                dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
+                    if self.curr_attributes[tag_property] != "":
+                        dom_iter.setAttribute(tag_property, self.curr_attributes[tag_property])
+                        
         self.nodes_list[-1].appendChild(dom_iter)
         text_iter = self.dom.createTextNode(text_data)
         dom_iter.appendChild(text_iter)
