@@ -47,7 +47,8 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
    _rGtkCssProvider(rGtkCssProvider),
    _pGsvLanguageManager(pGsvLanguageManager),
    _pGsvStyleSchemeManager(pGsvStyleSchemeManager),
-   _ctTextview(this)
+   _ctTextview(this),
+   _ctStateMachine(this)
 {
     set_icon(_pGtkIconTheme->load_icon(CtConst::APP_NAME, 48));
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
@@ -708,8 +709,7 @@ bool CtMainWin::reset(const bool force_reset)
     _set_new_curr_doc(Glib::RefPtr<Gio::File>{nullptr}, "");
 
     update_window_save_not_needed();
-    //todo
-    //self.state_machine.reset()
+    get_state_machine().reset();
     return true;
 }
 
@@ -964,8 +964,7 @@ void CtMainWin::update_window_save_needed(const CtSaveNeededUpdType update_type,
             std::vector<gint64> rm_node_ids = treeIter.get_children_node_ids();
             rm_node_ids.push_back(top_node_id);
             _uCtTreestore->pending_rm_db_nodes(rm_node_ids);
-            //todo
-            //self.state_machine.delete_states(node_id) 
+            get_state_machine().delete_states(rm_node_ids);
         } break;
         case CtSaveNeededUpdType::book:
         {
@@ -985,7 +984,7 @@ void CtMainWin::_on_treeview_cursor_changed()
         {
             _fileSaveNeeded = true;
             rTextBuffer->set_modified(false);
-            //self.state_machine.update_state()
+            get_state_machine().update_state(_prevTreeIter.get_node_id());
         }
     }
     CtTreeIter treeIter = curr_tree_iter();
@@ -1274,7 +1273,7 @@ void CtMainWin::_on_textview_event_after(GdkEvent* event)
         if (curr_tree_iter() and curr_tree_iter().get_node_syntax_highlighting() == CtConst::RICH_TEXT_ID and
             not curr_buffer()->get_modified())
         {
-            // todo: self.state_machine.update_curr_state_cursor_pos(self.treestore[self.curr_tree_iter][3])
+            get_state_machine().update_curr_state_cursor_pos(curr_tree_iter().get_node_id());
         }
         if (event->type == GDK_BUTTON_PRESS)
         {

@@ -232,7 +232,7 @@ void CtActions::text_row_delete()
     CtTextRange range = CtList(_pCtMainWin, proof.text_buffer).get_paragraph_iters();
     if (not range.iter_end.forward_char() and !range.iter_start.backward_char()) return;
     proof.text_buffer->erase(range.iter_start, range.iter_end);
-    // todo: self.state_machine.update_state()
+    _pCtMainWin->get_state_machine().update_state();
 }
 
 // Duplicates the Whole Row or a Selection
@@ -297,7 +297,7 @@ void CtActions::text_row_selection_duplicate()
             }
         }
     }
-    // todo: self.state_machine.update_state()
+    _pCtMainWin->get_state_machine().update_state();
 }
 
 // Moves Up the Current Row/Selected Rows
@@ -380,7 +380,7 @@ void CtActions::text_row_up()
         // selection
         proof.text_view->set_selection_at_offset_n_delta(destination_offset, diff_offsets-1);
     }
-    // todo: self.state_machine.update_state()
+    _pCtMainWin->get_state_machine().update_state();
 }
 
 // Moves Down the Current Row/Selected Rows
@@ -473,7 +473,7 @@ void CtActions::text_row_down()
         else
             proof.text_view->set_selection_at_offset_n_delta(destination_offset+1, diff_offsets-2);
     }
-    // self.state_machine.update_state()
+    _pCtMainWin->get_state_machine().update_state();
 }
 
 // Remove trailing spaces/tabs

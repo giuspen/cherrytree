@@ -30,11 +30,13 @@
 #include "ct_treestore.h"
 #include "ct_misc_utils.h"
 #include "ct_menu.h"
+#include "ct_state_machine.h"
 #include "ct_widgets.h"
 #include "ct_config.h"
 #include "ct_table.h"
 #include "ct_image.h"
 #include "ct_print.h"
+
 
 struct CtStatusBar
 {
@@ -101,6 +103,7 @@ public:
     std::string get_curr_doc_file_path() { return (_ctCurrFile.rFile ? _ctCurrFile.rFile->get_path():""); }
     std::string get_curr_doc_file_name() { return (_ctCurrFile.rFile ? Glib::path_get_basename(_ctCurrFile.rFile->get_path()):""); } // pygtk: file_name
     std::string get_curr_doc_file_dir() { return (_ctCurrFile.rFile ? Glib::path_get_dirname(_ctCurrFile.rFile->get_path()):""); } // pygtk: file_dir
+    CtDocType   get_curr_doc_file_type() { return CtMiscUtil::get_doc_type(get_curr_doc_file_path()); }
     void set_new_curr_doc(const std::string& filepath,
                           const std::string& password,
                           CtSQLite* const pCtSQLite);
@@ -118,6 +121,7 @@ public:
     CtActions*               get_ct_actions()  { return _pCtActions; }
     CtTmp*                   get_ct_tmp()      { return _pCtTmp; }
     Gtk::IconTheme*          get_icon_theme()  { return _pGtkIconTheme; }
+    CtStateMachine&          get_state_machine() { return _ctStateMachine; }
     Glib::RefPtr<Gtk::TextTagTable>&  get_text_tag_table() { return _rGtkTextTagTable; }
     Glib::RefPtr<Gtk::CssProvider>&   get_css_provider()   { return _rGtkCssProvider; }
     Gsv::LanguageManager*    get_language_manager() { return _pGsvLanguageManager; }
@@ -210,6 +214,7 @@ private:
     std::unique_ptr<CtTreeStore> _uCtTreestore;
     std::unique_ptr<CtTreeView>  _uCtTreeview;
     CtTextView                   _ctTextview;
+    CtStateMachine               _ctStateMachine;
     std::unique_ptr<CtPairCodeboxMainWin> _uCtPairCodeboxMainWin;
 
     struct CtCurrFile

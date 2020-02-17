@@ -40,7 +40,7 @@ void CtActions::_file_save(const bool run_vacuum)
                  _file_write(doc_filepath, _pCtMainWin->get_curr_doc_password(), false/*firstWrite*/, nullptr/*ppReturnCtSQLite*/, run_vacuum) )
             {
                 _pCtMainWin->update_window_save_not_needed();
-                // ? self.state_machine.update_state()
+                _pCtMainWin->get_state_machine().update_state();
             }
             _pCtMainWin->curr_file_mod_time_update_value(true/*doEnable*/);
         }
@@ -100,7 +100,7 @@ void CtActions::file_save_as()
         _pCtMainWin->set_new_curr_doc(filepath, storageSelArgs.password, pReturnCtSQLite);
         // support.add_recent_document(self, filepath)
         _pCtMainWin->update_window_save_not_needed();
-        // ? self.state_machine.update_state()
+        _pCtMainWin->get_state_machine().update_state();
     }
     _pCtMainWin->curr_file_mod_time_update_value(true/*doEnable*/);
 }
