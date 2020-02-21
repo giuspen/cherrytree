@@ -964,7 +964,8 @@ void CtMainWin::update_window_save_needed(const CtSaveNeededUpdType update_type,
             std::vector<gint64> rm_node_ids = treeIter.get_children_node_ids();
             rm_node_ids.push_back(top_node_id);
             _uCtTreestore->pending_rm_db_nodes(rm_node_ids);
-            get_state_machine().delete_states(rm_node_ids);
+            for (auto node_id: rm_node_ids)
+                get_state_machine().delete_states(node_id);
         } break;
         case CtSaveNeededUpdType::book:
         {
@@ -984,7 +985,7 @@ void CtMainWin::_on_treeview_cursor_changed()
         {
             _fileSaveNeeded = true;
             rTextBuffer->set_modified(false);
-            get_state_machine().update_state(_prevTreeIter.get_node_id());
+            get_state_machine().update_state(_prevTreeIter);
         }
     }
     CtTreeIter treeIter = curr_tree_iter();

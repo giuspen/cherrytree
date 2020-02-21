@@ -81,7 +81,7 @@ public:
 private:
     void _check_size()
     {
-        while (std::list<TYPE>::size() > maxSize)
+        while (std::list<TYPE>::size() > (size_t)maxSize)
         {
             std::list<TYPE>::pop_back();
         }

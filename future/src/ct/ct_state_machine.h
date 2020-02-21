@@ -21,15 +21,58 @@
 
 #pragma once
 
+#include "ct_treestore.h"
+#include <vector>
+#include <map>
+#include <glibmm/regex.h>
+#include <memory>
+
 class CtMainWin;
+
+struct CtNodeState
+{
+    int cursor_pos;
+};
+
+struct CtNodeStory
+{
+    std::vector<std::shared_ptr<CtNodeState>> states;
+    int index;
+    int indicator;
+
+    std::shared_ptr<CtNodeState> get_state() { return states[index]; }
+};
 
 class CtStateMachine
 {
 public:
     CtStateMachine(CtMainWin* pCtMainWin);
 
+    void reset();
+    gint64 requested_visited_previous();
+    gint64 requested_visited_next();
+    void node_selected_changed(gint64 node_id);
+    void text_variation(gint64 node_id, const Glib::ustring& varied_text);
+    std::shared_ptr<CtNodeState> requested_state_previous(gint64 node_id);
+    std::shared_ptr<CtNodeState> requested_state_current(gint64 node_id);
+    std::shared_ptr<CtNodeState> requested_state_subsequent(gint64 node_id);
+    void delete_states(gint64 node_id);
+    bool curr_index_is_last_index(gint64 node_id);
+    void not_undoable_timeslot_set(bool not_undoable_val);
+    bool not_undoable_timeslot_get();
+    void update_state();
+    void update_state(CtTreeIter tree_iter);
+    void update_curr_state_cursor_pos(gint64 node_id);
+
 private:
     CtMainWin* _pCtMainWin;
+    bool       _go_bk_fw_click;
+    bool       _not_undoable_timeslot;
+    int        _visited_nodes_idx;
+
+    std::vector<gint64>           _visited_nodes_list;
+    std::map<gint64, CtNodeStory> _nodes_vectors;
+    Glib::RefPtr<Glib::Regex>     _re_w;
 
 };
 

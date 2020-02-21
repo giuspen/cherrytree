@@ -335,7 +335,7 @@ void CtConfig::_populate_data_from_keyfile()
             savedFromPyGtk = true;
         }
     }
-    for (guint i=0; i<recentDocsFilepaths.maxSize; ++i)
+    for (int i=0; i<recentDocsFilepaths.maxSize; ++i)
     {
         snprintf(_tempKey, _maxTempKeySize, "doc_%d", i);
         std::string filepath;
