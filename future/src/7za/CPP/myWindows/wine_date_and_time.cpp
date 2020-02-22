@@ -432,6 +432,7 @@ BOOL WINAPI SystemTimeToFileTime( const SYSTEMTIME *syst, FILETIME * ft ) {
   return TRUE;
 }
 
+#ifndef _WIN32
 /***********************************************************************
  *              GetSystemTimeAsFileTime  (KERNEL32.@)
  *
@@ -465,4 +466,4 @@ DWORD WINAPI GetTickCount(VOID) { // Retrieves the number of milliseconds
   }  
   return (DWORD)time(0)*1000; 
 }
-
+#endif // _WIN32

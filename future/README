@@ -69,13 +69,13 @@ pacman -S mingw-w64-x86_64-gtkmm3 mingw-w64-x86_64-gtksourceviewmm3 gettext-deve
 # python3-lxml
 pacman -S mingw-w64-x86_64-python3-lxml
 # other
-pacman -S perl tar nano p7zip git
+pacman -S perl tar nano p7zip git mingw-w64-x86_64-meld3
 # cpputest (missing package, we need to build manually)
 wget https://github.com/cpputest/cpputest/releases/download/v3.8/cpputest-3.8.tar.gz
 tar xf cpputest-3.8.tar.gz
 cd cpputest-3.8
 ./autogen.sh
-./configure
+./configure --disable-memory-leak-detection
 make
 make install
 
@@ -84,7 +84,8 @@ make install
 ./build.sh
 # or build Release
 ./build.sh R
-./cherrytree
+export LC_ALL=C
+./cherrytree.exe
 
 
 # ---- Building Cherrytree in Fedora ----

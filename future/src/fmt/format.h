@@ -1025,11 +1025,11 @@ inline It format_uint(It out, UInt value, int num_digits,
   return internal::copy_str<Char>(buffer, buffer + num_digits, out);
 }
 
-#ifndef _WIN32
+//#ifndef _WIN32
 # define FMT_USE_WINDOWS_H 0
-#elif !defined(FMT_USE_WINDOWS_H)
-# define FMT_USE_WINDOWS_H 1
-#endif
+//#elif !defined(FMT_USE_WINDOWS_H)
+//# define FMT_USE_WINDOWS_H 1
+//#endif
 
 // Define FMT_USE_WINDOWS_H to 0 to disable use of windows.h.
 // All the functionality that relies on it will be disabled too.

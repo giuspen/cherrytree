@@ -283,8 +283,9 @@ bool CtTreeStore::pending_data_write(const bool run_vacuum)
 {
     if (nullptr != _pCtSQLite)
     {
-        _pCtSQLite->pending_data_write(this, _bookmarks, run_vacuum);
+        return _pCtSQLite->pending_data_write(this, _bookmarks, run_vacuum);
     }
+    return false;
 }
 
 void CtTreeStore::_iter_delete_anchored_widgets(const Gtk::TreeModel::Children& children)
