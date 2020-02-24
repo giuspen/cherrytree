@@ -2,7 +2,7 @@
 #
 #       exports.py
 #
-#       Copyright 2009-2019 Giuseppe Penone <giuspen@gmail.com>
+#       Copyright 2009-2020 Giuseppe Penone <giuspen@gmail.com>
 #
 #       This program is free software; you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
@@ -590,9 +590,9 @@ class Export2Html:
         os.mkdir(self.images_dir)
         os.mkdir(self.embed_dir)
         os.mkdir(self.res_dir)
-        styles_css_filepath = os.path.join(cons.CONFIG_DIR, "styles.css")
+        styles_css_filepath = os.path.join(cons.CONFIG_DIR, "styles2.css")
         if not os.path.isfile(styles_css_filepath):
-            shutil.copy(os.path.join(cons.GLADE_PATH, "styles.css"), cons.CONFIG_DIR)
+            shutil.copy(os.path.join(cons.GLADE_PATH, "styles2.css"), cons.CONFIG_DIR)
         script_js_filepath = os.path.join(cons.CONFIG_DIR, "script.js")
         if not os.path.isfile(script_js_filepath):
             shutil.copy(os.path.join(cons.GLADE_PATH, "script.js"), cons.CONFIG_DIR)
