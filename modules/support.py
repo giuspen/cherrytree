@@ -953,10 +953,6 @@ _("Ukrainian")+" (uk) Andriy Kovtun <kovtunos@yandex.ru>")
 
 def dialog_choose_element_in_list(father_win, title, elements_list, column_title, icon_n_label_list=None):
     """Choose Between Elements in List"""
-    class ListParms:
-        def __init__(self):
-            self.sel_iter = None
-    list_parms = ListParms()
     dialog = gtk.Dialog(title=title,
         parent=father_win,
         flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
@@ -990,9 +986,8 @@ def dialog_choose_element_in_list(father_win, title, elements_list, column_title
         for element in icon_n_label_list:
             elements_liststore.append([element[0], element[1], element[2]])
     scrolledwindow.add(elements_treeview)
-    list_parms.sel_iter = elements_liststore.get_iter_first()
-    if list_parms.sel_iter:
-        elements_treeview.set_cursor(elements_liststore.get_path(list_parms.sel_iter))
+    if elements_liststore.get_iter_first():
+        elements_treeview.set_cursor(elements_liststore.get_path(elements_liststore.get_iter_first()))
     content_area = dialog.get_content_area()
     content_area.pack_start(scrolledwindow)
     def on_mouse_button_clicked_elements_list(widget, event):
@@ -1000,9 +995,6 @@ def dialog_choose_element_in_list(father_win, title, elements_list, column_title
         if event.type == gtk.gdk._2BUTTON_PRESS:
             try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
             except: print cons.STR_PYGTK_222_REQUIRED
-    def on_treeview_event_after(treeview, event):
-        if event.type not in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]: return
-        model, list_parms.sel_iter = elements_treeviewselection.get_selected()
     def on_key_press_elementslistdialog(widget, event):
         keyname = gtk.gdk.keyval_name(event.keyval)
         if keyname == cons.STR_KEY_RETURN:
@@ -1010,15 +1002,15 @@ def dialog_choose_element_in_list(father_win, title, elements_list, column_title
             except: print cons.STR_PYGTK_222_REQUIRED
             return True
         return False
-    elements_treeview.connect('event-after', on_treeview_event_after)
     dialog.connect('key_press_event', on_key_press_elementslistdialog)
     elements_treeview.connect('button-press-event', on_mouse_button_clicked_elements_list)
     content_area.show_all()
     elements_treeview.grab_focus()
     response = dialog.run()
     dialog.hide()
-    if response != gtk.RESPONSE_ACCEPT or not list_parms.sel_iter: return ""
-    return unicode(elements_liststore[list_parms.sel_iter][0], cons.STR_UTF8, cons.STR_IGNORE)
+    model, sel_iter = elements_treeviewselection.get_selected()
+    if response != gtk.RESPONSE_ACCEPT or not sel_iter: return ""
+    return unicode(elements_liststore[sel_iter][0], cons.STR_UTF8, cons.STR_IGNORE)
 
 def dialog_img_n_entry(father_win, title, entry_content, img_stock):
     """Insert/Edit Anchor Name"""
