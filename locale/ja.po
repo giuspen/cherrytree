@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-02 08:22+0100\n"
-"PO-Revision-Date: 2019-07-04 14:52+0900\n"
+"POT-Creation-Date: 2020-02-23 21:33+0000\n"
+"PO-Revision-Date: 2020-02-25 06:52+0900\n"
 "Last-Translator: Piyo <py2@live.jp>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Poedit 2.2.3\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: /home/giuspen/Software/git_cherrytree/modules/printing.py:217
+#: /home/giuspen/Software/git_cherrytree/modules/printing.py:200
 msgid "Warning: One or More Images Were Reduced to Enter the Page"
 msgstr "警告: ページに収まるように、一つ以上の画像が縮小されました"
 
@@ -26,23 +26,23 @@ msgstr "警告: ページに収まるように、一つ以上の画像が縮小�
 msgid "Unknown"
 msgstr "不明"
 
-#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:430
+#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:435
 msgid "(no suggestions)"
 msgstr "(候補なし)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:446
+#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:451
 msgid "Add \"{}\" to Dictionary"
 msgstr "\"{}\" を辞書に追加する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:449
+#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:454
 msgid "Ignore All"
 msgstr "すべて無視する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:460
+#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:465
 msgid "Languages"
 msgstr "言語"
 
-#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:471
+#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:476
 msgid "Suggestions"
 msgstr "候補"
 
@@ -68,26 +68,26 @@ msgstr ""
 "新しいバージョンの情報を確認できませんでした - 後でもう一度確認してください"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:328
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3929
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4557
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:5044
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4028
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4658
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5148
 msgid "No Text is Selected"
 msgstr "テキストが選択されていません"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:828
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2454
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2555
 msgid "The new parent can't be one of his children!"
 msgstr "自分の子ノードを親ノードにすることはできません！"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:852
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:1541
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:1739
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1559
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1757
 #: /home/giuspen/Software/git_cherrytree/modules/exports.py:153
 msgid "CherryTree Document"
 msgstr "CherryTree ドキュメント"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:876
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2020
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2038
 #, python-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" は、CherryTree ドキュメントではありません"
@@ -144,12 +144,12 @@ msgid "The Selected Node"
 msgstr "選択しているノード"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:1290
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1804
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1853
 msgid "Insert _Special Character"
 msgstr "特殊文字を挿入(_S)"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:1292
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1806
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1855
 msgid "Insert a Special Character"
 msgstr "特殊文字を挿入"
 
@@ -161,65 +161,78 @@ msgstr "外部でCT* ファイルが更新されたため、ドキュメント�
 msgid "CherryTree Hierarchical Note Taking"
 msgstr "CherryTree Hierarchical Note Taking"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:1705
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1723
 #, python-format
 msgid "You Have No Write Access to %s"
 msgstr "%s への書き込み権限がありません"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:1719
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1737
 msgid "Writing to Disk..."
 msgstr "ディスクに書き込みしています..."
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:1843
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1861
 msgid ""
 "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 "Installed Properly"
 msgstr "実行ファイル '7za' がありません。"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:1849
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1867
 #, python-format
 msgid "Enter Password for %s"
 msgstr "%s のパスワードを入力してください"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:1921
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:1938
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1939
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1956
 msgid "Wrong Password"
 msgstr "パスワードが違います"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2442
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2251
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:298
+msgid "Command Palette"
+msgstr "コマンド パレット"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2285
+msgid "Type To Search..."
+msgstr "コマンドを検索..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2289
+msgid "Command Name"
+msgstr "コマンド名"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2543
 msgid "Select the New Parent"
 msgstr "新しい親ノードを選択"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2446
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2547
 msgid "The new parent can't be the very node to move!"
 msgstr "自分自身を親ノードにすることはできません！"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2449
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2550
 msgid "The new chosen parent is still the old parent!"
 msgstr "現在の親ノードが選択されました、移動しません！"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2716
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2817
 msgid "New Node Properties"
 msgstr "新しいノードのプロパティ"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2779
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2880
 msgid "New Child Node Properties"
 msgstr "新しい子ノードのプロパティ"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2807
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2908
 #, python-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr "<b>'%s' ノードを削除しますか？</b>"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2809
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2910
 msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr "<b>子孫ノードもすべて削除されます！</b>"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2846
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2947
 msgid "Node Properties"
 msgstr "ノードのプロパティ"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2859
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2960
 msgid ""
 "Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
 "Do you want to Continue?"
@@ -227,98 +240,98 @@ msgstr ""
 "リッチテキストから変更すると、このノードのすべての書式が失われます。本当に実"
 "行しますか？"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3420
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3519
 msgid "Bold"
 msgstr "太字"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3422
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3521
 msgid "Use Selected Color"
 msgstr "選択色を使用"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3434
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1515
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3533
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1552
 msgid "Use Selected Icon"
 msgstr "選択アイコンを使用する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3440
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3539
 #: /home/giuspen/Software/git_cherrytree/modules/tablez.py:322
-#: /home/giuspen/Software/git_cherrytree/modules/imports.py:2733
+#: /home/giuspen/Software/git_cherrytree/modules/imports.py:2757
 msgid "click me"
 msgstr "クリック"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3452
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3551
 #: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:920
 msgid "Node Name"
 msgstr "ノード名"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3456
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4982
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1669
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2375
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3555
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5085
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1706
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2412
 msgid "Rich Text"
 msgstr "リッチテキスト"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3457
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4983
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1670
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3556
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5086
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1707
 #: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:95
 msgid "Plain Text"
 msgstr "テキスト形式"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3459
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3512
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3558
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3611
 #: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:96
 #: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:178
 msgid "Automatic Syntax Highlighting"
 msgstr "自動構文ハイライト"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3479
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4981
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3578
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5084
 msgid "Node Type"
 msgstr "ノードの種類"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3493
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3592
 msgid "Tags for Searching"
 msgstr "検索用タグ　（スペース区切り）"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3497
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3596
 msgid "Read Only"
 msgstr "編集禁止"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3530
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3629
 msgid "Choose Existing Tag"
 msgstr "既存のタグを選択"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3530
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3629
 msgid "Tag Name"
 msgstr "タグ名"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3557
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1627
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3656
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1664
 msgid "Select Node Icon"
 msgstr "ノード アイコンの選択"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3588
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3687
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "ツールバー アイコンはすでに最大の大きさです"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3596
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3695
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "ツールバー アイコンはすでに最小の大きさです"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3691
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3790
 msgid "Edit Anchor"
 msgstr "アンカーを編集"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3694
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3793
 msgid "Insert Anchor"
 msgstr "アンカーを挿入"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3716
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3815
 msgid "No CodeBox is Selected"
 msgstr "コード ボックスが選択されていません"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3724
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3823
 #, python-format
 msgid ""
 "You must associate a command to '%s'.\n"
@@ -327,11 +340,11 @@ msgstr ""
 "'%s' にコマンドを関連付けてください。\n"
 "設定ダイアログで設定できます"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3731
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3830
 msgid "Do you want to Execute the Code?"
 msgstr "コードを実行しますか？"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3747
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3846
 msgid ""
 "Install the package 'xterm' or configure a different terminal in the "
 "Preferences Dialog"
@@ -339,168 +352,168 @@ msgstr ""
 "'xterm' パッケージをインストールするか、設定ダイアログで別のターミナルを構成"
 "してください"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3760
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3859
 #, python-format
 msgid "The Maximum Size for Embedded Files is %s MB"
 msgstr "添付ファイルの最大容量は %s MBです"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3823
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3922
 msgid "Cannot Edit Embedded File in Read Only Node"
 msgstr "編集禁止ノードでは添付ファイルを編集できません"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3837
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3936
 msgid "Embedded File Automatically Updated:"
 msgstr "添付ファイルは自動更新されました:"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3886
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3985
 msgid "Not Any H1, H2 or H3 Formatting Found"
 msgstr "見出しがありません"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3906
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4005
 msgid "This Feature is Available Only in Rich Text Nodes"
 msgstr "この機能はリッチテキスト ノードでのみ使用できます"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3908
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4007
 msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes"
 msgstr "この機能は自動構文ハイライト ノードでは使用できません"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3914
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4978
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1417
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4013
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5081
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1466
 msgid "No Node is Selected"
 msgstr "ノードが選択されていません"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3921
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4020
 msgid "The Tree is Empty!"
 msgstr "ツリーにノードがありません！"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3941
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4040
 msgid "The Selected Node is Read Only"
 msgstr "選択ノードは編集禁止です"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3954
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:239
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4053
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:240
 msgid "Tree Summary Information"
 msgstr "ツリーの概要情報"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3962
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4061
 msgid "Number of Rich Text Nodes"
 msgstr "リッチテキスト ノードの数"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3965
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4064
 msgid "Number of Plain Text Nodes"
 msgstr "テキスト形式ノードの数"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3968
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4067
 msgid "Number of Code Nodes"
 msgstr "コード ノードの数"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3971
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4070
 msgid "Number of Images"
 msgstr "画像の数"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3974
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4073
 msgid "Number of Embedded Files"
 msgstr "添付ファイルの数"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3977
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4076
 msgid "Number of Tables"
 msgstr "表の数"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3980
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4079
 msgid "Number of CodeBoxes"
 msgstr "コード ボックスの数"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3983
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4082
 msgid "Number of Anchors"
 msgstr "アンカーの数"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4071
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4170
 msgid "Image Format Not Recognized"
 msgstr "認識できない画像形式です"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4096
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4195
 msgid "Image Properties"
 msgstr "画像のプロパティ"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4177
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4276
 msgid "PNG Image"
 msgstr "PNG 画像"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4183
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4282
 #, python-format
 msgid "Write to %s Failed"
 msgstr "'%s' への書き出しに失敗しました"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4296
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4397
 msgid "Lines Stripped"
 msgstr "行の削除処理を実行"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4430
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4531
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "まだこのセッションで実行された書式はありません"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4518
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4585
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4619
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4686
 msgid "Insert/Edit Link"
 msgstr "リンクを挿入/編集"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4563
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4664
 msgid "Link Name"
 msgstr "リンク名"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4575
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4676
 msgid "The Cursor is Not into a Paragraph"
 msgstr "カーソルが段落内にありません"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4803
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4904
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "ファイル '%s' は無効なリンクです"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4812
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4913
 #, python-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "フォルダー '%s' は無効なリンクです"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4821
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4922
 #: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:960
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "リンクの参照先は、すでに存在しないノードです (Id = %s)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4834
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4935
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "'%s' というアンカー名は見つかりません"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4981
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4985
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4987
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4989
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4993
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4997
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5084
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5088
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5090
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5092
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5096
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5100
 msgid ": "
 msgstr ": "
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4985
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5088
 msgid "Tags"
 msgstr "タグ"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4987
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:998
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5090
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1035
 msgid "Spell Check"
 msgstr "スペルチェック"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4989
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5092
 msgid "Word Count"
 msgstr "ワード数"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4993
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5096
 msgid "Date Created"
 msgstr "作成日時"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4997
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5100
 msgid "Date Modified"
 msgstr "更新日時"
 
@@ -735,613 +748,613 @@ msgstr "表のプロパティを編集"
 msgid "Table Column Action"
 msgstr "表の列の操作"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:174
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:175
 msgid "New _Instance"
 msgstr "新規インスタンス(_I)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:174
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:175
 msgid "Start a New Instance of CherryTree"
 msgstr "CherryTreeの新しいインスタンスを開始する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:175
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:312
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:176
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:314
 msgid "_Open File"
 msgstr "ファイルを開く(_O)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:175
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:131
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1857
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:176
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:141
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1906
 msgid "Open a CherryTree Document"
 msgstr "CherryTreeドキュメントを開く"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:176
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:177
 msgid "_Save"
 msgstr "保存(_S)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:176
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:177
 msgid "Save File"
 msgstr "ファイルの保存"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:177
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:178
 msgid "Save and _Vacuum"
 msgstr "保存と最適化(_V)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:177
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:178
 msgid "Save File and Vacuum"
 msgstr "保存と最適化"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:178
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:311
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:179
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:313
 msgid "Save _As"
 msgstr "名前を付けて保存(_A)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:178
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:311
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:179
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:313
 msgid "Save File As"
 msgstr "ファイルを名前を付けて保存"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:179
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:180
 msgid "_Execute Code"
 msgstr "コードを実行(_E)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:179
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:180
 msgid "Execute Code"
 msgstr "コードを実行"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:180
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:181
 msgid "Open Preferences _Directory"
 msgstr "設定ディレクトリを開く(_D)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:180
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:181
 msgid "Open the Directory with Preferences Files"
 msgstr "設定ファイルのあるディレクトリを開く"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:181
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:182
 msgid "Pa_ge Setup"
 msgstr "ページ設定(_G)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:181
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:182
 msgid "Set up the Page for Printing"
 msgstr "印刷用のページ設定"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:182
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:183
 msgid "_Print"
 msgstr "印刷(_P)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:182
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:183
 msgid "Print"
 msgstr "印刷"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:183
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:184
 msgid "_Quit"
 msgstr "閉じる(_Q)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:183
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:184
 msgid "Quit the Application"
 msgstr "アプリケーションを閉じる"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:184
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:185
 msgid "_Exit CherryTree"
 msgstr "CherryTreeを終了(_E)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:184
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:185
 msgid "Exit from CherryTree"
 msgstr "CherryTreeを終了する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:185
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:186
 msgid "_Preferences"
 msgstr "設定(_P)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:185
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2361
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:186
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2398
 msgid "Preferences"
 msgstr "設定"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:186
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:187
 msgid "_Undo"
 msgstr "元に戻す(_U)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:186
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:187
 msgid "Undo Last Operation"
 msgstr "最後の操作を元に戻す"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:187
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:188
 msgid "_Redo"
 msgstr "やり直す(_R)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:187
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:188
 msgid "Redo Previously Discarded Operation"
 msgstr "元に戻した操作をやり直す"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:188
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:189
 msgid "Insert I_mage"
 msgstr "画像を挿入(_M)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:188
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:189
 msgid "Insert an Image"
 msgstr "画像を挿入"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:190
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:191
 msgid "Insert _Table"
 msgstr "表を挿入(_T)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:190
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:191
 msgid "Insert a Table"
 msgstr "表を挿入"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:191
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:192
 msgid "Insert _CodeBox"
 msgstr "コード ボックスを挿入(_C)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:191
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:192
 #: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:224
 msgid "Insert a CodeBox"
 msgstr "コード ボックスを挿入"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:192
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:193
 msgid "Insert _File"
 msgstr "ファイルを挿入(_F)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:192
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:193
 msgid "Insert File"
 msgstr "ファイルを挿入"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:193
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:194
 msgid "Insert/Edit _Link"
 msgstr "リンクを挿入/編集(_L)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:193
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:194
 msgid "Insert a Link/Edit the Underlying Link"
 msgstr "リンクを挿入/カーソル位置のリンクを編集"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:194
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:195
 msgid "Insert _Anchor"
 msgstr "アンカーを挿入(_A)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:194
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:195
 msgid "Insert an Anchor"
 msgstr "アンカーを挿入"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:195
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:196
 msgid "Insert T_OC"
 msgstr "目次を挿入(_O)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:195
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:196
 msgid "Insert Table of Contents"
 msgstr "目次を挿入"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:196
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:197
 msgid "Insert Ti_mestamp"
 msgstr "日時を挿入(_M)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:196
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:197
 msgid "Insert Timestamp"
 msgstr "日時を挿入"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:197
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:198
 msgid "Insert _Horizontal Rule"
 msgstr "区切り線を挿入(_H)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:197
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:198
 msgid "Insert Horizontal Rule"
 msgstr "区切り線を挿入"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:198
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:199
 msgid "_Lower Case of Selection/Word"
 msgstr "選択範囲/単語を小文字に変換(_L)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:198
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:199
 msgid "Lower the Case of the Selection/the Underlying Word"
 msgstr "選択範囲/直下の単語を小文字に変換"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:199
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:200
 msgid "_Upper Case of Selection/Word"
 msgstr "選択範囲/単語を大文字に変換(_U)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:199
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:200
 msgid "Upper the Case of the Selection/the Underlying Word"
 msgstr "選択範囲/直下の単語を大文字に変換"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:200
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:201
 msgid "_Toggle Case of Selection/Word"
 msgstr "選択範囲/単語の大文字・小文字を反転(_T)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:200
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:201
 msgid "Toggle the Case of the Selection/the Underlying Word"
 msgstr "選択範囲/直下の単語の大文字・小文字を反転"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:201
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:202
 msgid "Enable/Disable _Spell Check"
 msgstr "スペルチェックの有効/無効(_S)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:201
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:202
 msgid "Toggle Enable/Disable Spell Check"
 msgstr "スペルチェックの有効/無効"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:202
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:643
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:203
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:645
 msgid "Cu_t as Plain Text"
 msgstr "テキスト形式で切り取り(_T)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:202
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:643
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:203
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:645
 msgid "Cut as Plain Text, Discard the Rich Text Formatting"
 msgstr "テキスト形式で切り取り、リッチテキスト書式は失われます"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:203
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:644
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:204
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:646
 msgid "_Copy as Plain Text"
 msgstr "テキスト形式でコピー(_C)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:203
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:644
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:204
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:646
 msgid "Copy as Plain Text, Discard the Rich Text Formatting"
 msgstr "テキスト形式でコピー、リッチテキスト書式は失われます"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:204
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:205
 msgid "_Paste as Plain Text"
 msgstr "テキスト形式で貼り付け(_P)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:204
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:205
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
 msgstr "テキスト形式で貼り付け、リッチテキスト書式は失われます"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:205
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:610
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:206
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:612
 msgid "Cu_t Row"
 msgstr "行を切り取り(_T)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:205
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:206
 msgid "Cut the Current Row/Selected Rows"
 msgstr "現在行/選択行を切り取り"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:206
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:611
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:207
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:613
 msgid "_Copy Row"
 msgstr "行をコピー(_C)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:206
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:207
 msgid "Copy the Current Row/Selected Rows"
 msgstr "現在行/選択行をコピー"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:207
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:613
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:208
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:615
 msgid "De_lete Row"
 msgstr "行を削除(_L)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:207
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:208
 msgid "Delete the Current Row/Selected Rows"
 msgstr "現在行/選択行を削除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:208
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:209
 msgid "_Duplicate Row"
 msgstr "行を複製(_D)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:208
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:209
 msgid "Duplicate the Current Row/Selection"
 msgstr "現在行/選択行を複製"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:209
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:210
 msgid "Move _Up Row"
 msgstr "行を上に移動(_U)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:209
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:210
 msgid "Move Up the Current Row/Selected Rows"
 msgstr "現在行/選択行を上に移動"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:210
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:211
 msgid "Move _Down Row"
 msgstr "行を下に移動(_D)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:210
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:211
 msgid "Move Down the Current Row/Selected Rows"
 msgstr "現在行/選択行を下に移動"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:211
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:212
 msgid "Format _Latest"
 msgstr "最後に使用した書式(_L)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:211
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:212
 msgid "Memory of Latest Text Format Type"
 msgstr "最後に使用した書式の種類を適用"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:212
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:213
 msgid "_Remove Formatting"
 msgstr "書式を削除(_R)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:212
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:213
 msgid "Remove the Formatting from the Selected Text"
 msgstr "選択テキストから書式を取り除く"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:213
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:214
 msgid "Text _Color Foreground"
 msgstr "文字色(_C)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:213
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:214
 msgid "Change the Color of the Selected Text Foreground"
 msgstr "選択テキストの文字色を変更"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:214
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:215
 msgid "Text C_olor Background"
 msgstr "背景色(_O)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:214
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:215
 msgid "Change the Color of the Selected Text Background"
 msgstr "選択テキストの背景色を変更"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:215
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:216
 msgid "Toggle _Bold Property"
 msgstr "太字に設定/解除(_B)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:215
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:216
 msgid "Toggle Bold Property of the Selected Text"
 msgstr "選択テキストを太字に設定/解除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:216
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:217
 msgid "Toggle _Italic Property"
 msgstr "斜体に設定/解除(_I)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:216
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:217
 msgid "Toggle Italic Property of the Selected Text"
 msgstr "選択テキストを斜体に設定/解除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:217
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:218
 msgid "Toggle _Underline Property"
 msgstr "下線を設定/解除(_U)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:217
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:218
 msgid "Toggle Underline Property of the Selected Text"
 msgstr "選択テキストに下線を設定/解除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:218
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:219
 msgid "Toggle Stri_kethrough Property"
 msgstr "取り消し線を設定/解除(_K)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:218
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:219
 msgid "Toggle Strikethrough Property of the Selected Text"
 msgstr "選択テキストに取り消し線を設定/解除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:219
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:220
 msgid "Toggle h_1 Property"
 msgstr "見出し１に設定/解除(_1)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:219
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:220
 msgid "Toggle h1 Property of the Selected Text"
 msgstr "見出し１に設定/解除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:220
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:221
 msgid "Toggle h_2 Property"
 msgstr "見出し２に設定/解除(_2)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:220
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:221
 msgid "Toggle h2 Property of the Selected Text"
 msgstr "見出し２に設定/解除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:221
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:222
 msgid "Toggle h_3 Property"
 msgstr "見出し３に設定/解除(_3)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:221
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:222
 msgid "Toggle h3 Property of the Selected Text"
 msgstr "見出し３に設定/解除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:222
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:223
 msgid "Toggle _Small Property"
 msgstr "小さい文字に設定/解除(_S)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:222
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:223
 msgid "Toggle Small Property of the Selected Text"
 msgstr "小さい文字に設定/解除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:223
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:224
 msgid "Toggle Su_perscript Property"
 msgstr "上付き文字に設定/解除(_P)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:223
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:224
 msgid "Toggle Superscript Property of the Selected Text"
 msgstr "上付き文字に設定/解除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:224
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:225
 msgid "Toggle Su_bscript Property"
 msgstr "下付き文字に設定/解除(_B)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:224
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:225
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "下付き文字に設定/解除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:225
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:226
 msgid "Toggle _Monospace Property"
 msgstr "等幅に設定/解除(_M)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:225
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:226
 msgid "Toggle Monospace Property of the Selected Text"
 msgstr "等幅に設定/解除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:226
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:227
 msgid "Set/Unset _Bulleted List"
 msgstr "順序なしリストに設定/解除(_B)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:226
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:227
 msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
 msgstr "現在の段落/選択段落を順序なしリストに設定/解除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:227
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:228
 msgid "Set/Unset _Numbered List"
 msgstr "順序付きリストに設定/解除(_N)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:227
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:228
 msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
 msgstr "現在の段落/選択段落を順序付きリストに設定/解除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:228
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:229
 msgid "Set/Unset _To-Do List"
 msgstr "ToDoリストに設定/解除(_T)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:228
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:229
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
 msgstr "現在の段落/選択段落をToDoリストに設定/解除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:229
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:230
 msgid "Justify _Left"
 msgstr "左揃え(_L)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:229
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:230
 msgid "Justify Left the Current Paragraph"
 msgstr "現在の段落を左揃え"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:230
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:231
 msgid "Justify _Center"
 msgstr "中央揃え(_C)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:230
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:231
 msgid "Justify Center the Current Paragraph"
 msgstr "現在の段落を中央揃え"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:231
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:232
 msgid "Justify _Right"
 msgstr "右揃え(_R)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:231
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:232
 msgid "Justify Right the Current Paragraph"
 msgstr "現在の段落を右揃え"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:232
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:233
 msgid "Justify _Fill"
 msgstr "両端揃え(_F)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:232
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:233
 msgid "Justify Fill the Current Paragraph"
 msgstr "現在の段落を両端揃え"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:233
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:234
 msgid "Add _Node"
 msgstr "ノードを追加(_N)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:233
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:234
 msgid "Add a Node having the same Parent of the Selected Node"
 msgstr "選択ノードと同じ親を持つノードを追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:234
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:235
 msgid "Add _SubNode"
 msgstr "子ノードを追加(_S)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:234
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:235
 msgid "Add a Child Node to the Selected Node"
 msgstr "選択ノードの子ノードを追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:235
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:236
 msgid "_Duplicate Node"
 msgstr "ノードを複製(_D)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:235
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:236
 msgid "Duplicate the Selected Node"
 msgstr "選択ノードを複製"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:236
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:237
 msgid "Change Node _Properties"
 msgstr "ノードのプロパティを変更(_P)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:236
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:237
 msgid "Edit the Properties of the Selected Node"
 msgstr "選択ノードのプロパティを変更"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:237
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:238
 msgid "Toggle _Read Only"
 msgstr "編集禁止に設定/解除(_R)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:237
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:238
 msgid "Toggle the Read Only Property of the Selected Node"
 msgstr "編集禁止属性を設定/解除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:238
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:239
 msgid "Insert Today's Node"
 msgstr "今日のノードを挿入"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:238
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:239
 msgid "Insert a Node with Hierarchy Year/Month/Day"
 msgstr "年/月/日の階層を持つノードをルートに挿入"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:239
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:240
 msgid "Tree _Info"
 msgstr "ツリーの情報(_I)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:240
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:241
 msgid "Node _Up"
 msgstr "上に移動(_U)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:240
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:241
 msgid "Move the Selected Node Up"
 msgstr "選択ノードを上に移動"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:241
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:242
 msgid "Node _Down"
 msgstr "下に移動(_D)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:241
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:242
 msgid "Move the Selected Node Down"
 msgstr "選択ノードを下に移動"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:242
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:243
 msgid "Node _Left"
 msgstr "左に移動(_L)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:242
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:243
 msgid "Move the Selected Node Left"
 msgstr "選択ノードを左に移動"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:243
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:244
 msgid "Node _Right"
 msgstr "右に移動(_R)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:243
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:244
 msgid "Move the Selected Node Right"
 msgstr "選択ノードを右に移動"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:244
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:245
 msgid "Node Change _Parent"
 msgstr "親ノードを変更(_P)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:244
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:245
 msgid "Change the Selected Node's Parent"
 msgstr "選択ノードの親を変更する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:245
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:246
 msgid "Sort Tree _Ascending"
 msgstr "ツリー全体を昇順に並び替え(_A)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:245
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:246
 msgid "Sort the Tree Ascending"
 msgstr "ツリー全体を昇順に並び替え"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:246
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:247
 msgid "Sort Tree _Descending"
 msgstr "ツリー全体を降順に並び替え(_D)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:246
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:247
 msgid "Sort the Tree Descending"
 msgstr "ツリー全体を降順に並び替え"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:247
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:248
 msgid "Sort Siblings A_scending"
 msgstr "兄弟ノードを昇順に並び替え(_S)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:247
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:248
 msgid "Sort all the Siblings of the Selected Node Ascending"
 msgstr "兄弟ノードを昇順に並び替え"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:248
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:249
 msgid "Sort Siblings D_escending"
 msgstr "兄弟ノードを降順に並び替え(_E)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:248
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:249
 msgid "Sort all the Siblings of the Selected Node Descending"
 msgstr "兄弟ノードを降順に並び替え"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:249
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:250
 msgid "_Inherit Syntax"
 msgstr "ノードの種類/構文を子孫に適用(_I)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:249
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:250
 msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Parent's "
 "Syntax Highlighting"
@@ -1349,1353 +1362,1353 @@ msgstr ""
 "すべての子孫ノードに対し、ノードの種類/構文ハイライトを、選択しているノードと"
 "同じ種類に変更する（注意: 確認ダイアログなし！）"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:250
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:251
 msgid "De_lete Node"
 msgstr "ノードを削除(_L)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:250
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:251
 msgid "Delete the Selected Node"
 msgstr "選択ノードを削除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:251
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:252
 msgid "Go _Back"
 msgstr "一つ戻る(_B)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:251
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:252
 msgid "Go to the Previous Visited Node"
 msgstr "前に開いたノードへ戻る"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:252
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:253
 msgid "Go _Forward"
 msgstr "一つ進む(_F)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:252
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:253
 msgid "Go to the Next Visited Node"
 msgstr "次に開いたノードへ進む"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:253
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:254
 msgid "_Find in Node Content"
 msgstr "このノードの内容を検索(_F)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:253
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:254
 msgid "Find into the Selected Node Content"
 msgstr "選択ノードの内容を検索"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:254
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:255
 msgid "Find in _All Nodes Contents"
 msgstr "すべてのノードの内容を検索(_A)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:254
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:255
 msgid "Find into All the Tree Nodes Contents"
 msgstr "すべてのノードの内容を検索"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:255
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:256
 msgid "Find in _Selected Node and Subnodes Contents"
 msgstr "選択ノードとサブノードの内容を検索(_S)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:255
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:256
 msgid "Find into the Selected Node and Subnodes Contents"
 msgstr "選択ノードとサブノードの内容を検索"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:256
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:257
 msgid "Find in _Nodes Names and Tags"
 msgstr "ノード名とタグを検索(_N)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:256
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:257
 msgid "Find in Nodes Names and Tags"
 msgstr "ノード名とタグを検索"
 
 # 全体から検索する場合、常に先頭の一致のみを検索するので、「次を検索」にはしなかった
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:257
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:258
 msgid "Find _Again"
 msgstr "再検索(_A)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:257
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:258
 msgid "Iterate the Last Find Operation"
 msgstr "最後の検索操作を繰り返す"
 
 # 検索設定が後方検索の場合、後方の「逆」で前方への検索になる。このため「前を検索」にはしなかった
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:258
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:259
 msgid "Find _Back"
 msgstr "逆方向に再検索(_B)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:258
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:259
 msgid "Iterate the Last Find Operation in Opposite Direction"
 msgstr "最後の検索操作を逆方向に繰り返す"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:259
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:260
 msgid "_Replace in Node Content"
 msgstr "このノードの内容を置換(_R)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:259
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:260
 msgid "Replace into the Selected Node Content"
 msgstr "選択ノードの内容を置換"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:260
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:261
 msgid "Replace in _All Nodes Contents"
 msgstr "すべてのノードの内容を置換(_A)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:260
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:261
 msgid "Replace into All the Tree Nodes Contents"
 msgstr "すべてのノードの内容を置換"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:261
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:262
 msgid "Replace in _Selected Node and Subnodes Contents"
 msgstr "選択ノードとサブノードの内容を置換(_S)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:261
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:262
 msgid "Replace into the Selected Node and Subnodes Contents"
 msgstr "選択ノードとサブノードの内容を置換"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:262
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:263
 msgid "Replace in Nodes _Names"
 msgstr "ノード名を置換(_N)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:262
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:263
 msgid "Replace in Nodes Names"
 msgstr "ノード名を置換"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:263
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:264
 msgid "Replace _Again"
 msgstr "最後の置換を繰り返し(_A)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:263
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:264
 msgid "Iterate the Last Replace Operation"
 msgstr "最後の置換操作を繰り返す"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:264
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:265
 msgid "Show/Hide _Tree"
 msgstr "ツリーを表示/隠す(_T)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:264
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:265
 msgid "Toggle Show/Hide Tree"
 msgstr "ツリーを表示/隠す"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:265
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:266
 msgid "Show/Hide Tool_bar"
 msgstr "ツールバーを表示/隠す(_B)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:265
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:266
 msgid "Toggle Show/Hide Toolbar"
 msgstr "ツールバーを表示/隠す"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:266
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:267
 msgid "Show/Hide Node Name _Header"
 msgstr "ノード名のヘッダを表示/隠す(_H)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:266
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:267
 msgid "Toggle Show/Hide Node Name Header"
 msgstr "ノード名のヘッダを表示/隠す"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:267
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:268
 msgid "Show _All Matches Dialog"
 msgstr "検索結果一覧ダイアログを表示(_A)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:267
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:268
 msgid "Show Search All Matches Dialog"
 msgstr "検索結果一覧ダイアログを表示する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:268
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:269
 msgid "Toggle _Focus Tree/Text"
 msgstr "フォーカスをツリー/エディタに切り替え(_F)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:268
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:269
 msgid "Toggle Focus Between Tree and Text"
 msgstr "フォーカスをツリー/エディタ交互に切り替える"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:269
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:270
 msgid "E_xpand All Nodes"
 msgstr "すべてのノードのツリーを開く(_X)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:269
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:270
 msgid "Expand All the Tree Nodes"
 msgstr "すべてのノードのツリーを開く"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:270
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:271
 msgid "_Collapse All Nodes"
 msgstr "すべてのノードのツリーを閉じる(_C)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:270
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:271
 msgid "Collapse All the Tree Nodes"
 msgstr "すべてのノードのツリーを閉じる"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:271
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:272
 msgid "_Increase Toolbar Icons Size"
 msgstr "ツールバーのアイコンを拡大(_I)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:271
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:272
 msgid "Increase the Size of the Toolbar Icons"
 msgstr "ツールバーのアイコンを拡大"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:272
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:273
 msgid "_Decrease Toolbar Icons Size"
 msgstr "ツールバーのアイコンを縮小(_D)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:272
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:273
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "ツールバーのアイコンを縮小"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:273
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:274
 msgid "_Full Screen On/Off"
 msgstr "フルスクリーンの切り替え(_F)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:273
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:274
 msgid "Toggle Full Screen On/Off"
 msgstr "フルスクリーンの切り替え"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:274
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:275
 msgid "Add to _Bookmarks"
 msgstr "ブックマークに追加(_B)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:274
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:275
 msgid "Add the Current Node to the Bookmarks List"
 msgstr "現在のノードをブックマーク一覧に追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:275
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:276
 msgid "_Remove from Bookmarks"
 msgstr "ブックマークから削除(_R)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:275
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:276
 msgid "Remove the Current Node from the Bookmarks List"
 msgstr "現在のノードをブックマーク一覧から削除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:276
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:277
 msgid "_Handle Bookmarks"
 msgstr "ブックマークの管理(_H)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:276
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1907
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:277
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1956
 msgid "Handle the Bookmarks List"
 msgstr "ブックマークの管理"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:277
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:278
 msgid "From _CherryTree File"
 msgstr "CherryTree ファイルから(_C)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:277
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:278
 msgid "Add Nodes of a CherryTree File to the Current Tree"
 msgstr "CherryTree ファイルから、ツリーにノードを追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:278
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:279
 msgid "From _Plain Text File"
 msgstr "テキスト形式 ファイルから(_P)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:278
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:279
 msgid "Add Node from a Plain Text File to the Current Tree"
 msgstr "テキスト形式 ファイルから、ツリーにノードを追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:279
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:280
 msgid "From _Folder of Plain Text Files"
 msgstr "テキスト形式 ファイルを含むフォルダーから(_F)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:279
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:280
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
 msgstr "テキスト形式 ファイルを含むフォルダーから、ツリーにノードを追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:280
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:281
 msgid "From _HTML File"
 msgstr "HTML ファイルから(_H)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:280
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:281
 msgid "Add Node from an HTML File to the Current Tree"
 msgstr "HTML ファイルから、ツリーにノードを追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:281
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:282
 msgid "From _Folder of HTML Files"
 msgstr "HTML ファイルを含むフォルダーから(_F)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:281
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:282
 msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
 msgstr "HTML ファイルを含むフォルダーから、ツリーにノードを追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:282
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:283
 msgid "From _Basket Folder"
 msgstr "Basket フォルダーから(_B)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:282
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:283
 msgid "Add Nodes of a Basket Folder to the Current Tree"
 msgstr "Basket フォルダーから、ツリーにノードを追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:283
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:284
 msgid "From _EssentialPIM HTML File"
 msgstr "EssentialPIM HTML ファイルから(_E)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:283
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:284
 msgid "Add Node from an EssentialPIM HTML File to the Current Tree"
 msgstr "EssentialPIM HTML ファイルから、ツリーにノードを追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:284
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:285
 msgid "From _Gnote Folder"
 msgstr "Gnote フォルダーから(_G)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:284
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:285
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
 msgstr "Gnote フォルダーから、ツリーにノードを追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:285
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:286
 msgid "From _KeepNote Folder"
 msgstr "KeepNote フォルダーから(_K)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:285
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:286
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
 msgstr "KeepNote フォルダーから、ツリーにノードを追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:286
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:287
 msgid "From K_eyNote File"
 msgstr "KeyNote ファイルから(_E)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:286
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:287
 msgid "Add Nodes of a KeyNote File to the Current Tree"
 msgstr "KeyNote ファイルから、ツリーにノードを追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:287
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:288
 msgid "From K_nowit File"
 msgstr "Knowit ファイルから(_N)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:287
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:288
 msgid "Add Nodes of a Knowit File to the Current Tree"
 msgstr "Knowit ファイルから、ツリーにノードを追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:288
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:289
 msgid "From _Leo File"
 msgstr "Leo ファイルから(_L)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:288
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:289
 msgid "Add Nodes of a Leo File to the Current Tree"
 msgstr "Leo ファイルから、ツリーにノードを追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:289
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:290
 msgid "From _Mempad File"
 msgstr "Mempad ファイルから(_M)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:289
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:290
 msgid "Add Nodes of a Mempad File to the Current Tree"
 msgstr "Mempad ファイルから、ツリーにノードを追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:290
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:291
 msgid "From _NoteCase File"
 msgstr "NoteCase ファイルから(_N)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:290
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:291
 msgid "Add Nodes of a NoteCase File to the Current Tree"
 msgstr "NoteCase ファイルから、ツリーにノードを追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:291
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:292
 msgid "From _RedNotebook Folder"
 msgstr "RedNotebook フォルダーから(_R)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:291
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:292
 msgid "Add Nodes of a RedNotebook Folder to the Current Tree"
 msgstr "RedNotebook フォルダーから、ツリーにノードを追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:292
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:293
 msgid "From T_omboy Folder"
 msgstr "Tomboy フォルダーから(_O)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:292
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:293
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
 msgstr "Tomboy フォルダーから、ツリーにノードを追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:293
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:294
 msgid "From T_reepad Lite File"
 msgstr "Treepad Lite ファイルから(_R)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:293
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:294
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
 msgstr "Treepad Lite ファイルから、ツリーにノードを追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:294
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:295
 msgid "From _TuxCards File"
 msgstr "TuxCards ファイルから(_T)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:294
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:295
 msgid "Add Nodes of a TuxCards File to the Current Tree"
 msgstr "TuxCards ファイルから、ツリーにノードを追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:295
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:296
 msgid "From _Zim Folder"
 msgstr "Zim フォルダーから(_Z)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:295
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:296
 msgid "Add Nodes of a Zim Folder to the Current Tree"
 msgstr "Zim フォルダーから、ツリーにノードを追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:296
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:297
 msgid "Export To _PDF"
 msgstr "PDFにエクスポート(_P)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:296
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:297
 msgid "Export To PDF"
 msgstr "PDFにエクスポート"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:297
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:299
 msgid "Export To _HTML"
 msgstr "HTMLにエクスポート(_H)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:297
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:299
 msgid "Export To HTML"
 msgstr "HTMLにエクスポート"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:298
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:300
 msgid "Export to Multiple Plain _Text Files"
 msgstr "ノード単位でテキスト形式ファイルにエクスポート(_T)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:298
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:300
 msgid "Export to Multiple Plain Text Files"
 msgstr "ノード単位でテキスト形式ファイルにエクスポート"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:299
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:301
 msgid "Export to _Single Plain Text File"
 msgstr "単一のテキスト形式ファイルにエクスポート(_S)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:299
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:301
 msgid "Export to Single Plain Text File"
 msgstr "単一のテキスト形式ファイルにエクスポート"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:300
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:302
 msgid "_Export To CherryTree Document"
 msgstr "CherryTreeドキュメントにエクスポート(_E)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:300
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:302
 msgid "Export To CherryTree Document"
 msgstr "CherryTreeドキュメントにエクスポート"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:301
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:303
 msgid "_Check Newer Version"
 msgstr "新しいバージョンを確認(_C)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:301
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:303
 msgid "Check for a Newer Version"
 msgstr "新しいバージョンを確認する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:302
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:304
 msgid "Online _Manual"
 msgstr "オンライン マニュアル(_M)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:302
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:304
 msgid "Application's Online Manual"
 msgstr "オンライン マニュアルをブラウザで開く"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:303
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:305
 msgid "_About"
 msgstr "CherryTree について(_A)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:303
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:906
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:305
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:944
 msgid "About CherryTree"
 msgstr "CherryTree について"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:304
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:306
 msgid "C_ut Anchor"
 msgstr "アンカーを切り取り(_U)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:304
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:306
 msgid "Cut the Selected Anchor"
 msgstr "選択アンカーを切り取り"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:305
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:307
 msgid "_Copy Anchor"
 msgstr "アンカーをコピー(_C)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:305
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:307
 msgid "Copy the Selected Anchor"
 msgstr "選択アンカーをコピー"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:306
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:308
 msgid "_Delete Anchor"
 msgstr "アンカーを削除(_D)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:306
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:308
 msgid "Delete the Selected Anchor"
 msgstr "選択アンカーを削除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:307
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:309
 msgid "Edit _Anchor"
 msgstr "アンカー名を編集(_A)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:307
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:309
 msgid "Edit the Underlying Anchor"
 msgstr "直下のアンカーのアンカー名を編集"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:308
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:310
 msgid "C_ut Embedded File"
 msgstr "添付ファイルを切り取り(_U)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:308
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:310
 msgid "Cut the Selected Embedded File"
 msgstr "選択添付ファイルを切り取り"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:309
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:311
 msgid "_Copy Embedded File"
 msgstr "添付ファイルをコピー(_C)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:309
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:311
 msgid "Copy the Selected Embedded File"
 msgstr "選択添付ファイルをコピー"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:310
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:312
 msgid "_Delete Embedded File"
 msgstr "添付ファイルを削除(_D)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:310
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:312
 msgid "Delete the Selected Embedded File"
 msgstr "選択添付ファイルを削除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:312
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:314
 msgid "Open Embedded File"
 msgstr "添付ファイルを開く"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:313
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:315
 msgid "_Save Image as PNG"
 msgstr "画像をPNG形式で保存(_S)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:313
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:315
 msgid "Save the Selected Image as a PNG file"
 msgstr "選択画像をPNG形式ファイルで保存"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:314
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:316
 msgid "_Edit Image"
 msgstr "画像を編集(_E)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:314
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:316
 msgid "Edit the Selected Image"
 msgstr "選択画像を編集"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:315
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:317
 msgid "C_ut Image"
 msgstr "画像を切り取り(_U)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:315
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:317
 msgid "Cut the Selected Image"
 msgstr "選択画像を切り取り"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:316
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:318
 msgid "_Copy Image"
 msgstr "画像をコピー(_C)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:316
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:318
 msgid "Copy the Selected Image"
 msgstr "選択画像をコピー"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:317
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:319
 msgid "_Delete Image"
 msgstr "画像を削除(_D)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:317
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:319
 msgid "Delete the Selected Image"
 msgstr "選択画像を削除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:318
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:590
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:320
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:592
 msgid "Edit _Link"
 msgstr "リンクを編集(_L)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:318
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:320
 msgid "Edit the Link Associated to the Image"
 msgstr "画像に関連付けられたリンクを編集"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:319
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:594
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:321
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:596
 msgid "D_ismiss Link"
 msgstr "リンクを解除(_I)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:319
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:321
 msgid "Dismiss the Link Associated to the Image"
 msgstr "画像に関連付けられたリンクを解除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:320
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:322
 msgid "Show/Hide _CherryTree"
 msgstr "CherryTreeを表示/隠す(_C)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:320
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:322
 msgid "Toggle Show/Hide CherryTree"
 msgstr "CherryTreeウィンドウを表示/隠す"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:321
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:323
 msgid "Stri_p Trailing Spaces"
 msgstr "行末の空白文字を削除(_P)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:321
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:323
 msgid "Strip Trailing Spaces"
 msgstr "行末の空白文字を削除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:329
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:331
 msgid "_File"
 msgstr "ファイル(_F)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:330
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:332
 msgid "_Edit"
 msgstr "編集(_E)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:331
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:460
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:333
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:462
 msgid "For_matting"
 msgstr "書式(_M)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:332
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:334
 msgid "_Tree"
 msgstr "ツリー(_T)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:333
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:393
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:335
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:395
 msgid "Node _Move"
 msgstr "ノードの移動(_M)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:334
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:411
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:336
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:413
 msgid "Nodes _Import"
 msgstr "ノードのインポート(_I)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:335
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:432
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:337
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:434
 msgid "Nodes E_xport"
 msgstr "ノードのエクスポート(_X)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:336
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:502
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:551
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:338
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:504
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:553
 msgid "C_hange Case"
 msgstr "大文字/小文字の変換(_H)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:337
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:517
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:565
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:339
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:519
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:567
 msgid "_Search"
 msgstr "検索(_S)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:338
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:340
 msgid "_View"
 msgstr "表示(_V)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:339
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:341
 msgid "_Bookmarks"
 msgstr "ブックマーク(_B)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:340
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:342
 msgid "_Import"
 msgstr "インポート(_I)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:341
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:343
 msgid "E_xport"
 msgstr "エクスポート(_X)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:342
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:344
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:401
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:403
 msgid "Nodes _Sort"
 msgstr "ノードの並び替え(_S)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:478
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:480
 msgid "_Justify"
 msgstr "行揃え(_J)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:484
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:486
 msgid "_List"
 msgstr "リスト(_L)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:490
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:546
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:492
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:548
 msgid "_Insert"
 msgstr "挿入(_I)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:507
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:556
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:509
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:558
 msgid "_Row"
 msgstr "行(_R)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:525
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:573
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:527
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:575
 msgid "_Replace"
 msgstr "置換(_R)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:590
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:592
 msgid "Edit the Underlying Link"
 msgstr "直下のリンクを編集"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:592
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:594
 msgid "C_ut Link"
 msgstr "リンクを切り取り(_U)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:592
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:594
 msgid "Cut the Selected Link"
 msgstr "選択リンクを切り取り"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:593
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:595
 msgid "_Copy Link"
 msgstr "リンクをコピー(_C)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:593
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:595
 msgid "Copy the Selected Link"
 msgstr "選択リンクをコピー"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:594
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:596
 msgid "Dismiss the Selected Link"
 msgstr "選択リンクを解除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:595
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:597
 msgid "_Delete Link"
 msgstr "リンクを削除(_D)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:595
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:597
 msgid "Delete the Selected Link"
 msgstr "選択リンクを削除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:605
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:607
 msgid "C_ut Table"
 msgstr "表の切り取り(_U)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:605
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:607
 msgid "Cut the Selected Table"
 msgstr "表の切り取り"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:606
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:608
 msgid "_Copy Table"
 msgstr "表のコピー(_C)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:606
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:608
 msgid "Copy the Selected Table"
 msgstr "表のコピー"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:607
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:609
 msgid "_Delete Table"
 msgstr "表の削除(_D)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:607
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:609
 msgid "Delete the Selected Table"
 msgstr "表の削除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:609
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:611
 msgid "_Add Row"
 msgstr "行を追加(_A)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:609
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:611
 msgid "Add a Table Row"
 msgstr "表の選択行の下に行を追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:610
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:612
 msgid "Cut a Table Row"
 msgstr "表から行を切り取り"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:611
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:613
 msgid "Copy a Table Row"
 msgstr "表の行をコピー"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:612
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:614
 msgid "_Paste Row"
 msgstr "行を貼り付け(_P)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:612
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:614
 msgid "Paste a Table Row"
 msgstr "表に行を貼り付け"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:613
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:615
 msgid "Delete the Selected Table Row"
 msgstr "表から選択行を削除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:615
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:617
 msgid "Move Row _Up"
 msgstr "行を上に移動(_U)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:615
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:617
 msgid "Move the Selected Row Up"
 msgstr "選択行を一つ上に移動"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:616
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:618
 msgid "Move Row _Down"
 msgstr "行を下に移動(_D)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:616
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:618
 msgid "Move the Selected Row Down"
 msgstr "選択行を一つ下に移動"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:617
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:619
 msgid "Sort Rows De_scending"
 msgstr "行を降順に並び替える(_S)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:617
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:619
 msgid "Sort all the Rows Descending"
 msgstr "表のすべての行を降順に並び替える"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:618
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:620
 msgid "Sort Rows As_cending"
 msgstr "行を昇順に並び替える(_C)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:618
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:620
 msgid "Sort all the Rows Ascending"
 msgstr "表のすべての行を昇順に並び替える"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:620
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:622
 msgid "_Edit Table Properties"
 msgstr "表のプロパティを編集(_E)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:620
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:622
 msgid "Edit the Table Properties"
 msgstr "表のプロパティを編集"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:621
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:623
 msgid "_Table Export"
 msgstr "表のエクスポート(_T)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:621
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:623
 msgid "Export Table as CSV File"
 msgstr "表をCSVファイルにエクスポート"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:632
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:634
 msgid "Insert _NewLine"
 msgstr "改行文字を挿入(_N)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:632
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:634
 msgid "Insert NewLine Char"
 msgstr "改行文字を挿入"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:646
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:648
 msgid "Change CodeBox _Properties"
 msgstr "コード ボックスのプロパティを変更(_P)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:646
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:648
 msgid "Edit the Properties of the CodeBox"
 msgstr "コード ボックスのプロパティを編集"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:647
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:649
 msgid "_Execute CodeBox Code"
 msgstr "コード ボックスのコードを実行(_E)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:647
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:649
 msgid "Execute CodeBox Code"
 msgstr "コード ボックスのコードを実行"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:648
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:650
 msgid "CodeBox _Load From Text File"
 msgstr "コード ボックスにテキストファイルを読み込む(_L)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:648
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:650
 msgid "Load the CodeBox Content From a Text File"
 msgstr "コード ボックスの内容をテキストファイルを読み込む"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:649
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:651
 msgid "CodeBox _Save To Text File"
 msgstr "コード ボックスをテキストファイルに保存(_S)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:649
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:651
 msgid "Save the CodeBox Content To a Text File"
 msgstr "コード ボックスの内容をテキストファイルに保存"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:651
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:653
 msgid "C_ut CodeBox"
 msgstr "コード ボックスを切り取り(_U)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:651
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:653
 msgid "Cut the Selected CodeBox"
 msgstr "選択コード ボックスを切り取り"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:652
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:654
 msgid "_Copy CodeBox"
 msgstr "コード ボックスをコピー(_C)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:652
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:654
 msgid "Copy the Selected CodeBox"
 msgstr "選択コード ボックスをコピー"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:653
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:655
 msgid "_Delete CodeBox"
 msgstr "コード ボックスを削除(_D)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:653
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:655
 msgid "Delete the Selected CodeBox"
 msgstr "選択コード ボックスを削除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:654
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:656
 msgid "Delete CodeBox _Keep Content"
 msgstr "コード ボックスを削除し、内容を保持(_K)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:654
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:656
 msgid "Delete the Selected CodeBox But Keep Its Content"
 msgstr "コード ボックスを削除し、内容を保持"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:656
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:658
 msgid "Increase CodeBox Width"
 msgstr "コード ボックスの幅を拡大"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:656
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:658
 msgid "Increase the Width of the CodeBox"
 msgstr "コード ボックスの幅を拡大"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:657
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:659
 msgid "Decrease CodeBox Width"
 msgstr "コード ボックスの幅を縮小"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:657
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:659
 msgid "Decrease the Width of the CodeBox"
 msgstr "コード ボックスの幅を縮小"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:658
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:660
 msgid "Increase CodeBox Height"
 msgstr "コード ボックスの高さを拡大"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:658
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:660
 msgid "Increase the Height of the CodeBox"
 msgstr "コード ボックスの高さを拡大"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:659
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:661
 msgid "Decrease CodeBox Height"
 msgstr "コード ボックスの高さを縮小"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:659
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:661
 msgid "Decrease the Height of the CodeBox"
 msgstr "コード ボックスの高さを縮小"
 
-#: /home/giuspen/Software/git_cherrytree/modules/imports.py:2621
+#: /home/giuspen/Software/git_cherrytree/modules/imports.py:2645
 msgid "Downloading"
 msgstr "ダウンロードしています"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:791
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:828
 msgid "Tab Width"
 msgstr "タブの幅"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:797
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:834
 msgid "Insert Spaces Instead of Tabs"
 msgstr "タブの代わりにスペースを挿入する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:799
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:836
 msgid "Use Line Wrapping"
 msgstr "行の折り返しを有効にする"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:803
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:840
 msgid "Line Wrapping Indentation"
 msgstr "行の折り返しのインデント幅(px)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:809
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:846
 msgid "Enable Automatic Indentation"
 msgstr "自動インデントを有効にする"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:811
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:848
 #: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:151
 msgid "Show Line Numbers"
 msgstr "行番号を表示する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:815
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:852
 msgid "Vertical Space Around Lines"
 msgstr "行内の上下の余白 (px)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:823
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:860
 msgid "Vertical Space in Wrapped Lines"
 msgstr "折り返し行の上下の余白"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:840
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1217
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1257
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:877
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1254
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1294
 msgid "Text Editor"
 msgstr "テキストエディタ"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:850
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:887
 msgid "Timestamp Format"
 msgstr "日時の書式"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:860
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:897
 msgid "Horizontal Rule"
 msgstr "区切り線"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:868
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:905
 msgid "Special Characters"
 msgstr "特殊文字"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:872
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1316
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1328
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1921
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2097
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:909
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1353
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1365
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1958
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2134
 msgid "Reset to Default"
 msgstr "既定に初期化"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:895
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:932
 msgid "Chars to Select at Double Click"
 msgstr "ダブルクリック選択で、単語の一部として扱う文字"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:907
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1090
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1430
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1828
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2237
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2383
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:944
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1127
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1467
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1865
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2274
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2420
 msgid "Miscellaneous"
 msgstr "その他"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:925
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1382
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2054
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2140
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:962
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1419
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2091
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2177
 msgid "Are you sure to Reset to Default?"
 msgstr "既定値に初期化しますか？"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:981
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1018
 msgid "Enable Spell Check"
 msgstr "スペルチェックを有効にする"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:985
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1022
 msgid "Spell Check Language"
 msgstr "スペルチェックの言語"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1008
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1476
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1045
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1513
 msgid "Light Background, Dark Text"
 msgstr "ライト（明るい背景色と暗い文字色）"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1009
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1477
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1046
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1514
 msgid "Dark Background, Light Text"
 msgstr "ダーク（暗い背景色と明るい文字色）"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1011
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1479
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1048
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1516
 msgid "Custom Background"
 msgstr "ユーザー設定の背景色"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1016
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1484
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1053
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1521
 msgid "and Text"
 msgstr "と文字色"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1022
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1059
 msgid "Monospace Background"
 msgstr "等幅の背景色"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1034
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1494
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1071
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1531
 msgid "Theme"
 msgstr "テーマ"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1060
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1248
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1097
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1285
 msgid "Show White Spaces"
 msgstr "空白文字を表示する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1062
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1250
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1099
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1287
 msgid "Highlight Current Line"
 msgstr "現在行を強調する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1064
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1101
 msgid "Expand CodeBoxes Automatically"
 msgstr "コード ボックスを自動的に拡げる"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1068
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1105
 msgid "Embedded File Icon Size"
 msgstr "添付ファイルアイコンの大きさ"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1074
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1111
 msgid "Show File Name on Top of Embedded File Icon"
 msgstr "添付ファイルアイコンの上にファイル名を表示する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1076
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1113
 msgid "Limit of Undoable Steps Per Node"
 msgstr "ノードごとの元に戻せる制限回数"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1208
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1245
 msgid "Enable Smart Quotes Auto Replacement"
 msgstr "スマート クォートの自動置換を有効にする"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1211
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1248
 msgid "Enable Symbol Auto Replacement"
 msgstr "記号の自動置換を有効にする"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1240
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1277
 msgid "Style Scheme"
 msgstr "スタイル設定"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1313
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2091
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1350
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2128
 msgid "Add"
 msgstr "追加"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1335
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1372
 msgid "Command per Node/CodeBox Type"
 msgstr "ノード/コード ボックスの種類別コマンド"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1339
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1376
 msgid "Terminal Command"
 msgstr "ターミナル コマンド"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1344
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1381
 msgid "Code Execution"
 msgstr "コードの実行"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1375
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2125
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1412
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2162
 msgid "Select Element to Add"
 msgstr "追加する要素を選択"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1404
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1441
 msgid "Tree Nodes Names Wrapping Width"
 msgstr "ツリーノード名の折り返し幅"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1410
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1447
 msgid "Display Tree on the Right Side"
 msgstr "ツリーを右側に表示する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1412
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1449
 msgid "Move Focus to Text at Mouse Click"
 msgstr "マウスクリックで、テキストエディタにフォーカスを移動する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1414
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1451
 msgid "Expand Node at Mouse Click"
 msgstr "マウスクリックでノードのツリーを開く"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1418
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1455
 msgid "Last Visited Nodes on Node Name Header"
 msgstr "最近表示したノードをノード名ヘッダに表示する数"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1514
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1551
 msgid "Use Different Cherries per Level"
 msgstr "レベルごとに異なるチェリー画像を使用する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1517
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1554
 msgid "No Icon"
 msgstr "アイコンなし"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1519
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1556
 msgid "Hide Right Side Auxiliary Icon"
 msgstr "右端の付属アイコンを隠す"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1533
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1570
 msgid "Default Text Nodes Icons"
 msgstr "既定のテキスト ノードのアイコン"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1547
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1584
 msgid "Restore Expanded/Collapsed Status"
 msgstr "ノードの開閉状態を再現する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1548
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1585
 msgid "Expand all Nodes"
 msgstr "すべてのノードを開く"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1550
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1587
 msgid "Collapse all Nodes"
 msgstr "すべてのノードを閉じる"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1552
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1589
 msgid "Nodes in Bookmarks Always Visible"
 msgstr "ブックマーク ノードを常に表示"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1560
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1597
 msgid "Nodes Status at Startup"
 msgstr "起動時のノードの状態"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1671
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1708
 msgid "Code Font"
 msgstr "コードのフォント"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1672
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1709
 msgid "Tree Font"
 msgstr "ツリーのフォント"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1693
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2379
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1730
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2416
 msgid "Fonts"
 msgstr "フォント"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1734
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1771
 msgid "Enable Custom Web Link Clicked Action"
 msgstr "Webへのリンクをクリックしたときの動作を指定する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1736
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1773
 msgid "Enable Custom File Link Clicked Action"
 msgstr "ファイルへのリンクをクリックしたときの動作を指定する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1738
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1775
 msgid "Enable Custom Folder Link Clicked Action"
 msgstr "フォルダーへのリンクをクリックしたときの動作を指定する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1747
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1784
 msgid "Custom Actions"
 msgstr "ユーザー設定の動作"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1772
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1266
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1809
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1315
 msgid "To WebSite"
 msgstr "Webサイト"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1779
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1307
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1816
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1356
 msgid "To Node"
 msgstr "ノード"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1786
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1277
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1823
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1326
 msgid "To File"
 msgstr "ファイル"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1793
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1292
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1830
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1341
 msgid "To Folder"
 msgstr "フォルダー"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1803
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1840
 msgid "Colors"
 msgstr "色"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1812
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1849
 msgid "Underline Links"
 msgstr "リンクに下線を表示する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1814
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1851
 msgid "Use Relative Paths for Files And Folders"
 msgstr "ファイルとフォルダーへのリンクに相対パスを使用する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1818
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1855
 msgid "Anchor Size"
 msgstr "アンカー画像の大きさ"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1918
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1955
 msgid "Change Selected"
 msgstr "選択項目の変更"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1931
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1968
 msgid "File"
 msgstr "ファイル"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1932
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2377
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2378
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1969
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2414
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2415
 msgid "Tree"
 msgstr "ツリー"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1933
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1970
 msgid "Editor"
 msgstr "編集"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1934
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1971
 msgid "Format"
 msgstr "書式"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1935
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1972
 msgid "Find/Replace"
 msgstr "検索/置換"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1936
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1973
 msgid "View"
 msgstr "表示"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1937
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1974
 msgid "Export"
 msgstr "エクスポート"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1938
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1975
 msgid "Import"
 msgstr "インポート"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1958
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1995
 msgid "Edit Keyboard Shortcut"
 msgstr "キーボード ショートカットの編集"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1965
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2002
 msgid "No Keyboard Shortcut"
 msgstr "キーボード ショートカットなし"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2035
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2072
 #, python-format
 msgid "The Keyboard Shortcut '%s' is already in use"
 msgstr "キーボード ショートカット '%s' はすでに使用しています"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2035
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2072
 #, python-format
 msgid "The current associated action is '%s'"
 msgstr "現在関連付けられている操作は '%s' です"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2035
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2072
 msgid "Do you want to steal the shortcut?"
 msgstr "ショートカットの割り当てを変更しますか？"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2094
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2131
 msgid "Remove Selected"
 msgstr "選択項目の削除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2161
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2198
 msgid "Enable System Tray Docking"
 msgstr "閉じるでシステムトレイに入れる"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2162
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2199
 msgid "Start Minimized in the System Tray"
 msgstr "起動時にシステムトレイに最小化する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2163
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2200
 msgid "Use AppIndicator for Docking"
 msgstr "AppIndicatorを使用する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2168
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2205
 msgid "System Tray"
 msgstr "システムトレイ"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2185
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2222
 msgid "Autosave Every"
 msgstr "自動保存を"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2188
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2225
 msgid "Minutes"
 msgstr "分ごとにする"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2192
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2229
 msgid "Autosave on Quit"
 msgstr "終了時に自動保存する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2193
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2230
 msgid "Create a Backup Copy Before Saving"
 msgstr "保存する前にバックアップの複製を作成する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2196
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2233
 msgid "Number of Backups to Keep"
 msgstr "保存するバックアップの最大数"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2214
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2251
 msgid "Saving"
 msgstr "保存"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2223
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2260
 msgid "Automatically Check for Newer Version"
 msgstr "新バージョンの確認を自動的に行う"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2224
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2261
 msgid "Enable Word Count in Statusbar"
 msgstr "ステータスバーにワード数を表示する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2225
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2262
 msgid "Reload Document From Last Session"
 msgstr "起動時に最後のセッションのドキュメントを読み込む"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2226
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2263
 msgid "Reload After External Update to CT* File"
 msgstr "CT* ファイルが外部で更新された場合、再読み込みする"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2253
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2290
 msgid "Language"
 msgstr "言語"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2353
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2390
 msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "新しい言語は、CherryTreeの再起動後に有効になります"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2373
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2410
 msgid "Text and Code"
 msgstr "テキストとコード"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2374
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2411
 msgid "Text"
 msgstr "テキスト"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2376
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2413
 msgid "Plain Text and Code"
 msgstr "プレーンテキストとコード"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2380
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2417
 msgid "Links"
 msgstr "リンク"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2381
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2418
 msgid "Toolbar"
 msgstr "ツールバー"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2382
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2419
 msgid "Keyboard Shortcuts"
 msgstr "キーボード ショートカット"
 
@@ -2704,12 +2717,12 @@ msgid "Type"
 msgstr "種類"
 
 #: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:112
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1049
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1088
 msgid "Width"
 msgstr "幅"
 
 #: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:116
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1052
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1091
 msgid "Height"
 msgstr "高さ"
 
@@ -2733,42 +2746,42 @@ msgstr "オプション"
 msgid "Edit CodeBox"
 msgstr "コード ボックスを編集"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:723
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:759
 msgid "Save File as"
 msgstr "名前を付けて保存"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:754
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:790
 msgid "Select File"
 msgstr "ファイルの選択"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:785
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:821
 msgid "Select Folder"
 msgstr "フォルダーの選択"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:813
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:849
 msgid "Question"
 msgstr "質問"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:828
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:864
 msgid "Info"
 msgstr "情報"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:834
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:870
 msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr "この変更はCherryTreeの再起動後に有効になります"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:844
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1127
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1161
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1204
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:880
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1176
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1210
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1253
 msgid "Warning"
 msgstr "警告"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:856
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:892
 msgid "Error"
 msgstr "エラー"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:867
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:903
 msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
 "Highlighting"
@@ -2776,7 +2789,7 @@ msgstr ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
 "Highlighting"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:868
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:904
 msgid ""
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
@@ -2810,147 +2823,151 @@ msgstr ""
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:887
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:924
 msgid "Armenian"
 msgstr "Armenian"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:888
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:925
 msgid "Chinese Simplified"
 msgstr "Chinese Simplified"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:889
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:926
 msgid "Czech"
 msgstr "Czech"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:890
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:927
 msgid "Dutch"
 msgstr "Dutch"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:891
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:928
 msgid "Finnish"
 msgstr "Finnish"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:892
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:929
 msgid "French"
 msgstr "French"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:893
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:930
 msgid "German"
 msgstr "German"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:894
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:931
 msgid "Greek"
 msgstr "Greek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:895
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:932
 msgid "Italian"
 msgstr "Italian"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:896
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:933
 msgid "Japanese"
 msgstr "Japanese"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:897
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:934
 msgid "Lithuanian"
 msgstr "Lithuanian"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:898
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:935
 msgid "Polish"
 msgstr "Polish"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:899
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:936
 msgid "Portuguese Brazil"
 msgstr "Portuguese Brazil"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:900
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:937
 msgid "Russian"
 msgstr "Russian"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:901
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:938
 msgid "Slovenian"
 msgstr "Slovenian"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:902
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:939
 msgid "Spanish"
 msgstr "Spanish"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:903
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:940
+msgid "Swedish"
+msgstr "Swedish"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:941
 msgid "Turkish"
 msgstr "Turkish"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:904
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:942
 msgid "Ukrainian"
 msgstr "Ukrainian"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1164
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1207
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1213
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1256
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1165
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1209
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1214
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1258
 msgid "Yes"
 msgstr "はい"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1177
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1226
 msgid "Temporary Files were Created and Opened with External Applications."
 msgstr "一時ファイルが作成され、外部アプリケーションで開かれました。"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1177
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1226
 msgid "Quit the External Applications Before Quit CherryTree."
 msgstr "CherryTreeを終了する前に外部アプリケーションを終了してください。"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1177
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1226
 msgid "Did you Quit the External Applications?"
 msgstr "外部アプリケーションを終了しましたか？"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1208
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1257
 msgid "No"
 msgstr "いいえ"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1223
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1272
 msgid "The Current Document was Updated."
 msgstr "現在のドキュメントは変更されています。"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1223
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1272
 msgid "Do you want to Save the Changes?"
 msgstr "変更を保存しますか？"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1343
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1392
 msgid "Anchor Name (optional)"
 msgstr "アンカー名（オプション）"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1430
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1479
 msgid "There are No Anchors in the Selected Node"
 msgstr "選択ノードにはアンカーがありません"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1432
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1481
 msgid "Choose Existing Anchor"
 msgstr "既存のアンカーを選択"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1432
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1481
 msgid "Anchor Name"
 msgstr "アンカー名"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1496
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1545
 msgid "Choose Storage Type"
 msgstr "記憶域の種類を選択"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1503
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1506
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1552
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1555
 msgid "Not Protected"
 msgstr "保護なし"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1504
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1508
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1553
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1557
 msgid "Password Protected"
 msgstr "パスワード保護"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1515
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1564
 msgid "Storage Type"
 msgstr "記憶域の種類"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1523
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1572
 msgid ""
 "CT saves the document in an encrypted 7zip archive. When viewing or editing "
 "the document, CT extracts the encrypted archive to a temporary folder, and "
@@ -2965,73 +2982,73 @@ msgstr ""
 "は、暗号化されていない文書が一時フォルダーに残ってしまうことに注意してくださ"
 "い。"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1530
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1579
 msgid "Enter the New Password Twice"
 msgstr "新しいパスワードを２回入力してください"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1573
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1622
 msgid "The Password Fields Must be Filled"
 msgstr "パスワードが入力されていません"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1576
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1625
 msgid "The Two Inserted Passwords Do Not Match"
 msgstr "入力した２回のパスワードが一致しません"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1580
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1629
 #, python-format
 msgid "The Characters  %s  are Not Allowed"
 msgstr "%s という文字は使用できません"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1671
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1720
 msgid "Involved Nodes"
 msgstr "関連ノード"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1677
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1726
 msgid "Selected Text Only"
 msgstr "選択テキストのみ"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1678
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1727
 msgid "Selected Node Only"
 msgstr "選択ノードのみ"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1679
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1728
 msgid "Selected Node and Subnodes"
 msgstr "選択ノードとサブノード"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1680
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1729
 msgid "All the Tree"
 msgstr "ツリー全体"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1691
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1740
 msgid "Include Node Name"
 msgstr "ノード名を含める"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1697
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1746
 msgid "Links Tree in Every Page"
 msgstr "各ページにリンクツリーを挿入する"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1702
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1751
 msgid "New Node in New Page"
 msgstr "ノードごとに改ページ"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1730
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1779
 msgid "Pick a Color"
 msgstr "色を選択"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1826
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1875
 msgid "Remove from list"
 msgstr "一覧から削除"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1849
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1898
 msgid "_Recent Documents"
 msgstr "最近使ったファイル(_R)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1851
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1858
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1900
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1907
 msgid "Open a Recent CherryTree Document"
 msgstr "最近使ったCherryTreeドキュメントを開く"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1884
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1933
 #, python-format
 msgid "The Document %s was Not Found"
 msgstr "ドキュメント %s が見つかりません"
@@ -3040,7 +3057,8 @@ msgstr "ドキュメント %s が見つかりません"
 msgid "PDF File"
 msgstr "PDF ファイル"
 
-#: /home/giuspen/Software/git_cherrytree/modules/exports.py:700
+#: /home/giuspen/Software/git_cherrytree/modules/exports.py:708
+#: /home/giuspen/Software/git_cherrytree/modules/exports.py:747
 msgid "Index"
 msgstr "目次"
 

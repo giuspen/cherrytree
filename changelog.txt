@@ -1,4 +1,20 @@
 
+0.38.12 ()
+  * improved export to html (work of @ksmukta)
+  * fixed export to pdf, picture blurry (work of @txe)
+  * implemented a 'command palette' dialog to quickly access all the commands in one place (work of @ksmukta)
+  * improved sorting (work of @txe)
+  * improved performance of imports into cherrytre (work of @txe)
+  * fixed 'recent document paths have wrong enconding' (#632, work of @txe)
+  * fixed 'files with russian names won't open through command line under Windows' (#633, work of @txe)
+  * fixed 'visited nodes history, going to todays node using key binding' (work of @ksmukta)
+  * fixed 'syntax Highlighting selected first from list when pressing enter' (#657, work of @txe)
+  * updated syntax highlighting language specs files for various languages (#228, #92, #38, work of @txe)
+  * added triple click funtcionality to select paragraph (work of @letto4135)
+  * fixed smart quotes spell check bug (work of @letto4135)
+  * added new language Swedish (translated by Åke Engelbrektson)
+  * note that cherrytree is now available also as a snap package (created and maintained by Heather Ellsworth, https://snapcraft.io/cherrytree)
+
 0.38.11 (January 9th, 2020)
   * fixed regression of 0.38.10, could no longer print
 
