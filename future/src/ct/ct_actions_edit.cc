@@ -102,6 +102,7 @@ void CtActions::codebox_handle()
 
     getCtMainWin()->curr_tree_store().addAnchoredWidgets(getCtMainWin()->curr_tree_iter(),
         {pCtCodebox}, &getCtMainWin()->get_text_view());
+    pCtCodebox->get_text_view().grab_focus();
 }
 
 void CtActions::embfile_insert()
