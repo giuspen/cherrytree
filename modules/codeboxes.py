@@ -234,6 +234,7 @@ class CodeBoxesHandler:
         if fill_text: self.dad.curr_buffer.delete(iter_sel_start, iter_sel_end)
         iter_insert = self.dad.curr_buffer.get_iter_at_mark(self.dad.curr_buffer.get_insert())
         self.codebox_insert(iter_insert, codebox_dict)
+        self.curr_codebox_anchor.sourceview.grab_focus()
 
     def codebox_insert(self, iter_insert, codebox_dict, codebox_justification=None, text_buffer=None, cursor_pos=0):
         """Insert Code Box"""
