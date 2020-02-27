@@ -361,9 +361,7 @@
         <context ref="character"/>
         <context ref="character-error"/>
         <context ref="symbol"/>
-        <context ref="def:c-like-comment"/>
         <context ref="block-comment"/>
-        <context ref="def:c-like-close-comment-outside-comment"/>
         <context ref="annotation"/>
         <context ref="external"/>
         <context ref="declaration"/>

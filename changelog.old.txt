@@ -1,4 +1,111 @@
 
+0.38.11 (January 9th, 2020)
+  * fixed regression of 0.38.10, could no longer print
+
+0.38.10 (January 4th, 2020)
+  * bugfix: error opening encrypted documents when path contains non-ASCII characters (#399)
+  * bugfix: removing the text formatting was possible in read-only Node (#543)
+  * bugfix: collapse all nodes at startup doesn't work with enabled expand tree at mouse click (#569)
+  * added support for export to pdf from command line (#584)
+  * supporting new syntax highlighting for language kotlin
+  * 'reload after external update to ct* file' disabled by default (#602)
+  * 'smart quotes auto replacement' replacing characters configurable manually editing config.cfg
+  * added small sigma to default special chars (#563)
+  * support mac osx for open link to file, default custom action (#564)
+  * added dollar as character not to be used in passwords; note that all chars will be instead usable in upcoming gtkmm3 version (#545)
+  * minor changes to support reading a document that has been edited from the upcoming gtkmm3 version of cherrytree
+  * minor changes to support reading a config.cfg that has been edited from the upcoming gtkmm3 version of cherrytree
+
+0.38.9 (August 17th, 2019)
+  * Auto replacement of symbols as you type is now configurable in preferences dialog, tab Text (work of trololo88)
+  * Ctrl+Space to toggle To-Do List Item State; fixed multilevel bug
+  * Paste/import from html - added basic support for <dt><dd>
+  * In codeboxes use code font for both plain text and syntax hilighting (work of akwala)
+  * Fix paste as plain text into CodeBox cause losing CodeBox content (#538)
+  * Export to html, stylesheet revamp (work of gonzalezjo)
+
+0.38.8 (February 21st, 2019)
+  * Improved implementation of deletion of recent documents entry (#382)
+  * Ctrl+Space to toggle To-Do List Item State (#438)
+  * Fix detection of missing installation of xterm required in code execution on linux (with default settings)
+  * Horizontal rule insert without hard coded newline before (still newline after)
+  * updated Spanish language (Daniel)
+  * updated Greek language (Delphina)
+  * updated Armenian language (Seda)
+
+0.38.7 (December 16th, 2018)
+  * bugfix - problem of locale.getdefaultlocale behavioural change in python (#412)
+  * bugfix - must not allow deletion of a node that is read only (#419)
+  * allow deletion of a recent documents entry via entry submenu (#382)
+  * renamed two iterated find dialog labels from Find & Find to Find Previous & Find Next (#423)
+  * moved python-appindicator from Depends: to Recommends: (#401)
+  * export to html, include node name not working without links tree (#417)
+
+0.38.6 (October 6th, 2018)
+  * bugfix - do not throw error when failing to clean temporary directory (#392)
+  * bugfix - workaround for locale.get issues (#395)
+  * bugfix - import from html of table error resulting in paste from clipboard error (#236)
+  * bugfix - multilevel numbered lists not restarting from one
+  * bugfix - wrap line with a single very long word (#378)
+  * todo list characters configurable in config.cfg (#339)
+  * import from zim, support for codebox (#386)
+
+0.38.5 (July 3rd, 2018)
+  * bugfix - when save on exit is enabled and write to disk fails, changes are lost (#358)
+  * bugfix - superscript and subscript tags not recognized when copied from external source (#355)
+  * bugfix - workaround for bug in locale module (#368)
+  * added syntax highlighting for go language
+  * implemented support for opening a text file from the command line with cherrytree
+
+0.38.4 (December 2nd, 2017)
+  * support for zoom in tables (#292) with both Ctrl+Mouse Wheel or Ctrl+Plus/Minus
+  * copy/paste rich text with dark background to light background - fix too light color
+  * tree visible status now persistent after system tray hide/show and between sessions
+  * default value changes for web link color (less bright blue) and codebox auto resize (to False)
+  * no special chars auto replacements for code - only for rich and plain text (#293)
+  * paste from rich text and import from html - support fot tag <code> to codebox (#229)
+  * Tab key also valid to switch between table cell (#298)
+
+0.38.3 (October 30th, 2017)
+  * bugfix saving sqlite document (syntax error)
+  * plain text to have font independent from rich text (#258)
+  * right click menu inside of codeboxes, added cut/copy as plain text
+  * paste rich text from clipboard fix
+  * HTML-export IOError: 'filename too long' (#285)
+  * bugfix in export to pdf
+  * added Finnish language (Henri Kaustinen)
+
+0.38.2 (September 1st, 2017)
+  * bugfix in import from cherrytree file (links broken)
+  * bugfix in export to HTML ('#' in node name)
+  * left arrow key press with focus on an already collapsed tree node, now moves the selection to the node parent
+  * automatic syntax highlighting nodes - added right click menus cut & copy as plain text
+  * bugfix in recent filenames, problem with underscore character
+  * bugfix in import from keynote
+
+0.38.1 (June 9th, 2017)
+  * bugfix in export to txt
+  * bugfix in all matches dialog hide/restore selected line
+  * sqlite document: when save and vacuum, perform also the reindex
+  * added yaml syntax highlighting (Sergei Zyubin)
+  * bugfix unwanted syntax highlighting in plain text
+  * bugfix in import from rednotebook
+  * better implementation for the recent docs saving in config.cfg
+
+0.38.0 (February 15th, 2017)
+  * added the timestamp of creation and latest modification per node and the possibility to filter the searches using these values
+  * implemented the possibility to execute the code of code nodes and codeboxes (File--Execute Code); the terminal and the command per node type is configurable in the preferences dialog, tab "Plain Text and Code"
+  * the background color of the text formatted monospace is now configurable in the preferences dialog, tab Rich Text
+  * implemented the VACUUM command for SQLite database to repack into minimal amount of disk space (File--Save and Vacuum)
+  * it is now possible to edit the underlying text with the dialog listing the results of the search opened
+  * better support for drag and drop of nodes in large trees with the scrollbars uncovering the hidden parts of the tree when dragging close to the edges
+  * implemented a simple selected node word count in the statusbar; to be enabled in the preferences dialog (tab Miscellaneous)
+  * implemented the option to hide the tree right side auxiliary icon (currently a padlock for read only nodes and a pin for bookmarked nodes)
+  * implemented the option to hide the embedded file name on top of the embedded file icon (tab Rich Text, work of jhermans76)
+  * added command line option to export to txt [-t export_to_txt_dir] and command line option to overwrite existing export rather than adding a trailing number to the exported folder [-w] (valid also for [-x export_to_html_dir])
+  * assigned static keyboard shortcut Ctrl+Shift+Right for 'Node Change Parent'
+  * updated bundled pygtkspellcheck from 4.0.1 to 4.0.5
+
 0.37.6 (October 24th, 2016)
   * added auto apply of links to nodes as you type [[node name]] in rich text nodes
   * the text formatted monospace has now by default gray background; configurable in config.cfg

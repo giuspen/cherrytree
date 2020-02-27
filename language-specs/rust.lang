@@ -309,7 +309,6 @@ except according to those terms.
 
     <context id="rust" class="no-spell-check">
       <include>
-        <context ref="def:c-like-comment" style-ref="comment"/>
         <context ref="comment-multiline-nested"/>
         <context ref="function"/>
         <context ref="type"/>

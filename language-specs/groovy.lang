@@ -303,8 +303,6 @@
     <context id="groovy" class="no-spell-check">
       <include>
         <context ref="def:shebang" style-ref="comment"/>
-        <context ref="def:c-like-comment" style-ref="comment"/>
-        <context ref="def:c-like-comment-multiline" style-ref="comment"/>
         <context ref="def:line-continue"/>
 
         <context ref="triple-single-quoted-string"/>

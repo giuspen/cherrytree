@@ -363,8 +363,6 @@
 
     <context id="kotlin" class="no-spell-check">
       <include>
-        <context ref="def:c-like-comment"/>
-        <context ref="def:c-like-close-comment-outside-comment"/>
         <context ref="annotation"/>
         <context ref="block-comment"/>
         <context ref="builtin"/>
