@@ -135,6 +135,22 @@ class CTDBHandler:
         return (node_id, offset, justification, txt, syntax,
                 width, height, is_width_pix, do_highl_bra, do_show_linenum)
 
+    def is_db_ok(self, db):
+        """"Test if DB connection is not readonly and doesn't fall off"""
+        try: 
+            db.execute('CREATE TABLE IF NOT EXISTS test_table (id);')
+            db.execute('DROP TABLE IF EXISTS test_table;')
+            db.commit()
+            return True
+        except:
+            return False
+
+    def get_dbpath_from_db(self, db):
+        for _, name, filename in db.execute('PRAGMA database_list').fetchall():
+            if name == 'main' and filename is not None:
+                return filename
+        return None
+
     def get_connected_db_from_dbpath(self, dbpath):
         """Returns DB connection descriptor given the dbpath"""
         db = sqlite3.connect(dbpath)
