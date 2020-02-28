@@ -78,6 +78,20 @@ cd cpputest-3.8
 ./configure --disable-memory-leak-detection
 make
 make install
+# use native windows theme
+mkdir /etc/gtk-3.0
+nano /etc/gtk-3.0/settings.ini
+####################
+[Settings]
+gtk-theme-name=win32
+####################
+# useful console settings
+nano ~/.bashrc
+####################
+alias l="ls -lah --color"
+bind '"\e[A":history-search-backward'
+bind '"\e[B":history-search-forward'
+####################
 
 # build and run cherrytree
 # build Debug
@@ -86,6 +100,13 @@ make install
 ./build.sh R
 export LC_ALL=C
 ./cherrytree.exe
+
+## NOTES: *** FIND DEPENDENCIES *** of cherrytree.exe and copy to ~/dependencies/
+if [ ! -d ~/dependencies ]; then mkdir ~/dependencies; fi
+cp `ldd cherrytree.exe | grep /mingw64/bin | awk '{print $3}'` ~/dependencies/
+
+## NOTES: *** DO NOT SHOW CONSOLE WINDOW *** in Windows OS
+cherrytree_LDFLAGS = -mwindows
 
 
 # ---- Building Cherrytree in Fedora ----
