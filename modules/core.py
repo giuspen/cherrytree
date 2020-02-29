@@ -1728,7 +1728,24 @@ iter_end, exclude_iter_sel_end=True)
                 support.dialog_error("%s write failed - tree to xml" % filepath, self.window)
                 raise
                 return False
-        else: xml_string = ""
+        else: 
+            xml_string = ""
+            if not first_write and not self.ctdb_handler.is_db_ok(self.db):
+                print "db connection is broken, try to reattach"
+                if self.db != None:
+                    self.reconnect_dbpath = self.ctdb_handler.get_dbpath_from_db(self.db)
+                    self.db.close()
+                    self.db = None
+                else: pass # self.reconnect_dbpath was filled by previous failed file_write            
+                time.sleep(0.5) # wait 0.5 sec, file can be block by sync program like Dropbox
+                try:
+                    self.db = self.ctdb_handler.get_connected_db_from_dbpath(self.reconnect_dbpath)
+                except:
+                    support.dialog_error(_("%s write failed - file is missing. Reattach usb driver or shared resource") % self.reconnect_dbpath, self.window)
+                    return False
+                if not self.ctdb_handler.is_db_ok(self.db):
+                    support.dialog_error(_("%s write failed - file is blocked by a sync program") % self.reconnect_dbpath, self.window)
+                    return False
         # backup before save new version
         if self.backup_copy: self.backups_handling(filepath)
         # if the filename is protected, we use unprotected type before compress and protect
