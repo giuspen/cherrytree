@@ -4,13 +4,13 @@
 #
 # maul <giuspen@gmail.com>, 2010.
 # Pavel Fric <pavelfric@seznam.cz>, 2010, 2011.
-# Pavel Fric <pavelfric@seznam.cz>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019.
+# Pavel Fric <pavelfric@seznam.cz>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-02 08:22+0100\n"
-"PO-Revision-Date: 2019-07-03 09:24+0200\n"
+"POT-Creation-Date: 2020-02-23 21:33+0000\n"
+"PO-Revision-Date: 2020-02-29 08:41+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "Language: cs\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 19.04.0\n"
 
-#: /home/giuspen/Software/git_cherrytree/modules/printing.py:217
+#: /home/giuspen/Software/git_cherrytree/modules/printing.py:200
 msgid "Warning: One or More Images Were Reduced to Enter the Page"
 msgstr ""
 "Varování: Kvůli vstupu na stránku byl zmenšen jeden nebo bylo zmenšeno více "
@@ -30,23 +30,23 @@ msgstr ""
 msgid "Unknown"
 msgstr "Neznámý"
 
-#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:430
+#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:435
 msgid "(no suggestions)"
 msgstr "(žádné návrhy)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:446
+#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:451
 msgid "Add \"{}\" to Dictionary"
 msgstr "Přidat \"{}\" do slovníku"
 
-#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:449
+#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:454
 msgid "Ignore All"
 msgstr "Přehlížet vše"
 
-#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:460
+#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:465
 msgid "Languages"
 msgstr "Jazyky"
 
-#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:471
+#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:476
 msgid "Suggestions"
 msgstr "Návrhy"
 
@@ -72,26 +72,26 @@ msgstr ""
 "Nepodařilo se dostat informace o nejnovější verzi - Zkuste to později znovu"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:328
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3929
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4557
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:5044
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4028
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4658
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5148
 msgid "No Text is Selected"
 msgstr "Není vybrán žádný text"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:828
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2454
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2555
 msgid "The new parent can't be one of his children!"
 msgstr "Nový nadřízený uzel nemůže být jedním z podřízených uzlů!"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:852
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:1541
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:1739
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1559
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1757
 #: /home/giuspen/Software/git_cherrytree/modules/exports.py:153
 msgid "CherryTree Document"
 msgstr "Dokument CherryTree"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:876
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2020
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2038
 #, python-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" není dokumentem CherryTree"
@@ -148,12 +148,12 @@ msgid "The Selected Node"
 msgstr "Vybraný uzel"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:1290
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1804
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1853
 msgid "Insert _Special Character"
 msgstr "Vložit _zvláštní znak"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:1292
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1806
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1855
 msgid "Insert a Special Character"
 msgstr "Vložit zvláštní znak"
 
@@ -165,16 +165,16 @@ msgstr "Dokument byl nahrán znovu po vnější aktualizaci na soubor CT*"
 msgid "CherryTree Hierarchical Note Taking"
 msgstr "Hierarchická tvorba poznámek v CherryTree"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:1705
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1723
 #, python-format
 msgid "You Have No Write Access to %s"
 msgstr "Nemáte oprávnění pro zápis do %s"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:1719
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1737
 msgid "Writing to Disk..."
 msgstr "Zapisuje se na disk..."
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:1843
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1861
 msgid ""
 "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
 "Installed Properly"
@@ -182,50 +182,63 @@ msgstr ""
 "Binární spustitelný soubor '7za' nebyl nalezen. Prověřte, zda je balíček "
 "'7za' nainstalován správně"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:1849
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1867
 #, python-format
 msgid "Enter Password for %s"
 msgstr "Zadejte heslo pro %s"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:1921
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:1938
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1939
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1956
 msgid "Wrong Password"
 msgstr "Chybné heslo"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2442
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2251
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:298
+msgid "Command Palette"
+msgstr "Paleta příkazů"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2285
+msgid "Type To Search..."
+msgstr "Pro hledání pište..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2289
+msgid "Command Name"
+msgstr "Název příkazu"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2543
 msgid "Select the New Parent"
 msgstr "Vybrat nový nadřízený uzel"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2446
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2547
 msgid "The new parent can't be the very node to move!"
 msgstr "Nový nadřízený uzel nemůže být vlastní uzel k přesunu!"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2449
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2550
 msgid "The new chosen parent is still the old parent!"
 msgstr "Nový vybraný nadřízený uzel je opět ten starý nadřízený uzel!"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2716
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2817
 msgid "New Node Properties"
 msgstr "Vlastnosti nového uzlu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2779
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2880
 msgid "New Child Node Properties"
 msgstr "Vlastnosti nového podřízeného uzlu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2807
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2908
 #, python-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr "Opravdu chcete <b>smazat uzel '%s'?</b>"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2809
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2910
 msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr "Uzel má <b>podřízené uzly, které budou rovněž smazány!</b>"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2846
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2947
 msgid "Node Properties"
 msgstr "Vlastnosti uzlu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:2859
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2960
 msgid ""
 "Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
 "Do you want to Continue?"
@@ -233,98 +246,98 @@ msgstr ""
 "Opuštěním typu uzlu Formátovaný text ztratíte veškeré formátování pro tento "
 "uzel. Chcete pokračovat?"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3420
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3519
 msgid "Bold"
 msgstr "Tučné"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3422
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3521
 msgid "Use Selected Color"
 msgstr "Použít vybranou barvu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3434
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1515
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3533
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1552
 msgid "Use Selected Icon"
 msgstr "Použít vybranou ikonu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3440
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3539
 #: /home/giuspen/Software/git_cherrytree/modules/tablez.py:322
-#: /home/giuspen/Software/git_cherrytree/modules/imports.py:2733
+#: /home/giuspen/Software/git_cherrytree/modules/imports.py:2757
 msgid "click me"
 msgstr "Klepni mě"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3452
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3551
 #: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:920
 msgid "Node Name"
 msgstr "Název uzlu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3456
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4982
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1669
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2375
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3555
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5085
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1706
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2412
 msgid "Rich Text"
 msgstr "Formátovaný text"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3457
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4983
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1670
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3556
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5086
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1707
 #: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:95
 msgid "Plain Text"
 msgstr "Prostý text"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3459
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3512
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3558
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3611
 #: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:96
 #: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:178
 msgid "Automatic Syntax Highlighting"
 msgstr "Automatické zvýrazňování skladby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3479
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4981
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3578
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5084
 msgid "Node Type"
 msgstr "Typ uzlu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3493
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3592
 msgid "Tags for Searching"
 msgstr "Značky pro hledání"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3497
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3596
 msgid "Read Only"
 msgstr "Pouze pro čtení"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3530
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3629
 msgid "Choose Existing Tag"
 msgstr "Vybrat stávající značku"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3530
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3629
 msgid "Tag Name"
 msgstr "Název značky"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3557
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1627
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3656
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1664
 msgid "Select Node Icon"
 msgstr "Vybrat ikonu uzlu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3588
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3687
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "Ikony v nástrojovém pruhu jsou již tak velké, jak jen je to možné"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3596
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3695
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "Ikony v nástrojovém pruhu jsou již tak malé, jak jen je to možné"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3691
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3790
 msgid "Edit Anchor"
 msgstr "Upravit kotvu..."
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3694
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3793
 msgid "Insert Anchor"
 msgstr "Vložit kotvu..."
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3716
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3815
 msgid "No CodeBox is Selected"
 msgstr "Není vybrán žádný CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3724
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3823
 #, python-format
 msgid ""
 "You must associate a command to '%s'.\n"
@@ -333,11 +346,11 @@ msgstr ""
 "Musíte přiřadit příkaz k '%s'.\n"
 "Udělejte to v dialogu s nastavením"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3731
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3830
 msgid "Do you want to Execute the Code?"
 msgstr "Chcete provést kód?"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3747
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3846
 msgid ""
 "Install the package 'xterm' or configure a different terminal in the "
 "Preferences Dialog"
@@ -345,168 +358,168 @@ msgstr ""
 "Nainstalujte balíček 'xterm' nebo nastavte jiný terminál v dialogu s "
 "nastavením"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3760
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3859
 #, python-format
 msgid "The Maximum Size for Embedded Files is %s MB"
 msgstr "Největší velikost vložených souborů je %s MB"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3823
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3922
 msgid "Cannot Edit Embedded File in Read Only Node"
 msgstr "Nelze upravit vložený soubor v uzlu pouze pro čtení"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3837
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3936
 msgid "Embedded File Automatically Updated:"
 msgstr "Vložený soubor automaticky aktualizován:"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3886
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3985
 msgid "Not Any H1, H2 or H3 Formatting Found"
 msgstr "Nebylo nalezeno žádné formátování nadpisů (H1, H2 nebo H3)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3906
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4005
 msgid "This Feature is Available Only in Rich Text Nodes"
 msgstr "Tato funkce je dostupná jen u uzlů s formátovaným textem"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3908
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4007
 msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes"
 msgstr "Tato funkce není dostupná u uzlů s automatickým zvýrazňováním skladby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3914
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4978
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1417
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4013
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5081
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1466
 msgid "No Node is Selected"
 msgstr "Není vybrán žádný uzel"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3921
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4020
 msgid "The Tree is Empty!"
 msgstr "Strom je prázdný!"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3941
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4040
 msgid "The Selected Node is Read Only"
 msgstr "Vybraný uzel je pouze pro čtení"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3954
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:239
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4053
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:240
 msgid "Tree Summary Information"
 msgstr "Přehled o stavbě stromu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3962
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4061
 msgid "Number of Rich Text Nodes"
 msgstr "Počet uzlů formátovaného textu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3965
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4064
 msgid "Number of Plain Text Nodes"
 msgstr "Počet uzlů formátovatelného textu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3968
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4067
 msgid "Number of Code Nodes"
 msgstr "Počet uzlů zdrojového kódu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3971
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4070
 msgid "Number of Images"
 msgstr "Počet obrázků"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3974
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4073
 msgid "Number of Embedded Files"
 msgstr "Počet vložených souborů"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3977
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4076
 msgid "Number of Tables"
 msgstr "Počet tabulek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3980
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4079
 msgid "Number of CodeBoxes"
 msgstr "Počet obdélníků se zdrojovým kódem"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:3983
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4082
 msgid "Number of Anchors"
 msgstr "Počet kotev"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4071
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4170
 msgid "Image Format Not Recognized"
 msgstr "Obrázkový formát nerozpoznán"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4096
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4195
 msgid "Image Properties"
 msgstr "Vlastnosti obrázku"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4177
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4276
 msgid "PNG Image"
 msgstr "Obrázek PNG"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4183
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4282
 #, python-format
 msgid "Write to %s Failed"
 msgstr "Nepodařilo se zapsat %s"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4296
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4397
 msgid "Lines Stripped"
 msgstr "Řádky zbaveny"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4430
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4531
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "Během tohoto sezení nebylo ještě provedeno žádné formátování textu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4518
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4585
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4619
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4686
 msgid "Insert/Edit Link"
 msgstr "Vložit/Upravit odkaz"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4563
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4664
 msgid "Link Name"
 msgstr "Název odkazu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4575
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4676
 msgid "The Cursor is Not into a Paragraph"
 msgstr "Ukazatel se nenachází v odstavci"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4803
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4904
 #, python-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "Cesta k souboru '%s' není platná"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4812
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4913
 #, python-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "Odkaz na složku '%s' není platný"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4821
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4922
 #: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:960
 #, python-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Odkaz odkazuje na uzel, který už neexistuje (ID = %s)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4834
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4935
 #, python-format
 msgid "No anchor named '%s' found"
 msgstr "Nebyla nalezena žádná kotva s názvem '%s'"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4981
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4985
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4987
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4989
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4993
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4997
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5084
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5088
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5090
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5092
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5096
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5100
 msgid ": "
 msgstr ": "
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4985
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5088
 msgid "Tags"
 msgstr "Značky"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4987
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:998
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5090
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1035
 msgid "Spell Check"
 msgstr "Ověření správného psaní"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4989
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5092
 msgid "Word Count"
 msgstr "Počet slov"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4993
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5096
 msgid "Date Created"
 msgstr "Datum vytvoření"
 
-#: /home/giuspen/Software/git_cherrytree/modules/core.py:4997
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5100
 msgid "Date Modified"
 msgstr "Datum změny"
 
@@ -741,1971 +754,1971 @@ msgstr "Upravit vlastnosti tabulky..."
 msgid "Table Column Action"
 msgstr "Upravit sloupec v tabulce"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:174
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:175
 msgid "New _Instance"
 msgstr "_Nová stromová stavba..."
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:174
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:175
 msgid "Start a New Instance of CherryTree"
 msgstr "Založit novou stromovou stavbu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:175
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:312
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:176
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:314
 msgid "_Open File"
 msgstr "_Otevřít soubor"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:175
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:131
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1857
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:176
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:141
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1906
 msgid "Open a CherryTree Document"
 msgstr "Otevřít dokument CherryTree"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:176
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:177
 msgid "_Save"
 msgstr "_Uložit"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:176
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:177
 msgid "Save File"
 msgstr "Uložit soubor"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:177
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:178
 msgid "Save and _Vacuum"
 msgstr "Uložit a _vysát"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:177
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:178
 msgid "Save File and Vacuum"
 msgstr "Uložit soubor a vysát"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:178
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:311
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:179
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:313
 msgid "Save _As"
 msgstr "Uložit _jako"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:178
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:311
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:179
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:313
 msgid "Save File As"
 msgstr "Uložit soubor jako"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:179
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:180
 msgid "_Execute Code"
 msgstr "_Provést kód"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:179
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:180
 msgid "Execute Code"
 msgstr "Provést kód"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:180
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:181
 msgid "Open Preferences _Directory"
 msgstr "Otevřít adresář s _nastavením"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:180
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:181
 msgid "Open the Directory with Preferences Files"
 msgstr "Otevřít adresář se soubory s nastavením"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:181
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:182
 msgid "Pa_ge Setup"
 msgstr "Nastavení stran_y"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:181
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:182
 msgid "Set up the Page for Printing"
 msgstr "Nastavit stranu pro tisk"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:182
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:183
 msgid "_Print"
 msgstr "_Tisk"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:182
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:183
 msgid "Print"
 msgstr "Tisk"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:183
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:184
 msgid "_Quit"
 msgstr "U_končit"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:183
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:184
 msgid "Quit the Application"
 msgstr "Ukončit program"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:184
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:185
 msgid "_Exit CherryTree"
 msgstr "_Ukončit CherryTree"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:184
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:185
 msgid "Exit from CherryTree"
 msgstr "Ukončit CherryTree"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:185
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:186
 msgid "_Preferences"
 msgstr "_Nastavení"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:185
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2361
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:186
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2398
 msgid "Preferences"
 msgstr "Nastavení"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:186
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:187
 msgid "_Undo"
 msgstr "_Zpět"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:186
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:187
 msgid "Undo Last Operation"
 msgstr "Vrátit poslední změny"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:187
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:188
 msgid "_Redo"
 msgstr "Znov_u"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:187
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:188
 msgid "Redo Previously Discarded Operation"
 msgstr "Obnovit poslední odvolanou změnu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:188
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:189
 msgid "Insert I_mage"
 msgstr "Vložit _obrázek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:188
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:189
 msgid "Insert an Image"
 msgstr "Vložit jeden obrázek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:190
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:191
 msgid "Insert _Table"
 msgstr "Vložit _tabulku"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:190
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:191
 msgid "Insert a Table"
 msgstr "Vložit jednu tabulku"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:191
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:192
 msgid "Insert _CodeBox"
 msgstr "Vložit _CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:191
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:192
 #: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:224
 msgid "Insert a CodeBox"
 msgstr "Vložit CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:192
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:193
 msgid "Insert _File"
 msgstr "Vložit _soubor"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:192
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:193
 msgid "Insert File"
 msgstr "Vložit soubor"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:193
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:194
 msgid "Insert/Edit _Link"
 msgstr "Vložit/Upravit o_dkaz"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:193
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:194
 msgid "Insert a Link/Edit the Underlying Link"
 msgstr "Vložit odkaz/Upravit označený odkaz"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:194
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:195
 msgid "Insert _Anchor"
 msgstr "Vložit _kotvu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:194
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:195
 msgid "Insert an Anchor"
 msgstr "Vložit jednu kotvu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:195
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:196
 msgid "Insert T_OC"
 msgstr "Vložit obs_ah"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:195
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:196
 msgid "Insert Table of Contents"
 msgstr "Vložit seznam s obsahem"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:196
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:197
 msgid "Insert Ti_mestamp"
 msgstr "Vložit časo_vé razítko"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:196
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:197
 msgid "Insert Timestamp"
 msgstr "Vložit časové razítko"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:197
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:198
 msgid "Insert _Horizontal Rule"
 msgstr "Vložit oddě_lovací čáru"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:197
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:198
 msgid "Insert Horizontal Rule"
 msgstr "Vložit oddělovací čáru"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:198
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:199
 msgid "_Lower Case of Selection/Word"
 msgstr "M_alá písmena výběru/slova"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:198
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:199
 msgid "Lower the Case of the Selection/the Underlying Word"
 msgstr "Zmenšit velikost písmen výběru/spodního slova"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:199
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:200
 msgid "_Upper Case of Selection/Word"
 msgstr "_Velká písmena výběru/slova"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:199
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:200
 msgid "Upper the Case of the Selection/the Underlying Word"
 msgstr "Zvětšit velikost písmen výběru/spodního slova"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:200
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:201
 msgid "_Toggle Case of Selection/Word"
 msgstr "_Přepnout velikost písmen výběru/slova"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:200
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:201
 msgid "Toggle the Case of the Selection/the Underlying Word"
 msgstr "Přepnout velikost písmen výběru/spodního slova"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:201
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:202
 msgid "Enable/Disable _Spell Check"
 msgstr "Povolit/Zakázat ověřování pravopisu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:201
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:202
 msgid "Toggle Enable/Disable Spell Check"
 msgstr "Přepnout Povolit/Zakázat ověřování pravopisu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:202
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:643
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:203
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:645
 msgid "Cu_t as Plain Text"
 msgstr "Vyjmou_t jako prostý text"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:202
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:643
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:203
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:645
 msgid "Cut as Plain Text, Discard the Rich Text Formatting"
 msgstr ""
 "Vyjmout jako prostý text, odložit formátování formátovaného textu (RTF)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:203
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:644
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:204
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:646
 msgid "_Copy as Plain Text"
 msgstr "_Kopírovat jako prostý text"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:203
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:644
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:204
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:646
 msgid "Copy as Plain Text, Discard the Rich Text Formatting"
 msgstr ""
 "Kopírovat jako prostý text, odložit formátování formátovaného textu (RTF)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:204
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:205
 msgid "_Paste as Plain Text"
 msgstr "_Vložit jako prostý text"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:204
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:205
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
 msgstr "Vložit jako prostý text, odložit formátování formátovaného textu (RTF)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:205
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:610
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:206
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:612
 msgid "Cu_t Row"
 msgstr "V_yjmout řádek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:205
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:206
 msgid "Cut the Current Row/Selected Rows"
 msgstr "Vyjmout nynější řádek/vybrané řádky"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:206
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:611
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:207
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:613
 msgid "_Copy Row"
 msgstr "_Kopírovat řádek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:206
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:207
 msgid "Copy the Current Row/Selected Rows"
 msgstr "Kopírovat nynější řádek/vybrané řádky"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:207
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:613
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:208
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:615
 msgid "De_lete Row"
 msgstr "Smazat řá_dek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:207
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:208
 msgid "Delete the Current Row/Selected Rows"
 msgstr "Smazat nynější řádek/vybrané řádky"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:208
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:209
 msgid "_Duplicate Row"
 msgstr "Zdvo_jit řádek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:208
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:209
 msgid "Duplicate the Current Row/Selection"
 msgstr "Zdvojit nynější řádek/výběr"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:209
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:210
 msgid "Move _Up Row"
 msgstr "Posunout řádek _nahoru"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:209
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:210
 msgid "Move Up the Current Row/Selected Rows"
 msgstr "Posunout nynější řádek/vybrané řádky nahoru"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:210
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:211
 msgid "Move _Down Row"
 msgstr "Posunout řádek _dolů"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:210
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:211
 msgid "Move Down the Current Row/Selected Rows"
 msgstr "Posunout nynější řádek/vybrané řádky dolů"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:211
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:212
 msgid "Format _Latest"
 msgstr "_Zopakovat formátování"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:211
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:212
 msgid "Memory of Latest Text Format Type"
 msgstr "Zopakovat poslední způsob formátování textu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:212
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:213
 msgid "_Remove Formatting"
 msgstr "_Odstranit formátování"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:212
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:213
 msgid "Remove the Formatting from the Selected Text"
 msgstr "Odstranit formátování z vybraného textu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:213
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:214
 msgid "Text _Color Foreground"
 msgstr "_Barva písma"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:213
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:214
 msgid "Change the Color of the Selected Text Foreground"
 msgstr "Změnit barvu písma u vybraného textu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:214
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:215
 msgid "Text C_olor Background"
 msgstr "Barva _pozadí"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:214
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:215
 msgid "Change the Color of the Selected Text Background"
 msgstr "Změnit barvu pozadí u vybraného textu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:215
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:216
 msgid "Toggle _Bold Property"
 msgstr "_Tučné"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:215
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:216
 msgid "Toggle Bold Property of the Selected Text"
 msgstr "Formátovat vybraný text tučně"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:216
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:217
 msgid "Toggle _Italic Property"
 msgstr "_Kurzíva"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:216
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:217
 msgid "Toggle Italic Property of the Selected Text"
 msgstr "Formátovat vybraný text kurzívně"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:217
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:218
 msgid "Toggle _Underline Property"
 msgstr "Podt_ržení"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:217
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:218
 msgid "Toggle Underline Property of the Selected Text"
 msgstr "Formátovat vybraný text podtržením"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:218
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:219
 msgid "Toggle Stri_kethrough Property"
 msgstr "Př_eškrtnutí"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:218
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:219
 msgid "Toggle Strikethrough Property of the Selected Text"
 msgstr "Formátovat vybraný text přeškrtnutím"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:219
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:220
 msgid "Toggle h_1 Property"
 msgstr "Nadpis _1"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:219
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:220
 msgid "Toggle h1 Property of the Selected Text"
 msgstr "Formátovat vybraný text jako nadpis 1"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:220
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:221
 msgid "Toggle h_2 Property"
 msgstr "Nadpis _2"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:220
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:221
 msgid "Toggle h2 Property of the Selected Text"
 msgstr "Formátovat vybraný text jako nadpis 2"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:221
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:222
 msgid "Toggle h_3 Property"
 msgstr "Nadpis _3"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:221
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:222
 msgid "Toggle h3 Property of the Selected Text"
 msgstr "Formátovat vybraný text jako nadpis 3"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:222
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:223
 msgid "Toggle _Small Property"
 msgstr "_Malý"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:222
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:223
 msgid "Toggle Small Property of the Selected Text"
 msgstr "Formátovat vybraný text jako malý"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:223
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:224
 msgid "Toggle Su_perscript Property"
 msgstr "_Horní index"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:223
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:224
 msgid "Toggle Superscript Property of the Selected Text"
 msgstr "Formátovat vybraný text jako horní index"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:224
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:225
 msgid "Toggle Su_bscript Property"
 msgstr "_Dolní index"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:224
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:225
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr "Formátovat vybraný text jako dolní index"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:225
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:226
 msgid "Toggle _Monospace Property"
 msgstr "_Neproporcionální písmo"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:225
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:226
 msgid "Toggle Monospace Property of the Selected Text"
 msgstr "Formátovat vybraný text jako neproporcionální"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:226
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:227
 msgid "Set/Unset _Bulleted List"
 msgstr "Zapnout/Vypnout _seznam s odrážkami"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:226
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:227
 msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
 msgstr ""
 "Zapnout/Vypnout nynější odstavec/výběr jako položku seznamu s odrážkami"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:227
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:228
 msgid "Set/Unset _Numbered List"
 msgstr "Zapnout/Vypnout číslov_aný seznam"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:227
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:228
 msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
 msgstr ""
 "Zapnout/Vypnout nynější odstavec/výběr jako položku číslovaného seznamu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:228
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:229
 msgid "Set/Unset _To-Do List"
 msgstr "Zapnout/Vypnout seznam pra_covních úkolů"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:228
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:229
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
 msgstr ""
 "Zapnout/Vypnout nynější odstavec/výběr jako položku seznamu pracovních úkolů"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:229
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:230
 msgid "Justify _Left"
 msgstr "Zarovnat _vlevo"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:229
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:230
 msgid "Justify Left the Current Paragraph"
 msgstr "Zarovnat současný odstavec vlevo"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:230
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:231
 msgid "Justify _Center"
 msgstr "Zarovnat _na střed"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:230
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:231
 msgid "Justify Center the Current Paragraph"
 msgstr "Zarovnat současný odstavec na střed"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:231
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:232
 msgid "Justify _Right"
 msgstr "Zarovnat v_pravo"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:231
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:232
 msgid "Justify Right the Current Paragraph"
 msgstr "Zarovnat současný odstavec vpravo"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:232
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:233
 msgid "Justify _Fill"
 msgstr "Zarovnat do _bloku"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:232
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:233
 msgid "Justify Fill the Current Paragraph"
 msgstr "Zarovnat současný odstavec do bloku"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:233
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:234
 msgid "Add _Node"
 msgstr "Přidat _uzel"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:233
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:234
 msgid "Add a Node having the same Parent of the Selected Node"
 msgstr "Přidat uzel se stejným nadřízeným uzlem, jaký má vybraný uzel"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:234
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:235
 msgid "Add _SubNode"
 msgstr "Přidat _podřízený uzel"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:234
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:235
 msgid "Add a Child Node to the Selected Node"
 msgstr "Přidat uzel podřízený vybranému uzlu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:235
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:236
 msgid "_Duplicate Node"
 msgstr "_Zdvojit uzel"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:235
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:236
 msgid "Duplicate the Selected Node"
 msgstr "Zdvojit vybraný uzel"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:236
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:237
 msgid "Change Node _Properties"
 msgstr "Změnit _vlastnosti uzlu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:236
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:237
 msgid "Edit the Properties of the Selected Node"
 msgstr "Upravit vlastnosti vybraného uzlu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:237
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:238
 msgid "Toggle _Read Only"
 msgstr "Přepnout pouze pro čt_ení"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:237
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:238
 msgid "Toggle the Read Only Property of the Selected Node"
 msgstr "Přepnout vlastnost pouze pro čtení vybraného uzlu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:238
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:239
 msgid "Insert Today's Node"
 msgstr "Vložit uzel s dnešním datem"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:238
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:239
 msgid "Insert a Node with Hierarchy Year/Month/Day"
 msgstr "Vložit uzel s uspořádáním rok/měsíc/den"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:239
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:240
 msgid "Tree _Info"
 msgstr "_Informace o stromu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:240
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:241
 msgid "Node _Up"
 msgstr "Posunout uzel nahor_u"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:240
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:241
 msgid "Move the Selected Node Up"
 msgstr "Posunout vybraný uzel nahoru"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:241
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:242
 msgid "Node _Down"
 msgstr "Posunout uzel _dolů"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:241
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:242
 msgid "Move the Selected Node Down"
 msgstr "Posunout vybraný uzel dolů"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:242
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:243
 msgid "Node _Left"
 msgstr "Zme_nšit odsazení"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:242
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:243
 msgid "Move the Selected Node Left"
 msgstr "Zmenšit odsazení uzlu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:243
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:244
 msgid "Node _Right"
 msgstr "Uzel v_pravo"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:243
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:244
 msgid "Move the Selected Node Right"
 msgstr "Posunout vybraný uzel vpravo"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:244
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:245
 msgid "Node Change _Parent"
 msgstr "Změnit _nadřízený uzel"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:244
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:245
 msgid "Change the Selected Node's Parent"
 msgstr "Změnit nadřízený uzel vybraného uzlu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:245
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:246
 msgid "Sort Tree _Ascending"
 msgstr "Třídit strom vzest_upně"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:245
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:246
 msgid "Sort the Tree Ascending"
 msgstr "Třídit strom vzestupně"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:246
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:247
 msgid "Sort Tree _Descending"
 msgstr "Třídit strom ses_tupně"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:246
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:247
 msgid "Sort the Tree Descending"
 msgstr "Třídit strom sestupně"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:247
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:248
 msgid "Sort Siblings A_scending"
 msgstr "Třídit sourozence _vzestupně"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:247
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:248
 msgid "Sort all the Siblings of the Selected Node Ascending"
 msgstr "Třídit všechny uzly na této úrovni vzestupně"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:248
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:249
 msgid "Sort Siblings D_escending"
 msgstr "Třídit sourozence s_estupně"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:248
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:249
 msgid "Sort all the Siblings of the Selected Node Descending"
 msgstr "Třídit všechny uzly na této úrovni sestupně"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:249
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:250
 msgid "_Inherit Syntax"
 msgstr "Dědit s_yntax"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:249
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:250
 msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Parent's "
 "Syntax Highlighting"
 msgstr ""
 "Přenášet vybrané zvýraznění skladby (syntaxe) na všechny podřízené uzly"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:250
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:251
 msgid "De_lete Node"
 msgstr "Smazat uze_l"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:250
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:251
 msgid "Delete the Selected Node"
 msgstr "Smazat vybraný uzel"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:251
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:252
 msgid "Go _Back"
 msgstr "Jít _zpět"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:251
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:252
 msgid "Go to the Previous Visited Node"
 msgstr "Jít na předchozí navštívený uzel"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:252
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:253
 msgid "Go _Forward"
 msgstr "Jít _vpřed"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:252
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:253
 msgid "Go to the Next Visited Node"
 msgstr "Jít na další navštívený uzel"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:253
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:254
 msgid "_Find in Node Content"
 msgstr "Hledat v _obsahu uzlu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:253
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:254
 msgid "Find into the Selected Node Content"
 msgstr "Hledat v obsahu vybraného uzlu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:254
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:255
 msgid "Find in _All Nodes Contents"
 msgstr "Hledat v obsazích _všech uzlů"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:254
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:255
 msgid "Find into All the Tree Nodes Contents"
 msgstr "Hledat v obsazích všech uzlů stromu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:255
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:256
 msgid "Find in _Selected Node and Subnodes Contents"
 msgstr "Hledat v obsahu vy_braného uzlu a v obsazích podřízených uzlů"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:255
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:256
 msgid "Find into the Selected Node and Subnodes Contents"
 msgstr "Hledat v obsahu vybraného uzlu a v obsazích podřízených uzlů"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:256
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:257
 msgid "Find in _Nodes Names and Tags"
 msgstr "_Hledat v názvech uzlů a ve značkách"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:256
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:257
 msgid "Find in Nodes Names and Tags"
 msgstr "Hledat v názvech uzlů a ve značkách"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:257
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:258
 msgid "Find _Again"
 msgstr "Hledat _dál"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:257
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:258
 msgid "Iterate the Last Find Operation"
 msgstr "Pokračovat v hledání"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:258
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:259
 msgid "Find _Back"
 msgstr "Hledat _pozpátku"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:258
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:259
 msgid "Iterate the Last Find Operation in Opposite Direction"
 msgstr "Zopakovat poslední hledání v opačném směru"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:259
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:260
 msgid "_Replace in Node Content"
 msgstr "Nahradit v _obsahu uzlu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:259
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:260
 msgid "Replace into the Selected Node Content"
 msgstr "Nahradit v obsahu vybraného uzlu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:260
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:261
 msgid "Replace in _All Nodes Contents"
 msgstr "Nahradit v obsazích _všech uzlů"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:260
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:261
 msgid "Replace into All the Tree Nodes Contents"
 msgstr "Nahradit v obsazích všech uzlů stromu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:261
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:262
 msgid "Replace in _Selected Node and Subnodes Contents"
 msgstr "Nahradit v obsahu vy_braného uzlu a v obsazích podřízených uzlů"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:261
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:262
 msgid "Replace into the Selected Node and Subnodes Contents"
 msgstr "Nahradit v obsahu vybraného uzlu a v obsazích podřízených uzlů"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:262
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:263
 msgid "Replace in Nodes _Names"
 msgstr "Nahradit v _názvech uzlů"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:262
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:263
 msgid "Replace in Nodes Names"
 msgstr "Nahradit v názvech uzlů"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:263
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:264
 msgid "Replace _Again"
 msgstr "Nahrazovat _dál"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:263
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:264
 msgid "Iterate the Last Replace Operation"
 msgstr "Zopakovat poslední nahrazení"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:264
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:265
 msgid "Show/Hide _Tree"
 msgstr "Ukázat/Skrýt stavbu s_tromu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:264
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:265
 msgid "Toggle Show/Hide Tree"
 msgstr "Ukázat/Skrýt strom"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:265
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:266
 msgid "Show/Hide Tool_bar"
 msgstr "Ukázat/Skrýt nástrojový pr_uh"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:265
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:266
 msgid "Toggle Show/Hide Toolbar"
 msgstr "Ukázat/Skrýt nástrojový pruh"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:266
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:267
 msgid "Show/Hide Node Name _Header"
 msgstr "Ukázat/Skrýt název uzlu v zá_hlaví"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:266
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:267
 msgid "Toggle Show/Hide Node Name Header"
 msgstr "Ukázat/Skrýt název uzlu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:267
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:268
 msgid "Show _All Matches Dialog"
 msgstr "Ukázat dialog všechny sho_dy"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:267
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:268
 msgid "Show Search All Matches Dialog"
 msgstr "Ukázat dialog pro vyhledání všech shod"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:268
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:269
 msgid "Toggle _Focus Tree/Text"
 msgstr "Přepnout _zaměření strom/text"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:268
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:269
 msgid "Toggle Focus Between Tree and Text"
 msgstr "Přepnout zaměření mezi stromem a textem"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:269
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:270
 msgid "E_xpand All Nodes"
 msgstr "_Rozbalit všechny uzly"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:269
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:270
 msgid "Expand All the Tree Nodes"
 msgstr "Rozbalit všechny uzly stromové stavby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:270
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:271
 msgid "_Collapse All Nodes"
 msgstr "_Složit všechny uzly"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:270
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:271
 msgid "Collapse All the Tree Nodes"
 msgstr "Složit všechny uzly stromové stavby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:271
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:272
 msgid "_Increase Toolbar Icons Size"
 msgstr "Z_většit velikost ikon v nástrojovém pruhu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:271
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:272
 msgid "Increase the Size of the Toolbar Icons"
 msgstr "Zvětšit velikost ikon v nástrojovém pruhu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:272
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:273
 msgid "_Decrease Toolbar Icons Size"
 msgstr "Z_menšit velikost ikon v nástrojovém pruhu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:272
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:273
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "Zmenšit velikost ikon v nástrojovém pruhu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:273
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:274
 msgid "_Full Screen On/Off"
 msgstr "Zobrazení na _celou obrazovku zapnuto/vypnuto"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:273
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:274
 msgid "Toggle Full Screen On/Off"
 msgstr "Přepnout zobrazení na celou obrazovku Zapnuto/Vypnuto"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:274
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:275
 msgid "Add to _Bookmarks"
 msgstr "Přidat do_záložek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:274
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:275
 msgid "Add the Current Node to the Bookmarks List"
 msgstr "Přidat současný uzel do seznamu záložek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:275
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:276
 msgid "_Remove from Bookmarks"
 msgstr "_Odstranit ze záložek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:275
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:276
 msgid "Remove the Current Node from the Bookmarks List"
 msgstr "Odstranit současný uzel ze seznamu záložek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:276
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:277
 msgid "_Handle Bookmarks"
 msgstr "_Pracovat se záložkami"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:276
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1907
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:277
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1956
 msgid "Handle the Bookmarks List"
 msgstr "Pracovat se seznamem záložek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:277
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:278
 msgid "From _CherryTree File"
 msgstr "Ze souboru _CherryTree"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:277
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:278
 msgid "Add Nodes of a CherryTree File to the Current Tree"
 msgstr "Přidat uzly ze souboru CherryTree do současné stromové stavby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:278
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:279
 msgid "From _Plain Text File"
 msgstr "Ze souboru _prostého textu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:278
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:279
 msgid "Add Node from a Plain Text File to the Current Tree"
 msgstr "Přidat uzel ze souboru s prostým textem do současné stromové stavby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:279
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:280
 msgid "From _Folder of Plain Text Files"
 msgstr "Ze _složky se soubory s prostým textem"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:279
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:280
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
 msgstr ""
 "Přidat uzly  ze složky se soubory s prostým textem do současné stromové "
 "stavby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:280
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:281
 msgid "From _HTML File"
 msgstr "Ze souboru _HTML"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:280
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:281
 msgid "Add Node from an HTML File to the Current Tree"
 msgstr "Přidat uzel ze souboru HTML do současné stromové stavby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:281
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:282
 msgid "From _Folder of HTML Files"
 msgstr "Ze sl_ožky se soubory HTML"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:281
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:282
 msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
 msgstr "Přidat uzly  ze složky se soubory HTML do současné stromové stavby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:282
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:283
 msgid "From _Basket Folder"
 msgstr "Ze složky _Basket"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:282
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:283
 msgid "Add Nodes of a Basket Folder to the Current Tree"
 msgstr "Přidat uzly ze složky Basket (koš) do současné stromové stavby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:283
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:284
 msgid "From _EssentialPIM HTML File"
 msgstr "Ze souboru HTML _EssentialPIM"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:283
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:284
 msgid "Add Node from an EssentialPIM HTML File to the Current Tree"
 msgstr "Přidat uzel ze souboru HTML EssentialPIM do současné stromové stavby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:284
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:285
 msgid "From _Gnote Folder"
 msgstr "Ze složky _Gnote"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:284
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:285
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
 msgstr "Přidat uzly ze složky Gnote do současné stromové stavby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:285
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:286
 msgid "From _KeepNote Folder"
 msgstr "Ze složky _KeepNote"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:285
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:286
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
 msgstr "Přidat uzly ze složky KeepNote do současné stromové stavby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:286
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:287
 msgid "From K_eyNote File"
 msgstr "Ze souboru Key_Note"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:286
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:287
 msgid "Add Nodes of a KeyNote File to the Current Tree"
 msgstr "Přidat uzly ze souboru KeyNote do současné stromové stavby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:287
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:288
 msgid "From K_nowit File"
 msgstr "Ze souboru Kno_wit"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:287
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:288
 msgid "Add Nodes of a Knowit File to the Current Tree"
 msgstr "Přidat uzly ze souboru Knowit do současné stromové stavby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:288
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:289
 msgid "From _Leo File"
 msgstr "Ze souboru _Leo"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:288
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:289
 msgid "Add Nodes of a Leo File to the Current Tree"
 msgstr "Přidat uzly ze souboru Leo do současné stromové stavby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:289
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:290
 msgid "From _Mempad File"
 msgstr "Ze souboru _Mempad"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:289
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:290
 msgid "Add Nodes of a Mempad File to the Current Tree"
 msgstr "Přidat uzly ze souboru Mempad do současné stromové stavby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:290
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:291
 msgid "From _NoteCase File"
 msgstr "Ze souboru NoteCas_e"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:290
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:291
 msgid "Add Nodes of a NoteCase File to the Current Tree"
 msgstr "Přidat uzly ze souboru NoteCase do současné stromové stavby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:291
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:292
 msgid "From _RedNotebook Folder"
 msgstr "Ze složky _RedNotebook"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:291
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:292
 msgid "Add Nodes of a RedNotebook Folder to the Current Tree"
 msgstr "Přidat uzly ze složky RedNotebook do současné stromové stavby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:292
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:293
 msgid "From T_omboy Folder"
 msgstr "Ze složky Tombo_y"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:292
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:293
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
 msgstr "Přidat uzly ze složky Tomboy do současné stromové stavby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:293
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:294
 msgid "From T_reepad Lite File"
 msgstr "Ze souboru _Treepad Lite"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:293
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:294
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
 msgstr "Přidat uzly ze souboru Treepad Lite do současné stromové stavby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:294
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:295
 msgid "From _TuxCards File"
 msgstr "Ze souboru Tu_xCards"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:294
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:295
 msgid "Add Nodes of a TuxCards File to the Current Tree"
 msgstr "Přidat uzly ze souboru TuxCards do současné stromové stavby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:295
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:296
 msgid "From _Zim Folder"
 msgstr "Ze složky _Zim"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:295
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:296
 msgid "Add Nodes of a Zim Folder to the Current Tree"
 msgstr "Přidat uzly ze složky Zim do současné stromové stavby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:296
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:297
 msgid "Export To _PDF"
 msgstr "Vyvést jako _PDF"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:296
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:297
 msgid "Export To PDF"
 msgstr "Vyvést jako PDF"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:297
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:299
 msgid "Export To _HTML"
 msgstr "Vyvést jako _HTML"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:297
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:299
 msgid "Export To HTML"
 msgstr "Vyvést jako HTML"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:298
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:300
 msgid "Export to Multiple Plain _Text Files"
 msgstr "Vyvést jako víc_e souborů prostého textu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:298
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:300
 msgid "Export to Multiple Plain Text Files"
 msgstr "Vyvést jako více souborů prostého textu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:299
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:301
 msgid "Export to _Single Plain Text File"
 msgstr "Vyvést jako _jeden soubor prostého textu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:299
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:301
 msgid "Export to Single Plain Text File"
 msgstr "Vyvést jako jeden soubor prostého textu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:300
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:302
 msgid "_Export To CherryTree Document"
 msgstr "Vyvést jako dokument _CherryTree"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:300
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:302
 msgid "Export To CherryTree Document"
 msgstr "Vyvést jako dokument CherryTree"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:301
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:303
 msgid "_Check Newer Version"
 msgstr "_Vyhledat novou verzi"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:301
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:303
 msgid "Check for a Newer Version"
 msgstr "Vyhledat novou verzi"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:302
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:304
 msgid "Online _Manual"
 msgstr "_Příručka na internetu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:302
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:304
 msgid "Application's Online Manual"
 msgstr "_Příručka programu na internetu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:303
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:305
 msgid "_About"
 msgstr "_O programu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:303
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:906
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:305
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:944
 msgid "About CherryTree"
 msgstr "O CherryTree"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:304
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:306
 msgid "C_ut Anchor"
 msgstr "_Vyjmout kotvu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:304
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:306
 msgid "Cut the Selected Anchor"
 msgstr "Vyjmout vybranou kotvu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:305
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:307
 msgid "_Copy Anchor"
 msgstr "_Kopírovat kotvu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:305
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:307
 msgid "Copy the Selected Anchor"
 msgstr "Kopírovat vybranou kotvu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:306
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:308
 msgid "_Delete Anchor"
 msgstr "_Smazat kotvu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:306
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:308
 msgid "Delete the Selected Anchor"
 msgstr "Smazat vybranou kotvu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:307
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:309
 msgid "Edit _Anchor"
 msgstr "Upravit _kotvu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:307
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:309
 msgid "Edit the Underlying Anchor"
 msgstr "Upravit označenou kotvu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:308
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:310
 msgid "C_ut Embedded File"
 msgstr "Vyj_mout vložený soubor"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:308
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:310
 msgid "Cut the Selected Embedded File"
 msgstr "Vyjmout vybraný vložený soubor"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:309
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:311
 msgid "_Copy Embedded File"
 msgstr "_Kopírovat vložený soubor"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:309
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:311
 msgid "Copy the Selected Embedded File"
 msgstr "Kopírovat vybraný vložený soubor"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:310
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:312
 msgid "_Delete Embedded File"
 msgstr "_Smazat vložený soubor"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:310
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:312
 msgid "Delete the Selected Embedded File"
 msgstr "Smazat vybraný vložený soubor"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:312
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:314
 msgid "Open Embedded File"
 msgstr "Otevřít vložený soubor"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:313
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:315
 msgid "_Save Image as PNG"
 msgstr "_Uložit obrázek jako PNG"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:313
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:315
 msgid "Save the Selected Image as a PNG file"
 msgstr "Uložit vybraný obrázek jako PNG"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:314
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:316
 msgid "_Edit Image"
 msgstr "_Upravit obrázek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:314
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:316
 msgid "Edit the Selected Image"
 msgstr "Upravit vybraný obrázek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:315
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:317
 msgid "C_ut Image"
 msgstr "Vy_jmout obrázek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:315
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:317
 msgid "Cut the Selected Image"
 msgstr "Vyjmout vybraný obrázek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:316
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:318
 msgid "_Copy Image"
 msgstr "_Kopírovat obrázek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:316
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:318
 msgid "Copy the Selected Image"
 msgstr "Kopírovat vybraný obrázek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:317
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:319
 msgid "_Delete Image"
 msgstr "_Smazat obrázek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:317
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:319
 msgid "Delete the Selected Image"
 msgstr "Smazat vybraný obrázek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:318
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:590
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:320
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:592
 msgid "Edit _Link"
 msgstr "Upravit _odkaz"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:318
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:320
 msgid "Edit the Link Associated to the Image"
 msgstr "Upravit odkaz spojený s obrázkem"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:319
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:594
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:321
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:596
 msgid "D_ismiss Link"
 msgstr "_Odmítnout odkaz"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:319
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:321
 msgid "Dismiss the Link Associated to the Image"
 msgstr "Odmítnout odkaz spojený s obrázkem"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:320
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:322
 msgid "Show/Hide _CherryTree"
 msgstr "Ukázat/Skrýt _CherryTree"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:320
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:322
 msgid "Toggle Show/Hide CherryTree"
 msgstr "Ukázat/Skrýt CherryTree"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:321
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:323
 msgid "Stri_p Trailing Spaces"
 msgstr "Z_bavit mezer na konci"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:321
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:323
 msgid "Strip Trailing Spaces"
 msgstr "Zbavit mezer na konci"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:329
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:331
 msgid "_File"
 msgstr "_Soubor"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:330
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:332
 msgid "_Edit"
 msgstr "Úp_ravy"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:331
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:460
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:333
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:462
 msgid "For_matting"
 msgstr "_Formát"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:332
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:334
 msgid "_Tree"
 msgstr "S_trom"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:333
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:393
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:335
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:395
 msgid "Node _Move"
 msgstr "Po_sunutí uzlu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:334
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:411
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:336
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:413
 msgid "Nodes _Import"
 msgstr "_Zavedení uzlů"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:335
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:432
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:337
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:434
 msgid "Nodes E_xport"
 msgstr "_Vyvedení uzlů"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:336
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:502
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:551
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:338
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:504
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:553
 msgid "C_hange Case"
 msgstr "Z_měnit velikost písmen"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:337
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:517
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:565
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:339
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:519
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:567
 msgid "_Search"
 msgstr "_Hledání"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:338
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:340
 msgid "_View"
 msgstr "_Pohled"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:339
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:341
 msgid "_Bookmarks"
 msgstr "Zá_ložky"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:340
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:342
 msgid "_Import"
 msgstr "_Zavedení"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:341
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:343
 msgid "E_xport"
 msgstr "_Vyvedení"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:342
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:344
 msgid "_Help"
 msgstr "Nápověd_a"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:401
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:403
 msgid "Nodes _Sort"
 msgstr "Tří_dění uzlů"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:478
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:480
 msgid "_Justify"
 msgstr "_Zarovnat"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:484
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:486
 msgid "_List"
 msgstr "_Vypsat"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:490
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:546
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:492
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:548
 msgid "_Insert"
 msgstr "_Vložit"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:507
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:556
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:509
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:558
 msgid "_Row"
 msgstr "Řá_dek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:525
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:573
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:527
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:575
 msgid "_Replace"
 msgstr "_Nahrazení"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:590
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:592
 msgid "Edit the Underlying Link"
 msgstr "Upravit označený odkaz"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:592
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:594
 msgid "C_ut Link"
 msgstr "V_yjmout odkaz"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:592
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:594
 msgid "Cut the Selected Link"
 msgstr "Vyjmout vybraný odkaz"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:593
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:595
 msgid "_Copy Link"
 msgstr "_Kopírovat odkaz"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:593
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:595
 msgid "Copy the Selected Link"
 msgstr "Kopírovat vybraný odkaz"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:594
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:596
 msgid "Dismiss the Selected Link"
 msgstr "Odmítnout vybraný odkaz"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:595
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:597
 msgid "_Delete Link"
 msgstr "_Smazat odkaz"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:595
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:597
 msgid "Delete the Selected Link"
 msgstr "Smazat vybraný odkaz"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:605
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:607
 msgid "C_ut Table"
 msgstr "Vyj_mout tabulku"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:605
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:607
 msgid "Cut the Selected Table"
 msgstr "Vyjmout vybranou tabulku"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:606
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:608
 msgid "_Copy Table"
 msgstr "_Kopírovat tabulku"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:606
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:608
 msgid "Copy the Selected Table"
 msgstr "Kopírovat vybranou tabulku"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:607
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:609
 msgid "_Delete Table"
 msgstr "_Smazat tabulku"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:607
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:609
 msgid "Delete the Selected Table"
 msgstr "Smazat vybranou tabulku"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:609
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:611
 msgid "_Add Row"
 msgstr "__Přidat řádek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:609
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:611
 msgid "Add a Table Row"
 msgstr "Přidat řádek v tabulce"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:610
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:612
 msgid "Cut a Table Row"
 msgstr "Vyjmout řádek v tabulce"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:611
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:613
 msgid "Copy a Table Row"
 msgstr "Kopírovat řádek v tabulce"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:612
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:614
 msgid "_Paste Row"
 msgstr "_Vložit řádek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:612
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:614
 msgid "Paste a Table Row"
 msgstr "Vložit řádek v tabulce"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:613
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:615
 msgid "Delete the Selected Table Row"
 msgstr "Smazat vybraný řádek v tabulce"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:615
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:617
 msgid "Move Row _Up"
 msgstr "Posunout řádek _nahoru"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:615
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:617
 msgid "Move the Selected Row Up"
 msgstr "Posunout vybraný řádek nahoru"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:616
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:618
 msgid "Move Row _Down"
 msgstr "Posunout řádek _dolů"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:616
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:618
 msgid "Move the Selected Row Down"
 msgstr "Posunout vybraný řádek dolů"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:617
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:619
 msgid "Sort Rows De_scending"
 msgstr "Třídit řádky ses_tupně"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:617
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:619
 msgid "Sort all the Rows Descending"
 msgstr "Třídit všechny řádky sestupně"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:618
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:620
 msgid "Sort Rows As_cending"
 msgstr "Třídit řádky vzest_upně"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:618
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:620
 msgid "Sort all the Rows Ascending"
 msgstr "Třídit všechny řádky vzestupně"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:620
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:622
 msgid "_Edit Table Properties"
 msgstr "_Upravit vlastnosti tabulky"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:620
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:622
 msgid "Edit the Table Properties"
 msgstr "Upravit vlastnosti tabulky"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:621
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:623
 msgid "_Table Export"
 msgstr "Vyvést _tabulku"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:621
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:623
 msgid "Export Table as CSV File"
 msgstr "Vyvést tabulku jako soubor CSV"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:632
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:634
 msgid "Insert _NewLine"
 msgstr "Vložit _nový řádek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:632
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:634
 msgid "Insert NewLine Char"
 msgstr "Vložit znak pro nový řádek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:646
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:648
 msgid "Change CodeBox _Properties"
 msgstr "Změnit _vlastnosti CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:646
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:648
 msgid "Edit the Properties of the CodeBox"
 msgstr "Upravit vlastnosti CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:647
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:649
 msgid "_Execute CodeBox Code"
 msgstr "_Provést kód CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:647
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:649
 msgid "Execute CodeBox Code"
 msgstr "Provést kód CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:648
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:650
 msgid "CodeBox _Load From Text File"
 msgstr "_Nahrát CodeBox z textového souboru"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:648
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:650
 msgid "Load the CodeBox Content From a Text File"
 msgstr "Nahrát obsah CodeBox z textového souboru"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:649
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:651
 msgid "CodeBox _Save To Text File"
 msgstr "_Uložit CodeBox do textového souboru"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:649
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:651
 msgid "Save the CodeBox Content To a Text File"
 msgstr "Uložit obsah CodeBox do textového souboru"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:651
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:653
 msgid "C_ut CodeBox"
 msgstr "V_yjmout CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:651
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:653
 msgid "Cut the Selected CodeBox"
 msgstr "Vyjmout vybraný CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:652
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:654
 msgid "_Copy CodeBox"
 msgstr "_Kopírovat CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:652
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:654
 msgid "Copy the Selected CodeBox"
 msgstr "Kopírovat vybraný CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:653
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:655
 msgid "_Delete CodeBox"
 msgstr "S_mazat CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:653
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:655
 msgid "Delete the Selected CodeBox"
 msgstr "Smazat vybraný CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:654
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:656
 msgid "Delete CodeBox _Keep Content"
 msgstr "Smazat CodeBox při zachování jeho obsahu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:654
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:656
 msgid "Delete the Selected CodeBox But Keep Its Content"
 msgstr "Smazat vybraný CodeBox, ale zachovat jeho obsah"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:656
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:658
 msgid "Increase CodeBox Width"
 msgstr "Rozšířit CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:656
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:658
 msgid "Increase the Width of the CodeBox"
 msgstr "Zvětšit šířku CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:657
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:659
 msgid "Decrease CodeBox Width"
 msgstr "Zúžit CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:657
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:659
 msgid "Decrease the Width of the CodeBox"
 msgstr "Zmenšit šířku CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:658
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:660
 msgid "Increase CodeBox Height"
 msgstr "Prodloužit CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:658
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:660
 msgid "Increase the Height of the CodeBox"
 msgstr "Zvětšit výšku CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:659
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:661
 msgid "Decrease CodeBox Height"
 msgstr "Zkrátit CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/menus.py:659
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:661
 msgid "Decrease the Height of the CodeBox"
 msgstr "Zmenšit výšku CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/imports.py:2621
+#: /home/giuspen/Software/git_cherrytree/modules/imports.py:2645
 msgid "Downloading"
 msgstr "Stažení"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:791
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:828
 msgid "Tab Width"
 msgstr "Šířka zarážky"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:797
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:834
 msgid "Insert Spaces Instead of Tabs"
 msgstr "Vložit mezery místo zarážek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:799
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:836
 msgid "Use Line Wrapping"
 msgstr "Použít zalamování řádků"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:803
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:840
 msgid "Line Wrapping Indentation"
 msgstr "Odsazení zalamování řádků"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:809
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:846
 msgid "Enable Automatic Indentation"
 msgstr "Povolit automatické odsazení"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:811
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:848
 #: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:151
 msgid "Show Line Numbers"
 msgstr "Ukázat čísla řádků"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:815
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:852
 msgid "Vertical Space Around Lines"
 msgstr "Svislá mezera okolo řádků"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:823
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:860
 msgid "Vertical Space in Wrapped Lines"
 msgstr "Svislá mezera v zalomených řádcích"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:840
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1217
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1257
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:877
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1254
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1294
 msgid "Text Editor"
 msgstr "Textový editor"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:850
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:887
 msgid "Timestamp Format"
 msgstr "Formát časového razítka"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:860
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:897
 msgid "Horizontal Rule"
 msgstr "Oddělovací čára"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:868
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:905
 msgid "Special Characters"
 msgstr "Zvláštní znaky"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:872
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1316
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1328
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1921
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2097
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:909
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1353
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1365
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1958
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2134
 msgid "Reset to Default"
 msgstr "Obnovit výchozí"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:895
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:932
 msgid "Chars to Select at Double Click"
 msgstr "Znaky k vybrání při dvojitém klepnutí"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:907
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1090
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1430
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1828
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2237
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2383
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:944
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1127
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1467
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1865
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2274
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2420
 msgid "Miscellaneous"
 msgstr "Různé"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:925
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1382
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2054
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2140
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:962
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1419
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2091
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2177
 msgid "Are you sure to Reset to Default?"
 msgstr "Opravdu chcete vrátit na výchozí?"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:981
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1018
 msgid "Enable Spell Check"
 msgstr "Povolit ověřování pravopisu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:985
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1022
 msgid "Spell Check Language"
 msgstr "Jazyk ověřování pravopisu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1008
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1476
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1045
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1513
 msgid "Light Background, Dark Text"
 msgstr "Světlé pozadí, tmavý text"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1009
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1477
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1046
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1514
 msgid "Dark Background, Light Text"
 msgstr "Tmavé pozadí, světlý text"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1011
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1479
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1048
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1516
 msgid "Custom Background"
 msgstr "Vlastní pozadí"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1016
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1484
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1053
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1521
 msgid "and Text"
 msgstr "a text"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1022
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1059
 msgid "Monospace Background"
 msgstr "Jednoprostorové pozadí"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1034
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1494
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1071
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1531
 msgid "Theme"
 msgstr "Vzhled"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1060
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1248
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1097
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1285
 msgid "Show White Spaces"
 msgstr "Ukázat prázdná místa"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1062
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1250
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1099
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1287
 msgid "Highlight Current Line"
 msgstr "Zvýraznit nynější řádek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1064
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1101
 msgid "Expand CodeBoxes Automatically"
 msgstr "Rozšířit CodeBoxy automaticky"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1068
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1105
 msgid "Embedded File Icon Size"
 msgstr "Velikost ikony vloženého souboru"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1074
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1111
 msgid "Show File Name on Top of Embedded File Icon"
 msgstr "Ukázat název souboru nahoře ikony vloženého souboru"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1076
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1113
 msgid "Limit of Undoable Steps Per Node"
 msgstr "Počet kroků zpět na uzel"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1208
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1245
 msgid "Enable Smart Quotes Auto Replacement"
 msgstr "Povolit automatické nahrazování chytrých uvozovek"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1211
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1248
 msgid "Enable Symbol Auto Replacement"
 msgstr "Povolit automatické nahrazování symbolů"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1240
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1277
 msgid "Style Scheme"
 msgstr "Nákres stylu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1313
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2091
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1350
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2128
 msgid "Add"
 msgstr "Přidat"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1335
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1372
 msgid "Command per Node/CodeBox Type"
 msgstr "Příkaz na typ uzlu/CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1339
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1376
 msgid "Terminal Command"
 msgstr "Příkaz pro terminál"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1344
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1381
 msgid "Code Execution"
 msgstr "Vykonání kódu  "
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1375
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2125
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1412
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2162
 msgid "Select Element to Add"
 msgstr "Vybrat prvek k přidání"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1404
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1441
 msgid "Tree Nodes Names Wrapping Width"
 msgstr "Největší šířka názvu uzlu před zalomením"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1410
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1447
 msgid "Display Tree on the Right Side"
 msgstr "Zobrazit strom na pravé straně"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1412
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1449
 msgid "Move Focus to Text at Mouse Click"
 msgstr "Přesunout zaměření na text při klepnutí myší"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1414
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1451
 msgid "Expand Node at Mouse Click"
 msgstr "Rozbalit uzel při klepnutí myší"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1418
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1455
 msgid "Last Visited Nodes on Node Name Header"
 msgstr "Naposledy navštívené uzly na záhlaví názvu uzlu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1514
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1551
 msgid "Use Different Cherries per Level"
 msgstr "Použít pro úroveň různé třešně"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1517
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1554
 msgid "No Icon"
 msgstr "Žádná ikona"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1519
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1556
 msgid "Hide Right Side Auxiliary Icon"
 msgstr "Skrýt pomocnou ikonu na pravé straně"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1533
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1570
 msgid "Default Text Nodes Icons"
 msgstr "Výchozí ikony uzlů textu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1547
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1584
 msgid "Restore Expanded/Collapsed Status"
 msgstr "Obnovit stav rozbaleno/sbaleno"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1548
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1585
 msgid "Expand all Nodes"
 msgstr "Rozbalit všechny uzly"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1550
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1587
 msgid "Collapse all Nodes"
 msgstr "Sbalit všechny uzly"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1552
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1589
 msgid "Nodes in Bookmarks Always Visible"
 msgstr "Uzly v záložkách vždy viditelné"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1560
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1597
 msgid "Nodes Status at Startup"
 msgstr "Stav uzlů při spuštění"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1671
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1708
 msgid "Code Font"
 msgstr "Písmo kódu  "
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1672
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1709
 msgid "Tree Font"
 msgstr "Písmo ve stromu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1693
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2379
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1730
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2416
 msgid "Fonts"
 msgstr "Písma"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1734
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1771
 msgid "Enable Custom Web Link Clicked Action"
 msgstr "Povolit vlastní činnost při klepnutí na internetový odkaz"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1736
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1773
 msgid "Enable Custom File Link Clicked Action"
 msgstr "Povolit vlastní činnost při klepnutí na odkaz souboru"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1738
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1775
 msgid "Enable Custom Folder Link Clicked Action"
 msgstr "Povolit vlastní činnost při klepnutí na odkaz složky"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1747
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1784
 msgid "Custom Actions"
 msgstr "Vlastní činnosti"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1772
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1266
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1809
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1315
 msgid "To WebSite"
 msgstr "Pro internetovou stránku"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1779
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1307
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1816
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1356
 msgid "To Node"
 msgstr "Pro uzel"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1786
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1277
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1823
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1326
 msgid "To File"
 msgstr "Pro soubor"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1793
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1292
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1830
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1341
 msgid "To Folder"
 msgstr "Pro složku"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1803
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1840
 msgid "Colors"
 msgstr "Barvy"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1812
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1849
 msgid "Underline Links"
 msgstr "Podtrhnout odkazy"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1814
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1851
 msgid "Use Relative Paths for Files And Folders"
 msgstr "Použít relativní cesty pro soubory a složky"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1818
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1855
 msgid "Anchor Size"
 msgstr "Velikost kotvy"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1918
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1955
 msgid "Change Selected"
 msgstr "Změnit vybrané"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1931
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1968
 msgid "File"
 msgstr "Soubor"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1932
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2377
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2378
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1969
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2414
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2415
 msgid "Tree"
 msgstr "Strom"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1933
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1970
 msgid "Editor"
 msgstr "Editor"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1934
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1971
 msgid "Format"
 msgstr "Formátovat"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1935
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1972
 msgid "Find/Replace"
 msgstr "Najít/Nahradit"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1936
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1973
 msgid "View"
 msgstr "Zobrazit"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1937
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1974
 msgid "Export"
 msgstr "Vyvedení"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1938
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1975
 msgid "Import"
 msgstr "Zavedení"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1958
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1995
 msgid "Edit Keyboard Shortcut"
 msgstr "Upravit klávesovou zkratku"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:1965
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2002
 msgid "No Keyboard Shortcut"
 msgstr "Žádná klávesová zkratka"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2035
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2072
 #, python-format
 msgid "The Keyboard Shortcut '%s' is already in use"
 msgstr "Klávesová zkratka '%s' se již používá"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2035
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2072
 #, python-format
 msgid "The current associated action is '%s'"
 msgstr "Nyní přiřazená činnost je '%s'"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2035
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2072
 msgid "Do you want to steal the shortcut?"
 msgstr "Chcete klávesovou zkratku sebrat?"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2094
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2131
 msgid "Remove Selected"
 msgstr "Odstranit vybrané"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2161
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2198
 msgid "Enable System Tray Docking"
 msgstr "Povolit ikonu v oznamovací oblasti panelu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2162
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2199
 msgid "Start Minimized in the System Tray"
 msgstr "Spustit zmenšeno v oznamovací oblasti panelu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2163
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2200
 msgid "Use AppIndicator for Docking"
 msgstr "Použít ukazatele programů pro ukotvení v panelu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2168
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2205
 msgid "System Tray"
 msgstr "Oznamovací oblast panelu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2185
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2222
 msgid "Autosave Every"
 msgstr "Automaticky uložit každých"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2188
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2225
 msgid "Minutes"
 msgstr "minut"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2192
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2229
 msgid "Autosave on Quit"
 msgstr "Automaticky uložit při ukončení"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2193
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2230
 msgid "Create a Backup Copy Before Saving"
 msgstr "Před uložením vytvořit záložní kopii"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2196
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2233
 msgid "Number of Backups to Keep"
 msgstr "Počet záloh k zachování"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2214
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2251
 msgid "Saving"
 msgstr "Ukládání"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2223
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2260
 msgid "Automatically Check for Newer Version"
 msgstr "Automaticky vyhledat novou verzi"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2224
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2261
 msgid "Enable Word Count in Statusbar"
 msgstr "Povolit počet slov ve stavového řádku"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2225
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2262
 msgid "Reload Document From Last Session"
 msgstr "Nahrát dokument z posledního sezení znovu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2226
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2263
 msgid "Reload After External Update to CT* File"
 msgstr "Nahrát znovu po vnější aktualizaci na soubor CT*"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2253
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2290
 msgid "Language"
 msgstr "Jazyk"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2353
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2390
 msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "Nový jazyk bude dostupný až po novém spuštění CherryTree"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2373
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2410
 msgid "Text and Code"
 msgstr "Text a kód"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2374
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2411
 msgid "Text"
 msgstr "Text"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2376
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2413
 msgid "Plain Text and Code"
 msgstr "Prostý text a kód"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2380
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2417
 msgid "Links"
 msgstr "Odkazy"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2381
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2418
 msgid "Toolbar"
 msgstr "Nástrojový pruh"
 
-#: /home/giuspen/Software/git_cherrytree/modules/config.py:2382
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2419
 msgid "Keyboard Shortcuts"
 msgstr "Klávesové zkratky"
 
@@ -2714,12 +2727,12 @@ msgid "Type"
 msgstr "Typ"
 
 #: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:112
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1049
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1088
 msgid "Width"
 msgstr "Šířka"
 
 #: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:116
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1052
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1091
 msgid "Height"
 msgstr "Výška"
 
@@ -2743,42 +2756,42 @@ msgstr "Volby"
 msgid "Edit CodeBox"
 msgstr "Upravit CodeBox"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:723
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:759
 msgid "Save File as"
 msgstr "Uložit soubor jako"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:754
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:790
 msgid "Select File"
 msgstr "Vybrat soubor"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:785
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:821
 msgid "Select Folder"
 msgstr "Vybrat složku"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:813
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:849
 msgid "Question"
 msgstr "Otázka"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:828
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:864
 msgid "Info"
 msgstr "Informace"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:834
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:870
 msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr "Tato změna se projeví až po novém spuštění CherryTree"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:844
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1127
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1161
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1204
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:880
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1176
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1210
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1253
 msgid "Warning"
 msgstr "Varování"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:856
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:892
 msgid "Error"
 msgstr "Chyba"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:867
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:903
 msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
 "Highlighting"
@@ -2786,7 +2799,7 @@ msgstr ""
 "Program k hierarchickému vedení poznámek, s vlastnostmi, jaké má formátovaný "
 "text (RTF), a zvýrazňování skladby"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:868
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:904
 msgid ""
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
@@ -2818,147 +2831,151 @@ msgstr ""
 "a pokud ne, napište Free Software Foundation, Inc., 51 Franklin St, Fifth "
 "Floor, Boston, MA 02110-1301, USA.\n"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:887
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:924
 msgid "Armenian"
 msgstr "Překlad do arménštiny"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:888
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:925
 msgid "Chinese Simplified"
 msgstr "Překlad do zjednodušené čínštiny"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:889
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:926
 msgid "Czech"
 msgstr "Překlad do češtiny"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:890
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:927
 msgid "Dutch"
 msgstr "Překlad do holandštiny"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:891
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:928
 msgid "Finnish"
 msgstr "Překlad do finštiny"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:892
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:929
 msgid "French"
 msgstr "Překlad do francouzštiny"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:893
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:930
 msgid "German"
 msgstr "Překlad do němčiny"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:894
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:931
 msgid "Greek"
 msgstr "Překlad do řečtiny"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:895
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:932
 msgid "Italian"
 msgstr "Překlad do italštiny"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:896
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:933
 msgid "Japanese"
 msgstr "Překlad do japonštiny"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:897
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:934
 msgid "Lithuanian"
 msgstr "Překlad do litevštiny"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:898
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:935
 msgid "Polish"
 msgstr "Překlad do polštiny"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:899
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:936
 msgid "Portuguese Brazil"
 msgstr "Překlad do brazilské portugalštiny"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:900
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:937
 msgid "Russian"
 msgstr "Překlad do ruštiny"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:901
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:938
 msgid "Slovenian"
 msgstr "Překlad do slovinštiny"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:902
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:939
 msgid "Spanish"
 msgstr "Překlad do španělštiny"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:903
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:940
+msgid "Swedish"
+msgstr "Překlad do švédštiny"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:941
 msgid "Turkish"
 msgstr "Překlad do turečtiny"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:904
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:942
 msgid "Ukrainian"
 msgstr "Překlad do ukrajinštiny"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1164
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1207
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1213
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1256
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1165
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1209
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1214
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1258
 msgid "Yes"
 msgstr "Ano"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1177
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1226
 msgid "Temporary Files were Created and Opened with External Applications."
 msgstr "Dočasné soubory byly vytvořeny a otevřeny ve vnějších programech."
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1177
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1226
 msgid "Quit the External Applications Before Quit CherryTree."
 msgstr "Ukončit vnější programy před ukončením CherryTree."
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1177
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1226
 msgid "Did you Quit the External Applications?"
 msgstr "Ukončil jste vnější programy?"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1208
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1257
 msgid "No"
 msgstr "Ne"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1223
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1272
 msgid "The Current Document was Updated."
 msgstr "Nynější dokument byl aktualizován."
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1223
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1272
 msgid "Do you want to Save the Changes?"
 msgstr "Chcete uložit změny?"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1343
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1392
 msgid "Anchor Name (optional)"
 msgstr "Název kotvy (volitelný)"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1430
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1479
 msgid "There are No Anchors in the Selected Node"
 msgstr "Ve vybraném uzlu nejsou žádné kotvy"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1432
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1481
 msgid "Choose Existing Anchor"
 msgstr "Vybrat stávající kotvu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1432
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1481
 msgid "Anchor Name"
 msgstr "Název kotvy"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1496
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1545
 msgid "Choose Storage Type"
 msgstr "Vyberte typ úložiště"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1503
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1506
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1552
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1555
 msgid "Not Protected"
 msgstr "Nechráněn"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1504
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1508
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1553
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1557
 msgid "Password Protected"
 msgstr "Heslo chráněno"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1515
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1564
 msgid "Storage Type"
 msgstr "Typ úložiště"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1523
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1572
 msgid ""
 "CT saves the document in an encrypted 7zip archive. When viewing or editing "
 "the document, CT extracts the encrypted archive to a temporary folder, and "
@@ -2972,73 +2989,73 @@ msgstr ""
 "z dočasného adresáře. Všimněte si, že v případě pádu programu nebo systému "
 "nezašifrovaný dokument zůstane ve složce s dočasnými soubory."
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1530
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1579
 msgid "Enter the New Password Twice"
 msgstr "Zadejte nové heslo dvakrát"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1573
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1622
 msgid "The Password Fields Must be Filled"
 msgstr "Pole pro hesla musí být vyplněna"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1576
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1625
 msgid "The Two Inserted Passwords Do Not Match"
 msgstr "Ta dvě vložená hesla se neshodují"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1580
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1629
 #, python-format
 msgid "The Characters  %s  are Not Allowed"
 msgstr "Znaky %s nejsou dovoleny"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1671
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1720
 msgid "Involved Nodes"
 msgstr "Související uzly"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1677
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1726
 msgid "Selected Text Only"
 msgstr "Pouze vybraný text"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1678
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1727
 msgid "Selected Node Only"
 msgstr "Pouze vybraný uzel"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1679
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1728
 msgid "Selected Node and Subnodes"
 msgstr "Vybraný uzel a podřízené uzly"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1680
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1729
 msgid "All the Tree"
 msgstr "Celý strom"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1691
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1740
 msgid "Include Node Name"
 msgstr "Zahrnout název uzlu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1697
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1746
 msgid "Links Tree in Every Page"
 msgstr "Strom s odkazy na každé straně"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1702
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1751
 msgid "New Node in New Page"
 msgstr "Nový uzel na nové straně"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1730
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1779
 msgid "Pick a Color"
 msgstr "Vybrat barvu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1826
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1875
 msgid "Remove from list"
 msgstr "Odstranit ze seznamu"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1849
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1898
 msgid "_Recent Documents"
 msgstr "Nedávné _dokumenty"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1851
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1858
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1900
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1907
 msgid "Open a Recent CherryTree Document"
 msgstr "Otevřít nedávný dokument CherryTree"
 
-#: /home/giuspen/Software/git_cherrytree/modules/support.py:1884
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1933
 #, python-format
 msgid "The Document %s was Not Found"
 msgstr "Dokument %s nebyl nalezen"
@@ -3047,7 +3064,8 @@ msgstr "Dokument %s nebyl nalezen"
 msgid "PDF File"
 msgstr "Soubor PDF"
 
-#: /home/giuspen/Software/git_cherrytree/modules/exports.py:700
+#: /home/giuspen/Software/git_cherrytree/modules/exports.py:708
+#: /home/giuspen/Software/git_cherrytree/modules/exports.py:747
 msgid "Index"
 msgstr "Rejstřík"
 
