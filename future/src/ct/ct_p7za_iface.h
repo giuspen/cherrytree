@@ -25,8 +25,9 @@
 
 namespace CtP7zaIface {
 
-int p7za_extract(const gchar* input_path, const gchar* out_dir, const gchar* passwd);
+int p7za_extract(const gchar* input_path, const gchar* out_dir, const gchar* passwd, const bool dbg_print_cmd=false);
 
-int p7za_archive(const gchar* input_path, const gchar* output_path, const gchar* passwd);
+int p7za_archive(const gchar* input_path, const gchar* output_path, const gchar* passwd, const bool dbg_print_cmd=false);
 
 } // namespace CtP7zaIface
+

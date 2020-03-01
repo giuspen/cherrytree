@@ -25,19 +25,41 @@
 
 extern int p7za_exec(int numArgs, char *args[]);
 
-int CtP7zaIface::p7za_extract(const gchar* input_path, const gchar* out_dir, const gchar* passwd)
+#ifdef _WIN32
+static void _slashes_convert(gchar* pPath)
+{
+    const gchar from{'\\'};
+    const gchar to{'/'};
+    gchar* pChar{pPath};
+    while (pChar)
+    {
+        pChar = strchr(pChar, from);
+        if (pChar) *pChar = to;
+    }
+}
+#endif // _WIN32
+
+int CtP7zaIface::p7za_extract(const gchar* input_path, const gchar* out_dir, const gchar* passwd, const bool dbg_print_cmd)
 {
     g_autofree gchar* p_args = g_strdup_printf("7za e -p%s -w%s -bd -y -o%s %s", passwd, g_get_tmp_dir(), out_dir, input_path);
+#ifdef _WIN32
+    _slashes_convert(p_args);
+#endif // _WIN32
+    if (dbg_print_cmd) g_print("\n%s\n", p_args);
     gchar** pp_args = g_strsplit(p_args, " ", 0);
     int ret_val = p7za_exec(8, pp_args);
     g_strfreev(pp_args);
     return ret_val;
 }
 
-int CtP7zaIface::p7za_archive(const gchar* input_path, const gchar* output_path, const gchar* passwd)
+int CtP7zaIface::p7za_archive(const gchar* input_path, const gchar* output_path, const gchar* passwd, const bool dbg_print_cmd)
 {
     g_autofree gchar* p_workspace_dir = g_path_get_dirname(output_path);
     g_autofree gchar* p_args = g_strdup_printf("7za a -p%s -w%s -mx1 -bd -y %s %s", passwd, p_workspace_dir, output_path, input_path);
+#ifdef _WIN32
+    _slashes_convert(p_args);
+#endif // _WIN32
+    if (dbg_print_cmd) g_print("\n%s\n", p_args);
     gchar** pp_args = g_strsplit(p_args, " ", 0);
     int ret_val = p7za_exec(9, pp_args);
     g_strfreev(pp_args);
