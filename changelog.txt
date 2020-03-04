@@ -1,5 +1,5 @@
 
-0.39.0 ()
+0.39.0 (March 4th, 2020)
   * improved export to html (work of @ksmukta)
   * fixed export to pdf, picture blurry (work of @txe)
   * implemented a 'command palette' dialog to quickly access all the commands in one place (work of @ksmukta)
