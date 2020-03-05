@@ -59,6 +59,8 @@ public:
     virtual bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) = 0;
     virtual void set_modified_false() = 0;
     virtual CtAnchWidgType get_type() = 0;
+    virtual CtAnchoredWidget* clone() = 0;
+    virtual bool equal(CtAnchoredWidget*) = 0;
 
     void updateOffset(int charOffset) { _charOffset = charOffset; }
     void updateJustification(const std::string& justification) { _justification = justification; }

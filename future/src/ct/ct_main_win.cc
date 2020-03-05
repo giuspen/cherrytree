@@ -972,8 +972,54 @@ void CtMainWin::update_window_save_needed(const CtSaveNeededUpdType update_type,
             _uCtTreestore->pending_edit_db_bookmarks();
         } break;
     }
-    //todo
-    //if new_state_machine and tree_iter: self.state_machine.update_state()
+    if (new_machine_state && treeIter)
+        get_state_machine().update_state(treeIter);
+}
+
+// Load Text Buffer from State Machine
+void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTreeIter tree_iter)
+{
+    // todo:
+    // spell_check_restore = self.enable_spell_check
+    // self.toggle_ena_dis_spellcheck()
+    bool user_active_restore = user_active();
+    user_active() = false;
+
+    auto text_buffer = tree_iter.get_node_text_buffer();
+    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(text_buffer);
+
+    text_buffer->begin_not_undoable_action();
+
+    text_buffer->erase(text_buffer->begin(), text_buffer->end());
+    std::list<CtAnchoredWidget*> widgets;
+    for (xmlpp::Node* slot_node: state->node_xml.get_root_node()->get_children())
+    {
+        if (slot_node->get_name() != "slot")
+            continue;
+        for (xmlpp::Node* child_node: slot_node->get_children())
+            CtXmlRead(this).get_text_buffer_slot(gsv_buffer, nullptr, widgets, child_node);
+    }
+    tree_iter.remove_all_embedded_widgets();
+    // CtXmlRead(this).get_text_buffer_slot didn't fill widgets, they are kept separately
+    for (auto widget: state->widgets)
+        widgets.push_back(widget->clone());
+    for (auto widget: widgets)
+        widget->insertInTextBuffer(gsv_buffer);
+    curr_tree_store().addAnchoredWidgets(tree_iter, widgets, &get_text_view());
+
+    text_buffer->end_not_undoable_action();
+    text_buffer->set_modified(false);
+
+    get_text_view().set_buffer(text_buffer);
+    // todo: objects_buffer_refresh()
+    text_buffer->place_cursor(text_buffer->get_iter_at_offset(state->cursor_pos));
+    get_text_view().scroll_to(text_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
+
+    user_active() = user_active_restore;
+    // todo:
+    // if not given_tree_iter:
+    //    if spell_check_restore: self.toggle_ena_dis_spellcheck()
+    update_window_save_needed(CtSaveNeededUpdType::nbuf, false, &tree_iter);
 }
 
 void CtMainWin::_on_treeview_cursor_changed()
@@ -996,6 +1042,8 @@ void CtMainWin::_on_treeview_cursor_changed()
     window_header_update_lock_icon(treeIter.get_node_read_only());
     window_header_update_bookmark_icon(false);
     update_selected_node_statusbar_info();
+    get_state_machine().node_selected_changed(treeIter.get_node_id());
+    // todo: objects_buffer_refresh();
 
     _prevTreeIter = treeIter;
 }

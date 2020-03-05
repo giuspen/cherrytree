@@ -25,13 +25,15 @@
 
 CtStateMachine::CtStateMachine(CtMainWin *pCtMainWin) : _pCtMainWin(pCtMainWin)
 {
-    _re_w = Glib::Regex::create("\\w");
+    _word_regex = Glib::Regex::create("\\w");
 }
 
 // State Machine Reset
 void CtStateMachine::reset()
 {
-
+    _visited_nodes_list.clear();
+    _visited_nodes_idx = 0;
+    _node_states.clear();
 }
 
 // Requested the Previous Visited Node
@@ -40,7 +42,7 @@ gint64 CtStateMachine::requested_visited_previous()
     if (_visited_nodes_idx <= 0)
         return -1;
      _visited_nodes_idx -= 1;
-     _visited_nodes_list[_visited_nodes_idx];
+     return _visited_nodes_list[_visited_nodes_idx];
 }
 
 // Requested the Next Visited Node
@@ -66,19 +68,21 @@ void CtStateMachine::node_selected_changed(gint64 node_id)
         _visited_nodes_list.push_back(node_id);
         _visited_nodes_idx = _visited_nodes_list.size() - 1;
     }
-    if (!map::exists(_nodes_vectors, node_id))
+    if (!map::exists(_node_states, node_id))
     {
-        //CtXmlWrite ctXmlWrite("node");
-        //ctXmlWrite.append_dom_node(_pCtMainWin->curr_tree_iter(), nullptr/*p_node_parent*/, false/*to_disk*/, true/*skip_children*/);
-        //_pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(std::make_pair(-1, -1));
-
+        auto node = _pCtMainWin->curr_tree_iter();
         auto state = std::shared_ptr<CtNodeState>(new CtNodeState());
+        state->node_xml.append_dom_node(node, nullptr/*p_node_parent*/, false/*no widgets */, true/*skip_children*/);
+        state->node_text = state->node_xml.write_to_string();
+        for (auto widget: node.get_embedded_pixbufs_tables_codeboxes())
+            state->widgets.push_back(widget->clone());
+        state->cursor_pos = 0;
 
-        CtNodeStory story;
-        story.states.push_back(state);
-        story.index = 0;     // first state
-        story.indicator = 0; // the current buffer state is saved
-        _nodes_vectors.insert(std::make_pair(node_id, story));
+        CtNodeStates states;
+        states.states.push_back(state);
+        states.index = 0;     // first state
+        states.indicator = 0; // the current buffer state is saved
+        _node_states.insert(std::make_pair(node_id, states));
     }
 }
 
@@ -90,11 +94,11 @@ void CtStateMachine::text_variation(gint64 node_id, const Glib::ustring& varied_
         update_state();
         return;
     }
-    bool is_alphanum = _re_w->match(varied_text); // we search for an alphanumeric character
-    if (_nodes_vectors[node_id].indicator < 2)
+    bool is_alphanum = _word_regex->match(varied_text); // we search for an alphanumeric character
+    if (_node_states[node_id].indicator < 2)
     {
-        if (is_alphanum) _nodes_vectors[node_id].indicator = 2; // alphanumeric transition
-        else             _nodes_vectors[node_id].indicator = 1; // non alphanumeric transition
+        if (is_alphanum) _node_states[node_id].indicator = 2; // alphanumeric transition
+        else             _node_states[node_id].indicator = 1; // non alphanumeric transition
     }
     else if (!is_alphanum) // _nodes_indicators[node_id] == 2 and non alphanumeric transition
         update_state();
@@ -105,29 +109,29 @@ std::shared_ptr<CtNodeState> CtStateMachine::requested_state_previous(gint64 nod
 {
     if (curr_index_is_last_index(node_id))
         update_state();
-    if (_nodes_vectors[node_id].index > 0)
-        _nodes_vectors[node_id].index -= 1;
-    return _nodes_vectors[node_id].get_state();
+    if (_node_states[node_id].index > 0)
+        _node_states[node_id].index -= 1;
+    return _node_states[node_id].get_state();
 }
 
 // The current state is requested
 std::shared_ptr<CtNodeState> CtStateMachine::requested_state_current(gint64 node_id)
 {
-    return _nodes_vectors[node_id].get_state();
+    return _node_states[node_id].get_state();
 }
 
 // A Subsequent State, if Existing, is Requested
 std::shared_ptr<CtNodeState> CtStateMachine::requested_state_subsequent(gint64 node_id)
 {
-    if (_nodes_vectors[node_id].index < (int)_nodes_vectors[node_id].states.size()-1)
-        _nodes_vectors[node_id].index += 1;
-    return _nodes_vectors[node_id].get_state();
+    if (_node_states[node_id].index < (int)_node_states[node_id].states.size()-1)
+        _node_states[node_id].index += 1;
+    return _node_states[node_id].get_state();
 }
 
 // Delete the states for the given node_id
 void CtStateMachine::delete_states(gint64 node_id)
 {
-    _nodes_vectors.erase(node_id);
+    _node_states.erase(node_id);
     if (vec::exists(_visited_nodes_list, node_id))
     {
         vec::remove(_visited_nodes_list, node_id);
@@ -138,8 +142,8 @@ void CtStateMachine::delete_states(gint64 node_id)
 // Are we in the last state?
 bool CtStateMachine::curr_index_is_last_index(gint64 node_id)
 {
-    int curr_index = _nodes_vectors[node_id].index;
-    int last_index = _nodes_vectors[node_id].states.size() - 1;
+    int curr_index = _node_states[node_id].index;
+    int last_index = _node_states[node_id].states.size() - 1;
     return curr_index == last_index;
 }
 
@@ -165,32 +169,44 @@ void CtStateMachine::update_state(CtTreeIter tree_iter)
     if (!tree_iter.get_node_is_rich_text() || not_undoable_timeslot_get())
         return;
     gint64 node_id = tree_iter.get_node_id();
-    auto node_story = _nodes_vectors[node_id];
+    auto node_states = _node_states[node_id];
     if (!curr_index_is_last_index(node_id))
     {
-        node_story.states.erase(node_story.states.begin() + node_story.index + 1, node_story.states.end());
+        node_states.states.erase(node_states.states.begin() + node_states.index + 1, node_states.states.end());
     }
+
     auto new_state = std::shared_ptr<CtNodeState>(new CtNodeState());
-/*    xml_content = self.dad.xml_handler.treestore_node_to_dom(self.dad.curr_tree_iter)
-    pixbuf_table_codebox_vector = self.get_embedded_pixbufs_tables_codeboxes(self.dad.curr_buffer)
-    cursor_pos = self.dad.curr_buffer.get_property(cons.STR_CURSOR_POSITION)
-    new_state = [xml_content, pixbuf_table_codebox_vector, cursor_pos]
-    if len(self.nodes_vectors[node_id]) > 0:
-        if new_state == self.nodes_vectors[node_id][-1]:
-            #print "update_state not needed"
-            return
-            */
-    node_story.states.push_back(new_state);
-    while ((int)node_story.states.size() > _pCtMainWin->get_ct_config()->limitUndoableSteps)
-        node_story.states.erase(node_story.states.begin());
-    node_story.index = node_story.states.size() - 1;
-    node_story.indicator = 0; // the current buffer state is saved
+    new_state->node_xml.append_dom_node(tree_iter, nullptr/*p_node_parent*/, false/*no widgets*/, true/*skip_children*/);
+    new_state->node_text = new_state->node_xml.write_to_string();
+    for (auto widget: tree_iter.get_embedded_pixbufs_tables_codeboxes())
+        new_state->widgets.push_back(widget->clone());
+    new_state->cursor_pos = tree_iter.get_node_text_buffer()->property_cursor_position();
+
+    if (node_states.states.size() > 0)
+    {
+        auto compare_widgets = [](const std::list<CtAnchoredWidget*> lhs, const std::list<CtAnchoredWidget*> rhs) {
+            return std::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end(), [](CtAnchoredWidget* lhs, CtAnchoredWidget* rhs) {
+                return lhs->equal(rhs);
+            });
+        };
+        auto last_state = node_states.states.back();
+        if (new_state->node_text == last_state->node_text
+                && new_state->cursor_pos == last_state->cursor_pos
+                && compare_widgets(new_state->widgets, last_state->widgets))
+            return; // #print "update_state not needed"
+    }
+
+    node_states.states.push_back(new_state);
+    while ((int)node_states.states.size() > _pCtMainWin->get_ct_config()->limitUndoableSteps)
+        node_states.states.erase(node_states.states.begin());
+    node_states.index = node_states.states.size() - 1;
+    node_states.indicator = 0; // the current buffer state is saved
 }
 
 // If the buffer is still not modified update cursor pos
 void CtStateMachine::update_curr_state_cursor_pos(gint64 node_id)
 {
-    if (!map::exists(_nodes_vectors, node_id)) return;
+    if (!map::exists(_node_states, node_id)) return;
     int cursor_pos = _pCtMainWin->curr_buffer()->property_cursor_position();
-    _nodes_vectors[node_id].get_state()->cursor_pos = cursor_pos;
+    _node_states[node_id].get_state()->cursor_pos = cursor_pos;
 }

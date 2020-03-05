@@ -97,6 +97,7 @@ public:
     void update_window_save_needed(const CtSaveNeededUpdType update_type = CtSaveNeededUpdType::None,
                                    const bool new_machine_state = false,
                                    const CtTreeIter* give_tree_iter = nullptr);
+    void load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTreeIter tree_iter);
     void update_window_save_not_needed();
     bool get_file_save_needed();
     std::string get_curr_doc_password() { return _ctCurrFile.password; }

@@ -103,6 +103,7 @@ public:
     Glib::RefPtr<Gsv::Buffer> get_node_text_buffer() const;
 
     std::list<CtAnchoredWidget*> get_all_embedded_widgets();
+    void                         remove_all_embedded_widgets();
     std::list<CtAnchoredWidget*> get_embedded_pixbufs_tables_codeboxes(const std::pair<int,int>& offset_range=std::make_pair(-1,-1));
 
     void pending_edit_db_node_prop();

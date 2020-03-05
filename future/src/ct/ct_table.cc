@@ -133,6 +133,35 @@ bool CtTable::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adj
     return retVal;
 }
 
+CtAnchoredWidget* CtTable::clone()
+{
+    return new CtTable(_pCtMainWin, _tableMatrix, _colMin, _colMax, true, _charOffset, _justification);
+}
+
+bool CtTable::equal(CtAnchoredWidget* other)
+{
+    if (get_type() != other->get_type()) return false;
+
+    auto compare_cell = [](CtTableCell* lhs, CtTableCell* rhs) {
+        return lhs->get_text_content() == rhs->get_text_content() && lhs->get_syntax_highlighting() == rhs->get_syntax_highlighting();
+    };
+    auto compare_row = [compare_cell](const CtTableRow& lhs, const CtTableRow& rhs) {
+        return std::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end(), compare_cell);
+    };
+    auto compare_table = [compare_row](const CtTableMatrix& lhs, const CtTableMatrix& rhs) {
+        return std::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end(), compare_row);
+    };
+
+    if (CtTable* other_table = dynamic_cast<CtTable*>(other))
+        if (_colMin == other_table->_colMin
+                && _colMax == other_table->_colMax
+                && _charOffset == other_table->_charOffset
+                && _justification == other_table->_justification
+                && compare_table(_tableMatrix, other_table->_tableMatrix))
+            return true;
+    return false;
+}
+
 void CtTable::set_modified_false()
 {
     for (CtTableRow& tableRow : _tableMatrix)

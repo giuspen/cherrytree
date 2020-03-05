@@ -177,6 +177,15 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_all_embedded_widgets()
 {
     return (*this) ? (*this)->get_value(_pColumns->colAnchoredWidgets) : std::list<CtAnchoredWidget*>();
 }
+void CtTreeIter::remove_all_embedded_widgets()
+{
+    if (*this)
+    {
+        for (auto widget: (*this)->get_value(_pColumns->colAnchoredWidgets))
+            delete widget;
+        (*this)->set_value(_pColumns->colAnchoredWidgets, std::list<CtAnchoredWidget*>());
+    }
+}
 
 std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes(const std::pair<int,int>& offset_range)
 {
@@ -523,6 +532,7 @@ void CtTreeStore::update_node_data(const Gtk::TreeIter& treeIter, const CtNodeDa
     row[_columns.colForeground] = nodeData.foregroundRgb24;
     row[_columns.colTsCreation] = nodeData.tsCreation;
     row[_columns.colTsLastSave] = nodeData.tsLastSave;
+    // todo: should widgets be deleted?
     row[_columns.colAnchoredWidgets] = nodeData.anchoredWidgets;
 
     update_node_aux_icon(treeIter);

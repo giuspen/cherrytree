@@ -22,6 +22,7 @@
 #pragma once
 
 #include "ct_treestore.h"
+#include "ct_doc_rw.h"
 #include <vector>
 #include <map>
 #include <glibmm/regex.h>
@@ -31,10 +32,16 @@ class CtMainWin;
 
 struct CtNodeState
 {
-    int cursor_pos;
+    CtNodeState() : node_xml("node") { }
+    ~CtNodeState() { for (auto widget: widgets) delete widget; }
+
+    CtXmlWrite                   node_xml;
+    Glib::ustring                node_text;
+    std::list<CtAnchoredWidget*> widgets;
+    int                          cursor_pos;
 };
 
-struct CtNodeStory
+struct CtNodeStates
 {
     std::vector<std::shared_ptr<CtNodeState>> states;
     int index;
@@ -65,14 +72,14 @@ public:
     void update_curr_state_cursor_pos(gint64 node_id);
 
 private:
-    CtMainWin* _pCtMainWin;
-    bool       _go_bk_fw_click;
-    bool       _not_undoable_timeslot;
-    int        _visited_nodes_idx;
+    CtMainWin*                  _pCtMainWin;
+    Glib::RefPtr<Glib::Regex>   _word_regex;
+    bool                        _go_bk_fw_click;
+    bool                        _not_undoable_timeslot;
 
-    std::vector<gint64>           _visited_nodes_list;
-    std::map<gint64, CtNodeStory> _nodes_vectors;
-    Glib::RefPtr<Glib::Regex>     _re_w;
+    std::vector<gint64>         _visited_nodes_list;
+    int                         _visited_nodes_idx;
 
+    std::map<gint64, CtNodeStates> _node_states;
 };
 

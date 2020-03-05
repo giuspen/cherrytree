@@ -93,10 +93,10 @@ void CtActions::codebox_handle()
                                           (int)_pCtMainWin->get_ct_config()->codeboxWidth,
                                           (int)_pCtMainWin->get_ct_config()->codeboxHeight,
                                           iter_insert.get_offset(),
-                                          justification);
-    pCtCodebox->set_width_in_pixels(_pCtMainWin->get_ct_config()->codeboxWidthPixels);
-    pCtCodebox->set_highlight_brackets(_pCtMainWin->get_ct_config()->codeboxMatchBra);
-    pCtCodebox->set_show_line_numbers(_pCtMainWin->get_ct_config()->codeboxLineNum);
+                                          justification,
+                                          _pCtMainWin->get_ct_config()->codeboxWidthPixels,
+                                          _pCtMainWin->get_ct_config()->codeboxMatchBra,
+                                          _pCtMainWin->get_ct_config()->codeboxLineNum);
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
     pCtCodebox->insertInTextBuffer(gsv_buffer);
 
