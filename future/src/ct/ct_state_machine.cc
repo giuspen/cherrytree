@@ -169,7 +169,7 @@ void CtStateMachine::update_state()
 // Update the state for the given node_id
 void CtStateMachine::update_state(CtTreeIter tree_iter)
 {
-    if (!tree_iter.get_node_is_rich_text() || not_undoable_timeslot_get())
+    if (not_undoable_timeslot_get())
         return;
     gint64 node_id = tree_iter.get_node_id();
     auto& node_states = _node_states[node_id];
