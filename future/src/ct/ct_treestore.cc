@@ -177,6 +177,15 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_all_embedded_widgets()
 {
     return (*this) ? (*this)->get_value(_pColumns->colAnchoredWidgets) : std::list<CtAnchoredWidget*>();
 }
+void CtTreeIter::remove_all_embedded_widgets()
+{
+    if (*this)
+    {
+        for (auto widget: (*this)->get_value(_pColumns->colAnchoredWidgets))
+            delete widget;
+        (*this)->set_value(_pColumns->colAnchoredWidgets, std::list<CtAnchoredWidget*>());
+    }
+}
 
 std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes(const std::pair<int,int>& offset_range)
 {
@@ -523,6 +532,7 @@ void CtTreeStore::update_node_data(const Gtk::TreeIter& treeIter, const CtNodeDa
     row[_columns.colForeground] = nodeData.foregroundRgb24;
     row[_columns.colTsCreation] = nodeData.tsCreation;
     row[_columns.colTsLastSave] = nodeData.tsLastSave;
+    // todo: should widgets be deleted?
     row[_columns.colAnchoredWidgets] = nodeData.anchoredWidgets;
 
     update_node_aux_icon(treeIter);
@@ -604,12 +614,14 @@ void CtTreeStore::_on_textbuffer_modified_changed(Glib::RefPtr<Gtk::TextBuffer> 
 
 void CtTreeStore::_on_textbuffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int bytes)
 {
-    // todo
+    if (_pCtMainWin->user_active())
+        _pCtMainWin->get_state_machine().text_variation(_pCtMainWin->curr_tree_iter().get_node_id(), text);
 }
 
 void CtTreeStore::_on_textbuffer_erase(const Gtk::TextBuffer::iterator& range_start, const Gtk::TextBuffer::iterator& range_end)
 {
-    // todo
+     if (_pCtMainWin->user_active())
+       _pCtMainWin->get_state_machine().text_variation(_pCtMainWin->curr_tree_iter().get_node_id(), range_start.get_text(range_end));
 }
 
 void CtTreeStore::apply_textbuffer_to_textview(const CtTreeIter& treeIter, CtTextView* pTextView)
@@ -668,6 +680,12 @@ void CtTreeStore::apply_textbuffer_to_textview(const CtTreeIter& treeIter, CtTex
         rTextBuffer->signal_modified_changed().connect(sigc::bind<Glib::RefPtr<Gtk::TextBuffer>>(
             sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_modified_changed), rTextBuffer
         ))
+    );
+    _curr_node_sigc_conn.push_back(
+        rTextBuffer->signal_insert().connect(sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_insert))
+    );
+    _curr_node_sigc_conn.push_back(
+        rTextBuffer->signal_erase().connect(sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_erase))
     );
 }
 

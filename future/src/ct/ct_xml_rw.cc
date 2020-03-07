@@ -235,10 +235,10 @@ void CtXmlRead::get_text_buffer_slot(Glib::RefPtr<Gsv::Buffer>& rTextBuffer,
                                                   frameWidth,
                                                   frameHeight,
                                                   charOffset,
-                                                  justification);
-            pCtCodebox->set_width_in_pixels(widthInPixels);
-            pCtCodebox->set_highlight_brackets(highlightBrackets);
-            pCtCodebox->set_show_line_numbers(showLineNumbers);
+                                                  justification,
+                                                  widthInPixels,
+                                                  highlightBrackets,
+                                                  showLineNumbers);
             pAnchoredWidget = pCtCodebox;
         }
         if (nullptr != pAnchoredWidget)

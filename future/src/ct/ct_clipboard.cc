@@ -246,7 +246,7 @@ void CtClipboard::from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_b
     {
         throw std::invalid_argument("rich text from clipboard error");
     }
-    //todo: self.dad.state_machine.not_undoable_timeslot_set(True)
+    _pCtMainWin->get_state_machine().not_undoable_timeslot_set(true);
     std::list<CtAnchoredWidget*> widgets;
     for (xmlpp::Node* slot_node: doc->get_root_node()->get_children())
     {
@@ -264,9 +264,9 @@ void CtClipboard::from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_b
         _get_CtMainWin()->curr_tree_store().addAnchoredWidgets(
                     _get_CtMainWin()->curr_tree_iter(),
                     widgets, &_get_CtMainWin()->get_text_view());
-        // ? self.state_machine.update_state()
+        _pCtMainWin->get_state_machine().update_state();
     }
-    // todo: self.dad.state_machine.not_undoable_timeslot_set(False)
+    _pCtMainWin->get_state_machine().not_undoable_timeslot_set(false);
 }
 
 // Write the Selected Content to the Clipboard
@@ -489,7 +489,7 @@ void CtClipboard::_on_received_to_codebox(const Gtk::SelectionData& selection_da
         _get_CtMainWin()->curr_tree_store().addAnchoredWidgets(
                     _get_CtMainWin()->curr_tree_iter(),
                     widgets, &_get_CtMainWin()->get_text_view());
-        // ? self.state_machine.update_state()
+        _pCtMainWin->get_state_machine().update_state();
     }
     pTextView->scroll_to(pTextView->get_buffer()->get_insert());
 }
@@ -522,7 +522,7 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
         _get_CtMainWin()->curr_tree_store().addAnchoredWidgets(
                     _get_CtMainWin()->curr_tree_iter(),
                     widgets, &_get_CtMainWin()->get_text_view());
-        // ? self.state_machine.update_state()
+        _pCtMainWin->get_state_machine().update_state();
     }
 
     pTextView->scroll_to(pTextView->get_buffer()->get_insert());

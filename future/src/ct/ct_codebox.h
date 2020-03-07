@@ -66,7 +66,10 @@ public:
               const int frameWidth,
               const int frameHeight,
               const int charOffset,
-              const std::string& justification);
+              const std::string& justification,
+              const bool widthInPixels,
+              const bool highlightBrackets,
+              const bool showLineNumbers);
     virtual ~CtCodebox();
 
     void apply_width_height(const int parentTextWidth) override;
@@ -74,6 +77,8 @@ public:
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) override;
     void set_modified_false() override { set_text_buffer_modified_false(); }
     CtAnchWidgType get_type() override { return CtAnchWidgType::CodeBox; }
+    CtAnchoredWidget* clone() override;
+    bool equal(CtAnchoredWidget* other) override;
 
     void set_width_height(int newWidth, int newHeight);
     void set_width_in_pixels(const bool widthInPixels) { _widthInPixels = widthInPixels; }

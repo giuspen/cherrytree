@@ -101,7 +101,7 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
     layout_newline->set_width(int(_page_width * Pango::SCALE));
     layout_newline->set_markup(CtConst::CHAR_NEWLINE);
     _layout_newline_height = _layout_line_get_width_height(layout_newline->get_line(0)).height;
-    int codebox_height, table_height; // to keep data for current slot from previous slot
+    int codebox_height = 0, table_height = 0; // to keep data for current slot from previous slot
 
     while (1)
     {

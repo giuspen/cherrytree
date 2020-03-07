@@ -53,6 +53,8 @@ public:
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) override;
     void set_modified_false() override;
     CtAnchWidgType get_type() override { return CtAnchWidgType::Table; }
+    CtAnchoredWidget* clone() override;
+    bool equal(CtAnchoredWidget* other) override;
 
     const CtTableMatrix& get_table_matrix() { return _tableMatrix; }
     int get_col_max() { return _colMax; }

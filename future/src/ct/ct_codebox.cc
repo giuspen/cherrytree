@@ -73,7 +73,10 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
                      const int frameWidth,
                      const int frameHeight,
                      const int charOffset,
-                     const std::string& justification)
+                     const std::string& justification,
+                     const bool widthInPixels,
+                     const bool highlightBrackets,
+                     const bool showLineNumbers)
  : CtAnchoredWidget(pCtMainWin, charOffset, justification),
    CtTextCell(pCtMainWin, textContent, syntaxHighlighting),
    _frameWidth(frameWidth),
@@ -88,6 +91,10 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
     show_all();
 
     _ctTextview.set_monospace(true); // todo: remove than styles are implemented
+
+    set_width_in_pixels(widthInPixels);
+    set_highlight_brackets(highlightBrackets);
+    set_show_line_numbers(showLineNumbers);
 
     // signals
     _ctTextview.signal_populate_popup().connect([this](Gtk::Menu* menu){
@@ -128,6 +135,14 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
             return true;
         }
         return false;
+    });
+    _ctTextview.get_buffer()->signal_insert().connect([this](const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int bytes) {
+        if (_pCtMainWin->user_active())
+            _pCtMainWin->get_state_machine().text_variation(_pCtMainWin->curr_tree_iter().get_node_id(), text);
+    });
+    _ctTextview.get_buffer()->signal_erase().connect([this](const Gtk::TextBuffer::iterator& range_start, const Gtk::TextBuffer::iterator& range_end) {
+        if (_pCtMainWin->user_active())
+          _pCtMainWin->get_state_machine().text_variation(_pCtMainWin->curr_tree_iter().get_node_id(), range_start.get_text(range_end));
     });
     _uCtPairCodeboxMainWin.reset(new CtPairCodeboxMainWin{this, _pCtMainWin});
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "cut-clipboard", G_CALLBACK(CtClipboard::on_cut_clipboard), _uCtPairCodeboxMainWin.get());
@@ -192,6 +207,30 @@ bool CtCodebox::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_a
         sqlite3_finalize(p_stmt);
     }
     return retVal;
+}
+
+CtAnchoredWidget* CtCodebox::clone()
+{
+    return new CtCodebox(_pCtMainWin, get_text_content(), _syntaxHighlighting, _frameWidth, _frameHeight,
+                         _charOffset, _justification,
+                         _widthInPixels, _highlightBrackets, _showLineNumbers);
+}
+
+bool CtCodebox::equal(CtAnchoredWidget* other)
+{
+    if (get_type() != other->get_type()) return false;
+    if (CtCodebox* other_codebox = dynamic_cast<CtCodebox*>(other))
+        if (_syntaxHighlighting == other_codebox->_syntaxHighlighting
+            && _frameWidth == other_codebox->_frameWidth
+            && _frameHeight == other_codebox->_frameHeight
+            && _charOffset == other_codebox->_charOffset
+            && _justification == other_codebox->_justification
+            && _widthInPixels == other_codebox->_widthInPixels
+            && _highlightBrackets == other_codebox->_highlightBrackets
+            && _showLineNumbers == other_codebox->_showLineNumbers
+            && get_text_content() == other_codebox->get_text_content())
+        return true;
+    return false;
 }
 
 void CtCodebox::set_show_line_numbers(const bool showLineNumbers)

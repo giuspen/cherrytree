@@ -1,0 +1,85 @@
+/*
+ * ct_state_machine.h
+ *
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ */
+
+#pragma once
+
+#include "ct_treestore.h"
+#include "ct_doc_rw.h"
+#include <vector>
+#include <map>
+#include <glibmm/regex.h>
+#include <memory>
+
+class CtMainWin;
+
+struct CtNodeState
+{
+    CtNodeState() : buffer_xml("buffer") { }
+    ~CtNodeState() { for (auto widget: widgets) delete widget; }
+
+    CtXmlWrite                   buffer_xml;
+    Glib::ustring                buffer_xml_string;
+    std::list<CtAnchoredWidget*> widgets;
+    int                          cursor_pos;
+};
+
+struct CtNodeStates
+{
+    std::vector<std::shared_ptr<CtNodeState>> states;
+    int index;
+    int indicator;
+
+    std::shared_ptr<CtNodeState> get_state() { return states[index]; }
+};
+
+class CtStateMachine
+{
+public:
+    CtStateMachine(CtMainWin* pCtMainWin);
+
+    void reset();
+    gint64 requested_visited_previous();
+    gint64 requested_visited_next();
+    void node_selected_changed(gint64 node_id);
+    void text_variation(gint64 node_id, const Glib::ustring& varied_text);
+    std::shared_ptr<CtNodeState> requested_state_previous(gint64 node_id);
+    std::shared_ptr<CtNodeState> requested_state_current(gint64 node_id);
+    std::shared_ptr<CtNodeState> requested_state_subsequent(gint64 node_id);
+    void delete_states(gint64 node_id);
+    bool curr_index_is_last_index(gint64 node_id);
+    void not_undoable_timeslot_set(bool not_undoable_val);
+    bool not_undoable_timeslot_get();
+    void update_state();
+    void update_state(CtTreeIter tree_iter);
+    void update_curr_state_cursor_pos(gint64 node_id);
+
+private:
+    CtMainWin*                  _pCtMainWin;
+    Glib::RefPtr<Glib::Regex>   _word_regex;
+    bool                        _go_bk_fw_click;
+    bool                        _not_undoable_timeslot;
+
+    std::vector<gint64>         _visited_nodes_list;
+    int                         _visited_nodes_idx;
+
+    std::map<gint64, CtNodeStates> _node_states;
+};
+

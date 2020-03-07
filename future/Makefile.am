@@ -73,7 +73,8 @@ COMMON_SOURCES = \
 	src/ct/ct_imports.cc \
 	src/ct/ct_widgets.cc \
 	src/ct/ct_print.cc \
-	src/ct/ct_export.cc
+        src/ct/ct_export.cc \
+        src/ct/ct_state_machine.cc
 
 cherrytree_SOURCES = \
 	src/ct/ct_main.cc \

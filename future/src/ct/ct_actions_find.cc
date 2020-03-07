@@ -909,8 +909,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer
         text_buffer->insert_at_cursor(replacer_text);
         if (!all_matches)
             _pCtMainWin->get_text_view().set_selection_at_offset_n_delta(match_offsets.first + num_objs, (int)replacer_text.size());
-        // todo:
-        //self.dad.state_machine.update_state();
+        _pCtMainWin->get_state_machine().update_state();
         tree_iter.pending_edit_db_node_buff();
     }
     return true;

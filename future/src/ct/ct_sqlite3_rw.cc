@@ -338,10 +338,10 @@ void CtSQLite::_get_text_buffer_anchored_widgets(Glib::RefPtr<Gsv::Buffer>& rTex
                                                   frameWidth,
                                                   frameHeight,
                                                   charOffset[i],
-                                                  justification[i]);
-            pCtCodebox->set_width_in_pixels(widthInPixels);
-            pCtCodebox->set_highlight_brackets(highlightBrackets);
-            pCtCodebox->set_show_line_numbers(showLineNumbers);
+                                                  justification[i],
+                                                  widthInPixels,
+                                                  highlightBrackets,
+                                                  showLineNumbers);
             pAnchoredWidget = pCtCodebox;
             //std::cout << "codebox " << charOffset[i] << std::endl;
             charOffset[i] = cOffsetRead;

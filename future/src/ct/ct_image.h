@@ -47,6 +47,7 @@ public:
 
     void apply_width_height(const int /*parentTextWidth*/) override {}
     void set_modified_false() override {}
+    bool equal(CtAnchoredWidget* other) override;
 
     void save(const Glib::ustring& file_name, const Glib::ustring& type);
     Glib::RefPtr<Gdk::Pixbuf> get_pixbuf() { return _rPixbuf; }
@@ -74,6 +75,8 @@ public:
     void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) override;
     CtAnchWidgType get_type() override { return CtAnchWidgType::ImagePng; }
+    CtAnchoredWidget* clone() override;
+    bool equal(CtAnchoredWidget* other) override;
 
     const std::string get_raw_blob();
     void update_label_widget();
@@ -99,6 +102,8 @@ public:
     void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) override;
     CtAnchWidgType get_type() override { return CtAnchWidgType::ImageAnchor; }
+    CtAnchoredWidget* clone() override;
+    bool equal(CtAnchoredWidget* other) override;
 
     const Glib::ustring& get_anchor_name() { return _anchorName; }
 
@@ -125,6 +130,8 @@ public:
     void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) override;
     CtAnchWidgType get_type() override { return CtAnchWidgType::ImageEmbFile; }
+    CtAnchoredWidget* clone() override;
+    bool equal(CtAnchoredWidget* other) override;
 
     const Glib::ustring& get_file_name() { return _fileName; }
     const std::string&   get_raw_blob() { return _rawBlob; }
