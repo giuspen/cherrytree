@@ -32,11 +32,11 @@ class CtMainWin;
 
 struct CtNodeState
 {
-    CtNodeState() : node_xml("node") { }
+    CtNodeState() : buffer_xml("buffer") { }
     ~CtNodeState() { for (auto widget: widgets) delete widget; }
 
-    CtXmlWrite                   node_xml;
-    Glib::ustring                node_text;
+    CtXmlWrite                   buffer_xml;
+    Glib::ustring                buffer_xml_string;
     std::list<CtAnchoredWidget*> widgets;
     int                          cursor_pos;
 };

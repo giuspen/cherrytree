@@ -136,6 +136,14 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
         }
         return false;
     });
+    _ctTextview.get_buffer()->signal_insert().connect([this](const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int bytes) {
+        if (_pCtMainWin->user_active())
+            _pCtMainWin->get_state_machine().text_variation(_pCtMainWin->curr_tree_iter().get_node_id(), text);
+    });
+    _ctTextview.get_buffer()->signal_erase().connect([this](const Gtk::TextBuffer::iterator& range_start, const Gtk::TextBuffer::iterator& range_end) {
+        if (_pCtMainWin->user_active())
+          _pCtMainWin->get_state_machine().text_variation(_pCtMainWin->curr_tree_iter().get_node_id(), range_start.get_text(range_end));
+    });
     _uCtPairCodeboxMainWin.reset(new CtPairCodeboxMainWin{this, _pCtMainWin});
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "cut-clipboard", G_CALLBACK(CtClipboard::on_cut_clipboard), _uCtPairCodeboxMainWin.get());
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "copy-clipboard", G_CALLBACK(CtClipboard::on_copy_clipboard), _uCtPairCodeboxMainWin.get());

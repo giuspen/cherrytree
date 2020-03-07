@@ -614,12 +614,14 @@ void CtTreeStore::_on_textbuffer_modified_changed(Glib::RefPtr<Gtk::TextBuffer> 
 
 void CtTreeStore::_on_textbuffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int bytes)
 {
-    // todo
+    if (_pCtMainWin->user_active())
+        _pCtMainWin->get_state_machine().text_variation(_pCtMainWin->curr_tree_iter().get_node_id(), text);
 }
 
 void CtTreeStore::_on_textbuffer_erase(const Gtk::TextBuffer::iterator& range_start, const Gtk::TextBuffer::iterator& range_end)
 {
-    // todo
+     if (_pCtMainWin->user_active())
+       _pCtMainWin->get_state_machine().text_variation(_pCtMainWin->curr_tree_iter().get_node_id(), range_start.get_text(range_end));
 }
 
 void CtTreeStore::apply_textbuffer_to_textview(const CtTreeIter& treeIter, CtTextView* pTextView)
@@ -678,6 +680,12 @@ void CtTreeStore::apply_textbuffer_to_textview(const CtTreeIter& treeIter, CtTex
         rTextBuffer->signal_modified_changed().connect(sigc::bind<Glib::RefPtr<Gtk::TextBuffer>>(
             sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_modified_changed), rTextBuffer
         ))
+    );
+    _curr_node_sigc_conn.push_back(
+        rTextBuffer->signal_insert().connect(sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_insert))
+    );
+    _curr_node_sigc_conn.push_back(
+        rTextBuffer->signal_erase().connect(sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_erase))
     );
 }
 

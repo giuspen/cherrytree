@@ -34,14 +34,26 @@ void CtActions::insert_spec_char_action(gunichar ch)
     proof.text_buffer->insert_at_cursor(Glib::ustring(1, ch));
 }
 
+// Step Back for the Current Node, if Possible
 void CtActions::requested_step_back()
 {
-    // todo
+    if (!_pCtMainWin->curr_tree_iter()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
+
+    auto step_back = _pCtMainWin->get_state_machine().requested_state_previous(_pCtMainWin->curr_tree_iter().get_node_id());
+    if (step_back)
+        _pCtMainWin->load_buffer_from_state(step_back, _pCtMainWin->curr_tree_iter());
 }
 
+// Step Ahead for the Current Node, if Possible
 void CtActions::requested_step_ahead()
 {
-    // todo
+    if (!_pCtMainWin->curr_tree_iter()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
+
+    auto step_ahead = _pCtMainWin->get_state_machine().requested_state_subsequent(_pCtMainWin->curr_tree_iter().get_node_id());
+    if (step_ahead)
+        _pCtMainWin->load_buffer_from_state(step_ahead, _pCtMainWin->curr_tree_iter());
 }
 
 // Insert/Edit Image

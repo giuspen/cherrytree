@@ -172,26 +172,6 @@ CtTextView::~CtTextView()
 
 void CtTextView::setup_for_syntax(const std::string& syntax)
 {
-#if 0
-    get_buffer()->signal_modified_changed().connect([](){
-        // todo: elf.on_modified_changed
-
-    });
-    get_buffer()->signal_insert().connect([](const Gtk::TextIter&,const Glib::ustring&, int){
-        // todo: self.on_text_insertion
-        // if self.user_active:
-        //            self.state_machine.text_variation(self.treestore[self.curr_tree_iter][3], text_inserted)
-    });
-    get_buffer()->signal_erase().connect([](const Gtk::TextIter, const Gtk::TextIter){
-        // todo:  self.on_text_removal
-        // if self.user_active and self.curr_tree_iter:
-        //            self.state_machine.text_variation(self.treestore[self.curr_tree_iter][3], sourcebuffer.get_text(start_iter, end_iter))
-    });
-    // todo: exclude for codebox?
-    get_buffer()->signal_mark_set().connect([](const Gtk::TextIter&,const Glib::RefPtr<Gtk::TextMark>){
-        // todo: self.on_textbuffer_mark_set
-    });
-#endif // 0
     std::string new_class;
     if (CtConst::RICH_TEXT_ID == syntax)         new_class = "rich-text";
     else if (CtConst::PLAIN_TEXT_ID == syntax)   new_class = "plain-text";

@@ -992,12 +992,9 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
 
     text_buffer->erase(text_buffer->begin(), text_buffer->end());
     std::list<CtAnchoredWidget*> widgets;
-    for (xmlpp::Node* slot_node: state->node_xml.get_root_node()->get_children())
+    for (xmlpp::Node* text_node: state->buffer_xml.get_root_node()->get_children())
     {
-        if (slot_node->get_name() != "slot")
-            continue;
-        for (xmlpp::Node* child_node: slot_node->get_children())
-            CtXmlRead(this).get_text_buffer_slot(gsv_buffer, nullptr, widgets, child_node);
+        CtXmlRead(this).get_text_buffer_slot(gsv_buffer, nullptr, widgets, text_node);
     }
     tree_iter.remove_all_embedded_widgets();
     // CtXmlRead(this).get_text_buffer_slot didn't fill widgets, they are kept separately
@@ -1319,8 +1316,7 @@ void CtMainWin::_on_textview_event_after(GdkEvent* event)
     }
     else if (event->type == GDK_BUTTON_PRESS or event->type == GDK_KEY_PRESS)
     {
-        if (curr_tree_iter() and curr_tree_iter().get_node_syntax_highlighting() == CtConst::RICH_TEXT_ID and
-            not curr_buffer()->get_modified())
+        if (curr_tree_iter() and not curr_buffer()->get_modified())
         {
             get_state_machine().update_curr_state_cursor_pos(curr_tree_iter().get_node_id());
         }
