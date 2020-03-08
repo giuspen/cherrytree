@@ -21,51 +21,54 @@ Colours:
 body {
     font-size: 13px;
     font-family: "Open Sans", sans-serif !important;
-    padding: 20x; 
     white-space: pre-wrap;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    height: 100%;
 }
 
-div.main {
-    width: 100vw;
+div.two-panels {
     height: inherit;
     margin: 0;
     padding: 0;
     display: flex;
-    overflow-y: hidden;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
-div.tree {
+div.tree-panel {
     flex: 19vw;
+    margin-left: 1vw;
+    height: 100%;
+    overflow: auto;
+    border-right: 3px solid;
+    
     /*background-color: #EEEEEE;
     border-top: 1px solid #DDDDDD;
     border-bottom: 1px solid #DDDDDD;
     margin-bottom: 20px;*/
     /*margin: 0.75em 0 0.75em 20px;*/
-    margin-left: 1vw;
-    height: 100vh;
-    overflow: auto;
 }
 
-div.page {
+div.page-panel {
     flex: 80vw;
-    height: 100vh;
     margin: 0;
     padding: 0;
     font-size: 0;
 }
 
-iframe.page {
+div.page-panel iframe {
     width: 79vw;
     margin-left: 1vw;
     border: 0px;
     margin-top: 0px;
-    height: 100vh;
+    height: 100%;
     box-sizing: border-box;
     overflow-y: auto;
+}
+
+div.page {
+    padding: 20px; 
 }
 
 .clear {
@@ -79,7 +82,11 @@ iframe.page {
 div.tree {
     font-size: 12px;
     color: #666666;
-    border-right: 3px solid;
+}
+
+/* fix for firefox */
+div.tree button {
+    border-width: 2px;
 }
 
 div.tree a, div.tree a:visited {
@@ -137,12 +144,16 @@ td {
 
 /* HEADINGS */
 
-div.main h1 {
+div.page h1 {
     font-weight: bold;
     display: inline;
 }
 
-div.main h2 {
+div.page h1.title {
+    text-decoration: underline;
+}
+
+div.page h2 {
     padding-top: 1em;
     /*padding-bottom: 0.5em;*/
     font-weight: bold;
@@ -151,7 +162,7 @@ div.main h2 {
     display: inline;
 }
 
-div.main h3 {
+div.page h3 {
     padding-top: 0.75em;
     font-weight: bold;
     font-size: 125%;
@@ -161,12 +172,12 @@ div.main h3 {
 
 /* LINKS */
 
-/*div.main a, div.main a:visited {
+/*div.page a, div.page a:visited {
     color: #005BCA;
     text-decoration: none;
 }
 
-div.main a:hover, div#me a:hover {
+div.page a:hover, div#me a:hover {
     text-decoration: underline;
 }*/
 
@@ -176,7 +187,7 @@ span.code-node {
     /*color: #FFFF00;  /* yellow */
 }
 
-div.codebox, div.main code, div.main pre {
+div.codebox, div.page code, div.page pre {
     font-family: "Courier New", Courier, monospace;
     font-weight: normal;
     font-size: 13px;
@@ -184,14 +195,14 @@ div.codebox, div.main code, div.main pre {
     border: 1px solid #DDDDDD;
 }
 
-div.main p.tagged-text
-div.main code {
+div.page p.tagged-text,
+div.page code {
     /*color: #859C00;*/
     padding-left: 0.25em;
     padding-right: 0.25em;
 }
 
-div.main pre {
+div.page pre {
     padding: 0.25em;
     overflow: auto !important;
     width: 75%;

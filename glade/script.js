@@ -34,5 +34,5 @@ function collapseAllSubtrees(element){
 }
 
 window.onload = function(){ 
-	document.body.style.overflowY = 'hidden';
+
 }
