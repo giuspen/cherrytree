@@ -528,7 +528,7 @@ Gtk::HBox& CtMainWin::_init_status_bar()
     _ctStatusBar.frame.set_shadow_type(Gtk::SHADOW_NONE);
     _ctStatusBar.frame.set_border_width(1);
     _ctStatusBar.frame.add(_ctStatusBar.progressBar);
-    _ctStatusBar.stopButton.set_image_from_icon_name("gtk-stop", Gtk::ICON_SIZE_MENU);
+    _ctStatusBar.stopButton.set_image_from_icon_name("stop", Gtk::ICON_SIZE_MENU);
     _ctStatusBar.hbox.pack_start(_ctStatusBar.statusBar, true, true);
     _ctStatusBar.hbox.pack_start(_ctStatusBar.frame, false, true);
     _ctStatusBar.hbox.pack_start(_ctStatusBar.stopButton, false, true);
@@ -1111,7 +1111,7 @@ void CtMainWin::_on_textview_populate_popup(Gtk::Menu* menu)
         /*for (auto menuitem: menu->get_children())
             if (menu->)
             try:
-                if menuitem.get_image().get_property("stock") == "gtk-paste":
+                if menuitem.get_image().get_property("stock") == "edit_paste":
                     menuitem.set_sensitive(True)
             except: pass
         */

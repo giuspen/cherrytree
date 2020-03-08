@@ -406,15 +406,15 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
     Gtk::Box* pContentArea = dialog.get_content_area();
 
     Gtk::Button button_move_up;
-    button_move_up.set_image_from_icon_name("gtk-go-up", Gtk::ICON_SIZE_DND);
+    button_move_up.set_image_from_icon_name("go-up", Gtk::ICON_SIZE_DND);
     Gtk::Button button_move_down;
-    button_move_down.set_image_from_icon_name("gtk-go-down", Gtk::ICON_SIZE_DND);
+    button_move_down.set_image_from_icon_name("go-down", Gtk::ICON_SIZE_DND);
     Gtk::Button button_delete;
-    button_delete.set_image_from_icon_name("gtk-clear", Gtk::ICON_SIZE_DND);
+    button_delete.set_image_from_icon_name("clear", Gtk::ICON_SIZE_DND);
     Gtk::Button button_sort_desc;
-    button_sort_desc.set_image_from_icon_name("gtk-sort-descending", Gtk::ICON_SIZE_DND);
+    button_sort_desc.set_image_from_icon_name("sort-descending", Gtk::ICON_SIZE_DND);
     Gtk::Button button_sort_asc;
-    button_sort_asc.set_image_from_icon_name("gtk-sort-ascending", Gtk::ICON_SIZE_DND);
+    button_sort_asc.set_image_from_icon_name("sort-ascending", Gtk::ICON_SIZE_DND);
     Gtk::Label label1;
     Gtk::Label label2;
     Gtk::HBox hbox;

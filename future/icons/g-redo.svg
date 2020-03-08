@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2422" width="48" height="48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs2424">
+  <radialGradient id="radialGradient3827" cx="24.837" cy="36.421" r="15.645" gradientTransform="matrix(1 0 0 .53672 0 16.873)" gradientUnits="userSpaceOnUse">
+   <stop id="stop8664" offset="0"/>
+   <stop id="stop8666" style="stop-opacity:0" offset="1"/>
+  </radialGradient>
+  <linearGradient id="linearGradient3768" x1="35.998" x2="35.998" y1="31.247" y2="36.354" gradientTransform="matrix(1.0576 0 0 .97907 .12288 3.3906)" gradientUnits="userSpaceOnUse">
+   <stop id="stop4021" style="stop-color:#688c35" offset="0"/>
+   <stop id="stop4023" style="stop-color:#9cc8f0;stop-opacity:0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3766" x1="31.27" x2="31.27" y1="10.82" y2="36.354" gradientTransform="matrix(1.0576 0 0 .97907 .12288 3.3906)" gradientUnits="userSpaceOnUse">
+   <stop id="stop4011" style="stop-color:#d7e866" offset="0"/>
+   <stop id="stop4013" style="stop-color:#98b438" offset=".68191"/>
+   <stop id="stop4015" style="stop-color:#a1ba49" offset=".95274"/>
+   <stop id="stop4017" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient3763" x1="19.503" x2="15.048" y1="12.959" y2="12.959" gradientTransform="matrix(0 -1.1474 1.2394 0 2.0083 56.36)" gradientUnits="userSpaceOnUse">
+   <stop id="stop2189" style="stop-color:#fff;stop-opacity:.64341" offset="0"/>
+   <stop id="stop2191" style="stop-color:#fff;stop-opacity:0" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g id="layer1">
+  <path id="path8660" transform="matrix(-1.4897 0 0 -1.0013 61.001 75.021)" d="m40.482 36.421a15.645 8.3969 0 1 1-31.289 0 15.645 8.3969 0 1 1 31.289 0z" style="fill-rule:evenodd;fill:url(#radialGradient3827);opacity:.14118"/>
+  <path id="path3701" d="m40.708 47.483c-42.331 1.2935-36.033-33.199-14.014-32.999v-8.0363l17.999 14.281-17.999 14.977v-8.2224c-14.873-0.57371-18.832 19.74 14.014 19.999z" style="display:block;fill:url(#linearGradient3766);stroke-linejoin:round;stroke-miterlimit:7;stroke-width:.96392;stroke:url(#linearGradient3768)"/>
+  <path id="path3703" d="m18.022 41.883c-12.398-5.9524-9.1233-26.852 9.6715-26.4v-6.7564l15.321 12.007-15.321 12.673v-6.9238c-15.694-0.34098-14.511 11.31-9.6715 15.4z" style="display:block;fill:none;opacity:.69886;stroke-miterlimit:7;stroke-width:.96392;stroke:url(#linearGradient3763)"/>
+ </g>
+</svg>
