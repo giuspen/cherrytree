@@ -651,25 +651,35 @@ class Export2Html:
         node_name = clean_text_to_utf8(self.dad.treestore[tree_iter][1])
         child_tree_iter = self.dad.treestore.iter_children(tree_iter)
         if(not child_tree_iter):
-            return '''<li class="leaf"><a href="#" onclick="changeFrame('%s')">%s</a></li>\n''' % (href, node_name)
-        html = '''<li><button onclick="toggleSubTree(this)">-</button> <a href="#" onclick="changeFrame('%s')">%s</a></li>
+            if self.dad.last_index_in_page:
+                return '''<li class="leaf"><a href="#" onclick="changeFrame('%s')">%s</a></li>\n''' % (href, node_name)
+            else:
+                return '''<li class="leaf"><a href="%s">%s</a></li>\n''' % (href, node_name)
+        else:
+            if self.dad.last_index_in_page:
+                html = '''<li><button onclick="toggleSubTree(this)">-</button> <a href="#" onclick="changeFrame('%s')">%s</a></li>
 ''' % (href, node_name)
-        html += '<ul class="subtree">\n'
-        while child_tree_iter:
-            html += self.tree_links_text_iter(child_tree_iter)
-            child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
-        html += '</ul>\n'
-        return html
+            else:
+                html = '''<li><button onclick="toggleSubTree(this)">-</button> <a href="%s">%s</a></li>
+''' % (href, node_name)
+            html += '<ul class="subtree">\n'
+            while child_tree_iter:
+                html += self.tree_links_text_iter(child_tree_iter)
+                child_tree_iter = self.dad.treestore.iter_next(child_tree_iter)
+            html += '</ul>\n'
+            return html
 
     def create_tree_index_page(self):
         """Write the index html file for the tree"""
         html_text = cons.HTML_HEADER % self.dad.file_name
-        html_text += '''<div class="main">\n'''
-        html_text += self.tree_links_text
-        html_text += '''<div class="page">
-        <iframe class="page" src="" id="page_frame"></iframe>
-    </div>
-</div>'''
+        if self.dad.last_index_in_page:
+            html_text += '''<div class="two-panels">\n<div class="tree-panel">\n'''
+            html_text += self.tree_links_text
+            html_text += '''</div>\n'''
+            html_text += '''<div class="page-panel"><iframe src="" id="page_frame"></iframe></div>'''
+            html_text += '''</div>'''
+        else:
+            html_text += '<div class="page">' + self.tree_links_text + '</div>'
         html_text += '<script src="res/script.js"></script>\n'
         html_text += cons.HTML_FOOTER
         file_descriptor = open(os.path.join(self.new_path, "index.html"), 'w')
@@ -683,10 +693,9 @@ class Export2Html:
             sel_range = [iter_start.get_offset(), iter_end.get_offset()]
         else: sel_range = None
         html_text = cons.HTML_HEADER % clean_text_to_utf8(self.dad.treestore[tree_iter][1])
-        if self.tree_links_text and self.dad.last_index_in_page:
-            html_text += ''
+        html_text += r'<div class="page">'
         if self.dad.last_include_node_name:
-            html_text += '<h1><b><u>%s</u></b></h1>' % clean_text_to_utf8(self.dad.treestore[tree_iter][1])
+            html_text += '<h1 class="title">%s</h1><br/>' % clean_text_to_utf8(self.dad.treestore[tree_iter][1])
         self.dad.get_textbuffer_from_tree_iter(tree_iter)
         if self.dad.treestore[tree_iter][4] == cons.RICH_TEXT_ID:
             text_n_objects = self.html_get_from_treestore_node(tree_iter, sel_range)
@@ -706,47 +715,7 @@ class Export2Html:
         else: html_text += self.html_get_from_code_buffer(self.dad.treestore[tree_iter][2], sel_range)
         if self.tree_links_text and not self.dad.last_index_in_page:
             html_text += '<p align="center">' + '<img src="%s" height="22" width="22">' % os.path.join("images", "home.png") + 2*cons.CHAR_SPACE + '<a href="index.html">' + _("Index") + '</a></p>'
-        html_text += cons.HTML_FOOTER
-        node_html_filepath = os.path.join(self.new_path, self.get_html_filename(tree_iter))
-        #print "full=%s(prefix=%s)" % (len(node_html_filepath), len(self.new_path))
-        file_descriptor = open(node_html_filepath, 'w')
-        file_descriptor.write(html_text)
-        file_descriptor.close()
-
-    def node_export_to_html2(self, tree_iter, only_selection=False):
-        """Export a Node To HTML"""
-        if only_selection:
-            iter_start, iter_end = self.dad.curr_buffer.get_selection_bounds()
-            sel_range = [iter_start.get_offset(), iter_end.get_offset()]
-        else: sel_range = None
-        html_text = cons.HTML_HEADER % clean_text_to_utf8(self.dad.treestore[tree_iter][1])
-        if self.tree_links_text and self.dad.last_index_in_page:
-            td_tree = r'<div class="main">'
-            td_page = r'<div class="page">'
-            html_text += td_tree + self.tree_links_text + td_page
-        if self.dad.last_include_node_name:
-            html_text += '<h1><b><u>%s</u></b></h1>' % clean_text_to_utf8(self.dad.treestore[tree_iter][1])
-        self.dad.get_textbuffer_from_tree_iter(tree_iter)
-        if self.dad.treestore[tree_iter][4] == cons.RICH_TEXT_ID:
-            text_n_objects = self.html_get_from_treestore_node(tree_iter, sel_range)
-            self.images_count = 0
-            for i, html_slot in enumerate(text_n_objects[0]):
-                html_text += html_slot
-                if i < len(text_n_objects[1]):
-                    curr_object = text_n_objects[1][i]
-                    if curr_object[0] == "pixbuf":
-                        pix_dir = dir(curr_object[1][1])
-                        if "embfile" in pix_dir:
-                            html_text += self.get_embfile_html(curr_object[1], tree_iter)
-                        else:
-                            html_text += self.get_image_html(curr_object[1], tree_iter)
-                    elif curr_object[0] == "table": html_text += self.get_table_html(curr_object[1])
-                    elif curr_object[0] == "codebox": html_text += self.get_codebox_html(curr_object[1])
-        else: html_text += self.html_get_from_code_buffer(self.dad.treestore[tree_iter][2], sel_range)
-        if self.tree_links_text and not self.dad.last_index_in_page:
-            html_text += '<p align="center">' + '<img src="%s" height="22" width="22">' % os.path.join("images", "home.png") + 2*cons.CHAR_SPACE + '<a href="index.html">' + _("Index") + '</a></p>'
-        if self.tree_links_text and self.dad.last_index_in_page:
-            html_text += '</div></div>\n'
+        html_text += '</div>' # div class="page"
         html_text += cons.HTML_FOOTER
         node_html_filepath = os.path.join(self.new_path, self.get_html_filename(tree_iter))
         #print "full=%s(prefix=%s)" % (len(node_html_filepath), len(self.new_path))
