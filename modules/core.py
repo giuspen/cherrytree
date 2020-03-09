@@ -1744,7 +1744,7 @@ iter_end, exclude_iter_sel_end=True)
                     support.dialog_error(_("%s write failed - file is missing. Reattach usb driver or shared resource") % self.reconnect_dbpath, self.window)
                     return False
                 if not self.ctdb_handler.is_db_ok(self.db):
-                    support.dialog_error(_("%s write failed - file is blocked by a sync program") % self.reconnect_dbpath, self.window)
+                    support.dialog_error(_("%s write failed - is file blocked by a sync program?") % self.reconnect_dbpath, self.window)
                     return False
         # backup before save new version
         if self.backup_copy: self.backups_handling(filepath)
