@@ -742,35 +742,38 @@ class FindReplace:
 
     def parse_node_content_iter(self, tree_iter, text_buffer, pattern, forward, first_fromsel, all_matches, first_node):
         """Returns True if pattern was find, False otherwise"""
-        buff_start_iter = text_buffer.get_start_iter()
-        if buff_start_iter.get_char() != cons.CHAR_NEWLINE:
-            self.newline_trick = True
-            if not text_buffer.get_modified(): restore_modified = True
-            else: restore_modified = False
-            text_buffer.insert(buff_start_iter, cons.CHAR_NEWLINE)
-        else:
-            self.newline_trick = False
-            restore_modified = False
-        if (first_fromsel and first_node)\
-        or (all_matches and not self.all_matches_first_in_node):
-            node_id = self.dad.get_node_id_from_tree_iter(tree_iter)
-            start_iter = self.get_inner_start_iter(text_buffer, forward, node_id)
-        else:
-            if forward: start_iter = text_buffer.get_start_iter()
-            else: start_iter = text_buffer.get_end_iter()
-            if all_matches: self.all_matches_first_in_node = False
-        if self.is_node_within_time_filter(tree_iter):
-            pattern_found = self.find_pattern(tree_iter, text_buffer, pattern, start_iter, forward, all_matches)
-        else:
-            pattern_found = False
-        if self.newline_trick:
+        try:
             buff_start_iter = text_buffer.get_start_iter()
-            buff_step_iter = buff_start_iter.copy()
-            if buff_step_iter.forward_char(): text_buffer.delete(buff_start_iter, buff_step_iter)
-            if restore_modified: text_buffer.set_modified(False)
-        if self.replace_active and pattern_found:
-            self.dad.update_window_save_needed("nbuf", given_tree_iter=tree_iter)
-        return pattern_found
+            if buff_start_iter.get_char() != cons.CHAR_NEWLINE:
+                self.newline_trick = True
+                if not text_buffer.get_modified(): restore_modified = True
+                else: restore_modified = False
+                text_buffer.insert(buff_start_iter, cons.CHAR_NEWLINE)
+            else:
+                self.newline_trick = False
+                restore_modified = False
+            if (first_fromsel and first_node)\
+            or (all_matches and not self.all_matches_first_in_node):
+                node_id = self.dad.get_node_id_from_tree_iter(tree_iter)
+                start_iter = self.get_inner_start_iter(text_buffer, forward, node_id)
+            else:
+                if forward: start_iter = text_buffer.get_start_iter()
+                else: start_iter = text_buffer.get_end_iter()
+                if all_matches: self.all_matches_first_in_node = False
+            if self.is_node_within_time_filter(tree_iter):
+                pattern_found = self.find_pattern(tree_iter, text_buffer, pattern, start_iter, forward, all_matches)
+            else:
+                pattern_found = False
+            if self.newline_trick:
+                buff_start_iter = text_buffer.get_start_iter()
+                buff_step_iter = buff_start_iter.copy()
+                if buff_step_iter.forward_char(): text_buffer.delete(buff_start_iter, buff_step_iter)
+                if restore_modified: text_buffer.set_modified(False)
+            if self.replace_active and pattern_found:
+                self.dad.update_window_save_needed("nbuf", given_tree_iter=tree_iter)
+            return pattern_found
+        except: # caused by bad symbol, #664
+            return False
 
     def parse_given_node_content(self, node_iter, pattern, forward, first_fromsel, all_matches):
         """Returns True if pattern was found, False otherwise"""
@@ -881,25 +884,31 @@ class FindReplace:
 
     def get_line_content(self, text_buffer, text_iter):
         """Returns the Line Content Given the Text Iter"""
-        line_start = text_iter.copy()
-        line_end = text_iter.copy()
-        if not line_start.backward_char(): return ""
-        while line_start.get_char() != cons.CHAR_NEWLINE:
-            if not line_start.backward_char(): break
-        else: line_start.forward_char()
-        while line_end.get_char() != cons.CHAR_NEWLINE:
-            if not line_end.forward_char(): break
-        return text_buffer.get_text(line_start, line_end)
+        try:
+            line_start = text_iter.copy()
+            line_end = text_iter.copy()
+            if not line_start.backward_char(): return ""
+            while line_start.get_char() != cons.CHAR_NEWLINE:
+                if not line_start.backward_char(): break
+            else: line_start.forward_char()
+            while line_end.get_char() != cons.CHAR_NEWLINE:
+                if not line_end.forward_char(): break
+            return text_buffer.get_text(line_start, line_end)
+        except: # caused by bad symbol, #664
+            return u''
 
     def get_first_line_content(self, text_buffer):
         """Returns the First Not Empty Line Content Given the Text Buffer"""
-        start_iter = text_buffer.get_start_iter()
-        while start_iter.get_char() == cons.CHAR_NEWLINE:
-            if not start_iter.forward_char(): return ""
-        end_iter = start_iter.copy()
-        while end_iter.get_char() != cons.CHAR_NEWLINE:
-            if not end_iter.forward_char(): break
-        return text_buffer.get_text(start_iter, end_iter)
+        try:
+            start_iter = text_buffer.get_start_iter()
+            while start_iter.get_char() == cons.CHAR_NEWLINE:
+                if not start_iter.forward_char(): return ""
+            end_iter = start_iter.copy()
+            while end_iter.get_char() != cons.CHAR_NEWLINE:
+                if not end_iter.forward_char(): break
+            return text_buffer.get_text(start_iter, end_iter)
+        except: # caused by bad symbol, #664
+            return u''
 
     def allmatchesdialog_show(self):
         """Create the All Matches Dialog"""

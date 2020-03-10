@@ -288,11 +288,14 @@ class ListsHandler:
 
     def is_list_todo_beginning(self, square_bracket_open_iter):
         """Check if ☐ or ☑ or ☒"""
-        if square_bracket_open_iter.get_char() in self.dad.chars_todo:
-            list_info = self.get_paragraph_list_info(square_bracket_open_iter)
-            if list_info and list_info["num"] == 0:
-                return True
-        return False
+        try:
+            if square_bracket_open_iter.get_char() in self.dad.chars_todo:
+                list_info = self.get_paragraph_list_info(square_bracket_open_iter)
+                if list_info and list_info["num"] == 0:
+                    return True
+            return False
+        except: # caused by bad symbol, #664
+            return False
 
     def todo_list_rotate_status(self, todo_char_iter, text_buffer):
         """Rotate status between ☐ and ☑ and ☒"""
