@@ -82,7 +82,7 @@ struct CPair
 
 enum ECensorPathMode
 {
-  k_RelatPath,  // absolute prefix as Prefix, remain path in Tree
+  k_RelatPath=0,  // absolute prefix as Prefix, remain path in Tree
   k_FullPath,   // drive prefix as Prefix, remain path in Tree
   k_AbsPath     // full path in Tree
 };

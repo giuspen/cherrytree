@@ -624,6 +624,7 @@ void CCensor::AddPathsToCensor(ECensorPathMode censorPathMode)
   FOR_VECTOR(i, CensorPaths)
   {
     const CCensorPath &cp = CensorPaths[i];
+    //wprintf(L"CensorPaths[i]: %s - %d\n", cp.Path.Ptr(), static_cast<int>(censorPathMode));
     AddItem(censorPathMode, cp.Include, cp.Path, cp.Recursive, cp.WildcardMatching);
   }
   CensorPaths.Clear();

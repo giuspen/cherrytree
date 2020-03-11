@@ -99,6 +99,7 @@ bind '"\e[B":history-search-forward'
 # or build Release
 ./build.sh R
 export LC_ALL=C
+mkdir -p C:/Users/${USER}/AppData/Local/cherrytree
 ./cherrytree.exe
 
 ## NOTES: *** FIND DEPENDENCIES *** of cherrytree.exe and copy to ~/dependencies/
