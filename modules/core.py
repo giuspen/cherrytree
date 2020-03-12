@@ -3190,12 +3190,13 @@ iter_end, exclude_iter_sel_end=True)
                     tree_iter = self.get_tree_iter_from_node_id(node_id)
                     if tree_iter:
                         node_name = self.treestore[tree_iter][1]
+                        node_toolip = support.get_node_hierarchical_name(self, tree_iter, separator="/", for_filename=False)
                         self.node_name_header_buttons[curr_button_num] = self.state_machine.visited_nodes_list[i]
                         markup = "<small>"+cgi.escape(node_name)+"</small>"
                         curr_button_idx = curr_button_num-1
                         buttons[curr_button_idx].get_children()[0].set_markup(markup)
                         buttons[curr_button_idx].show_all()
-                        buttons[curr_button_idx].set_tooltip_text(node_name)
+                        buttons[curr_button_idx].set_tooltip_text(node_toolip)
                         curr_button_num -= 1
                         if not curr_button_num: break
             for i in range(curr_button_num):
