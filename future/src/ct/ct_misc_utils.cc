@@ -542,14 +542,12 @@ int CtStrUtil::natural_compare(const Glib::ustring& left, const Glib::ustring& r
 
 std::string CtFontUtil::get_font_family(const std::string& fontStr)
 {
-    std::vector<std::string> splFont = str::split(fontStr, " ");
-    return splFont.size() > 0 ? splFont.at(0) : "";
+    return Pango::FontDescription(fontStr).get_family();
 }
 
 std::string CtFontUtil::get_font_size_str(const std::string& fontStr)
 {
-    std::vector<std::string> splFont = str::split(fontStr, " ");
-    return splFont.size() > 1 ? splFont.at(1) : "";
+    return std::to_string(Pango::FontDescription(fontStr).get_size());
 }
 
 
