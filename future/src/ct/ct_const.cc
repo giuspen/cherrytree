@@ -306,6 +306,15 @@ const std::unordered_map<std::string, std::string> CtConst::CODE_EXEC_TYPE_CMD_D
     {"python3",  "python3 "+CtConst::CODE_EXEC_TMP_SRC},
     {"sh",       "sh "+CtConst::CODE_EXEC_TMP_SRC}
 };
+const std::unordered_map<std::string, std::string> CtConst::CODE_EXEC_TYPE_EXT_DEFAULT {
+    {"c",        "c"},
+    {"cpp",      "cpp"},
+    {"dosbatch", "bat"},
+    {"perl",     "pl"},
+    {"python",   "py"},
+    {"python3",  "py"},
+    {"sh",       "sh"}
+};
 const std::unordered_map<std::string, std::string> CtConst::CODE_EXEC_TERM_RUN_DEFAULT {
     {"linux", "xterm -hold -geometry 180x45 -e \""+CtConst::CODE_EXEC_COMMAND+"\""},
     {"win",   "start cmd /k \""+CtConst::CODE_EXEC_COMMAND+"\""}

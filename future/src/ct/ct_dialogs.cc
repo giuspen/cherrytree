@@ -227,7 +227,7 @@ bool CtDialogs::question_dialog(const Glib::ustring& message,
                               Gtk::MESSAGE_QUESTION,
                               Gtk::BUTTONS_OK_CANCEL,
                               true/* modal */);
-    dialog.set_secondary_text(message);
+    dialog.set_secondary_text(message, true);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     return (Gtk::RESPONSE_OK == dialog.run());
 }

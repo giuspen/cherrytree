@@ -108,6 +108,8 @@ TEST(MiscUtilsGroup, getFontMisc)
 {
     CHECK("Sans" == CtFontUtil::get_font_family("Sans 9"));
     CHECK("9" == CtFontUtil::get_font_size_str("Sans 9"));
+    CHECK("Noto Sans" == CtFontUtil::get_font_family("Noto Sans 9"));
+    CHECK("9" == CtFontUtil::get_font_size_str("Noto Sans 9"));
 }
 
 

@@ -349,11 +349,13 @@ CtActions::text_view_n_buffer_codebox_proof CtActions::_get_text_view_n_buffer_c
         return text_view_n_buffer_codebox_proof{&codebox->get_text_view(),
                     codebox->get_text_view().get_buffer(),
                     codebox->get_syntax_highlighting(),
+                    codebox,
                     true};
     else
         return text_view_n_buffer_codebox_proof{&_pCtMainWin->get_text_view(),
                     _pCtMainWin->get_text_view().get_buffer(),
                     _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting(),
+                    nullptr,
                     false};
 }
 

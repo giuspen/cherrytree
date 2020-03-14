@@ -61,7 +61,6 @@ private:
 private:
     void need_restart(RESTART_REASON reason, const gchar* msg = nullptr);
 
-    std::string get_code_exec_term_run();
 
     void fill_commands_model(Glib::RefPtr<Gtk::ListStore> model);
     void add_new_command_in_model(Glib::RefPtr<Gtk::ListStore> model);
@@ -74,6 +73,9 @@ private:
     void fill_shortcut_model(Glib::RefPtr<Gtk::TreeStore> model);
     bool edit_shortcut(Gtk::TreeView* treeview);
     bool edit_shortcut_dialog(std::string& shortcut);
+
+public:
+    static std::string get_code_exec_term_run(CtMainWin* pCtMainWin);
 
 private:
     struct UniversalModelColumns : public Gtk::TreeModel::ColumnRecord

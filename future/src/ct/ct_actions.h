@@ -198,6 +198,7 @@ private:
         CtTextView*                     text_view;
         Glib::RefPtr<Gtk::TextBuffer>   text_buffer;
         std::string                     syntax_highl;
+        CtCodebox*                      codebox;
         bool                            from_codebox;
     };
     text_view_n_buffer_codebox_proof _get_text_view_n_buffer_codebox_proof();
