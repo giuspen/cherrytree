@@ -589,7 +589,7 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     Gtk::VBox* vbox_codexec = Gtk::manage(new Gtk::VBox());
     Gtk::HBox* hbox_term_run = Gtk::manage(new Gtk::HBox());
     Gtk::Entry* entry_term_run = Gtk::manage(new Gtk::Entry());
-    entry_term_run->set_text(get_code_exec_term_run());
+    entry_term_run->set_text(get_code_exec_term_run(_pCtMainWin));
     Gtk::Button* button_reset_term = Gtk::manage(new Gtk::Button());
     button_reset_term->set_image(*_pCtMainWin->new_image_from_stock("g-undo", Gtk::ICON_SIZE_BUTTON));
     button_reset_term->set_tooltip_text(_("Reset to Default"));
@@ -658,7 +658,7 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     button_reset_term->signal_clicked().connect([this, pConfig, entry_term_run](){
         if (CtDialogs::question_dialog(reset_warning, *this)) {
             pConfig->customCodexecTerm.clear();
-            entry_term_run->set_text(get_code_exec_term_run());
+            entry_term_run->set_text(get_code_exec_term_run(_pCtMainWin));
         }
     });
 
@@ -1513,11 +1513,11 @@ void CtPrefDlg::need_restart(RESTART_REASON reason, const gchar* msg /*= nullptr
     }
 }
 
-std::string CtPrefDlg::get_code_exec_term_run()
+std::string CtPrefDlg::get_code_exec_term_run(CtMainWin* pCtMainWin)
 {
-    std::string op_sys = CtConst::IS_WIN_OS ? "linux" : "win";
-    if (!_pCtMainWin->get_ct_config()->customCodexecTerm.empty())
-        return _pCtMainWin->get_ct_config()->customCodexecTerm;
+    std::string op_sys = CtConst::IS_WIN_OS ? "win" : "linux";
+    if (!pCtMainWin->get_ct_config()->customCodexecTerm.empty())
+        return pCtMainWin->get_ct_config()->customCodexecTerm;
     else
         return CtConst::CODE_EXEC_TERM_RUN_DEFAULT.at(op_sys);
 }

@@ -21,9 +21,11 @@
 
 #include "ct_actions.h"
 #include "ct_export2html.h"
+#include "ct_pref_dlg.h"
 #include <gtkmm/dialog.h>
 #include <gtkmm/stock.h>
 #include <fstream>
+#include <cstdlib>
 
 // Cut Anchor
 void CtActions::anchor_cut()
@@ -349,9 +351,67 @@ void CtActions::codebox_change_properties()
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
+// Exec Code
 void CtActions::exec_code()
 {
-    // todo:
+    if (!_is_there_selected_node_or_error()) return;
+
+    Glib::ustring code_type;
+    Glib::ustring code_val;
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    if (proof.from_codebox) {
+        code_type = proof.codebox->get_syntax_highlighting();
+        code_val = proof.codebox->get_text_content();
+    } else {
+        if (_pCtMainWin->curr_tree_iter().get_node_is_rich_text()) {
+            CtDialogs::warning_dialog(_("No CodeBox is Selected"), *_pCtMainWin);
+            return;
+        }
+        code_type = _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting();
+        code_val = _curr_buffer()->begin().get_text(_curr_buffer()->end());
+    }
+    Glib::ustring binary_cmd = [&]() -> Glib::ustring {
+        for (auto& it: _pCtMainWin->get_ct_config()->customCodexecType)
+            if (it.first == code_type) return it.second;
+        for (const auto& it: CtConst::CODE_EXEC_TYPE_CMD_DEFAULT)
+            if (it.first == code_type) return it.second;
+        return "";
+    }();
+    if (binary_cmd.empty()) {
+        CtDialogs::warning_dialog(str::format(_("You must associate a command to '%s'.\nDo so in the Preferences Dialog"), code_type), *_pCtMainWin);
+        return;
+    }
+    Glib::ustring code_type_ext = [&]() -> Glib::ustring {
+        for (auto& it: _pCtMainWin->get_ct_config()->customCodexecExt)
+            if (it.first == code_type) return it.second;
+        for (const auto& it: CtConst::CODE_EXEC_TYPE_EXT_DEFAULT)
+            if (it.first == code_type) return it.second;
+        return "text";
+    }();
+    Glib::ustring code_exec_term = CtPrefDlg::get_code_exec_term_run(_pCtMainWin);
+
+    Glib::ustring filepath_src_tmp = _pCtMainWin->get_ct_tmp()->getHiddenFilePath("exec_code." + code_type_ext);
+    Glib::ustring filepath_bin_tmp = _pCtMainWin->get_ct_tmp()->getHiddenFilePath("exec_code.exe");
+    binary_cmd = str::replace(binary_cmd, CtConst::CODE_EXEC_TMP_SRC, filepath_src_tmp);
+    binary_cmd = str::replace(binary_cmd, CtConst::CODE_EXEC_TMP_BIN, filepath_bin_tmp);
+    Glib::ustring terminal_cmd = str::replace(code_exec_term, CtConst::CODE_EXEC_COMMAND, binary_cmd);
+
+    if (!CtDialogs::question_dialog(std::string("<b>")+_("Do you want to Execute the Code?")+"</b>", *_pCtMainWin))
+        return;
+
+    g_file_set_contents(filepath_src_tmp.c_str(), code_val.c_str(), (gssize)code_val.bytes(), nullptr);
+
+    // if std::system is not enougth, then try g_spawn_async_with_pipes
+    int status = std::system(terminal_cmd.c_str());
+
+    // check exit code (0 - is good)
+    if (WEXITSTATUS(status) != 0) {
+        if (str::startswith(terminal_cmd, "xterm ")) {
+            status = std::system("xterm -version");
+            if (WEXITSTATUS(status) != 0)
+                CtDialogs::error_dialog(_("Install the package 'xterm' or configure a different terminal in the Preferences Dialog"), *_pCtMainWin);
+        }
+    }
 }
 
 // Load the CodeBox Content From a Text Fil
