@@ -404,6 +404,10 @@ void CtActions::exec_code()
     // if std::system is not enougth, then try g_spawn_async_with_pipes
     int status = std::system(terminal_cmd.c_str());
 
+#ifdef _WIN32
+#define WEXITSTATUS(x) x
+#endif
+
     // check exit code (0 - is good)
     if (WEXITSTATUS(status) != 0) {
         if (str::startswith(terminal_cmd, "xterm ")) {
