@@ -49,12 +49,12 @@ bool CtExport2Html::prepare_html_folder(Glib::ustring dir_place, Glib::ustring n
     g_mkdir_with_parents(_embed_dir.c_str(), 0777);
 
     Glib::ustring config_dir = Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME);
-    Glib::ustring styles_css_filepath = Glib::build_filename(config_dir, "styles2.css");
+    Glib::ustring styles_css_filepath = Glib::build_filename(config_dir, "styles3.css");
     if (!Glib::file_test(styles_css_filepath, Glib::FILE_TEST_IS_REGULAR))
     {
-        throw "put css file into .config folder (or export by pygtk version)"; // todo: CtFileSystem::copy_file(Glib::build_filename(CtConst::GLADE_PATH, "styles2.css"), styles_css_filepath);
+        throw "put css file into .config folder (or export by pygtk version)"; // todo: CtFileSystem::copy_file(Glib::build_filename(CtConst::GLADE_PATH, "styles3.css"), styles_css_filepath);
     }
-    CtFileSystem::copy_file(styles_css_filepath, Glib::build_filename(_export_dir, "styles2.css"));
+    CtFileSystem::copy_file(styles_css_filepath, Glib::build_filename(_export_dir, "styles3.css"));
 
     return true;
 }

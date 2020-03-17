@@ -590,12 +590,12 @@ class Export2Html:
         os.mkdir(self.images_dir)
         os.mkdir(self.embed_dir)
         os.mkdir(self.res_dir)
-        styles_css_filepath = os.path.join(cons.CONFIG_DIR, "styles2.css")
+        styles_css_filepath = os.path.join(cons.CONFIG_DIR, "styles3.css")
         if not os.path.isfile(styles_css_filepath):
-            shutil.copy(os.path.join(cons.GLADE_PATH, "styles2.css"), cons.CONFIG_DIR)
-        script_js_filepath = os.path.join(cons.CONFIG_DIR, "script.js")
+            shutil.copy(os.path.join(cons.GLADE_PATH, "styles3.css"), cons.CONFIG_DIR)
+        script_js_filepath = os.path.join(cons.CONFIG_DIR, "script3.js")
         if not os.path.isfile(script_js_filepath):
-            shutil.copy(os.path.join(cons.GLADE_PATH, "script.js"), cons.CONFIG_DIR)
+            shutil.copy(os.path.join(cons.GLADE_PATH, "script3.js"), cons.CONFIG_DIR)
         shutil.copy(styles_css_filepath, self.res_dir)
         shutil.copy(script_js_filepath, self.res_dir)
         return True
@@ -680,7 +680,7 @@ class Export2Html:
             html_text += '''</div>'''
         else:
             html_text += '<div class="page">' + self.tree_links_text + '</div>'
-        html_text += '<script src="res/script.js"></script>\n'
+        html_text += '<script src="res/script3.js"></script>\n'
         html_text += cons.HTML_FOOTER
         file_descriptor = open(os.path.join(self.new_path, "index.html"), 'w')
         file_descriptor.write(html_text)
