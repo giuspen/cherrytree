@@ -693,6 +693,18 @@ class Export2Html:
             sel_range = [iter_start.get_offset(), iter_end.get_offset()]
         else: sel_range = None
         html_text = cons.HTML_HEADER % clean_text_to_utf8(self.dad.treestore[tree_iter][1])
+        # add redirect from some html to index.html, to have a link tree
+        if self.tree_links_text and self.dad.last_index_in_page:
+            script = '''
+    <script type="text/javascript">
+        function in_frame () { try { return window.self !== window.top; } catch (e) { return true; } }
+        if (!in_frame()) {
+            var page = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
+            window.location = 'index.html#' + page;
+        }
+    </script>'''
+            html_text = html_text.replace("<script></script>", script)
+
         html_text += r'<div class="page">'
         if self.dad.last_include_node_name:
             html_text += '<h1 class="title">%s</h1><br/>' % clean_text_to_utf8(self.dad.treestore[tree_iter][1])
