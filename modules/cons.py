@@ -236,6 +236,7 @@ HTML_HEADER = '''<!doctype html><html>
   <title>%s</title>
   <meta name="generator" content="CherryTree">
   <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+  <script></script>
 </head>
 <body>'''
 HTML_FOOTER = '</body></html>'
