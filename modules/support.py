@@ -237,10 +237,11 @@ def on_sourceview_event_after_double_click_button1(dad, text_view, event):
 
 def on_sourceview_event_after_triple_click_button1(dad, text_view, event):
     """Called after every Triple Click with button 1"""
-    text_buffer = text_view.get_buffer()
-    x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
-    iter_start = text_view.get_iter_at_location(x, y)
-    apply_tag_try_automatic_bounds_triple_click(dad, text_buffer=text_buffer, iter_start=iter_start)
+    if dad.syntax_highlighting == cons.RICH_TEXT_ID:
+        text_buffer = text_view.get_buffer()
+        x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
+        iter_start = text_view.get_iter_at_location(x, y)
+        apply_tag_try_automatic_bounds_triple_click(dad, text_buffer=text_buffer, iter_start=iter_start)
 
 def on_sourceview_event_after_button_press(dad, text_view, event):
     """Called after every gtk.gdk.BUTTON_PRESS on the SourceView"""
