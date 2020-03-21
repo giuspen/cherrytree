@@ -1,4 +1,11 @@
 
+0.39.1 (March 21st, 2020)
+  * fixed export to html regressions after 0.39.0 (#668, work of @txe)
+  * fixed RuntimeError: returned character can not be represented in 16-bit unicode" (#675, #664, work of @txe)
+  * fixed problem with opening another note (#679, work of @txe)
+  * show node path in tooltip of Last Visited Nodes (#680, work of @txe)
+  * triple click functionality to select paragraph limited to rich text as not ideal in particular for for code
+
 0.39.0 (March 4th, 2020)
   * improved export to html (work of @ksmukta)
   * fixed export to pdf, picture blurry (work of @txe)
