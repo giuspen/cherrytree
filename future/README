@@ -85,9 +85,12 @@ nano /etc/gtk-3.0/settings.ini
 [Settings]
 gtk-theme-name=win32
 ####################
-# useful console settings
+# console settings
 nano ~/.bashrc
 ####################
+export LC_ALL=C
+CHERRYTREE_CONFIG_FOLDER="C:/Users/${USER}/AppData/Local/cherrytree"
+[ -d ${CHERRYTREE_CONFIG_FOLDER} ] || mkdir -p ${CHERRYTREE_CONFIG_FOLDER}
 alias l="ls -lah --color"
 bind '"\e[A":history-search-backward'
 bind '"\e[B":history-search-forward'
@@ -98,8 +101,6 @@ bind '"\e[B":history-search-forward'
 ./build.sh
 # or build Release
 ./build.sh R
-export LC_ALL=C
-mkdir -p C:/Users/${USER}/AppData/Local/cherrytree
 ./cherrytree.exe
 
 ## NOTES: *** FIND DEPENDENCIES *** of cherrytree.exe and copy to ~/dependencies/

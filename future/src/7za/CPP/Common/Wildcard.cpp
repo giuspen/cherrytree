@@ -535,8 +535,15 @@ void CCensor::AddItem(ECensorPathMode pathMode, bool include, const UString &pat
       for (unsigned i = numPrefixParts; i < pathParts.Size(); i++)
       {
         const UString &part = pathParts[i];
-        if (part == L".." || part == L".")
+        if (
+             part == L".." || part == L"."
+#ifdef _WIN32
+             || IsDriveColonName(part)
+#endif // _WIN32
+        )
+        {
           dotsIndex = i;
+        }
       }
 
       if (dotsIndex >= 0)

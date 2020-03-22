@@ -106,10 +106,10 @@ TEST(MiscUtilsGroup, is_pgchar_in_pgchar_iterable)
 
 TEST(MiscUtilsGroup, getFontMisc)
 {
-    CHECK("Sans" == CtFontUtil::get_font_family("Sans 9"));
-    CHECK("9" == CtFontUtil::get_font_size_str("Sans 9"));
-    CHECK("Noto Sans" == CtFontUtil::get_font_family("Noto Sans 9"));
-    CHECK("9" == CtFontUtil::get_font_size_str("Noto Sans 9"));
+    STRCMP_EQUAL("Sans", CtFontUtil::get_font_family("Sans 9").c_str());
+    STRCMP_EQUAL("9", CtFontUtil::get_font_size_str("Sans 9").c_str());
+    STRCMP_EQUAL("Noto Sans", CtFontUtil::get_font_family("Noto Sans 9").c_str());
+    STRCMP_EQUAL("9", CtFontUtil::get_font_size_str("Noto Sans 9").c_str());
 }
 
 

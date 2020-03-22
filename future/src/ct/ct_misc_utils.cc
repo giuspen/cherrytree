@@ -547,7 +547,7 @@ std::string CtFontUtil::get_font_family(const std::string& fontStr)
 
 std::string CtFontUtil::get_font_size_str(const std::string& fontStr)
 {
-    return std::to_string(Pango::FontDescription(fontStr).get_size());
+    return std::to_string(Pango::FontDescription(fontStr).get_size()/Pango::SCALE);
 }
 
 
