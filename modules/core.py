@@ -1436,18 +1436,15 @@ iter_end, exclude_iter_sel_end=True)
         elif event.button == 3: self.ui.get_widget("/SysTrayMenu").popup(None, None, None, event.button, event.time)
         return False
 
-    def max_node_id(self, tree_iter=None):
+    def max_node_id(self):
         """Returns the max node id"""
-        if tree_iter == None: tree_iter = self.treestore.get_iter_first()
-        max_node_id = 0
-        while tree_iter != None:
-            max_node_id = max(max_node_id, self.treestore[tree_iter][3])
-            child_iter = self.treestore.iter_children(tree_iter)
-            while child_iter != None:
-                max_node_id = max(max_node_id, self.max_node_id(child_iter))
-                child_iter = self.treestore.iter_next(child_iter)
-            tree_iter = self.treestore.iter_next(tree_iter)
-        return max_node_id
+        def foreach_func(model, path, iter, wrapped_max_id): 
+            wrapped_max_id[0] = max(wrapped_max_id[0], model[iter][3])
+            return False # keep going foreach
+
+        wrapped_max_id = [0]
+        self.treestore.foreach(foreach_func, wrapped_max_id)
+        return wrapped_max_id[0]
     
     def node_id_get(self, original_id=None, discard_ids=None):
         """Returns the node_ids, all Different Each Other"""
