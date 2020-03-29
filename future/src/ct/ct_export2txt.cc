@@ -67,7 +67,6 @@ void CtExport2Txt::nodes_all_export_to_txt(bool all_tree, Glib::ustring export_d
 
     if (single_txt_filepath != "")
         g_file_set_contents(single_txt_filepath.c_str(), tree_plain_text.c_str(), (gssize)tree_plain_text.bytes(), nullptr);
-    // todo: self.dad.objects_buffer_refresh()
 }
 
 // Export the Buffer To Txt

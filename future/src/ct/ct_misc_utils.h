@@ -319,6 +319,9 @@ std::string abspath(const std::string& path);
 
 time_t getmtime(const std::string& path);
 
+int getsize(const std::string& path);
+
+
 void external_filepath_open(const std::string& filepath, bool open_fold_if_no_app_error);
 void external_folderpath_open(const std::string& folderpath);
 

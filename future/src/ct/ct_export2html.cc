@@ -67,7 +67,6 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
         html_text += "<div class=\"main\">" + index + "<div class=\"page\">";
     if (options.include_node_name)
         html_text += "<h1><b><u>" + tree_iter.get_node_name() + "</u></b></h1>";
-    // todo: ? self.dad.get_textbuffer_from_tree_iter(tree_iter)
 
     std::vector<Glib::ustring> html_slots;
     std::vector<CtAnchoredWidget*> widgets;
@@ -143,7 +142,6 @@ void CtExport2Html::nodes_all_export_to_html(bool all_tree, const CtExportOption
         traverseFunc(tree_iter);
         if (!all_tree) break;
     }
-    // todo: self.dad.objects_buffer_refresh()
 }
 
 // Returns the HTML given the text buffer and iter bounds

@@ -196,13 +196,15 @@ void CtActions::_node_move_after(Gtk::TreeIter iter_to_move, Gtk::TreeIter fathe
     node_move_data_and_children(iter_to_move, new_node_iter);
 
     // now we can remove the old iter (and all children)
+    _pCtMainWin->resetPrevTreeIter();
     _pCtMainWin->curr_tree_store().get_store()->erase(iter_to_move);
-    //todo: self.ctdb_handler.pending_edit_db_node_hier(self.treestore[new_node_iter][3])
+    _pCtMainWin->curr_tree_store().to_ct_tree_iter(new_node_iter).pending_edit_db_node_hier();
+
     _pCtMainWin->curr_tree_store().nodes_sequences_fix(Gtk::TreeIter(), true);
     if (father_iter)
         _pCtMainWin->curr_tree_view().expand_row(_pCtMainWin->curr_tree_store().get_path(father_iter), false);
     else
-        _pCtMainWin->curr_tree_view().expand_row(_pCtMainWin->curr_tree_store().get_path(new_node_iter), false);
+        _pCtMainWin->curr_tree_view().expand_row(_pCtMainWin->curr_tree_store().get_path(new_node_iter), false);    
     Gtk::TreePath new_node_path = _pCtMainWin->curr_tree_store().get_path(new_node_iter);
     _pCtMainWin->curr_tree_view().collapse_row(new_node_path);
     _pCtMainWin->curr_tree_view().set_cursor(new_node_path);
@@ -304,12 +306,15 @@ void CtActions::node_date()
 void CtActions::node_up()
 {
     if (!_is_there_selected_node_or_error()) return;
-    auto prev_iter = --_pCtMainWin->curr_tree_iter();
+    auto prev_iter = _pCtMainWin->curr_tree_store().to_ct_tree_iter(--_pCtMainWin->curr_tree_iter());
     if (!prev_iter) return;
     _pCtMainWin->curr_tree_store().get_store()->iter_swap(_pCtMainWin->curr_tree_iter(), prev_iter);
-    //todo: self.nodes_sequences_swap(self.curr_tree_iter, prev_iter)
-    //self.ctdb_handler.pending_edit_db_node_hier(self.treestore[self.curr_tree_iter][3])
-    //self.ctdb_handler.pending_edit_db_node_hier(self.treestore[prev_iter][3])
+    auto cur_seq_num = _pCtMainWin->curr_tree_iter().get_node_sequence();
+    auto prev_seq_num = prev_iter.get_node_sequence();
+    _pCtMainWin->curr_tree_iter().set_node_sequence(prev_seq_num);
+    prev_iter.set_node_sequence(cur_seq_num);
+    _pCtMainWin->curr_tree_iter().pending_edit_db_node_hier();
+    prev_iter.pending_edit_db_node_hier();
     _pCtMainWin->curr_tree_view().set_cursor(_pCtMainWin->curr_tree_store().get_path(_pCtMainWin->curr_tree_iter()));
     _pCtMainWin->update_window_save_needed();
 }
@@ -317,12 +322,15 @@ void CtActions::node_up()
 void CtActions::node_down()
 {
     if (!_is_there_selected_node_or_error()) return;
-    auto next_iter = ++_pCtMainWin->curr_tree_iter();
+    auto next_iter = _pCtMainWin->curr_tree_store().to_ct_tree_iter(++_pCtMainWin->curr_tree_iter());
     if (!next_iter) return;
     _pCtMainWin->curr_tree_store().get_store()->iter_swap(_pCtMainWin->curr_tree_iter(), next_iter);
-    //todo: self.nodes_sequences_swap(self.curr_tree_iter, subseq_iter)
-    //self.ctdb_handler.pending_edit_db_node_hier(self.treestore[self.curr_tree_iter][3])
-    //self.ctdb_handler.pending_edit_db_node_hier(self.treestore[subseq_iter][3])
+    auto cur_seq_num = _pCtMainWin->curr_tree_iter().get_node_sequence();
+    auto next_seq_num = next_iter.get_node_sequence();
+    _pCtMainWin->curr_tree_iter().set_node_sequence(next_seq_num);
+    next_iter.set_node_sequence(cur_seq_num);
+    _pCtMainWin->curr_tree_iter().pending_edit_db_node_hier();
+    next_iter.pending_edit_db_node_hier();
     _pCtMainWin->curr_tree_view().set_cursor(_pCtMainWin->curr_tree_store().get_path(_pCtMainWin->curr_tree_iter()));
     _pCtMainWin->update_window_save_needed();
 }
@@ -333,7 +341,7 @@ void CtActions::node_right()
     auto prev_iter = --_pCtMainWin->curr_tree_iter();
     if (!prev_iter) return;
     _node_move_after(_pCtMainWin->curr_tree_iter(), prev_iter);
-    //todo: if (_pCtMainWin->get_ct_config()->nodesIcons == "c") self.treeview_refresh(change_icon=True)
+    _pCtMainWin->curr_tree_store().refresh_node_icons(_pCtMainWin->curr_tree_iter(), true);
 }
 
 void CtActions::node_left()
@@ -342,7 +350,7 @@ void CtActions::node_left()
     Gtk::TreeIter father_iter = _pCtMainWin->curr_tree_iter()->parent();
     if (!father_iter) return;
     _node_move_after(_pCtMainWin->curr_tree_iter(), father_iter->parent(), father_iter);
-    //todo: if (_pCtMainWin->get_ct_config()->nodesIcons == "c") self.treeview_refresh(change_icon=True)
+    _pCtMainWin->curr_tree_store().refresh_node_icons(_pCtMainWin->curr_tree_iter(), true);
 }
 
 void CtActions::node_change_father()
@@ -370,7 +378,7 @@ void CtActions::node_change_father()
         }
 
     _node_move_after(_pCtMainWin->curr_tree_iter(), father_iter);
-    //todo: if self.nodes_icons == "c": self.treeview_refresh(change_icon=True)
+    _pCtMainWin->curr_tree_store().refresh_node_icons(_pCtMainWin->curr_tree_iter(), true);
 }
 
 //"""Sorts the Tree Ascending"""

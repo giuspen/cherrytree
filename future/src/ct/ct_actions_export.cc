@@ -94,8 +94,8 @@ void CtActions::_export_print(bool save_to_pdf, Glib::ustring auto_path, bool au
         if (auto_path != "")
         {
             pdf_filepath = auto_path;
-            // todo: if (!auto_overwrite && Gio::File:: os.path.isfile(self.print_handler.pdf_filepath):
-            //    return
+            if (!auto_overwrite && Glib::file_test(pdf_filepath, Glib::FILE_TEST_IS_REGULAR))
+                return;
         }
         else if (save_to_pdf)
         {
@@ -146,7 +146,6 @@ void CtActions::_export_to_html(Glib::ustring auto_path, bool auto_overwrite)
             if (_pCtMainWin->get_curr_doc_file_type() == CtDocType::SQLite && _pCtMainWin->curr_tree_iter())
             {
                 _pCtMainWin->get_state_machine().update_state();
-                // todo: _pCtMainWin->objects_buffer_refresh();
             }
         }
     }
@@ -160,7 +159,6 @@ void CtActions::_export_to_html(Glib::ustring auto_path, bool auto_overwrite)
             if (_pCtMainWin->get_curr_doc_file_type() == CtDocType::SQLite && _pCtMainWin->curr_tree_iter())
             {
                 _pCtMainWin->get_state_machine().update_state();
-                // todo: _pCtMainWin->objects_buffer_refresh();
             }
         }
     }

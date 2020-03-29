@@ -168,6 +168,7 @@ public:
     void show_hide_win_header(bool visible) { _ctWinHeader.headerBox.property_visible() = visible; }
     void set_toolbar_icon_size(int size)    { _pToolbar->property_icon_size() = CtMiscUtil::getIconSize(size); }
 
+    void resetPrevTreeIter()                { _prevTreeIter = CtTreeIter(); }
 private:
     bool                _on_window_key_press_event(GdkEventKey* event);
 
