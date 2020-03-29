@@ -796,6 +796,14 @@ time_t CtFileSystem::getmtime(const std::string& path)
     return time;
 }
 
+int CtFileSystem::getsize(const std::string& path)
+{
+    GStatBuf st;
+    if (g_stat(path.c_str(), &st) == 0)
+        return st.st_size;
+    return 0;
+}
+
 // Open Filepath with External App
 void CtFileSystem::external_filepath_open(const std::string& filepath, bool open_fold_if_no_app_error)
 {
