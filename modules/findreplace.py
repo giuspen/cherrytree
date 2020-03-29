@@ -823,7 +823,7 @@ class FindReplace:
                 self.allmatches_liststore.append([node_id, 0, 0, node_name, line_content, 1, cgi.escape(node_hier_name)])
             if self.replace_active and not self.dad.treestore[node_iter][7]:
                 replacer_text = self.search_replace_dict['replace']
-                text_name = text_name.replace(self.curr_find[1], replacer_text)
+                text_name = pattern.sub(replacer_text, text_name)
                 self.dad.treestore[node_iter][1] = text_name
                 self.dad.ctdb_handler.pending_edit_db_node_prop(self.dad.treestore[node_iter][3])
             if not all_matches:
