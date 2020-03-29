@@ -545,6 +545,15 @@ void CtTreeStore::update_node_data(const Gtk::TreeIter& treeIter, const CtNodeDa
     _nodes_names_dict[nodeData.nodeId] = nodeData.name;
 }
 
+void CtTreeStore::update_node_icon(const Gtk::TreeIter& treeIter)
+{
+    auto icon = _get_node_icon(_rTreeStore->iter_depth(treeIter),
+                               treeIter->get_value(_columns.colSyntaxHighlighting),
+                               treeIter->get_value(_columns.colCustomIconId));
+    treeIter->set_value(_columns.rColPixbuf, icon);
+}
+
+
 void CtTreeStore::update_node_aux_icon(const Gtk::TreeIter& treeIter)
 {
     bool is_ro = treeIter->get_value(_columns.colNodeRO);
@@ -923,3 +932,15 @@ void CtTreeStore::nodes_sequences_fix(Gtk::TreeIter father_iter,  bool process_c
             nodes_sequences_fix(child, process_children);
     }
 }
+
+void CtTreeStore::refresh_node_icons(Gtk::TreeIter father_iter, bool cherry_only)
+{
+    if (cherry_only)
+        if (CtConst::NODE_ICON_TYPE_CHERRY != _pCtMainWin->get_ct_config()->nodesIcons)
+            return;
+    if (father_iter)
+        update_node_icon(father_iter);
+    for (auto& child: father_iter ? father_iter->children() : _rTreeStore->children())
+        refresh_node_icons(child, cherry_only);
+}
+
