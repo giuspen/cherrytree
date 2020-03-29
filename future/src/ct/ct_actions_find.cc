@@ -1061,9 +1061,8 @@ void CtActions::_iterated_find_dialog()
            find_again();
            s_state.replace_subsequent = false;
         });
-        button_undo->signal_clicked().connect([](){
-           // todo:
-           // self.dad.requested_step_back()
+        button_undo->signal_clicked().connect([this](){
+           requested_step_back();
         });
 
         s_state.iteratedfinddialog = dialog;
