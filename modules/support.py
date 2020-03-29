@@ -2,7 +2,9 @@
 #
 #       support.py
 #
-#       Copyright 2009-2020 Giuseppe Penone <giuspen@gmail.com>
+#       Copyright 2009-2020
+#       Giuseppe Penone <giuspen@gmail.com>
+#       Evgenii Gurianov <https://github.com/txe>
 #
 #       This program is free software; you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
@@ -906,7 +908,8 @@ def dialog_about(dad):
     dialog.set_program_name("CherryTree")
     dialog.set_version(cons.VERSION)
     dialog.set_copyright("""Copyright © 2009-2020
-Giuseppe Penone <giuspen@gmail.com>""")
+Giuseppe Penone <giuspen@gmail.com>
+Evgenii Gurianov <https://github.com/txe>""")
     dialog.set_comments(_("A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting"))
     dialog.set_license(_("""
 This program is free software; you can redistribute it and/or modify
@@ -925,7 +928,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 MA 02110-1301, USA.
 """))
     dialog.set_website("http://www.giuspen.com/cherrytree/")
-    dialog.set_authors(["Giuseppe Penone <giuspen@gmail.com>"])
+    dialog.set_authors(["Giuseppe Penone <giuspen@gmail.com>", "Evgenii Gurianov <https://github.com/txe>"])
     dialog.set_artists(["OCAL <http://www.openclipart.org/>", "Zeltak <zeltak@gmail.com>", "Angelo Penone <angelo.penone@gmail.com>"])
     dialog.set_translator_credits(
 _("Armenian")+" (hy) Seda Stamboltsyan <sedastam@yandex.com>"+cons.CHAR_NEWLINE+
