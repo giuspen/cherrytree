@@ -143,6 +143,11 @@ void CtTreeIter::set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf)
     (*this)->set_value(_pColumns->rColPixbufAux, rPixbuf);
 }
 
+void CtTreeIter::set_node_sequence(gint64 num)
+{
+    (*this)->set_value(_pColumns->colNodeSequence, num);
+}
+
 Glib::RefPtr<Gsv::Buffer> CtTreeIter::get_node_text_buffer() const
 {
     Glib::RefPtr<Gsv::Buffer> rRetTextBuffer{nullptr};
@@ -899,4 +904,22 @@ Gtk::TreePath CtTreeStore::get_path(Gtk::TreeIter tree_iter)
 CtTreeIter CtTreeStore::to_ct_tree_iter(Gtk::TreeIter tree_iter)
 {
     return CtTreeIter(tree_iter, &get_columns(), _pCtSQLite);
+}
+
+void CtTreeStore::nodes_sequences_fix(Gtk::TreeIter father_iter,  bool process_children)
+{
+    auto children = father_iter ? father_iter->children() : _rTreeStore->children();
+    gint64 node_sequence = 0;
+    for (auto& child: children)
+    {
+        ++node_sequence;
+        auto ct_child = to_ct_tree_iter(child);
+        if (ct_child.get_node_sequence() != node_sequence)
+        {
+            ct_child.set_node_sequence(node_sequence);
+            ct_child.pending_edit_db_node_hier();
+        }
+        if (process_children)
+            nodes_sequences_fix(child, process_children);
+    }
 }

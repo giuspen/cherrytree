@@ -100,6 +100,7 @@ public:
     gint64        get_node_modification_time() const;
     void          set_node_modification_time(const gint64 modification_time);
     void          set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf);
+    void          set_node_sequence(gint64 num);
     Glib::RefPtr<Gsv::Buffer> get_node_text_buffer() const;
 
     std::list<CtAnchoredWidget*> get_all_embedded_widgets();
@@ -173,7 +174,8 @@ public:
     Gtk::TreePath                   get_path(Gtk::TreeIter tree_iter);
     CtTreeIter                      to_ct_tree_iter(Gtk::TreeIter tree_iter);
 
-    void nodes_sequences_fix(Gtk::TreeIter /*father_iter*/, bool /*process_children*/) { /* todo: */ }
+    void nodes_sequences_fix(Gtk::TreeIter father_iter,  bool process_children);
+
     const CtTreeModelColumns& get_columns() { return _columns; }
 
     void pending_edit_db_bookmarks();
