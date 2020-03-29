@@ -1008,7 +1008,6 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     text_buffer->set_modified(false);
 
     get_text_view().set_buffer(text_buffer);
-    // todo: objects_buffer_refresh()
     text_buffer->place_cursor(text_buffer->get_iter_at_offset(state->cursor_pos));
     get_text_view().scroll_to(text_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
 
@@ -1040,7 +1039,6 @@ void CtMainWin::_on_treeview_cursor_changed()
     window_header_update_bookmark_icon(false);
     update_selected_node_statusbar_info();
     get_state_machine().node_selected_changed(treeIter.get_node_id());
-    // todo: objects_buffer_refresh();
 
     _prevTreeIter = treeIter;
 }

@@ -260,7 +260,6 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
     _pCtMainWin->curr_tree_store().set_tree_expanded_collapsed_string(tree_expanded_collapsed_string, _pCtMainWin->curr_tree_view(), _pCtMainWin->get_ct_config()->nodesBookmExp);
     if (!s_state.matches_num || all_matches) {
         _pCtMainWin->curr_tree_view().set_cursor_safe(starting_tree_iter);
-        //todo: self.dad.objects_buffer_refresh()
         _pCtMainWin->get_text_view().grab_focus();
         curr_buffer->place_cursor(curr_buffer->get_iter_at_offset(current_cursor_pos));
         _pCtMainWin->get_text_view().scroll_to(curr_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
@@ -355,7 +354,6 @@ void CtActions::find_a_node()
                 break;
         }
     }
-    // todo: self.dad.objects_buffer_refresh()
     if (s_state.matches_num == 0)
         CtDialogs::info_dialog(str::format(_("The pattern '%s' was not found"), pattern.c_str()), *_pCtMainWin);
     else if (all_matches) {

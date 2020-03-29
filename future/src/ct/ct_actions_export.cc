@@ -146,7 +146,6 @@ void CtActions::_export_to_html(Glib::ustring auto_path, bool auto_overwrite)
             if (_pCtMainWin->get_curr_doc_file_type() == CtDocType::SQLite && _pCtMainWin->curr_tree_iter())
             {
                 _pCtMainWin->get_state_machine().update_state();
-                // todo: _pCtMainWin->objects_buffer_refresh();
             }
         }
     }
@@ -160,7 +159,6 @@ void CtActions::_export_to_html(Glib::ustring auto_path, bool auto_overwrite)
             if (_pCtMainWin->get_curr_doc_file_type() == CtDocType::SQLite && _pCtMainWin->curr_tree_iter())
             {
                 _pCtMainWin->get_state_machine().update_state();
-                // todo: _pCtMainWin->objects_buffer_refresh();
             }
         }
     }

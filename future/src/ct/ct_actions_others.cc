@@ -197,7 +197,6 @@ void CtActions::image_link_edit()
     {
         curr_image_anchor->set_link(property_value);
         curr_image_anchor->update_label_widget();
-        // todo: self.objects_buffer_refresh()
         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
     }
 }

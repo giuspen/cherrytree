@@ -143,7 +143,6 @@ void CtExport2Html::nodes_all_export_to_html(bool all_tree, const CtExportOption
         traverseFunc(tree_iter);
         if (!all_tree) break;
     }
-    // todo: self.dad.objects_buffer_refresh()
 }
 
 // Returns the HTML given the text buffer and iter bounds
