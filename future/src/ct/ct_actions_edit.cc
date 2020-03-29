@@ -157,9 +157,12 @@ void CtActions::apply_tag_link()
     _apply_tag(CtConst::TAG_LINK);
 }
 
+// Insert an Anchor
 void CtActions::anchor_handle()
 {
-    // todo:
+    if (!_node_sel_and_rich_text()) return;
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    _anchor_edit_dialog(nullptr, _curr_buffer()->get_insert()->get_iter(), nullptr);
 }
 
 void CtActions::toc_insert()

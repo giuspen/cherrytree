@@ -490,8 +490,9 @@ void CtActions::codebox_decrease_height()
 // Anchor Edit Dialog
 void CtActions::_anchor_edit_dialog(CtImageAnchor* anchor, Gtk::TextIter insert_iter, Gtk::TextIter* iter_bound)
 {
-    Glib::ustring dialog_title = anchor->get_anchor_name().empty() ? _("Insert Anchor") :  _("Edit Anchor");
-    Glib::ustring ret_anchor_name = CtDialogs::img_n_entry_dialog(*_pCtMainWin, dialog_title, anchor->get_anchor_name(), "anchor");
+    Glib::ustring dialog_title = anchor == nullptr ? _("Insert Anchor") :  _("Edit Anchor");
+    Glib::ustring name = anchor == nullptr ? "" : anchor->get_anchor_name();
+    Glib::ustring ret_anchor_name = CtDialogs::img_n_entry_dialog(*_pCtMainWin, dialog_title, name, "anchor");
     if (ret_anchor_name.empty()) return;
 
     Glib::ustring image_justification;
