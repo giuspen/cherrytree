@@ -94,8 +94,8 @@ void CtActions::_export_print(bool save_to_pdf, Glib::ustring auto_path, bool au
         if (auto_path != "")
         {
             pdf_filepath = auto_path;
-            // todo: if (!auto_overwrite && Gio::File:: os.path.isfile(self.print_handler.pdf_filepath):
-            //    return
+            if (!auto_overwrite && Glib::file_test(pdf_filepath, Glib::FILE_TEST_IS_REGULAR))
+                return;
         }
         else if (save_to_pdf)
         {
