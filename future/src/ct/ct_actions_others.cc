@@ -262,7 +262,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
          }
          _pCtMainWin->curr_tree_view().set_cursor_safe(tree_iter);
          _pCtMainWin->get_text_view().grab_focus();
-         // todo: self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
+         _pCtMainWin->get_text_view().get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
          _pCtMainWin->get_text_view().set_tooltip_text("");
          if (vec.size() >= 3)
          {
