@@ -73,7 +73,6 @@ void CtExportPrint::tree_export_print(const Glib::ustring& pdf_filepath, CtTreeI
 void CtExportPrint::_nodes_all_export_print_iter(CtTreeIter tree_iter, const CtExportOptions& options,
                                                  std::vector<Glib::ustring>& tree_pango_slots, std::list<CtAnchoredWidget*>& tree_widgets, Glib::ustring& text_font)
 {
-    // todo: no need? self.dad.get_textbuffer_from_tree_iter(tree_iter)
     std::vector<Glib::ustring> node_pango_slots;
     std::list<CtAnchoredWidget*> node_widgets;
     if (tree_iter.get_node_is_rich_text())

@@ -142,10 +142,10 @@ bool CtMiscUtil::node_siblings_sort_iteration(Glib::RefPtr<Gtk::TreeStore> model
 std::string CtMiscUtil::get_node_hierarchical_name(CtTreeIter tree_iter, const char* separator/*="--"*/,
                                                    bool for_filename/*=true*/, bool root_to_leaf/*=true*/, const char* trailer/*=""*/)
 {
-    std::string hierarchical_name = str::trim(tree_iter.get_node_name());// todo: exports.clean_text_to_utf8(dad.treestore[tree_iter][1]).strip()
+    std::string hierarchical_name = str::trim(tree_iter.get_node_name());
     CtTreeIter father_iter = tree_iter.parent();
     while (father_iter) {
-        std::string father_name = str::trim(father_iter.get_node_name());// todo: exports.clean_text_to_utf8(dad.treestore[father_iter][1]).strip()
+        std::string father_name = str::trim(father_iter.get_node_name());
         if (root_to_leaf)
             hierarchical_name = father_name + separator + hierarchical_name;
         else
@@ -171,7 +171,7 @@ std::string CtMiscUtil::clean_from_chars_not_for_filename(std::string filename)
         filename = str::replace(filename, str, "");
     }
     filename = str::trim(filename);
-    filename = str::replace(filename, " " /*todo: CtConst::CHAR_SPACE*/, CtConst::CHAR_USCORE);
+    filename = str::replace(filename, " ", CtConst::CHAR_USCORE);
     return filename;
 }
 

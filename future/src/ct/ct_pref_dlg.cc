@@ -156,9 +156,9 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     Gtk::Button* button_reset = Gtk::manage(new Gtk::Button());
     button_reset->set_image(*_pCtMainWin->new_image_from_stock("g-undo", Gtk::ICON_SIZE_BUTTON));
     button_reset->set_tooltip_text(_("Reset to Default"));
-    hbox_reset->pack_start(*Gtk::manage(new Gtk::Label()), true, false); // todo: not sure about third arg
+    hbox_reset->pack_start(*Gtk::manage(new Gtk::Label()), true, false);
     hbox_reset->pack_start(*button_reset, false, false);
-    hbox_reset->pack_start(*Gtk::manage(new Gtk::Label()), true, false); // todo: not sure about third arg
+    hbox_reset->pack_start(*Gtk::manage(new Gtk::Label()), true, false);
     vbox_special_chars->pack_start(*Gtk::manage(new Gtk::Label()), false, false);
     vbox_special_chars->pack_start(*label_special_chars, false, false);
     vbox_special_chars->pack_start(*hbox_reset, false, false);
