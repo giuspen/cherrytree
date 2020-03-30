@@ -63,6 +63,7 @@ class CherryTree:
         self.filetype = ""
         self.user_active = True
         self.ctrl_down = False
+        self.dead_key = ""
         self.window = gtk.Window()
         self.window.set_title("CherryTree")
         self.window.set_default_size(963, 630)
