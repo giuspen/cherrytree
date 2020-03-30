@@ -344,6 +344,20 @@ def on_sourceview_event_after_key_press(dad, text_view, event, syntax_highl):
     """Called after every gtk.gdk.KEY_PRESS on the SourceView"""
     text_buffer = text_view.get_buffer()
     keyname = gtk.gdk.keyval_name(event.keyval)
+
+    # fix wrong diaeresis on win32 Internation keyboard after pressing SPACE
+    if cons.IS_WIN_OS:
+        if keyname == "dead_diaeresis" or keyname == "dead_acute":
+            dad.dead_key = keyname
+        elif dad.dead_key != "" and keyname == cons.STR_KEY_SPACE:
+            iter_insert = text_buffer.get_iter_at_mark(text_buffer.get_insert())
+            if iter_insert and iter_insert.backward_char():
+                if dad.dead_key == "dead_diaeresis" and '¨' == iter_insert.get_char():
+                    dad.replace_text_at_offset('"', iter_insert.get_offset(), iter_insert.get_offset()+1, text_buffer)
+                elif dad.dead_key == "dead_acute" and '´' == iter_insert.get_char():
+                    dad.replace_text_at_offset("'", iter_insert.get_offset(), iter_insert.get_offset()+1, text_buffer)
+            dad.dead_key = ""
+
     if not dad.ctrl_down:
         if keyname in cons.STR_KEYS_CONTROL:
             dad.ctrl_down = True
