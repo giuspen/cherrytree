@@ -628,6 +628,9 @@ iter_end, exclude_iter_sel_end=True)
                 if self.treeview.is_focus(): self.zoom_tree(False)
                 else: self.zoom_text(False)
                 return True
+            elif keyname == 'comma':
+                self.node_siblings_sort_descending()
+                return True
         return False
 
     def on_key_press_cherrytree(self, widget, event):
