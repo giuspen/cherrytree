@@ -826,6 +826,7 @@ bool CtMainWin::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, 
                                                        &_ctTextview,
                                                        iterDocsRestore->second.node_path,
                                                        iterDocsRestore->second.cursor_pos);
+            _ctTextview.grab_focus();
         }
     }
     return retOk;
@@ -1067,15 +1068,26 @@ bool CtMainWin::_on_window_key_press_event(GdkEventKey* event)
 
 bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
 {
-    // todo:
     if (not curr_tree_iter()) return false;
     if (event->state & GDK_SHIFT_MASK) {
-        if (event->keyval == GDK_KEY_Up) {
+        if (event->state & GDK_CONTROL_MASK && event->keyval == GDK_KEY_Right) {
+            _pCtActions->node_change_father();
+            return true;
+        }
+        else if (event->keyval == GDK_KEY_Up) {
             _pCtActions->node_up();
             return true;
         }
-        if (event->keyval == GDK_KEY_Down) {
+        else if (event->keyval == GDK_KEY_Down) {
             _pCtActions->node_down();
+            return true;
+        }
+        else if (event->keyval == GDK_KEY_Left) {
+            _pCtActions->node_left();
+            return true;
+        }
+        else if (event->keyval == GDK_KEY_Right) {
+            _pCtActions->node_right();
             return true;
         }
     }
@@ -1083,14 +1095,70 @@ bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
 
     }
     else if (event->state & GDK_CONTROL_MASK) {
+        auto reduce = [](Gtk::TreeIter first, std::function<Gtk::TreeIter(Gtk::TreeIter)> operatr) -> Gtk::TreeIter
+        {
+            Gtk::TreeIter result;
+            for (auto next = operatr(first); next; next = operatr(next))
+                result = next;
+            return result;
+        };
 
+        if (event->keyval == GDK_KEY_Up) {
+            auto fist_sibling = reduce(curr_tree_iter(), [](Gtk::TreeIter iter) { return --iter;});
+            if (fist_sibling)
+                curr_tree_view().set_cursor_safe(fist_sibling);
+            return true;
+        }
+        else if (event->keyval == GDK_KEY_Down) {
+            auto last_sibling = reduce(curr_tree_iter(), [](Gtk::TreeIter iter) { return ++iter;});
+            if (last_sibling)
+                curr_tree_view().set_cursor_safe(last_sibling);
+            return true;
+        }
+        else if (event->keyval == GDK_KEY_Left) {
+            auto fist_parent = reduce(curr_tree_iter(), [](Gtk::TreeIter iter) { return iter->parent();});
+            if (fist_parent)
+                curr_tree_view().set_cursor_safe(fist_parent);
+            return true;
+        }
+        else if (event->keyval == GDK_KEY_Right) {
+            auto last_child = reduce(curr_tree_iter(), [](Gtk::TreeIter iter) { return iter->children().begin();});
+            if (last_child)
+                curr_tree_view().set_cursor_safe(last_child);
+            return true;
+        } else {
+            // todo: tree_zoom
+        }
     }
     else {
-        if (event->keyval == GDK_KEY_Tab) {
+        if (event->keyval == GDK_KEY_Left) {
+            if (_uCtTreeview->row_expanded(_uCtTreestore->get_path(curr_tree_iter())))
+                _uCtTreeview->collapse_row(_uCtTreestore->get_path(curr_tree_iter()));
+            else if (curr_tree_iter().parent())
+                curr_tree_view().set_cursor_safe(curr_tree_iter().parent());
+            return true;
+        }
+        else if (event->keyval == GDK_KEY_Right) {
+            curr_tree_view().expand_row(curr_tree_store().get_path(curr_tree_iter()), false);
+            return true;
+        }
+        else if (event->keyval == GDK_KEY_Return) {
+            auto path = curr_tree_store().get_path(curr_tree_iter());
+            if (_uCtTreeview->row_expanded(path))
+                _uCtTreeview->collapse_row(path);
+            else
+                _uCtTreeview->expand_row(path, false);
+            return true;
+        }
+        else if (event->keyval == GDK_KEY_Menu) {
+            _pCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(0, event->time);
+            return true;
+        }
+        else if (event->keyval == GDK_KEY_Tab) {
             _pCtActions->toggle_tree_text();
             return true;
         }
-        if (event->keyval == GDK_KEY_Delete) {
+        else if (event->keyval == GDK_KEY_Delete) {
             _pCtActions->node_delete();
             return true;
         }

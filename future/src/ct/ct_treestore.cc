@@ -687,7 +687,8 @@ void CtTreeStore::apply_textbuffer_to_textview(const CtTreeIter& treeIter, CtTex
     }
 
     pTextView->show_all();
-    pTextView->grab_focus();
+    // we shouldn't lose focus from TREE because TREE shortcuts/arrays movement stop working
+    // pTextView->grab_focus();
 
     // connect signals
     _curr_node_sigc_conn.push_back(
