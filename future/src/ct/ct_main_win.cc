@@ -1090,6 +1090,10 @@ bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
             _pCtActions->toggle_tree_text();
             return true;
         }
+        if (event->keyval == GDK_KEY_Delete) {
+            _pCtActions->node_delete();
+            return true;
+        }
     }
     return false;
 }
