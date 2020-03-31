@@ -256,3 +256,8 @@ void CtActions::file_open()
         _pCtMainWin->set_menu_items_recent_documents();
     }
 }
+
+void CtActions::folder_cfg_open()
+{
+    CtFileSystem::external_folderpath_open(Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME));
+}

@@ -62,6 +62,8 @@ gint64 CtStateMachine::requested_visited_next()
 // When a New Node is Selected
 void CtStateMachine::node_selected_changed(gint64 node_id)
 {
+    if (node_id == -1)
+        return;
     if (_pCtMainWin->user_active() && !_go_bk_fw_click)
     {
         int last_index = (int)_visited_nodes_list.size() - 1;

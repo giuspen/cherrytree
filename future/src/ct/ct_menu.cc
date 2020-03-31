@@ -88,7 +88,7 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     _actions.push_back(CtAction{file_cat, "ct_save_as", "save-as", _("Save _As"), KB_CONTROL+KB_SHIFT+"S", _("Save File As"), sigc::mem_fun(*pActions, &CtActions::file_save_as)});
     _actions.push_back(CtAction{file_cat, "command_palette", "execute", _("Command Palette"), KB_CONTROL+KB_SHIFT+"P", _("Command Palette"), sigc::signal<void>() /* dad.export_to_pdf */});
     _actions.push_back(CtAction{file_cat, "exec_code", "execute", _("_Execute Code"), "F5", _("Execute Code"), sigc::mem_fun(*pActions, &CtActions::exec_code)});
-    _actions.push_back(CtAction{file_cat, "open_cfg_folder", "directory", _("Open Preferences _Directory"), None, _("Open the Directory with Preferences Files"), sigc::signal<void>() /* dad.folder_cfg_open */});
+    _actions.push_back(CtAction{file_cat, "open_cfg_folder", "directory", _("Open Preferences _Directory"), None, _("Open the Directory with Preferences Files"), sigc::mem_fun(*pActions, &CtActions::folder_cfg_open)});
     _actions.push_back(CtAction{file_cat, "print_page_setup", "print", _("Pa_ge Setup"), None, _("Set up the Page for Printing"), sigc::mem_fun(*pActions, &CtActions::export_print_page_setup)});
     _actions.push_back(CtAction{file_cat, "do_print", "print", _("_Print"), KB_CONTROL+"P", _("Print"), sigc::mem_fun(*pActions, &CtActions::export_print)});
     _actions.push_back(CtAction{file_cat, "quit_app", "quit-app", _("_Quit"), KB_CONTROL+"Q", _("Quit the Application"), sigc::mem_fun(*pApp, &CtApp::quit_application) /* dad.quit_application */});
@@ -165,7 +165,7 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     _actions.push_back(CtAction{tree_cat, "tree_sibl_sort_asc", "sort-ascending", _("Sort Siblings A_scending"), None, _("Sort all the Siblings of the Selected Node Ascending"), sigc::mem_fun(*pActions, &CtActions::node_siblings_sort_ascending)});
     _actions.push_back(CtAction{tree_cat, "tree_sibl_sort_desc", "sort-descending", _("Sort Siblings D_escending"), None, _("Sort all the Siblings of the Selected Node Descending"), sigc::mem_fun(*pActions, &CtActions::node_siblings_sort_descending)});
     _actions.push_back(CtAction{tree_cat, "child_nodes_inherit_syntax", "execute", _("_Inherit Syntax"), None, _("Change the Selected Node's Children Syntax Highlighting to the Parent's Syntax Highlighting"), sigc::signal<void>() /* dad.node_inherit_syntax */});
-    _actions.push_back(CtAction{tree_cat, "tree_node_del", "edit_delete", _("De_lete Node"), "Delete", _("Delete the Selected Node"), sigc::signal<void>() /* dad.node_delete */});
+    _actions.push_back(CtAction{tree_cat, "tree_node_del", "edit_delete", _("De_lete Node"), "Delete", _("Delete the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_delete)});
     _actions.push_back(CtAction{tree_cat, "node_bookmark", "pin-add", _("Add to _Bookmarks"), KB_CONTROL+KB_SHIFT+"B", _("Add the Current Node to the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmark_curr_node)});
     _actions.push_back(CtAction{tree_cat, "node_unbookmark", "pin-remove", _("_Remove from Bookmarks"), KB_CONTROL+KB_ALT+"B", _("Remove the Current Node from the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmark_curr_node_remove)});
     _actions.push_back(CtAction{tree_cat, "handle_bookmarks", "edit", _("_Handle Bookmarks"), None, _("Handle the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmarks_handle)});
@@ -772,8 +772,6 @@ const char* CtMenu::_get_ui_str_menu()
   </menu>
 
   <menu action='TreeMenu'>
-    <menuitem action='fmt_justify_left'/>
-    <menuitem action='fmt_justify_left'/>
     <menuitem action='tree_add_node'/>
     <menuitem action='tree_add_subnode'/>
     <menuitem action='tree_dup_node'/>
@@ -832,6 +830,10 @@ const char* CtMenu::_get_ui_str_menu()
       <menuitem action='export_txt_single'/>
       <menuitem action='export_ctd'/>
     </menu>
+    <separator/>
+    <menuitem action='child_nodes_inherit_syntax'/>
+    <separator/>
+    <menuitem action='tree_node_del'/>
     <separator/>
     <menuitem action='go_node_prev'/>
     <menuitem action='go_node_next'/>

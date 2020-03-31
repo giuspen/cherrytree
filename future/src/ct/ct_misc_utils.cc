@@ -834,7 +834,19 @@ void CtFileSystem::external_folderpath_open(const std::string& folderpath)
         if cons.IS_WIN_OS: os.startfile(filepath)
         else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
         */
-    g_app_info_launch_default_for_uri(("folder://" + folderpath).c_str(), nullptr, nullptr);
+
+    // https://stackoverflow.com/questions/42442189/how-to-open-spawn-a-file-with-glib-gtkmm-in-windows
+#ifdef _WIN32
+    //ShellExecute(NULL, "open", relatedEntry->get_text().c_str(), NULL, NULL, SW_SHOWDEFAULT);
+    g_warning ("Failed to open uri: %s", folderpath.c_str());
+#elif defined(__APPLE__)
+    //system(("open " + relatedEntry->get_text()).c_str());
+#else
+    gchar *path = g_filename_to_uri(folderpath.c_str(), NULL, NULL);
+    Glib::ustring xgd = "xdg-open " + std::string(path);
+    system(xgd.c_str());
+    g_free(path);
+#endif
 }
 
 Glib::ustring CtFileSystem::prepare_export_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool overwrite_existing)

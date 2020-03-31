@@ -277,6 +277,59 @@ void CtActions::node_edit()
     _pCtMainWin->get_text_view().grab_focus();
 }
 
+// Delete the Selected Node
+void CtActions::node_delete()
+{
+    if (!_is_there_selected_node_or_error()) return;
+    if (!_is_curr_node_not_read_only_or_error()) return;
+
+    std::function<void(Gtk::TreeIter, int, std::vector<std::string>&)> collect_children;
+    collect_children = [this, &collect_children](Gtk::TreeIter iter, int level, std::vector<std::string>& list) {
+      if (list.size() > 15) {
+          if (list.size() == 16)
+            list.push_back(CtConst::CHAR_NEWLINE + "...");
+      } else {
+          list.push_back(CtConst::CHAR_NEWLINE + str::repeat(CtConst::CHAR_SPACE, level*3) + _pCtMainWin->get_ct_config()->charsListbul[0] +
+                  CtConst::CHAR_SPACE + _pCtMainWin->curr_tree_store().to_ct_tree_iter(iter).get_node_name());
+          for (auto child: iter->children())
+              collect_children(child, level + 1, list);
+      }
+    };
+
+
+    Glib::ustring warning_label = str::format(_("Are you sure to <b>Delete the node '%s'?</b>"), _pCtMainWin->curr_tree_iter().get_node_name());
+    if (!_pCtMainWin->curr_tree_iter()->children().empty())
+    {
+        std::vector<std::string> lst;
+        collect_children(_pCtMainWin->curr_tree_iter(), 0, lst);
+        warning_label += CtConst::CHAR_NEWLINE + CtConst::CHAR_NEWLINE + _("The node <b>has Children, they will be Deleted too!</b>");
+        warning_label += str::join(lst, "");
+    }
+    if (!CtDialogs::question_dialog(warning_label, *_pCtMainWin))
+        return;
+    // next selected node will be previous sibling or next sibling or parent or None
+    Gtk::TreeIter new_iter = --_pCtMainWin->curr_tree_iter();
+    if (!new_iter) new_iter = ++_pCtMainWin->curr_tree_iter();
+    if (!new_iter) new_iter = _pCtMainWin->curr_tree_iter().parent();
+
+    _pCtMainWin->resetPrevTreeIter();
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::ndel);
+    _pCtMainWin->curr_tree_store().get_store()->erase(_pCtMainWin->curr_tree_iter());
+
+    if (new_iter)
+    {
+        _pCtMainWin->curr_tree_view().set_cursor_safe(new_iter);
+        _pCtMainWin->get_text_view().grab_focus();
+    }
+    else
+    {
+        _curr_buffer()->set_text("");
+        _pCtMainWin->window_header_update();
+        _pCtMainWin->update_selected_node_statusbar_info();
+        _pCtMainWin->get_text_view().set_sensitive(false);
+    }
+}
+
 void CtActions::node_toggle_read_only()
 {
     if (!_is_there_selected_node_or_error()) return;
