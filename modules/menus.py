@@ -245,8 +245,8 @@ def load_menudict(dad):
 "tree_node_new_father": {"sk": "gtk-jump-to", "sd": _("Node Change _Parent"), "kb": KB_CONTROL+KB_SHIFT+cons.STR_KEY_RIGHT, "dn": _("Change the Selected Node's Parent"), "cb": dad.node_change_father},
 "tree_all_sort_asc": {"sk": "gtk-sort-ascending", "sd": _("Sort Tree _Ascending"), "kb": None, "dn": _("Sort the Tree Ascending"), "cb": dad.tree_sort_ascending},
 "tree_all_sort_desc": {"sk": "gtk-sort-descending", "sd": _("Sort Tree _Descending"), "kb": None, "dn": _("Sort the Tree Descending"), "cb": dad.tree_sort_descending},
-"tree_sibl_sort_asc": {"sk": "gtk-sort-ascending", "sd": _("Sort Siblings A_scending"), "kb": None, "dn": _("Sort all the Siblings of the Selected Node Ascending"), "cb": dad.node_siblings_sort_ascending},
-"tree_sibl_sort_desc": {"sk": "gtk-sort-descending", "sd": _("Sort Siblings D_escending"), "kb": None, "dn": _("Sort all the Siblings of the Selected Node Descending"), "cb": dad.node_siblings_sort_descending},
+"tree_sibl_sort_asc": {"sk": "gtk-sort-ascending", "sd": _("Sort Siblings A_scending"), "kb": KB_CONTROL+KB_SHIFT+"greater", "dn": _("Sort all the Siblings of the Selected Node Ascending"), "cb": dad.node_siblings_sort_ascending},
+"tree_sibl_sort_desc": {"sk": "gtk-sort-descending", "sd": _("Sort Siblings D_escending"), "kb": KB_CONTROL+KB_SHIFT+"less", "dn": _("Sort all the Siblings of the Selected Node Descending"), "cb": dad.node_siblings_sort_descending},
 "child_nodes_inherit_syntax": {"sk": "gtk-execute", "sd": _("_Inherit Syntax"), "kb": None, "dn": _("Change the Selected Node's Children Syntax Highlighting to the Parent's Syntax Highlighting"), "cb": dad.node_inherit_syntax},
 "tree_node_del": {"sk": "edit-delete", "sd": _("De_lete Node"), "kb": "Delete", "dn": _("Delete the Selected Node"), "cb": dad.node_delete},
 "go_node_prev": {"sk": "gtk-go-back", "sd": _("Go _Back"), "kb": KB_ALT+cons.STR_KEY_LEFT, "dn": _("Go to the Previous Visited Node"), "cb": dad.go_back},
@@ -747,7 +747,22 @@ UI_INFO = """
       <menuitem action='fmt_justify_fill'/>
     </menu>
 
-    <menu action='TreeMenu'>
+ <menu action='TreeMenu'>
+        <menuitem action='tree_add_node'/>
+        <menuitem action='tree_add_subnode'/>
+        <menuitem action='tree_dup_node'/>
+        <menuitem action='tree_node_date'/>
+        <menuitem action='tree_all_sort_asc'/>
+        <menuitem action='tree_all_sort_desc'/>
+        <menuitem action='tree_sibl_sort_asc'/>
+        <menuitem action='tree_sibl_sort_desc'/>
+        <menuitem action='tree_node_prop'/>
+        <menuitem action='tree_node_toggle_ro'/>
+        <menuitem action='child_nodes_inherit_syntax'/>
+        <menuitem action='tree_parse_info'/>
+        <menuitem action='node_bookmark'/>
+        <menuitem action='node_unbookmark'/>
+        <menuitem action='handle_bookmarks'/>
     </menu>
 
     <menu action='SearchMenu'>
