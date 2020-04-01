@@ -748,6 +748,21 @@ UI_INFO = """
     </menu>
 
     <menu action='TreeMenu'>
+        <menuitem action='tree_add_node'/>
+        <menuitem action='tree_add_subnode'/>
+        <menuitem action='tree_dup_node'/>
+        <menuitem action='tree_node_date'/>
+        <menuitem action='tree_all_sort_asc'/>
+        <menuitem action='tree_all_sort_desc'/>
+        <menuitem action='tree_sibl_sort_asc'/>
+        <menuitem action='tree_sibl_sort_desc'/>
+        <menuitem action='tree_node_prop'/>
+        <menuitem action='tree_node_toggle_ro'/>
+        <menuitem action='child_nodes_inherit_syntax'/>
+        <menuitem action='tree_parse_info'/>
+        <menuitem action='node_bookmark'/>
+        <menuitem action='node_unbookmark'/>
+        <menuitem action='handle_bookmarks'/>
     </menu>
 
     <menu action='SearchMenu'>
