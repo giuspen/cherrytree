@@ -132,6 +132,8 @@ public:
     void tree_sort_descending();
     void node_siblings_sort_ascending();
     void node_siblings_sort_descending();
+    void node_go_back();    // was as go_back
+    void node_go_forward(); // was as go_forward
 
     void bookmark_curr_node();
     void bookmark_curr_node_remove();
