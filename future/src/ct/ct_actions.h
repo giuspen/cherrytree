@@ -102,6 +102,7 @@ public:
     void file_vacuum();
     void file_save_as();
     void folder_cfg_open();
+    void online_help();
 
 private:
     // helpers for tree actions

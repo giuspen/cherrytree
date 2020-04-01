@@ -95,7 +95,7 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     _actions.push_back(CtAction{file_cat, "exit_app", "quit-app", _("_Exit CherryTree"), KB_CONTROL+KB_SHIFT+"Q", _("Exit from CherryTree"), sigc::signal<void>() /* dad.quit_application_totally */});
     _actions.push_back(CtAction{file_cat, "preferences_dlg", "preferences", _("_Preferences"), KB_CONTROL+KB_ALT+"P", _("Preferences"), sigc::mem_fun(*pApp, &CtApp::dialog_preferences) });
     _actions.push_back(CtAction{file_cat, "ct_check_newer", "network", _("_Check Newer Version"), None, _("Check for a Newer Version"), sigc::signal<void>() /* dad.check_for_newer_version */});
-    _actions.push_back(CtAction{file_cat, "ct_help", "help", _("Online _Manual"), "F1", _("Application's Online Manual"), sigc::signal<void>() /* dad.on_help_menu_item_activated */});
+    _actions.push_back(CtAction{file_cat, "ct_help", "help", _("Online _Manual"), "F1", _("Application's Online Manual"), sigc::mem_fun(*pActions, &CtActions::online_help)});
     _actions.push_back(CtAction{file_cat, "ct_about", "about", _("_About"), None, _("About CherryTree"), sigc::signal<void>() /* dad.dialog_about */});
     const char* editor_cat = _("Editor");
     _actions.push_back(CtAction{editor_cat, "act_undo", "g-undo", _("_Undo"), KB_CONTROL+"Z", _("Undo Last Operation"), sigc::mem_fun(*pActions, &CtActions::requested_step_back)});
