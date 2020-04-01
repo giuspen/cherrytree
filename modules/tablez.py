@@ -455,11 +455,18 @@ class TablesHandler:
                 return True
         return False
 
+    def on_table_cell_focus_out_event(self, widget, event, path, model, col_num):
+        if model[path][col_num] != widget.get_text():
+            if self.dad.is_curr_node_not_read_only_or_error():
+                model[path][col_num] = widget.get_text()
+                self.dad.update_window_save_needed("nbuf", True)
+
     def on_table_cell_editing_started(self, cell, editable, path, model, col_num):
         """A Table Cell is going to be Edited"""
         if isinstance(editable, gtk.Entry):
             editable.connect('key_press_event', self.on_table_cell_key_press, path, model, col_num)
             editable.connect('populate-popup', self.on_table_cell_populate_popup)
+            editable.connect("focus-out-event", self.on_table_cell_focus_out_event, path, model, col_num)
 
     def on_table_cell_edited(self, cell, path, new_text, model, col_num):
         """A Table Cell has been Edited"""
