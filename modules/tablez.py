@@ -408,6 +408,10 @@ class TablesHandler:
         elif event.state & gtk.gdk.MOD1_MASK:
             pass
         elif event.state & gtk.gdk.CONTROL_MASK:
+            # on Win32, emtpy Ctrl deselects selected text, so to fix it
+            if cons.IS_WIN_OS:
+                if keyname in cons.STR_KEYS_CONTROL:
+                    return True
             if keyname == "period":
                 self.curr_table_cell = widget
                 self.curr_table_cell_insert_newline()
