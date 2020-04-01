@@ -49,9 +49,11 @@ import lists
 import findreplace
 import codeboxes
 import ctdb
-#import screenshot
+
+# import screenshot
 
 if cons.HAS_APPINDICATOR: import appindicator
+
 
 class CherryTree:
     """Application's GUI"""
@@ -91,14 +93,17 @@ class CherryTree:
             gtk_settings = gtk.settings_get_default()
             gtk_settings.set_property("gtk-button-images", True)
             gtk_settings.set_property("gtk-menu-images", True)
-        except: pass # older gtk do not have the property "gtk-menu-images"
+        except:
+            pass  # older gtk do not have the property "gtk-menu-images"
         vbox_main = gtk.VBox()
         self.window.add(vbox_main)
         self.country_lang = lang_str
         self.cursor_position = 0
         config.config_file_load(self)
-        if not cons.HAS_APPINDICATOR: self.use_appind = False
-        elif not cons.HAS_SYSTRAY: self.use_appind = True
+        if not cons.HAS_APPINDICATOR:
+            self.use_appind = False
+        elif not cons.HAS_SYSTRAY:
+            self.use_appind = True
         # ui manager
         actions = gtk.ActionGroup("Actions")
         actions.add_actions(menus.get_entries(self))
@@ -147,7 +152,8 @@ class CherryTree:
         hbox_statusbar.pack_start(self.progresstop, False, True)
         vbox_main.pack_start(hbox_statusbar, False, False)
         # ROW: 0-icon_stock_id, 1-name, 2-buffer, 3-unique_id, 4-syntax_highlighting, 5-node_sequence, 6-tags, 7-readonly, 8-aux_icon_stock_id, 9-custom_icon_id, 10-weight, 11-foreground, 12-ts_creation, 13-ts_lastsave
-        self.treestore = gtk.TreeStore(str, str, gobject.TYPE_PYOBJECT, long, str, int, str, gobject.TYPE_BOOLEAN, str, int, int, str, float, float)
+        self.treestore = gtk.TreeStore(str, str, gobject.TYPE_PYOBJECT, long, str, int, str, gobject.TYPE_BOOLEAN, str,
+                                       int, int, str, float, float)
         self.treeview = gtk.TreeView(self.treestore)
         self.treeview.set_headers_visible(False)
         self.treeview.drag_source_set(gtk.gdk.BUTTON1_MASK,
@@ -226,7 +232,7 @@ class CherryTree:
         self.curr_buffer = None
         self.node_add_is_duplication = False
         self.nodes_cursor_pos = {}
-        self.links_entries = {'webs':'', 'file':'', 'fold':'', 'anch':'', 'node':None}
+        self.links_entries = {'webs': '', 'file': '', 'fold': '', 'anch': '', 'node': None}
         self.tags_set = set()
         self.file_update = False
         self.anchor_size_mod = False
@@ -244,19 +250,21 @@ class CherryTree:
         support.set_menu_items_special_chars(self)
         self.find_handler = findreplace.FindReplace(self)
         if not export_mode:
-            self.window.show_all() # this before the config_file_apply that could hide something
+            self.window.show_all()  # this before the config_file_apply that could hide something
             self.window.present()
         config.config_file_apply(self)
         self.combobox_prog_lang_init()
         if is_arg or not is_startup or self.reload_doc_last:
             self.file_startup_load(open_with_file, node_name)
-        else: self.file_name = ""
+        else:
+            self.file_name = ""
         if self.tree_is_empty(): self.update_node_name_header()
         if self.systray:
             if not self.boss.systray_active:
                 self.status_icon_enable()
             if self.start_on_systray: self.window.hide_all()
-        else: self.ui.get_widget("/MenuBar/FileMenu/exit_app").set_property(cons.STR_VISIBLE, False)
+        else:
+            self.ui.get_widget("/MenuBar/FileMenu/exit_app").set_property(cons.STR_VISIBLE, False)
         if self.check_version: self.check_for_newer_version()
 
     def on_button_progresstop_clicked(self, *args):
@@ -277,8 +285,8 @@ class CherryTree:
                 raise
             splitted_latest_v = [int(i) for i in latest_version.split(".")]
             splitted_local_v = [int(i) for i in cons.VERSION.split(".")]
-            weighted_latest_v = splitted_latest_v[0]*10000 + splitted_latest_v[1]*100 + splitted_latest_v[2]
-            weighted_local_v = splitted_local_v[0]*10000 + splitted_local_v[1]*100 + splitted_local_v[2]
+            weighted_latest_v = splitted_latest_v[0] * 10000 + splitted_latest_v[1] * 100 + splitted_latest_v[2]
+            weighted_local_v = splitted_local_v[0] * 10000 + splitted_local_v[1] * 100 + splitted_local_v[2]
             if weighted_latest_v > weighted_local_v:
                 support.dialog_info(_("A Newer Version Is Available!") + " (%s)" % latest_version, self.window)
                 self.statusbar.pop(self.statusbar_context_id)
@@ -292,14 +300,17 @@ class CherryTree:
                 self.statusbar.push(self.statusbar_context_id, msg_txt)
         except:
             self.statusbar.pop(self.statusbar_context_id)
-            self.statusbar.push(self.statusbar_context_id, _("Failed to Retrieve Latest Version Information - Try Again Later"))
+            self.statusbar.push(self.statusbar_context_id,
+                                _("Failed to Retrieve Latest Version Information - Try Again Later"))
 
     def get_node_icon(self, node_level, node_code, custom_icon_id):
         """Returns the Stock Id given the Node Level"""
         if custom_icon_id:
             # overridden icon
-            try: stock_id = cons.NODES_STOCKS[custom_icon_id]
-            except: stock_id = cons.NODES_STOCKS[cons.NODE_ICON_NO_ICON_ID]
+            try:
+                stock_id = cons.NODES_STOCKS[custom_icon_id]
+            except:
+                stock_id = cons.NODES_STOCKS[cons.NODE_ICON_NO_ICON_ID]
         elif node_code in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
             # text node
             if self.nodes_icons == "c":
@@ -324,20 +335,24 @@ class CherryTree:
         text_view, text_buffer, syntax_highl, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
         if not self.is_curr_node_not_read_only_or_error(): return
-        if not text_buffer.get_has_selection() and not support.apply_tag_try_automatic_bounds(self, text_buffer=text_buffer):
+        if not text_buffer.get_has_selection() and not support.apply_tag_try_automatic_bounds(self,
+                                                                                              text_buffer=text_buffer):
             support.dialog_warning(_("No Text is Selected"), self.window)
             return
         iter_start, iter_end = text_buffer.get_selection_bounds()
         if from_codebox or self.syntax_highlighting != cons.RICH_TEXT_ID:
             text_to_change_case = text_buffer.get_text(iter_start, iter_end)
-            if change_type == "l": text_to_change_case = text_to_change_case.lower()
-            elif change_type == "u": text_to_change_case = text_to_change_case.upper()
-            elif change_type == "t": text_to_change_case = text_to_change_case.swapcase()
+            if change_type == "l":
+                text_to_change_case = text_to_change_case.lower()
+            elif change_type == "u":
+                text_to_change_case = text_to_change_case.upper()
+            elif change_type == "t":
+                text_to_change_case = text_to_change_case.swapcase()
         else:
             rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(text_buffer,
-                iter_start,
-                iter_end,
-                change_case=change_type)
+                                                                                        iter_start,
+                                                                                        iter_end,
+                                                                                        change_case=change_type)
         start_offset = iter_start.get_offset()
         end_offset = iter_end.get_offset()
         text_buffer.delete(iter_start, iter_end)
@@ -368,7 +383,7 @@ class CherryTree:
         if not text_buffer: return
         if not self.is_curr_node_not_read_only_or_error(): return
         if text_buffer.get_has_selection():
-            iter_start, iter_end = text_buffer.get_selection_bounds() # there's a selection
+            iter_start, iter_end = text_buffer.get_selection_bounds()  # there's a selection
             sel_start_offset = iter_start.get_offset()
             sel_end_offset = iter_end.get_offset()
             if from_codebox or self.syntax_highlighting != cons.RICH_TEXT_ID:
@@ -377,10 +392,11 @@ class CherryTree:
                     text_to_duplicate = cons.CHAR_NEWLINE + text_to_duplicate
                 text_buffer.insert(iter_end, text_to_duplicate)
             else:
-                rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(text_buffer, iter_start, iter_end)
+                rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(text_buffer, iter_start,
+                                                                                            iter_end)
                 if cons.CHAR_NEWLINE in rich_text:
                     text_buffer.insert(iter_end, cons.CHAR_NEWLINE)
-                    iter_end = text_buffer.get_iter_at_offset(sel_end_offset+1)
+                    iter_end = text_buffer.get_iter_at_offset(sel_end_offset + 1)
                     text_buffer.move_mark(text_buffer.get_insert(), iter_end)
                 self.clipboard_handler.from_xml_string_to_buffer(rich_text)
             text_buffer.select_range(text_buffer.get_iter_at_offset(sel_start_offset),
@@ -396,10 +412,11 @@ class CherryTree:
                     text_to_duplicate = text_buffer.get_text(iter_start, iter_end)
                     text_buffer.insert(iter_end, cons.CHAR_NEWLINE + text_to_duplicate)
                 else:
-                    rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(text_buffer, iter_start, iter_end)
+                    rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(text_buffer, iter_start,
+                                                                                                iter_end)
                     sel_end_offset = iter_end.get_offset()
                     text_buffer.insert(iter_end, cons.CHAR_NEWLINE)
-                    iter_end = text_buffer.get_iter_at_offset(sel_end_offset+1)
+                    iter_end = text_buffer.get_iter_at_offset(sel_end_offset + 1)
                     text_buffer.move_mark(text_buffer.get_insert(), iter_end)
                     self.clipboard_handler.from_xml_string_to_buffer(rich_text)
                     text_buffer.place_cursor(text_buffer.get_iter_at_offset(cursor_offset))
@@ -419,7 +436,8 @@ class CherryTree:
         missing_leading_newline = False
         destination_iter = iter_start.copy()
         if not destination_iter.backward_char(): return
-        if not destination_iter.backward_char(): missing_leading_newline = True
+        if not destination_iter.backward_char():
+            missing_leading_newline = True
         else:
             while destination_iter.get_char() != cons.CHAR_NEWLINE:
                 if not destination_iter.backward_char():
@@ -429,9 +447,9 @@ class CherryTree:
         destination_offset = destination_iter.get_offset()
         start_offset = iter_start.get_offset()
         end_offset = iter_end.get_offset()
-        #print "iter_start %s %s '%s'" % (start_offset, ord(iter_start.get_char()), iter_start.get_char())
-        #print "iter_end %s %s '%s'" % (end_offset, ord(iter_end.get_char()), iter_end.get_char())
-        #print "destination_iter %s %s '%s'" % (destination_offset, ord(destination_iter.get_char()), destination_iter.get_char())
+        # print "iter_start %s %s '%s'" % (start_offset, ord(iter_start.get_char()), iter_start.get_char()) print
+        # "iter_end %s %s '%s'" % (end_offset, ord(iter_end.get_char()), iter_end.get_char()) print "destination_iter
+        # %s %s '%s'" % (destination_offset, ord(destination_iter.get_char()), destination_iter.get_char())
         text_to_move = text_buffer.get_text(iter_start, iter_end)
         diff_offsets = end_offset - start_offset
         if from_codebox or self.syntax_highlighting != cons.RICH_TEXT_ID:
@@ -442,20 +460,22 @@ class CherryTree:
                 text_to_move += cons.CHAR_NEWLINE
             text_buffer.move_mark(text_buffer.get_insert(), destination_iter)
             text_buffer.insert(destination_iter, text_to_move)
-            self.set_selection_at_offset_n_delta(destination_offset, diff_offsets-1, text_buffer=text_buffer)
+            self.set_selection_at_offset_n_delta(destination_offset, diff_offsets - 1, text_buffer=text_buffer)
         else:
             rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(text_buffer, iter_start,
-iter_end, exclude_iter_sel_end=True)
+                                                                                        iter_end,
+                                                                                        exclude_iter_sel_end=True)
             text_buffer.delete(iter_start, iter_end)
             destination_iter = text_buffer.get_iter_at_offset(destination_offset)
             if destination_offset > 0:
                 # clear the newline from any tag
-                clr_start_iter = text_buffer.get_iter_at_offset(destination_offset-1)
+                clr_start_iter = text_buffer.get_iter_at_offset(destination_offset - 1)
                 text_buffer.remove_all_tags(clr_start_iter, destination_iter)
             if not text_to_move or text_to_move[-1] != cons.CHAR_NEWLINE:
                 diff_offsets += 1
                 append_newline = True
-            else: append_newline = False
+            else:
+                append_newline = False
             text_buffer.move_mark(text_buffer.get_insert(), destination_iter)
             # trick of space to prevent subsequent text to take pasted text tag(s)
             text_buffer.insert_at_cursor(cons.CHAR_SPACE)
@@ -466,9 +486,9 @@ iter_end, exclude_iter_sel_end=True)
             if append_newline: text_buffer.insert_at_cursor(cons.CHAR_NEWLINE)
             # clear space trick
             cursor_iter = text_buffer.get_iter_at_mark(text_buffer.get_insert())
-            text_buffer.delete(cursor_iter, text_buffer.get_iter_at_offset(cursor_iter.get_offset()+1))
+            text_buffer.delete(cursor_iter, text_buffer.get_iter_at_offset(cursor_iter.get_offset() + 1))
             # selection
-            self.set_selection_at_offset_n_delta(destination_offset, diff_offsets-1, text_buffer=text_buffer)
+            self.set_selection_at_offset_n_delta(destination_offset, diff_offsets - 1, text_buffer=text_buffer)
         self.state_machine.update_state()
 
     def text_row_down(self, *args):
@@ -491,9 +511,9 @@ iter_end, exclude_iter_sel_end=True)
         destination_offset = destination_iter.get_offset()
         start_offset = iter_start.get_offset()
         end_offset = iter_end.get_offset()
-        #print "iter_start %s %s '%s'" % (start_offset, ord(iter_start.get_char()), iter_start.get_char())
-        #print "iter_end %s %s '%s'" % (end_offset, ord(iter_end.get_char()), iter_end.get_char())
-        #print "destination_iter %s %s '%s'" % (destination_offset, ord(destination_iter.get_char()), destination_iter.get_char())
+        # print "iter_start %s %s '%s'" % (start_offset, ord(iter_start.get_char()), iter_start.get_char())
+        # print "iter_end %s %s '%s'" % (end_offset, ord(iter_end.get_char()), iter_end.get_char())
+        # print "destination_iter %s %s '%s'" % (destination_offset, ord(destination_iter.get_char()), destination_iter.get_char())
         text_to_move = text_buffer.get_text(iter_start, iter_end)
         diff_offsets = end_offset - start_offset
         if from_codebox or self.syntax_highlighting != cons.RICH_TEXT_ID:
@@ -508,22 +528,25 @@ iter_end, exclude_iter_sel_end=True)
                 text_to_move = cons.CHAR_NEWLINE + text_to_move
             text_buffer.insert(destination_iter, text_to_move)
             if not missing_leading_newline:
-                self.set_selection_at_offset_n_delta(destination_offset, diff_offsets-1, text_buffer=text_buffer)
+                self.set_selection_at_offset_n_delta(destination_offset, diff_offsets - 1, text_buffer=text_buffer)
             else:
-                self.set_selection_at_offset_n_delta(destination_offset+1, diff_offsets-2, text_buffer=text_buffer)
+                self.set_selection_at_offset_n_delta(destination_offset + 1, diff_offsets - 2, text_buffer=text_buffer)
         else:
-            rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(text_buffer, iter_start, iter_end, exclude_iter_sel_end=True)
+            rich_text = self.clipboard_handler.rich_text_get_from_text_buffer_selection(text_buffer, iter_start,
+                                                                                        iter_end,
+                                                                                        exclude_iter_sel_end=True)
             text_buffer.delete(iter_start, iter_end)
             destination_offset -= diff_offsets
             destination_iter = text_buffer.get_iter_at_offset(destination_offset)
             if destination_offset > 0:
                 # clear the newline from any tag
-                clr_start_iter = text_buffer.get_iter_at_offset(destination_offset-1)
+                clr_start_iter = text_buffer.get_iter_at_offset(destination_offset - 1)
                 text_buffer.remove_all_tags(clr_start_iter, destination_iter)
             if not text_to_move or text_to_move[-1] != cons.CHAR_NEWLINE:
                 diff_offsets += 1
                 append_newline = True
-            else: append_newline = False
+            else:
+                append_newline = False
             text_buffer.move_mark(text_buffer.get_insert(), destination_iter)
             if missing_leading_newline:
                 diff_offsets += 1
@@ -537,12 +560,12 @@ iter_end, exclude_iter_sel_end=True)
             if append_newline: text_buffer.insert_at_cursor(cons.CHAR_NEWLINE)
             # clear space trick
             cursor_iter = text_buffer.get_iter_at_mark(text_buffer.get_insert())
-            text_buffer.delete(cursor_iter, text_buffer.get_iter_at_offset(cursor_iter.get_offset()+1))
+            text_buffer.delete(cursor_iter, text_buffer.get_iter_at_offset(cursor_iter.get_offset() + 1))
             # selection
             if not missing_leading_newline:
-                self.set_selection_at_offset_n_delta(destination_offset, diff_offsets-1, text_buffer=text_buffer)
+                self.set_selection_at_offset_n_delta(destination_offset, diff_offsets - 1, text_buffer=text_buffer)
             else:
-                self.set_selection_at_offset_n_delta(destination_offset+1, diff_offsets-2, text_buffer=text_buffer)
+                self.set_selection_at_offset_n_delta(destination_offset + 1, diff_offsets - 2, text_buffer=text_buffer)
         self.state_machine.update_state()
 
     def get_text_view_n_buffer_codebox_proof(self):
@@ -601,7 +624,7 @@ iter_end, exclude_iter_sel_end=True)
     def on_hscrollbar_text_value_changed(self, hscrollbar):
         """Catches Text Horizontal Scrollbar Movements"""
         curr_val = hscrollbar.get_value()
-        #print curr_val
+        # print curr_val
         if curr_val == 7:
             hscrollbar.set_value(0)
 
@@ -621,42 +644,59 @@ iter_end, exclude_iter_sel_end=True)
                 self.toggle_tree_text()
                 return True
             elif keyname in ["plus", "KP_Add"]:
-                if self.treeview.is_focus(): self.zoom_tree(True)
-                else: self.zoom_text(True)
+                if self.treeview.is_focus():
+                    self.zoom_tree(True)
+                else:
+                    self.zoom_text(True)
                 return True
             elif keyname in ["minus", "KP_Subtract"]:
-                if self.treeview.is_focus(): self.zoom_tree(False)
-                else: self.zoom_text(False)
+                if self.treeview.is_focus():
+                    self.zoom_tree(False)
+                else:
+                    self.zoom_text(False)
                 return True
-            elif keyname == 'comma':
-                self.node_siblings_sort_descending()
-                return True
+            # elif keyname == 'comma':
+            #     self.node_siblings_sort_descending()
+            #     return True
         return False
 
     def on_key_press_cherrytree(self, widget, event):
         """Catches Tree key presses"""
-        if not self.curr_tree_iter: return False
+        if not self.curr_tree_iter:
+            return False
+        # Control_L, t
         keyname = gtk.gdk.keyval_name(event.keyval)
+        # event.state ex: <flags GDK_CONTROL_MASK of type GdkModifierType>
+        # SHIFT KEY
         if event.state & gtk.gdk.SHIFT_MASK:
+            # SHIFT KEY + CONTROL KEY
             if event.state & gtk.gdk.CONTROL_MASK:
+                # RIGHT ARROW
                 if keyname == cons.STR_KEY_RIGHT:
                     self.node_change_father()
                     return True
+            # UP ARROW
             elif keyname == cons.STR_KEY_UP:
                 self.node_up()
                 return True
+            # DOWN ARROW
             elif keyname == cons.STR_KEY_DOWN:
                 self.node_down()
                 return True
+            # LEFT ARROW
             elif keyname == cons.STR_KEY_LEFT:
                 self.node_left()
                 return True
+            # RIGHT ARROW
             elif keyname == cons.STR_KEY_RIGHT:
                 self.node_right()
                 return True
+        # ALT KEY
         elif event.state & gtk.gdk.MOD1_MASK:
             pass
+        # CONTROL KEY
         elif event.state & gtk.gdk.CONTROL_MASK:
+            # UP ARROW
             if keyname == cons.STR_KEY_UP:
                 prev_iter = self.get_tree_iter_prev_sibling(self.treestore, self.curr_tree_iter)
                 if prev_iter:
@@ -665,6 +705,7 @@ iter_end, exclude_iter_sel_end=True)
                         prev_iter = self.get_tree_iter_prev_sibling(self.treestore, prev_iter)
                     self.treeview_safe_set_cursor(move_iter)
                 return True
+            # DOWN ARROW
             elif keyname == cons.STR_KEY_DOWN:
                 next_iter = self.treestore.iter_next(self.curr_tree_iter)
                 if next_iter:
@@ -673,6 +714,7 @@ iter_end, exclude_iter_sel_end=True)
                         next_iter = self.treestore.iter_next(next_iter)
                     self.treeview_safe_set_cursor(move_iter)
                 return True
+            # LEFT ARROW
             elif keyname == cons.STR_KEY_LEFT:
                 father_iter = self.treestore.iter_parent(self.curr_tree_iter)
                 if father_iter:
@@ -681,6 +723,7 @@ iter_end, exclude_iter_sel_end=True)
                         father_iter = self.treestore.iter_parent(father_iter)
                     self.treeview_safe_set_cursor(move_iter)
                 return True
+            # RIGHT ARROW
             elif keyname == cons.STR_KEY_RIGHT:
                 child_iter = self.treestore.iter_children(self.curr_tree_iter)
                 if child_iter:
@@ -724,10 +767,10 @@ iter_end, exclude_iter_sel_end=True)
         font_vec = self.tree_font.split(cons.CHAR_SPACE)
         font_num = int(font_vec[-1])
         if is_increase is True:
-            font_vec[-1] = str(font_num+1)
+            font_vec[-1] = str(font_num + 1)
         else:
-            if font_num <= 6: return # do not go under 6
-            font_vec[-1] = str(font_num-1)
+            if font_num <= 6: return  # do not go under 6
+            font_vec[-1] = str(font_num - 1)
         self.tree_font = cons.CHAR_SPACE.join(font_vec)
         self.set_treeview_font()
 
@@ -749,10 +792,10 @@ iter_end, exclude_iter_sel_end=True)
             font_vec = self.code_font.split(cons.CHAR_SPACE)
         font_num = int(font_vec[-1])
         if is_increase is True:
-            font_vec[-1] = str(font_num+1)
+            font_vec[-1] = str(font_num + 1)
         else:
-            if font_num <= 6: return # do not go under 6
-            font_vec[-1] = str(font_num-1)
+            if font_num <= 6: return  # do not go under 6
+            font_vec[-1] = str(font_num - 1)
         if syntax_highl == cons.RICH_TEXT_ID:
             self.rt_font = cons.CHAR_SPACE.join(font_vec)
             target_font = self.rt_font
@@ -787,14 +830,17 @@ iter_end, exclude_iter_sel_end=True)
     def toggle_ena_dis_spellcheck(self, *args):
         """Toggle Enable/Disable Spell Check"""
         self.enable_spell_check = not self.enable_spell_check
-        if self.enable_spell_check: self.spell_check_set_on()
-        else: self.spell_check_set_off(True)
+        if self.enable_spell_check:
+            self.spell_check_set_on()
+        else:
+            self.spell_check_set_off(True)
 
     def toggle_tree_text(self, *args):
         """Toggle Focus Between Tree and Text"""
         if self.treeview.is_focus():
             self.sourceview.grab_focus()
-        else: self.treeview.grab_focus()
+        else:
+            self.treeview.grab_focus()
 
     def on_drag_motion_cherrytree(self, widget, drag_context, x, y, timestamp):
         """Cherry Tree drag motion"""
@@ -837,7 +883,7 @@ iter_end, exclude_iter_sel_end=True)
                 self.node_move_after(self.drag_iter, self.treestore.iter_parent(drop_iter), prev_iter, True)
             elif drop_pos == gtk.TREE_VIEW_DROP_AFTER:
                 self.node_move_after(self.drag_iter, self.treestore.iter_parent(drop_iter), drop_iter)
-            else: # drop in
+            else:  # drop in
                 self.node_move_after(self.drag_iter, drop_iter)
             if self.nodes_icons == "c": self.treeview_refresh(change_icon=True)
         return True
@@ -846,35 +892,41 @@ iter_end, exclude_iter_sel_end=True)
         """Cherry Tree drag data received"""
         tree_model, tree_iter = self.treeviewselection.get_selected()
         self.drag_iter = tree_iter
-        selection_data.set("UTF8_STRING", 8, "fake") # without this, the drag_data_recv will not be called
+        selection_data.set("UTF8_STRING", 8, "fake")  # without this, the drag_data_recv will not be called
         return True
 
     def nodes_add_from_cherrytree_file(self, action):
         """Appends Nodes at the Bottom of the Current Ones, Importing from a CherryTree File"""
         filepath = support.dialog_file_select(filter_pattern=["*.ct*"],
-            filter_name=_("CherryTree Document"),
-            curr_folder=self.pick_dir_import,
-            parent=self.window)
+                                              filter_name=_("CherryTree Document"),
+                                              curr_folder=self.pick_dir_import,
+                                              parent=self.window)
         if not filepath: return
         self.pick_dir_import = os.path.dirname(filepath)
         document_loaded_ok = False
         if filepath[-1] in ["d", "z"]:
             # xml
             cherrytree_string = self.file_get_cherrytree_data(filepath, False)
-            if cherrytree_string: document_loaded_ok = True
-            elif cherrytree_string == None: return # no error exit
+            if cherrytree_string:
+                document_loaded_ok = True
+            elif cherrytree_string == None:
+                return  # no error exit
         elif filepath[-1] in ["b", "x"]:
             # db
             source_db = self.file_get_cherrytree_data(filepath, False)
-            if source_db: document_loaded_ok = True
-            elif source_db == None: return # no error exit
+            if source_db:
+                document_loaded_ok = True
+            elif source_db == None:
+                return  # no error exit
         if document_loaded_ok:
             try:
                 if filepath[-1] in ["d", "z"]:
                     self.nodes_add_from_cherrytree_data(cherrytree_string)
-                else: self.nodes_add_from_cherrytree_data("", source_db)
+                else:
+                    self.nodes_add_from_cherrytree_data("", source_db)
                 document_loaded_ok = True
-            except: document_loaded_ok = False
+            except:
+                document_loaded_ok = False
         if not document_loaded_ok:
             support.dialog_error(_('"%s" is Not a CherryTree Document') % filepath, self.window)
             return
@@ -882,9 +934,9 @@ iter_end, exclude_iter_sel_end=True)
     def nodes_add_from_notecase_file(self, action):
         """Add Nodes Parsing a NoteCase File"""
         filepath = support.dialog_file_select(filter_pattern=["*.ncd"],
-            filter_name=_("NoteCase Document"),
-            curr_folder=self.pick_dir_import,
-            parent=self.window)
+                                              filter_name=_("NoteCase Document"),
+                                              curr_folder=self.pick_dir_import,
+                                              parent=self.window)
         if not filepath: return
         self.pick_dir_import = os.path.dirname(filepath)
         try:
@@ -973,11 +1025,13 @@ iter_end, exclude_iter_sel_end=True)
         if basket.check_basket_structure():
             cherrytree_string = basket.get_cherrytree_xml()
             self.nodes_add_from_cherrytree_data(cherrytree_string)
-        else: support.dialog_error("%s is not a basket folder" % folderpath, self.window)
+        else:
+            support.dialog_error("%s is not a basket folder" % folderpath, self.window)
 
     def nodes_add_from_epim_html_file(self, action):
         """Add Nodes from Selected EPIM HTML File"""
-        filepath = support.dialog_file_select(filter_pattern=["*.html", "*.HTML", "*.htm", "*.HTM"] if cons.IS_WIN_OS else [],
+        filepath = support.dialog_file_select(
+            filter_pattern=["*.html", "*.HTML", "*.htm", "*.HTM"] if cons.IS_WIN_OS else [],
             filter_mime=["text/html"] if not cons.IS_WIN_OS else [],
             filter_name=_("EPIM HTML Document"),
             curr_folder=self.pick_dir_import, parent=self.window)
@@ -991,7 +1045,8 @@ iter_end, exclude_iter_sel_end=True)
 
     def nodes_add_from_html_file(self, action):
         """Add Nodes from Selected HTML File"""
-        filepath = support.dialog_file_select(filter_pattern=["*.html", "*.HTML", "*.htm", "*.HTM"] if cons.IS_WIN_OS else [],
+        filepath = support.dialog_file_select(
+            filter_pattern=["*.html", "*.HTML", "*.htm", "*.HTM"] if cons.IS_WIN_OS else [],
             filter_mime=["text/html"] if not cons.IS_WIN_OS else [],
             filter_name=_("HTML Document"),
             curr_folder=self.pick_dir_import, parent=self.window)
@@ -1015,16 +1070,17 @@ iter_end, exclude_iter_sel_end=True)
         if not hasattr(self, "ext_plain_import"):
             self.ext_plain_import = "txt"
         if cons.IS_WIN_OS:
-            ext_plain_import = support.dialog_img_n_entry(self.window, _("Plain Text Document"), self.ext_plain_import, gtk.STOCK_FILE)
+            ext_plain_import = support.dialog_img_n_entry(self.window, _("Plain Text Document"), self.ext_plain_import,
+                                                          gtk.STOCK_FILE)
             if not ext_plain_import: return
             self.ext_plain_import = ext_plain_import
-            filter_pattern = ["*."+self.ext_plain_import.lower(), "*."+self.ext_plain_import.upper()]
+            filter_pattern = ["*." + self.ext_plain_import.lower(), "*." + self.ext_plain_import.upper()]
         else:
             filter_pattern = []
         filepath = support.dialog_file_select(filter_pattern=filter_pattern,
-            filter_mime=["text/*"] if not cons.IS_WIN_OS else [],
-            filter_name=_("Plain Text Document"),
-            curr_folder=self.pick_dir_import, parent=self.window)
+                                              filter_mime=["text/*"] if not cons.IS_WIN_OS else [],
+                                              filter_name=_("Plain Text Document"),
+                                              curr_folder=self.pick_dir_import, parent=self.window)
         if not filepath: return
         self.pick_dir_import = os.path.dirname(filepath)
         plain = imports.PlainTextHandler(self)
@@ -1036,7 +1092,8 @@ iter_end, exclude_iter_sel_end=True)
         if not hasattr(self, "ext_plain_import"):
             self.ext_plain_import = "txt"
         if cons.IS_WIN_OS:
-            ext_plain_import = support.dialog_img_n_entry(self.window, _("Plain Text Document"), self.ext_plain_import, gtk.STOCK_FILE)
+            ext_plain_import = support.dialog_img_n_entry(self.window, _("Plain Text Document"), self.ext_plain_import,
+                                                          gtk.STOCK_FILE)
             if not ext_plain_import: return
             self.ext_plain_import = ext_plain_import
         folderpath = support.dialog_folder_select(curr_folder=self.pick_dir_import, parent=self.window)
@@ -1049,9 +1106,9 @@ iter_end, exclude_iter_sel_end=True)
     def nodes_add_from_treepad_file(self, action):
         """Add Nodes Parsing a Treepad File"""
         filepath = support.dialog_file_select(filter_pattern=["*.hjt"],
-            filter_name=_("Treepad Document"),
-            curr_folder=self.pick_dir_import,
-            parent=self.window)
+                                              filter_name=_("Treepad Document"),
+                                              curr_folder=self.pick_dir_import,
+                                              parent=self.window)
         if not filepath: return
         self.pick_dir_import = os.path.dirname(filepath)
         try:
@@ -1070,9 +1127,9 @@ iter_end, exclude_iter_sel_end=True)
     def nodes_add_from_keynote_file(self, action):
         """Add Nodes Parsing a Keynote File"""
         filepath = support.dialog_file_select(filter_pattern=["*.knt"],
-            filter_name=_("KeyNote Document"),
-            curr_folder=self.pick_dir_import,
-            parent=self.window)
+                                              filter_name=_("KeyNote Document"),
+                                              curr_folder=self.pick_dir_import,
+                                              parent=self.window)
         if not filepath: return
         self.pick_dir_import = os.path.dirname(filepath)
         try:
@@ -1090,9 +1147,9 @@ iter_end, exclude_iter_sel_end=True)
     def nodes_add_from_mempad_file(self, action):
         """Add Nodes Parsing a Mempad File"""
         filepath = support.dialog_file_select(filter_pattern=["*.lst"],
-            filter_name=_("Mempad Document"),
-            curr_folder=self.pick_dir_import,
-            parent=self.window)
+                                              filter_name=_("Mempad Document"),
+                                              curr_folder=self.pick_dir_import,
+                                              parent=self.window)
         if not filepath: return
         self.pick_dir_import = os.path.dirname(filepath)
         try:
@@ -1109,9 +1166,9 @@ iter_end, exclude_iter_sel_end=True)
     def nodes_add_from_knowit_file(self, action):
         """Add Nodes Parsing a Knowit File"""
         filepath = support.dialog_file_select(filter_pattern=["*.kno"],
-            filter_name=_("Knowit Document"),
-            curr_folder=self.pick_dir_import,
-            parent=self.window)
+                                              filter_name=_("Knowit Document"),
+                                              curr_folder=self.pick_dir_import,
+                                              parent=self.window)
         if not filepath: return
         self.pick_dir_import = os.path.dirname(filepath)
         knowit = imports.KnowitHandler(self)
@@ -1129,9 +1186,9 @@ iter_end, exclude_iter_sel_end=True)
     def nodes_add_from_leo_file(self, action):
         """Add Nodes Parsing a Leo File"""
         filepath = support.dialog_file_select(filter_pattern=["*.leo"],
-            filter_name=_("Leo Document"),
-            curr_folder=self.pick_dir_import,
-            parent=self.window)
+                                              filter_name=_("Leo Document"),
+                                              curr_folder=self.pick_dir_import,
+                                              parent=self.window)
         if not filepath: return
         self.pick_dir_import = os.path.dirname(filepath)
         try:
@@ -1151,21 +1208,23 @@ iter_end, exclude_iter_sel_end=True)
         if self.user_active:
             self.user_active = False
             user_active_restore = True
-        else: user_active_restore = False
+        else:
+            user_active_restore = False
         file_loaded = False
-        former_node = self.curr_tree_iter # we'll restore after the import
-        tree_father = None # init the value of the imported nodes father
+        former_node = self.curr_tree_iter  # we'll restore after the import
+        tree_father = None  # init the value of the imported nodes father
         if self.curr_tree_iter:
-            self.nodes_cursor_pos[self.treestore[self.curr_tree_iter][3]] = self.curr_buffer.get_property(cons.STR_CURSOR_POSITION)
+            self.nodes_cursor_pos[self.treestore[self.curr_tree_iter][3]] = self.curr_buffer.get_property(
+                cons.STR_CURSOR_POSITION)
             if self.curr_buffer.get_modified() == True:
                 self.file_update = True
                 self.curr_buffer.set_modified(False)
                 self.state_machine.update_state()
             dialog = gtk.Dialog(title=_("Who is the Parent?"),
                                 parent=self.window,
-                                flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                                flags=gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
                                 buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                                         gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+                                         gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
             dialog.set_size_request(350, -1)
             dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
             radiobutton_root = gtk.RadioButton(label=_("The Tree Root"))
@@ -1190,7 +1249,8 @@ iter_end, exclude_iter_sel_end=True)
                 self.ctdb_handler.read_db_full(cherrytree_db, discard_ids={}, tree_father=tree_father)
                 cherrytree_db.close()
                 file_loaded = True
-        except: raise
+        except:
+            raise
         if file_loaded:
             self.update_window_save_needed()
             if not former_node: former_node = self.treestore.get_iter_first()
@@ -1215,9 +1275,11 @@ iter_end, exclude_iter_sel_end=True)
                 self.objects_buffer_refresh()
                 # try to restore cursor position if in memory
                 if self.treestore[former_node][3] in self.nodes_cursor_pos:
-                    self.curr_buffer.place_cursor(self.curr_buffer.get_iter_at_offset(self.nodes_cursor_pos[self.treestore[former_node][3]]))
+                    self.curr_buffer.place_cursor(
+                        self.curr_buffer.get_iter_at_offset(self.nodes_cursor_pos[self.treestore[former_node][3]]))
                     self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
-        else: support.dialog_error('Error Parsing the CherryTree File', self.window)
+        else:
+            support.dialog_error('Error Parsing the CherryTree File', self.window)
         if user_active_restore: self.user_active = True
 
     def nodes_expand_all(self, action):
@@ -1235,20 +1297,23 @@ iter_end, exclude_iter_sel_end=True)
                 try:
                     if menuitem.get_image().get_property("stock") == "gtk-paste":
                         menuitem.set_sensitive(True)
-                except: pass
+                except:
+                    pass
             if self.hovering_link_iter_offset >= 0:
                 target_iter = self.curr_buffer.get_iter_at_offset(self.hovering_link_iter_offset)
                 if target_iter:
                     do_set_cursor = True
                     if self.curr_buffer.get_has_selection():
                         iter_sel_start, iter_sel_end = self.curr_buffer.get_selection_bounds()
-                        if self.hovering_link_iter_offset >= iter_sel_start.get_offset()\
-                        and self.hovering_link_iter_offset <= iter_sel_end.get_offset():
+                        if self.hovering_link_iter_offset >= iter_sel_start.get_offset() \
+                                and self.hovering_link_iter_offset <= iter_sel_end.get_offset():
                             do_set_cursor = False
                     if do_set_cursor: self.curr_buffer.place_cursor(target_iter)
                 self.menu_populate_popup(menu, menus.get_popup_menu_entries_link(self))
-            else: self.menu_populate_popup(menu, menus.get_popup_menu_entries_text(self))
-        else: self.menu_populate_popup(menu, menus.get_popup_menu_entries_code(self))
+            else:
+                self.menu_populate_popup(menu, menus.get_popup_menu_entries_text(self))
+        else:
+            self.menu_populate_popup(menu, menus.get_popup_menu_entries_code(self))
 
     def menu_populate_popup(self, menu, entries, accel_group=None):
         """Populate the given menu with the given entries"""
@@ -1257,8 +1322,10 @@ iter_end, exclude_iter_sel_end=True)
         for attributes in entries:
             if attributes[0] == "separator":
                 menu_item = gtk.SeparatorMenuItem()
-                if curr_submenu: curr_submenu.append(menu_item)
-                else: menu.append(menu_item)
+                if curr_submenu:
+                    curr_submenu.append(menu_item)
+                else:
+                    menu.append(menu_item)
             elif attributes[0] == "submenu-start":
                 curr_submenu = gtk.Menu()
                 menu_item = gtk.ImageMenuItem(attributes[1])
@@ -1275,7 +1342,8 @@ iter_end, exclude_iter_sel_end=True)
                 menu_item.set_tooltip_text(attributes[3])
                 if attributes[2]:
                     key, mod = gtk.accelerator_parse(attributes[2])
-                    for element in [cons.STR_KEY_UP, cons.STR_KEY_DOWN, cons.STR_KEY_LEFT, cons.STR_KEY_RIGHT, cons.STR_KEY_DELETE]:
+                    for element in [cons.STR_KEY_UP, cons.STR_KEY_DOWN, cons.STR_KEY_LEFT, cons.STR_KEY_RIGHT,
+                                    cons.STR_KEY_DELETE]:
                         if element in attributes[2]:
                             accel_group = self.orphan_accel_group
                             break
@@ -1297,9 +1365,10 @@ iter_end, exclude_iter_sel_end=True)
                         curr_submenu.append(special_menuitem)
                         special_menuitem.show()
                     else:
-                        #print attributes[0]
+                        # print attributes[0]
                         pass
-                else: menu.append(menu_item)
+                else:
+                    menu.append(menu_item)
             menu_item.show()
 
     def menu_tree_create(self):
@@ -1318,12 +1387,17 @@ iter_end, exclude_iter_sel_end=True)
             for menuitem in menu_tree:
                 try:
                     if menuitem.get_image().get_property("stock") == "pin-add":
-                        if is_bookmarked: menuitem.hide()
-                        else: menuitem.show()
+                        if is_bookmarked:
+                            menuitem.hide()
+                        else:
+                            menuitem.show()
                     if menuitem.get_image().get_property("stock") == "pin-remove":
-                        if not is_bookmarked: menuitem.hide()
-                        else: menuitem.show()
-                except: pass
+                        if not is_bookmarked:
+                            menuitem.hide()
+                        else:
+                            menuitem.show()
+                except:
+                    pass
 
     def on_window_state_event(self, window, event):
         """Catch Window's Events"""
@@ -1345,7 +1419,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def autosave_timer_start(self):
         """Start Autosave Timer"""
-        self.autosave_timer_id = gobject.timeout_add(self.autosave[1]*1000*60, self.autosave_timer_iter)
+        self.autosave_timer_id = gobject.timeout_add(self.autosave[1] * 1000 * 60, self.autosave_timer_iter)
 
     def autosave_timer_stop(self):
         """Stop Autosave Timer"""
@@ -1357,12 +1431,13 @@ iter_end, exclude_iter_sel_end=True)
         if not self.tree_is_empty() and self.user_active:
             print "autosave iter"
             self.file_save()
-        else: print "autosave skip"
-        return True # this way we keep the timer alive
+        else:
+            print "autosave skip"
+        return True  # this way we keep the timer alive
 
     def modification_time_sentinel_start(self):
         """Start Timer that checks for modification time"""
-        self.mod_time_sentinel_id = gobject.timeout_add(5*1000, self.modification_time_sentinel_iter) # 5 sec
+        self.mod_time_sentinel_id = gobject.timeout_add(5 * 1000, self.modification_time_sentinel_iter)  # 5 sec
 
     def modification_time_sentinel_stop(self):
         """Stop Timer that checks for modification time"""
@@ -1375,16 +1450,17 @@ iter_end, exclude_iter_sel_end=True)
             file_path = os.path.join(self.file_dir, self.file_name)
             if os.path.isfile(file_path) and not self.writing_to_disk:
                 read_mod_time = os.path.getmtime(file_path)
-                #print "former modified: %s (%s)" % (time.ctime(self.mod_time_val), self.mod_time_val)
-                #print "last modified: %s (%s)" % (time.ctime(read_mod_time), read_mod_time)
+                # print "former modified: %s (%s)" % (time.ctime(self.mod_time_val), self.mod_time_val)
+                # print "last modified: %s (%s)" % (time.ctime(read_mod_time), read_mod_time)
                 if read_mod_time > self.mod_time_val:
                     curr_sys_time = time.time()
-                    print curr_sys_time, read_mod_time, curr_sys_time-read_mod_time
+                    print curr_sys_time, read_mod_time, curr_sys_time - read_mod_time
                     if curr_sys_time - read_mod_time > 2:
                         self.filepath_open(file_path, force_reset=True)
                         self.statusbar.pop(self.statusbar_context_id)
-                        self.statusbar.push(self.statusbar_context_id, _("The Document was Reloaded After External Update to CT* File"))
-        return True # this way we keep the timer alive
+                        self.statusbar.push(self.statusbar_context_id,
+                                            _("The Document was Reloaded After External Update to CT* File"))
+        return True  # this way we keep the timer alive
 
     def modification_time_update_value(self, mtime):
         """Update Value of Modification Time Sentinel"""
@@ -1395,15 +1471,18 @@ iter_end, exclude_iter_sel_end=True)
         """Creates the Stats Icon"""
         self.boss.systray_active = True
         if self.use_appind:
-            self.boss.ind = appindicator.Indicator(cons.APP_NAME, "indicator-messages", appindicator.CATEGORY_APPLICATION_STATUS)
+            self.boss.ind = appindicator.Indicator(cons.APP_NAME, "indicator-messages",
+                                                   appindicator.CATEGORY_APPLICATION_STATUS)
             self.boss.ind.set_icon_theme_path(cons.GLADE_PATH)
             self.boss.ind.set_status(appindicator.STATUS_ACTIVE)
             self.boss.ind.set_attention_icon("indicator-messages-new")
-            for icp in ["/usr/share/icons/hicolor/scalable/apps/cherrytree.svg", "/usr/local/share/icons/hicolor/scalable/apps/cherrytree.svg", "glade/cherrytree.png"]:
+            for icp in ["/usr/share/icons/hicolor/scalable/apps/cherrytree.svg",
+                        "/usr/local/share/icons/hicolor/scalable/apps/cherrytree.svg", "glade/cherrytree.png"]:
                 if os.path.isfile(icp):
                     icon_path = icp
                     break
-            else: icon_path = cons.APP_NAME
+            else:
+                icon_path = cons.APP_NAME
             self.boss.ind.set_icon(icon_path)
             self.boss.ind.set_menu(self.ui.get_widget("/SysTrayMenu"))
         else:
@@ -1427,7 +1506,7 @@ iter_end, exclude_iter_sel_end=True)
                 runn_win.window.present()
                 config.config_file_apply(runn_win)
                 runn_win.window.move(runn_win.win_position[0], runn_win.win_position[1])
-                #print "restored position", runn_win.win_position[0], runn_win.win_position[1]
+                # print "restored position", runn_win.win_position[0], runn_win.win_position[1]
             else:
                 runn_win.win_position = runn_win.window.get_position()
                 config.config_file_save(runn_win)
@@ -1435,8 +1514,10 @@ iter_end, exclude_iter_sel_end=True)
 
     def on_mouse_button_clicked_systray(self, widget, event):
         """Catches mouse buttons clicks upon the system tray icon"""
-        if event.button == 1: self.toggle_show_hide_main_window()
-        elif event.button == 3: self.ui.get_widget("/SysTrayMenu").popup(None, None, None, event.button, event.time)
+        if event.button == 1:
+            self.toggle_show_hide_main_window()
+        elif event.button == 3:
+            self.ui.get_widget("/SysTrayMenu").popup(None, None, None, event.button, event.time)
         return False
 
     def max_node_id(self, tree_iter=None):
@@ -1451,19 +1532,19 @@ iter_end, exclude_iter_sel_end=True)
                 child_iter = self.treestore.iter_next(child_iter)
             tree_iter = self.treestore.iter_next(tree_iter)
         return max_node_id
-    
+
     def node_id_get(self, original_id=None, discard_ids=None):
         """Returns the node_ids, all Different Each Other"""
         if discard_ids is not None and original_id in discard_ids:
             new_node_id = discard_ids[original_id]
-            #print new_node_id
+            # print new_node_id
         else:
             discard_ids_allocated = []
             if discard_ids is not None: discard_ids_allocated += [discard_ids[o] for o in discard_ids]
 
-            new_node_id = self.max_node_id() + 1            
-            while ((new_node_id in self.ctdb_handler.nodes_to_rm_set)\
-               or (new_node_id in discard_ids_allocated)):
+            new_node_id = self.max_node_id() + 1
+            while ((new_node_id in self.ctdb_handler.nodes_to_rm_set) \
+                   or (new_node_id in discard_ids_allocated)):
                 new_node_id += 1
             if discard_ids is not None:
                 discard_ids[original_id] = new_node_id
@@ -1471,7 +1552,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def node_id_get_simplified(self, new_node_id):
         while (new_node_id in self.ctdb_handler.nodes_to_rm_set):
-                new_node_id += 1
+            new_node_id += 1
         return new_node_id
 
     def set_treeview_font(self):
@@ -1494,7 +1575,7 @@ iter_end, exclude_iter_sel_end=True)
             self.treeview.set_model(self.treestore)
             if self.user_active: config.set_tree_expanded_collapsed_string(self)
             self.treeview.set_cursor(self.treestore.get_path(self.curr_tree_iter))
-            self.treeview.scroll_to_point(0, cell_area.height/2)
+            self.treeview.scroll_to_point(0, cell_area.height / 2)
 
     def change_icon_iter(self, tree_iter):
         """Changing all icons type - iter"""
@@ -1508,15 +1589,15 @@ iter_end, exclude_iter_sel_end=True)
 
     def file_startup_load(self, open_with_file, node_name):
         """Try to load a file if there are the conditions"""
-        #print "file_startup_load '%s' ('%s', '%s')" % (open_with_file, self.file_name, self.file_dir)
+        # print "file_startup_load '%s' ('%s', '%s')" % (open_with_file, self.file_name, self.file_dir)
         if open_with_file:
             try:
                 open_with_file = unicode(open_with_file, cons.STR_UTF8, cons.STR_IGNORE)
-            except TypeError: # it is already unicode
+            except TypeError:  # it is already unicode
                 pass
             self.file_name = os.path.basename(open_with_file)
             self.file_dir = os.path.dirname(open_with_file)
-            #print "open_with_file -> file_name '%s', file_dir '%s'" % (self.file_name, self.file_dir)
+            # print "open_with_file -> file_name '%s', file_dir '%s'" % (self.file_name, self.file_dir)
         elif self.boss.running_windows:
             self.file_name = ""
             return
@@ -1598,7 +1679,8 @@ iter_end, exclude_iter_sel_end=True)
             self.ctdb_handler.is_vacuum = True
             self.file_save()
             self.ctdb_handler.is_vacuum = False
-        else: print "no document or not SQLite"
+        else:
+            print "no document or not SQLite"
 
     def file_save(self, *args):
         """Save the file"""
@@ -1611,7 +1693,8 @@ iter_end, exclude_iter_sel_end=True)
                     self.update_window_save_not_needed()
                     self.state_machine.update_state()
                 self.modification_time_update_value(True)
-            else: print "no changes"
+            else:
+                print "no changes"
             return True
         return self.file_save_as()
 
@@ -1630,7 +1713,8 @@ iter_end, exclude_iter_sel_end=True)
             filepath_tmp = os.path.join(tree_tmp_folder, os.path.basename(filepath[:-1] + last_letter))
         else:
             filepath_tmp = filepath
-        if xml_string: file_descriptor = open(filepath_tmp, 'w')
+        if xml_string:
+            file_descriptor = open(filepath_tmp, 'w')
         else:
             if first_write:
                 if not exporting:
@@ -1643,7 +1727,8 @@ iter_end, exclude_iter_sel_end=True)
                     print "exporting", exporting
                     exp_db = self.ctdb_handler.new_db(filepath_tmp, exporting, sel_range)
                     exp_db.close()
-            else: self.ctdb_handler.pending_data_write(self.db)
+            else:
+                self.ctdb_handler.pending_data_write(self.db)
         if xml_string:
             file_descriptor.write(xml_string)
             file_descriptor.close()
@@ -1661,24 +1746,27 @@ iter_end, exclude_iter_sel_end=True)
                 esc_filepath = re.escape(filepath)
                 esc_filepath_tmp = re.escape(filepath_tmp.decode('utf-8'))
             dot_tmp_existing = False
-            if os.path.isfile(filepath+".tmp"):
-                try: os.remove(filepath+".tmp")
-                except: subprocess.call("rm %s.tmp" % esc_filepath, shell=True)
+            if os.path.isfile(filepath + ".tmp"):
+                try:
+                    os.remove(filepath + ".tmp")
+                except:
+                    subprocess.call("rm %s.tmp" % esc_filepath, shell=True)
             if os.path.isfile(filepath):
                 # old archive
                 try:
-                    shutil.move(filepath, filepath+".tmp")
+                    shutil.move(filepath, filepath + ".tmp")
                     dot_tmp_existing = True
                 except:
                     if not subprocess.call("mv %s %s.tmp" % (esc_filepath, esc_filepath), shell=True):
                         dot_tmp_existing = True
-                    else: subprocess.call("%s d %s" % (cons.SZA_PATH, esc_filepath), shell=True)
+                    else:
+                        subprocess.call("%s d %s" % (cons.SZA_PATH, esc_filepath), shell=True)
             bash_str = '%s a -p%s -w%s -mx1 -bd -y %s %s' % (cons.SZA_PATH,
-                self.password,
-                esc_tmp_folder,
-                esc_filepath,
-                esc_filepath_tmp)
-            #print bash_str
+                                                             self.password,
+                                                             esc_tmp_folder,
+                                                             esc_filepath,
+                                                             esc_filepath_tmp)
+            # print bash_str
             if not xml_string and not exporting: self.db.close()
             dest_file_size = 0
             for attempt_num in range(3):
@@ -1687,41 +1775,54 @@ iter_end, exclude_iter_sel_end=True)
                     dest_file_size = os.path.getsize(filepath)
                     if dest_file_size > cons.MIN_CT_DOC_SIZE: break
             print "dest_file_size %s bytes" % dest_file_size
-            if xml_string: os.remove(filepath_tmp)
+            if xml_string:
+                os.remove(filepath_tmp)
             elif not exporting:
                 self.db = self.ctdb_handler.get_connected_db_from_dbpath(filepath_tmp)
                 self.ctdb_handler.remove_at_quit_set.add(filepath_tmp)
             if not ret_code and dest_file_size:
                 # everything OK
-                if dot_tmp_existing and os.path.isfile(filepath+".tmp"):
+                if dot_tmp_existing and os.path.isfile(filepath + ".tmp"):
                     # remove temporary safety file
-                    try: os.remove(filepath+".tmp")
-                    except: subprocess.call("rm %s.tmp" % esc_filepath, shell=True)
+                    try:
+                        os.remove(filepath + ".tmp")
+                    except:
+                        subprocess.call("rm %s.tmp" % esc_filepath, shell=True)
             else:
                 print "7za FAIL!!!"
                 # spoiled file is worse than no file, this way the backups will not be spoiled
                 if os.path.isfile(filepath):
-                    try: os.remove(filepath)
-                    except: subprocess.call("rm %s" % esc_filepath, shell=True)
-                if dot_tmp_existing and os.path.isfile(filepath+".tmp"):
+                    try:
+                        os.remove(filepath)
+                    except:
+                        subprocess.call("rm %s" % esc_filepath, shell=True)
+                if dot_tmp_existing and os.path.isfile(filepath + ".tmp"):
                     # restore file version from temporary safety file
-                    try: shutil.move(filepath+".tmp", filepath)
-                    except: subprocess.call("mv %s.tmp %s" % (esc_filepath, esc_filepath), shell=True)
+                    try:
+                        shutil.move(filepath + ".tmp", filepath)
+                    except:
+                        subprocess.call("mv %s.tmp %s" % (esc_filepath, esc_filepath), shell=True)
                 raise
 
     def backups_handling(self, filepath_orig):
         """Handler of backup before save"""
-        filepath = filepath_orig + (self.backup_num-1)*cons.CHAR_TILDE
+        filepath = filepath_orig + (self.backup_num - 1) * cons.CHAR_TILDE
         while True:
             if os.path.isfile(filepath):
                 if filepath.endswith(cons.CHAR_TILDE):
-                    try: shutil.move(filepath, filepath + cons.CHAR_TILDE)
-                    except: subprocess.call("mv %s %s~" % (re.escape(filepath), re.escape(filepath)), shell=True)
+                    try:
+                        shutil.move(filepath, filepath + cons.CHAR_TILDE)
+                    except:
+                        subprocess.call("mv %s %s~" % (re.escape(filepath), re.escape(filepath)), shell=True)
                 else:
-                    try: shutil.copy(filepath, filepath + cons.CHAR_TILDE)
-                    except: subprocess.call("cp %s %s~" % (re.escape(filepath), re.escape(filepath)), shell=True)
-            if filepath.endswith(cons.CHAR_TILDE): filepath = filepath[:-1]
-            else: break
+                    try:
+                        shutil.copy(filepath, filepath + cons.CHAR_TILDE)
+                    except:
+                        subprocess.call("cp %s %s~" % (re.escape(filepath), re.escape(filepath)), shell=True)
+            if filepath.endswith(cons.CHAR_TILDE):
+                filepath = filepath[:-1]
+            else:
+                break
 
     def file_write(self, filepath, first_write):
         """File Write"""
@@ -1729,12 +1830,13 @@ iter_end, exclude_iter_sel_end=True)
             support.dialog_error(_("You Have No Write Access to %s") % os.path.dirname(filepath), self.window)
             return False
         if self.filetype in ["d", "z"]:
-            try: xml_string = self.xml_handler.treestore_to_dom()
+            try:
+                xml_string = self.xml_handler.treestore_to_dom()
             except:
                 support.dialog_error("%s write failed - tree to xml" % filepath, self.window)
                 raise
                 return False
-        else: 
+        else:
             xml_string = ""
             if not first_write and not self.ctdb_handler.is_db_ok(self.db):
                 print "db connection is broken, try to reattach"
@@ -1742,15 +1844,19 @@ iter_end, exclude_iter_sel_end=True)
                     self.reconnect_dbpath = self.ctdb_handler.get_dbpath_from_db(self.db)
                     self.db.close()
                     self.db = None
-                else: pass # self.reconnect_dbpath was filled by previous failed file_write            
-                time.sleep(0.5) # wait 0.5 sec, file can be block by sync program like Dropbox
+                else:
+                    pass  # self.reconnect_dbpath was filled by previous failed file_write
+                time.sleep(0.5)  # wait 0.5 sec, file can be block by sync program like Dropbox
                 try:
                     self.db = self.ctdb_handler.get_connected_db_from_dbpath(self.reconnect_dbpath)
                 except:
-                    support.dialog_error(_("%s write failed - file is missing. Reattach usb driver or shared resource") % self.reconnect_dbpath, self.window)
+                    support.dialog_error(_(
+                        "%s write failed - file is missing. Reattach usb driver or shared resource") % self.reconnect_dbpath,
+                                         self.window)
                     return False
                 if not self.ctdb_handler.is_db_ok(self.db):
-                    support.dialog_error(_("%s write failed - is file blocked by a sync program?") % self.reconnect_dbpath, self.window)
+                    support.dialog_error(
+                        _("%s write failed - is file blocked by a sync program?") % self.reconnect_dbpath, self.window)
                     return False
         # backup before save new version
         if self.backup_copy: self.backups_handling(filepath)
@@ -1765,7 +1871,8 @@ iter_end, exclude_iter_sel_end=True)
             return True
         except:
             if not os.path.isfile(filepath) and os.path.isfile(filepath + cons.CHAR_TILDE):
-                try: os.rename(filepath + cons.CHAR_TILDE, filepath)
+                try:
+                    os.rename(filepath + cons.CHAR_TILDE, filepath)
                 except:
                     print "os.rename failed"
                     subprocess.call("mv %s~ %s" % (re.escape(filepath), re.escape(filepath)), shell=True)
@@ -1777,11 +1884,11 @@ iter_end, exclude_iter_sel_end=True)
     def file_open(self, *args):
         """Opens a dialog to browse for a cherrytree filepath"""
         filepath = support.dialog_file_select(filter_pattern=["*.ct*"],
-            filter_name=_("CherryTree Document"),
-            curr_folder=self.file_dir,
-            parent=self.window)
+                                              filter_name=_("CherryTree Document"),
+                                              curr_folder=self.file_dir,
+                                              parent=self.window)
         if not filepath: return
-        #self.filepath_boss_open(filepath, "")
+        # self.filepath_boss_open(filepath, "")
         self.filepath_open(filepath)
 
     def filepath_boss_open(self, filepath, nodename):
@@ -1881,7 +1988,9 @@ iter_end, exclude_iter_sel_end=True)
         """Check 7za binary executable to be available"""
         ret_code = subprocess.call("%s" % cons.SZA_PATH, shell=True)
         if ret_code:
-            support.dialog_error(_("Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be Installed Properly"), self.window)
+            support.dialog_error(
+                _("Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be Installed Properly"),
+                self.window)
             return False
         return True
 
@@ -1889,21 +1998,25 @@ iter_end, exclude_iter_sel_end=True)
         """Prompts a Dialog Asking for the File Password"""
         dialog = gtk.Dialog(title=_("Enter Password for %s") % file_name,
                             parent=self.window,
-                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                            flags=gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
                             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
+                                     gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
         dialog.set_default_size(350, -1)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         entry = gtk.Entry()
         entry.set_visibility(False)
         content_area = dialog.get_content_area()
         content_area.pack_start(entry)
+
         def on_key_press_enter_password_dialog(widget, event):
             if gtk.gdk.keyval_name(event.keyval) == cons.STR_KEY_RETURN:
-                try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
-                except: print cons.STR_PYGTK_222_REQUIRED
+                try:
+                    dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+                except:
+                    print cons.STR_PYGTK_222_REQUIRED
                 return True
             return False
+
         dialog.connect("key_press_event", on_key_press_enter_password_dialog)
         dialog.show_all()
         if not cons.IS_WIN_OS and not cons.IS_MAC_OS:
@@ -1926,7 +2039,8 @@ iter_end, exclude_iter_sel_end=True)
                 password_str = self.dialog_insert_password(os.path.basename(filepath))
                 if not password_str:
                     if self.tree_is_empty():
-                        self.memory_save_old_file_props(self.file_name, self.expanded_collapsed_string, self.node_path or "", self.cursor_position)
+                        self.memory_save_old_file_props(self.file_name, self.expanded_collapsed_string,
+                                                        self.node_path or "", self.cursor_position)
                         self.file_name = ""
                         self.password = None
                     return None
@@ -1952,19 +2066,19 @@ iter_end, exclude_iter_sel_end=True)
                     esc_tmp_folder = re.escape(tree_tmp_folder_tmp)
                     esc_filepath = re.escape(filepath.decode('utf-8'))
                 bash_str = '%s e -p%s -w%s -bd -y -o%s %s' % (cons.SZA_PATH,
-                    password_str,
-                    esc_tmp_folder,
-                    esc_tmp_folder,
-                    esc_filepath)
-                #print bash_str
+                                                              password_str,
+                                                              esc_tmp_folder,
+                                                              esc_tmp_folder,
+                                                              esc_filepath)
+                # print bash_str
                 ret_code = subprocess.call(bash_str, shell=True)
                 if ret_code != 0:
                     support.dialog_error(_('Wrong Password'), self.window)
                     continue
                 if not os.path.isfile(filepath_tmp_tmp):
                     print "? the compressed file was renamed"
-                    files_list = glob.glob(os.path.join(tree_tmp_folder_tmp, "*"+filepath_tmp_tmp[-4:]))
-                    #print files_list
+                    files_list = glob.glob(os.path.join(tree_tmp_folder_tmp, "*" + filepath_tmp_tmp[-4:]))
+                    # print files_list
                     old_filepath_tmp_tmp = files_list[0]
                     for file_path in files_list:
                         if os.path.getmtime(file_path) > os.path.getmtime(old_filepath_tmp_tmp):
@@ -1978,7 +2092,7 @@ iter_end, exclude_iter_sel_end=True)
                     print "? extracted file zero size"
                     support.dialog_error(_('Wrong Password'), self.window)
                 else:
-                    break # extraction successful
+                    break  # extraction successful
             if os.path.isfile(filepath_tmp):
                 os.remove(filepath_tmp)
             shutil.copy(filepath_tmp_tmp, filepath_tmp)
@@ -1986,11 +2100,14 @@ iter_end, exclude_iter_sel_end=True)
         elif filepath[-1] not in ["d", "b"]:
             print "bad filepath[-1]", filepath[-1]
             return False
-        elif main_file: self.password = None
+        elif main_file:
+            self.password = None
         if filepath[-1] in ["d", "z"]:
             try:
-                if password_protected: file_descriptor = open(filepath_tmp, 'r')
-                else: file_descriptor = open(filepath, 'rb')
+                if password_protected:
+                    file_descriptor = open(filepath_tmp, 'r')
+                else:
+                    file_descriptor = open(filepath, 'rb')
                 cherrytree_string = file_descriptor.read()
                 file_descriptor.close()
                 if password_protected: os.remove(filepath_tmp)
@@ -2001,11 +2118,15 @@ iter_end, exclude_iter_sel_end=True)
             return re.sub(cons.BAD_CHARS, "", cherrytree_string)
         else:
             try:
-                if password_protected: db = self.ctdb_handler.get_connected_db_from_dbpath(filepath_tmp)
-                else: db = self.ctdb_handler.get_connected_db_from_dbpath(filepath)
                 if password_protected:
-                    if filepath[-1] == "z": os.remove(filepath_tmp)
-                    else: self.ctdb_handler.remove_at_quit_set.add(filepath_tmp)
+                    db = self.ctdb_handler.get_connected_db_from_dbpath(filepath_tmp)
+                else:
+                    db = self.ctdb_handler.get_connected_db_from_dbpath(filepath)
+                if password_protected:
+                    if filepath[-1] == "z":
+                        os.remove(filepath_tmp)
+                    else:
+                        self.ctdb_handler.remove_at_quit_set.add(filepath_tmp)
             except:
                 print "error connecting to db"
                 raise
@@ -2019,20 +2140,25 @@ iter_end, exclude_iter_sel_end=True)
             # xml
             self.filetype = "d"
             cherrytree_string = self.file_get_cherrytree_data(filepath, True)
-            if cherrytree_string: document_loaded_ok = True
-            elif cherrytree_string == None: return # no error exit
+            if cherrytree_string:
+                document_loaded_ok = True
+            elif cherrytree_string == None:
+                return  # no error exit
         elif filepath[-3:] in ["ctb", "ctx"]:
             # db
             self.filetype = "b"
             self.db = self.file_get_cherrytree_data(filepath, True)
-            if self.db: document_loaded_ok = True
-            elif self.db == None: return # no error exit
+            if self.db:
+                document_loaded_ok = True
+            elif self.db == None:
+                return  # no error exit
         if document_loaded_ok:
             document_loaded_ok = False
             if self.user_active:
                 self.user_active = False
                 user_active_restore = True
-            else: user_active_restore = False
+            else:
+                user_active_restore = False
             file_loaded = False
             if self.filetype in ["d", "z"]:
                 # xml
@@ -2046,7 +2172,8 @@ iter_end, exclude_iter_sel_end=True)
                 self.file_dir = os.path.dirname(filepath)
                 self.file_name = os.path.basename(filepath)
                 self.filetype = self.file_name[-1]
-                self.ui.get_widget("/MenuBar/FileMenu/ct_vacuum").set_property(cons.STR_VISIBLE, self.filetype in ["b", "x"])
+                self.ui.get_widget("/MenuBar/FileMenu/ct_vacuum").set_property(cons.STR_VISIBLE,
+                                                                               self.filetype in ["b", "x"])
                 support.add_recent_document(self, filepath)
                 support.set_bookmarks_menu_items(self)
                 self.update_window_save_not_needed()
@@ -2062,7 +2189,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def file_new(self, *args):
         """Starts a new unsaved instance"""
-        #if self.reset(): self.node_add()
+        # if self.reset(): self.node_add()
         self.filepath_boss_open("", "")
 
     def tags_add_from_node(self, tags_str):
@@ -2071,7 +2198,7 @@ iter_end, exclude_iter_sel_end=True)
             single_tag_stripped = single_tag.strip()
             if single_tag_stripped:
                 self.tags_set.add(single_tag_stripped)
-                #print "tags_set +=", single_tag_stripped
+                # print "tags_set +=", single_tag_stripped
 
     def reset(self, force_reset=False):
         """Reset the Application"""
@@ -2080,7 +2207,8 @@ iter_end, exclude_iter_sel_end=True)
         if self.user_active:
             self.user_active = False
             user_active_restore = True
-        else: user_active_restore = False
+        else:
+            user_active_restore = False
         if self.curr_tree_iter != None:
             self.curr_buffer.set_text("")
             self.curr_tree_iter = None
@@ -2166,7 +2294,8 @@ iter_end, exclude_iter_sel_end=True)
             self.export_single = False
             self.last_include_node_name = True
         else:
-            export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True, also_include_node_name=True)
+            export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True,
+                                                                       also_include_node_name=True)
         txt_handler = exports.Export2Txt(self)
         if export_type == 0: return
         if export_type == 1:
@@ -2176,25 +2305,30 @@ iter_end, exclude_iter_sel_end=True)
             if txt_filepath:
                 if os.path.isfile(txt_filepath): os.remove(txt_filepath)
                 tree_iter_for_node_name = self.curr_tree_iter if self.last_include_node_name else None
-                txt_handler.node_export_to_txt(self.curr_buffer, txt_filepath, tree_iter_for_node_name=tree_iter_for_node_name)
+                txt_handler.node_export_to_txt(self.curr_buffer, txt_filepath,
+                                               tree_iter_for_node_name=tree_iter_for_node_name)
         elif export_type == 2:
             # selected node and subnodes
             if self.export_single:
                 txt_filepath = txt_handler.get_single_txt_filepath(self.file_name)
                 if txt_filepath:
                     if os.path.isfile(txt_filepath): os.remove(txt_filepath)
-                    txt_handler.nodes_all_export_to_txt(top_tree_iter=self.curr_tree_iter, single_txt_filepath=txt_filepath, include_node_name=self.last_include_node_name)
+                    txt_handler.nodes_all_export_to_txt(top_tree_iter=self.curr_tree_iter,
+                                                        single_txt_filepath=txt_filepath,
+                                                        include_node_name=self.last_include_node_name)
             else:
                 folder_name = support.get_node_hierarchical_name(self, self.curr_tree_iter)
                 if txt_handler.prepare_txt_folder(folder_name):
-                    txt_handler.nodes_all_export_to_txt(self.curr_tree_iter, include_node_name=self.last_include_node_name)
+                    txt_handler.nodes_all_export_to_txt(self.curr_tree_iter,
+                                                        include_node_name=self.last_include_node_name)
         elif export_type == 3:
             # all nodes
             if self.export_single:
                 txt_filepath = txt_handler.get_single_txt_filepath(self.file_name)
                 if txt_filepath:
                     if os.path.isfile(txt_filepath): os.remove(txt_filepath)
-                    txt_handler.nodes_all_export_to_txt(single_txt_filepath=txt_filepath, include_node_name=self.last_include_node_name)
+                    txt_handler.nodes_all_export_to_txt(single_txt_filepath=txt_filepath,
+                                                        include_node_name=self.last_include_node_name)
             else:
                 if args and args[0] == "Auto":
                     dir_string = args[1]
@@ -2213,7 +2347,8 @@ iter_end, exclude_iter_sel_end=True)
                     if os.path.isfile(txt_filepath): os.remove(txt_filepath)
                     sel_range = [iter_start.get_offset(), iter_end.get_offset()]
                     tree_iter_for_node_name = self.curr_tree_iter if self.last_include_node_name else None
-                    txt_handler.node_export_to_txt(self.curr_buffer, txt_filepath, sel_range, tree_iter_for_node_name=tree_iter_for_node_name)
+                    txt_handler.node_export_to_txt(self.curr_buffer, txt_filepath, sel_range,
+                                                   tree_iter_for_node_name=tree_iter_for_node_name)
 
     def export_to_html(self, *args):
         """Export to HTML"""
@@ -2221,7 +2356,9 @@ iter_end, exclude_iter_sel_end=True)
         if args and args[0] == "Auto":
             export_type = 3
         else:
-            export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True, also_include_node_name=True, also_index_in_page=True)
+            export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True,
+                                                                       also_include_node_name=True,
+                                                                       also_index_in_page=True)
         if export_type == 0: return
         if export_type == 1:
             # only selected node
@@ -2260,8 +2397,8 @@ iter_end, exclude_iter_sel_end=True)
         if self.print_handler.settings is None:
             self.print_handler.settings = gtk.PrintSettings()
         self.print_handler.page_setup = gtk.print_run_page_setup_dialog(self.window,
-                                            self.print_handler.page_setup,
-                                            self.print_handler.settings)
+                                                                        self.print_handler.page_setup,
+                                                                        self.print_handler.settings)
 
     def export_to_pdf(self, action):
         """Start Export to PDF Operations"""
@@ -2273,9 +2410,9 @@ iter_end, exclude_iter_sel_end=True)
         """Command Palette Dialog box"""
         dialog = gtk.Dialog(title=_("Command Palette"),
                             parent=self.window,
-                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                            flags=gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
                             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+                                     gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
         dialog.set_default_size(400, 300)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         try:
@@ -2283,11 +2420,12 @@ iter_end, exclude_iter_sel_end=True)
         except:
             print cons.STR_PYGTK_222_REQUIRED
             button_ok = None
-        commands_liststore = gtk.ListStore(str,str)
+        commands_liststore = gtk.ListStore(str, str)
         for key in self.menudict:
-            commands_liststore.append([key,self.menudict[key]['dn']])
+            commands_liststore.append([key, self.menudict[key]['dn']])
         treeview = gtk.TreeView(commands_liststore)
         treeview.set_enable_search(True)
+
         def is_subsequence(x, y):
             """Test whether x is a subsequence of y"""
             x = list(x)
@@ -2295,6 +2433,7 @@ iter_end, exclude_iter_sel_end=True)
                 if x and x[0] == letter:
                     x.pop(0)
             return not x
+
         def search_function(model, column, key, rowiter):
             '''
                 True: Search does not match
@@ -2320,12 +2459,14 @@ iter_end, exclude_iter_sel_end=True)
         content_area = dialog.get_content_area()
         content_area.add(scrolledwindow_allmatches)
         content_area.show_all()
+
         def on_entry_event_after(treeview2, event):
             """Catches key presses"""
             if event.type == gtk.gdk.KEY_PRESS:
                 keyname = gtk.gdk.keyval_name(event.keyval)
                 if keyname == cons.STR_KEY_RETURN:
                     button_ok.clicked()
+
         treeview.connect('event-after', on_entry_event_after)
         response = dialog.run()
         dialog.hide()
@@ -2340,7 +2481,9 @@ iter_end, exclude_iter_sel_end=True)
         if args and args[0] == "Auto":
             export_type = 3
         else:
-            export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True, also_include_node_name=True, also_new_node_page=True)
+            export_type = support.dialog_selnode_selnodeandsub_alltree(self, also_selection=True,
+                                                                       also_include_node_name=True,
+                                                                       also_new_node_page=True)
         if export_type == 0: return
         pdf_handler = exports.ExportPrint(self)
         if export_type == 1:
@@ -2357,7 +2500,8 @@ iter_end, exclude_iter_sel_end=True)
                 pdf_filepath = pdf_handler.get_pdf_filepath(self.file_name)
                 if not pdf_filepath: return
                 self.print_handler.pdf_filepath = pdf_filepath
-            pdf_handler.nodes_all_export_print(self.curr_tree_iter, self.last_include_node_name, self.last_new_node_page)
+            pdf_handler.nodes_all_export_print(self.curr_tree_iter, self.last_include_node_name,
+                                               self.last_new_node_page)
         elif export_type == 3:
             # all nodes
             if args and args[0] == "Auto":
@@ -2388,8 +2532,10 @@ iter_end, exclude_iter_sel_end=True)
         movements = False
         while self.node_siblings_sort_iteration(model, father_iter, ascending, 1):
             movements = True
-        if father_iter: curr_sibling = model.iter_children(father_iter)
-        else: curr_sibling = model.get_iter_first()
+        if father_iter:
+            curr_sibling = model.iter_children(father_iter)
+        else:
+            curr_sibling = model.get_iter_first()
         while curr_sibling:
             if self.tree_sort_level_and_sublevels(model, curr_sibling, ascending): movements = True
             curr_sibling = model.iter_next(curr_sibling)
@@ -2431,8 +2577,8 @@ iter_end, exclude_iter_sel_end=True)
 
     def natural_compare(self, left_string, right_string):
         """natural sorting"""
-        convert = lambda text: int(text) if text.isdigit() else text.lower() 
-        alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ]
+        convert = lambda text: int(text) if text.isdigit() else text.lower()
+        alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)', key)]
         left_key = alphanum_key(left_string)
         right_key = alphanum_key(right_string)
         if left_key < right_key: return -1
@@ -2441,8 +2587,10 @@ iter_end, exclude_iter_sel_end=True)
 
     def node_siblings_sort_iteration(self, model, father_iter, ascending, column):
         """Runs One Sorting Iteration, Returns True if Any Swap was Necessary"""
-        if father_iter: curr_sibling = model.iter_children(father_iter)
-        else: curr_sibling = model.get_iter_first()
+        if father_iter:
+            curr_sibling = model.iter_children(father_iter)
+        else:
+            curr_sibling = model.get_iter_first()
         if not curr_sibling: return False
         next_sibling = model.iter_next(curr_sibling)
         swap_executed = False
@@ -2451,7 +2599,8 @@ iter_end, exclude_iter_sel_end=True)
             if (ascending and diff < 0) or (not ascending and diff > 0):
                 model.swap(next_sibling, curr_sibling)
                 swap_executed = True
-            else: curr_sibling = next_sibling
+            else:
+                curr_sibling = next_sibling
             next_sibling = model.iter_next(curr_sibling)
         return swap_executed
 
@@ -2466,7 +2615,8 @@ iter_end, exclude_iter_sel_end=True)
         """Iteration of the Node Inherit Syntax"""
         iter_child = self.treestore.iter_children(iter_father)
         while iter_child != None:
-            if not self.get_node_read_only(iter_child) and self.treestore[iter_child][4] != self.treestore[iter_father][4]:
+            if not self.get_node_read_only(iter_child) and self.treestore[iter_child][4] != self.treestore[iter_father][
+                4]:
                 self.get_textbuffer_from_tree_iter(iter_child)
                 old_syntax_highl = self.treestore[iter_child][4]
                 self.treestore[iter_child][4] = self.treestore[iter_father][4]
@@ -2532,16 +2682,20 @@ iter_end, exclude_iter_sel_end=True)
         """Move a node to a parent and after a sibling"""
         if brother_iter:
             new_node_iter = self.treestore.insert_after(father_iter, brother_iter, self.treestore[iter_to_move])
-        elif set_first: new_node_iter = self.treestore.prepend(father_iter, self.treestore[iter_to_move])
-        else: new_node_iter = self.treestore.append(father_iter, self.treestore[iter_to_move])
+        elif set_first:
+            new_node_iter = self.treestore.prepend(father_iter, self.treestore[iter_to_move])
+        else:
+            new_node_iter = self.treestore.append(father_iter, self.treestore[iter_to_move])
         # we move also all the children
         self.node_move_children(iter_to_move, new_node_iter)
         # now we can remove the old iter (and all children)
         self.treestore.remove(iter_to_move)
         self.ctdb_handler.pending_edit_db_node_hier(self.treestore[new_node_iter][3])
         self.nodes_sequences_fix(None, True)
-        if father_iter: self.treeview.expand_row(self.treestore.get_path(father_iter), False)
-        else: self.treeview.expand_row(self.treestore.get_path(new_node_iter), False)
+        if father_iter:
+            self.treeview.expand_row(self.treestore.get_path(father_iter), False)
+        else:
+            self.treeview.expand_row(self.treestore.get_path(new_node_iter), False)
         self.curr_tree_iter = new_node_iter
         new_node_path = self.treestore.get_path(new_node_iter)
         self.treeview.collapse_row(new_node_path)
@@ -2561,8 +2715,10 @@ iter_end, exclude_iter_sel_end=True)
         if not self.is_there_selected_node_or_error(): return
         curr_node_id = self.treestore[self.curr_tree_iter][3]
         old_father_iter = self.treestore.iter_parent(self.curr_tree_iter)
-        if old_father_iter != None: old_father_node_id = self.treestore[old_father_iter][3]
-        else: old_father_node_id = None
+        if old_father_iter != None:
+            old_father_node_id = self.treestore[old_father_iter][3]
+        else:
+            old_father_node_id = None
         father_iter = support.dialog_choose_node(self, _("Select the New Parent"), self.treestore, self.curr_tree_iter)
         if not father_iter: return
         new_father_node_id = self.treestore[father_iter][3]
@@ -2721,7 +2877,8 @@ iter_end, exclude_iter_sel_end=True)
             if path_at_click:
                 if self.treeview.row_expanded(path_at_click[0]):
                     self.treeview.collapse_row(path_at_click[0])
-                else: self.treeview.expand_row(path_at_click[0], False)
+                else:
+                    self.treeview.expand_row(path_at_click[0], False)
         return False
 
     def set_sourcebuffer_with_style_scheme(self):
@@ -2745,7 +2902,8 @@ iter_end, exclude_iter_sel_end=True)
                 sourcebuffer.set_highlight_syntax(False)
             sourcebuffer.set_highlight_matching_brackets(True)
             return sourcebuffer
-        else: return gtk.TextBuffer(self.tag_table)
+        else:
+            return gtk.TextBuffer(self.tag_table)
 
     def combobox_prog_lang_init(self):
         """Init The Programming Languages Syntax Highlighting ComboBox"""
@@ -2753,7 +2911,7 @@ iter_end, exclude_iter_sel_end=True)
         search_path = self.language_manager.get_search_path()
         search_path.append(cons.SPECS_PATH)
         self.language_manager.set_search_path(search_path)
-        #print self.language_manager.get_search_path()
+        # print self.language_manager.get_search_path()
         self.available_languages = sorted(self.language_manager.get_language_ids())
         if "def" in self.available_languages: self.available_languages.remove("def")
 
@@ -2788,9 +2946,12 @@ iter_end, exclude_iter_sel_end=True)
         """Returns the Liststore iter Given the First Column Value"""
         curr_iter = liststore.get_iter_first()
         while curr_iter != None:
-            if liststore[curr_iter][column_num] == value: break
-            else: curr_iter = liststore.iter_next(curr_iter)
-        else: return liststore.get_iter_first()
+            if liststore[curr_iter][column_num] == value:
+                break
+            else:
+                curr_iter = liststore.iter_next(curr_iter)
+        else:
+            return liststore.get_iter_first()
         return curr_iter
 
     def set_sourcebuffer_syntax_highlight(self, sourcebuffer, syntax_highlighting):
@@ -2837,7 +2998,8 @@ iter_end, exclude_iter_sel_end=True)
     def node_add(self, *args):
         """Add a node having common parent with the selected node"""
         if not self.node_add_is_duplication:
-            ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id, ret_is_bold, ret_fg = self.dialog_nodeprop(_("New Node Properties"), syntax_highl=self.syntax_highlighting)
+            ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id, ret_is_bold, ret_fg = self.dialog_nodeprop(
+                _("New Node Properties"), syntax_highl=self.syntax_highlighting)
             if not ret_name: return
         else:
             tree_iter_from = self.curr_tree_iter
@@ -2851,22 +3013,26 @@ iter_end, exclude_iter_sel_end=True)
         self.update_window_save_needed()
         self.syntax_highlighting = ret_syntax
         father_iter = self.treestore.iter_parent(self.curr_tree_iter) if self.curr_tree_iter else None
-        node_level = self.treestore.iter_depth(father_iter)+1 if father_iter else 0
+        node_level = self.treestore.iter_depth(father_iter) + 1 if father_iter else 0
         cherry = self.get_node_icon(node_level, self.syntax_highlighting, ret_c_icon_id)
         new_node_id = self.node_id_get()
         ts_creation = time.time()
         ts_lastsave = ts_creation
         if self.curr_tree_iter != None:
             new_node_iter = self.treestore.insert_after(father_iter,
-                self.curr_tree_iter,
-                [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
-                 new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None, ret_c_icon_id,
-                 support.get_pango_weight(ret_is_bold), ret_fg, ts_creation, ts_lastsave])
+                                                        self.curr_tree_iter,
+                                                        [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
+                                                         new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro,
+                                                         None, ret_c_icon_id,
+                                                         support.get_pango_weight(ret_is_bold), ret_fg, ts_creation,
+                                                         ts_lastsave])
         else:
             new_node_iter = self.treestore.append(father_iter,
-                [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
-                 new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None, ret_c_icon_id,
-                 support.get_pango_weight(ret_is_bold), ret_fg, ts_creation, ts_lastsave])
+                                                  [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
+                                                   new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None,
+                                                   ret_c_icon_id,
+                                                   support.get_pango_weight(ret_is_bold), ret_fg, ts_creation,
+                                                   ts_lastsave])
         if ret_tags: self.tags_add_from_node(ret_tags)
         self.ctdb_handler.pending_new_db_node(new_node_id)
         self.nodes_sequences_fix(father_iter, False)
@@ -2900,23 +3066,27 @@ iter_end, exclude_iter_sel_end=True)
     def node_child_add(self, *args):
         """Add a node having as parent the selected node"""
         if not self.is_there_selected_node_or_error(): return
-        ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id, ret_is_bold, ret_fg = self.dialog_nodeprop(_("New Child Node Properties"), syntax_highl=self.syntax_highlighting)
+        ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id, ret_is_bold, ret_fg = self.dialog_nodeprop(
+            _("New Child Node Properties"), syntax_highl=self.syntax_highlighting)
         if not ret_name: return
-        self.node_child_add_with_data(self.curr_tree_iter, ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id, ret_is_bold, ret_fg)
+        self.node_child_add_with_data(self.curr_tree_iter, ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id,
+                                      ret_is_bold, ret_fg)
 
-    def node_child_add_with_data(self, father_iter, ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id, ret_is_bold, ret_fg):
+    def node_child_add_with_data(self, father_iter, ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id, ret_is_bold,
+                                 ret_fg):
         """Add a node having as parent the given node"""
         self.update_window_save_needed()
         self.syntax_highlighting = ret_syntax
-        node_level = self.treestore.iter_depth(father_iter)+1 if father_iter else 0
+        node_level = self.treestore.iter_depth(father_iter) + 1 if father_iter else 0
         cherry = self.get_node_icon(node_level, self.syntax_highlighting, ret_c_icon_id)
         new_node_id = self.node_id_get()
         ts_creation = time.time()
         ts_lastsave = ts_creation
         new_node_iter = self.treestore.append(father_iter,
-            [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
-             new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None, ret_c_icon_id,
-             support.get_pango_weight(ret_is_bold), ret_fg, ts_creation, ts_lastsave])
+                                              [cherry, ret_name, self.buffer_create(self.syntax_highlighting),
+                                               new_node_id, self.syntax_highlighting, 0, ret_tags, ret_ro, None,
+                                               ret_c_icon_id,
+                                               support.get_pango_weight(ret_is_bold), ret_fg, ts_creation, ts_lastsave])
         self.ctdb_handler.pending_new_db_node(new_node_id)
         self.nodes_sequences_fix(father_iter, False)
         self.update_node_aux_icon(new_node_iter)
@@ -2930,11 +3100,11 @@ iter_end, exclude_iter_sel_end=True)
         if not self.is_curr_node_not_read_only_or_error(): return
         warning_label = _("Are you sure to <b>Delete the node '%s'?</b>") % self.treestore[self.curr_tree_iter][1]
         if self.treestore.iter_children(self.curr_tree_iter) != None:
-            warning_label += cons.CHAR_NEWLINE*2+_("The node <b>has Children, they will be Deleted too!</b>")
+            warning_label += cons.CHAR_NEWLINE * 2 + _("The node <b>has Children, they will be Deleted too!</b>")
             self.nodes_rows_count = 0
             warning_label += self.get_node_children_list(self.curr_tree_iter, 0)
         response = support.dialog_question_warning(self.window, warning_label)
-        if response != gtk.RESPONSE_ACCEPT: return # the user did not confirm
+        if response != gtk.RESPONSE_ACCEPT: return  # the user did not confirm
         # next selected node will be previous sibling or next sibling or parent or None
         new_iter = self.get_tree_iter_prev_sibling(self.treestore, self.curr_tree_iter)
         if new_iter == None:
@@ -2967,7 +3137,8 @@ iter_end, exclude_iter_sel_end=True)
     def node_edit(self, *args):
         """Edit the Properties of the Selected Node"""
         if not self.is_there_selected_node_or_error(): return
-        ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id, ret_is_bold, ret_fg = self.dialog_nodeprop(_("Node Properties"),
+        ret_name, ret_syntax, ret_tags, ret_ro, ret_c_icon_id, ret_is_bold, ret_fg = self.dialog_nodeprop(
+            _("Node Properties"),
             name=self.treestore[self.curr_tree_iter][1],
             syntax_highl=self.treestore[self.curr_tree_iter][4],
             tags=self.treestore[self.curr_tree_iter][6],
@@ -2980,17 +3151,21 @@ iter_end, exclude_iter_sel_end=True)
         if self.treestore[self.curr_tree_iter][4] != self.syntax_highlighting:
             if self.treestore[self.curr_tree_iter][4] == cons.RICH_TEXT_ID:
                 # leaving rich text
-                if not support.dialog_question(_("Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"), self.window):
-                    self.syntax_highlighting = cons.RICH_TEXT_ID # STEP BACK (we stay in CUSTOM COLORS)
+                if not support.dialog_question(_(
+                        "Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"),
+                        self.window):
+                    self.syntax_highlighting = cons.RICH_TEXT_ID  # STEP BACK (we stay in CUSTOM COLORS)
                     return
                 # SWITCH TextBuffer -> SourceBuffer
-                self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting, self.treestore[self.curr_tree_iter][4])
+                self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting,
+                                               self.treestore[self.curr_tree_iter][4])
                 self.curr_buffer = self.treestore[self.curr_tree_iter][2]
                 self.state_machine.delete_states(self.get_node_id_from_tree_iter(self.curr_tree_iter))
             elif self.syntax_highlighting == cons.RICH_TEXT_ID:
                 # going to rich text
                 # SWITCH SourceBuffer -> TextBuffer
-                self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting, self.treestore[self.curr_tree_iter][4])
+                self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting,
+                                               self.treestore[self.curr_tree_iter][4])
                 self.curr_buffer = self.treestore[self.curr_tree_iter][2]
             elif self.treestore[self.curr_tree_iter][4] == cons.PLAIN_TEXT_ID:
                 # plain text to code
@@ -3036,11 +3211,11 @@ iter_end, exclude_iter_sel_end=True)
         node_children_list = ""
         self.nodes_rows_count += 1
         if self.nodes_rows_count > 15: return "..."
-        node_children_list += cons.CHAR_NEWLINE + level*3*cons.CHAR_SPACE + self.chars_listbul[0] + \
-                              cons.CHAR_SPACE +self.treestore[father_tree_iter][1]
+        node_children_list += cons.CHAR_NEWLINE + level * 3 * cons.CHAR_SPACE + self.chars_listbul[0] + \
+                              cons.CHAR_SPACE + self.treestore[father_tree_iter][1]
         tree_iter = self.treestore.iter_children(father_tree_iter)
         while tree_iter:
-            node_children_list += self.get_node_children_list(tree_iter, level+1)
+            node_children_list += self.get_node_children_list(tree_iter, level + 1)
             tree_iter = self.treestore.iter_next(tree_iter)
         return node_children_list
 
@@ -3085,7 +3260,8 @@ iter_end, exclude_iter_sel_end=True)
         if self.user_active:
             self.user_active = False
             user_active_restore = True
-        else: user_active_restore = False
+        else:
+            user_active_restore = False
         if old_syntax_highl == cons.RICH_TEXT_ID and new_syntax_highl != cons.RICH_TEXT_ID:
             rich_to_non_rich = True
             txt_handler = exports.Export2Txt(self)
@@ -3106,15 +3282,17 @@ iter_end, exclude_iter_sel_end=True)
     def on_node_changed(self, *args):
         """Actions to be triggered from the changing of node"""
         model, new_iter = self.treeviewselection.get_selected()
-        if new_iter == None: return # no node selected
+        if new_iter == None:
+            return  # no node selected
         elif self.curr_tree_iter != None and model[new_iter][3] == model[self.curr_tree_iter][3]:
-            return # if i click on an already selected node
+            return  # if i click on an already selected node
         if self.enable_spell_check and self.user_active and self.syntax_highlighting == cons.RICH_TEXT_ID:
             self.spell_check_set_off()
         if self.curr_tree_iter and self.curr_buffer:
             if self.user_active:
-                self.nodes_cursor_pos[model[self.curr_tree_iter][3]] = self.curr_buffer.get_property(cons.STR_CURSOR_POSITION)
-                #print "cursor_pos %s save for node %s" % (self.nodes_cursor_pos[model[self.curr_tree_iter][3]], model[self.curr_tree_iter][3])
+                self.nodes_cursor_pos[model[self.curr_tree_iter][3]] = self.curr_buffer.get_property(
+                    cons.STR_CURSOR_POSITION)
+                # print "cursor_pos %s save for node %s" % (self.nodes_cursor_pos[model[self.curr_tree_iter][3]], model[self.curr_tree_iter][3])
             if self.curr_buffer.get_modified():
                 self.file_update = True
                 self.curr_buffer.set_modified(False)
@@ -3145,18 +3323,18 @@ iter_end, exclude_iter_sel_end=True)
                 cursor_pos = 0
             cursor_iter = self.curr_buffer.get_iter_at_offset(cursor_pos)
             if cursor_iter:
-                #print "cursor_pos %s restore for node %s" % (cursor_pos, node_id)
+                # print "cursor_pos %s restore for node %s" % (cursor_pos, node_id)
                 self.curr_buffer.place_cursor(cursor_iter)
                 self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
             if self.syntax_highlighting == cons.RICH_TEXT_ID:
-                #if not already_visited: self.lists_handler.todo_lists_old_to_new_conversion(self.curr_buffer)
+                # if not already_visited: self.lists_handler.todo_lists_old_to_new_conversion(self.curr_buffer)
                 if self.enable_spell_check: self.spell_check_set_on()
             node_is_bookmarked = (str(node_id) in self.bookmarks)
             self.menu_tree_update_for_bookmarked_node(node_is_bookmarked)
             self.header_node_name_icon_lock.set_property(cons.STR_VISIBLE, node_is_ro)
 
     def on_button_node_name_header_clicked(self, button, idx):
-        node_id = self.node_name_header_buttons[idx+1]
+        node_id = self.node_name_header_buttons[idx + 1]
         tree_iter = self.get_tree_iter_from_node_id(node_id)
         if tree_iter:
             self.treeview_safe_set_cursor(tree_iter)
@@ -3185,7 +3363,8 @@ iter_end, exclude_iter_sel_end=True)
             sel_node_id = self.get_node_id_from_tree_iter(self.curr_tree_iter) if self.curr_tree_iter else -1
             self.node_name_header_buttons = {}
             buttons = self.header_node_name_hbuttonbox.get_children()
-            assert len(buttons) == self.nodes_on_node_name_header, "%s != %s" % (len(buttons), self.nodes_on_node_name_header)
+            assert len(buttons) == self.nodes_on_node_name_header, "%s != %s" % (
+                len(buttons), self.nodes_on_node_name_header)
             curr_button_num = self.nodes_on_node_name_header
             for i in reversed(range(len(self.state_machine.visited_nodes_list))):
                 node_id = self.state_machine.visited_nodes_list[i]
@@ -3193,10 +3372,11 @@ iter_end, exclude_iter_sel_end=True)
                     tree_iter = self.get_tree_iter_from_node_id(node_id)
                     if tree_iter:
                         node_name = self.treestore[tree_iter][1]
-                        node_toolip = support.get_node_hierarchical_name(self, tree_iter, separator="/", for_filename=False)
+                        node_toolip = support.get_node_hierarchical_name(self, tree_iter, separator="/",
+                                                                         for_filename=False)
                         self.node_name_header_buttons[curr_button_num] = self.state_machine.visited_nodes_list[i]
-                        markup = "<small>"+cgi.escape(node_name)+"</small>"
-                        curr_button_idx = curr_button_num-1
+                        markup = "<small>" + cgi.escape(node_name) + "</small>"
+                        curr_button_idx = curr_button_num - 1
                         buttons[curr_button_idx].get_children()[0].set_markup(markup)
                         buttons[curr_button_idx].show_all()
                         buttons[curr_button_idx].set_tooltip_text(node_toolip)
@@ -3225,7 +3405,7 @@ iter_end, exclude_iter_sel_end=True)
         foreground = self.treestore[self.curr_tree_iter][11] if self.curr_tree_iter else None
         fg = self.tt_def_fg if not foreground else foreground
         self.header_node_name_label.set_text(
-            "<b><span foreground=\"" + fg + "\" size=\"xx-large\">"+\
+            "<b><span foreground=\"" + fg + "\" size=\"xx-large\">" + \
             cgi.escape(node_hier_name) + "</span></b>")
         self.header_node_name_label.set_use_markup(True)
         self.update_node_name_header_labels_latest_visited()
@@ -3248,10 +3428,14 @@ iter_end, exclude_iter_sel_end=True)
                 anchor = iter_sel_start.get_child_anchor()
                 if anchor != None:
                     anchor_dir = dir(anchor)
-                    if "pixbuf" in anchor_dir: support.set_object_highlight(self, anchor.eventbox)
-                    elif "liststore" in anchor_dir: support.set_object_highlight(self, anchor.frame)
-                    elif "sourcebuffer" in anchor_dir: support.set_object_highlight(self, anchor.frame)
-        except: pass
+                    if "pixbuf" in anchor_dir:
+                        support.set_object_highlight(self, anchor.eventbox)
+                    elif "liststore" in anchor_dir:
+                        support.set_object_highlight(self, anchor.frame)
+                    elif "sourcebuffer" in anchor_dir:
+                        support.set_object_highlight(self, anchor.frame)
+        except:
+            pass
 
     def update_window_save_needed(self, update_type=None, new_state_machine=False, given_tree_iter=None):
         """Window title preceeded by an asterix"""
@@ -3268,8 +3452,8 @@ iter_end, exclude_iter_sel_end=True)
                     self.ctdb_handler.pending_edit_db_node_buff(node_id)
                     curr_time = time.time()
                     self.treestore[tree_iter][13] = curr_time
-                    if (not node_id in self.latest_statusbar_update_time.keys())\
-                    or (curr_time - self.latest_statusbar_update_time[node_id] > 60):
+                    if (not node_id in self.latest_statusbar_update_time.keys()) \
+                            or (curr_time - self.latest_statusbar_update_time[node_id] > 60):
                         self.latest_statusbar_update_time[node_id] = curr_time
                         self.update_selected_node_statusbar_info()
             elif update_type == "npro":
@@ -3282,7 +3466,8 @@ iter_end, exclude_iter_sel_end=True)
                     for node_id in ([top_node_id] + self.get_children_node_ids(tree_iter)):
                         self.ctdb_handler.pending_rm_db_node(node_id)
                         self.state_machine.delete_states(node_id)
-            elif update_type == "book": self.ctdb_handler.pending_edit_db_bookmarks()
+            elif update_type == "book":
+                self.ctdb_handler.pending_edit_db_bookmarks()
         if new_state_machine and tree_iter:
             self.state_machine.update_state()
 
@@ -3314,8 +3499,10 @@ iter_end, exclude_iter_sel_end=True)
 
     def window_title_update(self, save_needed):
         """Update window title"""
-        if save_needed: self.window.set_title("*" + self.window_title_str_get())
-        else: self.window.set_title(self.window_title_str_get())
+        if save_needed:
+            self.window.set_title("*" + self.window_title_str_get())
+        else:
+            self.window.set_title(self.window_title_str_get())
 
     def replace_again(self, *args):
         """Continue the previous replace (a_node/in_selected_node/in_all_nodes)"""
@@ -3389,7 +3576,7 @@ iter_end, exclude_iter_sel_end=True)
     def get_tree_iter_prev_sibling(self, model, node_iter):
         """Returns the previous sibling iter or None if the given iter is the first"""
         node_path = model.get_path(node_iter)
-        sibling_index = len(node_path)-1
+        sibling_index = len(node_path) - 1
         prev_iter = None
         while prev_iter == None and node_path[sibling_index] > 0:
             node_path_list = list(node_path)
@@ -3404,8 +3591,10 @@ iter_end, exclude_iter_sel_end=True)
         new_node_id = self.state_machine.requested_visited_previous()
         if new_node_id:
             node_iter = self.get_tree_iter_from_node_id(new_node_id)
-            if node_iter: self.treeview_safe_set_cursor(node_iter)
-            else: self.go_back()
+            if node_iter:
+                self.treeview_safe_set_cursor(node_iter)
+            else:
+                self.go_back()
         self.go_bk_fw_click = False
 
     def go_forward(self, *args):
@@ -3414,8 +3603,10 @@ iter_end, exclude_iter_sel_end=True)
         new_node_id = self.state_machine.requested_visited_next()
         if new_node_id:
             node_iter = self.get_tree_iter_from_node_id(new_node_id)
-            if node_iter: self.treeview_safe_set_cursor(node_iter)
-            else: self.go_forward()
+            if node_iter:
+                self.treeview_safe_set_cursor(node_iter)
+            else:
+                self.go_forward()
         self.go_bk_fw_click = False
 
     def load_buffer_from_state(self, state, given_tree_iter=None):
@@ -3424,7 +3615,8 @@ iter_end, exclude_iter_sel_end=True)
             if self.enable_spell_check:
                 spell_check_restore = True
                 self.toggle_ena_dis_spellcheck()
-            else: spell_check_restore = False
+            else:
+                spell_check_restore = False
             tree_iter = self.curr_tree_iter
             text_buffer = self.curr_buffer
         else:
@@ -3433,14 +3625,18 @@ iter_end, exclude_iter_sel_end=True)
         if self.user_active:
             self.user_active = False
             user_active_restore = True
-        else: user_active_restore = False
+        else:
+            user_active_restore = False
         self.xml_handler.dom_to_buffer(text_buffer, state[0])
         pixbuf_table_vector = state[1]
         # pixbuf_table_vector is [ [ "pixbuf"/"table"/"codebox", [offset, pixbuf, alignment] ],... ]
         for element in pixbuf_table_vector:
-            if element[0] == "pixbuf": self.state_machine.load_embedded_image_element(text_buffer, element[1])
-            elif element[0] == "table": self.state_machine.load_embedded_table_element(text_buffer, element[1])
-            elif element[0] == "codebox": self.state_machine.load_embedded_codebox_element(text_buffer, element[1])
+            if element[0] == "pixbuf":
+                self.state_machine.load_embedded_image_element(text_buffer, element[1])
+            elif element[0] == "table":
+                self.state_machine.load_embedded_table_element(text_buffer, element[1])
+            elif element[0] == "codebox":
+                self.state_machine.load_embedded_codebox_element(text_buffer, element[1])
         if not given_tree_iter:
             self.sourceview.set_buffer(None)
             self.sourceview.set_buffer(text_buffer)
@@ -3494,7 +3690,8 @@ iter_end, exclude_iter_sel_end=True)
             if self.user_active:
                 self.user_active = False
                 user_active_restore = True
-            else: user_active_restore = False
+            else:
+                user_active_restore = False
             iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
             iter_bound = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_selection_bound())
             insert_offset = iter_insert.get_offset()
@@ -3502,12 +3699,17 @@ iter_end, exclude_iter_sel_end=True)
             self.curr_buffer.set_text("")
             self.xml_handler.dom_to_buffer(self.curr_buffer, refresh[0])
             for element in pixbuf_table_vector:
-                if element[0] == "pixbuf": self.state_machine.load_embedded_image_element(self.curr_buffer, element[1])
-                elif element[0] == "table": self.state_machine.load_embedded_table_element(self.curr_buffer, element[1])
-                elif element[0] == "codebox": self.state_machine.load_embedded_codebox_element(self.curr_buffer, element[1])
+                if element[0] == "pixbuf":
+                    self.state_machine.load_embedded_image_element(self.curr_buffer, element[1])
+                elif element[0] == "table":
+                    self.state_machine.load_embedded_table_element(self.curr_buffer, element[1])
+                elif element[0] == "codebox":
+                    self.state_machine.load_embedded_codebox_element(self.curr_buffer, element[1])
             self.curr_buffer.set_modified(False)
-            self.curr_buffer.move_mark(self.curr_buffer.get_insert(), self.curr_buffer.get_iter_at_offset(insert_offset))
-            self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(), self.curr_buffer.get_iter_at_offset(bound_offset))
+            self.curr_buffer.move_mark(self.curr_buffer.get_insert(),
+                                       self.curr_buffer.get_iter_at_offset(insert_offset))
+            self.curr_buffer.move_mark(self.curr_buffer.get_selection_bound(),
+                                       self.curr_buffer.get_iter_at_offset(bound_offset))
             self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
             if user_active_restore: self.user_active = True
 
@@ -3527,15 +3729,16 @@ iter_end, exclude_iter_sel_end=True)
         if not self.is_curr_node_not_read_only_or_error(): return
         text_view, text_buffer, syntax_highl, from_codebox = self.get_text_view_n_buffer_codebox_proof()
         if not text_buffer: return
-        text_buffer.insert_at_cursor(self.h_rule+cons.CHAR_NEWLINE)
+        text_buffer.insert_at_cursor(self.h_rule + cons.CHAR_NEWLINE)
 
-    def dialog_nodeprop(self, title, name="", syntax_highl=cons.RICH_TEXT_ID, tags="", ro=False, c_icon_id=0, is_bold=False, fg=None):
+    def dialog_nodeprop(self, title, name="", syntax_highl=cons.RICH_TEXT_ID, tags="", ro=False, c_icon_id=0,
+                        is_bold=False, fg=None):
         """Opens the Node Properties Dialog"""
         dialog = gtk.Dialog(title=title,
                             parent=self.window,
-                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
+                            flags=gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
                             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
-                            gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
+                                     gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
         dialog.set_default_size(300, -1)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         name_entry = gtk.Entry()
@@ -3544,9 +3747,12 @@ iter_end, exclude_iter_sel_end=True)
         is_bold_checkbutton.set_active(is_bold)
         fg_checkbutton = gtk.CheckButton(label=_("Use Selected Color"))
         fg_checkbutton.set_active(fg != None)
-        if fg: curr_color = gtk.gdk.color_parse(fg)
-        elif self.curr_colors['n']: curr_color = self.curr_colors['n']
-        else: curr_color = gtk.gdk.color_parse("red")
+        if fg:
+            curr_color = gtk.gdk.color_parse(fg)
+        elif self.curr_colors['n']:
+            curr_color = self.curr_colors['n']
+        else:
+            curr_color = gtk.gdk.color_parse("red")
         fg_colorbutton = gtk.ColorButton(color=curr_color)
         fg_colorbutton.set_sensitive(fg != None)
         fg_hbox = gtk.HBox()
@@ -3572,7 +3778,7 @@ iter_end, exclude_iter_sel_end=True)
         name_vbox.pack_start(is_bold_checkbutton)
         name_vbox.pack_start(fg_hbox)
         name_vbox.pack_start(c_icon_hbox)
-        name_frame = gtk.Frame(label="<b>"+_("Node Name")+"</b>")
+        name_frame = gtk.Frame(label="<b>" + _("Node Name") + "</b>")
         name_frame.get_label_widget().set_use_markup(True)
         name_frame.set_shadow_type(gtk.SHADOW_NONE)
         name_frame.add(name_vbox)
@@ -3582,7 +3788,8 @@ iter_end, exclude_iter_sel_end=True)
         radiobutton_auto_syntax_highl = gtk.RadioButton(label=_("Automatic Syntax Highlighting"))
         radiobutton_auto_syntax_highl.set_group(radiobutton_rich_text)
         button_prog_lang = gtk.Button()
-        button_label = syntax_highl if syntax_highl not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID] else self.auto_syn_highl
+        button_label = syntax_highl if syntax_highl not in [cons.RICH_TEXT_ID,
+                                                            cons.PLAIN_TEXT_ID] else self.auto_syn_highl
         button_stock_id = config.get_stock_id_for_code_type(button_label)
         button_prog_lang.set_label(button_label)
         button_prog_lang.set_image(gtk.image_new_from_stock(button_stock_id, gtk.ICON_SIZE_MENU))
@@ -3599,7 +3806,7 @@ iter_end, exclude_iter_sel_end=True)
         type_vbox.pack_start(radiobutton_plain_text)
         type_vbox.pack_start(radiobutton_auto_syntax_highl)
         type_vbox.pack_start(button_prog_lang)
-        type_frame = gtk.Frame(label="<b>"+_("Node Type")+"</b>")
+        type_frame = gtk.Frame(label="<b>" + _("Node Type") + "</b>")
         type_frame.get_label_widget().set_use_markup(True)
         type_frame.set_shadow_type(gtk.SHADOW_NONE)
         type_frame.add(type_vbox)
@@ -3613,7 +3820,7 @@ iter_end, exclude_iter_sel_end=True)
         if not self.tags_set: button_browse_tags.set_sensitive(False)
         tags_hbox.pack_start(tags_entry)
         tags_hbox.pack_start(button_browse_tags, expand=False)
-        tags_frame = gtk.Frame(label="<b>"+_("Tags for Searching")+"</b>")
+        tags_frame = gtk.Frame(label="<b>" + _("Tags for Searching") + "</b>")
         tags_frame.get_label_widget().set_use_markup(True)
         tags_frame.set_shadow_type(gtk.SHADOW_NONE)
         tags_frame.add(tags_hbox)
@@ -3627,52 +3834,77 @@ iter_end, exclude_iter_sel_end=True)
         content_area.pack_start(ro_checkbutton)
         content_area.show_all()
         name_entry.grab_focus()
+
         def on_button_prog_lang_clicked(button):
             icon_n_key_list = []
             for key in self.available_languages:
                 stock_id = config.get_stock_id_for_code_type(key)
                 icon_n_key_list.append([key, stock_id, key])
-            sel_key = support.dialog_choose_element_in_list(self.window, _("Automatic Syntax Highlighting"), [], "", icon_n_key_list)
+            sel_key = support.dialog_choose_element_in_list(self.window, _("Automatic Syntax Highlighting"), [], "",
+                                                            icon_n_key_list)
             if sel_key:
                 button.set_label(sel_key)
                 button.set_image(gtk.image_new_from_stock(sel_key, gtk.ICON_SIZE_MENU))
+
         button_prog_lang.connect('clicked', on_button_prog_lang_clicked)
+
         def on_key_press_nodepropdialog(widget, event):
             keyname = gtk.gdk.keyval_name(event.keyval)
             if keyname == cons.STR_KEY_RETURN:
-                try: dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
-                except: print cons.STR_PYGTK_222_REQUIRED
+                try:
+                    dialog.get_widget_for_response(gtk.RESPONSE_ACCEPT).clicked()
+                except:
+                    print cons.STR_PYGTK_222_REQUIRED
                 return True
             return False
+
         dialog.connect('key_press_event', on_key_press_nodepropdialog)
+
         def on_radiobutton_auto_syntax_highl_toggled(radiobutton):
             button_prog_lang.set_sensitive(radiobutton.get_active())
+
         radiobutton_auto_syntax_highl.connect("toggled", on_radiobutton_auto_syntax_highl_toggled)
+
         def on_browse_tags_button_clicked(button):
             ret_tag_name = support.dialog_choose_element_in_list(dialog,
-                _("Choose Existing Tag"), [[element] for element in sorted(self.tags_set)], _("Tag Name"))
+                                                                 _("Choose Existing Tag"),
+                                                                 [[element] for element in sorted(self.tags_set)],
+                                                                 _("Tag Name"))
             if ret_tag_name:
                 curr_text = tags_entry.get_text()
                 print curr_text, ret_tag_name
-                if not curr_text: tags_entry.set_text(ret_tag_name)
-                elif curr_text.endswith(cons.CHAR_SPACE): tags_entry.set_text(curr_text+ret_tag_name)
-                else: tags_entry.set_text(curr_text+cons.CHAR_SPACE+ret_tag_name)
+                if not curr_text:
+                    tags_entry.set_text(ret_tag_name)
+                elif curr_text.endswith(cons.CHAR_SPACE):
+                    tags_entry.set_text(curr_text + ret_tag_name)
+                else:
+                    tags_entry.set_text(curr_text + cons.CHAR_SPACE + ret_tag_name)
+
         button_browse_tags.connect('clicked', on_browse_tags_button_clicked)
+
         def on_checkbutton_ro_toggled(checkbutton):
             type_frame.set_sensitive(not checkbutton.get_active())
+
         ro_checkbutton.connect('toggled', on_checkbutton_ro_toggled)
+
         def on_fg_checkbutton_toggled(checkbutton):
             fg_colorbutton.set_sensitive(checkbutton.get_active())
+
         fg_checkbutton.connect('toggled', on_fg_checkbutton_toggled)
+
         def on_fg_colorbutton_press_event(colorbutton, event):
             ret_color = support.dialog_color_pick(self, colorbutton.get_color())
             if ret_color:
                 colorbutton.set_color(ret_color)
             return True
+
         fg_colorbutton.connect('button-press-event', on_fg_colorbutton_press_event)
+
         def on_c_icon_checkbutton_toggled(checkbutton):
             c_icon_button.set_sensitive(checkbutton.get_active())
+
         c_icon_checkbutton.connect('toggled', on_c_icon_checkbutton_toggled)
+
         def on_c_icon_button_clicked(button):
             icon_n_label_list = []
             for key in cons.NODES_STOCKS_KEYS:
@@ -3681,15 +3913,19 @@ iter_end, exclude_iter_sel_end=True)
             if sel_key:
                 dialog.ret_c_icon_id = int(sel_key)
                 c_icon_button.set_label("")
-                c_icon_button.set_image(gtk.image_new_from_stock(cons.NODES_STOCKS[dialog.ret_c_icon_id], gtk.ICON_SIZE_BUTTON))
+                c_icon_button.set_image(
+                    gtk.image_new_from_stock(cons.NODES_STOCKS[dialog.ret_c_icon_id], gtk.ICON_SIZE_BUTTON))
+
         c_icon_button.connect('clicked', on_c_icon_button_clicked)
         response = dialog.run()
         dialog.hide()
         if response == gtk.RESPONSE_ACCEPT:
             ret_name = unicode(name_entry.get_text(), cons.STR_UTF8, cons.STR_IGNORE)
             if not ret_name: ret_name = cons.CHAR_QUESTION
-            if radiobutton_rich_text.get_active(): ret_syntax = cons.RICH_TEXT_ID
-            elif radiobutton_plain_text.get_active(): ret_syntax = cons.PLAIN_TEXT_ID
+            if radiobutton_rich_text.get_active():
+                ret_syntax = cons.RICH_TEXT_ID
+            elif radiobutton_plain_text.get_active():
+                ret_syntax = cons.PLAIN_TEXT_ID
             else:
                 ret_syntax = button_prog_lang.get_label()
                 self.auto_syn_highl = ret_syntax
@@ -3744,15 +3980,16 @@ iter_end, exclude_iter_sel_end=True)
         if self.systray:
             self.win_position = self.window.get_position()
             self.window.hide_all()
-        else: self.quit_application_totally()
+        else:
+            self.quit_application_totally()
 
     def quit_application_totally(self, *args):
         """The process is Shut Down"""
         if self.embfiles_opened and not support.dialog_exit_del_temp_files(self):
-            self.really_quit = False # user pressed cancel
+            self.really_quit = False  # user pressed cancel
             return
         if not self.check_unsaved():
-            self.really_quit = False # user pressed cancel
+            self.really_quit = False  # user pressed cancel
             return
         config.config_file_save(self)
         if "db" in dir(self) and self.db: self.db.close()
@@ -3762,29 +3999,35 @@ iter_end, exclude_iter_sel_end=True)
         for filepath_tmp in self.embfiles_opened.keys(): os.remove(filepath_tmp)
         self.window.destroy()
         if not self.boss.running_windows:
-            if not self.use_appind and "status_icon" in dir(self.boss): self.boss.status_icon.set_property(cons.STR_VISIBLE, False)
+            if not self.use_appind and "status_icon" in dir(self.boss): self.boss.status_icon.set_property(
+                cons.STR_VISIBLE, False)
 
     def on_window_delete_event(self, widget, event, data=None):
         """Before close the application (from the window top right X)..."""
         self.really_quit = True
         self.quit_application()
-        if not self.really_quit: return True # stop the delete event (user pressed cancel)
-        else: return self.systray # True == stop the delete event, False == propogate the delete event
+        if not self.really_quit:
+            return True  # stop the delete event (user pressed cancel)
+        else:
+            return self.systray  # True == stop the delete event, False == propogate the delete event
 
     def check_unsaved(self):
         """Before close the current document, check for possible Unsaved"""
         if self.curr_tree_iter and (self.curr_buffer.get_modified() or self.file_update):
-            if self.autosave_on_quit: response = 2
-            else: response = support.dialog_exit_save(self.window)
+            if self.autosave_on_quit:
+                response = 2
+            else:
+                response = support.dialog_exit_save(self.window)
             if response == 2:
                 # button YES pressed or autosave ON
                 if not self.file_save():
                     # the file save failed, we are NOT closing
                     response = 6
-            elif response < 0: response = 6
+            elif response < 0:
+                response = 6
         else:
-            response = 0 # no need to save
-        if response == 6: return False # button CANCEL
+            response = 0  # no need to save
+        if response == 6: return False  # button CANCEL
         return True
 
     def dialog_about(self, *args):
@@ -3809,7 +4052,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def anchor_edit_dialog(self, pixbuf, iter_insert, iter_bound=None):
         """Anchor Edit Dialog"""
-        if "anchor" in dir (pixbuf):
+        if "anchor" in dir(pixbuf):
             anchor_curr_name = pixbuf.anchor
             dialog_title = _("Edit Anchor")
         else:
@@ -3818,12 +4061,13 @@ iter_end, exclude_iter_sel_end=True)
         ret_anchor_name = support.dialog_img_n_entry(self.window, dialog_title, anchor_curr_name, "anchor")
         if not ret_anchor_name: return
         pixbuf.anchor = ret_anchor_name
-        if iter_bound != None: # only in case of modify
+        if iter_bound != None:  # only in case of modify
             image_justification = self.state_machine.get_iter_alignment(iter_insert)
             image_offset = iter_insert.get_offset()
             self.curr_buffer.delete(iter_insert, iter_bound)
             iter_insert = self.curr_buffer.get_iter_at_offset(image_offset)
-        else: image_justification = None
+        else:
+            image_justification = None
         self.image_insert(iter_insert, pixbuf, image_justification)
 
     def exec_code(self, *args):
@@ -3834,27 +4078,31 @@ iter_end, exclude_iter_sel_end=True)
             anchor = self.codeboxes_handler.codebox_in_use_get_anchor()
             if anchor is not None:
                 code_type = anchor.syntax_highlighting
-                code_val = unicode(anchor.sourcebuffer.get_text(*anchor.sourcebuffer.get_bounds()), cons.STR_UTF8, cons.STR_IGNORE)
+                code_val = unicode(anchor.sourcebuffer.get_text(*anchor.sourcebuffer.get_bounds()), cons.STR_UTF8,
+                                   cons.STR_IGNORE)
             if not code_type:
                 support.dialog_warning(_("No CodeBox is Selected"), self.window)
                 return
         else:
             code_type = self.syntax_highlighting
-            code_val = unicode(self.curr_buffer.get_text(*self.curr_buffer.get_bounds()), cons.STR_UTF8, cons.STR_IGNORE)
-        #print code_type
+            code_val = unicode(self.curr_buffer.get_text(*self.curr_buffer.get_bounds()), cons.STR_UTF8,
+                               cons.STR_IGNORE)
+        # print code_type
         binary_cmd = config.get_code_exec_type_cmd(self, code_type)
         if not binary_cmd:
-            support.dialog_warning(_("You must associate a command to '%s'.\nDo so in the Preferences Dialog") % code_type, self.window)
+            support.dialog_warning(
+                _("You must associate a command to '%s'.\nDo so in the Preferences Dialog") % code_type, self.window)
             return
-        filepath_src_tmp = os.path.join(cons.TMP_FOLDER, "exec_code."+config.get_code_exec_ext(self, code_type))
+        filepath_src_tmp = os.path.join(cons.TMP_FOLDER, "exec_code." + config.get_code_exec_ext(self, code_type))
         filepath_bin_tmp = os.path.join(cons.TMP_FOLDER, "exec_code.exe")
-        binary_cmd = binary_cmd.replace(config.CODE_EXEC_TMP_SRC, filepath_src_tmp).replace(config.CODE_EXEC_TMP_BIN, filepath_bin_tmp)
+        binary_cmd = binary_cmd.replace(config.CODE_EXEC_TMP_SRC, filepath_src_tmp).replace(config.CODE_EXEC_TMP_BIN,
+                                                                                            filepath_bin_tmp)
         terminal_cmd = config.get_code_exec_term_run(self).replace(config.CODE_EXEC_COMMAND, binary_cmd)
-        #print terminal_cmd
-        warning_label = "<b>"+_("Do you want to Execute the Code?")+"</b>"
+        # print terminal_cmd
+        warning_label = "<b>" + _("Do you want to Execute the Code?") + "</b>"
         response = support.dialog_question_warning(self.window, warning_label)
         if response != gtk.RESPONSE_ACCEPT:
-            return # the user did not confirm
+            return  # the user did not confirm
         with open(filepath_src_tmp, 'w') as fd:
             fd.write(code_val)
         try:
@@ -3867,7 +4115,9 @@ iter_end, exclude_iter_sel_end=True)
             except:
                 ret_code = 1
             if ret_code:
-                support.dialog_error(_("Install the package 'xterm' or configure a different terminal in the Preferences Dialog"), self.window)
+                support.dialog_error(
+                    _("Install the package 'xterm' or configure a different terminal in the Preferences Dialog"),
+                    self.window)
         self.ctdb_handler.remove_at_quit_set.add(filepath_src_tmp)
         self.ctdb_handler.remove_at_quit_set.add(filepath_bin_tmp)
 
@@ -3879,7 +4129,7 @@ iter_end, exclude_iter_sel_end=True)
         filepath = support.dialog_file_select(curr_folder=self.pick_dir_file, parent=self.window)
         if not filepath: return
         self.pick_dir_file = os.path.dirname(filepath)
-        if os.path.getsize(filepath) > self.embfile_max_size*1024*1024:
+        if os.path.getsize(filepath) > self.embfile_max_size * 1024 * 1024:
             support.dialog_error(_("The Maximum Size for Embedded Files is %s MB") % self.embfile_max_size, self.window)
             return
         pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(cons.FILE_CHAR, self.embfile_size, self.embfile_size)
@@ -3894,11 +4144,13 @@ iter_end, exclude_iter_sel_end=True)
         if not hasattr(self.curr_file_anchor.pixbuf, "id"):
             self.boss.embfiles_id += 1
             self.curr_file_anchor.pixbuf.id = self.boss.embfiles_id
-        filename = str(self.treestore[self.curr_tree_iter][3])+cons.CHAR_MINUS+str(self.curr_file_anchor.pixbuf.id)+cons.CHAR_MINUS+str(os.getpid())+cons.CHAR_MINUS+self.curr_file_anchor.pixbuf.filename
+        filename = str(self.treestore[self.curr_tree_iter][3]) + cons.CHAR_MINUS + str(
+            self.curr_file_anchor.pixbuf.id) + cons.CHAR_MINUS + str(
+            os.getpid()) + cons.CHAR_MINUS + self.curr_file_anchor.pixbuf.filename
         filepath = os.path.join(cons.TMP_FOLDER, filename)
         with open(filepath, 'wb') as fd:
             fd.write(self.curr_file_anchor.pixbuf.embfile)
-        #if self.treestore[self.curr_tree_iter][7]:
+        # if self.treestore[self.curr_tree_iter][7]:
         #    os.chmod(filepath, os.stat(filepath).st_mode & ~stat.S_IWUSR & ~stat.S_IWGRP & ~stat.S_IWOTH)
         print "embopen", filepath
         self.external_filepath_open(filepath, False)
@@ -3911,8 +4163,8 @@ iter_end, exclude_iter_sel_end=True)
         iter_bound = iter_insert.copy()
         iter_bound.forward_char()
         filepath = support.dialog_file_save_as(filename=self.curr_file_anchor.pixbuf.filename,
-            curr_folder=self.pick_dir_file,
-            parent=self.window)
+                                               curr_folder=self.pick_dir_file,
+                                               parent=self.window)
         if not filepath: return
         self.pick_dir_file = os.path.dirname(filepath)
         with open(filepath, 'wb') as fd:
@@ -3920,7 +4172,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def embfiles_sentinel_start(self):
         """Start Timer that checks for modification time"""
-        self.embfiles_sentinel_id = gobject.timeout_add(500, self.embfiles_sentinel_iter) # 1/2 sec
+        self.embfiles_sentinel_id = gobject.timeout_add(500, self.embfiles_sentinel_iter)  # 1/2 sec
 
     def embfiles_sentinel_stop(self):
         """Stop Timer that checks for modification time"""
@@ -3950,20 +4202,22 @@ iter_end, exclude_iter_sel_end=True)
                 keep_going = True
                 while keep_going:
                     anchor = start_iter.get_child_anchor()
-                    if anchor and "pixbuf" in dir(anchor) and "id" in dir(anchor.pixbuf) and anchor.pixbuf.id == embfile_id:
+                    if anchor and "pixbuf" in dir(anchor) and "id" in dir(
+                            anchor.pixbuf) and anchor.pixbuf.id == embfile_id:
                         with open(filepath, 'rb') as fd:
                             anchor.pixbuf.embfile = fd.read()
                             anchor.pixbuf.time = time.time()
                         self.embfile_set_tooltip(anchor)
                         self.update_window_save_needed("nbuf")
                         self.statusbar.pop(self.statusbar_context_id)
-                        self.statusbar.push(self.statusbar_context_id, _("Embedded File Automatically Updated:") + cons.CHAR_SPACE + anchor.pixbuf.filename)
+                        self.statusbar.push(self.statusbar_context_id, _(
+                            "Embedded File Automatically Updated:") + cons.CHAR_SPACE + anchor.pixbuf.filename)
                     keep_going = start_iter.forward_char()
-        return True # this way we keep the timer alive
+        return True  # this way we keep the timer alive
 
     def codebox_sentinel_start(self):
         """Start Timer that monitors CodeBox"""
-        self.codebox_sentinel_id = gobject.timeout_add(250, self.codebox_sentinel_iter) # 1/4 sec
+        self.codebox_sentinel_id = gobject.timeout_add(250, self.codebox_sentinel_iter)  # 1/4 sec
 
     def codebox_sentinel_stop(self):
         """Stop Timer that monitors CodeBox"""
@@ -3974,14 +4228,14 @@ iter_end, exclude_iter_sel_end=True)
         """Iteration of the CodeBox Sentinel"""
         if not self.codeboxes_handler.key_down:
             if self.codeboxes_handler.curr_v > 0:
-                #print "codebox_v", self.codeboxes_handler.curr_v
+                # print "codebox_v", self.codeboxes_handler.curr_v
                 self.codeboxes_handler.codebox_increase_height()
                 self.codeboxes_handler.curr_v = 0
             if self.codeboxes_handler.curr_h > 0:
-                #print "codebox_h", self.codeboxes_handler.curr_h
+                # print "codebox_h", self.codeboxes_handler.curr_h
                 self.codeboxes_handler.codebox_increase_width()
                 self.codeboxes_handler.curr_h = 0
-        return True # this way we keep the timer alive
+        return True  # this way we keep the timer alive
 
     def toc_insert(self, *args):
         """Insert Table Of Contents"""
@@ -3992,7 +4246,8 @@ iter_end, exclude_iter_sel_end=True)
         if self.user_active:
             self.user_active = False
             user_active_restore = True
-        else: user_active_restore = False
+        else:
+            user_active_restore = False
         if toc_type == 1:
             # only selected node
             ret_toc_list = self.xml_handler.toc_insert_one(self.curr_buffer, self.treestore[self.curr_tree_iter][3])
@@ -4006,7 +4261,8 @@ iter_end, exclude_iter_sel_end=True)
         if ret_toc_list:
             self.file_update = False
             self.update_window_save_needed("nbuf")
-        else: support.dialog_warning(_("Not Any H1, H2 or H3 Formatting Found"), self.window)
+        else:
+            support.dialog_warning(_("Not Any H1, H2 or H3 Formatting Found"), self.window)
 
     def table_handle(self, *args):
         """Insert Table"""
@@ -4022,13 +4278,14 @@ iter_end, exclude_iter_sel_end=True)
 
     def is_curr_node_not_syntax_highlighting_or_error(self, plain_text_ok=False):
         """Returns True if ok (no syntax highlighting) or False and prompts error dialog"""
-        if self.syntax_highlighting == cons.RICH_TEXT_ID\
-        or (plain_text_ok and self.syntax_highlighting == cons.PLAIN_TEXT_ID):
+        if self.syntax_highlighting == cons.RICH_TEXT_ID \
+                or (plain_text_ok and self.syntax_highlighting == cons.PLAIN_TEXT_ID):
             return True
         if not plain_text_ok:
             support.dialog_warning(_("This Feature is Available Only in Rich Text Nodes"), self.window)
         else:
-            support.dialog_warning(_("This Feature is Not Available in Automatic Syntax Highlighting Nodes"), self.window)
+            support.dialog_warning(_("This Feature is Not Available in Automatic Syntax Highlighting Nodes"),
+                                   self.window)
         return False
 
     def is_there_selected_node_or_error(self):
@@ -4076,8 +4333,8 @@ iter_end, exclude_iter_sel_end=True)
         if not self.is_tree_not_empty_or_error(): return
         dialog = gtk.Dialog(title=_("Tree Summary Information"),
                             parent=self.window,
-                            flags=gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                            buttons=(gtk.STOCK_OK, gtk.RESPONSE_ACCEPT) )
+                            flags=gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+                            buttons=(gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
         dialog.set_default_size(400, 300)
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         table = gtk.Table(8, 2)
@@ -4149,9 +4406,12 @@ iter_end, exclude_iter_sel_end=True)
         curr_buffer = self.get_textbuffer_from_tree_iter(tree_iter)
         pixbuf_table_vector = self.state_machine.get_embedded_pixbufs_tables_codeboxes(curr_buffer)
         # pixbuf_table_vector is [ [ "pixbuf"/"table", [offset, pixbuf, alignment] ],... ]
-        if self.treestore[tree_iter][4] == cons.RICH_TEXT_ID: self.summary_nodes_rich_text_num += 1
-        elif self.treestore[tree_iter][4] == cons.PLAIN_TEXT_ID: self.summary_nodes_plain_text_num += 1
-        else: self.summary_nodes_code_num += 1
+        if self.treestore[tree_iter][4] == cons.RICH_TEXT_ID:
+            self.summary_nodes_rich_text_num += 1
+        elif self.treestore[tree_iter][4] == cons.PLAIN_TEXT_ID:
+            self.summary_nodes_plain_text_num += 1
+        else:
+            self.summary_nodes_code_num += 1
         curr_node_images = 0
         curr_node_embfiles = 0
         curr_node_tables = 0
@@ -4160,13 +4420,18 @@ iter_end, exclude_iter_sel_end=True)
         for element in pixbuf_table_vector:
             if element[0] == "pixbuf":
                 pixbuf_attrs = dir(element[1][1])
-                if "anchor" in pixbuf_attrs: curr_node_anchors += 1
-                elif "embfile" in pixbuf_attrs: curr_node_embfiles += 1
-                else: curr_node_images += 1
-            elif element[0] == "table": curr_node_tables += 1
-            elif element[0] == "codebox": curr_node_codeboxes += 1
+                if "anchor" in pixbuf_attrs:
+                    curr_node_anchors += 1
+                elif "embfile" in pixbuf_attrs:
+                    curr_node_embfiles += 1
+                else:
+                    curr_node_images += 1
+            elif element[0] == "table":
+                curr_node_tables += 1
+            elif element[0] == "codebox":
+                curr_node_codeboxes += 1
         if curr_node_images or curr_node_embfiles or curr_node_tables or curr_node_codeboxes or curr_node_anchors:
-            #print "node with object(s):", self.treestore[tree_iter][1]
+            # print "node with object(s):", self.treestore[tree_iter][1]
             self.summary_images_num += curr_node_images
             self.summary_embfile_num += curr_node_embfiles
             self.summary_tables_num += curr_node_tables
@@ -4194,37 +4459,38 @@ iter_end, exclude_iter_sel_end=True)
             support.dialog_error(_("Image Format Not Recognized"), self.window)
 
     # def screenshot_handle(self, *args):
-        # """Insert/Edit Screenshot"""
-        # if not self.node_sel_and_rich_text(): return
-        # if not self.is_curr_node_not_read_only_or_error(): return
-        # iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
+    # """Insert/Edit Screenshot"""
+    # if not self.node_sel_and_rich_text(): return
+    # if not self.is_curr_node_not_read_only_or_error(): return
+    # iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
 
-        # ret_dict = {"x": None, "o": False}
-        # dialog = screenshot.ScreenshotWindow(ret_dict)
-        # while ret_dict["o"] is False:
-            # while gtk.events_pending(): gtk.main_iteration()
-            # time.sleep(.01)
-        # dialog.destroy()
-        # if ret_dict["x"] is None: return
-        # while gtk.events_pending(): gtk.main_iteration()
-        # pixbuf = gtk.gdk.Pixbuf.get_from_drawable(
-                    # gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, ret_dict["w"], ret_dict["h"]),
-                    # gtk.gdk.get_default_root_window(),
-                    # gtk.gdk.colormap_get_system(),
-                    # ret_dict["x"], ret_dict["y"], 0, 0, ret_dict["w"], ret_dict["h"])
-        # self.image_edit_dialog(pixbuf, self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()))
+    # ret_dict = {"x": None, "o": False}
+    # dialog = screenshot.ScreenshotWindow(ret_dict)
+    # while ret_dict["o"] is False:
+    # while gtk.events_pending(): gtk.main_iteration()
+    # time.sleep(.01)
+    # dialog.destroy()
+    # if ret_dict["x"] is None: return
+    # while gtk.events_pending(): gtk.main_iteration()
+    # pixbuf = gtk.gdk.Pixbuf.get_from_drawable(
+    # gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, ret_dict["w"], ret_dict["h"]),
+    # gtk.gdk.get_default_root_window(),
+    # gtk.gdk.colormap_get_system(),
+    # ret_dict["x"], ret_dict["y"], 0, 0, ret_dict["w"], ret_dict["h"])
+    # self.image_edit_dialog(pixbuf, self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert()))
 
     def image_edit_dialog(self, pixbuf, insert_iter, iter_bound=None):
         """Insert/Edit Image Dialog"""
         ret_pixbuf = support.dialog_image_handle(self.window, _("Image Properties"), pixbuf)
         if not ret_pixbuf: return
         ret_pixbuf.link = ""
-        if iter_bound != None: # only in case of modify
+        if iter_bound != None:  # only in case of modify
             image_justification = self.state_machine.get_iter_alignment(insert_iter)
             image_offset = insert_iter.get_offset()
             self.curr_buffer.delete(insert_iter, iter_bound)
             insert_iter = self.curr_buffer.get_iter_at_offset(image_offset)
-        else: image_justification = None
+        else:
+            image_justification = None
         self.image_insert(insert_iter, ret_pixbuf, image_justification)
 
     def image_frame_get_link_color(self, link):
@@ -4254,7 +4520,7 @@ iter_end, exclude_iter_sel_end=True)
             self.embfile_set_tooltip(anchor)
             if self.embfile_show_filename:
                 anchor_label = gtk.Label()
-                anchor_label.set_markup("<b><small>"+pixbuf.filename+"</small></b>")
+                anchor_label.set_markup("<b><small>" + pixbuf.filename + "</small></b>")
                 anchor_label.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
                 anchor.frame.set_label_widget(anchor_label)
         else:
@@ -4278,12 +4544,15 @@ iter_end, exclude_iter_sel_end=True)
     def embfile_set_tooltip(self, anchor):
         """Set Embedded File Tooltip"""
         embfile_bytes = len(anchor.pixbuf.embfile)
-        embfile_Kbytes = float(embfile_bytes)/1024
-        embfile_Mbytes = embfile_Kbytes/1024
-        if embfile_Mbytes > 1: human_readable_size = "%.1f MB" % embfile_Mbytes
-        else: human_readable_size = "%.1f KB" % embfile_Kbytes
+        embfile_Kbytes = float(embfile_bytes) / 1024
+        embfile_Mbytes = embfile_Kbytes / 1024
+        if embfile_Mbytes > 1:
+            human_readable_size = "%.1f MB" % embfile_Mbytes
+        else:
+            human_readable_size = "%.1f KB" % embfile_Kbytes
         timestamp = support.get_timestamp_str(self.timestamp_format, anchor.pixbuf.time)
-        anchor.eventbox.set_tooltip_text("%s\n%s (%d Bytes)\n%s" % (anchor.pixbuf.filename, human_readable_size, embfile_bytes, timestamp))
+        anchor.eventbox.set_tooltip_text(
+            "%s\n%s (%d Bytes)\n%s" % (anchor.pixbuf.filename, human_readable_size, embfile_bytes, timestamp))
 
     def image_edit(self, *args):
         """Edit the selected Image"""
@@ -4302,8 +4571,10 @@ iter_end, exclude_iter_sel_end=True)
         if not filename: return
         self.pick_dir_img = os.path.dirname(filename)
         if len(filename) < 4 or filename[-4:] != ".png": filename += ".png"
-        try: self.curr_image_anchor.pixbuf.save(filename, "png")
-        except: support.dialog_error(_("Write to %s Failed") % filename, self.window)
+        try:
+            self.curr_image_anchor.pixbuf.save(filename, "png")
+        except:
+            support.dialog_error(_("Write to %s Failed") % filename, self.window)
 
     def object_set_selection(self, anchor):
         """Put Selection Upon the Image"""
@@ -4317,22 +4588,28 @@ iter_end, exclude_iter_sel_end=True)
         """Copy as Plain Text"""
         self.clipboard_handler.force_plain_text = True
         anchor = self.codeboxes_handler.codebox_in_use_get_anchor()
-        if anchor is not None: anchor.sourceview.emit("copy-clipboard")
-        else: self.sourceview.emit("copy-clipboard")
+        if anchor is not None:
+            anchor.sourceview.emit("copy-clipboard")
+        else:
+            self.sourceview.emit("copy-clipboard")
 
     def cut_as_plain_text(self, *args):
         """Copy as Plain Text"""
         self.clipboard_handler.force_plain_text = True
         anchor = self.codeboxes_handler.codebox_in_use_get_anchor()
-        if anchor is not None: anchor.sourceview.emit("cut-clipboard")
-        else: self.sourceview.emit("cut-clipboard")
+        if anchor is not None:
+            anchor.sourceview.emit("cut-clipboard")
+        else:
+            self.sourceview.emit("cut-clipboard")
 
     def paste_as_plain_text(self, *args):
         """Paste as Plain Text"""
         self.clipboard_handler.force_plain_text = True
         anchor = self.codeboxes_handler.codebox_in_use_get_anchor()
-        if anchor is not None: anchor.sourceview.emit("paste-clipboard")
-        else: self.sourceview.emit("paste-clipboard")
+        if anchor is not None:
+            anchor.sourceview.emit("paste-clipboard")
+        else:
+            self.sourceview.emit("paste-clipboard")
 
     def image_cut(self, *args):
         """Cut Image"""
@@ -4392,10 +4669,12 @@ iter_end, exclude_iter_sel_end=True)
             elif self.curr_image_anchor.pixbuf.link:
                 self.link_clicked(self.curr_image_anchor.pixbuf.link, event.button == 2)
         elif event.button == 3:
-            if self.curr_image_anchor.pixbuf.link: self.ui.get_widget("/ImageMenu/img_link_dismiss").show()
-            else: self.ui.get_widget("/ImageMenu/img_link_dismiss").hide()
+            if self.curr_image_anchor.pixbuf.link:
+                self.ui.get_widget("/ImageMenu/img_link_dismiss").show()
+            else:
+                self.ui.get_widget("/ImageMenu/img_link_dismiss").hide()
             self.ui.get_widget("/ImageMenu").popup(None, None, None, event.button, event.time)
-        return True # do not propagate the event
+        return True  # do not propagate the event
 
     def on_mouse_button_clicked_file(self, widget, event, anchor):
         """Catches mouse buttons clicks upon file images"""
@@ -4403,8 +4682,9 @@ iter_end, exclude_iter_sel_end=True)
         self.object_set_selection(self.curr_file_anchor)
         if event.button == 3:
             self.ui.get_widget("/EmbFileMenu").popup(None, None, None, event.button, event.time)
-        elif event.type == gtk.gdk._2BUTTON_PRESS: self.embfile_open()
-        return True # do not propagate the event
+        elif event.type == gtk.gdk._2BUTTON_PRESS:
+            self.embfile_open()
+        return True  # do not propagate the event
 
     def on_mouse_button_clicked_anchor(self, widget, event, anchor):
         """Catches mouse buttons clicks upon anchor images"""
@@ -4412,8 +4692,9 @@ iter_end, exclude_iter_sel_end=True)
         self.object_set_selection(self.curr_anchor_anchor)
         if event.button == 3:
             self.ui.get_widget("/AnchorMenu").popup(None, None, None, event.button, event.time)
-        elif event.type == gtk.gdk._2BUTTON_PRESS: self.anchor_edit()
-        return True # do not propagate the event
+        elif event.type == gtk.gdk._2BUTTON_PRESS:
+            self.anchor_edit()
+        return True  # do not propagate the event
 
     def strip_trailing_spaces(self, *args):
         """Remove trailing spaces/tabs"""
@@ -4599,8 +4880,10 @@ iter_end, exclude_iter_sel_end=True)
         elif self.link_type == cons.LINK_TYPE_NODE:
             self.link_node_id = long(vector[1])
             if len(vector) >= 3:
-                if len(vector) == 3: anchor_name = vector[2]
-                else: anchor_name = curr_link[len(vector[0]) + len(vector[1]) + 2:]
+                if len(vector) == 3:
+                    anchor_name = vector[2]
+                else:
+                    anchor_name = curr_link[len(vector[0]) + len(vector[1]) + 2:]
                 self.links_entries['anch'] = anchor_name
         else:
             support.dialog_error("Tag Name Not Recognized! (%s)" % self.link_type, self.window)
@@ -4614,12 +4897,13 @@ iter_end, exclude_iter_sel_end=True)
         if self.link_type == cons.LINK_TYPE_WEBS:
             link_url = self.links_entries['webs']
             if link_url:
-                if len(link_url) < 8\
-                or (link_url[0:7] != "http://" and link_url[0:8] != "https://"):
+                if len(link_url) < 8 \
+                        or (link_url[0:7] != "http://" and link_url[0:8] != "https://"):
                     link_url = "http://" + link_url
                 property_value = cons.LINK_TYPE_WEBS + cons.CHAR_SPACE + link_url
         elif self.link_type in [cons.LINK_TYPE_FILE, cons.LINK_TYPE_FOLD]:
-            link_uri = self.links_entries['file'] if self.link_type == cons.LINK_TYPE_FILE else self.links_entries['fold']
+            link_uri = self.links_entries['file'] if self.link_type == cons.LINK_TYPE_FILE else self.links_entries[
+                'fold']
             if link_uri:
                 link_uri = base64.b64encode(link_uri)
                 property_value = self.link_type + cons.CHAR_SPACE + link_uri
@@ -4636,7 +4920,7 @@ iter_end, exclude_iter_sel_end=True)
         if not self.is_curr_node_not_read_only_or_error(): return
         self.links_entries_reset()
         if not self.curr_image_anchor.pixbuf.link:
-            self.link_type = cons.LINK_TYPE_WEBS # default value
+            self.link_type = cons.LINK_TYPE_WEBS  # default value
         elif not self.links_entries_pre_dialog(self.curr_image_anchor.pixbuf.link):
             return
         sel_tree_iter = self.get_tree_iter_from_node_id(self.link_node_id) if self.link_node_id else None
@@ -4656,7 +4940,8 @@ iter_end, exclude_iter_sel_end=True)
         if anchor.pixbuf.link:
             anchor_label = gtk.Label()
             anchor_label.set_markup("<b><small>▲</small></b>")
-            anchor_label.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.image_frame_get_link_color(anchor.pixbuf.link)))
+            anchor_label.modify_fg(gtk.STATE_NORMAL,
+                                   gtk.gdk.color_parse(self.image_frame_get_link_color(anchor.pixbuf.link)))
             anchor.frame.set_label_widget(anchor_label)
             anchor_label.show()
 
@@ -4690,8 +4975,9 @@ iter_end, exclude_iter_sel_end=True)
                                 start_offset = text_buffer.get_iter_at_mark(text_buffer.get_insert()).get_offset()
                                 text_buffer.insert_at_cursor(link_name)
                                 end_offset = text_buffer.get_iter_at_mark(text_buffer.get_insert()).get_offset()
-                                text_buffer.select_range(text_buffer.get_iter_at_offset(start_offset), text_buffer.get_iter_at_offset(end_offset))
-                            self.link_type = cons.LINK_TYPE_WEBS # default value
+                                text_buffer.select_range(text_buffer.get_iter_at_offset(start_offset),
+                                                         text_buffer.get_iter_at_offset(end_offset))
+                            self.link_type = cons.LINK_TYPE_WEBS  # default value
                         else:
                             if not self.links_entries_pre_dialog(tag_property_value):
                                 return
@@ -4727,26 +5013,26 @@ iter_end, exclude_iter_sel_end=True)
             curr_tags = iter_sel_start.get_tags()
             for curr_tag in curr_tags:
                 tag_name = curr_tag.get_property("name")
-                #print tag_name
+                # print tag_name
                 if not tag_name: continue
-                iter_sel_end = text_buffer.get_iter_at_offset(offset+1)
-                if (tag_property == cons.TAG_WEIGHT and tag_name.startswith("weight_"))\
-                or (tag_property == cons.TAG_STYLE and tag_name.startswith("style_"))\
-                or (tag_property == cons.TAG_UNDERLINE and tag_name.startswith("underline_"))\
-                or (tag_property == cons.TAG_STRIKETHROUGH and tag_name.startswith("strikethrough_"))\
-                or (tag_property == cons.TAG_FAMILY and tag_name.startswith("family_")):
+                iter_sel_end = text_buffer.get_iter_at_offset(offset + 1)
+                if (tag_property == cons.TAG_WEIGHT and tag_name.startswith("weight_")) \
+                        or (tag_property == cons.TAG_STYLE and tag_name.startswith("style_")) \
+                        or (tag_property == cons.TAG_UNDERLINE and tag_name.startswith("underline_")) \
+                        or (tag_property == cons.TAG_STRIKETHROUGH and tag_name.startswith("strikethrough_")) \
+                        or (tag_property == cons.TAG_FAMILY and tag_name.startswith("family_")):
                     text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
-                    property_value = "" # just tag removal
+                    property_value = ""  # just tag removal
                 elif tag_property == cons.TAG_SCALE and tag_name.startswith("scale_"):
                     text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
-                    #print property_value, tag_name[6:]
+                    # print property_value, tag_name[6:]
                     if property_value == tag_name[6:]:
-                        property_value = "" # just tag removal
+                        property_value = ""  # just tag removal
                 elif tag_property == cons.TAG_JUSTIFICATION and tag_name[0:14] == "justification_":
                     text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
-                elif (tag_property == cons.TAG_FOREGROUND and tag_name[0:11] == "foreground_")\
-                or (tag_property == cons.TAG_BACKGROUND and tag_name[0:11] == "background_")\
-                or (tag_property == cons.TAG_LINK and tag_name[0:5] == "link_"):
+                elif (tag_property == cons.TAG_FOREGROUND and tag_name[0:11] == "foreground_") \
+                        or (tag_property == cons.TAG_BACKGROUND and tag_name[0:11] == "background_") \
+                        or (tag_property == cons.TAG_LINK and tag_name[0:5] == "link_"):
                     text_buffer.remove_tag(curr_tag, iter_sel_start, iter_sel_end)
         if property_value:
             text_buffer.apply_tag_by_name(self.apply_tag_exist_or_create(tag_property, property_value),
@@ -4757,24 +5043,38 @@ iter_end, exclude_iter_sel_end=True)
 
     def apply_tag_exist_or_create(self, tag_property, property_value):
         """Check into the Tags Table whether the Tag Exists, if Not Creates it"""
-        if property_value == "large": property_value = cons.TAG_PROP_H1
-        elif property_value == "largo": property_value = cons.TAG_PROP_H2
+        if property_value == "large":
+            property_value = cons.TAG_PROP_H1
+        elif property_value == "largo":
+            property_value = cons.TAG_PROP_H2
         tag_name = tag_property + "_" + property_value
         tag = self.tag_table.lookup(str(tag_name))
         if tag == None:
             tag = gtk.TextTag(str(tag_name))
-            if property_value == cons.TAG_PROP_HEAVY: tag.set_property(tag_property, pango.WEIGHT_HEAVY)
-            elif property_value == cons.TAG_PROP_SMALL: tag.set_property(tag_property, pango.SCALE_SMALL)
-            elif property_value == cons.TAG_PROP_H1: tag.set_property(tag_property, pango.SCALE_XX_LARGE)
-            elif property_value == cons.TAG_PROP_H2: tag.set_property(tag_property, pango.SCALE_X_LARGE)
-            elif property_value == cons.TAG_PROP_H3: tag.set_property(tag_property, pango.SCALE_LARGE)
-            elif property_value == cons.TAG_PROP_ITALIC: tag.set_property(tag_property, pango.STYLE_ITALIC)
-            elif property_value == cons.TAG_PROP_SINGLE: tag.set_property(tag_property, pango.UNDERLINE_SINGLE)
-            elif property_value == cons.TAG_PROP_TRUE: tag.set_property(tag_property, True)
-            elif property_value == cons.TAG_PROP_LEFT: tag.set_property(tag_property, gtk.JUSTIFY_LEFT)
-            elif property_value == cons.TAG_PROP_RIGHT: tag.set_property(tag_property, gtk.JUSTIFY_RIGHT)
-            elif property_value == cons.TAG_PROP_CENTER: tag.set_property(tag_property, gtk.JUSTIFY_CENTER)
-            elif property_value == cons.TAG_PROP_FILL: tag.set_property(tag_property, gtk.JUSTIFY_FILL)
+            if property_value == cons.TAG_PROP_HEAVY:
+                tag.set_property(tag_property, pango.WEIGHT_HEAVY)
+            elif property_value == cons.TAG_PROP_SMALL:
+                tag.set_property(tag_property, pango.SCALE_SMALL)
+            elif property_value == cons.TAG_PROP_H1:
+                tag.set_property(tag_property, pango.SCALE_XX_LARGE)
+            elif property_value == cons.TAG_PROP_H2:
+                tag.set_property(tag_property, pango.SCALE_X_LARGE)
+            elif property_value == cons.TAG_PROP_H3:
+                tag.set_property(tag_property, pango.SCALE_LARGE)
+            elif property_value == cons.TAG_PROP_ITALIC:
+                tag.set_property(tag_property, pango.STYLE_ITALIC)
+            elif property_value == cons.TAG_PROP_SINGLE:
+                tag.set_property(tag_property, pango.UNDERLINE_SINGLE)
+            elif property_value == cons.TAG_PROP_TRUE:
+                tag.set_property(tag_property, True)
+            elif property_value == cons.TAG_PROP_LEFT:
+                tag.set_property(tag_property, gtk.JUSTIFY_LEFT)
+            elif property_value == cons.TAG_PROP_RIGHT:
+                tag.set_property(tag_property, gtk.JUSTIFY_RIGHT)
+            elif property_value == cons.TAG_PROP_CENTER:
+                tag.set_property(tag_property, gtk.JUSTIFY_CENTER)
+            elif property_value == cons.TAG_PROP_FILL:
+                tag.set_property(tag_property, gtk.JUSTIFY_FILL)
             elif property_value == cons.TAG_PROP_MONOSPACE:
                 tag.set_property(tag_property, property_value)
                 if self.monospace_bg:
@@ -4799,7 +5099,8 @@ iter_end, exclude_iter_sel_end=True)
             elif property_value[0:4] == cons.LINK_TYPE_FOLD:
                 if self.links_underline: tag.set_property(cons.TAG_UNDERLINE, pango.UNDERLINE_SINGLE)
                 tag.set_property(cons.TAG_FOREGROUND, self.col_link_fold)
-            else: tag.set_property(tag_property, property_value)
+            else:
+                tag.set_property(tag_property, property_value)
             self.tag_table.add(tag)
         return str(tag_name)
 
@@ -4821,7 +5122,9 @@ iter_end, exclude_iter_sel_end=True)
         """Enable Spell Check"""
         if not self.spell_check_init:
             self.spell_check_init = True
-            self.spellchecker = pgsc_spellcheck.SpellChecker(self.sourceview, self, self.syntax_highlighting == cons.RICH_TEXT_ID, self.spell_check_lang)
+            self.spellchecker = pgsc_spellcheck.SpellChecker(self.sourceview, self,
+                                                             self.syntax_highlighting == cons.RICH_TEXT_ID,
+                                                             self.spell_check_lang)
             self.combobox_spell_check_lang_init()
         else:
             self.spellchecker.enable()
@@ -4855,11 +5158,12 @@ iter_end, exclude_iter_sel_end=True)
         text_iter = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
         tag_name = self.link_check_around_cursor_iter(text_iter)
         if not tag_name:
-            if text_iter.get_char() == cons.CHAR_SPACE\
-            and text_iter.backward_char():
+            if text_iter.get_char() == cons.CHAR_SPACE \
+                    and text_iter.backward_char():
                 tag_name = self.link_check_around_cursor_iter(text_iter)
                 if not tag_name: return ""
-            else: return ""
+            else:
+                return ""
         iter_end = text_iter.copy()
         while iter_end.forward_char():
             ret_tag_name = self.link_check_around_cursor_iter(iter_end)
@@ -4878,25 +5182,33 @@ iter_end, exclude_iter_sel_end=True)
     def external_folderpath_open(self, filepath):
         """Open Folderpath with External App"""
         if self.folderlink_custom_action[0]:
-            if cons.IS_WIN_OS: filepath = cons.CHAR_DQUOTE + filepath + cons.CHAR_DQUOTE
-            else: filepath = re.escape(filepath)
+            if cons.IS_WIN_OS:
+                filepath = cons.CHAR_DQUOTE + filepath + cons.CHAR_DQUOTE
+            else:
+                filepath = re.escape(filepath)
             subprocess.call(self.folderlink_custom_action[1] % filepath, shell=True)
         else:
-            if cons.IS_WIN_OS: os.startfile(filepath)
-            else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
+            if cons.IS_WIN_OS:
+                os.startfile(filepath)
+            else:
+                subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
 
     def external_filepath_open(self, filepath, open_fold_if_no_app_error):
         """Open Filepath with External App"""
         if self.filelink_custom_action[0]:
-            if cons.IS_WIN_OS: filepath = cons.CHAR_DQUOTE + filepath + cons.CHAR_DQUOTE
-            else: filepath = re.escape(filepath)
+            if cons.IS_WIN_OS:
+                filepath = cons.CHAR_DQUOTE + filepath + cons.CHAR_DQUOTE
+            else:
+                filepath = re.escape(filepath)
             subprocess.call(self.filelink_custom_action[1] % filepath, shell=True)
         else:
             if cons.IS_WIN_OS:
-                try: os.startfile(filepath)
+                try:
+                    os.startfile(filepath)
                 except:
                     if open_fold_if_no_app_error: os.startfile(os.path.dirname(filepath))
-            else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
+            else:
+                subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
 
     def link_process_filepath(self, filepath_raw):
         filepath_orig = unicode(base64.b64decode(filepath_raw), cons.STR_UTF8, cons.STR_IGNORE)
@@ -4920,7 +5232,8 @@ iter_end, exclude_iter_sel_end=True)
             clean_weblink = vector[1].replace("amp;", "")
             if self.weblink_custom_action[0]:
                 subprocess.call(self.weblink_custom_action[1] % clean_weblink, shell=True)
-            else: webbrowser.open(clean_weblink)
+            else:
+                webbrowser.open(clean_weblink)
         elif vector[0] == cons.LINK_TYPE_FILE:
             # link to file
             filepath = self.link_process_filepath(vector[1])
@@ -4943,15 +5256,18 @@ iter_end, exclude_iter_sel_end=True)
             # link to a tree node
             tree_iter = self.get_tree_iter_from_node_id(long(vector[1]))
             if tree_iter == None:
-                support.dialog_error(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)") % vector[1], self.window)
+                support.dialog_error(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)") % vector[1],
+                                     self.window)
                 return
             self.treeview_safe_set_cursor(tree_iter)
             self.sourceview.grab_focus()
             self.sourceview.get_window(gtk.TEXT_WINDOW_TEXT).set_cursor(gtk.gdk.Cursor(gtk.gdk.XTERM))
             self.sourceview.set_tooltip_text(None)
             if len(vector) >= 3:
-                if len(vector) == 3: anchor_name = vector[2]
-                else: anchor_name = tag_property_value[len(vector[0]) + len(vector[1]) + 2:]
+                if len(vector) == 3:
+                    anchor_name = vector[2]
+                else:
+                    anchor_name = tag_property_value[len(vector[0]) + len(vector[1]) + 2:]
                 iter_anchor = self.link_seek_for_anchor(anchor_name)
                 if iter_anchor == None:
                     if len(anchor_name) > cons.MAX_TOOLTIP_LINK_CHARS:
@@ -4960,7 +5276,8 @@ iter_end, exclude_iter_sel_end=True)
                 else:
                     self.curr_buffer.place_cursor(iter_anchor)
                     self.sourceview.scroll_to_mark(self.curr_buffer.get_insert(), cons.SCROLL_MARGIN)
-        else: support.dialog_error("Tag Name Not Recognized! (%s)" % vector[0], self.window)
+        else:
+            support.dialog_error("Tag Name Not Recognized! (%s)" % vector[0], self.window)
 
     def link_seek_for_anchor(self, anchor_name):
         """Given an Anchor Name, Seeks for it in the Current Node and Returns the Iter or None"""
@@ -4982,10 +5299,13 @@ iter_end, exclude_iter_sel_end=True)
         else:
             if vector[0] == cons.LINK_TYPE_NODE and long(vector[1]) in self.nodes_names_dict:
                 tooltip = self.nodes_names_dict[long(vector[1])]
-            else: tooltip = vector[1].replace("amp;", "")
+            else:
+                tooltip = vector[1].replace("amp;", "")
             if len(vector) >= 3:
-                if len(vector) == 3: anchor_name = vector[2]
-                else: anchor_name = link[5 + len(vector[0]) + len(vector[1]) + 2:]
+                if len(vector) == 3:
+                    anchor_name = vector[2]
+                else:
+                    anchor_name = link[5 + len(vector[0]) + len(vector[1]) + 2:]
                 tooltip += "#" + anchor_name
         return tooltip
 
@@ -4999,7 +5319,8 @@ iter_end, exclude_iter_sel_end=True)
                         iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
                         list_info = self.lists_handler.get_paragraph_list_info(iter_insert)
                         if list_info and list_info["level"]:
-                            support.on_sourceview_list_change_level(self, iter_insert, list_info, self.curr_buffer, False)
+                            support.on_sourceview_list_change_level(self, iter_insert, list_info, self.curr_buffer,
+                                                                    False)
                             return True
             elif (event.state & gtk.gdk.CONTROL_MASK) and keyname == "space":
                 iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
@@ -5010,14 +5331,17 @@ iter_end, exclude_iter_sel_end=True)
                 list_info = self.lists_handler.get_paragraph_list_info(iter_insert)
                 if list_info and list_info["num"] == 0:
                     if self.is_curr_node_not_read_only_or_error():
-                        iter_start_list = self.curr_buffer.get_iter_at_offset(list_info["startoffs"]+3*list_info["level"])
+                        iter_start_list = self.curr_buffer.get_iter_at_offset(
+                            list_info["startoffs"] + 3 * list_info["level"])
                         self.lists_handler.todo_list_rotate_status(iter_start_list, self.curr_buffer)
                         return True
             elif keyname == cons.STR_KEY_RETURN:
                 iter_insert = self.curr_buffer.get_iter_at_mark(self.curr_buffer.get_insert())
-                if iter_insert: self.cursor_key_press = iter_insert.get_offset()
-                else: self.cursor_key_press = None
-                #print "self.cursor_key_press", self.cursor_key_press
+                if iter_insert:
+                    self.cursor_key_press = iter_insert.get_offset()
+                else:
+                    self.cursor_key_press = None
+                # print "self.cursor_key_press", self.cursor_key_press
             elif keyname == cons.STR_KEY_MENU:
                 if self.syntax_highlighting == cons.RICH_TEXT_ID:
                     if not self.curr_buffer.get_has_selection(): return False
@@ -5034,8 +5358,10 @@ iter_end, exclude_iter_sel_end=True)
                     else:
                         self.curr_image_anchor = anchor
                         self.object_set_selection(self.curr_image_anchor)
-                        if self.curr_image_anchor.pixbuf.link: self.ui.get_widget("/ImageMenu/img_link_dismiss").show()
-                        else: self.ui.get_widget("/ImageMenu/img_link_dismiss").hide()
+                        if self.curr_image_anchor.pixbuf.link:
+                            self.ui.get_widget("/ImageMenu/img_link_dismiss").show()
+                        else:
+                            self.ui.get_widget("/ImageMenu/img_link_dismiss").hide()
                         self.ui.get_widget("/ImageMenu").popup(None, None, None, 3, event.time)
                     return True
             elif keyname == cons.STR_KEY_TAB:
@@ -5064,8 +5390,8 @@ iter_end, exclude_iter_sel_end=True)
         elif event.type == gtk.gdk._3BUTTON_PRESS and event.button == 1:
             support.on_sourceview_event_after_triple_click_button1(self, text_view, event)
         elif event.type in [gtk.gdk.BUTTON_PRESS, gtk.gdk.KEY_PRESS]:
-            if self.syntax_highlighting == cons.RICH_TEXT_ID\
-            and self.curr_tree_iter and not self.curr_buffer.get_modified():
+            if self.syntax_highlighting == cons.RICH_TEXT_ID \
+                    and self.curr_tree_iter and not self.curr_buffer.get_modified():
                 self.state_machine.update_curr_state_cursor_pos(self.treestore[self.curr_tree_iter][3])
             if event.type == gtk.gdk.BUTTON_PRESS:
                 return support.on_sourceview_event_after_button_press(self, text_view, event)
@@ -5085,7 +5411,7 @@ iter_end, exclude_iter_sel_end=True)
 
     def replace_text_at_offset(self, text_to, offset_from, offset_to, text_buffer):
         text_buffer.delete(text_buffer.get_iter_at_offset(offset_from),
-            text_buffer.get_iter_at_offset(offset_to))
+                           text_buffer.get_iter_at_offset(offset_to))
         text_buffer.insert(text_buffer.get_iter_at_offset(offset_from), text_to)
 
     def on_sourceview_motion_notify_event(self, text_view, event):
@@ -5106,10 +5432,14 @@ iter_end, exclude_iter_sel_end=True)
         else:
             separator_text = "  -  "
             statusbar_text = _("Node Type") + _(": ")
-            if self.syntax_highlighting == cons.RICH_TEXT_ID: statusbar_text += _("Rich Text")
-            elif self.syntax_highlighting == cons.PLAIN_TEXT_ID: statusbar_text += _("Plain Text")
-            else: statusbar_text += self.syntax_highlighting
-            if self.treestore[self.curr_tree_iter][6]: statusbar_text += separator_text + _("Tags") + _(": ") + self.treestore[self.curr_tree_iter][6]
+            if self.syntax_highlighting == cons.RICH_TEXT_ID:
+                statusbar_text += _("Rich Text")
+            elif self.syntax_highlighting == cons.PLAIN_TEXT_ID:
+                statusbar_text += _("Plain Text")
+            else:
+                statusbar_text += self.syntax_highlighting
+            if self.treestore[self.curr_tree_iter][6]: statusbar_text += separator_text + _("Tags") + _(": ") + \
+                                                                         self.treestore[self.curr_tree_iter][6]
             if self.enable_spell_check and self.syntax_highlighting == cons.RICH_TEXT_ID:
                 statusbar_text += separator_text + _("Spell Check") + _(": ") + self.spell_check_lang
             if self.word_count:
@@ -5122,7 +5452,8 @@ iter_end, exclude_iter_sel_end=True)
             if ts_lastsave:
                 timestamp_lastsave = support.get_timestamp_str(self.timestamp_format, ts_lastsave)
                 statusbar_text += separator_text + _("Date Modified") + _(": ") + timestamp_lastsave
-            print "sel node id=%s, seq=%s" % (self.treestore[self.curr_tree_iter][3], self.treestore[self.curr_tree_iter][5])
+            print "sel node id=%s, seq=%s" % (
+                self.treestore[self.curr_tree_iter][3], self.treestore[self.curr_tree_iter][5])
         self.statusbar.pop(self.statusbar_context_id)
         self.statusbar.push(self.statusbar_context_id, statusbar_text)
 
@@ -5147,8 +5478,8 @@ iter_end, exclude_iter_sel_end=True)
                                              'tree_width': self.scrolledwindow_tree.get_allocation().width}
         else:
             if not self.curr_buffer: return
-            if self.curr_window_n_tree_width['window_width'] != self.window.get_allocation().width\
-            or self.curr_window_n_tree_width['tree_width'] != self.scrolledwindow_tree.get_allocation().width:
+            if self.curr_window_n_tree_width['window_width'] != self.window.get_allocation().width \
+                    or self.curr_window_n_tree_width['tree_width'] != self.scrolledwindow_tree.get_allocation().width:
                 self.curr_window_n_tree_width['window_width'] = self.window.get_allocation().width
                 self.curr_window_n_tree_width['tree_width'] = self.scrolledwindow_tree.get_allocation().width
                 curr_iter = self.curr_buffer.get_start_iter()
@@ -5160,8 +5491,8 @@ iter_end, exclude_iter_sel_end=True)
 
     def get_text_window_width(self):
         """Get the Text Window Width"""
-        return (self.window.get_allocation().width -\
-                self.scrolledwindow_tree.get_allocation().width-\
+        return (self.window.get_allocation().width - \
+                self.scrolledwindow_tree.get_allocation().width - \
                 cons.MAIN_WIN_TO_TEXT_WIN_NORMALIZER)
 
     def remove_text_formatting(self, *args):
@@ -5233,7 +5564,7 @@ iter_end, exclude_iter_sel_end=True)
         if target:
             text_buffer.place_cursor(target)
             if not target.forward_chars(delta):
-                #print "? bad offset=%s, delta=%s on node %s" % (offset, delta, self.treestore[self.curr_tree_iter][1])
+                # print "? bad offset=%s, delta=%s on node %s" % (offset, delta, self.treestore[self.curr_tree_iter][1])
                 pass
             text_buffer.move_mark(text_buffer.get_selection_bound(), target)
             return
