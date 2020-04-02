@@ -251,7 +251,7 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     const char* link_cat = "";
     _actions.push_back(CtAction{link_cat, "apply_tag_link", "link_handle", _("Edit _Link"), None, _("Edit the Underlying Link"), sigc::mem_fun(*pActions, &CtActions::apply_tag_link)});
     _actions.push_back(CtAction{link_cat, "link_cut", "edit_cut", _("C_ut Link"), None, _("Cut the Selected Link"), sigc::mem_fun(*pActions, &CtActions::link_cut)});
-    _actions.push_back(CtAction{link_cat, "link_copy", "edit_copy", _("_Copy Link"), None, _("Copy the Selected Link"), sigc::mem_fun(*pActions, &CtActions::link_cut)});
+    _actions.push_back(CtAction{link_cat, "link_copy", "edit_copy", _("_Copy Link"), None, _("Copy the Selected Link"), sigc::mem_fun(*pActions, &CtActions::link_copy)});
     _actions.push_back(CtAction{link_cat, "link_dismiss", "clear", _("D_ismiss Link"), None, _("Dismiss the Selected Link"), sigc::mem_fun(*pActions, &CtActions::link_dismiss)});
     _actions.push_back(CtAction{link_cat, "link_delete", "edit_delete", _("_Delete Link"), None, _("Delete the Selected Link"), sigc::mem_fun(*pActions, &CtActions::link_delete)});
     const char* table_cat = "";
