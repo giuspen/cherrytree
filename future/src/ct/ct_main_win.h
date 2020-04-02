@@ -228,7 +228,6 @@ private:
     CtCurrFile _ctCurrFile;
 
     Glib::RefPtr<Gtk::CssProvider> _css_provider_theme;
-    Glib::RefPtr<Gtk::CssProvider> _css_provider_theme_font;
 
 private:
     bool                _userActive{true}; // pygtk: user_active

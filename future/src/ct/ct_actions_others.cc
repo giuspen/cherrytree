@@ -27,6 +27,40 @@
 #include <fstream>
 #include <cstdlib>
 
+// Cut Link
+void CtActions::link_cut()
+{
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (!_link_check_around_cursor().empty())
+        g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
+}
+
+// Copy Link
+void CtActions::link_copy()
+{
+    if (!_link_check_around_cursor().empty())
+        g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "copy-clipboard");
+}
+
+//Dismiss Link
+void CtActions::link_dismiss()
+{
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (!_link_check_around_cursor().empty())
+        remove_text_formatting();
+}
+
+// Delete Link
+void CtActions::link_delete()
+{
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (!_link_check_around_cursor().empty())
+    {
+        _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
+        _pCtMainWin->get_text_view().grab_focus();
+    }
+}
+
 // Cut Anchor
 void CtActions::anchor_cut()
 {
