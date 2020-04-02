@@ -141,9 +141,6 @@ public:
     const std::string get_text_tag_name_exist_or_create(const std::string& propertyName, const std::string& propertyValue);
     Glib::ustring sourceview_hovering_link_get_tooltip(const Glib::ustring& link);
     bool apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start);
-    std::string get_font_css(const std::string& fontStr);
-    const std::string& get_font_for_syntax_highlighting(const std::string& syntaxHighlighting);
-    std::string get_font_css_for_syntax_highlighting(const std::string& syntaxHighlighting);
 
 private:
     Gtk::HBox&     _init_status_bar();
@@ -183,6 +180,7 @@ private:
     void                _on_textview_size_allocate(Gtk::Allocation& allocation);
     bool                _on_textview_event(GdkEvent* event); // pygtk: on_sourceview_event
     void                _on_textview_event_after(GdkEvent* event); // pygtk: on_sourceview_event_after
+    bool                _on_textview_scroll_event(GdkEventScroll* event);
 
     void                _title_update(const bool saveNeeded); // pygtk: window_title_update
     void                _set_new_curr_doc(const Glib::RefPtr<Gio::File>& r_file, const std::string& password);
