@@ -286,6 +286,10 @@ private:
 
 public:
     // others actions
+    void link_cut();
+    void link_copy();
+    void link_dismiss();
+    void link_delete();
     void anchor_cut();
     void anchor_copy();
     void anchor_delete();

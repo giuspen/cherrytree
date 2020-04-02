@@ -735,6 +735,9 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
                                    Gtk::TreeIter sel_tree_iter,
                                    CtLinkEntry& link_entries)
 {
+    if (link_entries.type == "")
+        link_entries.type = CtConst::LINK_TYPE_WEBS;
+
     CtTreeStore& ctTreestore = ctMainWin.curr_tree_store();
     Gtk::Dialog dialog(title,
                        ctMainWin,
