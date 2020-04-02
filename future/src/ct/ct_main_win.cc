@@ -468,7 +468,7 @@ void CtMainWin::configure_theme()
     _css_provider_theme_font->load_from_data(font_css);
     get_style_context()->add_provider_for_screen(screen, _css_provider_theme_font, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-#ifdef THEME_FIXES_REQUIRED
+
     // can do more complicated things than just changing colors
     if (_css_provider_theme)
     {
@@ -477,14 +477,14 @@ void CtMainWin::configure_theme()
     _css_provider_theme = Gtk::CssProvider::create();
     std::string theme_css;
     // todo: rich text fix light selected line with dark theme
-    theme_css += ".ct_textview.rich-text > text { color: " + _pCtConfig->rtDefFg + "; background-color: " + _pCtConfig->rtDefBg + "; } ";
+    //theme_css += ".ct_textview.rich-text > text { color: " + _pCtConfig->rtDefFg + "; background-color: " + _pCtConfig->rtDefBg + "; } ";
     // todo: tree selected node highlight no longer working
     theme_css += ".ct_node_view { color: " + _pCtConfig->ttDefFg + "; background-color: " + _pCtConfig->ttDefBg + "; } ";
+    theme_css += ".ct_node_view:selected { background: #5294e2;  } ";
     theme_css += ".ct_header { background-color: " + _pCtConfig->ttDefBg + "; } ";
 
     _css_provider_theme->load_from_data(theme_css);
     get_style_context()->add_provider_for_screen(screen, _css_provider_theme, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-#endif // THEME_FIXES_REQUIRED
 }
 
 Gtk::HBox& CtMainWin::_init_status_bar()

@@ -657,7 +657,7 @@ guint32 CtRgbUtil::get_rgb24int_from_str_any(const char* rgbStrAny)
 std::string CtRgbUtil::rgb_to_string(Gdk::RGBA color)
 {
     char rgbStrOut[16];
-    sprintf(rgbStrOut, "#%.2x%.2x%.2x", color.get_red_u(), color.get_green_u(), color.get_blue_u());
+    sprintf(rgbStrOut, "#%.4x%.4x%.4x", color.get_red_u(), color.get_green_u(), color.get_blue_u());
     return rgbStrOut;
 }
 

@@ -449,20 +449,10 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     colorbutton_text_fg->signal_color_set().connect([this, pConfig, colorbutton_text_fg](){
         pConfig->rtDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_text_fg->get_rgba());
         _pCtMainWin->configure_theme();
-        //if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
-        //    dad.widget_set_colors(dad.sourceview, dad.rt_def_fg, dad.rt_def_bg, False)
-        //    support.rich_text_node_modify_codeboxes_color(dad.curr_buffer.get_start_iter(), dad)
     });
     colorbutton_text_bg->signal_color_set().connect([this, pConfig, colorbutton_text_bg](){
         pConfig->rtDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_text_bg->get_rgba());
         _pCtMainWin->configure_theme();
-        //if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
-        //    if dad.rt_highl_curr_line:
-        //        dad.set_sourcebuffer_with_style_scheme()
-        //        dad.sourceview.set_buffer(dad.curr_buffer)
-        //        dad.objects_buffer_refresh()
-        //    dad.widget_set_colors(dad.sourceview, dad.rt_def_fg, dad.rt_def_bg, False)
-        //    support.rich_text_node_modify_codeboxes_color(dad.curr_buffer.get_start_iter(), dad)
     });
     radiobutton_rt_col_light->signal_toggled().connect([radiobutton_rt_col_light, colorbutton_text_fg, colorbutton_text_bg](){
         if (!radiobutton_rt_col_light->get_active()) return;
@@ -779,31 +769,35 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     pMainBox->pack_start(*frame_nodes_icons, false, false);
     pMainBox->pack_start(*frame_nodes_startup, false, false);
 
-    colorbutton_tree_fg->signal_color_set().connect([this, pConfig, colorbutton_tree_fg](){
+    auto update_tree_color = [this, pConfig, colorbutton_tree_fg, colorbutton_tree_bg]() {
         pConfig->ttDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_fg->get_rgba());
-        _pCtMainWin->configure_theme();
-    });
-    colorbutton_tree_bg->signal_color_set().connect([this, pConfig, colorbutton_tree_bg](){
         pConfig->ttDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_bg->get_rgba());
         _pCtMainWin->configure_theme();
+    };
+
+    colorbutton_tree_fg->signal_color_set().connect([update_tree_color, radiobutton_tt_col_custom](){
+        if (!radiobutton_tt_col_custom->get_active()) return;
+        update_tree_color();
     });
-    radiobutton_tt_col_light->signal_toggled().connect([radiobutton_tt_col_light, colorbutton_tree_fg, colorbutton_tree_bg](){
+    colorbutton_tree_bg->signal_color_set().connect([update_tree_color, radiobutton_tt_col_custom](){
+        if (!radiobutton_tt_col_custom->get_active()) return;
+        update_tree_color();
+    });
+    radiobutton_tt_col_light->signal_toggled().connect([radiobutton_tt_col_light, colorbutton_tree_fg, colorbutton_tree_bg, update_tree_color](){
         if (!radiobutton_tt_col_light->get_active()) return;
         colorbutton_tree_fg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_LIGHT_FG));
         colorbutton_tree_bg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_LIGHT_BG));
         colorbutton_tree_fg->set_sensitive(false);
         colorbutton_tree_bg->set_sensitive(false);
-        g_signal_emit_by_name(colorbutton_tree_fg->gobj(), "color-set");
-        g_signal_emit_by_name(colorbutton_tree_bg->gobj(), "color-set");
+        update_tree_color();
     });
-    radiobutton_tt_col_dark->signal_toggled().connect([radiobutton_tt_col_dark, colorbutton_tree_fg, colorbutton_tree_bg](){
-        if (radiobutton_tt_col_dark->get_active()) return;
+    radiobutton_tt_col_dark->signal_toggled().connect([radiobutton_tt_col_dark, colorbutton_tree_fg, colorbutton_tree_bg, update_tree_color](){
+        if (!radiobutton_tt_col_dark->get_active()) return;
         colorbutton_tree_fg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_DARK_FG));
         colorbutton_tree_bg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_DARK_BG));
         colorbutton_tree_fg->set_sensitive(false);
         colorbutton_tree_bg->set_sensitive(false);
-        g_signal_emit_by_name(colorbutton_tree_fg->gobj(), "color-set");
-        g_signal_emit_by_name(colorbutton_tree_bg->gobj(), "color-set");
+        update_tree_color();
     });
     radiobutton_tt_col_custom->signal_toggled().connect([radiobutton_tt_col_custom, colorbutton_tree_fg, colorbutton_tree_bg](){
         if (!radiobutton_tt_col_custom->get_active()) return;
