@@ -478,6 +478,38 @@ void CtActions::node_siblings_sort_descending()
     }
 }
 
+// Go to the Previous Visited Node
+void CtActions::node_go_back()
+{
+    _pCtMainWin->get_state_machine().set_go_bk_fw_click(true);
+    auto on_scope_exit = scope_guard([&](void*) { _pCtMainWin->get_state_machine().set_go_bk_fw_click(false); });
+
+    auto new_node_id = _pCtMainWin->get_state_machine().requested_visited_previous();
+    if (new_node_id > 0) {
+        auto node_iter = _pCtMainWin->curr_tree_store().get_node_from_node_id(new_node_id);
+        if (node_iter)
+            _pCtMainWin->curr_tree_view().set_cursor_safe(node_iter);
+        else
+            node_go_back();
+    }
+}
+
+// Go to the Next Visited Node
+void CtActions::node_go_forward()
+{
+    _pCtMainWin->get_state_machine().set_go_bk_fw_click(true);
+    auto on_scope_exit = scope_guard([&](void*) { _pCtMainWin->get_state_machine().set_go_bk_fw_click(false); });
+
+    auto new_node_id = _pCtMainWin->get_state_machine().requested_visited_next();
+    if (new_node_id > 0) {
+        auto node_iter = _pCtMainWin->curr_tree_store().get_node_from_node_id(new_node_id);
+        if (node_iter)
+            _pCtMainWin->curr_tree_view().set_cursor_safe(node_iter);
+        else
+            node_go_forward();
+    }
+}
+
 void CtActions::bookmark_curr_node()
 {
     if (!_is_there_selected_node_or_error()) return;

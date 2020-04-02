@@ -71,6 +71,8 @@ public:
     void update_state(CtTreeIter tree_iter);
     void update_curr_state_cursor_pos(gint64 node_id);
 
+    void set_go_bk_fw_click(bool val) { _go_bk_fw_click = val; }
+
 private:
     CtMainWin*                  _pCtMainWin;
     Glib::RefPtr<Glib::Regex>   _word_regex;

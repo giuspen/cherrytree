@@ -109,11 +109,10 @@ private:
     bool          _apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor);
     Glib::ustring _get_former_line_indentation(Gtk::TextIter iter_start);
     void          _special_char_replace(gunichar special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_insert);
-    CtMainWin* _pCtMainWin;
 
 public:
     static const double TEXT_SCROLL_MARGIN;
 
-protected:
-    void _setFontForSyntax(const std::string& syntaxHighlighting);
+private:
+    CtMainWin* _pCtMainWin;
 };

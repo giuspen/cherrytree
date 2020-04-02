@@ -129,12 +129,13 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
         return false;
     });
     _ctTextview.signal_scroll_event().connect([this](GdkEventScroll* event){
-        if (event->state & GDK_CONTROL_MASK and (event->direction == GDK_SCROLL_UP or event->direction == GDK_SCROLL_DOWN))
-        {
+        if (!(event->state & GDK_CONTROL_MASK))
+            return false;
+        if  (event->direction == GDK_SCROLL_UP || event->direction == GDK_SCROLL_DOWN)
             _ctTextview.zoom_text(event->direction == GDK_SCROLL_UP);
-            return true;
-        }
-        return false;
+        if  (event->direction == GDK_SCROLL_SMOOTH && event->delta_y != 0)
+            _ctTextview.zoom_text(event->delta_y > 0);
+        return true;
     });
     _ctTextview.get_buffer()->signal_insert().connect([this](const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int bytes) {
         if (_pCtMainWin->user_active())
@@ -291,6 +292,14 @@ bool CtCodebox::_on_key_press_event(GdkEventKey* event)
             text_iter.forward_char();
             _pCtMainWin->get_ct_actions()->getCtMainWin()->get_text_view().get_buffer()->place_cursor(text_iter);
             _pCtMainWin->get_ct_actions()->getCtMainWin()->get_text_view().grab_focus();
+            return true;
+        }
+        if (event->keyval == GDK_KEY_plus || event->keyval == GDK_KEY_KP_Add || event->keyval == GDK_KEY_equal) {
+            _ctTextview.zoom_text(true);
+            return true;
+        }
+        else if (event->keyval == GDK_KEY_minus|| event->keyval == GDK_KEY_KP_Subtract) {
+            _ctTextview.zoom_text(false);
             return true;
         }
     }

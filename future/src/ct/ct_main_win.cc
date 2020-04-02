@@ -92,15 +92,8 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
     _ctTextview.signal_size_allocate().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_size_allocate));
     _ctTextview.signal_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_event));
     _ctTextview.signal_event_after().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_event_after));
-    _ctTextview.signal_scroll_event().connect([this](GdkEventScroll* event)
-    {
-        if (event->state & GDK_CONTROL_MASK and (event->direction == GDK_SCROLL_UP or event->direction == GDK_SCROLL_DOWN))
-        {
-            _ctTextview.zoom_text(event->direction == GDK_SCROLL_UP);
-            return true;
-        }
-        return false;
-    });
+    _ctTextview.signal_scroll_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_scroll_event));
+
     _uCtPairCodeboxMainWin.reset(new CtPairCodeboxMainWin{nullptr, this});
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "cut-clipboard", G_CALLBACK(CtClipboard::on_cut_clipboard), _uCtPairCodeboxMainWin.get());
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "copy-clipboard", G_CALLBACK(CtClipboard::on_copy_clipboard), _uCtPairCodeboxMainWin.get());
@@ -382,35 +375,6 @@ bool CtMainWin::apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> tex
     return false;
 }
 
-std::string CtMainWin::get_font_css(const std::string& fontStr)
-{
-    g_autofree gchar* pFontCss = g_strdup_printf(
-        "textview text {"
-        "    font-family: %s;"
-        "    font-size: %spx;"
-        "}", CtFontUtil::get_font_family(fontStr).c_str(), CtFontUtil::get_font_size_str(fontStr).c_str());
-    std::string fontCss(pFontCss);
-    return fontCss;
-}
-
-const std::string& CtMainWin::get_font_for_syntax_highlighting(const std::string& syntaxHighlighting)
-{
-    if (0 == syntaxHighlighting.compare(CtConst::RICH_TEXT_ID))
-    {
-        return _pCtConfig->rtFont;
-    }
-    if (0 == syntaxHighlighting.compare(CtConst::PLAIN_TEXT_ID))
-    {
-        return _pCtConfig->ptFont;
-    }
-    return _pCtConfig->codeFont;
-}
-
-std::string CtMainWin::get_font_css_for_syntax_highlighting(const std::string& syntaxHighlighting)
-{
-    return get_font_css(get_font_for_syntax_highlighting(syntaxHighlighting));
-}
-
 void CtMainWin::_reset_CtTreestore_CtTreeview()
 {
     _prevTreeIter = CtTreeIter();
@@ -427,6 +391,7 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
     _uCtTreeview->signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_cursor_changed));
     _uCtTreeview->signal_button_release_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_button_release_event));
     _uCtTreeview->signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_key_press_event), false);
+    _uCtTreeview->signal_scroll_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_scroll_event));
     _uCtTreeview->signal_popup_menu().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_popup_menu));
 
     _uCtTreeview->get_style_context()->add_class("ct_node_view");
@@ -679,6 +644,16 @@ void CtMainWin::_ensure_curr_doc_in_recent_docs()
         }
         _pCtConfig->recentDocsRestore[currDocFilePath] = prevDocRestore;
     }
+}
+
+void CtMainWin::_zoom_tree(bool is_increase)
+{
+    Glib::RefPtr<Gtk::StyleContext> context = _uCtTreeview->get_style_context();
+    Pango::FontDescription description = context->get_font(context->get_state());
+    auto size = description.get_size() / Pango::SCALE + (is_increase ? 1 : -1);
+    if (size < 6) size = 6;
+    description.set_size(size * Pango::SCALE);
+    _uCtTreeview->override_font(description);
 }
 
 bool CtMainWin::filepath_open(const std::string& filepath, const bool force_reset)
@@ -1056,7 +1031,6 @@ bool CtMainWin::_on_treeview_button_release_event(GdkEventButton* event)
 
 bool CtMainWin::_on_window_key_press_event(GdkEventKey* event)
 {
-    // todo:
     if (event->state & GDK_CONTROL_MASK) {
         if (event->keyval == GDK_KEY_Tab) {
             _pCtActions->toggle_tree_text();
@@ -1127,7 +1101,14 @@ bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
                 curr_tree_view().set_cursor_safe(last_child);
             return true;
         } else {
-            // todo: tree_zoom
+            if (event->keyval == GDK_KEY_plus || event->keyval == GDK_KEY_KP_Add || event->keyval == GDK_KEY_equal) {
+                _zoom_tree(true);
+                return true;
+            }
+            else if (event->keyval == GDK_KEY_minus|| event->keyval == GDK_KEY_KP_Subtract) {
+                _zoom_tree(false);
+                return true;
+            }
         }
     }
     else {
@@ -1169,6 +1150,17 @@ bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
 bool CtMainWin::_on_treeview_popup_menu()
 {
     _pCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(0, 0);
+    return true;
+}
+
+bool CtMainWin::_on_treeview_scroll_event(GdkEventScroll* event)
+{
+    if (!(event->state & GDK_CONTROL_MASK))
+        return false;
+    if  (event->direction == GDK_SCROLL_UP || event->direction == GDK_SCROLL_DOWN)
+        _zoom_tree(event->direction == GDK_SCROLL_UP);
+    if  (event->direction == GDK_SCROLL_SMOOTH && event->delta_y != 0)
+        _zoom_tree(event->delta_y > 0);
     return true;
 }
 
@@ -1374,6 +1366,17 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             }
         }
     }
+    else if (event->key.state & Gdk::CONTROL_MASK)
+    {
+        if (event->key.keyval == GDK_KEY_plus || event->key.keyval == GDK_KEY_KP_Add || event->key.keyval == GDK_KEY_equal) {
+            _ctTextview.zoom_text(true);
+            return true;
+        }
+        else if (event->key.keyval == GDK_KEY_minus|| event->key.keyval == GDK_KEY_KP_Subtract) {
+            _ctTextview.zoom_text(false);
+            return true;
+        }
+    }
     return false;
 }
 
@@ -1409,6 +1412,17 @@ void CtMainWin::_on_textview_event_after(GdkEvent* event)
             }
         }
     }
+}
+
+bool CtMainWin::_on_textview_scroll_event(GdkEventScroll* event)
+{
+    if (!(event->state & GDK_CONTROL_MASK))
+        return false;
+    if  (event->direction == GDK_SCROLL_UP || event->direction == GDK_SCROLL_DOWN)
+        _ctTextview.zoom_text(event->direction == GDK_SCROLL_UP);
+    if  (event->direction == GDK_SCROLL_SMOOTH && event->delta_y != 0)
+        _ctTextview.zoom_text(event->delta_y > 0);
+    return true;
 }
 
 void CtMainWin::_title_update(const bool saveNeeded)
