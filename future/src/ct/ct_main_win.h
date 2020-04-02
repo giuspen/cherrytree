@@ -173,6 +173,7 @@ private:
     bool                _on_treeview_button_release_event(GdkEventButton* event);
     bool                _on_treeview_key_press_event(GdkEventKey* event);
     bool                _on_treeview_popup_menu();
+    bool                _on_treeview_scroll_event(GdkEventScroll* event);
 
     void                _on_textview_populate_popup(Gtk::Menu* menu);
     bool                _on_textview_motion_notify_event(GdkEventMotion* event);
@@ -186,6 +187,7 @@ private:
     void                _set_new_curr_doc(const Glib::RefPtr<Gio::File>& r_file, const std::string& password);
     void                _reset_CtTreestore_CtTreeview();
     void                _ensure_curr_doc_in_recent_docs();
+    void                _zoom_tree(bool is_increase);
 
 private:
     CtConfig*                    _pCtConfig;

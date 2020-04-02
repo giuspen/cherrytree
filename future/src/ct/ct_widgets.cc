@@ -652,12 +652,10 @@ void CtTextView::zoom_text(bool is_increase)
 {
     Glib::RefPtr<Gtk::StyleContext> context = get_style_context();
     Pango::FontDescription description = context->get_font(context->get_state());
-    auto family = description.get_family();
     auto size = description.get_size() / Pango::SCALE + (is_increase ? 1 : -1);
     if (size < 6) size = 6;
     description.set_size(size * Pango::SCALE);
     override_font(description);
-
 }
 
 // Try and apply link to previous word (after space or newline)

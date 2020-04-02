@@ -391,6 +391,7 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
     _uCtTreeview->signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_cursor_changed));
     _uCtTreeview->signal_button_release_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_button_release_event));
     _uCtTreeview->signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_key_press_event), false);
+    _uCtTreeview->signal_scroll_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_scroll_event));
     _uCtTreeview->signal_popup_menu().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_popup_menu));
 
     _uCtTreeview->get_style_context()->add_class("ct_node_view");
@@ -643,6 +644,16 @@ void CtMainWin::_ensure_curr_doc_in_recent_docs()
         }
         _pCtConfig->recentDocsRestore[currDocFilePath] = prevDocRestore;
     }
+}
+
+void CtMainWin::_zoom_tree(bool is_increase)
+{
+    Glib::RefPtr<Gtk::StyleContext> context = _uCtTreeview->get_style_context();
+    Pango::FontDescription description = context->get_font(context->get_state());
+    auto size = description.get_size() / Pango::SCALE + (is_increase ? 1 : -1);
+    if (size < 6) size = 6;
+    description.set_size(size * Pango::SCALE);
+    _uCtTreeview->override_font(description);
 }
 
 bool CtMainWin::filepath_open(const std::string& filepath, const bool force_reset)
@@ -1090,7 +1101,14 @@ bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
                 curr_tree_view().set_cursor_safe(last_child);
             return true;
         } else {
-            // todo: tree_zoom
+            if (event->keyval == GDK_KEY_plus || event->keyval == GDK_KEY_KP_Add || event->keyval == GDK_KEY_equal) {
+                _zoom_tree(true);
+                return true;
+            }
+            else if (event->keyval == GDK_KEY_minus|| event->keyval == GDK_KEY_KP_Subtract) {
+                _zoom_tree(false);
+                return true;
+            }
         }
     }
     else {
@@ -1132,6 +1150,17 @@ bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
 bool CtMainWin::_on_treeview_popup_menu()
 {
     _pCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(0, 0);
+    return true;
+}
+
+bool CtMainWin::_on_treeview_scroll_event(GdkEventScroll* event)
+{
+    if (!(event->state & GDK_CONTROL_MASK))
+        return false;
+    if  (event->direction == GDK_SCROLL_UP || event->direction == GDK_SCROLL_DOWN)
+        _zoom_tree(event->direction == GDK_SCROLL_UP);
+    if  (event->direction == GDK_SCROLL_SMOOTH && event->delta_y != 0)
+        _zoom_tree(event->delta_y > 0);
     return true;
 }
 
