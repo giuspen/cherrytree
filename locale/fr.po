@@ -525,11 +525,11 @@ msgstr "Compter les mots"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:5096
 msgid "Date Created"
-msgstr "La date a été créée"
+msgstr "Date de création"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:5100
 msgid "Date Modified"
-msgstr "La date a été modifiée"
+msgstr "Date de dernière modification"
 
 #: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:145
 msgid "Search for"
