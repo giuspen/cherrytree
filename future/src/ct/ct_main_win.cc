@@ -66,6 +66,7 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
         _hPaned.add1(_scrolledwindowTree);
         _hPaned.add2(_vboxText);
     }
+    _hPaned.property_wide_handle() = true;
 
     _pMenuBar = pCtMenu->build_menubar();
     _pMenuBar->set_name("MenuBar");
@@ -436,7 +437,7 @@ void CtMainWin::config_update_data_from_curr_status()
 }
 
 void CtMainWin::configure_theme()
-{
+{ 
     auto font_to_string = [](Pango::FontDescription font)
     {
         return " { font-family: " + font.get_family() +
@@ -449,13 +450,6 @@ void CtMainWin::configure_theme()
     std::string codeFont = font_to_string(Pango::FontDescription(_pCtConfig->codeFont));
     std::string treeFont = font_to_string(Pango::FontDescription(_pCtConfig->treeFont));
 
-    auto screen = get_screen();
-    if (_css_provider_theme_font)
-    {
-        Gtk::StyleContext::remove_provider_for_screen(screen, _css_provider_theme_font);
-    }
-    _css_provider_theme_font = Gtk::CssProvider::create();
-
     std::string font_css;
     font_css += ".ct_textview.rich-text" + rtFont;
     font_css += ".ct_textview.plain-text" + plFont;
@@ -465,26 +459,19 @@ void CtMainWin::configure_theme()
     font_css += ".codebox.code" + codeFont;
     font_css += ".ct_node_view" + treeFont;
 
-    _css_provider_theme_font->load_from_data(font_css);
-    get_style_context()->add_provider_for_screen(screen, _css_provider_theme_font, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-
-    // can do more complicated things than just changing colors
-    if (_css_provider_theme)
-    {
-        Gtk::StyleContext::remove_provider_for_screen(screen, _css_provider_theme);
-    }
-    _css_provider_theme = Gtk::CssProvider::create();
     std::string theme_css;
-    // todo: rich text fix light selected line with dark theme
-    //theme_css += ".ct_textview.rich-text > text { color: " + _pCtConfig->rtDefFg + "; background-color: " + _pCtConfig->rtDefBg + "; } ";
-    // todo: tree selected node highlight no longer working
     theme_css += ".ct_node_view { color: " + _pCtConfig->ttDefFg + "; background-color: " + _pCtConfig->ttDefBg + "; } ";
     theme_css += ".ct_node_view:selected { background: #5294e2;  } ";
     theme_css += ".ct_header { background-color: " + _pCtConfig->ttDefBg + "; } ";
 
+    if (!_css_provider_theme)
+    {
+        Gtk::StyleContext::remove_provider_for_screen(get_screen(), _css_provider_theme);
+    }
+    _css_provider_theme = Gtk::CssProvider::create();
+    _css_provider_theme->load_from_data(font_css);
     _css_provider_theme->load_from_data(theme_css);
-    get_style_context()->add_provider_for_screen(screen, _css_provider_theme, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+    get_style_context()->add_provider_for_screen(get_screen(), _css_provider_theme, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 }
 
 Gtk::HBox& CtMainWin::_init_status_bar()
@@ -494,6 +481,9 @@ Gtk::HBox& CtMainWin::_init_status_bar()
     _ctStatusBar.frame.set_border_width(1);
     _ctStatusBar.frame.add(_ctStatusBar.progressBar);
     _ctStatusBar.stopButton.set_image_from_icon_name("stop", Gtk::ICON_SIZE_MENU);
+    _ctStatusBar.statusBar.set_margin_top(0);
+    _ctStatusBar.statusBar.set_margin_bottom(0);
+    _ctStatusBar.hbox.set_border_width(0);
     _ctStatusBar.hbox.pack_start(_ctStatusBar.statusBar, true, true);
     _ctStatusBar.hbox.pack_start(_ctStatusBar.frame, false, true);
     _ctStatusBar.hbox.pack_start(_ctStatusBar.stopButton, false, true);
