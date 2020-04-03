@@ -186,37 +186,14 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
             {
                 if (CtPrintImageProxy* imageProxy = dynamic_cast<CtPrintImageProxy*>(_widgets[i].get()))
                 {
-                    auto image = imageProxy->get_image();
-                    auto pixbuf = image->get_pixbuf();
-                    bool pixbuf_was_resized = false;
-                    int pixbuf_width = pixbuf->get_width();
-                    int pixbuf_height = pixbuf->get_height();
-                    if (pixbuf_width > _page_width)
-                    {
-                        double image_w_h_ration = double(pixbuf_width)/pixbuf_height;
-                        double image_width = _page_width;
-                        double image_height = image_width / image_w_h_ration;
-                        pixbuf = pixbuf->scale_simple(int(image_width), int(image_height), Gdk::INTERP_BILINEAR);
-                        pixbuf_width = pixbuf->get_width();
-                        pixbuf_height = pixbuf->get_height();
-                        pixbuf_was_resized = true;
-                    }
-                    if (pixbuf_height > (_page_height - _layout_newline_height - CtConst::WHITE_SPACE_BETW_PIXB_AND_TEXT))
-                    {
-                        double image_w_h_ration = double(pixbuf_width)/pixbuf_height;
-                        double image_height = _page_height - _layout_newline_height - CtConst::WHITE_SPACE_BETW_PIXB_AND_TEXT;
-                        double image_width = image_height * image_w_h_ration;
-                        pixbuf = pixbuf->scale_simple(int(image_width), int(image_height), Gdk::INTERP_BILINEAR);
-                        pixbuf_width = pixbuf->get_width();
-                        pixbuf_height = pixbuf->get_height();
-                        pixbuf_was_resized = true;
-                    }
-                    if (pixbuf_was_resized)
-                    {
-                        any_image_resized = true;
-                        imageProxy->set_pixbuf(pixbuf);
-                    }
-                    pixbuf_height = pixbuf->get_height() + CtConst::WHITE_SPACE_BETW_PIXB_AND_TEXT;
+                    auto pixbuf = imageProxy->get_pixbuf();
+                    // don't know curr_x, so will recalc scale again in draw function
+                    double scale_w = _page_width / pixbuf->get_width();
+                    double scale_h = (_page_height - _layout_newline_height - CtConst::WHITE_SPACE_BETW_PIXB_AND_TEXT)/pixbuf->get_height();
+                    double scale = std::min(scale_w, scale_h);
+                    if (scale > 1.0) scale = 1.0;
+                    double pixbuf_height = pixbuf->get_height() * scale + CtConst::WHITE_SPACE_BETW_PIXB_AND_TEXT;
+
                     if (inline_pending_height < pixbuf_height)
                         inline_pending_height = pixbuf_height;
                 }
@@ -297,10 +274,20 @@ void CtPrint::_on_draw_page_text(const Glib::RefPtr<Gtk::PrintContext>& context,
             if (CtPrintImageProxy* imageProxy = dynamic_cast<CtPrintImageProxy*>(_widgets[i].get()))
             {
                 auto pixbuf = imageProxy->get_pixbuf();
-                int pixbuf_width = pixbuf->get_width();
-                int pixbuf_height = pixbuf->get_height();
-                Gdk::Cairo::set_source_pixbuf(cairo_context, pixbuf, curr_x, print_data->all_lines_y[_y_idx] - pixbuf_height);
+                // should recalc scale because curr_x is changed
+                double scale_w = (_page_width - curr_x) / pixbuf->get_width();
+                double scale_h = (_page_height - _layout_newline_height - CtConst::WHITE_SPACE_BETW_PIXB_AND_TEXT)/pixbuf->get_height();
+                double scale = std::min(scale_w, scale_h);
+                if (scale > 1.0) scale = 1.0;
+                double pixbuf_width = pixbuf->get_width() * scale;
+                double pixbuf_height = pixbuf->get_height() * scale;
+
+                cairo_context->save();
+                cairo_context->scale(scale, scale);
+                Gdk::Cairo::set_source_pixbuf(cairo_context, pixbuf, curr_x / scale, (print_data->all_lines_y[_y_idx] - pixbuf_height) / scale);
                 cairo_context->paint();
+                cairo_context->restore();
+
                 curr_x += pixbuf_width;
             }
             else if (CtPrintTableProxy* tableProxy = dynamic_cast<CtPrintTableProxy*>(_widgets[i].get()))

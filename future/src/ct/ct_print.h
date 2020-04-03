@@ -31,18 +31,16 @@ public:
     virtual ~CtPrintWidgetProxy() {}
 };
 
-// proxy to keep resized pixbuf
+// proxy to keep pixbuf
 class CtPrintImageProxy : public CtPrintWidgetProxy
 {
 public:
     CtPrintImageProxy(CtImage* image) : _image(image) {}
     CtImage*                  get_image()  { return _image; }
-    Glib::RefPtr<Gdk::Pixbuf> get_pixbuf() { return _proxy_pixbuf ? _proxy_pixbuf : _image->get_pixbuf(); }
-    void                      set_pixbuf(Glib::RefPtr<Gdk::Pixbuf> pixbuf) { _proxy_pixbuf = pixbuf; }
+    Glib::RefPtr<Gdk::Pixbuf> get_pixbuf() { return _image->get_pixbuf(); }
 
 private:
-    CtImage*                  _image;
-    Glib::RefPtr<Gdk::Pixbuf> _proxy_pixbuf;
+    CtImage* _image;
 };
 
 // proxy to split tables
