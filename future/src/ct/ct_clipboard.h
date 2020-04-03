@@ -64,11 +64,10 @@ private:
 
 private:
     void _selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextView* sourceview, Gtk::TextIter iter_sel_start, Gtk::TextIter iter_sel_end, int num_chars, CtCodebox* pCodebox);
+    void _set_clipboard_data(const std::vector<std::string>& targets_list, CtClipboardData* clip_data);
 
 private:
-    void _set_clipboard_data(const std::vector<std::string>& targets_list, CtClipboardData* clip_data);
-    void _on_clip_data_get(Gtk::SelectionData& selection_data, guint info, CtClipboardData* clip_data);
-    void _on_clip_data_clear(CtClipboardData* clip_data);
+    void _on_clip_data_get(Gtk::SelectionData& selection_data, CtClipboardData* clip_data);
 
 private:
     void _on_received_to_plain_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool force_plain_text);
@@ -81,7 +80,7 @@ private:
 
 private:
     static bool _static_force_plain_text;
-    CtMainWin*   _pCtMainWin;
+    CtMainWin*  _pCtMainWin;
 };
 
 
