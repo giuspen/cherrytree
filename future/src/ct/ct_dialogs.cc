@@ -68,7 +68,7 @@ bool CtDialogTextEntry::_on_entry_key_press_event(GdkEventKey *pEventKey)
     return false;
 }
 
-
+// pygtk: dialog_choose_element_in_list
 Gtk::TreeIter CtDialogs::choose_item_dialog(Gtk::Window& parent,
                                             const Glib::ustring& title,
                                             Glib::RefPtr<CtChooseDialogListStore> rModel,
@@ -93,15 +93,13 @@ Gtk::TreeIter CtDialogs::choose_item_dialog(Gtk::Window& parent,
         int col_num = pElementsTreeview->append_column("", pixbuf_renderer) - 1;
         pElementsTreeview->get_column(col_num)->add_attribute(pixbuf_renderer, "icon-name", rModel->columns.stock_id);
         pElementsTreeview->append_column("", rModel->columns.desc);
+        pElementsTreeview->set_search_column(2);
     }
     else
     {
         pElementsTreeview->append_column(single_column_name, rModel->columns.desc);
     }
     pScrolledwindow->add(*pElementsTreeview);
-    //list_parms->sel_iter = elements_liststore->get_iter_first()
-    //if list_parms->sel_iter:
-    //    pElementsTreeview->set_cursor(elements_liststore->get_path(list_parms->sel_iter))
     Gtk::Box* pContentArea = dialog.get_content_area();
     pContentArea->pack_start(*pScrolledwindow);
     pContentArea->show_all();
