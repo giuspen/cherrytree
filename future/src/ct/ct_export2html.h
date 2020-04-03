@@ -37,7 +37,8 @@ private:
       <meta name="generator" content="CherryTree">
       <link rel="stylesheet" href="res/styles3.css" type="text/css" />
     </head>
-    <body>)HTML";
+    <body>
+    )HTML";
     const Glib::ustring HTML_FOOTER = R"HTML(</body></html>)HTML";
 
 public:
@@ -49,7 +50,7 @@ public:
                                            Gtk::TextIter end_iter, const Glib::ustring& syntax_highlighting);
     Glib::ustring table_export_to_html(CtTable* table);
     Glib::ustring codebox_export_to_html(CtCodebox* codebox);
-    bool          prepare_html_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool export_overwrite);
+    bool          prepare_html_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool export_overwrite, Glib::ustring& export_path);
 
 private:
     Glib::ustring _get_embfile_html(CtImageEmbFile* embfile, CtTreeIter tree_iter, Glib::ustring embed_dir);
@@ -65,7 +66,7 @@ private:
     Glib::ustring _get_href_from_link_prop_val(Glib::ustring link_prop_val);
     Glib::ustring _get_object_alignment_string(Glib::ustring alignment);
 
-    void          _tree_links_text_iter(CtTreeIter tree_iter, Glib::ustring& tree_links_text, int tree_count_level);
+    void          _tree_links_text_iter(CtTreeIter tree_iter, Glib::ustring& tree_links_text, int tree_count_level, bool index_in_page);
 
     Glib::ustring _get_html_filename(CtTreeIter tree_iter);
 
@@ -78,5 +79,6 @@ private:
     Glib::ustring _export_dir;
     Glib::ustring _images_dir;
     Glib::ustring _embed_dir;
+    Glib::ustring _res_dir;
 };
 

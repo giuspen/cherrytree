@@ -384,6 +384,37 @@ bool CtMainWin::apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> tex
     return false;
 }
 
+// Try to select the full paragraph
+bool CtMainWin::apply_tag_try_automatic_bounds_triple_click(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start)
+{
+    Gtk::TextIter iter_end = iter_start;
+    iter_end.forward_to_line_end();
+
+    iter_end.forward_char();
+    auto next_char = iter_end.get_char();
+    while (next_char != '\n' && next_char != ' ')
+    {
+        // forward to the end of the line, if the next char
+        // is not a new line or space then repeat
+        iter_end.forward_to_line_end();
+        if (!iter_end.forward_char()) break;
+        next_char = iter_end.get_char();
+    }
+
+    // reverse to beginning of line to check for space indicating line
+    // selected is the first line of a paragraph
+    iter_start.backward_chars(iter_start.get_visible_line_offset());
+    // reverse until either a new line or a space is found
+    while (iter_start.get_char() != '\n' && iter_start.get_char() != ' ')
+        if (!iter_start.backward_line()) break;
+
+    if (iter_start.get_char() == '\n')
+        iter_start.forward_chars(1);
+
+    text_buffer->move_mark(text_buffer->get_insert(), iter_start);
+    text_buffer->move_mark(text_buffer->get_selection_bound(), iter_end);
+}
+
 void CtMainWin::_reset_CtTreestore_CtTreeview()
 {
     _prevTreeIter = CtTreeIter();
@@ -1384,6 +1415,11 @@ void CtMainWin::_on_textview_event_after(GdkEvent* event)
     if (event->type == GDK_2BUTTON_PRESS and event->button.button == 1)
     {
         get_text_view().for_event_after_double_click_button1(event);
+    }
+    if (event->type == GDK_3BUTTON_PRESS and event->button.button == 1)
+    {
+        if (curr_tree_iter().get_node_is_rich_text())
+            get_text_view().for_event_after_triple_click_button1(event);
     }
     else if (event->type == GDK_BUTTON_PRESS or event->type == GDK_KEY_PRESS)
     {

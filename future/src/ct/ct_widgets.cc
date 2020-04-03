@@ -314,6 +314,17 @@ void CtTextView::for_event_after_double_click_button1(GdkEvent* event)
     _pCtMainWin->apply_tag_try_automatic_bounds(text_buffer, iter_start);
 }
 
+// Called after every Triple Click with button 1
+void CtTextView::for_event_after_triple_click_button1(GdkEvent* event)
+{
+     auto text_buffer = get_buffer();
+     int x, y;
+     window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
+     Gtk::TextIter iter_start;
+     get_iter_at_location(iter_start, x, y);
+     _pCtMainWin->apply_tag_try_automatic_bounds_triple_click(text_buffer, iter_start);
+}
+
 // Called after every gtk.gdk.BUTTON_PRESS on the SourceView
 void CtTextView::for_event_after_button_press(GdkEvent* event)
 {

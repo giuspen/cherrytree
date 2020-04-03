@@ -31,7 +31,7 @@ CtExport2Html::CtExport2Html(CtMainWin* pCtMainWin)
 }
 
 //Prepare the website folder
-bool CtExport2Html::prepare_html_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool export_overwrite)
+bool CtExport2Html::prepare_html_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool export_overwrite, Glib::ustring& export_path)
 {
     if (dir_place == "")
     {
@@ -44,9 +44,11 @@ bool CtExport2Html::prepare_html_folder(Glib::ustring dir_place, Glib::ustring n
     _export_dir = Glib::build_filename(dir_place, new_folder);
     _images_dir = Glib::build_filename(_export_dir, "images");
     _embed_dir = Glib::build_filename(_export_dir, "EmbeddedFiles");
+    _res_dir = Glib::build_filename(_export_dir, "res");
     g_mkdir_with_parents(_export_dir.c_str(), 0777);
     g_mkdir_with_parents(_images_dir.c_str(), 0777);
     g_mkdir_with_parents(_embed_dir.c_str(), 0777);
+    g_mkdir_with_parents(_res_dir.c_str(), 0777);
 
     Glib::ustring config_dir = Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME);
     Glib::ustring styles_css_filepath = Glib::build_filename(config_dir, "styles3.css");
@@ -54,7 +56,16 @@ bool CtExport2Html::prepare_html_folder(Glib::ustring dir_place, Glib::ustring n
     {
         throw "put css file into .config folder (or export by pygtk version)"; // todo: CtFileSystem::copy_file(Glib::build_filename(CtConst::GLADE_PATH, "styles3.css"), styles_css_filepath);
     }
-    CtFileSystem::copy_file(styles_css_filepath, Glib::build_filename(_export_dir, "styles3.css"));
+    CtFileSystem::copy_file(styles_css_filepath, Glib::build_filename(_res_dir, "styles3.css"));
+    
+    Glib::ustring styles_js_filepath = Glib::build_filename(config_dir, "script3.js");
+    if (!Glib::file_test(styles_js_filepath, Glib::FILE_TEST_IS_REGULAR))
+    {
+        throw "put script file into .config folder (or export by pygtk version)"; // todo: CtFileSystem::copy_file(Glib::build_filename(CtConst::GLADE_PATH, "styles3.css"), styles_css_filepath);
+    }
+    CtFileSystem::copy_file(styles_js_filepath, Glib::build_filename(_res_dir, "script3.js"));
+
+    export_path = _export_dir;
 
     return true;
 }
@@ -64,9 +75,20 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
 {
     Glib::ustring html_text = str::format(HTML_HEADER, tree_iter.get_node_name());
     if (index != "" && options.index_in_page)
-        html_text += "<div class=\"main\">" + index + "<div class=\"page\">";
+    {
+        auto script = R"HTML(
+            <script type='text/javascript'>
+                function in_frame () { try { return window.self !== window.top; } catch (e) { return true; } }
+                if (!in_frame()) {
+                    var page = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
+                    window.location = 'index.html#' + page;
+                }
+            </script>)HTML";
+        html_text = str::replace(html_text, "<script></script>", script);
+    }
+    html_text += "<div class='page'>";
     if (options.include_node_name)
-        html_text += "<h1><b><u>" + tree_iter.get_node_name() + "</u></b></h1>";
+        html_text += "<h1 class='title'>" + tree_iter.get_node_name() + "</h1><br/>";
 
     std::vector<Glib::ustring> html_slots;
     std::vector<CtAnchoredWidget*> widgets;
@@ -97,8 +119,7 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
         html_text += Glib::ustring("<p align=\"center\">") + Glib::build_filename("images", "home.png") +
                 "<img src=\"" "\" height=\"22\" width=\"22\">" +
                 CtConst::CHAR_SPACE + CtConst::CHAR_SPACE + "<a href=\"index.html\">\"" + _("Index") + "</a></p>";
-    if (index != "" && options.index_in_page)
-        html_text += "</div></div>\n";
+    html_text += "</div>"; // div class='page'
     html_text += HTML_FOOTER;
 
     Glib::ustring node_html_filepath = Glib::build_filename(_export_dir, _get_html_filename(tree_iter));
@@ -111,19 +132,36 @@ void CtExport2Html::nodes_all_export_to_html(bool all_tree, const CtExportOption
     // todo: shutil.copy(os.path.join(cons.GLADE_PATH, "home.png"), self.images_dir)
 
     // create tree links text
-    Glib::ustring tree_links_text = "<div class=\"tree\">\n";
-    tree_links_text += "<p><strong>Index</strong></p>";
+    Glib::ustring tree_links_text = // dont' use R"HTML, it gives unnecessary " "
+          "<div class='tree'>\n"
+          "<p>\n"
+          "<strong>Index</strong></br>\n"
+          "<button onclick='expandAllSubtrees()'>Expand All</button> <button onclick='collapseAllSubtrees()'>Collapse All</button>\n"
+          "</p>\n"
+          "<ul class='outermost'>\n";
     CtTreeIter tree_iter = all_tree ? _pCtMainWin->curr_tree_store().get_ct_iter_first() : _pCtMainWin->curr_tree_iter();
     for (;tree_iter; ++tree_iter)
     {
-        _tree_links_text_iter(tree_iter, tree_links_text, 1);
+        _tree_links_text_iter(tree_iter, tree_links_text, 1, options.index_in_page);
         if (!all_tree) break;
     }
+    tree_links_text += "</ul>\n";
     tree_links_text += "</div>\n";
 
     // create index html page
     Glib::ustring html_text = str::format(HTML_HEADER, _pCtMainWin->get_curr_doc_file_name());
-    html_text += tree_links_text + HTML_FOOTER;
+    if (options.index_in_page)
+    {
+        html_text += "<div class='two-panels'>\n<div class='tree-panel'>\n";
+        html_text += tree_links_text;
+        html_text += "</div>\n";
+        html_text += "<div class='page-panel'><iframe src='' id='page_frame'></iframe></div>";
+        html_text += "</div>"; // two-panels
+    }
+    else
+        html_text += "<div class='page'>" + tree_links_text + "</div>";
+    html_text += "<script src='res/script3.js'></script>\n";
+    html_text += HTML_FOOTER;
     Glib::ustring node_html_filepath = Glib::build_filename(_export_dir, "index.html");
     g_file_set_contents(node_html_filepath.c_str(), html_text.c_str(), (gssize)html_text.bytes(), nullptr);
 
@@ -141,6 +179,31 @@ void CtExport2Html::nodes_all_export_to_html(bool all_tree, const CtExportOption
     {
         traverseFunc(tree_iter);
         if (!all_tree) break;
+    }
+}
+
+// Creating the Tree Links Text - iter
+void CtExport2Html::_tree_links_text_iter(CtTreeIter tree_iter, Glib::ustring& tree_links_text, int tree_count_level, bool index_in_page)
+{
+    Glib::ustring href = _get_html_filename(tree_iter);
+    Glib::ustring node_name = tree_iter.get_node_name();
+    if (tree_iter->children().empty())
+    {
+        if (index_in_page)
+            tree_links_text += "<li class='leaf'><a href='#' onclick=\"changeFrame('" + href + "')\">" + node_name + "</a></li>\n";
+        else
+            tree_links_text += "<li class='leaf'><a href='" + href + "'>" + node_name + "</a></li>\n";
+    }
+    else
+    {
+        if (index_in_page)
+            tree_links_text += "<li><button onclick='toggleSubTree(this)'>-</button> <a href='#' onclick=\"changeFrame('" + href + "')\">" + node_name + "</a></li>";
+        else
+            tree_links_text += "<li><button onclick='toggleSubTree(this)'>-</button> <a href='" + href + "'>" + node_name +"</a></li>";
+        tree_links_text += "<ul class='subtree'>\n";
+        for (auto& child: tree_iter->children())
+            _tree_links_text_iter(_pCtMainWin->curr_tree_store().to_ct_tree_iter(child), tree_links_text, tree_count_level + 1, index_in_page);
+        tree_links_text += "</ul>\n";
     }
 }
 
@@ -561,25 +624,6 @@ Glib::ustring CtExport2Html::_get_object_alignment_string(Glib::ustring alignmen
     if (alignment == CtConst::TAG_PROP_VAL_CENTER) return "margin-left:auto;margin-right:auto";
     if (alignment == CtConst::TAG_PROP_VAL_RIGHT) return "margin-left:auto";
     return "display:inline-table";
-}
-
-// Creating the Tree Links Text - iter
-void CtExport2Html::_tree_links_text_iter(CtTreeIter tree_iter, Glib::ustring& tree_links_text, int tree_count_level)
-{
-    Glib::ustring href = _get_html_filename(tree_iter);
-    Glib::ustring tabs = str::repeat("  ", tree_count_level);
-    if (tree_count_level == 1)
-        tree_links_text += tabs + "<p><a href=\"" + href + "\">" + tree_iter.get_node_name() + "</a></p>\n";
-    else
-        tree_links_text += tabs + "<li><a href=\"" + href + "\">" + tree_iter.get_node_name() + "</a></li>";
-
-    if (!tree_iter->children().empty())
-    {
-        tree_links_text += tabs + "<ol>";
-        for (auto& child: tree_iter->children())
-            _tree_links_text_iter(_pCtMainWin->curr_tree_store().to_ct_tree_iter(child), tree_links_text, tree_count_level + 1);
-        tree_links_text += tabs + "</ol>";
-    }
 }
 
 // Get the HTML page filename given the tree iter

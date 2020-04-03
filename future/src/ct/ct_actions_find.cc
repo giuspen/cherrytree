@@ -667,7 +667,8 @@ bool CtActions::_parse_node_name(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex>
         if (s_state.replace_active && !node_iter.get_node_read_only()) {
             std::string replacer_text = s_options.search_replace_dict_replace;
             Glib::ustring text_name = node_iter.get_node_name();
-            str::replace(text_name, s_state.curr_find_pattern.c_str(), replacer_text.c_str());
+            //str::replace(text_name, s_state.curr_find_pattern.c_str(), replacer_text.c_str());
+            text_name = re_pattern->replace(text_name, 0, replacer_text, static_cast<Glib::RegexMatchFlags>(0));
             node_iter.set_node_name(text_name);
             node_iter.pending_edit_db_node_prop();
         }
