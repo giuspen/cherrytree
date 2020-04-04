@@ -1,4 +1,13 @@
 
+0.39.2 (April 4th, 2020)
+  * fix very slow node creation (#686)
+  * fix Wrong "." processing in "Replace in Nodes Names" (RegExp mode) (#689)
+  * workaround for dead_diaeresis, dead_acute on win32 (#427, #688)
+  * fix for table's cell content lost unless you explicitly press Enter (#700)
+  * fix Control/command key deselects (un-highlights) text in table (#699)
+  * fix Keyboard shortcuts for sorting do not work (#305, work of @Mammoets)
+  * the porting to Gtkmm3 will shortly produce the first testing version thanks to the hard work of Evgenii (@txe)
+
 0.39.1 (March 21st, 2020)
   * fixed export to html regressions after 0.39.0 (#668, work of @txe)
   * fixed RuntimeError: returned character can not be represented in 16-bit unicode" (#675, #664, work of @txe)
