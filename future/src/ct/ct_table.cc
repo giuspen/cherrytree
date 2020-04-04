@@ -53,16 +53,23 @@ CtTable::CtTable(CtMainWin* pCtMainWin,
         _tableMatrix.pop_back();
         _tableMatrix.push_front(headerRow);
     }
-    int i{0};
+    int row{0};
     for (CtTableRow& tableRow : _tableMatrix)
     {
-        int j{0};
+        int col{0};
         for (CtTableCell* pTableCell : tableRow)
         {
-            _grid.attach(*pTableCell, j, i, 1, 1);
-            j++;
+            // todo: don't know how to use colMax and colMin, so use just colMax
+            pTableCell->get_text_view().set_size_request(colMax, -1);
+            // to emulate old behavour
+            if (row == 0)
+            {
+                pTableCell->get_text_view().set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
+            }
+            _grid.attach(*pTableCell, col, row, 1 /*1 cell horiz*/, 1 /*1 cell vert*/);
+            col++;
         }
-        i++;
+        row++;
     }
     _frame.add(_grid);
     show_all();
@@ -70,13 +77,7 @@ CtTable::CtTable(CtMainWin* pCtMainWin,
 
 CtTable::~CtTable()
 {
-    for (CtTableRow& tableRow : _tableMatrix)
-    {
-        for (CtTableCell* pTableCell : tableRow)
-        {
-            delete pTableCell;
-        }
-    }
+    // no need for deleting cells, _grid will clean up cells
 }
 
 void CtTable::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)

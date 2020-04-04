@@ -24,7 +24,7 @@
 #include "ct_codebox.h"
 #include "ct_widgets.h"
 
-class CtTableCell : public CtTextCell, public Gtk::Bin
+class CtTableCell : public CtTextCell, public Gtk::EventBox
 {
 public:
     CtTableCell(CtMainWin* pCtMainWin,

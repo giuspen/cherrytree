@@ -262,7 +262,7 @@ bool CtXmlRead::populate_table_matrix_get_is_head_front(CtTableMatrix& tableMatr
                 {
                     xmlpp::TextNode* pTextNode = static_cast<xmlpp::Element*>(pNodeCell)->get_child_text();
                     const Glib::ustring textContent = pTextNode ? pTextNode->get_content() : "";
-                    tableMatrix.back().push_back(new CtTableCell(_pCtMainWin, textContent, CtConst::PLAIN_TEXT_ID));
+                    tableMatrix.back().push_back(new CtTableCell(_pCtMainWin, textContent, CtConst::TABLE_CELL_TEXT_ID));
                 }
             }
         }

@@ -136,13 +136,17 @@ Glib::RefPtr<Gsv::Buffer> CtMainWin::get_new_text_buffer(const std::string& synt
     Glib::RefPtr<Gsv::Buffer> rRetTextBuffer;
     rRetTextBuffer = Gsv::Buffer::create(_rGtkTextTagTable);
     rRetTextBuffer->set_max_undo_levels(_pCtConfig->limitUndoableSteps);
-    if (CtConst::RICH_TEXT_ID == syntax)
+    if (CtConst::TABLE_CELL_TEXT_ID == syntax)
+    {
+        rRetTextBuffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(CtConst::STYLE_SCHEME_LIGHT));
+    }
+    else if (CtConst::RICH_TEXT_ID == syntax)
     {
         // dark theme
         if (get_ct_config()->rtDefFg == CtConst::RICH_TEXT_DARK_FG && get_ct_config()->rtDefBg == CtConst::RICH_TEXT_DARK_BG)
-            rRetTextBuffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme("cobalt"));
+            rRetTextBuffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(CtConst::STYLE_SCHEME_DARK));
         else
-            rRetTextBuffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme("classic"));
+            rRetTextBuffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(CtConst::STYLE_SCHEME_LIGHT));
     }
     else
     {
