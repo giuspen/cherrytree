@@ -244,6 +244,7 @@ private:
                                      Gtk::TextIter insertIter,
                                      Gtk::TextIter* pIterBound);
     void          _text_selection_change_case(gchar change_type);
+    int           _table_dialog(Glib::ustring title, bool is_insert);
 
 public:
     void          image_insert_png(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> pixbuf,
