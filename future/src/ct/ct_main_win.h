@@ -30,13 +30,12 @@
 #include "ct_treestore.h"
 #include "ct_misc_utils.h"
 #include "ct_menu.h"
-#include "ct_state_machine.h"
 #include "ct_widgets.h"
 #include "ct_config.h"
 #include "ct_table.h"
 #include "ct_image.h"
 #include "ct_print.h"
-
+#include "ct_state_machine.h"
 
 struct CtStatusBar
 {

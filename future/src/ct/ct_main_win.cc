@@ -1008,8 +1008,8 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     }
     tree_iter.remove_all_embedded_widgets();
     // CtXmlRead(this).get_text_buffer_slot didn't fill widgets, they are kept separately
-    for (auto widget: state->widgets)
-        widgets.push_back(widget->clone());
+    for (auto widgetState: state->widgetStates)
+        widgets.push_back(widgetState->to_widget(this));
     for (auto widget: widgets)
         widget->insertInTextBuffer(gsv_buffer);
     curr_tree_store().addAnchoredWidgets(tree_iter, widgets, &get_text_view());

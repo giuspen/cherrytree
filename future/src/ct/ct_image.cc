@@ -72,17 +72,6 @@ CtImage::~CtImage()
 {
 }
 
-bool CtImage::equal(CtAnchoredWidget* other)
-{
-    if (get_type() != other->get_type()) return false;
-    if (CtImage* other_image = dynamic_cast<CtImage*>(other))
-        if (_rPixbuf == other_image->_rPixbuf
-                && _charOffset == other_image->_charOffset
-                && _justification == other_image->_justification)
-            return true;
-    return false;
-}
-
 void CtImage::save(const Glib::ustring& file_name, const Glib::ustring& type)
 {
     _rPixbuf->save(file_name, type);
@@ -165,18 +154,9 @@ bool CtImagePng::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_
     return retVal;
 }
 
-CtAnchoredWidget* CtImagePng::clone()
+std::shared_ptr<CtAnchoredWidgetState> CtImagePng::get_state()
 {
-    return new CtImagePng(_pCtMainWin, _rPixbuf, _link, _charOffset, _justification);
-}
-
-bool CtImagePng::equal(CtAnchoredWidget* other)
-{
-    if (get_type() != other->get_type()) return false;
-    if (CtImagePng* other_png = dynamic_cast<CtImagePng*>(other))
-        if (CtImage::equal(other) && _link == other_png->_link)
-            return true;
-    return false;
+    return std::shared_ptr<CtAnchoredWidgetState>(new CtAnchoredWidgetState_ImagePng(this));
 }
 
 void CtImagePng::update_label_widget()
@@ -262,20 +242,10 @@ bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offs
     return retVal;
 }
 
-CtAnchoredWidget* CtImageAnchor::clone()
+std::shared_ptr<CtAnchoredWidgetState> CtImageAnchor::get_state()
 {
-    return new CtImageAnchor(_pCtMainWin, _anchorName, _charOffset, _justification);
+    return std::shared_ptr<CtAnchoredWidgetState>(new CtAnchoredWidgetState_Anchor(this));
 }
-
-bool CtImageAnchor::equal(CtAnchoredWidget* other)
-{
-    if (get_type() != other->get_type()) return false;
-    if (CtImageAnchor* other_anchor = dynamic_cast<CtImageAnchor*>(other))
-        if (CtImage::equal(other) && _anchorName == other_anchor->_anchorName)
-            return true;
-    return false;
-}
-
 
 void CtImageAnchor::update_tooltip()
 {
@@ -352,21 +322,9 @@ bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int off
     return retVal;
 }
 
-CtAnchoredWidget* CtImageEmbFile::clone()
+std::shared_ptr<CtAnchoredWidgetState> CtImageEmbFile::get_state()
 {
-    return new CtImageEmbFile(_pCtMainWin, _fileName, _rawBlob, _timeSeconds, _charOffset, _justification);
-}
-
-bool CtImageEmbFile::equal(CtAnchoredWidget* other)
-{
-    if (get_type() != other->get_type()) return false;
-    if (CtImageEmbFile* other_emb = dynamic_cast<CtImageEmbFile*>(other))
-        if (CtImage::equal(other)
-                && _fileName == other_emb->_fileName
-                && _rawBlob == other_emb->_rawBlob
-                && _timeSeconds == other_emb->_timeSeconds)
-            return true;
-    return false;
+    return std::shared_ptr<CtAnchoredWidgetState>(new CtAnchoredWidgetState_EmbFile(this));
 }
 
 void CtImageEmbFile::update_label_widget()
