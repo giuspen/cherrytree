@@ -1230,13 +1230,18 @@ void CtMainWin::_on_textview_populate_popup(Gtk::Menu* menu)
                 }
                 if (do_set_cursor) curr_buffer()->place_cursor(target_iter);
             }
+            for (auto iter : menu->get_children()) menu->remove(*iter);
             get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::Link);
         }
-        else
+        else {
+            for (auto iter : menu->get_children()) menu->remove(*iter);
             get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::Text);
+        }
     }
-    else
+    else {
+        for (auto iter : menu->get_children()) menu->remove(*iter);
         _pCtActions->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::Code);
+    }
 }
 
 // Update the cursor image if the pointer moved
