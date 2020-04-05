@@ -542,12 +542,14 @@ void CtActions::table_delete()
 
 void CtActions::table_column_add()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    curr_table_anchor->column_add(curr_table_anchor->current_column());
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_column_cut()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
 }
 
 void CtActions::table_column_copy()
@@ -557,32 +559,40 @@ void CtActions::table_column_copy()
 
 void CtActions::table_column_paste()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
 }
 
 void CtActions::table_column_delete()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    curr_table_anchor->column_delete(curr_table_anchor->current_column());
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_column_left()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    curr_table_anchor->column_move_left(curr_table_anchor->current_column());
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_column_right()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    curr_table_anchor->column_move_right(curr_table_anchor->current_column());
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_row_add()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    curr_table_anchor->row_add(curr_table_anchor->current_row());
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_row_cut()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
 }
 
 void CtActions::table_row_copy()
@@ -592,37 +602,43 @@ void CtActions::table_row_copy()
 
 void CtActions::table_row_paste()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
 }
 
 void CtActions::table_row_delete()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    curr_table_anchor->row_delete(curr_table_anchor->current_row());
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_row_up()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    curr_table_anchor->row_move_up(curr_table_anchor->current_row());
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_row_down()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    curr_table_anchor->row_move_down(curr_table_anchor->current_row());
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_rows_sort_descending()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
 }
 
 void CtActions::table_rows_sort_ascending()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
 }
 
 void CtActions::table_edit_properties()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
 }
 
 void CtActions::table_export()

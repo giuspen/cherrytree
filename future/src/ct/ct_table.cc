@@ -37,50 +37,26 @@ CtTableCell::~CtTableCell()
 }
 
 
+
 CtTable::CtTable(CtMainWin* pCtMainWin,
-                 const CtTableMatrix& tableMatrix,
+                 CtTableMatrix tableMatrix,
                  const int colMin,
                  const int colMax,
                  const bool headFront,
                  const int charOffset,
                  const std::string& justification)
  : CtAnchoredWidget(pCtMainWin, charOffset, justification),
-   _tableMatrix(tableMatrix),
    _colMin(colMin),
    _colMax(colMax)
 {
     if (!headFront)
     {
-        CtTableRow headerRow = _tableMatrix.back();
-        _tableMatrix.pop_back();
-        _tableMatrix.push_front(headerRow);
+        CtTableRow headerRow = tableMatrix.back();
+        tableMatrix.pop_back();
+        tableMatrix.insert(tableMatrix.begin(), headerRow);
     }
-    int row{0};
-    for (CtTableRow& tableRow : _tableMatrix)
-    {
-        int col{0};
-        for (CtTableCell* pTableCell : tableRow)
-        {
-            bool is_header = row == 0;
-            // todo: don't know how to use colMax and colMin, so use just colMax
-            pTableCell->get_text_view().set_size_request(colMax, -1);
-            if (is_header)
-            {
-                pTableCell->get_text_view().get_style_context()->add_class("ct-table-header-cell");
-                pTableCell->get_text_view().set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
-                pTableCell->get_text_view().signal_populate_popup().connect(sigc::mem_fun(*this, &CtTable::_on_populate_popup_header_cell));
-            }
-            else
-            {
-                pTableCell->get_text_view().signal_populate_popup().connect(sigc::mem_fun(*this, &CtTable::_on_populate_popup_cell));
-            }
+    _setup_new_matrix(tableMatrix);
 
-
-            _grid.attach(*pTableCell, col, row, 1 /*1 cell horiz*/, 1 /*1 cell vert*/);
-            col++;
-        }
-        row++;
-    }
     _frame.get_style_context()->add_class("ct-table");
     _frame.set_border_width(1);
     _frame.add(_grid);
@@ -90,6 +66,38 @@ CtTable::CtTable(CtMainWin* pCtMainWin,
 CtTable::~CtTable()
 {
     // no need for deleting cells, _grid will clean up cells
+}
+
+void CtTable::_setup_new_matrix(const CtTableMatrix& tableMatrix)
+{
+    for (auto widget: _grid.get_children())
+        _grid.remove(*widget);
+
+    _tableMatrix = tableMatrix;
+    for (int row = 0; row < (int)_tableMatrix.size(); ++row)
+    {
+        for (int col = 0; col < (int)_tableMatrix[row].size(); ++col)
+        {
+            CtTableCell* pTableCell = _tableMatrix[row][col];
+            bool is_header = row == 0;
+            // todo: don't know how to use colMax and colMin, so use just colMax
+            pTableCell->get_text_view().set_size_request(_colMax, -1);
+            if (is_header)
+            {
+                pTableCell->get_text_view().get_style_context()->add_class("ct-table-header-cell");
+                pTableCell->get_text_view().set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
+                pTableCell->get_text_view().signal_populate_popup().connect(
+                            sigc::bind(sigc::mem_fun(*this, &CtTable::_on_populate_popup_header_cell), row, col));
+            }
+            else
+            {
+                pTableCell->get_text_view().signal_populate_popup().connect(
+                            sigc::bind(sigc::mem_fun(*this, &CtTable::_on_populate_popup_cell), row, col));
+            }
+            _grid.attach(*pTableCell, col, row, 1 /*1 cell horiz*/, 1 /*1 cell vert*/);
+        }
+    }
+    _grid.show_all();
 }
 
 void CtTable::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
@@ -162,22 +170,110 @@ void CtTable::set_modified_false()
     }
 }
 
-void CtTable::_on_populate_popup_header_cell(Gtk::Menu* menu)
+void CtTable::column_add(int after_column)
+{
+    auto matrix = _copy_matrix(after_column, -1, -1, -1, -1, -1);
+    _setup_new_matrix(matrix);
+}
+
+void CtTable::column_delete(int column)
+{
+    if (_tableMatrix[0].size() == 1) return;
+    auto matrix = _copy_matrix(-1, column, -1, -1, -1, -1);
+    _setup_new_matrix(matrix);
+}
+
+void CtTable::column_move_left(int column)
+{
+    if (column == 0) return;
+    auto matrix = _copy_matrix(-1, -1, -1, -1, column, -1);
+    _setup_new_matrix(matrix);
+}
+
+void CtTable::column_move_right(int column)
+{
+    if (column == _tableMatrix[0].size()-1) return;
+    // moving to right is same as moving to left for other column
+    auto matrix = _copy_matrix(-1, -1, -1, -1, column + 1, -1);
+    _setup_new_matrix(matrix);
+}
+
+void CtTable::row_add(int after_row)
+{
+    auto matrix = _copy_matrix(-1, -1, after_row, -1, -1, -1);
+    _setup_new_matrix(matrix);
+}
+
+void CtTable::row_delete(int row)
+{
+    if (_tableMatrix.size() == 1) return;
+    auto matrix = _copy_matrix(-1, -1, -1, row, -1, -1);
+    _setup_new_matrix(matrix);
+}
+
+void CtTable::row_move_up(int row)
+{
+    if (row == 0) return;
+    auto matrix = _copy_matrix(-1, -1, -1, -1, -1, row);
+    _setup_new_matrix(matrix);
+}
+
+void CtTable::row_move_down(int row)
+{
+    if (row == _tableMatrix.size()-1) return;
+    // moving up is same as moving down for other row
+    auto matrix = _copy_matrix(-1, -1, -1, -1, -1, row + 1);
+    _setup_new_matrix(matrix);
+}
+
+CtTableMatrix CtTable::_copy_matrix(int col_add, int col_del, int row_add, int row_del, int col_move_left, int row_move_up)
+{
+    // don't check input indexes, it's already checked
+    CtTableMatrix matrix;
+    for (int row = 0; row < (int)_tableMatrix.size(); ++row)
+    {
+        if (row == row_del) continue;
+        matrix.push_back(CtTableRow());
+        for (int col = 0; col < (int)_tableMatrix[row].size(); ++col) {
+            if (col == col_del) continue;
+            matrix.back().push_back(new CtTableCell(_pCtMainWin, _tableMatrix[row][col]->get_text_content(), CtConst::TABLE_CELL_TEXT_ID));
+            if (col == col_add) {
+                matrix.back().push_back(new CtTableCell(_pCtMainWin, "", CtConst::TABLE_CELL_TEXT_ID));
+            }
+            if (col == col_move_left) std::swap(matrix[row][col-1], matrix[row][col]);
+        }
+        if (row == row_add) {
+            matrix.push_back(CtTableRow());
+            for (auto& somecell: _tableMatrix[0])
+                matrix.back().push_back(new CtTableCell(_pCtMainWin, "", CtConst::TABLE_CELL_TEXT_ID));
+        }
+        if (row == row_move_up) std::swap(matrix[row-1], matrix[row]);
+    }
+    return matrix;
+}
+
+void CtTable::_on_populate_popup_header_cell(Gtk::Menu* menu, int row, int col)
 {
     if (not _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active()) return;
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
+    _currentRow = row;
+    _currentColumn = col;
     _pCtMainWin->get_ct_actions()->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::TableHeaderCell);
 }
 
-void CtTable::_on_populate_popup_cell(Gtk::Menu* menu)
+void CtTable::_on_populate_popup_cell(Gtk::Menu* menu, int row, int col)
 {
     if (not _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active()) return;
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
+    _currentRow = row;
+    _currentColumn = col;
     _pCtMainWin->get_ct_actions()->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::TableCell);
 }
 
-void CtTable::_on_button_press_event_cell()
+void CtTable::_on_button_press_event_cell(int row, int col)
 {
     if (not _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active()) return;
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
+    _currentRow = row;
+    _currentColumn = col;
 }
