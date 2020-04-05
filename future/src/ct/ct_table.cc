@@ -21,6 +21,8 @@
 
 #include "ct_table.h"
 #include "ct_doc_rw.h"
+#include "ct_main_win.h"
+#include "ct_actions.h"
 
 CtTableCell::CtTableCell(CtMainWin* pCtMainWin,
                          const Glib::ustring& textContent,
@@ -59,13 +61,21 @@ CtTable::CtTable(CtMainWin* pCtMainWin,
         int col{0};
         for (CtTableCell* pTableCell : tableRow)
         {
+            bool is_header = row == 0;
             // todo: don't know how to use colMax and colMin, so use just colMax
             pTableCell->get_text_view().set_size_request(colMax, -1);
-            if (row == 0)
+            if (is_header)
             {
                 pTableCell->get_text_view().get_style_context()->add_class("ct-table-header-cell");
                 pTableCell->get_text_view().set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
+                pTableCell->get_text_view().signal_populate_popup().connect(sigc::mem_fun(*this, &CtTable::_on_populate_popup_header_cell));
             }
+            else
+            {
+                pTableCell->get_text_view().signal_populate_popup().connect(sigc::mem_fun(*this, &CtTable::_on_populate_popup_cell));
+            }
+
+
             _grid.attach(*pTableCell, col, row, 1 /*1 cell horiz*/, 1 /*1 cell vert*/);
             col++;
         }
@@ -174,4 +184,24 @@ void CtTable::set_modified_false()
             pTableCell->set_text_buffer_modified_false();
         }
     }
+}
+
+void CtTable::_on_populate_popup_header_cell(Gtk::Menu* menu)
+{
+    if (not _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active()) return;
+    _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
+    _pCtMainWin->get_ct_actions()->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::TableHeaderCell);
+}
+
+void CtTable::_on_populate_popup_cell(Gtk::Menu* menu)
+{
+    if (not _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active()) return;
+    _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
+    _pCtMainWin->get_ct_actions()->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::TableCell);
+}
+
+void CtTable::_on_button_press_event_cell()
+{
+    if (not _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active()) return;
+    _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
 }

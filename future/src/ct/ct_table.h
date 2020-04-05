@@ -61,10 +61,16 @@ public:
     int get_col_min() { return _colMin; }
 
 protected:
-    CtTableMatrix _tableMatrix;
-    int _colMin;
-    int _colMax;
-    Gtk::Grid _grid;
-
     void _populate_xml_rows_cells(xmlpp::Element* p_table_node);
+
+private:
+    void _on_populate_popup_header_cell(Gtk::Menu* menu);
+    void _on_populate_popup_cell(Gtk::Menu* menu);
+    void _on_button_press_event_cell();
+
+protected:
+    CtTableMatrix _tableMatrix;
+    Gtk::Grid     _grid;
+    int           _colMin;
+    int           _colMax;
 };
