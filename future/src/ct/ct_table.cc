@@ -61,9 +61,9 @@ CtTable::CtTable(CtMainWin* pCtMainWin,
         {
             // todo: don't know how to use colMax and colMin, so use just colMax
             pTableCell->get_text_view().set_size_request(colMax, -1);
-            // to emulate old behavour
             if (row == 0)
             {
+                pTableCell->get_text_view().get_style_context()->add_class("ct-table-header-cell");
                 pTableCell->get_text_view().set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
             }
             _grid.attach(*pTableCell, col, row, 1 /*1 cell horiz*/, 1 /*1 cell vert*/);
@@ -71,6 +71,8 @@ CtTable::CtTable(CtMainWin* pCtMainWin,
         }
         row++;
     }
+    _frame.get_style_context()->add_class("ct-table");
+    _frame.set_border_width(1);
     _frame.add(_grid);
     show_all();
 }

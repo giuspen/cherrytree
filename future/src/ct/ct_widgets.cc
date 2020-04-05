@@ -173,13 +173,13 @@ CtTextView::~CtTextView()
 void CtTextView::setup_for_syntax(const std::string& syntax)
 {
     std::string new_class;
-    if (CtConst::RICH_TEXT_ID == syntax)         { new_class = "rich-text"; }
-    else if (CtConst::PLAIN_TEXT_ID == syntax)   { new_class = "plain-text"; }
-    else                                         { new_class = "code"; }
+    if (CtConst::RICH_TEXT_ID == syntax)         { new_class = "ct-view-rich-text"; }
+    else if (CtConst::PLAIN_TEXT_ID == syntax)   { new_class = "ct-view-plain-text"; }
+    else                                         { new_class = "ct-view-code"; }
 
-    if (new_class != "rich-text") get_style_context()->remove_class("rich-text");
-    if (new_class != "plain-text") get_style_context()->remove_class("plain-text");
-    if (new_class != "code") get_style_context()->remove_class("code");
+    if (new_class != "ct-view-rich-text") get_style_context()->remove_class("ct-view-rich-text");
+    if (new_class != "ct-view-plain-text") get_style_context()->remove_class("ct-view-plain-text");
+    if (new_class != "ct-view-code") get_style_context()->remove_class("ct-view-code");
     get_style_context()->add_class(new_class);
 
     if (CtConst::RICH_TEXT_ID == syntax)

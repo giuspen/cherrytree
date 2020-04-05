@@ -83,7 +83,7 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
    _frameHeight(frameHeight),
    _key_down(false)
 {
-    _ctTextview.get_style_context()->add_class("codebox");
+    _ctTextview.get_style_context()->add_class("ct-codebox");
     _ctTextview.set_border_width(1);
 
     _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
