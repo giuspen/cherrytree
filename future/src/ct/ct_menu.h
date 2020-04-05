@@ -58,7 +58,7 @@ public:
     const std::string KB_SHIFT   = "<shift>";
     const std::string KB_ALT     = "<alt>";
 
-    enum POPUP_MENU_TYPE {Node, Text, Code, Link, Table, TableCell, Codebox, Image, Anchor, EmbFile, PopupMenuNum };
+    enum POPUP_MENU_TYPE {Node, Text, Code, Link, TableHeaderCell, TableCell, Codebox, Image, Anchor, EmbFile, PopupMenuNum };
 
 public:
     void init_actions(CtApp* pApp, CtActions* pActions);

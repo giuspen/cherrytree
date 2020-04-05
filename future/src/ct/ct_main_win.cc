@@ -85,7 +85,7 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
 
     _reset_CtTreestore_CtTreeview();
 
-    _ctTextview.get_style_context()->add_class("ct_textview");
+    _ctTextview.get_style_context()->add_class("ct-view-panel");
 
     _ctTextview.signal_populate_popup().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_populate_popup));
     _ctTextview.signal_motion_notify_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_motion_notify_event));
@@ -136,13 +136,17 @@ Glib::RefPtr<Gsv::Buffer> CtMainWin::get_new_text_buffer(const std::string& synt
     Glib::RefPtr<Gsv::Buffer> rRetTextBuffer;
     rRetTextBuffer = Gsv::Buffer::create(_rGtkTextTagTable);
     rRetTextBuffer->set_max_undo_levels(_pCtConfig->limitUndoableSteps);
-    if (CtConst::RICH_TEXT_ID == syntax)
+    if (CtConst::TABLE_CELL_TEXT_ID == syntax)
+    {
+        rRetTextBuffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(CtConst::STYLE_SCHEME_LIGHT));
+    }
+    else if (CtConst::RICH_TEXT_ID == syntax)
     {
         // dark theme
         if (get_ct_config()->rtDefFg == CtConst::RICH_TEXT_DARK_FG && get_ct_config()->rtDefBg == CtConst::RICH_TEXT_DARK_BG)
-            rRetTextBuffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme("cobalt"));
+            rRetTextBuffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(CtConst::STYLE_SCHEME_DARK));
         else
-            rRetTextBuffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme("classic"));
+            rRetTextBuffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(CtConst::STYLE_SCHEME_LIGHT));
     }
     else
     {
@@ -434,7 +438,7 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
     _uCtTreeview->signal_scroll_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_scroll_event));
     _uCtTreeview->signal_popup_menu().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_popup_menu));
 
-    _uCtTreeview->get_style_context()->add_class("ct_node_view");
+    _uCtTreeview->get_style_context()->add_class("ct-tree-panel");
 }
 
 void CtMainWin::config_apply_before_show_all()
@@ -490,18 +494,19 @@ void CtMainWin::configure_theme()
     std::string treeFont = font_to_string(Pango::FontDescription(_pCtConfig->treeFont));
 
     std::string font_css;
-    font_css += ".ct_textview.rich-text" + rtFont;
-    font_css += ".ct_textview.plain-text" + plFont;
-    font_css += ".ct_textview.code" + codeFont;
-    font_css += ".codebox.rich-text" + rtFont;
-    font_css += ".codebox.plain-text" + codeFont;
-    font_css += ".codebox.code" + codeFont;
-    font_css += ".ct_node_view" + treeFont;
+    font_css += ".ct-view-panel.ct-view-rich-text" + rtFont;
+    font_css += ".ct-view-panel.ct-view-plain-text" + plFont;
+    font_css += ".ct-view-panel.ct-view-code" + codeFont;
+    font_css += ".ct-codebox.ct-view-rich-text" + rtFont;
+    font_css += ".ct-codebox.ct-view-plain-text" + codeFont;
+    font_css += ".ct-codebox.ct-view-code" + codeFont;
+    font_css += ".ct-tree-panel" + treeFont;
 
     std::string theme_css;
-    theme_css += ".ct_node_view { color: " + _pCtConfig->ttDefFg + "; background-color: " + _pCtConfig->ttDefBg + "; } ";
-    theme_css += ".ct_node_view:selected { background: #5294e2;  } ";
-    theme_css += ".ct_header { background-color: " + _pCtConfig->ttDefBg + "; } ";
+    theme_css += ".ct-tree-panel { color: " + _pCtConfig->ttDefFg + "; background-color: " + _pCtConfig->ttDefBg + "; } ";
+    theme_css += ".ct-tree-panel:selected { background: #5294e2;  } ";
+    theme_css += ".ct_header-panel { background-color: " + _pCtConfig->ttDefBg + "; } ";
+    theme_css += ".ct-table-header-cell { font-weight: bold; } ";
 
     if (!_css_provider_theme)
     {
@@ -547,7 +552,7 @@ Gtk::EventBox& CtMainWin::_init_window_header()
     _ctWinHeader.headerBox.pack_start(_ctWinHeader.lockIcon, false, false);
     _ctWinHeader.headerBox.pack_start(_ctWinHeader.bookmarkIcon, false, false);
     _ctWinHeader.eventBox.add(_ctWinHeader.headerBox);
-    _ctWinHeader.eventBox.get_style_context()->add_class("ct_header");
+    _ctWinHeader.eventBox.get_style_context()->add_class("ct-header-panel");
     return _ctWinHeader.eventBox;
 }
 
@@ -1003,8 +1008,8 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     }
     tree_iter.remove_all_embedded_widgets();
     // CtXmlRead(this).get_text_buffer_slot didn't fill widgets, they are kept separately
-    for (auto widget: state->widgets)
-        widgets.push_back(widget->clone());
+    for (auto widgetState: state->widgetStates)
+        widgets.push_back(widgetState->to_widget(this));
     for (auto widget: widgets)
         widget->insertInTextBuffer(gsv_buffer);
     curr_tree_store().addAnchoredWidgets(tree_iter, widgets, &get_text_view());

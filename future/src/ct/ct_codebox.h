@@ -77,8 +77,7 @@ public:
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) override;
     void set_modified_false() override { set_text_buffer_modified_false(); }
     CtAnchWidgType get_type() override { return CtAnchWidgType::CodeBox; }
-    CtAnchoredWidget* clone() override;
-    bool equal(CtAnchoredWidget* other) override;
+    std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
     void set_width_height(int newWidth, int newHeight);
     void set_width_in_pixels(const bool widthInPixels) { _widthInPixels = widthInPixels; }

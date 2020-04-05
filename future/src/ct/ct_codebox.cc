@@ -83,7 +83,7 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
    _frameHeight(frameHeight),
    _key_down(false)
 {
-    _ctTextview.get_style_context()->add_class("codebox");
+    _ctTextview.get_style_context()->add_class("ct-codebox");
     _ctTextview.set_border_width(1);
 
     _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
@@ -211,28 +211,9 @@ bool CtCodebox::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_a
     return retVal;
 }
 
-CtAnchoredWidget* CtCodebox::clone()
+std::shared_ptr<CtAnchoredWidgetState> CtCodebox::get_state()
 {
-    return new CtCodebox(_pCtMainWin, get_text_content(), _syntaxHighlighting, _frameWidth, _frameHeight,
-                         _charOffset, _justification,
-                         _widthInPixels, _highlightBrackets, _showLineNumbers);
-}
-
-bool CtCodebox::equal(CtAnchoredWidget* other)
-{
-    if (get_type() != other->get_type()) return false;
-    if (CtCodebox* other_codebox = dynamic_cast<CtCodebox*>(other))
-        if (_syntaxHighlighting == other_codebox->_syntaxHighlighting
-            && _frameWidth == other_codebox->_frameWidth
-            && _frameHeight == other_codebox->_frameHeight
-            && _charOffset == other_codebox->_charOffset
-            && _justification == other_codebox->_justification
-            && _widthInPixels == other_codebox->_widthInPixels
-            && _highlightBrackets == other_codebox->_highlightBrackets
-            && _showLineNumbers == other_codebox->_showLineNumbers
-            && get_text_content() == other_codebox->get_text_content())
-        return true;
-    return false;
+    return std::shared_ptr<CtAnchoredWidgetState>(new CtAnchoredWidgetState_Codebox(this));
 }
 
 void CtCodebox::set_show_line_numbers(const bool showLineNumbers)

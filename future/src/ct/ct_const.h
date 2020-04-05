@@ -58,6 +58,7 @@ extern const gchar    CHERRY_PURPLE[];
 extern const gchar    CHERRY_BLACK[];
 extern const gchar    CHERRY_GRAY[];
 extern const gchar    RICH_TEXT_ID[];
+extern const gchar    TABLE_CELL_TEXT_ID[];
 extern const gchar    PLAIN_TEXT_ID[];
 extern const gchar    SYN_HIGHL_BASH[];
 extern const gchar    STYLE_SCHEME_LIGHT[];

@@ -24,7 +24,8 @@
 #include "ct_codebox.h"
 #include "ct_widgets.h"
 
-class CtTableCell : public CtTextCell, public Gtk::Bin
+class CtTextCell;
+class CtTableCell : public CtTextCell, public Gtk::EventBox
 {
 public:
     CtTableCell(CtMainWin* pCtMainWin,
@@ -53,18 +54,23 @@ public:
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) override;
     void set_modified_false() override;
     CtAnchWidgType get_type() override { return CtAnchWidgType::Table; }
-    CtAnchoredWidget* clone() override;
-    bool equal(CtAnchoredWidget* other) override;
+    std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
     const CtTableMatrix& get_table_matrix() { return _tableMatrix; }
     int get_col_max() { return _colMax; }
     int get_col_min() { return _colMin; }
 
 protected:
-    CtTableMatrix _tableMatrix;
-    int _colMin;
-    int _colMax;
-    Gtk::Grid _grid;
-
     void _populate_xml_rows_cells(xmlpp::Element* p_table_node);
+
+private:
+    void _on_populate_popup_header_cell(Gtk::Menu* menu);
+    void _on_populate_popup_cell(Gtk::Menu* menu);
+    void _on_button_press_event_cell();
+
+protected:
+    CtTableMatrix _tableMatrix;
+    Gtk::Grid     _grid;
+    int           _colMin;
+    int           _colMax;
 };

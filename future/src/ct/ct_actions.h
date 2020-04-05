@@ -244,6 +244,7 @@ private:
                                      Gtk::TextIter insertIter,
                                      Gtk::TextIter* pIterBound);
     void          _text_selection_change_case(gchar change_type);
+    int           _table_dialog(Glib::ustring title, bool is_insert);
 
 public:
     void          image_insert_png(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> pixbuf,
@@ -322,6 +323,28 @@ public:
     void codebox_decrease_width();
     void codebox_increase_height();
     void codebox_decrease_height();
+
+    void table_cut();
+    void table_copy();
+    void table_delete();
+    void table_column_add();
+    void table_column_cut();
+    void table_column_copy();
+    void table_column_paste();
+    void table_column_delete();
+    void table_column_left();
+    void table_column_right();
+    void table_row_add();
+    void table_row_cut();
+    void table_row_copy();
+    void table_row_paste();
+    void table_row_delete();
+    void table_row_up();
+    void table_row_down();
+    void table_rows_sort_descending();
+    void table_rows_sort_ascending();
+    void table_edit_properties();
+    void table_export();
 
 private:
     // helper for export actions

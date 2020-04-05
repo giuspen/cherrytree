@@ -21,6 +21,8 @@
 
 #include "ct_table.h"
 #include "ct_doc_rw.h"
+#include "ct_main_win.h"
+#include "ct_actions.h"
 
 CtTableCell::CtTableCell(CtMainWin* pCtMainWin,
                          const Glib::ustring& textContent,
@@ -53,30 +55,41 @@ CtTable::CtTable(CtMainWin* pCtMainWin,
         _tableMatrix.pop_back();
         _tableMatrix.push_front(headerRow);
     }
-    int i{0};
+    int row{0};
     for (CtTableRow& tableRow : _tableMatrix)
     {
-        int j{0};
+        int col{0};
         for (CtTableCell* pTableCell : tableRow)
         {
-            _grid.attach(*pTableCell, j, i, 1, 1);
-            j++;
+            bool is_header = row == 0;
+            // todo: don't know how to use colMax and colMin, so use just colMax
+            pTableCell->get_text_view().set_size_request(colMax, -1);
+            if (is_header)
+            {
+                pTableCell->get_text_view().get_style_context()->add_class("ct-table-header-cell");
+                pTableCell->get_text_view().set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
+                pTableCell->get_text_view().signal_populate_popup().connect(sigc::mem_fun(*this, &CtTable::_on_populate_popup_header_cell));
+            }
+            else
+            {
+                pTableCell->get_text_view().signal_populate_popup().connect(sigc::mem_fun(*this, &CtTable::_on_populate_popup_cell));
+            }
+
+
+            _grid.attach(*pTableCell, col, row, 1 /*1 cell horiz*/, 1 /*1 cell vert*/);
+            col++;
         }
-        i++;
+        row++;
     }
+    _frame.get_style_context()->add_class("ct-table");
+    _frame.set_border_width(1);
     _frame.add(_grid);
     show_all();
 }
 
 CtTable::~CtTable()
 {
-    for (CtTableRow& tableRow : _tableMatrix)
-    {
-        for (CtTableCell* pTableCell : tableRow)
-        {
-            delete pTableCell;
-        }
-    }
+    // no need for deleting cells, _grid will clean up cells
 }
 
 void CtTable::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
@@ -133,33 +146,9 @@ bool CtTable::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adj
     return retVal;
 }
 
-CtAnchoredWidget* CtTable::clone()
+std::shared_ptr<CtAnchoredWidgetState> CtTable::get_state()
 {
-    return new CtTable(_pCtMainWin, _tableMatrix, _colMin, _colMax, true, _charOffset, _justification);
-}
-
-bool CtTable::equal(CtAnchoredWidget* other)
-{
-    if (get_type() != other->get_type()) return false;
-
-    auto compare_cell = [](CtTableCell* lhs, CtTableCell* rhs) {
-        return lhs->get_text_content() == rhs->get_text_content() && lhs->get_syntax_highlighting() == rhs->get_syntax_highlighting();
-    };
-    auto compare_row = [compare_cell](const CtTableRow& lhs, const CtTableRow& rhs) {
-        return std::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end(), compare_cell);
-    };
-    auto compare_table = [compare_row](const CtTableMatrix& lhs, const CtTableMatrix& rhs) {
-        return std::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end(), compare_row);
-    };
-
-    if (CtTable* other_table = dynamic_cast<CtTable*>(other))
-        if (_colMin == other_table->_colMin
-                && _colMax == other_table->_colMax
-                && _charOffset == other_table->_charOffset
-                && _justification == other_table->_justification
-                && compare_table(_tableMatrix, other_table->_tableMatrix))
-            return true;
-    return false;
+    return std::shared_ptr<CtAnchoredWidgetState>(new CtAnchoredWidgetState_Table(this));
 }
 
 void CtTable::set_modified_false()
@@ -171,4 +160,24 @@ void CtTable::set_modified_false()
             pTableCell->set_text_buffer_modified_false();
         }
     }
+}
+
+void CtTable::_on_populate_popup_header_cell(Gtk::Menu* menu)
+{
+    if (not _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active()) return;
+    _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
+    _pCtMainWin->get_ct_actions()->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::TableHeaderCell);
+}
+
+void CtTable::_on_populate_popup_cell(Gtk::Menu* menu)
+{
+    if (not _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active()) return;
+    _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
+    _pCtMainWin->get_ct_actions()->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::TableCell);
+}
+
+void CtTable::_on_button_press_event_cell()
+{
+    if (not _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active()) return;
+    _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
 }

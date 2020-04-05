@@ -520,6 +520,116 @@ void CtActions::codebox_decrease_height()
          curr_codebox_anchor->set_width_height(0, curr_codebox_anchor->get_frame_height() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
 }
 
+void CtActions::table_cut()
+{
+    object_set_selection(curr_table_anchor);
+    g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
+}
+
+void CtActions::table_copy()
+{
+    object_set_selection(curr_table_anchor);
+    g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "copy-clipboard");
+}
+
+void CtActions::table_delete()
+{
+    object_set_selection(curr_table_anchor);
+    _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
+    curr_table_anchor = nullptr;
+   _pCtMainWin->get_text_view().grab_focus();
+}
+
+void CtActions::table_column_add()
+{
+
+}
+
+void CtActions::table_column_cut()
+{
+
+}
+
+void CtActions::table_column_copy()
+{
+
+}
+
+void CtActions::table_column_paste()
+{
+
+}
+
+void CtActions::table_column_delete()
+{
+
+}
+
+void CtActions::table_column_left()
+{
+
+}
+
+void CtActions::table_column_right()
+{
+
+}
+
+void CtActions::table_row_add()
+{
+
+}
+
+void CtActions::table_row_cut()
+{
+
+}
+
+void CtActions::table_row_copy()
+{
+
+}
+
+void CtActions::table_row_paste()
+{
+
+}
+
+void CtActions::table_row_delete()
+{
+
+}
+
+void CtActions::table_row_up()
+{
+
+}
+
+void CtActions::table_row_down()
+{
+
+}
+
+void CtActions::table_rows_sort_descending()
+{
+
+}
+
+void CtActions::table_rows_sort_ascending()
+{
+
+}
+
+void CtActions::table_edit_properties()
+{
+
+}
+
+void CtActions::table_export()
+{
+
+}
+
 // Anchor Edit Dialog
 void CtActions::_anchor_edit_dialog(CtImageAnchor* anchor, Gtk::TextIter insert_iter, Gtk::TextIter* iter_bound)
 {
