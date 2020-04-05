@@ -72,6 +72,10 @@ public:
     void row_delete(int row);
     void row_move_up(int row);
     void row_move_down(int row);
+    bool row_sort_asc();
+    bool row_sort_desc();
+
+    void set_col_min_max(int col_min, int col_max);
 
 private:
     void _setup_new_matrix(const CtTableMatrix& tableMatrix);

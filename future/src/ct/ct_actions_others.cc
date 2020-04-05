@@ -629,21 +629,39 @@ void CtActions::table_row_down()
 void CtActions::table_rows_sort_descending()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
+    if (curr_table_anchor->row_sort_desc())
+        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_rows_sort_ascending()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
+    if (curr_table_anchor->row_sort_asc())
+        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_edit_properties()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
+    _pCtMainWin->get_ct_config()->tableColMin = curr_table_anchor->get_col_min();
+    _pCtMainWin->get_ct_config()->tableColMax = curr_table_anchor->get_col_max();
+    if (!_table_dialog(_("Edit Table Properties"), false))
+        return;
+    curr_table_anchor->set_col_min_max(_pCtMainWin->get_ct_config()->tableColMin, _pCtMainWin->get_ct_config()->tableColMax);
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_export()
-{
+{    
+    // todo: find good csv lib
+    return;
 
+    CtDialogs::file_select_args args = {.pParentWin=_pCtMainWin, .curr_folder=_pCtMainWin->get_ct_config()->pickDirCsv,
+                                       .filter_name=_("CSV File"), .filter_pattern={"*.csv"}};
+    Glib::ustring filename = CtDialogs::file_save_as_dialog(args);
+    if (filename.empty()) return;
+    if (str::endswith(filename, ".csv")) filename += ".csv";
+    _pCtMainWin->get_ct_config()->pickDirCsv = Glib::path_get_dirname(filename);
 }
 
 // Anchor Edit Dialog

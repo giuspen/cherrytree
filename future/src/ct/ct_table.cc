@@ -192,7 +192,7 @@ void CtTable::column_move_left(int column)
 
 void CtTable::column_move_right(int column)
 {
-    if (column == _tableMatrix[0].size()-1) return;
+    if (column == (int)_tableMatrix[0].size()-1) return;
     // moving to right is same as moving to left for other column
     auto matrix = _copy_matrix(-1, -1, -1, -1, column + 1, -1);
     _setup_new_matrix(matrix);
@@ -220,9 +220,35 @@ void CtTable::row_move_up(int row)
 
 void CtTable::row_move_down(int row)
 {
-    if (row == _tableMatrix.size()-1) return;
+    if (row == (int)_tableMatrix.size()-1) return;
     // moving up is same as moving down for other row
     auto matrix = _copy_matrix(-1, -1, -1, -1, -1, row + 1);
+    _setup_new_matrix(matrix);
+}
+
+bool CtTable::row_sort_asc()
+{
+    auto matrix = _copy_matrix(-1, -1, -1, -1, -1, -1);
+    std::sort(matrix.begin()+1, matrix.end(), [](CtTableRow& l, CtTableRow& r) { return CtStrUtil::natural_compare(l[0]->get_text_content(), r[0]->get_text_content()) < 0; });
+    auto prev_state = get_state();
+    _setup_new_matrix(matrix);
+    return !prev_state->equal(get_state());
+}
+
+bool CtTable::row_sort_desc()
+{
+    auto matrix = _copy_matrix(-1, -1, -1, -1, -1, -1);
+    std::sort(matrix.begin()+1, matrix.end(), [](CtTableRow& l, CtTableRow& r) { return CtStrUtil::natural_compare(l[0]->get_text_content(), r[0]->get_text_content()) > 0; });
+    auto prev_state = get_state();
+    _setup_new_matrix(matrix);
+    return !prev_state->equal(get_state());
+}
+
+void CtTable::set_col_min_max(int col_min, int col_max)
+{
+    _colMin = col_min;
+    _colMax = col_max;
+    auto matrix = _copy_matrix(-1, -1, -1, -1, -1, -1);
     _setup_new_matrix(matrix);
 }
 
@@ -244,7 +270,7 @@ CtTableMatrix CtTable::_copy_matrix(int col_add, int col_del, int row_add, int r
         }
         if (row == row_add) {
             matrix.push_back(CtTableRow());
-            for (auto& somecell: _tableMatrix[0])
+            while (matrix.back().size() != _tableMatrix[0].size())
                 matrix.back().push_back(new CtTableCell(_pCtMainWin, "", CtConst::TABLE_CELL_TEXT_ID));
         }
         if (row == row_move_up) std::swap(matrix[row-1], matrix[row]);
