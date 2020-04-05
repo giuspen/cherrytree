@@ -79,6 +79,59 @@ void CtActions::table_handle()
 {
     if (!_node_sel_and_rich_text()) return;
     if (!_is_curr_node_not_read_only_or_error()) return;
+    int res = _table_dialog(_("Insert Table"), true);
+    if (res == 0) return;
+
+    int col_min = _pCtMainWin->get_ct_config()->tableColMin;
+    int col_max = _pCtMainWin->get_ct_config()->tableColMin;
+    std::list<std::vector<std::string>> rows;
+    if (res == 1) {
+        rows.push_back(std::vector<std::string>(_pCtMainWin->get_ct_config()->tableColumns, "click me"));
+        std::vector<std::string> empty_row(_pCtMainWin->get_ct_config()->tableColumns, "");
+        while (rows.size() < _pCtMainWin->get_ct_config()->tableRows)
+            rows.push_back(empty_row);
+    }
+    if (res == 2) {
+        CtDialogs::file_select_args args = {.pParentWin=_pCtMainWin, .curr_folder=_pCtMainWin->get_ct_config()->pickDirCsv,
+                                           .filter_name=_("CSV File"), .filter_pattern={"*.csv"}};
+        Glib::ustring filename = CtDialogs::file_select_dialog(args);
+        if (filename.empty()) return;
+        std::ifstream file(filename);
+        std::string line;
+        while (std::getline(file, line)) {
+            if (line == "\r\n" || line == "\n\r" || line == "\n")
+                continue;
+            std::vector<std::string> splited_line = str::split(line, ",");
+            for (std::string& word: splited_line)
+                if (str::startswith(word, "\"") && str::endswith(word, "\""))
+                    word = word.substr(1, word.size() - 2);
+            rows.push_back(splited_line);
+        }
+        size_t col_num = 0;
+        for (auto& row: rows)
+            col_num = std::max(col_num, row.size());
+        for (auto& row: rows)
+            while (row.size() < col_num)
+                row.push_back("");
+        col_min = 40;
+        col_max = 60;
+    }
+
+    CtTableMatrix tableMatrix;
+    for(auto& row: rows)
+    {
+        tableMatrix.push_back(CtTableRow{});
+        for (auto& cell: row)
+            tableMatrix.back().push_back(new CtTableCell(_pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID));
+    }
+
+    CtTable* pCtTable = new CtTable(_pCtMainWin, tableMatrix, col_min, col_max, true, _curr_buffer()->get_insert()->get_iter().get_offset(), "");
+    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
+    pCtTable->insertInTextBuffer(gsv_buffer);
+
+    getCtMainWin()->curr_tree_store().addAnchoredWidgets(getCtMainWin()->curr_tree_iter(),
+        {pCtTable}, &getCtMainWin()->get_text_view());
+    //pCtTable->get_text_view().grab_focus();
 }
 
 // Insert Code Box
