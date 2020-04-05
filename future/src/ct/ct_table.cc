@@ -57,8 +57,10 @@ CtTable::CtTable(CtMainWin* pCtMainWin,
     }
     _setup_new_matrix(tableMatrix);
 
+    _grid.set_column_spacing(1);
+    _grid.set_row_spacing(1);
     _frame.get_style_context()->add_class("ct-table");
-    _frame.set_border_width(1);
+    //_frame.set_border_width(0);
     _frame.add(_grid);
     show_all();
 }
@@ -82,6 +84,7 @@ void CtTable::_setup_new_matrix(const CtTableMatrix& tableMatrix)
             bool is_header = row == 0;
             // todo: don't know how to use colMax and colMin, so use just colMax
             pTableCell->get_text_view().set_size_request(_colMax, -1);
+            pTableCell->get_text_view().set_highlight_current_line(false);
             if (is_header)
             {
                 pTableCell->get_text_view().get_style_context()->add_class("ct-table-header-cell");
@@ -92,8 +95,11 @@ void CtTable::_setup_new_matrix(const CtTableMatrix& tableMatrix)
             else
             {
                 pTableCell->get_text_view().signal_populate_popup().connect(
-                            sigc::bind(sigc::mem_fun(*this, &CtTable::_on_populate_popup_cell), row, col));
+                        sigc::bind(sigc::mem_fun(*this, &CtTable::_on_populate_popup_cell), row, col));
             }
+            pTableCell->get_text_view().signal_key_press_event().connect(
+                        sigc::bind(sigc::mem_fun(*this, &CtTable::_on_key_press_event_cell), row, col), false);
+
             _grid.attach(*pTableCell, col, row, 1 /*1 cell horiz*/, 1 /*1 cell vert*/);
         }
     }
@@ -296,10 +302,38 @@ void CtTable::_on_populate_popup_cell(Gtk::Menu* menu, int row, int col)
     _pCtMainWin->get_ct_actions()->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::TableCell);
 }
 
-void CtTable::_on_button_press_event_cell(int row, int col)
+bool CtTable::_on_key_press_event_cell(GdkEventKey* event, int row, int col)
 {
-    if (not _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active()) return;
+    if (not _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active()) return false;
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
     _currentRow = row;
     _currentColumn = col;
+    // Ctrl+Return for multilines
+    if (event->state & Gdk::CONTROL_MASK && event->keyval == GDK_KEY_Return)
+        return false;
+    if (event->state & Gdk::CONTROL_MASK) {
+
+    }
+    else if (event->state & Gdk::SHIFT_MASK) {
+
+    }
+    else if (event->state & Gdk::MOD1_MASK) {
+
+    }
+    else {
+        if (event->keyval == GDK_KEY_Return || event->keyval == GDK_KEY_Tab || event->keyval == GDK_KEY_Up || event->keyval == GDK_KEY_Down) {
+            int index = row * _tableMatrix[0].size() + col;
+            if (event->keyval == GDK_KEY_Up) index -= 1;
+            else index +=1;
+            row = index/_tableMatrix[0].size();
+            col = index%_tableMatrix[0].size();
+            if (index < 0) return true;
+            if (row == _tableMatrix.size()) return true;
+             _currentRow = row;
+             _currentColumn = col;
+             _tableMatrix[row][col]->get_text_view().grab_focus();
+             return true;
+        }
+    }
+    return false;
 }

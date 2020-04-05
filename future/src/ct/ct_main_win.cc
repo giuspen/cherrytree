@@ -507,6 +507,7 @@ void CtMainWin::configure_theme()
     theme_css += ".ct-tree-panel:selected { background: #5294e2;  } ";
     theme_css += ".ct_header-panel { background-color: " + _pCtConfig->ttDefBg + "; } ";
     theme_css += ".ct-table-header-cell { font-weight: bold; } ";
+    theme_css += ".ct-table grid { background: #cccccc; border-style:solid; border-width: 1px; border-color: gray; } ";
 
     if (!_css_provider_theme)
     {

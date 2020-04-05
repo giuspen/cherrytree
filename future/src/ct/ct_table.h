@@ -87,13 +87,13 @@ protected:
 private:
     void _on_populate_popup_header_cell(Gtk::Menu* menu, int row, int col);
     void _on_populate_popup_cell(Gtk::Menu* menu, int row, int col);
-    void _on_button_press_event_cell(int row, int col);
+    bool _on_key_press_event_cell(GdkEventKey* event, int row, int co);
 
 protected:
     CtTableMatrix _tableMatrix;
     Gtk::Grid     _grid;
     int           _colMin;
     int           _colMax;
-    int           _currentRow;
-    int           _currentColumn;
+    int           _currentRow = 0;
+    int           _currentColumn = 0;
 };
