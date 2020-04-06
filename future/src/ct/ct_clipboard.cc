@@ -142,7 +142,7 @@ void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* /*pCodeb
         auto received_plain_text = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard(win)._on_received_to_plain_text(s, v, force);};
         auto received_rich_text = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard(win)._on_received_to_rich_text(s, v, force);};
         auto received_codebox = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard(win)._on_received_to_codebox(s, v, force);};
-        auto received_table = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard(win)._on_received_to_table(s, v, force);};
+        auto received_table = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard(win)._on_received_to_table(s, v, force, nullptr);};
         auto received_html = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard(win)._on_received_to_html(s, v, force);};
         auto received_image = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard(win)._on_received_to_image(s, v, force);};
         auto received_uri = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard(win)._on_received_to_uri_list(s, v, force);};
@@ -185,6 +185,27 @@ void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* /*pCodeb
 
     auto receive_fun = sigc::bind(target_fun, _pCtMainWin, pTextView, force_plain_text);
     Gtk::Clipboard::get()->request_contents(target, receive_fun);
+}
+
+void CtClipboard::table_row_to_clipboard(CtTable* pTable)
+{
+    CtClipboardData* clip_data = new CtClipboardData();
+    pTable->to_xml(clip_data->xml_doc.create_root_node("root"), 0);
+    clip_data->html_text = CtExport2Html(_pCtMainWin).table_export_to_html(pTable);
+
+    _set_clipboard_data({TARGET_CTD_TABLE, TARGETS_HTML[0]}, clip_data);
+}
+
+void CtClipboard::table_row_paste(CtTable* pTable)
+{
+    std::vector<Glib::ustring> targets = Gtk::Clipboard::get()->wait_for_targets();
+    if (vec::exists(targets, TARGET_CTD_TABLE))
+    {
+        auto win = _pCtMainWin;
+        Gtk::TextView* view = &_pCtMainWin->get_text_view();
+        auto received_table = [win, view, pTable](const Gtk::SelectionData& s) { CtClipboard(win)._on_received_to_table(s, view, false, pTable);};
+        Gtk::Clipboard::get()->request_contents(TARGET_CTD_TABLE, received_table);
+    }
 }
 
 // Given text_buffer and selection, returns the rich text xml
@@ -488,7 +509,7 @@ void CtClipboard::_on_received_to_codebox(const Gtk::SelectionData& selection_da
 }
 
 // From Clipboard to Table
-void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
+void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool, CtTable* parentTable)
 {
     Glib::ustring xml_text = selection_data.get_text();
     if (xml_text.empty())
@@ -506,19 +527,49 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
         return;
     }
 
-    std::list<CtAnchoredWidget*> widgets;
-    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(pTextView->get_buffer());
-    Gtk::TextIter insert_iter = pTextView->get_buffer()->get_insert()->get_iter();
-    CtXmlRead(_pCtMainWin).get_text_buffer_slot(gsv_buffer, &insert_iter, widgets, doc->get_root_node()->get_first_child("table"), insert_iter.get_offset());
-    if (not widgets.empty())
+    if (parentTable)
     {
-        _pCtMainWin->curr_tree_store().addAnchoredWidgets(
-                    _pCtMainWin->curr_tree_iter(),
-                    widgets, &_pCtMainWin->get_text_view());
-        _pCtMainWin->get_state_machine().update_state();
-    }
+        CtTableMatrix tableMatrix;
+        const bool isHeadFront = CtXmlRead(_pCtMainWin).populate_table_matrix_get_is_head_front(tableMatrix, static_cast<xmlpp::Element*>(doc->get_root_node()->get_first_child("table")));
+        if (!isHeadFront)
+        {
+            CtTableRow headerRow = tableMatrix.back();
+            tableMatrix.pop_back();
+            tableMatrix.insert(tableMatrix.begin(), headerRow);
+        }
 
-    pTextView->scroll_to(pTextView->get_buffer()->get_insert());
+        int col_num = (int)parentTable->get_table_matrix()[0].size();
+        int insert_after = parentTable->current_row() - 1;
+        if (insert_after < 0) insert_after = 0;
+        for (int row = 1 /*skip header*/; row < tableMatrix.size(); ++row)
+        {
+            std::vector<Glib::ustring> new_row;
+            std::transform(tableMatrix[row].begin(), tableMatrix[row].end(), std::back_inserter(new_row), [](CtTableCell* cell) { return cell->get_text_content(); });
+            while (new_row.size() > col_num) new_row.pop_back();
+            while (new_row.size() < col_num) new_row.push_back("");
+            parentTable->row_add(insert_after + (row-1), &new_row);
+        }
+        for (auto row: tableMatrix)
+            for (auto cell: row)
+                delete cell;
+        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
+    }
+    else
+    {
+        std::list<CtAnchoredWidget*> widgets;
+        Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(pTextView->get_buffer());
+        Gtk::TextIter insert_iter = pTextView->get_buffer()->get_insert()->get_iter();
+        CtXmlRead(_pCtMainWin).get_text_buffer_slot(gsv_buffer, &insert_iter, widgets, doc->get_root_node()->get_first_child("table"), insert_iter.get_offset());
+        if (not widgets.empty())
+        {
+            _pCtMainWin->curr_tree_store().addAnchoredWidgets(
+                        _pCtMainWin->curr_tree_iter(),
+                        widgets, &_pCtMainWin->get_text_view());
+            _pCtMainWin->get_state_machine().update_state();
+        }
+
+        pTextView->scroll_to(pTextView->get_buffer()->get_insert());
+    }
 }
 
 // From Clipboard to HTML Text

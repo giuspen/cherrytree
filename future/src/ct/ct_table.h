@@ -68,7 +68,7 @@ public:
     void column_delete(int column);
     void column_move_left(int column);
     void column_move_right(int column);
-    void row_add(int after_row);
+    void row_add(int after_row, std::vector<Glib::ustring>* row = nullptr);
     void row_delete(int row);
     void row_move_up(int row);
     void row_move_down(int row);

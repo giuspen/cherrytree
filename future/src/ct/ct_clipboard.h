@@ -25,6 +25,7 @@
 #include <ct_treestore.h>
 #include <libxml++/libxml++.h>
 #include "ct_codebox.h"
+#include "ct_table.h"
 
 struct CtClipboardData
 {
@@ -52,6 +53,8 @@ private:
     void _paste_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox);
 
 public:
+    void          table_row_to_clipboard(CtTable* pTable);
+    void          table_row_paste(CtTable* pTable);
     Glib::ustring rich_text_get_from_text_buffer_selection(CtTreeIter node_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer,
                                                            Gtk::TextIter iter_sel_start, Gtk::TextIter iter_sel_end,
                                                            gchar change_case = 'n', bool exclude_iter_sel_end = false);
@@ -73,7 +76,7 @@ private:
     void _on_received_to_plain_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool force_plain_text);
     void _on_received_to_rich_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
     void _on_received_to_codebox(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
-    void _on_received_to_table(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
+    void _on_received_to_table(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool, CtTable* parentTable);
     void _on_received_to_html(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
     void _on_received_to_image(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
     void _on_received_to_uri_list(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);

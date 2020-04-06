@@ -22,6 +22,7 @@
 #include "ct_actions.h"
 #include "ct_export2html.h"
 #include "ct_pref_dlg.h"
+#include "ct_clipboard.h"
 #include <gtkmm/dialog.h>
 #include <gtkmm/stock.h>
 #include <fstream>
@@ -547,21 +548,6 @@ void CtActions::table_column_add()
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
-void CtActions::table_column_cut()
-{
-    if (!_is_curr_node_not_read_only_or_error()) return;
-}
-
-void CtActions::table_column_copy()
-{
-
-}
-
-void CtActions::table_column_paste()
-{
-    if (!_is_curr_node_not_read_only_or_error()) return;
-}
-
 void CtActions::table_column_delete()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
@@ -593,16 +579,28 @@ void CtActions::table_row_add()
 void CtActions::table_row_cut()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
+    table_row_copy();
+    table_row_delete();
 }
 
 void CtActions::table_row_copy()
 {
-
+    auto table_state = std::dynamic_pointer_cast<CtAnchoredWidgetState_Table>(curr_table_anchor->get_state());
+    // remove rows after current
+    while (table_state->rows.size() > curr_table_anchor->current_row() + 1)
+        table_state->rows.pop_back();
+    // remove rows between current and header
+    while (table_state->rows.size() > 2)
+        table_state->rows.erase(table_state->rows.begin() + 1);
+    CtTable* new_table = dynamic_cast<CtTable*>(table_state->to_widget(_pCtMainWin));
+    CtClipboard(_pCtMainWin).table_row_to_clipboard(new_table);
+    delete new_table;
 }
 
 void CtActions::table_row_paste()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
+    CtClipboard(_pCtMainWin).table_row_paste(curr_table_anchor);
 }
 
 void CtActions::table_row_delete()

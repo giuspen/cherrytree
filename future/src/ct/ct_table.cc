@@ -204,9 +204,12 @@ void CtTable::column_move_right(int column)
     _setup_new_matrix(matrix);
 }
 
-void CtTable::row_add(int after_row)
+void CtTable::row_add(int after_row, std::vector<Glib::ustring>* row /*= nullptr*/)
 {
     auto matrix = _copy_matrix(-1, -1, after_row, -1, -1, -1);
+    if (row && row->size() == matrix[0].size())
+        for (int col = 0; col < matrix[0].size(); ++col)
+            matrix[after_row + 1][col]->get_text_view().get_buffer()->set_text(row->at(col));
     _setup_new_matrix(matrix);
 }
 
