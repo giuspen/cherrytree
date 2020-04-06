@@ -36,13 +36,13 @@ class CtMainWin;
 class CtAnchoredWidgetState
 {
 public:
-    CtAnchoredWidgetState(int charOffset, const std::string& justification) : _charOffset(charOffset), _justification(justification) {}
+    CtAnchoredWidgetState(int charOffset, const std::string& justification) : charOffset(charOffset), justification(justification) {}
     virtual bool equal(std::shared_ptr<CtAnchoredWidgetState> state) = 0;
     virtual CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) = 0;
 
-protected:
-    int _charOffset;
-    std::string _justification;
+public:
+    int charOffset;
+    std::string justification;
 };
 
 class CtAnchoredWidgetState_ImagePng : public CtAnchoredWidgetState
@@ -52,9 +52,9 @@ public:
     virtual bool equal(std::shared_ptr<CtAnchoredWidgetState> state);
     virtual CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin);
 
-private:
-    Glib::ustring _link;
-    Glib::RefPtr<Gdk::Pixbuf> _pixbuf;
+public:
+    Glib::ustring link;
+    Glib::RefPtr<Gdk::Pixbuf> pixbuf;
 };
 
 class CtAnchoredWidgetState_Anchor : public CtAnchoredWidgetState
@@ -64,8 +64,8 @@ public:
     virtual bool equal(std::shared_ptr<CtAnchoredWidgetState> state);
     virtual CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin);
 
-private:
-    Glib::ustring _name;
+public:
+    Glib::ustring name;
 };
 
 class CtAnchoredWidgetState_EmbFile: public CtAnchoredWidgetState
@@ -75,10 +75,10 @@ public:
     virtual bool equal(std::shared_ptr<CtAnchoredWidgetState> state);
     virtual CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin);
 
-private:
-    Glib::ustring _fileName;
-    std::string   _rawBlob;      // raw data, not a string
-    double        _timeSeconds;
+public:
+    Glib::ustring fileName;
+    std::string   rawBlob;      // raw data, not a string
+    double        timeSeconds;
 };
 
 class CtAnchoredWidgetState_Codebox : public CtAnchoredWidgetState
@@ -88,10 +88,10 @@ public:
     virtual bool equal(std::shared_ptr<CtAnchoredWidgetState> state);
     virtual CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin);
 
-private:
-    Glib::ustring _content, _syntax;
-    int _width, _height;
-    bool _widthInPixels, _brackets, _showNum;
+public:
+    Glib::ustring content, syntax;
+    int width, height;
+    bool widthInPixels, brackets, showNum;
 };
 
 class CtAnchoredWidgetState_Table: public CtAnchoredWidgetState
@@ -101,10 +101,10 @@ public:
     virtual bool equal(std::shared_ptr<CtAnchoredWidgetState> state);
     virtual CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin);
 
-private:
-    int _colMin;
-    int _colMax;
-    std::vector<std::vector<Glib::ustring>> _matrix;
+public:
+    int colMin;
+    int colMax;
+    std::vector<std::vector<Glib::ustring>> rows;
 };
 
 

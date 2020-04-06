@@ -100,6 +100,7 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
     // signals
     _ctTextview.signal_populate_popup().connect([this](Gtk::Menu* menu){
         if (not _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active()) return;
+        for (auto iter : menu->get_children()) menu->remove(*iter);
         _pCtMainWin->get_ct_actions()->curr_codebox_anchor = this;
         _pCtMainWin->get_ct_actions()->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::Codebox);
     });

@@ -96,6 +96,8 @@ void CtActions::table_handle()
                                            .filter_name=_("CSV File"), .filter_pattern={"*.csv"}};
         Glib::ustring filename = CtDialogs::file_select_dialog(args);
         if (filename.empty()) return;
+        _pCtMainWin->get_ct_config()->pickDirCsv = Glib::path_get_dirname(filename);
+        // todo: find good csv lib
         std::ifstream file(filename);
         std::string line;
         while (std::getline(file, line)) {
@@ -784,6 +786,14 @@ int CtActions::_table_dialog(Glib::ustring title, bool is_insert)
     checkbutton_table_ins_from_file.signal_toggled().connect([&](){
         size_frame.set_sensitive(!checkbutton_table_ins_from_file.get_active());
         col_min_max_frame.set_sensitive(!checkbutton_table_ins_from_file.get_active());
+    });
+    spinbutton_col_min.signal_changed().connect([&] {
+        if (spinbutton_col_min.get_value_as_int() > spinbutton_col_max.get_value_as_int())
+            spinbutton_col_max.set_value(spinbutton_col_min.get_value_as_int());
+    });
+    spinbutton_col_max.signal_changed().connect([&] {
+        if (spinbutton_col_max.get_value_as_int() < spinbutton_col_min.get_value_as_int())
+            spinbutton_col_min.set_value(spinbutton_col_max.get_value_as_int());
     });
 
     dialog.run();

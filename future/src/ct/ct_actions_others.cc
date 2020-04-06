@@ -22,6 +22,7 @@
 #include "ct_actions.h"
 #include "ct_export2html.h"
 #include "ct_pref_dlg.h"
+#include "ct_clipboard.h"
 #include <gtkmm/dialog.h>
 #include <gtkmm/stock.h>
 #include <fstream>
@@ -542,92 +543,123 @@ void CtActions::table_delete()
 
 void CtActions::table_column_add()
 {
-
-}
-
-void CtActions::table_column_cut()
-{
-
-}
-
-void CtActions::table_column_copy()
-{
-
-}
-
-void CtActions::table_column_paste()
-{
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    curr_table_anchor->column_add(curr_table_anchor->current_column());
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_column_delete()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    curr_table_anchor->column_delete(curr_table_anchor->current_column());
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_column_left()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    curr_table_anchor->column_move_left(curr_table_anchor->current_column());
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_column_right()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    curr_table_anchor->column_move_right(curr_table_anchor->current_column());
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_row_add()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    curr_table_anchor->row_add(curr_table_anchor->current_row());
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_row_cut()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    table_row_copy();
+    table_row_delete();
 }
 
 void CtActions::table_row_copy()
 {
-
+    auto table_state = std::dynamic_pointer_cast<CtAnchoredWidgetState_Table>(curr_table_anchor->get_state());
+    // remove rows after current
+    while (table_state->rows.size() > curr_table_anchor->current_row() + 1)
+        table_state->rows.pop_back();
+    // remove rows between current and header
+    while (table_state->rows.size() > 2)
+        table_state->rows.erase(table_state->rows.begin() + 1);
+    CtTable* new_table = dynamic_cast<CtTable*>(table_state->to_widget(_pCtMainWin));
+    CtClipboard(_pCtMainWin).table_row_to_clipboard(new_table);
+    delete new_table;
 }
 
 void CtActions::table_row_paste()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    CtClipboard(_pCtMainWin).table_row_paste(curr_table_anchor);
 }
 
 void CtActions::table_row_delete()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    curr_table_anchor->row_delete(curr_table_anchor->current_row());
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_row_up()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    curr_table_anchor->row_move_up(curr_table_anchor->current_row());
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_row_down()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    curr_table_anchor->row_move_down(curr_table_anchor->current_row());
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_rows_sort_descending()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (curr_table_anchor->row_sort_desc())
+        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_rows_sort_ascending()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    if (curr_table_anchor->row_sort_asc())
+        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_edit_properties()
 {
-
+    if (!_is_curr_node_not_read_only_or_error()) return;
+    _pCtMainWin->get_ct_config()->tableColMin = curr_table_anchor->get_col_min();
+    _pCtMainWin->get_ct_config()->tableColMax = curr_table_anchor->get_col_max();
+    if (!_table_dialog(_("Edit Table Properties"), false))
+        return;
+    curr_table_anchor->set_col_min_max(_pCtMainWin->get_ct_config()->tableColMin, _pCtMainWin->get_ct_config()->tableColMax);
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 
 void CtActions::table_export()
-{
+{    
+    // todo: find good csv lib
+    return;
 
+    CtDialogs::file_select_args args = {.pParentWin=_pCtMainWin, .curr_folder=_pCtMainWin->get_ct_config()->pickDirCsv,
+                                       .filter_name=_("CSV File"), .filter_pattern={"*.csv"}};
+    Glib::ustring filename = CtDialogs::file_save_as_dialog(args);
+    if (filename.empty()) return;
+    if (str::endswith(filename, ".csv")) filename += ".csv";
+    _pCtMainWin->get_ct_config()->pickDirCsv = Glib::path_get_dirname(filename);
 }
 
 // Anchor Edit Dialog

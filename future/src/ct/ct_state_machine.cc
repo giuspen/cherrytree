@@ -26,7 +26,7 @@
 // ImagePng
 CtAnchoredWidgetState_ImagePng::CtAnchoredWidgetState_ImagePng(CtImagePng* image)
     :CtAnchoredWidgetState(image->getOffset(), image->getJustification()),
-      _link(image->get_link()), _pixbuf(image->get_pixbuf()->copy())
+      link(image->get_link()), pixbuf(image->get_pixbuf()->copy())
 {
 
 }
@@ -34,21 +34,21 @@ CtAnchoredWidgetState_ImagePng::CtAnchoredWidgetState_ImagePng(CtImagePng* image
 bool CtAnchoredWidgetState_ImagePng::equal(std::shared_ptr<CtAnchoredWidgetState> state)
 {
     CtAnchoredWidgetState_ImagePng* other_state = dynamic_cast<CtAnchoredWidgetState_ImagePng*>(state.get());
-    return other_state && _charOffset == other_state->_charOffset && _justification == other_state->_justification &&
-            _link == other_state->_link &&
-            _pixbuf->get_byte_length() == other_state->_pixbuf->get_byte_length() &&
-            memcmp(_pixbuf->get_pixels(), other_state->_pixbuf->get_pixels(), _pixbuf->get_byte_length() * sizeof(guint8));
+    return other_state && charOffset == other_state->charOffset && justification == other_state->justification &&
+            link == other_state->link &&
+            pixbuf->get_byte_length() == other_state->pixbuf->get_byte_length() &&
+            memcmp(pixbuf->get_pixels(), other_state->pixbuf->get_pixels(), pixbuf->get_byte_length() * sizeof(guint8));
 }
 
 CtAnchoredWidget* CtAnchoredWidgetState_ImagePng::to_widget(CtMainWin* pCtMainWin)
 {
-    return new CtImagePng(pCtMainWin, _pixbuf->copy(), _link, _charOffset, _justification);
+    return new CtImagePng(pCtMainWin, pixbuf->copy(), link, charOffset, justification);
 }
 
 // ImageAnchor
 CtAnchoredWidgetState_Anchor::CtAnchoredWidgetState_Anchor(CtImageAnchor* anchor)
     :CtAnchoredWidgetState(anchor->getOffset(), anchor->getJustification()),
-      _name(anchor->get_anchor_name())
+      name(anchor->get_anchor_name())
 {
 
 }
@@ -56,19 +56,19 @@ CtAnchoredWidgetState_Anchor::CtAnchoredWidgetState_Anchor(CtImageAnchor* anchor
 bool CtAnchoredWidgetState_Anchor::equal(std::shared_ptr<CtAnchoredWidgetState> state)
 {
     CtAnchoredWidgetState_Anchor* other_state = dynamic_cast<CtAnchoredWidgetState_Anchor*>(state.get());
-    return other_state && _charOffset == other_state->_charOffset && _justification == other_state->_justification &&
-            _name == other_state->_name;
+    return other_state && charOffset == other_state->charOffset && justification == other_state->justification &&
+            name == other_state->name;
 }
 
 CtAnchoredWidget* CtAnchoredWidgetState_Anchor::to_widget(CtMainWin* pCtMainWin)
 {
-    return new CtImageAnchor(pCtMainWin, _name, _charOffset, _justification);
+    return new CtImageAnchor(pCtMainWin, name, charOffset, justification);
 }
 
 // ImageEmbFile
 CtAnchoredWidgetState_EmbFile::CtAnchoredWidgetState_EmbFile(CtImageEmbFile* embFile)
     :CtAnchoredWidgetState(embFile->getOffset(), embFile->getJustification()),
-      _fileName(embFile->get_file_name()), _rawBlob(embFile->get_raw_blob()), _timeSeconds(embFile->get_time())
+      fileName(embFile->get_file_name()), rawBlob(embFile->get_raw_blob()), timeSeconds(embFile->get_time())
 {
 
 }
@@ -76,65 +76,65 @@ CtAnchoredWidgetState_EmbFile::CtAnchoredWidgetState_EmbFile(CtImageEmbFile* emb
 bool CtAnchoredWidgetState_EmbFile::equal(std::shared_ptr<CtAnchoredWidgetState> state)
 {
     CtAnchoredWidgetState_EmbFile* other_state = dynamic_cast<CtAnchoredWidgetState_EmbFile*>(state.get());
-    return other_state && _charOffset == other_state->_charOffset && _justification == other_state->_justification &&
-            _fileName == other_state->_fileName && _rawBlob == other_state->_rawBlob && _timeSeconds == other_state->_timeSeconds;
+    return other_state && charOffset == other_state->charOffset && justification == other_state->justification &&
+            fileName == other_state->fileName && rawBlob == other_state->rawBlob && timeSeconds == other_state->timeSeconds;
 }
 
 CtAnchoredWidget* CtAnchoredWidgetState_EmbFile::to_widget(CtMainWin* pCtMainWin)
 {
-    return new CtImageEmbFile(pCtMainWin, _fileName, _rawBlob, _timeSeconds, _charOffset, _justification);
+    return new CtImageEmbFile(pCtMainWin, fileName, rawBlob, timeSeconds, charOffset, justification);
 }
 
 // Codebox
 CtAnchoredWidgetState_Codebox::CtAnchoredWidgetState_Codebox(CtCodebox* codebox)
     :CtAnchoredWidgetState(codebox->getOffset(), codebox->getJustification()),
-      _content(codebox->get_text_content()), _syntax(codebox->get_syntax_highlighting()), _width(codebox->get_frame_width()), _height(codebox->get_frame_height()),
-      _widthInPixels(codebox->get_width_in_pixels()), _brackets(codebox->get_highlight_brackets()), _showNum(codebox->get_show_line_numbers())
+      content(codebox->get_text_content()), syntax(codebox->get_syntax_highlighting()), width(codebox->get_frame_width()), height(codebox->get_frame_height()),
+      widthInPixels(codebox->get_width_in_pixels()), brackets(codebox->get_highlight_brackets()), showNum(codebox->get_show_line_numbers())
 {
 }
 
 bool CtAnchoredWidgetState_Codebox::equal(std::shared_ptr<CtAnchoredWidgetState> state)
 {
     CtAnchoredWidgetState_Codebox* other_state = dynamic_cast<CtAnchoredWidgetState_Codebox*>(state.get());
-    return other_state && _charOffset == other_state->_charOffset && _justification == other_state->_justification &&
-            _syntax == other_state->_syntax && _width == other_state->_width && _height == other_state->_height &&
-            _widthInPixels == other_state->_widthInPixels && _brackets == other_state->_brackets && _showNum == other_state->_showNum &&
-            _content == other_state->_content;
+    return other_state && charOffset == other_state->charOffset && justification == other_state->justification &&
+            syntax == other_state->syntax && width == other_state->width && height == other_state->height &&
+            widthInPixels == other_state->widthInPixels && brackets == other_state->brackets && showNum == other_state->showNum &&
+            content == other_state->content;
 }
 
 CtAnchoredWidget* CtAnchoredWidgetState_Codebox::to_widget(CtMainWin* pCtMainWin)
 {
-    return new CtCodebox(pCtMainWin, _content, _syntax, _width, _height,
-                         _charOffset, _justification, _widthInPixels, _brackets, _showNum);
+    return new CtCodebox(pCtMainWin, content, syntax, width, height,
+                         charOffset, justification, widthInPixels, brackets, showNum);
 }
 
 // Table
 CtAnchoredWidgetState_Table::CtAnchoredWidgetState_Table(CtTable* table)
-    :CtAnchoredWidgetState(table->getOffset(), table->getJustification()), _colMin(table->get_col_min()), _colMax(table->get_col_max())
+    :CtAnchoredWidgetState(table->getOffset(), table->getJustification()), colMin(table->get_col_min()), colMax(table->get_col_max())
 {
     for (auto& row: table->get_table_matrix())
     {
-        _matrix.push_back(std::vector<Glib::ustring>());
-        for (auto& cell: row)  _matrix.back().push_back(cell->get_text_content());
+        rows.push_back(std::vector<Glib::ustring>());
+        for (auto& cell: row)  rows.back().push_back(cell->get_text_content());
     }
 }
 
 bool CtAnchoredWidgetState_Table::equal(std::shared_ptr<CtAnchoredWidgetState> state)
 {
     CtAnchoredWidgetState_Table* other_state = dynamic_cast<CtAnchoredWidgetState_Table*>(state.get());
-    return other_state && _charOffset == other_state->_charOffset && _justification == other_state->_justification &&
-            _colMin == other_state->_colMin && _colMax == other_state->_colMax && _matrix == other_state->_matrix;
+    return other_state && charOffset == other_state->charOffset && justification == other_state->justification &&
+            colMin == other_state->colMin && colMax == other_state->colMax && rows == other_state->rows;
 }
 
 CtAnchoredWidget* CtAnchoredWidgetState_Table::to_widget(CtMainWin* pCtMainWin)
 {
     CtTableMatrix tableMatrix;
-    for (auto& row: _matrix)
+    for (auto& row: rows)
     {
         tableMatrix.push_back(CtTableRow());
         for (auto& cell: row) tableMatrix.back().push_back(new CtTableCell(pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID));
     }
-    return new CtTable(pCtMainWin, tableMatrix, _colMin, _colMax, true, _charOffset, _justification);
+    return new CtTable(pCtMainWin, tableMatrix, colMin, colMax, true, charOffset, justification);
 }
 
 
