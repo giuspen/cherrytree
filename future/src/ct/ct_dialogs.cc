@@ -631,7 +631,7 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
         pAllMatchesDialog->set_default_size(700, 350);
         pAllMatchesDialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
     }
-    CtAction* pAction = ctMainWin.get_ct_menu().find_action("toggle_show_allmatches_dlg");
+    CtMenuAction* pAction = ctMainWin.get_ct_menu().find_action("toggle_show_allmatches_dlg");
     Gtk::Button* pButtonHide = pAllMatchesDialog->add_button(str::format(_("Hide (Restore with '%s')"), pAction->get_shortcut(ctMainWin.get_ct_config())), Gtk::RESPONSE_CLOSE);
     pButtonHide->set_image_from_icon_name(Gtk::Stock::CLOSE.id, Gtk::ICON_SIZE_BUTTON);
     Gtk::TreeView* pTreeview = Gtk::manage(new Gtk::TreeView(rModel));

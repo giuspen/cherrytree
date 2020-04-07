@@ -1586,7 +1586,7 @@ void CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeIter row, const Glib::ust
         desc = _("Open a CherryTree Document");
 
     }
-    else if (CtAction const* action = _pCtMenu->find_action(key))
+    else if (CtMenuAction const* action = _pCtMenu->find_action(key))
     {
         icon = action->image;
         desc = action->desc;
@@ -1601,7 +1601,7 @@ bool CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeView* treeview, Glib::Ref
 {
     auto itemStore = CtChooseDialogListStore::create();
     itemStore->add_row("", CtConst::TAG_SEPARATOR, CtConst::TAG_SEPARATOR_ANSI_REPR);
-    for (const CtAction& action: _pCtMenu->get_actions())
+    for (const CtMenuAction& action: _pCtMenu->get_actions())
     {
         if (action.desc.empty()) continue; // skip stub menu entries
         if (action.id == "ct_open_file" && _pCtMainWin->get_ct_config()->toolbarUiList.find(CtConst::CHAR_STAR) != std::string::npos) continue;
@@ -1632,7 +1632,7 @@ void CtPrefDlg::fill_shortcut_model(Glib::RefPtr<Gtk::TreeStore> model)
     model->clear();
     std::string category_name = "no name";
     Gtk::TreeModel::Row cat_row;
-    for(const CtAction& action: _pCtMenu->get_actions())
+    for(const CtMenuAction& action: _pCtMenu->get_actions())
     {
         if (action.category.empty()) continue;
         if (action.category != category_name) {
@@ -1659,7 +1659,7 @@ bool CtPrefDlg::edit_shortcut(Gtk::TreeView* treeview)
     std::string id = row->get_value(_shortcutModelColumns.key);
     if (edit_shortcut_dialog(shortcut)) {
         if (shortcut != "") {
-            for(const CtAction& action : _pCtMenu->get_actions())
+            for(const CtMenuAction& action : _pCtMenu->get_actions())
                 if (action.get_shortcut(_pCtMainWin->get_ct_config()) == shortcut && action.id != id) {
                     // todo: this is a shorter version from python code
                     if (!CtDialogs::question_dialog(std::string("<b>") + _("The Keyboard Shortcut '%s' is already in use") + "</b>", *this))
