@@ -260,8 +260,8 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     _actions.push_back(CtMenuAction{table_cat, "table_delete", "edit_delete", _("_Delete Table"), None, _("Delete the Selected Table"), sigc::mem_fun(*pActions, &CtActions::table_delete)});
     _actions.push_back(CtMenuAction{table_cat, "table_column_add", "add", _("_Add Column"), None, _("Add a Table Column"), sigc::mem_fun(*pActions, &CtActions::table_column_add)});
     _actions.push_back(CtMenuAction{table_cat, "table_column_delete", "edit_delete", _("De_lete Column"), None, _("Delete the Selected Table Column"), sigc::mem_fun(*pActions, &CtActions::table_column_delete)});
-    _actions.push_back(CtMenuAction{table_cat, "table_column_left", "go-up", _("Move Column _Left"), None, _("Move the Selected Column Left"), sigc::mem_fun(*pActions, &CtActions::table_column_left)});
-    _actions.push_back(CtMenuAction{table_cat, "table_column_right", "go-down", _("Move Column _Right"), None, _("Move the Selected Column Right"), sigc::mem_fun(*pActions, &CtActions::table_column_right)});
+    _actions.push_back(CtMenuAction{table_cat, "table_column_left", "go-back", _("Move Column _Left"), None, _("Move the Selected Column Left"), sigc::mem_fun(*pActions, &CtActions::table_column_left)});
+    _actions.push_back(CtMenuAction{table_cat, "table_column_right", "go-forward", _("Move Column _Right"), None, _("Move the Selected Column Right"), sigc::mem_fun(*pActions, &CtActions::table_column_right)});
     _actions.push_back(CtMenuAction{table_cat, "table_row_add", "add", _("_Add Row"), KB_CONTROL+"comma", _("Add a Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_add)});
     _actions.push_back(CtMenuAction{table_cat, "table_row_cut", "edit_cut", _("Cu_t Row"), None, _("Cut a Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_cut)});
     _actions.push_back(CtMenuAction{table_cat, "table_row_copy", "edit_copy", _("_Copy Row"), None, _("Copy a Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_copy)});
@@ -424,9 +424,6 @@ Gtk::Menu* CtMenu::build_popup_menu(GtkWidget* pMenu,  POPUP_MENU_TYPE popupMenu
         _add_menu_item(pMenu, find_action("table_delete"));
         _add_separator(pMenu);
         _add_menu_item(pMenu, find_action("table_column_add"));
-        _add_menu_item(pMenu, find_action("table_column_cut"));
-        _add_menu_item(pMenu, find_action("table_column_copy"));
-        _add_menu_item(pMenu, find_action("table_column_paste"));
         _add_menu_item(pMenu, find_action("table_column_delete"));
         _add_separator(pMenu);
         _add_menu_item(pMenu, find_action("table_column_left"));
@@ -549,6 +546,7 @@ GtkWidget* CtMenu::_add_submenu(GtkWidget* pMenu, const char* id, const char* na
 #endif
     _add_menu_item_image_or_label(pMenuItem, image, pLabel);
     pMenuItem->get_child()->set_name(id); // for find_menu_item()
+    pMenuItem->show_all();
 
     GtkWidget* pSubmenu = gtk_menu_new();
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(pMenuItem->gobj()), GTK_WIDGET(pSubmenu));
