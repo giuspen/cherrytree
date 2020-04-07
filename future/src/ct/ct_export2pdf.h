@@ -1,5 +1,5 @@
 /*
- * ct_print.h
+ * ct_export2pdf.h
  *
  * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *

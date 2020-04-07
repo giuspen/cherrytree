@@ -509,7 +509,7 @@ void CtMainWin::configure_theme()
     theme_css += ".ct-table-header-cell { font-weight: bold; } ";
     theme_css += ".ct-table grid { background: #cccccc; border-style:solid; border-width: 1px; border-color: gray; } ";
 
-    if (!_css_provider_theme)
+    if (_css_provider_theme)
     {
         Gtk::StyleContext::remove_provider_for_screen(get_screen(), _css_provider_theme);
     }

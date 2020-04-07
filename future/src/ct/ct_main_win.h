@@ -34,7 +34,7 @@
 #include "ct_config.h"
 #include "ct_table.h"
 #include "ct_image.h"
-#include "ct_print.h"
+#include "ct_export2pdf.h"
 #include "ct_state_machine.h"
 
 struct CtStatusBar

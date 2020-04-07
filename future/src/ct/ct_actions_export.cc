@@ -20,7 +20,7 @@
  */
 
 #include "ct_actions.h"
-#include "ct_export.h"
+#include "ct_export2cairo.h"
 #include "ct_export2html.h"
 #include "ct_export2txt.h"
 #include <glib/gstdio.h>

@@ -1,5 +1,5 @@
 /*
- * ct_print.cc
+ * ct_export2pdf.cc
  *
  * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
@@ -19,9 +19,9 @@
  * MA 02110-1301, USA.
  */
 
-#include "ct_print.h"
+#include "ct_export2pdf.h"
 #include "ct_dialogs.h"
-#include "ct_export.h"
+#include "ct_export2cairo.h"
 
 Glib::ustring CtPrintCodeboxProxy::pango_from_code_buffer(CtCodebox* codebox) { return CtExport2Pango().pango_get_from_code_buffer(codebox->get_buffer(), -1, -1); }
 
@@ -29,7 +29,7 @@ CtPrint::CtPrint()
 {
     _pPrintSettings = Gtk::PrintSettings::create();
     _pPageSetup = Gtk::PageSetup::create();
-    _pPageSetup->set_paper_size(Gtk::PaperSize("A4"));
+    _pPageSetup->set_paper_size(Gtk::PaperSize("iso_a4"));
 }
 
 void CtPrint::run_page_setup_dialog(Gtk::Window* pWin)

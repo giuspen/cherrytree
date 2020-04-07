@@ -31,7 +31,7 @@
 #include "ct_main_win.h"
 #include "ct_menu.h"
 #include "ct_actions.h"
-#include "ct_print.h"
+#include "ct_export2pdf.h"
 
 class CtMenu;
 class CtMainWin;

@@ -1,5 +1,5 @@
 /*
- * ct_export.cc
+ * ct_export2cairo.cc
  *
  * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
@@ -19,7 +19,7 @@
  * MA 02110-1301, USA.
  */
 
-#include "ct_export.h"
+#include "ct_export2cairo.h"
 #include "ct_dialogs.h"
 
 
