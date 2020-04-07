@@ -22,7 +22,28 @@
 #pragma once
 
 #include "ct_main_win.h"
+#include "ct_dialogs.h"
 #include <iterator>
+
+class CtExport2Pdf
+{
+public:
+    CtExport2Pdf(CtMainWin* pCtMainWin) { _pCtMainWin = pCtMainWin; }
+
+    void node_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options, int sel_start, int sel_end);
+    void node_and_subnodes_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options);
+    void tree_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options);
+
+private:
+    void _nodes_all_export_print_iter(CtTreeIter tree_iter, const CtExportOptions& options,
+                                      std::vector<Glib::ustring>& tree_pango_slots, std::list<CtAnchoredWidget*>& tree_widgets, Glib::ustring& text_font);
+    void _add_node_name(Glib::ustring node_name, std::vector<Glib::ustring>& pango_slots);
+
+private:
+    CtMainWin* _pCtMainWin;
+};
+
+
 
 // base class for proxy
 class CtPrintWidgetProxy
@@ -176,4 +197,13 @@ private:
     double                           _y_idx;
 };
 
-
+class CtExport2Pango
+{
+public:
+    Glib::ustring pango_get_from_code_buffer(Glib::RefPtr<Gsv::Buffer> code_buffer, int sel_start, int sel_end);
+    void pango_get_from_treestore_node(CtTreeIter node_iter, int sel_start, int sel_end, std::vector<Glib::ustring>& out_slots,
+                                       bool excude_anchors, std::list<CtAnchoredWidget*>& out_widgets);
+private:
+    Glib::ustring _pango_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer);
+    Glib::ustring _pango_text_serialize(Gtk::TextIter start_iter, Gtk::TextIter end_iter, const std::map<const gchar*, std::string>& curr_attributes);
+};

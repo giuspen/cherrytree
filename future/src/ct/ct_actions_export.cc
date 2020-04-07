@@ -20,7 +20,7 @@
  */
 
 #include "ct_actions.h"
-#include "ct_export2cairo.h"
+#include "ct_export2pdf.h"
 #include "ct_export2html.h"
 #include "ct_export2txt.h"
 #include <glib/gstdio.h>
@@ -78,7 +78,7 @@ void CtActions::_export_print(bool save_to_pdf, Glib::ustring auto_path, bool au
             pdf_filepath = _get_pdf_filepath(pdf_filepath);
             if (pdf_filepath == "") return;
         }
-        CtExportPrint(_pCtMainWin).node_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _export_options, -1, -1);
+        CtExport2Pdf(_pCtMainWin).node_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _export_options, -1, -1);
     }
     else if (export_type == CtDialogs::CtProcessNode::CURRENT_NODE_AND_SUBNODES)
     {
@@ -87,7 +87,7 @@ void CtActions::_export_print(bool save_to_pdf, Glib::ustring auto_path, bool au
             pdf_filepath = _get_pdf_filepath(_pCtMainWin->get_curr_doc_file_name());
             if (pdf_filepath == "") return;
         }
-        CtExportPrint(_pCtMainWin).node_and_subnodes_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _export_options);
+        CtExport2Pdf(_pCtMainWin).node_and_subnodes_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _export_options);
     }
     else if (export_type == CtDialogs::CtProcessNode::ALL_TREE)
     {
@@ -102,7 +102,7 @@ void CtActions::_export_print(bool save_to_pdf, Glib::ustring auto_path, bool au
             pdf_filepath = _get_pdf_filepath(_pCtMainWin->get_curr_doc_file_name());
             if (pdf_filepath == "") return;
         }
-        CtExportPrint(_pCtMainWin).tree_export_print(pdf_filepath, _pCtMainWin->curr_tree_store().get_ct_iter_first(), _export_options);
+        CtExport2Pdf(_pCtMainWin).tree_export_print(pdf_filepath, _pCtMainWin->curr_tree_store().get_ct_iter_first(), _export_options);
     }
     else if (export_type == CtDialogs::CtProcessNode::SELECTED_TEXT)
     {
@@ -116,7 +116,7 @@ void CtActions::_export_print(bool save_to_pdf, Glib::ustring auto_path, bool au
             pdf_filepath = _get_pdf_filepath(pdf_filepath);
             if (pdf_filepath == "") return;
         }
-        CtExportPrint(_pCtMainWin).node_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _export_options, iter_start.get_offset(), iter_end.get_offset());
+        CtExport2Pdf(_pCtMainWin).node_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _export_options, iter_start.get_offset(), iter_end.get_offset());
     }
 }
 

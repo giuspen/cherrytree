@@ -68,13 +68,12 @@ COMMON_SOURCES = \
 	src/ct/ct_dialogs.cc \
 	src/ct/ct_list.cc \
 	src/ct/ct_clipboard.cc \
-        src/ct/ct_export2cairo.cc \
-        src/ct/ct_export2html.cc \
-        src/ct/ct_export2pdf.cc \
-        src/ct/ct_export2txt.cc \
+	src/ct/ct_export2html.cc \
+	src/ct/ct_export2pdf.cc \
+	src/ct/ct_export2txt.cc \
 	src/ct/ct_imports.cc \
 	src/ct/ct_widgets.cc \
-        src/ct/ct_state_machine.cc
+	src/ct/ct_state_machine.cc
 
 cherrytree_SOURCES = \
 	src/ct/ct_main.cc \
