@@ -23,7 +23,10 @@
 
 #include <string>
 #include <list>
+#include <set>
 #include <unordered_map>
+#include <glibmm/ustring.h>
+#include <gtksourceviewmm/buffer.h>
 
 enum class CtYesNoCancel { Yes, No, Cancel };
 
@@ -91,4 +94,39 @@ private:
 struct CtRecentDocsFilepaths : public CtMaxSizedList<std::string>
 {
     CtRecentDocsFilepaths() : CtMaxSizedList<std::string>{10} {}
+};
+
+
+struct CtStorageNodeState
+{
+    bool upd{false};
+    bool prop{false};
+    bool buff{false};
+    bool hier{false};
+};
+
+struct CtStorageSyncPending
+{
+    bool                                           bookmarks_to_write{false};
+    std::unordered_map<gint64, CtStorageNodeState> nodes_to_write_dict;
+    std::set<gint64>                               nodes_to_rm_set;
+};
+
+class CtAnchoredWidget;
+class CtStorageEntity
+{
+public:
+    CtStorageEntity() = default;
+    virtual ~CtStorageEntity() = default;
+
+    virtual void close_connect() = 0;
+    virtual void reopen_connect() = 0;
+    virtual void test_connection() = 0;
+
+    virtual bool populate_treestore(const Glib::ustring& file_path, Glib::ustring& error) = 0;
+    virtual bool save_treestore(const Glib::ustring& file_path, const CtStorageSyncPending& syncPending, Glib::ustring& error) = 0;
+
+    virtual Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
+                                                              const std::string& syntax,
+                                                              std::list<CtAnchoredWidget*>& widgets) const = 0;
 };

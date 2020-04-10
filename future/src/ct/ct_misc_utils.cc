@@ -774,11 +774,18 @@ std::string CtFileSystem::get_proper_platform_filepath(std::string filepath)
     return filepath;
 }
 
-void CtFileSystem::copy_file(Glib::ustring from_file, Glib::ustring to_file)
+bool CtFileSystem::copy_file(Glib::ustring from_file, Glib::ustring to_file)
 {
-    std::ifstream  src(from_file, std::ios::binary);
-    std::ofstream  dst(to_file,   std::ios::binary);
-    dst << src.rdbuf();
+    Glib::RefPtr<Gio::File> rFileFrom = Gio::File::create_for_path(from_file);
+    Glib::RefPtr<Gio::File> rFileTo = Gio::File::create_for_path(to_file);
+    return rFileFrom->copy(rFileTo, Gio::FILE_COPY_OVERWRITE);
+}
+
+bool CtFileSystem::move_file(Glib::ustring from_file, Glib::ustring to_file)
+{
+    Glib::RefPtr<Gio::File> rFileFrom = Gio::File::create_for_path(from_file);
+    Glib::RefPtr<Gio::File> rFileTo = Gio::File::create_for_path(to_file);
+    return rFileFrom->move(rFileTo, Gio::FILE_COPY_OVERWRITE);
 }
 
 std::string CtFileSystem::abspath(const std::string& path)

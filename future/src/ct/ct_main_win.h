@@ -69,6 +69,7 @@ class CtActions;
 class CtTmp;
 class CtMenu;
 class CtPrint;
+class CtStorageControl;
 
 class CtMainWin : public Gtk::ApplicationWindow
 {
@@ -85,11 +86,15 @@ public:
               Gsv::StyleSchemeManager* pGsvStyleSchemeManager);
     virtual ~CtMainWin();
 
-    bool read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, const bool isImport);
     void config_apply_before_show_all();
     void config_apply_after_show_all();
     void config_update_data_from_curr_status();
-    bool filepath_open(const std::string& filepath, const bool force_reset = false);
+
+    bool file_open(const std::string& filepath, const bool force_reset = false);
+    void file_save();
+    void file_save_as(const std::string& new_filepath, const std::string& password);
+    void file_vacuum();
+
     bool reset(const bool force_reset = false);
     bool check_unsaved();
     void configure_theme();
@@ -99,15 +104,7 @@ public:
     void load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTreeIter tree_iter);
     void update_window_save_not_needed();
     bool get_file_save_needed();
-    std::string get_curr_doc_password() { return _ctCurrFile.password; }
-    std::string get_curr_doc_file_path() { return (_ctCurrFile.rFile ? _ctCurrFile.rFile->get_path():""); }
-    std::string get_curr_doc_file_name() { return (_ctCurrFile.rFile ? Glib::path_get_basename(_ctCurrFile.rFile->get_path()):""); } // pygtk: file_name
-    std::string get_curr_doc_file_dir() { return (_ctCurrFile.rFile ? Glib::path_get_dirname(_ctCurrFile.rFile->get_path()):""); } // pygtk: file_dir
-    CtDocType   get_curr_doc_file_type() { return CtMiscUtil::get_doc_type(get_curr_doc_file_path()); }
-    void set_new_curr_doc(const std::string& filepath,
-                          const std::string& password,
-                          CtSQLite* const pCtSQLite);
-    void curr_file_mod_time_update_value(const bool doEnable); // pygtk: modification_time_update_value
+
     void update_selected_node_statusbar_info();
 
     CtTreeIter               curr_tree_iter()  { return _uCtTreestore->to_ct_tree_iter(_uCtTreeview->get_selection()->get_selected()); }
@@ -118,6 +115,7 @@ public:
     CtMenu&                  get_ct_menu()     { return *_pCtMenu; }
     CtPrint&                 get_ct_print()    { return *_pCtPrint; }
     CtConfig*                get_ct_config()   { return _pCtConfig; }
+    CtStorageControl*        get_ct_storage()  { return _pCtStorage; }
     CtActions*               get_ct_actions()  { return _pCtActions; }
     CtTmp*                   get_ct_tmp()      { return _pCtTmp; }
     Gtk::IconTheme*          get_icon_theme()  { return _pGtkIconTheme; }
@@ -184,12 +182,12 @@ private:
     bool                _on_textview_scroll_event(GdkEventScroll* event);
 
     void                _title_update(const bool saveNeeded); // pygtk: window_title_update
-    void                _set_new_curr_doc(const Glib::RefPtr<Gio::File>& r_file, const std::string& password);
     void                _reset_CtTreestore_CtTreeview();
     void                _ensure_curr_doc_in_recent_docs();
     void                _zoom_tree(bool is_increase);
 
 private:
+    CtStorageControl*            _pCtStorage{nullptr};
     CtConfig*                    _pCtConfig;
     CtActions*                   _pCtActions;
     CtTmp*                       _pCtTmp;
@@ -218,14 +216,6 @@ private:
     CtTextView                   _ctTextview;
     CtStateMachine               _ctStateMachine;
     std::unique_ptr<CtPairCodeboxMainWin> _uCtPairCodeboxMainWin;
-
-    struct CtCurrFile
-    {
-        Glib::RefPtr<Gio::File> rFile;
-        double modTime{0};
-        std::string password;
-    };
-    CtCurrFile _ctCurrFile;
 
     Glib::RefPtr<Gtk::CssProvider> _css_provider_theme;
 

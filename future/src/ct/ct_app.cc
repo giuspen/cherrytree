@@ -22,6 +22,7 @@
 #include <glib/gstdio.h>
 #include "ct_app.h"
 #include "ct_pref_dlg.h"
+#include "ct_storage_control.h"
 #include "config.h"
 
 CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HANDLES_OPEN)
@@ -108,7 +109,7 @@ CtMainWin* CtApp::_get_main_win(const std::string& filepath)
     for (Gtk::Window* pWin : get_windows())
     {
         CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(pWin);
-        if (filepath == pCtMainWin->get_curr_doc_file_path())
+        if (filepath == pCtMainWin->get_ct_storage()->get_file_path())
         {
             return pCtMainWin;
         }
@@ -117,7 +118,7 @@ CtMainWin* CtApp::_get_main_win(const std::string& filepath)
     for (Gtk::Window* pWin : get_windows())
     {
         CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(pWin);
-        if (pCtMainWin->get_curr_doc_file_path().empty())
+        if (pCtMainWin->get_ct_storage()->get_file_path().empty())
         {
             return pCtMainWin;
         }
@@ -143,7 +144,7 @@ void CtApp::on_activate()
             Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(CtApp::_uCtCfg->recentDocsFilepaths.front());
             if (r_file->query_exists())
             {
-                if (not pAppWindow->read_nodes_from_gio_file(r_file, false/*isImport*/))
+                if (not pAppWindow->file_open(r_file->get_path(), false))
                 {
                     _printHelpMessage();
                 }
@@ -178,7 +179,7 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
             {
                 // there is not a window already running with that document
                 pAppWindow = _create_appwindow();
-                if (not pAppWindow->read_nodes_from_gio_file(r_file, false/*isImport*/))
+                if (not pAppWindow->file_open(r_file->get_path(), false))
                 {
                     _printHelpMessage();
                 }

@@ -72,12 +72,12 @@ public:
     Gtk::TreeModelColumn<std::list<CtAnchoredWidget*>> colAnchoredWidgets;
 };
 
-class CtSQLite;
+class CtMainWin;
 
 class CtTreeIter : public Gtk::TreeIter
 {
 public:
-    CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* _columns, CtSQLite* pCtSQLite);
+    CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* _columns, CtMainWin* pCtMainWin);
     CtTreeIter() {} // invalid, casting to bool will give false
 
     CtTreeIter  parent() const;
@@ -117,7 +117,7 @@ public:
 
 private:
     const CtTreeModelColumns* _pColumns{nullptr};
-    CtSQLite* _pCtSQLite{nullptr};
+    CtMainWin*                _pCtMainWin{nullptr};
 };
 
 class CtTextView;
@@ -130,7 +130,6 @@ public:
 
     void          view_connect(Gtk::TreeView* pTreeView);
     void          view_append_columns(Gtk::TreeView* pTreeView);
-    bool          read_nodes_from_filepath(const char* filepath, const bool isImport, const Gtk::TreeIter* pParentIter=nullptr);
     void          get_node_data(const Gtk::TreeIter& treeIter, CtNodeData& nodeData);
     void          update_node_data(const Gtk::TreeIter& treeIter, const CtNodeData& nodeData);
     void          update_node_icon(const Gtk::TreeIter& treeIter);
@@ -162,7 +161,6 @@ public:
     CtTreeIter                     get_node_from_node_name(const Glib::ustring& node_name);
     const std::list<gint64>&       get_bookmarks();
     void                           set_bookmarks(const std::list<gint64>& bookmarks);
-    void                           set_new_curr_sqlite_doc(CtSQLite* const pCtSQLite);
 
     std::string get_tree_expanded_collapsed_string(Gtk::TreeView& treeView);
     void        set_tree_expanded_collapsed_string(const std::string& expanded_collapsed_string, Gtk::TreeView& treeView, bool nodes_bookm_exp);
@@ -182,7 +180,6 @@ public:
 
     void pending_edit_db_bookmarks();
     void pending_rm_db_nodes(const std::vector<gint64>& node_ids);
-    bool pending_data_write(const bool run_vacuum=false);
 
 protected:
     Glib::RefPtr<Gdk::Pixbuf> _get_node_icon(int nodeDepth, const std::string &syntax, guint32 customIconId);
@@ -198,6 +195,5 @@ protected:
     std::set<Glib::ustring>         _usedTags;
     std::map<gint64, Glib::ustring> _nodes_names_dict; // for link tooltips
     std::list<sigc::connection>     _curr_node_sigc_conn;
-    CtSQLite*                       _pCtSQLite{nullptr};
     CtMainWin*                      _pCtMainWin;
 };

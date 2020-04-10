@@ -24,6 +24,7 @@
 #include "ct_p7za_iface.h"
 #include "ct_clipboard.h"
 #include "ct_actions.h"
+#include "ct_storage_control.h"
 #include <glib-object.h>
 
 CtMainWin::CtMainWin(CtConfig*        pCtConfig,
@@ -37,6 +38,7 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
                      Gsv::LanguageManager*    pGsvLanguageManager,
                      Gsv::StyleSchemeManager* pGsvStyleSchemeManager)
  : Gtk::ApplicationWindow(),
+   _pCtStorage(CtStorageControl::create_dummy_storage()),
    _pCtConfig(pCtConfig),
    _pCtActions(pCtActions),
    _pCtTmp(pCtTmp),
@@ -114,6 +116,7 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
 
 CtMainWin::~CtMainWin()
 {
+    delete _pCtStorage;
     //printf("~CtMainWin\n");
 }
 
@@ -618,7 +621,7 @@ void CtMainWin::set_menu_items_recent_documents()
     {
         if (Glib::file_test(filepath, Glib::FILE_TEST_IS_REGULAR))
         {
-            if (filepath_open(filepath))
+            if (file_open(filepath))
             {
                 _pCtConfig->recentDocsFilepaths.move_or_push_front(filepath);
                 set_menu_items_recent_documents();
@@ -664,7 +667,7 @@ void CtMainWin::set_menu_items_special_chars()
 
 void CtMainWin::_ensure_curr_doc_in_recent_docs()
 {
-    const std::string currDocFilePath = get_curr_doc_file_path();
+    const std::string currDocFilePath = _pCtStorage->get_file_path();
     if (not currDocFilePath.empty())
     {
         _pCtConfig->recentDocsFilepaths.move_or_push_front(currDocFilePath);
@@ -691,14 +694,101 @@ void CtMainWin::_zoom_tree(bool is_increase)
     _uCtTreeview->override_font(description);
 }
 
-bool CtMainWin::filepath_open(const std::string& filepath, const bool force_reset)
+bool CtMainWin::file_open(const std::string& filepath, const bool force_reset)
 {
     _ensure_curr_doc_in_recent_docs();
     if (not reset(force_reset))
     {
         return false;
     }
-    return read_nodes_from_gio_file(Gio::File::create_for_path(filepath), false/*isImport*/);
+
+    Glib::ustring error;
+    auto new_storage = CtStorageControl::load_from(this, filepath, error);
+    if (!new_storage) {
+        CtDialogs::error_dialog(error, *this);
+        return false;
+    }
+    delete _pCtStorage;
+    _pCtStorage = new_storage;
+
+    _title_update(false/*saveNeeded*/);
+    set_bookmarks_menu_items();
+    const auto iterDocsRestore{_pCtConfig->recentDocsRestore.find(filepath)};
+    switch (_pCtConfig->restoreExpColl)
+    {
+        case CtRestoreExpColl::ALL_EXP:
+        {
+            _uCtTreeview->expand_all();
+        } break;
+        case CtRestoreExpColl::ALL_COLL:
+        {
+            _uCtTreeview->expand_all();
+            _uCtTreestore->set_tree_expanded_collapsed_string("", *_uCtTreeview, _pCtConfig->nodesBookmExp);
+        } break;
+        default:
+        {
+            if (iterDocsRestore != _pCtConfig->recentDocsRestore.end())
+            {
+                _uCtTreestore->set_tree_expanded_collapsed_string(iterDocsRestore->second.exp_coll_str, *_uCtTreeview, _pCtConfig->nodesBookmExp);
+            }
+        } break;
+    }
+    if (iterDocsRestore != _pCtConfig->recentDocsRestore.end())
+    {
+        _uCtTreestore->set_tree_path_n_text_cursor(_uCtTreeview.get(),
+                                                   &_ctTextview,
+                                                   iterDocsRestore->second.node_path,
+                                                   iterDocsRestore->second.cursor_pos);
+        _ctTextview.grab_focus();
+    }
+
+    get_ct_config()->recentDocsFilepaths.move_or_push_front(filepath);
+    set_menu_items_recent_documents();
+
+    return true;
+}
+
+void CtMainWin::file_save()
+{
+    if (_pCtStorage->get_file_path().empty())
+        return;
+    if (!get_file_save_needed())
+        return;
+    if (!curr_tree_store().get_iter_first())
+        return;
+
+    Glib::ustring error;
+    if (_pCtStorage->save(error))
+    {
+        update_window_save_not_needed();
+        get_state_machine().update_state();
+    }
+    else
+    {
+        CtDialogs::error_dialog(error, *this);
+    }
+}
+
+void CtMainWin::file_save_as(const std::string& new_filepath, const std::string& password)
+{
+    Glib::ustring error;
+    auto new_storage = CtStorageControl::save_as(this, new_filepath, password, error);
+    if (!new_storage)
+    {
+        CtDialogs::error_dialog(error, *this);
+        return;
+    }
+
+    delete _pCtStorage;
+    _pCtStorage = new_storage;
+
+    update_window_save_not_needed();
+    get_state_machine().update_state();
+}
+
+void CtMainWin::file_vacuum()
+{
+    _pCtStorage->vacuum();
 }
 
 bool CtMainWin::reset(const bool force_reset)
@@ -709,14 +799,14 @@ bool CtMainWin::reset(const bool force_reset)
     {
         return false;
     }
-    curr_file_mod_time_update_value(false/*doEnable*/);
 
     auto on_scope_exit = scope_guard([&](void*) { user_active() = true; });
     user_active() = false;
 
     _reset_CtTreestore_CtTreeview();
     _latestStatusbarUpdateTime.clear();
-    _set_new_curr_doc(Glib::RefPtr<Gio::File>{nullptr}, "");
+    delete _pCtStorage;
+    _pCtStorage = CtStorageControl::create_dummy_storage();
 
     update_window_save_not_needed();
     get_state_machine().reset();
@@ -745,126 +835,11 @@ bool CtMainWin::check_unsaved()
     return true;
 }
 
-void CtMainWin::_set_new_curr_doc(const Glib::RefPtr<Gio::File>& r_file, const std::string& password)
-{
-    _ctCurrFile.rFile = r_file;
-    _ctCurrFile.password = password;
-    if (r_file)
-    {
-        curr_file_mod_time_update_value(true/*doEnable*/);
-    }
-}
 
-void CtMainWin::set_new_curr_doc(const std::string& filepath,
-                                 const std::string& password,
-                                 CtSQLite* const pCtSQLite)
-{
-    Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(filepath);
-    _set_new_curr_doc(r_file, password);
-    _uCtTreestore->set_new_curr_sqlite_doc(pCtSQLite);
-}
-
-bool CtMainWin::read_nodes_from_gio_file(const Glib::RefPtr<Gio::File>& r_file, const bool isImport)
-{
-    bool retOk{false};
-    const std::string filepath{r_file->get_path()};
-    const CtDocEncrypt docEncrypt = CtMiscUtil::get_doc_encrypt(filepath);
-    const gchar* pFilepathNoEncrypt{nullptr};
-    std::string password;
-    if (CtDocEncrypt::True == docEncrypt)
-    {
-        g_autofree gchar* title = g_strdup_printf(_("Enter Password for %s"), Glib::path_get_basename(filepath).c_str());
-        while (true)
-        {
-            CtDialogTextEntry dialogTextEntry(title, true/*forPassword*/, this);
-            int response = dialogTextEntry.run();
-            if (Gtk::RESPONSE_OK != response)
-            {
-                break;
-            }
-            password = dialogTextEntry.get_entry_text();
-            if (0 == CtP7zaIface::p7za_extract(filepath.c_str(),
-                                               _pCtTmp->getHiddenDirPath(filepath),
-                                               password.c_str()) and
-                g_file_test(_pCtTmp->getHiddenFilePath(filepath), G_FILE_TEST_IS_REGULAR))
-            {
-                pFilepathNoEncrypt = _pCtTmp->getHiddenFilePath(filepath);
-                break;
-            }
-        }
-    }
-    else if (CtDocEncrypt::False == docEncrypt)
-    {
-        pFilepathNoEncrypt = filepath.c_str();
-    }
-    if (pFilepathNoEncrypt)
-    {
-        retOk = _uCtTreestore->read_nodes_from_filepath(pFilepathNoEncrypt, isImport);
-    }
-    if (retOk and not isImport)
-    {
-        _set_new_curr_doc(r_file, password);
-        _title_update(false/*saveNeeded*/);
-        set_bookmarks_menu_items();
-        const CtRecentDocsRestore::iterator iterDocsRestore{_pCtConfig->recentDocsRestore.find(filepath)};
-        switch (_pCtConfig->restoreExpColl)
-        {
-            case CtRestoreExpColl::ALL_EXP:
-            {
-                _uCtTreeview->expand_all();
-            } break;
-            case CtRestoreExpColl::ALL_COLL:
-            {
-                _uCtTreeview->expand_all();
-                _uCtTreestore->set_tree_expanded_collapsed_string("",
-                                                                  *_uCtTreeview,
-                                                                  _pCtConfig->nodesBookmExp);
-            } break;
-            default:
-            {
-                if (iterDocsRestore != _pCtConfig->recentDocsRestore.end())
-                {
-                    _uCtTreestore->set_tree_expanded_collapsed_string(iterDocsRestore->second.exp_coll_str,
-                                                                      *_uCtTreeview,
-                                                                      _pCtConfig->nodesBookmExp);
-                }
-            } break;
-        }
-        if (iterDocsRestore != _pCtConfig->recentDocsRestore.end())
-        {
-            _uCtTreestore->set_tree_path_n_text_cursor(_uCtTreeview.get(),
-                                                       &_ctTextview,
-                                                       iterDocsRestore->second.node_path,
-                                                       iterDocsRestore->second.cursor_pos);
-            _ctTextview.grab_focus();
-        }
-    }
-    return retOk;
-}
 
 bool CtMainWin::get_file_save_needed()
 {
     return (_fileSaveNeeded or (curr_tree_iter() and curr_tree_iter().get_node_text_buffer()->get_modified()));
-}
-
-void CtMainWin::curr_file_mod_time_update_value(const bool doEnable)
-{
-    if (doEnable and _ctCurrFile.rFile->query_exists())
-    {
-        Glib::RefPtr<Gio::FileInfo> rFileInfo = _ctCurrFile.rFile->query_info();
-        if (rFileInfo)
-        {
-            Glib::TimeVal timeVal = rFileInfo->modification_time();
-            if (timeVal.valid())
-            {
-                _ctCurrFile.modTime = timeVal.as_double();
-            }
-        }
-    }
-    else
-    {
-        _ctCurrFile.modTime = 0;
-    }
 }
 
 void CtMainWin::update_selected_node_statusbar_info()
@@ -1477,9 +1452,9 @@ void CtMainWin::_title_update(const bool saveNeeded)
     {
         title += "*";
     }
-    if (_ctCurrFile.rFile)
+    if (_pCtStorage->get_file_path() != "")
     {
-        title += get_curr_doc_file_name() + " - " + get_curr_doc_file_dir() + " - ";
+        title += _pCtStorage->get_file_name() + " - " + _pCtStorage->get_file_dir() + " - ";
     }
     title += "CherryTree ";
     title += CtConst::CT_VERSION;

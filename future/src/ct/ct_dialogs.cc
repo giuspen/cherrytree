@@ -22,6 +22,7 @@
 #include "ct_dialogs.h"
 #include "ct_treestore.h"
 #include "ct_main_win.h"
+#include "ct_storage_control.h"
 #include <gtkmm/stock.h>
 #include <gtkmm/scrolledwindow.h>
 #include <gtkmm/treeview.h>
@@ -930,7 +931,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
         if (ctMainWin.get_ct_config()->linksRelative)
         {
             Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(filepath);
-            Glib::RefPtr<Gio::File> rDir = Gio::File::create_for_path(ctMainWin.get_curr_doc_file_dir());
+            Glib::RefPtr<Gio::File> rDir = Gio::File::create_for_path(ctMainWin.get_ct_storage()->get_file_dir());
             filepath = rFile->get_relative_path(rDir);
         }
         entry_file.set_text(filepath);
@@ -946,7 +947,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
         if (ctMainWin.get_ct_config()->linksRelative)
         {
             Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(filepath);
-            Glib::RefPtr<Gio::File> rDir = Gio::File::create_for_path(ctMainWin.get_curr_doc_file_dir());
+            Glib::RefPtr<Gio::File> rDir = Gio::File::create_for_path(ctMainWin.get_ct_storage()->get_file_dir());
             filepath = rFile->get_relative_path(rDir);
         }
         entry_folder.set_text(filepath);

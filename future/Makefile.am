@@ -73,7 +73,10 @@ COMMON_SOURCES = \
 	src/ct/ct_export2txt.cc \
 	src/ct/ct_imports.cc \
 	src/ct/ct_widgets.cc \
-	src/ct/ct_state_machine.cc
+	src/ct/ct_state_machine.cc \
+	src/ct/ct_storage_control.cc \
+	src/ct/ct_storage_sqlite.cc \
+	src/ct/ct_storage_xml.cc
 
 cherrytree_SOURCES = \
 	src/ct/ct_main.cc \

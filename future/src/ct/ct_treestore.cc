@@ -24,26 +24,27 @@
 #include "ct_doc_rw.h"
 #include "ct_misc_utils.h"
 #include "ct_main_win.h"
+#include "ct_storage_control.h"
 
 CtTreeModelColumns::~CtTreeModelColumns()
 {
 }
 
-CtTreeIter::CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* pColumns, CtSQLite* pCtSQLite)
+CtTreeIter::CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* pColumns, CtMainWin* pCtMainWin)
  : Gtk::TreeIter(iter),
    _pColumns(pColumns),
-   _pCtSQLite(pCtSQLite)
+   _pCtMainWin(pCtMainWin)
 {
 }
 
 CtTreeIter CtTreeIter::parent() const
 {
-    return CtTreeIter((*this)->parent(), _pColumns, _pCtSQLite);
+    return CtTreeIter((*this)->parent(), _pColumns, _pCtMainWin);
 }
 
 CtTreeIter CtTreeIter::first_child() const
 {
-    return CtTreeIter((*this)->children().begin(), _pColumns, _pCtSQLite);
+    return CtTreeIter((*this)->children().begin(), _pColumns, _pCtMainWin);
 }
 
 bool CtTreeIter::get_node_read_only() const
@@ -154,13 +155,13 @@ Glib::RefPtr<Gsv::Buffer> CtTreeIter::get_node_text_buffer() const
     if (*this)
     {
         rRetTextBuffer = (*this)->get_value(_pColumns->rColTextBuffer);
-        if (not rRetTextBuffer and nullptr != _pCtSQLite)
+        if (not rRetTextBuffer)
         {
             // SQLite text buffer not yet populated
             std::list<CtAnchoredWidget*> anchoredWidgetList;
-            rRetTextBuffer = _pCtSQLite->get_text_buffer((*this)->get_value(_pColumns->colSyntaxHighlighting),
-                                                         anchoredWidgetList,
-                                                         (*this)->get_value(_pColumns->colNodeUniqueId));
+            rRetTextBuffer = _pCtMainWin->get_ct_storage()->get_delayed_text_buffer((*this)->get_value(_pColumns->colNodeUniqueId),
+                                                                                    (*this)->get_value(_pColumns->colSyntaxHighlighting),
+                                                                                    anchoredWidgetList);
             (*this)->set_value(_pColumns->colAnchoredWidgets, anchoredWidgetList);
             (*this)->set_value(_pColumns->rColTextBuffer, rRetTextBuffer);
         }
@@ -227,38 +228,22 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes(c
 
 void CtTreeIter::pending_edit_db_node_prop()
 {
-    if (nullptr != _pCtSQLite)
-    {
-        const gint64 node_id = get_node_id();
-        _pCtSQLite->pending_edit_db_node_prop(node_id);
-    }
+    _pCtMainWin->get_ct_storage()->pending_edit_db_node_prop(get_node_id());
 }
 
 void CtTreeIter::pending_edit_db_node_buff()
 {
-    if (nullptr != _pCtSQLite)
-    {
-        const gint64 node_id = get_node_id();
-        _pCtSQLite->pending_edit_db_node_buff(node_id);
-    }
+    _pCtMainWin->get_ct_storage()->pending_edit_db_node_buff(get_node_id());
 }
 
 void CtTreeIter::pending_edit_db_node_hier()
 {
-    if (nullptr != _pCtSQLite)
-    {
-        const gint64 node_id = get_node_id();
-        _pCtSQLite->pending_edit_db_node_hier(node_id);
-    }
+    _pCtMainWin->get_ct_storage()->pending_edit_db_node_hier(get_node_id());
 }
 
 void CtTreeIter::pending_new_db_node()
 {
-    if (nullptr != _pCtSQLite)
-    {
-        const gint64 node_id = get_node_id();
-        _pCtSQLite->pending_new_db_node(node_id);
-    }
+    _pCtMainWin->get_ct_storage()->pending_new_db_node(get_node_id());
 }
 
 
@@ -271,35 +256,16 @@ CtTreeStore::CtTreeStore(CtMainWin* pCtMainWin)
 CtTreeStore::~CtTreeStore()
 {
     _iter_delete_anchored_widgets(get_root_children());
-    if (nullptr != _pCtSQLite)
-    {
-        delete _pCtSQLite;
-    }
 }
 
 void CtTreeStore::pending_rm_db_nodes(const std::vector<gint64>& node_ids)
 {
-    if (nullptr != _pCtSQLite)
-    {
-        _pCtSQLite->pending_rm_db_nodes(node_ids);
-    }
+    _pCtMainWin->get_ct_storage()->pending_rm_db_nodes(node_ids);
 }
 
 void CtTreeStore::pending_edit_db_bookmarks()
 {
-    if (nullptr != _pCtSQLite)
-    {
-        _pCtSQLite->pending_edit_db_bookmarks();
-    }
-}
-
-bool CtTreeStore::pending_data_write(const bool run_vacuum)
-{
-    if (nullptr != _pCtSQLite)
-    {
-        return _pCtSQLite->pending_data_write(this, _bookmarks, run_vacuum);
-    }
-    return false;
+    _pCtMainWin->get_ct_storage()->pending_edit_db_bookmarks();
 }
 
 void CtTreeStore::_iter_delete_anchored_widgets(const Gtk::TreeModel::Children& children)
@@ -405,56 +371,6 @@ void CtTreeStore::view_append_columns(Gtk::TreeView* pTreeView)
                     }
                 });
         }
-    }
-}
-
-bool CtTreeStore::read_nodes_from_filepath(const char* filepath, const bool isImport, const Gtk::TreeIter* pParentIter)
-{
-    bool retOk{false};
-    CtDocType docType = CtMiscUtil::get_doc_type(filepath);
-    CtDocRead* pCtDocRead{nullptr};
-    if (CtDocType::XML == docType)
-    {
-        CtXmlRead* pCtXmlRead = new CtXmlRead(_pCtMainWin, filepath, nullptr);
-        if (pCtXmlRead and (nullptr != pCtXmlRead->get_document()))
-        {
-            pCtDocRead = pCtXmlRead;
-        }
-    }
-    else if (CtDocType::SQLite == docType)
-    {
-        CtSQLite* pCtSQLite = new CtSQLite(_pCtMainWin, filepath);
-        if (pCtSQLite and pCtSQLite->get_db_open_ok())
-        {
-            pCtDocRead = pCtSQLite;
-        }
-    }
-    if (pCtDocRead != nullptr)
-    {
-        pCtDocRead->signalAddBookmark.connect(sigc::mem_fun(this, &CtTreeStore::onRequestAddBookmark));
-        pCtDocRead->signalAppendNode.connect(sigc::mem_fun(this, &CtTreeStore::onRequestAppendNode));
-        retOk = pCtDocRead->read_populate_tree(pParentIter);
-        if (not isImport and (CtDocType::SQLite == docType))
-        {
-            _pCtSQLite = dynamic_cast<CtSQLite*>(pCtDocRead);
-        }
-        else
-        {
-            delete pCtDocRead;
-        }
-    }
-    return retOk;
-}
-
-void CtTreeStore::set_new_curr_sqlite_doc(CtSQLite* const pCtSQLite)
-{
-    if (pCtSQLite != _pCtSQLite)
-    {
-        if (nullptr != _pCtSQLite)
-        {
-            delete _pCtSQLite;
-        }
-        _pCtSQLite = pCtSQLite;
     }
 }
 
@@ -739,11 +655,8 @@ gint64 CtTreeStore::node_id_get(gint64 original_id, std::unordered_map<gint64,gi
     {
         allocated_for_remapping_ids.insert(curr_pair.second);
     }
-    std::set<gint64> nodes_pending_rm;
-    if (nullptr != _pCtSQLite)
-    {
-        nodes_pending_rm = _pCtSQLite->get_nodes_pending_rm();
-    }
+    std::set<gint64> nodes_pending_rm = _pCtMainWin->get_ct_storage()->get_nodes_pending_rm();
+
     // (@txe) this function works differently from python code
     // it's easer to find max than check every id is not used through all tree
     gint64 max_node_id{0};
@@ -913,7 +826,7 @@ Gtk::TreePath CtTreeStore::get_path(Gtk::TreeIter tree_iter)
 
 CtTreeIter CtTreeStore::to_ct_tree_iter(Gtk::TreeIter tree_iter)
 {
-    return CtTreeIter(tree_iter, &get_columns(), _pCtSQLite);
+    return CtTreeIter(tree_iter, &get_columns(), _pCtMainWin);
 }
 
 void CtTreeStore::nodes_sequences_fix(Gtk::TreeIter father_iter,  bool process_children)

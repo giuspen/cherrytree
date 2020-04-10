@@ -23,6 +23,7 @@
 #include "ct_misc_utils.h"
 #include "ct_main_win.h"
 #include "ct_dialogs.h"
+#include "ct_storage_control.h"
 #include <fstream>
 
 CtExport2Html::CtExport2Html(CtMainWin* pCtMainWin)
@@ -149,7 +150,7 @@ void CtExport2Html::nodes_all_export_to_html(bool all_tree, const CtExportOption
     tree_links_text += "</div>\n";
 
     // create index html page
-    Glib::ustring html_text = str::format(HTML_HEADER, _pCtMainWin->get_curr_doc_file_name());
+    Glib::ustring html_text = str::format(HTML_HEADER, _pCtMainWin->get_ct_storage()->get_file_name());
     if (options.index_in_page)
     {
         html_text += "<div class='two-panels'>\n<div class='tree-panel'>\n";

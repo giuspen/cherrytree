@@ -313,7 +313,9 @@ namespace CtFileSystem {
 // From Slash to Backslash when needed
 std::string get_proper_platform_filepath(std::string filepath);
 
-void copy_file(Glib::ustring from_file, Glib::ustring to_file);
+bool copy_file(Glib::ustring from_file, Glib::ustring to_file);
+
+bool move_file(Glib::ustring from_file, Glib::ustring to_file);
 
 std::string abspath(const std::string& path);
 
