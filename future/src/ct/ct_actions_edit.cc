@@ -127,7 +127,7 @@ void CtActions::table_handle()
             tableMatrix.back().push_back(new CtTableCell(_pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID));
     }
 
-    CtTable* pCtTable = new CtTable(_pCtMainWin, tableMatrix, col_min, col_max, true, _curr_buffer()->get_insert()->get_iter().get_offset(), "");
+    CtTable* pCtTable = new CtTable(_pCtMainWin, tableMatrix, col_min, col_max, _curr_buffer()->get_insert()->get_iter().get_offset(), "");
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
     pCtTable->insertInTextBuffer(gsv_buffer);
 

@@ -42,19 +42,12 @@ CtTable::CtTable(CtMainWin* pCtMainWin,
                  CtTableMatrix tableMatrix,
                  const int colMin,
                  const int colMax,
-                 const bool headFront,
                  const int charOffset,
                  const std::string& justification)
  : CtAnchoredWidget(pCtMainWin, charOffset, justification),
    _colMin(colMin),
    _colMax(colMax)
 {
-    if (!headFront)
-    {
-        CtTableRow headerRow = tableMatrix.back();
-        tableMatrix.pop_back();
-        tableMatrix.insert(tableMatrix.begin(), headerRow);
-    }
     _setup_new_matrix(tableMatrix);
 
     _grid.set_column_spacing(1);
@@ -118,16 +111,23 @@ void CtTable::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
 
 void CtTable::_populate_xml_rows_cells(xmlpp::Element* p_table_node)
 {
-    p_table_node->set_attribute("head_front", std::to_string(true));
-    for (const CtTableRow& tableRow : _tableMatrix)
-    {
+    auto row_to_xml = [&](const CtTableRow& tableRow) {
         xmlpp::Element* p_row_node = p_table_node->add_child("row");
         for (const CtTableCell* pTableCell : tableRow)
         {
             xmlpp::Element* p_cell_node = p_row_node->add_child("cell");
             p_cell_node->add_child_text(pTableCell->get_text_content());
         }
+    };
+
+    // put header at the end
+    bool is_header = true;
+    for (const CtTableRow& tableRow : _tableMatrix)
+    {
+        if (is_header) { is_header = false; continue; }
+        row_to_xml(tableRow);
     }
+    row_to_xml(_tableMatrix.front());
 }
 
 bool CtTable::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment)

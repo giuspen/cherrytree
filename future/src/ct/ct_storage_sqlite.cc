@@ -467,7 +467,7 @@ void CtStorageSqlite::_table_from_db(const gint64& nodeId, std::list<CtAnchoredW
         CtTableMatrix tableMatrix;
         if (CtStorageXmlHelper(_pCtMainWin).populate_table_matrix(tableMatrix, textContent))
         {
-            anchoredWidgets.push_back(new CtTable(_pCtMainWin, tableMatrix, colMin, colMax, true, charOffset, justification));
+            anchoredWidgets.push_back(new CtTable(_pCtMainWin, tableMatrix, colMin, colMax, charOffset, justification));
         }
         else
         {

@@ -40,12 +40,10 @@ typedef std::vector<CtTableRow> CtTableMatrix;
 class CtTable : public CtAnchoredWidget
 {
 public:
-    // todo: remove headFront
     CtTable(CtMainWin* pCtMainWin,
             CtTableMatrix tableMatrix,
             const int colMin,
             const int colMax,
-            const bool headFront,
             const int charOffset,
             const std::string& justification);
     virtual ~CtTable();
