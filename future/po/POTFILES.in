@@ -6,8 +6,6 @@ src/ct/ct_treestore.cc
 src/ct/ct_codebox.cc
 src/ct/ct_image.cc
 src/ct/ct_table.cc
-src/ct/ct_sqlite3_rw.cc
-src/ct/ct_xml_rw.cc
 src/ct/ct_config.cc
 src/ct/ct_const.cc
 src/ct/ct_misc_utils.cc
@@ -24,6 +22,9 @@ src/ct/ct_actions_format.cc
 src/ct/ct_actions_edit.cc
 src/ct/ct_actions_others.cc
 src/ct/ct_actions_export.cc
-src/ct/ct_print.cc
+src/ct/ct_export2pdf.cc
 src/ct/ct_export2html.cc
 src/fmt/format.h
+src/ct/ct_storage_control.cc
+src/ct/ct_storage_sqlite.cc
+src/ct/ct_storage_xml.cc

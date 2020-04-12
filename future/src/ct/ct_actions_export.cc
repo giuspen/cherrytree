@@ -20,9 +20,10 @@
  */
 
 #include "ct_actions.h"
-#include "ct_export.h"
+#include "ct_export2pdf.h"
 #include "ct_export2html.h"
 #include "ct_export2txt.h"
+#include "ct_storage_control.h"
 #include <glib/gstdio.h>
 
 // Print Page Setup Operations
@@ -78,16 +79,16 @@ void CtActions::_export_print(bool save_to_pdf, Glib::ustring auto_path, bool au
             pdf_filepath = _get_pdf_filepath(pdf_filepath);
             if (pdf_filepath == "") return;
         }
-        CtExportPrint(_pCtMainWin).node_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _export_options, -1, -1);
+        CtExport2Pdf(_pCtMainWin).node_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _export_options, -1, -1);
     }
     else if (export_type == CtDialogs::CtProcessNode::CURRENT_NODE_AND_SUBNODES)
     {
         if (save_to_pdf)
         {
-            pdf_filepath = _get_pdf_filepath(_pCtMainWin->get_curr_doc_file_name());
+            pdf_filepath = _get_pdf_filepath(_pCtMainWin->get_ct_storage()->get_file_name());
             if (pdf_filepath == "") return;
         }
-        CtExportPrint(_pCtMainWin).node_and_subnodes_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _export_options);
+        CtExport2Pdf(_pCtMainWin).node_and_subnodes_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _export_options);
     }
     else if (export_type == CtDialogs::CtProcessNode::ALL_TREE)
     {
@@ -99,10 +100,10 @@ void CtActions::_export_print(bool save_to_pdf, Glib::ustring auto_path, bool au
         }
         else if (save_to_pdf)
         {
-            pdf_filepath = _get_pdf_filepath(_pCtMainWin->get_curr_doc_file_name());
+            pdf_filepath = _get_pdf_filepath(_pCtMainWin->get_ct_storage()->get_file_name());
             if (pdf_filepath == "") return;
         }
-        CtExportPrint(_pCtMainWin).tree_export_print(pdf_filepath, _pCtMainWin->curr_tree_store().get_ct_iter_first(), _export_options);
+        CtExport2Pdf(_pCtMainWin).tree_export_print(pdf_filepath, _pCtMainWin->get_tree_store().get_ct_iter_first(), _export_options);
     }
     else if (export_type == CtDialogs::CtProcessNode::SELECTED_TEXT)
     {
@@ -116,7 +117,7 @@ void CtActions::_export_print(bool save_to_pdf, Glib::ustring auto_path, bool au
             pdf_filepath = _get_pdf_filepath(pdf_filepath);
             if (pdf_filepath == "") return;
         }
-        CtExportPrint(_pCtMainWin).node_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _export_options, iter_start.get_offset(), iter_end.get_offset());
+        CtExport2Pdf(_pCtMainWin).node_export_print(pdf_filepath, _pCtMainWin->curr_tree_iter(), _export_options, iter_start.get_offset(), iter_end.get_offset());
     }
 }
 
@@ -145,7 +146,7 @@ void CtActions::_export_to_html(Glib::ustring auto_path, bool auto_overwrite)
     }
     else if (export_type == CtDialogs::CtProcessNode::ALL_TREE)
     {
-        Glib::ustring folder_name = _pCtMainWin->get_curr_doc_file_name();
+        Glib::ustring folder_name = _pCtMainWin->get_ct_storage()->get_file_name();
         if (export2html.prepare_html_folder(auto_path, folder_name, auto_overwrite, ret_html_path))
             export2html.nodes_all_export_to_html(true, _export_options);
     }
@@ -188,7 +189,7 @@ void CtActions::_export_to_txt(bool is_single, Glib::ustring auto_path, bool aut
     {
         if (is_single)
         {
-           Glib::ustring txt_filepath = _get_txt_filepath(_pCtMainWin->get_curr_doc_file_name());
+           Glib::ustring txt_filepath = _get_txt_filepath(_pCtMainWin->get_ct_storage()->get_file_name());
            if (txt_filepath == "") return;
            CtExport2Txt(_pCtMainWin).nodes_all_export_to_txt(false, "", txt_filepath, _export_options);
         }
@@ -203,7 +204,7 @@ void CtActions::_export_to_txt(bool is_single, Glib::ustring auto_path, bool aut
     {
         if (is_single)
         {
-            Glib::ustring txt_filepath = _get_txt_filepath(_pCtMainWin->get_curr_doc_file_name());
+            Glib::ustring txt_filepath = _get_txt_filepath(_pCtMainWin->get_ct_storage()->get_file_name());
             if (txt_filepath == "") return;
             CtExport2Txt(_pCtMainWin).nodes_all_export_to_txt(true, "", txt_filepath, _export_options);
         }
@@ -211,9 +212,9 @@ void CtActions::_export_to_txt(bool is_single, Glib::ustring auto_path, bool aut
         {
             Glib::ustring folder_path;
             if (auto_path != "")
-                folder_path = _get_txt_folder(auto_path, _pCtMainWin->get_curr_doc_file_name(), auto_overwrite);
+                folder_path = _get_txt_folder(auto_path, _pCtMainWin->get_ct_storage()->get_file_name(), auto_overwrite);
             else
-                folder_path = _get_txt_folder("", _pCtMainWin->get_curr_doc_file_name(), false);
+                folder_path = _get_txt_folder("", _pCtMainWin->get_ct_storage()->get_file_name(), false);
             if (folder_path == "") return;
             CtExport2Txt(_pCtMainWin).nodes_all_export_to_txt(true, folder_path, "", _export_options);
         }

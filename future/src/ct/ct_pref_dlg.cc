@@ -208,7 +208,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
         if (pConfig->specialChars != new_special_chars)
         {
             pConfig->specialChars = new_special_chars;
-            _pCtMainWin->set_menu_items_special_chars();
+            _pCtMainWin->menu_set_items_special_chars();
         }
     });
     button_reset->signal_clicked().connect([this, textview_special_chars](){
@@ -448,11 +448,11 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     });
     colorbutton_text_fg->signal_color_set().connect([this, pConfig, colorbutton_text_fg](){
         pConfig->rtDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_text_fg->get_rgba());
-        _pCtMainWin->configure_theme();
+        _pCtMainWin->update_theme();
     });
     colorbutton_text_bg->signal_color_set().connect([this, pConfig, colorbutton_text_bg](){
         pConfig->rtDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_text_bg->get_rgba());
-        _pCtMainWin->configure_theme();
+        _pCtMainWin->update_theme();
     });
     radiobutton_rt_col_light->signal_toggled().connect([radiobutton_rt_col_light, colorbutton_text_fg, colorbutton_text_bg](){
         if (!radiobutton_rt_col_light->get_active()) return;
@@ -772,7 +772,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     auto update_tree_color = [this, pConfig, colorbutton_tree_fg, colorbutton_tree_bg]() {
         pConfig->ttDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_fg->get_rgba());
         pConfig->ttDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_bg->get_rgba());
-        _pCtMainWin->configure_theme();
+        _pCtMainWin->update_theme();
     };
 
     colorbutton_tree_fg->signal_color_set().connect([update_tree_color, radiobutton_tt_col_custom](){
@@ -807,17 +807,17 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     radiobutton_node_icon_cherry->signal_toggled().connect([this, pConfig, radiobutton_node_icon_cherry](){
         if (!radiobutton_node_icon_cherry->get_active()) return;
         pConfig->nodesIcons = "c";
-        _pCtMainWin->curr_tree_store().refresh_node_icons(Gtk::TreeIter(), false);
+        _pCtMainWin->get_tree_store().update_nodes_icon(Gtk::TreeIter(), false);
     });
     radiobutton_node_icon_custom->signal_toggled().connect([this, pConfig, radiobutton_node_icon_custom](){
         if (!radiobutton_node_icon_custom->get_active()) return;
         pConfig->nodesIcons = "b";
-        _pCtMainWin->curr_tree_store().refresh_node_icons(Gtk::TreeIter(), false);
+        _pCtMainWin->get_tree_store().update_nodes_icon(Gtk::TreeIter(), false);
     });
     radiobutton_node_icon_none->signal_toggled().connect([this, pConfig, radiobutton_node_icon_none](){
         if (!radiobutton_node_icon_none->get_active()) return;
         pConfig->nodesIcons = "n";
-        _pCtMainWin->curr_tree_store().refresh_node_icons(Gtk::TreeIter(), false);
+        _pCtMainWin->get_tree_store().update_nodes_icon(Gtk::TreeIter(), false);
     });
     c_icon_button->signal_clicked().connect([this, pConfig, c_icon_button](){
         auto itemStore = CtChooseDialogListStore::create();
@@ -827,7 +827,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
         if (res) {
             pConfig->defaultIconText = std::stoi(res->get_value(itemStore->columns.key));
             c_icon_button->set_image(*_pCtMainWin->new_image_from_stock(res->get_value(itemStore->columns.stock_id), Gtk::ICON_SIZE_BUTTON));
-            _pCtMainWin->curr_tree_store().refresh_node_icons(Gtk::TreeIter(), false);
+            _pCtMainWin->get_tree_store().update_nodes_icon(Gtk::TreeIter(), false);
         }
     });
     radiobutton_nodes_startup_expand->signal_toggled().connect([pConfig, radiobutton_nodes_startup_expand, checkbutton_nodes_bookm_exp](){
@@ -977,13 +977,13 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
 
     fontbutton_rt->signal_font_set().connect([this, pConfig, fontbutton_rt](){
         pConfig->rtFont = fontbutton_rt->get_font_name();
-        _pCtMainWin->configure_theme();
+        _pCtMainWin->update_theme();
         //if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
         //    dad.sourceview.modify_font(pango.FontDescription(dad.rt_font))
     });
     fontbutton_pt->signal_font_set().connect([this, pConfig, fontbutton_pt](){
         pConfig->ptFont = fontbutton_pt->get_font_name();
-        _pCtMainWin->configure_theme();
+        _pCtMainWin->update_theme();
         //if not dad.curr_tree_iter: return
         //if dad.syntax_highlighting == cons.PLAIN_TEXT_ID:
         //    dad.sourceview.modify_font(pango.FontDescription(dad.pt_font))
@@ -993,7 +993,7 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
     });
     fontbutton_code->signal_font_set().connect([this, pConfig, fontbutton_code](){
         pConfig->codeFont = fontbutton_code->get_font_name();
-        _pCtMainWin->configure_theme();
+        _pCtMainWin->update_theme();
         //if not dad.curr_tree_iter: return
         //if dad.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
         //    dad.sourceview.modify_font(pango.FontDescription(dad.code_font))
@@ -1002,7 +1002,7 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
     });
     fontbutton_tree->signal_font_set().connect([this, pConfig, fontbutton_tree](){
         pConfig->treeFont = fontbutton_tree->get_font_name();
-        _pCtMainWin->configure_theme();
+        _pCtMainWin->update_theme();
         //dad.set_treeview_font()
     });
     return pMainBox;
@@ -1586,7 +1586,7 @@ void CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeIter row, const Glib::ust
         desc = _("Open a CherryTree Document");
 
     }
-    else if (CtAction const* action = _pCtMenu->find_action(key))
+    else if (CtMenuAction const* action = _pCtMenu->find_action(key))
     {
         icon = action->image;
         desc = action->desc;
@@ -1601,7 +1601,7 @@ bool CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeView* treeview, Glib::Ref
 {
     auto itemStore = CtChooseDialogListStore::create();
     itemStore->add_row("", CtConst::TAG_SEPARATOR, CtConst::TAG_SEPARATOR_ANSI_REPR);
-    for (const CtAction& action: _pCtMenu->get_actions())
+    for (const CtMenuAction& action: _pCtMenu->get_actions())
     {
         if (action.desc.empty()) continue; // skip stub menu entries
         if (action.id == "ct_open_file" && _pCtMainWin->get_ct_config()->toolbarUiList.find(CtConst::CHAR_STAR) != std::string::npos) continue;
@@ -1632,7 +1632,7 @@ void CtPrefDlg::fill_shortcut_model(Glib::RefPtr<Gtk::TreeStore> model)
     model->clear();
     std::string category_name = "no name";
     Gtk::TreeModel::Row cat_row;
-    for(const CtAction& action: _pCtMenu->get_actions())
+    for(const CtMenuAction& action: _pCtMenu->get_actions())
     {
         if (action.category.empty()) continue;
         if (action.category != category_name) {
@@ -1659,7 +1659,7 @@ bool CtPrefDlg::edit_shortcut(Gtk::TreeView* treeview)
     std::string id = row->get_value(_shortcutModelColumns.key);
     if (edit_shortcut_dialog(shortcut)) {
         if (shortcut != "") {
-            for(const CtAction& action : _pCtMenu->get_actions())
+            for(const CtMenuAction& action : _pCtMenu->get_actions())
                 if (action.get_shortcut(_pCtMainWin->get_ct_config()) == shortcut && action.id != id) {
                     // todo: this is a shorter version from python code
                     if (!CtDialogs::question_dialog(std::string("<b>") + _("The Keyboard Shortcut '%s' is already in use") + "</b>", *this))

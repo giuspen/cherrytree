@@ -24,7 +24,6 @@
 #include <gtkmm/stock.h>
 #include "ct_image.h"
 #include "ct_dialogs.h"
-#include "ct_doc_rw.h"
 #include <ctime>
 
 bool CtActions::_is_there_selected_node_or_error()
@@ -36,7 +35,7 @@ bool CtActions::_is_there_selected_node_or_error()
 
 bool CtActions::_is_tree_not_empty_or_error()
 {
-    if (!_pCtMainWin->curr_tree_store().get_iter_first()) {
+    if (!_pCtMainWin->get_tree_store().get_iter_first()) {
         CtDialogs::error_dialog(_("The Tree is Empty!"), *_pCtMainWin);
         return false;
     }
@@ -103,7 +102,7 @@ void CtActions::_node_add(bool duplicate, bool add_child)
     if (duplicate)
     {
         if (!_is_there_selected_node_or_error()) return;
-        _pCtMainWin->curr_tree_store().get_node_data(_pCtMainWin->curr_tree_iter(), nodeData);
+        _pCtMainWin->get_tree_store().get_node_data(_pCtMainWin->curr_tree_iter(), nodeData);
 
         if (nodeData.syntax != CtConst::RICH_TEXT_ID) {
             nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer(nodeData.syntax, nodeData.rTextBuffer->get_text());
@@ -122,7 +121,7 @@ void CtActions::_node_add(bool duplicate, bool add_child)
         nodeData.customIconId = 0;
         nodeData.syntax = CtConst::RICH_TEXT_ID;
         nodeData.isRO = false;
-        if (not CtDialogs::node_prop_dialog(title, _pCtMainWin, nodeData, _pCtMainWin->curr_tree_store().get_used_tags()))
+        if (not CtDialogs::node_prop_dialog(title, _pCtMainWin, nodeData, _pCtMainWin->get_tree_store().get_used_tags()))
             return;
     }
     _node_add_with_data(_pCtMainWin->curr_tree_iter(), nodeData, add_child, node_state);
@@ -134,34 +133,34 @@ void CtActions::_node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeDat
         nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer(nodeData.syntax);
     nodeData.tsCreation = std::time(nullptr);
     nodeData.tsLastSave = nodeData.tsCreation;
-    nodeData.nodeId = _pCtMainWin->curr_tree_store().node_id_get();
+    nodeData.nodeId = _pCtMainWin->get_tree_store().node_id_get();
 
     _pCtMainWin->update_window_save_needed();
     _pCtMainWin->get_ct_config()->syntaxHighlighting = nodeData.syntax;
 
     Gtk::TreeIter nodeIter;
     if (add_child) {
-        nodeIter = _pCtMainWin->curr_tree_store().appendNode(&nodeData, &curr_iter /* as parent */);
+        nodeIter = _pCtMainWin->get_tree_store().append_node(&nodeData, &curr_iter /* as parent */);
     } else if (curr_iter)
-        nodeIter = _pCtMainWin->curr_tree_store().insertNode(&nodeData, curr_iter /* after */);
+        nodeIter = _pCtMainWin->get_tree_store().insert_node(&nodeData, curr_iter /* after */);
     else
-        nodeIter = _pCtMainWin->curr_tree_store().appendNode(&nodeData);
+        nodeIter = _pCtMainWin->get_tree_store().append_node(&nodeData);
 
     if (node_state)
-        _pCtMainWin->load_buffer_from_state(node_state, _pCtMainWin->curr_tree_store().to_ct_tree_iter(nodeIter));
-    _pCtMainWin->curr_tree_store().to_ct_tree_iter(nodeIter).pending_new_db_node();
-    _pCtMainWin->curr_tree_store().nodes_sequences_fix(curr_iter ? curr_iter->parent() : Gtk::TreeIter(), false);
-    _pCtMainWin->curr_tree_store().update_node_aux_icon(nodeIter);
-    _pCtMainWin->curr_tree_view().set_cursor_safe(nodeIter);
+        _pCtMainWin->load_buffer_from_state(node_state, _pCtMainWin->get_tree_store().to_ct_tree_iter(nodeIter));
+    _pCtMainWin->get_tree_store().to_ct_tree_iter(nodeIter).pending_new_db_node();
+    _pCtMainWin->get_tree_store().nodes_sequences_fix(curr_iter ? curr_iter->parent() : Gtk::TreeIter(), false);
+    _pCtMainWin->get_tree_store().update_node_aux_icon(nodeIter);
+    _pCtMainWin->get_tree_view().set_cursor_safe(nodeIter);
     _pCtMainWin->get_text_view().grab_focus();
 }
 
 void CtActions::_node_child_exist_or_create(Gtk::TreeIter parentIter, const std::string& nodeName)
 {
-    Gtk::TreeIter childIter = parentIter ? parentIter->children().begin() : _pCtMainWin->curr_tree_store().get_iter_first();
+    Gtk::TreeIter childIter = parentIter ? parentIter->children().begin() : _pCtMainWin->get_tree_store().get_iter_first();
     for (; childIter; ++childIter)
-        if (_pCtMainWin->curr_tree_store().to_ct_tree_iter(childIter).get_node_name() == nodeName) {
-            _pCtMainWin->curr_tree_view().set_cursor_safe(childIter);
+        if (_pCtMainWin->get_tree_store().to_ct_tree_iter(childIter).get_node_name() == nodeName) {
+            _pCtMainWin->get_tree_view().set_cursor_safe(childIter);
             return;
         }
     CtNodeData nodeData;
@@ -178,18 +177,18 @@ void CtActions::_node_move_after(Gtk::TreeIter iter_to_move, Gtk::TreeIter fathe
                                  Gtk::TreeIter brother_iter /*= Gtk::TreeIter()*/, bool set_first /*= false*/)
 {
     Gtk::TreeIter new_node_iter;
-    if (brother_iter)   new_node_iter = _pCtMainWin->curr_tree_store().get_store()->insert_after(brother_iter);
-    else if (set_first) new_node_iter = _pCtMainWin->curr_tree_store().get_store()->prepend(father_iter->children());
-    else                new_node_iter = _pCtMainWin->curr_tree_store().get_store()->append(father_iter->children());
+    if (brother_iter)   new_node_iter = _pCtMainWin->get_tree_store().get_store()->insert_after(brother_iter);
+    else if (set_first) new_node_iter = _pCtMainWin->get_tree_store().get_store()->prepend(father_iter->children());
+    else                new_node_iter = _pCtMainWin->get_tree_store().get_store()->append(father_iter->children());
 
     // we move also all the children
     std::function<void(Gtk::TreeIter&,Gtk::TreeIter&)> node_move_data_and_children;
     node_move_data_and_children = [this, &node_move_data_and_children](Gtk::TreeIter& old_iter,Gtk::TreeIter& new_iter) {
         CtNodeData node_data;
-        _pCtMainWin->curr_tree_store().get_node_data(old_iter, node_data);
-        _pCtMainWin->curr_tree_store().update_node_data(new_iter, node_data);
+        _pCtMainWin->get_tree_store().get_node_data(old_iter, node_data);
+        _pCtMainWin->get_tree_store().update_node_data(new_iter, node_data);
         for (Gtk::TreeIter child: old_iter->children()) {
-            Gtk::TreeIter new_child = _pCtMainWin->curr_tree_store().get_store()->append(new_iter->children());
+            Gtk::TreeIter new_child = _pCtMainWin->get_tree_store().get_store()->append(new_iter->children());
             node_move_data_and_children(child, new_child);
         }
     };
@@ -197,24 +196,24 @@ void CtActions::_node_move_after(Gtk::TreeIter iter_to_move, Gtk::TreeIter fathe
 
     // now we can remove the old iter (and all children)
     _pCtMainWin->resetPrevTreeIter();
-    _pCtMainWin->curr_tree_store().get_store()->erase(iter_to_move);
-    _pCtMainWin->curr_tree_store().to_ct_tree_iter(new_node_iter).pending_edit_db_node_hier();
+    _pCtMainWin->get_tree_store().get_store()->erase(iter_to_move);
+    _pCtMainWin->get_tree_store().to_ct_tree_iter(new_node_iter).pending_edit_db_node_hier();
 
-    _pCtMainWin->curr_tree_store().nodes_sequences_fix(Gtk::TreeIter(), true);
+    _pCtMainWin->get_tree_store().nodes_sequences_fix(Gtk::TreeIter(), true);
     if (father_iter)
-        _pCtMainWin->curr_tree_view().expand_row(_pCtMainWin->curr_tree_store().get_path(father_iter), false);
+        _pCtMainWin->get_tree_view().expand_row(_pCtMainWin->get_tree_store().get_path(father_iter), false);
     else
-        _pCtMainWin->curr_tree_view().expand_row(_pCtMainWin->curr_tree_store().get_path(new_node_iter), false);    
-    Gtk::TreePath new_node_path = _pCtMainWin->curr_tree_store().get_path(new_node_iter);
-    _pCtMainWin->curr_tree_view().collapse_row(new_node_path);
-    _pCtMainWin->curr_tree_view().set_cursor(new_node_path);
+        _pCtMainWin->get_tree_view().expand_row(_pCtMainWin->get_tree_store().get_path(new_node_iter), false);    
+    Gtk::TreePath new_node_path = _pCtMainWin->get_tree_store().get_path(new_node_iter);
+    _pCtMainWin->get_tree_view().collapse_row(new_node_path);
+    _pCtMainWin->get_tree_view().set_cursor(new_node_path);
     _pCtMainWin->update_window_save_needed();
 }
 
 bool CtActions::_need_node_swap(Gtk::TreeIter& leftIter, Gtk::TreeIter& rightIter, bool ascending)
 {
-    Glib::ustring left_node_name = _pCtMainWin->curr_tree_store().to_ct_tree_iter(leftIter).get_node_name().lowercase();
-    Glib::ustring right_node_name = _pCtMainWin->curr_tree_store().to_ct_tree_iter(rightIter).get_node_name().lowercase();
+    Glib::ustring left_node_name = _pCtMainWin->get_tree_store().to_ct_tree_iter(leftIter).get_node_name().lowercase();
+    Glib::ustring right_node_name = _pCtMainWin->get_tree_store().to_ct_tree_iter(rightIter).get_node_name().lowercase();
     //int cmp = left_node_name.compare(right_node_name);
     int cmp = CtStrUtil::natural_compare(left_node_name, right_node_name);
 
@@ -224,7 +223,7 @@ bool CtActions::_need_node_swap(Gtk::TreeIter& leftIter, Gtk::TreeIter& rightIte
 bool CtActions::_tree_sort_level_and_sublevels(const Gtk::TreeNodeChildren& children, bool ascending)
 {
     auto need_swap = [this,&ascending](Gtk::TreeIter& l, Gtk::TreeIter& r) { return _need_node_swap(l, r, ascending); };
-    bool swap_excecuted = CtMiscUtil::node_siblings_sort_iteration(_pCtMainWin->curr_tree_store().get_store(), children, need_swap);
+    bool swap_excecuted = CtMiscUtil::node_siblings_sort_iteration(_pCtMainWin->get_tree_store().get_store(), children, need_swap);
     for (auto& child: children)
         if (_tree_sort_level_and_sublevels(child.children(), ascending))
             swap_excecuted = true;
@@ -235,9 +234,9 @@ void CtActions::node_edit()
 {
     if (!_is_there_selected_node_or_error()) return;
     CtNodeData nodeData;
-    _pCtMainWin->curr_tree_store().get_node_data(_pCtMainWin->curr_tree_iter(), nodeData);
+    _pCtMainWin->get_tree_store().get_node_data(_pCtMainWin->curr_tree_iter(), nodeData);
     CtNodeData newData = nodeData;
-    if (not CtDialogs::node_prop_dialog(_("Node Properties"), _pCtMainWin, newData, _pCtMainWin->curr_tree_store().get_used_tags()))
+    if (not CtDialogs::node_prop_dialog(_("Node Properties"), _pCtMainWin, newData, _pCtMainWin->get_tree_store().get_used_tags()))
         return;
 
     _pCtMainWin->get_ct_config()->syntaxHighlighting = newData.syntax;
@@ -265,12 +264,12 @@ void CtActions::node_edit()
             // self.sourceview.modify_font(pango.FontDescription(self.pt_font))
         }
     }
-    _pCtMainWin->curr_tree_store().update_node_data(_pCtMainWin->curr_tree_iter(), newData);
+    _pCtMainWin->get_tree_store().update_node_data(_pCtMainWin->curr_tree_iter(), newData);
     //todo: if self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
     //  self.set_sourcebuffer_syntax_highlight(self.curr_buffer, self.syntax_highlighting)
     _pCtMainWin->get_text_view().set_editable(!newData.isRO);
     _pCtMainWin->update_selected_node_statusbar_info();
-    _pCtMainWin->curr_tree_store().update_node_aux_icon(_pCtMainWin->curr_tree_iter());
+    _pCtMainWin->get_tree_store().update_node_aux_icon(_pCtMainWin->curr_tree_iter());
     _pCtMainWin->window_header_update();
     _pCtMainWin->window_header_update_lock_icon(newData.isRO);
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::npro);
@@ -290,7 +289,7 @@ void CtActions::node_delete()
             list.push_back(CtConst::CHAR_NEWLINE + "...");
       } else {
           list.push_back(CtConst::CHAR_NEWLINE + str::repeat(CtConst::CHAR_SPACE, level*3) + _pCtMainWin->get_ct_config()->charsListbul[0] +
-                  CtConst::CHAR_SPACE + _pCtMainWin->curr_tree_store().to_ct_tree_iter(iter).get_node_name());
+                  CtConst::CHAR_SPACE + _pCtMainWin->get_tree_store().to_ct_tree_iter(iter).get_node_name());
           for (auto child: iter->children())
               collect_children(child, level + 1, list);
       }
@@ -314,11 +313,11 @@ void CtActions::node_delete()
 
     _pCtMainWin->resetPrevTreeIter();
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::ndel);
-    _pCtMainWin->curr_tree_store().get_store()->erase(_pCtMainWin->curr_tree_iter());
+    _pCtMainWin->get_tree_store().get_store()->erase(_pCtMainWin->curr_tree_iter());
 
     if (new_iter)
     {
-        _pCtMainWin->curr_tree_view().set_cursor_safe(new_iter);
+        _pCtMainWin->get_tree_view().set_cursor_safe(new_iter);
         _pCtMainWin->get_text_view().grab_focus();
     }
     else
@@ -338,7 +337,7 @@ void CtActions::node_toggle_read_only()
     _pCtMainWin->get_text_view().set_editable(!node_is_ro);
     _pCtMainWin->window_header_update_lock_icon(node_is_ro);
     _pCtMainWin->update_selected_node_statusbar_info();
-    _pCtMainWin->curr_tree_store().update_node_aux_icon(_pCtMainWin->curr_tree_iter());
+    _pCtMainWin->get_tree_store().update_node_aux_icon(_pCtMainWin->curr_tree_iter());
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::npro);
     _pCtMainWin->get_text_view().grab_focus();
 }
@@ -361,32 +360,32 @@ void CtActions::node_date()
 void CtActions::node_up()
 {
     if (!_is_there_selected_node_or_error()) return;
-    auto prev_iter = _pCtMainWin->curr_tree_store().to_ct_tree_iter(--_pCtMainWin->curr_tree_iter());
+    auto prev_iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(--_pCtMainWin->curr_tree_iter());
     if (!prev_iter) return;
-    _pCtMainWin->curr_tree_store().get_store()->iter_swap(_pCtMainWin->curr_tree_iter(), prev_iter);
+    _pCtMainWin->get_tree_store().get_store()->iter_swap(_pCtMainWin->curr_tree_iter(), prev_iter);
     auto cur_seq_num = _pCtMainWin->curr_tree_iter().get_node_sequence();
     auto prev_seq_num = prev_iter.get_node_sequence();
     _pCtMainWin->curr_tree_iter().set_node_sequence(prev_seq_num);
     prev_iter.set_node_sequence(cur_seq_num);
     _pCtMainWin->curr_tree_iter().pending_edit_db_node_hier();
     prev_iter.pending_edit_db_node_hier();
-    _pCtMainWin->curr_tree_view().set_cursor(_pCtMainWin->curr_tree_store().get_path(_pCtMainWin->curr_tree_iter()));
+    _pCtMainWin->get_tree_view().set_cursor(_pCtMainWin->get_tree_store().get_path(_pCtMainWin->curr_tree_iter()));
     _pCtMainWin->update_window_save_needed();
 }
 
 void CtActions::node_down()
 {
     if (!_is_there_selected_node_or_error()) return;
-    auto next_iter = _pCtMainWin->curr_tree_store().to_ct_tree_iter(++_pCtMainWin->curr_tree_iter());
+    auto next_iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(++_pCtMainWin->curr_tree_iter());
     if (!next_iter) return;
-    _pCtMainWin->curr_tree_store().get_store()->iter_swap(_pCtMainWin->curr_tree_iter(), next_iter);
+    _pCtMainWin->get_tree_store().get_store()->iter_swap(_pCtMainWin->curr_tree_iter(), next_iter);
     auto cur_seq_num = _pCtMainWin->curr_tree_iter().get_node_sequence();
     auto next_seq_num = next_iter.get_node_sequence();
     _pCtMainWin->curr_tree_iter().set_node_sequence(next_seq_num);
     next_iter.set_node_sequence(cur_seq_num);
     _pCtMainWin->curr_tree_iter().pending_edit_db_node_hier();
     next_iter.pending_edit_db_node_hier();
-    _pCtMainWin->curr_tree_view().set_cursor(_pCtMainWin->curr_tree_store().get_path(_pCtMainWin->curr_tree_iter()));
+    _pCtMainWin->get_tree_view().set_cursor(_pCtMainWin->get_tree_store().get_path(_pCtMainWin->curr_tree_iter()));
     _pCtMainWin->update_window_save_needed();
 }
 
@@ -396,7 +395,7 @@ void CtActions::node_right()
     auto prev_iter = --_pCtMainWin->curr_tree_iter();
     if (!prev_iter) return;
     _node_move_after(_pCtMainWin->curr_tree_iter(), prev_iter);
-    _pCtMainWin->curr_tree_store().refresh_node_icons(_pCtMainWin->curr_tree_iter(), true);
+    _pCtMainWin->get_tree_store().update_nodes_icon(_pCtMainWin->curr_tree_iter(), true);
 }
 
 void CtActions::node_left()
@@ -405,15 +404,15 @@ void CtActions::node_left()
     Gtk::TreeIter father_iter = _pCtMainWin->curr_tree_iter()->parent();
     if (!father_iter) return;
     _node_move_after(_pCtMainWin->curr_tree_iter(), father_iter->parent(), father_iter);
-    _pCtMainWin->curr_tree_store().refresh_node_icons(_pCtMainWin->curr_tree_iter(), true);
+    _pCtMainWin->get_tree_store().update_nodes_icon(_pCtMainWin->curr_tree_iter(), true);
 }
 
 void CtActions::node_change_father()
 {
     if (!_is_there_selected_node_or_error()) return;
     CtTreeIter old_father_iter = _pCtMainWin->curr_tree_iter().parent();
-    CtTreeIter father_iter = _pCtMainWin->curr_tree_store().to_ct_tree_iter(CtDialogs::choose_node_dialog(_pCtMainWin,
-                                   _pCtMainWin->curr_tree_view(), _("Select the New Parent"), &_pCtMainWin->curr_tree_store(), _pCtMainWin->curr_tree_iter()));
+    CtTreeIter father_iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(CtDialogs::choose_node_dialog(_pCtMainWin,
+                                   _pCtMainWin->get_tree_view(), _("Select the New Parent"), &_pCtMainWin->get_tree_store(), _pCtMainWin->curr_tree_iter()));
     if (!father_iter) return;
     gint64 curr_node_id = _pCtMainWin->curr_tree_iter().get_node_id();
     gint64 old_father_node_id = old_father_iter.get_node_id();
@@ -433,14 +432,14 @@ void CtActions::node_change_father()
         }
 
     _node_move_after(_pCtMainWin->curr_tree_iter(), father_iter);
-    _pCtMainWin->curr_tree_store().refresh_node_icons(_pCtMainWin->curr_tree_iter(), true);
+    _pCtMainWin->get_tree_store().update_nodes_icon(_pCtMainWin->curr_tree_iter(), true);
 }
 
 //"""Sorts the Tree Ascending"""
 void CtActions::tree_sort_ascending()
 {
-    if (_tree_sort_level_and_sublevels(_pCtMainWin->curr_tree_store().get_store()->children(), true)) {
-        _pCtMainWin->curr_tree_store().nodes_sequences_fix(Gtk::TreeIter(), true);
+    if (_tree_sort_level_and_sublevels(_pCtMainWin->get_tree_store().get_store()->children(), true)) {
+        _pCtMainWin->get_tree_store().nodes_sequences_fix(Gtk::TreeIter(), true);
         _pCtMainWin->update_window_save_needed();
     }
 }
@@ -448,8 +447,8 @@ void CtActions::tree_sort_ascending()
 //"""Sorts the Tree Ascending"""
 void CtActions::tree_sort_descending()
 {
-    if (_tree_sort_level_and_sublevels(_pCtMainWin->curr_tree_store().get_store()->children(), false)) {
-        _pCtMainWin->curr_tree_store().nodes_sequences_fix(Gtk::TreeIter(), true);
+    if (_tree_sort_level_and_sublevels(_pCtMainWin->get_tree_store().get_store()->children(), false)) {
+        _pCtMainWin->get_tree_store().nodes_sequences_fix(Gtk::TreeIter(), true);
         _pCtMainWin->update_window_save_needed();
     }
 }
@@ -459,10 +458,10 @@ void CtActions::node_siblings_sort_ascending()
 {
     if (!_is_there_selected_node_or_error()) return;
     Gtk::TreeIter father_iter = _pCtMainWin->curr_tree_iter()->parent();
-    const Gtk::TreeNodeChildren& children = father_iter ? father_iter->children() : _pCtMainWin->curr_tree_store().get_store()->children();
+    const Gtk::TreeNodeChildren& children = father_iter ? father_iter->children() : _pCtMainWin->get_tree_store().get_store()->children();
     auto need_swap = [this](Gtk::TreeIter& l, Gtk::TreeIter& r) { return _need_node_swap(l, r, true); };
-    if (CtMiscUtil::node_siblings_sort_iteration(_pCtMainWin->curr_tree_store().get_store(), children, need_swap)) {
-        _pCtMainWin->curr_tree_store().nodes_sequences_fix(father_iter, true);
+    if (CtMiscUtil::node_siblings_sort_iteration(_pCtMainWin->get_tree_store().get_store(), children, need_swap)) {
+        _pCtMainWin->get_tree_store().nodes_sequences_fix(father_iter, true);
         _pCtMainWin->update_window_save_needed();
     }
 }
@@ -472,10 +471,10 @@ void CtActions::node_siblings_sort_descending()
 {
     if (!_is_there_selected_node_or_error()) return;
     Gtk::TreeIter father_iter = _pCtMainWin->curr_tree_iter()->parent();
-    const Gtk::TreeNodeChildren& children = father_iter ? father_iter->children() : _pCtMainWin->curr_tree_store().get_store()->children();
+    const Gtk::TreeNodeChildren& children = father_iter ? father_iter->children() : _pCtMainWin->get_tree_store().get_store()->children();
     auto need_swap = [this](Gtk::TreeIter& l, Gtk::TreeIter& r) { return _need_node_swap(l, r, false); };
-    if (CtMiscUtil::node_siblings_sort_iteration(_pCtMainWin->curr_tree_store().get_store(), children, need_swap)) {
-        _pCtMainWin->curr_tree_store().nodes_sequences_fix(father_iter, true);
+    if (CtMiscUtil::node_siblings_sort_iteration(_pCtMainWin->get_tree_store().get_store(), children, need_swap)) {
+        _pCtMainWin->get_tree_store().nodes_sequences_fix(father_iter, true);
         _pCtMainWin->update_window_save_needed();
     }
 }
@@ -488,9 +487,9 @@ void CtActions::node_go_back()
 
     auto new_node_id = _pCtMainWin->get_state_machine().requested_visited_previous();
     if (new_node_id > 0) {
-        auto node_iter = _pCtMainWin->curr_tree_store().get_node_from_node_id(new_node_id);
+        auto node_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(new_node_id);
         if (node_iter)
-            _pCtMainWin->curr_tree_view().set_cursor_safe(node_iter);
+            _pCtMainWin->get_tree_view().set_cursor_safe(node_iter);
         else
             node_go_back();
     }
@@ -504,9 +503,9 @@ void CtActions::node_go_forward()
 
     auto new_node_id = _pCtMainWin->get_state_machine().requested_visited_next();
     if (new_node_id > 0) {
-        auto node_iter = _pCtMainWin->curr_tree_store().get_node_from_node_id(new_node_id);
+        auto node_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(new_node_id);
         if (node_iter)
-            _pCtMainWin->curr_tree_view().set_cursor_safe(node_iter);
+            _pCtMainWin->get_tree_view().set_cursor_safe(node_iter);
         else
             node_go_forward();
     }
@@ -517,11 +516,11 @@ void CtActions::bookmark_curr_node()
     if (!_is_there_selected_node_or_error()) return;
     gint64 node_id = _pCtMainWin->curr_tree_iter().get_node_id();
 
-    if (_pCtMainWin->curr_tree_store().onRequestAddBookmark(node_id)) {
-        _pCtMainWin->set_bookmarks_menu_items();
-        _pCtMainWin->curr_tree_store().update_node_aux_icon(_pCtMainWin->curr_tree_iter());
+    if (_pCtMainWin->get_tree_store().bookmarks_add(node_id)) {
+        _pCtMainWin->menu_set_bookmark_menu_items();
+        _pCtMainWin->get_tree_store().update_node_aux_icon(_pCtMainWin->curr_tree_iter());
         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::book);
-        _pCtMainWin->menu_tree_update_for_bookmarked_node(true);
+        _pCtMainWin->menu_update_bookmark_menu_item(true);
     }
 }
 
@@ -530,11 +529,11 @@ void CtActions::bookmark_curr_node_remove()
     if (!_is_there_selected_node_or_error()) return;
     gint64 node_id = _pCtMainWin->curr_tree_iter().get_node_id();
 
-    if (_pCtMainWin->curr_tree_store().onRequestRemoveBookmark(node_id)) {
-        _pCtMainWin->set_bookmarks_menu_items();
-        _pCtMainWin->curr_tree_store().update_node_aux_icon(_pCtMainWin->curr_tree_iter());
+    if (_pCtMainWin->get_tree_store().bookmarks_remove(node_id)) {
+        _pCtMainWin->menu_set_bookmark_menu_items();
+        _pCtMainWin->get_tree_store().update_node_aux_icon(_pCtMainWin->curr_tree_iter());
         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::book);
-        _pCtMainWin->menu_tree_update_for_bookmarked_node(false);
+        _pCtMainWin->menu_update_bookmark_menu_item(false);
     }
 
 }

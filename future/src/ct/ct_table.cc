@@ -20,9 +20,9 @@
  */
 
 #include "ct_table.h"
-#include "ct_doc_rw.h"
 #include "ct_main_win.h"
 #include "ct_actions.h"
+#include "ct_storage_sqlite.h"
 
 CtTableCell::CtTableCell(CtMainWin* pCtMainWin,
                          const Glib::ustring& textContent,
@@ -42,19 +42,12 @@ CtTable::CtTable(CtMainWin* pCtMainWin,
                  CtTableMatrix tableMatrix,
                  const int colMin,
                  const int colMax,
-                 const bool headFront,
                  const int charOffset,
                  const std::string& justification)
  : CtAnchoredWidget(pCtMainWin, charOffset, justification),
    _colMin(colMin),
    _colMax(colMax)
 {
-    if (!headFront)
-    {
-        CtTableRow headerRow = tableMatrix.back();
-        tableMatrix.pop_back();
-        tableMatrix.insert(tableMatrix.begin(), headerRow);
-    }
     _setup_new_matrix(tableMatrix);
 
     _grid.set_column_spacing(1);
@@ -118,32 +111,40 @@ void CtTable::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
 
 void CtTable::_populate_xml_rows_cells(xmlpp::Element* p_table_node)
 {
-    p_table_node->set_attribute("head_front", std::to_string(true));
-    for (const CtTableRow& tableRow : _tableMatrix)
-    {
+    auto row_to_xml = [&](const CtTableRow& tableRow) {
         xmlpp::Element* p_row_node = p_table_node->add_child("row");
         for (const CtTableCell* pTableCell : tableRow)
         {
             xmlpp::Element* p_cell_node = p_row_node->add_child("cell");
             p_cell_node->add_child_text(pTableCell->get_text_content());
         }
+    };
+
+    // put header at the end
+    bool is_header = true;
+    for (const CtTableRow& tableRow : _tableMatrix)
+    {
+        if (is_header) { is_header = false; continue; }
+        row_to_xml(tableRow);
     }
+    row_to_xml(_tableMatrix.front());
 }
 
 bool CtTable::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment)
 {
     bool retVal{true};
     sqlite3_stmt *p_stmt;
-    if (sqlite3_prepare_v2(pDb, CtSQLite::TABLE_TABLE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
+    if (sqlite3_prepare_v2(pDb, CtStorageSqlite::TABLE_TABLE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
     {
-        std::cerr << CtSQLite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(pDb) << std::endl;
+        std::cerr << CtStorageSqlite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(pDb) << std::endl;
         retVal = false;
     }
     else
     {
-        CtXmlWrite ctXmlWrite("table");
-        _populate_xml_rows_cells(ctXmlWrite.get_root_node());
-        const std::string table_txt = Glib::locale_from_utf8(ctXmlWrite.write_to_string());
+        xmlpp::Document xml_doc;
+        xml_doc.create_root_node("table");
+        _populate_xml_rows_cells(xml_doc.get_root_node());
+        const std::string table_txt = Glib::locale_from_utf8(xml_doc.write_to_string());
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
         sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);
@@ -152,7 +153,7 @@ bool CtTable::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adj
         sqlite3_bind_int64(p_stmt, 6, _colMax);
         if (sqlite3_step(p_stmt) != SQLITE_DONE)
         {
-            std::cerr << CtSQLite::ERR_SQLITE_STEP << sqlite3_errmsg(pDb) << std::endl;
+            std::cerr << CtStorageSqlite::ERR_SQLITE_STEP << sqlite3_errmsg(pDb) << std::endl;
             retVal = false;
         }
         sqlite3_finalize(p_stmt);

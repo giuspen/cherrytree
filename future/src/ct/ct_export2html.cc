@@ -23,6 +23,7 @@
 #include "ct_misc_utils.h"
 #include "ct_main_win.h"
 #include "ct_dialogs.h"
+#include "ct_storage_control.h"
 #include <fstream>
 
 CtExport2Html::CtExport2Html(CtMainWin* pCtMainWin)
@@ -139,7 +140,7 @@ void CtExport2Html::nodes_all_export_to_html(bool all_tree, const CtExportOption
           "<button onclick='expandAllSubtrees()'>Expand All</button> <button onclick='collapseAllSubtrees()'>Collapse All</button>\n"
           "</p>\n"
           "<ul class='outermost'>\n";
-    CtTreeIter tree_iter = all_tree ? _pCtMainWin->curr_tree_store().get_ct_iter_first() : _pCtMainWin->curr_tree_iter();
+    CtTreeIter tree_iter = all_tree ? _pCtMainWin->get_tree_store().get_ct_iter_first() : _pCtMainWin->curr_tree_iter();
     for (;tree_iter; ++tree_iter)
     {
         _tree_links_text_iter(tree_iter, tree_links_text, 1, options.index_in_page);
@@ -149,7 +150,7 @@ void CtExport2Html::nodes_all_export_to_html(bool all_tree, const CtExportOption
     tree_links_text += "</div>\n";
 
     // create index html page
-    Glib::ustring html_text = str::format(HTML_HEADER, _pCtMainWin->get_curr_doc_file_name());
+    Glib::ustring html_text = str::format(HTML_HEADER, _pCtMainWin->get_ct_storage()->get_file_name());
     if (options.index_in_page)
     {
         html_text += "<div class='two-panels'>\n<div class='tree-panel'>\n";
@@ -171,10 +172,10 @@ void CtExport2Html::nodes_all_export_to_html(bool all_tree, const CtExportOption
     traverseFunc = [this, &traverseFunc, &options, &tree_links_text](CtTreeIter tree_iter) {
         node_export_to_html(tree_iter, options, tree_links_text, -1, -1);
         for (auto& child: tree_iter->children())
-            traverseFunc(_pCtMainWin->curr_tree_store().to_ct_tree_iter(child));
+            traverseFunc(_pCtMainWin->get_tree_store().to_ct_tree_iter(child));
     };
     // start to iterarte nodes
-    tree_iter = all_tree ? _pCtMainWin->curr_tree_store().get_ct_iter_first() : _pCtMainWin->curr_tree_iter();
+    tree_iter = all_tree ? _pCtMainWin->get_tree_store().get_ct_iter_first() : _pCtMainWin->curr_tree_iter();
     for (;tree_iter; ++tree_iter)
     {
         traverseFunc(tree_iter);
@@ -202,7 +203,7 @@ void CtExport2Html::_tree_links_text_iter(CtTreeIter tree_iter, Glib::ustring& t
             tree_links_text += "<li><button onclick='toggleSubTree(this)'>-</button> <a href='" + href + "'>" + node_name +"</a></li>";
         tree_links_text += "<ul class='subtree'>\n";
         for (auto& child: tree_iter->children())
-            _tree_links_text_iter(_pCtMainWin->curr_tree_store().to_ct_tree_iter(child), tree_links_text, tree_count_level + 1, index_in_page);
+            _tree_links_text_iter(_pCtMainWin->get_tree_store().to_ct_tree_iter(child), tree_links_text, tree_count_level + 1, index_in_page);
         tree_links_text += "</ul>\n";
     }
 }
@@ -218,7 +219,7 @@ Glib::ustring CtExport2Html::selection_export_to_html(Glib::RefPtr<Gtk::TextBuff
         Glib::ustring tempFolder = _pCtMainWin->get_ct_tmp()->getHiddenDirPath("IMAGE_TEMP_FOLDER");
 
         int start_offset = start_iter.get_offset();
-        std::list<CtAnchoredWidget*> widgets = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(std::make_pair(start_iter.get_offset(), end_iter.get_offset()));
+        std::list<CtAnchoredWidget*> widgets = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(start_iter.get_offset(), end_iter.get_offset());
         for (CtAnchoredWidget* widget: widgets)
         {
             int end_offset = widget->getOffset();
@@ -397,7 +398,7 @@ void CtExport2Html::_html_get_from_treestore_node(CtTreeIter node_iter, int sel_
                                                   std::vector<Glib::ustring>& out_slots, std::vector<CtAnchoredWidget*>& out_widgets)
 {
     auto curr_buffer = node_iter.get_node_text_buffer();
-    auto widgets = node_iter.get_embedded_pixbufs_tables_codeboxes(std::make_pair(sel_start, sel_end));
+    auto widgets = node_iter.get_embedded_pixbufs_tables_codeboxes(sel_start, sel_end);
     out_widgets = std::vector<CtAnchoredWidget*>(widgets.begin(), widgets.end()); // copy from list to vector
 
     out_slots.clear();
@@ -583,7 +584,7 @@ Glib::ustring CtExport2Html::_get_href_from_link_prop_val(Glib::ustring link_pro
     }
     else if (vec[0] == CtConst::LINK_TYPE_NODE)
     {
-        CtTreeIter node = _pCtMainWin->curr_tree_store().get_node_from_node_id(std::stol(vec[1]));
+        CtTreeIter node = _pCtMainWin->get_tree_store().get_node_from_node_id(std::stol(vec[1]));
         if (node)
         {
             href = _get_html_filename(node);

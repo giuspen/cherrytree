@@ -22,7 +22,6 @@
 #pragma once
 
 #include "ct_treestore.h"
-#include "ct_doc_rw.h"
 #include "ct_image.h"
 #include "ct_codebox.h"
 #include "ct_table.h"
@@ -110,13 +109,13 @@ public:
 
 struct CtNodeState
 {
-    CtNodeState() : buffer_xml("buffer") { }
+    CtNodeState()  { buffer_xml.create_root_node("buffer"); }
     ~CtNodeState() { }
 
     std::list<std::shared_ptr<CtAnchoredWidgetState>> widgetStates;
-    CtXmlWrite     buffer_xml;
-    Glib::ustring  buffer_xml_string;
-    int            cursor_pos;
+    xmlpp::Document buffer_xml;
+    Glib::ustring   buffer_xml_string;
+    int             cursor_pos;
 };
 
 struct CtNodeStates

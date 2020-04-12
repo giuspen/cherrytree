@@ -48,8 +48,6 @@ COMMON_SOURCES = \
 	src/ct/ct_codebox.cc \
 	src/ct/ct_image.cc \
 	src/ct/ct_table.cc \
-	src/ct/ct_sqlite3_rw.cc \
-	src/ct/ct_xml_rw.cc \
 	src/ct/ct_config.cc \
 	src/ct/ct_const.cc \
 	src/ct/ct_misc_utils.cc \
@@ -68,13 +66,15 @@ COMMON_SOURCES = \
 	src/ct/ct_dialogs.cc \
 	src/ct/ct_list.cc \
 	src/ct/ct_clipboard.cc \
-	src/ct/ct_export2txt.cc \
 	src/ct/ct_export2html.cc \
+	src/ct/ct_export2pdf.cc \
+	src/ct/ct_export2txt.cc \
 	src/ct/ct_imports.cc \
 	src/ct/ct_widgets.cc \
-	src/ct/ct_print.cc \
-        src/ct/ct_export.cc \
-        src/ct/ct_state_machine.cc
+	src/ct/ct_state_machine.cc \
+	src/ct/ct_storage_control.cc \
+	src/ct/ct_storage_sqlite.cc \
+	src/ct/ct_storage_xml.cc
 
 cherrytree_SOURCES = \
 	src/ct/ct_main.cc \

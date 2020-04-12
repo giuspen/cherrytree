@@ -55,10 +55,10 @@ void CtExport2Txt::nodes_all_export_to_txt(bool all_tree, Glib::ustring export_d
             node_export_to_txt(tree_iter, filepath, export_options, -1, -1);
         }
         for (auto& child: tree_iter->children())
-            traverseFunc(_pCtMainWin->curr_tree_store().to_ct_tree_iter(child));
+            traverseFunc(_pCtMainWin->get_tree_store().to_ct_tree_iter(child));
     };
     // start to iterarte nodes
-    CtTreeIter tree_iter = all_tree ? _pCtMainWin->curr_tree_store().get_ct_iter_first() : _pCtMainWin->curr_tree_iter();
+    CtTreeIter tree_iter = all_tree ? _pCtMainWin->get_tree_store().get_ct_iter_first() : _pCtMainWin->curr_tree_iter();
     for (;tree_iter; ++tree_iter)
     {
         traverseFunc(tree_iter);
@@ -73,7 +73,7 @@ void CtExport2Txt::nodes_all_export_to_txt(bool all_tree, Glib::ustring export_d
 Glib::ustring CtExport2Txt::selection_export_to_txt(Glib::RefPtr<Gtk::TextBuffer> text_buffer, int sel_start, int sel_end, bool check_link_target)
 {
     Glib::ustring plain_text;
-    std::list<CtAnchoredWidget*> widgets = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(std::make_pair(sel_start, sel_end));
+    std::list<CtAnchoredWidget*> widgets = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(sel_start, sel_end);
 
     int start_offset = sel_start >= 0 ? sel_start : 0;
     for (CtAnchoredWidget* widget: widgets)

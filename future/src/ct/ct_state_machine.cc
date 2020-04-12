@@ -21,7 +21,7 @@
 
 #include "ct_state_machine.h"
 #include "ct_main_win.h"
-#include "ct_doc_rw.h"
+#include "ct_storage_xml.h"
 
 // ImagePng
 CtAnchoredWidgetState_ImagePng::CtAnchoredWidgetState_ImagePng(CtImagePng* image)
@@ -134,7 +134,7 @@ CtAnchoredWidget* CtAnchoredWidgetState_Table::to_widget(CtMainWin* pCtMainWin)
         tableMatrix.push_back(CtTableRow());
         for (auto& cell: row) tableMatrix.back().push_back(new CtTableCell(pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID));
     }
-    return new CtTable(pCtMainWin, tableMatrix, colMin, colMax, true, charOffset, justification);
+    return new CtTable(pCtMainWin, tableMatrix, colMin, colMax, charOffset, justification);
 }
 
 
@@ -194,7 +194,7 @@ void CtStateMachine::node_selected_changed(gint64 node_id)
     {
         auto node = _pCtMainWin->curr_tree_iter();
         auto state = std::shared_ptr<CtNodeState>(new CtNodeState());
-        state->buffer_xml.append_node_buffer(node, state->buffer_xml.get_root_node(), false/*no widgets */);
+        CtStorageXmlHelper(_pCtMainWin).save_buffer_no_widgets_to_xml(state->buffer_xml.get_root_node(), node.get_node_text_buffer(), 0, -1, 'n');
         state->buffer_xml_string = state->buffer_xml.write_to_string();
         for (auto widget: node.get_embedded_pixbufs_tables_codeboxes())
             state->widgetStates.push_back(widget->get_state());
@@ -298,7 +298,7 @@ void CtStateMachine::update_state(CtTreeIter tree_iter)
     }
 
     auto new_state = std::shared_ptr<CtNodeState>(new CtNodeState());
-    new_state->buffer_xml.append_node_buffer(tree_iter, new_state->buffer_xml.get_root_node(), false/*no widgets*/);
+    CtStorageXmlHelper(_pCtMainWin).save_buffer_no_widgets_to_xml(new_state->buffer_xml.get_root_node(), tree_iter.get_node_text_buffer(), 0, -1, 'n');
     new_state->buffer_xml_string = new_state->buffer_xml.write_to_string();
     for (auto widget: tree_iter.get_embedded_pixbufs_tables_codeboxes())
         new_state->widgetStates.push_back(widget->get_state());

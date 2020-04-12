@@ -20,9 +20,9 @@
  */
 
 #include "ct_image.h"
-#include "ct_doc_rw.h"
 #include "ct_main_win.h"
 #include "ct_actions.h"
+#include "ct_storage_sqlite.h"
 
 CtImage::CtImage(CtMainWin* pCtMainWin,
                  const std::string& rawBlob,
@@ -127,9 +127,9 @@ bool CtImagePng::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_
 {
     bool retVal{true};
     sqlite3_stmt *p_stmt;
-    if (sqlite3_prepare_v2(pDb, CtSQLite::TABLE_IMAGE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
+    if (sqlite3_prepare_v2(pDb, CtStorageSqlite::TABLE_IMAGE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
     {
-        std::cerr << CtSQLite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(pDb) << std::endl;
+        std::cerr << CtStorageSqlite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(pDb) << std::endl;
         retVal = false;
     }
     else
@@ -146,7 +146,7 @@ bool CtImagePng::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_
         sqlite3_bind_int64(p_stmt, 8, 0); // time
         if (sqlite3_step(p_stmt) != SQLITE_DONE)
         {
-            std::cerr << CtSQLite::ERR_SQLITE_STEP << sqlite3_errmsg(pDb) << std::endl;
+            std::cerr << CtStorageSqlite::ERR_SQLITE_STEP << sqlite3_errmsg(pDb) << std::endl;
             retVal = false;
         }
         sqlite3_finalize(p_stmt);
@@ -216,9 +216,9 @@ bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offs
 {
     bool retVal{true};
     sqlite3_stmt *p_stmt;
-    if (sqlite3_prepare_v2(pDb, CtSQLite::TABLE_IMAGE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
+    if (sqlite3_prepare_v2(pDb, CtStorageSqlite::TABLE_IMAGE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
     {
-        std::cerr << CtSQLite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(pDb) << std::endl;
+        std::cerr << CtStorageSqlite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(pDb) << std::endl;
         retVal = false;
     }
     else
@@ -234,7 +234,7 @@ bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offs
         sqlite3_bind_int64(p_stmt, 8, 0); // time
         if (sqlite3_step(p_stmt) != SQLITE_DONE)
         {
-            std::cerr << CtSQLite::ERR_SQLITE_STEP << sqlite3_errmsg(pDb) << std::endl;
+            std::cerr << CtStorageSqlite::ERR_SQLITE_STEP << sqlite3_errmsg(pDb) << std::endl;
             retVal = false;
         }
         sqlite3_finalize(p_stmt);
@@ -296,9 +296,9 @@ bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int off
 {
     bool retVal{true};
     sqlite3_stmt *p_stmt;
-    if (sqlite3_prepare_v2(pDb, CtSQLite::TABLE_IMAGE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
+    if (sqlite3_prepare_v2(pDb, CtStorageSqlite::TABLE_IMAGE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
     {
-        std::cerr << CtSQLite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(pDb) << std::endl;
+        std::cerr << CtStorageSqlite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(pDb) << std::endl;
         retVal = false;
     }
     else
@@ -314,7 +314,7 @@ bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int off
         sqlite3_bind_int64(p_stmt, 8, _timeSeconds);
         if (sqlite3_step(p_stmt) != SQLITE_DONE)
         {
-            std::cerr << CtSQLite::ERR_SQLITE_STEP << sqlite3_errmsg(pDb) << std::endl;
+            std::cerr << CtStorageSqlite::ERR_SQLITE_STEP << sqlite3_errmsg(pDb) << std::endl;
             retVal = false;
         }
         sqlite3_finalize(p_stmt);

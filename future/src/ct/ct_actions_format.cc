@@ -275,7 +275,7 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
             int bound_offset = iter_sel_end->get_offset();
             Gtk::TreeIter sel_tree_iter;
             if (_link_entry.node_id != -1)
-                sel_tree_iter = _pCtMainWin->curr_tree_store().get_node_from_node_id(_link_entry.node_id);
+                sel_tree_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(_link_entry.node_id);
             if (not CtDialogs::link_handle_dialog(*_pCtMainWin, _("Insert/Edit Link"), sel_tree_iter, _link_entry))
                 return;
             iter_sel_start = text_buffer->get_iter_at_offset(insert_offset);
@@ -365,7 +365,7 @@ CtCodebox* CtActions::_codebox_in_use()
     if (not curr_codebox_anchor) return nullptr;
     if (not _curr_buffer()) return nullptr;
     Gtk::TextIter iter_sel_start = _curr_buffer()->get_insert()->get_iter();
-    auto widgets = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes({iter_sel_start.get_offset(), iter_sel_start.get_offset()});
+    auto widgets = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(iter_sel_start.get_offset(), iter_sel_start.get_offset());
     if (widgets.empty()) return nullptr;
     if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widgets.front()))
         return codebox;

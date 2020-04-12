@@ -28,7 +28,7 @@
 
 class CtConfig;
 
-struct CtAction
+struct CtMenuAction
 {
     std::string category;
     std::string id;
@@ -62,8 +62,8 @@ public:
 
 public:
     void init_actions(CtApp* pApp, CtActions* pActions);
-    CtAction* find_action(const std::string& id);
-    const std::list<CtAction>& get_actions() { return _actions; }
+    CtMenuAction* find_action(const std::string& id);
+    const std::list<CtMenuAction>& get_actions() { return _actions; }
 
     GtkAccelGroup* default_accel_group();
 
@@ -86,7 +86,7 @@ private:
     GtkWidget*     _walk_menu_xml(GtkWidget* pMenu, const char* document, const char* xpath);
     void           _walk_menu_xml(GtkWidget* pMenu, xmlpp::Node* pNode);
     GtkWidget*     _add_submenu(GtkWidget* pMenu, const char* id, const char* name, const char* image);
-    Gtk::MenuItem* _add_menu_item(GtkWidget* pMenu, CtAction* pAction);
+    Gtk::MenuItem* _add_menu_item(GtkWidget* pMenu, CtMenuAction* pAction);
     Gtk::MenuItem* _add_menu_item(GtkWidget* pMenu, const char* name, const char* image, const char*shortcut,
                                  const char* desc, gpointer action_data,
                                  sigc::signal<void, bool>* signal_set_sensitive = nullptr,
@@ -104,7 +104,7 @@ private:
 
 private:
     CtConfig*                  _pCtConfig;
-    std::list<CtAction>        _actions;
+    std::list<CtMenuAction>    _actions;
     Glib::RefPtr<Gtk::Builder> _rGtkBuilder;
     GtkAccelGroup*             _pAccelGroup;
     Gtk::Menu*                 _popupMenus[POPUP_MENU_TYPE::PopupMenuNum] = {};

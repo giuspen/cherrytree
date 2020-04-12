@@ -22,6 +22,7 @@
 #include "ct_dialogs.h"
 #include "ct_treestore.h"
 #include "ct_main_win.h"
+#include "ct_storage_control.h"
 #include <gtkmm/stock.h>
 #include <gtkmm/scrolledwindow.h>
 #include <gtkmm/treeview.h>
@@ -358,8 +359,8 @@ Gtk::TreeIter CtDialogs::choose_node_dialog(CtMainWin* pCtMainWin,
     });
 
     pContentArea->show_all();
-    std::string expanded_collapsed_string = pCtTreeStore->get_tree_expanded_collapsed_string(parentTreeView);
-    pCtTreeStore->set_tree_expanded_collapsed_string(expanded_collapsed_string, treeview_2, pCtMainWin->get_ct_config()->nodesBookmExp);
+    std::string expanded_collapsed_string = pCtTreeStore->treeview_get_tree_expanded_collapsed_string(parentTreeView);
+    pCtTreeStore->treeview_set_tree_expanded_collapsed_string(expanded_collapsed_string, treeview_2, pCtMainWin->get_ct_config()->nodesBookmExp);
     if (sel_tree_iter)
     {
         Gtk::TreePath sel_path = treeview_2.get_model()->get_path(sel_tree_iter);
@@ -374,8 +375,8 @@ Gtk::TreeIter CtDialogs::choose_node_dialog(CtMainWin* pCtMainWin,
 // Handle the Bookmarks List
 void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
 {
-    CtTreeStore& ctTreestore = pCtMainWin->curr_tree_store();
-    const std::list<gint64>& bookmarks = ctTreestore.get_bookmarks();
+    CtTreeStore& ctTreestore = pCtMainWin->get_tree_store();
+    const std::list<gint64>& bookmarks = ctTreestore.bookmarks_get();
 
     Gtk::Dialog dialog(_("Handle the Bookmarks List"),
                        *pCtMainWin,
@@ -457,7 +458,7 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
         Gtk::TreeIter clicked_iter = rModel->get_iter(clicked_path);
         gint64 node_id = clicked_iter->get_value(rModel->columns.node_id);
         Gtk::TreeIter tree_iter = ctTreestore.get_node_from_node_id(node_id);
-        pCtMainWin->curr_tree_view().set_cursor_safe(tree_iter);
+        pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
         return true; // stop event
     });
     button_move_up.signal_clicked().connect([&treeview, &rModel]()
@@ -529,7 +530,7 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
         }
     }
 
-    ctTreestore.set_bookmarks(temp_bookmarks_order);
+    ctTreestore.bookmarks_set(temp_bookmarks_order);
     gint64 curr_node_id = pCtMainWin->curr_tree_iter().get_node_id();
     for (gint64& node_id: removed_bookmarks)
     {
@@ -539,12 +540,12 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
             ctTreestore.update_node_aux_icon(tree_iter);
             if (curr_node_id == node_id)
             {
-                pCtMainWin->menu_tree_update_for_bookmarked_node(false);
+                pCtMainWin->menu_update_bookmark_menu_item(false);
             }
         }
     }
 
-    pCtMainWin->set_bookmarks_menu_items();
+    pCtMainWin->menu_set_bookmark_menu_items();
     ctTreestore.pending_edit_db_bookmarks();
     pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::book);
 }
@@ -631,7 +632,7 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
         pAllMatchesDialog->set_default_size(700, 350);
         pAllMatchesDialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
     }
-    CtAction* pAction = ctMainWin.get_ct_menu().find_action("toggle_show_allmatches_dlg");
+    CtMenuAction* pAction = ctMainWin.get_ct_menu().find_action("toggle_show_allmatches_dlg");
     Gtk::Button* pButtonHide = pAllMatchesDialog->add_button(str::format(_("Hide (Restore with '%s')"), pAction->get_shortcut(ctMainWin.get_ct_config())), Gtk::RESPONSE_CLOSE);
     pButtonHide->set_image_from_icon_name(Gtk::Stock::CLOSE.id, Gtk::ICON_SIZE_BUTTON);
     Gtk::TreeView* pTreeview = Gtk::manage(new Gtk::TreeView(rModel));
@@ -666,14 +667,14 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
             return;
         }
         gint64 node_id = list_iter->get_value(rModel->columns.node_id);
-        CtTreeIter tree_iter = ctMainWin.curr_tree_store().get_node_from_node_id(node_id);
+        CtTreeIter tree_iter = ctMainWin.get_tree_store().get_node_from_node_id(node_id);
         if (!tree_iter)
         {
             CtDialogs::error_dialog(str::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), node_id), ctMainWin);
             rModel->erase(list_iter);
             return;
         }
-        ctMainWin.curr_tree_view().set_cursor_safe(tree_iter);
+        ctMainWin.get_tree_view().set_cursor_safe(tree_iter);
         auto rCurrBuffer = ctMainWin.get_text_view().get_buffer();
         rCurrBuffer->move_mark(rCurrBuffer->get_insert(),
                                rCurrBuffer->get_iter_at_offset(list_iter->get_value(rModel->columns.start_offset)));
@@ -736,7 +737,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     if (link_entries.type == "")
         link_entries.type = CtConst::LINK_TYPE_WEBS;
 
-    CtTreeStore& ctTreestore = ctMainWin.curr_tree_store();
+    CtTreeStore& ctTreestore = ctMainWin.get_tree_store();
     Gtk::Dialog dialog(title,
                        ctMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
@@ -798,14 +799,14 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
 
     Gtk::HBox hbox_detail;
 
-    Gtk::TreeView treeview_2(ctMainWin.curr_tree_store().get_store());
+    Gtk::TreeView treeview_2(ctMainWin.get_tree_store().get_store());
     treeview_2.set_headers_visible(false);
     treeview_2.set_search_column(1);
     Gtk::CellRendererPixbuf renderer_pixbuf_2;
     Gtk::CellRendererText renderer_text_2;
     Gtk::TreeViewColumn column_2;
-    treeview_2.append_column("", ctMainWin.curr_tree_store().get_columns().rColPixbuf);
-    treeview_2.append_column("", ctMainWin.curr_tree_store().get_columns().colNodeName);
+    treeview_2.append_column("", ctMainWin.get_tree_store().get_columns().rColPixbuf);
+    treeview_2.append_column("", ctMainWin.get_tree_store().get_columns().colNodeName);
     Gtk::ScrolledWindow scrolledwindow;
     scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     scrolledwindow.add(treeview_2);
@@ -865,8 +866,8 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
             if (first_in)
             {
                 first_in = false;
-                std::string exp_colpsd_str = ctTreestore.get_tree_expanded_collapsed_string(ctMainWin.curr_tree_view());
-                ctTreestore.set_tree_expanded_collapsed_string(exp_colpsd_str, treeview_2, ctMainWin.get_ct_config()->nodesBookmExp);
+                std::string exp_colpsd_str = ctTreestore.treeview_get_tree_expanded_collapsed_string(ctMainWin.get_tree_view());
+                ctTreestore.treeview_set_tree_expanded_collapsed_string(exp_colpsd_str, treeview_2, ctMainWin.get_ct_config()->nodesBookmExp);
             }
             if (!sel_tree_iter)
             {
@@ -930,7 +931,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
         if (ctMainWin.get_ct_config()->linksRelative)
         {
             Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(filepath);
-            Glib::RefPtr<Gio::File> rDir = Gio::File::create_for_path(ctMainWin.get_curr_doc_file_dir());
+            Glib::RefPtr<Gio::File> rDir = Gio::File::create_for_path(ctMainWin.get_ct_storage()->get_file_dir());
             filepath = rFile->get_relative_path(rDir);
         }
         entry_file.set_text(filepath);
@@ -946,7 +947,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
         if (ctMainWin.get_ct_config()->linksRelative)
         {
             Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(filepath);
-            Glib::RefPtr<Gio::File> rDir = Gio::File::create_for_path(ctMainWin.get_curr_doc_file_dir());
+            Glib::RefPtr<Gio::File> rDir = Gio::File::create_for_path(ctMainWin.get_ct_storage()->get_file_dir());
             filepath = rFile->get_relative_path(rDir);
         }
         entry_folder.set_text(filepath);
@@ -960,7 +961,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
         }
         CtTreeIter ctTreeIter = ctTreestore.to_ct_tree_iter(sel_tree_iter);
         std::list<Glib::ustring> anchors_list;
-        for (CtAnchoredWidget* pAnchoredWidget : ctTreeIter.get_all_embedded_widgets())
+        for (CtAnchoredWidget* pAnchoredWidget : ctTreeIter.get_embedded_pixbufs_tables_codeboxes_fast())
         {
             if (CtAnchWidgType::ImageAnchor == pAnchoredWidget->get_type())
             {

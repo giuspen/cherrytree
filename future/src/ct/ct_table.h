@@ -44,7 +44,6 @@ public:
             CtTableMatrix tableMatrix,
             const int colMin,
             const int colMax,
-            const bool headFront,
             const int charOffset,
             const std::string& justification);
     virtual ~CtTable();

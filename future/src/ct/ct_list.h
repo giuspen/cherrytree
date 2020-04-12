@@ -25,17 +25,6 @@
 #include <glibmm/refptr.h>
 #include "ct_types.h"
 
-struct CtListInfo
-{
-    CtListType type = CtListType::None;
-    int        num = -1;   // todo: fix that for bullet and number it has different meanings
-    int        level = -1; // can be filled for NONE to use with shift+return
-    int        aux = -1;
-    int        startoffs = -1;
-
-    operator bool() { return type != CtListType::None; }
-};
-
 struct CtTextRange
 {
     Gtk::TextIter iter_start;
