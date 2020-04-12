@@ -207,20 +207,28 @@ void CtStorageXmlHelper::get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gsv::Buf
 {
     xmlpp::Element* slot_element = static_cast<xmlpp::Element*>(slot_node);
     Glib::ustring slot_element_name = slot_element->get_name();
-    if (slot_element_name == "rich_text")
+
+    enum SlotType {None, RichText, Image, Table, Codebox};
+    SlotType slot_type = SlotType::None;
+    if (slot_element_name == "rich_text")        slot_type = SlotType::RichText;
+    else if (slot_element_name == "encoded_png") slot_type = SlotType::Image;
+    else if (slot_element_name == "table")       slot_type = SlotType::Table;
+    else if (slot_element_name == "codebox")     slot_type = SlotType::Codebox;
+
+    if (slot_type == SlotType::RichText)
     {
         _add_rich_text_from_xml(buffer, slot_element, text_insert_pos);
     }
-    else if (slot_element_name != "node")
+    else if (slot_type != SlotType::None)
     {
         const int char_offset = force_offset != -1 ? force_offset : std::stoi(slot_element->get_attribute_value("char_offset"));
         Glib::ustring justification = slot_element->get_attribute_value(CtConst::TAG_JUSTIFICATION);
         if (justification.empty()) justification = CtConst::TAG_PROP_VAL_LEFT;
 
         CtAnchoredWidget* widget{nullptr};
-        if (slot_element_name == "encoded_png")  widget = _create_image_from_xml(slot_element, char_offset, justification);
-        else if (slot_element_name == "table")   widget = _create_table_from_xml(slot_element, char_offset, justification);
-        else if (slot_element_name == "codebox") widget = _create_codebox_from_xml(slot_element, char_offset, justification);
+        if (slot_type == SlotType::Image)        widget = _create_image_from_xml(slot_element, char_offset, justification);
+        else if (slot_type == SlotType::Table)   widget = _create_table_from_xml(slot_element, char_offset, justification);
+        else if (slot_type == SlotType::Codebox) widget = _create_codebox_from_xml(slot_element, char_offset, justification);
         if (widget)
         {
             widget->insertInTextBuffer(buffer);
