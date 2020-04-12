@@ -25,6 +25,7 @@
 #include "ct_clipboard.h"
 #include "ct_actions.h"
 #include "ct_storage_control.h"
+#include "ct_storage_xml.h"
 #include <glib-object.h>
 
 CtMainWin::CtMainWin(CtConfig*        pCtConfig,
@@ -977,13 +978,14 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     text_buffer->begin_not_undoable_action();
 
     text_buffer->erase(text_buffer->begin(), text_buffer->end());
+    tree_iter.remove_all_embedded_widgets();
     std::list<CtAnchoredWidget*> widgets;
     for (xmlpp::Node* text_node: state->buffer_xml.get_root_node()->get_children())
     {
-        CtXmlRead(this).get_text_buffer_slot(gsv_buffer, nullptr, widgets, text_node);
+        CtStorageXmlHelper(this).get_text_buffer_one_slot_from_xml(gsv_buffer, text_node, widgets, nullptr, -1);
     }
-    tree_iter.remove_all_embedded_widgets();
-    // CtXmlRead(this).get_text_buffer_slot didn't fill widgets, they are kept separately
+
+    // xml storage doesn't have widgets, so load them seperatrly
     for (auto widgetState: state->widgetStates)
         widgets.push_back(widgetState->to_widget(this));
     for (auto widget: widgets)

@@ -24,7 +24,6 @@
 #include <gtkmm/stock.h>
 #include "ct_image.h"
 #include "ct_dialogs.h"
-#include "ct_doc_rw.h"
 #include <ctime>
 
 bool CtActions::_is_there_selected_node_or_error()

@@ -28,6 +28,7 @@
 
 namespace xmlpp {
     class Element;
+    class Node;
 }
 
 class CtAnchoredWidget;
@@ -53,7 +54,7 @@ public:
                                                       std::list<CtAnchoredWidget*>& widgets) const override;
 private:
     Gtk::TreeIter  _node_from_xml(xmlpp::Element* xml_element, Gtk::TreeIter parent_iter);
-    void           _node_to_xml(CtTreeIter* ct_tree_iter, xmlpp::Element* p_node_parent);
+    void           _nodes_to_xml(CtTreeIter* ct_tree_iter, xmlpp::Element* p_node_parent);
 
 private:
     CtMainWin*        _pCtMainWin{nullptr};
@@ -65,22 +66,27 @@ class CtStorageXmlHelper
 public:
     CtStorageXmlHelper(CtMainWin* pCtMainWin);
 
-    Glib::RefPtr<Gsv::Buffer> create_buffer_and_widgets(xmlpp::Element* parent_xml_element, const Glib::ustring& syntax,
-                                                        std::list<CtAnchoredWidget*>& widgets, Gtk::TextIter* text_iter, int force_offset);
+    xmlpp::Element*           node_to_xml(CtTreeIter* ct_tree_iter, xmlpp::Element* p_node_parent, bool with_widgets);
+
+    Glib::RefPtr<Gsv::Buffer> create_buffer_and_widgets_from_xml(xmlpp::Element* parent_xml_element, const Glib::ustring& syntax,
+                                                          std::list<CtAnchoredWidget*>& widgets, Gtk::TextIter* text_insert_pos, int force_offset);
+
+    void                      get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gsv::Buffer> buffer, xmlpp::Node* slot_node,
+                                                       std::list<CtAnchoredWidget*>& widgets, Gtk::TextIter* text_insert_pos, int force_offset);
 
     Glib::RefPtr<Gsv::Buffer> create_buffer_no_widgets(const Glib::ustring& syntax, const char* xml_content);
 
     bool populate_table_matrix(std::vector<std::vector<CtTableCell*>>& tableMatrix, const char* xml_content);
+    void populate_table_matrix(std::vector<std::vector<CtTableCell*>>& tableMatrix, xmlpp::Element* xml_element);
 
-    static void save_buffer_no_widgets(xmlpp::Element* p_node_parent, Glib::RefPtr<Gtk::TextBuffer> buffer,
+    static void save_buffer_no_widgets_to_xml(xmlpp::Element* p_node_parent, Glib::RefPtr<Gtk::TextBuffer> buffer,
                                        int start_offset, int end_offset, const gchar change_case);
 
 private:
-    void              _add_content(Glib::RefPtr<Gsv::Buffer> buffer, xmlpp::Element* xml_element, Gtk::TextIter* text_insert_pos);
-    CtAnchoredWidget* _create_image(xmlpp::Element* xml_element, int charOffset, const Glib::ustring& justification);
-    CtAnchoredWidget* _create_codebox(xmlpp::Element* xml_element, int charOffset, const Glib::ustring& justification);
-    CtAnchoredWidget* _create_table(xmlpp::Element* xml_element, int charOffset, const Glib::ustring& justification);
-    void              _populate_table_matrix(xmlpp::Element* xml_element, std::vector<std::vector<CtTableCell*>>& tableMatrix);
+    void              _add_rich_text_from_xml(Glib::RefPtr<Gsv::Buffer> buffer, xmlpp::Element* xml_element, Gtk::TextIter* text_insert_pos);
+    CtAnchoredWidget* _create_image_from_xml(xmlpp::Element* xml_element, int charOffset, const Glib::ustring& justification);
+    CtAnchoredWidget* _create_codebox_from_xml(xmlpp::Element* xml_element, int charOffset, const Glib::ustring& justification);
+    CtAnchoredWidget* _create_table_from_xml(xmlpp::Element* xml_element, int charOffset, const Glib::ustring& justification);
 
 private:
     CtMainWin* _pCtMainWin;

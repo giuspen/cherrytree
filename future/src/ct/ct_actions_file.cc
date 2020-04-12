@@ -20,7 +20,6 @@
  */
 
 #include "ct_actions.h"
-#include "ct_doc_rw.h"
 #include <glib/gstdio.h>
 #include "ct_storage_control.h"
 

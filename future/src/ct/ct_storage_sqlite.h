@@ -69,6 +69,29 @@ private:
     void                _exec_no_callback(const char* sqlCmd);
     void                _exec_bind_int64(const char* sqlCmd, const gint64 bind_int64);
 
+public:
+    static const char TABLE_NODE_CREATE[];
+    static const char TABLE_NODE_INSERT[];
+    static const char TABLE_NODE_DELETE[];
+    static const char TABLE_CODEBOX_CREATE[];
+    static const char TABLE_CODEBOX_INSERT[];
+    static const char TABLE_CODEBOX_DELETE[];
+    static const char TABLE_TABLE_CREATE[];
+    static const char TABLE_TABLE_INSERT[];
+    static const char TABLE_TABLE_DELETE[];
+    static const char TABLE_IMAGE_CREATE[];
+    static const char TABLE_IMAGE_INSERT[];
+    static const char TABLE_IMAGE_DELETE[];
+    static const char TABLE_CHILDREN_CREATE[];
+    static const char TABLE_CHILDREN_INSERT[];
+    static const char TABLE_CHILDREN_DELETE[];
+    static const char TABLE_BOOKMARK_CREATE[];
+    static const char TABLE_BOOKMARK_INSERT[];
+    static const char TABLE_BOOKMARK_DELETE[];
+    static const Glib::ustring ERR_SQLITE_PREPV2;
+    static const Glib::ustring ERR_SQLITE_STEP;
+
+
 private:
     CtMainWin*    _pCtMainWin;
     sqlite3*      _pDb{nullptr};

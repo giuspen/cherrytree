@@ -48,8 +48,6 @@ COMMON_SOURCES = \
 	src/ct/ct_codebox.cc \
 	src/ct/ct_image.cc \
 	src/ct/ct_table.cc \
-	src/ct/ct_sqlite3_rw.cc \
-	src/ct/ct_xml_rw.cc \
 	src/ct/ct_config.cc \
 	src/ct/ct_const.cc \
 	src/ct/ct_misc_utils.cc \

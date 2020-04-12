@@ -24,7 +24,7 @@
 #include "ct_main_win.h"
 #include <unistd.h>
 
-static const char TABLE_NODE_CREATE[]{"CREATE TABLE node ("
+const char CtStorageSqlite::TABLE_NODE_CREATE[]{"CREATE TABLE node ("
 "node_id INTEGER UNIQUE,"
 "name TEXT,"
 "txt TEXT,"
@@ -40,10 +40,10 @@ static const char TABLE_NODE_CREATE[]{"CREATE TABLE node ("
 "ts_lastsave INTEGER"
 ")"
 };
-static const char TABLE_NODE_INSERT[]{"INSERT INTO node VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"};
-static const char TABLE_NODE_DELETE[]{"DELETE FROM node WHERE node_id=?"};
+const char CtStorageSqlite::TABLE_NODE_INSERT[]{"INSERT INTO node VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"};
+const char CtStorageSqlite::TABLE_NODE_DELETE[]{"DELETE FROM node WHERE node_id=?"};
 
-static const char TABLE_CODEBOX_CREATE[]{"CREATE TABLE codebox ("
+const char CtStorageSqlite::TABLE_CODEBOX_CREATE[]{"CREATE TABLE codebox ("
 "node_id INTEGER,"
 "offset INTEGER,"
 "justification TEXT,"
@@ -56,10 +56,10 @@ static const char TABLE_CODEBOX_CREATE[]{"CREATE TABLE codebox ("
 "do_show_linenum INTEGER"
 ")"
 };
-static const char TABLE_CODEBOX_INSERT[]{"INSERT INTO codebox VALUES(?,?,?,?,?,?,?,?,?,?)"};
-static const char TABLE_CODEBOX_DELETE[]{"DELETE FROM codebox WHERE node_id=?"};
+const char CtStorageSqlite::TABLE_CODEBOX_INSERT[]{"INSERT INTO codebox VALUES(?,?,?,?,?,?,?,?,?,?)"};
+const char CtStorageSqlite::TABLE_CODEBOX_DELETE[]{"DELETE FROM codebox WHERE node_id=?"};
 
-static const char TABLE_TABLE_CREATE[]{"CREATE TABLE grid ("
+const char CtStorageSqlite::TABLE_TABLE_CREATE[]{"CREATE TABLE grid ("
 "node_id INTEGER,"
 "offset INTEGER,"
 "justification TEXT,"
@@ -68,10 +68,10 @@ static const char TABLE_TABLE_CREATE[]{"CREATE TABLE grid ("
 "col_max INTEGER"
 ")"
 };
-static const char TABLE_TABLE_INSERT[]{"INSERT INTO grid VALUES(?,?,?,?,?,?)"};
-static const char TABLE_TABLE_DELETE[]{"DELETE FROM grid WHERE node_id=?"};
+const char CtStorageSqlite::TABLE_TABLE_INSERT[]{"INSERT INTO grid VALUES(?,?,?,?,?,?)"};
+const char CtStorageSqlite::TABLE_TABLE_DELETE[]{"DELETE FROM grid WHERE node_id=?"};
 
-static const char TABLE_IMAGE_CREATE[]{"CREATE TABLE image ("
+const char CtStorageSqlite::TABLE_IMAGE_CREATE[]{"CREATE TABLE image ("
 "node_id INTEGER,"
 "offset INTEGER,"
 "justification TEXT,"
@@ -82,28 +82,28 @@ static const char TABLE_IMAGE_CREATE[]{"CREATE TABLE image ("
 "time INTEGER"
 ")"
 };
-static const char TABLE_IMAGE_INSERT[]{"INSERT INTO image VALUES(?,?,?,?,?,?,?,?)"};
-static const char TABLE_IMAGE_DELETE[]{"DELETE FROM image WHERE node_id=?"};
+const char CtStorageSqlite::TABLE_IMAGE_INSERT[]{"INSERT INTO image VALUES(?,?,?,?,?,?,?,?)"};
+const char CtStorageSqlite::TABLE_IMAGE_DELETE[]{"DELETE FROM image WHERE node_id=?"};
 
-static const char TABLE_CHILDREN_CREATE[]{"CREATE TABLE children ("
+const char CtStorageSqlite::TABLE_CHILDREN_CREATE[]{"CREATE TABLE children ("
 "node_id INTEGER UNIQUE,"
 "father_id INTEGER,"
 "sequence INTEGER"
 ")"
 };
-static const char TABLE_CHILDREN_INSERT[]{"INSERT INTO children VALUES(?,?,?)"};
-static const char TABLE_CHILDREN_DELETE[]{"DELETE FROM children WHERE node_id=?"};
+const char CtStorageSqlite::TABLE_CHILDREN_INSERT[]{"INSERT INTO children VALUES(?,?,?)"};
+const char CtStorageSqlite::TABLE_CHILDREN_DELETE[]{"DELETE FROM children WHERE node_id=?"};
 
-static const char TABLE_BOOKMARK_CREATE[]{"CREATE TABLE bookmark ("
+const char CtStorageSqlite::TABLE_BOOKMARK_CREATE[]{"CREATE TABLE bookmark ("
 "node_id INTEGER UNIQUE,"
 "sequence INTEGER"
 ")"
 };
-static const char TABLE_BOOKMARK_INSERT[]{"INSERT INTO bookmark VALUES(?,?)"};
-static const char TABLE_BOOKMARK_DELETE[]{"DELETE FROM bookmark"};
+const char CtStorageSqlite::TABLE_BOOKMARK_INSERT[]{"INSERT INTO bookmark VALUES(?,?)"};
+const char CtStorageSqlite::TABLE_BOOKMARK_DELETE[]{"DELETE FROM bookmark"};
 
-static Glib::ustring ERR_SQLITE_PREPV2{"!! sqlite3_prepare_v2: "};
-static Glib::ustring ERR_SQLITE_STEP{"!! sqlite3_step: "};
+const Glib::ustring CtStorageSqlite::ERR_SQLITE_PREPV2{"!! sqlite3_prepare_v2: "};
+const Glib::ustring CtStorageSqlite::ERR_SQLITE_STEP{"!! sqlite3_step: "};
 
 struct sqlite3_stmt_auto
 {
@@ -534,14 +534,14 @@ bool CtStorageSqlite::_write_node_to_db(CtTreeIter* ct_tree_iter,
     // remove previous data in case full update (skip when add new or partial update
     if (remove_prev_widgets)
     {
-        _exec_bind_int64(CtSQLite::TABLE_CODEBOX_DELETE, node_id);
-        _exec_bind_int64(CtSQLite::TABLE_TABLE_DELETE, node_id);
-        _exec_bind_int64(CtSQLite::TABLE_IMAGE_DELETE, node_id);
+        _exec_bind_int64(TABLE_CODEBOX_DELETE, node_id);
+        _exec_bind_int64(TABLE_TABLE_DELETE, node_id);
+        _exec_bind_int64(TABLE_IMAGE_DELETE, node_id);
     }
     if (remove_prev_node)
-        _exec_bind_int64(CtSQLite::TABLE_NODE_DELETE, node_id);
+        _exec_bind_int64(TABLE_NODE_DELETE, node_id);
     if (remove_prev_hier)
-        _exec_bind_int64(CtSQLite::TABLE_CHILDREN_DELETE, node_id);
+        _exec_bind_int64(TABLE_CHILDREN_DELETE, node_id);
 
     bool has_codebox{false};
     bool has_table{false};
@@ -550,7 +550,7 @@ bool CtStorageSqlite::_write_node_to_db(CtTreeIter* ct_tree_iter,
     // write hier
     if (node_state.hier)
     {
-        sqlite3_stmt_auto stmt(_pDb, CtSQLite::TABLE_CHILDREN_INSERT);
+        sqlite3_stmt_auto stmt(_pDb, TABLE_CHILDREN_INSERT);
         if (stmt.is_bad())
             throw std::runtime_error(ERR_SQLITE_PREPV2 + sqlite3_errmsg(_pDb));
         sqlite3_bind_int64(stmt, 1, node_id);
@@ -585,7 +585,7 @@ bool CtStorageSqlite::_write_node_to_db(CtTreeIter* ct_tree_iter,
         {
             xmlpp::Document xml_doc;
             xml_doc.create_root_node("node");
-            CtStorageXmlHelper::save_buffer_no_widgets(xml_doc.get_root_node(), ct_tree_iter->get_node_text_buffer(), start_offset, end_offset, 'n');
+            CtStorageXmlHelper::save_buffer_no_widgets_to_xml(xml_doc.get_root_node(), ct_tree_iter->get_node_text_buffer(), start_offset, end_offset, 'n');
             node_txt = Glib::locale_from_utf8(xml_doc.write_to_string());
         }
         else
@@ -596,7 +596,7 @@ bool CtStorageSqlite::_write_node_to_db(CtTreeIter* ct_tree_iter,
         // full node rewrite
         if (node_state.buff && node_state.prop)
         {
-            sqlite3_stmt_auto stmt(_pDb, CtSQLite::TABLE_NODE_INSERT);
+            sqlite3_stmt_auto stmt(_pDb, TABLE_NODE_INSERT);
             if (stmt.is_bad())
                 throw std::runtime_error(ERR_SQLITE_PREPV2 + sqlite3_errmsg(_pDb));
 

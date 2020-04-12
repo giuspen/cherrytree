@@ -21,7 +21,6 @@
 
 #include <algorithm>
 #include "ct_treestore.h"
-#include "ct_doc_rw.h"
 #include "ct_misc_utils.h"
 #include "ct_main_win.h"
 #include "ct_storage_control.h"

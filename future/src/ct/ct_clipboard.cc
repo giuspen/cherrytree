@@ -21,7 +21,6 @@
 
 #include "ct_clipboard.h"
 #include "ct_codebox.h"
-#include "ct_doc_rw.h"
 #include "ct_main_win.h"
 #include "ct_image.h"
 #include "ct_export2html.h"
@@ -29,6 +28,7 @@
 #include "ct_imports.h"
 #include "ct_misc_utils.h"
 #include "ct_actions.h"
+#include "ct_storage_xml.h"
 #include "src/fmt/ostream.h"
 #include <gio/gio.h> // to get mime type
 
@@ -236,10 +236,7 @@ void CtClipboard::_rich_text_process_slot(xmlpp::Element* root, int start_offset
                                           CtAnchoredWidget* obj_element, gchar change_case /*="n"*/)
 {
     xmlpp::Element* dom_iter = root->add_child("slot");
-    CtTextIterUtil::generic_process_slot(start_offset, end_offset, text_buffer,
-                                         [&](Gtk::TextIter& start_iter, Gtk::TextIter& curr_iter, std::map<const gchar*, std::string>& curr_attributes) {
-        CtXmlWrite::rich_txt_serialize(dom_iter, start_iter, curr_iter, curr_attributes, change_case);
-    });
+    CtStorageXmlHelper::save_buffer_no_widgets_to_xml(dom_iter, text_buffer, start_offset, end_offset, change_case);
 
     if (obj_element != nullptr)
     {
@@ -268,7 +265,7 @@ void CtClipboard::from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_b
         {
             Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(text_buffer);
             Gtk::TextIter insert_iter = text_buffer->get_insert()->get_iter();
-            CtXmlRead(_pCtMainWin).get_text_buffer_slot(gsv_buffer, &insert_iter, widgets, child_node, insert_iter.get_offset());
+            CtStorageXmlHelper(_pCtMainWin).get_text_buffer_one_slot_from_xml(gsv_buffer, child_node, widgets, &insert_iter, insert_iter.get_offset());
         }
     }
     if (not widgets.empty())
@@ -497,7 +494,7 @@ void CtClipboard::_on_received_to_codebox(const Gtk::SelectionData& selection_da
     std::list<CtAnchoredWidget*> widgets;
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(pTextView->get_buffer());
     Gtk::TextIter insert_iter = pTextView->get_buffer()->get_insert()->get_iter();
-    CtXmlRead(_pCtMainWin).get_text_buffer_slot(gsv_buffer, &insert_iter, widgets, doc->get_root_node()->get_first_child("codebox"), insert_iter.get_offset());
+    CtStorageXmlHelper(_pCtMainWin).get_text_buffer_one_slot_from_xml(gsv_buffer, doc->get_root_node()->get_first_child("codebox"), widgets, &insert_iter, insert_iter.get_offset());
     if (not widgets.empty())
     {
         _pCtMainWin->curr_tree_store().addAnchoredWidgets(
@@ -530,13 +527,7 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
     if (parentTable)
     {
         CtTableMatrix tableMatrix;
-        const bool isHeadFront = CtXmlRead(_pCtMainWin).populate_table_matrix_get_is_head_front(tableMatrix, static_cast<xmlpp::Element*>(doc->get_root_node()->get_first_child("table")));
-        if (!isHeadFront)
-        {
-            CtTableRow headerRow = tableMatrix.back();
-            tableMatrix.pop_back();
-            tableMatrix.insert(tableMatrix.begin(), headerRow);
-        }
+        CtStorageXmlHelper(_pCtMainWin).populate_table_matrix(tableMatrix, static_cast<xmlpp::Element*>(doc->get_root_node()->get_first_child("table")));
 
         int col_num = (int)parentTable->get_table_matrix()[0].size();
         int insert_after = parentTable->current_row() - 1;
@@ -559,7 +550,7 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
         std::list<CtAnchoredWidget*> widgets;
         Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(pTextView->get_buffer());
         Gtk::TextIter insert_iter = pTextView->get_buffer()->get_insert()->get_iter();
-        CtXmlRead(_pCtMainWin).get_text_buffer_slot(gsv_buffer, &insert_iter, widgets, doc->get_root_node()->get_first_child("table"), insert_iter.get_offset());
+        CtStorageXmlHelper(_pCtMainWin).get_text_buffer_one_slot_from_xml(gsv_buffer, doc->get_root_node()->get_first_child("table"), widgets, &insert_iter, insert_iter.get_offset());
         if (not widgets.empty())
         {
             _pCtMainWin->curr_tree_store().addAnchoredWidgets(
