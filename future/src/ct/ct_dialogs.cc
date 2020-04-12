@@ -961,7 +961,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
         }
         CtTreeIter ctTreeIter = ctTreestore.to_ct_tree_iter(sel_tree_iter);
         std::list<Glib::ustring> anchors_list;
-        for (CtAnchoredWidget* pAnchoredWidget : ctTreeIter.get_all_embedded_widgets())
+        for (CtAnchoredWidget* pAnchoredWidget : ctTreeIter.get_embedded_pixbufs_tables_codeboxes_fast())
         {
             if (CtAnchWidgType::ImageAnchor == pAnchoredWidget->get_type())
             {

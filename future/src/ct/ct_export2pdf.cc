@@ -782,7 +782,7 @@ void CtExport2Pango::pango_get_from_treestore_node(CtTreeIter node_iter, int sel
                                                    bool exclude_anchors, std::list<CtAnchoredWidget*>& out_widgets)
 {
     auto curr_buffer = node_iter.get_node_text_buffer();
-    out_widgets = node_iter.get_embedded_pixbufs_tables_codeboxes(std::make_pair(sel_start, sel_end));
+    out_widgets = node_iter.get_embedded_pixbufs_tables_codeboxes(sel_start, sel_end);
     if (exclude_anchors)
         out_widgets.remove_if([](CtAnchoredWidget* widget) { return dynamic_cast<CtImageAnchor*>(widget);});
     out_slots.clear();

@@ -21,11 +21,11 @@
 
 #include "ct_main_win.h"
 #include "ct_config.h"
-#include "ct_p7za_iface.h"
 #include "ct_clipboard.h"
 #include "ct_actions.h"
 #include "ct_storage_control.h"
 #include "ct_storage_xml.h"
+#include "ct_list.h"
 #include <glib-object.h>
 
 CtMainWin::CtMainWin(CtConfig*        pCtConfig,
@@ -901,7 +901,7 @@ void CtMainWin::update_window_save_not_needed()
     {
         Glib::RefPtr<Gsv::Buffer> rTextBuffer = treeIter.get_node_text_buffer();
         rTextBuffer->set_modified(false);
-        std::list<CtAnchoredWidget*> anchoredWidgets = treeIter.get_all_embedded_widgets();
+        std::list<CtAnchoredWidget*> anchoredWidgets = treeIter.get_embedded_pixbufs_tables_codeboxes_fast();
         for (CtAnchoredWidget* pAnchoredWidget : anchoredWidgets)
         {
             pAnchoredWidget->set_modified_false();
@@ -1263,7 +1263,7 @@ void CtMainWin::_on_textview_size_allocate(Gtk::Allocation& allocation)
     else if (_prevTextviewWidth != allocation.get_width())
     {
         _prevTextviewWidth = allocation.get_width();
-        auto widgets = curr_tree_iter().get_all_embedded_widgets();
+        auto widgets = curr_tree_iter().get_embedded_pixbufs_tables_codeboxes_fast();
         for (auto& widget: widgets)
             if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widget))
                 if (not codebox->get_width_in_pixels())
@@ -1293,7 +1293,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
     else if (event->key.state & Gdk::CONTROL_MASK and event->key.keyval == GDK_KEY_space)
     {
         auto iter_insert = curr_buffer->get_insert()->get_iter();
-        auto widgets = curr_tree_iter().get_embedded_pixbufs_tables_codeboxes({iter_insert.get_offset(), iter_insert.get_offset()});
+        auto widgets = curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(iter_insert.get_offset(), iter_insert.get_offset());
         if (not widgets.empty())
             if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widgets.front()))
             {
@@ -1327,7 +1327,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             curr_buffer->get_selection_bounds(iter_sel_start, iter_sel_end);
             int num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset();
             if (num_chars != 1) return false;
-            auto widgets = curr_tree_iter().get_embedded_pixbufs_tables_codeboxes({iter_sel_start.get_offset(), iter_sel_start.get_offset()});
+            auto widgets = curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(iter_sel_start.get_offset(), iter_sel_start.get_offset());
             if (widgets.empty()) return false;
             if (CtImageAnchor* anchor = dynamic_cast<CtImageAnchor*>(widgets.front()))
             {
@@ -1366,7 +1366,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             {
                 return false;
             }
-            auto widgets = curr_tree_iter().get_embedded_pixbufs_tables_codeboxes({iter_sel_start.get_offset(), iter_sel_start.get_offset()});
+            auto widgets = curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(iter_sel_start.get_offset(), iter_sel_start.get_offset());
             if (widgets.empty())
             {
                 return false;

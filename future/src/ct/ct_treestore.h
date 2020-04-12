@@ -103,9 +103,9 @@ public:
     void          set_node_sequence(gint64 num);
     Glib::RefPtr<Gsv::Buffer> get_node_text_buffer() const;
 
-    std::list<CtAnchoredWidget*> get_all_embedded_widgets();
     void                         remove_all_embedded_widgets();
-    std::list<CtAnchoredWidget*> get_embedded_pixbufs_tables_codeboxes(const std::pair<int,int>& offset_range=std::make_pair(-1,-1));
+    std::list<CtAnchoredWidget*> get_embedded_pixbufs_tables_codeboxes_fast();
+    std::list<CtAnchoredWidget*> get_embedded_pixbufs_tables_codeboxes(int start_offset = -1, int end_offset = -1);
 
     void pending_edit_db_node_prop();
     void pending_edit_db_node_buff();

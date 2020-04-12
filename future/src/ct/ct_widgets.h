@@ -27,7 +27,6 @@
 #include <sqlite3.h>
 #include <iostream>
 #include <unordered_map>
-#include "ct_list.h"
 #include "ct_types.h"
 
 class CtTmp

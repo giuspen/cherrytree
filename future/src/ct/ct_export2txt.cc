@@ -73,7 +73,7 @@ void CtExport2Txt::nodes_all_export_to_txt(bool all_tree, Glib::ustring export_d
 Glib::ustring CtExport2Txt::selection_export_to_txt(Glib::RefPtr<Gtk::TextBuffer> text_buffer, int sel_start, int sel_end, bool check_link_target)
 {
     Glib::ustring plain_text;
-    std::list<CtAnchoredWidget*> widgets = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(std::make_pair(sel_start, sel_end));
+    std::list<CtAnchoredWidget*> widgets = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(sel_start, sel_end);
 
     int start_offset = sel_start >= 0 ? sel_start : 0;
     for (CtAnchoredWidget* widget: widgets)

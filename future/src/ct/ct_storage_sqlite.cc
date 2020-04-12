@@ -563,7 +563,7 @@ bool CtStorageSqlite::_write_node_to_db(CtTreeIter* ct_tree_iter,
     // write widgets
     if (node_state.buff && (is_richtxt & 0x01))
     {
-        for (CtAnchoredWidget* pAnchoredWidget : ct_tree_iter->get_embedded_pixbufs_tables_codeboxes(std::make_pair(start_offset, end_offset)))
+        for (CtAnchoredWidget* pAnchoredWidget : ct_tree_iter->get_embedded_pixbufs_tables_codeboxes(start_offset, end_offset))
         {
             if (!pAnchoredWidget->to_sqlite(_pDb, node_id, start_offset >= 0 ? -start_offset : 0))
                 throw std::runtime_error("couldn't save widget");

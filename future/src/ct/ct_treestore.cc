@@ -178,10 +178,6 @@ bool CtTreeIter::get_is_bold_from_pango_weight(int pangoWeight)
     return pangoWeight == PANGO_WEIGHT_HEAVY;
 }
 
-std::list<CtAnchoredWidget*> CtTreeIter::get_all_embedded_widgets()
-{
-    return (*this) ? (*this)->get_value(_pColumns->colAnchoredWidgets) : std::list<CtAnchoredWidget*>();
-}
 void CtTreeIter::remove_all_embedded_widgets()
 {
     if (*this)
@@ -192,16 +188,21 @@ void CtTreeIter::remove_all_embedded_widgets()
     }
 }
 
-std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes(const std::pair<int,int>& offset_range)
+std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes_fast()
+{
+    return (*this) ? (*this)->get_value(_pColumns->colAnchoredWidgets) : std::list<CtAnchoredWidget*>();
+}
+
+std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes(int start_offset /*= -1*/, int end_offset /*= -1*/)
 {
     std::list<CtAnchoredWidget*> retAnchoredWidgetsList;
     if ((*this) and (*this)->get_value(_pColumns->colAnchoredWidgets).size() > 0)
     {
         Glib::RefPtr<Gsv::Buffer> rTextBuffer = get_node_text_buffer();
-        Gtk::TextIter curr_iter = offset_range.first >= 0 ? rTextBuffer->get_iter_at_offset(offset_range.first) : rTextBuffer->begin();
+        Gtk::TextIter curr_iter = start_offset >= 0 ? rTextBuffer->get_iter_at_offset(start_offset) : rTextBuffer->begin();
         do
         {
-            if ((offset_range.second >= 0) and (curr_iter.get_offset() > offset_range.second))
+            if ((end_offset >= 0) and (curr_iter.get_offset() > end_offset))
             {
                 break;
             }
@@ -578,7 +579,7 @@ void CtTreeStore::apply_textbuffer_to_textview(const CtTreeIter& treeIter, CtTex
     pTextView->set_sensitive(true);
     pTextView->set_editable(not node.get_node_read_only());
 
-    for (CtAnchoredWidget* pCtAnchoredWidget : node.get_all_embedded_widgets())
+    for (CtAnchoredWidget* pCtAnchoredWidget : node.get_embedded_pixbufs_tables_codeboxes_fast())
     {
         Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
         if (rChildAnchor)

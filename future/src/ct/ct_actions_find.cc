@@ -951,10 +951,9 @@ std::pair<int, int> CtActions::_check_pattern_in_object_between(Glib::RefPtr<Gtk
         } else
             end_offset = 0;
     }
-    std::pair<int, int> sel_range = {start_offset, end_offset};
-    if (!forward) std::swap(sel_range.first, sel_range.second);
+    if (!forward) std::swap(start_offset, end_offset);
 
-    std::list<CtAnchoredWidget*> obj_vec = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(sel_range);
+    std::list<CtAnchoredWidget*> obj_vec = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(start_offset, end_offset);
     if (!forward)
         std::reverse(obj_vec.begin(), obj_vec.end());
     for (auto element: obj_vec)
