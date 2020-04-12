@@ -359,8 +359,8 @@ Gtk::TreeIter CtDialogs::choose_node_dialog(CtMainWin* pCtMainWin,
     });
 
     pContentArea->show_all();
-    std::string expanded_collapsed_string = pCtTreeStore->get_tree_expanded_collapsed_string(parentTreeView);
-    pCtTreeStore->set_tree_expanded_collapsed_string(expanded_collapsed_string, treeview_2, pCtMainWin->get_ct_config()->nodesBookmExp);
+    std::string expanded_collapsed_string = pCtTreeStore->treeview_get_tree_expanded_collapsed_string(parentTreeView);
+    pCtTreeStore->treeview_set_tree_expanded_collapsed_string(expanded_collapsed_string, treeview_2, pCtMainWin->get_ct_config()->nodesBookmExp);
     if (sel_tree_iter)
     {
         Gtk::TreePath sel_path = treeview_2.get_model()->get_path(sel_tree_iter);
@@ -376,7 +376,7 @@ Gtk::TreeIter CtDialogs::choose_node_dialog(CtMainWin* pCtMainWin,
 void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
 {
     CtTreeStore& ctTreestore = pCtMainWin->curr_tree_store();
-    const std::list<gint64>& bookmarks = ctTreestore.get_bookmarks();
+    const std::list<gint64>& bookmarks = ctTreestore.bookmarks_get();
 
     Gtk::Dialog dialog(_("Handle the Bookmarks List"),
                        *pCtMainWin,
@@ -530,7 +530,7 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
         }
     }
 
-    ctTreestore.set_bookmarks(temp_bookmarks_order);
+    ctTreestore.bookmarks_set(temp_bookmarks_order);
     gint64 curr_node_id = pCtMainWin->curr_tree_iter().get_node_id();
     for (gint64& node_id: removed_bookmarks)
     {
@@ -866,8 +866,8 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
             if (first_in)
             {
                 first_in = false;
-                std::string exp_colpsd_str = ctTreestore.get_tree_expanded_collapsed_string(ctMainWin.curr_tree_view());
-                ctTreestore.set_tree_expanded_collapsed_string(exp_colpsd_str, treeview_2, ctMainWin.get_ct_config()->nodesBookmExp);
+                std::string exp_colpsd_str = ctTreestore.treeview_get_tree_expanded_collapsed_string(ctMainWin.curr_tree_view());
+                ctTreestore.treeview_set_tree_expanded_collapsed_string(exp_colpsd_str, treeview_2, ctMainWin.get_ct_config()->nodesBookmExp);
             }
             if (!sel_tree_iter)
             {

@@ -807,17 +807,17 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     radiobutton_node_icon_cherry->signal_toggled().connect([this, pConfig, radiobutton_node_icon_cherry](){
         if (!radiobutton_node_icon_cherry->get_active()) return;
         pConfig->nodesIcons = "c";
-        _pCtMainWin->curr_tree_store().refresh_node_icons(Gtk::TreeIter(), false);
+        _pCtMainWin->curr_tree_store().update_nodes_icon(Gtk::TreeIter(), false);
     });
     radiobutton_node_icon_custom->signal_toggled().connect([this, pConfig, radiobutton_node_icon_custom](){
         if (!radiobutton_node_icon_custom->get_active()) return;
         pConfig->nodesIcons = "b";
-        _pCtMainWin->curr_tree_store().refresh_node_icons(Gtk::TreeIter(), false);
+        _pCtMainWin->curr_tree_store().update_nodes_icon(Gtk::TreeIter(), false);
     });
     radiobutton_node_icon_none->signal_toggled().connect([this, pConfig, radiobutton_node_icon_none](){
         if (!radiobutton_node_icon_none->get_active()) return;
         pConfig->nodesIcons = "n";
-        _pCtMainWin->curr_tree_store().refresh_node_icons(Gtk::TreeIter(), false);
+        _pCtMainWin->curr_tree_store().update_nodes_icon(Gtk::TreeIter(), false);
     });
     c_icon_button->signal_clicked().connect([this, pConfig, c_icon_button](){
         auto itemStore = CtChooseDialogListStore::create();
@@ -827,7 +827,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
         if (res) {
             pConfig->defaultIconText = std::stoi(res->get_value(itemStore->columns.key));
             c_icon_button->set_image(*_pCtMainWin->new_image_from_stock(res->get_value(itemStore->columns.stock_id), Gtk::ICON_SIZE_BUTTON));
-            _pCtMainWin->curr_tree_store().refresh_node_icons(Gtk::TreeIter(), false);
+            _pCtMainWin->curr_tree_store().update_nodes_icon(Gtk::TreeIter(), false);
         }
     });
     radiobutton_nodes_startup_expand->signal_toggled().connect([pConfig, radiobutton_nodes_startup_expand, checkbutton_nodes_bookm_exp](){

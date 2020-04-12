@@ -433,8 +433,7 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
     _uCtTreeview->show();
 
     _uCtTreestore.reset(new CtTreeStore(this));
-    _uCtTreestore->view_connect(_uCtTreeview.get());
-    _uCtTreestore->view_append_columns(_uCtTreeview.get());
+    _uCtTreestore->textview_connect(_uCtTreeview.get());
 
     _uCtTreeview->signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_cursor_changed));
     _uCtTreeview->signal_button_release_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_button_release_event));
@@ -608,7 +607,7 @@ void CtMainWin::bookmark_action_select_node(gint64 node_id)
 void CtMainWin::set_bookmarks_menu_items()
 {
     std::list<std::pair<gint64, std::string>> bookmarks;
-    for (const gint64& node_id : _uCtTreestore->get_bookmarks())
+    for (const gint64& node_id : _uCtTreestore->bookmarks_get())
     {
         bookmarks.push_back(std::make_pair(node_id, _uCtTreestore->get_node_name_from_node_id(node_id)));
     }
@@ -673,7 +672,7 @@ void CtMainWin::_ensure_curr_doc_in_recent_docs()
     {
         _pCtConfig->recentDocsFilepaths.move_or_push_front(currDocFilePath);
         CtRecentDocRestore prevDocRestore;
-        prevDocRestore.exp_coll_str = _uCtTreestore->get_tree_expanded_collapsed_string(*_uCtTreeview);
+        prevDocRestore.exp_coll_str = _uCtTreestore->treeview_get_tree_expanded_collapsed_string(*_uCtTreeview);
         const CtTreeIter prevTreeIter = curr_tree_iter();
         if (prevTreeIter)
         {
@@ -724,19 +723,19 @@ bool CtMainWin::file_open(const std::string& filepath, const bool force_reset)
         case CtRestoreExpColl::ALL_COLL:
         {
             _uCtTreeview->expand_all();
-            _uCtTreestore->set_tree_expanded_collapsed_string("", *_uCtTreeview, _pCtConfig->nodesBookmExp);
+            _uCtTreestore->treeview_set_tree_expanded_collapsed_string("", *_uCtTreeview, _pCtConfig->nodesBookmExp);
         } break;
         default:
         {
             if (iterDocsRestore != _pCtConfig->recentDocsRestore.end())
             {
-                _uCtTreestore->set_tree_expanded_collapsed_string(iterDocsRestore->second.exp_coll_str, *_uCtTreeview, _pCtConfig->nodesBookmExp);
+                _uCtTreestore->treeview_set_tree_expanded_collapsed_string(iterDocsRestore->second.exp_coll_str, *_uCtTreeview, _pCtConfig->nodesBookmExp);
             }
         } break;
     }
     if (iterDocsRestore != _pCtConfig->recentDocsRestore.end())
     {
-        _uCtTreestore->set_tree_path_n_text_cursor(_uCtTreeview.get(),
+        _uCtTreestore->treeview_set_tree_path_n_text_cursor(_uCtTreeview.get(),
                                                    &_ctTextview,
                                                    iterDocsRestore->second.node_path,
                                                    iterDocsRestore->second.cursor_pos);
@@ -1019,7 +1018,7 @@ void CtMainWin::_on_treeview_cursor_changed()
         }
     }
     CtTreeIter treeIter = curr_tree_iter();
-    _uCtTreestore->apply_textbuffer_to_textview(treeIter, &_ctTextview);
+    _uCtTreestore->textview_apply_textbuffer(treeIter, &_ctTextview);
 
     menu_tree_update_for_bookmarked_node(_uCtTreestore->is_node_bookmarked(treeIter.get_node_id()));
     window_header_update();

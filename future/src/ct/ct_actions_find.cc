@@ -208,7 +208,7 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
     s_state.matches_num = 0;
     if (all_matches) s_state.match_store->clear();
 
-    std::string tree_expanded_collapsed_string = _pCtMainWin->curr_tree_store().get_tree_expanded_collapsed_string(_pCtMainWin->curr_tree_view());
+    std::string tree_expanded_collapsed_string = _pCtMainWin->curr_tree_store().treeview_get_tree_expanded_collapsed_string(_pCtMainWin->curr_tree_view());
     // searching start
     bool user_active_restore = _pCtMainWin->user_active();
     _pCtMainWin->user_active() = false;
@@ -256,7 +256,7 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
     std::cout << search_end_time - search_start_time << " sec" << std::endl;
 
     _pCtMainWin->user_active() = user_active_restore;
-    _pCtMainWin->curr_tree_store().set_tree_expanded_collapsed_string(tree_expanded_collapsed_string, _pCtMainWin->curr_tree_view(), _pCtMainWin->get_ct_config()->nodesBookmExp);
+    _pCtMainWin->curr_tree_store().treeview_set_tree_expanded_collapsed_string(tree_expanded_collapsed_string, _pCtMainWin->curr_tree_view(), _pCtMainWin->get_ct_config()->nodesBookmExp);
     if (!s_state.matches_num || all_matches) {
         _pCtMainWin->curr_tree_view().set_cursor_safe(starting_tree_iter);
         _pCtMainWin->get_text_view().grab_focus();

@@ -184,7 +184,7 @@ bool CtStorageSqlite::populate_treestore(const Glib::ustring& file_path, Glib::u
         if (stmt.is_bad())
             throw std::runtime_error(ERR_SQLITE_PREPV2 + sqlite3_errmsg(_pDb));
         while (sqlite3_step(stmt) == SQLITE_ROW)
-               _pCtMainWin->curr_tree_store().onRequestAddBookmark(sqlite3_column_int64(stmt, 0));
+               _pCtMainWin->curr_tree_store().bookmarks_add(sqlite3_column_int64(stmt, 0));
 
         // load node tree
         std::function<void(guint node_id, Gtk::TreeIter)> nodes_from_db;
@@ -218,7 +218,7 @@ bool CtStorageSqlite::save_treestore(const Glib::ustring& file_path, const CtSto
                 throw std::runtime_error(std::string("couldn't create sqlite database: ") + sqlite3_errmsg(_pDb));
 
             _create_all_tables_in_db();
-            _write_bookmarks_to_db(_pCtMainWin->curr_tree_store().get_bookmarks());
+            _write_bookmarks_to_db(_pCtMainWin->curr_tree_store().bookmarks_get());
 
             CtStorageNodeState node_state;
             node_state.upd = false; // no need to delete the prev data
@@ -254,7 +254,7 @@ bool CtStorageSqlite::save_treestore(const Glib::ustring& file_path, const CtSto
         {
             // update bookmarks
             if (syncPending.bookmarks_to_write)
-                _write_bookmarks_to_db(_pCtMainWin->curr_tree_store().get_bookmarks());
+                _write_bookmarks_to_db(_pCtMainWin->curr_tree_store().bookmarks_get());
             // update changed nodes
             for (const auto& node_pair : syncPending.nodes_to_write_dict)
             {
@@ -314,7 +314,7 @@ Gtk::TreeIter CtStorageSqlite::_node_from_db(guint node_id, Gtk::TreeIter parent
     nodeData.tsCreation = sqlite3_column_int64(stmt, 5);
     nodeData.tsLastSave = sqlite3_column_int64(stmt, 6);
 
-    return _pCtMainWin->curr_tree_store().appendNode(&nodeData, &parent_iter);
+    return _pCtMainWin->curr_tree_store().append_node(&nodeData, &parent_iter);
 }
 
 Glib::RefPtr<Gsv::Buffer> CtStorageSqlite::get_delayed_text_buffer(const gint64& node_id,

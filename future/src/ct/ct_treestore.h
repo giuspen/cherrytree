@@ -128,28 +128,30 @@ public:
     CtTreeStore(CtMainWin* pCtMainWin);
     virtual ~CtTreeStore();
 
-    void          view_connect(Gtk::TreeView* pTreeView);
-    void          view_append_columns(Gtk::TreeView* pTreeView);
+    void          textview_connect(Gtk::TreeView* pTreeView);
+    void          textview_apply_textbuffer(const CtTreeIter& treeIter, CtTextView* pTextView);
+
     void          get_node_data(const Gtk::TreeIter& treeIter, CtNodeData& nodeData);
+
     void          update_node_data(const Gtk::TreeIter& treeIter, const CtNodeData& nodeData);
     void          update_node_icon(const Gtk::TreeIter& treeIter);
+    void          update_nodes_icon(Gtk::TreeIter father_iter,  bool cherry_only);
     void          update_node_aux_icon(const Gtk::TreeIter& treeIter);
-    Gtk::TreeIter appendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter=nullptr);
-    Gtk::TreeIter insertNode(CtNodeData* pNodeData, const Gtk::TreeIter& afterIter);
 
-    bool          onRequestAddBookmark(gint64 nodeId);
-    bool          onRequestRemoveBookmark(gint64 nodeId);
-    Gtk::TreeIter onRequestAppendNode(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter);
 
-    void apply_textbuffer_to_textview(const CtTreeIter& treeIter, CtTextView* pTextView);
+    Gtk::TreeIter append_node(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter=nullptr);
+    Gtk::TreeIter insert_node(CtNodeData* pNodeData, const Gtk::TreeIter& afterIter);
+
     void addAnchoredWidgets(Gtk::TreeIter treeIter, std::list<CtAnchoredWidget*> anchoredWidgetList, Gtk::TextView* pTextView);
-    const Gtk::TreeModel::Children get_root_children() { return _rTreeStore->children(); }
-    void expand_to_tree_row(Gtk::TreeView* pTreeView, Gtk::TreeRow& row);
-    void set_tree_path_n_text_cursor(Gtk::TreeView* pTreeView,
+
+    void treevew_expand_to_tree_row(Gtk::TreeView* pTreeView, Gtk::TreeRow& row);
+    void treeview_safe_set_cursor(Gtk::TreeView* pTreeView, Gtk::TreeIter& iter);
+    void treeview_set_tree_path_n_text_cursor(Gtk::TreeView* pTreeView,
                                      Gsv::View* pTextView,
                                      const std::string& node_path,
                                      const int cursor_pos);
-    void treeview_safe_set_cursor(Gtk::TreeView* pTreeView, Gtk::TreeIter& iter);
+    std::string treeview_get_tree_expanded_collapsed_string(Gtk::TreeView& treeView);
+    void        treeview_set_tree_expanded_collapsed_string(const std::string& expanded_collapsed_string, Gtk::TreeView& treeView, bool nodes_bookm_exp);
 
     gint64                         node_id_get(gint64 original_id=-1,
                                                std::unordered_map<gint64,gint64> remapping_ids=std::unordered_map<gint64,gint64>{});
@@ -159,11 +161,13 @@ public:
     std::string                    get_node_name_from_node_id(const gint64 node_id);
     CtTreeIter                     get_node_from_node_id(const gint64 node_id);
     CtTreeIter                     get_node_from_node_name(const Glib::ustring& node_name);
-    const std::list<gint64>&       get_bookmarks();
-    void                           set_bookmarks(const std::list<gint64>& bookmarks);
 
-    std::string get_tree_expanded_collapsed_string(Gtk::TreeView& treeView);
-    void        set_tree_expanded_collapsed_string(const std::string& expanded_collapsed_string, Gtk::TreeView& treeView, bool nodes_bookm_exp);
+    bool                           bookmarks_add(gint64 nodeId);
+    bool                           bookmarks_remove(gint64 nodeId);
+    const std::list<gint64>&       bookmarks_get();
+    void                           bookmarks_set(const std::list<gint64>& bookmarks);
+
+
 
     Glib::RefPtr<Gtk::TreeStore>    get_store();
     Gtk::TreeIter                   get_iter_first();
@@ -174,7 +178,7 @@ public:
     CtTreeIter                      to_ct_tree_iter(Gtk::TreeIter tree_iter);
 
     void nodes_sequences_fix(Gtk::TreeIter father_iter,  bool process_children);
-    void refresh_node_icons(Gtk::TreeIter father_iter,  bool cherry_only);
+
 
     const CtTreeModelColumns& get_columns() { return _columns; }
 

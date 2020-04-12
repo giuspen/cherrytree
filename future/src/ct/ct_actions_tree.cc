@@ -140,11 +140,11 @@ void CtActions::_node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeDat
 
     Gtk::TreeIter nodeIter;
     if (add_child) {
-        nodeIter = _pCtMainWin->curr_tree_store().appendNode(&nodeData, &curr_iter /* as parent */);
+        nodeIter = _pCtMainWin->curr_tree_store().append_node(&nodeData, &curr_iter /* as parent */);
     } else if (curr_iter)
-        nodeIter = _pCtMainWin->curr_tree_store().insertNode(&nodeData, curr_iter /* after */);
+        nodeIter = _pCtMainWin->curr_tree_store().insert_node(&nodeData, curr_iter /* after */);
     else
-        nodeIter = _pCtMainWin->curr_tree_store().appendNode(&nodeData);
+        nodeIter = _pCtMainWin->curr_tree_store().append_node(&nodeData);
 
     if (node_state)
         _pCtMainWin->load_buffer_from_state(node_state, _pCtMainWin->curr_tree_store().to_ct_tree_iter(nodeIter));
@@ -395,7 +395,7 @@ void CtActions::node_right()
     auto prev_iter = --_pCtMainWin->curr_tree_iter();
     if (!prev_iter) return;
     _node_move_after(_pCtMainWin->curr_tree_iter(), prev_iter);
-    _pCtMainWin->curr_tree_store().refresh_node_icons(_pCtMainWin->curr_tree_iter(), true);
+    _pCtMainWin->curr_tree_store().update_nodes_icon(_pCtMainWin->curr_tree_iter(), true);
 }
 
 void CtActions::node_left()
@@ -404,7 +404,7 @@ void CtActions::node_left()
     Gtk::TreeIter father_iter = _pCtMainWin->curr_tree_iter()->parent();
     if (!father_iter) return;
     _node_move_after(_pCtMainWin->curr_tree_iter(), father_iter->parent(), father_iter);
-    _pCtMainWin->curr_tree_store().refresh_node_icons(_pCtMainWin->curr_tree_iter(), true);
+    _pCtMainWin->curr_tree_store().update_nodes_icon(_pCtMainWin->curr_tree_iter(), true);
 }
 
 void CtActions::node_change_father()
@@ -432,7 +432,7 @@ void CtActions::node_change_father()
         }
 
     _node_move_after(_pCtMainWin->curr_tree_iter(), father_iter);
-    _pCtMainWin->curr_tree_store().refresh_node_icons(_pCtMainWin->curr_tree_iter(), true);
+    _pCtMainWin->curr_tree_store().update_nodes_icon(_pCtMainWin->curr_tree_iter(), true);
 }
 
 //"""Sorts the Tree Ascending"""
@@ -516,7 +516,7 @@ void CtActions::bookmark_curr_node()
     if (!_is_there_selected_node_or_error()) return;
     gint64 node_id = _pCtMainWin->curr_tree_iter().get_node_id();
 
-    if (_pCtMainWin->curr_tree_store().onRequestAddBookmark(node_id)) {
+    if (_pCtMainWin->curr_tree_store().bookmarks_add(node_id)) {
         _pCtMainWin->set_bookmarks_menu_items();
         _pCtMainWin->curr_tree_store().update_node_aux_icon(_pCtMainWin->curr_tree_iter());
         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::book);
@@ -529,7 +529,7 @@ void CtActions::bookmark_curr_node_remove()
     if (!_is_there_selected_node_or_error()) return;
     gint64 node_id = _pCtMainWin->curr_tree_iter().get_node_id();
 
-    if (_pCtMainWin->curr_tree_store().onRequestRemoveBookmark(node_id)) {
+    if (_pCtMainWin->curr_tree_store().bookmarks_remove(node_id)) {
         _pCtMainWin->set_bookmarks_menu_items();
         _pCtMainWin->curr_tree_store().update_node_aux_icon(_pCtMainWin->curr_tree_iter());
         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::book);
