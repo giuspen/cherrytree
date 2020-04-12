@@ -140,7 +140,7 @@ public:
     const std::string get_text_tag_name_exist_or_create(const std::string& propertyName, const std::string& propertyValue);
     Glib::ustring sourceview_hovering_link_get_tooltip(const Glib::ustring& link);
     bool apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start);
-    bool apply_tag_try_automatic_bounds_triple_click(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start);
+    void apply_tag_try_automatic_bounds_triple_click(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start);
 
 private:
     Gtk::HBox&     _init_status_bar();

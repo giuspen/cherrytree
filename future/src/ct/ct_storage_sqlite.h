@@ -57,7 +57,7 @@ private:
 
     void                _create_all_tables_in_db();
     void                _write_bookmarks_to_db(const std::list<gint64>& bookmarks);
-    bool                _write_node_to_db(CtTreeIter* ct_tree_iter,
+    void                _write_node_to_db(CtTreeIter* ct_tree_iter,
                                           const gint64 sequence,
                                           const gint64 node_father_id,
                                           const CtStorageNodeState& write_dict,

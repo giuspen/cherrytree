@@ -158,7 +158,11 @@ void CtStorageSqlite::test_connection()
         return;
 
     _close_db();
-    usleep(500); // wait 0.5 sec, file can be block by sync program like Dropbox
+
+    // todo: fix for win32
+#ifndef _WIN32
+    usleep(500 * 100); // wait 0.5 sec, file can be block by sync program like Dropbox
+#endif
 
     if (SQLITE_OK != sqlite3_open(_file_path.c_str(), &_pDb))
         throw std::runtime_error(str::format(_("%s write failed - file is missing. Reattach usb driver or shared resource"), _file_path));
@@ -505,7 +509,7 @@ void CtStorageSqlite::_write_bookmarks_to_db(const std::list<gint64>& bookmarks)
     }
 }
 
-bool CtStorageSqlite::_write_node_to_db(CtTreeIter* ct_tree_iter,
+void CtStorageSqlite::_write_node_to_db(CtTreeIter* ct_tree_iter,
                                            const gint64 sequence,
                                            const gint64 node_father_id,
                                            const CtStorageNodeState& node_state,
