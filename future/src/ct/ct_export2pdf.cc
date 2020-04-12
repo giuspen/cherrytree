@@ -107,7 +107,7 @@ void CtExport2Pdf::_nodes_all_export_print_iter(CtTreeIter tree_iter, const CtEx
     }
     tree_widgets.insert(std::end(tree_widgets), std::begin(node_widgets), std::end(node_widgets));
     for (auto iter: tree_iter->children())
-        _nodes_all_export_print_iter(_pCtMainWin->curr_tree_store().to_ct_tree_iter(iter), options, tree_pango_slots, tree_widgets, text_font);
+        _nodes_all_export_print_iter(_pCtMainWin->get_tree_store().to_ct_tree_iter(iter), options, tree_pango_slots, tree_widgets, text_font);
 }
 
 // Add Node Name to Pango Text Vector

@@ -47,22 +47,22 @@ void CtActions::toggle_show_hide_node_name_header()
 // Toggle Focus Between Tree and Text
 void CtActions::toggle_tree_text()
 {
-    if (_pCtMainWin->curr_tree_view().has_focus())
+    if (_pCtMainWin->get_tree_view().has_focus())
         _pCtMainWin->get_text_view().grab_focus();
     else
-        _pCtMainWin->curr_tree_view().grab_focus();
+        _pCtMainWin->get_tree_view().grab_focus();
 }
 
 // Expand all Tree Nodes
 void CtActions::nodes_expand_all()
 {
-    _pCtMainWin->curr_tree_view().expand_all();
+    _pCtMainWin->get_tree_view().expand_all();
 }
 
 // Collapse all Tree Nodes
 void CtActions::nodes_collapse_all()
 {
-    _pCtMainWin->curr_tree_view().collapse_all();
+    _pCtMainWin->get_tree_view().collapse_all();
 }
 
 // Increase the Size of the Toolbar Icons

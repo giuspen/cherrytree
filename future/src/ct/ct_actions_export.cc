@@ -103,7 +103,7 @@ void CtActions::_export_print(bool save_to_pdf, Glib::ustring auto_path, bool au
             pdf_filepath = _get_pdf_filepath(_pCtMainWin->get_ct_storage()->get_file_name());
             if (pdf_filepath == "") return;
         }
-        CtExport2Pdf(_pCtMainWin).tree_export_print(pdf_filepath, _pCtMainWin->curr_tree_store().get_ct_iter_first(), _export_options);
+        CtExport2Pdf(_pCtMainWin).tree_export_print(pdf_filepath, _pCtMainWin->get_tree_store().get_ct_iter_first(), _export_options);
     }
     else if (export_type == CtDialogs::CtProcessNode::SELECTED_TEXT)
     {

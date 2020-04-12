@@ -55,10 +55,10 @@ void CtExport2Txt::nodes_all_export_to_txt(bool all_tree, Glib::ustring export_d
             node_export_to_txt(tree_iter, filepath, export_options, -1, -1);
         }
         for (auto& child: tree_iter->children())
-            traverseFunc(_pCtMainWin->curr_tree_store().to_ct_tree_iter(child));
+            traverseFunc(_pCtMainWin->get_tree_store().to_ct_tree_iter(child));
     };
     // start to iterarte nodes
-    CtTreeIter tree_iter = all_tree ? _pCtMainWin->curr_tree_store().get_ct_iter_first() : _pCtMainWin->curr_tree_iter();
+    CtTreeIter tree_iter = all_tree ? _pCtMainWin->get_tree_store().get_ct_iter_first() : _pCtMainWin->curr_tree_iter();
     for (;tree_iter; ++tree_iter)
     {
         traverseFunc(tree_iter);

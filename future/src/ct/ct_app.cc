@@ -153,7 +153,7 @@ void CtApp::on_activate()
             {
                 std::cout << "? not found " << CtApp::_uCtCfg->recentDocsFilepaths.front() << std::endl;
                 CtApp::_uCtCfg->recentDocsFilepaths.move_or_push_back(CtApp::_uCtCfg->recentDocsFilepaths.front());
-                pAppWindow->set_menu_items_recent_documents();
+                pAppWindow->menu_set_items_recent_documents();
             }
         }
     }

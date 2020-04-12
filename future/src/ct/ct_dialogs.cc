@@ -375,7 +375,7 @@ Gtk::TreeIter CtDialogs::choose_node_dialog(CtMainWin* pCtMainWin,
 // Handle the Bookmarks List
 void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
 {
-    CtTreeStore& ctTreestore = pCtMainWin->curr_tree_store();
+    CtTreeStore& ctTreestore = pCtMainWin->get_tree_store();
     const std::list<gint64>& bookmarks = ctTreestore.bookmarks_get();
 
     Gtk::Dialog dialog(_("Handle the Bookmarks List"),
@@ -458,7 +458,7 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
         Gtk::TreeIter clicked_iter = rModel->get_iter(clicked_path);
         gint64 node_id = clicked_iter->get_value(rModel->columns.node_id);
         Gtk::TreeIter tree_iter = ctTreestore.get_node_from_node_id(node_id);
-        pCtMainWin->curr_tree_view().set_cursor_safe(tree_iter);
+        pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
         return true; // stop event
     });
     button_move_up.signal_clicked().connect([&treeview, &rModel]()
@@ -540,12 +540,12 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
             ctTreestore.update_node_aux_icon(tree_iter);
             if (curr_node_id == node_id)
             {
-                pCtMainWin->menu_tree_update_for_bookmarked_node(false);
+                pCtMainWin->menu_update_bookmark_menu_item(false);
             }
         }
     }
 
-    pCtMainWin->set_bookmarks_menu_items();
+    pCtMainWin->menu_set_bookmark_menu_items();
     ctTreestore.pending_edit_db_bookmarks();
     pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::book);
 }
@@ -667,14 +667,14 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
             return;
         }
         gint64 node_id = list_iter->get_value(rModel->columns.node_id);
-        CtTreeIter tree_iter = ctMainWin.curr_tree_store().get_node_from_node_id(node_id);
+        CtTreeIter tree_iter = ctMainWin.get_tree_store().get_node_from_node_id(node_id);
         if (!tree_iter)
         {
             CtDialogs::error_dialog(str::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), node_id), ctMainWin);
             rModel->erase(list_iter);
             return;
         }
-        ctMainWin.curr_tree_view().set_cursor_safe(tree_iter);
+        ctMainWin.get_tree_view().set_cursor_safe(tree_iter);
         auto rCurrBuffer = ctMainWin.get_text_view().get_buffer();
         rCurrBuffer->move_mark(rCurrBuffer->get_insert(),
                                rCurrBuffer->get_iter_at_offset(list_iter->get_value(rModel->columns.start_offset)));
@@ -737,7 +737,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     if (link_entries.type == "")
         link_entries.type = CtConst::LINK_TYPE_WEBS;
 
-    CtTreeStore& ctTreestore = ctMainWin.curr_tree_store();
+    CtTreeStore& ctTreestore = ctMainWin.get_tree_store();
     Gtk::Dialog dialog(title,
                        ctMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
@@ -799,14 +799,14 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
 
     Gtk::HBox hbox_detail;
 
-    Gtk::TreeView treeview_2(ctMainWin.curr_tree_store().get_store());
+    Gtk::TreeView treeview_2(ctMainWin.get_tree_store().get_store());
     treeview_2.set_headers_visible(false);
     treeview_2.set_search_column(1);
     Gtk::CellRendererPixbuf renderer_pixbuf_2;
     Gtk::CellRendererText renderer_text_2;
     Gtk::TreeViewColumn column_2;
-    treeview_2.append_column("", ctMainWin.curr_tree_store().get_columns().rColPixbuf);
-    treeview_2.append_column("", ctMainWin.curr_tree_store().get_columns().colNodeName);
+    treeview_2.append_column("", ctMainWin.get_tree_store().get_columns().rColPixbuf);
+    treeview_2.append_column("", ctMainWin.get_tree_store().get_columns().colNodeName);
     Gtk::ScrolledWindow scrolledwindow;
     scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     scrolledwindow.add(treeview_2);
@@ -866,7 +866,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
             if (first_in)
             {
                 first_in = false;
-                std::string exp_colpsd_str = ctTreestore.treeview_get_tree_expanded_collapsed_string(ctMainWin.curr_tree_view());
+                std::string exp_colpsd_str = ctTreestore.treeview_get_tree_expanded_collapsed_string(ctMainWin.get_tree_view());
                 ctTreestore.treeview_set_tree_expanded_collapsed_string(exp_colpsd_str, treeview_2, ctMainWin.get_ct_config()->nodesBookmExp);
             }
             if (!sel_tree_iter)

@@ -224,7 +224,7 @@ void CtActions::image_link_edit()
         _link_entry.type = CtConst::LINK_TYPE_WEBS; // default value
     else if (not _links_entries_pre_dialog(curr_image_anchor->get_link(), _link_entry))
        return;
-    CtTreeIter sel_tree_iter = _pCtMainWin->curr_tree_store().get_node_from_node_id(_link_entry.node_id);
+    CtTreeIter sel_tree_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(_link_entry.node_id);
     if (not CtDialogs::link_handle_dialog(*_pCtMainWin, _("Insert/Edit Link"), sel_tree_iter, _link_entry))
         return;
     Glib::ustring property_value = _links_entries_post_dialog(_link_entry);
@@ -289,13 +289,13 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
      }
      else if (vec[0] == CtConst::LINK_TYPE_NODE) // link to a tree node
      {
-         CtTreeIter tree_iter = _pCtMainWin->curr_tree_store().get_node_from_node_id(std::stol(vec[1]));
+         CtTreeIter tree_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(std::stol(vec[1]));
          if (not tree_iter)
          {
              CtDialogs::error_dialog(str::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), std::string(vec[1])), *_pCtMainWin);
              return;
          }
-         _pCtMainWin->curr_tree_view().set_cursor_safe(tree_iter);
+         _pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
          _pCtMainWin->get_text_view().grab_focus();
          _pCtMainWin->get_text_view().get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
          _pCtMainWin->get_text_view().set_tooltip_text("");
@@ -700,14 +700,14 @@ bool CtActions::_on_embfiles_sentinel_timeout()
            gint64 node_id = std::stoll(data_vec[0]);
            size_t embfile_id = std::stol(data_vec[1]);
 
-            CtTreeIter tree_iter = _pCtMainWin->curr_tree_store().get_node_from_node_id(node_id);
+            CtTreeIter tree_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(node_id);
             if (not tree_iter) continue;
             if (tree_iter.get_node_read_only())
             {
                 CtDialogs::warning_dialog(_("Cannot Edit Embedded File in Read Only Node"), *_pCtMainWin);
                 continue;
             }
-            _pCtMainWin->curr_tree_view().set_cursor_safe(tree_iter);
+            _pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
             for (auto& widget: tree_iter.get_embedded_pixbufs_tables_codeboxes_fast())
             {
                 if (CtImageEmbFile* embFile = dynamic_cast<CtImageEmbFile*>(widget))

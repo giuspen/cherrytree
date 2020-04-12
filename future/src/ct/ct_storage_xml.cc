@@ -66,7 +66,7 @@ bool CtStorageXml::populate_treestore(const Glib::ustring& file_path, Glib::ustr
         {
             Glib::ustring bookmarks_csv = static_cast<xmlpp::Element*>(xml_node)->get_attribute_value("list");
             for (gint64& nodeId : CtStrUtil::gstring_split_to_int64(bookmarks_csv.c_str(), ","))
-                _pCtMainWin->curr_tree_store().bookmarks_add(nodeId);
+                _pCtMainWin->get_tree_store().bookmarks_add(nodeId);
         }
 
         // read nodes
@@ -98,12 +98,12 @@ bool CtStorageXml::save_treestore(const Glib::ustring& file_path, const CtStorag
 
         // save bookmarks
         Glib::ustring rejoined;
-        str::join_numbers(_pCtMainWin->curr_tree_store().bookmarks_get(), rejoined, ",");
+        str::join_numbers(_pCtMainWin->get_tree_store().bookmarks_get(), rejoined, ",");
         xmlpp::Element* p_bookmarks_node = xml_doc.get_root_node()->add_child("bookmarks");
         p_bookmarks_node->set_attribute("list", rejoined);
 
         // save nodes
-        auto ct_tree_iter = _pCtMainWin->curr_tree_store().get_ct_iter_first();
+        auto ct_tree_iter = _pCtMainWin->get_tree_store().get_ct_iter_first();
         while (ct_tree_iter)
         {
             _nodes_to_xml(&ct_tree_iter, xml_doc.get_root_node());
@@ -144,7 +144,7 @@ Gtk::TreeIter CtStorageXml::_node_from_xml(xmlpp::Element* xml_element, Gtk::Tre
     node_data.tsLastSave = CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("ts_lastSave").c_str());
     node_data.rTextBuffer = CtStorageXmlHelper(_pCtMainWin).create_buffer_and_widgets_from_xml(xml_element, node_data.syntax, node_data.anchoredWidgets, nullptr, -1);
 
-    return _pCtMainWin->curr_tree_store().append_node(&node_data, &parent_iter);
+    return _pCtMainWin->get_tree_store().append_node(&node_data, &parent_iter);
 }
 
 void CtStorageXml::_nodes_to_xml(CtTreeIter* ct_tree_iter, xmlpp::Element* p_node_parent)

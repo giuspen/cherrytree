@@ -90,6 +90,8 @@ public:
     void config_apply_after_show_all();
     void config_update_data_from_curr_status();
 
+    void update_theme();
+
     bool file_open(const std::string& filepath, const bool force_reset = false);
     void file_save();
     void file_save_as(const std::string& new_filepath, const std::string& password);
@@ -97,7 +99,6 @@ public:
 
     bool reset(const bool force_reset = false);
     bool check_unsaved();
-    void configure_theme();
     void update_window_save_needed(const CtSaveNeededUpdType update_type = CtSaveNeededUpdType::None,
                                    const bool new_machine_state = false,
                                    const CtTreeIter* give_tree_iter = nullptr);
@@ -107,29 +108,30 @@ public:
 
     void update_selected_node_statusbar_info();
 
-    CtTreeIter               curr_tree_iter()  { return _uCtTreestore->to_ct_tree_iter(_uCtTreeview->get_selection()->get_selected()); }
-    CtTreeStore&             curr_tree_store() { return *_uCtTreestore; }
-    CtTreeView&              curr_tree_view()  { return *_uCtTreeview; }
-    CtTextView&              get_text_view()   { return _ctTextview; }
-    CtStatusBar&             get_status_bar()  { return _ctStatusBar; }
-    CtMenu&                  get_ct_menu()     { return *_pCtMenu; }
-    CtPrint&                 get_ct_print()    { return *_pCtPrint; }
-    CtConfig*                get_ct_config()   { return _pCtConfig; }
-    CtStorageControl*        get_ct_storage()  { return _pCtStorage; }
-    CtActions*               get_ct_actions()  { return _pCtActions; }
-    CtTmp*                   get_ct_tmp()      { return _pCtTmp; }
-    Gtk::IconTheme*          get_icon_theme()  { return _pGtkIconTheme; }
-    CtStateMachine&          get_state_machine() { return _ctStateMachine; }
+    Glib::RefPtr<Gtk::TextBuffer>     curr_buffer() { return _ctTextview.get_buffer(); }
+    CtTreeIter                        curr_tree_iter()  { return _uCtTreestore->to_ct_tree_iter(_uCtTreeview->get_selection()->get_selected()); }
+    CtTreeStore&                      get_tree_store()  { return *_uCtTreestore; }
+    CtTreeView&                       get_tree_view()   { return *_uCtTreeview; }
+    CtTextView&                       get_text_view()   { return _ctTextview; }
+    CtStatusBar&                      get_status_bar()  { return _ctStatusBar; }
+    CtMenu&                           get_ct_menu()     { return *_pCtMenu; }
+    CtPrint&                          get_ct_print()    { return *_pCtPrint; }
+    CtConfig*                         get_ct_config()   { return _pCtConfig; }
+    CtStorageControl*                 get_ct_storage()  { return _pCtStorage; }
+    CtActions*                        get_ct_actions()  { return _pCtActions; }
+    CtTmp*                            get_ct_tmp()      { return _pCtTmp; }
+    Gtk::IconTheme*                   get_icon_theme()  { return _pGtkIconTheme; }
+    CtStateMachine&                   get_state_machine() { return _ctStateMachine; }
     Glib::RefPtr<Gtk::TextTagTable>&  get_text_tag_table() { return _rGtkTextTagTable; }
     Glib::RefPtr<Gtk::CssProvider>&   get_css_provider()   { return _rGtkCssProvider; }
-    Gsv::LanguageManager*    get_language_manager() { return _pGsvLanguageManager; }
-    Gsv::StyleSchemeManager* get_style_scheme_manager() { return _pGsvStyleSchemeManager; }
+    Gsv::LanguageManager*             get_language_manager() { return _pGsvLanguageManager; }
+    Gsv::StyleSchemeManager*          get_style_scheme_manager() { return _pGsvStyleSchemeManager; }
 
     bool&         user_active()     { return _userActive; } // use as a function, because it's easier to put breakpoint
     int&          cursor_key_press() { return _cursorKeyPress; }
     int&          hovering_link_iter_offset() { return _hovering_link_iter_offset; }
 
-    Glib::RefPtr<Gtk::TextBuffer> curr_buffer() { return _ctTextview.get_buffer(); }
+
 
 public:
     Glib::RefPtr<Gdk::Pixbuf> get_icon(const std::string& name, int size);
@@ -151,12 +153,11 @@ public:
     void window_header_update_last_visited();
     void window_header_update_num_last_visited();
 
-    void menu_tree_update_for_bookmarked_node(bool is_bookmarked);
-    void bookmark_action_select_node(gint64 node_id);
-    void set_bookmarks_menu_items();
+    void menu_update_bookmark_menu_item(bool is_bookmarked);
+    void menu_set_bookmark_menu_items();
 
-    void set_menu_items_recent_documents();
-    void set_menu_items_special_chars();
+    void menu_set_items_recent_documents();
+    void menu_set_items_special_chars();
 
     void show_hide_toolbar(bool visible)    { _pToolbar->property_visible() = visible; }
     void show_hide_tree_view(bool visible)  { _scrolledwindowTree.property_visible() = visible; }
