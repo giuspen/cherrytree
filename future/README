@@ -63,9 +63,9 @@ pacman -Syuu
 # toolchain
 pacman -S mingw-w64-x86_64-toolchain
 # make and autotools
-pacman -S make pkgconfig autoconf automake automake-wrapper libtool intltool
+pacman -S make pkgconfig autoconf automake automake-wrapper libtool intltool gettext-devel
 # gtkmm3, libxml++, sqlite3
-pacman -S mingw-w64-x86_64-gtkmm3 mingw-w64-x86_64-gtksourceviewmm3 gettext-devel mingw-w64-x86_64-libxml++2.6 mingw-w64-x86_64-sqlite3
+pacman -S mingw-w64-x86_64-gtkmm3 mingw-w64-x86_64-gtksourceviewmm3 mingw-w64-x86_64-libxml++2.6 mingw-w64-x86_64-sqlite3
 # python3-lxml
 pacman -S mingw-w64-x86_64-python3-lxml
 # other
