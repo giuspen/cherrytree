@@ -29,6 +29,9 @@ void CtActions::toggle_show_hide_tree()
 {
     _pCtMainWin->get_ct_config()->treeVisible = !_pCtMainWin->get_ct_config()->treeVisible;
     _pCtMainWin->show_hide_tree_view(_pCtMainWin->get_ct_config()->treeVisible);
+    if (_pCtMainWin->get_ct_config()->treeVisible) {
+        _pCtMainWin->get_tree_view().grab_focus();
+    }
 }
 
 // Toggle Show/Hide the Toolbar

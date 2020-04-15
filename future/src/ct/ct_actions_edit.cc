@@ -92,8 +92,13 @@ void CtActions::table_handle()
             rows.push_back(empty_row);
     }
     if (res == 2) {
-        CtDialogs::file_select_args args = {.pParentWin=_pCtMainWin, .curr_folder=_pCtMainWin->get_ct_config()->pickDirCsv,
-                                           .filter_name=_("CSV File"), .filter_pattern={"*.csv"}};
+        CtDialogs::file_select_args args = {
+            .pParentWin=_pCtMainWin,
+            .curr_folder=_pCtMainWin->get_ct_config()->pickDirCsv,
+            .curr_file_name="",
+            .filter_name=_("CSV File"),
+            .filter_pattern={"*.csv"}
+        };
         Glib::ustring filename = CtDialogs::file_select_dialog(args);
         if (filename.empty()) return;
         _pCtMainWin->get_ct_config()->pickDirCsv = Glib::path_get_dirname(filename);
