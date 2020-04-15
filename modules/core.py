@@ -2,7 +2,9 @@
 #
 #       core.py
 #
-#       Copyright 2009-2019 Giuseppe Penone <giuspen@gmail.com>
+#       Copyright 2009-2020
+#       Giuseppe Penone <giuspen@gmail.com>
+#       Evgenii Gurianov <https://github.com/txe>
 #
 #       This program is free software; you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
@@ -3728,6 +3730,7 @@ iter_end, exclude_iter_sel_end=True)
         self.tree_visible = not old_tree_status
         self.scrolledwindow_tree.set_property(cons.STR_VISIBLE, self.tree_visible)
         if self.tree_visible: self.treeview.grab_focus()
+        else: self.sourceview.grab_focus()
 
     def toggle_show_hide_node_name_header(self, *args):
         """Toggle Show/Hide the Node Title Header"""

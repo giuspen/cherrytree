@@ -1,7 +1,9 @@
 /*
  * ct_actions_view.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,6 +33,9 @@ void CtActions::toggle_show_hide_tree()
     _pCtMainWin->show_hide_tree_view(_pCtMainWin->get_ct_config()->treeVisible);
     if (_pCtMainWin->get_ct_config()->treeVisible) {
         _pCtMainWin->get_tree_view().grab_focus();
+    }
+    else {
+        _pCtMainWin->get_text_view().grab_focus();
     }
 }
 
