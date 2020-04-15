@@ -168,6 +168,7 @@ void CtCodebox::apply_width_height(const int parentTextWidth)
 
 void CtCodebox::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
 {
+    // todo: fix code duplicates in void CtHtml2Xml::_insert_codebox()
     xmlpp::Element* p_codebox_node = p_node_parent->add_child("codebox");
     p_codebox_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
     p_codebox_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);

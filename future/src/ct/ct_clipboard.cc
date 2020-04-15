@@ -564,9 +564,12 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
 }
 
 // From Clipboard to HTML Text
-void CtClipboard::_on_received_to_html(const Gtk::SelectionData& /*selection_data*/, Gtk::TextView* /*pTextView*/, bool)
+void CtClipboard::_on_received_to_html(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
-    // todo:
+    CtHtml2Xml parser(_pCtMainWin);
+    parser.feed(selection_data.get_data_as_string());
+    from_xml_string_to_buffer(pTextView->get_buffer(), parser.to_string());
+    pTextView->scroll_to(pTextView->get_buffer()->get_insert());
 }
 
 // From Clipboard to Image

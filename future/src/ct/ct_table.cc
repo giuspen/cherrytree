@@ -101,6 +101,7 @@ void CtTable::_setup_new_matrix(const CtTableMatrix& tableMatrix)
 
 void CtTable::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
 {
+    // todo: fix a duplicate in imports.cc
     xmlpp::Element* p_table_node = p_node_parent->add_child("table");
     p_table_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
     p_table_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
