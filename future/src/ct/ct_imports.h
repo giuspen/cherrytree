@@ -23,9 +23,26 @@
 
 #include <vector>
 #include <glibmm/ustring.h>
+#include <libxml2/libxml/HTMLparser.h>
 
 namespace CtImports {
 
 std::vector<std::pair<int, int>> get_web_links_offsets_from_plain_text(const Glib::ustring& plain_text);
 
 }
+
+class CtHtmlParser
+{
+public:
+    CtHtmlParser() = default;
+    virtual ~CtHtmlParser() = default;
+
+    void feed(const std::string& html);
+    std::string fix_body(const std::string& html);
+
+    virtual void handle_starttag(std::string_view name, const char** atts);
+    virtual void handle_endtag(std::string_view localname);
+    virtual void handle_data(std::string_view text);
+    virtual void handle_charref(std::string_view name);
+};
+

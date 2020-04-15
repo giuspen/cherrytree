@@ -22,6 +22,8 @@
 #include "ct_imports.h"
 #include "ct_misc_utils.h"
 #include "ct_const.h"
+#include <libxml2/libxml/SAX.h>
+#include <iostream>
 
 // Parse plain text for possible web links
 std::vector<std::pair<int, int>> CtImports::get_web_links_offsets_from_plain_text(const Glib::ustring& plain_text)
@@ -46,4 +48,63 @@ std::vector<std::pair<int, int>> CtImports::get_web_links_offsets_from_plain_tex
             start_offset += 1;
     }
     return web_links;
+}
+
+
+void CtHtmlParser::feed(const std::string& html)
+{
+    struct helper_function
+    {
+        static void start_element(void *ctx, const xmlChar *name, const xmlChar **atts)
+        {
+            reinterpret_cast<CtHtmlParser*>(ctx)->handle_starttag((const char*)name, (const char**)atts);
+        }
+        static void end_element(void* ctx, const xmlChar* name)
+        {
+            reinterpret_cast<CtHtmlParser*>(ctx)->handle_endtag((const char*)name);
+        }
+        static void characters(void *ctx, const xmlChar *ch, int len)
+        {
+            reinterpret_cast<CtHtmlParser*>(ctx)->handle_data(std::string_view((const char*)ch, len));
+        }
+        static void reference(void *ctx, const xmlChar *name)
+        {
+            reinterpret_cast<CtHtmlParser*>(ctx)->handle_charref((const char*)name);
+        }
+    };
+
+    htmlSAXHandler sax2Handler = {0};
+    sax2Handler.initialized = XML_SAX2_MAGIC;
+    sax2Handler.startElement = helper_function::start_element;
+    sax2Handler.endElement = helper_function::end_element;
+    sax2Handler.characters = helper_function::characters;
+    sax2Handler.reference = helper_function::reference;
+
+    htmlSAXParseDoc((xmlChar*)html.c_str(), "UTF-8", &sax2Handler, this);
+}
+
+std::string CtHtmlParser::fix_body(const std::string& html)
+{
+    return "<!doctype html><html><head><meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\"></head><body>"
+            + html + "</body></html>";
+}
+
+void CtHtmlParser::handle_starttag(std::string_view name, const char **atts)
+{
+    std::cout << "SAX tag: " << name << std::endl;
+}
+
+void CtHtmlParser::handle_endtag(std::string_view name)
+{
+    std::cout << "SAX endtag: " << name << std::endl;
+}
+
+void CtHtmlParser::handle_data(std::string_view text)
+{
+    std::cout << "SAX data: " << text << std::endl;
+}
+
+void CtHtmlParser::handle_charref(std::string_view name)
+{
+    std::cout << "SAX ref: " << std::endl;
 }
