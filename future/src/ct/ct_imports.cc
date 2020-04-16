@@ -206,7 +206,7 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
                     int colon_pos = str::indexOf(style_attribute, CtConst::CHAR_COLON);
                     if (colon_pos < 0) continue;
                     auto attr_name = str::trim(style_attribute.substr(0, colon_pos).lowercase());
-                    auto attr_value = str::trim(style_attribute.substr(colon_pos + 1, style_attribute.size() - colon_pos).lowercase());
+                    Glib::ustring attr_value = str::trim(style_attribute.substr(colon_pos + 1, style_attribute.size() - colon_pos).lowercase());
                     if (attr_name == "color") {
                         auto color = _convert_html_color(attr_value);
                         if (!color.empty())
@@ -226,6 +226,19 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
                     } else if (attr_name == "font-style") {
                         if (attr_value == CtConst::TAG_PROP_VAL_ITALIC)
                             _add_tag_style(CtConst::TAG_STYLE, CtConst::TAG_PROP_VAL_ITALIC);
+                    } else if (attr_name == "font-size") {
+                        try
+                        {
+                            attr_value = str::replace(attr_value, "pt", "");
+                            int font_size = std::stoi(attr_value, nullptr);
+                            if (font_size > 7 && font_size < 11)
+                                _add_tag_style(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SMALL);
+                            else if (font_size > 13 && font_size < 19)
+                                _add_tag_style(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H3);
+                            else if (font_size >= 19)
+                                _add_tag_style(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H2);
+
+                        } catch (...) {}
                     }
                 }
             }
@@ -306,7 +319,7 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
             int rowspan = 1;
             for (auto& tag_attr: char2list_attrs(atts))
                 if (tag_attr.name == "rowspan")
-                    rowspan = atoi(tag_attr.value.begin());
+                    rowspan = std::atoi(tag_attr.value.begin());
             _table.back().push_back(table_cell{rowspan, ""});
         }
         else if (tag == "img" || tag == "v:imagedata") {
