@@ -664,7 +664,7 @@ std::string CtRgbUtil::rgb_to_string(Gdk::RGBA color)
 std::string CtRgbUtil::rgb_any_to_24(Gdk::RGBA color)
 {
     char rgb24StrOut[16];
-    CtRgbUtil::set_rgb24str_from_str_any(CtRgbUtil::rgb_to_string(color).c_str(), rgb24StrOut);
+    set_rgb24str_from_str_any(CtRgbUtil::rgb_to_string(color).c_str(), rgb24StrOut);
     return rgb24StrOut;
 }
 

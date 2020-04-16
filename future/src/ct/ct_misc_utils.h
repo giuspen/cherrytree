@@ -126,6 +126,8 @@ std::string get_font_size_str(const std::string& fontStr);
 
 namespace CtRgbUtil {
 
+// todo: normalized color function, better use RGBA as inner presentation instead of strings
+
 void set_rgb24str_from_rgb24int(guint32 rgb24Int, char* rgb24StrOut);
 
 guint32 get_rgb24int_from_rgb24str(const char* rgb24Str);
