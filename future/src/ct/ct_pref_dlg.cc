@@ -925,7 +925,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_2()
     });
     spinbutton_nodes_on_node_name_header->signal_value_changed().connect([this, pConfig, spinbutton_nodes_on_node_name_header](){
         pConfig->nodesOnNodeNameHeader = spinbutton_nodes_on_node_name_header->get_value_as_int();
-        _pCtMainWin->window_header_update_num_last_visited();
+        _pCtMainWin->window_header_update();
     });
 
     return pMainBox;

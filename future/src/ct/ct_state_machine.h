@@ -150,6 +150,8 @@ public:
 
     void set_go_bk_fw_click(bool val) { _go_bk_fw_click = val; }
 
+    const std::vector<gint64>& get_visited_nodes_list() { return _visited_nodes_list; }
+
 private:
     CtMainWin*                  _pCtMainWin;
     Glib::RefPtr<Glib::Regex>   _word_regex;

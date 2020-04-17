@@ -60,8 +60,8 @@ public:
     int get_col_min() { return _colMin; }
 
 public:
-    int  current_row() { return _currentRow < _tableMatrix.size() ? _currentRow : 0; }
-    int  current_column() { return _currentColumn < _tableMatrix[0].size() ? _currentColumn : 0; }
+    int  current_row() { return _currentRow < (int)_tableMatrix.size() ? _currentRow : 0; }
+    int  current_column() { return _currentColumn < (int)_tableMatrix[0].size() ? _currentColumn : 0; }
 
     void column_add(int after_column);
     void column_delete(int column);
