@@ -508,7 +508,9 @@ void CtMainWin::update_theme()
     std::string theme_css;
     theme_css += ".ct-tree-panel { color: " + _pCtConfig->ttDefFg + "; background-color: " + _pCtConfig->ttDefBg + "; } ";
     theme_css += ".ct-tree-panel:selected { background: #5294e2;  } ";
-    theme_css += ".ct_header-panel { background-color: " + _pCtConfig->ttDefBg + "; } ";
+    theme_css += ".ct-header-panel { background-color: " + _pCtConfig->ttDefBg + "; } ";
+    theme_css += ".ct-header-panel button { margin: 2px; padding: 0 4 0 4; } ";
+    theme_css += ".ct-status-bar bar { margin: 0px; } ";
     theme_css += ".ct-table-header-cell { font-weight: bold; } ";
     theme_css += ".ct-table grid { background: #cccccc; border-style:solid; border-width: 1px; border-color: gray; } ";
 
@@ -526,15 +528,21 @@ Gtk::HBox& CtMainWin::_init_status_bar()
 {
     _ctStatusBar.statusId = _ctStatusBar.statusBar.get_context_id("");
     _ctStatusBar.frame.set_shadow_type(Gtk::SHADOW_NONE);
-    _ctStatusBar.frame.set_border_width(1);
     _ctStatusBar.frame.add(_ctStatusBar.progressBar);
     _ctStatusBar.stopButton.set_image_from_icon_name("stop", Gtk::ICON_SIZE_MENU);
-    _ctStatusBar.statusBar.set_margin_top(0);
-    _ctStatusBar.statusBar.set_margin_bottom(0);
-    _ctStatusBar.hbox.set_border_width(0);
     _ctStatusBar.hbox.pack_start(_ctStatusBar.statusBar, true, true);
     _ctStatusBar.hbox.pack_start(_ctStatusBar.frame, false, true);
     _ctStatusBar.hbox.pack_start(_ctStatusBar.stopButton, false, true);
+
+    _ctStatusBar.hbox.get_style_context()->add_class("ct-status-bar");
+    // todo: move to css
+    _ctStatusBar.frame.set_border_width(1);
+    _ctStatusBar.statusBar.set_margin_top(0);
+    _ctStatusBar.statusBar.set_margin_bottom(0);
+    ((Gtk::Frame*)_ctStatusBar.statusBar.get_children()[0])->get_child()->set_margin_top(1);
+    ((Gtk::Frame*)_ctStatusBar.statusBar.get_children()[0])->get_child()->set_margin_bottom(1);
+    _ctStatusBar.hbox.set_border_width(0);
+
     _ctStatusBar.stopButton.signal_clicked().connect([this](){
         _ctStatusBar.set_progress_stop(true);
         _ctStatusBar.stopButton.hide();
@@ -569,7 +577,65 @@ void CtMainWin::window_header_update()
     _ctWinHeader.nameLabel.set_markup(
                 "<b><span foreground=\"" + foreground + "\" size=\"xx-large\">"
                 + str::xml_escape(name) + "</span></b>");
-    window_header_update_last_visited();
+
+    // update last visited buttons
+    if (get_ct_config()->nodesOnNodeNameHeader == 0)
+    {
+        for (auto button: _ctWinHeader.buttonBox.get_children())
+            _ctWinHeader.buttonBox.remove(*button);
+    }
+    else
+    {
+        // add more buttons if that is needed
+        while ((int)_ctWinHeader.buttonBox.get_children().size() < get_ct_config()->nodesOnNodeNameHeader)
+        {
+            Gtk::Button* button = Gtk::manage(new Gtk::Button(""));
+            auto click = [this](Gtk::Button* button) {
+                auto node_id = _ctWinHeader.button_to_node_id.find(button);
+                if (node_id != _ctWinHeader.button_to_node_id.end())
+                {
+                    if (CtTreeIter tree_iter = get_tree_store().get_node_from_node_id(node_id->second))
+                        _uCtTreeview->set_cursor_safe(tree_iter);
+                    _ctTextview.grab_focus();
+                }
+            };
+            button->signal_clicked().connect(sigc::bind(click, button));
+            _ctWinHeader.buttonBox.add(*button);
+        }
+
+        // update button labels and node_ids
+        gint64 curr_node = curr_tree_iter().get_node_id();
+        int button_idx = 0;
+        auto buttons = _ctWinHeader.buttonBox.get_children();
+        auto nodes = get_state_machine().get_visited_nodes_list();
+        _ctWinHeader.button_to_node_id.clear();
+        for (auto iter = nodes.rbegin(); iter != nodes.rend(); ++iter)
+        {
+            if (*iter == curr_node) continue;
+            if (CtTreeIter node = get_tree_store().get_node_from_node_id(*iter))
+            {
+                Glib::ustring name = "<small>" + str::xml_escape(node.get_node_name()) + "</small>";
+                Glib::ustring tooltip = CtMiscUtil::get_node_hierarchical_name(node, "/", false);
+                if (auto button = dynamic_cast<Gtk::Button*>(buttons[button_idx]))
+                {
+                    if (auto label = dynamic_cast<Gtk::Label*>(button->get_child()))
+                    {
+                        label->set_label(name);
+                        label->set_use_markup(true);
+                        label->set_ellipsize(Pango::ELLIPSIZE_END);
+                    }
+                    button->set_tooltip_text(tooltip);
+                    button->show();
+                    _ctWinHeader.button_to_node_id[button] = *iter;
+                }
+                ++button_idx;
+                if (button_idx == (int)buttons.size())
+                    break;
+            }
+        }
+        for (int i = button_idx; i < (int)buttons.size(); ++i)
+            buttons[i]->hide();
+    }
 }
 
 void CtMainWin::window_header_update_lock_icon(bool show)
@@ -580,16 +646,6 @@ void CtMainWin::window_header_update_lock_icon(bool show)
 void CtMainWin::window_header_update_bookmark_icon(bool show)
 {
     show ? _ctWinHeader.bookmarkIcon.show() : _ctWinHeader.bookmarkIcon.hide();
-}
-
-void CtMainWin::window_header_update_last_visited()
-{
-    // todo: update_node_name_header_latest_visited
-}
-
-void CtMainWin::window_header_update_num_last_visited()
-{
-    // todo: update_node_name_header_num_latest_visited
 }
 
 void CtMainWin::menu_update_bookmark_menu_item(bool is_bookmarked)
@@ -800,6 +856,9 @@ bool CtMainWin::reset(const bool force_reset)
 
     auto on_scope_exit = scope_guard([&](void*) { user_active() = true; });
     user_active() = false;
+
+    for (auto button: _ctWinHeader.buttonBox.get_children())
+        button->hide();
 
     _reset_CtTreestore_CtTreeview();
     _latestStatusbarUpdateTime.clear();
