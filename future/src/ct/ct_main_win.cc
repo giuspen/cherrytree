@@ -1,7 +1,9 @@
 ﻿/*
  * ct_main_win.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -509,7 +511,7 @@ void CtMainWin::update_theme()
     theme_css += ".ct-tree-panel { color: " + _pCtConfig->ttDefFg + "; background-color: " + _pCtConfig->ttDefBg + "; } ";
     theme_css += ".ct-tree-panel:selected { background: #5294e2;  } ";
     theme_css += ".ct-header-panel { background-color: " + _pCtConfig->ttDefBg + "; } ";
-    theme_css += ".ct-header-panel button { margin: 2px; padding: 0 4 0 4; } ";
+    theme_css += ".ct-header-panel button { margin: 2px; padding: 0 4px 0 4px; } ";
     theme_css += ".ct-status-bar bar { margin: 0px; } ";
     theme_css += ".ct-table-header-cell { font-weight: bold; } ";
     theme_css += ".ct-table grid { background: #cccccc; border-style:solid; border-width: 1px; border-color: gray; } ";

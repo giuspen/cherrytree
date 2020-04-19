@@ -46,7 +46,13 @@ popd > /dev/null
 
 echo "moving over necessary files from ${NEW_MSYS2_FOLDER} to ${NEW_ROOT_FOLDER}..."
 mkdir -p ${NEW_ROOT_FOLDER}
-mv -v ${NEW_MSYS2_FOLDER}/mingw64 ${NEW_ROOT_FOLDER}/
+_result="1"
+while [ "$_result" -ne "0" ]
+do
+  sleep 1
+  mv -v ${NEW_MSYS2_FOLDER}/mingw64 ${NEW_ROOT_FOLDER}/
+  _result=$?
+done
 
 
 echo "removing unnecessary files..."
@@ -91,8 +97,6 @@ rm -rf ${NEW_MINGW64_FOLDER}/share/applications
 rm -rf ${NEW_MINGW64_FOLDER}/share/devhelp
 rm -rf ${NEW_MINGW64_FOLDER}/share/gir-*
 rm -rf ${NEW_MINGW64_FOLDER}/share/graphite*
-# we are embedding the required stock icons into the binary
-rm -rf ${NEW_MINGW64_FOLDER}/share/icons
 rm -rf ${NEW_MINGW64_FOLDER}/share/installed-tests
 rm -rf ${NEW_MINGW64_FOLDER}/share/vala
 # remove on the lib folder
@@ -119,7 +123,7 @@ rm -rf ${NEW_MINGW64_FOLDER}/lib/*.sh
 
 # remove the languages that we are not supporting
 LOCALE="${NEW_MINGW64_FOLDER}/share/locale"
-LOCALE_TMP="${NEW_MINGW64_FOLDER}/share/locale-tmp"
+LOCALE_TMP="${LOCALE}-tmp"
 mkdir ${LOCALE_TMP}
 for LINE in $(cat ${GIT_CT_LINGUAS})
 do
@@ -131,10 +135,6 @@ mv ${LOCALE_TMP} ${LOCALE}
 # strip the binaries to reduce the size
 find ${NEW_MINGW64_FOLDER} -name *.dll | xargs strip
 find ${NEW_MINGW64_FOLDER} -name *.exe | xargs strip
-
-# remove some translation which seem to add a lot of size
-find ${NEW_MINGW64_FOLDER}/share/locale/ -type f | grep -v atk10.mo | grep -v libpeas.mo | grep -v gsettings-desktop-schemas.mo | grep -v json-glib-1.0.mo | grep -v glib20.mo | grep -v gedit.mo | grep -v gedit-plugins.mo | grep -v gdk-pixbuf.mo | grep -v gtk30.mo | grep -v gtk30-properties.mo | grep -v gtksourceview-4.mo | grep -v iso_*.mo | xargs rm
-find ${NEW_MINGW64_FOLDER}/share/locale -type d | xargs rmdir -p --ignore-fail-on-non-empty
 
 
 echo "set use native windows theme..."

@@ -1,7 +1,9 @@
 /*
  * ct_misc_utils.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -767,10 +769,11 @@ Glib::ustring str::repeat(const Glib::ustring& input, int num)
 
 std::string CtFileSystem::get_proper_platform_filepath(std::string filepath)
 {
-    if (CtConst::IS_WIN_OS)
-        filepath = str::replace(filepath, CtConst::CHAR_SLASH, CtConst::CHAR_BSLASH);
-    else
-        filepath = str::replace(filepath, CtConst::CHAR_BSLASH, CtConst::CHAR_SLASH);
+#ifdef _WIN32
+    filepath = str::replace(filepath, CtConst::CHAR_SLASH, CtConst::CHAR_BSLASH);
+#else
+    filepath = str::replace(filepath, CtConst::CHAR_BSLASH, CtConst::CHAR_SLASH);
+#endif
     return filepath;
 }
 

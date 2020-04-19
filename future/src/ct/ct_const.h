@@ -1,7 +1,9 @@
 /*
  * ct_extern const.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +31,6 @@ namespace CtConst {
 
 extern const gchar    CT_VERSION[];
 extern const gchar    APP_NAME[];
-extern const bool     IS_WIN_OS;
 extern const int      NODE_ICON_CODE_ID;
 extern const int      NODE_ICON_BULLET_ID;
 extern const int      NODE_ICON_NO_ICON_ID;

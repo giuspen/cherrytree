@@ -1,7 +1,9 @@
 /*
  * ct_pref_dlg.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1509,11 +1511,17 @@ void CtPrefDlg::need_restart(RESTART_REASON reason, const gchar* msg /*= nullptr
 
 std::string CtPrefDlg::get_code_exec_term_run(CtMainWin* pCtMainWin)
 {
-    std::string op_sys = CtConst::IS_WIN_OS ? "win" : "linux";
     if (!pCtMainWin->get_ct_config()->customCodexecTerm.empty())
+    {
         return pCtMainWin->get_ct_config()->customCodexecTerm;
-    else
-        return CtConst::CODE_EXEC_TERM_RUN_DEFAULT.at(op_sys);
+    }
+    const std::string op_sys =
+#ifdef _WIN32
+        "win";
+#else
+        "linux";
+#endif
+    return CtConst::CODE_EXEC_TERM_RUN_DEFAULT.at(op_sys);
 }
 
 void CtPrefDlg::fill_commands_model(Glib::RefPtr<Gtk::ListStore> model)

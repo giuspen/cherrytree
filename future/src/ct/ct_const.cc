@@ -1,7 +1,9 @@
 /*
  * ct_const.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +25,7 @@
 
 const gchar    CtConst::CT_VERSION[]           {"0.0.1"};
 const gchar    CtConst::APP_NAME[]             {"cherrytree"};
-const bool     CtConst::IS_WIN_OS              {false};
+
 const int      CtConst::NODE_ICON_CODE_ID           {38};
 const int      CtConst::NODE_ICON_BULLET_ID         {25};
 const int      CtConst::NODE_ICON_NO_ICON_ID        {26};

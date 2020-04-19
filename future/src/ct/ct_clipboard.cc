@@ -1,7 +1,9 @@
 /*
  * ct_clipboard.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -375,21 +377,22 @@ void  CtClipboard::_on_clip_data_get(Gtk::SelectionData& selection_data, CtClipb
         selection_data.set("UTF8_STRING", 8, (const guint8*)clip_data->rich_text.c_str(), (int)clip_data->rich_text.bytes());
     else if (vec::exists(TARGETS_HTML, target))
     {
-        if (not CtConst::IS_WIN_OS)
-            selection_data.set(target, 8, (const guint8*)clip_data->html_text.c_str(), (int)clip_data->html_text.bytes());
+#ifndef _WIN32
+        selection_data.set(target, 8, (const guint8*)clip_data->html_text.c_str(), (int)clip_data->html_text.bytes());
+#else
+        if (target == TARGETS_HTML[0])
+        {
+            glong utf16text_len = 0;
+            g_autofree gunichar2* utf16text = g_utf8_to_utf16(clip_data->html_text.c_str(), (glong)clip_data->html_text.bytes(), nullptr, &utf16text_len, nullptr);
+            if (utf16text and utf16text_len > 0)
+                selection_data.set(target, 8, (guint8*)utf16text, (int)utf16text_len);
+        }
         else
-            if (target == TARGETS_HTML[0])
-            {
-                glong utf16text_len = 0;
-                g_autofree gunichar2* utf16text = g_utf8_to_utf16(clip_data->html_text.c_str(), (glong)clip_data->html_text.bytes(), nullptr, &utf16text_len, nullptr);
-                if (utf16text and utf16text_len > 0)
-                    selection_data.set(target, 8, (guint8*)utf16text, (int)utf16text_len);
-            }
-            else
-            {
-                Glib::ustring html = Win32HtmlFormat().encode(clip_data->html_text);
-                selection_data.set(target, 8, (const guint8*)html.c_str(), (int)html.bytes());
-            }
+        {
+            Glib::ustring html = Win32HtmlFormat().encode(clip_data->html_text);
+            selection_data.set(target, 8, (const guint8*)html.c_str(), (int)html.bytes());
+        }
+#endif // _WIN32
     }
     else if (target == TARGET_CTD_CODEBOX)
     {
