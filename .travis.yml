@@ -1,0 +1,20 @@
+language: c
+cache: apt
+os: linux
+dist: bionic
+
+compiler:
+  - gcc
+
+before_install:
+  - >
+    sudo apt install build-essential libtool autoconf libgtkmm-3.0-dev
+    libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev
+    libcpputest-dev autopoint gettext intltool python3-lxml libxml2-utils
+addons:
+  apt:
+    update: true
+
+script:
+  - cd future
+  - ./build.sh
