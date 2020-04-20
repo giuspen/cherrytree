@@ -29,6 +29,10 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
 {
     Gsv::init();
 
+    Glib::ustring config_dir = Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME);
+    if (g_mkdir_with_parents (config_dir.c_str(), 0755) < 0)
+        g_warning ("Could not create config directory\n");
+
     _uCtCfg.reset(new CtConfig());
     //std::cout << _uCtCfg->specialChars.size() << "\t" << _uCtCfg->specialChars << std::endl;
 
