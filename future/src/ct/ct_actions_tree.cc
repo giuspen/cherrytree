@@ -108,7 +108,8 @@ void CtActions::_node_add(bool duplicate, bool add_child)
             nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer(nodeData.syntax, nodeData.rTextBuffer->get_text());
             nodeData.anchoredWidgets.clear();
         } else {
-            node_state = _pCtMainWin->get_state_machine().requested_state_previous(_pCtMainWin->curr_tree_iter().get_node_id());
+            _pCtMainWin->get_state_machine().update_state(_pCtMainWin->curr_tree_iter());
+            node_state = _pCtMainWin->get_state_machine().requested_state_current(_pCtMainWin->curr_tree_iter().get_node_id());
             nodeData.anchoredWidgets.clear();
             nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer(nodeData.syntax, "");
         }

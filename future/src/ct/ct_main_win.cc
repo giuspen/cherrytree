@@ -1035,7 +1035,9 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
 
     text_buffer->begin_not_undoable_action();
 
-    text_buffer->erase(text_buffer->begin(), text_buffer->end());
+    // erase is slow on empty buffer
+    if (text_buffer->begin() != text_buffer->end())
+        text_buffer->erase(text_buffer->begin(), text_buffer->end());
     tree_iter.remove_all_embedded_widgets();
     std::list<CtAnchoredWidget*> widgets;
     for (xmlpp::Node* text_node: state->buffer_xml.get_root_node()->get_children())
