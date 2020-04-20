@@ -518,6 +518,8 @@ void CtMainWin::update_theme()
     theme_css += ".ct-status-bar bar { margin: 0px; } ";
     theme_css += ".ct-table-header-cell { font-weight: bold; } ";
     theme_css += ".ct-table grid { background: #cccccc; border-style:solid; border-width: 1px; border-color: gray; } ";
+    theme_css += "toolbar { padding: 2px 2px 2px 2px; } ";
+    theme_css += "toolbar button { padding: 0px; } ";
 
     if (_css_provider_theme)
     {
@@ -1110,7 +1112,7 @@ void CtMainWin::_on_treeview_cursor_changed()
     menu_update_bookmark_menu_item(_uCtTreestore->is_node_bookmarked(treeIter.get_node_id()));
     window_header_update();
     window_header_update_lock_icon(treeIter.get_node_read_only());
-    window_header_update_bookmark_icon(false);
+    window_header_update_bookmark_icon(_uCtTreestore->is_node_bookmarked(treeIter.get_node_id()));
     update_selected_node_statusbar_info();
     get_state_machine().node_selected_changed(treeIter.get_node_id());
 
