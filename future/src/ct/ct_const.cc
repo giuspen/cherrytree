@@ -52,7 +52,7 @@ const gchar    CtConst::CHERRY_YELLOW[]        {"cherry_yellow"};
 const gchar    CtConst::CHERRY_GREEN[]         {"cherry_green"};
 const gchar    CtConst::CHERRY_PURPLE[]        {"cherry_purple"};
 const gchar    CtConst::CHERRY_BLACK[]         {"cherry_black"};
-const gchar    CtConst::CHERRY_GRAY[]          {"cherry_gray"};
+const gchar    CtConst::CHERRY_GRAY[]          {"cherry_grey"};
 const gchar    CtConst::RICH_TEXT_ID[]         {"custom-colors"};
 const gchar    CtConst::TABLE_CELL_TEXT_ID[]   {"table-cell-text"};
 const gchar    CtConst::PLAIN_TEXT_ID[]        {"plain-text"};

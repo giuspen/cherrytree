@@ -330,9 +330,12 @@ void CtConfig::_populate_data_from_keyfile()
         if ( _populate_string_from_keyfile("file_name", &fileName) and
              _populate_string_from_keyfile("file_dir", &fileDir) )
         {
-            const std::string filePath = Glib::build_filename(fileDir, fileName);
-            recentDocsFilepaths.move_or_push_front(filePath);
-            savedFromPyGtk = true;
+            if (fileName != "")
+            {
+                const std::string filePath = Glib::build_filename(fileDir, fileName);
+                recentDocsFilepaths.move_or_push_front(filePath);
+                savedFromPyGtk = true;
+            }
         }
     }
     for (int i=0; i<recentDocsFilepaths.maxSize; ++i)

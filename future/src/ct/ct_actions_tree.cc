@@ -108,7 +108,8 @@ void CtActions::_node_add(bool duplicate, bool add_child)
             nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer(nodeData.syntax, nodeData.rTextBuffer->get_text());
             nodeData.anchoredWidgets.clear();
         } else {
-            node_state = _pCtMainWin->get_state_machine().requested_state_previous(_pCtMainWin->curr_tree_iter().get_node_id());
+            _pCtMainWin->get_state_machine().update_state(_pCtMainWin->curr_tree_iter());
+            node_state = _pCtMainWin->get_state_machine().requested_state_current(_pCtMainWin->curr_tree_iter().get_node_id());
             nodeData.anchoredWidgets.clear();
             nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer(nodeData.syntax, "");
         }
@@ -519,8 +520,9 @@ void CtActions::bookmark_curr_node()
     if (_pCtMainWin->get_tree_store().bookmarks_add(node_id)) {
         _pCtMainWin->menu_set_bookmark_menu_items();
         _pCtMainWin->get_tree_store().update_node_aux_icon(_pCtMainWin->curr_tree_iter());
-        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::book);
+        _pCtMainWin->window_header_update_bookmark_icon(true);
         _pCtMainWin->menu_update_bookmark_menu_item(true);
+        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::book);
     }
 }
 
@@ -532,8 +534,9 @@ void CtActions::bookmark_curr_node_remove()
     if (_pCtMainWin->get_tree_store().bookmarks_remove(node_id)) {
         _pCtMainWin->menu_set_bookmark_menu_items();
         _pCtMainWin->get_tree_store().update_node_aux_icon(_pCtMainWin->curr_tree_iter());
-        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::book);
+        _pCtMainWin->window_header_update_bookmark_icon(false);
         _pCtMainWin->menu_update_bookmark_menu_item(false);
+        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::book);
     }
 
 }

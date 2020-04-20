@@ -158,12 +158,15 @@ public:
     void menu_set_items_recent_documents();
     void menu_set_items_special_chars();
 
+    void config_switch_tree_side();
+
     void show_hide_toolbar(bool visible)    { _pToolbar->property_visible() = visible; }
     void show_hide_tree_view(bool visible)  { _scrolledwindowTree.property_visible() = visible; }
     void show_hide_win_header(bool visible) { _ctWinHeader.headerBox.property_visible() = visible; }
     void set_toolbar_icon_size(int size)    { _pToolbar->property_icon_size() = CtMiscUtil::getIconSize(size); }
 
     void resetPrevTreeIter()                { _prevTreeIter = CtTreeIter(); }
+
 private:
     bool                _on_window_key_press_event(GdkEventKey* event);
 

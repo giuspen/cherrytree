@@ -91,6 +91,7 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
     _reset_CtTreestore_CtTreeview();
 
     _ctTextview.get_style_context()->add_class("ct-view-panel");
+    _ctTextview.set_sensitive(false);
 
     _ctTextview.signal_populate_popup().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_populate_popup));
     _ctTextview.signal_motion_notify_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_motion_notify_event));
@@ -461,6 +462,8 @@ void CtMainWin::config_apply_after_show_all()
 {
     show_hide_tree_view(_pCtConfig->treeVisible);
     show_hide_win_header(_pCtConfig->showNodeNameHeader);
+    _ctWinHeader.lockIcon.hide();
+    _ctWinHeader.bookmarkIcon.hide();
 
     show_hide_toolbar(_pCtConfig->toolbarVisible);
     _pToolbar->set_toolbar_style(Gtk::ToolbarStyle::TOOLBAR_ICONS);
@@ -515,6 +518,8 @@ void CtMainWin::update_theme()
     theme_css += ".ct-status-bar bar { margin: 0px; } ";
     theme_css += ".ct-table-header-cell { font-weight: bold; } ";
     theme_css += ".ct-table grid { background: #cccccc; border-style:solid; border-width: 1px; border-color: gray; } ";
+    theme_css += "toolbar { padding: 2px 2px 2px 2px; } ";
+    theme_css += "toolbar button { padding: 0px; } ";
 
     if (_css_provider_theme)
     {
@@ -721,6 +726,27 @@ void CtMainWin::menu_set_items_special_chars()
     _pSpecialCharsSubmenu->set_submenu(*_pCtMenu->build_special_chars_menu(_pCtConfig->specialChars, spec_char_action));
 }
 
+void CtMainWin::config_switch_tree_side()
+{
+    auto tree_width = _scrolledwindowTree.get_width();
+    auto text_width = _vboxText.get_width();
+
+    _hPaned.remove(_scrolledwindowTree);
+    _hPaned.remove(_vboxText);
+    if (_pCtConfig->treeRightSide)
+    {
+        _hPaned.add1(_vboxText);
+        _hPaned.add2(_scrolledwindowTree);
+        _hPaned.property_position() = text_width;
+    }
+    else
+    {
+        _hPaned.add1(_scrolledwindowTree);
+        _hPaned.add2(_vboxText);
+        _hPaned.property_position() = tree_width;
+    }
+}
+
 void CtMainWin::_ensure_curr_doc_in_recent_docs()
 {
     const std::string currDocFilePath = _pCtStorage->get_file_path();
@@ -868,6 +894,8 @@ bool CtMainWin::reset(const bool force_reset)
     _pCtStorage = CtStorageControl::create_dummy_storage();
 
     update_window_save_not_needed();
+    _ctTextview.set_buffer(Glib::RefPtr<Gtk::TextBuffer>());
+    _ctTextview.set_sensitive(false);
     get_state_machine().reset();
     return true;
 }
@@ -1035,7 +1063,9 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
 
     text_buffer->begin_not_undoable_action();
 
-    text_buffer->erase(text_buffer->begin(), text_buffer->end());
+    // erase is slow on empty buffer
+    if (text_buffer->begin() != text_buffer->end())
+        text_buffer->erase(text_buffer->begin(), text_buffer->end());
     tree_iter.remove_all_embedded_widgets();
     std::list<CtAnchoredWidget*> widgets;
     for (xmlpp::Node* text_node: state->buffer_xml.get_root_node()->get_children())
@@ -1082,7 +1112,7 @@ void CtMainWin::_on_treeview_cursor_changed()
     menu_update_bookmark_menu_item(_uCtTreestore->is_node_bookmarked(treeIter.get_node_id()));
     window_header_update();
     window_header_update_lock_icon(treeIter.get_node_read_only());
-    window_header_update_bookmark_icon(false);
+    window_header_update_bookmark_icon(_uCtTreestore->is_node_bookmarked(treeIter.get_node_id()));
     update_selected_node_statusbar_info();
     get_state_machine().node_selected_changed(treeIter.get_node_id());
 

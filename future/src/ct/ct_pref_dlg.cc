@@ -904,20 +904,9 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_2()
         //dad.renderer_text.set_property('wrap-width', dad.cherry_wrap_width)
         //dad.treeview_refresh()
     });
-    checkbutton_tree_right_side->signal_toggled().connect([pConfig, checkbutton_tree_right_side](){
+    checkbutton_tree_right_side->signal_toggled().connect([this, pConfig, checkbutton_tree_right_side](){
         pConfig->treeRightSide = checkbutton_tree_right_side->get_active();
-        //tree_width = dad.scrolledwindow_tree.get_allocation().width
-        //text_width = dad.vbox_text.get_allocation().width
-        //dad.hpaned.remove(dad.scrolledwindow_tree)
-        //dad.hpaned.remove(dad.vbox_text)
-        //if dad.tree_right_side:
-        //    dad.hpaned.add1(dad.vbox_text)
-        //    dad.hpaned.add2(dad.scrolledwindow_tree)
-        //    dad.hpaned.set_property('position', text_width)
-        //else:
-        //    dad.hpaned.add1(dad.scrolledwindow_tree)
-        //    dad.hpaned.add2(dad.vbox_text)
-        //    dad.hpaned.set_property('position', tree_width)
+        _pCtMainWin->config_switch_tree_side();
     });
     checkbutton_tree_click_focus_text->signal_toggled().connect([pConfig, checkbutton_tree_click_focus_text](){
         pConfig->treeClickFocusText = checkbutton_tree_click_focus_text->get_active();
