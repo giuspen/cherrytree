@@ -1,4 +1,4 @@
-language: c
+language: c++
 cache: apt
 os: linux
 dist: bionic
