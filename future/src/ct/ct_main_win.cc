@@ -91,6 +91,7 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
     _reset_CtTreestore_CtTreeview();
 
     _ctTextview.get_style_context()->add_class("ct-view-panel");
+    _ctTextview.set_sensitive(false);
 
     _ctTextview.signal_populate_popup().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_populate_popup));
     _ctTextview.signal_motion_notify_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_motion_notify_event));
@@ -461,6 +462,8 @@ void CtMainWin::config_apply_after_show_all()
 {
     show_hide_tree_view(_pCtConfig->treeVisible);
     show_hide_win_header(_pCtConfig->showNodeNameHeader);
+    _ctWinHeader.lockIcon.hide();
+    _ctWinHeader.bookmarkIcon.hide();
 
     show_hide_toolbar(_pCtConfig->toolbarVisible);
     _pToolbar->set_toolbar_style(Gtk::ToolbarStyle::TOOLBAR_ICONS);
@@ -721,6 +724,27 @@ void CtMainWin::menu_set_items_special_chars()
     _pSpecialCharsSubmenu->set_submenu(*_pCtMenu->build_special_chars_menu(_pCtConfig->specialChars, spec_char_action));
 }
 
+void CtMainWin::config_switch_tree_side()
+{
+    auto tree_width = _scrolledwindowTree.get_width();
+    auto text_width = _vboxText.get_width();
+
+    _hPaned.remove(_scrolledwindowTree);
+    _hPaned.remove(_vboxText);
+    if (_pCtConfig->treeRightSide)
+    {
+        _hPaned.add1(_vboxText);
+        _hPaned.add2(_scrolledwindowTree);
+        _hPaned.property_position() = text_width;
+    }
+    else
+    {
+        _hPaned.add1(_scrolledwindowTree);
+        _hPaned.add2(_vboxText);
+        _hPaned.property_position() = tree_width;
+    }
+}
+
 void CtMainWin::_ensure_curr_doc_in_recent_docs()
 {
     const std::string currDocFilePath = _pCtStorage->get_file_path();
@@ -868,6 +892,8 @@ bool CtMainWin::reset(const bool force_reset)
     _pCtStorage = CtStorageControl::create_dummy_storage();
 
     update_window_save_not_needed();
+    _ctTextview.set_buffer(Glib::RefPtr<Gtk::TextBuffer>());
+    _ctTextview.set_sensitive(false);
     get_state_machine().reset();
     return true;
 }
