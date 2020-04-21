@@ -57,6 +57,9 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
     _uCtMenu->init_actions(this, _uCtActions.get());
 
     _uCtPrint.reset(new CtPrint());
+
+    _rStatusIcon = Gtk::StatusIcon::create(CtConst::APP_NAME);
+    _rStatusIcon->set_visible(false);
 }
 
 CtApp::~CtApp()
@@ -98,11 +101,17 @@ CtMainWin* CtApp::_create_appwindow()
                                           _rTextTagTable,
                                           _rCssProvider,
                                           _rLanguageManager.get(),
-                                          _rStyleSchemeManager.get());
+                                          _rStyleSchemeManager.get(),
+                                          _rStatusIcon.get());
     CtApp::_uCtActions->init(pCtMainWin);
 
     add_window(*pCtMainWin);
 
+    pCtMainWin->signal_app_set_visible_exit_app.connect([&](bool visible) {
+        for (Gtk::Window* pWin : get_windows())
+            if (CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(pWin))
+                pCtMainWin->menu_set_visible_exit_app(visible);
+    });
     pCtMainWin->signal_hide().connect(sigc::bind<CtMainWin*>(sigc::mem_fun(*this, &CtApp::_on_hide_window), pCtMainWin));
     return pCtMainWin;
 }

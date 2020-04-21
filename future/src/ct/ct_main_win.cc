@@ -39,7 +39,8 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
                      Glib::RefPtr<Gtk::TextTagTable> rGtkTextTagTable,
                      Glib::RefPtr<Gtk::CssProvider> rGtkCssProvider,
                      Gsv::LanguageManager*    pGsvLanguageManager,
-                     Gsv::StyleSchemeManager* pGsvStyleSchemeManager)
+                     Gsv::StyleSchemeManager* pGsvStyleSchemeManager,
+                     Gtk::StatusIcon*         pGtkStatusIcon)
  : Gtk::ApplicationWindow(),
    _pCtStorage(CtStorageControl::create_dummy_storage()),
    _pCtConfig(pCtConfig),
@@ -52,6 +53,7 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
    _rGtkCssProvider(rGtkCssProvider),
    _pGsvLanguageManager(pGsvLanguageManager),
    _pGsvStyleSchemeManager(pGsvStyleSchemeManager),
+   _pGtkStatusIcon(pGtkStatusIcon),
    _ctTextview(this),
    _ctStateMachine(this)
 {
@@ -472,6 +474,9 @@ void CtMainWin::config_apply_after_show_all()
     _ctStatusBar.progressBar.hide();
     _ctStatusBar.stopButton.hide();
 
+    get_status_icon()->set_visible(_pCtConfig->systrayOn);
+    menu_set_visible_exit_app(_pCtConfig->systrayOn);
+
     update_theme();
 }
 
@@ -724,6 +729,11 @@ void CtMainWin::menu_set_items_special_chars()
 {
     sigc::slot<void, gunichar> spec_char_action = sigc::mem_fun(*_pCtActions, &CtActions::insert_spec_char_action);
     _pSpecialCharsSubmenu->set_submenu(*_pCtMenu->build_special_chars_menu(_pCtConfig->specialChars, spec_char_action));
+}
+
+void CtMainWin::menu_set_visible_exit_app(bool visible)
+{
+    CtMenu::find_menu_item(_pMenuBar, "exit_app")->set_visible(visible);
 }
 
 void CtMainWin::config_switch_tree_side()

@@ -84,7 +84,8 @@ public:
               Glib::RefPtr<Gtk::TextTagTable> rGtkTextTagTable,
               Glib::RefPtr<Gtk::CssProvider> rGtkCssProvider,
               Gsv::LanguageManager*    pGsvLanguageManager,
-              Gsv::StyleSchemeManager* pGsvStyleSchemeManager);
+              Gsv::StyleSchemeManager* pGsvStyleSchemeManager,
+              Gtk::StatusIcon*         pGtkStatusIcon);
     virtual ~CtMainWin();
 
     void config_apply_before_show_all();
@@ -127,6 +128,7 @@ public:
     Glib::RefPtr<Gtk::CssProvider>&   get_css_provider()   { return _rGtkCssProvider; }
     Gsv::LanguageManager*             get_language_manager() { return _pGsvLanguageManager; }
     Gsv::StyleSchemeManager*          get_style_scheme_manager() { return _pGsvStyleSchemeManager; }
+    Gtk::StatusIcon*                  get_status_icon() { return _pGtkStatusIcon; }
 
     bool&         user_active()     { return _userActive; } // use as a function, because it's easier to put breakpoint
     int&          cursor_key_press() { return _cursorKeyPress; }
@@ -157,6 +159,7 @@ public:
 
     void menu_set_items_recent_documents();
     void menu_set_items_special_chars();
+    void menu_set_visible_exit_app(bool visible);
 
     void config_switch_tree_side();
 
@@ -201,6 +204,8 @@ private:
     Glib::RefPtr<Gtk::CssProvider>  _rGtkCssProvider;
     Gsv::LanguageManager*        _pGsvLanguageManager;
     Gsv::StyleSchemeManager*     _pGsvStyleSchemeManager;
+    Gtk::StatusIcon*             _pGtkStatusIcon;
+
     Gtk::VBox                    _vboxMain;
     Gtk::VBox                    _vboxText;
     Gtk::HPaned                  _hPaned;
@@ -230,4 +235,7 @@ private:
     bool                _fileSaveNeeded{false}; // pygtk: file_update
     std::unordered_map<gint64, gint64> _latestStatusbarUpdateTime; // pygtk: latest_statusbar_update_time
     CtTreeIter          _prevTreeIter;
+
+public:
+    sigc::signal<void, bool> signal_app_set_visible_exit_app = sigc::signal<void, bool>();
 };

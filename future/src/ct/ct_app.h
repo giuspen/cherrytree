@@ -56,6 +56,7 @@ private:
     Glib::RefPtr<Gtk::CssProvider> _rCssProvider;
     Glib::RefPtr<Gsv::LanguageManager> _rLanguageManager;
     Glib::RefPtr<Gsv::StyleSchemeManager> _rStyleSchemeManager;
+    Glib::RefPtr<Gtk::StatusIcon> _rStatusIcon;
 
 protected:
     void on_activate() override;
