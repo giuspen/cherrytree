@@ -776,20 +776,27 @@ void CtMainWin::_zoom_tree(bool is_increase)
     _uCtTreeview->override_font(description);
 }
 
-bool CtMainWin::file_open(const std::string& filepath, const bool force_reset)
+bool CtMainWin::file_open(const std::string& filepath)
 {
-    _ensure_curr_doc_in_recent_docs();
-    if (not reset(force_reset))
-    {
+    if (!check_unsaved())
         return false;
-    }
+
+    std::string prev_path = _pCtStorage->get_file_path();
+
+    _ensure_curr_doc_in_recent_docs();
+    reset(); // cannot reset after load_from because load_from fill tree store
 
     Glib::ustring error;
     auto new_storage = CtStorageControl::load_from(this, filepath, error);
     if (!new_storage) {
         CtDialogs::error_dialog(error, *this);
-        return false;
+
+        // trying to recover prevous document
+        if (prev_path != "")
+            file_open(prev_path); // it won't be in loop because storage is empty
+        return false;             // show the given document is not loaded
     }
+
     delete _pCtStorage;
     _pCtStorage = new_storage;
 
@@ -873,31 +880,29 @@ void CtMainWin::file_vacuum()
     _pCtStorage->vacuum();
 }
 
-bool CtMainWin::reset(const bool force_reset)
+void CtMainWin::reset()
 {
-    if (not force_reset and
-        _uCtTreestore->get_iter_first() and
-        not check_unsaved())
-    {
-        return false;
-    }
-
     auto on_scope_exit = scope_guard([&](void*) { user_active() = true; });
     user_active() = false;
 
-    for (auto button: _ctWinHeader.buttonBox.get_children())
-        button->hide();
+    get_state_machine().reset();
 
-    _reset_CtTreestore_CtTreeview();
-    _latestStatusbarUpdateTime.clear();
     delete _pCtStorage;
     _pCtStorage = CtStorageControl::create_dummy_storage();
+
+    _reset_CtTreestore_CtTreeview();
+
+    _latestStatusbarUpdateTime.clear();
+    for (auto button: _ctWinHeader.buttonBox.get_children())
+        button->hide();
+    _ctWinHeader.nameLabel.set_markup("");
+    window_header_update_lock_icon(false);
+    window_header_update_bookmark_icon(false);
+    menu_set_bookmark_menu_items();
 
     update_window_save_not_needed();
     _ctTextview.set_buffer(Glib::RefPtr<Gtk::TextBuffer>());
     _ctTextview.set_sensitive(false);
-    get_state_machine().reset();
-    return true;
 }
 
 bool CtMainWin::check_unsaved()

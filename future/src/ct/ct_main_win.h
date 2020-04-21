@@ -93,12 +93,12 @@ public:
 
     void update_theme();
 
-    bool file_open(const std::string& filepath, const bool force_reset = false);
+    bool file_open(const std::string& filepath);
     void file_save();
     void file_save_as(const std::string& new_filepath, const std::string& password);
     void file_vacuum();
 
-    bool reset(const bool force_reset = false);
+    void reset();
     bool check_unsaved();
     void update_window_save_needed(const CtSaveNeededUpdType update_type = CtSaveNeededUpdType::None,
                                    const bool new_machine_state = false,

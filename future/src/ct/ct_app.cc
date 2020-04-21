@@ -148,7 +148,7 @@ void CtApp::on_activate()
             Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(CtApp::_uCtCfg->recentDocsFilepaths.front());
             if (r_file->query_exists())
             {
-                if (not pAppWindow->file_open(r_file->get_path(), false))
+                if (not pAppWindow->file_open(r_file->get_path()))
                 {
                     _printHelpMessage();
                 }
@@ -183,7 +183,7 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
             {
                 // there is not a window already running with that document
                 pAppWindow = _create_appwindow();
-                if (not pAppWindow->file_open(r_file->get_path(), false))
+                if (not pAppWindow->file_open(r_file->get_path()))
                 {
                     _printHelpMessage();
                 }
