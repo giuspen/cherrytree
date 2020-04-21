@@ -1827,10 +1827,10 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
 CtYesNoCancel CtDialogs::exit_save_dialog(Gtk::Window& parent)
 {
     Gtk::Dialog dialog = Gtk::Dialog(_("Warning"),
-                                     parent,
+                                      parent,
                                      Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    dialog.add_button(Gtk::Stock::DISCARD, Gtk::RESPONSE_NO);
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
-    dialog.add_button(Gtk::Stock::CLEAR, Gtk::RESPONSE_NO);
     dialog.add_button(Gtk::Stock::SAVE, Gtk::RESPONSE_YES);
     dialog.set_default_response(Gtk::RESPONSE_YES);
     dialog.set_default_size(350, 150);
