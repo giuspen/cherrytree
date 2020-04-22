@@ -201,6 +201,8 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_text_editor, false, false);
     pMainBox->pack_start(*frame_misc_all, false, false);
 
@@ -291,6 +293,8 @@ Gtk::Widget* CtPrefDlg::build_tab_text()
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_editor, false, false);
 
     checkbutton_auto_smart_quotes->signal_toggled().connect([pConfig, checkbutton_auto_smart_quotes](){
@@ -433,6 +437,8 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_spell_check, false, false);
     pMainBox->pack_start(*frame_rt_theme, false, false);
     pMainBox->pack_start(*frame_misc_text, false, false);
@@ -612,6 +618,8 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_syntax, false, false);
     pMainBox->pack_start(*frame_codexec, true, true);
 
@@ -769,6 +777,8 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_tt_theme, false, false);
     pMainBox->pack_start(*frame_nodes_icons, false, false);
     pMainBox->pack_start(*frame_nodes_startup, false, false);
@@ -899,6 +909,8 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_2()
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_misc_tree, false, false);
 
     spinbutton_tree_nodes_names_width->signal_value_changed().connect([pConfig, spinbutton_tree_nodes_names_width](){
@@ -966,6 +978,8 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_fonts, false, false);
 
     fontbutton_rt->signal_font_set().connect([this, pConfig, fontbutton_rt](){
@@ -1023,50 +1037,39 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
     entry_custom_folderlink_cmd->set_sensitive(pConfig->folderlinkCustomOn);
     entry_custom_folderlink_cmd->set_text(pConfig->folderlinkCustomAct);
 
-    Gtk::Table* table_links_colors = Gtk::manage(new Gtk::Table(2, 2));
-    table_links_colors->set_row_spacings(2);
-    table_links_colors->set_col_spacings(4);
-    table_links_colors->set_homogeneous(true);
+    Gtk::Grid* grid_links_colors = Gtk::manage(new Gtk::Grid());
+    grid_links_colors->set_row_spacing(2);
+    grid_links_colors->set_column_spacing(15);
+    grid_links_colors->set_row_homogeneous(true);
 
-    Gtk::HBox* hbox_col_link_webs = Gtk::manage(new Gtk::HBox());
-    hbox_col_link_webs->set_spacing(4);
     Gtk::Label* label_col_link_webs = Gtk::manage(new Gtk::Label(_("To WebSite")));
     Gtk::ColorButton* colorbutton_col_link_webs = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(pConfig->colLinkWebs)));
-    hbox_col_link_webs->pack_start(*label_col_link_webs, false, false);
-    hbox_col_link_webs->pack_start(*colorbutton_col_link_webs, false, false);
-
-    Gtk::HBox* hbox_col_link_node = Gtk::manage(new Gtk::HBox());
-    hbox_col_link_node->set_spacing(4);
     Gtk::Label* label_col_link_node = Gtk::manage(new Gtk::Label(_("To Node")));
     Gtk::ColorButton* colorbutton_col_link_node = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(pConfig->colLinkNode)));
-    hbox_col_link_node->pack_start(*label_col_link_node, false, false);
-    hbox_col_link_node->pack_start(*colorbutton_col_link_node, false, false);
-
-    Gtk::HBox* hbox_col_link_file = Gtk::manage(new Gtk::HBox());
-    hbox_col_link_file->set_spacing(4);
     Gtk::Label* label_col_link_file = Gtk::manage(new Gtk::Label(_("To File")));
     Gtk::ColorButton* colorbutton_col_link_file = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(pConfig->colLinkFile)));
-    hbox_col_link_file->pack_start(*label_col_link_file, false, false);
-    hbox_col_link_file->pack_start(*colorbutton_col_link_file, false, false);
-
-    Gtk::HBox* hbox_col_link_fold = Gtk::manage(new Gtk::HBox());
-    hbox_col_link_fold->set_spacing(4);
     Gtk::Label* label_col_link_fold = Gtk::manage(new Gtk::Label(_("To Folder")));
     Gtk::ColorButton* colorbutton_col_link_fold = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(pConfig->colLinkFold)));
-    hbox_col_link_fold->pack_start(*label_col_link_fold, false, false);
-    hbox_col_link_fold->pack_start(*colorbutton_col_link_fold, false, false);
 
-    table_links_colors->attach(*hbox_col_link_webs, 0, 1, 0, 1);
-    table_links_colors->attach(*hbox_col_link_node, 0, 1, 1, 2);
-    table_links_colors->attach(*hbox_col_link_file, 1, 2, 0, 1);
-    table_links_colors->attach(*hbox_col_link_fold, 1, 2, 1, 2);
+    grid_links_colors->attach(*label_col_link_webs, 0, 0);
+    grid_links_colors->attach(*colorbutton_col_link_webs, 1, 0);
+
+    grid_links_colors->attach(*label_col_link_node, 0, 1);
+    grid_links_colors->attach(*colorbutton_col_link_node, 1, 1);
+
+    grid_links_colors->attach(*label_col_link_file, 2, 0);
+    grid_links_colors->attach(*colorbutton_col_link_file, 3, 0);
+
+    grid_links_colors->attach(*label_col_link_fold, 2, 1);
+    grid_links_colors->attach(*colorbutton_col_link_fold, 3, 1);
+
 
     Gtk::Frame* frame_links_colors = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Colors")+"</b>"));
     ((Gtk::Label*)frame_links_colors->get_label_widget())->set_use_markup(true);
     frame_links_colors->set_shadow_type(Gtk::SHADOW_NONE);
     Gtk::Alignment* align_links_colors = Gtk::manage(new Gtk::Alignment());
     align_links_colors->set_padding(3, 6, 6, 6);
-    align_links_colors->add(*table_links_colors);
+    align_links_colors->add(*grid_links_colors);
     frame_links_colors->add(*align_links_colors);
 
     Gtk::VBox* vbox_links_misc = Gtk::manage(new Gtk::VBox());
@@ -1096,6 +1099,8 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_links_actions, false, false);
     pMainBox->pack_start(*frame_links_colors, false, false);
     pMainBox->pack_start(*frame_links_misc, false, false);
@@ -1377,6 +1382,8 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_system_tray, false, false);
     pMainBox->pack_start(*frame_saving, false, false);
     pMainBox->pack_start(*frame_misc_misc, false, false);
