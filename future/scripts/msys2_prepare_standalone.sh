@@ -144,5 +144,6 @@ echo "gtk-theme-name=win32" >> ${NEW_ETC_GTK_SETTINGS_INI}
 
 
 echo "copying cherrytree files..."
-cp -v ${GIT_CT_EXE} "${NEW_ROOT_FOLDER}/mingw64/bin/"
-cp -v ${GIT_CT_LICENSE} "${NEW_ROOT_FOLDER}/"
+strip ${GIT_CT_EXE}
+cp -v ${GIT_CT_EXE} ${NEW_ROOT_FOLDER}/mingw64/bin/
+cp -v ${GIT_CT_LICENSE} ${NEW_ROOT_FOLDER}/
