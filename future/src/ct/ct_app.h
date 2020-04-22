@@ -71,5 +71,5 @@ private:
     bool        _quit_or_hide_window(CtMainWin* pCtMainWin, bool from_delete);
 
     void _systray_show_hide_windows();
-    void _systray_show_popup();
+    void _systray_close_all();
 };

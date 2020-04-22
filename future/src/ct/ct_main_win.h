@@ -168,6 +168,9 @@ public:
 
     void resetPrevTreeIter()                { _prevTreeIter = CtTreeIter(); }
 
+    void save_position()                    { get_position(_savedXpos, _savedYpos); }
+    void restore_position()                 { if (_savedXpos != -1) move(_savedXpos, _savedYpos); }
+
 private:
     bool                _on_window_key_press_event(GdkEventKey* event);
 
@@ -235,6 +238,8 @@ private:
     bool                _fileSaveNeeded{false}; // pygtk: file_update
     std::unordered_map<gint64, gint64> _latestStatusbarUpdateTime; // pygtk: latest_statusbar_update_time
     CtTreeIter          _prevTreeIter;
+    int                 _savedXpos{-1};
+    int                 _savedYpos{-1};
 
 public:
     sigc::signal<void, bool>       signal_app_set_visible_exit_app = sigc::signal<void, bool>();

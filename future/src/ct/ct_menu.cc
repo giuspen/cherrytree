@@ -59,6 +59,11 @@ CtMenu::CtMenu(CtConfig* pCtConfig, CtActions* pActions)
     init_actions(pActions);
 }
 
+/*static*/ Gtk::MenuItem* CtMenu::create_menu_item(GtkWidget* pMenu, const char* name, const char* image, const char* desc)
+{
+    return _add_menu_item(pMenu, name, image, nullptr, nullptr, desc, nullptr, nullptr, nullptr);
+}
+
 void CtMenu::init_actions(CtActions* pActions)
 {
     // stubs for menu bar
@@ -352,7 +357,7 @@ Gtk::Menu* CtMenu::build_bookmarks_menu(std::list<std::pair<gint64, std::string>
     {
         const gint64& node_id = bookmark.first;
         const std::string& node_name = bookmark.second;
-        Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), node_name.c_str(), "pin", nullptr, node_name.c_str(), nullptr);
+        Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), node_name.c_str(), "pin", nullptr, nullptr, node_name.c_str(), nullptr, nullptr, nullptr);
         pMenuItem->signal_activate().connect(sigc::bind(bookmark_action, node_id));
     }
     return pMenu;
@@ -365,15 +370,15 @@ Gtk::Menu* CtMenu::build_recent_docs_menu(const CtRecentDocsFilepaths& recentDoc
     Gtk::Menu* pMenu = Gtk::manage(new Gtk::Menu());
     for (const std::string& filepath : recentDocsFilepaths)
     {
-        Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), filepath.c_str(), "open", nullptr, filepath.c_str(), nullptr);
+        Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), filepath.c_str(), "open", nullptr, nullptr, filepath.c_str(), nullptr, nullptr, nullptr);
         pMenuItem->signal_activate().connect(sigc::bind(recent_doc_open_action, filepath));
     }
-    Gtk::MenuItem* pMenuItemRm = _add_menu_item(GTK_WIDGET(pMenu->gobj()), _("Remove from list"), "edit_delete", nullptr, _("Remove from list"), nullptr);
+    Gtk::MenuItem* pMenuItemRm = _add_menu_item(GTK_WIDGET(pMenu->gobj()), _("Remove from list"), "edit_delete", nullptr, nullptr, _("Remove from list"), nullptr, nullptr, nullptr);
     Gtk::Menu* pMenuRm = Gtk::manage(new Gtk::Menu());
     pMenuItemRm->set_submenu(*pMenuRm);
     for (const std::string& filepath : recentDocsFilepaths)
     {
-        Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenuRm->gobj()), filepath.c_str(), "edit_delete", nullptr, filepath.c_str(), nullptr);
+        Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenuRm->gobj()), filepath.c_str(), "edit_delete", nullptr, nullptr, filepath.c_str(), nullptr, nullptr, nullptr);
         pMenuItem->signal_activate().connect(sigc::bind(recent_doc_rm_action, filepath));
     }
     return pMenu;
@@ -385,7 +390,7 @@ Gtk::Menu* CtMenu::build_special_chars_menu(const Glib::ustring& specialChars, s
     for (gunichar ch : specialChars)
     {
         Glib::ustring name = Glib::ustring(1, ch);
-        Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), name.c_str(), nullptr, nullptr, name.c_str(), nullptr);
+        Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), name.c_str(), nullptr, nullptr, nullptr, name.c_str(), nullptr, nullptr, nullptr);
         pMenuItem->signal_activate().connect(sigc::bind(spec_char_action, ch));
     }
     return pMenu;
@@ -562,6 +567,7 @@ Gtk::MenuItem* CtMenu::_add_menu_item(GtkWidget* pMenu, CtMenuAction* pAction)
                                               pAction->name.c_str(),
                                               pAction->image.c_str(),
                                               pAction->get_shortcut(_pCtConfig).c_str(),
+                                              default_accel_group(),
                                               pAction->desc.c_str(),
                                               (gpointer)pAction,
                                               &pAction->signal_set_sensitive,
@@ -571,14 +577,15 @@ Gtk::MenuItem* CtMenu::_add_menu_item(GtkWidget* pMenu, CtMenuAction* pAction)
 }
 
 // based on inkscape/src/ui/interface.cpp
-Gtk::MenuItem* CtMenu::_add_menu_item(GtkWidget* pMenu,
-                                      const char* name,
-                                      const char* image,
-                                      const char* shortcut,
-                                      const char* desc,
-                                      gpointer action_data,
-                                      sigc::signal<void, bool>* signal_set_sensitive /* = nullptr */,
-                                      sigc::signal<void, bool>* signal_set_visible /* = nullptr */)
+/*static*/ Gtk::MenuItem* CtMenu::_add_menu_item(GtkWidget* pMenu,
+                                                 const char* name,
+                                                 const char* image,
+                                                 const char* shortcut,
+                                                 GtkAccelGroup* accelGroup,
+                                                 const char* desc,
+                                                 gpointer action_data,
+                                                 sigc::signal<void, bool>* signal_set_sensitive,
+                                                 sigc::signal<void, bool>* signal_set_visible)
 {
     Gtk::MenuItem* pMenuItem = Gtk::manage(new Gtk::MenuItem());
 
@@ -603,7 +610,7 @@ Gtk::MenuItem* CtMenu::_add_menu_item(GtkWidget* pMenu,
         gtk_accelerator_parse(shortcut, &key, &mod);
         gtk_widget_add_accelerator(GTK_WIDGET(pMenuItem->gobj()),
                         "activate",
-                        default_accel_group(),
+                        accelGroup,
                         key,
                         mod,
                         GTK_ACCEL_VISIBLE);
@@ -623,8 +630,11 @@ Gtk::MenuItem* CtMenu::_add_menu_item(GtkWidget* pMenu,
                 sigc::ptr_fun(&gtk_widget_set_visible),
                 GTK_WIDGET(pMenuItem->gobj())));
 
-    gtk_widget_set_events(GTK_WIDGET(pMenuItem->gobj()), GDK_KEY_PRESS_MASK);
-    g_signal_connect(G_OBJECT(pMenuItem->gobj()), "activate", G_CALLBACK(on_menu_activate), action_data);
+    if (action_data)
+    {
+        gtk_widget_set_events(GTK_WIDGET(pMenuItem->gobj()), GDK_KEY_PRESS_MASK);
+        g_signal_connect(G_OBJECT(pMenuItem->gobj()), "activate", G_CALLBACK(on_menu_activate), action_data);
+    }
 
     pMenuItem->show_all();
     gtk_menu_shell_append(GTK_MENU_SHELL(GTK_MENU(pMenu)), GTK_WIDGET(pMenuItem->gobj()));
@@ -632,7 +642,7 @@ Gtk::MenuItem* CtMenu::_add_menu_item(GtkWidget* pMenu,
     return pMenuItem;
 }
 
-void CtMenu::_add_menu_item_image_or_label(Gtk::Widget* pMenuItem, const char* image, GtkWidget* pLabel)
+/*static*/ void CtMenu::_add_menu_item_image_or_label(Gtk::Widget* pMenuItem, const char* image, GtkWidget* pLabel)
 {
     if (image && strlen(image))
     {

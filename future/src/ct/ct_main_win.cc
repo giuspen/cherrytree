@@ -914,6 +914,7 @@ bool CtMainWin::try_to_save()
 {
     if (get_file_save_needed())
     {
+        set_visible(true); // window could be hidden
         const CtYesNoCancel yesNoCancel = _pCtConfig->autosaveOnQuit ? CtYesNoCancel::Yes : CtDialogs::exit_save_dialog(*this);
         if (CtYesNoCancel::Cancel == yesNoCancel)
         {

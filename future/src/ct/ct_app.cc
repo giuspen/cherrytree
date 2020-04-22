@@ -53,15 +53,21 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
 
     _rStatusIcon = Gtk::StatusIcon::create(CtConst::APP_NAME);
     _rStatusIcon->set_visible(false);
-    _rStatusIcon->set_title(_("CherryTree Hierarchical Note Taking"));
+    _rStatusIcon->set_name(CtConst::APP_NAME);
+    _rStatusIcon->set_title(CtConst::APP_NAME);
+    _rStatusIcon->set_tooltip_markup(_("CherryTree Hierarchical Note Taking"));
     _rStatusIcon->signal_button_press_event().connect([&](GdkEventButton* event) {
         if (event->button == 1) { _systray_show_hide_windows(); }
-        if (event->button == 3) { _systray_show_popup(); }
         return false;
     });
-
-    signal_window_removed().connect([](Gtk::Window*) {
-
+    _rStatusIcon->signal_popup_menu().connect([&](guint button, guint32 activate_time){
+        Gtk::Menu* systrayMenu = Gtk::manage(new Gtk::Menu());
+        auto item1 = CtMenu::create_menu_item(GTK_WIDGET(systrayMenu->gobj()), _("Show/Hide _CherryTree"), CtConst::APP_NAME, _("Toggle Show/Hide CherryTree"));
+        item1->signal_activate().connect([&] {_systray_show_hide_windows();});
+        auto item2 = CtMenu::create_menu_item(GTK_WIDGET(systrayMenu->gobj()), _("_Exit CherryTree"), "quit-app", _("Exit from CherryTree"));
+        item2->signal_activate().connect([&] { _systray_close_all(); });
+        systrayMenu->show_all();
+        systrayMenu->popup(button, activate_time);
     });
 }
 
@@ -167,7 +173,7 @@ CtMainWin* CtApp::_create_window()
 
 
     pCtMainWin->signal_app_quit_or_hide_window.connect([&](CtMainWin* win) { _quit_or_hide_window(win, false); });
-    pCtMainWin->signal_delete_event().connect([this, pCtMainWin](GdkEventAny*) { return _quit_or_hide_window(pCtMainWin, true); });
+    pCtMainWin->signal_delete_event().connect([this, pCtMainWin](GdkEventAny*) { bool good = _quit_or_hide_window(pCtMainWin, true); return !good; });
     pCtMainWin->signal_app_quit_window.connect([&](CtMainWin* win) { win->force_exit() = true; _quit_or_hide_window(win, false); });
 
     return pCtMainWin;
@@ -189,10 +195,11 @@ bool CtApp::_quit_or_hide_window(CtMainWin* pCtMainWin, bool from_delete)
     pCtMainWin->config_update_data_from_curr_status();
     _uCtCfg->write_to_file();
 
-    if (_uCtCfg->systrayOn && !pCtMainWin->force_exit() /* if came from quit_window */)
+    if (_uCtCfg->systrayOn && !pCtMainWin->force_exit() /* if didn't come from quit_window */)
     {
+        pCtMainWin->save_position();
         pCtMainWin->set_visible(false);
-        return true; // to stop deleting window
+        return false; // to stop deleting window
     }
     else
     {
@@ -200,13 +207,13 @@ bool CtApp::_quit_or_hide_window(CtMainWin* pCtMainWin, bool from_delete)
         if (!pCtMainWin->try_to_save())
         {
             pCtMainWin->force_exit() = false;
-            return true;  // to stop deleting windows
+            return false;  // to stop deleting windows
         }
         pCtMainWin->force_exit() = true; // this is for on_window_removed
         if (!from_delete)                // signal from remove, no need to remove again
             remove_window(*pCtMainWin);  // object will be destroyed in on_window_removed
 
-        return false; // continue deleting window
+        return true; // continue deleting window
     }
 }
 
@@ -217,20 +224,31 @@ void CtApp::_systray_show_hide_windows()
         if (pWin->has_toplevel_focus())
             to_show = false;
     for (Gtk::Window* pWin : get_windows())
+    {
+        CtMainWin* win = dynamic_cast<CtMainWin*>(pWin);
         if (to_show)
         {
-            pWin->set_visible(to_show);
-            pWin->present();
+            win->set_visible(true);
+            win->present();
+            win->restore_position();
         }
         else
         {
-            pWin->set_visible(false);
+            win->save_position();
+            win->set_visible(false);
         }
+    }
 }
 
-void CtApp::_systray_show_popup()
+void CtApp::_systray_close_all()
 {
-
+    for (Gtk::Window* pWin : get_windows())
+       if (CtMainWin* win = dynamic_cast<CtMainWin*>(pWin))
+       {
+           win->force_exit() = true;
+           if (!_quit_or_hide_window(win, false))
+               break;
+       }
 }
 
 
