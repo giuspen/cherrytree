@@ -47,10 +47,7 @@ public:
 
 private:
     std::unique_ptr<CtConfig> _uCtCfg;
-    std::unique_ptr<CtActions> _uCtActions;
     std::unique_ptr<CtTmp> _uCtTmp;
-    std::unique_ptr<CtMenu> _uCtMenu;
-    std::unique_ptr<CtPrint> _uCtPrint;
     Glib::RefPtr<Gtk::IconTheme> _rIcontheme;
     Glib::RefPtr<Gtk::TextTagTable> _rTextTagTable;
     Glib::RefPtr<Gtk::CssProvider> _rCssProvider;
@@ -61,17 +58,18 @@ private:
 protected:
     void on_activate() override;
     void on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint) override;
+    void on_window_removed(Gtk::Window* window) override;
 
     void _printHelpMessage();
     void _printGresourceIcons();
 
 public:
-    void quit_application();
-    void dialog_preferences();
-    void file_new();
 
 private:
-    CtMainWin* _create_appwindow();
-    CtMainWin* _get_main_win(const std::string& filepath="");
-    void _on_hide_window(CtMainWin* pCtMainWin);
+    CtMainWin*  _create_window();
+    CtMainWin*  _get_window_by_path(const std::string& filepath);
+    bool        _quit_or_hide_window(CtMainWin* pCtMainWin, bool from_delete);
+
+    void _systray_show_hide_windows();
+    void _systray_show_popup();
 };

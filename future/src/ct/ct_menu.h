@@ -50,7 +50,7 @@ class CtActions;
 class CtMenu
 {
 public:
-    CtMenu(CtConfig* pCtConfig);
+    CtMenu(CtConfig* pCtConfig, CtActions* pActions);
 
 public:
     const char*       None       = "";
@@ -61,7 +61,7 @@ public:
     enum POPUP_MENU_TYPE {Node, Text, Code, Link, TableHeaderCell, TableCell, Codebox, Image, Anchor, EmbFile, PopupMenuNum };
 
 public:
-    void init_actions(CtApp* pApp, CtActions* pActions);
+    void init_actions(CtActions* pActions);
     CtMenuAction* find_action(const std::string& id);
     const std::list<CtMenuAction>& get_actions() { return _actions; }
 

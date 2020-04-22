@@ -51,14 +51,15 @@ const std::string& CtMenuAction::get_shortcut(CtConfig* pCtConfig) const
 }
 
 
-CtMenu::CtMenu(CtConfig* pCtConfig)
+CtMenu::CtMenu(CtConfig* pCtConfig, CtActions* pActions)
  : _pCtConfig(pCtConfig)
 {
     _pAccelGroup = gtk_accel_group_new();
     _rGtkBuilder = Gtk::Builder::create();
+    init_actions(pActions);
 }
 
-void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
+void CtMenu::init_actions(CtActions* pActions)
 {
     // stubs for menu bar
     _actions.push_back(CtMenuAction{"", "FileMenu", None, _("_File"), None, None, sigc::signal<void>()});
@@ -81,7 +82,7 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
 
     // main actions
     const char* file_cat = _("File");
-    _actions.push_back(CtMenuAction{file_cat, "ct_new_inst", "new-instance", _("New _Instance"), None, _("Start a New Instance of CherryTree"), sigc::mem_fun(*pApp, &CtApp::file_new)});
+    _actions.push_back(CtMenuAction{file_cat, "ct_new_inst", "new-instance", _("New _Instance"), None, _("Start a New Instance of CherryTree"), sigc::mem_fun(*pActions, &CtActions::file_new)});
     _actions.push_back(CtMenuAction{file_cat, "ct_open_file", "open", _("_Open File"), KB_CONTROL+"O", _("Open a CherryTree Document"), sigc::mem_fun(*pActions, &CtActions::file_open)});
     _actions.push_back(CtMenuAction{file_cat, "ct_save", "save", _("_Save"), KB_CONTROL+"S", _("Save File"), sigc::mem_fun(*pActions, &CtActions::file_save)});
     _actions.push_back(CtMenuAction{file_cat, "ct_vacuum", "clear", _("Save and _Vacuum"), None, _("Save File and Vacuum"), sigc::mem_fun(*pActions, &CtActions::file_vacuum)});
@@ -91,9 +92,9 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     _actions.push_back(CtMenuAction{file_cat, "open_cfg_folder", "directory", _("Open Preferences _Directory"), None, _("Open the Directory with Preferences Files"), sigc::mem_fun(*pActions, &CtActions::folder_cfg_open)});
     _actions.push_back(CtMenuAction{file_cat, "print_page_setup", "print", _("Pa_ge Setup"), None, _("Set up the Page for Printing"), sigc::mem_fun(*pActions, &CtActions::export_print_page_setup)});
     _actions.push_back(CtMenuAction{file_cat, "do_print", "print", _("_Print"), KB_CONTROL+"P", _("Print"), sigc::mem_fun(*pActions, &CtActions::export_print)});
-    _actions.push_back(CtMenuAction{file_cat, "quit_app", "quit-app", _("_Quit"), KB_CONTROL+"Q", _("Quit the Application"), sigc::mem_fun(*pApp, &CtApp::quit_application)});
-    _actions.push_back(CtMenuAction{file_cat, "exit_app", "quit-app", _("_Exit CherryTree"), KB_CONTROL+KB_SHIFT+"Q", _("Exit from CherryTree"), sigc::signal<void>() /* dad.quit_application_totally */});
-    _actions.push_back(CtMenuAction{file_cat, "preferences_dlg", "preferences", _("_Preferences"), KB_CONTROL+KB_ALT+"P", _("Preferences"), sigc::mem_fun(*pApp, &CtApp::dialog_preferences) });
+    _actions.push_back(CtMenuAction{file_cat, "quit_app", "quit-app", _("_Quit"), KB_CONTROL+"Q", _("Quit the Application"), sigc::mem_fun(*pActions, &CtActions::quit_or_hide_window)});
+    _actions.push_back(CtMenuAction{file_cat, "exit_app", "quit-app", _("_Exit CherryTree"), KB_CONTROL+KB_SHIFT+"Q", _("Exit from CherryTree"), sigc::mem_fun(*pActions, &CtActions::quit_window)});
+    _actions.push_back(CtMenuAction{file_cat, "preferences_dlg", "preferences", _("_Preferences"), KB_CONTROL+KB_ALT+"P", _("Preferences"), sigc::mem_fun(*pActions, &CtActions::dialog_preferences) });
     _actions.push_back(CtMenuAction{file_cat, "ct_check_newer", "network", _("_Check Newer Version"), None, _("Check for a Newer Version"), sigc::signal<void>() /* dad.check_for_newer_version */});
     _actions.push_back(CtMenuAction{file_cat, "ct_help", "help", _("Online _Manual"), "F1", _("Application's Online Manual"), sigc::mem_fun(*pActions, &CtActions::online_help)});
     _actions.push_back(CtMenuAction{file_cat, "ct_about", "about", _("_About"), None, _("About CherryTree"), sigc::signal<void>() /* dad.dialog_about */});
@@ -241,10 +242,11 @@ void CtMenu::init_actions(CtApp *pApp, CtActions* pActions)
     // add actions in the Applicaton for the toolbar
     // by default actions will have prefix 'app.'
     // (the menu uses not actions, but accelerators)
+    /*
     for (const CtMenuAction& action : _actions)
     {
         pApp->add_action(action.id, action.run_action);
-    }
+    }*/
 
 
     // for popup menus
