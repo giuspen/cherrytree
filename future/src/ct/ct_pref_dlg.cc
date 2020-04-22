@@ -201,6 +201,8 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_text_editor, false, false);
     pMainBox->pack_start(*frame_misc_all, false, false);
 
@@ -210,7 +212,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
         if (pConfig->specialChars != new_special_chars)
         {
             pConfig->specialChars = new_special_chars;
-            _pCtMainWin->menu_set_items_special_chars();
+            apply_for_each_window([&](CtMainWin* win) { win->menu_set_items_special_chars(); });
         }
     });
     button_reset->signal_clicked().connect([this, textview_special_chars](){
@@ -219,36 +221,38 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     });
     spinbutton_tab_width->signal_value_changed().connect([this, pConfig, spinbutton_tab_width](){
         pConfig->tabsWidth = spinbutton_tab_width->get_value_as_int();
-        _pCtMainWin->get_text_view().set_tab_width((guint)pConfig->tabsWidth);
+        apply_for_each_window([&](CtMainWin* win) { win->get_text_view().set_tab_width((guint)pConfig->tabsWidth); });
     });
     spinbutton_wrapping_indent->signal_value_changed().connect([this, pConfig, spinbutton_wrapping_indent](){
         pConfig->wrappingIndent = spinbutton_wrapping_indent->get_value_as_int();
-        _pCtMainWin->get_text_view().set_indent(pConfig->wrappingIndent);
+        apply_for_each_window([&](CtMainWin* win) { win->get_text_view().set_indent(pConfig->wrappingIndent); });
     });
     spinbutton_relative_wrapped_space->signal_value_changed().connect([this, pConfig, spinbutton_relative_wrapped_space](){
        pConfig->relativeWrappedSpace = spinbutton_relative_wrapped_space->get_value_as_int();
-       _pCtMainWin->get_text_view().set_pixels_inside_wrap(pConfig->spaceAroundLines, pConfig->relativeWrappedSpace);
+       apply_for_each_window([&](CtMainWin* win) { win->get_text_view().set_pixels_inside_wrap(pConfig->spaceAroundLines, pConfig->relativeWrappedSpace);});
     });
     spinbutton_space_around_lines->signal_value_changed().connect([this, pConfig, spinbutton_space_around_lines](){
         pConfig->spaceAroundLines = spinbutton_space_around_lines->get_value_as_int();
-        _pCtMainWin->get_text_view().set_pixels_above_lines(pConfig->spaceAroundLines);
-        _pCtMainWin->get_text_view().set_pixels_below_lines(pConfig->spaceAroundLines);
-        _pCtMainWin->get_text_view().set_pixels_inside_wrap(pConfig->spaceAroundLines, pConfig->relativeWrappedSpace);
+        apply_for_each_window([&](CtMainWin* win) {
+            win->get_text_view().set_pixels_above_lines(pConfig->spaceAroundLines);
+            win->get_text_view().set_pixels_below_lines(pConfig->spaceAroundLines);
+            win->get_text_view().set_pixels_inside_wrap(pConfig->spaceAroundLines, pConfig->relativeWrappedSpace);
+        });
     });
     checkbutton_spaces_tabs->signal_toggled().connect([this, pConfig, checkbutton_spaces_tabs](){
         pConfig->spacesInsteadTabs = checkbutton_spaces_tabs->get_active();
-        _pCtMainWin->get_text_view().set_insert_spaces_instead_of_tabs(pConfig->spacesInsteadTabs);
+        apply_for_each_window([&](CtMainWin* win) { win->get_text_view().set_insert_spaces_instead_of_tabs(pConfig->spacesInsteadTabs); });
     });
     checkbutton_line_wrap->signal_toggled().connect([this, pConfig, checkbutton_line_wrap](){
         pConfig->lineWrapping = checkbutton_line_wrap->get_active();
-        _pCtMainWin->get_text_view().set_wrap_mode(pConfig->lineWrapping ? Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
+        apply_for_each_window([&](CtMainWin* win) { win->get_text_view().set_wrap_mode(pConfig->lineWrapping ? Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE); });
     });
     checkbutton_auto_indent->signal_toggled().connect([pConfig, checkbutton_auto_indent](){
         pConfig->autoIndent = checkbutton_auto_indent->get_active();
     });
     checkbutton_line_nums->signal_toggled().connect([this, pConfig, checkbutton_line_nums](){
         pConfig->showLineNumbers = checkbutton_line_nums->get_active();
-        _pCtMainWin->get_text_view().set_show_line_numbers(pConfig->showLineNumbers);
+        apply_for_each_window([&](CtMainWin* win) { win->get_text_view().set_show_line_numbers(pConfig->showLineNumbers); });
     });
     entry_timestamp_format->signal_changed().connect([pConfig, entry_timestamp_format](){
         pConfig->timestampFormat = entry_timestamp_format->get_text();
@@ -289,6 +293,8 @@ Gtk::Widget* CtPrefDlg::build_tab_text()
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_editor, false, false);
 
     checkbutton_auto_smart_quotes->signal_toggled().connect([pConfig, checkbutton_auto_smart_quotes](){
@@ -431,6 +437,8 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_spell_check, false, false);
     pMainBox->pack_start(*frame_rt_theme, false, false);
     pMainBox->pack_start(*frame_misc_text, false, false);
@@ -450,11 +458,11 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     });
     colorbutton_text_fg->signal_color_set().connect([this, pConfig, colorbutton_text_fg](){
         pConfig->rtDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_text_fg->get_rgba());
-        _pCtMainWin->update_theme();
+        apply_for_each_window([&](CtMainWin* win) { win->update_theme(); });
     });
     colorbutton_text_bg->signal_color_set().connect([this, pConfig, colorbutton_text_bg](){
         pConfig->rtDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_text_bg->get_rgba());
-        _pCtMainWin->update_theme();
+        apply_for_each_window([&](CtMainWin* win) { win->update_theme(); });
     });
     radiobutton_rt_col_light->signal_toggled().connect([radiobutton_rt_col_light, colorbutton_text_fg, colorbutton_text_bg](){
         if (!radiobutton_rt_col_light->get_active()) return;
@@ -497,12 +505,12 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     checkbutton_rt_show_white_spaces->signal_toggled().connect([this, pConfig, checkbutton_rt_show_white_spaces](){
         pConfig->rtShowWhiteSpaces = checkbutton_rt_show_white_spaces->get_active();
         if (pConfig->syntaxHighlighting == CtConst::RICH_TEXT_ID)
-            _pCtMainWin->get_text_view().set_draw_spaces(pConfig->rtShowWhiteSpaces ? CtCodebox::DRAW_SPACES_FLAGS : (Gsv::DrawSpacesFlags)0);
+            apply_for_each_window([&](CtMainWin* win) { win->get_text_view().set_draw_spaces(pConfig->rtShowWhiteSpaces ? CtCodebox::DRAW_SPACES_FLAGS : (Gsv::DrawSpacesFlags)0); });
     });
     checkbutton_rt_highl_curr_line->signal_toggled().connect([this, pConfig, checkbutton_rt_highl_curr_line](){
         pConfig->rtHighlCurrLine = checkbutton_rt_highl_curr_line->get_active();
         if (pConfig->syntaxHighlighting == CtConst::RICH_TEXT_ID)
-            _pCtMainWin->get_text_view().set_highlight_current_line(pConfig->rtHighlCurrLine);
+            apply_for_each_window([&](CtMainWin* win) { win->get_text_view().set_highlight_current_line(pConfig->rtHighlCurrLine); });
     });
     checkbutton_codebox_auto_resize->signal_toggled().connect([pConfig, checkbutton_codebox_auto_resize](){
         pConfig->codeboxAutoResize = checkbutton_codebox_auto_resize->get_active();
@@ -610,6 +618,8 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_syntax, false, false);
     pMainBox->pack_start(*frame_codexec, true, true);
 
@@ -621,12 +631,12 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     checkbutton_pt_show_white_spaces->signal_toggled().connect([this, pConfig, checkbutton_pt_show_white_spaces](){
         pConfig->ptShowWhiteSpaces = checkbutton_pt_show_white_spaces->get_active();
         if (pConfig->syntaxHighlighting != CtConst::RICH_TEXT_ID)
-            _pCtMainWin->get_text_view().set_draw_spaces(pConfig->ptShowWhiteSpaces ? CtCodebox::DRAW_SPACES_FLAGS : (Gsv::DrawSpacesFlags)0);
+            apply_for_each_window([&](CtMainWin* win) { win->get_text_view().set_draw_spaces(pConfig->ptShowWhiteSpaces ? CtCodebox::DRAW_SPACES_FLAGS : (Gsv::DrawSpacesFlags)0); });
     });
     checkbutton_pt_highl_curr_line->signal_toggled().connect([this, pConfig, checkbutton_pt_highl_curr_line](){
         pConfig->ptHighlCurrLine = checkbutton_pt_highl_curr_line->get_active();
         if (pConfig->syntaxHighlighting != CtConst::RICH_TEXT_ID)
-            _pCtMainWin->get_text_view().set_highlight_current_line(pConfig->ptHighlCurrLine);
+            apply_for_each_window([&](CtMainWin* win) { win->get_text_view().set_highlight_current_line(pConfig->ptHighlCurrLine); });
     });
     ((Gtk::CellRendererText*)treeview->get_column(2)->get_cells()[0])->signal_edited().connect([this, pConfig, liststore](const Glib::ustring& path, const Glib::ustring& new_command){
         auto row = liststore->get_iter(path);
@@ -767,6 +777,8 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_tt_theme, false, false);
     pMainBox->pack_start(*frame_nodes_icons, false, false);
     pMainBox->pack_start(*frame_nodes_startup, false, false);
@@ -774,7 +786,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     auto update_tree_color = [this, pConfig, colorbutton_tree_fg, colorbutton_tree_bg]() {
         pConfig->ttDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_fg->get_rgba());
         pConfig->ttDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_bg->get_rgba());
-        _pCtMainWin->update_theme();
+        apply_for_each_window([&](CtMainWin* win) { win->update_theme(); });
     };
 
     colorbutton_tree_fg->signal_color_set().connect([update_tree_color, radiobutton_tt_col_custom](){
@@ -809,17 +821,17 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     radiobutton_node_icon_cherry->signal_toggled().connect([this, pConfig, radiobutton_node_icon_cherry](){
         if (!radiobutton_node_icon_cherry->get_active()) return;
         pConfig->nodesIcons = "c";
-        _pCtMainWin->get_tree_store().update_nodes_icon(Gtk::TreeIter(), false);
+        apply_for_each_window([&](CtMainWin* win) { win->get_tree_store().update_nodes_icon(Gtk::TreeIter(), false); });
     });
     radiobutton_node_icon_custom->signal_toggled().connect([this, pConfig, radiobutton_node_icon_custom](){
         if (!radiobutton_node_icon_custom->get_active()) return;
         pConfig->nodesIcons = "b";
-        _pCtMainWin->get_tree_store().update_nodes_icon(Gtk::TreeIter(), false);
+        apply_for_each_window([&](CtMainWin* win) { win->get_tree_store().update_nodes_icon(Gtk::TreeIter(), false); });
     });
     radiobutton_node_icon_none->signal_toggled().connect([this, pConfig, radiobutton_node_icon_none](){
         if (!radiobutton_node_icon_none->get_active()) return;
         pConfig->nodesIcons = "n";
-        _pCtMainWin->get_tree_store().update_nodes_icon(Gtk::TreeIter(), false);
+        apply_for_each_window([&](CtMainWin* win) { win->get_tree_store().update_nodes_icon(Gtk::TreeIter(), false); });
     });
     c_icon_button->signal_clicked().connect([this, pConfig, c_icon_button](){
         auto itemStore = CtChooseDialogListStore::create();
@@ -829,7 +841,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
         if (res) {
             pConfig->defaultIconText = std::stoi(res->get_value(itemStore->columns.key));
             c_icon_button->set_image(*_pCtMainWin->new_image_from_stock(res->get_value(itemStore->columns.stock_id), Gtk::ICON_SIZE_BUTTON));
-            _pCtMainWin->get_tree_store().update_nodes_icon(Gtk::TreeIter(), false);
+            apply_for_each_window([&](CtMainWin* win) { win->get_tree_store().update_nodes_icon(Gtk::TreeIter(), false);});
         }
     });
     radiobutton_nodes_startup_expand->signal_toggled().connect([pConfig, radiobutton_nodes_startup_expand, checkbutton_nodes_bookm_exp](){
@@ -897,6 +909,8 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_2()
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_misc_tree, false, false);
 
     spinbutton_tree_nodes_names_width->signal_value_changed().connect([pConfig, spinbutton_tree_nodes_names_width](){
@@ -906,7 +920,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_2()
     });
     checkbutton_tree_right_side->signal_toggled().connect([this, pConfig, checkbutton_tree_right_side](){
         pConfig->treeRightSide = checkbutton_tree_right_side->get_active();
-        _pCtMainWin->config_switch_tree_side();
+        apply_for_each_window([&](CtMainWin* win) { win->config_switch_tree_side(); });
     });
     checkbutton_tree_click_focus_text->signal_toggled().connect([pConfig, checkbutton_tree_click_focus_text](){
         pConfig->treeClickFocusText = checkbutton_tree_click_focus_text->get_active();
@@ -916,7 +930,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_2()
     });
     spinbutton_nodes_on_node_name_header->signal_value_changed().connect([this, pConfig, spinbutton_nodes_on_node_name_header](){
         pConfig->nodesOnNodeNameHeader = spinbutton_nodes_on_node_name_header->get_value_as_int();
-        _pCtMainWin->window_header_update();
+        apply_for_each_window([&](CtMainWin* win) { win->window_header_update(); });
     });
 
     return pMainBox;
@@ -964,37 +978,25 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_fonts, false, false);
 
     fontbutton_rt->signal_font_set().connect([this, pConfig, fontbutton_rt](){
         pConfig->rtFont = fontbutton_rt->get_font_name();
-        _pCtMainWin->update_theme();
-        //if dad.curr_tree_iter and dad.syntax_highlighting == cons.RICH_TEXT_ID:
-        //    dad.sourceview.modify_font(pango.FontDescription(dad.rt_font))
+        apply_for_each_window([&](CtMainWin* win) { win->update_theme(); });
     });
     fontbutton_pt->signal_font_set().connect([this, pConfig, fontbutton_pt](){
         pConfig->ptFont = fontbutton_pt->get_font_name();
-        _pCtMainWin->update_theme();
-        //if not dad.curr_tree_iter: return
-        //if dad.syntax_highlighting == cons.PLAIN_TEXT_ID:
-        //    dad.sourceview.modify_font(pango.FontDescription(dad.pt_font))
-        //elif dad.syntax_highlighting == cons.RICH_TEXT_ID:
-        //    support.rich_text_node_modify_codeboxes_font(dad.curr_buffer.get_start_iter(), dad)
-        //    support.rich_text_node_modify_tables_font(dad.curr_buffer.get_start_iter(), dad)
+        apply_for_each_window([&](CtMainWin* win) { win->update_theme(); });
     });
     fontbutton_code->signal_font_set().connect([this, pConfig, fontbutton_code](){
         pConfig->codeFont = fontbutton_code->get_font_name();
-        _pCtMainWin->update_theme();
-        //if not dad.curr_tree_iter: return
-        //if dad.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
-        //    dad.sourceview.modify_font(pango.FontDescription(dad.code_font))
-        //elif dad.syntax_highlighting == cons.RICH_TEXT_ID:
-        //    support.rich_text_node_modify_codeboxes_font(dad.curr_buffer.get_start_iter(), dad)
+        apply_for_each_window([&](CtMainWin* win) { win->update_theme(); });
     });
     fontbutton_tree->signal_font_set().connect([this, pConfig, fontbutton_tree](){
         pConfig->treeFont = fontbutton_tree->get_font_name();
-        _pCtMainWin->update_theme();
-        //dad.set_treeview_font()
+        apply_for_each_window([&](CtMainWin* win) { win->update_theme(); });
     });
     return pMainBox;
 }
@@ -1035,50 +1037,39 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
     entry_custom_folderlink_cmd->set_sensitive(pConfig->folderlinkCustomOn);
     entry_custom_folderlink_cmd->set_text(pConfig->folderlinkCustomAct);
 
-    Gtk::Table* table_links_colors = Gtk::manage(new Gtk::Table(2, 2));
-    table_links_colors->set_row_spacings(2);
-    table_links_colors->set_col_spacings(4);
-    table_links_colors->set_homogeneous(true);
+    Gtk::Grid* grid_links_colors = Gtk::manage(new Gtk::Grid());
+    grid_links_colors->set_row_spacing(2);
+    grid_links_colors->set_column_spacing(15);
+    grid_links_colors->set_row_homogeneous(true);
 
-    Gtk::HBox* hbox_col_link_webs = Gtk::manage(new Gtk::HBox());
-    hbox_col_link_webs->set_spacing(4);
     Gtk::Label* label_col_link_webs = Gtk::manage(new Gtk::Label(_("To WebSite")));
     Gtk::ColorButton* colorbutton_col_link_webs = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(pConfig->colLinkWebs)));
-    hbox_col_link_webs->pack_start(*label_col_link_webs, false, false);
-    hbox_col_link_webs->pack_start(*colorbutton_col_link_webs, false, false);
-
-    Gtk::HBox* hbox_col_link_node = Gtk::manage(new Gtk::HBox());
-    hbox_col_link_node->set_spacing(4);
     Gtk::Label* label_col_link_node = Gtk::manage(new Gtk::Label(_("To Node")));
     Gtk::ColorButton* colorbutton_col_link_node = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(pConfig->colLinkNode)));
-    hbox_col_link_node->pack_start(*label_col_link_node, false, false);
-    hbox_col_link_node->pack_start(*colorbutton_col_link_node, false, false);
-
-    Gtk::HBox* hbox_col_link_file = Gtk::manage(new Gtk::HBox());
-    hbox_col_link_file->set_spacing(4);
     Gtk::Label* label_col_link_file = Gtk::manage(new Gtk::Label(_("To File")));
     Gtk::ColorButton* colorbutton_col_link_file = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(pConfig->colLinkFile)));
-    hbox_col_link_file->pack_start(*label_col_link_file, false, false);
-    hbox_col_link_file->pack_start(*colorbutton_col_link_file, false, false);
-
-    Gtk::HBox* hbox_col_link_fold = Gtk::manage(new Gtk::HBox());
-    hbox_col_link_fold->set_spacing(4);
     Gtk::Label* label_col_link_fold = Gtk::manage(new Gtk::Label(_("To Folder")));
     Gtk::ColorButton* colorbutton_col_link_fold = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(pConfig->colLinkFold)));
-    hbox_col_link_fold->pack_start(*label_col_link_fold, false, false);
-    hbox_col_link_fold->pack_start(*colorbutton_col_link_fold, false, false);
 
-    table_links_colors->attach(*hbox_col_link_webs, 0, 1, 0, 1);
-    table_links_colors->attach(*hbox_col_link_node, 0, 1, 1, 2);
-    table_links_colors->attach(*hbox_col_link_file, 1, 2, 0, 1);
-    table_links_colors->attach(*hbox_col_link_fold, 1, 2, 1, 2);
+    grid_links_colors->attach(*label_col_link_webs, 0, 0);
+    grid_links_colors->attach(*colorbutton_col_link_webs, 1, 0);
+
+    grid_links_colors->attach(*label_col_link_node, 0, 1);
+    grid_links_colors->attach(*colorbutton_col_link_node, 1, 1);
+
+    grid_links_colors->attach(*label_col_link_file, 2, 0);
+    grid_links_colors->attach(*colorbutton_col_link_file, 3, 0);
+
+    grid_links_colors->attach(*label_col_link_fold, 2, 1);
+    grid_links_colors->attach(*colorbutton_col_link_fold, 3, 1);
+
 
     Gtk::Frame* frame_links_colors = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Colors")+"</b>"));
     ((Gtk::Label*)frame_links_colors->get_label_widget())->set_use_markup(true);
     frame_links_colors->set_shadow_type(Gtk::SHADOW_NONE);
     Gtk::Alignment* align_links_colors = Gtk::manage(new Gtk::Alignment());
     align_links_colors->set_padding(3, 6, 6, 6);
-    align_links_colors->add(*table_links_colors);
+    align_links_colors->add(*grid_links_colors);
     frame_links_colors->add(*align_links_colors);
 
     Gtk::VBox* vbox_links_misc = Gtk::manage(new Gtk::VBox());
@@ -1108,6 +1099,8 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_links_actions, false, false);
     pMainBox->pack_start(*frame_links_colors, false, false);
     pMainBox->pack_start(*frame_links_misc, false, false);
@@ -1389,6 +1382,8 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
+    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_system_tray, false, false);
     pMainBox->pack_start(*frame_saving, false, false);
     pMainBox->pack_start(*frame_misc_misc, false, false);
@@ -1397,7 +1392,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_systray->signal_toggled().connect([this, pConfig, checkbutton_systray, checkbutton_start_on_systray](){
         pConfig->systrayOn = checkbutton_systray->get_active();
         _pCtMainWin->get_status_icon()->set_visible(checkbutton_systray->get_active());
-        _pCtMainWin->signal_app_set_visible_exit_app(checkbutton_systray->get_active());
+        apply_for_each_window([&](CtMainWin* win) { win->menu_set_visible_exit_app(checkbutton_systray->get_active()); });
         checkbutton_start_on_systray->set_sensitive(checkbutton_systray->get_active());
     });
     checkbutton_start_on_systray->signal_toggled().connect([pConfig, checkbutton_start_on_systray](){
@@ -1440,7 +1435,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     });
     checkbutton_word_count->signal_toggled().connect([&](){
         pConfig->wordCountOn = checkbutton_word_count->get_active();
-        _pCtMainWin->update_selected_node_statusbar_info();
+        apply_for_each_window([&](CtMainWin* win) { win->update_selected_node_statusbar_info(); });
     });
     combobox_country_language->signal_changed().connect([this, /*pConfig, */combobox_country_language](){
         Glib::ustring new_lang = combobox_country_language->get_active_text();
@@ -1705,4 +1700,9 @@ bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut)
         shortcut += key_entry->get_text();
     }
     return true;
+}
+
+void CtPrefDlg::apply_for_each_window(std::function<void(CtMainWin*)> callback)
+{
+    _pCtMainWin->signal_app_apply_for_each_window(callback);
 }

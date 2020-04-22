@@ -162,13 +162,13 @@ CtMainWin* CtApp::_create_window()
                                           _rStatusIcon.get());
     add_window(*pCtMainWin);
 
-    pCtMainWin->signal_app_set_visible_exit_app.connect([&](bool visible) {
-        for (Gtk::Window* pWin : get_windows())
-            if (CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(pWin))
-                pCtMainWin->menu_set_visible_exit_app(visible);
-    });
     pCtMainWin->signal_app_new_instance.connect([this]() {
         _create_window()->present();
+    });
+    pCtMainWin->signal_app_apply_for_each_window.connect([this](std::function<void(CtMainWin*)> callback) {
+        for (Gtk::Window* pWin : get_windows())
+            if (CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(pWin))
+                callback(pCtMainWin);
     });
 
 
