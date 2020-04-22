@@ -74,6 +74,8 @@ private:
     bool edit_shortcut(Gtk::TreeView* treeview);
     bool edit_shortcut_dialog(std::string& shortcut);
 
+    void apply_for_each_window(std::function<void(CtMainWin*)> callback);
+
 public:
     static std::string get_code_exec_term_run(CtMainWin* pCtMainWin);
 

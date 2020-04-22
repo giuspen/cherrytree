@@ -242,8 +242,11 @@ private:
     int                 _savedYpos{-1};
 
 public:
-    sigc::signal<void, bool>       signal_app_set_visible_exit_app = sigc::signal<void, bool>();
     sigc::signal<void>             signal_app_new_instance = sigc::signal<void>();
+    sigc::signal<void, std::function<void(CtMainWin*)>>
+                                   signal_app_apply_for_each_window = sigc::signal<void, std::function<void(CtMainWin*)>>();
+
     sigc::signal<void, CtMainWin*> signal_app_quit_or_hide_window = sigc::signal<void, CtMainWin*>();
     sigc::signal<void, CtMainWin*> signal_app_quit_window = sigc::signal<void, CtMainWin*>();
+
 };
