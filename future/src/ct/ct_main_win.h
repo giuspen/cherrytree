@@ -76,15 +76,13 @@ class CtMainWin : public Gtk::ApplicationWindow
 {
 public:
     CtMainWin(CtConfig*                pCtConfig,
-              CtActions*               pCtActions,
               CtTmp*                   pCtTmp,
-              CtMenu*                  pCtMenu,
-              CtPrint*                 pCtPrint,
               Gtk::IconTheme*          pGtkIconTheme,
               Glib::RefPtr<Gtk::TextTagTable> rGtkTextTagTable,
               Glib::RefPtr<Gtk::CssProvider> rGtkCssProvider,
               Gsv::LanguageManager*    pGsvLanguageManager,
-              Gsv::StyleSchemeManager* pGsvStyleSchemeManager);
+              Gsv::StyleSchemeManager* pGsvStyleSchemeManager,
+              Gtk::StatusIcon*         pGtkStatusIcon);
     virtual ~CtMainWin();
 
     void config_apply_before_show_all();
@@ -93,13 +91,13 @@ public:
 
     void update_theme();
 
-    bool file_open(const std::string& filepath, const bool force_reset = false);
+    bool file_open(const std::string& filepath);
     void file_save();
     void file_save_as(const std::string& new_filepath, const std::string& password);
     void file_vacuum();
 
-    bool reset(const bool force_reset = false);
-    bool check_unsaved();
+    void reset();
+    bool try_to_save();
     void update_window_save_needed(const CtSaveNeededUpdType update_type = CtSaveNeededUpdType::None,
                                    const bool new_machine_state = false,
                                    const CtTreeIter* give_tree_iter = nullptr);
@@ -115,11 +113,11 @@ public:
     CtTreeView&                       get_tree_view()   { return *_uCtTreeview; }
     CtTextView&                       get_text_view()   { return _ctTextview; }
     CtStatusBar&                      get_status_bar()  { return _ctStatusBar; }
-    CtMenu&                           get_ct_menu()     { return *_pCtMenu; }
-    CtPrint&                          get_ct_print()    { return *_pCtPrint; }
+    CtMenu&                           get_ct_menu()     { return *_uCtMenu; }
+    CtPrint&                          get_ct_print()    { return *_uCtPrint; }
     CtConfig*                         get_ct_config()   { return _pCtConfig; }
-    CtStorageControl*                 get_ct_storage()  { return _pCtStorage; }
-    CtActions*                        get_ct_actions()  { return _pCtActions; }
+    CtStorageControl*                 get_ct_storage()  { return _uCtStorage.get(); }
+    CtActions*                        get_ct_actions()  { return _uCtActions.get(); }
     CtTmp*                            get_ct_tmp()      { return _pCtTmp; }
     Gtk::IconTheme*                   get_icon_theme()  { return _pGtkIconTheme; }
     CtStateMachine&                   get_state_machine() { return _ctStateMachine; }
@@ -127,8 +125,10 @@ public:
     Glib::RefPtr<Gtk::CssProvider>&   get_css_provider()   { return _rGtkCssProvider; }
     Gsv::LanguageManager*             get_language_manager() { return _pGsvLanguageManager; }
     Gsv::StyleSchemeManager*          get_style_scheme_manager() { return _pGsvStyleSchemeManager; }
+    Gtk::StatusIcon*                  get_status_icon() { return _pGtkStatusIcon; }
 
-    bool&         user_active()     { return _userActive; } // use as a function, because it's easier to put breakpoint
+    bool&         user_active()      { return _userActive; } // use as a function, because it's easier to put breakpoint
+    bool&         force_exit()       { return _forceExit; }
     int&          cursor_key_press() { return _cursorKeyPress; }
     int&          hovering_link_iter_offset() { return _hovering_link_iter_offset; }
 
@@ -157,6 +157,7 @@ public:
 
     void menu_set_items_recent_documents();
     void menu_set_items_special_chars();
+    void menu_set_visible_exit_app(bool visible);
 
     void config_switch_tree_side();
 
@@ -166,6 +167,9 @@ public:
     void set_toolbar_icon_size(int size)    { _pToolbar->property_icon_size() = CtMiscUtil::getIconSize(size); }
 
     void resetPrevTreeIter()                { _prevTreeIter = CtTreeIter(); }
+
+    void save_position()                    { get_position(_savedXpos, _savedYpos); }
+    void restore_position()                 { if (_savedXpos != -1) move(_savedXpos, _savedYpos); }
 
 private:
     bool                _on_window_key_press_event(GdkEventKey* event);
@@ -190,17 +194,20 @@ private:
     void                _zoom_tree(bool is_increase);
 
 private:
-    CtStorageControl*            _pCtStorage{nullptr};
     CtConfig*                    _pCtConfig;
-    CtActions*                   _pCtActions;
     CtTmp*                       _pCtTmp;
-    CtMenu*                      _pCtMenu;
-    CtPrint*                     _pCtPrint;
     Gtk::IconTheme*              _pGtkIconTheme;
     Glib::RefPtr<Gtk::TextTagTable> _rGtkTextTagTable;
     Glib::RefPtr<Gtk::CssProvider>  _rGtkCssProvider;
     Gsv::LanguageManager*        _pGsvLanguageManager;
     Gsv::StyleSchemeManager*     _pGsvStyleSchemeManager;
+    Gtk::StatusIcon*             _pGtkStatusIcon;
+
+    std::unique_ptr<CtActions>        _uCtActions;
+    std::unique_ptr<CtMenu>           _uCtMenu;
+    std::unique_ptr<CtPrint>          _uCtPrint;
+    std::unique_ptr<CtStorageControl> _uCtStorage;
+
     Gtk::VBox                    _vboxMain;
     Gtk::VBox                    _vboxText;
     Gtk::HPaned                  _hPaned;
@@ -224,10 +231,19 @@ private:
 
 private:
     bool                _userActive{true}; // pygtk: user_active
+    bool                _forceExit{false};
     int                 _cursorKeyPress{-1};
     int                 _hovering_link_iter_offset{-1};
     int                 _prevTextviewWidth{0};
     bool                _fileSaveNeeded{false}; // pygtk: file_update
     std::unordered_map<gint64, gint64> _latestStatusbarUpdateTime; // pygtk: latest_statusbar_update_time
     CtTreeIter          _prevTreeIter;
+    int                 _savedXpos{-1};
+    int                 _savedYpos{-1};
+
+public:
+    sigc::signal<void, bool>       signal_app_set_visible_exit_app = sigc::signal<void, bool>();
+    sigc::signal<void>             signal_app_new_instance = sigc::signal<void>();
+    sigc::signal<void, CtMainWin*> signal_app_quit_or_hide_window = sigc::signal<void, CtMainWin*>();
+    sigc::signal<void, CtMainWin*> signal_app_quit_window = sigc::signal<void, CtMainWin*>();
 };

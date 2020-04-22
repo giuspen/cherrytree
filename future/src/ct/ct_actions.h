@@ -34,7 +34,7 @@ class CtMainWin;
 class CtActions
 {
 public:
-    void init(CtMainWin* pCtMainWin)
+    CtActions(CtMainWin* pCtMainWin)
     {
         _pCtMainWin = pCtMainWin;
         _find_init();
@@ -83,12 +83,16 @@ private:
 
 public:
     // file actions
+    void file_new();
     void file_open();
     void file_save();
     void file_vacuum();
     void file_save_as();
     void folder_cfg_open();
     void online_help();
+    void quit_or_hide_window();
+    void quit_window();
+    void dialog_preferences();
 
 private:
     // helpers for tree actions

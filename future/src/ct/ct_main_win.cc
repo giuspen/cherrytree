@@ -31,31 +31,32 @@
 #include <glib-object.h>
 
 CtMainWin::CtMainWin(CtConfig*        pCtConfig,
-                     CtActions*       pCtActions,
                      CtTmp*           pCtTmp,
-                     CtMenu*          pCtMenu,
-                     CtPrint*         pCtPrint,
                      Gtk::IconTheme*  pGtkIconTheme,
                      Glib::RefPtr<Gtk::TextTagTable> rGtkTextTagTable,
                      Glib::RefPtr<Gtk::CssProvider> rGtkCssProvider,
                      Gsv::LanguageManager*    pGsvLanguageManager,
-                     Gsv::StyleSchemeManager* pGsvStyleSchemeManager)
+                     Gsv::StyleSchemeManager* pGsvStyleSchemeManager,
+                     Gtk::StatusIcon*         pGtkStatusIcon)
  : Gtk::ApplicationWindow(),
-   _pCtStorage(CtStorageControl::create_dummy_storage()),
    _pCtConfig(pCtConfig),
-   _pCtActions(pCtActions),
    _pCtTmp(pCtTmp),
-   _pCtMenu(pCtMenu),
-   _pCtPrint(pCtPrint),
    _pGtkIconTheme(pGtkIconTheme),
    _rGtkTextTagTable(rGtkTextTagTable),
    _rGtkCssProvider(rGtkCssProvider),
    _pGsvLanguageManager(pGsvLanguageManager),
    _pGsvStyleSchemeManager(pGsvStyleSchemeManager),
+   _pGtkStatusIcon(pGtkStatusIcon),
    _ctTextview(this),
    _ctStateMachine(this)
 {
     set_icon(_pGtkIconTheme->load_icon(CtConst::APP_NAME, 48));
+
+    _uCtActions.reset(new CtActions(this));
+    _uCtMenu.reset(new CtMenu(pCtConfig, _uCtActions.get()));
+    _uCtPrint.reset(new CtPrint());
+    _uCtStorage.reset(CtStorageControl::create_dummy_storage());
+
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindowText.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindowText.add(_ctTextview);
@@ -73,14 +74,14 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
     }
     _hPaned.property_wide_handle() = true;
 
-    _pMenuBar = pCtMenu->build_menubar();
+    _pMenuBar = _uCtMenu->build_menubar();
     _pMenuBar->set_name("MenuBar");
     _pBookmarksSubmenu = CtMenu::find_menu_item(_pMenuBar, "BookmarksMenu");
     _pRecentDocsSubmenu = CtMenu::find_menu_item(_pMenuBar, "RecentDocsMenu");
     _pSpecialCharsSubmenu = CtMenu::find_menu_item(_pMenuBar, "SpecialCharsMenu");
     _pMenuBar->show_all();
-    gtk_window_add_accel_group(GTK_WINDOW(gobj()), pCtMenu->default_accel_group());
-    _pToolbar = pCtMenu->build_toolbar(_pRecentDocsMenuToolButton);
+    gtk_window_add_accel_group(GTK_WINDOW(gobj()), _uCtMenu->default_accel_group());
+    _pToolbar = _uCtMenu->build_toolbar(_pRecentDocsMenuToolButton);
 
     _vboxMain.pack_start(*_pMenuBar, false, false);
     _vboxMain.pack_start(*_pToolbar, false, false);
@@ -120,8 +121,7 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
 
 CtMainWin::~CtMainWin()
 {
-    delete _pCtStorage;
-    //printf("~CtMainWin\n");
+    std::cout << "~CtMainWin" << std::endl;
 }
 
 Glib::RefPtr<Gdk::Pixbuf> CtMainWin::get_icon(const std::string& name, int size)
@@ -472,6 +472,9 @@ void CtMainWin::config_apply_after_show_all()
     _ctStatusBar.progressBar.hide();
     _ctStatusBar.stopButton.hide();
 
+    get_status_icon()->set_visible(_pCtConfig->systrayOn);
+    menu_set_visible_exit_app(_pCtConfig->systrayOn);
+
     update_theme();
 }
 
@@ -657,8 +660,8 @@ void CtMainWin::window_header_update_bookmark_icon(bool show)
 
 void CtMainWin::menu_update_bookmark_menu_item(bool is_bookmarked)
 {
-    _pCtMenu->find_action("node_bookmark")->signal_set_visible.emit(not is_bookmarked);
-    _pCtMenu->find_action("node_unbookmark")->signal_set_visible.emit(is_bookmarked);
+    _uCtMenu->find_action("node_bookmark")->signal_set_visible.emit(not is_bookmarked);
+    _uCtMenu->find_action("node_unbookmark")->signal_set_visible.emit(is_bookmarked);
 }
 
 void CtMainWin::menu_set_bookmark_menu_items()
@@ -673,7 +676,7 @@ void CtMainWin::menu_set_bookmark_menu_items()
         Gtk::TreeIter tree_iter = _uCtTreestore->get_node_from_node_id(node_id);
         _uCtTreeview->set_cursor_safe(tree_iter);
     };
-    _pBookmarksSubmenu->set_submenu(*_pCtMenu->build_bookmarks_menu(bookmarks, bookmark_action));
+    _pBookmarksSubmenu->set_submenu(*_uCtMenu->build_bookmarks_menu(bookmarks, bookmark_action));
 }
 
 void CtMainWin::menu_set_items_recent_documents()
@@ -705,7 +708,7 @@ void CtMainWin::menu_set_items_recent_documents()
     {
         Gtk::Menu* pMenu = _pRecentDocsSubmenu->get_submenu();
         delete pMenu;
-        _pRecentDocsSubmenu->set_submenu(*_pCtMenu->build_recent_docs_menu(_pCtConfig->recentDocsFilepaths,
+        _pRecentDocsSubmenu->set_submenu(*_uCtMenu->build_recent_docs_menu(_pCtConfig->recentDocsFilepaths,
                                                                            recent_doc_open_action,
                                                                            recent_doc_rm_action));
     }
@@ -714,7 +717,7 @@ void CtMainWin::menu_set_items_recent_documents()
         _pRecentDocsMenuToolButton->set_arrow_tooltip_text(_("Open a Recent CherryTree Document"));
         Gtk::Menu* pMenu = _pRecentDocsMenuToolButton->get_menu();
         delete pMenu;
-        _pRecentDocsMenuToolButton->set_menu(*_pCtMenu->build_recent_docs_menu(_pCtConfig->recentDocsFilepaths,
+        _pRecentDocsMenuToolButton->set_menu(*_uCtMenu->build_recent_docs_menu(_pCtConfig->recentDocsFilepaths,
                                                                                recent_doc_open_action,
                                                                                recent_doc_rm_action));
     }
@@ -722,8 +725,13 @@ void CtMainWin::menu_set_items_recent_documents()
 
 void CtMainWin::menu_set_items_special_chars()
 {
-    sigc::slot<void, gunichar> spec_char_action = sigc::mem_fun(*_pCtActions, &CtActions::insert_spec_char_action);
-    _pSpecialCharsSubmenu->set_submenu(*_pCtMenu->build_special_chars_menu(_pCtConfig->specialChars, spec_char_action));
+    sigc::slot<void, gunichar> spec_char_action = sigc::mem_fun(*_uCtActions, &CtActions::insert_spec_char_action);
+    _pSpecialCharsSubmenu->set_submenu(*_uCtMenu->build_special_chars_menu(_pCtConfig->specialChars, spec_char_action));
+}
+
+void CtMainWin::menu_set_visible_exit_app(bool visible)
+{
+    CtMenu::find_menu_item(_pMenuBar, "exit_app")->set_visible(visible);
 }
 
 void CtMainWin::config_switch_tree_side()
@@ -749,7 +757,7 @@ void CtMainWin::config_switch_tree_side()
 
 void CtMainWin::_ensure_curr_doc_in_recent_docs()
 {
-    const std::string currDocFilePath = _pCtStorage->get_file_path();
+    const std::string currDocFilePath = _uCtStorage->get_file_path();
     if (not currDocFilePath.empty())
     {
         _pCtConfig->recentDocsFilepaths.move_or_push_front(currDocFilePath);
@@ -776,22 +784,28 @@ void CtMainWin::_zoom_tree(bool is_increase)
     _uCtTreeview->override_font(description);
 }
 
-bool CtMainWin::file_open(const std::string& filepath, const bool force_reset)
+bool CtMainWin::file_open(const std::string& filepath)
 {
-    _ensure_curr_doc_in_recent_docs();
-    if (not reset(force_reset))
-    {
+    if (!try_to_save())
         return false;
-    }
+
+    std::string prev_path = _uCtStorage->get_file_path();
+
+    _ensure_curr_doc_in_recent_docs();
+    reset(); // cannot reset after load_from because load_from fill tree store
 
     Glib::ustring error;
     auto new_storage = CtStorageControl::load_from(this, filepath, error);
     if (!new_storage) {
         CtDialogs::error_dialog(error, *this);
-        return false;
+
+        // trying to recover prevous document
+        if (prev_path != "")
+            file_open(prev_path); // it won't be in loop because storage is empty
+        return false;             // show the given document is not loaded
     }
-    delete _pCtStorage;
-    _pCtStorage = new_storage;
+
+    _uCtStorage.reset(new_storage);
 
     _title_update(false/*saveNeeded*/);
     menu_set_bookmark_menu_items();
@@ -832,7 +846,7 @@ bool CtMainWin::file_open(const std::string& filepath, const bool force_reset)
 
 void CtMainWin::file_save()
 {
-    if (_pCtStorage->get_file_path().empty())
+    if (_uCtStorage->get_file_path().empty())
         return;
     if (!get_file_save_needed())
         return;
@@ -840,7 +854,7 @@ void CtMainWin::file_save()
         return;
 
     Glib::ustring error;
-    if (_pCtStorage->save(error))
+    if (_uCtStorage->save(error))
     {
         update_window_save_not_needed();
         get_state_machine().update_state();
@@ -861,8 +875,7 @@ void CtMainWin::file_save_as(const std::string& new_filepath, const std::string&
         return;
     }
 
-    delete _pCtStorage;
-    _pCtStorage = new_storage;
+    _uCtStorage.reset(new_storage);
 
     update_window_save_not_needed();
     get_state_machine().update_state();
@@ -870,40 +883,38 @@ void CtMainWin::file_save_as(const std::string& new_filepath, const std::string&
 
 void CtMainWin::file_vacuum()
 {
-    _pCtStorage->vacuum();
+    _uCtStorage->vacuum();
 }
 
-bool CtMainWin::reset(const bool force_reset)
+void CtMainWin::reset()
 {
-    if (not force_reset and
-        _uCtTreestore->get_iter_first() and
-        not check_unsaved())
-    {
-        return false;
-    }
-
     auto on_scope_exit = scope_guard([&](void*) { user_active() = true; });
     user_active() = false;
 
-    for (auto button: _ctWinHeader.buttonBox.get_children())
-        button->hide();
+    get_state_machine().reset();
+
+    _uCtStorage.reset(CtStorageControl::create_dummy_storage());
 
     _reset_CtTreestore_CtTreeview();
+
     _latestStatusbarUpdateTime.clear();
-    delete _pCtStorage;
-    _pCtStorage = CtStorageControl::create_dummy_storage();
+    for (auto button: _ctWinHeader.buttonBox.get_children())
+        button->hide();
+    _ctWinHeader.nameLabel.set_markup("");
+    window_header_update_lock_icon(false);
+    window_header_update_bookmark_icon(false);
+    menu_set_bookmark_menu_items();
 
     update_window_save_not_needed();
     _ctTextview.set_buffer(Glib::RefPtr<Gtk::TextBuffer>());
     _ctTextview.set_sensitive(false);
-    get_state_machine().reset();
-    return true;
 }
 
-bool CtMainWin::check_unsaved()
+bool CtMainWin::try_to_save()
 {
     if (get_file_save_needed())
     {
+        set_visible(true); // window could be hidden
         const CtYesNoCancel yesNoCancel = _pCtConfig->autosaveOnQuit ? CtYesNoCancel::Yes : CtDialogs::exit_save_dialog(*this);
         if (CtYesNoCancel::Cancel == yesNoCancel)
         {
@@ -911,7 +922,7 @@ bool CtMainWin::check_unsaved()
         }
         if (CtYesNoCancel::Yes == yesNoCancel)
         {
-            _pCtActions->file_save();
+            _uCtActions->file_save();
             if (get_file_save_needed())
             {
                 // something went wrong in the save
@@ -1123,7 +1134,7 @@ bool CtMainWin::_on_treeview_button_release_event(GdkEventButton* event)
 {
     if (event->button == 3)
     {
-        _pCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(event->button, event->time);
+        _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(event->button, event->time);
         return true;
     }
     return false;
@@ -1133,7 +1144,7 @@ bool CtMainWin::_on_window_key_press_event(GdkEventKey* event)
 {
     if (event->state & GDK_CONTROL_MASK) {
         if (event->keyval == GDK_KEY_Tab) {
-            _pCtActions->toggle_tree_text();
+            _uCtActions->toggle_tree_text();
             return true;
         }
     }
@@ -1145,23 +1156,23 @@ bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
     if (not curr_tree_iter()) return false;
     if (event->state & GDK_SHIFT_MASK) {
         if (event->state & GDK_CONTROL_MASK && event->keyval == GDK_KEY_Right) {
-            _pCtActions->node_change_father();
+            _uCtActions->node_change_father();
             return true;
         }
         else if (event->keyval == GDK_KEY_Up) {
-            _pCtActions->node_up();
+            _uCtActions->node_up();
             return true;
         }
         else if (event->keyval == GDK_KEY_Down) {
-            _pCtActions->node_down();
+            _uCtActions->node_down();
             return true;
         }
         else if (event->keyval == GDK_KEY_Left) {
-            _pCtActions->node_left();
+            _uCtActions->node_left();
             return true;
         }
         else if (event->keyval == GDK_KEY_Right) {
-            _pCtActions->node_right();
+            _uCtActions->node_right();
             return true;
         }
     }
@@ -1232,15 +1243,15 @@ bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
             return true;
         }
         else if (event->keyval == GDK_KEY_Menu) {
-            _pCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(0, event->time);
+            _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(0, event->time);
             return true;
         }
         else if (event->keyval == GDK_KEY_Tab) {
-            _pCtActions->toggle_tree_text();
+            _uCtActions->toggle_tree_text();
             return true;
         }
         else if (event->keyval == GDK_KEY_Delete) {
-            _pCtActions->node_delete();
+            _uCtActions->node_delete();
             return true;
         }
     }
@@ -1249,7 +1260,7 @@ bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
 
 bool CtMainWin::_on_treeview_popup_menu()
 {
-    _pCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(0, 0);
+    _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(0, 0);
     return true;
 }
 
@@ -1305,7 +1316,7 @@ void CtMainWin::_on_textview_populate_popup(Gtk::Menu* menu)
     }
     else {
         for (auto iter : menu->get_children()) menu->remove(*iter);
-        _pCtActions->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::Code);
+        _uCtActions->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::Code);
     }
 }
 
@@ -1390,7 +1401,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             }
         CtListInfo list_info = CtList(this, curr_buffer).get_paragraph_list_info(iter_insert);
         if (list_info and list_info.type == CtListType::Todo)
-            if (_pCtActions->_is_curr_node_not_read_only_or_error())
+            if (_uCtActions->_is_curr_node_not_read_only_or_error())
             {
                 auto iter_start_list = curr_buffer->get_iter_at_offset(list_info.startoffs + 3*list_info.level);
                 CtList(this, curr_buffer).todo_list_rotate_status(iter_start_list);
@@ -1419,16 +1430,16 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             if (widgets.empty()) return false;
             if (CtImageAnchor* anchor = dynamic_cast<CtImageAnchor*>(widgets.front()))
             {
-                _pCtActions->curr_anchor_anchor = anchor;
-                _pCtActions->object_set_selection(anchor);
-                _pCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->popup(3, event->button.time);
+                _uCtActions->curr_anchor_anchor = anchor;
+                _uCtActions->object_set_selection(anchor);
+                _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->popup(3, event->button.time);
             }
             else if (CtImagePng* image = dynamic_cast<CtImagePng*>(widgets.front()))
             {
-                _pCtActions->curr_image_anchor = image;
-                _pCtActions->object_set_selection(image);
-                _pCtMenu->find_action("img_link_dismiss")->signal_set_visible.emit(not image->get_link().empty());
-                _pCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup(3, event->button.time);
+                _uCtActions->curr_image_anchor = image;
+                _uCtActions->object_set_selection(image);
+                _uCtMenu->find_action("img_link_dismiss")->signal_set_visible.emit(not image->get_link().empty());
+                _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup(3, event->button.time);
             }
             return true;
         }
@@ -1542,9 +1553,9 @@ void CtMainWin::_title_update(const bool saveNeeded)
     {
         title += "*";
     }
-    if (_pCtStorage->get_file_path() != "")
+    if (_uCtStorage->get_file_path() != "")
     {
-        title += _pCtStorage->get_file_name() + " - " + _pCtStorage->get_file_dir() + " - ";
+        title += _uCtStorage->get_file_name() + " - " + _uCtStorage->get_file_dir() + " - ";
     }
     title += "CherryTree ";
     title += CtConst::CT_VERSION;

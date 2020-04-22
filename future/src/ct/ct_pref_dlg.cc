@@ -1294,10 +1294,8 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     Gtk::VBox* vbox_system_tray = Gtk::manage(new Gtk::VBox());
     Gtk::CheckButton* checkbutton_systray = Gtk::manage(new Gtk::CheckButton(_("Enable System Tray Docking")));
     Gtk::CheckButton* checkbutton_start_on_systray = Gtk::manage(new Gtk::CheckButton(_("Start Minimized in the System Tray")));
-    Gtk::CheckButton* checkbutton_use_appind = Gtk::manage(new Gtk::CheckButton(_("Use AppIndicator for Docking")));
     vbox_system_tray->pack_start(*checkbutton_systray, false, false);
     vbox_system_tray->pack_start(*checkbutton_start_on_systray, false, false);
-    vbox_system_tray->pack_start(*checkbutton_use_appind, false, false);
 
     Gtk::Frame* frame_system_tray = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("System Tray")+"</b>"));
     ((Gtk::Label*)frame_system_tray->get_label_widget())->set_use_markup(true);
@@ -1310,9 +1308,6 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_systray->set_active(pConfig->systrayOn);
     checkbutton_start_on_systray->set_active(pConfig->startOnSystray);
     checkbutton_start_on_systray->set_sensitive(pConfig->systrayOn);
-    checkbutton_use_appind->set_active(pConfig->useAppInd);
-    // todo:
-    //if not cons->HAS_APPINDICATOR or not cons->HAS_SYSTRAY: checkbutton_use_appind->set_sensitive(False)
 
     Gtk::VBox* vbox_saving = Gtk::manage(new Gtk::VBox());
     Gtk::HBox* hbox_autosave = Gtk::manage(new Gtk::HBox());
@@ -1399,43 +1394,14 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     pMainBox->pack_start(*frame_misc_misc, false, false);
     pMainBox->pack_start(*frame_language, false, false);
 
-    checkbutton_systray->signal_toggled().connect([pConfig, checkbutton_systray, checkbutton_start_on_systray](){
+    checkbutton_systray->signal_toggled().connect([this, pConfig, checkbutton_systray, checkbutton_start_on_systray](){
         pConfig->systrayOn = checkbutton_systray->get_active();
-        if (pConfig->systrayOn) {
-            //dad.ui.get_widget("/MenuBar/FileMenu/exit_app").set_property(cons.STR_VISIBLE, True)
-            checkbutton_start_on_systray->set_sensitive(true);
-        } else {
-            //dad.ui.get_widget("/MenuBar/FileMenu/exit_app").set_property(cons.STR_VISIBLE, False)
-            checkbutton_start_on_systray->set_sensitive(false);
-        }
-        //if dad.systray:
-        //    if not dad.use_appind:
-        //        if "status_icon" in dir(dad.boss): dad.boss.status_icon.set_property(cons.STR_VISIBLE, True)
-        //        else: dad.status_icon_enable()
-        //    else:
-        //        if "ind" in dir(dad.boss): dad.boss.ind.set_status(appindicator.STATUS_ACTIVE)
-        //        else: dad.status_icon_enable()
-        //else:
-        //    if not dad.use_appind: dad.boss.status_icon.set_property(cons.STR_VISIBLE, False)
-        //    else: dad.boss.ind.set_status(appindicator.STATUS_PASSIVE)
-        //dad.boss.systray_active = dad.systray
-        //if len(dad.boss.running_windows) > 1:
-        //    for runn_win in dad.boss.running_windows:
-        //        if runn_win.window == dad.window: continue
-        //        runn_win.systray = dad.boss.systray_active
+        _pCtMainWin->get_status_icon()->set_visible(checkbutton_systray->get_active());
+        _pCtMainWin->signal_app_set_visible_exit_app(checkbutton_systray->get_active());
+        checkbutton_start_on_systray->set_sensitive(checkbutton_systray->get_active());
     });
     checkbutton_start_on_systray->signal_toggled().connect([pConfig, checkbutton_start_on_systray](){
         pConfig->startOnSystray = checkbutton_start_on_systray->get_active();
-    });
-    checkbutton_use_appind->signal_toggled().connect([pConfig, checkbutton_use_appind, checkbutton_systray](){
-        bool saved_systray_active = checkbutton_systray->get_active();
-        if (saved_systray_active) checkbutton_systray->set_active(false); // todo: some hack?
-        pConfig->useAppInd = checkbutton_use_appind->get_active();
-        if (saved_systray_active) checkbutton_systray->set_active(true);
-        //if len(dad.boss.running_windows) > 1:
-        //    for runn_win in dad.boss.running_windows:
-        //        if runn_win.window == dad.window: continue
-        //        runn_win.use_appind = dad.use_appind
     });
     checkbutton_autosave->signal_toggled().connect([pConfig, checkbutton_autosave, spinbutton_autosave](){
         pConfig->autosaveOn = checkbutton_autosave->get_active();

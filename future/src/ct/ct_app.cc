@@ -31,12 +31,10 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
 
     Glib::ustring config_dir = Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME);
     if (g_mkdir_with_parents (config_dir.c_str(), 0755) < 0)
-        g_warning ("Could not create config directory\n");
+        g_warning(("Could not create config directory: " + config_dir + "\n").c_str());
 
     _uCtCfg.reset(new CtConfig());
     //std::cout << _uCtCfg->specialChars.size() << "\t" << _uCtCfg->specialChars << std::endl;
-
-    _uCtActions.reset(new CtActions());
 
     _rIcontheme = Gtk::IconTheme::get_default();
     _rIcontheme->add_resource_path("/icons/");
@@ -53,10 +51,24 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
 
     _rCssProvider = Gtk::CssProvider::create();
 
-    _uCtMenu.reset(new CtMenu(_uCtCfg.get()));
-    _uCtMenu->init_actions(this, _uCtActions.get());
-
-    _uCtPrint.reset(new CtPrint());
+    _rStatusIcon = Gtk::StatusIcon::create(CtConst::APP_NAME);
+    _rStatusIcon->set_visible(false);
+    _rStatusIcon->set_name(CtConst::APP_NAME);
+    _rStatusIcon->set_title(CtConst::APP_NAME);
+    _rStatusIcon->set_tooltip_markup(_("CherryTree Hierarchical Note Taking"));
+    _rStatusIcon->signal_button_press_event().connect([&](GdkEventButton* event) {
+        if (event->button == 1) { _systray_show_hide_windows(); }
+        return false;
+    });
+    _rStatusIcon->signal_popup_menu().connect([&](guint button, guint32 activate_time){
+        Gtk::Menu* systrayMenu = Gtk::manage(new Gtk::Menu());
+        auto item1 = CtMenu::create_menu_item(GTK_WIDGET(systrayMenu->gobj()), _("Show/Hide _CherryTree"), CtConst::APP_NAME, _("Toggle Show/Hide CherryTree"));
+        item1->signal_activate().connect([&] {_systray_show_hide_windows();});
+        auto item2 = CtMenu::create_menu_item(GTK_WIDGET(systrayMenu->gobj()), _("_Exit CherryTree"), "quit-app", _("Exit from CherryTree"));
+        item2->signal_activate().connect([&] { _systray_close_all(); });
+        systrayMenu->show_all();
+        systrayMenu->popup(button, activate_time);
+    });
 }
 
 CtApp::~CtApp()
@@ -69,86 +81,18 @@ Glib::RefPtr<CtApp> CtApp::create()
     return Glib::RefPtr<CtApp>(new CtApp());
 }
 
-void CtApp::_printHelpMessage()
-{
-    std::cout << "Usage: " << GETTEXT_PACKAGE << " [filepath.ctd|.ctb|.ctz|.ctx]" << std::endl;
-}
-
-void CtApp::_printGresourceIcons()
-{
-    for (const std::string& str_icon : Gio::Resource::enumerate_children_global("/icons/", Gio::ResourceLookupFlags::RESOURCE_LOOKUP_FLAGS_NONE))
-    {
-        std::cout << str_icon << std::endl;
-    }
-}
-
-void CtApp::file_new()
-{
-    _create_appwindow()->present();
-}
-
-CtMainWin* CtApp::_create_appwindow()
-{
-    CtMainWin* pCtMainWin = new CtMainWin(_uCtCfg.get(),
-                                          _uCtActions.get(),
-                                          _uCtTmp.get(),
-                                          _uCtMenu.get(),
-                                          _uCtPrint.get(),
-                                          _rIcontheme.get(),
-                                          _rTextTagTable,
-                                          _rCssProvider,
-                                          _rLanguageManager.get(),
-                                          _rStyleSchemeManager.get());
-    CtApp::_uCtActions->init(pCtMainWin);
-
-    add_window(*pCtMainWin);
-
-    pCtMainWin->signal_hide().connect(sigc::bind<CtMainWin*>(sigc::mem_fun(*this, &CtApp::_on_hide_window), pCtMainWin));
-    return pCtMainWin;
-}
-
-CtMainWin* CtApp::_get_main_win(const std::string& filepath)
-{
-    // 1) look for exact filepath match
-    for (Gtk::Window* pWin : get_windows())
-    {
-        CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(pWin);
-        if (filepath == pCtMainWin->get_ct_storage()->get_file_path())
-        {
-            return pCtMainWin;
-        }
-    }
-    // 2) look for window with no loaded document
-    for (Gtk::Window* pWin : get_windows())
-    {
-        CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(pWin);
-        if (pCtMainWin->get_ct_storage()->get_file_path().empty())
-        {
-            return pCtMainWin;
-        }
-    }
-    // 3) if our filepath is empty, just get the first window
-    if (filepath.empty() and get_windows().size() > 0)
-    {
-        return dynamic_cast<CtMainWin*>(get_windows().front());
-    }
-    return nullptr;
-}
-
 void CtApp::on_activate()
 {
-    // app run without arguments
-    CtMainWin* pAppWindow = _get_main_win();
-    if (nullptr == pAppWindow)
+    CtMainWin* pAppWindow = nullptr;
+    if (get_windows().size() == 0)
     {
-        // there is not a window already running
-        pAppWindow = _create_appwindow();
+        pAppWindow = _create_window();
         if (not CtApp::_uCtCfg->recentDocsFilepaths.empty())
         {
             Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(CtApp::_uCtCfg->recentDocsFilepaths.front());
             if (r_file->query_exists())
             {
-                if (not pAppWindow->file_open(r_file->get_path(), false))
+                if (not pAppWindow->file_open(r_file->get_path()))
                 {
                     _printHelpMessage();
                 }
@@ -161,14 +105,10 @@ void CtApp::on_activate()
             }
         }
     }
+    else {
+        pAppWindow = dynamic_cast<CtMainWin*>(get_windows()[0]);
+    }
     pAppWindow->present();
-}
-
-void CtApp::_on_hide_window(CtMainWin* pCtMainWin)
-{
-    pCtMainWin->config_update_data_from_curr_status();
-    _uCtCfg->write_to_file();
-    delete pCtMainWin;
 }
 
 void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& /*hint*/)
@@ -178,12 +118,12 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
     {
         if (r_file->query_exists())
         {
-            CtMainWin* pAppWindow = _get_main_win(r_file->get_path());
+            CtMainWin* pAppWindow = _get_window_by_path(r_file->get_path());
             if (nullptr == pAppWindow)
             {
                 // there is not a window already running with that document
-                pAppWindow = _create_appwindow();
-                if (not pAppWindow->file_open(r_file->get_path(), false))
+                pAppWindow = _create_window();
+                if (not pAppWindow->file_open(r_file->get_path()))
                 {
                     _printHelpMessage();
                 }
@@ -198,15 +138,129 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
     }
 }
 
-void CtApp::quit_application()
+void CtApp::on_window_removed(Gtk::Window* window)
 {
-    quit();
+    // override this function, so hidden windows won't be deleted from the window list
+    // but destroy window is needed
+    if (CtMainWin* win = dynamic_cast<CtMainWin*>(window))
+        if (win->force_exit())
+        {
+            Gtk::Application::on_window_removed(window);
+            delete window;
+        }
 }
 
-void CtApp::dialog_preferences()
+CtMainWin* CtApp::_create_window()
 {
-    CtPrefDlg prefDlg(_get_main_win());
-    prefDlg.show();
-    prefDlg.run();
-    prefDlg.hide();
+    CtMainWin* pCtMainWin = new CtMainWin(_uCtCfg.get(),
+                                          _uCtTmp.get(),
+                                          _rIcontheme.get(),
+                                          _rTextTagTable,
+                                          _rCssProvider,
+                                          _rLanguageManager.get(),
+                                          _rStyleSchemeManager.get(),
+                                          _rStatusIcon.get());
+    add_window(*pCtMainWin);
+
+    pCtMainWin->signal_app_set_visible_exit_app.connect([&](bool visible) {
+        for (Gtk::Window* pWin : get_windows())
+            if (CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(pWin))
+                pCtMainWin->menu_set_visible_exit_app(visible);
+    });
+    pCtMainWin->signal_app_new_instance.connect([this]() {
+        _create_window()->present();
+    });
+
+
+    pCtMainWin->signal_app_quit_or_hide_window.connect([&](CtMainWin* win) { _quit_or_hide_window(win, false); });
+    pCtMainWin->signal_delete_event().connect([this, pCtMainWin](GdkEventAny*) { bool good = _quit_or_hide_window(pCtMainWin, true); return !good; });
+    pCtMainWin->signal_app_quit_window.connect([&](CtMainWin* win) { win->force_exit() = true; _quit_or_hide_window(win, false); });
+
+    return pCtMainWin;
+}
+
+CtMainWin* CtApp::_get_window_by_path(const std::string& filepath)
+{
+    for (Gtk::Window* pWin : get_windows())
+    {
+        CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(pWin);
+        if (filepath == pCtMainWin->get_ct_storage()->get_file_path())
+            return pCtMainWin;
+    }
+    return nullptr;
+}
+
+bool CtApp::_quit_or_hide_window(CtMainWin* pCtMainWin, bool from_delete)
+{
+    pCtMainWin->config_update_data_from_curr_status();
+    _uCtCfg->write_to_file();
+
+    if (_uCtCfg->systrayOn && !pCtMainWin->force_exit() /* if didn't come from quit_window */)
+    {
+        pCtMainWin->save_position();
+        pCtMainWin->set_visible(false);
+        return false; // to stop deleting window
+    }
+    else
+    {
+        // trying to save changes, it show window if needed
+        if (!pCtMainWin->try_to_save())
+        {
+            pCtMainWin->force_exit() = false;
+            return false;  // to stop deleting windows
+        }
+        pCtMainWin->force_exit() = true; // this is for on_window_removed
+        if (!from_delete)                // signal from remove, no need to remove again
+            remove_window(*pCtMainWin);  // object will be destroyed in on_window_removed
+
+        return true; // continue deleting window
+    }
+}
+
+void CtApp::_systray_show_hide_windows()
+{
+    bool to_show = true;
+    for (Gtk::Window* pWin : get_windows())
+        if (pWin->has_toplevel_focus())
+            to_show = false;
+    for (Gtk::Window* pWin : get_windows())
+    {
+        CtMainWin* win = dynamic_cast<CtMainWin*>(pWin);
+        if (to_show)
+        {
+            win->set_visible(true);
+            win->present();
+            win->restore_position();
+        }
+        else
+        {
+            win->save_position();
+            win->set_visible(false);
+        }
+    }
+}
+
+void CtApp::_systray_close_all()
+{
+    for (Gtk::Window* pWin : get_windows())
+       if (CtMainWin* win = dynamic_cast<CtMainWin*>(pWin))
+       {
+           win->force_exit() = true;
+           if (!_quit_or_hide_window(win, false))
+               break;
+       }
+}
+
+
+void CtApp::_printHelpMessage()
+{
+    std::cout << "Usage: " << GETTEXT_PACKAGE << " [filepath.ctd|.ctb|.ctz|.ctx]" << std::endl;
+}
+
+void CtApp::_printGresourceIcons()
+{
+    for (const std::string& str_icon : Gio::Resource::enumerate_children_global("/icons/", Gio::ResourceLookupFlags::RESOURCE_LOOKUP_FLAGS_NONE))
+    {
+        std::cout << str_icon << std::endl;
+    }
 }

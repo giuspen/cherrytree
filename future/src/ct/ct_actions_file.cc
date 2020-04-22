@@ -20,8 +20,14 @@
  */
 
 #include "ct_actions.h"
-#include <glib/gstdio.h>
 #include "ct_storage_control.h"
+#include "ct_pref_dlg.h"
+#include <glib/gstdio.h>
+
+void CtActions::file_new()
+{
+    _pCtMainWin->signal_app_new_instance();
+}
 
 // Save the file
 void CtActions::file_save()
@@ -101,4 +107,21 @@ void CtActions::folder_cfg_open()
 void CtActions::online_help()
 {
     g_app_info_launch_default_for_uri("http://giuspen.com/cherrytreemanual/", nullptr, nullptr);
+}
+
+void CtActions::quit_or_hide_window()
+{
+    _pCtMainWin->signal_app_quit_or_hide_window(_pCtMainWin);
+}
+
+void CtActions::quit_window()
+{
+    _pCtMainWin->signal_app_quit_window(_pCtMainWin);
+}
+
+void CtActions::dialog_preferences()
+{
+    CtPrefDlg prefDlg(_pCtMainWin);
+    prefDlg.show();
+    prefDlg.run();
 }

@@ -50,7 +50,7 @@ class CtActions;
 class CtMenu
 {
 public:
-    CtMenu(CtConfig* pCtConfig);
+    CtMenu(CtConfig* pCtConfig, CtActions* pActions);
 
 public:
     const char*       None       = "";
@@ -61,7 +61,10 @@ public:
     enum POPUP_MENU_TYPE {Node, Text, Code, Link, TableHeaderCell, TableCell, Codebox, Image, Anchor, EmbFile, PopupMenuNum };
 
 public:
-    void init_actions(CtApp* pApp, CtActions* pActions);
+   static Gtk::MenuItem* create_menu_item(GtkWidget* pMenu, const char* name, const char* image, const char* desc);
+
+public:
+    void init_actions(CtActions* pActions);
     CtMenuAction* find_action(const std::string& id);
     const std::list<CtMenuAction>& get_actions() { return _actions; }
 
@@ -87,12 +90,14 @@ private:
     void           _walk_menu_xml(GtkWidget* pMenu, xmlpp::Node* pNode);
     GtkWidget*     _add_submenu(GtkWidget* pMenu, const char* id, const char* name, const char* image);
     Gtk::MenuItem* _add_menu_item(GtkWidget* pMenu, CtMenuAction* pAction);
-    Gtk::MenuItem* _add_menu_item(GtkWidget* pMenu, const char* name, const char* image, const char*shortcut,
-                                 const char* desc, gpointer action_data,
-                                 sigc::signal<void, bool>* signal_set_sensitive = nullptr,
-                                 sigc::signal<void, bool>* signal_set_visible = nullptr);
+    static Gtk::MenuItem* _add_menu_item(GtkWidget* pMenu, const char* name, const char* image,
+                                         const char*shortcut, GtkAccelGroup* accelGroup,
+                                         const char* desc, gpointer action_data,
+                                         sigc::signal<void, bool>* signal_set_sensitive,
+                                         sigc::signal<void, bool>* signal_set_visible);
+
+    static void    _add_menu_item_image_or_label(Gtk::Widget* pMenuItem, const char* image, GtkWidget* pLabel);
     GtkWidget*     _add_separator(GtkWidget* pMenu);
-    void           _add_menu_item_image_or_label(Gtk::Widget* pMenuItem, const char* image, GtkWidget* pLabel);
 
     std::string _get_ui_str_toolbar();
     const char* _get_ui_str_menu();
