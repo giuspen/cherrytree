@@ -240,7 +240,7 @@ msgid ""
 "Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
 "Do you want to Continue?"
 msgstr ""
-"Al salir del modo de Texto enriquecido perderás el formato para este nodo "
+"Al salir del modo de Texto enriquecido perderás el formato para este nodo, "
 "¿quieres continuar?"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:3519
@@ -358,11 +358,11 @@ msgstr ""
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:3859
 #, python-format
 msgid "The Maximum Size for Embedded Files is %s MB"
-msgstr "El tamaño máximo para archivos embebidos es de %s MB"
+msgstr "El tamaño máximo para archivos insertados es de %s MB"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:3922
 msgid "Cannot Edit Embedded File in Read Only Node"
-msgstr "No se puede editar el archivo embebido en nodo de solo lectura"
+msgstr "No se puede editar el archivo insertado en nodo de solo lectura"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:3936
 msgid "Embedded File Automatically Updated:"
@@ -420,7 +420,7 @@ msgstr "Cantidad de imágenes"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:4073
 msgid "Number of Embedded Files"
-msgstr "Cantidad de archivos incrustados"
+msgstr "Cantidad de archivos insertados"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:4076
 msgid "Number of Tables"
@@ -731,7 +731,7 @@ msgstr "Propiedades de columnas"
 
 #: /home/giuspen/Software/git_cherrytree/modules/tablez.py:232
 msgid "Import from CSV File"
-msgstr "Importat desde archivo CSV"
+msgstr "Importar desde archivo CSV"
 
 #: /home/giuspen/Software/git_cherrytree/modules/tablez.py:271
 #: /home/giuspen/Software/git_cherrytree/modules/tablez.py:293
@@ -1012,7 +1012,7 @@ msgstr "Cor_tar fila"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:206
 msgid "Cut the Current Row/Selected Rows"
-msgstr "Cortar la fila/seleccion actual"
+msgstr "Cortar la fila/selección actual"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:207
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:613
@@ -1021,7 +1021,7 @@ msgstr "_Copiar fila"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:207
 msgid "Copy the Current Row/Selected Rows"
-msgstr "Copiar la fila/seleccion actual"
+msgstr "Copiar la fila/selección actual"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:208
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:615
@@ -1283,7 +1283,7 @@ msgstr "Insertar un nodo 'Hoy'"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:239
 msgid "Insert a Node with Hierarchy Year/Month/Day"
-msgstr "Insertar un nodo con jerarquia Año/Mes/Día"
+msgstr "Insertar un nodo con jerarquía año/mes/día"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:240
 msgid "Tree _Info"
@@ -1843,31 +1843,31 @@ msgstr "Editar ancla subyacente"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:310
 msgid "C_ut Embedded File"
-msgstr "Cortar archivo embebido"
+msgstr "Cortar archivo insertado"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:310
 msgid "Cut the Selected Embedded File"
-msgstr "Cortar el archivo embebido seleccionado"
+msgstr "Cortar el archivo insertado seleccionado"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:311
 msgid "_Copy Embedded File"
-msgstr "Copiar archivo embebido"
+msgstr "Copiar archivo insertado"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:311
 msgid "Copy the Selected Embedded File"
-msgstr "Copiar el archivo embebido seleccionado"
+msgstr "Copiar el archivo insertado seleccionado"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:312
 msgid "_Delete Embedded File"
-msgstr "Eliminar archivo embebido"
+msgstr "Eliminar archivo insertado"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:312
 msgid "Delete the Selected Embedded File"
-msgstr "Eliminar  el archivo embebido seleccionado"
+msgstr "Eliminar  el archivo insertado seleccionado"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:314
 msgid "Open Embedded File"
-msgstr "Abrir archivo embebido"
+msgstr "Abrir archivo insertado"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:315
 msgid "_Save Image as PNG"
@@ -2168,11 +2168,11 @@ msgstr "Exportar tabla como archivo CSV"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:634
 msgid "Insert _NewLine"
-msgstr "Insertar _nueva linea"
+msgstr "Insertar _nueva línea"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:634
 msgid "Insert NewLine Char"
-msgstr "Insertar carácter de nueva linea"
+msgstr "Insertar carácter de nueva línea"
 
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:648
 msgid "Change CodeBox _Properties"
@@ -2305,7 +2305,7 @@ msgstr "Espacio vertical alrededor de la líneas"
 
 #: /home/giuspen/Software/git_cherrytree/modules/config.py:860
 msgid "Vertical Space in Wrapped Lines"
-msgstr "Espacio vertical en lineas ajustadas"
+msgstr "Espacio vertical en líneas ajustadas"
 
 #: /home/giuspen/Software/git_cherrytree/modules/config.py:877
 #: /home/giuspen/Software/git_cherrytree/modules/config.py:1254
@@ -2323,7 +2323,7 @@ msgstr "Línea horizontal"
 
 #: /home/giuspen/Software/git_cherrytree/modules/config.py:905
 msgid "Special Characters"
-msgstr "Carácteres especiales"
+msgstr "Caracteres especiales"
 
 #: /home/giuspen/Software/git_cherrytree/modules/config.py:909
 #: /home/giuspen/Software/git_cherrytree/modules/config.py:1353
@@ -2402,7 +2402,7 @@ msgstr "Resaltar línea actual"
 
 #: /home/giuspen/Software/git_cherrytree/modules/config.py:1101
 msgid "Expand CodeBoxes Automatically"
-msgstr "Expandir caja de código automáticamente"
+msgstr "Expandir Caja de Código automáticamente"
 
 #: /home/giuspen/Software/git_cherrytree/modules/config.py:1105
 msgid "Embedded File Icon Size"
@@ -2418,7 +2418,7 @@ msgstr "Límite de pasos a deshacer por nodo"
 
 #: /home/giuspen/Software/git_cherrytree/modules/config.py:1245
 msgid "Enable Smart Quotes Auto Replacement"
-msgstr "Activar la sustitucion inteligente de comillas"
+msgstr "Activar la sustitución inteligente de comillas"
 
 #: /home/giuspen/Software/git_cherrytree/modules/config.py:1248
 msgid "Enable Symbol Auto Replacement"
@@ -2443,7 +2443,7 @@ msgstr "Comando de la terminal"
 
 #: /home/giuspen/Software/git_cherrytree/modules/config.py:1381
 msgid "Code Execution"
-msgstr "Ejecución decódigo"
+msgstr "Ejecución de código"
 
 #: /home/giuspen/Software/git_cherrytree/modules/config.py:1412
 #: /home/giuspen/Software/git_cherrytree/modules/config.py:2162
@@ -2645,7 +2645,7 @@ msgstr "Iniciar minimizado en la bandeja"
 
 #: /home/giuspen/Software/git_cherrytree/modules/config.py:2200
 msgid "Use AppIndicator for Docking"
-msgstr "Usar AppIndictor para docking"
+msgstr "Usar AppIndicator para docking"
 
 #: /home/giuspen/Software/git_cherrytree/modules/config.py:2205
 msgid "System Tray"
@@ -2739,7 +2739,7 @@ msgstr "Altura"
 
 #: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:121
 msgid "pixels"
-msgstr "pixels"
+msgstr "píxeles"
 
 #: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:146
 msgid "Size"
@@ -2824,7 +2824,7 @@ msgstr ""
 "(a tu elección) cualquier versión posterior.\n"
 "  \n"
 "Este programa se distribuye con la esperanza de que sea útil,\n"
-"pero SIN GARANTIA ALGUNA; sin ni siquiera la garantia implícita de\n"
+"pero SIN GARANTÍA ALGUNA; sin ni siquiera la garantía implícita de\n"
 "COMERCIALIZACIÓN o IDONEIDAD PARA UN PROPÓSITO PARTICULAR.\n"
 "Ver la GNU General Public License para más información.\n"
 "  \n"
@@ -2847,11 +2847,11 @@ msgstr "Checo"
 
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:927
 msgid "Dutch"
-msgstr "Olandese"
+msgstr "Holandés"
 
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:928
 msgid "Finnish"
-msgstr "Acabar"
+msgstr "Finés"
 
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:929
 msgid "French"
@@ -2907,7 +2907,7 @@ msgstr "Turco"
 
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:942
 msgid "Ukrainian"
-msgstr "Ucrania"
+msgstr "Ucraniano"
 
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1213
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1256
@@ -2917,7 +2917,7 @@ msgstr "Cancelar"
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1214
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1258
 msgid "Yes"
-msgstr "Si"
+msgstr "Sí"
 
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1226
 msgid "Temporary Files were Created and Opened with External Applications."
@@ -2972,7 +2972,7 @@ msgstr "No protegido"
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1553
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1557
 msgid "Password Protected"
-msgstr "Protegido con password"
+msgstr "Protegido con contraseña"
 
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1564
 msgid "Storage Type"
@@ -2998,7 +2998,7 @@ msgstr "Introduce la nueva contraseña dos veces"
 
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1622
 msgid "The Password Fields Must be Filled"
-msgstr "Se deben rellenar los campos para el password"
+msgstr "Se deben rellenar los campos para la contraseña"
 
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1625
 msgid "The Two Inserted Passwords Do Not Match"
@@ -3007,7 +3007,7 @@ msgstr "Las contraseñas introducidas no son iguales"
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1629
 #, python-format
 msgid "The Characters  %s  are Not Allowed"
-msgstr "Los carácteres %s no estan permitidos"
+msgstr "Los caracteres %s no están permitidos"
 
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1720
 msgid "Involved Nodes"
@@ -3015,7 +3015,7 @@ msgstr "Nodos involucrados"
 
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1726
 msgid "Selected Text Only"
-msgstr "Solamente texto seleccionado"
+msgstr "Solo texto seleccionado"
 
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:1727
 msgid "Selected Node Only"
