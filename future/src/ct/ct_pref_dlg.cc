@@ -1051,18 +1051,17 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
     Gtk::Label* label_col_link_fold = Gtk::manage(new Gtk::Label(_("To Folder")));
     Gtk::ColorButton* colorbutton_col_link_fold = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(pConfig->colLinkFold)));
 
-    grid_links_colors->attach(*label_col_link_webs, 0, 0);
-    grid_links_colors->attach(*colorbutton_col_link_webs, 1, 0);
+    grid_links_colors->attach(*label_col_link_webs, 0, 0, 1, 1);
+    grid_links_colors->attach(*colorbutton_col_link_webs, 1, 0, 1, 1);
 
-    grid_links_colors->attach(*label_col_link_node, 0, 1);
-    grid_links_colors->attach(*colorbutton_col_link_node, 1, 1);
+    grid_links_colors->attach(*label_col_link_node, 0, 1, 1, 1);
+    grid_links_colors->attach(*colorbutton_col_link_node, 1, 1, 1, 1);
 
-    grid_links_colors->attach(*label_col_link_file, 2, 0);
-    grid_links_colors->attach(*colorbutton_col_link_file, 3, 0);
+    grid_links_colors->attach(*label_col_link_file, 2, 0, 1, 1);
+    grid_links_colors->attach(*colorbutton_col_link_file, 3, 0, 1, 1);
 
-    grid_links_colors->attach(*label_col_link_fold, 2, 1);
-    grid_links_colors->attach(*colorbutton_col_link_fold, 3, 1);
-
+    grid_links_colors->attach(*label_col_link_fold, 2, 1, 1, 1);
+    grid_links_colors->attach(*colorbutton_col_link_fold, 3, 1, 1, 1);
 
     Gtk::Frame* frame_links_colors = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Colors")+"</b>"));
     ((Gtk::Label*)frame_links_colors->get_label_widget())->set_use_markup(true);
