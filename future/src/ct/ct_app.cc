@@ -108,7 +108,6 @@ void CtApp::on_activate()
     else {
         pAppWindow = dynamic_cast<CtMainWin*>(get_windows()[0]);
     }
-    pAppWindow->present();
 }
 
 void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& /*hint*/)
@@ -163,7 +162,7 @@ CtMainWin* CtApp::_create_window()
     add_window(*pCtMainWin);
 
     pCtMainWin->signal_app_new_instance.connect([this]() {
-        _create_window()->present();
+        _create_window();
     });
     pCtMainWin->signal_app_apply_for_each_window.connect([this](std::function<void(CtMainWin*)> callback) {
         for (Gtk::Window* pWin : get_windows())

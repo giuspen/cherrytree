@@ -274,7 +274,8 @@ void CtActions::text_selection_toggle_case()
 
 void CtActions::toggle_ena_dis_spellcheck()
 {
-    // todo:
+    _pCtMainWin->get_ct_config()->enableSpellCheck = !_pCtMainWin->get_ct_config()->enableSpellCheck;
+    _pCtMainWin->get_text_view().set_spell_check(_pCtMainWin->curr_tree_iter().get_node_is_rich_text());
 }
 
 // Copy as Plain Text

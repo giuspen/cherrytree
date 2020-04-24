@@ -440,6 +440,27 @@ const gchar* CtTextIterUtil::get_text_iter_alignment(const Gtk::TextIter& textIt
     return retVal;
 }
 
+int CtTextIterUtil::get_words_count(const Glib::RefPtr<Gtk::TextBuffer>& text_buffer)
+{
+    int words = 0;
+    Glib::ustring text = text_buffer->get_text(true);
+    if (!text.empty())
+    {
+        int text_size = text.size();
+        PangoLogAttr* attrs = g_new0(PangoLogAttr, text_size + 1);
+        pango_get_log_attrs(text.c_str(), -1, 0,
+                            pango_language_from_string ("C"),
+                            attrs,
+                            text_size + 1);
+        for (int i = 0; i < text_size; ++i)
+            if (attrs[i].is_word_start)
+                ++words;
+        g_free (attrs);
+    }
+    return words;
+}
+
+
 bool CtStrUtil::is_str_true(const Glib::ustring& inStr)
 {
     bool retVal{false};

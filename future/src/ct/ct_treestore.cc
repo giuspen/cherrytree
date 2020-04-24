@@ -421,6 +421,7 @@ void CtTreeStore::textview_apply_textbuffer(const CtTreeIter& treeIter, CtTextVi
     if (not static_cast<bool>(treeIter))
     {
         pTextView->set_buffer(Glib::RefPtr<Gsv::Buffer>{});
+        pTextView->set_spell_check(false);
         pTextView->set_sensitive(false);
         return;
     }
@@ -438,6 +439,7 @@ void CtTreeStore::textview_apply_textbuffer(const CtTreeIter& treeIter, CtTextVi
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = node.get_node_text_buffer();
     pTextView->setup_for_syntax(node.get_node_syntax_highlighting());
     pTextView->set_buffer(rTextBuffer);
+    pTextView->set_spell_check(node.get_node_is_rich_text());
     pTextView->set_sensitive(true);
     pTextView->set_editable(not node.get_node_read_only());
 

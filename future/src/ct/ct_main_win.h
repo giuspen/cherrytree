@@ -85,8 +85,7 @@ public:
               Gtk::StatusIcon*         pGtkStatusIcon);
     virtual ~CtMainWin();
 
-    void config_apply_before_show_all();
-    void config_apply_after_show_all();
+    void config_apply();
     void config_update_data_from_curr_status();
 
     void update_theme();

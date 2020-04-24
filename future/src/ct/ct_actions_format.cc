@@ -53,7 +53,6 @@ void CtActions::remove_text_formatting()
     curr_buffer->get_selection_bounds(iter_sel_start, iter_sel_end);
     curr_buffer->remove_all_tags(iter_sel_start, iter_sel_end);
 
-    // todo: if self.enable_spell_check: self.spell_check_set_on()
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 

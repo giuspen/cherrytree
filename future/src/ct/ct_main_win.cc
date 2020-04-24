@@ -87,6 +87,7 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
     _vboxMain.pack_start(*_pToolbar, false, false);
     _vboxMain.pack_start(_hPaned);
     _vboxMain.pack_start(_init_status_bar(), false, false);
+    _vboxMain.show_all();
     add(_vboxMain);
 
     _reset_CtTreestore_CtTreeview();
@@ -111,12 +112,15 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
 
     _title_update(false/*saveNeeded*/);
 
-    config_apply_before_show_all();
-    show_all();
-    config_apply_after_show_all();
+    config_apply();
 
     menu_set_items_recent_documents();
     menu_set_items_special_chars();
+
+    if (_pCtConfig->systrayOn && _pCtConfig->startOnSystray)
+        set_visible(false);
+    else
+        present();
 }
 
 CtMainWin::~CtMainWin()
@@ -447,7 +451,7 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
     _uCtTreeview->get_style_context()->add_class("ct-tree-panel");
 }
 
-void CtMainWin::config_apply_before_show_all()
+void CtMainWin::config_apply()
 {
     move(_pCtConfig->winRect[0], _pCtConfig->winRect[1]);
     set_default_size(_pCtConfig->winRect[2], _pCtConfig->winRect[3]);
@@ -456,10 +460,8 @@ void CtMainWin::config_apply_before_show_all()
         maximize();
     }
     _hPaned.property_position() = _pCtConfig->hpanedPos;
-}
 
-void CtMainWin::config_apply_after_show_all()
-{
+
     show_hide_tree_view(_pCtConfig->treeVisible);
     show_hide_win_header(_pCtConfig->showNodeNameHeader);
     _ctWinHeader.lockIcon.hide();
@@ -907,6 +909,7 @@ void CtMainWin::reset()
 
     update_window_save_not_needed();
     _ctTextview.set_buffer(Glib::RefPtr<Gtk::TextBuffer>());
+    _ctTextview.set_spell_check(false);
     _ctTextview.set_sensitive(false);
 }
 
@@ -969,12 +972,14 @@ void CtMainWin::update_selected_node_statusbar_info()
         {
             statusbar_text += separator_text + _("Tags") + _(": ") + treeIter.get_node_tags();
         }
-        // todo spellCheck
-        //if self.enable_spell_check and self.syntax_highlighting == cons.RICH_TEXT_ID:
-        //    statusbar_text += separator_text + _("Spell Check") + _(": ") + self.spell_check_lang
-        // todo wordCount
-        //if self.word_count:
-        //    statusbar_text += separator_text + _("Word Count") + _(": ") + str(support.get_word_count(self))
+        if (get_ct_config()->enableSpellCheck && curr_tree_iter().get_node_is_rich_text())
+        {
+            statusbar_text += separator_text + _("Spell Check") + _(": ") + get_ct_config()->spellCheckLang;
+        }
+        if (get_ct_config()->wordCountOn)
+        {
+            statusbar_text += separator_text + _("Word Count") + _(": ") + std::to_string(CtTextIterUtil::get_words_count(get_text_view().get_buffer()));
+        }
         if (treeIter.get_node_creating_time() > 0)
         {
             const std::string timestamp_creation = str::time_format(_pCtConfig->timestampFormat, treeIter.get_node_creating_time());
@@ -1063,9 +1068,6 @@ void CtMainWin::update_window_save_needed(const CtSaveNeededUpdType update_type,
 // Load Text Buffer from State Machine
 void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTreeIter tree_iter)
 {
-    // todo:
-    // spell_check_restore = self.enable_spell_check
-    // self.toggle_ena_dis_spellcheck()
     bool user_active_restore = user_active();
     user_active() = false;
 
@@ -1095,13 +1097,12 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     text_buffer->set_modified(false);
 
     get_text_view().set_buffer(text_buffer);
+    get_text_view().set_spell_check(curr_tree_iter().get_node_is_rich_text());
     text_buffer->place_cursor(text_buffer->get_iter_at_offset(state->cursor_pos));
     get_text_view().scroll_to(text_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
 
     user_active() = user_active_restore;
-    // todo:
-    // if not given_tree_iter:
-    //    if spell_check_restore: self.toggle_ena_dis_spellcheck()
+
     update_window_save_needed(CtSaveNeededUpdType::nbuf, false, &tree_iter);
 }
 
@@ -1306,16 +1307,16 @@ void CtMainWin::_on_textview_populate_popup(Gtk::Menu* menu)
                 }
                 if (do_set_cursor) curr_buffer()->place_cursor(target_iter);
             }
-            for (auto iter : menu->get_children()) menu->remove(*iter);
+            //for (auto iter : menu->get_children()) menu->remove(*iter);
             get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::Link);
         }
         else {
-            for (auto iter : menu->get_children()) menu->remove(*iter);
+            //for (auto iter : menu->get_children()) menu->remove(*iter);
             get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::Text);
         }
     }
     else {
-        for (auto iter : menu->get_children()) menu->remove(*iter);
+        //for (auto iter : menu->get_children()) menu->remove(*iter);
         _uCtActions->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::Code);
     }
 }

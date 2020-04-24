@@ -9,6 +9,9 @@
 # https://developer.gnome.org/libxml++-tutorial/stable/
 # https://developer.gnome.org/libxml++/stable/
 
+# https://wiki.gnome.org/Projects/gspell
+# https://developer.gnome.org/gspell/stable/
+
 # https://cpputest.github.io/
 
 
@@ -25,7 +28,7 @@ code .
 # ---- Building Cherrytree in Ubuntu ----
 
 # Install Dependencies
-sudo apt install build-essential libtool autoconf libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev libcpputest-dev autopoint gettext intltool python3-lxml libxml2-utils
+sudo apt install build-essential libtool autoconf libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev libcpputest-dev autopoint gettext intltool python3-lxml libxml2-utils gspell
 
 # build Debug
 ./build.sh
@@ -48,7 +51,7 @@ xdg-open /usr/share/doc/libxml++2.6-doc/reference/html/index.html
 # ---- Building Cherrytree in Arch ----
 
 # Install Dependencies
-sudo pacman -S gtksourceviewmm libxml++2.6 python-lxml
+sudo pacman -S gtksourceviewmm libxml++2.6 python-lxml gspell
 sudo pamac build cpputest
 
 
@@ -65,7 +68,7 @@ pacman -S --needed --noconfirm mingw-w64-x86_64-toolchain
 # make and autotools
 pacman -S --needed --noconfirm make pkgconfig autoconf automake automake-wrapper libtool intltool gettext-devel
 # gtkmm3, libxml++, sqlite3
-pacman -S --needed --noconfirm mingw-w64-x86_64-gtkmm3 mingw-w64-x86_64-gtksourceviewmm3 mingw-w64-x86_64-libxml++2.6 mingw-w64-x86_64-sqlite3
+pacman -S --needed --noconfirm mingw-w64-x86_64-gtkmm3 mingw-w64-x86_64-gtksourceviewmm3 mingw-w64-x86_64-libxml++2.6 mingw-w64-x86_64-sqlite3 mingw-w64-gspell
 # python3-lxml
 pacman -S --needed --noconfirm mingw-w64-x86_64-python3-lxml
 # other
@@ -115,7 +118,7 @@ cherrytree_LDFLAGS = -mwindows
 
 # Install Dependencies
 # ====================
-sudo dnf install @development-tools gcc-c++ libtool autoconf gtkmm30-devel gtksourceviewmm3-devel libxml++-devel libsq3-devel gettext-devel gettext intltool python3-lxml libxml2
+sudo dnf install @development-tools gcc-c++ libtool autoconf gtkmm30-devel gtksourceviewmm3-devel libxml++-devel libsq3-devel gettext-devel gettext intltool python3-lxml libxml2 gspell
 
 
 # Install CppUTest
