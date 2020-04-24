@@ -1437,7 +1437,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_newer_version->signal_toggled().connect([pConfig, checkbutton_newer_version](){
         pConfig->checkVersion = checkbutton_newer_version->get_active();
     });
-    checkbutton_word_count->signal_toggled().connect([&](){
+    checkbutton_word_count->signal_toggled().connect([this, pConfig, checkbutton_word_count](){
         pConfig->wordCountOn = checkbutton_word_count->get_active();
         apply_for_each_window([](CtMainWin* win) { win->update_selected_node_statusbar_info(); });
     });

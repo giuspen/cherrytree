@@ -974,9 +974,10 @@ void CtMainWin::update_selected_node_statusbar_info()
         {
             statusbar_text += separator_text + _("Spell Check") + _(": ") + get_ct_config()->spellCheckLang;
         }
-        // todo wordCount
-        //if self.word_count:
-        //    statusbar_text += separator_text + _("Word Count") + _(": ") + str(support.get_word_count(self))
+        if (get_ct_config()->wordCountOn)
+        {
+            statusbar_text += separator_text + _("Word Count") + _(": ") + std::to_string(CtTextIterUtil::get_words_count(get_text_view().get_buffer()));
+        }
         if (treeIter.get_node_creating_time() > 0)
         {
             const std::string timestamp_creation = str::time_format(_pCtConfig->timestampFormat, treeIter.get_node_creating_time());
