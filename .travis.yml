@@ -8,9 +8,9 @@ compiler:
 
 before_install:
   - >
-    sudo apt install build-essential libtool autoconf libgtkmm-3.0-dev
+    sudo apt install build-essential libtool autoconf libgtkmm-3.0-dev 
     libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev
-    libcpputest-dev autopoint gettext intltool python3-lxml libxml2-utils
+    libcpputest-dev autopoint gettext intltool python3-lxml libxml2-utils gspell
 addons:
   apt:
     update: true
