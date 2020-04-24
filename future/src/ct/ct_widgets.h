@@ -104,6 +104,7 @@ public:
 
     void cursor_and_tooltips_handler(int x, int y);
     void zoom_text(bool is_increase);
+    void set_spell_check(bool allow_on);
 
 private:
     bool          _apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor);

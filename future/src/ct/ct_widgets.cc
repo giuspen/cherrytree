@@ -26,6 +26,7 @@
 #include "ct_actions.h"
 #include "ct_list.h"
 #include <glib/gstdio.h>
+#include <gspell/gspell.h>
 
 CtTmp::CtTmp()
 {
@@ -668,6 +669,22 @@ void CtTextView::zoom_text(bool is_increase)
     if (size < 6) size = 6;
     description.set_size(size * Pango::SCALE);
     override_font(description);
+}
+
+void CtTextView::set_spell_check(bool allow_on)
+{
+    auto gtk_view = GTK_TEXT_VIEW(gobj());
+    auto gspell_checker = gspell_checker_new (NULL);
+    if (const GspellLanguage * lang = gspell_language_lookup(_pCtMainWin->get_ct_config()->spellCheckLang.c_str()))
+        gspell_checker_set_language(gspell_checker, lang);
+    auto gtk_buffer = gtk_text_view_get_buffer (gtk_view);
+    auto gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer (gtk_buffer);
+    gspell_text_buffer_set_spell_checker (gspell_buffer, gspell_checker);
+    g_object_unref (gspell_checker);
+
+    auto gspell_view = gspell_text_view_get_from_gtk_text_view (gtk_view);
+    gspell_text_view_set_inline_spell_checking (gspell_view, allow_on && _pCtMainWin->get_ct_config()->enableSpellCheck);
+    gspell_text_view_set_enable_language_menu (gspell_view, allow_on && _pCtMainWin->get_ct_config()->enableSpellCheck);
 }
 
 // Try and apply link to previous word (after space or newline)
