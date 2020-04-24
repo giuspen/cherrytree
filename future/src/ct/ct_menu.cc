@@ -244,14 +244,13 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{others_cat, "img_link_edit", "link_handle", _("Edit _Link"), None, _("Edit the Link Associated to the Image"), sigc::mem_fun(*pActions, &CtActions::image_link_edit)});
     _actions.push_back(CtMenuAction{others_cat, "img_link_dismiss", "clear", _("D_ismiss Link"), None, _("Dismiss the Link Associated to the Image"), sigc::mem_fun(*pActions, &CtActions::image_link_dismiss)});
     _actions.push_back(CtMenuAction{others_cat, "toggle_show_mainwin", CtConst::APP_NAME, _("Show/Hide _CherryTree"), None, _("Toggle Show/Hide CherryTree"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_main_window)});
-    // add actions in the Applicaton for the toolbar
-    // by default actions will have prefix 'app.'
+    // add actions in the Windows for the toolbar
+    // by default actions will have prefix 'win.'
     // (the menu uses not actions, but accelerators)
-    /*
     for (const CtMenuAction& action : _actions)
     {
-        pApp->add_action(action.id, action.run_action);
-    }*/
+        pActions->getCtMainWin()->add_action(action.id, action.run_action);
+    }
 
 
     // for popup menus
@@ -689,7 +688,7 @@ std::string CtMenu::_get_ui_str_toolbar()
             {
                 if (isOpenRecent) toolbarUIStr += "<child><object class='GtkMenuToolButton' id='RecentDocs'>";
                 else toolbarUIStr += "<child><object class='GtkToolButton'>";
-                toolbarUIStr += "<property name='action-name'>app." + pAction->id + "</property>"; // 'app.' is a default action group in Application
+                toolbarUIStr += "<property name='action-name'>win." + pAction->id + "</property>"; // 'win.' is a default action group in Window
                 toolbarUIStr += "<property name='icon-name'>" + pAction->image + "</property>";
                 toolbarUIStr += "<property name='label'>" + pAction->name + "</property>";
                 toolbarUIStr += "<property name='tooltip-text'>" + pAction->desc + "</property>";
