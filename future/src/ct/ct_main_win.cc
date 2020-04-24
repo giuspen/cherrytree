@@ -87,6 +87,7 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
     _vboxMain.pack_start(*_pToolbar, false, false);
     _vboxMain.pack_start(_hPaned);
     _vboxMain.pack_start(_init_status_bar(), false, false);
+    _vboxMain.show_all();
     add(_vboxMain);
 
     _reset_CtTreestore_CtTreeview();
@@ -111,12 +112,15 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
 
     _title_update(false/*saveNeeded*/);
 
-    config_apply_before_show_all();
-    show_all();
-    config_apply_after_show_all();
+    config_apply();
 
     menu_set_items_recent_documents();
     menu_set_items_special_chars();
+
+    if (_pCtConfig->systrayOn && _pCtConfig->startOnSystray)
+        set_visible(false);
+    else
+        present();
 }
 
 CtMainWin::~CtMainWin()
@@ -447,7 +451,7 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
     _uCtTreeview->get_style_context()->add_class("ct-tree-panel");
 }
 
-void CtMainWin::config_apply_before_show_all()
+void CtMainWin::config_apply()
 {
     move(_pCtConfig->winRect[0], _pCtConfig->winRect[1]);
     set_default_size(_pCtConfig->winRect[2], _pCtConfig->winRect[3]);
@@ -456,10 +460,8 @@ void CtMainWin::config_apply_before_show_all()
         maximize();
     }
     _hPaned.property_position() = _pCtConfig->hpanedPos;
-}
 
-void CtMainWin::config_apply_after_show_all()
-{
+
     show_hide_tree_view(_pCtConfig->treeVisible);
     show_hide_win_header(_pCtConfig->showNodeNameHeader);
     _ctWinHeader.lockIcon.hide();
