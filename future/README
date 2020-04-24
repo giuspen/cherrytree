@@ -28,7 +28,7 @@ code .
 # ---- Building Cherrytree in Ubuntu ----
 
 # Install Dependencies
-sudo apt install build-essential libtool autoconf libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev libcpputest-dev autopoint gettext intltool python3-lxml libxml2-utils gspell
+sudo apt install build-essential libtool autoconf libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev libcpputest-dev autopoint gettext intltool python3-lxml libxml2-utils gspell-1-dev
 
 # build Debug
 ./build.sh
@@ -118,7 +118,7 @@ cherrytree_LDFLAGS = -mwindows
 
 # Install Dependencies
 # ====================
-sudo dnf install @development-tools gcc-c++ libtool autoconf gtkmm30-devel gtksourceviewmm3-devel libxml++-devel libsq3-devel gettext-devel gettext intltool python3-lxml libxml2 gspell
+sudo dnf install @development-tools gcc-c++ libtool autoconf gtkmm30-devel gtksourceviewmm3-devel libxml++-devel libsq3-devel gettext-devel gettext intltool python3-lxml libxml2 gspell-devel
 
 
 # Install CppUTest
