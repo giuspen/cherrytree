@@ -280,4 +280,5 @@ CtYesNoCancel exit_save_dialog(Gtk::Window& parent);
 // Application About Dialog
 void dialog_about(Gtk::Window& parent, Glib::RefPtr<Gdk::Pixbuf> icon);
 
+std::string dialog_pallete(CtMainWin* pCtMainWin);
 } // namespace CtDialogs

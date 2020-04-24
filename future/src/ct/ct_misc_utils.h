@@ -112,9 +112,26 @@ bool is_pgchar_in_pgchar_iterable(const gchar* pGcharNeedle, const IterableOfPgc
     return gotcha;
 }
 
+template<class String>
+bool contains_words(const String& text, const std::vector<String>& words, bool require_all = true) {
+  for (auto& word: words) {
+    if (text.find(word) != String::npos) {
+      if (!require_all)
+        return true;
+    } else if (require_all) {
+      return false;
+    }
+  }
+
+  return require_all;
+}
+
 // https://stackoverflow.com/questions/642213/how-to-implement-a-natural-sort-algorithm-in-c
 int natural_compare(const Glib::ustring& left, const Glib::ustring& right);
 
+// Returns a version of text in which all occurrences of words
+// are highlighted using Pango markup
+Glib::ustring highlight_words(const Glib::ustring& text, std::vector<Glib::ustring> words, const Glib::ustring& markup_tag = "b");
 
 } // namespace CtStrUtil
 

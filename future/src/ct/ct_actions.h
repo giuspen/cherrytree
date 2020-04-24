@@ -94,6 +94,7 @@ public:
     void quit_window();
     void dialog_preferences();
     void dialog_about();
+    void command_palette();
 
 private:
     // helpers for tree actions
