@@ -125,3 +125,8 @@ void CtActions::dialog_preferences()
     prefDlg.show();
     prefDlg.run();
 }
+
+void CtActions::dialog_about()
+{
+    CtDialogs::dialog_about(*_pCtMainWin, _pCtMainWin->get_icon_theme()->load_icon(CtConst::APP_NAME, 128));
+}

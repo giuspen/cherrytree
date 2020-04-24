@@ -102,7 +102,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{file_cat, "preferences_dlg", "preferences", _("_Preferences"), KB_CONTROL+KB_ALT+"P", _("Preferences"), sigc::mem_fun(*pActions, &CtActions::dialog_preferences) });
     _actions.push_back(CtMenuAction{file_cat, "ct_check_newer", "network", _("_Check Newer Version"), None, _("Check for a Newer Version"), sigc::signal<void>() /* dad.check_for_newer_version */});
     _actions.push_back(CtMenuAction{file_cat, "ct_help", "help", _("Online _Manual"), "F1", _("Application's Online Manual"), sigc::mem_fun(*pActions, &CtActions::online_help)});
-    _actions.push_back(CtMenuAction{file_cat, "ct_about", "about", _("_About"), None, _("About CherryTree"), sigc::signal<void>() /* dad.dialog_about */});
+    _actions.push_back(CtMenuAction{file_cat, "ct_about", "about", _("_About"), None, _("About CherryTree"), sigc::mem_fun(*pActions, &CtActions::dialog_about)});
     const char* editor_cat = _("Editor");
     _actions.push_back(CtMenuAction{editor_cat, "act_undo", "g-undo", _("_Undo"), KB_CONTROL+"Z", _("Undo Last Operation"), sigc::mem_fun(*pActions, &CtActions::requested_step_back)});
     _actions.push_back(CtMenuAction{editor_cat, "act_redo", "g-redo", _("_Redo"), KB_CONTROL+"Y", _("Redo Previously Discarded Operation"), sigc::mem_fun(*pActions, &CtActions::requested_step_ahead)});

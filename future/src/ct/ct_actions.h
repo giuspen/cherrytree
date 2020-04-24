@@ -93,6 +93,7 @@ public:
     void quit_or_hide_window();
     void quit_window();
     void dialog_preferences();
+    void dialog_about();
 
 private:
     // helpers for tree actions
