@@ -567,11 +567,16 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     frame_syntax->add(*align_syntax);
 
     Glib::RefPtr<Gtk::ListStore> liststore = Gtk::ListStore::create(_commandModelColumns);
-    fill_commands_model(liststore);
+    fill_custom_exec_commands_model(liststore);
     Gtk::TreeView* treeview = Gtk::manage(new Gtk::TreeView(liststore));
     treeview->set_headers_visible(false);
     treeview->set_size_request(300, 200);
-    treeview->append_column("", _commandModelColumns.icon);
+
+    Gtk::CellRendererPixbuf pixbuf_renderer;
+    pixbuf_renderer.property_stock_size() = Gtk::BuiltinIconSize::ICON_SIZE_LARGE_TOOLBAR;
+    int col_num = treeview->append_column("", pixbuf_renderer) - 1;
+    treeview->get_column(col_num)->add_attribute(pixbuf_renderer, "icon-name", _shortcutModelColumns.icon);
+
     treeview->append_column("", _commandModelColumns.key);
     treeview->append_column_editable("", _commandModelColumns.desc);
     treeview->set_expander_column(*treeview->get_column(1));
@@ -659,7 +664,7 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     button_reset_cmds->signal_clicked().connect([this, pConfig, liststore](){
         if (CtDialogs::question_dialog(reset_warning, *this)) {
             pConfig->customCodexecType.clear();
-            fill_commands_model(liststore);
+            fill_custom_exec_commands_model(liststore);
         }
     });
     button_reset_term->signal_clicked().connect([this, pConfig, entry_term_run](){
@@ -1171,7 +1176,12 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
     treeview->set_headers_visible(false);
     treeview->set_reorderable(true);
     treeview->set_size_request(300, 300);
-    treeview->append_column("", _toolbarModelColumns.icon);
+
+    Gtk::CellRendererPixbuf pixbuf_renderer;
+    pixbuf_renderer.property_stock_size() = Gtk::BuiltinIconSize::ICON_SIZE_LARGE_TOOLBAR;
+    int col_num = treeview->append_column("", pixbuf_renderer) - 1;
+    treeview->get_column(col_num)->add_attribute(pixbuf_renderer, "icon-name", _shortcutModelColumns.icon);
+
     treeview->append_column("", _toolbarModelColumns.desc);
     Gtk::ScrolledWindow* scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow());
     scrolledwindow->add(*treeview);
@@ -1242,6 +1252,12 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
     treeview->set_size_request(300, 300);
     treeview->set_reorderable(false);
 
+    // icon column
+    Gtk::CellRendererPixbuf pixbuf_renderer;
+    pixbuf_renderer.property_stock_size() = Gtk::BuiltinIconSize::ICON_SIZE_LARGE_TOOLBAR;
+    int col_num = treeview->append_column("", pixbuf_renderer) - 1;
+    treeview->get_column(col_num)->add_attribute(pixbuf_renderer, "icon-name", _shortcutModelColumns.icon);
+    // shortcut column
     auto shortcut_cell_renderer = Gtk::manage(new Gtk::CellRendererText());
     shortcut_cell_renderer->property_xalign() = 1;
     auto shortcut_column = Gtk::manage(new Gtk::TreeViewColumn());
@@ -1249,10 +1265,10 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
     shortcut_column->set_cell_data_func(*shortcut_cell_renderer, [&](Gtk::CellRenderer* cell, const Gtk::TreeIter& iter){
         ((Gtk::CellRendererText*)cell)->property_markup() = "  " + str::xml_escape(CtStrUtil::get_accelerator_label(iter->get_value(_shortcutModelColumns.shortcut))) + "  ";
     });
-
-    treeview->append_column("", _shortcutModelColumns.icon);
     treeview->append_column(*shortcut_column);
+    // desc
     treeview->append_column("", _shortcutModelColumns.desc);
+
     treeview->expand_all();
     Gtk::ScrolledWindow* scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow());
     scrolledwindow->add(*treeview);
@@ -1487,7 +1503,7 @@ std::string CtPrefDlg::get_code_exec_term_run(CtMainWin* pCtMainWin)
     return CtConst::CODE_EXEC_TERM_RUN_DEFAULT.at(op_sys);
 }
 
-void CtPrefDlg::fill_commands_model(Glib::RefPtr<Gtk::ListStore> model)
+void CtPrefDlg::fill_custom_exec_commands_model(Glib::RefPtr<Gtk::ListStore> model)
 {
     std::set<std::string> used_code_exec_keys;
     for (auto& it: _pCtMainWin->get_ct_config()->customCodexecType)
@@ -1505,7 +1521,7 @@ void CtPrefDlg::fill_commands_model(Glib::RefPtr<Gtk::ListStore> model)
             command = CtConst::CODE_EXEC_TYPE_CMD_DEFAULT.at(key);
 
         Gtk::TreeModel::Row row = *(model->append());
-        row[_commandModelColumns.icon] = _pCtMainWin->get_icon(CtConst::getStockIdForCodeType(key), CtConst::NODE_ICON_SIZE);
+        row[_commandModelColumns.icon] = CtConst::getStockIdForCodeType(key);
         row[_commandModelColumns.key] = key;
         row[_commandModelColumns.desc] = command;
     }
@@ -1563,7 +1579,7 @@ void CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeIter row, const Glib::ust
         desc = action->desc;
     }
 
-    if (icon != "") row->set_value(_toolbarModelColumns.icon, _pCtMainWin->get_icon(icon, CtConst::NODE_ICON_SIZE));
+    row->set_value(_toolbarModelColumns.icon, icon);
     row->set_value(_toolbarModelColumns.key, key);
     row->set_value(_toolbarModelColumns.desc, desc);
 }
@@ -1612,10 +1628,7 @@ void CtPrefDlg::fill_shortcut_model(Glib::RefPtr<Gtk::TreeStore> model)
             cat_row[_shortcutModelColumns.desc] = action.category;
         }
         auto row = *model->append(cat_row.children());
-        if (not action.image.empty())
-        {
-            row[_shortcutModelColumns.icon] = _pCtMainWin->get_icon(action.image, CtConst::NODE_ICON_SIZE);
-        }
+        row[_shortcutModelColumns.icon] = action.image;
         row[_shortcutModelColumns.key] = action.id;
         row[_shortcutModelColumns.desc] = action.desc;
         row[_shortcutModelColumns.shortcut] = action.get_shortcut(_pCtMainWin->get_ct_config());
@@ -1633,7 +1646,10 @@ bool CtPrefDlg::edit_shortcut(Gtk::TreeView* treeview)
             for(const CtMenuAction& action : _pCtMenu->get_actions())
                 if (action.get_shortcut(_pCtMainWin->get_ct_config()) == shortcut && action.id != id) {
                     // todo: this is a shorter version from python code
-                    if (!CtDialogs::question_dialog(std::string("<b>") + _("The Keyboard Shortcut '%s' is already in use") + "</b>", *this))
+                    std::string message = "<b>" + str::format(_("The Keyboard Shortcut '%s' is already in use"), CtStrUtil::get_accelerator_label(shortcut)) + "</b>\n\n";
+                    message += str::format(_("The current associated action is '%s'"), action.name) + "\n\n";
+                    message += "<b>" + std::string(_("Do you want to steal the shortcut?")) + "</b>";
+                    if (!CtDialogs::question_dialog(message, *this))
                         return false;
                     _pCtMainWin->get_ct_config()->customKbShortcuts[action.id] = "";
                 }

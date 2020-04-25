@@ -91,6 +91,7 @@ Gtk::TreeIter CtDialogs::choose_item_dialog(Gtk::Window& parent,
     Gtk::CellRendererPixbuf pixbuf_renderer;
     if (nullptr == single_column_name)
     {
+        pixbuf_renderer.property_stock_size() = Gtk::BuiltinIconSize::ICON_SIZE_LARGE_TOOLBAR;
         int col_num = pElementsTreeview->append_column("", pixbuf_renderer) - 1;
         pElementsTreeview->get_column(col_num)->add_attribute(pixbuf_renderer, "icon-name", rModel->columns.stock_id);
         pElementsTreeview->append_column("", rModel->columns.desc);
@@ -1702,14 +1703,14 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     pContentArea->show_all();
     name_entry.grab_focus();
 
-    button_prog_lang.signal_clicked().connect([&pCtMainWin, &button_prog_lang]()
+    button_prog_lang.signal_clicked().connect([&dialog, &pCtMainWin, &button_prog_lang]()
     {
         auto itemStore = CtChooseDialogListStore::create();
         for (auto lang : pCtMainWin->get_language_manager()->get_language_ids())
         {
             itemStore->add_row(CtConst::getStockIdForCodeType(lang), "", lang);
         }
-        const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(*pCtMainWin, _("Automatic Syntax Highlighting"), itemStore);
+        const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog, _("Automatic Syntax Highlighting"), itemStore);
         if (treeIter)
         {
             std::string stock_id = treeIter->get_value(itemStore->columns.desc);
@@ -1721,14 +1722,14 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     {
        button_prog_lang.set_sensitive(radiobutton_auto_syntax_highl.get_active());
     });
-    button_browse_tags.signal_clicked().connect([&pCtMainWin, &tags_entry, &tags_set]()
+    button_browse_tags.signal_clicked().connect([&dialog, &pCtMainWin, &tags_entry, &tags_set]()
     {
         auto itemStore = CtChooseDialogListStore::create();
         for (const auto& tag : tags_set)
         {
             itemStore->add_row("", "", tag);
         }
-        const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(*pCtMainWin, _("Choose Existing Tag"), itemStore, _("Tag Name"));
+        const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog, _("Choose Existing Tag"), itemStore, _("Tag Name"));
         if (treeIter)
         {
             std::string cur_tag = tags_entry.get_text();
@@ -1762,14 +1763,14 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     {
         c_icon_button.set_sensitive(c_icon_checkbutton.get_active());
     });
-    c_icon_button.signal_clicked().connect([&pCtMainWin, &c_icon_button, &nodeData]()
+    c_icon_button.signal_clicked().connect([&dialog, &pCtMainWin, &c_icon_button, &nodeData]()
     {
         auto itemStore = CtChooseDialogListStore::create();
-        for (auto& pair : CtConst::NODES_ICONS)
+        for (auto& pair : CtConst::NODES_STOCKS)
         {
             itemStore->add_row(pair.second, std::to_string(pair.first), "");
         }
-        const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(*pCtMainWin, _("Select Node Icon"), itemStore);
+        const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog, _("Select Node Icon"), itemStore);
         if (treeIter)
         {
             nodeData.customIconId = static_cast<guint32>(std::stoi(treeIter->get_value(itemStore->columns.key)));
