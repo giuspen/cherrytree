@@ -222,12 +222,12 @@ bool CtDialogs::question_dialog(const Glib::ustring& message,
                                 Gtk::Window& parent)
 {
     Gtk::MessageDialog dialog(parent,
-                              _("Question"),
+                              message,
                               true/* use_markup */,
                               Gtk::MESSAGE_QUESTION,
                               Gtk::BUTTONS_OK_CANCEL,
                               true/* modal */);
-    dialog.set_secondary_text(message, true);
+    dialog.set_title(_("Question"));
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     return (Gtk::RESPONSE_OK == dialog.run());
 }
@@ -237,12 +237,12 @@ void CtDialogs::info_dialog(const Glib::ustring& message,
                             Gtk::Window& parent)
 {
     Gtk::MessageDialog dialog(parent,
-                              _("Info"),
+                              message,
                               true/* use_markup */,
                               Gtk::MESSAGE_INFO,
                               Gtk::BUTTONS_OK,
                               true/* modal */);
-    dialog.set_secondary_text(message);
+    dialog.set_title(_("Info"));
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.run();
 }
@@ -252,12 +252,12 @@ void CtDialogs::warning_dialog(const Glib::ustring& message,
                                Gtk::Window& parent)
 {
     Gtk::MessageDialog dialog(parent,
-                              _("Warning"),
+                              message,
                               true/* use_markup */,
                               Gtk::MESSAGE_WARNING,
                               Gtk::BUTTONS_OK,
                               true/* modal */);
-    dialog.set_secondary_text(message);
+    dialog.set_title(_("Warning"));
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.run();
 }
@@ -267,12 +267,12 @@ void CtDialogs::error_dialog(const Glib::ustring& message,
                              Gtk::Window& parent)
 {
     Gtk::MessageDialog dialog(parent,
-                              _("Error"),
+                              message,
                               true/* use_markup */,
                               Gtk::MESSAGE_ERROR,
                               Gtk::BUTTONS_OK,
                               true/* modal */);
-    dialog.set_secondary_text(message);
+    dialog.set_title(_("Error"));
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.run();
 }
