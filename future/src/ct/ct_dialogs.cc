@@ -1605,17 +1605,22 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     Gtk::Entry name_entry;
     name_entry.set_text(nodeData.name);
+
+    auto* grid_icons = Gtk::manage(new Gtk::Grid());
+    grid_icons->set_row_spacing(0);
+    grid_icons->set_column_spacing(0);
+    grid_icons->set_row_homogeneous(true);
+
     Gtk::CheckButton is_bold_checkbutton(_("Bold"));
     is_bold_checkbutton.set_active(nodeData.isBold);
+    is_bold_checkbutton.set_margin_top(4);
+
     Gtk::CheckButton fg_checkbutton(_("Use Selected Color"));
     fg_checkbutton.set_active(not nodeData.foregroundRgb24.empty());
     Glib::ustring real_fg = not nodeData.foregroundRgb24.empty() ? nodeData.foregroundRgb24 : (not pCtMainWin->get_ct_config()->currColors.at('n').empty() ? pCtMainWin->get_ct_config()->currColors.at('n').c_str() : "red");
     Gtk::ColorButton fg_colorbutton{Gdk::RGBA(real_fg)};
     fg_colorbutton.set_sensitive(not nodeData.foregroundRgb24.empty());
-    Gtk::HBox fg_hbox;
-    fg_hbox.set_spacing(2);
-    fg_hbox.pack_start(fg_checkbutton, false, false);
-    fg_hbox.pack_start(fg_colorbutton, false, false);
+
     Gtk::CheckButton c_icon_checkbutton(_("Use Selected Icon"));
     c_icon_checkbutton.set_active(map::exists(CtConst::NODES_STOCKS, nodeData.customIconId));
     Gtk::Button c_icon_button;
@@ -1628,15 +1633,16 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
         c_icon_button.set_label(_("click me"));
         c_icon_button.set_sensitive(false);
     }
-    Gtk::HBox c_icon_hbox;
-    c_icon_hbox.set_spacing(2);
-    c_icon_hbox.pack_start(c_icon_checkbutton, false, false);
-    c_icon_hbox.pack_start(c_icon_button, false, false);
+
+    grid_icons->attach(fg_checkbutton, 0, 1, 1, 1);
+    grid_icons->attach(fg_colorbutton, 1, 1, 1, 1);
+    grid_icons->attach(c_icon_checkbutton, 0, 2, 1, 1);
+    grid_icons->attach(c_icon_button, 1, 2, 1, 1);
+
     Gtk::VBox name_vbox;
     name_vbox.pack_start(name_entry);
     name_vbox.pack_start(is_bold_checkbutton);
-    name_vbox.pack_start(fg_hbox);
-    name_vbox.pack_start(c_icon_hbox);
+    name_vbox.pack_start(*grid_icons);
     Gtk::Frame name_frame(std::string("<b>")+_("Node Name")+"</b>");
     ((Gtk::Label*)name_frame.get_label_widget())->set_use_markup(true);
     name_frame.set_shadow_type(Gtk::SHADOW_NONE);
@@ -1745,7 +1751,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     });
     ro_checkbutton.signal_toggled().connect([&ro_checkbutton, &type_frame]()
     {
-        type_frame.set_sensitive(ro_checkbutton.get_active());
+        type_frame.set_sensitive(!ro_checkbutton.get_active());
     });
     fg_checkbutton.signal_toggled().connect([&]()
     {
