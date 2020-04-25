@@ -112,9 +112,28 @@ bool is_pgchar_in_pgchar_iterable(const gchar* pGcharNeedle, const IterableOfPgc
     return gotcha;
 }
 
+template<class String>
+bool contains_words(const String& text, const std::vector<String>& words, bool require_all = true) {
+  for (auto& word: words) {
+    if (text.find(word) != String::npos) {
+      if (!require_all)
+        return true;
+    } else if (require_all) {
+      return false;
+    }
+  }
+
+  return require_all;
+}
+
 // https://stackoverflow.com/questions/642213/how-to-implement-a-natural-sort-algorithm-in-c
 int natural_compare(const Glib::ustring& left, const Glib::ustring& right);
 
+// Returns a version of text in which all occurrences of words
+// are highlighted using Pango markup
+Glib::ustring highlight_words(const Glib::ustring& text, std::vector<Glib::ustring> words, const Glib::ustring& markup_tag = "b");
+
+Glib::ustring get_accelerator_label(const std::string& accelerator);
 
 } // namespace CtStrUtil
 
@@ -170,15 +189,16 @@ int byte_pos_to_symb_pos(const Glib::ustring& text, int byte_pos);
 Glib::ustring swapcase(const Glib::ustring& text);
 
 template<class String>
-String replace(String& subjectStr, const Glib::ustring& searchStr, const Glib::ustring& replaceStr)
+std::string replace(const /* const: func doens't change the source! */ String& subjectStr, const std::string& searchStr, const std::string& replaceStr)
 {
+    Glib::ustring text = subjectStr; // Glib::ustring works with unicode
     size_t pos = 0;
-    while ((pos = subjectStr.find(searchStr, pos)) != std::string::npos)
+    while ((pos = text.find(searchStr, pos)) != std::string::npos)
     {
-        subjectStr.replace(pos, searchStr.size(), replaceStr);
+        text.replace(pos, searchStr.size(), replaceStr);
         pos += replaceStr.size();
     }
-    return subjectStr;
+    return text;
 }
 
 template<class String>

@@ -62,7 +62,7 @@ private:
     void need_restart(RESTART_REASON reason, const gchar* msg = nullptr);
 
 
-    void fill_commands_model(Glib::RefPtr<Gtk::ListStore> model);
+    void fill_custom_exec_commands_model(Glib::RefPtr<Gtk::ListStore> model);
     void add_new_command_in_model(Glib::RefPtr<Gtk::ListStore> model);
 
     void fill_toolbar_model(Glib::RefPtr<Gtk::ListStore> model);
@@ -82,10 +82,10 @@ public:
 private:
     struct UniversalModelColumns : public Gtk::TreeModel::ColumnRecord
     {
-       Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>  icon;
-       Gtk::TreeModelColumn<Glib::ustring>              key;
-       Gtk::TreeModelColumn<Glib::ustring>              desc;
-       Gtk::TreeModelColumn<Glib::ustring>              shortcut;
+       Gtk::TreeModelColumn<Glib::ustring>  icon;
+       Gtk::TreeModelColumn<Glib::ustring>  key;
+       Gtk::TreeModelColumn<Glib::ustring>  desc;
+       Gtk::TreeModelColumn<Glib::ustring>  shortcut;
        UniversalModelColumns() { add(icon); add(key); add(desc); add(shortcut); }
        virtual ~UniversalModelColumns();
     };

@@ -91,6 +91,7 @@ Gtk::TreeIter CtDialogs::choose_item_dialog(Gtk::Window& parent,
     Gtk::CellRendererPixbuf pixbuf_renderer;
     if (nullptr == single_column_name)
     {
+        pixbuf_renderer.property_stock_size() = Gtk::BuiltinIconSize::ICON_SIZE_LARGE_TOOLBAR;
         int col_num = pElementsTreeview->append_column("", pixbuf_renderer) - 1;
         pElementsTreeview->get_column(col_num)->add_attribute(pixbuf_renderer, "icon-name", rModel->columns.stock_id);
         pElementsTreeview->append_column("", rModel->columns.desc);
@@ -221,12 +222,12 @@ bool CtDialogs::question_dialog(const Glib::ustring& message,
                                 Gtk::Window& parent)
 {
     Gtk::MessageDialog dialog(parent,
-                              _("Question"),
+                              message,
                               true/* use_markup */,
                               Gtk::MESSAGE_QUESTION,
                               Gtk::BUTTONS_OK_CANCEL,
                               true/* modal */);
-    dialog.set_secondary_text(message, true);
+    dialog.set_title(_("Question"));
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     return (Gtk::RESPONSE_OK == dialog.run());
 }
@@ -236,12 +237,12 @@ void CtDialogs::info_dialog(const Glib::ustring& message,
                             Gtk::Window& parent)
 {
     Gtk::MessageDialog dialog(parent,
-                              _("Info"),
+                              message,
                               true/* use_markup */,
                               Gtk::MESSAGE_INFO,
                               Gtk::BUTTONS_OK,
                               true/* modal */);
-    dialog.set_secondary_text(message);
+    dialog.set_title(_("Info"));
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.run();
 }
@@ -251,12 +252,12 @@ void CtDialogs::warning_dialog(const Glib::ustring& message,
                                Gtk::Window& parent)
 {
     Gtk::MessageDialog dialog(parent,
-                              _("Warning"),
+                              message,
                               true/* use_markup */,
                               Gtk::MESSAGE_WARNING,
                               Gtk::BUTTONS_OK,
                               true/* modal */);
-    dialog.set_secondary_text(message);
+    dialog.set_title(_("Warning"));
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.run();
 }
@@ -266,12 +267,12 @@ void CtDialogs::error_dialog(const Glib::ustring& message,
                              Gtk::Window& parent)
 {
     Gtk::MessageDialog dialog(parent,
-                              _("Error"),
+                              message,
                               true/* use_markup */,
                               Gtk::MESSAGE_ERROR,
                               Gtk::BUTTONS_OK,
                               true/* modal */);
-    dialog.set_secondary_text(message);
+    dialog.set_title(_("Error"));
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.run();
 }
@@ -633,7 +634,7 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
         pAllMatchesDialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
     }
     CtMenuAction* pAction = ctMainWin.get_ct_menu().find_action("toggle_show_allmatches_dlg");
-    Gtk::Button* pButtonHide = pAllMatchesDialog->add_button(str::format(_("Hide (Restore with '%s')"), pAction->get_shortcut(ctMainWin.get_ct_config())), Gtk::RESPONSE_CLOSE);
+    Gtk::Button* pButtonHide = pAllMatchesDialog->add_button(str::format(_("Hide (Restore with '%s')"), CtStrUtil::get_accelerator_label(pAction->get_shortcut(ctMainWin.get_ct_config()))), Gtk::RESPONSE_CLOSE);
     pButtonHide->set_image_from_icon_name(Gtk::Stock::CLOSE.id, Gtk::ICON_SIZE_BUTTON);
     Gtk::TreeView* pTreeview = Gtk::manage(new Gtk::TreeView(rModel));
     pTreeview->append_column(_("Node Name"), rModel->columns.node_name);
@@ -1304,7 +1305,7 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
 
     Gtk::Button button_prog_lang;
     Glib::ustring button_label = (pConfig->codeboxSynHighl != CtConst::PLAIN_TEXT_ID ? pConfig->codeboxSynHighl : pConfig->autoSynHighl);
-    std::string button_stock_id = CtConst::getStockIdForCodeType(button_label);
+    std::string button_stock_id = pCtMainWin->get_code_icon_name(button_label);
     button_prog_lang.set_label(button_label);
     button_prog_lang.set_image(*pCtMainWin->new_image_from_stock(button_stock_id, Gtk::ICON_SIZE_MENU));
     Gtk::RadioButton radiobutton_plain_text(_("Plain Text"));
@@ -1395,7 +1396,7 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
         Glib::RefPtr<CtChooseDialogListStore> rItemStore = CtChooseDialogListStore::create();
         for (const std::string& lang : pCtMainWin->get_language_manager()->get_language_ids())
         {
-            rItemStore->add_row(CtConst::getStockIdForCodeType(lang), "", lang);
+            rItemStore->add_row(pCtMainWin->get_code_icon_name(lang), "", lang);
         }
         Gtk::TreeIter res = CtDialogs::choose_item_dialog(dialog, _("Automatic Syntax Highlighting"), rItemStore);
         if (res)
@@ -1604,17 +1605,22 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     Gtk::Entry name_entry;
     name_entry.set_text(nodeData.name);
+
+    auto* grid_icons = Gtk::manage(new Gtk::Grid());
+    grid_icons->set_row_spacing(0);
+    grid_icons->set_column_spacing(0);
+    grid_icons->set_row_homogeneous(true);
+
     Gtk::CheckButton is_bold_checkbutton(_("Bold"));
     is_bold_checkbutton.set_active(nodeData.isBold);
+    is_bold_checkbutton.set_margin_top(4);
+
     Gtk::CheckButton fg_checkbutton(_("Use Selected Color"));
     fg_checkbutton.set_active(not nodeData.foregroundRgb24.empty());
     Glib::ustring real_fg = not nodeData.foregroundRgb24.empty() ? nodeData.foregroundRgb24 : (not pCtMainWin->get_ct_config()->currColors.at('n').empty() ? pCtMainWin->get_ct_config()->currColors.at('n').c_str() : "red");
     Gtk::ColorButton fg_colorbutton{Gdk::RGBA(real_fg)};
     fg_colorbutton.set_sensitive(not nodeData.foregroundRgb24.empty());
-    Gtk::HBox fg_hbox;
-    fg_hbox.set_spacing(2);
-    fg_hbox.pack_start(fg_checkbutton, false, false);
-    fg_hbox.pack_start(fg_colorbutton, false, false);
+
     Gtk::CheckButton c_icon_checkbutton(_("Use Selected Icon"));
     c_icon_checkbutton.set_active(map::exists(CtConst::NODES_STOCKS, nodeData.customIconId));
     Gtk::Button c_icon_button;
@@ -1627,15 +1633,16 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
         c_icon_button.set_label(_("click me"));
         c_icon_button.set_sensitive(false);
     }
-    Gtk::HBox c_icon_hbox;
-    c_icon_hbox.set_spacing(2);
-    c_icon_hbox.pack_start(c_icon_checkbutton, false, false);
-    c_icon_hbox.pack_start(c_icon_button, false, false);
+
+    grid_icons->attach(fg_checkbutton, 0, 1, 1, 1);
+    grid_icons->attach(fg_colorbutton, 1, 1, 1, 1);
+    grid_icons->attach(c_icon_checkbutton, 0, 2, 1, 1);
+    grid_icons->attach(c_icon_button, 1, 2, 1, 1);
+
     Gtk::VBox name_vbox;
     name_vbox.pack_start(name_entry);
     name_vbox.pack_start(is_bold_checkbutton);
-    name_vbox.pack_start(fg_hbox);
-    name_vbox.pack_start(c_icon_hbox);
+    name_vbox.pack_start(*grid_icons);
     Gtk::Frame name_frame(std::string("<b>")+_("Node Name")+"</b>");
     ((Gtk::Label*)name_frame.get_label_widget())->set_use_markup(true);
     name_frame.set_shadow_type(Gtk::SHADOW_NONE);
@@ -1650,7 +1657,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     {
         syntax_hl_id = pCtMainWin->get_ct_config()->autoSynHighl;
     }
-    std::string button_stock_id = CtConst::getStockIdForCodeType(syntax_hl_id);
+    std::string button_stock_id = pCtMainWin->get_code_icon_name(syntax_hl_id);
     button_prog_lang.set_label(syntax_hl_id);
     button_prog_lang.set_image(*pCtMainWin->new_image_from_stock(button_stock_id, Gtk::ICON_SIZE_MENU));
     if (nodeData.syntax == CtConst::RICH_TEXT_ID)
@@ -1702,14 +1709,14 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     pContentArea->show_all();
     name_entry.grab_focus();
 
-    button_prog_lang.signal_clicked().connect([&pCtMainWin, &button_prog_lang]()
+    button_prog_lang.signal_clicked().connect([&dialog, &pCtMainWin, &button_prog_lang]()
     {
         auto itemStore = CtChooseDialogListStore::create();
         for (auto lang : pCtMainWin->get_language_manager()->get_language_ids())
         {
-            itemStore->add_row(CtConst::getStockIdForCodeType(lang), "", lang);
+            itemStore->add_row(pCtMainWin->get_code_icon_name(lang), "", lang);
         }
-        const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(*pCtMainWin, _("Automatic Syntax Highlighting"), itemStore);
+        const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog, _("Automatic Syntax Highlighting"), itemStore);
         if (treeIter)
         {
             std::string stock_id = treeIter->get_value(itemStore->columns.desc);
@@ -1721,14 +1728,14 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     {
        button_prog_lang.set_sensitive(radiobutton_auto_syntax_highl.get_active());
     });
-    button_browse_tags.signal_clicked().connect([&pCtMainWin, &tags_entry, &tags_set]()
+    button_browse_tags.signal_clicked().connect([&dialog, &pCtMainWin, &tags_entry, &tags_set]()
     {
         auto itemStore = CtChooseDialogListStore::create();
         for (const auto& tag : tags_set)
         {
             itemStore->add_row("", "", tag);
         }
-        const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(*pCtMainWin, _("Choose Existing Tag"), itemStore, _("Tag Name"));
+        const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog, _("Choose Existing Tag"), itemStore, _("Tag Name"));
         if (treeIter)
         {
             std::string cur_tag = tags_entry.get_text();
@@ -1744,7 +1751,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     });
     ro_checkbutton.signal_toggled().connect([&ro_checkbutton, &type_frame]()
     {
-        type_frame.set_sensitive(ro_checkbutton.get_active());
+        type_frame.set_sensitive(!ro_checkbutton.get_active());
     });
     fg_checkbutton.signal_toggled().connect([&]()
     {
@@ -1762,14 +1769,14 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     {
         c_icon_button.set_sensitive(c_icon_checkbutton.get_active());
     });
-    c_icon_button.signal_clicked().connect([&pCtMainWin, &c_icon_button, &nodeData]()
+    c_icon_button.signal_clicked().connect([&dialog, &pCtMainWin, &c_icon_button, &nodeData]()
     {
         auto itemStore = CtChooseDialogListStore::create();
-        for (auto& pair : CtConst::NODES_ICONS)
+        for (auto& pair : CtConst::NODES_STOCKS)
         {
             itemStore->add_row(pair.second, std::to_string(pair.first), "");
         }
-        const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(*pCtMainWin, _("Select Node Icon"), itemStore);
+        const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog, _("Select Node Icon"), itemStore);
         if (treeIter)
         {
             nodeData.customIconId = static_cast<guint32>(std::stoi(treeIter->get_value(itemStore->columns.key)));
@@ -1874,4 +1881,277 @@ CtYesNoCancel CtDialogs::exit_save_dialog(Gtk::Window& parent)
         return CtYesNoCancel::No;
     }
     return CtYesNoCancel::Cancel;
+}
+
+// Application About Dialog
+void CtDialogs::dialog_about(Gtk::Window& parent, Glib::RefPtr<Gdk::Pixbuf> icon)
+{
+     auto dialog = Gtk::AboutDialog();
+     dialog.set_program_name("CherryTree");
+     dialog.set_version(CtConst::CT_VERSION);
+     dialog.set_copyright("Copyright © 2009-2020\n"
+                          "Giuseppe Penone <giuspen@gmail.com>\n"
+                          "Evgenii Gurianov <https://github.com/txe>");
+     dialog.set_comments(_("A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting"));
+     dialog.set_license(_(R"STR(
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+MA 02110-1301, USA.
+)STR"));
+     dialog.set_website("http://www.giuspen.com/cherrytree/");
+     dialog.set_authors({"Giuseppe Penone <giuspen@gmail.com>", "Evgenii Gurianov <https://github.com/txe>"});
+     dialog.set_artists({"OCAL <http://www.openclipart.org/>", "Zeltak <zeltak@gmail.com>", "Angelo Penone <angelo.penone@gmail.com>"});
+     dialog.set_translator_credits(Glib::ustring() +
+ _("Armenian")+" (hy) Seda Stamboltsyan <sedastam@yandex.com>"+CtConst::CHAR_NEWLINE+
+ _("Chinese Simplified")+" (zh_CN) Channing Wong <channing.wong@qq.com>"+CtConst::CHAR_NEWLINE+
+ _("Czech")+" (cs) Pavel Fric <fripohled@blogspot.com>"+CtConst::CHAR_NEWLINE+
+ _("Dutch")+" (nl) Luuk Geurts, Patrick Vijgeboom <pj.vijgeboom@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Finnish")+" (fi) Henri Kaustinen <hendrix.ks81@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("French")+" (fr) Klaus Becker <colonius@free.fr>"+CtConst::CHAR_NEWLINE+
+ _("German")+" (de) Frank Brungräber <calexu@arcor.de>"+CtConst::CHAR_NEWLINE+
+ _("Greek")+" (el) Delphina <delphina.2009@yahoo.gr>"+CtConst::CHAR_NEWLINE+
+ _("Italian")+" (it) Vincenzo Reale <smart2128@baslug.org>"+CtConst::CHAR_NEWLINE+
+ _("Japanese")+" (ja) Piyo <py2@live.jp>"+CtConst::CHAR_NEWLINE+
+ _("Lithuanian")+" (lt) Zygis <zygimantus@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Polish")+" (pl) Marcin Swierczynski <orneo1212@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Portuguese Brazil")+" (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Russian")+" (ru) Andriy Kovtun <kovtunos@yandex.ru>"+CtConst::CHAR_NEWLINE+
+ _("Slovenian")+" (sl) Erik Lovrič <erik.lovric@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Spanish")+" (es) Daniel MC <i.e.betel@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Swedish")+" (sv) Åke Engelbrektson <eson@svenskasprakfiler.se>"+CtConst::CHAR_NEWLINE+
+ _("Turkish")+" (tr) Ferhat Aydin <ferhataydin44@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Ukrainian")+" (uk) Andriy Kovtun <kovtunos@yandex.ru>");
+     dialog.set_logo(icon);
+     dialog.set_title(_("About CherryTree"));
+
+     dialog.set_transient_for(parent);
+     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+     dialog.set_modal(true);
+     dialog.run();
+}
+
+std::string CtDialogs::dialog_pallete(CtMainWin* pCtMainWin)
+{
+    // based on plotinus
+    struct CtPalleteColumns : public Gtk::TreeModel::ColumnRecord
+    {
+        Gtk::TreeModelColumn<int>           order;
+        Gtk::TreeModelColumn<Glib::ustring> id;
+        Gtk::TreeModelColumn<Glib::ustring> path;
+        Gtk::TreeModelColumn<Glib::ustring> label;
+        Gtk::TreeModelColumn<Glib::ustring> accelerator;
+        CtPalleteColumns() { add(order); add(id); add(path); add(label); add(accelerator); }
+    } columns;
+
+
+    Glib::ustring filter;
+    std::vector<Glib::ustring> filter_words;
+
+    auto get_command_score = [&](const Gtk::TreeIter& iter) -> int {
+        auto label = iter->get_value(columns.label).lowercase();
+        auto path = iter->get_value(columns.path).lowercase();
+        int score = 0;
+        if (str::startswith(label, filter)) return score;
+        score++;
+        if (label.find(filter) != Glib::ustring::npos) return score;
+        score++;
+        if (CtStrUtil::contains_words(label, filter_words)) return score;
+        score++;
+        if (CtStrUtil::contains_words(label, filter_words, false)) return score;
+        score++;
+        if (CtStrUtil::contains_words(path, filter_words)) return score;
+        score++;
+        if (CtStrUtil::contains_words(path, filter_words, false)) return score;
+         return -1;
+    };
+
+    auto list_store = Gtk::ListStore::create(columns);
+    int order_cnt = 0;
+    for (auto& action: pCtMainWin->get_ct_menu().get_actions())
+    {
+        if (action.category.empty()) continue;
+        auto& iter = *list_store->append();
+        iter[columns.order] = ++order_cnt;
+        iter[columns.id] = action.id;
+        iter[columns.path] = action.category;
+        iter[columns.label] = str::replace(action.name, "_", "");
+        iter[columns.accelerator] = action.get_shortcut(pCtMainWin->get_ct_config());
+    }
+
+    auto tree_model_filter = Gtk::TreeModelFilter::create(list_store);
+    tree_model_filter->set_visible_func([&](const Gtk::TreeIter& iter) -> bool {
+        if (filter.empty()) return true;
+        return get_command_score(iter) >= 0;
+    });
+    auto tree_model_sort = Gtk::TreeModelSort::create(tree_model_filter);
+    auto tree_view = Gtk::TreeView();
+    tree_view.set_model(tree_model_sort);
+    tree_view.set_headers_visible(false);
+
+    // The theme's style context is reliably available only after the widget has been realized
+    tree_view.signal_realize().connect([&](){
+        auto style_context = tree_view.get_style_context();
+        auto text_color = style_context->get_color(Gtk::StateFlags::STATE_FLAG_NORMAL);
+        auto selection_color = style_context->get_background_color(Gtk::StateFlags::STATE_FLAG_SELECTED | Gtk::StateFlags::STATE_FLAG_FOCUSED);
+        text_color.set_alpha(0.4);
+
+        auto append_column = [&](std::function<Glib::ustring(const Gtk::TreeIter& iter)> markup_function, bool align_right, Gdk::RGBA* text_color, double font_scale = 1) {
+            auto cell_renderer = Gtk::manage(new Gtk::CellRendererText());
+            if (align_right) cell_renderer->property_xalign() = 1;
+            if (text_color != nullptr) cell_renderer->property_foreground_rgba() = *text_color;
+            cell_renderer->property_scale() = font_scale;
+            auto column = Gtk::manage(new Gtk::TreeViewColumn());
+            column->pack_start(*cell_renderer, true);
+            column->set_cell_data_func(*cell_renderer, [markup_function](Gtk::CellRenderer* cell, const Gtk::TreeIter& iter){
+                ((Gtk::CellRendererText*)cell)->property_markup() = markup_function(iter);
+            });
+            tree_view.append_column(*column);
+        };
+        append_column([&](const Gtk::TreeIter& iter) -> Glib::ustring {
+            return "  " + CtStrUtil::highlight_words(iter->get_value(columns.path), filter_words) + "  ";
+        }, true, &text_color);
+        append_column([&](const Gtk::TreeIter& iter) -> Glib::ustring {
+            return CtStrUtil::highlight_words(iter->get_value(columns.label), filter_words);
+        }, false, nullptr, 1.4);
+        append_column([&](const Gtk::TreeIter& iter) -> Glib::ustring {
+            return "  " + str::xml_escape(CtStrUtil::get_accelerator_label(iter->get_value(columns.accelerator))) + "  ";
+        }, true, &selection_color);
+    });
+
+    auto set_filter = [&] (const Glib::ustring& raw_filter) {
+        filter = Glib::Regex::create("/\\s{2,}/")->replace(raw_filter.c_str(), -1, 0, " ");
+        filter = str::trim(filter).lowercase();
+        filter_words = str::split(filter, " ");
+
+        tree_model_filter->refilter();
+
+        // TreeModelSort has no "resort" method, but reassigning the comparison function forces a resort
+        tree_model_sort->set_default_sort_func([&](const Gtk::TreeIter& iter_a, const Gtk::TreeIter& iter_b) {
+          // "The sort function used by TreeModelSort is not guaranteed to be stable" (GTK+ documentation),
+          // so the original order of commands is needed as a tie-breaker
+          int id_difference = iter_a->get_value(columns.order) - iter_b->get_value(columns.order);
+          if (filter.empty()) return id_difference;
+
+          int score_difference = get_command_score(iter_a) - get_command_score(iter_b);
+          return (score_difference != 0) ? score_difference : id_difference;
+        });
+    };
+    auto scroll_to_selected_item = [&]() {
+        if (Gtk::TreeIter selected_iter = tree_view.get_selection()->get_selected()) {
+            auto selected_path = tree_view.get_model()->get_path(selected_iter);
+            tree_view.scroll_to_row(selected_path);
+        }
+    };
+    auto select_first_item = [&]() {
+        if (Gtk::TreeIter iter = tree_view.get_model()->get_iter("0")) {
+            tree_view.get_selection()->select(iter);
+            scroll_to_selected_item();
+        }
+    };
+    auto select_previous_item = [&]() {
+        if (Gtk::TreeIter selected_iter = tree_view.get_selection()->get_selected())
+            if (--selected_iter) {
+                tree_view.get_selection()->select(selected_iter);
+                scroll_to_selected_item();
+            }
+    };
+    auto select_next_item = [&]() {
+        if (Gtk::TreeIter selected_iter = tree_view.get_selection()->get_selected())
+            if (++selected_iter) {
+                tree_view.get_selection()->select(selected_iter);
+                scroll_to_selected_item();
+            }
+    };
+
+    Gtk::Dialog popup_dialog("", *pCtMainWin, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    popup_dialog.set_transient_for(*pCtMainWin);
+    popup_dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    popup_dialog.set_skip_taskbar_hint(true);
+    popup_dialog.set_default_size(-1, 200);
+    popup_dialog.set_size_request(-1, 350);
+
+    // Width is determined by the width of the search entry/command list
+    auto scrolled_window = Gtk::ScrolledWindow();
+    scrolled_window.set_policy(Gtk::PolicyType::POLICY_NEVER, Gtk::PolicyType::POLICY_AUTOMATIC);
+    popup_dialog.get_content_area()->pack_start(scrolled_window);
+
+    select_first_item();
+    tree_view.set_can_focus(false);
+    scrolled_window.add(tree_view);
+
+    auto header_bar = Gtk::HeaderBar();
+    header_bar.property_spacing() = 0;
+    popup_dialog.set_titlebar(header_bar);
+
+    auto search_entry = Gtk::SearchEntry();
+    search_entry.property_hexpand() = true;
+    //if (Gtk.get_major_version() == 3 && Gtk.get_minor_version() < 22) {
+      // GTK+ < 3.22 does not support expanding packed widgets
+      // (see https://bugzilla.gnome.org/show_bug.cgi?id=724332)
+    //  search_entry.set_size_request(600, -1);
+    //}
+    search_entry.property_margin() = 4;
+    header_bar.set_custom_title(search_entry);
+    search_entry.signal_changed().connect([&]() {
+        set_filter(search_entry.get_text());
+        select_first_item();
+    });
+
+    Gtk::TreeIter resulted_iter;
+    auto run_command = [&] () {
+        if (Gtk::TreeIter iter = tree_view.get_selection()->get_selected()) {
+            resulted_iter = iter;
+            popup_dialog.close();
+        }
+    };
+    auto entry_activated = search_entry.signal_activate().connect([&]() {
+        run_command();
+    });
+    tree_view.signal_row_activated().connect([&](const Gtk::TreeModel::Path&, Gtk::TreeViewColumn* ) {
+        run_command();
+    });
+    popup_dialog.signal_show().connect([&]() {
+        search_entry.grab_focus();
+    });
+    popup_dialog.signal_key_press_event().connect([&](GdkEventKey* key)->bool {
+        if (key->keyval == GDK_KEY_Escape) {
+            popup_dialog.close();
+            return true;
+         } else if (key->keyval == GDK_KEY_Tab || key->keyval == GDK_KEY_ISO_Left_Tab) {
+            // Disable Tab and Shift+Tab to prevent navigating focus away from the search entry
+            return true;
+         } else if (key->keyval == GDK_KEY_Up) {
+            select_previous_item();
+            return true;
+         } else if (key->keyval == GDK_KEY_Down) {
+            select_next_item();
+            return true;
+         }
+         return false;
+    }, false);
+    popup_dialog.show_all();
+
+    // WIN_POS_CENTER_ON_PARENT works badly, so
+    int root_x, root_y, height_1, width_1, height_2, width_2;
+    pCtMainWin->get_position(root_x, root_y);
+    pCtMainWin->get_size(width_1, height_1);
+    popup_dialog.get_size(width_2, height_2);
+    popup_dialog.move(root_x + (width_1 - width_2) / 2 - 150, root_y + (height_1 - height_2)/2 - 50);
+
+    popup_dialog.run();
+
+    if (resulted_iter)
+        return resulted_iter->get_value(columns.id);
+    return "";
 }

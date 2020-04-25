@@ -324,8 +324,3 @@ const std::unordered_map<std::string, std::string> CtConst::CODE_EXEC_TERM_RUN_D
     {"linux", "xterm -hold -geometry 180x45 -e \""+CtConst::CODE_EXEC_COMMAND+"\""},
     {"win",   "start cmd /k \""+CtConst::CODE_EXEC_COMMAND+"\""}
 };
-
-std::string CtConst::getStockIdForCodeType(std::string code_type)
-{
-    return (1 == CODE_ICONS.count(code_type) ? CODE_ICONS.at(code_type) : NODES_STOCKS.at(NODE_ICON_CODE_ID));
-}

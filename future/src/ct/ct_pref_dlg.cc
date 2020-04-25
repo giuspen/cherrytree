@@ -90,6 +90,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     Gtk::HBox* hbox_wrapping_indent = Gtk::manage(new Gtk::HBox());
     hbox_wrapping_indent->set_spacing(4);
     Gtk::Label* label_wrapping_indent = Gtk::manage(new Gtk::Label(_("Line Wrapping Indentation")));
+    gtk_label_set_xalign(label_wrapping_indent->gobj(), 0.0);
     Glib::RefPtr<Gtk::Adjustment> adj_wrapping_indent = Gtk::Adjustment::create(pConfig->wrappingIndent, -10000, 10000, 1);
     Gtk::SpinButton* spinbutton_wrapping_indent = Gtk::manage(new Gtk::SpinButton(adj_wrapping_indent));
     spinbutton_wrapping_indent->set_value(pConfig->wrappingIndent);
@@ -102,6 +103,8 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     Gtk::HBox* hbox_space_around_lines = Gtk::manage(new Gtk::HBox());
     hbox_space_around_lines->set_spacing(4);
     Gtk::Label* label_space_around_lines = Gtk::manage(new Gtk::Label(_("Vertical Space Around Lines")));
+    label_space_around_lines->set_halign(Gtk::Align::ALIGN_START);
+    gtk_label_set_xalign(label_space_around_lines->gobj(), 0.0);
     Glib::RefPtr<Gtk::Adjustment> adj_space_around_lines = Gtk::Adjustment::create(pConfig->spaceAroundLines, -0, 255, 1);
     Gtk::SpinButton* spinbutton_space_around_lines = Gtk::manage(new Gtk::SpinButton(adj_space_around_lines));
     spinbutton_space_around_lines->set_value(pConfig->spaceAroundLines);
@@ -116,6 +119,12 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     hbox_relative_wrapped_space->pack_start(*label_relative_wrapped_space, false, false);
     hbox_relative_wrapped_space->pack_start(*spinbutton_relative_wrapped_space, false, false);
     hbox_relative_wrapped_space->pack_start(*Gtk::manage(new Gtk::Label("%")), false, false);
+
+    auto size_group_1 = Gtk::SizeGroup::create(Gtk::SizeGroupMode::SIZE_GROUP_HORIZONTAL);
+    size_group_1->add_widget(*label_wrapping_indent);
+    size_group_1->add_widget(*label_space_around_lines);
+    size_group_1->add_widget(*label_relative_wrapped_space);
+
 
     Gtk::VBox* vbox_text_editor = Gtk::manage(new Gtk::VBox());
     vbox_text_editor->pack_start(*hbox_tab_width, false, false);
@@ -137,6 +146,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     Gtk::HBox* hbox_timestamp = Gtk::manage(new Gtk::HBox());
     hbox_timestamp->set_spacing(4);
     Gtk::Label* label_timestamp = Gtk::manage(new Gtk::Label(_("Timestamp Format")));
+    gtk_label_set_xalign(label_space_around_lines->gobj(), 0.0);
     Gtk::Entry* entry_timestamp_format = Gtk::manage(new Gtk::Entry());
     entry_timestamp_format->set_text(pConfig->timestampFormat);
     Gtk::Button* button_strftime_help = Gtk::manage(new Gtk::Button());
@@ -147,10 +157,16 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     Gtk::HBox* hbox_horizontal_rule = Gtk::manage(new Gtk::HBox());
     hbox_horizontal_rule->set_spacing(4);
     Gtk::Label* label_horizontal_rule = Gtk::manage(new Gtk::Label(_("Horizontal Rule")));
+    gtk_label_set_xalign(label_horizontal_rule->gobj(), 0.0);
     Gtk::Entry* entry_horizontal_rule = Gtk::manage(new Gtk::Entry());
     entry_horizontal_rule->set_text(pConfig->hRule);
     hbox_horizontal_rule->pack_start(*label_horizontal_rule, false, false);
     hbox_horizontal_rule->pack_start(*entry_horizontal_rule);
+
+    auto size_group_2 = Gtk::SizeGroup::create(Gtk::SizeGroupMode::SIZE_GROUP_HORIZONTAL);
+    size_group_2->add_widget(*label_timestamp);
+    size_group_2->add_widget(*label_horizontal_rule);
+
     Gtk::HBox* hbox_special_chars = Gtk::manage(new Gtk::HBox());
     hbox_special_chars->set_spacing(4);
     Gtk::VBox* vbox_special_chars = Gtk::manage(new Gtk::VBox());
@@ -209,7 +225,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
 
     textview_special_chars->get_buffer()->signal_changed().connect([this, pConfig, textview_special_chars](){
         Glib::ustring new_special_chars = textview_special_chars->get_buffer()->get_text();
-        str::replace(new_special_chars, CtConst::CHAR_NEWLINE, "");
+        new_special_chars = str::replace(new_special_chars, CtConst::CHAR_NEWLINE, "");
         if (pConfig->specialChars != new_special_chars)
         {
             pConfig->specialChars = new_special_chars;
@@ -358,6 +374,10 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     hbox_monospace_bg->set_spacing(4);
     hbox_monospace_bg->pack_start(*checkbutton_monospace_bg, false, false);
     hbox_monospace_bg->pack_start(*colorbutton_monospace_bg, false, false);
+
+    auto size_group_1 = Gtk::SizeGroup::create(Gtk::SizeGroupMode::SIZE_GROUP_HORIZONTAL);
+    size_group_1->add_widget(*radiobutton_rt_col_custom);
+    size_group_1->add_widget(*checkbutton_monospace_bg);
 
     vbox_rt_theme->pack_start(*radiobutton_rt_col_light, false, false);
     vbox_rt_theme->pack_start(*radiobutton_rt_col_dark, false, false);
@@ -567,11 +587,16 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     frame_syntax->add(*align_syntax);
 
     Glib::RefPtr<Gtk::ListStore> liststore = Gtk::ListStore::create(_commandModelColumns);
-    fill_commands_model(liststore);
+    fill_custom_exec_commands_model(liststore);
     Gtk::TreeView* treeview = Gtk::manage(new Gtk::TreeView(liststore));
     treeview->set_headers_visible(false);
     treeview->set_size_request(300, 200);
-    treeview->append_column("", _commandModelColumns.icon);
+
+    Gtk::CellRendererPixbuf pixbuf_renderer;
+    pixbuf_renderer.property_stock_size() = Gtk::BuiltinIconSize::ICON_SIZE_LARGE_TOOLBAR;
+    int col_num = treeview->append_column("", pixbuf_renderer) - 1;
+    treeview->get_column(col_num)->add_attribute(pixbuf_renderer, "icon-name", _shortcutModelColumns.icon);
+
     treeview->append_column("", _commandModelColumns.key);
     treeview->append_column_editable("", _commandModelColumns.desc);
     treeview->set_expander_column(*treeview->get_column(1));
@@ -659,7 +684,7 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     button_reset_cmds->signal_clicked().connect([this, pConfig, liststore](){
         if (CtDialogs::question_dialog(reset_warning, *this)) {
             pConfig->customCodexecType.clear();
-            fill_commands_model(liststore);
+            fill_custom_exec_commands_model(liststore);
         }
     });
     button_reset_term->signal_clicked().connect([this, pConfig, entry_term_run](){
@@ -1171,7 +1196,12 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
     treeview->set_headers_visible(false);
     treeview->set_reorderable(true);
     treeview->set_size_request(300, 300);
-    treeview->append_column("", _toolbarModelColumns.icon);
+
+    Gtk::CellRendererPixbuf pixbuf_renderer;
+    pixbuf_renderer.property_stock_size() = Gtk::BuiltinIconSize::ICON_SIZE_LARGE_TOOLBAR;
+    int col_num = treeview->append_column("", pixbuf_renderer) - 1;
+    treeview->get_column(col_num)->add_attribute(pixbuf_renderer, "icon-name", _shortcutModelColumns.icon);
+
     treeview->append_column("", _toolbarModelColumns.desc);
     Gtk::ScrolledWindow* scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow());
     scrolledwindow->add(*treeview);
@@ -1241,9 +1271,24 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
     treeview->set_reorderable(true);
     treeview->set_size_request(300, 300);
     treeview->set_reorderable(false);
-    treeview->append_column("", _shortcutModelColumns.icon);
-    treeview->append_column("", _shortcutModelColumns.shortcut);
+
+    // icon column
+    Gtk::CellRendererPixbuf pixbuf_renderer;
+    pixbuf_renderer.property_stock_size() = Gtk::BuiltinIconSize::ICON_SIZE_LARGE_TOOLBAR;
+    int col_num = treeview->append_column("", pixbuf_renderer) - 1;
+    treeview->get_column(col_num)->add_attribute(pixbuf_renderer, "icon-name", _shortcutModelColumns.icon);
+    // shortcut column
+    auto shortcut_cell_renderer = Gtk::manage(new Gtk::CellRendererText());
+    shortcut_cell_renderer->property_xalign() = 1;
+    auto shortcut_column = Gtk::manage(new Gtk::TreeViewColumn());
+    shortcut_column->pack_start(*shortcut_cell_renderer, true);
+    shortcut_column->set_cell_data_func(*shortcut_cell_renderer, [&](Gtk::CellRenderer* cell, const Gtk::TreeIter& iter){
+        ((Gtk::CellRendererText*)cell)->property_markup() = "  " + str::xml_escape(CtStrUtil::get_accelerator_label(iter->get_value(_shortcutModelColumns.shortcut))) + "  ";
+    });
+    treeview->append_column(*shortcut_column);
+    // desc
     treeview->append_column("", _shortcutModelColumns.desc);
+
     treeview->expand_all();
     Gtk::ScrolledWindow* scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow());
     scrolledwindow->add(*treeview);
@@ -1478,7 +1523,7 @@ std::string CtPrefDlg::get_code_exec_term_run(CtMainWin* pCtMainWin)
     return CtConst::CODE_EXEC_TERM_RUN_DEFAULT.at(op_sys);
 }
 
-void CtPrefDlg::fill_commands_model(Glib::RefPtr<Gtk::ListStore> model)
+void CtPrefDlg::fill_custom_exec_commands_model(Glib::RefPtr<Gtk::ListStore> model)
 {
     std::set<std::string> used_code_exec_keys;
     for (auto& it: _pCtMainWin->get_ct_config()->customCodexecType)
@@ -1496,7 +1541,7 @@ void CtPrefDlg::fill_commands_model(Glib::RefPtr<Gtk::ListStore> model)
             command = CtConst::CODE_EXEC_TYPE_CMD_DEFAULT.at(key);
 
         Gtk::TreeModel::Row row = *(model->append());
-        row[_commandModelColumns.icon] = _pCtMainWin->get_icon(CtConst::getStockIdForCodeType(key), CtConst::NODE_ICON_SIZE);
+        row[_commandModelColumns.icon] = _pCtMainWin->get_code_icon_name(key);
         row[_commandModelColumns.key] = key;
         row[_commandModelColumns.desc] = command;
     }
@@ -1554,7 +1599,7 @@ void CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeIter row, const Glib::ust
         desc = action->desc;
     }
 
-    if (icon != "") row->set_value(_toolbarModelColumns.icon, _pCtMainWin->get_icon(icon, CtConst::NODE_ICON_SIZE));
+    row->set_value(_toolbarModelColumns.icon, icon);
     row->set_value(_toolbarModelColumns.key, key);
     row->set_value(_toolbarModelColumns.desc, desc);
 }
@@ -1603,10 +1648,7 @@ void CtPrefDlg::fill_shortcut_model(Glib::RefPtr<Gtk::TreeStore> model)
             cat_row[_shortcutModelColumns.desc] = action.category;
         }
         auto row = *model->append(cat_row.children());
-        if (not action.image.empty())
-        {
-            row[_shortcutModelColumns.icon] = _pCtMainWin->get_icon(action.image, CtConst::NODE_ICON_SIZE);
-        }
+        row[_shortcutModelColumns.icon] = action.image;
         row[_shortcutModelColumns.key] = action.id;
         row[_shortcutModelColumns.desc] = action.desc;
         row[_shortcutModelColumns.shortcut] = action.get_shortcut(_pCtMainWin->get_ct_config());
@@ -1624,7 +1666,10 @@ bool CtPrefDlg::edit_shortcut(Gtk::TreeView* treeview)
             for(const CtMenuAction& action : _pCtMenu->get_actions())
                 if (action.get_shortcut(_pCtMainWin->get_ct_config()) == shortcut && action.id != id) {
                     // todo: this is a shorter version from python code
-                    if (!CtDialogs::question_dialog(std::string("<b>") + _("The Keyboard Shortcut '%s' is already in use") + "</b>", *this))
+                    std::string message = "<b>" + str::format(_("The Keyboard Shortcut '%s' is already in use"), CtStrUtil::get_accelerator_label(shortcut)) + "</b>\n\n";
+                    message += str::format(_("The current associated action is '%s'"), str::replace(action.name, "_", "")) + "\n\n";
+                    message += "<b>" + std::string(_("Do you want to steal the shortcut?")) + "</b>";
+                    if (!CtDialogs::question_dialog(message, *this))
                         return false;
                     _pCtMainWin->get_ct_config()->customKbShortcuts[action.id] = "";
                 }
@@ -1638,9 +1683,9 @@ bool CtPrefDlg::edit_shortcut(Gtk::TreeView* treeview)
 bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut)
 {
     std::string kb_shortcut_key = shortcut;
-    str::replace(kb_shortcut_key, _pCtMenu->KB_CONTROL.c_str(), "");
-    str::replace(kb_shortcut_key, _pCtMenu->KB_SHIFT.c_str(), "");
-    str::replace(kb_shortcut_key, _pCtMenu->KB_ALT.c_str(), "");
+    kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_CONTROL.c_str(), "");
+    kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_SHIFT.c_str(), "");
+    kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_ALT.c_str(), "");
 
     Gtk::Dialog dialog(_("Edit Keyboard Shortcut"), *this, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);

@@ -125,3 +125,15 @@ void CtActions::dialog_preferences()
     prefDlg.show();
     prefDlg.run();
 }
+
+void CtActions::dialog_about()
+{
+    CtDialogs::dialog_about(*_pCtMainWin, _pCtMainWin->get_icon_theme()->load_icon(CtConst::APP_NAME, 128));
+}
+
+void CtActions::command_palette()
+{
+    std::string id = CtDialogs::dialog_pallete(_pCtMainWin);
+    if (CtMenuAction* action = _pCtMainWin->get_ct_menu().find_action(id))
+        action->run_action();
+}

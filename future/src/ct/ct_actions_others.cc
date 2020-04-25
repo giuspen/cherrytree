@@ -588,7 +588,7 @@ void CtActions::table_row_copy()
 {
     auto table_state = std::dynamic_pointer_cast<CtAnchoredWidgetState_Table>(curr_table_anchor->get_state());
     // remove rows after current
-    while (table_state->rows.size() > curr_table_anchor->current_row() + 1)
+    while ((int)table_state->rows.size() > curr_table_anchor->current_row() + 1)
         table_state->rows.pop_back();
     // remove rows between current and header
     while (table_state->rows.size() > 2)

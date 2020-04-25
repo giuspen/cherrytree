@@ -733,65 +733,71 @@ int CtActions::_table_dialog(Glib::ustring title, bool is_insert)
     dialog.set_default_size(300, -1);
 
     auto label_rows = Gtk::Label(_("Rows"));
+    label_rows.set_halign(Gtk::Align::ALIGN_START);
+    label_rows.set_margin_left(10);
     auto adj_rows = Gtk::Adjustment::create(_pCtMainWin->get_ct_config()->tableRows, 1, 10000, 1);
     auto spinbutton_rows = Gtk::SpinButton(adj_rows);
     spinbutton_rows.set_value(_pCtMainWin->get_ct_config()->tableRows);
     auto label_columns = Gtk::Label(_("Columns"));
+    label_columns.set_halign(Gtk::Align::ALIGN_START);
     auto adj_columns = Gtk::Adjustment::create(_pCtMainWin->get_ct_config()->tableColumns, 1, 10000, 1);
     auto spinbutton_columns = Gtk::SpinButton(adj_columns);
     spinbutton_columns.set_value(_pCtMainWin->get_ct_config()->tableColumns);
 
-    auto hbox_rows_cols = Gtk::HBox();
-    hbox_rows_cols.pack_start(label_rows, false, false);
-    hbox_rows_cols.pack_start(spinbutton_rows, false, false);
-    hbox_rows_cols.pack_start(label_columns, false, false);
-    hbox_rows_cols.pack_start(spinbutton_columns, false, false);
-    hbox_rows_cols.set_spacing(5);
-    auto size_align = Gtk::Alignment();
-    size_align.set_padding(6, 6, 6, 6);
-    size_align.add(hbox_rows_cols);
-
-    auto size_frame = Gtk::Frame(std::string("<b>")+_("Table Size")+"</b>");
-    dynamic_cast<Gtk::Label*>(size_frame.get_label_widget())->set_use_markup(true);
-    size_frame.set_shadow_type(Gtk::SHADOW_NONE);
-    size_frame.add(size_align);
-
     auto label_col_min = Gtk::Label(_("Min Width"));
+    label_col_min.set_halign(Gtk::Align::ALIGN_START);
+    label_col_min.set_margin_left(10);
     auto adj_col_min = Gtk::Adjustment::create(_pCtMainWin->get_ct_config()->tableColMin, 1, 10000, 1);
     auto spinbutton_col_min = Gtk::SpinButton(adj_col_min);
     spinbutton_col_min.set_value(_pCtMainWin->get_ct_config()->tableColMin);
     auto label_col_max = Gtk::Label(_("Max Width"));
+    label_col_max.set_halign(Gtk::Align::ALIGN_START);
     auto adj_col_max = Gtk::Adjustment::create(_pCtMainWin->get_ct_config()->tableColMax, 1, 10000, 1);
     auto spinbutton_col_max = Gtk::SpinButton(adj_col_max);
     spinbutton_col_max.set_value(_pCtMainWin->get_ct_config()->tableColMax);
 
-    auto hbox_col_min_max = Gtk::HBox();
-    hbox_col_min_max.pack_start(label_col_min, false, false);
-    hbox_col_min_max.pack_start(spinbutton_col_min, false, false);
-    hbox_col_min_max.pack_start(label_col_max, false, false);
-    hbox_col_min_max.pack_start(spinbutton_col_max, false, false);
-    hbox_col_min_max.set_spacing(5);
-    auto col_min_max_align = Gtk::Alignment();
-    col_min_max_align.set_padding(6, 6, 6, 6);
-    col_min_max_align.add(hbox_col_min_max);
+    auto label_size = Gtk::Label(std::string("<b>")+_("Table Size")+"</b>");
+    label_size.set_use_markup();
+    label_size.set_halign(Gtk::Align::ALIGN_START);
+    auto label_col = Gtk::Label(std::string("<b>")+_("Column Properties")+"</b>");
+    label_col.set_use_markup();
+    label_col.set_halign(Gtk::Align::ALIGN_START);
 
-    auto col_min_max_frame = Gtk::Frame(std::string("<b>")+_("Column Properties")+"</b>");
-    dynamic_cast<Gtk::Label*>(col_min_max_frame.get_label_widget())->set_use_markup(true);
-    col_min_max_frame.set_shadow_type(Gtk::SHADOW_NONE);
-    col_min_max_frame.add(col_min_max_align);
+
+    auto grid = Gtk::Grid();
+    grid.property_margin() = 6;
+    grid.set_row_spacing(4);
+    grid.set_column_spacing(8);
+    grid.set_row_homogeneous(true);
+
+   // auto size_frame = Gtk::Frame();
+    if (is_insert)
+    {
+        grid.attach(label_size,         0, 0, 2, 1);
+        grid.attach(label_rows,         0, 1, 1, 1);
+        grid.attach(spinbutton_rows,    1, 1, 1, 1);
+        grid.attach(label_columns,      2, 1, 1, 1);
+        grid.attach(spinbutton_columns, 3, 1, 1, 1);
+    }
+    grid.attach(label_col,           0, 2, 2, 1);
+    grid.attach(label_col_min,       0, 3, 1, 1);
+    grid.attach(spinbutton_col_min,  1, 3, 1, 1);
+    grid.attach(label_col_max,       2, 3, 1, 1);
+    grid.attach(spinbutton_col_max,  3, 3, 1, 1);
+
+    //auto col_min_max_frame = Gtk::Frame(std::string("<b>")+_("Column Properties")+"</b>");
+
 
     auto checkbutton_table_ins_from_file = Gtk::CheckButton(_("Import from CSV File"));
 
     auto content_area = dialog.get_content_area();
     content_area->set_spacing(5);
-    if (is_insert) content_area->pack_start(size_frame);
-    content_area->pack_start(col_min_max_frame);
+    content_area->pack_start(grid);
     if (is_insert) content_area->pack_start(checkbutton_table_ins_from_file);
     content_area->show_all();
 
     checkbutton_table_ins_from_file.signal_toggled().connect([&](){
-        size_frame.set_sensitive(!checkbutton_table_ins_from_file.get_active());
-        col_min_max_frame.set_sensitive(!checkbutton_table_ins_from_file.get_active());
+        grid.set_sensitive(!checkbutton_table_ins_from_file.get_active());
     });
     spinbutton_col_min.signal_changed().connect([&] {
         if (spinbutton_col_min.get_value_as_int() > spinbutton_col_max.get_value_as_int())

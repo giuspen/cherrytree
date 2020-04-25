@@ -92,7 +92,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{file_cat, "ct_save", "save", _("_Save"), KB_CONTROL+"S", _("Save File"), sigc::mem_fun(*pActions, &CtActions::file_save)});
     _actions.push_back(CtMenuAction{file_cat, "ct_vacuum", "clear", _("Save and _Vacuum"), None, _("Save File and Vacuum"), sigc::mem_fun(*pActions, &CtActions::file_vacuum)});
     _actions.push_back(CtMenuAction{file_cat, "ct_save_as", "save-as", _("Save _As"), KB_CONTROL+KB_SHIFT+"S", _("Save File As"), sigc::mem_fun(*pActions, &CtActions::file_save_as)});
-    _actions.push_back(CtMenuAction{file_cat, "command_palette", "execute", _("Command Palette"), KB_CONTROL+KB_SHIFT+"P", _("Command Palette"), sigc::signal<void>() /* dad.export_to_pdf */});
+    _actions.push_back(CtMenuAction{file_cat, "command_palette", "execute", _("Command Palette"), KB_CONTROL+KB_SHIFT+"P", _("Command Palette"), sigc::mem_fun(*pActions, &CtActions::command_palette)});
     _actions.push_back(CtMenuAction{file_cat, "exec_code", "execute", _("_Execute Code"), "F5", _("Execute Code"), sigc::mem_fun(*pActions, &CtActions::exec_code)});
     _actions.push_back(CtMenuAction{file_cat, "open_cfg_folder", "directory", _("Open Preferences _Directory"), None, _("Open the Directory with Preferences Files"), sigc::mem_fun(*pActions, &CtActions::folder_cfg_open)});
     _actions.push_back(CtMenuAction{file_cat, "print_page_setup", "print", _("Pa_ge Setup"), None, _("Set up the Page for Printing"), sigc::mem_fun(*pActions, &CtActions::export_print_page_setup)});
@@ -102,7 +102,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{file_cat, "preferences_dlg", "preferences", _("_Preferences"), KB_CONTROL+KB_ALT+"P", _("Preferences"), sigc::mem_fun(*pActions, &CtActions::dialog_preferences) });
     _actions.push_back(CtMenuAction{file_cat, "ct_check_newer", "network", _("_Check Newer Version"), None, _("Check for a Newer Version"), sigc::signal<void>() /* dad.check_for_newer_version */});
     _actions.push_back(CtMenuAction{file_cat, "ct_help", "help", _("Online _Manual"), "F1", _("Application's Online Manual"), sigc::mem_fun(*pActions, &CtActions::online_help)});
-    _actions.push_back(CtMenuAction{file_cat, "ct_about", "about", _("_About"), None, _("About CherryTree"), sigc::signal<void>() /* dad.dialog_about */});
+    _actions.push_back(CtMenuAction{file_cat, "ct_about", "about", _("_About"), None, _("About CherryTree"), sigc::mem_fun(*pActions, &CtActions::dialog_about)});
     const char* editor_cat = _("Editor");
     _actions.push_back(CtMenuAction{editor_cat, "act_undo", "g-undo", _("_Undo"), KB_CONTROL+"Z", _("Undo Last Operation"), sigc::mem_fun(*pActions, &CtActions::requested_step_back)});
     _actions.push_back(CtMenuAction{editor_cat, "act_redo", "g-redo", _("_Redo"), KB_CONTROL+"Y", _("Redo Previously Discarded Operation"), sigc::mem_fun(*pActions, &CtActions::requested_step_ahead)});

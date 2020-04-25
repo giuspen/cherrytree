@@ -562,6 +562,48 @@ int CtStrUtil::natural_compare(const Glib::ustring& left, const Glib::ustring& r
     return 0;
 }
 
+Glib::ustring CtStrUtil::highlight_words(const Glib::ustring& text, std::vector<Glib::ustring> words, const Glib::ustring& markup_tag /* = "b" */)
+{
+    if (words.empty())
+        return str::xml_escape(text);
+    for (auto& word: words)
+        word = str::re_escape(word);
+
+    // Build a regular expression of the form "(word1|word2|...)", matching any of the words.
+    // The outer parentheses also define a capturing group, which is important (see below).
+    Glib::ustring pattern = "(" + str::join(words, "|") + ")";
+    auto regex = Glib::Regex::create(pattern.c_str(), Glib::RegexCompileFlags::REGEX_CASELESS);
+
+    Glib::ustring builder;
+    // Regex.split also returns capturing group matches from the "delimiter",
+    // and since the entire pattern is a capturing group, the result is all of the text,
+    // split into matches and non-matches of words
+    for (auto part: regex->split(text)) {
+        auto part_markup = str::xml_escape(part);
+
+        // Note that while Regex.match looks for matches anywhere within a string,
+        // partial matches cannot occur here because the parts are already split
+        // along pattern boundaries
+        if (regex->match(part)) {
+            builder.append("<").append(markup_tag).append(">");
+            builder.append(part_markup);
+            builder.append("</").append(markup_tag).append(">");
+        } else {
+            builder.append(part_markup);
+        }
+    }
+
+    return builder;
+}
+
+Glib::ustring CtStrUtil::get_accelerator_label(const std::string& accelerator)
+{
+    guint key;
+    GdkModifierType mod;
+    gtk_accelerator_parse(accelerator.c_str(), &key, &mod);
+    g_autofree gchar* label = gtk_accelerator_get_label(key, mod);
+    return Glib::ustring(label);
+}
 
 std::string CtFontUtil::get_font_family(const std::string& fontStr)
 {

@@ -190,7 +190,4 @@ extern const std::string CODE_EXEC_COMMAND;
 extern const std::unordered_map<std::string, std::string> CODE_EXEC_TYPE_CMD_DEFAULT;
 extern const std::unordered_map<std::string, std::string> CODE_EXEC_TYPE_EXT_DEFAULT;
 extern const std::unordered_map<std::string, std::string> CODE_EXEC_TERM_RUN_DEFAULT;
-
-std::string getStockIdForCodeType(std::string code_type);
-
 }; // namespace CtConst

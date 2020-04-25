@@ -210,14 +210,14 @@ void CtTable::row_add(int after_row, std::vector<Glib::ustring>* row /*= nullptr
 {
     auto matrix = _copy_matrix(-1, -1, after_row, -1, -1, -1);
     if (row && row->size() == matrix[0].size())
-        for (int col = 0; col < matrix[0].size(); ++col)
+        for (int col = 0; col < (int)matrix[0].size(); ++col)
             matrix[after_row + 1][col]->get_text_view().get_buffer()->set_text(row->at(col));
     _setup_new_matrix(matrix);
 }
 
 void CtTable::row_delete(int row)
 {
-    if (_tableMatrix.size() == 1) return;
+    if ((int)_tableMatrix.size() == 1) return;
     auto matrix = _copy_matrix(-1, -1, -1, row, -1, -1);
     _setup_new_matrix(matrix);
 }
@@ -335,7 +335,7 @@ bool CtTable::_on_key_press_event_cell(GdkEventKey* event, int row, int col)
             row = index/_tableMatrix[0].size();
             col = index%_tableMatrix[0].size();
             if (index < 0) return true;
-            if (row == _tableMatrix.size()) return true;
+            if (row == (int)_tableMatrix.size()) return true;
              _currentRow = row;
              _currentColumn = col;
              _tableMatrix[row][col]->get_text_view().grab_focus();
