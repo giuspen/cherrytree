@@ -135,6 +135,7 @@ public:
 
 public:
     Glib::RefPtr<Gdk::Pixbuf> get_icon(const std::string& name, int size);
+    std::string               get_code_icon_name(std::string code_type);
     Gtk::Image*               new_image_from_stock(const std::string& stockImage, Gtk::BuiltinIconSize size);
     Glib::RefPtr<Gsv::Buffer> get_new_text_buffer(const std::string& syntax, const Glib::ustring& textContent=""); // pygtk: buffer_create
     const std::string get_text_tag_name_exist_or_create(const std::string& propertyName, const std::string& propertyValue);

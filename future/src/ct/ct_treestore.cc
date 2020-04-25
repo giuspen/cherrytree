@@ -521,7 +521,7 @@ Glib::RefPtr<Gdk::Pixbuf> CtTreeStore::_get_node_icon(int nodeDepth, const std::
     else
     {
         // code node
-        rPixbuf = _pCtMainWin->get_icon_theme()->load_icon(CtConst::getStockIdForCodeType(syntax), CtConst::NODE_ICON_SIZE);
+        rPixbuf = _pCtMainWin->get_icon(_pCtMainWin->get_code_icon_name(syntax), CtConst::NODE_ICON_SIZE);
     }
     return rPixbuf;
 }

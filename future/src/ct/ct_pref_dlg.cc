@@ -1521,7 +1521,7 @@ void CtPrefDlg::fill_custom_exec_commands_model(Glib::RefPtr<Gtk::ListStore> mod
             command = CtConst::CODE_EXEC_TYPE_CMD_DEFAULT.at(key);
 
         Gtk::TreeModel::Row row = *(model->append());
-        row[_commandModelColumns.icon] = CtConst::getStockIdForCodeType(key);
+        row[_commandModelColumns.icon] = _pCtMainWin->get_code_icon_name(key);
         row[_commandModelColumns.key] = key;
         row[_commandModelColumns.desc] = command;
     }

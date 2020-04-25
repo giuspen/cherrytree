@@ -135,6 +135,15 @@ Glib::RefPtr<Gdk::Pixbuf> CtMainWin::get_icon(const std::string& name, int size)
     return Glib::RefPtr<Gdk::Pixbuf>();
 }
 
+std::string CtMainWin::get_code_icon_name(std::string code_type)
+{
+    if (1 == CtConst::CODE_ICONS.count(code_type))
+        code_type = CtConst::CODE_ICONS.at(code_type);
+    else if (!_pGtkIconTheme->has_icon(code_type))
+        code_type = CtConst::NODES_STOCKS.at(CtConst::NODE_ICON_CODE_ID);
+    return code_type;
+}
+
 Gtk::Image* CtMainWin::new_image_from_stock(const std::string& stockImage, Gtk::BuiltinIconSize size)
 {
     Gtk::Image* image = Gtk::manage(new Gtk::Image());

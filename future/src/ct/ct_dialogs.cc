@@ -1305,7 +1305,7 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
 
     Gtk::Button button_prog_lang;
     Glib::ustring button_label = (pConfig->codeboxSynHighl != CtConst::PLAIN_TEXT_ID ? pConfig->codeboxSynHighl : pConfig->autoSynHighl);
-    std::string button_stock_id = CtConst::getStockIdForCodeType(button_label);
+    std::string button_stock_id = pCtMainWin->get_code_icon_name(button_label);
     button_prog_lang.set_label(button_label);
     button_prog_lang.set_image(*pCtMainWin->new_image_from_stock(button_stock_id, Gtk::ICON_SIZE_MENU));
     Gtk::RadioButton radiobutton_plain_text(_("Plain Text"));
@@ -1396,7 +1396,7 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
         Glib::RefPtr<CtChooseDialogListStore> rItemStore = CtChooseDialogListStore::create();
         for (const std::string& lang : pCtMainWin->get_language_manager()->get_language_ids())
         {
-            rItemStore->add_row(CtConst::getStockIdForCodeType(lang), "", lang);
+            rItemStore->add_row(pCtMainWin->get_code_icon_name(lang), "", lang);
         }
         Gtk::TreeIter res = CtDialogs::choose_item_dialog(dialog, _("Automatic Syntax Highlighting"), rItemStore);
         if (res)
@@ -1657,7 +1657,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     {
         syntax_hl_id = pCtMainWin->get_ct_config()->autoSynHighl;
     }
-    std::string button_stock_id = CtConst::getStockIdForCodeType(syntax_hl_id);
+    std::string button_stock_id = pCtMainWin->get_code_icon_name(syntax_hl_id);
     button_prog_lang.set_label(syntax_hl_id);
     button_prog_lang.set_image(*pCtMainWin->new_image_from_stock(button_stock_id, Gtk::ICON_SIZE_MENU));
     if (nodeData.syntax == CtConst::RICH_TEXT_ID)
@@ -1714,7 +1714,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
         auto itemStore = CtChooseDialogListStore::create();
         for (auto lang : pCtMainWin->get_language_manager()->get_language_ids())
         {
-            itemStore->add_row(CtConst::getStockIdForCodeType(lang), "", lang);
+            itemStore->add_row(pCtMainWin->get_code_icon_name(lang), "", lang);
         }
         const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog, _("Automatic Syntax Highlighting"), itemStore);
         if (treeIter)
