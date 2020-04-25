@@ -39,29 +39,65 @@ static void _slashes_convert(gchar* pPath)
 }
 #endif // _WIN32
 
-int CtP7zaIface::p7za_extract(const gchar* input_path, const gchar* out_dir, const gchar* passwd, const bool dbg_print_cmd)
+static gchar** vector_to_array(const std::vector<Glib::ustring>& vec)
 {
-    g_autofree gchar* p_args = g_strdup_printf("7za e -p%s -w%s -bd -y -o%s %s", passwd, g_get_tmp_dir(), out_dir, input_path);
+    gchar **array = g_new (gchar *, vec.size()+1);
+    for (size_t i = 0; i < vec.size(); ++i)
+        array[i] = g_strdup(vec[i].c_str());
+    array[vec.size()] = nullptr;
+    return array;
+}
+
+int CtP7zaIface::p7za_extract(const gchar* input_path, const gchar* out_dir, const gchar* passwd)
+{
+    std::vector<Glib::ustring> args {
+                "7za",
+                "e",
+                "-p" + Glib::ustring(passwd),
+                "-w" + Glib::ustring(g_get_tmp_dir()),
+                "-bd",   // Disable progress indicator
+                "-bso0", // Disable standard output, error output is turn on
+                "-bsp0", // Disable progress output
+                "-y",
+                "-o" + Glib::ustring(out_dir),
+                input_path
+    };
+    gchar** pp_args = vector_to_array(args);
+
 #ifdef _WIN32
-    _slashes_convert(p_args);
+    for (int i = 0; i < (int)args.size(); ++i)
+        _slashes_convert(args[i]);
 #endif // _WIN32
-    if (dbg_print_cmd) g_print("\n%s\n", p_args);
-    gchar** pp_args = g_strsplit(p_args, " ", 0);
-    int ret_val = p7za_exec(8, pp_args);
+
+    int ret_val = p7za_exec((int)args.size(), pp_args);
     g_strfreev(pp_args);
     return ret_val;
 }
 
-int CtP7zaIface::p7za_archive(const gchar* input_path, const gchar* output_path, const gchar* passwd, const bool dbg_print_cmd)
+int CtP7zaIface::p7za_archive(const gchar* input_path, const gchar* output_path, const gchar* passwd)
 {
     g_autofree gchar* p_workspace_dir = g_path_get_dirname(output_path);
-    g_autofree gchar* p_args = g_strdup_printf("7za a -p%s -w%s -mx1 -bd -y %s %s", passwd, p_workspace_dir, output_path, input_path);
+    std::vector<Glib::ustring> args {
+                "7za",
+                "a",
+                "-p" + Glib::ustring(passwd),
+                "-w" + Glib::ustring(p_workspace_dir),
+                "-mx1",
+                "-bd",   // Disable progress indicator
+                "-bso0", // Disable standard output, error output is turn on
+                "-bsp0", // Disable progress output
+                "-y",
+                output_path,
+                input_path
+    };
+    gchar** pp_args = vector_to_array(args);
+
 #ifdef _WIN32
-    _slashes_convert(p_args);
+    for (int i = 0; i < (int)args.size(); ++i)
+        _slashes_convert(args[i]);
 #endif // _WIN32
-    if (dbg_print_cmd) g_print("\n%s\n", p_args);
-    gchar** pp_args = g_strsplit(p_args, " ", 0);
-    int ret_val = p7za_exec(9, pp_args);
+
+    int ret_val = p7za_exec(args.size(), pp_args);
     g_strfreev(pp_args);
     return ret_val;
 }

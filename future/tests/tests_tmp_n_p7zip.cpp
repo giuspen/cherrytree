@@ -67,7 +67,7 @@ TEST(TmpP7zipGroup, P7zaIfaceMisc)
 {
     // extract our test archive
     CtTmp ctTmp;
-    CHECK_EQUAL(0, CtP7zaIface::p7za_extract(ctzInputPath.c_str(), ctTmp.getHiddenDirPath(ctzInputPath), testPassword, true/*dbg_print_cmd*/));
+    CHECK_EQUAL(0, CtP7zaIface::p7za_extract(ctzInputPath.c_str(), ctTmp.getHiddenDirPath(ctzInputPath), testPassword));
     CHECK(Glib::file_test(ctTmp.getHiddenFilePath(ctzInputPath), Glib::FILE_TEST_EXISTS));
 
     // read and parse xml of extracted archive
@@ -82,7 +82,7 @@ TEST(TmpP7zipGroup, P7zaIfaceMisc)
 
     // try and archive again the extracted xml
     const std::string ctzTmpPathBis{Glib::build_filename(ctTmp.getHiddenDirPath(ctzInputPath), "7zr2.ctz")};
-    CHECK_EQUAL(0, CtP7zaIface::p7za_archive(ctTmp.getHiddenFilePath(ctzInputPath), ctzTmpPathBis.c_str(), testPasswordBis, true/*dbg_print_cmd*/));
+    CHECK_EQUAL(0, CtP7zaIface::p7za_archive(ctTmp.getHiddenFilePath(ctzInputPath), ctzTmpPathBis.c_str(), testPasswordBis));
 
     CHECK(Glib::file_test(ctzTmpPathBis, Glib::FILE_TEST_EXISTS));
 
@@ -91,7 +91,7 @@ TEST(TmpP7zipGroup, P7zaIfaceMisc)
     CHECK_FALSE(Glib::file_test(ctTmp.getHiddenFilePath(ctzInputPath), Glib::FILE_TEST_EXISTS));
 
     // extract again from the archive that we created
-    CHECK_EQUAL(0, CtP7zaIface::p7za_extract(ctzTmpPathBis.c_str(), ctTmp.getHiddenDirPath(ctzInputPath), testPasswordBis, true/*dbg_print_cmd*/));
+    CHECK_EQUAL(0, CtP7zaIface::p7za_extract(ctzTmpPathBis.c_str(), ctTmp.getHiddenDirPath(ctzInputPath), testPasswordBis));
     CHECK(Glib::file_test(ctTmp.getHiddenFilePath(ctzInputPath), Glib::FILE_TEST_EXISTS));
     std::string xml_txt_bis = Glib::file_get_contents(ctTmp.getHiddenFilePath(ctzInputPath));
     STRCMP_EQUAL(xml_txt.c_str(), xml_txt_bis.c_str());
@@ -113,10 +113,10 @@ TEST(TmpP7zipGroup, P7zaExtravtWrongPasswd)
     const std::string ctdTmpPath{Glib::build_filename(ctTmp.getHiddenDirPath(ctzInputPath), "7zr.ctd")};
 
     // wrong password
-    CHECK(0 != CtP7zaIface::p7za_extract(ctzInputPath.c_str(), ctTmp.getHiddenDirPath(ctzInputPath), "wrongpassword", true/*dbg_print_cmd*/));
+    CHECK(0 != CtP7zaIface::p7za_extract(ctzInputPath.c_str(), ctTmp.getHiddenDirPath(ctzInputPath), "wrongpassword"));
     CHECK_FALSE(Glib::file_test(ctdTmpPath, Glib::FILE_TEST_EXISTS));
 
     // correct password
-    CHECK_EQUAL(0, CtP7zaIface::p7za_extract(ctzInputPath.c_str(), ctTmp.getHiddenDirPath(ctzInputPath), testPassword, true/*dbg_print_cmd*/));
+    CHECK_EQUAL(0, CtP7zaIface::p7za_extract(ctzInputPath.c_str(), ctTmp.getHiddenDirPath(ctzInputPath), testPassword));
     CHECK_TRUE(Glib::file_test(ctdTmpPath, Glib::FILE_TEST_EXISTS));
 }
