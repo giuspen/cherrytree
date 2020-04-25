@@ -374,7 +374,7 @@ void CtConfig::_populate_data_from_keyfile()
         CtRecentDocRestore recentDocRestore;
         if (_populate_string_from_keyfile("node_path", &recentDocRestore.node_path))
         {
-            str::replace(recentDocRestore.node_path, " ", ":");
+            recentDocRestore.node_path = str::replace(recentDocRestore.node_path, " ", ":");
             _populate_int_from_keyfile("cursor_position", &recentDocRestore.cursor_pos);
             recentDocsRestore[recentDocsFilepaths.front()] = recentDocRestore;
         }
@@ -423,7 +423,7 @@ void CtConfig::_populate_data_from_keyfile()
                         snprintf(_tempKey, _maxTempKeySize, "expcollsel%d", i);
                         if (_populate_string_from_keyfile(_tempKey, &recentDocRestore.node_path))
                         {
-                            str::replace(recentDocRestore.node_path, " ", ":");
+                            recentDocRestore.node_path = str::replace(recentDocRestore.node_path, " ", ":");
                             snprintf(_tempKey, _maxTempKeySize, "expcollcur%d", i);
                             _populate_int_from_keyfile(_tempKey, &recentDocRestore.cursor_pos);
                         }

@@ -1982,11 +1982,10 @@ std::string CtDialogs::dialog_pallete(CtMainWin* pCtMainWin)
     {
         if (action.category.empty()) continue;
         auto& iter = *list_store->append();
-        Glib::ustring label = action.name;
         iter[columns.order] = ++order_cnt;
         iter[columns.id] = action.id;
         iter[columns.path] = action.category;
-        iter[columns.label] = str::replace(label, "_", "");
+        iter[columns.label] = str::replace(action.name, "_", "");
         iter[columns.accelerator] = action.get_shortcut(pCtMainWin->get_ct_config());
     }
 

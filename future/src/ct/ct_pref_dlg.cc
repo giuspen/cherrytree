@@ -225,7 +225,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
 
     textview_special_chars->get_buffer()->signal_changed().connect([this, pConfig, textview_special_chars](){
         Glib::ustring new_special_chars = textview_special_chars->get_buffer()->get_text();
-        str::replace(new_special_chars, CtConst::CHAR_NEWLINE, "");
+        new_special_chars = str::replace(new_special_chars, CtConst::CHAR_NEWLINE, "");
         if (pConfig->specialChars != new_special_chars)
         {
             pConfig->specialChars = new_special_chars;
@@ -1667,7 +1667,7 @@ bool CtPrefDlg::edit_shortcut(Gtk::TreeView* treeview)
                 if (action.get_shortcut(_pCtMainWin->get_ct_config()) == shortcut && action.id != id) {
                     // todo: this is a shorter version from python code
                     std::string message = "<b>" + str::format(_("The Keyboard Shortcut '%s' is already in use"), CtStrUtil::get_accelerator_label(shortcut)) + "</b>\n\n";
-                    message += str::format(_("The current associated action is '%s'"), action.name) + "\n\n";
+                    message += str::format(_("The current associated action is '%s'"), str::replace(action.name, "_", "")) + "\n\n";
                     message += "<b>" + std::string(_("Do you want to steal the shortcut?")) + "</b>";
                     if (!CtDialogs::question_dialog(message, *this))
                         return false;
@@ -1683,9 +1683,9 @@ bool CtPrefDlg::edit_shortcut(Gtk::TreeView* treeview)
 bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut)
 {
     std::string kb_shortcut_key = shortcut;
-    str::replace(kb_shortcut_key, _pCtMenu->KB_CONTROL.c_str(), "");
-    str::replace(kb_shortcut_key, _pCtMenu->KB_SHIFT.c_str(), "");
-    str::replace(kb_shortcut_key, _pCtMenu->KB_ALT.c_str(), "");
+    kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_CONTROL.c_str(), "");
+    kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_SHIFT.c_str(), "");
+    kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_ALT.c_str(), "");
 
     Gtk::Dialog dialog(_("Edit Keyboard Shortcut"), *this, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);

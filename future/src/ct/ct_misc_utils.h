@@ -189,15 +189,16 @@ int byte_pos_to_symb_pos(const Glib::ustring& text, int byte_pos);
 Glib::ustring swapcase(const Glib::ustring& text);
 
 template<class String>
-String replace(String& subjectStr, const Glib::ustring& searchStr, const Glib::ustring& replaceStr)
+std::string replace(const /* const: func doens't change the source! */ String& subjectStr, const std::string& searchStr, const std::string& replaceStr)
 {
+    Glib::ustring text = subjectStr; // Glib::ustring works with unicode
     size_t pos = 0;
-    while ((pos = subjectStr.find(searchStr, pos)) != std::string::npos)
+    while ((pos = text.find(searchStr, pos)) != std::string::npos)
     {
-        subjectStr.replace(pos, searchStr.size(), replaceStr);
+        text.replace(pos, searchStr.size(), replaceStr);
         pos += replaceStr.size();
     }
-    return subjectStr;
+    return text;
 }
 
 template<class String>
