@@ -90,6 +90,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     Gtk::HBox* hbox_wrapping_indent = Gtk::manage(new Gtk::HBox());
     hbox_wrapping_indent->set_spacing(4);
     Gtk::Label* label_wrapping_indent = Gtk::manage(new Gtk::Label(_("Line Wrapping Indentation")));
+    gtk_label_set_xalign(label_wrapping_indent->gobj(), 0.0);
     Glib::RefPtr<Gtk::Adjustment> adj_wrapping_indent = Gtk::Adjustment::create(pConfig->wrappingIndent, -10000, 10000, 1);
     Gtk::SpinButton* spinbutton_wrapping_indent = Gtk::manage(new Gtk::SpinButton(adj_wrapping_indent));
     spinbutton_wrapping_indent->set_value(pConfig->wrappingIndent);
@@ -102,6 +103,8 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     Gtk::HBox* hbox_space_around_lines = Gtk::manage(new Gtk::HBox());
     hbox_space_around_lines->set_spacing(4);
     Gtk::Label* label_space_around_lines = Gtk::manage(new Gtk::Label(_("Vertical Space Around Lines")));
+    label_space_around_lines->set_halign(Gtk::Align::ALIGN_START);
+    gtk_label_set_xalign(label_space_around_lines->gobj(), 0.0);
     Glib::RefPtr<Gtk::Adjustment> adj_space_around_lines = Gtk::Adjustment::create(pConfig->spaceAroundLines, -0, 255, 1);
     Gtk::SpinButton* spinbutton_space_around_lines = Gtk::manage(new Gtk::SpinButton(adj_space_around_lines));
     spinbutton_space_around_lines->set_value(pConfig->spaceAroundLines);
@@ -116,6 +119,12 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     hbox_relative_wrapped_space->pack_start(*label_relative_wrapped_space, false, false);
     hbox_relative_wrapped_space->pack_start(*spinbutton_relative_wrapped_space, false, false);
     hbox_relative_wrapped_space->pack_start(*Gtk::manage(new Gtk::Label("%")), false, false);
+
+    auto size_group_1 = Gtk::SizeGroup::create(Gtk::SizeGroupMode::SIZE_GROUP_HORIZONTAL);
+    size_group_1->add_widget(*label_wrapping_indent);
+    size_group_1->add_widget(*label_space_around_lines);
+    size_group_1->add_widget(*label_relative_wrapped_space);
+
 
     Gtk::VBox* vbox_text_editor = Gtk::manage(new Gtk::VBox());
     vbox_text_editor->pack_start(*hbox_tab_width, false, false);
@@ -137,6 +146,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     Gtk::HBox* hbox_timestamp = Gtk::manage(new Gtk::HBox());
     hbox_timestamp->set_spacing(4);
     Gtk::Label* label_timestamp = Gtk::manage(new Gtk::Label(_("Timestamp Format")));
+    gtk_label_set_xalign(label_space_around_lines->gobj(), 0.0);
     Gtk::Entry* entry_timestamp_format = Gtk::manage(new Gtk::Entry());
     entry_timestamp_format->set_text(pConfig->timestampFormat);
     Gtk::Button* button_strftime_help = Gtk::manage(new Gtk::Button());
@@ -147,10 +157,16 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     Gtk::HBox* hbox_horizontal_rule = Gtk::manage(new Gtk::HBox());
     hbox_horizontal_rule->set_spacing(4);
     Gtk::Label* label_horizontal_rule = Gtk::manage(new Gtk::Label(_("Horizontal Rule")));
+    gtk_label_set_xalign(label_horizontal_rule->gobj(), 0.0);
     Gtk::Entry* entry_horizontal_rule = Gtk::manage(new Gtk::Entry());
     entry_horizontal_rule->set_text(pConfig->hRule);
     hbox_horizontal_rule->pack_start(*label_horizontal_rule, false, false);
     hbox_horizontal_rule->pack_start(*entry_horizontal_rule);
+
+    auto size_group_2 = Gtk::SizeGroup::create(Gtk::SizeGroupMode::SIZE_GROUP_HORIZONTAL);
+    size_group_2->add_widget(*label_timestamp);
+    size_group_2->add_widget(*label_horizontal_rule);
+
     Gtk::HBox* hbox_special_chars = Gtk::manage(new Gtk::HBox());
     hbox_special_chars->set_spacing(4);
     Gtk::VBox* vbox_special_chars = Gtk::manage(new Gtk::VBox());
@@ -358,6 +374,10 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     hbox_monospace_bg->set_spacing(4);
     hbox_monospace_bg->pack_start(*checkbutton_monospace_bg, false, false);
     hbox_monospace_bg->pack_start(*colorbutton_monospace_bg, false, false);
+
+    auto size_group_1 = Gtk::SizeGroup::create(Gtk::SizeGroupMode::SIZE_GROUP_HORIZONTAL);
+    size_group_1->add_widget(*radiobutton_rt_col_custom);
+    size_group_1->add_widget(*checkbutton_monospace_bg);
 
     vbox_rt_theme->pack_start(*radiobutton_rt_col_light, false, false);
     vbox_rt_theme->pack_start(*radiobutton_rt_col_dark, false, false);
