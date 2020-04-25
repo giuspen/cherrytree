@@ -133,6 +133,8 @@ int natural_compare(const Glib::ustring& left, const Glib::ustring& right);
 // are highlighted using Pango markup
 Glib::ustring highlight_words(const Glib::ustring& text, std::vector<Glib::ustring> words, const Glib::ustring& markup_tag = "b");
 
+Glib::ustring get_accelerator_label(const std::string& accelerator);
+
 } // namespace CtStrUtil
 
 namespace CtFontUtil {

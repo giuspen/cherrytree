@@ -1241,8 +1241,17 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
     treeview->set_reorderable(true);
     treeview->set_size_request(300, 300);
     treeview->set_reorderable(false);
+
+    auto shortcut_cell_renderer = Gtk::manage(new Gtk::CellRendererText());
+    shortcut_cell_renderer->property_xalign() = 1;
+    auto shortcut_column = Gtk::manage(new Gtk::TreeViewColumn());
+    shortcut_column->pack_start(*shortcut_cell_renderer, true);
+    shortcut_column->set_cell_data_func(*shortcut_cell_renderer, [&](Gtk::CellRenderer* cell, const Gtk::TreeIter& iter){
+        ((Gtk::CellRendererText*)cell)->property_markup() = "  " + str::xml_escape(CtStrUtil::get_accelerator_label(iter->get_value(_shortcutModelColumns.shortcut))) + "  ";
+    });
+
     treeview->append_column("", _shortcutModelColumns.icon);
-    treeview->append_column("", _shortcutModelColumns.shortcut);
+    treeview->append_column(*shortcut_column);
     treeview->append_column("", _shortcutModelColumns.desc);
     treeview->expand_all();
     Gtk::ScrolledWindow* scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow());

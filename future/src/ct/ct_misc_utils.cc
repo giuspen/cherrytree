@@ -596,6 +596,15 @@ Glib::ustring CtStrUtil::highlight_words(const Glib::ustring& text, std::vector<
     return builder;
 }
 
+Glib::ustring CtStrUtil::get_accelerator_label(const std::string& accelerator)
+{
+    guint key;
+    GdkModifierType mod;
+    gtk_accelerator_parse(accelerator.c_str(), &key, &mod);
+    g_autofree gchar* label = gtk_accelerator_get_label(key, mod);
+    return Glib::ustring(label);
+}
+
 std::string CtFontUtil::get_font_family(const std::string& fontStr)
 {
     return Pango::FontDescription(fontStr).get_family();

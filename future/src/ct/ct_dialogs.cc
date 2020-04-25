@@ -633,7 +633,7 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
         pAllMatchesDialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
     }
     CtMenuAction* pAction = ctMainWin.get_ct_menu().find_action("toggle_show_allmatches_dlg");
-    Gtk::Button* pButtonHide = pAllMatchesDialog->add_button(str::format(_("Hide (Restore with '%s')"), pAction->get_shortcut(ctMainWin.get_ct_config())), Gtk::RESPONSE_CLOSE);
+    Gtk::Button* pButtonHide = pAllMatchesDialog->add_button(str::format(_("Hide (Restore with '%s')"), CtStrUtil::get_accelerator_label(pAction->get_shortcut(ctMainWin.get_ct_config()))), Gtk::RESPONSE_CLOSE);
     pButtonHide->set_image_from_icon_name(Gtk::Stock::CLOSE.id, Gtk::ICON_SIZE_BUTTON);
     Gtk::TreeView* pTreeview = Gtk::manage(new Gtk::TreeView(rModel));
     pTreeview->append_column(_("Node Name"), rModel->columns.node_name);
@@ -2019,11 +2019,7 @@ std::string CtDialogs::dialog_pallete(CtMainWin* pCtMainWin)
             return CtStrUtil::highlight_words(iter->get_value(columns.label), filter_words);
         }, false, nullptr, 1.4);
         append_column([&](const Gtk::TreeIter& iter) -> Glib::ustring {
-            guint key;
-            GdkModifierType mod;
-            gtk_accelerator_parse(iter->get_value(columns.accelerator).c_str(), &key, &mod);
-            g_autofree gchar* label = gtk_accelerator_get_label(key, mod);
-            return "  " + str::xml_escape(label) + "  ";
+            return "  " + str::xml_escape(CtStrUtil::get_accelerator_label(iter->get_value(columns.accelerator))) + "  ";
         }, true, &selection_color);
     });
 
