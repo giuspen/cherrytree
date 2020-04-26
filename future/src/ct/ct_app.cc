@@ -1,7 +1,9 @@
 /*
  * ct_app.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,14 +33,14 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
 
     Glib::ustring config_dir = Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME);
     if (g_mkdir_with_parents (config_dir.c_str(), 0755) < 0)
-        g_warning(("Could not create config directory: " + config_dir + "\n").c_str());
+        g_warning("Could not create config directory: %s", config_dir.c_str());
 
     _uCtCfg.reset(new CtConfig());
     //std::cout << _uCtCfg->specialChars.size() << "\t" << _uCtCfg->specialChars << std::endl;
 
     _rIcontheme = Gtk::IconTheme::get_default();
     _rIcontheme->add_resource_path("/icons/");
-    //_printGresourceIcons();
+    //_print_gresource_icons();
 
     _uCtTmp.reset(new CtTmp());
     //std::cout << _uCtTmp->get_root_dirpath() << std::endl;
@@ -69,6 +71,9 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
         systrayMenu->show_all();
         systrayMenu->popup(button, activate_time);
     });
+
+    _add_main_option_entries();
+    signal_handle_local_options().connect(sigc::mem_fun(*this, &CtApp::_on_handle_local_options), false);
 }
 
 CtApp::~CtApp()
@@ -94,12 +99,12 @@ void CtApp::on_activate()
             {
                 if (not pAppWindow->file_open(r_file->get_path()))
                 {
-                    _printHelpMessage();
+                    g_warning("Couldn't open file: %s", r_file->get_path().c_str());
                 }
             }
             else
             {
-                std::cout << "? not found " << CtApp::_uCtCfg->recentDocsFilepaths.front() << std::endl;
+                g_message("Last doc not found: %s", CtApp::_uCtCfg->recentDocsFilepaths.front().c_str());
                 CtApp::_uCtCfg->recentDocsFilepaths.move_or_push_back(CtApp::_uCtCfg->recentDocsFilepaths.front());
                 pAppWindow->menu_set_items_recent_documents();
             }
@@ -124,15 +129,14 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
                 pAppWindow = _create_window();
                 if (not pAppWindow->file_open(r_file->get_path()))
                 {
-                    _printHelpMessage();
+                    g_warning("Couldn't open file: %s", r_file->get_path().c_str());
                 }
             }
             pAppWindow->present();
         }
         else
         {
-            std::cout << "!! Missing file " << r_file->get_path() << std::endl;
-            _printHelpMessage();
+            g_warning("Missing file: %s", r_file->get_path().c_str());
         }
     }
 }
@@ -170,10 +174,17 @@ CtMainWin* CtApp::_create_window()
                 callback(pCtMainWin);
     });
 
-
-    pCtMainWin->signal_app_quit_or_hide_window.connect([&](CtMainWin* win) { _quit_or_hide_window(win, false); });
-    pCtMainWin->signal_delete_event().connect([this, pCtMainWin](GdkEventAny*) { bool good = _quit_or_hide_window(pCtMainWin, true); return !good; });
-    pCtMainWin->signal_app_quit_window.connect([&](CtMainWin* win) { win->force_exit() = true; _quit_or_hide_window(win, false); });
+    pCtMainWin->signal_app_quit_or_hide_window.connect([&](CtMainWin* win) {
+        _quit_or_hide_window(win, false);
+    });
+    pCtMainWin->signal_delete_event().connect([this, pCtMainWin](GdkEventAny*) {
+        bool good = _quit_or_hide_window(pCtMainWin, true);
+        return !good;
+    });
+    pCtMainWin->signal_app_quit_window.connect([&](CtMainWin* win) {
+        win->force_exit() = true;
+        _quit_or_hide_window(win, false);
+    });
 
     return pCtMainWin;
 }
@@ -242,24 +253,42 @@ void CtApp::_systray_show_hide_windows()
 void CtApp::_systray_close_all()
 {
     for (Gtk::Window* pWin : get_windows())
-       if (CtMainWin* win = dynamic_cast<CtMainWin*>(pWin))
-       {
-           win->force_exit() = true;
-           if (!_quit_or_hide_window(win, false))
-               break;
-       }
+        if (CtMainWin* win = dynamic_cast<CtMainWin*>(pWin))
+        {
+            win->force_exit() = true;
+            if (!_quit_or_hide_window(win, false))
+                break;
+        }
 }
 
 
-void CtApp::_printHelpMessage()
+void CtApp::_add_main_option_entries()
 {
-    std::cout << "Usage: " << GETTEXT_PACKAGE << " [filepath.ctd|.ctb|.ctz|.ctx]" << std::endl;
+    add_main_option_entry(Gio::Application::OPTION_TYPE_STRING,
+        "node", 'n', _("Node name to focus"), _("Node name to focus"));
+    add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME,
+        "export_to_html_dir", 'x', _("Export to HTML directory"), _("Export to HTML at specified directory path"));
+    add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME,
+        "export_to_txt_dir", 't', _("Export to Text directory"), _("Export to Text at specified directory path"));
+    add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME,
+        "export_to_pdf_file", 'p', _("Export to PDF file"), _("Export to PDF at specified file path"));
+    add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,
+        "export_overwrite", 'w', _("Overwrite existing export"), _("Overwrite if export path already exists"));
 }
 
-void CtApp::_printGresourceIcons()
+void CtApp::_print_gresource_icons()
 {
     for (const std::string& str_icon : Gio::Resource::enumerate_children_global("/icons/", Gio::ResourceLookupFlags::RESOURCE_LOOKUP_FLAGS_NONE))
     {
         std::cout << str_icon << std::endl;
     }
+}
+
+int CtApp::_on_handle_local_options(const Glib::RefPtr<Glib::VariantDict>& rOptions)
+{
+    Glib::ustring node_name;
+    if (rOptions->lookup_value("node", node_name)) {
+        g_print("cmd line opt: -n %s\n", node_name.c_str());
+    }
+    return -1;
 }

@@ -1,7 +1,9 @@
 /*
  * ct_app.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -60,15 +62,14 @@ protected:
     void on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint) override;
     void on_window_removed(Gtk::Window* window) override;
 
-    void _printHelpMessage();
-    void _printGresourceIcons();
-
-public:
+    void _add_main_option_entries();
+    void _print_gresource_icons();
 
 private:
     CtMainWin*  _create_window();
     CtMainWin*  _get_window_by_path(const std::string& filepath);
     bool        _quit_or_hide_window(CtMainWin* pCtMainWin, bool from_delete);
+    int         _on_handle_local_options(const Glib::RefPtr<Glib::VariantDict>& rOptions);
 
     void _systray_show_hide_windows();
     void _systray_close_all();
