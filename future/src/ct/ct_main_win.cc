@@ -28,6 +28,7 @@
 #include "ct_storage_control.h"
 #include "ct_storage_xml.h"
 #include "ct_list.h"
+#include "ct_export2txt.h"
 #include <glib-object.h>
 
 CtMainWin::CtMainWin(CtConfig*        pCtConfig,
@@ -449,7 +450,7 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
     _uCtTreeview->show();
 
     _uCtTreestore.reset(new CtTreeStore(this));
-    _uCtTreestore->textview_connect(_uCtTreeview.get());
+    _uCtTreestore->tree_view_connect(_uCtTreeview.get());
 
     _uCtTreeview->signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_cursor_changed));
     _uCtTreeview->signal_button_release_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_button_release_event));
@@ -1115,10 +1116,42 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     update_window_save_needed(CtSaveNeededUpdType::nbuf, false, &tree_iter);
 }
 
+// Switch TextBuffer -> SourceBuffer or SourceBuffer -> TextBuffer
+void CtMainWin::switch_buffer_text_source(Glib::RefPtr<Gsv::Buffer> text_buffer, CtTreeIter tree_iter, const std::string& new_syntax, const std::string& old_syntax)
+{
+    if (new_syntax == old_syntax)
+        return;
+
+    bool user_active_restore = user_active();
+    user_active() = false;
+
+    bool rich_to_non_rich = false;
+    Glib::ustring node_text;
+    if (old_syntax == CtConst::RICH_TEXT_ID)
+    {
+        rich_to_non_rich = true;
+        node_text = CtExport2Txt(this).node_export_to_txt(tree_iter, "", {0}, -1, -1);
+    }
+    else
+    {
+        rich_to_non_rich = false;
+        node_text = text_buffer->get_text();
+    }
+
+    auto new_buffer = get_new_text_buffer(new_syntax, node_text);
+    tree_iter.set_node_text_buffer(new_buffer, new_syntax);
+    _uCtTreestore->text_view_apply_textbuffer(tree_iter, &_ctTextview);
+
+    user_active() = user_active_restore;
+}
+
 void CtMainWin::_on_treeview_cursor_changed()
 {
     if (_prevTreeIter)
     {
+        if (_prevTreeIter.get_node_id() == curr_tree_iter().get_node_id())
+            return;
+
         Glib::RefPtr<Gsv::Buffer> rTextBuffer = _prevTreeIter.get_node_text_buffer();
         if (rTextBuffer->get_modified())
         {
@@ -1128,7 +1161,7 @@ void CtMainWin::_on_treeview_cursor_changed()
         }
     }
     CtTreeIter treeIter = curr_tree_iter();
-    _uCtTreestore->textview_apply_textbuffer(treeIter, &_ctTextview);
+    _uCtTreestore->text_view_apply_textbuffer(treeIter, &_ctTextview);
 
     menu_update_bookmark_menu_item(_uCtTreestore->is_node_bookmarked(treeIter.get_node_id()));
     window_header_update();

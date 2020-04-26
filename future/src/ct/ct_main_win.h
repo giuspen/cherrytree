@@ -101,6 +101,7 @@ public:
                                    const bool new_machine_state = false,
                                    const CtTreeIter* give_tree_iter = nullptr);
     void load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTreeIter tree_iter);
+    void switch_buffer_text_source(Glib::RefPtr<Gsv::Buffer> text_buffer, CtTreeIter tree_iter, const std::string& new_syntax, const std::string& old_syntax);
     void update_window_save_not_needed();
     bool get_file_save_needed();
 

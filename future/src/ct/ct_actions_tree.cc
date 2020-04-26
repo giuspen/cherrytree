@@ -241,33 +241,33 @@ void CtActions::node_edit()
         return;
 
     _pCtMainWin->get_ct_config()->syntaxHighlighting = newData.syntax;
-    if (nodeData.syntax !=  newData.syntax) {
-        if (nodeData.syntax == CtConst::RICH_TEXT_ID) {
-            // leaving rich text
-            if (!CtDialogs::question_dialog(_("Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"), *_pCtMainWin)) {
+
+    // leaving rich text
+    if (nodeData.syntax != newData.syntax)
+        if (nodeData.syntax == CtConst::RICH_TEXT_ID)
+            if (!CtDialogs::question_dialog(_("Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"), *_pCtMainWin))
                 return;
-            }
-            // todo:
-            // SWITCH TextBuffer -> SourceBuffer
-            //self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting, self.treestore[self.curr_tree_iter][4])
-            //self.curr_buffer = self.treestore[self.curr_tree_iter][2]
+
+    // update node info, because we might need to delete widgets later
+    _pCtMainWin->get_tree_store().update_node_data(_pCtMainWin->curr_tree_iter(), newData);
+
+    if (nodeData.syntax != newData.syntax)
+    {
+        // if from/to RICH , change buffer
+        if (nodeData.syntax == CtConst::RICH_TEXT_ID || newData.syntax == CtConst::RICH_TEXT_ID)
+            _pCtMainWin->switch_buffer_text_source(_pCtMainWin->curr_tree_iter().get_node_text_buffer(), _pCtMainWin->curr_tree_iter(), newData.syntax, nodeData.syntax);
+        else {
+            // todo: improve code by only changing syntax of buffer and text_view
+            _pCtMainWin->switch_buffer_text_source(_pCtMainWin->curr_tree_iter().get_node_text_buffer(), _pCtMainWin->curr_tree_iter(), newData.syntax, nodeData.syntax);
+        }
+
+        // from RICH to text
+        if (nodeData.syntax == CtConst::RICH_TEXT_ID) {
             _pCtMainWin->get_state_machine().delete_states(_pCtMainWin->curr_tree_iter().get_node_id());
-        } else if (newData.syntax == CtConst::RICH_TEXT_ID) {
-            // going to rich text
-            // SWITCH SourceBuffer -> TextBuffer
-            //self.switch_buffer_text_source(self.curr_buffer, self.curr_tree_iter, self.syntax_highlighting, self.treestore[self.curr_tree_iter][4])
-            //self.curr_buffer = self.treestore[self.curr_tree_iter][2]
-        } else if (nodeData.syntax == CtConst::PLAIN_TEXT_ID) {
-            // plain text to code
-            //self.sourceview.modify_font(pango.FontDescription(self.code_font))
-        } else if (newData.syntax == CtConst::PLAIN_TEXT_ID) {
-            // code to plain text
-            // self.sourceview.modify_font(pango.FontDescription(self.pt_font))
+            _pCtMainWin->get_state_machine().update_state(_pCtMainWin->curr_tree_iter());
         }
     }
-    _pCtMainWin->get_tree_store().update_node_data(_pCtMainWin->curr_tree_iter(), newData);
-    //todo: if self.syntax_highlighting not in [cons.RICH_TEXT_ID, cons.PLAIN_TEXT_ID]:
-    //  self.set_sourcebuffer_syntax_highlight(self.curr_buffer, self.syntax_highlighting)
+
     _pCtMainWin->get_text_view().set_editable(!newData.isRO);
     _pCtMainWin->update_selected_node_statusbar_info();
     _pCtMainWin->get_tree_store().update_node_aux_icon(_pCtMainWin->curr_tree_iter());

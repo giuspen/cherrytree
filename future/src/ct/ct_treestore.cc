@@ -148,6 +148,15 @@ void CtTreeIter::set_node_sequence(gint64 num)
     (*this)->set_value(_pColumns->colNodeSequence, num);
 }
 
+
+void CtTreeIter::set_node_text_buffer(Glib::RefPtr<Gsv::Buffer> new_buffer, const std::string& new_syntax_hilighting)
+{
+    remove_all_embedded_widgets();
+    (*this)->set_value(_pColumns->rColTextBuffer, new_buffer);
+    (*this)->set_value(_pColumns->colSyntaxHighlighting, new_syntax_hilighting);
+    pending_edit_db_node_buff();
+}
+
 Glib::RefPtr<Gsv::Buffer> CtTreeIter::get_node_text_buffer() const
 {
     Glib::RefPtr<Gsv::Buffer> rRetTextBuffer{nullptr};
@@ -381,7 +390,7 @@ void CtTreeStore::treeview_set_tree_expanded_collapsed_string(const std::string&
     );
 }
 
-void CtTreeStore::textview_connect(Gtk::TreeView* pTreeView)
+void CtTreeStore::tree_view_connect(Gtk::TreeView* pTreeView)
 {
     pTreeView->set_model(_rTreeStore);
 
@@ -416,7 +425,7 @@ void CtTreeStore::textview_connect(Gtk::TreeView* pTreeView)
     }
 }
 
-void CtTreeStore::textview_apply_textbuffer(const CtTreeIter& treeIter, CtTextView* pTextView)
+void CtTreeStore::text_view_apply_textbuffer(const CtTreeIter& treeIter, CtTextView* pTextView)
 {
     if (not static_cast<bool>(treeIter))
     {
@@ -554,16 +563,15 @@ void CtTreeStore::update_node_data(const Gtk::TreeIter& treeIter, const CtNodeDa
     row[_columns.rColTextBuffer] = nodeData.rTextBuffer;
     row[_columns.colNodeUniqueId] = nodeData.nodeId;
     row[_columns.colSyntaxHighlighting] = nodeData.syntax;
-    //row[_columns.colNodeSequence] = ;
+    //row[_columns.colNodeSequence] = ; // either not changed or updated somewhere
     row[_columns.colNodeTags] = nodeData.tags;
     row[_columns.colNodeRO] = nodeData.isRO;
-    //row[_columns.rColPixbufAux] = ;
+    //row[_columns.rColPixbufAux] = ;  // will be updated by update_node_aux_icon
     row[_columns.colCustomIconId] = (guint16)nodeData.customIconId;
     row[_columns.colWeight] = CtTreeIter::get_pango_weight_from_is_bold(nodeData.isBold);
     row[_columns.colForeground] = nodeData.foregroundRgb24;
     row[_columns.colTsCreation] = nodeData.tsCreation;
     row[_columns.colTsLastSave] = nodeData.tsLastSave;
-    // todo: should widgets be deleted?
     row[_columns.colAnchoredWidgets] = nodeData.anchoredWidgets;
 
     update_node_aux_icon(treeIter);

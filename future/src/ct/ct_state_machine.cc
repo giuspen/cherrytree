@@ -292,7 +292,7 @@ void CtStateMachine::update_state(CtTreeIter tree_iter)
         return;
     gint64 node_id = tree_iter.get_node_id();
     auto& node_states = _node_states[node_id];
-    if (!curr_index_is_last_index(node_id))
+    if (!node_states.states.empty() && !curr_index_is_last_index(node_id))
     {
         node_states.states.erase(node_states.states.begin() + node_states.index + 1, node_states.states.end());
     }
