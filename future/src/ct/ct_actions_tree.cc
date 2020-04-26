@@ -277,6 +277,49 @@ void CtActions::node_edit()
     _pCtMainWin->get_text_view().grab_focus();
 }
 
+// Change the Selected Node's Children Syntax Highlighting to the Parent's Syntax Highlighting
+void CtActions::node_inherit_syntax()
+{
+    if (not _is_there_selected_node_or_error()) return;
+
+    const std::string& new_syntax = _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting();
+    std::function<void(Gtk::TreeIter)> iterate_childs;
+    iterate_childs = [&](Gtk::TreeIter parent){
+        for (auto child: parent->children())
+        {
+            CtTreeIter iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(child);
+            std::string node_syntax = iter.get_node_syntax_highlighting();
+            if (!iter.get_node_read_only() && node_syntax != new_syntax)
+            {
+                // if from/to RICH , change buffer
+                if (node_syntax == CtConst::RICH_TEXT_ID || new_syntax == CtConst::RICH_TEXT_ID)
+                    _pCtMainWin->switch_buffer_text_source(iter.get_node_text_buffer(), iter, new_syntax, node_syntax);
+                else {
+                    // todo: improve code by only changing syntax of buffer and text_view
+                    _pCtMainWin->switch_buffer_text_source(iter.get_node_text_buffer(), iter, new_syntax, node_syntax);
+                }
+
+                // from RICH to text
+                if (node_syntax == CtConst::RICH_TEXT_ID) {
+                    _pCtMainWin->get_state_machine().delete_states(iter.get_node_id());
+                    _pCtMainWin->get_state_machine().update_state(iter);
+                }
+                _pCtMainWin->get_tree_store().update_node_icon(iter);
+                iter.pending_edit_db_node_prop();
+            }
+            iterate_childs(child);
+        }
+    };
+
+    iterate_childs(_pCtMainWin->curr_tree_iter());
+
+    // to recover text view
+    _pCtMainWin->resetPrevTreeIter();
+    _pCtMainWin->get_tree_view().set_cursor(_pCtMainWin->get_tree_store().get_path(_pCtMainWin->curr_tree_iter()));
+
+    _pCtMainWin->update_window_save_needed();
+}
+
 // Delete the Selected Node
 void CtActions::node_delete()
 {

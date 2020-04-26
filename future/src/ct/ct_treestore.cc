@@ -155,6 +155,7 @@ void CtTreeIter::set_node_text_buffer(Glib::RefPtr<Gsv::Buffer> new_buffer, cons
     (*this)->set_value(_pColumns->rColTextBuffer, new_buffer);
     (*this)->set_value(_pColumns->colSyntaxHighlighting, new_syntax_hilighting);
     pending_edit_db_node_buff();
+    pending_edit_db_node_prop();
 }
 
 Glib::RefPtr<Gsv::Buffer> CtTreeIter::get_node_text_buffer() const
