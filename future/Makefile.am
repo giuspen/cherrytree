@@ -299,14 +299,9 @@ libp7za_a_SOURCES = \
 	src/7za/CPP/myWindows/mySplitCommandLine.cpp \
 	src/7za/CPP/myWindows/wine_date_and_time.cpp
 
-cherrytree_LDADD = ${CHERRYTREE_LIBS} libp7za.a
+cherrytree_LDADD = ${CHERRYTREE_LIBS} libp7za.a -lpthread -lm
 
-cherrytree_LDFLAGS = -lpthread -lm
-
-run_tests_LDADD = ${CHERRYTREE_LIBS} libp7za.a
-
-run_tests_LDFLAGS = -lpthread -lm
-
+run_tests_LDADD = ${CHERRYTREE_LIBS} libp7za.a -lpthread -lm
 
 dist_noinst_SCRIPTS = autogen.sh
 
