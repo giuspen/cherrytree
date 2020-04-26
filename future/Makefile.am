@@ -301,11 +301,11 @@ libp7za_a_SOURCES = \
 
 cherrytree_LDADD = ${CHERRYTREE_LIBS} libp7za.a
 
-cherrytree_LDFLAGS = -Wl,--whole-archive $(top_srcdir)/libp7za.a -Wl,--no-whole-archive -lpthread -lm
+cherrytree_LDFLAGS = -lpthread -lm
 
 run_tests_LDADD = ${CHERRYTREE_LIBS} libp7za.a
 
-run_tests_LDFLAGS = -Wl,--whole-archive $(top_srcdir)/libp7za.a -Wl,--no-whole-archive -lpthread -lm
+run_tests_LDFLAGS = -lpthread -lm
 
 
 dist_noinst_SCRIPTS = autogen.sh

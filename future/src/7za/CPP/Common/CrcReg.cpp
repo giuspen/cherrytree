@@ -96,3 +96,5 @@ STDMETHODIMP_(void) CCrcHasher::Final(Byte *digest) throw()
 }
 
 REGISTER_HASHER(CCrcHasher, 0x1, "CRC32", 4)
+
+void cherrytree_register_crc32() {}

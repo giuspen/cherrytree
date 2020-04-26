@@ -15,3 +15,5 @@ REGISTER_FILTER_E(7zAES,
     0x6F10701, "7zAES")
 
 }}
+
+void cherrytree_register_7zaes() { }

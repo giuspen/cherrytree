@@ -11,3 +11,4 @@ linux/cherrytree.1.gz
 *Makefile
 debian/files
 .vscode
+future/build
