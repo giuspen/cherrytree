@@ -17,3 +17,5 @@ REGISTER_CODEC_E(LZMA,
     0x30101,
     "LZMA")
 }}
+
+void cherrytree_register_lzma() {}

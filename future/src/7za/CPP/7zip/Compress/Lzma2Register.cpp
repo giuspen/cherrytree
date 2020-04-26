@@ -17,3 +17,5 @@ REGISTER_CODEC_E(LZMA2,
     0x21,
     "LZMA2")
 }}
+
+void cherrytree_register_lzma2() {}

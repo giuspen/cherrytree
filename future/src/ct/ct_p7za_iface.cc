@@ -24,6 +24,28 @@
 #include "ct_p7za_iface.h"
 
 extern int p7za_exec(int numArgs, char *args[]);
+extern void cherrytree_register_7zaes();
+extern void cherrytree_register_crc32();
+extern void cherrytree_register_crc_table();
+extern void cherrytree_register_crc64();
+extern void cherrytree_register_7z();
+extern void cherrytree_register_lzma2();
+extern void cherrytree_register_lzma();
+
+static void register_codecs()
+{
+    // to fix linker and remove '-whole-archive'
+    // call dummy functions in 7z obj files
+    // they could be called once, but make it simpler, call every time
+    cherrytree_register_7zaes();
+    cherrytree_register_crc32();
+    cherrytree_register_crc_table();
+    cherrytree_register_crc64();
+    cherrytree_register_7z();
+    cherrytree_register_lzma2();
+    cherrytree_register_lzma();
+}
+
 
 #ifdef _WIN32
 static void _slashes_convert(gchar* pPath)
@@ -69,6 +91,7 @@ int CtP7zaIface::p7za_extract(const gchar* input_path, const gchar* out_dir, con
         _slashes_convert(args[i]);
 #endif // _WIN32
 
+    register_codecs();
     int ret_val = p7za_exec((int)args.size(), pp_args);
     g_strfreev(pp_args);
     return ret_val;
@@ -97,6 +120,7 @@ int CtP7zaIface::p7za_archive(const gchar* input_path, const gchar* output_path,
         _slashes_convert(args[i]);
 #endif // _WIN32
 
+    register_codecs();
     int ret_val = p7za_exec(args.size(), pp_args);
     g_strfreev(pp_args);
     return ret_val;

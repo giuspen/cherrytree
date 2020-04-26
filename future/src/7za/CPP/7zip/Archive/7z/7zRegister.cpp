@@ -19,3 +19,5 @@ REGISTER_ARC_IO_DECREMENT_SIG(
   NULL);
 
 }}
+
+void cherrytree_register_7z() {}

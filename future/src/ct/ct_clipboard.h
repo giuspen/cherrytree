@@ -22,10 +22,10 @@
 #pragma once
 
 #include <gtkmm/textiter.h>
-#include <ct_treestore.h>
-#include <libxml++/libxml++.h>
+#include "ct_treestore.h"
 #include "ct_codebox.h"
 #include "ct_table.h"
+#include <libxml++/libxml++.h>
 
 struct CtClipboardData
 {
