@@ -119,17 +119,24 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
         std::cout << "export arguments are detected" << std::endl;
         for (const Glib::RefPtr<Gio::File>& r_file : files)
         {
-            std::cout << "trying to export: " << r_file->get_path() << std::endl;
+            std::cout << "file to export: " << r_file->get_path() << std::endl;
             CtMainWin* win = _create_window(true); // start hidden
             if (win->file_open(r_file->get_path(), "")) {
-                if (_export_to_txt_dir != "") win->get_ct_actions()->export_to_txt_auto(_export_to_txt_dir, _export_overwrite);
-                if (_export_to_html_dir != "") win->get_ct_actions()->export_to_html_auto(_export_to_html_dir, _export_overwrite);
-                if (_export_to_pdf_file != "") win->get_ct_actions()->export_to_pdf_auto(_export_to_pdf_file, _export_overwrite);
+                try
+                {
+                    if (_export_to_txt_dir != "") win->get_ct_actions()->export_to_txt_auto(_export_to_txt_dir, _export_overwrite);
+                    if (_export_to_html_dir != "") win->get_ct_actions()->export_to_html_auto(_export_to_html_dir, _export_overwrite);
+                    if (_export_to_pdf_file != "") win->get_ct_actions()->export_to_pdf_auto(_export_to_pdf_file, _export_overwrite);
+                }
+                catch (std::exception& e)
+                {
+                    std::cout << "caught exception: " << e.what() << std::endl;
+                }
             }
             win->force_exit() = true;
             remove_window(*win);
         }
-        std::cout << "closing app" << std::endl;
+        std::cout << "export is done, closing app" << std::endl;
         // exit app
         return;
     }

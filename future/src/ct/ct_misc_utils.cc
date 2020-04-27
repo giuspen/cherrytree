@@ -927,14 +927,22 @@ Glib::ustring CtFileSystem::prepare_export_folder(Glib::ustring dir_place, Glib:
     if (Glib::file_test(Glib::build_filename(dir_place, new_folder), Glib::FILE_TEST_IS_DIR))
     {
         // todo:
-        if (overwrite_existing)
-            throw "work in progress"; // todo: shutil.rmtree(os.path.join(dir_place, new_folder))
-
-        int n = 2;
-        while (Glib::file_test(Glib::build_filename(dir_place, new_folder + str::format("{:03d}", n)), Glib::FILE_TEST_IS_DIR))
-            n += 1;
-        new_folder += str::format("{:03d}", n);
+        if (overwrite_existing) {
+            std::cout << "removing dir: " << Glib::build_filename(dir_place, new_folder) << std::endl;
+            rmdir(Glib::build_filename(dir_place, new_folder));
+        }
+        else {
+            int n = 2;
+            while (Glib::file_test(Glib::build_filename(dir_place, new_folder + str::format("{:03d}", n)), Glib::FILE_TEST_IS_DIR))
+                n += 1;
+            new_folder += str::format("{:03d}", n);
+        }
     }
     return new_folder;
 }
 
+extern bool cherrytree_remove_dir_with_subs(const char* path);
+bool CtFileSystem::rmdir(const std::string& dir)
+{
+    return cherrytree_remove_dir_with_subs(dir.c_str());
+}

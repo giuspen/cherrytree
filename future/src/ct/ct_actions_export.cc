@@ -116,9 +116,11 @@ void CtActions::_export_print(bool save_to_pdf, Glib::ustring auto_path, bool au
     {
         if (auto_path != "")
         {
-            pdf_filepath = auto_path;
-            if (!auto_overwrite && Glib::file_test(pdf_filepath, Glib::FILE_TEST_IS_REGULAR))
+            pdf_filepath = Glib::build_filename(auto_path, _pCtMainWin->get_ct_storage()->get_file_name() + ".pdf");
+            if (!auto_overwrite && Glib::file_test(pdf_filepath, Glib::FILE_TEST_IS_REGULAR)) {
+                std::cout << "pdf exists and overwrite is off, export is stopped" << std::endl;
                 return;
+            }
         }
         else if (save_to_pdf)
         {
