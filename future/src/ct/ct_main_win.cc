@@ -31,7 +31,8 @@
 #include "ct_export2txt.h"
 #include <glib-object.h>
 
-CtMainWin::CtMainWin(CtConfig*        pCtConfig,
+CtMainWin::CtMainWin(bool             start_hidden,
+                     CtConfig*        pCtConfig,
                      CtTmp*           pCtTmp,
                      Gtk::IconTheme*  pGtkIconTheme,
                      Glib::RefPtr<Gtk::TextTagTable> rGtkTextTagTable,
@@ -121,7 +122,7 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
     menu_set_items_special_chars();
     _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(false);
 
-    if (_pCtConfig->systrayOn && _pCtConfig->startOnSystray)
+    if (start_hidden || (_pCtConfig->systrayOn && _pCtConfig->startOnSystray))
         set_visible(false);
     else
         present();
@@ -130,7 +131,7 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
 CtMainWin::~CtMainWin()
 {
     _autosave_timout_connection.disconnect();
-    std::cout << "~CtMainWin" << std::endl;
+    //std::cout << "~CtMainWin" << std::endl;
 }
 
 Glib::RefPtr<Gdk::Pixbuf> CtMainWin::get_icon(const std::string& name, int size)
@@ -701,7 +702,7 @@ void CtMainWin::menu_set_items_recent_documents()
     {
         if (Glib::file_test(filepath, Glib::FILE_TEST_IS_REGULAR))
         {
-            if (file_open(filepath))
+            if (file_open(filepath, ""))
             {
                 _pCtConfig->recentDocsFilepaths.move_or_push_front(filepath);
                 menu_set_items_recent_documents();
@@ -800,8 +801,17 @@ void CtMainWin::_zoom_tree(bool is_increase)
     _uCtTreeview->override_font(description);
 }
 
-bool CtMainWin::file_open(const std::string& filepath)
+bool CtMainWin::file_open(const std::string& filepath, const std::string& node_to_focus)
 {
+    if (!Glib::file_test(filepath, Glib::FILE_TEST_IS_REGULAR)) {
+        CtDialogs::error_dialog("File does not exist", *this);
+        return false;
+    }
+    if (CtMiscUtil::get_doc_type(filepath) == CtDocType::None) {
+        CtDialogs::error_dialog(str::format(_("\"%s\" is Not a CherryTree Document"), filepath), *this);
+        return false;
+    }
+
     if (!file_save_ask_user())
         return false;
 
@@ -813,12 +823,12 @@ bool CtMainWin::file_open(const std::string& filepath)
     Glib::ustring error;
     auto new_storage = CtStorageControl::load_from(this, filepath, error);
     if (!new_storage) {
-        CtDialogs::error_dialog(error, *this);
+        CtDialogs::error_dialog("Error Parsing the CherryTree File", *this);
 
         // trying to recover prevous document
         if (prev_path != "")
-            file_open(prev_path); // it won't be in loop because storage is empty
-        return false;             // show the given document is not loaded
+            file_open(prev_path, ""); // it won't be in loop because storage is empty
+        return false;                 // show the given document is not loaded
     }
 
     _uCtStorage.reset(new_storage);
@@ -848,7 +858,17 @@ bool CtMainWin::file_open(const std::string& filepath)
             }
         } break;
     }
-    if (iterDocsRestore != _pCtConfig->recentDocsRestore.end())
+
+    bool node_is_set = false;
+    if (node_to_focus != "") {
+        if (CtTreeIter node = get_tree_store().get_node_from_node_name(node_to_focus)) {
+            get_tree_store().treeview_safe_set_cursor(_uCtTreeview.get(), node);
+            _ctTextview.grab_focus();
+            node_is_set = true;
+        }
+    }
+
+    if (!node_is_set && iterDocsRestore != _pCtConfig->recentDocsRestore.end())
     {
         _uCtTreestore->treeview_set_tree_path_n_text_cursor(_uCtTreeview.get(),
                                                    &_ctTextview,

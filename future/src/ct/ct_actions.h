@@ -407,4 +407,8 @@ public:
     void export_to_txt_multiple();
     void export_to_txt_single();
     void export_to_ctd();
+
+    void export_to_pdf_auto(const std::string& dir, bool overwrite);
+    void export_to_html_auto(const std::string& dir, bool overwrite);
+    void export_to_txt_auto(const std::string& dir, bool overwrite);
 };

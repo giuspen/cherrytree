@@ -57,6 +57,13 @@ private:
     Glib::RefPtr<Gsv::StyleSchemeManager> _rStyleSchemeManager;
     Glib::RefPtr<Gtk::StatusIcon> _rStatusIcon;
 
+private:
+    Glib::ustring _node_to_focus;
+    std::string   _export_to_html_dir;
+    std::string   _export_to_txt_dir;
+    std::string   _export_to_pdf_file;
+    bool          _export_overwrite{false};
+
 protected:
     void on_activate() override;
     void on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint) override;
@@ -66,7 +73,7 @@ protected:
     void _print_gresource_icons();
 
 private:
-    CtMainWin*  _create_window();
+    CtMainWin*  _create_window(bool start_hidden);
     CtMainWin*  _get_window_by_path(const std::string& filepath);
     bool        _quit_or_hide_window(CtMainWin* pCtMainWin, bool from_delete);
     int         _on_handle_local_options(const Glib::RefPtr<Glib::VariantDict>& rOptions);

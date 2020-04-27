@@ -100,7 +100,7 @@ void CtActions::file_open()
 
     if (filepath.empty()) return;
 
-    _pCtMainWin->file_open(filepath);
+    _pCtMainWin->file_open(filepath, "");
 }
 
 void CtActions::folder_cfg_open()
