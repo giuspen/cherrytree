@@ -111,6 +111,8 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
 
     signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_window_key_press_event), false);
 
+    file_autosave_restart();
+
     _title_update(false/*saveNeeded*/);
 
     config_apply();
@@ -127,6 +129,7 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
 
 CtMainWin::~CtMainWin()
 {
+    _autosave_timout_connection.disconnect();
     std::cout << "~CtMainWin" << std::endl;
 }
 
@@ -799,7 +802,7 @@ void CtMainWin::_zoom_tree(bool is_increase)
 
 bool CtMainWin::file_open(const std::string& filepath)
 {
-    if (!try_to_save())
+    if (!file_save_ask_user())
         return false;
 
     std::string prev_path = _uCtStorage->get_file_path();
@@ -860,6 +863,34 @@ bool CtMainWin::file_open(const std::string& filepath)
     return true;
 }
 
+bool CtMainWin::file_save_ask_user()
+{
+    if (get_file_save_needed())
+    {
+        const CtYesNoCancel yesNoCancel = [this]() {
+            if (_pCtConfig->autosaveOnQuit)
+                return CtYesNoCancel::Yes;
+            set_visible(true);   // window could be hidden
+            return CtDialogs::exit_save_dialog(*this);
+        }();
+
+        if (CtYesNoCancel::Cancel == yesNoCancel)
+        {
+            return false;
+        }
+        if (CtYesNoCancel::Yes == yesNoCancel)
+        {
+            _uCtActions->file_save();
+            if (get_file_save_needed())
+            {
+                // something went wrong in the save
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 void CtMainWin::file_save(bool need_vacuum)
 {
     if (_uCtStorage->get_file_path().empty())
@@ -901,6 +932,31 @@ void CtMainWin::file_save_as(const std::string& new_filepath, const std::string&
     get_state_machine().update_state();
 }
 
+void CtMainWin::file_autosave_restart()
+{
+    bool was_connected = !_autosave_timout_connection.empty();
+    _autosave_timout_connection.disconnect();
+    if (!get_ct_config()->autosaveOn) {
+        if (was_connected) std::cout << "autosave was stopped" << std::endl;
+        return;
+    }
+    if (get_ct_config()->autosaveVal < 1) {
+        CtDialogs::error_dialog("Wrong timeout for autosave", *this);
+        return;
+    }
+
+    std::cout << "autosave is started" << std::endl;
+    _autosave_timout_connection = Glib::signal_timeout().connect_seconds([this]() {        
+        if (get_file_save_needed()) {
+            std::cout << "autosave: time to save file" << std::endl;
+            file_save(false);
+        } else {
+            std::cout << "autosave: no needs to save file" << std::endl;
+        }
+        return true;
+    }, get_ct_config()->autosaveVal * 60);
+}
+
 void CtMainWin::reset()
 {
     auto on_scope_exit = scope_guard([&](void*) { user_active() = true; });
@@ -926,31 +982,6 @@ void CtMainWin::reset()
     _ctTextview.set_spell_check(false);
     _ctTextview.set_sensitive(false);
 }
-
-bool CtMainWin::try_to_save()
-{
-    if (get_file_save_needed())
-    {
-        set_visible(true); // window could be hidden
-        const CtYesNoCancel yesNoCancel = _pCtConfig->autosaveOnQuit ? CtYesNoCancel::Yes : CtDialogs::exit_save_dialog(*this);
-        if (CtYesNoCancel::Cancel == yesNoCancel)
-        {
-            return false;
-        }
-        if (CtYesNoCancel::Yes == yesNoCancel)
-        {
-            _uCtActions->file_save();
-            if (get_file_save_needed())
-            {
-                // something went wrong in the save
-                return false;
-            }
-        }
-    }
-    return true;
-}
-
-
 
 bool CtMainWin::get_file_save_needed()
 {

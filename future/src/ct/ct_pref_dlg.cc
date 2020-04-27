@@ -1447,18 +1447,14 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_start_on_systray->signal_toggled().connect([pConfig, checkbutton_start_on_systray](){
         pConfig->startOnSystray = checkbutton_start_on_systray->get_active();
     });
-    checkbutton_autosave->signal_toggled().connect([pConfig, checkbutton_autosave, spinbutton_autosave](){
+    checkbutton_autosave->signal_toggled().connect([this, pConfig, checkbutton_autosave, spinbutton_autosave](){
         pConfig->autosaveOn = checkbutton_autosave->get_active();
-        //if dad.autosave[0]:
-        //    if dad.autosave_timer_id == None: dad.autosave_timer_start()
-        //else:
-        //    if dad.autosave_timer_id != None: dad.autosave_timer_stop()
+        _pCtMainWin->file_autosave_restart();
         spinbutton_autosave->set_sensitive(pConfig->autosaveOn);
     });
-    spinbutton_autosave->signal_value_changed().connect([pConfig, spinbutton_autosave](){
+    spinbutton_autosave->signal_value_changed().connect([this, pConfig, spinbutton_autosave](){
         pConfig->autosaveVal = spinbutton_autosave->get_value_as_int();
-        //if dad.autosave_timer_id != None: dad.autosave_timer_stop()
-        //if dad.autosave[0] and dad.autosave_timer_id == None: dad.autosave_timer_start()
+        _pCtMainWin->file_autosave_restart();
     });
     spinbutton_num_backups->signal_value_changed().connect([pConfig, spinbutton_num_backups](){
         pConfig->backupNum = spinbutton_num_backups->get_value_as_int();

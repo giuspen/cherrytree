@@ -214,7 +214,7 @@ bool CtApp::_quit_or_hide_window(CtMainWin* pCtMainWin, bool from_delete)
     else
     {
         // trying to save changes, it show window if needed
-        if (!pCtMainWin->try_to_save())
+        if (!pCtMainWin->file_save_ask_user())
         {
             pCtMainWin->force_exit() = false;
             return false;  // to stop deleting windows
