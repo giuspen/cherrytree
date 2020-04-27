@@ -92,15 +92,6 @@ CtAnchoredWidget::CtAnchoredWidget(CtMainWin* pCtMainWin, const int charOffset, 
     _frame.set_shadow_type(Gtk::ShadowType::SHADOW_NONE);
     signal_button_press_event().connect([](GdkEventButton* /*pEvent*/){ return true; });
     add(_frame);
-
-
-    // todo:
-    //if table_justification:
-    //    text_iter = text_buffer.get_iter_at_child_anchor(anchor)
-    //    self.dad.state_machine.apply_object_justification(text_iter, table_justification, text_buffer)
-    //elif self.dad.user_active:
-    //    # if I apply a justification, the state is already updated
-    //    self.dad.state_machine.update_state()
 }
 
 CtAnchoredWidget::~CtAnchoredWidget()
