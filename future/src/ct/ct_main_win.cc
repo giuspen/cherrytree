@@ -28,6 +28,7 @@
 #include "ct_storage_control.h"
 #include "ct_storage_xml.h"
 #include "ct_list.h"
+#include "ct_export2txt.h"
 #include <glib-object.h>
 
 CtMainWin::CtMainWin(CtConfig*        pCtConfig,
@@ -110,12 +111,15 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
 
     signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_window_key_press_event), false);
 
+    file_autosave_restart();
+
     _title_update(false/*saveNeeded*/);
 
     config_apply();
 
     menu_set_items_recent_documents();
     menu_set_items_special_chars();
+    _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(false);
 
     if (_pCtConfig->systrayOn && _pCtConfig->startOnSystray)
         set_visible(false);
@@ -125,6 +129,7 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
 
 CtMainWin::~CtMainWin()
 {
+    _autosave_timout_connection.disconnect();
     std::cout << "~CtMainWin" << std::endl;
 }
 
@@ -449,7 +454,7 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
     _uCtTreeview->show();
 
     _uCtTreestore.reset(new CtTreeStore(this));
-    _uCtTreestore->textview_connect(_uCtTreeview.get());
+    _uCtTreestore->tree_view_connect(_uCtTreeview.get());
 
     _uCtTreeview->signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_cursor_changed));
     _uCtTreeview->signal_button_release_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_button_release_event));
@@ -797,7 +802,7 @@ void CtMainWin::_zoom_tree(bool is_increase)
 
 bool CtMainWin::file_open(const std::string& filepath)
 {
-    if (!try_to_save())
+    if (!file_save_ask_user())
         return false;
 
     std::string prev_path = _uCtStorage->get_file_path();
@@ -820,6 +825,9 @@ bool CtMainWin::file_open(const std::string& filepath)
 
     _title_update(false/*saveNeeded*/);
     menu_set_bookmark_menu_items();
+    bool can_vacuum = CtMiscUtil::get_doc_type(_uCtStorage->get_file_path()) == CtDocType::SQLite;
+    _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(can_vacuum);
+
     const auto iterDocsRestore{_pCtConfig->recentDocsRestore.find(filepath)};
     switch (_pCtConfig->restoreExpColl)
     {
@@ -855,17 +863,46 @@ bool CtMainWin::file_open(const std::string& filepath)
     return true;
 }
 
-void CtMainWin::file_save()
+bool CtMainWin::file_save_ask_user()
+{
+    if (get_file_save_needed())
+    {
+        const CtYesNoCancel yesNoCancel = [this]() {
+            if (_pCtConfig->autosaveOnQuit)
+                return CtYesNoCancel::Yes;
+            set_visible(true);   // window could be hidden
+            return CtDialogs::exit_save_dialog(*this);
+        }();
+
+        if (CtYesNoCancel::Cancel == yesNoCancel)
+        {
+            return false;
+        }
+        if (CtYesNoCancel::Yes == yesNoCancel)
+        {
+            _uCtActions->file_save();
+            if (get_file_save_needed())
+            {
+                // something went wrong in the save
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+void CtMainWin::file_save(bool need_vacuum)
 {
     if (_uCtStorage->get_file_path().empty())
         return;
     if (!get_file_save_needed())
-        return;
+        if (!need_vacuum)
+            return;
     if (!get_tree_store().get_iter_first())
         return;
 
     Glib::ustring error;
-    if (_uCtStorage->save(error))
+    if (_uCtStorage->save(need_vacuum, error))
     {
         update_window_save_not_needed();
         get_state_machine().update_state();
@@ -888,13 +925,36 @@ void CtMainWin::file_save_as(const std::string& new_filepath, const std::string&
 
     _uCtStorage.reset(new_storage);
 
+    bool can_vacuum = CtMiscUtil::get_doc_type(_uCtStorage->get_file_path()) == CtDocType::SQLite;
+    _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(can_vacuum);
+
     update_window_save_not_needed();
     get_state_machine().update_state();
 }
 
-void CtMainWin::file_vacuum()
+void CtMainWin::file_autosave_restart()
 {
-    _uCtStorage->vacuum();
+    bool was_connected = !_autosave_timout_connection.empty();
+    _autosave_timout_connection.disconnect();
+    if (!get_ct_config()->autosaveOn) {
+        if (was_connected) std::cout << "autosave was stopped" << std::endl;
+        return;
+    }
+    if (get_ct_config()->autosaveVal < 1) {
+        CtDialogs::error_dialog("Wrong timeout for autosave", *this);
+        return;
+    }
+
+    std::cout << "autosave is started" << std::endl;
+    _autosave_timout_connection = Glib::signal_timeout().connect_seconds([this]() {        
+        if (get_file_save_needed()) {
+            std::cout << "autosave: time to save file" << std::endl;
+            file_save(false);
+        } else {
+            std::cout << "autosave: no needs to save file" << std::endl;
+        }
+        return true;
+    }, get_ct_config()->autosaveVal * 60);
 }
 
 void CtMainWin::reset()
@@ -915,37 +975,13 @@ void CtMainWin::reset()
     window_header_update_lock_icon(false);
     window_header_update_bookmark_icon(false);
     menu_set_bookmark_menu_items();
+    _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(false);
 
     update_window_save_not_needed();
     _ctTextview.set_buffer(Glib::RefPtr<Gtk::TextBuffer>());
     _ctTextview.set_spell_check(false);
     _ctTextview.set_sensitive(false);
 }
-
-bool CtMainWin::try_to_save()
-{
-    if (get_file_save_needed())
-    {
-        set_visible(true); // window could be hidden
-        const CtYesNoCancel yesNoCancel = _pCtConfig->autosaveOnQuit ? CtYesNoCancel::Yes : CtDialogs::exit_save_dialog(*this);
-        if (CtYesNoCancel::Cancel == yesNoCancel)
-        {
-            return false;
-        }
-        if (CtYesNoCancel::Yes == yesNoCancel)
-        {
-            _uCtActions->file_save();
-            if (get_file_save_needed())
-            {
-                // something went wrong in the save
-                return false;
-            }
-        }
-    }
-    return true;
-}
-
-
 
 bool CtMainWin::get_file_save_needed()
 {
@@ -1115,10 +1151,42 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     update_window_save_needed(CtSaveNeededUpdType::nbuf, false, &tree_iter);
 }
 
+// Switch TextBuffer -> SourceBuffer or SourceBuffer -> TextBuffer
+void CtMainWin::switch_buffer_text_source(Glib::RefPtr<Gsv::Buffer> text_buffer, CtTreeIter tree_iter, const std::string& new_syntax, const std::string& old_syntax)
+{
+    if (new_syntax == old_syntax)
+        return;
+
+    bool user_active_restore = user_active();
+    user_active() = false;
+
+    bool rich_to_non_rich = false;
+    Glib::ustring node_text;
+    if (old_syntax == CtConst::RICH_TEXT_ID)
+    {
+        rich_to_non_rich = true;
+        node_text = CtExport2Txt(this).node_export_to_txt(tree_iter, "", {0}, -1, -1);
+    }
+    else
+    {
+        rich_to_non_rich = false;
+        node_text = text_buffer->get_text();
+    }
+
+    auto new_buffer = get_new_text_buffer(new_syntax, node_text);
+    tree_iter.set_node_text_buffer(new_buffer, new_syntax);
+    _uCtTreestore->text_view_apply_textbuffer(tree_iter, &_ctTextview);
+
+    user_active() = user_active_restore;
+}
+
 void CtMainWin::_on_treeview_cursor_changed()
 {
     if (_prevTreeIter)
     {
+        if (_prevTreeIter.get_node_id() == curr_tree_iter().get_node_id())
+            return;
+
         Glib::RefPtr<Gsv::Buffer> rTextBuffer = _prevTreeIter.get_node_text_buffer();
         if (rTextBuffer->get_modified())
         {
@@ -1128,7 +1196,7 @@ void CtMainWin::_on_treeview_cursor_changed()
         }
     }
     CtTreeIter treeIter = curr_tree_iter();
-    _uCtTreestore->textview_apply_textbuffer(treeIter, &_ctTextview);
+    _uCtTreestore->text_view_apply_textbuffer(treeIter, &_ctTextview);
 
     menu_update_bookmark_menu_item(_uCtTreestore->is_node_bookmarked(treeIter.get_node_id()));
     window_header_update();

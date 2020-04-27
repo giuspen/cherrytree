@@ -101,6 +101,8 @@ public:
     void          set_node_modification_time(const gint64 modification_time);
     void          set_node_aux_icon(Glib::RefPtr<Gdk::Pixbuf> rPixbuf);
     void          set_node_sequence(gint64 num);
+
+    void                      set_node_text_buffer(Glib::RefPtr<Gsv::Buffer> new_buffer, const std::string& new_syntax_hilighting);
     Glib::RefPtr<Gsv::Buffer> get_node_text_buffer() const;
 
     void                         remove_all_embedded_widgets();
@@ -128,8 +130,8 @@ public:
     CtTreeStore(CtMainWin* pCtMainWin);
     virtual ~CtTreeStore();
 
-    void          textview_connect(Gtk::TreeView* pTreeView);
-    void          textview_apply_textbuffer(const CtTreeIter& treeIter, CtTextView* pTextView);
+    void          tree_view_connect(Gtk::TreeView* pTreeView);
+    void          text_view_apply_textbuffer(const CtTreeIter& treeIter, CtTextView* pTextView);
 
     void          get_node_data(const Gtk::TreeIter& treeIter, CtNodeData& nodeData);
 

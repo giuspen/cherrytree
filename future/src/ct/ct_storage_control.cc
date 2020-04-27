@@ -137,7 +137,7 @@ static CtStorageEntity* get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file
     }
 }
 
-bool CtStorageControl::save(Glib::ustring &error)
+bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
 {
     // backup system
     // before writing make a main backup as file.ext!
@@ -173,6 +173,9 @@ bool CtStorageControl::save(Glib::ustring &error)
         // save changes
         if (!_storage->save_treestore(_extracted_file_path, _syncPending, error))
             throw std::runtime_error(error);
+        if (need_vacuum)
+            _storage->vacuum();
+
         // encrypt the file
         if (_file_path != _extracted_file_path)
         {
@@ -205,14 +208,6 @@ bool CtStorageControl::save(Glib::ustring &error)
         std::cerr << e.what() << std::endl;
         error = e.what();
         return false;
-    }
-}
-
-void CtStorageControl::vacuum()
-{
-    if (!_storage) {
-        std::cerr << "!! storage is not initialized" << std::endl;
-        return;
     }
 }
 

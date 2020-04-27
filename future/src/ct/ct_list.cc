@@ -329,7 +329,7 @@ CtTextRange CtList::get_paragraph_iters(Gtk::TextIter* force_iter /*= nullptr*/)
         if (ch == CtConst::CHAR_NEWLINE[0]) break; // we got it
         else if (!iter_end.forward_char())  break; // we reached the buffer end
     }
-    while (iter_start) {
+    while (iter_start || iter_start == _curr_buffer->end()) {
         auto ch = iter_start.get_char();
         if (ch == CtConst::CHAR_NEWLINE[0]) { // we got it
             iter_start.forward_char();        // step forward to the beginning of the new line

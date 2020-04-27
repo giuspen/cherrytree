@@ -301,31 +301,31 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
         auto iter_sel_start = text_buffer->get_iter_at_offset(offset);
         std::vector<Glib::RefPtr<Gtk::TextTag>> curr_tags = iter_sel_start.get_tags();
         for (auto& curr_tag : curr_tags) {
-            Glib::ustring tag_name = curr_tag->property_name();
+            Glib::ustring curr_tag_name = curr_tag->property_name();
             //#print tag_name
-            if (tag_name.empty()) continue;
+            if (curr_tag_name.empty()) continue;
             auto iter_sel_end = text_buffer->get_iter_at_offset(offset+1);
-            if ((tag_property == CtConst::TAG_WEIGHT and str::startswith(tag_name, "weight_"))
-               or (tag_property == CtConst::TAG_STYLE and str::startswith(tag_name, "style_"))
-               or (tag_property == CtConst::TAG_UNDERLINE and str::startswith(tag_name, "underline_"))
-               or (tag_property == CtConst::TAG_STRIKETHROUGH and str::startswith(tag_name, "strikethrough_"))
-               or (tag_property == CtConst::TAG_FAMILY and str::startswith(tag_name, "family_")))
+            if ((tag_property == CtConst::TAG_WEIGHT and str::startswith(curr_tag_name, "weight_"))
+               or (tag_property == CtConst::TAG_STYLE and str::startswith(curr_tag_name, "style_"))
+               or (tag_property == CtConst::TAG_UNDERLINE and str::startswith(curr_tag_name, "underline_"))
+               or (tag_property == CtConst::TAG_STRIKETHROUGH and str::startswith(curr_tag_name, "strikethrough_"))
+               or (tag_property == CtConst::TAG_FAMILY and str::startswith(curr_tag_name, "family_")))
             {
                 text_buffer->remove_tag(curr_tag, iter_sel_start, iter_sel_end);
                 property_value = ""; // just tag removal
             }
-            else if (tag_property == CtConst::TAG_SCALE and str::startswith(tag_name, "scale_"))
+            else if (tag_property == CtConst::TAG_SCALE and str::startswith(curr_tag_name, "scale_"))
             {
                 text_buffer->remove_tag(curr_tag, iter_sel_start, iter_sel_end);
                 // #print property_value, tag_name[6:]
-                if (property_value == tag_name.substr(6))
+                if (property_value == curr_tag_name.substr(6))
                     property_value = ""; // just tag removal
             }
-            else if (tag_property == CtConst::TAG_JUSTIFICATION and str::startswith(tag_name, "justification_"))
+            else if (tag_property == CtConst::TAG_JUSTIFICATION and str::startswith(curr_tag_name, "justification_"))
                 text_buffer->remove_tag(curr_tag, iter_sel_start, iter_sel_end);
-            else if ((tag_property == CtConst::TAG_FOREGROUND and str::startswith(tag_name, "foreground_"))
-               or (tag_property == CtConst::TAG_BACKGROUND and str::startswith(tag_name, "background_"))
-               or (tag_property == CtConst::TAG_LINK and str::startswith(tag_name, "link_")))
+            else if ((tag_property == CtConst::TAG_FOREGROUND and str::startswith(curr_tag_name, "foreground_"))
+               or (tag_property == CtConst::TAG_BACKGROUND and str::startswith(curr_tag_name, "background_"))
+               or (tag_property == CtConst::TAG_LINK and str::startswith(curr_tag_name, "link_")))
                 text_buffer->remove_tag(curr_tag, iter_sel_start, iter_sel_end);
         }
     }

@@ -24,6 +24,16 @@
 #include "ct_pref_dlg.h"
 #include <glib/gstdio.h>
 
+void CtActions::_file_save(bool need_vacuum)
+{
+    if (not _is_tree_not_empty_or_error())
+        return;
+    if (_pCtMainWin->get_ct_storage()->get_file_path().empty())
+        file_save_as();
+    else
+        _pCtMainWin->file_save(need_vacuum);
+}
+
 void CtActions::file_new()
 {
     _pCtMainWin->signal_app_new_instance();
@@ -32,19 +42,13 @@ void CtActions::file_new()
 // Save the file
 void CtActions::file_save()
 {
-    if (not _is_tree_not_empty_or_error())
-        return;
-    if (_pCtMainWin->get_ct_storage()->get_file_path().empty())
-        file_save_as();
-    else
-        _pCtMainWin->file_save();
+    _file_save(false);
 }
 
 // Save the file and vacuum the db
 void CtActions::file_vacuum()
 {
-    file_save();
-    _pCtMainWin->file_vacuum();
+    _file_save(true);
 }
 
 // Save the file providing a new name

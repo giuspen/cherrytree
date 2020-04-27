@@ -91,16 +91,17 @@ public:
     void update_theme();
 
     bool file_open(const std::string& filepath);
-    void file_save();
+    bool file_save_ask_user();
+    void file_save(bool need_vacuum);
     void file_save_as(const std::string& new_filepath, const std::string& password);
-    void file_vacuum();
+    void file_autosave_restart();
 
     void reset();
-    bool try_to_save();
     void update_window_save_needed(const CtSaveNeededUpdType update_type = CtSaveNeededUpdType::None,
                                    const bool new_machine_state = false,
                                    const CtTreeIter* give_tree_iter = nullptr);
     void load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTreeIter tree_iter);
+    void switch_buffer_text_source(Glib::RefPtr<Gsv::Buffer> text_buffer, CtTreeIter tree_iter, const std::string& new_syntax, const std::string& old_syntax);
     void update_window_save_not_needed();
     bool get_file_save_needed();
 
@@ -240,6 +241,7 @@ private:
     CtTreeIter          _prevTreeIter;
     int                 _savedXpos{-1};
     int                 _savedYpos{-1};
+    sigc::connection    _autosave_timout_connection;
 
 public:
     sigc::signal<void>             signal_app_new_instance = sigc::signal<void>();

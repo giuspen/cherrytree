@@ -131,6 +131,7 @@ public:
 
 private:
     // helpers for file actions
+    void _file_save(bool need_vacuum);
 
 public:
     // file actions
@@ -163,6 +164,7 @@ public:
     void node_dublicate() { _node_add(true, false);  }
     void node_child_add() { _node_add(false, true); }
     void node_edit();
+    void node_inherit_syntax();
     void node_delete();
     void node_toggle_read_only();
     void node_date();

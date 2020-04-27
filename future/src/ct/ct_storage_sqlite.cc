@@ -281,6 +281,13 @@ bool CtStorageSqlite::save_treestore(const Glib::ustring& file_path, const CtSto
     }
 }
 
+void CtStorageSqlite::vacuum()
+{
+    std::cout << "VACUUM" << std::endl;
+    _exec_no_callback("VACUUM");
+    _exec_no_callback("REINDEX");
+}
+
 void CtStorageSqlite::_close_db()
 {
     if (!_pDb) return;

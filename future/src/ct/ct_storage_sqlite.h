@@ -43,6 +43,7 @@ public:
 
     bool populate_treestore(const Glib::ustring& file_path, Glib::ustring& error) override;
     bool save_treestore(const Glib::ustring& file_path, const CtStorageSyncPending& syncPending, Glib::ustring& error) override;
+    void vacuum() override;
 
     Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
                                                       const std::string& syntax,
