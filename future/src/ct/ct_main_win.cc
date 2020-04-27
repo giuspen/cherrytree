@@ -117,6 +117,7 @@ CtMainWin::CtMainWin(CtConfig*        pCtConfig,
 
     menu_set_items_recent_documents();
     menu_set_items_special_chars();
+    _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(false);
 
     if (_pCtConfig->systrayOn && _pCtConfig->startOnSystray)
         set_visible(false);
@@ -821,6 +822,9 @@ bool CtMainWin::file_open(const std::string& filepath)
 
     _title_update(false/*saveNeeded*/);
     menu_set_bookmark_menu_items();
+    bool can_vacuum = CtMiscUtil::get_doc_type(_uCtStorage->get_file_path()) == CtDocType::SQLite;
+    _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(can_vacuum);
+
     const auto iterDocsRestore{_pCtConfig->recentDocsRestore.find(filepath)};
     switch (_pCtConfig->restoreExpColl)
     {
@@ -856,17 +860,18 @@ bool CtMainWin::file_open(const std::string& filepath)
     return true;
 }
 
-void CtMainWin::file_save()
+void CtMainWin::file_save(bool need_vacuum)
 {
     if (_uCtStorage->get_file_path().empty())
         return;
     if (!get_file_save_needed())
-        return;
+        if (!need_vacuum)
+            return;
     if (!get_tree_store().get_iter_first())
         return;
 
     Glib::ustring error;
-    if (_uCtStorage->save(error))
+    if (_uCtStorage->save(need_vacuum, error))
     {
         update_window_save_not_needed();
         get_state_machine().update_state();
@@ -889,13 +894,11 @@ void CtMainWin::file_save_as(const std::string& new_filepath, const std::string&
 
     _uCtStorage.reset(new_storage);
 
+    bool can_vacuum = CtMiscUtil::get_doc_type(_uCtStorage->get_file_path()) == CtDocType::SQLite;
+    _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(can_vacuum);
+
     update_window_save_not_needed();
     get_state_machine().update_state();
-}
-
-void CtMainWin::file_vacuum()
-{
-    _uCtStorage->vacuum();
 }
 
 void CtMainWin::reset()
@@ -916,6 +919,7 @@ void CtMainWin::reset()
     window_header_update_lock_icon(false);
     window_header_update_bookmark_icon(false);
     menu_set_bookmark_menu_items();
+    _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(false);
 
     update_window_save_not_needed();
     _ctTextview.set_buffer(Glib::RefPtr<Gtk::TextBuffer>());

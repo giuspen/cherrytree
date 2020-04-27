@@ -31,8 +31,7 @@ public:
     static CtStorageControl* save_as(CtMainWin* pCtMainWin, const Glib::ustring& file_path, const Glib::ustring& password, Glib::ustring& error);
 
 public:
-    bool save(Glib::ustring& error);
-    void vacuum();
+    bool save(bool need_vacuum, Glib::ustring& error);
 
  private:
     CtStorageControl() = default;

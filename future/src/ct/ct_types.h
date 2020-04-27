@@ -136,6 +136,7 @@ public:
 
     virtual bool populate_treestore(const Glib::ustring& file_path, Glib::ustring& error) = 0;
     virtual bool save_treestore(const Glib::ustring& file_path, const CtStorageSyncPending& syncPending, Glib::ustring& error) = 0;
+    virtual void vacuum() = 0;
 
     virtual Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
                                                               const std::string& syntax,

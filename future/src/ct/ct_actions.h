@@ -131,6 +131,7 @@ public:
 
 private:
     // helpers for file actions
+    void _file_save(bool need_vacuum);
 
 public:
     // file actions

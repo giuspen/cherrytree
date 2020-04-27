@@ -91,9 +91,8 @@ public:
     void update_theme();
 
     bool file_open(const std::string& filepath);
-    void file_save();
+    void file_save(bool need_vacuum);
     void file_save_as(const std::string& new_filepath, const std::string& password);
-    void file_vacuum();
 
     void reset();
     bool try_to_save();

@@ -122,6 +122,11 @@ bool CtStorageXml::save_treestore(const Glib::ustring& file_path, const CtStorag
     }
 }
 
+void CtStorageXml::vacuum()
+{
+
+}
+
 Glib::RefPtr<Gsv::Buffer> CtStorageXml::get_delayed_text_buffer(const gint64&,
                                                                    const std::string&,
                                                                    std::list<CtAnchoredWidget*>&) const

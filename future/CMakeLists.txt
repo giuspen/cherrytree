@@ -17,7 +17,7 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 #add_compile_options(-pthread -Wall -Wextra -Wno-unused-parameter)
-add_compile_options(-lm  -Wno-deprecated -Wno-deprecated-declarations)
+add_compile_options(-Wno-deprecated -Wno-deprecated-declarations)
 add_definitions(-D_CT_VERSION="${CT_VERSION}")
 add_definitions(-DGETTEXT_PACKAGE="${CPACK_PACKAGE_NAME}")
 add_definitions(-DCHERRYTREE_LOCALEDIR="")
@@ -46,13 +46,13 @@ include(FindPackageHandleStandardArgs)
 
 # For both src and tests targets
 include_directories(
-  ${GTKMM_INCLUDE_DIRS}
-  ${GTKSVMM_INCLUDE_DIRS}
-  ${GLIBMM_INCLUDE_DIRS}
-  ${PANGOMM_INCLUDE_DIRS}
-  ${GSPELL_INCLUDE_DIRS}
-  ${LIBXML_INCLUDE_DIRS}
-  ${SQLITE_INCLUDE_DIRS}
+  SYSTEM ${GTKMM_INCLUDE_DIRS}
+  SYSTEM ${GTKSVMM_INCLUDE_DIRS}
+  SYSTEM ${GLIBMM_INCLUDE_DIRS}
+  SYSTEM ${PANGOMM_INCLUDE_DIRS}
+  SYSTEM ${GSPELL_INCLUDE_DIRS}
+  SYSTEM ${LIBXML_INCLUDE_DIRS}
+  SYSTEM ${SQLITE_INCLUDE_DIRS}
   include_directories(.) # to find src/fmt
 )
 
