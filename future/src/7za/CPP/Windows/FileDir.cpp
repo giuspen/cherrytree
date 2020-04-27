@@ -812,6 +812,12 @@ bool CDelayedSymLink::Create()
 
 }}}
 
+bool cherrytree_remove_dir_with_subs(const char* path)
+{
+    UString dir = MultiByteToUnicodeString(path, CP_ACP);
+    return NWindows::NFile::NDir::RemoveDirWithSubItems(dir);
+}
+
 namespace NWindows {
 namespace NDLL {
 

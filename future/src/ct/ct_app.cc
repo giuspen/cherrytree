@@ -88,16 +88,15 @@ Glib::RefPtr<CtApp> CtApp::create()
 
 void CtApp::on_activate()
 {
-    CtMainWin* pAppWindow = nullptr;
     if (get_windows().size() == 0)
     {
-        pAppWindow = _create_window();
+        CtMainWin* pAppWindow = _create_window(false);
         if (not CtApp::_uCtCfg->recentDocsFilepaths.empty())
         {
             Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(CtApp::_uCtCfg->recentDocsFilepaths.front());
             if (r_file->query_exists())
             {
-                if (not pAppWindow->file_open(r_file->get_path()))
+                if (not pAppWindow->file_open(r_file->get_path(), ""))
                 {
                     g_warning("Couldn't open file: %s", r_file->get_path().c_str());
                 }
@@ -110,41 +109,60 @@ void CtApp::on_activate()
             }
         }
     }
-    else {
-        pAppWindow = dynamic_cast<CtMainWin*>(get_windows()[0]);
-    }
 }
 
 void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& /*hint*/)
 {
-    // app run with arguments
-    for (const Glib::RefPtr<Gio::File>& r_file : files)
+    // do some export stuff from console and close app after
+    if (_export_to_txt_dir != "" || _export_to_html_dir != "" || _export_to_pdf_file != "")
     {
-        if (r_file->query_exists())
+        std::cout << "export arguments are detected" << std::endl;
+        for (const Glib::RefPtr<Gio::File>& r_file : files)
         {
-            CtMainWin* pAppWindow = _get_window_by_path(r_file->get_path());
-            if (nullptr == pAppWindow)
-            {
-                // there is not a window already running with that document
-                pAppWindow = _create_window();
-                if (not pAppWindow->file_open(r_file->get_path()))
+            std::cout << "file to export: " << r_file->get_path() << std::endl;
+            CtMainWin* win = _create_window(true); // start hidden
+            if (win->file_open(r_file->get_path(), "")) {
+                try
                 {
-                    g_warning("Couldn't open file: %s", r_file->get_path().c_str());
+                    if (_export_to_txt_dir != "") win->get_ct_actions()->export_to_txt_auto(_export_to_txt_dir, _export_overwrite);
+                    if (_export_to_html_dir != "") win->get_ct_actions()->export_to_html_auto(_export_to_html_dir, _export_overwrite);
+                    if (_export_to_pdf_file != "") win->get_ct_actions()->export_to_pdf_auto(_export_to_pdf_file, _export_overwrite);
+                }
+                catch (std::exception& e)
+                {
+                    std::cout << "caught exception: " << e.what() << std::endl;
                 }
             }
-            pAppWindow->present();
+            win->force_exit() = true;
+            remove_window(*win);
         }
-        else
+        std::cout << "export is done, closing app" << std::endl;
+        // exit app
+        return;
+    }
+
+    // ordinary app start with filepath argument
+    for (const Glib::RefPtr<Gio::File>& r_file : files)
+    {
+        CtMainWin* pAppWindow = _get_window_by_path(r_file->get_path());
+        if (nullptr == pAppWindow)
         {
-            g_warning("Missing file: %s", r_file->get_path().c_str());
+            // there is not a window already running with that document
+            pAppWindow = _create_window(false);
+            if (not pAppWindow->file_open(r_file->get_path(), _node_to_focus))
+            {
+                g_warning("Couldn't open file: %s", r_file->get_path().c_str());
+            }
         }
+        // window can be hidden, so show it
+        pAppWindow->present();
     }
 }
 
 void CtApp::on_window_removed(Gtk::Window* window)
 {
     // override this function, so hidden windows won't be deleted from the window list
-    // but destroy window is needed
+    // but destroy window when that is needed
     if (CtMainWin* win = dynamic_cast<CtMainWin*>(window))
         if (win->force_exit())
         {
@@ -153,9 +171,10 @@ void CtApp::on_window_removed(Gtk::Window* window)
         }
 }
 
-CtMainWin* CtApp::_create_window()
+CtMainWin* CtApp::_create_window(bool start_hidden)
 {
-    CtMainWin* pCtMainWin = new CtMainWin(_uCtCfg.get(),
+    CtMainWin* pCtMainWin = new CtMainWin(start_hidden,
+                                          _uCtCfg.get(),
                                           _uCtTmp.get(),
                                           _rIcontheme.get(),
                                           _rTextTagTable,
@@ -166,7 +185,7 @@ CtMainWin* CtApp::_create_window()
     add_window(*pCtMainWin);
 
     pCtMainWin->signal_app_new_instance.connect([this]() {
-        _create_window();
+        _create_window(false);
     });
     pCtMainWin->signal_app_apply_for_each_window.connect([this](std::function<void(CtMainWin*)> callback) {
         for (Gtk::Window* pWin : get_windows())
@@ -264,16 +283,11 @@ void CtApp::_systray_close_all()
 
 void CtApp::_add_main_option_entries()
 {
-    add_main_option_entry(Gio::Application::OPTION_TYPE_STRING,
-        "node", 'n', _("Node name to focus"), _("Node name to focus"));
-    add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME,
-        "export_to_html_dir", 'x', _("Export to HTML directory"), _("Export to HTML at specified directory path"));
-    add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME,
-        "export_to_txt_dir", 't', _("Export to Text directory"), _("Export to Text at specified directory path"));
-    add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME,
-        "export_to_pdf_file", 'p', _("Export to PDF file"), _("Export to PDF at specified file path"));
-    add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,
-        "export_overwrite", 'w', _("Overwrite existing export"), _("Overwrite if export path already exists"));
+    add_main_option_entry(Gio::Application::OPTION_TYPE_STRING,   "node",               'n', _("Node name to focus"));
+    add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME, "export_to_html_dir", 'x', _("Export to HTML at specified directory path"));
+    add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME, "export_to_txt_dir",  't', _("Export to Text at specified directory path"));
+    add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME, "export_to_pdf_file", 'p', _("Export to PDF at specified file path"));
+    add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "export_overwrite",   'w', _("Overwrite if export path already exists"));
 }
 
 void CtApp::_print_gresource_icons()
@@ -286,9 +300,16 @@ void CtApp::_print_gresource_icons()
 
 int CtApp::_on_handle_local_options(const Glib::RefPtr<Glib::VariantDict>& rOptions)
 {
-    Glib::ustring node_name;
-    if (rOptions->lookup_value("node", node_name)) {
-        g_print("cmd line opt: -n %s\n", node_name.c_str());
+    if (!rOptions) {
+        std::cerr << "CtApp::on_handle_local_options: options is null!" << std::endl;
+        return -1; // Keep going
     }
-    return -1;
+
+    rOptions->lookup_value("node", _node_to_focus);
+    rOptions->lookup_value("export_to_html_dir", _export_to_html_dir);
+    rOptions->lookup_value("export_to_txt_dir", _export_to_txt_dir);
+    rOptions->lookup_value("export_to_pdf_file", _export_to_pdf_file);
+    rOptions->lookup_value("export_overwrite", _export_overwrite);
+
+    return -1; // Keep going
 }

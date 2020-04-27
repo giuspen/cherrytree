@@ -62,6 +62,28 @@ void CtActions::export_to_ctd()
 
 }
 
+void CtActions::export_to_pdf_auto(const std::string& dir, bool overwrite)
+{
+    std::cout << "pdf export to: " << dir << std::endl;
+    std::cout << "overwrite: " << overwrite << std::endl;
+    _export_print(true, dir, overwrite);
+}
+
+void CtActions::export_to_html_auto(const std::string& dir, bool overwrite)
+{
+    std::cout << "html export to: " << dir << std::endl;
+    std::cout << "overwrite: " << overwrite << std::endl;
+    _export_to_html(dir, overwrite);
+}
+
+void CtActions::export_to_txt_auto(const std::string& dir, bool overwrite)
+{
+    std::cout << "txt export to: " << dir << std::endl;
+    std::cout << "overwrite: " << overwrite << std::endl;
+    _export_to_txt(false, dir, overwrite);
+}
+
+
 void CtActions::_export_print(bool save_to_pdf, Glib::ustring auto_path, bool auto_overwrite)
 {
     if (!_is_there_selected_node_or_error()) return;
@@ -94,9 +116,11 @@ void CtActions::_export_print(bool save_to_pdf, Glib::ustring auto_path, bool au
     {
         if (auto_path != "")
         {
-            pdf_filepath = auto_path;
-            if (!auto_overwrite && Glib::file_test(pdf_filepath, Glib::FILE_TEST_IS_REGULAR))
+            pdf_filepath = Glib::build_filename(auto_path, _pCtMainWin->get_ct_storage()->get_file_name() + ".pdf");
+            if (!auto_overwrite && Glib::file_test(pdf_filepath, Glib::FILE_TEST_IS_REGULAR)) {
+                std::cout << "pdf exists and overwrite is off, export is stopped" << std::endl;
                 return;
+            }
         }
         else if (save_to_pdf)
         {

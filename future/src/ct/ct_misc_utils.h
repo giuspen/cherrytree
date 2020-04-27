@@ -353,4 +353,6 @@ void external_folderpath_open(const std::string& folderpath);
 
 Glib::ustring prepare_export_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool overwrite_existing);
 
+bool rmdir(const std::string& dir);
+
 } // namespace CtFileSystem
