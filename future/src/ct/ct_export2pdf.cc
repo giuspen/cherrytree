@@ -91,13 +91,13 @@ void CtExport2Pdf::_nodes_all_export_print_iter(CtTreeIter tree_iter, const CtEx
     {
         if (options.new_node_page)
         {
-            node_pango_slots[0] = CtConst::CHAR_NEWPAGE + CtConst::CHAR_NEWPAGE + node_pango_slots[0];
+            node_pango_slots[0] = str::repeat(CtConst::CHAR_NEWPAGE, 2) + node_pango_slots[0];
             vec::vector_extend(tree_pango_slots, node_pango_slots);
             node_widgets.insert(node_widgets.begin(), nullptr);
         }
         else
         {
-            tree_pango_slots[tree_pango_slots.size() - 1] += CtConst::CHAR_NEWLINE + CtConst::CHAR_NEWLINE + CtConst::CHAR_NEWLINE + node_pango_slots[0];
+            tree_pango_slots[tree_pango_slots.size() - 1] += str::repeat(CtConst::CHAR_NEWLINE, 3) + node_pango_slots[0];
             if (node_pango_slots.size() > 1)
             {
                 node_pango_slots.erase(node_pango_slots.begin());
@@ -209,7 +209,7 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
         bool exit_ok = true;
         for (Glib::ustring& text_slot: print_data->text)
         {
-            bool is_forced_page_break = str::startswith(text_slot, CtConst::CHAR_NEWPAGE + CtConst::CHAR_NEWPAGE);
+            bool is_forced_page_break = str::startswith(text_slot, str::repeat(CtConst::CHAR_NEWPAGE, 2));
             print_data->forced_page_break.push_back(is_forced_page_break);
             // in other cases we detect the newline from a following line
             // but here we have a single layout line
@@ -578,7 +578,7 @@ void CtPrint::_table_long_split(size_t idx, const Glib::RefPtr<Gtk::PrintContext
 void CtPrint::_codebox_long_split(size_t idx, const Glib::RefPtr<Gtk::PrintContext>& context, CtPrintData* print_data)
 {
     CtPrintCodeboxProxy* codeboxProxy = dynamic_cast<CtPrintCodeboxProxy*>(_widgets[(size_t)idx].get());
-    std::vector<Glib::ustring> original_splitted_pango = str::split(codeboxProxy->get_text_content(), CtConst::CHAR_NEWLINE.c_str());
+    std::vector<Glib::ustring> original_splitted_pango = str::split(codeboxProxy->get_text_content(), CtConst::CHAR_NEWLINE);
     // fix for not-closed span, I suppose
     for (size_t i = 0; i < original_splitted_pango.size(); ++i)
     {

@@ -702,7 +702,7 @@ bool CtActions::_on_embfiles_sentinel_timeout()
         if (item.second != CtFileSystem::getmtime(filepath))
         {
            _embfiles_opened[filepath] = CtFileSystem::getmtime(filepath);
-           auto data_vec = str::split(Glib::path_get_basename(filepath), CtConst::CHAR_MINUS.c_str());
+           auto data_vec = str::split(Glib::path_get_basename(filepath), CtConst::CHAR_MINUS);
            gint64 node_id = std::stoll(data_vec[0]);
            size_t embfile_id = std::stol(data_vec[1]);
 
@@ -727,7 +727,7 @@ bool CtActions::_on_embfiles_sentinel_timeout()
                         embFile->update_tooltip();
 
                         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
-                        _pCtMainWin->get_status_bar().update_status(_("Embedded File Automatically Updated:") + CtConst::CHAR_SPACE + embFile->get_file_name());
+                        _pCtMainWin->get_status_bar().update_status(_("Embedded File Automatically Updated:") + std::string(CtConst::CHAR_SPACE) + embFile->get_file_name());
                         break;
                     }
            }

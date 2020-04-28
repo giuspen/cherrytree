@@ -34,7 +34,7 @@ Glib::ustring CtExport2Txt::node_export_to_txt(CtTreeIter tree_iter, Glib::ustri
     if (export_options.include_node_name)
         plain_text = tree_iter.get_node_name().uppercase() + CtConst::CHAR_NEWLINE;
     plain_text += selection_export_to_txt(tree_iter.get_node_text_buffer(), sel_start, sel_end, false);
-    plain_text += CtConst::CHAR_NEWLINE + CtConst::CHAR_NEWLINE;
+    plain_text += str::repeat(CtConst::CHAR_NEWLINE, 2);
     if (filepath != "")
         g_file_set_contents(filepath.c_str(), plain_text.c_str(), (gssize)plain_text.bytes(), nullptr);
     return plain_text;

@@ -330,7 +330,7 @@ void CtActions::node_delete()
     collect_children = [this, &collect_children](Gtk::TreeIter iter, int level, std::vector<std::string>& list) {
       if (list.size() > 15) {
           if (list.size() == 16)
-            list.push_back(CtConst::CHAR_NEWLINE + "...");
+            list.push_back(std::string(CtConst::CHAR_NEWLINE) + "...");
       } else {
           list.push_back(CtConst::CHAR_NEWLINE + str::repeat(CtConst::CHAR_SPACE, level*3) + _pCtMainWin->get_ct_config()->charsListbul[0] +
                   CtConst::CHAR_SPACE + _pCtMainWin->get_tree_store().to_ct_tree_iter(iter).get_node_name());
@@ -345,7 +345,7 @@ void CtActions::node_delete()
     {
         std::vector<std::string> lst;
         collect_children(_pCtMainWin->curr_tree_iter(), 0, lst);
-        warning_label += CtConst::CHAR_NEWLINE + CtConst::CHAR_NEWLINE + _("The node <b>has Children, they will be Deleted too!</b>");
+        warning_label += str::repeat(CtConst::CHAR_NEWLINE, 2) + _("The node <b>has Children, they will be Deleted too!</b>");
         warning_label += str::join(lst, "");
     }
     if (!CtDialogs::question_dialog(warning_label, *_pCtMainWin))

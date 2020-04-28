@@ -259,8 +259,8 @@ void CtTextView::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& 
             {
                 this_num = 1;
                 int idx_old = list_info.aux;
-                int idx_offset = idx_old - curr_level % CtConst::NUM_CHARS_LISTNUM;
-                index = (next_level + idx_offset) % CtConst::NUM_CHARS_LISTNUM;
+                int idx_offset = idx_old - curr_level % CtConst::CHARS_LISTNUM.size();
+                index = (next_level + idx_offset) % CtConst::CHARS_LISTNUM.size();
             }
             Glib::ustring text_to = std::to_string(this_num) + Glib::ustring(1, CtConst::CHARS_LISTNUM[(size_t)index]) + CtConst::CHAR_SPACE;
             replace_text(text_to, bull_offset, bull_offset + CtList(_pCtMainWin, get_buffer()).get_leading_chars_num(list_info.type, list_info.num));
@@ -689,7 +689,7 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
         if (node_dest)
         {
             get_buffer()->select_range(iter_start, iter_end);
-            Glib::ustring property_value = CtConst::LINK_TYPE_NODE + CtConst::CHAR_SPACE + std::to_string(node_dest.get_node_id());
+            Glib::ustring property_value = std::string(CtConst::LINK_TYPE_NODE) + CtConst::CHAR_SPACE + std::to_string(node_dest.get_node_id());
             _pCtMainWin->get_ct_actions()->_apply_tag(CtConst::TAG_LINK, property_value);
             return true;
         }
@@ -745,12 +745,12 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
             }
         }
         int num_chars = iter_end.get_offset() - iter_start.get_offset();
-        if (num_chars > 4 and CtTextIterUtil::get_next_chars_from_iter_are(iter_start, CtConst::WEB_LINK_STARTERS))
+        if (num_chars > 4 and CtTextIterUtil::startswith_any(iter_start, CtConst::WEB_LINK_STARTERS))
          {
             get_buffer()->select_range(iter_start, iter_end);
             Glib::ustring link_url = get_buffer()->get_text(iter_start, iter_end);
             if (not str::startswith(link_url, "htt") and !str::startswith(link_url, "ftp")) link_url = "http://" + link_url;
-            Glib::ustring property_value = CtConst::LINK_TYPE_WEBS + CtConst::CHAR_SPACE + link_url;
+            Glib::ustring property_value = std::string(CtConst::LINK_TYPE_WEBS) + CtConst::CHAR_SPACE + link_url;
             _pCtMainWin->get_ct_actions()->_apply_tag(CtConst::TAG_LINK, property_value);
             tag_applied = true;
         }

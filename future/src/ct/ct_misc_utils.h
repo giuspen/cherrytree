@@ -64,13 +64,31 @@ namespace CtTextIterUtil {
 
 bool get_is_camel_case(Gtk::TextIter iter_start, int num_chars);
 
-bool get_first_chars_of_string_are(const Glib::ustring& text, const std::vector<Glib::ustring>& chars_list);
+inline bool startswith(Gtk::TextIter text_iter, const gchar* str)
+{
+    gunichar ch = g_utf8_get_char(str);
+    while (true)
+    {
+        if (text_iter.get_char() != ch)
+            return false;
+        str = g_utf8_next_char(str);
+        ch = g_utf8_get_char(str);
+        if (ch == 0)
+            return true;
+        if (!text_iter.forward_char())
+            return false;
+    }
+}
 
-bool get_next_chars_from_iter_are(Gtk::TextIter text_iter, const Glib::ustring& chars_list);
 
-bool get_next_chars_from_iter_are(Gtk::TextIter text_iter, const std::vector<Glib::ustring>& chars_list_vec);
-
-bool get_first_chars_of_string_at_offset_are(const Glib::ustring& in_string, int offset, const std::vector<Glib::ustring>& chars_list_vec);
+template<class container>
+bool startswith_any(Gtk::TextIter text_iter, const container& str_list)
+{
+    for (auto it = std::begin(str_list); it != std::end(str_list); ++it)
+        if (startswith(text_iter, *it))
+            return true;
+    return false;
+}
 
 void rich_text_attributes_update(const Gtk::TextIter& text_iter, std::map<const gchar*, std::string>& curr_attributes);
 
@@ -97,31 +115,26 @@ guint32 guint32_from_hex_chars(const char* hexChars, guint8 numChars);
 
 std::vector<gint64> gstring_split_to_int64(const gchar* inStr, const gchar* delimiter, gint max_tokens=-1);
 
-template<class IterableOfPgchar>
-bool is_pgchar_in_pgchar_iterable(const gchar* pGcharNeedle, const IterableOfPgchar& haystackOfPgchar)
+template<class container>
+bool contains(const container& array, const gchar* el)
 {
-    bool gotcha{false};
-    for (const gchar* pGcharHaystack : haystackOfPgchar)
-    {
-        if (0 == g_strcmp0(pGcharHaystack, pGcharNeedle))
-        {
-            gotcha = true;
-            break;
-        }
-    }
-    return gotcha;
+    for (auto it = std::begin(array); it != std::end(array); ++it)
+        if (0 == g_strcmp0(*it, el))
+            return true;
+    return false;
 }
 
 template<class String>
-bool contains_words(const String& text, const std::vector<String>& words, bool require_all = true) {
-  for (auto& word: words) {
-    if (text.find(word) != String::npos) {
-      if (!require_all)
-        return true;
-    } else if (require_all) {
-      return false;
-    }
-  }
+bool contains_words(const String& text, const std::vector<String>& words, bool require_all = true)
+{
+    for (auto& word: words) {
+        if (text.find(word) != String::npos) {
+            if (!require_all)
+                return true;
+            } else if (require_all) {
+                return false;
+            }
+        }
 
   return require_all;
 }
@@ -171,11 +184,29 @@ namespace str {
 
 bool startswith(const std::string& str, const std::string& starting);
 
+template<class container>
+bool startswith_any(const Glib::ustring& text, const container& chars_list)
+{
+    for (auto it = std::begin(chars_list); it != std::end(chars_list); ++it)
+        if (str::startswith(text, *it))
+            return true;
+    return false;
+}
+
 bool endswith(const std::string& str, const std::string& ending);
 
 int indexOf(const Glib::ustring& str, const Glib::ustring& lookup_str);
 
 int indexOf(const Glib::ustring& str, const gunichar& uc);
+
+template <typename T, size_t size>
+int indexOf(const std::array<T, size>& array, const T& uc)
+{
+    for (size_t i = 0; i < size; ++i)
+        if (array[i] == uc)
+            return (int)i;
+    return -1;
+}
 
 std::string xml_escape(const std::string& text);
 

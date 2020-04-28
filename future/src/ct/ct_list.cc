@@ -77,7 +77,7 @@ void CtList::list_handler(CtListType target_list_num_id)
             end_offset -= range.leading_chars_num;
             if (!list_info || list_info.type != target_list_num_id){
                 // the target list type differs from this paragraph list type
-                while (CtTextIterUtil::get_next_chars_from_iter_are(range.iter_start, Glib::ustring(3, CtConst::CHAR_SPACE[0])))
+                while (CtTextIterUtil::startswith(range.iter_start, Glib::ustring(3, CtConst::CHAR_SPACE[0]).c_str()))
                     range.iter_start.forward_chars(3);
                 if (target_list_num_id == CtListType::Todo) {
                     new_par_offset = range.iter_end.get_offset() + 2;
@@ -96,7 +96,7 @@ void CtList::list_handler(CtListType target_list_num_id)
                         else                           leading_num_count = {LevelCount{0, leading_num_count.front().count+1}};
                     } else {
                         int level = list_info.level;
-                        index = level % CtConst::NUM_CHARS_LISTNUM;
+                        index = level % CtConst::CHARS_LISTNUM.size();
                         if (leading_num_count.empty())
                             leading_num_count = {LevelCount{level, 1}};
                         else {
@@ -117,7 +117,7 @@ void CtList::list_handler(CtListType target_list_num_id)
                              }
                          }
                     }
-                    Glib::ustring leading_str = std::to_string(leading_num_count.back().count) + CtConst::CHARS_LISTNUM.substr((size_t)index, 1) + CtConst::CHAR_SPACE;
+                    Glib::ustring leading_str = std::to_string(leading_num_count.back().count) + Glib::ustring(1, CtConst::CHARS_LISTNUM[index]) + CtConst::CHAR_SPACE;
                     new_par_offset = range.iter_end.get_offset() + (int)leading_str.size();
                     end_offset += leading_str.size();
                     _curr_buffer->insert(range.iter_start, leading_str);
@@ -180,7 +180,7 @@ CtListInfo CtList::list_get_number_n_level(Gtk::TextIter iter_first_paragraph)
             break;
         }
         if (ch == CtConst::CHAR_SPACE[0]) {
-            if (CtTextIterUtil::get_next_chars_from_iter_are(iter_start, Glib::ustring(3, CtConst::CHAR_SPACE[0]))) {
+            if (CtTextIterUtil::startswith(iter_start, Glib::ustring(3, CtConst::CHAR_SPACE[0]).c_str())) {
                 iter_start.forward_chars(3);
                 level += 1;
             } else

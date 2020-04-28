@@ -1622,11 +1622,11 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     fg_colorbutton.set_sensitive(not nodeData.foregroundRgb24.empty());
 
     Gtk::CheckButton c_icon_checkbutton(_("Use Selected Icon"));
-    c_icon_checkbutton.set_active(map::exists(CtConst::NODES_STOCKS, nodeData.customIconId));
+    c_icon_checkbutton.set_active(nodeData.customIconId > 0 && nodeData.customIconId < CtConst::NODE_CUSTOM_ICONS.size());
     Gtk::Button c_icon_button;
     if (c_icon_checkbutton.get_active())
     {
-        c_icon_button.set_image(*pCtMainWin->new_image_from_stock(CtConst::NODES_STOCKS.at((int)nodeData.customIconId), Gtk::ICON_SIZE_BUTTON));
+        c_icon_button.set_image(*pCtMainWin->new_image_from_stock(CtConst::NODE_CUSTOM_ICONS.at((int)nodeData.customIconId), Gtk::ICON_SIZE_BUTTON));
     }
     else
     {
@@ -1728,7 +1728,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     {
        button_prog_lang.set_sensitive(radiobutton_auto_syntax_highl.get_active());
     });
-    button_browse_tags.signal_clicked().connect([&dialog, &pCtMainWin, &tags_entry, &tags_set]()
+    button_browse_tags.signal_clicked().connect([&dialog, &tags_entry, &tags_set]()
     {
         auto itemStore = CtChooseDialogListStore::create();
         for (const auto& tag : tags_set)
@@ -1772,9 +1772,9 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     c_icon_button.signal_clicked().connect([&dialog, &pCtMainWin, &c_icon_button, &nodeData]()
     {
         auto itemStore = CtChooseDialogListStore::create();
-        for (auto& pair : CtConst::NODES_STOCKS)
+        for (size_t i = 1 /*skip 0*/; i < CtConst::NODE_CUSTOM_ICONS.size(); ++i)
         {
-            itemStore->add_row(pair.second, std::to_string(pair.first), "");
+            itemStore->add_row(CtConst::NODE_CUSTOM_ICONS[i], std::to_string(i), "");
         }
         const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog, _("Select Node Icon"), itemStore);
         if (treeIter)
