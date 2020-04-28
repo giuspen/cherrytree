@@ -7,7 +7,6 @@ src/ct/ct_codebox.cc
 src/ct/ct_image.cc
 src/ct/ct_table.cc
 src/ct/ct_config.cc
-src/ct/ct_const.cc
 src/ct/ct_misc_utils.cc
 src/ct/ct_p7za_iface.cc
 src/ct/ct_menu.cc

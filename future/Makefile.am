@@ -37,9 +37,18 @@ check_PROGRAMS = run_tests
 
 ## Define the non executable data that needs to be installed
 ## and have a define tell to our software where that dir is
-#appdatadir = $(datadir)/@PACKAGE@
-#appdata_DATA = img/@PACKAGE@.glade
-#AM_CXXFLAGS = -DDATADIR=\"$(datadir)\"
+
+AM_CXXFLAGS = -DDATADIR=\"$(datadir)\"
+
+langspecsdir = $(datadir)/@PACKAGE@/language-specs
+langspecs_DATA = language-specs/clisp.lang \
+                 language-specs/markdown-extra.lang
+
+iconshicolorscalableappsdir = $(datadir)/icons/hicolor/scalable/apps
+iconshicolorscalableapps_DATA = icons/cherrytree.svg
+
+desktopdir = $(datadir)/applications
+desktop_DATA = data/@PACKAGE@.desktop
 
 COMMON_SOURCES = \
 	src/ct/ct_app.cc \
@@ -49,7 +58,6 @@ COMMON_SOURCES = \
 	src/ct/ct_image.cc \
 	src/ct/ct_table.cc \
 	src/ct/ct_config.cc \
-	src/ct/ct_const.cc \
 	src/ct/ct_misc_utils.cc \
 	src/ct/ct_p7za_iface.cc \
 	src/ct/icons.gresource.cc \

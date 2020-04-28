@@ -1,0 +1,3131 @@
+# German translations for svn_cherrytree package.
+# Copyright (C) 2010 THE svn_cherrytree'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the svn_cherrytree package.
+# Giuseppe Penone <giuspen@gmail.com>, 2010.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: svn_cherrytree 0.12\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-02 08:22+0100\n"
+"PO-Revision-Date: 2019-07-10 21:41+0200\n"
+"Last-Translator: Frank Brungräber <calexu@arcor.de>\n"
+"Language-Team: German\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#: /home/giuspen/Software/git_cherrytree/modules/printing.py:217
+msgid "Warning: One or More Images Were Reduced to Enter the Page"
+msgstr ""
+"Warnung: Ein oder mehrere Bilder wurden beim Einfügen in die Seite "
+"verkleinert"
+
+#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:68
+msgid "Unknown"
+msgstr "Unbekannt"
+
+#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:430
+msgid "(no suggestions)"
+msgstr "(keine Vorschläge)"
+
+#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:446
+msgid "Add \"{}\" to Dictionary"
+msgstr "\"{}\" dem Wörterbuch hinzufügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:449
+msgid "Ignore All"
+msgstr "Alle ignorieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:460
+msgid "Languages"
+msgstr "Sprachen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/pgsc_spellcheck.py:471
+msgid "Suggestions"
+msgstr "Vorschläge"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:270
+msgid "Checking for Newer Version..."
+msgstr "Suche nach neuer Version..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:283
+msgid "A Newer Version Is Available!"
+msgstr "Eine neue Version ist verfügbar!"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:289
+msgid "You Are Using the Latest Version Available"
+msgstr "Dies ist die aktuelle Version."
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:291
+msgid "You Are Using a Development Version"
+msgstr "Sie nutzen eine Entwicklerversion."
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:295
+msgid "Failed to Retrieve Latest Version Information - Try Again Later"
+msgstr ""
+"Informationen zu neue Versionen konnten nicht abgerufen werden. Bitte "
+"versuchen Sie es später noch einmal."
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:328
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3929
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4557
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:5044
+msgid "No Text is Selected"
+msgstr "Kein Text ausgewählt"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:828
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2454
+msgid "The new parent can't be one of his children!"
+msgstr "Der übergeordnete Knoten kann nicht gleichzeitig untergeordnet sein."
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:852
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1541
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1739
+#: /home/giuspen/Software/git_cherrytree/modules/exports.py:153
+msgid "CherryTree Document"
+msgstr "CherryTree-Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:876
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2020
+#, python-format
+msgid "\"%s\" is Not a CherryTree Document"
+msgstr "\"%s\" ist keine CherryTree-Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:882
+msgid "NoteCase Document"
+msgstr "NoteCase-Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:979
+msgid "EPIM HTML Document"
+msgstr "EPIM HTML-Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:993
+msgid "HTML Document"
+msgstr "HTML-Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1015
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1023
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1036
+#: /home/giuspen/Software/git_cherrytree/modules/exports.py:300
+msgid "Plain Text Document"
+msgstr "Textdatei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1049
+msgid "Treepad Document"
+msgstr "Treepad-Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1070
+msgid "KeyNote Document"
+msgstr "KeyNote-Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1090
+msgid "Mempad Document"
+msgstr "Mempad-Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1109
+msgid "Knowit Document"
+msgstr "Knowit-Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1129
+msgid "Leo Document"
+msgstr "Leo-Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1161
+msgid "Who is the Parent?"
+msgstr "Welcher Knoten ist übergeordnet?"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1168
+msgid "The Tree Root"
+msgstr "Der Anfang der Baumstruktur"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1169
+msgid "The Selected Node"
+msgstr "Der markierte Knoten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1290
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1804
+msgid "Insert _Special Character"
+msgstr "S_onderzeichen einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1292
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1806
+msgid "Insert a Special Character"
+msgstr "Sonderzeichen einfügen"
+
+# ### msgid "The Document was Updated After Non-CherryTree Update to CT* File"
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1383
+msgid "The Document was Reloaded After External Update to CT* File"
+msgstr "Die CT*-Datei wurde nach einer externen Aktualisierung neu geladen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1410
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "CherryTree – Ein hierarchisches Notizprogramm"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1705
+#, python-format
+msgid "You Have No Write Access to %s"
+msgstr "Sie haben keine Schreibrechte für %s"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1719
+msgid "Writing to Disk..."
+msgstr "Schreibe auf Festplatte..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1843
+msgid ""
+"Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
+"Installed Properly"
+msgstr ""
+"7za wurde nicht gefunden. Bitte überprüfen Sie, ob das Paket 'p7zip-full' "
+"korrekt installiert ist."
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1849
+#, python-format
+msgid "Enter Password for %s"
+msgstr "Passwort für %s eingeben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1921
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:1938
+msgid "Wrong Password"
+msgstr "Falsches Passwort"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2442
+msgid "Select the New Parent"
+msgstr "Neuen übergeordneten Knoten auswählen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2446
+msgid "The new parent can't be the very node to move!"
+msgstr "Der übergeordnete Knoten kann nicht der der eigene Knoten sein!"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2449
+msgid "The new chosen parent is still the old parent!"
+msgstr "Der neue übergeordnete Knoten ist der alte!"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2716
+msgid "New Node Properties"
+msgstr "Eigenschaften des neuen Knotens"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2779
+msgid "New Child Node Properties"
+msgstr "Eigenschaften des untergeordneten Knotens"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2807
+#, python-format
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
+msgstr "Wollen Sie den Knoten <b>'%s'</b> wirklich löschen?"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2809
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr ""
+"Der Knoten hat untergeordnete Knoten, <b>diese werden auch gelöscht!</b>"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2846
+msgid "Node Properties"
+msgstr "Knoteneigenschaften"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:2859
+msgid ""
+"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
+"Do you want to Continue?"
+msgstr ""
+"Wenn Sie die RichText-Formatierung ändern, verlieren Sie alle Formatierungen "
+"in diesem Knoten. Weiter?"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3420
+msgid "Bold"
+msgstr "Fett"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3422
+msgid "Use Selected Color"
+msgstr "Gewählte Farbe verwenden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3434
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1515
+msgid "Use Selected Icon"
+msgstr "Benutzerdefiniertes Symbol:"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3440
+#: /home/giuspen/Software/git_cherrytree/modules/tablez.py:322
+#: /home/giuspen/Software/git_cherrytree/modules/imports.py:2733
+msgid "click me"
+msgstr "Klick mich"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3452
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:920
+msgid "Node Name"
+msgstr "Knotenname"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3456
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4982
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1669
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2375
+msgid "Rich Text"
+msgstr "Rich Text"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3457
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4983
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1670
+#: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:95
+msgid "Plain Text"
+msgstr "Text"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3459
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3512
+#: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:96
+#: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:178
+msgid "Automatic Syntax Highlighting"
+msgstr "Automatische Syntaxhervorhebung"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3479
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4981
+msgid "Node Type"
+msgstr "Knotentyp"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3493
+msgid "Tags for Searching"
+msgstr "Suchtags"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3497
+msgid "Read Only"
+msgstr "Schreibgeschützt"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3530
+msgid "Choose Existing Tag"
+msgstr "Vorhandenen Tag wählen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3530
+msgid "Tag Name"
+msgstr "Tag Name"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3557
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1627
+msgid "Select Node Icon"
+msgstr "Knotensymbol auswählen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3588
+msgid "The Size of the Toolbar Icons is already at the Maximum Value"
+msgstr "Größere Icons sind nicht möglich"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3596
+msgid "The Size of the Toolbar Icons is already at the Minimum Value"
+msgstr "Kleinere Icons sind nicht möglich"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3691
+msgid "Edit Anchor"
+msgstr "Anker bearbeiten..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3694
+msgid "Insert Anchor"
+msgstr "Anker einfügen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3716
+msgid "No CodeBox is Selected"
+msgstr "Keine CodeBox ausgewählt"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3724
+#, python-format
+msgid ""
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog"
+msgstr ""
+"Sie müssen '%s' erst ein Kommando zuweisen (Menü Bearbeiten - Einstellungen "
+"- Text und Code)."
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3731
+msgid "Do you want to Execute the Code?"
+msgstr "Wollen Sie den Code ausführen?"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3747
+msgid ""
+"Install the package 'xterm' or configure a different terminal in the "
+"Preferences Dialog"
+msgstr ""
+"Bitte installieren Sie das Paket 'xterm' oder konfigurieren Sie ein anderes "
+"Terminal in den Einstellungen."
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3760
+#, python-format
+msgid "The Maximum Size for Embedded Files is %s MB"
+msgstr "Eingebettete Dateien dürfen nicht größer als %s MB sein."
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3823
+msgid "Cannot Edit Embedded File in Read Only Node"
+msgstr ""
+"Eingebettete Dateien können in schreibgeschützten Knoten nicht editiert "
+"werden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3837
+msgid "Embedded File Automatically Updated:"
+msgstr "Eingebettete Datei wurde automatisch aktualisiert:"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3886
+msgid "Not Any H1, H2 or H3 Formatting Found"
+msgstr "Keine Überschriften-Formate gefunden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3906
+msgid "This Feature is Available Only in Rich Text Nodes"
+msgstr "Dieses Feature ist nur in Knoten mit Rich Text verfügbar"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3908
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes"
+msgstr ""
+"Dieses Feature ist in Knoten mit automatischer Syntaxhervorhebung nicht "
+"verfügbar"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3914
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4978
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1417
+msgid "No Node is Selected"
+msgstr "Kein Knoten ausgewählt"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3921
+msgid "The Tree is Empty!"
+msgstr "Die Baumstruktur ist leer!"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3941
+msgid "The Selected Node is Read Only"
+msgstr "Der markierte Knoten ist schreibgeschützt."
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3954
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:239
+msgid "Tree Summary Information"
+msgstr "Übersicht der Baumstruktur"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3962
+msgid "Number of Rich Text Nodes"
+msgstr "Anzahl der Richtext-Knoten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3965
+msgid "Number of Plain Text Nodes"
+msgstr "Anzahl der Textknoten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3968
+msgid "Number of Code Nodes"
+msgstr "Anzahl der Code-Knoten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3971
+msgid "Number of Images"
+msgstr "Anzahl der Bilder"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3974
+msgid "Number of Embedded Files"
+msgstr "Anzahl der eingebetteten Dateien"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3977
+msgid "Number of Tables"
+msgstr "Anzahl der Tabellen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3980
+msgid "Number of CodeBoxes"
+msgstr "Anzahl der CodeBoxen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:3983
+msgid "Number of Anchors"
+msgstr "Anzahl der Anker"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4071
+msgid "Image Format Not Recognized"
+msgstr "Bildformat nicht erkannt"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4096
+msgid "Image Properties"
+msgstr "Bildeigenschaften"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4177
+msgid "PNG Image"
+msgstr "PNG Bild"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4183
+#, python-format
+msgid "Write to %s Failed"
+msgstr "Konnte %s nicht schreiben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4296
+msgid "Lines Stripped"
+msgstr "Zeilen entfernt"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4430
+msgid "No Previous Text Format Was Performed During This Session"
+msgstr "Es wurde in dieser Sitzung noch keine Formatierung durchgeführt"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4518
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4585
+msgid "Insert/Edit Link"
+msgstr "Link einfügen/bearbeiten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4563
+msgid "Link Name"
+msgstr "Linkname"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4575
+msgid "The Cursor is Not into a Paragraph"
+msgstr "Der Cursor befindet sich nicht in einem Absatz"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4803
+#, python-format
+msgid "The File Link '%s' is Not Valid"
+msgstr "Der Dateipfad '%s' ist ungültig"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4812
+#, python-format
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "Die Adresse des Verzeichnisses '%s' ist ungültig"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4821
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:960
+#, python-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr "Der Link verweist auf einen Knoten, der nicht mehr existiert (ID = %s)"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4834
+#, python-format
+msgid "No anchor named '%s' found"
+msgstr "Kein Anker mit den Namen '%s' gefunden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4981
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4985
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4987
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4989
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4993
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4997
+msgid ": "
+msgstr ": "
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4985
+msgid "Tags"
+msgstr "Tags"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4987
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:998
+msgid "Spell Check"
+msgstr "Rechtschreibprüfung"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4989
+msgid "Word Count"
+msgstr "Wörter zählen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4993
+msgid "Date Created"
+msgstr "Erstellungsdatum"
+
+#: /home/giuspen/Software/git_cherrytree/modules/core.py:4997
+msgid "Date Modified"
+msgstr "Änderungsdatum"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:145
+msgid "Search for"
+msgstr "Suchen nach"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:152
+msgid "Replace with"
+msgstr "Ersetzen durch"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:167
+msgid "Match Case"
+msgstr "Groß/Kleinschreibung beachten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:169
+msgid "Regular Expression"
+msgstr "Reguläre Ausdrücke"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:171
+msgid "Whole Word"
+msgstr "Ganzes Wort"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:173
+msgid "Start Word"
+msgstr "Wortanfang"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:175
+msgid "Forward"
+msgstr "Nach unten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:177
+msgid "Backward"
+msgstr "Nach oben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:180
+msgid "All, List Matches"
+msgstr "Alle Übereinstimmungen auflisten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:182
+msgid "First From Selection"
+msgstr "Erste in Selektion"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:185
+msgid "First in All Range"
+msgstr "Erste im gesamten Dokument"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:190
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:234
+msgid "Node Created After"
+msgstr "Knoten erstellt nach"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:197
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:236
+msgid "Node Created Before"
+msgstr "Knoten erstellt vor"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:204
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:238
+msgid "Node Modified After"
+msgstr "Knoten geändert nach"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:211
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:240
+msgid "Node Modified Before"
+msgstr "Knoten geändert vor"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:228
+msgid "Time filter"
+msgstr "Zeitfilter"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:249
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "Dialog für mehrfaches Suchen/Ersetzen anzeigen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:272
+msgid "Search options"
+msgstr "Suchoptionen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:320
+msgid "Iterate Latest Find/Replace"
+msgstr "Mehrfaches Suchen/Ersetzen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:322
+msgid "Close"
+msgstr "Schließen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:323
+msgid "Find Previous"
+msgstr "Rückwärts suchen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:324
+msgid "Find Next"
+msgstr "Vorwärts suchen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:325
+msgid "Replace"
+msgstr "Ersetzen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:326
+msgid "Undo"
+msgstr "Rü_ckgängig"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:374
+msgid "Replace in Current Node..."
+msgstr "Im ausgewählten Knoten ersetzen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:375
+msgid "Search in Current Node..."
+msgstr "Im ausgewählten Knoten suchen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:403
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:508
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:582
+#, python-format
+msgid "The pattern '%s' was not found"
+msgstr "Suchbegriff '%s' nicht gefunden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:405
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:511
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:584
+msgid "Matches"
+msgstr "Übereinstimmungen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:427
+msgid "Replace in Selected Node and Subnodes"
+msgstr "in markierten und untergeordneten Knoten ersetzen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:428
+msgid "Replace in All Nodes"
+msgstr "In allen Knoten ersetzen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:430
+msgid "Search in Selected Node and Subnodes"
+msgstr "Im markierten und untergeordneten Knoten suchen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:431
+msgid "Search in All Nodes"
+msgstr "In allen Knoten suchen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:526
+msgid "Replace in Node Names..."
+msgstr "In Knotennamen ersetzen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:527
+msgid "Search For a Node Name..."
+msgstr "Nach Knotennamen suchen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:867
+msgid "No Previous Search Was Performed During This Session"
+msgstr "Es wurde in dieser Sitzung noch nichts gesucht"
+
+# python-format
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:914
+#, python-format
+msgid "Hide (Restore with '%s')"
+msgstr "Ausblenden (Einblenden mit '%s')"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:922
+msgid "Line"
+msgstr "Zeile"
+
+#: /home/giuspen/Software/git_cherrytree/modules/findreplace.py:924
+msgid "Line Content"
+msgstr "Zeileninhalt"
+
+#: /home/giuspen/Software/git_cherrytree/modules/tablez.py:64
+msgid "Rename Column"
+msgstr "Spalte umbenennen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/tablez.py:75
+msgid "Delete Column"
+msgstr "Spalte löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/tablez.py:83
+msgid "Add Column"
+msgstr "Spalte einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/tablez.py:94
+msgid "Move Column Left"
+msgstr "Spalte nach links verschieben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/tablez.py:102
+msgid "Move Column Right"
+msgstr "Spalte nach rechts verschieben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/tablez.py:184
+msgid "Rows"
+msgstr "Zeilen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/tablez.py:188
+msgid "Columns"
+msgstr "Spalten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/tablez.py:203
+msgid "Table Size"
+msgstr "Tabellengröße"
+
+#: /home/giuspen/Software/git_cherrytree/modules/tablez.py:208
+msgid "Min Width"
+msgstr "Min. Breite"
+
+#: /home/giuspen/Software/git_cherrytree/modules/tablez.py:212
+msgid "Max Width"
+msgstr "Max. Breite"
+
+#: /home/giuspen/Software/git_cherrytree/modules/tablez.py:227
+msgid "Column Properties"
+msgstr "Spalteneigenschaften"
+
+#: /home/giuspen/Software/git_cherrytree/modules/tablez.py:232
+msgid "Import from CSV File"
+msgstr "CSV Datei importieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/tablez.py:271
+#: /home/giuspen/Software/git_cherrytree/modules/tablez.py:293
+msgid "CSV File"
+msgstr "CSV Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/tablez.py:287
+msgid "Insert Table"
+msgstr "Tabelle einfügen/bearbeiten..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/tablez.py:332
+msgid "Click to Edit the Column Settings"
+msgstr "Klicken, um Spalten-Eigenschaften zu ändern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/tablez.py:380
+msgid "Edit Table Properties"
+msgstr "Tabelleneigenschafen bearbeiten..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/tablez.py:475
+msgid "Table Column Action"
+msgstr "Tabellenspalten bearbeiten..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:174
+msgid "New _Instance"
+msgstr "_Neue Baumstruktur..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:174
+msgid "Start a New Instance of CherryTree"
+msgstr "Neue Baustruktur anlegen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:175
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:312
+msgid "_Open File"
+msgstr "_Öffnen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:175
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:131
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1857
+msgid "Open a CherryTree Document"
+msgstr "CherryTree-Dokument öffnen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:176
+msgid "_Save"
+msgstr "_Speichern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:176
+msgid "Save File"
+msgstr "Datei speichern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:177
+msgid "Save and _Vacuum"
+msgstr "Speichern und _komprimieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:177
+msgid "Save File and Vacuum"
+msgstr "Speichern und komprimieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:178
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:311
+msgid "Save _As"
+msgstr "Speichern _unter..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:178
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:311
+msgid "Save File As"
+msgstr "Datei speichern unter..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:179
+msgid "_Execute Code"
+msgstr "_Code ausführen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:179
+msgid "Execute Code"
+msgstr "Code ausführen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:180
+msgid "Open Preferences _Directory"
+msgstr "Verzeichnis mit Einstellungen öffnen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:180
+msgid "Open the Directory with Preferences Files"
+msgstr "Verzeichnis mit Konfigurationsdateien öffnen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:181
+msgid "Pa_ge Setup"
+msgstr "Seite _einrichten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:181
+msgid "Set up the Page for Printing"
+msgstr "Seite einrichten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:182
+msgid "_Print"
+msgstr "_Drucken"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:182
+msgid "Print"
+msgstr "Drucken"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:183
+msgid "_Quit"
+msgstr "S_chließen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:183
+msgid "Quit the Application"
+msgstr "Programm beenden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:184
+msgid "_Exit CherryTree"
+msgstr "CherryTree _beenden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:184
+msgid "Exit from CherryTree"
+msgstr "CherryTree beenden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:185
+msgid "_Preferences"
+msgstr "_Einstellungen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:185
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2361
+msgid "Preferences"
+msgstr "Einstellungen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:186
+msgid "_Undo"
+msgstr "Rü_ckgängig"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:186
+msgid "Undo Last Operation"
+msgstr "Rückgängig"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:187
+msgid "_Redo"
+msgstr "Wie_derherstellen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:187
+msgid "Redo Previously Discarded Operation"
+msgstr "Letzte zurückgenommene Aktion wiederherstellen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:188
+msgid "Insert I_mage"
+msgstr "_Bild einfügen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:188
+msgid "Insert an Image"
+msgstr "Bild einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:190
+msgid "Insert _Table"
+msgstr "_Tabelle einfügen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:190
+msgid "Insert a Table"
+msgstr "Tabelle einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:191
+msgid "Insert _CodeBox"
+msgstr "_CodeBox einfügen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:191
+#: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:224
+msgid "Insert a CodeBox"
+msgstr "CodeBox einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:192
+msgid "Insert _File"
+msgstr "_Datei einfügen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:192
+msgid "Insert File"
+msgstr "Datei einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:193
+msgid "Insert/Edit _Link"
+msgstr "_Link einfügen/bearbeiten..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:193
+msgid "Insert a Link/Edit the Underlying Link"
+msgstr "Link einfügen/bearbeiten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:194
+msgid "Insert _Anchor"
+msgstr "An_ker einfügen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:194
+msgid "Insert an Anchor"
+msgstr "Anker einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:195
+msgid "Insert T_OC"
+msgstr "_Inhaltsverzeichnis einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:195
+msgid "Insert Table of Contents"
+msgstr "Inhaltsverzeichnis einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:196
+msgid "Insert Ti_mestamp"
+msgstr "Zeitste_mpel einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:196
+msgid "Insert Timestamp"
+msgstr "Zeitstempel einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:197
+msgid "Insert _Horizontal Rule"
+msgstr "ho_rizontale Linie einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:197
+msgid "Insert Horizontal Rule"
+msgstr "horizontale Linie einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:198
+msgid "_Lower Case of Selection/Word"
+msgstr "_Kleinschreibung"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:198
+msgid "Lower the Case of the Selection/the Underlying Word"
+msgstr "Markierten Text klein schreiben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:199
+msgid "_Upper Case of Selection/Word"
+msgstr "_Großschreibung"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:199
+msgid "Upper the Case of the Selection/the Underlying Word"
+msgstr "Markierten Text groß schreiben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:200
+msgid "_Toggle Case of Selection/Word"
+msgstr "Groß-/Kleinschreibung _invertieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:200
+msgid "Toggle the Case of the Selection/the Underlying Word"
+msgstr "Groß- und Kleinschreibung des markierten Textes invertieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:201
+msgid "Enable/Disable _Spell Check"
+msgstr "Rechtschreibprüfung ein/aus"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:201
+msgid "Toggle Enable/Disable Spell Check"
+msgstr "Rechtschreibprüfung ein/aus"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:202
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:643
+msgid "Cu_t as Plain Text"
+msgstr "_als unformatierten Text ausschneiden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:202
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:643
+msgid "Cut as Plain Text, Discard the Rich Text Formatting"
+msgstr "Text ohne Formatierung ausschneiden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:203
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:644
+msgid "_Copy as Plain Text"
+msgstr "_als unformatierten Text kopieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:203
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:644
+msgid "Copy as Plain Text, Discard the Rich Text Formatting"
+msgstr "Text ohne Formatierung kopieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:204
+msgid "_Paste as Plain Text"
+msgstr "_als unformatierten Text einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:204
+msgid "Paste as Plain Text, Discard the Rich Text Formatting"
+msgstr "Text ohne Formatierung einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:205
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:610
+msgid "Cu_t Row"
+msgstr "_Zeile ausschneiden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:205
+msgid "Cut the Current Row/Selected Rows"
+msgstr "Zeilen ausschneiden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:206
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:611
+msgid "_Copy Row"
+msgstr "Zeile k_opieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:206
+msgid "Copy the Current Row/Selected Rows"
+msgstr "Zeilen kopieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:207
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:613
+msgid "De_lete Row"
+msgstr "Zeile l_öschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:207
+msgid "Delete the Current Row/Selected Rows"
+msgstr "Zeilen löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:208
+msgid "_Duplicate Row"
+msgstr "Zeile _duplizieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:208
+msgid "Duplicate the Current Row/Selection"
+msgstr "Zeile/Markierung duplizieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:209
+msgid "Move _Up Row"
+msgstr "Zeile nach _oben verschieben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:209
+msgid "Move Up the Current Row/Selected Rows"
+msgstr "Zeilen nach oben verschieben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:210
+msgid "Move _Down Row"
+msgstr "Zeile nach _unten verschieben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:210
+msgid "Move Down the Current Row/Selected Rows"
+msgstr "markierte Zeilen nach unten verschieben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:211
+msgid "Format _Latest"
+msgstr "Formatierung _wiederholen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:211
+msgid "Memory of Latest Text Format Type"
+msgstr "Die letzte Textformatierung wiederholen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:212
+msgid "_Remove Formatting"
+msgstr "Formatierung _entfernen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:212
+msgid "Remove the Formatting from the Selected Text"
+msgstr "Formatierung entfernen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:213
+msgid "Text _Color Foreground"
+msgstr "_Schriftfarbe..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:213
+msgid "Change the Color of the Selected Text Foreground"
+msgstr "Schriftfarbe ändern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:214
+msgid "Text C_olor Background"
+msgstr "_Hintergrundfarbe..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:214
+msgid "Change the Color of the Selected Text Background"
+msgstr "Hintergrundfarbe ändern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:215
+msgid "Toggle _Bold Property"
+msgstr "_Fett"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:215
+msgid "Toggle Bold Property of the Selected Text"
+msgstr "Fett"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:216
+msgid "Toggle _Italic Property"
+msgstr "_Kursiv"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:216
+msgid "Toggle Italic Property of the Selected Text"
+msgstr "Kursiv"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:217
+msgid "Toggle _Underline Property"
+msgstr "_Unterstrichen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:217
+msgid "Toggle Underline Property of the Selected Text"
+msgstr "Unterstrichen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:218
+msgid "Toggle Stri_kethrough Property"
+msgstr "_Durchgestrichen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:218
+msgid "Toggle Strikethrough Property of the Selected Text"
+msgstr "Durchgestrichen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:219
+msgid "Toggle h_1 Property"
+msgstr "Überschrift _1"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:219
+msgid "Toggle h1 Property of the Selected Text"
+msgstr "Überschrift 1"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:220
+msgid "Toggle h_2 Property"
+msgstr "Überschrift _2"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:220
+msgid "Toggle h2 Property of the Selected Text"
+msgstr "Überschrift 2"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:221
+msgid "Toggle h_3 Property"
+msgstr "Überschrift _3"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:221
+msgid "Toggle h3 Property of the Selected Text"
+msgstr "Überschrift 3"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:222
+msgid "Toggle _Small Property"
+msgstr "_Klein"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:222
+msgid "Toggle Small Property of the Selected Text"
+msgstr "Klein"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:223
+msgid "Toggle Su_perscript Property"
+msgstr "_Hochgestellt"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:223
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "Hochgestellt"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:224
+msgid "Toggle Su_bscript Property"
+msgstr "_Tiefgestellt"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:224
+msgid "Toggle Subscript Property of the Selected Text"
+msgstr "Tiefgestellt"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:225
+msgid "Toggle _Monospace Property"
+msgstr "_Feste Breite"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:225
+msgid "Toggle Monospace Property of the Selected Text"
+msgstr "Feste Breite"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:226
+msgid "Set/Unset _Bulleted List"
+msgstr "_Aufzählung an/aus"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:226
+msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
+msgstr "Aufzählungszeichen an/aus"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:227
+msgid "Set/Unset _Numbered List"
+msgstr "_Nummerierung an/aus"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:227
+msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
+msgstr "Nummerierung an/aus"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:228
+msgid "Set/Unset _To-Do List"
+msgstr "Auf_gabenliste an/aus"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:228
+msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
+msgstr "Aufgabenliste an/aus"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:229
+msgid "Justify _Left"
+msgstr "_Linksbündig"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:229
+msgid "Justify Left the Current Paragraph"
+msgstr "Linksbündig"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:230
+msgid "Justify _Center"
+msgstr "_Zentriert"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:230
+msgid "Justify Center the Current Paragraph"
+msgstr "Zentriert"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:231
+msgid "Justify _Right"
+msgstr "_Rechtsbündig"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:231
+msgid "Justify Right the Current Paragraph"
+msgstr "Rechtsbündig"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:232
+msgid "Justify _Fill"
+msgstr "_Blocksatz"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:232
+msgid "Justify Fill the Current Paragraph"
+msgstr "Blocksatz"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:233
+msgid "Add _Node"
+msgstr "Knoten _hinzufügen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:233
+msgid "Add a Node having the same Parent of the Selected Node"
+msgstr "gleichrangigen Knoten einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:234
+msgid "Add _SubNode"
+msgstr "_untergeordneten Knoten einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:234
+msgid "Add a Child Node to the Selected Node"
+msgstr "untergeordneten Knoten einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:235
+msgid "_Duplicate Node"
+msgstr "Knoten _duplizieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:235
+msgid "Duplicate the Selected Node"
+msgstr "markierten Knoten duplizieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:236
+msgid "Change Node _Properties"
+msgstr "Knoten_eigenschaften ändern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:236
+msgid "Edit the Properties of the Selected Node"
+msgstr "Eigenschaften des markierten Knotens bearbeiten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:237
+msgid "Toggle _Read Only"
+msgstr "Schreibschutz an/aus"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:237
+msgid "Toggle the Read Only Property of the Selected Node"
+msgstr "Schreibschutz für markierten Knoten an/aus"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:238
+msgid "Insert Today's Node"
+msgstr "Knoten mit heutigem Datum einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:238
+msgid "Insert a Node with Hierarchy Year/Month/Day"
+msgstr "Knoten mit Jahr/Monat/Tag einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:239
+msgid "Tree _Info"
+msgstr "Baumstruktur-S_tatistik"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:240
+msgid "Node _Up"
+msgstr "Knoten nach _oben verschieben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:240
+msgid "Move the Selected Node Up"
+msgstr "Knoten nach oben verschieben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:241
+msgid "Node _Down"
+msgstr "Knoten nach _unten verschieben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:241
+msgid "Move the Selected Node Down"
+msgstr "Knoten nach unten verschieben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:242
+msgid "Node _Left"
+msgstr "Knoten nach _links schieben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:242
+msgid "Move the Selected Node Left"
+msgstr "Knoten nach links verschieben (hochstufen)"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:243
+msgid "Node _Right"
+msgstr "Knoten nach rechts schieben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:243
+msgid "Move the Selected Node Right"
+msgstr "Knoten nach rechts schieben (herabstufen)"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:244
+msgid "Node Change _Parent"
+msgstr "Übergeordneten Knoten ändern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:244
+msgid "Change the Selected Node's Parent"
+msgstr "Übergeordneten Knoten ändern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:245
+msgid "Sort Tree _Ascending"
+msgstr "_Baum aufsteigend sortieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:245
+msgid "Sort the Tree Ascending"
+msgstr "Baum aufsteigend sortieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:246
+msgid "Sort Tree _Descending"
+msgstr "B_aum absteigend sortierten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:246
+msgid "Sort the Tree Descending"
+msgstr "Baum absteigend sortieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:247
+msgid "Sort Siblings A_scending"
+msgstr "_Geschwisterknoten aufsteigend sortieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:247
+msgid "Sort all the Siblings of the Selected Node Ascending"
+msgstr "Geschwisterknoten des markierten Knotens aufsteigend sortieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:248
+msgid "Sort Siblings D_escending"
+msgstr "Geschw_isterknoten absteigend sortieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:248
+msgid "Sort all the Siblings of the Selected Node Descending"
+msgstr "Geschwisterknoten des markierten Knotens absteigend sortieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:249
+msgid "_Inherit Syntax"
+msgstr "Syntax _vererben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:249
+msgid ""
+"Change the Selected Node's Children Syntax Highlighting to the Parent's "
+"Syntax Highlighting"
+msgstr "Syntaxhervorhebung wie im übergeordneten Knoten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:250
+msgid "De_lete Node"
+msgstr "Knoten _löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:250
+msgid "Delete the Selected Node"
+msgstr "Knoten löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:251
+msgid "Go _Back"
+msgstr "Zu_rück zum letzten Knoten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:251
+msgid "Go to the Previous Visited Node"
+msgstr "Zurück zum letzten Knoten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:252
+msgid "Go _Forward"
+msgstr "Zum _nächsten Knoten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:252
+msgid "Go to the Next Visited Node"
+msgstr "Zum nächsten aufgerufenen Knoten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:253
+msgid "_Find in Node Content"
+msgstr "Im Knoten _suchen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:253
+msgid "Find into the Selected Node Content"
+msgstr "Im markierten Knoten suchen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:254
+msgid "Find in _All Nodes Contents"
+msgstr "In allen Knoten _suchen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:254
+msgid "Find into All the Tree Nodes Contents"
+msgstr "In allen Knoten suchen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:255
+msgid "Find in _Selected Node and Subnodes Contents"
+msgstr "Im markierten und untergeordneten Knoten suchen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:255
+msgid "Find into the Selected Node and Subnodes Contents"
+msgstr "Im markierten und untergeordneten Knoten suchen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:256
+msgid "Find in _Nodes Names and Tags"
+msgstr "In Knotennamen und Tags suchen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:256
+msgid "Find in Nodes Names and Tags"
+msgstr "In Knotennamen und Tags suchen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:257
+msgid "Find _Again"
+msgstr "_Weitersuchen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:257
+msgid "Iterate the Last Find Operation"
+msgstr "Weitersuchen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:258
+msgid "Find _Back"
+msgstr "_Rückwärts suchen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:258
+msgid "Iterate the Last Find Operation in Opposite Direction"
+msgstr "Rückwärts weitersuchen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:259
+msgid "_Replace in Node Content"
+msgstr "Im _aktuellen Knoten ersetzen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:259
+msgid "Replace into the Selected Node Content"
+msgstr "Im markierten Knoten ersetzen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:260
+msgid "Replace in _All Nodes Contents"
+msgstr "In allen Knoten ersetzen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:260
+msgid "Replace into All the Tree Nodes Contents"
+msgstr "In allen Knoten ersetzen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:261
+msgid "Replace in _Selected Node and Subnodes Contents"
+msgstr "Im markierten und untergeordneten Knoten ersetzen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:261
+msgid "Replace into the Selected Node and Subnodes Contents"
+msgstr "Im markierten und untergeordneten Knoten ersetzen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:262
+msgid "Replace in Nodes _Names"
+msgstr "Kn_otennamen ersetzen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:262
+msgid "Replace in Nodes Names"
+msgstr "Namen der Knoten ersetzen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:263
+msgid "Replace _Again"
+msgstr "_Weiter ersetzen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:263
+msgid "Iterate the Last Replace Operation"
+msgstr "Die letzte Ersetzung wiederholen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:264
+msgid "Show/Hide _Tree"
+msgstr "_Baumstruktur anzeigen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:264
+msgid "Toggle Show/Hide Tree"
+msgstr "Baumstruktur anzeigen/ausblenden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:265
+msgid "Show/Hide Tool_bar"
+msgstr "_Symbolleiste anzeigen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:265
+msgid "Toggle Show/Hide Toolbar"
+msgstr "Symbolleiste anzeigen/ausblenden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:266
+msgid "Show/Hide Node Name _Header"
+msgstr "Knotennamen in _Kopfzeile anzeigen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:266
+msgid "Toggle Show/Hide Node Name Header"
+msgstr "Knotennamen anzeigen/ausblenden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:267
+msgid "Show _All Matches Dialog"
+msgstr "Dialog für _mehrfaches Suchen/Ersetzen anzeigen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:267
+msgid "Show Search All Matches Dialog"
+msgstr "Dialog für mehrfaches Suchen/Ersetzen anzeigen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:268
+msgid "Toggle _Focus Tree/Text"
+msgstr "_Fokus zwischen Baumstruktur und Text umschalten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:268
+msgid "Toggle Focus Between Tree and Text"
+msgstr "Fokus zwischen Baumstruktur und Text umschalten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:269
+msgid "E_xpand All Nodes"
+msgstr "Alle Knoten _ausklappen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:269
+msgid "Expand All the Tree Nodes"
+msgstr "Alle Knoten der Baumstruktur ausklappen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:270
+msgid "_Collapse All Nodes"
+msgstr "Alle Knoten _zuklappen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:270
+msgid "Collapse All the Tree Nodes"
+msgstr "Alle Knoten der Baumstruktur zuklappen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:271
+msgid "_Increase Toolbar Icons Size"
+msgstr "Symbole vergr_ößern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:271
+msgid "Increase the Size of the Toolbar Icons"
+msgstr "Die Icons in der Symbolleiste vergrößern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:272
+msgid "_Decrease Toolbar Icons Size"
+msgstr "Symbole ver_kleinern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:272
+msgid "Decrease the Size of the Toolbar Icons"
+msgstr "Die Icons in der Symbolleiste verkleinern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:273
+msgid "_Full Screen On/Off"
+msgstr "_Vollbild an/aus"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:273
+msgid "Toggle Full Screen On/Off"
+msgstr "Vollbild an/aus"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:274
+msgid "Add to _Bookmarks"
+msgstr "_Lesezeichen hinzufügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:274
+msgid "Add the Current Node to the Bookmarks List"
+msgstr "Aktuellen Knoten als Lesezeichen hinzufügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:275
+msgid "_Remove from Bookmarks"
+msgstr "_Lesezeichen löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:275
+msgid "Remove the Current Node from the Bookmarks List"
+msgstr "Aktuellen Knoten aus den Lesezeichen löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:276
+msgid "_Handle Bookmarks"
+msgstr "Lesezeichen _verwalten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:276
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1907
+msgid "Handle the Bookmarks List"
+msgstr "Lesezeichen verwalten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:277
+msgid "From _CherryTree File"
+msgstr "_CherryTree-Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:277
+msgid "Add Nodes of a CherryTree File to the Current Tree"
+msgstr ""
+"Knoten aus einer CherryTree-Datei zur aktuellen Baumstruktur hinzufügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:278
+msgid "From _Plain Text File"
+msgstr "T_extdatei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:278
+msgid "Add Node from a Plain Text File to the Current Tree"
+msgstr "Knoten aus einer Textdatei einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:279
+msgid "From _Folder of Plain Text Files"
+msgstr "_Verzeichnis mit Textdateien"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:279
+msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
+msgstr "Knoten aus einem Verzeichnis mit Textdateien einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:280
+msgid "From _HTML File"
+msgstr "_HTML"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:280
+msgid "Add Node from an HTML File to the Current Tree"
+msgstr "Knoten aus einer HTML-Datei einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:281
+msgid "From _Folder of HTML Files"
+msgstr "_Verzeichnis mit HTML-Dateien"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:281
+msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
+msgstr "Knoten aus einem Verzeichnis mit HTML-Dateien einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:282
+msgid "From _Basket Folder"
+msgstr "_Basket-Verzeichnis"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:282
+msgid "Add Nodes of a Basket Folder to the Current Tree"
+msgstr ""
+"Knoten aus einem Basket-Verzeichnis zur aktuellen Baumstruktur hinzufügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:283
+msgid "From _EssentialPIM HTML File"
+msgstr "_EssentialPIM"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:283
+msgid "Add Node from an EssentialPIM HTML File to the Current Tree"
+msgstr "Knoten aus einer HTML-Datei einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:284
+msgid "From _Gnote Folder"
+msgstr "_Gnote-Verzeichnis"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:284
+msgid "Add Nodes of a Gnote Folder to the Current Tree"
+msgstr "Knoten aus einem Gnote-Verzeichnis einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:285
+msgid "From _KeepNote Folder"
+msgstr "_KeepNote-Verzeichnis"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:285
+msgid "Add Nodes of a KeepNote Folder to the Current Tree"
+msgstr "Knoten aus einem KeepNote-Verzeichnis einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:286
+msgid "From K_eyNote File"
+msgstr "Ke_yNote-Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:286
+msgid "Add Nodes of a KeyNote File to the Current Tree"
+msgstr "Knoten aus einer KeyNote-Datei einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:287
+msgid "From K_nowit File"
+msgstr "Kno_wit-Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:287
+msgid "Add Nodes of a Knowit File to the Current Tree"
+msgstr "Knoten aus einer Knowit-Datei einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:288
+msgid "From _Leo File"
+msgstr "_Leo-Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:288
+msgid "Add Nodes of a Leo File to the Current Tree"
+msgstr "Knoten aus einer Leo-Datei einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:289
+msgid "From _Mempad File"
+msgstr "_Mempad-Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:289
+msgid "Add Nodes of a Mempad File to the Current Tree"
+msgstr "Knoten aus einer Mempad-Datei einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:290
+msgid "From _NoteCase File"
+msgstr "_NoteCase-Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:290
+msgid "Add Nodes of a NoteCase File to the Current Tree"
+msgstr "Knoten aus einer NoteCase-Datei einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:291
+msgid "From _RedNotebook Folder"
+msgstr "_RedNotebook-Verzeichnis"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:291
+msgid "Add Nodes of a RedNotebook Folder to the Current Tree"
+msgstr "Knoten aus einem RedNotebook-Verzeichnis einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:292
+msgid "From T_omboy Folder"
+msgstr "T_omboy-Verzeichnis"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:292
+msgid "Add Nodes of a Tomboy Folder to the Current Tree"
+msgstr "Knoten aus einem Tomboy-Verzeichnis einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:293
+msgid "From T_reepad Lite File"
+msgstr "_Treepad Lite-Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:293
+msgid "Add Nodes of a Treepad Lite File to the Current Tree"
+msgstr "Knoten aus einer Treepad Lite-Datei einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:294
+msgid "From _TuxCards File"
+msgstr "Tu_xCards-Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:294
+msgid "Add Nodes of a TuxCards File to the Current Tree"
+msgstr "Knoten aus einer TuxCards-Datei einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:295
+msgid "From _Zim Folder"
+msgstr "_Zim-Verzeichnis"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:295
+msgid "Add Nodes of a Zim Folder to the Current Tree"
+msgstr "Knoten aus einem Zim-Verzeichnis einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:296
+msgid "Export To _PDF"
+msgstr "_PDF"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:296
+msgid "Export To PDF"
+msgstr "PDF"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:297
+msgid "Export To _HTML"
+msgstr "_HTML"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:297
+msgid "Export To HTML"
+msgstr "HTML"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:298
+msgid "Export to Multiple Plain _Text Files"
+msgstr "in _mehrere Textdateien"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:298
+msgid "Export to Multiple Plain Text Files"
+msgstr "in mehrere Textdateien"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:299
+msgid "Export to _Single Plain Text File"
+msgstr "in _einzelne Textdatei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:299
+msgid "Export to Single Plain Text File"
+msgstr "in einzelne Textdatei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:300
+msgid "_Export To CherryTree Document"
+msgstr "_CherryTree-Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:300
+msgid "Export To CherryTree Document"
+msgstr "CherryTree-Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:301
+msgid "_Check Newer Version"
+msgstr "_Neue Version suchen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:301
+msgid "Check for a Newer Version"
+msgstr "Nach neuer Version suchen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:302
+msgid "Online _Manual"
+msgstr "Online-_Handbuch"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:302
+msgid "Application's Online Manual"
+msgstr "Online-Handbuch des Programms"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:303
+msgid "_About"
+msgstr "_Über"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:303
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:906
+msgid "About CherryTree"
+msgstr "Über CherryTree"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:304
+msgid "C_ut Anchor"
+msgstr "Anker ausschneiden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:304
+msgid "Cut the Selected Anchor"
+msgstr "Anker ausschneiden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:305
+msgid "_Copy Anchor"
+msgstr "Anker k_opieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:305
+msgid "Copy the Selected Anchor"
+msgstr "Anker kopieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:306
+msgid "_Delete Anchor"
+msgstr "Anker löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:306
+msgid "Delete the Selected Anchor"
+msgstr "Anker löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:307
+msgid "Edit _Anchor"
+msgstr "An_ker bearbeiten..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:307
+msgid "Edit the Underlying Anchor"
+msgstr "Anker bearbeiten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:308
+msgid "C_ut Embedded File"
+msgstr "Eingebettete Datei ausschneiden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:308
+msgid "Cut the Selected Embedded File"
+msgstr "Eingebettete Datei ausschneiden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:309
+msgid "_Copy Embedded File"
+msgstr "Eingebettete Datei kopieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:309
+msgid "Copy the Selected Embedded File"
+msgstr "Eingebettete Datei kopieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:310
+msgid "_Delete Embedded File"
+msgstr "Eingebettete Datei löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:310
+msgid "Delete the Selected Embedded File"
+msgstr "Eingebettete Datei löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:312
+msgid "Open Embedded File"
+msgstr "Eingebettete Datei öffnen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:313
+msgid "_Save Image as PNG"
+msgstr "Bild als _PNG speichern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:313
+msgid "Save the Selected Image as a PNG file"
+msgstr "Ausgewähltes Bild als PNG speichern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:314
+msgid "_Edit Image"
+msgstr "_Bild bearbeiten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:314
+msgid "Edit the Selected Image"
+msgstr "Bild bearbeiten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:315
+msgid "C_ut Image"
+msgstr "Bild ausschneiden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:315
+msgid "Cut the Selected Image"
+msgstr "Bild ausschneiden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:316
+msgid "_Copy Image"
+msgstr "Bild kopieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:316
+msgid "Copy the Selected Image"
+msgstr "Bild kopieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:317
+msgid "_Delete Image"
+msgstr "Bild löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:317
+msgid "Delete the Selected Image"
+msgstr "Bild löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:318
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:590
+msgid "Edit _Link"
+msgstr "_Link bearbeiten..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:318
+msgid "Edit the Link Associated to the Image"
+msgstr "Link zum Bild bearbeiten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:319
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:594
+msgid "D_ismiss Link"
+msgstr "Hyperlink entfernen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:319
+msgid "Dismiss the Link Associated to the Image"
+msgstr "Link zum Bild entfernen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:320
+msgid "Show/Hide _CherryTree"
+msgstr "_CherryTree anzeigen/ausblenden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:320
+msgid "Toggle Show/Hide CherryTree"
+msgstr "CherryTree anzeigen/ausblenden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:321
+msgid "Stri_p Trailing Spaces"
+msgstr "Leer_zeichen am Zeilenende löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:321
+msgid "Strip Trailing Spaces"
+msgstr "Leerzeichen am Zeilenende löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:329
+msgid "_File"
+msgstr "_Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:330
+msgid "_Edit"
+msgstr "_Bearbeiten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:331
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:460
+msgid "For_matting"
+msgstr "_Format"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:332
+msgid "_Tree"
+msgstr "Ba_umstruktur"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:333
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:393
+msgid "Node _Move"
+msgstr "Knoten _bewegen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:334
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:411
+msgid "Nodes _Import"
+msgstr "Knoten _importieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:335
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:432
+msgid "Nodes E_xport"
+msgstr "Knoten e_xportieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:336
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:502
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:551
+msgid "C_hange Case"
+msgstr "_Groß-/Kleinschreibung"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:337
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:517
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:565
+msgid "_Search"
+msgstr "_Suche"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:338
+msgid "_View"
+msgstr "_Ansicht"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:339
+msgid "_Bookmarks"
+msgstr "_Lesezeichen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:340
+msgid "_Import"
+msgstr "_Importieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:341
+msgid "E_xport"
+msgstr "_Exportieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:342
+msgid "_Help"
+msgstr "_Hilfe"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:401
+msgid "Nodes _Sort"
+msgstr "Knoten _sortieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:478
+msgid "_Justify"
+msgstr "Aus_richtung"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:484
+msgid "_List"
+msgstr "_Liste"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:490
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:546
+msgid "_Insert"
+msgstr "Einfügen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:507
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:556
+msgid "_Row"
+msgstr "_Zeile"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:525
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:573
+msgid "_Replace"
+msgstr "_Ersetzen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:590
+msgid "Edit the Underlying Link"
+msgstr "Hyperlink bearbeiten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:592
+msgid "C_ut Link"
+msgstr "Hyperlink _ausschneiden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:592
+msgid "Cut the Selected Link"
+msgstr "Hyperlink ausschneiden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:593
+msgid "_Copy Link"
+msgstr "Hyperlink ko_pieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:593
+msgid "Copy the Selected Link"
+msgstr "Hyperlink kopieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:594
+msgid "Dismiss the Selected Link"
+msgstr "Hyperlink entfernen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:595
+msgid "_Delete Link"
+msgstr "Hyperlink löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:595
+msgid "Delete the Selected Link"
+msgstr "Hyperlink löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:605
+msgid "C_ut Table"
+msgstr "Tabelle ausschneiden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:605
+msgid "Cut the Selected Table"
+msgstr "Tabelle ausschneiden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:606
+msgid "_Copy Table"
+msgstr "Tabelle kopieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:606
+msgid "Copy the Selected Table"
+msgstr "Tabelle kopieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:607
+msgid "_Delete Table"
+msgstr "Tabelle löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:607
+msgid "Delete the Selected Table"
+msgstr "Tabelle löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:609
+msgid "_Add Row"
+msgstr "_Zeile einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:609
+msgid "Add a Table Row"
+msgstr "Tabellenzeile hinzufügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:610
+msgid "Cut a Table Row"
+msgstr "Tabellenzeile ausschneiden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:611
+msgid "Copy a Table Row"
+msgstr "Tabellenzeile kopieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:612
+msgid "_Paste Row"
+msgstr "_Zeile einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:612
+msgid "Paste a Table Row"
+msgstr "Tabellenzeile einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:613
+msgid "Delete the Selected Table Row"
+msgstr "Tabellenzeile löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:615
+msgid "Move Row _Up"
+msgstr "Zeile nach _oben verschieben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:615
+msgid "Move the Selected Row Up"
+msgstr "Zeile nach oben verschieben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:616
+msgid "Move Row _Down"
+msgstr "Zeile nach _unten verschieben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:616
+msgid "Move the Selected Row Down"
+msgstr "Zeile nach unten verschieben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:617
+msgid "Sort Rows De_scending"
+msgstr "Zeilen absteigend sortierten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:617
+msgid "Sort all the Rows Descending"
+msgstr "Alle Zeilen absteigend sortieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:618
+msgid "Sort Rows As_cending"
+msgstr "Zeilen aufsteigend sortieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:618
+msgid "Sort all the Rows Ascending"
+msgstr "Sortiert alle Zeilen aufsteigend"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:620
+msgid "_Edit Table Properties"
+msgstr "Tabelleneigenschaften bearbeiten..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:620
+msgid "Edit the Table Properties"
+msgstr "Tabelleneigenschaften bearbeiten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:621
+msgid "_Table Export"
+msgstr "_Tabelle exportieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:621
+msgid "Export Table as CSV File"
+msgstr "Tabelle als CSV-Datei exportieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:632
+msgid "Insert _NewLine"
+msgstr "_Zeile einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:632
+msgid "Insert NewLine Char"
+msgstr "Zeilenumbruch einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:646
+msgid "Change CodeBox _Properties"
+msgstr "CodeBox-_Eigenschaften ändern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:646
+msgid "Edit the Properties of the CodeBox"
+msgstr "Die Eigenschaften der CodeBox bearbeiten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:647
+msgid "_Execute CodeBox Code"
+msgstr "Codebox-Code ausführen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:647
+msgid "Execute CodeBox Code"
+msgstr "Codebox-Code ausführen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:648
+msgid "CodeBox _Load From Text File"
+msgstr "CodeBox aus Textdatei erstellen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:648
+msgid "Load the CodeBox Content From a Text File"
+msgstr "CodeBox aus Textdatei erstellen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:649
+msgid "CodeBox _Save To Text File"
+msgstr "CodeBox in Textdatei speichern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:649
+msgid "Save the CodeBox Content To a Text File"
+msgstr "CodeBox in Textdatei speichern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:651
+msgid "C_ut CodeBox"
+msgstr "CodeBox ausschneiden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:651
+msgid "Cut the Selected CodeBox"
+msgstr "CodeBox ausschneiden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:652
+msgid "_Copy CodeBox"
+msgstr "CodeBox kopieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:652
+msgid "Copy the Selected CodeBox"
+msgstr "CodeBox kopieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:653
+msgid "_Delete CodeBox"
+msgstr "CodeBox _löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:653
+msgid "Delete the Selected CodeBox"
+msgstr "CodeBox löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:654
+msgid "Delete CodeBox _Keep Content"
+msgstr "CodeBox _löschen, Text behalten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:654
+msgid "Delete the Selected CodeBox But Keep Its Content"
+msgstr "CodeBox löschen, Text behalten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:656
+msgid "Increase CodeBox Width"
+msgstr "CodeBox verbreitern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:656
+msgid "Increase the Width of the CodeBox"
+msgstr "Die Breite der CodeBox vergrößern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:657
+msgid "Decrease CodeBox Width"
+msgstr "CodeBox schmälern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:657
+msgid "Decrease the Width of the CodeBox"
+msgstr "Die Breite der CodeBox verkleinern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:658
+msgid "Increase CodeBox Height"
+msgstr "CodeBox verlängern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:658
+msgid "Increase the Height of the CodeBox"
+msgstr "Die Höhe der CodeBox vergrößern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:659
+msgid "Decrease CodeBox Height"
+msgstr "CodeBox verkürzen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/menus.py:659
+msgid "Decrease the Height of the CodeBox"
+msgstr "Die Höhe der CodeBox verkleinern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/imports.py:2621
+msgid "Downloading"
+msgstr "Herunterladen..."
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:791
+msgid "Tab Width"
+msgstr "Tab-Breite"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:797
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Leerzeichen statt Tabulatoren einfügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:799
+msgid "Use Line Wrapping"
+msgstr "Zeilenumbruch aktivieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:803
+msgid "Line Wrapping Indentation"
+msgstr "Zeileneinzug"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:809
+msgid "Enable Automatic Indentation"
+msgstr "Automatisches Einrücken aktivieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:811
+#: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:151
+msgid "Show Line Numbers"
+msgstr "Zeilennummern anzeigen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:815
+msgid "Vertical Space Around Lines"
+msgstr "Zeilenabstand"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:823
+msgid "Vertical Space in Wrapped Lines"
+msgstr "Zeilenhöhe"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:840
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1217
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1257
+msgid "Text Editor"
+msgstr "Texteditor"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:850
+msgid "Timestamp Format"
+msgstr "Zeitstempel-Format:"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:860
+msgid "Horizontal Rule"
+msgstr "horizontale Linie:"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:868
+msgid "Special Characters"
+msgstr "Sonderzeichen:"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:872
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1316
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1328
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1921
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2097
+msgid "Reset to Default"
+msgstr "Zurücksetzen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:895
+msgid "Chars to Select at Double Click"
+msgstr "Bei Doppelklick mitmarkierte Zeichen:"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:907
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1090
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1430
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1828
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2237
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2383
+msgid "Miscellaneous"
+msgstr "Sonstiges"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:925
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1382
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2054
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2140
+msgid "Are you sure to Reset to Default?"
+msgstr "Wollen Sie die Standardeinstellungen wiederherstellen?"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:981
+msgid "Enable Spell Check"
+msgstr "Rechtschreibprüfung aktivieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:985
+msgid "Spell Check Language"
+msgstr "Sprache der Rechtschreibprüfung"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1008
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1476
+msgid "Light Background, Dark Text"
+msgstr "Heller Hintergrund, dunkler Text"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1009
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1477
+msgid "Dark Background, Light Text"
+msgstr "Dunkler Hintergrund, heller Text"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1011
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1479
+msgid "Custom Background"
+msgstr "Benutzerdefiniert: Hintergrundfarbe"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1016
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1484
+msgid "and Text"
+msgstr "Text"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1022
+msgid "Monospace Background"
+msgstr "Monospace Hintergrund"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1034
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1494
+msgid "Theme"
+msgstr "Thema"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1060
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1248
+msgid "Show White Spaces"
+msgstr "Leerzeichen anzeigen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1062
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1250
+msgid "Highlight Current Line"
+msgstr "Zeile markieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1064
+msgid "Expand CodeBoxes Automatically"
+msgstr "CodeBox automatisch erweitern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1068
+msgid "Embedded File Icon Size"
+msgstr "Symbolgröße für eingebettete Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1074
+msgid "Show File Name on Top of Embedded File Icon"
+msgstr "Dateinamen über eingebettetem Icon anzeigen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1076
+msgid "Limit of Undoable Steps Per Node"
+msgstr "Anzahl der Rückgängig-Schritte pro Knoten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1208
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "Anführungszeichen automatisch ersetzen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1211
+msgid "Enable Symbol Auto Replacement"
+msgstr "Symbole automatisch ersetzen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1240
+msgid "Style Scheme"
+msgstr "Farbschema"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1313
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2091
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1335
+msgid "Command per Node/CodeBox Type"
+msgstr "Kommando für Knoten/CodeBox-Typen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1339
+msgid "Terminal Command"
+msgstr "Terminal-Kommando"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1344
+msgid "Code Execution"
+msgstr "Code-Ausführung"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1375
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2125
+msgid "Select Element to Add"
+msgstr "Befehl hinzufügen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1404
+msgid "Tree Nodes Names Wrapping Width"
+msgstr "Zeilenlänge für Knotennamen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1410
+msgid "Display Tree on the Right Side"
+msgstr "Baumstruktur rechts anzeigen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1412
+msgid "Move Focus to Text at Mouse Click"
+msgstr "Bei Mausklick Fokus auf Text setzen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1414
+msgid "Expand Node at Mouse Click"
+msgstr "Bei Mausklick Knoten ausklappen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1418
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Anzahl zuletzt besuchter Knoten in Kopfzeile"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1514
+msgid "Use Different Cherries per Level"
+msgstr "Kirschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1517
+msgid "No Icon"
+msgstr "Keine Symbole"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1519
+msgid "Hide Right Side Auxiliary Icon"
+msgstr "Zusatzsymbol rechts ausblenden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1533
+msgid "Default Text Nodes Icons"
+msgstr "Symbole für Textknoten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1547
+msgid "Restore Expanded/Collapsed Status"
+msgstr "Ein-/Ausgeklappte Knoten merken"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1548
+msgid "Expand all Nodes"
+msgstr "Alle Knoten ausklappen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1550
+msgid "Collapse all Nodes"
+msgstr "Alle Knoten zuklappen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1552
+msgid "Nodes in Bookmarks Always Visible"
+msgstr "Knoten in Lesezeichen immer anzeigen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1560
+msgid "Nodes Status at Startup"
+msgstr "Status der Knoten beim Programmstart"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1671
+msgid "Code Font"
+msgstr "Code"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1672
+msgid "Tree Font"
+msgstr "Knoten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1693
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2379
+msgid "Fonts"
+msgstr "Schriftart"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1734
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Eigene Anwendung für Weblinks"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1736
+msgid "Enable Custom File Link Clicked Action"
+msgstr "Eigene Anwendung für Links zu Dateien"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1738
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "Eigene Anwendung für Links zu Verzeichnissen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1747
+msgid "Custom Actions"
+msgstr "Benutzerdefinierte Aktionen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1772
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1266
+msgid "To WebSite"
+msgstr "Webseite"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1779
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1307
+msgid "To Node"
+msgstr "Knoten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1786
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1277
+msgid "To File"
+msgstr "Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1793
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1292
+msgid "To Folder"
+msgstr "Verzeichnis"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1803
+msgid "Colors"
+msgstr "Farben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1812
+msgid "Underline Links"
+msgstr "Links unterstreichen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1814
+msgid "Use Relative Paths for Files And Folders"
+msgstr "Relative Pfade für Dateien und Verzeichnisse verwenden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1818
+msgid "Anchor Size"
+msgstr "Ankergröße"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1918
+msgid "Change Selected"
+msgstr "Auswahl ändern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1931
+msgid "File"
+msgstr "_Datei"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1932
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2377
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2378
+msgid "Tree"
+msgstr "Baumstruktur"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1933
+msgid "Editor"
+msgstr "Editor"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1934
+msgid "Format"
+msgstr "Format"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1935
+msgid "Find/Replace"
+msgstr "Suchen/Ersetzen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1936
+msgid "View"
+msgstr "_Ansicht"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1937
+msgid "Export"
+msgstr "_Export"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1938
+msgid "Import"
+msgstr "_Import"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1958
+msgid "Edit Keyboard Shortcut"
+msgstr "Tastenkombination ändern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:1965
+msgid "No Keyboard Shortcut"
+msgstr "Keine Tastenkombination"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2035
+#, python-format
+msgid "The Keyboard Shortcut '%s' is already in use"
+msgstr "Die Tastenkombination '%s' wird bereits verwendet"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2035
+#, python-format
+msgid "The current associated action is '%s'"
+msgstr "Die derzeitige Belegung ist '%s'"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2035
+msgid "Do you want to steal the shortcut?"
+msgstr "Wollen Sie die Tastenkombination neu vergeben?"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2094
+msgid "Remove Selected"
+msgstr "Auswahl löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2161
+msgid "Enable System Tray Docking"
+msgstr "Tray-Icon verwenden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2162
+msgid "Start Minimized in the System Tray"
+msgstr "Minimiert im Tray starten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2163
+msgid "Use AppIndicator for Docking"
+msgstr "In Benachrichtigungsanzeige integrieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2168
+msgid "System Tray"
+msgstr "Tray"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2185
+msgid "Autosave Every"
+msgstr "Automatisches Speichern alle"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2188
+msgid "Minutes"
+msgstr "Minuten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2192
+msgid "Autosave on Quit"
+msgstr "Beim Beenden automatisch speichern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2193
+msgid "Create a Backup Copy Before Saving"
+msgstr "Vor dem Speichern Sicherungskopie anlegen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2196
+msgid "Number of Backups to Keep"
+msgstr "Anzahl der zu speichernden Backups"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2214
+msgid "Saving"
+msgstr "Speichern"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2223
+msgid "Automatically Check for Newer Version"
+msgstr "Automatisch nach neuer Version suchen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2224
+msgid "Enable Word Count in Statusbar"
+msgstr "In der Statusleiste Wörter zählen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2225
+msgid "Reload Document From Last Session"
+msgstr "Dokument aus letzter Sitzung neu laden"
+
+# ### msgid "The Document was Updated After Non-CherryTree Update to CT* File"
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2226
+msgid "Reload After External Update to CT* File"
+msgstr "CT*-Datei nach externer Aktualisierung neu laden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2253
+msgid "Language"
+msgstr "Sprache"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2353
+msgid "The New Language will be Available Only After Restarting CherryTree"
+msgstr "CherryTree muss neu gestartet werden, um die Sprache zu übernehmen."
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2373
+msgid "Text and Code"
+msgstr "Editor"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2374
+msgid "Text"
+msgstr "Text"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2376
+msgid "Plain Text and Code"
+msgstr "Text und Code"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2380
+msgid "Links"
+msgstr "Links"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2381
+msgid "Toolbar"
+msgstr "Symbolleiste"
+
+#: /home/giuspen/Software/git_cherrytree/modules/config.py:2382
+msgid "Keyboard Shortcuts"
+msgstr "Tastenkombinationen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:107
+msgid "Type"
+msgstr "Knotentyp"
+
+#: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:112
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1049
+msgid "Width"
+msgstr "Breite"
+
+#: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:116
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1052
+msgid "Height"
+msgstr "Höhe"
+
+#: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:121
+msgid "pixels"
+msgstr "Pixel"
+
+#: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:146
+msgid "Size"
+msgstr "Größe"
+
+#: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:153
+msgid "Highlight Matching Brackets"
+msgstr "Zusammengehörende Klammern markieren"
+
+#: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:162
+msgid "Options"
+msgstr "Optionen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/codeboxes.py:380
+msgid "Edit CodeBox"
+msgstr "CodeBox bearbeiten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:723
+msgid "Save File as"
+msgstr "Datei speichern unter"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:754
+msgid "Select File"
+msgstr "Datei auswählen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:785
+msgid "Select Folder"
+msgstr "Verzeichnis auswählen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:813
+msgid "Question"
+msgstr "Frage"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:828
+msgid "Info"
+msgstr "Info"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:834
+msgid "This Change will have Effect Only After Restarting CherryTree"
+msgstr "CherryTree muss neu gestartet werden, um die Änderungen zu übernehmen."
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:844
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1127
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1161
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1204
+msgid "Warning"
+msgstr "Warnung"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:856
+msgid "Error"
+msgstr "Fehler"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:867
+msgid ""
+"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
+"Highlighting"
+msgstr ""
+"Ein hierarchisches Notizprogramm mit Textformatierung und Syntaxhervorhebung"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:868
+msgid ""
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 3 of the License, or\n"
+"(at your option) any later version.\n"
+"  \n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"  \n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
+"MA 02110-1301, USA.\n"
+msgstr ""
+"\n"
+"Dieses Programm ist freie Software, Sie können sie weitergeben und/oder\n"
+"verändern solange Sie sich an die Regeln der GNU General Public License\n"
+"halten, so wie sie von der Free Software Foundation festgelegt wurden;\n"
+"entweder in Version 3 der Lizenz oder (nach Ihrem Ermessen) in jeder "
+"folgenden Lizenz.\n"
+" \n"
+"Dieses Programm wurde mit dem Ziel veröffentlicht, dass Sie es nützlich "
+"finden,\n"
+"jedoch OHNE JEDWEDE GARANTIE, sogar ohne eine implizite Garantie\n"
+"der VERKAUFBARKEIT oder der NUTZBARKEIT FÜR EINEN SPEZIELLEN ZWECK.\n"
+"Schauen Sie für weitere Informationen bitte in der GNU General Public "
+"License (GNU GPL) nach.\n"
+" \n"
+"Mit diesem Programm sollten Sie außerdem eine Kopie der GNU General Public "
+"License erhalten\n"
+"haben. Wenn dem nicht so ist, so schreiben Sie bitte an die\n"
+"Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:887
+msgid "Armenian"
+msgstr "Armenisch"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:888
+msgid "Chinese Simplified"
+msgstr "Chinesisch (vereinfacht)"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:889
+msgid "Czech"
+msgstr "Tschechisch"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:890
+msgid "Dutch"
+msgstr "Holländisch"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:891
+msgid "Finnish"
+msgstr "Finnisch"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:892
+msgid "French"
+msgstr "Französisch"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:893
+msgid "German"
+msgstr "Deutsch"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:894
+msgid "Greek"
+msgstr "Griechisch"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:895
+msgid "Italian"
+msgstr "Italienisch"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:896
+msgid "Japanese"
+msgstr "Japanisch"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:897
+msgid "Lithuanian"
+msgstr "Litauisch"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:898
+msgid "Polish"
+msgstr "Polnisch"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:899
+msgid "Portuguese Brazil"
+msgstr "Portugiesisch (Brasilien)"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:900
+msgid "Russian"
+msgstr "Russisch"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:901
+msgid "Slovenian"
+msgstr "Slowenisch"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:902
+msgid "Spanish"
+msgstr "Spanisch"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:903
+msgid "Turkish"
+msgstr "Türkisch"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:904
+msgid "Ukrainian"
+msgstr "Ukrainisch"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1164
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1207
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1165
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1209
+msgid "Yes"
+msgstr "Ja"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1177
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr ""
+"Mit externen Anwendungen wurden temporäre Dateien erstellt und geöffnet."
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1177
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr ""
+"Bitte schließen Sie die externen Anwendungen, bevor Sie CherryTree schließen."
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1177
+msgid "Did you Quit the External Applications?"
+msgstr "Haben Sie die externen Anwendungen geschlossen?"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1208
+msgid "No"
+msgstr "Nein"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1223
+msgid "The Current Document was Updated."
+msgstr "Das aktuelle Dokument wurde aktualisiert."
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1223
+msgid "Do you want to Save the Changes?"
+msgstr "Wollen Sie die Änderungen speichern?"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1343
+msgid "Anchor Name (optional)"
+msgstr "Ankername (optional)"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1430
+msgid "There are No Anchors in the Selected Node"
+msgstr "Keine Anker im ausgewählten Knoten vorhanden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1432
+msgid "Choose Existing Anchor"
+msgstr "Vorhandenen Anker wählen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1432
+msgid "Anchor Name"
+msgstr "Anker Name"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1496
+msgid "Choose Storage Type"
+msgstr "Speichertyp auswählen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1503
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1506
+msgid "Not Protected"
+msgstr "Nicht geschützt"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1504
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1508
+msgid "Password Protected"
+msgstr "Passwortgeschützt"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1515
+msgid "Storage Type"
+msgstr "Speichertyp"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1523
+msgid ""
+"CT saves the document in an encrypted 7zip archive. When viewing or editing "
+"the document, CT extracts the encrypted archive to a temporary folder, and "
+"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
+"from the temporary directory. Note that in the case of application or system "
+"crash, the unencrypted document will remain in the temporary folder."
+msgstr ""
+"CherryTree speichert das Dokument in einem verschlüsselten 7zip-Archiv. Zum "
+"Lesen oder Editieren extrahiert CherryTree das verschlüsselte Archiv in ein "
+"temporäres Verzeichnis und nutzt dann die unverschlüsselte Kopie. Beim "
+"Schließen wird die unverschlüsselte Kopie aus dem temporären Verzeichnis "
+"gelöscht. Achtung: Im Falle eines Programm- oder Systemabsturzes verbleibt "
+"das unverschlüsselte Dokument im temporären Verzeichnis."
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1530
+msgid "Enter the New Password Twice"
+msgstr "Neues Passwort zweimal eingeben"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1573
+msgid "The Password Fields Must be Filled"
+msgstr "Die Passwortfelder müssen ausgefüllt werden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1576
+msgid "The Two Inserted Passwords Do Not Match"
+msgstr "Die Passwörter stimmen nicht überein"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1580
+#, python-format
+msgid "The Characters  %s  are Not Allowed"
+msgstr "Die Zeichen %s dürfen nicht verwendet werden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1671
+msgid "Involved Nodes"
+msgstr "Knoten auswählen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1677
+msgid "Selected Text Only"
+msgstr "Nur markierten Text"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1678
+msgid "Selected Node Only"
+msgstr "Nur markierten Knoten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1679
+msgid "Selected Node and Subnodes"
+msgstr "Markierten und untergeordnete Knoten"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1680
+msgid "All the Tree"
+msgstr "Gesamte Baumstruktur"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1691
+msgid "Include Node Name"
+msgstr "Knotennamen einschließen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1697
+msgid "Links Tree in Every Page"
+msgstr "Baumstruktur auf jeder Seite verlinken"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1702
+msgid "New Node in New Page"
+msgstr "Neue Knoten auf neuer Seite"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1730
+msgid "Pick a Color"
+msgstr "Farbe auswählen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1826
+msgid "Remove from list"
+msgstr "Aus der Liste löschen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1849
+msgid "_Recent Documents"
+msgstr "_Zuletzt benutzte Dokumente"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1851
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1858
+msgid "Open a Recent CherryTree Document"
+msgstr "Zuletzt benutzte CherryTree-Dokumente öffnen"
+
+#: /home/giuspen/Software/git_cherrytree/modules/support.py:1884
+#, python-format
+msgid "The Document %s was Not Found"
+msgstr "Dokument '%s' nicht gefunden"
+
+#: /home/giuspen/Software/git_cherrytree/modules/exports.py:214
+msgid "PDF File"
+msgstr "PDF"
+
+#: /home/giuspen/Software/git_cherrytree/modules/exports.py:700
+msgid "Index"
+msgstr "Index"
+
+#~ msgid "Find"
+#~ msgstr "Suchen"
+
+#~ msgid "Text Font"
+#~ msgstr "Text"
+
+#~ msgid "Toggle Node _Expanded/Collapsed"
+#~ msgstr "Kn_oten ein-/ausklappen"
+
+#~ msgid "Toggle Expanded/Collapsed Status of the Selected Node"
+#~ msgstr "Knoten ein-/ausklappen"
+
+#~ msgid "C_opy Row"
+#~ msgstr "Zeile _kopieren"
+
+#~ msgid "_Find in Node"
+#~ msgstr "Im Knoten _suchen..."
+
+#~ msgid "Find into the Selected Node"
+#~ msgstr "Im markierten Knoten suchen"
+
+#~ msgid "Find in Node_s"
+#~ msgstr "In allen Knoten _suchen..."
+
+#~ msgid "Find into all the Tree Nodes"
+#~ msgstr "In allen Knoten suchen"
+
+#~ msgid "_Replace in Node"
+#~ msgstr "Im _aktuellen Knoten ersetzen..."
+
+#~ msgid "Replace into the Selected Node"
+#~ msgstr "Im markierten Knoten ersetzen"
+
+#~ msgid "Replace in Node_s"
+#~ msgstr "In allen Knoten _ersetzen..."
+
+#~ msgid "Replace into all the Tree Nodes"
+#~ msgstr "In allen Knoten ersetzen"
+
+#~ msgid "Code Nodes"
+#~ msgstr "Code-Knoten"
+
+#~ msgid "Use Cherries as Nodes Icons"
+#~ msgstr "Kirschen als Knotensymbol verwenden"
+
+#~ msgid "Do Not Display Nodes Icons"
+#~ msgstr "Knotensymbole nicht anzeigen"
+
+#~ msgid "All Nodes"
+#~ msgstr "Alle Knoten"
+
+#~ msgid "_Bookmark This Node"
+#~ msgstr "_Lesezeichen für diesen Knoten hinzufügen"
+
+#~ msgid ""
+#~ "Copyright © 2009-2014\n"
+#~ "Giuseppe Penone <giuspen@gmail.com>"
+#~ msgstr ""
+#~ "Copyright © 2009-2014\n"
+#~ "Giuseppe Penone <giuspen@gmail.com>"
+
+#~ msgid "Sort with Drag and Drop, Delete with the Delete Key"
+#~ msgstr "Mit Drag and Drop sortieren, Löschen mit Entfernen"
+
+#~ msgid "Updated Embedded File"
+#~ msgstr "Eingebettete Datei aktualisiert"
+
+#~ msgid "Find a Node from its Name"
+#~ msgstr "Einen Knoten anhand des Namens suchen"

@@ -160,10 +160,10 @@ if "py2exe" in sys.argv:
        version = cons.VERSION,
        author = "Giuseppe Penone",
        author_email = "giuspen@gmail.com",
-       url = "http://www.giuspen.com/cherrytree/",
+       url = "https://www.giuspen.com/cherrytree/",
        license = "GPL",
        windows = [{"script": "cherrytree",
-                   "icon_resources": [(1, "glade/cherrytree.ico")]
+                   "icon_resources": [(1, "future/icons/cherrytree.ico")]
                    }],
        options={"py2exe": {
                    "includes": "pango,cairo,pangocairo,atk,gobject,gtk,gtksourceview2,gio,enchant",
@@ -184,7 +184,7 @@ else:
        version = cons.VERSION,
        author = "Giuseppe Penone",
        author_email = "giuspen@gmail.com",
-       url = "http://www.giuspen.com/cherrytree/",
+       url = "https://www.giuspen.com/cherrytree/",
        license = "GPL",
        data_files = [
                       ("share/icons/hicolor/scalable/apps", ["future/icons/cherrytree.svg"] ),
