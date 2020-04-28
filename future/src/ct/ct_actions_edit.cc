@@ -88,7 +88,7 @@ void CtActions::table_handle()
     if (res == 1) {
         rows.push_back(std::vector<std::string>(_pCtMainWin->get_ct_config()->tableColumns, "click me"));
         std::vector<std::string> empty_row(_pCtMainWin->get_ct_config()->tableColumns, "");
-        while (rows.size() < _pCtMainWin->get_ct_config()->tableRows)
+        while ((int)rows.size() < _pCtMainWin->get_ct_config()->tableRows)
             rows.push_back(empty_row);
     }
     if (res == 2) {

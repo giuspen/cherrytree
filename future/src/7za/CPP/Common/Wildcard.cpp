@@ -460,7 +460,7 @@ int CCensor::FindPrefix(const UString &prefix) const
 bool IsDriveColonName(const wchar_t *s)
 {
   wchar_t c = s[0];
-  return c != 0 && s[1] == ':' && s[2] == 0 && (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z');
+  return c != 0 && s[1] == ':' && s[2] == 0 && ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
 }
 
 unsigned GetNumPrefixParts_if_DrivePath(UStringVector &pathParts)
@@ -546,11 +546,12 @@ void CCensor::AddItem(ECensorPathMode pathMode, bool include, const UString &pat
         }
       }
 
-      if (dotsIndex >= 0)
+      if (dotsIndex >= 0) {
         if (dotsIndex == (int)pathParts.Size() - 1)
           numSkipParts = pathParts.Size();
         else
           numSkipParts = pathParts.Size() - 1;
+      }
     }
 
     for (unsigned i = 0; i < numSkipParts; i++)
@@ -574,7 +575,7 @@ void CCensor::AddItem(ECensorPathMode pathMode, bool include, const UString &pat
 
   if (pathMode != k_AbsPath)
   {
-    if (pathParts.IsEmpty() || pathParts.Size() == 1 && pathParts[0].IsEmpty())
+    if (pathParts.IsEmpty() || (pathParts.Size() == 1 && pathParts[0].IsEmpty()))
     {
       // we create universal item, if we skip all parts as prefix (like \ or L:\ )
       pathParts.Clear();

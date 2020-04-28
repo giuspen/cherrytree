@@ -843,6 +843,8 @@ STDMETHODIMP CArchiveExtractCallback::GetStream(UInt32 index, ISequentialOutStre
           numRemovePathParts = pathParts.Size() - 1;
         break;
       }
+      case NExtract::NPathMode::kAbsPaths:
+        break;
     }
 
     pathParts.DeleteFrontal(numRemovePathParts);
@@ -1036,6 +1038,10 @@ if (askExtractMode == NArchive::NExtract::NAskMode::kExtract && !_testMode)
               return E_FAIL;
           }
         }
+        case NExtract::NOverwriteMode::kOverwrite: break;
+        case NExtract::NOverwriteMode::kRename: break;
+        case NExtract::NOverwriteMode::kRenameExisting: break;
+
       }
       if (_overwriteMode == NExtract::NOverwriteMode::kRename)
       {

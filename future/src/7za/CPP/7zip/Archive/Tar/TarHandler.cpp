@@ -67,6 +67,7 @@ STDMETHODIMP CHandler::GetArchiveProperty(PROPID propID, PROPVARIANT *value)
       {
         case k_ErrorType_UnexpectedEnd: flags = kpv_ErrorFlags_UnexpectedEnd; break;
         case k_ErrorType_Corrupted: flags = kpv_ErrorFlags_HeadersError; break;
+        case k_ErrorType_OK: break;
       }
       prop = flags;
       break;

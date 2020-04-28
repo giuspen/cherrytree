@@ -48,6 +48,7 @@ class CtAnchoredWidgetState_ImagePng : public CtAnchoredWidgetState
 {
 public:
     CtAnchoredWidgetState_ImagePng(CtImagePng* image);
+    virtual ~CtAnchoredWidgetState_ImagePng() = default;
     virtual bool equal(std::shared_ptr<CtAnchoredWidgetState> state);
     virtual CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin);
 
@@ -60,6 +61,7 @@ class CtAnchoredWidgetState_Anchor : public CtAnchoredWidgetState
 {
 public:
     CtAnchoredWidgetState_Anchor(CtImageAnchor* anchor);
+    virtual ~CtAnchoredWidgetState_Anchor() = default;
     virtual bool equal(std::shared_ptr<CtAnchoredWidgetState> state);
     virtual CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin);
 
@@ -71,6 +73,7 @@ class CtAnchoredWidgetState_EmbFile: public CtAnchoredWidgetState
 {
 public:
     CtAnchoredWidgetState_EmbFile(CtImageEmbFile* embFile);
+    virtual ~CtAnchoredWidgetState_EmbFile() = default;
     virtual bool equal(std::shared_ptr<CtAnchoredWidgetState> state);
     virtual CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin);
 
@@ -84,6 +87,7 @@ class CtAnchoredWidgetState_Codebox : public CtAnchoredWidgetState
 {
 public:
     CtAnchoredWidgetState_Codebox(CtCodebox* codebox);
+    virtual ~CtAnchoredWidgetState_Codebox() = default;
     virtual bool equal(std::shared_ptr<CtAnchoredWidgetState> state);
     virtual CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin);
 
@@ -97,6 +101,7 @@ class CtAnchoredWidgetState_Table: public CtAnchoredWidgetState
 {
 public:
     CtAnchoredWidgetState_Table(CtTable* table);
+    virtual ~CtAnchoredWidgetState_Table() = default;
     virtual bool equal(std::shared_ptr<CtAnchoredWidgetState> state);
     virtual CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin);
 

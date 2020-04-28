@@ -49,7 +49,7 @@ public:
 
 protected:
     bool _on_entry_key_press_event(GdkEventKey* pEventKey);
-    void _on_entry_icon_press(Gtk::EntryIconPosition iconPosition, const GdkEventButton* pEvent) { _entry.set_text(""); }
+    void _on_entry_icon_press(Gtk::EntryIconPosition /*iconPosition*/, const GdkEventButton* /*pEvent*/) { _entry.set_text(""); }
     Gtk::Entry _entry;
 };
 

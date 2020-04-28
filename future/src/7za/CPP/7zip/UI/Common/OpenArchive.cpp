@@ -1392,11 +1392,12 @@ HRESULT CArc::OpenStream2(const COpenOptions &op)
           }
           isNumber = true;
         }
-        if (isNumber)
+        if (isNumber) {
           if (c == 'z' || c == 'Z')
             isZip = true;
           else
             isRar = true;
+        }
       }
 
       FOR_VECTOR (i, op.codecs->Formats)
@@ -2353,11 +2354,12 @@ HRESULT CArc::OpenStream2(const COpenOptions &op)
 
           if (pi.Offset != 0)
           {
-            if (!pi.IsNotArcType)
+            if (!pi.IsNotArcType) {
               if (thereIsTail)
                 openCur = specFlags.CanReturnMid;
               else
                 openCur = specFlags.CanReturnTail;
+            }
           }
           else
           {

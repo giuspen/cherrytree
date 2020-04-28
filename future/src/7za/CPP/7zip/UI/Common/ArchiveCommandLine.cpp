@@ -270,8 +270,9 @@ bool CArcCommand::IsFromExtractGroup() const
     case NCommandType::kExtract:
     case NCommandType::kExtractFull:
       return true;
+  default:
+      return false;
   }
-  return false;
 }
 
 NExtract::NPathMode::EEnum CArcCommand::GetPathMode() const
@@ -281,8 +282,9 @@ NExtract::NPathMode::EEnum CArcCommand::GetPathMode() const
     case NCommandType::kTest:
     case NCommandType::kExtractFull:
       return NExtract::NPathMode::kFullPaths;
+    default:
+      return NExtract::NPathMode::kNoPaths;
   }
-  return NExtract::NPathMode::kNoPaths;
 }
 
 bool CArcCommand::IsFromUpdateGroup() const
@@ -294,8 +296,9 @@ bool CArcCommand::IsFromUpdateGroup() const
     case NCommandType::kDelete:
     case NCommandType::kRename:
       return true;
+    default:
+      return false;
   }
-  return false;
 }
 
 static NRecursedType::EEnum GetRecursedTypeFromIndex(int index)
@@ -350,6 +353,8 @@ static void AddNameToCensor(NWildcard::CCensor &censor,
       break;
     case NRecursedType::kRecursed:
       recursed = true;
+      break;
+    case NRecursedType::kNonRecursed:
       break;
   }
   censor.AddPreItem(include, name, recursed, wildcardMatching);

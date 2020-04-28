@@ -86,7 +86,8 @@ void CtHtmlParser::feed(const std::string& html)
         }
     };
 
-    htmlSAXHandler sax2Handler = {0};
+    htmlSAXHandler sax2Handler;
+    memset(&sax2Handler, 0, sizeof(sax2Handler));
     sax2Handler.initialized = XML_SAX2_MAGIC;
     sax2Handler.startElement = helper_function::start_element;
     sax2Handler.endElement = helper_function::end_element;
@@ -96,7 +97,7 @@ void CtHtmlParser::feed(const std::string& html)
     htmlSAXParseDoc((xmlChar*)html.c_str(), "UTF-8", &sax2Handler, this);
 }
 
-void CtHtmlParser::handle_starttag(std::string_view tag, const char **atts)
+void CtHtmlParser::handle_starttag(std::string_view tag, const char **/*atts*/)
 {
     std::cout << "SAX tag: " << tag << std::endl;
 }
@@ -113,7 +114,7 @@ void CtHtmlParser::handle_data(std::string_view text)
 
 void CtHtmlParser::handle_charref(std::string_view name)
 {
-    std::cout << "SAX ref: " << std::endl;
+    std::cout << "SAX ref: " << name << std::endl;
 }
 
 std::list<CtHtmlParser::html_attr> CtHtmlParser::char2list_attrs(const char** atts)
@@ -413,7 +414,7 @@ void CtHtml2Xml::handle_data(std::string_view text)
 }
 
 // Found Entity Reference like &name;
-void CtHtml2Xml::handle_charref(std::string_view name)
+void CtHtml2Xml::handle_charref(std::string_view /*name*/)
 {
     // todo: test it
 }
@@ -505,7 +506,7 @@ std::string CtHtml2Xml::_convert_html_color(const std::string& html_color)
 }
 
 // Insert Image in Buffer
-void CtHtml2Xml::_insert_image(std::string img_path, std::string trailing_chars)
+void CtHtml2Xml::_insert_image(std::string /*img_path*/, std::string /*trailing_chars*/)
 {
     _rich_text_save_pending();
     // todo:

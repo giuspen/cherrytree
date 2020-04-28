@@ -136,11 +136,12 @@ HRESULT CHandler::SetMainMethod(CCompressionMethodMode &methodMode, UInt32 numTh
     _numSolidBytesDefined = true;
   }
 
-  if (!_numSolidBytesDefined)
+  if (!_numSolidBytesDefined) {
     if (needSolid)
       _numSolidBytes = kSolidBytes_Max;
     else
       _numSolidBytes = 0;
+  }
   _numSolidBytesDefined = true;
   return S_OK;
 }

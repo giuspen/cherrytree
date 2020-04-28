@@ -646,7 +646,7 @@ void CtTreeStore::_on_textbuffer_modified_changed(Glib::RefPtr<Gtk::TextBuffer> 
     }
 }
 
-void CtTreeStore::_on_textbuffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int bytes)
+void CtTreeStore::_on_textbuffer_insert(const Gtk::TextBuffer::iterator& /*pos*/, const Glib::ustring& text, int /*bytes*/)
 {
     if (_pCtMainWin->user_active())
         _pCtMainWin->get_state_machine().text_variation(_pCtMainWin->curr_tree_iter().get_node_id(), text);
