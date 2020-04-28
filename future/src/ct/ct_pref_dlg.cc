@@ -756,7 +756,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     checkbutton_aux_icon_hide->set_active(pConfig->auxIconHide);
 
     Gtk::Button* c_icon_button = Gtk::manage(new Gtk::Button());
-    c_icon_button->set_image(*_pCtMainWin->new_image_from_stock(CtConst::NODES_STOCKS.at(pConfig->defaultIconText), Gtk::ICON_SIZE_BUTTON));
+    c_icon_button->set_image(*_pCtMainWin->new_image_from_stock(CtConst::NODE_CUSTOM_ICONS.at(pConfig->defaultIconText), Gtk::ICON_SIZE_BUTTON));
     Gtk::HBox* c_icon_hbox = Gtk::manage(new Gtk::HBox());
     c_icon_hbox->set_spacing(2);
     c_icon_hbox->pack_start(*radiobutton_node_icon_custom, false, false);
@@ -865,8 +865,8 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     });
     c_icon_button->signal_clicked().connect([this, pConfig, c_icon_button](){
         auto itemStore = CtChooseDialogListStore::create();
-        for (auto& pair: CtConst::NODES_STOCKS)
-            itemStore->add_row(pair.second, std::to_string(pair.first), "");
+        for (int i = 1 /* skip 0 */; i < (int)CtConst::NODE_CUSTOM_ICONS.size(); ++i)
+            itemStore->add_row(CtConst::NODE_CUSTOM_ICONS[i], std::to_string(i), "");
         auto res = CtDialogs::choose_item_dialog(*this, _("Select Node Icon"), itemStore);
         if (res) {
             pConfig->defaultIconText = std::stoi(res->get_value(itemStore->columns.key));
@@ -1416,7 +1416,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
 
     Gtk::VBox* vbox_language = Gtk::manage(new Gtk::VBox());
     Gtk::ComboBoxText* combobox_country_language = Gtk::manage(new Gtk::ComboBoxText());
-    for (const gchar* lang: CtConst::AVAILABLE_LANGS)
+    for (auto lang: CtConst::AVAILABLE_LANGS)
         combobox_country_language->append(lang);
     // todo: country_lang (taken from s.path.isfile(cons.LANG_PATH))
     // combobox_country_language->set_active_text(pConfig->countryLang);
@@ -1533,8 +1533,11 @@ void CtPrefDlg::fill_custom_exec_commands_model(Glib::RefPtr<Gtk::ListStore> mod
         std::string command;
         if (_pCtMainWin->get_ct_config()->customCodexecType.find(key) != _pCtMainWin->get_ct_config()->customCodexecType.end())
             command = _pCtMainWin->get_ct_config()->customCodexecType.at(key);
-        else if (CtConst::CODE_EXEC_TYPE_CMD_DEFAULT.find(key) != CtConst::CODE_EXEC_TYPE_CMD_DEFAULT.end())
-            command = CtConst::CODE_EXEC_TYPE_CMD_DEFAULT.at(key);
+        else {
+            for (auto it: CtConst:: CODE_EXEC_TYPE_CMD_DEFAULT)
+                if (it.first == key)
+                    command = it.second;
+        }
 
         Gtk::TreeModel::Row row = *(model->append());
         row[_commandModelColumns.icon] = _pCtMainWin->get_code_icon_name(key);

@@ -266,7 +266,7 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
     }
     if (property_value.empty()) {
         if (tag_property == CtConst::TAG_LINK) {
-            if (CtTextIterUtil::get_next_chars_from_iter_are(*iter_sel_start, CtConst::WEB_LINK_STARTERS)) {
+            if (CtTextIterUtil::startswith_any(*iter_sel_start, CtConst::WEB_LINK_STARTERS)) {
                 _link_entry.type = CtConst::LINK_TYPE_WEBS;
                 _link_entry.webs = text_buffer->get_text(*iter_sel_start, *iter_sel_end);
             }

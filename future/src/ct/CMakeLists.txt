@@ -18,7 +18,6 @@ set(CT_SHARED_FILES
     ct_clipboard.cc
     ct_codebox.cc
     ct_config.cc
-    ct_const.cc
     ct_dialogs.cc
     ct_export2html.cc
     ct_export2pdf.cc

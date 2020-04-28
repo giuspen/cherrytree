@@ -535,7 +535,7 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
         int col_num = (int)parentTable->get_table_matrix()[0].size();
         int insert_after = parentTable->current_row() - 1;
         if (insert_after < 0) insert_after = 0;
-        for (int row = 1 /*skip header*/; row < tableMatrix.size(); ++row)
+        for (int row = 1 /*skip header*/; row < (int)tableMatrix.size(); ++row)
         {
             std::vector<Glib::ustring> new_row;
             std::transform(tableMatrix[row].begin(), tableMatrix[row].end(), std::back_inserter(new_row), [](CtTableCell* cell) { return cell->get_text_content(); });
@@ -602,14 +602,14 @@ void CtClipboard::_on_received_to_uri_list(const Gtk::SelectionData& selection_d
             Gtk::TextIter iter_insert = pTextView->get_buffer()->get_insert()->get_iter();
 
             Glib::ustring property_value;
-            if (CtTextIterUtil::get_first_chars_of_string_are(element, CtConst::WEB_LINK_STARTERS))
+            if (str::startswith_any(element, CtConst::WEB_LINK_STARTERS))
             {
                 property_value = "webs " + element;
             }
             else if (str::startswith(element, "file://"))
             {
                 Glib::ustring file_path = element.substr(7);
-                file_path = str::replace(file_path, "%20", CtConst::CHAR_SPACE.c_str());
+                file_path = str::replace(file_path, "%20", CtConst::CHAR_SPACE);
                 gchar* mimetype = g_content_type_guess(file_path.c_str(), nullptr, 0, nullptr);
                 if (mimetype and str::startswith(mimetype, "image/") and Glib::file_test(file_path, Glib::FILE_TEST_IS_REGULAR))
                 {

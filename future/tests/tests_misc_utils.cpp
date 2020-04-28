@@ -98,10 +98,10 @@ TEST(MiscUtilsGroup, gstring_split_to_int64)
     CHECK(std::vector<gint64>({-1, 1, 0, 1000}) == splittedVec);
 }
 
-TEST(MiscUtilsGroup, is_pgchar_in_pgchar_iterable)
+TEST(MiscUtilsGroup, contains)
 {
-    CHECK(CtStrUtil::is_pgchar_in_pgchar_iterable(CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROPERTIES));
-    CHECK(not CtStrUtil::is_pgchar_in_pgchar_iterable("something surely missing", CtConst::TAG_PROPERTIES));
+    CHECK(CtStrUtil::contains(CtConst::TAG_PROPERTIES, CtConst::TAG_STRIKETHROUGH));
+    CHECK(not CtStrUtil::contains(CtConst::TAG_PROPERTIES, "something surely missing"));
 }
 
 TEST(MiscUtilsGroup, getFontMisc)

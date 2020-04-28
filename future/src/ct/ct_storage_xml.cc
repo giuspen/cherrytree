@@ -318,7 +318,7 @@ void CtStorageXmlHelper::_add_rich_text_from_xml(Glib::RefPtr<Gsv::Buffer> buffe
     std::vector<Glib::ustring> tags;
     for (const xmlpp::Attribute* pAttribute : xml_element->get_attributes())
     {
-        if (CtStrUtil::is_pgchar_in_pgchar_iterable(pAttribute->get_name().c_str(), CtConst::TAG_PROPERTIES))
+        if (CtStrUtil::contains(CtConst::TAG_PROPERTIES, pAttribute->get_name().c_str()))
             tags.push_back(_pCtMainWin->get_text_tag_name_exist_or_create(pAttribute->get_name(), pAttribute->get_value()));
     }
     Gtk::TextIter iter = text_insert_pos ? *text_insert_pos : buffer->end();

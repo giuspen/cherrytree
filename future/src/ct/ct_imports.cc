@@ -39,7 +39,7 @@ std::vector<std::pair<int, int>> CtImports::get_web_links_offsets_from_plain_tex
     int start_offset = 0;
     while (start_offset < max_start_offset)
     {
-        if (CtTextIterUtil::get_first_chars_of_string_at_offset_are(plain_text, start_offset, CtConst::WEB_LINK_STARTERS))
+        if (str::startswith_any(plain_text.substr(start_offset), CtConst::WEB_LINK_STARTERS))
         {
             int end_offset = start_offset + 3;
             while (end_offset < max_end_offset
@@ -325,7 +325,7 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
         else if (tag == "img" || tag == "v:imagedata") {
             for (auto& tag_attr: char2list_attrs(atts))
                 if (tag_attr.name == "src")
-                    _insert_image(tag_attr.value.begin(), CtConst::CHAR_NEWLINE + CtConst::CHAR_NEWLINE);
+                    _insert_image(tag_attr.value.begin(), str::repeat(CtConst::CHAR_NEWLINE, 2));
         }
         else if (tag == "br" && _html_td_tag_open) _table.back().back().text += CtConst::CHAR_NEWLINE;
         else if (tag == "ol" && _html_td_tag_open) { _list_type = 'o'; _list_num = 1; }

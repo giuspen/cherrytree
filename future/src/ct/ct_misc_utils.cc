@@ -224,52 +224,6 @@ bool CtTextIterUtil::get_is_camel_case(Gtk::TextIter iter_start, int num_chars)
     return curr_state == 3;
 }
 
-// Returns True if one set of the Given Chars are the first of in_string
-bool CtTextIterUtil::get_first_chars_of_string_are(const Glib::ustring& text, const std::vector<Glib::ustring>& chars_list)
-{
-    for (auto& chars: chars_list)
-        if (str::startswith(text, chars))
-            return true;
-    return false;
-}
-
-bool CtTextIterUtil::get_next_chars_from_iter_are(Gtk::TextIter text_iter, const Glib::ustring& chars_list)
-{
-    for (size_t i = 0; i < chars_list.size(); ++i)
-    {
-        if (text_iter.get_char() != chars_list[i])
-            return false;
-        if (not text_iter.forward_char() and i+1 != chars_list.size())
-            return false;
-    }
-    return true;
-}
-
-bool CtTextIterUtil::get_next_chars_from_iter_are(Gtk::TextIter text_iter, const std::vector<Glib::ustring>& chars_list_vec)
-{
-    for (const auto& chars_list: chars_list_vec)
-        if (get_next_chars_from_iter_are(text_iter, chars_list))
-            return true;
-    return false;
-}
-
-// Returns True if one set of the Given Chars are the first of in_string
-bool CtTextIterUtil::get_first_chars_of_string_at_offset_are(const Glib::ustring& in_string, int offset, const std::vector<Glib::ustring>& chars_list_vec)
-{
-    for (const auto& chars_list: chars_list_vec)
-    {
-        size_t len = chars_list.size();
-        if (in_string.size() < (size_t)offset + len)
-            continue;
-        bool good = true;
-        for (size_t i = 0; good and i < len; ++i)
-            good = in_string[(size_t)offset + i] == chars_list[i];
-        if (good)
-            return true;
-    }
-    return false;
-}
-
 void CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter, std::map<const gchar*, std::string>& curr_attributes)
 {
     std::vector<Glib::RefPtr<const Gtk::TextTag>> toggled_off = text_iter.get_toggled_tags(false/*toggled_on*/);
