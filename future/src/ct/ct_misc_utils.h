@@ -71,7 +71,7 @@ inline bool startswith(Gtk::TextIter text_iter, const gchar* str)
     {
         if (text_iter.get_char() != ch)
             return false;
-        g_utf8_next_char(str);
+        str = g_utf8_next_char(str);
         ch = g_utf8_get_char(str);
         if (ch == 0)
             return true;

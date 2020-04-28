@@ -22,6 +22,7 @@
 #include "ct_misc_utils.h"
 #include "ct_const.h"
 #include "CppUTest/CommandLineTestRunner.h"
+#include "gtkmm/textbuffer.h"
 
 
 TEST_GROUP(MiscUtilsGroup)
@@ -98,6 +99,32 @@ TEST(MiscUtilsGroup, gstring_split_to_int64)
     CHECK(std::vector<gint64>({-1, 1, 0, 1000}) == splittedVec);
 }
 
+TEST(MiscUtilsGroup, iter_util__startswith)
+{
+    Glib::init();
+    auto buffer = Gsv::Buffer::create();
+    buffer->set_text("Saitama さいたま市");
+    CHECK(CtTextIterUtil::startswith(buffer->begin(), "Sai"));
+    CHECK(not CtTextIterUtil::startswith(buffer->begin(), "さ"));
+    buffer->set_text("さいたま市 Saitama");
+    CHECK(CtTextIterUtil::startswith(buffer->begin(), "さ"));
+    CHECK(not CtTextIterUtil::startswith(buffer->begin(), "Sai"));
+}
+
+TEST(MiscUtilsGroup, iter_util__startswith_any)
+{
+    Glib::init();
+    auto buffer = Gsv::Buffer::create();
+    buffer->set_text("Saitama さいたま市");
+
+    CHECK(CtTextIterUtil::startswith_any(buffer->begin(), std::array<const gchar*, 3>{"M", "Sai", "さ"}));
+    CHECK(not CtTextIterUtil::startswith_any(buffer->begin(), std::array<const gchar*, 3>{"M", "21", "さ"}));
+    buffer->set_text("さいたま市 Saitama");
+    CHECK(CtTextIterUtil::startswith_any(buffer->begin(), std::array<const gchar*, 3>{"M", "Sai", "さ"}));
+    CHECK(not CtTextIterUtil::startswith_any(buffer->begin(), std::array<const gchar*, 3>{"M", "Sai", "123"}));
+}
+
+
 TEST(MiscUtilsGroup, contains)
 {
     CHECK(CtStrUtil::contains(CtConst::TAG_PROPERTIES, CtConst::TAG_STRIKETHROUGH));
@@ -172,6 +199,24 @@ TEST(MiscUtilsGroup, natural_compare)
     CHECK(CtStrUtil::natural_compare("Alpha 2 B","Alpha 2") > 0);
 }
 
+TEST(MiscUtilsGroup, str__startswith)
+{
+    CHECK(str::startswith("", ""));
+    CHECK(str::startswith("123", ""));
+    CHECK(str::startswith("sさいた", "sさい"));
+    CHECK(not str::startswith("sさいた", "1"));
+    CHECK(not str::startswith("", "さ"));
+}
+
+TEST(MiscUtilsGroup, str__startswith_any)
+{
+    CHECK(str::startswith_any("", std::array<const gchar*, 3>{"1", "", "3"}));
+    CHECK(str::startswith_any("123", std::array<const gchar*, 1>{""}));
+    CHECK(str::startswith_any("sさいた", std::array<const gchar*, 3>{"1", "sさ", "3"}));
+    CHECK(not str::startswith_any("sさいた", std::array<const gchar*, 3>{"1", "さ", "3"}));
+    CHECK(not str::startswith_any("", std::array<const gchar*, 3>{"1", "さ", "3"}));
+}
+
 TEST(MiscUtilsGroup, str__endswith)
 {
     CHECK(str::endswith("", ""));
@@ -180,6 +225,16 @@ TEST(MiscUtilsGroup, str__endswith)
     CHECK(not str::endswith("123", "1"));
     CHECK(not str::endswith("", "1"));
 }
+
+TEST(MiscUtilsGroup, str__indexOf)
+{
+    gunichar uc = Glib::ustring("さ")[0];
+    LONGS_EQUAL(str::indexOf("Saitama さいたま市", "さい"), 8);
+    LONGS_EQUAL(str::indexOf("Saitama さいたま市", "S"), 0);
+    LONGS_EQUAL(str::indexOf("Saitama さいたま市", 'a'), 1);
+    LONGS_EQUAL(str::indexOf("Saitama さいたま市", uc), 8);
+}
+
 
 TEST(MiscUtilsGroup, str__join)
 {
