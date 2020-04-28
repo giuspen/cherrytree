@@ -50,6 +50,22 @@ iconshicolorscalableapps_DATA = icons/cherrytree.svg
 desktopdir = $(datadir)/applications
 desktop_DATA = data/@PACKAGE@.desktop
 
+manman1dir = $(datadir)/man/man1
+manman1_DATA = data/cherrytree.1.gz
+
+mimepackagesdir = $(datadir)/mime/packages
+mimepackages_DATA = data/cherrytree.xml
+
+mimeinfodir = $(datadir)/mime-info
+appregistry_DATA = data/cherrytree.mime \
+                   data/cherrytree.keys
+
+appregistrydir = $(datadir)/application-registry
+appregistry_DATA = data/cherrytree.applications
+
+metainfodir = $(datadir)/metainfo
+metainfo_DATA = data/cherrytree.appdata.xml
+
 COMMON_SOURCES = \
 	src/ct/ct_app.cc \
 	src/ct/ct_main_win.cc \
@@ -317,15 +333,3 @@ dist_doc_DATA = README
 
 
 SUBDIRS = po
-
-
-INTLTOOL_FILES = intltool-extract.in \
-	intltool-merge.in \
-	intltool-update.in
-
-EXTRA_DIST = $(INTLTOOL_FILES)
-
-DISTCLEANFILES = intltool-extract \
-	intltool-merge \
-	intltool-update \
-	po/.intltool-merge-cache

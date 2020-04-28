@@ -1,0 +1,6 @@
+cherrytree (0.40.0-0) focal; urgency=low
+
+  * first gtkmm3 release
+
+
+ -- Giuseppe Penone <giuspen@gmail.com>  Tue, 28 Apr 2020 21:03:31 +0100

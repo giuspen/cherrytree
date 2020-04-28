@@ -2,7 +2,7 @@ cherrytree
 run_tests
 *.gresource.*
 po/cherrytree.pot
-
+data/cherrytree.1.gz
 ABOUT-NLS
 COPYING
 INSTALL
@@ -32,3 +32,8 @@ libp7za.a
 libtool
 ltmain.sh
 ar-lib
+
+debian/autoreconf.after
+debian/autoreconf.before
+debian/cherrytree.debhelper.log
+po/stamp-po

@@ -7,7 +7,7 @@
 
 4. copy the contents of the language-specs directory into /usr/share/cherrytree/language-specs
 
-5. copy only the directories (ru, it,...) and their content from the locale directory into /usr/share/locale
+5. copy compiled language files like po/ru.gmo to /usr/share/locale/ru/LC_MESSAGES/ru.mo
 
 6. the mime type registration requires furthermore:
 - cherrytree.xml to /usr/share/mime/packages

@@ -20,14 +20,12 @@ AC_PREFIX_DEFAULT("/usr")
 AC_CONFIG_FILES([po/Makefile.in Makefile])
 
 
-IT_PROG_INTLTOOL([0.35.0])
-
 GETTEXT_PACKAGE=cherrytree
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"],
                    [The domain to use with gettext])
 AM_GNU_GETTEXT([external])
-AM_GNU_GETTEXT_VERSION([0.18])
+AM_GNU_GETTEXT_VERSION([0.18.2])
 
 CHERRYTREE_LOCALEDIR=[${datadir}/locale]
 AC_SUBST(CHERRYTREE_LOCALEDIR)
@@ -37,3 +35,5 @@ AC_OUTPUT
 
 
 python3 scripts/gresource_to_c.py
+rm -f data/cherrytree.1.gz
+gzip -k data/cherrytree.1
