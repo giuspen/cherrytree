@@ -655,6 +655,7 @@ void CtActions::table_export()
     // todo: find good csv lib
     return;
 
+    /*
     CtDialogs::file_select_args args = {
         .pParentWin=_pCtMainWin,
         .curr_folder=_pCtMainWin->get_ct_config()->pickDirCsv,
@@ -666,6 +667,7 @@ void CtActions::table_export()
     if (filename.empty()) return;
     if (str::endswith(filename, ".csv")) filename += ".csv";
     _pCtMainWin->get_ct_config()->pickDirCsv = Glib::path_get_dirname(filename);
+*/
 }
 
 // Anchor Edit Dialog

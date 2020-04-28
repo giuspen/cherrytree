@@ -832,7 +832,7 @@ int CtFileSystem::getsize(const std::string& path)
 }
 
 // Open Filepath with External App
-void CtFileSystem::external_filepath_open(const std::string& filepath, bool open_fold_if_no_app_error)
+void CtFileSystem::external_filepath_open(const std::string& filepath, bool /*open_fold_if_no_app_error*/)
 {
     /* todo:
     if self.filelink_custom_action[0]:

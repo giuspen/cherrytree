@@ -1,4 +1,6 @@
 
+add_compile_options(-Wall -Wextra -Wunreachable-code -Wuninitialized -Werror)
+
 # Generating icons
 execute_process(
     COMMAND python3 ${CMAKE_SOURCE_DIR}/scripts/gresource_to_c.py

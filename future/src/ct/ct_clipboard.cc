@@ -539,8 +539,8 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
         {
             std::vector<Glib::ustring> new_row;
             std::transform(tableMatrix[row].begin(), tableMatrix[row].end(), std::back_inserter(new_row), [](CtTableCell* cell) { return cell->get_text_content(); });
-            while (new_row.size() > col_num) new_row.pop_back();
-            while (new_row.size() < col_num) new_row.push_back("");
+            while ((int)new_row.size() > col_num) new_row.pop_back();
+            while ((int)new_row.size() < col_num) new_row.push_back("");
             parentTable->row_add(insert_after + (row-1), &new_row);
         }
         for (auto row: tableMatrix)
