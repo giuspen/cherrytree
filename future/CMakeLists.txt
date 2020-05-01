@@ -85,6 +85,17 @@ enable_testing()
 add_subdirectory(tests)
 
 
+
+# rebuild man pages
+set(MANFILE_FULL "${CMAKE_SOURCE_DIR}/data/cherrytree.1")
+set(MANFILE_FULL_GZ "${MANFILE_FULL}.gz")
+add_custom_command(
+        OUTPUT ${MANFILE_FULL_GZ}
+	COMMAND gzip -f -k --best -n "${MANFILE_FULL}"
+)
+add_custom_target(man_pages ALL DEPENDS ${MANFILE_FULL_GZ})
+
+# install commands
 install(TARGETS cherrytree RUNTIME DESTINATION bin)
 if(${CMAKE_SYSTEM_NAME} MATCHES Linux|.*BSD|DragonFly)
   # share data
@@ -92,7 +103,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES Linux|.*BSD|DragonFly)
           DESTINATION "${SHARE_INSTALL}/applications")
   install(FILES "${CMAKE_SOURCE_DIR}/icons/cherrytree.svg"
           DESTINATION "${SHARE_INSTALL}/icons/hicolor/scalable/apps")
-  install(FILES "${CMAKE_SOURCE_DIR}/data/cherrytree.1.gz"
+  install(FILES "${MANFILE_FULL_GZ}"
           DESTINATION "${SHARE_INSTALL}/man/man1")
   install(FILES 
           "${CMAKE_SOURCE_DIR}/data/cherrytree.mime"
