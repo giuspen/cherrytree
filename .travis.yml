@@ -31,7 +31,10 @@ install:
       brew install cmake || brew upgrade cmake;
     fi
   - cmake --version
-  
+before_script:
+  # returns back to working dir
+  - cd "${TRAVIS_BUILD_DIR}"
+
 script:
   - mkdir build
   - cd build
