@@ -16,5 +16,8 @@ addons:
     update: true
 
 script:
-  - cd future
-  - ./build.sh
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_INSTALL_PREFIX=./local_usr ../future
+  - make
+  - ./run_tests
