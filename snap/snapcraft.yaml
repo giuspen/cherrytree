@@ -44,6 +44,7 @@ apps:
       - desktop-legacy
       - gsettings
     desktop: share/applications/cherrytree.desktop
+    common-id: com.giuspen.cherrytree
     environment:
       PATH: $SNAP/usr/lib/p7zip:$PATH
       GTK_PATH: $SNAP/lib/gtk-2.0
