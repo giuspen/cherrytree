@@ -1,5 +1,5 @@
 
-add_compile_options(-Wall -Wextra -Wunreachable-code -Wuninitialized -Werror)
+add_compile_options(-Wall -Wextra -Wunreachable-code -Wuninitialized)
 
 # Generating icons
 execute_process(

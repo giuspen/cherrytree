@@ -21,6 +21,7 @@
 
 #include "ct_app.h"
 #include "ct_p7za_iface.h"
+#include "config.h"
 #include <glib/gstdio.h>
 #include <libxml++/libxml++.h>
 #include "CppUTest/CommandLineTestRunner.h"
