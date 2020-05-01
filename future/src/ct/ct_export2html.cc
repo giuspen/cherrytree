@@ -24,6 +24,7 @@
 #include "ct_main_win.h"
 #include "ct_dialogs.h"
 #include "ct_storage_control.h"
+#include "config.h"
 #include <fstream>
 
 CtExport2Html::CtExport2Html(CtMainWin* pCtMainWin)
@@ -55,14 +56,16 @@ bool CtExport2Html::prepare_html_folder(Glib::ustring dir_place, Glib::ustring n
     Glib::ustring styles_css_filepath = Glib::build_filename(config_dir, "styles3.css");
     if (!Glib::file_test(styles_css_filepath, Glib::FILE_TEST_IS_REGULAR))
     {
-        throw std::runtime_error("put css file into .config folder (or export by pygtk version)"); // todo: CtFileSystem::copy_file(Glib::build_filename(CtConst::GLADE_PATH, "styles3.css"), styles_css_filepath);
+        Glib::ustring styles_css_original = Glib::build_filename(CHERRYTREE_DATADIR, "data", "styles3.css");
+        CtFileSystem::copy_file(styles_css_original, styles_css_filepath);
     }
     CtFileSystem::copy_file(styles_css_filepath, Glib::build_filename(_res_dir, "styles3.css"));
     
     Glib::ustring styles_js_filepath = Glib::build_filename(config_dir, "script3.js");
     if (!Glib::file_test(styles_js_filepath, Glib::FILE_TEST_IS_REGULAR))
     {
-        throw std::runtime_error("put script file into .config folder (or export by pygtk version)"); // todo: CtFileSystem::copy_file(Glib::build_filename(CtConst::GLADE_PATH, "styles3.css"), styles_css_filepath);
+        Glib::ustring script_js_original = Glib::build_filename(CHERRYTREE_DATADIR, "data", "script3.js");
+        CtFileSystem::copy_file(script_js_original, styles_js_filepath);
     }
     CtFileSystem::copy_file(styles_js_filepath, Glib::build_filename(_res_dir, "script3.js"));
 
