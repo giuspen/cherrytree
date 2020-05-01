@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1.0)
+cmake_minimum_required(VERSION 3.13.2)
 
 project(cherrytree)
 set(CT_VERSION "0.1.0")
