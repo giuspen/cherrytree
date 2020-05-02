@@ -1,0 +1,218 @@
+/* Met Office external website                                                                            
+
+Colours:
+- black/dark grey: #202A2C
+- dark grey: #666666      
+- grey: #DDDDDD (thin lines)
+- light grey: #EEEEEE (background colour)
+- darkish green: #BCDB0C                 
+- green: #CCFF33                         
+- darkish blue: #4BA8BA                  
+- blue: #00ADD0                          
+
+*/
+
+/*******************************************************************************
+ * GENERAL
+ ******************************************************************************/
+/*<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,700' rel='stylesheet' type='text/css'>*/
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,700);
+
+body {
+    font-size: 13px;
+    font-family: "Open Sans", sans-serif !important;
+    white-space: pre-wrap;
+}
+
+div.two-panels {
+    height: inherit;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+div.tree-panel {
+    flex: 19vw;
+    margin-left: 1vw;
+    height: 100%;
+    overflow: auto;
+    border-right: 3px solid;
+    
+    /*background-color: #EEEEEE;
+    border-top: 1px solid #DDDDDD;
+    border-bottom: 1px solid #DDDDDD;
+    margin-bottom: 20px;*/
+    /*margin: 0.75em 0 0.75em 20px;*/
+}
+
+div.page-panel {
+    flex: 80vw;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+}
+
+div.page-panel iframe {
+    width: 79vw;
+    margin-left: 1vw;
+    border: 0px;
+    margin-top: 0px;
+    height: 100%;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+div.page {
+    padding: 20px; 
+}
+
+.clear {
+    clear: both
+}
+
+/*******************************************************************************
+ * TREE INDEX
+ ******************************************************************************/
+
+div.tree {
+    font-size: 12px;
+    color: #666666;
+}
+
+/* fix for firefox */
+div.tree button {
+    border-width: 2px;
+}
+
+div.tree a, div.tree a:visited {
+    color: #666666;
+    text-decoration: none;
+}
+
+div.tree a:hover {
+    text-decoration: underline;
+}
+
+div.tree ul {
+    padding-inline-start: 20px;
+    list-style-type: none;
+    line-height: 0.3;
+}
+
+div.tree ul.outermost {
+    padding-inline-start: 0;
+}
+
+div.tree li {
+    padding-inline-start: 0;
+}
+div.tree li.leaf {
+    padding-inline-start: 10px;
+    line-height: 2;
+}
+
+div.tree a.show, div.tree a.hide { display: none; }
+
+.hide {
+    display: none;
+}
+
+/*******************************************************************************
+ * NODE PAGES
+ ******************************************************************************/
+
+/* TABLES */
+
+table {
+    border: 1px solid #AAAAAA;
+}
+
+th {
+    background-color: #EEEEEE;
+}
+
+td {
+    padding-left: 5px;
+    padding-right: 5px;
+    border-top: 1px solid #AAAAAA;
+}
+
+/* HEADINGS */
+
+div.page h1 {
+    font-weight: bold;
+    display: inline;
+}
+
+div.page h1.title {
+    text-decoration: underline;
+}
+
+div.page h2 {
+    padding-top: 1em;
+    /*padding-bottom: 0.5em;*/
+    font-weight: bold;
+    font-size: 150%;
+    color: #666666;
+    display: inline;
+}
+
+div.page h3 {
+    padding-top: 0.75em;
+    font-weight: bold;
+    font-size: 125%;
+    color: #666666;
+    display: inline;
+}
+
+/* LINKS */
+
+/*div.page a, div.page a:visited {
+    color: #005BCA;
+    text-decoration: none;
+}
+
+div.page a:hover, div#me a:hover {
+    text-decoration: underline;
+}*/
+
+/* CODE */
+
+span.code-node {
+    /*color: #FFFF00;  /* yellow */
+}
+
+div.codebox, div.page code, div.page pre {
+    font-family: "Courier New", Courier, monospace;
+    font-weight: normal;
+    font-size: 13px;
+    background-color: #EEEEEE;
+    border: 1px solid #DDDDDD;
+}
+
+div.page p.tagged-text,
+div.page code {
+    /*color: #859C00;*/
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+}
+
+div.page pre {
+    padding: 0.25em;
+    overflow: auto !important;
+    width: 75%;
+}
+
+
+/* IMAGES */
+
+/*img {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}*/
+

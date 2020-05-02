@@ -11,10 +11,33 @@ before_install:
     sudo apt install build-essential libtool autoconf libgtkmm-3.0-dev 
     libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev
     libcpputest-dev autopoint gettext intltool python3-lxml libxml2-utils libgspell-1-dev
+
 addons:
   apt:
     update: true
 
+install:
+  - export DEPS_DIR="${HOME}/deps"
+  - mkdir -p ${DEPS_DIR} && cd ${DEPS_DIR}
+  - echo ${TRAVIS_OS_NAME}
+  - |
+    if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
+      export CMAKE_URL="https://github.com/Kitware/CMake/releases/download/v3.17.0/cmake-3.17.0-Linux-x86_64.tar.gz";
+      mkdir cmake;
+      travis_retry wget --no-check-certificate -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake;
+      export PATH=${DEPS_DIR}/cmake/bin:${PATH};
+      echo ${PATH};
+    else
+      brew install cmake || brew upgrade cmake;
+    fi
+  - cmake --version
+before_script:
+  # returns back to working dir
+  - cd "${TRAVIS_BUILD_DIR}"
+
 script:
-  - cd future
-  - ./build.sh
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_INSTALL_PREFIX=./local_usr ../future
+  - make
+  - ./run_tests

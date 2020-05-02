@@ -10,8 +10,6 @@ set(CT_TEST_FILES
     tests_types.cpp
 )
 
-add_definitions(-D_UNITTEST_DATA_DIR="${CMAKE_SOURCE_DIR}/tests/data")
-
 add_executable(run_tests ${CT_TEST_FILES})
 target_link_libraries(run_tests 
     ${CPPUTEST_LIBRARIES}
