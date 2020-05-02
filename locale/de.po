@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-23 21:33+0000\n"
-"PO-Revision-Date: 2019-07-10 21:41+0200\n"
+"PO-Revision-Date: 2020-05-02 14:53+0200\n"
 "Last-Translator: Frank Brungräber <calexu@arcor.de>\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -195,16 +195,15 @@ msgstr "Falsches Passwort"
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:2251
 #: /home/giuspen/Software/git_cherrytree/modules/menus.py:298
 msgid "Command Palette"
-msgstr ""
+msgstr "Befehlspalette"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:2285
 msgid "Type To Search..."
-msgstr ""
+msgstr "Tippen zum Suchen..."
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:2289
-#, fuzzy
 msgid "Command Name"
-msgstr "Knotenname"
+msgstr "Befehlsname"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:2543
 msgid "Select the New Parent"
@@ -2904,7 +2903,7 @@ msgstr "Spanisch"
 
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:940
 msgid "Swedish"
-msgstr ""
+msgstr "Schwedisch"
 
 #: /home/giuspen/Software/git_cherrytree/modules/support.py:941
 msgid "Turkish"
