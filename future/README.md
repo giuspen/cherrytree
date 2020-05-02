@@ -44,7 +44,7 @@ Get cherrytree source, compile and run:
 git clone https://github.com/giuspen/cherrytree.git
 mkdir cherrytree/build
 cd cherrytree/build
-cmake ..
+cmake ../future
 ./cherrytree
 ```
 Install documentation:
@@ -74,7 +74,7 @@ Get cherrytree source, compile and run:
 git clone https://github.com/giuspen/cherrytree.git
 mkdir cherrytree/build
 cd cherrytree/build
-cmake ..
+cmake ../future
 ./cherrytree
 ```
 
@@ -101,7 +101,7 @@ Get cherrytree source, compile and run:
 git clone https://github.com/giuspen/cherrytree.git
 mkdir cherrytree/build
 cd cherrytree/build
-cmake ..
+cmake ../future
 ./cherrytree
 ```
 
