@@ -59,17 +59,20 @@ public:
     const std::string KB_ALT     = "<alt>";
 
     enum POPUP_MENU_TYPE {Node, Text, Code, Link, TableHeaderCell, TableCell, Codebox, Image, Anchor, EmbFile, PopupMenuNum };
+    enum ACCEL_TYPE {Menu, TreeView };
 
 public:
    static Gtk::MenuItem* create_menu_item(GtkWidget* pMenu, const char* name, const char* image, const char* desc);
 
 public:
     void init_actions(CtActions* pActions);
-    CtMenuAction* find_action(const std::string& id);
+
+    CtMenuAction*  find_action(const std::string& id);
     const std::list<CtMenuAction>& get_actions() { return _actions; }
 
     GtkAccelGroup* default_accel_group();
 
+    static ACCEL_TYPE     get_accel_type(const std::string& action_name);
     static Gtk::MenuItem* find_menu_item(Gtk::MenuBar* menuBar, std::string name);
 
     Gtk::Toolbar* build_toolbar(Gtk::MenuToolButton*& pRecentDocsMenuToolButton);

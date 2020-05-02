@@ -29,6 +29,16 @@
 #include <gtk/gtk.h>
 #include <glib-object.h>
 
+static const std::set<std::string> TREE_VIEW_ACCEL_ACTION = {
+    "tree_node_up",
+    "tree_node_down",
+    "tree_node_left",
+    "tree_node_right",
+    "tree_node_new_father",
+    "tree_node_del",
+    "go_node_prev",
+    "go_node_next"
+};
 
 static xmlpp::Attribute* get_attribute(xmlpp::Node* pNode, char const* name)
 {
@@ -244,12 +254,24 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{others_cat, "img_link_edit", "link_handle", _("Edit _Link"), None, _("Edit the Link Associated to the Image"), sigc::mem_fun(*pActions, &CtActions::image_link_edit)});
     _actions.push_back(CtMenuAction{others_cat, "img_link_dismiss", "clear", _("D_ismiss Link"), None, _("Dismiss the Link Associated to the Image"), sigc::mem_fun(*pActions, &CtActions::image_link_dismiss)});
     _actions.push_back(CtMenuAction{others_cat, "toggle_show_mainwin", CtConst::APP_NAME, _("Show/Hide _CherryTree"), None, _("Toggle Show/Hide CherryTree"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_main_window)});
+
     // add actions in the Windows for the toolbar
     // by default actions will have prefix 'win.'
     // (the menu uses not actions, but accelerators)
     for (const CtMenuAction& action : _actions)
     {
         pActions->getCtMainWin()->add_action(action.id, action.run_action);
+    }
+    // add accelerators for tree view
+    for (const CtMenuAction& action : _actions)
+    {
+        if (get_accel_type(action.id) == ACCEL_TYPE::TreeView)
+        {
+            guint key;
+            GdkModifierType mod;
+            gtk_accelerator_parse(action.get_shortcut(_pCtConfig).c_str(), &key, &mod);
+            //gtk_widget_add_accelerator(GTK_WIDGET(pActions->getCtMainWin()->get_tree_view().gobj()), "activate", default_accel_group(), key, mod, GTK_ACCEL_VISIBLE);
+        }
     }
 
 
@@ -311,6 +333,13 @@ CtMenuAction* CtMenu::find_action(const std::string& id)
 GtkAccelGroup* CtMenu::default_accel_group()
 {
     return _pAccelGroup;
+}
+
+/*static*/CtMenu::ACCEL_TYPE CtMenu::get_accel_type(const std::string& action_name)
+{
+    if (TREE_VIEW_ACCEL_ACTION.count(action_name) != 0)
+        return ACCEL_TYPE::TreeView;
+    return ACCEL_TYPE::Menu;
 }
 
 Gtk::MenuItem* CtMenu::find_menu_item(Gtk::MenuBar* menuBar, std::string name)
@@ -562,10 +591,13 @@ GtkWidget* CtMenu::_add_submenu(GtkWidget* pMenu, const char* id, const char* na
 
 Gtk::MenuItem* CtMenu::_add_menu_item(GtkWidget* pMenu, CtMenuAction* pAction)
 {
+    std::string shortcut = pAction->get_shortcut(_pCtConfig);
+    if (get_accel_type(pAction->id) != ACCEL_TYPE::Menu)
+        shortcut = "";
     Gtk::MenuItem* pMenuItem = _add_menu_item(pMenu,
                                               pAction->name.c_str(),
                                               pAction->image.c_str(),
-                                              pAction->get_shortcut(_pCtConfig).c_str(),
+                                              shortcut.c_str(),
                                               default_accel_group(),
                                               pAction->desc.c_str(),
                                               (gpointer)pAction,
