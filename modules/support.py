@@ -239,7 +239,7 @@ def on_sourceview_event_after_double_click_button1(dad, text_view, event):
 
 def on_sourceview_event_after_triple_click_button1(dad, text_view, event):
     """Called after every Triple Click with button 1"""
-    if dad.syntax_highlighting == cons.RICH_TEXT_ID:
+    if dad.syntax_highlighting == cons.RICH_TEXT_ID and dad.triple_click_paragraph:
         text_buffer = text_view.get_buffer()
         x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_TEXT, int(event.x), int(event.y))
         iter_start = text_view.get_iter_at_location(x, y)
@@ -951,7 +951,7 @@ _("Czech")+" (cs) Pavel Fric <fripohled@blogspot.com>"+cons.CHAR_NEWLINE+
 _("Dutch")+" (nl) Luuk Geurts, Patrick Vijgeboom <pj.vijgeboom@gmail.com>"+cons.CHAR_NEWLINE+
 _("Finnish")+" (fi) Henri Kaustinen <hendrix.ks81@gmail.com>"+cons.CHAR_NEWLINE+
 _("French")+" (fr) Klaus Becker <colonius@free.fr>"+cons.CHAR_NEWLINE+
-_("German")+" (de) Frank Brungräber <calexu@arcor.de>"+cons.CHAR_NEWLINE+
+_("German")+" (de) Stefan Pöschel <basic.master@gmx.de>"+cons.CHAR_NEWLINE+
 _("Greek")+" (el) Delphina <delphina.2009@yahoo.gr>"+cons.CHAR_NEWLINE+
 _("Italian")+" (it) Vincenzo Reale <smart2128@baslug.org>"+cons.CHAR_NEWLINE+
 _("Japanese")+" (ja) Piyo <py2@live.jp>"+cons.CHAR_NEWLINE+

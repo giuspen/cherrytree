@@ -1,7 +1,9 @@
 /*
  * ct_dialogs.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1919,7 +1921,7 @@ MA 02110-1301, USA.
  _("Dutch")+" (nl) Luuk Geurts, Patrick Vijgeboom <pj.vijgeboom@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Finnish")+" (fi) Henri Kaustinen <hendrix.ks81@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("French")+" (fr) Klaus Becker <colonius@free.fr>"+CtConst::CHAR_NEWLINE+
- _("German")+" (de) Frank Brungräber <calexu@arcor.de>"+CtConst::CHAR_NEWLINE+
+ _("German")+" (de) Stefan Pöschel <basic.master@gmx.de>"+CtConst::CHAR_NEWLINE+
  _("Greek")+" (el) Delphina <delphina.2009@yahoo.gr>"+CtConst::CHAR_NEWLINE+
  _("Italian")+" (it) Vincenzo Reale <smart2128@baslug.org>"+CtConst::CHAR_NEWLINE+
  _("Japanese")+" (ja) Piyo <py2@live.jp>"+CtConst::CHAR_NEWLINE+

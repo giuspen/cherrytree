@@ -1,7 +1,9 @@
 /*
  * ct_config.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -81,6 +83,7 @@ public:
     int                                         embfileMaxSize{10};
     bool                                        lineWrapping{true};
     bool                                        autoSmartQuotes{true};
+    bool                                        tripleClickParagraph{true};
     bool                                        enableSymbolAutoreplace{true};
     int                                         wrappingIndent{-14};
     bool                                        autoIndent{true};

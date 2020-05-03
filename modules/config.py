@@ -2,7 +2,9 @@
 #
 #       config.py
 #
-#       Copyright 2009-2020 Giuseppe Penone <giuspen@gmail.com>
+#       Copyright 2009-2020
+#       Giuseppe Penone <giuspen@gmail.com>
+#       Evgenii Gurianov <https://github.com/txe>
 #
 #       This program is free software; you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
@@ -301,6 +303,7 @@ def config_file_load(dad):
         dad.embfile_max_size = cfg.getint(section, "embfile_max_size") if cfg.has_option(section, "embfile_max_size") else MAX_SIZE_EMBFILE_MB_DEFAULT
         dad.line_wrapping = cfg.getboolean(section, "line_wrapping") if cfg.has_option(section, "line_wrapping") else True
         dad.auto_smart_quotes = cfg.getboolean(section, "auto_smart_quotes") if cfg.has_option(section, "auto_smart_quotes") else True
+        dad.triple_click_paragraph = cfg.getboolean(section, "triple_click_paragraph") if cfg.has_option(section, "triple_click_paragraph") else True
         dad.enable_symbol_autoreplace = cfg.getboolean(section, "enable_symbol_autoreplace") if cfg.has_option(section, "enable_symbol_autoreplace") else True
         dad.wrapping_indent = cfg.getint(section, "wrapping_indent") if cfg.has_option(section, "wrapping_indent") else -14
         dad.auto_indent = cfg.getboolean(section, "auto_indent") if cfg.has_option(section, "auto_indent") else True
@@ -452,6 +455,7 @@ def config_file_load(dad):
         dad.embfile_max_size = MAX_SIZE_EMBFILE_MB_DEFAULT
         dad.line_wrapping = True
         dad.auto_smart_quotes = True
+        dad.triple_click_paragraph = True
         dad.enable_symbol_autoreplace = True
         dad.wrapping_indent = -14
         dad.auto_indent = True
@@ -645,6 +649,7 @@ def config_file_save(dad):
     cfg.set(section, "embfile_max_size", dad.embfile_max_size)
     cfg.set(section, "line_wrapping", dad.line_wrapping)
     cfg.set(section, "auto_smart_quotes", dad.auto_smart_quotes)
+    cfg.set(section, "triple_click_paragraph", dad.triple_click_paragraph)
     cfg.set(section, "enable_symbol_autoreplace", dad.enable_symbol_autoreplace)
     cfg.set(section, "wrapping_indent", dad.wrapping_indent)
     cfg.set(section, "auto_indent", dad.auto_indent)

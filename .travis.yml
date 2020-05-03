@@ -8,7 +8,7 @@ compiler:
 
 before_install:
   - >
-    sudo apt install build-essential libtool autoconf libgtkmm-3.0-dev 
+    sudo apt install build-essential libtool autoconf libgtkmm-3.0-dev
     libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev
     libcpputest-dev autopoint gettext intltool python3-lxml libxml2-utils libgspell-1-dev
 
@@ -36,8 +36,5 @@ before_script:
   - cd "${TRAVIS_BUILD_DIR}"
 
 script:
-  - mkdir build
-  - cd build
-  - cmake -DCMAKE_INSTALL_PREFIX=./local_usr ../future
-  - make
-  - ./run_tests
+  - cd future
+  - ./build.sh

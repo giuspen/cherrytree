@@ -1,7 +1,9 @@
 /*
  * ct_config.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -219,6 +221,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_integer(_currentGroup, "embfile_max_size", embfileMaxSize);
     _uKeyFile->set_boolean(_currentGroup, "line_wrapping", lineWrapping);
     _uKeyFile->set_boolean(_currentGroup, "auto_smart_quotes", autoSmartQuotes);
+    _uKeyFile->set_boolean(_currentGroup, "triple_click_paragraph", tripleClickParagraph);
     _uKeyFile->set_boolean(_currentGroup, "enable_symbol_autoreplace", enableSymbolAutoreplace);
     _uKeyFile->set_integer(_currentGroup, "wrapping_indent", wrappingIndent);
     _uKeyFile->set_boolean(_currentGroup, "auto_indent", autoIndent);
@@ -464,6 +467,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_int_from_keyfile("embfile_max_size", &embfileMaxSize);
     _populate_bool_from_keyfile("line_wrapping", &lineWrapping);
     _populate_bool_from_keyfile("auto_smart_quotes", &autoSmartQuotes);
+    _populate_bool_from_keyfile("triple_click_paragraph", &tripleClickParagraph);
     _populate_bool_from_keyfile("enable_symbol_autoreplace", &enableSymbolAutoreplace);
     _populate_int_from_keyfile("wrapping_indent", &wrappingIndent);
     _populate_bool_from_keyfile("auto_indent", &autoIndent);

@@ -1,4 +1,12 @@
 
+0.39.3 (May 3rd, 2020)
+  * Forbid to use '<' and '>' in password in PyGtk2 (#765) - all characters will be available in upcoming Gtkmm3 version currently under testing
+  * After toggle tree visibility with tree that becomes visible, the tree gets the focus (tree gets hidden, text gets the focus)
+  * Possibility to disable triple click selecting the whole paragraph, currently only editing directly config.cfg (look for triple_click_paragraph)
+  * Updated language German from new maintainer Stefan Pöschel
+  * Updated language Finnish (Henri Kaustinen)
+  * Small fixes to Spanish translation (Roberto Vaquerizo)
+
 0.39.2 (April 4th, 2020)
   * fix very slow node creation (#686)
   * fix Wrong "." processing in "Replace in Nodes Names" (RegExp mode) (#689)

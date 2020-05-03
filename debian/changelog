@@ -1,12 +1,11 @@
-cherrytree (0.39.2-0) bionic; urgency=low
+cherrytree (0.39.3-0) bionic; urgency=low
 
-  * fix very slow node creation (#686)
-  * fix Wrong "." processing in "Replace in Nodes Names" (RegExp mode) (#689)
-  * workaround for dead_diaeresis, dead_acute on win32 (#427, #688)
-  * fix for table's cell content lost unless you explicitly press Enter (#700)
-  * fix Control/command key deselects (un-highlights) text in table (#699)
-  * fix Keyboard shortcuts for sorting do not work (#305, work of @Mammoets)
-  * the porting to Gtkmm3 will shortly produce the first testing version thanks to the hard work of Evgenii (@txe)
+  * Forbid to use '<' and '>' in password in PyGtk2 (#765) - all characters will be available in upcoming Gtkmm3 version currently under testing
+  * After toggle tree visibility with tree that becomes visible, the tree gets the focus (tree gets hidden, text gets the focus)
+  * Possibility to disable triple click selecting the whole paragraph, currently only editing directly config.cfg (look for triple_click_paragraph)
+  * Updated language German from new maintainer Stefan Pöschel
+  * Updated language Finnish (Henri Kaustinen)
+  * Small fixes to Spanish translation (Roberto Vaquerizo)
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sat, 04 Apr 2020 15:32:32 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Sun, 03 May 2020 07:25:25 +0100
