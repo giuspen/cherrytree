@@ -1,0 +1,145 @@
+{
+  "app-id": "com.giuspen.CherryTree",
+  "runtime": "org.freedesktop.Platform",
+  "runtime-version": "19.08",
+  "sdk": "org.freedesktop.Sdk",
+  "command": "cherrytree",
+  "rename-desktop-file": "cherrytree.desktop",
+  "rename-icon": "cherrytree",
+  "finish-args": [
+    "--socket=x11",
+    "--socket=wayland",
+    "--filesystem=host"
+  ],
+  "cleanup": [
+    "/include",
+    "/share/bash-completion",
+    "/lib/pkgconfig/",
+    "/lib/*.a",
+    "/lib/*.la",
+    "/lib/cairo/*.a",
+    "/lib/cairo/*.la",
+    "/share/doc/",
+    "/man/"
+  ],
+  "modules": [
+    {
+      "name": "cairo",
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://www.cairographics.org/releases/cairo-1.16.0.tar.xz",
+          "sha256": "5e7b29b3f113ef870d1e3ecf8adf21f923396401604bda16d44be45e66052331"
+        }
+      ]
+    },
+    {
+      "name": "gtk2",
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://download.gnome.org/sources/gtk+/2.24/gtk+-2.24.32.tar.xz",
+          "sha256": "b6c8a93ddda5eabe3bfee1eb39636c9a03d2a56c7b62828b359bf197943c582e"
+        }
+      ]
+    },
+    {
+      "name": "gtksourceview",
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://download.gnome.org/sources/gtksourceview/2.10/gtksourceview-2.10.5.tar.bz2",
+          "sha256": "c585773743b1df8a04b1be7f7d90eecdf22681490d6810be54c81a7ae152191e"
+        }
+      ]
+    },
+    {
+      "name": "python",
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://www.python.org/ftp/python/2.7.16/Python-2.7.16.tar.xz",
+          "sha256": "f222ef602647eecb6853681156d32de4450a2c39f4de93bd5b20235f2e660ed7"
+        }
+      ]
+    },
+    {
+      "name": "pycairo",
+      "buildsystem": "meson",
+      "config-opts": [
+        "-Dpython=python"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://github.com/pygobject/pycairo/archive/v1.18.1.zip",
+          "sha256": "7340f8c7e164718bcc5de23d4bcff39ac81994a070edefdcdbcd1e31c9502754"
+        }
+      ]
+    },
+    {
+      "name": "pygobject",
+      "config-opts": [
+        "--disable-introspection"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://download.gnome.org/sources/pygobject/2.28/pygobject-2.28.6.tar.xz",
+          "sha256": "fb8a1d4f665130a125011659bd347c7339c944232163dbb9a34fd0686577adb8"
+        }
+      ]
+    },
+    {
+      "name": "pygtk",
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://download.gnome.org/sources/pygtk/2.24/pygtk-2.24.0.tar.bz2",
+          "sha256": "cd1c1ea265bd63ff669e92a2d3c2a88eb26bcd9e5363e0f82c896e649f206912"
+        }
+      ]
+    },
+    {
+      "name": "pygtksourceview",
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://download.gnome.org/sources/pygtksourceview/2.10/pygtksourceview-2.10.1.tar.bz2",
+          "sha256": "b4b47c5aeb67a26141cb03663091dfdf5c15c8a8aae4d69c46a6a943ca4c5974"
+        }
+      ]
+    },
+    {
+      "name": "p7zip",
+      "buildsystem": "simple",
+      "build-commands": [
+        "cp makefile.linux_amd64 makefile.linux",
+        "make all",
+        "sed -i 's/DEST_HOME=\/usr\/local/DEST_HOME=\/app/g' install.sh",
+        "./install.sh"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://www.giuspen.com/software/p7zip_16.02_src_all.tar.bz2",
+          "sha256": "5eb20ac0e2944f6cb9c2d51dd6c4518941c185347d4089ea89087ffdd6e2341f"
+        }
+      ]
+    },
+    {
+      "name": "cherrytree",
+      "buildsystem": "simple",
+      "build-commands": [
+        "python setup.py install --prefix=/app -f"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://www.giuspen.com/software/cherrytree-0.39.3.tar.xz",
+          "sha256": "0665cc3c6ca97e5eb7c9b116dd5c81102075a81dd111c77ed01237d83303c35e"
+        }
+      ]
+    }
+  ]
+}
