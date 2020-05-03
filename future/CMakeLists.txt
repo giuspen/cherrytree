@@ -98,8 +98,8 @@ add_subdirectory(tests)
 set(MANFILE_FULL "${CMAKE_SOURCE_DIR}/data/cherrytree.1")
 set(MANFILE_FULL_GZ "${MANFILE_FULL}.gz")
 add_custom_command(
-        OUTPUT ${MANFILE_FULL_GZ}
-	COMMAND gzip -f -k --best -n "${MANFILE_FULL}"
+  OUTPUT ${MANFILE_FULL_GZ}
+  COMMAND gzip -f -k --best -n "${MANFILE_FULL}"
 )
 add_custom_target(man_pages ALL DEPENDS ${MANFILE_FULL_GZ})
 
@@ -117,7 +117,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES Linux|.*BSD|DragonFly)
           "${CMAKE_SOURCE_DIR}/data/cherrytree.mime"
           "${CMAKE_SOURCE_DIR}/data/cherrytree.keys"
           DESTINATION "${SHARE_INSTALL}/mime-info")
-  install(FILES "${CMAKE_SOURCE_DIR}/data/cherrytree.appdata.xml"
+  install(FILES "${CMAKE_SOURCE_DIR}/data/cherrytree.metainfo.xml"
           DESTINATION "${SHARE_INSTALL}/metainfo")
 
   # share/cherrytree data
@@ -130,5 +130,3 @@ if(${CMAKE_SYSTEM_NAME} MATCHES Linux|.*BSD|DragonFly)
           "${CMAKE_SOURCE_DIR}/data/styles3.css"
           DESTINATION "${CHERRYTREE_SHARE_INSTALL}/data")
 endif()
-
-

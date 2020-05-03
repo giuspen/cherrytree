@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2020 Giuseppe Penone <giuspen@gmail.com> -->
 <component type="desktop-application">
  <id>com.giuspen.cherrytree</id>
  <metadata_license>CC0-1.0</metadata_license>
@@ -30,4 +31,5 @@
  <launchable type="desktop-id">cherrytree.desktop</launchable>
  <url type="homepage">https://www.giuspen.com/cherrytree</url>
  <update_contact>giuspen@gmail.com</update_contact>
+ <content_rating type="oars-1.0" />
 </component>
