@@ -122,6 +122,25 @@ private:
     CtMainWin*                _pCtMainWin{nullptr};
 };
 
+
+class CtDragStore : public Gtk::TreeStore
+{
+public:
+    static Glib::RefPtr<CtDragStore> create(CtMainWin* pCtMainWin, const Gtk::TreeModelColumnRecord& columns);
+
+private:
+    CtDragStore(CtMainWin* pCtMainWin, const Gtk::TreeModelColumnRecord& columns);
+
+protected:
+    bool drag_data_get_vfunc(const Gtk::TreeModel::Path& path, Gtk::SelectionData& selection_data) const override;
+    bool drag_data_received_vfunc(const Gtk::TreeModel::Path& dest, const Gtk::SelectionData& selection_data) override;
+    bool drag_data_delete_vfunc(const Gtk::TreeModel::Path& path) override;
+
+private:
+    CtMainWin* _pCtMainWin;
+
+};
+
 class CtTextView;
 
 class CtTreeStore : public sigc::trackable
@@ -171,12 +190,13 @@ public:
 
 
 
-    Glib::RefPtr<Gtk::TreeStore>    get_store();
+    Glib::RefPtr<CtDragStore>       get_store();
     Gtk::TreeIter                   get_iter_first();
     CtTreeIter                      get_ct_iter_first();
     Gtk::TreeIter                   get_tree_iter_last_sibling(const Gtk::TreeNodeChildren& children);
     Gtk::TreeIter                   get_tree_iter_prev_sibling(Gtk::TreeIter tree_iter);
     Gtk::TreePath                   get_path(Gtk::TreeIter tree_iter);
+    CtTreeIter                      get_iter(Gtk::TreePath& path);
     CtTreeIter                      to_ct_tree_iter(Gtk::TreeIter tree_iter);
 
     void nodes_sequences_fix(Gtk::TreeIter father_iter,  bool process_children);
@@ -195,8 +215,10 @@ protected:
     void _on_textbuffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int bytes); // pygtk: on_text_insertion
     void _on_textbuffer_erase(const Gtk::TextBuffer::iterator& range_start, const Gtk::TextBuffer::iterator& range_end); // pygtk: on_text_removal
 
+
+private:
     CtTreeModelColumns              _columns;
-    Glib::RefPtr<Gtk::TreeStore>    _rTreeStore;
+    Glib::RefPtr<CtDragStore>   _rTreeStore;
     std::list<gint64>               _bookmarks;
     std::set<Glib::ustring>         _usedTags;
     std::map<gint64, Glib::ustring> _nodes_names_dict; // for link tooltips

@@ -479,6 +479,12 @@ void CtActions::node_change_father()
     _pCtMainWin->get_tree_store().update_nodes_icon(_pCtMainWin->curr_tree_iter(), true);
 }
 
+bool CtActions::node_move(Gtk::TreeModel::Path src_path, Gtk::TreeModel::Path dest_path)
+{
+    //CtTreeIter src_iter = _pCtMainWin->get_tree_store().get_iter(src_path);
+    //CtTreeIter dest_iter = _pCtMainWin->get_tree_store().get_iter(dest_path);
+}
+
 //"""Sorts the Tree Ascending"""
 void CtActions::tree_sort_ascending()
 {
