@@ -45,6 +45,7 @@ git clone https://github.com/giuspen/cherrytree.git
 mkdir cherrytree/build
 cd cherrytree/build
 cmake ../future
+make
 ./cherrytree
 ```
 Install documentation:
@@ -75,6 +76,7 @@ git clone https://github.com/giuspen/cherrytree.git
 mkdir cherrytree/build
 cd cherrytree/build
 cmake ../future
+make
 ./cherrytree
 ```
 
@@ -102,6 +104,7 @@ git clone https://github.com/giuspen/cherrytree.git
 mkdir cherrytree/build
 cd cherrytree/build
 cmake ../future
+make
 ./cherrytree
 ```
 
