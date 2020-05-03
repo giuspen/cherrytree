@@ -1,7 +1,12 @@
 #!/bin/bash
 
-[ -d build ] || mkdir build
-cd build
+BUILD_DIR="build"
+
+[ -d ${BUILD_DIR} ] || mkdir ${BUILD_DIR}
+
+cd ${BUILD_DIR}
 cmake ..
 make -j $(nproc --all)
-./run_tests
+
+# run unit tests
+./tests/run_tests

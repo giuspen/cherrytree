@@ -16,6 +16,4 @@ target_link_libraries(run_tests
     cherrytree_shared
 )
 
-set_target_properties(run_tests PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
-
 add_test(run_tests run_tests)

@@ -7,11 +7,13 @@ Copyright: 2009-2020 Giuseppe Penone <giuspen@gmail.com>
                      Evgenii Gurianov <https://github.com/txe>
 License: GPL-3.0+
 
-Files: modules/pgsc_locales.py
-       modules/pgsc_spellcheck.py
-Copyright: 2012, Maximilian Köhl <linuxmaxi@googlemail.com>
-           2012, Carlos Jenkins <carlos@jenkins.co.cr>
-License: GPL-3.0+
+Files: src/7za/*
+Copyright: 1999-2016 Igor Pavlov
+License: See src/7za/License.txt
+
+Files: src/fmt/*
+Copyright: 2012-2016, Victor Zverovich
+License: See src/fmt/LICENSE.rst
 
 Files: debian/*
 Copyright: 2011-2014 Vincent Cheng <vcheng@debian.org>

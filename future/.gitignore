@@ -1,5 +1,6 @@
 cherrytree
 run_tests
+obj-x86_64-linux-gnu
 *.gresource.*
 po/cherrytree.pot
 data/cherrytree.1.gz

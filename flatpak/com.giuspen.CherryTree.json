@@ -116,7 +116,7 @@
       "build-commands": [
         "cp makefile.linux_amd64 makefile.linux",
         "make all",
-        "sed -i 's/DEST_HOME=\/usr\/local/DEST_HOME=\/app/g' install.sh",
+        "sed -i 's/DEST_HOME=\\/usr\\/local/DEST_HOME=\\/app/g' install.sh",
         "./install.sh"
       ],
       "sources": [
