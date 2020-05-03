@@ -134,10 +134,10 @@ private:
 protected:
     bool drag_data_get_vfunc(const Gtk::TreeModel::Path& path, Gtk::SelectionData& selection_data) const override;
     bool drag_data_received_vfunc(const Gtk::TreeModel::Path& dest, const Gtk::SelectionData& selection_data) override;
-    bool drag_data_delete_vfunc(const Gtk::TreeModel::Path& path) override;
 
 private:
-    CtMainWin* _pCtMainWin;
+    CtMainWin*  _pCtMainWin;
+    mutable std::string _drag_src;
 
 };
 

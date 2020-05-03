@@ -481,8 +481,41 @@ void CtActions::node_change_father()
 
 bool CtActions::node_move(Gtk::TreeModel::Path src_path, Gtk::TreeModel::Path dest_path)
 {
-    //CtTreeIter src_iter = _pCtMainWin->get_tree_store().get_iter(src_path);
-    //CtTreeIter dest_iter = _pCtMainWin->get_tree_store().get_iter(dest_path);
+    if (src_path == dest_path) {
+        CtDialogs::error_dialog(_("The new parent can't be the very node to move!"), *_pCtMainWin);
+        return false;
+    }
+    if (dest_path.is_descendant(src_path)) {
+        CtDialogs::error_dialog(_("The new parent can't be one of his children!"), *_pCtMainWin);
+        return false;
+    }
+    Gtk::TreeModel::Path father_path{dest_path};
+    father_path.up();
+    CtTreeIter father_dest_iter = _pCtMainWin->get_tree_store().get_iter(father_path);
+    CtTreeIter src_iter = _pCtMainWin->get_tree_store().get_iter(src_path);
+
+    // 3 cases:
+    // 1 - dest iter exists - insert before it, or at very first position
+    // 2 - dest iter doesn't exist and there're siblings - insert after siblings
+    // 3 - dest iter doesn't exist and no siblings - insert as a first child of father
+
+    // case 1
+    if (_pCtMainWin->get_tree_store().get_iter(dest_path)) {
+        if (dest_path.prev()) {
+            CtTreeIter dest_iter = _pCtMainWin->get_tree_store().get_iter(dest_path); // move iter to insert `before` it
+            _node_move_after(src_iter, father_dest_iter, dest_iter, false);
+        } else {
+            _node_move_after(src_iter, father_dest_iter, CtTreeIter(), true); // put it as first
+        }
+    } else { // case 2, 3
+        if (dest_path.prev()) {
+            CtTreeIter dest_iter = _pCtMainWin->get_tree_store().get_iter(dest_path); // put after siblings
+            _node_move_after(src_iter, father_dest_iter, dest_iter, false);
+        } else {
+            _node_move_after(src_iter, father_dest_iter, CtTreeIter(), true); // put it as first child
+        }
+    }
+    return true;
 }
 
 //"""Sorts the Tree Ascending"""

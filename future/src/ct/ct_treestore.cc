@@ -273,20 +273,18 @@ CtDragStore::CtDragStore(CtMainWin* pCtMainWin, const Gtk::TreeModelColumnRecord
 
 bool CtDragStore::drag_data_get_vfunc(const Gtk::TreeModel::Path& path, Gtk::SelectionData& selection_data) const
 {
-    selection_data.set("<node-path>", path.to_string());
+    _drag_src = path.to_string();
+    return Gtk::TreeDragSource::drag_data_get_vfunc(path, selection_data);
 }
 
 
 bool CtDragStore::drag_data_received_vfunc(const Gtk::TreeModel::Path& dest, const Gtk::SelectionData& selection_data)
 {
-    Gtk::TreeModel::Path src(selection_data.get_text());
-    _pCtMainWin->get_ct_actions()->node_move(src, dest);
+    Gtk::TreeModel::Path src(_drag_src);
+    return _pCtMainWin->get_ct_actions()->node_move(src, dest);
 }
 
-bool CtDragStore::drag_data_delete_vfunc(const Gtk::TreeModel::Path& path)
-{
-    return true; // do nothing, iter was moved
-}
+
 
 /********************************************************/
 CtTreeStore::CtTreeStore(CtMainWin* pCtMainWin)
