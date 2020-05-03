@@ -99,9 +99,9 @@ sudo make install
 Get cherrytree source, compile and run:
 ```sh
 git clone https://github.com/giuspen/cherrytree.git
-mkdir cherrytree/build
-cd cherrytree/build
-cmake ../future
+cd cherrytree/future
+cmake .
+make
 ./cherrytree
 ```
 
