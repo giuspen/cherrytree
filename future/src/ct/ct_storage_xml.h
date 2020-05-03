@@ -25,6 +25,7 @@
 #include <glibmm/refptr.h>
 #include <gtksourceviewmm/buffer.h>
 #include <gtkmm/treeiter.h>
+#include <libxml++/libxml++.h>
 
 namespace xmlpp {
     class Element;
@@ -37,7 +38,7 @@ class CtTreeIter;
 class CtTableCell;
 
 class CtStorageXml : public CtStorageEntity
-{
+{    
 public:
     CtStorageXml(CtMainWin* pCtMainWin);
     ~CtStorageXml() = default;
@@ -58,7 +59,8 @@ private:
     void           _nodes_to_xml(CtTreeIter* ct_tree_iter, xmlpp::Element* p_node_parent);
 
 private:
-    CtMainWin*        _pCtMainWin{nullptr};
+    CtMainWin* _pCtMainWin{nullptr};
+    mutable std::map<gint64, std::shared_ptr<xmlpp::Document>> _delayed_text_buffers;
 };
 
 

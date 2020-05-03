@@ -127,11 +127,18 @@ void CtStorageXml::vacuum()
 
 }
 
-Glib::RefPtr<Gsv::Buffer> CtStorageXml::get_delayed_text_buffer(const gint64&,
-                                                                   const std::string&,
-                                                                   std::list<CtAnchoredWidget*>&) const
+Glib::RefPtr<Gsv::Buffer> CtStorageXml::get_delayed_text_buffer(const gint64& node_id,
+                                                                   const std::string& syntax,
+                                                                   std::list<CtAnchoredWidget*>& widgets) const
 {
-    return Glib::RefPtr<Gsv::Buffer>();
+    if (_delayed_text_buffers.count(node_id) == 0) {
+        std::cerr << " ! cannot found xml buffer in CtStorageXml::get_delayed_text_buffer, node_id: " << node_id << std::endl;
+        return Glib::RefPtr<Gsv::Buffer>();
+    }
+    auto node_buffer = _delayed_text_buffers[node_id];
+    _delayed_text_buffers.erase(node_id);
+    auto xml_element = dynamic_cast<xmlpp::Element*>(node_buffer->get_root_node()->get_first_child());
+    return  CtStorageXmlHelper(_pCtMainWin).create_buffer_and_widgets_from_xml(xml_element, syntax, widgets, nullptr, -1);
 }
 
 Gtk::TreeIter CtStorageXml::_node_from_xml(xmlpp::Element* xml_element, Gtk::TreeIter parent_iter)
@@ -147,7 +154,13 @@ Gtk::TreeIter CtStorageXml::_node_from_xml(xmlpp::Element* xml_element, Gtk::Tre
     node_data.foregroundRgb24 = xml_element->get_attribute_value("foreground");
     node_data.tsCreation = CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("ts_creation").c_str());
     node_data.tsLastSave = CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("ts_lastSave").c_str());
-    node_data.rTextBuffer = CtStorageXmlHelper(_pCtMainWin).create_buffer_and_widgets_from_xml(xml_element, node_data.syntax, node_data.anchoredWidgets, nullptr, -1);
+
+    // because of widgets which are slow to insert for now, delay creating buffers
+    // save node data in a separate document
+    //node_data.rTextBuffer = CtStorageXmlHelper(_pCtMainWin).create_buffer_and_widgets_from_xml(xml_element, node_data.syntax, node_data.anchoredWidgets, nullptr, -1);
+    auto node_buffer = std::make_shared<xmlpp::Document>();
+    node_buffer->create_root_node("root")->import_node(xml_element);
+    _delayed_text_buffers[node_data.nodeId] = node_buffer;
 
     return _pCtMainWin->get_tree_store().append_node(&node_data, &parent_iter);
 }
