@@ -173,6 +173,7 @@ public:
     void node_right();
     void node_left();
     void node_change_father();
+    bool node_move(Gtk::TreeModel::Path src_path, Gtk::TreeModel::Path dest_path);
     void tree_sort_ascending();
     void tree_sort_descending();
     void node_siblings_sort_ascending();

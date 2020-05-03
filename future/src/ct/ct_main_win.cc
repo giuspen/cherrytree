@@ -464,6 +464,10 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
     _uCtTreeview->signal_scroll_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_scroll_event));
     _uCtTreeview->signal_popup_menu().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_popup_menu));
 
+    //_uCtTreeview->set_reorderable(true); // tree store handles insert/removing rows
+    _uCtTreeview->enable_model_drag_dest(Gdk::ACTION_MOVE);
+    _uCtTreeview->enable_model_drag_source();
+
     _uCtTreeview->get_style_context()->add_class("ct-tree-panel");
 }
 

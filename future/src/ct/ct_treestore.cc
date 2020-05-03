@@ -24,6 +24,7 @@
 #include "ct_misc_utils.h"
 #include "ct_main_win.h"
 #include "ct_storage_control.h"
+#include "ct_actions.h"
 
 CtTreeModelColumns::~CtTreeModelColumns()
 {
@@ -257,10 +258,41 @@ void CtTreeIter::pending_new_db_node()
 }
 
 
+/*********************************************************/
+
+/*static*/ Glib::RefPtr<CtDragStore> CtDragStore::create(CtMainWin* pCtMainWin, const Gtk::TreeModelColumnRecord& columns)
+{
+    return Glib::RefPtr<CtDragStore>(new CtDragStore(pCtMainWin, columns));
+}
+
+CtDragStore::CtDragStore(CtMainWin* pCtMainWin, const Gtk::TreeModelColumnRecord& columns)
+    : Gtk::TreeStore(columns), _pCtMainWin(pCtMainWin)
+{
+
+}
+
+bool CtDragStore::drag_data_get_vfunc(const Gtk::TreeModel::Path& path, Gtk::SelectionData& selection_data) const
+{
+    selection_data.set("<node-path>", path.to_string());
+}
+
+
+bool CtDragStore::drag_data_received_vfunc(const Gtk::TreeModel::Path& dest, const Gtk::SelectionData& selection_data)
+{
+    Gtk::TreeModel::Path src(selection_data.get_text());
+    _pCtMainWin->get_ct_actions()->node_move(src, dest);
+}
+
+bool CtDragStore::drag_data_delete_vfunc(const Gtk::TreeModel::Path& path)
+{
+    return true; // do nothing, iter was moved
+}
+
+/********************************************************/
 CtTreeStore::CtTreeStore(CtMainWin* pCtMainWin)
  : _pCtMainWin(pCtMainWin)
 {
-    _rTreeStore = Gtk::TreeStore::create(_columns);
+    _rTreeStore = CtDragStore::create(pCtMainWin, _columns);
 }
 
 CtTreeStore::~CtTreeStore()
@@ -806,7 +838,7 @@ void CtTreeStore::bookmarks_set(const std::list<gint64>& bookmarks)
     _bookmarks = bookmarks;
 }
 
-Glib::RefPtr<Gtk::TreeStore> CtTreeStore::get_store()
+Glib::RefPtr<CtDragStore> CtTreeStore::get_store()
 {
     return _rTreeStore;
 }
@@ -835,6 +867,11 @@ Gtk::TreeIter CtTreeStore::get_tree_iter_prev_sibling(Gtk::TreeIter tree_iter)
 Gtk::TreePath CtTreeStore::get_path(Gtk::TreeIter tree_iter)
 {
     return _rTreeStore->get_path(tree_iter);
+}
+
+CtTreeIter CtTreeStore::get_iter(Gtk::TreePath& path)
+{
+    return to_ct_tree_iter(_rTreeStore->get_iter(path));
 }
 
 CtTreeIter CtTreeStore::to_ct_tree_iter(Gtk::TreeIter tree_iter)
