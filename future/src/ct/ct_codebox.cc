@@ -27,6 +27,8 @@
 #include "ct_actions.h"
 #include "ct_storage_sqlite.h"
 
+const constexpr int MIN_SCROLL_HEIGHT = 47;
+
 CtTextCell::CtTextCell(CtMainWin* pCtMainWin,
                        const Glib::ustring& textContent,
                        const std::string& syntaxHighlighting)
@@ -86,7 +88,10 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
     _ctTextview.get_style_context()->add_class("ct-codebox");
     _ctTextview.set_border_width(1);
 
-    _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+    if (_frameHeight < MIN_SCROLL_HEIGHT) /* overwise not possible to have 20 px height*/
+        _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_EXTERNAL /* overwise not possible to have 20 px height*/);
+    else
+        _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindow.add(_ctTextview);
     _frame.add(_scrolledwindow);
     show_all();
@@ -232,7 +237,13 @@ void CtCodebox::set_show_line_numbers(const bool showLineNumbers)
 void CtCodebox::set_width_height(int newWidth, int newHeight)
 {
     if (newWidth) _frameWidth = newWidth;
-    if (newHeight) _frameHeight = newHeight;
+    if (newHeight) {
+        _frameHeight = newHeight;
+        if (_frameHeight < MIN_SCROLL_HEIGHT) /* overwise not possible to have 20 px height*/
+            _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_EXTERNAL /* overwise not possible to have 20 px height*/);
+        else
+            _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+    }
     apply_width_height(_pCtMainWin->get_text_view().get_allocation().get_width());
 }
 
