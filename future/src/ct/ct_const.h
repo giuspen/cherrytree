@@ -57,6 +57,7 @@ const constexpr gchar* CHERRY_GRAY              {"cherry_grey"};
 const constexpr gchar* RICH_TEXT_ID             {"custom-colors"};
 const constexpr gchar* TABLE_CELL_TEXT_ID       {"table-cell-text"};
 const constexpr gchar* PLAIN_TEXT_ID            {"plain-text"};
+const constexpr gchar* STYLE_APPLIED_ID          {"<style-applied>"};
 const constexpr gchar* SYN_HIGHL_BASH           {"sh"};
 const constexpr gchar* STYLE_SCHEME_LIGHT       {"classic"};
 const constexpr gchar* STYLE_SCHEME_DARK        {"cobalt"};

@@ -33,7 +33,7 @@ CtTextCell::CtTextCell(CtMainWin* pCtMainWin,
  : _syntaxHighlighting(syntaxHighlighting),
    _ctTextview(pCtMainWin)
 {
-    _rTextBuffer = pCtMainWin->get_new_text_buffer(syntaxHighlighting, textContent);
+    _rTextBuffer = pCtMainWin->get_new_text_buffer(textContent);
     _ctTextview.set_buffer(_rTextBuffer);
     _ctTextview.setup_for_syntax(_syntaxHighlighting);
 }
@@ -164,6 +164,11 @@ void CtCodebox::apply_width_height(const int parentTextWidth)
 {
     int frameWidth = _widthInPixels ? _frameWidth : (parentTextWidth*_frameWidth)/100;
     _scrolledwindow.set_size_request(frameWidth, _frameHeight);
+}
+
+void CtCodebox::apply_syntax_highlighting()
+{
+    _pCtMainWin->apply_syntax_highlighting(get_buffer(), _syntaxHighlighting);
 }
 
 void CtCodebox::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)

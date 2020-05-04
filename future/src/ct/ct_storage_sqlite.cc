@@ -350,7 +350,7 @@ Glib::RefPtr<Gsv::Buffer> CtStorageSqlite::get_delayed_text_buffer(const gint64&
     const char* textContent = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
     if (CtConst::RICH_TEXT_ID != syntax)
     {
-        rRetTextBuffer = _pCtMainWin->get_new_text_buffer(syntax, textContent);
+        rRetTextBuffer = _pCtMainWin->get_new_text_buffer(textContent);
     }
     else
     {

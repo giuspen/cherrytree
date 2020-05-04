@@ -140,11 +140,12 @@ public:
     Glib::RefPtr<Gdk::Pixbuf> get_icon(const std::string& name, int size);
     std::string               get_code_icon_name(std::string code_type);
     Gtk::Image*               new_image_from_stock(const std::string& stockImage, Gtk::BuiltinIconSize size);
-    Glib::RefPtr<Gsv::Buffer> get_new_text_buffer(const std::string& syntax, const Glib::ustring& textContent=""); // pygtk: buffer_create
-    const std::string get_text_tag_name_exist_or_create(const std::string& propertyName, const std::string& propertyValue);
-    Glib::ustring sourceview_hovering_link_get_tooltip(const Glib::ustring& link);
-    bool apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start);
-    void apply_tag_try_automatic_bounds_triple_click(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start);
+    void                      apply_syntax_highlighting(Glib::RefPtr<Gsv::Buffer> text_buffer, const std::string& syntax);
+    Glib::RefPtr<Gsv::Buffer> get_new_text_buffer(const Glib::ustring& textContent=""); // pygtk: buffer_create
+    const std::string         get_text_tag_name_exist_or_create(const std::string& propertyName, const std::string& propertyValue);
+    Glib::ustring             sourceview_hovering_link_get_tooltip(const Glib::ustring& link);
+    bool                      apply_tag_try_automatic_bounds(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start);
+    void                      apply_tag_try_automatic_bounds_triple_click(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start);
 
 private:
     Gtk::HBox&     _init_status_bar();
