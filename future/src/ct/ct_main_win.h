@@ -180,6 +180,7 @@ private:
 
     void                _on_treeview_cursor_changed(); // pygtk: on_node_changed
     bool                _on_treeview_button_release_event(GdkEventButton* event);
+    void                _on_treeview_event_after(GdkEvent* event); // pygtk: on_event_after_tree
     bool                _on_treeview_key_press_event(GdkEventKey* event);
     bool                _on_treeview_popup_menu();
     bool                _on_treeview_scroll_event(GdkEventScroll* event);
