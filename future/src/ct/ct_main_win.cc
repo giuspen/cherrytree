@@ -468,6 +468,7 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
 
     _uCtTreeview->signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_cursor_changed));
     _uCtTreeview->signal_button_release_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_button_release_event));
+    _uCtTreeview->signal_event_after().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_event_after));
     _uCtTreeview->signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_key_press_event), false);
     _uCtTreeview->signal_scroll_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_scroll_event));
     _uCtTreeview->signal_popup_menu().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_popup_menu));
@@ -1262,8 +1263,35 @@ bool CtMainWin::_on_window_key_press_event(GdkEventKey* event)
     return false;
 }
 
+void CtMainWin::_on_treeview_event_after(GdkEvent* event)
+{
+    if (event->type == GDK_BUTTON_PRESS and event->button.button == 1)
+    {
+        if (get_ct_config()->treeClickFocusText) {
+            get_text_view().grab_focus();
+        }
+        if (get_ct_config()->treeClickExpand) {
+
+            Gtk::TreePath path_at_click;
+            if (get_tree_view().get_path_at_pos((int)event->button.x, (int)event->button.y, path_at_click))
+                if (!get_tree_view().row_expanded(path_at_click))
+                    get_tree_view().expand_row(path_at_click, false);
+
+        }
+    }
+    else if (event->type == GDK_2BUTTON_PRESS and event->button.button == 1)
+    {
+        auto path = get_tree_store().get_path(curr_tree_iter());
+        if (_uCtTreeview->row_expanded(path))
+            _uCtTreeview->collapse_row(path);
+        else
+            _uCtTreeview->expand_row(path, false);
+    }
+}
+
 bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
 {
+
     if (not curr_tree_iter()) return false;
     if (event->state & GDK_SHIFT_MASK) {
         if (event->state & GDK_CONTROL_MASK && event->keyval == GDK_KEY_Right) {
