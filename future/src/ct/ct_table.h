@@ -49,6 +49,7 @@ public:
     virtual ~CtTable();
 
     void apply_width_height(const int /*parentTextWidth*/) override {}
+    void apply_syntax_highlighting() override;
     void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) override;
     void set_modified_false() override;
@@ -77,7 +78,9 @@ public:
     void set_col_min_max(int col_min, int col_max);
 
 private:
-    void _setup_new_matrix(const CtTableMatrix& tableMatrix);
+    void _setup_new_matrix(const CtTableMatrix& tableMatrix, bool apply_style = true);
+    void _apply_styles_to_cells();
+
     CtTableMatrix _copy_matrix(int col_add, int col_del, int row_add, int row_del, int col_move_left, int row_move_up);
 
 protected:

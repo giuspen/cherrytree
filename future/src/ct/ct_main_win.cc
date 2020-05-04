@@ -158,37 +158,45 @@ Gtk::Image* CtMainWin::new_image_from_stock(const std::string& stockImage, Gtk::
     return image;
 }
 
-Glib::RefPtr<Gsv::Buffer> CtMainWin::get_new_text_buffer(const std::string& syntax, const Glib::ustring& textContent)
+void CtMainWin::apply_syntax_highlighting(Glib::RefPtr<Gsv::Buffer> text_buffer, const std::string& syntax)
 {
-    Glib::RefPtr<Gsv::Buffer> rRetTextBuffer;
-    rRetTextBuffer = Gsv::Buffer::create(_rGtkTextTagTable);
-    rRetTextBuffer->set_max_undo_levels(_pCtConfig->limitUndoableSteps);
+    if (text_buffer->get_data(CtConst::STYLE_APPLIED_ID))
+        return;
     if (CtConst::TABLE_CELL_TEXT_ID == syntax)
     {
-        rRetTextBuffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(CtConst::STYLE_SCHEME_LIGHT));
+        text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(CtConst::STYLE_SCHEME_LIGHT));
     }
     else if (CtConst::RICH_TEXT_ID == syntax)
     {
         // dark theme
         if (get_ct_config()->rtDefFg == CtConst::RICH_TEXT_DARK_FG && get_ct_config()->rtDefBg == CtConst::RICH_TEXT_DARK_BG)
-            rRetTextBuffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(CtConst::STYLE_SCHEME_DARK));
+            text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(CtConst::STYLE_SCHEME_DARK));
         else
-            rRetTextBuffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(CtConst::STYLE_SCHEME_LIGHT));
+            text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(CtConst::STYLE_SCHEME_LIGHT));
     }
     else
     {
-        rRetTextBuffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(_pCtConfig->styleSchemeId));
+        text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(_pCtConfig->styleSchemeId));
         if (CtConst::PLAIN_TEXT_ID == syntax)
         {
-            rRetTextBuffer->set_highlight_syntax(false);
+            text_buffer->set_highlight_syntax(false);
         }
         else
         {
-            rRetTextBuffer->set_language(_pGsvLanguageManager->get_language(syntax));
-            rRetTextBuffer->set_highlight_syntax(true);
+            text_buffer->set_language(_pGsvLanguageManager->get_language(syntax));
+            text_buffer->set_highlight_syntax(true);
         }
-        rRetTextBuffer->set_highlight_matching_brackets(true);
+        text_buffer->set_highlight_matching_brackets(true);
     }
+    text_buffer->set_data(CtConst::STYLE_APPLIED_ID, (void*)1);
+}
+
+Glib::RefPtr<Gsv::Buffer> CtMainWin::get_new_text_buffer(const Glib::ustring& textContent)
+{
+    Glib::RefPtr<Gsv::Buffer> rRetTextBuffer;
+    rRetTextBuffer = Gsv::Buffer::create(_rGtkTextTagTable);
+    rRetTextBuffer->set_max_undo_levels(_pCtConfig->limitUndoableSteps);
+
     if (not textContent.empty())
     {
         rRetTextBuffer->begin_not_undoable_action();
@@ -1198,7 +1206,7 @@ void CtMainWin::switch_buffer_text_source(Glib::RefPtr<Gsv::Buffer> text_buffer,
         node_text = text_buffer->get_text();
     }
 
-    auto new_buffer = get_new_text_buffer(new_syntax, node_text);
+    auto new_buffer = get_new_text_buffer(node_text);
     tree_iter.set_node_text_buffer(new_buffer, new_syntax);
     _uCtTreestore->text_view_apply_textbuffer(tree_iter, &_ctTextview);
 

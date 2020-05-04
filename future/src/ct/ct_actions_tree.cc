@@ -105,13 +105,13 @@ void CtActions::_node_add(bool duplicate, bool add_child)
         _pCtMainWin->get_tree_store().get_node_data(_pCtMainWin->curr_tree_iter(), nodeData);
 
         if (nodeData.syntax != CtConst::RICH_TEXT_ID) {
-            nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer(nodeData.syntax, nodeData.rTextBuffer->get_text());
+            nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer(nodeData.rTextBuffer->get_text());
             nodeData.anchoredWidgets.clear();
         } else {
             _pCtMainWin->get_state_machine().update_state(_pCtMainWin->curr_tree_iter());
             node_state = _pCtMainWin->get_state_machine().requested_state_current(_pCtMainWin->curr_tree_iter().get_node_id());
             nodeData.anchoredWidgets.clear();
-            nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer(nodeData.syntax, "");
+            nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer();
         }
     }
     else
@@ -131,7 +131,7 @@ void CtActions::_node_add(bool duplicate, bool add_child)
 void CtActions::_node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeData, bool add_child, std::shared_ptr<CtNodeState> node_state)
 {
     if (!nodeData.rTextBuffer)
-        nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer(nodeData.syntax);
+        nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer();
     nodeData.tsCreation = std::time(nullptr);
     nodeData.tsLastSave = nodeData.tsCreation;
     nodeData.nodeId = _pCtMainWin->get_tree_store().node_id_get();

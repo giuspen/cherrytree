@@ -157,10 +157,11 @@ Gtk::TreeIter CtStorageXml::_node_from_xml(xmlpp::Element* xml_element, Gtk::Tre
 
     // because of widgets which are slow to insert for now, delay creating buffers
     // save node data in a separate document
-    //node_data.rTextBuffer = CtStorageXmlHelper(_pCtMainWin).create_buffer_and_widgets_from_xml(xml_element, node_data.syntax, node_data.anchoredWidgets, nullptr, -1);
     auto node_buffer = std::make_shared<xmlpp::Document>();
     node_buffer->create_root_node("root")->import_node(xml_element);
     _delayed_text_buffers[node_data.nodeId] = node_buffer;
+    // old code to profile performande
+    // node_data.rTextBuffer = CtStorageXmlHelper(_pCtMainWin).create_buffer_and_widgets_from_xml(xml_element, node_data.syntax, node_data.anchoredWidgets, nullptr, -1);
 
     return _pCtMainWin->get_tree_store().append_node(&node_data, &parent_iter);
 }
@@ -211,7 +212,7 @@ xmlpp::Element* CtStorageXmlHelper::node_to_xml(CtTreeIter* ct_tree_iter, xmlpp:
 Glib::RefPtr<Gsv::Buffer> CtStorageXmlHelper::create_buffer_and_widgets_from_xml(xmlpp::Element* parent_xml_element, const Glib::ustring& syntax,
                                                                     std::list<CtAnchoredWidget*>& widgets, Gtk::TextIter* text_insert_pos, int force_offset)
 {
-    Glib::RefPtr<Gsv::Buffer> buffer = _pCtMainWin->get_new_text_buffer(syntax);
+    Glib::RefPtr<Gsv::Buffer> buffer = _pCtMainWin->get_new_text_buffer();
     buffer->begin_not_undoable_action();
     for (xmlpp::Node* xml_slot : parent_xml_element->get_children())
         get_text_buffer_one_slot_from_xml(buffer, xml_slot, widgets, text_insert_pos, force_offset);

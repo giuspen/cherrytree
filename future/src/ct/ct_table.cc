@@ -48,7 +48,7 @@ CtTable::CtTable(CtMainWin* pCtMainWin,
    _colMin(colMin),
    _colMax(colMax)
 {
-    _setup_new_matrix(tableMatrix);
+    _setup_new_matrix(tableMatrix, false /* apply style when node shows */);
 
     _grid.set_column_spacing(1);
     _grid.set_row_spacing(1);
@@ -63,7 +63,7 @@ CtTable::~CtTable()
     // no need for deleting cells, _grid will clean up cells
 }
 
-void CtTable::_setup_new_matrix(const CtTableMatrix& tableMatrix)
+void CtTable::_setup_new_matrix(const CtTableMatrix& tableMatrix, bool apply_style /* = true*/)
 {
     for (auto widget: _grid.get_children())
         _grid.remove(*widget);
@@ -96,7 +96,21 @@ void CtTable::_setup_new_matrix(const CtTableMatrix& tableMatrix)
             _grid.attach(*pTableCell, col, row, 1 /*1 cell horiz*/, 1 /*1 cell vert*/);
         }
     }
+    if (apply_style)
+        _apply_styles_to_cells();
     _grid.show_all();
+}
+
+void CtTable::_apply_styles_to_cells()
+{
+    for (CtTableRow& tableRow : _tableMatrix)
+        for (CtTableCell* pTableCell : tableRow)
+            _pCtMainWin->apply_syntax_highlighting(pTableCell->get_buffer(), pTableCell->get_syntax_highlighting());
+}
+
+void CtTable::apply_syntax_highlighting()
+{
+    _apply_styles_to_cells();
 }
 
 void CtTable::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)

@@ -73,6 +73,7 @@ public:
     virtual ~CtCodebox();
 
     void apply_width_height(const int parentTextWidth) override;
+    void apply_syntax_highlighting() override;
     void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) override;
     void set_modified_false() override { set_text_buffer_modified_false(); }

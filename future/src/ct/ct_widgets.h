@@ -55,6 +55,7 @@ public:
     Glib::RefPtr<Gtk::TextChildAnchor> getTextChildAnchor() { return _rTextChildAnchor; }
 
     virtual void apply_width_height(const int parentTextWidth) = 0;
+    virtual void apply_syntax_highlighting() = 0;
     virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) = 0;
     virtual bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) = 0;
     virtual void set_modified_false() = 0;
