@@ -58,7 +58,12 @@ endif()
 # Create the configuration files config.h in the root dir
 configure_file(${CMAKE_SOURCE_DIR}/config.h.cmake ${CMAKE_SOURCE_DIR}/config.h)
 
-
+option(BUILD_TESTING "Build tests" ON)
+if (BUILD_TESTING)
+  message("Tests are ON")
+else()
+  message("Tests are OFF")
+endif()
 
 include(FindPkgConfig)
 pkg_check_modules(GTKMM gtkmm-3.0 REQUIRED)
@@ -68,7 +73,9 @@ pkg_check_modules(PANGOMM pangomm-1.4 REQUIRED)
 pkg_check_modules(GSPELL gspell-1 REQUIRED)
 pkg_check_modules(LIBXML libxml++-2.6 REQUIRED)
 pkg_check_modules(SQLITE sqlite3 REQUIRED)
-pkg_check_modules(CPPUTEST cpputest  REQUIRED)
+if(BUILD_TESTING)
+  pkg_check_modules(CPPUTEST cpputest  REQUIRED)
+endif()
 
 add_subdirectory(src/7za)
 
@@ -89,8 +96,10 @@ include_directories(
 
 add_subdirectory(src/ct)
 
-enable_testing()
-add_subdirectory(tests)
+if(BUILD_TESTING)
+  enable_testing()
+  add_subdirectory(tests)
+endif()
 
 
 
