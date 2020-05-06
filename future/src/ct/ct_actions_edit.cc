@@ -62,7 +62,10 @@ void CtActions::image_handle()
 {
     if (not _node_sel_and_rich_text()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
-    CtDialogs::file_select_args args = {.pParentWin=_pCtMainWin, .curr_folder=_pCtMainWin->get_ct_config()->pickDirImg};
+
+    CtDialogs::file_select_args args(_pCtMainWin);
+    args.curr_folder=_pCtMainWin->get_ct_config()->pickDirImg;
+
     std::string filename = CtDialogs::file_select_dialog(args);
     if (filename.empty()) return;
     _pCtMainWin->get_ct_config()->pickDirImg = Glib::path_get_dirname(filename);
@@ -92,13 +95,12 @@ void CtActions::table_handle()
             rows.push_back(empty_row);
     }
     if (res == 2) {
-        CtDialogs::file_select_args args = {
-            .pParentWin=_pCtMainWin,
-            .curr_folder=_pCtMainWin->get_ct_config()->pickDirCsv,
-            .curr_file_name="",
-            .filter_name=_("CSV File"),
-            .filter_pattern={"*.csv"}
-        };
+        CtDialogs::file_select_args args(_pCtMainWin);
+        args.curr_folder = _pCtMainWin->get_ct_config()->pickDirCsv;
+        args.curr_file_name = "";
+        args.filter_name = _("CSV File");
+        args.filter_pattern = {"*.csv"};
+
         Glib::ustring filename = CtDialogs::file_select_dialog(args);
         if (filename.empty()) return;
         _pCtMainWin->get_ct_config()->pickDirCsv = Glib::path_get_dirname(filename);
@@ -187,7 +189,9 @@ void CtActions::embfile_insert()
     if (!_is_curr_node_not_read_only_or_error()) return;
     auto iter_insert = _curr_buffer()->get_insert()->get_iter();
 
-    CtDialogs::file_select_args args = {.pParentWin=_pCtMainWin, .curr_folder=_pCtMainWin->get_ct_config()->pickDirFile};
+    CtDialogs::file_select_args args(_pCtMainWin);
+    args.curr_folder = _pCtMainWin->get_ct_config()->pickDirFile;
+
     std::string filepath = CtDialogs::file_select_dialog(args);
     if (filepath.empty()) return;
 

@@ -238,6 +238,8 @@ struct file_select_args
     Glib::ustring               filter_name;
     std::vector<std::string>    filter_pattern;
     std::vector<std::string>    filter_mime;
+
+    file_select_args(Gtk::Window* win) : pParentWin(win) {}
 };
 
 // The Select file dialog, Returns the retrieved filepath or None
@@ -265,6 +267,8 @@ struct storage_select_args
     CtDocType     ctDocType{CtDocType::None};
     CtDocEncrypt  ctDocEncrypt{CtDocEncrypt::None};
     std::string   password;
+
+    storage_select_args(Gtk::Window* win) : pParentWin(win) {}
 };
 
 // Choose the CherryTree data storage type (xml or db) and protection
