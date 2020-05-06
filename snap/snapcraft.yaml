@@ -43,6 +43,7 @@ apps:
       - desktop
       - desktop-legacy
       - gsettings
+      - removable-media
     desktop: share/applications/cherrytree.desktop
     common-id: com.giuspen.cherrytree
     environment:
