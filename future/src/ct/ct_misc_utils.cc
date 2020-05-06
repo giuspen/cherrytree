@@ -735,7 +735,7 @@ std::string str::re_escape(const std::string& text)
     return Glib::Regex::escape_string(text);
 }
 
-std::string str::time_format(const std::string& format, const gint64& time)
+std::string str::time_format(const std::string& format, const time_t& time)
 {
     std::tm* localtime = std::localtime(&time);
     char buffer[100];
