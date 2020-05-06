@@ -126,7 +126,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES Linux|.*BSD|DragonFly)
           "${CMAKE_SOURCE_DIR}/data/cherrytree.mime"
           "${CMAKE_SOURCE_DIR}/data/cherrytree.keys"
           DESTINATION "${SHARE_INSTALL}/mime-info")
-  install(FILES "${CMAKE_SOURCE_DIR}/data/cherrytree.metainfo.xml"
+  install(FILES "${CMAKE_SOURCE_DIR}/data/com.giuspen.cherrytree.metainfo.xml"
           DESTINATION "${SHARE_INSTALL}/metainfo")
 
   # share/cherrytree data

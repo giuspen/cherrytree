@@ -1,7 +1,9 @@
 /*
  * ct_widgets.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -310,12 +312,12 @@ void CtTextView::for_event_after_double_click_button1(GdkEvent* event)
 // Called after every Triple Click with button 1
 void CtTextView::for_event_after_triple_click_button1(GdkEvent* event)
 {
-     auto text_buffer = get_buffer();
-     int x, y;
-     window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
-     Gtk::TextIter iter_start;
-     get_iter_at_location(iter_start, x, y);
-     _pCtMainWin->apply_tag_try_automatic_bounds_triple_click(text_buffer, iter_start);
+    auto text_buffer = get_buffer();
+    int x, y;
+    window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
+    Gtk::TextIter iter_start;
+    get_iter_at_location(iter_start, x, y);
+    _pCtMainWin->apply_tag_try_automatic_bounds_triple_click(text_buffer, iter_start);
 }
 
 // Called after every gtk.gdk.BUTTON_PRESS on the SourceView

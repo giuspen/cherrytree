@@ -1641,7 +1641,7 @@ void CtMainWin::_on_textview_event_after(GdkEvent* event)
     }
     if (event->type == GDK_3BUTTON_PRESS and event->button.button == 1)
     {
-        if (curr_tree_iter().get_node_is_rich_text())
+        if (curr_tree_iter().get_node_is_rich_text() and _pCtConfig->tripleClickParagraph)
             get_text_view().for_event_after_triple_click_button1(event);
     }
     else if (event->type == GDK_BUTTON_PRESS or event->type == GDK_KEY_PRESS)

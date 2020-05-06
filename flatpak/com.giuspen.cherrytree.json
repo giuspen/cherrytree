@@ -1,5 +1,5 @@
 {
-  "app-id": "com.giuspen.CherryTree",
+  "app-id": "com.giuspen.cherrytree",
   "runtime": "org.freedesktop.Platform",
   "runtime-version": "19.08",
   "sdk": "org.freedesktop.Sdk",
@@ -8,7 +8,6 @@
   "rename-icon": "cherrytree",
   "finish-args": [
     "--socket=x11",
-    "--socket=wayland",
     "--filesystem=host"
   ],
   "cleanup": [
@@ -23,6 +22,7 @@
     "/man/"
   ],
   "modules": [
+    "shared-modules/intltool/intltool-0.51.json",
     {
       "name": "cairo",
       "sources": [
@@ -33,16 +33,7 @@
         }
       ]
     },
-    {
-      "name": "gtk2",
-      "sources": [
-        {
-          "type": "archive",
-          "url": "https://download.gnome.org/sources/gtk+/2.24/gtk+-2.24.32.tar.xz",
-          "sha256": "b6c8a93ddda5eabe3bfee1eb39636c9a03d2a56c7b62828b359bf197943c582e"
-        }
-      ]
-    },
+    "shared-modules/gtk2/gtk2.json",
     {
       "name": "gtksourceview",
       "sources": [
@@ -53,16 +44,7 @@
         }
       ]
     },
-    {
-      "name": "python",
-      "sources": [
-        {
-          "type": "archive",
-          "url": "https://www.python.org/ftp/python/2.7.16/Python-2.7.16.tar.xz",
-          "sha256": "f222ef602647eecb6853681156d32de4450a2c39f4de93bd5b20235f2e660ed7"
-        }
-      ]
-    },
+    "shared-modules/python2.7/python-2.7.json",
     {
       "name": "pycairo",
       "buildsystem": "meson",
@@ -85,8 +67,18 @@
       "sources": [
         {
           "type": "archive",
-          "url": "https://download.gnome.org/sources/pygobject/2.28/pygobject-2.28.6.tar.xz",
-          "sha256": "fb8a1d4f665130a125011659bd347c7339c944232163dbb9a34fd0686577adb8"
+          "url": "https://download.gnome.org/sources/pygobject/2.28/pygobject-2.28.7.tar.xz",
+          "sha256": "bb9d25a3442ca7511385a7c01b057492095c263784ef31231ffe589d83a96a5a"
+        }
+      ]
+    },
+    {
+      "name": "pango",
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://download.gnome.org/sources/pango/1.38/pango-1.38.1.tar.xz",
+          "sha256": "1320569f6c6d75d6b66172b2d28e59c56ee864ee9df202b76799c4506a214eb7"
         }
       ]
     },
@@ -97,11 +89,20 @@
           "type": "archive",
           "url": "https://download.gnome.org/sources/pygtk/2.24/pygtk-2.24.0.tar.bz2",
           "sha256": "cd1c1ea265bd63ff669e92a2d3c2a88eb26bcd9e5363e0f82c896e649f206912"
+        },
+        {
+          "type": "shell",
+          "commands": [
+            "cp -p /usr/share/automake-*/config.{sub,guess} ."
+          ]
         }
       ]
     },
     {
       "name": "pygtksourceview",
+      "config-opts": [
+        "--disable-docs"
+      ],
       "sources": [
         {
           "type": "archive",
@@ -136,8 +137,8 @@
       "sources": [
         {
           "type": "archive",
-          "url": "https://www.giuspen.com/software/cherrytree-0.39.3.tar.xz",
-          "sha256": "0665cc3c6ca97e5eb7c9b116dd5c81102075a81dd111c77ed01237d83303c35e"
+          "url": "https://www.giuspen.com/software/cherrytree-0.39.3.3.tar.xz",
+          "sha256": "ec049eb0edc3f235ff9eba8b94ad0d1df0e0a40b88b04edd59dc35c8fa03c7e2"
         }
       ]
     }
