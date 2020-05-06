@@ -331,7 +331,7 @@ const constexpr std::array<std::pair<const gchar*, const gchar*>, 11> CODE_EXEC_
     std::make_pair("cpp",        "cpp"),
     std::make_pair("dosbatch",   "bat"),
     std::make_pair("perl",       "pl"),
-    std::make_pair("powershell", "sh"),
+    std::make_pair("powershell", "ps1"),
     std::make_pair("python",     "py"),
     std::make_pair("python3",    "py"),
     std::make_pair("sh",         "sh")
