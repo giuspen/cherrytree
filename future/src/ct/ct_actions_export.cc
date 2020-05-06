@@ -258,8 +258,12 @@ void CtActions::_export_to_txt(bool is_single, Glib::ustring auto_path, bool aut
 
 Glib::ustring CtActions::_get_pdf_filepath(Glib::ustring proposed_name)
 {
-    CtDialogs::file_select_args args = {.pParentWin=_pCtMainWin, .curr_folder=_pCtMainWin->get_ct_config()->pickDirExport, .curr_file_name=proposed_name + ".pdf",
-                                       .filter_name=_("PDF File"), .filter_pattern={"*.pdf"}};
+    CtDialogs::file_select_args args(_pCtMainWin);
+    args.curr_folder = _pCtMainWin->get_ct_config()->pickDirExport;
+    args.curr_file_name = proposed_name + ".pdf";
+    args.filter_name = _("PDF File");
+    args.filter_pattern = {"*.pdf"};
+
     Glib::ustring filename = CtDialogs::file_save_as_dialog(args);
     if (filename != "")
     {
@@ -272,8 +276,12 @@ Glib::ustring CtActions::_get_pdf_filepath(Glib::ustring proposed_name)
 // Prepare for the txt file save
 Glib::ustring CtActions::_get_txt_filepath(Glib::ustring proposed_name)
 {
-    CtDialogs::file_select_args args = {.pParentWin=_pCtMainWin, .curr_folder=_pCtMainWin->get_ct_config()->pickDirExport, .curr_file_name=proposed_name + ".txt",
-                                       .filter_name=_("Plain Text Document"), .filter_pattern={"*.txt"}};
+    CtDialogs::file_select_args args(_pCtMainWin);
+    args.curr_folder = _pCtMainWin->get_ct_config()->pickDirExport;
+    args.curr_file_name = proposed_name + ".txt";
+    args.filter_name = _("Plain Text Document");
+    args.filter_pattern = {"*.txt"};
+
     Glib::ustring filename = CtDialogs::file_save_as_dialog(args);
     if (filename != "")
     {

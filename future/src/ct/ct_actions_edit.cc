@@ -62,7 +62,10 @@ void CtActions::image_handle()
 {
     if (not _node_sel_and_rich_text()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
-    CtDialogs::file_select_args args = {.pParentWin=_pCtMainWin, .curr_folder=_pCtMainWin->get_ct_config()->pickDirImg};
+
+    CtDialogs::file_select_args args(_pCtMainWin);
+    args.curr_folder=_pCtMainWin->get_ct_config()->pickDirImg;
+
     std::string filename = CtDialogs::file_select_dialog(args);
     if (filename.empty()) return;
     _pCtMainWin->get_ct_config()->pickDirImg = Glib::path_get_dirname(filename);
@@ -92,13 +95,12 @@ void CtActions::table_handle()
             rows.push_back(empty_row);
     }
     if (res == 2) {
-        CtDialogs::file_select_args args = {
-            .pParentWin=_pCtMainWin,
-            .curr_folder=_pCtMainWin->get_ct_config()->pickDirCsv,
-            .curr_file_name="",
-            .filter_name=_("CSV File"),
-            .filter_pattern={"*.csv"}
-        };
+        CtDialogs::file_select_args args(_pCtMainWin);
+        args.curr_folder = _pCtMainWin->get_ct_config()->pickDirCsv;
+        args.curr_file_name = "";
+        args.filter_name = _("CSV File");
+        args.filter_pattern = {"*.csv"};
+
         Glib::ustring filename = CtDialogs::file_select_dialog(args);
         if (filename.empty()) return;
         _pCtMainWin->get_ct_config()->pickDirCsv = Glib::path_get_dirname(filename);
@@ -187,7 +189,9 @@ void CtActions::embfile_insert()
     if (!_is_curr_node_not_read_only_or_error()) return;
     auto iter_insert = _curr_buffer()->get_insert()->get_iter();
 
-    CtDialogs::file_select_args args = {.pParentWin=_pCtMainWin, .curr_folder=_pCtMainWin->get_ct_config()->pickDirFile};
+    CtDialogs::file_select_args args(_pCtMainWin);
+    args.curr_folder = _pCtMainWin->get_ct_config()->pickDirFile;
+
     std::string filepath = CtDialogs::file_select_dialog(args);
     if (filepath.empty()) return;
 
@@ -424,7 +428,7 @@ void CtActions::text_row_up()
         missing_leading_newline = true;
     else
     {
-        while (destination_iter.get_char() != CtConst::CHAR_NEWLINE[0])
+        while (destination_iter.get_char() != g_utf8_get_char(CtConst::CHAR_NEWLINE))
             if (not destination_iter.backward_char())
             {
                 missing_leading_newline = true;
@@ -444,7 +448,7 @@ void CtActions::text_row_up()
     {
         text_buffer->erase(range.iter_start, range.iter_end);
         destination_iter = text_buffer->get_iter_at_offset(destination_offset);
-        if (text_to_move.empty() or text_to_move[text_to_move.length()-1] != CtConst::CHAR_NEWLINE[0])
+        if (text_to_move.empty() or text_to_move[text_to_move.length()-1] != g_utf8_get_char(CtConst::CHAR_NEWLINE))
         {
             diff_offsets += 1;
             text_to_move += CtConst::CHAR_NEWLINE;
@@ -466,7 +470,7 @@ void CtActions::text_row_up()
             text_buffer->remove_all_tags(clr_start_iter, destination_iter);
         }
         bool append_newline = false;
-        if (text_to_move.empty() or text_to_move[text_to_move.length()-1] != CtConst::CHAR_NEWLINE[0])
+        if (text_to_move.empty() or text_to_move[text_to_move.length()-1] != g_utf8_get_char(CtConst::CHAR_NEWLINE))
         {
             diff_offsets += 1;
             append_newline = true;
@@ -501,7 +505,7 @@ void CtActions::text_row_down()
     if (not range.iter_end.forward_char()) return;
     int missing_leading_newline = false;
     Gtk::TextIter destination_iter = range.iter_end;
-    while (destination_iter.get_char() != CtConst::CHAR_NEWLINE[0])
+    while (destination_iter.get_char() != g_utf8_get_char(CtConst::CHAR_NEWLINE))
         if (not destination_iter.forward_char())
         {
             missing_leading_newline = true;
@@ -521,7 +525,7 @@ void CtActions::text_row_down()
         text_buffer->erase(range.iter_start, range.iter_end);
         destination_offset -= diff_offsets;
         destination_iter = text_buffer->get_iter_at_offset(destination_offset);
-        if (text_to_move.empty() or text_to_move[text_to_move.length() - 1] != CtConst::CHAR_NEWLINE[0])
+        if (text_to_move.empty() or text_to_move[text_to_move.length() - 1] != g_utf8_get_char(CtConst::CHAR_NEWLINE))
         {
             diff_offsets += 1;
             text_to_move += CtConst::CHAR_NEWLINE;
@@ -551,7 +555,7 @@ void CtActions::text_row_down()
             text_buffer->remove_all_tags(clr_start_iter, destination_iter);
         }
         bool append_newline = false;
-        if (text_to_move.empty() or text_to_move[text_to_move.length()-1] != CtConst::CHAR_NEWLINE[0])
+        if (text_to_move.empty() or text_to_move[text_to_move.length()-1] != g_utf8_get_char(CtConst::CHAR_NEWLINE))
         {
             diff_offsets += 1;
             append_newline = true;
@@ -599,7 +603,7 @@ void CtActions::strip_trailing_spaces()
             gunichar curr_char = curr_iter.get_char();
             if (curr_state == 0)
             {
-                if (curr_char == CtConst::CHAR_SPACE[0] or curr_char ==  CtConst::CHAR_TAB[0])
+                if (curr_char == g_utf8_get_char(CtConst::CHAR_SPACE) or curr_char == g_utf8_get_char(CtConst::CHAR_TAB))
                 {
                     start_offset = curr_iter.get_offset();
                     curr_state = 1;
@@ -607,14 +611,14 @@ void CtActions::strip_trailing_spaces()
             }
             else if (curr_state == 1)
             {
-                if (curr_char == CtConst::CHAR_NEWLINE[0])
+                if (curr_char == g_utf8_get_char(CtConst::CHAR_NEWLINE))
                 {
                     text_buffer->erase(text_buffer->get_iter_at_offset(start_offset), curr_iter);
                     removed_something = true;
                     cleaned_lines += 1;
                     break;
                 }
-                else if (curr_char != CtConst::CHAR_SPACE[0] and curr_char !=  CtConst::CHAR_TAB[0])
+                else if (curr_char != g_utf8_get_char(CtConst::CHAR_SPACE) and curr_char != g_utf8_get_char(CtConst::CHAR_TAB))
                 {
                     curr_state = 0;
                 }

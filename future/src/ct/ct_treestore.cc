@@ -278,7 +278,7 @@ bool CtDragStore::drag_data_get_vfunc(const Gtk::TreeModel::Path& path, Gtk::Sel
 }
 
 
-bool CtDragStore::drag_data_received_vfunc(const Gtk::TreeModel::Path& dest, const Gtk::SelectionData& selection_data)
+bool CtDragStore::drag_data_received_vfunc(const Gtk::TreeModel::Path& dest, const Gtk::SelectionData& /*selection_data*/)
 {
     Gtk::TreeModel::Path src(_drag_src);
     return _pCtMainWin->get_ct_actions()->node_move(src, dest);

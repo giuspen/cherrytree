@@ -209,7 +209,7 @@ xmlpp::Element* CtStorageXmlHelper::node_to_xml(CtTreeIter* ct_tree_iter, xmlpp:
     return p_node_node;
 }
 
-Glib::RefPtr<Gsv::Buffer> CtStorageXmlHelper::create_buffer_and_widgets_from_xml(xmlpp::Element* parent_xml_element, const Glib::ustring& syntax,
+Glib::RefPtr<Gsv::Buffer> CtStorageXmlHelper::create_buffer_and_widgets_from_xml(xmlpp::Element* parent_xml_element, const Glib::ustring& /*syntax*/,
                                                                     std::list<CtAnchoredWidget*>& widgets, Gtk::TextIter* text_insert_pos, int force_offset)
 {
     Glib::RefPtr<Gsv::Buffer> buffer = _pCtMainWin->get_new_text_buffer();

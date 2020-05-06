@@ -772,7 +772,7 @@ Glib::ustring CtExport2Pango::pango_get_from_code_buffer(Glib::RefPtr<Gsv::Buffe
             break;
         }
     }
-    if (pango_text.size() == 0 || pango_text[pango_text.size()-1] != CtConst::CHAR_NEWLINE[0])
+    if (pango_text.size() == 0 || pango_text[pango_text.size()-1] != g_utf8_get_char(CtConst::CHAR_NEWLINE))
         pango_text += CtConst::CHAR_NEWLINE;
     return pango_text;
 }

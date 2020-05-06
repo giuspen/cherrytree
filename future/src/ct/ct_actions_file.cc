@@ -58,7 +58,7 @@ void CtActions::file_save_as()
     {
         return;
     }
-    CtDialogs::storage_select_args storageSelArgs{ .pParentWin = _pCtMainWin };
+    CtDialogs::storage_select_args storageSelArgs(_pCtMainWin);
     std::string currDocFilepath = _pCtMainWin->get_ct_storage()->get_file_path();
     if (not currDocFilepath.empty())
     {
@@ -69,7 +69,7 @@ void CtActions::file_save_as()
     {
         return;
     }
-    CtDialogs::file_select_args fileSelArgs{ .pParentWin = _pCtMainWin };
+    CtDialogs::file_select_args fileSelArgs(_pCtMainWin);
     if (not currDocFilepath.empty())
     {
         fileSelArgs.curr_folder = Glib::path_get_dirname(currDocFilepath);
@@ -91,11 +91,11 @@ void CtActions::file_save_as()
 
 void CtActions::file_open()
 {
-    CtDialogs::file_select_args args;
-    args.pParentWin = _pCtMainWin;
+    CtDialogs::file_select_args args(_pCtMainWin);
     args.curr_folder = _pCtMainWin->get_ct_storage()->get_file_dir();
     args.filter_name = _("CherryTree Document");
     args.filter_pattern.push_back("*.ct*");
+
     std::string filepath = CtDialogs::file_select_dialog(args);
 
     if (filepath.empty()) return;

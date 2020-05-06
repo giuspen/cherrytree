@@ -925,7 +925,9 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     });
     button_browse_file.signal_clicked().connect([&]()
     {
-        std::string filepath = file_select_dialog({.pParentWin=&dialog, .curr_folder=ctMainWin.get_ct_config()->pickDirFile});
+        file_select_args args(&dialog);
+        args.curr_folder=ctMainWin.get_ct_config()->pickDirFile;
+        std::string filepath = file_select_dialog(args);
         if (filepath.empty())
         {
             return;
