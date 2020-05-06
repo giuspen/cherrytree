@@ -388,13 +388,13 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                 {
                     int candidate_offset = iter_start.get_offset();
                     if (not iter_start.backward_char()
-                            or iter_start.get_char() == CtConst::CHAR_NEWLINE[0]
-                            or iter_start.get_char() == CtConst::CHAR_SPACE[0]
-                            or iter_start.get_char() == CtConst::CHAR_TAB[0])
+                            or iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_NEWLINE)
+                            or iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_SPACE)
+                            or iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_TAB))
                         offset_0 = candidate_offset;
                     break;
                 }
-                if (curr_char == CtConst::CHAR_NEWLINE[0]) break;
+                if (curr_char == g_utf8_get_char(CtConst::CHAR_NEWLINE)) break;
                 if (not iter_start.backward_char()) break;
             }
             if (offset_0 >= 0)
@@ -437,8 +437,8 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                 return;
             }
             if (not iter_start.backward_char()) return;
-            if (iter_start.get_char() != CtConst::CHAR_NEWLINE[0]) return;
-            if (iter_start.backward_char() and iter_start.get_char() == CtConst::CHAR_NEWLINE[0])
+            if (iter_start.get_char() != g_utf8_get_char(CtConst::CHAR_NEWLINE)) return;
+            if (iter_start.backward_char() and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_NEWLINE))
                 return; // former was an empty row
             CtListInfo list_info = CtList(_pCtMainWin, text_buffer).get_paragraph_list_info(iter_start);
             if (not list_info)
@@ -507,78 +507,78 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
         {
             if (not is_code and config->enableSymbolAutoreplace and iter_start.backward_chars(2))
             {
-                if (iter_start.get_char() == CtConst::CHAR_GREATER[0] and iter_start.backward_char())
+                if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_GREATER) and iter_start.backward_char())
                 {
                     if (iter_start.get_line_offset() == 0)
                     {
                         // at line start
-                        if (iter_start.get_char() == CtConst::CHAR_LESSER[0])
+                        if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_LESSER))
                             // "<> " becoming "◇ "
                             _special_char_replace(CtConst::CHARS_LISTBUL_DEFAULT[1], iter_start, iter_insert);
-                        else if (iter_start.get_char() == CtConst::CHAR_MINUS[0])
+                        else if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_MINUS))
                             // "-> " becoming "→ "
                             _special_char_replace(CtConst::CHARS_LISTBUL_DEFAULT[4], iter_start, iter_insert);
-                        else if (iter_start.get_char() == CtConst::CHAR_EQUAL[0])
+                        else if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_EQUAL))
                             // "=> " becoming "⇒ "
                             _special_char_replace(CtConst::CHARS_LISTBUL_DEFAULT[5], iter_start, iter_insert);
                     }
-                    else if (iter_start.get_char() == CtConst::CHAR_MINUS[0] and iter_start.backward_char())
+                    else if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_MINUS) and iter_start.backward_char())
                     {
-                        if (iter_start.get_char() == CtConst::CHAR_LESSER[0])
+                        if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_LESSER))
                             // "<-> " becoming "↔ "
                             _special_char_replace(CtConst::SPECIAL_CHAR_ARROW_DOUBLE[0], iter_start, iter_insert);
-                        else if (iter_start.get_char() == CtConst::CHAR_MINUS[0])
+                        else if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_MINUS))
                             // "--> " becoming "→ "
                             _special_char_replace(CtConst::SPECIAL_CHAR_ARROW_RIGHT[0], iter_start, iter_insert);
                     }
-                    else if (iter_start.get_char() == CtConst::CHAR_EQUAL[0] and iter_start.backward_char())
+                    else if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_EQUAL) and iter_start.backward_char())
                     {
-                        if (iter_start.get_char() == CtConst::CHAR_LESSER[0])
+                        if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_LESSER))
                             // "<=> " becoming "⇔ "
                             _special_char_replace(CtConst::SPECIAL_CHAR_ARROW_DOUBLE2[0], iter_start, iter_insert);
-                        else if (iter_start.get_char() == CtConst::CHAR_EQUAL[0])
+                        else if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_EQUAL))
                             // "==> " becoming "⇒ "
                             _special_char_replace(CtConst::SPECIAL_CHAR_ARROW_RIGHT2[0], iter_start, iter_insert);
                     }
                 }
-                else if (iter_start.get_char() == CtConst::CHAR_MINUS[0] and iter_start.backward_char()
-                        and iter_start.get_char() == CtConst::CHAR_MINUS[0] and iter_start.backward_char()
-                        and iter_start.get_char() == CtConst::CHAR_LESSER[0])
+                else if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_MINUS) and iter_start.backward_char()
+                        and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_MINUS) and iter_start.backward_char()
+                        and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_LESSER))
                         // "<-- " becoming "← "
                         _special_char_replace(CtConst::SPECIAL_CHAR_ARROW_LEFT[0], iter_start, iter_insert);
-                else if (iter_start.get_char() == CtConst::CHAR_EQUAL[0] and iter_start.backward_char()
-                        and iter_start.get_char() == CtConst::CHAR_EQUAL[0] and iter_start.backward_char()
-                        and iter_start.get_char() == CtConst::CHAR_LESSER[0])
+                else if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_EQUAL) and iter_start.backward_char()
+                        and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_EQUAL) and iter_start.backward_char()
+                        and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_LESSER))
                         // "<== " becoming "⇐ "
                         _special_char_replace(CtConst::SPECIAL_CHAR_ARROW_LEFT2[0], iter_start, iter_insert);
-                else if (iter_start.get_char() == CtConst::CHAR_PARENTH_CLOSE[0] and iter_start.backward_char())
+                else if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_PARENTH_CLOSE) and iter_start.backward_char())
                 {
                     if (g_unichar_tolower(iter_start.get_char()) == 'c' and iter_start.backward_char()
-                       and iter_start.get_char() == CtConst::CHAR_PARENTH_OPEN[0])
+                       and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_PARENTH_OPEN))
                         // "(c) " becoming "© "
                         _special_char_replace(CtConst::SPECIAL_CHAR_COPYRIGHT[0], iter_start, iter_insert);
                     else if (g_unichar_tolower(iter_start.get_char()) == 'r' and iter_start.backward_char()
-                            and iter_start.get_char() == CtConst::CHAR_PARENTH_OPEN[0])
+                            and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_PARENTH_OPEN))
                             // "(r) " becoming "® "
                             _special_char_replace(CtConst::SPECIAL_CHAR_REGISTERED_TRADEMARK[0], iter_start, iter_insert);
                     else if (g_unichar_tolower(iter_start.get_char()) == 'm' and iter_start.backward_char()
                             and g_unichar_tolower(iter_start.get_char()) == 't' and iter_start.backward_char()
-                            and iter_start.get_char() == CtConst::CHAR_PARENTH_OPEN[0])
+                            and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_PARENTH_OPEN))
                             // "(tm) " becoming "™ "
                             _special_char_replace(CtConst::SPECIAL_CHAR_UNREGISTERED_TRADEMARK[0], iter_start, iter_insert);
                 }
-                else if (iter_start.get_char() == CtConst::CHAR_STAR[0] and iter_start.get_line_offset() == 0)
+                else if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_STAR) and iter_start.get_line_offset() == 0)
                     // "* " becoming "• " at line start
                     _special_char_replace(CtConst::CHARS_LISTBUL_DEFAULT[0], iter_start, iter_insert);
-                else if (iter_start.get_char() == CtConst::CHAR_SQ_BR_CLOSE[0] and iter_start.backward_char())
+                else if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_SQ_BR_CLOSE) and iter_start.backward_char())
                 {
-                    if (iter_start.get_line_offset() == 0 and iter_start.get_char() == CtConst::CHAR_SQ_BR_OPEN[0])
+                    if (iter_start.get_line_offset() == 0 and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_SQ_BR_OPEN))
                         // "[] " becoming "☐ " at line start
                         _special_char_replace(config->charsTodo[0], iter_start, iter_insert);
                 }
-                else if (iter_start.get_char() == CtConst::CHAR_COLON[0] and iter_start.backward_char())
+                else if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_COLON) and iter_start.backward_char())
                 {
-                    if (iter_start.get_line_offset() == 0 and iter_start.get_char() == CtConst::CHAR_COLON[0])
+                    if (iter_start.get_line_offset() == 0 and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_COLON))
                         // ":: " becoming "▪ " at line start
                         _special_char_replace(CtConst::CHARS_LISTBUL_DEFAULT[2], iter_start, iter_insert);
                 }
@@ -698,16 +698,16 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
 
     bool tag_applied = false;
     Gtk::TextIter iter_start = iter_end;
-    if (iter_start.backward_char() and iter_start.get_char() == CtConst::CHAR_SQ_BR_CLOSE[0]
-        and iter_start.backward_char() and iter_start.get_char() == CtConst::CHAR_SQ_BR_CLOSE[0])
+    if (iter_start.backward_char() and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_SQ_BR_CLOSE)
+        and iter_start.backward_char() and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_SQ_BR_CLOSE))
     {
         int curr_state = 0;
         while (iter_start.backward_char())
         {
             auto curr_char = iter_start.get_char();
-            if (curr_char == CtConst::CHAR_NEWLINE[0])
+            if (curr_char == g_utf8_get_char(CtConst::CHAR_NEWLINE))
                 break;
-            if (curr_char == CtConst::CHAR_SQ_BR_OPEN[0])
+            if (curr_char == g_utf8_get_char(CtConst::CHAR_SQ_BR_OPEN))
             {
                 if (curr_state == 0)
                     curr_state = 1;
@@ -738,7 +738,8 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
         while (iter_start.backward_char())
         {
             auto curr_char = iter_start.get_char();
-            if (curr_char == CtConst::CHAR_SPACE[0] or curr_char == CtConst::CHAR_NEWLINE[0] or curr_char == CtConst::CHAR_CR[0] or curr_char == CtConst::CHAR_TAB[0])
+            if (curr_char == g_utf8_get_char(CtConst::CHAR_SPACE) or curr_char == g_utf8_get_char(CtConst::CHAR_NEWLINE)
+                    or curr_char == g_utf8_get_char(CtConst::CHAR_CR) or curr_char == g_utf8_get_char(CtConst::CHAR_TAB))
             {
                 iter_start.forward_char();
                 break;
@@ -766,11 +767,11 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
 // Returns the indentation of the former paragraph or empty string
 Glib::ustring CtTextView::_get_former_line_indentation(Gtk::TextIter iter_start)
 {
-    if (not iter_start.backward_chars(2) or iter_start.get_char() == CtConst::CHAR_NEWLINE[0]) return "";
+    if (not iter_start.backward_chars(2) or iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_NEWLINE)) return "";
     bool buffer_start = false;
     while (true)
     {
-        if (iter_start.get_char() == CtConst::CHAR_NEWLINE[0]) break; // we got the previous paragraph start
+        if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_NEWLINE)) break; // we got the previous paragraph start
         else if (not iter_start.backward_char())
         {
             buffer_start = true;
@@ -778,17 +779,17 @@ Glib::ustring CtTextView::_get_former_line_indentation(Gtk::TextIter iter_start)
         }
     }
     if (not buffer_start) iter_start.forward_char();
-    if (iter_start.get_char() == CtConst::CHAR_SPACE[0])
+    if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_SPACE))
     {
         size_t num_spaces = 1;
-        while (iter_start.forward_char() and iter_start.get_char() == CtConst::CHAR_SPACE[0])
+        while (iter_start.forward_char() and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_SPACE))
             num_spaces += 1;
         return Glib::ustring(num_spaces, CtConst::CHAR_SPACE[0]);
     }
-    if (iter_start.get_char() == CtConst::CHAR_TAB[0])
+    if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_TAB))
     {
         size_t num_tabs = 1;
-        while (iter_start.forward_char() and iter_start.get_char() == CtConst::CHAR_TAB[0])
+        while (iter_start.forward_char() and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_TAB))
             num_tabs += 1;
         return Glib::ustring(num_tabs, CtConst::CHAR_TAB[0]);
     }

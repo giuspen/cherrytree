@@ -437,7 +437,7 @@ Glib::ustring CtActions::_link_check_around_cursor()
     auto text_iter = _curr_buffer()->get_insert()->get_iter();
     Glib::ustring tag_name = link_check_around_cursor_iter(text_iter);
     if (tag_name.empty()) {
-        if (text_iter.get_char() == CtConst::CHAR_SPACE[0] and text_iter.backward_char()) {
+        if (text_iter.get_char() == g_utf8_get_char(CtConst::CHAR_SPACE) and text_iter.backward_char()) {
             tag_name = link_check_around_cursor_iter(text_iter);
             if (tag_name.empty()) return "";
         } else

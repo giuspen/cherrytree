@@ -43,8 +43,8 @@ std::vector<std::pair<int, int>> CtImports::get_web_links_offsets_from_plain_tex
         {
             int end_offset = start_offset + 3;
             while (end_offset < max_end_offset
-                   && plain_text[(size_t)end_offset] != CtConst::CHAR_SPACE[0]
-                   && plain_text[(size_t)end_offset] != CtConst::CHAR_NEWLINE[0])
+                   && plain_text[(size_t)end_offset] != g_utf8_get_char(CtConst::CHAR_SPACE)
+                   && plain_text[(size_t)end_offset] != g_utf8_get_char(CtConst::CHAR_NEWLINE))
                 end_offset += 1;
             web_links.push_back(std::make_pair(start_offset, end_offset));
             start_offset = end_offset + 1;

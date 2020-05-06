@@ -690,7 +690,7 @@ bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter, Glib::RefP
     bool pattern_found;
 
     Gtk::TextIter buff_start_iter = text_buffer->begin();
-    if (buff_start_iter.get_char() != CtConst::CHAR_NEWLINE[0]) {
+    if (buff_start_iter.get_char() != g_utf8_get_char(CtConst::CHAR_NEWLINE)) {
         s_state.newline_trick = true;
         restore_modified = !text_buffer->get_modified();
         text_buffer->insert(buff_start_iter, CtConst::CHAR_NEWLINE);
@@ -946,12 +946,12 @@ std::string CtActions::_get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buff
     auto line_start = text_iter;
     auto line_end = text_iter;
     if (!line_start.backward_char()) return "";
-    while (line_start.get_char() != CtConst::CHAR_NEWLINE[0])
+    while (line_start.get_char() != g_utf8_get_char(CtConst::CHAR_NEWLINE))
         if (!line_start.backward_char())
             break;
-    if (line_start.get_char() == CtConst::CHAR_NEWLINE[0])
+    if (line_start.get_char() == g_utf8_get_char(CtConst::CHAR_NEWLINE))
         line_start.forward_char();
-    while (line_end.get_char() != CtConst::CHAR_NEWLINE[0])
+    while (line_end.get_char() != g_utf8_get_char(CtConst::CHAR_NEWLINE))
         if (!line_end.forward_char())
             break;
     return text_buffer->get_text(line_start, line_end);
@@ -961,11 +961,11 @@ std::string CtActions::_get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buff
 std::string CtActions::_get_first_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer)
 {
     Gtk::TextIter start_iter = text_buffer->get_iter_at_offset(0);
-    while (start_iter.get_char() == CtConst::CHAR_NEWLINE[0])
+    while (start_iter.get_char() == g_utf8_get_char(CtConst::CHAR_NEWLINE))
         if (!start_iter.forward_char())
             return "";
     Gtk::TextIter end_iter = start_iter;
-    while (end_iter.get_char() != CtConst::CHAR_NEWLINE[0])
+    while (end_iter.get_char() != g_utf8_get_char(CtConst::CHAR_NEWLINE))
         if (!end_iter.forward_char())
             break;
     return text_buffer->get_text(start_iter, end_iter);

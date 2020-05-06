@@ -424,7 +424,7 @@ void CtActions::text_row_up()
         missing_leading_newline = true;
     else
     {
-        while (destination_iter.get_char() != CtConst::CHAR_NEWLINE[0])
+        while (destination_iter.get_char() != g_utf8_get_char(CtConst::CHAR_NEWLINE))
             if (not destination_iter.backward_char())
             {
                 missing_leading_newline = true;
@@ -444,7 +444,7 @@ void CtActions::text_row_up()
     {
         text_buffer->erase(range.iter_start, range.iter_end);
         destination_iter = text_buffer->get_iter_at_offset(destination_offset);
-        if (text_to_move.empty() or text_to_move[text_to_move.length()-1] != CtConst::CHAR_NEWLINE[0])
+        if (text_to_move.empty() or text_to_move[text_to_move.length()-1] != g_utf8_get_char(CtConst::CHAR_NEWLINE))
         {
             diff_offsets += 1;
             text_to_move += CtConst::CHAR_NEWLINE;
@@ -466,7 +466,7 @@ void CtActions::text_row_up()
             text_buffer->remove_all_tags(clr_start_iter, destination_iter);
         }
         bool append_newline = false;
-        if (text_to_move.empty() or text_to_move[text_to_move.length()-1] != CtConst::CHAR_NEWLINE[0])
+        if (text_to_move.empty() or text_to_move[text_to_move.length()-1] != g_utf8_get_char(CtConst::CHAR_NEWLINE))
         {
             diff_offsets += 1;
             append_newline = true;
@@ -501,7 +501,7 @@ void CtActions::text_row_down()
     if (not range.iter_end.forward_char()) return;
     int missing_leading_newline = false;
     Gtk::TextIter destination_iter = range.iter_end;
-    while (destination_iter.get_char() != CtConst::CHAR_NEWLINE[0])
+    while (destination_iter.get_char() != g_utf8_get_char(CtConst::CHAR_NEWLINE))
         if (not destination_iter.forward_char())
         {
             missing_leading_newline = true;
@@ -521,7 +521,7 @@ void CtActions::text_row_down()
         text_buffer->erase(range.iter_start, range.iter_end);
         destination_offset -= diff_offsets;
         destination_iter = text_buffer->get_iter_at_offset(destination_offset);
-        if (text_to_move.empty() or text_to_move[text_to_move.length() - 1] != CtConst::CHAR_NEWLINE[0])
+        if (text_to_move.empty() or text_to_move[text_to_move.length() - 1] != g_utf8_get_char(CtConst::CHAR_NEWLINE))
         {
             diff_offsets += 1;
             text_to_move += CtConst::CHAR_NEWLINE;
@@ -551,7 +551,7 @@ void CtActions::text_row_down()
             text_buffer->remove_all_tags(clr_start_iter, destination_iter);
         }
         bool append_newline = false;
-        if (text_to_move.empty() or text_to_move[text_to_move.length()-1] != CtConst::CHAR_NEWLINE[0])
+        if (text_to_move.empty() or text_to_move[text_to_move.length()-1] != g_utf8_get_char(CtConst::CHAR_NEWLINE))
         {
             diff_offsets += 1;
             append_newline = true;
@@ -599,7 +599,7 @@ void CtActions::strip_trailing_spaces()
             gunichar curr_char = curr_iter.get_char();
             if (curr_state == 0)
             {
-                if (curr_char == CtConst::CHAR_SPACE[0] or curr_char ==  CtConst::CHAR_TAB[0])
+                if (curr_char == g_utf8_get_char(CtConst::CHAR_SPACE) or curr_char == g_utf8_get_char(CtConst::CHAR_TAB))
                 {
                     start_offset = curr_iter.get_offset();
                     curr_state = 1;
@@ -607,14 +607,14 @@ void CtActions::strip_trailing_spaces()
             }
             else if (curr_state == 1)
             {
-                if (curr_char == CtConst::CHAR_NEWLINE[0])
+                if (curr_char == g_utf8_get_char(CtConst::CHAR_NEWLINE))
                 {
                     text_buffer->erase(text_buffer->get_iter_at_offset(start_offset), curr_iter);
                     removed_something = true;
                     cleaned_lines += 1;
                     break;
                 }
-                else if (curr_char != CtConst::CHAR_SPACE[0] and curr_char !=  CtConst::CHAR_TAB[0])
+                else if (curr_char != g_utf8_get_char(CtConst::CHAR_SPACE) and curr_char != g_utf8_get_char(CtConst::CHAR_TAB))
                 {
                     curr_state = 0;
                 }

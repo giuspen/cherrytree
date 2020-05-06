@@ -1194,16 +1194,13 @@ void CtMainWin::switch_buffer_text_source(Glib::RefPtr<Gsv::Buffer> text_buffer,
     bool user_active_restore = user_active();
     user_active() = false;
 
-    bool rich_to_non_rich = false;
     Glib::ustring node_text;
     if (old_syntax == CtConst::RICH_TEXT_ID)
     {
-        rich_to_non_rich = true;
         node_text = CtExport2Txt(this).node_export_to_txt(tree_iter, "", {0}, -1, -1);
     }
     else
     {
-        rich_to_non_rich = false;
         node_text = text_buffer->get_text();
     }
 
