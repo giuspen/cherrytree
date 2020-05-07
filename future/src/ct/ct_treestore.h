@@ -24,6 +24,7 @@
 #include <gtkmm.h>
 #include <gtksourceviewmm.h>
 #include <set>
+#include <unordered_map>
 
 class CtMainWin;
 class CtAnchoredWidget;
