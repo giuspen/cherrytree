@@ -56,5 +56,8 @@ target_link_libraries(cherrytree_shared
 
 add_executable(cherrytree ct_main.cc icons.gresource.cc)
 target_link_libraries(cherrytree cherrytree_shared)
+if(APPLE)
+  target_link_libraries(cherrytree "-framework Foundation -framework AppKit")
+endif()
 
 set_target_properties(cherrytree PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")

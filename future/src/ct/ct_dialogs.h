@@ -27,6 +27,7 @@
 #include <gtkmm/liststore.h>
 #include <gtkmm/treestore.h>
 #include <gtkmm/treeview.h>
+#include <array>
 
 class CtMainWin;
 class CtTreeStore;

@@ -26,6 +26,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <glibmm.h>
+#include <array>
 
 namespace CtConst {
 
