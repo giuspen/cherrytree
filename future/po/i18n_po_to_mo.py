@@ -16,5 +16,5 @@ for po_filepath in glob.glob(os.path.join(SCRIPT_DIR, "*.po")):
     if not os.path.isdir(messages_dir): os.mkdir(messages_dir)
     shell_cmd = ("msgfmt",
                  "--output-file=" + os.path.join(SCRIPT_DIR, nation, "LC_MESSAGES", APP_NAME+".mo"),
-                 nation+".po")
+                 os.path.join(SCRIPT_DIR, nation+".po"))
     subprocess.call(shell_cmd)

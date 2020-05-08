@@ -6,7 +6,7 @@ set(CT_VERSION "0.1.0")
 
 # used to install locale, packagers might overwrite this
 if(NOT PACKAGE_LOCALE_DIR)
-  set(PACKAGE_LOCALE_DIR "share/locale") 
+  set(PACKAGE_LOCALE_DIR "share/locale")
 endif(NOT PACKAGE_LOCALE_DIR)
 
 # used to install data, packagers might overwrite this
@@ -140,7 +140,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES Linux|.*BSD|DragonFly)
           DESTINATION "${SHARE_INSTALL}/icons/hicolor/scalable/apps")
   install(FILES "${MANFILE_FULL_GZ}"
           DESTINATION "${SHARE_INSTALL}/man/man1")
-  install(FILES 
+  install(FILES
           "${CMAKE_SOURCE_DIR}/data/cherrytree.mime"
           "${CMAKE_SOURCE_DIR}/data/cherrytree.keys"
           DESTINATION "${SHARE_INSTALL}/mime-info")
@@ -148,12 +148,20 @@ if(${CMAKE_SYSTEM_NAME} MATCHES Linux|.*BSD|DragonFly)
           DESTINATION "${SHARE_INSTALL}/metainfo")
 
   # share/cherrytree data
-  install(FILES 
+  install(FILES
           "${CMAKE_SOURCE_DIR}/language-specs/clisp.lang"
           "${CMAKE_SOURCE_DIR}/language-specs/markdown-extra.lang"
           DESTINATION "${CHERRYTREE_SHARE_INSTALL}/language-specs")
-  install(FILES 
+  install(FILES
           "${CMAKE_SOURCE_DIR}/data/script3.js"
           "${CMAKE_SOURCE_DIR}/data/styles3.css"
           DESTINATION "${CHERRYTREE_SHARE_INSTALL}/data")
+
+  # locale data
+  FILE(GLOB children "${CMAKE_SOURCE_DIR}/po/*")
+  FOREACH(child ${children})
+    IF(IS_DIRECTORY ${child})
+      install(DIRECTORY ${child} DESTINATION "${SHARE_INSTALL}/locale")
+    ENDIF()
+  ENDFOREACH()
 endif()
