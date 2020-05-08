@@ -113,7 +113,6 @@ if(BUILD_TESTING)
 endif()
 
 
-
 # rebuild man pages
 set(MANFILE_FULL "${CMAKE_SOURCE_DIR}/data/cherrytree.1")
 set(MANFILE_FULL_GZ "${MANFILE_FULL}.gz")
@@ -122,6 +121,14 @@ add_custom_command(
   COMMAND gzip -f -k --best -n "${MANFILE_FULL}"
 )
 add_custom_target(man_pages ALL DEPENDS ${MANFILE_FULL_GZ})
+
+
+# rebuild languages binaries
+execute_process(
+    COMMAND python3 ${CMAKE_SOURCE_DIR}/po/i18n_po_to_mo.py
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+)
+
 
 # install commands
 install(TARGETS cherrytree RUNTIME DESTINATION bin)

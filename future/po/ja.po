@@ -159,7 +159,7 @@ msgstr "外部でCT* ファイルが更新されたため、ドキュメント�
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:1410
 msgid "CherryTree Hierarchical Note Taking"
-msgstr "CherryTree階層的メモ取り"
+msgstr "CherryTree Hierarchical Note Taking"
 
 #: /home/giuspen/Software/git_cherrytree/modules/core.py:1723
 #, python-format
