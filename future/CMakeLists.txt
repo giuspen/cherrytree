@@ -53,7 +53,9 @@ if(APPLE)
   link_directories(/usr/local/lib /usr/local/opt/gettext/lib)
   include_directories(/usr/local/opt/gettext/include)
   set(CMAKE_MACOSX_RPATH 1)
-  set(ENV{PKG_CONFIG_PATH} "$ENV{PKG_CONFIG_PATH}:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig:/usr/local/opt/libxml++3/lib/pkgconfig")
+  set(ENV{PKG_CONFIG_PATH} "$ENV{PKG_CONFIG_PATH}:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig:/usr/local/opt/libxml++/lib/pkgconfig")
+  # to fix libxml++2.6 compilation
+  add_compile_options(-D_LIBCPP_ENABLE_CXX17_REMOVED_AUTO_PTR)
 endif()
 
 add_compile_options(-Wno-deprecated -Wno-deprecated-declarations)
@@ -78,11 +80,7 @@ pkg_check_modules(GTKSVMM gtksourceviewmm-3.0 REQUIRED)
 pkg_check_modules(GLIBMM glibmm-2.4 REQUIRED)
 pkg_check_modules(PANGOMM pangomm-1.4 REQUIRED)
 pkg_check_modules(GSPELL gspell-1 REQUIRED)
-if(APPLE)
-  pkg_check_modules(LIBXML libxml++-3.0 REQUIRED)
-else()
-  pkg_check_modules(LIBXML libxml++-2.6 REQUIRED)
-endif()
+pkg_check_modules(LIBXML libxml++-2.6 REQUIRED)
 pkg_check_modules(SQLITE sqlite3 REQUIRED)
 if(BUILD_TESTING)
   pkg_check_modules(CPPUTEST cpputest  REQUIRED)
@@ -130,22 +128,31 @@ execute_process(
 )
 
 
-# install commands
+# install cherrytree
 install(TARGETS cherrytree RUNTIME DESTINATION bin)
-if(${CMAKE_SYSTEM_NAME} MATCHES Linux|.*BSD|DragonFly)
-  # share data
-  install(FILES "${CMAKE_SOURCE_DIR}/data/cherrytree.desktop"
-          DESTINATION "${SHARE_INSTALL}/applications")
-  install(FILES "${CMAKE_SOURCE_DIR}/icons/cherrytree.svg"
-          DESTINATION "${SHARE_INSTALL}/icons/hicolor/scalable/apps")
-  install(FILES "${MANFILE_FULL_GZ}"
-          DESTINATION "${SHARE_INSTALL}/man/man1")
-  install(FILES
-          "${CMAKE_SOURCE_DIR}/data/cherrytree.mime"
-          "${CMAKE_SOURCE_DIR}/data/cherrytree.keys"
-          DESTINATION "${SHARE_INSTALL}/mime-info")
-  install(FILES "${CMAKE_SOURCE_DIR}/data/com.giuspen.cherrytree.metainfo.xml"
-          DESTINATION "${SHARE_INSTALL}/metainfo")
+
+# set icon on macos
+if(APPLE)
+  install(CODE "execute_process(COMMAND /usr/bin/python ${CMAKE_SOURCE_DIR}/scripts/set_icon_macos.py ${CMAKE_SOURCE_DIR}/icons/cherrytree.ico ${CMAKE_INSTALL_PREFIX}/bin/cherrytree)")
+endif(APPLE)
+
+# install other files
+if(${CMAKE_SYSTEM_NAME} MATCHES Linux|.*BSD|DragonFly|Darwin)
+  if(NOT APPLE)
+    # share data
+    install(FILES "${CMAKE_SOURCE_DIR}/data/cherrytree.desktop"
+            DESTINATION "${SHARE_INSTALL}/applications")
+    install(FILES "${CMAKE_SOURCE_DIR}/icons/cherrytree.svg"
+            DESTINATION "${SHARE_INSTALL}/icons/hicolor/scalable/apps")
+    install(FILES "${MANFILE_FULL_GZ}"
+            DESTINATION "${SHARE_INSTALL}/man/man1")
+    install(FILES
+            "${CMAKE_SOURCE_DIR}/data/cherrytree.mime"
+            "${CMAKE_SOURCE_DIR}/data/cherrytree.keys"
+            DESTINATION "${SHARE_INSTALL}/mime-info")
+    install(FILES "${CMAKE_SOURCE_DIR}/data/com.giuspen.cherrytree.metainfo.xml"
+            DESTINATION "${SHARE_INSTALL}/metainfo")
+  endif(NOT APPLE)
 
   # share/cherrytree data
   install(FILES
