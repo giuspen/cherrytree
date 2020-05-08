@@ -1,3 +1,12 @@
+# Installation Guid
+
+- [Debian/Linux Mint/Ubuntu](#building-cherrytree-on-ubuntu)
+- [Arch Linux/Manjaro Linux](#building-cherrytree-on-arch)
+- [Fedora](#building-cherrytree-on-fedora)
+- [MacOs](#building-cherrytree-on-macos)
+
+
+## Links on used libraries
 
 https://www.gtkmm.org/en/documentation.shtml
 https://developer.gnome.org/gtkmm-tutorial/stable/
@@ -33,7 +42,7 @@ make -j4  && make install
 cpack -G DEB
 ```
 
-##  Building Cherrytree on Ubuntu
+## Building Cherrytree on Ubuntu
 
 Install dependencies::
 ```sh
@@ -45,7 +54,7 @@ git clone https://github.com/giuspen/cherrytree.git
 mkdir cherrytree/build
 cd cherrytree/build
 cmake ../future
-make
+make -j4
 ./cherrytree
 ```
 Install documentation:
@@ -76,7 +85,7 @@ git clone https://github.com/giuspen/cherrytree.git
 mkdir cherrytree/build
 cd cherrytree/build
 cmake ../future
-make
+make -j4
 ./cherrytree
 ```
 
@@ -104,7 +113,7 @@ git clone https://github.com/giuspen/cherrytree.git
 mkdir cherrytree/build
 cd cherrytree/build
 cmake ../future
-make
+make -j4
 ./cherrytree
 ```
 
@@ -121,6 +130,36 @@ xdg-open /usr/share/doc/glibmm-2.4/reference/html/index.html
 xdg-open /usr/share/doc/pangomm-1.4/reference/html/index.html
 xdg-open /usr/share/doc/libxml++2.6/reference/html/index.html
 ```
+
+## Building Cherrytree on MacOS
+
+Install python3-xml:
+```sh
+curl https://bootstrap.pypa.io/get-pip.py -o ~/Downloads/get-pip.py
+python ~/Downloads/get-pip.py
+pip3 install lxml
+```
+
+Install dependencies:
+```sh
+brew install cmake pkg-config gtksourceviewmm3 gnome-icon-theme gspell libxml++ cpputest
+```
+
+Get cherrytree source, compile and run:
+```sh
+git clone https://github.com/giuspen/cherrytree.git
+mkdir cherrytree/build
+cd cherrytree/build
+cmake ../future
+make -j4
+./cherrytree
+```
+
+To install:
+```sh
+make install
+```
+
 
 ##  Building Cherrytree on Windows
 
