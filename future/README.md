@@ -133,10 +133,10 @@ xdg-open /usr/share/doc/libxml++2.6/reference/html/index.html
 
 ## Building Cherrytree on MacOS
 
-Install python3-xml:
+
+Install python3-lxml by pip:
 ```sh
-curl https://bootstrap.pypa.io/get-pip.py -o ~/Downloads/get-pip.py
-python ~/Downloads/get-pip.py
+brew install python3
 pip3 install lxml
 ```
 
