@@ -23,6 +23,8 @@
 
 #include "ct_p7za_iface.h"
 #include <glib/gstdio.h>
+#include <string>
+#include <vector>
 #include <algorithm>
 
 extern int p7za_exec(int numArgs, char *args[]);
