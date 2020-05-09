@@ -151,7 +151,7 @@ git clone https://github.com/giuspen/cherrytree.git
 mkdir cherrytree/build
 cd cherrytree/build
 cmake ../future
-make -j$(nproc --all)
+make -j4
 ./cherrytree
 ```
 
