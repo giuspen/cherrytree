@@ -123,8 +123,8 @@ add_custom_target(man_pages ALL DEPENDS ${MANFILE_FULL_GZ})
 
 # rebuild languages binaries
 execute_process(
-    COMMAND python3 ${CMAKE_SOURCE_DIR}/po/i18n_po_to_mo.py
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  COMMAND python3 ${CMAKE_SOURCE_DIR}/po/i18n_po_to_mo.py
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 )
 
 

@@ -38,7 +38,7 @@ Debug with: F5
 ## To test install locally and create a package
 ```sh
 cmake -DCMAKE_INSTALL_PREFIX=./local_usr ../future
-make -j4  && make install
+make -j$(nproc --all)  && make install
 cpack -G DEB
 ```
 
@@ -54,7 +54,7 @@ git clone https://github.com/giuspen/cherrytree.git
 mkdir cherrytree/build
 cd cherrytree/build
 cmake ../future
-make -j4
+make -j$(nproc --all)
 ./cherrytree
 ```
 Install documentation:
@@ -85,7 +85,7 @@ git clone https://github.com/giuspen/cherrytree.git
 mkdir cherrytree/build
 cd cherrytree/build
 cmake ../future
-make -j4
+make -j$(nproc --all)
 ./cherrytree
 ```
 
@@ -113,7 +113,7 @@ git clone https://github.com/giuspen/cherrytree.git
 mkdir cherrytree/build
 cd cherrytree/build
 cmake ../future
-make -j4
+make -j$(nproc --all)
 ./cherrytree
 ```
 
@@ -151,7 +151,7 @@ git clone https://github.com/giuspen/cherrytree.git
 mkdir cherrytree/build
 cd cherrytree/build
 cmake ../future
-make -j4
+make -j$(nproc --all)
 ./cherrytree
 ```
 
@@ -172,12 +172,10 @@ pacman -Syuu
 
 Install required packages to build cherrytree:
 ```sh
-# toolchain
-pacman -S --needed --noconfirm mingw-w64-x86_64-toolchain
-# make and autotools
-pacman -S --needed --noconfirm make pkgconfig autoconf automake automake-wrapper libtool intltool gettext-devel
+# toolchain and cmake
+pacman -S --needed --noconfirm mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake
 # gtkmm3, libxml++, sqlite3
-pacman -S --needed --noconfirm mingw-w64-x86_64-gtkmm3 mingw-w64-x86_64-gtksourceviewmm3 mingw-w64-x86_64-libxml++2.6 mingw-w64-x86_64-sqlite3 mingw-w64-gspell
+pacman -S --needed --noconfirm mingw-w64-x86_64-gtkmm3 mingw-w64-x86_64-gtksourceviewmm3 mingw-w64-x86_64-libxml++2.6 mingw-w64-x86_64-sqlite3  mingw-w64-x86_64-gspell
 # python3-lxml
 pacman -S --needed --noconfirm mingw-w64-x86_64-python3-lxml
 # other
