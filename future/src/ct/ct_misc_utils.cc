@@ -870,8 +870,11 @@ void CtFileSystem::external_folderpath_open(const std::string& folderpath)
     //system(("open " + relatedEntry->get_text()).c_str());
 #else
     gchar *path = g_filename_to_uri(folderpath.c_str(), NULL, NULL);
-    Glib::ustring xgd = "xdg-open " + std::string(path);
-    system(xgd.c_str());
+    std::string xgd = "xdg-open " + std::string(path);
+    const auto retVal = system(xgd.c_str());
+    if (retVal != 0) {
+        g_warning("system(%s) returned %d", xgd.c_str(), retVal);
+    }
     g_free(path);
 #endif
 }

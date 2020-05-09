@@ -214,7 +214,7 @@ protected:
     void _populate_keyfile_from_data();
     void _unexpected_keyfile_error(const gchar* key, const Glib::KeyFileError& kferror);
 
-    static const uint8_t _maxTempKeySize{16};
+    static const size_t _maxTempKeySize{20};
     static const std::string _defaultFilepath;
 
     gchar _tempKey[_maxTempKeySize];
