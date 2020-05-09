@@ -1,7 +1,12 @@
 cmake_minimum_required(VERSION 3.13.2)
 
 project(cherrytree)
-set(CT_VERSION "0.1.0")
+set(CT_VERSION "0.99.0")
+
+
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set(CMAKE_INSTALL_PREFIX "/usr" CACHE PATH "..." FORCE)
+endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 
 
 # used to install locale, packagers might overwrite this
@@ -165,10 +170,10 @@ if(${CMAKE_SYSTEM_NAME} MATCHES Linux|.*BSD|DragonFly|Darwin)
           DESTINATION "${CHERRYTREE_SHARE_INSTALL}/data")
 
   # locale data
-  FILE(GLOB children "${CMAKE_SOURCE_DIR}/po/*")
-  FOREACH(child ${children})
-    IF(IS_DIRECTORY ${child})
-      install(DIRECTORY ${child} DESTINATION "${SHARE_INSTALL}/locale")
-    ENDIF()
-  ENDFOREACH()
+  file(GLOB children "${CMAKE_SOURCE_DIR}/po/*")
+  foreach(child ${children})
+    if(IS_DIRECTORY ${child})
+      install(DIRECTORY ${child} DESTINATION "${PACKAGE_LOCALE_DIR}")
+    endif()
+  endforeach()
 endif()

@@ -7,6 +7,9 @@
 /* Name of package */
 #define PACKAGE_NAME "${PROJECT_NAME}"
 
+/* Version of package */
+#define PACKAGE_VERSION "${CT_VERSION}"
+
 /* The domain to use with gettext */
 #define GETTEXT_PACKAGE "${PROJECT_NAME}"
 
@@ -16,11 +19,8 @@
 /* data directory */
 #define CHERRYTREE_DATADIR "${CMAKE_INSTALL_PREFIX}/${CHERRYTREE_SHARE_INSTALL}"
 
-
 /* always defined to indicate that i18n is enabled */
 #cmakedefine ENABLE_NLS 1
 
 /* folder with data for tests */
 #define _UNITTEST_DATA_DIR "${CMAKE_SOURCE_DIR}/tests/data"
-
-

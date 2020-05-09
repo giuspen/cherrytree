@@ -1,4 +1,4 @@
-cherrytree (0.40.0-0) focal; urgency=low
+cherrytree (0.99.0-1) focal; urgency=low
 
   * first gtkmm3 release
 

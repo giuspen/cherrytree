@@ -3,6 +3,7 @@ Section: editors
 Priority: optional
 Maintainer: Giuseppe Penone <giuspen@gmail.com>
 Build-Depends:
+ cmake (>= 3.13.2),
  debhelper (>= 9),
  desktop-file-utils,
  gettext,
@@ -18,14 +19,15 @@ Vcs-Git: https://github.com/giuspen/cherrytree.git
 Vcs-Browser: https://github.com/giuspen/cherrytree
 
 Package: cherrytree
-Architecture: all
+Architecture: amd64
 Depends:
  libgtkmm-3.0-1v5,
  libgtksourceviewmm-3.0-0v5,
  libxml++2.6-2v5,
  libsqlite3-0,
  libgspell-1-2,
- ${misc:Depends}
+ ${misc:Depends},
+ ${shlibs:Depends}
 Description: hierarchical note taking application
  CherryTree is a hierarchical note taking application, featuring rich text,
  syntax highlighting, images handling, hyperlinks, import/export with support

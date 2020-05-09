@@ -27,11 +27,12 @@
 #include <unordered_set>
 #include <glibmm.h>
 #include <array>
+#include "config.h"
 
 namespace CtConst {
 
-const constexpr gchar* CT_VERSION  {"0.0.1"};
-const constexpr gchar* APP_NAME    {"cherrytree"};
+const constexpr gchar* CT_VERSION  {PACKAGE_VERSION};
+const constexpr gchar* APP_NAME    {PACKAGE_NAME};
 
 const constexpr gchar* CTDOC_XML_NOENC          {".ctd"};
 const constexpr gchar* CTDOC_XML_ENC            {".ctz"};
