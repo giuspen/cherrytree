@@ -31,8 +31,8 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
 {
     Gsv::init();
 
-    Glib::ustring config_dir = Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME);
-    if (g_mkdir_with_parents (config_dir.c_str(), 0755) < 0)
+    std::string config_dir = Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME);
+    if (g_mkdir_with_parents(config_dir.c_str(), 0755) < 0)
         g_warning("Could not create config directory: %s", config_dir.c_str());
 
     _uCtCfg.reset(new CtConfig());
@@ -48,6 +48,10 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
     _rTextTagTable = Gtk::TextTagTable::create();
 
     _rLanguageManager = Gsv::LanguageManager::create();
+    std::vector<std::string> searchPath = _rLanguageManager->get_search_path();
+    const std::string ctLanguagesSpecsPath = Glib::build_filename(CtFileSystem::get_cherrytree_datadir(), "language-specs");
+    searchPath.push_back(ctLanguagesSpecsPath);
+    _rLanguageManager->set_search_path(searchPath);
 
     _rStyleSchemeManager = Gsv::StyleSchemeManager::create();
 

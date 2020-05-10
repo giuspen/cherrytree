@@ -1,7 +1,9 @@
 /*
  * ct_export2html.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,7 +26,6 @@
 #include "ct_main_win.h"
 #include "ct_dialogs.h"
 #include "ct_storage_control.h"
-#include "config.h"
 #include <fstream>
 
 CtExport2Html::CtExport2Html(CtMainWin* pCtMainWin)
@@ -56,7 +57,7 @@ bool CtExport2Html::prepare_html_folder(Glib::ustring dir_place, Glib::ustring n
     Glib::ustring styles_css_filepath = Glib::build_filename(config_dir, "styles3.css");
     if (!Glib::file_test(styles_css_filepath, Glib::FILE_TEST_IS_REGULAR))
     {
-        Glib::ustring styles_css_original = Glib::build_filename(CHERRYTREE_DATADIR, "data", "styles3.css");
+        std::string styles_css_original = Glib::build_filename(CtFileSystem::get_cherrytree_datadir(), "data", "styles3.css");
         CtFileSystem::copy_file(styles_css_original, styles_css_filepath);
     }
     CtFileSystem::copy_file(styles_css_filepath, Glib::build_filename(_res_dir, "styles3.css"));
@@ -64,7 +65,7 @@ bool CtExport2Html::prepare_html_folder(Glib::ustring dir_place, Glib::ustring n
     Glib::ustring styles_js_filepath = Glib::build_filename(config_dir, "script3.js");
     if (!Glib::file_test(styles_js_filepath, Glib::FILE_TEST_IS_REGULAR))
     {
-        Glib::ustring script_js_original = Glib::build_filename(CHERRYTREE_DATADIR, "data", "script3.js");
+        std::string script_js_original = Glib::build_filename(CtFileSystem::get_cherrytree_datadir(), "data", "script3.js");
         CtFileSystem::copy_file(script_js_original, styles_js_filepath);
     }
     CtFileSystem::copy_file(styles_js_filepath, Glib::build_filename(_res_dir, "script3.js"));
@@ -604,8 +605,8 @@ Glib::ustring CtExport2Html::_get_href_from_link_prop_val(Glib::ustring link_pro
 
 Glib::ustring CtExport2Html::_link_process_filepath(const Glib::ustring& filepath_raw)
 {
-    Glib::ustring filepath_orig = Glib::Base64::decode(filepath_raw);
-    Glib::ustring filepath = CtFileSystem::get_proper_platform_filepath(filepath_orig);
+    std::string filepath_orig = Glib::Base64::decode(filepath_raw);
+    std::string filepath = CtFileSystem::get_proper_platform_filepath(filepath_orig);
     // todo:
     //if not os.path.isabs(filepath) and os.path.isfile(os.path.join(self.file_dir, filepath)):
     //    filepath = os.path.join(self.file_dir, filepath)
@@ -614,8 +615,8 @@ Glib::ustring CtExport2Html::_link_process_filepath(const Glib::ustring& filepat
 
 Glib::ustring CtExport2Html::_link_process_folderpath(const Glib::ustring& folderpath_raw)
 {
-    Glib::ustring folderpath_orig = Glib::Base64::decode(folderpath_raw);
-    Glib::ustring folderpath = CtFileSystem::get_proper_platform_filepath(folderpath_orig);
+    std::string folderpath_orig = Glib::Base64::decode(folderpath_raw);
+    std::string folderpath = CtFileSystem::get_proper_platform_filepath(folderpath_orig);
     // todo:
     //if not os.path.isabs(folderpath) and os.path.isdir(os.path.join(self.file_dir, folderpath)):
     //    folderpath = os.path.join(self.file_dir, folderpath)
@@ -636,4 +637,3 @@ Glib::ustring CtExport2Html::_get_html_filename(CtTreeIter tree_iter)
     Glib::ustring name = CtMiscUtil::get_node_hierarchical_name(tree_iter, "--", true, true, ".html");
     return str::replace(name, "#", "~");
 }
-

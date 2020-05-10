@@ -794,14 +794,14 @@ std::string CtFileSystem::get_proper_platform_filepath(std::string filepath)
     return filepath;
 }
 
-bool CtFileSystem::copy_file(Glib::ustring from_file, Glib::ustring to_file)
+bool CtFileSystem::copy_file(const std::string& from_file, const std::string& to_file)
 {
     Glib::RefPtr<Gio::File> rFileFrom = Gio::File::create_for_path(from_file);
     Glib::RefPtr<Gio::File> rFileTo = Gio::File::create_for_path(to_file);
     return rFileFrom->copy(rFileTo, Gio::FILE_COPY_OVERWRITE);
 }
 
-bool CtFileSystem::move_file(Glib::ustring from_file, Glib::ustring to_file)
+bool CtFileSystem::move_file(const std::string& from_file, const std::string& to_file)
 {
     Glib::RefPtr<Gio::File> rFileFrom = Gio::File::create_for_path(from_file);
     Glib::RefPtr<Gio::File> rFileTo = Gio::File::create_for_path(to_file);
@@ -879,7 +879,7 @@ void CtFileSystem::external_folderpath_open(const std::string& folderpath)
 #endif
 }
 
-Glib::ustring CtFileSystem::prepare_export_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool overwrite_existing)
+std::string CtFileSystem::prepare_export_folder(const std::string& dir_place, std::string new_folder, bool overwrite_existing)
 {
     if (Glib::file_test(Glib::build_filename(dir_place, new_folder), Glib::FILE_TEST_IS_DIR))
     {
@@ -902,4 +902,13 @@ extern bool cherrytree_remove_dir_with_subs(const char* path);
 bool CtFileSystem::rmdir(const std::string& dir)
 {
     return cherrytree_remove_dir_with_subs(dir.c_str());
+}
+
+std::string CtFileSystem::get_cherrytree_datadir()
+{
+    if (Glib::file_test(Glib::build_filename(_CMAKE_ROOT_DIR, "build"), Glib::FILE_TEST_IS_DIR)) {
+        // we're running from the build sources
+        return _CMAKE_ROOT_DIR;
+    }
+    return CHERRYTREE_DATADIR;
 }

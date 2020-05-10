@@ -1,7 +1,9 @@
 /*
  * tests_misc_utils.cpp
  *
- * Copyright 2018-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -295,6 +297,12 @@ TEST(MiscUtilsGroup, vec_remove)
     CHECK(v_3.size() == 3);
     vec::remove(v_3, 2);
     CHECK(v_3.size() == 2);
+}
+
+TEST(MiscUtilsGroup, get_cherrytree_datadir)
+{
+    // we expect the unit test to be run from the built sources
+    STRCMP_EQUAL(_CMAKE_ROOT_DIR, CtFileSystem::get_cherrytree_datadir().c_str());
 }
 
 int main(int ac, char** av)

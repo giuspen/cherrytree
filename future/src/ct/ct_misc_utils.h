@@ -1,7 +1,9 @@
 /*
  * ct_misc_utils.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -241,7 +243,7 @@ String trim(String s)
 }
 
 template<typename ...Args>
-std::string format(std::string in_str, const Args&... args)
+std::string format(const std::string& in_str, const Args&... args)
 {
     return fmt::format(str::replace(in_str, "%s", "{}"), args...);
 }
@@ -368,9 +370,9 @@ namespace CtFileSystem {
 // From Slash to Backslash when needed
 std::string get_proper_platform_filepath(std::string filepath);
 
-bool copy_file(Glib::ustring from_file, Glib::ustring to_file);
+bool copy_file(const std::string& from_file, const std::string& to_file);
 
-bool move_file(Glib::ustring from_file, Glib::ustring to_file);
+bool move_file(const std::string& from_file, const std::string& to_file);
 
 std::string abspath(const std::string& path);
 
@@ -378,12 +380,13 @@ time_t getmtime(const std::string& path);
 
 int getsize(const std::string& path);
 
-
 void external_filepath_open(const std::string& filepath, bool open_fold_if_no_app_error);
 void external_folderpath_open(const std::string& folderpath);
 
-Glib::ustring prepare_export_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool overwrite_existing);
+std::string prepare_export_folder(const std::string& dir_place, std::string new_folder, bool overwrite_existing);
 
 bool rmdir(const std::string& dir);
+
+std::string get_cherrytree_datadir();
 
 } // namespace CtFileSystem

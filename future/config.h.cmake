@@ -22,5 +22,5 @@
 /* always defined to indicate that i18n is enabled */
 #cmakedefine ENABLE_NLS 1
 
-/* folder with data for tests */
-#define _UNITTEST_DATA_DIR "${CMAKE_SOURCE_DIR}/tests/data"
+/* folder with root CMakeLists.txt */
+#define _CMAKE_ROOT_DIR "${CMAKE_SOURCE_DIR}"

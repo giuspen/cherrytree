@@ -1,7 +1,9 @@
 /*
  * tests_tmp_n_p7zip.cpp
  *
- * Copyright 2018-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,8 +28,9 @@
 #include <libxml++/libxml++.h>
 #include "CppUTest/CommandLineTestRunner.h"
 
-const std::string ctzInputPath{Glib::build_filename(_UNITTEST_DATA_DIR, "7zr.ctz")};
-const std::string ctxInputPath{Glib::build_filename(_UNITTEST_DATA_DIR, "7zr.ctx")};
+const std::string unitTestsDataDir{Glib::build_filename(_CMAKE_ROOT_DIR, "tests", "data")};
+const std::string ctzInputPath{Glib::build_filename(unitTestsDataDir, "7zr.ctz")};
+const std::string ctxInputPath{Glib::build_filename(unitTestsDataDir, "7zr.ctx")};
 const gchar testPassword[]{"7zr"};
 const gchar testPasswordBis[]{"7zr2"};
 
