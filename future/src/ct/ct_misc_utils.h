@@ -39,6 +39,8 @@ template<class F> auto scope_guard(F&& f) {
 
 namespace CtMiscUtil {
 
+std::string get_ct_language();
+
 CtDocType get_doc_type(const std::string& fileName);
 
 CtDocEncrypt get_doc_encrypt(const std::string& fileName);
@@ -388,5 +390,8 @@ std::string prepare_export_folder(const std::string& dir_place, std::string new_
 bool rmdir(const std::string& dir);
 
 std::string get_cherrytree_datadir();
+std::string get_cherrytree_localedir();
+std::string get_cherrytree_configdir();
+std::string get_cherrytree_lang_filepath();
 
 } // namespace CtFileSystem

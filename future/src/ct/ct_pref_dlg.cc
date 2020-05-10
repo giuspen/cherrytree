@@ -1416,10 +1416,9 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
 
     Gtk::VBox* vbox_language = Gtk::manage(new Gtk::VBox());
     Gtk::ComboBoxText* combobox_country_language = Gtk::manage(new Gtk::ComboBoxText());
-    for (auto lang: CtConst::AVAILABLE_LANGS)
+    for (auto lang : CtConst::AVAILABLE_LANGS)
         combobox_country_language->append(lang);
-    // todo: country_lang (taken from s.path.isfile(cons.LANG_PATH))
-    // combobox_country_language->set_active_text(pConfig->countryLang);
+    combobox_country_language->set_active_text(CtMiscUtil::get_ct_language());
     vbox_language->pack_start(*combobox_country_language, false, false);
     Gtk::Frame* frame_language = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Language")+"</b>"));
     ((Gtk::Label*)frame_language->get_label_widget())->set_use_markup(true);
@@ -1482,15 +1481,11 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
         pConfig->wordCountOn = checkbutton_word_count->get_active();
         apply_for_each_window([](CtMainWin* win) { win->update_selected_node_statusbar_info(); });
     });
-    combobox_country_language->signal_changed().connect([this, /*pConfig, */combobox_country_language](){
+    combobox_country_language->signal_changed().connect([this, combobox_country_language](){
         Glib::ustring new_lang = combobox_country_language->get_active_text();
         need_restart(RESTART_REASON::LANG, _("The New Language will be Available Only After Restarting CherryTree"));
-        // pConfig->countryLang = new_lang;
-        //dad.country_lang = new_lang
-        //lang_file_descriptor = file(cons.LANG_PATH, 'w')
-        //lang_file_descriptor.write(new_lang)
-        //lang_file_descriptor.close()
-
+        g_file_set_contents(CtFileSystem::get_cherrytree_lang_filepath().c_str(),
+                            new_lang.c_str(), (gssize)new_lang.bytes(), nullptr);
     });
 
     return pMainBox;

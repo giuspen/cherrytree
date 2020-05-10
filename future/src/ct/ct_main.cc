@@ -1,7 +1,9 @@
 /*
  * ct_main.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,13 +22,27 @@
  */
 
 #include "ct_app.h"
+#include "ct_misc_utils.h"
 #include "config.h"
 
 int main(int argc, char *argv[])
 {
     std::locale::global(std::locale("")); // Set the global C++ locale to the user-specified locale
 
-    bindtextdomain(GETTEXT_PACKAGE, CHERRYTREE_LOCALEDIR);
+    const std::string ct_lang = CtMiscUtil::get_ct_language();
+    if (ct_lang != CtConst::LANG_DEFAULT)
+    {
+        if (Glib::setenv("LANGUAGE", ct_lang, true/*overwrite*/))
+        {
+            g_message("Language overwrite = %s", ct_lang.c_str());
+        }
+        else
+        {
+            g_critical("Couldn't set language %s", ct_lang.c_str());
+        }
+    }
+
+    bindtextdomain(GETTEXT_PACKAGE, CtFileSystem::get_cherrytree_localedir().c_str());
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
     textdomain(GETTEXT_PACKAGE);
 

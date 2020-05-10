@@ -305,6 +305,13 @@ TEST(MiscUtilsGroup, get_cherrytree_datadir)
     STRCMP_EQUAL(_CMAKE_ROOT_DIR, CtFileSystem::get_cherrytree_datadir().c_str());
 }
 
+TEST(MiscUtilsGroup, get_cherrytree_localedir)
+{
+    // we expect the unit test to be run from the built sources
+    STRCMP_EQUAL(Glib::build_filename(_CMAKE_ROOT_DIR, "po").c_str(), CtFileSystem::get_cherrytree_localedir().c_str());
+}
+
+
 int main(int ac, char** av)
 {
     // libp7za has memory leaks

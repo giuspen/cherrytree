@@ -180,8 +180,6 @@ const constexpr gchar* CHAR_CARET             {"^"};
 const constexpr gchar* CHAR_PIPE              {"|"};
 const constexpr gchar* CHAR_AMPERSAND         {"&"};
 
-
-
 const constexpr std::array<const gchar*, 4> WEB_LINK_STARTERS {
     "http://",
     "https://",
@@ -219,8 +217,10 @@ const constexpr std::array<const gchar*, 17>  TOOLBAR_VEC_BLACKLIST {
     "img_link_edit", "img_link_dismiss", "toggle_show_mainwin"
 };
 
+const constexpr gchar* LANG_DEFAULT{"default"};
+
 const constexpr std::array<const gchar*, 21> AVAILABLE_LANGS {
-    "default", "cs", "de", "el", "en", "es", "fi", "fr", "hy", "it",
+    LANG_DEFAULT, "cs", "de", "el", "en", "es", "fi", "fr", "hy", "it",
     "ja", "lt", "nl", "pl", "pt_BR", "ru", "sl", "sv", "tr", "uk", "zh_CN"
 };
 

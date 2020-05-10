@@ -32,6 +32,24 @@
 #include <glib/gstdio.h> // to get stats
 #include <fstream>
 
+std::string CtMiscUtil::get_ct_language()
+{
+    std::string retLang{CtConst::LANG_DEFAULT};
+    if (Glib::file_test(CtFileSystem::get_cherrytree_lang_filepath(), Glib::FILE_TEST_IS_REGULAR))
+    {
+        const std::string langTxt = str::trim(Glib::file_get_contents(CtFileSystem::get_cherrytree_lang_filepath()));
+        if (vec::exists(CtConst::AVAILABLE_LANGS, langTxt))
+        {
+            retLang = langTxt;
+        }
+        else
+        {
+            g_critical("Unexpected %s file content %s", CtFileSystem::get_cherrytree_lang_filepath().c_str(), langTxt.c_str());
+        }
+    }
+    return retLang;
+}
+
 CtDocType CtMiscUtil::get_doc_type(const std::string& fileName)
 {
     CtDocType retDocType{CtDocType::None};
@@ -911,4 +929,25 @@ std::string CtFileSystem::get_cherrytree_datadir()
         return _CMAKE_ROOT_DIR;
     }
     return CHERRYTREE_DATADIR;
+}
+
+std::string CtFileSystem::get_cherrytree_localedir()
+{
+    const std::string sources_po_dir = Glib::build_filename(_CMAKE_ROOT_DIR, "po");
+    if (Glib::file_test(sources_po_dir, Glib::FILE_TEST_IS_DIR)) {
+        // we're running from the build sources
+        return sources_po_dir;
+    }
+    return CHERRYTREE_LOCALEDIR;
+}
+
+std::string CtFileSystem::get_cherrytree_configdir()
+{
+    //TODO: define rule for local config.cfg/lang files at least for Windows portable
+    return Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME);
+}
+
+std::string CtFileSystem::get_cherrytree_lang_filepath()
+{
+    return Glib::build_filename(get_cherrytree_configdir(), "lang");
 }

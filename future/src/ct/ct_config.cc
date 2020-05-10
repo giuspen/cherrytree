@@ -26,7 +26,7 @@
 #include "ct_config.h"
 #include "ct_misc_utils.h"
 
-const std::string CtConfig::_defaultFilepath{Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME, "config.cfg")};
+const std::string CtConfig::_defaultFilepath{Glib::build_filename(CtFileSystem::get_cherrytree_configdir(), "config.cfg")};
 
 CtConfig::CtConfig()
 {
