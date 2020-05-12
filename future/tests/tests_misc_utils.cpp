@@ -308,7 +308,7 @@ TEST(MiscUtilsGroup, get_cherrytree_datadir)
 TEST(MiscUtilsGroup, get_cherrytree_localedir)
 {
     // we expect the unit test to be run from the built sources
-    STRCMP_EQUAL(Glib::build_filename(_CMAKE_ROOT_DIR, "po").c_str(), CtFileSystem::get_cherrytree_localedir().c_str());
+    STRCMP_EQUAL(Glib::canonicalize_filename(Glib::build_filename(_CMAKE_ROOT_DIR, "po")).c_str(), CtFileSystem::get_cherrytree_localedir().c_str());
 }
 
 

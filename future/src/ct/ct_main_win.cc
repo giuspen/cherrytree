@@ -718,7 +718,7 @@ void CtMainWin::menu_set_items_recent_documents()
         {
             if (file_open(filepath, ""))
             {
-                _pCtConfig->recentDocsFilepaths.move_or_push_front(filepath);
+                _pCtConfig->recentDocsFilepaths.move_or_push_front(Glib::canonicalize_filename(filepath));
                 menu_set_items_recent_documents();
             }
         }
@@ -726,7 +726,7 @@ void CtMainWin::menu_set_items_recent_documents()
         {
             g_autofree gchar* title = g_strdup_printf(_("The Document %s was Not Found"), filepath.c_str());
             CtDialogs::error_dialog(Glib::ustring{title}, *this);
-            _pCtConfig->recentDocsFilepaths.move_or_push_back(filepath);
+            _pCtConfig->recentDocsFilepaths.move_or_push_back(Glib::canonicalize_filename(filepath));
             menu_set_items_recent_documents();
         }
     };
@@ -791,7 +791,7 @@ void CtMainWin::_ensure_curr_doc_in_recent_docs()
     const std::string currDocFilePath = _uCtStorage->get_file_path();
     if (not currDocFilePath.empty())
     {
-        _pCtConfig->recentDocsFilepaths.move_or_push_front(currDocFilePath);
+        _pCtConfig->recentDocsFilepaths.move_or_push_front(Glib::canonicalize_filename(currDocFilePath));
         CtRecentDocRestore prevDocRestore;
         prevDocRestore.exp_coll_str = _uCtTreestore->treeview_get_tree_expanded_collapsed_string(*_uCtTreeview);
         const CtTreeIter prevTreeIter = curr_tree_iter();
@@ -891,7 +891,7 @@ bool CtMainWin::file_open(const std::string& filepath, const std::string& node_t
         _ctTextview.grab_focus();
     }
 
-    get_ct_config()->recentDocsFilepaths.move_or_push_front(filepath);
+    get_ct_config()->recentDocsFilepaths.move_or_push_front(Glib::canonicalize_filename(filepath));
     menu_set_items_recent_documents();
 
     return true;

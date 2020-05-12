@@ -344,7 +344,7 @@ void CtImageEmbFile::update_label_widget()
 void CtImageEmbFile::update_tooltip()
 {
     char humanReadableSize[16];
-    const long unsigned embfileBytes{_rawBlob.size()};
+    const size_t embfileBytes{_rawBlob.size()};
     const double embfileKbytes{static_cast<double>(embfileBytes)/1024};
     const double embfileMbytes{embfileKbytes/1024};
     if (embfileMbytes > 1)

@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     {
         if (Glib::setenv("LANGUAGE", ct_lang, true/*overwrite*/))
         {
-            g_message("Language overwrite = %s", ct_lang.c_str());
+            g_message("Language overwrite = %s (localedir = %s)", ct_lang.c_str(), CtFileSystem::get_cherrytree_localedir().c_str());
         }
         else
         {
