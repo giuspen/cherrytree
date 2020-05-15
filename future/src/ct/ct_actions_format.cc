@@ -236,9 +236,27 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
                 _link_entry = CtDialogs::CtLinkEntry(); // reset
             if (not text_buffer->get_has_selection()) {
                 if (tag_property != CtConst::TAG_LINK) {
-                    if (not _pCtMainWin->apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter())) {
-                        CtDialogs::warning_dialog(_("No Text is Selected"), *_pCtMainWin);
-                        return;
+                    static bool connected = false;
+                    if (!connected) {
+                        _curr_buffer()->signal_insert().connect(
+                                [this](const Gtk::TextBuffer::iterator &pos,
+                                       const Glib::ustring &text, int) {
+                                    if (_is_formatting) {
+                                        Gtk::TextIter start(pos);
+                                        start.backward_chars(text.length());
+                                        auto tag_name = _pCtMainWin->get_text_tag_name_exist_or_create(_current_prop_name,_current_prop_val);
+                                        _curr_buffer()->apply_tag_by_name(tag_name, start, pos);
+                                    }
+                                });
+                        connected = true;
+                    }
+    
+                    if (!_is_formatting || (_current_prop_val != property_value)) {
+                        _current_prop_name = tag_property;
+                        _current_prop_val = property_value;
+                        _is_formatting = true;
+                    } else {
+                        _is_formatting = false;
                     }
                 } else {
                     Glib::ustring tag_property_value = _link_check_around_cursor();

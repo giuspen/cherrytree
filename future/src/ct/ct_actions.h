@@ -258,7 +258,11 @@ private:
     bool _links_entries_pre_dialog(const Glib::ustring& curr_link, CtDialogs::CtLinkEntry& link_entry);
     Glib::ustring _links_entries_post_dialog(CtDialogs::CtLinkEntry& link_entry);
     Glib::ustring _link_check_around_cursor();
-
+    
+    Glib::ustring _current_prop_name;
+    Glib::ustring _current_prop_val;
+    bool _is_formatting = false;
+  
 public:
     // format actions
     void apply_tag_latest();
