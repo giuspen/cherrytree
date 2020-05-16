@@ -1,6 +1,6 @@
 # Installation Guid
 
-- [Debian/Linux Mint/Ubuntu](#building-cherrytree-on-ubuntu)
+- [Debian/Linux Mint/Ubuntu](#building-cherrytree-on-ubuntu-2004)
 - [Arch Linux/Manjaro Linux](#building-cherrytree-on-arch)
 - [Fedora](#building-cherrytree-on-fedora)
 - [MacOs](#building-cherrytree-on-macos)
