@@ -42,11 +42,11 @@ make -j$(nproc --all)  && make install
 cpack -G DEB
 ```
 
-## Building Cherrytree on Ubuntu
+## Building Cherrytree on Ubuntu 20.04
 
 Install dependencies::
 ```sh
-sudo apt install build-essential libtool autoconf libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev libcpputest-dev autopoint gettext intltool python3-lxml libxml2-utils libgspell-1-dev
+sudo apt install build-essential cmake libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev libcpputest-dev gettext python3-lxml libgspell-1-dev
 ```
 Get cherrytree source, compile and run:
 ```sh
