@@ -62,7 +62,7 @@ private:
     void          _html_get_from_treestore_node(CtTreeIter node_iter, int sel_start, int sel_end,
                                        std::vector<Glib::ustring>& out_slots, std::vector<CtAnchoredWidget*>& out_widgets);
     Glib::ustring _html_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer);
-    Glib::ustring _html_text_serialize(Gtk::TextIter start_iter, Gtk::TextIter end_iter, const std::map<const gchar*, std::string>& curr_attributes);
+    Glib::ustring _html_text_serialize(Gtk::TextIter start_iter, Gtk::TextIter end_iter, const std::map<std::string_view, std::string>& curr_attributes);
     Glib::ustring _get_href_from_link_prop_val(Glib::ustring link_prop_val);
     Glib::ustring _get_object_alignment_string(Glib::ustring alignment);
 

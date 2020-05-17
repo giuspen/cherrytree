@@ -242,7 +242,7 @@ bool CtTextIterUtil::get_is_camel_case(Gtk::TextIter iter_start, int num_chars)
     return curr_state == 3;
 }
 
-void CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter, std::map<const gchar*, std::string>& curr_attributes)
+void CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter, std::map<std::string_view, std::string>& curr_attributes)
 {
     std::vector<Glib::RefPtr<const Gtk::TextTag>> toggled_off = text_iter.get_toggled_tags(false/*toggled_on*/);
     for (const auto& r_curr_tag : toggled_off)
@@ -319,7 +319,7 @@ bool CtTextIterUtil::tag_richtext_toggling_on_or_off(const Gtk::TextIter& text_i
 void CtTextIterUtil::generic_process_slot(int start_offset,
                                           int end_offset,
                                           Glib::RefPtr<Gtk::TextBuffer>& text_buffer,
-                                          std::function<void(Gtk::TextIter&/*start_iter*/, Gtk::TextIter&/*curr_iter*/, std::map<const gchar*, std::string>&/*curr_attributes*/)> serialize_func)
+                                          std::function<void(Gtk::TextIter&/*start_iter*/, Gtk::TextIter&/*curr_iter*/, std::map<std::string_view, std::string>&/*curr_attributes*/)> serialize_func)
 {
 /*    if (end_offset == -1)
         end_offset = text_buffer->end().get_offset();
@@ -367,7 +367,7 @@ void CtTextIterUtil::generic_process_slot(int start_offset,
     // todo: make the upper code less ugly
     // if there is an issue, then try the upper code
 
-    std::map<const gchar*, std::string> curr_attributes;
+    std::map<std::string_view, std::string> curr_attributes;
     for (auto tag_property: CtConst::TAG_PROPERTIES)
         curr_attributes[tag_property] = "";
 

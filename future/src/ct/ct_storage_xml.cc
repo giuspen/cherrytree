@@ -303,12 +303,12 @@ void CtStorageXmlHelper::populate_table_matrix(std::vector<std::vector<CtTableCe
 /*static*/ void CtStorageXmlHelper::save_buffer_no_widgets_to_xml(xmlpp::Element* p_node_parent, Glib::RefPtr<Gtk::TextBuffer> buffer,
                                                        int start_offset, int end_offset, const gchar change_case)
 {
-    auto rich_txt_serialize = [&](Gtk::TextIter& start_iter, Gtk::TextIter& end_iter, std::map<const gchar*, std::string>& curr_attributes) {
+    auto rich_txt_serialize = [&](Gtk::TextIter& start_iter, Gtk::TextIter& end_iter, std::map<std::string_view, std::string>& curr_attributes) {
          xmlpp::Element* p_rich_text_node = p_node_parent->add_child("rich_text");
          for (const auto& map_iter : curr_attributes)
          {
              if (!map_iter.second.empty())
-                p_rich_text_node->set_attribute(map_iter.first, map_iter.second);
+                p_rich_text_node->set_attribute(map_iter.first.data(), map_iter.second);
          }
          Glib::ustring slot_text = start_iter.get_text(end_iter);
          if ('n' != change_case)

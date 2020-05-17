@@ -51,7 +51,7 @@ void CtExport2Pdf::node_and_subnodes_export_print(const Glib::ustring& pdf_filep
     std::vector<Glib::ustring> tree_pango_slots;
     std::list<CtAnchoredWidget*> tree_widgets;
     Glib::ustring text_font = _pCtMainWin->get_ct_config()->codeFont;
-    _nodes_all_export_print_iter(std::move(tree_iter), options, tree_pango_slots, tree_widgets, text_font);
+    _nodes_all_export_print_iter(tree_iter, options, tree_pango_slots, tree_widgets, text_font);
 
     _pCtMainWin->get_ct_print().print_text(_pCtMainWin, pdf_filepath, tree_pango_slots, text_font, _pCtMainWin->get_ct_config()->codeFont,
                                            tree_widgets, _pCtMainWin->get_text_view().get_allocation().get_width());
@@ -809,19 +809,14 @@ Glib::ustring CtExport2Pango::_pango_process_slot(int start_offset, int end_offs
 {
     Glib::ustring curr_pango_text = "";
     CtTextIterUtil::generic_process_slot(start_offset, end_offset, curr_buffer,
-                                         [&](Gtk::TextIter& start_iter, Gtk::TextIter& curr_iter, std::map<const gchar*, std::string>& curr_attributes) {
-        std::map<std::string, std::string> curr_attributes_str;
-        for (const auto& keypair : curr_attributes) {
-            curr_attributes_str.emplace(keypair.first, keypair.second);
-        }
-        
-        curr_pango_text += _pango_text_serialize(start_iter, curr_iter, curr_attributes_str);
+                                         [&](Gtk::TextIter& start_iter, Gtk::TextIter& curr_iter, std::map<std::string_view, std::string>& curr_attributes) {
+        curr_pango_text += _pango_text_serialize(start_iter, curr_iter, curr_attributes);
     });
     return curr_pango_text;
 }
 
 // Adds a slice to the Pango Text
-Glib::ustring CtExport2Pango::_pango_text_serialize(Gtk::TextIter start_iter, Gtk::TextIter end_iter, const std::map<std::string, std::string> &curr_attributes)
+Glib::ustring CtExport2Pango::_pango_text_serialize(Gtk::TextIter start_iter, Gtk::TextIter end_iter, const std::map<std::string_view, std::string> &curr_attributes)
 {
     Glib::ustring pango_attrs;
     bool superscript_active = false;
@@ -863,7 +858,7 @@ Glib::ustring CtExport2Pango::_pango_text_serialize(Gtk::TextIter start_iter, Gt
                 Glib::ustring color_no_white = CtRgbUtil::rgb_to_no_white(property_value);
                 property_value = CtRgbUtil::get_rgb24str_from_str_any(color_no_white);
             }
-            pango_attrs += std::string(" ") + tag_property + "=\"" + property_value + "\"";
+            pango_attrs += std::string(" ") + tag_property.data() + "=\"" + property_value + "\"";
         }
     }
     Glib::ustring tagged_text;
