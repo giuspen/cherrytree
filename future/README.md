@@ -176,10 +176,10 @@ Install required packages to build cherrytree:
 pacman -S --needed --noconfirm mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake
 # gtkmm3, libxml++, sqlite3
 pacman -S --needed --noconfirm mingw-w64-x86_64-gtkmm3 mingw-w64-x86_64-gtksourceviewmm3 mingw-w64-x86_64-libxml++2.6 mingw-w64-x86_64-sqlite3  mingw-w64-x86_64-gspell
-# python3-lxml
-pacman -S --needed --noconfirm mingw-w64-x86_64-python3-lxml
+# python3-lxml, gettext
+pacman -S --needed --noconfirm mingw-w64-x86_64-python3-lxml mingw-w64-x86_64-gettext
 # other
-pacman -S --needed --noconfirm perl tar nano p7zip git mingw-w64-x86_64-meld3
+pacman -S --needed --noconfirm tar nano git mingw-w64-x86_64-meld3
 # cpputest (missing package, we need to build manually)
 wget https://github.com/cpputest/cpputest/releases/download/v3.8/cpputest-3.8.tar.gz
 tar xf cpputest-3.8.tar.gz

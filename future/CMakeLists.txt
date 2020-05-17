@@ -160,10 +160,8 @@ if(${CMAKE_SYSTEM_NAME} MATCHES Linux|.*BSD|DragonFly|Darwin)
   endif(NOT APPLE)
 
   # share/cherrytree data
-  install(FILES
-          "${CMAKE_SOURCE_DIR}/language-specs/clisp.lang"
-          "${CMAKE_SOURCE_DIR}/language-specs/markdown-extra.lang"
-          DESTINATION "${CHERRYTREE_SHARE_INSTALL}/language-specs")
+  install(DIRECTORY ${CMAKE_SOURCE_DIR}/language-specs
+          DESTINATION ${CHERRYTREE_SHARE_INSTALL})
   install(FILES
           "${CMAKE_SOURCE_DIR}/data/script3.js"
           "${CMAKE_SOURCE_DIR}/data/styles3.css"

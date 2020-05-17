@@ -3,8 +3,10 @@
 # and in particular make-gedit-installer.sh
 
 GIT_CT_FOLDER="/home/${USER}/git/cherrytree"
-GIT_CT_EXE="${GIT_CT_FOLDER}/future/cherrytree.exe"
-GIT_CT_LINGUAS="${GIT_CT_FOLDER}/future/po/LINGUAS"
+GIT_CT_EXE="${GIT_CT_FOLDER}/future/build/cherrytree.exe"
+GIT_CT_LANGUAGES_FOLDER="${GIT_CT_FOLDER}/future/po"
+GIT_CT_DATA_FOLDER="${GIT_CT_FOLDER}/future/data"
+GIT_CT_LANGUAGE_SPECS_FOLDER="${GIT_CT_FOLDER}/future/language-specs"
 GIT_CT_LICENSE="${GIT_CT_FOLDER}/license.txt"
 
 NEW_MSYS2_FOLDER="C:/Users/${USER}/Desktop/CherryTree-msys2"
@@ -12,6 +14,7 @@ NEW_ROOT_FOLDER="C:/Users/${USER}/Desktop/CherryTree-root"
 NEW_MINGW64_FOLDER="${NEW_ROOT_FOLDER}/mingw64"
 NEW_ETC_GTK_FOLDER="${NEW_ROOT_FOLDER}/etc/gtk-3.0"
 NEW_ETC_GTK_SETTINGS_INI="${NEW_ETC_GTK_FOLDER}/settings.ini"
+NEW_CHERRYTREE_SHARE="${NEW_MINGW64_FOLDER}/usr/share/cherrytree"
 
 
 echo "cleanup old runs..."
@@ -35,7 +38,8 @@ pacman -S --noconfirm --root "${NEW_MSYS2_FOLDER}" \
   mingw-w64-x86_64-gtkmm3 \
   mingw-w64-x86_64-gtksourceviewmm3 \
   mingw-w64-x86_64-libxml++2.6 \
-  mingw-w64-x86_64-sqlite3
+  mingw-w64-x86_64-sqlite3 \
+  mingw-w64-x86_64-gspell
 _result=$?
 if [ "$_result" -ne "0" ]; then
   echo "failed to create base data via command 'pacman -S <packages names list> --noconfirm --root ${NEW_MSYS2_FOLDER}'"
@@ -125,10 +129,12 @@ rm -rf ${NEW_MINGW64_FOLDER}/lib/*.sh
 LOCALE="${NEW_MINGW64_FOLDER}/share/locale"
 LOCALE_TMP="${LOCALE}-tmp"
 mkdir ${LOCALE_TMP}
-for LINE in $(cat ${GIT_CT_LINGUAS})
+for element_rel in $(ls ${GIT_CT_LANGUAGES_FOLDER})
 do
-  mv -fv ${LOCALE}/${LINE} ${LOCALE_TMP}/
+  element_abs=${GIT_CT_LANGUAGES_FOLDER}/${element_rel}
+  [ -d ${element_abs} ] && mv -fv ${LOCALE}/${element_rel} ${LOCALE_TMP}/
 done
+
 rm -rf ${LOCALE}
 mv ${LOCALE_TMP} ${LOCALE}
 
@@ -145,5 +151,14 @@ echo "gtk-theme-name=win32" >> ${NEW_ETC_GTK_SETTINGS_INI}
 
 echo "copying cherrytree files..."
 strip ${GIT_CT_EXE}
-cp -v ${GIT_CT_EXE} ${NEW_ROOT_FOLDER}/mingw64/bin/
+cp -v ${GIT_CT_EXE} ${NEW_MINGW64_FOLDER}/bin/
 cp -v ${GIT_CT_LICENSE} ${NEW_ROOT_FOLDER}/
+mkdir -p ${NEW_CHERRYTREE_SHARE}/data
+cp -rv ${GIT_CT_LANGUAGE_SPECS_FOLDER} ${NEW_CHERRYTREE_SHARE}/
+cp -v ${GIT_CT_DATA_FOLDER}/script3.js ${NEW_CHERRYTREE_SHARE}/data/
+cp -v ${GIT_CT_DATA_FOLDER}/styles3.css ${NEW_CHERRYTREE_SHARE}/data/
+for element_rel in $(ls ${GIT_CT_LANGUAGES_FOLDER})
+do
+  element_abs=${GIT_CT_LANGUAGES_FOLDER}/${element_rel}
+  [ -d ${element_abs} ] && cp -rfv ${element_abs} ${LOCALE}/
+done
