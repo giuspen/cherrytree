@@ -560,8 +560,8 @@ void CtMainWin::update_theme()
         Gtk::StyleContext::remove_provider_for_screen(get_screen(), _css_provider_theme);
     }
     _css_provider_theme = Gtk::CssProvider::create();
-    _css_provider_theme->load_from_data(font_css);
-    _css_provider_theme->load_from_data(theme_css);
+    _css_provider_theme->load_from_data(font_css + " " + theme_css);
+    // _css_provider_theme->load_from_data(theme_css); second call of load_from_data erases css from the first call on mac
     get_style_context()->add_provider_for_screen(get_screen(), _css_provider_theme, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 }
 
