@@ -180,14 +180,14 @@ const constexpr gchar* CHAR_CARET             {"^"};
 const constexpr gchar* CHAR_PIPE              {"|"};
 const constexpr gchar* CHAR_AMPERSAND         {"&"};
 
-const constexpr std::array<const gchar*, 4> WEB_LINK_STARTERS {
+const constexpr std::array<std::string_view, 4> WEB_LINK_STARTERS {
     "http://",
     "https://",
     "www.",
     "ftp://"
 };
 
-const constexpr std::array<const gchar*, 10> TAG_PROPERTIES {
+const constexpr std::array<std::string_view, 10> TAG_PROPERTIES {
     TAG_WEIGHT,
     TAG_FOREGROUND,
     TAG_BACKGROUND,
@@ -346,4 +346,4 @@ const std::unordered_map<std::string, std::string> CODE_EXEC_TERM_RUN_DEFAULT {
 
 
 
-}; // namespace CtConst
+} // namespace CtConst

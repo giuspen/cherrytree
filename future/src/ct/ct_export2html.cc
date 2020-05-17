@@ -425,7 +425,7 @@ Glib::ustring CtExport2Html::_html_process_slot(int start_offset, int end_offset
 {
     Glib::ustring curr_html_text = "";
     CtTextIterUtil::generic_process_slot(start_offset, end_offset, curr_buffer,
-                                         [&](Gtk::TextIter& start_iter, Gtk::TextIter& curr_iter, std::map<const gchar*, std::string>& curr_attributes) {
+                                         [&](Gtk::TextIter& start_iter, Gtk::TextIter& curr_iter, std::map<std::string_view, std::string>& curr_attributes) {
         curr_html_text += _html_text_serialize(start_iter, curr_iter, curr_attributes);
     });
 
@@ -438,7 +438,7 @@ Glib::ustring CtExport2Html::_html_process_slot(int start_offset, int end_offset
 }
 
 // Adds a slice to the HTML Text
-Glib::ustring CtExport2Html::_html_text_serialize(Gtk::TextIter start_iter, Gtk::TextIter end_iter, const std::map<const gchar*, std::string>& curr_attributes)
+Glib::ustring CtExport2Html::_html_text_serialize(Gtk::TextIter start_iter, Gtk::TextIter end_iter, const std::map<std::string_view, std::string>& curr_attributes)
 {
     Glib::ustring inner_text = str::xml_escape(start_iter.get_text(end_iter));
     if (inner_text == "") return "";
@@ -538,7 +538,7 @@ Glib::ustring CtExport2Html::_html_text_serialize(Gtk::TextIter start_iter, Gtk:
             Glib::ustring html_text = "<a href=\"" + href + "\">" + inner_text + "</a>";
             return html_text;
         }
-        html_attrs += Glib::ustring(tag_property) + ":" + property_value + ";";
+        html_attrs += Glib::ustring(tag_property.data()) + ":" + property_value + ";";
     }
     Glib::ustring tagged_text;
     if (html_attrs == "" || inner_text == "<br />")

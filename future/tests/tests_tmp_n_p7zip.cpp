@@ -28,7 +28,7 @@
 #include <libxml++/libxml++.h>
 #include "CppUTest/CommandLineTestRunner.h"
 
-const std::string unitTestsDataDir{Glib::build_filename(_CMAKE_ROOT_DIR, "tests", "data")};
+const std::string unitTestsDataDir{Glib::build_filename(_CMAKE_SOURCE_DIR, "tests", "data")};
 const std::string ctzInputPath{Glib::build_filename(unitTestsDataDir, "7zr.ctz")};
 const std::string ctxInputPath{Glib::build_filename(unitTestsDataDir, "7zr.ctx")};
 const gchar testPassword[]{"7zr"};

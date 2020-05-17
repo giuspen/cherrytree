@@ -23,4 +23,5 @@
 #cmakedefine ENABLE_NLS 1
 
 /* folder with root CMakeLists.txt */
-#define _CMAKE_ROOT_DIR "${CMAKE_SOURCE_DIR}"
+#define _CMAKE_SOURCE_DIR "${CMAKE_SOURCE_DIR}"
+#define _CMAKE_BINARY_DIR "${CMAKE_BINARY_DIR}"

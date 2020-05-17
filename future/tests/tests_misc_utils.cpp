@@ -302,13 +302,13 @@ TEST(MiscUtilsGroup, vec_remove)
 TEST(MiscUtilsGroup, get_cherrytree_datadir)
 {
     // we expect the unit test to be run from the built sources
-    STRCMP_EQUAL(_CMAKE_ROOT_DIR, CtFileSystem::get_cherrytree_datadir().c_str());
+    STRCMP_EQUAL(_CMAKE_SOURCE_DIR, CtFileSystem::get_cherrytree_datadir().c_str());
 }
 
 TEST(MiscUtilsGroup, get_cherrytree_localedir)
 {
     // we expect the unit test to be run from the built sources
-    STRCMP_EQUAL(Glib::canonicalize_filename(Glib::build_filename(_CMAKE_ROOT_DIR, "po")).c_str(), CtFileSystem::get_cherrytree_localedir().c_str());
+    STRCMP_EQUAL(Glib::canonicalize_filename(Glib::build_filename(_CMAKE_SOURCE_DIR, "po")).c_str(), CtFileSystem::get_cherrytree_localedir().c_str());
 }
 
 

@@ -84,24 +84,35 @@ inline bool startswith(Gtk::TextIter text_iter, const gchar* str)
     }
 }
 
+template<class type>
+const gchar* get_str_pointer(const type& str)
+{
+    return str;
+}
+
+template<>
+inline const gchar* get_str_pointer<std::string_view>(const std::string_view& str)
+{
+    return str.data();
+}
 
 template<class container>
 bool startswith_any(Gtk::TextIter text_iter, const container& str_list)
 {
     for (auto it = std::begin(str_list); it != std::end(str_list); ++it)
-        if (startswith(text_iter, *it))
+        if (startswith(text_iter, get_str_pointer(*it)))
             return true;
     return false;
 }
 
-void rich_text_attributes_update(const Gtk::TextIter& text_iter, std::map<const gchar*, std::string>& curr_attributes);
+void rich_text_attributes_update(const Gtk::TextIter& text_iter, std::map<std::string_view, std::string>& curr_attributes);
 
 bool tag_richtext_toggling_on_or_off(const Gtk::TextIter& text_iter);
 
 void generic_process_slot(int start_offset,
                           int end_offset,
                           Glib::RefPtr<Gtk::TextBuffer>& text_buffer,
-                          std::function<void(Gtk::TextIter&/*start_iter*/, Gtk::TextIter&/*curr_iter*/, std::map<const gchar*, std::string>&/*curr_attributes*/)> serialize_func);
+                          std::function<void(Gtk::TextIter&/*start_iter*/, Gtk::TextIter&/*curr_iter*/, std::map<std::string_view, std::string>&/*curr_attributes*/)> serialize_func);
 
 const gchar* get_text_iter_alignment(const Gtk::TextIter& textIter, CtMainWin* pCtMainWin);
 
@@ -119,11 +130,22 @@ guint32 guint32_from_hex_chars(const char* hexChars, guint8 numChars);
 
 std::vector<gint64> gstring_split_to_int64(const gchar* inStr, const gchar* delimiter, gint max_tokens=-1);
 
+template<class type>
+int custom_compare(const type& str, const gchar* el)
+{
+   return g_strcmp0(str, el);
+}
+template<>
+inline int custom_compare<std::string_view>(const std::string_view& str, const gchar* el)
+{
+   return g_strcmp0(str.data(), el);
+}
+
 template<class container>
 bool contains(const container& array, const gchar* el)
 {
     for (auto it = std::begin(array); it != std::end(array); ++it)
-        if (0 == g_strcmp0(*it, el))
+        if (0 == custom_compare(*it, el))
             return true;
     return false;
 }
@@ -192,7 +214,7 @@ template<class container>
 bool startswith_any(const Glib::ustring& text, const container& chars_list)
 {
     for (auto it = std::begin(chars_list); it != std::end(chars_list); ++it)
-        if (str::startswith(text, *it))
+        if (str::startswith(text, CtTextIterUtil::get_str_pointer(*it)))
             return true;
     return false;
 }
