@@ -3,16 +3,17 @@ Section: editors
 Priority: optional
 Maintainer: Giuseppe Penone <giuspen@gmail.com>
 Build-Depends:
- cmake (>= 3.13.2),
  debhelper (>= 9),
  desktop-file-utils,
  gettext,
+ python3-lxml,
+ cmake (>= 3.13.2),
+ libxml2-utils,
  libgtkmm-3.0-dev,
  libgtksourceviewmm-3.0-dev,
  libxml++2.6-dev,
  libsqlite3-dev,
- libgspell-1-dev,
- python3-lxml
+ libgspell-1-dev
 Standards-Version: 3.9.5
 Homepage: https://www.giuspen.com/cherrytree/
 Vcs-Git: https://github.com/giuspen/cherrytree.git
