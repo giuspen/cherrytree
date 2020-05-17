@@ -12,6 +12,7 @@ linux/cherrytree.1.gz
 debian/files
 .vscode
 future/build
+build*
 cherrytree_*_amd64.deb
 cherrytree_*_amd64.buildinfo
 cherrytree_*_amd64.changes

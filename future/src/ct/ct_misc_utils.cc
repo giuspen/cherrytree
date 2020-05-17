@@ -924,16 +924,16 @@ bool CtFileSystem::rmdir(const std::string& dir)
 
 std::string CtFileSystem::get_cherrytree_datadir()
 {
-    if (Glib::file_test(Glib::build_filename(_CMAKE_ROOT_DIR, "build"), Glib::FILE_TEST_IS_DIR)) {
+    if (Glib::file_test(_CMAKE_BINARY_DIR, Glib::FILE_TEST_IS_DIR)) {
         // we're running from the build sources
-        return _CMAKE_ROOT_DIR;
+        return _CMAKE_SOURCE_DIR;
     }
     return CHERRYTREE_DATADIR;
 }
 
 std::string CtFileSystem::get_cherrytree_localedir()
 {
-    const std::string sources_po_dir = Glib::canonicalize_filename(Glib::build_filename(_CMAKE_ROOT_DIR, "po"));
+    const std::string sources_po_dir = Glib::canonicalize_filename(Glib::build_filename(_CMAKE_SOURCE_DIR, "po"));
     if (Glib::file_test(sources_po_dir, Glib::FILE_TEST_IS_DIR)) {
         // we're running from the build sources
         return sources_po_dir;
