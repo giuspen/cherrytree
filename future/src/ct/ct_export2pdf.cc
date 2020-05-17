@@ -150,8 +150,8 @@ void CtPrint::print_text(CtMainWin* pCtMainWin, const Glib::ustring& pdf_filepat
     {
         if (auto* image = dynamic_cast<CtImage*>(widget))            _widgets.push_back(std::shared_ptr<CtPrintImageProxy>(new CtPrintImageProxy(image)));
         else if (auto* table = dynamic_cast<CtTable*>(widget))       _widgets.push_back(std::shared_ptr<CtPrintTableProxy>(new CtPrintTableProxy(table, 1, table->get_table_matrix().size())));
-        else if (auto* codebox = dynamic_cast<CtCodebox*>(widget)) _widgets.push_back(std::shared_ptr<CtPrintCodeboxProxy>(new CtPrintCodeboxProxy(codebox)));
-        else                                                            _widgets.push_back(std::shared_ptr<CtPrintSomeProxy>(new CtPrintSomeProxy(widget)));
+        else if (auto* codebox = dynamic_cast<CtCodebox*>(widget))   _widgets.push_back(std::shared_ptr<CtPrintCodeboxProxy>(new CtPrintCodeboxProxy(codebox)));
+        else                                                         _widgets.push_back(std::shared_ptr<CtPrintSomeProxy>(new CtPrintSomeProxy(widget)));
     }
 
     CtPrintData print_data;
