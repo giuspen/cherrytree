@@ -205,5 +205,5 @@ public:
                                        bool excude_anchors, std::list<CtAnchoredWidget*>& out_widgets);
 private:
     Glib::ustring _pango_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer);
-    Glib::ustring _pango_text_serialize(Gtk::TextIter start_iter, Gtk::TextIter end_iter, const std::map<const gchar*, std::string>& curr_attributes);
+    Glib::ustring _pango_text_serialize(Gtk::TextIter start_iter, Gtk::TextIter end_iter, const std::map<std::string, std::string> &curr_attributes);
 };

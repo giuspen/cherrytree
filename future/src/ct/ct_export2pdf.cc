@@ -808,13 +808,18 @@ Glib::ustring CtExport2Pango::_pango_process_slot(int start_offset, int end_offs
     Glib::ustring curr_pango_text = "";
     CtTextIterUtil::generic_process_slot(start_offset, end_offset, curr_buffer,
                                          [&](Gtk::TextIter& start_iter, Gtk::TextIter& curr_iter, std::map<const gchar*, std::string>& curr_attributes) {
-        curr_pango_text += _pango_text_serialize(start_iter, curr_iter, curr_attributes);
+        std::map<std::string, std::string> curr_attributes_str;
+        for (const auto& keypair : curr_attributes) {
+            curr_attributes_str.emplace(keypair.first, keypair.second);
+        }
+        
+        curr_pango_text += _pango_text_serialize(start_iter, curr_iter, curr_attributes_str);
     });
     return curr_pango_text;
 }
 
 // Adds a slice to the Pango Text
-Glib::ustring CtExport2Pango::_pango_text_serialize(Gtk::TextIter start_iter, Gtk::TextIter end_iter, const std::map<const gchar*, std::string>& curr_attributes)
+Glib::ustring CtExport2Pango::_pango_text_serialize(Gtk::TextIter start_iter, Gtk::TextIter end_iter, const std::map<std::string, std::string> &curr_attributes)
 {
     Glib::ustring pango_attrs;
     bool superscript_active = false;
