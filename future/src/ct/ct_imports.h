@@ -98,7 +98,7 @@ public:
     virtual void handle_data(std::string_view text);
     virtual void handle_charref(std::string_view name);
 
-    void add_file(const std::filesystem::path& path);
+    void add_file(const std::filesystem::path& path) noexcept;
     
     Glib::ustring to_string() { return _xml_doc.write_to_string(); }
 

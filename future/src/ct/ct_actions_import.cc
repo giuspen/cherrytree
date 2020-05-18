@@ -25,13 +25,16 @@
 
 
 // Ask the user what file to import for the node
-void CtActions::import_node_from_html_file() {
-    
-    CtDialogs::file_select_args args(_pCtMainWin);
-    args.filter_mime = {"text/html"};
-    auto filepath = CtDialogs::file_select_dialog(args);
+void CtActions::import_node_from_html_file() noexcept {
+    try {
+        CtDialogs::file_select_args args(_pCtMainWin);
+        args.filter_mime = {"text/html"};
+        auto filepath = CtDialogs::file_select_dialog(args);
 
-    _import_node_from_html(filepath);
+        _import_node_from_html(filepath);
+    } catch(std::exception& e) {
+        std::cerr << "Exception caught while importing node from file: " << e.what() << "\n";
+    }
 }
 
 // Import a node from a html file
@@ -65,18 +68,22 @@ void CtActions::_import_node_from_html(const std::filesystem::path& filepath) {
 }
 
 // Import a directory of html files - non recursive
-void CtActions::import_node_from_html_directory() {
+void CtActions::import_node_from_html_directory() noexcept {
     namespace fs = std::filesystem;
     
-    fs::path dirpath = CtDialogs::folder_select_dialog("", _pCtMainWin);
+    try {
+        fs::path dirpath = CtDialogs::folder_select_dialog("", _pCtMainWin);
 
-    for (const auto& file : fs::directory_iterator(dirpath)) {
-        
-        const auto& f_path = file.path();
-        if (f_path.extension() == ".html" || f_path.extension() == ".htm") {
-            _import_node_from_html(f_path);
+        for (const auto& file : fs::directory_iterator(dirpath)) {
+            
+            const auto& f_path = file.path();
+            if (f_path.extension() == ".html" || f_path.extension() == ".htm") {
+                _import_node_from_html(f_path);
+            }
+
         }
-
+    } catch(std::exception& e) {
+        std::cerr << "Exception caught while importing nodes from directory: " << e.what() << "\n";
     }
 
 }

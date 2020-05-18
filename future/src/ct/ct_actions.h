@@ -420,6 +420,6 @@ private:
     
 public:
     // import actions
-    void import_node_from_html_file();
-    void import_node_from_html_directory();
+    void import_node_from_html_file() noexcept;
+    void import_node_from_html_directory() noexcept;
 };
