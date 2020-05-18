@@ -28,9 +28,9 @@
 #include "ct_main_win.h"
 #include "ct_types.h"
 #include <optional>
+#include <filesystem>
 
 class CtMainWin;
-
 class CtActions
 {
 public:
@@ -416,9 +416,10 @@ public:
     
 private:
     // helper for import actions
-    void _import_node_from_html(const std::string& path);
+    void _import_node_from_html(const std::filesystem::path& filepath);
     
 public:
     // import actions
     void import_node_from_html_file();
+    void import_node_from_html_directory();
 };

@@ -22,9 +22,9 @@
 #include "ct_actions.h"
 #include "ct_clipboard.h"
 #include "ct_imports.h"
-#include <filesystem>
 
 
+// Ask the user what file to import for the node
 void CtActions::import_node_from_html_file() {
     
     CtDialogs::file_select_args args(_pCtMainWin);
@@ -34,10 +34,9 @@ void CtActions::import_node_from_html_file() {
     _import_node_from_html(filepath);
 }
 
-
-void CtActions::_import_node_from_html(const std::string& path) {
+// Import a node from a html file
+void CtActions::_import_node_from_html(const std::filesystem::path& filepath) {
     
-    std::filesystem::path fs_path(path);
     CtNodeData nodeData;
     std::shared_ptr<CtNodeState> node_state;
     
@@ -46,7 +45,7 @@ void CtActions::_import_node_from_html(const std::string& path) {
     nodeData.customIconId = 0;
     nodeData.syntax = CtConst::RICH_TEXT_ID;
     nodeData.isRO = false;
-    nodeData.name = fs_path.stem();
+    nodeData.name = filepath.stem();
     
     nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer();
 
@@ -55,7 +54,7 @@ void CtActions::_import_node_from_html(const std::string& path) {
 
     try {
 
-        parser.add_file(path);
+        parser.add_file(filepath);
         
         CtClipboard(_pCtMainWin).from_xml_string_to_buffer(nodeData.rTextBuffer, parser.to_string());
         auto iter = _pCtMainWin->curr_tree_iter();
@@ -63,6 +62,23 @@ void CtActions::_import_node_from_html(const std::string& path) {
     } catch(std::exception& e) {
         std::cerr << "Exception caught while parsing the document: " << e.what() << "\n";
     }
+}
+
+// Import a directory of html files - non recursive
+void CtActions::import_node_from_html_directory() {
+    namespace fs = std::filesystem;
+    
+    fs::path dirpath = CtDialogs::folder_select_dialog("", _pCtMainWin);
+
+    for (const auto& file : fs::directory_iterator(dirpath)) {
+        
+        const auto& f_path = file.path();
+        if (f_path.extension() == ".html" || f_path.extension() == ".htm") {
+            _import_node_from_html(f_path);
+        }
+
+    }
+
 }
 
 
