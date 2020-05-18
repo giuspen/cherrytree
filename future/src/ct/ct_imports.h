@@ -27,6 +27,7 @@
 #include <glibmm/ustring.h>
 #include <libxml2/libxml/HTMLparser.h>
 #include <libxml++/libxml++.h>
+#include <filesystem>
 
 
 namespace CtImports {
@@ -97,6 +98,8 @@ public:
     virtual void handle_data(std::string_view text);
     virtual void handle_charref(std::string_view name);
 
+    void add_file(const std::filesystem::path& path);
+    
     Glib::ustring to_string() { return _xml_doc.write_to_string(); }
 
 private:

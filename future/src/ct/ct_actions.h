@@ -412,4 +412,13 @@ public:
     void export_to_pdf_auto(const std::string& dir, bool overwrite);
     void export_to_html_auto(const std::string& dir, bool overwrite);
     void export_to_txt_auto(const std::string& dir, bool overwrite);
+    
+    
+private:
+    // helper for import actions
+    void _import_node_from_html(const std::string& path);
+    
+public:
+    // import actions
+    void import_node_from_html_file();
 };

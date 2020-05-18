@@ -26,6 +26,8 @@
 #include <libxml2/libxml/SAX.h>
 #include <iostream>
 #include <glibmm/base64.h>
+#include <fstream>
+#include <sstream>
 
 const std::set<std::string> CtHtml2Xml::HTML_A_TAGS{"p", "b", "i", "u", "s", CtConst::TAG_PROP_VAL_H1,
             CtConst::TAG_PROP_VAL_H2, CtConst::TAG_PROP_VAL_H3, "span", "font"};
@@ -650,5 +652,25 @@ void CtHtml2Xml::_rich_text_save_pending()
 
     _slot_text = "";
     _slot_style_id = -1;
+}
+
+void CtHtml2Xml::add_file(const std::filesystem::path &path) {
+    
+    try {
+        std::ifstream infile;
+        infile.exceptions(std::ios_base::failbit);
+        infile.open(path);
+        
+        std::ostringstream ss;
+        ss << infile.rdbuf();
+        
+        feed(ss.str());
+        
+        
+    } catch(std::exception& e) {
+        std::cerr << "Exception caught while adding file to XML: " << e.what() << "\n";
+    }
+    
+    
 }
 
