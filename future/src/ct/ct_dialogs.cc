@@ -1232,8 +1232,10 @@ Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& parent_win
     pContentArea->pack_start(hbox_2, false, false);
     pContentArea->set_spacing(6);
 
+    bool stop_update = false;
     auto image_load_into_dialog = [&]()
     {
+        stop_update = true;
         spinbutton_width.set_value(width);
         spinbutton_height.set_value(height);
         Glib::RefPtr<Gdk::Pixbuf> rPixbuf;
@@ -1259,6 +1261,7 @@ Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& parent_win
             }
         }
         image.set(rPixbuf);
+        stop_update = false;
     };
     button_rotate_90_cw.signal_clicked().connect([&]()
     {
@@ -1276,12 +1279,14 @@ Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& parent_win
     });
     spinbutton_width.signal_value_changed().connect([&]()
     {
+        if (stop_update) return;
         width = spinbutton_width.get_value_as_int();
         height = (int)(width/image_w_h_ration);
         image_load_into_dialog();
     });
     spinbutton_height.signal_value_changed().connect([&]()
     {
+        if (stop_update) return;
         height = spinbutton_height.get_value_as_int();
         width = (int)(height*image_w_h_ration);
         image_load_into_dialog();
