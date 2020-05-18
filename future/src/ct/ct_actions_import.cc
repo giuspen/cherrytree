@@ -25,7 +25,8 @@
 
 
 // Ask the user what file to import for the node
-void CtActions::import_node_from_html_file() noexcept {
+void CtActions::import_node_from_html_file() noexcept 
+{
     try {
         CtDialogs::file_select_args args(_pCtMainWin);
         args.filter_mime = {"text/html"};
@@ -38,7 +39,8 @@ void CtActions::import_node_from_html_file() noexcept {
 }
 
 // Import a node from a html file
-void CtActions::_import_node_from_html(const std::filesystem::path& filepath) {
+void CtActions::_import_node_from_html(const std::filesystem::path& filepath) 
+{
     
     CtNodeData nodeData;
     std::shared_ptr<CtNodeState> node_state;
@@ -52,11 +54,9 @@ void CtActions::_import_node_from_html(const std::filesystem::path& filepath) {
     
     nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer();
 
-
     CtHtml2Xml parser(_pCtMainWin);
 
     try {
-
         parser.add_file(filepath);
         
         CtClipboard(_pCtMainWin).from_xml_string_to_buffer(nodeData.rTextBuffer, parser.to_string());
@@ -68,7 +68,8 @@ void CtActions::_import_node_from_html(const std::filesystem::path& filepath) {
 }
 
 // Import a directory of html files - non recursive
-void CtActions::import_node_from_html_directory() noexcept {
+void CtActions::import_node_from_html_directory() noexcept 
+{
     namespace fs = std::filesystem;
     
     try {

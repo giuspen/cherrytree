@@ -678,7 +678,8 @@ void CtHtml2Xml::_rich_text_save_pending()
     _slot_style_id = -1;
 }
 
-void CtHtml2Xml::add_file(const std::filesystem::path &path) noexcept {
+void CtHtml2Xml::add_file(const std::filesystem::path &path) noexcept 
+{
     
     try {
         std::ifstream infile;
