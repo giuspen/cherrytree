@@ -176,12 +176,19 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
 {
 
     _start_adding_tag_styles();
-    if (HTML_A_TAGS.count(tag.begin())) _html_a_tag_counter += 1;
 
+    if (vec::exists(CtConst::INVALID_HTML_TAGS, tag)) {
+        _parsing_valid_tag = false;
+        return;
+    }
+    _parsing_valid_tag = true;
+    
+    if (HTML_A_TAGS.count(tag.begin())) _html_a_tag_counter += 1;
     if (_state == ParserState::WAIT_BODY)
     {
-        if (tag == "body")
+        if (tag == "body") {
             _state = ParserState::PARSING_BODY;
+        }
     }
     else if (_state == ParserState::PARSING_BODY)
     {
@@ -233,7 +240,8 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
                         try
                         {
                             attr_value = str::replace(attr_value, "pt", "");
-                            int font_size = std::stoi(attr_value, nullptr);
+                            // Can throw std::invalid_argument or std::out_of_range
+                            int font_size = std::stoi(attr_value, nullptr); 
                             if (font_size > 7 && font_size < 11)
                                 _add_tag_style(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SMALL);
                             else if (font_size > 13 && font_size < 19)
@@ -241,7 +249,7 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
                             else if (font_size >= 19)
                                 _add_tag_style(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H2);
 
-                        } catch (...) {}
+                        } catch (std::invalid_argument&) {}
                     }
                 }
             }
@@ -408,7 +416,7 @@ void CtHtml2Xml::handle_endtag(std::string_view tag)
 
 void CtHtml2Xml::handle_data(std::string_view text)
 {
-    if (_state == ParserState::WAIT_BODY)
+    if (_state == ParserState::WAIT_BODY || !_parsing_valid_tag)
         return;
     if (_html_pre_tag_open) {
          _rich_text_serialize(text.begin());

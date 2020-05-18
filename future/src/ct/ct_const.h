@@ -344,6 +344,9 @@ const std::unordered_map<std::string, std::string> CODE_EXEC_TERM_RUN_DEFAULT {
     {"win",   std::string("start cmd /k \"") + CODE_EXEC_COMMAND + "\""}
 };
 
+const constexpr std::array<std::string_view, 4>  INVALID_HTML_TAGS = {
+    "script", "title", "head", "html"
+};
 
 
 } // namespace CtConst

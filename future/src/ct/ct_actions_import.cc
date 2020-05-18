@@ -52,11 +52,17 @@ void CtActions::_import_node_from_html(const std::string& path) {
 
 
     CtHtml2Xml parser(_pCtMainWin);
-    parser.add_file(path);
 
-    CtClipboard(_pCtMainWin).from_xml_string_to_buffer(nodeData.rTextBuffer, parser.to_string());
-    auto iter = _pCtMainWin->curr_tree_iter();
-    _node_add_with_data(iter, nodeData, false, node_state);
+    try {
+
+        parser.add_file(path);
+        
+        CtClipboard(_pCtMainWin).from_xml_string_to_buffer(nodeData.rTextBuffer, parser.to_string());
+        auto iter = _pCtMainWin->curr_tree_iter();
+        _node_add_with_data(iter, nodeData, false, node_state);
+    } catch(std::exception& e) {
+        std::cerr << "Exception caught while parsing the document: " << e.what() << "\n";
+    }
 }
 
 
