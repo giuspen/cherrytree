@@ -174,6 +174,7 @@ void CtHtml2Xml::feed(const std::string& html)
 
 void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
 {
+
     _start_adding_tag_styles();
     if (HTML_A_TAGS.count(tag.begin())) _html_a_tag_counter += 1;
 
@@ -279,12 +280,21 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
         }
         else if (tag == "br") _rich_text_serialize(CtConst::CHAR_NEWLINE);
         else if (tag == "ol")  { _list_type = 'o'; _list_num = 1; }
-        else if (tag == "ul")  { _list_type = 'u'; _list_num = 0; }
+        else if (tag == "ul")  { 
+            _list_type = 'u'; 
+            _list_num = 0;
+            if (_list_level < static_cast<int>(_pCtMainWin->get_ct_config()->charsListbul.length()) - 1) _list_level++;
+        }
         else if (tag == "li") {
             if (_list_type == 'u') {
-                auto bull = _pCtMainWin->get_ct_config()->charsListbul[0];
+                if (_list_level < 0) {
+                    // A ul _should_ have appeared before this
+                    throw std::runtime_error("List item appeared before list declaration");
+                }
+                auto bull = _pCtMainWin->get_ct_config()->charsListbul[_list_level];
                 // Have to use Glib::ustring because the char constructor for std::string is not utf8 aware
                 _rich_text_serialize(Glib::ustring(1, bull) + CtConst::CHAR_SPACE);
+
             }
             else {
                 _rich_text_serialize(std::to_string(_list_num) + ". ");
@@ -350,7 +360,6 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
 void CtHtml2Xml::handle_endtag(std::string_view tag)
 {
     _pop_tag_styles();
-
     if (HTML_A_TAGS.count(tag.begin())) _html_a_tag_counter -= 1;
     if (_state == ParserState::WAIT_BODY)
     {
@@ -366,6 +375,11 @@ void CtHtml2Xml::handle_endtag(std::string_view tag)
             _rich_text_serialize(CtConst::CHAR_NEWLINE);
         }
         else if (tag == "li") _rich_text_serialize(CtConst::CHAR_NEWLINE);
+        else if (tag == "ul") {
+            // Move back up a list level
+            if (_list_level > 0) _list_level--;
+            _rich_text_serialize(CtConst::CHAR_NEWLINE);
+        }
     }
     else if (_state == ParserState::PARSING_TABLE)
     {
