@@ -175,7 +175,6 @@ void CtHtml2Xml::feed(const std::string& html)
 void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
 {
     _start_adding_tag_styles();
-
     if (HTML_A_TAGS.count(tag.begin())) _html_a_tag_counter += 1;
 
     if (_state == ParserState::WAIT_BODY)
@@ -282,7 +281,11 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
         else if (tag == "ol")  { _list_type = 'o'; _list_num = 1; }
         else if (tag == "ul")  { _list_type = 'u'; _list_num = 0; }
         else if (tag == "li") {
-            if (_list_type == 'u') _rich_text_serialize(_pCtMainWin->get_ct_config()->charsListbul[0] + CtConst::CHAR_SPACE);
+            if (_list_type == 'u') {
+                auto bull = _pCtMainWin->get_ct_config()->charsListbul[0];
+                // Have to use Glib::ustring because the char constructor for std::string is not utf8 aware
+                _rich_text_serialize(Glib::ustring(1, bull) + CtConst::CHAR_SPACE);
+            }
             else {
                 _rich_text_serialize(std::to_string(_list_num) + ". ");
                 _list_num += 1;
@@ -625,7 +628,6 @@ void CtHtml2Xml::_rich_text_serialize(std::string text)
         _slot_text += text;
         return;
     }
-
     // styles changed, so
     // create slot with prevous text
     _rich_text_save_pending();
