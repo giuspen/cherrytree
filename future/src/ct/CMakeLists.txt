@@ -14,6 +14,7 @@ set(CT_SHARED_FILES
     ct_actions_find.cc
     ct_actions_format.cc
     ct_actions_others.cc
+    ct_actions_import.cc
     ct_actions_tree.cc
     ct_actions_view.cc
     ct_app.cc

@@ -28,9 +28,9 @@
 #include "ct_main_win.h"
 #include "ct_types.h"
 #include <optional>
+#include <filesystem>
 
 class CtMainWin;
-
 class CtActions
 {
 public:
@@ -412,4 +412,14 @@ public:
     void export_to_pdf_auto(const std::string& dir, bool overwrite);
     void export_to_html_auto(const std::string& dir, bool overwrite);
     void export_to_txt_auto(const std::string& dir, bool overwrite);
+    
+    
+private:
+    // helper for import actions
+    void _import_node_from_html(const std::filesystem::path& filepath);
+    
+public:
+    // import actions
+    void import_node_from_html_file() noexcept;
+    void import_node_from_html_directory() noexcept;
 };

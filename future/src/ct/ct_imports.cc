@@ -26,6 +26,8 @@
 #include <libxml2/libxml/SAX.h>
 #include <iostream>
 #include <glibmm/base64.h>
+#include <fstream>
+#include <sstream>
 
 const std::set<std::string> CtHtml2Xml::HTML_A_TAGS{"p", "b", "i", "u", "s", CtConst::TAG_PROP_VAL_H1,
             CtConst::TAG_PROP_VAL_H2, CtConst::TAG_PROP_VAL_H3, "span", "font"};
@@ -172,14 +174,21 @@ void CtHtml2Xml::feed(const std::string& html)
 
 void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
 {
+
     _start_adding_tag_styles();
 
+    if (vec::exists(CtConst::INVALID_HTML_TAGS, tag)) {
+        _parsing_valid_tag = false;
+        return;
+    }
+    _parsing_valid_tag = true;
+    
     if (HTML_A_TAGS.count(tag.begin())) _html_a_tag_counter += 1;
-
     if (_state == ParserState::WAIT_BODY)
     {
-        if (tag == "body")
+        if (tag == "body") {
             _state = ParserState::PARSING_BODY;
+        }
     }
     else if (_state == ParserState::PARSING_BODY)
     {
@@ -231,7 +240,8 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
                         try
                         {
                             attr_value = str::replace(attr_value, "pt", "");
-                            int font_size = std::stoi(attr_value, nullptr);
+                            // Can throw std::invalid_argument or std::out_of_range
+                            int font_size = std::stoi(attr_value, nullptr); 
                             if (font_size > 7 && font_size < 11)
                                 _add_tag_style(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SMALL);
                             else if (font_size > 13 && font_size < 19)
@@ -239,7 +249,7 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
                             else if (font_size >= 19)
                                 _add_tag_style(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H2);
 
-                        } catch (...) {}
+                        } catch (std::invalid_argument&) {}
                     }
                 }
             }
@@ -278,9 +288,22 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
         }
         else if (tag == "br") _rich_text_serialize(CtConst::CHAR_NEWLINE);
         else if (tag == "ol")  { _list_type = 'o'; _list_num = 1; }
-        else if (tag == "ul")  { _list_type = 'u'; _list_num = 0; }
+        else if (tag == "ul")  { 
+            _list_type = 'u'; 
+            _list_num = 0;
+            if (_list_level < static_cast<int>(_pCtMainWin->get_ct_config()->charsListbul.length()) - 1) _list_level++;
+        }
         else if (tag == "li") {
-            if (_list_type == 'u') _rich_text_serialize(_pCtMainWin->get_ct_config()->charsListbul[0] + CtConst::CHAR_SPACE);
+            if (_list_type == 'u') {
+                if (_list_level < 0) {
+                    // A ul _should_ have appeared before this
+                    throw std::runtime_error("List item appeared before list declaration");
+                }
+                auto bull = _pCtMainWin->get_ct_config()->charsListbul[_list_level];
+                // Have to use Glib::ustring because the char constructor for std::string is not utf8 aware
+                _rich_text_serialize(Glib::ustring(1, bull) + CtConst::CHAR_SPACE);
+
+            }
             else {
                 _rich_text_serialize(std::to_string(_list_num) + ". ");
                 _list_num += 1;
@@ -345,7 +368,6 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
 void CtHtml2Xml::handle_endtag(std::string_view tag)
 {
     _pop_tag_styles();
-
     if (HTML_A_TAGS.count(tag.begin())) _html_a_tag_counter -= 1;
     if (_state == ParserState::WAIT_BODY)
     {
@@ -361,6 +383,11 @@ void CtHtml2Xml::handle_endtag(std::string_view tag)
             _rich_text_serialize(CtConst::CHAR_NEWLINE);
         }
         else if (tag == "li") _rich_text_serialize(CtConst::CHAR_NEWLINE);
+        else if (tag == "ul") {
+            // Move back up a list level
+            if (_list_level > 0) _list_level--;
+            _rich_text_serialize(CtConst::CHAR_NEWLINE);
+        }
     }
     else if (_state == ParserState::PARSING_TABLE)
     {
@@ -389,7 +416,7 @@ void CtHtml2Xml::handle_endtag(std::string_view tag)
 
 void CtHtml2Xml::handle_data(std::string_view text)
 {
-    if (_state == ParserState::WAIT_BODY)
+    if (_state == ParserState::WAIT_BODY || !_parsing_valid_tag)
         return;
     if (_html_pre_tag_open) {
          _rich_text_serialize(text.begin());
@@ -623,7 +650,6 @@ void CtHtml2Xml::_rich_text_serialize(std::string text)
         _slot_text += text;
         return;
     }
-
     // styles changed, so
     // create slot with prevous text
     _rich_text_save_pending();
@@ -650,5 +676,26 @@ void CtHtml2Xml::_rich_text_save_pending()
 
     _slot_text = "";
     _slot_style_id = -1;
+}
+
+void CtHtml2Xml::add_file(const std::filesystem::path &path) noexcept 
+{
+    
+    try {
+        std::ifstream infile;
+        infile.exceptions(std::ios_base::failbit);
+        infile.open(path);
+        
+        std::ostringstream ss;
+        ss << infile.rdbuf();
+        
+        feed(ss.str());
+        
+        
+    } catch(std::exception& e) {
+        std::cerr << "Exception caught while adding file to XML: " << e.what() << "\n";
+    }
+    
+    
 }
 
