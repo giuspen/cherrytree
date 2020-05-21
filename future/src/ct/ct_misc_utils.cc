@@ -207,6 +207,18 @@ Gtk::BuiltinIconSize CtMiscUtil::getIconSize(int size)
     }
 }
 
+bool CtMiscUtil::mime_type_contains(const std::string &filepath, const std::string& type)
+{
+    using gchar_ptr = std::unique_ptr<gchar, decltype(&g_free)>;
+    
+    // Note that these return gchar* which must be freed with g_free()
+    gchar_ptr type_guess(g_content_type_guess(filepath.c_str(), nullptr, 0, nullptr), g_free);
+    gchar_ptr p_mime_type(g_content_type_get_mime_type(type_guess.get()), g_free);
+    std::string mime_type = p_mime_type.get();
+    
+    return mime_type.find(type) != std::string::npos;
+}
+
 // Returns True if the characters compose a camel case word
 bool CtTextIterUtil::get_is_camel_case(Gtk::TextIter iter_start, int num_chars)
 {
