@@ -33,7 +33,7 @@ CtNodeData setup_node(CtMainWin* pWin, const std::filesystem::path& path)
     nodeData.customIconId = 0;
     nodeData.isRO = false;
     nodeData.rTextBuffer = pWin->get_new_text_buffer();
-    nodeData.name = path.stem();
+    nodeData.name = path.stem().string();
     return nodeData;
 }
 
