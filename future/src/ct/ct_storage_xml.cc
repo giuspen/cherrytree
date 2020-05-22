@@ -446,7 +446,8 @@ void CtStorageXml::import_nodes(CtMainWin* pCtMainWin, const std::string& path) 
         _pCtMainWin->update_window_save_needed();
     
         new_iter.pending_new_db_node();
-        
+        _pCtMainWin->get_tree_store().nodes_sequences_fix(new_iter->parent(), false);
+    
         for (xmlpp::Node* xml_node : xml_element->get_children("node"))
             recursive_import_func(static_cast<xmlpp::Element*>(xml_node), new_iter);
     };

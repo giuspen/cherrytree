@@ -107,8 +107,7 @@ void CtActions::import_nodes_from_ct_file() noexcept
         
         
         // Add the nodes through the storage type
-        auto storage = CtStorageControl::get_entity_by_type(_pCtMainWin, CtMiscUtil::get_doc_type(fpath));
-        storage->import_nodes(_pCtMainWin, fpath);
+        _pCtMainWin->get_ct_storage()->add_nodes_from_storage(fpath);
         
     } catch(std::exception& e) {
         std::cerr << "Exception caught while importing node from CT file: " << e.what() << "\n";

@@ -52,6 +52,7 @@ public:
                                                       std::list<CtAnchoredWidget*>& widgets) const override;
 private:
     void                _close_db();
+    void _open_db(const std::string &path, bool read_only);
 
     Gtk::TreeIter       _node_from_db(guint node_id, Gtk::TreeIter parent_iter);
     CtTreeIter          _node_from_imported_db(gint64 node_id, CtTreeIter* parent_iter);

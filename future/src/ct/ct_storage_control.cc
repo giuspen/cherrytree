@@ -332,3 +332,21 @@ void CtStorageControl::pending_edit_db_bookmarks()
 {
     _syncPending.bookmarks_to_write = true;
 }
+
+
+
+void CtStorageControl::add_nodes_from_storage(const Glib::ustring& path) {
+    if (!Glib::file_test(path, Glib::FILE_TEST_IS_REGULAR))
+            throw std::runtime_error("no file");
+
+        // unpack file if need
+        Glib::ustring password;
+        Glib::ustring extracted_file_path = path;
+        if (CtMiscUtil::get_doc_encrypt(path) == CtDocEncrypt::True)
+            extracted_file_path = _extract_file(_pCtMainWin, path, password);
+
+        // load from file
+        auto storage = get_entity_by_type(_pCtMainWin, CtMiscUtil::get_doc_type(extracted_file_path));
+        storage->import_nodes(_pCtMainWin, extracted_file_path);
+}
+
