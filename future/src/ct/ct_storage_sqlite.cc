@@ -717,3 +717,86 @@ void CtStorageSqlite::_exec_bind_int64(const char* sqlCmd, const gint64 bind_int
     if (sqlite3_step(stmt) != SQLITE_DONE)
         throw std::runtime_error(ERR_SQLITE_STEP + sqlite3_errmsg(_pDb));
 }
+
+CtTreeIter CtStorageSqlite::_node_from_imported_db(gint64 node_id, CtTreeIter* parent_iter) {
+    sqlite3_stmt_auto stmt(_pDb, "SELECT name, syntax, tags, txt, is_ro, is_richtxt FROM node WHERE node_id=?");
+    if (stmt.is_bad())
+        throw std::runtime_error("Error while retrieving record from imported database: " + std::string(sqlite3_errmsg(_pDb)));
+    
+    sqlite3_bind_int64(stmt, 1, node_id);
+    if (sqlite3_step(stmt) != SQLITE_ROW)
+        throw std::runtime_error(std::string("CtDocSqliteStorage: missing node properties for id ") + std::to_string(node_id));
+    
+   /* sqlite3_stmt_auto insert_stmt(_pDb, "INSERT INTO node (name, syntax, tags, txt, is_ro, is_richtxt, has_codebox, has_table, level, has_image, node_id)"
+                                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    
+    
+    // Copy
+    for (auto i = 1; i != 5; i++) {
+        std::string data = reinterpret_cast<const char *>(sqlite3_column_text(stmt, i - 1));
+        std::cout << "DATA: " << data << std::endl;
+        sqlite3_bind_text(insert_stmt, i, data.c_str(), data.size(), SQLITE_TRANSIENT);
+    }
+    for (auto i = 5; i != 11; i++) {
+        sqlite3_bind_int(insert_stmt, i, sqlite3_column_int(stmt, i - 1));
+    }
+    auto new_node_id =  _pCtMainWin->get_tree_store().node_id_get();
+    sqlite3_bind_int64(insert_stmt, 11, new_node_id);
+    
+    if (sqlite3_step(insert_stmt) != SQLITE_DONE)
+        throw std::runtime_error("Error while inserting imported record: " + std::to_string(node_id));
+    */
+    CtNodeData nodeData;
+    // Wipe incompatable data when importing
+    auto new_node_id =  _pCtMainWin->get_tree_store().node_id_get();
+    nodeData.nodeId = new_node_id;
+    nodeData.name = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
+    nodeData.syntax = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+    nodeData.tags = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
+    gint64 readonly_n_custom_icon_id = sqlite3_column_int64(stmt, 3);
+    nodeData.isRO = static_cast<bool>(readonly_n_custom_icon_id & 0x01);
+    nodeData.customIconId = readonly_n_custom_icon_id >> 1;
+    gint64 richtxt_bold_foreground = sqlite3_column_int64(stmt, 4);
+    nodeData.isBold = static_cast<bool>((richtxt_bold_foreground >> 1) & 0x01);
+    if (static_cast<bool>((richtxt_bold_foreground >> 2) & 0x01))
+    {
+        char foregroundRgb24[8];
+        CtRgbUtil::set_rgb24str_from_rgb24int((richtxt_bold_foreground >> 3) & 0xffffff, foregroundRgb24);
+        nodeData.foregroundRgb24 = foregroundRgb24;
+    }
+    nodeData.tsCreation = std::time(nullptr);
+    nodeData.tsLastSave = nodeData.tsCreation;
+    
+    nodeData.rTextBuffer = get_delayed_text_buffer(node_id, nodeData.syntax, nodeData.anchoredWidgets);//CtStorageXmlHelper(_pCtMainWin).create_buffer_no_widgets(nodeData.syntax, node_text.c_str());//_pCtMainWin->get_new_text_buffer(node_text);
+    
+    auto iter = _pCtMainWin->get_tree_store().append_node(&nodeData, parent_iter);
+    return _pCtMainWin->get_tree_store().to_ct_tree_iter(iter);
+
+}
+
+
+void CtStorageSqlite::import_nodes(CtMainWin* pCtMainWin, const std::string& path) {
+    _close_db();
+    // open db
+    if (SQLITE_OK != sqlite3_open(path.c_str(), &_pDb))
+        throw std::runtime_error(std::string("sqlite3_open: ") + sqlite3_errmsg(_pDb));
+    _file_path = path;
+    std::cout << "FILE PATH: " << _file_path << std::endl;
+    
+    _pCtMainWin = pCtMainWin;
+    std::function<void(gint64, CtTreeIter)> add_node_func;
+    add_node_func = [this, &add_node_func](gint64 nodeId, CtTreeIter parent_iter) {
+        std::cout << "NODE ID: " << nodeId << std::endl;
+        auto node_iter = _node_from_imported_db(nodeId, &parent_iter);
+        _pCtMainWin->update_window_save_needed();
+        
+        node_iter.pending_new_db_node();
+        for (auto child_id : _get_children_node_ids_from_db(nodeId)) {
+            add_node_func(child_id, _pCtMainWin->curr_tree_iter().parent());
+        }
+    };
+    for (auto node_id : _get_children_node_ids_from_db(0)) {
+        add_node_func(node_id, _pCtMainWin->get_tree_store().to_ct_tree_iter(Gtk::TreeIter()));
+    }
+    
+}

@@ -94,31 +94,29 @@ void CtActions::import_node_from_html_directory() noexcept
 
 }
 
-void CtActions::_import_node_from_plaintext(const std::filesystem::path &filepath)
+
+
+void CtActions::import_nodes_from_ct_file() noexcept
 {
-    
-    if (!_is_there_selected_node_or_error()) return;
-    auto nodeData = setup_node(_pCtMainWin, filepath);
-    nodeData.syntax = CtConst::PLAIN_TEXT_ID;
-    
     try {
-        std::ifstream infile;
-        infile.exceptions(std::ios_base::failbit);
-        infile.open(filepath);
+        CtDialogs::file_select_args args(_pCtMainWin);
+        args.filter_pattern = CtConst::CT_FILE_EXTENSIONS_FILTER;
         
-        std::ostringstream data;
-        data << infile.rdbuf();
-        nodeData.rTextBuffer->insert_at_cursor(data.str());
+        auto fpath = CtDialogs::file_select_dialog(args);
+        if (fpath.empty()) return; // No file selected
         
-        auto                         iter = _pCtMainWin->curr_tree_iter();
-        std::shared_ptr<CtNodeState> node_state;
         
-        _node_add_with_data(iter, nodeData, false, node_state);
+        // Add the nodes through the storage type
+        auto storage = CtStorageControl::get_entity_by_type(_pCtMainWin, CtMiscUtil::get_doc_type(fpath));
+        storage->import_nodes(_pCtMainWin, fpath);
+        
+    } catch(std::exception& e) {
+        std::cerr << "Exception caught while importing node from CT file: " << e.what() << "\n";
     }
-    catch (std::exception &e) {
-        std::cerr << "Exception caught while importing plaintext file (" << filepath.string() << "): " << e.what() << "\n";
-    }
+    
+    
 }
+
 
 
 

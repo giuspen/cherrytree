@@ -135,6 +135,12 @@ public:
     virtual void test_connection() = 0;
 
     virtual bool populate_treestore(const Glib::ustring& file_path, Glib::ustring& error) = 0;
+    /**
+     * @brief Get a list of nodes to be imported by processing a CT file
+     * 
+     * @return std::vector<CtNodeData> 
+     */
+    virtual void import_nodes(CtMainWin* pCtMainWin, const std::string& path) = 0;
     virtual bool save_treestore(const Glib::ustring& file_path, const CtStorageSyncPending& syncPending, Glib::ustring& error) = 0;
     virtual void vacuum() = 0;
 

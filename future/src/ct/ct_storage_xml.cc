@@ -405,4 +405,7 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_table_from_xml(xmlpp::Element* xml
 }
 
 
+void CtStorageXml::import_nodes(CtMainWin* pCtMainWin, const std::string& path) {
+    // TODO: Implement this
+}
 
