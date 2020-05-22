@@ -24,15 +24,12 @@
 #include "ct_app.h"
 #include "ct_p7za_iface.h"
 #include "config.h"
+#include "test_consts.h"
+
 #include <glib/gstdio.h>
 #include <libxml++/libxml++.h>
 #include "CppUTest/CommandLineTestRunner.h"
 
-const std::string unitTestsDataDir{Glib::build_filename(_CMAKE_SOURCE_DIR, "tests", "data")};
-const std::string ctzInputPath{Glib::build_filename(unitTestsDataDir, "7zr.ctz")};
-const std::string ctxInputPath{Glib::build_filename(unitTestsDataDir, "7zr.ctx")};
-const gchar testPassword[]{"7zr"};
-const gchar testPasswordBis[]{"7zr2"};
 
 TEST_GROUP(TmpP7zipGroup)
 {

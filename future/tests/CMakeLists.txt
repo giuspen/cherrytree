@@ -8,6 +8,7 @@ set(CT_TEST_FILES
     tests_misc_utils.cpp
     tests_tmp_n_p7zip.cpp
     tests_types.cpp
+    test_consts.h
 )
 
 add_executable(run_tests ${CT_TEST_FILES})
