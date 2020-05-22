@@ -25,7 +25,8 @@
 #include "ct_const.h"
 #include "CppUTest/CommandLineTestRunner.h"
 #include "gtkmm/textbuffer.h"
-
+#include <fstream>
+#include <filesystem>
 
 TEST_GROUP(MiscUtilsGroup)
 {
@@ -311,6 +312,33 @@ TEST(MiscUtilsGroup, get_cherrytree_localedir)
     STRCMP_EQUAL(Glib::canonicalize_filename(Glib::build_filename(_CMAKE_SOURCE_DIR, "po")).c_str(), CtFileSystem::get_cherrytree_localedir().c_str());
 }
 
+TEST(MiscUtilsGroup, mime__type_contains) {
+    constexpr std::array<const char*, 6> files = {
+        "text_test.txt", "html_test.html", "pdf_test.pdf", "md_test.md", "cpp_test.cpp", "py_test.py"
+    };
+    
+    // Setup the test files
+    std::ofstream outfile(files[0]);
+    outfile << "Foo - bar";
+
+    outfile.open(files[1]);
+    outfile << "<html><head></head><body><h1>Foo - bar</h1></body></html>";
+
+    for (auto iter = files.begin() + 2; iter != files.end(); iter++) outfile.open(*iter);
+    
+    
+    CHECK(CtMiscUtil::mime_type_contains("text_test.txt", "text/"));
+    CHECK(CtMiscUtil::mime_type_contains("html_test.html", "text/"));
+    CHECK(CtMiscUtil::mime_type_contains("html_test.html", "html"));
+    CHECK(CtMiscUtil::mime_type_contains("pdf_test.pdf", "pdf"));
+    CHECK(CtMiscUtil::mime_type_contains("md_test.md", "text/"));
+    CHECK(CtMiscUtil::mime_type_contains("cpp_test.cpp", "text/"));
+    CHECK(CtMiscUtil::mime_type_contains("py_test.py", "text/"));
+
+    // Cleanup
+    for (const auto* file : files) std::filesystem::remove(file);
+}
+
 
 int main(int ac, char** av)
 {
@@ -319,3 +347,5 @@ int main(int ac, char** av)
 
     return CommandLineTestRunner::RunAllTests(ac, av);
 }
+
+
