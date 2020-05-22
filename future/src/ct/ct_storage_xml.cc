@@ -151,7 +151,7 @@ Glib::RefPtr<Gsv::Buffer> CtStorageXml::get_delayed_text_buffer(const gint64& no
 Gtk::TreeIter CtStorageXml::_node_from_xml(xmlpp::Element* xml_element, Gtk::TreeIter parent_iter)
 {
     CtNodeData node_data;
-    node_data.nodeId = CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("unique_id").c_str());
+    node_data.nodeId = _importing_data ? CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("unique_id").c_str()) : -1;
     node_data.name = xml_element->get_attribute_value("name");
     node_data.syntax = xml_element->get_attribute_value("prog_lang");
     node_data.tags = xml_element->get_attribute_value("tags");

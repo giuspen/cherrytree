@@ -28,7 +28,7 @@
 #include <glib/gstdio.h>
 
 
-static CtStorageEntity* get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
+/*static*/ CtStorageEntity* CtStorageControl::get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
 {
     if (file_type == CtDocType::SQLite)
         return new CtStorageSqlite(pCtMainWin);

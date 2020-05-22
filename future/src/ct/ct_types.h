@@ -123,9 +123,14 @@ struct CtStorageSyncPending
     std::set<gint64>                               nodes_to_rm_set;
 };
 
+class CtNodeData;
 class CtAnchoredWidget;
 class CtStorageEntity
 {
+
+protected:
+    bool _importing_data = false;
+
 public:
     CtStorageEntity() = default;
     virtual ~CtStorageEntity() = default;
@@ -147,4 +152,5 @@ public:
     virtual Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
                                                               const std::string& syntax,
                                                               std::list<CtAnchoredWidget*>& widgets) const = 0;
+
 };

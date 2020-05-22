@@ -29,7 +29,7 @@ public:
     static CtStorageControl* create_dummy_storage();
     static CtStorageControl* load_from(CtMainWin* pCtMainWin, const Glib::ustring& file_path, Glib::ustring& error);
     static CtStorageControl* save_as(CtMainWin* pCtMainWin, const Glib::ustring& file_path, const Glib::ustring& password, Glib::ustring& error);
-
+    static CtStorageEntity* get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type);
 public:
     bool save(bool need_vacuum, Glib::ustring& error);
 
@@ -58,6 +58,17 @@ public:
     void pending_new_db_node(gint64 node_id);
     void pending_rm_db_nodes(const std::vector<gint64>& node_ids);
     void pending_edit_db_bookmarks();
+    
+    constexpr CtStorageEntity* get_storage() const { return _storage; }
+    constexpr void set_storage(CtStorageEntity* storage) {
+        delete _storage;
+        _storage = storage;
+    }
+    
+    void set_file_path(Glib::ustring path) { _file_path = std::move(path); }
+    
+    void add_nodes_from_storage(const Glib::ustring& path);
+
 private:
 
 private:

@@ -315,7 +315,8 @@ Gtk::TreeIter CtStorageSqlite::_node_from_db(guint node_id, Gtk::TreeIter parent
         throw std::runtime_error(std::string("CtDocSqliteStorage: missing node properties for id ") + std::to_string(node_id));
 
     CtNodeData nodeData;
-    nodeData.nodeId = node_id;
+    // Wipe incompatable data when importing
+    nodeData.nodeId = _pCtMainWin->get_tree_store().node_id_get();
     nodeData.name = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
     nodeData.syntax = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
     nodeData.tags = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));

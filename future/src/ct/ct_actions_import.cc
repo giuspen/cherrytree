@@ -22,6 +22,7 @@
 #include "ct_actions.h"
 #include "ct_clipboard.h"
 #include "ct_imports.h"
+#include "ct_storage_control.h"
 
 #include <fstream>
 
@@ -71,7 +72,6 @@ void CtActions::_import_node_from_html(const std::filesystem::path& filepath)
         std::cerr << "Exception caught while parsing the document: " << e.what() << "\n";
     }
 }
-
 // Import a directory of html files - non recursive
 void CtActions::import_node_from_html_directory() noexcept 
 {
@@ -94,6 +94,31 @@ void CtActions::import_node_from_html_directory() noexcept
 
 }
 
+void CtActions::_import_node_from_plaintext(const std::filesystem::path &filepath)
+{
+    
+    if (!_is_there_selected_node_or_error()) return;
+    auto nodeData = setup_node(_pCtMainWin, filepath);
+    nodeData.syntax = CtConst::PLAIN_TEXT_ID;
+    
+    try {
+        std::ifstream infile;
+        infile.exceptions(std::ios_base::failbit);
+        infile.open(filepath);
+        
+        std::ostringstream data;
+        data << infile.rdbuf();
+        nodeData.rTextBuffer->insert_at_cursor(data.str());
+        
+        auto                         iter = _pCtMainWin->curr_tree_iter();
+        std::shared_ptr<CtNodeState> node_state;
+        
+        _node_add_with_data(iter, nodeData, false, node_state);
+    }
+    catch (std::exception &e) {
+        std::cerr << "Exception caught while importing plaintext file (" << filepath.string() << "): " << e.what() << "\n";
+    }
+}
 
 
 void CtActions::import_nodes_from_ct_file() noexcept
