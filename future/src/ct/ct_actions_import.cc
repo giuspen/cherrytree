@@ -146,7 +146,6 @@ void CtActions::import_nodes_from_plaintext_directory() noexcept
             auto& filepath = pair.path();
             
             if (CtMiscUtil::mime_type_contains(filepath.string(), "text/")) {
-                std::cout << "TAKEN" << std::endl;
                 _import_node_from_plaintext(filepath);
             }
         }
