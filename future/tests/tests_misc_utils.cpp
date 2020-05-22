@@ -25,6 +25,8 @@
 #include "ct_const.h"
 #include "CppUTest/CommandLineTestRunner.h"
 #include "gtkmm/textbuffer.h"
+#include "test_consts.h"
+
 
 
 TEST_GROUP(MiscUtilsGroup)
@@ -311,6 +313,14 @@ TEST(MiscUtilsGroup, get_cherrytree_localedir)
     STRCMP_EQUAL(Glib::canonicalize_filename(Glib::build_filename(_CMAKE_SOURCE_DIR, "po")).c_str(), CtFileSystem::get_cherrytree_localedir().c_str());
 }
 
+TEST(MiscUtilsGroup, mime__type_contains) 
+{
+    CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/txt_test.txt", "text/"));
+    CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/html_test.html", "text/"));
+    CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/html_test.html", "html"));
+    CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/cpp_test.cpp", "text/"));
+    CHECK(!CtMiscUtil::mime_type_contains(unitTestsDataDir+"/test.ctb", "text/"));
+}
 
 int main(int ac, char** av)
 {
@@ -319,3 +329,5 @@ int main(int ac, char** av)
 
     return CommandLineTestRunner::RunAllTests(ac, av);
 }
+
+

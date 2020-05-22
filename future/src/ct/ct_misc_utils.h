@@ -62,6 +62,12 @@ std::string clean_from_chars_not_for_filename(std::string filename);
 
 Gtk::BuiltinIconSize getIconSize(int size);
 
+/**
+ * @brief Check if the the mime for a file contains a given string
+ * @return
+ */
+bool mime_type_contains(const std::string& filepath, const std::string& type);
+
 } // namespace CtMiscUtil
 
 namespace CtTextIterUtil {

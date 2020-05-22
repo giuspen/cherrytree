@@ -23,6 +23,19 @@
 #include "ct_clipboard.h"
 #include "ct_imports.h"
 
+#include <fstream>
+
+
+CtNodeData setup_node(CtMainWin* pWin, const std::filesystem::path& path)
+{
+    CtNodeData nodeData;
+    nodeData.isBold = false;
+    nodeData.customIconId = 0;
+    nodeData.isRO = false;
+    nodeData.rTextBuffer = pWin->get_new_text_buffer();
+    nodeData.name = path.stem().string();
+    return nodeData;
+}
 
 // Ask the user what file to import for the node
 void CtActions::import_node_from_html_file() noexcept 
@@ -41,19 +54,10 @@ void CtActions::import_node_from_html_file() noexcept
 // Import a node from a html file
 void CtActions::_import_node_from_html(const std::filesystem::path& filepath) 
 {
-    
-    CtNodeData nodeData;
-    std::shared_ptr<CtNodeState> node_state;
-    
     if (!_is_there_selected_node_or_error()) return;
-    nodeData.isBold = false;
-    nodeData.customIconId = 0;
+    auto nodeData = setup_node(_pCtMainWin, filepath);
     nodeData.syntax = CtConst::RICH_TEXT_ID;
-    nodeData.isRO = false;
-    nodeData.name = filepath.stem();
     
-    nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer();
-
     CtHtml2Xml parser(_pCtMainWin);
 
     try {
@@ -61,6 +65,7 @@ void CtActions::_import_node_from_html(const std::filesystem::path& filepath)
         
         CtClipboard(_pCtMainWin).from_xml_string_to_buffer(nodeData.rTextBuffer, parser.to_string());
         auto iter = _pCtMainWin->curr_tree_iter();
+        std::shared_ptr<CtNodeState> node_state;
         _node_add_with_data(iter, nodeData, false, node_state);
     } catch(std::exception& e) {
         std::cerr << "Exception caught while parsing the document: " << e.what() << "\n";
@@ -87,6 +92,67 @@ void CtActions::import_node_from_html_directory() noexcept
         std::cerr << "Exception caught while importing nodes from directory: " << e.what() << "\n";
     }
 
+}
+
+void CtActions::_import_node_from_plaintext(const std::filesystem::path &filepath)
+{
+    
+    if (!_is_there_selected_node_or_error()) return;
+    auto nodeData = setup_node(_pCtMainWin, filepath);
+    nodeData.syntax = CtConst::PLAIN_TEXT_ID;
+    
+    try {
+        std::ifstream infile;
+        infile.exceptions(std::ios_base::failbit);
+        infile.open(filepath);
+        
+        std::ostringstream data;
+        data << infile.rdbuf();
+        nodeData.rTextBuffer->insert_at_cursor(data.str());
+        
+        auto                         iter = _pCtMainWin->curr_tree_iter();
+        std::shared_ptr<CtNodeState> node_state;
+        
+        _node_add_with_data(iter, nodeData, false, node_state);
+    }
+    catch (std::exception &e) {
+        std::cerr << "Exception caught while importing plaintext file (" << filepath.string() << "): " << e.what() << "\n";
+    }
+}
+
+
+
+void CtActions::import_node_from_plaintext_file() noexcept
+{
+    try {
+        CtDialogs::file_select_args args(_pCtMainWin);
+        args.filter_mime = {"text/plain"};
+        auto fpath = CtDialogs::file_select_dialog(args);
+        
+        _import_node_from_plaintext(fpath);
+        
+    } catch(std::exception& e) {
+        std::cerr << "Exception caught while importing plaintext file: " << e.what();
+    }
+}
+
+
+void CtActions::import_nodes_from_plaintext_directory() noexcept
+{
+    try {
+        auto fdir = CtDialogs::folder_select_dialog("", _pCtMainWin);
+        
+        for (const auto& pair : std::filesystem::directory_iterator(fdir)) {
+            auto& filepath = pair.path();
+            
+            if (CtMiscUtil::mime_type_contains(filepath.string(), "text/")) {
+                _import_node_from_plaintext(filepath);
+            }
+        }
+        
+    } catch(std::exception& e) {
+        std::cerr << "Exception caught while importing directory of plaintext files: " << e.what();
+    }
 }
 
 

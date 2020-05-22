@@ -417,9 +417,11 @@ public:
 private:
     // helper for import actions
     void _import_node_from_html(const std::filesystem::path& filepath);
-    
+    void _import_node_from_plaintext(const std::filesystem::path& filepath);
 public:
     // import actions
     void import_node_from_html_file() noexcept;
     void import_node_from_html_directory() noexcept;
+    void import_node_from_plaintext_file() noexcept;
+    void import_nodes_from_plaintext_directory() noexcept;
 };
