@@ -28,6 +28,16 @@
 #include <glib/gstdio.h>
 
 
+Glib::ustring CtStorageControl::_check_and_unpack(const Glib::ustring& path) {
+    // unpack file if need
+    Glib::ustring password;
+    Glib::ustring extracted_file_path = path;
+    if (CtMiscUtil::get_doc_encrypt(path) == CtDocEncrypt::True)
+        extracted_file_path = _extract_file(_pCtMainWin, path, password);
+    return extracted_file_path;
+}
+
+
 /*static*/ CtStorageEntity* CtStorageControl::get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
 {
     if (file_type == CtDocType::SQLite)
@@ -337,16 +347,11 @@ void CtStorageControl::pending_edit_db_bookmarks()
 
 void CtStorageControl::add_nodes_from_storage(const Glib::ustring& path) {
     if (!Glib::file_test(path, Glib::FILE_TEST_IS_REGULAR))
-            throw std::runtime_error("no file");
+            throw std::runtime_error(fmt::format("File: {} - is not a regular file", path));
 
-        // unpack file if need
-        Glib::ustring password;
-        Glib::ustring extracted_file_path = path;
-        if (CtMiscUtil::get_doc_encrypt(path) == CtDocEncrypt::True)
-            extracted_file_path = _extract_file(_pCtMainWin, path, password);
+    auto extracted_file_path = _check_and_unpack(path);
 
-        // load from file
-        auto storage = get_entity_by_type(_pCtMainWin, CtMiscUtil::get_doc_type(extracted_file_path));
-        storage->import_nodes(_pCtMainWin, extracted_file_path);
+    auto storage = get_entity_by_type(_pCtMainWin, CtMiscUtil::get_doc_type(extracted_file_path));
+    storage->import_nodes(_pCtMainWin, extracted_file_path);
 }
 

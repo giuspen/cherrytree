@@ -141,9 +141,11 @@ public:
 
     virtual bool populate_treestore(const Glib::ustring& file_path, Glib::ustring& error) = 0;
     /**
-     * @brief Get a list of nodes to be imported by processing a CT file
-     * 
-     * @return std::vector<CtNodeData> 
+     * @brief Import a list of nodes from an external CT file into the current tree
+     * This method only operates on extracted and unencrypted CT files, 
+     * generally CtStorageControl::add_nodes_from_storage should be used instead
+     * @param pCtMainWin: The main window to use
+     * @param path: The path to the external CT file (must be unencrypted)
      */
     virtual void import_nodes(CtMainWin* pCtMainWin, const std::string& path) = 0;
     virtual bool save_treestore(const Glib::ustring& file_path, const CtStorageSyncPending& syncPending, Glib::ustring& error) = 0;

@@ -67,10 +67,22 @@ public:
     
     void set_file_path(Glib::ustring path) { _file_path = std::move(path); }
     
+    /**
+     * @brief Add the nodes from an external CT file to the current tree
+     * Operates on all CT files, uses the appropraite StorageEntity derivative and extracts 
+     * encrypted files 
+     * @param path: The path to the external CT file
+     */
     void add_nodes_from_storage(const Glib::ustring& path);
 
 private:
-
+    /**
+     * @brief Check if a file is encrypted and unpack it if it is
+     * 
+     * @param path: The path to the file to check
+     * @return Glib::ustring: The path to the unpacked file (the same as `path` if it was not encrypted)
+     */
+    Glib::ustring _check_and_unpack(const Glib::ustring& path);
 private:
     CtMainWin*           _pCtMainWin{nullptr};
     Glib::ustring        _file_path;
