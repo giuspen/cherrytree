@@ -127,10 +127,6 @@ class CtNodeData;
 class CtAnchoredWidget;
 class CtStorageEntity
 {
-
-protected:
-    bool _importing_data = false;
-
 public:
     CtStorageEntity() = default;
     virtual ~CtStorageEntity() = default;
