@@ -767,7 +767,7 @@ CtTreeIter CtStorageSqlite::_node_from_imported_db(gint64 node_id, CtTreeIter* p
     nodeData.tsCreation = std::time(nullptr);
     nodeData.tsLastSave = nodeData.tsCreation;
     
-    nodeData.rTextBuffer = get_delayed_text_buffer(node_id, nodeData.syntax, nodeData.anchoredWidgets);//CtStorageXmlHelper(_pCtMainWin).create_buffer_no_widgets(nodeData.syntax, node_text.c_str());//_pCtMainWin->get_new_text_buffer(node_text);
+    nodeData.rTextBuffer = get_delayed_text_buffer(node_id, nodeData.syntax, nodeData.anchoredWidgets);
     
     auto iter = _pCtMainWin->get_tree_store().append_node(&nodeData, parent_iter);
     return _pCtMainWin->get_tree_store().to_ct_tree_iter(iter);
@@ -781,18 +781,16 @@ void CtStorageSqlite::import_nodes(CtMainWin* pCtMainWin, const std::string& pat
     if (SQLITE_OK != sqlite3_open(path.c_str(), &_pDb))
         throw std::runtime_error(std::string("sqlite3_open: ") + sqlite3_errmsg(_pDb));
     _file_path = path;
-    std::cout << "FILE PATH: " << _file_path << std::endl;
     
     _pCtMainWin = pCtMainWin;
     std::function<void(gint64, CtTreeIter)> add_node_func;
     add_node_func = [this, &add_node_func](gint64 nodeId, CtTreeIter parent_iter) {
-        std::cout << "NODE ID: " << nodeId << std::endl;
         auto node_iter = _node_from_imported_db(nodeId, &parent_iter);
         _pCtMainWin->update_window_save_needed();
         
         node_iter.pending_new_db_node();
         for (auto child_id : _get_children_node_ids_from_db(nodeId)) {
-            add_node_func(child_id, _pCtMainWin->curr_tree_iter().parent());
+            add_node_func(child_id, node_iter);
         }
     };
     for (auto node_id : _get_children_node_ids_from_db(0)) {

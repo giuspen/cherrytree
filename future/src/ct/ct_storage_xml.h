@@ -58,6 +58,8 @@ public:
 private:
     Gtk::TreeIter  _node_from_xml(xmlpp::Element* xml_element, Gtk::TreeIter parent_iter);
     void           _nodes_to_xml(CtTreeIter* ct_tree_iter, xmlpp::Element* p_node_parent);
+    
+    CtTreeIter _import_node_from_xml(xmlpp::Element* xml_element, CtTreeIter parent_iter);
 
 private:
     CtMainWin* _pCtMainWin{nullptr};
