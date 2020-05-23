@@ -23,8 +23,8 @@ before_install:
     case $TRAVIS_OS_NAME in
       linux)
         sudo apt install build-essential libgtkmm-3.0-dev
-        libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev
-        libcpputest-dev gettext python3-lxml libgspell-1-dev
+        sudo apt install libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev
+        sudo apt install libcpputest-dev gettext python3-lxml libgspell-1-dev
         ;;
       windows)
         [[ ! -f C:/tools/msys64/msys2_shell.cmd ]] && rm -rf C:/tools/msys64
