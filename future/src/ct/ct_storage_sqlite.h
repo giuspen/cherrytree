@@ -45,13 +45,18 @@ public:
     bool save_treestore(const Glib::ustring& file_path, const CtStorageSyncPending& syncPending, Glib::ustring& error) override;
     void vacuum() override;
 
+    void import_nodes(CtMainWin* pCtMainWin, const std::string& path) override;
+
     Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
                                                       const std::string& syntax,
                                                       std::list<CtAnchoredWidget*>& widgets) const override;
 private:
     void                _close_db();
+    void _open_db(const std::string &path, bool read_only);
 
     Gtk::TreeIter       _node_from_db(guint node_id, Gtk::TreeIter parent_iter);
+    CtTreeIter          _node_from_imported_db(gint64 node_id, CtTreeIter* parent_iter);
+    
     void                _image_from_db(const gint64& nodeId, std::list<CtAnchoredWidget*>& anchoredWidgets) const;
     void                _codebox_from_db(const gint64& nodeId, std::list<CtAnchoredWidget*>& anchoredWidgets) const;
     void                _table_from_db(const gint64& nodeId, std::list<CtAnchoredWidget*>& anchoredWidgets) const;

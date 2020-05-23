@@ -424,4 +424,5 @@ public:
     void import_node_from_html_directory() noexcept;
     void import_node_from_plaintext_file() noexcept;
     void import_nodes_from_plaintext_directory() noexcept;
+    void import_nodes_from_ct_file() noexcept;
 };

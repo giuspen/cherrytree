@@ -49,20 +49,27 @@ void CtStorageXml::test_connection()
 
 }
 
+std::unique_ptr<xmlpp::DomParser> get_parser(const Glib::ustring& file_path) {
+    // open file
+    auto parser = std::make_unique<xmlpp::DomParser>();
+    parser->parse_file(file_path);
+    if (!parser->get_document())
+        throw std::runtime_error("document is null");
+    if (parser->get_document()->get_root_node()->get_name() != CtConst::APP_NAME)
+        throw std::runtime_error("document contains the wrong node root");
+    return parser;
+}
+
+
 bool CtStorageXml::populate_treestore(const Glib::ustring& file_path, Glib::ustring& error)
 {
     try
     {
         // open file
-        xmlpp::DomParser parser;
-        parser.parse_file(file_path);
-        if (!parser.get_document())
-            throw std::runtime_error("document is null");
-        if (parser.get_document()->get_root_node()->get_name() != CtConst::APP_NAME)
-            throw std::runtime_error("document contains the wrong node root");
+        auto parser = get_parser(file_path);
 
         // read bookmarks
-        for (xmlpp::Node* xml_node :  parser.get_document()->get_root_node()->get_children("bookmarks"))
+        for (xmlpp::Node* xml_node :  parser->get_document()->get_root_node()->get_children("bookmarks"))
         {
             Glib::ustring bookmarks_csv = static_cast<xmlpp::Element*>(xml_node)->get_attribute_value("list");
             for (gint64& nodeId : CtStrUtil::gstring_split_to_int64(bookmarks_csv.c_str(), ","))
@@ -77,7 +84,7 @@ bool CtStorageXml::populate_treestore(const Glib::ustring& file_path, Glib::ustr
                 nodes_from_xml(static_cast<xmlpp::Element*>(xml_node), new_iter);
         };
 
-        for (xmlpp::Node* xml_node: parser.get_document()->get_root_node()->get_children("node"))
+        for (xmlpp::Node* xml_node: parser->get_document()->get_root_node()->get_children("node"))
             nodes_from_xml(static_cast<xmlpp::Element*>(xml_node), Gtk::TreeIter());
 
         return true;
@@ -405,4 +412,49 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_table_from_xml(xmlpp::Element* xml
 }
 
 
+CtTreeIter CtStorageXml::_import_node_from_xml(xmlpp::Element* xml_element, CtTreeIter parent_iter)
+{
+    CtNodeData node_data;
+    node_data.nodeId = _pCtMainWin->get_tree_store().node_id_get();
+    node_data.name = xml_element->get_attribute_value("name");
+    node_data.syntax = xml_element->get_attribute_value("prog_lang");
+    node_data.tags = xml_element->get_attribute_value("tags");
+    node_data.isRO = CtStrUtil::is_str_true(xml_element->get_attribute_value("readonly"));
+    node_data.customIconId = (guint32)CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("custom_icon_id").c_str());
+    node_data.isBold = CtStrUtil::is_str_true(xml_element->get_attribute_value("is_bold"));
+    node_data.foregroundRgb24 = xml_element->get_attribute_value("foreground");
+    node_data.tsCreation = std::time(nullptr);
+    node_data.tsLastSave = node_data.tsCreation;
+    
+    // When importing the text buffer cannot be left in the file, this may need a workaround
+    node_data.rTextBuffer = CtStorageXmlHelper(_pCtMainWin).create_buffer_and_widgets_from_xml(xml_element, node_data.syntax, node_data.anchoredWidgets, nullptr, -1);
+    
+    auto iter = _pCtMainWin->get_tree_store().append_node(&node_data, &parent_iter);
+    return _pCtMainWin->get_tree_store().to_ct_tree_iter(iter);
+}
+
+
+void CtStorageXml::import_nodes(CtMainWin* pCtMainWin, const std::string& path) 
+{
+    _pCtMainWin = pCtMainWin;
+    
+    
+    auto                                             parser = get_parser(path);
+    std::function<void(xmlpp::Element*, CtTreeIter)> recursive_import_func;
+    recursive_import_func = [this, &recursive_import_func](xmlpp::Element* xml_element, CtTreeIter parent_iter) {
+        auto new_iter = _import_node_from_xml(xml_element, std::move(parent_iter));
+    
+        _pCtMainWin->update_window_save_needed();
+    
+        new_iter.pending_new_db_node();
+        _pCtMainWin->get_tree_store().nodes_sequences_fix(new_iter->parent(), false);
+    
+        for (xmlpp::Node* xml_node : xml_element->get_children("node"))
+            recursive_import_func(static_cast<xmlpp::Element*>(xml_node), new_iter);
+    };
+    
+    for (xmlpp::Node* xml_node: parser->get_document()->get_root_node()->get_children("node"))
+        recursive_import_func(static_cast<xmlpp::Element*>(xml_node), _pCtMainWin->get_tree_store().to_ct_tree_iter(Gtk::TreeIter()));
+    
+}
 

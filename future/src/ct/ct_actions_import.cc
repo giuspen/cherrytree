@@ -22,6 +22,7 @@
 #include "ct_actions.h"
 #include "ct_clipboard.h"
 #include "ct_imports.h"
+#include "ct_storage_control.h"
 
 #include <fstream>
 
@@ -41,6 +42,8 @@ CtNodeData setup_node(CtMainWin* pWin, const std::filesystem::path& path)
 void CtActions::import_node_from_html_file() noexcept 
 {
     try {
+        if(!_is_there_selected_node_or_error()) return;
+
         CtDialogs::file_select_args args(_pCtMainWin);
         args.filter_mime = {"text/html"};
         auto filepath = CtDialogs::file_select_dialog(args);
@@ -71,13 +74,14 @@ void CtActions::_import_node_from_html(const std::filesystem::path& filepath)
         std::cerr << "Exception caught while parsing the document: " << e.what() << "\n";
     }
 }
-
 // Import a directory of html files - non recursive
 void CtActions::import_node_from_html_directory() noexcept 
 {
     namespace fs = std::filesystem;
     
     try {
+        if(!_is_there_selected_node_or_error()) return;
+
         fs::path dirpath = CtDialogs::folder_select_dialog("", _pCtMainWin);
 
         for (const auto& file : fs::directory_iterator(dirpath)) {
@@ -102,6 +106,7 @@ void CtActions::_import_node_from_plaintext(const std::filesystem::path &filepat
     nodeData.syntax = CtConst::PLAIN_TEXT_ID;
     
     try {
+
         std::ifstream infile;
         infile.exceptions(std::ios_base::failbit);
         infile.open(filepath);
@@ -121,10 +126,35 @@ void CtActions::_import_node_from_plaintext(const std::filesystem::path &filepat
 }
 
 
+void CtActions::import_nodes_from_ct_file() noexcept
+{
+    try {
+        if(!_is_there_selected_node_or_error()) return;
+        CtDialogs::file_select_args args(_pCtMainWin);
+        args.filter_pattern = CtConst::CT_FILE_EXTENSIONS_FILTER;
+        
+        auto fpath = CtDialogs::file_select_dialog(args);
+        if (fpath.empty()) return; // No file selected
+        
+        
+        // Add the nodes through the storage type
+        _pCtMainWin->get_ct_storage()->add_nodes_from_storage(fpath);
+        
+    } catch(std::exception& e) {
+        std::cerr << "Exception caught while importing node from CT file: " << e.what() << "\n";
+    }
+    
+    
+}
+
+
+
 
 void CtActions::import_node_from_plaintext_file() noexcept
 {
     try {
+        if(!_is_there_selected_node_or_error()) return;
+
         CtDialogs::file_select_args args(_pCtMainWin);
         args.filter_mime = {"text/plain"};
         auto fpath = CtDialogs::file_select_dialog(args);
@@ -140,6 +170,8 @@ void CtActions::import_node_from_plaintext_file() noexcept
 void CtActions::import_nodes_from_plaintext_directory() noexcept
 {
     try {
+        if(!_is_there_selected_node_or_error()) return;
+        
         auto fdir = CtDialogs::folder_select_dialog("", _pCtMainWin);
         
         for (const auto& pair : std::filesystem::directory_iterator(fdir)) {

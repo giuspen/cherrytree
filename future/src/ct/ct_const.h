@@ -347,6 +347,9 @@ const std::unordered_map<std::string, std::string> CODE_EXEC_TERM_RUN_DEFAULT {
 const constexpr std::array<std::string_view, 4>  INVALID_HTML_TAGS = {
     "script", "title", "head", "html"
 };
-
+// List of extensions for cherrytree save files, for use with gtk FileFilter
+const std::vector<std::string> CT_FILE_EXTENSIONS_FILTER = {
+        "*.ctb", "*.ctx", "*.ctd", "*.ctz"
+};
 
 } // namespace CtConst

@@ -28,7 +28,18 @@
 #include <glib/gstdio.h>
 
 
-static CtStorageEntity* get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
+std::string CtStorageControl::_check_and_unpack(const std::string& path) 
+{
+    // unpack file if need
+    std::string password;
+    std::string extracted_file_path = path;
+    if (CtMiscUtil::get_doc_encrypt(path) == CtDocEncrypt::True)
+        extracted_file_path = _extract_file(_pCtMainWin, path, password);
+    return extracted_file_path;
+}
+
+
+CtStorageEntity* get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
 {
     if (file_type == CtDocType::SQLite)
         return new CtStorageSqlite(pCtMainWin);
@@ -51,7 +62,7 @@ static CtStorageEntity* get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file
             throw std::runtime_error("no file");
 
         // unpack file if need
-        Glib::ustring password;
+        std::string password;
         if (CtMiscUtil::get_doc_encrypt(file_path) == CtDocEncrypt::True)
             extracted_file_path = _extract_file(pCtMainWin, file_path, password);
 
@@ -222,7 +233,7 @@ Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64
     return _storage->get_delayed_text_buffer(node_id, syntax, widgets);
 }
 
-/*static*/ Glib::ustring CtStorageControl::_extract_file(CtMainWin* pCtMainWin, const Glib::ustring& file_path, Glib::ustring& password)
+/*static*/ std::string CtStorageControl::_extract_file(CtMainWin* pCtMainWin, const std::string& file_path, std::string& password)
 {
     Glib::ustring temp_dir = pCtMainWin->get_ct_tmp()->getHiddenDirPath(file_path);
     Glib::ustring temp_file_path = pCtMainWin->get_ct_tmp()->getHiddenFilePath(file_path);
@@ -332,3 +343,17 @@ void CtStorageControl::pending_edit_db_bookmarks()
 {
     _syncPending.bookmarks_to_write = true;
 }
+
+
+
+void CtStorageControl::add_nodes_from_storage(const std::string& path) 
+{
+    if (!Glib::file_test(path, Glib::FILE_TEST_IS_REGULAR))
+            throw std::runtime_error(fmt::format("File: {} - is not a regular file", path));
+
+    auto extracted_file_path = _check_and_unpack(path);
+
+    auto storage = get_entity_by_type(_pCtMainWin, CtMiscUtil::get_doc_type(extracted_file_path));
+    storage->import_nodes(_pCtMainWin, extracted_file_path);
+}
+
