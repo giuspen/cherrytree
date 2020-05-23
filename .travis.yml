@@ -82,6 +82,8 @@ script:
         ./build.sh
         ;;
       windows)
+        export CC="C:/tools/msys64/mingw64/bin/gcc.exe"
+        export CXX="C:/tools/msys64/mingw64/bin/g++.exe"
         cd ${TRAVIS_BUILD_DIR}/future
         $mingw64 ./build.sh
         ;;
