@@ -28,7 +28,8 @@
 #include <libxml2/libxml/HTMLparser.h>
 #include <libxml++/libxml++.h>
 #include <filesystem>
-
+#include <unordered_set>
+#include <fstream>
 
 namespace CtImports {
 
@@ -141,3 +142,84 @@ private:
     int                    _slot_style_id;
     std::list<slot_styles> _slot_styles_cache;
 };
+
+/**
+ * @class CtImportException
+ * @brief Thrown when an exception occures during importing
+ */
+class CtImportException: public std::runtime_error {
+    static constexpr std::string_view signature = "[Import Exception]: ";
+public:
+    CtImportException(std::string_view msg) : std::runtime_error(signature + msg) {}
+};
+
+/**
+ * @brief Base class/interface for import handlers
+ * @class CtImportHandler
+ */
+class CtImportHandler
+{
+protected:
+    enum class PARSING_STATE {
+        HEAD,
+        BODY
+    } _parse_state = PARSING_STATE::HEAD;
+    
+    class ImportFile {
+    public:
+        std::filesystem::path path;
+        int depth = 0;
+        
+        ImportFile(std::filesystem::path p, int rec_depth = 0) : path(std::move(p)), depth(rec_depth) {}
+        
+        bool operator==(const ImportFile& other) const {
+            return (path == other.path) && (depth == other.depth);
+        }
+        bool operator>(const ImportFile& other) const { return depth > other.depth; }
+        bool operator<(const ImportFile& other) const { return depth < other.depth; }
+        
+        std::ifstream file() const { return std::ifstream(path); }
+    };
+public:
+    virtual void add_file(const std::filesystem::path& path) = 0;
+    virtual void add_directory(const std::filesystem::path& dir_path) = 0;
+    
+    [[nodiscard]] virtual std::string to_string() const = 0;
+    
+    virtual void import_to_tree(const std::filesystem::path& path) = 0;
+    
+protected:
+    // XML generation
+    xmlpp::Document _xml_doc;
+    xmlpp::Element* _current_element;
+    std::vector<ImportFile> _import_files;
+    bool _processed_files = false;
+    /**
+     * @brief Process the files to import based on the import list
+     * @param path
+     */
+    void _process_files(const std::filesystem::path& path);
+    
+    /**
+     * @brief Get a list of file extensions supported by the import handler
+     * @return
+     */
+    virtual const std::unordered_set<std::string>& _get_accepted_file_extensions() = 0;
+};
+
+
+
+
+class CtZimImportHandler: public CtImportHandler {
+private:
+    bool _has_notebook_file();
+    
+    void _parse_body_line(const std::string& line);
+public:
+    void add_file(const std::filesystem::path& path) override;
+    
+    virtual void add_directory(const std::filesystem::path &dir_path) override;
+    
+    
+};
+
