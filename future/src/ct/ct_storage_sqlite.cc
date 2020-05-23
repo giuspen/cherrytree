@@ -189,7 +189,7 @@ bool CtStorageSqlite::populate_treestore(const Glib::ustring& file_path, Glib::u
         // open db
         _open_db(file_path, false);
         _file_path = file_path;
-        _check_db_tables(_pDb);
+        _check_db_tables();
 
         // todo: need validations and check corruption
 
@@ -231,7 +231,6 @@ bool CtStorageSqlite::save_treestore(const Glib::ustring& file_path, const CtSto
         {
             _open_db(file_path, false);
 
-            _check_db_tables(_pDb);
             _create_all_tables_in_db();
             _write_bookmarks_to_db(_pCtMainWin->get_tree_store().bookmarks_get());
 
@@ -817,10 +816,11 @@ void CtStorageSqlite::_open_db(const std::string &path, bool read_only)
 }
 
 
-std::unordered_set<std::string> get_table_field_names(sqlite3* db, const std::string& table_name) {
+std::unordered_set<std::string> CtStorageSqlite::_get_table_field_names(std::string_view table_name) 
+{
     // Note, possible SQL injection - Table names passed to this should be hardcoded 
     auto fields_info_pragma = fmt::format("PRAGMA table_info({})", table_name);
-    sqlite3_stmt_auto stmt(db, fields_info_pragma.c_str());
+    sqlite3_stmt_auto stmt(_pDb, fields_info_pragma.c_str());
 
     std::unordered_set<std::string> fields;
     while(sqlite3_step(stmt) == SQLITE_ROW) {
@@ -832,20 +832,36 @@ std::unordered_set<std::string> get_table_field_names(sqlite3* db, const std::st
     return fields;
 }
 
-void CtStorageSqlite::_check_db_tables(sqlite3* db) {
-    if (!db) throw std::logic_error("CtStorageSqlite::_check_db_tables passed invalid db object");
+void CtStorageSqlite::_check_db_tables() 
+{
+    if (!_pDb) throw std::logic_error("CtStorageSqlite::_check_db_tables called without a valid _pDb object");
     
-    auto fields = get_table_field_names(db, "node");
 
-    if (fields.find("ts_creation") == fields.end()) {
-        try {
-            _exec_no_callback("ALTER TABLE node ADD COLUMN ts_creation INTEGER;");
-            _exec_no_callback("ALTER TABLE node ADD COLUMN ts_lastsave INTEGER;");
-        
-        } catch(std::runtime_error& e) {
+    constexpr std::array<std::string_view, 2> needed_node_fields = {
+        "ts_creation INTEGER", "ts_lastsave INTEGER"
+    };
+    constexpr std::array<std::string_view, 3> needed_image_fields = {
+        "filename TEXT", "link TEXT", "time TEXT"
+    };
+    
+    try {
+        auto node_fields = get_table_field_names("node");
+        for (const auto& field : needed_node_fields) {
+            if (node_fields.find(field) == node_fields.end()) {
+                _exec_no_callback(fmt::format("ALTER TABLE node ADD COLUMN {}", field));
+            }
+        }
+
+        auto image_fields = _get_table_field_names("image");
+        for (const auto& field : needed_image_fields) {
+            if (image_fields.find(field) == image_fields.end()) {
+                _exec_no_callback(fmt::format("ALTER TABLE image ADD COLUMN {}", field));
+            }
+        }
+
+    } catch(std::runtime_error& e) {
             throw std::runtime_error(fmt::format("Error while adding ts_creation and ts_lastsave to node table: {}", e.what()));
         }
-    }
 
 
 }

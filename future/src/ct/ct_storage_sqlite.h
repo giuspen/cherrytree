@@ -63,6 +63,14 @@ private:
      * @param db 
      */
     void                _check_db_tables(sqlite3* db);
+    /**
+     * @brief Get a list of field names for a table
+     * @warning Only hardcoded table names should be passed to this method
+     * @param table_name 
+     * @return std::unordered_set<std::string> 
+     */
+    std::unordered_set<std::string> _get_table_field_names(std::string_view table_name) {
+
     void                _image_from_db(const gint64& nodeId, std::list<CtAnchoredWidget*>& anchoredWidgets) const;
     void                _codebox_from_db(const gint64& nodeId, std::list<CtAnchoredWidget*>& anchoredWidgets) const;
     void                _table_from_db(const gint64& nodeId, std::list<CtAnchoredWidget*>& anchoredWidgets) const;
