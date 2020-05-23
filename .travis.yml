@@ -82,7 +82,7 @@ script:
         ./build.sh
         ;;
       windows)
-        $mingw64 cd ${TRAVIS_BUILD_DIR}/future
+        cd ${TRAVIS_BUILD_DIR}/future
         $mingw64 ./build.sh
         ;;
     esac
