@@ -189,6 +189,7 @@ bool CtStorageSqlite::populate_treestore(const Glib::ustring& file_path, Glib::u
         // open db
         _open_db(file_path, false);
         _file_path = file_path;
+        _check_db_tables();
 
         // todo: need validations and check corruption
 
@@ -812,4 +813,54 @@ void CtStorageSqlite::_open_db(const std::string &path, bool read_only)
         // Enable foreign keys
        // _exec_no_callback(foreign_keys_pragma);
     }
+}
+
+
+std::unordered_set<std::string> CtStorageSqlite::_get_table_field_names(std::string_view table_name) 
+{
+    // Note, possible SQL injection - Table names passed to this should be hardcoded 
+    auto fields_info_pragma = fmt::format("PRAGMA table_info({})", table_name);
+    sqlite3_stmt_auto stmt(_pDb, fields_info_pragma.c_str());
+
+    std::unordered_set<std::string> fields;
+    while(sqlite3_step(stmt) == SQLITE_ROW) {
+        // Name is the second column
+        std::string name = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+        fields.emplace(std::move(name));
+    }
+
+    return fields;
+}
+
+void CtStorageSqlite::_check_db_tables() 
+{
+    if (!_pDb) throw std::logic_error("CtStorageSqlite::_check_db_tables called without a valid _pDb object");
+    
+
+    
+    const static std::vector<std::vector<std::string>> tables = {
+        {"node", "ts_creation", "INTEGER", "ts_lastsave", "INTEGER"}, {"image", "filename", "TEXT", "link", "TEXT", "time", "TEXT"}
+    };
+    
+    try {
+        for (const auto& table : tables) {
+            auto& table_name = table[0];
+            auto node_fields = _get_table_field_names(table_name);
+            for (auto field = table.begin() + 1; field != table.end(); field += 2) {
+                if (node_fields.find(*field) == node_fields.end()) {
+                    auto sql = fmt::format("ALTER TABLE {} ADD COLUMN {} {}", table_name, *field, *(field + 1));
+                    _exec_no_callback(sql.c_str());
+                }
+                // Stop us going off the end
+                if ((field + 1) == table.end()) break;
+            }
+        }
+
+        
+
+    } catch(std::runtime_error& e) {
+            throw std::runtime_error(fmt::format("Error while adding ts_creation and ts_lastsave to node table: {}", e.what()));
+        }
+
+
 }
