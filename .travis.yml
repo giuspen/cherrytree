@@ -70,8 +70,8 @@ install:
         cd cpputest-3.8
         $mingw64 ./autogen.sh
         $mingw64 ./configure --disable-memory-leak-detection
-        $mingw64 make
-        $mingw64 make install
+        $mingw64 mingw32-make
+        $mingw64 mingw32-make install
         ;;
     esac
 script:
