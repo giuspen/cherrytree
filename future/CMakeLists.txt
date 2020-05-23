@@ -8,11 +8,18 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   set(CMAKE_INSTALL_PREFIX "/usr" CACHE PATH "..." FORCE)
 endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 
+if(NOT PYTHON_EXEC)
+  set(PYTHON_EXEC "python3")
+endif(NOT PYTHON_EXEC)
+
+option(USE_NLS "Add locales support" ON)
 
 # used to install locale, packagers might overwrite this
-if(NOT PACKAGE_LOCALE_DIR)
-  set(PACKAGE_LOCALE_DIR "share/locale")
-endif(NOT PACKAGE_LOCALE_DIR)
+if(USE_NLS)
+  if(NOT PACKAGE_LOCALE_DIR)
+    set(PACKAGE_LOCALE_DIR "share/locale")
+  endif(NOT PACKAGE_LOCALE_DIR)
+endif()
 
 # used to install data, packagers might overwrite this
 if(NOT SHARE_INSTALL)
@@ -127,10 +134,12 @@ add_custom_target(man_pages ALL DEPENDS ${MANFILE_FULL_GZ})
 
 
 # rebuild languages binaries
-execute_process(
-  COMMAND python3 ${CMAKE_SOURCE_DIR}/po/i18n_po_to_mo.py
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-)
+if(USE_NLS)
+  execute_process(
+    COMMAND ${PYTHON_EXEC} ${CMAKE_SOURCE_DIR}/po/i18n_po_to_mo.py
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  )
+endif()
 
 
 # install cherrytree
@@ -138,7 +147,7 @@ install(TARGETS cherrytree RUNTIME DESTINATION bin)
 
 # set icon on macos
 if(APPLE)
-  install(CODE "execute_process(COMMAND /usr/bin/python ${CMAKE_SOURCE_DIR}/scripts/set_icon_macos.py ${CMAKE_SOURCE_DIR}/icons/cherrytree.ico ${CMAKE_INSTALL_PREFIX}/bin/cherrytree)")
+  install(CODE "execute_process(COMMAND ${PYTHON_EXEC} ${CMAKE_SOURCE_DIR}/scripts/set_icon_macos.py ${CMAKE_SOURCE_DIR}/icons/cherrytree.ico ${CMAKE_INSTALL_PREFIX}/bin/cherrytree)")
 endif(APPLE)
 
 # install other files
@@ -168,10 +177,12 @@ if(${CMAKE_SYSTEM_NAME} MATCHES Linux|.*BSD|DragonFly|Darwin)
           DESTINATION "${CHERRYTREE_SHARE_INSTALL}/data")
 
   # locale data
-  file(GLOB children "${CMAKE_SOURCE_DIR}/po/*")
-  foreach(child ${children})
-    if(IS_DIRECTORY ${child})
-      install(DIRECTORY ${child} DESTINATION "${PACKAGE_LOCALE_DIR}")
-    endif()
-  endforeach()
+  if(USE_NLS)
+    file(GLOB children "${CMAKE_SOURCE_DIR}/po/*")
+    foreach(child ${children})
+      if(IS_DIRECTORY ${child})
+        install(DIRECTORY ${child} DESTINATION "${PACKAGE_LOCALE_DIR}")
+      endif()
+    endforeach()
+  endif()
 endif()

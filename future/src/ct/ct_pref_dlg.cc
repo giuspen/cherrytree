@@ -1414,6 +1414,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     align_misc_misc->add(*vbox_misc_misc);
     frame_misc_misc->add(*align_misc_misc);
 
+#ifdef HAVE_NLS
     Gtk::VBox* vbox_language = Gtk::manage(new Gtk::VBox());
     Gtk::ComboBoxText* combobox_country_language = Gtk::manage(new Gtk::ComboBoxText());
     for (auto lang : CtConst::AVAILABLE_LANGS)
@@ -1427,6 +1428,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     align_language->set_padding(3, 6, 6, 6);
     align_language->add(*vbox_language);
     frame_language->add(*align_language);
+#endif
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
@@ -1435,7 +1437,9 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     pMainBox->pack_start(*frame_system_tray, false, false);
     pMainBox->pack_start(*frame_saving, false, false);
     pMainBox->pack_start(*frame_misc_misc, false, false);
+#ifdef HAVE_NLS
     pMainBox->pack_start(*frame_language, false, false);
+#endif
 
     checkbutton_systray->signal_toggled().connect([this, pConfig, checkbutton_systray, checkbutton_start_on_systray](){
         pConfig->systrayOn = checkbutton_systray->get_active();
@@ -1481,12 +1485,14 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
         pConfig->wordCountOn = checkbutton_word_count->get_active();
         apply_for_each_window([](CtMainWin* win) { win->update_selected_node_statusbar_info(); });
     });
+#ifdef HAVE_NLS
     combobox_country_language->signal_changed().connect([this, combobox_country_language](){
         Glib::ustring new_lang = combobox_country_language->get_active_text();
         need_restart(RESTART_REASON::LANG, _("The New Language will be Available Only After Restarting CherryTree"));
         g_file_set_contents(CtFileSystem::get_cherrytree_lang_filepath().c_str(),
                             new_lang.c_str(), (gssize)new_lang.bytes(), nullptr);
     });
+#endif
 
     return pMainBox;
 }

@@ -1,9 +1,13 @@
 
 add_compile_options(-Wall -Wextra -Wunreachable-code -Wuninitialized)
 
+if(USE_NLS)
+    add_definitions(-DHAVE_NLS)
+endif()
+
 # Generating icons
 execute_process(
-    COMMAND python3 ${CMAKE_SOURCE_DIR}/scripts/gresource_to_c.py
+    COMMAND ${PYTHON_EXEC} ${CMAKE_SOURCE_DIR}/scripts/gresource_to_c.py
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 )
 
