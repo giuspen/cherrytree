@@ -31,13 +31,13 @@ before_install:
         export msys2+=" -msys2 -c "\"\$@"\" --"
         $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-toolchain
         ## Install more MSYS2 packages from https://packages.msys2.org/base here
-        $msys2 pacman --sync --noconfirm--needed mingw-w64-x86_64-cmake
-        $msys2 pacman --sync --noconfirm--needed mingw-w64-x86_64-gtkmm3
-        $msys2 pacman --sync --noconfirm--needed mingw-w64-x86_64-gtksourceviewmm3
-        $msys2 pacman --sync --noconfirm--needed mingw-w64-x86_64-libxml++2.6
-        $msys2 pacman --sync --noconfirm--needed mingw-w64-x86_64-sqlite3
-        $msys2 pacman --sync --noconfirm--needed mingw-w64-x86_64-gspell
-        $msys2 pacman --sync --noconfirm--needed mingw-w64-x86_64-python3-lxml
+        $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-cmake
+        $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-gtkmm3
+        $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-gtksourceviewmm3
+        $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-libxml++2.6
+        $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-sqlite3
+        $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-gspell
+        $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-python3-lxml
         taskkill //IM gpg-agent.exe //F  # https://travis-ci.community/t/4967
         export PATH=/C/tools/msys64/mingw64/bin:$PATH
         export MAKE=mingw32-make  # so that Autotools can find it
@@ -66,7 +66,8 @@ install:
         ;;
       windows)
         $mingw64 export DEPS_DIR="${HOME}/deps"
-        $mingw64 mkdir -p ${DEPS_DIR} && cd ${DEPS_DIR}
+        $mingw64 mkdir -p ${DEPS_DIR}
+        $mingw64 cd ${DEPS_DIR}
         $mingw64 wget https://github.com/cpputest/cpputest/releases/download/v3.8/cpputest-3.8.tar.gz
         $mingw64 tar xf cpputest-3.8.tar.gz
         $mingw64 cd cpputest-3.8
