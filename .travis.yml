@@ -65,12 +65,9 @@ install:
         cmake --version
         ;;
       windows)
-        $mingw64 export DEPS_DIR="${HOME}/deps"
-        $mingw64 mkdir -p ${DEPS_DIR}
-        $mingw64 cd ${DEPS_DIR}
         $mingw64 wget https://github.com/cpputest/cpputest/releases/download/v3.8/cpputest-3.8.tar.gz
         $mingw64 tar xf cpputest-3.8.tar.gz
-        $mingw64 cd cpputest-3.8
+        cd cpputest-3.8
         $mingw64 ./autogen.sh
         $mingw64 ./configure --disable-memory-leak-detection
         $mingw64 make
