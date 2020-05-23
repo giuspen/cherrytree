@@ -1,41 +1,97 @@
-language: c++
-cache: apt
-os: linux
-dist: focal
+
+language: cpp
+
+jobs:
+  include:
+    - os: linux
+      dist: focal
+      cache: apt
+      addons:
+        apt:
+          update: true
+    - os: windows
+      cache:
+        directories:
+        - $HOME/AppData/Local/Temp/chocolatey
+        - /C/tools/msys64
 
 compiler:
   - gcc
 
 before_install:
-  - >
-    sudo apt install build-essential libgtkmm-3.0-dev
-    libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev
-    libcpputest-dev gettext python3-lxml libgspell-1-dev
-
-addons:
-  apt:
-    update: true
-
+- |-
+    case $TRAVIS_OS_NAME in
+      linux)
+        sudo apt install build-essential libgtkmm-3.0-dev
+        libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev
+        libcpputest-dev gettext python3-lxml libgspell-1-dev
+        ;;
+      windows)
+        [[ ! -f C:/tools/msys64/msys2_shell.cmd ]] && rm -rf C:/tools/msys64
+        choco uninstall -y mingw
+        choco upgrade --no-progress -y msys2
+        export msys2='cmd //C RefreshEnv.cmd '
+        export msys2+='& set MSYS=winsymlinks:nativestrict '
+        export msys2+='& C:\\tools\\msys64\\msys2_shell.cmd -defterm -no-start'
+        export mingw64="$msys2 -mingw64 -full-path -here -c "\"\$@"\" --"
+        export msys2+=" -msys2 -c "\"\$@"\" --"
+        $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-toolchain
+        ## Install more MSYS2 packages from https://packages.msys2.org/base here
+        $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-cmake
+        $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-gtkmm3
+        $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-gtksourceviewmm3
+        $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-libxml++2.6
+        $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-sqlite3
+        $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-gspell
+        $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-python3-lxml
+        taskkill //IM gpg-agent.exe //F  # https://travis-ci.community/t/4967
+        export PATH=/C/tools/msys64/mingw64/bin:$PATH
+        export MAKE=mingw32-make  # so that Autotools can find it
+        ;;
+    esac
+before_cache:
+- |-
+    case $TRAVIS_OS_NAME in
+      windows)
+        # https://unix.stackexchange.com/a/137322/107554
+        $msys2 pacman --sync --clean --noconfirm
+        ;;
+    esac
 install:
-  - export DEPS_DIR="${HOME}/deps"
-  - mkdir -p ${DEPS_DIR} && cd ${DEPS_DIR}
-  - echo ${TRAVIS_OS_NAME}
-  - |
-    if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
-      export CMAKE_URL="https://github.com/Kitware/CMake/releases/download/v3.17.0/cmake-3.17.0-Linux-x86_64.tar.gz";
-      mkdir cmake;
-      travis_retry wget --no-check-certificate -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake;
-      export PATH=${DEPS_DIR}/cmake/bin:${PATH};
-      echo ${PATH};
-    else
-      brew install cmake || brew upgrade cmake;
-    fi
-  - cmake --version
-
-before_script:
-  # returns back to working dir
-  - cd "${TRAVIS_BUILD_DIR}"
-
+- |-
+    case $TRAVIS_OS_NAME in
+      linux)
+        export DEPS_DIR="${HOME}/deps"
+        mkdir -p ${DEPS_DIR} && cd ${DEPS_DIR}
+        export CMAKE_URL="https://github.com/Kitware/CMake/releases/download/v3.17.0/cmake-3.17.0-Linux-x86_64.tar.gz";
+        mkdir cmake;
+        travis_retry wget --no-check-certificate -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake;
+        export PATH=${DEPS_DIR}/cmake/bin:${PATH};
+        echo ${PATH};
+        cmake --version
+        ;;
+      windows)
+        $mingw64 wget https://github.com/cpputest/cpputest/releases/download/v3.8/cpputest-3.8.tar.gz
+        $mingw64 tar xf cpputest-3.8.tar.gz
+        cd cpputest-3.8
+        $mingw64 ./autogen.sh
+        $mingw64 ./configure --disable-memory-leak-detection
+        $mingw64 mingw32-make
+        $mingw64 mingw32-make install
+        ;;
+    esac
 script:
-  - cd future
-  - ./build.sh
+- |-
+    case $TRAVIS_OS_NAME in
+      linux)
+        cd ${TRAVIS_BUILD_DIR}/future
+        ./build.sh
+        ;;
+      windows)
+        cd ${TRAVIS_BUILD_DIR}
+        mkdir build && cd build
+        $mingw64 cmake -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_MAKE_PROGRAM=mingw32-make.exe -G 'MSYS Makefiles' ../future
+        $mingw64 mingw32-make -j$(nproc --all)
+        $mingw64 ./tests/run_tests
+        ;;
+    esac
