@@ -189,6 +189,7 @@ bool CtStorageSqlite::populate_treestore(const Glib::ustring& file_path, Glib::u
         // open db
         _open_db(file_path, false);
         _file_path = file_path;
+        _check_db_tables(_pDb);
 
         // todo: need validations and check corruption
 
@@ -230,6 +231,7 @@ bool CtStorageSqlite::save_treestore(const Glib::ustring& file_path, const CtSto
         {
             _open_db(file_path, false);
 
+            _check_db_tables(_pDb);
             _create_all_tables_in_db();
             _write_bookmarks_to_db(_pCtMainWin->get_tree_store().bookmarks_get());
 
@@ -812,4 +814,38 @@ void CtStorageSqlite::_open_db(const std::string &path, bool read_only)
         // Enable foreign keys
        // _exec_no_callback(foreign_keys_pragma);
     }
+}
+
+
+std::unordered_set<std::string> get_table_field_names(sqlite3* db, const std::string& table_name) {
+    // Note, possible SQL injection - Table names passed to this should be hardcoded 
+    auto fields_info_pragma = fmt::format("PRAGMA table_info({})", table_name);
+    sqlite3_stmt_auto stmt(db, fields_info_pragma.c_str());
+
+    std::unordered_set<std::string> fields;
+    while(sqlite3_step(stmt) == SQLITE_ROW) {
+        // Name is the second column
+        std::string name = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+        fields.emplace(std::move(name));
+    }
+
+    return fields;
+}
+
+void CtStorageSqlite::_check_db_tables(sqlite3* db) {
+    if (!db) throw std::logic_error("CtStorageSqlite::_check_db_tables passed invalid db object");
+    
+    auto fields = get_table_field_names(db, "node");
+
+    if (fields.find("ts_creation") == fields.end()) {
+        try {
+            _exec_no_callback("ALTER TABLE node ADD COLUMN ts_creation INTEGER;");
+            _exec_no_callback("ALTER TABLE node ADD COLUMN ts_lastsave INTEGER;");
+        
+        } catch(std::runtime_error& e) {
+            throw std::runtime_error(fmt::format("Error while adding ts_creation and ts_lastsave to node table: {}", e.what()));
+        }
+    }
+
+
 }

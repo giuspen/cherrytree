@@ -57,6 +57,12 @@ private:
     Gtk::TreeIter       _node_from_db(guint node_id, Gtk::TreeIter parent_iter);
     CtTreeIter          _node_from_imported_db(gint64 node_id, CtTreeIter* parent_iter);
     
+    /**
+     * @brief Check that the database contains the required tables
+     * 
+     * @param db 
+     */
+    void                _check_db_tables(sqlite3* db);
     void                _image_from_db(const gint64& nodeId, std::list<CtAnchoredWidget*>& anchoredWidgets) const;
     void                _codebox_from_db(const gint64& nodeId, std::list<CtAnchoredWidget*>& anchoredWidgets) const;
     void                _table_from_db(const gint64& nodeId, std::list<CtAnchoredWidget*>& anchoredWidgets) const;
