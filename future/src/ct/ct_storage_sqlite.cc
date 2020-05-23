@@ -837,27 +837,26 @@ void CtStorageSqlite::_check_db_tables()
     if (!_pDb) throw std::logic_error("CtStorageSqlite::_check_db_tables called without a valid _pDb object");
     
 
-    constexpr std::array<std::string_view, 2> needed_node_fields = {
-        "ts_creation INTEGER", "ts_lastsave INTEGER"
-    };
-    constexpr std::array<std::string_view, 3> needed_image_fields = {
-        "filename TEXT", "link TEXT", "time TEXT"
+    
+    const static std::vector<std::vector<std::string>> tables = {
+        {"node", "ts_creation", "INTEGER", "ts_lastsave", "INTEGER"}, {"image", "filename", "TEXT", "link", "TEXT", "time", "TEXT"}
     };
     
     try {
-        auto node_fields = get_table_field_names("node");
-        for (const auto& field : needed_node_fields) {
-            if (node_fields.find(field) == node_fields.end()) {
-                _exec_no_callback(fmt::format("ALTER TABLE node ADD COLUMN {}", field));
+        for (const auto& table : tables) {
+            auto& table_name = table[0];
+            auto node_fields = _get_table_field_names(table_name);
+            for (auto field = table.begin() + 1; field != table.end(); field += 2) {
+                if (node_fields.find(*field) == node_fields.end()) {
+                    auto sql = fmt::format("ALTER TABLE {} ADD COLUMN {} {}", table_name, *field, *(field + 1));
+                    _exec_no_callback(sql.c_str());
+                }
+                // Stop us going off the end
+                if ((field + 1) == table.end()) break;
             }
         }
 
-        auto image_fields = _get_table_field_names("image");
-        for (const auto& field : needed_image_fields) {
-            if (image_fields.find(field) == image_fields.end()) {
-                _exec_no_callback(fmt::format("ALTER TABLE image ADD COLUMN {}", field));
-            }
-        }
+        
 
     } catch(std::runtime_error& e) {
             throw std::runtime_error(fmt::format("Error while adding ts_creation and ts_lastsave to node table: {}", e.what()));
