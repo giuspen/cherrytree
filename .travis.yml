@@ -82,9 +82,11 @@ script:
         ./build.sh
         ;;
       windows)
-        export CC="C:/tools/msys64/mingw64/bin/gcc.exe"
-        export CXX="C:/tools/msys64/mingw64/bin/g++.exe"
-        cd ${TRAVIS_BUILD_DIR}/future
-        $mingw64 ./build.sh
+        cd ${TRAVIS_BUILD_DIR}
+        mkdir build
+        cd build
+        $mingw64 cmake -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_MAKE_PROGRAM=mingw32-make.exe -G 'MSYS Makefiles' ../future
+        $mingw64 mingw32-make
+        $mingw64 ./tests/run_tests
         ;;
     esac
