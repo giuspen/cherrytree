@@ -6,7 +6,7 @@ BUILD_DIR="build"
 [ -d ${BUILD_DIR} ] || mkdir ${BUILD_DIR}
 
 cd ${BUILD_DIR}
-if [[ "${MSYSTEM}" =~ "^MINGW.*" ]]
+if [[ "${MSYSTEM}" =~ "MINGW" ]]
 then
   cmake .. -G"MSYS Makefiles"
 else
