@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
 {
     std::locale::global(std::locale("")); // Set the global C++ locale to the user-specified locale
 
+#ifdef HAVE_NLS
     const std::string ct_lang = CtMiscUtil::get_ct_language();
     if (ct_lang != CtConst::LANG_DEFAULT)
     {
@@ -45,6 +46,7 @@ int main(int argc, char *argv[])
     bindtextdomain(GETTEXT_PACKAGE, CtFileSystem::get_cherrytree_localedir().c_str());
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
     textdomain(GETTEXT_PACKAGE);
+#endif
 
     auto p_app = CtApp::create();
 
