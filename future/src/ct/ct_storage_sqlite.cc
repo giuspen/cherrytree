@@ -743,7 +743,8 @@ void CtStorageSqlite::_exec_bind_int64(const char* sqlCmd, const gint64 bind_int
         throw std::runtime_error(ERR_SQLITE_STEP + sqlite3_errmsg(_pDb));
 }
 
-CtTreeIter CtStorageSqlite::_node_from_imported_db(gint64 node_id, CtTreeIter* parent_iter) {
+CtTreeIter CtStorageSqlite::_node_from_imported_db(gint64 node_id, CtTreeIter* parent_iter) 
+{
     sqlite3_stmt_auto stmt(_pDb, "SELECT name, syntax, tags, txt, is_ro, is_richtxt FROM node WHERE node_id=?");
     if (stmt.is_bad())
         throw std::runtime_error("Error while retrieving record from imported database: " + std::string(sqlite3_errmsg(_pDb)));
@@ -783,7 +784,8 @@ CtTreeIter CtStorageSqlite::_node_from_imported_db(gint64 node_id, CtTreeIter* p
 }
 
 
-void CtStorageSqlite::import_nodes(CtMainWin* pCtMainWin, const std::string& path) {
+void CtStorageSqlite::import_nodes(CtMainWin* pCtMainWin, const std::string& path) 
+{
     _close_db();
     _open_db(path, false);
     
@@ -809,7 +811,8 @@ void CtStorageSqlite::import_nodes(CtMainWin* pCtMainWin, const std::string& pat
     
 }
 
-void CtStorageSqlite::_open_db(const std::string &path, bool read_only) {
+void CtStorageSqlite::_open_db(const std::string &path, bool read_only) 
+{
     // Open if not already
     if (!_pDb) {
         constexpr auto foreign_keys_pragma = "PRAGMA foreign_keys = ON";

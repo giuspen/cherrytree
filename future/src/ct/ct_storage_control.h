@@ -29,14 +29,13 @@ public:
     static CtStorageControl* create_dummy_storage();
     static CtStorageControl* load_from(CtMainWin* pCtMainWin, const Glib::ustring& file_path, Glib::ustring& error);
     static CtStorageControl* save_as(CtMainWin* pCtMainWin, const Glib::ustring& file_path, const Glib::ustring& password, Glib::ustring& error);
-    static CtStorageEntity* get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type);
 public:
     bool save(bool need_vacuum, Glib::ustring& error);
 
  private:
     CtStorageControl() = default;
 
-    static Glib::ustring _extract_file(CtMainWin* pCtMainWin, const Glib::ustring& file_path, Glib::ustring& password);
+    static std::string _extract_file(CtMainWin* pCtMainWin, const std::string& file_path, std::string& password);
     static bool          _package_file(const Glib::ustring& file_from, const Glib::ustring& file_to, const Glib::ustring& password);
 
     void _put_in_backup(const Glib::ustring& main_backup);
@@ -59,30 +58,25 @@ public:
     void pending_rm_db_nodes(const std::vector<gint64>& node_ids);
     void pending_edit_db_bookmarks();
     
-    constexpr CtStorageEntity* get_storage() const { return _storage; }
-    constexpr void set_storage(CtStorageEntity* storage) {
-        delete _storage;
-        _storage = storage;
-    }
-    
-    void set_file_path(Glib::ustring path) { _file_path = std::move(path); }
-    
+
+
+
     /**
      * @brief Add the nodes from an external CT file to the current tree
      * Operates on all CT files, uses the appropraite StorageEntity derivative and extracts 
      * encrypted files 
      * @param path: The path to the external CT file
      */
-    void add_nodes_from_storage(const Glib::ustring& path);
+    void add_nodes_from_storage(const std::string& path);
 
 private:
     /**
      * @brief Check if a file is encrypted and unpack it if it is
      * 
      * @param path: The path to the file to check
-     * @return Glib::ustring: The path to the unpacked file (the same as `path` if it was not encrypted)
+     * @return std::string: The path to the unpacked file (the same as `path` if it was not encrypted)
      */
-    Glib::ustring _check_and_unpack(const Glib::ustring& path);
+    std::string _check_and_unpack(const std::string& path);
 private:
     CtMainWin*           _pCtMainWin{nullptr};
     Glib::ustring        _file_path;

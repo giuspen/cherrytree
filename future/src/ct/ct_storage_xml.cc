@@ -434,7 +434,8 @@ CtTreeIter CtStorageXml::_import_node_from_xml(xmlpp::Element* xml_element, CtTr
 }
 
 
-void CtStorageXml::import_nodes(CtMainWin* pCtMainWin, const std::string& path) {
+void CtStorageXml::import_nodes(CtMainWin* pCtMainWin, const std::string& path) 
+{
     _pCtMainWin = pCtMainWin;
     
     
