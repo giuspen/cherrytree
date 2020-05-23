@@ -92,7 +92,7 @@ const char CtStorageSqlite::TABLE_CHILDREN_CREATE[]{"CREATE TABLE children ("
 "node_id INTEGER UNIQUE,"
 "father_id INTEGER,"
 "sequence INTEGER, "
-"FOREIGN KEY (node_id) REFERENCES node(node_id) ON UPDATE CASCADE "
+"FOREIGN KEY (node_id) REFERENCES node(node_id) ON UPDATE CASCADE"
 ")"
 };
 const char CtStorageSqlite::TABLE_CHILDREN_INSERT[]{"INSERT INTO children (node_id, father_id, sequence) VALUES(?,?,?)"};
@@ -100,7 +100,8 @@ const char CtStorageSqlite::TABLE_CHILDREN_DELETE[]{"DELETE FROM children WHERE 
 
 const char CtStorageSqlite::TABLE_BOOKMARK_CREATE[]{"CREATE TABLE bookmark ("
 "node_id INTEGER UNIQUE,"
-"sequence INTEGER"
+"sequence INTEGER,"
+"FOREIGN KEY (node_id) REFERENCES node(node_id) ON UPDATE CASCADE"
 ")"
 };
 const char CtStorageSqlite::TABLE_BOOKMARK_INSERT[]{"INSERT INTO bookmark VALUES(?,?)"};
@@ -566,6 +567,37 @@ void CtStorageSqlite::_write_node_to_db(CtTreeIter* ct_tree_iter,
     bool has_table{false};
     bool has_image{false};
     
+    
+    // write hier
+    if (node_state.hier)
+    {
+        sqlite3_stmt_auto stmt(_pDb, TABLE_CHILDREN_INSERT);
+        if (stmt.is_bad())
+            throw std::runtime_error(ERR_SQLITE_PREPV2 + sqlite3_errmsg(_pDb));
+        sqlite3_bind_int64(stmt, 1, node_id);
+        sqlite3_bind_int64(stmt, 2, node_father_id);
+        sqlite3_bind_int64(stmt, 3, sequence);
+        if (sqlite3_step(stmt) != SQLITE_DONE)
+            throw std::runtime_error(ERR_SQLITE_STEP + sqlite3_errmsg(_pDb));
+    }
+
+    // write widgets
+    if (node_state.buff && (is_richtxt & 0x01))
+    {
+        for (CtAnchoredWidget* pAnchoredWidget : ct_tree_iter->get_embedded_pixbufs_tables_codeboxes(start_offset, end_offset))
+        {
+            if (!pAnchoredWidget->to_sqlite(_pDb, node_id, start_offset >= 0 ? -start_offset : 0))
+                throw std::runtime_error("couldn't save widget");
+            switch (pAnchoredWidget->get_type())
+            {
+                case CtAnchWidgType::CodeBox: has_codebox = true; break;
+                case CtAnchWidgType::Table: has_table = true; break;
+                default: has_image = true;
+            }
+        }
+    }
+
+     
     // write node
     if (node_state.buff)
     {
@@ -646,50 +678,6 @@ void CtStorageSqlite::_write_node_to_db(CtTreeIter* ct_tree_iter,
             sqlite3_bind_int64(stmt, 6, node_id);
             if (sqlite3_step(stmt) != SQLITE_DONE)
                 throw std::runtime_error(ERR_SQLITE_STEP + sqlite3_errmsg(_pDb));
-        }
-    }
-    
-    
-    // write hier
-    if (node_state.hier)
-    {
-        sqlite3_stmt_auto stmt(_pDb, TABLE_CHILDREN_INSERT);
-        if (stmt.is_bad())
-            throw std::runtime_error(ERR_SQLITE_PREPV2 + sqlite3_errmsg(_pDb));
-        sqlite3_bind_int64(stmt, 1, node_id);
-        sqlite3_bind_int64(stmt, 2, node_father_id);
-        sqlite3_bind_int64(stmt, 3, sequence);
-        if (sqlite3_step(stmt) != SQLITE_DONE)
-            throw std::runtime_error(ERR_SQLITE_STEP + sqlite3_errmsg(_pDb));
-    }
-   /* // Update sequence
-    if (node_state.upd_seq) {
-        constexpr auto update_sql = "UPDATE children SET sequence = ? WHERE node_id = ?";
-        sqlite3_stmt_auto stmt(_pDb, update_sql);
-        
-        sqlite3_bind_int64(stmt, 1, sequence);
-        sqlite3_bind_int64(stmt, 2, node_id);
-        
-        if (sqlite3_step(stmt) != SQLITE_DONE) {
-            throw std::runtime_error("Error updating sequence for node: " + std::string(sqlite3_errmsg(_pDb)));
-        }
-    }*/
-    
-    
-
-    // write widgets
-    if (node_state.buff && (is_richtxt & 0x01))
-    {
-        for (CtAnchoredWidget* pAnchoredWidget : ct_tree_iter->get_embedded_pixbufs_tables_codeboxes(start_offset, end_offset))
-        {
-            if (!pAnchoredWidget->to_sqlite(_pDb, node_id, start_offset >= 0 ? -start_offset : 0))
-                throw std::runtime_error("couldn't save widget");
-            switch (pAnchoredWidget->get_type())
-            {
-                case CtAnchWidgType::CodeBox: has_codebox = true; break;
-                case CtAnchWidgType::Table: has_table = true; break;
-                default: has_image = true;
-            }
         }
     }
 
@@ -815,13 +803,13 @@ void CtStorageSqlite::_open_db(const std::string &path, bool read_only)
 {
     // Open if not already
     if (!_pDb) {
-        constexpr auto foreign_keys_pragma = "PRAGMA foreign_keys = ON";
+        //constexpr auto foreign_keys_pragma = "PRAGMA foreign_keys = ON";
         
         auto flags = read_only ? SQLITE_OPEN_READONLY : (SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE);
         if (sqlite3_open_v2(path.c_str(), &_pDb, flags, nullptr) != SQLITE_OK)
             throw std::runtime_error(std::string("sqlite3_open: ") + sqlite3_errmsg(_pDb));
         
         // Enable foreign keys
-        _exec_no_callback(foreign_keys_pragma);
+       // _exec_no_callback(foreign_keys_pragma);
     }
 }
