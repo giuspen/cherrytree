@@ -30,6 +30,8 @@
 #include <filesystem>
 #include <unordered_set>
 #include <fstream>
+#include <unordered_map>
+#include <functional>
 
 namespace CtImports {
 
@@ -150,16 +152,19 @@ private:
 class CtImportException: public std::runtime_error {
     static constexpr std::string_view signature = "[Import Exception]: ";
 public:
-    CtImportException(std::string_view msg) : std::runtime_error(signature + msg) {}
+    explicit CtImportException(const std::string& msg) : std::runtime_error("[Import Exception]: " + msg) {}
 };
-
+class CtConfig;
 /**
  * @brief Base class/interface for import handlers
  * @class CtImportHandler
  */
 class CtImportHandler
 {
+public:
+    using token_map_t = std::unordered_map<std::string_view, std::function<void(const std::string&)>>;
 protected:
+    
     enum class PARSING_STATE {
         HEAD,
         BODY
@@ -180,18 +185,12 @@ protected:
         
         std::ifstream file() const { return std::ifstream(path); }
     };
-public:
-    virtual void add_file(const std::filesystem::path& path) = 0;
-    virtual void add_directory(const std::filesystem::path& dir_path) = 0;
-    
-    [[nodiscard]] virtual std::string to_string() const = 0;
-    
-    virtual void import_to_tree(const std::filesystem::path& path) = 0;
-    
+
+
 protected:
     // XML generation
     xmlpp::Document _xml_doc;
-    xmlpp::Element* _current_element;
+    xmlpp::Element* _current_element = nullptr;
     std::vector<ImportFile> _import_files;
     bool _processed_files = false;
     /**
@@ -199,12 +198,35 @@ protected:
      * @param path
      */
     void _process_files(const std::filesystem::path& path);
+    void _add_scale_tag(int level, std::optional<std::string> data);
+    void _add_weight_tag(const Glib::ustring& level, std::optional<std::string> data);
+    void _add_italic_tag(std::optional<std::string> data);
+    void _add_list(uint8_t level, const std::string& data);
+    void _add_ordered_list(unsigned int level, const std::string &data);
+    void _add_text(std::string text);
+    void _close_current_tag();
+    void _add_newline();
     
+    std::vector<std::string> tokonise(const std::string& stream) const;
     /**
      * @brief Get a list of file extensions supported by the import handler
      * @return
      */
-    virtual const std::unordered_set<std::string>& _get_accepted_file_extensions() = 0;
+    virtual const std::unordered_set<std::string>& _get_accepted_file_extensions() const = 0;
+    virtual const token_map_t& _get_token_map() = 0;
+    virtual const std::vector<std::string_view>& _get_tokens() const = 0;
+    
+public:
+    explicit CtImportHandler(const CtConfig* pCtConfig) : _pCtConfig(pCtConfig) {}
+    virtual void add_file(const std::filesystem::path& path) = 0;
+    virtual void add_directory(const std::filesystem::path& dir_path) = 0;
+    
+    std::string to_string() { return _xml_doc.write_to_string(); }
+    
+    //virtual void import_to_tree(const std::filesystem::path& path) = 0;
+
+protected:
+    const CtConfig* _pCtConfig = nullptr;
 };
 
 
@@ -215,11 +237,19 @@ private:
     bool _has_notebook_file();
     
     void _parse_body_line(const std::string& line);
+
+protected:
+    const token_map_t& _get_token_map() override;
+    const std::vector<std::string_view>& _get_tokens() const override;
+    const std::unordered_set<std::string>& _get_accepted_file_extensions() const override;
 public:
+    using CtImportHandler::CtImportHandler;
+    
     void add_file(const std::filesystem::path& path) override;
     
-    virtual void add_directory(const std::filesystem::path &dir_path) override;
-    
-    
+    void add_directory(const std::filesystem::path &dir_path) override;
+
+protected:
+    uint8_t _list_level = 0;
 };
 

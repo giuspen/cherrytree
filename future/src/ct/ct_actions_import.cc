@@ -65,7 +65,6 @@ void CtActions::_import_node_from_html(const std::filesystem::path& filepath)
 
     try {
         parser.add_file(filepath);
-        
         CtClipboard(_pCtMainWin).from_xml_string_to_buffer(nodeData.rTextBuffer, parser.to_string());
         auto iter = _pCtMainWin->curr_tree_iter();
         std::shared_ptr<CtNodeState> node_state;
@@ -187,5 +186,27 @@ void CtActions::import_nodes_from_plaintext_directory() noexcept
     }
 }
 
+void CtActions::_import_nodes_from_zim_file(const std::filesystem::path& filepath)
+{
+    CtZimImportHandler handler(_pCtMainWin->get_ct_config());
+    handler.add_directory(filepath);
+    
+    auto nodeData = setup_node(_pCtMainWin, filepath);
+    auto data = handler.to_string();
+    std::cout << "-- XML DATA --\n" << data << std::endl;
+    CtClipboard(_pCtMainWin).from_xml_string_to_buffer(nodeData.rTextBuffer, data);
+    auto iter = _pCtMainWin->curr_tree_iter();
+    std::shared_ptr<CtNodeState> node_state;
+    _node_add_with_data(iter, nodeData, false, node_state);
+}
 
+void CtActions::import_nodes_from_zim_file() noexcept {
+    try {
+        if (!_is_there_selected_node_or_error()) return;
+        _import_nodes_from_zim_file("/home/ash/Notebooks/CTTest");
+        
+    } catch(std::exception& e) {
+        std::cerr << "Exception caught while importing node from ZIM file: " << e.what();
+    }
+}
 
