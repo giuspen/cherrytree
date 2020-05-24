@@ -39,6 +39,11 @@ std::vector<std::pair<int, int>> get_web_links_offsets_from_plain_text(const Gli
 std::string get_internal_link_from_http_url(std::string link_url);
 }
 
+
+
+
+}
+
 class CtHtmlParser
 {
 public:
@@ -163,6 +168,26 @@ class CtImportHandler
 {
 public:
     using token_map_t = std::unordered_map<std::string_view, std::function<void(const std::string&)>>;
+    
+    
+    struct token_schema {
+        
+        std::string open_tag;
+        
+        bool has_closetag   = true;
+        bool is_symmetrical = true;
+    
+        std::function<void(const std::string&)> action;
+        
+        std::string close_tag = "";
+        
+        std::string data = "";
+        
+        bool operator==(const token_schema& other) const {
+            if (is_symmetrical || !has_closetag) return open_tag == other.open_tag;
+            else                                 return (open_tag == other.open_tag) && (close_tag == other.close_tag);
+        }
+    };
 protected:
     
     enum class PARSING_STATE {
@@ -185,7 +210,7 @@ protected:
         
         std::ifstream file() const { return std::ifstream(path); }
     };
-
+  
 
 protected:
     // XML generation
@@ -207,14 +232,14 @@ protected:
     void _close_current_tag();
     void _add_newline();
     
-    std::vector<std::string> tokonise(const std::string& stream) const;
+    std::vector<CtImportHandler::token_schema> tokonise(const std::string& stream) const;
     /**
      * @brief Get a list of file extensions supported by the import handler
      * @return
      */
     virtual const std::unordered_set<std::string>& _get_accepted_file_extensions() const = 0;
     virtual const token_map_t& _get_token_map() = 0;
-    virtual const std::vector<std::string_view>& _get_tokens() const = 0;
+    virtual const std::vector<token_schema>& _get_tokens() = 0;
     
 public:
     explicit CtImportHandler(const CtConfig* pCtConfig) : _pCtConfig(pCtConfig) {}
@@ -240,7 +265,7 @@ private:
 
 protected:
     const token_map_t& _get_token_map() override;
-    const std::vector<std::string_view>& _get_tokens() const override;
+    const std::vector<token_schema>& _get_tokens() override;
     const std::unordered_set<std::string>& _get_accepted_file_extensions() const override;
 public:
     using CtImportHandler::CtImportHandler;
@@ -253,3 +278,21 @@ protected:
     uint8_t _list_level = 0;
 };
 
+
+namespace std {
+template<>
+struct hash<CtImportHandler::token_schema> {
+    std::size_t operator()(const CtImportHandler::token_schema& ts) {
+        std::size_t h1 = std::hash<std::string>{}(ts.open_tag);
+        if (ts.is_symmetrical) {
+            return h1;
+        } else {
+            // Combine the hashes
+            std::size_t h2 = std::hash<std::string>{}(ts.close_tag);
+            return h1^(h2 << 1);
+        }
+        
+        
+    }
+}
+};

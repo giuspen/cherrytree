@@ -200,13 +200,13 @@ void CtActions::_import_nodes_from_zim_file(const std::filesystem::path& filepat
     _node_add_with_data(iter, nodeData, false, node_state);
 }
 
-void CtActions::import_nodes_from_zim_file() noexcept {
-    try {
+void CtActions::import_nodes_from_zim_file() {
+   // try {
         if (!_is_there_selected_node_or_error()) return;
         _import_nodes_from_zim_file("/home/ash/Notebooks/CTTest");
         
-    } catch(std::exception& e) {
+  /*  } catch(std::exception& e) {
         std::cerr << "Exception caught while importing node from ZIM file: " << e.what();
-    }
+    } */
 }
 

@@ -89,21 +89,22 @@ void CtZimImportHandler::_parse_body_line(const std::string& line) {
     auto &token_table = _get_token_map();
     
     
-    if (tokens.empty()) {
-        _add_text(line);
-        _add_newline();
-        return;
-    }
-    
     std::cout << "LINE: " << line << std::endl;
     auto iter = tokens.begin();
     while (iter != tokens.end()) {
         auto token_key = token_table.find(*iter);
+      
         if (token_key != token_table.end()) {
             // Found a token
             std::cout << "TOKEN: " << *iter << std::endl;
             ++iter;
+            if (iter == tokens.end()) break;
+            
             token_key->second(*iter);
+        } else {
+            // No tag
+            _add_text(*iter);
+            _add_newline();
         }
         
         ++iter;
@@ -115,13 +116,53 @@ void CtZimImportHandler::_parse_body_line(const std::string& line) {
 
 }
 
-constexpr std::array<std::string_view, 6> tokens = {
-        "**", "\t",  "* ", "//", "~~", "===="
-};
 
-const std::vector<std::string_view>& CtZimImportHandler::_get_tokens() const
+
+const std::vector<CtImportHandler::token_schema>& CtZimImportHandler::_get_tokens()
 {
-    static std::vector<std::string_view> tokens_vect(tokens.begin(), tokens.end());
+    static std::vector<token_schema> tokens_vect = {
+        {"**", true, true, [this](const std::string& data){
+            _close_current_tag();
+            _add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, data);
+            _close_current_tag();
+        }},
+        {"\t", false, false, [this](const std::string& data) {
+            _list_level++;
+            // Did a double match for even number of \t tags
+            if (data.empty()) _list_level++;
+        }},
+        {"* ", false, false, [this](const std::string& data) {
+            _add_list(_list_level, data);
+            _list_level = 0;
+            _add_newline();
+        }},
+        {"//", true, true, [this](const std::string& data) {
+            _close_current_tag();
+            _add_italic_tag(data);
+            _close_current_tag();
+        }},
+      //  {"~~"},
+        {"====", true, true, [this](const std::string &data) {
+                auto count = 3;
+            
+                if (str::startswith(data, "=")) count--;
+                if (*(data.begin() + 1) == '=') count--;
+            
+                auto str = str::replace(data, "= ", "");
+                str = str::replace(str, " =", "");
+                if (count < 2) {
+                    str = str::replace(data, "=", "");
+                }
+            
+                _close_current_tag();
+                _add_scale_tag(count, str);
+                _add_newline();
+                _close_current_tag();
+            }},
+            {"{{", true, false, [this](const std::string& data) {
+                std::cout << "GOT LINK: " << data << std::endl;
+            }, "}}"}
+    };
     return tokens_vect;
 }
 
@@ -131,23 +172,7 @@ const CtImportHandler::token_map_t& CtZimImportHandler::_get_token_map() {
     static token_map_t map = {
             
             // Scale tags
-        {"====", [this](const std::string &data) {
-            auto count = 3;
-            
-            if (str::startswith(data, "=")) count--;
-            if (*(data.begin() + 1) == '=') count--;
-            
-            auto str = str::replace(data, "= ", "");
-            str = str::replace(str, " =", "");
-            if (count < 2) {
-                str = str::replace(data, "=", "");
-            }
-            
-            _close_current_tag();
-            _add_scale_tag(count, str);
-            _add_newline();
-            _close_current_tag();
-        }},
+        {"====", ,
         {"\t", [this](const std::string& data) {
             _list_level++;
             // Did a double match for even number of \t tags
@@ -169,6 +194,9 @@ const CtImportHandler::token_map_t& CtZimImportHandler::_get_token_map() {
             _close_current_tag();
             _add_italic_tag(data);
             _close_current_tag();
+        }},
+        {"{{", [this](const std::string& data) {
+            std::cout << "GOT LINK: " << data << std::endl;
         }}
     };
     

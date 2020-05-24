@@ -52,32 +52,61 @@ void CtImportHandler::_process_files(const std::filesystem::path &path) {
     
     
 }
-std::vector<std::string> CtImportHandler::tokonise(const std::string& stream) const {
-
-    auto& tokens = _get_tokens();
-    std::vector<std::string> token_stream;
+std::vector<CtImportHandler::token_schema> CtImportHandler::tokonise(const std::string& stream) const {
+    // TODO: Optimise this with a hash map for tags
     
-    for (const auto& token : tokens) {
-        auto pos = stream.find(token);
-        if (pos != std::string::npos) {
-            // First token
-            token_stream.emplace_back(stream.begin() + pos, stream.begin() + pos + token.length());
-            
-            auto second_pos = stream.find(token, pos + token.length());
-            
-            // Data
-            if (second_pos == std::string::npos) {
-                
-                token_stream.emplace_back(stream.begin() + pos + token.length(), stream.end());
-                token_stream.emplace_back("");
-            } else {
-                token_stream.emplace_back(stream.begin() + pos + token.length(), stream.begin() + second_pos);
-                
-                // Second token
-                token_stream.emplace_back(stream.begin() + second_pos, stream.begin() + second_pos + token.length());
+    auto& tokens = _get_tokens();
+    std::vector<std::pair<CtImportHandler::token_schema, std::string>> token_stream;
+    std::unordered_map<std::string_view, bool> open_tags;
+    std::string buff;
+    std::size_t pos = 0;
+    token_schema curr_token;
+    for (const auto& ch : stream) {
+        buff += ch;
+        pos++;
+        for (const auto &token : tokens) {
+            auto tag_open = false;
+            if (token.is_symmetrical) {
+                tag_open = open_tags[token.open_tag];
             }
-            
+            auto has_opentag = buff.find(token.open_tag) != std::string::npos;
+            if (has_opentag && !tag_open) {
+                // First token
+                curr_token = token;
+                
+                if (!token.has_closetag) {
+                    // Token will go till end of stream
+                    token_stream.emplace_back(std::move(curr_token));
+                    auto tokonised_stream = tokonise(token_stream.back());
+                    token_stream.insert(token_stream.end(), tokonised_stream.begin(), tokonised_stream.end());
+                    return token_stream;
+                }
+                open_tags[token.open_tag] = true;
+                buff.resize(0);
+                break;
+            }
+            auto has_closetag = has_opentag && token.is_symmetrical;
+            if (!token.is_symmetrical) {
+                if (token.close_tag.empty()) throw CtImportException("Token has no close tag");
+                has_closetag = buff.find(token.close_tag) != std::string::npos;
+            }
+            if (has_closetag) {
+                auto& tag = token.is_symmetrical ? token.open_tag : token.close_tag;
+                curr_token.close_tag = tag;
+                curr_token.data = std::string(stream.begin() + pos - buff.length(), stream.begin() + pos - tag.length());
+                token_stream.emplace_back(std::move(curr_token));
+    
+                buff.resize(0);
+                break;
+            }
         }
+    }
+    if (!buff.empty()) {
+        token_schema token = {"", false, false, [this](const std::string& data){
+            _add_text(data);
+        }};
+        token.data = buff;
+        token_stream.emplace_back(std::move(token));
     }
     
     return token_stream;
