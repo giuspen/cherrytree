@@ -69,8 +69,10 @@ std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> CtImp
             if (token.is_symmetrical) {
                 tag_open = open_tags[token.open_tag];
             }
+            
             auto buff_pos = buff.find(token.open_tag);
             auto has_opentag = buff_pos != std::string::npos;
+            
             if (has_opentag && !tag_open) {
                 // First token
                 curr_token = &token;
@@ -148,6 +150,11 @@ void CtImportHandler::_add_weight_tag(const Glib::ustring& level, std::optional<
     if (data) {
         _add_text(*data);
     }
+}
+
+void CtImportHandler::_add_strikethrough_tag(std::optional<std::string> data) {
+    _current_element->set_attribute(CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROP_VAL_TRUE);
+    if (data) _add_text(*data);
 }
 
 void CtImportHandler::_add_text(std::string text) {

@@ -117,6 +117,14 @@ const std::vector<CtImportHandler::token_schema>& CtZimImportHandler::_get_token
             // Did a double match for even number of \t tags
             if (data.empty()) _list_level++;
         }},
+        // TODO: Add links
+        {"https://", false, false, [this](const std::string& data) {
+            _add_text("https://"+data);
+        }},
+        {"http://", false, false, [this](const std::string& data) {
+            _add_text("http://"+data);
+        }},
+        
         {"* ", false, false, [this](const std::string& data) {
             _add_list(_list_level, data);
             _list_level = 0;
@@ -126,8 +134,12 @@ const std::vector<CtImportHandler::token_schema>& CtZimImportHandler::_get_token
             _add_italic_tag(data);
             _close_current_tag();
         }},
-      //  {"~~"},
-        {"====", true, true, [this](const std::string &data) {
+        {"~~", true, true, [this](const std::string& data){
+            _close_current_tag();
+            _add_strikethrough_tag(data);
+            _close_current_tag();
+        }},
+        {"====", false, false, [this](const std::string &data) {
                 auto count = 3;
             
                 if (str::startswith(data, "=")) count--;
@@ -141,12 +153,11 @@ const std::vector<CtImportHandler::token_schema>& CtZimImportHandler::_get_token
             
                 _close_current_tag();
                 _add_scale_tag(count, str);
-                _add_newline();
                 _close_current_tag();
             }},
             {"{{", true, false, [this](const std::string& data) {
                 std::cout << "GOT LINK: " << data << std::endl;
-            }, "}}"}
+            },"}}"}
     };
     return tokens_vect;
 }

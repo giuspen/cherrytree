@@ -223,6 +223,7 @@ protected:
     void _add_scale_tag(int level, std::optional<std::string> data);
     void _add_weight_tag(const Glib::ustring& level, std::optional<std::string> data);
     void _add_italic_tag(std::optional<std::string> data);
+    void _add_strikethrough_tag(std::optional<std::string> data);
     void _add_list(uint8_t level, const std::string& data);
     void _add_ordered_list(unsigned int level, const std::string &data);
     void _add_text(std::string text);
