@@ -41,9 +41,6 @@ std::string get_internal_link_from_http_url(std::string link_url);
 
 
 
-
-}
-
 class CtHtmlParser
 {
 public:
@@ -232,7 +229,7 @@ protected:
     void _close_current_tag();
     void _add_newline();
     
-    std::vector<CtImportHandler::token_schema> tokonise(const std::string& stream) const;
+    std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> tokonise(const std::string& stream);
     /**
      * @brief Get a list of file extensions supported by the import handler
      * @return
@@ -294,5 +291,5 @@ struct hash<CtImportHandler::token_schema> {
         
         
     }
-}
 };
+}

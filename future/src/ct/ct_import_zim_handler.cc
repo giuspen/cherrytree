@@ -86,31 +86,17 @@ const std::unordered_set<std::string>& CtZimImportHandler::_get_accepted_file_ex
 void CtZimImportHandler::_parse_body_line(const std::string& line) {
     
     auto tokens = tokonise(line);
-    auto &token_table = _get_token_map();
-    
     
     std::cout << "LINE: " << line << std::endl;
-    auto iter = tokens.begin();
-    while (iter != tokens.end()) {
-        auto token_key = token_table.find(*iter);
-      
-        if (token_key != token_table.end()) {
-            // Found a token
-            std::cout << "TOKEN: " << *iter << std::endl;
-            ++iter;
-            if (iter == tokens.end()) break;
-            
-            token_key->second(*iter);
+    for (const auto& token : tokens) {
+        if (token.first) {
+            token.first->action(token.second);
         } else {
-            // No tag
-            _add_text(*iter);
-            _add_newline();
+            _add_text(token.second);
         }
         
-        ++iter;
-        if (iter == tokens.end()) break;
-        ++iter;
     }
+    _add_newline();
     
 
 
@@ -134,7 +120,6 @@ const std::vector<CtImportHandler::token_schema>& CtZimImportHandler::_get_token
         {"* ", false, false, [this](const std::string& data) {
             _add_list(_list_level, data);
             _list_level = 0;
-            _add_newline();
         }},
         {"//", true, true, [this](const std::string& data) {
             _close_current_tag();
@@ -172,7 +157,23 @@ const CtImportHandler::token_map_t& CtZimImportHandler::_get_token_map() {
     static token_map_t map = {
             
             // Scale tags
-        {"====", ,
+        {"====", [this](const std::string &data) {
+            auto count = 3;
+    
+            if (str::startswith(data, "=")) count--;
+            if (*(data.begin() + 1) == '=') count--;
+    
+            auto str = str::replace(data, "= ", "");
+            str = str::replace(str, " =", "");
+            if (count < 2) {
+                str = str::replace(data, "=", "");
+            }
+    
+            _close_current_tag();
+            _add_scale_tag(count, str);
+            _add_newline();
+            _close_current_tag();
+        }},
         {"\t", [this](const std::string& data) {
             _list_level++;
             // Did a double match for even number of \t tags
