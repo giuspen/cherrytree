@@ -26,6 +26,7 @@
 
 #include <fstream>
 
+// Todo: Add option to select whether parent is current node or top of tree
 
 CtNodeData setup_node(CtMainWin* pWin, const std::filesystem::path& path)
 {
@@ -193,12 +194,6 @@ void CtActions::_import_nodes_from_zim_file(const std::filesystem::path& filepat
     
     auto& files = handler.imported_files();
     
-    CtNodeData parent = setup_node(_pCtMainWin, filepath);
-    parent.syntax = CtConst::RICH_TEXT_ID;    
-    std::shared_ptr<CtNodeState> state;
-    auto parent_iter = _add_node_with_data(Gtk::TreeIter(), parent, false, state);
-
-    
     CtClipboard clipboard(_pCtMainWin);
     
     auto add_node = [this/*, &tree_store*/, &clipboard](CtImportFile& file, const Gtk::TreeIter& parent_iter) -> Gtk::TreeIter {
@@ -215,18 +210,22 @@ void CtActions::_import_nodes_from_zim_file(const std::filesystem::path& filepat
         return iter;
     };
     
-    std::function<void(const std::vector<CtImportFile*>, Gtk::TreeIter&)> file_iter_func;
-    file_iter_func = [&file_iter_func, &add_node](const std::vector<CtImportFile*>& children, Gtk::TreeIter& parent) {
+    std::function<void(const std::vector<std::shared_ptr<CtImportFile>>&, const Gtk::TreeIter&)> file_iter_func;
+    file_iter_func = [&file_iter_func, &add_node](const std::vector<std::shared_ptr<CtImportFile>>& children, const Gtk::TreeIter& parent) {
         for (auto& child : children) {
-            auto iter = add_node(*child, parent);
-            file_iter_func(child->children, iter);
+            if (child) {
+                std::cout << "FILE: " << child->path.string() << " DEPTH: " << child->depth << std::endl;
+
+                auto iter = add_node(*child, parent);
+                file_iter_func(child->children, iter);
+            }
         }
     };
     
     for (auto& file : files) {
-        if (file.depth == 0) {
-            auto new_iter = add_node(file, parent_iter);
-            file_iter_func(file.children, new_iter);
+        if (file->depth == 0) {
+            auto new_iter = add_node(*file, Gtk::TreeIter());
+            file_iter_func(file->children, new_iter);
         }
     }
     _pCtMainWin->update_window_save_needed();

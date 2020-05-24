@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <utility>
 #include <vector>
 #include <list>
 #include <set>
@@ -185,7 +186,7 @@ public:
     
     std::shared_ptr<xmlpp::Document> doc;
     CtImportFile* parent = nullptr;
-    std::vector<CtImportFile*> children;
+    std::vector<std::shared_ptr<CtImportFile>> children;
 private:
     explicit CtImportFile(std::filesystem::path p, uint32_t rec_depth = 0) : path(std::move(p)), depth(rec_depth) {}
     
@@ -231,7 +232,7 @@ protected:
     // XML generation
     std::vector<std::shared_ptr<xmlpp::Document>> _docs;
     xmlpp::Element* _current_element = nullptr;
-    std::vector<CtImportFile> _import_files;
+    std::vector<std::shared_ptr<CtImportFile>> _import_files;
     bool                      _processed_files = false;
    
     void _add_scale_tag(int level, std::optional<std::string> data);
@@ -246,7 +247,7 @@ protected:
     
     [[nodiscard]] const std::shared_ptr<xmlpp::Document>& _xml_doc() const { return _docs.back(); }
     
-    static CtImportFile _new_import_file(std::filesystem::path path, uint32_t depth) { return CtImportFile(std::forward<std::filesystem::path>(path), depth); }
+    static std::unique_ptr<CtImportFile> _new_import_file(std::filesystem::path path, uint32_t depth) { return std::unique_ptr<CtImportFile>(new CtImportFile(std::move(path), depth)); }
     
     
     
@@ -268,7 +269,7 @@ public:
     explicit CtImportHandler(const CtConfig* pCtConfig) : _pCtConfig(pCtConfig) {}
     virtual void feed(std::istream& data) = 0;
     
-    std::vector<CtImportFile>& imported_files() { return _import_files; }
+    std::vector<std::shared_ptr<CtImportFile>>& imported_files() { return _import_files; }
 
     virtual void add_directory(const std::filesystem::path& path) = 0;
 protected:
@@ -294,7 +295,7 @@ protected:
     */
     void _process_files(const std::filesystem::path& path);
     
-    std::vector<CtImportFile> _get_files(const std::filesystem::path& path, uint32_t current_depth, CtImportFile* parent);
+    std::vector<std::shared_ptr<CtImportFile>> _get_files(const std::filesystem::path& path, uint32_t current_depth, CtImportFile* parent);
 public:
     using CtImportHandler::CtImportHandler;
     

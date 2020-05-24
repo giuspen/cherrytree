@@ -31,28 +31,30 @@ constexpr auto notebook_filename = "notebook.zim";
 
 
 
-std::vector<CtImportFile> CtZimImportHandler::_get_files(const fs::path& path, uint32_t current_depth, CtImportFile* parent) {
+std::vector<std::shared_ptr<CtImportFile>> CtZimImportHandler::_get_files(const fs::path &path, uint32_t current_depth, CtImportFile* parent) {
     std::vector<fs::path> second_dirs;
-    std::vector<CtImportFile> ret_files;
-    auto &accepted_extensions = _get_accepted_file_extensions();
+    std::vector<std::shared_ptr<CtImportFile>> ret_files;
+    auto& accepted_extensions = _get_accepted_file_extensions();
     
-    for (const auto &dir_entry : fs::directory_iterator(path)) {
-        auto &fpath = dir_entry.path();
+    for (const auto& dir_entry : fs::directory_iterator(path)) {
+        auto fpath = dir_entry.path();
         
         if (accepted_extensions.find(fpath.extension().string()) != accepted_extensions.end()) {
-            CtImportFile file = CtImportHandler::_new_import_file(fpath, current_depth);
-            file.parent = parent;
+            std::shared_ptr file = CtImportHandler::_new_import_file(fpath, current_depth);
+            file->parent = parent;
             if (parent) {
-                parent->children.emplace_back(&file);
+                parent->children.emplace_back(file);
             }
-            ret_files.emplace_back(file);
             
             auto sub_path = fpath.parent_path() / fpath.stem();
-            
             if (fs::is_directory(sub_path) /* This also checks if it exists */) {
-                auto files = _get_files(sub_path, current_depth + 1, &file);
+                auto files = _get_files(sub_path, current_depth + 1, file.get());
+
                 ret_files.insert(ret_files.end(), files.begin(), files.end());
             }
+        
+            ret_files.emplace_back(file);
+
         }
     }
     
@@ -67,7 +69,7 @@ bool CtZimImportHandler::_has_notebook_file() {
     static const auto notebook_file = _new_import_file(notebook_filename, 0);
 
     for (auto file_iter = _import_files.begin(); file_iter != _import_files.end(); ++file_iter) {
-        if (file_iter->path.filename().string() == notebook_filename) {
+        if ((*file_iter)->path.filename().string() == notebook_filename) {
             _import_files.erase(file_iter, file_iter + 1); // Remove the notebook file from the files to be processed
             return true;
         }
@@ -82,7 +84,7 @@ void CtZimImportHandler::add_directory(const fs::path& path) {
     }
     
     for (const auto& file : _import_files) {
-        auto file_stream = file.file();
+        auto file_stream = file->file();
         feed(file_stream);
     }
     
@@ -92,7 +94,7 @@ void CtZimImportHandler::feed(std::istream& data) {
     
    
     _docs.emplace_back(std::make_shared<xmlpp::Document>());
-    _import_files.at(_docs.size() - 1).doc = _xml_doc();
+    _import_files.at(_docs.size() - 1)->doc = _xml_doc();
     _current_element = _xml_doc()->create_root_node("root")->add_child("slot");
     _current_element = _current_element->add_child("rich_text");
     
@@ -111,6 +113,8 @@ void CtZimImportHandler::feed(std::istream& data) {
         
         
     }
+    // Reset
+    _parse_state = PARSING_STATE::HEAD;
     
 
 }
