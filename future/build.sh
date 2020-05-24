@@ -8,7 +8,7 @@ BUILD_DIR="build"
 cd ${BUILD_DIR}
 if [[ "${MSYSTEM}" =~ "MINGW" ]]
 then
-  cmake .. -G"MSYS Makefiles" -j$(nproc --all)
+  cmake .. -G"MSYS Makefiles"
 else
   cmake ..
 fi

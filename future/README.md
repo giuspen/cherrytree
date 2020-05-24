@@ -55,7 +55,7 @@ mkdir cherrytree/build
 cd cherrytree/build
 cmake ../future
 make -j$(nproc --all)
-./cherrytree
+./build/cherrytree
 ```
 Install documentation:
 ```sh
@@ -86,7 +86,7 @@ mkdir cherrytree/build
 cd cherrytree/build
 cmake ../future
 make -j$(nproc --all)
-./cherrytree
+./build/cherrytree
 ```
 
 ## Building Cherrytree on Fedora
@@ -114,7 +114,7 @@ mkdir cherrytree/build
 cd cherrytree/build
 cmake ../future
 make -j$(nproc --all)
-./cherrytree
+./build/cherrytree
 ```
 
 (OPTIONAL) Download Documentation
@@ -152,7 +152,7 @@ mkdir cherrytree/build
 cd cherrytree/build
 cmake ../future
 make -j4
-./cherrytree
+./build/cherrytree
 ```
 
 To install:
@@ -213,18 +213,6 @@ bind '"\e[B":history-search-forward'
 ```
 ```sh
 # build and run cherrytree
-# build Debug
 ./build.sh
-# or build Release
-./build.sh R
-./cherrytree.exe
+./build/cherrytree.exe
 ```
-```sh
-## NOTES: *** FIND DEPENDENCIES *** of cherrytree.exe and copy to ~/dependencies/
-if [ ! -d ~/dependencies ]; then mkdir ~/dependencies; fi
-cp `ldd cherrytree.exe | grep /mingw64/bin | awk '{print $3}'` ~/dependencies/
-
-## NOTES: *** DO NOT SHOW CONSOLE WINDOW *** in Windows OS
-cherrytree_LDFLAGS = -mwindows
-```
-
