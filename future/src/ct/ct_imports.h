@@ -241,6 +241,8 @@ protected:
     void _add_strikethrough_tag(std::optional<std::string> data);
     void _add_list(uint8_t level, const std::string& data);
     void _add_ordered_list(unsigned int level, const std::string &data);
+    /// Add a link, text should contain the full qualified name (e.g https://example.com)
+    void _add_link(const std::string& text);
     void _add_text(std::string text);
     void _close_current_tag();
     void _add_newline();
@@ -256,13 +258,12 @@ protected:
         else                   return !_current_element->get_child_text();
     }
     
-    std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> tokonise(const std::string& stream);
+    virtual std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> _tokenize(const std::string& stream) = 0;
     /**
      * @brief Get a list of file extensions supported by the import handler
      * @return
      */
-    virtual const std::unordered_set<std::string>& _get_accepted_file_extensions() const = 0;
-    virtual const token_map_t& _get_token_map() = 0;
+    [[nodiscard]] virtual const std::unordered_set<std::string>& _get_accepted_file_extensions() const = 0;
     virtual const std::vector<token_schema>& _get_tokens() = 0;
     
 public:
@@ -286,14 +287,21 @@ private:
     void _parse_body_line(const std::string& line);
 
 protected:
-    const token_map_t& _get_token_map() override;
     const std::vector<token_schema>& _get_tokens() override;
-    const std::unordered_set<std::string>& _get_accepted_file_extensions() const override;
+    [[nodiscard]] const std::unordered_set<std::string>& _get_accepted_file_extensions() const override;
     /**
     * @brief Process the files to import based on the import list
     * @param path
     */
     void _process_files(const std::filesystem::path& path);
+    
+    /**
+     * @brief Transform an input string into a token stream
+     * @param stream
+     * @return
+     */
+    std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> _tokenize(const std::string& stream) override;
+    
     
     std::vector<std::shared_ptr<CtImportFile>> _get_files(const std::filesystem::path& path, uint32_t current_depth, CtImportFile* parent);
 public:

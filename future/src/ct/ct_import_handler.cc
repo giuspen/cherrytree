@@ -29,75 +29,7 @@ namespace fs = std::filesystem;
 
 
 
-std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> CtImportHandler::tokonise(const std::string& stream) {
-    
-    auto& tokens = _get_tokens();
-    std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> token_stream;
-    std::unordered_map<std::string_view, bool> open_tags;
-    std::string buff;
-    std::size_t pos = 0;
-    const token_schema* curr_token;
-    for (const auto& ch : stream) {
-        buff += ch;
-        pos++;
-        for (const auto &token : tokens) {
-            auto tag_open = false;
-            if (token.is_symmetrical) {
-                tag_open = open_tags[token.open_tag];
-            }
-            
-            auto buff_pos = buff.find(token.open_tag);
-            auto has_opentag = buff_pos != std::string::npos;
-            
-            if (has_opentag && !tag_open) {
-                // First token
-                curr_token = &token;
-                if (!token.has_closetag) {
-                    // Token will go till end of stream
-                    token_stream.emplace_back(curr_token, std::string(stream.begin() + pos, stream.end()));
-                    auto tokonised_stream = tokonise(token_stream.back().second);
-                    for (const auto& token : tokonised_stream) {
-                        if (token.first) {
-                            token_stream.emplace_back(token);
-                        }
-                    }
-                    return token_stream;
-                }
-                open_tags[token.open_tag] = true;
-                if (pos - buff_pos != pos - buff.length()) {
-                    // Characters may be chopped
-                    token_stream.emplace_back(nullptr, std::string(buff.begin(), buff.begin() + buff_pos));
-                }
-                
-                buff.resize(0);
-                break;
-            }
-        
-        
-            auto has_closetag = has_opentag && token.is_symmetrical;
-            if (!token.is_symmetrical && token.has_closetag) {
-                if (token.close_tag.empty()) throw CtImportException("Token has no close tag");
-                has_closetag = buff.find(token.close_tag) != std::string::npos;
-            }
-        
-            if (has_closetag) {
-                auto tag = token.is_symmetrical ? token.open_tag : token.close_tag;
-                token_stream.emplace_back(curr_token, std::string(stream.begin() + pos - buff.length(), stream.begin() + pos - tag.length()));
-                open_tags[token.open_tag] = false;
-            
-                buff.resize(0);
-                break;
-            }
-        }
-        
-    }
-    if (!buff.empty()) {
-        // No token
-        token_stream.emplace_back(nullptr, buff);
-    }
-    
-    return token_stream;
-}
+
 
 void CtImportHandler::_add_ordered_list(unsigned int level, const std::string &data) {
     _add_text(fmt::format("{}. {}", level, data));
@@ -126,6 +58,12 @@ void CtImportHandler::_add_weight_tag(const Glib::ustring& level, std::optional<
     if (data) {
         _add_text(*data);
     }
+}
+
+void CtImportHandler::_add_link(const std::string& text) {
+    auto val = CtImports::get_internal_link_from_http_url(text);
+    _current_element->set_attribute(CtConst::TAG_LINK, val);
+    _add_text(text);
 }
 
 void CtImportHandler::_add_strikethrough_tag(std::optional<std::string> data) {
