@@ -33,7 +33,7 @@ constexpr auto notebook_filename = "notebook.zim";
 
 
 bool CtZimImportHandler::_has_notebook_file() {
-    static const CtImportHandler::ImportFile notebook_file(notebook_filename, 0);
+    static const auto notebook_file = _new_import_file(notebook_filename, 0);
 
     for (const auto& file : _import_files) {
         if (file.path.filename().string() == notebook_filename) return true;
@@ -41,40 +41,43 @@ bool CtZimImportHandler::_has_notebook_file() {
     return false;
 }
 
-void CtZimImportHandler::add_file(const std::filesystem::path &path) {
-
-}
-
-void CtZimImportHandler::add_directory(const std::filesystem::path &dir_path) {
-    
-    _process_files(dir_path);
+void CtZimImportHandler::add_directory(const fs::path& path) {
+    _process_files(path);
     if (!_has_notebook_file()) {
-        throw CtImportException(fmt::format("Directory: {} does not contain a notebook.zim file", dir_path.string()));
+        throw CtImportException(fmt::format("Directory: {} does not contain a notebook.zim file", path.string()));
     }
-    
-    _current_element = _xml_doc.create_root_node("root")->add_child("slot");
-    _current_element = _current_element->add_child("rich_text");
     
     for (const auto& file : _import_files) {
         auto file_stream = file.file();
-        
-        std::string line;
-        while(std::getline(file_stream, line, '\n')) {
-            if (_parse_state == PARSING_STATE::HEAD) {
-                // Creation-Date: .* is the final line of the header
-                if (line.find("Creation-Date:") != std::string::npos) {
-                    // TODO: Read the creation date and use it for ts_creation
-                    _parse_state = PARSING_STATE::BODY;
-                }
-            } else if (_parse_state == PARSING_STATE::BODY) {
-                _parse_body_line(line);
+        feed(file_stream);
+    }
+    
+}
+
+void CtZimImportHandler::feed(std::istream& data) {
+    
+   
+    _docs.emplace_back(std::make_shared<xmlpp::Document>());
+    _import_files.at(_docs.size() - 1).doc = _xml_doc();
+    _current_element = _xml_doc()->create_root_node("root")->add_child("slot");
+    _current_element = _current_element->add_child("rich_text");
+    
+    
+    std::string line;
+    while(std::getline(data, line, '\n')) {
+        if (_parse_state == PARSING_STATE::HEAD) {
+            // Creation-Date: .* is the final line of the header
+            if (line.find("Creation-Date:") != std::string::npos) {
+                // TODO: Read the creation date and use it for ts_creation
+                _parse_state = PARSING_STATE::BODY;
             }
-        
-        
+        } else if (_parse_state == PARSING_STATE::BODY) {
+            _parse_body_line(line);
         }
         
         
     }
+    
 
 }
 

@@ -31,17 +31,16 @@ void CtImportHandler::_process_files(const std::filesystem::path &path) {
     if (!_processed_files) {
         auto &accepted_extensions = _get_accepted_file_extensions();
         if (!fs::is_directory(path)) {
-            if (accepted_extensions.find(path.extension().string()) != accepted_extensions.end()) _import_files.emplace_back(path);
+            if (accepted_extensions.find(path.extension().string()) != accepted_extensions.end()) _import_files.emplace_back(CtImportFile(path));
         } else {
             fs::recursive_directory_iterator rec_dir_iter(path);
             for (const auto &dir_entry : rec_dir_iter) {
                 auto &fpath = dir_entry.path();
             
                 if (accepted_extensions.find(fpath.extension().string()) != accepted_extensions.end()) {
-                    ImportFile file(fpath, rec_dir_iter.depth());
+                    CtImportFile file(fpath, rec_dir_iter.depth());
                     _import_files.emplace_back(file);
                 }
-            
             }
         
         
@@ -165,7 +164,7 @@ void CtImportHandler::_add_text(std::string text) {
 }
 
 void CtImportHandler::_close_current_tag() {
-    _current_element = _current_element->get_parent()->add_child("rich_text");
+    if (!_tag_empty()) _current_element = _current_element->get_parent()->add_child("rich_text");
 }
 
 void CtImportHandler::_add_newline() {

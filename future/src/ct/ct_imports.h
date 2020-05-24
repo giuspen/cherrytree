@@ -157,6 +157,38 @@ public:
     explicit CtImportException(const std::string& msg) : std::runtime_error("[Import Exception]: " + msg) {}
 };
 class CtConfig;
+class CtImportHandler;
+
+/**
+ * @brief A file imported by a CtImportHandler
+ * @class CtImportFile
+ */
+class CtImportFile {
+public:
+    friend class CtImportHandler;
+    
+    std::filesystem::path path;
+    uint32_t depth = 0;
+    
+    bool operator==(const CtImportFile& other) const {
+        return (path == other.path) && (depth == other.depth);
+    }
+    bool operator>(const CtImportFile& other) const { return depth > other.depth; }
+    bool operator<(const CtImportFile& other) const { return depth < other.depth; }
+    
+    [[nodiscard]] std::ifstream file() const { return std::ifstream(path); }
+    
+    std::string to_string() {
+        if (!doc) throw std::logic_error("to_string called on CtImportFile without a valid document");
+        return doc->write_to_string();
+    }
+    
+    std::shared_ptr<xmlpp::Document> doc;
+private:
+    explicit CtImportFile(std::filesystem::path p, uint32_t rec_depth = 0) : path(std::move(p)), depth(rec_depth) {}
+    
+};
+
 /**
  * @brief Base class/interface for import handlers
  * @class CtImportHandler
@@ -191,30 +223,14 @@ protected:
         HEAD,
         BODY
     } _parse_state = PARSING_STATE::HEAD;
-    
-    class ImportFile {
-    public:
-        std::filesystem::path path;
-        int depth = 0;
-        
-        ImportFile(std::filesystem::path p, int rec_depth = 0) : path(std::move(p)), depth(rec_depth) {}
-        
-        bool operator==(const ImportFile& other) const {
-            return (path == other.path) && (depth == other.depth);
-        }
-        bool operator>(const ImportFile& other) const { return depth > other.depth; }
-        bool operator<(const ImportFile& other) const { return depth < other.depth; }
-        
-        std::ifstream file() const { return std::ifstream(path); }
-    };
   
 
 protected:
     // XML generation
-    xmlpp::Document _xml_doc;
+    std::vector<std::shared_ptr<xmlpp::Document>> _docs;
     xmlpp::Element* _current_element = nullptr;
-    std::vector<ImportFile> _import_files;
-    bool _processed_files = false;
+    std::vector<CtImportFile> _import_files;
+    bool                      _processed_files = false;
     /**
      * @brief Process the files to import based on the import list
      * @param path
@@ -230,6 +246,17 @@ protected:
     void _close_current_tag();
     void _add_newline();
     
+    [[nodiscard]] const std::shared_ptr<xmlpp::Document>& _xml_doc() const { return _docs.back(); }
+    
+    static CtImportFile _new_import_file(std::filesystem::path path, uint32_t depth) { return CtImportFile(std::forward<std::filesystem::path>(path), depth); }
+    
+    
+    
+    [[nodiscard]] constexpr bool _tag_empty() const {
+        if (!_current_element) return true;
+        else                   return !_current_element->get_child_text();
+    }
+    
     std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> tokonise(const std::string& stream);
     /**
      * @brief Get a list of file extensions supported by the import handler
@@ -241,13 +268,11 @@ protected:
     
 public:
     explicit CtImportHandler(const CtConfig* pCtConfig) : _pCtConfig(pCtConfig) {}
-    virtual void add_file(const std::filesystem::path& path) = 0;
-    virtual void add_directory(const std::filesystem::path& dir_path) = 0;
+    virtual void feed(std::istream& data) = 0;
     
-    std::string to_string() { return _xml_doc.write_to_string(); }
-    
-    //virtual void import_to_tree(const std::filesystem::path& path) = 0;
+    std::vector<CtImportFile>& imported_files() { return _import_files; }
 
+    virtual void add_directory(const std::filesystem::path& path) = 0;
 protected:
     const CtConfig* _pCtConfig = nullptr;
 };
@@ -268,29 +293,12 @@ protected:
 public:
     using CtImportHandler::CtImportHandler;
     
-    void add_file(const std::filesystem::path& path) override;
+    void feed(std::istream& data) override;
     
-    void add_directory(const std::filesystem::path &dir_path) override;
+    void add_directory(const std::filesystem::path& path) override;
 
 protected:
     uint8_t _list_level = 0;
 };
 
 
-namespace std {
-template<>
-struct hash<CtImportHandler::token_schema> {
-    std::size_t operator()(const CtImportHandler::token_schema& ts) {
-        std::size_t h1 = std::hash<std::string>{}(ts.open_tag);
-        if (ts.is_symmetrical) {
-            return h1;
-        } else {
-            // Combine the hashes
-            std::size_t h2 = std::hash<std::string>{}(ts.close_tag);
-            return h1^(h2 << 1);
-        }
-        
-        
-    }
-};
-}

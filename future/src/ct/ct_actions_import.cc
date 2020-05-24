@@ -191,13 +191,16 @@ void CtActions::_import_nodes_from_zim_file(const std::filesystem::path& filepat
     CtZimImportHandler handler(_pCtMainWin->get_ct_config());
     handler.add_directory(filepath);
     
-    auto nodeData = setup_node(_pCtMainWin, filepath);
-    auto data = handler.to_string();
-    std::cout << "-- XML DATA --\n" << data << std::endl;
-    CtClipboard(_pCtMainWin).from_xml_string_to_buffer(nodeData.rTextBuffer, data);
-    auto iter = _pCtMainWin->curr_tree_iter();
-    std::shared_ptr<CtNodeState> node_state;
-    _node_add_with_data(iter, nodeData, false, node_state);
+    auto& files = handler.imported_files();
+    for (auto& file : files) {
+        auto nodeData = setup_node(_pCtMainWin, filepath);
+        auto data = file.to_string();
+        std::cout << "-- XML DATA --\n" << data << std::endl;
+        CtClipboard(_pCtMainWin).from_xml_string_to_buffer(nodeData.rTextBuffer, data);
+        auto                         iter = _pCtMainWin->curr_tree_iter();
+        std::shared_ptr<CtNodeState> node_state;
+        _node_add_with_data(iter, nodeData, false, node_state);
+    }
 }
 
 void CtActions::import_nodes_from_zim_file() {
