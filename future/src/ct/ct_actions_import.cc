@@ -192,15 +192,45 @@ void CtActions::_import_nodes_from_zim_file(const std::filesystem::path& filepat
     handler.add_directory(filepath);
     
     auto& files = handler.imported_files();
-    for (auto& file : files) {
-        auto nodeData = setup_node(_pCtMainWin, filepath);
+    
+    CtNodeData parent = setup_node(_pCtMainWin, filepath);
+    parent.syntax = CtConst::RICH_TEXT_ID;    
+    std::shared_ptr<CtNodeState> state;
+    auto parent_iter = _add_node_with_data(Gtk::TreeIter(), parent, false, state);
+
+    
+    CtClipboard clipboard(_pCtMainWin);
+    
+    auto add_node = [this/*, &tree_store*/, &clipboard](CtImportFile& file, const Gtk::TreeIter& parent_iter) -> Gtk::TreeIter {
+        auto node_data = setup_node(_pCtMainWin, file.path);
+        node_data.syntax = CtConst::RICH_TEXT_ID;
+        
         auto data = file.to_string();
         std::cout << "-- XML DATA --\n" << data << std::endl;
-        CtClipboard(_pCtMainWin).from_xml_string_to_buffer(nodeData.rTextBuffer, data);
-        auto                         iter = _pCtMainWin->curr_tree_iter();
-        std::shared_ptr<CtNodeState> node_state;
-        _node_add_with_data(iter, nodeData, false, node_state);
+        clipboard.from_xml_string_to_buffer(node_data.rTextBuffer, data);
+        
+        std::shared_ptr<CtNodeState> state;
+        auto iter = _add_node_with_data(parent_iter, node_data, true, state);
+        
+        return iter;
+    };
+    
+    std::function<void(const std::vector<CtImportFile*>, Gtk::TreeIter&)> file_iter_func;
+    file_iter_func = [&file_iter_func, &add_node](const std::vector<CtImportFile*>& children, Gtk::TreeIter& parent) {
+        for (auto& child : children) {
+            auto iter = add_node(*child, parent);
+            file_iter_func(child->children, iter);
+        }
+    };
+    
+    for (auto& file : files) {
+        if (file.depth == 0) {
+            auto new_iter = add_node(file, parent_iter);
+            file_iter_func(file.children, new_iter);
+        }
     }
+    _pCtMainWin->update_window_save_needed();
+    
 }
 
 void CtActions::import_nodes_from_zim_file() {

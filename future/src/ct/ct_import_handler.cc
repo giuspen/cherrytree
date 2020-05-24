@@ -23,36 +23,13 @@
 #include "ct_imports.h"
 #include "ct_const.h"
 #include "ct_config.h"
+#include <regex>
 
 namespace fs = std::filesystem;
 
 
-void CtImportHandler::_process_files(const std::filesystem::path &path) {
-    if (!_processed_files) {
-        auto &accepted_extensions = _get_accepted_file_extensions();
-        if (!fs::is_directory(path)) {
-            if (accepted_extensions.find(path.extension().string()) != accepted_extensions.end()) _import_files.emplace_back(CtImportFile(path));
-        } else {
-            fs::recursive_directory_iterator rec_dir_iter(path);
-            for (const auto &dir_entry : rec_dir_iter) {
-                auto &fpath = dir_entry.path();
-            
-                if (accepted_extensions.find(fpath.extension().string()) != accepted_extensions.end()) {
-                    CtImportFile file(fpath, rec_dir_iter.depth());
-                    _import_files.emplace_back(file);
-                }
-            }
-        
-        
-        }
-        _processed_files = true;
-    }
-    
-    
-    
-}
+
 std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> CtImportHandler::tokonise(const std::string& stream) {
-    // TODO: Optimise this with a hash map for tags
     
     auto& tokens = _get_tokens();
     std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> token_stream;
@@ -81,7 +58,7 @@ std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> CtImp
                     auto tokonised_stream = tokonise(token_stream.back().second);
                     for (const auto& token : tokonised_stream) {
                         if (token.first) {
-                            token_stream.emplace_back(std::move(token));
+                            token_stream.emplace_back(token);
                         }
                     }
                     return token_stream;

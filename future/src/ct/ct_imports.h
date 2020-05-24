@@ -184,6 +184,8 @@ public:
     }
     
     std::shared_ptr<xmlpp::Document> doc;
+    CtImportFile* parent = nullptr;
+    std::vector<CtImportFile*> children;
 private:
     explicit CtImportFile(std::filesystem::path p, uint32_t rec_depth = 0) : path(std::move(p)), depth(rec_depth) {}
     
@@ -231,11 +233,7 @@ protected:
     xmlpp::Element* _current_element = nullptr;
     std::vector<CtImportFile> _import_files;
     bool                      _processed_files = false;
-    /**
-     * @brief Process the files to import based on the import list
-     * @param path
-     */
-    void _process_files(const std::filesystem::path& path);
+   
     void _add_scale_tag(int level, std::optional<std::string> data);
     void _add_weight_tag(const Glib::ustring& level, std::optional<std::string> data);
     void _add_italic_tag(std::optional<std::string> data);
@@ -290,6 +288,13 @@ protected:
     const token_map_t& _get_token_map() override;
     const std::vector<token_schema>& _get_tokens() override;
     const std::unordered_set<std::string>& _get_accepted_file_extensions() const override;
+    /**
+    * @brief Process the files to import based on the import list
+    * @param path
+    */
+    void _process_files(const std::filesystem::path& path);
+    
+    std::vector<CtImportFile> _get_files(const std::filesystem::path& path, uint32_t current_depth, CtImportFile* parent);
 public:
     using CtImportHandler::CtImportHandler;
     

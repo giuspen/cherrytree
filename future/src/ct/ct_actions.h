@@ -157,7 +157,15 @@ private:
                                    Gtk::TreeIter brother_iter = Gtk::TreeIter(), bool set_first = false);
     bool          _need_node_swap(Gtk::TreeIter& leftIter, Gtk::TreeIter& rightIter, bool ascendings);
     bool          _tree_sort_level_and_sublevels(const Gtk::TreeNodeChildren& children, bool ascending);
-
+    /**
+     * @brief Add a new node to the current tree and return an iterator to it
+     * @param curr_iter: The current iterator for the node tree (The parent iterator if adding a child)
+     * @param node_data: The data for the new node
+     * @param is_child: Whether the new node should be a child
+     * @param node_state: The state for the new node
+     * @return An iterator to the added node
+     */
+    Gtk::TreeIter _add_node_with_data(const Gtk::TreeIter& curr_iter, CtNodeData& node_data, bool is_child, std::shared_ptr<CtNodeState> node_state);
 public:
     // tree actions
     void node_add()       { _node_add(false, false); }
