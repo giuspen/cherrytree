@@ -128,7 +128,6 @@ void CtZimImportHandler::_parse_body_line(const std::string& line) {
     
     auto tokens = tokonise(line);
     
-    std::cout << "LINE: " << line << std::endl;
     for (const auto& token : tokens) {
         if (token.first) {
             token.first->action(token.second);
