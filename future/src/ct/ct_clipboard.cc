@@ -718,6 +718,5 @@ Glib::ustring Win32HtmlFormat::convert_from_ms_clipboard(Glib::ustring html_in)
         return html_in;
     html_in = html_in.substr(start, end - start);
     html_in = str::replace(html_in, "\r", "");
-    g_file_set_contents ("/home/john/3.clip.txt", html_in.data(), html_in.bytes(), nullptr);
     return html_in;
 }
