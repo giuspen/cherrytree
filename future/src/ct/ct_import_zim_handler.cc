@@ -164,7 +164,7 @@ void CtZimImportHandler::feed(std::istream& data) {
     
    
     _docs.emplace_back(std::make_shared<xmlpp::Document>());
-    _import_files.at(_docs.size() - 1)->doc = _xml_doc();
+    _current_import_file()->doc = _xml_doc();
     _current_element = _xml_doc()->create_root_node("root")->add_child("slot");
     _current_element = _current_element->add_child("rich_text");
     
@@ -269,9 +269,17 @@ const std::vector<CtImportHandler::token_schema>& CtZimImportHandler::_get_token
                 _add_scale_tag(count, str);
                 _close_current_tag();
             }},
+            // External link (e.g https://example.com)
             {"{{", true, false, [this](const std::string& data) {
                 std::cout << "GOT LINK: " << data << std::endl;
-            },"}}"}
+            },"}}"},
+            // Internal link (e.g MyPage)
+            {"[[", true, false, [this](const std::string& data){
+                _close_current_tag();
+                _add_internal_link(data);
+                _close_current_tag();
+                std::cout << "GOT LINK: " << data << "\n";
+            }, "]]"}
     };
     return tokens_vect;
 }

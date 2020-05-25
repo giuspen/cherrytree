@@ -195,16 +195,17 @@ void CtActions::_import_nodes_from_zim_directory(const std::filesystem::path& fi
     auto& files = handler.imported_files();
     
     CtClipboard clipboard(_pCtMainWin);
+    std::vector<std::pair<CtImportFile*, CtTreeIter>> node_cache;
     
-    auto add_node = [this/*, &tree_store*/, &clipboard](CtImportFile& file, const Gtk::TreeIter& parent_iter) -> Gtk::TreeIter {
+    auto& tree_store = _pCtMainWin->get_tree_store();
+    auto add_node = [this, &tree_store, &node_cache, &clipboard](CtImportFile& file, const Gtk::TreeIter& parent_iter) mutable -> Gtk::TreeIter {
         auto node_data = setup_node(_pCtMainWin, file.path);
         node_data.syntax = CtConst::RICH_TEXT_ID;
         
-        auto data = file.to_string();
-        clipboard.from_xml_string_to_buffer(node_data.rTextBuffer, data);
-        
         std::shared_ptr<CtNodeState> state;
         auto iter = _add_node_with_data(parent_iter, node_data, true, state);
+        
+        node_cache.emplace_back(&file, tree_store.to_ct_tree_iter(iter));
         
         return iter;
     };
@@ -213,8 +214,6 @@ void CtActions::_import_nodes_from_zim_directory(const std::filesystem::path& fi
     file_iter_func = [&file_iter_func, &add_node](const std::vector<std::shared_ptr<CtImportFile>>& children, const Gtk::TreeIter& parent) {
         for (auto& child : children) {
             if (child) {
-                std::cout << "FILE: " << child->path.string() << " DEPTH: " << child->depth << std::endl;
-
                 auto iter = add_node(*child, parent);
                 file_iter_func(child->children, iter);
             }
@@ -227,6 +226,21 @@ void CtActions::_import_nodes_from_zim_directory(const std::filesystem::path& fi
             file_iter_func(file->children, new_iter);
         }
     }
+    
+    // Update links
+    for (auto& file : files) {
+        for (auto& iter : node_cache) {
+            file->fix_internal_links(iter.second.get_node_name(), iter.second.get_node_id());
+        }
+       
+    }
+    // Read out the formatted xml
+    for (auto& file_pair : node_cache) {
+        auto text_buff = file_pair.second.get_node_text_buffer();
+        auto data = file_pair.first->to_string();
+        clipboard.from_xml_string_to_buffer(text_buff, data);
+    }
+    
     _pCtMainWin->update_window_save_needed();
     
 }

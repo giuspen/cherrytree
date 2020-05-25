@@ -183,12 +183,22 @@ public:
         if (!doc) throw std::logic_error("to_string called on CtImportFile without a valid document");
         return doc->write_to_string();
     }
+    /**
+     * @brief Fix the internal links for the file
+     * Adds the link id to the proper link in the document
+     * @param node_name
+     * @param node_id
+     */
+    void fix_internal_links(const std::string& node_name, uint64_t node_id);
     
     std::shared_ptr<xmlpp::Document> doc;
     CtImportFile* parent = nullptr;
     std::vector<std::shared_ptr<CtImportFile>> children;
 private:
     explicit CtImportFile(std::filesystem::path p, uint32_t rec_depth = 0) : path(std::move(p)), depth(rec_depth) {}
+    
+    /// Map of internal links for fixing
+    std::unordered_map<std::string, std::vector<xmlpp::Element*>> _internal_links;
     
 };
 
@@ -243,15 +253,19 @@ protected:
     void _add_ordered_list(unsigned int level, const std::string &data);
     /// Add a link, text should contain the full qualified name (e.g https://example.com)
     void _add_link(const std::string& text);
+    void _add_internal_link(const std::string& text);
     void _add_text(std::string text);
     void _close_current_tag();
     void _add_newline();
     
     [[nodiscard]] const std::shared_ptr<xmlpp::Document>& _xml_doc() const { return _docs.back(); }
     
+    [[nodiscard]] std::shared_ptr<CtImportFile>& _current_import_file() { return _import_files.at(_docs.size() - 1); }
+    
+    
     static std::unique_ptr<CtImportFile> _new_import_file(std::filesystem::path path, uint32_t depth) { return std::unique_ptr<CtImportFile>(new CtImportFile(std::move(path), depth)); }
-    
-    
+    static void _add_internal_link_to_file(CtImportFile& file, std::string link_name, xmlpp::Element* element) { file._internal_links[link_name].emplace_back(element); }
+    void _add_internal_link_to_curr_file(std::string link_name, xmlpp::Element* element) { _add_internal_link_to_file(*_current_import_file(), std::move(link_name), element); }
     
     [[nodiscard]] constexpr bool _tag_empty() const {
         if (!_current_element) return true;

@@ -29,10 +29,24 @@ namespace fs = std::filesystem;
 
 
 
-
+void CtImportFile::fix_internal_links(const std::string &node_name, uint64_t node_id) {
+    auto iter = _internal_links.find(node_name);
+    if (iter != _internal_links.end()) {
+        for (auto* link : iter->second) {
+            link->set_attribute(CtConst::TAG_LINK, fmt::format("node {}", node_id));
+        }
+    }
+    
+    
+}
 
 void CtImportHandler::_add_ordered_list(unsigned int level, const std::string &data) {
     _add_text(fmt::format("{}. {}", level, data));
+}
+
+void CtImportHandler::_add_internal_link(const std::string& text) {
+    _add_internal_link_to_curr_file(text, _current_element);
+    _add_text(text);
 }
 
 void CtImportHandler::_add_list(uint8_t level, const std::string& data) {
