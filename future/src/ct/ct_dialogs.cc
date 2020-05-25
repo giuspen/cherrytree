@@ -657,13 +657,8 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
         pTreeview->scroll_to_row(rModel->saved_path, 0.5);
     }
 
-    pTreeview->signal_event_after().connect([pTreeview, rModel, &ctMainWin](GdkEvent* event)
+    pTreeview->signal_cursor_changed().connect([pTreeview, rModel, &ctMainWin]()
     {
-        if ( (event->type != GDK_BUTTON_PRESS) &&
-             (event->type != GDK_KEY_PRESS) )
-        {
-            return;
-        }
         Gtk::TreeIter list_iter = pTreeview->get_selection()->get_selected();
         if (!list_iter)
         {
@@ -684,6 +679,10 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
         rCurrBuffer->move_mark(rCurrBuffer->get_selection_bound(),
                                rCurrBuffer->get_iter_at_offset(list_iter->get_value(rModel->columns.end_offset)));
         ctMainWin.get_text_view().scroll_to(rCurrBuffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
+
+        // pump events so UI's not going to freeze (#835)
+        while (gdk_events_pending())
+            gtk_main_iteration();
     });
     pButtonHide->signal_clicked().connect([pAllMatchesDialog]()
     {
