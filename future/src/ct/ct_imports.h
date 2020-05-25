@@ -126,11 +126,11 @@ private:
     std::list<tag_style>  _tag_styles;
     bool                  _html_pre_tag_open;
     bool                  _html_td_tag_open;
-    bool                  _parsing_valid_tag = true;
+    bool                  _parsing_valid_tag;
     int                   _html_a_tag_counter;
     char                  _list_type;
     int                   _list_num;
-    int                   _list_level = -1;
+    int                   _list_level;
     std::list<std::list<table_cell>> _table;
 
     // related to generating xml
