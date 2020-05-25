@@ -526,6 +526,7 @@ void CtStorageSqlite::_write_bookmarks_to_db(const std::list<gint64>& bookmarks)
         sqlite3_bind_int64(stmt, 2, sequence);
         if (sqlite3_step(stmt) != SQLITE_DONE)
             throw std::runtime_error(ERR_SQLITE_STEP + sqlite3_errmsg(_pDb));
+        sqlite3_reset(stmt);
     }
 }
 
