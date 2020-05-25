@@ -516,13 +516,13 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                         // at line start
                         if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_LESSER))
                             // "<> " becoming "◇ "
-                            _special_char_replace(CtConst::CHARS_LISTBUL_DEFAULT[1], iter_start, iter_insert);
+                            _special_char_replace(*CtConst::CHARS_LISTBUL_DEFAULT[1], iter_start, iter_insert);
                         else if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_MINUS))
                             // "-> " becoming "→ "
-                            _special_char_replace(CtConst::CHARS_LISTBUL_DEFAULT[4], iter_start, iter_insert);
+                            _special_char_replace(*CtConst::CHARS_LISTBUL_DEFAULT[4], iter_start, iter_insert);
                         else if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_EQUAL))
                             // "=> " becoming "⇒ "
-                            _special_char_replace(CtConst::CHARS_LISTBUL_DEFAULT[5], iter_start, iter_insert);
+                            _special_char_replace(*CtConst::CHARS_LISTBUL_DEFAULT[5], iter_start, iter_insert);
                     }
                     else if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_MINUS) and iter_start.backward_char())
                     {
@@ -562,7 +562,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                     else if (g_unichar_tolower(iter_start.get_char()) == 'r' and iter_start.backward_char()
                             and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_PARENTH_OPEN))
                             // "(r) " becoming "® "
-                            _special_char_replace(CtConst::SPECIAL_CHAR_REGISTERED_TRADEMARK[0], iter_start, iter_insert);
+                            _special_char_replace(*CtConst::SPECIAL_CHAR_REGISTERED_TRADEMARK[0], iter_start, iter_insert);
                     else if (g_unichar_tolower(iter_start.get_char()) == 'm' and iter_start.backward_char()
                             and g_unichar_tolower(iter_start.get_char()) == 't' and iter_start.backward_char()
                             and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_PARENTH_OPEN))
@@ -571,7 +571,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                 }
                 else if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_STAR) and iter_start.get_line_offset() == 0)
                     // "* " becoming "• " at line start
-                    _special_char_replace(CtConst::CHARS_LISTBUL_DEFAULT[0], iter_start, iter_insert);
+                    _special_char_replace(*CtConst::CHARS_LISTBUL_DEFAULT[0], iter_start, iter_insert);
                 else if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_SQ_BR_CLOSE) and iter_start.backward_char())
                 {
                     if (iter_start.get_line_offset() == 0 and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_SQ_BR_OPEN))
@@ -582,7 +582,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                 {
                     if (iter_start.get_line_offset() == 0 and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_COLON))
                         // ":: " becoming "▪ " at line start
-                        _special_char_replace(CtConst::CHARS_LISTBUL_DEFAULT[2], iter_start, iter_insert);
+                        _special_char_replace(*CtConst::CHARS_LISTBUL_DEFAULT[2], iter_start, iter_insert);
                 }
             }
         }

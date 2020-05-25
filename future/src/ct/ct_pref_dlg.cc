@@ -34,6 +34,7 @@
 #include "ct_dialogs.h"
 #include "ct_codebox.h"
 #include "ct_main_win.h"
+#include "ct_vector_proxy.h"
 #include <gspell/gspell.h>
 
 CtPrefDlg::UniversalModelColumns::~UniversalModelColumns()
@@ -233,8 +234,10 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
         }
     });
     button_reset->signal_clicked().connect([this, textview_special_chars](){
-        if (CtDialogs::question_dialog(reset_warning, *this))
-            textview_special_chars->get_buffer()->set_text(CtConst::SPECIAL_CHARS_DEFAULT);
+        if (CtDialogs::question_dialog(reset_warning, *this)) {
+            CtStringVectorProxy special_chars_def(CtConst::SPECIAL_CHARS_DEFAULT.begin(), CtConst::SPECIAL_CHARS_DEFAULT.end());
+            textview_special_chars->get_buffer()->set_text(special_chars_def.item());
+        }
     });
     spinbutton_tab_width->signal_value_changed().connect([this, pConfig, spinbutton_tab_width](){
         pConfig->tabsWidth = spinbutton_tab_width->get_value_as_int();
