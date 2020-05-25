@@ -11,6 +11,16 @@ execute_process(
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 )
 
+# Generating rc file (with icon) for windows
+if(MINGW)
+    add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/cherrytree_rc.o
+                       COMMAND windres.exe -I${CMAKE_SOURCE_DIR}/icons 
+                                           -i${CMAKE_SOURCE_DIR}/data/windows.rc
+                                           -o ${CMAKE_CURRENT_BINARY_DIR}/cherrytree_rc.o )
+    set(CHERRY_EXE_RC ${CMAKE_CURRENT_BINARY_DIR}/cherrytree_rc.o)
+endif(MINGW)
+
+
 set(CT_SHARED_FILES
     ct_actions_edit.cc
     ct_actions_export.cc
@@ -59,7 +69,7 @@ target_link_libraries(cherrytree_shared
     7za_static
 )
 
-add_executable(cherrytree ct_main.cc icons.gresource.cc)
+add_executable(cherrytree ct_main.cc icons.gresource.cc ${CHERRY_EXE_RC})
 target_link_libraries(cherrytree cherrytree_shared)
 if(APPLE)
   target_link_libraries(cherrytree "-framework Foundation -framework AppKit")
