@@ -318,7 +318,9 @@ TEST(MiscUtilsGroup, mime__type_contains)
     CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_txt.txt", "text/"));
     CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_html.html", "text/"));
     CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_html.html", "html"));
+#ifndef _WIN32
     CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_cpp.cpp", "text/"));
+#endif
     CHECK(!CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_ctb.ctb", "text/"));
 }
 
@@ -329,5 +331,3 @@ int main(int ac, char** av)
 
     return CommandLineTestRunner::RunAllTests(ac, av);
 }
-
-
