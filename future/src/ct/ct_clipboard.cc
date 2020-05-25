@@ -572,7 +572,7 @@ void CtClipboard::_on_received_to_html(const Gtk::SelectionData& selection_data,
 {
     CtHtml2Xml parser(_pCtMainWin);
 #ifdef _WIN32
-    parser.feed(Win32HtmlFormat().convert_from_clipboard(selection_data.get_data_as_string()));
+    parser.feed(Win32HtmlFormat().convert_from_ms_clipboard(selection_data.get_data_as_string()));
 #else
     parser.feed(selection_data.get_data_as_string());
 #endif
