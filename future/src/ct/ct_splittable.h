@@ -107,15 +107,15 @@ public:
     {
         swap(*this, other);
         return *this;
-    }
+    } 
 
-    CtSplittable& operator=(const ITEM_T& item) {
+    template<class ITEM_LIKE_T, std::enable_if_t<std::is_convertible_v<ITEM_LIKE_T, ITEM_T>>>
+    CtSplittable& operator=(ITEM_LIKE_T&& item) {
         _load_cache();
         if (item != _item_cache) {
-            vect_t tmp = _item_splitter(item);
-            _internal_vec.swap(tmp);
-            _set_cache = false;
-            _item_cache.resize(0);
+            _set_vec_cache = false;
+            _set_cache = true;
+            _item_cache = std::forward<ITEM_T>(item);
         }
         return *this;
     }
