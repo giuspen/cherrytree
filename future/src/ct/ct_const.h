@@ -66,13 +66,7 @@ const constexpr gchar* STYLE_SCHEME_DARK        {"cobalt"};
 const constexpr gchar* STYLE_SCHEME_GRAY        {"oblivion"};
 const constexpr gchar* TIMESTAMP_FORMAT_DEFAULT {"%Y/%m/%d - %H:%M"};
 
-const constexpr std::array<const gchar*, 82> SPECIAL_CHARS_DEFAULT     {
-    "“","„","‘","’","•","◇","▪","▸","☐","☑","☒","★","…","‰",
-    "€","©","®","™","°","↓","↑","→","←","↔","↵","⇓","⇑",
-    "⇒","⇐","⇔","»","«","▼","▲","►","◄","≤","≥","≠","≈",
-    "±","¹","²","³","½","¼","⅛","×","÷","∞","ø","∑","σ","√",
-    "∫","Δ","δ","Π","π","Σ","Φ","Ω","ω","α","β","γ","ε","η",
-    "λ","μ","☺","☻","☼","♥","♣","♦","✔","♀","♂","♪","♫","✝"};
+const constexpr gchar* SPECIAL_CHARS_DEFAULT { "“„‘’•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑σ√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝"};
 const constexpr gchar* SPECIAL_CHAR_ARROW_RIGHT   {"→"};
 const constexpr gchar* SPECIAL_CHAR_ARROW_RIGHT2  {"⇒"};
 const constexpr gchar* SPECIAL_CHAR_ARROW_LEFT    {"←"};
@@ -81,13 +75,13 @@ const constexpr gchar* SPECIAL_CHAR_ARROW_DOUBLE  {"↔"};
 const constexpr gchar* SPECIAL_CHAR_ARROW_DOUBLE2 {"⇔"};
 const constexpr gchar* SPECIAL_CHAR_COPYRIGHT     {"©"};
 const constexpr gchar* SPECIAL_CHAR_UNREGISTERED_TRADEMARK {"™"};
-const constexpr std::array<std::string_view, 1> SPECIAL_CHAR_REGISTERED_TRADEMARK =  {"®"};
-const constexpr std::array<std::string_view, 3> SELWORD_CHARS_DEFAULT {".", "-", "@"};
-const constexpr std::array<std::string_view, 6> CHARS_LISTBUL_DEFAULT {"•", "◇", "▪", "-", "→", "⇒"};
-const constexpr std::array<std::string_view, 4> CHARS_TOC_DEFAULT {"▸", "•", "◇", "▪"};
-const constexpr std::array<std::string_view, 3> CHARS_TODO_DEFAULT    {"☐", "☑", "☒"};
-const constexpr std::array<std::string_view, 2> CHARS_SMART_DQUOTE_DEFAULT    {"“", "”"};
-const constexpr std::array<std::string_view, 2> CHARS_SMART_SQUOTE_DEFAULT    {"‘", "’"};
+const constexpr gchar* SPECIAL_CHAR_REGISTERED_TRADEMARK =  {"®"};
+const constexpr gchar* SELWORD_CHARS_DEFAULT {".-@"};
+const constexpr gchar* CHARS_LISTBUL_DEFAULT {"•◇▪-→⇒"};
+const constexpr gchar* CHARS_TOC_DEFAULT {"▸•◇▪"};
+const constexpr gchar* CHARS_TODO_DEFAULT {"☐☑☒"};
+const constexpr gchar* CHARS_SMART_DQUOTE_DEFAULT {"“”"};
+const constexpr gchar* CHARS_SMART_SQUOTE_DEFAULT {"‘’"};
 
 const constexpr gchar* COLOR_48_LINK_WEBS   {"#00008989ffff"};
 const constexpr gchar* COLOR_48_LINK_NODE   {"#071c838e071c"};

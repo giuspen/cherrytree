@@ -235,8 +235,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     });
     button_reset->signal_clicked().connect([this, textview_special_chars](){
         if (CtDialogs::question_dialog(reset_warning, *this)) {
-            CtStringSplittable special_chars_def(CtConst::SPECIAL_CHARS_DEFAULT.begin(), CtConst::SPECIAL_CHARS_DEFAULT.end());
-            textview_special_chars->get_buffer()->set_text(special_chars_def.item());
+            textview_special_chars->get_buffer()->set_text(CtConst::SPECIAL_CHARS_DEFAULT);
         }
     });
     spinbutton_tab_width->signal_value_changed().connect([this, pConfig, spinbutton_tab_width](){
