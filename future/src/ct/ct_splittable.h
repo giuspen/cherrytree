@@ -1,5 +1,5 @@
 /*
- * ct_vector_proxy.hpp
+ * ct_splittable.h
  *
  * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
