@@ -28,7 +28,7 @@
 #include <glibmm.h>
 #include "ct_const.h"
 #include "ct_types.h"
-#include "ct_vector_proxy.h"
+#include "ct_splittable.h"
 
 class CtConfig
 {
@@ -97,13 +97,13 @@ public:
     int                                         spaceAroundLines{0};
     int                                         relativeWrappedSpace{50};
     Glib::ustring                               hRule{"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"};
-    CtStringVectorProxy                         specialChars{CtConst::SPECIAL_CHARS_DEFAULT.begin(), CtConst::SPECIAL_CHARS_DEFAULT.end()};
-    CtStringVectorProxy                         selwordChars{CtConst::SELWORD_CHARS_DEFAULT.begin(), CtConst::SELWORD_CHARS_DEFAULT.end()};
-    CtStringVectorProxy                         charsListbul{CtConst::CHARS_LISTBUL_DEFAULT.begin(), CtConst::CHARS_LISTBUL_DEFAULT.end()};
-    CtStringVectorProxy                         charsToc{CtConst::CHARS_TOC_DEFAULT.begin(), CtConst::CHARS_TOC_DEFAULT.end()};
-    CtStringVectorProxy                         charsTodo{CtConst::CHARS_TODO_DEFAULT.begin(), CtConst::CHARS_TODO_DEFAULT.end()};
-    CtStringVectorProxy                         chars_smart_dquote{CtConst::CHARS_SMART_DQUOTE_DEFAULT.begin(), CtConst::CHARS_SMART_DQUOTE_DEFAULT.end()};
-    CtStringVectorProxy                         chars_smart_squote{CtConst::CHARS_SMART_SQUOTE_DEFAULT.begin(), CtConst::CHARS_SMART_SQUOTE_DEFAULT.end()};
+    CtStringSplittable                         specialChars{CtConst::SPECIAL_CHARS_DEFAULT.begin(), CtConst::SPECIAL_CHARS_DEFAULT.end()};
+    CtStringSplittable                         selwordChars{CtConst::SELWORD_CHARS_DEFAULT.begin(), CtConst::SELWORD_CHARS_DEFAULT.end()};
+    CtStringSplittable                         charsListbul{CtConst::CHARS_LISTBUL_DEFAULT.begin(), CtConst::CHARS_LISTBUL_DEFAULT.end()};
+    CtStringSplittable                         charsToc{CtConst::CHARS_TOC_DEFAULT.begin(), CtConst::CHARS_TOC_DEFAULT.end()};
+    CtStringSplittable                         charsTodo{CtConst::CHARS_TODO_DEFAULT.begin(), CtConst::CHARS_TODO_DEFAULT.end()};
+    CtStringSplittable                         chars_smart_dquote{CtConst::CHARS_SMART_DQUOTE_DEFAULT.begin(), CtConst::CHARS_SMART_DQUOTE_DEFAULT.end()};
+    CtStringSplittable                         chars_smart_squote{CtConst::CHARS_SMART_SQUOTE_DEFAULT.begin(), CtConst::CHARS_SMART_SQUOTE_DEFAULT.end()};
     std::string                                 latestTagProp;
     std::string                                 latestTagVal;
     Glib::ustring                               timestampFormat{CtConst::TIMESTAMP_FORMAT_DEFAULT};

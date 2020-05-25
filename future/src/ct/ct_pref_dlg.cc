@@ -34,7 +34,7 @@
 #include "ct_dialogs.h"
 #include "ct_codebox.h"
 #include "ct_main_win.h"
-#include "ct_vector_proxy.h"
+#include "ct_splittable.h"
 #include <gspell/gspell.h>
 
 CtPrefDlg::UniversalModelColumns::~UniversalModelColumns()
@@ -235,7 +235,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     });
     button_reset->signal_clicked().connect([this, textview_special_chars](){
         if (CtDialogs::question_dialog(reset_warning, *this)) {
-            CtStringVectorProxy special_chars_def(CtConst::SPECIAL_CHARS_DEFAULT.begin(), CtConst::SPECIAL_CHARS_DEFAULT.end());
+            CtStringSplittable special_chars_def(CtConst::SPECIAL_CHARS_DEFAULT.begin(), CtConst::SPECIAL_CHARS_DEFAULT.end());
             textview_special_chars->get_buffer()->set_text(special_chars_def.item());
         }
     });
