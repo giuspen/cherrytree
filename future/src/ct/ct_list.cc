@@ -62,8 +62,8 @@ void CtList::list_handler(CtListType target_list_num_id)
             if (leading_num_count.empty()) {
                 // this is the first iteration
                 range.iter_start = _curr_buffer->get_insert()->get_iter();
-                if (target_list_num_id == CtListType::Todo)        _curr_buffer->insert(range.iter_start, _pCtMainWin->get_ct_config()->charsTodo[0] + CtConst::CHAR_SPACE);
-                else if (target_list_num_id == CtListType::Bullet) _curr_buffer->insert(range.iter_start, _pCtMainWin->get_ct_config()->charsListbul[0] + CtConst::CHAR_SPACE);
+                if (target_list_num_id == CtListType::Todo)        _curr_buffer->insert(range.iter_start, Glib::ustring(1, _pCtMainWin->get_ct_config()->charsTodo[0]) + CtConst::CHAR_SPACE);
+                else if (target_list_num_id == CtListType::Bullet) _curr_buffer->insert(range.iter_start, Glib::ustring(1, _pCtMainWin->get_ct_config()->charsListbul[0]) + CtConst::CHAR_SPACE);
                 else                                                          _curr_buffer->insert(range.iter_start, "1. ");
             }
             break;
