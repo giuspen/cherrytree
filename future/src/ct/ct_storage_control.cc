@@ -28,23 +28,12 @@
 #include <glib/gstdio.h>
 
 
-std::string CtStorageControl::_check_and_unpack(const std::string& path) 
-{
-    // unpack file if need
-    std::string password;
-    std::string extracted_file_path = path;
-    if (CtMiscUtil::get_doc_encrypt(path) == CtDocEncrypt::True)
-        extracted_file_path = _extract_file(_pCtMainWin, path, password);
-    return extracted_file_path;
-}
-
-
-CtStorageEntity* get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
+std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
 {
     if (file_type == CtDocType::SQLite)
-        return new CtStorageSqlite(pCtMainWin);
+        return std::make_unique<CtStorageSqlite>(pCtMainWin);
     else
-        return new CtStorageXml(pCtMainWin);
+        return std::make_unique<CtStorageXml>(pCtMainWin);
 }
 
 /*static*/ CtStorageControl* CtStorageControl::create_dummy_storage()
@@ -54,7 +43,7 @@ CtStorageEntity* get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
 
 /*static*/ CtStorageControl* CtStorageControl::load_from(CtMainWin* pCtMainWin, const Glib::ustring &file_path, Glib::ustring& error)
 {
-    CtStorageEntity* storage{nullptr};
+    std::unique_ptr<CtStorageEntity> storage;
     Glib::ustring extracted_file_path = file_path;
     try
     {
@@ -80,13 +69,12 @@ CtStorageEntity* get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
         doc->_password = password;
         doc->_extracted_file_path = extracted_file_path;
         doc->_need_backup = true;
-        doc->_storage = storage;
+        doc->_storage.swap(storage);
         return doc;
 
     }
     catch (std::exception& e)
     {
-        delete storage;
         if (extracted_file_path != file_path && Glib::file_test(extracted_file_path, Glib::FILE_TEST_IS_REGULAR))
             g_remove(extracted_file_path.c_str());
 
@@ -98,7 +86,7 @@ CtStorageEntity* get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
 
 /*static*/ CtStorageControl* CtStorageControl::save_as(CtMainWin* pCtMainWin, const Glib::ustring& file_path, const Glib::ustring& password, Glib::ustring& error)
 {
-    CtStorageEntity* storage{nullptr};
+    std::unique_ptr<CtStorageEntity> storage;
     Glib::ustring extracted_file_path = file_path;
     try
     {
@@ -131,12 +119,11 @@ CtStorageEntity* get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
         doc->_password = password;
         doc->_extracted_file_path = extracted_file_path;
         doc->_need_backup = false; // no need for backup
-        doc->_storage = storage;
+        doc->_storage.swap(storage);
         return doc;
     }
     catch (std::exception& e)
     {
-        delete storage;
         if (Glib::file_test(file_path, Glib::FILE_TEST_IS_REGULAR))
             g_remove(file_path.c_str());
         if (Glib::file_test(extracted_file_path, Glib::FILE_TEST_IS_REGULAR))
@@ -344,16 +331,20 @@ void CtStorageControl::pending_edit_db_bookmarks()
     _syncPending.bookmarks_to_write = true;
 }
 
-
-
 void CtStorageControl::add_nodes_from_storage(const std::string& path) 
 {
     if (!Glib::file_test(path, Glib::FILE_TEST_IS_REGULAR))
-            throw std::runtime_error(fmt::format("File: {} - is not a regular file", path));
+        throw std::runtime_error(fmt::format("File: {} - is not a regular file", path));
 
-    auto extracted_file_path = _check_and_unpack(path);
+    std::string password;
+    std::string extracted_file_path = path;
+    if (CtMiscUtil::get_doc_encrypt(path) == CtDocEncrypt::True)
+        extracted_file_path = _extract_file(_pCtMainWin, path, password);
 
-    auto storage = get_entity_by_type(_pCtMainWin, CtMiscUtil::get_doc_type(extracted_file_path));
-    storage->import_nodes(_pCtMainWin, extracted_file_path);
+    std::unique_ptr<CtStorageEntity> storage = get_entity_by_type(_pCtMainWin, CtMiscUtil::get_doc_type(extracted_file_path));
+    storage->import_nodes(extracted_file_path);
+
+    _pCtMainWin->get_tree_store().nodes_sequences_fix(Gtk::TreeIter(), false);
+    _pCtMainWin->update_window_save_needed();
 }
 
