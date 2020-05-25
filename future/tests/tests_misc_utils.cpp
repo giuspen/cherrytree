@@ -315,11 +315,11 @@ TEST(MiscUtilsGroup, get_cherrytree_localedir)
 
 TEST(MiscUtilsGroup, mime__type_contains) 
 {
-    CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/txt_test.txt", "text/"));
-    CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/html_test.html", "text/"));
-    CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/html_test.html", "html"));
-    CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/cpp_test.cpp", "text/"));
-    CHECK(!CtMiscUtil::mime_type_contains(unitTestsDataDir+"/test.ctb", "text/"));
+    CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_txt.txt", "text/"));
+    CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_html.html", "text/"));
+    CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_html.html", "html"));
+    CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_cpp.cpp", "text/"));
+    CHECK(!CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_ctb.ctb", "text/"));
 }
 
 int main(int ac, char** av)

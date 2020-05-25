@@ -148,9 +148,11 @@ void CtHtml2Xml::feed(const std::string& html)
     _tag_styles.clear();
     _html_pre_tag_open = false;
     _html_td_tag_open = false;
+    _parsing_valid_tag = true;
     _html_a_tag_counter = 0;
     _list_type = 'u';
     _list_num = 0;
+    _list_level = -1;
     _table.clear();
 
     _slot_root = _xml_doc.create_root_node("root")->add_child("slot");

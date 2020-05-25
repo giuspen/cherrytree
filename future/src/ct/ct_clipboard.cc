@@ -33,6 +33,7 @@
 #include "ct_storage_xml.h"
 #include "src/fmt/ostream.h"
 #include <gio/gio.h> // to get mime type
+#include <glibmm/regex.h>
 
 // keep defines out of class scope, so _on_clip_data_getl can use them
 const Glib::ustring TARGET_CTD_PLAIN_TEXT = "UTF8_STRING";
@@ -570,7 +571,11 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
 void CtClipboard::_on_received_to_html(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
     CtHtml2Xml parser(_pCtMainWin);
+#ifdef _WIN32
+    parser.feed(Win32HtmlFormat().convert_from_clipboard(selection_data.get_data_as_string()));
+#else
     parser.feed(selection_data.get_data_as_string());
+#endif
     from_xml_string_to_buffer(pTextView->get_buffer(), parser.to_string());
     pTextView->scroll_to(pTextView->get_buffer()->get_insert());
 }
@@ -695,4 +700,23 @@ Glib::ustring Win32HtmlFormat::encode(Glib::ustring html_in)
                 fragmentStart + lenPrefix, fragmentEnd + lenPrefix,
                 source);
     return prefix + html;
+}
+
+Glib::ustring Win32HtmlFormat::convert_from_ms_clipboard(Glib::ustring html_in)
+{
+    auto get_arg_value = [&](Glib::ustring arg_name) {
+        auto re = Glib::Regex::create(arg_name + "\\s*:\\s*(.*?)$", Glib::RegexCompileFlags::REGEX_CASELESS | Glib::RegexCompileFlags::REGEX_MULTILINE);
+        Glib::MatchInfo match;
+        if (!re->match(html_in, match))
+            return -1;
+        return std::atoi(match.fetch(1).c_str());
+    };
+
+    int start = get_arg_value("StartHTML");
+    int end = get_arg_value("EndHTML");
+    if (start < 0 || end < 0 || end < start)
+        return html_in;
+    html_in = html_in.substr(start, end - start);
+    html_in = str::replace(html_in, "\r", "");
+    return html_in;
 }
