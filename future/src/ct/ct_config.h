@@ -98,7 +98,7 @@ public:
     int                                         relativeWrappedSpace{50};
     Glib::ustring                               hRule{"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"};
     CtStringVectorProxy                         specialChars{CtConst::SPECIAL_CHARS_DEFAULT.begin(), CtConst::SPECIAL_CHARS_DEFAULT.end()};
-    CtStringVectorProxy                         selwordChars{CtConst::SELWORD_CHARS_DEFAULT.begin(), CtConst::CHARS_LISTBUL_DEFAULT.end()};
+    CtStringVectorProxy                         selwordChars{CtConst::SELWORD_CHARS_DEFAULT.begin(), CtConst::SELWORD_CHARS_DEFAULT.end()};
     CtStringVectorProxy                         charsListbul{CtConst::CHARS_LISTBUL_DEFAULT.begin(), CtConst::CHARS_LISTBUL_DEFAULT.end()};
     CtStringVectorProxy                         charsToc{CtConst::CHARS_TOC_DEFAULT.begin(), CtConst::CHARS_TOC_DEFAULT.end()};
     CtStringVectorProxy                         charsTodo{CtConst::CHARS_TODO_DEFAULT.begin(), CtConst::CHARS_TODO_DEFAULT.end()};

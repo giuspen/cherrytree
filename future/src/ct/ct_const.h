@@ -66,7 +66,13 @@ const constexpr gchar* STYLE_SCHEME_DARK        {"cobalt"};
 const constexpr gchar* STYLE_SCHEME_GRAY        {"oblivion"};
 const constexpr gchar* TIMESTAMP_FORMAT_DEFAULT {"%Y/%m/%d - %H:%M"};
 
-const constexpr std::array<const gchar*, 83> SPECIAL_CHARS_DEFAULT     {{"“”„‘’•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑σ√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝"}};
+const constexpr std::array<const gchar*, 82> SPECIAL_CHARS_DEFAULT     {
+    "“","„","‘","’","•","◇","▪","▸","☐","☑","☒","★","…","‰",
+    "€","©","®","™","°","↓","↑","→","←","↔","↵","⇓","⇑",
+    "⇒","⇐","⇔","»","«","▼","▲","►","◄","≤","≥","≠","≈",
+    "±","¹","²","³","½","¼","⅛","×","÷","∞","ø","∑","σ","√",
+    "∫","Δ","δ","Π","π","Σ","Φ","Ω","ω","α","β","γ","ε","η",
+    "λ","μ","☺","☻","☼","♥","♣","♦","✔","♀","♂","♪","♫","✝"};
 const constexpr gchar* SPECIAL_CHAR_ARROW_RIGHT   {"→"};
 const constexpr gchar* SPECIAL_CHAR_ARROW_RIGHT2  {"⇒"};
 const constexpr gchar* SPECIAL_CHAR_ARROW_LEFT    {"←"};
