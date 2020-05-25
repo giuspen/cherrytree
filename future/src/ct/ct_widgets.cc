@@ -247,7 +247,7 @@ void CtTextView::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& 
                 int idx_offset = idx_old - curr_level % (int)_pCtMainWin->get_ct_config()->charsListbul.size();
                 bull_idx = (next_level + idx_offset) % (int)_pCtMainWin->get_ct_config()->charsListbul.size();
             }
-            replace_text(Glib::ustring(1, _pCtMainWin->get_ct_config()->charsListbul[(size_t)bull_idx]), bull_offset, bull_offset+1);
+            replace_text(_pCtMainWin->get_ct_config()->charsListbul[(size_t)bull_idx], bull_offset, bull_offset+1);
         }
         else if (list_info.type == CtListType::Number)
         {
@@ -576,7 +576,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                 {
                     if (iter_start.get_line_offset() == 0 and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_SQ_BR_OPEN))
                         // "[] " becoming "☐ " at line start
-                        _special_char_replace(config->charsTodo[0], iter_start, iter_insert);
+                        _special_char_replace(config->charsTodo[0][0], iter_start, iter_insert);
                 }
                 else if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_COLON) and iter_start.backward_char())
                 {

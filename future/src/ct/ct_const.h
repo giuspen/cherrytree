@@ -78,7 +78,7 @@ const constexpr gchar* SPECIAL_CHAR_UNREGISTERED_TRADEMARK {"™"};
 const constexpr gchar* SPECIAL_CHAR_REGISTERED_TRADEMARK   {"®"};
 const constexpr gchar* SELWORD_CHARS_DEFAULT {".-@"};
 const constexpr gchar* CHARS_LISTBUL_DEFAULT {"•◇▪-→⇒"};
-const constexpr gchar* CHARS_TOC_DEFAULT     {"▸•◇▪"};
+const constexpr std::array<const char*, 4> CHARS_TOC_DEFAULT = {"▸", "•", "◇", "▪"};
 const constexpr gchar* CHARS_TODO_DEFAULT    {"☐☑☒"};
 const constexpr gchar* CHARS_SMART_DQUOTE_DEFAULT    {"“”"};
 const constexpr gchar* CHARS_SMART_SQUOTE_DEFAULT    {"‘’"};

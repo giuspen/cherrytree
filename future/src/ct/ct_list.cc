@@ -62,8 +62,8 @@ void CtList::list_handler(CtListType target_list_num_id)
             if (leading_num_count.empty()) {
                 // this is the first iteration
                 range.iter_start = _curr_buffer->get_insert()->get_iter();
-                if (target_list_num_id == CtListType::Todo)        _curr_buffer->insert(range.iter_start, Glib::ustring(1, _pCtMainWin->get_ct_config()->charsTodo[0]) + CtConst::CHAR_SPACE);
-                else if (target_list_num_id == CtListType::Bullet) _curr_buffer->insert(range.iter_start, Glib::ustring(1, _pCtMainWin->get_ct_config()->charsListbul[0]) + CtConst::CHAR_SPACE);
+                if (target_list_num_id == CtListType::Todo)        _curr_buffer->insert(range.iter_start, _pCtMainWin->get_ct_config()->charsTodo[0] + CtConst::CHAR_SPACE);
+                else if (target_list_num_id == CtListType::Bullet) _curr_buffer->insert(range.iter_start, _pCtMainWin->get_ct_config()->charsListbul[0] + CtConst::CHAR_SPACE);
                 else                                                          _curr_buffer->insert(range.iter_start, "1. ");
             }
             break;
@@ -87,7 +87,7 @@ void CtList::list_handler(CtListType target_list_num_id)
                     new_par_offset = range.iter_end.get_offset() + 2;
                     end_offset += 2;
                     int bull_idx = (!list_info) ? 0 : (list_info.level % (int)_pCtMainWin->get_ct_config()->charsListbul.size());
-                    _curr_buffer->insert(range.iter_start, _pCtMainWin->get_ct_config()->charsListbul.substr((size_t)bull_idx, 1) + CtConst::CHAR_SPACE);
+                    _curr_buffer->insert(range.iter_start, _pCtMainWin->get_ct_config()->charsListbul.item().substr((size_t)bull_idx, 1) + CtConst::CHAR_SPACE);
                 } else {
                     int index;
                     if (!list_info) {
@@ -167,14 +167,15 @@ CtListInfo CtList::list_get_number_n_level(Gtk::TextIter iter_first_paragraph)
     int level = 0;
     while (iter_start) {
         auto ch = iter_start.get_char();
-        if (str::indexOf(_pCtMainWin->get_ct_config()->charsListbul, ch) != -1) {
+        auto& bulls_list = _pCtMainWin->get_ct_config()->charsListbul.item();
+        if (str::indexOf(bulls_list, ch) != -1) {
             if (iter_start.forward_char() && iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_SPACE)) {
-                int num = str::indexOf(_pCtMainWin->get_ct_config()->charsListbul, ch);
+                int num = str::indexOf(bulls_list, ch);
                 return CtListInfo{CtListType::Bullet, num, level, -1, -1};
             }
             break;
         }
-        if (str::indexOf(_pCtMainWin->get_ct_config()->charsTodo, ch) != -1) {
+        if (str::indexOf(_pCtMainWin->get_ct_config()->charsTodo.item(), ch) != -1) {
             if (iter_start.forward_char() && iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_SPACE))
                 return CtListInfo{CtListType::Todo, 0, level, -1, -1};
             break;
@@ -344,7 +345,7 @@ CtTextRange CtList::get_paragraph_iters(Gtk::TextIter* force_iter /*= nullptr*/)
 // Check if ☐ or ☑ or ☒
 bool CtList::is_list_todo_beginning(Gtk::TextIter square_bracket_open_iter)
 {
-    if (_pCtMainWin->get_ct_config()->charsTodo.find(square_bracket_open_iter.get_char()) != Glib::ustring::npos) {
+    if (_pCtMainWin->get_ct_config()->charsTodo.contains(Glib::ustring(1, square_bracket_open_iter.get_char()))) {
         CtListInfo list_info = get_paragraph_list_info(square_bracket_open_iter);
         if (list_info.type == CtListType::Todo)
             return true;
@@ -356,15 +357,16 @@ bool CtList::is_list_todo_beginning(Gtk::TextIter square_bracket_open_iter)
 void CtList::todo_list_rotate_status(Gtk::TextIter todo_char_iter)
 {
     int iter_offset = todo_char_iter.get_offset();
-    if (todo_char_iter.get_char() == _pCtMainWin->get_ct_config()->charsTodo[0]) {
+    Glib::ustring todo_str(1, todo_char_iter.get_char());
+    if (todo_str == _pCtMainWin->get_ct_config()->charsTodo[0]) {
         _curr_buffer->erase(todo_char_iter, _curr_buffer->get_iter_at_offset(iter_offset+1));
-        _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), Glib::ustring(1, _pCtMainWin->get_ct_config()->charsTodo[1]));
-    } else if (todo_char_iter.get_char() == _pCtMainWin->get_ct_config()->charsTodo[1]) {
+        _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), _pCtMainWin->get_ct_config()->charsTodo[1]);
+    } else if (todo_str == _pCtMainWin->get_ct_config()->charsTodo[1]) {
         _curr_buffer->erase(todo_char_iter, _curr_buffer->get_iter_at_offset(iter_offset+1));
-        _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), Glib::ustring(1, _pCtMainWin->get_ct_config()->charsTodo[2]));
-    } else if (todo_char_iter.get_char() == _pCtMainWin->get_ct_config()->charsTodo[2]) {
+        _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), _pCtMainWin->get_ct_config()->charsTodo[2]);
+    } else if (todo_str == _pCtMainWin->get_ct_config()->charsTodo[2]) {
         _curr_buffer->erase(todo_char_iter, _curr_buffer->get_iter_at_offset(iter_offset+1));
-        _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), Glib::ustring(1, _pCtMainWin->get_ct_config()->charsTodo[0]));
+        _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), _pCtMainWin->get_ct_config()->charsTodo[0]);
     }
 }
 
@@ -423,7 +425,7 @@ void CtList::todo_lists_old_to_new_conversion()
                     int iter_offset = first_iter.get_offset();
                     _curr_buffer->erase(first_iter, curr_iter);
                     auto todo_char = middle_char == g_utf8_get_char(CtConst::CHAR_SPACE) ? _pCtMainWin->get_ct_config()->charsTodo[0] : _pCtMainWin->get_ct_config()->charsTodo[1];
-                    _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), Glib::ustring(1, todo_char));
+                    _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), todo_char);
                     Gtk::TextIter curr_iter = _curr_buffer->get_iter_at_offset(iter_offset);
                     if (middle_char != g_utf8_get_char(CtConst::CHAR_SPACE)) {
                         first_iter = curr_iter;
