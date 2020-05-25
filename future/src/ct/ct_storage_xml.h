@@ -49,17 +49,15 @@ public:
 
     bool populate_treestore(const Glib::ustring& file_path, Glib::ustring& error) override;
     bool save_treestore(const Glib::ustring& file_path, const CtStorageSyncPending& syncPending, Glib::ustring& error) override;
-    void import_nodes(CtMainWin* pCtMainWin, const std::string& path) override;
     void vacuum() override;
+    void import_nodes(const std::string& path) override;
 
     Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
                                                       const std::string& syntax,
                                                       std::list<CtAnchoredWidget*>& widgets) const override;
 private:
-    Gtk::TreeIter  _node_from_xml(xmlpp::Element* xml_element, Gtk::TreeIter parent_iter);
+    Gtk::TreeIter  _node_from_xml(xmlpp::Element* xml_element, Gtk::TreeIter parent_iter, gint64 new_id);
     void           _nodes_to_xml(CtTreeIter* ct_tree_iter, xmlpp::Element* p_node_parent);
-    
-    CtTreeIter _import_node_from_xml(xmlpp::Element* xml_element, CtTreeIter parent_iter);
 
 private:
     CtMainWin* _pCtMainWin{nullptr};

@@ -45,25 +45,25 @@ public:
     bool populate_treestore(const Glib::ustring& file_path, Glib::ustring& error) override;
     bool save_treestore(const Glib::ustring& file_path, const CtStorageSyncPending& syncPending, Glib::ustring& error) override;
     void vacuum() override;
-
-    void import_nodes(CtMainWin* pCtMainWin, const std::string& path) override;
+    void import_nodes(const std::string& path) override;
 
     Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
                                                       const std::string& syntax,
                                                       std::list<CtAnchoredWidget*>& widgets) const override;
 private:
-    void                _close_db();
-    void _open_db(const std::string &path, bool read_only);
+    void _open_db(const std::string &path);
+    void _close_db();
 
-    Gtk::TreeIter       _node_from_db(guint node_id, Gtk::TreeIter parent_iter);
-    CtTreeIter          _node_from_imported_db(gint64 node_id, CtTreeIter* parent_iter);
+
+    Gtk::TreeIter       _node_from_db(gint64 node_id, Gtk::TreeIter parent_iter, gint64 new_id);
+
     
     /**
      * @brief Check that the database contains the required tables
      * 
      * @param db 
      */
-    void                _check_db_tables();
+    void                _fix_db_tables();
     /**
      * @brief Get a list of field names for a table
      * @warning Only hardcoded table names should be passed to this method

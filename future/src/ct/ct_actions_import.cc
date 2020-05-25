@@ -125,7 +125,6 @@ void CtActions::_import_node_from_plaintext(const std::filesystem::path &filepat
     }
 }
 
-
 void CtActions::import_nodes_from_ct_file() noexcept
 {
     try {
@@ -136,19 +135,13 @@ void CtActions::import_nodes_from_ct_file() noexcept
         auto fpath = CtDialogs::file_select_dialog(args);
         if (fpath.empty()) return; // No file selected
         
-        
         // Add the nodes through the storage type
         _pCtMainWin->get_ct_storage()->add_nodes_from_storage(fpath);
         
     } catch(std::exception& e) {
         std::cerr << "Exception caught while importing node from CT file: " << e.what() << "\n";
     }
-    
-    
 }
-
-
-
 
 void CtActions::import_node_from_plaintext_file() noexcept
 {
