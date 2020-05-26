@@ -3,12 +3,6 @@ language: cpp
 
 jobs:
   include:
-    - os: linux
-      dist: focal
-      cache: apt
-      addons:
-        apt:
-          update: true
     - os: windows
       cache:
         directories:
