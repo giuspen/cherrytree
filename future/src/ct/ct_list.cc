@@ -87,7 +87,7 @@ void CtList::list_handler(CtListType target_list_num_id)
                     new_par_offset = range.iter_end.get_offset() + 2;
                     end_offset += 2;
                     int bull_idx = (!list_info) ? 0 : (list_info.level % (int)_pCtMainWin->get_ct_config()->charsListbul.size());
-                    _curr_buffer->insert(range.iter_start, _pCtMainWin->get_ct_config()->charsListbul.item().substr((size_t)bull_idx, 1) + CtConst::CHAR_SPACE);
+                    _curr_buffer->insert(range.iter_start, _pCtMainWin->get_ct_config()->charsListbul[bull_idx] + CtConst::CHAR_SPACE);
                 } else {
                     int index;
                     if (!list_info) {
