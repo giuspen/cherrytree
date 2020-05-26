@@ -315,6 +315,12 @@ TEST(MiscUtilsGroup, get_cherrytree_localedir)
 
 TEST(MiscUtilsGroup, mime__type_contains) 
 {
+    CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_txt.txt", "text/");
+    CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_html.html", "text/");
+    CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_html.html", "html");
+    CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_cpp.cpp", "text/");
+    CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_ctb.ctb", "text/");
+
     CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_txt.txt", "text/"));
     CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_html.html", "text/"));
     CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_html.html", "html"));
