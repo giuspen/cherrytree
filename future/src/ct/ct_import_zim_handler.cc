@@ -31,7 +31,8 @@ constexpr auto notebook_filename = "notebook.zim";
 
 
 
-std::vector<std::shared_ptr<CtImportFile>> CtZimImportHandler::_get_files(const fs::path &path, uint32_t current_depth, CtImportFile* parent) {
+std::vector<std::shared_ptr<CtImportFile>> CtZimImportHandler::_get_files(const fs::path &path, uint32_t current_depth, CtImportFile* parent) 
+{
     std::vector<fs::path> second_dirs;
     std::vector<std::shared_ptr<CtImportFile>> ret_files;
     auto& accepted_extensions = _get_accepted_file_extensions();
@@ -61,7 +62,8 @@ std::vector<std::shared_ptr<CtImportFile>> CtZimImportHandler::_get_files(const 
     return ret_files;
 }
 
-void CtZimImportHandler::_process_files(const std::filesystem::path &path) {
+void CtZimImportHandler::_process_files(const std::filesystem::path &path)
+{
     _import_files = _get_files(path, 0, nullptr);
 }
 
@@ -77,7 +79,8 @@ bool CtZimImportHandler::_has_notebook_file() {
     return false;
 }
 
-std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> CtZimImportHandler::_tokenize(const std::string& stream) {
+std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> CtZimImportHandler::_tokenize(const std::string& stream) 
+{
     
     auto& tokens = _get_tokens();
     std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> token_stream;
@@ -100,15 +103,11 @@ std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> CtZim
             
             if (keep_parsing) {
                 if (has_opentag && !tag_open) {
-                    std::cout << "GOT TOKEN: " << buff << std::endl;
                     
                     // First token
                     curr_token = &token;
 
-                    if (curr_token->capture_all) {
-                        keep_parsing = false;
-                        std::cout << "SET PARSING FALSE" << std::endl;
-                    }
+                    keep_parsing = !curr_token->capture_all;
 
                     if (!token.has_closetag) {
                         // Token will go till end of stream
@@ -165,7 +164,8 @@ std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> CtZim
     return token_stream;
 }
 
-void CtZimImportHandler::add_directory(const fs::path& path) {
+void CtZimImportHandler::add_directory(const fs::path& path) 
+{
     _process_files(path);
     if (!_has_notebook_file()) {
         throw CtImportException(fmt::format("Directory: {} does not contain a notebook.zim file", path.string()));
@@ -178,7 +178,8 @@ void CtZimImportHandler::add_directory(const fs::path& path) {
     
 }
 
-void CtZimImportHandler::feed(std::istream& data) {
+void CtZimImportHandler::feed(std::istream& data) 
+{
     
    
     _docs.emplace_back(std::make_shared<xmlpp::Document>());
@@ -207,12 +208,14 @@ void CtZimImportHandler::feed(std::istream& data) {
 
 }
 
-const std::unordered_set<std::string>& CtZimImportHandler::_get_accepted_file_extensions() const {
+const std::unordered_set<std::string>& CtZimImportHandler::_get_accepted_file_extensions() const 
+{
     static std::unordered_set<std::string> extensions =  {".txt", ".zim"};
     return extensions;
 }
 
-void CtZimImportHandler::_parse_body_line(const std::string& line) {
+void CtZimImportHandler::_parse_body_line(const std::string& line) 
+{
     
     auto tokens = _tokenize(line);
     
@@ -238,7 +241,6 @@ const std::vector<CtImportHandler::token_schema>& CtZimImportHandler::_get_token
         auto target_char = *data.begin();
         if (target_char == '>' || target_char == '*' || target_char == 'x' || target_char == ' ') {
             // Captured a TODO list
-            std::cout << "GOT TODO LIST: " << data;
 
             CHECKBOX_STATE state;
             switch(target_char) {
@@ -248,14 +250,13 @@ const std::vector<CtImportHandler::token_schema>& CtZimImportHandler::_get_token
                 case '>': state = CHECKBOX_STATE::MARKED; break; // No version exists for cherrytree
             }
 
-            _add_todo_list(state, data);
+            _add_todo_list(state, "");
         } else {
             std::string txt(data.begin() + 1, data.end());
             // Capured a [[LINK]] 
             _close_current_tag();
             _add_internal_link(txt);
             _close_current_tag();
-            std::cout << "GOT LINK: " << txt << "\n";
         }
     };
 
@@ -321,14 +322,13 @@ const std::vector<CtImportHandler::token_schema>& CtZimImportHandler::_get_token
                 auto str = str::replace(data, "= ", "");
                 str = str::replace(str, "=", "");
                 
-            
                 _close_current_tag();
                 _add_scale_tag(count, str);
                 _close_current_tag();
         }, "==", true},
         // External link (e.g https://example.com)
-        {"{{", true, false, [this](const std::string& data) {
-            std::cout << "GOT LINK: " << data << std::endl;
+        {"{{", true, false, [this](const std::string&) {
+            // Todo: Implement this (needs image importing)
         },"}}"},
         // Todo list
         {"[", true, false, links_match_func, "] "},

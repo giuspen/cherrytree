@@ -70,7 +70,7 @@ void CtImportHandler::_add_todo_list(CHECKBOX_STATE state, const std::string& te
 {
     auto todo_index = static_cast<int>(state);
     std::cout << "STATE: " << todo_index << "\n";
-    _add_text(_pCtConfig->charsTodo[todo_index]);
+    _add_text(_pCtConfig->charsTodo[todo_index] + CtConst::CHAR_SPACE + text);
 }
 
 void CtImportHandler::_add_list(uint8_t level, const std::string& data) 

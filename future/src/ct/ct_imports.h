@@ -164,14 +164,16 @@ class CtImportHandler;
  * @brief A file imported by a CtImportHandler
  * @class CtImportFile
  */
-class CtImportFile {
+class CtImportFile 
+{
 public:
     friend class CtImportHandler;
     
     std::filesystem::path path;
     uint32_t depth = 0;
     
-    bool operator==(const CtImportFile& other) const {
+    bool operator==(const CtImportFile& other) const 
+    {
         return (path == other.path) && (depth == other.depth);
     }
     bool operator>(const CtImportFile& other) const { return depth > other.depth; }
@@ -179,7 +181,8 @@ public:
     
     [[nodiscard]] std::ifstream file() const { return std::ifstream(path); }
     
-    std::string to_string() {
+    std::string to_string() 
+    {
         if (!doc) throw std::logic_error("to_string called on CtImportFile without a valid document");
         return doc->write_to_string();
     }
@@ -229,19 +232,22 @@ public:
 
         std::string data = "";
         
-        bool operator==(const token_schema& other) const {
+        bool operator==(const token_schema& other) const 
+        {
             if (is_symmetrical || !has_closetag) return open_tag == other.open_tag;
             else                                 return (open_tag == other.open_tag) && (close_tag == other.close_tag);
         }
     };
 protected:
     
-    enum class PARSING_STATE {
+    enum class PARSING_STATE 
+    {
         HEAD,
         BODY
     } _parse_state = PARSING_STATE::HEAD;
     
-    enum class CHECKBOX_STATE {
+    enum class CHECKBOX_STATE 
+    {
         UNCHECKED = 0,
         TICKED = 1,
         MARKED = 2
@@ -279,7 +285,8 @@ protected:
     static void _add_internal_link_to_file(CtImportFile& file, std::string link_name, xmlpp::Element* element) { file._internal_links[link_name].emplace_back(element); }
     void _add_internal_link_to_curr_file(std::string link_name, xmlpp::Element* element) { _add_internal_link_to_file(*_current_import_file(), std::move(link_name), element); }
     
-    [[nodiscard]] constexpr bool _tag_empty() const {
+    [[nodiscard]] constexpr bool _tag_empty() const 
+    {
         if (!_current_element) return true;
         else                   return !_current_element->get_child_text();
     }
@@ -306,7 +313,8 @@ protected:
 
 
 
-class CtZimImportHandler: public CtImportHandler {
+class CtZimImportHandler: public CtImportHandler 
+{
 private:
     bool _has_notebook_file();
     
