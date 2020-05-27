@@ -19,11 +19,9 @@
  * MA 02110-1301, USA.
  */
 #include <src/fmt/format.h>
-#include <iostream>
 #include "ct_imports.h"
 #include "ct_const.h"
 #include "ct_config.h"
-#include <regex>
 
 namespace fs = std::filesystem;
 
@@ -69,7 +67,6 @@ void CtImportHandler::_add_internal_link(const std::string& text)
 void CtImportHandler::_add_todo_list(CHECKBOX_STATE state, const std::string& text) 
 {
     auto todo_index = static_cast<int>(state);
-    std::cout << "STATE: " << todo_index << "\n";
     _add_text(_pCtConfig->charsTodo[todo_index] + CtConst::CHAR_SPACE + text);
 }
 
@@ -113,7 +110,6 @@ void CtImportHandler::_add_strikethrough_tag(std::optional<std::string> data)
 
 void CtImportHandler::_add_text(std::string text) 
 {
-    std::cout << "ADDED TEXT: " << text << std::endl;
     auto curr_text = _current_element->get_child_text();
     if (!curr_text) _current_element->set_child_text(std::move(text));
     else            curr_text->set_content(curr_text->get_content() + std::move(text));
@@ -139,7 +135,6 @@ void CtImportHandler::_add_italic_tag(std::optional<std::string> data)
 void CtImportHandler::_add_scale_tag(int level, std::optional<std::string> data) 
 {
     _current_element->set_attribute("scale", fmt::format("h{}", level));
-    std::cout << "SCALE CALLED: " << level << std::endl;
     if (data) {
         _add_text(*data);
     }
