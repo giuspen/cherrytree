@@ -165,7 +165,7 @@ private:
      * @param node_state: The state for the new node
      * @return An iterator to the added node
      */
-    Gtk::TreeIter _add_node_with_data(const Gtk::TreeIter& curr_iter, CtNodeData& node_data, bool is_child, std::shared_ptr<CtNodeState> node_state);
+    Gtk::TreeIter _add_node_quick(const Gtk::TreeIter& curr_iter, CtNodeData& node_data, bool is_child);
 public:
     // tree actions
     void node_add()       { _node_add(false, false); }

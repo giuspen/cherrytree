@@ -202,8 +202,7 @@ void CtActions::_import_nodes_from_zim_directory(const std::filesystem::path& fi
         auto node_data = setup_node(_pCtMainWin, file.path);
         node_data.syntax = CtConst::RICH_TEXT_ID;
         
-        std::shared_ptr<CtNodeState> state;
-        auto iter = _add_node_with_data(parent_iter, node_data, true, state);
+        auto iter = _add_node_quick(parent_iter, node_data, true);
         
         node_cache.emplace_back(&file, tree_store.to_ct_tree_iter(iter));
         
@@ -234,13 +233,18 @@ void CtActions::_import_nodes_from_zim_directory(const std::filesystem::path& fi
         }
        
     }
-    // Read out the formatted xml
+    /* Populate the text buffers after fixing the links
+     * This is needed because the link ids are only set properly
+     * once the nodes have been added to the tree
+     */
     for (auto& file_pair : node_cache) {
         auto text_buff = file_pair.second.get_node_text_buffer();
         auto data = file_pair.first->to_string();
         clipboard.from_xml_string_to_buffer(text_buff, data);
     }
     
+    tree_store.nodes_sequences_fix(Gtk::TreeIter(), true);
+
     _pCtMainWin->update_window_save_needed();
     
 }
