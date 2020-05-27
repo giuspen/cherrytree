@@ -315,7 +315,7 @@ TEST(MiscUtilsGroup, get_cherrytree_localedir)
 
 TEST(MiscUtilsGroup, mime__type_contains) 
 {
-// some tests doesn't work on TRAVIS with WIN32
+// some tests don't work on TRAVIS with WIN32
 #if !(defined(_TRAVIS) && defined(_WIN32))
     CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_txt.txt", "text/"));
     CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_html.html", "text/"));
