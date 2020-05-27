@@ -216,8 +216,6 @@ bool CtMiscUtil::mime_type_contains(const std::string &filepath, const std::stri
     gchar_ptr p_mime_type(g_content_type_get_mime_type(type_guess.get()), g_free);
     std::string mime_type = p_mime_type.get();
 
-    std::cout << filepath << " guess: " << type_guess.get() << " mime: " << p_mime_type.get() << std::endl;
-
     return mime_type.find(type) != std::string::npos;
 }
 
