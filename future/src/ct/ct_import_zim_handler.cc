@@ -97,30 +97,37 @@ std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> CtZim
             auto buff_pos = buff.find(token.open_tag);
             auto has_opentag = buff_pos != std::string::npos;
             
-            if (has_opentag && !tag_open) {
-                // First token
-                curr_token = &token;
-                if (!token.has_closetag) {
-                    // Token will go till end of stream
-                    token_stream.emplace_back(curr_token, std::string(stream.begin() + pos, stream.end()));
-                    auto tokonised_stream = _tokenize(token_stream.back().second);
-                    for (const auto& token : tokonised_stream) {
-                        if (token.first) {
-                            token_stream.emplace_back(token);
-                        }
-                    }
-                    return token_stream;
-                }
-                open_tags[token.open_tag] = true;
-                if (pos - buff_pos != pos - buff.length()) {
-                    // Characters may be chopped
-                    token_stream.emplace_back(nullptr, std::string(buff.begin(), buff.begin() + buff_pos));
-                }
-                
-                buff.resize(0);
-                break;
+            bool check_open = curr_token;
+            if (check_open && tag_open) {
+                check_open = !curr_token->capture_all;
+                std::cout << "OPEN: " << check_open << "\n";
             }
-            
+    
+            if (check_open) {
+                if (has_opentag && !tag_open) {
+                    // First token
+                    curr_token = &token;
+                    if (!token.has_closetag) {
+                        // Token will go till end of stream
+                        token_stream.emplace_back(curr_token, std::string(stream.begin() + pos, stream.end()));
+                        auto tokonised_stream = _tokenize(token_stream.back().second);
+                        for (const auto& token : tokonised_stream) {
+                            if (token.first) {
+                                token_stream.emplace_back(token);
+                            }
+                        }
+                        return token_stream;
+                    }
+                    open_tags[token.open_tag] = true;
+                    if (pos - buff_pos != pos - buff.length()) {
+                        // Characters may be chopped
+                        token_stream.emplace_back(nullptr, std::string(buff.begin(), buff.begin() + buff_pos));
+                    }
+                    
+                    buff.resize(0);
+                    break;
+                }
+            }
             
             auto has_closetag = has_opentag && token.is_symmetrical;
             if (!token.is_symmetrical && token.has_closetag) {
@@ -273,13 +280,35 @@ const std::vector<CtImportHandler::token_schema>& CtZimImportHandler::_get_token
             {"{{", true, false, [this](const std::string& data) {
                 std::cout << "GOT LINK: " << data << std::endl;
             },"}}"},
-            // Internal link (e.g MyPage)
-            {"[[", true, false, [this](const std::string& data){
-                _close_current_tag();
-                _add_internal_link(data);
-                _close_current_tag();
-                std::cout << "GOT LINK: " << data << "\n";
-            }, "]]"}
+            // Internal link (e.g MyPage), or possbily a todo list
+            {"[", true, false, [this](const std::string& data){
+                auto target_char = *data.begin();
+                if (target_char == '>' || target_char == '*' || target_char == 'x' || target_char == ' ') {
+                    // Captured a TODO list
+                    std::cout << "GOT TODO LIST: " << data;
+
+                    CHECKBOX_STATE state;
+                    switch(target_char) {
+                        case 'x': state = CHECKBOX_STATE::MARKED; break;
+                        case '*': state = CHECKBOX_STATE::TICKED; break;
+                        case ' ': state = CHECKBOX_STATE::UNCHECKED; break;
+                        case '>': state = CHECKBOX_STATE::MARKED; break; // No version exists for cherrytree
+                    }
+
+                    _add_todo_list(state, data);
+                } else {
+                    // Capured a [[LINK]] 
+                    _close_current_tag();
+                    _add_internal_link(data);
+                    _close_current_tag();
+                    std::cout << "GOT LINK: " << data << "\n";
+                }
+            }, "]"},
+            // Verbatum, aka capture all the tokens inside it and print without formatting
+            {"''", true, true, [this](const std::string& data){
+                _add_text(data);
+            }, "''", true}
+            
     };
     return tokens_vect;
 }

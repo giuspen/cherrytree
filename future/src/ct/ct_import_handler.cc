@@ -49,12 +49,18 @@ void CtImportHandler::_add_internal_link(const std::string& text) {
     _add_text(text);
 }
 
+void CtImportHandler::_add_todo_list(CHECKBOX_STATE state, const std::string& text) {
+    auto todo_index = static_cast<int>(state);
+    std::cout << "STATE: " << todo_index << "\n";
+    _add_text(_pCtConfig->charsTodo[todo_index]);
+}
+
 void CtImportHandler::_add_list(uint8_t level, const std::string& data) {
-    if (level >= _pCtConfig->charsListbul.length()) {
+    if (level >= _pCtConfig->charsListbul.size()) {
         if (_pCtConfig->charsListbul.empty()) {
             throw std::runtime_error("No bullet-list characters set");
         }
-        level = _pCtConfig->charsListbul.length() - 1;
+        level = _pCtConfig->charsListbul.size() - 1;
     }
     std::string indent;
     auto i_lvl = 0;
@@ -63,9 +69,7 @@ void CtImportHandler::_add_list(uint8_t level, const std::string& data) {
         indent += CtConst::CHAR_TAB;
     }
     
-    Glib::ustring list_data(1, _pCtConfig->charsListbul[level]);
-    list_data += CtConst::CHAR_SPACE;
-    _add_text(indent + list_data + data);
+    _add_text(indent + _pCtConfig->charsListbul[level] + CtConst::CHAR_SPACE + data);
 }
 void CtImportHandler::_add_weight_tag(const Glib::ustring& level, std::optional<std::string> data) {
     _current_element->set_attribute("weight", level);

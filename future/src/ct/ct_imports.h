@@ -223,6 +223,10 @@ public:
         
         std::string close_tag = "";
         
+        /// Whether to capture all the tokens inside it without formatting
+        bool capture_all = false;
+
+
         std::string data = "";
         
         bool operator==(const token_schema& other) const {
@@ -236,7 +240,12 @@ protected:
         HEAD,
         BODY
     } _parse_state = PARSING_STATE::HEAD;
-  
+    
+    enum class CHECKBOX_STATE {
+        UNCHECKED = 0,
+        TICKED = 1,
+        MARKED = 2
+    };
 
 protected:
     // XML generation
@@ -251,6 +260,7 @@ protected:
     void _add_strikethrough_tag(std::optional<std::string> data);
     void _add_list(uint8_t level, const std::string& data);
     void _add_ordered_list(unsigned int level, const std::string &data);
+    void _add_todo_list(CHECKBOX_STATE state, const std::string& data);
     /// Add a link, text should contain the full qualified name (e.g https://example.com)
     void _add_link(const std::string& text);
     void _add_internal_link(const std::string& text);
