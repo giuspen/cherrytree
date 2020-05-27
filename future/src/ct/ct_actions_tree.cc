@@ -144,7 +144,7 @@ Gtk::TreeIter CtActions::_add_node_quick(const Gtk::TreeIter &curr_iter, CtNodeD
         node_iter = _pCtMainWin->get_tree_store().append_node(&node_data);
         
     _pCtMainWin->get_tree_store().to_ct_tree_iter(node_iter).pending_new_db_node();
-
+    _pCtMainWin->get_tree_store().update_node_aux_icon(node_iter);
 
     return node_iter;
 }
