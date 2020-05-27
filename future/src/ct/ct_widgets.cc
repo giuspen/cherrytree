@@ -247,7 +247,7 @@ void CtTextView::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& 
                 int idx_offset = idx_old - curr_level % (int)_pCtMainWin->get_ct_config()->charsListbul.size();
                 bull_idx = (next_level + idx_offset) % (int)_pCtMainWin->get_ct_config()->charsListbul.size();
             }
-            replace_text(_pCtMainWin->get_ct_config()->charsListbul[(size_t)bull_idx], bull_offset, bull_offset+1);
+            replace_text(Glib::ustring(1, _pCtMainWin->get_ct_config()->charsListbul[(size_t)bull_idx]), bull_offset, bull_offset+1);
         }
         else if (list_info.type == CtListType::Number)
         {
@@ -803,9 +803,4 @@ void CtTextView::_special_char_replace(gunichar special_char, Gtk::TextIter iter
 {
     get_buffer()->erase(iter_start, iter_insert);
     get_buffer()->insert_at_cursor(Glib::ustring(1, special_char) + CtConst::CHAR_SPACE);
-}
-
-void CtTextView::_special_char_replace(Glib::ustring special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_end) {
-    get_buffer()->erase(iter_start, iter_end);
-    get_buffer()->insert_at_cursor(special_char + CtConst::CHAR_SPACE);
 }

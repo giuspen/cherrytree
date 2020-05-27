@@ -291,7 +291,7 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
         else if (tag == "ul")  { 
             _list_type = 'u'; 
             _list_num = 0;
-            if (_list_level < static_cast<int>(_pCtMainWin->get_ct_config()->charsListbul.size()) - 1) _list_level++;
+            if (_list_level < static_cast<int>(_pCtMainWin->get_ct_config()->charsListbul.length()) - 1) _list_level++;
         }
         else if (tag == "li") {
             if (_list_type == 'u') {
@@ -299,7 +299,9 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
                     // A ul _should_ have appeared before this
                     throw std::runtime_error("List item appeared before list declaration");
                 }
-                _rich_text_serialize(_pCtMainWin->get_ct_config()->charsListbul[_list_level] + CtConst::CHAR_SPACE);
+                auto bull = _pCtMainWin->get_ct_config()->charsListbul[_list_level];
+                // Have to use Glib::ustring because the char constructor for std::string is not utf8 aware
+                _rich_text_serialize(Glib::ustring(1, bull) + CtConst::CHAR_SPACE);
 
             }
             else {

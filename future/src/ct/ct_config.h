@@ -24,15 +24,12 @@
 #pragma once
 
 #include <unordered_map>
-#include <vector>
 #include <glibmm.h>
 #include "ct_const.h"
 #include "ct_types.h"
-#include "ct_splittable.h"
 
 class CtConfig
 {
-    
 public:
     CtConfig();
     virtual ~CtConfig();
@@ -97,13 +94,13 @@ public:
     int                                         spaceAroundLines{0};
     int                                         relativeWrappedSpace{50};
     Glib::ustring                               hRule{"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"};
-    CtStringSplittable                          specialChars{CtConst::SPECIAL_CHARS_DEFAULT};
-    CtStringSplittable                          selwordChars{CtConst::SELWORD_CHARS_DEFAULT};
-    CtStringSplittable                          charsListbul{CtConst::CHARS_LISTBUL_DEFAULT};
-    CtStringSplittable                          charsToc{CtConst::CHARS_TOC_DEFAULT};
-    CtStringSplittable                          charsTodo{CtConst::CHARS_TODO_DEFAULT};
-    CtStringSplittable                          chars_smart_dquote{CtConst::CHARS_SMART_DQUOTE_DEFAULT};
-    CtStringSplittable                          chars_smart_squote{CtConst::CHARS_SMART_SQUOTE_DEFAULT};
+    Glib::ustring                               specialChars{CtConst::SPECIAL_CHARS_DEFAULT};
+    Glib::ustring                               selwordChars{CtConst::SELWORD_CHARS_DEFAULT};
+    Glib::ustring                               charsListbul{CtConst::CHARS_LISTBUL_DEFAULT};
+    Glib::ustring                               charsToc{CtConst::CHARS_TOC_DEFAULT};
+    Glib::ustring                               charsTodo{CtConst::CHARS_TODO_DEFAULT};
+    Glib::ustring                               chars_smart_dquote{CtConst::CHARS_SMART_DQUOTE_DEFAULT};
+    Glib::ustring                               chars_smart_squote{CtConst::CHARS_SMART_SQUOTE_DEFAULT};
     std::string                                 latestTagProp;
     std::string                                 latestTagVal;
     Glib::ustring                               timestampFormat{CtConst::TIMESTAMP_FORMAT_DEFAULT};

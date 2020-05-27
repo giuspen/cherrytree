@@ -34,7 +34,6 @@
 #include "ct_dialogs.h"
 #include "ct_codebox.h"
 #include "ct_main_win.h"
-#include "ct_splittable.h"
 #include <gspell/gspell.h>
 
 CtPrefDlg::UniversalModelColumns::~UniversalModelColumns()
@@ -190,7 +189,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     scrolledwindow_special_chars->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     frame_special_chars->add(*scrolledwindow_special_chars);
     Gtk::TextView* textview_special_chars = Gtk::manage(new Gtk::TextView());
-    textview_special_chars->get_buffer()->set_text(pConfig->specialChars.item());
+    textview_special_chars->get_buffer()->set_text(pConfig->specialChars);
     textview_special_chars->set_wrap_mode(Gtk::WRAP_CHAR);
     scrolledwindow_special_chars->add(*textview_special_chars);
     hbox_special_chars->pack_start(*vbox_special_chars, false, false);
@@ -199,7 +198,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     hbox_selword_chars->set_spacing(4);
     Gtk::Label* label_selword_chars = Gtk::manage(new Gtk::Label(_("Chars to Select at Double Click")));
     Gtk::Entry* entry_selword_chars = Gtk::manage(new Gtk::Entry());
-    entry_selword_chars->set_text(pConfig->selwordChars.item());
+    entry_selword_chars->set_text(pConfig->selwordChars);
     hbox_selword_chars->pack_start(*label_selword_chars, false, false);
     hbox_selword_chars->pack_start(*entry_selword_chars);
 
@@ -227,16 +226,15 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     textview_special_chars->get_buffer()->signal_changed().connect([this, pConfig, textview_special_chars](){
         Glib::ustring new_special_chars = textview_special_chars->get_buffer()->get_text();
         new_special_chars = str::replace(new_special_chars, CtConst::CHAR_NEWLINE, "");
-        if ((pConfig->specialChars.item()) != new_special_chars)
+        if (pConfig->specialChars != new_special_chars)
         {
             pConfig->specialChars = new_special_chars;
             apply_for_each_window([](CtMainWin* win) { win->menu_set_items_special_chars(); });
         }
     });
     button_reset->signal_clicked().connect([this, textview_special_chars](){
-        if (CtDialogs::question_dialog(reset_warning, *this)) {
+        if (CtDialogs::question_dialog(reset_warning, *this))
             textview_special_chars->get_buffer()->set_text(CtConst::SPECIAL_CHARS_DEFAULT);
-        }
     });
     spinbutton_tab_width->signal_value_changed().connect([this, pConfig, spinbutton_tab_width](){
         pConfig->tabsWidth = spinbutton_tab_width->get_value_as_int();
