@@ -11,6 +11,11 @@ set(CT_TEST_FILES
     tests_clipboard.cpp
 )
 
+# some tests doesn't work in TRAVIS, so turn off them
+if(DEFINED ENV{TRAVIS})
+    add_definitions(-D_TRAVIS)
+endif()
+
 add_executable(run_tests ${CT_TEST_FILES})
 target_link_libraries(run_tests 
     ${CPPUTEST_LIBRARIES}
