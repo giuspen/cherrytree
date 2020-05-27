@@ -29,7 +29,8 @@ namespace fs = std::filesystem;
 
 
 
-void CtImportFile::fix_internal_links(const std::string &node_name, uint64_t node_id) {
+void CtImportFile::fix_internal_links(const std::string &node_name, uint64_t node_id) 
+{
     auto iter = _internal_links.find(node_name);
     if (iter != _internal_links.end()) {
         for (auto* link : iter->second) {
@@ -40,22 +41,40 @@ void CtImportFile::fix_internal_links(const std::string &node_name, uint64_t nod
     
 }
 
-void CtImportHandler::_add_ordered_list(unsigned int level, const std::string &data) {
+void CtImportHandler::_add_superscript_tag(std::optional<std::string> text) 
+{
+    _current_element->set_attribute(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SUP);
+    
+    if (text) _add_text(*text);
+}
+
+void CtImportHandler::_add_subscript_tag(std::optional<std::string> text) 
+{
+    _current_element->set_attribute(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SUB);
+    
+    if (text) _add_text(*text);
+}
+
+void CtImportHandler::_add_ordered_list(unsigned int level, const std::string &data) 
+{
     _add_text(fmt::format("{}. {}", level, data));
 }
 
-void CtImportHandler::_add_internal_link(const std::string& text) {
+void CtImportHandler::_add_internal_link(const std::string& text) 
+{
     _add_internal_link_to_curr_file(text, _current_element);
     _add_text(text);
 }
 
-void CtImportHandler::_add_todo_list(CHECKBOX_STATE state, const std::string& text) {
+void CtImportHandler::_add_todo_list(CHECKBOX_STATE state, const std::string& text) 
+{
     auto todo_index = static_cast<int>(state);
     std::cout << "STATE: " << todo_index << "\n";
     _add_text(_pCtConfig->charsTodo[todo_index]);
 }
 
-void CtImportHandler::_add_list(uint8_t level, const std::string& data) {
+void CtImportHandler::_add_list(uint8_t level, const std::string& data) 
+{
     if (level >= _pCtConfig->charsListbul.size()) {
         if (_pCtConfig->charsListbul.empty()) {
             throw std::runtime_error("No bullet-list characters set");
@@ -71,32 +90,37 @@ void CtImportHandler::_add_list(uint8_t level, const std::string& data) {
     
     _add_text(indent + _pCtConfig->charsListbul[level] + CtConst::CHAR_SPACE + data);
 }
-void CtImportHandler::_add_weight_tag(const Glib::ustring& level, std::optional<std::string> data) {
+void CtImportHandler::_add_weight_tag(const Glib::ustring& level, std::optional<std::string> data) 
+{
     _current_element->set_attribute("weight", level);
     if (data) {
         _add_text(*data);
     }
 }
 
-void CtImportHandler::_add_link(const std::string& text) {
+void CtImportHandler::_add_link(const std::string& text) 
+{
     auto val = CtImports::get_internal_link_from_http_url(text);
     _current_element->set_attribute(CtConst::TAG_LINK, val);
     _add_text(text);
 }
 
-void CtImportHandler::_add_strikethrough_tag(std::optional<std::string> data) {
+void CtImportHandler::_add_strikethrough_tag(std::optional<std::string> data) 
+{
     _current_element->set_attribute(CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROP_VAL_TRUE);
     if (data) _add_text(*data);
 }
 
-void CtImportHandler::_add_text(std::string text) {
+void CtImportHandler::_add_text(std::string text) 
+{
     std::cout << "ADDED TEXT: " << text << std::endl;
     auto curr_text = _current_element->get_child_text();
     if (!curr_text) _current_element->set_child_text(std::move(text));
     else            curr_text->set_content(curr_text->get_content() + std::move(text));
 }
 
-void CtImportHandler::_close_current_tag() {
+void CtImportHandler::_close_current_tag() 
+{
     if (!_tag_empty()) _current_element = _current_element->get_parent()->add_child("rich_text");
 }
 
@@ -104,14 +128,16 @@ void CtImportHandler::_add_newline() {
     _add_text(CtConst::CHAR_NEWLINE);
 }
 
-void CtImportHandler::_add_italic_tag(std::optional<std::string> data) {
+void CtImportHandler::_add_italic_tag(std::optional<std::string> data) 
+{
     _current_element->set_attribute(CtConst::TAG_STYLE, CtConst::TAG_PROP_VAL_ITALIC);
     if (data) {
         _add_text(*data);
     }
 }
 
-void CtImportHandler::_add_scale_tag(int level, std::optional<std::string> data) {
+void CtImportHandler::_add_scale_tag(int level, std::optional<std::string> data) 
+{
     _current_element->set_attribute("scale", fmt::format("h{}", level));
     std::cout << "SCALE CALLED: " << level << std::endl;
     if (data) {

@@ -264,6 +264,8 @@ protected:
     /// Add a link, text should contain the full qualified name (e.g https://example.com)
     void _add_link(const std::string& text);
     void _add_internal_link(const std::string& text);
+    void _add_superscript_tag(std::optional<std::string> text);
+    void _add_subscript_tag(std::optional<std::string> text);
     void _add_text(std::string text);
     void _close_current_tag();
     void _add_newline();

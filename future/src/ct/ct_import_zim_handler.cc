@@ -105,9 +105,7 @@ std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> CtZim
                     // First token
                     curr_token = &token;
 
-                    bool check_open = !curr_token->capture_all;
-                    std::cout << "OPEN: " << check_open << "\n";
-                    if (!check_open) {
+                    if (curr_token->capture_all) {
                         keep_parsing = false;
                         std::cout << "SET PARSING FALSE" << std::endl;
                     }
@@ -115,11 +113,15 @@ std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> CtZim
                     if (!token.has_closetag) {
                         // Token will go till end of stream
                         token_stream.emplace_back(curr_token, std::string(stream.begin() + pos, stream.end()));
-                        auto tokonised_stream = _tokenize(token_stream.back().second);
-                        for (const auto& token : tokonised_stream) {
-                            if (token.first) {
-                                token_stream.emplace_back(token);
-                            }
+                        
+                        if (keep_parsing) {
+                            // Parse the other data in the stream 
+                            auto tokonised_stream = _tokenize(token_stream.back().second);
+                            for (const auto& token : tokonised_stream) {
+                                if (token.first) {
+                                    token_stream.emplace_back(token);
+                                }
+                             } 
                         }
                         return token_stream;
                     }
@@ -258,11 +260,13 @@ const std::vector<CtImportHandler::token_schema>& CtZimImportHandler::_get_token
     };
 
     static std::vector<token_schema> tokens_vect = {
+        // Bold
         {"**", true, true, [this](const std::string& data){
             _close_current_tag();
             _add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, data);
             _close_current_tag();
         }},
+        // Indentation detection for lists
         {"\t", false, false, [this](const std::string& data) {
             _list_level++;
             // Did a double match for even number of \t tags
@@ -278,48 +282,74 @@ const std::vector<CtImportHandler::token_schema>& CtZimImportHandler::_get_token
             _add_link("http://"+data);
             _close_current_tag();
         }},
-        
+        // Bullet list
         {"* ", false, false, [this](const std::string& data) {
             _add_list(_list_level, data);
             _list_level = 0;
         }},
+        // Italic
         {"//", true, true, [this](const std::string& data) {
             _close_current_tag();
             _add_italic_tag(data);
             _close_current_tag();
         }},
+        // Strikethrough
         {"~~", true, true, [this](const std::string& data){
             _close_current_tag();
             _add_strikethrough_tag(data);
             _close_current_tag();
         }},
-        {"====", false, false, [this](const std::string &data) {
-                auto count = 3;
-            
-                if (str::startswith(data, "=")) count--;
-                if (*(data.begin() + 1) == '=') count--;
-            
-                auto str = str::replace(data, "= ", "");
-                str = str::replace(str, " =", "");
-                if (count < 2) {
-                    str = str::replace(data, "=", "");
+        // Headers
+        {"==", false, false, [this](const std::string &data) {
+                int count = 5;
+
+                auto iter = data.begin();
+                while (*iter == '=') {
+                    count--;
+                    ++iter;
                 }
+            
+                if (count < 0) {
+                    throw CtImportException(fmt::format("Parsing error while parsing header data: {} - Too many '='", data));
+                }
+
+                if (count > 3) {
+                    // Reset to smaller (h3 currently)
+                    count = 3;
+                }
+
+                auto str = str::replace(data, "= ", "");
+                str = str::replace(str, "=", "");
+                
             
                 _close_current_tag();
                 _add_scale_tag(count, str);
                 _close_current_tag();
-            }},
-            // External link (e.g https://example.com)
-            {"{{", true, false, [this](const std::string& data) {
-                std::cout << "GOT LINK: " << data << std::endl;
-            },"}}"},
-            // Internal link (e.g MyPage), or possbily a todo list
-            {"[", true, false, links_match_func, "] "},
-            {"[", true, false, links_match_func, "]]"},
-            // Verbatum, aka capture all the tokens inside it and print without formatting
-            {"''", true, true, [this](const std::string& data){
-                _add_text(data);
-            }, "''", true}
+        }, "==", true},
+        // External link (e.g https://example.com)
+        {"{{", true, false, [this](const std::string& data) {
+            std::cout << "GOT LINK: " << data << std::endl;
+        },"}}"},
+        // Todo list
+        {"[", true, false, links_match_func, "] "},
+        // Internal link (e.g MyPage) - This is just for removing the leftover ']' 
+        {"[", true, false, links_match_func, "]]"},
+        // Verbatum - captures all the tokens inside it and print without formatting
+        {"''", true, true, [this](const std::string& data){
+            _add_text(data);
+        }, "''", true},
+        // Suberscript
+        {"^{", true, false, [this](const std::string& data){
+            _close_current_tag();
+            _add_superscript_tag(data);
+            _close_current_tag();
+        }, "}"},
+        // Subscript
+        {"_{", true, false, [this](const std::string& data){
+            _close_current_tag();
+            _add_subscript_tag(data);
+            _close_current_tag();
+        }, "}"}
             
     };
     return tokens_vect;
