@@ -128,6 +128,27 @@ void CtActions::_node_add(bool duplicate, bool add_child)
     _node_add_with_data(_pCtMainWin->curr_tree_iter(), nodeData, add_child, node_state);
 }
 
+Gtk::TreeIter CtActions::_add_node_quick(const Gtk::TreeIter &curr_iter, CtNodeData &node_data, bool is_child) {
+    if (!node_data.rTextBuffer) node_data.rTextBuffer = _pCtMainWin->get_new_text_buffer();
+    
+    node_data.tsCreation = std::time(nullptr);
+    node_data.tsLastSave = node_data.tsCreation;
+    node_data.nodeId = _pCtMainWin->get_tree_store().node_id_get();
+    
+    Gtk::TreeIter node_iter;
+    if (is_child) {
+        node_iter = _pCtMainWin->get_tree_store().append_node(&node_data, &curr_iter /* as parent */);
+    } else if (curr_iter)
+        node_iter = _pCtMainWin->get_tree_store().insert_node(&node_data, curr_iter /* after */);
+    else
+        node_iter = _pCtMainWin->get_tree_store().append_node(&node_data);
+        
+    _pCtMainWin->get_tree_store().to_ct_tree_iter(node_iter).pending_new_db_node();
+    _pCtMainWin->get_tree_store().update_node_aux_icon(node_iter);
+
+    return node_iter;
+}
+
 void CtActions::_node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeData, bool add_child, std::shared_ptr<CtNodeState> node_state)
 {
     if (!nodeData.rTextBuffer)

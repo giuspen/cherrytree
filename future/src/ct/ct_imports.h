@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <utility>
 #include <vector>
 #include <list>
 #include <set>
@@ -28,13 +29,18 @@
 #include <libxml2/libxml/HTMLparser.h>
 #include <libxml++/libxml++.h>
 #include <filesystem>
-
+#include <unordered_set>
+#include <fstream>
+#include <unordered_map>
+#include <functional>
 
 namespace CtImports {
 
 std::vector<std::pair<int, int>> get_web_links_offsets_from_plain_text(const Glib::ustring& plain_text);
 std::string get_internal_link_from_http_url(std::string link_url);
 }
+
+
 
 class CtHtmlParser
 {
@@ -141,3 +147,206 @@ private:
     int                    _slot_style_id;
     std::list<slot_styles> _slot_styles_cache;
 };
+
+/**
+ * @class CtImportException
+ * @brief Thrown when an exception occures during importing
+ */
+class CtImportException: public std::runtime_error {
+    static constexpr std::string_view signature = "[Import Exception]: ";
+public:
+    explicit CtImportException(const std::string& msg) : std::runtime_error("[Import Exception]: " + msg) {}
+};
+class CtConfig;
+class CtImportHandler;
+
+/**
+ * @brief A file imported by a CtImportHandler
+ * @class CtImportFile
+ */
+class CtImportFile 
+{
+public:
+    friend class CtImportHandler;
+    
+    std::filesystem::path path;
+    uint32_t depth = 0;
+    
+    bool operator==(const CtImportFile& other) const 
+    {
+        return (path == other.path) && (depth == other.depth);
+    }
+    bool operator>(const CtImportFile& other) const { return depth > other.depth; }
+    bool operator<(const CtImportFile& other) const { return depth < other.depth; }
+    
+    [[nodiscard]] std::ifstream file() const { return std::ifstream(path); }
+    
+    std::string to_string() 
+    {
+        if (!doc) throw std::logic_error("to_string called on CtImportFile without a valid document");
+        return doc->write_to_string();
+    }
+    /**
+     * @brief Fix the internal links for the file
+     * Adds the link id to the proper link in the document
+     * @param node_name
+     * @param node_id
+     */
+    void fix_internal_links(const std::string& node_name, uint64_t node_id);
+    
+    std::shared_ptr<xmlpp::Document> doc;
+    CtImportFile* parent = nullptr;
+    std::vector<std::shared_ptr<CtImportFile>> children;
+private:
+    explicit CtImportFile(std::filesystem::path p, uint32_t rec_depth = 0) : path(std::move(p)), depth(rec_depth) {}
+    
+    /// Map of internal links for fixing
+    std::unordered_map<std::string, std::vector<xmlpp::Element*>> _internal_links;
+    
+};
+
+/**
+ * @brief Base class/interface for import handlers
+ * @class CtImportHandler
+ */
+class CtImportHandler
+{
+public:
+    using token_map_t = std::unordered_map<std::string_view, std::function<void(const std::string&)>>;
+    
+    
+    struct token_schema {
+        
+        std::string open_tag;
+        
+        bool has_closetag   = true;
+        bool is_symmetrical = true;
+    
+        std::function<void(const std::string&)> action;
+        
+        std::string close_tag = "";
+        
+        /// Whether to capture all the tokens inside it without formatting
+        bool capture_all = false;
+
+
+        std::string data = "";
+        
+        bool operator==(const token_schema& other) const 
+        {
+            if (is_symmetrical || !has_closetag) return open_tag == other.open_tag;
+            else                                 return (open_tag == other.open_tag) && (close_tag == other.close_tag);
+        }
+    };
+protected:
+    
+    enum class PARSING_STATE 
+    {
+        HEAD,
+        BODY
+    } _parse_state = PARSING_STATE::HEAD;
+    
+    enum class CHECKBOX_STATE 
+    {
+        UNCHECKED = 0,
+        TICKED = 1,
+        MARKED = 2
+    };
+
+protected:
+    // XML generation
+    std::vector<std::shared_ptr<xmlpp::Document>> _docs;
+    xmlpp::Element* _current_element = nullptr;
+    std::vector<std::shared_ptr<CtImportFile>> _import_files;
+    bool                      _processed_files = false;
+   
+    void _add_scale_tag(int level, std::optional<std::string> data);
+    void _add_weight_tag(const Glib::ustring& level, std::optional<std::string> data);
+    void _add_italic_tag(std::optional<std::string> data);
+    void _add_strikethrough_tag(std::optional<std::string> data);
+    void _add_list(uint8_t level, const std::string& data);
+    void _add_ordered_list(unsigned int level, const std::string &data);
+    void _add_todo_list(CHECKBOX_STATE state, const std::string& data);
+    /// Add a link, text should contain the full qualified name (e.g https://example.com)
+    void _add_link(const std::string& text);
+    void _add_internal_link(const std::string& text);
+    void _add_superscript_tag(std::optional<std::string> text);
+    void _add_subscript_tag(std::optional<std::string> text);
+    void _add_text(std::string text);
+    void _close_current_tag();
+    void _add_newline();
+    
+    [[nodiscard]] const std::shared_ptr<xmlpp::Document>& _xml_doc() const { return _docs.back(); }
+    
+    [[nodiscard]] std::shared_ptr<CtImportFile>& _current_import_file() { return _import_files.at(_docs.size() - 1); }
+    
+    
+    static std::unique_ptr<CtImportFile> _new_import_file(std::filesystem::path path, uint32_t depth) { return std::unique_ptr<CtImportFile>(new CtImportFile(std::move(path), depth)); }
+    static void _add_internal_link_to_file(CtImportFile& file, std::string link_name, xmlpp::Element* element) { file._internal_links[link_name].emplace_back(element); }
+    void _add_internal_link_to_curr_file(std::string link_name, xmlpp::Element* element) { _add_internal_link_to_file(*_current_import_file(), std::move(link_name), element); }
+    
+    [[nodiscard]] constexpr bool _tag_empty() const 
+    {
+        if (!_current_element) return true;
+        else                   return !_current_element->get_child_text();
+    }
+    
+    virtual std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> _tokenize(const std::string& stream) = 0;
+    /**
+     * @brief Get a list of file extensions supported by the import handler
+     * @return
+     */
+    [[nodiscard]] virtual const std::unordered_set<std::string>& _get_accepted_file_extensions() const = 0;
+    virtual const std::vector<token_schema>& _get_tokens() = 0;
+    
+public:
+    explicit CtImportHandler(const CtConfig* pCtConfig) : _pCtConfig(pCtConfig) {}
+    virtual void feed(std::istream& data) = 0;
+    
+    std::vector<std::shared_ptr<CtImportFile>>& imported_files() { return _import_files; }
+
+    virtual void add_directory(const std::filesystem::path& path) = 0;
+protected:
+    const CtConfig* _pCtConfig = nullptr;
+};
+
+
+
+
+class CtZimImportHandler: public CtImportHandler 
+{
+private:
+    bool _has_notebook_file();
+    
+    void _parse_body_line(const std::string& line);
+
+protected:
+    const std::vector<token_schema>& _get_tokens() override;
+    [[nodiscard]] const std::unordered_set<std::string>& _get_accepted_file_extensions() const override;
+    /**
+    * @brief Process the files to import based on the import list
+    * @param path
+    */
+    void _process_files(const std::filesystem::path& path);
+    
+    /**
+     * @brief Transform an input string into a token stream
+     * @param stream
+     * @return
+     */
+    std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> _tokenize(const std::string& stream) override;
+    
+    
+    std::vector<std::shared_ptr<CtImportFile>> _get_files(const std::filesystem::path& path, uint32_t current_depth, CtImportFile* parent);
+public:
+    using CtImportHandler::CtImportHandler;
+    
+    void feed(std::istream& data) override;
+    
+    void add_directory(const std::filesystem::path& path) override;
+
+protected:
+    uint8_t _list_level = 0;
+};
+
+
