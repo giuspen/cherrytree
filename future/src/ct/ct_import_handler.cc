@@ -76,7 +76,7 @@ void CtImportHandler::_add_todo_list(CHECKBOX_STATE state, const std::string& te
 void CtImportHandler::_add_list(uint8_t level, const std::string& data) 
 {
     if (level >= _pCtConfig->charsListbul.size()) {
-        if (_pCtConfig->charsListbul.empty()) {
+        if (_pCtConfig->charsListbul.size() == 0) {
             throw std::runtime_error("No bullet-list characters set");
         }
         level = _pCtConfig->charsListbul.size() - 1;
