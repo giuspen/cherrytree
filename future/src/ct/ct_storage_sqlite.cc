@@ -338,6 +338,11 @@ Gtk::TreeIter CtStorageSqlite::_node_from_db(gint64 node_id, Gtk::TreeIter paren
     nodeData.tsCreation = sqlite3_column_int64(stmt, 5);
     nodeData.tsLastSave = sqlite3_column_int64(stmt, 6);
 
+    // buffer for imported node should be loaded now because file will be closed
+    if (new_id != -1) {
+        nodeData.rTextBuffer = get_delayed_text_buffer(node_id, nodeData.syntax, nodeData.anchoredWidgets);
+    }
+
     return _pCtMainWin->get_tree_store().append_node(&nodeData, &parent_iter);
 }
 
@@ -740,7 +745,6 @@ void CtStorageSqlite::import_nodes(const std::string& path)
     std::function<void(gint64, Gtk::TreeIter)> add_node_func;
     add_node_func = [this, &add_node_func](gint64 nodeId, Gtk::TreeIter parent_iter) {
         auto node_iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(_node_from_db(nodeId, parent_iter, _pCtMainWin->get_tree_store().node_id_get()));
-        node_iter.get_node_text_buffer(); // load buffer because the db will be closed
         node_iter.pending_new_db_node();
         for (auto child_id : _get_children_node_ids_from_db(nodeId)) {
             add_node_func(child_id, node_iter);
