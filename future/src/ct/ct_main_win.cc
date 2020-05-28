@@ -57,7 +57,7 @@ CtMainWin::CtMainWin(bool             start_hidden,
     _uCtActions.reset(new CtActions(this));
     _uCtMenu.reset(new CtMenu(pCtConfig, _uCtActions.get()));
     _uCtPrint.reset(new CtPrint());
-    _uCtStorage.reset(CtStorageControl::create_dummy_storage());
+    _uCtStorage.reset(CtStorageControl::create_dummy_storage(this));
 
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindowText.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
@@ -998,7 +998,7 @@ void CtMainWin::reset()
 
     get_state_machine().reset();
 
-    _uCtStorage.reset(CtStorageControl::create_dummy_storage());
+    _uCtStorage.reset(CtStorageControl::create_dummy_storage(this));
 
     _reset_CtTreestore_CtTreeview();
 

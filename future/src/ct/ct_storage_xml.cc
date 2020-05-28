@@ -141,7 +141,6 @@ void CtStorageXml::import_nodes(const std::string& path)
     std::function<void(xmlpp::Element*, Gtk::TreeIter)> recursive_import_func;
     recursive_import_func = [this, &recursive_import_func](xmlpp::Element* xml_element, Gtk::TreeIter parent_iter) {
         auto new_iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(_node_from_xml(xml_element, parent_iter, _pCtMainWin->get_tree_store().node_id_get()));
-        new_iter.get_node_text_buffer(); // load buffer because the db will be closed
         new_iter.pending_new_db_node();
 
         for (xmlpp::Node* xml_node : xml_element->get_children("node"))
@@ -183,13 +182,18 @@ Gtk::TreeIter CtStorageXml::_node_from_xml(xmlpp::Element* xml_element, Gtk::Tre
     node_data.tsCreation = CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("ts_creation").c_str());
     node_data.tsLastSave = CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("ts_lastSave").c_str());
 
-    // because of widgets which are slow to insert for now, delay creating buffers
-    // save node data in a separate document
-    auto node_buffer = std::make_shared<xmlpp::Document>();
-    node_buffer->create_root_node("root")->import_node(xml_element);
-    _delayed_text_buffers[node_data.nodeId] = node_buffer;
-    // old code to profile performance
-    // node_data.rTextBuffer = CtStorageXmlHelper(_pCtMainWin).create_buffer_and_widgets_from_xml(xml_element, node_data.syntax, node_data.anchoredWidgets, nullptr, -1);
+    if (new_id == -1)
+    {
+        // because of widgets which are slow to insert for now, delay creating buffers
+        // save node data in a separate document
+        auto node_buffer = std::make_shared<xmlpp::Document>();
+        node_buffer->create_root_node("root")->import_node(xml_element);
+        _delayed_text_buffers[node_data.nodeId] = node_buffer;
+    }
+    else {
+        // create buffer now because imported document will be closed
+        node_data.rTextBuffer = CtStorageXmlHelper(_pCtMainWin).create_buffer_and_widgets_from_xml(xml_element, node_data.syntax, node_data.anchoredWidgets, nullptr, -1);
+    }
 
     return _pCtMainWin->get_tree_store().append_node(&node_data, &parent_iter);
 }

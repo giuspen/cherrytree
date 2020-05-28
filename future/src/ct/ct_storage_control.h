@@ -26,7 +26,7 @@ class CtMainWin;
 class CtStorageControl
 {
 public:
-    static CtStorageControl* create_dummy_storage();
+    static CtStorageControl* create_dummy_storage(CtMainWin* pCtMainWin);
     static CtStorageControl* load_from(CtMainWin* pCtMainWin, const Glib::ustring& file_path, Glib::ustring& error);
     static CtStorageControl* save_as(CtMainWin* pCtMainWin, const Glib::ustring& file_path, const Glib::ustring& password, Glib::ustring& error);
 

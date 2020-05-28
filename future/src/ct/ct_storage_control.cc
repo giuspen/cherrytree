@@ -36,9 +36,11 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
         return std::make_unique<CtStorageXml>(pCtMainWin);
 }
 
-/*static*/ CtStorageControl* CtStorageControl::create_dummy_storage()
+/*static*/ CtStorageControl* CtStorageControl::create_dummy_storage(CtMainWin* pCtMainWin)
 {
-    return new CtStorageControl();
+    CtStorageControl* doc = new CtStorageControl();
+    doc->_pCtMainWin = pCtMainWin;
+    return doc;
 }
 
 /*static*/ CtStorageControl* CtStorageControl::load_from(CtMainWin* pCtMainWin, const Glib::ustring &file_path, Glib::ustring& error)
