@@ -24,7 +24,7 @@ DisableProgramGroupPage=yes
 OutputDir=C:\Users\{#Username}\Desktop
 ArchitecturesAllowed=x64
 ArchitecturesInstallIn64BitMode=x64
-LicenseFile=C:\Users\{#Username}\Desktop\CherryTree-root\license.txt
+LicenseFile=C:\Users\{#Username}\Desktop\cherrytree_{#MyAppVersion}_win64_portable\license.txt
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputBaseFilename=cherrytree_{#MyAppVersion}_setup
@@ -82,7 +82,7 @@ Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\{#Username}\Desktop\CherryTree-root\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\{#Username}\Desktop\cherrytree_{#MyAppVersion}_win64_portable\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

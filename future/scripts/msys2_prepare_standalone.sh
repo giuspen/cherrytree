@@ -8,12 +8,16 @@ GIT_CT_LANGUAGES_FOLDER="${GIT_CT_FOLDER}/future/po"
 GIT_CT_DATA_FOLDER="${GIT_CT_FOLDER}/future/data"
 GIT_CT_LANGUAGE_SPECS_FOLDER="${GIT_CT_FOLDER}/future/language-specs"
 GIT_CT_LICENSE="${GIT_CT_FOLDER}/license.txt"
+GIT_CT_HUNSPELL="${GIT_CT_FOLDER}/windows"
+GIT_CT_CONFIG_H="${GIT_CT_FOLDER}/future/config.h"
+CT_VERSION_NUM="$(cat ${GIT_CT_CONFIG_H} | grep PACKAGE_VERSION | awk '{print substr($3, 2, length($3)-2)}')"
 
-NEW_MSYS2_FOLDER="C:/Users/${USER}/Desktop/CherryTree-msys2"
-NEW_ROOT_FOLDER="C:/Users/${USER}/Desktop/CherryTree-root"
+NEW_MSYS2_FOLDER="C:/Users/${USER}/Desktop/cherrytree-msys2"
+NEW_ROOT_FOLDER="C:/Users/${USER}/Desktop/cherrytree_${CT_VERSION_NUM}_win64_portable"
 NEW_MINGW64_FOLDER="${NEW_ROOT_FOLDER}/mingw64"
 NEW_ETC_GTK_FOLDER="${NEW_ROOT_FOLDER}/etc/gtk-3.0"
 NEW_ETC_GTK_SETTINGS_INI="${NEW_ETC_GTK_FOLDER}/settings.ini"
+NEW_HUNSPELL_FOLDER="${NEW_MINGW64_FOLDER}/share/hunspell"
 NEW_CHERRYTREE_SHARE="${NEW_MINGW64_FOLDER}/usr/share/cherrytree"
 
 
@@ -150,15 +154,23 @@ echo "gtk-theme-name=win32" >> ${NEW_ETC_GTK_SETTINGS_INI}
 
 
 echo "copying cherrytree files..."
+# exe
 strip ${GIT_CT_EXE}
 cp -v ${GIT_CT_EXE} ${NEW_MINGW64_FOLDER}/bin/
+# license
 cp -v ${GIT_CT_LICENSE} ${NEW_ROOT_FOLDER}/
+# share data
 mkdir -p ${NEW_CHERRYTREE_SHARE}/data
 cp -rv ${GIT_CT_LANGUAGE_SPECS_FOLDER} ${NEW_CHERRYTREE_SHARE}/
 cp -v ${GIT_CT_DATA_FOLDER}/script3.js ${NEW_CHERRYTREE_SHARE}/data/
 cp -v ${GIT_CT_DATA_FOLDER}/styles3.css ${NEW_CHERRYTREE_SHARE}/data/
+# i18n languages
 for element_rel in $(ls ${GIT_CT_LANGUAGES_FOLDER})
 do
   element_abs=${GIT_CT_LANGUAGES_FOLDER}/${element_rel}
   [ -d ${element_abs} ] && cp -rfv ${element_abs} ${LOCALE}/
 done
+# spell check languages
+mkdir -p ${NEW_HUNSPELL_FOLDER}
+cp -v ${GIT_CT_HUNSPELL}/*.aff ${NEW_HUNSPELL_FOLDER}/
+cp -v ${GIT_CT_HUNSPELL}/*.dic ${NEW_HUNSPELL_FOLDER}/
