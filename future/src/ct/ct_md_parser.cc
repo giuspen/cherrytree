@@ -24,7 +24,8 @@
 #include "ct_misc_utils.h"
 
 
-const std::vector<CtImportHandler::token_schema>& CtMDParser::_get_tokens() {
+const std::vector<CtImportHandler::token_schema>& CtMDParser::_get_tokens()
+{
     static const std::vector<token_schema> tokens = {
         // Italic
         {"__", true, true, [this](const std::string& data){
@@ -80,7 +81,8 @@ const std::vector<CtImportHandler::token_schema>& CtMDParser::_get_tokens() {
 
 
 
-void CtMDParser::feed(std::istream& stream) {
+void CtMDParser::feed(std::istream& stream)
+{
     if (!_current_element) _current_element = _document.create_root_node("root")->add_child("slot")->add_child("rich_text");
     
     
@@ -101,13 +103,4 @@ void CtMDParser::feed(std::istream& stream) {
 
 }
 
-const std::unordered_set<std::string>& CtMDImportHandler::_get_accepted_file_extensions() const {
-    static std::unordered_set<std::string> extens = {
-            ".md"
-    };
-    return extens;
-}
 
-void CtMDImportHandler::add_directory(const std::filesystem::path &path) {
-
-}

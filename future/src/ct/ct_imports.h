@@ -205,6 +205,10 @@ private:
     
 };
 
+/**
+ * @brief Base class for parsers
+ * @class CtParser
+ */
 class CtParser
 {
 protected:
@@ -336,6 +340,10 @@ public:
     virtual void add_directory(const std::filesystem::path& path) = 0;
 };
 
+/**
+ * @brief Base class for parsing text data
+ * @class CtTextParser
+ */
 class CtTextParser: public virtual CtParser
 {
 protected:
@@ -352,6 +360,10 @@ public:
     
 };
 
+/**
+ * @brief Import handler for Zim Wiki directories
+ * @class CtZimImportHandler
+ */
 class CtZimImportHandler: public CtImportHandler, public CtTextParser
 {
 private:
@@ -379,8 +391,12 @@ public:
 
 };
 
-
-class CtMDParser: public CtTextParser {
+/**
+ * @brief Markdown parser
+ * @class CtMDParser
+ */
+class CtMDParser: public CtTextParser
+{
 protected:
 
     const std::vector<token_schema>& _get_tokens() override;
@@ -392,12 +408,5 @@ public:
 
 };
 
-class CtMDImportHandler: public CtMDParser, public CtImportHandler {
-protected:
-    [[nodiscard]] const std::unordered_set<std::string>& _get_accepted_file_extensions() const override;
-public:
-    virtual void add_directory(const std::filesystem::path &path) override;
-    
-};
 
 
