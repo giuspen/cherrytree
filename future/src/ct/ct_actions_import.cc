@@ -34,6 +34,7 @@ CtNodeData setup_node(CtMainWin* pWin, const std::filesystem::path& path)
     nodeData.isBold = false;
     nodeData.customIconId = 0;
     nodeData.isRO = false;
+    nodeData.syntax = CtConst::RICH_TEXT_ID;
     nodeData.rTextBuffer = pWin->get_new_text_buffer();
     nodeData.name = path.stem().string();
     return nodeData;
@@ -181,37 +182,47 @@ void CtActions::import_nodes_from_plaintext_directory() noexcept
 }
 
 
-void CtActions::_import_node_from_md_file(const std::filesystem::path& filepath) {
+void CtActions::_import_node_from_md_file(const std::filesystem::path& filepath)
+{
 
     std::ifstream infile(filepath);
     if (!infile) throw std::runtime_error(fmt::format("Failure while opening input file: {}: {}", filepath.string(), strerror(errno)));
-
-    //std::stringstream ss;
-    //ss << "__italic__ Normal **bold** **__italic and bold__** [Link Txt](https://google.com)";
+    
     
     CtMDParser handler(_pCtMainWin->get_ct_config());
     handler.feed(infile);
-
-    std::cout << "--XML OUT--\n" << handler.to_string() << std::endl;
+    
+    auto node = setup_node(_pCtMainWin, filepath);
+    
+    CtClipboard(_pCtMainWin).from_xml_string_to_buffer(node.rTextBuffer, handler.to_string());
+    
+    Gtk::TreeIter curr_iter;
+    auto node_iter = _add_node_quick(curr_iter, node, false);
+    _pCtMainWin->get_tree_store().nodes_sequences_fix(node_iter->parent(), false);
+    _pCtMainWin->update_window_save_needed();
 }
 
-void CtActions::import_node_from_md_file() /*noexcept*/ {
-   // try {
+void CtActions::import_node_from_md_file() noexcept
+{
+    try {
         CtDialogs::file_select_args args(_pCtMainWin);
         args.filter_mime = {"text/plain"};
-        args.filter_pattern = "*.md";
+        args.filter_pattern = {"*.md"};
         
         auto path = CtDialogs::file_select_dialog(args);
         
         // Cancelled
         if (path.empty()) return;
+        if (!std::filesystem::exists(path)) {
+            // Todo: Print error message
+        }
         
         _import_node_from_md_file(path);
 
 
-    /*} catch(std::exception& e) {
+    } catch(std::exception& e) {
         std::cerr << "Exception caught while importing node from md file: " << e.what() << "\n";
-    }*/
+    }
 
 }
 
@@ -277,7 +288,8 @@ void CtActions::_import_nodes_from_zim_directory(const std::filesystem::path& fi
     
 }
 
-void CtActions::import_nodes_from_zim_directory() noexcept {
+void CtActions::import_nodes_from_zim_directory() noexcept
+{
     try {
         if (!_is_there_selected_node_or_error()) return;
         
@@ -288,5 +300,24 @@ void CtActions::import_nodes_from_zim_directory() noexcept {
     } catch(std::exception& e) {
         std::cerr << "Exception caught while importing node from ZIM file: " << e.what();
     }
+}
+
+void CtActions::import_nodes_from_md_directory() noexcept
+{
+    try {
+        auto path = CtDialogs::folder_select_dialog("", _pCtMainWin);
+        if (path.empty()) return;
+        
+        for (const auto& file : std::filesystem::directory_iterator(path)) {
+            auto& file_path = file.path();
+            if (file_path.extension() == ".md") {
+                _import_node_from_md_file(file_path);
+            }
+        }
+        
+    } catch(std::exception& e) {
+        std::cerr << "Exception caught while importing files from MD directory: " << e.what() << "\n";
+    }
+    
 }
 

@@ -21,7 +21,7 @@
 
 #include "ct_imports.h"
 #include "ct_const.h"
-
+#include "ct_misc_utils.h"
 
 
 const std::vector<CtImportHandler::token_schema>& CtMDParser::_get_tokens() {
@@ -41,7 +41,37 @@ const std::vector<CtImportHandler::token_schema>& CtMDParser::_get_tokens() {
         // Second half of a link
         {"(", true, false, [this](const std::string& data){
             _add_link(data);
-        }, ")"}
+        }, ")"},
+        // List
+        {"* ", false, false, [this](const std::string& data){
+            _add_list(0, data);
+        }},
+        // Strikethrough
+        {"~~", true, true, [this](const std::string& data){
+            _add_strikethrough_tag(data);
+        }},
+        // Headers (h1, h2, etc)
+        {"#", false, false, [this](const std::string& data){
+            auto tag_num = 1;
+            auto iter = data.begin();
+            while(*iter == '#') {
+                ++tag_num;
+                ++iter;
+            }
+            
+            
+            if (tag_num > 3) tag_num = 3; // Reset to 3 if too large
+    
+            auto str = str::replace(data, "# ", "");
+            str = str::replace(str, "#", "");
+        
+            // Remove the extra space if single front
+            if (tag_num == 1 && str.front() == ' ') {
+                str.replace(str.begin(), str.begin() + 1, "");
+            }
+            
+            _add_scale_tag(tag_num, str);
+        }, "#", true}
 
     };
 
