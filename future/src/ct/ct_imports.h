@@ -265,6 +265,7 @@ protected:
     void _add_text(std::string text, bool close_tag = true);
     void _close_current_tag();
     void _add_newline();
+    void _add_tag_data(std::string_view, std::string data);
     
     [[nodiscard]] constexpr bool _tag_empty() const
     {

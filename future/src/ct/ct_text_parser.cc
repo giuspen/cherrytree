@@ -73,7 +73,7 @@ std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser
                         token_stream.emplace_back(nullptr, std::string(buff.begin(), buff.begin() + buff_pos));
                     }
                     
-                    buff.resize(0);
+                    buff.clear();
 
                     break;
                 }
@@ -97,12 +97,10 @@ std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser
                     }
                 }
                 open_tags[token.open_tag] = false;
-                
-                
                 keep_parsing = true;
                 
-                curr_open_tags.resize(0);
-                buff.resize(0);
+                curr_open_tags.clear();
+                buff.clear();
                 break;
             }
             

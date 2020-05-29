@@ -23,6 +23,7 @@
 #include "ct_const.h"
 #include "ct_config.h"
 #include <src/fmt/format.h>
+#include <iostream>
 
 
 void CtParser::_add_superscript_tag(std::optional<std::string> text)
@@ -80,7 +81,6 @@ void CtParser::_add_link(const std::string& text)
 {
     auto val = CtImports::get_internal_link_from_http_url(text);
     _current_element->set_attribute(CtConst::TAG_LINK, val);
-    _add_text(text, false);
 }
 
 void CtParser::_add_strikethrough_tag(std::optional<std::string> data)
@@ -91,37 +91,50 @@ void CtParser::_add_strikethrough_tag(std::optional<std::string> data)
 
 void CtParser::_add_text(std::string text, bool close_tag /* = true */)
 {
-    if (close_tag) _close_current_tag();
+    if (!text.empty()) {
+        if (close_tag) _close_current_tag();
     
-    auto curr_text = _current_element->get_child_text();
-    if (!curr_text) _current_element->set_child_text(std::move(text));
-    else            curr_text->set_content(curr_text->get_content() + std::move(text));
+        auto curr_text = _current_element->get_child_text();
+        if (!curr_text) _current_element->set_child_text(std::move(text));
+        else curr_text->set_content(curr_text->get_content() + std::move(text));
     
-    if (close_tag) _close_current_tag();
+        if (close_tag) _close_current_tag();
+    }
 }
 
 void CtParser::_close_current_tag()
 {
-    if (!_tag_empty()) _current_element = _current_element->get_parent()->add_child("rich_text");
+    if (!_tag_empty()) {
+        _current_element = _current_element->get_parent()->add_child("rich_text");
+        // Reset the tags
+        _open_tags.clear();
+    }
 }
 
 void CtParser::_add_newline() {
-    _add_text(CtConst::CHAR_NEWLINE);
+    // Add a newline, if tags are empty no need to close the current tag
+    _add_text(CtConst::CHAR_NEWLINE, !_open_tags.empty());
 }
 
 void CtParser::_add_italic_tag(std::optional<std::string> data)
 {
     _current_element->set_attribute(CtConst::TAG_STYLE, CtConst::TAG_PROP_VAL_ITALIC);
-    if (data) {
-        _add_text(*data, false);
-    }
+    
+    if (data) _add_tag_data(CtConst::TAG_STYLE, *data);
 }
 
 void CtParser::_add_scale_tag(int level, std::optional<std::string> data)
 {
-    _current_element->set_attribute("scale", fmt::format("h{}", level));
-    if (data) {
-        _add_text(*data, false);
-    }
+    _current_element->set_attribute(CtConst::TAG_SCALE, fmt::format("h{}", level));
+    
+    if (data) _add_tag_data(CtConst::TAG_SCALE, *data);
+}
+
+
+void CtParser::_add_tag_data(std::string_view tag, std::string data) {
+    bool do_close = _open_tags[tag];
+    
+    _add_text(std::move(data), do_close);
+    _open_tags[tag] = true;
 }
 

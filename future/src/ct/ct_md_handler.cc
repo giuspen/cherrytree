@@ -21,7 +21,6 @@
 
 #include "ct_imports.h"
 #include "ct_const.h"
-#include <iostream>
 
 
 
@@ -34,7 +33,15 @@ const std::vector<CtImportHandler::token_schema>& CtMDParser::_get_tokens() {
         // Bold
         {"**", true, true, [this](const std::string& data){
             _add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, data);
-        }}
+        }},
+        // First part of a link
+        {"[", true, false, [this](const std::string& data) mutable {
+            _add_text(data, false);
+        }, "]"},
+        // Second half of a link
+        {"(", true, false, [this](const std::string& data){
+            _add_link(data);
+        }, ")"}
 
     };
 
@@ -56,11 +63,10 @@ void CtMDParser::feed(std::istream& stream) {
             if (token.first) {
                 token.first->action(token.second);
             } else {
-                _add_text(token.second);
+                if (!token.second.empty()) _add_text(token.second);
             }
         }
-
-
+        _add_newline();
     }
 
 }

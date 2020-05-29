@@ -186,11 +186,13 @@ const std::vector<CtImportHandler::token_schema>& CtZimImportHandler::_get_token
         {"https://", false, false, [this](const std::string& data) {
             _close_current_tag();
             _add_link("https://"+data);
+            _add_text("https://"+data);
             _close_current_tag();
         }},
         {"http://", false, false, [this](const std::string& data) {
             _close_current_tag();
             _add_link("http://"+data);
+            _add_text("http://"+data);
             _close_current_tag();
         }},
         // Bullet list

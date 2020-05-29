@@ -183,22 +183,30 @@ void CtActions::import_nodes_from_plaintext_directory() noexcept
 
 void CtActions::_import_node_from_md_file(const std::filesystem::path& filepath) {
 
-    //std::ifstream infile;
-    //infile.exceptions(std::ios_base::failbit);
-    //infile.open(filepath);
+    std::ifstream infile(filepath);
+    if (!infile) throw std::runtime_error(fmt::format("Failure while opening input file: {}: {}", filepath.string(), strerror(errno)));
 
-    std::stringstream ss;
-    ss << "__italic__ Normal **bold** **__italic and bold__**";
+    //std::stringstream ss;
+    //ss << "__italic__ Normal **bold** **__italic and bold__** [Link Txt](https://google.com)";
     
     CtMDParser handler(_pCtMainWin->get_ct_config());
-    handler.feed(ss);
+    handler.feed(infile);
 
     std::cout << "--XML OUT--\n" << handler.to_string() << std::endl;
 }
 
 void CtActions::import_node_from_md_file() /*noexcept*/ {
    // try {
-        _import_node_from_md_file("");
+        CtDialogs::file_select_args args(_pCtMainWin);
+        args.filter_mime = {"text/plain"};
+        args.filter_pattern = "*.md";
+        
+        auto path = CtDialogs::file_select_dialog(args);
+        
+        // Cancelled
+        if (path.empty()) return;
+        
+        _import_node_from_md_file(path);
 
 
     /*} catch(std::exception& e) {
