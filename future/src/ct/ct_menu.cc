@@ -222,6 +222,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{import_cat, "import_txt_folder", "from_txt", _("From _Folder of Plain Text Files"), None, _("Add Nodes from a Folder of Plain Text Files to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_plaintext_directory) /* dad.nodes_add_from_plain_text_folder */});
     _actions.push_back(CtMenuAction{import_cat, "import_html_file", "from_html", _("From _HTML File"), None, _("Add Node from an HTML File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_node_from_html_file) /* dad.nodes_add_from_html_file */});
     _actions.push_back(CtMenuAction{import_cat, "import_html_folder", "from_html", _("From _Folder of HTML Files"), None, _("Add Nodes from a Folder of HTML Files to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_node_from_html_directory) /* dad.nodes_add_from_html_folder */});
+    _actions.push_back(CtMenuAction{import_cat, "import_md_file",  CtConst::STR_STOCK_CT_IMP, _("From _Markdown file"), None, _("Add a node from a Markdown file to the current tree"), sigc::mem_fun(*pActions, &CtActions::import_node_from_md_file) /* dad.nodes_add_from_html_folder */});
     _actions.push_back(CtMenuAction{import_cat, "import_basket", CtConst::STR_STOCK_CT_IMP, _("From _Basket Folder"), None, _("Add Nodes of a Basket Folder to the Current Tree"), sigc::signal<void>() /* dad.nodes_add_from_basket_folder */});
     _actions.push_back(CtMenuAction{import_cat, "import_epim_html", CtConst::STR_STOCK_CT_IMP, _("From _EssentialPIM HTML File"), None, _("Add Node from an EssentialPIM HTML File to the Current Tree"), sigc::signal<void>() /* dad.nodes_add_from_epim_html_file */});
     _actions.push_back(CtMenuAction{import_cat, "import_gnote", CtConst::STR_STOCK_CT_IMP, _("From _Gnote Folder"), None, _("Add Nodes of a Gnote Folder to the Current Tree"), sigc::signal<void>() /* dad.nodes_add_from_gnote_folder */});
@@ -866,6 +867,7 @@ const char* CtMenu::_get_ui_str_menu()
       <menuitem action='import_txt_folder'/>
       <menuitem action='import_html_file'/>
       <menuitem action='import_html_folder'/>
+      <menuitem action='import_md_file'/>
       <menuitem action='import_basket'/>
       <menuitem action='import_epim_html'/>
       <menuitem action='import_gnote'/>
@@ -939,6 +941,7 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='import_txt_folder'/>
     <menuitem action='import_html_file'/>
     <menuitem action='import_html_folder'/>
+    <menuitem action='import_md_file'/>
     <menuitem action='import_basket'/>
     <menuitem action='import_epim_html'/>
     <menuitem action='import_gnote'/>

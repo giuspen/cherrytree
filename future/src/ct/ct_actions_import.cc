@@ -180,6 +180,33 @@ void CtActions::import_nodes_from_plaintext_directory() noexcept
     }
 }
 
+
+void CtActions::_import_node_from_md_file(const std::filesystem::path& filepath) {
+
+    std::ifstream infile;
+    infile.exceptions(std::ios_base::failbit);
+    infile.open(filepath);
+
+    std::stringstream ss;
+    ss << "__italic__ Normal **bold** **__italic and bold__**";
+    
+    CtMDParser handler(_pCtMainWin->get_ct_config());
+    handler.feed(ss);
+
+    std::cout << "--XML OUT--\n" << handler.to_string() << std::endl;
+}
+
+void CtActions::import_node_from_md_file() /*noexcept*/ {
+   // try {
+        _import_node_from_md_file("");
+
+
+    /*} catch(std::exception& e) {
+        std::cerr << "Exception caught while importing node from md file: " << e.what() << "\n";
+    }*/
+
+}
+
 void CtActions::_import_nodes_from_zim_directory(const std::filesystem::path& filepath)
 {
     CtZimImportHandler handler(_pCtMainWin->get_ct_config());

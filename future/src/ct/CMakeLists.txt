@@ -56,7 +56,9 @@ set(CT_SHARED_FILES
     ct_widgets.cc
     ct_import_zim_handler.cc
     ct_import_handler.cc
-    )
+        ct_text_parser.cc
+    ct_md_handler.cc
+        ct_parser.cc)
 
 add_library(cherrytree_shared STATIC ${CT_SHARED_FILES})
 target_link_libraries(cherrytree_shared

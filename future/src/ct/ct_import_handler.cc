@@ -39,103 +39,17 @@ void CtImportFile::fix_internal_links(const std::string &node_name, uint64_t nod
     
 }
 
-void CtImportHandler::_add_superscript_tag(std::optional<std::string> text) 
-{
-    _current_element->set_attribute(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SUP);
-    
-    if (text) _add_text(*text);
-}
 
-void CtImportHandler::_add_subscript_tag(std::optional<std::string> text) 
-{
-    _current_element->set_attribute(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SUB);
-    
-    if (text) _add_text(*text);
-}
-
-void CtImportHandler::_add_ordered_list(unsigned int level, const std::string &data) 
-{
-    _add_text(fmt::format("{}. {}", level, data));
-}
-
-void CtImportHandler::_add_internal_link(const std::string& text) 
+void CtImportHandler::_add_internal_link(const std::string& text)
 {
     _add_internal_link_to_curr_file(text, _current_element);
     _add_text(text);
 }
 
-void CtImportHandler::_add_todo_list(CHECKBOX_STATE state, const std::string& text) 
-{
-    auto todo_index = static_cast<int>(state);
-    _add_text(_pCtConfig->charsTodo[todo_index] + CtConst::CHAR_SPACE + text);
+void CtImportHandler::_init_new_doc() {
+    _docs.emplace_back(std::make_shared<xmlpp::Document>());
+    _current_import_file()->doc = _xml_doc();
+    _current_element = _xml_doc()->create_root_node("root")->add_child("slot");
+    _current_element = _current_element->add_child("rich_text");
 }
 
-void CtImportHandler::_add_list(uint8_t level, const std::string& data) 
-{
-    if (level >= _pCtConfig->charsListbul.size()) {
-        if (_pCtConfig->charsListbul.size() == 0) {
-            throw std::runtime_error("No bullet-list characters set");
-        }
-        level = _pCtConfig->charsListbul.size() - 1;
-    }
-    std::string indent;
-    auto i_lvl = 0;
-    while(i_lvl < level) {
-        ++i_lvl;
-        indent += CtConst::CHAR_TAB;
-    }
-    
-    _add_text(indent + _pCtConfig->charsListbul[level] + CtConst::CHAR_SPACE + data);
-}
-void CtImportHandler::_add_weight_tag(const Glib::ustring& level, std::optional<std::string> data) 
-{
-    _current_element->set_attribute("weight", level);
-    if (data) {
-        _add_text(*data);
-    }
-}
-
-void CtImportHandler::_add_link(const std::string& text) 
-{
-    auto val = CtImports::get_internal_link_from_http_url(text);
-    _current_element->set_attribute(CtConst::TAG_LINK, val);
-    _add_text(text);
-}
-
-void CtImportHandler::_add_strikethrough_tag(std::optional<std::string> data) 
-{
-    _current_element->set_attribute(CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROP_VAL_TRUE);
-    if (data) _add_text(*data);
-}
-
-void CtImportHandler::_add_text(std::string text) 
-{
-    auto curr_text = _current_element->get_child_text();
-    if (!curr_text) _current_element->set_child_text(std::move(text));
-    else            curr_text->set_content(curr_text->get_content() + std::move(text));
-}
-
-void CtImportHandler::_close_current_tag() 
-{
-    if (!_tag_empty()) _current_element = _current_element->get_parent()->add_child("rich_text");
-}
-
-void CtImportHandler::_add_newline() {
-    _add_text(CtConst::CHAR_NEWLINE);
-}
-
-void CtImportHandler::_add_italic_tag(std::optional<std::string> data) 
-{
-    _current_element->set_attribute(CtConst::TAG_STYLE, CtConst::TAG_PROP_VAL_ITALIC);
-    if (data) {
-        _add_text(*data);
-    }
-}
-
-void CtImportHandler::_add_scale_tag(int level, std::optional<std::string> data) 
-{
-    _current_element->set_attribute("scale", fmt::format("h{}", level));
-    if (data) {
-        _add_text(*data);
-    }
-}
