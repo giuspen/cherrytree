@@ -183,9 +183,9 @@ void CtActions::import_nodes_from_plaintext_directory() noexcept
 
 void CtActions::_import_node_from_md_file(const std::filesystem::path& filepath) {
 
-    std::ifstream infile;
-    infile.exceptions(std::ios_base::failbit);
-    infile.open(filepath);
+    //std::ifstream infile;
+    //infile.exceptions(std::ios_base::failbit);
+    //infile.open(filepath);
 
     std::stringstream ss;
     ss << "__italic__ Normal **bold** **__italic and bold__**";

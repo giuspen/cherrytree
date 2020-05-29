@@ -21,12 +21,13 @@
 
 #include "ct_imports.h"
 
-std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> CtTextParser::_tokenize(const std::string& stream)
+std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser::_tokenize(const std::string& stream)
 {
     
     auto& tokens = _get_tokens();
-    std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> token_stream;
+    std::vector<std::pair<const token_schema *, std::string>> token_stream;
     std::unordered_map<std::string_view, bool> open_tags;
+    std::vector<const token_schema *> curr_open_tags;
     std::string buff;
     std::size_t pos = 0;
     bool keep_parsing = true;
@@ -45,7 +46,7 @@ std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> CtTex
             
             if (keep_parsing) {
                 if (has_opentag && !tag_open) {
-                    
+                    curr_open_tags.emplace_back(&token);
                     // First token
                     curr_token = &token;
 
@@ -86,11 +87,21 @@ std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> CtTex
 
             if (has_closetag && tag_open) {
                 auto tag = token.is_symmetrical ? token.open_tag : token.close_tag;
-                token_stream.emplace_back(curr_token, std::string(stream.begin() + pos - buff.length(), stream.begin() + pos - tag.length()));
+                
+                token_stream.emplace_back(curr_open_tags.front(), std::string(stream.begin() + pos - buff.length(), stream.begin() + pos - tag.length()));
+    
+                if (curr_open_tags.size() >= 2) {
+                    // Found more than one tag
+                    for (auto iter = curr_open_tags.begin() + 1; iter != curr_open_tags.end(); ++iter) {
+                        token_stream.emplace_back(*iter, "");
+                    }
+                }
                 open_tags[token.open_tag] = false;
+                
                 
                 keep_parsing = true;
                 
+                curr_open_tags.resize(0);
                 buff.resize(0);
                 break;
             }

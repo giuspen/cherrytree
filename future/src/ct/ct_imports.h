@@ -248,6 +248,8 @@ protected:
     // XML generation
     xmlpp::Element* _current_element = nullptr;
     xmlpp::Document _document;
+    std::unordered_map<std::string_view, bool> _open_tags;
+    
     
     void _add_scale_tag(int level, std::optional<std::string> data);
     void _add_weight_tag(const Glib::ustring& level, std::optional<std::string> data);
@@ -273,6 +275,7 @@ protected:
     virtual std::vector<std::pair<const token_schema *, std::string>> _tokenize(const std::string& stream) = 0;
     
     virtual const std::vector<token_schema>& _get_tokens() = 0;
+    
     
     const CtConfig* _pCtConfig = nullptr;
 public:

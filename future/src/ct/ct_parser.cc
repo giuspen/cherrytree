@@ -72,8 +72,8 @@ void CtParser::_add_weight_tag(const Glib::ustring& level, std::optional<std::st
 {
     _current_element->set_attribute("weight", level);
     if (data) {
-    _add_text(*data, false);
-}
+        _add_text(*data, false);
+    }
 }
 
 void CtParser::_add_link(const std::string& text)
