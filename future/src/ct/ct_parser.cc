@@ -86,7 +86,7 @@ void CtParser::_add_link(const std::string& text)
 void CtParser::_add_strikethrough_tag(std::optional<std::string> data)
 {
     _current_element->set_attribute(CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROP_VAL_TRUE);
-    if (data) _add_text(*data, false);
+    if (data) _add_tag_data(CtConst::TAG_STRIKETHROUGH, *data);
 }
 
 void CtParser::_add_text(std::string text, bool close_tag /* = true */)
