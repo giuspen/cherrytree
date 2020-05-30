@@ -1,4 +1,4 @@
-# Installation Guid
+# Installation Guide
 
 - [Debian/Linux Mint/Ubuntu](#building-cherrytree-on-ubuntu-2004)
 - [Arch Linux/Manjaro Linux](#building-cherrytree-on-arch)
