@@ -19,3 +19,5 @@ __Italic__ and then **bold** and then **__bold and italic__**
 
 And I am a [link to google](https://google.com)
 
+(I a some text in brackets)
+

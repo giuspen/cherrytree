@@ -401,6 +401,7 @@ protected:
 
     const std::vector<token_schema>& _get_tokens() override;
     
+    bool _in_link = false;
 public:
     using CtTextParser::CtTextParser;
 

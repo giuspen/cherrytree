@@ -36,12 +36,20 @@ const std::vector<CtImportHandler::token_schema>& CtMDParser::_get_tokens()
             _add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, data);
         }},
         // First part of a link
-        {"[", true, false, [this](const std::string& data) mutable {
+        {"[", true, false, [this](const std::string& data) {
             _add_text(data, false);
+            _in_link = true;
         }, "]"},
         // Second half of a link
-        {"(", true, false, [this](const std::string& data){
-            _add_link(data);
+        {"(", true, false, [this](const std::string& data) {
+            if (_in_link) {
+                _add_link(data);
+                _in_link = false;
+            }
+            else {
+                // Just text in brackets
+                _add_text("(" + data + ")");
+            }
         }, ")"},
         // List
         {"* ", false, false, [this](const std::string& data){
