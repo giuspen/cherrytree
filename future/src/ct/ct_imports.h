@@ -206,60 +206,55 @@ private:
 };
 
 /**
- * @brief Base class/interface for import handlers
- * @class CtImportHandler
+ * @brief Base class for parsers
+ * @class CtParser
  */
-class CtImportHandler
+class CtParser
 {
-public:
-    using token_map_t = std::unordered_map<std::string_view, std::function<void(const std::string&)>>;
-    
-    
+protected:
     struct token_schema {
         
         std::string open_tag;
         
         bool has_closetag   = true;
         bool is_symmetrical = true;
-    
+        
         std::function<void(const std::string&)> action;
         
         std::string close_tag = "";
         
         /// Whether to capture all the tokens inside it without formatting
         bool capture_all = false;
-
-
+        
+        
         std::string data = "";
         
-        bool operator==(const token_schema& other) const 
+        bool operator==(const token_schema& other) const
         {
             if (is_symmetrical || !has_closetag) return open_tag == other.open_tag;
             else                                 return (open_tag == other.open_tag) && (close_tag == other.close_tag);
         }
     };
-protected:
     
-    enum class PARSING_STATE 
+    enum class PARSING_STATE
     {
         HEAD,
         BODY
     } _parse_state = PARSING_STATE::HEAD;
     
-    enum class CHECKBOX_STATE 
+    enum class CHECKBOX_STATE
     {
         UNCHECKED = 0,
         TICKED = 1,
         MARKED = 2
     };
-
-protected:
+    
     // XML generation
-    std::vector<std::shared_ptr<xmlpp::Document>> _docs;
     xmlpp::Element* _current_element = nullptr;
-    std::vector<std::shared_ptr<CtImportFile>> _import_files;
-    bool                      _processed_files = false;
-   
+    xmlpp::Document _document;
+    std::unordered_map<std::string_view, bool> _open_tags;
+    
+    
     void _add_scale_tag(int level, std::optional<std::string> data);
     void _add_weight_tag(const Glib::ustring& level, std::optional<std::string> data);
     void _add_italic_tag(std::optional<std::string> data);
@@ -269,13 +264,58 @@ protected:
     void _add_todo_list(CHECKBOX_STATE state, const std::string& data);
     /// Add a link, text should contain the full qualified name (e.g https://example.com)
     void _add_link(const std::string& text);
-    void _add_internal_link(const std::string& text);
     void _add_superscript_tag(std::optional<std::string> text);
     void _add_subscript_tag(std::optional<std::string> text);
-    void _add_text(std::string text);
+    void _add_text(std::string text, bool close_tag = true);
     void _close_current_tag();
     void _add_newline();
+    void _add_tag_data(std::string_view, std::string data);
     
+    [[nodiscard]] constexpr bool _tag_empty() const
+    {
+        if (!_current_element) return true;
+        else                   return !_current_element->get_child_text();
+    }
+    
+    virtual std::vector<std::pair<const token_schema *, std::string>> _tokenize(const std::string& stream) = 0;
+    
+    virtual const std::vector<token_schema>& _get_tokens() = 0;
+    
+    
+    const CtConfig* _pCtConfig = nullptr;
+public:
+    explicit CtParser(const CtConfig* pCtConfig) : _pCtConfig(pCtConfig) {}
+    
+    virtual void feed(std::istream& data) = 0;
+    
+    std::string to_string() { return _document.write_to_string(); }
+};
+
+/**
+ * @brief Base class/interface for import handlers
+ * @class CtImportHandler
+ */
+class CtImportHandler: public virtual CtParser
+{
+public:
+    using token_map_t = std::unordered_map<std::string_view, std::function<void(const std::string&)>>;
+    
+
+protected:
+    // XML generation
+    std::vector<std::shared_ptr<xmlpp::Document>> _docs;
+    std::vector<std::shared_ptr<CtImportFile>> _import_files;
+    bool                      _processed_files = false;
+    
+    
+    void _add_internal_link(const std::string& text);
+    /**
+     * @brief Create and setup a new document to be fed into
+     * 
+     */
+    void _init_new_doc();
+
+
     [[nodiscard]] const std::shared_ptr<xmlpp::Document>& _xml_doc() const { return _docs.back(); }
     
     [[nodiscard]] std::shared_ptr<CtImportFile>& _current_import_file() { return _import_files.at(_docs.size() - 1); }
@@ -285,35 +325,46 @@ protected:
     static void _add_internal_link_to_file(CtImportFile& file, std::string link_name, xmlpp::Element* element) { file._internal_links[link_name].emplace_back(element); }
     void _add_internal_link_to_curr_file(std::string link_name, xmlpp::Element* element) { _add_internal_link_to_file(*_current_import_file(), std::move(link_name), element); }
     
-    [[nodiscard]] constexpr bool _tag_empty() const 
-    {
-        if (!_current_element) return true;
-        else                   return !_current_element->get_child_text();
-    }
     
-    virtual std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> _tokenize(const std::string& stream) = 0;
     /**
      * @brief Get a list of file extensions supported by the import handler
      * @return
      */
     [[nodiscard]] virtual const std::unordered_set<std::string>& _get_accepted_file_extensions() const = 0;
-    virtual const std::vector<token_schema>& _get_tokens() = 0;
-    
+
 public:
-    explicit CtImportHandler(const CtConfig* pCtConfig) : _pCtConfig(pCtConfig) {}
-    virtual void feed(std::istream& data) = 0;
+    using CtParser::CtParser;
     
     std::vector<std::shared_ptr<CtImportFile>>& imported_files() { return _import_files; }
 
     virtual void add_directory(const std::filesystem::path& path) = 0;
-protected:
-    const CtConfig* _pCtConfig = nullptr;
 };
 
+/**
+ * @brief Base class for parsing text data
+ * @class CtTextParser
+ */
+class CtTextParser: public virtual CtParser
+{
+protected:
+    /**
+     * @brief Transform an input string into a token stream
+     * @param stream
+     * @return
+     */
+    std::vector<std::pair<const token_schema *, std::string>> _tokenize(const std::string& stream) override;
+    uint8_t _list_level = 0;
+    
+public:
+    using CtParser::CtParser;
+    
+};
 
-
-
-class CtZimImportHandler: public CtImportHandler 
+/**
+ * @brief Import handler for Zim Wiki directories
+ * @class CtZimImportHandler
+ */
+class CtZimImportHandler: public CtImportHandler, public CtTextParser
 {
 private:
     bool _has_notebook_file();
@@ -329,24 +380,34 @@ protected:
     */
     void _process_files(const std::filesystem::path& path);
     
-    /**
-     * @brief Transform an input string into a token stream
-     * @param stream
-     * @return
-     */
-    std::vector<std::pair<const CtImportHandler::token_schema *, std::string>> _tokenize(const std::string& stream) override;
-    
     
     std::vector<std::shared_ptr<CtImportFile>> _get_files(const std::filesystem::path& path, uint32_t current_depth, CtImportFile* parent);
 public:
     using CtImportHandler::CtImportHandler;
-    
+
     void feed(std::istream& data) override;
     
     void add_directory(const std::filesystem::path& path) override;
 
-protected:
-    uint8_t _list_level = 0;
 };
+
+/**
+ * @brief Markdown parser
+ * @class CtMDParser
+ */
+class CtMDParser: public CtTextParser
+{
+protected:
+
+    const std::vector<token_schema>& _get_tokens() override;
+    
+    bool _in_link = false;
+public:
+    using CtTextParser::CtTextParser;
+
+    void feed(std::istream& stream) override;
+
+};
+
 
 
