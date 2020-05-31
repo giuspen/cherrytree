@@ -107,7 +107,8 @@ void CtMDParser::feed(std::istream& stream)
     std::string line;
     while(std::getline(stream, line, '\n')) {
         // Feed the line
-        auto tokens = _tokenize(line);
+        auto tokens_raw = _tokenize(line);
+        auto tokens = _parse_tokens(tokens_raw);
 
         for (auto iter = tokens.begin(); iter != tokens.end(); ++iter) {
             if (iter->first) {

@@ -20,167 +20,128 @@
  */
 
 #include "ct_imports.h"
+#include <iostream>
 
-std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser::_tokenize(const std::string& stream) const
-{
+template<class T>
+std::unordered_set<char> build_pos_tokens(const T& tokens) {
+    std::unordered_set<char> out;
+    for (const auto& token : tokens) {
+        if (!token.first.empty()) out.insert(token.first.begin(), token.first.end());
+    }
+    return out;
+}
+
+constexpr bool nor(bool a, bool b) {
+    return !(a || b);
+}
+std::vector<std::string> CtTextParser::_tokenize(const std::string& text) {
+    auto& open_tags = open_tokens_map();
+    auto& close_tags = close_tokens_map();
+    if (_possible_tokens.empty()) {
+        _possible_tokens = build_pos_tokens(open_tags);
+        auto other_pos  = build_pos_tokens(close_tags);
+        _possible_tokens.insert(other_pos.begin(), other_pos.end());
+    }
     
-    std::vector<std::pair<const token_schema *, std::string>> token_stream;
-    std::unordered_map<std::string_view, bool> open_tags;
-    std::vector<const token_schema *> curr_open_tags;
-    std::string buff;
-    std::size_t pos = 0;
-    bool keep_parsing = true;
-    const token_schema* curr_token;
-    auto& token_map_open = open_tokens_map();
-    auto& token_map_close = close_tokens_map();
     std::vector<std::string> tokens;
-    std::string::const_iterator last_pos = stream.begin();
-    for (auto ch = stream.begin(); ch != stream.end(); ++ch) {
-        //buff += ch;
-        pos++;
-    
+    std::string::const_iterator last_pos = text.begin();
+    for (auto ch = text.begin(); ch != text.end(); ++ch) {
         
-        if (std::isspace(*ch)) {
-            tokens.emplace_back(last_pos, ch);
+        if (*ch == ' ') {
+            if (last_pos != ch) tokens.emplace_back(last_pos, ch);
             last_pos = ch;
-        } else {
-            auto forward_pos = last_pos;
-            while (forward_pos != ch && std::isalnum(*forward_pos)) {
-                ++forward_pos;
+        } else if (_possible_tokens.find(*ch) != _possible_tokens.end() ){
+            auto forward_pos = ch;
+            
+            std::string key(ch, ch + 1);
+           // ++ch;
+            while (ch != text.end() && nor(open_tags.find(key) != open_tags.end(), close_tags.find(key) != close_tags.end()) && (_possible_tokens.find(*ch) != _possible_tokens.end())) {
+                ++ch;
+                if (ch != text.end()) key = std::string(forward_pos, ch + 1);
+                else break;
             }
-            std::string key(last_pos, ch);
-            if (token_map_open.find(key) != token_map_open.end() || token_map_close.find(key) != token_map_close.end()) {
-                tokens.emplace_back(last_pos, ch);
+            bool in_open = open_tags.find(key) != open_tags.end();
+            bool in_close =  close_tags.find(key) != close_tags.end();
+            if (in_open || in_close) {
+                if (in_close && last_pos != forward_pos) tokens.emplace_back(last_pos, forward_pos);
+                
+                tokens.emplace_back(key);
                 last_pos = ch;
+                ++last_pos;
             }
+    
+            // ++last_pos;
+            if (ch == text.end()) break;
         }
     }
-    //buff.clear();
-    pos = 0;
+    return tokens;
+}
+
+
+std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser::_parse_tokens(const std::vector<std::string>& tokens) const {
     
-    for (const auto& ch : stream) {
-        buff += ch;
-        pos++;
+    std::vector<std::pair<const token_schema *, std::string>> token_stream;
+    std::unordered_map<std::string_view, bool>                open_tags;
+    std::pair<std::vector<const token_schema *>, std::string> curr_open_tags;
+    bool                                                      keep_parsing = true;
+    auto               &token_map_open                                     = open_tokens_map();
+    auto               &token_map_close                                    = close_tokens_map();
+    
+    
+    for (auto token = tokens.begin(); token != tokens.end(); ++token) {
+    
+        if (token->empty()) continue;
         
+        auto tokens_iter = token_map_open.find(*token);
+        if (tokens_iter != token_map_open.end() && keep_parsing && !(tokens_iter->second->is_symmetrical && open_tags[tokens_iter->first])) {
         
-        auto tokens_iter = token_map_open.find(buff);
-        if (tokens_iter != token_map_open.end() && keep_parsing) {
-            curr_open_tags.emplace_back(tokens_iter->second);
+            curr_open_tags.first.emplace_back(tokens_iter->second);
             keep_parsing = !tokens_iter->second->capture_all;
-    
+        
             if (!tokens_iter->second->has_closetag) {
                 // Token will go till end of stream
-                token_stream.emplace_back(curr_token, std::string(stream.begin() + pos, stream.end()));
-        
-                if (keep_parsing) {
+                ++token;
+                if (false) {
                     // Parse the other data in the stream
-                    auto tokonised_stream = _tokenize(token_stream.back().second);
-                    for (const auto& token : tokonised_stream) {
-                        if (token.first) {
-                            token_stream.emplace_back(token);
-                        }
+                    token_stream.emplace_back(tokens_iter->second, "");
+                    auto            tokonised_stream = _parse_tokens(std::vector<std::string>(token, tokens.end()));
+                    token_stream.insert(token_stream.end(), tokonised_stream.begin(), tokonised_stream.end());
+                } else {
+                    std::string buff;
+                    while (token != tokens.end()) {
+                        buff += *token;
+                        ++token;
                     }
+                    token_stream.emplace_back(tokens_iter->second, buff);
                 }
                 return token_stream;
             }
-            
+            open_tags[tokens_iter->first] = true;
         } else {
-            auto close_iter = token_map_close.find(buff);
-            if (close_iter != token_map_close.end()) {
-    
-                token_stream.emplace_back(curr_open_tags.front(), std::string(stream.begin() + pos - buff.length(), stream.begin() + pos - close_iter->first.length()));
-    
-                if (curr_open_tags.size() >= 2) {
+            auto token_iter = token_map_close.find(*token);
+            if (token_iter != token_map_close.end()) {
+                token_stream.emplace_back(curr_open_tags.first.front(), curr_open_tags.second);
+                
+                if (curr_open_tags.first.size() >= 2) {
                     // Found more than one tag
-                    for (auto iter = curr_open_tags.begin() + 1; iter != curr_open_tags.end(); ++iter) {
-                        token_stream.emplace_back(*iter, "");
+                    for (auto iter = curr_open_tags.first.begin() + 1; iter != curr_open_tags.first.end(); ++iter) {
+                        if ((*iter)->open_tag != curr_open_tags.first.front()->open_tag) token_stream.emplace_back(*iter, "");
                     }
                 }
-                //open_tags[token.open_tag] = false;
+                open_tags[token_iter->first] = false;
                 keep_parsing = true;
-    
-                curr_open_tags.clear();
-                buff.clear();
+            
+                curr_open_tags.second.clear();
+                curr_open_tags.first.clear();
+            } else if (curr_open_tags.first.empty()) {
+                token_stream.emplace_back(nullptr, *token);
+            } else if (!curr_open_tags.first.empty()) {
+                curr_open_tags.second += *token;
             }
         }
-        /*
-        
-        for (const auto &token : _token_schemas) {
-            auto tag_open = open_tags[token.open_tag];
-            
-            
-            auto buff_pos = buff.find(token.open_tag);
-            auto has_opentag = buff_pos != std::string::npos;
-            
-            
-            
-            if (keep_parsing) {
-                if (has_opentag && !tag_open) {
-                    curr_open_tags.emplace_back(&token);
-                    // First token
-                    curr_token = &token;
-
-                    keep_parsing = !curr_token->capture_all;
-
-                    if (!token.has_closetag) {
-                        // Token will go till end of stream
-                        token_stream.emplace_back(curr_token, std::string(stream.begin() + pos, stream.end()));
-                        
-                        if (keep_parsing) {
-                            // Parse the other data in the stream 
-                            auto tokonised_stream = _tokenize(token_stream.back().second);
-                            for (const auto& token : tokonised_stream) {
-                                if (token.first) {
-                                    token_stream.emplace_back(token);
-                                }
-                             } 
-                        }
-                        return token_stream;
-                    }
-                    open_tags[token.open_tag] = true;
-                    if (pos - buff_pos != pos - buff.length()) {
-                        // Characters may be chopped
-                        token_stream.emplace_back(nullptr, std::string(buff.begin(), buff.begin() + buff_pos));
-                    }
-                    
-                    buff.clear();
-
-                    break;
-                }
-                
-            }
-            auto has_closetag = has_opentag && token.is_symmetrical;
-            if (!token.is_symmetrical && token.has_closetag) {
-                if (token.close_tag.empty()) throw CtImportException("Token has no close tag");
-                has_closetag = buff.find(token.close_tag) != std::string::npos;
-            }
-
-            if (has_closetag && tag_open) {
-                auto tag = token.is_symmetrical ? token.open_tag : token.close_tag;
-                
-                token_stream.emplace_back(curr_open_tags.front(), std::string(stream.begin() + pos - buff.length(), stream.begin() + pos - tag.length()));
-    
-                if (curr_open_tags.size() >= 2) {
-                    // Found more than one tag
-                    for (auto iter = curr_open_tags.begin() + 1; iter != curr_open_tags.end(); ++iter) {
-                        token_stream.emplace_back(*iter, "");
-                    }
-                }
-                open_tags[token.open_tag] = false;
-                keep_parsing = true;
-                
-                curr_open_tags.clear();
-                buff.clear();
-                break;
-            }
-            
-        }*/
-        
     }
-    if (!buff.empty()) {
-        // No token
-        token_stream.emplace_back(nullptr, buff);
-    }
+        
     
+   
     return token_stream;
 }

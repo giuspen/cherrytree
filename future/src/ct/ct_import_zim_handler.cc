@@ -128,7 +128,8 @@ const std::unordered_set<std::string>& CtZimImportHandler::_get_accepted_file_ex
 
 void CtZimImportHandler::_parse_body_line(const std::string& line) 
 {
-    auto tokens = _tokenize(line);
+    auto tokens_raw = _tokenize(line);
+    auto tokens = _parse_tokens(tokens_raw);
     
     for (const auto& token : tokens) {
         if (token.first) {

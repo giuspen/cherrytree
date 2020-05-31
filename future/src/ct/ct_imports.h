@@ -279,7 +279,7 @@ protected:
         else                   return !_current_element->get_child_text();
     }
     
-    virtual std::vector<std::pair<const token_schema *, std::string>> _tokenize(const std::string& stream) const = 0;
+    virtual std::vector<std::pair<const token_schema *, std::string>> _parse_tokens(const std::vector<std::string>& tokens) const = 0;
     
     /**
      * @brief Initalise _tokens_schemas with the tokens map
@@ -391,11 +391,16 @@ class CtTextParser: public virtual CtParser
 protected:
     /**
      * @brief Transform an input string into a token stream
-     * @param stream
+     * @param tokens
      * @return
      */
-    std::vector<std::pair<const token_schema *, std::string>> _tokenize(const std::string& stream) const override;
+    std::vector<std::pair<const token_schema *, std::string>> _parse_tokens(const std::vector<std::string>& tokens) const override;
     uint8_t _list_level = 0;
+    
+    std::vector<std::string> _tokenize(const std::string& text);
+    
+private:
+    std::unordered_set<char> _possible_tokens;
     
 public:
     using CtParser::CtParser;
