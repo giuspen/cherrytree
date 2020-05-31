@@ -28,6 +28,7 @@
 #include <glibmm/ustring.h>
 #include <libxml2/libxml/HTMLparser.h>
 #include <libxml++/libxml++.h>
+#include <gtkmm.h>
 #include <filesystem>
 #include <unordered_set>
 #include <fstream>
@@ -322,6 +323,13 @@ public:
     }
     const tags_map_t& open_tokens_map() const { return _open_tokens_map; }
     const tags_map_t& close_tokens_map() const { return _close_tokens_map; }
+    
+    /**
+     * @brief Find the formatting boundries for a word based on stored tags
+     * @param word_end
+     * @return
+     */
+    std::pair<Gtk::TextIter, Gtk::TextIter> find_formatting_boundaries(const Gtk::TextIter& start_bounds, const Gtk::TextIter& word_end);
     
 };
 

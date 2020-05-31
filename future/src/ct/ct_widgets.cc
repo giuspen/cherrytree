@@ -589,6 +589,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                     auto word_start = iter_insert;
                     word_start.backward_char();
                     if (!word_start.inside_word()) {
+                        word_start.backward_sentence_start();
                         _markdown_check_and_replace(text_buffer, word_start, iter_insert);
                     }
                 }
@@ -601,7 +602,7 @@ void CtTextView::_markdown_check_and_replace(Glib::RefPtr<Gtk::TextBuffer> text_
 {
     if (!_md_parser) _md_parser = std::make_unique<CtMDParser>(_pCtMainWin->get_ct_config());
     else _md_parser->wipe();
-    auto& open_tags = _md_parser->open_tokens_map();
+    /*auto& open_tags = _md_parser->open_tokens_map();
     
     while (start_iter.backward_word_start()) {
         if (!start_iter.backward_char()) break;
@@ -615,10 +616,15 @@ void CtTextView::_markdown_check_and_replace(Glib::RefPtr<Gtk::TextBuffer> text_
             start_iter = next_wrd;
             break;
         }
-    }
+    }*/
     
+    end_iter.backward_char();
     Glib::ustring text(start_iter, end_iter);
+    auto iter_pair = _md_parser->find_formatting_boundaries(start_iter, end_iter);
     std::cout << "TXT: " << text << std::endl;
+    
+    text = Glib::ustring(iter_pair.first, iter_pair.second);
+    std::cout << "TXT2: " << text << std::endl;
     
     std::stringstream txt(text);
 

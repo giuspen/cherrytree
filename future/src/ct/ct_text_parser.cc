@@ -33,6 +33,31 @@ std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser
     const token_schema* curr_token;
     auto& token_map_open = open_tokens_map();
     auto& token_map_close = close_tokens_map();
+    std::vector<std::string> tokens;
+    std::string::const_iterator last_pos = stream.begin();
+    for (auto ch = stream.begin(); ch != stream.end(); ++ch) {
+        //buff += ch;
+        pos++;
+    
+        
+        if (std::isspace(*ch)) {
+            tokens.emplace_back(last_pos, ch);
+            last_pos = ch;
+        } else {
+            auto forward_pos = last_pos;
+            while (forward_pos != ch && std::isalnum(*forward_pos)) {
+                ++forward_pos;
+            }
+            std::string key(last_pos, ch);
+            if (token_map_open.find(key) != token_map_open.end() || token_map_close.find(key) != token_map_close.end()) {
+                tokens.emplace_back(last_pos, ch);
+                last_pos = ch;
+            }
+        }
+    }
+    //buff.clear();
+    pos = 0;
+    
     for (const auto& ch : stream) {
         buff += ch;
         pos++;
