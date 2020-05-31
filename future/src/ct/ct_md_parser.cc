@@ -22,6 +22,7 @@
 #include "ct_imports.h"
 #include "ct_const.h"
 #include "ct_misc_utils.h"
+#include <iostream>
 
 
 const std::vector<CtImportHandler::token_schema>& CtMDParser::_get_tokens()
@@ -39,18 +40,20 @@ const std::vector<CtImportHandler::token_schema>& CtMDParser::_get_tokens()
         {"[", true, false, [this](const std::string& data) {
             _add_text(data, false);
             _in_link = true;
-        }, "]"},
+            std::cout << "LINK DATA: " << data << " ";
+        }, "]", true},
         // Second half of a link
         {"(", true, false, [this](const std::string& data) {
             if (_in_link) {
                 _add_link(data);
                 _in_link = false;
+                std::cout << "LINK: " << data << std::endl;
             }
             else {
                 // Just text in brackets
                 _add_text("(" + data + ")");
             }
-        }, ")"},
+        }, ")", true},
         // List
         {"* ", false, false, [this](const std::string& data){
             _add_list(0, data);
@@ -99,11 +102,24 @@ void CtMDParser::feed(std::istream& stream)
         // Feed the line
         auto tokens = _tokenize(line);
 
-        for (const auto& token : tokens) {
-            if (token.first) {
-                token.first->action(token.second);
+        for (auto iter = tokens.begin(); iter != tokens.end(); ++iter) {
+            if (iter->first) {
+                // This is needed for links with () in them
+                if ((iter + 1) != tokens.end()) {
+                    if (!(iter + 1)->first && ((iter + 1)->second == ")")) {
+                        // Excess bracket from link
+                        iter->first->action(iter->second + ")");
+                        iter++;
+                        if ((iter + 1) != tokens.end()) iter++;
+
+                        continue;
+                    }
+                }
+
+
+                iter->first->action(iter->second);
             } else {
-                if (!token.second.empty()) _add_text(token.second);
+                if (!iter->second.empty()) _add_text(iter->second);
             }
         }
         _add_newline();
