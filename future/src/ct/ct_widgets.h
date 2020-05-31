@@ -27,8 +27,13 @@
 #include <sqlite3.h>
 #include <iostream>
 #include <unordered_map>
+#include <memory>
+
 #include "ct_types.h"
 
+
+class CtMDParser;
+class CtClipboard;
 class CtTmp
 {
 public:
@@ -113,10 +118,12 @@ private:
     void          _special_char_replace(gunichar special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_insert);
     /// Replace the char between iter_start and iter_end with another one
     void          _special_char_replace(Glib::ustring special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
-
+    void          _markdown_check_and_replace(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
 public:
     static const double TEXT_SCROLL_MARGIN;
 
 private:
     CtMainWin* _pCtMainWin;
+    std::unique_ptr<CtClipboard> _clipboard;
+    std::unique_ptr<CtMDParser> _md_parser;
 };

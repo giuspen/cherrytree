@@ -211,6 +211,8 @@ private:
  */
 class CtParser
 {
+public:
+    using tags_map_t = std::unordered_map<std::string_view, std::vector<const token_schema *>>;
 protected:
     struct token_schema {
         
@@ -251,7 +253,7 @@ protected:
     
     // XML generation
     xmlpp::Element* _current_element = nullptr;
-    xmlpp::Document _document;
+    std::unique_ptr<xmlpp::Document> _document{std::make_unique<xmlpp::Document>()};
     std::unordered_map<std::string_view, bool> _open_tags;
     
     
@@ -290,12 +292,32 @@ protected:
     
     /// Tokens to be cached by the parser
     std::vector<token_schema> _token_schemas;
+    
+private:
+    tags_map_t _open_tokens_map;
+    tags_map_t _close_tokens_map;
+    
+    void _build_token_maps();
 public:
     explicit CtParser(const CtConfig* pCtConfig) : _pCtConfig(pCtConfig) {}
     
     virtual void feed(std::istream& data) = 0;
     
-    std::string to_string() { return _document.write_to_string(); }
+    std::string to_string() { return _document->write_to_string(); }
+
+    void wipe();
+    
+    const tags_map_t& open_tokens_map()
+    {
+        _build_token_maps();
+        return _open_tokens_map;
+    };
+    const tags_map_t& close_tokens_map()
+    {
+        _build_token_maps();
+        return _close_tokens_map;
+    }
+    
 };
 
 /**

@@ -27,6 +27,8 @@
 #include "ct_main_win.h"
 #include "ct_actions.h"
 #include "ct_list.h"
+#include "ct_imports.h"
+#include "ct_clipboard.h"
 #include <glib/gstdio.h>
 #include <gspell/gspell.h>
 
@@ -583,10 +585,49 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                     if (iter_start.get_line_offset() == 0 and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_COLON))
                         // ":: " becoming "▪ " at line start
                         _special_char_replace(CtConst::CHARS_LISTBUL_DEFAULT[2], iter_start, iter_insert);
+                } else {
+                    auto word_start = iter_insert;
+                    word_start.backward_char();
+                    if (!word_start.inside_word()) {
+                        _markdown_check_and_replace(text_buffer, word_start, iter_insert);
+                    }
                 }
             }
         }
     }
+}
+
+void CtTextView::_markdown_check_and_replace(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter start_iter, Gtk::TextIter end_iter) 
+{
+    if (!_md_parser) _md_parser = std::make_unique<CtMDParser>(_pCtMainWin->get_ct_config());
+    else _md_parser->wipe();
+    auto& open_tags = _md_parser->open_tokens_map();
+    
+    while (start_iter.backward_word_start()) {
+        if (!start_iter.backward_char()) break;
+        auto next_wrd = start_iter;
+        next_wrd.backward_word_start();
+        
+        Glib::ustring wrd(next_wrd, start_iter);
+        wrd = str::replace(wrd, " ", "");
+        if (open_tags.find(wrd) != open_tags.end()) {
+            start_iter = next_wrd;
+            break;
+        }
+    }
+    
+    Glib::ustring text(start_iter, end_iter);
+    std::cout << "TXT: " << text << std::endl;
+    
+    std::stringstream txt(text);
+
+    
+    _md_parser->feed(txt);
+
+    _special_char_replace("", start_iter, end_iter);
+
+    if (!_clipboard) _clipboard = std::make_unique<CtClipboard>(_pCtMainWin);
+    _clipboard->from_xml_string_to_buffer(std::move(text_buffer), _md_parser->to_string());
 }
 
 // Looks at all tags covering the position (x, y) in the text view

@@ -100,7 +100,7 @@ void CtMDParser::_init_tokens()
 
 void CtMDParser::feed(std::istream& stream)
 {
-    if (!_current_element) _current_element = _document.create_root_node("root")->add_child("slot")->add_child("rich_text");
+    if (!_current_element) _current_element = _document->create_root_node("root")->add_child("slot")->add_child("rich_text");
     _init_tokens();
     
     std::string line;

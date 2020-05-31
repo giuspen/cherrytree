@@ -24,7 +24,13 @@
 #include "ct_config.h"
 #include <src/fmt/format.h>
 #include <iostream>
+#include <memory>
 
+void CtParser::wipe()  
+{ 
+    _document = std::make_unique<xmlpp::Document>();
+    _current_element = nullptr;
+}
 
 void CtParser::_add_superscript_tag(std::optional<std::string> text)
 {
@@ -136,5 +142,28 @@ void CtParser::_add_tag_data(std::string_view tag, std::string data) {
     
     _add_text(std::move(data), do_close);
     _open_tags[tag] = true;
+}
+
+
+void CtParser::_build_token_maps() {
+    if (_open_tokens_map.empty() || _close_tokens_map.empty()) {
+        _init_tokens();
+        
+        // Build open tokens
+        if (_open_tokens_map.empty()) {
+            for (const auto& token : _token_schemas) {
+                _open_tokens_map[token.open_tag].emplace_back(&token);
+            }
+        }
+        // Build close tokens
+        if (_close_tokens_map.empty()) {
+            for (const auto& token : _token_schemas) {
+                if (token.has_closetag) {
+                    if (token.is_symmetrical) _close_tokens_map[token.open_tag].emplace_back(&token);
+                    else                      _close_tokens_map[token.close_tag].emplace_back(&token);
+                }
+            }
+        }
+    }
 }
 
