@@ -40,14 +40,12 @@ const std::vector<CtImportHandler::token_schema>& CtMDParser::_get_tokens()
         {"[", true, false, [this](const std::string& data) {
             _add_text(data, false);
             _in_link = true;
-            std::cout << "LINK DATA: " << data << " ";
         }, "]", true},
         // Second half of a link
         {"(", true, false, [this](const std::string& data) {
             if (_in_link) {
                 _add_link(data);
                 _in_link = false;
-                std::cout << "LINK: " << data << std::endl;
             }
             else {
                 // Just text in brackets
@@ -109,8 +107,8 @@ void CtMDParser::feed(std::istream& stream)
                     if (!(iter + 1)->first && ((iter + 1)->second == ")")) {
                         // Excess bracket from link
                         iter->first->action(iter->second + ")");
-                        iter++;
-                        if ((iter + 1) != tokens.end()) iter++;
+                        ++iter;
+                        if ((iter + 1) != tokens.end()) ++iter;
 
                         continue;
                     }
