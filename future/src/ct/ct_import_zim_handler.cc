@@ -97,6 +97,7 @@ void CtZimImportHandler::feed(std::istream& data)
 {
     
    _init_new_doc();
+   _init_tokens();
     
     std::string line;
     while(std::getline(data, line, '\n')) {
@@ -145,126 +146,128 @@ void CtZimImportHandler::_parse_body_line(const std::string& line)
 
 
 
-const std::vector<CtImportHandler::token_schema>& CtZimImportHandler::_get_tokens()
+void CtZimImportHandler::_init_tokens()
 {
-    static auto links_match_func = [this](const std::string& data){
-        auto target_char = *data.begin();
-        if (target_char == '>' || target_char == '*' || target_char == 'x' || target_char == ' ') {
-            // Captured a TODO list
-
-            CHECKBOX_STATE state;
-            switch(target_char) {
-                case 'x': state = CHECKBOX_STATE::MARKED; break;
-                case '*': state = CHECKBOX_STATE::TICKED; break;
-                case ' ': state = CHECKBOX_STATE::UNCHECKED; break;
-                case '>': state = CHECKBOX_STATE::MARKED; break; // No version exists for cherrytree
+    if (_token_schemas.empty()) {
+        auto links_match_func = [this](const std::string& data){
+            auto target_char = *data.begin();
+            if (target_char == '>' || target_char == '*' || target_char == 'x' || target_char == ' ') {
+                // Captured a TODO list
+    
+                CHECKBOX_STATE state;
+                switch(target_char) {
+                    case 'x': state = CHECKBOX_STATE::MARKED; break;
+                    case '*': state = CHECKBOX_STATE::TICKED; break;
+                    case ' ': state = CHECKBOX_STATE::UNCHECKED; break;
+                    case '>': state = CHECKBOX_STATE::MARKED; break; // No version exists for cherrytree
+                }
+    
+                _add_todo_list(state, "");
+            } else {
+                std::string txt(data.begin() + 1, data.end());
+                // Capured a [[LINK]]
+                _close_current_tag();
+                _add_internal_link(txt);
+                _close_current_tag();
             }
-
-            _add_todo_list(state, "");
-        } else {
-            std::string txt(data.begin() + 1, data.end());
-            // Capured a [[LINK]] 
-            _close_current_tag();
-            _add_internal_link(txt);
-            _close_current_tag();
-        }
-    };
-
-    static std::vector<token_schema> tokens_vect = {
-        // Bold
-        {"**", true, true, [this](const std::string& data){
-            _close_current_tag();
-            _add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, data);
-            _close_current_tag();
-        }},
-        // Indentation detection for lists
-        {"\t", false, false, [this](const std::string& data) {
-            _list_level++;
-            // Did a double match for even number of \t tags
-            if (data.empty()) _list_level++;
-        }},
-        {"https://", false, false, [this](const std::string& data) {
-            _close_current_tag();
-            _add_link("https://"+data);
-            _add_text("https://"+data);
-            _close_current_tag();
-        }},
-        {"http://", false, false, [this](const std::string& data) {
-            _close_current_tag();
-            _add_link("http://"+data);
-            _add_text("http://"+data);
-            _close_current_tag();
-        }},
-        // Bullet list
-        {"* ", false, false, [this](const std::string& data) {
-            _add_list(_list_level, data);
-            _list_level = 0;
-        }},
-        // Italic
-        {"//", true, true, [this](const std::string& data) {
-            _close_current_tag();
-            _add_italic_tag(data);
-            _close_current_tag();
-        }},
-        // Strikethrough
-        {"~~", true, true, [this](const std::string& data){
-            _close_current_tag();
-            _add_strikethrough_tag(data);
-            _close_current_tag();
-        }},
-        // Headers
-        {"==", false, false, [this](const std::string &data) {
-                int count = 5;
-
-                auto iter = data.begin();
-                while (*iter == '=') {
-                    count--;
-                    ++iter;
-                }
-            
-                if (count < 0) {
-                    throw CtImportException(fmt::format("Parsing error while parsing header data: {} - Too many '='", data));
-                }
-
-                if (count > 3) {
-                    // Reset to smaller (h3 currently)
-                    count = 3;
-                }
-
-                auto str = str::replace(data, "= ", "");
-                str = str::replace(str, "=", "");
+        };
+    
+        _token_schemas = {
+            // Bold
+            {"**", true, true, [this](const std::string& data){
+                _close_current_tag();
+                _add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, data);
+                _close_current_tag();
+            }},
+            // Indentation detection for lists
+            {"\t", false, false, [this](const std::string& data) {
+                _list_level++;
+                // Did a double match for even number of \t tags
+                if (data.empty()) _list_level++;
+            }},
+            {"https://", false, false, [this](const std::string& data) {
+                _close_current_tag();
+                _add_link("https://"+data);
+                _add_text("https://"+data);
+                _close_current_tag();
+            }},
+            {"http://", false, false, [this](const std::string& data) {
+                _close_current_tag();
+                _add_link("http://"+data);
+                _add_text("http://"+data);
+                _close_current_tag();
+            }},
+            // Bullet list
+            {"* ", false, false, [this](const std::string& data) {
+                _add_list(_list_level, data);
+                _list_level = 0;
+            }},
+            // Italic
+            {"//", true, true, [this](const std::string& data) {
+                _close_current_tag();
+                _add_italic_tag(data);
+                _close_current_tag();
+            }},
+            // Strikethrough
+            {"~~", true, true, [this](const std::string& data){
+                _close_current_tag();
+                _add_strikethrough_tag(data);
+                _close_current_tag();
+            }},
+            // Headers
+            {"==", false, false, [this](const std::string &data) {
+                    int count = 5;
+    
+                    auto iter = data.begin();
+                    while (*iter == '=') {
+                        count--;
+                        ++iter;
+                    }
                 
+                    if (count < 0) {
+                        throw CtImportException(fmt::format("Parsing error while parsing header data: {} - Too many '='", data));
+                    }
+    
+                    if (count > 3) {
+                        // Reset to smaller (h3 currently)
+                        count = 3;
+                    }
+    
+                    auto str = str::replace(data, "= ", "");
+                    str = str::replace(str, "=", "");
+                    
+                    _close_current_tag();
+                    _add_scale_tag(count, str);
+                    _close_current_tag();
+            }, "==", true},
+            // External link (e.g https://example.com)
+            {"{{", true, false, [this](const std::string&) {
+                // Todo: Implement this (needs image importing)
+            },"}}"},
+            // Todo list
+            {"[", true, false, links_match_func, "] "},
+            // Internal link (e.g MyPage) - This is just for removing the leftover ']'
+            {"[", true, false, links_match_func, "]]"},
+            // Verbatum - captures all the tokens inside it and print without formatting
+            {"''", true, true, [this](const std::string& data){
+                _add_text(data);
+            }, "''", true},
+            // Suberscript
+            {"^{", true, false, [this](const std::string& data){
                 _close_current_tag();
-                _add_scale_tag(count, str);
+                _add_superscript_tag(data);
                 _close_current_tag();
-        }, "==", true},
-        // External link (e.g https://example.com)
-        {"{{", true, false, [this](const std::string&) {
-            // Todo: Implement this (needs image importing)
-        },"}}"},
-        // Todo list
-        {"[", true, false, links_match_func, "] "},
-        // Internal link (e.g MyPage) - This is just for removing the leftover ']' 
-        {"[", true, false, links_match_func, "]]"},
-        // Verbatum - captures all the tokens inside it and print without formatting
-        {"''", true, true, [this](const std::string& data){
-            _add_text(data);
-        }, "''", true},
-        // Suberscript
-        {"^{", true, false, [this](const std::string& data){
-            _close_current_tag();
-            _add_superscript_tag(data);
-            _close_current_tag();
-        }, "}"},
-        // Subscript
-        {"_{", true, false, [this](const std::string& data){
-            _close_current_tag();
-            _add_subscript_tag(data);
-            _close_current_tag();
-        }, "}"}
+            }, "}"},
+            // Subscript
+            {"_{", true, false, [this](const std::string& data){
+                _close_current_tag();
+                _add_subscript_tag(data);
+                _close_current_tag();
+            }, "}"}
             
-    };
-    return tokens_vect;
+        };
+    }
+    
 }
 
 
