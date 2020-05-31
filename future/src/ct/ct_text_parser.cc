@@ -21,10 +21,9 @@
 
 #include "ct_imports.h"
 
-std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser::_tokenize(const std::string& stream)
+std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser::_tokenize(const std::string& stream) const
 {
     
-    auto& tokens = _get_tokens();
     std::vector<std::pair<const token_schema *, std::string>> token_stream;
     std::unordered_map<std::string_view, bool> open_tags;
     std::vector<const token_schema *> curr_open_tags;
@@ -35,7 +34,7 @@ std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser
     for (const auto& ch : stream) {
         buff += ch;
         pos++;
-        for (const auto &token : tokens) {
+        for (const auto &token : _token_schemas) {
             auto tag_open = open_tags[token.open_tag];
             
             

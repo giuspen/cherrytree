@@ -22,70 +22,78 @@
 #include "ct_imports.h"
 #include "ct_const.h"
 #include "ct_misc_utils.h"
-#include <iostream>
 
 
-const std::vector<CtImportHandler::token_schema>& CtMDParser::_get_tokens()
+void CtMDParser::_init_tokens()
 {
-    static const std::vector<token_schema> tokens = {
-        // Italic
-        {"__", true, true, [this](const std::string& data){
-            _add_italic_tag(data);
-        }},
-        // Bold
-        {"**", true, true, [this](const std::string& data){
-            _add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, data);
-        }},
-        // First part of a link
-        {"[", true, false, [this](const std::string& data) {
-            _add_text(data, false);
-            _in_link = true;
-        }, "]", true},
-        // Second half of a link
-        {"(", true, false, [this](const std::string& data) {
-            if (_in_link) {
-                _add_link(data);
-                _in_link = false;
-            }
-            else {
-                // Just text in brackets
-                _add_text("(" + data + ")");
-            }
-        }, ")", true},
-        // List
-        {"* ", false, false, [this](const std::string& data){
-            _add_list(0, data);
-        }},
-        // Strikethrough
-        {"~~", true, true, [this](const std::string& data){
-            _add_strikethrough_tag(data);
-        }},
-        // Headers (h1, h2, etc)
-        {"#", false, false, [this](const std::string& data){
-            auto tag_num = 1;
-            auto iter = data.begin();
-            while(*iter == '#') {
-                ++tag_num;
-                ++iter;
-            }
-            
-            
-            if (tag_num > 3) tag_num = 3; // Reset to 3 if too large
-    
-            auto str = str::replace(data, "# ", "");
-            str = str::replace(str, "#", "");
+    if (_token_schemas.empty()) {
+        _token_schemas = {
+                // Italic
+                {
+                        "__", true,  true,  [this](const std::string &data) {
+                    _add_italic_tag(data);
+                }},
+                // Bold
+                {
+                        "**", true,  true,  [this](const std::string &data) {
+                    _add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, data);
+                }},
+                // First part of a link
+                {
+                        "[",  true,  false, [this](const std::string &data) {
+                    _add_text(data, false);
+                    _in_link = true;
+                }, "]", true
+                },
+                // Second half of a link
+                {
+                        "(",  true,  false, [this](const std::string &data) {
+                    if (_in_link) {
+                        _add_link(data);
+                        _in_link = false;
+                    } else {
+                        // Just text in brackets
+                        _add_text("(" + data + ")");
+                    }
+                }, ")", true
+                },
+                // List
+                {
+                        "* ", false, false, [this](const std::string &data) {
+                    _add_list(0, data);
+                }},
+                // Strikethrough
+                {
+                        "~~", true,  true,  [this](const std::string &data) {
+                    _add_strikethrough_tag(data);
+                }},
+                // Headers (h1, h2, etc)
+                {
+                        "#",  false, false, [this](const std::string &data) {
+                    auto tag_num = 1;
+                    auto iter    = data.begin();
+                    while (*iter == '#') {
+                        ++tag_num;
+                        ++iter;
+                    }
+                
+                
+                    if (tag_num > 3) tag_num = 3; // Reset to 3 if too large
+                
+                    auto str = str::replace(data, "# ", "");
+                    str = str::replace(str, "#", "");
+                
+                    // Remove the extra space if single front
+                    if (tag_num == 1 && str.front() == ' ') {
+                        str.replace(str.begin(), str.begin() + 1, "");
+                    }
+                
+                    _add_scale_tag(tag_num, str);
+                }, "#", true
+                }
         
-            // Remove the extra space if single front
-            if (tag_num == 1 && str.front() == ' ') {
-                str.replace(str.begin(), str.begin() + 1, "");
-            }
-            
-            _add_scale_tag(tag_num, str);
-        }, "#", true}
-
-    };
-
-    return tokens;
+        };
+    }
 }
 
 
@@ -93,7 +101,7 @@ const std::vector<CtImportHandler::token_schema>& CtMDParser::_get_tokens()
 void CtMDParser::feed(std::istream& stream)
 {
     if (!_current_element) _current_element = _document.create_root_node("root")->add_child("slot")->add_child("rich_text");
-    
+    _init_tokens();
     
     std::string line;
     while(std::getline(stream, line, '\n')) {

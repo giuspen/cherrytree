@@ -277,12 +277,19 @@ protected:
         else                   return !_current_element->get_child_text();
     }
     
-    virtual std::vector<std::pair<const token_schema *, std::string>> _tokenize(const std::string& stream) = 0;
+    virtual std::vector<std::pair<const token_schema *, std::string>> _tokenize(const std::string& stream) const = 0;
     
-    virtual const std::vector<token_schema>& _get_tokens() = 0;
+    /**
+     * @brief Initalise _tokens_schemas with the tokens map
+     * 
+     */
+    virtual void _init_tokens() = 0;
     
     
     const CtConfig* _pCtConfig = nullptr;
+    
+    /// Tokens to be cached by the parser
+    std::vector<token_schema> _token_schemas;
 public:
     explicit CtParser(const CtConfig* pCtConfig) : _pCtConfig(pCtConfig) {}
     
@@ -352,7 +359,7 @@ protected:
      * @param stream
      * @return
      */
-    std::vector<std::pair<const token_schema *, std::string>> _tokenize(const std::string& stream) override;
+    std::vector<std::pair<const token_schema *, std::string>> _tokenize(const std::string& stream) const override;
     uint8_t _list_level = 0;
     
 public:
@@ -372,7 +379,7 @@ private:
     void _parse_body_line(const std::string& line);
 
 protected:
-    const std::vector<token_schema>& _get_tokens() override;
+    void _init_tokens() override;
     [[nodiscard]] const std::unordered_set<std::string>& _get_accepted_file_extensions() const override;
     /**
     * @brief Process the files to import based on the import list
@@ -399,7 +406,7 @@ class CtMDParser: public CtTextParser
 {
 protected:
 
-    const std::vector<token_schema>& _get_tokens() override;
+    void _init_tokens() override;
     
     bool _in_link = false;
 public:
