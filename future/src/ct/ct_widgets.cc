@@ -609,8 +609,9 @@ void CtTextView::_markdown_check_and_replace(Glib::RefPtr<Gtk::TextBuffer> text_
         next_wrd.backward_word_start();
         
         Glib::ustring wrd(next_wrd, start_iter);
-        wrd = str::replace(wrd, " ", "");
-        if (open_tags.find(wrd) != open_tags.end()) {
+        std::string str = wrd;
+        //wrd = str::replace(wrd, " ", "");
+        if (open_tags.find(str) != open_tags.end()) {
             start_iter = next_wrd;
             break;
         }

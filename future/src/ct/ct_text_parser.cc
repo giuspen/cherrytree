@@ -31,9 +31,55 @@ std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser
     std::size_t pos = 0;
     bool keep_parsing = true;
     const token_schema* curr_token;
+    auto& token_map_open = open_tokens_map();
+    auto& token_map_close = close_tokens_map();
     for (const auto& ch : stream) {
         buff += ch;
         pos++;
+        
+        
+        auto tokens_iter = token_map_open.find(buff);
+        if (tokens_iter != token_map_open.end() && keep_parsing) {
+            curr_open_tags.emplace_back(tokens_iter->second);
+            keep_parsing = !tokens_iter->second->capture_all;
+    
+            if (!tokens_iter->second->has_closetag) {
+                // Token will go till end of stream
+                token_stream.emplace_back(curr_token, std::string(stream.begin() + pos, stream.end()));
+        
+                if (keep_parsing) {
+                    // Parse the other data in the stream
+                    auto tokonised_stream = _tokenize(token_stream.back().second);
+                    for (const auto& token : tokonised_stream) {
+                        if (token.first) {
+                            token_stream.emplace_back(token);
+                        }
+                    }
+                }
+                return token_stream;
+            }
+            
+        } else {
+            auto close_iter = token_map_close.find(buff);
+            if (close_iter != token_map_close.end()) {
+    
+                token_stream.emplace_back(curr_open_tags.front(), std::string(stream.begin() + pos - buff.length(), stream.begin() + pos - close_iter->first.length()));
+    
+                if (curr_open_tags.size() >= 2) {
+                    // Found more than one tag
+                    for (auto iter = curr_open_tags.begin() + 1; iter != curr_open_tags.end(); ++iter) {
+                        token_stream.emplace_back(*iter, "");
+                    }
+                }
+                //open_tags[token.open_tag] = false;
+                keep_parsing = true;
+    
+                curr_open_tags.clear();
+                buff.clear();
+            }
+        }
+        /*
+        
         for (const auto &token : _token_schemas) {
             auto tag_open = open_tags[token.open_tag];
             
@@ -103,7 +149,7 @@ std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser
                 break;
             }
             
-        }
+        }*/
         
     }
     if (!buff.empty()) {

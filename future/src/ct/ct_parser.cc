@@ -152,15 +152,15 @@ void CtParser::_build_token_maps() {
         // Build open tokens
         if (_open_tokens_map.empty()) {
             for (const auto& token : _token_schemas) {
-                _open_tokens_map[token.open_tag].emplace_back(&token);
+                _open_tokens_map[token.open_tag] = &token;
             }
         }
         // Build close tokens
         if (_close_tokens_map.empty()) {
             for (const auto& token : _token_schemas) {
                 if (token.has_closetag) {
-                    if (token.is_symmetrical) _close_tokens_map[token.open_tag].emplace_back(&token);
-                    else                      _close_tokens_map[token.close_tag].emplace_back(&token);
+                    if (token.is_symmetrical) _close_tokens_map[token.open_tag] = &token;
+                    else                      _close_tokens_map[token.close_tag] = &token;
                 }
             }
         }
