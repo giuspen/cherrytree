@@ -94,25 +94,33 @@ std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser
     bool                                                      keep_parsing     = true;
     auto                                                      &token_map_open  = open_tokens_map();
     auto                                                      &token_map_close = close_tokens_map();
-    
+    int  nb_open_tags = 0;
     
     for (auto token = tokens.begin(); token != tokens.end(); ++token) {
     
         if (token->empty()) continue;
     
         auto tokens_iter = token_map_open.find(*token);
-        if (tokens_iter != token_map_open.end() && keep_parsing) {
-            if (!(tokens_iter->second->is_symmetrical && open_tags[tokens_iter->first])) {
+        if (tokens_iter != token_map_open.end()) {
+            
+            if (!curr_open_tags.first.empty() && !keep_parsing) {
+                if (tokens_iter->second->open_tag == curr_open_tags.first.front()->open_tag) {
+                    ++nb_open_tags;
+                }
+            }
+            
+            if (!(tokens_iter->second->is_symmetrical && open_tags[tokens_iter->first]) && keep_parsing) {
                 curr_open_tags.first.emplace_back(tokens_iter->second);
                 keep_parsing = !tokens_iter->second->capture_all;
             
                 if (!tokens_iter->second->has_closetag) {
                     // Token will go till end of stream
                     ++token;
-                    if (false) {
+                    if (keep_parsing) {
                         // Parse the other data in the stream
                         token_stream.emplace_back(tokens_iter->second, "");
-                        auto tokonised_stream = _parse_tokens(std::vector<std::string>(token, tokens.end()));
+                        std::vector<std::string> rem_tokens(token, tokens.end());
+                        auto tokonised_stream = _parse_tokens(rem_tokens);
                         token_stream.insert(token_stream.end(), tokonised_stream.begin(), tokonised_stream.end());
                     } else {
                         std::string buff;
@@ -128,12 +136,20 @@ std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser
                 continue;
             }
         }
+        
+        
         auto token_iter  = token_map_close.find(*token);
         if (token_iter != token_map_close.end()) {
             if (!keep_parsing) {
                 if (curr_open_tags.first.front()->close_tag != *token) {
                     curr_open_tags.second += *token;
                     continue;
+                } else if (curr_open_tags.first.front()->close_tag == *token) {
+                    if (nb_open_tags > 0) {
+                        --nb_open_tags;
+                        curr_open_tags.second += *token;
+                        continue;
+                    }
                 }
             }
             

@@ -29,25 +29,21 @@ void CtMDParser::_init_tokens()
     if (_token_schemas.empty()) {
         _token_schemas = {
                 // Italic
-                {
-                        "__", true,  true,  [this](const std::string &data) {
+                {"__", true,  true,  [this](const std::string &data) {
                     _add_italic_tag(data);
                 }},
                 // Bold
-                {
-                        "**", true,  true,  [this](const std::string &data) {
+                {"**", true,  true,  [this](const std::string &data) {
                     _add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, data);
                 }},
                 // First part of a link
-                {
-                        "[",  true,  false, [this](const std::string &data) {
+                {"[",  true,  false, [this](const std::string &data) {
                     _add_text(data, false);
                     _in_link = true;
                 }, "]", true
                 },
                 // Second half of a link
-                {
-                        "(",  true,  false, [this](const std::string &data) {
+                {"(",  true,  false, [this](const std::string &data) {
                     if (_in_link) {
                         _add_link(data);
                         _in_link = false;
@@ -55,21 +51,21 @@ void CtMDParser::_init_tokens()
                         // Just text in brackets
                         _add_text("(" + data + ")");
                     }
-                }, ")", true
-                },
+                }, ")", true},
                 // List
-                {
-                        "* ", false, false, [this](const std::string &data) {
+                {"* ", false, false, [this](const std::string &data) {
+                    _add_list(0, data);
+                }},
+                // Also list
+                {"- ", false, false, [this](const std::string& data){
                     _add_list(0, data);
                 }},
                 // Strikethrough
-                {
-                        "~~", true,  true,  [this](const std::string &data) {
+                {"~~", true,  true,  [this](const std::string &data) {
                     _add_strikethrough_tag(data);
                 }},
                 // Headers (h1, h2, etc)
-                {
-                        "#",  false, false, [this](const std::string &data) {
+                {"#",  false, false, [this](const std::string &data) {
                     auto tag_num = 1;
                     auto iter    = data.begin();
                     while (*iter == '#') {
@@ -87,10 +83,9 @@ void CtMDParser::_init_tokens()
                     if (tag_num == 1 && str.front() == ' ') {
                         str.replace(str.begin(), str.begin() + 1, "");
                     }
-                
+                    _close_current_tag();
                     _add_scale_tag(tag_num, str);
-                }, "#", true
-                }
+                }, "#", true}
         
         };
     }
