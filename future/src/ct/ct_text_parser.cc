@@ -56,6 +56,11 @@ std::vector<std::string> CtTextParser::_tokenize(const std::string& text) {
             std::string key(ch, ch + 1);
            // ++ch;
             while (ch != text.end() && nor(open_tags.find(key) != open_tags.end(), close_tags.find(key) != close_tags.end()) && (_possible_tokens.find(*ch) != _possible_tokens.end())) {
+                if (*ch == ' ') {
+                    if (last_pos != ch) tokens.emplace_back(last_pos, ch);
+                    last_pos = ch;
+                    break;
+                }
                 ++ch;
                 if (ch != text.end()) key = std::string(forward_pos, ch + 1);
                 else break;
@@ -63,7 +68,7 @@ std::vector<std::string> CtTextParser::_tokenize(const std::string& text) {
             bool in_open = open_tags.find(key) != open_tags.end();
             bool in_close =  close_tags.find(key) != close_tags.end();
             if (in_open || in_close) {
-                if (in_close && last_pos != forward_pos) tokens.emplace_back(last_pos, forward_pos);
+                if (last_pos != forward_pos) tokens.emplace_back(last_pos, forward_pos);
                 
                 tokens.emplace_back(key);
                 last_pos = ch;
@@ -74,74 +79,83 @@ std::vector<std::string> CtTextParser::_tokenize(const std::string& text) {
             if (ch == text.end()) break;
         }
     }
+    if (last_pos != text.end()) {
+        tokens.emplace_back(last_pos, text.end());
+    }
     return tokens;
 }
-
 
 std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser::_parse_tokens(const std::vector<std::string>& tokens) const {
     
     std::vector<std::pair<const token_schema *, std::string>> token_stream;
     std::unordered_map<std::string_view, bool>                open_tags;
     std::pair<std::vector<const token_schema *>, std::string> curr_open_tags;
-    bool                                                      keep_parsing = true;
-    auto               &token_map_open                                     = open_tokens_map();
-    auto               &token_map_close                                    = close_tokens_map();
+    bool                                                      keep_parsing     = true;
+    auto                                                      &token_map_open  = open_tokens_map();
+    auto                                                      &token_map_close = close_tokens_map();
     
     
     for (auto token = tokens.begin(); token != tokens.end(); ++token) {
     
         if (token->empty()) continue;
-        
+    
         auto tokens_iter = token_map_open.find(*token);
-        if (tokens_iter != token_map_open.end() && keep_parsing && !(tokens_iter->second->is_symmetrical && open_tags[tokens_iter->first])) {
-        
-            curr_open_tags.first.emplace_back(tokens_iter->second);
-            keep_parsing = !tokens_iter->second->capture_all;
-        
-            if (!tokens_iter->second->has_closetag) {
-                // Token will go till end of stream
-                ++token;
-                if (false) {
-                    // Parse the other data in the stream
-                    token_stream.emplace_back(tokens_iter->second, "");
-                    auto            tokonised_stream = _parse_tokens(std::vector<std::string>(token, tokens.end()));
-                    token_stream.insert(token_stream.end(), tokonised_stream.begin(), tokonised_stream.end());
-                } else {
-                    std::string buff;
-                    while (token != tokens.end()) {
-                        buff += *token;
-                        ++token;
-                    }
-                    token_stream.emplace_back(tokens_iter->second, buff);
-                }
-                return token_stream;
-            }
-            open_tags[tokens_iter->first] = true;
-        } else {
-            auto token_iter = token_map_close.find(*token);
-            if (token_iter != token_map_close.end()) {
-                token_stream.emplace_back(curr_open_tags.first.front(), curr_open_tags.second);
-                
-                if (curr_open_tags.first.size() >= 2) {
-                    // Found more than one tag
-                    for (auto iter = curr_open_tags.first.begin() + 1; iter != curr_open_tags.first.end(); ++iter) {
-                        if ((*iter)->open_tag != curr_open_tags.first.front()->open_tag) token_stream.emplace_back(*iter, "");
-                    }
-                }
-                open_tags[token_iter->first] = false;
-                keep_parsing = true;
+        if (tokens_iter != token_map_open.end() && keep_parsing) {
+            if (!(tokens_iter->second->is_symmetrical && open_tags[tokens_iter->first])) {
+                curr_open_tags.first.emplace_back(tokens_iter->second);
+                keep_parsing = !tokens_iter->second->capture_all;
             
-                curr_open_tags.second.clear();
-                curr_open_tags.first.clear();
-            } else if (curr_open_tags.first.empty()) {
-                token_stream.emplace_back(nullptr, *token);
-            } else if (!curr_open_tags.first.empty()) {
-                curr_open_tags.second += *token;
+                if (!tokens_iter->second->has_closetag) {
+                    // Token will go till end of stream
+                    ++token;
+                    if (false) {
+                        // Parse the other data in the stream
+                        token_stream.emplace_back(tokens_iter->second, "");
+                        auto tokonised_stream = _parse_tokens(std::vector<std::string>(token, tokens.end()));
+                        token_stream.insert(token_stream.end(), tokonised_stream.begin(), tokonised_stream.end());
+                    } else {
+                        std::string buff;
+                        while (token != tokens.end()) {
+                            buff += *token;
+                            ++token;
+                        }
+                        token_stream.emplace_back(tokens_iter->second, buff);
+                    }
+                    return token_stream;
+                }
+                open_tags[tokens_iter->first] = true;
+                continue;
             }
         }
-    }
+        auto token_iter  = token_map_close.find(*token);
+        if (token_iter != token_map_close.end()) {
+            if (!keep_parsing) {
+                if (curr_open_tags.first.front()->close_tag != *token) {
+                    curr_open_tags.second += *token;
+                    continue;
+                }
+            }
+            
+            
+            token_stream.emplace_back(curr_open_tags.first.front(), curr_open_tags.second);
+            
+            if (curr_open_tags.first.size() >= 2) {
+                // Found more than one tag
+                for (auto iter = curr_open_tags.first.begin() + 1; iter != curr_open_tags.first.end(); ++iter) {
+                    if ((*iter)->open_tag != curr_open_tags.first.front()->open_tag) token_stream.emplace_back(*iter, "");
+                }
+            }
+            open_tags[token_iter->first] = false;
+            keep_parsing = true;
         
-    
+            curr_open_tags.second.clear();
+            curr_open_tags.first.clear();
+        } else if (curr_open_tags.first.empty()) {
+            token_stream.emplace_back(nullptr, *token);
+        } else if (!curr_open_tags.first.empty()) {
+            curr_open_tags.second += *token;
+        }
+    }
    
     return token_stream;
 }

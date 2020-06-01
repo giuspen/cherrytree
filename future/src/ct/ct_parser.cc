@@ -159,8 +159,8 @@ void CtParser::_build_token_maps() {
         if (_close_tokens_map.empty()) {
             for (const auto& token : _token_schemas) {
                 if (token.has_closetag) {
-                    if (token.is_symmetrical) _close_tokens_map[token.open_tag] = &token;
-                    else                      _close_tokens_map[token.close_tag] = &token;
+                    if (token.is_symmetrical || !token.has_closetag) _close_tokens_map[token.open_tag]  = &token;
+                    else                                             _close_tokens_map[token.close_tag] = &token;
                 }
             }
         }
