@@ -159,3 +159,39 @@ std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser
    
     return token_stream;
 }
+
+
+std::pair<Gtk::TextIter, Gtk::TextIter> CtTextParser::find_formatting_boundaries(Gtk::TextIter start_bounds, Gtk::TextIter word_end) {
+    _build_token_maps();
+    
+    Glib::ustring token_str(start_bounds, word_end);
+    auto tokens = _tokenize(token_str);
+    auto& close_tags = close_tokens_map();
+    
+    // Forward match
+    auto token = tokens.cbegin();
+    auto& open_tags = open_tokens_map();
+    auto ftoken_iter = open_tags.find(*token);
+    while (ftoken_iter == open_tags.cend() && token != tokens.cend()) {
+        start_bounds.forward_chars(token->size());
+        ++token;
+        ftoken_iter = open_tags.find(*token);
+    }
+    if (ftoken_iter != open_tags.end()) {
+        // Check for close tag
+        if (!ftoken_iter->second->has_closetag) {
+            return {start_bounds, word_end};
+        }
+    }
+    
+    // Backwards match
+    auto rtoken = tokens.crbegin();
+    while (close_tags.find(*rtoken) == close_tags.cend() && rtoken != tokens.crend()) {
+        word_end.backward_chars(rtoken->size());
+        ++rtoken;
+    }
+    
+    
+    return {start_bounds, word_end};
+}
+

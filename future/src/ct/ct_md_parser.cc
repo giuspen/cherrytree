@@ -123,14 +123,14 @@ void CtMDParser::feed(std::istream& stream)
                         continue;
                     }
                 }
-
+                
 
                 iter->first->action(iter->second);
             } else {
                 if (!iter->second.empty()) _add_text(iter->second);
             }
         }
-        _add_newline();
+        if (!stream.eof()) _add_newline();
     }
 
 }

@@ -167,48 +167,4 @@ void CtParser::_build_token_maps() {
     }
 }
 
-std::pair<Gtk::TextIter, Gtk::TextIter> CtParser::find_formatting_boundaries(const Gtk::TextIter& start_bounds, const Gtk::TextIter& word_end) {
-    _build_token_maps();
-    
-    auto word_start = word_end;
-    
-    int tokens_open = 0;
-    std::string buff;
-    bool found_open_token = false;
-    while (word_start != start_bounds) {
-        if (word_start.inside_word()) {
-            --word_start;
-            continue;
-        } else if (word_start.ends_word()) {
-            buff.clear();
-            --word_start;
-            continue;
-        }
-        if (word_start.get_char() == ' ' && !found_open_token) {
-            --word_start;
-            continue;
-        }
-        buff += std::string(1, word_start.get_char());
-        
-        
-        
-        if (_close_tokens_map.find(buff) != _close_tokens_map.end()) {
-            ++tokens_open;
-            found_open_token = true;
-        } else {
-            auto open_iter = _open_tokens_map.find(buff);
-            if (open_iter != _open_tokens_map.end()) {
-                --tokens_open;
-            }
-        }
-    
-        if (word_start.get_char() == ' ' && (tokens_open == 0)) {
-            break;
-        }
-        
-        --word_start;
-    }
-    
-    return {word_start, word_end};
-}
 

@@ -587,10 +587,14 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                         _special_char_replace(CtConst::CHARS_LISTBUL_DEFAULT[2], iter_start, iter_insert);
                 } else {
                     auto word_start = iter_insert;
-                    word_start.backward_char();
-                    if (!word_start.inside_word()) {
-                        word_start.backward_sentence_start();
-                        _markdown_check_and_replace(text_buffer, word_start, iter_insert);
+                    if (word_start.backward_chars(2)) {
+                        std::cout << "STARTS: '" << Glib::ustring(1, word_start.get_char()) << "'" << std::endl;
+                        if (!word_start.inside_word() && !word_start.ends_word() && !word_start.starts_line()) {
+                            if (Glib::ustring(1, word_start.get_char()) != " ") {
+                                word_start.backward_sentence_start();
+                                _markdown_check_and_replace(text_buffer, word_start, iter_insert);
+                            }
+                        }
                     }
                 }
             }
@@ -600,26 +604,15 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
 
 void CtTextView::_markdown_check_and_replace(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter start_iter, Gtk::TextIter end_iter) 
 {
+    
+    
+   // end_iter.backward_char();
+    Glib::ustring text(start_iter, end_iter);
+    if (text.empty() || text == " ") return;
+    
     if (!_md_parser) _md_parser = std::make_unique<CtMDParser>(_pCtMainWin->get_ct_config());
     else _md_parser->wipe();
-    /*auto& open_tags = _md_parser->open_tokens_map();
     
-    while (start_iter.backward_word_start()) {
-        if (!start_iter.backward_char()) break;
-        auto next_wrd = start_iter;
-        next_wrd.backward_word_start();
-        
-        Glib::ustring wrd(next_wrd, start_iter);
-        std::string str = wrd;
-        //wrd = str::replace(wrd, " ", "");
-        if (open_tags.find(str) != open_tags.end()) {
-            start_iter = next_wrd;
-            break;
-        }
-    }*/
-    
-    end_iter.backward_char();
-    Glib::ustring text(start_iter, end_iter);
     auto iter_pair = _md_parser->find_formatting_boundaries(start_iter, end_iter);
     std::cout << "TXT: " << text << std::endl;
     
@@ -631,7 +624,7 @@ void CtTextView::_markdown_check_and_replace(Glib::RefPtr<Gtk::TextBuffer> text_
     
     _md_parser->feed(txt);
 
-    _special_char_replace("", start_iter, end_iter);
+    _special_char_replace("", iter_pair.first, iter_pair.second);
 
     if (!_clipboard) _clipboard = std::make_unique<CtClipboard>(_pCtMainWin);
     _clipboard->from_xml_string_to_buffer(std::move(text_buffer), _md_parser->to_string());
