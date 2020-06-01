@@ -28,6 +28,7 @@
 #include <glibmm/ustring.h>
 #include <libxml2/libxml/HTMLparser.h>
 #include <libxml++/libxml++.h>
+#include <gtkmm.h>
 #include <filesystem>
 #include <unordered_set>
 #include <fstream>
@@ -153,10 +154,18 @@ private:
  * @brief Thrown when an exception occures during importing
  */
 class CtImportException: public std::runtime_error {
-    static constexpr std::string_view signature = "[Import Exception]: ";
 public:
     explicit CtImportException(const std::string& msg) : std::runtime_error("[Import Exception]: " + msg) {}
 };
+/**
+ * @class CtParseError
+ * @brief Thrown when an exception occures during parsing
+ */
+class CtParseError: public std::runtime_error {
+public:
+    explicit CtParseError(const std::string& msg) : std::runtime_error("[Parse Exception]: " + msg) {}
+};
+
 class CtConfig;
 class CtImportHandler;
 
@@ -211,6 +220,7 @@ private:
  */
 class CtParser
 {
+
 protected:
     struct token_schema {
         
@@ -251,7 +261,7 @@ protected:
     
     // XML generation
     xmlpp::Element* _current_element = nullptr;
-    xmlpp::Document _document;
+    std::unique_ptr<xmlpp::Document> _document{std::make_unique<xmlpp::Document>()};
     std::unordered_map<std::string_view, bool> _open_tags;
     
     
@@ -277,7 +287,7 @@ protected:
         else                   return !_current_element->get_child_text();
     }
     
-    virtual std::vector<std::pair<const token_schema *, std::string>> _tokenize(const std::string& stream) const = 0;
+    virtual std::vector<std::pair<const token_schema *, std::string>> _parse_tokens(const std::vector<std::string>& tokens) const = 0;
     
     /**
      * @brief Initalise _tokens_schemas with the tokens map
@@ -287,15 +297,41 @@ protected:
     
     
     const CtConfig* _pCtConfig = nullptr;
+
+
+private:
+    using tags_map_t = std::unordered_map<std::string_view, const token_schema *>;
+    tags_map_t _open_tokens_map;
+    tags_map_t _close_tokens_map;
     
+protected:
     /// Tokens to be cached by the parser
     std::vector<token_schema> _token_schemas;
+    
+    void _build_token_maps();
+    
 public:
     explicit CtParser(const CtConfig* pCtConfig) : _pCtConfig(pCtConfig) {}
     
     virtual void feed(std::istream& data) = 0;
     
-    std::string to_string() { return _document.write_to_string(); }
+    std::string to_string() { return _document->write_to_string(); }
+
+    void wipe();
+    
+    const tags_map_t& open_tokens_map()
+    {
+        _build_token_maps();
+        return _open_tokens_map;
+    };
+    const tags_map_t& close_tokens_map()
+    {
+        _build_token_maps();
+        return _close_tokens_map;
+    }
+    const tags_map_t& open_tokens_map() const { return _open_tokens_map; }
+    const tags_map_t& close_tokens_map() const { return _close_tokens_map; }
+    
 };
 
 /**
@@ -356,14 +392,27 @@ class CtTextParser: public virtual CtParser
 protected:
     /**
      * @brief Transform an input string into a token stream
-     * @param stream
+     * @param tokens
      * @return
      */
-    std::vector<std::pair<const token_schema *, std::string>> _tokenize(const std::string& stream) const override;
+    std::vector<std::pair<const token_schema *, std::string>> _parse_tokens(const std::vector<std::string>& tokens) const override;
     uint8_t _list_level = 0;
+    
+    std::vector<std::string> _tokenize(const std::string& text);
+    
+private:
+    std::unordered_set<char> _possible_tokens;
     
 public:
     using CtParser::CtParser;
+    
+    /**
+     * @brief Find the formatting boundries for a word based on stored tags
+     * @param word_end
+     * @return
+     */
+    std::pair<Gtk::TextIter, Gtk::TextIter> find_formatting_boundaries(Gtk::TextIter start_bounds, Gtk::TextIter word_end);
+    
     
 };
 

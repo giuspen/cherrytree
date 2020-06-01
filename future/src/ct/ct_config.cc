@@ -223,6 +223,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_boolean(_currentGroup, "auto_smart_quotes", autoSmartQuotes);
     _uKeyFile->set_boolean(_currentGroup, "triple_click_paragraph", tripleClickParagraph);
     _uKeyFile->set_boolean(_currentGroup, "enable_symbol_autoreplace", enableSymbolAutoreplace);
+    _uKeyFile->set_boolean(_currentGroup, "enable_md_formatting", enableMdFormatting);
     _uKeyFile->set_integer(_currentGroup, "wrapping_indent", wrappingIndent);
     _uKeyFile->set_boolean(_currentGroup, "auto_indent", autoIndent);
     _uKeyFile->set_boolean(_currentGroup, "rt_show_white_spaces", rtShowWhiteSpaces);
@@ -469,6 +470,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_bool_from_keyfile("auto_smart_quotes", &autoSmartQuotes);
     _populate_bool_from_keyfile("triple_click_paragraph", &tripleClickParagraph);
     _populate_bool_from_keyfile("enable_symbol_autoreplace", &enableSymbolAutoreplace);
+    _populate_bool_from_keyfile("enable_md_formatting", &enableMdFormatting);
     _populate_int_from_keyfile("wrapping_indent", &wrappingIndent);
     _populate_bool_from_keyfile("auto_indent", &autoIndent);
     _populate_bool_from_keyfile("rt_show_white_spaces", &rtShowWhiteSpaces);

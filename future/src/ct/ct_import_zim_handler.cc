@@ -96,8 +96,9 @@ void CtZimImportHandler::add_directory(const fs::path& path)
 void CtZimImportHandler::feed(std::istream& data) 
 {
     
-   _init_new_doc();
-   _init_tokens();
+    _init_new_doc();
+    _init_tokens();
+    _build_token_maps();
     
     std::string line;
     while(std::getline(data, line, '\n')) {
@@ -127,8 +128,8 @@ const std::unordered_set<std::string>& CtZimImportHandler::_get_accepted_file_ex
 
 void CtZimImportHandler::_parse_body_line(const std::string& line) 
 {
-    
-    auto tokens = _tokenize(line);
+    auto tokens_raw = _tokenize(line);
+    auto tokens = _parse_tokens(tokens_raw);
     
     for (const auto& token : tokens) {
         if (token.first) {
@@ -149,29 +150,6 @@ void CtZimImportHandler::_parse_body_line(const std::string& line)
 void CtZimImportHandler::_init_tokens()
 {
     if (_token_schemas.empty()) {
-        auto links_match_func = [this](const std::string& data){
-            auto target_char = *data.begin();
-            if (target_char == '>' || target_char == '*' || target_char == 'x' || target_char == ' ') {
-                // Captured a TODO list
-    
-                CHECKBOX_STATE state;
-                switch(target_char) {
-                    case 'x': state = CHECKBOX_STATE::MARKED; break;
-                    case '*': state = CHECKBOX_STATE::TICKED; break;
-                    case ' ': state = CHECKBOX_STATE::UNCHECKED; break;
-                    case '>': state = CHECKBOX_STATE::MARKED; break; // No version exists for cherrytree
-                }
-    
-                _add_todo_list(state, "");
-            } else {
-                std::string txt(data.begin() + 1, data.end());
-                // Capured a [[LINK]]
-                _close_current_tag();
-                _add_internal_link(txt);
-                _close_current_tag();
-            }
-        };
-    
         _token_schemas = {
             // Bold
             {"**", true, true, [this](const std::string& data){
@@ -245,9 +223,25 @@ void CtZimImportHandler::_init_tokens()
                 // Todo: Implement this (needs image importing)
             },"}}"},
             // Todo list
-            {"[", true, false, links_match_func, "] "},
+           // {"[", true, false, links_match_func, "] "},
+            {"[*", true, false, [this](const std::string& data) {
+                _add_todo_list(CHECKBOX_STATE::TICKED, data);
+            }, "]"},
+            {"[x", true, false, [this](const std::string& data) {
+                _add_todo_list(CHECKBOX_STATE::MARKED, data);
+            }, "]"},
+            {"[>", true, false, [this](const std::string& data) {
+                _add_todo_list(CHECKBOX_STATE::MARKED, data);
+            }, "]"},
+            {"[ ", true, false, [this](const std::string& data) {
+                _add_todo_list(CHECKBOX_STATE::UNCHECKED, data);
+            }, "]"},
             // Internal link (e.g MyPage) - This is just for removing the leftover ']'
-            {"[", true, false, links_match_func, "]]"},
+            {"[[", true, false, [this](const std::string& data){
+                _close_current_tag();
+                _add_internal_link(data);
+                _close_current_tag();
+            }, "]]"},
             // Verbatum - captures all the tokens inside it and print without formatting
             {"''", true, true, [this](const std::string& data){
                 _add_text(data);
