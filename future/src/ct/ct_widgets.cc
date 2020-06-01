@@ -433,7 +433,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
         Gtk::TextIter iter_start = iter_insert;
         if (event->key.keyval == GDK_KEY_Return)
         {
-            if (_pCtMainWin->get_ct_config()->enableMdFormatting) {
+            if (_pCtMainWin->get_ct_config()->enableMdFormatting && syntaxHighlighting == CtConst::RICH_TEXT_ID) {
                 // Format the last line
                 auto start_iter = iter_start;
                 start_iter.backward_line();
@@ -597,7 +597,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                     if (iter_start.get_line_offset() == 0 and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_COLON))
                         // ":: " becoming "▪ " at line start
                         _special_char_replace(CtConst::CHARS_LISTBUL_DEFAULT[2], iter_start, iter_insert);
-                } else if (_pCtMainWin->get_ct_config()->enableMdFormatting) {
+                } else if (_pCtMainWin->get_ct_config()->enableMdFormatting && syntaxHighlighting == CtConst::RICH_TEXT_ID) {
                     auto word_start = iter_insert;
                     if (word_start.backward_chars(2)) {
                         if (!word_start.inside_word() && !word_start.ends_word() && !word_start.starts_line()) {
