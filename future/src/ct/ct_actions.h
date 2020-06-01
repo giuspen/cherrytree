@@ -1,7 +1,9 @@
 /*
  * ct_actions.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -110,8 +112,6 @@ private:
 
     } s_state;
 
-
-
 public:
     CtMainWin*   getCtMainWin() { return _pCtMainWin; }
 
@@ -140,12 +140,9 @@ public:
     void file_save();
     void file_vacuum();
     void file_save_as();
-    void folder_cfg_open();
-    void online_help();
     void quit_or_hide_window();
     void quit_window();
     void dialog_preferences();
-    void dialog_about();
     void command_palette();
 
 private:
@@ -398,31 +395,6 @@ public:
     void table_export();
 
 private:
-    // helper for export actions
-    void _export_print(bool save_to_pdf, Glib::ustring auto_path, bool auto_overwrite);
-    void _export_to_html(Glib::ustring auto_path, bool auto_overwrite);
-    void _export_to_txt(bool is_single, Glib::ustring auto_path, bool auto_overwrite);
-
-   Glib::ustring _get_pdf_filepath(Glib::ustring proposed_name);
-   Glib::ustring _get_txt_filepath(Glib::ustring proposed_name);
-   Glib::ustring _get_txt_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool export_overwrite);
-
-public:
-    // export actions
-    void export_print_page_setup();
-    void export_print();
-    void export_to_pdf();
-    void export_to_html();
-    void export_to_txt_multiple();
-    void export_to_txt_single();
-    void export_to_ctd();
-
-    void export_to_pdf_auto(const std::string& dir, bool overwrite);
-    void export_to_html_auto(const std::string& dir, bool overwrite);
-    void export_to_txt_auto(const std::string& dir, bool overwrite);
-    
-    
-private:
     // helper for import actions
     void _import_node_from_html(const std::filesystem::path& filepath);
     void _import_node_from_plaintext(const std::filesystem::path& filepath);
@@ -438,4 +410,39 @@ public:
     void import_nodes_from_zim_directory() noexcept;
     void import_node_from_md_file() noexcept;
     void import_nodes_from_md_directory() noexcept;
+
+private:
+    // helper for export actions
+    void _export_print(bool save_to_pdf, Glib::ustring auto_path, bool auto_overwrite);
+    void _export_to_html(Glib::ustring auto_path, bool auto_overwrite);
+    void _export_to_txt(bool is_single, Glib::ustring auto_path, bool auto_overwrite);
+
+    Glib::ustring _get_pdf_filepath(Glib::ustring proposed_name);
+    Glib::ustring _get_txt_filepath(Glib::ustring proposed_name);
+    Glib::ustring _get_txt_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool export_overwrite);
+
+public:
+    // export actions
+    void export_print_page_setup();
+    void export_print();
+    void export_to_pdf();
+    void export_to_html();
+    void export_to_txt_multiple();
+    void export_to_txt_single();
+    void export_to_ctd();
+
+    void export_to_pdf_auto(const std::string& dir, bool overwrite);
+    void export_to_html_auto(const std::string& dir, bool overwrite);
+    void export_to_txt_auto(const std::string& dir, bool overwrite);
+
+private:
+    // helpers for help actions
+    std::string _get_latest_version_from_server();
+
+public:
+    // help actions
+    void check_for_newer_version();
+    void online_help();
+    void folder_cfg_open();
+    void dialog_about();
 };

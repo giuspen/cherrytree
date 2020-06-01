@@ -94,6 +94,7 @@ pkg_check_modules(PANGOMM pangomm-1.4 REQUIRED)
 pkg_check_modules(GSPELL gspell-1 REQUIRED)
 pkg_check_modules(LIBXML libxml++-2.6 REQUIRED)
 pkg_check_modules(SQLITE sqlite3 REQUIRED)
+pkg_check_modules(CURL libcurl REQUIRED)
 if(BUILD_TESTING)
   pkg_check_modules(CPPUTEST cpputest  REQUIRED)
 endif()
@@ -112,6 +113,7 @@ include_directories(
   SYSTEM ${GSPELL_INCLUDE_DIRS}
   SYSTEM ${LIBXML_INCLUDE_DIRS}
   SYSTEM ${SQLITE_INCLUDE_DIRS}
+  SYSTEM ${CURL_INCLUDE_DIRS}
   include_directories(.) # to find src/fmt
 )
 

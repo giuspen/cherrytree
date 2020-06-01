@@ -31,6 +31,7 @@ set(CT_SHARED_FILES
     ct_actions_import.cc
     ct_actions_tree.cc
     ct_actions_view.cc
+    ct_actions_help.cc
     ct_app.cc
     ct_clipboard.cc
     ct_codebox.cc
@@ -70,6 +71,7 @@ target_link_libraries(cherrytree_shared
     ${GSPELL_LIBRARIES}
     ${LIBXML_LIBRARIES}
     ${SQLITE_LIBRARIES}
+    ${CURL_LIBRARIES}
     pthread
     7za_static
 )

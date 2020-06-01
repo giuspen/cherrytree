@@ -1,7 +1,9 @@
 /*
  * ct_actions_file.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +24,6 @@
 #include "ct_actions.h"
 #include "ct_storage_control.h"
 #include "ct_pref_dlg.h"
-#include <glib/gstdio.h>
 
 void CtActions::_file_save(bool need_vacuum)
 {
@@ -103,16 +104,6 @@ void CtActions::file_open()
     _pCtMainWin->file_open(filepath, "");
 }
 
-void CtActions::folder_cfg_open()
-{
-    CtFileSystem::external_folderpath_open(Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME));
-}
-
-void CtActions::online_help()
-{
-    g_app_info_launch_default_for_uri("http://giuspen.com/cherrytreemanual/", nullptr, nullptr);
-}
-
 void CtActions::quit_or_hide_window()
 {
     _pCtMainWin->signal_app_quit_or_hide_window(_pCtMainWin);
@@ -128,11 +119,6 @@ void CtActions::dialog_preferences()
     CtPrefDlg prefDlg(_pCtMainWin);
     prefDlg.show();
     prefDlg.run();
-}
-
-void CtActions::dialog_about()
-{
-    CtDialogs::dialog_about(*_pCtMainWin, _pCtMainWin->get_icon_theme()->load_icon(CtConst::APP_NAME, 128));
 }
 
 void CtActions::command_palette()

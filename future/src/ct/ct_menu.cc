@@ -1,7 +1,9 @@
 /*
  * ct_menu.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -110,7 +112,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{file_cat, "quit_app", "quit-app", _("_Quit"), KB_CONTROL+"Q", _("Quit the Application"), sigc::mem_fun(*pActions, &CtActions::quit_or_hide_window)});
     _actions.push_back(CtMenuAction{file_cat, "exit_app", "quit-app", _("_Exit CherryTree"), KB_CONTROL+KB_SHIFT+"Q", _("Exit from CherryTree"), sigc::mem_fun(*pActions, &CtActions::quit_window)});
     _actions.push_back(CtMenuAction{file_cat, "preferences_dlg", "preferences", _("_Preferences"), KB_CONTROL+KB_ALT+"P", _("Preferences"), sigc::mem_fun(*pActions, &CtActions::dialog_preferences) });
-    _actions.push_back(CtMenuAction{file_cat, "ct_check_newer", "network", _("_Check Newer Version"), None, _("Check for a Newer Version"), sigc::signal<void>() /* dad.check_for_newer_version */});
+    _actions.push_back(CtMenuAction{file_cat, "ct_check_newer", "network", _("_Check Newer Version"), None, _("Check for a Newer Version"), sigc::mem_fun(*pActions, &CtActions::check_for_newer_version)});
     _actions.push_back(CtMenuAction{file_cat, "ct_help", "help", _("Online _Manual"), "F1", _("Application's Online Manual"), sigc::mem_fun(*pActions, &CtActions::online_help)});
     _actions.push_back(CtMenuAction{file_cat, "ct_about", "about", _("_About"), None, _("About CherryTree"), sigc::mem_fun(*pActions, &CtActions::dialog_about)});
     const char* editor_cat = _("Editor");
@@ -303,8 +305,6 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{table_cat, "table_rows_sort_ascending", "sort-ascending", _("Sort Rows As_cending"), None, _("Sort all the Rows Ascending"), sigc::mem_fun(*pActions, &CtActions::table_rows_sort_ascending)});
     _actions.push_back(CtMenuAction{table_cat, "table_edit_properties", "table_edit", _("_Edit Table Properties"), None, _("Edit the Table Properties"), sigc::mem_fun(*pActions, &CtActions::table_edit_properties)});
     _actions.push_back(CtMenuAction{table_cat, "table_export", "table_save", _("_Table Export"), None, _("Export Table as CSV File"), sigc::mem_fun(*pActions, &CtActions::table_export)});
-    const char* table_cell_cat = "";
-    _actions.push_back(CtMenuAction{table_cell_cat, "curr_table_cell_insert_newline", "insert", _("Insert _NewLine"), KB_CONTROL+"period", _("Insert NewLine Char"), sigc::signal<void>() /*dad.curr_table_cell_insert_newline*/});
     const char* codebox_cat = "";
     _actions.push_back(CtMenuAction{codebox_cat, "codebox_change_properties", "codebox_edit", _("Change CodeBox _Properties"), None, _("Edit the Properties of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_change_properties)});
     _actions.push_back(CtMenuAction{codebox_cat, "exec_code", "execute", _("_Execute CodeBox Code"), None, _("Execute CodeBox Code"), sigc::mem_fun(*pActions, &CtActions::exec_code)});
