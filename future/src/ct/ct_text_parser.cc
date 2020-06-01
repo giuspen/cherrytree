@@ -21,6 +21,7 @@
 
 #include "ct_imports.h"
 #include <iostream>
+#include <src/fmt/format.h>
 
 template<class T>
 std::unordered_set<char> build_pos_tokens(const T& tokens) {
@@ -186,9 +187,17 @@ std::pair<Gtk::TextIter, Gtk::TextIter> CtTextParser::find_formatting_boundaries
     
     // Backwards match
     auto rtoken = tokens.crbegin();
-    while (close_tags.find(*rtoken) == close_tags.cend() && rtoken != tokens.crend()) {
+    auto rtoken_iter = close_tags.find(*rtoken);
+    while (rtoken_iter == close_tags.cend() && rtoken != tokens.crend()) {
         word_end.backward_chars(rtoken->size());
         ++rtoken;
+        rtoken_iter = close_tags.find(*rtoken);
+    }
+    
+    Glib::ustring token_test(start_bounds, word_end);
+    if ((ftoken_iter == open_tags.cend() && rtoken_iter != close_tags.cend()) || (token_test == rtoken_iter->second->open_tag)) {
+        // Found only a close tag, parse error
+        throw CtParseError(fmt::format("Close tag without open tag while parsing: {}", token_str.c_str()));
     }
     
     

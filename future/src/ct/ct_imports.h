@@ -154,10 +154,18 @@ private:
  * @brief Thrown when an exception occures during importing
  */
 class CtImportException: public std::runtime_error {
-    static constexpr std::string_view signature = "[Import Exception]: ";
 public:
     explicit CtImportException(const std::string& msg) : std::runtime_error("[Import Exception]: " + msg) {}
 };
+/**
+ * @class CtParseError
+ * @brief Thrown when an exception occures during parsing
+ */
+class CtParseError: public std::runtime_error {
+public:
+    explicit CtParseError(const std::string& msg) : std::runtime_error("[Parse Exception]: " + msg) {}
+};
+
 class CtConfig;
 class CtImportHandler;
 

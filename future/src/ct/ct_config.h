@@ -88,6 +88,7 @@ public:
     bool                                        autoSmartQuotes{true};
     bool                                        tripleClickParagraph{true};
     bool                                        enableSymbolAutoreplace{true};
+    bool                                        enableMdFormatting{false};
     int                                         wrappingIndent{-14};
     bool                                        autoIndent{true};
     bool                                        rtShowWhiteSpaces{false};

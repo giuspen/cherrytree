@@ -296,11 +296,14 @@ Gtk::Widget* CtPrefDlg::build_tab_text()
     Gtk::VBox* vbox_editor = Gtk::manage(new Gtk::VBox());
     Gtk::CheckButton* checkbutton_auto_smart_quotes = Gtk::manage(new Gtk::CheckButton(_("Enable Smart Quotes Auto Replacement")));
     Gtk::CheckButton* checkbutton_enable_symbol_autoreplace = Gtk::manage(new Gtk::CheckButton(_("Enable Symbol Auto Replacement")));
+    Gtk::CheckButton* checkbutton_md_formatting = Gtk::manage(new Gtk::CheckButton(_("Enable Markdown formatting (Experimental)")));
     checkbutton_auto_smart_quotes->set_active(pConfig->autoSmartQuotes);
     checkbutton_enable_symbol_autoreplace->set_active(pConfig->enableSymbolAutoreplace);
-
+    checkbutton_md_formatting->set_active(pConfig->enableMdFormatting);
+    
     vbox_editor->pack_start(*checkbutton_auto_smart_quotes, false, false);
     vbox_editor->pack_start(*checkbutton_enable_symbol_autoreplace, false, false);
+    vbox_editor->pack_start(*checkbutton_md_formatting, false, false, 0);
 
     Gtk::Frame* frame_editor = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Text Editor")+"</b>"));
     ((Gtk::Label*)frame_editor->get_label_widget())->set_use_markup(true);
@@ -322,6 +325,10 @@ Gtk::Widget* CtPrefDlg::build_tab_text()
     checkbutton_enable_symbol_autoreplace->signal_toggled().connect([pConfig, checkbutton_enable_symbol_autoreplace](){
         pConfig->enableSymbolAutoreplace = checkbutton_enable_symbol_autoreplace->get_active();
     });
+    checkbutton_md_formatting->signal_toggled().connect([pConfig, checkbutton_md_formatting]{
+        pConfig->enableMdFormatting = checkbutton_md_formatting->get_active();
+    });
+    
     return pMainBox;
 }
 

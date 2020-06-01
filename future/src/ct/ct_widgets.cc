@@ -585,14 +585,14 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                     if (iter_start.get_line_offset() == 0 and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_COLON))
                         // ":: " becoming "▪ " at line start
                         _special_char_replace(CtConst::CHARS_LISTBUL_DEFAULT[2], iter_start, iter_insert);
-                } else {
+                } else if (_pCtMainWin->get_ct_config()->enableMdFormatting) {
                     auto word_start = iter_insert;
                     if (word_start.backward_chars(2)) {
-                        std::cout << "STARTS: '" << Glib::ustring(1, word_start.get_char()) << "'" << std::endl;
                         if (!word_start.inside_word() && !word_start.ends_word() && !word_start.starts_line()) {
                             if (Glib::ustring(1, word_start.get_char()) != " ") {
                                 word_start.backward_sentence_start();
                                 _markdown_check_and_replace(text_buffer, word_start, iter_insert);
+                                text_buffer->insert_at_cursor(" ");
                             }
                         }
                     }
@@ -604,30 +604,28 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
 
 void CtTextView::_markdown_check_and_replace(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter start_iter, Gtk::TextIter end_iter) 
 {
-    
-    
-   // end_iter.backward_char();
     Glib::ustring text(start_iter, end_iter);
     if (text.empty() || text == " ") return;
     
     if (!_md_parser) _md_parser = std::make_unique<CtMDParser>(_pCtMainWin->get_ct_config());
     else _md_parser->wipe();
     
-    auto iter_pair = _md_parser->find_formatting_boundaries(start_iter, end_iter);
-    std::cout << "TXT: " << text << std::endl;
+    try {
+        auto iter_pair = _md_parser->find_formatting_boundaries(std::move(start_iter), std::move(end_iter));
+        text = Glib::ustring(iter_pair.first, iter_pair.second);
     
-    text = Glib::ustring(iter_pair.first, iter_pair.second);
-    std::cout << "TXT2: " << text << std::endl;
+        std::stringstream txt(text);
+        _md_parser->feed(txt);
     
-    std::stringstream txt(text);
-
+        text_buffer->erase(iter_pair.first, iter_pair.second);
+        auto cursor = text_buffer->get_insert()->get_iter();
+        if (cursor.backward_char()) {
+            text_buffer->place_cursor(cursor);
+        }
     
-    _md_parser->feed(txt);
-
-    _special_char_replace("", iter_pair.first, iter_pair.second);
-
-    if (!_clipboard) _clipboard = std::make_unique<CtClipboard>(_pCtMainWin);
-    _clipboard->from_xml_string_to_buffer(std::move(text_buffer), _md_parser->to_string());
+        if (!_clipboard) _clipboard = std::make_unique<CtClipboard>(_pCtMainWin);
+        _clipboard->from_xml_string_to_buffer(std::move(text_buffer), _md_parser->to_string());
+    } catch(CtParseError&) {}
 }
 
 // Looks at all tags covering the position (x, y) in the text view
