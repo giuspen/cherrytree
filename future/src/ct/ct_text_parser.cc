@@ -190,9 +190,10 @@ std::pair<Gtk::TextIter, Gtk::TextIter> CtTextParser::find_formatting_boundaries
     auto& open_tags = open_tokens_map();
     auto ftoken_iter = open_tags.find(*token);
     while (ftoken_iter == open_tags.cend() && token != tokens.cend()) {
-        start_bounds.forward_chars(token->size());
+        if (!start_bounds.forward_chars(token->size())) break;
         ++token;
-        ftoken_iter = open_tags.find(*token);
+        if (token != tokens.cend()) ftoken_iter = open_tags.find(*token);
+        else break;
     }
     if (ftoken_iter != open_tags.end()) {
         // Check for close tag
@@ -205,9 +206,14 @@ std::pair<Gtk::TextIter, Gtk::TextIter> CtTextParser::find_formatting_boundaries
     auto rtoken = tokens.crbegin();
     auto rtoken_iter = close_tags.find(*rtoken);
     while (rtoken_iter == close_tags.cend() && rtoken != tokens.crend()) {
-        word_end.backward_chars(rtoken->size());
+        if (!word_end.backward_chars(rtoken->size())) break;
         ++rtoken;
-        rtoken_iter = close_tags.find(*rtoken);
+        if (rtoken != tokens.crend()) rtoken_iter = close_tags.find(*rtoken);
+        else break;
+    }
+    if (rtoken_iter == close_tags.cend() && ftoken_iter == open_tags.cend()) {
+        // Didn't find anything
+        throw CtParseError(fmt::format("Could not find any valid tags in: {}", token_str.c_str()));
     }
     
     Glib::ustring token_test(start_bounds, word_end);

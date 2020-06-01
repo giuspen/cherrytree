@@ -433,6 +433,18 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
         Gtk::TextIter iter_start = iter_insert;
         if (event->key.keyval == GDK_KEY_Return)
         {
+            if (_pCtMainWin->get_ct_config()->enableMdFormatting) {
+                // Format the last line
+                auto start_iter = iter_start;
+                start_iter.backward_line();
+                try {
+                    _markdown_check_and_replace(text_buffer, start_iter, iter_insert);
+                    text_buffer->insert_at_cursor(CtConst::CHAR_NEWLINE);
+                    iter_start  = text_buffer->get_insert()->get_iter();
+                    iter_insert = iter_start;
+                } catch(CtParseError&) {}
+            }
+            
             int cursor_key_press = iter_insert.get_offset();
             //print "cursor_key_press", cursor_key_press
             if (cursor_key_press == _pCtMainWin->get_ct_actions()->getCtMainWin()->cursor_key_press())
@@ -591,8 +603,10 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                         if (!word_start.inside_word() && !word_start.ends_word() && !word_start.starts_line()) {
                             if (Glib::ustring(1, word_start.get_char()) != " ") {
                                 word_start.backward_sentence_start();
-                                _markdown_check_and_replace(text_buffer, word_start, iter_insert);
-                                text_buffer->insert_at_cursor(" ");
+                                try {
+                                    _markdown_check_and_replace(text_buffer, word_start, iter_insert);
+                                    text_buffer->insert_at_cursor(" ");
+                                } catch(CtParseError&) {}
                             }
                         }
                     }
@@ -625,7 +639,10 @@ void CtTextView::_markdown_check_and_replace(Glib::RefPtr<Gtk::TextBuffer> text_
     
         if (!_clipboard) _clipboard = std::make_unique<CtClipboard>(_pCtMainWin);
         _clipboard->from_xml_string_to_buffer(std::move(text_buffer), _md_parser->to_string());
-    } catch(CtParseError&) {}
+    } catch(CtParseError&) {
+        // todo: log this in debug
+        throw;
+    }
 }
 
 // Looks at all tags covering the position (x, y) in the text view
