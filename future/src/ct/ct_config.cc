@@ -484,7 +484,14 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_string_from_keyfile("selword_chars", &selwordChars);
     _populate_string_from_keyfile("chars_listbul", &charsListbul);
     _populate_string_from_keyfile("chars_toc", &charsToc);
-    _populate_string_from_keyfile("chars_todo", &charsTodo);
+
+    // bug fix for alfa version when charsTodo is really long
+    Glib::ustring tempCharsToDo;
+    _populate_string_from_keyfile("chars_todo", &tempCharsToDo);
+    if (tempCharsToDo.size() > 4 && tempCharsToDo[0] == tempCharsToDo[3])
+        tempCharsToDo = CtConst::CHARS_TODO_DEFAULT;
+    charsTodo = tempCharsToDo;
+
     _populate_string_from_keyfile("chars_smart_dquote", &chars_smart_dquote);
     _populate_string_from_keyfile("chars_smart_squote", &chars_smart_squote);
     _populate_string_from_keyfile("latest_tag_prop", &latestTagProp);
