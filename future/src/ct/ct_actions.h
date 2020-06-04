@@ -165,9 +165,10 @@ private:
     Gtk::TreeIter _add_node_quick(const Gtk::TreeIter& curr_iter, CtNodeData& node_data, bool is_child);
 public:
     // tree actions
-    void node_add()       { _node_add(false, false); }
-    void node_dublicate() { _node_add(true, false);  }
-    void node_child_add() { _node_add(false, true); }
+    void node_add()                { _node_add(false, false); }
+    void node_dublicate()          { _node_add(true, false);  }
+    void node_child_add()          { _node_add(false, true); }
+    void node_subnodes_dublicate();
     void node_edit();
     void node_inherit_syntax();
     void node_delete();
@@ -177,7 +178,7 @@ public:
     void node_down();
     void node_right();
     void node_left();
-    void node_change_father();
+    void node_change_father();    
     bool node_move(Gtk::TreeModel::Path src_path, Gtk::TreeModel::Path dest_path);
     void tree_sort_ascending();
     void tree_sort_descending();

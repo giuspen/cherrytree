@@ -95,6 +95,51 @@ bool CtActions::_node_sel_and_rich_text()
     return true;
 }
 
+void CtActions::node_subnodes_dublicate()
+{
+    if (!_is_there_selected_node_or_error()) return;
+    Gtk::TreeIter top_iter = _pCtMainWin->curr_tree_iter();
+    // create duplicate of the selected node
+    _node_add(true, false);
+    Gtk::TreeIter new_top_iter = _pCtMainWin->curr_tree_iter();
+
+    // function to duplicate a node
+    auto duplicate_subnode = [&](CtTreeIter old_iter, Gtk::TreeIter new_parent) {
+        CtNodeData node_data;
+        std::shared_ptr<CtNodeState> node_state;
+        _pCtMainWin->get_tree_store().get_node_data(old_iter, node_data);
+        if (node_data.syntax != CtConst::RICH_TEXT_ID) {
+            node_data.rTextBuffer = _pCtMainWin->get_new_text_buffer(node_data.rTextBuffer->get_text());
+            node_data.anchoredWidgets.clear();
+        } else {
+            _pCtMainWin->get_state_machine().update_state(old_iter);
+            node_state = _pCtMainWin->get_state_machine().requested_state_current(old_iter.get_node_id());
+            node_data.anchoredWidgets.clear();
+            node_data.rTextBuffer = _pCtMainWin->get_new_text_buffer();
+        }
+        node_data.tsCreation = std::time(nullptr);
+        node_data.tsLastSave = node_data.tsCreation;
+        node_data.nodeId = _pCtMainWin->get_tree_store().node_id_get();
+        auto new_iter = _pCtMainWin->get_tree_store().append_node(&node_data, &new_parent /* as parent */);
+        _pCtMainWin->get_tree_store().to_ct_tree_iter(new_iter).pending_new_db_node();
+        return new_iter;
+    };
+
+    // function to duplicate all sub nodes
+    std::function<void(Gtk::TreeIter, Gtk::TreeIter)> duplicate_subnodes;
+    duplicate_subnodes = [&](Gtk::TreeIter old_parent, Gtk::TreeIter new_parent) {
+        for (auto child: old_parent->children()) {
+            auto new_child = duplicate_subnode(_pCtMainWin->get_tree_store().to_ct_tree_iter(child), new_parent);
+            duplicate_subnodes(child, new_child);
+        }
+    };
+    duplicate_subnodes(top_iter, new_top_iter);
+
+    _pCtMainWin->get_tree_store().nodes_sequences_fix(new_top_iter->parent(), true);
+    _pCtMainWin->get_tree_view().set_cursor_safe(new_top_iter);
+    _pCtMainWin->get_text_view().grab_focus();
+}
+
 void CtActions::_node_add(bool duplicate, bool add_child)
 {
     CtNodeData nodeData;
