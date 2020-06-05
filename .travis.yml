@@ -43,6 +43,7 @@ before_install:
         $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-libxml++2.6
         $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-sqlite3
         $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-gspell
+        $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-curl
         $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-python3-lxml
         taskkill //IM gpg-agent.exe //F  # https://travis-ci.community/t/4967
         export PATH=/C/tools/msys64/mingw64/bin:$PATH

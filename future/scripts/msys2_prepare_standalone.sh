@@ -43,7 +43,8 @@ pacman -S --noconfirm --root "${NEW_MSYS2_FOLDER}" \
   mingw-w64-x86_64-gtksourceviewmm3 \
   mingw-w64-x86_64-libxml++2.6 \
   mingw-w64-x86_64-sqlite3 \
-  mingw-w64-x86_64-gspell
+  mingw-w64-x86_64-gspell \
+  mingw-w64-x86_64-curl
 _result=$?
 if [ "$_result" -ne "0" ]; then
   echo "failed to create base data via command 'pacman -S <packages names list> --noconfirm --root ${NEW_MSYS2_FOLDER}'"

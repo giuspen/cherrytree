@@ -175,7 +175,7 @@ Install required packages to build cherrytree:
 # toolchain and cmake
 pacman -S --needed --noconfirm mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake
 # gtkmm3, libxml++, sqlite3
-pacman -S --needed --noconfirm mingw-w64-x86_64-gtkmm3 mingw-w64-x86_64-gtksourceviewmm3 mingw-w64-x86_64-libxml++2.6 mingw-w64-x86_64-sqlite3  mingw-w64-x86_64-gspell
+pacman -S --needed --noconfirm mingw-w64-x86_64-gtkmm3 mingw-w64-x86_64-gtksourceviewmm3 mingw-w64-x86_64-libxml++2.6 mingw-w64-x86_64-sqlite3 mingw-w64-x86_64-gspell mingw-w64-x86_64-curl
 # python3-lxml, gettext
 pacman -S --needed --noconfirm mingw-w64-x86_64-python3-lxml mingw-w64-x86_64-gettext
 # other
