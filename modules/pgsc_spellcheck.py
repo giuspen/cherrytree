@@ -42,6 +42,41 @@ from pgsc_locales import LanguageNotFound, CountryNotFound
 # public objects
 __all__ = ['SpellChecker', 'NoDictionariesFound', 'NoGtkBindingFound']
 
+# apostrophe workaround from gtkspell3
+def gtk_spell_forward_word_end(i):
+    
+    # heuristic:
+    # if we're on an singlequote/apostrophe and
+    # if the next letter is alphanumeric,
+    # this is an apostrophe (either single quote, or U+2019 = 8217.
+
+    if not i.forward_word_end():
+        return False
+
+    if i.get_char() != '\'' and \
+       i.get_char() != 8217:
+        return True
+
+    it = i.copy()
+    if it.forward_char() and \
+       it.get_char().isalpha():
+        return i.forward_word_end()
+
+    return True
+
+def gtk_spell_backward_word_start(i):
+    if not i.backward_word_start():
+        return False
+
+    it = i.copy()
+    if it.get_char().isalpha() and \
+       it.backward_char() and \
+       (it.get_char() == '\'' or \
+        it.get_char() == 8217):
+        return i.backward_word_start()
+
+    return True
+
 
 class NoDictionariesFound(Exception):
     """
@@ -132,10 +167,10 @@ class SpellChecker(object):
         def word(self):
             start = self.iter
             if not start.starts_word():
-                start.backward_word_start()
+                gtk_spell_backward_word_start(start)
             end = self.iter
             if end.inside_word():
-                end.forward_word_end()
+                gtk_spell_forward_word_end(end)
             return start, end
 
         def move(self, location):
@@ -367,10 +402,10 @@ class SpellChecker(object):
             return
         if start.equal(end):
             return
-        if end.inside_word(): end.forward_word_end()
+        if end.inside_word(): gtk_spell_forward_word_end(end)
         if not start.starts_word() and (start.inside_word() or
                                         start.ends_word()):
-            start.backward_word_start()
+            gtk_spell_backward_word_start(start)
         self._buffer.remove_tag(self._misspelled, start, end)
         cursor = self._buffer.get_iter_at_mark(self._buffer.get_insert())
         precursor = cursor.copy()
@@ -378,8 +413,8 @@ class SpellChecker(object):
         highlight = (cursor.has_tag(self._misspelled) or
                      precursor.has_tag(self._misspelled))
         if not start.get_offset():
-            start.forward_word_end()
-            start.backward_word_start()
+            gtk_spell_forward_word_end(start)
+            gtk_spell_backward_word_start(start)
         word_start = start.copy()
         if word_start.get_line() != 0 and word_start.get_char() == '“':
             word_start.forward_char()
@@ -388,7 +423,7 @@ class SpellChecker(object):
                 word_start.forward_chars(2)
         while word_start.compare(end) < 0:
             word_end = word_start.copy()
-            word_end.forward_word_end()
+            gtk_spell_forward_word_end(word_end)
             in_word = ((word_start.compare(cursor) < 0) and
                        (cursor.compare(word_end) <= 0))
             if in_word and not force_all:
@@ -399,8 +434,8 @@ class SpellChecker(object):
             else:
                 self._check_word(word_start, word_end)
                 self._deferred_check = False
-            word_end.forward_word_end()
-            word_end.backward_word_start()
+            gtk_spell_forward_word_end(word_end)
+            gtk_spell_backward_word_start(word_end)
             if word_start.equal(word_end):
                 break
             word_start = word_end.copy()
