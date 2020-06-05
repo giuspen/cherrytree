@@ -79,13 +79,12 @@ int main(int argc, char *argv[])
     
     // Setup spdlog, use debug level by default for now
     spdlog::set_level(spdlog::level::debug);
-    auto gtk_logger = spdlog::stdout_color_mt("GTK Logger");
     
-    g_set_printerr_handler([](const gchar* str){
-            spdlog::error(str);
-            });
-    g_printerr("Error");
+    // Redirect Gtk log messages to spdlog 
+    auto gtk_logger = spdlog::stdout_color_mt("GTK Logger");
     g_log_set_default_handler(glib_log_handler, nullptr);
+
+
     auto p_app = CtApp::create();
 
     return p_app->run(argc, argv);
