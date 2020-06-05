@@ -25,6 +25,8 @@
 #include "ct_main_win.h"
 #include "ct_storage_control.h"
 #include "ct_actions.h"
+#include "ct_logging.h"
+
 
 CtTreeModelColumns::~CtTreeModelColumns()
 {
@@ -474,7 +476,7 @@ void CtTreeStore::text_view_apply_textbuffer(const CtTreeIter& treeIter, CtTextV
     _curr_node_sigc_conn.clear();
 
     CtTreeIter node = to_ct_tree_iter(treeIter);
-    std::cout << node.get_node_name() << std::endl;
+    spdlog::debug("Node name: {}", node.get_node_name());
 
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = node.get_node_text_buffer();
     _pCtMainWin->apply_syntax_highlighting(rTextBuffer, node.get_node_syntax_highlighting());
@@ -504,7 +506,7 @@ void CtTreeStore::text_view_apply_textbuffer(const CtTreeIter& treeIter, CtTextV
         }
         else
         {
-            std::cerr << "!! rChildAnchor" << std::endl;
+            spdlog::error("!! rChildAnchor");
         }
     }
 

@@ -30,6 +30,8 @@
 #include "ct_list.h"
 #include "ct_export2txt.h"
 #include <glib-object.h>
+#include "ct_logging.h"
+
 
 CtMainWin::CtMainWin(bool             start_hidden,
                      CtConfig*        pCtConfig,
@@ -341,7 +343,7 @@ const std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string
         }
         if (not identified)
         {
-            std::cerr << "!! unsupported propertyName=" << propertyName << " propertyValue=" << propertyValue << std::endl;
+           // spdlog::error("!! unsupported propertyName={} propertyValue={}", propertyName, propertyValue);
         }
         _rGtkTextTagTable->add(rTextTag);
     }
@@ -971,7 +973,7 @@ void CtMainWin::file_autosave_restart()
     bool was_connected = !_autosave_timout_connection.empty();
     _autosave_timout_connection.disconnect();
     if (!get_ct_config()->autosaveOn) {
-        if (was_connected) std::cout << "autosave was stopped" << std::endl;
+        if (was_connected) spdlog::debug("autosave was stopped");
         return;
     }
     if (get_ct_config()->autosaveVal < 1) {
@@ -979,13 +981,13 @@ void CtMainWin::file_autosave_restart()
         return;
     }
 
-    std::cout << "autosave is started" << std::endl;
+    spdlog::debug("autosave is started");
     _autosave_timout_connection = Glib::signal_timeout().connect_seconds([this]() {        
         if (get_file_save_needed()) {
-            std::cout << "autosave: time to save file" << std::endl;
+            spdlog::debug("autosave: time to save file");
             file_save(false);
         } else {
-            std::cout << "autosave: no needs to save file" << std::endl;
+            spdlog::debug("autosave: no needs to save file");
         }
         return true;
     }, get_ct_config()->autosaveVal * 60);

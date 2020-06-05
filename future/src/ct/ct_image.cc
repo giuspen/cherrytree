@@ -23,6 +23,10 @@
 #include "ct_main_win.h"
 #include "ct_actions.h"
 #include "ct_storage_sqlite.h"
+#include "ct_logging.h"
+
+
+
 
 CtImage::CtImage(CtMainWin* pCtMainWin,
                  const std::string& rawBlob,
@@ -129,7 +133,7 @@ bool CtImagePng::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_
     sqlite3_stmt *p_stmt;
     if (sqlite3_prepare_v2(pDb, CtStorageSqlite::TABLE_IMAGE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
     {
-        std::cerr << CtStorageSqlite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(pDb) << std::endl;
+        spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_PREPV2, sqlite3_errmsg(pDb));
         retVal = false;
     }
     else
@@ -146,7 +150,7 @@ bool CtImagePng::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_
         sqlite3_bind_int64(p_stmt, 8, 0); // time
         if (sqlite3_step(p_stmt) != SQLITE_DONE)
         {
-            std::cerr << CtStorageSqlite::ERR_SQLITE_STEP << sqlite3_errmsg(pDb) << std::endl;
+            spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_STEP, sqlite3_errmsg(pDb));
             retVal = false;
         }
         sqlite3_finalize(p_stmt);
@@ -218,7 +222,7 @@ bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offs
     sqlite3_stmt *p_stmt;
     if (sqlite3_prepare_v2(pDb, CtStorageSqlite::TABLE_IMAGE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
     {
-        std::cerr << CtStorageSqlite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(pDb) << std::endl;
+         spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_PREPV2, sqlite3_errmsg(pDb));
         retVal = false;
     }
     else
@@ -234,7 +238,7 @@ bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offs
         sqlite3_bind_int64(p_stmt, 8, 0); // time
         if (sqlite3_step(p_stmt) != SQLITE_DONE)
         {
-            std::cerr << CtStorageSqlite::ERR_SQLITE_STEP << sqlite3_errmsg(pDb) << std::endl;
+             spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_STEP, sqlite3_errmsg(pDb));
             retVal = false;
         }
         sqlite3_finalize(p_stmt);
@@ -298,7 +302,7 @@ bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int off
     sqlite3_stmt *p_stmt;
     if (sqlite3_prepare_v2(pDb, CtStorageSqlite::TABLE_IMAGE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
     {
-        std::cerr << CtStorageSqlite::ERR_SQLITE_PREPV2 << sqlite3_errmsg(pDb) << std::endl;
+         spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_PREPV2, sqlite3_errmsg(pDb));
         retVal = false;
     }
     else
@@ -314,7 +318,7 @@ bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int off
         sqlite3_bind_int64(p_stmt, 8, _timeSeconds);
         if (sqlite3_step(p_stmt) != SQLITE_DONE)
         {
-            std::cerr << CtStorageSqlite::ERR_SQLITE_STEP << sqlite3_errmsg(pDb) << std::endl;
+             spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_STEP, sqlite3_errmsg(pDb));
             retVal = false;
         }
         sqlite3_finalize(p_stmt);

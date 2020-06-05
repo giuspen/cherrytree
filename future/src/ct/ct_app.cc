@@ -26,6 +26,9 @@
 #include "ct_pref_dlg.h"
 #include "ct_storage_control.h"
 #include "config.h"
+#include "ct_logging.h"
+
+
 
 CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HANDLES_OPEN)
 {
@@ -120,10 +123,10 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
     // do some export stuff from console and close app after
     if (_export_to_txt_dir != "" || _export_to_html_dir != "" || _export_to_pdf_file != "")
     {
-        std::cout << "export arguments are detected" << std::endl;
+        spdlog::debug("export arguments are detected");
         for (const Glib::RefPtr<Gio::File>& r_file : files)
         {
-            std::cout << "file to export: " << r_file->get_path() << std::endl;
+            spdlog::debug("file to export: {}", r_file->get_path());
             CtMainWin* win = _create_window(true); // start hidden
             if (win->file_open(r_file->get_path(), "")) {
                 try
@@ -134,13 +137,13 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
                 }
                 catch (std::exception& e)
                 {
-                    std::cout << "caught exception: " << e.what() << std::endl;
+                    spdlog::error("caught exception: {}", e.what());
                 }
             }
             win->force_exit() = true;
             remove_window(*win);
         }
-        std::cout << "export is done, closing app" << std::endl;
+        spdlog::debug("export is done, closing app");
         // exit app
         return;
     }
@@ -298,14 +301,14 @@ void CtApp::_print_gresource_icons()
 {
     for (const std::string& str_icon : Gio::Resource::enumerate_children_global("/icons/", Gio::ResourceLookupFlags::RESOURCE_LOOKUP_FLAGS_NONE))
     {
-        std::cout << str_icon << std::endl;
+        spdlog::debug(str_icon);
     }
 }
 
 int CtApp::_on_handle_local_options(const Glib::RefPtr<Glib::VariantDict>& rOptions)
 {
     if (!rOptions) {
-        std::cerr << "CtApp::on_handle_local_options: options is null!" << std::endl;
+        spdlog::error("CtApp::on_handle_local_options: options is null!");
         return -1; // Keep going
     }
 

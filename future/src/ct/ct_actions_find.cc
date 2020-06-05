@@ -26,6 +26,7 @@
 #include <regex>
 #include "ct_image.h"
 #include "ct_dialogs.h"
+#include "ct_logging.h"
 
 
 void CtActions::_find_init()
@@ -205,7 +206,7 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
             _update_all_matches_progress();
     }
     std::time_t search_end_time = std::time(nullptr);
-    std::cout << search_end_time - search_start_time << " sec" << std::endl;
+    spdlog::debug("Search took {} sec", search_end_time - search_start_time);
 
     _pCtMainWin->user_active() = user_active_restore;
     _pCtMainWin->get_tree_store().treeview_set_tree_expanded_collapsed_string(tree_expanded_collapsed_string, _pCtMainWin->get_tree_view(), _pCtMainWin->get_ct_config()->nodesBookmExp);

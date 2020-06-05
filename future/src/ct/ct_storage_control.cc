@@ -26,6 +26,7 @@
 #include "ct_p7za_iface.h"
 #include "ct_main_win.h"
 #include <glib/gstdio.h>
+#include "ct_logging.h"
 
 
 std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
@@ -80,7 +81,7 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
         if (extracted_file_path != file_path && Glib::file_test(extracted_file_path, Glib::FILE_TEST_IS_REGULAR))
             g_remove(extracted_file_path.c_str());
 
-        std::cerr << e.what() << std::endl;
+        spdlog::error(e.what());
         error = e.what();
         return nullptr;
     }
@@ -131,7 +132,7 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
         if (Glib::file_test(extracted_file_path, Glib::FILE_TEST_IS_REGULAR))
             g_remove(extracted_file_path.c_str());
 
-        std::cerr << e.what() << std::endl;
+        spdlog::error(e.what());
         error = e.what();
         return nullptr;
     }
@@ -203,9 +204,9 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
                 CtFileSystem::move_file(main_backup, _file_path);
             _storage->reopen_connect();
         }
-        catch (std::exception& e2) { std::cerr << e2.what() << std::endl; }
+        catch (std::exception& e2) { spdlog::error(e2.what()); }
 
-        std::cerr << e.what() << std::endl;
+        spdlog::error(e.what());
         error = e.what();
         return false;
     }
@@ -216,7 +217,7 @@ Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64
                                                                     std::list<CtAnchoredWidget*>& widgets) const
 {
     if (!_storage) {
-        std::cerr << "!! storage is not initialized" << std::endl;
+        spdlog::error("!! storage is not initialized");
         return Glib::RefPtr<Gsv::Buffer>();
     }
     return _storage->get_delayed_text_buffer(node_id, syntax, widgets);

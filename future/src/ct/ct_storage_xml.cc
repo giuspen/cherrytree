@@ -27,6 +27,7 @@
 #include "ct_codebox.h"
 #include "ct_table.h"
 #include "ct_main_win.h"
+#include "ct_logging.h"
 
 
 CtStorageXml::CtStorageXml(CtMainWin* pCtMainWin) : _pCtMainWin(pCtMainWin)
@@ -156,7 +157,7 @@ Glib::RefPtr<Gsv::Buffer> CtStorageXml::get_delayed_text_buffer(const gint64& no
                                                                 std::list<CtAnchoredWidget*>& widgets) const
 {
     if (_delayed_text_buffers.count(node_id) == 0) {
-        std::cerr << " ! cannot found xml buffer in CtStorageXml::get_delayed_text_buffer, node_id: " << node_id << std::endl;
+        spdlog::error(" ! cannot found xml buffer in CtStorageXml::get_delayed_text_buffer, node_id: {}", node_id);
         return Glib::RefPtr<Gsv::Buffer>();
     }
     auto node_buffer = _delayed_text_buffers[node_id];

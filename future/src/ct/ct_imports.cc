@@ -28,6 +28,8 @@
 #include <glibmm/base64.h>
 #include <fstream>
 #include <sstream>
+#include "ct_logging.h"
+
 
 const std::set<std::string> CtHtml2Xml::HTML_A_TAGS{"p", "b", "i", "u", "s", CtConst::TAG_PROP_VAL_H1,
             CtConst::TAG_PROP_VAL_H2, CtConst::TAG_PROP_VAL_H3, "span", "font"};
@@ -101,22 +103,22 @@ void CtHtmlParser::feed(const std::string& html)
 
 void CtHtmlParser::handle_starttag(std::string_view tag, const char **/*atts*/)
 {
-    std::cout << "SAX tag: " << tag << std::endl;
+    spdlog::debug("SAX tag: {}", tag);
 }
 
 void CtHtmlParser::handle_endtag(std::string_view tag)
 {
-    std::cout << "SAX endtag: " << tag << std::endl;
+    spdlog::debug("SAX endtag: {}", tag);
 }
 
 void CtHtmlParser::handle_data(std::string_view text)
 {
-    std::cout << "SAX data: " << text << std::endl;
+    spdlog::debug("SAX data: {}", text);
 }
 
 void CtHtmlParser::handle_charref(std::string_view name)
 {
-    std::cout << "SAX ref: " << name << std::endl;
+    spdlog::debug("SAX ref: {}", name);
 }
 
 std::list<CtHtmlParser::html_attr> CtHtmlParser::char2list_attrs(const char** atts)
@@ -693,7 +695,7 @@ void CtHtml2Xml::add_file(const std::filesystem::path &path) noexcept
         
         
     } catch(std::exception& e) {
-        std::cerr << "Exception caught while adding file to XML: " << e.what() << "\n";
+        spdlog::error("Exception caught while adding file to XML: {}", e.what());
     }
     
     

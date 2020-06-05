@@ -31,9 +31,10 @@
 #include "ct_misc_utils.h"
 #include "ct_actions.h"
 #include "ct_storage_xml.h"
-#include "src/fmt/ostream.h"
 #include <gio/gio.h> // to get mime type
 #include <glibmm/regex.h>
+#include "ct_logging.h"
+
 
 // keep defines out of class scope, so _on_clip_data_getl can use them
 const Glib::ustring TARGET_CTD_PLAIN_TEXT = "UTF8_STRING";
@@ -86,7 +87,7 @@ void CtClipboard::_cut_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox)
         int num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset();
         if ((pCodebox or _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting() != CtConst::RICH_TEXT_ID) and num_chars > 30000)
         {
-            std::cout << "cut-clipboard is not overridden for num_chars " << num_chars << std::endl;
+            spdlog::debug("cut-clipboard is not overridden for num_chars {}", num_chars);
         }
         else
         {
@@ -114,7 +115,7 @@ void CtClipboard::_copy_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox)
         int num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset();
         if ((pCodebox or _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting() != CtConst::RICH_TEXT_ID) and num_chars > 30000)
         {
-            std::cout << "copy-clipboard is not overridden for num_chars " << num_chars << std::endl;
+            spdlog::debug("copy-clipboard is not overridden for num_chars {}", num_chars);
         }
         else
         {
@@ -182,7 +183,7 @@ void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* /*pCodeb
     auto [target, target_fun, force_plain_text] = get_target(targets);
     if (target.empty())
     {
-        std::cout << "WARNING: targets not handled " << str::join(targets, ", ") << std::endl;
+        //spdlog::warn("targets not handled {}", str::join(targets, ", "));
         return;
     };
 
@@ -415,7 +416,7 @@ void CtClipboard::_on_received_to_plain_text(const Gtk::SelectionData& selection
     Glib::ustring plain_text = selection_data.get_text();
     if (plain_text.empty())
     {
-        std::cout << "? no clipboard plain text" << std::endl;
+        spdlog::error("? no clipboard plain text");
         return;
     }
     auto curr_buffer = pTextView->get_buffer();
@@ -469,7 +470,7 @@ void CtClipboard::_on_received_to_rich_text(const Gtk::SelectionData& selection_
     Glib::ustring rich_text = selection_data.get_text();
     if (rich_text.empty())
     {
-        std::cout << "? no clipboard rich text" << std::endl;
+        spdlog::error("? no clipboard rich text");
         return;
     }
     from_xml_string_to_buffer(pTextView->get_buffer(), rich_text);
@@ -482,7 +483,7 @@ void CtClipboard::_on_received_to_codebox(const Gtk::SelectionData& selection_da
     Glib::ustring xml_text = selection_data.get_text();
     if (xml_text.empty())
     {
-        std::cout << "? no clipboard xml text" << std::endl;
+        spdlog::error("? no clipboard xml text");
         return;
     }
 
@@ -491,7 +492,7 @@ void CtClipboard::_on_received_to_codebox(const Gtk::SelectionData& selection_da
     xmlpp::Document* doc = parser.get_document();
     if (doc->get_root_node()->get_name() != "root" or not doc->get_root_node()->get_first_child("codebox"))
     {
-        std::cout << "codebox from clipboard error" << std::endl;
+        spdlog::error("codebox from clipboard error");
         return;
     }
 
@@ -514,8 +515,8 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
 {
     Glib::ustring xml_text = selection_data.get_text();
     if (xml_text.empty())
-    {
-        std::cout << "? no clipboard xml text" << std::endl;
+    {   
+        spdlog::error("? no clipboard xml text");
         return;
     }
 
@@ -524,7 +525,7 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
     xmlpp::Document* doc = parser.get_document();
     if (doc->get_root_node()->get_name() != "root" or not doc->get_root_node()->get_first_child("table"))
     {
-        std::cout << "table from clipboard error" << std::endl;
+        spdlog::error("table from clipboard error");
         return;
     }
 
@@ -640,7 +641,7 @@ void CtClipboard::_on_received_to_uri_list(const Gtk::SelectionData& selection_d
                 else
                 {
                     property_value = "";
-                    std::cout << "ERROR: discarded file uri " << file_path << std::endl;
+                    //spdlog::error("discarded file uri {}", file_path);
                 }
             }
             else
@@ -652,7 +653,7 @@ void CtClipboard::_on_received_to_uri_list(const Gtk::SelectionData& selection_d
                 else
                 {
                     property_value = "";
-                    std::cout << "ERROR: discarded ? uri " << element << std::endl;
+                    //spdlog::error("discarded ? uri {}", element);
                 }
             }
             int start_offset = iter_insert.get_offset();
