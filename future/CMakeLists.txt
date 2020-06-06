@@ -42,7 +42,7 @@ set(CPACK_CREATE_DESKTOP_LINKS ${CPACK_PACKAGE_CONTACT})
 set(CPACK_PACKAGE_INSTALL_DIRECTORY ${CPACK_PACKAGE_CONTACT})
 set(CPACK_STRIP_FILES TRUE)
 
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgtkmm-3.0-dev, libgtksourceviewmm-3.0-dev, libxml++2.6-dev, libsqlite3-dev, gettext, libgspell-1-dev")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgtkmm-3.0-dev, libgtksourceviewmm-3.0-dev, libxml++2.6-dev, libsqlite3-dev, gettext, libgspell-1-dev libcurl4-openssl-dev")
 set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://www.giuspen.com/cherrytree/")
 #set(CPACK_DEBIAN_PACKAGE_SECTION "graphics") which one?
 set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
