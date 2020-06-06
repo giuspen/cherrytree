@@ -23,6 +23,8 @@
 #include "ct_storage_xml.h"
 #include "ct_main_win.h"
 #include <unistd.h>
+#include "ct_logging.h"
+
 
 const char CtStorageSqlite::TABLE_NODE_CREATE[]{"CREATE TABLE node ("
 "node_id INTEGER UNIQUE,"
@@ -284,7 +286,7 @@ bool CtStorageSqlite::save_treestore(const Glib::ustring& file_path, const CtSto
 
 void CtStorageSqlite::vacuum()
 {
-    std::cout << "VACUUM" << std::endl;
+    spdlog::debug("VACUUM");
     _exec_no_callback("VACUUM");
     _exec_no_callback("REINDEX");
 }
@@ -353,14 +355,14 @@ Glib::RefPtr<Gsv::Buffer> CtStorageSqlite::get_delayed_text_buffer(const gint64&
     sqlite3_stmt_auto stmt(_pDb, "SELECT txt, has_codebox, has_table, has_image FROM node WHERE node_id=?");
     if (stmt.is_bad())
     {
-        std::cerr << ERR_SQLITE_PREPV2 << sqlite3_errmsg(_pDb) << std::endl;
+        spdlog::error("{}: {}", ERR_SQLITE_PREPV2, sqlite3_errmsg(_pDb));
         return Glib::RefPtr<Gsv::Buffer>();
     }
 
     sqlite3_bind_int64(stmt, 1, node_id);
     if (sqlite3_step(stmt) != SQLITE_ROW)
     {
-        std::cerr << "!! missing node properties for id " << node_id << std::endl;
+        spdlog::error("!! missing node properties for id {}", node_id);
         return Glib::RefPtr<Gsv::Buffer>();
     }
 
@@ -375,7 +377,7 @@ Glib::RefPtr<Gsv::Buffer> CtStorageSqlite::get_delayed_text_buffer(const gint64&
         rRetTextBuffer = CtStorageXmlHelper(_pCtMainWin).create_buffer_no_widgets(syntax, textContent);
         if (!rRetTextBuffer)
         {
-            std::cerr << "!! xml read: " << textContent << std::endl;
+            spdlog::error("!! xml read: {}", textContent);
             return rRetTextBuffer;
         }
         if (sqlite3_column_int64(stmt, 1)) _codebox_from_db(node_id, widgets);
@@ -397,7 +399,7 @@ void CtStorageSqlite::_image_from_db(const gint64& nodeId, std::list<CtAnchoredW
     sqlite3_stmt_auto stmt(_pDb, "SELECT * FROM image WHERE node_id=? ORDER BY offset ASC");
     if (stmt.is_bad())
     {
-        std::cerr << ERR_SQLITE_PREPV2 << sqlite3_errmsg(_pDb) << std::endl;
+        spdlog::error("{}: {}", ERR_SQLITE_PREPV2, sqlite3_errmsg(_pDb));
         return;
     }
     sqlite3_bind_int64(stmt, 1, nodeId);
@@ -440,7 +442,7 @@ void CtStorageSqlite::_codebox_from_db(const gint64& nodeId ,std::list<CtAnchore
     sqlite3_stmt_auto stmt(_pDb, "SELECT * FROM codebox WHERE node_id=? ORDER BY offset ASC");
     if (stmt.is_bad())
     {
-        std::cerr << ERR_SQLITE_PREPV2 << sqlite3_errmsg(_pDb) << std::endl;
+        spdlog::error("{}: {}", ERR_SQLITE_PREPV2, sqlite3_errmsg(_pDb));
         return;
     }
     sqlite3_bind_int64(stmt, 1, nodeId);
@@ -478,7 +480,7 @@ void CtStorageSqlite::_table_from_db(const gint64& nodeId, std::list<CtAnchoredW
     sqlite3_stmt_auto stmt(_pDb, "SELECT * FROM grid WHERE node_id=? ORDER BY offset ASC");
     if (stmt.is_bad())
     {
-        std::cerr << ERR_SQLITE_PREPV2 << sqlite3_errmsg(_pDb) << std::endl;
+        spdlog::error("{}: {}", ERR_SQLITE_PREPV2, sqlite3_errmsg(_pDb));
         return;
     }
     sqlite3_bind_int64(stmt, 1, nodeId);
@@ -500,7 +502,7 @@ void CtStorageSqlite::_table_from_db(const gint64& nodeId, std::list<CtAnchoredW
         }
         else
         {
-            std::cerr << "!! table xml read: " << textContent << std::endl;
+            spdlog::error("!! table xml read: {}", textContent);
         }
     }
 }

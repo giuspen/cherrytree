@@ -103,6 +103,9 @@ endif()
 
 add_subdirectory(src/7za)
 
+# Spdlog
+add_subdirectory(src/spdlog)
+
 
 include(FindPackageHandleStandardArgs)
 

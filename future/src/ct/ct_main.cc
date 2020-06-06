@@ -24,6 +24,35 @@
 #include "ct_app.h"
 #include "ct_misc_utils.h"
 #include "config.h"
+#include "ct_logging.h"
+#include <spdlog/sinks/stdout_color_sinks.h>
+
+void glib_log_handler(const gchar*, GLogLevelFlags log_level, const gchar* msg, gpointer) {
+    auto gtk_logger = spdlog::get("GTK Logger");
+    switch (log_level) {
+        case G_LOG_LEVEL_ERROR:
+            gtk_logger->error(msg);
+            break;
+        case G_LOG_LEVEL_CRITICAL:
+            gtk_logger->critical(msg);
+            break;
+        case G_LOG_LEVEL_WARNING:
+            gtk_logger->warn(msg);
+            break;
+        case G_LOG_LEVEL_MESSAGE:
+            gtk_logger->info(msg);
+            break;
+        case G_LOG_LEVEL_INFO:
+            gtk_logger->info(msg);
+            break;
+        case G_LOG_LEVEL_DEBUG:
+            gtk_logger->debug(msg);
+            break;
+        default:
+            gtk_logger->info(msg);
+    }
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -47,6 +76,14 @@ int main(int argc, char *argv[])
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
     textdomain(GETTEXT_PACKAGE);
 #endif
+    
+    // Setup spdlog, use debug level by default for now
+    spdlog::set_level(spdlog::level::debug);
+    
+    // Redirect Gtk log messages to spdlog 
+    auto gtk_logger = spdlog::stdout_color_mt("GTK Logger");
+    g_log_set_default_handler(glib_log_handler, nullptr);
+
 
     auto p_app = CtApp::create();
 

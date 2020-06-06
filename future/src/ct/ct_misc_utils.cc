@@ -31,6 +31,8 @@
 #include <regex>
 #include <glib/gstdio.h> // to get stats
 #include <fstream>
+#include "ct_logging.h"
+
 
 std::string CtMiscUtil::get_ct_language()
 {
@@ -274,7 +276,7 @@ void CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter,
         else if (str::startswith(tag_name, "justification_")) curr_attributes[CtConst::TAG_JUSTIFICATION] = "";
         else if (str::startswith(tag_name, "link_")) curr_attributes[CtConst::TAG_LINK] = "";
         else if (str::startswith(tag_name, "family_")) curr_attributes[CtConst::TAG_FAMILY] = "";
-        else std::cerr << "Failure processing the toggling OFF tag " << tag_name << std::endl;
+       // else spdlog::error("Failure processing the toggling OFF tag {}", tag_name);
     }
     std::vector<Glib::RefPtr<const Gtk::TextTag>> toggled_on = text_iter.get_toggled_tags(true/*toggled_on*/);
     for (const auto& r_curr_tag : toggled_on)
@@ -294,7 +296,7 @@ void CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter,
         else if (str::startswith(tag_name, "strikethrough_")) curr_attributes[CtConst::TAG_STRIKETHROUGH] = tag_name.substr(14);
         else if (str::startswith(tag_name, "link_")) curr_attributes[CtConst::TAG_LINK] = tag_name.substr(5);
         else if (str::startswith(tag_name, "family_")) curr_attributes[CtConst::TAG_FAMILY] = tag_name.substr(7);
-        else std::cerr << "Failure processing the toggling ON tag " << tag_name << std::endl;
+        //else spdlog::error("Failure processing the toggling ON tag {}", tag_name);
     }
 }
 
@@ -640,7 +642,7 @@ char* CtRgbUtil::set_rgb24str_from_str_any(const char* rgbStrAny, char* rgb24Str
             sprintf(rgb24StrOut, "#%c%c%c%c%c%c", scanStart[0], scanStart[0], scanStart[1], scanStart[1], scanStart[2], scanStart[2]);
         break;
         default:
-            std::cerr << "!! set_rgb24str_from_str_any " << rgbStrAny << std::endl;
+            spdlog::error("!! set_rgb24str_from_str_any {}", rgbStrAny);
             sprintf(rgb24StrOut, "#");
     }
     return rgb24StrOut;

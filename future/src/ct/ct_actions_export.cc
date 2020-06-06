@@ -25,6 +25,7 @@
 #include "ct_export2txt.h"
 #include "ct_storage_control.h"
 #include <glib/gstdio.h>
+#include "ct_logging.h"
 
 // Print Page Setup Operations
 void CtActions::export_print_page_setup()
@@ -64,22 +65,22 @@ void CtActions::export_to_ctd()
 
 void CtActions::export_to_pdf_auto(const std::string& dir, bool overwrite)
 {
-    std::cout << "pdf export to: " << dir << std::endl;
-    std::cout << "overwrite: " << overwrite << std::endl;
+    spdlog::debug("pdf export to: {}", dir);
+    spdlog::debug("overwrite: {}", overwrite);
     _export_print(true, dir, overwrite);
 }
 
 void CtActions::export_to_html_auto(const std::string& dir, bool overwrite)
 {
-    std::cout << "html export to: " << dir << std::endl;
-    std::cout << "overwrite: " << overwrite << std::endl;
+    spdlog::debug("html export to: {}", dir);
+    spdlog::debug("overwrite: {}", overwrite);
     _export_to_html(dir, overwrite);
 }
 
 void CtActions::export_to_txt_auto(const std::string& dir, bool overwrite)
 {
-    std::cout << "txt export to: " << dir << std::endl;
-    std::cout << "overwrite: " << overwrite << std::endl;
+    spdlog::debug("txt export to: {}", dir);
+    spdlog::debug("overwrite: {}", overwrite);
     _export_to_txt(false, dir, overwrite);
 }
 
@@ -118,7 +119,7 @@ void CtActions::_export_print(bool save_to_pdf, Glib::ustring auto_path, bool au
         {
             pdf_filepath = Glib::build_filename(auto_path, _pCtMainWin->get_ct_storage()->get_file_name() + ".pdf");
             if (!auto_overwrite && Glib::file_test(pdf_filepath, Glib::FILE_TEST_IS_REGULAR)) {
-                std::cout << "pdf exists and overwrite is off, export is stopped" << std::endl;
+                spdlog::info("pdf exists and overwrite is off, export is stopped"); 
                 return;
             }
         }

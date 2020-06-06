@@ -18,10 +18,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  */
-#include <src/fmt/format.h>
 #include "ct_imports.h"
 #include "ct_const.h"
 #include "ct_config.h"
+#include <fmt/format.h>
 
 namespace fs = std::filesystem;
 

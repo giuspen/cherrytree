@@ -24,6 +24,8 @@
 #include "ct_imports.h"
 #include "ct_storage_control.h"
 
+
+#include "ct_logging.h"
 #include <fstream>
 
 // Todo: Add option to select whether parent is current node or top of tree
@@ -52,7 +54,7 @@ void CtActions::import_node_from_html_file() noexcept
 
         _import_node_from_html(filepath);
     } catch(std::exception& e) {
-        std::cerr << "Exception caught while importing node from file: " << e.what() << "\n";
+        spdlog::error("Exception caught while importing node from file: {}", e.what());
     }
 }
 
@@ -72,7 +74,7 @@ void CtActions::_import_node_from_html(const std::filesystem::path& filepath)
         std::shared_ptr<CtNodeState> node_state;
         _node_add_with_data(iter, nodeData, false, node_state);
     } catch(std::exception& e) {
-        std::cerr << "Exception caught while parsing the document: " << e.what() << "\n";
+        spdlog::error("Exception caught while parsing the document: {}", e.what());
     }
 }
 // Import a directory of html files - non recursive
@@ -94,7 +96,7 @@ void CtActions::import_node_from_html_directory() noexcept
 
         }
     } catch(std::exception& e) {
-        std::cerr << "Exception caught while importing nodes from directory: " << e.what() << "\n";
+        spdlog::error("Exception caught while importing nodes from directory: {}", e.what());
     }
 
 }
@@ -122,7 +124,7 @@ void CtActions::_import_node_from_plaintext(const std::filesystem::path &filepat
         _node_add_with_data(iter, nodeData, false, node_state);
     }
     catch (std::exception &e) {
-        std::cerr << "Exception caught while importing plaintext file (" << filepath.string() << "): " << e.what() << "\n";
+        spdlog::error("Exception caught while importing plaintext file ({}): {}", filepath.string(), e.what());
     }
 }
 
@@ -140,7 +142,7 @@ void CtActions::import_nodes_from_ct_file() noexcept
         _pCtMainWin->get_ct_storage()->add_nodes_from_storage(fpath);
         
     } catch(std::exception& e) {
-        std::cerr << "Exception caught while importing node from CT file: " << e.what() << "\n";
+        spdlog::error("Exception caught while importing node from CT file: {}", e.what());
     }
 }
 
@@ -156,7 +158,7 @@ void CtActions::import_node_from_plaintext_file() noexcept
         _import_node_from_plaintext(fpath);
         
     } catch(std::exception& e) {
-        std::cerr << "Exception caught while importing plaintext file: " << e.what();
+        spdlog::error("Exception caught while importing plaintext file: {}", e.what());
     }
 }
 
@@ -177,7 +179,7 @@ void CtActions::import_nodes_from_plaintext_directory() noexcept
         }
         
     } catch(std::exception& e) {
-        std::cerr << "Exception caught while importing directory of plaintext files: " << e.what();
+        spdlog::error("Exception caught while importing directory of plaintext files: {}", e.what());
     }
 }
 
@@ -221,7 +223,7 @@ void CtActions::import_node_from_md_file() noexcept
 
 
     } catch(std::exception& e) {
-        std::cerr << "Exception caught while importing node from md file: " << e.what() << "\n";
+        spdlog::error("Exception caught while importing node from md file: ", e.what());
     }
 
 }
@@ -298,7 +300,7 @@ void CtActions::import_nodes_from_zim_directory() noexcept
         _import_nodes_from_zim_directory(filepath);
         
     } catch(std::exception& e) {
-        std::cerr << "Exception caught while importing node from ZIM file: " << e.what();
+        spdlog::error("Exception caught while importing node from ZIM file: {}", e.what());
     }
 }
 
@@ -316,7 +318,8 @@ void CtActions::import_nodes_from_md_directory() noexcept
         }
         
     } catch(std::exception& e) {
-        std::cerr << "Exception caught while importing files from MD directory: " << e.what() << "\n";
+        spdlog::error("Exception caught while importing files from MD directory: {}", e.what());
+
     }
     
 }

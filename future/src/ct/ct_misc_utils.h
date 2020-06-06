@@ -29,8 +29,8 @@
 #include <unordered_set>
 #include "ct_treestore.h"
 #include "ct_types.h"
-#include "src/fmt/fmt.h"
-#include "src/fmt/ostream.h" // to support Glib::ustring formatting
+#include <fmt/fmt.h>
+#include <fmt/ostream.h> // to support Glib::ustring formatting
 #include <type_traits>
 
 template<class F> auto scope_guard(F&& f) {

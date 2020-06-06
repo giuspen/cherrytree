@@ -27,6 +27,7 @@
 #include <gtkmm/stock.h>
 #include <fstream>
 #include <cstdlib>
+#include "ct_logging.h"
 
 // Cut Link
 void CtActions::link_cut()
@@ -153,7 +154,7 @@ void CtActions::embfile_open()
     file.write(curr_file_anchor->get_raw_blob().c_str(), size);
     file.close();
 
-    std::cout << "embfile_open " << filepath << std::endl;
+    spdlog::debug("embfile_open {}", static_cast<std::string>(filepath));
 
     CtFileSystem::external_filepath_open(filepath, false);
     _embfiles_opened[filepath] = CtFileSystem::getmtime(filepath);
@@ -703,7 +704,7 @@ bool CtActions::_on_embfiles_sentinel_timeout()
         const Glib::ustring& filepath = item.first;
         if (not Glib::file_test(filepath, Glib::FILE_TEST_IS_REGULAR))
         {
-            std::cout << "embdrop" << filepath;
+            spdlog::debug("embdrop{}", filepath);
             _embfiles_opened.erase(filepath);
             break;
         }

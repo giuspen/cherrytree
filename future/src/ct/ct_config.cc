@@ -25,6 +25,8 @@
 #include <gtkmm.h>
 #include "ct_config.h"
 #include "ct_misc_utils.h"
+#include "ct_logging.h"
+
 
 const std::string CtConfig::_defaultFilepath{Glib::build_filename(CtFileSystem::get_cherrytree_configdir(), "config.cfg")};
 
@@ -46,10 +48,10 @@ bool CtConfig::load_from_file(const std::string& filepath)
         _uKeyFile->load_from_file(filepath);
         _populate_data_from_keyfile();
         _uKeyFile.reset(nullptr);
-        std::cout << filepath << " parsed" << std::endl;
+        spdlog::debug("{} parsed", filepath);
         return true;
     }
-    std::cout << filepath << " missing" << std::endl;
+    spdlog::error("{} missing", filepath);
     return false;
 }
 
@@ -147,7 +149,7 @@ void CtConfig::_populate_current_group_from_map(const std::map<std::string, std:
 
 void CtConfig::_unexpected_keyfile_error(const gchar* key, const Glib::KeyFileError& kferror)
 {
-    std::cerr << "!! " << key << " error code " << kferror.code() << std::endl;
+    spdlog::error("!! {} error code {} ", key, kferror.code());
 }
 
 void CtConfig::_populate_keyfile_from_data()

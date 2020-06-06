@@ -22,7 +22,7 @@
 #include "ct_imports.h"
 #include "ct_const.h"
 #include "ct_config.h"
-#include <src/fmt/format.h>
+#include <fmt/format.h>
 #include <iostream>
 #include <memory>
 

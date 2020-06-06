@@ -31,6 +31,8 @@
 #include "ct_clipboard.h"
 #include <glib/gstdio.h>
 #include <gspell/gspell.h>
+#include "ct_logging.h"
+
 
 CtTmp::CtTmp()
 {
@@ -43,7 +45,7 @@ CtTmp::~CtTmp()
     {
         if (g_file_test(currPair.second, G_FILE_TEST_IS_REGULAR) and (0 != g_remove(currPair.second)))
         {
-            std::cerr << "!! g_remove" << std::endl;
+            spdlog::error("!! g_remove");
         }
         g_free(currPair.second);
     }
@@ -51,7 +53,7 @@ CtTmp::~CtTmp()
     {
         if (g_file_test(currPair.second, G_FILE_TEST_IS_DIR) and (0 != g_rmdir(currPair.second)))
         {
-            std::cerr << "!! g_rmdir" << std::endl;
+            spdlog::error("!! g_rmdir");
         }
         g_free(currPair.second);
     }
