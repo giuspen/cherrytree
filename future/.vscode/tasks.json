@@ -6,7 +6,7 @@
         {
             "label": "Build Debug",
             "type": "shell",
-            "command": "./build.sh",
+            "command": "./build.sh Debug",
             "group": {
                 "kind": "build",
                 "isDefault": true
