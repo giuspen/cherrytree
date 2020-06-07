@@ -427,13 +427,15 @@ void CtTreeStore::tree_view_connect(Gtk::TreeView* pTreeView)
 {
     pTreeView->set_model(_rTreeStore);
 
+    // if change column num, then change CtTreeView::TITLE_COL_NUM
     Gtk::TreeView::Column* pColumns = Gtk::manage(new Gtk::TreeView::Column(""));
     pColumns->pack_start(_columns.rColPixbuf, /*expand=*/false);
     pColumns->pack_start(_columns.colNodeName);
     pColumns->set_expand(true);
     pTreeView->append_column(*pColumns);
     pTreeView->append_column("", _columns.rColPixbufAux);
-    Gtk::TreeViewColumn* pTVCol0 = pTreeView->get_column(0);
+
+    Gtk::TreeViewColumn* pTVCol0 = pTreeView->get_column(CtTreeView::TITLE_COL_NUM);
     std::vector<Gtk::CellRenderer*> cellRenderers0 = pTVCol0->get_cells();
     if (cellRenderers0.size() > 1)
     {

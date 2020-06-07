@@ -467,6 +467,7 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
 
     _uCtTreestore.reset(new CtTreeStore(this));
     _uCtTreestore->tree_view_connect(_uCtTreeview.get());
+    _uCtTreeview->get_column(CtTreeView::AUX_ICON_COL_NUM)->set_visible(!get_ct_config()->auxIconHide);
 
     _uCtTreeview->signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_cursor_changed));
     _uCtTreeview->signal_button_release_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_button_release_event));

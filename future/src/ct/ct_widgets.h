@@ -86,6 +86,10 @@ protected:
 class CtTreeView : public Gtk::TreeView
 {
 public:
+    const inline static int TITLE_COL_NUM = 0;
+    const inline static int AUX_ICON_COL_NUM = 1;
+
+public:
     CtTreeView();
     virtual ~CtTreeView();
     void set_cursor_safe(const Gtk::TreeIter& iter);

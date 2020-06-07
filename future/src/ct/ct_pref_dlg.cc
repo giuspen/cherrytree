@@ -896,10 +896,9 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     checkbutton_nodes_bookm_exp->signal_toggled().connect([pConfig, checkbutton_nodes_bookm_exp](){
         pConfig->nodesBookmExp = checkbutton_nodes_bookm_exp->get_active();
     });
-    checkbutton_aux_icon_hide->signal_toggled().connect([pConfig, checkbutton_aux_icon_hide](){
+    checkbutton_aux_icon_hide->signal_toggled().connect([this, pConfig, checkbutton_aux_icon_hide](){
         pConfig->auxIconHide = checkbutton_aux_icon_hide->get_active();
-        //dad.aux_renderer_pixbuf.set_property("visible", not dad.aux_icon_hide)
-        //dad.treeview_refresh()
+        apply_for_each_window([pConfig](CtMainWin* win) { win->get_tree_view().get_column(CtTreeView::AUX_ICON_COL_NUM)->set_visible(!pConfig->auxIconHide); });
     });
 
     return pMainBox;
