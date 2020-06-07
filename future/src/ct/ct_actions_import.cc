@@ -49,10 +49,14 @@ void CtActions::import_node_from_html_file() noexcept
         if(!_is_there_selected_node_or_error()) return;
 
         CtDialogs::file_select_args args(_pCtMainWin);
+        args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImport;
         args.filter_mime = {"text/html"};
         auto filepath = CtDialogs::file_select_dialog(args);
+        if (filepath.empty()) return;
+        _pCtMainWin->get_ct_config()->pickDirImport = Glib::path_get_dirname(filepath);
 
         _import_node_from_html(filepath);
+
     } catch(std::exception& e) {
         spdlog::error("Exception caught while importing node from file: {}", e.what());
     }
@@ -85,7 +89,9 @@ void CtActions::import_node_from_html_directory() noexcept
     try {
         if(!_is_there_selected_node_or_error()) return;
 
-        fs::path dirpath = CtDialogs::folder_select_dialog("", _pCtMainWin);
+        std::string dirpath = CtDialogs::folder_select_dialog(_pCtMainWin->get_ct_config()->pickDirImport, _pCtMainWin);
+        if (dirpath.empty()) return;
+        _pCtMainWin->get_ct_config()->pickDirImport = dirpath;
 
         for (const auto& file : fs::directory_iterator(dirpath)) {
             
@@ -93,17 +99,14 @@ void CtActions::import_node_from_html_directory() noexcept
             if (f_path.extension() == ".html" || f_path.extension() == ".htm") {
                 _import_node_from_html(f_path);
             }
-
         }
     } catch(std::exception& e) {
         spdlog::error("Exception caught while importing nodes from directory: {}", e.what());
     }
-
 }
 
 void CtActions::_import_node_from_plaintext(const std::filesystem::path &filepath)
 {
-    
     if (!_is_there_selected_node_or_error()) return;
     auto nodeData = setup_node(_pCtMainWin, filepath);
     nodeData.syntax = CtConst::PLAIN_TEXT_ID;
@@ -133,10 +136,13 @@ void CtActions::import_nodes_from_ct_file() noexcept
     try {
         if(!_is_there_selected_node_or_error()) return;
         CtDialogs::file_select_args args(_pCtMainWin);
+        args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImport;
         args.filter_pattern = CtConst::CT_FILE_EXTENSIONS_FILTER;
         
         auto fpath = CtDialogs::file_select_dialog(args);
         if (fpath.empty()) return; // No file selected
+        _pCtMainWin->get_ct_config()->pickDirImport = Glib::path_get_dirname(fpath);
+
         
         // Add the nodes through the storage type
         _pCtMainWin->get_ct_storage()->add_nodes_from_storage(fpath);
@@ -152,8 +158,11 @@ void CtActions::import_node_from_plaintext_file() noexcept
         if(!_is_there_selected_node_or_error()) return;
 
         CtDialogs::file_select_args args(_pCtMainWin);
+        args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImport;
         args.filter_mime = {"text/plain"};
         auto fpath = CtDialogs::file_select_dialog(args);
+        if (fpath.empty()) return;
+        _pCtMainWin->get_ct_config()->pickDirImport = Glib::path_get_dirname(fpath);
         
         _import_node_from_plaintext(fpath);
         
@@ -162,13 +171,14 @@ void CtActions::import_node_from_plaintext_file() noexcept
     }
 }
 
-
 void CtActions::import_nodes_from_plaintext_directory() noexcept
 {
     try {
         if(!_is_there_selected_node_or_error()) return;
         
-        auto fdir = CtDialogs::folder_select_dialog("", _pCtMainWin);
+        std::string fdir = CtDialogs::folder_select_dialog(_pCtMainWin->get_ct_config()->pickDirImport, _pCtMainWin);
+        if (fdir.empty()) return;
+        _pCtMainWin->get_ct_config()->pickDirImport = fdir;
         
         for (const auto& pair : std::filesystem::directory_iterator(fdir)) {
             auto& filepath = pair.path();
@@ -183,10 +193,8 @@ void CtActions::import_nodes_from_plaintext_directory() noexcept
     }
 }
 
-
 void CtActions::_import_node_from_md_file(const std::filesystem::path& filepath)
 {
-
     std::ifstream infile(filepath);
     if (!infile) throw std::runtime_error(fmt::format("Failure while opening input file: {}: {}", filepath.string(), strerror(errno)));
     
@@ -208,24 +216,17 @@ void CtActions::import_node_from_md_file() noexcept
 {
     try {
         CtDialogs::file_select_args args(_pCtMainWin);
+        args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImport;
         args.filter_mime = {"text/plain"};
         args.filter_pattern = {"*.md"};
+        auto fpath = CtDialogs::file_select_dialog(args);
+        if (fpath.empty()) return;
+        _pCtMainWin->get_ct_config()->pickDirImport = Glib::path_get_dirname(fpath);
         
-        auto path = CtDialogs::file_select_dialog(args);
-        
-        // Cancelled
-        if (path.empty()) return;
-        if (!std::filesystem::exists(path)) {
-            // Todo: Print error message
-        }
-        
-        _import_node_from_md_file(path);
-
-
+        _import_node_from_md_file(fpath);
     } catch(std::exception& e) {
         spdlog::error("Exception caught while importing node from md file: ", e.what());
     }
-
 }
 
 void CtActions::_import_nodes_from_zim_directory(const std::filesystem::path& filepath)
@@ -295,9 +296,11 @@ void CtActions::import_nodes_from_zim_directory() noexcept
     try {
         if (!_is_there_selected_node_or_error()) return;
         
-        auto filepath = CtDialogs::folder_select_dialog("", _pCtMainWin);
+        auto fdir = CtDialogs::folder_select_dialog(_pCtMainWin->get_ct_config()->pickDirImport, _pCtMainWin);
+        if (fdir.empty()) return;
+        _pCtMainWin->get_ct_config()->pickDirImport = fdir;
     
-        _import_nodes_from_zim_directory(filepath);
+        _import_nodes_from_zim_directory(fdir);
         
     } catch(std::exception& e) {
         spdlog::error("Exception caught while importing node from ZIM file: {}", e.what());
@@ -307,10 +310,11 @@ void CtActions::import_nodes_from_zim_directory() noexcept
 void CtActions::import_nodes_from_md_directory() noexcept
 {
     try {
-        auto path = CtDialogs::folder_select_dialog("", _pCtMainWin);
-        if (path.empty()) return;
-        
-        for (const auto& file : std::filesystem::directory_iterator(path)) {
+        auto fdir = CtDialogs::folder_select_dialog(_pCtMainWin->get_ct_config()->pickDirImport, _pCtMainWin);
+        if (fdir.empty()) return;
+        _pCtMainWin->get_ct_config()->pickDirImport = fdir;
+
+        for (const auto& file : std::filesystem::directory_iterator(fdir)) {
             auto& file_path = file.path();
             if (file_path.extension() == ".md") {
                 _import_node_from_md_file(file_path);
@@ -321,6 +325,5 @@ void CtActions::import_nodes_from_md_directory() noexcept
         spdlog::error("Exception caught while importing files from MD directory: {}", e.what());
 
     }
-    
 }
 
