@@ -39,13 +39,6 @@ void CtActions::folder_cfg_open()
     CtFileSystem::external_folderpath_open(Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME));
 }
 
-static size_t __write_memory_callback(void *contents, size_t size, size_t nmemb, void *userp)
-{
-    const size_t realsize = size*nmemb;
-    *static_cast<std::string*>(userp) += std::string{static_cast<const char*>(contents), realsize};
-    return realsize;
-};
-
 void CtActions::check_for_newer_version()
 {
     auto& statusbar = _pCtMainWin->get_status_bar();
