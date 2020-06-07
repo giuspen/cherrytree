@@ -126,6 +126,7 @@ private:
 
 private:
     CtMainWin*            _pCtMainWin;
+    std::string           _local_dir;
 
     // releated to parsing html
     ParserState           _state;

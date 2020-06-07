@@ -23,7 +23,6 @@
 
 #include "ct_actions.h"
 #include <glib/gstdio.h>
-#include <curl/curl.h>
 
 void CtActions::online_help()
 {
@@ -47,37 +46,13 @@ static size_t __write_memory_callback(void *contents, size_t size, size_t nmemb,
     return realsize;
 };
 
-std::string CtActions::_get_latest_version_from_server()
-{
-    // from https://curl.haxx.se/libcurl/c/getinmemory.html
-
-    curl_global_init(CURL_GLOBAL_ALL);
-    CURL* pCurlHandle = curl_easy_init();
-
-    std::string ret_str;
-
-    curl_easy_setopt(pCurlHandle, CURLOPT_URL, "https://www.giuspen.com/software/version_cherrytree");
-    curl_easy_setopt(pCurlHandle, CURLOPT_WRITEFUNCTION, __write_memory_callback);
-    curl_easy_setopt(pCurlHandle, CURLOPT_WRITEDATA, (void*)&ret_str);
-    curl_easy_setopt(pCurlHandle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
-    const CURLcode res = curl_easy_perform(pCurlHandle);
-    if (res != CURLE_OK) {
-        g_warning("curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
-    }
-
-    curl_easy_cleanup(pCurlHandle);
-    curl_global_cleanup();
-
-    return str::trim(ret_str);
-}
-
 void CtActions::check_for_newer_version()
 {
     auto& statusbar = _pCtMainWin->get_status_bar();
     statusbar.update_status(_("Checking for Newer Version..."));
     while (gtk_events_pending()) gtk_main_iteration();
 
-    const std::string latest_version_from_server = _get_latest_version_from_server();
+    const std::string latest_version_from_server = str::trim(CtFileSystem::download_file("https://www.giuspen.com/software/version_cherrytree"));
     //g_print("v='%s'\n", latest_version_from_server.c_str());
     if (latest_version_from_server.empty() or latest_version_from_server.size() > 10) {
         statusbar.update_status(_("Failed to Retrieve Latest Version Information - Try Again Later"));
