@@ -33,6 +33,10 @@
 #include <fstream>
 #include "ct_logging.h"
 
+#ifdef _WIN32
+    #include <windows.h>
+    #include <shellapi.h>
+#endif
 
 std::string CtMiscUtil::get_ct_language()
 {
