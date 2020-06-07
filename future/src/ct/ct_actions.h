@@ -166,9 +166,9 @@ private:
 public:
     // tree actions
     void node_add()                { _node_add(false, false); }
-    void node_dublicate()          { _node_add(true, false); }
+    void node_duplicate()          { _node_add(true, false); }
     void node_child_add()          { _node_add(false, true); }
-    void node_subnodes_dublicate();
+    void node_subnodes_duplicate();
     void node_edit();
     void node_inherit_syntax();
     void node_delete();

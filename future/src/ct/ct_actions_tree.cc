@@ -97,7 +97,7 @@ bool CtActions::_node_sel_and_rich_text()
     return true;
 }
 
-void CtActions::node_subnodes_dublicate()
+void CtActions::node_subnodes_duplicate()
 {
     if (!_is_there_selected_node_or_error()) return;
     Gtk::TreeIter top_iter = _pCtMainWin->curr_tree_iter();
@@ -705,7 +705,8 @@ void CtActions::tree_info()
     {
         Gtk::TreeIter childIter = parentIter ? parentIter->children().begin() : ctTreestore.get_iter_first();
         if (childIter) {
-            for (; childIter; ++childIter) {
+            iterate_childs(childIter);
+            do {
                 auto ctTreeIter = ctTreestore.to_ct_tree_iter(childIter);
                 const auto nodeSyntax = ctTreeIter.get_node_syntax_highlighting();
                 if (nodeSyntax == CtConst::RICH_TEXT_ID) {
@@ -717,6 +718,7 @@ void CtActions::tree_info()
                 else {
                     ++summaryInfo.nodes_code_num;
                 }
+                (void)ctTreeIter.get_node_text_buffer(); // ensure the node content is populated
                 for (CtAnchoredWidget* pAnchoredWidget : ctTreeIter.get_embedded_pixbufs_tables_codeboxes_fast()) {
                     switch (pAnchoredWidget->get_type()) {
                         case CtAnchWidgType::CodeBox: ++summaryInfo.codeboxes_num; break;
@@ -726,8 +728,8 @@ void CtActions::tree_info()
                         case CtAnchWidgType::Table: ++summaryInfo.tables_num; break;
                     }
                 }
-            }
-            iterate_childs(childIter);
+                ++childIter;
+            } while (childIter);
         }
     };
     Gtk::TreeIter emptyIter{};

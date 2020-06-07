@@ -1842,7 +1842,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
 CtYesNoCancel CtDialogs::exit_save_dialog(Gtk::Window& parent)
 {
     Gtk::Dialog dialog = Gtk::Dialog(_("Warning"),
-                                      parent,
+                                     parent,
                                      Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
     dialog.add_button(Gtk::Stock::DISCARD, Gtk::RESPONSE_NO);
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
@@ -2136,17 +2136,17 @@ std::string CtDialogs::dialog_palette(CtMainWin* pCtMainWin)
         if (key->keyval == GDK_KEY_Escape) {
             popup_dialog.close();
             return true;
-         } else if (key->keyval == GDK_KEY_Tab || key->keyval == GDK_KEY_ISO_Left_Tab) {
+        } else if (key->keyval == GDK_KEY_Tab || key->keyval == GDK_KEY_ISO_Left_Tab) {
             // Disable Tab and Shift+Tab to prevent navigating focus away from the search entry
             return true;
-         } else if (key->keyval == GDK_KEY_Up) {
+        } else if (key->keyval == GDK_KEY_Up) {
             select_previous_item();
             return true;
-         } else if (key->keyval == GDK_KEY_Down) {
+        } else if (key->keyval == GDK_KEY_Down) {
             select_next_item();
             return true;
-         }
-         return false;
+        }
+        return false;
     }, false);
     popup_dialog.show_all();
 
@@ -2166,5 +2166,60 @@ std::string CtDialogs::dialog_palette(CtMainWin* pCtMainWin)
 
 void CtDialogs::summary_info_dialog(CtMainWin* pCtMainWin, const CtSummaryInfo& summaryInfo)
 {
-    
+    Gtk::Dialog dialog = Gtk::Dialog{_("Tree Summary Information"),
+                                     *pCtMainWin,
+                                     Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
+    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    dialog.set_default_size(400, 300);
+    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    Gtk::Grid grid;
+    grid.property_margin() = 6;
+    grid.set_row_spacing(4);
+    grid.set_column_spacing(8);
+    grid.set_row_homogeneous(true);
+    Gtk::Label label_rt_key;
+    label_rt_key.set_markup(Glib::ustring{"<b>"} + _("Number of Rich Text Nodes") + "</b>");
+    grid.attach(label_rt_key, 0, 0, 1, 1);
+    Gtk::Label label_rt_val{std::to_string(summaryInfo.nodes_rich_text_num)};
+    grid.attach(label_rt_val, 1, 0, 1, 1);
+    Gtk::Label label_pt_key;
+    label_pt_key.set_markup(Glib::ustring{"<b>"} + _("Number of Plain Text Nodes") + "</b>");
+    grid.attach(label_pt_key, 0, 1, 1, 1);
+    Gtk::Label label_pt_val{std::to_string(summaryInfo.nodes_plain_text_num)};
+    grid.attach(label_pt_val, 1, 1, 1, 1);
+    Gtk::Label label_co_key;
+    label_co_key.set_markup(Glib::ustring{"<b>"} + _("Number of Code Nodes") + "</b>");
+    grid.attach(label_co_key, 0, 2, 1, 1);
+    Gtk::Label label_co_val{std::to_string(summaryInfo.nodes_code_num)};
+    grid.attach(label_co_val, 1, 2, 1, 1);
+    Gtk::Label label_im_key;
+    label_im_key.set_markup(Glib::ustring{"<b>"} + _("Number of Images") + "</b>");
+    grid.attach(label_im_key, 0, 3, 1, 1);
+    Gtk::Label label_im_val{std::to_string(summaryInfo.images_num)};
+    grid.attach(label_im_val, 1, 3, 1, 1);
+    Gtk::Label label_ef_key;
+    label_ef_key.set_markup(Glib::ustring{"<b>"} + _("Number of Embedded Files") + "</b>");
+    grid.attach(label_ef_key, 0, 4, 1, 1);
+    Gtk::Label label_ef_val{std::to_string(summaryInfo.embfile_num)};
+    grid.attach(label_ef_val, 1, 4, 1, 1);
+    Gtk::Label label_ta_key;
+    label_ta_key.set_markup(Glib::ustring{"<b>"} + _("Number of Tables") + "</b>");
+    grid.attach(label_ta_key, 0, 5, 1, 1);
+    Gtk::Label label_ta_val{std::to_string(summaryInfo.tables_num)};
+    grid.attach(label_ta_val, 1, 5, 1, 1);
+    Gtk::Label label_cb_key;
+    label_cb_key.set_markup(Glib::ustring{"<b>"} + _("Number of CodeBoxes") + "</b>");
+    grid.attach(label_cb_key, 0, 6, 1, 1);
+    Gtk::Label label_cb_val{std::to_string(summaryInfo.codeboxes_num)};
+    grid.attach(label_cb_val, 1, 6, 1, 1);
+    Gtk::Label label_an_key;
+    label_an_key.set_markup(Glib::ustring{"<b>"} + _("Number of Anchors") + "</b>");
+    grid.attach(label_an_key, 0, 7, 1, 1);
+    Gtk::Label label_an_val{std::to_string(summaryInfo.anchors_num)};
+    grid.attach(label_an_val, 1, 7, 1, 1);
+    Gtk::Box* pContentArea = dialog.get_content_area();
+    pContentArea->pack_start(grid);
+    pContentArea->show_all();
+    dialog.run();
+    dialog.hide();
 }
