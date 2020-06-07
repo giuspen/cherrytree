@@ -1,7 +1,9 @@
 /*
  * ct_dialogs.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,13 +33,6 @@
 
 class CtMainWin;
 class CtTreeStore;
-
-struct CtExportOptions
-{
-    bool include_node_name{true};
-    bool new_node_page{false};
-    bool index_in_page{true};
-};
 
 class CtDialogTextEntry : public Gtk::Dialog
 {
@@ -285,5 +280,8 @@ CtYesNoCancel exit_save_dialog(Gtk::Window& parent);
 // Application About Dialog
 void dialog_about(Gtk::Window& parent, Glib::RefPtr<Gdk::Pixbuf> icon);
 
-std::string dialog_pallete(CtMainWin* pCtMainWin);
+std::string dialog_palette(CtMainWin* pCtMainWin);
+
+void summary_info_dialog(CtMainWin* pCtMainWin, const CtSummaryInfo& summaryInfo);
+
 } // namespace CtDialogs

@@ -1894,14 +1894,14 @@ CtYesNoCancel CtDialogs::exit_save_dialog(Gtk::Window& parent)
 // Application About Dialog
 void CtDialogs::dialog_about(Gtk::Window& parent, Glib::RefPtr<Gdk::Pixbuf> icon)
 {
-     auto dialog = Gtk::AboutDialog();
-     dialog.set_program_name("CherryTree");
-     dialog.set_version(CtConst::CT_VERSION);
-     dialog.set_copyright("Copyright © 2009-2020\n"
-                          "Giuseppe Penone <giuspen@gmail.com>\n"
-                          "Evgenii Gurianov <https://github.com/txe>");
-     dialog.set_comments(_("A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting"));
-     dialog.set_license(_(R"STR(
+    auto dialog = Gtk::AboutDialog();
+    dialog.set_program_name("CherryTree");
+    dialog.set_version(CtConst::CT_VERSION);
+    dialog.set_copyright("Copyright © 2009-2020\n"
+                         "Giuseppe Penone <giuspen@gmail.com>\n"
+                         "Evgenii Gurianov <https://github.com/txe>");
+    dialog.set_comments(_("A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting"));
+    dialog.set_license(_(R"STR(
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
@@ -1917,10 +1917,10 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 MA 02110-1301, USA.
 )STR"));
-     dialog.set_website("http://www.giuspen.com/cherrytree/");
-     dialog.set_authors({"Giuseppe Penone <giuspen@gmail.com>", "Evgenii Gurianov <https://github.com/txe>"});
-     dialog.set_artists({"OCAL <http://www.openclipart.org/>", "Zeltak <zeltak@gmail.com>", "Angelo Penone <angelo.penone@gmail.com>"});
-     dialog.set_translator_credits(Glib::ustring() +
+    dialog.set_website("https://www.giuspen.com/cherrytree/");
+    dialog.set_authors({"Giuseppe Penone <giuspen@gmail.com>", "Evgenii Gurianov <https://github.com/txe>"});
+    dialog.set_artists({"OCAL <http://www.openclipart.org/>", "Zeltak <zeltak@gmail.com>", "Angelo Penone <angelo.penone@gmail.com>"});
+    dialog.set_translator_credits(Glib::ustring{} +
  _("Armenian")+" (hy) Seda Stamboltsyan <sedastam@yandex.com>"+CtConst::CHAR_NEWLINE+
  _("Chinese Simplified")+" (zh_CN) Channing Wong <channing.wong@qq.com>"+CtConst::CHAR_NEWLINE+
  _("Czech")+" (cs) Pavel Fric <fripohled@blogspot.com>"+CtConst::CHAR_NEWLINE+
@@ -1940,26 +1940,26 @@ MA 02110-1301, USA.
  _("Swedish")+" (sv) Åke Engelbrektson <eson@svenskasprakfiler.se>"+CtConst::CHAR_NEWLINE+
  _("Turkish")+" (tr) Ferhat Aydin <ferhataydin44@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Ukrainian")+" (uk) Andriy Kovtun <kovtunos@yandex.ru>");
-     dialog.set_logo(icon);
-     dialog.set_title(_("About CherryTree"));
+    dialog.set_logo(icon);
+    dialog.set_title(_("About CherryTree"));
 
-     dialog.set_transient_for(parent);
-     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
-     dialog.set_modal(true);
-     dialog.run();
+    dialog.set_transient_for(parent);
+    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    dialog.set_modal(true);
+    dialog.run();
 }
 
-std::string CtDialogs::dialog_pallete(CtMainWin* pCtMainWin)
+std::string CtDialogs::dialog_palette(CtMainWin* pCtMainWin)
 {
     // based on plotinus
-    struct CtPalleteColumns : public Gtk::TreeModel::ColumnRecord
+    struct CtPaletteColumns : public Gtk::TreeModel::ColumnRecord
     {
         Gtk::TreeModelColumn<int>           order;
         Gtk::TreeModelColumn<Glib::ustring> id;
         Gtk::TreeModelColumn<Glib::ustring> path;
         Gtk::TreeModelColumn<Glib::ustring> label;
         Gtk::TreeModelColumn<Glib::ustring> accelerator;
-        CtPalleteColumns() { add(order); add(id); add(path); add(label); add(accelerator); }
+        CtPaletteColumns() { add(order); add(id); add(path); add(label); add(accelerator); }
     } columns;
 
 
@@ -2162,4 +2162,9 @@ std::string CtDialogs::dialog_pallete(CtMainWin* pCtMainWin)
     if (resulted_iter)
         return resulted_iter->get_value(columns.id);
     return "";
+}
+
+void CtDialogs::summary_info_dialog(CtMainWin* pCtMainWin, const CtSummaryInfo& summaryInfo)
+{
+    
 }

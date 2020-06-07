@@ -166,7 +166,7 @@ private:
 public:
     // tree actions
     void node_add()                { _node_add(false, false); }
-    void node_dublicate()          { _node_add(true, false);  }
+    void node_dublicate()          { _node_add(true, false); }
     void node_child_add()          { _node_add(false, true); }
     void node_subnodes_dublicate();
     void node_edit();
@@ -178,10 +178,11 @@ public:
     void node_down();
     void node_right();
     void node_left();
-    void node_change_father();    
+    void node_change_father();
     bool node_move(Gtk::TreeModel::Path src_path, Gtk::TreeModel::Path dest_path);
     void tree_sort_ascending();
     void tree_sort_descending();
+    void tree_info();
     void node_siblings_sort_ascending();
     void node_siblings_sort_descending();
     void node_go_back();    // was as go_back

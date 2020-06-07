@@ -1,7 +1,9 @@
 /*
  * ct_actions_tree.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -692,4 +694,43 @@ void CtActions::bookmark_curr_node_remove()
 void CtActions::bookmarks_handle()
 {
     CtDialogs::bookmarks_handle_dialog(_pCtMainWin);
+}
+
+void CtActions::tree_info()
+{
+    if (not _is_tree_not_empty_or_error()) return;
+    CtSummaryInfo summaryInfo{};
+    auto& ctTreestore = _pCtMainWin->get_tree_store();
+    std::function<void(Gtk::TreeIter&)> iterate_childs = [&](Gtk::TreeIter& parentIter)
+    {
+        Gtk::TreeIter childIter = parentIter ? parentIter->children().begin() : ctTreestore.get_iter_first();
+        if (childIter) {
+            for (; childIter; ++childIter) {
+                auto ctTreeIter = ctTreestore.to_ct_tree_iter(childIter);
+                const auto nodeSyntax = ctTreeIter.get_node_syntax_highlighting();
+                if (nodeSyntax == CtConst::RICH_TEXT_ID) {
+                    ++summaryInfo.nodes_rich_text_num;
+                }
+                else if (nodeSyntax == CtConst::PLAIN_TEXT_ID) {
+                    ++summaryInfo.nodes_plain_text_num;
+                }
+                else {
+                    ++summaryInfo.nodes_code_num;
+                }
+                for (CtAnchoredWidget* pAnchoredWidget : ctTreeIter.get_embedded_pixbufs_tables_codeboxes_fast()) {
+                    switch (pAnchoredWidget->get_type()) {
+                        case CtAnchWidgType::CodeBox: ++summaryInfo.codeboxes_num; break;
+                        case CtAnchWidgType::ImageAnchor: ++summaryInfo.anchors_num; break;
+                        case CtAnchWidgType::ImageEmbFile: ++summaryInfo.embfile_num; break;
+                        case CtAnchWidgType::ImagePng: ++summaryInfo.images_num; break;
+                        case CtAnchWidgType::Table: ++summaryInfo.tables_num; break;
+                    }
+                }
+            }
+            iterate_childs(childIter);
+        }
+    };
+    Gtk::TreeIter emptyIter{};
+    iterate_childs(emptyIter);
+    CtDialogs::summary_info_dialog(_pCtMainWin, summaryInfo);
 }

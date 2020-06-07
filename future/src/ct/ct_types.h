@@ -1,7 +1,9 @@
 /*
  * ct_types.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -144,4 +146,23 @@ public:
                                                               const std::string& syntax,
                                                               std::list<CtAnchoredWidget*>& widgets) const = 0;
 
+};
+
+struct CtExportOptions
+{
+    bool include_node_name{true};
+    bool new_node_page{false};
+    bool index_in_page{true};
+};
+
+struct CtSummaryInfo
+{
+    size_t nodes_rich_text_num{0};
+    size_t nodes_plain_text_num{0};
+    size_t nodes_code_num{0};
+    size_t images_num{0};
+    size_t embfile_num{0};
+    size_t tables_num{0};
+    size_t codeboxes_num{0};
+    size_t anchors_num{0};
 };

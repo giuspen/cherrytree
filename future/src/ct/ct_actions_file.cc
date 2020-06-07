@@ -123,7 +123,7 @@ void CtActions::dialog_preferences()
 
 void CtActions::command_palette()
 {
-    std::string id = CtDialogs::dialog_pallete(_pCtMainWin);
+    std::string id = CtDialogs::dialog_palette(_pCtMainWin);
     if (CtMenuAction* action = _pCtMainWin->get_ct_menu().find_action(id))
         action->run_action();
 }

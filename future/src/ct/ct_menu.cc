@@ -173,7 +173,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_prop", "cherry_edit", _("Change Node _Properties"), "F2", _("Edit the Properties of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_edit)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_toggle_ro", "locked", _("Toggle _Read Only"), KB_CONTROL+KB_ALT+"R", _("Toggle the Read Only Property of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_toggle_read_only)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_date", "calend", _("Insert Today's Node"), "F8", _("Insert a Node with Hierarchy Year/Month/Day"), sigc::mem_fun(*pActions, &CtActions::node_date)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_parse_info", "info", _("Tree _Info"), None, _("Tree Summary Information"), sigc::signal<void>() /* dad.tree_info */});
+    _actions.push_back(CtMenuAction{tree_cat, "tree_parse_info", "info", _("Tree _Info"), None, _("Tree Summary Information"), sigc::mem_fun(*pActions, &CtActions::tree_info)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_up", "go-up", _("Node _Up"), KB_SHIFT+CtConst::STR_KEY_UP, _("Move the Selected Node Up"), sigc::mem_fun(*pActions, &CtActions::node_up)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_down", "go-down", _("Node _Down"), KB_SHIFT+CtConst::STR_KEY_DOWN, _("Move the Selected Node Down"), sigc::mem_fun(*pActions, &CtActions::node_down)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_left", "go-back", _("Node _Left"), KB_SHIFT+CtConst::STR_KEY_LEFT, _("Move the Selected Node Left"), sigc::mem_fun(*pActions, &CtActions::node_left)});
