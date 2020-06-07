@@ -352,7 +352,8 @@ void CtConfig::_populate_data_from_keyfile()
         {
             break;
         }
-        recentDocsFilepaths.push_back(Glib::canonicalize_filename(filepath));
+        filepath = Glib::canonicalize_filename(filepath);
+        recentDocsFilepaths.push_back(filepath);
         if (not savedFromPyGtk)
         {
             CtRecentDocRestore recentDocRestore;
@@ -386,11 +387,17 @@ void CtConfig::_populate_data_from_keyfile()
         }
     }
     _populate_string_from_keyfile("pick_dir_import", &pickDirImport);
+    pickDirImport = Glib::canonicalize_filename(pickDirImport);
     _populate_string_from_keyfile("pick_dir_export", &pickDirExport);
+    pickDirExport = Glib::canonicalize_filename(pickDirExport);
     _populate_string_from_keyfile("pick_dir_file", &pickDirFile);
+    pickDirFile = Glib::canonicalize_filename(pickDirFile);
     _populate_string_from_keyfile("pick_dir_img", &pickDirImg);
+    pickDirImg = Glib::canonicalize_filename(pickDirImg);
     _populate_string_from_keyfile("pick_dir_csv", &pickDirCsv);
+    pickDirCsv = Glib::canonicalize_filename(pickDirCsv);
     _populate_string_from_keyfile("pick_dir_cbox", &pickDirCbox);
+    pickDirCbox = Glib::canonicalize_filename(pickDirCbox);
     _populate_string_from_keyfile("link_type", &linkType);
     _populate_bool_from_keyfile("show_node_name_header", &showNodeNameHeader);
     _populate_int_from_keyfile("nodes_on_node_name_header", &nodesOnNodeNameHeader);
