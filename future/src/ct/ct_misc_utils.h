@@ -422,4 +422,6 @@ std::string get_cherrytree_localedir();
 std::string get_cherrytree_configdir();
 std::string get_cherrytree_lang_filepath();
 
+std::string download_file(const std::string& filepath);
+
 } // namespace CtFileSystem

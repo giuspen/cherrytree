@@ -23,13 +23,12 @@
 #include "ct_misc_utils.h"
 #include "ct_const.h"
 #include "ct_main_win.h"
+#include "ct_logging.h"
 #include <libxml2/libxml/SAX.h>
 #include <iostream>
 #include <glibmm/base64.h>
 #include <fstream>
 #include <sstream>
-#include "ct_logging.h"
-
 
 const std::set<std::string> CtHtml2Xml::HTML_A_TAGS{"p", "b", "i", "u", "s", CtConst::TAG_PROP_VAL_H1,
             CtConst::TAG_PROP_VAL_H2, CtConst::TAG_PROP_VAL_H3, "span", "font"};
@@ -535,34 +534,67 @@ std::string CtHtml2Xml::_convert_html_color(const std::string& html_color)
 }
 
 // Insert Image in Buffer
-void CtHtml2Xml::_insert_image(std::string /*img_path*/, std::string /*trailing_chars*/)
+void CtHtml2Xml::_insert_image(std::string img_path, std::string trailing_chars)
 {
     _rich_text_save_pending();
-    // todo:
-    /*try:
-        self.dad.statusbar.push(self.dad.statusbar_context_id, _("Downloading") + " %s ..." % img_path)
-        while gtk.events_pending(): gtk.main_iteration()
-        url_desc = urllib2.urlopen(img_path, timeout=3)
-        image_file = url_desc.read()
-        pixbuf_loader = gtk.gdk.PixbufLoader()
-        pixbuf_loader.write(image_file)
-        pixbuf_loader.close()
-        pixbuf = pixbuf_loader.get_pixbuf()
-        self.dad.xml_handler.pixbuf_element_to_xml([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT], self.nodes_list[-1], self.dom)
-        self.chars_counter += 1
-        self.dad.statusbar.pop(self.dad.statusbar_context_id)
-        if trailing_chars: self.rich_text_serialize(trailing_chars)
-    except:
-        if os.path.isfile(os.path.join(self.local_dir, img_path)):
-            pixbuf = gtk.gdk.pixbuf_new_from_file(os.path.join(self.local_dir, img_path))
-            self.dad.xml_handler.pixbuf_element_to_xml([self.chars_counter, pixbuf, cons.TAG_PROP_LEFT], self.nodes_list[-1], self.dom)
-            self.chars_counter += 1
-        else: print "failed download of", img_path
-        self.dad.statusbar.pop(self.dad.statusbar_context_id)
-*/
 
-    // don't forget to move offset
-    // _char_offset += 1;
+    // todo: remove this copy-paste (image.cc)
+    auto insert_image = [&](Glib::RefPtr<Gdk::Pixbuf> pixbuf) {
+        g_autofree gchar* pBuffer{NULL};
+        gsize buffer_size;
+        pixbuf->save_to_buffer(pBuffer, buffer_size, "png");
+        const std::string rawBlob = std::string(pBuffer, buffer_size);
+        const std::string encodedBlob = Glib::Base64::encode(rawBlob);
+
+        xmlpp::Element* p_image_node = _slot_root->add_child("encoded_png");
+        p_image_node->set_attribute("char_offset", std::to_string(_char_offset));
+        p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_LEFT);
+        p_image_node->set_attribute("link", img_path);
+        p_image_node->add_child_text(encodedBlob);
+    };
+
+    auto& statusbar = _pCtMainWin->get_status_bar();
+    statusbar.update_status(std::string(_("Downloading")) + " " + img_path + " ...");
+    while (gtk_events_pending()) gtk_main_iteration();
+
+    bool image_good = false;
+
+    // trying to download
+    try {
+        std::string file_buffer = CtFileSystem::download_file(img_path);
+        if (!file_buffer.empty()) {
+            Glib::RefPtr<Gdk::PixbufLoader> pixbuf_loader = Gdk::PixbufLoader::create();
+            pixbuf_loader->write((const guint8*)file_buffer.c_str(), file_buffer.size());
+            pixbuf_loader->close();
+            auto pixbuf = pixbuf_loader->get_pixbuf();
+            insert_image(pixbuf);
+            image_good = true;
+        }
+    }  catch (...) { }
+
+    // trying to load from disk
+    try {
+        if (!image_good) {
+            std::string local_image = Glib::build_filename(_local_dir, img_path);
+            if (Glib::file_test(local_image, Glib::FILE_TEST_IS_REGULAR)) {
+                Glib::RefPtr<Gdk::Pixbuf> pixbuf = Gdk::Pixbuf::create_from_file(local_image);
+                if (pixbuf) {
+                    insert_image(pixbuf);
+                    image_good = true;
+                }
+            }
+        }
+    }
+    catch (...) {}
+
+    if (image_good) {
+        _char_offset += 1;
+        if (!trailing_chars.empty())
+            _rich_text_serialize(trailing_chars);
+    } else {
+        spdlog::error("Failed to download {}", img_path);
+    }
+    statusbar.update_status("");
 }
 
 void CtHtml2Xml::_insert_table()
@@ -691,13 +723,10 @@ void CtHtml2Xml::add_file(const std::filesystem::path &path) noexcept
         std::ostringstream ss;
         ss << infile.rdbuf();
         
+        _local_dir = path.parent_path();
         feed(ss.str());
-        
-        
     } catch(std::exception& e) {
         spdlog::error("Exception caught while adding file to XML: {}", e.what());
     }
-    
-    
 }
 

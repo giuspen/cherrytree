@@ -27,11 +27,12 @@
 #include "ct_misc_utils.h"
 #include "ct_const.h"
 #include "ct_main_win.h"
+#include "ct_logging.h"
 #include <ctime>
 #include <regex>
 #include <glib/gstdio.h> // to get stats
 #include <fstream>
-#include "ct_logging.h"
+#include <curl/curl.h>
 
 #ifdef _WIN32
     #include <windows.h>
@@ -977,4 +978,41 @@ std::string CtFileSystem::get_cherrytree_configdir()
 std::string CtFileSystem::get_cherrytree_lang_filepath()
 {
     return Glib::build_filename(get_cherrytree_configdir(), "lang");
+}
+
+std::string CtFileSystem::download_file(const std::string& filepath)
+{
+    struct local {
+        static size_t write_memory_callback(void *contents, size_t size, size_t nmemb, void *userp)
+        {
+            const size_t realsize = size*nmemb;
+            static_cast<std::string*>(userp)->append((char*)contents, realsize);
+            return realsize;
+        }
+    };
+
+    spdlog::debug("start downloading {}", filepath);
+
+    std::string buffer;
+    buffer.reserve(3 * 1024 * 1024); // preallocate 3mb
+
+    // from https://curl.haxx.se/libcurl/c/getinmemory.html
+    curl_global_init(CURL_GLOBAL_ALL);
+    CURL* pCurlHandle = curl_easy_init();
+
+    curl_easy_setopt(pCurlHandle, CURLOPT_URL, filepath.c_str());
+    curl_easy_setopt(pCurlHandle, CURLOPT_WRITEFUNCTION, local::write_memory_callback);
+    curl_easy_setopt(pCurlHandle, CURLOPT_WRITEDATA, (void*)&buffer);
+    curl_easy_setopt(pCurlHandle, CURLOPT_TIMEOUT, 3);
+    curl_easy_setopt(pCurlHandle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
+    const CURLcode res = curl_easy_perform(pCurlHandle);
+    curl_easy_cleanup(pCurlHandle);
+    curl_global_cleanup();
+
+    if (res != CURLE_OK) {
+        spdlog::error("curl_easy_perform() failed: {}", curl_easy_strerror(res));
+        return "";
+    }
+
+    return buffer;
 }
