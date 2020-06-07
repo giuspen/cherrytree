@@ -33,6 +33,10 @@
 #include <fstream>
 #include "ct_logging.h"
 
+#ifdef _WIN32
+    #include <windows.h>
+    #include <shellapi.h>
+#endif
 
 std::string CtMiscUtil::get_ct_language()
 {
@@ -878,13 +882,20 @@ void CtFileSystem::external_filepath_open(const std::string& filepath, bool /*op
                 if open_fold_if_no_app_error: os.startfile(os.path.dirname(filepath))
         else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
         */
+
+    spdlog::debug("filepath to open: {}", filepath);
+
+#ifdef _WIN32
+    ShellExecute(GetActiveWindow(), "open", filepath.c_str(), NULL, NULL, SW_SHOWNORMAL);
+#else
     g_app_info_launch_default_for_uri(("file://" + filepath).c_str(), nullptr, nullptr);
+#endif
 }
 
 // Open Folderpath with External App
 void CtFileSystem::external_folderpath_open(const std::string& folderpath)
 {
-    /* todo:
+     /* todo:
     if self.folderlink_custom_action[0]:
         if cons.IS_WIN_OS: filepath = cons.CHAR_DQUOTE + filepath + cons.CHAR_DQUOTE
         else: filepath = re.escape(filepath)
@@ -893,13 +904,15 @@ void CtFileSystem::external_folderpath_open(const std::string& folderpath)
         if cons.IS_WIN_OS: os.startfile(filepath)
         else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
         */
+   
+   spdlog::debug("dir to open: {}", folderpath);
 
     // https://stackoverflow.com/questions/42442189/how-to-open-spawn-a-file-with-glib-gtkmm-in-windows
 #ifdef _WIN32
-    //ShellExecute(NULL, "open", relatedEntry->get_text().c_str(), NULL, NULL, SW_SHOWDEFAULT);
-    g_warning ("Failed to open uri: %s", folderpath.c_str());
+    ShellExecute(NULL, "open", folderpath.c_str(), NULL, NULL, SW_SHOWDEFAULT);
 #elif defined(__APPLE__)
-    //system(("open " + relatedEntry->get_text()).c_str());
+    std::vector<std::string> argv = { "open", folderpath };
+    Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
 #else
     gchar *path = g_filename_to_uri(folderpath.c_str(), NULL, NULL);
     std::string xgd = "xdg-open " + std::string(path);
