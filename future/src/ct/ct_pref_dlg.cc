@@ -896,10 +896,9 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     checkbutton_nodes_bookm_exp->signal_toggled().connect([pConfig, checkbutton_nodes_bookm_exp](){
         pConfig->nodesBookmExp = checkbutton_nodes_bookm_exp->get_active();
     });
-    checkbutton_aux_icon_hide->signal_toggled().connect([pConfig, checkbutton_aux_icon_hide](){
+    checkbutton_aux_icon_hide->signal_toggled().connect([this, pConfig, checkbutton_aux_icon_hide](){
         pConfig->auxIconHide = checkbutton_aux_icon_hide->get_active();
-        //dad.aux_renderer_pixbuf.set_property("visible", not dad.aux_icon_hide)
-        //dad.treeview_refresh()
+        apply_for_each_window([pConfig](CtMainWin* win) { win->get_tree_view().get_column(CtTreeView::AUX_ICON_COL_NUM)->set_visible(!pConfig->auxIconHide); });
     });
 
     return pMainBox;
@@ -952,10 +951,9 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_2()
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_misc_tree, false, false);
 
-    spinbutton_tree_nodes_names_width->signal_value_changed().connect([pConfig, spinbutton_tree_nodes_names_width](){
+    spinbutton_tree_nodes_names_width->signal_value_changed().connect([this, pConfig, spinbutton_tree_nodes_names_width](){
         pConfig->cherryWrapWidth = spinbutton_tree_nodes_names_width->get_value_as_int();
-        //dad.renderer_text.set_property('wrap-width', dad.cherry_wrap_width)
-        //dad.treeview_refresh()
+        apply_for_each_window([pConfig](CtMainWin* win) { win->get_tree_view().set_title_wrap_mode(pConfig->cherryWrapWidth); });
     });
     checkbutton_tree_right_side->signal_toggled().connect([this, pConfig, checkbutton_tree_right_side](){
         pConfig->treeRightSide = checkbutton_tree_right_side->get_active();
