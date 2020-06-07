@@ -508,6 +508,15 @@ void CtMainWin::config_apply()
     get_status_icon()->set_visible(_pCtConfig->systrayOn);
     menu_set_visible_exit_app(_pCtConfig->systrayOn);
 
+    _ctTextview.set_show_line_numbers(get_ct_config()->showLineNumbers);
+    _ctTextview.set_insert_spaces_instead_of_tabs(get_ct_config()->spacesInsteadTabs);
+    _ctTextview.set_tab_width(get_ct_config()->tabsWidth);
+    _ctTextview.set_indent(get_ct_config()->wrappingIndent);
+    _ctTextview.set_pixels_above_lines(get_ct_config()->spaceAroundLines);
+    _ctTextview.set_pixels_below_lines(get_ct_config()->spaceAroundLines);
+    _ctTextview.set_pixels_inside_wrap(get_ct_config()->spaceAroundLines, get_ct_config()->relativeWrappedSpace);
+    _ctTextview.set_wrap_mode(get_ct_config()->lineWrapping ? Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
+
     update_theme();
 }
 
