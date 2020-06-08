@@ -87,7 +87,7 @@ void CtClipboard::_cut_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox)
         int num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset();
         if ((pCodebox or _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting() != CtConst::RICH_TEXT_ID) and num_chars > 30000)
         {
-            spdlog::debug("cut-clipboard is not overridden for num_chars {}", num_chars);
+            spdlog::error("cut-clipboard is not overridden for num_chars {}", num_chars);
         }
         else
         {
@@ -115,7 +115,7 @@ void CtClipboard::_copy_clipboard(Gtk::TextView* pTextView, CtCodebox* pCodebox)
         int num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset();
         if ((pCodebox or _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting() != CtConst::RICH_TEXT_ID) and num_chars > 30000)
         {
-            spdlog::debug("copy-clipboard is not overridden for num_chars {}", num_chars);
+            spdlog::error("copy-clipboard is not overridden for num_chars {}", num_chars);
         }
         else
         {
@@ -311,7 +311,10 @@ void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buf
                 CtClipboardData* clip_data = new CtClipboardData();
                 codebox->to_xml(clip_data->xml_doc.create_root_node("root"), 0);
                 clip_data->html_text = CtExport2Html(_pCtMainWin).codebox_export_to_html(codebox);
-                clip_data->plain_text = CtExport2Txt(_pCtMainWin).get_codebox_plain(codebox);
+                if (num_chars == 1) // just copy one codebox
+                    clip_data->plain_text = _codebox_to_yaml(codebox);
+                else
+                    clip_data->plain_text = CtExport2Txt(_pCtMainWin).get_codebox_plain(codebox);
 
                 _set_clipboard_data({TARGET_CTD_CODEBOX, TARGETS_HTML[0], TARGET_CTD_PLAIN_TEXT}, clip_data);
                 return;
@@ -419,6 +422,13 @@ void CtClipboard::_on_received_to_plain_text(const Gtk::SelectionData& selection
         spdlog::error("? no clipboard plain text");
         return;
     }
+
+    if (_pCtMainWin->curr_tree_iter().get_node_syntax_highlighting() == CtConst::RICH_TEXT_ID)
+        if (str::startswith(plain_text, "- codebox:")) {
+            _yaml_to_codebox(plain_text, pTextView);
+            return;
+        }
+
     auto curr_buffer = pTextView->get_buffer();
     Gtk::TextIter iter_insert = curr_buffer->get_insert()->get_iter();
     int start_offset = iter_insert.get_offset();
@@ -487,27 +497,7 @@ void CtClipboard::_on_received_to_codebox(const Gtk::SelectionData& selection_da
         return;
     }
 
-    xmlpp::DomParser parser;
-    parser.parse_memory(xml_text);
-    xmlpp::Document* doc = parser.get_document();
-    if (doc->get_root_node()->get_name() != "root" or not doc->get_root_node()->get_first_child("codebox"))
-    {
-        spdlog::error("codebox from clipboard error");
-        return;
-    }
-
-    std::list<CtAnchoredWidget*> widgets;
-    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(pTextView->get_buffer());
-    Gtk::TextIter insert_iter = pTextView->get_buffer()->get_insert()->get_iter();
-    CtStorageXmlHelper(_pCtMainWin).get_text_buffer_one_slot_from_xml(gsv_buffer, doc->get_root_node()->get_first_child("codebox"), widgets, &insert_iter, insert_iter.get_offset());
-    if (not widgets.empty())
-    {
-        _pCtMainWin->get_tree_store().addAnchoredWidgets(
-                    _pCtMainWin->curr_tree_iter(),
-                    widgets, &_pCtMainWin->get_text_view());
-        _pCtMainWin->get_state_machine().update_state();
-    }
-    pTextView->scroll_to(pTextView->get_buffer()->get_insert());
+    _xml_to_codebox(xml_text, pTextView);
 }
 
 // From Clipboard to Table
@@ -666,6 +656,107 @@ void CtClipboard::_on_received_to_uri_list(const Gtk::SelectionData& selection_d
                                                            iter_sel_start, iter_sel_end);
             }
         }
+    }
+    pTextView->scroll_to(pTextView->get_buffer()->get_insert());
+}
+
+Glib::ustring CtClipboard::_codebox_to_yaml(CtCodebox *codebox)
+{
+    // indent every line by 6 spaces to use them in yaml block
+    Glib::ustring indent = "      ";
+    Glib::ustring source = codebox->get_text_content();
+    source = indent + source;
+    source = str::replace(source, "\n", "\n" + indent);
+
+    Glib::ustring yaml_text;
+    yaml_text.append("- codebox:\n");
+    yaml_text.append("    syntax: " + codebox->get_syntax_highlighting() + "\n");
+    yaml_text.append("    width: " + std::to_string(codebox->get_frame_width()) + "\n");
+    yaml_text.append("    height: " + std::to_string(codebox->get_frame_height()) + "\n");
+    yaml_text.append("    width_in_pixels: " + std::string(codebox->get_frame_width() ? "true" : "false") + "\n");
+    yaml_text.append("    highlight_brackets: " + std::string(codebox->get_highlight_brackets() ? "true" : "false") + "\n");
+    yaml_text.append("    source: |-\n");
+    yaml_text.append(source);
+    yaml_text.append("\n");
+
+    return yaml_text;
+}
+
+void CtClipboard::_yaml_to_codebox(const Glib::ustring& yaml_text, Gtk::TextView* pTextView)
+{
+    // don't want to duplicate code, so convert yaml to xml
+    // it has overhead, but text volume is small, so it's ok
+    try
+    {
+        xmlpp::Document xml_doc;
+        xmlpp::Element* p_node_parent = xml_doc.create_root_node("root");
+        xmlpp::Element* p_codebox_node = p_node_parent->add_child("codebox");
+        p_codebox_node->set_attribute("char_offset", "0");
+        p_codebox_node->set_attribute(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_LEFT);
+        p_codebox_node->set_attribute("show_line_numbers", std::to_string(false));
+
+        auto get_value = [](const std::string& pair) -> std::string {
+            return str::trim(str::split(pair, ":")[1]);
+        };
+
+        enum class ParseState {OUT_BLOCK, IN_BLOCK};
+        ParseState state = ParseState::OUT_BLOCK;
+        std::string block_indent = "      ";
+        std::vector<std::string> block_lines;
+        std::istringstream iss(yaml_text);
+        for (std::string line; std::getline(iss, line);)
+        {
+            if (state == ParseState::OUT_BLOCK) {
+                std::string trim_line = str::trim(line);
+                if (trim_line == "source: |-")
+                    state = ParseState::IN_BLOCK;
+                else if (str::startswith(trim_line, "syntax:"))             p_codebox_node->set_attribute("syntax_highlighting", get_value(trim_line));
+                else if (str::startswith(trim_line, "width:"))              p_codebox_node->set_attribute("frame_width", get_value(trim_line));
+                else if (str::startswith(trim_line, "height:"))             p_codebox_node->set_attribute("frame_height", get_value(trim_line));
+                else if (str::startswith(trim_line, "width_in_pixels:"))    p_codebox_node->set_attribute("width_in_pixels", get_value(trim_line));
+                else if (str::startswith(trim_line, "highlight_brackets:")) p_codebox_node->set_attribute("highlight_brackets", get_value(trim_line));
+            } else {
+                if (!str::startswith(line, block_indent))
+                    state = ParseState::OUT_BLOCK;
+                else {
+                    block_lines.push_back(line.substr(6)); // don't add \n at the end of the block
+                }
+            }
+        }
+        p_codebox_node->add_child_text(str::join(block_lines, "\n"));
+        _xml_to_codebox(xml_doc.write_to_string(), pTextView);
+    }
+    catch (std::exception e)
+    {
+        spdlog::error("_yaml_to_codebox is failed, exception: {}\n{}", e.what(), yaml_text);
+    }
+    catch (...)
+    {
+        spdlog::error("_yaml_to_codebox is failed, unknown exception\n{}", yaml_text);
+    }
+}
+
+void CtClipboard::_xml_to_codebox(const Glib::ustring &xml_text, Gtk::TextView* pTextView)
+{
+    xmlpp::DomParser parser;
+    parser.parse_memory(xml_text);
+    xmlpp::Document* doc = parser.get_document();
+    if (doc->get_root_node()->get_name() != "root" or not doc->get_root_node()->get_first_child("codebox"))
+    {
+        spdlog::error("codebox from clipboard error");
+        return;
+    }
+
+    std::list<CtAnchoredWidget*> widgets;
+    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(pTextView->get_buffer());
+    Gtk::TextIter insert_iter = pTextView->get_buffer()->get_insert()->get_iter();
+    CtStorageXmlHelper(_pCtMainWin).get_text_buffer_one_slot_from_xml(gsv_buffer, doc->get_root_node()->get_first_child("codebox"), widgets, &insert_iter, insert_iter.get_offset());
+    if (not widgets.empty())
+    {
+        _pCtMainWin->get_tree_store().addAnchoredWidgets(
+                    _pCtMainWin->curr_tree_iter(),
+                    widgets, &_pCtMainWin->get_text_view());
+        _pCtMainWin->get_state_machine().update_state();
     }
     pTextView->scroll_to(pTextView->get_buffer()->get_insert());
 }
