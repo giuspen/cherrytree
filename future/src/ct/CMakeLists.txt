@@ -60,6 +60,8 @@ set(CT_SHARED_FILES
     ct_text_parser.cc
     ct_md_parser.cc
     ct_parser.cc
+    ct_pandoc.cc
+    ct_process.cc
     )
 
 add_library(cherrytree_shared STATIC ${CT_SHARED_FILES})

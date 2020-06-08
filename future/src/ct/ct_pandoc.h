@@ -1,9 +1,7 @@
 /*
- * ct_logging.h
+ * ct_pandoc.h
  *
- * Copyright 2009-2020
- * Giuseppe Penone <giuspen@gmail.com>
- * Evgenii Gurianov <https://github.com/txe>
+ * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,15 +20,17 @@
  */
 
 #pragma once
+#include <istream>
+#include <ostream>
 
+/**
+ * @brief Contains functions which provide an interface between a pandoc binary and cherrytree
+ */
+namespace CtPandoc {
 
-#define SPDLOG_FMT_EXTERNAL 
-#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG
-#include <spdlog/spdlog.h>
-#include <spdlog/fmt/ostr.h>
+bool has_pandoc();
 
+void to_html(std::istream& input, std::ostream& output);
 
-
-
-
+} // CtPandoc
 
