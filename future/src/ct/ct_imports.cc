@@ -723,7 +723,7 @@ void CtHtml2Xml::add_file(const std::filesystem::path &path) noexcept
         std::ostringstream ss;
         ss << infile.rdbuf();
         
-        _local_dir = path.parent_path();
+        _local_dir = Glib::path_get_dirname(path.string());
         feed(ss.str());
     } catch(std::exception& e) {
         spdlog::error("Exception caught while adding file to XML: {}", e.what());
