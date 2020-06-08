@@ -44,6 +44,7 @@ apps:
       - desktop-legacy
       - gsettings
       - removable-media
+      - network
     desktop: share/applications/cherrytree.desktop
     common-id: com.giuspen.cherrytree
     environment:
@@ -117,5 +118,6 @@ parts:
       - python-dbus
       - python-enchant
       - python-chardet
+      - python3-urllib3
     prime:
       - -usr/bin/7za
