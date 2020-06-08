@@ -82,6 +82,11 @@ private:
     void _on_received_to_uri_list(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
 
 private:
+    Glib::ustring _codebox_to_yaml(CtCodebox* codebox);
+    void          _yaml_to_codebox(const Glib::ustring& yaml_text, Gtk::TextView* pTextView);
+    void          _xml_to_codebox(const Glib::ustring& xml_text, Gtk::TextView* pTextView);
+
+private:
     static bool _static_force_plain_text;
     CtMainWin*  _pCtMainWin;
 };
