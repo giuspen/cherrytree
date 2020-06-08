@@ -701,38 +701,32 @@ void CtActions::tree_info()
     if (not _is_tree_not_empty_or_error()) return;
     CtSummaryInfo summaryInfo{};
     auto& ctTreestore = _pCtMainWin->get_tree_store();
-    std::function<void(Gtk::TreeIter&)> iterate_childs = [&](Gtk::TreeIter& parentIter)
-    {
-        Gtk::TreeIter childIter = parentIter ? parentIter->children().begin() : ctTreestore.get_iter_first();
-        if (childIter) {
-            iterate_childs(childIter);
-            do {
-                auto ctTreeIter = ctTreestore.to_ct_tree_iter(childIter);
-                const auto nodeSyntax = ctTreeIter.get_node_syntax_highlighting();
-                if (nodeSyntax == CtConst::RICH_TEXT_ID) {
-                    ++summaryInfo.nodes_rich_text_num;
+    _pCtMainWin->get_tree_view().get_model()->foreach(
+        [&](const Gtk::TreePath& /*treePath*/, const Gtk::TreeIter& treeIter)->bool
+        {
+            auto ctTreeIter = ctTreestore.to_ct_tree_iter(treeIter);
+            const auto nodeSyntax = ctTreeIter.get_node_syntax_highlighting();
+            if (nodeSyntax == CtConst::RICH_TEXT_ID) {
+                ++summaryInfo.nodes_rich_text_num;
+            }
+            else if (nodeSyntax == CtConst::PLAIN_TEXT_ID) {
+                ++summaryInfo.nodes_plain_text_num;
+            }
+            else {
+                ++summaryInfo.nodes_code_num;
+            }
+            (void)ctTreeIter.get_node_text_buffer(); // ensure the node content is populated
+            for (CtAnchoredWidget* pAnchoredWidget : ctTreeIter.get_embedded_pixbufs_tables_codeboxes_fast()) {
+                switch (pAnchoredWidget->get_type()) {
+                    case CtAnchWidgType::CodeBox: ++summaryInfo.codeboxes_num; break;
+                    case CtAnchWidgType::ImageAnchor: ++summaryInfo.anchors_num; break;
+                    case CtAnchWidgType::ImageEmbFile: ++summaryInfo.embfile_num; break;
+                    case CtAnchWidgType::ImagePng: ++summaryInfo.images_num; break;
+                    case CtAnchWidgType::Table: ++summaryInfo.tables_num; break;
                 }
-                else if (nodeSyntax == CtConst::PLAIN_TEXT_ID) {
-                    ++summaryInfo.nodes_plain_text_num;
-                }
-                else {
-                    ++summaryInfo.nodes_code_num;
-                }
-                (void)ctTreeIter.get_node_text_buffer(); // ensure the node content is populated
-                for (CtAnchoredWidget* pAnchoredWidget : ctTreeIter.get_embedded_pixbufs_tables_codeboxes_fast()) {
-                    switch (pAnchoredWidget->get_type()) {
-                        case CtAnchWidgType::CodeBox: ++summaryInfo.codeboxes_num; break;
-                        case CtAnchWidgType::ImageAnchor: ++summaryInfo.anchors_num; break;
-                        case CtAnchWidgType::ImageEmbFile: ++summaryInfo.embfile_num; break;
-                        case CtAnchWidgType::ImagePng: ++summaryInfo.images_num; break;
-                        case CtAnchWidgType::Table: ++summaryInfo.tables_num; break;
-                    }
-                }
-                ++childIter;
-            } while (childIter);
+            }
+            return false; /* false for continue */
         }
-    };
-    Gtk::TreeIter emptyIter{};
-    iterate_childs(emptyIter);
+    );
     CtDialogs::summary_info_dialog(_pCtMainWin, summaryInfo);
 }
