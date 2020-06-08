@@ -651,13 +651,7 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
     Gtk::Box* pContentArea = pAllMatchesDialog->get_content_area();
     pContentArea->pack_start(*pScrolledwindowAllmatches);
 
-    if (rModel->saved_path)
-    {
-        pTreeview->set_cursor(rModel->saved_path);
-        pTreeview->scroll_to_row(rModel->saved_path, 0.5);
-    }
-
-    pTreeview->signal_cursor_changed().connect([pTreeview, rModel, &ctMainWin]()
+    auto select_found_line = [pTreeview, rModel, &ctMainWin]()
     {
         Gtk::TreeIter list_iter = pTreeview->get_selection()->get_selected();
         if (!list_iter)
@@ -683,7 +677,16 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
         // pump events so UI's not going to freeze (#835)
         while (gdk_events_pending())
             gtk_main_iteration();
-    });
+    };
+
+    if (rModel->saved_path)
+    {
+        pTreeview->set_cursor(rModel->saved_path);
+        pTreeview->scroll_to_row(rModel->saved_path, 0.5);
+        select_found_line();
+    }
+
+    pTreeview->signal_cursor_changed().connect(select_found_line);
     pButtonHide->signal_clicked().connect([pAllMatchesDialog]()
     {
         pAllMatchesDialog->hide();

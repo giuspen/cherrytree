@@ -46,7 +46,8 @@ void glib_log_handler(const gchar*, GLogLevelFlags log_level, const gchar* msg, 
             gtk_logger->info(msg);
             break;
         case G_LOG_LEVEL_DEBUG:
-            gtk_logger->debug(msg);
+            // disable due to excessive output
+            // gtk_logger->debug(msg);
             break;
         default:
             gtk_logger->info(msg);
