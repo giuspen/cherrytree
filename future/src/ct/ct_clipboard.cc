@@ -726,7 +726,7 @@ void CtClipboard::_yaml_to_codebox(const Glib::ustring& yaml_text, Gtk::TextView
         p_codebox_node->add_child_text(str::join(block_lines, "\n"));
         _xml_to_codebox(xml_doc.write_to_string(), pTextView);
     }
-    catch (std::exception e)
+    catch (std::exception& e)
     {
         spdlog::error("_yaml_to_codebox is failed, exception: {}\n{}", e.what(), yaml_text);
     }
