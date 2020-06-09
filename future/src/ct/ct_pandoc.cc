@@ -24,6 +24,16 @@
 #include "ct_process.h"
 #include "ct_logging.h"
 
+#include <filesystem>
+
+// Decide on path seperate ; on windows, : otherwise
+#if defined(__WIN32)
+constexpr auto path_delim = ';';
+#else
+constexpr auto path_delim = ':';
+#endif
+namespace fs = std::filesystem;
+
 std::unique_ptr<CtProcess> pandoc_process() {
     auto p = std::make_unique<CtProcess>("pandoc");
     p->append_arg("-t");
@@ -33,8 +43,40 @@ std::unique_ptr<CtProcess> pandoc_process() {
 
 namespace CtPandoc {
 
+bool dir_contains_file(const std::filesystem::path& path, std::string_view file) {
+    for (auto& dir_entry : fs::directory_iterator(path)) {
+        auto p = dir_entry.path().stem();
+        if (p == file) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Checks if the specified file is in the PATH environment variable
+bool in_path(std::string_view file) {
+    std::stringstream env_path(getenv("path"));
+    std::vector<fs::path> path_dirs;
+    
+    // Split into search paths
+    std::string str;
+    while(std::getline(env_path, str, path_delim)) {
+        path_dirs.emplace_back(str);
+    }
+    
+    // Search for the file
+    for (const auto& path : path_dirs) {
+        if (dir_contains_file(path, file)) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+
 bool has_pandoc() {
-    return true;
+    return in_path("pandoc");
 }
 
 

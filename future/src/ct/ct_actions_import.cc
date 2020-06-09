@@ -23,7 +23,7 @@
 #include "ct_clipboard.h"
 #include "ct_imports.h"
 #include "ct_storage_control.h"
-
+#include "ct_pandoc.h"
 
 #include "ct_logging.h"
 #include <fstream>
@@ -325,5 +325,51 @@ void CtActions::import_nodes_from_md_directory() noexcept
         spdlog::error("Exception caught while importing files from MD directory: {}", e.what());
 
     }
+}
+
+bool pandoc_in_path(CtMainWin& main_win) {
+    if (!CtPandoc::has_pandoc()) {
+        CtDialogs::warning_dialog(_("Pandoc executable could not be found, please ensure it is in your path"), main_win);
+        return false;
+    }
+    return true;
+}
+
+void CtActions::_import_through_pandoc(const std::filesystem::path& filepath) {
+    if (!std::filesystem::exists(filepath)) throw std::runtime_error(fmt::format("Path does not exist: {}", filepath.string()));
+    
+    try {
+        std::ifstream infile(filepath);
+        
+        std::stringstream html_buff;
+        CtPandoc::to_html(infile, html_buff);
+        CtHtml2Xml parser(_pCtMainWin);
+        parser.feed(html_buff.str());
+        
+        auto node = setup_node(_pCtMainWin, filepath);
+        CtClipboard(_pCtMainWin).from_xml_string_to_buffer(node.rTextBuffer, parser.to_string());
+        Gtk::TreeIter curr_iter;
+        auto node_iter = _add_node_quick(curr_iter, node, false);
+        _pCtMainWin->get_tree_store().nodes_sequences_fix(node_iter->parent(), false);
+        _pCtMainWin->update_window_save_needed();
+    } catch(std::exception& e) {
+        spdlog::error("Exception in CtActions::_import_through_pandoc for path: {}; {}", filepath.string(), e.what());
+        throw;
+    }
+}
+
+void CtActions::import_node_from_pandoc() noexcept {
+    try {
+        CtDialogs::file_select_args args(_pCtMainWin);
+        auto path = CtDialogs::file_select_dialog(args);
+        if (path.empty()) return;
+        
+        _import_through_pandoc(path);
+        
+    } catch(std::exception& e) {
+        spdlog::error("Exception caught in CtActions::import_node_from_pandoc: {}", e.what());
+    }
+    
+    
 }
 
