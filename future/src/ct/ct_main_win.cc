@@ -1290,6 +1290,13 @@ void CtMainWin::_on_treeview_event_after(GdkEvent* event)
 
         }
     }
+    if (event->type == GDK_BUTTON_PRESS && event->button.button == 2 /* wheel click */) {
+        auto path = get_tree_store().get_path(curr_tree_iter());
+        if (_uCtTreeview->row_expanded(path))
+            _uCtTreeview->collapse_row(path);
+        else
+            _uCtTreeview->expand_row(path, true);
+    }
     else if (event->type == GDK_2BUTTON_PRESS and event->button.button == 1)
     {
         auto path = get_tree_store().get_path(curr_tree_iter());
