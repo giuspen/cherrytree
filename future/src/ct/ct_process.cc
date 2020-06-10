@@ -23,6 +23,7 @@
 #include "ct_logging.h"
 #include <fmt/format.h>
 
+
 #if defined(__WIN32)
 #include <windows.h>
 
@@ -103,7 +104,8 @@ pid_t io_fork(int fds[2], const std::function<void(int, int)>& func) {
 
 #endif  // IFDEF __WIN32
 
-void CtProcess::run(const std::vector<std::string>& args, std::ostream &output) {
+void CtProcess::run(const std::vector<std::string>& args, std::ostream &output)
+{
     
     // The casts here are safe because the exec family do not modify their args, its just for compatibility
     std::vector<char *> process_args;
@@ -144,15 +146,25 @@ void CtProcess::run(const std::vector<std::string>& args, std::ostream &output) 
         throw_with_last_error("Failed to set handle inheritance for child stdin");
     }
     
-    create_child_process("echo", child_out_wd, child_in_rd);
+    create_child_process(_process_name, child_out_wd, child_in_rd);
     
-    /*while(true) {
-        bool success = WriteFile(child_in_wd, )
+    if (_input_data) {
+        DWORD                 dw_write;
+        std::array<char, 257> buff{};
+        std::streamsize       pos;
+        while (*_input_data || (pos = _input_data->gcount()) != 0) {
+            _input_data->read(buff.data(), buff.size() - 1);
         
-        
-    }*/
+            bool success = WriteFile(child_in_wd, buff.data(), buff.size() - 1, &dw_write, nullptr);
+            if (!success || dw_write == 0) break;
+        }
+    }
+    if (!CloseHandle(child_in_wd)) {
+        throw_with_last_error("Failed to close the child write handle");
+    }
+    
     DWORD                 dw_read;
-    std::array<char, 267> buff{};
+    std::array<char, 257> buff{};
     
     while (true) {
         bool success = ReadFile(child_out_rd, buff.data(), buff.size() - 1, &dw_read, nullptr);
