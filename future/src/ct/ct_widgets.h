@@ -28,7 +28,8 @@
 #include <iostream>
 #include <unordered_map>
 #include <memory>
-
+#include <gspell/gspell.h>
+#include <map>
 #include "ct_types.h"
 
 
@@ -126,6 +127,10 @@ private:
     void          _markdown_check_and_replace(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
 public:
     static const double TEXT_SCROLL_MARGIN;
+
+private:
+    static std::map<std::string, GspellChecker*> _static_spell_checkers;
+    static GspellChecker* _get_spell_checker(const std::string& lang);
 
 private:
     CtMainWin* _pCtMainWin;
