@@ -46,7 +46,7 @@ cpack -G DEB
 
 Install dependencies::
 ```sh
-sudo apt install build-essential libxml2-utils cmake libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev libcpputest-dev gettext python3-lxml libgspell-1-dev
+sudo apt install build-essential libxml2-utils cmake libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev libcpputest-dev gettext python3-lxml libgspell-1-dev libcurl3-dev
 ```
 Get cherrytree source, compile and run:
 ```sh
