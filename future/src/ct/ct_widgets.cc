@@ -30,9 +30,9 @@
 #include "ct_imports.h"
 #include "ct_clipboard.h"
 #include <glib/gstdio.h>
-#include <gspell/gspell.h>
 #include "ct_logging.h"
 
+std::map<std::string, GspellChecker*> CtTextView::_static_spell_checkers;
 
 CtTmp::CtTmp()
 {
@@ -738,15 +738,16 @@ void CtTextView::zoom_text(bool is_increase)
 }
 
 void CtTextView::set_spell_check(bool allow_on)
-{
+{    
     auto gtk_view = GTK_TEXT_VIEW(gobj());
-    auto gspell_checker = gspell_checker_new (NULL);
-    if (const GspellLanguage * lang = gspell_language_lookup(_pCtMainWin->get_ct_config()->spellCheckLang.c_str()))
-        gspell_checker_set_language(gspell_checker, lang);
     auto gtk_buffer = gtk_text_view_get_buffer (gtk_view);
     auto gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer (gtk_buffer);
-    gspell_text_buffer_set_spell_checker (gspell_buffer, gspell_checker);
-    g_object_unref (gspell_checker);
+
+    auto gspell_checker = _get_spell_checker(_pCtMainWin->get_ct_config()->spellCheckLang);
+    auto old_gspell_checker = gspell_text_buffer_get_spell_checker(gspell_buffer);
+    if (gspell_checker != old_gspell_checker)
+        gspell_text_buffer_set_spell_checker (gspell_buffer, gspell_checker);
+    // g_object_unref (gspell_checker); no need to unref because we keep it global
 
     auto gspell_view = gspell_text_view_get_from_gtk_text_view (gtk_view);
     gspell_text_view_set_inline_spell_checking (gspell_view, allow_on && _pCtMainWin->get_ct_config()->enableSpellCheck);
@@ -881,4 +882,17 @@ void CtTextView::_special_char_replace(gunichar special_char, Gtk::TextIter iter
 void CtTextView::_special_char_replace(Glib::ustring special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_end) {
     get_buffer()->erase(iter_start, iter_end);
     get_buffer()->insert_at_cursor(special_char + CtConst::CHAR_SPACE);
+}
+
+/*static*/ GspellChecker* CtTextView::_get_spell_checker(const std::string& lang)
+{
+    auto it = _static_spell_checkers.find(lang);
+    if (it != _static_spell_checkers.end())
+        return it->second;
+
+    auto gspell_checker = gspell_checker_new (NULL);
+    if (const GspellLanguage * glang = gspell_language_lookup(lang.c_str()))
+        gspell_checker_set_language(gspell_checker, glang);
+    _static_spell_checkers[lang] = gspell_checker;
+    return gspell_checker;
 }
