@@ -652,17 +652,6 @@ std::unique_ptr<CtProcess> pandoc_process() {
 
 namespace CtPandoc {
 
-bool dir_contains_file(const std::filesystem::path& path, std::string_view file) 
-{
-    for (auto& dir_entry : fs::directory_iterator(path)) {
-        auto p = dir_entry.path().stem();
-        if (p == file) {
-            return true;
-        }
-    }
-    return false;
-}
-
 // Checks if the specified file is in the PATH environment variable
 bool in_path(const std::string& file) 
 {
