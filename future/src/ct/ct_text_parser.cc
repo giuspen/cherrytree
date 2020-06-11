@@ -21,7 +21,8 @@
 
 #include "ct_imports.h"
 #include <iostream>
-#include <src/fmt/format.h>
+
+#include <fmt/fmt.h>
 
 template<class T>
 std::unordered_set<char> build_pos_tokens(const T& tokens) {
