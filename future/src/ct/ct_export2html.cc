@@ -26,7 +26,12 @@
 #include "ct_main_win.h"
 #include "ct_dialogs.h"
 #include "ct_storage_control.h"
+#include "ct_logging.h"
+#include "ct_process.h"
 #include <fstream>
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 CtExport2Html::CtExport2Html(CtMainWin* pCtMainWin)
  : _pCtMainWin(pCtMainWin)
@@ -636,4 +641,54 @@ Glib::ustring CtExport2Html::_get_html_filename(CtTreeIter tree_iter)
 {
     Glib::ustring name = CtMiscUtil::get_node_hierarchical_name(tree_iter, "--", true, true, ".html");
     return str::replace(name, "#", "~");
+}
+
+std::unique_ptr<CtProcess> pandoc_process() {
+    auto p = std::make_unique<CtProcess>("pandoc");
+    p->append_arg("-t");
+    p->append_arg("html");
+    return p;
+}
+
+namespace CtPandoc {
+
+// Checks if the specified file is in the PATH environment variable
+bool in_path(const std::string& file) 
+{
+    auto prog_name = g_find_program_in_path(file.c_str());
+    return prog_name != nullptr;
+}
+
+
+bool has_pandoc() 
+{
+    return in_path("pandoc");
+}
+
+
+void to_html(std::istream& input, std::ostream& output) 
+{
+    auto process = pandoc_process();
+    try {
+        process->input(&input);
+        process->run(output);
+    } catch(std::exception& e) {
+        spdlog::error("Exception in to_html: {}", e.what());
+        throw;
+    }
+}
+
+
+void to_html(const std::filesystem::path& file, std::ostream& output) {
+    auto process = pandoc_process();
+    process->append_arg(file.string());
+
+    try {
+        process->run(output);
+    } catch(std::exception& e) {
+        spdlog::error("Exception in to_html with filepath: {}; message: {}", file.string(), e.what());
+        throw;
+    }
+}
+
 }

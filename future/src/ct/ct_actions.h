@@ -404,6 +404,7 @@ private:
     void _import_node_from_plaintext(const std::filesystem::path& filepath);
     void _import_nodes_from_zim_directory(const std::filesystem::path& filepath);
     void _import_node_from_md_file(const std::filesystem::path& filepath);
+    void _import_through_pandoc(const std::filesystem::path& filepath);
 public:
     // import actions
     void import_node_from_html_file() noexcept;
@@ -414,6 +415,8 @@ public:
     void import_nodes_from_zim_directory() noexcept;
     void import_node_from_md_file() noexcept;
     void import_nodes_from_md_directory() noexcept;
+    void import_node_from_pandoc() noexcept;
+    void import_directory_from_pandoc() noexcept;
 
 private:
     // helper for export actions

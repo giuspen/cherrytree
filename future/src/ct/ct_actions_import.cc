@@ -23,10 +23,75 @@
 #include "ct_clipboard.h"
 #include "ct_imports.h"
 #include "ct_storage_control.h"
-
+#include "ct_export2html.h"
 
 #include "ct_logging.h"
 #include <fstream>
+
+namespace fs = std::filesystem;
+
+
+struct File {
+    fs::path path;
+    unsigned int depth = 0;
+    std::vector<File> children;
+};
+
+using file_valid_req = bool(*)(const fs::path&);
+template<typename FILE_TYPE_VALID_T = file_valid_req>
+void find_valid_files_in_dir(const fs::path& dir, std::vector<File>& files, unsigned int depth, std::optional<FILE_TYPE_VALID_T> file_valid_func) {
+    for (const auto& dir_ent : fs::directory_iterator(dir)) {
+        auto& path = dir_ent.path();
+        
+        if (file_valid_func) {
+            if (!((*file_valid_func)(path))) continue; // Skip if invalid
+        } 
+
+        File file { path, depth, {} };
+        if (fs::is_directory(path)) {
+            find_valid_files_in_dir(path, file.children, depth + 1, file_valid_func);
+        } else {
+            files.emplace_back(std::move(file));
+        }
+    }
+}
+
+/*
+ * NODE_ADD_T requires a signiture of 
+ * (fs::path, CtTreeIter) -> CtTreeIter
+ */
+
+template<typename NODE_ADD_T>
+void add_node_from_file(const File& file, const Gtk::TreeIter& parent, NODE_ADD_T node_add_func) {
+    Gtk::TreeIter iter = node_add_func(file.path, parent);
+
+    for (const auto& child : file.children) {
+        add_node_from_file(child, iter, node_add_func);
+    }
+}
+
+template<typename NODE_ADD_T, typename FILE_TYPE_VALID_T = file_valid_req>
+void add_nodes_with_directory_hierarchy(NODE_ADD_T add_node_func, CtMainWin* main_win, bool recursive = true, std::optional<FILE_TYPE_VALID_T> path_valid_func = std::nullopt) {
+    auto file_dir = CtDialogs::folder_select_dialog(main_win->get_ct_config()->pickDirImport, main_win);
+    if (file_dir.empty()) return;
+
+    main_win->get_ct_config()->pickDirImport = file_dir;
+
+
+    std::vector<File> files;
+    auto file_valid_func = path_valid_func;
+    if (!recursive) {
+        file_valid_func = [](const auto& path) { return !fs::is_directory(path); };
+    }
+    find_valid_files_in_dir(file_dir, files, 0, file_valid_func);
+
+    auto parent = main_win->get_tree_store().to_ct_tree_iter(Gtk::TreeIter());
+    for (const auto& file : files) {
+        add_node_from_file(file, parent, add_node_func);
+    }
+}
+
+
 
 // Todo: Add option to select whether parent is current node or top of tree
 
@@ -326,4 +391,89 @@ void CtActions::import_nodes_from_md_directory() noexcept
 
     }
 }
+
+bool pandoc_in_path(CtMainWin& main_win) 
+{
+    if (!CtPandoc::has_pandoc()) {
+        CtDialogs::warning_dialog(_("Pandoc executable could not be found, please ensure it is in your path"), main_win);
+        return false;
+    }
+    return true;
+}
+
+
+
+CtNodeData setup_pandoc_node(CtMainWin* main_win, CtClipboard& clipboard, const fs::path& filepath) {
+    std::stringstream html_buff;
+    CtPandoc::to_html(filepath, html_buff);
+    CtHtml2Xml parser(main_win);
+    parser.feed(html_buff.str());
+    
+    auto node = setup_node(main_win, filepath);
+    clipboard.from_xml_string_to_buffer(node.rTextBuffer, parser.to_string());
+
+    return node;
+}
+
+void CtActions::_import_through_pandoc(const std::filesystem::path& filepath) 
+{
+    if (!std::filesystem::exists(filepath)) throw std::runtime_error(fmt::format("Path does not exist: {}", filepath.string()));
+    
+    try {
+        CtClipboard clip(_pCtMainWin);
+        auto node = setup_pandoc_node(_pCtMainWin, clip, filepath);
+        
+        Gtk::TreeIter curr_iter;
+        auto node_iter = _add_node_quick(curr_iter, node, false);
+        _pCtMainWin->get_tree_store().nodes_sequences_fix(node_iter->parent(), false);
+        _pCtMainWin->update_window_save_needed();
+    } catch(std::exception& e) {
+        spdlog::error("Exception in CtActions::_import_through_pandoc for path: {}; {}", filepath.string(), e.what());
+        throw;
+    }
+}
+
+void CtActions::import_node_from_pandoc() noexcept 
+{
+    try {
+        if (!pandoc_in_path(*_pCtMainWin)) return;
+
+        CtDialogs::file_select_args args(_pCtMainWin);
+        auto path = CtDialogs::file_select_dialog(args);
+        if (path.empty()) return;
+        
+        _import_through_pandoc(path);
+        
+    } catch(std::exception& e) {
+        auto err_msg = fmt::format("Exception caught in CtActions::import_node_from_pandoc: {}", e.what());
+        spdlog::error(err_msg);
+        CtDialogs::error_dialog(err_msg, *_pCtMainWin);
+    }
+    
+    
+}
+
+
+void CtActions::import_directory_from_pandoc() noexcept {
+    try {
+        if (!pandoc_in_path(*_pCtMainWin)) return;
+
+        CtClipboard clipboard(_pCtMainWin);
+        auto add_node_func = [this, &clipboard](const auto& path, const auto& iter){ 
+            auto node = setup_pandoc_node(_pCtMainWin, clipboard, path);
+            
+            auto node_iter = _add_node_quick(iter, node, true);
+            _pCtMainWin->get_tree_store().nodes_sequences_fix(node_iter->parent(), false);
+            return node_iter;
+        };
+        add_nodes_with_directory_hierarchy(add_node_func, _pCtMainWin);
+
+        _pCtMainWin->update_window_save_needed();
+
+    } catch(std::exception& e) {
+        spdlog::error("Exception caught in import_directory_from_pandoc: {}", e.what());
+    }
+
+
+};
 

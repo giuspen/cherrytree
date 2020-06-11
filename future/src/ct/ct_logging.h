@@ -23,28 +23,13 @@
 
 #pragma once
 
-#include <glib/gstdio.h>
-#include <string>
-
 
 #define SPDLOG_FMT_EXTERNAL 
 #define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
 
-template<>
-struct fmt::formatter<Glib::ustring> {
 
-    constexpr auto parse(format_parse_context& ctx) { return ctx.begin(); }
-
-    template<typename FormatContext>
-    auto format(const Glib::ustring& str, FormatContext& ctx) {
-        return format_to(ctx.out(), static_cast<std::string>(str));
-
-
-    }
-
-};
 
 
 
