@@ -327,7 +327,8 @@ void CtActions::import_nodes_from_md_directory() noexcept
     }
 }
 
-bool pandoc_in_path(CtMainWin& main_win) {
+bool pandoc_in_path(CtMainWin& main_win) 
+{
     if (!CtPandoc::has_pandoc()) {
         CtDialogs::warning_dialog(_("Pandoc executable could not be found, please ensure it is in your path"), main_win);
         return false;
@@ -335,7 +336,8 @@ bool pandoc_in_path(CtMainWin& main_win) {
     return true;
 }
 
-void CtActions::_import_through_pandoc(const std::filesystem::path& filepath) {
+void CtActions::_import_through_pandoc(const std::filesystem::path& filepath) 
+{
     if (!std::filesystem::exists(filepath)) throw std::runtime_error(fmt::format("Path does not exist: {}", filepath.string()));
     
     try {
@@ -358,8 +360,11 @@ void CtActions::_import_through_pandoc(const std::filesystem::path& filepath) {
     }
 }
 
-void CtActions::import_node_from_pandoc() noexcept {
+void CtActions::import_node_from_pandoc() noexcept 
+{
     try {
+        if (!pandoc_in_path(*_pCtMainWin)) return;
+
         CtDialogs::file_select_args args(_pCtMainWin);
         auto path = CtDialogs::file_select_dialog(args);
         if (path.empty()) return;
@@ -367,7 +372,9 @@ void CtActions::import_node_from_pandoc() noexcept {
         _import_through_pandoc(path);
         
     } catch(std::exception& e) {
-        spdlog::error("Exception caught in CtActions::import_node_from_pandoc: {}", e.what());
+        auto err_msg = fmt::format("Exception caught in CtActions::import_node_from_pandoc: {}", e.what());
+        spdlog::error(err_msg);
+        CtDialogs::error_dialog(err_msg, *_pCtMainWin);
     }
     
     

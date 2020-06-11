@@ -43,7 +43,8 @@ std::unique_ptr<CtProcess> pandoc_process() {
 
 namespace CtPandoc {
 
-bool dir_contains_file(const std::filesystem::path& path, std::string_view file) {
+bool dir_contains_file(const std::filesystem::path& path, std::string_view file) 
+{
     for (auto& dir_entry : fs::directory_iterator(path)) {
         auto p = dir_entry.path().stem();
         if (p == file) {
@@ -54,10 +55,11 @@ bool dir_contains_file(const std::filesystem::path& path, std::string_view file)
 }
 
 // Checks if the specified file is in the PATH environment variable
-bool in_path(std::string_view file) {
-    std::stringstream env_path(getenv("path"));
+bool in_path(std::string_view file) 
+{
+    std::stringstream env_path(getenv("PATH"));
     std::vector<fs::path> path_dirs;
-    
+
     // Split into search paths
     std::string str;
     while(std::getline(env_path, str, path_delim)) {
@@ -66,8 +68,10 @@ bool in_path(std::string_view file) {
     
     // Search for the file
     for (const auto& path : path_dirs) {
-        if (dir_contains_file(path, file)) {
-            return true;
+        if (fs::exists(path)) { // Sanity check
+            if (dir_contains_file(path, file)) {
+                return true;
+            }
         }
     }
     
@@ -75,12 +79,14 @@ bool in_path(std::string_view file) {
 }
 
 
-bool has_pandoc() {
+bool has_pandoc() 
+{
     return in_path("pandoc");
 }
 
 
-void to_html(std::istream& input, std::ostream& output) {
+void to_html(std::istream& input, std::ostream& output) 
+{
     auto process = pandoc_process();
     try {
         process->input(&input);

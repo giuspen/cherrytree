@@ -28,7 +28,8 @@
 #include <windows.h>
 
 
-void throw_with_last_error(std::string_view msg) {
+void throw_with_last_error(std::string_view msg) 
+{
     auto err = GetLastError();
     throw CtProcess::CtProcessError(fmt::format("{}; ERROR: {}", msg, err));
 }
@@ -74,8 +75,18 @@ void create_child_process(std::string_view process_name, void* write_handle, voi
 #else
 #include <unistd.h>
 
-
-pid_t io_fork(int fds[2], const std::function<void(int, int)>& func) {
+/**
+ * @brief Fork a child proccess and open two pipes to it
+ * The `func` argument will be called by the child process and should be used to do anything (e.g fork())
+ * that needs to be done there.
+ * fds will be filled with the parent read and parent write ends of the pipes and `func` will recieve the read/write 
+ * ends for the child 
+ * @param fds: The read pipes to be filled
+ * @param func: The function to call in the child
+ * @return pid_t: The pid returned by fork()
+ */
+pid_t io_fork(int fds[2], const std::function<void(int, int)>& func) 
+{
     int pipes[4];
     
     if (pipe(&pipes[0]) != 0 || pipe(&pipes[2]) != 0) {
@@ -107,7 +118,6 @@ pid_t io_fork(int fds[2], const std::function<void(int, int)>& func) {
 void CtProcess::run(const std::vector<std::string>& args, std::ostream &output)
 {
     
-    // The casts here are safe because the exec family do not modify their args, its just for compatibility
     std::vector<char *> process_args;
     process_args.emplace_back(const_cast<char *>(_process_name.c_str()));
     for (const auto &arg : args) {
@@ -170,61 +180,70 @@ void CtProcess::run(const std::vector<std::string>& args, std::ostream &output)
         bool success = ReadFile(child_out_rd, buff.data(), buff.size() - 1, &dw_read, nullptr);
         if (!success || dw_read == 0) break;
         
-        spdlog::debug("GOT: {}", buff.data());
         output << buff.data();
     }
     
 #else
-   auto func = [process_args, this](int read_fs, int write_fs){
-    
-       dup2(write_fs, STDOUT_FILENO);
-       dup2(write_fs, STDERR_FILENO);
-       dup2(read_fs, STDIN_FILENO);
-       
-       close(write_fs);
-       close(read_fs);
-       
-       execvp(_process_name.c_str(), process_args.data());
-       spdlog::error("execlp() failed");
-       _exit(1);
-   };
+    auto func = [process_args, this](int read_fs, int write_fs){
+        
+        dup2(write_fs, STDOUT_FILENO);
+        dup2(write_fs, STDERR_FILENO);
+        dup2(read_fs, STDIN_FILENO);
+        
+        close(write_fs);
+        close(read_fs);
+        
+        execvp(_process_name.c_str(), process_args.data());
+        spdlog::error("execlp() failed");
+        _exit(1);
+    };
    
-   int fds[2];
+    int fds[2];
     io_fork(fds, func);
     
-   if (_input_data) {
-       std::streamsize       pos;
-       std::array<char, 256> buffer{};
-       _input_data->read(buffer.data(), buffer.size());
-       while (*_input_data || (pos = _input_data->gcount()) != 0) {
-           if (write(fds[1], buffer.data(), buffer.size()) < 0) throw CtProcessError("Error while writing to output pipe");
-        
-           if (pos != 0) _input_data->read(buffer.data(), buffer.size());
-       }
-   }
-    close(fds[1]);
-    
-    std::array<char, 257> buff{};
-    while(true) {
-        auto read_retr = read(fds[0], buff.data(), buff.size() - 1);
-        if (read_retr > 0) {
-            output << buff.data();
-        } else if (read_retr == 0) {
-            // EOF
-            break;
-        } else {
-            throw CtProcessError(fmt::format("Error while reading from process; CODE: {}", errno));
+    try {
+        if (_input_data) {
+        std::streamsize       pos;
+        std::array<char, 256> buffer{};
+        _input_data->read(buffer.data(), buffer.size());
+        while (*_input_data || (pos = _input_data->gcount()) != 0) {
+            if (write(fds[1], buffer.data(), buffer.size()) < 0) throw CtProcessError("Error while writing to output pipe");
+            
+            if (pos != 0) _input_data->read(buffer.data(), buffer.size());
         }
+        }
+        close(fds[1]);
+        fds[1] = -1;
+        
+        std::array<char, 257> buff{};
+        while(true) {
+            auto read_retr = read(fds[0], buff.data(), buff.size() - 1);
+            if (read_retr > 0) {
+                output << buff.data();
+            } else if (read_retr == 0) {
+                // EOF
+                break;
+            } else {
+                throw CtProcessError(fmt::format("Error while reading from process; CODE: {}", errno));
+            }
+        }
+        close(fds[0]);
+    } catch(std::exception&) {
+        close(fds[0]);
+        if (fds[1] != -1) close(fds[1]); 
+        throw;
     }
 #endif // IFDEF __WIN32
 }
 
 
-void operator>>(CtProcess &process, std::ostream &output) {
+void operator>>(CtProcess &process, std::ostream &output) 
+{
     process.run(output);
 }
 
-void CtProcess::run(std::ostream &output) {
+void CtProcess::run(std::ostream &output) 
+{
     run(_args, output);
 }
 
