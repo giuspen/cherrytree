@@ -97,6 +97,7 @@ public:
     void file_save(bool need_vacuum);
     void file_save_as(const std::string& new_filepath, const std::string& password);
     void file_autosave_restart();
+    bool file_insert_plain_text(const std::string& filepath);
 
     void reset();
     void update_window_save_needed(const CtSaveNeededUpdType update_type = CtSaveNeededUpdType::None,
