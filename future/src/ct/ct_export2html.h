@@ -26,6 +26,7 @@
 #include "ct_image.h"
 #include "ct_treestore.h"
 #include "ct_dialogs.h" // CtExportOptions
+#include <filesystem>
 
 class CtExport2Html
 {
@@ -82,3 +83,18 @@ private:
     Glib::ustring _res_dir;
 };
 
+
+
+/**
+ * @brief Contains functions which provide an interface between a pandoc binary and cherrytree
+ * @namespace CtPandoc
+ */
+namespace CtPandoc {
+
+bool has_pandoc();
+
+void to_html(std::istream& input, std::ostream& output);
+
+void to_html(const std::filesystem::path& file, std::ostream& output);
+
+} // CtPandoc

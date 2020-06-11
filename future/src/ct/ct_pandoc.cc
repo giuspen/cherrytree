@@ -20,11 +20,11 @@
  */
 
 #include <sstream>
-#include "ct_pandoc.h"
+#include "ct_export2html.h"
 #include "ct_process.h"
 #include "ct_logging.h"
 
-#include <filesystem>
+
 
 // Decide on path seperate ; on windows, : otherwise
 #if defined(__WIN32)

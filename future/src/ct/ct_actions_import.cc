@@ -23,7 +23,7 @@
 #include "ct_clipboard.h"
 #include "ct_imports.h"
 #include "ct_storage_control.h"
-#include "ct_pandoc.h"
+#include "ct_export2html.h"
 
 #include "ct_logging.h"
 #include <fstream>
@@ -343,7 +343,6 @@ void CtActions::_import_through_pandoc(const std::filesystem::path& filepath)
     try {
         std::stringstream html_buff;
         CtPandoc::to_html(filepath, html_buff);
-        spdlog::debug("OUTPUT: {}", html_buff.str());
         CtHtml2Xml parser(_pCtMainWin);
         parser.feed(html_buff.str());
         
