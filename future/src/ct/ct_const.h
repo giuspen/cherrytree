@@ -66,7 +66,7 @@ const inline static gchar* STYLE_SCHEME_DARK        {"cobalt"};
 const inline static gchar* STYLE_SCHEME_GRAY        {"oblivion"};
 const inline static gchar* TIMESTAMP_FORMAT_DEFAULT {"%Y/%m/%d - %H:%M"};
 
-const inline static Glib::ustring SPECIAL_CHARS_DEFAULT      {"“”„‘’•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑σ√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝"};
+const inline static Glib::ustring SPECIAL_CHARS_DEFAULT {"“”„‘’•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑σ√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝"};
 const inline static Glib::ustring SPECIAL_CHAR_ARROW_RIGHT   {"→"};
 const inline static Glib::ustring SPECIAL_CHAR_ARROW_RIGHT2  {"⇒"};
 const inline static Glib::ustring SPECIAL_CHAR_ARROW_LEFT    {"←"};
@@ -232,55 +232,55 @@ const inline static int MAX_TOOLTIP_LINK_CHARS     {150};
 
 // former NODES_STOCK
 const inline static std::array<const gchar*, 49> NODE_CUSTOM_ICONS {
-    nullptr,           // NEVER USED
-    "circle-green",    //  1
-    "circle-yellow",   //  2
-    "circle-red",      //  3
-    "circle-grey",     //  4
-    "add",             //  5
-    "remove",          //  6
-    "done",            //  7
-    "cancel",          //  8
-    "edit_delete",     //  9
-    "warning",         // 10
-    "star",            // 11
-    "info",            // 12
-    "help",            // 13
-    "home",            // 14
-    "index",           // 15
-    "mail",            // 16
-    "html",            // 17
-    "notes",           // 18
-    "timestamp",       // 19
-    "calend",          // 20
-    "terminal",        // 21
-    "terminal-red",    // 22
-    "python",          // 23
-    "java",            // 24
-    "node_bullet",     // 25
-    "node_no_icon",    // 26
-    CHERRY_BLACK,      // 27
-    CHERRY_BLUE,       // 28
-    CHERRY_CYAN,       // 29
-    CHERRY_GREEN,      // 30
-    CHERRY_GRAY,       // 31
-    CHERRY_ORANGE,     // 32
-    CHERRY_ORANGE_DARK,// 33
-    CHERRY_PURPLE,     // 34
-    CHERRY_RED,        // 35
-    CHERRY_SHERBERT,   // 36
-    CHERRY_YELLOW,     // 37
-    "code",            // 38
-    "find",            // 39
-    "locked",          // 40
-    "unlocked",        // 41
-    "people",          // 42
-    "urgent",          // 43
-    "directory",       // 44
-    "leaf",            // 45
-    "xml",             // 46
-    "c",               // 47
-    "cpp",             // 48
+    nullptr,            // NEVER USED
+    "circle-green",     //  1
+    "circle-yellow",    //  2
+    "circle-red",       //  3
+    "circle-grey",      //  4
+    "add",              //  5
+    "remove",           //  6
+    "done",             //  7
+    "cancel",           //  8
+    "edit_delete",      //  9
+    "warning",          // 10
+    "star",             // 11
+    "info",             // 12
+    "help",             // 13
+    "home",             // 14
+    "index",            // 15
+    "mail",             // 16
+    "ct_html",          // 17
+    "notes",            // 18
+    "timestamp",        // 19
+    "calend",           // 20
+    "ct_term",          // 21
+    "ct_term-red",      // 22
+    "ct_python",        // 23
+    "ct_java",          // 24
+    "node_bullet",      // 25
+    "node_no_icon",     // 26
+    CHERRY_BLACK,       // 27
+    CHERRY_BLUE,        // 28
+    CHERRY_CYAN,        // 29
+    CHERRY_GREEN,       // 30
+    CHERRY_GRAY,        // 31
+    CHERRY_ORANGE,      // 32
+    CHERRY_ORANGE_DARK, // 33
+    CHERRY_PURPLE,      // 34
+    CHERRY_RED,         // 35
+    CHERRY_SHERBERT,    // 36
+    CHERRY_YELLOW,      // 37
+    "ct_code",          // 38
+    "find",             // 39
+    "locked",           // 40
+    "unlocked",         // 41
+    "people",           // 42
+    "urgent",           // 43
+    "directory",        // 44
+    "leaf",             // 45
+    "ct_xml",           // 46
+    "ct_c",             // 47
+    "ct_cpp",           // 48
 };
 
 // former NODES_ICONS
@@ -298,20 +298,19 @@ const inline static std::array<const gchar*, 11> NODE_CHERRY_ICONS {
     CHERRY_GRAY         // 10
 };
 
-const inline static std::array<std::pair<const gchar*, const gchar*>, 11> CODE_ICONS {
-    std::make_pair("python", "python"),
-    std::make_pair("python3", "python"),
-    std::make_pair("perl", "perl"),
-    std::make_pair("sh", "terminal"),
-    std::make_pair("dosbatch", "terminal-red"),
-    std::make_pair("powershell", "terminal-red"),
-    std::make_pair("java", "java"),
-    std::make_pair("html", "html"),
-    std::make_pair("xml", "xml"),
-    std::make_pair("c", "c"),
-    std::make_pair("cpp", "cpp")
+const inline static std::array<std::pair<const gchar*, const gchar*>, 11> NODE_CODE_ICONS {
+    std::make_pair("python", "ct_python"),
+    std::make_pair("python3", "ct_python"),
+    std::make_pair("perl", "ct_perl"),
+    std::make_pair("sh", "ct_term"),
+    std::make_pair("dosbatch", "ct_term-red"),
+    std::make_pair("powershell", "ct_term-red"),
+    std::make_pair("java", "ct_java"),
+    std::make_pair("html", "ct_html"),
+    std::make_pair("xml", "ct_xml"),
+    std::make_pair("c", "ct_c"),
+    std::make_pair("cpp", "ct_cpp")
 };
-
 
 const inline static gchar* CODE_EXEC_TMP_SRC  {"<tmp_src_path>"};
 const inline static gchar* CODE_EXEC_TMP_BIN  {"<tmp_bin_path>"};
@@ -350,7 +349,7 @@ const inline static std::array<std::string_view, 4>  INVALID_HTML_TAGS = {
 
 // List of extensions for cherrytree save files, for use with gtk FileFilter
 const inline static std::vector<std::string> CT_FILE_EXTENSIONS_FILTER = {
-        "*.ctb", "*.ctx", "*.ctd", "*.ctz"
+    "*.ctb", "*.ctx", "*.ctd", "*.ctz"
 };
 
 }; // struct CtConst

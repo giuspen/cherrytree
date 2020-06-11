@@ -136,20 +136,13 @@ CtMainWin::~CtMainWin()
     //std::cout << "~CtMainWin" << std::endl;
 }
 
-Glib::RefPtr<Gdk::Pixbuf> CtMainWin::get_icon(const std::string& name, int size)
-{
-    if (_pGtkIconTheme->has_icon(name))
-        return _pGtkIconTheme->load_icon(name, size);
-    return Glib::RefPtr<Gdk::Pixbuf>();
-}
-
 std::string CtMainWin::get_code_icon_name(std::string code_type)
 {
-    for (auto icon: CtConst::CODE_ICONS)
-        if (icon.first == code_type)
-            return icon.second;
-    if (_pGtkIconTheme->has_icon(code_type))
-        return code_type;
+    for (const auto& iconPair : CtConst::NODE_CODE_ICONS) {
+        if (0 == strcmp(iconPair.first, code_type.c_str())) {
+            return iconPair.second;
+        }
+    }
     return CtConst::NODE_CUSTOM_ICONS.at(CtConst::NODE_ICON_CODE_ID);
 }
 
