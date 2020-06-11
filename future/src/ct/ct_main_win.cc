@@ -836,8 +836,13 @@ bool CtMainWin::file_open(const std::string& filepath, const std::string& node_t
         return false;
     }
     if (CtMiscUtil::get_doc_type(filepath) == CtDocType::None) {
-        CtDialogs::error_dialog(str::format(_("\"%s\" is Not a CherryTree Document"), filepath), *this);
-        return false;
+        // can't open file but can insert content into a new node
+        if (file_insert_plain_text(filepath)) {
+            return false; // that's right
+        } else {
+            CtDialogs::error_dialog(str::format(_("\"%s\" is Not a CherryTree Document"), filepath), *this);
+            return false;
+        }
     }
 
     if (!file_save_ask_user())
@@ -1003,6 +1008,28 @@ void CtMainWin::file_autosave_restart()
         }
         return true;
     }, get_ct_config()->autosaveVal * 60);
+}
+
+bool CtMainWin::file_insert_plain_text(const std::string& filepath)
+{
+    spdlog::debug("trying to insert text file as node: {}", filepath);
+
+    gchar *text = nullptr;
+    gsize length = 0;
+    try {
+        if (g_file_get_contents (filepath.c_str(), &text, &length, NULL)) {
+            Glib::ustring node_content(text, length);
+            std::string name = Glib::path_get_basename(filepath);
+            get_ct_actions()->_node_child_exist_or_create(Gtk::TreeIter(), name);
+            get_text_view().get_buffer()->insert(get_text_view().get_buffer()->end(), node_content);
+            g_free(text);
+            return true;
+        }
+    }  catch (...) {
+
+    }
+    g_free(text);
+    return false;
 }
 
 void CtMainWin::reset()
