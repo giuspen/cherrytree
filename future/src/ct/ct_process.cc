@@ -30,6 +30,9 @@ std::unique_ptr<GError, decltype(&g_error_free)> gerror_factory(GError* err = nu
     return std::unique_ptr<GError, decltype(&g_error_free)>(err, g_error_free);
 }
 
+void wait_and_free_subprocess(GSubprocess* process) noexcept {
+    if(process) g_subprocess_wait(process, nullptr, nullptr);
+}
 
 void CtProcess::run(const std::vector<std::string>& args, std::ostream &output)
 {
@@ -45,14 +48,14 @@ void CtProcess::run(const std::vector<std::string>& args, std::ostream &output)
     int p_flags = G_SUBPROCESS_FLAGS_STDOUT_PIPE;
     if (_input_data) p_flags |= G_SUBPROCESS_FLAGS_STDIN_PIPE;
     auto p_err = gerror_factory();
-    auto* err_raw = p_err.get();
-    auto* process = g_subprocess_newv(process_args.data(), static_cast<GSubprocessFlags>(p_flags), &err_raw);
+    GError* err_raw = p_err.get();
+    std::unique_ptr<GSubprocess, decltype(&wait_and_free_subprocess)> process(g_subprocess_newv(process_args.data(), static_cast<GSubprocessFlags>(p_flags), &err_raw), wait_and_free_subprocess);
     if (!process) {
         throw CtProcessError(fmt::format("Error occured during g_subprocess_new: {}", p_err->message));
     }
     
     if (_input_data) {
-        auto* stdin_stream = g_subprocess_get_stdin_pipe(process);
+        auto* stdin_stream = g_subprocess_get_stdin_pipe(process.get());
         std::streamsize       pos;
         std::array<char, 256> buffer{};
         auto err = gerror_factory();
@@ -70,7 +73,7 @@ void CtProcess::run(const std::vector<std::string>& args, std::ostream &output)
         g_output_stream_close(stdin_stream, nullptr, nullptr);
     }
     
-    auto* stdout_stream = g_subprocess_get_stdout_pipe(process);
+    auto* stdout_stream = g_subprocess_get_stdout_pipe(process.get());
     std::array<guint8, 257> buff{};
     while(true) {
         auto read_retr = g_input_stream_read(stdout_stream, buff.data(), buff.size() - 1, nullptr, nullptr);
