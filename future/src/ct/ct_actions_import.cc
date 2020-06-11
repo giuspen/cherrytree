@@ -341,10 +341,9 @@ void CtActions::_import_through_pandoc(const std::filesystem::path& filepath)
     if (!std::filesystem::exists(filepath)) throw std::runtime_error(fmt::format("Path does not exist: {}", filepath.string()));
     
     try {
-        std::ifstream infile(filepath);
-        
         std::stringstream html_buff;
-        CtPandoc::to_html(infile, html_buff);
+        CtPandoc::to_html(filepath, html_buff);
+        spdlog::debug("OUTPUT: {}", html_buff.str());
         CtHtml2Xml parser(_pCtMainWin);
         parser.feed(html_buff.str());
         

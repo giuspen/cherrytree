@@ -22,6 +22,7 @@
 #pragma once
 #include <istream>
 #include <ostream>
+#include <filesystem>
 
 /**
  * @brief Contains functions which provide an interface between a pandoc binary and cherrytree
@@ -31,6 +32,8 @@ namespace CtPandoc {
 bool has_pandoc();
 
 void to_html(std::istream& input, std::ostream& output);
+
+void to_html(const std::filesystem::path& file, std::ostream& output);
 
 } // CtPandoc
 

@@ -97,4 +97,17 @@ void to_html(std::istream& input, std::ostream& output)
     }
 }
 
+
+void to_html(const std::filesystem::path& file, std::ostream& output) {
+    auto process = pandoc_process();
+    process->append_arg(file.string());
+
+    try {
+        process->run(output);
+    } catch(std::exception& e) {
+        spdlog::error("Exception in to_html with filepath: {}; message: {}", file.string(), e.what());
+        throw;
+    }
+}
+
 }
