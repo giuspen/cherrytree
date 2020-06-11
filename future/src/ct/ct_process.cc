@@ -21,219 +21,57 @@
 
 #include "ct_process.h"
 #include "ct_logging.h"
-#include <fmt/format.h>
+#include <fmt/fmt.h>
+#include <gio/gio.h>
+#include <memory>
 
-
-#if defined(__WIN32)
-#include <windows.h>
-
-
-void throw_with_last_error(std::string_view msg) 
-{
-    auto err = GetLastError();
-    throw CtProcess::CtProcessError(fmt::format("{}; ERROR: {}", msg, err));
-}
-
-void create_child_process(std::string_view process_name, void* write_handle, void* read_handle)
-{
-    PROCESS_INFORMATION process_info;
-    ZeroMemory(&process_info, sizeof(PROCESS_INFORMATION));
-    
-    STARTUPINFO start_info;
-    ZeroMemory(&start_info, sizeof(STARTUPINFO));
-    
-    start_info.cb = sizeof(STARTUPINFO);
-    start_info.hStdError = write_handle;
-    start_info.hStdOutput = write_handle;
-    start_info.hStdInput = read_handle;
-    start_info.dwFlags |= STARTF_USESTDHANDLES;
-    
-    
-    std::vector<char> chs;
-    chs.reserve(process_name.size());
-    
-    for (auto ch : process_name) {
-        chs.emplace_back(ch);
-    }
-    
-    bool did_succeed = CreateProcess(nullptr, chs.data(), nullptr, nullptr, true, 0, nullptr, nullptr, &start_info, &process_info);
-    
-    if (!did_succeed) {
-        throw_with_last_error("Error occurred in CreateProcess");
-    }
-    
-    CloseHandle(process_info.hProcess);
-    CloseHandle(process_info.hThread);
-    
-    CloseHandle(write_handle);
-    CloseHandle(read_handle);
-    
-}
-
-
-
-#else
-#include <unistd.h>
-
-/**
- * @brief Fork a child proccess and open two pipes to it
- * The `func` argument will be called by the child process and should be used to do anything (e.g fork())
- * that needs to be done there.
- * fds will be filled with the parent read and parent write ends of the pipes and `func` will recieve the read/write 
- * ends for the child 
- * @param fds: The read pipes to be filled
- * @param func: The function to call in the child
- * @return pid_t: The pid returned by fork()
- */
-pid_t io_fork(int fds[2], const std::function<void(int, int)>& func) 
-{
-    int pipes[4];
-    
-    if (pipe(&pipes[0]) != 0 || pipe(&pipes[2]) != 0) {
-        throw CtProcess::CtProcessError("Failed to open pipes");
-    }
-    
-    auto pid = fork();
-    if (pid > 0) {
-        // Parent
-        fds[0] = pipes[0];
-        fds[1] = pipes[3];
-        
-        close(pipes[1]);
-        close(pipes[2]);
-        return pid;
-    } else if (pid == 0) {
-        // Child
-        close(pipes[3]);
-        close(pipes[0]);
-        
-        func(pipes[2], pipes[1]);
-        _exit(0);
-    }
-    throw CtProcess::CtProcessError("fork() returned error code");
-}
-
-#endif  // IFDEF __WIN32
 
 void CtProcess::run(const std::vector<std::string>& args, std::ostream &output)
 {
     
-    std::vector<char *> process_args;
-    process_args.emplace_back(const_cast<char *>(_process_name.c_str()));
+    std::vector<const char *> process_args;
+    process_args.emplace_back(_process_name.c_str());
     for (const auto &arg : args) {
-        process_args.emplace_back(const_cast<char *>(arg.c_str()));
+        process_args.emplace_back(arg.c_str());
     }
     process_args.emplace_back(nullptr);
 
-#if defined(__WIN32)
-    SECURITY_ATTRIBUTES sec_attrs;
-    
-    spdlog::debug("Start of parent exe");
-    
-    sec_attrs.nLength              = sizeof(sec_attrs);
-    sec_attrs.bInheritHandle       = true;
-    sec_attrs.lpSecurityDescriptor = nullptr;
-    
-    HANDLE child_in_wd;
-    HANDLE child_in_rd;
-    HANDLE child_out_rd;
-    HANDLE child_out_wd;
-    
-    
-    if (!CreatePipe(&child_out_rd, &child_out_wd, &sec_attrs, 0)) {
-        throw_with_last_error("Failed to create output pipes for child");
+
+    int p_flags = G_SUBPROCESS_FLAGS_STDOUT_PIPE;
+    if (_input_data) p_flags |= G_SUBPROCESS_FLAGS_STDIN_PIPE;
+    std::unique_ptr<GError, decltype(&g_error_free)> p_err(nullptr, g_error_free);
+    auto* err_raw = p_err.get();
+    auto* process = g_subprocess_newv(process_args.data(), static_cast<GSubprocessFlags>(p_flags), &err_raw);
+    if (!process) {
+        throw CtProcessError(fmt::format("Error occured during g_subprocess_new: {}", p_err->message));
     }
-    
-    if (!SetHandleInformation(child_out_rd, HANDLE_FLAG_INHERIT, 0)) {
-        throw_with_last_error("Failed to set read handle inheritance for child");
-    }
-    
-    if (!CreatePipe(&child_in_rd, &child_in_wd, &sec_attrs, 0)) {
-        throw_with_last_error("Failed to create input pipes for child");
-    }
-    
-    if (!SetHandleInformation(child_in_wd, HANDLE_FLAG_INHERIT, 0)) {
-        throw_with_last_error("Failed to set handle inheritance for child stdin");
-    }
-    
-    create_child_process(_process_name, child_out_wd, child_in_rd);
     
     if (_input_data) {
-        DWORD                 dw_write;
-        std::array<char, 257> buff{};
-        std::streamsize       pos;
-        while (*_input_data || (pos = _input_data->gcount()) != 0) {
-            _input_data->read(buff.data(), buff.size() - 1);
-        
-            bool success = WriteFile(child_in_wd, buff.data(), buff.size() - 1, &dw_write, nullptr);
-            if (!success || dw_write == 0) break;
-        }
-    }
-    if (!CloseHandle(child_in_wd)) {
-        throw_with_last_error("Failed to close the child write handle");
-    }
-    
-    DWORD                 dw_read;
-    std::array<char, 257> buff{};
-    
-    while (true) {
-        bool success = ReadFile(child_out_rd, buff.data(), buff.size() - 1, &dw_read, nullptr);
-        if (!success || dw_read == 0) break;
-        
-        output << buff.data();
-    }
-    
-#else
-    auto func = [process_args, this](int read_fs, int write_fs){
-        
-        dup2(write_fs, STDOUT_FILENO);
-        dup2(write_fs, STDERR_FILENO);
-        dup2(read_fs, STDIN_FILENO);
-        
-        close(write_fs);
-        close(read_fs);
-        
-        execvp(_process_name.c_str(), process_args.data());
-        spdlog::error("execlp() failed");
-        _exit(1);
-    };
-   
-    int fds[2];
-    io_fork(fds, func);
-    
-    try {
-        if (_input_data) {
+        auto* stdin_stream = g_subprocess_get_stdin_pipe(process);
         std::streamsize       pos;
         std::array<char, 256> buffer{};
         _input_data->read(buffer.data(), buffer.size());
         while (*_input_data || (pos = _input_data->gcount()) != 0) {
-            if (write(fds[1], buffer.data(), buffer.size()) < 0) throw CtProcessError("Error while writing to output pipe");
+            if (g_output_stream_write(stdin_stream, buffer.data(), buffer.size(), nullptr, nullptr) < 0) throw CtProcessError("Error while writing to output pipe");
             
             if (pos != 0) _input_data->read(buffer.data(), buffer.size());
         }
-        }
-        close(fds[1]);
-        fds[1] = -1;
-        
-        std::array<char, 257> buff{};
-        while(true) {
-            auto read_retr = read(fds[0], buff.data(), buff.size() - 1);
-            if (read_retr > 0) {
-                output << buff.data();
-            } else if (read_retr == 0) {
-                // EOF
-                break;
-            } else {
-                throw CtProcessError(fmt::format("Error while reading from process; CODE: {}", errno));
-            }
-        }
-        close(fds[0]);
-    } catch(std::exception&) {
-        close(fds[0]);
-        if (fds[1] != -1) close(fds[1]); 
-        throw;
+        g_output_stream_close(stdin_stream, nullptr, nullptr);
     }
-#endif // IFDEF __WIN32
+    
+    auto* stdout_stream = g_subprocess_get_stdout_pipe(process);
+    std::array<guint8, 257> buff{};
+    while(true) {
+        auto read_retr = g_input_stream_read(stdout_stream, buff.data(), buff.size() - 1, nullptr, nullptr);
+        if (read_retr > 0) {
+            output << buff.data();
+        } else if (read_retr == 0) {
+            // EOF
+            break;
+        } else {
+            throw CtProcessError(fmt::format("Error while reading from process"));
+        }
+    }   
 }
 
 
