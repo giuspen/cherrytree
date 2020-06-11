@@ -1,5 +1,5 @@
 /*
- * ct_pandoc.h
+ * ct_process.h
  *
  * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
