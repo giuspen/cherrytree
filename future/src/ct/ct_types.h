@@ -125,7 +125,7 @@ struct CtStorageSyncPending
     std::set<gint64>                               nodes_to_rm_set;
 };
 
-class CtNodeData;
+struct CtNodeData;
 class CtAnchoredWidget;
 class CtStorageEntity
 {

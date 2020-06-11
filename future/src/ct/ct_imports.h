@@ -440,7 +440,7 @@ protected:
     
     std::vector<std::shared_ptr<CtImportFile>> _get_files(const std::filesystem::path& path, uint32_t current_depth, CtImportFile* parent);
 public:
-    using CtImportHandler::CtImportHandler;
+    CtZimImportHandler(CtConfig* config) : CtParser(config), CtTextParser(config) {}
 
     void feed(std::istream& data) override;
     
@@ -460,7 +460,7 @@ protected:
     
     bool _in_link = false;
 public:
-    using CtTextParser::CtTextParser;
+    CtMDParser(CtConfig* config) : CtParser(config), CtTextParser(config) {}
 
     void feed(std::istream& stream) override;
 
