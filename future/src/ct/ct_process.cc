@@ -26,6 +26,11 @@
 #include <memory>
 
 
+std::unique_ptr<GError, decltype(&g_error_free)> gerror_factory(GError* err = nullptr) {
+    return std::unique_ptr<GError, decltype(&g_error_free)>(err, g_error_free);
+}
+
+
 void CtProcess::run(const std::vector<std::string>& args, std::ostream &output)
 {
     
@@ -39,7 +44,7 @@ void CtProcess::run(const std::vector<std::string>& args, std::ostream &output)
 
     int p_flags = G_SUBPROCESS_FLAGS_STDOUT_PIPE;
     if (_input_data) p_flags |= G_SUBPROCESS_FLAGS_STDIN_PIPE;
-    std::unique_ptr<GError, decltype(&g_error_free)> p_err(nullptr, g_error_free);
+    auto p_err = gerror_factory();
     auto* err_raw = p_err.get();
     auto* process = g_subprocess_newv(process_args.data(), static_cast<GSubprocessFlags>(p_flags), &err_raw);
     if (!process) {
@@ -50,9 +55,15 @@ void CtProcess::run(const std::vector<std::string>& args, std::ostream &output)
         auto* stdin_stream = g_subprocess_get_stdin_pipe(process);
         std::streamsize       pos;
         std::array<char, 256> buffer{};
+        auto err = gerror_factory();
+        auto* err_raw = err.get();
+        gsize nb_written = 0;
         _input_data->read(buffer.data(), buffer.size());
         while (*_input_data || (pos = _input_data->gcount()) != 0) {
-            if (g_output_stream_write(stdin_stream, buffer.data(), buffer.size(), nullptr, nullptr) < 0) throw CtProcessError("Error while writing to output pipe");
+            if (!g_output_stream_write_all(stdin_stream, buffer.data(), buffer.size(), &nb_written, nullptr, &err_raw)) {
+                throw CtProcessError(fmt::format("Error while writing to output pipe: {}", err->message));
+            }
+            
             
             if (pos != 0) _input_data->read(buffer.data(), buffer.size());
         }
