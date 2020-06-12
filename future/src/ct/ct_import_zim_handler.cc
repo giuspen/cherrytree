@@ -40,7 +40,7 @@ std::vector<std::shared_ptr<CtImportFile>> CtZimImportHandler::_get_files(const 
         auto fpath = dir_entry.path();
         
         if (accepted_extensions.find(fpath.extension().string()) != accepted_extensions.end()) {
-            std::shared_ptr file = CtImportHandler::_new_import_file(fpath, current_depth);
+            std::shared_ptr<CtImportFile> file { CtImportHandler::_new_import_file(fpath, current_depth) };
             file->parent = parent;
             if (parent) {
                 parent->children.emplace_back(file);
