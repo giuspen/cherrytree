@@ -51,7 +51,7 @@ void CtProcess::run(const std::vector<std::string>& args, std::ostream &output)
     GError* err_raw = p_err.get();
     std::unique_ptr<GSubprocess, decltype(&wait_and_free_subprocess)> process(g_subprocess_newv(process_args.data(), static_cast<GSubprocessFlags>(p_flags), &err_raw), wait_and_free_subprocess);
     if (!process) {
-        throw CtProcessError(fmt::format("Error occured during g_subprocess_new: {}", p_err->message));
+        throw CtProcessError("Error occured during g_subprocess_new"); //fmt::format("Error occured during g_subprocess_new: {}", p_err->message));
     }
     
     if (_input_data) {
@@ -64,7 +64,7 @@ void CtProcess::run(const std::vector<std::string>& args, std::ostream &output)
         _input_data->read(buffer.data(), buffer.size());
         while (*_input_data || (pos = _input_data->gcount()) != 0) {
             if (!g_output_stream_write_all(stdin_stream, buffer.data(), buffer.size(), &nb_written, nullptr, &err_raw)) {
-                throw CtProcessError(fmt::format("Error while writing to output pipe: {}", err->message));
+                throw CtProcessError("Error while writing to output pipe");//fmt::format("Error while writing to output pipe: {}", err->message));
             }
             
             
@@ -83,7 +83,7 @@ void CtProcess::run(const std::vector<std::string>& args, std::ostream &output)
             // EOF
             break;
         } else {
-            throw CtProcessError(fmt::format("Error while reading from process"));
+            throw CtProcessError("Error while reading from process");//fmt::format("Error while reading from process"));
         }
     }   
 }
