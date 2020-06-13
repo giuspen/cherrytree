@@ -596,6 +596,13 @@ Glib::ustring CtStrUtil::get_accelerator_label(const std::string& accelerator)
     return Glib::ustring(label);
 }
 
+std::string CtStrUtil::get_internal_link_from_http_url(std::string link_url)
+{
+    if (str::startswith(link_url, "http"))          return "webs " + link_url;
+    else if (str::startswith(link_url, "file://"))  return "file " + Glib::Base64::encode(link_url.substr(7));
+    else                                            return "webs http://" + link_url;
+}
+
 std::string CtFontUtil::get_font_family(const std::string& fontStr)
 {
     return Pango::FontDescription(fontStr).get_family();

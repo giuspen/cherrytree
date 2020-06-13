@@ -19,12 +19,12 @@
  * MA 02110-1301, USA.
  */
 
-#include "ct_imports.h"
+#include "ct_parser.h"
 #include "ct_const.h"
 #include "ct_config.h"
+#include "ct_misc_utils.h"
 #include <fmt/fmt.h>
 #include <iostream>
-#include <memory>
 
 void CtParser::wipe()  
 { 
@@ -85,7 +85,7 @@ void CtParser::_add_weight_tag(const Glib::ustring& level, std::optional<std::st
 
 void CtParser::_add_link(const std::string& text)
 {
-    auto val = CtImports::get_internal_link_from_http_url(text);
+    auto val = CtStrUtil::get_internal_link_from_http_url(text);
     _current_element->set_attribute(CtConst::TAG_LINK, val);
 }
 
@@ -167,4 +167,73 @@ void CtParser::_build_token_maps() {
     }
 }
 
+
+
+
+void CtHtmlParser::feed(const std::string& html)
+{
+    struct helper_function
+    {
+        static void start_element(void *ctx, const xmlChar *name, const xmlChar **atts)
+        {
+            reinterpret_cast<CtHtmlParser*>(ctx)->handle_starttag((const char*)name, (const char**)atts);
+        }
+        static void end_element(void* ctx, const xmlChar* name)
+        {
+            reinterpret_cast<CtHtmlParser*>(ctx)->handle_endtag((const char*)name);
+        }
+        static void characters(void *ctx, const xmlChar *ch, int len)
+        {
+            reinterpret_cast<CtHtmlParser*>(ctx)->handle_data(std::string_view((const char*)ch, len));
+        }
+        static void reference(void *ctx, const xmlChar *name)
+        {
+            reinterpret_cast<CtHtmlParser*>(ctx)->handle_charref((const char*)name);
+        }
+    };
+
+    htmlSAXHandler sax2Handler;
+    memset(&sax2Handler, 0, sizeof(sax2Handler));
+    sax2Handler.initialized = XML_SAX2_MAGIC;
+    sax2Handler.startElement = helper_function::start_element;
+    sax2Handler.endElement = helper_function::end_element;
+    sax2Handler.characters = helper_function::characters;
+    sax2Handler.reference = helper_function::reference;
+
+    htmlSAXParseDoc((xmlChar*)html.c_str(), "UTF-8", &sax2Handler, this);
+}
+
+void CtHtmlParser::handle_starttag(std::string_view /*tag*/, const char **/*atts*/)
+{
+    // spdlog::debug("SAX tag: {}", tag);
+}
+
+void CtHtmlParser::handle_endtag(std::string_view /*tag*/)
+{
+    // spdlog::debug("SAX endtag: {}", tag);
+}
+
+void CtHtmlParser::handle_data(std::string_view /*tag*/)
+{
+    // spdlog::debug("SAX data: {}", text);
+}
+
+void CtHtmlParser::handle_charref(std::string_view /*tag*/)
+{
+    // spdlog::debug("SAX ref: {}", name);
+}
+
+/*static*/ std::list<CtHtmlParser::html_attr> CtHtmlParser::char2list_attrs(const char** atts)
+{
+    std::list<html_attr> attr_list;
+    if (atts == nullptr)  return attr_list;
+    while (*atts != nullptr)
+    {
+        html_attr attr;
+        attr.name = *(atts++);
+        attr.value = *(atts++);
+        attr_list.push_back(attr);
+    }
+    return attr_list;
+}
 

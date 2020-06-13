@@ -30,6 +30,8 @@
 #include <fstream>
 #include <sstream>
 
+namespace fs = std::filesystem;
+
 const std::set<std::string> CtHtml2Xml::HTML_A_TAGS{"p", "b", "i", "u", "s", CtConst::TAG_PROP_VAL_H1,
             CtConst::TAG_PROP_VAL_H2, CtConst::TAG_PROP_VAL_H3, "span", "font"};
 
@@ -58,92 +60,61 @@ std::vector<std::pair<int, int>> CtImports::get_web_links_offsets_from_plain_tex
     return web_links;
 }
 
-std::string CtImports::get_internal_link_from_http_url(std::string link_url)
+std::unique_ptr<ct_imported_node> CtImports::traverse_dir(const std::string& dir, CtImporterInterface* importer)
 {
-    if (str::startswith(link_url, "http"))          return "webs " + link_url;
-    else if (str::startswith(link_url, "file://"))  return "file " + Glib::Base64::encode(link_url.substr(7));
-    else                                            return "webs http://" + link_url;
-}
-
-
-
-void CtHtmlParser::feed(const std::string& html)
-{
-    struct helper_function
+    auto dir_node = std::make_unique<ct_imported_node>(dir, Glib::path_get_basename(dir));
+    for (const auto& dir_item: fs::directory_iterator(dir))
     {
-        static void start_element(void *ctx, const xmlChar *name, const xmlChar **atts)
+        if (fs::is_directory(dir_item))
         {
-            reinterpret_cast<CtHtmlParser*>(ctx)->handle_starttag((const char*)name, (const char**)atts);
+            if (auto node = traverse_dir(dir_item.path(), importer))
+              dir_node->children.emplace_back(std::move(node));
         }
-        static void end_element(void* ctx, const xmlChar* name)
-        {
-            reinterpret_cast<CtHtmlParser*>(ctx)->handle_endtag((const char*)name);
-        }
-        static void characters(void *ctx, const xmlChar *ch, int len)
-        {
-            reinterpret_cast<CtHtmlParser*>(ctx)->handle_data(std::string_view((const char*)ch, len));
-        }
-        static void reference(void *ctx, const xmlChar *name)
-        {
-            reinterpret_cast<CtHtmlParser*>(ctx)->handle_charref((const char*)name);
-        }
-    };
-
-    htmlSAXHandler sax2Handler;
-    memset(&sax2Handler, 0, sizeof(sax2Handler));
-    sax2Handler.initialized = XML_SAX2_MAGIC;
-    sax2Handler.startElement = helper_function::start_element;
-    sax2Handler.endElement = helper_function::end_element;
-    sax2Handler.characters = helper_function::characters;
-    sax2Handler.reference = helper_function::reference;
-
-    htmlSAXParseDoc((xmlChar*)html.c_str(), "UTF-8", &sax2Handler, this);
-}
-
-void CtHtmlParser::handle_starttag(std::string_view tag, const char **/*atts*/)
-{
-    spdlog::debug("SAX tag: {}", tag);
-}
-
-void CtHtmlParser::handle_endtag(std::string_view tag)
-{
-    spdlog::debug("SAX endtag: {}", tag);
-}
-
-void CtHtmlParser::handle_data(std::string_view text)
-{
-    spdlog::debug("SAX data: {}", text);
-}
-
-void CtHtmlParser::handle_charref(std::string_view name)
-{
-    spdlog::debug("SAX ref: {}", name);
-}
-
-std::list<CtHtmlParser::html_attr> CtHtmlParser::char2list_attrs(const char** atts)
-{
-    std::list<html_attr> attr_list;
-    if (atts == nullptr)  return attr_list;
-    while (*atts != nullptr)
-    {
-        html_attr attr;
-        attr.name = *(atts++);
-        attr.value = *(atts++);
-        attr_list.push_back(attr);
+        else if (auto node = importer->import_file(dir_item.path()))
+            dir_node->children.emplace_back(std::move(node));
     }
-    return attr_list;
+
+    // skip empty dirs
+    if (dir_node->children.empty())
+        return nullptr;
+
+    // not the best place but
+    // if there are node (dir) with subnodes  and node with content, both with the same name, join them
+    for (auto child_it = dir_node->children.begin(); child_it != dir_node->children.end(); ++child_it)
+    {
+        if ((*child_it)->has_content() && (*child_it)->children.empty()) // node with content
+        {
+            for (auto dir_it = dir_node->children.begin(); dir_it != dir_node->children.end(); ++dir_it)
+            {
+                if (!(*dir_it)->has_content()) // dir node
+                {
+                    if (child_it->get() == dir_it->get()) continue;
+                    if ((*child_it)->node_name == (*dir_it)->node_name)
+                    {
+                        std::swap((*child_it)->children, (*dir_it)->children);
+                        dir_node->children.erase(dir_it);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+
+    return dir_node;
 }
 
 
 
-CtHtml2Xml::CtHtml2Xml(CtMainWin *pCtMainWin)
-    :_pCtMainWin(pCtMainWin)
+CtHtml2Xml::CtHtml2Xml(CtConfig* config) : _config(config)
 {
 
 }
 
 void CtHtml2Xml::feed(const std::string& html)
 {
+    _xml_doc = _outter_doc ? _outter_doc : &_temp_doc;
+
     _state = ParserState::WAIT_BODY;
     _tag_id_generator = 0;
     _tag_styles.clear();
@@ -156,7 +127,7 @@ void CtHtml2Xml::feed(const std::string& html)
     _list_level = -1;
     _table.clear();
 
-    _slot_root = _xml_doc.create_root_node("root")->add_child("slot");
+    _slot_root = _xml_doc->create_root_node("root")->add_child("slot");
     _char_offset = 0;
     _slot_text = "";
     _slot_style_id = -1;
@@ -177,7 +148,6 @@ void CtHtml2Xml::feed(const std::string& html)
 
 void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
 {
-
     _start_adding_tag_styles();
 
     if (vec::exists(CtConst::INVALID_HTML_TAGS, tag)) {
@@ -286,7 +256,7 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
         {
             for (auto& tag_attr: char2list_attrs(atts)) {
                 if (tag_attr.name == "href" && tag_attr.value.size() > 7)
-                    _add_tag_style(CtConst::TAG_LINK, CtImports::get_internal_link_from_http_url(tag_attr.value.begin()));
+                    _add_tag_style(CtConst::TAG_LINK, CtStrUtil::get_internal_link_from_http_url(tag_attr.value.begin()));
             }
         }
         else if (tag == "br") _rich_text_serialize(CtConst::CHAR_NEWLINE);
@@ -294,7 +264,7 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
         else if (tag == "ul")  { 
             _list_type = 'u'; 
             _list_num = 0;
-            if (_list_level < static_cast<int>(_pCtMainWin->get_ct_config()->charsListbul.size()) - 1) _list_level++;
+            if (_list_level < static_cast<int>(_config->charsListbul.size()) - 1) _list_level++;
         }
         else if (tag == "li") {
             if (_list_type == 'u') {
@@ -302,7 +272,7 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
                     // A ul _should_ have appeared before this
                     throw std::runtime_error("List item appeared before list declaration");
                 }
-                _rich_text_serialize(_pCtMainWin->get_ct_config()->charsListbul[_list_level] + CtConst::CHAR_SPACE);
+                _rich_text_serialize(_config->charsListbul[_list_level] + CtConst::CHAR_SPACE);
 
             }
             else {
@@ -356,7 +326,7 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
         else if (tag == "ol" && _html_td_tag_open) { _list_type = 'o'; _list_num = 1; }
         else if (tag == "ul" && _html_td_tag_open) { _list_type = 'u'; _list_num = 0; }
         else if (tag == "li" && _html_td_tag_open) {
-            if (_list_type == 'u') _table.back().back().text += _pCtMainWin->get_ct_config()->charsListbul[0] + CtConst::CHAR_SPACE;
+            if (_list_type == 'u') _table.back().back().text += _config->charsListbul[0] + CtConst::CHAR_SPACE;
             else {
                 _table.back().back().text += std::to_string(_list_num) + ". ";
                 _list_num += 1;
@@ -445,6 +415,11 @@ void CtHtml2Xml::handle_data(std::string_view text)
 void CtHtml2Xml::handle_charref(std::string_view /*name*/)
 {
     // todo: test it
+}
+
+void CtHtml2Xml::set_status_bar(CtStatusBar* status_bar)
+{
+    _status_bar = status_bar;
 }
 
 void CtHtml2Xml::_start_adding_tag_styles()
@@ -553,9 +528,10 @@ void CtHtml2Xml::_insert_image(std::string img_path, std::string trailing_chars)
         p_image_node->add_child_text(encodedBlob);
     };
 
-    auto& statusbar = _pCtMainWin->get_status_bar();
-    statusbar.update_status(std::string(_("Downloading")) + " " + img_path + " ...");
-    while (gtk_events_pending()) gtk_main_iteration();
+    if (_status_bar) {
+        _status_bar->update_status(std::string(_("Downloading")) + " " + img_path + " ...");
+       while (gtk_events_pending()) gtk_main_iteration();
+    }
 
     bool image_good = false;
 
@@ -594,7 +570,9 @@ void CtHtml2Xml::_insert_image(std::string img_path, std::string trailing_chars)
     } else {
         spdlog::error("Failed to download {}", img_path);
     }
-    statusbar.update_status("");
+
+    if (_status_bar)
+        _status_bar->update_status("");
 }
 
 void CtHtml2Xml::_insert_table()
@@ -712,21 +690,367 @@ void CtHtml2Xml::_rich_text_save_pending()
     _slot_style_id = -1;
 }
 
-void CtHtml2Xml::add_file(const std::filesystem::path &path) noexcept 
+
+
+CtHtmlImport::CtHtmlImport(CtConfig* config) : _config(config)
 {
-    
-    try {
-        std::ifstream infile;
-        infile.exceptions(std::ios_base::failbit);
-        infile.open(path);
-        
-        std::ostringstream ss;
-        ss << infile.rdbuf();
-        
-        _local_dir = Glib::path_get_dirname(path.string());
-        feed(ss.str());
-    } catch(std::exception& e) {
-        spdlog::error("Exception caught while adding file to XML: {}", e.what());
+
+}
+
+std::unique_ptr<ct_imported_node> CtHtmlImport::import_file(const std::string& file)
+{
+    std::filesystem::path filepath(file);
+    if (filepath.extension() != ".html" && std::filesystem::path(filepath).extension() != ".htm")
+        return nullptr;
+
+    std::ifstream infile;
+    infile.exceptions(std::ios_base::failbit);
+    infile.open(file);
+    std::ostringstream ss;
+    ss << infile.rdbuf();
+
+    auto imported_node = std::make_unique<ct_imported_node>(file, filepath.stem().string());
+    CtHtml2Xml html2xml(_config);
+    html2xml.set_local_dir(Glib::path_get_dirname(file));
+    html2xml.set_outter_xml_doc(&imported_node->xml_content);
+    html2xml.feed(ss.str());
+
+    return imported_node;
+}
+
+
+
+
+CtTomboyImport::CtTomboyImport(CtConfig* config) : _config(config)
+{
+
+}
+
+std::unique_ptr<ct_imported_node> CtTomboyImport::import_file(const std::string& file)
+{
+    xmlpp::DomParser tomboy_doc;
+    try { tomboy_doc.parse_file(file);}
+    catch (std::exception& ex) {
+        spdlog::error("CtTomboyImport: cannot parse xml file ({}): {}", ex.what(), file);
+        return nullptr;
+    }
+
+    // find note
+    xmlpp::Node* note_el = tomboy_doc.get_document()->get_root_node()->get_first_child("note");
+
+    // find note name
+    Glib::ustring node_name = "???";
+    if (xmlpp::Node* el = note_el->get_first_child("title")) {
+        if (auto title_el = dynamic_cast<xmlpp::Element*>(el)->get_child_text()) {
+            node_name = title_el->get_content();
+            if (node_name.size() > 18 && str::endswith(node_name, " Notebook Template"))
+                return nullptr;
+        }
+    }
+
+    // find note's parent
+    Glib::ustring parent_name;
+    if (xmlpp::Node* tags_el = note_el->get_first_child("tags"))
+        if (xmlpp::Node* tag_el = tags_el->get_first_child("tag")) {
+            Glib::ustring tag_name = dynamic_cast<xmlpp::Element*>(tag_el)->get_child_text()->get_content();
+            if (tag_name.size() > 16 && str::startswith(tag_name, "system:notebook:"))
+                parent_name = tag_name.substr(16);
+        }
+    if (parent_name.empty())
+        parent_name = "ORPHANS";
+
+    // parse note's content
+    if (xmlpp::Node* text_el = note_el->get_first_child("text"))
+        if (xmlpp::Node* content_el = text_el->get_first_child("note-content"))
+        {
+            auto parent_node = std::make_unique<ct_imported_node>(file, parent_name);
+            auto node = std::make_unique<ct_imported_node>(file, node_name);
+
+            _current_node = node->xml_content.create_root_node("root")->add_child("slot");
+            _curr_attributes.clear();
+            _chars_counter = 0;
+            _is_list_item = false;
+            _is_link_to_node = false;
+            _iterate_tomboy_note(dynamic_cast<xmlpp::Element*>(content_el), node);
+
+            parent_node->children.emplace_back(std::move(node));
+            return parent_node;
+        }
+    return nullptr;
+}
+
+void CtTomboyImport::_iterate_tomboy_note(xmlpp::Element* iter, std::unique_ptr<ct_imported_node>& node)
+{
+    for (auto dom_iter: iter->get_children())
+    {
+        auto dom_iter_el = dynamic_cast<xmlpp::Element*>(dom_iter);
+        if (dom_iter->get_name() == "#text")
+        {
+            Glib::ustring text_data = dynamic_cast<xmlpp::TextNode*>(dom_iter)->get_content();
+            if (_curr_attributes[CtConst::TAG_LINK] == "webs ")
+                _curr_attributes[CtConst::TAG_LINK] += text_data;
+            else if (_is_list_item)
+                text_data = _config->charsListbul[0] + CtConst::CHAR_SPACE + text_data;
+
+            xmlpp::Element* el = _rich_text_serialize(text_data);
+             if (_is_link_to_node)
+                node->add_broken_link(text_data, el);
+
+            _chars_counter += text_data.size();
+        }
+        else if (dom_iter->get_name() == "bold") {
+            _curr_attributes[CtConst::TAG_WEIGHT] = CtConst::TAG_PROP_VAL_HEAVY;
+            _iterate_tomboy_note(dom_iter_el, node);
+            _curr_attributes[CtConst::TAG_WEIGHT] = "";
+        } else if (dom_iter->get_name() == CtConst::TAG_PROP_VAL_ITALIC) {
+            _curr_attributes[CtConst::TAG_STYLE] = CtConst::TAG_PROP_VAL_ITALIC;
+            _iterate_tomboy_note(dom_iter_el, node);
+            _curr_attributes[CtConst::TAG_STYLE] = "";
+        } else if (dom_iter->get_name() == CtConst::TAG_STRIKETHROUGH) {
+            _curr_attributes[CtConst::TAG_STRIKETHROUGH] = CtConst::TAG_PROP_VAL_TRUE;
+            _iterate_tomboy_note(dom_iter_el, node);
+            _curr_attributes[CtConst::TAG_STRIKETHROUGH] = "";
+        } else if (dom_iter->get_name() == "highlight") {
+            _curr_attributes[CtConst::TAG_BACKGROUND] = CtConst::COLOR_48_YELLOW;
+            _iterate_tomboy_note(dom_iter_el, node);
+            _curr_attributes[CtConst::TAG_BACKGROUND] = "";
+        } else if (dom_iter->get_name() == CtConst::TAG_PROP_VAL_MONOSPACE) {
+            _curr_attributes[CtConst::TAG_FAMILY] = dom_iter->get_name();
+            _iterate_tomboy_note(dom_iter_el, node);
+            _curr_attributes[CtConst::TAG_FAMILY] = "";
+        } else if (dom_iter->get_name() == "size:small") {
+            _curr_attributes[CtConst::TAG_SCALE] = CtConst::TAG_PROP_VAL_SMALL;
+            _iterate_tomboy_note(dom_iter_el, node);
+            _curr_attributes[CtConst::TAG_SCALE] = "";
+        } else if (dom_iter->get_name() == "size:large") {
+            _curr_attributes[CtConst::TAG_SCALE] = CtConst::TAG_PROP_VAL_H2;
+            _iterate_tomboy_note(dom_iter_el, node);
+            _curr_attributes[CtConst::TAG_SCALE] = "";
+        } else if (dom_iter->get_name() == "size:huge") {
+            _curr_attributes[CtConst::TAG_SCALE] = CtConst::TAG_PROP_VAL_H1;
+            _iterate_tomboy_note(dom_iter_el, node);
+            _curr_attributes[CtConst::TAG_SCALE] = "";
+        } else if (dom_iter->get_name() == "link:url") {
+            _curr_attributes[CtConst::TAG_LINK] = "webs ";
+            _iterate_tomboy_note(dom_iter_el, node);
+            _curr_attributes[CtConst::TAG_LINK] = "";
+        } else if (dom_iter->get_name() == "list-item") {
+            _is_list_item = true;
+            _iterate_tomboy_note(dom_iter_el, node);
+            _is_list_item = false;
+        } else if (dom_iter->get_name() == "link:internal") {
+            _is_link_to_node = true;
+            _iterate_tomboy_note(dom_iter_el, node);
+            _is_link_to_node = false;
+        } else {
+            spdlog::debug(dom_iter->get_name());
+            _iterate_tomboy_note(dom_iter_el, node);
+        }
     }
 }
 
+xmlpp::Element* CtTomboyImport::_rich_text_serialize(const Glib::ustring& text_data)
+{
+    auto dom_iter = _current_node->add_child("rich_text");
+    for (auto atr: _curr_attributes)
+        if (!atr.second.empty())
+            dom_iter->set_attribute(atr.first, atr.second);
+    dom_iter->add_child_text(text_data);
+    return dom_iter;
+}
+
+
+
+
+
+CtZimImport::CtZimImport(CtConfig* config): CtParser(config), CtTextParser(config)
+{
+
+}
+
+std::unique_ptr<ct_imported_node> CtZimImport::import_file(const std::string& file)
+{
+    std::filesystem::path filepath(file);
+    if (filepath.extension() != ".txt")
+        return nullptr;
+
+    _ensure_notebook_file_in_dir(filepath.parent_path());
+
+    std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, filepath.stem().string());
+    _current_node = node.get();
+    _current_element = node->xml_content.create_root_node("root")->add_child("slot");
+    _current_element = _current_element->add_child("rich_text");
+
+    std::ifstream stream(file);
+    feed(stream);
+    return node;
+}
+
+void CtZimImport::feed(std::istream& data)
+{
+    _init_tokens();
+    _build_token_maps();
+
+    std::string line;
+    while(std::getline(data, line, '\n')) {
+        if (_parse_state == PARSING_STATE::HEAD) {
+            // Creation-Date: .* is the final line of the header
+            if (line.find("Creation-Date:") != std::string::npos) {
+                // TODO: Read the creation date and use it for ts_creation
+                _parse_state = PARSING_STATE::BODY;
+            }
+        } else if (_parse_state == PARSING_STATE::BODY) {
+            _parse_body_line(line);
+        }
+    }
+    // Reset
+    _parse_state = PARSING_STATE::HEAD;
+}
+
+void CtZimImport::_init_tokens()
+{
+    if (_token_schemas.empty()) {
+        _token_schemas = {
+            // Bold
+            {"**", true, true, [this](const std::string& data){
+                _close_current_tag();
+                _add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, data);
+                _close_current_tag();
+            }},
+            // Indentation detection for lists
+            {"\t", false, false, [this](const std::string& data) {
+                _list_level++;
+                // Did a double match for even number of \t tags
+                if (data.empty()) _list_level++;
+            }},
+            {"https://", false, false, [this](const std::string& data) {
+                _close_current_tag();
+                _add_link("https://"+data);
+                _add_text("https://"+data);
+                _close_current_tag();
+            }},
+            {"http://", false, false, [this](const std::string& data) {
+                _close_current_tag();
+                _add_link("http://"+data);
+                _add_text("http://"+data);
+                _close_current_tag();
+            }},
+            // Bullet list
+            {"* ", false, false, [this](const std::string& data) {
+                _add_list(_list_level, data);
+                _list_level = 0;
+            }},
+            // Italic
+            {"//", true, true, [this](const std::string& data) {
+                _close_current_tag();
+                _add_italic_tag(data);
+                _close_current_tag();
+            }},
+            // Strikethrough
+            {"~~", true, true, [this](const std::string& data){
+                _close_current_tag();
+                _add_strikethrough_tag(data);
+                _close_current_tag();
+            }},
+            // Headers
+            {"==", false, false, [this](const std::string &data) {
+                    int count = 5;
+
+                    auto iter = data.begin();
+                    while (*iter == '=') {
+                        count--;
+                        ++iter;
+                    }
+
+                    if (count < 0) {
+                        throw CtImportException(fmt::format("Parsing error while parsing header data: {} - Too many '='", data));
+                    }
+
+                    if (count > 3) {
+                        // Reset to smaller (h3 currently)
+                        count = 3;
+                    }
+
+                    auto str = str::replace(data, "= ", "");
+                    str = str::replace(str, "=", "");
+
+                    _close_current_tag();
+                    _add_scale_tag(count, str);
+                    _close_current_tag();
+            }, "==", true},
+            // External link (e.g https://example.com)
+            {"{{", true, false, [](const std::string&) {
+                // Todo: Implement this (needs image importing)
+            },"}}"},
+            // Todo list
+           // {"[", true, false, links_match_func, "] "},
+            {"[*", true, false, [this](const std::string& data) {
+                _add_todo_list(CHECKBOX_STATE::TICKED, data);
+            }, "]"},
+            {"[x", true, false, [this](const std::string& data) {
+                _add_todo_list(CHECKBOX_STATE::MARKED, data);
+            }, "]"},
+            {"[>", true, false, [this](const std::string& data) {
+                _add_todo_list(CHECKBOX_STATE::MARKED, data);
+            }, "]"},
+            {"[ ", true, false, [this](const std::string& data) {
+                _add_todo_list(CHECKBOX_STATE::UNCHECKED, data);
+            }, "]"},
+            // Internal link (e.g MyPage) - This is just for removing the leftover ']'
+            {"[[", true, false, [this](const std::string& data){
+                _close_current_tag();
+                 _current_node->add_broken_link(data, _current_element);
+                 _add_text(data);
+                _close_current_tag();
+            }, "]]"},
+            // Verbatum - captures all the tokens inside it and print without formatting
+            {"''", true, true, [this](const std::string& data){
+                _add_text(data);
+            }, "''", true},
+            // Suberscript
+            {"^{", true, false, [this](const std::string& data){
+                _close_current_tag();
+                _add_superscript_tag(data);
+                _close_current_tag();
+            }, "}"},
+            // Subscript
+            {"_{", true, false, [this](const std::string& data){
+                _close_current_tag();
+                _add_subscript_tag(data);
+                _close_current_tag();
+            }, "}"}
+
+        };
+    }
+}
+
+void CtZimImport::_parse_body_line(const std::string& line)
+{
+    auto tokens_raw = _tokenize(line);
+    auto tokens = _parse_tokens(tokens_raw);
+
+    for (const auto& token : tokens) {
+        if (token.first) {
+            token.first->action(token.second);
+        } else {
+            _add_text(token.second);
+        }
+
+    }
+    _add_newline();
+}
+
+void CtZimImport::_ensure_notebook_file_in_dir(const fs::path& dir)
+{
+    if (_has_notebook_file) return;
+    for (auto dir_item: fs::directory_iterator(dir))
+        if (dir_item.path().filename() == "notebook.zim")
+        {
+            _has_notebook_file = true;
+            break;
+        }
+
+    if (!_has_notebook_file) {
+        throw CtImportException(fmt::format("Directory: {} does not contain a notebook.zim file", dir.string()));
+    }
+}
