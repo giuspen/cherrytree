@@ -33,6 +33,7 @@
 #include <filesystem>
 
 class CtMainWin;
+class CtImporterInterface;
 class CtActions
 {
 public:
@@ -400,11 +401,9 @@ public:
 
 private:
     // helper for import actions
-    void _import_node_from_html(const std::filesystem::path& filepath);
-    void _import_node_from_plaintext(const std::filesystem::path& filepath);
-    void _import_nodes_from_zim_directory(const std::filesystem::path& filepath);
-    void _import_node_from_md_file(const std::filesystem::path& filepath);
-    void _import_through_pandoc(const std::filesystem::path& filepath);
+    void _import_from_file(CtImporterInterface* importer);
+    void _import_from_dir(CtImporterInterface* importer, const std::string& custom_dir);
+
 public:
     // import actions
     void import_node_from_html_file() noexcept;
@@ -417,6 +416,8 @@ public:
     void import_nodes_from_md_directory() noexcept;
     void import_node_from_pandoc() noexcept;
     void import_directory_from_pandoc() noexcept;
+    void import_nodes_from_gnote_directory() noexcept;
+    void import_nodes_from_tomboy_directory() noexcept;
 
 private:
     // helper for export actions

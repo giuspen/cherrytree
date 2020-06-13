@@ -24,32 +24,3 @@
 #include <fmt/fmt.h>
 
 namespace fs = std::filesystem;
-
-
-
-void CtImportFile::fix_internal_links(const std::string &node_name, uint64_t node_id) 
-{
-    auto iter = _internal_links.find(node_name);
-    if (iter != _internal_links.end()) {
-        for (auto* link : iter->second) {
-            link->set_attribute(CtConst::TAG_LINK, fmt::format("node {}", node_id));
-        }
-    }
-    
-    
-}
-
-
-void CtImportHandler::_add_internal_link(const std::string& text)
-{
-    _add_internal_link_to_curr_file(text, _current_element);
-    _add_text(text);
-}
-
-void CtImportHandler::_init_new_doc() {
-    _docs.emplace_back(std::make_shared<xmlpp::Document>());
-    _current_import_file()->doc = _xml_doc();
-    _current_element = _xml_doc()->create_root_node("root")->add_child("slot");
-    _current_element = _current_element->add_child("rich_text");
-}
-

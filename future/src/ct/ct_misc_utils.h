@@ -180,6 +180,8 @@ Glib::ustring highlight_words(const Glib::ustring& text, std::vector<Glib::ustri
 
 Glib::ustring get_accelerator_label(const std::string& accelerator);
 
+std::string get_internal_link_from_http_url(std::string link_url);
+
 } // namespace CtStrUtil
 
 namespace CtFontUtil {

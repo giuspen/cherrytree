@@ -19,9 +19,8 @@
  * MA 02110-1301, USA.
  */
 
-#include "ct_imports.h"
+#include "ct_parser.h"
 #include <iostream>
-
 #include <fmt/fmt.h>
 
 template<class T>
@@ -36,7 +35,9 @@ std::unordered_set<char> build_pos_tokens(const T& tokens) {
 constexpr bool nor(bool a, bool b) {
     return !(a || b);
 }
-std::vector<std::string> CtTextParser::_tokenize(const std::string& text) {
+
+std::vector<std::string> CtTextParser::_tokenize(const std::string& text)
+{
     auto& open_tags = open_tokens_map();
     auto& close_tags = close_tokens_map();
     if (_possible_tokens.empty()) {
@@ -87,8 +88,8 @@ std::vector<std::string> CtTextParser::_tokenize(const std::string& text) {
     return tokens;
 }
 
-std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser::_parse_tokens(const std::vector<std::string>& tokens) const {
-    
+std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser::_parse_tokens(const std::vector<std::string>& tokens) const
+{
     std::vector<std::pair<const token_schema *, std::string>> token_stream;
     std::unordered_map<std::string_view, bool>                open_tags;
     std::pair<std::vector<const token_schema *>, std::string> curr_open_tags;
@@ -179,7 +180,8 @@ std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser
 }
 
 
-std::pair<Gtk::TextIter, Gtk::TextIter> CtTextParser::find_formatting_boundaries(Gtk::TextIter start_bounds, Gtk::TextIter word_end) {
+std::pair<Gtk::TextIter, Gtk::TextIter> CtTextParser::find_formatting_boundaries(Gtk::TextIter start_bounds, Gtk::TextIter word_end)
+{
     _build_token_maps();
     
     Glib::ustring token_str(start_bounds, word_end);

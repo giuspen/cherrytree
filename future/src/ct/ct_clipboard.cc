@@ -561,7 +561,7 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
 // From Clipboard to HTML Text
 void CtClipboard::_on_received_to_html(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
-    CtHtml2Xml parser(_pCtMainWin);
+    CtHtml2Xml parser(_pCtMainWin->get_ct_config());
 #ifdef _WIN32
     parser.feed(Win32HtmlFormat().convert_from_ms_clipboard(selection_data.get_data_as_string()));
 #else
