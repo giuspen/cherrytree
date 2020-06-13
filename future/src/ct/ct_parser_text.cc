@@ -1,5 +1,5 @@
 /*
- * ct_text_parser.cc
+ * ct_parser_text.cc
  *
  * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
