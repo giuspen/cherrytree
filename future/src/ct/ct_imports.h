@@ -47,6 +47,7 @@ struct ct_imported_node
 {
     std::string                      path;
     Glib::ustring                    node_name;
+    gint64                           node_id {-1};     // generated at the end
     xmlpp::Document                  xml_content;
     std::map<Glib::ustring, std::vector<xmlpp::Element*>> content_broken_links;
     std::list<std::unique_ptr<ct_imported_node>> children;

@@ -34,6 +34,7 @@
 
 class CtMainWin;
 class CtImporterInterface;
+class ct_imported_node;
 class CtActions
 {
 public:
@@ -152,20 +153,13 @@ private:
     void          _node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeData, bool add_child, std::shared_ptr<CtNodeState> node_state);
 public:
     void          _node_child_exist_or_create(Gtk::TreeIter parentIter, const std::string& nodeName);
+
 private:
     void          _node_move_after(Gtk::TreeIter iter_to_move, Gtk::TreeIter father_iter,
                                    Gtk::TreeIter brother_iter = Gtk::TreeIter(), bool set_first = false);
     bool          _need_node_swap(Gtk::TreeIter& leftIter, Gtk::TreeIter& rightIter, bool ascendings);
     bool          _tree_sort_level_and_sublevels(const Gtk::TreeNodeChildren& children, bool ascending);
-    /**
-     * @brief Add a new node to the current tree and return an iterator to it
-     * @param curr_iter: The current iterator for the node tree (The parent iterator if adding a child)
-     * @param node_data: The data for the new node
-     * @param is_child: Whether the new node should be a child
-     * @param node_state: The state for the new node
-     * @return An iterator to the added node
-     */
-    Gtk::TreeIter _add_node_quick(const Gtk::TreeIter& curr_iter, CtNodeData& node_data, bool is_child);
+
 public:
     // tree actions
     void node_add()                { _node_add(false, false); }
@@ -403,6 +397,7 @@ private:
     // helper for import actions
     void _import_from_file(CtImporterInterface* importer);
     void _import_from_dir(CtImporterInterface* importer, const std::string& custom_dir);
+    void _create_imported_nodes(ct_imported_node* imported_nodes);
 
 public:
     // import actions

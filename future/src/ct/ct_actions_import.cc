@@ -31,66 +31,6 @@
 namespace fs = std::filesystem;
 
 
-
-static std::unique_ptr<ct_imported_node> traverse_dir(const std::string& dir, CtImporterInterface* importer)
-{
-    auto dir_node = std::make_unique<ct_imported_node>(dir, Glib::path_get_basename(dir));
-    for (const auto& dir_item: fs::directory_iterator(dir))
-    {
-        if (fs::is_directory(dir_item))
-            dir_node->children.emplace_back(traverse_dir(dir_item.path(), importer));
-        else if (auto node = importer->import_file(dir_item.path()))
-            dir_node->children.emplace_back(std::move(node));
-    }
-    return dir_node;
-}
-
-
-static void created_nodes(std::unique_ptr<ct_imported_node>& imported_node)
-{
-
-}
-
-void CtActions::_import_from_file(CtImporterInterface* importer)
-{
-    CtDialogs::file_select_args args(_pCtMainWin);
-    args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImport;
-    args.filter_mime = importer->file_mimes();
-    auto filepath = CtDialogs::file_select_dialog(args);
-    if (filepath.empty()) return;
-    _pCtMainWin->get_ct_config()->pickDirImport = Glib::path_get_dirname(filepath);
-
-    try
-    {
-       std::unique_ptr<ct_imported_node> node = importer->import_file(filepath);
-       created_nodes(node);
-    }
-    catch (std::exception& ex)
-    {
-        spdlog::error("import exception: {}", ex.what());
-    }
-}
-
-void CtActions::_import_from_dir(CtImporterInterface* importer, const std::string& custom_dir)
-{
-    std::string start_dir = custom_dir.empty() ? _pCtMainWin->get_ct_config()->pickDirImport : custom_dir;
-    std::string import_dir = CtDialogs::folder_select_dialog(start_dir, _pCtMainWin);
-    if (import_dir.empty()) return;
-    if (custom_dir.empty())
-        _pCtMainWin->get_ct_config()->pickDirImport = import_dir;
-
-    try
-    {
-        auto dir_node = traverse_dir(import_dir, importer);
-        created_nodes(dir_node);
-    }
-    catch (std::exception& ex)
-    {
-        spdlog::error("import exception: {}", ex.what());
-    }
-}
-
-
 // Import a node from a html file
 void CtActions::import_node_from_html_file() noexcept 
 {
@@ -174,4 +114,152 @@ void CtActions::import_nodes_from_tomboy_directory() noexcept
     CtTomboyImport importer(_pCtMainWin->get_ct_config());
     _import_from_dir(&importer, Glib::build_filename(g_get_user_data_dir(), "tomboy"));
 }
+
+
+void CtActions::_import_from_file(CtImporterInterface* importer)
+{
+    CtDialogs::file_select_args args(_pCtMainWin);
+    args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImport;
+    args.filter_mime = importer->file_mimes();
+    auto filepath = CtDialogs::file_select_dialog(args);
+    if (filepath.empty()) return;
+    _pCtMainWin->get_ct_config()->pickDirImport = Glib::path_get_dirname(filepath);
+
+    try
+    {
+       std::unique_ptr<ct_imported_node> node = importer->import_file(filepath);
+       _create_imported_nodes(node.get());
+    }
+    catch (std::exception& ex)
+    {
+        spdlog::error("import exception: {}", ex.what());
+    }
+}
+
+static std::unique_ptr<ct_imported_node> traverse_dir(const std::string& dir, CtImporterInterface* importer)
+{
+    auto dir_node = std::make_unique<ct_imported_node>(dir, Glib::path_get_basename(dir));
+    for (const auto& dir_item: fs::directory_iterator(dir))
+    {
+        if (fs::is_directory(dir_item))
+            dir_node->children.emplace_back(traverse_dir(dir_item.path(), importer));
+        else if (auto node = importer->import_file(dir_item.path()))
+            dir_node->children.emplace_back(std::move(node));
+    }
+    return dir_node;
+}
+
+void CtActions::_import_from_dir(CtImporterInterface* importer, const std::string& custom_dir)
+{
+    std::string start_dir = custom_dir.empty() ? _pCtMainWin->get_ct_config()->pickDirImport : custom_dir;
+    std::string import_dir = CtDialogs::folder_select_dialog(start_dir, _pCtMainWin);
+    if (import_dir.empty()) return;
+    if (custom_dir.empty())
+        _pCtMainWin->get_ct_config()->pickDirImport = import_dir;
+
+    try
+    {
+        auto dir_node = traverse_dir(import_dir, importer);
+        _create_imported_nodes(dir_node.get());
+    }
+    catch (std::exception& ex)
+    {
+        spdlog::error("import exception: {}", ex.what());
+    }
+}
+
+static Gtk::TreeIter select_parent_dialog(CtMainWin* pCtMainWin)
+{
+    if (!pCtMainWin->curr_tree_iter())
+        return Gtk::TreeIter();
+
+     Gtk::Dialog dialog(_("Who is the Parent?"), *pCtMainWin, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+     dialog.set_transient_for(*pCtMainWin);
+     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
+     dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+     dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
+     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+     dialog.set_default_size(350, -1);
+
+     auto radiobutton_root = Gtk::RadioButton(_("The Tree Root"));
+     auto radiobutton_curr_node = Gtk::RadioButton(_("The Selected Node"));
+     radiobutton_curr_node.join_group(radiobutton_root);
+     auto content_area = dialog.get_content_area();
+     content_area->pack_start(radiobutton_root);
+     content_area->pack_start(radiobutton_curr_node);
+     content_area->show_all();
+     if (dialog.run() == Gtk::RESPONSE_ACCEPT)
+         if (radiobutton_curr_node.get_active())
+            return pCtMainWin->curr_tree_iter();
+
+     return Gtk::TreeIter();
+}
+
+void CtActions::_create_imported_nodes(ct_imported_node* imported_nodes)
+{
+    // to apply functions to nodes
+    std::function<void(ct_imported_node*, std::function<void(ct_imported_node*)>)> foreach_nodes;
+    foreach_nodes = [&](ct_imported_node* imported_node, std::function<void(ct_imported_node*)> fun_apply) {
+        fun_apply(imported_node);
+        for (auto& node: imported_node->children)
+            foreach_nodes(node.get(), fun_apply);
+    };
+
+    // setup node id
+    std::map<Glib::ustring, gint64> node_ids;
+    gint64 max_node_id = _pCtMainWin->get_tree_store().node_id_get();
+    foreach_nodes(imported_nodes, [&](ct_imported_node* node) {
+        node->node_id = max_node_id++;
+        node_ids[node->node_name] = node->node_id;
+    });
+
+    // fix broken links, node name -> node id
+    foreach_nodes(imported_nodes, [&](ct_imported_node* node) {
+        for (auto& broken_link: node->content_broken_links)
+            if (node_ids.count(broken_link.first))
+                for (xmlpp::Element* link_el: broken_link.second)
+                   link_el->set_attribute(CtConst::TAG_LINK, "node " + std::to_string(node_ids[broken_link.first]));
+    });
+
+
+
+    auto create_node = [&](ct_imported_node* imported_node, Gtk::TreeIter curr_iter, bool is_child) {
+        CtNodeData node_data;
+        node_data.name = imported_node->node_name;
+        node_data.nodeId = imported_node->node_id;
+        node_data.isBold = false;
+        node_data.customIconId = 0;
+        node_data.isRO = false;
+        node_data.syntax = CtConst::RICH_TEXT_ID;
+        node_data.rTextBuffer = _pCtMainWin->get_new_text_buffer();
+        node_data.tsCreation = std::time(nullptr);
+        node_data.tsLastSave = node_data.tsCreation;
+        if (imported_node->xml_content.get_root_node()) {
+            CtClipboard(_pCtMainWin).from_xml_string_to_buffer(node_data.rTextBuffer, imported_node->xml_content.write_to_string());
+        }
+
+        Gtk::TreeIter node_iter;
+        if (is_child && curr_iter)
+            node_iter = _pCtMainWin->get_tree_store().append_node(&node_data, &curr_iter /* as parent */);
+        else if (curr_iter)
+            node_iter = _pCtMainWin->get_tree_store().insert_node(&node_data, curr_iter /* after */);
+        else
+            node_iter = _pCtMainWin->get_tree_store().append_node(&node_data);
+
+        _pCtMainWin->get_tree_store().to_ct_tree_iter(node_iter).pending_new_db_node();
+        _pCtMainWin->get_tree_store().update_node_aux_icon(node_iter);
+        return node_iter;
+    };
+
+    // just create nodes
+    std::function<void(Gtk::TreeIter, ct_imported_node*)> create_nodes;
+    create_nodes = [&](Gtk::TreeIter curr_iter, ct_imported_node* imported_node) {
+        auto iter = create_node(imported_node, curr_iter, true);
+        for (auto& child: imported_node->children)
+            create_nodes(iter, child.get());
+    };
+
+    create_nodes(select_parent_dialog(_pCtMainWin), imported_nodes);
+}
+
 
