@@ -8,6 +8,7 @@ Build-Depends:
  gettext,
  python3-lxml,
  cmake (>= 3.13.2),
+ libcpputest-dev,
  libxml2-utils,
  libgtkmm-3.0-dev,
  libgtksourceviewmm-3.0-dev,
