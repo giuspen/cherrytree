@@ -256,13 +256,14 @@ std::optional<Glib::ustring> iter_in_tag(const Gtk::TextIter& iter, const Glib::
 }
 
 
-Glib::ustring anchor_insert_if_missing(CtActions& actions, Gtk::TextIter insert_iter, const Glib::ustring& default_value) {
-    // Todo: Use this to prevent multiple anchors being added
-
+void anchor_insert_if_missing(CtActions& actions, Gtk::TextIter insert_iter, const Glib::ustring& default_value) {
+    auto anchor = insert_iter.get_child_anchor();
+    if (anchor) {
+        return;
+    }
 
     // Didn't find any anchor, insert it
     actions.image_insert_anchor(insert_iter, default_value, "right");
-    return default_value;
 }
 
 
@@ -274,7 +275,7 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, int depth) {
     std::unordered_map<int, int> encountered_headers;
     auto text_buffer = node.get_node_text_buffer();
     Gtk::TextIter text_iter = text_buffer->begin();
-
+    
     do {
         auto tag_name = iter_in_tag(text_iter, scale_tag);
         if (tag_name) {
@@ -297,12 +298,11 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, int depth) {
                 }
                 
                 Glib::ustring txt(start_iter, end_iter);
-                spdlog::debug("TXT: {}", txt);
                 
                 auto mark = text_buffer->create_mark(end_iter, false);
                 
                 std::string anchor_txt = fmt::format("h{}-{}", h_lvl, encountered_headers[h_lvl]);
-                anchor_txt = anchor_insert_if_missing(actions, end_iter, anchor_txt);
+                anchor_insert_if_missing(actions, end_iter, anchor_txt);
                 
                 text_iter = mark->get_iter();
                 text_buffer->delete_mark(mark);
@@ -388,6 +388,14 @@ void CtActions::toc_insert()
         entries.emplace_back(std::move(entry));
     } else if (toc_type == CtDialogs::CURRENT_NODE_AND_SUBNODES) {
         find_toc_entries_and_children(entries, *this, *_pCtMainWin, curr_node, 0);
+    } else if (toc_type == CtDialogs::ALL_TREE) {
+        CtTreeStore& tree_store = _pCtMainWin->get_tree_store();
+        CtTreeIter top_node = tree_store.get_ct_iter_first();
+        CtTreeIter sib = top_node;
+        while (sib) {
+            find_toc_entries_and_children(entries, *this, *_pCtMainWin, sib, 0);
+            ++sib;
+        }
     }
 
     _insert_toc_at_pos(curr_node.get_node_text_buffer(), entries);
