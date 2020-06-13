@@ -33,6 +33,7 @@
 #include <filesystem>
 
 class CtMainWin;
+struct TocEntry;
 class CtActions
 {
 public:
@@ -304,6 +305,7 @@ public:
                                    const Glib::ustring& link, const Glib::ustring& image_justification);
     void          image_insert_anchor(Gtk::TextIter iter_insert, const Glib::ustring& name, const Glib::ustring& image_justification);
 
+    void _insert_toc_at_pos(Glib::RefPtr<Gtk::TextBuffer> text_buffer, const std::vector<TocEntry>& entries);
 public:
     // edit actions
     void insert_spec_char_action(gunichar ch);

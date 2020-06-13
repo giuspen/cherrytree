@@ -24,6 +24,7 @@
 #include "ct_clipboard.h"
 #include "ct_list.h"
 #include "ct_image.h"
+#include "ct_logging.h"
 #include <fstream>
 
 // A Special character insert was Requested
@@ -231,9 +232,122 @@ void CtActions::anchor_handle()
     _anchor_edit_dialog(nullptr, _curr_buffer()->get_insert()->get_iter(), nullptr);
 }
 
+struct TocEntry {
+    std::string anchor_link;
+    std::string text;
+    int node_id;
+    unsigned int depth = 0;
+    std::vector<TocEntry> children;
+    TocEntry(std::string a_link, int n_id, std::string txt, unsigned int dep) : anchor_link(std::move(a_link)), node_id(n_id), text(std::move(txt)), depth(dep) {}
+};
+
+
+std::optional<Glib::ustring> iter_in_tag(const Gtk::TextIter& iter, const Glib::ustring& tag) {
+    for (const auto& iter_tag : iter.get_tags()) {
+        Glib::ustring tag_name;
+        iter_tag->get_property("name", tag_name);
+        spdlog::debug("TAG: {}", tag_name);
+        if (str::startswith(tag_name, tag)) {
+            return tag_name;
+        }
+    }
+    return std::nullopt;
+}
+
+
+Glib::ustring anchor_insert_if_missing(CtActions& actions, Gtk::TextIter insert_iter, const Glib::ustring& default_value) {
+    // Todo: Use this to prevent multiple anchors being added
+
+
+    // Didn't find any anchor, insert it
+    actions.image_insert_anchor(insert_iter, default_value, "right");
+    return default_value;
+}
+
+
+std::vector<TocEntry> find_toc_entries(CtActions& actions, int node_id, Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter text_iter, int depth) {
+    std::vector<TocEntry> toc_entries;
+    std::string scale_tag("scale_");
+    std::unordered_map<int, int> encountered_headers;
+    do {
+        auto tag_name = iter_in_tag(text_iter, scale_tag);
+        if (tag_name) {
+            auto h_start = tag_name->find(scale_tag) + scale_tag.length() + 1;
+            auto begin = tag_name->begin();
+            std::advance(begin, h_start);
+            Glib::ustring h_level_str(begin, tag_name->end());
+            try {
+                int h_lvl = std::stoi(h_level_str);
+                encountered_headers[h_lvl] += 1;
+
+                Gtk::TextIter start_iter(text_iter);
+                Gtk::TextIter end_iter(text_iter);
+                start_iter.backward_line();
+                while (!end_iter.ends_line()) {
+                    if (!end_iter.forward_word_end()) break;
+                }
+                
+                Glib::ustring txt(start_iter, end_iter);
+                spdlog::debug("TXT: {}", txt);
+                
+                auto mark = text_buffer->create_mark(end_iter, false);
+                
+                std::string anchor_txt = fmt::format("h{}-{}", h_lvl, encountered_headers[h_lvl]);
+                anchor_txt = anchor_insert_if_missing(actions, end_iter, anchor_txt);
+                
+                text_iter = mark->get_iter();
+                text_buffer->delete_mark(mark);
+                spdlog::debug("INSERT DONE");
+                toc_entries.emplace_back(anchor_txt, node_id, txt, depth);
+            } catch(std::invalid_argument&) {
+                spdlog::error("Could not convert [{}] to an integer", h_level_str);
+            }
+        }
+
+    } while(text_iter.forward_line());
+
+    return toc_entries;
+}
+
+
+void CtActions::_insert_toc_at_pos(Glib::RefPtr<Gtk::TextBuffer> text_buffer, const std::vector<TocEntry>& entries) {
+    for (const auto& entry : entries) {
+        std::string indents(entry.depth, '\t');
+
+        auto mark = Gtk::TextMark::create();
+        text_buffer->add_mark(mark, text_buffer->get_insert()->get_iter());
+        text_buffer->insert_at_cursor(indents + entry.text);
+        text_buffer->insert_at_cursor("\n");
+
+        auto mark_iter = mark->get_iter();
+        std::string tag_name = _pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_LINK, fmt::format("node {} {}", entry.node_id, entry.anchor_link));
+        text_buffer->apply_tag_by_name(tag_name, mark_iter, text_buffer->get_insert()->get_iter());
+        text_buffer->delete_mark(mark);
+
+
+        _insert_toc_at_pos(text_buffer, entry.children);
+    }
+}
+
+
 void CtActions::toc_insert()
 {
-    // todo:
+    if (!_is_there_selected_node_or_error()) return;
+    if (!_node_sel_and_rich_text()) return;
+
+    auto toc_type = CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, false, nullptr, nullptr, nullptr);
+
+    if (toc_type == CtDialogs::NONE) return;
+
+    if (toc_type == CtDialogs::CURRENT_NODE) {
+        CtTreeIter node = _pCtMainWin->curr_tree_iter();
+        auto txt_buff = node.get_node_text_buffer();
+        _pCtMainWin->get_tree_store().treeview_safe_set_cursor(&_pCtMainWin->get_tree_view(), node);
+        std::vector<TocEntry> entries = find_toc_entries(*this, node.get_node_id(), txt_buff, txt_buff->begin(), 0);
+    
+        _insert_toc_at_pos(txt_buff, entries);
+    }
+
 }
 
 // Insert Timestamp
