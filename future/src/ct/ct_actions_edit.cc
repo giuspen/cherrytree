@@ -24,6 +24,7 @@
 #include "ct_clipboard.h"
 #include "ct_list.h"
 #include "ct_image.h"
+#include "ct_logging.h"
 #include <fstream>
 
 // A Special character insert was Requested
@@ -231,9 +232,183 @@ void CtActions::anchor_handle()
     _anchor_edit_dialog(nullptr, _curr_buffer()->get_insert()->get_iter(), nullptr);
 }
 
+struct TocEntry 
+{
+    std::string anchor_link;
+    std::string text;
+    bool is_node = false;
+    unsigned int depth = 0;
+    unsigned int h_level = 0;
+    std::vector<TocEntry> children;
+    TocEntry(std::string a_link, bool is_n, std::string txt, unsigned int dep, unsigned int h_lvl = 0) : anchor_link(std::move(a_link)), text(std::move(txt)), is_node(is_n), depth(dep), h_level(h_lvl) {}
+};
+
+
+std::optional<Glib::ustring> iter_in_tag(const Gtk::TextIter& iter, const Glib::ustring& tag) 
+{
+    for (const auto& iter_tag : iter.get_tags()) {
+        Glib::ustring tag_name;
+        iter_tag->get_property("name", tag_name);
+        spdlog::debug("TAG: {}", tag_name);
+        if (str::startswith(tag_name, tag)) {
+            return tag_name;
+        }
+    }
+    return std::nullopt;
+}
+
+
+void anchor_insert_if_missing(CtActions& actions, Gtk::TextIter insert_iter, const Glib::ustring& default_value) 
+{
+    auto anchor = insert_iter.get_child_anchor();
+    if (anchor) {
+        return;
+    }
+
+    // Didn't find any anchor, insert it
+    actions.image_insert_anchor(insert_iter, default_value, "right");
+}
+
+
+TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, int depth) 
+{
+    int node_id = node.get_node_id();
+    TocEntry entry(fmt::format("node {}", node_id), true, node.get_node_name(), depth);
+
+    std::string scale_tag("scale_");
+    std::unordered_map<int, int> encountered_headers;
+    auto text_buffer = node.get_node_text_buffer();
+    Gtk::TextIter text_iter = text_buffer->begin();
+    
+    do {
+        auto tag_name = iter_in_tag(text_iter, scale_tag);
+        if (tag_name) {
+            auto h_start = tag_name->find(scale_tag) + scale_tag.length() + 1;
+            auto begin = tag_name->begin();
+            std::advance(begin, h_start);
+            Glib::ustring h_level_str(begin, tag_name->end());
+            try {
+                int h_lvl = std::stoi(h_level_str);
+                encountered_headers[h_lvl] += 1;
+
+                Gtk::TextIter start_iter(text_iter);
+                Gtk::TextIter end_iter(text_iter);
+                while (!start_iter.starts_line()) {
+                    if (!start_iter.backward_word_start()) break;
+                }
+
+                while (!end_iter.ends_line()) {
+                    if (!end_iter.forward_word_end()) break;
+                }
+                
+                Glib::ustring txt(start_iter, end_iter);
+                
+                auto mark = text_buffer->create_mark(end_iter, false);
+                
+                std::string anchor_txt = fmt::format("h{}-{}", h_lvl, encountered_headers[h_lvl]);
+                anchor_insert_if_missing(actions, end_iter, anchor_txt);
+                
+                text_iter = mark->get_iter();
+                text_buffer->delete_mark(mark);
+                spdlog::debug("INSERT DONE");
+                entry.children.emplace_back(fmt::format("node {} {}", node_id, anchor_txt), false, txt, depth + 1, h_lvl);
+            } catch(std::invalid_argument&) {
+                spdlog::error("Could not convert [{}] to an integer", h_level_str);
+            }
+        }
+
+    } while(text_iter.forward_line());
+
+    return entry;
+}
+
+
+void CtActions::_insert_toc_at_pos(Glib::RefPtr<Gtk::TextBuffer> text_buffer, const std::vector<TocEntry>& entries) 
+{
+    for (const auto& entry : entries) {
+        
+        Glib::ustring bullet_char;
+        CtStringSplittable& bullets_list = _pCtMainWin->get_ct_config()->charsToc;
+        auto nb_indents = entry.depth;
+        if (entry.is_node) {
+            bullet_char = bullets_list[0];
+        } else {
+            CtStringSplittable::size_type bullet_index = entry.h_level + 1;
+            if (bullet_index >= bullets_list.size()) {
+                bullet_index = bullets_list.size() - 1;
+            }
+            bullet_char = bullets_list[bullet_index];
+            nb_indents += entry.h_level - 1;
+        }
+        std::string indents(nb_indents, '\t');
+
+
+        text_buffer->insert_at_cursor("\n" + indents + bullet_char + " ");
+
+        auto mark = Gtk::TextMark::create();
+        text_buffer->add_mark(mark, text_buffer->get_insert()->get_iter());
+        text_buffer->insert_at_cursor(entry.text);
+        
+
+        auto mark_iter = mark->get_iter();
+        std::string tag_name = _pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_LINK, entry.anchor_link);
+        text_buffer->apply_tag_by_name(tag_name, mark_iter, text_buffer->get_insert()->get_iter());
+        text_buffer->delete_mark(mark);
+
+
+        _insert_toc_at_pos(text_buffer, entry.children);
+    }
+}
+
+void find_toc_entries_and_children(std::vector<TocEntry>& entries, CtActions& actions, CtMainWin& main_win, CtTreeIter& node, int depth) 
+{
+    auto txt_buff = node.get_node_text_buffer();
+    main_win.get_tree_store().treeview_safe_set_cursor(&main_win.get_tree_view(), node);
+    TocEntry entry = find_toc_entries(actions, node, depth);
+    entries.emplace_back(entry);
+
+
+    CtTreeIter child = node.first_child();
+    while(child) {
+        find_toc_entries_and_children(entries, actions, main_win, child, depth + 1);
+        ++child;
+    }
+}
+
 void CtActions::toc_insert()
 {
-    // todo:
+    if (!_is_there_selected_node_or_error()) return;
+    if (!_node_sel_and_rich_text()) return;
+
+    auto toc_type = CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, false, nullptr, nullptr, nullptr);
+
+    if (toc_type == CtDialogs::NONE) return;
+
+    std::vector<TocEntry> entries;
+    CtTreeIter curr_node = _pCtMainWin->curr_tree_iter();
+    if (toc_type == CtDialogs::CURRENT_NODE) {
+        auto txt_buff = curr_node.get_node_text_buffer();
+        _pCtMainWin->get_tree_store().treeview_safe_set_cursor(&_pCtMainWin->get_tree_view(), curr_node);
+
+        TocEntry entry = find_toc_entries(*this, curr_node, 0);
+        entries.emplace_back(std::move(entry));
+    } else if (toc_type == CtDialogs::CURRENT_NODE_AND_SUBNODES) {
+        find_toc_entries_and_children(entries, *this, *_pCtMainWin, curr_node, 0);
+    } else if (toc_type == CtDialogs::ALL_TREE) {
+        CtTreeStore& tree_store = _pCtMainWin->get_tree_store();
+        CtTreeIter top_node = tree_store.get_ct_iter_first();
+        CtTreeIter sib = top_node;
+        while (sib) {
+            find_toc_entries_and_children(entries, *this, *_pCtMainWin, sib, 0);
+            ++sib;
+        }
+    } else {
+        return;
+    }
+
+    _insert_toc_at_pos(curr_node.get_node_text_buffer(), entries);
+
+    _pCtMainWin->get_tree_store().treeview_safe_set_cursor(&_pCtMainWin->get_tree_view(), curr_node);
 }
 
 // Insert Timestamp

@@ -51,6 +51,8 @@ class CtSplittable
 {
     using vect_t = std::vector<ITEM_T>;
 public:
+    using size_type = typename vect_t::size_type;
+
     /**
      * @brief Swap two CtVectorProxy objects
      * @param first
