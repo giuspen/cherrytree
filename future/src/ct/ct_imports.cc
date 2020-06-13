@@ -60,6 +60,50 @@ std::vector<std::pair<int, int>> CtImports::get_web_links_offsets_from_plain_tex
     return web_links;
 }
 
+std::unique_ptr<ct_imported_node> CtImports::traverse_dir(const std::string& dir, CtImporterInterface* importer)
+{
+    auto dir_node = std::make_unique<ct_imported_node>(dir, Glib::path_get_basename(dir));
+    for (const auto& dir_item: fs::directory_iterator(dir))
+    {
+        if (fs::is_directory(dir_item))
+        {
+            if (auto node = traverse_dir(dir_item.path(), importer))
+              dir_node->children.emplace_back(std::move(node));
+        }
+        else if (auto node = importer->import_file(dir_item.path()))
+            dir_node->children.emplace_back(std::move(node));
+    }
+
+    // skip empty dirs
+    if (dir_node->children.empty())
+        return nullptr;
+
+    // not the best place but
+    // if there are node (dir) with subnodes  and node with content, both with the same name, join them
+    for (auto child_it = dir_node->children.begin(); child_it != dir_node->children.end(); ++child_it)
+    {
+        if ((*child_it)->has_content() && (*child_it)->children.empty()) // node with content
+        {
+            for (auto dir_it = dir_node->children.begin(); dir_it != dir_node->children.end(); ++dir_it)
+            {
+                if (!(*dir_it)->has_content()) // dir node
+                {
+                    if (child_it->get() == dir_it->get()) continue;
+                    if ((*child_it)->node_name == (*dir_it)->node_name)
+                    {
+                        std::swap((*child_it)->children, (*dir_it)->children);
+                        dir_node->children.erase(dir_it);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+
+    return dir_node;
+}
+
 
 
 CtHtml2Xml::CtHtml2Xml(CtConfig* config) : _config(config)
@@ -656,7 +700,7 @@ CtHtmlImport::CtHtmlImport(CtConfig* config) : _config(config)
 std::unique_ptr<ct_imported_node> CtHtmlImport::import_file(const std::string& file)
 {
     std::filesystem::path filepath(file);
-    if (filepath.extension() != "html" && std::filesystem::path(filepath).extension() != "htm")
+    if (filepath.extension() != ".html" && std::filesystem::path(filepath).extension() != ".htm")
         return nullptr;
 
     std::ifstream infile;
@@ -665,7 +709,7 @@ std::unique_ptr<ct_imported_node> CtHtmlImport::import_file(const std::string& f
     std::ostringstream ss;
     ss << infile.rdbuf();
 
-    auto imported_node = std::make_unique<ct_imported_node>(file, Glib::path_get_basename(file));
+    auto imported_node = std::make_unique<ct_imported_node>(file, filepath.stem().string());
     CtHtml2Xml html2xml(_config);
     html2xml.set_local_dir(Glib::path_get_dirname(file));
     html2xml.set_outter_xml_doc(&imported_node->xml_content);
@@ -722,7 +766,7 @@ std::unique_ptr<ct_imported_node> CtTomboyImport::import_file(const std::string&
             auto parent_node = std::make_unique<ct_imported_node>(file, parent_name);
             auto node = std::make_unique<ct_imported_node>(file, node_name);
 
-            _current_node = node->xml_content.create_root_node("slot");
+            _current_node = node->xml_content.create_root_node("root")->add_child("slot");
             _curr_attributes.clear();
             _chars_counter = 0;
             _is_list_item = false;
@@ -827,14 +871,14 @@ CtZimImport::CtZimImport(CtConfig* config): CtParser(config), CtTextParser(confi
 std::unique_ptr<ct_imported_node> CtZimImport::import_file(const std::string& file)
 {
     std::filesystem::path filepath(file);
-    if (filepath.extension() != "txt")
+    if (filepath.extension() != ".txt")
         return nullptr;
 
     _ensure_notebook_file_in_dir(filepath.parent_path());
 
-    std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, Glib::path_get_basename(file));
+    std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, filepath.stem().string());
     _current_node = node.get();
-    _current_element = node->xml_content.create_root_node("slot");
+    _current_element = node->xml_content.create_root_node("root")->add_child("slot");
     _current_element = _current_element->add_child("rich_text");
 
     std::ifstream stream(file);

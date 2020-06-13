@@ -36,11 +36,7 @@
 #include <functional>
 #include "ct_parser.h"
 
-namespace CtImports {
 
-std::vector<std::pair<int, int>> get_web_links_offsets_from_plain_text(const Glib::ustring& plain_text);
-
-}
 
 
 struct ct_imported_node
@@ -54,7 +50,9 @@ struct ct_imported_node
 
     ct_imported_node(const std::string& _path, const Glib::ustring& _name) : path(_path), node_name(_name) {}
     void add_broken_link(const Glib::ustring& link, xmlpp::Element* el) { content_broken_links[link].push_back(el); }
+    bool has_content() { return xml_content.get_root_node(); }
 };
+
 
 class CtImporterInterface
 {
@@ -62,6 +60,17 @@ public:
     virtual std::unique_ptr<ct_imported_node> import_file(const std::string& file) = 0;
     virtual std::vector<std::string>          file_mimes() = 0;
 };
+
+
+namespace CtImports {
+
+    std::vector<std::pair<int, int>> get_web_links_offsets_from_plain_text(const Glib::ustring& plain_text);
+    std::unique_ptr<ct_imported_node> traverse_dir(const std::string& dir, CtImporterInterface* importer);
+
+}
+
+
+
 
 /**
  * @class CtImportException

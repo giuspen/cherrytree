@@ -136,19 +136,6 @@ void CtActions::_import_from_file(CtImporterInterface* importer)
     }
 }
 
-static std::unique_ptr<ct_imported_node> traverse_dir(const std::string& dir, CtImporterInterface* importer)
-{
-    auto dir_node = std::make_unique<ct_imported_node>(dir, Glib::path_get_basename(dir));
-    for (const auto& dir_item: fs::directory_iterator(dir))
-    {
-        if (fs::is_directory(dir_item))
-            dir_node->children.emplace_back(traverse_dir(dir_item.path(), importer));
-        else if (auto node = importer->import_file(dir_item.path()))
-            dir_node->children.emplace_back(std::move(node));
-    }
-    return dir_node;
-}
-
 void CtActions::_import_from_dir(CtImporterInterface* importer, const std::string& custom_dir)
 {
     std::string start_dir = custom_dir.empty() ? _pCtMainWin->get_ct_config()->pickDirImport : custom_dir;
@@ -159,7 +146,7 @@ void CtActions::_import_from_dir(CtImporterInterface* importer, const std::strin
 
     try
     {
-        auto dir_node = traverse_dir(import_dir, importer);
+        auto dir_node = CtImports::traverse_dir(import_dir, importer);
         _create_imported_nodes(dir_node.get());
     }
     catch (std::exception& ex)
@@ -234,7 +221,7 @@ void CtActions::_create_imported_nodes(ct_imported_node* imported_nodes)
         node_data.rTextBuffer = _pCtMainWin->get_new_text_buffer();
         node_data.tsCreation = std::time(nullptr);
         node_data.tsLastSave = node_data.tsCreation;
-        if (imported_node->xml_content.get_root_node()) {
+        if (imported_node->has_content()) {
             CtClipboard(_pCtMainWin).from_xml_string_to_buffer(node_data.rTextBuffer, imported_node->xml_content.write_to_string());
         }
 
@@ -259,7 +246,14 @@ void CtActions::_create_imported_nodes(ct_imported_node* imported_nodes)
             create_nodes(iter, child.get());
     };
 
-    create_nodes(select_parent_dialog(_pCtMainWin), imported_nodes);
+    Gtk::TreeIter parent_iter = select_parent_dialog(_pCtMainWin);
+    if (imported_nodes->has_content())
+        create_nodes(parent_iter, imported_nodes);
+    else // skip top if it's dir
+    {
+        for (auto& child: imported_nodes->children)
+            create_nodes(parent_iter, child.get());
+    }
 }
 
 

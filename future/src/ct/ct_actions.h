@@ -34,7 +34,7 @@
 
 class CtMainWin;
 class CtImporterInterface;
-class ct_imported_node;
+struct ct_imported_node;
 class CtActions
 {
 public:
