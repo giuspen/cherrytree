@@ -67,10 +67,10 @@ std::unique_ptr<ct_imported_node> CtImports::traverse_dir(const std::string& dir
     {
         if (fs::is_directory(dir_item))
         {
-            if (auto node = traverse_dir(dir_item.path(), importer))
+            if (auto node = traverse_dir(dir_item.path().string(), importer))
               dir_node->children.emplace_back(std::move(node));
         }
-        else if (auto node = importer->import_file(dir_item.path()))
+        else if (auto node = importer->import_file(dir_item.path().string()))
             dir_node->children.emplace_back(std::move(node));
     }
 
