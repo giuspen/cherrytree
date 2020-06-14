@@ -21,12 +21,10 @@
 
 #include "ct_imports.h"
 #include "ct_misc_utils.h"
-#include "ct_const.h"
 #include "ct_main_win.h"
+#include "ct_export2html.h"
 #include "ct_logging.h"
 #include <libxml2/libxml/SAX.h>
-#include <iostream>
-#include <glibmm/base64.h>
 #include <fstream>
 #include <sstream>
 
@@ -1053,4 +1051,75 @@ void CtZimImport::_ensure_notebook_file_in_dir(const fs::path& dir)
     if (!_has_notebook_file) {
         throw CtImportException(fmt::format("Directory: {} does not contain a notebook.zim file", dir.string()));
     }
+}
+
+
+
+std::unique_ptr<ct_imported_node> CtPlainTextImport::import_file(const std::string& file)
+{
+    if (!CtMiscUtil::mime_type_contains(file, "text/"))
+        return nullptr;
+
+    try
+    {
+        std::ifstream infile;
+        infile.exceptions(std::ios_base::failbit);
+        infile.open(file);
+        std::ostringstream data;
+        data << infile.rdbuf();
+
+        std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, fs::path(file).stem().string());
+        node->xml_content.create_root_node("root")->add_child("slot")->add_child("rich_text")->add_child_text(data.str());
+        node->node_syntax = CtConst::PLAIN_TEXT_ID;
+        return node;
+    }
+    catch (std::exception& ex)
+    {
+        spdlog::error("CtPlainTextImport, what: , file: {}", ex.what(), file);
+    }
+    return nullptr;
+}
+
+
+
+CtMDImport::CtMDImport(CtConfig* config) : _parser(config)
+{
+
+}
+
+std::unique_ptr<ct_imported_node> CtMDImport::import_file(const std::string& file)
+{
+    if (fs::path(file).extension() != ".md")
+        return nullptr;
+
+    std::ifstream infile(file);
+    if (!infile) throw std::runtime_error(fmt::format("CtMDImport: cannot open file, what: {}, file: {}", strerror(errno), file));
+    _parser.wipe();
+    _parser.feed(infile);
+
+    std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, fs::path(file).stem().string());
+    node->xml_content.create_root_node_by_import(_parser.get_root_node());
+
+    return node;
+}
+
+
+
+CtPandocImport::CtPandocImport(CtConfig* config): _config(config)
+{
+
+}
+
+std::unique_ptr<ct_imported_node> CtPandocImport::import_file(const std::string& file)
+{
+    std::stringstream html_buff;
+    CtPandoc::to_html(file, html_buff);
+
+    std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, fs::path(file).stem().string());
+
+    CtHtml2Xml parser(_config);
+    parser.set_outter_xml_doc(&node->xml_content);
+    parser.feed(html_buff.str());
+
+    return node;
 }

@@ -21,21 +21,12 @@
 
 #pragma once
 
-#include <utility>
-#include <vector>
-#include <list>
-#include <set>
+#include "ct_const.h"
+#include "ct_parser.h"
+
 #include <glibmm/ustring.h>
 #include <libxml2/libxml/HTMLparser.h>
 #include <libxml++/libxml++.h>
-#include <gtkmm.h>
-#include <filesystem>
-#include <unordered_set>
-#include <fstream>
-#include <unordered_map>
-#include <functional>
-#include "ct_parser.h"
-
 
 
 
@@ -44,6 +35,7 @@ struct ct_imported_node
     std::string                      path;
     Glib::ustring                    node_name;
     gint64                           node_id {-1};     // generated at the end
+    std::string                      node_syntax {CtConst::RICH_TEXT_ID};
     xmlpp::Document                  xml_content;
     std::map<Glib::ustring, std::vector<xmlpp::Element*>> content_broken_links;
     std::list<std::unique_ptr<ct_imported_node>> children;
@@ -58,7 +50,8 @@ class CtImporterInterface
 {
 public:
     virtual std::unique_ptr<ct_imported_node> import_file(const std::string& file) = 0;
-    virtual std::vector<std::string>          file_mimes() = 0;
+    virtual std::vector<std::string>          file_mimes() { return {}; }
+    virtual std::vector<std::string>          file_patterns() { return {}; }
 };
 
 
@@ -197,7 +190,6 @@ public:
 public:
     // virtuals of CtImporterInterface
     std::unique_ptr<ct_imported_node> import_file(const std::string& file) override;
-    std::vector<std::string>          file_mimes() override { return {""}; };
 
 private:
     void            _iterate_tomboy_note(xmlpp::Element* iter, std::unique_ptr<ct_imported_node>& node);
@@ -227,7 +219,6 @@ public:
 public:
     // virtuals of CtImporterInterface
     std::unique_ptr<ct_imported_node> import_file(const std::string& file) override;
-    std::vector<std::string>          file_mimes() override { return {""}; };
 
 protected:
     // virtuals of CtTextParser
@@ -242,6 +233,20 @@ private:
     bool              _has_notebook_file {false};
     ct_imported_node* _current_node;
 };
+
+
+
+class CtPlainTextImport: public CtImporterInterface
+{
+public:
+    CtPlainTextImport(CtConfig*) {}
+
+public:
+    // virtuals of CtImporterInterface
+    std::unique_ptr<ct_imported_node> import_file(const std::string& file) override;
+    std::vector<std::string>          file_mimes() override { return {"text/plain"}; };
+};
+
 
 /**
  * @brief Markdown parser
@@ -262,4 +267,31 @@ public:
 };
 
 
+class CtMDImport: public CtImporterInterface
+{
+public:
+    CtMDImport(CtConfig* config);
 
+public:
+    // virtuals of CtImporterInterface
+    std::unique_ptr<ct_imported_node> import_file(const std::string& file) override;
+    std::vector<std::string>          file_mimes() override { return {"text/plain"}; };
+    std::vector<std::string>          file_patterns() override { return {"*.md"}; };
+
+private:
+    CtMDParser _parser;
+};
+
+
+class CtPandocImport: public CtImporterInterface
+{
+public:
+    CtPandocImport(CtConfig* config);
+
+public:
+    // virtuals of CtImporterInterface
+    std::unique_ptr<ct_imported_node> import_file(const std::string& file) override;
+
+private:
+    CtConfig* _config;
+};
