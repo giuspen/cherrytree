@@ -40,7 +40,7 @@ constexpr bool nor(bool a, bool b) {
 template<class ITER_T>
 bool do_token_branch(ITER_T begin, ITER_T end, std::string_view match) {
     std::string buff;
-    while (begin != end) {
+    while ((begin != end) && (buff.size() < match.size())) {
         buff += *begin;
         if (buff == match) {
             return true;
@@ -179,7 +179,7 @@ std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser
                     curr_open_tags.second += *token;
                     continue;
                 } else if (curr_open_tags.first.front()->close_tag == *token) {
-                    if (nb_open_tags > 0) {
+                    if (nb_open_tags > 1) {
                         --nb_open_tags;
                         curr_open_tags.second += *token;
                         continue;
@@ -198,7 +198,8 @@ std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser
             }
             open_tags[token_iter->first] = false;
             keep_parsing = true;
-        
+            
+            nb_open_tags = 0;
             curr_open_tags.second.clear();
             curr_open_tags.first.clear();
         } else if (curr_open_tags.first.empty()) {

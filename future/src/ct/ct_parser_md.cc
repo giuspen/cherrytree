@@ -23,15 +23,25 @@
 #include "ct_const.h"
 #include "ct_misc_utils.h"
 #include "ct_logging.h"
+#include "ct_config.h"
 
+void CtMDParser::_add_scale_to_last(int level) {
+    xmlpp::Element* curr_tmp = _current_element;
+    if (_last_element) _current_element = _last_element;
+    _add_scale_tag(level, std::nullopt);
+    _current_element = curr_tmp;
+}
 
 void CtMDParser::_init_tokens()
 {
     if (_token_schemas.empty()) {
+        auto add_codebox = [this](const std::string& data) {
+            spdlog::debug("CODEBOX: {}", data);
+        };
         _token_schemas = {
-                // Italic
+                // Bold
                 {"__", true,  true,  [this](const std::string &data) {
-                    _add_italic_tag(data);
+                    _add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, data);
                 }},
                 // Italic
                 {"*", true, true, [this](const std::string& data){
@@ -49,37 +59,44 @@ void CtMDParser::_init_tokens()
                 // First part of a link
                 {"[",  true,  false, [this](const std::string &data) {
                     _add_text(data, false);
-                    _in_link = true;
-                }, "]", true
-                },
+                }, "]", true},
                 // Second half of a link
                 {"(",  true,  false, [this](const std::string &data) {
-                    if (_in_link) {
-                        _add_link(data);
-                        _in_link = false;
-                    } else {
-                        // Just text in brackets
-                        _add_text("(" + data + ")");
+                    if (_last_encountered_token) {
+                        if ((_last_encountered_token->open_tag == "[") && (_last_encountered_token->close_tag == "]")) {
+                            _add_link(data);
+                            return;
+                        }
                     }
+                    // Just text in brackets
+                    _add_text("(" + data + ")");
                 }, ")", true},
                 // Monospace
                 {"`", true, true, [this](const std::string& data){
                     _add_monospace_tag(data);
                 }},
+                // Footnote
+                {"[^", true, false, [this](const std::string& data){
+                    // Todo: Implement footnotes
+                    _add_text("[^" + data + "]");
+                }, "]"},
+                // Codebox(s)
+                {"~~~", true, true, add_codebox, "~~~", true},
+                {"```", true, true, add_codebox, "```", true},
                 // List
-                {"* ", false, false, [this](const std::string &data) {
+                {"* ", true, false, [this](const std::string &data) {
                     _add_list(0, data);
-                }},
+                }, "\n"},
                 // Also list
-                {"- ", false, false, [this](const std::string& data){
+                {"- ", true, false, [this](const std::string& data){
                     _add_list(0, data);
-                }},
+                }, "\n"},
                 // Strikethrough
                 {"~~", true,  true,  [this](const std::string &data) {
                     _add_strikethrough_tag(data);
                 }},
                 // Headers (h1, h2, etc)
-                {"#",  false, false, [this](const std::string &data) {
+                {"#",  true, false, [this](const std::string &data) {
                     auto tag_num = 1;
                     auto iter    = data.begin();
                     while (*iter == '#') {
@@ -99,13 +116,35 @@ void CtMDParser::_init_tokens()
                     }
                     _close_current_tag();
                     _add_scale_tag(tag_num, str);
-                }, "#", true}
+                }, "\n", true},
+                // H1
+                {"==", true, false, [this](const std::string&){
+                    _add_scale_to_last(1);
+                }, "\n"},
+                // H2
+                {"----", true, false, [this](const std::string&){
+                    _add_scale_to_last(2);
+                }, "\n"},
+                // Horizontal divider
+                {"---", true, false, [this](const std::string&){
+                    _add_text(_pCtConfig->hRule, true);
+                }, "\n"},
+                {"***\n", true, false, [this](const std::string&){
+                    _add_text(_pCtConfig->hRule, true);          
+                }, " "}
         
         };
     }
 }
 
-
+void CtMDParser::_place_free_text() {
+    std::string free_txt = _free_text.str();
+    if (!free_txt.empty()) {
+        _add_text(free_txt);
+    }
+    std::ostringstream tmp_ss;
+    _free_text.swap(tmp_ss);
+}
 
 void CtMDParser::feed(std::istream& stream)
 {
@@ -114,36 +153,43 @@ void CtMDParser::feed(std::istream& stream)
     _build_token_maps();
     
     std::string line;
-    while (std::getline(stream, line, '\n')) {
-        // Feed the line
-        try {
-            auto tokens_raw = _tokenize(line);
-            auto tokens     = _parse_tokens(tokens_raw);
-            
-            for (auto iter = tokens.begin(); iter != tokens.end(); ++iter) {
-                if (iter->first) {
-                    // This is needed for links with () in them
-                    if ((iter + 1) != tokens.end()) {
-                        if (!(iter + 1)->first && ((iter + 1)->second == ")")) {
-                            // Excess bracket from link
-                            iter->first->action(iter->second + ")");
-                            ++iter;
-                            if ((iter + 1) != tokens.end()) ++iter;
+    std::ostringstream in_stream;
+    in_stream << stream.rdbuf();
+    
+    // Feed the line
+    try {
+        auto tokens_raw = _tokenize(in_stream.str());
+        auto tokens     = _parse_tokens(tokens_raw);
         
-                            continue;
-                        }
+        for (auto iter = tokens.begin(); iter != tokens.end(); ++iter) {
+            if (iter->first) {
+                _place_free_text();
+                // This is needed for links with () in them
+                if ((iter + 1) != tokens.end()) {
+                    if (!(iter + 1)->first && ((iter + 1)->second == ")")) {
+                        // Excess bracket from link
+                        iter->first->action(iter->second + ")");
+                        ++iter;
+                        if ((iter + 1) != tokens.end()) ++iter;
+    
+                        continue;
                     }
-                    
-                    iter->first->action(iter->second);
-                } else {
-                    if (!iter->second.empty()) _add_text(iter->second);
+                }
+                
+                iter->first->action(iter->second);
+            } else {
+                if (!iter->second.empty()) {
+                    _free_text.write(iter->second.c_str(), iter->second.size());
                 }
             }
-            if (!stream.eof()) _add_newline();
-        } catch (std::exception& e) {
-            spdlog::error("Exception while parsing line: '{}': {}", line, e.what());
+            _last_encountered_token = iter->first;
         }
+        _place_free_text();
+        //if (!stream.eof()) _add_newline();
+    } catch (std::exception& e) {
+        spdlog::error("Exception while parsing line: '{}': {}", line, e.what());
     }
+    
 }
 
 

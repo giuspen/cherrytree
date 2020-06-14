@@ -94,6 +94,7 @@ protected:
     
     // XML generation
     xmlpp::Element* _current_element = nullptr;
+    xmlpp::Element* _last_element = nullptr;
     std::unique_ptr<xmlpp::Document> _document{std::make_unique<xmlpp::Document>()};
     std::unordered_map<std::string_view, bool> _open_tags;
     

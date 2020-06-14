@@ -258,7 +258,11 @@ protected:
 
     void _init_tokens() override;
     
-    bool _in_link = false;
+    const token_schema* _last_encountered_token = nullptr;
+    std::ostringstream _free_text;
+    
+    void _place_free_text();
+    void _add_scale_to_last(int level);
 public:
     CtMDParser(CtConfig* config) : CtParser(config), CtTextParser(config) {}
 

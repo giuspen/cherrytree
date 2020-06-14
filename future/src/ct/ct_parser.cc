@@ -109,8 +109,10 @@ void CtParser::_add_text(std::string text, bool close_tag /* = true */)
         auto curr_text = _current_element->get_child_text();
         if (!curr_text) _current_element->set_child_text(std::move(text));
         else curr_text->set_content(curr_text->get_content() + std::move(text));
-    
-        if (close_tag) _close_current_tag();
+        if (close_tag) {
+            _last_element = _current_element;
+            _close_current_tag();
+        }
     }
 }
 
