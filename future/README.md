@@ -212,10 +212,12 @@ bind '"\e[A":history-search-backward'
 bind '"\e[B":history-search-forward'
 ```
 ```sh
-# build Debug (not optimised, with debug symbols)
-./build.sh # (or ./build.sh Debug)
 # build Release (optimised)
 ./build.sh Release
+# build Debug (not optimised, with debug symbols)
+./build.sh Debug
 # run cherrytree
 ./build/cherrytree.exe
+# run unit tests
+./tests/run_tests.exe
 ```
