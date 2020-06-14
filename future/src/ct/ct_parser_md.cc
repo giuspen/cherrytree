@@ -22,6 +22,7 @@
 #include "ct_imports.h"
 #include "ct_const.h"
 #include "ct_misc_utils.h"
+#include "ct_logging.h"
 
 
 void CtMDParser::_init_tokens()
@@ -100,34 +101,36 @@ void CtMDParser::feed(std::istream& stream)
     _build_token_maps();
     
     std::string line;
-    while(std::getline(stream, line, '\n')) {
+    while (std::getline(stream, line, '\n')) {
         // Feed the line
-        auto tokens_raw = _tokenize(line);
-        auto tokens = _parse_tokens(tokens_raw);
-
-        for (auto iter = tokens.begin(); iter != tokens.end(); ++iter) {
-            if (iter->first) {
-                // This is needed for links with () in them
-                if ((iter + 1) != tokens.end()) {
-                    if (!(iter + 1)->first && ((iter + 1)->second == ")")) {
-                        // Excess bracket from link
-                        iter->first->action(iter->second + ")");
-                        ++iter;
-                        if ((iter + 1) != tokens.end()) ++iter;
-
-                        continue;
+        try {
+            auto tokens_raw = _tokenize(line);
+            auto tokens     = _parse_tokens(tokens_raw);
+            
+            for (auto iter = tokens.begin(); iter != tokens.end(); ++iter) {
+                if (iter->first) {
+                    // This is needed for links with () in them
+                    if ((iter + 1) != tokens.end()) {
+                        if (!(iter + 1)->first && ((iter + 1)->second == ")")) {
+                            // Excess bracket from link
+                            iter->first->action(iter->second + ")");
+                            ++iter;
+                            if ((iter + 1) != tokens.end()) ++iter;
+        
+                            continue;
+                        }
                     }
+                    
+                    iter->first->action(iter->second);
+                } else {
+                    if (!iter->second.empty()) _add_text(iter->second);
                 }
-                
-
-                iter->first->action(iter->second);
-            } else {
-                if (!iter->second.empty()) _add_text(iter->second);
             }
+            if (!stream.eof()) _add_newline();
+        } catch (std::exception& e) {
+            spdlog::error("Exception while parsing line: '{}': {}", line, e.what());
         }
-        if (!stream.eof()) _add_newline();
     }
-
 }
 
 
