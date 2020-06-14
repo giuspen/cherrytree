@@ -25,16 +25,45 @@
 #include <fmt/fmt.h>
 
 template<class T>
-std::unordered_set<char> build_pos_tokens(const T& tokens) {
-    std::unordered_set<char> out;
+std::unordered_map<char, std::vector<std::string>> build_pos_tokens(const T& tokens) {
+    std::unordered_map<char, std::vector<std::string>> out;
     for (const auto& token : tokens) {
-        if (!token.first.empty()) out.insert(token.first.begin(), token.first.end());
+        if (!token.first.empty()) out[token.first.front()].emplace_back(token.first);
     }
     return out;
 }
 
 constexpr bool nor(bool a, bool b) {
     return !(a || b);
+}
+
+template<class ITER_T>
+bool do_token_branch(ITER_T begin, ITER_T end, std::string_view match) {
+    std::string buff;
+    while (begin != end) {
+        buff += *begin;
+        if (buff == match) {
+            return true;
+        }
+        ++begin;
+    }
+    return false;
+}
+
+template<class ITER_T>
+std::optional<std::string> branch_token(ITER_T begin, ITER_T end, const std::vector<std::string>& options) {
+    std::size_t largest_len = 0;
+    std::optional<std::string> largest = std::nullopt;
+    for (const auto& opt : options) {
+        if (do_token_branch(begin, end, opt)) {
+            // Do a greedy match
+            if (opt.length() > largest_len) {
+                largest_len = opt.length();
+                largest = opt;
+            }
+        }
+    }
+    return largest;
 }
 
 std::vector<std::string> CtTextParser::_tokenize(const std::string& text)
@@ -54,32 +83,28 @@ std::vector<std::string> CtTextParser::_tokenize(const std::string& text)
         if (*ch == ' ') {
             if (last_pos != ch) tokens.emplace_back(last_pos, ch);
             last_pos = ch;
-        } else if (_possible_tokens.find(*ch) != _possible_tokens.end() ){
-            auto forward_pos = ch;
+            continue;
+        }
+        if (*ch == '\\') {
+            // Escape next char
+            if (last_pos != ch) tokens.emplace_back(last_pos, ch);
+            ++ch;
+            last_pos = ch;
+            if (ch == text.end()) break;
+            continue;
+        }
+        
+        auto pos_token = _possible_tokens.find(*ch);
+        if (pos_token != _possible_tokens.end()){
+            auto found_token = branch_token(ch, text.end(), pos_token->second);
+            if (found_token) {
+                spdlog::debug("TOKEN: {}", *found_token);
+                tokens.emplace_back(last_pos, ch);
+                tokens.emplace_back(*found_token);
+                ch += found_token->length() - 1;
+                last_pos = ch + 1;
+            }
             
-            std::string key(ch, ch + 1);
-           // ++ch;
-            while (ch != text.end() && nor(open_tags.find(key) != open_tags.end(), close_tags.find(key) != close_tags.end()) && (_possible_tokens.find(*ch) != _possible_tokens.end())) {
-                if (*ch == ' ') {
-                    if (last_pos != ch) tokens.emplace_back(last_pos, ch);
-                    last_pos = ch;
-                    break;
-                }
-                ++ch;
-                if (ch != text.end()) key = std::string(forward_pos, ch + 1);
-                else break;
-            }
-            bool in_open = open_tags.find(key) != open_tags.end();
-            bool in_close =  close_tags.find(key) != close_tags.end();
-            if (in_open || in_close) {
-                if (last_pos != forward_pos) tokens.emplace_back(last_pos, forward_pos);
-                
-                tokens.emplace_back(key);
-                last_pos = ch;
-                ++last_pos;
-            }
-    
-            // ++last_pos;
             if (ch == text.end()) break;
         }
     }

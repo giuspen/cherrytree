@@ -83,6 +83,12 @@ void CtParser::_add_weight_tag(const Glib::ustring& level, std::optional<std::st
     }
 }
 
+void CtParser::_add_monospace_tag(std::optional<std::string> text)
+{
+    _current_element->set_attribute("family", "monospace");
+    if (text) _add_text(*text, false);
+}
+
 void CtParser::_add_link(const std::string& text)
 {
     auto val = CtStrUtil::get_internal_link_from_http_url(text);

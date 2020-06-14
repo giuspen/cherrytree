@@ -33,6 +33,15 @@ void CtMDParser::_init_tokens()
                 {"__", true,  true,  [this](const std::string &data) {
                     _add_italic_tag(data);
                 }},
+                // Italic
+                {"*", true, true, [this](const std::string& data){
+                    _add_italic_tag(data);
+                }},
+                // Bold and italic
+                {"***", true, true, [this](const std::string& data){
+                    _add_italic_tag(data);
+                    _add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, std::nullopt);
+                }},
                 // Bold
                 {"**", true,  true,  [this](const std::string &data) {
                     _add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, data);
@@ -53,6 +62,10 @@ void CtMDParser::_init_tokens()
                         _add_text("(" + data + ")");
                     }
                 }, ")", true},
+                // Monospace
+                {"`", true, true, [this](const std::string& data){
+                    _add_monospace_tag(data);
+                }},
                 // List
                 {"* ", false, false, [this](const std::string &data) {
                     _add_list(0, data);
