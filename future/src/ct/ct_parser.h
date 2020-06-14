@@ -149,6 +149,7 @@ public:
     virtual void feed(std::istream& data) = 0;
     
     std::string to_string() { return _document->write_to_string(); }
+    xmlpp::Node*  get_root_node() { return _document->get_root_node(); }
 
     void wipe();
     

@@ -47,32 +47,46 @@ void CtActions::import_node_from_html_directory() noexcept
 
 void CtActions::import_nodes_from_ct_file() noexcept
 {
-//    CtCherrytreeImport importer;
-//    _import_from_file(&importer);
+    try
+    {
+        CtDialogs::file_select_args args(_pCtMainWin);
+        args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImport;
+        args.filter_pattern = CtConst::CT_FILE_EXTENSIONS_FILTER;
+
+        auto fpath = CtDialogs::file_select_dialog(args);
+        if (fpath.empty()) return; // No file selected
+        _pCtMainWin->get_ct_config()->pickDirImport = Glib::path_get_dirname(fpath);
+
+        // Add the nodes through the storage type
+        _pCtMainWin->get_ct_storage()->add_nodes_from_storage(fpath);
+
+    } catch(std::exception& e) {
+        spdlog::error("Exception caught while importing node from CT file: {}", e.what());
+    }
 }
 
 void CtActions::import_node_from_plaintext_file() noexcept
 {
-//    CtPlainTextImport importer;
-//    _import_from_file(&importer);
+    CtPlainTextImport importer(_pCtMainWin->get_ct_config());
+    _import_from_file(&importer);
 }
 
 void CtActions::import_nodes_from_plaintext_directory() noexcept
 {
-//    CtPlainTextImport importer;
-//    _import_from_dir(&importer, "");
+    CtPlainTextImport importer(_pCtMainWin->get_ct_config());
+    _import_from_dir(&importer, "");
 }
 
 void CtActions::import_node_from_md_file() noexcept
 {
-//    CtMDImport importer;
-//    _import_from_file(&importer);
+    CtMDImport importer(_pCtMainWin->get_ct_config());
+    _import_from_file(&importer);
 }
 
 void CtActions::import_nodes_from_md_directory() noexcept
 {
-//    CtMDImport importer;
-//    _import_from_dir(&importer, "");
+    CtMDImport importer(_pCtMainWin->get_ct_config());
+    _import_from_dir(&importer, "");
 }
 
 void CtActions::import_nodes_from_zim_directory() noexcept
@@ -88,8 +102,8 @@ void CtActions::import_node_from_pandoc() noexcept
         return;
     }
 
-//    CtPandocImport importer;
-//    _import_from_file(&importer);
+    CtPandocImport importer(_pCtMainWin->get_ct_config());
+    _import_from_file(&importer);
 }
 
 void CtActions::import_directory_from_pandoc() noexcept
@@ -99,8 +113,8 @@ void CtActions::import_directory_from_pandoc() noexcept
         return;
     }
 
-//    CtPandocImport importer;
-//    _import_from_dir(&importer, "");
+    CtPandocImport importer(_pCtMainWin->get_ct_config());
+    _import_from_dir(&importer, "");
 };
 
 void CtActions::import_nodes_from_gnote_directory() noexcept
@@ -121,6 +135,7 @@ void CtActions::_import_from_file(CtImporterInterface* importer)
     CtDialogs::file_select_args args(_pCtMainWin);
     args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImport;
     args.filter_mime = importer->file_mimes();
+    args.filter_pattern = importer->file_patterns();
     auto filepath = CtDialogs::file_select_dialog(args);
     if (filepath.empty()) return;
     _pCtMainWin->get_ct_config()->pickDirImport = Glib::path_get_dirname(filepath);
@@ -128,6 +143,7 @@ void CtActions::_import_from_file(CtImporterInterface* importer)
     try
     {
        std::unique_ptr<ct_imported_node> node = importer->import_file(filepath);
+       if (!node) return;
        _create_imported_nodes(node.get());
     }
     catch (std::exception& ex)
@@ -217,7 +233,7 @@ void CtActions::_create_imported_nodes(ct_imported_node* imported_nodes)
         node_data.isBold = false;
         node_data.customIconId = 0;
         node_data.isRO = false;
-        node_data.syntax = CtConst::RICH_TEXT_ID;
+        node_data.syntax = imported_node->node_syntax;
         node_data.rTextBuffer = _pCtMainWin->get_new_text_buffer();
         node_data.tsCreation = std::time(nullptr);
         node_data.tsLastSave = node_data.tsCreation;
@@ -254,6 +270,9 @@ void CtActions::_create_imported_nodes(ct_imported_node* imported_nodes)
         for (auto& child: imported_nodes->children)
             create_nodes(parent_iter, child.get());
     }
+
+    _pCtMainWin->get_tree_store().nodes_sequences_fix(parent_iter, true);
+    _pCtMainWin->update_window_save_needed();
 }
 
 
