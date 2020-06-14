@@ -73,7 +73,7 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
         Gtk::Menu* systrayMenu = Gtk::manage(new Gtk::Menu());
         auto item1 = CtMenu::create_menu_item(GTK_WIDGET(systrayMenu->gobj()), _("Show/Hide _CherryTree"), CtConst::APP_NAME, _("Toggle Show/Hide CherryTree"));
         item1->signal_activate().connect([&] {_systray_show_hide_windows();});
-        auto item2 = CtMenu::create_menu_item(GTK_WIDGET(systrayMenu->gobj()), _("_Exit CherryTree"), "quit-app", _("Exit from CherryTree"));
+        auto item2 = CtMenu::create_menu_item(GTK_WIDGET(systrayMenu->gobj()), _("_Exit CherryTree"), "ct_quit-app", _("Exit from CherryTree"));
         item2->signal_activate().connect([&] { _systray_close_all(); });
         systrayMenu->show_all();
         systrayMenu->popup(button, activate_time);

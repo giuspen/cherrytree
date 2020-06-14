@@ -642,9 +642,9 @@ void CtTreeStore::update_node_aux_icon(const Gtk::TreeIter& treeIter)
     bool is_ro = treeIter->get_value(_columns.colNodeRO);
     bool is_bookmark = vec::exists(_bookmarks, treeIter->get_value(_columns.colNodeUniqueId));
     std::string stock_id;
-    if (is_ro and is_bookmark) stock_id = "lockpin";
-    else if (is_ro)           stock_id = "locked";
-    else if (is_bookmark)     stock_id = "pin";
+    if (is_ro and is_bookmark) stock_id = "ct_lockpin";
+    else if (is_ro)           stock_id = "ct_locked";
+    else if (is_bookmark)     stock_id = "ct_pin";
 
     if (stock_id.empty())
         treeIter->set_value(_columns.rColPixbufAux, Glib::RefPtr<Gdk::Pixbuf>());

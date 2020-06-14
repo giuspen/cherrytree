@@ -151,7 +151,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     Gtk::Entry* entry_timestamp_format = Gtk::manage(new Gtk::Entry());
     entry_timestamp_format->set_text(pConfig->timestampFormat);
     Gtk::Button* button_strftime_help = Gtk::manage(new Gtk::Button());
-    button_strftime_help->set_image(*_pCtMainWin->new_image_from_stock("help", Gtk::ICON_SIZE_BUTTON));
+    button_strftime_help->set_image(*_pCtMainWin->new_image_from_stock("ct_help", Gtk::ICON_SIZE_BUTTON));
     hbox_timestamp->pack_start(*label_timestamp, false, false);
     hbox_timestamp->pack_start(*entry_timestamp_format, false, false);
     hbox_timestamp->pack_start(*button_strftime_help, false, false);
@@ -174,7 +174,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     Gtk::Label* label_special_chars = Gtk::manage(new Gtk::Label(_("Special Characters")));
     Gtk::HBox* hbox_reset = Gtk::manage(new Gtk::HBox());
     Gtk::Button* button_reset = Gtk::manage(new Gtk::Button());
-    button_reset->set_image(*_pCtMainWin->new_image_from_stock("g-undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset->set_image(*_pCtMainWin->new_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
     button_reset->set_tooltip_text(_("Reset to Default"));
     hbox_reset->pack_start(*Gtk::manage(new Gtk::Label()), true, false);
     hbox_reset->pack_start(*button_reset, false, false);
@@ -615,10 +615,10 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     scrolledwindow->add(*treeview);
 
     Gtk::Button* button_add = Gtk::manage(new Gtk::Button());
-    button_add->set_image(*_pCtMainWin->new_image_from_stock("add", Gtk::ICON_SIZE_BUTTON));
+    button_add->set_image(*_pCtMainWin->new_image_from_stock("ct_add", Gtk::ICON_SIZE_BUTTON));
     button_add->set_tooltip_text(_("Add"));
     Gtk::Button* button_reset_cmds = Gtk::manage(new Gtk::Button());
-    button_reset_cmds->set_image(*_pCtMainWin->new_image_from_stock("g-undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset_cmds->set_image(*_pCtMainWin->new_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
     button_reset_cmds->set_tooltip_text(_("Reset to Default"));
     Gtk::VBox* vbox_buttons = Gtk::manage(new Gtk::VBox());
     vbox_buttons->pack_start(*button_add, false, false);
@@ -630,7 +630,7 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     Gtk::Entry* entry_term_run = Gtk::manage(new Gtk::Entry());
     entry_term_run->set_text(get_code_exec_term_run(_pCtMainWin));
     Gtk::Button* button_reset_term = Gtk::manage(new Gtk::Button());
-    button_reset_term->set_image(*_pCtMainWin->new_image_from_stock("g-undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset_term->set_image(*_pCtMainWin->new_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
     button_reset_term->set_tooltip_text(_("Reset to Default"));
     hbox_term_run->pack_start(*entry_term_run, true, false);
     hbox_term_run->pack_start(*button_reset_term, false, false);
@@ -979,8 +979,8 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
 
     Gtk::Image* image_rt = _pCtMainWin->new_image_from_stock(Gtk::Stock::SELECT_FONT.id, Gtk::ICON_SIZE_MENU);
     Gtk::Image* image_pt = _pCtMainWin->new_image_from_stock(Gtk::Stock::SELECT_FONT.id, Gtk::ICON_SIZE_MENU);
-    Gtk::Image* image_code = _pCtMainWin->new_image_from_stock("xml", Gtk::ICON_SIZE_MENU);
-    Gtk::Image* image_tree = _pCtMainWin->new_image_from_stock("cherries", Gtk::ICON_SIZE_MENU);
+    Gtk::Image* image_code = _pCtMainWin->new_image_from_stock("ct_xml", Gtk::ICON_SIZE_MENU);
+    Gtk::Image* image_tree = _pCtMainWin->new_image_from_stock("ct_cherries", Gtk::ICON_SIZE_MENU);
     Gtk::Label* label_rt = Gtk::manage(new Gtk::Label(_("Rich Text")));
     Gtk::Label* label_pt = Gtk::manage(new Gtk::Label(_("Plain Text")));
     Gtk::Label* label_code = Gtk::manage(new Gtk::Label(_("Code Font")));
@@ -1596,7 +1596,7 @@ void CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeIter row, const Glib::ust
     }
     else if (key == CtConst::CHAR_STAR)
     {
-        icon = "open";
+        icon = "ct_open";
         desc = _("Open a CherryTree Document");
 
     }

@@ -142,7 +142,7 @@ const inline static gchar* STR_KEY_UP                {"Up"};
 const inline static gchar* STR_KEY_DOWN              {"Down"};
 const inline static gchar* STR_KEY_LEFT              {"Left"};
 const inline static gchar* STR_KEY_RIGHT             {"Right"};
-const inline static gchar* STR_STOCK_CT_IMP          {"import_in_cherrytree"};
+const inline static gchar* STR_STOCK_CT_IMP          {"ct_import_in_cherrytree"};
 
 const inline static int MAX_FILE_NAME_LEN              {142};
 const inline static int WHITE_SPACE_BETW_PIXB_AND_TEXT {3};
@@ -233,32 +233,32 @@ const inline static int MAX_TOOLTIP_LINK_CHARS     {150};
 // former NODES_STOCK
 const inline static std::array<const gchar*, 49> NODE_CUSTOM_ICONS {
     nullptr,            // NEVER USED
-    "circle-green",     //  1
-    "circle-yellow",    //  2
-    "circle-red",       //  3
-    "circle-grey",      //  4
-    "add",              //  5
-    "remove",           //  6
-    "done",             //  7
-    "cancel",           //  8
-    "edit_delete",      //  9
-    "warning",          // 10
-    "star",             // 11
-    "info",             // 12
-    "help",             // 13
-    "home",             // 14
-    "index",            // 15
-    "mail",             // 16
+    "ct_circle-green",  //  1
+    "ct_circle-yellow", //  2
+    "ct_circle-red",    //  3
+    "ct_circle-grey",   //  4
+    "ct_add",           //  5
+    "ct_remove",        //  6
+    "ct_done",          //  7
+    "ct_cancel",        //  8
+    "ct_edit_delete",   //  9
+    "ct_warning",       // 10
+    "ct_star",          // 11
+    "ct_info",          // 12
+    "ct_help",          // 13
+    "ct_home",          // 14
+    "ct_index",         // 15
+    "ct_mail",          // 16
     "ct_html",          // 17
-    "notes",            // 18
-    "timestamp",        // 19
-    "calend",           // 20
+    "ct_notes",         // 18
+    "ct_timestamp",     // 19
+    "ct_calendar",      // 20
     "ct_term",          // 21
     "ct_term-red",      // 22
     "ct_python",        // 23
     "ct_java",          // 24
-    "node_bullet",      // 25
-    "node_no_icon",     // 26
+    "ct_node_bullet",   // 25
+    "ct_node_no_icon",  // 26
     CHERRY_BLACK,       // 27
     CHERRY_BLUE,        // 28
     CHERRY_CYAN,        // 29
@@ -271,13 +271,13 @@ const inline static std::array<const gchar*, 49> NODE_CUSTOM_ICONS {
     CHERRY_SHERBERT,    // 36
     CHERRY_YELLOW,      // 37
     "ct_code",          // 38
-    "find",             // 39
-    "locked",           // 40
-    "unlocked",         // 41
-    "people",           // 42
-    "urgent",           // 43
-    "directory",        // 44
-    "leaf",             // 45
+    "ct_find",          // 39
+    "ct_locked",        // 40
+    "ct_unlocked",      // 41
+    "ct_people",        // 42
+    "ct_urgent",        // 43
+    "ct_directory",     // 44
+    "ct_leaf",          // 45
     "ct_xml",           // 46
     "ct_c",             // 47
     "ct_cpp",           // 48

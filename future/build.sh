@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-CMAKE_BUILD_TYPE="$1"
+[ -n "$1" ] && CMAKE_BUILD_TYPE="$1" || CMAKE_BUILD_TYPE="Debug"
 BUILD_DIR="build"
 
 [ -d ${BUILD_DIR} ] || mkdir ${BUILD_DIR}

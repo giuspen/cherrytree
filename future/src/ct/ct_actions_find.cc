@@ -1,7 +1,9 @@
 /*
  * ct_actions_find.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -985,9 +987,9 @@ void CtActions::_iterated_find_dialog()
         auto button_undo = dialog->add_button(_("Undo"), 3);
         dialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
         button_close->set_image_from_icon_name(Gtk::Stock::CLOSE.id, Gtk::ICON_SIZE_BUTTON);
-        button_find_bw->set_image_from_icon_name("find_back", Gtk::ICON_SIZE_BUTTON);
-        button_find_fw->set_image_from_icon_name("find_again", Gtk::ICON_SIZE_BUTTON);
-        button_replace->set_image_from_icon_name("find_replace", Gtk::ICON_SIZE_BUTTON);
+        button_find_bw->set_image_from_icon_name("ct_find_back", Gtk::ICON_SIZE_BUTTON);
+        button_find_fw->set_image_from_icon_name("ct_find_again", Gtk::ICON_SIZE_BUTTON);
+        button_replace->set_image_from_icon_name("ct_find_replace", Gtk::ICON_SIZE_BUTTON);
         button_undo->set_image_from_icon_name(Gtk::Stock::UNDO.id, Gtk::ICON_SIZE_BUTTON);
 
         button_find_fw->grab_focus();

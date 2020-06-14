@@ -212,7 +212,10 @@ bind '"\e[A":history-search-backward'
 bind '"\e[B":history-search-forward'
 ```
 ```sh
-# build and run cherrytree
-./build.sh
+# build Debug (not optimised, with debug symbols)
+./build.sh # (or ./build.sh Debug)
+# build Release (optimised)
+./build.sh Release
+# run cherrytree
 ./build/cherrytree.exe
 ```

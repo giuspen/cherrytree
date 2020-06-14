@@ -1,7 +1,9 @@
 /*
  * ct_image.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -201,7 +203,7 @@ CtImageAnchor::CtImageAnchor(CtMainWin* pCtMainWin,
                              const Glib::ustring& anchorName,
                              const int charOffset,
                              const std::string& justification)
- : CtImage(pCtMainWin, "anchor", pCtMainWin->get_ct_config()->anchorSize, charOffset, justification),
+ : CtImage(pCtMainWin, "ct_anchor", pCtMainWin->get_ct_config()->anchorSize, charOffset, justification),
    _anchorName(anchorName)
 {
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageAnchor::_on_button_press_event), false);
@@ -275,7 +277,7 @@ CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
                                const double& timeSeconds,
                                const int charOffset,
                                const std::string& justification)
- : CtImage(pCtMainWin, "file_icon", pCtMainWin->get_ct_config()->embfileSize, charOffset, justification),
+ : CtImage(pCtMainWin, "ct_file_icon", pCtMainWin->get_ct_config()->embfileSize, charOffset, justification),
    _fileName(fileName),
    _rawBlob(rawBlob),
    _timeSeconds(timeSeconds)

@@ -392,7 +392,7 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
     Glib::RefPtr<CtChooseDialogTreeStore> rModel = CtChooseDialogTreeStore::create();
     for (const gint64& node_id : bookmarks)
     {
-        rModel->add_row("pin", "", ctTreestore.get_node_name_from_node_id(node_id), node_id);
+        rModel->add_row("ct_pin", "", ctTreestore.get_node_name_from_node_id(node_id), node_id);
     }
 
     Gtk::TreeView treeview(rModel);
@@ -408,15 +408,15 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
     Gtk::Box* pContentArea = dialog.get_content_area();
 
     Gtk::Button button_move_up;
-    button_move_up.set_image_from_icon_name("go-up", Gtk::ICON_SIZE_DND);
+    button_move_up.set_image_from_icon_name("ct_go-up", Gtk::ICON_SIZE_DND);
     Gtk::Button button_move_down;
-    button_move_down.set_image_from_icon_name("go-down", Gtk::ICON_SIZE_DND);
+    button_move_down.set_image_from_icon_name("ct_go-down", Gtk::ICON_SIZE_DND);
     Gtk::Button button_delete;
-    button_delete.set_image_from_icon_name("clear", Gtk::ICON_SIZE_DND);
+    button_delete.set_image_from_icon_name("ct_clear", Gtk::ICON_SIZE_DND);
     Gtk::Button button_sort_desc;
-    button_sort_desc.set_image_from_icon_name("sort-descending", Gtk::ICON_SIZE_DND);
+    button_sort_desc.set_image_from_icon_name("ct_sort-desc", Gtk::ICON_SIZE_DND);
     Gtk::Button button_sort_asc;
-    button_sort_asc.set_image_from_icon_name("sort-ascending", Gtk::ICON_SIZE_DND);
+    button_sort_asc.set_image_from_icon_name("ct_sort-asc", Gtk::ICON_SIZE_DND);
     Gtk::Label label1;
     Gtk::Label label2;
     Gtk::HBox hbox;
@@ -754,7 +754,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
 
     Gtk::HBox hbox_webs;
     Gtk::Image image_webs;
-    image_webs.set_from_icon_name("link_website", Gtk::ICON_SIZE_BUTTON);
+    image_webs.set_from_icon_name("ct_link_website", Gtk::ICON_SIZE_BUTTON);
     Gtk::RadioButton radiobutton_webs(_("To WebSite"));
     Gtk::Entry entry_webs;
     entry_webs.set_text(link_entries.webs);
@@ -771,7 +771,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     Gtk::Entry entry_file;
     entry_file.set_text(link_entries.file);
     Gtk::Button button_browse_file;
-    button_browse_file.set_image_from_icon_name("find", Gtk::ICON_SIZE_BUTTON);
+    button_browse_file.set_image_from_icon_name("ct_find", Gtk::ICON_SIZE_BUTTON);
     hbox_file.pack_start(image_file, false, false);
     hbox_file.pack_start(radiobutton_file, false, false);
     hbox_file.pack_start(entry_file);
@@ -786,7 +786,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     Gtk::Entry entry_folder;
     entry_folder.set_text(link_entries.fold);
     Gtk::Button button_browse_folder;
-    button_browse_folder.set_image_from_icon_name("find", Gtk::ICON_SIZE_BUTTON);
+    button_browse_folder.set_image_from_icon_name("ct_find", Gtk::ICON_SIZE_BUTTON);
     hbox_folder.pack_start(image_folder, false, false);
     hbox_folder.pack_start(radiobutton_folder, false, false);
     hbox_folder.pack_start(entry_folder);
@@ -824,7 +824,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     Gtk::Entry entry_anchor;
     entry_anchor.set_text(link_entries.anch);
     Gtk::Button button_browse_anchor;
-    button_browse_anchor.set_image_from_icon_name("anchor", Gtk::ICON_SIZE_BUTTON);
+    button_browse_anchor.set_image_from_icon_name("ct_anchor", Gtk::ICON_SIZE_BUTTON);
     hbox_anchor.pack_start(entry_anchor);
     hbox_anchor.pack_start(button_browse_anchor, false, false);
 
@@ -1202,9 +1202,9 @@ Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& parent_win
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(600, 500);
     Gtk::Button button_rotate_90_ccw;
-    button_rotate_90_ccw.set_image_from_icon_name("object-rotate-left", Gtk::ICON_SIZE_DND);
+    button_rotate_90_ccw.set_image_from_icon_name("ct_rotate-left", Gtk::ICON_SIZE_DND);
     Gtk::Button button_rotate_90_cw;
-    button_rotate_90_cw.set_image_from_icon_name("object-rotate-right", Gtk::ICON_SIZE_DND);
+    button_rotate_90_cw.set_image_from_icon_name("ct_rotate-right", Gtk::ICON_SIZE_DND);
     Gtk::ScrolledWindow scrolledwindow;
     scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     Glib::RefPtr<Gtk::Adjustment> rHAdj = Gtk::Adjustment::create(width, 1, height, 1);
@@ -1700,7 +1700,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     Gtk::Entry tags_entry;
     tags_entry.set_text(nodeData.tags);
     Gtk::Button button_browse_tags;
-    button_browse_tags.set_image(*pCtMainWin->new_image_from_stock("find", Gtk::ICON_SIZE_BUTTON));
+    button_browse_tags.set_image(*pCtMainWin->new_image_from_stock("ct_find", Gtk::ICON_SIZE_BUTTON));
     button_browse_tags.set_sensitive(!tags_set.empty());
     tags_hbox.pack_start(tags_entry);
     tags_hbox.pack_start(button_browse_tags, false, false);

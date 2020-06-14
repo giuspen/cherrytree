@@ -1,7 +1,9 @@
 /*
  * ct_actions_format.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -244,7 +246,7 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
                     Glib::ustring tag_property_value = _link_check_around_cursor();
                     if (tag_property_value == "") {
                         if (not _pCtMainWin->apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter())) {
-                            Glib::ustring link_name = CtDialogs::img_n_entry_dialog(*_pCtMainWin, _("Link Name"), "", "link_handle");
+                            Glib::ustring link_name = CtDialogs::img_n_entry_dialog(*_pCtMainWin, _("Link Name"), "", "ct_link_handle");
                             if (link_name.empty()) return;
                             int start_offset = text_buffer->get_insert()->get_iter().get_offset();
                             text_buffer->insert_at_cursor(link_name);

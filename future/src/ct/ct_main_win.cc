@@ -577,7 +577,7 @@ Gtk::HBox& CtMainWin::_init_status_bar()
     _ctStatusBar.statusId = _ctStatusBar.statusBar.get_context_id("");
     _ctStatusBar.frame.set_shadow_type(Gtk::SHADOW_NONE);
     _ctStatusBar.frame.add(_ctStatusBar.progressBar);
-    _ctStatusBar.stopButton.set_image_from_icon_name("stop", Gtk::ICON_SIZE_MENU);
+    _ctStatusBar.stopButton.set_image_from_icon_name("ct_stop", Gtk::ICON_SIZE_MENU);
     _ctStatusBar.hbox.pack_start(_ctStatusBar.statusBar, true, true);
     _ctStatusBar.hbox.pack_start(_ctStatusBar.frame, false, true);
     _ctStatusBar.hbox.pack_start(_ctStatusBar.stopButton, false, true);
@@ -603,9 +603,9 @@ Gtk::EventBox& CtMainWin::_init_window_header()
 {
     _ctWinHeader.nameLabel.set_padding(10, 0);
     _ctWinHeader.nameLabel.set_ellipsize(Pango::EllipsizeMode::ELLIPSIZE_MIDDLE);
-    _ctWinHeader.lockIcon.set_from_icon_name("locked", Gtk::ICON_SIZE_MENU);
+    _ctWinHeader.lockIcon.set_from_icon_name("ct_locked", Gtk::ICON_SIZE_MENU);
     _ctWinHeader.lockIcon.hide();
-    _ctWinHeader.bookmarkIcon.set_from_icon_name("pin", Gtk::ICON_SIZE_MENU);
+    _ctWinHeader.bookmarkIcon.set_from_icon_name("ct_pin", Gtk::ICON_SIZE_MENU);
     _ctWinHeader.bookmarkIcon.hide();
     _ctWinHeader.headerBox.pack_start(_ctWinHeader.buttonBox, false, false);
     _ctWinHeader.headerBox.pack_start(_ctWinHeader.nameLabel, true, true);
@@ -1461,7 +1461,7 @@ void CtMainWin::_on_textview_populate_popup(Gtk::Menu* menu)
         /*for (auto menuitem: menu->get_children())
             if (menu->)
             try:
-                if menuitem.get_image().get_property("stock") == "edit_paste":
+                if menuitem.get_image().get_property("stock") == "ct_edit_paste":
                     menuitem.set_sensitive(True)
             except: pass
         */
