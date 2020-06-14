@@ -23,6 +23,15 @@
 
 #include "ct_codebox.h"
 #include "ct_widgets.h"
+#include <ostream>
+#include <istream>
+
+namespace CtCSV {
+    using CtStringTable = std::vector<std::vector<std::string>>;
+    CtStringTable table_from_csv(std::istream& input);
+    void table_to_csv(const CtStringTable& table, std::ostream& output);
+}
+
 
 class CtTextCell;
 class CtTableCell : public CtTextCell, public Gtk::EventBox
@@ -36,7 +45,6 @@ public:
 
 typedef std::vector<CtTableCell*> CtTableRow;
 typedef std::vector<CtTableRow> CtTableMatrix;
-
 class CtTable : public CtAnchoredWidget
 {
 public:
@@ -73,7 +81,6 @@ public:
     const CtTableMatrix& get_table_matrix() { return _tableMatrix; }
     int get_col_max() { return _colMax; }
     int get_col_min() { return _colMin; }
-
 public:
     int  current_row() { return _currentRow < (int)_tableMatrix.size() ? _currentRow : 0; }
     int  current_column() { return _currentColumn < (int)_tableMatrix[0].size() ? _currentColumn : 0; }

@@ -679,7 +679,7 @@ void CtActions::table_export()
         curr_table_anchor->to_csv(outfile);
     } catch(std::exception& e) {
         spdlog::error("Exception caught while exporting table: {}", e.what());
-        CtDialogs::error_dialog("Exception occured while exporting table, see log for details");
+        CtDialogs::error_dialog("Exception occured while exporting table, see log for details", *_pCtMainWin);
     }
 }
 
