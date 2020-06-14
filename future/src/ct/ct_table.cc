@@ -24,7 +24,7 @@
 #include "ct_actions.h"
 #include "ct_storage_sqlite.h"
 #include "ct_logging.h"
-
+#include "ct_misc_utils.h"
 
 CtTableCell::CtTableCell(CtMainWin* pCtMainWin,
                          const Glib::ustring& textContent,
@@ -194,91 +194,6 @@ void CtTable::to_csv(std::ostream& output) const {
 }
 
 
-namespace CtCSV {
-CtStringTable table_from_csv(std::istream& input)
-{
-    // Disable exceptions 
-    auto except_bit_before = input.exceptions();
-    input.exceptions(std::ios::goodbit);
-
-    CtStringTable tbl_matrix;
-    std::string line;
-    
-    std::array<char, 256> chunk_buff{};
-    input.read(chunk_buff.data(), chunk_buff.size());
-    std::streamsize pos;
-    std::vector<std::string> tbl_row;
-    std::ostringstream cell_buff;  
-    constexpr char cell_tag = '"';
-    constexpr char cell_sep = ',';
-    constexpr char esc = '\\';
-    bool in_string = false;
-    bool escape_next = false;
-    while (input || (pos = input.gcount()) != 0) {    
-        for (auto ch : chunk_buff) {
-            
-            if (ch == '\0') break;
-            if (escape_next) {
-                escape_next = false;
-                cell_buff << ch;
-                continue;
-            }
-            if (ch == esc ) {
-                // `\` escapes anything `"` escapes a quote
-                escape_next = true;
-                continue;
-            }
-            bool is_newline = ch == '\n';
-            if ((ch == cell_sep || is_newline) && !in_string) {
-                // Close the cell
-                tbl_row.emplace_back(cell_buff.str());
-                std::ostringstream tmp_buff;
-                cell_buff.swap(tmp_buff);
-                
-                if (is_newline) {
-                    tbl_matrix.emplace_back(tbl_row);
-                    tbl_row.clear();
-                    continue;
-                }
-
-            } else if (ch == cell_tag) {
-                in_string = !in_string;
-            } else {
-                cell_buff << ch;
-            } 
-        }
-
-        if (pos != 0) input.read(chunk_buff.data(), chunk_buff.size());
-    }
-
-    // Reset exception bit
-    input.exceptions(except_bit_before);
-    return tbl_matrix;
-}
-
-std::string escape_to_csv(const std::string& input) {
-    std::ostringstream out;
-    for (const auto ch : input) {
-        if (ch == '"') {
-            out << '\\';
-        }
-        out << ch;
-    }
-    return out.str();
-}
-
-void table_to_csv(const CtStringTable& table, std::ostream& output) {
-    for (const auto& row : table) {
-        for (const auto& cell : row) {
-            output << fmt::format("\"{}\"", escape_to_csv(cell));
-
-            if (cell != row.back()) output << ",";
-        }
-        output << "\n";
-    }
-}
-
-}
 std::unique_ptr<CtTable> CtTable::from_csv(std::istream& input, CtMainWin* main_win, const Glib::ustring& syntax_highlighting, int col_min, int col_max, int offset, const Glib::ustring& justification) {
     CtCSV::CtStringTable str_tbl = CtCSV::table_from_csv(input);
 

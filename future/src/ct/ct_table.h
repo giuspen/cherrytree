@@ -26,12 +26,6 @@
 #include <ostream>
 #include <istream>
 
-namespace CtCSV {
-    using CtStringTable = std::vector<std::vector<std::string>>;
-    CtStringTable table_from_csv(std::istream& input);
-    void table_to_csv(const CtStringTable& table, std::ostream& output);
-}
-
 
 class CtTextCell;
 class CtTableCell : public CtTextCell, public Gtk::EventBox
