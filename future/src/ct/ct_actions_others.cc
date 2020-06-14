@@ -660,23 +660,29 @@ void CtActions::table_edit_properties()
 }
 
 void CtActions::table_export()
-{    
-    // todo: find good csv lib
-    return;
-
-    /*
-    CtDialogs::file_select_args args = {
-        .pParentWin=_pCtMainWin,
-        .curr_folder=_pCtMainWin->get_ct_config()->pickDirCsv,
-        .curr_file_name="",
-        .filter_name=_("CSV File"),
-        .filter_pattern={"*.csv"}
-    };
+{     
+    CtDialogs::file_select_args args(_pCtMainWin); 
+    args.curr_folder=_pCtMainWin->get_ct_config()->pickDirCsv;
+    args.curr_file_name="";
+    args.filter_name=_("CSV File");
+    args.filter_pattern={"*.csv"};
+    
+   
     Glib::ustring filename = CtDialogs::file_save_as_dialog(args);
     if (filename.empty()) return;
-    if (str::endswith(filename, ".csv")) filename += ".csv";
+    if (!str::endswith(filename, ".csv")) filename += ".csv";
     _pCtMainWin->get_ct_config()->pickDirCsv = Glib::path_get_dirname(filename);
-*/
+
+    try {
+        std::ofstream outfile;
+        outfile.exceptions(std::ios::failbit);
+        outfile.open(filename);
+
+        curr_table_anchor->to_csv(outfile);
+    } catch(std::exception& e) {
+        spdlog::error("Exception caught while exporting table: {}", e.what());
+        CtDialogs::error_dialog("Exception occured while exporting table, see log for details", *_pCtMainWin);
+    }
 }
 
 // Anchor Edit Dialog

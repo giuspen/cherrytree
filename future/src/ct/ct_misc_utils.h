@@ -37,6 +37,13 @@ template<class F> auto scope_guard(F&& f) {
     return std::unique_ptr<void, typename std::decay<F>::type>{(void*)1, std::forward<F>(f)};
 }
 
+
+namespace CtCSV {
+    using CtStringTable = std::vector<std::vector<std::string>>;
+    CtStringTable table_from_csv(std::istream& input);
+    void table_to_csv(const CtStringTable& table, std::ostream& output);
+}
+
 namespace CtMiscUtil {
 
 std::string get_ct_language();

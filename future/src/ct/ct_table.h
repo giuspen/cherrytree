@@ -23,6 +23,9 @@
 
 #include "ct_codebox.h"
 #include "ct_widgets.h"
+#include <ostream>
+#include <istream>
+
 
 class CtTextCell;
 class CtTableCell : public CtTextCell, public Gtk::EventBox
@@ -36,7 +39,6 @@ public:
 
 typedef std::vector<CtTableCell*> CtTableRow;
 typedef std::vector<CtTableRow> CtTableMatrix;
-
 class CtTable : public CtAnchoredWidget
 {
 public:
@@ -48,10 +50,24 @@ public:
             const std::string& justification);
     virtual ~CtTable();
 
+    /**
+     * @brief Build a table from csv
+     * The input csv should be compatable with the excel csv format
+     * @param input 
+     * @return CtTable 
+     */
+    static std::unique_ptr<CtTable> from_csv(std::istream& input, CtMainWin* main_win, const Glib::ustring& syntax_highlighting, int col_min, int col_max, int offset, const Glib::ustring& justification);
+
     void apply_width_height(const int /*parentTextWidth*/) override {}
     void apply_syntax_highlighting() override;
     void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) override;
+    /**
+     * @brief Serialise to csv format
+     * The output CSV excel csv with double quotes around cells and newlines for each record
+     * @param output 
+     */
+    void to_csv(std::ostream& output) const;
     void set_modified_false() override;
     CtAnchWidgType get_type() override { return CtAnchWidgType::Table; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
@@ -59,7 +75,6 @@ public:
     const CtTableMatrix& get_table_matrix() { return _tableMatrix; }
     int get_col_max() { return _colMax; }
     int get_col_min() { return _colMin; }
-
 public:
     int  current_row() { return _currentRow < (int)_tableMatrix.size() ? _currentRow : 0; }
     int  current_column() { return _currentColumn < (int)_tableMatrix[0].size() ? _currentColumn : 0; }
