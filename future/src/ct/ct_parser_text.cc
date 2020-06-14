@@ -20,6 +20,7 @@
  */
 
 #include "ct_parser.h"
+#include "ct_logging.h"
 #include <iostream>
 #include <fmt/fmt.h>
 
@@ -142,6 +143,12 @@ std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser
         
         auto token_iter  = token_map_close.find(*token);
         if (token_iter != token_map_close.end()) {
+            if (curr_open_tags.first.empty()) {
+                spdlog::debug("Found close tag without open: {}, assuming escaped", *token);
+                token_stream.emplace_back(nullptr, *token);
+                continue;
+            }
+            
             if (!keep_parsing) {
                 if (curr_open_tags.first.front()->close_tag != *token) {
                     curr_open_tags.second += *token;
