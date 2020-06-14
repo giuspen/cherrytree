@@ -95,6 +95,7 @@ void CtActions::table_handle()
         while ((int)rows.size() < _pCtMainWin->get_ct_config()->tableRows)
             rows.push_back(empty_row);
     }
+    CtTable* pCtTable = nullptr;
     if (res == 2) {
         CtDialogs::file_select_args args(_pCtMainWin);
         args.curr_folder = _pCtMainWin->get_ct_config()->pickDirCsv;
@@ -106,36 +107,22 @@ void CtActions::table_handle()
         if (filename.empty()) return;
         _pCtMainWin->get_ct_config()->pickDirCsv = Glib::path_get_dirname(filename);
         // todo: find good csv lib
-        std::ifstream file(filename);
-        std::string line;
-        while (std::getline(file, line)) {
-            if (line == "\r\n" || line == "\n\r" || line == "\n")
-                continue;
-            std::vector<std::string> splited_line = str::split(line, ",");
-            for (std::string& word: splited_line)
-                if (str::startswith(word, "\"") && str::endswith(word, "\""))
-                    word = word.substr(1, word.size() - 2);
-            rows.push_back(splited_line);
+        std::ifstream infile(filename);
+        pCtTable = CtTable::from_csv(infile, _pCtMainWin, CtConst::TABLE_CELL_TEXT_ID, 40, 60, _curr_buffer()->get_insert()->get_iter().get_offset(), "").release();
+        
+    }
+
+    if (!pCtTable) {
+        CtTableMatrix tableMatrix;
+        for(auto& row: rows)
+        {
+            tableMatrix.push_back(CtTableRow{});
+            for (auto& cell: row)
+                tableMatrix.back().push_back(new CtTableCell(_pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID));
         }
-        size_t col_num = 0;
-        for (auto& row: rows)
-            col_num = std::max(col_num, row.size());
-        for (auto& row: rows)
-            while (row.size() < col_num)
-                row.push_back("");
-        col_min = 40;
-        col_max = 60;
-    }
 
-    CtTableMatrix tableMatrix;
-    for(auto& row: rows)
-    {
-        tableMatrix.push_back(CtTableRow{});
-        for (auto& cell: row)
-            tableMatrix.back().push_back(new CtTableCell(_pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID));
+        pCtTable = new CtTable(_pCtMainWin, tableMatrix, col_min, col_max, _curr_buffer()->get_insert()->get_iter().get_offset(), "");
     }
-
-    CtTable* pCtTable = new CtTable(_pCtMainWin, tableMatrix, col_min, col_max, _curr_buffer()->get_insert()->get_iter().get_offset(), "");
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
     pCtTable->insertInTextBuffer(gsv_buffer);
 

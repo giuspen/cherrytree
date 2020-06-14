@@ -178,6 +178,77 @@ bool CtTable::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adj
     return retVal;
 }
 
+void row_to_csv(const CtTableRow& row, std::ostream& output) {
+    for (const auto* cell : row) {
+        output << fmt::format("\"{}\"", cell->get_text_content());
+
+        if (cell != row.back()) output << ",";
+    }
+    output << "\n";
+}
+
+void CtTable::to_csv(std::ostream& output) const {
+    
+    for (const CtTableRow& row : _tableMatrix) {
+        row_to_csv(row, output);
+    }
+}
+
+
+
+std::unique_ptr<CtTable> CtTable::from_csv(std::istream& input, CtMainWin* main_win, const Glib::ustring& syntax_highlighting, int col_min, int col_max, int offset, const Glib::ustring& justification) {
+    
+    // Disable exceptions 
+    auto except_bit_before = input.exceptions();
+    input.exceptions(std::ios::goodbit);
+
+    CtTableMatrix tbl_matrix;
+    std::string line;
+    
+    std::array<char, 256> chunk_buff{};
+    input.read(chunk_buff.data(), chunk_buff.size());
+    std::streamsize pos;
+    CtTableRow tbl_row;
+    CtTableCell* curr_cell;
+    std::ostringstream cell_buff;  
+    constexpr char cell_tag = '"';
+    constexpr char cell_sep = ',';
+    bool in_string = false;
+    while (input || (pos = input.gcount()) != 0) {    
+        for (const auto ch : chunk_buff) {
+            if (ch == '\0') break;
+                        
+            bool is_newline = ch == '\n';
+            if ((ch == cell_sep || is_newline) && !in_string) {
+                // Close the cell
+                curr_cell = new CtTableCell(main_win, cell_buff.str(), syntax_highlighting);
+                tbl_row.emplace_back(curr_cell);
+                std::ostringstream tmp_buff;
+                cell_buff.swap(tmp_buff);
+                
+                if (is_newline) {
+                    tbl_matrix.emplace_back(tbl_row);
+                    tbl_row = CtTableRow();
+                    continue;
+                }
+
+            } else if (ch == cell_tag) {
+                in_string = !in_string;
+            } else {
+                cell_buff << ch;
+            } 
+        }
+
+        if (pos != 0) input.read(chunk_buff.data(), chunk_buff.size());
+    }
+
+
+    // Reset exception bit
+    input.exceptions(except_bit_before);
+
+    return std::make_unique<CtTable>(main_win, tbl_matrix, col_min, col_max, offset, justification);
+}
+
 std::shared_ptr<CtAnchoredWidgetState> CtTable::get_state()
 {
     return std::shared_ptr<CtAnchoredWidgetState>(new CtAnchoredWidgetState_Table(this));
