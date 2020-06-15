@@ -327,17 +327,18 @@ Glib::ustring CtExport2Html::_get_codebox_html(CtCodebox* codebox)
 Glib::ustring CtExport2Html::_get_table_html(CtTable* table)
 {
     Glib::ustring table_html = "<table class=\"table\">";
-    for (auto row: table->get_table_matrix())
+    bool first = true;
+    for (const auto& row: table->get_table_matrix())
     {
         table_html += "<tr>";
-        bool first = true;
         for (auto cell: row)
             if (first) {
                 table_html += "<th>" + str::xml_escape(cell->get_text_content()) + "</th>";
-                first = false;
             } else {
                 table_html += "<td>" + str::xml_escape(cell->get_text_content()) + "</td>";
             }
+        
+        if (first) first = false;
         table_html += "</tr>";
     }
     table_html += "</table>";
