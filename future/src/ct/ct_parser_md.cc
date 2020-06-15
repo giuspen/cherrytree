@@ -28,32 +28,6 @@
 void CtMDParser::_add_scale_to_last(int level) {
     xmlpp::Element* curr_tmp = _current_element;
     if (_last_element) _current_element = _last_element;
-   /* xmlpp::TextNode* curr_text = _current_element->get_child_text();*/
-    //if (curr_text) {
-        //// Seperate the last line
-        //Glib::ustring curr_txt = curr_text->get_content();
-        //auto iter = curr_txt.rbegin();
-        //bool found_nl = false;
-        //while (iter != curr_txt.rend()) {
-            //if (*iter == '\n') { 
-                //if (found_nl) {
-                    //break;
-                //} else {
-                    //found_nl = true;
-                //}    
-            //}
-            //++iter;
-        //}
-        //if (iter != curr_txt.rbegin()) {
-            //Glib::ustring last_txt(iter.base(), curr_txt.end());
-            //Glib::ustring prev_txt(curr_txt.begin(), iter.base());
-            //_current_element->set_child_text(prev_txt);
-            //_add_scale_tag(level, last_txt);
-            //return;
-        //}
-    //}
-
-
 
     _add_scale_tag(level, std::nullopt);
     _current_element = curr_tmp;
@@ -193,7 +167,8 @@ void CtMDParser::_init_tokens()
     }
 }
 
-void CtMDParser::_place_free_text() {
+void CtMDParser::_place_free_text() 
+{
     std::string free_txt = _free_text.str();
     if (!free_txt.empty()) {
         auto iter = free_txt.crbegin();
@@ -250,14 +225,14 @@ void CtMDParser::feed(std::istream& stream)
             _last_encountered_token = iter->first;
         }
         _place_free_text();
-        //if (!stream.eof()) _add_newline();
     } catch (std::exception& e) {
         spdlog::error("Exception while parsing line: '{}': {}", line, e.what());
     }
     
 }
 
-void CtMDParser::_add_table_cell(std::string text) {
+void CtMDParser::_add_table_cell(std::string text) 
+{
     if (!text.empty()) {
         // Parse it to see if a cell or end of row
         char last_ch = text.back();
@@ -274,12 +249,14 @@ void CtMDParser::_add_table_cell(std::string text) {
     }
 }
 
-void CtMDParser::_pop_table() {
+void CtMDParser::_pop_table() 
+{
     _add_table(_current_table);
     _current_table.clear();
 }
 
-void CtMDParser::_pop_table_row() {
+void CtMDParser::_pop_table_row() 
+{
     _current_table.emplace_back(_current_table_row);
     _current_table_row.clear();
 }

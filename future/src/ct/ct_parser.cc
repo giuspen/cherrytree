@@ -34,7 +34,8 @@ void CtParser::wipe()
     _current_element = nullptr;
 }
 
-void CtParser::_add_image(const std::string& path) noexcept {
+void CtParser::_add_image(const std::string& path) noexcept 
+{
     try {
         CtXML::image_to_xml(_current_element->get_parent(), path, 0, CtConst::TAG_PROP_VAL_LEFT);
         _close_current_tag();
@@ -144,7 +145,8 @@ void CtParser::_close_current_tag()
     }
 }
 
-void CtParser::_add_newline() {
+void CtParser::_add_newline() 
+{
     // Add a newline, if tags are empty no need to close the current tag
     _add_text(CtConst::CHAR_NEWLINE, !_open_tags.empty());
 }
@@ -164,7 +166,8 @@ void CtParser::_add_scale_tag(int level, std::optional<std::string> data)
 }
 
 
-void CtParser::_add_tag_data(std::string_view tag, std::string data) {
+void CtParser::_add_tag_data(std::string_view tag, std::string data) 
+{
     bool do_close = _open_tags[tag];
     
     _add_text(std::move(data), do_close);
@@ -172,7 +175,8 @@ void CtParser::_add_tag_data(std::string_view tag, std::string data) {
 }
 
 
-void CtParser::_build_token_maps() {
+void CtParser::_build_token_maps() 
+{
     if (_open_tokens_map.empty() || _close_tokens_map.empty()) {
         _init_tokens();
         

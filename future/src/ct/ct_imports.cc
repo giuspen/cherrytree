@@ -32,7 +32,8 @@ namespace fs = std::filesystem;
 
 namespace CtXML {
 
-xmlpp::Element* codebox_to_xml(xmlpp::Element* parent, const Glib::ustring& justification, int char_offset, int frame_width, int frame_height, int width_in_pixels, const Glib::ustring& syntax_highlighting, bool highlight_brackets, bool show_line_numbers) {
+xmlpp::Element* codebox_to_xml(xmlpp::Element* parent, const Glib::ustring& justification, int char_offset, int frame_width, int frame_height, int width_in_pixels, const Glib::ustring& syntax_highlighting, bool highlight_brackets, bool show_line_numbers) 
+{
     xmlpp::Element* p_codebox_node = parent->add_child("codebox");
     p_codebox_node->set_attribute("char_offset", std::to_string(char_offset));
     p_codebox_node->set_attribute(CtConst::TAG_JUSTIFICATION, justification);
@@ -45,7 +46,8 @@ xmlpp::Element* codebox_to_xml(xmlpp::Element* parent, const Glib::ustring& just
     return p_codebox_node;
 }
 
-void table_row_to_xml(const std::vector<std::string>& row, xmlpp::Element* parent) {
+void table_row_to_xml(const std::vector<std::string>& row, xmlpp::Element* parent) 
+{
     xmlpp::Element* row_element = parent->add_child("row");
     for (const auto& cell : row) {
         xmlpp::Element* cell_element = row_element->add_child("cell");
@@ -70,7 +72,8 @@ xmlpp::Element* table_to_xml(const std::vector<std::vector<std::string>>& matrix
     return tbl_node;
 }
 
-xmlpp::Element *image_to_xml(xmlpp::Element *parent, const std::string &path, int char_offset, const Glib::ustring &justification, CtStatusBar* status_bar /* = nullptr */) {
+xmlpp::Element *image_to_xml(xmlpp::Element *parent, const std::string &path, int char_offset, const Glib::ustring &justification, CtStatusBar* status_bar /* = nullptr */) 
+{
     Glib::RefPtr<Gdk::Pixbuf> pixbuf;
     
     // Get uri type
