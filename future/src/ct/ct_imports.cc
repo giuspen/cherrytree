@@ -28,8 +28,6 @@
 #include <fstream>
 #include <sstream>
 
-namespace fs = std::filesystem;
-
 namespace CtXML {
 
 xmlpp::Element* codebox_to_xml(xmlpp::Element* parent, const Glib::ustring& justification, int char_offset, int frame_width, int frame_height, int width_in_pixels, const Glib::ustring& syntax_highlighting, bool highlight_brackets, bool show_line_numbers) 
@@ -171,14 +169,14 @@ std::vector<std::pair<int, int>> CtImports::get_web_links_offsets_from_plain_tex
 std::unique_ptr<ct_imported_node> CtImports::traverse_dir(const std::string& dir, CtImporterInterface* importer)
 {
     auto dir_node = std::make_unique<ct_imported_node>(dir, Glib::path_get_basename(dir));
-    for (const auto& dir_item: fs::directory_iterator(dir))
+    for (const auto& dir_item: CtFileSystem::get_dir_entries(dir))
     {
-        if (fs::is_directory(dir_item))
+        if (Glib::file_test(dir_item, Glib::FILE_TEST_IS_DIR))
         {
-            if (auto node = traverse_dir(dir_item.path().string(), importer))
+            if (auto node = traverse_dir(dir_item, importer))
               dir_node->children.emplace_back(std::move(node));
         }
-        else if (auto node = importer->import_file(dir_item.path().string()))
+        else if (auto node = importer->import_file(dir_item))
             dir_node->children.emplace_back(std::move(node));
     }
 
@@ -807,8 +805,7 @@ CtHtmlImport::CtHtmlImport(CtConfig* config) : _config(config)
 
 std::unique_ptr<ct_imported_node> CtHtmlImport::import_file(const std::string& file)
 {
-    std::filesystem::path filepath(file);
-    if (filepath.extension() != ".html" && std::filesystem::path(filepath).extension() != ".htm")
+    if (!str::endswith(file, ".html") && !str::endswith(file, ".htm"))
         return nullptr;
 
     std::ifstream infile;
@@ -817,7 +814,7 @@ std::unique_ptr<ct_imported_node> CtHtmlImport::import_file(const std::string& f
     std::ostringstream ss;
     ss << infile.rdbuf();
 
-    auto imported_node = std::make_unique<ct_imported_node>(file, filepath.stem().string());
+    auto imported_node = std::make_unique<ct_imported_node>(file, CtFileSystem::get_file_stem(file));
     CtHtml2Xml html2xml(_config);
     html2xml.set_local_dir(Glib::path_get_dirname(file));
     html2xml.set_outter_xml_doc(&imported_node->xml_content);
@@ -978,13 +975,12 @@ CtZimImport::CtZimImport(CtConfig* config): CtParser(config), CtTextParser(confi
 
 std::unique_ptr<ct_imported_node> CtZimImport::import_file(const std::string& file)
 {
-    std::filesystem::path filepath(file);
-    if (filepath.extension() != ".txt")
+    if (!str::endswith(file, ".txt"))
         return nullptr;
 
-    _ensure_notebook_file_in_dir(filepath.parent_path());
+    _ensure_notebook_file_in_dir(Glib::path_get_dirname(file));
 
-    std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, filepath.stem().string());
+    std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, CtFileSystem::get_file_stem(file));
     _current_node = node.get();
     _current_element = node->xml_content.create_root_node("root")->add_child("slot");
     _current_element = _current_element->add_child("rich_text");
@@ -1148,18 +1144,18 @@ void CtZimImport::_parse_body_line(const std::string& line)
     _add_newline();
 }
 
-void CtZimImport::_ensure_notebook_file_in_dir(const fs::path& dir)
+void CtZimImport::_ensure_notebook_file_in_dir(const std::string& dir)
 {
     if (_has_notebook_file) return;
-    for (auto dir_item: fs::directory_iterator(dir))
-        if (dir_item.path().filename() == "notebook.zim")
+    for (auto dir_item: CtFileSystem::get_dir_entries(dir))
+        if (Glib::path_get_basename(dir_item) == "notebook.zim")
         {
             _has_notebook_file = true;
             break;
         }
 
     if (!_has_notebook_file) {
-        throw CtImportException(fmt::format("Directory: {} does not contain a notebook.zim file", dir.string()));
+        throw CtImportException(fmt::format("Directory: {} does not contain a notebook.zim file", dir));
     }
 }
 
@@ -1178,7 +1174,7 @@ std::unique_ptr<ct_imported_node> CtPlainTextImport::import_file(const std::stri
         std::ostringstream data;
         data << infile.rdbuf();
 
-        std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, fs::path(file).stem().string());
+        std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, CtFileSystem::get_file_stem(file));
         node->xml_content.create_root_node("root")->add_child("slot")->add_child("rich_text")->add_child_text(data.str());
         node->node_syntax = CtConst::PLAIN_TEXT_ID;
         return node;
@@ -1199,7 +1195,7 @@ CtMDImport::CtMDImport(CtConfig* config) : _parser(config)
 
 std::unique_ptr<ct_imported_node> CtMDImport::import_file(const std::string& file)
 {
-    if (fs::path(file).extension() != ".md")
+    if (!str::endswith(file, ".md"))
         return nullptr;
 
     std::ifstream infile(file);
@@ -1207,7 +1203,7 @@ std::unique_ptr<ct_imported_node> CtMDImport::import_file(const std::string& fil
     _parser.wipe();
     _parser.feed(infile);
 
-    std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, fs::path(file).stem().string());
+    std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, CtFileSystem::get_file_stem(file));
     node->xml_content.create_root_node_by_import(_parser.get_root_node());
 
     return node;
@@ -1225,7 +1221,7 @@ std::unique_ptr<ct_imported_node> CtPandocImport::import_file(const std::string&
     std::stringstream html_buff;
     CtPandoc::to_html(file, html_buff);
 
-    std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, fs::path(file).stem().string());
+    std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, CtFileSystem::get_file_stem(file));
 
     CtHtml2Xml parser(_config);
     parser.set_outter_xml_doc(&node->xml_content);

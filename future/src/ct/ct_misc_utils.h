@@ -422,6 +422,9 @@ time_t getmtime(const std::string& path);
 
 int getsize(const std::string& path);
 
+std::list<std::string> get_dir_entries(const std::string& dir);
+std::string get_file_stem(const std::string& path);
+
 void external_filepath_open(const std::string& filepath, bool open_fold_if_no_app_error);
 void external_folderpath_open(const std::string& folderpath);
 

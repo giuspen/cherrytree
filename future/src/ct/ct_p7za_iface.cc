@@ -76,6 +76,7 @@ int CtP7zaIface::p7za_extract(const gchar* input_path, const gchar* out_dir, con
                 "-bd",   // Disable progress indicator
                 "-bso0", // Disable standard output, error output is turn on
                 "-bsp0", // Disable progress output
+                "-bse1", // redirect error output into standard output
                 "-y",
                 "-o" + std::string(out_dir),
                 input_path

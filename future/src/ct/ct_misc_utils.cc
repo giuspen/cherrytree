@@ -319,7 +319,7 @@ URI_TYPE get_uri_type(const std::string &uri) {
     constexpr std::array<std::string_view, 2> http_ids = {"https://", "http://"};
     constexpr std::array<std::string_view, 2> fs_ids = {"/", "C:\\\\"};
     if (str::startswith_any(uri, http_ids)) return URI_TYPE::WEB_URL;
-    else if (str::startswith_any(uri, fs_ids) || std::filesystem::exists(uri)) return URI_TYPE::LOCAL_FILEPATH;
+    else if (str::startswith_any(uri, fs_ids) || Glib::file_test(uri, Glib::FILE_TEST_EXISTS)) return URI_TYPE::LOCAL_FILEPATH;
     else return URI_TYPE::UNKNOWN;
 }
 }
@@ -971,6 +971,25 @@ int CtFileSystem::getsize(const std::string& path)
     if (g_stat(path.c_str(), &st) == 0)
         return st.st_size;
     return 0;
+}
+
+std::list<std::string> CtFileSystem::get_dir_entries(const std::string& dir)
+{
+    Glib::Dir gdir(dir);
+    std::list<std::string> entries(gdir.begin(), gdir.end());
+    for (auto& entry: entries)
+        entry = Glib::build_filename(dir, entry);
+    return entries;
+}
+
+std::string CtFileSystem::get_file_stem(const std::string& path)
+{
+    if (path == "") return "";
+    std::string name = Glib::path_get_basename(path);
+    size_t dot_pos = name.find_last_of(".");
+    if (dot_pos == std::string::npos || dot_pos == 0)
+        return name;
+    return name.substr(0, dot_pos);
 }
 
 // Open Filepath with External App

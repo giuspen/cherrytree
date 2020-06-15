@@ -343,6 +343,25 @@ TEST(MiscUtilsGroup, mime__type_contains)
 #endif
 }
 
+
+
+TEST_GROUP(FileSystemGroup)
+{
+};
+
+
+TEST(FileSystemGroup, get_file_stem)
+{
+#ifndef _WIN32
+    STRCMP_EQUAL("", CtFileSystem::get_file_stem("").c_str());
+    STRCMP_EQUAL("file", CtFileSystem::get_file_stem("/root/file").c_str());
+    STRCMP_EQUAL("file", CtFileSystem::get_file_stem("/root/file.txt").c_str());
+    STRCMP_EQUAL("file.2", CtFileSystem::get_file_stem("/root/file.2.txt").c_str());
+    STRCMP_EQUAL(".txt", CtFileSystem::get_file_stem("/root/.txt").c_str());
+#endif
+}
+
+
 int main(int ac, char** av)
 {
     // libp7za has memory leaks
