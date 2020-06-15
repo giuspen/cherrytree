@@ -24,6 +24,25 @@ body {
     white-space: pre-wrap;
 }
 
+button {
+    border: none;
+    padding: 0 5px;
+    background: none;
+    margin: 0;
+}
+
+button:hover {
+    color: #666666;
+}
+
+#index_header {
+    text-align: center;
+}
+
+.two-panels {
+    background: #EEEEEE;
+}
+
 div.two-panels {
     height: inherit;
     margin: 0;
@@ -94,10 +113,6 @@ div.tree a, div.tree a:visited {
     text-decoration: none;
 }
 
-div.tree a:hover {
-    text-decoration: underline;
-}
-
 div.tree ul {
     padding-inline-start: 20px;
     list-style-type: none;
@@ -115,6 +130,18 @@ div.tree li.leaf {
     padding-inline-start: 10px;
     line-height: 2;
 }
+.tree li a {
+    width: 100%;
+    display: inline-block;
+}
+
+.tree li:hover {
+    background: rgba(193, 193, 193, 0.7);
+    color: white;
+}
+.tree li {
+    white-space: nowrap;
+}
 
 div.tree a.show, div.tree a.hide { display: none; }
 
@@ -129,17 +156,19 @@ div.tree a.show, div.tree a.hide { display: none; }
 /* TABLES */
 
 table {
-    border: 1px solid #AAAAAA;
+    border: 1px solid #202A2C;
+    border-collapse: collapse;
 }
 
 th {
-    background-color: #EEEEEE;
+    background-color: rgb(193, 193, 193);
 }
 
-td {
+td, th {
     padding-left: 5px;
     padding-right: 5px;
-    border-top: 1px solid #AAAAAA;
+    border: 1px solid #202A2C;
+    text-align: center;
 }
 
 /* HEADINGS */
@@ -150,7 +179,11 @@ div.page h1 {
 }
 
 div.page h1.title {
-    text-decoration: underline;
+    text-align: center;
+    background: rgb(193, 193, 193);
+    margin: 0 auto 1vh auto;
+    width: 100%;
+    display: inline-block;
 }
 
 div.page h2 {
@@ -192,7 +225,13 @@ div.codebox, div.page code, div.page pre {
     font-weight: normal;
     font-size: 13px;
     background-color: #EEEEEE;
-    border: 1px solid #DDDDDD;
+    border: 1px solid #202A2C;
+}
+
+div .codebox {
+    display: inline-block;
+    padding: 5px 7px;
+    min-width: 30%;
 }
 
 div.page p.tagged-text,
