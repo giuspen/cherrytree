@@ -27,8 +27,11 @@
 #include <glibmm/ustring.h>
 #include <libxml2/libxml/HTMLparser.h>
 #include <libxml++/libxml++.h>
+#include <queue>
 
-
+namespace {
+using TableMatrx = std::queue<std::queue<std::string>>;
+}
 
 struct ct_imported_node
 {
@@ -65,6 +68,7 @@ namespace CtImports {
 
 namespace CtXML {
 xmlpp::Element* codebox_to_xml(xmlpp::Element* parent, const Glib::ustring& justification, int char_offset, int frame_width, int frame_height, int width_in_pixels, const Glib::ustring& syntax_highlighting, bool highlight_brackets, bool show_line_numbers);
+xmlpp::Element* table_to_xml(const std::vector<std::vector<std::string>> &matrix, xmlpp::Element *parent, int char_offset, Glib::ustring justification, int col_min, int col_max);
 
 } // CtXML
 
@@ -266,6 +270,16 @@ protected:
     
     void _place_free_text();
     void _add_scale_to_last(int level);
+    void _add_table_cell(std::string text);
+    /// Add the current table row to the table
+    void _pop_table_row();
+    /// Add the current table to the output xml
+    void _pop_table();
+    
+    using TableRow = std::vector<std::string>;
+    using TableMatrix = std::vector<TableRow>;
+    TableRow _current_table_row;
+    TableMatrix _current_table;
 public:
     CtMDParser(CtConfig* config) : CtParser(config), CtTextParser(config) {}
 

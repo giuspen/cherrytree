@@ -116,6 +116,7 @@ protected:
     void _add_monospace_tag(std::optional<std::string> text);
     void _add_tag_data(std::string_view, std::string data);
     void _add_codebox(const std::string& language, const std::string& text);
+    void _add_table(const std::vector<std::vector<std::string>>& table_matrix);
     
     [[nodiscard]] constexpr bool _tag_empty() const
     {

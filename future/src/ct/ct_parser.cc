@@ -185,6 +185,11 @@ void CtParser::_build_token_maps() {
 }
 
 
+void CtParser::_add_table(const std::vector<std::vector<std::string>>& table_matrix)
+{
+    CtXML::table_to_xml(table_matrix, _current_element->get_parent(), 0, CtConst::TAG_PROP_VAL_LEFT, 40, 400);
+    _close_current_tag();
+}
 
 
 void CtHtmlParser::feed(const std::string& html)

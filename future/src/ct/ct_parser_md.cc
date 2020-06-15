@@ -78,10 +78,11 @@ void CtMDParser::_init_tokens()
             
 
         };
+        auto add_h3 = [this](const std::string& text) {
+            _close_current_tag();
+            _add_scale_tag(3, text + "\n");
+        };
         _token_schemas = {
-                /*{"   ", true, false, [this](const std::string& data){
-                    ++_list_level;
-                }, " "},*/
                 // Bold
                 {"__", true,  true,  [this](const std::string &data) {
                     _add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, data);
@@ -132,7 +133,7 @@ void CtMDParser::_init_tokens()
                     _list_level = 0;
                 }, "\n"},
                 // Also list
-                {"\n- ", true, false, [this](const std::string& data){
+                {"- ", true, false, [this](const std::string& data){
                     _add_list(_list_level, data + "\n");
                     _list_level = 0;
                 }, "\n"},
@@ -141,28 +142,19 @@ void CtMDParser::_init_tokens()
                     _add_strikethrough_tag(data);
                 }},
                 // Headers (h1, h2, etc)
-                {"#",  true, false, [this](const std::string &data) {
-                    auto tag_num = 1;
-                    spdlog::debug("DATA: {}", data);
-                    auto iter    = data.begin();
-                    while (*iter == '#') {
-                        ++tag_num;
-                        ++iter;
-                    }
-                
-                
-                    if (tag_num > 3) tag_num = 3; // Reset to 3 if too large
-                
-                    auto str = str::replace(data, "# ", "");
-                    str = str::replace(str, "#", "");
-                
-                    // Remove the extra space if single front
-                    if (tag_num == 1 && str.front() == ' ') {
-                        str.replace(str.begin(), str.begin() + 1, "");
-                    }
+                {"# ",  true, false, [this](const std::string &data) {
                     _close_current_tag();
-                    _add_scale_tag(tag_num, str + "\n");
+                    _add_scale_tag(1, data + "\n");
                 }, "\n"},
+                {"## ",  true, false, [this](const std::string &data) {
+                    _close_current_tag();
+                    _add_scale_tag(2, data + "\n");
+                }, "\n"},
+                {"### ",  true, false,  add_h3, "\n"},
+                {"#### ",  true, false,  add_h3, "\n"},
+                {"##### ",  true, false,  add_h3, "\n"},
+                {"###### ",  true, false,  add_h3, "\n"},
+                
                 // H1
                 {"\n==", true, false, [this](const std::string&){
                     _add_scale_to_last(1);
@@ -177,7 +169,19 @@ void CtMDParser::_init_tokens()
                 {"***\n", true, false, [this](const std::string&){
                     _add_text(_pCtConfig->hRule + "\n", true);
                     _add_newline();
-                }, " "}
+                }, " "},
+                // Tables
+                
+                // Table row
+                {"| ", true, false, [this](const std::string& data){
+                    spdlog::debug("Got row: {}", data);
+                    _add_table_cell(data);
+                }, " |\n"},
+                // Table header divider
+                {"| -", true, false, [](const std::string& data){
+                    // Since cherrytree tables don't use headers, this is not needed
+                    spdlog::debug("Got divider: {}", data);
+                }, "- |\n"}
         
         };
     }
@@ -186,16 +190,14 @@ void CtMDParser::_init_tokens()
 void CtMDParser::_place_free_text() {
     std::string free_txt = _free_text.str();
     if (!free_txt.empty()) {
-        bool found_nl = false;
         auto iter = free_txt.crbegin();
         for (;iter != free_txt.crend(); ++iter) {
             if (*iter == '\n') break;
         }
         std::string last_line(iter.base(), free_txt.cend());
         std::string other_txt(free_txt.cbegin(), iter.base());
-        spdlog::debug("ORIG: {}; last_line: {}; other: {}", free_txt, last_line, other_txt); 
         _add_text(other_txt);
-        _add_text(last_line); // This may be neeeded for headers
+        _add_text(last_line); // This may be needed for headers
 
         std::ostringstream tmp_ss;
         _free_text.swap(tmp_ss);
@@ -235,6 +237,7 @@ void CtMDParser::feed(std::istream& stream)
                 iter->first->action(iter->second);
             } else {
                 if (!iter->second.empty()) {
+                    if (!_current_table.empty()) _pop_table();
                     _free_text.write(iter->second.c_str(), iter->second.size());
                 }
             }
@@ -247,5 +250,33 @@ void CtMDParser::feed(std::istream& stream)
     }
     
 }
+
+void CtMDParser::_add_table_cell(std::string text) {
+    if (!text.empty()) {
+        // Parse it to see if a cell or end of row
+        char last_ch = text.back();
+        if (last_ch == '|') {
+            // End of row
+            _current_table_row.emplace_back(text.begin(), text.end() - 1);
+            _pop_table_row();
+        } else {
+            // Just a cell
+            _current_table_row.emplace_back(text);
+        }
+    } else {
+        spdlog::warn("_add_table_cell called without text, the document may contain invalid or unknown formatting");
+    }
+}
+
+void CtMDParser::_pop_table() {
+    _add_table(_current_table);
+    _current_table.clear();
+}
+
+void CtMDParser::_pop_table_row() {
+    _current_table.emplace_back(_current_table_row);
+    _current_table_row.clear();
+}
+
 
 
