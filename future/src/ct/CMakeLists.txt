@@ -73,13 +73,15 @@ target_link_libraries(cherrytree_shared
     ${CURL_LIBRARIES}
     pthread
     7za_static
-    #spdlog::spdlog
+    spdlog::spdlog
 )
-#find_package(spdlog REQUIRED)
-target_link_libraries(cherrytree_shared spdlog::spdlog_header_only)
-add_executable(cherrytree ct_main.cc icons.gresource.cc ${CHERRY_EXE_RC})
+
 target_include_directories(cherrytree_shared PUBLIC "..")
+
+
+add_executable(cherrytree ct_main.cc icons.gresource.cc ${CHERRY_EXE_RC})
 target_link_libraries(cherrytree cherrytree_shared)
+
 if(APPLE)
   target_link_libraries(cherrytree "-framework Foundation -framework AppKit")
 elseif(WIN32)

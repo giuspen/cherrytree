@@ -25,7 +25,6 @@
 #include "ct_misc_utils.h"
 #include "ct_imports.h"
 #include "ct_logging.h"
-#include <fmt/fmt.h>
 #include <iostream>
 
 void CtParser::wipe()  
