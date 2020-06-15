@@ -115,6 +115,7 @@ protected:
     void _add_newline();
     void _add_monospace_tag(std::optional<std::string> text);
     void _add_tag_data(std::string_view, std::string data);
+    void _add_codebox(const std::string& language, const std::string& text);
     
     [[nodiscard]] constexpr bool _tag_empty() const
     {

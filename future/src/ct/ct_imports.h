@@ -63,7 +63,10 @@ namespace CtImports {
 }
 
 
+namespace CtXML {
+xmlpp::Element* codebox_to_xml(xmlpp::Element* parent, const Glib::ustring& justification, int char_offset, int frame_width, int frame_height, int width_in_pixels, const Glib::ustring& syntax_highlighting, bool highlight_brackets, bool show_line_numbers);
 
+} // CtXML
 
 /**
  * @class CtImportException

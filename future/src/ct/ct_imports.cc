@@ -30,6 +30,23 @@
 
 namespace fs = std::filesystem;
 
+namespace CtXML {
+
+xmlpp::Element* codebox_to_xml(xmlpp::Element* parent, const Glib::ustring& justification, int char_offset, int frame_width, int frame_height, int width_in_pixels, const Glib::ustring& syntax_highlighting, bool highlight_brackets, bool show_line_numbers) {
+    xmlpp::Element* p_codebox_node = parent->add_child("codebox");
+    p_codebox_node->set_attribute("char_offset", std::to_string(char_offset));
+    p_codebox_node->set_attribute(CtConst::TAG_JUSTIFICATION, justification);
+    p_codebox_node->set_attribute("frame_width", std::to_string(frame_width));
+    p_codebox_node->set_attribute("frame_height", std::to_string(frame_height));
+    p_codebox_node->set_attribute("width_in_pixels", std::to_string(width_in_pixels));
+    p_codebox_node->set_attribute("syntax_highlighting", syntax_highlighting);
+    p_codebox_node->set_attribute("highlight_brackets", std::to_string(highlight_brackets));
+    p_codebox_node->set_attribute("show_line_numbers", std::to_string(show_line_numbers));
+    return p_codebox_node;
+}
+}
+
+
 const std::set<std::string> CtHtml2Xml::HTML_A_TAGS{"p", "b", "i", "u", "s", CtConst::TAG_PROP_VAL_H1,
             CtConst::TAG_PROP_VAL_H2, CtConst::TAG_PROP_VAL_H3, "span", "font"};
 

@@ -73,7 +73,11 @@ std::vector<std::string> CtTextParser::_tokenize(const std::string& text)
     if (_possible_tokens.empty()) {
         _possible_tokens = build_pos_tokens(open_tags);
         auto other_pos  = build_pos_tokens(close_tags);
-        _possible_tokens.insert(other_pos.begin(), other_pos.end());
+        for (const auto& token : other_pos) {
+            auto& tokens_full =  _possible_tokens[token.first];
+            tokens_full.insert(tokens_full.end(), token.second.begin(), token.second.end());
+        }
+        //_possible_tokens.insert(other_pos.begin(), other_pos.end());
     }
     
     std::vector<std::string> tokens;

@@ -23,6 +23,7 @@
 #include "ct_const.h"
 #include "ct_config.h"
 #include "ct_misc_utils.h"
+#include "ct_imports.h"
 #include <fmt/fmt.h>
 #include <iostream>
 
@@ -44,6 +45,14 @@ void CtParser::_add_subscript_tag(std::optional<std::string> text)
     _current_element->set_attribute(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SUB);
     
     if (text) _add_text(*text);
+}
+
+void CtParser::_add_codebox(const std::string& language, const std::string& text)
+{
+    _close_current_tag();
+    xmlpp::Element* p_codebox_node = CtXML::codebox_to_xml(_current_element->get_parent(), CtConst::TAG_PROP_VAL_LEFT, 0, 300, 150, true, language, false, false);
+    p_codebox_node->add_child_text(text);
+    _close_current_tag();
 }
 
 void CtParser::_add_ordered_list(unsigned int level, const std::string &data)

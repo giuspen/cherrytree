@@ -28,6 +28,33 @@
 void CtMDParser::_add_scale_to_last(int level) {
     xmlpp::Element* curr_tmp = _current_element;
     if (_last_element) _current_element = _last_element;
+   /* xmlpp::TextNode* curr_text = _current_element->get_child_text();*/
+    //if (curr_text) {
+        //// Seperate the last line
+        //Glib::ustring curr_txt = curr_text->get_content();
+        //auto iter = curr_txt.rbegin();
+        //bool found_nl = false;
+        //while (iter != curr_txt.rend()) {
+            //if (*iter == '\n') { 
+                //if (found_nl) {
+                    //break;
+                //} else {
+                    //found_nl = true;
+                //}    
+            //}
+            //++iter;
+        //}
+        //if (iter != curr_txt.rbegin()) {
+            //Glib::ustring last_txt(iter.base(), curr_txt.end());
+            //Glib::ustring prev_txt(curr_txt.begin(), iter.base());
+            //_current_element->set_child_text(prev_txt);
+            //_add_scale_tag(level, last_txt);
+            //return;
+        //}
+    //}
+
+
+
     _add_scale_tag(level, std::nullopt);
     _current_element = curr_tmp;
 }
@@ -36,9 +63,25 @@ void CtMDParser::_init_tokens()
 {
     if (_token_schemas.empty()) {
         auto add_codebox = [this](const std::string& data) {
-            spdlog::debug("CODEBOX: {}", data);
+            auto data_iter = data.begin();
+            while (data_iter != data.end() && *data_iter != '\n') {
+                ++data_iter;
+            }
+            std::string text(data_iter, data.end());
+            std::string lang;
+            if (data_iter != data.begin()) {
+                lang.append(data.begin(), data_iter);
+
+            }
+            spdlog::debug("CODEBOX: {}, lang: {}", text, lang);
+            _add_codebox(lang, text);
+            
+
         };
         _token_schemas = {
+                /*{"   ", true, false, [this](const std::string& data){
+                    ++_list_level;
+                }, " "},*/
                 // Bold
                 {"__", true,  true,  [this](const std::string &data) {
                     _add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, data);
@@ -85,11 +128,13 @@ void CtMDParser::_init_tokens()
                 {"```", true, true, add_codebox, "```", true},
                 // List
                 {"* ", true, false, [this](const std::string &data) {
-                    _add_list(0, data);
+                    _add_list(_list_level, data + "\n");
+                    _list_level = 0;
                 }, "\n"},
                 // Also list
-                {"- ", true, false, [this](const std::string& data){
-                    _add_list(0, data);
+                {"\n- ", true, false, [this](const std::string& data){
+                    _add_list(_list_level, data + "\n");
+                    _list_level = 0;
                 }, "\n"},
                 // Strikethrough
                 {"~~", true,  true,  [this](const std::string &data) {
@@ -98,6 +143,7 @@ void CtMDParser::_init_tokens()
                 // Headers (h1, h2, etc)
                 {"#",  true, false, [this](const std::string &data) {
                     auto tag_num = 1;
+                    spdlog::debug("DATA: {}", data);
                     auto iter    = data.begin();
                     while (*iter == '#') {
                         ++tag_num;
@@ -115,22 +161,22 @@ void CtMDParser::_init_tokens()
                         str.replace(str.begin(), str.begin() + 1, "");
                     }
                     _close_current_tag();
-                    _add_scale_tag(tag_num, str);
-                }, "\n", true},
+                    _add_scale_tag(tag_num, str + "\n");
+                }, "\n"},
                 // H1
-                {"==", true, false, [this](const std::string&){
+                {"\n==", true, false, [this](const std::string&){
                     _add_scale_to_last(1);
+                    _add_newline();
                 }, "\n"},
                 // H2
-                {"----", true, false, [this](const std::string&){
+                {"\n----", true, false, [this](const std::string&){
                     _add_scale_to_last(2);
+                    _add_newline();
                 }, "\n"},
                 // Horizontal divider
-                {"---", true, false, [this](const std::string&){
-                    _add_text(_pCtConfig->hRule, true);
-                }, "\n"},
                 {"***\n", true, false, [this](const std::string&){
-                    _add_text(_pCtConfig->hRule, true);          
+                    _add_text(_pCtConfig->hRule + "\n", true);
+                    _add_newline();
                 }, " "}
         
         };
@@ -140,10 +186,20 @@ void CtMDParser::_init_tokens()
 void CtMDParser::_place_free_text() {
     std::string free_txt = _free_text.str();
     if (!free_txt.empty()) {
-        _add_text(free_txt);
+        bool found_nl = false;
+        auto iter = free_txt.crbegin();
+        for (;iter != free_txt.crend(); ++iter) {
+            if (*iter == '\n') break;
+        }
+        std::string last_line(iter.base(), free_txt.cend());
+        std::string other_txt(free_txt.cbegin(), iter.base());
+        spdlog::debug("ORIG: {}; last_line: {}; other: {}", free_txt, last_line, other_txt); 
+        _add_text(other_txt);
+        _add_text(last_line); // This may be neeeded for headers
+
+        std::ostringstream tmp_ss;
+        _free_text.swap(tmp_ss);
     }
-    std::ostringstream tmp_ss;
-    _free_text.swap(tmp_ss);
 }
 
 void CtMDParser::feed(std::istream& stream)
