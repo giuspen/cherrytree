@@ -24,6 +24,7 @@
 #include "ct_config.h"
 #include "ct_misc_utils.h"
 #include "ct_imports.h"
+#include "ct_logging.h"
 #include <fmt/fmt.h>
 #include <iostream>
 
@@ -31,6 +32,15 @@ void CtParser::wipe()
 { 
     _document = std::make_unique<xmlpp::Document>();
     _current_element = nullptr;
+}
+
+void CtParser::_add_image(const std::string& path) noexcept {
+    try {
+        CtXML::image_to_xml(_current_element->get_parent(), path, 0, CtConst::TAG_PROP_VAL_LEFT);
+        _close_current_tag();
+    } catch(std::exception& e) {
+        spdlog::error("Exception occured while adding image: {}", e.what());
+    }
 }
 
 void CtParser::_add_superscript_tag(std::optional<std::string> text)

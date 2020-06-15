@@ -110,6 +110,10 @@ void CtMDParser::_init_tokens()
                         if ((_last_encountered_token->open_tag == "[") && (_last_encountered_token->close_tag == "]")) {
                             _add_link(data);
                             return;
+                        } else if ((_last_encountered_token->open_tag == "![") && (_last_encountered_token->close_tag == "]")) {
+                            // Image link
+                            _add_image(data);
+                            return;
                         }
                     }
                     // Just text in brackets
@@ -181,7 +185,9 @@ void CtMDParser::_init_tokens()
                 {"| -", true, false, [](const std::string& data){
                     // Since cherrytree tables don't use headers, this is not needed
                     spdlog::debug("Got divider: {}", data);
-                }, "- |\n"}
+                }, "- |\n"},
+                // Image link
+                {"![", true, false, [this](const std::string&){}, "]"}
         
         };
     }

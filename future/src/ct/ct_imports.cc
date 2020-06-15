@@ -69,6 +69,71 @@ xmlpp::Element* table_to_xml(const std::vector<std::vector<std::string>>& matrix
     
     return tbl_node;
 }
+
+xmlpp::Element *image_to_xml(xmlpp::Element *parent, const std::string &path, int char_offset, const Glib::ustring &justification, CtStatusBar* status_bar /* = nullptr */) {
+    Glib::RefPtr<Gdk::Pixbuf> pixbuf;
+    
+    // Get uri type
+    CtMiscUtil::URI_TYPE path_type = CtMiscUtil::get_uri_type(path);
+    if (path_type == CtMiscUtil::URI_TYPE::UNKNOWN) {
+        throw std::runtime_error(fmt::format("Could not determine type for path: {}", path));
+    }
+    if (path_type == CtMiscUtil::URI_TYPE::WEB_URL) {
+    
+        if (status_bar) {
+            status_bar->update_status(std::string(_("Downloading")) + " " + path + " ...");
+            while (gtk_events_pending()) gtk_main_iteration();
+        }
+    
+        // Download
+        try {
+            std::string file_buffer = CtFileSystem::download_file(path);
+            if (!file_buffer.empty()) {
+                Glib::RefPtr<Gdk::PixbufLoader> pixbuf_loader = Gdk::PixbufLoader::create();
+                pixbuf_loader->write(reinterpret_cast<const guint8 *>(file_buffer.c_str()), file_buffer.size());
+                pixbuf_loader->close();
+                pixbuf = pixbuf_loader->get_pixbuf();
+    
+            }
+        }
+        catch (std::exception &e) {
+            spdlog::error("Exception occurred while downloading image at url: '{}'; Message: {}", e.what());
+            throw;
+        }
+    } else if (path_type == CtMiscUtil::URI_TYPE::LOCAL_FILEPATH) {
+    
+        // Load from local
+        try {
+            if (Glib::file_test(path, Glib::FILE_TEST_IS_REGULAR)) {
+                pixbuf = Gdk::Pixbuf::create_from_file(path);
+                if (!pixbuf) throw std::runtime_error("Failed to create pixbuf from file");
+            }
+            
+        }
+        catch (std::exception& e) {
+            spdlog::error("Exception occured while loading image from disk: {}", e.what());
+            throw;
+        }
+    } else {
+        throw std::logic_error("Unknown uri in image_to_xml");
+    }
+    if (!pixbuf) throw std::runtime_error("pixbuf is invalid, this should not have happened");
+
+    g_autofree gchar* pBuffer{NULL};
+    gsize buffer_size;
+    pixbuf->save_to_buffer(pBuffer, buffer_size, "png");
+    const std::string rawBlob = std::string(pBuffer, buffer_size);
+    const std::string encodedBlob = Glib::Base64::encode(rawBlob);
+    
+    xmlpp::Element* image_element = parent->add_child("encoded_png");
+    image_element->set_attribute("char_offset", std::to_string(char_offset));
+    image_element->set_attribute(CtConst::TAG_JUSTIFICATION, justification);
+    image_element->set_attribute("link", path);
+    image_element->add_child_text(encodedBlob);
+    
+    if (status_bar) status_bar->update_status("");
+    return image_element;
+}
 }
 
 
