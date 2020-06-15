@@ -235,7 +235,7 @@ protected:
 
 private:
     void _parse_body_line(const std::string& line);
-    void _ensure_notebook_file_in_dir(const std::filesystem::path& dir);
+    void _ensure_notebook_file_in_dir(const std::string& dir);
 
 private:
     bool              _has_notebook_file {false};

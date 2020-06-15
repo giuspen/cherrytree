@@ -31,7 +31,6 @@
 #include <fstream>
 #include <filesystem>
 
-namespace fs = std::filesystem;
 
 CtExport2Html::CtExport2Html(CtMainWin* pCtMainWin)
  : _pCtMainWin(pCtMainWin)
@@ -694,14 +693,14 @@ void to_html(std::istream& input, std::ostream& output, std::string from_format)
 }
 
 
-void to_html(const std::filesystem::path& file, std::ostream& output) {
+void to_html(const std::string& file, std::ostream& output) {
     auto process = pandoc_process();
-    process->append_arg(file.string());
+    process->append_arg(file);
 
     try {
         process->run(output);
     } catch(std::exception& e) {
-        spdlog::error("Exception in to_html with filepath: {}; message: {}", file.string(), e.what());
+        spdlog::error("Exception in to_html with filepath: {}; message: {}", file, e.what());
         throw;
     }
 }
