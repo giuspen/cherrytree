@@ -178,6 +178,7 @@ public:
     int                                         backupNum{3};
     bool                                        autosaveOnQuit{false};
     int                                         limitUndoableSteps{20};
+    bool                                        usePandoc{true}; // Whether to use Pandoc for exporting
 
     // [keyboard]
     std::map<std::string, std::string>          customKbShortcuts;

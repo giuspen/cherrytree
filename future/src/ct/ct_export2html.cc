@@ -123,7 +123,7 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
         }
     }
     else
-        html_text += _html_get_from_code_buffer(tree_iter.get_node_text_buffer(), sel_start, sel_end);
+        html_text += _html_get_from_code_buffer(tree_iter.get_node_text_buffer(), sel_start, sel_end, tree_iter.get_node_syntax_highlighting());
 
     if (index != "" && !options.index_in_page)
         html_text += Glib::ustring("<p align=\"center\">") + Glib::build_filename("images", "home.png") +
@@ -243,7 +243,7 @@ Glib::ustring CtExport2Html::selection_export_to_html(Glib::RefPtr<Gtk::TextBuff
     else
     {
         Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(text_buffer);
-        html_text += _html_get_from_code_buffer(gsv_buffer, start_iter.get_offset(), end_iter.get_offset());
+        html_text += _html_get_from_code_buffer(gsv_buffer, start_iter.get_offset(), end_iter.get_offset(), syntax_highlighting);
     }
     html_text += HTML_FOOTER;
     return html_text;
@@ -318,7 +318,7 @@ Glib::ustring CtExport2Html::_get_image_html(CtImage* image, const Glib::ustring
 Glib::ustring CtExport2Html::_get_codebox_html(CtCodebox* codebox)
 {
     Glib::ustring codebox_html = "<div class=\"codebox\">";
-    codebox_html += _html_get_from_code_buffer(codebox->get_buffer(), -1, -1);
+    codebox_html += _html_get_from_code_buffer(codebox->get_buffer(), -1, -1, codebox->get_syntax_highlighting());
     codebox_html += "</div>";
     return codebox_html;
 }
@@ -345,11 +345,23 @@ Glib::ustring CtExport2Html::_get_table_html(CtTable* table)
 }
 
 // Get rich text from syntax highlighted code node
-Glib::ustring CtExport2Html::_html_get_from_code_buffer(Glib::RefPtr<Gsv::Buffer> code_buffer, int sel_start, int sel_end)
+Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gsv::Buffer>& code_buffer, int sel_start, int sel_end, const std::string& syntax_highlighting)
 {
     Gtk::TextIter curr_iter = sel_start >= 0 ? code_buffer->get_iter_at_offset(sel_start) : code_buffer->begin();
     code_buffer->ensure_highlight(curr_iter, code_buffer->end());
-    Glib::ustring html_text = "";
+    if (_pCtMainWin->get_ct_config()->usePandoc && CtPandoc::supports_syntax(syntax_highlighting)) {
+        if (CtPandoc::has_pandoc()) {
+            Glib::ustring      input_txt(curr_iter, code_buffer->end());
+            std::istringstream ibuff(input_txt);
+            std::ostringstream html_out;
+            CtPandoc::to_html(ibuff, html_out, syntax_highlighting);
+            return html_out.str();
+        } else {
+            spdlog::warn("Exported content is eligible for processing by Pandoc but Pandoc executable could not be found");
+        }
+    }
+    
+    Glib::ustring html_text      = "";
     Glib::ustring former_tag_str = CtConst::COLOR_48_BLACK;
     bool span_opened = false;
     for (;;)
@@ -666,9 +678,11 @@ bool has_pandoc()
 }
 
 
-void to_html(std::istream& input, std::ostream& output) 
+void to_html(std::istream& input, std::ostream& output, std::string from_format /* = "markdown" */)
 {
     auto process = pandoc_process();
+    process->append_arg("--from");
+    process->append_arg(std::move(from_format));
     try {
         process->input(&input);
         process->run(output);

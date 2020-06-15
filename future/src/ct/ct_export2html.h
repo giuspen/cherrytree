@@ -59,7 +59,7 @@ private:
     Glib::ustring _get_codebox_html(CtCodebox* codebox);
     Glib::ustring _get_table_html(CtTable* table);
 
-    Glib::ustring _html_get_from_code_buffer(Glib::RefPtr<Gsv::Buffer> code_buffer, int sel_start, int sel_end);
+    Glib::ustring _html_get_from_code_buffer(const Glib::RefPtr<Gsv::Buffer>& code_buffer, int sel_start, int sel_end, const std::string &syntax_highlighting);
     void          _html_get_from_treestore_node(CtTreeIter node_iter, int sel_start, int sel_end,
                                        std::vector<Glib::ustring>& out_slots, std::vector<CtAnchoredWidget*>& out_widgets);
     Glib::ustring _html_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer);
@@ -93,7 +93,17 @@ namespace CtPandoc {
 
 bool has_pandoc();
 
-void to_html(std::istream& input, std::ostream& output);
+constexpr bool supports_syntax(std::string_view syntax) {
+    constexpr const std::array<std::string_view, 2> supported_syntaxes = {"markdown", "latex"};
+    for (const auto& supported_syntax : supported_syntaxes) {
+        if (syntax == supported_syntax) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void to_html(std::istream& input, std::ostream& output, std::string from_format = "markdown");
 
 void to_html(const std::filesystem::path& file, std::ostream& output);
 
