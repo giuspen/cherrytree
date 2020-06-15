@@ -75,6 +75,9 @@ Gtk::BuiltinIconSize getIconSize(int size);
  */
 bool mime_type_contains(const std::string& filepath, const std::string& type);
 
+enum class URI_TYPE { LOCAL_FILEPATH, WEB_URL, UNKNOWN };
+URI_TYPE get_uri_type(const std::string& uri);
+
 } // namespace CtMiscUtil
 
 namespace CtTextIterUtil {

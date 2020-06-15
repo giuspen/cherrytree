@@ -94,6 +94,7 @@ protected:
     
     // XML generation
     xmlpp::Element* _current_element = nullptr;
+    xmlpp::Element* _last_element = nullptr;
     std::unique_ptr<xmlpp::Document> _document{std::make_unique<xmlpp::Document>()};
     std::unordered_map<std::string_view, bool> _open_tags;
     
@@ -112,7 +113,11 @@ protected:
     void _add_text(std::string text, bool close_tag = true);
     void _close_current_tag();
     void _add_newline();
+    void _add_monospace_tag(std::optional<std::string> text);
     void _add_tag_data(std::string_view, std::string data);
+    void _add_codebox(const std::string& language, const std::string& text);
+    void _add_table(const std::vector<std::vector<std::string>>& table_matrix);
+    void _add_image(const std::string& path) noexcept;
     
     [[nodiscard]] constexpr bool _tag_empty() const
     {
@@ -188,7 +193,7 @@ protected:
     std::vector<std::string> _tokenize(const std::string& text);
 
 private:
-    std::unordered_set<char> _possible_tokens;
+    std::unordered_map<char, std::vector<std::string>> _possible_tokens;
 
 public:
     using CtParser::CtParser;

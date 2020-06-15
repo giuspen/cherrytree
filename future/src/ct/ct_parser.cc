@@ -23,6 +23,8 @@
 #include "ct_const.h"
 #include "ct_config.h"
 #include "ct_misc_utils.h"
+#include "ct_imports.h"
+#include "ct_logging.h"
 #include <fmt/fmt.h>
 #include <iostream>
 
@@ -30,6 +32,16 @@ void CtParser::wipe()
 { 
     _document = std::make_unique<xmlpp::Document>();
     _current_element = nullptr;
+}
+
+void CtParser::_add_image(const std::string& path) noexcept 
+{
+    try {
+        CtXML::image_to_xml(_current_element->get_parent(), path, 0, CtConst::TAG_PROP_VAL_LEFT);
+        _close_current_tag();
+    } catch(std::exception& e) {
+        spdlog::error("Exception occured while adding image: {}", e.what());
+    }
 }
 
 void CtParser::_add_superscript_tag(std::optional<std::string> text)
@@ -44,6 +56,14 @@ void CtParser::_add_subscript_tag(std::optional<std::string> text)
     _current_element->set_attribute(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SUB);
     
     if (text) _add_text(*text);
+}
+
+void CtParser::_add_codebox(const std::string& language, const std::string& text)
+{
+    _close_current_tag();
+    xmlpp::Element* p_codebox_node = CtXML::codebox_to_xml(_current_element->get_parent(), CtConst::TAG_PROP_VAL_LEFT, 0, 300, 150, true, language, false, false);
+    p_codebox_node->add_child_text(text);
+    _close_current_tag();
 }
 
 void CtParser::_add_ordered_list(unsigned int level, const std::string &data)
@@ -83,6 +103,12 @@ void CtParser::_add_weight_tag(const Glib::ustring& level, std::optional<std::st
     }
 }
 
+void CtParser::_add_monospace_tag(std::optional<std::string> text)
+{
+    _current_element->set_attribute("family", "monospace");
+    if (text) _add_text(*text, false);
+}
+
 void CtParser::_add_link(const std::string& text)
 {
     auto val = CtStrUtil::get_internal_link_from_http_url(text);
@@ -103,8 +129,10 @@ void CtParser::_add_text(std::string text, bool close_tag /* = true */)
         auto curr_text = _current_element->get_child_text();
         if (!curr_text) _current_element->set_child_text(std::move(text));
         else curr_text->set_content(curr_text->get_content() + std::move(text));
-    
-        if (close_tag) _close_current_tag();
+        if (close_tag) {
+            _last_element = _current_element;
+            _close_current_tag();
+        }
     }
 }
 
@@ -117,7 +145,8 @@ void CtParser::_close_current_tag()
     }
 }
 
-void CtParser::_add_newline() {
+void CtParser::_add_newline() 
+{
     // Add a newline, if tags are empty no need to close the current tag
     _add_text(CtConst::CHAR_NEWLINE, !_open_tags.empty());
 }
@@ -137,7 +166,8 @@ void CtParser::_add_scale_tag(int level, std::optional<std::string> data)
 }
 
 
-void CtParser::_add_tag_data(std::string_view tag, std::string data) {
+void CtParser::_add_tag_data(std::string_view tag, std::string data) 
+{
     bool do_close = _open_tags[tag];
     
     _add_text(std::move(data), do_close);
@@ -145,7 +175,8 @@ void CtParser::_add_tag_data(std::string_view tag, std::string data) {
 }
 
 
-void CtParser::_build_token_maps() {
+void CtParser::_build_token_maps() 
+{
     if (_open_tokens_map.empty() || _close_tokens_map.empty()) {
         _init_tokens();
         
@@ -168,6 +199,11 @@ void CtParser::_build_token_maps() {
 }
 
 
+void CtParser::_add_table(const std::vector<std::vector<std::string>>& table_matrix)
+{
+    CtXML::table_to_xml(table_matrix, _current_element->get_parent(), 0, CtConst::TAG_PROP_VAL_LEFT, 40, 400);
+    _close_current_tag();
+}
 
 
 void CtHtmlParser::feed(const std::string& html)

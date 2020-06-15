@@ -313,6 +313,19 @@ TEST(MiscUtilsGroup, get_cherrytree_localedir)
     STRCMP_EQUAL(Glib::canonicalize_filename(Glib::build_filename(_CMAKE_SOURCE_DIR, "po")).c_str(), CtFileSystem::get_cherrytree_localedir().c_str());
 }
 
+TEST(MiscUtilsGroup, get__uri_type)
+{
+    CHECK(CtMiscUtil::get_uri_type("https://google.com") == CtMiscUtil::URI_TYPE::WEB_URL);
+    CHECK(CtMiscUtil::get_uri_type("http://google.com") == CtMiscUtil::URI_TYPE::WEB_URL);
+    
+    CHECK(CtMiscUtil::get_uri_type("/home") == CtMiscUtil::URI_TYPE::LOCAL_FILEPATH);
+    CHECK(CtMiscUtil::get_uri_type("C:\\\\windows") == CtMiscUtil::URI_TYPE::LOCAL_FILEPATH);
+    CHECK(CtMiscUtil::get_uri_type(unitTestsDataDir) == CtMiscUtil::URI_TYPE::LOCAL_FILEPATH);
+    
+    CHECK(CtMiscUtil::get_uri_type("smb://localhost") == CtMiscUtil::URI_TYPE::UNKNOWN);
+    CHECK(CtMiscUtil::get_uri_type("my invalid uri") == CtMiscUtil::URI_TYPE::UNKNOWN);
+}
+
 TEST(MiscUtilsGroup, mime__type_contains) 
 {
 // some tests don't work on TRAVIS with WIN32

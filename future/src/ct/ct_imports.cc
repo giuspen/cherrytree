@@ -30,6 +30,116 @@
 
 namespace fs = std::filesystem;
 
+namespace CtXML {
+
+xmlpp::Element* codebox_to_xml(xmlpp::Element* parent, const Glib::ustring& justification, int char_offset, int frame_width, int frame_height, int width_in_pixels, const Glib::ustring& syntax_highlighting, bool highlight_brackets, bool show_line_numbers) 
+{
+    xmlpp::Element* p_codebox_node = parent->add_child("codebox");
+    p_codebox_node->set_attribute("char_offset", std::to_string(char_offset));
+    p_codebox_node->set_attribute(CtConst::TAG_JUSTIFICATION, justification);
+    p_codebox_node->set_attribute("frame_width", std::to_string(frame_width));
+    p_codebox_node->set_attribute("frame_height", std::to_string(frame_height));
+    p_codebox_node->set_attribute("width_in_pixels", std::to_string(width_in_pixels));
+    p_codebox_node->set_attribute("syntax_highlighting", syntax_highlighting);
+    p_codebox_node->set_attribute("highlight_brackets", std::to_string(highlight_brackets));
+    p_codebox_node->set_attribute("show_line_numbers", std::to_string(show_line_numbers));
+    return p_codebox_node;
+}
+
+void table_row_to_xml(const std::vector<std::string>& row, xmlpp::Element* parent) 
+{
+    xmlpp::Element* row_element = parent->add_child("row");
+    for (const auto& cell : row) {
+        xmlpp::Element* cell_element = row_element->add_child("cell");
+        cell_element->set_child_text(cell);
+    }
+}
+
+xmlpp::Element* table_to_xml(const std::vector<std::vector<std::string>>& matrix, xmlpp::Element* parent, int char_offset, Glib::ustring justification, int col_min, int col_max)
+{
+    xmlpp::Element* tbl_node = parent->add_child("table");
+    tbl_node->set_attribute("char_offset", std::to_string(char_offset));
+    tbl_node->set_attribute(CtConst::TAG_JUSTIFICATION, justification);
+    tbl_node->set_attribute("col_min", std::to_string(col_min));
+    tbl_node->set_attribute("col_max", std::to_string(col_max));
+    
+    // Header goes at end
+    for (auto row_iter = matrix.cbegin() + 1; row_iter != matrix.cend(); ++row_iter) {
+        table_row_to_xml(*row_iter, tbl_node);
+    }
+    table_row_to_xml(matrix.front(), tbl_node);
+    
+    return tbl_node;
+}
+
+xmlpp::Element *image_to_xml(xmlpp::Element *parent, const std::string &path, int char_offset, const Glib::ustring &justification, CtStatusBar* status_bar /* = nullptr */) 
+{
+    Glib::RefPtr<Gdk::Pixbuf> pixbuf;
+    
+    // Get uri type
+    CtMiscUtil::URI_TYPE path_type = CtMiscUtil::get_uri_type(path);
+    if (path_type == CtMiscUtil::URI_TYPE::UNKNOWN) {
+        throw std::runtime_error(fmt::format("Could not determine type for path: {}", path));
+    }
+    if (path_type == CtMiscUtil::URI_TYPE::WEB_URL) {
+    
+        if (status_bar) {
+            status_bar->update_status(std::string(_("Downloading")) + " " + path + " ...");
+            while (gtk_events_pending()) gtk_main_iteration();
+        }
+    
+        // Download
+        try {
+            std::string file_buffer = CtFileSystem::download_file(path);
+            if (!file_buffer.empty()) {
+                Glib::RefPtr<Gdk::PixbufLoader> pixbuf_loader = Gdk::PixbufLoader::create();
+                pixbuf_loader->write(reinterpret_cast<const guint8 *>(file_buffer.c_str()), file_buffer.size());
+                pixbuf_loader->close();
+                pixbuf = pixbuf_loader->get_pixbuf();
+    
+            }
+        }
+        catch (std::exception &e) {
+            spdlog::error("Exception occurred while downloading image at url: '{}'; Message: {}", e.what());
+            throw;
+        }
+    } else if (path_type == CtMiscUtil::URI_TYPE::LOCAL_FILEPATH) {
+    
+        // Load from local
+        try {
+            if (Glib::file_test(path, Glib::FILE_TEST_IS_REGULAR)) {
+                pixbuf = Gdk::Pixbuf::create_from_file(path);
+                if (!pixbuf) throw std::runtime_error("Failed to create pixbuf from file");
+            }
+            
+        }
+        catch (std::exception& e) {
+            spdlog::error("Exception occured while loading image from disk: {}", e.what());
+            throw;
+        }
+    } else {
+        throw std::logic_error("Unknown uri in image_to_xml");
+    }
+    if (!pixbuf) throw std::runtime_error("pixbuf is invalid, this should not have happened");
+
+    g_autofree gchar* pBuffer{NULL};
+    gsize buffer_size;
+    pixbuf->save_to_buffer(pBuffer, buffer_size, "png");
+    const std::string rawBlob = std::string(pBuffer, buffer_size);
+    const std::string encodedBlob = Glib::Base64::encode(rawBlob);
+    
+    xmlpp::Element* image_element = parent->add_child("encoded_png");
+    image_element->set_attribute("char_offset", std::to_string(char_offset));
+    image_element->set_attribute(CtConst::TAG_JUSTIFICATION, justification);
+    image_element->set_attribute("link", path);
+    image_element->add_child_text(encodedBlob);
+    
+    if (status_bar) status_bar->update_status("");
+    return image_element;
+}
+}
+
+
 const std::set<std::string> CtHtml2Xml::HTML_A_TAGS{"p", "b", "i", "u", "s", CtConst::TAG_PROP_VAL_H1,
             CtConst::TAG_PROP_VAL_H2, CtConst::TAG_PROP_VAL_H3, "span", "font"};
 
