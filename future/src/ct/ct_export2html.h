@@ -103,7 +103,7 @@ constexpr bool supports_syntax(std::string_view syntax) {
     return false;
 }
 
-void to_html(std::istream& input, std::ostream& output, std::string from_format = "markdown");
+void to_html(std::istream& input, std::ostream& output, std::string from_format);
 
 void to_html(const std::filesystem::path& file, std::ostream& output);
 

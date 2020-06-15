@@ -351,7 +351,8 @@ Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gsv::
     code_buffer->ensure_highlight(curr_iter, code_buffer->end());
     if (_pCtMainWin->get_ct_config()->usePandoc && CtPandoc::supports_syntax(syntax_highlighting)) {
         if (CtPandoc::has_pandoc()) {
-            Glib::ustring      input_txt(curr_iter, code_buffer->end());
+            Gtk::TextIter end_iter = sel_end >= 0 ? code_buffer->get_iter_at_offset(sel_end) : code_buffer->end();
+            Glib::ustring      input_txt(curr_iter, end_iter);
             std::istringstream ibuff(input_txt);
             std::ostringstream html_out;
             CtPandoc::to_html(ibuff, html_out, syntax_highlighting);
@@ -678,7 +679,7 @@ bool has_pandoc()
 }
 
 
-void to_html(std::istream& input, std::ostream& output, std::string from_format /* = "markdown" */)
+void to_html(std::istream& input, std::ostream& output, std::string from_format)
 {
     auto process = pandoc_process();
     process->append_arg("--from");
