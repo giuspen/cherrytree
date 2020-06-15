@@ -33,6 +33,7 @@
 #include <glib/gstdio.h> // to get stats
 #include <fstream>
 #include <curl/curl.h>
+#include <filesystem>
 
 #ifdef _WIN32
     #include <windows.h>
@@ -311,6 +312,16 @@ bool CtMiscUtil::mime_type_contains(const std::string &filepath, const std::stri
     std::string mime_type = p_mime_type.get();
 
     return mime_type.find(type) != std::string::npos;
+}
+
+namespace CtMiscUtil {
+URI_TYPE get_uri_type(const std::string &uri) {
+    constexpr std::array<std::string_view, 2> http_ids = {"https://", "http://"};
+    constexpr std::array<std::string_view, 2> fs_ids = {"/", "C:\\\\"};
+    if (str::startswith_any(uri, http_ids)) return URI_TYPE::WEB_URL;
+    else if (str::startswith_any(uri, fs_ids) || std::filesystem::exists(uri)) return URI_TYPE::LOCAL_FILEPATH;
+    else return URI_TYPE::UNKNOWN;
+}
 }
 
 // Returns True if the characters compose a camel case word
