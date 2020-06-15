@@ -21,7 +21,6 @@
 
 #include "ct_process.h"
 #include "ct_logging.h"
-#include <fmt/fmt.h>
 #include <gio/gio.h>
 #include <memory>
 

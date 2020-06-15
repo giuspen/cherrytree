@@ -22,7 +22,6 @@
 #include "ct_parser.h"
 #include "ct_logging.h"
 #include <iostream>
-#include <fmt/fmt.h>
 
 template<class T>
 std::unordered_map<char, std::vector<std::string>> build_pos_tokens(const T& tokens) {
