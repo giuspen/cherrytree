@@ -23,6 +23,7 @@
 #include "ct_logging.h"
 #include <gio/gio.h>
 #include <memory>
+#include <array>
 
 
 std::unique_ptr<GError, decltype(&g_error_free)> gerror_factory(GError* err = nullptr) {
