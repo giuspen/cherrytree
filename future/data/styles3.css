@@ -77,8 +77,7 @@ div.page-panel {
 }
 
 div.page-panel iframe {
-    width: 79vw;
-    margin-left: 1vw;
+    width: 100%;
     border: 0px;
     margin-top: 0px;
     height: 100%;
