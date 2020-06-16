@@ -331,12 +331,16 @@ Glib::ustring CtExport2Html::_get_table_html(CtTable* table)
     for (const auto& row: table->get_table_matrix())
     {
         table_html += "<tr>";
-        for (auto cell: row)
+        for (auto cell: row) {
+            Glib::ustring content = str::xml_escape(cell->get_text_content());
+            if (content.empty()) content = " "; // Otherwise the table will render with squashed cells
+    
             if (first) {
-                table_html += "<th>" + str::xml_escape(cell->get_text_content()) + "</th>";
+                table_html += "<th>" + content + "</th>";
             } else {
-                table_html += "<td>" + str::xml_escape(cell->get_text_content()) + "</td>";
+                table_html += "<td>" + content + "</td>";
             }
+        }
         
         if (first) first = false;
         table_html += "</tr>";
