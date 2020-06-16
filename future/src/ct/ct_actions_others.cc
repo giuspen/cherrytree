@@ -282,7 +282,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
          fs::path filepath = CtExport2Html::_link_process_filepath(vec[1]).c_str();
          if (not Glib::file_test(filepath.string(), Glib::FILE_TEST_IS_REGULAR))
          {
-             CtDialogs::error_dialog(fmt::format("The File Link '{}' is Not Valid", filepath), *_pCtMainWin);
+             CtDialogs::error_dialog(fmt::format(_("The File Link '{}' is Not Valid"), filepath), *_pCtMainWin);
              return;
          }
          if (from_wheel)
@@ -294,7 +294,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
          fs::path folderpath = CtExport2Html::_link_process_folderpath(vec[1]).c_str();
          if (not fs::is_directory(folderpath))
          {
-             CtDialogs::error_dialog(fmt::format("The Folder Link '{}' is Not Valid", folderpath), *_pCtMainWin);
+             CtDialogs::error_dialog(fmt::format(_("The Folder Link '{}' is Not Valid"), folderpath), *_pCtMainWin);
              return;
          }
          if (from_wheel)
