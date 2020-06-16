@@ -945,6 +945,10 @@ bool CtFileSystem::copy_file(const std::string& from_file, const std::string& to
     return rFileFrom->copy(rFileTo, Gio::FILE_COPY_OVERWRITE);
 }
 
+bool CtFileSystem::is_directory(const fs::path& path) {
+    return Glib::file_test(path.string(), Glib::FILE_TEST_IS_DIR);
+}
+
 bool CtFileSystem::move_file(const std::string& from_file, const std::string& to_file)
 {
     Glib::RefPtr<Gio::File> rFileFrom = Gio::File::create_for_path(from_file);
@@ -952,9 +956,9 @@ bool CtFileSystem::move_file(const std::string& from_file, const std::string& to
     return rFileFrom->move(rFileTo, Gio::FILE_COPY_OVERWRITE);
 }
 
-std::string CtFileSystem::abspath(const std::string& path)
+fs::path CtFileSystem::abspath(const fs::path& path)
 {
-    Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(path);
+    Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(path.string());
     return rFile->get_path();
 }
 
@@ -995,7 +999,7 @@ std::string CtFileSystem::get_file_stem(const std::string& path)
 }
 
 bool CtFileSystem::exists(const CtFileSystem::path& filepath) {
-    return g_file_test(filepath.c_str(), G_FILE_TEST_EXISTS);
+    return Glib::file_test(filepath.c_str(), Glib::FILE_TEST_EXISTS);
 }
 
 // Open Filepath with External App

@@ -418,9 +418,11 @@ bool copy_file(const std::string& from_file, const std::string& to_file);
 
 bool move_file(const std::string& from_file, const std::string& to_file);
 
-std::string abspath(const std::string& path);
+path abspath(const path& path);
 
 bool exists(const path& filepath);
+
+bool is_directory(const path& path);
 
 time_t getmtime(const std::string& path);
 
@@ -451,21 +453,26 @@ class path {
     using path_type = std::string;
 public:
     path(path_type path) : _path(std::move(path)) {}
-    path(const Glib::ustring& path) : _path(path.begin(), path.end()) {}
     path(const char* path) : _path(path) {}
     
     ~path() = default;
     
     void append(const path& other) {
-        _path = g_build_filename(_path.c_str(), other.c_str(), nullptr);
+        _path = Glib::build_filename(_path, other._path);
+    }
+
+    path& operator=(std::string other) {
+        _path.swap(other);
+        return *this;
     }
 
 
     friend path operator/(const path& lhs, const path& rhs) {
-       return path(g_build_filename(lhs.c_str(), rhs.c_str(), nullptr)); 
+        return path(Glib::build_filename(lhs._path, rhs._path));
     }
+
     friend path operator/(const path& lhs, const std::string& rhs) {
-        return path(g_build_filename(lhs.c_str(), rhs.c_str(), nullptr));
+        return path(Glib::build_filename(lhs._path, rhs));
     }
 
     friend path operator+(const path& lhs, const path& rhs) { return path(lhs._path + rhs._path); }

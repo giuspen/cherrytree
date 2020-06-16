@@ -32,6 +32,8 @@
 #include "ct_logging.h"
 #include <spdlog/fmt/bundled/printf.h>
 
+namespace fs = CtFileSystem;
+
 // Cut Link
 void CtActions::link_cut()
 {
@@ -159,7 +161,7 @@ void CtActions::embfile_open()
 
     spdlog::debug("embfile_open {}", static_cast<std::string>(filepath));
 
-    CtFileSystem::external_filepath_open(filepath, false, _pCtMainWin->get_ct_config());
+    CtFileSystem::external_filepath_open(filepath.c_str(), false, _pCtMainWin->get_ct_config());
     _embfiles_opened[filepath] = CtFileSystem::getmtime(filepath);
 
     if (not _embfiles_timeout_connection)
@@ -277,26 +279,26 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
      }
      else if (vec[0] == CtConst::LINK_TYPE_FILE) // link to file
      {
-         Glib::ustring filepath = CtExport2Html::_link_process_filepath(vec[1]);
-         if (not Glib::file_test(filepath, Glib::FILE_TEST_IS_REGULAR))
+         fs::path filepath = CtExport2Html::_link_process_filepath(vec[1]).c_str();
+         if (not Glib::file_test(filepath.string(), Glib::FILE_TEST_IS_REGULAR))
          {
-             CtDialogs::error_dialog(str::format(_("The File Link '%s' is Not Valid"), std::string(filepath)), *_pCtMainWin);
+             CtDialogs::error_dialog(fmt::format("The File Link '{}' is Not Valid", filepath), *_pCtMainWin);
              return;
          }
          if (from_wheel)
-             filepath = Glib::path_get_dirname(CtFileSystem::abspath(filepath));
+             filepath = Glib::path_get_dirname(CtFileSystem::abspath(filepath).string());
          CtFileSystem::external_filepath_open(filepath, true, _pCtMainWin->get_ct_config());
      }
      else if (vec[0] == CtConst::LINK_TYPE_FOLD) // link to folder
      {
-         Glib::ustring folderpath = CtExport2Html::_link_process_folderpath(vec[1]);
-         if (not Glib::file_test(folderpath, Glib::FILE_TEST_IS_DIR))
+         fs::path folderpath = CtExport2Html::_link_process_folderpath(vec[1]).c_str();
+         if (not fs::is_directory(folderpath))
          {
-             CtDialogs::error_dialog(str::format(_("The Folder Link '%s' is Not Valid"), std::string(folderpath)), *_pCtMainWin);
+             CtDialogs::error_dialog(fmt::format("The Folder Link '{}' is Not Valid", folderpath), *_pCtMainWin);
              return;
          }
          if (from_wheel)
-             folderpath = Glib::path_get_dirname(CtFileSystem::abspath(folderpath));
+             folderpath = Glib::path_get_dirname(CtFileSystem::abspath(folderpath).string());
          CtFileSystem::external_folderpath_open(folderpath, _pCtMainWin->get_ct_config());
      }
      else if (vec[0] == CtConst::LINK_TYPE_NODE) // link to a tree node
