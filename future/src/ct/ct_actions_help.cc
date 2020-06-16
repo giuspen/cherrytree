@@ -36,7 +36,7 @@ void CtActions::dialog_about()
 
 void CtActions::folder_cfg_open()
 {
-    CtFileSystem::external_folderpath_open(Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME));
+    CtFileSystem::external_folderpath_open(Glib::get_user_config_dir() / CtFileSystem::path(CtConst::APP_NAME), _pCtMainWin->get_ct_config());
 }
 
 void CtActions::check_for_newer_version()

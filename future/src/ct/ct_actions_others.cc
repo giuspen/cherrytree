@@ -30,6 +30,7 @@
 #include <fstream>
 #include <cstdlib>
 #include "ct_logging.h"
+#include <spdlog/fmt/bundled/printf.h>
 
 // Cut Link
 void CtActions::link_cut()
@@ -158,7 +159,7 @@ void CtActions::embfile_open()
 
     spdlog::debug("embfile_open {}", static_cast<std::string>(filepath));
 
-    CtFileSystem::external_filepath_open(filepath, false);
+    CtFileSystem::external_filepath_open(filepath, false, _pCtMainWin->get_ct_config());
     _embfiles_opened[filepath] = CtFileSystem::getmtime(filepath);
 
     if (not _embfiles_timeout_connection)
@@ -264,7 +265,13 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
          Glib::ustring clean_weblink = str::replace(vec[1], "amp;", "");
          if (_pCtMainWin->get_ct_config()->weblinkCustomOn)
          {
-             // todo: subprocess.call(self.weblink_custom_action[1] % clean_weblink, shell=True)
+             std::string cmd = fmt::sprintf(_pCtMainWin->get_ct_config()->weblinkCustomAct, clean_weblink);
+             int retr = std::system(cmd.c_str());
+             if (retr == -1) {
+                 // Internal std::system error
+                 spdlog::error("Error while executing: '{}'; Message: {}", cmd, std::strerror(errno));
+                 return;
+             }
          }
          else g_app_info_launch_default_for_uri(clean_weblink.c_str(), nullptr, nullptr); // todo: ?
      }
@@ -278,7 +285,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
          }
          if (from_wheel)
              filepath = Glib::path_get_dirname(CtFileSystem::abspath(filepath));
-         CtFileSystem::external_filepath_open(filepath, true);
+         CtFileSystem::external_filepath_open(filepath, true, _pCtMainWin->get_ct_config());
      }
      else if (vec[0] == CtConst::LINK_TYPE_FOLD) // link to folder
      {
@@ -290,7 +297,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
          }
          if (from_wheel)
              folderpath = Glib::path_get_dirname(CtFileSystem::abspath(folderpath));
-         CtFileSystem::external_folderpath_open(folderpath);
+         CtFileSystem::external_folderpath_open(folderpath, _pCtMainWin->get_ct_config());
      }
      else if (vec[0] == CtConst::LINK_TYPE_NODE) // link to a tree node
      {
