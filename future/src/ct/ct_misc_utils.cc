@@ -33,13 +33,15 @@
 #include <glib/gstdio.h> // to get stats
 #include <fstream>
 #include <curl/curl.h>
-#include <filesystem>
+#include <spdlog/fmt/bundled/printf.h>
 
 #ifdef _WIN32
     #include <windows.h>
     #include <shellapi.h>
 #endif
 
+
+namespace fs = CtFileSystem;
 
 namespace CtCSV {
 CtStringTable table_from_csv(std::istream& input)
@@ -943,6 +945,10 @@ bool CtFileSystem::copy_file(const std::string& from_file, const std::string& to
     return rFileFrom->copy(rFileTo, Gio::FILE_COPY_OVERWRITE);
 }
 
+bool CtFileSystem::is_directory(const fs::path& path) {
+    return Glib::file_test(path.string(), Glib::FILE_TEST_IS_DIR);
+}
+
 bool CtFileSystem::move_file(const std::string& from_file, const std::string& to_file)
 {
     Glib::RefPtr<Gio::File> rFileFrom = Gio::File::create_for_path(from_file);
@@ -950,9 +956,9 @@ bool CtFileSystem::move_file(const std::string& from_file, const std::string& to
     return rFileFrom->move(rFileTo, Gio::FILE_COPY_OVERWRITE);
 }
 
-std::string CtFileSystem::abspath(const std::string& path)
+fs::path CtFileSystem::abspath(const fs::path& path)
 {
-    Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(path);
+    Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(path.string());
     return rFile->get_path();
 }
 
@@ -992,61 +998,55 @@ std::string CtFileSystem::get_file_stem(const std::string& path)
     return name.substr(0, dot_pos);
 }
 
+bool CtFileSystem::exists(const CtFileSystem::path& filepath) {
+    return Glib::file_test(filepath.string(), Glib::FILE_TEST_EXISTS);
+}
+
 // Open Filepath with External App
-void CtFileSystem::external_filepath_open(const std::string& filepath, bool /*open_fold_if_no_app_error*/)
+void CtFileSystem::external_filepath_open(const fs::path& filepath, bool open_folder_if_file_not_exists, CtConfig* config)
 {
-    /* todo:
-    if self.filelink_custom_action[0]:
-        if cons.IS_WIN_OS: filepath = cons.CHAR_DQUOTE + filepath + cons.CHAR_DQUOTE
-        else: filepath = re.escape(filepath)
-        subprocess.call(self.filelink_custom_action[1] % filepath, shell=True)
-    else:
-        if cons.IS_WIN_OS:
-            try: os.startfile(filepath)
-            except:
-                if open_fold_if_no_app_error: os.startfile(os.path.dirname(filepath))
-        else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
-        */
-
     spdlog::debug("filepath to open: {}", filepath);
-
+    if (config->filelinkCustomOn) {
+        std::string cmd = fmt::sprintf(config->filelinkCustomAct, filepath.string());
+        std::system(cmd.c_str());
+    } else {
+        if (open_folder_if_file_not_exists && !fs::exists(filepath)) {
+            external_folderpath_open(filepath, config);
+        } else if (!fs::exists(filepath)) {
+            throw std::runtime_error(fmt::format("Filepath: {} does not exist and open_folder_if_not_exists is false", filepath.string()));
+        } else {
 #ifdef _WIN32
-    ShellExecute(GetActiveWindow(), "open", filepath.c_str(), NULL, NULL, SW_SHOWNORMAL);
+            ShellExecute(GetActiveWindow(), "open", filepath.c_str(), NULL, NULL, SW_SHOWNORMAL);
 #else
-    g_app_info_launch_default_for_uri(("file://" + filepath).c_str(), nullptr, nullptr);
+            fs::path f_path("file://");
+            f_path += filepath;
+            g_app_info_launch_default_for_uri(f_path.c_str(), nullptr, nullptr);
 #endif
+        }
+    }
 }
 
 // Open Folderpath with External App
-void CtFileSystem::external_folderpath_open(const std::string& folderpath)
+void CtFileSystem::external_folderpath_open(const fs::path& folderpath, CtConfig* config)
 {
-     /* todo:
-    if self.folderlink_custom_action[0]:
-        if cons.IS_WIN_OS: filepath = cons.CHAR_DQUOTE + filepath + cons.CHAR_DQUOTE
-        else: filepath = re.escape(filepath)
-        subprocess.call(self.folderlink_custom_action[1] % filepath, shell=True)
-    else:
-        if cons.IS_WIN_OS: os.startfile(filepath)
-        else: subprocess.call(config.LINK_CUSTOM_ACTION_DEFAULT_FILE % re.escape(filepath), shell=True)
-        */
-   
-   spdlog::debug("dir to open: {}", folderpath);
-
-    // https://stackoverflow.com/questions/42442189/how-to-open-spawn-a-file-with-glib-gtkmm-in-windows
+    spdlog::debug("dir to open: {}", folderpath.string());
+    if (config->folderlinkCustomOn) {
+        std::string cmd = fmt::sprintf(config->filelinkCustomAct, folderpath.string());
+        std::system(cmd.c_str());
+    } else {
+    
+        // https://stackoverflow.com/questions/42442189/how-to-open-spawn-a-file-with-glib-gtkmm-in-windows
 #ifdef _WIN32
-    ShellExecute(NULL, "open", folderpath.c_str(), NULL, NULL, SW_SHOWDEFAULT);
+        ShellExecute(NULL, "open", folderpath.c_str(), NULL, NULL, SW_SHOWDEFAULT);
 #elif defined(__APPLE__)
-    std::vector<std::string> argv = { "open", folderpath };
+        std::vector<std::string> argv = { "open", folderpath.string() };
     Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
 #else
-    gchar *path = g_filename_to_uri(folderpath.c_str(), NULL, NULL);
-    std::string xgd = "xdg-open " + std::string(path);
-    const auto retVal = system(xgd.c_str());
-    if (retVal != 0) {
-        g_warning("system(%s) returned %d", xgd.c_str(), retVal);
-    }
-    g_free(path);
+        fs::path path("file://");
+        path += folderpath;
+        g_app_info_launch_default_for_uri(folderpath.c_str(), nullptr, nullptr);
 #endif
+    }
 }
 
 std::string CtFileSystem::prepare_export_folder(const std::string& dir_place, std::string new_folder, bool overwrite_existing)
