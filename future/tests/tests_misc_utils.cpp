@@ -346,7 +346,7 @@ TEST(MiscUtilsGroup, mime__type_contains)
 
 TEST(MiscUtilsGroup, parallel_for)
 {
-    auto check_vec = [](const std::vector<int>& vec, const size_t& first, const size_t& last) -> bool {
+    auto check_range_in_vec = [](const std::vector<int>& vec, const size_t& first, const size_t& last) -> bool {
         for (size_t i = 0; i < vec.size(); ++i) {
             if (i >= first && i < last) {
                 if (vec[i] != 1)
@@ -357,20 +357,24 @@ TEST(MiscUtilsGroup, parallel_for)
         return true;
     };
 
-    // test check_vec
+    // test check_range_in_vec
     std::vector<int> vec(4, 0);
-    CHECK(check_vec(vec, 0, 0) == true);
-    CHECK(check_vec(vec, 0, 1) == false);
+    CHECK(check_range_in_vec(vec, 0, 0) == true);
+    CHECK(check_range_in_vec(vec, 0, 1) == false);
     vec[1] = 1;
-    CHECK(check_vec(vec, 1, 1) == false);
-    CHECK(check_vec(vec, 1, 2) == true);
+    CHECK(check_range_in_vec(vec, 1, 1) == false);
+    CHECK(check_range_in_vec(vec, 1, 2) == true);
     vec[1] = 2;
-    CHECK(check_vec(vec, 1, 1) == false);
-    CHECK(check_vec(vec, 1, 2) == false);
+    CHECK(check_range_in_vec(vec, 1, 1) == false);
+    CHECK(check_range_in_vec(vec, 1, 2) == false);
 
 
 
-    // check all possible index combinations
+    // parallel_for splits the given range on slices, one slice per thread.
+    // The formula to calculate slices is not simple, so the unit test checks that every element
+    // in the given range is processed, processed only once, no one is skipped,
+    // and elements that are out of the range should not be touched.
+    // To be sure, it is checked for different combinations of ranges, including empty range.
     size_t vec_len = 30;
     for (size_t first = 0; first < vec_len; ++first)
         for (size_t last = first; last < vec_len; ++last)
@@ -379,7 +383,7 @@ TEST(MiscUtilsGroup, parallel_for)
             CtMiscUtil::parallel_for(first, last, [&](size_t index){
                 vec[index] += 1;
             });
-            CHECK(check_vec(vec, first, last));
+            CHECK(check_range_in_vec(vec, first, last));
         }
 }
 
