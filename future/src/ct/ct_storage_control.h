@@ -21,6 +21,7 @@
 
 #pragma once
 #include "ct_types.h"
+#include <glibmm/miscutils.h>
 
 class CtMainWin;
 class CtStorageControl
@@ -75,4 +76,18 @@ private:
     bool                             _need_backup{true};   // create a backup once, on the first saving
     std::unique_ptr<CtStorageEntity> _storage;
     CtStorageSyncPending             _syncPending;
+};
+
+
+class CtImagePng;
+class CtStorageCache
+{
+public:
+    void generate_cache(CtMainWin* pCtMainWin, const CtStorageSyncPending* pending, bool xml);
+
+    void parallel_fetch_pixbufers(const std::vector<CtImagePng*>& image_widgets, bool xml);
+    bool get_cached_image(CtImagePng* image, std::string& cached_image);
+
+private:
+    std::map<CtImagePng*, std::string> _cached_images;
 };

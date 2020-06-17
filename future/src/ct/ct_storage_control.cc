@@ -25,8 +25,9 @@
 #include "ct_storage_sqlite.h"
 #include "ct_p7za_iface.h"
 #include "ct_main_win.h"
-#include <glib/gstdio.h>
 #include "ct_logging.h"
+#include <glib/gstdio.h>
+
 
 
 std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
@@ -351,3 +352,71 @@ void CtStorageControl::add_nodes_from_storage(const std::string& path)
     _pCtMainWin->update_window_save_needed();
 }
 
+
+void CtStorageCache::generate_cache(CtMainWin* pCtMainWin, const CtStorageSyncPending* pending, bool xml)
+{
+    std::vector<CtImagePng*> image_list;
+
+    //
+    auto& store = pCtMainWin->get_tree_store();
+    if (pending == nullptr) // all nodes
+    {
+        store.get_store()->foreach([&](const Gtk::TreePath&, const Gtk::TreeIter& iter)->bool
+        {
+            for (auto widget: store.to_ct_tree_iter(iter).get_embedded_pixbufs_tables_codeboxes_fast())
+                if (widget->get_type() == CtAnchWidgType::ImagePng) // important to check type
+                    if (auto image = dynamic_cast<CtImagePng*>(widget))
+                        image_list.emplace_back(image);
+            return false; /* false for continue */
+        });
+    }
+    else
+    {
+        for (const auto& node_pair : pending->nodes_to_write_dict)
+        {
+            CtTreeIter ct_tree_iter = store.get_node_from_node_id(node_pair.first);
+            if (node_pair.second.buff && ct_tree_iter.get_node_is_rich_text())
+            {
+                for (auto widget: ct_tree_iter.get_embedded_pixbufs_tables_codeboxes_fast())
+                    if (widget->get_type() == CtAnchWidgType::ImagePng) // important to check type
+                        if (auto image = dynamic_cast<CtImagePng*>(widget))
+                            image_list.emplace_back(image);
+            }
+        }
+    }
+
+    parallel_fetch_pixbufers(image_list, xml);
+}
+
+void CtStorageCache::parallel_fetch_pixbufers(const std::vector<CtImagePng*>& image_widgets, bool xml)
+{
+    _cached_images.clear();
+
+    // auto start = std::chrono::steady_clock::now();
+
+    std::vector<std::pair<CtImagePng*, std::string>> image_pair(image_widgets.size());
+    for (size_t i = 0; i < image_widgets.size(); ++i)
+        image_pair[i].first = image_widgets[i];
+
+    // replacement for tbb::parallel_for
+    CtMiscUtil::parallel_for(0, image_pair.size(), [&](size_t index) {
+        auto& pair = image_pair[index];
+        pair.second = pair.first->get_raw_blob();
+        if (xml) pair.second = Glib::Base64::encode(pair.second);
+    });
+
+    for (auto& pair: image_pair)
+        _cached_images.emplace(pair);
+
+    //auto end = std::chrono::steady_clock::now();
+    //std::chrono::duration<double> elapsed_seconds = end-start;
+    //spdlog::debug("parallel_fetch_pixbufers amount: , {} sec.", elapsed_seconds.count());
+}
+
+bool CtStorageCache::get_cached_image(CtImagePng* image, std::string& cached_image)
+{
+    auto it = _cached_images.find(image);
+    if (it == _cached_images.end()) return false;
+    cached_image = it->second;
+    return true;
+}

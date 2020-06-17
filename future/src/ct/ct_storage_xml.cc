@@ -27,6 +27,7 @@
 #include "ct_codebox.h"
 #include "ct_table.h"
 #include "ct_main_win.h"
+#include "ct_storage_control.h"
 #include "ct_logging.h"
 
 
@@ -110,11 +111,14 @@ bool CtStorageXml::save_treestore(const Glib::ustring& file_path, const CtStorag
         xmlpp::Element* p_bookmarks_node = xml_doc.get_root_node()->add_child("bookmarks");
         p_bookmarks_node->set_attribute("list", rejoined);
 
+        CtStorageCache storage_cache;
+        storage_cache.generate_cache(_pCtMainWin, nullptr, true);
+
         // save nodes
         auto ct_tree_iter = _pCtMainWin->get_tree_store().get_ct_iter_first();
         while (ct_tree_iter)
         {
-            _nodes_to_xml(&ct_tree_iter, xml_doc.get_root_node());
+            _nodes_to_xml(&ct_tree_iter, xml_doc.get_root_node(), &storage_cache);
             ct_tree_iter++;
         }
 
@@ -199,13 +203,13 @@ Gtk::TreeIter CtStorageXml::_node_from_xml(xmlpp::Element* xml_element, Gtk::Tre
     return _pCtMainWin->get_tree_store().append_node(&node_data, &parent_iter);
 }
 
-void CtStorageXml::_nodes_to_xml(CtTreeIter* ct_tree_iter, xmlpp::Element* p_node_parent)
+void CtStorageXml::_nodes_to_xml(CtTreeIter* ct_tree_iter, xmlpp::Element* p_node_parent, CtStorageCache* storage_cache)
 {
-    xmlpp::Element* p_node_node =  CtStorageXmlHelper(_pCtMainWin).node_to_xml(ct_tree_iter, p_node_parent, true);
+    xmlpp::Element* p_node_node =  CtStorageXmlHelper(_pCtMainWin).node_to_xml(ct_tree_iter, p_node_parent, true, storage_cache);
     CtTreeIter ct_tree_iter_child = ct_tree_iter->first_child();
     while (ct_tree_iter_child)
     {
-        _nodes_to_xml(&ct_tree_iter_child, p_node_node);
+        _nodes_to_xml(&ct_tree_iter_child, p_node_node, storage_cache);
         ct_tree_iter_child++;
     }
 }
@@ -218,7 +222,7 @@ CtStorageXmlHelper::CtStorageXmlHelper(CtMainWin* pCtMainWin) : _pCtMainWin(pCtM
 
 }
 
-xmlpp::Element* CtStorageXmlHelper::node_to_xml(CtTreeIter* ct_tree_iter, xmlpp::Element* p_node_parent, bool with_widgets)
+xmlpp::Element* CtStorageXmlHelper::node_to_xml(CtTreeIter* ct_tree_iter, xmlpp::Element* p_node_parent, bool with_widgets, CtStorageCache* storage_cache)
 {
     xmlpp::Element* p_node_node = p_node_parent->add_child("node");
     p_node_node->set_attribute("name", ct_tree_iter->get_node_name());
@@ -237,7 +241,7 @@ xmlpp::Element* CtStorageXmlHelper::node_to_xml(CtTreeIter* ct_tree_iter, xmlpp:
 
     if (with_widgets)
         for (CtAnchoredWidget* pAnchoredWidget : ct_tree_iter->get_embedded_pixbufs_tables_codeboxes())
-            pAnchoredWidget->to_xml(p_node_node, 0);
+            pAnchoredWidget->to_xml(p_node_node, 0, storage_cache);
 
     return p_node_node;
 }

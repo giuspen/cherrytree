@@ -48,8 +48,11 @@ protected:
     std::unordered_map<std::string,gchar*> _mapHiddenFiles;
 };
 
+
+
 class CtMainWin;
 class CtAnchoredWidgetState;
+class CtStorageCache;
 
 class CtAnchoredWidget : public Gtk::EventBox
 {
@@ -62,8 +65,8 @@ public:
 
     virtual void apply_width_height(const int parentTextWidth) = 0;
     virtual void apply_syntax_highlighting() = 0;
-    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) = 0;
-    virtual bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) = 0;
+    virtual void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache) = 0;
+    virtual bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) = 0;
     virtual void set_modified_false() = 0;
     virtual CtAnchWidgType get_type() = 0;
     virtual std::shared_ptr<CtAnchoredWidgetState> get_state() = 0;

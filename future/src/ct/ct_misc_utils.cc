@@ -35,6 +35,9 @@
 #include <curl/curl.h>
 #include <spdlog/fmt/bundled/printf.h>
 
+#include <thread> // for parallel_for
+#include <future> // parallel_for
+
 #ifdef _WIN32
     #include <windows.h>
     #include <shellapi.h>
@@ -325,6 +328,44 @@ URI_TYPE get_uri_type(const std::string &uri) {
     else return URI_TYPE::UNKNOWN;
 }
 }
+
+// analog to tbb::parallel_for
+void CtMiscUtil::parallel_for(size_t first, size_t last, std::function<void(size_t)> f)
+{
+    size_t concur_num = std::thread::hardware_concurrency();
+    if (first == last) return;
+    if (last < first) return;
+    if (last - first < concur_num) // to make slice calc simpler
+        concur_num = last - first;
+    size_t slice_item_num = (last - first) / concur_num;
+    size_t slice_leftover = (last - first) % concur_num;
+
+    std::list<std::thread> td_tasks;
+    size_t td_first = first;
+    for  (size_t thread_index = 0; thread_index < concur_num; ++thread_index)
+    {
+        std::packaged_task<void(size_t, size_t)> task([f](size_t slice_start, size_t slice_end)
+        {
+            for (size_t index = slice_start; index < slice_end; ++index)
+                f(index);
+        });
+
+        size_t td_slice = slice_item_num;
+        if (slice_leftover != 0) {
+            td_slice += 1;
+            slice_leftover -= 1;
+        }
+        if (td_first + td_slice > last)
+            td_slice = last - td_first;
+
+        td_tasks.emplace_back(std::thread(std::move(task), td_first, td_first + td_slice));
+        td_first += td_slice;
+    }
+
+    for (auto& task: td_tasks)
+        task.join();
+}
+
 
 // Returns True if the characters compose a camel case word
 bool CtTextIterUtil::get_is_camel_case(Gtk::TextIter iter_start, int num_chars)

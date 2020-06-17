@@ -31,6 +31,7 @@
 class CtMainWin;
 class CtAnchoredWidget;
 class CtTreeIter;
+class CtStorageCache;
 
 class CtStorageSqlite : public CtStorageEntity
 {
@@ -82,7 +83,8 @@ private:
                                           const gint64 sequence,
                                           const gint64 node_father_id,
                                           const CtStorageNodeState& write_dict,
-                                          const int start_offset, const int end_offset);
+                                          const int start_offset, const int end_offset,
+                                          CtStorageCache* storage_cache);
 
     std::list<gint64>   _get_children_node_ids_from_db(gint64 father_id);
     void                _remove_db_node_with_children(const gint64 node_id);

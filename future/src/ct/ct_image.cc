@@ -26,6 +26,7 @@
 #include "ct_actions.h"
 #include "ct_storage_sqlite.h"
 #include "ct_logging.h"
+#include "ct_storage_control.h"
 
 
 
@@ -119,17 +120,19 @@ const std::string CtImagePng::get_raw_blob()
     return rawBlob;
 }
 
-void CtImagePng::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
+void CtImagePng::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* storage_cache)
 {
     xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
     p_image_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
     p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
     p_image_node->set_attribute("link", _link);
-    const std::string encodedBlob = Glib::Base64::encode(get_raw_blob());
+    std::string encodedBlob;
+    if (!storage_cache || !storage_cache->get_cached_image(this, encodedBlob))
+         encodedBlob = Glib::Base64::encode(get_raw_blob());
     p_image_node->add_child_text(encodedBlob);
 }
 
-bool CtImagePng::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment)
+bool CtImagePng::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* storage_cache)
 {
     bool retVal{true};
     sqlite3_stmt *p_stmt;
@@ -140,8 +143,11 @@ bool CtImagePng::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_
     }
     else
     {
-        const std::string rawBlob = get_raw_blob();
+        std::string rawBlob;
+        if (!storage_cache || !storage_cache->get_cached_image(this, rawBlob))
+           rawBlob = get_raw_blob();
         const std::string link = Glib::locale_from_utf8(_link);
+
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
         sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);
@@ -210,7 +216,7 @@ CtImageAnchor::CtImageAnchor(CtMainWin* pCtMainWin,
     update_tooltip();
 }
 
-void CtImageAnchor::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
+void CtImageAnchor::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*)
 {
     xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
     p_image_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
@@ -218,7 +224,7 @@ void CtImageAnchor::to_xml(xmlpp::Element* p_node_parent, const int offset_adjus
     p_image_node->set_attribute("anchor", _anchorName);
 }
 
-bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment)
+bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache*)
 {
     bool retVal{true};
     sqlite3_stmt *p_stmt;
@@ -287,7 +293,7 @@ CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
     update_label_widget();
 }
 
-void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
+void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*)
 {
     xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
     p_image_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
@@ -298,7 +304,7 @@ void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent, const int offset_adju
     p_image_node->add_child_text(encodedBlob);
 }
 
-bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment)
+bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache*)
 {
     bool retVal{true};
     sqlite3_stmt *p_stmt;

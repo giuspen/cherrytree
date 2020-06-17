@@ -72,8 +72,8 @@ public:
                const std::string& justification);
     virtual ~CtImagePng() override {}
 
-    void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) override;
-    bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) override;
+    void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache) override;
+    bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
     CtAnchWidgType get_type() override { return CtAnchWidgType::ImagePng; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
@@ -98,8 +98,8 @@ public:
                   const std::string& justification);
     virtual ~CtImageAnchor() override {}
 
-    void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) override;
-    bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) override;
+    void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache) override;
+    bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
     CtAnchWidgType get_type() override { return CtAnchWidgType::ImageAnchor; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
@@ -125,8 +125,8 @@ public:
                    const std::string& justification);
     virtual ~CtImageEmbFile() override {}
 
-    void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment) override;
-    bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment) override;
+    void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache) override;
+    bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
     CtAnchWidgType get_type() override { return CtAnchWidgType::ImageEmbFile; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
