@@ -999,7 +999,7 @@ std::string CtFileSystem::get_file_stem(const std::string& path)
 }
 
 bool CtFileSystem::exists(const CtFileSystem::path& filepath) {
-    return Glib::file_test(filepath.c_str(), Glib::FILE_TEST_EXISTS);
+    return Glib::file_test(filepath.string(), Glib::FILE_TEST_EXISTS);
 }
 
 // Open Filepath with External App
@@ -1018,7 +1018,9 @@ void CtFileSystem::external_filepath_open(const fs::path& filepath, bool open_fo
 #ifdef _WIN32
             ShellExecute(GetActiveWindow(), "open", filepath.c_str(), NULL, NULL, SW_SHOWNORMAL);
 #else
-            g_app_info_launch_default_for_uri(("file://" + filepath).c_str(), nullptr, nullptr);
+            fs::path f_path("file://");
+            f_path += filepath;
+            g_app_info_launch_default_for_uri(f_path.c_str(), nullptr, nullptr);
 #endif
         }
     }
@@ -1040,7 +1042,9 @@ void CtFileSystem::external_folderpath_open(const fs::path& folderpath, CtConfig
         std::vector<std::string> argv = { "open", folderpath.string() };
     Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
 #else
-        g_app_info_launch_default_for_uri(("file://" + folderpath.string()).c_str(), nullptr, nullptr);
+        fs::path path("file://");
+        path += folderpath;
+        g_app_info_launch_default_for_uri(folderpath.c_str(), nullptr, nullptr);
 #endif
     }
 }

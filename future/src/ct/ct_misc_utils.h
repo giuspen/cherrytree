@@ -475,7 +475,8 @@ public:
         return path(Glib::build_filename(lhs._path, rhs));
     }
 
-    friend path operator+(const path& lhs, const path& rhs) { return path(lhs._path + rhs._path); }
+    friend void operator+=(path& lhs, const path& rhs) { lhs._path += rhs._path; }
+    friend void operator+=(path& lhs, const std::string& rhs) { lhs._path += rhs; }
     
     const char* c_str() const { return string().c_str(); };
     std::string string() const { return get_proper_platform_filepath(_path); }
