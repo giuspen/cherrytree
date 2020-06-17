@@ -115,7 +115,7 @@ void CtTable::apply_syntax_highlighting()
     _apply_styles_to_cells();
 }
 
-void CtTable::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
+void CtTable::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*)
 {
     // todo: fix a duplicate in imports.cc
     xmlpp::Element* p_table_node = p_node_parent->add_child("table");
@@ -147,7 +147,7 @@ void CtTable::_populate_xml_rows_cells(xmlpp::Element* p_table_node)
     row_to_xml(_tableMatrix.front());
 }
 
-bool CtTable::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment)
+bool CtTable::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache*)
 {
     bool retVal{true};
     sqlite3_stmt *p_stmt;

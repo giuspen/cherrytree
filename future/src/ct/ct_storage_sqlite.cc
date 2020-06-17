@@ -21,6 +21,7 @@
 
 #include "ct_storage_sqlite.h"
 #include "ct_storage_xml.h"
+#include "ct_storage_control.h"
 #include "ct_main_win.h"
 #include <unistd.h>
 #include "ct_logging.h"
@@ -233,10 +234,13 @@ bool CtStorageSqlite::save_treestore(const Glib::ustring& file_path, const CtSto
             node_state.buff = true;
             node_state.hier = true;
 
+            CtStorageCache storage_cache;
+            storage_cache.generate_cache(_pCtMainWin, nullptr /* all nodes */, false);
+
             // function to iterate through the tree
             std::function<void(CtTreeIter, const gint64, const gint64)> save_node_fun;
             save_node_fun = [&](CtTreeIter ct_tree_iter, const gint64 sequence, const gint64 father_id) {
-                _write_node_to_db(&ct_tree_iter, sequence, father_id, node_state, 0, -1);
+                _write_node_to_db(&ct_tree_iter, sequence, father_id, node_state, 0, -1, &storage_cache);
                 gint64 child_sequence{0};
                 CtTreeIter ct_tree_iter_child = ct_tree_iter.first_child();
                 while (ct_tree_iter_child) {
@@ -259,6 +263,9 @@ bool CtStorageSqlite::save_treestore(const Glib::ustring& file_path, const CtSto
         // or need just update some info
         else
         {
+            CtStorageCache storage_cache;
+            storage_cache.generate_cache(_pCtMainWin, &syncPending, false);
+
             // update bookmarks
             if (syncPending.bookmarks_to_write)
                 _write_bookmarks_to_db(_pCtMainWin->get_tree_store().bookmarks_get());
@@ -268,7 +275,7 @@ bool CtStorageSqlite::save_treestore(const Glib::ustring& file_path, const CtSto
                 CtTreeIter ct_tree_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(node_pair.first);
                 CtTreeIter ct_tree_iter_parent = ct_tree_iter.parent();
                 _write_node_to_db(&ct_tree_iter, ct_tree_iter.get_node_sequence(),
-                                  ct_tree_iter_parent ? ct_tree_iter_parent.get_node_id() : 0, node_pair.second, 0, -1);
+                                  ct_tree_iter_parent ? ct_tree_iter_parent.get_node_id() : 0, node_pair.second, 0, -1, &storage_cache);
             }
             // remove nodes and their sub nodes
             for (const auto node_id : syncPending.nodes_to_rm_set)
@@ -538,10 +545,11 @@ void CtStorageSqlite::_write_bookmarks_to_db(const std::list<gint64>& bookmarks)
 }
 
 void CtStorageSqlite::_write_node_to_db(CtTreeIter* ct_tree_iter,
-                                           const gint64 sequence,
-                                           const gint64 node_father_id,
-                                           const CtStorageNodeState& node_state,
-                                           const int start_offset, const int end_offset)
+                                        const gint64 sequence,
+                                        const gint64 node_father_id,
+                                        const CtStorageNodeState& node_state,
+                                        const int start_offset, const int end_offset,
+                                        CtStorageCache* storage_cache)
 {
     const gint64 node_id = ct_tree_iter->get_node_id();
     // is_ro is packed with additional bitfield data
@@ -597,7 +605,7 @@ void CtStorageSqlite::_write_node_to_db(CtTreeIter* ct_tree_iter,
     {
         for (CtAnchoredWidget* pAnchoredWidget : ct_tree_iter->get_embedded_pixbufs_tables_codeboxes(start_offset, end_offset))
         {
-            if (!pAnchoredWidget->to_sqlite(_pDb, node_id, start_offset >= 0 ? -start_offset : 0))
+            if (!pAnchoredWidget->to_sqlite(_pDb, node_id, start_offset >= 0 ? -start_offset : 0, storage_cache))
                 throw std::runtime_error("couldn't save widget");
             switch (pAnchoredWidget->get_type())
             {

@@ -80,6 +80,8 @@ bool mime_type_contains(const std::string& filepath, const std::string& type);
 enum class URI_TYPE { LOCAL_FILEPATH, WEB_URL, UNKNOWN };
 URI_TYPE get_uri_type(const std::string& uri);
 
+void parallel_for(size_t first, size_t last, std::function<void(size_t)> f);
+
 } // namespace CtMiscUtil
 
 namespace CtTextIterUtil {

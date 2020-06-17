@@ -344,6 +344,46 @@ TEST(MiscUtilsGroup, mime__type_contains)
 }
 
 
+TEST(MiscUtilsGroup, parallel_for)
+{
+    auto check_vec = [](const std::vector<int>& vec, const size_t& first, const size_t& last) -> bool {
+        for (size_t i = 0; i < vec.size(); ++i) {
+            if (i >= first && i < last) {
+                if (vec[i] != 1)
+                    return false;
+            } else if (vec[i] != 0)
+                return false;
+        }
+        return true;
+    };
+
+    // test check_vec
+    std::vector<int> vec(4, 0);
+    CHECK(check_vec(vec, 0, 0) == true);
+    CHECK(check_vec(vec, 0, 1) == false);
+    vec[1] = 1;
+    CHECK(check_vec(vec, 1, 1) == false);
+    CHECK(check_vec(vec, 1, 2) == true);
+    vec[1] = 2;
+    CHECK(check_vec(vec, 1, 1) == false);
+    CHECK(check_vec(vec, 1, 2) == false);
+
+
+
+    // check all possible index combinations
+    size_t vec_len = 30;
+    for (size_t first = 0; first < vec_len; ++first)
+        for (size_t last = first; last < vec_len; ++last)
+        {
+            std::vector<int> vec(vec_len + 1, 0);
+            CtMiscUtil::parallel_for(first, last, [&](size_t index){
+                vec[index] += 1;
+            });
+            CHECK(check_vec(vec, first, last));
+        }
+}
+
+
 
 TEST_GROUP(FileSystemGroup)
 {
@@ -360,6 +400,7 @@ TEST(FileSystemGroup, get_file_stem)
     STRCMP_EQUAL(".txt", CtFileSystem::get_file_stem("/root/.txt").c_str());
 #endif
 }
+
 
 
 int main(int ac, char** av)

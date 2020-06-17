@@ -36,6 +36,7 @@ class CtAnchoredWidget;
 class CtMainWin;
 class CtTreeIter;
 class CtTableCell;
+class CtStorageCache;
 
 class CtStorageXml : public CtStorageEntity
 {    
@@ -57,7 +58,7 @@ public:
                                                       std::list<CtAnchoredWidget*>& widgets) const override;
 private:
     Gtk::TreeIter  _node_from_xml(xmlpp::Element* xml_element, Gtk::TreeIter parent_iter, gint64 new_id);
-    void           _nodes_to_xml(CtTreeIter* ct_tree_iter, xmlpp::Element* p_node_parent);
+    void           _nodes_to_xml(CtTreeIter* ct_tree_iter, xmlpp::Element* p_node_parent, CtStorageCache* storage_cache);
 
 private:
     CtMainWin* _pCtMainWin{nullptr};
@@ -70,7 +71,7 @@ class CtStorageXmlHelper
 public:
     CtStorageXmlHelper(CtMainWin* pCtMainWin);
 
-    xmlpp::Element*           node_to_xml(CtTreeIter* ct_tree_iter, xmlpp::Element* p_node_parent, bool with_widgets);
+    xmlpp::Element*           node_to_xml(CtTreeIter* ct_tree_iter, xmlpp::Element* p_node_parent, bool with_widgets, CtStorageCache* storage_cache);
 
     Glib::RefPtr<Gsv::Buffer> create_buffer_and_widgets_from_xml(xmlpp::Element* parent_xml_element, const Glib::ustring& syntax,
                                                           std::list<CtAnchoredWidget*>& widgets, Gtk::TextIter* text_insert_pos, int force_offset);

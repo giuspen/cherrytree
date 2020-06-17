@@ -178,7 +178,7 @@ void CtCodebox::apply_syntax_highlighting()
     _pCtMainWin->apply_syntax_highlighting(get_buffer(), _syntaxHighlighting);
 }
 
-void CtCodebox::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment)
+void CtCodebox::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*)
 {
     // todo: fix code duplicates in void CtHtml2Xml::_insert_codebox()
     xmlpp::Element* p_codebox_node = p_node_parent->add_child("codebox");
@@ -193,7 +193,7 @@ void CtCodebox::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustmen
     p_codebox_node->add_child_text(get_text_content());
 }
 
-bool CtCodebox::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment)
+bool CtCodebox::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache*)
 {
     bool retVal{true};
     sqlite3_stmt *p_stmt;
