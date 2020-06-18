@@ -21,7 +21,7 @@
 
 #include "ct_types.h"
 #include "CppUTest/CommandLineTestRunner.h"
-
+#include "ct_filesystem.h"
 
 TEST_GROUP(TestTypesGroup)
 {

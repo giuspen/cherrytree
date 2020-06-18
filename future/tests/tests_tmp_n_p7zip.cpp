@@ -24,6 +24,7 @@
 #include "ct_app.h"
 #include "ct_p7za_iface.h"
 #include "config.h"
+#include "ct_filesystem.h"
 #include "test_consts.h"
 
 #include <glib/gstdio.h>
@@ -40,10 +41,10 @@ TEST(TmpP7zipGroup, CTTmp_misc)
     CtTmp* pCTmp = new CtTmp();
 
     // temporary directories are created when their path is first queried
-    std::string tempDirCtz{pCTmp->getHiddenDirPath(ctzInputPath)};
-    std::string tempDirCtx{pCTmp->getHiddenDirPath(ctxInputPath)};
-    std::string tempFileCtz{pCTmp->getHiddenFilePath(ctzInputPath)};
-    std::string tempFileCtx{pCTmp->getHiddenFilePath(ctxInputPath)};
+    std::string tempDirCtz{pCTmp->getHiddenDirPath(ctzInputPath).string()};
+    std::string tempDirCtx{pCTmp->getHiddenDirPath(ctxInputPath).string()};
+    std::string tempFileCtz{pCTmp->getHiddenFilePath(ctzInputPath).string()};
+    std::string tempFileCtx{pCTmp->getHiddenFilePath(ctxInputPath).string()};
 
     CHECK(Glib::file_test(tempDirCtz, Glib::FILE_TEST_IS_DIR));
     CHECK(Glib::file_test(tempDirCtx, Glib::FILE_TEST_IS_DIR));
@@ -68,11 +69,11 @@ TEST(TmpP7zipGroup, P7zaIfaceMisc)
 {
     // extract our test archive
     CtTmp ctTmp;
-    CHECK_EQUAL(0, CtP7zaIface::p7za_extract(ctzInputPath.c_str(), ctTmp.getHiddenDirPath(ctzInputPath), testPassword));
-    CHECK(Glib::file_test(ctTmp.getHiddenFilePath(ctzInputPath), Glib::FILE_TEST_EXISTS));
+    CHECK_EQUAL(0, CtP7zaIface::p7za_extract(ctzInputPath.c_str(), ctTmp.getHiddenDirPath(ctzInputPath).c_str(), testPassword));
+    CHECK(Glib::file_test(ctTmp.getHiddenFilePath(ctzInputPath).string(), Glib::FILE_TEST_EXISTS));
 
     // read and parse xml of extracted archive
-    std::string xml_txt = Glib::file_get_contents(ctTmp.getHiddenFilePath(ctzInputPath));
+    std::string xml_txt = Glib::file_get_contents(ctTmp.getHiddenFilePath(ctzInputPath).string());
     xmlpp::DomParser dom_parser;
     dom_parser.parse_memory(xml_txt);
     xmlpp::Document* p_document = dom_parser.get_document();
@@ -82,19 +83,19 @@ TEST(TmpP7zipGroup, P7zaIfaceMisc)
     STRCMP_EQUAL("NodeContent", static_cast<xmlpp::Element*>(p_element->find("node/rich_text")[0])->get_child_text()->get_content().c_str());
 
     // try and archive again the extracted xml
-    const std::string ctzTmpPathBis{Glib::build_filename(ctTmp.getHiddenDirPath(ctzInputPath), "7zr2.ctz")};
-    CHECK_EQUAL(0, CtP7zaIface::p7za_archive(ctTmp.getHiddenFilePath(ctzInputPath), ctzTmpPathBis.c_str(), testPasswordBis));
+    const std::string ctzTmpPathBis{Glib::build_filename(ctTmp.getHiddenDirPath(ctzInputPath).string(), "7zr2.ctz")};
+    CHECK_EQUAL(0, CtP7zaIface::p7za_archive(ctTmp.getHiddenFilePath(ctzInputPath).c_str(), ctzTmpPathBis.c_str(), testPasswordBis));
 
     CHECK(Glib::file_test(ctzTmpPathBis, Glib::FILE_TEST_EXISTS));
 
     // remove originally extracted
-    CHECK_EQUAL(0, g_remove(ctTmp.getHiddenFilePath(ctzInputPath)));
-    CHECK_FALSE(Glib::file_test(ctTmp.getHiddenFilePath(ctzInputPath), Glib::FILE_TEST_EXISTS));
+    CHECK_EQUAL(0, g_remove(ctTmp.getHiddenFilePath(ctzInputPath).c_str()));
+    CHECK_FALSE(Glib::file_test(ctTmp.getHiddenFilePath(ctzInputPath).string(), Glib::FILE_TEST_EXISTS));
 
     // extract again from the archive that we created
-    CHECK_EQUAL(0, CtP7zaIface::p7za_extract(ctzTmpPathBis.c_str(), ctTmp.getHiddenDirPath(ctzInputPath), testPasswordBis));
-    CHECK(Glib::file_test(ctTmp.getHiddenFilePath(ctzInputPath), Glib::FILE_TEST_EXISTS));
-    std::string xml_txt_bis = Glib::file_get_contents(ctTmp.getHiddenFilePath(ctzInputPath));
+    CHECK_EQUAL(0, CtP7zaIface::p7za_extract(ctzTmpPathBis.c_str(), ctTmp.getHiddenDirPath(ctzInputPath).c_str(), testPasswordBis));
+    CHECK(Glib::file_test(ctTmp.getHiddenFilePath(ctzInputPath).string(), Glib::FILE_TEST_EXISTS));
+    std::string xml_txt_bis = Glib::file_get_contents(ctTmp.getHiddenFilePath(ctzInputPath).string());
     STRCMP_EQUAL(xml_txt.c_str(), xml_txt_bis.c_str());
 
     // remove alien/unexpected files in temp directory
@@ -111,13 +112,13 @@ TEST(TmpP7zipGroup, P7zaIfaceMisc)
 TEST(TmpP7zipGroup, P7zaExtravtWrongPasswd)
 {
     CtTmp ctTmp;
-    const std::string ctdTmpPath{Glib::build_filename(ctTmp.getHiddenDirPath(ctzInputPath), "7zr.ctd")};
+    const std::string ctdTmpPath{(ctTmp.getHiddenDirPath(ctzInputPath) /"7zr.ctd").string()};
 
     // wrong password
-    CHECK(0 != CtP7zaIface::p7za_extract(ctzInputPath.c_str(), ctTmp.getHiddenDirPath(ctzInputPath), "wrongpassword"));
+    CHECK(0 != CtP7zaIface::p7za_extract(ctzInputPath.c_str(), ctTmp.getHiddenDirPath(ctzInputPath).c_str(), "wrongpassword"));
     CHECK_FALSE(Glib::file_test(ctdTmpPath, Glib::FILE_TEST_EXISTS));
 
     // correct password
-    CHECK_EQUAL(0, CtP7zaIface::p7za_extract(ctzInputPath.c_str(), ctTmp.getHiddenDirPath(ctzInputPath), testPassword));
+    CHECK_EQUAL(0, CtP7zaIface::p7za_extract(ctzInputPath.c_str(), ctTmp.getHiddenDirPath(ctzInputPath).c_str(), testPassword));
     CHECK_TRUE(Glib::file_test(ctdTmpPath, Glib::FILE_TEST_EXISTS));
 }

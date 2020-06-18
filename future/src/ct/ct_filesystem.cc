@@ -39,13 +39,15 @@ void path::append(const path& other)
 
 path path::extension() const
 {
-    auto riter = _path.crbegin();
-    while (riter != _path.crend() && *riter != '.') {
-        ++riter;
+    auto iter = _path.cend();
+    while (iter != _path.cbegin()) {
+        --iter;
+        if (*iter == '.') break;
+        if (*iter == path_sep) return path(""); // Cannot have an extension if not yet found
     }
-    if (riter == _path.crbegin()) return path("");
+    if (iter == _path.cend() || (iter == _path.cbegin() && _path.size() > 1)) return path("");
 
-    return path(riter.base(), _path.cend());
+    return path(iter, _path.cend());
 }
 
 path& path::operator=(path::string_type other)
@@ -226,6 +228,8 @@ std::uintmax_t remove_all(const path& dir)
         }
         remove(file);
     }
+    remove(dir);
+    ++count;
     return count;
 }
 

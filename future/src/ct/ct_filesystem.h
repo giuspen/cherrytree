@@ -51,7 +51,6 @@ time_t getmtime(const path& path);
 int getsize(const std::string& path);
 
 std::list<path> get_dir_entries(const path& dir);
-std::string get_file_stem(const std::string& path);
 
 void external_filepath_open(const path& filepath, bool open_folder_if_file_not_exists, CtConfig* config);
 void external_folderpath_open(const path& folderpath, CtConfig* config);

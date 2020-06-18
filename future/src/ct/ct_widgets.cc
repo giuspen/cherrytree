@@ -77,12 +77,12 @@ fs::path CtTmp::getHiddenFilePath(const fs::path& visiblePath)
         if (basename.extension() == ".ctx")
         {
             basename = basename.stem();
-            basename += ".ctd";
+            basename += ".ctb";
         }
         else if (basename.extension() == ".ctz")
         {
             basename = basename.stem();
-            basename += ".ctb";
+            basename += ".ctd";
         }
         _mapHiddenFiles[visiblePath.string()] = g_build_filename(tempDir.c_str(), basename.c_str(), nullptr);
     }

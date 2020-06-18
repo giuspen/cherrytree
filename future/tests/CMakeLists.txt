@@ -9,6 +9,7 @@ set(CT_TEST_FILES
     tests_tmp_n_p7zip.cpp
     tests_types.cpp
     tests_clipboard.cpp
+    tests_filesystem.cpp
 )
 
 # some tests doesn't work in TRAVIS, so turn off them
