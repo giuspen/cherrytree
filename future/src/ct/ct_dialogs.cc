@@ -780,7 +780,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
 
     Gtk::HBox hbox_folder;
     Gtk::Image image_folder;
-    image_folder.set_from_icon_name(Gtk::Stock::DIRECTORY.id, Gtk::ICON_SIZE_BUTTON);
+    image_folder.set_from_icon_name("ct_directory", Gtk::ICON_SIZE_BUTTON);
     Gtk::RadioButton radiobutton_folder(_("To Folder"));
     radiobutton_folder.join_group(radiobutton_webs);
     Gtk::Entry entry_folder;
@@ -1854,7 +1854,7 @@ CtYesNoCancel CtDialogs::exit_save_dialog(Gtk::Window& parent)
     dialog.set_default_size(350, 150);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     Gtk::Image image;
-    image.set_from_icon_name(Gtk::Stock::DIALOG_WARNING.id, Gtk::ICON_SIZE_DIALOG);
+    image.set_from_icon_name("ct_warning", Gtk::ICON_SIZE_DIALOG);
     Gtk::Label label(Glib::ustring("<b>")+_("The Current Document was Updated.")+"</b>\n\n<b>"+_("Do you want to Save the Changes?")+"</b>");
     label.set_use_markup(true);
     Gtk::HBox hbox;

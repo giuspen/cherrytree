@@ -1214,13 +1214,13 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
     scrolledwindow->add(*treeview);
 
     Gtk::Button* button_add = Gtk::manage(new Gtk::Button());
-    button_add->set_image(*_pCtMainWin->new_image_from_stock(Gtk::Stock::ADD.id,  Gtk::ICON_SIZE_BUTTON));
+    button_add->set_image(*_pCtMainWin->new_image_from_stock("ct_add",  Gtk::ICON_SIZE_BUTTON));
     button_add->set_tooltip_text(_("Add"));
     Gtk::Button* button_remove = Gtk::manage(new Gtk::Button());
-    button_remove->set_image(*_pCtMainWin->new_image_from_stock(Gtk::Stock::REMOVE.id, Gtk::ICON_SIZE_BUTTON));
+    button_remove->set_image(*_pCtMainWin->new_image_from_stock("ct_remove", Gtk::ICON_SIZE_BUTTON));
     button_remove->set_tooltip_text(_("Remove Selected"));
     Gtk::Button* button_reset = Gtk::manage(new Gtk::Button());
-    button_reset->set_image(*_pCtMainWin->new_image_from_stock(Gtk::Stock::UNDO.id, Gtk::ICON_SIZE_BUTTON));
+    button_reset->set_image(*_pCtMainWin->new_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
     button_reset->set_tooltip_text(_("Reset to Default"));
 
     Gtk::HBox* hbox = Gtk::manage(new Gtk::HBox());
@@ -1302,10 +1302,10 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
 
     Gtk::VBox* vbox_buttons = Gtk::manage(new Gtk::VBox());
     Gtk::Button* button_edit = Gtk::manage(new Gtk::Button());
-    button_edit->set_image(*_pCtMainWin->new_image_from_stock(Gtk::Stock::ADD.id,  Gtk::ICON_SIZE_BUTTON));
+    button_edit->set_image(*_pCtMainWin->new_image_from_stock("ct_add",  Gtk::ICON_SIZE_BUTTON));
     button_edit->set_tooltip_text(_("Change Selected"));
     Gtk::Button* button_reset = Gtk::manage(new Gtk::Button());
-    button_reset->set_image(*_pCtMainWin->new_image_from_stock(Gtk::Stock::UNDO.id,  Gtk::ICON_SIZE_BUTTON));
+    button_reset->set_image(*_pCtMainWin->new_image_from_stock("ct_undo",  Gtk::ICON_SIZE_BUTTON));
     button_reset->set_tooltip_text(_("Reset to Default"));
     vbox_buttons->pack_start(*button_edit, false, false);
     vbox_buttons->pack_start(*Gtk::manage(new Gtk::Label()), true, true);
