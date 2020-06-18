@@ -990,7 +990,7 @@ void CtActions::_iterated_find_dialog()
         button_find_bw->set_image_from_icon_name("ct_find_back", Gtk::ICON_SIZE_BUTTON);
         button_find_fw->set_image_from_icon_name("ct_find_again", Gtk::ICON_SIZE_BUTTON);
         button_replace->set_image_from_icon_name("ct_find_replace", Gtk::ICON_SIZE_BUTTON);
-        button_undo->set_image_from_icon_name(Gtk::Stock::UNDO.id, Gtk::ICON_SIZE_BUTTON);
+        button_undo->set_image_from_icon_name("ct_undo", Gtk::ICON_SIZE_BUTTON);
 
         button_find_fw->grab_focus();
         button_find_fw->grab_default();
