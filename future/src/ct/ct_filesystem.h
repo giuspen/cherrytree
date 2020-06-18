@@ -101,7 +101,7 @@ public:
 
     path() = default;
     path(string_type path) : _path(_get_platform_path(std::move(path))) {}
-    path(const value_type* path) : _path(string_type(path)) {}
+    path(const value_type* cpath) : path(string_type(cpath)) {}
     template<typename ITERATOR_T>
     path(ITERATOR_T begin, ITERATOR_T end) : path(string_type(begin, end)) {}
     ~path() = default;
