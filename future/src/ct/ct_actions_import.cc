@@ -24,6 +24,7 @@
 #include "ct_imports.h"
 #include "ct_storage_control.h"
 #include "ct_export2html.h"
+#include "ct_storage_xml.h"
 
 #include "ct_logging.h"
 #include <fstream>
@@ -231,12 +232,24 @@ void CtActions::_create_imported_nodes(ct_imported_node* imported_nodes)
         node_data.customIconId = 0;
         node_data.isRO = false;
         node_data.syntax = imported_node->node_syntax;
-        node_data.rTextBuffer = _pCtMainWin->get_new_text_buffer();
         node_data.tsCreation = std::time(nullptr);
         node_data.tsLastSave = node_data.tsCreation;
-        if (imported_node->has_content()) {
-            CtClipboard(_pCtMainWin).from_xml_string_to_buffer(node_data.rTextBuffer, imported_node->xml_content.write_to_string());
+        if (imported_node->has_content())
+        {
+            Glib::RefPtr<Gsv::Buffer> buffer = _pCtMainWin->get_new_text_buffer();
+            buffer->begin_not_undoable_action();
+            for (xmlpp::Node* xml_slot : imported_node->xml_content.get_root_node()->get_children("slot"))
+                for (xmlpp::Node* child: xml_slot->get_children())
+                {
+                    Gtk::TextIter insert_iter = buffer->get_insert()->get_iter();
+                    CtStorageXmlHelper(_pCtMainWin).get_text_buffer_one_slot_from_xml(buffer, child, node_data.anchoredWidgets, &insert_iter, insert_iter.get_offset());
+                }
+            buffer->end_not_undoable_action();
+            buffer->set_modified(false);
+            node_data.rTextBuffer = buffer;
         }
+        else
+            node_data.rTextBuffer = _pCtMainWin->get_new_text_buffer();
 
         Gtk::TreeIter node_iter;
         if (is_child && curr_iter)
