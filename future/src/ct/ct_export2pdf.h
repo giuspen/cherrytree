@@ -30,9 +30,9 @@ class CtExport2Pdf
 public:
     CtExport2Pdf(CtMainWin* pCtMainWin) { _pCtMainWin = pCtMainWin; }
 
-    void node_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options, int sel_start, int sel_end);
-    void node_and_subnodes_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options);
-    void tree_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options);
+    void node_export_print(const fs::path& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options, int sel_start, int sel_end);
+    void node_and_subnodes_export_print(const fs::path& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options);
+    void tree_export_print(const fs::path& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options);
 
 private:
     void _nodes_all_export_print_iter(CtTreeIter tree_iter, const CtExportOptions& options,
@@ -149,7 +149,7 @@ public:
 public:
     void run_page_setup_dialog(Gtk::Window* pMainWin);
 
-    void print_text(CtMainWin* pCtMainWin, const Glib::ustring& pdf_filepath,
+    void print_text(CtMainWin* pCtMainWin, const fs::path& pdf_filepath,
                     const std::vector<Glib::ustring>& pango_text, const Glib::ustring& text_font, const Glib::ustring& code_font,
                     const std::list<CtAnchoredWidget*>& widgets, int text_window_width);
 

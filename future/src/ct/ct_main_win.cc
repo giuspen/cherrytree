@@ -795,10 +795,10 @@ void CtMainWin::config_switch_tree_side()
 
 void CtMainWin::_ensure_curr_doc_in_recent_docs()
 {
-    const std::string currDocFilePath = _uCtStorage->get_file_path();
+    fs::path currDocFilePath = _uCtStorage->get_file_path();
     if (not currDocFilePath.empty())
     {
-        _pCtConfig->recentDocsFilepaths.move_or_push_front(Glib::canonicalize_filename(currDocFilePath));
+        _pCtConfig->recentDocsFilepaths.move_or_push_front(fs::canonical(currDocFilePath));
         CtRecentDocRestore prevDocRestore;
         prevDocRestore.exp_coll_str = _uCtTreestore->treeview_get_tree_expanded_collapsed_string(*_uCtTreeview);
         const CtTreeIter prevTreeIter = curr_tree_iter();
@@ -808,7 +808,7 @@ void CtMainWin::_ensure_curr_doc_in_recent_docs()
             const Glib::RefPtr<Gsv::Buffer> rTextBuffer = prevTreeIter.get_node_text_buffer();
             prevDocRestore.cursor_pos = rTextBuffer->property_cursor_position();
         }
-        _pCtConfig->recentDocsRestore[currDocFilePath] = prevDocRestore;
+        _pCtConfig->recentDocsRestore[currDocFilePath.string()] = prevDocRestore;
     }
 }
 
@@ -822,18 +822,18 @@ void CtMainWin::_zoom_tree(bool is_increase)
     _uCtTreeview->override_font(description);
 }
 
-bool CtMainWin::file_open(const std::string& filepath, const std::string& node_to_focus)
+bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_focus)
 {
-    if (!Glib::file_test(filepath, Glib::FILE_TEST_IS_REGULAR)) {
+    if (!fs::is_regular_file(filepath)) {
         CtDialogs::error_dialog("File does not exist", *this);
         return false;
     }
-    if (CtMiscUtil::get_doc_type(filepath) == CtDocType::None) {
+    if (CtFileSystem::get_doc_type(filepath) == CtDocType::None) {
         // can't open file but can insert content into a new node
         if (file_insert_plain_text(filepath)) {
             return false; // that's right
         } else {
-            CtDialogs::error_dialog(str::format(_("\"%s\" is Not a CherryTree Document"), filepath), *this);
+            CtDialogs::error_dialog(str::format(_("\"%s\" is Not a CherryTree Document"), filepath.string()), *this);
             return false;
         }
     }
@@ -841,7 +841,7 @@ bool CtMainWin::file_open(const std::string& filepath, const std::string& node_t
     if (!file_save_ask_user())
         return false;
 
-    std::string prev_path = _uCtStorage->get_file_path();
+    fs::path prev_path = _uCtStorage->get_file_path();
 
     _ensure_curr_doc_in_recent_docs();
     reset(); // cannot reset after load_from because load_from fill tree store
@@ -852,7 +852,7 @@ bool CtMainWin::file_open(const std::string& filepath, const std::string& node_t
         CtDialogs::error_dialog("Error Parsing the CherryTree File", *this);
 
         // trying to recover prevous document
-        if (prev_path != "")
+        if (!prev_path.empty())
             file_open(prev_path, ""); // it won't be in loop because storage is empty
         return false;                 // show the given document is not loaded
     }
@@ -861,10 +861,10 @@ bool CtMainWin::file_open(const std::string& filepath, const std::string& node_t
 
     _title_update(false/*saveNeeded*/);
     menu_set_bookmark_menu_items();
-    bool can_vacuum = CtMiscUtil::get_doc_type(_uCtStorage->get_file_path()) == CtDocType::SQLite;
+    bool can_vacuum = CtFileSystem::get_doc_type(_uCtStorage->get_file_path()) == CtDocType::SQLite;
     _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(can_vacuum);
 
-    const auto iterDocsRestore{_pCtConfig->recentDocsRestore.find(filepath)};
+    const auto iterDocsRestore{_pCtConfig->recentDocsRestore.find(filepath.string())};
     switch (_pCtConfig->restoreExpColl)
     {
         case CtRestoreExpColl::ALL_EXP:
@@ -903,7 +903,7 @@ bool CtMainWin::file_open(const std::string& filepath, const std::string& node_t
         _ctTextview.grab_focus();
     }
 
-    get_ct_config()->recentDocsFilepaths.move_or_push_front(Glib::canonicalize_filename(filepath));
+    get_ct_config()->recentDocsFilepaths.move_or_push_front(fs::canonical(filepath));
     menu_set_items_recent_documents();
 
     return true;
@@ -971,7 +971,7 @@ void CtMainWin::file_save_as(const std::string& new_filepath, const std::string&
 
     _uCtStorage.reset(new_storage);
 
-    bool can_vacuum = CtMiscUtil::get_doc_type(_uCtStorage->get_file_path()) == CtDocType::SQLite;
+    bool can_vacuum = CtFileSystem::get_doc_type(_uCtStorage->get_file_path()) == CtDocType::SQLite;
     _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(can_vacuum);
 
     update_window_save_not_needed();
@@ -1003,16 +1003,16 @@ void CtMainWin::file_autosave_restart()
     }, get_ct_config()->autosaveVal * 60);
 }
 
-bool CtMainWin::file_insert_plain_text(const std::string& filepath)
+bool CtMainWin::file_insert_plain_text(const fs::path& filepath)
 {
     spdlog::debug("trying to insert text file as node: {}", filepath);
 
     gchar *text = nullptr;
     gsize length = 0;
     try {
-        if (g_file_get_contents (filepath.c_str(), &text, &length, NULL)) {
+        if (g_file_get_contents (filepath.c_str(), &text, &length, nullptr)) {
             Glib::ustring node_content(text, length);
-            std::string name = Glib::path_get_basename(filepath);
+            std::string name = filepath.filename().string();
             get_ct_actions()->_node_child_exist_or_create(Gtk::TreeIter(), name);
             get_text_view().get_buffer()->insert(get_text_view().get_buffer()->end(), node_content);
             g_free(text);
@@ -1732,7 +1732,7 @@ void CtMainWin::_title_update(const bool saveNeeded)
     }
     if (_uCtStorage->get_file_path() != "")
     {
-        title += _uCtStorage->get_file_name() + " - " + _uCtStorage->get_file_dir() + " - ";
+        title += _uCtStorage->get_file_name().string() + " - " + _uCtStorage->get_file_dir().string() + " - ";
     }
     title += "CherryTree ";
     title += CtConst::CT_VERSION;

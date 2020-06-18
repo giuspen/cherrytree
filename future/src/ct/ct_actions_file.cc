@@ -60,11 +60,11 @@ void CtActions::file_save_as()
         return;
     }
     CtDialogs::storage_select_args storageSelArgs(_pCtMainWin);
-    std::string currDocFilepath = _pCtMainWin->get_ct_storage()->get_file_path();
+    fs::path currDocFilepath = _pCtMainWin->get_ct_storage()->get_file_path();
     if (not currDocFilepath.empty())
     {
-        storageSelArgs.ctDocType = CtMiscUtil::get_doc_type(currDocFilepath);
-        storageSelArgs.ctDocEncrypt = CtMiscUtil::get_doc_encrypt(currDocFilepath);
+        storageSelArgs.ctDocType = fs::get_doc_type(currDocFilepath);
+        storageSelArgs.ctDocEncrypt = fs::get_doc_encrypt(currDocFilepath);
     }
     if (not CtDialogs::choose_data_storage_dialog(storageSelArgs))
     {
@@ -73,9 +73,9 @@ void CtActions::file_save_as()
     CtDialogs::file_select_args fileSelArgs(_pCtMainWin);
     if (not currDocFilepath.empty())
     {
-        fileSelArgs.curr_folder = Glib::path_get_dirname(currDocFilepath);
-        const std::string suggested_basename = Glib::path_get_basename(currDocFilepath);
-        fileSelArgs.curr_file_name = suggested_basename.substr(0, suggested_basename.size()-4)+CtMiscUtil::get_doc_extension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);
+        fileSelArgs.curr_folder = currDocFilepath.parent_path();
+        fs::path suggested_basename = currDocFilepath.filename();
+        fileSelArgs.curr_file_name = suggested_basename.stem().string() + CtMiscUtil::get_doc_extension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);
     }
     fileSelArgs.filter_name = _("CherryTree Document");
     std::string fileExtension = CtMiscUtil::get_doc_extension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);

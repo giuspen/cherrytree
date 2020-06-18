@@ -400,18 +400,18 @@ Gtk::Menu* CtMenu::build_recent_docs_menu(const CtRecentDocsFilepaths& recentDoc
                                           sigc::slot<void, const std::string&>& recent_doc_rm_action)
 {
     Gtk::Menu* pMenu = Gtk::manage(new Gtk::Menu());
-    for (const std::string& filepath : recentDocsFilepaths)
+    for (const fs::path& filepath : recentDocsFilepaths)
     {
         Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), filepath.c_str(), "ct_open", nullptr, nullptr, filepath.c_str(), nullptr, nullptr, nullptr);
-        pMenuItem->signal_activate().connect(sigc::bind(recent_doc_open_action, filepath));
+        pMenuItem->signal_activate().connect(sigc::bind(recent_doc_open_action, filepath.string()));
     }
     Gtk::MenuItem* pMenuItemRm = _add_menu_item(GTK_WIDGET(pMenu->gobj()), _("Remove from list"), "ct_edit_delete", nullptr, nullptr, _("Remove from list"), nullptr, nullptr, nullptr);
     Gtk::Menu* pMenuRm = Gtk::manage(new Gtk::Menu());
     pMenuItemRm->set_submenu(*pMenuRm);
-    for (const std::string& filepath : recentDocsFilepaths)
+    for (const fs::path& filepath : recentDocsFilepaths)
     {
         Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenuRm->gobj()), filepath.c_str(), "ct_edit_delete", nullptr, nullptr, filepath.c_str(), nullptr, nullptr, nullptr);
-        pMenuItem->signal_activate().connect(sigc::bind(recent_doc_rm_action, filepath));
+        pMenuItem->signal_activate().connect(sigc::bind(recent_doc_rm_action, filepath.string()));
     }
     return pMenu;
 }

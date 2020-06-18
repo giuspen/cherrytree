@@ -26,7 +26,7 @@
 #include "ct_image.h"
 #include "ct_treestore.h"
 #include "ct_dialogs.h" // CtExportOptions
-#include <filesystem>
+#include "ct_misc_utils.h"
 
 class CtExport2Html
 {
@@ -51,11 +51,11 @@ public:
                                            Gtk::TextIter end_iter, const Glib::ustring& syntax_highlighting);
     Glib::ustring table_export_to_html(CtTable* table);
     Glib::ustring codebox_export_to_html(CtCodebox* codebox);
-    bool          prepare_html_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool export_overwrite, Glib::ustring& export_path);
+    bool          prepare_html_folder(fs::path dir_place, fs::path new_folder, bool export_overwrite, fs::path& export_path);
 
 private:
-    Glib::ustring _get_embfile_html(CtImageEmbFile* embfile, CtTreeIter tree_iter, Glib::ustring embed_dir);
-    Glib::ustring _get_image_html(CtImage* image, const Glib::ustring& images_dir, int& images_count, CtTreeIter* tree_iter);
+    Glib::ustring _get_embfile_html(CtImageEmbFile* embfile, CtTreeIter tree_iter, fs::path embed_dir);
+    Glib::ustring _get_image_html(CtImage* image, const fs::path& images_dir, int& images_count, CtTreeIter* tree_iter);
     Glib::ustring _get_codebox_html(CtCodebox* codebox);
     Glib::ustring _get_table_html(CtTable* table);
 
@@ -64,7 +64,7 @@ private:
                                        std::vector<Glib::ustring>& out_slots, std::vector<CtAnchoredWidget*>& out_widgets);
     Glib::ustring _html_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer);
     Glib::ustring _html_text_serialize(Gtk::TextIter start_iter, Gtk::TextIter end_iter, const std::map<std::string_view, std::string>& curr_attributes);
-    Glib::ustring _get_href_from_link_prop_val(Glib::ustring link_prop_val);
+    std::string _get_href_from_link_prop_val(Glib::ustring link_prop_val);
     Glib::ustring _get_object_alignment_string(Glib::ustring alignment);
 
     void          _tree_links_text_iter(CtTreeIter tree_iter, Glib::ustring& tree_links_text, int tree_count_level, bool index_in_page);
@@ -72,15 +72,15 @@ private:
     Glib::ustring _get_html_filename(CtTreeIter tree_iter);
 
 public:
-    static Glib::ustring _link_process_filepath(const Glib::ustring& filepath_raw);
-    static Glib::ustring _link_process_folderpath(const Glib::ustring& folderpath_raw);
+    static fs::path _link_process_filepath(const std::string& filepath_raw);
+    static fs::path _link_process_folderpath(const std::string& folderpath_raw);
 
 private:
     CtMainWin*    _pCtMainWin;
-    Glib::ustring _export_dir;
-    Glib::ustring _images_dir;
-    Glib::ustring _embed_dir;
-    Glib::ustring _res_dir;
+    fs::path _export_dir;
+    fs::path _images_dir;
+    fs::path _embed_dir;
+    fs::path _res_dir;
 };
 
 
@@ -105,6 +105,6 @@ constexpr bool supports_syntax(std::string_view syntax) {
 
 void to_html(std::istream& input, std::ostream& output, std::string from_format);
 
-void to_html(const std::string& file, std::ostream& output);
+void to_html(const fs::path& file, std::ostream& output);
 
 } // CtPandoc

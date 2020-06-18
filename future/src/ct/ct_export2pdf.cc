@@ -24,7 +24,7 @@
 
 #include <utility>
 
-void CtExport2Pdf::node_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options, int sel_start, int sel_end)
+void CtExport2Pdf::node_export_print(const fs::path& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options, int sel_start, int sel_end)
 {
     std::vector<Glib::ustring> pango_slots;
     std::list<CtAnchoredWidget*> widgets;
@@ -46,7 +46,7 @@ void CtExport2Pdf::node_export_print(const Glib::ustring& pdf_filepath, CtTreeIt
                                            widgets, _pCtMainWin->get_text_view().get_allocation().get_width());
 }
 
-void CtExport2Pdf::node_and_subnodes_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options)
+void CtExport2Pdf::node_and_subnodes_export_print(const fs::path& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options)
 {
     std::vector<Glib::ustring> tree_pango_slots;
     std::list<CtAnchoredWidget*> tree_widgets;
@@ -57,7 +57,7 @@ void CtExport2Pdf::node_and_subnodes_export_print(const Glib::ustring& pdf_filep
                                            tree_widgets, _pCtMainWin->get_text_view().get_allocation().get_width());
 }
 
-void CtExport2Pdf::tree_export_print(const Glib::ustring& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options)
+void CtExport2Pdf::tree_export_print(const fs::path& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options)
 {
     std::vector<Glib::ustring> tree_pango_slots;
     std::list<CtAnchoredWidget*> tree_widgets;
@@ -135,7 +135,7 @@ void CtPrint::run_page_setup_dialog(Gtk::Window* pWin)
 }
 
 // Start the Print Operations for Text
-void CtPrint::print_text(CtMainWin* pCtMainWin, const Glib::ustring& pdf_filepath,
+void CtPrint::print_text(CtMainWin* pCtMainWin, const fs::path& pdf_filepath,
                          const std::vector<Glib::ustring>& pango_text, const Glib::ustring& text_font, const Glib::ustring& code_font,
                          const std::list<CtAnchoredWidget*>& widgets, int text_window_width)
 {
@@ -166,7 +166,7 @@ void CtPrint::print_text(CtMainWin* pCtMainWin, const Glib::ustring& pdf_filepat
     print_data.operation->set_print_settings(_pPrintSettings);
     print_data.operation->signal_begin_print().connect(sigc::bind(fun_begin_print_text, &print_data));
     print_data.operation->signal_draw_page().connect(sigc::bind(fun_draw_page_text, &print_data));
-    print_data.operation->set_export_filename(pdf_filepath);
+    print_data.operation->set_export_filename(pdf_filepath.string());
     try
     {
         auto res = print_data.operation->run(!pdf_filepath.empty() ? Gtk::PRINT_OPERATION_ACTION_EXPORT : Gtk::PRINT_OPERATION_ACTION_PRINT_DIALOG);

@@ -78,9 +78,9 @@ CtImage::~CtImage()
 {
 }
 
-void CtImage::save(const Glib::ustring& file_name, const Glib::ustring& type)
+void CtImage::save(const fs::path& file_name, const Glib::ustring& type)
 {
-    _rPixbuf->save(file_name, type);
+    _rPixbuf->save(file_name.string(), type);
 }
 
 
@@ -272,7 +272,7 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
 }
 
 CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
-                               const Glib::ustring& fileName,
+                               const fs::path& fileName,
                                const std::string& rawBlob,
                                const double& timeSeconds,
                                const int charOffset,
@@ -292,7 +292,7 @@ void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent, const int offset_adju
     xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
     p_image_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
     p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
-    p_image_node->set_attribute("filename", _fileName);
+    p_image_node->set_attribute("filename", _fileName.string());
     p_image_node->set_attribute("time", std::to_string(_timeSeconds));
     const std::string encodedBlob = Glib::Base64::encode(_rawBlob);
     p_image_node->add_child_text(encodedBlob);
@@ -309,7 +309,7 @@ bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int off
     }
     else
     {
-        const std::string file_name = Glib::locale_from_utf8(_fileName);
+        const std::string file_name = Glib::locale_from_utf8(_fileName.string());
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
         sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);
@@ -337,7 +337,7 @@ void CtImageEmbFile::update_label_widget()
 {
     if (_pCtMainWin->get_ct_config()->embfileShowFileName)
     {
-        _labelWidget.set_markup("<b><small>"+_fileName+"</small></b>");
+        _labelWidget.set_markup("<b><small>"+_fileName.string()+"</small></b>");
         _labelWidget.show();
         _frame.set_label_widget(_labelWidget);
     }

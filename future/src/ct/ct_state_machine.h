@@ -78,7 +78,7 @@ public:
     virtual CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin);
 
 public:
-    Glib::ustring fileName;
+    fs::path      fileName;
     std::string   rawBlob;      // raw data, not a string
     double        timeSeconds;
 };

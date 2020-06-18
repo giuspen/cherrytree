@@ -32,8 +32,8 @@ public:
     CtExport2Txt(CtMainWin* pCtMainWin);
 
 public:
-    Glib::ustring node_export_to_txt(CtTreeIter tree_iter, Glib::ustring filepath, CtExportOptions export_options, int sel_start, int sel_end);
-    void          nodes_all_export_to_txt(bool all_tree, Glib::ustring export_dir, Glib::ustring single_txt_filepath, CtExportOptions export_options);
+    Glib::ustring node_export_to_txt(CtTreeIter tree_iter, fs::path filepath, CtExportOptions export_options, int sel_start, int sel_end);
+    void          nodes_all_export_to_txt(bool all_tree, fs::path export_dir, fs::path single_txt_filepath, CtExportOptions export_options);
     Glib::ustring selection_export_to_txt(Glib::RefPtr<Gtk::TextBuffer> text_buffer, int sel_start, int sel_end, bool check_link_target);
 
     Glib::ustring get_table_plain(CtTable* table_orig);

@@ -47,14 +47,22 @@ namespace CtCSV {
 }
 
 namespace CtMiscUtil {
+template<class ITER_T>
+std::string join(ITER_T begin, ITER_T end, std::string_view sep) {
+    std::ostringstream out;
+    while (begin != end) {
+        out << *begin << sep;
+        ++begin;
+    }
+    return out.str();
+}
+
+std::vector<std::string> split(const std::string& str, std::string_view sep);
 
 std::string get_ct_language();
 
-CtDocType get_doc_type(const std::string& fileName);
 
-CtDocEncrypt get_doc_encrypt(const std::string& fileName);
-
-const gchar* get_doc_extension(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt);
+std::string get_doc_extension(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt);
 
 void filepath_extension_fix(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt, std::string& filepath);
 
@@ -409,88 +417,5 @@ bool exists(const MAP& m, const KEY& key)
 
 } // namespace map
 
-namespace CtFileSystem {
-class path;
-// From Slash to Backslash when needed
-std::string get_proper_platform_filepath(std::string filepath);
 
-bool copy_file(const std::string& from_file, const std::string& to_file);
-
-bool move_file(const std::string& from_file, const std::string& to_file);
-
-path abspath(const path& path);
-
-bool exists(const path& filepath);
-
-bool is_directory(const path& path);
-
-time_t getmtime(const std::string& path);
-
-int getsize(const std::string& path);
-
-std::list<std::string> get_dir_entries(const std::string& dir);
-std::string get_file_stem(const std::string& path);
-
-void external_filepath_open(const path& filepath, bool open_folder_if_file_not_exists, CtConfig* config);
-void external_folderpath_open(const path& folderpath, CtConfig* config);
-
-std::string prepare_export_folder(const std::string& dir_place, std::string new_folder, bool overwrite_existing);
-
-bool rmdir(const std::string& dir);
-
-std::string get_cherrytree_datadir();
-std::string get_cherrytree_localedir();
-std::string get_cherrytree_configdir();
-std::string get_cherrytree_lang_filepath();
-
-std::string download_file(const std::string& filepath);
-
-/**
- * @class path
- * @brief An object representing a filepath
- */
-class path {
-    using path_type = std::string;
-public:
-    path(path_type path) : _path(std::move(path)) {}
-    path(const char* path) : _path(path) {}
-    
-    ~path() = default;
-    
-    void append(const path& other) {
-        _path = Glib::build_filename(_path, other._path);
-    }
-
-    path& operator=(std::string other) {
-        _path.swap(other);
-        return *this;
-    }
-
-
-    friend path operator/(const path& lhs, const path& rhs) {
-        return path(Glib::build_filename(lhs._path, rhs._path));
-    }
-
-    friend path operator/(const path& lhs, const std::string& rhs) {
-        return path(Glib::build_filename(lhs._path, rhs));
-    }
-
-    friend void operator+=(path& lhs, const path& rhs) { lhs._path += rhs._path; }
-    friend void operator+=(path& lhs, const std::string& rhs) { lhs._path += rhs; }
-    
-    const char* c_str() const { return string().c_str(); };
-    std::string string() const { return get_proper_platform_filepath(_path); }
-private:
-    path_type _path;
-};
-} // namespace CtFileSystem
-
-template<>
-struct fmt::formatter<CtFileSystem::path> {
-    constexpr auto parse(format_parse_context& ctx) { return ctx.begin(); }
-    template<typename FormatContext>
-        auto format(const CtFileSystem::path& path, FormatContext& ctx) {
-            return format_to(ctx.out(), "{}", path.string());
-        }
-};
 

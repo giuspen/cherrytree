@@ -49,7 +49,7 @@ public:
     void apply_syntax_highlighting() override {}
     void set_modified_false() override {}
 
-    void save(const Glib::ustring& file_name, const Glib::ustring& type);
+    void save(const fs::path& file_name, const Glib::ustring& type);
     Glib::RefPtr<Gdk::Pixbuf> get_pixbuf() { return _rPixbuf; }
 
 protected:
@@ -118,7 +118,7 @@ class CtImageEmbFile : public CtImage
 {
 public:
     CtImageEmbFile(CtMainWin* pCtMainWin,
-                   const Glib::ustring& fileName,
+                   const fs::path& fileName,
                    const std::string& rawBlob,
                    const double& timeSeconds,
                    const int charOffset,
@@ -130,7 +130,7 @@ public:
     CtAnchWidgType get_type() override { return CtAnchWidgType::ImageEmbFile; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
-    const Glib::ustring& get_file_name() { return _fileName; }
+    const fs::path& get_file_name() { return _fileName; }
     const std::string&   get_raw_blob() { return _rawBlob; }
     void                 set_raw_blob(char* buffer, size_t size) { _rawBlob = std::string(buffer, size);}
     double               get_time() { return _timeSeconds; }
@@ -143,7 +143,7 @@ private:
     bool _on_button_press_event(GdkEventButton* event);
 
 protected:
-    Glib::ustring _fileName;
+    fs::path      _fileName;
     std::string   _rawBlob;      // raw data, not a string
     double        _timeSeconds;
 };

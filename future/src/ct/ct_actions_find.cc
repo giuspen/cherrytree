@@ -873,7 +873,7 @@ Glib::ustring CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> patt
 {
     if (CtImageEmbFile* image = dynamic_cast<CtImageEmbFile*>(obj))
     {
-        if (pattern->match(image->get_file_name())) return image->get_file_name();
+        if (pattern->match(image->get_file_name().string())) return image->get_file_name().string();
     }
     else if (CtImageAnchor* image = dynamic_cast<CtImageAnchor*>(obj))
     {

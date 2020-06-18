@@ -59,32 +59,34 @@ CtTmp::~CtTmp()
     }
 }
 
-const gchar* CtTmp::getHiddenDirPath(const std::string& visiblePath)
+fs::path CtTmp::getHiddenDirPath(const fs::path& visiblePath)
 {
-    if (not _mapHiddenDirs.count(visiblePath))
+    if (not _mapHiddenDirs.count(visiblePath.string()))
     {
-        _mapHiddenDirs[visiblePath] = g_dir_make_tmp(nullptr, nullptr);
+        _mapHiddenDirs[visiblePath.string()] = g_dir_make_tmp(nullptr, nullptr);
     }
-    return _mapHiddenDirs.at(visiblePath);
+    return _mapHiddenDirs.at(visiblePath.string());
 }
 
-const gchar* CtTmp::getHiddenFilePath(const std::string& visiblePath)
+fs::path CtTmp::getHiddenFilePath(const fs::path& visiblePath)
 {
-    if (not _mapHiddenFiles.count(visiblePath))
+    if (not _mapHiddenFiles.count(visiblePath.string()))
     {
-        const gchar* tempDir{getHiddenDirPath(visiblePath)};
-        std::string basename{Glib::path_get_basename(visiblePath)};
-        if (Glib::str_has_suffix(basename, ".ctx"))
+        fs::path tempDir = getHiddenDirPath(visiblePath);
+        fs::path basename = visiblePath.filename();
+        if (basename.extension() == ".ctx")
         {
-            basename.replace(basename.end()-1, basename.end(), "b");
+            basename = basename.stem();
+            basename += ".ctd";
         }
-        else if (Glib::str_has_suffix(basename, ".ctz"))
+        else if (basename.extension() == ".ctz")
         {
-            basename.replace(basename.end()-1, basename.end(), "d");
+            basename = basename.stem();
+            basename += ".ctb";
         }
-        _mapHiddenFiles[visiblePath] = g_build_filename(tempDir, basename.c_str(), NULL);
+        _mapHiddenFiles[visiblePath.string()] = g_build_filename(tempDir.c_str(), basename.c_str(), nullptr);
     }
-    return _mapHiddenFiles.at(visiblePath);
+    return _mapHiddenFiles.at(visiblePath.string());
 }
 
 

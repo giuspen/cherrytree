@@ -24,7 +24,7 @@
 #pragma once
 
 #include "ct_misc_utils.h"
-
+#include "ct_filesystem.h"
 #include <gtkmm/dialog.h>
 #include <gtkmm/liststore.h>
 #include <gtkmm/treestore.h>
@@ -229,8 +229,8 @@ bool link_handle_dialog(CtMainWin& ctMainWin,
 struct file_select_args
 {
     Gtk::Window*                pParentWin{nullptr};
-    std::string                 curr_folder;
-    std::string                 curr_file_name;
+    fs::path                    curr_folder;
+    fs::path                    curr_file_name;
     Glib::ustring               filter_name;
     std::vector<std::string>    filter_pattern;
     std::vector<std::string>    filter_mime;

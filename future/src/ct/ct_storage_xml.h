@@ -22,6 +22,7 @@
 #pragma once
 
 #include "ct_types.h"
+#include "ct_filesystem.h"
 #include <glibmm/refptr.h>
 #include <gtksourceviewmm/buffer.h>
 #include <gtkmm/treeiter.h>
@@ -47,10 +48,10 @@ public:
     void reopen_connect() override;
     void test_connection() override;
 
-    bool populate_treestore(const Glib::ustring& file_path, Glib::ustring& error) override;
-    bool save_treestore(const Glib::ustring& file_path, const CtStorageSyncPending& syncPending, Glib::ustring& error) override;
+    bool populate_treestore(const fs::path& file_path, Glib::ustring& error) override;
+    bool save_treestore(const fs::path& file_path, const CtStorageSyncPending& syncPending, Glib::ustring& error) override;
     void vacuum() override;
-    void import_nodes(const std::string& path) override;
+    void import_nodes(const fs::path& path) override;
 
     Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
                                                       const std::string& syntax,
