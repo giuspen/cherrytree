@@ -102,9 +102,10 @@ TEST(FileSystemGroup, path_is_absolute)
 
 TEST(FileSystemGroup, path_parent_path)
 {
-    STRCMP_EQUAL("/home", CtFileSystem::path("/home/foo").parent_path().c_str());
-    STRCMP_EQUAL("/home/foo", CtFileSystem::path("/home/foo/bar.txt").parent_path().c_str());
-    STRCMP_EQUAL("home/foo", CtFileSystem::path("home/foo/bar.txt").parent_path().c_str());
+
+    STRCMP_EQUAL(CtFileSystem::path("/home").c_str(), CtFileSystem::path("/home/foo").parent_path().c_str());
+    STRCMP_EQUAL(CtFileSystem::path("/home/foo").c_str(), CtFileSystem::path("/home/foo/bar.txt").parent_path().c_str());
+    STRCMP_EQUAL(CtFileSystem::path("home/foo").c_str(), CtFileSystem::path("home/foo/bar.txt").parent_path().c_str());
 }
 
 TEST(FileSystemGroup, path_concat)
@@ -124,9 +125,9 @@ TEST(FileSystemGroup, path_string)
     std::string first = "\\foo";
     std::string second = "\\foo\\bar.txt";
 #endif
-    CtFileSystem::path path(first.c_str());
+    CtFileSystem::path path("/foo");
 
-    STRCMP_EQUAL(path.c_str(), "/foo");
+    STRCMP_EQUAL(path.c_str(), first.c_str());
 
     path /= "bar.txt";
     STRCMP_EQUAL(path.c_str(), second.c_str());
