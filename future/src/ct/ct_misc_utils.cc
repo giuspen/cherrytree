@@ -131,9 +131,9 @@ void table_to_csv(const CtStringTable& table, std::ostream& output) {
 std::string CtMiscUtil::get_ct_language()
 {
     std::string retLang{CtConst::LANG_DEFAULT};
-    if (Glib::file_test(CtFileSystem::get_cherrytree_lang_filepath(), Glib::FILE_TEST_IS_REGULAR))
+    if (fs::is_regular_file(CtFileSystem::get_cherrytree_lang_filepath()))
     {
-        const std::string langTxt = str::trim(Glib::file_get_contents(CtFileSystem::get_cherrytree_lang_filepath()));
+        const std::string langTxt = str::trim(Glib::file_get_contents(CtFileSystem::get_cherrytree_lang_filepath().string()));
         if (vec::exists(CtConst::AVAILABLE_LANGS, langTxt))
         {
             retLang = langTxt;
@@ -728,16 +728,6 @@ char* CtRgbUtil::set_rgb24str_from_str_any(const char* rgbStrAny, char* rgb24Str
     return rgb24StrOut;
 }
 
-std::vector<std::string> CtMiscUtil::split(const std::string& str, std::string_view sep) {
-    std::vector<std::string> strs;
-    size_t last_pos = 0;
-    size_t next_pos = 0;
-    while((next_pos = str.find(sep, last_pos)) != std::string::npos) {
-        strs.emplace_back(str.substr(last_pos, next_pos - last_pos));
-    }
-    strs.emplace_back(str.substr(last_pos));
-    return strs;
-}
 
 Glib::ustring CtRgbUtil::rgb_to_no_white(Glib::ustring in_rgb)
 {

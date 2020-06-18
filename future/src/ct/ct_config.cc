@@ -22,6 +22,7 @@
  */
 
 #include <iostream>
+#include <memory>
 #include <gtkmm.h>
 #include "ct_config.h"
 #include "ct_misc_utils.h"
@@ -29,7 +30,7 @@
 #include "ct_filesystem.h"
 
 
-const std::string CtConfig::_defaultFilepath{Glib::build_filename(CtFileSystem::get_cherrytree_configdir(), "config.cfg")};
+const fs::path CtConfig::_defaultFilepath{CtFileSystem::get_cherrytree_configdir() / "config.cfg"};
 
 CtConfig::CtConfig()
 {
@@ -41,12 +42,12 @@ CtConfig::~CtConfig()
     //std::cout << "~CtConfig()" << std::endl;
 }
 
-bool CtConfig::load_from_file(const std::string& filepath)
+bool CtConfig::load_from_file(const fs::path& filepath)
 {
-    if (Glib::file_test(filepath, Glib::FILE_TEST_EXISTS))
+    if (fs::exists(filepath))
     {
-        _uKeyFile.reset(new Glib::KeyFile);
-        _uKeyFile->load_from_file(filepath);
+        _uKeyFile = std::make_unique<Glib::KeyFile>();
+        _uKeyFile->load_from_file(filepath.string());
         _populate_data_from_keyfile();
         _uKeyFile.reset(nullptr);
         spdlog::debug("{} parsed", filepath);
@@ -56,11 +57,11 @@ bool CtConfig::load_from_file(const std::string& filepath)
     return false;
 }
 
-bool CtConfig::write_to_file(const std::string& filepath)
+bool CtConfig::write_to_file(const fs::path& filepath)
 {
-    _uKeyFile.reset(new Glib::KeyFile);
+    _uKeyFile = std::make_unique<Glib::KeyFile>();
     _populate_keyfile_from_data();
-    const bool writeSucceeded = _uKeyFile->save_to_file(filepath);
+    const bool writeSucceeded = _uKeyFile->save_to_file(filepath.string());
     _uKeyFile.reset(nullptr);
     return writeSucceeded;
 }

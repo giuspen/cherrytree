@@ -52,8 +52,8 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
 
     _rLanguageManager = Gsv::LanguageManager::create();
     std::vector<std::string> searchPath = _rLanguageManager->get_search_path();
-    const std::string ctLanguagesSpecsPath = Glib::build_filename(CtFileSystem::get_cherrytree_datadir(), "language-specs");
-    searchPath.push_back(ctLanguagesSpecsPath);
+    fs::path ctLanguagesSpecsPath = CtFileSystem::get_cherrytree_datadir() /"language-specs";
+    searchPath.push_back(ctLanguagesSpecsPath.string());
     _rLanguageManager->set_search_path(searchPath);
 
     _rStyleSchemeManager = Gsv::StyleSchemeManager::create();

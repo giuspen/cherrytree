@@ -121,12 +121,19 @@ time_t getmtime(const path& path)
     return time;
 }
 
-int getsize(const std::string& path)
+std::uintmax_t file_size(const path& path)
 {
+    if (fs::is_directory(path)) {
+        throw fs::filesystem_error("Cannot get size of a directory", path, std::make_error_code(std::errc::is_a_directory));
+    }
+
     GStatBuf st;
-    if (g_stat(path.c_str(), &st) == 0)
-        return st.st_size;
-    return 0;
+    int retr = g_stat(path.c_str(), &st);
+    if (retr != 0) {
+        throw fs::filesystem_error("Error in g_stat", path, std::error_code(retr, std::generic_category()));
+    }
+
+    return st.st_size;
 }
 
 std::list<CtFileSystem::path> get_dir_entries(const path& dir)
@@ -233,7 +240,7 @@ std::uintmax_t remove_all(const path& dir)
     return count;
 }
 
-std::string get_cherrytree_datadir()
+fs::path get_cherrytree_datadir()
 {
     if (Glib::file_test(_CMAKE_BINARY_DIR, Glib::FILE_TEST_IS_DIR)) {
         // we're running from the build sources
@@ -252,15 +259,15 @@ fs::path get_cherrytree_localedir()
     return CHERRYTREE_LOCALEDIR;
 }
 
-std::string get_cherrytree_configdir()
+fs::path get_cherrytree_configdir()
 {
     //TODO: define rule for local config.cfg/lang files at least for Windows portable
     return Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME);
 }
 
-std::string get_cherrytree_lang_filepath()
+fs::path get_cherrytree_lang_filepath()
 {
-    return Glib::build_filename(get_cherrytree_configdir(), "lang");
+    return get_cherrytree_configdir() / "lang";
 }
 
 std::string download_file(const std::string& filepath)

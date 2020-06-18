@@ -69,9 +69,10 @@ bool CtExport2Html::prepare_html_folder(fs::path dir_place, fs::path new_folder,
     fs::path styles_js_filepath = config_dir / "script3.js";
     if (!fs::is_regular_file(styles_js_filepath))
     {
-        std::string script_js_original = Glib::build_filename(CtFileSystem::get_cherrytree_datadir(), "data", "script3.js");
+        fs::path script_js_original = CtFileSystem::get_cherrytree_datadir() / "data" / "script3.js";
         CtFileSystem::copy_file(script_js_original, styles_js_filepath);
     }
+
     CtFileSystem::copy_file(styles_js_filepath, _res_dir / "script3.js");
 
     export_path = _export_dir;

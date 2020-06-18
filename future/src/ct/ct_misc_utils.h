@@ -47,17 +47,6 @@ namespace CtCSV {
 }
 
 namespace CtMiscUtil {
-template<class ITER_T>
-std::string join(ITER_T begin, ITER_T end, std::string_view sep) {
-    std::ostringstream out;
-    while (begin != end) {
-        out << *begin << sep;
-        ++begin;
-    }
-    return out.str();
-}
-
-std::vector<std::string> split(const std::string& str, std::string_view sep);
 
 std::string get_ct_language();
 

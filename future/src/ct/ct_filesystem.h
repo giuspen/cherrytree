@@ -48,7 +48,7 @@ bool is_directory(const path& path);
 
 time_t getmtime(const path& path);
 
-int getsize(const std::string& path);
+std::uintmax_t file_size(const path& path);
 
 std::list<path> get_dir_entries(const path& dir);
 
@@ -73,11 +73,11 @@ std::uintmax_t remove_all(const path& dir);
 */
 bool remove(const path& path);
 
-std::string get_cherrytree_datadir();
+path get_cherrytree_datadir();
 path get_cherrytree_localedir();
-std::string get_cherrytree_configdir();
-std::string get_cherrytree_lang_filepath();
-
+path get_cherrytree_configdir();
+path get_cherrytree_lang_filepath();
+// Filepath is a url so not an fs::path
 std::string download_file(const std::string& filepath);
 
 /**
@@ -139,7 +139,7 @@ public:
     friend bool operator<=(const path& lhs, const path& rhs) { return lhs._path <= rhs._path; }
 
     friend void operator+=(path& lhs, const path& rhs) { lhs._path += rhs._path; }
-    friend void operator+=(path& lhs, const std::string& rhs) { lhs._path += _get_platform_path(rhs); }
+    friend void operator+=(path& lhs, const string_type& rhs) { lhs._path += _get_platform_path(rhs); }
     friend void operator+=(path& lhs, const value_type* rhs) { lhs._path += _get_platform_path(rhs); }
 
     [[nodiscard]] const char* c_str() const { return _path.c_str(); };
@@ -165,8 +165,8 @@ public:
     filesystem_error(const std::string& what_arg, const path& p1, std::error_code ec) : std::system_error(ec, what_arg), _p1(p1) {}
     filesystem_error(const std::string& what_arg, const path& p1, const path& p2, std::error_code ec) : std::system_error(ec, what_arg), _p1(p1), _p2(p2) {}
 
-    const path& path1() const { return _p1; }
-    const path& path2() const { return _p2; }
+    [[nodiscard]] const path& path1() const { return _p1; }
+    [[nodiscard]] const path& path2() const { return _p2; }
 private:
     path _p1;
     path _p2;

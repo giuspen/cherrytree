@@ -38,8 +38,8 @@ public:
     CtConfig();
     virtual ~CtConfig();
 
-    bool load_from_file(const std::string& filepath=_defaultFilepath);
-    bool write_to_file(const std::string& filepath=_defaultFilepath);
+    bool load_from_file(const fs::path& filepath = _defaultFilepath);
+    bool write_to_file(const fs::path& filepath = _defaultFilepath);
 
     // [state]
     CtRecentDocsRestore                         recentDocsRestore;
@@ -221,7 +221,7 @@ protected:
     void _unexpected_keyfile_error(const gchar* key, const Glib::KeyFileError& kferror);
 
     static const size_t _maxTempKeySize{20};
-    static const std::string _defaultFilepath;
+    static const fs::path _defaultFilepath;
 
     gchar _tempKey[_maxTempKeySize];
     std::unique_ptr<Glib::KeyFile> _uKeyFile;
