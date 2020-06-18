@@ -321,7 +321,7 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
                             attr_value = str::replace(attr_value, "pt", "");
                             // Can throw std::invalid_argument or std::out_of_range
                             int font_size = std::stoi(attr_value, nullptr); 
-                            if (font_size > 7 && font_size < 11)
+                            if (font_size > 0 && font_size < 11)
                                 _add_tag_style(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SMALL);
                             else if (font_size > 13 && font_size < 19)
                                 _add_tag_style(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H3);
@@ -341,6 +341,13 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
                     if (color != "")
                         _add_tag_style(CtConst::TAG_FOREGROUND, color);
                 }
+            }
+        }
+        else if (tag == "p")
+        {
+            for (auto& tag_attr: char2list_attrs(atts)) {
+                if (tag_attr.name == "align")
+                    _add_tag_style(CtConst::TAG_JUSTIFICATION, str::trim(Glib::ustring(tag_attr.value.begin()).lowercase()));
             }
         }
         else if (tag == CtConst::TAG_PROP_VAL_SUP || tag == CtConst::TAG_PROP_VAL_SUB)
