@@ -461,6 +461,7 @@ void CtHtml2Xml::handle_endtag(std::string_view tag)
     else if (_state == ParserState::PARSING_BODY)
     {
         if (tag == "p") _rich_text_serialize(CtConst::CHAR_NEWLINE);
+        else if (tag == "div") _rich_text_serialize(CtConst::CHAR_NEWLINE);
         else if (tag == "pre") _html_pre_tag_open = false;
         else if (tag == CtConst::TAG_PROP_VAL_H1 || tag == CtConst::TAG_PROP_VAL_H2 || tag == CtConst::TAG_PROP_VAL_H3
                  || tag == CtConst::TAG_PROP_VAL_H4 || tag == CtConst::TAG_PROP_VAL_H5 || tag == CtConst::TAG_PROP_VAL_H6) {
