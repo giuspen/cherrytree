@@ -200,7 +200,7 @@ protected:
         {
             try
             {
-                *pTarget = _uKeyFile->get_value(_currentGroup, key);
+                *pTarget = _uKeyFile->get_string(_currentGroup, key);
                 gotIt = true;
             }
             catch (Glib::KeyFileError& kferror)
