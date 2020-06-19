@@ -637,7 +637,7 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
     }
     CtMenuAction* pAction = ctMainWin.get_ct_menu().find_action("toggle_show_allmatches_dlg");
     Gtk::Button* pButtonHide = pAllMatchesDialog->add_button(str::format(_("Hide (Restore with '%s')"), CtStrUtil::get_accelerator_label(pAction->get_shortcut(ctMainWin.get_ct_config()))), Gtk::RESPONSE_CLOSE);
-    pButtonHide->set_image_from_icon_name(Gtk::Stock::CLOSE.id, Gtk::ICON_SIZE_BUTTON);
+    pButtonHide->set_image_from_icon_name("ct_close", Gtk::ICON_SIZE_BUTTON);
     Gtk::TreeView* pTreeview = Gtk::manage(new Gtk::TreeView(rModel));
     pTreeview->append_column(_("Node Name"), rModel->columns.node_name);
     pTreeview->append_column(_("Line"), rModel->columns.line_num);
@@ -765,7 +765,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
 
     Gtk::HBox hbox_file;
     Gtk::Image image_file;
-    image_file.set_from_icon_name(Gtk::Stock::FILE.id, Gtk::ICON_SIZE_BUTTON);
+    image_file.set_from_icon_name("ct_file", Gtk::ICON_SIZE_BUTTON);
     Gtk::RadioButton radiobutton_file(_("To File"));
     radiobutton_file.join_group(radiobutton_webs);
     Gtk::Entry entry_file;

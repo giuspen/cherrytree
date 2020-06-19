@@ -986,7 +986,7 @@ void CtActions::_iterated_find_dialog()
         auto button_replace = dialog->add_button(_("Replace"), 2);
         auto button_undo = dialog->add_button(_("Undo"), 3);
         dialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
-        button_close->set_image_from_icon_name(Gtk::Stock::CLOSE.id, Gtk::ICON_SIZE_BUTTON);
+        button_close->set_image_from_icon_name("ct_close", Gtk::ICON_SIZE_BUTTON);
         button_find_bw->set_image_from_icon_name("ct_find_back", Gtk::ICON_SIZE_BUTTON);
         button_find_fw->set_image_from_icon_name("ct_find_again", Gtk::ICON_SIZE_BUTTON);
         button_replace->set_image_from_icon_name("ct_find_replace", Gtk::ICON_SIZE_BUTTON);

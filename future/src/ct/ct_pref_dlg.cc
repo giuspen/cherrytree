@@ -977,8 +977,8 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
 {
     CtConfig* pConfig = _pCtMainWin->get_ct_config();
 
-    Gtk::Image* image_rt = _pCtMainWin->new_image_from_stock(Gtk::Stock::SELECT_FONT.id, Gtk::ICON_SIZE_MENU);
-    Gtk::Image* image_pt = _pCtMainWin->new_image_from_stock(Gtk::Stock::SELECT_FONT.id, Gtk::ICON_SIZE_MENU);
+    Gtk::Image* image_rt = _pCtMainWin->new_image_from_stock("ct_fonts", Gtk::ICON_SIZE_MENU);
+    Gtk::Image* image_pt = _pCtMainWin->new_image_from_stock("ct_fonts", Gtk::ICON_SIZE_MENU);
     Gtk::Image* image_code = _pCtMainWin->new_image_from_stock("ct_xml", Gtk::ICON_SIZE_MENU);
     Gtk::Image* image_tree = _pCtMainWin->new_image_from_stock("ct_cherries", Gtk::ICON_SIZE_MENU);
     Gtk::Label* label_rt = Gtk::manage(new Gtk::Label(_("Rich Text")));
