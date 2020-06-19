@@ -510,7 +510,7 @@ void CtMainWin::config_apply()
     _ctStatusBar.stopButton.hide();
 
     get_status_icon()->set_visible(_pCtConfig->systrayOn);
-    menu_set_visible_exit_app(_pCtConfig->systrayOn);
+    menu_set_visible_exit_app(_pGtkStatusIcon->is_embedded() ? _pCtConfig->systrayOn : false);
 
     _ctTextview.set_show_line_numbers(get_ct_config()->showLineNumbers);
     _ctTextview.set_insert_spaces_instead_of_tabs(get_ct_config()->spacesInsteadTabs);
