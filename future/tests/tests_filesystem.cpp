@@ -95,6 +95,9 @@ TEST(FileSystemGroup, get_doc_type)
     CHECK(CtDocType::SQLite == fs::get_doc_type(unitTestsDataDir + "/test.ctb"));
     CHECK(CtDocType::XML == fs::get_doc_type(unitTestsDataDir + "/test.ctd"));
     CHECK(CtDocType::None == fs::get_doc_type(unitTestsDataDir + "/md_testfile.md"));
+    CHECK(CtDocType::SQLite == fs::get_doc_type(unitTestsDataDir + "/mimetype_ctb.ctb"));
+    CHECK(CtDocType::XML == fs::get_doc_type(unitTestsDataDir + "/7zr.ctz"));
+    CHECK(CtDocType::SQLite == fs::get_doc_type("test.ctx")); // Doesnt actually exist
 }
 
 TEST(FileSystemGroup, get_doc_encrypt)
