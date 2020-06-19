@@ -2680,6 +2680,8 @@ iter_end, exclude_iter_sel_end=True)
                 keyname = gtk.gdk.keyval_name(event.keyval)
                 if keyname in cons.STR_KEYS_CONTROL:
                     self.ctrl_down = False
+                if keyname in cons.STR_KEYS_LAYOUT_GROUP:
+                    self.ctrl_down = False               
         elif event.type == gtk.gdk.SCROLL:
             if self.ctrl_down:
                 if event.direction == gtk.gdk.SCROLL_UP:

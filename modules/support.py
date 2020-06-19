@@ -335,6 +335,8 @@ def on_sourceview_event_after_key_release(dad, text_view, event):
     if dad.ctrl_down:
         if keyname in cons.STR_KEYS_CONTROL:
             dad.ctrl_down = False
+        if keyname in cons.STR_KEYS_LAYOUT_GROUP:
+            dad.ctrl_down = False     
     elif keyname in [cons.STR_KEY_RETURN, cons.STR_KEY_SPACE]:
         if dad.word_count:
             dad.update_selected_node_statusbar_info()
