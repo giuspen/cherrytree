@@ -32,8 +32,6 @@
 #include "ct_logging.h"
 #include <spdlog/fmt/bundled/printf.h>
 
-namespace fs = fs;
-
 // Cut Link
 void CtActions::link_cut()
 {

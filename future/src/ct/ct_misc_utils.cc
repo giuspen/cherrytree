@@ -40,8 +40,6 @@
 #endif
 
 
-namespace fs = fs;
-
 namespace CtCSV {
 CtStringTable table_from_csv(std::istream& input)
 {
