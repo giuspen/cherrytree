@@ -124,10 +124,18 @@ CtMainWin::CtMainWin(bool             start_hidden,
     menu_set_items_special_chars();
     _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(false);
 
-    if (start_hidden || (_pCtConfig->systrayOn && _pCtConfig->startOnSystray))
-        set_visible(false);
-    else
+    if (start_hidden) set_visible(false);
+    else if (_pCtConfig->systrayOn && _pCtConfig->startOnSystray) {
+        if (_pGtkStatusIcon->is_embedded()) {
+            set_visible(false);
+        } else {
+            spdlog::warn("Start on systray is enabled but system does not support system trays, starting normally");
+            present();
+        }
+    }
+    else {
         present();
+    }
 }
 
 CtMainWin::~CtMainWin()
@@ -502,7 +510,7 @@ void CtMainWin::config_apply()
     _ctStatusBar.stopButton.hide();
 
     get_status_icon()->set_visible(_pCtConfig->systrayOn);
-    menu_set_visible_exit_app(_pCtConfig->systrayOn);
+    menu_set_visible_exit_app(_pGtkStatusIcon->is_embedded() ? _pCtConfig->systrayOn : false);
 
     _ctTextview.set_show_line_numbers(get_ct_config()->showLineNumbers);
     _ctTextview.set_insert_spaces_instead_of_tabs(get_ct_config()->spacesInsteadTabs);
