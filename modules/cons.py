@@ -218,6 +218,7 @@ STR_KEY_RIGHT = "Right"
 STR_KEY_DQUOTE = "quotedbl"
 STR_KEY_SQUOTE = "apostrophe"
 STR_KEYS_CONTROL = ["Control_L", "Control_R"]
+STR_KEYS_LAYOUT_GROUP = ["ISO_Prev_Group", "ISO_Next_Group"]
 STR_PYGTK_222_REQUIRED = "PyGTK 2.22 required"
 
 CHERRY_RED = 'cherry_red'
