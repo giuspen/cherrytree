@@ -31,7 +31,7 @@
 #include "ct_logging.h"
 #include "ct_config.h"
 
-namespace CtFileSystem {
+namespace fs {
 void path::append(const path& other)
 { 
     _path = Glib::build_filename(_path, other._path); 
@@ -39,10 +39,15 @@ void path::append(const path& other)
 
 path path::extension() const
 {
-    auto last_pos = _path.find('.');
-    if (last_pos == std::string::npos) return path("");
-    else                               return path(_path.begin() + last_pos, _path.end());
+    std::string name = filename().string();
+    auto last_pos = name.find_last_of('.');
+    if (last_pos == std::string::npos || last_pos == name.size() - 1 || last_pos == 0) {
+        return path("");
+    } else {
+        return path(name.begin() + last_pos, name.end());
+    }
 }
+
 
 path& path::operator=(path::string_type other)
 {
@@ -52,7 +57,7 @@ path& path::operator=(path::string_type other)
 
 
 
-bool remove(const CtFileSystem::path& path)
+bool remove(const fs::path& path)
 {
     if (fs::is_directory(path)) {
         // rmdir
@@ -130,10 +135,10 @@ std::uintmax_t file_size(const path& path)
     return st.st_size;
 }
 
-std::list<CtFileSystem::path> get_dir_entries(const path& dir)
+std::list<fs::path> get_dir_entries(const path& dir)
 {
     Glib::Dir gdir(dir.string());
-    std::list<CtFileSystem::path> entries(gdir.begin(), gdir.end());
+    std::list<fs::path> entries(gdir.begin(), gdir.end());
     for (auto& entry: entries)
         entry = dir / entry;
     return entries;

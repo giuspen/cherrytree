@@ -1496,7 +1496,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     combobox_country_language->signal_changed().connect([this, combobox_country_language](){
         Glib::ustring new_lang = combobox_country_language->get_active_text();
         need_restart(RESTART_REASON::LANG, _("The New Language will be Available Only After Restarting CherryTree"));
-        g_file_set_contents(CtFileSystem::get_cherrytree_lang_filepath().c_str(),
+        g_file_set_contents(fs::get_cherrytree_lang_filepath().c_str(),
                             new_lang.c_str(), (gssize)new_lang.bytes(), nullptr);
     });
 #endif

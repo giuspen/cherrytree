@@ -184,7 +184,7 @@ void CtActions::embfile_insert()
     if (filepath.empty()) return;
 
     _pCtMainWin->get_ct_config()->pickDirFile = Glib::path_get_dirname(filepath);
-    if (CtFileSystem::file_size(filepath) > static_cast<uintmax_t>(_pCtMainWin->get_ct_config()->embfileMaxSize * 1024 * 1024))
+    if (fs::file_size(filepath) > static_cast<uintmax_t>(_pCtMainWin->get_ct_config()->embfileMaxSize * 1024 * 1024))
     {
         CtDialogs::error_dialog(str::format(_("The Maximum Size for Embedded Files is %s MB"), _pCtMainWin->get_ct_config()->embfileMaxSize), *_pCtMainWin);
         return;

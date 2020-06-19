@@ -30,7 +30,7 @@
 
 class CtConfig;
 
-namespace CtFileSystem {
+namespace fs {
 class path;
 #include "ct_splittable.h"
 
@@ -178,13 +178,12 @@ private:
 
 } // namespace CtFileSystem
 
-namespace fs = CtFileSystem;
 
 template<>
-struct fmt::formatter<CtFileSystem::path> {
+struct fmt::formatter<fs::path> {
     constexpr auto parse(format_parse_context& ctx) { return ctx.begin(); }
     template<typename FormatContext>
-    auto format(const CtFileSystem::path& path, FormatContext& ctx) {
+    auto format(const fs::path& path, FormatContext& ctx) {
         return format_to(ctx.out(), "{}", path.string());
     }
 };

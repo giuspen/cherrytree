@@ -88,7 +88,7 @@ xmlpp::Element *image_to_xml(xmlpp::Element *parent, const std::string &path, in
     
         // Download
         try {
-            std::string file_buffer = CtFileSystem::download_file(path);
+            std::string file_buffer = fs::download_file(path);
             if (!file_buffer.empty()) {
                 Glib::RefPtr<Gdk::PixbufLoader> pixbuf_loader = Gdk::PixbufLoader::create();
                 pixbuf_loader->write(reinterpret_cast<const guint8 *>(file_buffer.c_str()), file_buffer.size());
@@ -169,7 +169,7 @@ std::vector<std::pair<int, int>> CtImports::get_web_links_offsets_from_plain_tex
 std::unique_ptr<ct_imported_node> CtImports::traverse_dir(const fs::path& dir, CtImporterInterface* importer)
 {
     auto dir_node = std::make_unique<ct_imported_node>(dir, dir.filename().string());
-    for (const auto& dir_item: CtFileSystem::get_dir_entries(dir))
+    for (const auto& dir_item: fs::get_dir_entries(dir))
     {
         if (fs::is_directory(dir_item))
         {
@@ -643,7 +643,7 @@ void CtHtml2Xml::_insert_image(std::string img_path, std::string trailing_chars)
 
     // trying to download
     try {
-        std::string file_buffer = CtFileSystem::download_file(img_path);
+        std::string file_buffer = fs::download_file(img_path);
         if (!file_buffer.empty()) {
             Glib::RefPtr<Gdk::PixbufLoader> pixbuf_loader = Gdk::PixbufLoader::create();
             pixbuf_loader->write((const guint8*)file_buffer.c_str(), file_buffer.size());
@@ -1146,7 +1146,7 @@ void CtZimImport::_parse_body_line(const std::string& line)
 void CtZimImport::_ensure_notebook_file_in_dir(const fs::path& dir)
 {
     if (_has_notebook_file) return;
-    for (auto dir_item: CtFileSystem::get_dir_entries(dir))
+    for (auto dir_item: fs::get_dir_entries(dir))
         if (dir_item.filename() == "notebook.zim")
         {
             _has_notebook_file = true;

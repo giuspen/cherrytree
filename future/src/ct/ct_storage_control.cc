@@ -54,12 +54,12 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
 
         // unpack file if need
         std::string password;
-        if (CtFileSystem::get_doc_encrypt(file_path) == CtDocEncrypt::True) {
+        if (fs::get_doc_encrypt(file_path) == CtDocEncrypt::True) {
             extracted_file_path = _extract_file(pCtMainWin, file_path, password);
         }
 
         // choose storage type
-        storage = get_entity_by_type(pCtMainWin, CtFileSystem::get_doc_type(file_path));
+        storage = get_entity_by_type(pCtMainWin, fs::get_doc_type(file_path));
 
         // load from file
         if (!storage->populate_treestore(extracted_file_path, error)) throw std::runtime_error(error);
@@ -92,7 +92,7 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
     fs::path extracted_file_path = file_path;
     try
     {
-        if (CtFileSystem::get_doc_encrypt(file_path) == CtDocEncrypt::True) {
+        if (fs::get_doc_encrypt(file_path) == CtDocEncrypt::True) {
             extracted_file_path = pCtMainWin->get_ct_tmp()->getHiddenFilePath(file_path);
         }
         if (fs::is_regular_file(file_path)) {
@@ -102,7 +102,7 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
             fs::remove(extracted_file_path);
         }
 
-        storage = get_entity_by_type(pCtMainWin, CtFileSystem::get_doc_type(file_path));
+        storage = get_entity_by_type(pCtMainWin, fs::get_doc_type(file_path));
         // will save all data because it's the first time
         CtStorageSyncPending fakePanding;
         if (!storage->save_treestore(extracted_file_path, fakePanding, error))
@@ -159,17 +159,17 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
         if (need_backup)
         {
             // move is faster but the file is used by sqlite without encrypt
-            if (_file_path == _extracted_file_path && CtFileSystem::get_doc_type(_file_path) == CtDocType::SQLite)
+            if (_file_path == _extracted_file_path && fs::get_doc_type(_file_path) == CtDocType::SQLite)
             {
                 _storage->close_connect();    // temporary, because of sqlite keepig the file
-                if (!CtFileSystem::copy_file(_file_path, main_backup))
-                    throw std::runtime_error(fmt::format(_("You Have No Write Access to {}"), _file_path.parent_path()));
+                if (!fs::copy_file(_file_path, main_backup))
+                    throw std::runtime_error(str::format(_("You Have No Write Access to %s"), _file_path.parent_path().string()));
                 _storage->reopen_connect();
             }
             else
             {
-                if (!CtFileSystem::move_file(_file_path, main_backup))
-                    throw std::runtime_error(fmt::format(_("You Have No Write Access to {}"), _file_path.parent_path()));
+                if (!fs::move_file(_file_path, main_backup))
+                    throw std::runtime_error(str::format(_("You Have No Write Access to %s"), _file_path.parent_path().string()));
             }
         }
         // save changes
@@ -201,7 +201,7 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
         // recover from backup
         try {
             _storage->close_connect();
-            if (need_backup && fs::is_regular_file(main_backup)) CtFileSystem::move_file(main_backup, _file_path);
+            if (need_backup && fs::is_regular_file(main_backup)) fs::move_file(main_backup, _file_path);
             _storage->reopen_connect();
         }
         catch (std::exception& e2) { spdlog::error(e2.what()); }
@@ -227,7 +227,7 @@ Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64
 {
     fs::path temp_dir = pCtMainWin->get_ct_tmp()->getHiddenDirPath(file_path);
     fs::path temp_file_path = pCtMainWin->get_ct_tmp()->getHiddenFilePath(file_path);
-    Glib::ustring title = fmt::format(_("Enter Password for {}"), file_path.filename());
+    Glib::ustring title = str::format(_("Enter Password for %s"), file_path.filename().string());
     while (true)
     {
         CtDialogTextEntry dialogTextEntry(title, true/*forPassword*/, pCtMainWin);
@@ -254,14 +254,14 @@ void CtStorageControl::_put_in_backup(const fs::path& main_backup)
     while (str::endswith(tilda_filepath.string(), CtConst::CHAR_TILDE))
     {
         if (fs::is_regular_file(tilda_filepath)) {
-            if (!CtFileSystem::move_file(tilda_filepath, tilda_filepath.string() + CtConst::CHAR_TILDE))
+            if (!fs::move_file(tilda_filepath, tilda_filepath.string() + CtConst::CHAR_TILDE))
                 throw std::runtime_error(
-                        fmt::format(_("You Have No Write Access to {}"), _file_path.parent_path()));
+                        str::format(_("You Have No Write Access to %s"), _file_path.parent_path().string()));
         }
         tilda_filepath = tilda_filepath.string().substr(0, tilda_filepath.string().size()-1);
     }
-    if (!CtFileSystem::move_file(main_backup, _file_path.string() + CtConst::CHAR_TILDE))
-        throw std::runtime_error(fmt::format(_("You Have No Write Access to {}"), _file_path.parent_path()));
+    if (!fs::move_file(main_backup, _file_path.string() + CtConst::CHAR_TILDE))
+        throw std::runtime_error(str::format(_("You Have No Write Access to %s"), _file_path.parent_path().string()));
 }
 
 void CtStorageControl::pending_edit_db_node_prop(gint64 node_id)
@@ -345,11 +345,11 @@ void CtStorageControl::add_nodes_from_storage(const fs::path& path)
 
     std::string password;
     fs::path extracted_file_path = path;
-    if (CtFileSystem::get_doc_encrypt(path) == CtDocEncrypt::True) {
+    if (fs::get_doc_encrypt(path) == CtDocEncrypt::True) {
         extracted_file_path = _extract_file(_pCtMainWin, path, password);
     }
 
-    std::unique_ptr<CtStorageEntity> storage = get_entity_by_type(_pCtMainWin, CtFileSystem::get_doc_type(extracted_file_path));
+    std::unique_ptr<CtStorageEntity> storage = get_entity_by_type(_pCtMainWin, fs::get_doc_type(extracted_file_path));
     storage->import_nodes(extracted_file_path);
 
     _pCtMainWin->get_tree_store().nodes_sequences_fix(Gtk::TreeIter(), false);

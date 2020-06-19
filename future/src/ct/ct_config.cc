@@ -30,7 +30,7 @@
 #include "ct_filesystem.h"
 
 
-const fs::path CtConfig::_defaultFilepath{CtFileSystem::get_cherrytree_configdir() / "config.cfg"};
+const fs::path CtConfig::_defaultFilepath{fs::get_cherrytree_configdir() / "config.cfg"};
 
 CtConfig::CtConfig()
 {

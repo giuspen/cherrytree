@@ -63,7 +63,7 @@ public:
 namespace CtImports {
 
     std::vector<std::pair<int, int>> get_web_links_offsets_from_plain_text(const Glib::ustring& plain_text);
-    std::unique_ptr<ct_imported_node> traverse_dir(const CtFileSystem::path& dir, CtImporterInterface* importer);
+    std::unique_ptr<ct_imported_node> traverse_dir(const fs::path& dir, CtImporterInterface* importer);
 
 }
 

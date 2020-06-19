@@ -186,7 +186,7 @@ void CtActions::_export_to_html(const fs::path& auto_path, bool auto_overwrite)
             export2html.node_export_to_html(_pCtMainWin->curr_tree_iter(), _export_options, "", iter_start.get_offset(), iter_end.get_offset());
     }
     if (!ret_html_path.empty()) {
-       CtFileSystem::external_folderpath_open(ret_html_path, _pCtMainWin->get_ct_config());
+       fs::external_folderpath_open(ret_html_path, _pCtMainWin->get_ct_config());
     }
 }
 
@@ -304,7 +304,7 @@ fs::path CtActions::_get_txt_folder(fs::path dir_place, fs::path new_folder, boo
             return "";
     }
     new_folder = CtMiscUtil::clean_from_chars_not_for_filename(new_folder.string()) + "_TXT";
-    new_folder = CtFileSystem::prepare_export_folder(dir_place, new_folder, export_overwrite);
+    new_folder = fs::prepare_export_folder(dir_place, new_folder, export_overwrite);
     fs::path export_dir = dir_place / new_folder;
     g_mkdir_with_parents(export_dir.c_str(), 0777);
 

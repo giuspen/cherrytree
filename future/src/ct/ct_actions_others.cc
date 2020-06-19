@@ -32,7 +32,7 @@
 #include "ct_logging.h"
 #include <spdlog/fmt/bundled/printf.h>
 
-namespace fs = CtFileSystem;
+namespace fs = fs;
 
 // Cut Link
 void CtActions::link_cut()
@@ -161,8 +161,8 @@ void CtActions::embfile_open()
 
     spdlog::debug("embfile_open {}", filepath);
 
-    CtFileSystem::external_filepath_open(filepath.c_str(), false, _pCtMainWin->get_ct_config());
-    _embfiles_opened[filepath] = CtFileSystem::getmtime(filepath);
+    fs::external_filepath_open(filepath.c_str(), false, _pCtMainWin->get_ct_config());
+    _embfiles_opened[filepath] = fs::getmtime(filepath);
 
     if (not _embfiles_timeout_connection)
         _embfiles_timeout_connection = Glib::signal_timeout().connect(sigc::mem_fun(*this, &CtActions::_on_embfiles_sentinel_timeout), 500);
@@ -282,24 +282,24 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
          fs::path filepath = CtExport2Html::_link_process_filepath(vec[1]);
          if (not Glib::file_test(filepath.string(), Glib::FILE_TEST_IS_REGULAR))
          {
-             CtDialogs::error_dialog(fmt::format(_("The File Link '{}' is Not Valid"), filepath), *_pCtMainWin);
+             CtDialogs::error_dialog(str::format(_("The File Link '%s' is Not Valid"), filepath.string()), *_pCtMainWin);
              return;
          }
          if (from_wheel)
-             filepath = CtFileSystem::absolute(filepath).parent_path();
-         CtFileSystem::external_filepath_open(filepath, true, _pCtMainWin->get_ct_config());
+             filepath = fs::absolute(filepath).parent_path();
+         fs::external_filepath_open(filepath, true, _pCtMainWin->get_ct_config());
      }
      else if (vec[0] == CtConst::LINK_TYPE_FOLD) // link to folder
      {
          fs::path folderpath = CtExport2Html::_link_process_folderpath(vec[1]).c_str();
          if (not fs::is_directory(folderpath))
          {
-             CtDialogs::error_dialog(fmt::format(_("The Folder Link '{}' is Not Valid"), folderpath), *_pCtMainWin);
+             CtDialogs::error_dialog(str::format(_("The Folder Link '%s' is Not Valid"), folderpath.string()), *_pCtMainWin);
              return;
          }
          if (from_wheel)
-             folderpath = Glib::path_get_dirname(CtFileSystem::absolute(folderpath).string());
-         CtFileSystem::external_folderpath_open(folderpath, _pCtMainWin->get_ct_config());
+             folderpath = Glib::path_get_dirname(fs::absolute(folderpath).string());
+         fs::external_folderpath_open(folderpath, _pCtMainWin->get_ct_config());
      }
      else if (vec[0] == CtConst::LINK_TYPE_NODE) // link to a tree node
      {
@@ -725,9 +725,9 @@ bool CtActions::_on_embfiles_sentinel_timeout()
             _embfiles_opened.erase(filepath);
             break;
         }
-        if (item.second != CtFileSystem::getmtime(filepath))
+        if (item.second != fs::getmtime(filepath))
         {
-           _embfiles_opened[filepath] = CtFileSystem::getmtime(filepath);
+           _embfiles_opened[filepath] = fs::getmtime(filepath);
            auto data_vec = str::split(filepath.filename().string(), CtConst::CHAR_MINUS);
            gint64 node_id = std::stoll(data_vec[0]);
            size_t embfile_id = std::stol(data_vec[1]);

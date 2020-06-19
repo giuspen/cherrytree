@@ -47,7 +47,7 @@ bool CtExport2Html::prepare_html_folder(fs::path dir_place, fs::path new_folder,
             return false;
     }
     new_folder = CtMiscUtil::clean_from_chars_not_for_filename(new_folder.string()) + "_HTML";
-    new_folder = CtFileSystem::prepare_export_folder(dir_place, new_folder, export_overwrite);
+    new_folder = fs::prepare_export_folder(dir_place, new_folder, export_overwrite);
     _export_dir = dir_place / new_folder;
     _images_dir = _export_dir / "images";
     _embed_dir = _export_dir / "EmbeddedFiles";
@@ -61,19 +61,19 @@ bool CtExport2Html::prepare_html_folder(fs::path dir_place, fs::path new_folder,
     fs::path styles_css_filepath = config_dir / "styles3.css";
     if (!fs::is_regular_file(styles_css_filepath))
     {
-        fs::path styles_css_original = fs::path(CtFileSystem::get_cherrytree_datadir()) / fs::path("data") / "styles3.css";
-        CtFileSystem::copy_file(styles_css_original, styles_css_filepath);
+        fs::path styles_css_original = fs::path(fs::get_cherrytree_datadir()) / fs::path("data") / "styles3.css";
+        fs::copy_file(styles_css_original, styles_css_filepath);
     }
-    CtFileSystem::copy_file(styles_css_filepath, _res_dir / "styles3.css");
+    fs::copy_file(styles_css_filepath, _res_dir / "styles3.css");
     
     fs::path styles_js_filepath = config_dir / "script3.js";
     if (!fs::is_regular_file(styles_js_filepath))
     {
-        fs::path script_js_original = CtFileSystem::get_cherrytree_datadir() / "data" / "script3.js";
-        CtFileSystem::copy_file(script_js_original, styles_js_filepath);
+        fs::path script_js_original = fs::get_cherrytree_datadir() / "data" / "script3.js";
+        fs::copy_file(script_js_original, styles_js_filepath);
     }
 
-    CtFileSystem::copy_file(styles_js_filepath, _res_dir / "script3.js");
+    fs::copy_file(styles_js_filepath, _res_dir / "script3.js");
 
     export_path = _export_dir;
 

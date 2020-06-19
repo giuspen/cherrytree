@@ -31,7 +31,7 @@
 #include <gtksourceviewmm/buffer.h>
 
 
-namespace CtFileSystem {
+namespace fs {
 class path;
 }
 
@@ -109,9 +109,9 @@ private:
     }
 };
 
-struct CtRecentDocsFilepaths : public CtMaxSizedList<CtFileSystem::path>
+struct CtRecentDocsFilepaths : public CtMaxSizedList<fs::path>
 {
-    CtRecentDocsFilepaths() : CtMaxSizedList<CtFileSystem::path>{10} {}
+    CtRecentDocsFilepaths() : CtMaxSizedList<fs::path>{10} {}
 };
 
 
@@ -142,10 +142,10 @@ public:
     virtual void reopen_connect() = 0;
     virtual void test_connection() = 0;
 
-    virtual bool populate_treestore(const CtFileSystem::path& file_path, Glib::ustring& error) = 0;
-    virtual bool save_treestore(const CtFileSystem::path& file_path, const CtStorageSyncPending& syncPending, Glib::ustring& error) = 0;
+    virtual bool populate_treestore(const fs::path& file_path, Glib::ustring& error) = 0;
+    virtual bool save_treestore(const fs::path& file_path, const CtStorageSyncPending& syncPending, Glib::ustring& error) = 0;
     virtual void vacuum() = 0;
-    virtual void import_nodes(const CtFileSystem::path& path) = 0;
+    virtual void import_nodes(const fs::path& path) = 0;
 
     virtual Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
                                                               const std::string& syntax,

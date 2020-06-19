@@ -41,7 +41,7 @@ class CtTmp
 public:
     CtTmp();
     virtual ~CtTmp();
-    fs::path getHiddenDirPath(const CtFileSystem::path& visiblePath);
+    fs::path getHiddenDirPath(const fs::path& visiblePath);
     fs::path getHiddenFilePath(const fs::path& visiblePath);
 
 protected:

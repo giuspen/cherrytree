@@ -828,7 +828,7 @@ bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_f
         CtDialogs::error_dialog("File does not exist", *this);
         return false;
     }
-    if (CtFileSystem::get_doc_type(filepath) == CtDocType::None) {
+    if (fs::get_doc_type(filepath) == CtDocType::None) {
         // can't open file but can insert content into a new node
         if (file_insert_plain_text(filepath)) {
             return false; // that's right
@@ -861,7 +861,7 @@ bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_f
 
     _title_update(false/*saveNeeded*/);
     menu_set_bookmark_menu_items();
-    bool can_vacuum = CtFileSystem::get_doc_type(_uCtStorage->get_file_path()) == CtDocType::SQLite;
+    bool can_vacuum = fs::get_doc_type(_uCtStorage->get_file_path()) == CtDocType::SQLite;
     _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(can_vacuum);
 
     const auto iterDocsRestore{_pCtConfig->recentDocsRestore.find(filepath.string())};
@@ -971,7 +971,7 @@ void CtMainWin::file_save_as(const std::string& new_filepath, const std::string&
 
     _uCtStorage.reset(new_storage);
 
-    bool can_vacuum = CtFileSystem::get_doc_type(_uCtStorage->get_file_path()) == CtDocType::SQLite;
+    bool can_vacuum = fs::get_doc_type(_uCtStorage->get_file_path()) == CtDocType::SQLite;
     _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(can_vacuum);
 
     update_window_save_not_needed();

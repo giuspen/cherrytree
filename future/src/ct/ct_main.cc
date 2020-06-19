@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
     {
         if (Glib::setenv("LANGUAGE", ct_lang, true/*overwrite*/))
         {
-            g_message("Language overwrite = %s (localedir = %s)", ct_lang.c_str(), CtFileSystem::get_cherrytree_localedir().c_str());
+            g_message("Language overwrite = %s (localedir = %s)", ct_lang.c_str(), fs::get_cherrytree_localedir().c_str());
         }
         else
         {
@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    bindtextdomain(GETTEXT_PACKAGE, CtFileSystem::get_cherrytree_localedir().c_str());
+    bindtextdomain(GETTEXT_PACKAGE, fs::get_cherrytree_localedir().c_str());
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
     textdomain(GETTEXT_PACKAGE);
 #endif
