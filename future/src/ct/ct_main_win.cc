@@ -124,7 +124,8 @@ CtMainWin::CtMainWin(bool             start_hidden,
     menu_set_items_special_chars();
     _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(false);
 
-    if (start_hidden || (_pCtConfig->systrayOn && _pCtConfig->startOnSystray)) {
+    if (start_hidden) set_visible(false);
+    else if (_pCtConfig->systrayOn && _pCtConfig->startOnSystray) {
         if (_pGtkStatusIcon->is_embedded()) {
             set_visible(false);
         } else {
