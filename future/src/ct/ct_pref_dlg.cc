@@ -1343,6 +1343,11 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     Gtk::VBox* vbox_system_tray = Gtk::manage(new Gtk::VBox());
     Gtk::CheckButton* checkbutton_systray = Gtk::manage(new Gtk::CheckButton(_("Enable System Tray Docking")));
     Gtk::CheckButton* checkbutton_start_on_systray = Gtk::manage(new Gtk::CheckButton(_("Start Minimized in the System Tray")));
+    bool has_systray = _pCtMainWin->get_status_icon()->is_embedded();
+    checkbutton_systray->set_sensitive(has_systray);
+    if (!has_systray) {
+        checkbutton_systray->set_tooltip_text("Your system does not appear to support system trays");
+    }
     vbox_system_tray->pack_start(*checkbutton_systray, false, false);
     vbox_system_tray->pack_start(*checkbutton_start_on_systray, false, false);
 

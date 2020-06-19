@@ -124,10 +124,17 @@ CtMainWin::CtMainWin(bool             start_hidden,
     menu_set_items_special_chars();
     _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(false);
 
-    if (start_hidden || (_pCtConfig->systrayOn && _pCtConfig->startOnSystray))
-        set_visible(false);
-    else
+    if (start_hidden || (_pCtConfig->systrayOn && _pCtConfig->startOnSystray)) {
+        if (_pGtkStatusIcon->is_embedded()) {
+            set_visible(false);
+        } else {
+            spdlog::warn("Start on systray is enabled but system does not support system trays, starting normally");
+            present();
+        }
+    }
+    else {
         present();
+    }
 }
 
 CtMainWin::~CtMainWin()
