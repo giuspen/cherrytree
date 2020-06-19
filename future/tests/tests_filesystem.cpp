@@ -116,7 +116,7 @@ TEST(FileSystemGroup, path_concat)
     STRCMP_EQUAL("/home/foo/bar.txt", p1.c_str());
 }
 
-TEST(FileSystemGroup, path_string)
+TEST(FileSystemGroup, path_native)
 {
 #ifndef _WIN32
     std::string first = "/foo";
@@ -127,10 +127,10 @@ TEST(FileSystemGroup, path_string)
 #endif
     CtFileSystem::path path("/foo");
 
-    STRCMP_EQUAL(path.c_str(), first.c_str());
+    STRCMP_EQUAL(path.native().c_str(), first.c_str());
 
     path /= "bar.txt";
-    STRCMP_EQUAL(path.c_str(), second.c_str());
+    STRCMP_EQUAL(path.native().c_str(), second.c_str());
 }
 
 TEST(FileSystemGroup, remove) {

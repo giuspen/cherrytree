@@ -286,7 +286,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
              return;
          }
          if (from_wheel)
-             filepath = Glib::path_get_dirname(CtFileSystem::absolute(filepath).string());
+             filepath = CtFileSystem::absolute(filepath).parent_path();
          CtFileSystem::external_filepath_open(filepath, true, _pCtMainWin->get_ct_config());
      }
      else if (vec[0] == CtConst::LINK_TYPE_FOLD) // link to folder

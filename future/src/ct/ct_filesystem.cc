@@ -1,5 +1,5 @@
 /*
- * ct_filesystem.cc
+  ct_filesystem.cc
  *
  * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
  *
@@ -39,15 +39,9 @@ void path::append(const path& other)
 
 path path::extension() const
 {
-    auto iter = _path.cend();
-    while (iter != _path.cbegin()) {
-        --iter;
-        if (*iter == '.') break;
-        if (*iter == path_sep) return path(""); // Cannot have an extension if not yet found
-    }
-    if (iter == _path.cend() || (iter == _path.cbegin() && _path.size() > 1)) return path("");
-
-    return path(iter, _path.cend());
+    auto last_pos = _path.find('.');
+    if (last_pos == std::string::npos) return path("");
+    else                               return path(_path.begin() + last_pos, _path.end());
 }
 
 path& path::operator=(path::string_type other)
@@ -153,6 +147,11 @@ path path::stem() const
     if (dot_pos == std::string::npos || dot_pos == 0)
         return name;
     return name.substr(0, dot_pos);
+}
+
+std::string path::native() const
+{
+    return _get_platform_path(_path);
 }
 
 bool exists(const path& filepath) {

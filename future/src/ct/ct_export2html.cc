@@ -601,13 +601,13 @@ std::string CtExport2Html::_get_href_from_link_prop_val(Glib::ustring link_prop_
         href = vec[1];
     else if (vec[0] == CtConst::LINK_TYPE_FILE)
     {
-        fs::path filepath = _link_process_filepath(vec[1]);
-        href = "file://" + filepath.string();
+        std::string filepath = _link_process_filepath(vec[1]);
+        href = "file://" + filepath;
     }
     else if (vec[0] == CtConst::LINK_TYPE_FOLD)
     {
-        fs::path folderpath = _link_process_folderpath(vec[1]);
-        href = "file://" + folderpath.string();
+        std::string folderpath = _link_process_folderpath(vec[1]);
+        href = "file://" + folderpath;
     }
     else if (vec[0] == CtConst::LINK_TYPE_NODE)
     {
@@ -626,22 +626,22 @@ std::string CtExport2Html::_get_href_from_link_prop_val(Glib::ustring link_prop_
     return href;
 }
 
-fs::path CtExport2Html::_link_process_filepath(const std::string& filepath_raw)
+std::string CtExport2Html::_link_process_filepath(const std::string& filepath_raw)
 {
     fs::path filepath = Glib::Base64::decode(filepath_raw);
     // todo:
     //if not os.path.isabs(filepath) and os.path.isfile(os.path.join(self.file_dir, filepath)):
     //    filepath = os.path.join(self.file_dir, filepath)
-    return filepath;
+    return filepath.native();
 }
 
-fs::path CtExport2Html::_link_process_folderpath(const std::string& folderpath_raw)
+std::string CtExport2Html::_link_process_folderpath(const std::string& folderpath_raw)
 {
     fs::path folderpath = Glib::Base64::decode(folderpath_raw);
     // todo:
     //if not os.path.isabs(folderpath) and os.path.isdir(os.path.join(self.file_dir, folderpath)):
     //    folderpath = os.path.join(self.file_dir, folderpath)
-    return folderpath;
+    return folderpath.native();
 }
 
 // Returns the style attribute(s) according to the alignment

@@ -24,6 +24,7 @@
 #include <list>
 #include <vector>
 #include "ct_types.h"
+#include "ct_splittable.h"
 #include <spdlog/fmt/fmt.h>
 #include <glibmm/miscutils.h>
 
@@ -31,6 +32,7 @@ class CtConfig;
 
 namespace CtFileSystem {
 class path;
+#include "ct_splittable.h"
 
 bool copy_file(const path& from, const path& to);
 
@@ -87,10 +89,11 @@ std::string download_file(const std::string& filepath);
 class path {
     using value_type = std::string::value_type;
     using string_type = std::basic_string<value_type>;
+
 #ifdef __WIN32
-    value_type path_sep = '\\';
+    static const value_type path_sep = '\\';
 #else
-    value_type path_sep = '/';
+    static const value_type path_sep = '/';
 #endif
 
 public:
@@ -100,10 +103,10 @@ public:
     }
 
     path() = default;
-    path(string_type path) : _path(_get_platform_path(std::move(path))) {}
-    path(const value_type* cpath) : path(string_type(cpath)) {}
+    path(string_type path) : _path(std::move(path)) {}
+    path(const value_type* cpath) : _path(cpath) {}
     template<typename ITERATOR_T>
-    path(ITERATOR_T begin, ITERATOR_T end) : path(string_type(begin, end)) {}
+    path(ITERATOR_T begin, ITERATOR_T end) : _path(begin, end) {}
     ~path() = default;
 
     void swap(path& other) noexcept {
@@ -139,8 +142,8 @@ public:
     friend bool operator<=(const path& lhs, const path& rhs) { return lhs._path <= rhs._path; }
 
     friend void operator+=(path& lhs, const path& rhs) { lhs._path += rhs._path; }
-    friend void operator+=(path& lhs, const string_type& rhs) { lhs._path += _get_platform_path(rhs); }
-    friend void operator+=(path& lhs, const value_type* rhs) { lhs._path += _get_platform_path(rhs); }
+    friend void operator+=(path& lhs, const string_type& rhs) { lhs._path += rhs; }
+    friend void operator+=(path& lhs, const value_type* rhs) { lhs._path += rhs; }
 
     [[nodiscard]] const char* c_str() const { return _path.c_str(); };
     [[nodiscard]] std::string string() const { return _path; }
@@ -151,6 +154,7 @@ public:
     [[nodiscard]] path parent_path() const { return Glib::path_get_dirname(_path); }
     [[nodiscard]] path extension() const;
     [[nodiscard]] path stem() const;
+    [[nodiscard]] std::string native() const;
 private:
     string_type _path;
 
