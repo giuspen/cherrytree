@@ -51,10 +51,10 @@ void CtStorageXml::test_connection()
 
 }
 
-std::unique_ptr<xmlpp::DomParser> get_parser(const Glib::ustring& file_path) {
+std::unique_ptr<xmlpp::DomParser> get_parser(const fs::path& file_path) {
     // open file
     auto parser = std::make_unique<xmlpp::DomParser>();
-    parser->parse_file(file_path);
+    parser->parse_file(file_path.string());
     if (!parser->get_document())
         throw std::runtime_error("document is null");
     if (parser->get_document()->get_root_node()->get_name() != CtConst::APP_NAME)
@@ -63,7 +63,7 @@ std::unique_ptr<xmlpp::DomParser> get_parser(const Glib::ustring& file_path) {
 }
 
 
-bool CtStorageXml::populate_treestore(const Glib::ustring& file_path, Glib::ustring& error)
+bool CtStorageXml::populate_treestore(const fs::path& file_path, Glib::ustring& error)
 {
     try
     {
@@ -98,7 +98,7 @@ bool CtStorageXml::populate_treestore(const Glib::ustring& file_path, Glib::ustr
     }
  }
 
-bool CtStorageXml::save_treestore(const Glib::ustring& file_path, const CtStorageSyncPending&, Glib::ustring& error)
+bool CtStorageXml::save_treestore(const fs::path& file_path, const CtStorageSyncPending&, Glib::ustring& error)
 {
     try
     {
@@ -123,7 +123,7 @@ bool CtStorageXml::save_treestore(const Glib::ustring& file_path, const CtStorag
         }
 
         // write file
-        xml_doc.write_to_file(file_path);
+        xml_doc.write_to_file(file_path.string());
 
         return true;
     }
@@ -139,7 +139,7 @@ void CtStorageXml::vacuum()
 
 }
 
-void CtStorageXml::import_nodes(const std::string& path)
+void CtStorageXml::import_nodes(const fs::path& path)
 {
     auto parser = get_parser(path);
 
@@ -385,7 +385,7 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_image_from_xml(xmlpp::Element* xml
     if (!anchorName.empty())
         return new CtImageAnchor(_pCtMainWin, anchorName, charOffset, justification);
 
-    const Glib::ustring file_name = xml_element->get_attribute_value("filename");
+    fs::path file_name = static_cast<std::string>(xml_element->get_attribute_value("filename"));
     xmlpp::TextNode* pTextNode = xml_element->get_child_text();
     const std::string encodedBlob = pTextNode ? pTextNode->get_content() : "";
     const std::string rawBlob = Glib::Base64::decode(encodedBlob);

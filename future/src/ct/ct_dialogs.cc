@@ -938,7 +938,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
         if (ctMainWin.get_ct_config()->linksRelative)
         {
             Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(filepath);
-            Glib::RefPtr<Gio::File> rDir = Gio::File::create_for_path(ctMainWin.get_ct_storage()->get_file_dir());
+            Glib::RefPtr<Gio::File> rDir = Gio::File::create_for_path(ctMainWin.get_ct_storage()->get_file_dir().string());
             filepath = rFile->get_relative_path(rDir);
         }
         entry_file.set_text(filepath);
@@ -954,7 +954,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
         if (ctMainWin.get_ct_config()->linksRelative)
         {
             Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(filepath);
-            Glib::RefPtr<Gio::File> rDir = Gio::File::create_for_path(ctMainWin.get_ct_storage()->get_file_dir());
+            Glib::RefPtr<Gio::File> rDir = Gio::File::create_for_path(ctMainWin.get_ct_storage()->get_file_dir().string());
             filepath = rFile->get_relative_path(rDir);
         }
         entry_folder.set_text(filepath);
@@ -1081,15 +1081,15 @@ std::string CtDialogs::file_select_dialog(const file_select_args& args)
     {
         chooser.set_position(Gtk::WIN_POS_CENTER);
     }
-    if (args.curr_folder.empty() || !Glib::file_test(args.curr_folder, Glib::FILE_TEST_IS_DIR))
+    if (args.curr_folder.empty() || !fs::is_directory(args.curr_folder))
     {
         chooser.set_current_folder(g_get_home_dir());
     }
     else
     {
-        chooser.set_current_folder(args.curr_folder);
+        chooser.set_current_folder(args.curr_folder.string());
     }
-    if (args.filter_pattern.size() || args.filter_mime.size())
+    if (!args.filter_pattern.empty() || !args.filter_mime.empty())
     {
         Glib::RefPtr<Gtk::FileFilter> rFileFilter = Gtk::FileFilter::create();
         rFileFilter->set_name(args.filter_name);
@@ -1155,17 +1155,17 @@ std::string CtDialogs::file_save_as_dialog(const file_select_args& args)
     {
         chooser.set_position(Gtk::WIN_POS_CENTER);
     }
-    if (args.curr_folder.empty() || !Glib::file_test(args.curr_folder, Glib::FILE_TEST_IS_DIR))
+    if (args.curr_folder.empty() || !fs::is_directory(args.curr_folder))
     {
         chooser.set_current_folder(g_get_home_dir());
     }
     else
     {
-        chooser.set_current_folder(args.curr_folder);
+        chooser.set_current_folder(args.curr_folder.string());
     }
     if (!args.curr_file_name.empty())
     {
-        chooser.set_current_name(args.curr_file_name);
+        chooser.set_current_name(args.curr_file_name.string());
     }
     if (!args.filter_pattern.empty())
     {

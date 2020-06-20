@@ -23,7 +23,7 @@
 
 #include <pangomm.h>
 #include <iostream>
-#include <string.h>
+#include <cstring>
 #include "ct_misc_utils.h"
 #include "ct_const.h"
 #include "ct_main_win.h"
@@ -31,7 +31,6 @@
 #include <ctime>
 #include <regex>
 #include <glib/gstdio.h> // to get stats
-#include <fstream>
 #include <curl/curl.h>
 #include <spdlog/fmt/bundled/printf.h>
 
@@ -43,8 +42,6 @@
     #include <shellapi.h>
 #endif
 
-
-namespace fs = CtFileSystem;
 
 namespace CtCSV {
 CtStringTable table_from_csv(std::istream& input)
@@ -135,79 +132,48 @@ void table_to_csv(const CtStringTable& table, std::ostream& output) {
 std::string CtMiscUtil::get_ct_language()
 {
     std::string retLang{CtConst::LANG_DEFAULT};
-    if (Glib::file_test(CtFileSystem::get_cherrytree_lang_filepath(), Glib::FILE_TEST_IS_REGULAR))
+    if (fs::is_regular_file(fs::get_cherrytree_lang_filepath()))
     {
-        const std::string langTxt = str::trim(Glib::file_get_contents(CtFileSystem::get_cherrytree_lang_filepath()));
+        const std::string langTxt = str::trim(Glib::file_get_contents(fs::get_cherrytree_lang_filepath().string()));
         if (vec::exists(CtConst::AVAILABLE_LANGS, langTxt))
         {
             retLang = langTxt;
         }
         else
         {
-            g_critical("Unexpected %s file content %s", CtFileSystem::get_cherrytree_lang_filepath().c_str(), langTxt.c_str());
+            g_critical("Unexpected %s file content %s", fs::get_cherrytree_lang_filepath().c_str(), langTxt.c_str());
         }
     }
     return retLang;
 }
 
-CtDocType CtMiscUtil::get_doc_type(const std::string& fileName)
-{
-    CtDocType retDocType{CtDocType::None};
-    if ( (Glib::str_has_suffix(fileName, CtConst::CTDOC_XML_NOENC)) or
-         (Glib::str_has_suffix(fileName, CtConst::CTDOC_XML_ENC)) )
-    {
-        retDocType = CtDocType::XML;
-    }
-    else if ( (Glib::str_has_suffix(fileName, CtConst::CTDOC_SQLITE_NOENC)) or
-              (Glib::str_has_suffix(fileName, CtConst::CTDOC_SQLITE_ENC)) )
-    {
-        retDocType = CtDocType::SQLite;
-    }
-    return retDocType;
-}
 
-CtDocEncrypt CtMiscUtil::get_doc_encrypt(const std::string& fileName)
+std::string CtMiscUtil::get_doc_extension(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt)
 {
-    CtDocEncrypt retDocEncrypt{CtDocEncrypt::None};
-    if ( (Glib::str_has_suffix(fileName, CtConst::CTDOC_XML_NOENC)) or
-         (Glib::str_has_suffix(fileName, CtConst::CTDOC_SQLITE_NOENC)) )
-    {
-        retDocEncrypt = CtDocEncrypt::False;
-    }
-    else if ( (Glib::str_has_suffix(fileName, CtConst::CTDOC_XML_ENC)) or
-              (Glib::str_has_suffix(fileName, CtConst::CTDOC_SQLITE_ENC)) )
-    {
-        retDocEncrypt = CtDocEncrypt::True;
-    }
-    return retDocEncrypt;
-}
-
-const gchar* CtMiscUtil::get_doc_extension(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt)
-{
-    const gchar* retVal{""};
+    std::string ret_val;
     if (CtDocType::XML == ctDocType)
     {
         if (CtDocEncrypt::False == ctDocEncrypt)
         {
-            retVal = CtConst::CTDOC_XML_NOENC;
+            ret_val = CtConst::CTDOC_XML_NOENC;
         }
         else if (CtDocEncrypt::True == ctDocEncrypt)
         {
-            retVal = CtConst::CTDOC_XML_ENC;
+            ret_val = CtConst::CTDOC_XML_ENC;
         }
     }
     else if (CtDocType::SQLite == ctDocType)
     {
         if (CtDocEncrypt::False == ctDocEncrypt)
         {
-            retVal = CtConst::CTDOC_SQLITE_NOENC;
+            ret_val = CtConst::CTDOC_SQLITE_NOENC;
         }
         else if (CtDocEncrypt::True == ctDocEncrypt)
         {
-            retVal = CtConst::CTDOC_SQLITE_ENC;
+            ret_val = CtConst::CTDOC_SQLITE_ENC;
         }
     }
-    return retVal;
+    return ret_val;
 }
 
 void CtMiscUtil::filepath_extension_fix(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt, std::string& filepath)
@@ -801,6 +767,7 @@ char* CtRgbUtil::set_rgb24str_from_str_any(const char* rgbStrAny, char* rgb24Str
     return rgb24StrOut;
 }
 
+
 Glib::ustring CtRgbUtil::rgb_to_no_white(Glib::ustring in_rgb)
 {
     char out_rgb[16] = {};
@@ -969,215 +936,6 @@ Glib::ustring str::repeat(const Glib::ustring& input, int num)
     return ret;
 }
 
-std::string CtFileSystem::get_proper_platform_filepath(std::string filepath)
-{
-#ifdef _WIN32
-    filepath = str::replace(filepath, CtConst::CHAR_SLASH, CtConst::CHAR_BSLASH);
-#else
-    filepath = str::replace(filepath, CtConst::CHAR_BSLASH, CtConst::CHAR_SLASH);
-#endif
-    return filepath;
-}
 
-bool CtFileSystem::copy_file(const std::string& from_file, const std::string& to_file)
-{
-    Glib::RefPtr<Gio::File> rFileFrom = Gio::File::create_for_path(from_file);
-    Glib::RefPtr<Gio::File> rFileTo = Gio::File::create_for_path(to_file);
-    return rFileFrom->copy(rFileTo, Gio::FILE_COPY_OVERWRITE);
-}
 
-bool CtFileSystem::is_directory(const fs::path& path) {
-    return Glib::file_test(path.string(), Glib::FILE_TEST_IS_DIR);
-}
 
-bool CtFileSystem::move_file(const std::string& from_file, const std::string& to_file)
-{
-    Glib::RefPtr<Gio::File> rFileFrom = Gio::File::create_for_path(from_file);
-    Glib::RefPtr<Gio::File> rFileTo = Gio::File::create_for_path(to_file);
-    return rFileFrom->move(rFileTo, Gio::FILE_COPY_OVERWRITE);
-}
-
-fs::path CtFileSystem::abspath(const fs::path& path)
-{
-    Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(path.string());
-    return rFile->get_path();
-}
-
-time_t CtFileSystem::getmtime(const std::string& path)
-{
-    time_t time = 0;
-    GStatBuf st;
-    if (g_stat(path.c_str(), &st) == 0)
-        time = st.st_mtime;
-    return time;
-}
-
-int CtFileSystem::getsize(const std::string& path)
-{
-    GStatBuf st;
-    if (g_stat(path.c_str(), &st) == 0)
-        return st.st_size;
-    return 0;
-}
-
-std::list<std::string> CtFileSystem::get_dir_entries(const std::string& dir)
-{
-    Glib::Dir gdir(dir);
-    std::list<std::string> entries(gdir.begin(), gdir.end());
-    for (auto& entry: entries)
-        entry = Glib::build_filename(dir, entry);
-    return entries;
-}
-
-std::string CtFileSystem::get_file_stem(const std::string& path)
-{
-    if (path == "") return "";
-    std::string name = Glib::path_get_basename(path);
-    size_t dot_pos = name.find_last_of(".");
-    if (dot_pos == std::string::npos || dot_pos == 0)
-        return name;
-    return name.substr(0, dot_pos);
-}
-
-bool CtFileSystem::exists(const CtFileSystem::path& filepath) {
-    return Glib::file_test(filepath.string(), Glib::FILE_TEST_EXISTS);
-}
-
-// Open Filepath with External App
-void CtFileSystem::external_filepath_open(const fs::path& filepath, bool open_folder_if_file_not_exists, CtConfig* config)
-{
-    spdlog::debug("filepath to open: {}", filepath);
-    if (config->filelinkCustomOn) {
-        std::string cmd = fmt::sprintf(config->filelinkCustomAct, filepath.string());
-        std::system(cmd.c_str());
-    } else {
-        if (open_folder_if_file_not_exists && !fs::exists(filepath)) {
-            external_folderpath_open(filepath, config);
-        } else if (!fs::exists(filepath)) {
-            throw std::runtime_error(fmt::format("Filepath: {} does not exist and open_folder_if_not_exists is false", filepath.string()));
-        } else {
-#ifdef _WIN32
-            ShellExecute(GetActiveWindow(), "open", filepath.c_str(), NULL, NULL, SW_SHOWNORMAL);
-#else
-            fs::path f_path("file://");
-            f_path += filepath;
-            g_app_info_launch_default_for_uri(f_path.c_str(), nullptr, nullptr);
-#endif
-        }
-    }
-}
-
-// Open Folderpath with External App
-void CtFileSystem::external_folderpath_open(const fs::path& folderpath, CtConfig* config)
-{
-    spdlog::debug("dir to open: {}", folderpath.string());
-    if (config->folderlinkCustomOn) {
-        std::string cmd = fmt::sprintf(config->filelinkCustomAct, folderpath.string());
-        std::system(cmd.c_str());
-    } else {
-    
-        // https://stackoverflow.com/questions/42442189/how-to-open-spawn-a-file-with-glib-gtkmm-in-windows
-#ifdef _WIN32
-        ShellExecute(NULL, "open", folderpath.c_str(), NULL, NULL, SW_SHOWDEFAULT);
-#elif defined(__APPLE__)
-        std::vector<std::string> argv = { "open", folderpath.string() };
-    Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
-#else
-        fs::path path("file://");
-        path += folderpath;
-        g_app_info_launch_default_for_uri(folderpath.c_str(), nullptr, nullptr);
-#endif
-    }
-}
-
-std::string CtFileSystem::prepare_export_folder(const std::string& dir_place, std::string new_folder, bool overwrite_existing)
-{
-    if (Glib::file_test(Glib::build_filename(dir_place, new_folder), Glib::FILE_TEST_IS_DIR))
-    {
-        // todo:
-        if (overwrite_existing) {
-            std::cout << "removing dir: " << Glib::build_filename(dir_place, new_folder) << std::endl;
-            rmdir(Glib::build_filename(dir_place, new_folder));
-        }
-        else {
-            int n = 2;
-            while (Glib::file_test(Glib::build_filename(dir_place, new_folder + str::format("{:03d}", n)), Glib::FILE_TEST_IS_DIR))
-                n += 1;
-            new_folder += str::format("{:03d}", n);
-        }
-    }
-    return new_folder;
-}
-
-extern bool cherrytree_remove_dir_with_subs(const char* path);
-bool CtFileSystem::rmdir(const std::string& dir)
-{
-    return cherrytree_remove_dir_with_subs(dir.c_str());
-}
-
-std::string CtFileSystem::get_cherrytree_datadir()
-{
-    if (Glib::file_test(_CMAKE_BINARY_DIR, Glib::FILE_TEST_IS_DIR)) {
-        // we're running from the build sources
-        return _CMAKE_SOURCE_DIR;
-    }
-    return CHERRYTREE_DATADIR;
-}
-
-std::string CtFileSystem::get_cherrytree_localedir()
-{
-    const std::string sources_po_dir = Glib::canonicalize_filename(Glib::build_filename(_CMAKE_SOURCE_DIR, "po"));
-    if (Glib::file_test(sources_po_dir, Glib::FILE_TEST_IS_DIR)) {
-        // we're running from the build sources
-        return sources_po_dir;
-    }
-    return CHERRYTREE_LOCALEDIR;
-}
-
-std::string CtFileSystem::get_cherrytree_configdir()
-{
-    //TODO: define rule for local config.cfg/lang files at least for Windows portable
-    return Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME);
-}
-
-std::string CtFileSystem::get_cherrytree_lang_filepath()
-{
-    return Glib::build_filename(get_cherrytree_configdir(), "lang");
-}
-
-std::string CtFileSystem::download_file(const std::string& filepath)
-{
-    struct local {
-        static size_t write_memory_callback(void *contents, size_t size, size_t nmemb, void *userp)
-        {
-            const size_t realsize = size*nmemb;
-            static_cast<std::string*>(userp)->append((char*)contents, realsize);
-            return realsize;
-        }
-    };
-
-    spdlog::debug("start downloading {}", filepath);
-
-    std::string buffer;
-    buffer.reserve(3 * 1024 * 1024); // preallocate 3mb
-
-    // from https://curl.haxx.se/libcurl/c/getinmemory.html
-    curl_global_init(CURL_GLOBAL_ALL);
-    CURL* pCurlHandle = curl_easy_init();
-
-    curl_easy_setopt(pCurlHandle, CURLOPT_URL, filepath.c_str());
-    curl_easy_setopt(pCurlHandle, CURLOPT_WRITEFUNCTION, local::write_memory_callback);
-    curl_easy_setopt(pCurlHandle, CURLOPT_WRITEDATA, (void*)&buffer);
-    curl_easy_setopt(pCurlHandle, CURLOPT_TIMEOUT, 3);
-    curl_easy_setopt(pCurlHandle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
-    const CURLcode res = curl_easy_perform(pCurlHandle);
-    curl_easy_cleanup(pCurlHandle);
-    curl_global_cleanup();
-
-    if (res != CURLE_OK) {
-        spdlog::error("curl_easy_perform() failed: {}", curl_easy_strerror(res));
-        return "";
-    }
-
-    return buffer;
-}

@@ -30,6 +30,11 @@
 #include <glibmm/ustring.h>
 #include <gtksourceviewmm/buffer.h>
 
+
+namespace fs {
+class path;
+}
+
 enum class CtYesNoCancel { Yes, No, Cancel };
 
 enum class CtDocType { None, XML, SQLite };
@@ -104,9 +109,9 @@ private:
     }
 };
 
-struct CtRecentDocsFilepaths : public CtMaxSizedList<std::string>
+struct CtRecentDocsFilepaths : public CtMaxSizedList<fs::path>
 {
-    CtRecentDocsFilepaths() : CtMaxSizedList<std::string>{10} {}
+    CtRecentDocsFilepaths() : CtMaxSizedList<fs::path>{10} {}
 };
 
 
@@ -137,10 +142,10 @@ public:
     virtual void reopen_connect() = 0;
     virtual void test_connection() = 0;
 
-    virtual bool populate_treestore(const Glib::ustring& file_path, Glib::ustring& error) = 0;
-    virtual bool save_treestore(const Glib::ustring& file_path, const CtStorageSyncPending& syncPending, Glib::ustring& error) = 0;
+    virtual bool populate_treestore(const fs::path& file_path, Glib::ustring& error) = 0;
+    virtual bool save_treestore(const fs::path& file_path, const CtStorageSyncPending& syncPending, Glib::ustring& error) = 0;
     virtual void vacuum() = 0;
-    virtual void import_nodes(const std::string& path) = 0;
+    virtual void import_nodes(const fs::path& path) = 0;
 
     virtual Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
                                                               const std::string& syntax,

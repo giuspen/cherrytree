@@ -22,13 +22,15 @@
  */
 
 #include <iostream>
+#include <memory>
 #include <gtkmm.h>
 #include "ct_config.h"
 #include "ct_misc_utils.h"
 #include "ct_logging.h"
+#include "ct_filesystem.h"
 
 
-const std::string CtConfig::_defaultFilepath{Glib::build_filename(CtFileSystem::get_cherrytree_configdir(), "config.cfg")};
+const fs::path CtConfig::_defaultFilepath{fs::get_cherrytree_configdir() / "config.cfg"};
 
 CtConfig::CtConfig()
 {
@@ -40,12 +42,12 @@ CtConfig::~CtConfig()
     //std::cout << "~CtConfig()" << std::endl;
 }
 
-bool CtConfig::load_from_file(const std::string& filepath)
+bool CtConfig::load_from_file(const fs::path& filepath)
 {
-    if (Glib::file_test(filepath, Glib::FILE_TEST_EXISTS))
+    if (fs::exists(filepath))
     {
-        _uKeyFile.reset(new Glib::KeyFile);
-        _uKeyFile->load_from_file(filepath);
+        _uKeyFile = std::make_unique<Glib::KeyFile>();
+        _uKeyFile->load_from_file(filepath.string());
         _populate_data_from_keyfile();
         _uKeyFile.reset(nullptr);
         spdlog::debug("{} parsed", filepath);
@@ -55,11 +57,11 @@ bool CtConfig::load_from_file(const std::string& filepath)
     return false;
 }
 
-bool CtConfig::write_to_file(const std::string& filepath)
+bool CtConfig::write_to_file(const fs::path& filepath)
 {
-    _uKeyFile.reset(new Glib::KeyFile);
+    _uKeyFile = std::make_unique<Glib::KeyFile>();
     _populate_keyfile_from_data();
-    const bool writeSucceeded = _uKeyFile->save_to_file(filepath);
+    const bool writeSucceeded = _uKeyFile->save_to_file(filepath.string());
     _uKeyFile.reset(nullptr);
     return writeSucceeded;
 }
@@ -157,11 +159,11 @@ void CtConfig::_populate_keyfile_from_data()
     // [state]
     _currentGroup = "state";
     guint i{0};
-    for (const std::string& filepath : recentDocsFilepaths)
+    for (const fs::path& filepath : recentDocsFilepaths)
     {
         snprintf(_tempKey, _maxTempKeySize, "doc_%d", i);
-        _uKeyFile->set_string(_currentGroup, _tempKey, filepath);
-        const CtRecentDocsRestore::iterator mapIt = recentDocsRestore.find(filepath);
+        _uKeyFile->set_string(_currentGroup, _tempKey, filepath.string());
+        const CtRecentDocsRestore::iterator mapIt = recentDocsRestore.find(filepath.string());
         if (mapIt != recentDocsRestore.end())
         {
             snprintf(_tempKey, _maxTempKeySize, "expcol_%d", i);
@@ -383,7 +385,7 @@ void CtConfig::_populate_data_from_keyfile()
         {
             recentDocRestore.node_path = str::replace(recentDocRestore.node_path, " ", ":");
             _populate_int_from_keyfile("cursor_position", &recentDocRestore.cursor_pos);
-            recentDocsRestore[recentDocsFilepaths.front()] = recentDocRestore;
+            recentDocsRestore[recentDocsFilepaths.front().string()] = recentDocRestore;
         }
     }
     _populate_string_from_keyfile("pick_dir_import", &pickDirImport);
@@ -418,7 +420,7 @@ void CtConfig::_populate_data_from_keyfile()
         std::string exp_coll_str;
         if (_populate_string_from_keyfile("expanded_collapsed_string", &exp_coll_str))
         {
-            recentDocsRestore[recentDocsFilepaths.front()].exp_coll_str = exp_coll_str;
+            recentDocsRestore[recentDocsFilepaths.front().string()].exp_coll_str = exp_coll_str;
         }
         for (guint i=1; i<=3; ++i)
         {
@@ -426,9 +428,9 @@ void CtConfig::_populate_data_from_keyfile()
             snprintf(_tempKey, _maxTempKeySize, "expcollnam%d", i);
             if (_populate_string_from_keyfile(_tempKey, &docName))
             {
-                for (const std::string& filepath : recentDocsFilepaths)
+                for (const fs::path& filepath : recentDocsFilepaths)
                 {
-                    if (Glib::path_get_basename(filepath) == docName)
+                    if (filepath.filename() == docName)
                     {
                         CtRecentDocRestore recentDocRestore;
                         snprintf(_tempKey, _maxTempKeySize, "expcollstr%d", i);
@@ -440,7 +442,7 @@ void CtConfig::_populate_data_from_keyfile()
                             snprintf(_tempKey, _maxTempKeySize, "expcollcur%d", i);
                             _populate_int_from_keyfile(_tempKey, &recentDocRestore.cursor_pos);
                         }
-                        recentDocsRestore[filepath] = recentDocRestore;
+                        recentDocsRestore[filepath.string()] = recentDocRestore;
                     }
                 }
             }

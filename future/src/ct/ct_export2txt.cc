@@ -28,7 +28,7 @@ CtExport2Txt::CtExport2Txt(CtMainWin* pCtMainWin)
 }
 
 // Export the Selected Node To Txt
-Glib::ustring CtExport2Txt::node_export_to_txt(CtTreeIter tree_iter, Glib::ustring filepath, CtExportOptions export_options, int sel_start, int sel_end)
+Glib::ustring CtExport2Txt::node_export_to_txt(CtTreeIter tree_iter, fs::path filepath, CtExportOptions export_options, int sel_start, int sel_end)
 {
     Glib::ustring plain_text;
     if (export_options.include_node_name)
@@ -41,7 +41,7 @@ Glib::ustring CtExport2Txt::node_export_to_txt(CtTreeIter tree_iter, Glib::ustri
 }
 
 // Export All Nodes To Txt
-void CtExport2Txt::nodes_all_export_to_txt(bool all_tree, Glib::ustring export_dir, Glib::ustring single_txt_filepath, CtExportOptions export_options)
+void CtExport2Txt::nodes_all_export_to_txt(bool all_tree, fs::path export_dir, fs::path single_txt_filepath, CtExportOptions export_options)
 {
     // function to iterate nodes
     Glib::ustring tree_plain_text;
@@ -51,7 +51,7 @@ void CtExport2Txt::nodes_all_export_to_txt(bool all_tree, Glib::ustring export_d
             tree_plain_text += node_export_to_txt(tree_iter, "", export_options, -1, -1);
         else
         {
-            Glib::ustring filepath = Glib::build_filename(export_dir, CtMiscUtil::get_node_hierarchical_name(tree_iter) + ".txt");
+            fs::path filepath = export_dir / (CtMiscUtil::get_node_hierarchical_name(tree_iter) + ".txt");
             node_export_to_txt(tree_iter, filepath, export_options, -1, -1);
         }
         for (auto& child: tree_iter->children())

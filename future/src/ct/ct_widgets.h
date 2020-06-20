@@ -31,6 +31,7 @@
 #include <gspell/gspell.h>
 #include <map>
 #include "ct_types.h"
+#include "ct_filesystem.h"
 
 
 class CtMDParser;
@@ -40,8 +41,8 @@ class CtTmp
 public:
     CtTmp();
     virtual ~CtTmp();
-    const gchar* getHiddenDirPath(const std::string& visiblePath);
-    const gchar* getHiddenFilePath(const std::string& visiblePath);
+    fs::path getHiddenDirPath(const fs::path& visiblePath);
+    fs::path getHiddenFilePath(const fs::path& visiblePath);
 
 protected:
     std::unordered_map<std::string,gchar*> _mapHiddenDirs;

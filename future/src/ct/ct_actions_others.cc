@@ -32,8 +32,6 @@
 #include "ct_logging.h"
 #include <spdlog/fmt/bundled/printf.h>
 
-namespace fs = CtFileSystem;
-
 // Cut Link
 void CtActions::link_cut()
 {
@@ -149,20 +147,20 @@ void CtActions::embfile_open()
         curr_file_anchor->set_data("open_id", (void*)open_id);
     }
 
-    Glib::ustring filename = std::to_string(_pCtMainWin->curr_tree_iter().get_node_id()) +
+    fs::path filename = std::to_string(_pCtMainWin->curr_tree_iter().get_node_id()) +
             CtConst::CHAR_MINUS + std::to_string(open_id) +
             CtConst::CHAR_MINUS + std::to_string(getpid())+
-            CtConst::CHAR_MINUS + curr_file_anchor->get_file_name();
-    Glib::ustring filepath = _pCtMainWin->get_ct_tmp()->getHiddenFilePath(filename);
-    std::fstream file(filepath, std::ios::out | std::ios::binary);
+            CtConst::CHAR_MINUS + curr_file_anchor->get_file_name().string();
+    fs::path filepath = _pCtMainWin->get_ct_tmp()->getHiddenFilePath(filename);
+    std::fstream file(filepath.string(), std::ios::out | std::ios::binary);
     long size = (long)curr_file_anchor->get_raw_blob().size();
     file.write(curr_file_anchor->get_raw_blob().c_str(), size);
     file.close();
 
-    spdlog::debug("embfile_open {}", static_cast<std::string>(filepath));
+    spdlog::debug("embfile_open {}", filepath);
 
-    CtFileSystem::external_filepath_open(filepath.c_str(), false, _pCtMainWin->get_ct_config());
-    _embfiles_opened[filepath] = CtFileSystem::getmtime(filepath);
+    fs::external_filepath_open(filepath.c_str(), false, _pCtMainWin->get_ct_config());
+    _embfiles_opened[filepath] = fs::getmtime(filepath);
 
     if (not _embfiles_timeout_connection)
         _embfiles_timeout_connection = Glib::signal_timeout().connect(sigc::mem_fun(*this, &CtActions::_on_embfiles_sentinel_timeout), 500);
@@ -279,27 +277,27 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
      }
      else if (vec[0] == CtConst::LINK_TYPE_FILE) // link to file
      {
-         fs::path filepath = CtExport2Html::_link_process_filepath(vec[1]).c_str();
+         fs::path filepath = CtExport2Html::_link_process_filepath(vec[1]);
          if (not Glib::file_test(filepath.string(), Glib::FILE_TEST_IS_REGULAR))
          {
-             CtDialogs::error_dialog(fmt::format(_("The File Link '{}' is Not Valid"), filepath), *_pCtMainWin);
+             CtDialogs::error_dialog(str::format(_("The File Link '%s' is Not Valid"), filepath.string()), *_pCtMainWin);
              return;
          }
          if (from_wheel)
-             filepath = Glib::path_get_dirname(CtFileSystem::abspath(filepath).string());
-         CtFileSystem::external_filepath_open(filepath, true, _pCtMainWin->get_ct_config());
+             filepath = fs::absolute(filepath).parent_path();
+         fs::external_filepath_open(filepath, true, _pCtMainWin->get_ct_config());
      }
      else if (vec[0] == CtConst::LINK_TYPE_FOLD) // link to folder
      {
          fs::path folderpath = CtExport2Html::_link_process_folderpath(vec[1]).c_str();
          if (not fs::is_directory(folderpath))
          {
-             CtDialogs::error_dialog(fmt::format(_("The Folder Link '{}' is Not Valid"), folderpath), *_pCtMainWin);
+             CtDialogs::error_dialog(str::format(_("The Folder Link '%s' is Not Valid"), folderpath.string()), *_pCtMainWin);
              return;
          }
          if (from_wheel)
-             folderpath = Glib::path_get_dirname(CtFileSystem::abspath(folderpath).string());
-         CtFileSystem::external_folderpath_open(folderpath, _pCtMainWin->get_ct_config());
+             folderpath = Glib::path_get_dirname(fs::absolute(folderpath).string());
+         fs::external_folderpath_open(folderpath, _pCtMainWin->get_ct_config());
      }
      else if (vec[0] == CtConst::LINK_TYPE_NODE) // link to a tree node
      {
@@ -418,7 +416,7 @@ void CtActions::exec_code()
         code_type = _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting();
         code_val = _curr_buffer()->begin().get_text(_curr_buffer()->end());
     }
-    Glib::ustring binary_cmd = [&]() -> Glib::ustring {
+    std::string binary_cmd = [&]() -> std::string {
         for (auto& it: _pCtMainWin->get_ct_config()->customCodexecType)
             if (it.first == code_type) return it.second;
         for (const auto& it: CtConst::CODE_EXEC_TYPE_CMD_DEFAULT)
@@ -429,7 +427,7 @@ void CtActions::exec_code()
         CtDialogs::warning_dialog(str::format(_("You must associate a command to '%s'.\nDo so in the Preferences Dialog"), code_type), *_pCtMainWin);
         return;
     }
-    Glib::ustring code_type_ext = [&]() -> Glib::ustring {
+    std::string code_type_ext = [&]() -> std::string {
         for (auto& it: _pCtMainWin->get_ct_config()->customCodexecExt)
             if (it.first == code_type) return it.second;
         for (const auto& it: CtConst::CODE_EXEC_TYPE_EXT_DEFAULT)
@@ -438,10 +436,10 @@ void CtActions::exec_code()
     }();
     Glib::ustring code_exec_term = CtPrefDlg::get_code_exec_term_run(_pCtMainWin);
 
-    Glib::ustring filepath_src_tmp = _pCtMainWin->get_ct_tmp()->getHiddenFilePath("exec_code." + code_type_ext);
-    Glib::ustring filepath_bin_tmp = _pCtMainWin->get_ct_tmp()->getHiddenFilePath("exec_code.exe");
-    binary_cmd = str::replace(binary_cmd, CtConst::CODE_EXEC_TMP_SRC, filepath_src_tmp);
-    binary_cmd = str::replace(binary_cmd, CtConst::CODE_EXEC_TMP_BIN, filepath_bin_tmp);
+    fs::path filepath_src_tmp = _pCtMainWin->get_ct_tmp()->getHiddenFilePath("exec_code." + code_type_ext);
+    fs::path filepath_bin_tmp = _pCtMainWin->get_ct_tmp()->getHiddenFilePath("exec_code.exe");
+    binary_cmd = str::replace(binary_cmd, CtConst::CODE_EXEC_TMP_SRC, filepath_src_tmp.string());
+    binary_cmd = str::replace(binary_cmd, CtConst::CODE_EXEC_TMP_BIN, filepath_bin_tmp.string());
     Glib::ustring terminal_cmd = str::replace(code_exec_term, CtConst::CODE_EXEC_COMMAND, binary_cmd);
 
     if (!CtDialogs::question_dialog(std::string("<b>")+_("Do you want to Execute the Code?")+"</b>", *_pCtMainWin))
@@ -718,17 +716,17 @@ bool CtActions::_on_embfiles_sentinel_timeout()
 {
     for(auto& item : _embfiles_opened)
     {
-        const Glib::ustring& filepath = item.first;
-        if (not Glib::file_test(filepath, Glib::FILE_TEST_IS_REGULAR))
+        const fs::path& filepath = item.first;
+        if (not fs::is_regular_file(filepath))
         {
             spdlog::debug("embdrop{}", filepath);
             _embfiles_opened.erase(filepath);
             break;
         }
-        if (item.second != CtFileSystem::getmtime(filepath))
+        if (item.second != fs::getmtime(filepath))
         {
-           _embfiles_opened[filepath] = CtFileSystem::getmtime(filepath);
-           auto data_vec = str::split(Glib::path_get_basename(filepath), CtConst::CHAR_MINUS);
+           _embfiles_opened[filepath] = fs::getmtime(filepath);
+           auto data_vec = str::split(filepath.filename().string(), CtConst::CHAR_MINUS);
            gint64 node_id = std::stoll(data_vec[0]);
            size_t embfile_id = std::stol(data_vec[1]);
 
@@ -745,7 +743,7 @@ bool CtActions::_on_embfiles_sentinel_timeout()
                 if (CtImageEmbFile* embFile = dynamic_cast<CtImageEmbFile*>(widget))
                     if (((size_t)embFile->get_data("open_id")) == embfile_id)
                     {
-                        auto file = std::fstream(filepath, std::ios::in | std::ios::binary);
+                        auto file = std::fstream(filepath.string(), std::ios::in | std::ios::binary);
                         std::vector<char> buffer(std::istreambuf_iterator<char>(file), {});
                         file.close();
                         embFile->set_raw_blob(buffer.data(), buffer.size());
@@ -753,7 +751,7 @@ bool CtActions::_on_embfiles_sentinel_timeout()
                         embFile->update_tooltip();
 
                         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
-                        _pCtMainWin->get_status_bar().update_status(_("Embedded File Automatically Updated:") + std::string(CtConst::CHAR_SPACE) + embFile->get_file_name());
+                        _pCtMainWin->get_status_bar().update_status(_("Embedded File Automatically Updated:") + std::string(CtConst::CHAR_SPACE) + embFile->get_file_name().string());
                         break;
                     }
            }

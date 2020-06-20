@@ -94,12 +94,12 @@ public:
 
     void update_theme();
 
-    bool file_open(const std::string& filepath, const std::string& node_to_focus);
+    bool file_open(const fs::path& filepath, const std::string& node_to_focus);
     bool file_save_ask_user();
     void file_save(bool need_vacuum);
     void file_save_as(const std::string& new_filepath, const std::string& password);
     void file_autosave_restart();
-    bool file_insert_plain_text(const std::string& filepath);
+    bool file_insert_plain_text(const fs::path& filepath);
 
     void reset();
     void update_window_save_needed(const CtSaveNeededUpdType update_type = CtSaveNeededUpdType::None,

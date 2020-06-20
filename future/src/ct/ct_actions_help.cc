@@ -36,7 +36,7 @@ void CtActions::dialog_about()
 
 void CtActions::folder_cfg_open()
 {
-    CtFileSystem::external_folderpath_open(Glib::get_user_config_dir() / CtFileSystem::path(CtConst::APP_NAME), _pCtMainWin->get_ct_config());
+    fs::external_folderpath_open(Glib::get_user_config_dir() / fs::path(CtConst::APP_NAME), _pCtMainWin->get_ct_config());
 }
 
 void CtActions::check_for_newer_version()
@@ -45,7 +45,7 @@ void CtActions::check_for_newer_version()
     statusbar.update_status(_("Checking for Newer Version..."));
     while (gtk_events_pending()) gtk_main_iteration();
 
-    const std::string latest_version_from_server = str::trim(CtFileSystem::download_file("https://www.giuspen.com/software/version_cherrytree"));
+    std::string latest_version_from_server = str::trim(fs::download_file("https://www.giuspen.com/software/version_cherrytree"));
     //g_print("v='%s'\n", latest_version_from_server.c_str());
     if (latest_version_from_server.empty() or latest_version_from_server.size() > 10) {
         statusbar.update_status(_("Failed to Retrieve Latest Version Information - Try Again Later"));

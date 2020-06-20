@@ -174,7 +174,7 @@ void CtStorageSqlite::test_connection()
         throw std::runtime_error(str::format(_("%s write failed - is file blocked by a sync program?"), _file_path));
 }
 
-bool CtStorageSqlite::populate_treestore(const Glib::ustring& file_path, Glib::ustring& error)
+bool CtStorageSqlite::populate_treestore(const fs::path& file_path, Glib::ustring& error)
 {
     _close_db();
     try
@@ -215,7 +215,7 @@ bool CtStorageSqlite::populate_treestore(const Glib::ustring& file_path, Glib::u
     }
 }
 
-bool CtStorageSqlite::save_treestore(const Glib::ustring& file_path, const CtStorageSyncPending& syncPending, Glib::ustring& error)
+bool CtStorageSqlite::save_treestore(const fs::path& file_path, const CtStorageSyncPending& syncPending, Glib::ustring& error)
 {
     try
     {
@@ -298,7 +298,7 @@ void CtStorageSqlite::vacuum()
     _exec_no_callback("REINDEX");
 }
 
-void CtStorageSqlite::_open_db(const std::string &path)
+void CtStorageSqlite::_open_db(const fs::path& path)
 {
     if (_pDb) return;
     if (sqlite3_open(path.c_str(), &_pDb) != SQLITE_OK)
@@ -425,7 +425,7 @@ void CtStorageSqlite::_image_from_db(const gint64& nodeId, std::list<CtAnchoredW
         }
         else
         {
-            const Glib::ustring fileName = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 5));
+            fs::path fileName = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 5));
             const void* pBlob = sqlite3_column_blob(stmt, 4);
             const int blobSize = sqlite3_column_bytes(stmt, 4);
             const std::string rawBlob(reinterpret_cast<const char*>(pBlob), static_cast<size_t>(blobSize));
@@ -747,7 +747,7 @@ void CtStorageSqlite::_exec_bind_int64(const char* sqlCmd, const gint64 bind_int
         throw std::runtime_error(ERR_SQLITE_STEP + sqlite3_errmsg(_pDb));
 }
 
-void CtStorageSqlite::import_nodes(const std::string& path)
+void CtStorageSqlite::import_nodes(const fs::path& path)
 {
     _open_db(path); // storage is temp so can just open db
     // _fix_db_tables(); how to do it withough saving changes

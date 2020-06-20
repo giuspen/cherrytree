@@ -38,41 +38,42 @@ CtExport2Html::CtExport2Html(CtMainWin* pCtMainWin)
 }
 
 //Prepare the website folder
-bool CtExport2Html::prepare_html_folder(Glib::ustring dir_place, Glib::ustring new_folder, bool export_overwrite, Glib::ustring& export_path)
+bool CtExport2Html::prepare_html_folder(fs::path dir_place, fs::path new_folder, bool export_overwrite, fs::path& export_path)
 {
-    if (dir_place == "")
+    if (dir_place.empty())
     {
         dir_place = CtDialogs::folder_select_dialog(_pCtMainWin->get_ct_config()->pickDirExport, _pCtMainWin);
-        if (dir_place == "")
+        if (dir_place.empty())
             return false;
     }
-    new_folder = CtMiscUtil::clean_from_chars_not_for_filename(new_folder) + "_HTML";
-    new_folder = CtFileSystem::prepare_export_folder(dir_place, new_folder, export_overwrite);
-    _export_dir = Glib::build_filename(dir_place, new_folder);
-    _images_dir = Glib::build_filename(_export_dir, "images");
-    _embed_dir = Glib::build_filename(_export_dir, "EmbeddedFiles");
-    _res_dir = Glib::build_filename(_export_dir, "res");
+    new_folder = CtMiscUtil::clean_from_chars_not_for_filename(new_folder.string()) + "_HTML";
+    new_folder = fs::prepare_export_folder(dir_place, new_folder, export_overwrite);
+    _export_dir = dir_place / new_folder;
+    _images_dir = _export_dir / "images";
+    _embed_dir = _export_dir / "EmbeddedFiles";
+    _res_dir = _export_dir / "res";
     g_mkdir_with_parents(_export_dir.c_str(), 0777);
     g_mkdir_with_parents(_images_dir.c_str(), 0777);
     g_mkdir_with_parents(_embed_dir.c_str(), 0777);
     g_mkdir_with_parents(_res_dir.c_str(), 0777);
 
-    Glib::ustring config_dir = Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME);
-    Glib::ustring styles_css_filepath = Glib::build_filename(config_dir, "styles3.css");
-    if (!Glib::file_test(styles_css_filepath, Glib::FILE_TEST_IS_REGULAR))
+    fs::path config_dir = fs::path(Glib::get_user_config_dir()) / CtConst::APP_NAME;
+    fs::path styles_css_filepath = config_dir / "styles3.css";
+    if (!fs::is_regular_file(styles_css_filepath))
     {
-        std::string styles_css_original = Glib::build_filename(CtFileSystem::get_cherrytree_datadir(), "data", "styles3.css");
-        CtFileSystem::copy_file(styles_css_original, styles_css_filepath);
+        fs::path styles_css_original = fs::path(fs::get_cherrytree_datadir()) / fs::path("data") / "styles3.css";
+        fs::copy_file(styles_css_original, styles_css_filepath);
     }
-    CtFileSystem::copy_file(styles_css_filepath, Glib::build_filename(_res_dir, "styles3.css"));
+    fs::copy_file(styles_css_filepath, _res_dir / "styles3.css");
     
-    Glib::ustring styles_js_filepath = Glib::build_filename(config_dir, "script3.js");
-    if (!Glib::file_test(styles_js_filepath, Glib::FILE_TEST_IS_REGULAR))
+    fs::path styles_js_filepath = config_dir / "script3.js";
+    if (!fs::is_regular_file(styles_js_filepath))
     {
-        std::string script_js_original = Glib::build_filename(CtFileSystem::get_cherrytree_datadir(), "data", "script3.js");
-        CtFileSystem::copy_file(script_js_original, styles_js_filepath);
+        fs::path script_js_original = fs::get_cherrytree_datadir() / "data" / "script3.js";
+        fs::copy_file(script_js_original, styles_js_filepath);
     }
-    CtFileSystem::copy_file(styles_js_filepath, Glib::build_filename(_res_dir, "script3.js"));
+
+    fs::copy_file(styles_js_filepath, _res_dir / "script3.js");
 
     export_path = _export_dir;
 
@@ -131,7 +132,7 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
     html_text += "</div>"; // div class='page'
     html_text += HTML_FOOTER;
 
-    Glib::ustring node_html_filepath = Glib::build_filename(_export_dir, _get_html_filename(tree_iter));
+    fs::path node_html_filepath = _export_dir / _get_html_filename(tree_iter);
     g_file_set_contents(node_html_filepath.c_str(), html_text.c_str(), (gssize)html_text.bytes(), nullptr);
 }
 
@@ -171,7 +172,7 @@ void CtExport2Html::nodes_all_export_to_html(bool all_tree, const CtExportOption
         html_text += "<div class='page'>" + tree_links_text + "</div>";
     html_text += "<script src='res/script3.js'></script>\n";
     html_text += HTML_FOOTER;
-    Glib::ustring node_html_filepath = Glib::build_filename(_export_dir, "index.html");
+    fs::path node_html_filepath = _export_dir / "index.html";
     g_file_set_contents(node_html_filepath.c_str(), html_text.c_str(), (gssize)html_text.bytes(), nullptr);
 
     // create html pages
@@ -224,7 +225,7 @@ Glib::ustring CtExport2Html::selection_export_to_html(Glib::RefPtr<Gtk::TextBuff
     if (syntax_highlighting == CtConst::RICH_TEXT_ID)
     {
         int images_count = 0;
-        Glib::ustring tempFolder = _pCtMainWin->get_ct_tmp()->getHiddenDirPath("IMAGE_TEMP_FOLDER");
+        fs::path tempFolder = _pCtMainWin->get_ct_tmp()->getHiddenDirPath("IMAGE_TEMP_FOLDER");
 
         int start_offset = start_iter.get_offset();
         std::list<CtAnchoredWidget*> widgets = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(start_iter.get_offset(), end_iter.get_offset());
@@ -267,15 +268,15 @@ Glib::ustring CtExport2Html::codebox_export_to_html(CtCodebox* codebox)
 }
 
 // Returns the HTML embedded file
-Glib::ustring CtExport2Html::_get_embfile_html(CtImageEmbFile* embfile, CtTreeIter tree_iter, Glib::ustring embed_dir)
+Glib::ustring CtExport2Html::_get_embfile_html(CtImageEmbFile* embfile, CtTreeIter tree_iter, fs::path embed_dir)
 {
     Glib::ustring embfile_align_text = _get_object_alignment_string(embfile->getJustification());
-    Glib::ustring embfile_name = std::to_string(tree_iter.get_node_id()) + "-" +  embfile->get_file_name();
-    Glib::ustring embfile_rel_path = Glib::build_filename("EmbeddedFiles", embfile_name);
+    fs::path embfile_name = std::to_string(tree_iter.get_node_id()) + "-" +  embfile->get_file_name().string();
+    fs::path embfile_rel_path = "EmbeddedFiles" / embfile_name;
     Glib::ustring embfile_html = "<table style=\"" + embfile_align_text + "\"><tr><td><a href=\"" +
-            embfile_rel_path + "\">Linked file: " + embfile->get_file_name() + " </a></td></tr></table>";
+            embfile_rel_path.string() + "\">Linked file: " + embfile->get_file_name().string() + " </a></td></tr></table>";
 
-    std::fstream file(Glib::build_filename(embed_dir, embfile_name), std::ios::out | std::ios::binary);
+    std::fstream file((embed_dir / embfile_name).string(), std::ios::out | std::ios::binary);
     long size = (long)embfile->get_raw_blob().size();
     file.write(embfile->get_raw_blob().c_str(), size);
     file.close();
@@ -284,7 +285,7 @@ Glib::ustring CtExport2Html::_get_embfile_html(CtImageEmbFile* embfile, CtTreeIt
 }
 
 // Returns the HTML Image
-Glib::ustring CtExport2Html::_get_image_html(CtImage* image, const Glib::ustring& images_dir, int& images_count, CtTreeIter* tree_iter)
+Glib::ustring CtExport2Html::_get_image_html(CtImage* image, const fs::path& images_dir, int& images_count, CtTreeIter* tree_iter)
 {
     if (CtImageAnchor* imageAnchor = dynamic_cast<CtImageAnchor*>(image))
         return "<a name=\"" + imageAnchor->get_anchor_name() + "\"></a>";
@@ -299,7 +300,7 @@ Glib::ustring CtExport2Html::_get_image_html(CtImage* image, const Glib::ustring
     else
     {
         image_name = std::to_string(images_count) + ".png";
-        image_rel_path = "file://" + Glib::build_filename (images_dir, image_name);
+        image_rel_path = "file://" + (images_dir / image_name).string();
     }
 
     Glib::ustring image_html = "<img src=\"" + image_rel_path + "\" alt=\"" + image_rel_path + "\" />";
@@ -309,7 +310,7 @@ Glib::ustring CtExport2Html::_get_image_html(CtImage* image, const Glib::ustring
         image_html = "<a href=\"" + href + "\">" + image_html + "</a>";
     }
 
-    image->save(Glib::build_filename (images_dir, image_name), "png");
+    image->save(images_dir / image_name, "png");
     return image_html;
 }
 
@@ -587,25 +588,25 @@ Glib::ustring CtExport2Html::_html_text_serialize(Gtk::TextIter start_iter, Gtk:
     return tagged_text;
 }
 
-Glib::ustring CtExport2Html::_get_href_from_link_prop_val(Glib::ustring link_prop_val)
+std::string CtExport2Html::_get_href_from_link_prop_val(Glib::ustring link_prop_val)
 {
     // todo: I saw the same function before, we need to join them
 
     if (link_prop_val == "")
         return "";
 
-    Glib::ustring href = "";
+    std::string href = "";
     auto vec = str::split(link_prop_val, " ");
     if (vec[0] == CtConst::LINK_TYPE_WEBS)
         href = vec[1];
     else if (vec[0] == CtConst::LINK_TYPE_FILE)
     {
-        Glib::ustring filepath = _link_process_filepath(vec[1]);
+        std::string filepath = _link_process_filepath(vec[1]);
         href = "file://" + filepath;
     }
     else if (vec[0] == CtConst::LINK_TYPE_FOLD)
     {
-        Glib::ustring folderpath = _link_process_folderpath(vec[1]);
+        std::string folderpath = _link_process_folderpath(vec[1]);
         href = "file://" + folderpath;
     }
     else if (vec[0] == CtConst::LINK_TYPE_NODE)
@@ -625,24 +626,22 @@ Glib::ustring CtExport2Html::_get_href_from_link_prop_val(Glib::ustring link_pro
     return href;
 }
 
-Glib::ustring CtExport2Html::_link_process_filepath(const Glib::ustring& filepath_raw)
+std::string CtExport2Html::_link_process_filepath(const std::string& filepath_raw)
 {
-    std::string filepath_orig = Glib::Base64::decode(filepath_raw);
-    std::string filepath = CtFileSystem::get_proper_platform_filepath(filepath_orig);
+    fs::path filepath = Glib::Base64::decode(filepath_raw);
     // todo:
     //if not os.path.isabs(filepath) and os.path.isfile(os.path.join(self.file_dir, filepath)):
     //    filepath = os.path.join(self.file_dir, filepath)
-    return filepath;
+    return filepath.native();
 }
 
-Glib::ustring CtExport2Html::_link_process_folderpath(const Glib::ustring& folderpath_raw)
+std::string CtExport2Html::_link_process_folderpath(const std::string& folderpath_raw)
 {
-    std::string folderpath_orig = Glib::Base64::decode(folderpath_raw);
-    std::string folderpath = CtFileSystem::get_proper_platform_filepath(folderpath_orig);
+    fs::path folderpath = Glib::Base64::decode(folderpath_raw);
     // todo:
     //if not os.path.isabs(folderpath) and os.path.isdir(os.path.join(self.file_dir, folderpath)):
     //    folderpath = os.path.join(self.file_dir, folderpath)
-    return folderpath;
+    return folderpath.native();
 }
 
 // Returns the style attribute(s) according to the alignment
@@ -698,9 +697,9 @@ void to_html(std::istream& input, std::ostream& output, std::string from_format)
 }
 
 
-void to_html(const std::string& file, std::ostream& output) {
+void to_html(const fs::path& file, std::ostream& output) {
     auto process = pandoc_process();
-    process->append_arg(file);
+    process->append_arg(file.string());
 
     try {
         process->run(output);

@@ -26,7 +26,7 @@
 #include "CppUTest/CommandLineTestRunner.h"
 #include "gtkmm/textbuffer.h"
 #include "test_consts.h"
-
+#include "ct_filesystem.h"
 
 
 TEST_GROUP(MiscUtilsGroup)
@@ -301,17 +301,7 @@ TEST(MiscUtilsGroup, vec_remove)
     CHECK(v_3.size() == 2);
 }
 
-TEST(MiscUtilsGroup, get_cherrytree_datadir)
-{
-    // we expect the unit test to be run from the built sources
-    STRCMP_EQUAL(_CMAKE_SOURCE_DIR, CtFileSystem::get_cherrytree_datadir().c_str());
-}
 
-TEST(MiscUtilsGroup, get_cherrytree_localedir)
-{
-    // we expect the unit test to be run from the built sources
-    STRCMP_EQUAL(Glib::canonicalize_filename(Glib::build_filename(_CMAKE_SOURCE_DIR, "po")).c_str(), CtFileSystem::get_cherrytree_localedir().c_str());
-}
 
 TEST(MiscUtilsGroup, get__uri_type)
 {
@@ -389,21 +379,6 @@ TEST(MiscUtilsGroup, parallel_for)
 
 
 
-TEST_GROUP(FileSystemGroup)
-{
-};
-
-
-TEST(FileSystemGroup, get_file_stem)
-{
-#ifndef _WIN32
-    STRCMP_EQUAL("", CtFileSystem::get_file_stem("").c_str());
-    STRCMP_EQUAL("file", CtFileSystem::get_file_stem("/root/file").c_str());
-    STRCMP_EQUAL("file", CtFileSystem::get_file_stem("/root/file.txt").c_str());
-    STRCMP_EQUAL("file.2", CtFileSystem::get_file_stem("/root/file.2.txt").c_str());
-    STRCMP_EQUAL(".txt", CtFileSystem::get_file_stem("/root/.txt").c_str());
-#endif
-}
 
 
 
@@ -411,6 +386,8 @@ int main(int ac, char** av)
 {
     // libp7za has memory leaks
     MemoryLeakWarningPlugin::turnOffNewDeleteOverloads();
+
+    Gio::init();
 
     return CommandLineTestRunner::RunAllTests(ac, av);
 }

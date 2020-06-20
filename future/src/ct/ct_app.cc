@@ -52,8 +52,8 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
 
     _rLanguageManager = Gsv::LanguageManager::create();
     std::vector<std::string> searchPath = _rLanguageManager->get_search_path();
-    const std::string ctLanguagesSpecsPath = Glib::build_filename(CtFileSystem::get_cherrytree_datadir(), "language-specs");
-    searchPath.push_back(ctLanguagesSpecsPath);
+    fs::path ctLanguagesSpecsPath = fs::get_cherrytree_datadir() / "language-specs";
+    searchPath.push_back(ctLanguagesSpecsPath.string());
     _rLanguageManager->set_search_path(searchPath);
 
     _rStyleSchemeManager = Gsv::StyleSchemeManager::create();
@@ -100,7 +100,7 @@ void CtApp::on_activate()
         CtMainWin* pAppWindow = _create_window(false);
         if (not CtApp::_uCtCfg->recentDocsFilepaths.empty())
         {
-            Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(CtApp::_uCtCfg->recentDocsFilepaths.front());
+            Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(CtApp::_uCtCfg->recentDocsFilepaths.front().string());
             if (r_file->query_exists())
             {
                 if (not pAppWindow->file_open(r_file->get_path(), ""))
