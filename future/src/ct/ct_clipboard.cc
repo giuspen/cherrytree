@@ -212,6 +212,26 @@ void CtClipboard::table_row_paste(CtTable* pTable)
     }
 }
 
+void CtClipboard::node_link_to_clipboard(CtTreeIter node)
+{
+    CtClipboardData* clip_data = new CtClipboardData();
+    std::string tml = R"XML(<?xml version="1.0" encoding="UTF-8"?><root><slot><rich_text link="node {}">{}</rich_text></slot></root>)XML";
+    clip_data->rich_text = fmt::format(tml, node.get_node_id(), str::xml_escape(node.get_node_name()));
+    clip_data->plain_text = "node: " + node.get_node_name();
+
+    _set_clipboard_data({TARGET_CTD_RICH_TEXT, TARGET_CTD_PLAIN_TEXT}, clip_data);
+}
+
+void CtClipboard::anchor_link_to_clipboard(CtTreeIter node, const Glib::ustring& anchor_name)
+{
+    CtClipboardData* clip_data = new CtClipboardData();
+    std::string tml = R"XML(<?xml version="1.0" encoding="UTF-8"?><root><slot><rich_text link="node {} {}">{}</rich_text></slot></root>)XML";
+    clip_data->rich_text = fmt::format(tml, node.get_node_id(), str::xml_escape(anchor_name), str::xml_escape(anchor_name));
+    clip_data->plain_text = "anchor: " + anchor_name;
+
+    _set_clipboard_data({TARGET_CTD_RICH_TEXT, TARGET_CTD_PLAIN_TEXT}, clip_data);
+}
+
 // Given text_buffer and selection, returns the rich text xml
 Glib::ustring CtClipboard::rich_text_get_from_text_buffer_selection(CtTreeIter node_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_sel_start, Gtk::TextIter iter_sel_end,
                                                  gchar change_case /*="n"*/, bool exclude_iter_sel_end /*=false*/)

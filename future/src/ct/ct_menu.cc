@@ -190,6 +190,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{tree_cat, "handle_bookmarks", "ct_edit", _("_Handle Bookmarks"), None, _("Handle the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmarks_handle)});
     _actions.push_back(CtMenuAction{tree_cat, "go_node_prev", "ct_go-back", _("Go _Back"), KB_ALT+CtConst::STR_KEY_LEFT, _("Go to the Previous Visited Node"), sigc::mem_fun(*pActions, &CtActions::node_go_back)});
     _actions.push_back(CtMenuAction{tree_cat, "go_node_next", "ct_go-forward", _("Go _Forward"), KB_ALT+CtConst::STR_KEY_RIGHT, _("Go to the Next Visited Node"), sigc::mem_fun(*pActions, &CtActions::node_go_forward)});
+    _actions.push_back(CtMenuAction{tree_cat, "tree_node_link", "ct_node_link", _("Copy Link to Node"), None, _("Copy link to this node to clipboard"), sigc::mem_fun(*pActions, &CtActions::node_link_to_clipboard)});
     const char* find_cat = _("Find/Replace");
     _actions.push_back(CtMenuAction{find_cat, "find_in_node", "ct_find_sel", _("_Find in Node Content"), KB_CONTROL+"F", _("Find into the Selected Node Content"), sigc::mem_fun(*pActions, &CtActions::find_in_selected_node)});
     _actions.push_back(CtMenuAction{find_cat, "find_in_allnodes", "ct_find_all", _("Find in _All Nodes Contents"), KB_CONTROL+KB_SHIFT+"F", _("Find into All the Tree Nodes Contents"), sigc::mem_fun(*pActions, &CtActions::find_in_all_nodes)});
@@ -247,6 +248,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{others_cat, "anch_copy", "ct_edit_copy", _("_Copy Anchor"), None, _("Copy the Selected Anchor"), sigc::mem_fun(*pActions, &CtActions::anchor_copy)});
     _actions.push_back(CtMenuAction{others_cat, "anch_del", "ct_edit_delete", _("_Delete Anchor"), None, _("Delete the Selected Anchor"), sigc::mem_fun(*pActions, &CtActions::anchor_delete)});
     _actions.push_back(CtMenuAction{others_cat, "anch_edit", "ct_anchor_edit", _("Edit _Anchor"), None, _("Edit the Underlying Anchor"), sigc::mem_fun(*pActions, &CtActions::anchor_edit)});
+    _actions.push_back(CtMenuAction{others_cat, "anch_link", "ct_anchor_link", _("Copy Anchor Link"), None, _("Copy Link to the Underlying Anchor to Clipboard"), sigc::mem_fun(*pActions, &CtActions::anchor_link_to_clipboard)});
     _actions.push_back(CtMenuAction{others_cat, "emb_file_cut", "ct_edit_cut", _("C_ut Embedded File"), None, _("Cut the Selected Embedded File"), sigc::mem_fun(*pActions, &CtActions::embfile_cut)});
     _actions.push_back(CtMenuAction{others_cat, "emb_file_copy", "ct_edit_copy", _("_Copy Embedded File"), None, _("Copy the Selected Embedded File"), sigc::mem_fun(*pActions, &CtActions::embfile_copy)});
     _actions.push_back(CtMenuAction{others_cat, "emb_file_del", "ct_edit_delete", _("_Delete Embedded File"), None, _("Delete the Selected Embedded File"), sigc::mem_fun(*pActions, &CtActions::embfile_delete)});
@@ -844,6 +846,7 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='tree_node_toggle_ro'/>
     <menuitem action='node_bookmark'/>
     <menuitem action='node_unbookmark'/>
+    <menuitem action='tree_node_link'/>
     <menuitem action='tree_node_date'/>
     <menuitem action='tree_parse_info'/>
     <separator/>
@@ -1146,6 +1149,7 @@ const char* CtMenu::_get_popup_menu_ui_str_anchor()
   <menuitem action='anch_copy'/>
   <menuitem action='anch_del'/>
   <separator/>
+  <menuitem action='anch_link'/>
   <menuitem action='anch_edit'/>
 </popup>
     )MARKUP";

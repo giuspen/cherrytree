@@ -55,6 +55,8 @@ private:
 public:
     void          table_row_to_clipboard(CtTable* pTable);
     void          table_row_paste(CtTable* pTable);
+    void          node_link_to_clipboard(CtTreeIter node);
+    void          anchor_link_to_clipboard(CtTreeIter node, const Glib::ustring& anchor_name);
     Glib::ustring rich_text_get_from_text_buffer_selection(CtTreeIter node_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer,
                                                            Gtk::TextIter iter_sel_start, Gtk::TextIter iter_sel_end,
                                                            gchar change_case = 'n', bool exclude_iter_sel_end = false);
