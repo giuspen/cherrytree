@@ -315,6 +315,14 @@ void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buf
             if (CtImage* image = dynamic_cast<CtImage*>(widget_vector.front()))
             {
                 pixbuf_target = image;
+#ifdef _WIN32
+                // image target doesn't work on Win32 with other targets, so have to set it directly
+                // then copy/paste into MS Paint will work. Pasting into CT back also will work
+                if (image->get_type() == CtAnchWidgType::ImagePng) {
+                    Gtk::Clipboard::get()->set_image(image->get_pixbuf());
+                    return;
+                }
+#endif
             }
             else if (CtTable* table = dynamic_cast<CtTable*>(widget_vector.front()))
             {

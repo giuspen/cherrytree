@@ -90,7 +90,7 @@ class path {
     using value_type = std::string::value_type;
     using string_type = std::basic_string<value_type>;
 
-#ifdef __WIN32
+#ifdef _WIN32
     static const value_type path_sep = '\\';
 #else
     static const value_type path_sep = '/';
