@@ -40,13 +40,13 @@ bool move_file(const path& from, const path& to);
 
 bool is_regular_file(const path& file);
 
+bool is_directory(const path& path);
+
 path absolute(const path& path);
 
 path canonical(const path& path);
 
 bool exists(const path& filepath);
-
-bool is_directory(const path& path);
 
 time_t getmtime(const path& path);
 
@@ -114,9 +114,8 @@ public:
         swap(*this, other);
     }
 
-    void append(const path& other);
 
-    path& operator=(string_type other);
+    path& operator=(string_type other) { _path = other; return *this;};
     path& operator=(const value_type* other) { return operator=(string_type(other)); };
 
 
@@ -132,7 +131,6 @@ public:
     {
         return path(Glib::build_filename(lhs._path, rhs));
     }
-    void operator/=(const path& rhs) { append(rhs); }
 
     friend bool operator==(const path& lhs, const path& rhs) { return lhs._path == rhs._path; }
     friend bool operator!=(const path& lhs, const path& rhs) { return !(lhs == rhs); }
@@ -161,19 +159,6 @@ private:
     /// From Slash to Backslash when needed
     static std::string _get_platform_path(std::string filepath);
 
-};
-
-class filesystem_error: public std::system_error {
-public:
-    filesystem_error(const std::string& what_arg, std::error_code ec) : std::system_error(ec, what_arg) {}
-    filesystem_error(const std::string& what_arg, const path& p1, std::error_code ec) : std::system_error(ec, what_arg), _p1(p1) {}
-    filesystem_error(const std::string& what_arg, const path& p1, const path& p2, std::error_code ec) : std::system_error(ec, what_arg), _p1(p1), _p2(p2) {}
-
-    [[nodiscard]] const path& path1() const { return _p1; }
-    [[nodiscard]] const path& path2() const { return _p2; }
-private:
-    path _p1;
-    path _p2;
 };
 
 } // namespace CtFileSystem

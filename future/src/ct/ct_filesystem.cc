@@ -32,41 +32,20 @@
 #include "ct_config.h"
 
 namespace fs {
-void path::append(const path& other)
-{ 
-    _path = Glib::build_filename(_path, other._path); 
-}
-
-path path::extension() const
-{
-    std::string name = filename().string();
-    auto last_pos = name.find_last_of('.');
-    if (last_pos == std::string::npos || last_pos == name.size() - 1 || last_pos == 0) {
-        return path("");
-    } else {
-        return path(name.begin() + last_pos, name.end());
-    }
-}
-
-
-path& path::operator=(path::string_type other)
-{
-    _path = _get_platform_path(std::move(other));
-    return *this;
-}
-
 
 
 bool remove(const fs::path& path)
 {
     if (fs::is_directory(path)) {
-        // rmdir
-        int retr = g_rmdir(path.c_str());
-        if (retr != 0) {
-            // error
-            throw fs::filesystem_error("Error occurred during g_rmdir", path, std::error_code(retr, std::generic_category()));
+        if (g_rmdir(path.c_str()) != 0) {
+            spdlog::error("fs::remove: g_rmdir failed to remove {} ", path);
+            return false;
         }
-        g_unlink(path.c_str());
+    } else {
+        if (g_remove(path.c_str()) != 0) {
+            spdlog::error("fs::remove: g_remove failed to remove {}", path);
+            return false;
+        }
     }
     return true;
 }
@@ -76,15 +55,9 @@ bool is_regular_file(const path& file)
     return Glib::file_test(file.string(), Glib::FILE_TEST_IS_REGULAR);
 }
 
-
-std::string path::_get_platform_path(std::string filepath)
+bool is_directory(const fs::path& path)
 {
-#ifdef _WIN32
-    filepath = str::replace(filepath, CtConst::CHAR_SLASH, CtConst::CHAR_BSLASH);
-#else
-    filepath = str::replace(filepath, CtConst::CHAR_BSLASH, CtConst::CHAR_SLASH);
-#endif
-    return filepath;
+    return Glib::file_test(path.string(), Glib::FILE_TEST_IS_DIR);
 }
 
 bool copy_file(const path& from, const path& to)
@@ -92,10 +65,6 @@ bool copy_file(const path& from, const path& to)
     Glib::RefPtr<Gio::File> rFileFrom = Gio::File::create_for_path(from.string());
     Glib::RefPtr<Gio::File> rFileTo = Gio::File::create_for_path(to.string());
     return rFileFrom->copy(rFileTo, Gio::FILE_COPY_OVERWRITE);
-}
-
-bool is_directory(const fs::path& path) {
-    return Glib::file_test(path.string(), Glib::FILE_TEST_IS_DIR);
 }
 
 bool move_file(const path& from, const path& to)
@@ -123,13 +92,14 @@ time_t getmtime(const path& path)
 std::uintmax_t file_size(const path& path)
 {
     if (fs::is_directory(path)) {
-        throw fs::filesystem_error("Cannot get size of a directory", path, std::make_error_code(std::errc::is_a_directory));
+        spdlog::error("fs::file_size: path is a directory, {}", path);
+        return 0;
     }
 
     GStatBuf st;
-    int retr = g_stat(path.c_str(), &st);
-    if (retr != 0) {
-        throw fs::filesystem_error("Error in g_stat", path, std::error_code(retr, std::generic_category()));
+    if (g_stat(path.c_str(), &st) != 0) {
+        spdlog::error("fs::file_size: g_stat failed, {}", path);
+        return 0;
     }
 
     return st.st_size;
@@ -144,29 +114,15 @@ std::list<fs::path> get_dir_entries(const path& dir)
     return entries;
 }
 
-path path::stem() const
+bool exists(const path& filepath)
 {
-    if (empty()) return "";
-    std::string name = filename().string();
-    size_t dot_pos = name.find_last_of('.');
-    if (dot_pos == std::string::npos || dot_pos == 0)
-        return name;
-    return name.substr(0, dot_pos);
-}
-
-std::string path::native() const
-{
-    return _get_platform_path(_path);
-}
-
-bool exists(const path& filepath) {
     return Glib::file_test(filepath.string(), Glib::FILE_TEST_EXISTS);
 }
 
 // Open Filepath with External App
 void external_filepath_open(const fs::path& filepath, bool open_folder_if_file_not_exists, CtConfig* config)
 {
-    spdlog::debug("filepath to open: {}", filepath);
+    spdlog::debug("fs::external_filepath_open: open file {}", filepath);
     if (config->filelinkCustomOn) {
         std::string cmd = fmt::sprintf(config->filelinkCustomAct, filepath.string());
         std::system(cmd.c_str());
@@ -174,13 +130,13 @@ void external_filepath_open(const fs::path& filepath, bool open_folder_if_file_n
         if (open_folder_if_file_not_exists && !fs::exists(filepath)) {
             external_folderpath_open(filepath, config);
         } else if (!fs::exists(filepath)) {
-            throw std::runtime_error(fmt::format("Filepath: {} does not exist and open_folder_if_not_exists is false", filepath.string()));
+            spdlog::error("fs::external_filepath_open: file doesn't exist, {}", filepath.string());
+            return;
         } else {
 #ifdef _WIN32
             ShellExecute(GetActiveWindow(), "open", filepath.c_str(), NULL, NULL, SW_SHOWNORMAL);
 #else
-            fs::path f_path("file://");
-            f_path += filepath;
+            std::string f_path = "file://" + filepath.string();
             g_app_info_launch_default_for_uri(f_path.c_str(), nullptr, nullptr);
 #endif
         }
@@ -190,21 +146,18 @@ void external_filepath_open(const fs::path& filepath, bool open_folder_if_file_n
 // Open Folderpath with External App
 void external_folderpath_open(const fs::path& folderpath, CtConfig* config)
 {
-    spdlog::debug("dir to open: {}", folderpath.string());
+    spdlog::debug("fs::external_folderpath_open: open dir {}", folderpath.string());
     if (config->folderlinkCustomOn) {
         std::string cmd = fmt::sprintf(config->filelinkCustomAct, folderpath.string());
         std::system(cmd.c_str());
     } else {
-
         // https://stackoverflow.com/questions/42442189/how-to-open-spawn-a-file-with-glib-gtkmm-in-windows
 #ifdef _WIN32
         ShellExecute(NULL, "open", folderpath.c_str(), NULL, NULL, SW_SHOWDEFAULT);
 #elif defined(__APPLE__)
         std::vector<std::string> argv = { "open", folderpath.string() };
-Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
+        Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
 #else
-        fs::path path("file://");
-        path += folderpath;
         g_app_info_launch_default_for_uri(folderpath.c_str(), nullptr, nullptr);
 #endif
     }
@@ -216,7 +169,7 @@ path prepare_export_folder(const path& dir_place, path new_folder, bool overwrit
     {
         // todo:
         if (overwrite_existing) {
-            spdlog::debug("removing dir: {}", dir_place / new_folder);
+            spdlog::debug("fs::prepare_export_folder: removing dir {}", dir_place / new_folder);
             remove_all(dir_place / new_folder);
         }
         else {
@@ -285,7 +238,7 @@ std::string download_file(const std::string& filepath)
         }
     };
 
-    spdlog::debug("start downloading {}", filepath);
+    spdlog::debug("fs::download_file: start downloading {}", filepath);
 
     std::string buffer;
     buffer.reserve(3 * 1024 * 1024); // preallocate 3mb
@@ -304,7 +257,7 @@ std::string download_file(const std::string& filepath)
     curl_global_cleanup();
 
     if (res != CURLE_OK) {
-        spdlog::error("curl_easy_perform() failed: {}", curl_easy_strerror(res));
+        spdlog::error("fs::download_file: curl_easy_perform() failed, {}", curl_easy_strerror(res));
         return "";
     }
 
@@ -347,6 +300,43 @@ CtDocEncrypt get_doc_encrypt(const fs::path& filename)
 path canonical(const path& path)
 {
     return Glib::canonicalize_filename(path.string());
+}
+
+
+path path::extension() const
+{
+    std::string name = filename().string();
+    auto last_pos = name.find_last_of('.');
+    if (last_pos == std::string::npos || last_pos == name.size() - 1 || last_pos == 0) {
+        return path("");
+    } else {
+        return path(name.begin() + last_pos, name.end());
+    }
+}
+
+path path::stem() const
+{
+    if (empty()) return "";
+    std::string name = filename().string();
+    size_t dot_pos = name.find_last_of('.');
+    if (dot_pos == std::string::npos || dot_pos == 0)
+        return name;
+    return name.substr(0, dot_pos);
+}
+
+std::string path::native() const
+{
+    return _get_platform_path(_path);
+}
+
+std::string path::_get_platform_path(std::string filepath)
+{
+#ifdef _WIN32
+    filepath = str::replace(filepath, CtConst::CHAR_SLASH, CtConst::CHAR_BSLASH);
+#else
+    filepath = str::replace(filepath, CtConst::CHAR_BSLASH, CtConst::CHAR_SLASH);
+#endif
+    return filepath;
 }
 
 }

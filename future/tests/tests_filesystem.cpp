@@ -135,17 +135,12 @@ TEST(FileSystemGroup, path_native)
 {
 #ifndef _WIN32
     std::string first = "/foo";
-    std::string second = "/foo/bar.txt";
 #else
     std::string first = "\\foo";
-    std::string second = "\\foo\\bar.txt";
 #endif
     fs::path path("/foo");
 
     STRCMP_EQUAL(path.native().c_str(), first.c_str());
-
-    path /= "bar.txt";
-    STRCMP_EQUAL(path.native().c_str(), second.c_str());
 }
 
 TEST(FileSystemGroup, remove) {

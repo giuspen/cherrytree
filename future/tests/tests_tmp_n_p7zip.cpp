@@ -121,4 +121,5 @@ TEST(TmpP7zipGroup, P7zaExtravtWrongPasswd)
     // correct password
     CHECK_EQUAL(0, CtP7zaIface::p7za_extract(ctzInputPath.c_str(), ctTmp.getHiddenDirPath(ctzInputPath).c_str(), testPassword));
     CHECK_TRUE(Glib::file_test(ctdTmpPath, Glib::FILE_TEST_EXISTS));
+    g_remove(ctTmp.getHiddenFilePath(ctzInputPath).string().c_str());
 }
