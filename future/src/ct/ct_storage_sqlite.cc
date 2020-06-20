@@ -122,6 +122,40 @@ struct sqlite3_stmt_auto
 };
 
 
+std::optional<std::vector<std::string>> get_quick_check_issues(sqlite3* db) {
+    if (!db) throw std::logic_error("get_quick_check_issues passed invalid database object");
+
+    sqlite3_stmt_auto stmt(db, "PRAGMA quick_check");
+    
+    std::vector<std::string> rows;
+    while(sqlite3_step(stmt) == SQLITE_ROW) {
+        std::string info = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
+        if (info == "ok" && rows.empty()) {
+            // First column and is OK, database is fine
+            return std::nullopt;
+        } else {
+            rows.emplace_back(info);
+        }
+    }
+    
+    return rows;
+}
+
+bool CtStorageSqlite::_check_database_integrity() {
+    auto corrupted_rows = get_quick_check_issues(_pDb);
+    if (!corrupted_rows) return true;
+
+    // Database is corrupted
+    std::string log_msg = "\n=== Database problems report ===\n";
+    for (const auto& corrupted_row : *corrupted_rows) {
+        log_msg += fmt::format(": {}\n", corrupted_row);
+    }
+    spdlog::warn(log_msg);
+
+    CtDialogs::warning_dialog(str::format(_("The database file %s is corrupt, see log for more details"), _file_path.string()), *_pCtMainWin);
+    return false;
+}
+
 CtStorageSqlite::CtStorageSqlite(CtMainWin* pCtMainWin) : _pCtMainWin(pCtMainWin)
 {
 
@@ -172,6 +206,7 @@ void CtStorageSqlite::test_connection()
     }
     if (!test_readwrite())
         throw std::runtime_error(str::format(_("%s write failed - is file blocked by a sync program?"), _file_path));
+    if (!_check_database_integrity()) return;
 }
 
 bool CtStorageSqlite::populate_treestore(const fs::path& file_path, Glib::ustring& error)
@@ -184,7 +219,7 @@ bool CtStorageSqlite::populate_treestore(const fs::path& file_path, Glib::ustrin
         _file_path = file_path;
         _fix_db_tables();
 
-        // todo: need validations and check corruption
+        if (!_check_database_integrity()) return false;
 
 
         // load bookmarks
@@ -750,6 +785,7 @@ void CtStorageSqlite::_exec_bind_int64(const char* sqlCmd, const gint64 bind_int
 void CtStorageSqlite::import_nodes(const fs::path& path)
 {
     _open_db(path); // storage is temp so can just open db
+    if (!_check_database_integrity()) return; 
     // _fix_db_tables(); how to do it withough saving changes
     
     std::function<void(gint64, Gtk::TreeIter)> add_node_func;
