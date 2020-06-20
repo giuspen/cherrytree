@@ -190,7 +190,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{tree_cat, "handle_bookmarks", "ct_edit", _("_Handle Bookmarks"), None, _("Handle the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmarks_handle)});
     _actions.push_back(CtMenuAction{tree_cat, "go_node_prev", "ct_go-back", _("Go _Back"), KB_ALT+CtConst::STR_KEY_LEFT, _("Go to the Previous Visited Node"), sigc::mem_fun(*pActions, &CtActions::node_go_back)});
     _actions.push_back(CtMenuAction{tree_cat, "go_node_next", "ct_go-forward", _("Go _Forward"), KB_ALT+CtConst::STR_KEY_RIGHT, _("Go to the Next Visited Node"), sigc::mem_fun(*pActions, &CtActions::node_go_forward)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_node_link", "ct_node_link", _("Copy Link to Node"), None, _("Copy link to this node to clipboard"), sigc::mem_fun(*pActions, &CtActions::node_link_to_clipboard)});
+    _actions.push_back(CtMenuAction{tree_cat, "tree_node_link", "ct_node_link", _("Copy Link to Node"), None, _("Copy Link to the Selected Node to Clipboard"), sigc::mem_fun(*pActions, &CtActions::node_link_to_clipboard)});
     const char* find_cat = _("Find/Replace");
     _actions.push_back(CtMenuAction{find_cat, "find_in_node", "ct_find_sel", _("_Find in Node Content"), KB_CONTROL+"F", _("Find into the Selected Node Content"), sigc::mem_fun(*pActions, &CtActions::find_in_selected_node)});
     _actions.push_back(CtMenuAction{find_cat, "find_in_allnodes", "ct_find_all", _("Find in _All Nodes Contents"), KB_CONTROL+KB_SHIFT+"F", _("Find into All the Tree Nodes Contents"), sigc::mem_fun(*pActions, &CtActions::find_in_all_nodes)});
