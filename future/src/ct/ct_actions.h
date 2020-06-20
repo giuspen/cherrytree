@@ -181,6 +181,7 @@ public:
     void tree_sort_ascending();
     void tree_sort_descending();
     void tree_info();
+    void node_link_to_clipboard();
     void node_siblings_sort_ascending();
     void node_siblings_sort_descending();
     void node_go_back();    // was as go_back
@@ -347,6 +348,7 @@ public:
     void anchor_copy();
     void anchor_delete();
     void anchor_edit();
+    void anchor_link_to_clipboard();
     void embfile_cut();
     void embfile_copy();
     void embfile_delete();

@@ -22,11 +22,12 @@
  */
 
 #include "ct_actions.h"
-#include <gtkmm/dialog.h>
-#include <gtkmm/stock.h>
 #include "ct_image.h"
 #include "ct_dialogs.h"
+#include "ct_clipboard.h"
 #include <ctime>
+#include <gtkmm/dialog.h>
+#include <gtkmm/stock.h>
 
 bool CtActions::_is_there_selected_node_or_error()
 {
@@ -708,4 +709,10 @@ void CtActions::tree_info()
         }
     );
     CtDialogs::summary_info_dialog(_pCtMainWin, summaryInfo);
+}
+
+void CtActions::node_link_to_clipboard()
+{
+    if (!_is_there_selected_node_or_error()) return;
+    CtClipboard(_pCtMainWin).node_link_to_clipboard(_pCtMainWin->curr_tree_iter());
 }

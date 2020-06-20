@@ -99,6 +99,11 @@ void CtActions::anchor_edit()
     _anchor_edit_dialog(curr_anchor_anchor, iter_insert, &iter_bound);
 }
 
+void CtActions::anchor_link_to_clipboard()
+{
+    CtClipboard(_pCtMainWin).anchor_link_to_clipboard(_pCtMainWin->curr_tree_iter(), curr_anchor_anchor->get_anchor_name());
+}
+
 // Cut Embedded File
 void CtActions::embfile_cut()
 {
