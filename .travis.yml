@@ -2,6 +2,17 @@
 language: cpp
 
 jobs:
+    - os: linux
+      dist: focal
+      cache: apt
+      addons:
+        apt:
+          update: true
+    - os: windows
+      cache:
+        directories:
+        - $HOME/AppData/Local/Temp/chocolatey
+        - /C/tools/msys64
     - os: osx
       osx_image: xcode11.4
 

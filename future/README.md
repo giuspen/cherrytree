@@ -4,6 +4,7 @@
 - [Arch Linux/Manjaro Linux](#building-cherrytree-on-arch)
 - [Fedora](#building-cherrytree-on-fedora)
 - [MacOs](#building-cherrytree-on-macos)
+- [Windows](#building-cherrytree-on-windows)
 
 
 ## Links on used libraries
@@ -133,16 +134,10 @@ xdg-open /usr/share/doc/libxml++2.6/reference/html/index.html
 
 ## Building Cherrytree on MacOS
 
-
-Install python3-lxml by pip:
-```sh
-brew install python3
-pip3 install lxml
-```
-
 Install dependencies:
 ```sh
-brew install cmake pkg-config gtksourceviewmm3 gnome-icon-theme gspell libxml++ cpputest
+brew install python3 cmake pkg-config gtksourceviewmm3 gnome-icon-theme gspell libxml++ cpputest
+pip3 install lxml
 ```
 
 Get cherrytree source, compile and run:
@@ -151,7 +146,7 @@ git clone https://github.com/giuspen/cherrytree.git
 mkdir cherrytree/build
 cd cherrytree/build
 cmake ../future
-make -j4
+make -j$(sysctl -n hw.ncpu)
 ./build/cherrytree
 ```
 
@@ -161,7 +156,7 @@ make install
 ```
 
 
-##  Building Cherrytree on Windows
+## Building Cherrytree on Windows
 
 Install MSYS2: https://www.msys2.org/ (we cover here the packages for 64 bit installation)
 
