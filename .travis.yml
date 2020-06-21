@@ -2,6 +2,7 @@
 language: cpp
 
 jobs:
+  include:
     - os: linux
       dist: focal
       cache: apt
