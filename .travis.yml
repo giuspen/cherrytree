@@ -2,18 +2,6 @@
 language: cpp
 
 jobs:
-  include:
-    - os: linux
-      dist: focal
-      cache: apt
-      addons:
-        apt:
-          update: true
-    - os: windows
-      cache:
-        directories:
-        - $HOME/AppData/Local/Temp/chocolatey
-        - /C/tools/msys64
     - os: osx
       osx_image: xcode11.4
 
@@ -53,7 +41,7 @@ before_install:
         ;;
       windows)
         brew udpate
-        brew install python3 cmake pkg-config gtksourceviewmm3 gnome-icon-theme gspell libxml++ cpputest
+        brew install python3 cmake pkg-config gtkmm3 gtksourceviewmm3 gnome-icon-theme gspell libxml++ cpputest
         pip3 install lxml
         ;;
     esac
