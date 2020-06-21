@@ -325,7 +325,7 @@ TEST(MiscUtilsGroup, mime__type_contains)
     CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_html.html", "html"));
 
 // test doesn't work on WIN32 and MacOS (Travis)
-#ifdef !(defined(_WIN32) || (defined(_TRAVIS) && defined(__APPLE__)))
+#if !(defined(_WIN32) || (defined(_TRAVIS) && defined(__APPLE__)))
     CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_cpp.cpp", "text/"));
 #endif
 
