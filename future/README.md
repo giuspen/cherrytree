@@ -219,5 +219,5 @@ bind '"\e[B":history-search-forward'
 # run cherrytree
 ./build/cherrytree.exe
 # run unit tests
-./tests/run_tests.exe
+./build/tests/run_tests.exe
 ```

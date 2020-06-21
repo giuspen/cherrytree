@@ -1,9 +1,11 @@
 #!/bin/bash
+set -e
 # based on https://gitlab.gnome.org/GNOME/gedit/-/tree/master/build-aux%2Fwin32
 # and in particular make-gedit-installer.sh
 
 GIT_CT_FOLDER="/home/${USER}/git/cherrytree"
-GIT_CT_EXE="${GIT_CT_FOLDER}/future/build/cherrytree.exe"
+GIT_CT_FUTURE="${GIT_CT_FOLDER}/future"
+GIT_CT_EXE="${GIT_CT_FUTURE}/build/cherrytree.exe"
 GIT_CT_LANGUAGES_FOLDER="${GIT_CT_FOLDER}/future/po"
 GIT_CT_DATA_FOLDER="${GIT_CT_FOLDER}/future/data"
 GIT_CT_LANGUAGE_SPECS_FOLDER="${GIT_CT_FOLDER}/future/language-specs"
@@ -19,6 +21,12 @@ NEW_ETC_GTK_FOLDER="${NEW_ROOT_FOLDER}/etc/gtk-3.0"
 NEW_ETC_GTK_SETTINGS_INI="${NEW_ETC_GTK_FOLDER}/settings.ini"
 NEW_HUNSPELL_FOLDER="${NEW_MINGW64_FOLDER}/share/hunspell"
 NEW_CHERRYTREE_SHARE="${NEW_MINGW64_FOLDER}/usr/share/cherrytree"
+
+
+echo "clean and build..."
+cd ${GIT_CT_FUTURE}
+git clean -dfx
+./build.sh
 
 
 echo "cleanup old runs..."
