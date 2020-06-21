@@ -10,6 +10,7 @@ set(CT_TEST_FILES
     tests_types.cpp
     tests_clipboard.cpp
     tests_filesystem.cpp
+    tests_encoding.cpp
 )
 
 # some tests doesn't work in TRAVIS, so turn off them
