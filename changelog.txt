@@ -1,4 +1,11 @@
 
+0.39.4 (June 21st, 2020)
+  * Added powershell code execution support (Paul Sweeney, #785)
+  * Fix apostrophe spell check (AyubM, #879)
+  * Fix zoom with Ctrl held down and mouse wheel, missing Ctrl release (#940)
+  * (Windows OS) Updated all spell check dictionaries and added missing dictionaries for supported languages
+  * The Gtkmm3 version is getting more and more stable, currently packaged with version 0.99.2 below this stable release
+
 0.39.3 (May 3rd, 2020)
   * Forbid to use '<' and '>' in password in PyGtk2 (#765) - all characters will be available in upcoming Gtkmm3 version currently under testing
   * After toggle tree visibility with tree that becomes visible, the tree gets the focus (tree gets hidden, text gets the focus)

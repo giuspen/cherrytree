@@ -1,11 +1,10 @@
-cherrytree (0.39.3-0) bionic; urgency=low
+cherrytree (0.39.4-0) bionic; urgency=low
 
-  * Forbid to use '<' and '>' in password in PyGtk2 (#765) - all characters will be available in upcoming Gtkmm3 version currently under testing
-  * After toggle tree visibility with tree that becomes visible, the tree gets the focus (tree gets hidden, text gets the focus)
-  * Possibility to disable triple click selecting the whole paragraph, currently only editing directly config.cfg (look for triple_click_paragraph)
-  * Updated language German from new maintainer Stefan Pöschel
-  * Updated language Finnish (Henri Kaustinen)
-  * Small fixes to Spanish translation (Roberto Vaquerizo)
+  * Added powershell code execution support (Paul Sweeney, #785)
+  * Fix apostrophe spell check (AyubM, #879)
+  * Fix zoom with Ctrl held down and mouse wheel, missing Ctrl release (#940)
+  * (Windows OS) Updated all spell check dictionaries and added missing dictionaries for supported languages
+  * The Gtkmm3 version is getting more and more stable, currently packaged with version 0.99.2 below this stable release
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sun, 03 May 2020 07:25:25 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Sun, 21 Jun 2020 13:36:06 +0100
