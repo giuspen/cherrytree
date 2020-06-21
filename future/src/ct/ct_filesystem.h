@@ -25,7 +25,7 @@
 #include <vector>
 #include "ct_types.h"
 #include "ct_splittable.h"
-#include <spdlog/fmt/fmt.h>
+#include "ct_logging.h"
 #include <glibmm/miscutils.h>
 
 class CtConfig;

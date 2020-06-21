@@ -29,9 +29,10 @@
 #include <unordered_set>
 #include "ct_treestore.h"
 #include "ct_types.h"
-#include <spdlog/fmt/fmt.h>
-#include <spdlog/fmt/ostr.h> // to support Glib::ustring formatting
+#include "ct_logging.h"
 #include <type_traits>
+
+
 
 class CtConfig;
 

@@ -27,7 +27,18 @@
 #define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/fmt.h>
-#include <spdlog/fmt/ostr.h>
+#include <glibmm/ustring.h>
+
+// ostream works badly on Win32 due to locale encoding
+template <>
+struct fmt::formatter<Glib::ustring>: formatter<string_view> {
+  // parse is inherited from formatter<string_view>.
+  template <typename FormatContext>
+  auto format(Glib::ustring c, FormatContext& ctx) {
+    return formatter<string_view>::format(c.c_str(), ctx);
+  }
+};
+
 
 
 
