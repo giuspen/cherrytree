@@ -146,7 +146,7 @@ bool CtImagePng::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_
         std::string rawBlob;
         if (!storage_cache || !storage_cache->get_cached_image(this, rawBlob))
            rawBlob = get_raw_blob();
-        const std::string link = Glib::locale_from_utf8(_link);
+        const std::string link = _link;
 
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
@@ -235,7 +235,7 @@ bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offs
     }
     else
     {
-        const std::string anchor_name = Glib::locale_from_utf8(_anchorName);
+        const std::string anchor_name = _anchorName;
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
         sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);
@@ -315,7 +315,7 @@ bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int off
     }
     else
     {
-        const std::string file_name = Glib::locale_from_utf8(_fileName.string());
+        const std::string file_name = _fileName.string();
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
         sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);

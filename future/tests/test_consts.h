@@ -27,6 +27,7 @@
 
 #include <string>
 #include <glib/gstdio.h>
+#include <glibmm/miscutils.h>
 
 const std::string unitTestsDataDir{Glib::build_filename(_CMAKE_SOURCE_DIR, "tests", "data")};
 const std::string ctzInputPath{Glib::build_filename(unitTestsDataDir, "7zr.ctz")};
