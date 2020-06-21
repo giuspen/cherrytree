@@ -3,6 +3,17 @@ language: cpp
 
 jobs:
   include:
+    - os: linux
+      dist: focal
+      cache: apt
+      addons:
+        apt:
+          update: true
+    - os: windows
+      cache:
+        directories:
+        - $HOME/AppData/Local/Temp/chocolatey
+        - /C/tools/msys64
     - os: osx
       osx_image: xcode11.4
 
@@ -95,7 +106,7 @@ script:
         cd ${TRAVIS_BUILD_DIR}
         mkdir build && cd build
         cmake ../future
-        make j$(sysctl -n hw.ncpu)
+        make -j$(sysctl -n hw.ncpu)
         ./tests/run_tests
         ;;
     esac
