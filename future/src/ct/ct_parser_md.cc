@@ -62,6 +62,10 @@ void CtMDParser::_init_tokens()
                     _add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, data);
                 }},
                 // Italic
+                {"_", true, true, [this](const std::string& data){
+                    _add_italic_tag(data);
+                }},
+                // Italic
                 {"*", true, true, [this](const std::string& data){
                     _add_italic_tag(data);
                 }},
