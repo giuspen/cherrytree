@@ -162,6 +162,7 @@ public:
     void menu_set_items_recent_documents();
     void menu_set_items_special_chars();
     void menu_set_visible_exit_app(bool visible);
+    void menu_rebuild_toolbar(bool new_toolbar);
 
     void config_switch_tree_side();
 

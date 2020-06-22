@@ -1203,6 +1203,7 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
     treeview->set_headers_visible(false);
     treeview->set_reorderable(true);
     treeview->set_size_request(300, 300);
+    treeview->get_selection()->select(Gtk::TreePath("0"));
 
     Gtk::CellRendererPixbuf pixbuf_renderer;
     pixbuf_renderer.property_stock_size() = Gtk::BuiltinIconSize::ICON_SIZE_LARGE_TOOLBAR;
@@ -1237,19 +1238,21 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
     pMainBox->pack_start(*hbox);
 
     button_add->signal_clicked().connect([this, treeview, liststore](){
-        if (add_new_item_in_toolbar_model(treeview, liststore))
-            need_restart(RESTART_REASON::TOOLBAR);
+        if (add_new_item_in_toolbar_model(treeview, liststore)) {
+            update_config_toolbar_from_model(liststore);
+            apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbar(true); });
+        }
     });
     button_remove->signal_clicked().connect([this, treeview, liststore](){
         liststore->erase(treeview->get_selection()->get_selected());
         update_config_toolbar_from_model(liststore);
-        need_restart(RESTART_REASON::TOOLBAR);
+        apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbar(true); });
     });
     button_reset->signal_clicked().connect([this, pConfig, liststore](){
         if (CtDialogs::question_dialog(reset_warning, *this)) {
             pConfig->toolbarUiList = CtConst::TOOLBAR_VEC_DEFAULT;
             fill_toolbar_model(liststore);
-            need_restart(RESTART_REASON::TOOLBAR);
+            apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbar(true); });
         }
     });
     treeview->signal_key_press_event().connect([button_remove](GdkEventKey* key) -> bool {
@@ -1261,7 +1264,7 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
     });
     treeview->signal_drag_end().connect([this, liststore](const Glib::RefPtr<Gdk::DragContext>&){
         update_config_toolbar_from_model(liststore);
-        need_restart(RESTART_REASON::TOOLBAR);
+        apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbar(true); });
     });
 
     return pMainBox;
