@@ -502,9 +502,7 @@ void CtMainWin::config_apply()
     _ctWinHeader.lockIcon.hide();
     _ctWinHeader.bookmarkIcon.hide();
 
-    show_hide_toolbar(_pCtConfig->toolbarVisible);
-    _pToolbar->set_toolbar_style(Gtk::ToolbarStyle::TOOLBAR_ICONS);
-    set_toolbar_icon_size(_pCtConfig->toolbarIconSize);
+    menu_rebuild_toolbar(false);
 
     _ctStatusBar.progressBar.hide();
     _ctStatusBar.stopButton.hide();
@@ -779,6 +777,24 @@ void CtMainWin::menu_set_visible_exit_app(bool visible)
 {
     CtMenu::find_menu_item(_pMenuBar, "exit_app")->set_visible(visible);
 }
+
+void CtMainWin::menu_rebuild_toolbar(bool new_toolbar)
+{
+    if (new_toolbar)
+    {
+        _vboxMain.remove(*_pToolbar);
+        _pToolbar = _uCtMenu->build_toolbar(_pRecentDocsMenuToolButton);
+        _vboxMain.pack_start(*_pToolbar, false, false);
+        _vboxMain.reorder_child(*_pToolbar, 1);
+        menu_set_items_recent_documents();
+        _pToolbar->show_all();
+    }
+
+    show_hide_toolbar(_pCtConfig->toolbarVisible);
+    _pToolbar->set_toolbar_style(Gtk::ToolbarStyle::TOOLBAR_ICONS);
+    set_toolbar_icon_size(_pCtConfig->toolbarIconSize);
+}
+
 
 void CtMainWin::config_switch_tree_side()
 {
