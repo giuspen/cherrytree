@@ -458,10 +458,11 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                 start_iter.backward_line();
                 try {
                     _markdown_check_and_replace(text_buffer, start_iter, iter_insert);
-                    text_buffer->insert_at_cursor(CtConst::CHAR_NEWLINE);
                     iter_start  = text_buffer->get_insert()->get_iter();
                     iter_insert = iter_start;
-                } catch(CtParseError&) {}
+                } catch(const CtParseError& e) {
+                    spdlog::error("Exception caught while parsing markdown formatting: {}", e.what());
+                }
             }
             
             int cursor_key_press = iter_insert.get_offset();
@@ -616,19 +617,6 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                     if (iter_start.get_line_offset() == 0 and iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_COLON))
                         // ":: " becoming "▪ " at line start
                         _special_char_replace(CtConst::CHARS_LISTBUL_DEFAULT[2], iter_start, iter_insert);
-                } else if (_pCtMainWin->get_ct_config()->enableMdFormatting && syntaxHighlighting == CtConst::RICH_TEXT_ID) {
-                    auto word_start = iter_insert;
-                    if (word_start.backward_chars(2)) {
-                        if (!word_start.inside_word() && !word_start.ends_word() && !word_start.starts_line()) {
-                            if (Glib::ustring(1, word_start.get_char()) != " ") {
-                                word_start.backward_sentence_start();
-                                try {
-                                    _markdown_check_and_replace(text_buffer, word_start, iter_insert);
-                                    text_buffer->insert_at_cursor(" ");
-                                } catch(CtParseError&) {}
-                            }
-                        }
-                    }
                 }
             }
         }
@@ -651,16 +639,12 @@ void CtTextView::_markdown_check_and_replace(Glib::RefPtr<Gtk::TextBuffer> text_
         _md_parser->feed(txt);
     
         text_buffer->erase(iter_pair.first, iter_pair.second);
-        auto cursor = text_buffer->get_insert()->get_iter();
-        if (cursor.backward_char()) {
-            text_buffer->place_cursor(cursor);
-        }
+        
     
         if (!_clipboard) _clipboard = std::make_unique<CtClipboard>(_pCtMainWin);
         _clipboard->from_xml_string_to_buffer(std::move(text_buffer), _md_parser->to_string());
-    } catch(CtParseError&) {
-        // todo: log this in debug
-        throw;
+    } catch(CtParseError& e) {
+        spdlog::error("Parse exception during markdown check: {}", e.what());
     }
 }
 

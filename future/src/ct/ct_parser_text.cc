@@ -216,14 +216,16 @@ std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser
 }
 
 
+
 std::pair<Gtk::TextIter, Gtk::TextIter> CtTextParser::find_formatting_boundaries(Gtk::TextIter start_bounds, Gtk::TextIter word_end)
 {
     _build_token_maps();
     
     Glib::ustring token_str(start_bounds, word_end);
+   
     auto tokens = _tokenize(token_str);
     auto& close_tags = close_tokens_map();
-    
+
     // Forward match
     auto token = tokens.cbegin();
     auto& open_tags = open_tokens_map();
@@ -254,14 +256,7 @@ std::pair<Gtk::TextIter, Gtk::TextIter> CtTextParser::find_formatting_boundaries
         // Didn't find anything
         throw CtParseError(fmt::format("Could not find any valid tags in: {}", token_str.c_str()));
     }
-    
-    Glib::ustring token_test(start_bounds, word_end);
-    if ((ftoken_iter == open_tags.cend() && rtoken_iter != close_tags.cend()) || (token_test == rtoken_iter->second->open_tag)) {
-        // Found only a close tag, parse error
-        throw CtParseError(fmt::format("Close tag without open tag while parsing: {}", token_str.c_str()));
-    }
-    
-    
+        
     return {start_bounds, word_end};
 }
 
