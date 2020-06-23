@@ -194,8 +194,44 @@ protected:
 
 private:
     std::unordered_map<char, std::vector<std::string>> _possible_tokens;
-
+    void _build_pos_tokens();
 public:
+    /**
+     * @brief Helper class to find possible tokens in a stream
+     */
+    class TokenMatcher {
+        using size_type = std::string::size_type;
+    public:
+        explicit TokenMatcher(std::shared_ptr<CtTextParser> text_parser) : _text_parser(std::move(text_parser)) {}
+        /**
+         * @brief Feed a single character
+         * 
+         * @param ch 
+         */
+        void feed(char ch);
+
+        /// Whether the matcher has found a complete token
+        [[nodiscard]] constexpr bool finished() const noexcept { return _finished; }
+        [[nodiscard]] constexpr bool has_open() const noexcept { return _found_open; }
+        [[nodiscard]] size_type contents_end_offset() const noexcept { return _close_token.size(); }
+        [[nodiscard]] size_type contents_start_offset() const noexcept { return contents_end_offset() + _token_contents.size(); }
+        [[nodiscard]] const std::string& contents() const noexcept { return _token_contents; }
+        [[nodiscard]] std::string raw_str() const { return _open_token + _token_contents + _close_token; }
+    private:
+        std::vector<std::string> _pos_tokens;
+        std::string _token_buff;
+        std::string _token_contents;
+        std::string _open_token;
+        std::string _close_token;
+        bool _found_open = false;
+        bool _finished = false;
+        std::shared_ptr<CtTextParser> _text_parser;
+
+        void _update_tokens();
+    };
+    friend class TokenMatcher;
+
+
     using CtParser::CtParser;
 
     /**

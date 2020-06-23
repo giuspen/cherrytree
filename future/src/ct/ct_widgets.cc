@@ -383,6 +383,8 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
     auto config = _pCtMainWin->get_ct_config();
     bool is_code = syntaxHighlighting != CtConst::RICH_TEXT_ID and syntaxHighlighting != CtConst::PLAIN_TEXT_ID;
 
+    
+    
     if (not is_code and config->autoSmartQuotes and (event->key.keyval == GDK_KEY_quotedbl or event->key.keyval == GDK_KEY_apostrophe))
     {
         Gtk::TextIter iter_insert = text_buffer->get_insert()->get_iter();
@@ -426,6 +428,8 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                 replace_text(char_1, offset_1, offset_1+1);
             }
         }
+    } else if (event->key.keyval != 65505 && !is_code /* Todo set this to if markdown formatting is on */) {
+        _markdown_insert(text_buffer);
     }
     else if (event->key.state & Gdk::SHIFT_MASK)
     {
@@ -620,6 +624,49 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                 }
             }
         }
+    }
+}
+
+
+void CtTextView::_markdown_insert(Glib::RefPtr<Gtk::TextBuffer> text_buffer) {
+    if (!_md_parser) _md_parser = std::make_shared<CtMDParser>(_pCtMainWin->get_ct_config());
+    if (!_md_matcher) _md_matcher = std::make_unique<CtTextParser::TokenMatcher>(_md_parser);
+
+
+    Gtk::TextIter back_one = text_buffer->get_insert()->get_iter();
+    if (back_one.backward_char()) {
+        Glib::ustring str(back_one, text_buffer->get_insert()->get_iter());
+        spdlog::debug("FED: {}", str[0]);
+        _md_matcher->feed(str[0]);
+    
+    }
+
+    if (_md_matcher->finished()) {
+        auto start_offset = _md_matcher->contents_start_offset();
+        auto end_offset = _md_matcher->contents_end_offset();
+        std::string raw_token = _md_matcher->raw_str();
+        spdlog::debug("Finished; Start: <{}>; END: <{}>; TKN: <{}>", start_offset, end_offset, raw_token);
+
+        _md_parser->wipe();
+        _md_matcher.reset();
+
+        auto iter_begin = text_buffer->get_insert()->get_iter();
+        auto iter_end = iter_begin;
+        iter_begin.backward_chars(start_offset);
+        iter_end.backward_chars(end_offset);
+
+        std::stringstream txt(raw_token);
+        _md_parser->feed(txt);
+
+        text_buffer->place_cursor(iter_begin);
+        text_buffer->erase(iter_begin, iter_end);
+        
+    
+        if (!_clipboard) _clipboard = std::make_unique<CtClipboard>(_pCtMainWin);
+        _clipboard->from_xml_string_to_buffer(text_buffer, _md_parser->to_string());
+        spdlog::debug("XML RAW: {}", _md_parser->to_string());
+
+
     }
 }
 

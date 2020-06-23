@@ -65,19 +65,24 @@ std::optional<std::string> branch_token(ITER_T begin, ITER_T end, const std::vec
     return largest;
 }
 
-std::vector<std::string> CtTextParser::_tokenize(const std::string& text)
-{
-    auto& open_tags = open_tokens_map();
-    auto& close_tags = close_tokens_map();
+
+void CtTextParser::_build_pos_tokens() {
     if (_possible_tokens.empty()) {
+        auto& open_tags = open_tokens_map();
+        auto& close_tags = close_tokens_map();
+        
         _possible_tokens = build_pos_tokens(open_tags);
         auto other_pos  = build_pos_tokens(close_tags);
         for (const auto& token : other_pos) {
             auto& tokens_full =  _possible_tokens[token.first];
             tokens_full.insert(tokens_full.end(), token.second.begin(), token.second.end());
         }
-        //_possible_tokens.insert(other_pos.begin(), other_pos.end());
     }
+}
+
+std::vector<std::string> CtTextParser::_tokenize(const std::string& text)
+{
+    _build_pos_tokens();
     
     std::vector<std::string> tokens;
     std::string::const_iterator last_pos = text.begin();
@@ -215,7 +220,63 @@ std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser
     return token_stream;
 }
 
+void CtTextParser::TokenMatcher::feed(char ch) {    
+    _text_parser->_build_pos_tokens();
+    bool found = false;
+    auto token_pos = _text_parser->_possible_tokens.find(ch);
+    if (token_pos != _text_parser->_possible_tokens.end()) {
+        _token_buff += ch;
+        spdlog::debug("FOUND TKN");
+        if (_pos_tokens.empty()) {
+            _pos_tokens = token_pos->second;
+        }
+        found = true;
+    }
+    
+    spdlog::debug("TKN BUFF: {}", _token_buff);
+    _update_tokens();
 
+    if (_found_open && !found) _token_contents += ch;
+}
+
+void CtTextParser::TokenMatcher::_update_tokens() {
+    if (!_pos_tokens.empty()) {
+        auto pos_token = branch_token(_token_buff.begin(), _token_buff.end(), _pos_tokens);
+        if (pos_token) {
+            spdlog::debug("TKN: {}", *pos_token);
+            // Found a possible token
+            if (*pos_token == _open_token && _token_contents.empty()) {
+                // Repeat, it actually failed but matched the start
+                _found_open = true;
+
+                _token_buff.clear();
+                _pos_tokens.clear();
+                spdlog::debug("Found open:");
+            } else if (!_found_open) {
+                // Open tag
+                auto& open_tkns = _text_parser->open_tokens_map();
+                if (open_tkns.find(_token_buff) != open_tkns.end()) {
+                    _open_token = *pos_token;
+                } else {
+                    _token_buff.clear();
+                    _pos_tokens.clear();
+                }
+
+            } else {
+                // Close
+                auto& open_tkns = _text_parser->open_tokens_map();
+                auto* open_token = open_tkns.at(_open_token);
+                if (*pos_token == open_token->close_tag || (open_token->is_symmetrical && *pos_token == open_token->open_tag)) {
+                    _finished = true;
+                    _close_token = _token_buff;
+                    spdlog::debug("Finished, open: <{}> contents: <{}> close: <{}> ", _open_token, _token_contents, _close_token);
+                }
+            }
+        } 
+        
+    }
+
+}
 
 std::pair<Gtk::TextIter, Gtk::TextIter> CtTextParser::find_formatting_boundaries(Gtk::TextIter start_bounds, Gtk::TextIter word_end)
 {
