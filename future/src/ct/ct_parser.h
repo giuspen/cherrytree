@@ -232,6 +232,8 @@ public:
         std::shared_ptr<CtTextParser> _text_parser;
 
         void _update_tokens();
+        bool _is_valid_token(std::string_view token);
+        void _rebuild_pos_tokens(const std::vector<std::string>& from);
     };
     friend class TokenMatcher;
 
