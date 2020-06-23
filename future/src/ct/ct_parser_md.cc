@@ -80,22 +80,19 @@ void CtMDParser::_init_tokens()
                 }},
                 // First part of a link
                 {"[",  true,  false, [this](const std::string &data) {
-                    _add_text(data, false);
-                }, "]", true},
-                // Second half of a link
-                {"(",  true,  false, [this](const std::string &data) {
-                    if (_last_encountered_token) {
-                        if ((_last_encountered_token->open_tag == "[") && (_last_encountered_token->close_tag == "]")) {
-                            _add_link(data);
-                            return;
-                        } else if ((_last_encountered_token->open_tag == "![") && (_last_encountered_token->close_tag == "]")) {
-                            // Image link
-                            _add_image(data);
-                            return;
-                        }
+                    // Parse for end of display
+                    auto last_pos = data.find_last_of(']');
+                    if (last_pos == std::string::npos) {
+                        spdlog::warn("Unknown data captured: {}; printing as plaintext", data);
+                        _add_text(data);
+                        return;
                     }
-                    // Just text in brackets
-                    _add_text("(" + data + ")");
+
+                    std::string title(data.begin(), data.begin() + last_pos);
+                    std::string url(data.begin() + last_pos + 2, data.end());
+
+                    _add_text(title, false);
+                    _add_link(url);
                 }, ")", true},
                 // Monospace
                 {"`", true, true, [this](const std::string& data){
@@ -160,12 +157,24 @@ void CtMDParser::_init_tokens()
                     _add_table_cell(data);
                 }, " |\n"},
                 // Table header divider
-                {"| -", true, false, [](const std::string& data){
+                {"| -", true, false, [](const std::string&){
                     // Since cherrytree tables don't use headers, this is not needed
-                    spdlog::debug("Got divider: {}", data);
                 }, "- |\n"},
                 // Image link
-                {"![", true, false, [this](const std::string&){}, "]"}
+                {"![", true, false, [this](const std::string& data){
+                    auto last_pos = data.find_last_of(']');
+                    if (last_pos == std::string::npos) {
+                        spdlog::warn("Image captured unknown data: <{}>; printing as plaintext", data);
+                        _add_text(data);
+                        return;
+                    }
+
+                    std::string title(data.begin(), data.begin() + last_pos);
+                    std::string uri(data.begin() + last_pos + 2, data.end());
+
+                    _add_text(title, false);
+                    _add_image(uri);
+                }, ")", true}
         
         };
     }
