@@ -1812,7 +1812,11 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
         return false;
     }
 
-    nodeData.name = name_entry.get_text();
+    nodeData.name = str::trim(name_entry.get_text());
+    nodeData.name = str::replace(nodeData.name, "\r", ""); // the given name can contain \r and \n as a result
+    nodeData.name = str::replace(nodeData.name, "\n", ""); // of cope/paste from some source
+    nodeData.name = str::replace(nodeData.name, "\t", " ");
+
     if (nodeData.name.empty())
     {
         nodeData.name = CtConst::CHAR_QUESTION;
