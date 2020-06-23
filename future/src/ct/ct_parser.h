@@ -209,16 +209,20 @@ public:
          * @param ch 
          */
         void feed(char ch);
+        void erase_last();
 
         /// Whether the matcher has found a complete token
         [[nodiscard]] constexpr bool finished() const noexcept { return _finished; }
         [[nodiscard]] constexpr bool has_open() const noexcept { return _found_open; }
         [[nodiscard]] size_type contents_end_offset() const noexcept { return _close_token.size(); }
         [[nodiscard]] size_type contents_start_offset() const noexcept { return contents_end_offset() + _token_contents.size(); }
+        [[nodiscard]] size_type raw_start_offset() const noexcept { return contents_start_offset() + _open_token.size(); }
+        [[nodiscard]] size_type raw_end_offset() const noexcept { return 0; }
         [[nodiscard]] const std::string& contents() const noexcept { return _token_contents; }
         [[nodiscard]] std::string raw_str() const { return _open_token + _token_contents + _close_token; }
     private:
         std::vector<std::string> _pos_tokens;
+        std::unordered_set<char> _pos_chars;
         std::string _token_buff;
         std::string _token_contents;
         std::string _open_token;

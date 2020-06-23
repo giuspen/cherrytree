@@ -228,38 +228,66 @@ std::unordered_set<char> shred(const std::vector<std::string>& strings) {
     return chars;
 }
 
+void CtTextParser::TokenMatcher::erase_last() {
+    if (!_finished && !_open_token.empty()) {
+        if (!_found_open || _token_contents.empty()) {
+            _open_token.pop_back();
+            _token_buff = _open_token;
+            
+            spdlog::debug("POPPED OPEN: {}", _open_token);
+        } else {
+            _token_contents.pop_back();
+        }
+    }
+}
+
+
 void CtTextParser::TokenMatcher::feed(char ch) {    
     _text_parser->_build_pos_tokens();
     bool found = false;
     auto token_pos = _text_parser->_possible_tokens.find(ch);
     if (token_pos != _text_parser->_possible_tokens.end()) {
+        spdlog::debug("POS TOKEN: <{}>", std::string(1, ch));
         if (_pos_tokens.empty()) {
             _pos_tokens = token_pos->second;
-        }
-        auto pos_chars = shred(_pos_tokens);
-       
-        if (pos_chars.find(ch) != pos_chars.end()) {
+        } 
+        
+        if (_pos_chars.empty()) _pos_chars = shred(_pos_tokens);
+    
+        if (_pos_chars.find(ch) != _pos_chars.end()) {
             _token_buff += ch;
             found = true;
+        } else if (!_found_open) {
+            // A different tag before found a full open, switch to it
+            if (!_token_buff.empty()) {
+                // Attempt a match beginning with the last character (e.g \n-_ becomes -_ and matches)
+                char prev_char = _token_buff.front();
+                _token_buff.clear();
+                _pos_tokens.clear();
+                _pos_chars.clear();
+                feed(prev_char);
+                feed(ch);
+                return;
+            } 
+            _token_buff.clear();
+            _token_buff += ch;
+            found = true;
+            _pos_tokens = token_pos->second;
+            _pos_chars.clear();
+            spdlog::debug("Swapped on: <{}>", std::string(1, ch));
         }
-        
-        spdlog::debug("FOUND TKN: <{}>", std::string(1, ch));
-        
+                
     }
-    
-    spdlog::debug("TKN BUFF: <{}>", _token_buff);
     _update_tokens();
 
     if (_found_open && !found) _token_contents += ch;
-    
-    
 }
 
 void CtTextParser::TokenMatcher::_update_tokens() {
     if (!_pos_tokens.empty()) {
         auto pos_token = branch_token(_token_buff.begin(), _token_buff.end(), _pos_tokens);
         if (pos_token) {
-            spdlog::debug("TKN: {}", *pos_token);
+            spdlog::debug("TKN: <{}>", *pos_token);
             // Found a possible token
             if (*pos_token == _open_token && _token_contents.empty()) {
                 // Repeat, it actually failed but matched the start
@@ -273,7 +301,8 @@ void CtTextParser::TokenMatcher::_update_tokens() {
                         break;
                     }
                 }
-                spdlog::debug("Found open:");
+                spdlog::debug("FOUND OPEN");
+                _pos_chars.clear();
             } else if (!_found_open) {
                 // Open tag
                 auto& open_tkns = _text_parser->open_tokens_map();
@@ -281,7 +310,6 @@ void CtTextParser::TokenMatcher::_update_tokens() {
                     _open_token = *pos_token;
                 } else {
                     _token_buff.clear();
-                    //_pos_tokens.clear();
                 }
 
             } else {

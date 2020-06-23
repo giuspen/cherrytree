@@ -130,7 +130,7 @@ private:
     /// Replace the char between iter_start and iter_end with another one
     void          _special_char_replace(Glib::ustring special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
     void          _markdown_check_and_replace(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
-    void          _markdown_insert(Glib::RefPtr<Gtk::TextBuffer> text_buffer);
+    void          _markdown_insert(Glib::RefPtr<Gtk::TextBuffer> text_buffer, guint key);
 public:
     static const double TEXT_SCROLL_MARGIN;
 
