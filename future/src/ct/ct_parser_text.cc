@@ -220,23 +220,39 @@ std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser
     return token_stream;
 }
 
+std::unordered_set<char> shred(const std::vector<std::string>& strings) {
+    std::unordered_set<char> chars;
+    for (const auto& str : strings) {
+        chars.insert(str.begin(), str.end());
+    }
+    return chars;
+}
+
 void CtTextParser::TokenMatcher::feed(char ch) {    
     _text_parser->_build_pos_tokens();
     bool found = false;
     auto token_pos = _text_parser->_possible_tokens.find(ch);
     if (token_pos != _text_parser->_possible_tokens.end()) {
-        _token_buff += ch;
-        spdlog::debug("FOUND TKN");
         if (_pos_tokens.empty()) {
             _pos_tokens = token_pos->second;
         }
-        found = true;
+        auto pos_chars = shred(_pos_tokens);
+       
+        if (pos_chars.find(ch) != pos_chars.end()) {
+            _token_buff += ch;
+            found = true;
+        }
+        
+        spdlog::debug("FOUND TKN: <{}>", std::string(1, ch));
+        
     }
     
-    spdlog::debug("TKN BUFF: {}", _token_buff);
+    spdlog::debug("TKN BUFF: <{}>", _token_buff);
     _update_tokens();
 
     if (_found_open && !found) _token_contents += ch;
+    
+    
 }
 
 void CtTextParser::TokenMatcher::_update_tokens() {
@@ -250,7 +266,13 @@ void CtTextParser::TokenMatcher::_update_tokens() {
                 _found_open = true;
 
                 _token_buff.clear();
-                _pos_tokens.clear();
+                _text_parser->_init_tokens();
+                for (const auto& tkn : _text_parser->_token_schemas) {
+                    if (tkn.open_tag == _open_token) {
+                        _pos_tokens = {(tkn.is_symmetrical ? tkn.open_tag : tkn.close_tag)};
+                        break;
+                    }
+                }
                 spdlog::debug("Found open:");
             } else if (!_found_open) {
                 // Open tag
@@ -259,7 +281,7 @@ void CtTextParser::TokenMatcher::_update_tokens() {
                     _open_token = *pos_token;
                 } else {
                     _token_buff.clear();
-                    _pos_tokens.clear();
+                    //_pos_tokens.clear();
                 }
 
             } else {
@@ -270,9 +292,9 @@ void CtTextParser::TokenMatcher::_update_tokens() {
                     _finished = true;
                     _close_token = _token_buff;
                     spdlog::debug("Finished, open: <{}> contents: <{}> close: <{}> ", _open_token, _token_contents, _close_token);
-                }
+                } 
             }
-        } 
+        }
         
     }
 
