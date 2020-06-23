@@ -123,6 +123,7 @@ public:
     void zoom_text(bool is_increase);
     void set_spell_check(bool allow_on);
 
+    void set_buffer(const Glib::RefPtr<Gtk::TextBuffer>& buffer);
 private:
     bool          _apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor);
     Glib::ustring _get_former_line_indentation(Gtk::TextIter iter_start);
@@ -130,13 +131,17 @@ private:
     /// Replace the char between iter_start and iter_end with another one
     void          _special_char_replace(Glib::ustring special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
     void          _markdown_check_and_replace(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
-    void          _markdown_insert(Glib::RefPtr<Gtk::TextBuffer> text_buffer, guint key);
+    void          _markdown_insert(Glib::RefPtr<Gtk::TextBuffer> text_buffer);
 public:
     static const double TEXT_SCROLL_MARGIN;
 
 private:
     static std::map<std::string, GspellChecker*> _static_spell_checkers;
     static GspellChecker* _get_spell_checker(const std::string& lang);
+
+private:
+    void _for_buffer_insert(const Gtk::TextBuffer::iterator& position, const Glib::ustring& text, int bytes);
+
 
 private:
     CtMainWin* _pCtMainWin;

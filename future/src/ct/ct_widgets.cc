@@ -341,6 +341,31 @@ void CtTextView::for_event_after_triple_click_button1(GdkEvent* event)
     _pCtMainWin->apply_tag_try_automatic_bounds_triple_click(text_buffer, iter_start);
 }
 
+
+void CtTextView::_for_buffer_insert(const Gtk::TextBuffer::iterator& position, const Glib::ustring& text, int bytes) {    
+    if (_pCtMainWin->get_ct_config()->enableMdFormatting) {
+        if (!_md_parser) _md_parser = std::make_shared<CtMDParser>(_pCtMainWin->get_ct_config());
+        if (!_md_matcher) _md_matcher = std::make_unique<CtTextParser::TokenMatcher>(_md_parser);
+        
+        if (!_md_matcher->finished()) _md_matcher->feed(text[0]);
+    }
+    
+}
+
+void CtTextView::set_buffer(const Glib::RefPtr<Gtk::TextBuffer>& buffer) {
+    Gsv::View::set_buffer(buffer);
+    sigc::connection insert_sig;
+    insert_sig = get_source_buffer()->signal_insert().connect(sigc::mem_fun(this, &CtTextView::_for_buffer_insert));
+    sigc::connection end_action_sig;
+    end_action_sig = get_source_buffer()->signal_end_user_action().connect([this, end_action_sig, insert_sig]() mutable {
+        insert_sig.block();
+        end_action_sig.block();
+        _markdown_insert(get_buffer());
+        insert_sig.unblock();
+        end_action_sig.unblock();
+    });
+}
+
 // Called after every gtk.gdk.BUTTON_PRESS on the SourceView
 void CtTextView::for_event_after_button_press(GdkEvent* event)
 {
@@ -428,9 +453,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                 replace_text(char_1, offset_1, offset_1+1);
             }
         }
-    } else if (event->key.keyval != 65505 && !is_code /* Todo set this to if markdown formatting is on */) {
-        _markdown_insert(text_buffer, event->key.keyval);
-    }
+    } 
     else if (event->key.state & Gdk::SHIFT_MASK)
     {
         if (event->key.keyval == GDK_KEY_Return)
@@ -456,18 +479,6 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
         Gtk::TextIter iter_start = iter_insert;
         if (event->key.keyval == GDK_KEY_Return)
         {
-            if (_pCtMainWin->get_ct_config()->enableMdFormatting && syntaxHighlighting == CtConst::RICH_TEXT_ID) {
-                // Format the last line
-                auto start_iter = iter_start;
-                start_iter.backward_line();
-                try {
-                    _markdown_check_and_replace(text_buffer, start_iter, iter_insert);
-                    iter_start  = text_buffer->get_insert()->get_iter();
-                    iter_insert = iter_start;
-                } catch(const CtParseError& e) {
-                    spdlog::error("Exception caught while parsing markdown formatting: {}", e.what());
-                }
-            }
             
             int cursor_key_press = iter_insert.get_offset();
             //print "cursor_key_press", cursor_key_press
@@ -628,27 +639,15 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
 }
 
 
-void CtTextView::_markdown_insert(Glib::RefPtr<Gtk::TextBuffer> text_buffer, guint key) {
-    if (!_md_parser) _md_parser = std::make_shared<CtMDParser>(_pCtMainWin->get_ct_config());
-    if (!_md_matcher) _md_matcher = std::make_unique<CtTextParser::TokenMatcher>(_md_parser);
+void CtTextView::_markdown_insert(Glib::RefPtr<Gtk::TextBuffer> text_buffer) {
+    if (_pCtMainWin->get_ct_config()->enableMdFormatting) {
+        if (!_md_parser) _md_parser = std::make_shared<CtMDParser>(_pCtMainWin->get_ct_config());
+        if (!_md_matcher) _md_matcher = std::make_unique<CtTextParser::TokenMatcher>(_md_parser);
         
-    if (key == GDK_KEY_BackSpace) {
-        _md_matcher->erase_last();
-    } else {
-
-        Gtk::TextIter back_one = text_buffer->get_insert()->get_iter();
-        if (back_one.backward_char()) {
-            Glib::ustring str(back_one, text_buffer->get_insert()->get_iter());
-            spdlog::debug("FED: {}", str[0]);
-            _md_matcher->feed(str[0]);
-        
-        }
-
         if (_md_matcher->finished()) {
             auto start_offset = _md_matcher->raw_start_offset();
             auto end_offset = _md_matcher->raw_end_offset();
             std::string raw_token = _md_matcher->raw_str();
-            spdlog::debug("Finished; Start: <{}>; END: <{}>; TKN: <{}>", start_offset, end_offset, raw_token);
 
             _md_parser->wipe();
             _md_matcher.reset();
@@ -667,15 +666,14 @@ void CtTextView::_markdown_insert(Glib::RefPtr<Gtk::TextBuffer> text_buffer, gui
         
             if (!_clipboard) _clipboard = std::make_unique<CtClipboard>(_pCtMainWin);
             _clipboard->from_xml_string_to_buffer(text_buffer, _md_parser->to_string());
-            spdlog::debug("XML RAW: {}", _md_parser->to_string());
 
             auto iter_insert = text_buffer->get_insert()->get_iter();
             iter_insert.forward_chars(end_offset);
             text_buffer->place_cursor(iter_insert);
-
         }
     }
 }
+
 
 void CtTextView::_markdown_check_and_replace(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter start_iter, Gtk::TextIter end_iter) 
 {
