@@ -145,7 +145,9 @@ private:
 
 private:
     CtMainWin* _pCtMainWin;
-    std::unique_ptr<CtTextParser::TokenMatcher> _md_matcher;
+    std::shared_ptr<CtTextParser::TokenMatcher> _md_matcher;
     std::unique_ptr<CtClipboard> _clipboard;
     std::shared_ptr<CtMDParser> _md_parser;
+    using match_pair_t = std::pair<std::shared_ptr<CtMDParser>, std::shared_ptr<CtTextParser::TokenMatcher>>;
+    std::map<Glib::RefPtr<Gtk::TextMark>, match_pair_t> _md_matchers;
 };

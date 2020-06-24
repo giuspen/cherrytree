@@ -342,18 +342,62 @@ void CtTextView::for_event_after_triple_click_button1(GdkEvent* event)
 }
 
 
-void CtTextView::_for_buffer_insert(const Gtk::TextBuffer::iterator& position, const Glib::ustring& text, int bytes) {    
-    if (_pCtMainWin->get_ct_config()->enableMdFormatting) {
-        if (!_md_parser) _md_parser = std::make_shared<CtMDParser>(_pCtMainWin->get_ct_config());
-        if (!_md_matcher) _md_matcher = std::make_unique<CtTextParser::TokenMatcher>(_md_parser);
+void CtTextView::_for_buffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int) {    
+    spdlog::debug("GOT TXT: {}", text);
+    if (_pCtMainWin->get_ct_config()->enableMdFormatting && text.size() == 1) {
         
-        if (!_md_matcher->finished()) _md_matcher->feed(text[0]);
+        std::shared_ptr<CtMDParser> md_parser;
+        std::shared_ptr<CtTextParser::TokenMatcher> md_matcher;
+        auto marks = pos.get_marks();
+        bool has_mark = false;
+        Glib::RefPtr<Gtk::TextMark> mark;
+        for (const auto& m : marks) {
+            spdlog::debug("NAME: {}", m->get_name());
+            for (auto& tm : _md_matchers) {
+                spdlog::debug("MNAME: {}", tm.first->get_name());
+                if (tm.first->get_name() == m->get_name()) {
+                    has_mark = true;
+                    auto& pair = tm.second;
+                    md_parser = pair.first;
+                    md_matcher = pair.second;
+                    mark = tm.first;
+                    break;
+                }
+            }
+        }
+        if (!has_mark) {
+            spdlog::debug("Creating new mark");
+            md_parser = std::make_shared<CtMDParser>(_pCtMainWin->get_ct_config());
+            md_matcher = std::make_unique<CtTextParser::TokenMatcher>(md_parser);
+
+            mark = get_buffer()->create_mark(fmt::format("md-mark-{}", _md_matchers.size()), pos, false);
+            mark->set_visible(true);
+            match_pair_t pair{md_parser, md_matcher};
+            spdlog::debug("MARK NAME: <{}>", mark->get_name());
+            _md_matchers[mark] = pair;
+        }
+
+        if (!md_matcher->finished()) { 
+            md_matcher->feed(text[0]);
+
+            _md_parser = md_parser;
+            _md_matcher = md_matcher;   
+        } else {
+            get_buffer()->delete_mark(mark);
+            _md_matchers.erase(mark);
+            md_parser.reset();
+            md_matcher.reset();
+        }
     }
     
 }
 
 void CtTextView::set_buffer(const Glib::RefPtr<Gtk::TextBuffer>& buffer) {
     Gsv::View::set_buffer(buffer);
+    if (_pCtMainWin->get_ct_config()->enableMdFormatting && _md_parser && _md_matcher) {
+        _md_parser->wipe();
+        _md_matcher.reset();
+    }
     sigc::connection insert_sig;
     insert_sig = get_source_buffer()->signal_insert().connect(sigc::mem_fun(this, &CtTextView::_for_buffer_insert));
     sigc::connection end_action_sig;
@@ -364,6 +408,7 @@ void CtTextView::set_buffer(const Glib::RefPtr<Gtk::TextBuffer>& buffer) {
         insert_sig.unblock();
         end_action_sig.unblock();
     });
+    
 }
 
 // Called after every gtk.gdk.BUTTON_PRESS on the SourceView
