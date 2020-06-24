@@ -245,7 +245,6 @@ void CtTextParser::TokenMatcher::_rebuild_pos_tokens(const std::vector<std::stri
     static const std::unordered_set<std::string_view> ignored_tags = {"| ", "|\n", " |\n", "\n==", "\n----", "```"};
 
     for (const auto& token : from) {
-            spdlog::debug("TKN: {}", token);
         if (ignored_tags.find(token) == ignored_tags.end()) {
             _pos_tokens.emplace_back(token);
         }
@@ -303,6 +302,90 @@ void CtTextParser::TokenMatcher::feed(char ch) {
     _update_tokens();
 
     if (_found_open && !found) _token_contents += ch;
+}
+
+constexpr void require(bool expr, std::string_view msg) {
+    #ifndef NODEBUG // Mimic behaviour of assert(), doesnt abort in rel builds
+    if (!expr) {
+        spdlog::error("Requirement failed: <{}>", msg);
+        std::abort();
+    }
+    #endif
+} 
+
+
+void CtTextParser::TokenMatcher::erase(int offset) {
+    require(offset >= 0, "TokenMatcher::erase: offset >= 0");
+    if (!finished()) {
+        int lr_offset = static_cast<int>(raw_str().size() - offset);
+        if (offset == 0) erase_last();
+        else if (offset >= static_cast<int>(contents_end_offset()) && offset <= static_cast<int>(contents_start_offset())) {
+            // Contents
+            spdlog::debug("Erase contents");
+            int erase_offset = lr_offset - static_cast<int>(_open_token.size());
+            spdlog::debug("Erased <{}>", std::string(_token_contents.begin() + erase_offset, _token_contents.begin() + erase_offset + 1));
+            _token_contents.erase(_token_contents.begin() + erase_offset, _token_contents.begin() + erase_offset + 1);
+        } 
+        else if (offset >= static_cast<int>(raw_end_offset() + _token_contents.size()) && lr_offset < static_cast<int>(_open_token.size())) {
+            // Open 
+            spdlog::debug("Erase open");
+            _open_token.erase(_open_token.begin() + lr_offset, _open_token.begin() + lr_offset + 1);
+
+            // Update tokens
+            _token_buff = _open_token;
+            _found_open = false;
+            _update_tokens();
+        }
+        else if (offset >= static_cast<int>((_open_token.size() + _token_contents.size()))) {
+            // Close
+            spdlog::debug("Erase close");
+            int erase_offset = static_cast<int>(_close_token.size()) - offset;
+            if (erase_offset >= 0) {
+                _close_token.erase(_close_token.begin() + erase_offset, _close_token.begin() + erase_offset + 1);
+                _token_buff = _close_token;
+                _update_tokens();
+            } else {
+                spdlog::warn("Got an invalid erase_offset: <{}>", erase_offset);
+            }
+        }
+    }
+}
+
+void CtTextParser::TokenMatcher::insert(char ch, int offset) {
+    require(offset >= 0, "TokenMatcher::insert: offset >= 0");
+    spdlog::debug("Got offset: <{}>; ch: <{}>", offset, std::string(1, ch));
+    spdlog::debug("TKN BUFF: <{}>", _token_buff);
+    if (!finished()) {
+        int lr_offset = static_cast<int>(raw_str().size()) - offset;
+        if (offset == 0) feed(ch);
+        else if (offset >= static_cast<int>(contents_end_offset()) && offset <= static_cast<int>(contents_start_offset())) {
+            // Edit to contents
+            spdlog::debug("Insert contents");
+            _token_contents.insert(_token_contents.begin() + lr_offset - _open_token.size(), ch);
+        } 
+        else if (lr_offset >= static_cast<int>((raw_end_offset() + _token_contents.size()))) {
+            // Open token
+            spdlog::debug("Insert open_token");
+            _open_token.insert(_open_token.begin() + lr_offset, ch);
+            
+            // Reset open
+            _token_buff = _open_token;
+            feed(ch);
+        } 
+        else if (lr_offset >= static_cast<int>(_open_token.size() + _token_contents.size())) {
+            // Close token
+            spdlog::debug("Insert close token");
+            _close_token.insert(_close_token.begin() + (_close_token.size() - offset), ch);
+            _token_buff = _close_token;
+            _update_tokens();
+        } else {
+            spdlog::warn("Invalid offset: <{}>; appending (feed()) instead", offset);
+            feed(ch);
+        }
+    }
+
+
+
 }
 
 void CtTextParser::TokenMatcher::_update_tokens() {

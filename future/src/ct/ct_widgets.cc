@@ -341,52 +341,83 @@ void CtTextView::for_event_after_triple_click_button1(GdkEvent* event)
     _pCtMainWin->apply_tag_try_automatic_bounds_triple_click(text_buffer, iter_start);
 }
 
+std::string get_md_tag_name(int pos) {
+    return fmt::format("md-formatting-{}", pos);
+}
+
+void apply_tag(Glib::RefPtr<Gtk::TextBuffer>& txt_buff, const Glib::ustring& tag, const Gtk::TextIter& start, const Gtk::TextIter& end) {
+    spdlog::debug("apply_tag: {}", tag);
+    bool has_tag = static_cast<bool>(txt_buff->get_tag_table()->lookup(tag));
+    if (!has_tag) {
+        // create if not exists
+        txt_buff->create_tag(tag);
+    }
+    txt_buff->apply_tag_by_name(tag, start, end);
+}
 
 void CtTextView::_for_buffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int) {    
-    spdlog::debug("GOT TXT: {}", text);
-    if (_pCtMainWin->get_ct_config()->enableMdFormatting && text.size() == 1) {
-        
+    spdlog::debug("GOT TXT: <{}>", text);
+    if (_pCtMainWin->get_ct_config()->enableMdFormatting && text.size() == 1 /* For now, only handle single chars */) {
         std::shared_ptr<CtMDParser> md_parser;
         std::shared_ptr<CtTextParser::TokenMatcher> md_matcher;
-        auto marks = pos.get_marks();
-        bool has_mark = false;
-        Glib::RefPtr<Gtk::TextMark> mark;
-        for (const auto& m : marks) {
-            spdlog::debug("NAME: {}", m->get_name());
-            for (auto& tm : _md_matchers) {
-                spdlog::debug("MNAME: {}", tm.first->get_name());
-                if (tm.first->get_name() == m->get_name()) {
+        Gtk::TextIter back_iter = pos;
+        back_iter.backward_chars(text.length() + 1);
+        for (char insert_ch : text) {
+
+            auto tags = back_iter.get_tags();
+            bool has_mark = false;
+            std::string tag_name = get_md_tag_name(_md_matchers.size());
+
+            for (const auto& tag : tags) {
+                spdlog::debug("NAME: {}", tag->property_name().get_value());
+                auto iter = _md_matchers.find(tag->property_name().get_value());
+                if (iter != _md_matchers.end()) {
                     has_mark = true;
-                    auto& pair = tm.second;
+                    tag_name = tag->property_name().get_value();
+                    auto& pair = iter->second;
                     md_parser = pair.first;
                     md_matcher = pair.second;
-                    mark = tm.first;
                     break;
                 }
             }
-        }
-        if (!has_mark) {
-            spdlog::debug("Creating new mark");
-            md_parser = std::make_shared<CtMDParser>(_pCtMainWin->get_ct_config());
-            md_matcher = std::make_unique<CtTextParser::TokenMatcher>(md_parser);
+            auto text_buff = get_buffer();
+            apply_tag(text_buff, tag_name, back_iter, pos);
 
-            mark = get_buffer()->create_mark(fmt::format("md-mark-{}", _md_matchers.size()), pos, false);
-            mark->set_visible(true);
-            match_pair_t pair{md_parser, md_matcher};
-            spdlog::debug("MARK NAME: <{}>", mark->get_name());
-            _md_matchers[mark] = pair;
-        }
+            if (!has_mark) {
+                spdlog::debug("Creating new tag: {}", tag_name);
+                md_parser = std::make_shared<CtMDParser>(_pCtMainWin->get_ct_config());
+                md_matcher = std::make_unique<CtTextParser::TokenMatcher>(md_parser);
 
-        if (!md_matcher->finished()) { 
-            md_matcher->feed(text[0]);
+                match_pair_t pair{md_parser, md_matcher};
+            
+                _md_matchers[tag_name] = pair;
+            }
 
-            _md_parser = md_parser;
-            _md_matcher = md_matcher;   
-        } else {
-            get_buffer()->delete_mark(mark);
-            _md_matchers.erase(mark);
-            md_parser.reset();
-            md_matcher.reset();
+            if (!md_matcher->finished()) { 
+                // Determine offset
+                int offset = 0;
+                auto for_iter = pos;
+                for_iter.backward_char();
+                while(for_iter.forward_char()) {
+                    if (!for_iter.has_tag(text_buff->get_tag_table()->lookup(tag_name))) {
+                        break;
+                    }
+                    if (for_iter.get_char() == '\n') break;
+                    ++offset;
+                }
+                spdlog::debug("Inserting: <{}> at offset: <{}>", std::string(1, insert_ch), offset);
+                md_matcher->insert(insert_ch, offset);
+                
+
+                _md_parser = md_parser;
+                _md_matcher = md_matcher;   
+            } else {
+                get_buffer()->remove_tag_by_name(tag_name, text_buff->begin(), text_buff->end());
+                _md_matchers.erase(tag_name);
+                md_parser.reset();
+                md_matcher.reset();
+            }
+            back_iter.forward_char();
         }
     }
     
@@ -398,6 +429,7 @@ void CtTextView::set_buffer(const Glib::RefPtr<Gtk::TextBuffer>& buffer) {
         _md_parser->wipe();
         _md_matcher.reset();
     }
+    _md_matchers.clear();
     sigc::connection insert_sig;
     insert_sig = get_source_buffer()->signal_insert().connect(sigc::mem_fun(this, &CtTextView::_for_buffer_insert));
     sigc::connection end_action_sig;
@@ -407,6 +439,44 @@ void CtTextView::set_buffer(const Glib::RefPtr<Gtk::TextBuffer>& buffer) {
         _markdown_insert(get_buffer());
         insert_sig.unblock();
         end_action_sig.unblock();
+    });
+    get_source_buffer()->signal_erase().connect([this](const Gtk::TextIter& begin, const Gtk::TextIter& end) {
+        try {
+            if (_pCtMainWin->get_ct_config()->enableMdFormatting) {
+                Gtk::TextIter iter = begin;
+                iter.backward_char();
+
+                spdlog::debug("Erase");
+                auto erase_tag_seg = [this](const std::string& tag, CtTextParser::TokenMatcher& matcher,
+                                            Gtk::TextIter start) {
+                    int offset = 0;
+                    auto txt_buff = get_buffer();
+                    auto tag_ptr = txt_buff->get_tag_table()->lookup(tag);
+                    while (true) {
+                        if (!start.has_tag(tag_ptr)) break;
+                        if (!start.forward_char()) break;
+                        ++offset;
+                    }
+                    spdlog::debug("Found erase offset: <{}>", offset);
+                    matcher.erase(offset);
+                };
+
+                while (iter != end) {
+                    for (const auto& tag : iter.get_tags()) {
+                        std::string name = tag->property_name().get_value();
+                        spdlog::debug("TAG NAME: <{}>", name);
+                        auto matcher_iter = _md_matchers.find(name);
+                        if (matcher_iter != _md_matchers.end()) {
+                            auto& md_matcher = matcher_iter->second.second;
+                            erase_tag_seg(name, *md_matcher, iter);
+                        }
+                    }
+                    if (!iter.forward_char()) break;
+                }
+            }
+        } catch(const std::exception& e) {
+            spdlog::error("Exception caught while erasing buffer: <{}>", e.what());
+        }
     });
     
 }

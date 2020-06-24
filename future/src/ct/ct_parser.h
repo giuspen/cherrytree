@@ -210,6 +210,10 @@ public:
          */
         void feed(char ch);
         void erase_last();
+        /// Insert at specific position, offset is offset from front (right) of the raw token
+        void insert(char ch, int offset);
+        /// Erase at the specified position, offset is from the front
+        void erase(int offset);
 
         /// Whether the matcher has found a complete token
         [[nodiscard]] constexpr bool finished() const noexcept { return _finished; }
@@ -217,7 +221,7 @@ public:
         [[nodiscard]] size_type contents_end_offset() const noexcept { return _close_token.size(); }
         [[nodiscard]] size_type contents_start_offset() const noexcept { return contents_end_offset() + _token_contents.size(); }
         [[nodiscard]] size_type raw_start_offset() const noexcept { return contents_start_offset() + _open_token.size(); }
-        [[nodiscard]] size_type raw_end_offset() const noexcept { return 0; }
+        [[nodiscard]] constexpr size_type raw_end_offset() const noexcept { return 0; }
         [[nodiscard]] const std::string& contents() const noexcept { return _token_contents; }
         [[nodiscard]] std::string raw_str() const { return _open_token + _token_contents + _close_token; }
     private:
