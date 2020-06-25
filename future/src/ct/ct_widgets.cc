@@ -357,7 +357,6 @@ void apply_tag(Glib::RefPtr<Gtk::TextBuffer>& txt_buff, const Glib::ustring& tag
 
 void CtTextView::_for_buffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int) noexcept
 {
-    spdlog::debug("GOT TXT: <{}>", text);
     try {
         if (_pCtMainWin->get_ct_config()->enableMdFormatting &&
             text.size() == 1 /* For now, only handle single chars */) {
@@ -372,7 +371,6 @@ void CtTextView::_for_buffer_insert(const Gtk::TextBuffer::iterator& pos, const 
                 std::string tag_name = get_md_tag_name(_md_matchers.size());
 
                 for (const auto& tag : tags) {
-                    spdlog::debug("NAME: {}", tag->property_name().get_value());
                     auto iter = _md_matchers.find(tag->property_name().get_value());
                     if (iter != _md_matchers.end()) {
                         has_mark = true;
@@ -408,7 +406,7 @@ void CtTextView::_for_buffer_insert(const Gtk::TextBuffer::iterator& pos, const 
                         if (for_iter.get_char() == '\n') break;
                         ++offset;
                     }
-                    spdlog::debug("Inserting: <{}> at offset: <{}>", std::string(1, insert_ch), offset);
+                    spdlog::trace("Inserting: <{}> at offset: <{}>", std::string(1, insert_ch), offset);
                     md_matcher->insert(insert_ch, offset);
 
 
@@ -1041,7 +1039,6 @@ void CtTextView::_for_buffer_erase(const Gtk::TextIter& begin, const Gtk::TextIt
     try {
         auto buff = get_buffer();
         bool is_all = (begin == buff->begin()) && (end == buff->end());
-        spdlog::debug("IS ALL: {}", is_all);
         if (is_all && _pCtMainWin->get_ct_config()->enableMdFormatting) {
             _reset_markdown_parser();
             spdlog::debug("Reset markdown matchers due to buffer clear");
@@ -1051,7 +1048,6 @@ void CtTextView::_for_buffer_erase(const Gtk::TextIter& begin, const Gtk::TextIt
             Gtk::TextIter iter = begin;
             iter.backward_char();
 
-            spdlog::debug("Erase");
             auto erase_tag_seg = [this](const std::string& tag, CtTextParser::TokenMatcher& matcher,
                                         Gtk::TextIter start) {
                 std::size_t offset = 0;
@@ -1069,7 +1065,6 @@ void CtTextView::_for_buffer_erase(const Gtk::TextIter& begin, const Gtk::TextIt
             while (iter != end) {
                 for (const auto& tag : iter.get_tags()) {
                     std::string name = tag->property_name().get_value();
-                    spdlog::debug("TAG NAME: <{}>", name);
                     auto matcher_iter = _md_matchers.find(name);
                     if (matcher_iter != _md_matchers.end()) {
                         auto& md_matcher = matcher_iter->second.second;

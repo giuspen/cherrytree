@@ -232,9 +232,7 @@ void CtTextParser::TokenMatcher::pop_back() {
     if (!_finished && !_open_token.empty()) {
         if (!_found_open || _token_contents.empty()) {
             _open_token.pop_back();
-            _token_buff = _open_token;
-            
-            spdlog::debug("POPPED OPEN: {}", _open_token);
+            _token_buff = _open_token;            
         } else {
             _token_contents.pop_back();
         }
@@ -376,28 +374,26 @@ void CtTextParser::TokenMatcher::reset() noexcept {
 
 void CtTextParser::TokenMatcher::insert(char ch, int offset) {
     require(offset >= 0, "TokenMatcher::insert: offset >= 0");
-    spdlog::debug("Got offset: <{}>; ch: <{}>", offset, std::string(1, ch));
-    spdlog::debug("TKN BUFF: <{}>", _token_buff);
     if (!finished()) {
         std::string raw = raw_str();
         int lr_offset = static_cast<int>(raw.size()) - offset;
         if (offset == 0) feed(ch);
         else if (offset >= static_cast<int>(contents_start_offset())) {
             // Open token
-            spdlog::debug("Insert open_token");
+            spdlog::trace("Insert open_token");
             _open_token.insert(_open_token.begin() + lr_offset, ch);
 
             _reset_and_refeed();
         } 
         else if (offset <= static_cast<int>(contents_end_offset())) {
             // Close token
-            spdlog::debug("Insert close token");
+            spdlog::trace("Insert close token");
             _close_token.insert(_close_token.begin() + (_close_token.size() - offset), ch);
 
             _reset_and_refeed();
         } else if (offset > static_cast<int>(contents_end_offset()) && offset < static_cast<int>(contents_start_offset())) {
             // Edit to contents, no need to reset
-            spdlog::debug("Insert contents");
+            spdlog::trace("Insert contents");
             _token_contents.insert(_token_contents.begin() + lr_offset - _open_token.size(), ch);
         }
         else {
@@ -427,7 +423,7 @@ void CtTextParser::TokenMatcher::_update_tokens() {
                         break;
                     }
                 }
-                spdlog::debug("FOUND OPEN");
+                spdlog::debug("TOKEN MATCHER: FOUND OPEN");
                 _pos_chars.clear();
             } else if (!_found_open) {
                 // Open tag
