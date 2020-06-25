@@ -145,7 +145,8 @@ private:
 private:
     void _for_buffer_insert(const Gtk::TextBuffer::iterator& position, const Glib::ustring& text, int bytes) noexcept;
     void _for_buffer_erase(const Gtk::TextIter& begin, const Gtk::TextIter& end) noexcept;
-
+    /// Used to check if rich text syntax has been set for the view
+    [[nodiscard]] bool _buffer_is_rich_text() const;
 private:
     CtMainWin* _pCtMainWin;
     std::shared_ptr<CtTextParser::TokenMatcher> _md_matcher;
@@ -154,5 +155,6 @@ private:
     using match_pair_t = std::pair<std::shared_ptr<CtMDParser>, std::shared_ptr<CtTextParser::TokenMatcher>>;
     std::unordered_map<std::string, match_pair_t> _md_matchers;
     std::array<sigc::connection, 4> _buff_connections;
+    std::string _syntax_highlighting;
 
 };

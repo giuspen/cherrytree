@@ -216,6 +216,7 @@ void CtTextView::setup_for_syntax(const std::string& syntax)
             set_draw_spaces(Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE);
         }
     }
+    _syntax_highlighting = syntax;
 }
 
 void CtTextView::set_pixels_inside_wrap(int space_around_lines, int relative_wrapped_space)
@@ -358,8 +359,8 @@ void apply_tag(Glib::RefPtr<Gtk::TextBuffer>& txt_buff, const Glib::ustring& tag
 void CtTextView::_for_buffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int) noexcept
 {
     try {
-        if (_pCtMainWin->get_ct_config()->enableMdFormatting &&
-            text.size() == 1 /* For now, only handle single chars */) {
+        if (_pCtMainWin->get_ct_config()->enableMdFormatting && _buffer_is_rich_text() &&
+            text.size() == 1 /* For now, only handle single chars */ ) {
             std::shared_ptr<CtMDParser> md_parser;
             std::shared_ptr<CtTextParser::TokenMatcher> md_matcher;
             Gtk::TextIter back_iter = pos;
@@ -1008,20 +1009,23 @@ void CtTextView::_reconnect_buffer_signals(const Glib::RefPtr<Gtk::TextBuffer>& 
     for (auto& sig : _buff_connections) {
         if (sig.connected()) sig.disconnect();
     }
+    if (_buffer_is_rich_text() && _pCtMainWin->get_ct_config()->enableMdFormatting) {
+        // Connect new
+        _buff_connections[0] = text_buffer->signal_insert().connect(sigc::mem_fun(this, &CtTextView::_for_buffer_insert));
+        _buff_connections[1] = text_buffer->signal_end_user_action().connect([this]() mutable {
+            _buff_connections[0].block();
+            _buff_connections[3].block();
+            if (_buffer_is_rich_text() && _pCtMainWin->get_ct_config()->enableMdFormatting) {
+                _markdown_insert(get_buffer());
+            }
+        });
+        _buff_connections[2] = text_buffer->signal_begin_user_action().connect([this]() mutable {
+            _buff_connections[0].unblock();
+            _buff_connections[3].unblock();
+        });
 
-    // Connect new
-    _buff_connections[0] = text_buffer->signal_insert().connect(sigc::mem_fun(this, &CtTextView::_for_buffer_insert));
-    _buff_connections[1] = text_buffer->signal_end_user_action().connect([this]() mutable {
-        _buff_connections[0].block();
-        _buff_connections[3].block();
-        _markdown_insert(get_buffer());
-    });
-    _buff_connections[2] = text_buffer->signal_begin_user_action().connect([this]() mutable {
-        _buff_connections[0].unblock();
-        _buff_connections[3].unblock();
-    });
-
-    _buff_connections[3] = text_buffer->signal_erase().connect(sigc::mem_fun(this, &CtTextView::_for_buffer_erase));
+        _buff_connections[3] = text_buffer->signal_erase().connect(sigc::mem_fun(this, &CtTextView::_for_buffer_erase));
+    }
 }
 
 void CtTextView::_reset_markdown_parser()
@@ -1044,7 +1048,7 @@ void CtTextView::_for_buffer_erase(const Gtk::TextIter& begin, const Gtk::TextIt
             spdlog::debug("Reset markdown matchers due to buffer clear");
             return;
         }
-        if (_pCtMainWin->get_ct_config()->enableMdFormatting) {
+        if (_pCtMainWin->get_ct_config()->enableMdFormatting && _buffer_is_rich_text()) {
             Gtk::TextIter iter = begin;
             iter.backward_char();
 
@@ -1079,4 +1083,8 @@ void CtTextView::_for_buffer_erase(const Gtk::TextIter& begin, const Gtk::TextIt
     }
 }
 
+bool CtTextView::_buffer_is_rich_text() const 
+{ 
+    return _syntax_highlighting == CtConst::RICH_TEXT_ID; 
+}
 
