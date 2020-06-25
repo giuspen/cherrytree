@@ -34,6 +34,7 @@
 #include <fstream>
 #include <unordered_map>
 #include <functional>
+#include <array>
 
 class CtClipboard;
 /**
