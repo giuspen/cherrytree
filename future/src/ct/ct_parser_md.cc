@@ -116,10 +116,15 @@ void CtMDParser::_init_tokens()
                     _add_list(_list_level, data + "\n");
                     _list_level = 0;
                 }, "\n"},
+                // Passthroughs for lists
+                {" -", true, false, [](const std::string&){}, " "},
+                {"-", true, true, [](const std::string&){}},
                 // Strikethrough
                 {"~~", true,  true,  [this](const std::string &data) {
                     _add_strikethrough_tag(data);
                 }},
+                // Passthrough for ``` and `
+                {"``", true, true, [this](const std::string& data){ _add_text("``" + data + "``"); }},
                 // Headers (h1, h2, etc)
                 {"# ",  true, false, [this](const std::string &data) {
                     _close_current_tag();
