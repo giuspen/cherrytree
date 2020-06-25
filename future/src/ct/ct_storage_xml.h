@@ -60,6 +60,7 @@ public:
 private:
     Gtk::TreeIter  _node_from_xml(xmlpp::Element* xml_element, Gtk::TreeIter parent_iter, gint64 new_id);
     void           _nodes_to_xml(CtTreeIter* ct_tree_iter, xmlpp::Element* p_node_parent, CtStorageCache* storage_cache);
+    std::unique_ptr<xmlpp::DomParser> _get_parser(const fs::path& file_path);
 
 private:
     CtMainWin* _pCtMainWin{nullptr};

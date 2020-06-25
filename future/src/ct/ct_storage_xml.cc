@@ -29,6 +29,7 @@
 #include "ct_main_win.h"
 #include "ct_storage_control.h"
 #include "ct_logging.h"
+#include <fstream>
 
 
 CtStorageXml::CtStorageXml(CtMainWin* pCtMainWin) : _pCtMainWin(pCtMainWin)
@@ -51,24 +52,12 @@ void CtStorageXml::test_connection()
 
 }
 
-std::unique_ptr<xmlpp::DomParser> get_parser(const fs::path& file_path) {
-    // open file
-    auto parser = std::make_unique<xmlpp::DomParser>();
-    parser->parse_file(file_path.string());
-    if (!parser->get_document())
-        throw std::runtime_error("document is null");
-    if (parser->get_document()->get_root_node()->get_name() != CtConst::APP_NAME)
-        throw std::runtime_error("document contains the wrong node root");
-    return parser;
-}
-
-
 bool CtStorageXml::populate_treestore(const fs::path& file_path, Glib::ustring& error)
 {
     try
     {
         // open file
-        auto parser = get_parser(file_path);
+        auto parser = _get_parser(file_path);
 
         // read bookmarks
         for (xmlpp::Node* xml_node :  parser->get_document()->get_root_node()->get_children("bookmarks"))
@@ -141,7 +130,7 @@ void CtStorageXml::vacuum()
 
 void CtStorageXml::import_nodes(const fs::path& path)
 {
-    auto parser = get_parser(path);
+    auto parser = _get_parser(path);
 
     std::function<void(xmlpp::Element*, Gtk::TreeIter)> recursive_import_func;
     recursive_import_func = [this, &recursive_import_func](xmlpp::Element* xml_element, Gtk::TreeIter parent_iter) {
@@ -214,7 +203,33 @@ void CtStorageXml::_nodes_to_xml(CtTreeIter* ct_tree_iter, xmlpp::Element* p_nod
     }
 }
 
+std::unique_ptr<xmlpp::DomParser> CtStorageXml::_get_parser(const fs::path& file_path)
+{
+    // open file
+    auto parser = std::make_unique<xmlpp::DomParser>();
+    try
+    {
+        parser->parse_file(file_path.string());
+    }
+    catch (xmlpp::exception& e)
+    {
+        spdlog::error("CtStorageXml::_get_parser: failed to read xml file {}, {}", file_path.string(), e.what());
+        spdlog::info("CtStorageXml::_get_parser: trying to sanitize xml file ...");
 
+        auto file = std::fstream(file_path.string(), std::ios::in);
+        std::string buffer(std::istreambuf_iterator<char>(file), {});
+        file.close();
+        Glib::ustring xml_content = str::sanitize_bad_symbols(buffer);
+        parser->parse_memory(xml_content);
+        spdlog::info("CtStorageXml::_get_parser: xml file is sanitized");
+    }
+
+    if (!parser->get_document())
+        throw std::runtime_error("document is null");
+    if (parser->get_document()->get_root_node()->get_name() != CtConst::APP_NAME)
+        throw std::runtime_error("document contains the wrong node root");
+    return parser;
+}
 
 
 CtStorageXmlHelper::CtStorageXmlHelper(CtMainWin* pCtMainWin) : _pCtMainWin(pCtMainWin)
@@ -298,7 +313,24 @@ void CtStorageXmlHelper::get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gsv::Buf
 Glib::RefPtr<Gsv::Buffer> CtStorageXmlHelper::create_buffer_no_widgets(const Glib::ustring& syntax, const char* xml_content)
 {
     xmlpp::DomParser parser;
-    parser.parse_memory(xml_content);
+    try
+    {
+        parser.parse_memory(xml_content);
+    }
+    catch (xmlpp::parse_error& e)
+    {
+        spdlog::error("CtStorageXmlHelper:create_buffer_no_widgets: {}", e.what());
+        try
+        {
+            parser.parse_memory(str::sanitize_bad_symbols(xml_content));
+            spdlog::info("CtStorageXmlHelper:create_buffer_no_widgets: xml is sanitized");
+        }
+        catch (std::exception& e)
+        {
+            spdlog::error("CtStorageXmlHelper:create_buffer_no_widgets: sanitizing xml is failed, {}", e.what());
+            return Glib::RefPtr<Gsv::Buffer>();
+        }
+    }
     std::list<CtAnchoredWidget*> widgets;
     if (parser.get_document() && parser.get_document()->get_root_node())
         return create_buffer_and_widgets_from_xml(parser.get_document()->get_root_node(), syntax, widgets, nullptr, -1);

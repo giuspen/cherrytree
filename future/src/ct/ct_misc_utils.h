@@ -256,6 +256,8 @@ int indexOf(const std::array<T, size>& array, const T& uc)
 
 std::string xml_escape(const std::string& text);
 
+Glib::ustring sanitize_bad_symbols(const Glib::ustring& xml_content);
+
 std::string re_escape(const std::string& text);
 
 std::string time_format(const std::string& format, const time_t& time);
