@@ -356,8 +356,12 @@ Glib::ustring CtMainWin::sourceview_hovering_link_get_tooltip(const Glib::ustrin
 {
     Glib::ustring tooltip;
     auto vec = str::split(link, " ");
-    if (vec[0] == CtConst::LINK_TYPE_FILE or vec[0] == CtConst::LINK_TYPE_FOLD)
+    if (vec.size() == 1) { // case when link has wrong format
+        tooltip = str::replace(link, "amp;", "");
+    } 
+    else if (vec[0] == CtConst::LINK_TYPE_FILE or vec[0] == CtConst::LINK_TYPE_FOLD) {
         tooltip = Glib::Base64::decode(vec[1]);
+    }
     else
     {
         if (vec[0] == CtConst::LINK_TYPE_NODE)
