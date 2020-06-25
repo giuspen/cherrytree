@@ -55,6 +55,7 @@ protected:
 class CtMainWin;
 class CtAnchoredWidgetState;
 class CtStorageCache;
+class CtMarkdownFilter;
 
 class CtAnchoredWidget : public Gtk::EventBox
 {
@@ -130,11 +131,8 @@ private:
     void          _special_char_replace(gunichar special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_insert);
     /// Replace the char between iter_start and iter_end with another one
     void          _special_char_replace(Glib::ustring special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
-    void          _markdown_check_and_replace(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
-    void          _markdown_insert(Glib::RefPtr<Gtk::TextBuffer> text_buffer);
-    void          _reconnect_buffer_signals(const Glib::RefPtr<Gtk::TextBuffer>& text_buffer);
-    /// Reset the markdown parsers and matchers attached to the CtTextView
-    void          _reset_markdown_parser();
+    
+    bool          _markdown_filter_active();
 public:
     static const double TEXT_SCROLL_MARGIN;
 
@@ -143,18 +141,11 @@ private:
     static GspellChecker* _get_spell_checker(const std::string& lang);
 
 private:
-    void _for_buffer_insert(const Gtk::TextBuffer::iterator& position, const Glib::ustring& text, int bytes) noexcept;
-    void _for_buffer_erase(const Gtk::TextIter& begin, const Gtk::TextIter& end) noexcept;
     /// Used to check if rich text syntax has been set for the view
     [[nodiscard]] bool _buffer_is_rich_text() const;
 private:
-    CtMainWin* _pCtMainWin;
-    std::shared_ptr<CtTextParser::TokenMatcher> _md_matcher;
-    std::unique_ptr<CtClipboard> _clipboard;
-    std::shared_ptr<CtMDParser> _md_parser;
-    using match_pair_t = std::pair<std::shared_ptr<CtMDParser>, std::shared_ptr<CtTextParser::TokenMatcher>>;
-    std::unordered_map<std::string, match_pair_t> _md_matchers;
-    std::array<sigc::connection, 4> _buff_connections;
-    std::string _syntax_highlighting;
+    
+    std::unique_ptr<CtMarkdownFilter> _md_handler;
 
+    CtMainWin* _pCtMainWin;
 };

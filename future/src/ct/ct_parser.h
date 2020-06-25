@@ -35,7 +35,7 @@
 #include <unordered_map>
 #include <functional>
 
-
+class CtClipboard;
 /**
  * @class CtParseError
  * @brief Thrown when an exception occures during parsing
@@ -281,4 +281,46 @@ public:
 
 public:
     static std::list<html_attr> char2list_attrs(const char** atts);
+};
+
+class CtMDParser;
+/**
+ * @brief Watches a TextBuffer and applies markdown formatting to it
+ * @class CtMarkdownFilter
+ */
+class CtMarkdownFilter {
+public:
+    CtMarkdownFilter(std::unique_ptr<CtClipboard> clipboard, Glib::RefPtr<Gtk::TextBuffer> buffer, CtConfig* config);
+    /// Reset parser state
+    void reset() noexcept;
+    
+    /// Connect to a new buffer
+    void buffer(Glib::RefPtr<Gtk::TextBuffer> text_buffer);
+    
+    constexpr void active(bool active) noexcept { _active = active; }
+    [[nodiscard]] bool active() const noexcept;
+
+private:
+    void _on_buffer_insert(const Gtk::TextBuffer::iterator& position, const Glib::ustring& text, int bytes) noexcept;
+    void _on_buffer_erase(const Gtk::TextIter& begin, const Gtk::TextIter& end) noexcept;
+
+    void _markdown_insert();
+    void _apply_tag(const Glib::ustring& tag, const Gtk::TextIter& start, const Gtk::TextIter& end);
+
+    std::string _get_new_md_tag_name() const;
+    
+private:
+    std::array<sigc::connection, 4> _buff_connections;
+    bool _active = false;
+
+    CtConfig* _config;
+    Glib::RefPtr<Gtk::TextBuffer> _buffer;
+
+    std::shared_ptr<CtTextParser::TokenMatcher> _md_matcher;
+    std::shared_ptr<CtMDParser> _md_parser;
+    std::unique_ptr<CtClipboard> _clipboard;
+
+
+    using match_pair_t = std::pair<std::shared_ptr<CtMDParser>, std::shared_ptr<CtTextParser::TokenMatcher>>;
+    std::unordered_map<std::string, match_pair_t> _md_matchers;
 };
