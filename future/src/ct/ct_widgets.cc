@@ -355,7 +355,7 @@ void apply_tag(Glib::RefPtr<Gtk::TextBuffer>& txt_buff, const Glib::ustring& tag
     txt_buff->apply_tag_by_name(tag, start, end);
 }
 
-void CtTextView::_for_buffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int)
+void CtTextView::_for_buffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int) noexcept
 {
     spdlog::debug("GOT TXT: <{}>", text);
     try {
@@ -417,6 +417,8 @@ void CtTextView::_for_buffer_insert(const Gtk::TextBuffer::iterator& pos, const 
                 } else {
                     get_buffer()->remove_tag_by_name(tag_name, text_buff->begin(), text_buff->end());
                     _md_matchers.erase(tag_name);
+                    md_parser->wipe();
+                    md_matcher->reset();
                     md_parser.reset();
                     md_matcher.reset();
                 }
@@ -428,68 +430,11 @@ void CtTextView::_for_buffer_insert(const Gtk::TextBuffer::iterator& pos, const 
     }
 }
 
-void CtTextView::set_buffer(const Glib::RefPtr<Gtk::TextBuffer>& buffer) {
+void CtTextView::set_buffer(const Glib::RefPtr<Gtk::TextBuffer>& buffer)
+{
     Gsv::View::set_buffer(buffer);
-    if (_pCtMainWin->get_ct_config()->enableMdFormatting && _md_parser && _md_matcher) {
-        _md_parser->wipe();
-        _md_matcher.reset();
-    }
-    _md_matchers.clear();
-    sigc::connection insert_sig;
-    insert_sig = get_source_buffer()->signal_insert().connect(sigc::mem_fun(this, &CtTextView::_for_buffer_insert));
-    sigc::connection end_action_sig;
-    end_action_sig = get_source_buffer()->signal_end_user_action().connect([this, end_action_sig, insert_sig]() mutable {
-        spdlog::debug("END ACTION");
-        insert_sig.block();
-        end_action_sig.block();
-        _markdown_insert(get_buffer());
-    });
-    get_source_buffer()->signal_begin_user_action().connect([insert_sig, end_action_sig]() mutable {
-        spdlog::debug("BEGIN ACTION");
-        insert_sig.unblock();
-        end_action_sig.unblock();
-    });
-
-    get_source_buffer()->signal_erase().connect([this](const Gtk::TextIter& begin, const Gtk::TextIter& end) {
-        try {
-            if (_pCtMainWin->get_ct_config()->enableMdFormatting) {
-                Gtk::TextIter iter = begin;
-                iter.backward_char();
-
-                spdlog::debug("Erase");
-                auto erase_tag_seg = [this](const std::string& tag, CtTextParser::TokenMatcher& matcher,
-                                            Gtk::TextIter start) {
-                    std::size_t offset = 0;
-                    auto txt_buff = get_buffer();
-                    auto tag_ptr = txt_buff->get_tag_table()->lookup(tag);
-                    Gtk::TextIter initial_start = start;
-                    while (true) {
-                        if (!start.has_tag(tag_ptr)) break;
-                        if (!start.forward_char()) break;
-                        ++offset;
-                    }
-                    spdlog::debug("Found erase offset: <{}>", offset);
-                    if (offset < matcher.raw_str().size()) matcher.erase(offset);
-                };
-
-                while (iter != end) {
-                    for (const auto& tag : iter.get_tags()) {
-                        std::string name = tag->property_name().get_value();
-                        spdlog::debug("TAG NAME: <{}>", name);
-                        auto matcher_iter = _md_matchers.find(name);
-                        if (matcher_iter != _md_matchers.end()) {
-                            auto& md_matcher = matcher_iter->second.second;
-                            erase_tag_seg(name, *md_matcher, iter);
-                        }
-                    }
-                    if (!iter.forward_char()) break;
-                }
-            }
-        } catch(const std::exception& e) {
-            spdlog::error("Exception caught while erasing buffer: <{}>", e.what());
-        }
-    });
-    
+    _reset_markdown_parser();
+    _reconnect_buffer_signals(get_buffer());
 }
 
 // Called after every gtk.gdk.BUTTON_PRESS on the SourceView
@@ -1058,3 +1003,85 @@ void CtTextView::_special_char_replace(Glib::ustring special_char, Gtk::TextIter
     _static_spell_checkers[lang] = gspell_checker;
     return gspell_checker;
 }
+
+void CtTextView::_reconnect_buffer_signals(const Glib::RefPtr<Gtk::TextBuffer>& text_buffer)
+{
+    // Disconnect previous
+    for (auto& sig : _buff_connections) {
+        if (sig.connected()) sig.disconnect();
+    }
+
+    // Connect new
+    _buff_connections[0] = text_buffer->signal_insert().connect(sigc::mem_fun(this, &CtTextView::_for_buffer_insert));
+    _buff_connections[1] = text_buffer->signal_end_user_action().connect([this]() mutable {
+        _buff_connections[0].block();
+        _buff_connections[3].block();
+        _markdown_insert(get_buffer());
+    });
+    _buff_connections[2] = text_buffer->signal_begin_user_action().connect([this]() mutable {
+        _buff_connections[0].unblock();
+        _buff_connections[3].unblock();
+    });
+
+    _buff_connections[3] = text_buffer->signal_erase().connect(sigc::mem_fun(this, &CtTextView::_for_buffer_erase));
+}
+
+void CtTextView::_reset_markdown_parser()
+{
+    if (_pCtMainWin->get_ct_config()->enableMdFormatting) {
+        _md_matchers.clear();
+        _md_parser.reset();
+        _md_matcher.reset();
+    }
+}
+
+
+void CtTextView::_for_buffer_erase(const Gtk::TextIter& begin, const Gtk::TextIter& end) noexcept
+{
+    try {
+        auto buff = get_buffer();
+        bool is_all = (begin == buff->begin()) && (end == buff->end());
+        spdlog::debug("IS ALL: {}", is_all);
+        if (is_all && _pCtMainWin->get_ct_config()->enableMdFormatting) {
+            _reset_markdown_parser();
+            spdlog::debug("Reset markdown matchers due to buffer clear");
+            return;
+        }
+        if (_pCtMainWin->get_ct_config()->enableMdFormatting) {
+            Gtk::TextIter iter = begin;
+            iter.backward_char();
+
+            spdlog::debug("Erase");
+            auto erase_tag_seg = [this](const std::string& tag, CtTextParser::TokenMatcher& matcher,
+                                        Gtk::TextIter start) {
+                std::size_t offset = 0;
+                auto txt_buff = get_buffer();
+                auto tag_ptr = txt_buff->get_tag_table()->lookup(tag);
+                while (true) {
+                    if (!start.has_tag(tag_ptr)) break;
+                    if (!start.forward_char()) break;
+                    ++offset;
+                }
+                spdlog::debug("Found erase offset: <{}>", offset);
+                if (offset < matcher.raw_str().size()) matcher.erase(offset);
+            };
+
+            while (iter != end) {
+                for (const auto& tag : iter.get_tags()) {
+                    std::string name = tag->property_name().get_value();
+                    spdlog::debug("TAG NAME: <{}>", name);
+                    auto matcher_iter = _md_matchers.find(name);
+                    if (matcher_iter != _md_matchers.end()) {
+                        auto& md_matcher = matcher_iter->second.second;
+                        erase_tag_seg(name, *md_matcher, iter);
+                    }
+                }
+                if (!iter.forward_char()) break;
+            }
+        }
+    } catch(const std::exception& e) {
+        spdlog::error("Exception caught while erasing buffer: <{}>", e.what());
+    }
+}
+
+

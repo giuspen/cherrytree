@@ -174,7 +174,12 @@ void CtMDParser::_init_tokens()
 
                     _add_text(title, false);
                     _add_image(uri);
-                }, ")", true}
+                }, ")", true},
+                // Link
+                {"<", true, false, [this](const std::string& data){
+                    _add_text(data, false);
+                    _add_link(data);
+                }, ">", true}
         
         };
     }

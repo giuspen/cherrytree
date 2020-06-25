@@ -132,6 +132,9 @@ private:
     void          _special_char_replace(Glib::ustring special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
     void          _markdown_check_and_replace(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
     void          _markdown_insert(Glib::RefPtr<Gtk::TextBuffer> text_buffer);
+    void          _reconnect_buffer_signals(const Glib::RefPtr<Gtk::TextBuffer>& text_buffer);
+    /// Reset the markdown parsers and matchers attached to the CtTextView
+    void          _reset_markdown_parser();
 public:
     static const double TEXT_SCROLL_MARGIN;
 
@@ -140,8 +143,8 @@ private:
     static GspellChecker* _get_spell_checker(const std::string& lang);
 
 private:
-    void _for_buffer_insert(const Gtk::TextBuffer::iterator& position, const Glib::ustring& text, int bytes);
-
+    void _for_buffer_insert(const Gtk::TextBuffer::iterator& position, const Glib::ustring& text, int bytes) noexcept;
+    void _for_buffer_erase(const Gtk::TextIter& begin, const Gtk::TextIter& end) noexcept;
 
 private:
     CtMainWin* _pCtMainWin;
@@ -150,4 +153,6 @@ private:
     std::shared_ptr<CtMDParser> _md_parser;
     using match_pair_t = std::pair<std::shared_ptr<CtMDParser>, std::shared_ptr<CtTextParser::TokenMatcher>>;
     std::unordered_map<std::string, match_pair_t> _md_matchers;
+    std::array<sigc::connection, 4> _buff_connections;
+
 };
