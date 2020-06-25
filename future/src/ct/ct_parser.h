@@ -203,22 +203,24 @@ public:
         using size_type = std::string::size_type;
     public:
         explicit TokenMatcher(std::shared_ptr<CtTextParser> text_parser) : _text_parser(std::move(text_parser)) {}
-        /**
-         * @brief Feed a single character
-         * 
-         * @param ch 
-         */
+        /// Feed a single character to the end of the matcher
         void feed(char ch);
-        void erase_last();
+        void pop_back();
         /// Insert at specific position, offset is offset from front (right) of the raw token
         void insert(char ch, int offset);
         /// Erase at the specified position, offset is from the front
         void erase(int offset);
 
-        /// Whether the matcher has found a complete token
+        /**
+         * @brief Reset the matcher so that it can be reused for a different stream
+         * @warning Does not wipe its companion CtTextParser
+         */
+        void reset() noexcept;
+
+        /// If the matcher is finished then feed(), erase(), etc will have no effect until a call to reset()
         [[nodiscard]] constexpr bool finished() const noexcept { return _finished; }
         [[nodiscard]] constexpr bool has_open() const noexcept { return _found_open; }
-        [[nodiscard]] size_type contents_end_offset() const noexcept { return _close_token.size(); }
+        [[nodiscard]] size_type contents_end_offset() const noexcept;
         [[nodiscard]] size_type contents_start_offset() const noexcept { return contents_end_offset() + _token_contents.size(); }
         [[nodiscard]] size_type raw_start_offset() const noexcept { return contents_start_offset() + _open_token.size(); }
         [[nodiscard]] constexpr size_type raw_end_offset() const noexcept { return 0; }
@@ -238,6 +240,8 @@ public:
         void _update_tokens();
         bool _is_valid_token(std::string_view token);
         void _rebuild_pos_tokens(const std::vector<std::string>& from);
+        /// Reset the token matcher and refeed all contents (e.g to reevaluate tags)
+        void _reset_and_refeed();
     };
     friend class TokenMatcher;
 

@@ -228,7 +228,7 @@ std::unordered_set<char> shred(const std::vector<std::string>& strings) {
     return chars;
 }
 
-void CtTextParser::TokenMatcher::erase_last() {
+void CtTextParser::TokenMatcher::pop_back() {
     if (!_finished && !_open_token.empty()) {
         if (!_found_open || _token_contents.empty()) {
             _open_token.pop_back();
@@ -318,7 +318,9 @@ void CtTextParser::TokenMatcher::erase(int offset) {
     require(offset >= 0, "TokenMatcher::erase: offset >= 0");
     if (!finished()) {
         int lr_offset = static_cast<int>(raw_str().size() - offset);
-        if (offset == 0) erase_last();
+        if (lr_offset < 0) throw std::logic_error("lr_offset < 0, this is invalid and should not have happened");
+
+        if (offset == 0) pop_back();
         else if (offset >= static_cast<int>(contents_end_offset()) && offset <= static_cast<int>(contents_start_offset())) {
             // Contents
             spdlog::debug("Erase contents");
@@ -351,34 +353,54 @@ void CtTextParser::TokenMatcher::erase(int offset) {
     }
 }
 
+void CtTextParser::TokenMatcher::_reset_and_refeed() {
+    std::string raw = raw_str();
+    reset();
+
+    for (char ch : raw) {
+        feed(ch);
+    }
+}
+
+void CtTextParser::TokenMatcher::reset() noexcept {
+    // All of these are noexcept
+    _token_buff.clear();
+    _pos_tokens.clear();
+    _pos_chars.clear();
+    _open_token.clear();
+    _token_contents.clear();
+    _close_token.clear();
+    _found_open = false;
+    _finished = false;
+}
+
 void CtTextParser::TokenMatcher::insert(char ch, int offset) {
     require(offset >= 0, "TokenMatcher::insert: offset >= 0");
     spdlog::debug("Got offset: <{}>; ch: <{}>", offset, std::string(1, ch));
     spdlog::debug("TKN BUFF: <{}>", _token_buff);
     if (!finished()) {
-        int lr_offset = static_cast<int>(raw_str().size()) - offset;
+        std::string raw = raw_str();
+        int lr_offset = static_cast<int>(raw.size()) - offset;
         if (offset == 0) feed(ch);
-        else if (offset >= static_cast<int>(contents_end_offset()) && offset <= static_cast<int>(contents_start_offset())) {
-            // Edit to contents
-            spdlog::debug("Insert contents");
-            _token_contents.insert(_token_contents.begin() + lr_offset - _open_token.size(), ch);
-        } 
-        else if (lr_offset >= static_cast<int>((raw_end_offset() + _token_contents.size()))) {
+        else if (offset >= static_cast<int>(contents_start_offset())) {
             // Open token
             spdlog::debug("Insert open_token");
             _open_token.insert(_open_token.begin() + lr_offset, ch);
-            
-            // Reset open
-            _token_buff = _open_token;
-            feed(ch);
+
+            _reset_and_refeed();
         } 
-        else if (lr_offset >= static_cast<int>(_open_token.size() + _token_contents.size())) {
+        else if (offset <= static_cast<int>(contents_end_offset())) {
             // Close token
             spdlog::debug("Insert close token");
             _close_token.insert(_close_token.begin() + (_close_token.size() - offset), ch);
-            _token_buff = _close_token;
-            _update_tokens();
-        } else {
+
+            _reset_and_refeed();
+        } else if (offset > static_cast<int>(contents_end_offset()) && offset < static_cast<int>(contents_start_offset())) {
+            // Edit to contents, no need to reset
+            spdlog::debug("Insert contents");
+            _token_contents.insert(_token_contents.begin() + lr_offset - _open_token.size(), ch);
+        }
+        else {
             spdlog::warn("Invalid offset: <{}>; appending (feed()) instead", offset);
             feed(ch);
         }
@@ -430,6 +452,12 @@ void CtTextParser::TokenMatcher::_update_tokens() {
         
     }
 
+}
+
+CtTextParser::TokenMatcher::size_type CtTextParser::TokenMatcher::contents_end_offset() const noexcept
+{
+    if (_found_open && _close_token.empty()) return _token_buff.size();
+    else                                     return _close_token.size();
 }
 
 std::pair<Gtk::TextIter, Gtk::TextIter> CtTextParser::find_formatting_boundaries(Gtk::TextIter start_bounds, Gtk::TextIter word_end)
