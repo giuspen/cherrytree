@@ -240,7 +240,7 @@ void CtTextParser::TokenMatcher::pop_back() {
 }
 
 void CtTextParser::TokenMatcher::_rebuild_pos_tokens(const std::vector<std::string>& from) {
-    static const std::unordered_set<std::string_view> ignored_tags = {"| ", "|\n", " |\n", "\n==", "\n----", "```"};
+    static const std::unordered_set<std::string_view> ignored_tags = {"|", "|\n", "\n==", "\n----"};
 
     for (const auto& token : from) {
         if (ignored_tags.find(token) == ignored_tags.end()) {

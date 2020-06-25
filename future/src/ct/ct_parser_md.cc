@@ -55,7 +55,16 @@ void CtMDParser::_init_tokens()
         auto add_h3 = [this](const std::string& text) {
             _close_current_tag();
             _add_scale_tag(3, text + "\n");
+            _close_current_tag();
         };
+        auto add_list = [this](const std::string& text) {
+            _add_list(_list_level, "");
+            std::istringstream ss(text);
+            feed(ss);
+            _add_newline();
+            _list_level = 0;
+        };
+    
         _token_schemas = {
                 // Bold
                 {"__", true,  true,  [this](const std::string &data) {
@@ -90,14 +99,14 @@ void CtMDParser::_init_tokens()
 
                     std::string title(data.begin(), data.begin() + last_pos);
                     std::string url(data.begin() + last_pos + 2, data.end());
-
+                    
                     _add_text(title, false);
                     _add_link(url);
                 }, ")", true},
                 // Monospace
                 {"`", true, true, [this](const std::string& data){
                     _add_monospace_tag(data);
-                }},
+                }, "`", true},
                 // Footnote
                 {"[^", true, false, [this](const std::string& data){
                     // Todo: Implement footnotes
@@ -107,15 +116,10 @@ void CtMDParser::_init_tokens()
                 {"~~~", true, true, add_codebox, "~~~", true},
                 {"```", true, true, add_codebox, "```", true},
                 // List
-                {"* ", true, false, [this](const std::string &data) {
-                    _add_list(_list_level, data + "\n");
-                    _list_level = 0;
-                }, "\n"},
+                {"* ", true, false, add_list, "\n", true},
                 // Also list
-                {"- ", true, false, [this](const std::string& data){
-                    _add_list(_list_level, data + "\n");
-                    _list_level = 0;
-                }, "\n"},
+                {"- ", true, false, add_list, "\n", true},
+            
                 // Passthroughs for lists
                 {" -", true, false, [](const std::string&){}, " "},
                 {"-", true, true, [](const std::string&){}},
@@ -129,10 +133,12 @@ void CtMDParser::_init_tokens()
                 {"# ",  true, false, [this](const std::string &data) {
                     _close_current_tag();
                     _add_scale_tag(1, data + "\n");
+                    _close_current_tag();
                 }, "\n"},
                 {"## ",  true, false, [this](const std::string &data) {
                     _close_current_tag();
                     _add_scale_tag(2, data + "\n");
+                    _close_current_tag();
                 }, "\n"},
                 {"### ",  true, false,  add_h3, "\n"},
                 {"#### ",  true, false,  add_h3, "\n"},
@@ -157,10 +163,10 @@ void CtMDParser::_init_tokens()
                 // Tables
                 
                 // Table row
-                {"| ", true, false, [this](const std::string& data){
-                    spdlog::debug("Got row: {}", data);
+                {"|", true, false, [this](const std::string& data){
+                    spdlog::debug("Got end: {}", data);
                     _add_table_cell(data);
-                }, " |\n"},
+                }, "\n"},
                 // Table header divider
                 {"| -", true, false, [](const std::string&){
                     // Since cherrytree tables don't use headers, this is not needed
@@ -241,7 +247,7 @@ void CtMDParser::feed(std::istream& stream)
                 iter->first->action(iter->second);
             } else {
                 if (!iter->second.empty()) {
-                    if (!_current_table.empty()) _pop_table();
+                    if (!_current_table.empty() && iter->second == "\n") _pop_table();
                     _free_text.write(iter->second.c_str(), iter->second.size());
                 }
             }
@@ -268,7 +274,8 @@ void CtMDParser::_add_table_cell(std::string text)
             _current_table_row.emplace_back(text);
         }
     } else {
-        spdlog::warn("_add_table_cell called without text, the document may contain invalid or unknown formatting");
+        _pop_table_row();
+        //spdlog::warn("_add_table_cell called without text, the document may contain invalid or unknown formatting");
     }
 }
 
