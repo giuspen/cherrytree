@@ -6,7 +6,7 @@
         {
             "label": "Build Debug",
             "type": "shell",
-            "command": "cd ../build && ninja",
+            "command": "./build.sh Debug",
             "group": {
                 "kind": "build",
                 "isDefault": true

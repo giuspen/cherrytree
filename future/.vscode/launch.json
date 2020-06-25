@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/../build/cherrytree",
+            "program": "${workspaceFolder}/build/cherrytree",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
