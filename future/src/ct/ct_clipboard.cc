@@ -444,7 +444,7 @@ void  CtClipboard::_on_clip_data_get(Gtk::SelectionData& selection_data, CtClipb
 // From Clipboard to Plain Text
 void CtClipboard::_on_received_to_plain_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool force_plain_text)
 {
-    Glib::ustring plain_text = selection_data.get_text();
+    Glib::ustring plain_text = str::sanitize_bad_symbols(selection_data.get_text());
     if (plain_text.empty())
     {
         spdlog::error("? no clipboard plain text");
@@ -589,12 +589,14 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
 // From Clipboard to HTML Text
 void CtClipboard::_on_received_to_html(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
-    CtHtml2Xml parser(_pCtMainWin->get_ct_config());
 #ifdef _WIN32
-    parser.feed(Win32HtmlFormat().convert_from_ms_clipboard(selection_data.get_data_as_string()));
+    Glib::ustring html_content = str::xml_sanitize(Win32HtmlFormat().convert_from_ms_clipboard(selection_data.get_data_as_string()));
 #else
-    parser.feed(selection_data.get_data_as_string());
+    Glib::ustring html_content = str::sanitize_bad_symbols(selection_data.get_data_as_string());
 #endif
+
+    CtHtml2Xml parser(_pCtMainWin->get_ct_config());
+    parser.feed(html_content);
     from_xml_string_to_buffer(pTextView->get_buffer(), parser.to_string());
     pTextView->scroll_to(pTextView->get_buffer()->get_insert());
 }
@@ -611,11 +613,11 @@ void CtClipboard::_on_received_to_image(const Gtk::SelectionData& selection_data
 // From Clipboard to URI list
 void CtClipboard::_on_received_to_uri_list(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
-    // todo: selection_data = re.sub(cons.BAD_CHARS, "", selectiondata.data)
+    Glib::ustring uri_content = str::sanitize_bad_symbols(selection_data.get_text());
     if (_pCtMainWin->curr_tree_iter().get_node_syntax_highlighting() != CtConst::RICH_TEXT_ID)
     {
         Gtk::TextIter iter_insert = pTextView->get_buffer()->get_insert()->get_iter();
-        pTextView->get_buffer()->insert(iter_insert, selection_data.get_text());
+        pTextView->get_buffer()->insert(iter_insert, uri_content);
     }
     else
     {

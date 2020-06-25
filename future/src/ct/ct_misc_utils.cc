@@ -882,6 +882,13 @@ std::string str::xml_escape(const std::string& text)
     return buffer;
 }
 
+Glib::ustring str::sanitize_bad_symbols(const Glib::ustring& xml_content)
+{
+    // remove everything forbidden by XML 1.0 specifications
+    Glib::RefPtr<Glib::Regex> re_pattern = Glib::Regex::create("[^\x09\x0A\x0D\x20-\xFF\x85\xA0-\uD7FF\uE000-\uFDCF\uFDE0-\uFFFD]");
+    return re_pattern->replace(xml_content, 0, "", static_cast<Glib::RegexMatchFlags>(0));
+}
+
 std::string str::re_escape(const std::string& text)
 {
     return Glib::Regex::escape_string(text);

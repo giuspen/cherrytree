@@ -1036,6 +1036,7 @@ bool CtMainWin::file_insert_plain_text(const fs::path& filepath)
     try {
         if (g_file_get_contents (filepath.c_str(), &text, &length, nullptr)) {
             Glib::ustring node_content(text, length);
+            node_content = str::sanitize_bad_symbols(node_content);
             std::string name = filepath.filename().string();
             get_ct_actions()->_node_child_exist_or_create(Gtk::TreeIter(), name);
             get_text_view().get_buffer()->insert(get_text_view().get_buffer()->end(), node_content);
