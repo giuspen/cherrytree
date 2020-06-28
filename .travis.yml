@@ -24,7 +24,7 @@ before_install:
 - |-
     case $TRAVIS_OS_NAME in
       linux)
-        sudo apt install build-essential libgtkmm-3.0-dev
+        sudo apt install build-essential libgtkmm-3.0-dev xvfb
         sudo apt install libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev
         sudo apt install libcpputest-dev gettext python3-lxml libgspell-1-dev libcurl4-openssl-dev
         ;;
@@ -93,9 +93,11 @@ script:
     case $TRAVIS_OS_NAME in
       linux)
         cd ${TRAVIS_BUILD_DIR}/future
-        ./build.sh Release
+        xvfb-run ./build.sh Release
         ;;
       windows)
+        CHERRYTREE_CONFIG_FOLDER="C:/Users/${USER}/AppData/Local/cherrytree"
+        [ -d ${CHERRYTREE_CONFIG_FOLDER} ] || mkdir -p ${CHERRYTREE_CONFIG_FOLDER}
         cd ${TRAVIS_BUILD_DIR}
         mkdir build && cd build
         $mingw64 cmake -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_MAKE_PROGRAM=mingw32-make.exe -DCMAKE_BUILD_TYPE=Release -G 'MSYS Makefiles' ../future
