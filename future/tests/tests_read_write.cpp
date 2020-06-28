@@ -38,17 +38,18 @@ private:
 void TestCtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint)
 {
     CHECK_EQUAL(1, files.size());
+    const std::string doc_filepath{files.front()->get_path()};
 
     CtMainWin* pWin = _create_window(true/*start_hidden*/);
     // tree empty
     CHECK_FALSE(pWin->get_tree_store().get_iter_first());
     // load file
-    CHECK(pWin->file_open(files.front()->get_path(), ""));
+    CHECK(pWin->file_open(doc_filepath, ""));
     // check tree
     _assert_tree_data(pWin);
     // save to temporary filepath
-    fs::path tmpFilePath = pWin->get_ct_tmp()->getHiddenFilePath(files.front()->get_path());
-    CHECK(tmpFilePath != fs::path{files.front()->get_path()});
+    fs::path tmpFilePath = pWin->get_ct_tmp()->getHiddenFilePath(doc_filepath);
+    CHECK(tmpFilePath != fs::path{doc_filepath});
     pWin->file_save_as(tmpFilePath.string(), "");
     // close this window/tree
     pWin->force_exit() = true;
@@ -59,7 +60,7 @@ void TestCtApp::on_open(const Gio::Application::type_vec_files& files, const Gli
     // tree empty
     CHECK_FALSE(pWin2->get_tree_store().get_iter_first());
     // load file previously saved
-    CHECK(pWin->file_open(tmpFilePath, ""));
+    CHECK(pWin2->file_open(tmpFilePath, ""));
     // check tree
     _assert_tree_data(pWin2);
     // close this window/tree
