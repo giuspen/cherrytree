@@ -23,14 +23,12 @@
 
 #include "ct_filesystem.h"
 #include "CppUTest/CommandLineTestRunner.h"
-#include "test_consts.h"
-
+#include "tests_common.h"
 
 
 TEST_GROUP(FileSystemGroup)
 {
 };
-
 
 TEST(FileSystemGroup, path_stem)
 {

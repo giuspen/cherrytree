@@ -21,10 +21,10 @@
  * MA 02110-1301, USA.
  */
 
+#include "ct_misc_utils.h"
 #include <pangomm.h>
 #include <iostream>
 #include <cstring>
-#include "ct_misc_utils.h"
 #include "ct_const.h"
 #include "ct_main_win.h"
 #include "ct_logging.h"
@@ -38,34 +38,34 @@
 #include <future> // parallel_for
 
 #ifdef _WIN32
-    #include <windows.h>
-    #include <shellapi.h>
-#endif
-
+#include <windows.h>
+#include <shellapi.h>
+#endif // _WIN32
 
 namespace CtCSV {
+
 CtStringTable table_from_csv(std::istream& input)
 {
-    // Disable exceptions 
+    // Disable exceptions
     auto except_bit_before = input.exceptions();
     input.exceptions(std::ios::goodbit);
 
     CtStringTable tbl_matrix;
     std::string line;
-    
+
     std::array<char, 256> chunk_buff{};
     input.read(chunk_buff.data(), chunk_buff.size());
     std::streamsize pos;
     std::vector<std::string> tbl_row;
-    std::ostringstream cell_buff;  
+    std::ostringstream cell_buff;
     constexpr char cell_tag = '"';
     constexpr char cell_sep = ',';
     constexpr char esc = '\\';
     bool in_string = false;
     bool escape_next = false;
-    while (input || (pos = input.gcount()) != 0) {    
+    while (input || (pos = input.gcount()) != 0) {
         for (auto ch : chunk_buff) {
-            
+
             if (ch == '\0') break;
             if (escape_next) {
                 escape_next = false;
@@ -83,7 +83,7 @@ CtStringTable table_from_csv(std::istream& input)
                 tbl_row.emplace_back(cell_buff.str());
                 std::ostringstream tmp_buff;
                 cell_buff.swap(tmp_buff);
-                
+
                 if (is_newline) {
                     tbl_matrix.emplace_back(tbl_row);
                     tbl_row.clear();
@@ -94,7 +94,7 @@ CtStringTable table_from_csv(std::istream& input)
                 in_string = !in_string;
             } else {
                 cell_buff << ch;
-            } 
+            }
         }
 
         if (pos != 0) input.read(chunk_buff.data(), chunk_buff.size());
@@ -127,7 +127,7 @@ void table_to_csv(const CtStringTable& table, std::ostream& output) {
     }
 }
 
-}
+} // namespace CtCSV
 
 std::string CtMiscUtil::get_ct_language()
 {
@@ -146,7 +146,6 @@ std::string CtMiscUtil::get_ct_language()
     }
     return retLang;
 }
-
 
 std::string CtMiscUtil::get_doc_extension(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt)
 {
@@ -276,7 +275,7 @@ Gtk::BuiltinIconSize CtMiscUtil::getIconSize(int size)
 bool CtMiscUtil::mime_type_contains(const std::string &filepath, const std::string& type)
 {
     using gchar_ptr = std::unique_ptr<gchar, decltype(&g_free)>;
-    
+
     // Note that these return gchar* which must be freed with g_free()
     gchar_ptr type_guess(g_content_type_guess(filepath.c_str(), nullptr, 0, nullptr), g_free);
     gchar_ptr p_mime_type(g_content_type_get_mime_type(type_guess.get()), g_free);
@@ -286,6 +285,7 @@ bool CtMiscUtil::mime_type_contains(const std::string &filepath, const std::stri
 }
 
 namespace CtMiscUtil {
+
 URI_TYPE get_uri_type(const std::string &uri) {
     constexpr std::array<std::string_view, 2> http_ids = {"https://", "http://"};
     constexpr std::array<std::string_view, 2> fs_ids = {"/", "C:\\\\"};
@@ -293,7 +293,8 @@ URI_TYPE get_uri_type(const std::string &uri) {
     else if (str::startswith_any(uri, fs_ids) || Glib::file_test(uri, Glib::FILE_TEST_EXISTS)) return URI_TYPE::LOCAL_FILEPATH;
     else return URI_TYPE::UNKNOWN;
 }
-}
+
+} // namespace CtMiscUtil
 
 // analog to tbb::parallel_for
 void CtMiscUtil::parallel_for(size_t first, size_t last, std::function<void(size_t)> f)
@@ -331,7 +332,6 @@ void CtMiscUtil::parallel_for(size_t first, size_t last, std::function<void(size
     for (auto& task: td_tasks)
         task.join();
 }
-
 
 // Returns True if the characters compose a camel case word
 bool CtTextIterUtil::get_is_camel_case(Gtk::TextIter iter_start, int num_chars)
@@ -607,6 +607,17 @@ std::vector<gint64> CtStrUtil::gstring_split_to_int64(const gchar* inStr, const 
     }
     g_strfreev(arrayOfStrings);
     return retVec;
+}
+
+// returned pointer must be freed with g_strfreev()
+gchar** CtStrUtil::vector_to_array(const std::vector<std::string>& inVec)
+{
+    gchar** array = g_new(gchar*, inVec.size()+1);
+    for (size_t i = 0; i < inVec.size(); ++i) {
+        array[i] = g_strdup(inVec[i].c_str());
+    }
+    array[inVec.size()] = nullptr;
+    return array;
 }
 
 int CtStrUtil::natural_compare(const Glib::ustring& left, const Glib::ustring& right)

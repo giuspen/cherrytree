@@ -1,7 +1,9 @@
 /*
  * ct_treestore.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +23,7 @@
 
 #pragma once
 
+#include "ct_types.h"
 #include <gtkmm.h>
 #include <gtksourceviewmm.h>
 #include <set>
@@ -123,7 +126,6 @@ private:
     CtMainWin*                _pCtMainWin{nullptr};
 };
 
-
 class CtDragStore : public Gtk::TreeStore
 {
 public:
@@ -154,12 +156,12 @@ public:
     void          text_view_apply_textbuffer(const CtTreeIter& treeIter, CtTextView* pTextView);
 
     void          get_node_data(const Gtk::TreeIter& treeIter, CtNodeData& nodeData);
+    void          populateSummaryInfo(CtSummaryInfo& summaryInfo);
 
     void          update_node_data(const Gtk::TreeIter& treeIter, const CtNodeData& nodeData);
     void          update_node_icon(const Gtk::TreeIter& treeIter);
     void          update_nodes_icon(Gtk::TreeIter father_iter,  bool cherry_only);
     void          update_node_aux_icon(const Gtk::TreeIter& treeIter);
-
 
     Gtk::TreeIter append_node(CtNodeData* pNodeData, const Gtk::TreeIter* pParentIter=nullptr);
     Gtk::TreeIter insert_node(CtNodeData* pNodeData, const Gtk::TreeIter& afterIter);
@@ -189,8 +191,6 @@ public:
     const std::list<gint64>&       bookmarks_get();
     void                           bookmarks_set(const std::list<gint64>& bookmarks);
 
-
-
     Glib::RefPtr<CtDragStore>       get_store();
     Gtk::TreeIter                   get_iter_first();
     CtTreeIter                      get_ct_iter_first();
@@ -201,7 +201,6 @@ public:
     CtTreeIter                      to_ct_tree_iter(Gtk::TreeIter tree_iter);
 
     void nodes_sequences_fix(Gtk::TreeIter father_iter,  bool process_children);
-
 
     const CtTreeModelColumns& get_columns() { return _columns; }
 
@@ -216,10 +215,9 @@ protected:
     void _on_textbuffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int bytes); // pygtk: on_text_insertion
     void _on_textbuffer_erase(const Gtk::TextBuffer::iterator& range_start, const Gtk::TextBuffer::iterator& range_end); // pygtk: on_text_removal
 
-
 private:
     CtTreeModelColumns              _columns;
-    Glib::RefPtr<CtDragStore>   _rTreeStore;
+    Glib::RefPtr<CtDragStore>       _rTreeStore;
     std::list<gint64>               _bookmarks;
     std::set<Glib::ustring>         _usedTags;
     std::map<gint64, Glib::ustring> _nodes_names_dict; // for link tooltips

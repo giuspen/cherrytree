@@ -1,5 +1,5 @@
 /*
- * test_consts.h
+ * tests_common.cpp
  *
  * Copyright 2009-2020
  * Giuseppe Penone <giuspen@gmail.com>
@@ -21,16 +21,15 @@
  * MA 02110-1301, USA.
  */
 
-#pragma once
+#include <giomm.h>
+#include "CppUTest/CommandLineTestRunner.h"
 
-#include "config.h"
+int main(int ac, char** av)
+{
+    // libp7za has memory leaks
+    MemoryLeakWarningPlugin::turnOffNewDeleteOverloads();
 
-#include <string>
-#include <glib/gstdio.h>
-#include <glibmm/miscutils.h>
+    Gio::init();
 
-const std::string unitTestsDataDir{Glib::build_filename(_CMAKE_SOURCE_DIR, "tests", "data")};
-const std::string ctzInputPath{Glib::build_filename(unitTestsDataDir, "7zr.ctz")};
-const std::string ctxInputPath{Glib::build_filename(unitTestsDataDir, "7zr.ctx")};
-const gchar testPassword[]{"7zr"};
-const gchar testPasswordBis[]{"7zr2"};
+    return CommandLineTestRunner::RunAllTests(ac, av);
+}

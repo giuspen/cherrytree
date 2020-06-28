@@ -32,8 +32,7 @@
 #include <glib-object.h>
 #include "ct_logging.h"
 
-
-CtMainWin::CtMainWin(bool             start_hidden,
+CtMainWin::CtMainWin(bool             no_gui,
                      CtConfig*        pCtConfig,
                      CtTmp*           pCtTmp,
                      Gtk::IconTheme*  pGtkIconTheme,
@@ -43,6 +42,7 @@ CtMainWin::CtMainWin(bool             start_hidden,
                      Gsv::StyleSchemeManager* pGsvStyleSchemeManager,
                      Gtk::StatusIcon*         pGtkStatusIcon)
  : Gtk::ApplicationWindow(),
+   _no_gui(no_gui),
    _pCtConfig(pCtConfig),
    _pCtTmp(pCtTmp),
    _pGtkIconTheme(pGtkIconTheme),
@@ -54,7 +54,9 @@ CtMainWin::CtMainWin(bool             start_hidden,
    _ctTextview(this),
    _ctStateMachine(this)
 {
-    set_icon(_pGtkIconTheme->load_icon(CtConst::APP_NAME, 48));
+    if (not _no_gui) {
+        set_icon(_pGtkIconTheme->load_icon(CtConst::APP_NAME, 48));
+    }
 
     _uCtActions.reset(new CtActions(this));
     _uCtMenu.reset(new CtMenu(pCtConfig, _uCtActions.get()));
@@ -124,7 +126,9 @@ CtMainWin::CtMainWin(bool             start_hidden,
     menu_set_items_special_chars();
     _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(false);
 
-    if (start_hidden) set_visible(false);
+    if (_no_gui) {
+        set_visible(false);
+    }
     else if (_pCtConfig->systrayOn && _pCtConfig->startOnSystray) {
         if (_pGtkStatusIcon->is_embedded()) {
             set_visible(false);

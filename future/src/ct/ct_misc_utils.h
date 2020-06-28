@@ -23,23 +23,20 @@
 
 #pragma once
 
+#include "ct_types.h"
 #include <gtksourceviewmm.h>
 #include <gtkmm/treeiter.h>
 #include <gtkmm/treestore.h>
+#include <spdlog/fmt/fmt.h>
 #include <unordered_set>
-#include "ct_treestore.h"
-#include "ct_types.h"
-#include "ct_logging.h"
 #include <type_traits>
 
-
-
 class CtConfig;
+class CtTreeIter;
 
 template<class F> auto scope_guard(F&& f) {
     return std::unique_ptr<void, typename std::decay<F>::type>{(void*)1, std::forward<F>(f)};
 }
-
 
 namespace CtCSV {
     using CtStringTable = std::vector<std::vector<std::string>>;
@@ -50,7 +47,6 @@ namespace CtCSV {
 namespace CtMiscUtil {
 
 std::string get_ct_language();
-
 
 std::string get_doc_extension(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt);
 
@@ -148,11 +144,15 @@ guint32 guint32_from_hex_chars(const char* hexChars, guint8 numChars);
 
 std::vector<gint64> gstring_split_to_int64(const gchar* inStr, const gchar* delimiter, gint max_tokens=-1);
 
+// returned pointer must be freed with g_strfreev()
+gchar** vector_to_array(const std::vector<std::string>& inVec);
+
 template<class type>
 int custom_compare(const type& str, const gchar* el)
 {
    return g_strcmp0(str, el);
 }
+
 template<>
 inline int custom_compare<std::string_view>(const std::string_view& str, const gchar* el)
 {
@@ -410,6 +410,3 @@ bool exists(const MAP& m, const KEY& key)
 }
 
 } // namespace map
-
-
-

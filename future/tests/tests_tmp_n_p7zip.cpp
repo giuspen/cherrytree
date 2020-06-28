@@ -25,7 +25,7 @@
 #include "ct_p7za_iface.h"
 #include "config.h"
 #include "ct_filesystem.h"
-#include "test_consts.h"
+#include "tests_common.h"
 
 #include <glib/gstdio.h>
 #include <libxml++/libxml++.h>

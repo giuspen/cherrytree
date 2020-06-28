@@ -23,11 +23,9 @@
 
 #include "ct_misc_utils.h"
 #include "ct_const.h"
-#include "CppUTest/CommandLineTestRunner.h"
-#include "gtkmm/textbuffer.h"
-#include "test_consts.h"
 #include "ct_filesystem.h"
-
+#include "tests_common.h"
+#include "CppUTest/CommandLineTestRunner.h"
 
 TEST_GROUP(MiscUtilsGroup)
 {
@@ -128,7 +126,6 @@ TEST(MiscUtilsGroup, iter_util__startswith_any)
     CHECK(not CtTextIterUtil::startswith_any(buffer->begin(), std::array<const gchar*, 3>{"M", "Sai", "123"}));
 }
 
-
 TEST(MiscUtilsGroup, contains)
 {
     CHECK(CtStrUtil::contains(CtConst::TAG_PROPERTIES, CtConst::TAG_STRIKETHROUGH));
@@ -142,7 +139,6 @@ TEST(MiscUtilsGroup, getFontMisc)
     STRCMP_EQUAL("Noto Sans", CtFontUtil::get_font_family("Noto Sans 9").c_str());
     STRCMP_EQUAL("9", CtFontUtil::get_font_size_str("Noto Sans 9").c_str());
 }
-
 
 TEST(MiscUtilsGroup, set_rgb24str_from_rgb24int)
 {
@@ -239,7 +235,6 @@ TEST(MiscUtilsGroup, str__indexOf)
     LONGS_EQUAL(str::indexOf("Saitama さいたま市", uc), 8);
 }
 
-
 TEST(MiscUtilsGroup, str__join)
 {
     std::vector<std::string> empty_v;
@@ -301,8 +296,6 @@ TEST(MiscUtilsGroup, vec_remove)
     CHECK(v_3.size() == 2);
 }
 
-
-
 TEST(MiscUtilsGroup, get__uri_type)
 {
     CHECK(CtMiscUtil::get_uri_type("https://google.com") == CtMiscUtil::URI_TYPE::WEB_URL);
@@ -333,7 +326,6 @@ TEST(MiscUtilsGroup, mime__type_contains)
 #endif
 }
 
-
 TEST(MiscUtilsGroup, parallel_for)
 {
     auto check_range_in_vec = [](const std::vector<int>& vec, const size_t& first, const size_t& last) -> bool {
@@ -358,8 +350,6 @@ TEST(MiscUtilsGroup, parallel_for)
     CHECK(check_range_in_vec(vec, 1, 1) == false);
     CHECK(check_range_in_vec(vec, 1, 2) == false);
 
-
-
     // parallel_for splits the given range on slices, one slice per thread.
     // The formula to calculate slices is not simple, so the unit test checks that every element
     // in the given range is processed, processed only once, no one is skipped,
@@ -375,19 +365,4 @@ TEST(MiscUtilsGroup, parallel_for)
             });
             CHECK(check_range_in_vec(vec, first, last));
         }
-}
-
-
-
-
-
-
-int main(int ac, char** av)
-{
-    // libp7za has memory leaks
-    MemoryLeakWarningPlugin::turnOffNewDeleteOverloads();
-
-    Gio::init();
-
-    return CommandLineTestRunner::RunAllTests(ac, av);
 }

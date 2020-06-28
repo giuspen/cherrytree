@@ -22,9 +22,8 @@
  */
 
 #include "ct_clipboard.h"
-#include "test_consts.h"
+#include "tests_common.h"
 #include "CppUTest/CommandLineTestRunner.h"
-
 
 TEST_GROUP(ClipboardGroup)
 {
