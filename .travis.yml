@@ -10,10 +10,6 @@ jobs:
         apt:
           update: true
     - os: windows
-      cache:
-        directories:
-        - $HOME/AppData/Local/Temp/chocolatey
-        - /C/tools/msys64
     - os: osx
       osx_image: xcode11.4
 
@@ -101,9 +97,6 @@ script:
         $mingw64 cmake -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_MAKE_PROGRAM=mingw32-make.exe -DCMAKE_BUILD_TYPE=Release -G 'MSYS Makefiles' ../future
         $mingw64 mingw32-make -j$(nproc --all)
         $mingw64 ./tests/run_tests
-        # uploading new cache after the build can take more than 10 min timeout
-        # https://docs.travis-ci.com/user/common-build-problems/#build-times-out-because-no-output-was-received
-        travis_wait
         ;;
       osx)
         cd ${TRAVIS_BUILD_DIR}
