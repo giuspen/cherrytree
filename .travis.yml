@@ -96,8 +96,6 @@ script:
         xvfb-run ./build.sh Release
         ;;
       windows)
-        CHERRYTREE_CONFIG_FOLDER="C:/Users/${USER}/AppData/Local/cherrytree"
-        [ -d ${CHERRYTREE_CONFIG_FOLDER} ] || mkdir -p ${CHERRYTREE_CONFIG_FOLDER}
         cd ${TRAVIS_BUILD_DIR}
         mkdir build && cd build
         $mingw64 cmake -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_MAKE_PROGRAM=mingw32-make.exe -DCMAKE_BUILD_TYPE=Release -G 'MSYS Makefiles' ../future
