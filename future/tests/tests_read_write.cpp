@@ -30,16 +30,45 @@ class TestCtApp : public CtApp
 {
 public:
     TestCtApp() : CtApp{} {}
-protected:
+private:
     void on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint) override;
+    void _assert_tree_data(CtMainWin* pWin);
 };
 
 void TestCtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint)
 {
     CHECK_EQUAL(1, files.size());
-    CtMainWin* pWin = _create_window(true/*start_hidden*/);
-    CHECK(pWin->file_open(files.front()->get_path(), ""));
 
+    CtMainWin* pWin = _create_window(true/*start_hidden*/);
+    // tree empty
+    CHECK_FALSE(pWin->get_tree_store().get_iter_first());
+    // load file
+    CHECK(pWin->file_open(files.front()->get_path(), ""));
+    // check tree
+    _assert_tree_data(pWin);
+    // save to temporary filepath
+    fs::path tmpFilePath = pWin->get_ct_tmp()->getHiddenFilePath(files.front()->get_path());
+    CHECK(tmpFilePath != fs::path{files.front()->get_path()});
+    pWin->file_save_as(tmpFilePath.string(), "");
+    // close this window/tree
+    pWin->force_exit() = true;
+    remove_window(*pWin);
+
+    // new empty window/tree
+    CtMainWin* pWin2 = _create_window(true/*start_hidden*/);
+    // tree empty
+    CHECK_FALSE(pWin2->get_tree_store().get_iter_first());
+    // load file previously saved
+    CHECK(pWin->file_open(tmpFilePath, ""));
+    // check tree
+    _assert_tree_data(pWin2);
+    // close this window/tree
+    pWin2->force_exit() = true;
+    remove_window(*pWin2);
+}
+
+void TestCtApp::_assert_tree_data(CtMainWin* pWin)
+{
     CtSummaryInfo summaryInfo{};
     pWin->get_tree_store().populateSummaryInfo(summaryInfo);
     CHECK_EQUAL(3, summaryInfo.nodes_rich_text_num);
@@ -50,9 +79,6 @@ void TestCtApp::on_open(const Gio::Application::type_vec_files& files, const Gli
     CHECK_EQUAL(1, summaryInfo.tables_num);
     CHECK_EQUAL(1, summaryInfo.codeboxes_num);
     CHECK_EQUAL(1, summaryInfo.anchors_num);
-
-    pWin->force_exit() = true;
-    remove_window(*pWin);
 }
 
 TEST_GROUP(CtDocRWGroup)
