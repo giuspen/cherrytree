@@ -53,14 +53,6 @@ before_install:
         pip3 install lxml
         ;;
     esac
-before_cache:
-- |-
-    case $TRAVIS_OS_NAME in
-      windows)
-        # https://unix.stackexchange.com/a/137322/107554
-        $msys2 pacman --sync --clean --noconfirm
-        ;;
-    esac
 install:
 - |-
     case $TRAVIS_OS_NAME in
