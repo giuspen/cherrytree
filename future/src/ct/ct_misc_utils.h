@@ -304,6 +304,17 @@ std::vector<STRING> split(const STRING& strToSplit, const char* delimiter)
     return vecOfStrings;
 }
 
+template<class STRING_T, class ITER_T, typename DELIM_T>
+STRING_T join(ITER_T begin, ITER_T end, DELIM_T delim) {
+    STRING_T out;
+    while(begin != end) {
+        out += *begin;
+        if ((begin + 1) != end) out += delim;
+        ++begin;
+    }
+    return out;
+}
+
 template<class STRING>
 std::string join(const std::vector<STRING>& cnt, const std::string& delimer)
 {
