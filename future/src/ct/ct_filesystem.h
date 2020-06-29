@@ -1,7 +1,9 @@
 /*
  * ct_filesystem.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +22,8 @@
  */
 
 #pragma once
+
+#include "ct_splittable.h"
 #include <string>
 #include <list>
 #include <vector>
@@ -31,8 +35,8 @@
 class CtConfig;
 
 namespace fs {
+
 class path;
-#include "ct_splittable.h"
 
 bool copy_file(const path& from, const path& to);
 
@@ -86,7 +90,8 @@ std::string download_file(const std::string& filepath);
 * @class path
 * @brief An object representing a filepath
 */
-class path {
+class path
+{
     using value_type = std::string::value_type;
     using string_type = std::basic_string<value_type>;
 
@@ -114,21 +119,18 @@ public:
         swap(*this, other);
     }
 
-
     path& operator=(string_type other) { _path = other; return *this;};
     path& operator=(const value_type* other) { return operator=(string_type(other)); };
 
-
-    friend path operator/(const path& lhs, const path& rhs)
-    {
+    friend path operator/(const path& lhs, const path& rhs) {
         return path(Glib::build_filename(lhs._path, rhs._path));
     }
+
     friend path operator/(const path& lhs, const value_type* rhs) {
         return path(Glib::build_filename(lhs._path, rhs));
     }
 
-    friend path operator/(const path& lhs, const string_type& rhs)
-    {
+    friend path operator/(const path& lhs, const string_type& rhs) {
         return path(Glib::build_filename(lhs._path, rhs));
     }
 
@@ -153,16 +155,15 @@ public:
     [[nodiscard]] path extension() const;
     [[nodiscard]] path stem() const;
     [[nodiscard]] std::string native() const;
+
 private:
     string_type _path;
 
     /// From Slash to Backslash when needed
     static std::string _get_platform_path(std::string filepath);
-
 };
 
-} // namespace CtFileSystem
-
+} // namespace fs
 
 template<>
 struct fmt::formatter<fs::path> {

@@ -34,26 +34,26 @@
 
 std::map<std::string, GspellChecker*> CtTextView::_static_spell_checkers;
 
-CtTmp::CtTmp()
-{
-}
-
 CtTmp::~CtTmp()
 {
     //std::cout << "~CtTmp()" << std::endl;
-    for (const auto& currPair : _mapHiddenFiles)
-    {
-        if (g_file_test(currPair.second, G_FILE_TEST_IS_REGULAR) and (0 != g_remove(currPair.second)))
-        {
+    for (const auto& currPair : _mapHiddenFiles) {
+        if ( Glib::file_test(currPair.second, Glib::FILE_TEST_IS_REGULAR) and
+             0 != g_remove(currPair.second) ) {
             spdlog::error("!! g_remove");
         }
         g_free(currPair.second);
     }
-    for (const auto& currPair : _mapHiddenDirs)
-    {
-        if (g_file_test(currPair.second, G_FILE_TEST_IS_DIR) and (0 != g_rmdir(currPair.second)))
-        {
-            spdlog::error("!! g_rmdir");
+    for (const auto& currPair : _mapHiddenDirs) {
+        if (Glib::file_test(currPair.second, Glib::FILE_TEST_IS_DIR)) {
+            for (const fs::path& filepath : fs::get_dir_entries(currPair.second)) {
+                if (0 != g_remove(filepath.string().c_str())) {
+                    spdlog::error("!! g_remove");
+                }
+            }
+            if (0 != g_rmdir(currPair.second)) {
+                spdlog::error("!! g_rmdir");
+            }
         }
         g_free(currPair.second);
     }
@@ -464,7 +464,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                     spdlog::error("Exception caught while parsing markdown formatting: {}", e.what());
                 }
             }
-            
+
             int cursor_key_press = iter_insert.get_offset();
             //print "cursor_key_press", cursor_key_press
             if (cursor_key_press == _pCtMainWin->get_ct_actions()->getCtMainWin()->cursor_key_press())
@@ -623,24 +623,24 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
     }
 }
 
-void CtTextView::_markdown_check_and_replace(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter start_iter, Gtk::TextIter end_iter) 
+void CtTextView::_markdown_check_and_replace(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter start_iter, Gtk::TextIter end_iter)
 {
     Glib::ustring text(start_iter, end_iter);
     if (text.empty() || text == " ") return;
-    
+
     if (!_md_parser) _md_parser = std::make_unique<CtMDParser>(_pCtMainWin->get_ct_config());
     else _md_parser->wipe();
-    
+
     try {
         auto iter_pair = _md_parser->find_formatting_boundaries(std::move(start_iter), std::move(end_iter));
         text = Glib::ustring(iter_pair.first, iter_pair.second);
-    
+
         std::stringstream txt(text);
         _md_parser->feed(txt);
-    
+
         text_buffer->erase(iter_pair.first, iter_pair.second);
-        
-    
+
+
         if (!_clipboard) _clipboard = std::make_unique<CtClipboard>(_pCtMainWin);
         _clipboard->from_xml_string_to_buffer(std::move(text_buffer), _md_parser->to_string());
     } catch(CtParseError& e) {
@@ -724,7 +724,7 @@ void CtTextView::zoom_text(bool is_increase)
 }
 
 void CtTextView::set_spell_check(bool allow_on)
-{    
+{
     auto gtk_view = GTK_TEXT_VIEW(gobj());
     auto gtk_buffer = gtk_text_view_get_buffer (gtk_view);
     auto gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer (gtk_buffer);

@@ -33,8 +33,8 @@ TEST(ClipboardGroup, ms_clip_convert)
 {
 // test doesn't work on TRAVIS with WIN32
 #if !(defined(_TRAVIS) && defined(_WIN32))
-    std::string inputClip_path{Glib::build_filename(unitTestsDataDir, "clipboard_ms_input.txt")};
-    std::string resultClip_path{Glib::build_filename(unitTestsDataDir, "clipboard_ms_result.txt")};
+    std::string inputClip_path{Glib::build_filename(UT::unitTestsDataDir, "clipboard_ms_input.txt")};
+    std::string resultClip_path{Glib::build_filename(UT::unitTestsDataDir, "clipboard_ms_result.txt")};
     gchar* inputClip{nullptr}, *resultClip{nullptr};
     g_file_get_contents(inputClip_path.c_str(), &inputClip, nullptr, nullptr);
     g_file_get_contents(resultClip_path.c_str(), &resultClip, nullptr, nullptr);

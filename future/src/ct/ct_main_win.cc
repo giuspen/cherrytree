@@ -854,7 +854,7 @@ void CtMainWin::_zoom_tree(bool is_increase)
     _uCtTreeview->override_font(description);
 }
 
-bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_focus)
+bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_focus, const std::string password)
 {
     if (!fs::is_regular_file(filepath)) {
         CtDialogs::error_dialog("File does not exist", *this);
@@ -879,7 +879,7 @@ bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_f
     reset(); // cannot reset after load_from because load_from fill tree store
 
     Glib::ustring error;
-    auto new_storage = CtStorageControl::load_from(this, filepath, error);
+    auto new_storage = CtStorageControl::load_from(this, filepath, error, password);
     if (!new_storage) {
         CtDialogs::error_dialog("Error Parsing the CherryTree File", *this);
 

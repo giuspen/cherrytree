@@ -95,7 +95,7 @@ public:
 
     void update_theme();
 
-    bool file_open(const fs::path& filepath, const std::string& node_to_focus);
+    bool file_open(const fs::path& filepath, const std::string& node_to_focus, const std::string password = "");
     bool file_save_ask_user();
     void file_save(bool need_vacuum);
     void file_save_as(const std::string& new_filepath, const std::string& password);

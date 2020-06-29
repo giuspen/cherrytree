@@ -29,10 +29,16 @@
 #include <glib/gstdio.h>
 #include <glibmm/miscutils.h>
 
+namespace UT {
+
 const std::string unitTestsDataDir{Glib::build_filename(_CMAKE_SOURCE_DIR, "tests", "data")};
 const std::string ctzInputPath{Glib::build_filename(unitTestsDataDir, "7zr.ctz")};
 const std::string ctxInputPath{Glib::build_filename(unitTestsDataDir, "7zr.ctx")};
 const std::string testCtbDocPath{Glib::build_filename(unitTestsDataDir, "test.ctb")};
 const std::string testCtdDocPath{Glib::build_filename(unitTestsDataDir, "test.ctd")};
+const std::string testCtxDocPath{Glib::build_filename(unitTestsDataDir, "test.ctx")};
+const std::string testCtzDocPath{Glib::build_filename(unitTestsDataDir, "test.ctz")};
 const gchar testPassword[]{"7zr"};
 const gchar testPasswordBis[]{"7zr2"};
+
+} // namespace UT

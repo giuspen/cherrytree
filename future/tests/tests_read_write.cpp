@@ -38,19 +38,22 @@ private:
 void TestCtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint)
 {
     CHECK_EQUAL(1, files.size());
-    const std::string doc_filepath{files.front()->get_path()};
+    const fs::path doc_filepath{files.front()->get_path()};
+    const CtDocEncrypt docEncrypt = fs::get_doc_encrypt(doc_filepath);
 
     CtMainWin* pWin = _create_window(true/*start_hidden*/);
     // tree empty
     CHECK_FALSE(pWin->get_tree_store().get_iter_first());
     // load file
-    CHECK(pWin->file_open(doc_filepath, ""));
+    CHECK(pWin->file_open(doc_filepath, "", docEncrypt != CtDocEncrypt::True ? "" : UT::testPassword));
     // check tree
     _assert_tree_data(pWin);
+
     // save to temporary filepath
-    fs::path tmpFilePath = pWin->get_ct_tmp()->getHiddenFilePath(doc_filepath);
-    CHECK(tmpFilePath != fs::path{doc_filepath});
-    pWin->file_save_as(tmpFilePath.string(), "");
+    fs::path tmp_dirpath = pWin->get_ct_tmp()->getHiddenDirPath("UT");
+    fs::path tmp_filepath = tmp_dirpath / doc_filepath.filename();
+    pWin->file_save_as(tmp_filepath.string(), docEncrypt != CtDocEncrypt::True ? "" : UT::testPasswordBis);
+
     // close this window/tree
     pWin->force_exit() = true;
     remove_window(*pWin);
@@ -60,9 +63,10 @@ void TestCtApp::on_open(const Gio::Application::type_vec_files& files, const Gli
     // tree empty
     CHECK_FALSE(pWin2->get_tree_store().get_iter_first());
     // load file previously saved
-    CHECK(pWin2->file_open(tmpFilePath, ""));
+    CHECK(pWin2->file_open(tmp_filepath, "", docEncrypt != CtDocEncrypt::True ? "" : UT::testPasswordBis));
     // check tree
     _assert_tree_data(pWin2);
+
     // close this window/tree
     pWin2->force_exit() = true;
     remove_window(*pWin2);
@@ -89,7 +93,7 @@ TEST_GROUP(CtDocRWGroup)
 TEST(CtDocRWGroup, CtDocRWCtb)
 {
     TestCtApp testCtApp{};
-    const std::vector<std::string> vecArgs{"cherrytree", testCtbDocPath};
+    const std::vector<std::string> vecArgs{"cherrytree", UT::testCtbDocPath};
     gchar** pp_args = CtStrUtil::vector_to_array(vecArgs);
     testCtApp.run(vecArgs.size(), pp_args);
     g_strfreev(pp_args);
@@ -98,7 +102,25 @@ TEST(CtDocRWGroup, CtDocRWCtb)
 TEST(CtDocRWGroup, CtDocRWCtd)
 {
     TestCtApp testCtApp{};
-    const std::vector<std::string> vecArgs{"cherrytree", testCtdDocPath};
+    const std::vector<std::string> vecArgs{"cherrytree", UT::testCtdDocPath};
+    gchar** pp_args = CtStrUtil::vector_to_array(vecArgs);
+    testCtApp.run(vecArgs.size(), pp_args);
+    g_strfreev(pp_args);
+}
+
+TEST(CtDocRWGroup, CtDocRWCtx)
+{
+    TestCtApp testCtApp{};
+    const std::vector<std::string> vecArgs{"cherrytree", UT::testCtxDocPath};
+    gchar** pp_args = CtStrUtil::vector_to_array(vecArgs);
+    testCtApp.run(vecArgs.size(), pp_args);
+    g_strfreev(pp_args);
+}
+
+TEST(CtDocRWGroup, CtDocRWCtz)
+{
+    TestCtApp testCtApp{};
+    const std::vector<std::string> vecArgs{"cherrytree", UT::testCtzDocPath};
     gchar** pp_args = CtStrUtil::vector_to_array(vecArgs);
     testCtApp.run(vecArgs.size(), pp_args);
     g_strfreev(pp_args);

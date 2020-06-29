@@ -300,29 +300,29 @@ TEST(MiscUtilsGroup, get__uri_type)
 {
     CHECK(CtMiscUtil::get_uri_type("https://google.com") == CtMiscUtil::URI_TYPE::WEB_URL);
     CHECK(CtMiscUtil::get_uri_type("http://google.com") == CtMiscUtil::URI_TYPE::WEB_URL);
-    
+
     CHECK(CtMiscUtil::get_uri_type("/home") == CtMiscUtil::URI_TYPE::LOCAL_FILEPATH);
     CHECK(CtMiscUtil::get_uri_type("C:\\\\windows") == CtMiscUtil::URI_TYPE::LOCAL_FILEPATH);
-    CHECK(CtMiscUtil::get_uri_type(unitTestsDataDir) == CtMiscUtil::URI_TYPE::LOCAL_FILEPATH);
-    
+    CHECK(CtMiscUtil::get_uri_type(UT::unitTestsDataDir) == CtMiscUtil::URI_TYPE::LOCAL_FILEPATH);
+
     CHECK(CtMiscUtil::get_uri_type("smb://localhost") == CtMiscUtil::URI_TYPE::UNKNOWN);
     CHECK(CtMiscUtil::get_uri_type("my invalid uri") == CtMiscUtil::URI_TYPE::UNKNOWN);
 }
 
-TEST(MiscUtilsGroup, mime__type_contains) 
+TEST(MiscUtilsGroup, mime__type_contains)
 {
 // some tests don't work on TRAVIS with WIN32
 #if !(defined(_TRAVIS) && defined(_WIN32))
-    CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_txt.txt", "text/"));
-    CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_html.html", "text/"));
-    CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_html.html", "html"));
+    CHECK(CtMiscUtil::mime_type_contains(UT::unitTestsDataDir+"/mimetype_txt.txt", "text/"));
+    CHECK(CtMiscUtil::mime_type_contains(UT::unitTestsDataDir+"/mimetype_html.html", "text/"));
+    CHECK(CtMiscUtil::mime_type_contains(UT::unitTestsDataDir+"/mimetype_html.html", "html"));
 
 // test doesn't work on WIN32 and MacOS (Travis)
 #if !(defined(_WIN32) || (defined(_TRAVIS) && defined(__APPLE__)))
-    CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_cpp.cpp", "text/"));
+    CHECK(CtMiscUtil::mime_type_contains(UT::unitTestsDataDir+"/mimetype_cpp.cpp", "text/"));
 #endif
 
-    CHECK(!CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_ctb.ctb", "text/"));
+    CHECK(!CtMiscUtil::mime_type_contains(UT::unitTestsDataDir+"/mimetype_ctb.ctb", "text/"));
 #endif
 }
 
