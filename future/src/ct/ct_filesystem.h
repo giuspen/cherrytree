@@ -92,13 +92,10 @@ std::string download_file(const std::string& filepath);
 */
 class path
 {
-    using value_type = std::string::value_type;
-    using string_type = std::basic_string<value_type>;
-
 #ifdef _WIN32
-    static const value_type path_sep = '\\';
+    static const char path_sep{'\\'};
 #else
-    static const value_type path_sep = '/';
+    static const char path_sep{'/'};
 #endif
 
 public:
@@ -108,8 +105,8 @@ public:
     }
 
     path() = default;
-    path(string_type path) : _path(std::move(path)) {}
-    path(const value_type* cpath) : _path(cpath) {}
+    path(std::string path) : _path(std::move(path)) {}
+    path(const char* cpath) : _path(cpath) {}
     template<typename ITERATOR_T>
     path(ITERATOR_T begin, ITERATOR_T end) : _path(begin, end) {}
     ~path() = default;
@@ -119,18 +116,18 @@ public:
         swap(*this, other);
     }
 
-    path& operator=(string_type other) { _path = other; return *this;};
-    path& operator=(const value_type* other) { return operator=(string_type(other)); };
+    path& operator=(std::string other) { _path = other; return *this; }
+    path& operator=(const char* other) { return operator=(std::string(other)); }
 
     friend path operator/(const path& lhs, const path& rhs) {
         return path(Glib::build_filename(lhs._path, rhs._path));
     }
 
-    friend path operator/(const path& lhs, const value_type* rhs) {
+    friend path operator/(const path& lhs, const char* rhs) {
         return path(Glib::build_filename(lhs._path, rhs));
     }
 
-    friend path operator/(const path& lhs, const string_type& rhs) {
+    friend path operator/(const path& lhs, const std::string& rhs) {
         return path(Glib::build_filename(lhs._path, rhs));
     }
 
@@ -142,10 +139,10 @@ public:
     friend bool operator<=(const path& lhs, const path& rhs) { return lhs._path <= rhs._path; }
 
     friend void operator+=(path& lhs, const path& rhs) { lhs._path += rhs._path; }
-    friend void operator+=(path& lhs, const string_type& rhs) { lhs._path += rhs; }
-    friend void operator+=(path& lhs, const value_type* rhs) { lhs._path += rhs; }
+    friend void operator+=(path& lhs, const std::string& rhs) { lhs._path += rhs; }
+    friend void operator+=(path& lhs, const char* rhs) { lhs._path += rhs; }
 
-    [[nodiscard]] const char* c_str() const { return _path.c_str(); };
+    [[nodiscard]] const char* c_str() const { return _path.c_str(); }
     [[nodiscard]] std::string string() const { return _path; }
     [[nodiscard]] bool is_absolute() const { return Glib::path_is_absolute(_path); }
     [[nodiscard]] bool is_relative() const { return !is_absolute(); }
@@ -157,7 +154,7 @@ public:
     [[nodiscard]] std::string native() const;
 
 private:
-    string_type _path;
+    std::string _path;
 
     /// From Slash to Backslash when needed
     static std::string _get_platform_path(std::string filepath);

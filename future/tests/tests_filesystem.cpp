@@ -24,7 +24,7 @@
 #include "ct_filesystem.h"
 #include "CppUTest/CommandLineTestRunner.h"
 #include "tests_common.h"
-
+#include <fstream>
 
 TEST_GROUP(FileSystemGroup)
 {
@@ -115,7 +115,6 @@ TEST(FileSystemGroup, path_is_absolute)
 
 TEST(FileSystemGroup, path_parent_path)
 {
-
     STRCMP_EQUAL(fs::path("/home").c_str(), fs::path("/home/foo").parent_path().c_str());
     STRCMP_EQUAL(fs::path("/home/foo").c_str(), fs::path("/home/foo/bar.txt").parent_path().c_str());
     STRCMP_EQUAL(fs::path("home/foo").c_str(), fs::path("home/foo/bar.txt").parent_path().c_str());
@@ -141,14 +140,39 @@ TEST(FileSystemGroup, path_native)
     STRCMP_EQUAL(path.native().c_str(), first.c_str());
 }
 
-TEST(FileSystemGroup, remove) {
-    fs::path test_dir(UT::unitTestsDataDir + "/test_dir");
-    CHECK_EQUAL(0, g_mkdir_with_parents(test_dir.c_str(), 0777));
-    CHECK(fs::exists(test_dir));
-    fs::remove(test_dir);
-    CHECK(!fs::exists(test_dir));
+TEST(FileSystemGroup, remove)
+{
+    // file remove
+    fs::path test_file_path = fs::path{UT::unitTestsDataDir} / fs::path{"test_file.txt"};
+    {
+        std::ofstream test_file_ofstr{test_file_path.string()};
+        test_file_ofstr << "blabla";
+        test_file_ofstr.close();
+    }
+    CHECK(fs::exists(test_file_path));
+#if 0
+    CHECK(fs::remove(test_file_path));
+    CHECK_FALSE(fs::exists(test_file_path));
+    CHECK_FALSE(fs::remove(test_file_path));
 
-    CHECK_EQUAL( 0, g_mkdir_with_parents(test_dir.c_str(), 0777));
-    CHECK_EQUAL(1, fs::remove_all(test_dir));
-    CHECK(!fs::exists(test_dir));
+    // empty dir remove
+    fs::path test_dir_path = fs::path{UT::unitTestsDataDir} / fs::path{"test_dir"};
+    CHECK_EQUAL(0, g_mkdir_with_parents(test_dir_path.c_str(), 0777));
+    CHECK(fs::exists(test_dir_path));
+    CHECK(fs::remove(test_dir_path));
+    CHECK_FALSE(fs::exists(test_dir_path));
+    CHECK_FALSE(fs::remove(test_dir_path));
+
+    // non empty dir remove
+    CHECK_EQUAL(0, g_mkdir_with_parents(test_dir_path.c_str(), 0777));
+    fs::path test_file_in_dir = test_dir_path / fs::path{"test_file.txt"};
+    {
+        std::ofstream test_file_in_dir_ofstr{test_file_in_dir.string()};
+        test_file_in_dir_ofstr << "blabla";
+        test_file_in_dir_ofstr.close();
+    }
+    CHECK(fs::exists(test_file_in_dir));
+    CHECK_EQUAL(2, fs::remove_all(test_dir_path));
+    CHECK_FALSE(fs::exists(test_dir_path));
+#endif // 0
 }
