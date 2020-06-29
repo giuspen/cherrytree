@@ -150,7 +150,7 @@ TEST(FileSystemGroup, remove)
         test_file_ofstr.close();
     }
     CHECK(fs::exists(test_file_path));
-#if 0
+
     CHECK(fs::remove(test_file_path));
     CHECK_FALSE(fs::exists(test_file_path));
     CHECK_FALSE(fs::remove(test_file_path));
@@ -174,5 +174,5 @@ TEST(FileSystemGroup, remove)
     CHECK(fs::exists(test_file_in_dir));
     CHECK_EQUAL(2, fs::remove_all(test_dir_path));
     CHECK_FALSE(fs::exists(test_dir_path));
-#endif // 0
+
 }
