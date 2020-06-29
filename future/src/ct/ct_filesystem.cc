@@ -44,7 +44,7 @@ bool remove(const fs::path& path2rm)
         }
     }
     else if (fs::exists(path2rm)) {
-        if (g_remove(path2rm.c_str()) != 0) {
+        if (::g_remove(path2rm.c_str()) != 0) {
             spdlog::error("fs::remove: g_remove failed to remove {}", path2rm);
             return false;
         }
