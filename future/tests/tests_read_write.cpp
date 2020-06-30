@@ -90,6 +90,8 @@ TEST_GROUP(CtDocRWGroup)
 {
 };
 
+#ifndef __APPLE__ // TestCtApp causes crash on macos
+
 TEST(CtDocRWGroup, CtDocRWCtb)
 {
     TestCtApp testCtApp{};
@@ -125,3 +127,5 @@ TEST(CtDocRWGroup, CtDocRWCtz)
     testCtApp.run(vecArgs.size(), pp_args);
     g_strfreev(pp_args);
 }
+
+#endif // __APPLE__

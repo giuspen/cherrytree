@@ -5,7 +5,7 @@ include_directories(
 )
 
 set(CT_TEST_FILES
-    tests_common.cpp
+    main.cpp
     tests_misc_utils.cpp
     tests_tmp_n_p7zip.cpp
     tests_types.cpp
