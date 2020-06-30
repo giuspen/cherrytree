@@ -1,5 +1,5 @@
 /*
- * main.cpp
+ * tests_main.cpp
  *
  * Copyright 2009-2020
  * Giuseppe Penone <giuspen@gmail.com>
