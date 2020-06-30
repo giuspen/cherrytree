@@ -1,7 +1,9 @@
 /*
   ct_filesystem.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,19 +35,22 @@
 
 namespace fs {
 
-
-bool remove(const fs::path& path)
+bool remove(const fs::path& path2rm)
 {
-    if (fs::is_directory(path)) {
-        if (g_rmdir(path.c_str()) != 0) {
-            spdlog::error("fs::remove: g_rmdir failed to remove {} ", path);
+    if (fs::is_directory(path2rm)) {
+        if (g_rmdir(path2rm.c_str()) != 0) {
+            spdlog::error("fs::remove: g_rmdir failed to remove {} ", path2rm);
             return false;
         }
-    } else {
-        if (g_remove(path.c_str()) != 0) {
-            spdlog::error("fs::remove: g_remove failed to remove {}", path);
+    }
+    else if (fs::exists(path2rm)) {
+        if (::g_remove(path2rm.c_str()) != 0) {
+            spdlog::error("fs::remove: g_remove failed to remove {}", path2rm);
             return false;
         }
+    }
+    else {
+        return false;
     }
     return true;
 }
@@ -264,7 +269,6 @@ std::string download_file(const std::string& filepath)
     return buffer;
 }
 
-
 CtDocType get_doc_type(const fs::path& filename)
 {
     CtDocType retDocType{CtDocType::None};
@@ -302,7 +306,6 @@ path canonical(const path& path)
     return Glib::canonicalize_filename(path.string());
 }
 
-
 path path::extension() const
 {
     std::string name = filename().string();
@@ -339,4 +342,4 @@ std::string path::_get_platform_path(std::string filepath)
     return filepath;
 }
 
-}
+} // namespace fs 

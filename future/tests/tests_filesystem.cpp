@@ -23,14 +23,12 @@
 
 #include "ct_filesystem.h"
 #include "CppUTest/CommandLineTestRunner.h"
-#include "test_consts.h"
-
-
+#include "tests_common.h"
+#include <fstream>
 
 TEST_GROUP(FileSystemGroup)
 {
 };
-
 
 TEST(FileSystemGroup, path_stem)
 {
@@ -74,37 +72,37 @@ TEST(FileSystemGroup, get_cherrytree_localedir)
 
 TEST(FileSystemGroup, is_regular_file)
 {
-    CHECK_EQUAL(true, fs::is_regular_file(unitTestsDataDir + "/test.ctd"));
-    CHECK_EQUAL(true, fs::is_regular_file(unitTestsDataDir + "/test.ctb"));
-    CHECK_EQUAL(true, fs::is_regular_file(unitTestsDataDir + "/md_testfile.md"));
-    CHECK_EQUAL(false, fs::is_regular_file(unitTestsDataDir));
-    CHECK_EQUAL(false, fs::is_regular_file(fs::absolute(unitTestsDataDir)));
-    CHECK_EQUAL(false, fs::is_regular_file(fs::absolute(unitTestsDataDir).parent_path()));
+    CHECK_EQUAL(true, fs::is_regular_file(UT::unitTestsDataDir + "/test.ctd"));
+    CHECK_EQUAL(true, fs::is_regular_file(UT::unitTestsDataDir + "/test.ctb"));
+    CHECK_EQUAL(true, fs::is_regular_file(UT::unitTestsDataDir + "/md_testfile.md"));
+    CHECK_EQUAL(false, fs::is_regular_file(UT::unitTestsDataDir));
+    CHECK_EQUAL(false, fs::is_regular_file(fs::absolute(UT::unitTestsDataDir)));
+    CHECK_EQUAL(false, fs::is_regular_file(fs::absolute(UT::unitTestsDataDir).parent_path()));
 }
 
 TEST(FileSystemGroup, is_directory)
 {
-    CHECK_EQUAL(true, fs::is_directory(unitTestsDataDir));
-    CHECK_EQUAL(false, fs::is_directory(unitTestsDataDir + "/test.ctd"));
-    CHECK_EQUAL(true, fs::is_directory(fs::path(unitTestsDataDir).parent_path()));
-    CHECK_EQUAL(false, fs::is_directory(fs::path(unitTestsDataDir).parent_path() / "test_consts.h"));
+    CHECK_EQUAL(true, fs::is_directory(UT::unitTestsDataDir));
+    CHECK_EQUAL(false, fs::is_directory(UT::unitTestsDataDir + "/test.ctd"));
+    CHECK_EQUAL(true, fs::is_directory(fs::path(UT::unitTestsDataDir).parent_path()));
+    CHECK_EQUAL(false, fs::is_directory(fs::path(UT::unitTestsDataDir).parent_path() / "test_consts.h"));
 }
 
 TEST(FileSystemGroup, get_doc_type)
 {
-    CHECK(CtDocType::SQLite == fs::get_doc_type(unitTestsDataDir + "/test.ctb"));
-    CHECK(CtDocType::XML == fs::get_doc_type(unitTestsDataDir + "/test.ctd"));
-    CHECK(CtDocType::None == fs::get_doc_type(unitTestsDataDir + "/md_testfile.md"));
-    CHECK(CtDocType::SQLite == fs::get_doc_type(unitTestsDataDir + "/mimetype_ctb.ctb"));
-    CHECK(CtDocType::XML == fs::get_doc_type(unitTestsDataDir + "/7zr.ctz"));
+    CHECK(CtDocType::SQLite == fs::get_doc_type(UT::unitTestsDataDir + "/test.ctb"));
+    CHECK(CtDocType::XML == fs::get_doc_type(UT::unitTestsDataDir + "/test.ctd"));
+    CHECK(CtDocType::None == fs::get_doc_type(UT::unitTestsDataDir + "/md_testfile.md"));
+    CHECK(CtDocType::SQLite == fs::get_doc_type(UT::unitTestsDataDir + "/mimetype_ctb.ctb"));
+    CHECK(CtDocType::XML == fs::get_doc_type(UT::unitTestsDataDir + "/7zr.ctz"));
     CHECK(CtDocType::SQLite == fs::get_doc_type("test.ctx")); // Doesnt actually exist
 }
 
 TEST(FileSystemGroup, get_doc_encrypt)
 {
-    CHECK(fs::get_doc_encrypt(unitTestsDataDir + "/test.ctb") == CtDocEncrypt::False);
-    CHECK(fs::get_doc_encrypt(unitTestsDataDir + "/test.ctz") == CtDocEncrypt::True);
-    CHECK(fs::get_doc_encrypt(unitTestsDataDir + "/mimetype_txt.txt") == CtDocEncrypt::None);
+    CHECK(fs::get_doc_encrypt(UT::unitTestsDataDir + "/test.ctb") == CtDocEncrypt::False);
+    CHECK(fs::get_doc_encrypt(UT::unitTestsDataDir + "/test.ctz") == CtDocEncrypt::True);
+    CHECK(fs::get_doc_encrypt(UT::unitTestsDataDir + "/mimetype_txt.txt") == CtDocEncrypt::None);
 }
 
 TEST(FileSystemGroup, path_is_absolute)
@@ -117,7 +115,6 @@ TEST(FileSystemGroup, path_is_absolute)
 
 TEST(FileSystemGroup, path_parent_path)
 {
-
     STRCMP_EQUAL(fs::path("/home").c_str(), fs::path("/home/foo").parent_path().c_str());
     STRCMP_EQUAL(fs::path("/home/foo").c_str(), fs::path("/home/foo/bar.txt").parent_path().c_str());
     STRCMP_EQUAL(fs::path("home/foo").c_str(), fs::path("home/foo/bar.txt").parent_path().c_str());
@@ -143,14 +140,39 @@ TEST(FileSystemGroup, path_native)
     STRCMP_EQUAL(path.native().c_str(), first.c_str());
 }
 
-TEST(FileSystemGroup, remove) {
-    fs::path test_dir(unitTestsDataDir + "/test_dir");
-    CHECK_EQUAL(0, g_mkdir_with_parents(test_dir.c_str(), 0777));
-    CHECK(fs::exists(test_dir));
-    fs::remove(test_dir);
-    CHECK(!fs::exists(test_dir));
+TEST(FileSystemGroup, remove)
+{
+    // file remove
+    fs::path test_file_path = fs::path{UT::unitTestsDataDir} / fs::path{"test_file.txt"};
+    {
+        std::ofstream test_file_ofstr{test_file_path.string()};
+        test_file_ofstr << "blabla";
+        test_file_ofstr.close();
+    }
+    CHECK(fs::exists(test_file_path));
 
-    CHECK_EQUAL( 0, g_mkdir_with_parents(test_dir.c_str(), 0777));
-    CHECK_EQUAL(1, fs::remove_all(test_dir));
-    CHECK(!fs::exists(test_dir));
+    CHECK(fs::remove(test_file_path));
+    CHECK_FALSE(fs::exists(test_file_path));
+    CHECK_FALSE(fs::remove(test_file_path));
+
+    // empty dir remove
+    fs::path test_dir_path = fs::path{UT::unitTestsDataDir} / fs::path{"test_dir"};
+    CHECK_EQUAL(0, g_mkdir_with_parents(test_dir_path.c_str(), 0777));
+    CHECK(fs::exists(test_dir_path));
+    CHECK(fs::remove(test_dir_path));
+    CHECK_FALSE(fs::exists(test_dir_path));
+    CHECK_FALSE(fs::remove(test_dir_path));
+
+    // non empty dir remove
+    CHECK_EQUAL(0, g_mkdir_with_parents(test_dir_path.c_str(), 0777));
+    fs::path test_file_in_dir = test_dir_path / fs::path{"test_file.txt"};
+    {
+        std::ofstream test_file_in_dir_ofstr{test_file_in_dir.string()};
+        test_file_in_dir_ofstr << "blabla";
+        test_file_in_dir_ofstr.close();
+    }
+    CHECK(fs::exists(test_file_in_dir));
+    CHECK_EQUAL(2, fs::remove_all(test_dir_path));
+    CHECK_FALSE(fs::exists(test_dir_path));
+
 }

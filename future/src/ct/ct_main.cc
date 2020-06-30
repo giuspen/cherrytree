@@ -27,7 +27,8 @@
 #include "ct_logging.h"
 #include <spdlog/sinks/stdout_color_sinks.h>
 
-void glib_log_handler(const gchar*, GLogLevelFlags log_level, const gchar* msg, gpointer) {
+void glib_log_handler(const gchar*, GLogLevelFlags log_level, const gchar* msg, gpointer)
+{
     auto gtk_logger = spdlog::get("GTK Logger");
     switch (log_level) {
         case G_LOG_LEVEL_ERROR:
@@ -54,39 +55,33 @@ void glib_log_handler(const gchar*, GLogLevelFlags log_level, const gchar* msg, 
     }
 }
 
-
 int main(int argc, char *argv[])
 {
     std::locale::global(std::locale("")); // Set the global C++ locale to the user-specified locale
 
 #ifdef HAVE_NLS
     const std::string ct_lang = CtMiscUtil::get_ct_language();
-    if (ct_lang != CtConst::LANG_DEFAULT)
-    {
-        if (Glib::setenv("LANGUAGE", ct_lang, true/*overwrite*/))
-        {
+    if (ct_lang != CtConst::LANG_DEFAULT) {
+        if (Glib::setenv("LANGUAGE", ct_lang, true/*overwrite*/)) {
             g_message("Language overwrite = %s (localedir = %s)", ct_lang.c_str(), fs::get_cherrytree_localedir().c_str());
         }
-        else
-        {
+        else {
             g_critical("Couldn't set language %s", ct_lang.c_str());
         }
     }
-
     bindtextdomain(GETTEXT_PACKAGE, fs::get_cherrytree_localedir().c_str());
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
     textdomain(GETTEXT_PACKAGE);
 #endif
-    
+
     // Setup spdlog, use debug level by default for now
     spdlog::set_level(spdlog::level::debug);
-    
-    // Redirect Gtk log messages to spdlog 
+
+    // Redirect Gtk log messages to spdlog
     auto gtk_logger = spdlog::stdout_color_mt("GTK Logger");
     g_log_set_default_handler(glib_log_handler, nullptr);
 
+    Glib::RefPtr<CtApp> r_app = CtApp::create();
 
-    auto p_app = CtApp::create();
-
-    return p_app->run(argc, argv);
+    return r_app->run(argc, argv);
 }

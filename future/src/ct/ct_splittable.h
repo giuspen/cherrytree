@@ -1,7 +1,9 @@
 /*
  * ct_splittable.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +23,7 @@
 
 #pragma once
 
+#include <glibmm.h>
 #include <string>
 #include <vector>
 #include <utility>
@@ -61,13 +64,13 @@ public:
     friend void swap(CtSplittable& first, CtSplittable& second) noexcept
     {
         using std::swap;
-        
+
         swap(first._internal_vec, second._internal_vec);
         swap(first._item_cache, second._item_cache);
         swap(first._set_cache, second._set_cache);
         swap(first._set_vec_cache, second._set_vec_cache);
     }
-    
+
     /**
      * @brief Construct a new proxy out of iterators compatable with vect_t's ctor
      * @param begin
@@ -75,17 +78,17 @@ public:
      */
     template<class Iterator>
     CtSplittable(Iterator begin, Iterator end, ITEM_T_SPLITTER item_splitter = &split_items<ITEM_T>) : _item_splitter(item_splitter), _internal_vec(begin, end) {}
-    
+
     typename vect_t::reference operator[](typename vect_t::size_type index) {
-        _load_vec_cache(); 
-        return _internal_vec[index]; 
-    }
-    
-    typename vect_t::const_reference operator[](typename vect_t::size_type index) const { 
         _load_vec_cache();
-        return _internal_vec[index]; 
+        return _internal_vec[index];
     }
-    
+
+    typename vect_t::const_reference operator[](typename vect_t::size_type index) const {
+        _load_vec_cache();
+        return _internal_vec[index];
+    }
+
     /**
      * @brief Implicit covnersion operator
      * @return
@@ -100,16 +103,16 @@ public:
         _load_vec_cache();
         return _internal_vec;
     }
-    
+
     CtSplittable(const CtSplittable&) = default;
     CtSplittable(CtSplittable&&) noexcept = default;
     CtSplittable(ITEM_T item, ITEM_T_SPLITTER item_splitter = &split_items<ITEM_T>) : _item_splitter(item_splitter), _item_cache(std::move(item)), _set_vec_cache(false) {}
-    
+
     CtSplittable& operator=(CtSplittable other)
     {
         swap(*this, other);
         return *this;
-    } 
+    }
 
     template<class ITEM_LIKE_T, std::enable_if_t<std::is_convertible_v<ITEM_LIKE_T, ITEM_T>>>
     CtSplittable& operator=(ITEM_LIKE_T&& item) {
@@ -121,13 +124,13 @@ public:
         }
         return *this;
     }
-    
+
     /**
      * @brief Reset the CtVectorProxy's internal vector
-     * 
-     * @tparam Iterator 
-     * @param begin 
-     * @param end 
+     *
+     * @tparam Iterator
+     * @param begin
+     * @param end
      */
     template<class Iterator>
     void reset(Iterator begin, Iterator end) {
@@ -136,7 +139,7 @@ public:
         _set_cache = false;
         _item_cache.reset(0);
     }
-    
+
     template<typename T>
     constexpr typename vect_t::const_iterator find(const T& item) const
     {
@@ -149,29 +152,29 @@ public:
         _load_vec_cache();
         return std::find(_internal_vec.begin(), _internal_vec.end(), item);
     }
-    
-    [[nodiscard]] constexpr typename vect_t::size_type size() const { 
+
+    [[nodiscard]] constexpr typename vect_t::size_type size() const {
         _load_vec_cache();
-        return _internal_vec.size(); 
+        return _internal_vec.size();
     }
-    
-    [[nodiscard]] constexpr typename vect_t::const_iterator end() const noexcept { 
+
+    [[nodiscard]] constexpr typename vect_t::const_iterator end() const noexcept {
         _load_vec_cache();
         return _internal_vec.end();
     }
-    
-    [[nodiscard]] constexpr typename vect_t::const_iterator begin() const noexcept { 
+
+    [[nodiscard]] constexpr typename vect_t::const_iterator begin() const noexcept {
         _load_vec_cache();
-        return _internal_vec.begin(); 
+        return _internal_vec.begin();
     }
-    
+
     template<typename T>
     constexpr bool contains(const T& item) const
     {
         _load_vec_cache();
         return std::find(_internal_vec.begin(), _internal_vec.end(), item) != _internal_vec.end();
     }
-    
+
     const ITEM_T& item() const
     {
         _load_cache();
@@ -184,7 +187,7 @@ private:
     mutable ITEM_T _item_cache;
     mutable bool _set_cache = false;
     mutable bool _set_vec_cache = true;
-    
+
     constexpr void _load_cache() const
     {
         if (!_set_cache) {

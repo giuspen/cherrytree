@@ -23,11 +23,9 @@
 
 #include "ct_misc_utils.h"
 #include "ct_const.h"
-#include "CppUTest/CommandLineTestRunner.h"
-#include "gtkmm/textbuffer.h"
-#include "test_consts.h"
 #include "ct_filesystem.h"
-
+#include "tests_common.h"
+#include "CppUTest/CommandLineTestRunner.h"
 
 TEST_GROUP(MiscUtilsGroup)
 {
@@ -128,7 +126,6 @@ TEST(MiscUtilsGroup, iter_util__startswith_any)
     CHECK(not CtTextIterUtil::startswith_any(buffer->begin(), std::array<const gchar*, 3>{"M", "Sai", "123"}));
 }
 
-
 TEST(MiscUtilsGroup, contains)
 {
     CHECK(CtStrUtil::contains(CtConst::TAG_PROPERTIES, CtConst::TAG_STRIKETHROUGH));
@@ -142,7 +139,6 @@ TEST(MiscUtilsGroup, getFontMisc)
     STRCMP_EQUAL("Noto Sans", CtFontUtil::get_font_family("Noto Sans 9").c_str());
     STRCMP_EQUAL("9", CtFontUtil::get_font_size_str("Noto Sans 9").c_str());
 }
-
 
 TEST(MiscUtilsGroup, set_rgb24str_from_rgb24int)
 {
@@ -239,7 +235,6 @@ TEST(MiscUtilsGroup, str__indexOf)
     LONGS_EQUAL(str::indexOf("Saitama さいたま市", uc), 8);
 }
 
-
 TEST(MiscUtilsGroup, str__join)
 {
     std::vector<std::string> empty_v;
@@ -301,38 +296,35 @@ TEST(MiscUtilsGroup, vec_remove)
     CHECK(v_3.size() == 2);
 }
 
-
-
 TEST(MiscUtilsGroup, get__uri_type)
 {
     CHECK(CtMiscUtil::get_uri_type("https://google.com") == CtMiscUtil::URI_TYPE::WEB_URL);
     CHECK(CtMiscUtil::get_uri_type("http://google.com") == CtMiscUtil::URI_TYPE::WEB_URL);
-    
+
     CHECK(CtMiscUtil::get_uri_type("/home") == CtMiscUtil::URI_TYPE::LOCAL_FILEPATH);
     CHECK(CtMiscUtil::get_uri_type("C:\\\\windows") == CtMiscUtil::URI_TYPE::LOCAL_FILEPATH);
-    CHECK(CtMiscUtil::get_uri_type(unitTestsDataDir) == CtMiscUtil::URI_TYPE::LOCAL_FILEPATH);
-    
+    CHECK(CtMiscUtil::get_uri_type(UT::unitTestsDataDir) == CtMiscUtil::URI_TYPE::LOCAL_FILEPATH);
+
     CHECK(CtMiscUtil::get_uri_type("smb://localhost") == CtMiscUtil::URI_TYPE::UNKNOWN);
     CHECK(CtMiscUtil::get_uri_type("my invalid uri") == CtMiscUtil::URI_TYPE::UNKNOWN);
 }
 
-TEST(MiscUtilsGroup, mime__type_contains) 
+TEST(MiscUtilsGroup, mime__type_contains)
 {
 // some tests don't work on TRAVIS with WIN32
 #if !(defined(_TRAVIS) && defined(_WIN32))
-    CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_txt.txt", "text/"));
-    CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_html.html", "text/"));
-    CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_html.html", "html"));
+    CHECK(CtMiscUtil::mime_type_contains(UT::unitTestsDataDir+"/mimetype_txt.txt", "text/"));
+    CHECK(CtMiscUtil::mime_type_contains(UT::unitTestsDataDir+"/mimetype_html.html", "text/"));
+    CHECK(CtMiscUtil::mime_type_contains(UT::unitTestsDataDir+"/mimetype_html.html", "html"));
 
 // test doesn't work on WIN32 and MacOS (Travis)
 #if !(defined(_WIN32) || (defined(_TRAVIS) && defined(__APPLE__)))
-    CHECK(CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_cpp.cpp", "text/"));
+    CHECK(CtMiscUtil::mime_type_contains(UT::unitTestsDataDir+"/mimetype_cpp.cpp", "text/"));
 #endif
 
-    CHECK(!CtMiscUtil::mime_type_contains(unitTestsDataDir+"/mimetype_ctb.ctb", "text/"));
+    CHECK(!CtMiscUtil::mime_type_contains(UT::unitTestsDataDir+"/mimetype_ctb.ctb", "text/"));
 #endif
 }
-
 
 TEST(MiscUtilsGroup, parallel_for)
 {
@@ -358,8 +350,6 @@ TEST(MiscUtilsGroup, parallel_for)
     CHECK(check_range_in_vec(vec, 1, 1) == false);
     CHECK(check_range_in_vec(vec, 1, 2) == false);
 
-
-
     // parallel_for splits the given range on slices, one slice per thread.
     // The formula to calculate slices is not simple, so the unit test checks that every element
     // in the given range is processed, processed only once, no one is skipped,
@@ -375,19 +365,4 @@ TEST(MiscUtilsGroup, parallel_for)
             });
             CHECK(check_range_in_vec(vec, first, last));
         }
-}
-
-
-
-
-
-
-int main(int ac, char** av)
-{
-    // libp7za has memory leaks
-    MemoryLeakWarningPlugin::turnOffNewDeleteOverloads();
-
-    Gio::init();
-
-    return CommandLineTestRunner::RunAllTests(ac, av);
 }

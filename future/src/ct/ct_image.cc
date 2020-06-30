@@ -28,9 +28,6 @@
 #include "ct_logging.h"
 #include "ct_storage_control.h"
 
-
-
-
 CtImage::CtImage(CtMainWin* pCtMainWin,
                  const std::string& rawBlob,
                  const char* mimeType,
@@ -55,6 +52,9 @@ CtImage::CtImage(CtMainWin* pCtMainWin,
                  const std::string& justification)
  : CtAnchoredWidget(pCtMainWin, charOffset, justification)
 {
+    if (pCtMainWin->no_gui()) {
+        return;
+    }
     _rPixbuf = _pCtMainWin->get_icon_theme()->load_icon(stockImage, size);
 
     _image.set(_rPixbuf);
@@ -230,7 +230,7 @@ bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offs
     sqlite3_stmt *p_stmt;
     if (sqlite3_prepare_v2(pDb, CtStorageSqlite::TABLE_IMAGE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
     {
-         spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_PREPV2, sqlite3_errmsg(pDb));
+        spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_PREPV2, sqlite3_errmsg(pDb));
         retVal = false;
     }
     else

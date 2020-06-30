@@ -1,7 +1,9 @@
 /*
  * ct_storage_control.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +30,7 @@ class CtStorageControl
 {
 public:
     static CtStorageControl* create_dummy_storage(CtMainWin* pCtMainWin);
-    static CtStorageControl* load_from(CtMainWin* pCtMainWin, const fs::path& file_path, Glib::ustring& error);
+    static CtStorageControl* load_from(CtMainWin* pCtMainWin, const fs::path& file_path, Glib::ustring& error, std::string password = "");
     static CtStorageControl* save_as(CtMainWin* pCtMainWin, const fs::path& file_path, const Glib::ustring& password, Glib::ustring& error);
 
 public:

@@ -34,26 +34,26 @@
 
 std::map<std::string, GspellChecker*> CtTextView::_static_spell_checkers;
 
-CtTmp::CtTmp()
-{
-}
-
 CtTmp::~CtTmp()
 {
     //std::cout << "~CtTmp()" << std::endl;
-    for (const auto& currPair : _mapHiddenFiles)
-    {
-        if (g_file_test(currPair.second, G_FILE_TEST_IS_REGULAR) and (0 != g_remove(currPair.second)))
-        {
+    for (const auto& currPair : _mapHiddenFiles) {
+        if ( Glib::file_test(currPair.second, Glib::FILE_TEST_IS_REGULAR) and
+             0 != g_remove(currPair.second) ) {
             spdlog::error("!! g_remove");
         }
         g_free(currPair.second);
     }
-    for (const auto& currPair : _mapHiddenDirs)
-    {
-        if (g_file_test(currPair.second, G_FILE_TEST_IS_DIR) and (0 != g_rmdir(currPair.second)))
-        {
-            spdlog::error("!! g_rmdir");
+    for (const auto& currPair : _mapHiddenDirs) {
+        if (Glib::file_test(currPair.second, Glib::FILE_TEST_IS_DIR)) {
+            for (const fs::path& filepath : fs::get_dir_entries(currPair.second)) {
+                if (0 != g_remove(filepath.string().c_str())) {
+                    spdlog::error("!! g_remove");
+                }
+            }
+            if (0 != g_rmdir(currPair.second)) {
+                spdlog::error("!! g_rmdir");
+            }
         }
         g_free(currPair.second);
     }
@@ -474,7 +474,6 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
         Gtk::TextIter iter_start = iter_insert;
         if (event->key.keyval == GDK_KEY_Return)
         {
-            
             int cursor_key_press = iter_insert.get_offset();
             //print "cursor_key_press", cursor_key_press
             if (cursor_key_press == _pCtMainWin->get_ct_actions()->getCtMainWin()->cursor_key_press())
@@ -633,7 +632,6 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
     }
 }
 
-
 // Looks at all tags covering the position (x, y) in the text view
 // and if one of them is a link, change the cursor to the HAND2 cursor
 void CtTextView::cursor_and_tooltips_handler(int x, int y)
@@ -710,7 +708,7 @@ void CtTextView::zoom_text(bool is_increase)
 }
 
 void CtTextView::set_spell_check(bool allow_on)
-{    
+{
     auto gtk_view = GTK_TEXT_VIEW(gobj());
     auto gtk_buffer = gtk_text_view_get_buffer (gtk_view);
     auto gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer (gtk_buffer);

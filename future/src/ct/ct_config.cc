@@ -53,7 +53,7 @@ bool CtConfig::load_from_file(const fs::path& filepath)
         spdlog::debug("{} parsed", filepath);
         return true;
     }
-    spdlog::error("{} missing", filepath);
+    spdlog::warn("{} missing", filepath);
     return false;
 }
 

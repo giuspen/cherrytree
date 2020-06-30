@@ -28,8 +28,6 @@
 #include "config.h"
 #include "ct_logging.h"
 
-
-
 CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HANDLES_OPEN)
 {
     Gsv::init();
@@ -97,7 +95,7 @@ void CtApp::on_activate()
 {
     if (get_windows().size() == 0)
     {
-        CtMainWin* pAppWindow = _create_window(false);
+        CtMainWin* pAppWindow = _create_window();
         if (not CtApp::_uCtCfg->recentDocsFilepaths.empty())
         {
             Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(CtApp::_uCtCfg->recentDocsFilepaths.front().string());
@@ -121,27 +119,33 @@ void CtApp::on_activate()
 void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& /*hint*/)
 {
     // do some export stuff from console and close app after
-    if (_export_to_txt_dir != "" || _export_to_html_dir != "" || _export_to_pdf_file != "")
+    if ( not _export_to_txt_dir.empty() or
+         not _export_to_html_dir.empty() or
+         not _export_to_pdf_file.empty() )
     {
         spdlog::debug("export arguments are detected");
         for (const Glib::RefPtr<Gio::File>& r_file : files)
         {
             spdlog::debug("file to export: {}", r_file->get_path());
-            CtMainWin* win = _create_window(true); // start hidden
-            if (win->file_open(r_file->get_path(), "")) {
-                try
-                {
-                    if (_export_to_txt_dir != "") win->get_ct_actions()->export_to_txt_auto(_export_to_txt_dir, _export_overwrite);
-                    if (_export_to_html_dir != "") win->get_ct_actions()->export_to_html_auto(_export_to_html_dir, _export_overwrite);
-                    if (_export_to_pdf_file != "") win->get_ct_actions()->export_to_pdf_auto(_export_to_pdf_file, _export_overwrite);
+            CtMainWin* pWin = _create_window(true/*no_gui*/);
+            if (pWin->file_open(r_file->get_path(), "")) {
+                try {
+                    if (not _export_to_txt_dir.empty()) {
+                        pWin->get_ct_actions()->export_to_txt_auto(_export_to_txt_dir, _export_overwrite);
+                    }
+                    if (not _export_to_html_dir.empty()) {
+                        pWin->get_ct_actions()->export_to_html_auto(_export_to_html_dir, _export_overwrite);
+                    }
+                    if (not _export_to_pdf_file.empty()) {
+                        pWin->get_ct_actions()->export_to_pdf_auto(_export_to_pdf_file, _export_overwrite);
+                    }
                 }
-                catch (std::exception& e)
-                {
+                catch (std::exception& e) {
                     spdlog::error("caught exception: {}", e.what());
                 }
             }
-            win->force_exit() = true;
-            remove_window(*win);
+            pWin->force_exit() = true;
+            remove_window(*pWin);
         }
         spdlog::debug("export is done, closing app");
         // exit app
@@ -155,7 +159,7 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
         if (nullptr == pAppWindow)
         {
             // there is not a window already running with that document
-            pAppWindow = _create_window(false);
+            pAppWindow = _create_window();
             if (not pAppWindow->file_open(r_file->get_path(), _node_to_focus))
             {
                 g_warning("Couldn't open file: %s", r_file->get_path().c_str());
@@ -178,9 +182,9 @@ void CtApp::on_window_removed(Gtk::Window* window)
         }
 }
 
-CtMainWin* CtApp::_create_window(bool start_hidden)
+CtMainWin* CtApp::_create_window(const bool no_gui)
 {
-    CtMainWin* pCtMainWin = new CtMainWin(start_hidden,
+    CtMainWin* pCtMainWin = new CtMainWin(no_gui,
                                           _uCtCfg.get(),
                                           _uCtTmp.get(),
                                           _rIcontheme.get(),
@@ -192,7 +196,7 @@ CtMainWin* CtApp::_create_window(bool start_hidden)
     add_window(*pCtMainWin);
 
     pCtMainWin->signal_app_new_instance.connect([this]() {
-        _create_window(false);
+        _create_window();
     });
     pCtMainWin->signal_app_apply_for_each_window.connect([this](std::function<void(CtMainWin*)> callback) {
         for (Gtk::Window* pWin : get_windows())
@@ -286,7 +290,6 @@ void CtApp::_systray_close_all()
                 break;
         }
 }
-
 
 void CtApp::_add_main_option_entries()
 {

@@ -90,6 +90,13 @@ Gtk::TreeIter CtDialogs::choose_item_dialog(Gtk::Window& parent,
     pScrolledwindow->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     Gtk::TreeView* pElementsTreeview = Gtk::manage(new Gtk::TreeView(rModel));
     pElementsTreeview->set_headers_visible(false);
+    pElementsTreeview->get_selection()->select(Gtk::TreePath("0"));
+    pElementsTreeview->signal_row_activated().connect([&](const Gtk::TreeModel::Path&, Gtk::TreeViewColumn* ) {
+        if (Gtk::TreeIter iter = pElementsTreeview->get_selection()->get_selected()) {
+            static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT))->clicked();
+        }
+    });
+
     Gtk::CellRendererPixbuf pixbuf_renderer;
     if (nullptr == single_column_name)
     {
@@ -1812,7 +1819,11 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
         return false;
     }
 
-    nodeData.name = name_entry.get_text();
+    nodeData.name = str::trim(name_entry.get_text());
+    nodeData.name = str::replace(nodeData.name, "\r", ""); // the given name can contain \r and \n as a result
+    nodeData.name = str::replace(nodeData.name, "\n", ""); // of cope/paste from some source
+    nodeData.name = str::replace(nodeData.name, "\t", " ");
+
     if (nodeData.name.empty())
     {
         nodeData.name = CtConst::CHAR_QUESTION;

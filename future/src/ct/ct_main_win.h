@@ -78,15 +78,16 @@ class CtMainWin : public Gtk::ApplicationWindow
 {
 public:
     CtMainWin(
-              bool                     start_hidden,
-              CtConfig*                pCtConfig,
-              CtTmp*                   pCtTmp,
-              Gtk::IconTheme*          pGtkIconTheme,
-              Glib::RefPtr<Gtk::TextTagTable> rGtkTextTagTable,
-              Glib::RefPtr<Gtk::CssProvider> rGtkCssProvider,
-              Gsv::LanguageManager*    pGsvLanguageManager,
-              Gsv::StyleSchemeManager* pGsvStyleSchemeManager,
-              Gtk::StatusIcon*         pGtkStatusIcon);
+        bool                     no_gui,
+        CtConfig*                pCtConfig,
+        CtTmp*                   pCtTmp,
+        Gtk::IconTheme*          pGtkIconTheme,
+        Glib::RefPtr<Gtk::TextTagTable> rGtkTextTagTable,
+        Glib::RefPtr<Gtk::CssProvider> rGtkCssProvider,
+        Gsv::LanguageManager*    pGsvLanguageManager,
+        Gsv::StyleSchemeManager* pGsvStyleSchemeManager,
+        Gtk::StatusIcon*         pGtkStatusIcon
+    );
     virtual ~CtMainWin();
 
     void config_apply();
@@ -94,7 +95,7 @@ public:
 
     void update_theme();
 
-    bool file_open(const fs::path& filepath, const std::string& node_to_focus);
+    bool file_open(const fs::path& filepath, const std::string& node_to_focus, const std::string password = "");
     bool file_save_ask_user();
     void file_save(bool need_vacuum);
     void file_save_as(const std::string& new_filepath, const std::string& password);
@@ -134,6 +135,7 @@ public:
 
     bool&         user_active()      { return _userActive; } // use as a function, because it's easier to put breakpoint
     bool&         force_exit()       { return _forceExit; }
+    bool          no_gui()           { return _no_gui; }
     int&          cursor_key_press() { return _cursorKeyPress; }
     int&          hovering_link_iter_offset() { return _hovering_link_iter_offset; }
 
@@ -200,6 +202,7 @@ private:
     void                _zoom_tree(bool is_increase);
 
 private:
+    const bool                   _no_gui;
     CtConfig*                    _pCtConfig;
     CtTmp*                       _pCtTmp;
     Gtk::IconTheme*              _pGtkIconTheme;

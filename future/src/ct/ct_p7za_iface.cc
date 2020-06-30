@@ -22,6 +22,8 @@
  */
 
 #include "ct_p7za_iface.h"
+#include "ct_misc_utils.h"
+#include "ct_filesystem.h"
 #include <glib/gstdio.h>
 #include <string>
 #include <vector>
@@ -57,15 +59,6 @@ static void _slashes_convert(std::string& path)
 }
 #endif // _WIN32
 
-static gchar** vector_to_array(const std::vector<std::string>& vec)
-{
-    gchar **array = g_new(gchar *, vec.size()+1);
-    for (size_t i = 0; i < vec.size(); ++i)
-        array[i] = g_strdup(vec[i].c_str());
-    array[vec.size()] = nullptr;
-    return array;
-}
-
 int CtP7zaIface::p7za_extract(const gchar* input_path, const gchar* out_dir, const gchar* passwd)
 {
     std::vector<std::string> args {
@@ -85,7 +78,7 @@ int CtP7zaIface::p7za_extract(const gchar* input_path, const gchar* out_dir, con
     for (size_t i = 0; i < args.size(); ++i)
         _slashes_convert(args[i]);
 #endif // _WIN32
-    gchar** pp_args = vector_to_array(args);
+    gchar** pp_args = CtStrUtil::vector_to_array(args);
 
     register_codecs();
     int ret_val = p7za_exec((int)args.size(), pp_args);
@@ -113,7 +106,7 @@ int CtP7zaIface::p7za_archive(const gchar* input_path, const gchar* output_path,
     for (size_t i = 0; i < args.size(); ++i)
         _slashes_convert(args[i]);
 #endif // _WIN32
-    gchar** pp_args = vector_to_array(args);
+    gchar** pp_args = CtStrUtil::vector_to_array(args);
 
     register_codecs();
     int ret_val = p7za_exec(args.size(), pp_args);

@@ -5,12 +5,14 @@ include_directories(
 )
 
 set(CT_TEST_FILES
+    tests_main.cpp
     tests_misc_utils.cpp
     tests_tmp_n_p7zip.cpp
     tests_types.cpp
     tests_clipboard.cpp
     tests_filesystem.cpp
     tests_encoding.cpp
+    tests_read_write.cpp
 )
 
 # some tests doesn't work in TRAVIS, so turn off them

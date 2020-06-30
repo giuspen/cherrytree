@@ -1,7 +1,9 @@
 /*
  * ct_storage_control.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,7 +47,7 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
     return doc;
 }
 
-/*static*/ CtStorageControl* CtStorageControl::load_from(CtMainWin* pCtMainWin, const fs::path& file_path, Glib::ustring& error)
+/*static*/ CtStorageControl* CtStorageControl::load_from(CtMainWin* pCtMainWin, const fs::path& file_path, Glib::ustring& error, std::string password)
 {
     std::unique_ptr<CtStorageEntity> storage;
     fs::path extracted_file_path = file_path;
@@ -54,7 +56,6 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
         if (!fs::is_regular_file(file_path)) throw std::runtime_error("no file");
 
         // unpack file if need
-        std::string password;
         if (fs::get_doc_encrypt(file_path) == CtDocEncrypt::True) {
             extracted_file_path = _extract_file(pCtMainWin, file_path, password);
         }
@@ -231,14 +232,17 @@ Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64
     Glib::ustring title = str::format(_("Enter Password for %s"), file_path.filename().string());
     while (true)
     {
-        CtDialogTextEntry dialogTextEntry(title, true/*forPassword*/, pCtMainWin);
-        if (Gtk::RESPONSE_OK != dialogTextEntry.run())
-            throw std::runtime_error("no password, user cancels operation");
-
-        password = dialogTextEntry.get_entry_text();
+        if (password.empty()) {
+            CtDialogTextEntry dialogTextEntry(title, true/*forPassword*/, pCtMainWin);
+            if (Gtk::RESPONSE_OK != dialogTextEntry.run()) {
+                throw std::runtime_error("no password, user cancels operation");
+            }
+            password = dialogTextEntry.get_entry_text();
+        }
         if (0 == CtP7zaIface::p7za_extract(file_path.c_str(), temp_dir.c_str(), password.c_str()))
             if (g_file_test(temp_file_path.c_str(), G_FILE_TEST_IS_REGULAR))
                 return temp_file_path;
+        password.clear();
     }
 }
 

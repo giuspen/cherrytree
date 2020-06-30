@@ -1,7 +1,9 @@
 /*
  * ct_widgets.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +23,8 @@
 
 #pragma once
 
+#include "ct_types.h"
+#include "ct_filesystem.h"
 #include <gtkmm.h>
 #include <gtksourceviewmm.h>
 #include <libxml++/libxml++.h>
@@ -40,17 +44,15 @@ class CtClipboard;
 class CtTmp
 {
 public:
-    CtTmp();
+    CtTmp() {}
     virtual ~CtTmp();
     fs::path getHiddenDirPath(const fs::path& visiblePath);
     fs::path getHiddenFilePath(const fs::path& visiblePath);
 
 protected:
-    std::unordered_map<std::string,gchar*> _mapHiddenDirs;
-    std::unordered_map<std::string,gchar*> _mapHiddenFiles;
+    std::unordered_map<std::string, gchar*> _mapHiddenDirs;
+    std::unordered_map<std::string, gchar*> _mapHiddenFiles;
 };
-
-
 
 class CtMainWin;
 class CtAnchoredWidgetState;
