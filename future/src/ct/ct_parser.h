@@ -34,8 +34,9 @@
 #include <fstream>
 #include <unordered_map>
 #include <functional>
+#include <array>
 
-
+class CtClipboard;
 /**
  * @class CtParseError
  * @brief Thrown when an exception occures during parsing
@@ -194,8 +195,58 @@ protected:
 
 private:
     std::unordered_map<char, std::vector<std::string>> _possible_tokens;
-
+    void _build_pos_tokens();
 public:
+    /**
+     * @brief Helper class to find possible tokens in a stream
+     */
+    class TokenMatcher {
+        using size_type = std::string::size_type;
+    public:
+        explicit TokenMatcher(std::shared_ptr<CtTextParser> text_parser) : _text_parser(std::move(text_parser)) {}
+        /// Feed a single character to the end of the matcher
+        void feed(char ch);
+        void pop_back();
+        /// Insert at specific position, offset is offset from front (right) of the raw token
+        void insert(char ch, int offset);
+        /// Erase at the specified position, offset is from the front
+        void erase(int offset);
+
+        /**
+         * @brief Reset the matcher so that it can be reused for a different stream
+         * @warning Does not wipe its companion CtTextParser
+         */
+        void reset() noexcept;
+
+        /// If the matcher is finished then feed(), erase(), etc will have no effect until a call to reset()
+        [[nodiscard]] constexpr bool finished() const noexcept { return _finished; }
+        [[nodiscard]] constexpr bool has_open() const noexcept { return _found_open; }
+        [[nodiscard]] size_type contents_end_offset() const noexcept;
+        [[nodiscard]] size_type contents_start_offset() const noexcept { return contents_end_offset() + _token_contents.size(); }
+        [[nodiscard]] size_type raw_start_offset() const noexcept { return contents_start_offset() + _open_token.size(); }
+        [[nodiscard]] constexpr size_type raw_end_offset() const noexcept { return 0; }
+        [[nodiscard]] const std::string& contents() const noexcept { return _token_contents; }
+        [[nodiscard]] std::string raw_str() const { return _open_token + _token_contents + _close_token; }
+    private:
+        std::vector<std::string> _pos_tokens;
+        std::unordered_set<char> _pos_chars;
+        std::string _token_buff;
+        std::string _token_contents;
+        std::string _open_token;
+        std::string _close_token;
+        bool _found_open = false;
+        bool _finished = false;
+        std::shared_ptr<CtTextParser> _text_parser;
+
+        void _update_tokens();
+        bool _is_valid_token(std::string_view token);
+        void _rebuild_pos_tokens(const std::vector<std::string>& from);
+        /// Reset the token matcher and refeed all contents (e.g to reevaluate tags)
+        void _reset_and_refeed();
+    };
+    friend class TokenMatcher;
+
+
     using CtParser::CtParser;
 
     /**
@@ -231,4 +282,46 @@ public:
 
 public:
     static std::list<html_attr> char2list_attrs(const char** atts);
+};
+
+class CtMDParser;
+/**
+ * @brief Watches a TextBuffer and applies markdown formatting to it
+ * @class CtMarkdownFilter
+ */
+class CtMarkdownFilter {
+public:
+    CtMarkdownFilter(std::unique_ptr<CtClipboard> clipboard, Glib::RefPtr<Gtk::TextBuffer> buffer, CtConfig* config);
+    /// Reset parser state
+    void reset() noexcept;
+    
+    /// Connect to a new buffer
+    void buffer(Glib::RefPtr<Gtk::TextBuffer> text_buffer);
+    
+    constexpr void active(bool active) noexcept { _active = active; }
+    [[nodiscard]] bool active() const noexcept;
+
+private:
+    void _on_buffer_insert(const Gtk::TextBuffer::iterator& position, const Glib::ustring& text, int bytes) noexcept;
+    void _on_buffer_erase(const Gtk::TextIter& begin, const Gtk::TextIter& end) noexcept;
+
+    void _markdown_insert();
+    void _apply_tag(const Glib::ustring& tag, const Gtk::TextIter& start, const Gtk::TextIter& end);
+
+    std::string _get_new_md_tag_name() const;
+    
+private:
+    std::array<sigc::connection, 4> _buff_connections;
+    bool _active = false;
+
+    CtConfig* _config;
+    Glib::RefPtr<Gtk::TextBuffer> _buffer;
+
+    std::shared_ptr<CtTextParser::TokenMatcher> _md_matcher;
+    std::shared_ptr<CtMDParser> _md_parser;
+    std::unique_ptr<CtClipboard> _clipboard;
+
+
+    using match_pair_t = std::pair<std::shared_ptr<CtMDParser>, std::shared_ptr<CtTextParser::TokenMatcher>>;
+    std::unordered_map<std::string, match_pair_t> _md_matchers;
 };

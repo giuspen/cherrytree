@@ -34,6 +34,10 @@
 #include <memory>
 #include <gspell/gspell.h>
 #include <map>
+#include "ct_types.h"
+#include "ct_filesystem.h"
+#include "ct_parser.h"
+
 
 class CtMDParser;
 class CtClipboard;
@@ -53,6 +57,7 @@ protected:
 class CtMainWin;
 class CtAnchoredWidgetState;
 class CtStorageCache;
+class CtMarkdownFilter;
 
 class CtAnchoredWidget : public Gtk::EventBox
 {
@@ -121,13 +126,15 @@ public:
     void zoom_text(bool is_increase);
     void set_spell_check(bool allow_on);
 
+    void set_buffer(const Glib::RefPtr<Gtk::TextBuffer>& buffer);
 private:
     bool          _apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor);
     Glib::ustring _get_former_line_indentation(Gtk::TextIter iter_start);
     void          _special_char_replace(gunichar special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_insert);
     /// Replace the char between iter_start and iter_end with another one
     void          _special_char_replace(Glib::ustring special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
-    void          _markdown_check_and_replace(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
+    
+    bool          _markdown_filter_active();
 public:
     static const double TEXT_SCROLL_MARGIN;
 
@@ -136,7 +143,11 @@ private:
     static GspellChecker* _get_spell_checker(const std::string& lang);
 
 private:
+    /// Used to check if rich text syntax has been set for the view
+    [[nodiscard]] bool _buffer_is_rich_text() const;
+private:
+    
+    std::unique_ptr<CtMarkdownFilter> _md_handler;
+
     CtMainWin* _pCtMainWin;
-    std::unique_ptr<CtClipboard> _clipboard;
-    std::unique_ptr<CtMDParser> _md_parser;
 };

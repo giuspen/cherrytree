@@ -25,6 +25,7 @@
 #include "ct_misc_utils.h"
 #include "ct_imports.h"
 #include "ct_logging.h"
+#include "ct_clipboard.h"
 #include <iostream>
 
 void CtParser::wipe()  
@@ -270,5 +271,223 @@ void CtHtmlParser::handle_charref(std::string_view /*tag*/)
         attr_list.push_back(attr);
     }
     return attr_list;
+}
+
+
+
+CtMarkdownFilter::CtMarkdownFilter(std::unique_ptr<CtClipboard> clipboard, Glib::RefPtr<Gtk::TextBuffer> buff, CtConfig* config) : 
+_config(config), _clipboard(std::move(clipboard)) 
+{
+    try {
+        buffer(std::move(buff));
+    } catch(const std::exception& e) {
+        spdlog::error("Exception caught in CtMarkdownFilter ctor: <{}>; it may be left in an invalid state", e.what());
+    }
+}
+
+void CtMarkdownFilter::buffer(Glib::RefPtr<Gtk::TextBuffer> text_buffer)
+{   
+    // Disconnect previous
+    for (auto& sig : _buff_connections) {
+        if (sig.connected()) sig.disconnect();
+    }
+    if (active()) {
+        // Connect new
+        _buff_connections[0] = text_buffer->signal_insert().connect(sigc::mem_fun(this, &CtMarkdownFilter::_on_buffer_insert));
+        _buff_connections[1] = text_buffer->signal_end_user_action().connect([this]() mutable {
+            _buff_connections[0].block();
+            _buff_connections[3].block();
+            if (active()) {
+                _markdown_insert();
+            }
+        });
+        _buff_connections[2] = text_buffer->signal_begin_user_action().connect([this]() mutable {
+            _buff_connections[0].unblock();
+            _buff_connections[3].unblock();
+        });
+
+        _buff_connections[3] = text_buffer->signal_erase().connect(sigc::mem_fun(this, &CtMarkdownFilter::_on_buffer_erase));
+    }
+
+
+    _buffer = std::move(text_buffer);
+}
+
+void CtMarkdownFilter::reset() noexcept
+{
+    if (active()) {
+        _md_matchers.clear();
+        _md_parser.reset();
+        _md_matcher.reset();
+    }
+}
+
+
+void CtMarkdownFilter::_on_buffer_erase(const Gtk::TextIter& begin, const Gtk::TextIter& end) noexcept
+{
+    try {
+        bool is_all = (begin == _buffer->begin()) && (end == _buffer->end());
+        if (is_all && active()) {
+            reset();
+            spdlog::debug("Reset markdown matchers due to buffer clear");
+            return;
+        }
+        if (active()) {
+            Gtk::TextIter iter = begin;
+            iter.backward_char();
+
+            auto erase_tag_seg = [this](const std::string& tag, CtTextParser::TokenMatcher& matcher,
+                                        Gtk::TextIter start) {
+                std::size_t offset = 0;
+                auto tag_ptr = _buffer->get_tag_table()->lookup(tag);
+                while (true) {
+                    if (!start.has_tag(tag_ptr)) break;
+                    if (!start.forward_char()) break;
+                    ++offset;
+                }
+                spdlog::debug("Found erase offset: <{}>", offset);
+                if (offset < matcher.raw_str().size()) matcher.erase(offset);
+            };
+
+            while (iter != end) {
+                for (const auto& tag : iter.get_tags()) {
+                    std::string name = tag->property_name().get_value();
+                    auto matcher_iter = _md_matchers.find(name);
+                    if (matcher_iter != _md_matchers.end()) {
+                        auto& md_matcher = matcher_iter->second.second;
+                        erase_tag_seg(name, *md_matcher, iter);
+                    }
+                }
+                if (!iter.forward_char()) break;
+            }
+        }
+    } catch(const std::exception& e) {
+        spdlog::error("Exception caught while erasing buffer: <{}>", e.what());
+    }
+}
+
+
+void CtMarkdownFilter::_markdown_insert() {
+    if (active() && (_md_matcher && _md_parser)) {
+        
+        if (_md_matcher->finished()) {
+            auto start_offset = _md_matcher->raw_start_offset();
+            auto end_offset = _md_matcher->raw_end_offset();
+            std::string raw_token = _md_matcher->raw_str();
+
+            _md_parser->wipe();
+            _md_matcher.reset();
+
+            auto iter_begin = _buffer->get_insert()->get_iter();
+            auto iter_end = iter_begin;
+            iter_begin.backward_chars(start_offset);
+            iter_end.backward_chars(end_offset);
+
+            std::stringstream txt(raw_token);
+            _md_parser->feed(txt);
+
+            _buffer->place_cursor(iter_begin);
+            _buffer->erase(iter_begin, iter_end);
+            
+        
+            _clipboard->from_xml_string_to_buffer(_buffer, _md_parser->to_string());
+
+            auto iter_insert = _buffer->get_insert()->get_iter();
+            iter_insert.forward_chars(end_offset);
+            _buffer->place_cursor(iter_insert);
+        }
+    }
+}
+
+void CtMarkdownFilter::_on_buffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int) noexcept
+{
+    try {
+        if (active() &&
+            text.size() == 1 /* For now, only handle single chars */ ) {
+            std::shared_ptr<CtMDParser> md_parser;
+            std::shared_ptr<CtTextParser::TokenMatcher> md_matcher;
+            Gtk::TextIter back_iter = pos;
+            back_iter.backward_chars(text.length() + 1);
+            for (char insert_ch : text) {
+
+                auto tags = back_iter.get_tags();
+                bool has_mark = false;
+                std::string tag_name = _get_new_md_tag_name();
+
+                for (const auto& tag : tags) {
+                    auto iter = _md_matchers.find(tag->property_name().get_value());
+                    if (iter != _md_matchers.end()) {
+                        has_mark = true;
+                        tag_name = tag->property_name().get_value();
+                        auto& pair = iter->second;
+                        md_parser = pair.first;
+                        md_matcher = pair.second;
+                        break;
+                    }
+                }
+                _apply_tag(tag_name, back_iter, pos);
+
+                if (!has_mark) {
+                    spdlog::debug("Creating new tag: {}", tag_name);
+                    md_parser = std::make_shared<CtMDParser>(_config);
+                    md_matcher = std::make_unique<CtTextParser::TokenMatcher>(md_parser);
+
+                    match_pair_t pair{md_parser, md_matcher};
+
+                    _md_matchers[tag_name] = pair;
+                }
+
+                if (!md_matcher->finished()) {
+                    // Determine offset
+                    std::size_t offset = 0;
+                    auto for_iter = pos;
+                    for_iter.backward_char();
+                    while (for_iter.forward_char()) {
+                        if (!for_iter.has_tag(_buffer->get_tag_table()->lookup(tag_name))) {
+                            break;
+                        }
+                        if (for_iter.get_char() == '\n') break;
+                        ++offset;
+                    }
+                    spdlog::trace("Inserting: <{}> at offset: <{}>", std::string(1, insert_ch), offset);
+                    md_matcher->insert(insert_ch, offset);
+
+
+                    _md_parser = md_parser;
+                    _md_matcher = md_matcher;
+                } else {
+                    _buffer->remove_tag_by_name(tag_name, _buffer->begin(), _buffer->end());
+                    _md_matchers.erase(tag_name);
+                    md_parser->wipe();
+                    md_matcher->reset();
+                    md_parser.reset();
+                    md_matcher.reset();
+                }
+                back_iter.forward_char();
+            }
+        }
+    } catch(const std::exception& e) {
+        spdlog::error("Exception caught in the buffer insert handler: <{}>", e.what());
+    }
+}
+
+void CtMarkdownFilter::_apply_tag(const Glib::ustring& tag, const Gtk::TextIter& start, const Gtk::TextIter& end) {
+    spdlog::debug("Applying tag: {}", tag);
+    bool has_tag = static_cast<bool>(_buffer->get_tag_table()->lookup(tag));
+    if (!has_tag) {
+        // create if not exists
+        _buffer->create_tag(tag);
+    }
+    _buffer->apply_tag_by_name(tag, start, end);
+}
+
+
+std::string CtMarkdownFilter::_get_new_md_tag_name() const {
+    return fmt::format("md-formatting-{}", _md_matchers.size());
+}
+
+bool CtMarkdownFilter::active() const noexcept 
+{ 
+    return _active && _config->enableMdFormatting; 
 }
 
