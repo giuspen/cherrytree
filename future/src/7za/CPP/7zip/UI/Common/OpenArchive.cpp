@@ -856,9 +856,9 @@ static void MakeCheckOrder(CCodecs *codecs,
     FOR_VECTOR (k, sigs)
     {
       const CByteBuffer &sig = sigs[k];
-      if (sig.Size() == 0 && dataSize == 0 ||
-          sig.Size() != 0 && sig.Size() <= dataSize &&
-          TestSignature(data, sig, sig.Size()))
+      if ((sig.Size() == 0 && dataSize == 0) ||
+          (sig.Size() != 0 && sig.Size() <= dataSize &&
+          TestSignature(data, sig, sig.Size())))
       {
         orderIndices2.Add(index);
         orderIndices[i] = -1;
@@ -1414,8 +1414,8 @@ HRESULT CArc::OpenStream2(const COpenOptions &op)
           isPrearcExt = true;
 
         if (ai.FindExtension(extension) >= 0
-            || isZip && StringsAreEqualNoCase_Ascii(ai.Name, "zip")
-            || isRar && StringsAreEqualNoCase_Ascii(ai.Name, "rar")
+            || (isZip && StringsAreEqualNoCase_Ascii(ai.Name, "zip"))
+            || (isRar && StringsAreEqualNoCase_Ascii(ai.Name, "rar"))
             )
         {
           // PrintNumber("orderIndices.Insert", i);

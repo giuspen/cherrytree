@@ -620,8 +620,8 @@ NO_INLINE void CCoder::TryBlock()
   {
     if (m_OptimumCurrentIndex == m_OptimumEndIndex)
     {
-      if (m_Pos >= kMatchArrayLimit || BlockSizeRes >= blockSize || !m_SecondPass &&
-          ((Inline_MatchFinder_GetNumAvailableBytes(&_lzInWindow) == 0) || m_ValueIndex >= m_ValueBlockSize))
+      if (m_Pos >= kMatchArrayLimit || BlockSizeRes >= blockSize || (!m_SecondPass &&
+          ((Inline_MatchFinder_GetNumAvailableBytes(&_lzInWindow) == 0) || m_ValueIndex >= m_ValueBlockSize)))
         break;
     }
     UInt32 pos;

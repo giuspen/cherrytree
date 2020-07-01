@@ -512,7 +512,7 @@ static HRESULT EnumerateDirItems(
         }
 
         bool isDir = fi.IsDir();
-        if (isDir && !item.ForDir || !isDir && !item.ForFile)
+        if ((isDir && !item.ForDir) || (!isDir && !item.ForFile))
         {
           RINOK(dirItems.AddError(fullPath, (DWORD)E_FAIL));
           continue;

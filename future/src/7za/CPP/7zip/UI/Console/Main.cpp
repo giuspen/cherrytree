@@ -601,182 +601,186 @@ int Main2(int numArgs, char *args[])
     }
 
     if (hresultMain == S_OK)
-    if (isExtractGroupCommand)
     {
-      CExtractCallbackConsole *ecs = new CExtractCallbackConsole;
-      CMyComPtr<IFolderArchiveExtractCallback> extractCallback = ecs;
-
-      ecs->PasswordIsDefined = options.PasswordEnabled;
-      ecs->Password = options.Password;
-
-      ecs->Init(g_StdStream, g_ErrStream, percentsStream);
-      ecs->MultiArcMode = (ArchivePathsSorted.Size() > 1);
-
-      ecs->LogLevel = options.LogLevel;
-      ecs->PercentsNameLevel = percentsNameLevel;
-
-      if (percentsStream)
-        ecs->SetWindowWidth(consoleWidth);
-
-      CExtractOptions eo;
-      (CExtractOptionsBase &)eo = options.ExtractOptions;
-
-      eo.StdInMode = options.StdInMode;
-      eo.StdOutMode = options.StdOutMode;
-      eo.YesToAll = options.YesToAll;
-      eo.TestMode = options.Command.IsTestCommand();
-
-      eo.Properties = options.Properties;
-
-      UString errorMessage;
-      CDecompressStat stat;
-      CHashBundle hb;
-      IHashCalc *hashCalc = NULL;
-
-      if (!options.HashMethods.IsEmpty())
+      if (isExtractGroupCommand)
       {
-        hashCalc = &hb;
-        ThrowException_if_Error(hb.SetMethods(EXTERNAL_CODECS_VARS_L options.HashMethods));
-        hb.Init();
-      }
+        CExtractCallbackConsole *ecs = new CExtractCallbackConsole;
+        CMyComPtr<IFolderArchiveExtractCallback> extractCallback = ecs;
 
-      hresultMain = Extract(
-          codecs,
-          types,
-          excludedFormats,
-          ArchivePathsSorted,
-          ArchivePathsFullSorted,
-          options.Censor.Pairs.Front().Head,
-          eo, ecs, ecs, hashCalc, errorMessage, stat);
+        ecs->PasswordIsDefined = options.PasswordEnabled;
+        ecs->Password = options.Password;
 
-      ecs->ClosePercents();
+        ecs->Init(g_StdStream, g_ErrStream, percentsStream);
+        ecs->MultiArcMode = (ArchivePathsSorted.Size() > 1);
 
-      if (!errorMessage.IsEmpty())
-      {
-        if (g_ErrStream)
-          *g_ErrStream << endl << "ERROR:" << endl << errorMessage << endl;
-        if (hresultMain == S_OK)
-          hresultMain = E_FAIL;
-      }
+        ecs->LogLevel = options.LogLevel;
+        ecs->PercentsNameLevel = percentsNameLevel;
 
-      CStdOutStream *so = g_StdStream;
+        if (percentsStream)
+          ecs->SetWindowWidth(consoleWidth);
 
-      bool isError = false;
+        CExtractOptions eo;
+        (CExtractOptionsBase &)eo = options.ExtractOptions;
 
-      if (so)
-      {
-        *so << endl;
+        eo.StdInMode = options.StdInMode;
+        eo.StdOutMode = options.StdOutMode;
+        eo.YesToAll = options.YesToAll;
+        eo.TestMode = options.Command.IsTestCommand();
 
-        if (ecs->NumTryArcs > 1)
+        eo.Properties = options.Properties;
+
+        UString errorMessage;
+        CDecompressStat stat;
+        CHashBundle hb;
+        IHashCalc *hashCalc = NULL;
+
+        if (!options.HashMethods.IsEmpty())
         {
-          *so << "Archives: " << ecs->NumTryArcs << endl;
-          *so << "OK archives: " << ecs->NumOkArcs << endl;
+          hashCalc = &hb;
+          ThrowException_if_Error(hb.SetMethods(EXTERNAL_CODECS_VARS_L options.HashMethods));
+          hb.Init();
         }
-      }
 
-      if (ecs->NumCantOpenArcs != 0)
-      {
-        isError = true;
+        hresultMain = Extract(
+            codecs,
+            types,
+            excludedFormats,
+            ArchivePathsSorted,
+            ArchivePathsFullSorted,
+            options.Censor.Pairs.Front().Head,
+            eo, ecs, ecs, hashCalc, errorMessage, stat);
+
+        ecs->ClosePercents();
+
+        if (!errorMessage.IsEmpty())
+        {
+          if (g_ErrStream)
+            *g_ErrStream << endl << "ERROR:" << endl << errorMessage << endl;
+          if (hresultMain == S_OK)
+            hresultMain = E_FAIL;
+        }
+
+        CStdOutStream *so = g_StdStream;
+
+        bool isError = false;
+
         if (so)
-          *so << "Can't open as archive: " << ecs->NumCantOpenArcs << endl;
-      }
-
-      if (ecs->NumArcsWithError != 0)
-      {
-        isError = true;
-        if (so)
-          *so << "Archives with Errors: " << ecs->NumArcsWithError << endl;
-      }
-
-      if (so)
-      {
-        if (ecs->NumArcsWithWarnings != 0)
-          *so << "Archives with Warnings: " << ecs->NumArcsWithWarnings << endl;
-
-        if (ecs->NumOpenArcWarnings != 0)
         {
           *so << endl;
+
+          if (ecs->NumTryArcs > 1)
+          {
+            *so << "Archives: " << ecs->NumTryArcs << endl;
+            *so << "OK archives: " << ecs->NumOkArcs << endl;
+          }
+        }
+
+        if (ecs->NumCantOpenArcs != 0)
+        {
+          isError = true;
+          if (so)
+            *so << "Can't open as archive: " << ecs->NumCantOpenArcs << endl;
+        }
+
+        if (ecs->NumArcsWithError != 0)
+        {
+          isError = true;
+          if (so)
+            *so << "Archives with Errors: " << ecs->NumArcsWithError << endl;
+        }
+
+        if (so)
+        {
+          if (ecs->NumArcsWithWarnings != 0)
+            *so << "Archives with Warnings: " << ecs->NumArcsWithWarnings << endl;
+
           if (ecs->NumOpenArcWarnings != 0)
-            *so << "Warnings: " << ecs->NumOpenArcWarnings << endl;
+          {
+            *so << endl;
+            if (ecs->NumOpenArcWarnings != 0)
+              *so << "Warnings: " << ecs->NumOpenArcWarnings << endl;
+          }
         }
-      }
 
-      if (ecs->NumOpenArcErrors != 0)
-      {
-        isError = true;
+        if (ecs->NumOpenArcErrors != 0)
+        {
+          isError = true;
+          if (so)
+          {
+            *so << endl;
+            if (ecs->NumOpenArcErrors != 0)
+              *so << "Open Errors: " << ecs->NumOpenArcErrors << endl;
+          }
+        }
+
+        if (isError)
+          retCode = NExitCode::kFatalError;
+
         if (so)
         {
-          *so << endl;
-          if (ecs->NumOpenArcErrors != 0)
-            *so << "Open Errors: " << ecs->NumOpenArcErrors << endl;
+          if (ecs->NumArcsWithError != 0 || ecs->NumFileErrors != 0)
+          {
+            {
+              *so << endl;
+              if (ecs->NumFileErrors != 0)
+                *so << "Sub items Errors: " << ecs->NumFileErrors << endl;
+            }
+          }
+          else if (hresultMain == S_OK)
+          {
+            if (stat.NumFolders != 0)
+              *so << "Folders: " << stat.NumFolders << endl;
+            if (stat.NumFiles != 1 || stat.NumFolders != 0 || stat.NumAltStreams != 0)
+              *so << "Files: " << stat.NumFiles << endl;
+            if (stat.NumAltStreams != 0)
+            {
+              *so << "Alternate Streams: " << stat.NumAltStreams << endl;
+              *so << "Alternate Streams Size: " << stat.AltStreams_UnpackSize << endl;
+            }
+
+            *so
+              << "Size:       " << stat.UnpackSize << endl
+              << "Compressed: " << stat.PackSize << endl;
+            if (hashCalc)
+            {
+              *so << endl;
+              PrintHashStat(*so, hb);
+            }
+          }
         }
       }
-
-      if (isError)
-        retCode = NExitCode::kFatalError;
-
-      if (so)
-      if (ecs->NumArcsWithError != 0 || ecs->NumFileErrors != 0)
+      else
       {
-        {
-          *so << endl;
-          if (ecs->NumFileErrors != 0)
-            *so << "Sub items Errors: " << ecs->NumFileErrors << endl;
-        }
-      }
-      else if (hresultMain == S_OK)
-      {
-        if (stat.NumFolders != 0)
-          *so << "Folders: " << stat.NumFolders << endl;
-        if (stat.NumFiles != 1 || stat.NumFolders != 0 || stat.NumAltStreams != 0)
-          *so << "Files: " << stat.NumFiles << endl;
-        if (stat.NumAltStreams != 0)
-        {
-          *so << "Alternate Streams: " << stat.NumAltStreams << endl;
-          *so << "Alternate Streams Size: " << stat.AltStreams_UnpackSize << endl;
-        }
+        UInt64 numErrors = 0;
+        UInt64 numWarnings = 0;
 
-        *so
-          << "Size:       " << stat.UnpackSize << endl
-          << "Compressed: " << stat.PackSize << endl;
-        if (hashCalc)
-        {
-          *so << endl;
-          PrintHashStat(*so, hb);
-        }
-      }
-    }
-    else
-    {
-      UInt64 numErrors = 0;
-      UInt64 numWarnings = 0;
+        hresultMain = ListArchives(
+            codecs,
+            types,
+            excludedFormats,
+            options.StdInMode,
+            ArchivePathsSorted,
+            ArchivePathsFullSorted,
+            options.ExtractOptions.NtOptions.AltStreams.Val,
+            options.AltStreams.Val, // we don't want to show AltStreams by default
+            options.Censor.Pairs.Front().Head,
+            options.EnableHeaders,
+            options.TechMode,
+            options.PasswordEnabled,
+            options.Password,
+            &options.Properties,
+            numErrors, numWarnings);
 
-      hresultMain = ListArchives(
-          codecs,
-          types,
-          excludedFormats,
-          options.StdInMode,
-          ArchivePathsSorted,
-          ArchivePathsFullSorted,
-          options.ExtractOptions.NtOptions.AltStreams.Val,
-          options.AltStreams.Val, // we don't want to show AltStreams by default
-          options.Censor.Pairs.Front().Head,
-          options.EnableHeaders,
-          options.TechMode,
-          options.PasswordEnabled,
-          options.Password,
-          &options.Properties,
-          numErrors, numWarnings);
-
-      if (options.EnableHeaders)
-        if (numWarnings > 0)
-          g_StdOut << endl << "Warnings: " << numWarnings << endl;
-
-      if (numErrors > 0)
-      {
         if (options.EnableHeaders)
-          g_StdOut << endl << "Errors: " << numErrors << endl;
-        retCode = NExitCode::kFatalError;
+          if (numWarnings > 0)
+            g_StdOut << endl << "Warnings: " << numWarnings << endl;
+
+        if (numErrors > 0)
+        {
+          if (options.EnableHeaders)
+            g_StdOut << endl << "Errors: " << numErrors << endl;
+          retCode = NExitCode::kFatalError;
+        }
       }
     }
   }

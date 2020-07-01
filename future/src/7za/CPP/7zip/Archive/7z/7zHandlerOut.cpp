@@ -206,7 +206,7 @@ STDMETHODIMP CHandler::UpdateItems(ISequentialOutStream *outStream, UInt32 numIt
 
   bool need_CTime = (Write_CTime.Def && Write_CTime.Val);
   bool need_ATime = (Write_ATime.Def && Write_ATime.Val);
-  bool need_MTime = (Write_MTime.Def && Write_MTime.Val || !Write_MTime.Def);
+  bool need_MTime = ((Write_MTime.Def && Write_MTime.Val) || !Write_MTime.Def);
 
   if (db && !db->Files.IsEmpty())
   {

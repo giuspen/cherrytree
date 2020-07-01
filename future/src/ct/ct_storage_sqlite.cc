@@ -1,7 +1,9 @@
 /*
  * ct_storage_sqlite.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -187,6 +189,7 @@ void CtStorageSqlite::test_connection()
             _exec_no_callback("DROP TABLE IF EXISTS test_table");
             return true;
         } catch (std::exception&) { return false; }
+        return true;
     };
 
     if (_pDb && test_readwrite())

@@ -130,7 +130,10 @@ void external_filepath_open(const fs::path& filepath, bool open_folder_if_file_n
     spdlog::debug("fs::external_filepath_open: open file {}", filepath);
     if (config->filelinkCustomOn) {
         std::string cmd = fmt::sprintf(config->filelinkCustomAct, filepath.string());
-        std::system(cmd.c_str());
+        const int retVal = std::system(cmd.c_str());
+        if (retVal != 0) {
+            spdlog::error("system({}) returned {}", cmd, retVal);
+        }
     } else {
         if (open_folder_if_file_not_exists && !fs::exists(filepath)) {
             external_folderpath_open(filepath, config);
@@ -154,7 +157,10 @@ void external_folderpath_open(const fs::path& folderpath, CtConfig* config)
     spdlog::debug("fs::external_folderpath_open: open dir {}", folderpath.string());
     if (config->folderlinkCustomOn) {
         std::string cmd = fmt::sprintf(config->filelinkCustomAct, folderpath.string());
-        std::system(cmd.c_str());
+        const int retVal = std::system(cmd.c_str());
+        if (retVal != 0) {
+            spdlog::error("system({}) returned {}", cmd, retVal);
+        }
     } else {
         // https://stackoverflow.com/questions/42442189/how-to-open-spawn-a-file-with-glib-gtkmm-in-windows
 #ifdef _WIN32

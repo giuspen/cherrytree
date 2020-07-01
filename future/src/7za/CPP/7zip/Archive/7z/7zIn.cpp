@@ -1482,8 +1482,8 @@ HRESULT CInArchive::ReadDatabase2(
     unsigned i;
     for (i = checkSize - 2;; i--)
     {
-      if (buf[i] == NID::kEncodedHeader && buf[i + 1] == NID::kPackInfo ||
-          buf[i] == NID::kHeader && buf[i + 1] == NID::kMainStreamsInfo)
+      if ((buf[i] == NID::kEncodedHeader && buf[i + 1] == NID::kPackInfo) ||
+          (buf[i] == NID::kHeader && buf[i + 1] == NID::kMainStreamsInfo))
         break;
       if (i == 0)
         return S_FALSE;

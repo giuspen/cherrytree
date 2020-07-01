@@ -1359,7 +1359,7 @@ HRESULT CInArchive::ReadLocals(CObjectVector<CItemEx> &items)
     }
     catch (CUnexpectEnd &)
     {
-      if (items.IsEmpty() || items.Size() == 1 && IsStrangeItem(items[0]))
+      if (items.IsEmpty() || (items.Size() == 1 && IsStrangeItem(items[0])))
         return S_FALSE;
       throw;
     }
@@ -2001,7 +2001,7 @@ HRESULT CInArchive::ReadHeaders2(CObjectVector<CItemEx> &items)
 
   if (isZip64)
   {
-    if (ecd64.ThisDisk == 0 && ecd64AbsOffset != ArcInfo.Base + locator.Ecd64Offset
+    if ((ecd64.ThisDisk == 0 && ecd64AbsOffset != ArcInfo.Base + locator.Ecd64Offset)
         // || ecd64.NumEntries_in_ThisDisk != numCdItems
         || ecd64.NumEntries != numCdItems
         || ecd64.Size != cdSize

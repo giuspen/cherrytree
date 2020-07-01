@@ -90,7 +90,7 @@ static void CorrectUnsupportedName(UString &name)
 static void Correct_PathPart(UString &s)
 {
   // "." and ".."
-  if (s[0] == '.' && (s[1] == 0 || s[1] == '.' && s[2] == 0))
+  if (s[0] == '.' && (s[1] == 0 || (s[1] == '.' && s[2] == 0)))
     s.Empty();
 }
 
