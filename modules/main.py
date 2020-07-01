@@ -167,7 +167,7 @@ def initializations():
     if hasattr(sys, 'frozen'):
         import warnings
         warnings.filterwarnings(cons.STR_IGNORE)
-    if not cons.IS_WIN_OS:
+    if not (cons.IS_WIN_OS or cons.IS_MAC_OS):
         try:
             # change process name
             import ctypes, ctypes.util
