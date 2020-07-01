@@ -20,11 +20,12 @@
  */
 
 #include "ct_actions.h"
-#include <gtkmm/dialog.h>
 #include "ct_clipboard.h"
 #include "ct_list.h"
 #include "ct_image.h"
 #include "ct_logging.h"
+#include "ct_storage_control.h"
+#include <gtkmm/dialog.h>
 #include <fstream>
 
 // A Special character insert was Requested
@@ -186,9 +187,18 @@ void CtActions::embfile_insert()
     _pCtMainWin->get_ct_config()->pickDirFile = Glib::path_get_dirname(filepath);
     if (fs::file_size(filepath) > static_cast<uintmax_t>(_pCtMainWin->get_ct_config()->embfileMaxSize * 1024 * 1024))
     {
-        CtDialogs::error_dialog(str::format(_("The Maximum Size for Embedded Files is %s MB"), _pCtMainWin->get_ct_config()->embfileMaxSize), *_pCtMainWin);
-        return;
+        bool is_sqlite = fs::get_doc_type(_pCtMainWin->get_ct_storage()->get_file_path()) == CtDocType::SQLite;
+        auto message = str::format(_("The Maximum Size for Embedded Files is %s MB"), _pCtMainWin->get_ct_config()->embfileMaxSize);
+        if (is_sqlite) {
+            if (!CtDialogs::question_dialog(message + "\n" + _("Do you want to Continue?"), *_pCtMainWin))
+                return;
+        }
+        else {
+            CtDialogs::error_dialog(message, *_pCtMainWin);
+            return;
+        }
     }
+
 
     auto file = std::fstream(filepath, std::ios::in | std::ios::binary);
     std::vector<char> buffer(std::istreambuf_iterator<char>(file), {});
