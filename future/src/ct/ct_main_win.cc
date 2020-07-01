@@ -994,20 +994,33 @@ void CtMainWin::file_save(bool need_vacuum)
 void CtMainWin::file_save_as(const std::string& new_filepath, const std::string& password)
 {
     Glib::ustring error;
-    auto new_storage = CtStorageControl::save_as(this, new_filepath, password, error);
+    std::unique_ptr<CtStorageControl> new_storage(CtStorageControl::save_as(this, new_filepath, password, error));
     if (!new_storage)
     {
         CtDialogs::error_dialog(error, *this);
         return;
     }
 
-    _uCtStorage.reset(new_storage);
+    // remember expanded nodes for new file
+    CtRecentDocRestore doc_state_restore;
+    doc_state_restore.exp_coll_str = _uCtTreestore->treeview_get_tree_expanded_collapsed_string(*_uCtTreeview);
+    if (const CtTreeIter curr_iter = curr_tree_iter())
+    {
+        doc_state_restore.node_path = _uCtTreestore->get_path(curr_iter).to_string();
+        doc_state_restore.cursor_pos = curr_iter.get_node_text_buffer()->property_cursor_position();
+    }
+    _pCtConfig->recentDocsFilepaths.move_or_push_front(fs::canonical(new_filepath));
+    _pCtConfig->recentDocsRestore[new_filepath] = doc_state_restore;
 
-    bool can_vacuum = fs::get_doc_type(_uCtStorage->get_file_path()) == CtDocType::SQLite;
-    _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(can_vacuum);
+    // it' a hack to recover expanded nodes for new file
+    auto old_restore = _pCtConfig->restoreExpColl;
+    auto on_scope_exit = scope_guard([&](void*) { _pCtConfig->restoreExpColl = old_restore; });
+    _pCtConfig->restoreExpColl = CtRestoreExpColl::FROM_STR;
 
-    update_window_save_not_needed();
-    get_state_machine().update_state();
+    // instead of setting all inner states, it's easer just to re-open file
+    new_storage.reset();               // we don't need it
+    update_window_save_not_needed();   // remove asking to save when we close the old file
+    file_open(new_filepath, "", password);
 }
 
 void CtMainWin::file_autosave_restart()

@@ -196,6 +196,7 @@ void CtTreeIter::remove_all_embedded_widgets()
 {
     if (*this)
     {
+        get_node_text_buffer(); // to load buffer\widgets if not loaded
         for (auto widget: (*this)->get_value(_pColumns->colAnchoredWidgets))
             delete widget;
         (*this)->set_value(_pColumns->colAnchoredWidgets, std::list<CtAnchoredWidget*>());
@@ -204,11 +205,17 @@ void CtTreeIter::remove_all_embedded_widgets()
 
 std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes_fast()
 {
-    return (*this) ? (*this)->get_value(_pColumns->colAnchoredWidgets) : std::list<CtAnchoredWidget*>();
+    if (*this)
+    {
+        get_node_text_buffer(); // to load buffer\widgets if not loaded
+        return (*this)->get_value(_pColumns->colAnchoredWidgets);
+    }
+    return std::list<CtAnchoredWidget*>();
 }
 
 std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes(int start_offset /*= -1*/, int end_offset /*= -1*/)
 {
+    get_node_text_buffer(); // to load buffer\widgets if not loaded
     std::list<CtAnchoredWidget*> retAnchoredWidgetsList;
     if ((*this) and (*this)->get_value(_pColumns->colAnchoredWidgets).size() > 0)
     {
