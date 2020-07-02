@@ -58,10 +58,8 @@ public:
 
     virtual void setup(const PrintInfo& print_info, CtPrintData& print_data) = 0;
     virtual PrintPosition print(const PrintingContext& context) = 0;
-    virtual std::unique_ptr<CtPrintable> overflow(double amount) = 0;
-    [[nodiscard]] virtual int height() const = 0;
+    [[nodiscard]] virtual double height() const = 0;
     [[nodiscard]] virtual double width() const = 0;
-    [[nodiscard]] virtual std::size_t lines() const = 0;
     [[nodiscard]] constexpr bool done() const { return _done; }
 
     virtual ~CtPrintable() = default;
@@ -78,14 +76,12 @@ public:
 
     PrintPosition print(const PrintingContext& context) override;
 
-    [[nodiscard]] int height() const override;
+    [[nodiscard]] double height() const override;
     [[nodiscard]] double width() const override;
-    [[nodiscard]] std::size_t lines() const override;
+    [[nodiscard]] std::size_t lines() const;
     [[nodiscard]] const Glib::RefPtr<Pango::Layout>& layout() const { return _layout; }
     [[nodiscard]] constexpr bool is_newline() const { return _is_newline; }
 
-
-    std::unique_ptr<CtPrintable> overflow(double amount) override;
 
 private:
     Glib::ustring _text;
@@ -101,12 +97,12 @@ class CtWidgetPrintable : public CtPrintable {
 public:
     explicit CtWidgetPrintable(wrap_ptr_t widget_proxy) : _widget_proxy(std::move(widget_proxy)) {}
 
-    [[nodiscard]] int height() const override { return _last_height; }
-    [[nodiscard]] std::size_t lines() const override { return 0; }
 protected:
     wrap_ptr_t _widget_proxy;
     mutable std::size_t _last_height = 0;
 };
+
+std::unique_ptr<CtPrintable> printable_from_widget(CtAnchoredWidget* widget);
 
 
 using CtPrintableVector = std::vector<std::shared_ptr<CtPrintable>>;
@@ -217,7 +213,7 @@ public:
 
     double width() const override;
 
-    std::unique_ptr<CtPrintable> overflow(double amount) override;
+    double height() const override;
 };
 
 class CtWidgetTablePrintable: public CtWidgetPrintable<CtPrintTableProxy> {
@@ -228,7 +224,7 @@ public:
 
     double width() const override;
 
-    std::unique_ptr<CtPrintable> overflow(double amount) override;
+    double height() const override;
 
     void setup(const PrintInfo& print_info, CtPrintData& print_data) override;
 private:
@@ -253,7 +249,7 @@ private:
 
     std::pair<std::vector<double>, std::vector<double>> _get_table_grid(std::vector<std::vector<Glib::RefPtr<Pango::Layout>>>& table_layouts, int col_min) const;
 private:
-    static double _get_table_height_from_grid(std::pair<std::vector<double>, std::vector<double>>& table_grid, int table_line_thickness);
+    static double _get_table_height_from_grid(const tbl_grid_t& table_grid, int table_line_thickness);
     static double _get_table_width_from_grid(const tbl_grid_t& table_grid, int table_line_thickness);
     static void _table_draw_grid(const DrawingContext& context);
     static void _table_draw_text(const DrawingContext& context);
@@ -267,9 +263,10 @@ public:
 
     PrintPosition print(const PrintingContext& context) override;
 
+    double height() const override;
+
     double width() const override;
 
-    std::unique_ptr<CtPrintable> overflow(double amount) override;
 
 private:
     Glib::RefPtr<Pango::Layout> _calc_layout(const PrintInfo& print_info) const;
@@ -348,8 +345,8 @@ class CtExport2Pango
 {
 public:
     Glib::ustring pango_get_from_code_buffer(Glib::RefPtr<Gsv::Buffer> code_buffer, int sel_start, int sel_end);
-    static void pango_get_from_treestore_node(CtTreeIter node_iter, int sel_start, int sel_end, CtPrintableVector& out_slots,
-                                       bool exclude_anchors, std::list<CtAnchoredWidget*>& out_widgets);
+    static void pango_get_from_treestore_node(CtTreeIter node_iter, int sel_start, int sel_end,
+                                              CtPrintableVector& out_printables, bool exclude_anchors);
 private:
     static CtPrintableVector _pango_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer);
     static std::unique_ptr<CtPrintable> _pango_text_serialize(const Gtk::TextIter& start_iter, Gtk::TextIter end_iter, const std::map<std::string_view, std::string> &curr_attributes);

@@ -32,7 +32,8 @@ void CtExport2Pdf::node_export_print(const fs::path& pdf_filepath, CtTreeIter tr
     Glib::ustring text_font;
     if (tree_iter.get_node_is_rich_text())
     {
-        CtExport2Pango::pango_get_from_treestore_node(tree_iter, sel_start, sel_end, printable_slots, true /*exclude anchors*/, widgets);
+        CtExport2Pango::pango_get_from_treestore_node(tree_iter, sel_start, sel_end, printable_slots,
+                                                      true /*exclude anchors*/);
         text_font = _pCtMainWin->get_ct_config()->rtFont;
     }
     else
@@ -80,7 +81,7 @@ void CtExport2Pdf::_nodes_all_export_print_iter(const CtTreeIter& tree_iter, con
     std::list<CtAnchoredWidget*> node_widgets;
     if (tree_iter.get_node_is_rich_text())
     {
-        CtExport2Pango().pango_get_from_treestore_node(tree_iter, -1, -1, node_pango_slots, true /*exclude anchors*/, node_widgets);
+        CtExport2Pango().pango_get_from_treestore_node(tree_iter, -1, -1, node_pango_slots, true /*exclude anchors*/);
         text_font =_pCtMainWin->get_ct_config()->rtFont; // text font for all (also eventual code nodes)
     }
     else
@@ -109,7 +110,11 @@ void CtExport2Pdf::_nodes_all_export_print_iter(const CtTreeIter& tree_iter, con
             }
         }
     }
-    tree_widgets.insert(std::end(tree_widgets), std::begin(node_widgets), std::end(node_widgets));
+    for (const auto& widget : node_widgets) {
+        if (auto* image = dynamic_cast<CtImage*>(widget))            node_pango_slots.emplace_back(std::make_shared<CtWidgetImagePrintable>(std::make_shared<CtPrintImageProxy>(image)));
+        else if (auto* table = dynamic_cast<CtTable*>(widget))       node_pango_slots.emplace_back(std::make_shared<CtWidgetTablePrintable>(std::make_shared<CtPrintTableProxy>(table, 1, table->get_table_matrix().size())));
+        else if (auto* codebox = dynamic_cast<CtCodebox*>(widget))   node_pango_slots.emplace_back(std::make_shared<CtWidgetCodeboxPrintable>(std::make_shared<CtPrintCodeboxProxy>(codebox)));
+    }
     for (auto& iter: tree_iter->children())
         _nodes_all_export_print_iter(_pCtMainWin->get_tree_store().to_ct_tree_iter(iter), options, tree_pango_slots, tree_widgets, text_font);
 }
@@ -150,13 +155,13 @@ void CtPrint::print_text(CtMainWin* pCtMainWin, const fs::path& pdf_filepath,
     //_print_info.table_text_row_height = _pango_font.get_size()/Pango::SCALE;
     _print_info.table_line_thickness = 6;
     // convert to proxy widgets
-    for (auto& widget: widgets)
+    /*for (auto& widget: widgets)
     {
         if (auto* image = dynamic_cast<CtImage*>(widget))            printables.emplace_back(std::make_shared<CtWidgetImagePrintable>(std::make_shared<CtPrintImageProxy>(image)));
         else if (auto* table = dynamic_cast<CtTable*>(widget))       printables.emplace_back(std::make_shared<CtWidgetTablePrintable>(std::make_shared<CtPrintTableProxy>(table, 1, table->get_table_matrix().size())));
         else if (auto* codebox = dynamic_cast<CtCodebox*>(widget))   printables.emplace_back(std::make_shared<CtWidgetCodeboxPrintable>(std::make_shared<CtPrintCodeboxProxy>(codebox)));
        // else                                                         printables.emplace_back(std::make_shared<CtWidgetSomePrintable>(std::make_shared<CtPrintSomeProxy>((widget))));
-    }
+    }*/
 
     CtPrintData print_data;
     print_data.printables = std::move(printables);
@@ -634,21 +639,44 @@ Glib::ustring CtExport2Pango::pango_get_from_code_buffer(Glib::RefPtr<Gsv::Buffe
     return pango_text;
 }
 
+
+
+std::unique_ptr<CtPrintable> printable_from_widget(CtAnchoredWidget* widget)
+{
+    if (!widget) {
+        throw std::logic_error("CtWidgetPrintable::from_widget passed nullptr!");
+    }
+
+    if (auto* image = dynamic_cast<CtImage*>(widget))            return std::make_unique<CtWidgetImagePrintable>(std::make_shared<CtPrintImageProxy>(image));
+    else if (auto* table = dynamic_cast<CtTable*>(widget))       return std::make_unique<CtWidgetTablePrintable>(std::make_shared<CtPrintTableProxy>(table, 1, table->get_table_matrix().size()));
+    else if (auto* codebox = dynamic_cast<CtCodebox*>(widget))   return std::make_unique<CtWidgetCodeboxPrintable>(std::make_shared<CtPrintCodeboxProxy>(codebox));
+    else {
+        throw std::logic_error("CtWidgetPrintable::from_widget passed unknown widget type");
+    }
+}
+
 // Given a treestore iter returns the Pango rich text
-void CtExport2Pango::pango_get_from_treestore_node(CtTreeIter node_iter, int sel_start, int sel_end, CtPrintableVector& out_slots,
-                                                   bool exclude_anchors, std::list<CtAnchoredWidget*>& out_widgets)
+void CtExport2Pango::pango_get_from_treestore_node(CtTreeIter node_iter, int sel_start, int sel_end,
+                                                   CtPrintableVector& out_printables, bool exclude_anchors)
 {
     auto curr_buffer = node_iter.get_node_text_buffer();
-    out_widgets = node_iter.get_embedded_pixbufs_tables_codeboxes(sel_start, sel_end);
-    if (exclude_anchors)
-        out_widgets.remove_if([](CtAnchoredWidget* widget) { return dynamic_cast<CtImageAnchor*>(widget);});
-    out_slots.clear();
+    std::list<CtAnchoredWidget*> out_widgets = node_iter.get_embedded_pixbufs_tables_codeboxes(sel_start, sel_end);
+    if (exclude_anchors) {
+        out_widgets.remove_if([](CtAnchoredWidget* widget) { return dynamic_cast<CtImageAnchor*>(widget); });
+    }
+    out_printables.clear();
     int start_offset = sel_start < 1 ? 0 : sel_start;
     for (auto widget: out_widgets)
     {
         int end_offset = widget->getOffset();
         CtPrintableVector slots = _pango_process_slot(start_offset, end_offset, curr_buffer);
-        out_slots.insert(out_slots.end(), slots.begin(), slots.end());
+        out_printables.insert(out_printables.cend(), slots.begin(), slots.end());
+        try {
+            std::shared_ptr<CtPrintable> p_widget = printable_from_widget(widget);
+            out_printables.emplace_back(std::move(p_widget));
+        } catch(std::exception& e) {
+            spdlog::error("Exception occurred while trying to convert widget to printable: {}", e.what());
+        }
         start_offset = end_offset;
     }
     CtPrintableVector slots;
@@ -658,7 +686,7 @@ void CtExport2Pango::pango_get_from_treestore_node(CtTreeIter node_iter, int sel
     else {
         slots = _pango_process_slot(start_offset, sel_end, curr_buffer);
     }
-    out_slots.insert(out_slots.end(), slots.begin(), slots.end());
+    out_printables.insert(out_printables.end(), slots.begin(), slots.end());
     // fix the problem of the latest char not being a new line char
     /*if (out_slots.size() > 0 && (out_slots[out_slots.size() - 1].size() == 0 || !str::endswith(out_slots[out_slots.size()-1], CtConst::CHAR_NEWLINE)))
         out_slots[out_slots.size()-1] += CtConst::CHAR_NEWLINE;*/
@@ -762,6 +790,11 @@ double CtWidgetImagePrintable::width() const
     return 0;
 }
 
+double CtWidgetImagePrintable::height() const
+{
+    return 0;
+}
+
 
 std::pair<std::vector<double>, std::vector<double>> CtWidgetTablePrintable::_get_table_grid(std::vector<std::vector<Glib::RefPtr<Pango::Layout>>>& table_layouts, int col_min) const
 {
@@ -787,7 +820,7 @@ std::pair<std::vector<double>, std::vector<double>> CtWidgetTablePrintable::_get
     return std::make_pair(rows_h, cols_w);
 }
 
-double CtWidgetTablePrintable::_get_table_height_from_grid(std::pair<std::vector<double>, std::vector<double>>& table_grid, int table_line_thickness)
+double CtWidgetTablePrintable::_get_table_height_from_grid(const CtWidgetTablePrintable::tbl_grid_t& table_grid, int table_line_thickness)
 {
     double table_height = 0;
     for (auto& row_h : table_grid.first)
@@ -858,9 +891,9 @@ double CtWidgetCodeboxPrintable::width() const
     return 0;
 }
 
-std::unique_ptr<CtPrintable> CtWidgetCodeboxPrintable::overflow(double amount)
+double CtWidgetCodeboxPrintable::height() const
 {
-    return std::make_unique<CtWidgetCodeboxPrintable>(*this);
+    return 0;
 }
 
 
@@ -869,9 +902,8 @@ void CtTextPrintable::setup(const PrintInfo& print_info, CtPrintData& print_data
     auto& print_context = print_info.print_context;
     bool is_forced_page_break = str::startswith(_text, str::repeat(CtConst::CHAR_NEWPAGE, 2));
     print_data.forced_page_break.push_back(is_forced_page_break);
-    // in other cases we detect the newline from a following line
-    // but here we have a single layout line
-   // print_data.layout_is_new_line.push_back(_text == CtConst::CHAR_NEWLINE);
+
+    _is_newline = _text == CtConst::CHAR_NEWLINE;
 
     _layout = print_context->create_pango_layout();
     _layout->set_font_description(print_info.font);
@@ -880,7 +912,7 @@ void CtTextPrintable::setup(const PrintInfo& print_info, CtPrintData& print_data
     _layout->set_markup(is_forced_page_break ? _text.substr(2) : _text);
 }
 
-int CtTextPrintable::height() const
+double CtTextPrintable::height() const
 {
     return _layout->get_pixel_logical_extents().get_height();
 }
@@ -889,8 +921,9 @@ CtPrintable::PrintPosition CtTextPrintable::print(const PrintingContext& context
 {
     PrintPosition pos = context.position;
 
+    auto line_count = _layout->get_line_count();
     while(true) {
-        if (_line_index > _layout->get_line_count()) {
+        if (_line_index >= line_count) {
             _done = true;
             break;
         }
@@ -904,7 +937,13 @@ CtPrintable::PrintPosition CtTextPrintable::print(const PrintingContext& context
         context.cairo_context->move_to(pos.x, pos.y);
         line->show_in_cairo_context(context.cairo_context);
 
-        pos.y += CtPrint::layout_line_get_width_height(line).height;
+        if(_line_index < line_count - 1 || is_newline()) {
+            pos.y += CtPrint::layout_line_get_width_height(line).height;
+            pos.x = 0;
+        } else {
+            pos.x += CtPrint::layout_line_get_width_height(line).width;
+        }
+
         ++_line_index;
     }
     return pos;
@@ -919,43 +958,6 @@ double CtTextPrintable::width() const
 
 
 
-std::unique_ptr<CtPrintable> CtTextPrintable::overflow(double amount)
-{
-    if (amount > _layout->get_pixel_logical_extents().get_height()) {
-        throw std::logic_error(fmt::format("Recieved invalid overflow amount of: <{}>; max is: <{}>", amount, _layout->get_pixel_logical_extents().get_height()));
-    }
-    auto lines = _layout->get_lines();
-    std::size_t height_px = 0;
-    std::size_t i = 0;
-    for (const auto& line : lines) {
-        height_px += line->get_pixel_logical_extents().get_height();
-        if (height_px >= amount) {
-            // Found overflow margin
-            break;
-        }
-        ++i;
-    }
-    std::vector<Glib::ustring> str_lines = str::split(_text, "\n");
-    if (i >= str_lines.size()) {
-        throw std::runtime_error(fmt::format("String too large: <{}>; max: <{}>", i, static_cast<int>(str_lines.size()) - 1));
-    }
-    if (i <= 0) {
-        // Margin is too small, we _have_ to break to new page
-        spdlog::debug("Broke onto new");
-    }
-    Glib::ustring new_txt = str::join<Glib::ustring>(str_lines.cbegin(), str_lines.cbegin() + i, '\n');
-    Glib::ustring overflow_txt = str::join<Glib::ustring>(str_lines.cbegin() + i, str_lines.cend(), '\n');
-
-    auto overflow_printable = std::make_unique<CtTextPrintable>(overflow_txt);
-    overflow_printable->_layout = _layout->copy();
-    overflow_printable->_layout->set_markup(overflow_txt);
-
-    _text.swap(new_txt);
-    _layout->set_markup(_text);
-
-    return overflow_printable;
-}
-
 std::size_t CtTextPrintable::lines() const
 {
     return _layout->get_line_count();
@@ -969,22 +971,28 @@ void CtWidgetTablePrintable::_split_too_long(const PrintInfo& print_info, CtPrin
 
 CtPrintable::PrintPosition CtWidgetTablePrintable::print(const CtPrintable::PrintingContext& context)
 {
-    /*DrawingContext draw_context;
-    draw_context.cairo_context = context.cairo_context;
-    draw_context.table_layouts = _tbl_layouts;
-    draw_context.table_grid = _tbl_grid;
-    draw_context.width = _get_table_width_from_grid(draw_context.table_grid, context.print_info.table_line_thickness);
-    draw_context.height = _get_table_height_from_grid(draw_context.table_grid, context.print_info.table_line_thickness);
-    draw_context.x0 = context.position.x;
-    draw_context.y0 = context.position.y - draw_context.height;
-
-    _table_draw_grid(draw_context);
-    _table_draw_text(draw_context);
-*/
     auto pos = context.position;
-    pos.x += 1;
-    pos.y += 1;
-    _done = true;
+    pos.x += width();
+    pos.y += height();
+
+    if (pos.y < context.print_info.page_height && !_done) {
+        // Only print if it fits
+        DrawingContext draw_context;
+        draw_context.cairo_context = context.cairo_context;
+        draw_context.table_layouts = _tbl_layouts;
+        draw_context.table_grid = _tbl_grid;
+        draw_context.width = _get_table_width_from_grid(draw_context.table_grid, context.print_info.table_line_thickness);
+        draw_context.height = _get_table_height_from_grid(draw_context.table_grid, context.print_info.table_line_thickness);
+        draw_context.x0 = context.position.x;
+        draw_context.y0 = context.position.y;
+        draw_context.line_thickness = context.print_info.table_line_thickness;
+
+        _table_draw_grid(draw_context);
+        _table_draw_text(draw_context);
+
+
+        _done = true;
+    }
     return pos;
 }
 
@@ -1000,6 +1008,7 @@ void CtWidgetTablePrintable::_table_draw_grid(const DrawingContext& draw_context
     for (auto& row_h: draw_context.table_grid.first)
     {
         y += row_h + draw_context.line_thickness;
+        spdlog::debug("ROW H: {}", y);
         cairo_context->move_to(x, y);
         cairo_context->line_to(x + draw_context.width, y);
     }
@@ -1009,9 +1018,10 @@ void CtWidgetTablePrintable::_table_draw_grid(const DrawingContext& draw_context
     cairo_context->line_to(x, y + draw_context.height);
     for (auto& col_w: draw_context.table_grid.second)
     {
+        spdlog::debug("COL W: {}", x);
         x += col_w + draw_context.line_thickness;
         cairo_context->move_to(x, y);
-        cairo_context->line_to(x, y + draw_context.width);
+        cairo_context->line_to(x, y + draw_context.height);
     }
     cairo_context->stroke();
 }
@@ -1060,12 +1070,8 @@ double CtWidgetTablePrintable::width() const
     return _get_table_width_from_grid(_tbl_grid, 6);
 }
 
-std::unique_ptr<CtPrintable> CtWidgetTablePrintable::overflow(double amount)
+double CtWidgetTablePrintable::height() const
 {
-    return std::make_unique<CtWidgetTablePrintable>(*this);
+    return _get_table_height_from_grid(_tbl_grid, 6);
 }
 
-std::unique_ptr<CtPrintable> CtWidgetImagePrintable::overflow(double amount)
-{
-    return std::make_unique<CtWidgetImagePrintable>(*this);
-}
