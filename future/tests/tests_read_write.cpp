@@ -38,21 +38,24 @@ private:
 void TestCtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint)
 {
     CHECK_EQUAL(1, files.size());
-    const fs::path doc_filepath{files.front()->get_path()};
-    const CtDocEncrypt docEncrypt = fs::get_doc_encrypt(doc_filepath);
+    const fs::path doc_filepath_from{files.front()->get_path()};
+    // NOTE: we use the trick of the [-t export_to_txt_dir] argument to pass the target file type
+    const fs::path doc_filepath_to{_export_to_txt_dir};
+    const CtDocEncrypt docEncrypt_from = fs::get_doc_encrypt(doc_filepath_from);
+    const CtDocEncrypt docEncrypt_to = fs::get_doc_encrypt(doc_filepath_to);
 
     CtMainWin* pWin = _create_window(true/*start_hidden*/);
     // tree empty
     CHECK_FALSE(pWin->get_tree_store().get_iter_first());
     // load file
-    CHECK(pWin->file_open(doc_filepath, "", docEncrypt != CtDocEncrypt::True ? "" : UT::testPassword));
-    // check tree
-    _assert_tree_data(pWin);
+    CHECK(pWin->file_open(doc_filepath_from, "", docEncrypt_from != CtDocEncrypt::True ? "" : UT::testPassword));
+    // do not check/walk the tree before calling the save_as to test that
+    // even without visiting each node we save it all
 
     // save to temporary filepath
     fs::path tmp_dirpath = pWin->get_ct_tmp()->getHiddenDirPath("UT");
-    fs::path tmp_filepath = tmp_dirpath / doc_filepath.filename();
-    pWin->file_save_as(tmp_filepath.string(), docEncrypt != CtDocEncrypt::True ? "" : UT::testPasswordBis);
+    fs::path tmp_filepath = tmp_dirpath / doc_filepath_to.filename();
+    pWin->file_save_as(tmp_filepath.string(), docEncrypt_to != CtDocEncrypt::True ? "" : UT::testPasswordBis);
 
     // close this window/tree
     pWin->force_exit() = true;
@@ -63,7 +66,7 @@ void TestCtApp::on_open(const Gio::Application::type_vec_files& files, const Gli
     // tree empty
     CHECK_FALSE(pWin2->get_tree_store().get_iter_first());
     // load file previously saved
-    CHECK(pWin2->file_open(tmp_filepath, "", docEncrypt != CtDocEncrypt::True ? "" : UT::testPasswordBis));
+    CHECK(pWin2->file_open(tmp_filepath, "", docEncrypt_to != CtDocEncrypt::True ? "" : UT::testPasswordBis));
     // check tree
     _assert_tree_data(pWin2);
 
@@ -92,40 +95,22 @@ TEST_GROUP(CtDocRWGroup)
 
 #ifndef __APPLE__ // TestCtApp causes crash on macos
 
-TEST(CtDocRWGroup, CtDocRWCtb)
+void test_read_write(const std::vector<std::string>& vec_args)
 {
     TestCtApp testCtApp{};
-    const std::vector<std::string> vecArgs{"cherrytree", UT::testCtbDocPath};
-    gchar** pp_args = CtStrUtil::vector_to_array(vecArgs);
-    testCtApp.run(vecArgs.size(), pp_args);
+    gchar** pp_args = CtStrUtil::vector_to_array(vec_args);
+    testCtApp.run(vec_args.size(), pp_args);
     g_strfreev(pp_args);
 }
 
-TEST(CtDocRWGroup, CtDocRWCtd)
+TEST(CtDocRWGroup, CtDocRW_all_variants)
 {
-    TestCtApp testCtApp{};
-    const std::vector<std::string> vecArgs{"cherrytree", UT::testCtdDocPath};
-    gchar** pp_args = CtStrUtil::vector_to_array(vecArgs);
-    testCtApp.run(vecArgs.size(), pp_args);
-    g_strfreev(pp_args);
-}
-
-TEST(CtDocRWGroup, CtDocRWCtx)
-{
-    TestCtApp testCtApp{};
-    const std::vector<std::string> vecArgs{"cherrytree", UT::testCtxDocPath};
-    gchar** pp_args = CtStrUtil::vector_to_array(vecArgs);
-    testCtApp.run(vecArgs.size(), pp_args);
-    g_strfreev(pp_args);
-}
-
-TEST(CtDocRWGroup, CtDocRWCtz)
-{
-    TestCtApp testCtApp{};
-    const std::vector<std::string> vecArgs{"cherrytree", UT::testCtzDocPath};
-    gchar** pp_args = CtStrUtil::vector_to_array(vecArgs);
-    testCtApp.run(vecArgs.size(), pp_args);
-    g_strfreev(pp_args);
+    for (const std::string& in_doc_path : UT::testAllDocTypes) {
+        for (const std::string& out_doc_path : UT::testAllDocTypes) {
+            const std::vector<std::string> vecArgs{"cherrytree", in_doc_path, "-t", out_doc_path};
+            test_read_write(vecArgs);
+        }
+    }
 }
 
 #endif // __APPLE__

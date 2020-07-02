@@ -57,7 +57,7 @@ private:
     Glib::RefPtr<Gsv::StyleSchemeManager> _rStyleSchemeManager;
     Glib::RefPtr<Gtk::StatusIcon> _rStatusIcon;
 
-private:
+protected:
     Glib::ustring _node_to_focus;
     std::string   _export_to_html_dir;
     std::string   _export_to_txt_dir;
