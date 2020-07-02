@@ -255,6 +255,7 @@ class CherryTree:
             self.file_startup_load(open_with_file, node_name)
         else: self.file_name = ""
         if self.tree_is_empty(): self.update_node_name_header()
+        if cons.DISABLE_SYSTRAY: self.systray = False
         if self.systray:
             if not self.boss.systray_active:
                 self.status_icon_enable()
