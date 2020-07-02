@@ -96,7 +96,7 @@ void CtExport2Pdf::_nodes_all_export_print_iter(const CtTreeIter& tree_iter, con
     {
         if (options.new_node_page)
         {
-            node_pango_slots.emplace(node_pango_slots.begin(), std::make_unique<CtTextPrintable>(str::repeat(CtConst::CHAR_NEWPAGE, 2)));
+            node_pango_slots.emplace(node_pango_slots.begin(), std::make_shared<CtPageBreakPrintable>());
             vec::vector_extend(tree_pango_slots, node_pango_slots);
             node_widgets.insert(node_widgets.begin(), nullptr);
         }
@@ -242,9 +242,6 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
     CtPrintable::PrintInfo p_info = _print_info;
     p_info.print_context = context;
 
-    print_data->forced_page_break.clear();
-    print_data->layout_is_new_line.clear();
-    print_data->all_lines_y.clear();
 
     bool exit_ok = true;
     double total_height = 0;
@@ -254,7 +251,7 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
         total_height += printable->height();
     }
 
-    auto nb_pages = static_cast<int>(total_height / _print_info.page_height) + 2;
+    auto nb_pages = std::ceil(total_height / _print_info.page_height);
     print_data->operation->set_n_pages(nb_pages);
     print_data->nb_pages = nb_pages;
     if (any_image_resized)
@@ -337,7 +334,7 @@ double CtPrint::get_height_from_layout(Glib::RefPtr<Pango::Layout> layout)
 }
 
 // Returns the Height given the Layout
-double CtPrint::_get_width_from_layout(Glib::RefPtr<Pango::Layout> layout)
+double CtPrint::get_width_from_layout(Glib::RefPtr<Pango::Layout> layout)
 {
     double width = 0;
     for (int layout_line_idx = 0; layout_line_idx < layout->get_line_count(); ++layout_line_idx)
@@ -525,28 +522,8 @@ void CtPrint::_codebox_long_split(size_t idx, const Glib::RefPtr<Gtk::PrintConte
     }*/
 }
 
-// Draw the CodeBox Box
-void CtPrint::_codebox_draw_box(Cairo::RefPtr<Cairo::Context> cairo_context, double x0, double y0, double codebox_width, double codebox_height)
-{
-    cairo_context->set_source_rgba(0, 0, 0, 0.3);
-    cairo_context->rectangle(x0, y0, codebox_width, codebox_height);
-    cairo_context->stroke();
-}
 
-// Draw the code inside of the Box
-void CtPrint::_codebox_draw_code(Cairo::RefPtr<Cairo::Context> cairo_context, Glib::RefPtr<Pango::Layout> codebox_layout, double x0, double y0)
-{
-    double y = y0;
-    cairo_context->set_source_rgb(0, 0, 0);
-    for (int layout_line_idx = 0; layout_line_idx < codebox_layout->get_line_count(); ++layout_line_idx)
-    {
-        auto layout_line = codebox_layout->get_line(layout_line_idx);
-        double line_height = layout_line_get_width_height(layout_line).height;
-        cairo_context->move_to(x0 + CtConst::GRID_SLIP_OFFSET, y + line_height);
-        y += line_height;
-        layout_line->show_in_cairo_context(cairo_context);
-    }
-}
+
 
 // Draw the Table Grid
 void CtPrint::_table_draw_grid(Cairo::RefPtr<Cairo::Context> cairo_context, const std::pair<std::vector<double>, std::vector<double>>& table_grid,
@@ -780,19 +757,49 @@ void CtWidgetImagePrintable::setup(const PrintInfo& print_info, CtPrintData &pri
 CtPrintable::PrintPosition CtWidgetImagePrintable::print(const CtPrintable::PrintingContext& context)
 {
     auto pos = context.position;
-    pos.y += 1;
-    _done = true;
+    if (!_done) {
+        auto pixbuf = _widget_proxy->get_pixbuf();
+
+        if (pixbuf->get_height() < context.print_info.page_height && context.position.y + pixbuf->get_height() > context.print_info.page_height) {
+            // Possible to fit on single page, but not this one
+            pos.y += pixbuf->get_height();
+            return pos;
+        }
+
+        // should recalc scale because curr_x is changed
+        double scale_w = (context.print_info.page_width - context.position.x) / pixbuf->get_width();
+        double scale_h = (context.print_info.page_height - context.print_info.newline_height -
+                          CtConst::WHITE_SPACE_BETW_PIXB_AND_TEXT) / pixbuf->get_height();
+        double scale = std::min(scale_w, scale_h);
+
+        if (scale > 1.0) scale = 1.0; // Cap scale
+
+        double pixbuf_width = pixbuf->get_width() * scale;
+        double pixbuf_height = pixbuf->get_height() * scale;
+
+        auto& cairo_context = context.cairo_context;
+        cairo_context->save();
+        cairo_context->scale(scale, scale);
+        Gdk::Cairo::set_source_pixbuf(cairo_context, pixbuf, context.position.x,
+                                      context.position.y);
+        cairo_context->paint();
+        cairo_context->restore();
+
+        pos.x += pixbuf_width;
+        pos.y += pixbuf_height;
+        _done = true;
+    }
     return pos;
 }
 
 double CtWidgetImagePrintable::width() const
 {
-    return 0;
+    return _last_width;
 }
 
 double CtWidgetImagePrintable::height() const
 {
-    return 0;
+    return _last_height;
 }
 
 
@@ -870,46 +877,79 @@ Glib::RefPtr<Pango::Layout> CtWidgetCodeboxPrintable::_calc_layout(const PrintIn
     return layout;
 }
 
-void CtWidgetCodeboxPrintable::setup(const PrintInfo& print_info, CtPrintData& print_data)
+void CtWidgetCodeboxPrintable::setup(const PrintInfo& print_info, CtPrintData&)
 {
-
-    double codebox_height = CtPrint::get_height_from_layout(_calc_layout(print_info));
-    _last_height = codebox_height;
+    _layout = _calc_layout(print_info);
 }
 
 CtPrintable::PrintPosition CtWidgetCodeboxPrintable::print(const CtPrintable::PrintingContext& context)
 {
     auto pos = context.position;
-    pos.y += height();
-    _done = true;
+    if (!_done) {
+        auto c_height = height();
+        if (pos.y + c_height > context.print_info.page_height) {
+            spdlog::debug("Codebox too big to fit, needs {} - {} is available", c_height, context.print_info.page_height - pos.y);
+            return pos;
+        }
+        pos.y += c_height;
+        pos.x += width();
 
+
+        DrawContext draw_context{
+                .height = c_height,
+                .width = width(),
+                .x = context.position.x,
+                .y = context.position.y - c_height
+        };
+
+        _draw_box(context.cairo_context, draw_context);
+        _draw_code(context.cairo_context, draw_context);
+
+        _done = true;
+    }
     return pos;
+}
+
+void CtWidgetCodeboxPrintable::_draw_box(const Cairo::RefPtr<Cairo::Context>& cairo_context, const DrawContext& draw_context) {
+    cairo_context->set_source_rgba(0, 0, 0, 0.3);
+    cairo_context->rectangle(draw_context.x, draw_context.y, draw_context.width, draw_context.height);
+    cairo_context->stroke();
+}
+
+void CtWidgetCodeboxPrintable::_draw_code(const Cairo::RefPtr<Cairo::Context>& cairo_context, const DrawContext& draw_context) {
+    double y = draw_context.y;
+    cairo_context->set_source_rgb(0, 0, 0);
+    for (int layout_line_idx = 0; layout_line_idx < _layout->get_line_count(); ++layout_line_idx)
+    {
+        auto layout_line = _layout->get_line(layout_line_idx);
+        double line_height = CtPrint::layout_line_get_width_height(layout_line).height;
+        cairo_context->move_to(draw_context.x + CtConst::GRID_SLIP_OFFSET, y + line_height);
+        y += line_height;
+        layout_line->show_in_cairo_context(cairo_context);
+    }
 }
 
 double CtWidgetCodeboxPrintable::width() const
 {
-    return 0;
+    return CtPrint::get_width_from_layout(_layout);
 }
 
 double CtWidgetCodeboxPrintable::height() const
 {
-    return 0;
+    return CtPrint::get_height_from_layout(_layout);
 }
 
 
 void CtTextPrintable::setup(const PrintInfo& print_info, CtPrintData& print_data)
 {
     auto& print_context = print_info.print_context;
-    bool is_forced_page_break = str::startswith(_text, str::repeat(CtConst::CHAR_NEWPAGE, 2));
-    print_data.forced_page_break.push_back(is_forced_page_break);
-
     _is_newline = _text == CtConst::CHAR_NEWLINE;
 
     _layout = print_context->create_pango_layout();
     _layout->set_font_description(print_info.font);
     auto page_width = static_cast<int>(print_info.page_width);
     _layout->set_width(page_width * Pango::SCALE);
-    _layout->set_markup(is_forced_page_break ? _text.substr(2) : _text);
+    _layout->set_markup(_text);
 }
 
 double CtTextPrintable::height() const
@@ -1075,3 +1115,25 @@ double CtWidgetTablePrintable::height() const
     return _get_table_height_from_grid(_tbl_grid, 6);
 }
 
+void CtPageBreakPrintable::setup(const CtPrintable::PrintInfo& print_info, CtPrintData&)
+{
+    _p_height = print_info.page_height; // Just break by being the size of a page
+}
+
+CtPrintable::PrintPosition CtPageBreakPrintable::print(const CtPrintable::PrintingContext& context)
+{
+    PrintPosition pos = context.position;
+    pos.y += context.print_info.page_height - context.position.y; // Add needed diff to break
+    _done = true;
+    return pos;
+}
+
+double CtPageBreakPrintable::height() const
+{
+    return 0;
+}
+
+double CtPageBreakPrintable::width() const
+{
+    return 0;
+}
