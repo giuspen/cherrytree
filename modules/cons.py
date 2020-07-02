@@ -70,6 +70,7 @@ try:
 except: HAS_APPINDICATOR = False
 XDG_CURRENT_DESKTOP = 'XDG_CURRENT_DESKTOP'
 HAS_SYSTRAY = not (XDG_CURRENT_DESKTOP in os.environ and os.environ[XDG_CURRENT_DESKTOP] == "Unity")
+DISABLE_SYSTRAY = IS_MAC_OS
 
 AVAILABLE_LANGS = ['default', 'cs', 'de', 'el', 'en', 'es', 'fi', 'fr', 'hy', 'it', 'ja', 'lt', 'nl', 'pl', 'pt_BR', 'ru', 'sl', 'sv', 'tr', 'uk', 'zh_CN']
 COLOR_48_LINK_WEBS = "#00008989ffff"

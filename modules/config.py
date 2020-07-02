@@ -2218,6 +2218,7 @@ def preferences_tab_misc(dad, vbox_misc, pref_dialog):
     frame_system_tray.add(align_system_tray)
 
     checkbutton_systray.set_active(dad.systray)
+    if cons.DISABLE_SYSTRAY: checkbutton_systray.set_sensitive(False)
     checkbutton_start_on_systray.set_active(dad.start_on_systray)
     checkbutton_start_on_systray.set_sensitive(dad.systray)
     checkbutton_use_appind.set_active(dad.use_appind)
