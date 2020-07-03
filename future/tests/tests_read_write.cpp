@@ -91,46 +91,109 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("йцукенгшщз");
         CHECK(ctTreeIter);
         STRCMP_EQUAL("0", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        CHECK_FALSE(ctTreeIter.get_node_is_bold());
+        CHECK_FALSE(ctTreeIter.get_node_read_only());
+        CHECK_EQUAL(0, ctTreeIter.get_node_custom_icon_id());
+        STRCMP_EQUAL("йцукенгшщз", ctTreeIter.get_node_tags().c_str());
+        STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
+        STRCMP_EQUAL("plain-text", ctTreeIter.get_node_syntax_highlighting().c_str());
+        CHECK(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("b");
         CHECK(ctTreeIter);
         STRCMP_EQUAL("1", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        CHECK_FALSE(ctTreeIter.get_node_is_bold());
+        CHECK_FALSE(ctTreeIter.get_node_read_only());
+        CHECK_EQUAL(0, ctTreeIter.get_node_custom_icon_id());
+        STRCMP_EQUAL("", ctTreeIter.get_node_tags().c_str());
+        STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
+        STRCMP_EQUAL("custom-colors", ctTreeIter.get_node_syntax_highlighting().c_str());
+        CHECK(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("c");
         CHECK(ctTreeIter);
         STRCMP_EQUAL("1:0", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        CHECK_FALSE(ctTreeIter.get_node_is_bold());
+        CHECK_FALSE(ctTreeIter.get_node_read_only());
+        CHECK_EQUAL(0, ctTreeIter.get_node_custom_icon_id());
+        STRCMP_EQUAL("", ctTreeIter.get_node_tags().c_str());
+        STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
+        STRCMP_EQUAL("c", ctTreeIter.get_node_syntax_highlighting().c_str());
+        CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("sh");
         CHECK(ctTreeIter);
         STRCMP_EQUAL("1:1", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        CHECK_FALSE(ctTreeIter.get_node_is_bold());
+        CHECK_FALSE(ctTreeIter.get_node_read_only());
+        CHECK_EQUAL(0, ctTreeIter.get_node_custom_icon_id());
+        STRCMP_EQUAL("", ctTreeIter.get_node_tags().c_str());
+        STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
+        STRCMP_EQUAL("sh", ctTreeIter.get_node_syntax_highlighting().c_str());
+        CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("html");
         CHECK(ctTreeIter);
         STRCMP_EQUAL("1:1:0", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        CHECK_FALSE(ctTreeIter.get_node_is_bold());
+        CHECK_FALSE(ctTreeIter.get_node_read_only());
+        CHECK_EQUAL(0, ctTreeIter.get_node_custom_icon_id());
+        STRCMP_EQUAL("", ctTreeIter.get_node_tags().c_str());
+        STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
+        STRCMP_EQUAL("html", ctTreeIter.get_node_syntax_highlighting().c_str());
+        CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("xml");
         CHECK(ctTreeIter);
         STRCMP_EQUAL("1:1:1", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        CHECK_FALSE(ctTreeIter.get_node_is_bold());
+        CHECK_FALSE(ctTreeIter.get_node_read_only());
+        CHECK_EQUAL(0, ctTreeIter.get_node_custom_icon_id());
+        STRCMP_EQUAL("", ctTreeIter.get_node_tags().c_str());
+        STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
+        STRCMP_EQUAL("xml", ctTreeIter.get_node_syntax_highlighting().c_str());
+        CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("py");
         CHECK(ctTreeIter);
         STRCMP_EQUAL("1:2", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        CHECK_FALSE(ctTreeIter.get_node_is_bold());
+        CHECK_FALSE(ctTreeIter.get_node_read_only());
+        CHECK_EQUAL(0, ctTreeIter.get_node_custom_icon_id());
+        STRCMP_EQUAL("", ctTreeIter.get_node_tags().c_str());
+        STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
+        STRCMP_EQUAL("python3", ctTreeIter.get_node_syntax_highlighting().c_str());
+        CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("d");
         CHECK(ctTreeIter);
         STRCMP_EQUAL("2", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        CHECK(ctTreeIter.get_node_is_bold());
+        CHECK(ctTreeIter.get_node_read_only());
+        CHECK_EQUAL(45, ctTreeIter.get_node_custom_icon_id());
+        STRCMP_EQUAL("ciao", ctTreeIter.get_node_tags().c_str());
+        STRCMP_EQUAL("#ff0000", ctTreeIter.get_node_foreground().c_str());
+        STRCMP_EQUAL("custom-colors", ctTreeIter.get_node_syntax_highlighting().c_str());
+        CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("e");
         CHECK(ctTreeIter);
         STRCMP_EQUAL("3", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        CHECK_FALSE(ctTreeIter.get_node_is_bold());
+        CHECK_FALSE(ctTreeIter.get_node_read_only());
+        CHECK_EQUAL(0, ctTreeIter.get_node_custom_icon_id());
+        STRCMP_EQUAL("", ctTreeIter.get_node_tags().c_str());
+        STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
+        STRCMP_EQUAL("custom-colors", ctTreeIter.get_node_syntax_highlighting().c_str());
+        CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
     }
 }
 
