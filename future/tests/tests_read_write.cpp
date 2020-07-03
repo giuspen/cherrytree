@@ -81,7 +81,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
     pWin->get_tree_store().populateSummaryInfo(summaryInfo);
     CHECK_EQUAL(3, summaryInfo.nodes_rich_text_num);
     CHECK_EQUAL(1, summaryInfo.nodes_plain_text_num);
-    CHECK_EQUAL(1, summaryInfo.nodes_code_num);
+    CHECK_EQUAL(5, summaryInfo.nodes_code_num);
     CHECK_EQUAL(1, summaryInfo.images_num);
     CHECK_EQUAL(1, summaryInfo.embfile_num);
     CHECK_EQUAL(1, summaryInfo.tables_num);
@@ -101,6 +101,26 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("c");
         CHECK(ctTreeIter);
         STRCMP_EQUAL("1:0", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+    }
+    {
+        CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("sh");
+        CHECK(ctTreeIter);
+        STRCMP_EQUAL("1:1", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+    }
+    {
+        CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("html");
+        CHECK(ctTreeIter);
+        STRCMP_EQUAL("1:1:0", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+    }
+    {
+        CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("xml");
+        CHECK(ctTreeIter);
+        STRCMP_EQUAL("1:1:1", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+    }
+    {
+        CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("py");
+        CHECK(ctTreeIter);
+        STRCMP_EQUAL("1:2", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("d");

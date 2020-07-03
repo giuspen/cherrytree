@@ -1737,7 +1737,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
         const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog, _("Automatic Syntax Highlighting"), itemStore);
         if (treeIter)
         {
-            std::string stock_id = treeIter->get_value(itemStore->columns.desc);
+            std::string stock_id = pCtMainWin->get_code_icon_name(treeIter->get_value(itemStore->columns.desc));
             button_prog_lang.set_label(stock_id);
             button_prog_lang.set_image(*pCtMainWin->new_image_from_stock(stock_id, Gtk::ICON_SIZE_MENU));
         }
