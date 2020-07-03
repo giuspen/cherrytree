@@ -307,6 +307,7 @@ std::vector<STRING> split(const STRING& strToSplit, const char* delimiter)
     return vecOfStrings;
 }
 
+
 template<class STRING>
 std::string join(const std::vector<STRING>& cnt, const std::string& delimer)
 {
