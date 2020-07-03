@@ -87,6 +87,31 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
     CHECK_EQUAL(1, summaryInfo.tables_num);
     CHECK_EQUAL(1, summaryInfo.codeboxes_num);
     CHECK_EQUAL(1, summaryInfo.anchors_num);
+    {
+        CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("йцукенгшщз");
+        CHECK(ctTreeIter);
+        STRCMP_EQUAL("0", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+    }
+    {
+        CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("b");
+        CHECK(ctTreeIter);
+        STRCMP_EQUAL("1", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+    }
+    {
+        CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("c");
+        CHECK(ctTreeIter);
+        STRCMP_EQUAL("1:0", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+    }
+    {
+        CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("d");
+        CHECK(ctTreeIter);
+        STRCMP_EQUAL("2", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+    }
+    {
+        CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("e");
+        CHECK(ctTreeIter);
+        STRCMP_EQUAL("3", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+    }
 }
 
 TEST_GROUP(CtDocRWGroup)
