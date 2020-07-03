@@ -24,7 +24,6 @@
 #include "ct_main_win.h"
 #include "ct_dialogs.h"
 #include <iterator>
-#include <queue>
 
 
 struct CtPrintData;

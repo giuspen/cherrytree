@@ -197,7 +197,6 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
 
 
     double total_height = 0;
-    std::size_t forced_breaks = 0;   
     for (const auto& printable : print_data->printables)
     {
 
@@ -205,7 +204,6 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
         auto add_height = printable->height();
         if (add_height < 0) {
             // Forced page break
-            ++forced_breaks;
             add_height = _print_info.page_height - fmod(total_height, _print_info.page_height);
         } 
         total_height += add_height;
@@ -267,7 +265,7 @@ void CtPrint::_on_draw_page_text(const Glib::RefPtr<Gtk::PrintContext>& context,
         }
 
     }
-    spdlog::debug("Finished, page num: {}/{}", page_nr, print_data->nb_pages);
+    spdlog::debug("Finished, page num: {}/{}", page_nr + 1, print_data->nb_pages);
 }
 
 // Returns Width and Height of a layout line
