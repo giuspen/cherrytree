@@ -56,7 +56,7 @@ public:
         PrintPosition position;
     };
 
-    virtual void setup(const PrintInfo& print_info, CtPrintData& print_data) = 0;
+    virtual void setup(const PrintInfo& print_info) = 0;
     virtual PrintPosition print(const PrintingContext& context) = 0;
     [[nodiscard]] virtual double height() const = 0;
     [[nodiscard]] virtual double width() const = 0;
@@ -72,7 +72,7 @@ class CtTextPrintable: public CtPrintable
 public:
     explicit CtTextPrintable(Glib::ustring text) : _text(std::move(text)) {}
 
-    void setup(const PrintInfo& print_info, CtPrintData& print_data) override;
+    void setup(const PrintInfo& print_info) override;
 
     PrintPosition print(const PrintingContext& context) override;
 
@@ -88,13 +88,16 @@ private:
     Glib::RefPtr<Pango::Layout> _layout;
     bool _is_newline = false;
     int _line_index = 0;
+
+    /// Calculate the heights of all the destinct lines 
+    double _calc_lines_heights() const;
 };
 
 class CtPageBreakPrintable: public CtPrintable {
 public:
     CtPageBreakPrintable() = default;
 
-    void setup(const PrintInfo& print_info, CtPrintData& print_data) override;
+    void setup(const PrintInfo& print_info) override;
 
     PrintPosition print(const PrintingContext& context) override;
 
@@ -132,7 +135,7 @@ public:
 
 private:
     void _nodes_all_export_print_iter(const CtTreeIter& tree_iter, const CtExportOptions& options,
-                                      CtPrintableVector& tree_pango_slots, std::list<CtAnchoredWidget*>& tree_widgets, Glib::ustring& text_font);
+                                      CtPrintableVector& tree_printables, Glib::ustring& text_font);
     std::unique_ptr<CtTextPrintable> _add_node_name(Glib::ustring node_name);
 
 private:
@@ -223,7 +226,7 @@ public:
 
     PrintPosition print(const PrintingContext& context) override;
 
-    void setup(const PrintInfo& print_info, CtPrintData& print_data) override;
+    void setup(const PrintInfo& print_info) override;
 
     double width() const override;
 
@@ -244,7 +247,7 @@ public:
 
     double height() const override;
 
-    void setup(const PrintInfo& print_info, CtPrintData& print_data) override;
+    void setup(const PrintInfo& print_info) override;
 private:
     using tbl_layouts_t = std::vector<std::vector<Glib::RefPtr<Pango::Layout>>>;
     using tbl_grid_t = std::pair<std::vector<double>, std::vector<double>>;
@@ -263,7 +266,7 @@ private:
     };
 
     tbl_layouts_t _get_table_layouts(const PrintInfo& print_info) const;
-    void _split_too_long(const PrintInfo& print_info, CtPrintData& print_data) const;
+
 
     std::pair<std::vector<double>, std::vector<double>> _get_table_grid(std::vector<std::vector<Glib::RefPtr<Pango::Layout>>>& table_layouts, int col_min) const;
 private:
@@ -277,7 +280,7 @@ class CtWidgetCodeboxPrintable: public CtWidgetPrintable<CtPrintCodeboxProxy> {
 public:
     using CtWidgetPrintable::CtWidgetPrintable;
 
-    void setup(const PrintInfo& print_info, CtPrintData& print_data) override;
+    void setup(const PrintInfo& print_info) override;
 
     PrintPosition print(const PrintingContext& context) override;
 
@@ -324,46 +327,26 @@ public:
     CtPrint();
 
 public:
+    static          Cairo::Rectangle layout_line_get_width_height(Glib::RefPtr<const Pango::LayoutLine> line);
+    static double   get_height_from_layout(Glib::RefPtr<Pango::Layout> layout);
+    static  double  get_width_from_layout(Glib::RefPtr<Pango::Layout> layout);
+
+public:
     void run_page_setup_dialog(Gtk::Window* pMainWin);
 
     void print_text(CtMainWin* pCtMainWin, const fs::path& pdf_filepath,
                     CtPrintableVector printables, const Glib::ustring& text_font, const Glib::ustring& code_font,
-                    const std::list<CtAnchoredWidget*>& widgets, int text_window_width);
-    static          Cairo::Rectangle layout_line_get_width_height(Glib::RefPtr<const Pango::LayoutLine> line);
-    static double   get_height_from_layout(Glib::RefPtr<Pango::Layout> layout);
-    static  double  get_width_from_layout(Glib::RefPtr<Pango::Layout> layout);
+                    int text_window_width);
+    
 private:
     void _on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& context, CtPrintData* print_data);
     void _on_draw_page_text(const Glib::RefPtr<Gtk::PrintContext>& context, int page_nr, CtPrintData* print_data);
-
-private:
-    Glib::RefPtr<Pango::Layout> _get_codebox_layout(const Glib::RefPtr<Gtk::PrintContext>& context, CtPrintCodeboxProxy* codeboxProxy);
-    std::vector<std::vector<Glib::RefPtr<Pango::Layout>>>
-                                _get_table_layouts(const Glib::RefPtr<Gtk::PrintContext>& context, CtPrintTableProxy* tableProxy);
-    std::pair<std::vector<double>, std::vector<double>>
-                                _get_table_grid(std::vector<std::vector<Glib::RefPtr<Pango::Layout>>>& table_layouts, int col_min);
-    double                      _get_table_width_from_grid(std::pair<std::vector<double>, std::vector<double>>& table_grid);
-    double                      _get_table_height_from_grid(std::pair<std::vector<double>, std::vector<double>>& table_grid);
-    void                        _table_long_split(size_t idx, const Glib::RefPtr<Gtk::PrintContext>& context, CtPrintData* print_data);
-    void                        _codebox_long_split(size_t idx, const Glib::RefPtr<Gtk::PrintContext>& context, CtPrintData* print_data);
-
-    void _codebox_draw_box(Cairo::RefPtr<Cairo::Context> cairo_context, double x0, double y0, double codebox_width, double codebox_height);
-    void _codebox_draw_code(Cairo::RefPtr<Cairo::Context> cairo_context, Glib::RefPtr<Pango::Layout> codebox_layout, double x0, double y0);
-    void _table_draw_grid(Cairo::RefPtr<Cairo::Context> cairo_context, const std::pair<std::vector<double>, std::vector<double>>& table_grid,
-                          double x0, double y0, double table_width, double table_height);
-    void _table_draw_text(Cairo::RefPtr<Cairo::Context> cairo_context,
-                          const std::pair<std::vector<double>, std::vector<double>>& table_grid,
-                          const std::vector<std::vector<Glib::RefPtr<Pango::Layout>>>& table_layouts,
-                          double x0, double y0);
 
 private:
     CtMainWin*                       _pCtMainWin;
     Glib::RefPtr<Gtk::PrintSettings> _pPrintSettings;
     Glib::RefPtr<Gtk::PageSetup>     _pPageSetup;
     CtPrintable::PrintInfo           _print_info;
-    int                              _text_window_width;
-    int                              _table_text_row_height;
-    double                           _y_idx;
 };
 
 class CtExport2Pango
