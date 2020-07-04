@@ -29,10 +29,6 @@
 #include "ct_actions.h"
 #include "ct_logging.h"
 
-CtTreeModelColumns::~CtTreeModelColumns()
-{
-}
-
 CtTreeIter::CtTreeIter(Gtk::TreeIter iter, const CtTreeModelColumns* pColumns, CtMainWin* pCtMainWin)
  : Gtk::TreeIter(iter),
    _pColumns(pColumns),
@@ -468,7 +464,7 @@ void CtTreeStore::tree_view_connect(Gtk::TreeView* pTreeView)
     }
 }
 
-void CtTreeStore::text_view_apply_textbuffer(const CtTreeIter& treeIter, CtTextView* pTextView)
+void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* pTextView)
 {
     if (not static_cast<bool>(treeIter))
     {
@@ -485,18 +481,17 @@ void CtTreeStore::text_view_apply_textbuffer(const CtTreeIter& treeIter, CtTextV
     }
     _curr_node_sigc_conn.clear();
 
-    CtTreeIter node = to_ct_tree_iter(treeIter);
-    spdlog::debug("Node name: {}", node.get_node_name());
+    spdlog::debug("Node name: {}", treeIter.get_node_name());
 
-    Glib::RefPtr<Gsv::Buffer> rTextBuffer = node.get_node_text_buffer();
-    _pCtMainWin->apply_syntax_highlighting(rTextBuffer, node.get_node_syntax_highlighting());
-    pTextView->setup_for_syntax(node.get_node_syntax_highlighting());
+    Glib::RefPtr<Gsv::Buffer> rTextBuffer = treeIter.get_node_text_buffer();
+    _pCtMainWin->apply_syntax_highlighting(rTextBuffer, treeIter.get_node_syntax_highlighting());
+    pTextView->setup_for_syntax(treeIter.get_node_syntax_highlighting());
     pTextView->set_buffer(rTextBuffer);
-    pTextView->set_spell_check(node.get_node_is_rich_text());
+    pTextView->set_spell_check(treeIter.get_node_is_rich_text());
     pTextView->set_sensitive(true);
-    pTextView->set_editable(not node.get_node_read_only());
+    pTextView->set_editable(not treeIter.get_node_read_only());
 
-    for (CtAnchoredWidget* pCtAnchoredWidget : node.get_embedded_pixbufs_tables_codeboxes_fast())
+    for (CtAnchoredWidget* pCtAnchoredWidget : treeIter.get_embedded_pixbufs_tables_codeboxes_fast())
     {
         Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
         if (rChildAnchor)

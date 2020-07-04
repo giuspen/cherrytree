@@ -58,7 +58,7 @@ public:
         add(rColPixbufAux); add(colCustomIconId); add(colWeight); add(colForeground);
         add(colTsCreation); add(colTsLastSave); add(colAnchoredWidgets);
     }
-    virtual ~CtTreeModelColumns();
+    ~CtTreeModelColumns() final {}
     Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>  rColPixbuf;
     Gtk::TreeModelColumn<Glib::ustring>              colNodeName;
     Gtk::TreeModelColumn<Glib::RefPtr<Gsv::Buffer>>  rColTextBuffer;
@@ -153,7 +153,7 @@ public:
     virtual ~CtTreeStore();
 
     void          tree_view_connect(Gtk::TreeView* pTreeView);
-    void          text_view_apply_textbuffer(const CtTreeIter& treeIter, CtTextView* pTextView);
+    void          text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* pTextView);
 
     void          get_node_data(const Gtk::TreeIter& treeIter, CtNodeData& nodeData);
     void          populateSummaryInfo(CtSummaryInfo& summaryInfo);

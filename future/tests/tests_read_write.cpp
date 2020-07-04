@@ -33,6 +33,7 @@ public:
 private:
     void on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint) override;
     void _assert_tree_data(CtMainWin* pWin);
+    void _assert_node_text(CtTreeIter& ctTreeIter, const Glib::ustring& expectedText);
 };
 
 void TestCtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint)
@@ -75,6 +76,15 @@ void TestCtApp::on_open(const Gio::Application::type_vec_files& files, const Gli
     remove_window(*pWin2);
 }
 
+void TestCtApp::_assert_node_text(CtTreeIter& ctTreeIter, const Glib::ustring& expectedText)
+{
+    const Glib::RefPtr<Gsv::Buffer> rTextBuffer = ctTreeIter.get_node_text_buffer();
+    CHECK(static_cast<bool>(rTextBuffer));
+    STRCMP_EQUAL(expectedText.c_str(), rTextBuffer->get_text().c_str());
+}
+
+#define _NL "\n"
+
 void TestCtApp::_assert_tree_data(CtMainWin* pWin)
 {
     CtSummaryInfo summaryInfo{};
@@ -98,6 +108,11 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
         STRCMP_EQUAL("plain-text", ctTreeIter.get_node_syntax_highlighting().c_str());
         CHECK(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
+        const Glib::ustring expectedText{
+            "ciao plain" _NL
+            "йцукенгшщз"
+        };
+        _assert_node_text(ctTreeIter, expectedText);
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("b");
@@ -110,6 +125,23 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
         STRCMP_EQUAL("custom-colors", ctTreeIter.get_node_syntax_highlighting().c_str());
         CHECK(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
+        const Glib::ustring expectedText{
+            "ciao rich" _NL
+            "fore" _NL
+            "back" _NL
+            "bold" _NL
+            "italic" _NL
+            "under" _NL
+            "strike" _NL
+            "h1" _NL
+            "h2" _NL
+            "h3" _NL
+            "small" _NL
+            "asuper" _NL
+            "asub" _NL
+            "mono" _NL
+        };
+        _assert_node_text(ctTreeIter, expectedText);
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("c");
@@ -122,6 +154,13 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
         STRCMP_EQUAL("c", ctTreeIter.get_node_syntax_highlighting().c_str());
         CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
+        const Glib::ustring expectedText{
+            "int main(int argc, char *argv[])" _NL
+            "{" _NL
+            "    return 0;" _NL
+            "}" _NL
+        };
+        _assert_node_text(ctTreeIter, expectedText);
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("sh");
@@ -134,6 +173,10 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
         STRCMP_EQUAL("sh", ctTreeIter.get_node_syntax_highlighting().c_str());
         CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
+        const Glib::ustring expectedText{
+            "echo \"ciao!\""
+        };
+        _assert_node_text(ctTreeIter, expectedText);
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("html");
@@ -146,6 +189,12 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
         STRCMP_EQUAL("html", ctTreeIter.get_node_syntax_highlighting().c_str());
         CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
+        const Glib::ustring expectedText{
+            "<head>" _NL
+            "<title>NO</title>" _NL
+            "</head>"
+        };
+        _assert_node_text(ctTreeIter, expectedText);
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("xml");
@@ -158,6 +207,10 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
         STRCMP_EQUAL("xml", ctTreeIter.get_node_syntax_highlighting().c_str());
         CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
+        const Glib::ustring expectedText{
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+        };
+        _assert_node_text(ctTreeIter, expectedText);
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("py");
@@ -170,6 +223,10 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
         STRCMP_EQUAL("python3", ctTreeIter.get_node_syntax_highlighting().c_str());
         CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
+        const Glib::ustring expectedText{
+            "print(\"ciao!\")"
+        };
+        _assert_node_text(ctTreeIter, expectedText);
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("d");
@@ -182,6 +239,10 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         STRCMP_EQUAL("#ff0000", ctTreeIter.get_node_foreground().c_str());
         STRCMP_EQUAL("custom-colors", ctTreeIter.get_node_syntax_highlighting().c_str());
         CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
+        const Glib::ustring expectedText{
+            "second rich" _NL
+        };
+        _assert_node_text(ctTreeIter, expectedText);
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("e");
@@ -194,6 +255,31 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
         STRCMP_EQUAL("custom-colors", ctTreeIter.get_node_syntax_highlighting().c_str());
         CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
+        const Glib::ustring expectedText{
+            "anchored widgets:" _NL
+            _NL
+            "codebox:" _NL
+            _NL
+            _NL
+            "anchor:" _NL
+            _NL
+            _NL
+            "table:" _NL
+            _NL
+            _NL
+            "image:" _NL
+            _NL
+            _NL
+            "embedded file:" _NL
+            _NL
+            _NL
+            "link to web" _NL
+            "link to node" _NL
+            "link to node+anchor" _NL
+            "link to folder" _NL
+            "link to file" _NL
+        };
+        _assert_node_text(ctTreeIter, expectedText);
     }
 }
 
@@ -203,20 +289,15 @@ TEST_GROUP(CtDocRWGroup)
 
 #ifndef __APPLE__ // TestCtApp causes crash on macos
 
-void test_read_write(const std::vector<std::string>& vec_args)
-{
-    TestCtApp testCtApp{};
-    gchar** pp_args = CtStrUtil::vector_to_array(vec_args);
-    testCtApp.run(vec_args.size(), pp_args);
-    g_strfreev(pp_args);
-}
-
 TEST(CtDocRWGroup, CtDocRW_all_variants)
 {
     for (const std::string& in_doc_path : UT::testAllDocTypes) {
         for (const std::string& out_doc_path : UT::testAllDocTypes) {
-            const std::vector<std::string> vecArgs{"cherrytree", in_doc_path, "-t", out_doc_path};
-            test_read_write(vecArgs);
+            const std::vector<std::string> vec_args{"cherrytree", in_doc_path, "-t", out_doc_path};
+            gchar** pp_args = CtStrUtil::vector_to_array(vec_args);
+            TestCtApp testCtApp{};
+            testCtApp.run(vec_args.size(), pp_args);
+            g_strfreev(pp_args);
         }
     }
 }
