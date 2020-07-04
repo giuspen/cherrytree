@@ -80,8 +80,9 @@ public:
     [[nodiscard]] std::size_t lines() const;
     [[nodiscard]] const Glib::RefPtr<Pango::Layout>& layout() const { return _layout; }
     [[nodiscard]] constexpr bool is_newline() const { return _is_newline; }
+    [[nodiscard]] const Glib::ustring& text() const { return _text; }
 
-
+    virtual ~CtTextPrintable() = default;
 private:
     Glib::ustring _text;
     Glib::RefPtr<Pango::Layout> _layout;
@@ -90,6 +91,38 @@ private:
 
     /// Calculate the heights of all the destinct lines 
     double _calc_lines_heights() const;
+};
+
+/**
+ * @brief 
+ * 
+ */
+
+class CtLinkPrintable: public CtTextPrintable 
+{
+public:
+    CtLinkPrintable(Glib::ustring title, std::string url);
+
+
+    PrintPosition print(const PrintingContext& context) override;
+
+private:
+    std::string _url;
+    bool _is_internal = false;
+};
+
+class CtDestPrintable: public CtTextPrintable 
+{
+public:
+    CtDestPrintable(Glib::ustring txt, std::string id) : CtTextPrintable(std::move(txt)), _id(std::move(id)) {}
+    CtDestPrintable(CtImageAnchor* anchor, int node_id);
+
+    PrintPosition print(const PrintingContext& context) override;
+
+    ~CtDestPrintable() = default;
+
+private:
+    std::string _id;
 };
 
 class CtPageBreakPrintable: public CtPrintable {
@@ -118,9 +151,6 @@ protected:
     mutable std::size_t _last_height = 0;
 };
 
-std::unique_ptr<CtPrintable> printable_from_widget(CtAnchoredWidget* widget);
-
-
 using CtPrintableVector = std::vector<std::shared_ptr<CtPrintable>>;
 
 class CtExport2Pdf
@@ -135,7 +165,6 @@ public:
 private:
     void _nodes_all_export_print_iter(const CtTreeIter& tree_iter, const CtExportOptions& options,
                                       CtPrintableVector& tree_printables, Glib::ustring& text_font);
-    std::unique_ptr<CtTextPrintable> _add_node_name(Glib::ustring node_name);
 
 private:
     CtMainWin* _pCtMainWin;

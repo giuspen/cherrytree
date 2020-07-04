@@ -721,6 +721,25 @@ std::string CtStrUtil::get_internal_link_from_http_url(std::string link_url)
     else                                            return "webs http://" + link_url;
 }
 
+std::string CtStrUtil::external_uri_from_internal(std::string internal_uri) {
+    constexpr std::array<std::string_view, 2> internal_ids = {"webs ", "file "};
+    auto internal_id_iter = std::find_if(internal_ids.cbegin(), internal_ids.cend(), [internal_uri](std::string_view comp){
+        return str::startswith(internal_uri, std::string(comp.begin(), comp.end()));
+    });
+    if (internal_id_iter != internal_ids.cend()) {
+        // Valid
+        internal_uri.erase(internal_uri.cbegin(), internal_uri.cbegin() + internal_id_iter->size());
+        if (*internal_id_iter == "file ") {
+            // Decode a file url
+            internal_uri = Glib::Base64::decode(internal_uri);
+        }
+    } else {
+        throw std::logic_error(fmt::format("CtStrUtil::get_external_uri_from_internal passed string ({}) which does not contain an internal uri", internal_uri));
+    }
+    return internal_uri;
+
+}
+
 std::string CtFontUtil::get_font_family(const std::string& fontStr)
 {
     return Pango::FontDescription(fontStr).get_family();
