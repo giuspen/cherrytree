@@ -39,6 +39,7 @@ private:
     void on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint) override;
     void _assert_tree_data(CtMainWin* pWin);
     void _assert_node_text(CtTreeIter& ctTreeIter, const Glib::ustring& expectedText);
+    void _process_text_buffer(std::list<ExpectedTag>& expectedTags, Glib::RefPtr<Gsv::Buffer> rTextBuffer);
 };
 
 void TestCtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint)
@@ -79,6 +80,33 @@ void TestCtApp::on_open(const Gio::Application::type_vec_files& files, const Gli
     // close this window/tree
     pWin2->force_exit() = true;
     remove_window(*pWin2);
+}
+
+void TestCtApp::_process_text_buffer(std::list<ExpectedTag>& expectedTags, Glib::RefPtr<Gsv::Buffer> rTextBuffer)
+{
+    CtTextIterUtil::SerializeFunc test_slot = [&expectedTags](Gtk::TextIter& start_iter,
+                                                              Gtk::TextIter& end_iter,
+                                                              CtTextIterUtil::CurrAttributesMap& curr_attributes)
+    {
+        const Glib::ustring slot_text = start_iter.get_text(end_iter);
+        for (auto& expTag : expectedTags) {
+            if (slot_text.find(expTag.text_slot) != std::string::npos) {
+                expTag.found = true;
+                for (const auto& currPair : curr_attributes) {
+                    if (expTag.attr_map.count(currPair.first) != 0) {
+                        // we defined it
+                        STRCMP_EQUAL(expTag.attr_map[currPair.first].c_str(), currPair.second.c_str());
+                    }
+                    else {
+                        // we haven't defined, expect empty!
+                        STRCMP_EQUAL("", currPair.second.c_str());
+                    }
+                }
+                break;
+            }
+        }
+    };
+    CtTextIterUtil::generic_process_slot(0, -1, rTextBuffer, test_slot);
 }
 
 void TestCtApp::_assert_node_text(CtTreeIter& ctTreeIter, const Glib::ustring& expectedText)
@@ -150,7 +178,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         std::list<ExpectedTag> expectedTags = {
             ExpectedTag{
                 .text_slot="ciao rich",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{}},
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_FILL}}},
             ExpectedTag{
                 .text_slot="fore",
                 .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_FOREGROUND, "#ffff00000000"}}},
@@ -159,13 +187,15 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
                 .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_BACKGROUND, "#e6e6e6e6fafa"}}},
             ExpectedTag{
                 .text_slot="bold",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_WEIGHT, CtConst::TAG_PROP_VAL_HEAVY}}},
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_WEIGHT, CtConst::TAG_PROP_VAL_HEAVY},
+                                                            {CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_CENTER}}},
             ExpectedTag{
                 .text_slot="italic",
                 .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_STYLE, CtConst::TAG_PROP_VAL_ITALIC}}},
             ExpectedTag{
                 .text_slot="under",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_UNDERLINE, CtConst::TAG_PROP_VAL_SINGLE}}},
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_UNDERLINE, CtConst::TAG_PROP_VAL_SINGLE},
+                                                            {CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_RIGHT}}},
             ExpectedTag{
                 .text_slot="strike",
                 .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROP_VAL_TRUE}}},
@@ -191,29 +221,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
                 .text_slot="mono",
                 .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_FAMILY, CtConst::TAG_PROP_VAL_MONOSPACE}}},
         };
-        CtTextIterUtil::SerializeFunc test_slot = [&](Gtk::TextIter& start_iter,
-                                                      Gtk::TextIter& end_iter,
-                                                      CtTextIterUtil::CurrAttributesMap& curr_attributes)
-        {
-            const Glib::ustring slot_text = start_iter.get_text(end_iter);
-            for (auto& expTag : expectedTags) {
-                if (slot_text.find(expTag.text_slot) != std::string::npos) {
-                    expTag.found = true;
-                    for (const auto& currPair : curr_attributes) {
-                        if (expTag.attr_map.count(currPair.first) != 0) {
-                            // we defined it
-                            STRCMP_EQUAL(expTag.attr_map[currPair.first].c_str(), currPair.second.c_str());
-                        }
-                        else {
-                            // we haven't defined, expect empty!
-                            STRCMP_EQUAL("", currPair.second.c_str());
-                        }
-                    }
-                    break;
-                }
-            }
-        };
-        CtTextIterUtil::generic_process_slot(0, -1, ctTreeIter.get_node_text_buffer(), test_slot);
+        _process_text_buffer(expectedTags, ctTreeIter.get_node_text_buffer());
         for (auto& expTag : expectedTags) {
             CHECK(expTag.found);
         }
@@ -348,13 +356,34 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
             "embedded file:" _NL
             _NL
             _NL
-            "link to web" _NL
-            "link to node" _NL
-            "link to node+anchor" _NL
-            "link to folder" _NL
-            "link to file" _NL
+            "link to web ansa.it" _NL
+            "link to node ‘d’" _NL
+            "link to node ‘e’ + anchor" _NL
+            "link to folder /etc" _NL
+            "link to file /etc/fstab" _NL
         };
         _assert_node_text(ctTreeIter, expectedText);
+        std::list<ExpectedTag> expectedTags = {
+            ExpectedTag{
+                .text_slot="link to web ansa.it",
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_LINK, "webs http://www.ansa.it"}}},
+            ExpectedTag{
+                .text_slot="link to node ‘d’",
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_LINK, "node 4"}}},
+            ExpectedTag{
+                .text_slot="link to node ‘e’ + anchor",
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_LINK, "node 5 йцукенгшщз"}}},
+            ExpectedTag{
+                .text_slot="link to folder /etc",
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_LINK, "fold L2V0Yw=="}}},
+            ExpectedTag{
+                .text_slot="link to file /etc/fstab",
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_LINK, "file L2V0Yy9mc3RhYg=="}}},
+        };
+        _process_text_buffer(expectedTags, ctTreeIter.get_node_text_buffer());
+        for (auto& expTag : expectedTags) {
+            CHECK(expTag.found);
+        }
     }
 }
 

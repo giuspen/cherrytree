@@ -200,6 +200,13 @@ const inline static std::array<std::string_view, 10> TAG_PROPERTIES {
     TAG_LINK
 };
 
+const inline static std::array<const gchar*, 4> TAG_ALIGNMENTS {
+    TAG_PROP_VAL_LEFT,
+    TAG_PROP_VAL_RIGHT,
+    TAG_PROP_VAL_CENTER,
+    TAG_PROP_VAL_FILL
+};
+
 const inline static gchar* TOOLBAR_VEC_DEFAULT {
     "tree_add_node,tree_add_subnode,separator,go_node_prev,go_node_next,"
     "separator,*,ct_save,export_pdf,separator,"

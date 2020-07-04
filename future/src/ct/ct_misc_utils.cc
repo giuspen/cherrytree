@@ -494,7 +494,7 @@ void CtTextIterUtil::generic_process_slot(int start_offset,
     // if there is an issue, then try the upper code
 
     CurrAttributesMap curr_attributes;
-    for (std::string_view tag_property : CtConst::TAG_PROPERTIES) {
+    for (const std::string_view tag_property : CtConst::TAG_PROPERTIES) {
         curr_attributes[tag_property] = "";
     }
     Gtk::TextIter curr_start_iter = rTextBuffer->get_iter_at_offset(start_offset);
@@ -522,10 +522,7 @@ void CtTextIterUtil::generic_process_slot(int start_offset,
 const gchar* CtTextIterUtil::get_text_iter_alignment(const Gtk::TextIter& textIter, CtMainWin* pCtMainWin)
 {
     const char* retVal{CtConst::TAG_PROP_VAL_LEFT};
-    for (const char* currAlignType : std::list{CtConst::TAG_PROP_VAL_LEFT,
-                                               CtConst::TAG_PROP_VAL_CENTER,
-                                               CtConst::TAG_PROP_VAL_FILL,
-                                               CtConst::TAG_PROP_VAL_RIGHT})
+    for (const gchar* currAlignType : CtConst::TAG_ALIGNMENTS)
     {
         const std::string tagName = pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_JUSTIFICATION, currAlignType);
         if (textIter.has_tag(pCtMainWin->get_text_tag_table()->lookup(tagName)))
