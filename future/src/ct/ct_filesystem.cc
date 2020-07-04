@@ -127,7 +127,7 @@ bool exists(const path& filepath)
 // Open Filepath with External App
 void external_filepath_open(const fs::path& filepath, bool open_folder_if_file_not_exists, CtConfig* config)
 {
-    spdlog::debug("fs::external_filepath_open: open file {}", filepath);
+    spdlog::debug("fs::external_filepath_open {}", filepath);
     if (config->filelinkCustomOn) {
         std::string cmd = fmt::sprintf(config->filelinkCustomAct, filepath.string());
         const int retVal = std::system(cmd.c_str());
@@ -154,9 +154,9 @@ void external_filepath_open(const fs::path& filepath, bool open_folder_if_file_n
 // Open Folderpath with External App
 void external_folderpath_open(const fs::path& folderpath, CtConfig* config)
 {
-    spdlog::debug("fs::external_folderpath_open: open dir {}", folderpath.string());
+    spdlog::debug("fs::external_folderpath_open {}", folderpath);
     if (config->folderlinkCustomOn) {
-        std::string cmd = fmt::sprintf(config->filelinkCustomAct, folderpath.string());
+        std::string cmd = fmt::sprintf(config->folderlinkCustomAct, folderpath.string());
         const int retVal = std::system(cmd.c_str());
         if (retVal != 0) {
             spdlog::error("system({}) returned {}", cmd, retVal);
@@ -169,7 +169,8 @@ void external_folderpath_open(const fs::path& folderpath, CtConfig* config)
         std::vector<std::string> argv = { "open", folderpath.string() };
         Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
 #else
-        g_app_info_launch_default_for_uri(folderpath.c_str(), nullptr, nullptr);
+        std::string f_path = "file://" + folderpath.string();
+        g_app_info_launch_default_for_uri(f_path.c_str(), nullptr, nullptr);
 #endif
     }
 }
