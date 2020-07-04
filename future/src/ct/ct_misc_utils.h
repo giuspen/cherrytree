@@ -123,10 +123,14 @@ void rich_text_attributes_update(const Gtk::TextIter& text_iter, std::map<std::s
 
 bool tag_richtext_toggling_on_or_off(const Gtk::TextIter& text_iter);
 
+using CurrAttributesMap = std::map<std::string_view, std::string>;
+using SerializeFunc = std::function<void(Gtk::TextIter& start_iter,
+                                         Gtk::TextIter& end_iter,
+                                         CurrAttributesMap& curr_attributes)>;
 void generic_process_slot(int start_offset,
                           int end_offset,
-                          Glib::RefPtr<Gtk::TextBuffer>& text_buffer,
-                          std::function<void(Gtk::TextIter&/*start_iter*/, Gtk::TextIter&/*curr_iter*/, std::map<std::string_view, std::string>&/*curr_attributes*/)> serialize_func);
+                          const Glib::RefPtr<Gtk::TextBuffer>& rTextBuffer,
+                          SerializeFunc serialize_func);
 
 const gchar* get_text_iter_alignment(const Gtk::TextIter& textIter, CtMainWin* pCtMainWin);
 

@@ -444,8 +444,8 @@ bool CtTextIterUtil::tag_richtext_toggling_on_or_off(const Gtk::TextIter& text_i
 
 void CtTextIterUtil::generic_process_slot(int start_offset,
                                           int end_offset,
-                                          Glib::RefPtr<Gtk::TextBuffer>& text_buffer,
-                                          std::function<void(Gtk::TextIter&/*start_iter*/, Gtk::TextIter&/*curr_iter*/, std::map<std::string_view, std::string>&/*curr_attributes*/)> serialize_func)
+                                          const Glib::RefPtr<Gtk::TextBuffer>& rTextBuffer,
+                                          SerializeFunc serialize_func)
 {
 /*    if (end_offset == -1)
         end_offset = text_buffer->end().get_offset();
@@ -493,13 +493,13 @@ void CtTextIterUtil::generic_process_slot(int start_offset,
     // todo: make the upper code less ugly
     // if there is an issue, then try the upper code
 
-    std::map<std::string_view, std::string> curr_attributes;
-    for (auto tag_property: CtConst::TAG_PROPERTIES)
+    CurrAttributesMap curr_attributes;
+    for (std::string_view tag_property : CtConst::TAG_PROPERTIES) {
         curr_attributes[tag_property] = "";
-
-    Gtk::TextIter curr_start_iter = text_buffer->get_iter_at_offset(start_offset);
+    }
+    Gtk::TextIter curr_start_iter = rTextBuffer->get_iter_at_offset(start_offset);
     Gtk::TextIter curr_end_iter = curr_start_iter;
-    Gtk::TextIter real_end_iter = end_offset == -1 ? text_buffer->end() : text_buffer->get_iter_at_offset(end_offset);
+    Gtk::TextIter real_end_iter = end_offset == -1 ? rTextBuffer->end() : rTextBuffer->get_iter_at_offset(end_offset);
 
     CtTextIterUtil::rich_text_attributes_update(curr_end_iter, curr_attributes);
     while (curr_end_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr}))
@@ -517,7 +517,6 @@ void CtTextIterUtil::generic_process_slot(int start_offset,
     {
         serialize_func(curr_start_iter, real_end_iter, curr_attributes);
     }
-
 }
 
 const gchar* CtTextIterUtil::get_text_iter_alignment(const Gtk::TextIter& textIter, CtMainWin* pCtMainWin)

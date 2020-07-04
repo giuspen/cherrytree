@@ -369,27 +369,32 @@ void CtStorageXmlHelper::populate_table_matrix(std::vector<std::vector<CtTableCe
     }
 }
 
-/*static*/ void CtStorageXmlHelper::save_buffer_no_widgets_to_xml(xmlpp::Element* p_node_parent, Glib::RefPtr<Gtk::TextBuffer> buffer,
-                                                       int start_offset, int end_offset, const gchar change_case)
+/*static*/ void CtStorageXmlHelper::save_buffer_no_widgets_to_xml(xmlpp::Element* p_node_parent,
+                                                                  Glib::RefPtr<Gtk::TextBuffer> rBuffer,
+                                                                  int start_offset,
+                                                                  int end_offset,
+                                                                  const gchar change_case)
 {
-    auto rich_txt_serialize = [&](Gtk::TextIter& start_iter, Gtk::TextIter& end_iter, std::map<std::string_view, std::string>& curr_attributes) {
-         xmlpp::Element* p_rich_text_node = p_node_parent->add_child("rich_text");
-         for (const auto& map_iter : curr_attributes)
-         {
-             if (!map_iter.second.empty())
-                p_rich_text_node->set_attribute(map_iter.first.data(), map_iter.second);
-         }
-         Glib::ustring slot_text = start_iter.get_text(end_iter);
-         if ('n' != change_case)
-         {
-             if ('l' == change_case) slot_text = slot_text.lowercase();
-             else if ('u' == change_case) slot_text = slot_text.uppercase();
-             else if ('t' == change_case) slot_text = str::swapcase(slot_text);
-         }
-         p_rich_text_node->add_child_text(slot_text);
+    CtTextIterUtil::SerializeFunc rich_txt_serialize = [&](Gtk::TextIter& start_iter,
+                                                           Gtk::TextIter& end_iter,
+                                                           CtTextIterUtil::CurrAttributesMap& curr_attributes) {
+        xmlpp::Element* p_rich_text_node = p_node_parent->add_child("rich_text");
+        for (const auto& map_iter : curr_attributes)
+        {
+            if (!map_iter.second.empty())
+               p_rich_text_node->set_attribute(map_iter.first.data(), map_iter.second);
+        }
+        Glib::ustring slot_text = start_iter.get_text(end_iter);
+        if ('n' != change_case)
+        {
+            if ('l' == change_case) slot_text = slot_text.lowercase();
+            else if ('u' == change_case) slot_text = slot_text.uppercase();
+            else if ('t' == change_case) slot_text = str::swapcase(slot_text);
+        }
+        p_rich_text_node->add_child_text(slot_text);
     };
 
-    CtTextIterUtil::generic_process_slot(start_offset, end_offset, buffer, rich_txt_serialize);
+    CtTextIterUtil::generic_process_slot(start_offset, end_offset, rBuffer, rich_txt_serialize);
 }
 
 void CtStorageXmlHelper::_add_rich_text_from_xml(Glib::RefPtr<Gsv::Buffer> buffer, xmlpp::Element* xml_element, Gtk::TextIter* text_insert_pos)

@@ -30,6 +30,11 @@ class TestCtApp : public CtApp
 {
 public:
     TestCtApp() : CtApp{} {}
+    struct ExpectedTag {
+        Glib::ustring text_slot;
+        bool found{false};
+        CtTextIterUtil::CurrAttributesMap attr_map;
+    };
 private:
     void on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint) override;
     void _assert_tree_data(CtMainWin* pWin);
@@ -142,6 +147,76 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
             "mono" _NL
         };
         _assert_node_text(ctTreeIter, expectedText);
+        std::list<ExpectedTag> expectedTags = {
+            ExpectedTag{
+                .text_slot="ciao rich",
+                .attr_map=CtTextIterUtil::CurrAttributesMap{}},
+            ExpectedTag{
+                .text_slot="fore",
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_FOREGROUND, "#ffff00000000"}}},
+            ExpectedTag{
+                .text_slot="back",
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_BACKGROUND, "#e6e6e6e6fafa"}}},
+            ExpectedTag{
+                .text_slot="bold",
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_WEIGHT, CtConst::TAG_PROP_VAL_HEAVY}}},
+            ExpectedTag{
+                .text_slot="italic",
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_STYLE, CtConst::TAG_PROP_VAL_ITALIC}}},
+            ExpectedTag{
+                .text_slot="under",
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_UNDERLINE, CtConst::TAG_PROP_VAL_SINGLE}}},
+            ExpectedTag{
+                .text_slot="strike",
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROP_VAL_TRUE}}},
+            ExpectedTag{
+                .text_slot="h1",
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H1}}},
+            ExpectedTag{
+                .text_slot="h2",
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H2}}},
+            ExpectedTag{
+                .text_slot="h3",
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H3}}},
+            ExpectedTag{
+                .text_slot="small",
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SMALL}}},
+            ExpectedTag{
+                .text_slot="super",
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SUP}}},
+            ExpectedTag{
+                .text_slot="sub",
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SUB}}},
+            ExpectedTag{
+                .text_slot="mono",
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_FAMILY, CtConst::TAG_PROP_VAL_MONOSPACE}}},
+        };
+        CtTextIterUtil::SerializeFunc test_slot = [&](Gtk::TextIter& start_iter,
+                                                      Gtk::TextIter& end_iter,
+                                                      CtTextIterUtil::CurrAttributesMap& curr_attributes)
+        {
+            const Glib::ustring slot_text = start_iter.get_text(end_iter);
+            for (auto& expTag : expectedTags) {
+                if (slot_text.find(expTag.text_slot) != std::string::npos) {
+                    expTag.found = true;
+                    for (const auto& currPair : curr_attributes) {
+                        if (expTag.attr_map.count(currPair.first) != 0) {
+                            // we defined it
+                            STRCMP_EQUAL(expTag.attr_map[currPair.first].c_str(), currPair.second.c_str());
+                        }
+                        else {
+                            // we haven't defined, expect empty!
+                            STRCMP_EQUAL("", currPair.second.c_str());
+                        }
+                    }
+                    break;
+                }
+            }
+        };
+        CtTextIterUtil::generic_process_slot(0, -1, ctTreeIter.get_node_text_buffer(), test_slot);
+        for (auto& expTag : expectedTags) {
+            CHECK(expTag.found);
+        }
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("c");
