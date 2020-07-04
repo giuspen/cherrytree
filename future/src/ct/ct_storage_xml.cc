@@ -112,7 +112,7 @@ bool CtStorageXml::save_treestore(const fs::path& file_path, const CtStorageSync
         }
 
         // write file
-        xml_doc.write_to_file(file_path.string());
+        xml_doc.write_to_file_formatted(file_path.string());
 
         return true;
     }
@@ -125,7 +125,6 @@ bool CtStorageXml::save_treestore(const fs::path& file_path, const CtStorageSync
 
 void CtStorageXml::vacuum()
 {
-
 }
 
 void CtStorageXml::import_nodes(const fs::path& path)
@@ -477,5 +476,3 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_table_from_xml(xmlpp::Element* xml
 
     return new CtTable(_pCtMainWin, tableMatrix, colMin, colMax, charOffset, justification);
 }
-
-
