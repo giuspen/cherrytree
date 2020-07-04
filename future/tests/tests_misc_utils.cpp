@@ -27,6 +27,8 @@
 #include "tests_common.h"
 #include "CppUTest/CommandLineTestRunner.h"
 
+#include <stdexcept>
+
 TEST_GROUP(MiscUtilsGroup)
 {
 };
