@@ -366,3 +366,12 @@ TEST(MiscUtilsGroup, parallel_for)
             CHECK(check_range_in_vec(vec, first, last));
         }
 }
+
+TEST(MiscUtilsGroup, external_uri_from_internal) 
+{
+    STRCMP_EQUAL("https://example.com", CtStrUtil::external_uri_from_internal("webs https://example.com").c_str());
+    STRCMP_EQUAL("/home/foo/bar\n", CtStrUtil::external_uri_from_internal("file L2hvbWUvZm9vL2Jhcgo=").c_str());
+    CHECK_THROWS(std::logic_error, CtStrUtil::external_uri_from_internal("https://example.com"));
+    CHECK_THROWS(std::logic_error, CtStrUtil::external_uri_from_internal("/home/foo/bar"));
+}
+
