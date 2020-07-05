@@ -739,7 +739,7 @@ double CtTextPrintable::_calc_lines_heights() const
     // Both of these start are 0 ... (n - 1)
     auto nb_lines = _layout->get_line_count() - 1;
     int line_num = 0;
-    double total_height;
+    double total_height = 0;
     while(line_num < nb_lines || _is_newline) {
         auto line = _layout->get_line(line_num);
         total_height += CtPrint::layout_line_get_width_height(line).height;
