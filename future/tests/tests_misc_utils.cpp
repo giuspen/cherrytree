@@ -374,8 +374,8 @@ TEST(MiscUtilsGroup, external_uri_from_internal)
     STRCMP_EQUAL("/home/foo/bar\n", CtStrUtil::external_uri_from_internal("file L2hvbWUvZm9vL2Jhcgo=").c_str());
     // looks like CppUTest is built on Win32 without the Standard C++ Library 
 #ifndef _WIN32
-    CHECK_THROWS(std::exception, CtStrUtil::external_uri_from_internal("https://example.com"));
-    CHECK_THROWS(std::execption, CtStrUtil::external_uri_from_internal("/home/foo/bar"));
+    CHECK_THROWS(std::logic_error, CtStrUtil::external_uri_from_internal("https://example.com"));
+    CHECK_THROWS(std::logic_error, CtStrUtil::external_uri_from_internal("/home/foo/bar"));
 #endif
 }
 
