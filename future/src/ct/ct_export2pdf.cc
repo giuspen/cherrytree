@@ -25,6 +25,27 @@
 
 #include <utility>
 
+
+std::string dest_id_from_node_and_anchor(int node_id, const std::string& anchor_name)
+{
+    return fmt::format("n.{}.{}", node_id, anchor_name);
+}
+
+std::string dest_id_from_node_id(int node_id) 
+{
+    return dest_id_from_node_and_anchor(node_id, "");
+}
+
+// Generate node name text
+std::unique_ptr<CtDestPrintable> generate_node_name_printable(Glib::ustring node_name, int node_id)
+{
+    auto printable = std::make_unique<CtDestPrintable>("<b><i><span size=\"xx-large\">" + str::xml_escape(node_name)
+            + "</span></i></b>" + CtConst::CHAR_NEWLINE + CtConst::CHAR_NEWLINE, dest_id_from_node_id(node_id));
+    return printable;
+}
+
+
+
 void CtExport2Pdf::node_export_print(const fs::path& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options, int sel_start, int sel_end)
 {
     CtPrintableVector printable_slots;
@@ -32,7 +53,7 @@ void CtExport2Pdf::node_export_print(const fs::path& pdf_filepath, CtTreeIter tr
     if (tree_iter.get_node_is_rich_text())
     {
         CtExport2Pango::pango_get_from_treestore_node(tree_iter, sel_start, sel_end, printable_slots,
-                                                      true /*exclude anchors*/);
+                                                      false /*exclude anchors*/);
         text_font = _pCtMainWin->get_ct_config()->rtFont;
     }
     else
@@ -41,7 +62,7 @@ void CtExport2Pdf::node_export_print(const fs::path& pdf_filepath, CtTreeIter tr
         text_font = tree_iter.get_node_syntax_highlighting() != CtConst::PLAIN_TEXT_ID ? _pCtMainWin->get_ct_config()->codeFont : _pCtMainWin->get_ct_config()->ptFont;
     }
     if (options.include_node_name) {
-        printable_slots.emplace(printable_slots.begin(), _add_node_name(tree_iter.get_node_name()));
+        printable_slots.emplace(printable_slots.begin(), generate_node_name_printable(tree_iter.get_node_name(), tree_iter.get_node_id()));
     }
 
     _pCtMainWin->get_ct_print().print_text(_pCtMainWin, pdf_filepath, printable_slots, text_font, _pCtMainWin->get_ct_config()->codeFont,
@@ -77,7 +98,7 @@ void CtExport2Pdf::_nodes_all_export_print_iter(const CtTreeIter& tree_iter, con
     CtPrintableVector node_printables;
     if (tree_iter.get_node_is_rich_text())
     {
-        CtExport2Pango().pango_get_from_treestore_node(tree_iter, -1, -1, node_printables, true /*exclude anchors*/);
+        CtExport2Pango().pango_get_from_treestore_node(tree_iter, -1, -1, node_printables, false /*exclude anchors*/);
         text_font =_pCtMainWin->get_ct_config()->rtFont; // text font for all (also eventual code nodes)
     }
     else
@@ -85,7 +106,7 @@ void CtExport2Pdf::_nodes_all_export_print_iter(const CtTreeIter& tree_iter, con
         node_printables.emplace_back(std::make_shared<CtTextPrintable>(CtExport2Pango().pango_get_from_code_buffer(tree_iter.get_node_text_buffer(), -1, -1)));
     }
     if (options.include_node_name) {
-        node_printables.emplace(node_printables.begin(), _add_node_name(tree_iter.get_node_name()));
+        node_printables.insert(node_printables.cbegin(), generate_node_name_printable(tree_iter.get_node_name(), tree_iter.get_node_id()));
     }
     if (tree_printables.empty()) {
         tree_printables = node_printables;
@@ -99,7 +120,7 @@ void CtExport2Pdf::_nodes_all_export_print_iter(const CtTreeIter& tree_iter, con
         }
         else
         {
-            tree_printables.emplace(tree_printables.cend() - 1, std::make_shared<CtTextPrintable>(str::repeat(CtConst::CHAR_NEWLINE, 3)));
+            tree_printables.emplace_back(std::make_shared<CtTextPrintable>(str::repeat(CtConst::CHAR_NEWLINE, 3)));
             if (node_printables.size() > 1)
             {
                 node_printables.erase(node_printables.cbegin());
@@ -113,14 +134,6 @@ void CtExport2Pdf::_nodes_all_export_print_iter(const CtTreeIter& tree_iter, con
     }
 }
 
-// Generate node name text
-std::unique_ptr<CtTextPrintable> CtExport2Pdf::_add_node_name(Glib::ustring node_name)
-{
-    auto printable = std::make_unique<CtTextPrintable>("<b><i><span size=\"xx-large\">" + str::xml_escape(node_name)
-            + "</span></i></b>" + CtConst::CHAR_NEWLINE + CtConst::CHAR_NEWLINE);
-    return printable;
-
-}
 
 
 Glib::ustring CtPrintCodeboxProxy::pango_from_code_buffer(CtCodebox* codebox) { return CtExport2Pango().pango_get_from_code_buffer(codebox->get_buffer(), -1, -1); }
@@ -367,15 +380,17 @@ Glib::ustring CtExport2Pango::pango_get_from_code_buffer(Glib::RefPtr<Gsv::Buffe
 
 
 
-std::unique_ptr<CtPrintable> printable_from_widget(CtAnchoredWidget* widget)
+std::unique_ptr<CtPrintable> printable_from_widget(CtAnchoredWidget* widget, int node_id)
 {
     if (!widget) {
         throw std::logic_error("CtWidgetPrintable::from_widget passed nullptr!");
     }
 
-    if (auto* image = dynamic_cast<CtImage*>(widget))            return std::make_unique<CtWidgetImagePrintable>(std::make_shared<CtPrintImageProxy>(image));
+    if (auto* img_anchor = dynamic_cast<CtImageAnchor*>(widget)) return std::make_unique<CtDestPrintable>(img_anchor, node_id);
+    else if (auto* image = dynamic_cast<CtImage*>(widget))       return std::make_unique<CtWidgetImagePrintable>(std::make_shared<CtPrintImageProxy>(image));
     else if (auto* table = dynamic_cast<CtTable*>(widget))       return std::make_unique<CtWidgetTablePrintable>(std::make_shared<CtPrintTableProxy>(table, 1, table->get_table_matrix().size()));
     else if (auto* codebox = dynamic_cast<CtCodebox*>(widget))   return std::make_unique<CtWidgetCodeboxPrintable>(std::make_shared<CtPrintCodeboxProxy>(codebox));
+
     else {
         throw std::logic_error("CtWidgetPrintable::from_widget passed unknown widget type");
     }
@@ -398,11 +413,12 @@ void CtExport2Pango::pango_get_from_treestore_node(CtTreeIter node_iter, int sel
         CtPrintableVector slots = _pango_process_slot(start_offset, end_offset, curr_buffer);
         out_printables.insert(out_printables.cend(), slots.begin(), slots.end());
         try {
-            std::shared_ptr<CtPrintable> p_widget = printable_from_widget(widget);
+            std::shared_ptr<CtPrintable> p_widget = printable_from_widget(widget, node_iter.get_node_id());
             out_printables.emplace_back(std::move(p_widget));
         } catch(std::exception& e) {
             spdlog::error("Exception occurred while trying to convert widget to printable: {}", e.what());
         }
+        
         start_offset = end_offset;
     }
     CtPrintableVector slots;
@@ -435,6 +451,7 @@ CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter, Gtk::Text
     bool superscript_active = false;
     bool subscript_active = false;
     bool monospace_active = false;
+    std::string link_url;
     for (auto tag_property: CtConst::TAG_PROPERTIES)
     {
         if ((tag_property != CtConst::TAG_JUSTIFICATION && tag_property != CtConst::TAG_LINK) && !curr_attributes.at(tag_property).empty())
@@ -472,6 +489,9 @@ CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter, Gtk::Text
                 property_value = CtRgbUtil::get_rgb24str_from_str_any(color_no_white);
             }
             pango_attrs += std::string(" ") + tag_property.data() + "=\"" + property_value + "\"";
+        } 
+        if (tag_property == CtConst::TAG_LINK) {
+            link_url = curr_attributes.at(tag_property);
         }
     }
     Glib::ustring tagged_text;
@@ -482,6 +502,10 @@ CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter, Gtk::Text
     if (superscript_active) tagged_text = "<sup>" + tagged_text + "</sup>";
     if (subscript_active) tagged_text = "<sub>" + tagged_text + "</sub>";
     if (monospace_active) tagged_text = "<tt>" + tagged_text + "</tt>";
+
+    if (!link_url.empty()) {
+        return std::make_unique<CtLinkPrintable>(std::move(tagged_text), std::move(link_url));
+    }
     return std::make_unique<CtTextPrintable>(tagged_text);
 }
 
@@ -897,4 +921,80 @@ double CtPageBreakPrintable::height() const
 double CtPageBreakPrintable::width() const
 {
     return 0;
+}
+
+CtLinkPrintable::CtLinkPrintable(Glib::ustring title, std::string url) : CtTextPrintable(fmt::format("<span fgcolor='blue'>{}</span>", std::move(title))), _url(std::move(url)) 
+{
+    try {
+        Glib::RefPtr<Glib::Regex> node_link_reg = Glib::Regex::create("node\\s([0-9]+).?(.*)?");
+        Glib::MatchInfo m_info;
+        node_link_reg->match(_url, m_info);
+        if (m_info.matches()) {
+            // Internal url
+            std::string node_id = m_info.fetch(1);
+            std::string sect_id = m_info.fetch(2);
+
+            _url = dest_id_from_node_and_anchor(std::stoi(node_id), sect_id);
+            _is_internal = true;
+            spdlog::debug("Created link to: {}", _url);
+        } else {
+            // Unknown, try and unwrap it
+            _url = CtStrUtil::external_uri_from_internal(_url);
+        }
+    } catch(const std::exception& e) {
+        spdlog::error("CtLinkPrintable failed to convert url ({}) to internal (error msg: {})", _url, e.what());
+    }
+}
+
+template<typename PRINT_CALLBACK_T>
+CtPrintable::PrintPosition print_with_cairo_tag(cairo_t* cairo_obj, const PRINT_CALLBACK_T& callback, const std::string& tag_name, const std::string& tag_attrs) 
+{
+    cairo_tag_begin(cairo_obj, tag_name.c_str(), tag_attrs.c_str());
+    CtPrintable::PrintPosition pos = callback();
+    cairo_tag_end(cairo_obj, tag_name.c_str());
+    return pos;
+}
+
+
+// Does the same as CtTextPrintable but applies a link tag
+CtPrintable::PrintPosition CtLinkPrintable::print(const PrintingContext& context) 
+{
+    auto pos = context.position;
+    if (!done()) {
+        try {
+            std::string attrs = fmt::format("{}='{}'", _is_internal ? "dest" : "uri", _url);
+            pos = print_with_cairo_tag(context.cairo_context->cobj(), [this, &context]() {
+                return CtTextPrintable::print(context);
+            }, CAIRO_TAG_LINK, attrs);
+    
+        } catch(const std::exception& e) {
+            spdlog::error("Exception caught in CtLinkPrintable while printing: ({}); Link was: <{}>", e.what(), _url);
+        }
+    }
+    return pos;
+}
+
+
+
+
+
+CtDestPrintable::CtDestPrintable(CtImageAnchor* anchor, int node_id) : CtTextPrintable("⚓"), _id(dest_id_from_node_and_anchor(node_id, anchor->get_anchor_name())) {}
+
+
+CtPrintable::PrintPosition CtDestPrintable::print(const PrintingContext& context) 
+{
+    auto pos = context.position;
+    if (!_done) {
+        try {
+            spdlog::debug("Printed dest: {}", _id);
+            
+            pos = print_with_cairo_tag(context.cairo_context->cobj(), [this, &context]{
+                return CtTextPrintable::print(context); 
+            }, CAIRO_TAG_DEST, fmt::format("name='{}'", _id));
+
+        } catch(const std::exception& e) {
+            spdlog::error("Exception while printing dest: {}", e.what());
+        }
+    }
+    return pos;
 }
