@@ -30,7 +30,7 @@
 #include <stdexcept>
 
 
-#ifndef CHECK_THROWS
+#ifdef _WIN32
 // On windows/mingw it seems CHECK_THROWS is not defined, this is copied from the CppUTest source: https://github.com/cpputest/cpputest/blob/ec0b029b12bb174bdb0fb554479c00e1425be44c/include/CppUTest/UtestMacros.h#L357
 #define CHECK_THROWS(expected, expression) \
     do { \
