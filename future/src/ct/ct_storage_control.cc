@@ -47,7 +47,10 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
     return doc;
 }
 
-/*static*/ CtStorageControl* CtStorageControl::load_from(CtMainWin* pCtMainWin, const fs::path& file_path, Glib::ustring& error, std::string password)
+/*static*/ CtStorageControl* CtStorageControl::load_from(CtMainWin* pCtMainWin,
+                                                         const fs::path& file_path,
+                                                         Glib::ustring& error,
+                                                         Glib::ustring password)
 {
     std::unique_ptr<CtStorageEntity> storage;
     fs::path extracted_file_path = file_path;
@@ -58,6 +61,10 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
         // unpack file if need
         if (fs::get_doc_encrypt(file_path) == CtDocEncrypt::True) {
             extracted_file_path = _extract_file(pCtMainWin, file_path, password);
+            if (extracted_file_path.empty()) {
+                // user canceled operation
+                return nullptr;
+            }
         }
 
         // choose storage type
@@ -225,7 +232,7 @@ Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64
     return _storage->get_delayed_text_buffer(node_id, syntax, widgets);
 }
 
-/*static*/ fs::path CtStorageControl::_extract_file(CtMainWin* pCtMainWin, const fs::path& file_path, std::string& password)
+/*static*/ fs::path CtStorageControl::_extract_file(CtMainWin* pCtMainWin, const fs::path& file_path, Glib::ustring& password)
 {
     fs::path temp_dir = pCtMainWin->get_ct_tmp()->getHiddenDirPath(file_path);
     fs::path temp_file_path = pCtMainWin->get_ct_tmp()->getHiddenFilePath(file_path);
@@ -235,7 +242,8 @@ Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64
         if (password.empty()) {
             CtDialogTextEntry dialogTextEntry(title, true/*forPassword*/, pCtMainWin);
             if (Gtk::RESPONSE_OK != dialogTextEntry.run()) {
-                throw std::runtime_error("no password, user cancels operation");
+                // no password, user cancels operation, return empty path
+                return fs::path{};
             }
             password = dialogTextEntry.get_entry_text();
         }
@@ -348,10 +356,14 @@ void CtStorageControl::add_nodes_from_storage(const fs::path& path)
         throw std::runtime_error(fmt::format("File: {} - is not a regular file", path));
     }
 
-    std::string password;
+    Glib::ustring password;
     fs::path extracted_file_path = path;
     if (fs::get_doc_encrypt(path) == CtDocEncrypt::True) {
         extracted_file_path = _extract_file(_pCtMainWin, path, password);
+        if (extracted_file_path.empty()) {
+            // user canceled operation
+            return;
+        }
     }
 
     std::unique_ptr<CtStorageEntity> storage = get_entity_by_type(_pCtMainWin, fs::get_doc_type(extracted_file_path));

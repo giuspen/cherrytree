@@ -22,6 +22,7 @@
  */
 
 #pragma once
+
 #include "ct_types.h"
 #include <glibmm/miscutils.h>
 
@@ -30,8 +31,14 @@ class CtStorageControl
 {
 public:
     static CtStorageControl* create_dummy_storage(CtMainWin* pCtMainWin);
-    static CtStorageControl* load_from(CtMainWin* pCtMainWin, const fs::path& file_path, Glib::ustring& error, std::string password = "");
-    static CtStorageControl* save_as(CtMainWin* pCtMainWin, const fs::path& file_path, const Glib::ustring& password, Glib::ustring& error);
+    static CtStorageControl* load_from(CtMainWin* pCtMainWin,
+                                       const fs::path& file_path,
+                                       Glib::ustring& error,
+                                       Glib::ustring password = "");
+    static CtStorageControl* save_as(CtMainWin* pCtMainWin,
+                                     const fs::path& file_path,
+                                     const Glib::ustring& password,
+                                     Glib::ustring& error);
 
 public:
     bool save(bool need_vacuum, Glib::ustring& error);
@@ -39,8 +46,8 @@ public:
  private:
     CtStorageControl() = default;
 
-    static fs::path _extract_file(CtMainWin* pCtMainWin, const fs::path& file_path, std::string& password);
-    static bool        _package_file(const fs::path& file_from, const fs::path& file_to, const Glib::ustring& password);
+    static fs::path _extract_file(CtMainWin* pCtMainWin, const fs::path& file_path, Glib::ustring& password);
+    static bool     _package_file(const fs::path& file_from, const fs::path& file_to, const Glib::ustring& password);
 
     void _put_in_backup(const fs::path& main_backup);
 
@@ -79,7 +86,6 @@ private:
     std::unique_ptr<CtStorageEntity> _storage;
     CtStorageSyncPending             _syncPending;
 };
-
 
 class CtImagePng;
 class CtStorageCache

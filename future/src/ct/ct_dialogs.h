@@ -262,7 +262,7 @@ struct storage_select_args
     Gtk::Window*  pParentWin{nullptr};
     CtDocType     ctDocType{CtDocType::None};
     CtDocEncrypt  ctDocEncrypt{CtDocEncrypt::None};
-    std::string   password;
+    Glib::ustring password;
 
     storage_select_args(Gtk::Window* win) : pParentWin(win) {}
 };

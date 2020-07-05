@@ -854,7 +854,7 @@ void CtMainWin::_zoom_tree(bool is_increase)
     _uCtTreeview->override_font(description);
 }
 
-bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_focus, const std::string password)
+bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_focus, const Glib::ustring password)
 {
     if (!fs::is_regular_file(filepath)) {
         CtDialogs::error_dialog("File does not exist", *this);
@@ -881,7 +881,9 @@ bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_f
     Glib::ustring error;
     auto new_storage = CtStorageControl::load_from(this, filepath, error, password);
     if (!new_storage) {
-        CtDialogs::error_dialog("Error Parsing the CherryTree File", *this);
+        if (not error.empty()) {
+            CtDialogs::error_dialog(str::format(_("Error Parsing the CherryTree File:\n\"%s\""), error), *this);
+        }
 
         // trying to recover prevous document
         if (!prev_path.empty())
@@ -991,7 +993,7 @@ void CtMainWin::file_save(bool need_vacuum)
     }
 }
 
-void CtMainWin::file_save_as(const std::string& new_filepath, const std::string& password)
+void CtMainWin::file_save_as(const std::string& new_filepath, const Glib::ustring& password)
 {
     Glib::ustring error;
     std::unique_ptr<CtStorageControl> new_storage(CtStorageControl::save_as(this, new_filepath, password, error));
