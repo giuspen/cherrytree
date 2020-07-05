@@ -29,6 +29,29 @@
 
 #include <stdexcept>
 
+
+#ifndef CHECK_THROWS
+// On windows/mingw it seems CHECK_THROWS is not defined, this is copied from the CppUTest source: https://github.com/cpputest/cpputest/blob/ec0b029b12bb174bdb0fb554479c00e1425be44c/include/CppUTest/UtestMacros.h#L357
+#define CHECK_THROWS(expected, expression) \
+    do { \
+        SimpleString failure_msg("expected to throw "#expected "\nbut threw nothing"); \
+        bool caught_expected = false; \
+        try { \
+            (expression); \
+        } catch(const expected &) { \
+            caught_expected = true; \
+        } catch(...) { \
+            failure_msg = "expected to throw " #expected "\nbut threw a different type"; \
+        } \
+        if (!caught_expected) { \
+            UtestShell::getCurrent()->fail(failure_msg.asCharString(), __FILE__, __LINE__); \
+        } \
+        else { \
+            UtestShell::getCurrent()->countCheck(); \
+        } \
+    } while(0)
+#endif
+
 TEST_GROUP(MiscUtilsGroup)
 {
 };
