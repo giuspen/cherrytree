@@ -72,8 +72,9 @@ public:
 
     GtkAccelGroup* default_accel_group();
 
-    static ACCEL_TYPE     get_accel_type(const std::string& action_name);
-    static Gtk::MenuItem* find_menu_item(Gtk::MenuBar* menuBar, std::string name);
+    static ACCEL_TYPE       get_accel_type(const std::string& action_name);
+    static Gtk::MenuItem*   find_menu_item(Gtk::MenuBar* menuBar, std::string name);
+    static Gtk::AccelLabel* get_accel_label(Gtk::MenuItem* item);
 
     Gtk::Toolbar* build_toolbar(Gtk::MenuToolButton*& pRecentDocsMenuToolButton);
     Gtk::MenuBar* build_menubar();

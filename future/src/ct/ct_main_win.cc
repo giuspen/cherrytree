@@ -128,17 +128,26 @@ CtMainWin::CtMainWin(bool             no_gui,
 
     if (_no_gui) {
         set_visible(false);
-    }
-    else if (_pCtConfig->systrayOn && _pCtConfig->startOnSystray) {
-        if (_pGtkStatusIcon->is_embedded()) {
-            set_visible(false);
-        } else {
-            spdlog::warn("Start on systray is enabled but system does not support system trays, starting normally");
-            present();
-        }
-    }
-    else {
+    } else if (_pCtConfig->systrayOn && _pCtConfig->startOnSystray) {
+        set_visible(false);
+    } else {
         present();
+    }
+
+    // show status icon if it's needed and also check if systray exists
+    if (!_no_gui && _pCtConfig->systrayOn) {
+        _pGtkStatusIcon->set_visible(true);
+        Glib::signal_idle().connect_once([&](){
+            if (!_pGtkStatusIcon->is_embedded()) { // is_embedded works only in main event loop
+                if (_pCtConfig->startOnSystray) {
+                    spdlog::warn("Start on systray is enabled but system does not support system trays, starting normally");
+                }
+                _pGtkStatusIcon->set_visible(false);
+                _pCtConfig->systrayOn = false;
+                menu_set_visible_exit_app(false);
+                present();
+            }
+        });
     }
 }
 
@@ -515,8 +524,7 @@ void CtMainWin::config_apply()
     _ctStatusBar.progressBar.hide();
     _ctStatusBar.stopButton.hide();
 
-    get_status_icon()->set_visible(_pCtConfig->systrayOn);
-    menu_set_visible_exit_app(_pGtkStatusIcon->is_embedded() ? _pCtConfig->systrayOn : false);
+    menu_set_visible_exit_app(_pCtConfig->systrayOn);
 
     _ctTextview.set_show_line_numbers(get_ct_config()->showLineNumbers);
     _ctTextview.set_insert_spaces_instead_of_tabs(get_ct_config()->spacesInsteadTabs);
@@ -783,6 +791,11 @@ void CtMainWin::menu_set_items_special_chars()
 
 void CtMainWin::menu_set_visible_exit_app(bool visible)
 {
+    if (auto quit_label = CtMenu::get_accel_label(CtMenu::find_menu_item(_pMenuBar, "quit_app")))
+    {
+        quit_label->set_label(visible ? _("Hide") : _("Quit"));
+        quit_label->set_tooltip_markup(visible ?  _("Hide the Window") : _("Quit the Application"));
+    }
     CtMenu::find_menu_item(_pMenuBar, "exit_app")->set_visible(visible);
 }
 

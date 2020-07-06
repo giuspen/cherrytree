@@ -368,6 +368,14 @@ Gtk::MenuItem* CtMenu::find_menu_item(Gtk::MenuBar* menuBar, std::string name)
     return nullptr;
 }
 
+Gtk::AccelLabel* CtMenu::get_accel_label(Gtk::MenuItem* item)
+{
+    if (auto box = dynamic_cast<Gtk::Box*>(item->get_child()))
+        if (auto label = dynamic_cast<Gtk::AccelLabel*>(box->get_children().back()))
+            return label;
+    return nullptr;
+}
+
 Gtk::Toolbar* CtMenu::build_toolbar(Gtk::MenuToolButton*& pRecentDocsMenuToolButton)
 {
     Gtk::Toolbar* pToolbar{nullptr};

@@ -1346,11 +1346,6 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     Gtk::VBox* vbox_system_tray = Gtk::manage(new Gtk::VBox());
     Gtk::CheckButton* checkbutton_systray = Gtk::manage(new Gtk::CheckButton(_("Enable System Tray Docking")));
     Gtk::CheckButton* checkbutton_start_on_systray = Gtk::manage(new Gtk::CheckButton(_("Start Minimized in the System Tray")));
-    bool has_systray = _pCtMainWin->get_status_icon()->is_embedded();
-    checkbutton_systray->set_sensitive(has_systray);
-    if (!has_systray) {
-        checkbutton_systray->set_tooltip_text(_("Your system does not appear to support system trays"));
-    }
     vbox_system_tray->pack_start(*checkbutton_systray, false, false);
     vbox_system_tray->pack_start(*checkbutton_start_on_systray, false, false);
 
@@ -1456,12 +1451,28 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     pMainBox->pack_start(*frame_language, false, false);
 #endif
 
+
+    // cannot just turn on systray icon, we have to check if systray exists
     checkbutton_systray->signal_toggled().connect([this, pConfig, checkbutton_systray, checkbutton_start_on_systray](){
-        pConfig->systrayOn = checkbutton_systray->get_active();
-        _pCtMainWin->get_status_icon()->set_visible(checkbutton_systray->get_active());
-        bool has_systray = _pCtMainWin->get_status_icon()->is_embedded();
-        apply_for_each_window([has_systray](CtMainWin* win) { win->menu_set_visible_exit_app(has_systray ? win->get_ct_config()->systrayOn : false); });
-        checkbutton_start_on_systray->set_sensitive(checkbutton_systray->get_active());
+        if (checkbutton_systray->get_active()) {
+            _pCtMainWin->get_status_icon()->set_visible(true);
+            Glib::signal_idle().connect_once([&](){ // can only check status icon in main event loop
+                if (_pCtMainWin->get_status_icon()->is_embedded()) {
+                    pConfig->systrayOn = true;
+                    apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(true); });
+                    checkbutton_start_on_systray->set_sensitive(true);
+                } else {
+                    _pCtMainWin->get_status_icon()->set_visible(false);
+                    checkbutton_systray->set_active(false);
+                    checkbutton_systray->set_sensitive(false);
+                    CtDialogs::warning_dialog(_("Your system does not appear to support system trays"), *_pCtMainWin);
+                }
+            });
+        } else {
+            pConfig->systrayOn = false;
+            apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(false); });
+            checkbutton_start_on_systray->set_sensitive(false);
+        }
     });
     checkbutton_start_on_systray->signal_toggled().connect([pConfig, checkbutton_start_on_systray](){
         pConfig->startOnSystray = checkbutton_start_on_systray->get_active();
