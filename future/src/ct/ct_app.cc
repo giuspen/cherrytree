@@ -196,7 +196,8 @@ CtMainWin* CtApp::_create_window(const bool no_gui)
     add_window(*pCtMainWin);
 
     pCtMainWin->signal_app_new_instance.connect([this]() {
-        _create_window();
+        auto win = _create_window();
+        win->present(); // explicitly show it because it can be hidden by start in systray
     });
     pCtMainWin->signal_app_apply_for_each_window.connect([this](std::function<void(CtMainWin*)> callback) {
         for (Gtk::Window* pWin : get_windows())
