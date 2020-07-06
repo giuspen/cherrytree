@@ -184,6 +184,8 @@ private:
     void                _on_treeview_cursor_changed(); // pygtk: on_node_changed
     bool                _on_treeview_button_release_event(GdkEventButton* event);
     void                _on_treeview_event_after(GdkEvent* event); // pygtk: on_event_after_tree
+    void                _on_treeview_row_activated(const Gtk::TreeModel::Path&, Gtk::TreeViewColumn*);
+    bool                _on_treeview_test_collapse_row(const Gtk::TreeModel::iterator&,const Gtk::TreeModel::Path&);
     bool                _on_treeview_key_press_event(GdkEventKey* event);
     bool                _on_treeview_popup_menu();
     bool                _on_treeview_scroll_event(GdkEventScroll* event);
@@ -250,6 +252,7 @@ private:
     int                 _savedXpos{-1};
     int                 _savedYpos{-1};
     sigc::connection    _autosave_timout_connection;
+    bool                _tree_just_auto_expanded{false};
 
 public:
     sigc::signal<void>             signal_app_new_instance = sigc::signal<void>();

@@ -175,6 +175,7 @@ class CherryTree:
         self.treeviewselection = self.treeview.get_selection()
         self.treeview.connect('cursor-changed', self.on_node_changed)
         self.treeview.connect('event-after', self.on_event_after_tree)
+        self.treeview.connect('row-activated', self.on_event_row_activated) # to detect double click 
         self.tree_just_auto_expanded = False
         self.treeview.connect('test-collapse-row', self.on_test_collapse_row_tree)
         self.treeview.connect('button-press-event', self.on_mouse_button_clicked_tree)
@@ -2694,15 +2695,32 @@ iter_end, exclude_iter_sel_end=True)
                 if self.tree_click_focus_text:
                     self.sourceview.grab_focus()
                 if self.tree_click_expand:
+                    self.tree_just_auto_expanded = False
                     path_at_click = self.treeview.get_path_at_pos(int(event.x), int(event.y))
                     if path_at_click and not self.treeview.row_expanded(path_at_click[0]):
-                        self.treeview.expand_row(path_at_click[0], open_all=False)
                         self.tree_just_auto_expanded = True
-                    else:
-                        self.tree_just_auto_expanded = False
+                        self.treeview.expand_row(path_at_click[0], open_all=False)            
         elif event.type == gtk.gdk._2BUTTON_PRESS:
             if event.button == 1:
-                self.toggle_tree_node_expanded_collapsed()
+                # on_event_row_activated works better for double-click
+                # but it doesn't work with one click
+                # in this case use real double click
+                if self.tree_click_expand:
+                    path_at_click = self.treeview.get_path_at_pos(int(event.x), int(event.y))
+                    if path_at_click:
+                        if self.treeview.row_expanded(path_at_click[0]):
+                            self.treeview.collapse_row(path_at_click[0])
+                        else: self.treeview.expand_row(path_at_click[0], False)
+    
+    def on_event_row_activated(self, treeview, path, column):
+        # on_event_row_activated works better for double-click
+        # but it doesn't work with one click
+        # in this case use real double click
+        if not self.tree_click_expand:
+            if self.treeview.row_expanded(path):
+                self.treeview.collapse_row(path)
+            else:
+                self.treeview.expand_row(path, open_all=False)
 
     def on_test_collapse_row_tree(self, treeview, tree_iter, tree_path):
         """Just before collapsing a node"""

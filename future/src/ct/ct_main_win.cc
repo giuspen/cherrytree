@@ -488,10 +488,12 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
     _uCtTreeview->set_title_wrap_mode(get_ct_config()->cherryWrapWidth);
     _uCtTreeview->get_column(CtTreeView::AUX_ICON_COL_NUM)->set_visible(!get_ct_config()->auxIconHide);
 
-
+    _tree_just_auto_expanded = false;
     _uCtTreeview->signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_cursor_changed));
     _uCtTreeview->signal_button_release_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_button_release_event));
     _uCtTreeview->signal_event_after().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_event_after));
+    _uCtTreeview->signal_row_activated().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_row_activated));
+    _uCtTreeview->signal_test_collapse_row().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_test_collapse_row));
     _uCtTreeview->signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_key_press_event), false);
     _uCtTreeview->signal_scroll_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_scroll_event));
     _uCtTreeview->signal_popup_menu().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_popup_menu));
@@ -1341,6 +1343,7 @@ bool CtMainWin::_on_treeview_button_release_event(GdkEventButton* event)
         _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node)->popup(event->button, event->time);
         return true;
     }
+
     return false;
 }
 
@@ -1362,16 +1365,19 @@ void CtMainWin::_on_treeview_event_after(GdkEvent* event)
         if (get_ct_config()->treeClickFocusText) {
             get_text_view().grab_focus();
         }
-        if (get_ct_config()->treeClickExpand) {
-
+        if (get_ct_config()->treeClickExpand)
+        {
+            _tree_just_auto_expanded = false;
             Gtk::TreePath path_at_click;
             if (get_tree_view().get_path_at_pos((int)event->button.x, (int)event->button.y, path_at_click))
-                if (!get_tree_view().row_expanded(path_at_click))
+                if (!get_tree_view().row_expanded(path_at_click)) {
                     get_tree_view().expand_row(path_at_click, false);
-
+                    _tree_just_auto_expanded = true;
+                }
         }
     }
-    if (event->type == GDK_BUTTON_PRESS && event->button.button == 2 /* wheel click */) {
+    if (event->type == GDK_BUTTON_PRESS && event->button.button == 2 /* wheel click */)
+    {
         auto path = get_tree_store().get_path(curr_tree_iter());
         if (_uCtTreeview->row_expanded(path))
             _uCtTreeview->collapse_row(path);
@@ -1380,12 +1386,46 @@ void CtMainWin::_on_treeview_event_after(GdkEvent* event)
     }
     else if (event->type == GDK_2BUTTON_PRESS and event->button.button == 1)
     {
-        auto path = get_tree_store().get_path(curr_tree_iter());
-        if (_uCtTreeview->row_expanded(path))
-            _uCtTreeview->collapse_row(path);
-        else
-            _uCtTreeview->expand_row(path, false);
+        // _on_treeview_row_activated works better for double-click
+        // but it doesn't work with one click
+        // in this case use real double click
+        if (get_ct_config()->treeClickExpand)
+        {
+            Gtk::TreePath path_at_click;
+            if (get_tree_view().get_path_at_pos((int)event->button.x, (int)event->button.y, path_at_click))
+                if (path_at_click == get_tree_store().get_path(curr_tree_iter()))
+                {
+                    if (_uCtTreeview->row_expanded(path_at_click))
+                        _uCtTreeview->collapse_row(path_at_click);
+                    else
+                        _uCtTreeview->expand_row(path_at_click, false);
+                }
+        }
     }
+}
+
+void CtMainWin::_on_treeview_row_activated(const Gtk::TreeModel::Path& path, Gtk::TreeViewColumn*)
+{
+    // _on_treeview_row_activated works better for double-click
+    // but it doesn't work with one click
+    // in this case use real double click
+    if (get_ct_config()->treeClickExpand)
+        return;
+    if (_uCtTreeview->row_expanded(path))
+        _uCtTreeview->collapse_row(path);
+    else
+        _uCtTreeview->expand_row(path, false);
+}
+
+bool CtMainWin::_on_treeview_test_collapse_row(const Gtk::TreeModel::iterator&,const Gtk::TreeModel::Path&)
+{
+    // to fix one click
+    if (get_ct_config()->treeClickExpand)
+        if (_tree_just_auto_expanded) {
+            _tree_just_auto_expanded = false;
+            return true;
+        }
+    return false;
 }
 
 bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
