@@ -1456,7 +1456,9 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_systray->signal_toggled().connect([this, pConfig, checkbutton_systray, checkbutton_start_on_systray](){
         if (checkbutton_systray->get_active()) {
             _pCtMainWin->get_status_icon()->set_visible(true);
-            Glib::signal_idle().connect_once([&](){ // can only check status icon in main event loop
+            this->set_sensitive(false);
+            Glib::signal_timeout().connect_once([&](){ // can only check status icon in main event loop
+                this->set_sensitive(true);
                 if (_pCtMainWin->get_status_icon()->is_embedded()) {
                     pConfig->systrayOn = true;
                     apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(true); });
@@ -1464,12 +1466,12 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
                 } else {
                     _pCtMainWin->get_status_icon()->set_visible(false);
                     checkbutton_systray->set_active(false);
-                    checkbutton_systray->set_sensitive(false);
                     CtDialogs::warning_dialog(_("Your system does not appear to support system trays"), *_pCtMainWin);
                 }
-            });
+            }, 300);
         } else {
             pConfig->systrayOn = false;
+            _pCtMainWin->get_status_icon()->set_visible(false);
             apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(false); });
             checkbutton_start_on_systray->set_sensitive(false);
         }
