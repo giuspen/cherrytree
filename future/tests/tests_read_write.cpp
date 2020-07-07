@@ -30,16 +30,19 @@ class TestCtApp : public CtApp
 {
 public:
     TestCtApp() : CtApp{} {}
+
     struct ExpectedTag {
         Glib::ustring text_slot;
         bool found{false};
         CtTextIterUtil::CurrAttributesMap attr_map;
     };
+
 private:
     void on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint) override;
+
     void _assert_tree_data(CtMainWin* pWin);
     void _assert_node_text(CtTreeIter& ctTreeIter, const Glib::ustring& expectedText);
-    void _process_text_buffer(std::list<ExpectedTag>& expectedTags, Glib::RefPtr<Gsv::Buffer> rTextBuffer);
+    void _process_rich_text_buffer(std::list<ExpectedTag>& expectedTags, Glib::RefPtr<Gsv::Buffer> rTextBuffer);
 };
 
 void TestCtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint)
@@ -82,7 +85,7 @@ void TestCtApp::on_open(const Gio::Application::type_vec_files& files, const Gli
     remove_window(*pWin2);
 }
 
-void TestCtApp::_process_text_buffer(std::list<ExpectedTag>& expectedTags, Glib::RefPtr<Gsv::Buffer> rTextBuffer)
+void TestCtApp::_process_rich_text_buffer(std::list<ExpectedTag>& expectedTags, Glib::RefPtr<Gsv::Buffer> rTextBuffer)
 {
     CtTextIterUtil::SerializeFunc test_slot = [&expectedTags](Gtk::TextIter& start_iter,
                                                               Gtk::TextIter& end_iter,
@@ -150,6 +153,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("b");
         CHECK(ctTreeIter);
+        // assert node properties
         STRCMP_EQUAL("1", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
         CHECK_FALSE(ctTreeIter.get_node_is_bold());
         CHECK_FALSE(ctTreeIter.get_node_read_only());
@@ -158,6 +162,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
         STRCMP_EQUAL("custom-colors", ctTreeIter.get_node_syntax_highlighting().c_str());
         CHECK(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
+        // assert text
         const Glib::ustring expectedText{
             "ciao rich" _NL
             "fore" _NL
@@ -175,6 +180,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
             "mono" _NL
         };
         _assert_node_text(ctTreeIter, expectedText);
+        // assert rich text tags
         std::list<ExpectedTag> expectedTags = {
             ExpectedTag{
                 .text_slot="ciao rich",
@@ -221,7 +227,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
                 .text_slot="mono",
                 .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_FAMILY, CtConst::TAG_PROP_VAL_MONOSPACE}}},
         };
-        _process_text_buffer(expectedTags, ctTreeIter.get_node_text_buffer());
+        _process_rich_text_buffer(expectedTags, ctTreeIter.get_node_text_buffer());
         for (auto& expTag : expectedTags) {
             CHECK(expTag.found);
         }
@@ -311,9 +317,12 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         };
         _assert_node_text(ctTreeIter, expectedText);
     }
+    gint64 node_d_id{0};
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("d");
         CHECK(ctTreeIter);
+        node_d_id = ctTreeIter.get_node_id();
+        CHECK(node_d_id > 0);
         STRCMP_EQUAL("2", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
         CHECK(ctTreeIter.get_node_is_bold());
         CHECK(ctTreeIter.get_node_read_only());
@@ -330,6 +339,9 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("e");
         CHECK(ctTreeIter);
+        // assert node properties
+        const gint64 node_e_id = ctTreeIter.get_node_id();
+        CHECK(node_e_id > 0);
         STRCMP_EQUAL("3", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
         CHECK_FALSE(ctTreeIter.get_node_is_bold());
         CHECK_FALSE(ctTreeIter.get_node_read_only());
@@ -338,6 +350,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
         STRCMP_EQUAL("custom-colors", ctTreeIter.get_node_syntax_highlighting().c_str());
         CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
+        // assert text
         const Glib::ustring expectedText{
             "anchored widgets:" _NL
             _NL
@@ -363,16 +376,23 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
             "link to file /etc/fstab" _NL
         };
         _assert_node_text(ctTreeIter, expectedText);
+        // assert rich text tags
         std::list<ExpectedTag> expectedTags = {
             ExpectedTag{
                 .text_slot="link to web ansa.it",
                 .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_LINK, "webs http://www.ansa.it"}}},
             ExpectedTag{
                 .text_slot="link to node ‘d’",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_LINK, "node 4"}}},
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{
+                    CtConst::TAG_LINK,
+                    std::string{"node "} + std::to_string(node_d_id)
+                }}},
             ExpectedTag{
                 .text_slot="link to node ‘e’ + anchor",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_LINK, "node 5 йцукенгшщз"}}},
+                .attr_map=CtTextIterUtil::CurrAttributesMap{{
+                    CtConst::TAG_LINK,
+                    std::string{"node "} + std::to_string(node_e_id) + " йцукенгшщз"
+                }}},
             ExpectedTag{
                 .text_slot="link to folder /etc",
                 .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_LINK, "fold L2V0Yw=="}}},
@@ -380,9 +400,60 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
                 .text_slot="link to file /etc/fstab",
                 .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_LINK, "file L2V0Yy9mc3RhYg=="}}},
         };
-        _process_text_buffer(expectedTags, ctTreeIter.get_node_text_buffer());
+        _process_rich_text_buffer(expectedTags, ctTreeIter.get_node_text_buffer());
         for (auto& expTag : expectedTags) {
             CHECK(expTag.found);
+        }
+        // assert anchored widgets
+        std::list<CtAnchoredWidget*> anchoredWidgets = ctTreeIter.get_embedded_pixbufs_tables_codeboxes();
+        CHECK_EQUAL(5, anchoredWidgets.size());
+        for (CtAnchoredWidget* pAnchWidget : anchoredWidgets) {
+            switch (pAnchWidget->get_type()) {
+                case CtAnchWidgType::CodeBox: {
+                    CHECK_EQUAL(28, pAnchWidget->getOffset());
+                    STRCMP_EQUAL(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
+                    auto pCodebox = dynamic_cast<CtCodebox*>(pAnchWidget);
+                    CHECK(pCodebox);
+                    STRCMP_EQUAL(
+                        "def test_function:" _NL
+                        "    print \"hi there йцукенгшщз\"",
+                        pCodebox->get_text_content().c_str());
+                    STRCMP_EQUAL("python", pCodebox->get_syntax_highlighting().c_str());
+                    CHECK(pCodebox->get_width_in_pixels());
+                    CHECK_EQUAL(280,  pCodebox->get_frame_width());
+                    CHECK_EQUAL(50,  pCodebox->get_frame_height());
+                    CHECK(pCodebox->get_highlight_brackets());
+                    CHECK_FALSE(pCodebox->get_show_line_numbers());
+                } break;
+                case CtAnchWidgType::Table: {
+                    CHECK_EQUAL(49, pAnchWidget->getOffset());
+                    STRCMP_EQUAL(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
+                    auto pTable = dynamic_cast<CtTable*>(pAnchWidget);
+                    CHECK(pTable);
+                    // TODO
+                } break;
+                case CtAnchWidgType::ImagePng: {
+                    CHECK_EQUAL(59, pAnchWidget->getOffset());
+                    STRCMP_EQUAL(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
+                    auto pImagePng = dynamic_cast<CtImagePng*>(pAnchWidget);
+                    CHECK(pImagePng);
+                    // TODO
+                } break;
+                case CtAnchWidgType::ImageAnchor: {
+                    CHECK_EQUAL(39, pAnchWidget->getOffset());
+                    STRCMP_EQUAL(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
+                    auto pImageAnchor = dynamic_cast<CtImageAnchor*>(pAnchWidget);
+                    CHECK(pImageAnchor);
+                    STRCMP_EQUAL("йцукенгшщз", pImageAnchor->get_anchor_name().c_str());
+                } break;
+                case CtAnchWidgType::ImageEmbFile: {
+                    CHECK_EQUAL(77, pAnchWidget->getOffset());
+                    STRCMP_EQUAL(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
+                    auto pImageEmbFile = dynamic_cast<CtImageEmbFile*>(pAnchWidget);
+                    CHECK(pImageEmbFile);
+                    // TODO
+                } break;
+            }
         }
     }
 }

@@ -943,12 +943,14 @@ bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_f
         }
     }
 
-    if (!node_is_set && iterDocsRestore != _pCtConfig->recentDocsRestore.end())
+    if ( not _no_gui and
+         not node_is_set
+         and iterDocsRestore != _pCtConfig->recentDocsRestore.end() )
     {
         _uCtTreestore->treeview_set_tree_path_n_text_cursor(_uCtTreeview.get(),
-                                                   &_ctTextview,
-                                                   iterDocsRestore->second.node_path,
-                                                   iterDocsRestore->second.cursor_pos);
+                                                            &_ctTextview,
+                                                            iterDocsRestore->second.node_path,
+                                                            iterDocsRestore->second.cursor_pos);
         _ctTextview.grab_focus();
     }
 
@@ -1111,7 +1113,9 @@ void CtMainWin::reset()
     update_window_save_not_needed();
     _ctTextview.set_buffer(Glib::RefPtr<Gtk::TextBuffer>());
     _ctTextview.set_spell_check(false);
-    _ctTextview.set_sensitive(false);
+    if (not _no_gui) {
+        _ctTextview.set_sensitive(false);
+    }
 }
 
 bool CtMainWin::get_file_save_needed()
