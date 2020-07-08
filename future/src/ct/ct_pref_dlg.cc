@@ -366,6 +366,8 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     Gtk::RadioButton* radiobutton_rt_col_dark = Gtk::manage(new Gtk::RadioButton(_("Dark Background, Light Text")));
     radiobutton_rt_col_dark->join_group(*radiobutton_rt_col_light);
     Gtk::RadioButton* radiobutton_rt_col_custom = Gtk::manage(new Gtk::RadioButton(_("Custom Background")));
+    radiobutton_rt_col_custom->set_sensitive(false);
+    radiobutton_rt_col_custom->set_tooltip_text(_("Disabled in Development Version"));
     radiobutton_rt_col_custom->join_group(*radiobutton_rt_col_light);
     Gtk::HBox* hbox_rt_col_custom = Gtk::manage(new Gtk::HBox());
     hbox_rt_col_custom->set_spacing(4);
@@ -914,6 +916,8 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_2()
     Gtk::Label* label_tree_nodes_names_width = Gtk::manage(new Gtk::Label(_("Tree Nodes Names Wrapping Width")));
     Glib::RefPtr<Gtk::Adjustment> adj_tree_nodes_names_width = Gtk::Adjustment::create(pConfig->cherryWrapWidth, 10, 10000, 1);
     Gtk::SpinButton* spinbutton_tree_nodes_names_width = Gtk::manage(new Gtk::SpinButton(adj_tree_nodes_names_width));
+    spinbutton_tree_nodes_names_width->set_sensitive(false);
+    spinbutton_tree_nodes_names_width->set_tooltip_text(_("Disabled in Development Version"));
     spinbutton_tree_nodes_names_width->set_value(pConfig->cherryWrapWidth);
     hbox_tree_nodes_names_width->pack_start(*label_tree_nodes_names_width, false, false);
     hbox_tree_nodes_names_width->pack_start(*spinbutton_tree_nodes_names_width, false, false);
@@ -1416,6 +1420,9 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_reload_doc_last->set_active(pConfig->reloadDocLast);
     checkbutton_mod_time_sentinel->set_active(pConfig->modTimeSentinel);
 
+    checkbutton_mod_time_sentinel->set_sensitive(false);
+    checkbutton_mod_time_sentinel->set_tooltip_text(_("Disabled in Development Version"));
+
     Gtk::Frame* frame_misc_misc = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Miscellaneous")+"</b>"));
     ((Gtk::Label*)frame_misc_misc->get_label_widget())->set_use_markup(true);
     frame_misc_misc->set_shadow_type(Gtk::SHADOW_NONE);
@@ -1488,11 +1495,15 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
         pConfig->autosaveVal = spinbutton_autosave->get_value_as_int();
         _pCtMainWin->file_autosave_restart();
     });
-    spinbutton_num_backups->signal_value_changed().connect([pConfig, spinbutton_num_backups](){
-        pConfig->backupNum = spinbutton_num_backups->get_value_as_int();
-    });
     checkbutton_autosave_on_quit->signal_toggled().connect([pConfig, checkbutton_autosave_on_quit](){
         pConfig->autosaveOnQuit = checkbutton_autosave_on_quit->get_active();
+    });
+    checkbutton_backup_before_saving->signal_toggled().connect([pConfig, checkbutton_backup_before_saving, spinbutton_num_backups](){
+        pConfig->backupCopy = checkbutton_backup_before_saving->get_active();
+        spinbutton_num_backups->set_sensitive(pConfig->backupCopy);
+    });
+    spinbutton_num_backups->signal_value_changed().connect([pConfig, spinbutton_num_backups](){
+        pConfig->backupNum = spinbutton_num_backups->get_value_as_int();
     });
     checkbutton_reload_doc_last->signal_toggled().connect([pConfig, checkbutton_reload_doc_last](){
         pConfig->reloadDocLast = checkbutton_reload_doc_last->get_active();

@@ -57,7 +57,7 @@ private:
     void _close_db();
     bool _check_database_integrity();
 
-    Gtk::TreeIter       _node_from_db(gint64 node_id, Gtk::TreeIter parent_iter, gint64 new_id);
+    Gtk::TreeIter       _node_from_db(gint64 node_id, gint64 sequence, Gtk::TreeIter parent_iter, gint64 new_id);
 
     
     /**
