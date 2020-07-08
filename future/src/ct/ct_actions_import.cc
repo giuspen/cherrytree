@@ -234,6 +234,7 @@ void CtActions::_create_imported_nodes(ct_imported_node* imported_nodes)
         node_data.syntax = imported_node->node_syntax;
         node_data.tsCreation = std::time(nullptr);
         node_data.tsLastSave = node_data.tsCreation;
+        node_data.sequence = -1;
         if (imported_node->has_content())
         {
             Glib::RefPtr<Gsv::Buffer> buffer = _pCtMainWin->get_new_text_buffer();

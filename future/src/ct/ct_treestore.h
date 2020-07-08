@@ -44,6 +44,7 @@ struct CtNodeData
     std::string    foregroundRgb24;
     gint64         tsCreation{0};
     gint64         tsLastSave{0};
+    gint64         sequence{-1};
     Glib::RefPtr<Gsv::Buffer>  rTextBuffer{nullptr};
     std::list<CtAnchoredWidget*> anchoredWidgets;
 };

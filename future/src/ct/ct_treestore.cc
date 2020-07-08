@@ -583,7 +583,7 @@ void CtTreeStore::get_node_data(const Gtk::TreeIter& treeIter, CtNodeData& nodeD
     nodeData.rTextBuffer = row[_columns.rColTextBuffer];
     nodeData.nodeId = row[_columns.colNodeUniqueId];
     nodeData.syntax = row[_columns.colSyntaxHighlighting];
-    //row[_columns.colNodeSequence] = ;
+    nodeData.sequence = row[_columns.colNodeSequence];
     nodeData.tags = row[_columns.colNodeTags];
     nodeData.isRO = row[_columns.colNodeRO];
     //row[_columns.rColPixbufAux] = ;
@@ -605,7 +605,7 @@ void CtTreeStore::update_node_data(const Gtk::TreeIter& treeIter, const CtNodeDa
     row[_columns.rColTextBuffer] = nodeData.rTextBuffer;
     row[_columns.colNodeUniqueId] = nodeData.nodeId;
     row[_columns.colSyntaxHighlighting] = nodeData.syntax;
-    //row[_columns.colNodeSequence] = ; // either not changed or updated somewhere
+    row[_columns.colNodeSequence] = nodeData.sequence;
     row[_columns.colNodeTags] = nodeData.tags;
     row[_columns.colNodeRO] = nodeData.isRO;
     //row[_columns.rColPixbufAux] = ;  // will be updated by update_node_aux_icon

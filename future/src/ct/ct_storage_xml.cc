@@ -68,15 +68,16 @@ bool CtStorageXml::populate_treestore(const fs::path& file_path, Glib::ustring& 
         }
 
         // read nodes
-        std::function<void(xmlpp::Element*, Gtk::TreeIter)> nodes_from_xml;
-        nodes_from_xml = [&](xmlpp::Element* xml_element, Gtk::TreeIter parent_iter) {
-            Gtk::TreeIter new_iter = _node_from_xml(xml_element, parent_iter, -1);
+        std::function<void(xmlpp::Element*, const gint64, Gtk::TreeIter)> nodes_from_xml;
+        nodes_from_xml = [&](xmlpp::Element* xml_element, const gint64 sequence, Gtk::TreeIter parent_iter) {
+            Gtk::TreeIter new_iter = _node_from_xml(xml_element, sequence, parent_iter, -1);
+            gint64 child_sequence = 0;
             for (xmlpp::Node* xml_node : xml_element->get_children("node"))
-                nodes_from_xml(static_cast<xmlpp::Element*>(xml_node), new_iter);
+                nodes_from_xml(static_cast<xmlpp::Element*>(xml_node), ++child_sequence, new_iter);
         };
-
+        gint64 sequence = 0;
         for (xmlpp::Node* xml_node: parser->get_document()->get_root_node()->get_children("node"))
-            nodes_from_xml(static_cast<xmlpp::Element*>(xml_node), Gtk::TreeIter());
+            nodes_from_xml(static_cast<xmlpp::Element*>(xml_node), ++sequence, Gtk::TreeIter());
 
         return true;
     }
@@ -131,17 +132,19 @@ void CtStorageXml::import_nodes(const fs::path& path)
 {
     auto parser = _get_parser(path);
 
-    std::function<void(xmlpp::Element*, Gtk::TreeIter)> recursive_import_func;
-    recursive_import_func = [this, &recursive_import_func](xmlpp::Element* xml_element, Gtk::TreeIter parent_iter) {
-        auto new_iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(_node_from_xml(xml_element, parent_iter, _pCtMainWin->get_tree_store().node_id_get()));
+    std::function<void(xmlpp::Element*, const gint64 sequence, Gtk::TreeIter)> recursive_import_func;
+    recursive_import_func = [this, &recursive_import_func](xmlpp::Element* xml_element, const gint64 sequence, Gtk::TreeIter parent_iter) {
+        auto new_iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(_node_from_xml(xml_element, sequence, parent_iter, _pCtMainWin->get_tree_store().node_id_get()));
         new_iter.pending_new_db_node();
 
+        gint64 child_sequence = 0;
         for (xmlpp::Node* xml_node : xml_element->get_children("node"))
-            recursive_import_func(static_cast<xmlpp::Element*>(xml_node), new_iter);
+            recursive_import_func(static_cast<xmlpp::Element*>(xml_node), ++child_sequence, new_iter);
     };
 
+    gint64 sequence = 0;
     for (xmlpp::Node* xml_node: parser->get_document()->get_root_node()->get_children("node"))
-        recursive_import_func(static_cast<xmlpp::Element*>(xml_node), _pCtMainWin->get_tree_store().to_ct_tree_iter(Gtk::TreeIter()));
+        recursive_import_func(static_cast<xmlpp::Element*>(xml_node), ++sequence, _pCtMainWin->get_tree_store().to_ct_tree_iter(Gtk::TreeIter()));
 }
 
 Glib::RefPtr<Gsv::Buffer> CtStorageXml::get_delayed_text_buffer(const gint64& node_id,
@@ -158,7 +161,7 @@ Glib::RefPtr<Gsv::Buffer> CtStorageXml::get_delayed_text_buffer(const gint64& no
     return  CtStorageXmlHelper(_pCtMainWin).create_buffer_and_widgets_from_xml(xml_element, syntax, widgets, nullptr, -1);
 }
 
-Gtk::TreeIter CtStorageXml::_node_from_xml(xmlpp::Element* xml_element, Gtk::TreeIter parent_iter, gint64 new_id)
+Gtk::TreeIter CtStorageXml::_node_from_xml(xmlpp::Element* xml_element, gint64 sequence, Gtk::TreeIter parent_iter, gint64 new_id)
 {
     CtNodeData node_data;
     if (new_id == -1)
@@ -174,7 +177,7 @@ Gtk::TreeIter CtStorageXml::_node_from_xml(xmlpp::Element* xml_element, Gtk::Tre
     node_data.foregroundRgb24 = xml_element->get_attribute_value("foreground");
     node_data.tsCreation = CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("ts_creation").c_str());
     node_data.tsLastSave = CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("ts_lastSave").c_str());
-
+    node_data.sequence = sequence;
     if (new_id == -1)
     {
         // because of widgets which are slow to insert for now, delay creating buffers
