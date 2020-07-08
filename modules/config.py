@@ -59,7 +59,7 @@ CODE_EXEC_TYPE_CMD_DEFAULT = {
 "cpp": "g++ -o %s %s && %s" % (CODE_EXEC_TMP_BIN, CODE_EXEC_TMP_SRC, CODE_EXEC_TMP_BIN),
 "dosbatch": "call %s" % CODE_EXEC_TMP_SRC,
 "perl": "perl %s" % CODE_EXEC_TMP_SRC,
-"perl": "powershell -File %s" % CODE_EXEC_TMP_SRC,
+"powershell": "powershell -File %s" % CODE_EXEC_TMP_SRC,
 "python": "python2 %s" % CODE_EXEC_TMP_SRC,
 "python3": "python3 %s" % CODE_EXEC_TMP_SRC,
 "sh": "sh %s" % CODE_EXEC_TMP_SRC,
