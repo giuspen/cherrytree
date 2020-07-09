@@ -1082,17 +1082,13 @@ std::string CtDialogs::file_select_dialog(const file_select_args& args)
     {
         chooser->set_current_folder(args.curr_folder.string());
     }
-    if (!args.filter_pattern.empty() || !args.filter_mime.empty())
+    if (!args.filter_pattern.empty())
     {
         Glib::RefPtr<Gtk::FileFilter> rFileFilter = Gtk::FileFilter::create();
         rFileFilter->set_name(args.filter_name);
         for (const std::string& element : args.filter_pattern)
         {
             rFileFilter->add_pattern(element);
-        }
-        for (const std::string& element : args.filter_mime)
-        {
-            rFileFilter->add_mime_type(element);
         }
         chooser->add_filter(rFileFilter);
     }
@@ -1138,10 +1134,6 @@ std::string CtDialogs::file_save_as_dialog(const file_select_args& args)
         for (const std::string& element : args.filter_pattern)
         {
             rFileFilter->add_pattern(element);
-        }
-        for (const std::string& element : args.filter_mime)
-        {
-            rFileFilter->add_mime_type(element);
         }
         chooser->add_filter(rFileFilter);
     }

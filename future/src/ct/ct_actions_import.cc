@@ -133,7 +133,6 @@ void CtActions::_import_from_file(CtImporterInterface* importer)
 {
     CtDialogs::file_select_args args(_pCtMainWin);
     args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImport;
-    args.filter_mime = importer->file_mimes();
     args.filter_name = importer->file_pattern_name();
     args.filter_pattern = importer->file_patterns();
     auto filepath = CtDialogs::file_select_dialog(args);

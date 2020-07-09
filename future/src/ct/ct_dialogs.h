@@ -233,7 +233,7 @@ struct file_select_args
     fs::path                    curr_file_name;
     Glib::ustring               filter_name;
     std::vector<std::string>    filter_pattern;
-    std::vector<std::string>    filter_mime;
+    // std::vector<std::string>    filter_mime; doesn't work with native dialog
 
     file_select_args(Gtk::Window* win) : pParentWin(win) {}
 };
