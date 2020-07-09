@@ -1494,6 +1494,10 @@ bool CtDialogs::choose_data_storage_dialog(storage_select_args& args)
             radiobutton_xml_pass_protected.set_active(true);
         }
     }
+    else {
+        radiobutton_sqlite_not_protected.set_active(true);
+        passw_frame.set_sensitive(false);
+    }
 
     Gtk::Box* pContentArea = dialog.get_content_area();
     pContentArea->set_spacing(5);
