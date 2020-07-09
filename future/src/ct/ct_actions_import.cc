@@ -49,7 +49,8 @@ void CtActions::import_nodes_from_ct_file() noexcept
     {
         CtDialogs::file_select_args args(_pCtMainWin);
         args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImport;
-        args.filter_pattern = CtConst::CT_FILE_EXTENSIONS_FILTER;
+        args.filter_name = _("CherryTree Document");
+        args.filter_pattern.push_back("*.ct*");
 
         auto fpath = CtDialogs::file_select_dialog(args);
         if (fpath.empty()) return; // No file selected
@@ -132,7 +133,7 @@ void CtActions::_import_from_file(CtImporterInterface* importer)
 {
     CtDialogs::file_select_args args(_pCtMainWin);
     args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImport;
-    args.filter_mime = importer->file_mimes();
+    args.filter_name = importer->file_pattern_name();
     args.filter_pattern = importer->file_patterns();
     auto filepath = CtDialogs::file_select_dialog(args);
     if (filepath.empty()) return;

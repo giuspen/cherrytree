@@ -233,7 +233,7 @@ struct file_select_args
     fs::path                    curr_file_name;
     Glib::ustring               filter_name;
     std::vector<std::string>    filter_pattern;
-    std::vector<std::string>    filter_mime;
+    // std::vector<std::string>    filter_mime; doesn't work with native dialog
 
     file_select_args(Gtk::Window* win) : pParentWin(win) {}
 };
@@ -242,8 +242,7 @@ struct file_select_args
 std::string file_select_dialog(const file_select_args& args);
 
 // The Select folder dialog, returns the retrieved folderpath or None
-std::string folder_select_dialog(const std::string& curr_folder,
-                                 Gtk::Window* pParentWin = nullptr);
+std::string folder_select_dialog(const std::string& curr_folder, Gtk::Window* pParentWin);
 
 // The Save file as dialog, Returns the retrieved filepath or None
 std::string file_save_as_dialog(const file_select_args& args);
