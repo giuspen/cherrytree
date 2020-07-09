@@ -242,8 +242,7 @@ struct file_select_args
 std::string file_select_dialog(const file_select_args& args);
 
 // The Select folder dialog, returns the retrieved folderpath or None
-std::string folder_select_dialog(const std::string& curr_folder,
-                                 Gtk::Window* pParentWin = nullptr);
+std::string folder_select_dialog(const std::string& curr_folder, Gtk::Window* pParentWin);
 
 // The Save file as dialog, Returns the retrieved filepath or None
 std::string file_save_as_dialog(const file_select_args& args);

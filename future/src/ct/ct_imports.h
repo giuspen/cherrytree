@@ -30,6 +30,7 @@
 #include <libxml++/libxml++.h>
 #include <queue>
 #include <utility>
+#include <glibmm/i18n.h>
 
 namespace {
 using TableMatrx = std::queue<std::queue<std::string>>;
@@ -56,6 +57,7 @@ class CtImporterInterface
 public:
     virtual std::unique_ptr<ct_imported_node> import_file(const fs::path& file) = 0;
     virtual std::vector<std::string>          file_mimes() { return {}; }
+    virtual std::string                       file_pattern_name() { return ""; }
     virtual std::vector<std::string>          file_patterns() { return {}; }
 };
 
@@ -186,6 +188,7 @@ public:
     // virtuals of CtImporterInterface
     std::unique_ptr<ct_imported_node> import_file(const fs::path& file) override;
     std::vector<std::string>          file_mimes() override { return {"text/html"}; };
+    std::string                       file_pattern_name() override { return _("Html Document"); }
 
 private:
     CtConfig* _config;
@@ -255,6 +258,7 @@ public:
     // virtuals of CtImporterInterface
     std::unique_ptr<ct_imported_node> import_file(const fs::path& file) override;
     std::vector<std::string>          file_mimes() override { return {"text/plain"}; };
+    std::string                       file_pattern_name() override { return _("Plain Text Document"); }
 };
 
 
@@ -299,9 +303,8 @@ public:
 public:
     // virtuals of CtImporterInterface
     std::unique_ptr<ct_imported_node> import_file(const fs::path& file) override;
-    std::vector<std::string>          file_mimes() override { return {"text/plain"}; };
     std::vector<std::string>          file_patterns() override { return {"*.md"}; };
-
+    std::string                       file_pattern_name() override { return _("Markdown Document"); }
 private:
     CtMDParser _parser;
 };
