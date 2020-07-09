@@ -417,6 +417,7 @@ public:
     void import_directory_from_pandoc() noexcept;
     void import_nodes_from_gnote_directory() noexcept;
     void import_nodes_from_tomboy_directory() noexcept;
+    void import_nodes_from_keepnote_directory() noexcept;
 
 private:
     // helper for export actions
