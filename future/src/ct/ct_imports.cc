@@ -1236,3 +1236,49 @@ std::unique_ptr<ct_imported_node> CtPandocImport::import_file(const fs::path& fi
 
     return node;
 }
+
+std::unique_ptr<ct_imported_node> node_from_keepnote_dir(const fs::path& dir, CtConfig* config)  
+{
+    fs::path node_path = dir / "page.html";
+    if (!fs::exists(node_path)) throw CtImportException(fmt::format("Directory: <{}> does not contain a page.html file", dir));
+
+    std::ifstream infile;
+    infile.exceptions(std::ios::failbit);
+    infile.open(node_path.string());
+
+    std::ostringstream buff;
+    buff << infile.rdbuf();
+
+    CtHtml2Xml parser(config);
+    parser.feed(buff.str());
+
+    auto node = std::make_unique<ct_imported_node>(node_path, dir.stem().string());
+    node->xml_content.create_root_node_by_import(parser.doc().get_root_node());
+    
+    return node;
+}
+
+bool is_keepnote_ignored_name(const std::string& name) 
+{
+    for (const std::string& str : {"__TRASH__", "__NOTEBOOK__"}) {
+        if (str.find(name) != std::string::npos) return true;
+    }
+    return false;
+}
+
+std::unique_ptr<ct_imported_node> CtKeepnoteImport::import_file(const fs::path& file) 
+{
+    assert(fs::is_directory(file));
+
+    auto node = std::make_unique<ct_imported_node>(file, file.stem().string());
+    std::list<fs::path> files = fs::get_dir_entries(file);
+    for (const auto& path : files) {
+        if (fs::is_directory(path) && !is_keepnote_ignored_name(path.string())) {
+            // Valid node directory
+            node->children.emplace_back(node_from_keepnote_dir(path, _config));
+        }
+    }
+
+    return node;
+
+}

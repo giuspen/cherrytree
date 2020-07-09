@@ -131,7 +131,7 @@ public:
     void set_status_bar(CtStatusBar* status_bar);
 
     Glib::ustring to_string() { return _xml_doc->write_to_string(); }
-
+    const xmlpp::Document& doc() const { return *_xml_doc; }
 
 private:
     void _start_adding_tag_styles();
@@ -319,3 +319,14 @@ public:
 private:
     CtConfig* _config;
 };
+
+
+class CtKeepnoteImport: public CtImporterInterface {
+public:
+    explicit CtKeepnoteImport(CtConfig* config) : _config(config) {}
+    std::unique_ptr<ct_imported_node> import_file(const fs::path& file) override;
+
+private:
+    CtConfig* _config;
+};
+

@@ -128,6 +128,15 @@ void CtActions::import_nodes_from_tomboy_directory() noexcept
 }
 
 
+void CtActions::import_nodes_from_keepnote_directory() noexcept {
+    try {
+        CtKeepnoteImport importer(_pCtMainWin->get_ct_config());
+        _import_from_dir(&importer, "");
+    } catch(const std::exception& e) {
+        spdlog::error("Exception caught while importing from keepnote: {}", e.what());
+    }
+}
+
 void CtActions::_import_from_file(CtImporterInterface* importer)
 {
     CtDialogs::file_select_args args(_pCtMainWin);
