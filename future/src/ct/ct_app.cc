@@ -93,6 +93,7 @@ Glib::RefPtr<CtApp> CtApp::create()
 
 void CtApp::on_activate()
 {
+    // start of main instance
     if (get_windows().size() == 0)
     {
         CtMainWin* pAppWindow = _create_window();
@@ -113,6 +114,24 @@ void CtApp::on_activate()
                 pAppWindow->menu_set_items_recent_documents();
             }
         }
+    }
+    else // start of the second instance
+    {
+        Gtk::Window* any_shown_win = nullptr;
+        for (Gtk::Window* pWin : get_windows())
+            if (pWin->get_visible())
+                any_shown_win = pWin;
+        if (any_shown_win)
+        {
+            any_shown_win->present();
+        }
+        else
+        {
+            // all windows are hidden, show them
+            // also it fixes an issue with a missing systray
+            _systray_show_hide_windows();
+        }
+
     }
 }
 
