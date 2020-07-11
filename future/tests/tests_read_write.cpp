@@ -430,7 +430,43 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
                     STRCMP_EQUAL(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
                     auto pTable = dynamic_cast<CtTable*>(pAnchWidget);
                     CHECK(pTable);
-                    // TODO
+                    CHECK_EQUAL(40, pTable->get_col_min());
+                    CHECK_EQUAL(60, pTable->get_col_max());
+                    const CtTableMatrix& tableMatrix = pTable->get_table_matrix();
+                    // three rows
+                    CHECK_EQUAL(3, tableMatrix.size());
+                    // two columns
+                    CHECK_EQUAL(2, tableMatrix.at(0).size());
+                    {
+                        CtTableCell* pCell = tableMatrix.at(0).at(0);
+                        STRCMP_EQUAL("h1", pCell->get_text_content().c_str());
+                        STRCMP_EQUAL(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
+                    }
+                    {
+                        CtTableCell* pCell = tableMatrix.at(0).at(1);
+                        STRCMP_EQUAL("h2", pCell->get_text_content().c_str());
+                        STRCMP_EQUAL(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
+                    }
+                    {
+                        CtTableCell* pCell = tableMatrix.at(1).at(0);
+                        STRCMP_EQUAL("йцукенгшщз", pCell->get_text_content().c_str());
+                        STRCMP_EQUAL(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
+                    }
+                    {
+                        CtTableCell* pCell = tableMatrix.at(1).at(1);
+                        STRCMP_EQUAL("2", pCell->get_text_content().c_str());
+                        STRCMP_EQUAL(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
+                    }
+                    {
+                        CtTableCell* pCell = tableMatrix.at(2).at(0);
+                        STRCMP_EQUAL("3", pCell->get_text_content().c_str());
+                        STRCMP_EQUAL(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
+                    }
+                    {
+                        CtTableCell* pCell = tableMatrix.at(2).at(1);
+                        STRCMP_EQUAL("4", pCell->get_text_content().c_str());
+                        STRCMP_EQUAL(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
+                    }
                 } break;
                 case CtAnchWidgType::ImagePng: {
                     CHECK_EQUAL(59, pAnchWidget->getOffset());
