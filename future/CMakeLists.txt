@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13.2)
 
 project(cherrytree)
-set(CT_VERSION "0.99.4")
+set(CT_VERSION "0.99.5")
 
 
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
