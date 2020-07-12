@@ -916,8 +916,6 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_2()
     Gtk::Label* label_tree_nodes_names_width = Gtk::manage(new Gtk::Label(_("Tree Nodes Names Wrapping Width")));
     Glib::RefPtr<Gtk::Adjustment> adj_tree_nodes_names_width = Gtk::Adjustment::create(pConfig->cherryWrapWidth, 10, 10000, 1);
     Gtk::SpinButton* spinbutton_tree_nodes_names_width = Gtk::manage(new Gtk::SpinButton(adj_tree_nodes_names_width));
-    spinbutton_tree_nodes_names_width->set_sensitive(false);
-    spinbutton_tree_nodes_names_width->set_tooltip_text(_("Disabled in Development Version"));
     spinbutton_tree_nodes_names_width->set_value(pConfig->cherryWrapWidth);
     hbox_tree_nodes_names_width->pack_start(*label_tree_nodes_names_width, false, false);
     hbox_tree_nodes_names_width->pack_start(*spinbutton_tree_nodes_names_width, false, false);
@@ -957,7 +955,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_2()
 
     spinbutton_tree_nodes_names_width->signal_value_changed().connect([this, pConfig, spinbutton_tree_nodes_names_width](){
         pConfig->cherryWrapWidth = spinbutton_tree_nodes_names_width->get_value_as_int();
-        apply_for_each_window([pConfig](CtMainWin* win) { win->get_tree_view().set_title_wrap_mode(pConfig->cherryWrapWidth); });
+        apply_for_each_window([pConfig](CtMainWin* win) { win->get_tree_view().set_tree_node_name_wrap_width(pConfig->cherryWrapWidth); });
     });
     checkbutton_tree_right_side->signal_toggled().connect([this, pConfig, checkbutton_tree_right_side](){
         pConfig->treeRightSide = checkbutton_tree_right_side->get_active();

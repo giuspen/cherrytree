@@ -140,21 +140,18 @@ void CtTreeView::set_cursor_safe(const Gtk::TreeIter& iter)
     set_cursor(get_model()->get_path(iter));
 }
 
-void CtTreeView::set_title_wrap_mode(int /*wrap_width*/)
+void CtTreeView::set_tree_node_name_wrap_width(int wrap_width)
 {
-    // todo: Gtk3 has broken wrap for TreeView
-    /*
     Gtk::TreeViewColumn* pTVCol0 = get_column(CtTreeView::TITLE_COL_NUM);
     std::vector<Gtk::CellRenderer*> cellRenderers0 = pTVCol0->get_cells();
-    if (cellRenderers0.size() > 1)
+    if (cellRenderers0.size() > 1) {
         if (Gtk::CellRendererText *pCellRendererText = dynamic_cast<Gtk::CellRendererText*>(cellRenderers0[1]))
         {
             pCellRendererText->property_wrap_mode().set_value(Pango::WRAP_CHAR);
             pCellRendererText->property_wrap_width().set_value(wrap_width);
         }
-    */
+    }
 }
-
 
 CtTextView::CtTextView(CtMainWin* pCtMainWin)
  : _pCtMainWin(pCtMainWin)

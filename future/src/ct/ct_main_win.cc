@@ -485,7 +485,7 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
 
     _uCtTreestore.reset(new CtTreeStore(this));
     _uCtTreestore->tree_view_connect(_uCtTreeview.get());
-    _uCtTreeview->set_title_wrap_mode(get_ct_config()->cherryWrapWidth);
+    _uCtTreeview->set_tree_node_name_wrap_width(get_ct_config()->cherryWrapWidth);
     _uCtTreeview->get_column(CtTreeView::AUX_ICON_COL_NUM)->set_visible(!get_ct_config()->auxIconHide);
 
     _tree_just_auto_expanded = false;

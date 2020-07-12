@@ -102,7 +102,7 @@ public:
     CtTreeView();
     virtual ~CtTreeView();
     void set_cursor_safe(const Gtk::TreeIter& iter);
-    void set_title_wrap_mode(int wrap_width);
+    void set_tree_node_name_wrap_width(int wrap_width);
 };
 
 class CtTextView : public Gsv::View
