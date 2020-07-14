@@ -58,9 +58,9 @@ std::uintmax_t file_size(const path& path);
 
 std::list<path> get_dir_entries(const path& dir);
 
-void external_weblink_open(const std::string& link);
-void external_filepath_open(const path& filepath, bool open_folder_if_file_not_exists, CtConfig* config);
-void external_folderpath_open(const path& folderpath, CtConfig* config);
+void open_weblink(const std::string& link);
+void open_filepath(const path& filepath, bool open_folder_if_file_not_exists, CtConfig* config);
+void open_folderpath(const path& folderpath, CtConfig* config);
 
 path prepare_export_folder(const path& dir_place, path new_folder, bool overwrite_existing);
 

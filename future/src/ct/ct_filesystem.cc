@@ -124,7 +124,7 @@ bool exists(const path& filepath)
     return Glib::file_test(filepath.string(), Glib::FILE_TEST_EXISTS);
 }
 
-void external_weblink_open(const std::string& link)
+void open_weblink(const std::string& link)
 {
 #if defined(_WIN32) || defined(__APPLE__)
     g_app_info_launch_default_for_uri(link.c_str(), nullptr, nullptr);
@@ -136,9 +136,9 @@ void external_weblink_open(const std::string& link)
 }
 
 // Open Filepath with External App
-void external_filepath_open(const fs::path& filepath, bool open_folder_if_file_not_exists, CtConfig* config)
+void open_filepath(const fs::path& filepath, bool open_folder_if_file_not_exists, CtConfig* config)
 {
-    spdlog::debug("fs::external_filepath_open {}", filepath);
+    spdlog::debug("fs::open_filepath {}", filepath);
     if (config->filelinkCustomOn) {
         std::string cmd = fmt::sprintf(config->filelinkCustomAct, filepath.string());
         const int retVal = std::system(cmd.c_str());
@@ -147,9 +147,9 @@ void external_filepath_open(const fs::path& filepath, bool open_folder_if_file_n
         }
     } else {
         if (open_folder_if_file_not_exists && !fs::exists(filepath)) {
-            external_folderpath_open(filepath, config);
+            open_folderpath(filepath, config);
         } else if (!fs::exists(filepath)) {
-            spdlog::error("fs::external_filepath_open: file doesn't exist, {}", filepath.string());
+            spdlog::error("fs::open_filepath: file doesn't exist, {}", filepath.string());
             return;
         } else {
 #ifdef _WIN32
@@ -164,9 +164,9 @@ void external_filepath_open(const fs::path& filepath, bool open_folder_if_file_n
 }
 
 // Open Folderpath with External App
-void external_folderpath_open(const fs::path& folderpath, CtConfig* config)
+void open_folderpath(const fs::path& folderpath, CtConfig* config)
 {
-    spdlog::debug("fs::external_folderpath_open {}", folderpath);
+    spdlog::debug("fs::open_folderpath {}", folderpath);
     if (config->folderlinkCustomOn) {
         std::string cmd = fmt::sprintf(config->folderlinkCustomAct, folderpath.string());
         const int retVal = std::system(cmd.c_str());

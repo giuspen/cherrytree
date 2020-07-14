@@ -164,7 +164,7 @@ void CtActions::embfile_open()
 
     spdlog::debug("embfile_open {}", filepath);
 
-    fs::external_filepath_open(filepath.c_str(), false, _pCtMainWin->get_ct_config());
+    fs::open_filepath(filepath.c_str(), false, _pCtMainWin->get_ct_config());
     _embfiles_opened[filepath] = fs::getmtime(filepath);
 
     if (not _embfiles_timeout_connection)
@@ -278,7 +278,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
                  return;
              }
          }
-         else fs::external_weblink_open(clean_weblink);
+         else fs::open_weblink(clean_weblink);
      }
      else if (vec[0] == CtConst::LINK_TYPE_FILE) // link to file
      {
@@ -290,7 +290,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
          }
          if (from_wheel)
              filepath = fs::absolute(filepath).parent_path();
-         fs::external_filepath_open(filepath, true, _pCtMainWin->get_ct_config());
+         fs::open_filepath(filepath, true, _pCtMainWin->get_ct_config());
      }
      else if (vec[0] == CtConst::LINK_TYPE_FOLD) // link to folder
      {
@@ -302,7 +302,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
          }
          if (from_wheel)
              folderpath = Glib::path_get_dirname(fs::absolute(folderpath).string());
-         fs::external_folderpath_open(folderpath, _pCtMainWin->get_ct_config());
+         fs::open_folderpath(folderpath, _pCtMainWin->get_ct_config());
      }
      else if (vec[0] == CtConst::LINK_TYPE_NODE) // link to a tree node
      {

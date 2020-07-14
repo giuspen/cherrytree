@@ -186,7 +186,7 @@ void CtActions::_export_to_html(const fs::path& auto_path, bool auto_overwrite)
             export2html.node_export_to_html(_pCtMainWin->curr_tree_iter(), _export_options, "", iter_start.get_offset(), iter_end.get_offset());
     }
     if (!ret_html_path.empty()) {
-       fs::external_folderpath_open(ret_html_path, _pCtMainWin->get_ct_config());
+       fs::open_folderpath(ret_html_path, _pCtMainWin->get_ct_config());
     }
 }
 
