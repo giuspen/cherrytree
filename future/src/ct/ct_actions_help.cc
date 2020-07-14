@@ -26,7 +26,7 @@
 
 void CtActions::online_help()
 {
-    g_app_info_launch_default_for_uri("https://giuspen.com/cherrytreemanual/", nullptr, nullptr);
+    fs::open_weblink("https://giuspen.com/cherrytreemanual/");
 }
 
 void CtActions::dialog_about()
@@ -36,7 +36,7 @@ void CtActions::dialog_about()
 
 void CtActions::folder_cfg_open()
 {
-    fs::external_folderpath_open(Glib::get_user_config_dir() / fs::path(CtConst::APP_NAME), _pCtMainWin->get_ct_config());
+    fs::open_folderpath(Glib::get_user_config_dir() / fs::path(CtConst::APP_NAME), _pCtMainWin->get_ct_config());
 }
 
 void CtActions::check_for_newer_version()
