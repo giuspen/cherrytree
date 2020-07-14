@@ -197,12 +197,13 @@ private:
     void                _find_in_all_nodes(bool for_current_node);
     std::string         _dialog_search(const std::string& title, bool replace_on, bool multiple_nodes, bool pattern_required);
     bool                _parse_node_name(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex> re_pattern, bool forward, bool all_matches);
-    bool                _parse_given_node_content(CtTreeIter node_iter, Glib::ustring pattern, bool forward, bool first_fromsel, bool all_matches);
-    bool                _parse_node_content_iter(const CtTreeIter& tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, const std::string& pattern,
+    bool                _parse_given_node_content(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex> re_pattern, bool forward, bool first_fromsel, bool all_matches);
+    bool                _parse_node_content_iter(const CtTreeIter& tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, Glib::RefPtr<Glib::Regex> re_pattern,
                                                 bool forward, bool first_fromsel, bool all_matches, bool first_node);
     Gtk::TextIter       _get_inner_start_iter(Glib::RefPtr<Gtk::TextBuffer> text_buffer, bool forward, const gint64& node_id);
     bool                _is_node_within_time_filter(const CtTreeIter& node_iter);
-    bool                _find_pattern(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, std::string pattern,
+    Glib::RefPtr<Glib::Regex> _create_re_pattern(Glib::ustring pattern);
+    bool                _find_pattern(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, Glib::RefPtr<Glib::Regex> re_pattern,
                                       Gtk::TextIter start_iter, bool forward, bool all_matches);
     std::string         _get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter text_iter);
     std::string         _get_first_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer);

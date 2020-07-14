@@ -69,6 +69,10 @@ void CtActions::find_in_selected_node()
     }
     else
         pattern = s_state.curr_find_pattern;
+
+    Glib::RefPtr<Glib::Regex> re_pattern = _create_re_pattern(pattern);
+    if (!re_pattern) return;
+
     bool forward = s_options.search_replace_dict_fw;
     if (s_state.from_find_back) {
         forward = !forward;
@@ -79,17 +83,18 @@ void CtActions::find_in_selected_node()
     s_state.matches_num = 0;
 
     // searching start
-    bool user_active_restore = _pCtMainWin->user_active();
+    auto on_scope_exit = scope_guard([&](void*) { _pCtMainWin->user_active() = true; });
     _pCtMainWin->user_active() = false;
 
     if (all_matches) {
         s_state.match_store->clear();
         s_state.all_matches_first_in_node = true;
-        while (_parse_node_content_iter(_pCtMainWin->curr_tree_iter(), curr_buffer, pattern, forward, first_fromsel, all_matches, true))
+        while (_parse_node_content_iter(_pCtMainWin->curr_tree_iter(), curr_buffer, re_pattern, forward, first_fromsel, all_matches, true))
             s_state.matches_num += 1;
-    }
-    else if (_parse_node_content_iter(_pCtMainWin->curr_tree_iter(), curr_buffer, pattern, forward, first_fromsel, all_matches, true))
+        }
+    else if (_parse_node_content_iter(_pCtMainWin->curr_tree_iter(), curr_buffer, re_pattern, forward, first_fromsel, all_matches, true))
         s_state.matches_num = 1;
+
     if (s_state.matches_num == 0)
         CtDialogs::info_dialog(str::format(_("The pattern '%s' was not found"), pattern), *_pCtMainWin);
     else if (all_matches) {
@@ -99,7 +104,6 @@ void CtActions::find_in_selected_node()
     else if (s_options.search_replace_dict_idialog) {
         _iterated_find_dialog();
     }
-    _pCtMainWin->user_active() = user_active_restore;
 }
 
 static int _count_nodes(const Gtk::TreeNodeChildren& children) {
@@ -142,6 +146,9 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
     else
         pattern = s_state.curr_find_pattern;
 
+    Glib::RefPtr<Glib::Regex> re_pattern = _create_re_pattern(pattern);
+    if (!re_pattern) return;
+
     CtTreeIter starting_tree_iter = _pCtMainWin->curr_tree_iter();
     Gtk::TreeIter node_iter;
     int current_cursor_pos = curr_buffer->property_cursor_position();
@@ -181,7 +188,7 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
     while (node_iter) {
         s_state.all_matches_first_in_node = true;
         CtTreeIter ct_node_iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(node_iter);
-        while (_parse_given_node_content(ct_node_iter, pattern, forward, first_fromsel, all_matches)) {
+        while (_parse_given_node_content(ct_node_iter, re_pattern, forward, first_fromsel, all_matches)) {
             s_state.matches_num += 1;
             if (!all_matches ||  ctStatusBar.is_progress_stop()) break;
         }
@@ -251,19 +258,10 @@ void CtActions::find_a_node()
     }
     else
         pattern = s_state.curr_find_pattern;
-    if (!s_options.search_replace_dict_reg_exp) {           // NOT REGULAR EXPRESSION
-        pattern = str::re_escape(pattern);      // backslashes all non alphanum chars => to not spoil re
-        if (s_options.search_replace_dict_whole_word)       // WHOLE WORD
-            pattern = "\\b" + pattern + "\\b";
-        else if (s_options.search_replace_dict_start_word)  // START WORD
-            pattern = "\\b" + pattern;
-    }
 
-    Glib::RefPtr<Glib::Regex> re_pattern;
-    if (s_options.search_replace_dict_match_case) // CASE SENSITIVE
-        re_pattern = Glib::Regex::create(pattern, Glib::RegexCompileFlags::REGEX_MULTILINE);
-    else
-        re_pattern = Glib::Regex::create(pattern, Glib::RegexCompileFlags::REGEX_MULTILINE | Glib::RegexCompileFlags::REGEX_CASELESS);
+    Glib::RefPtr<Glib::Regex> re_pattern = _create_re_pattern(pattern);
+    if (!re_pattern) return;
+
     bool forward = s_options.search_replace_dict_fw;
     if (s_state.from_find_back) {
         forward = !forward;
@@ -649,19 +647,19 @@ bool CtActions::_parse_node_name(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex>
 }
 
 // Returns True if pattern was found, False otherwise
-bool CtActions::_parse_given_node_content(CtTreeIter node_iter, Glib::ustring pattern, bool forward, bool first_fromsel, bool all_matches)
+bool CtActions::_parse_given_node_content(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex> re_pattern, bool forward, bool first_fromsel, bool all_matches)
 {
     auto text_buffer = node_iter.get_node_text_buffer();
     if (!s_state.first_useful_node) {
         // first_fromsel plus first_node not already parsed
         if (!_pCtMainWin->curr_tree_iter() || node_iter.get_node_id() == _pCtMainWin->curr_tree_iter().get_node_id()) {
             s_state.first_useful_node = true; // a first_node was parsed
-            if (_parse_node_content_iter(node_iter, text_buffer, pattern, forward, first_fromsel, all_matches, true))
+            if (_parse_node_content_iter(node_iter, text_buffer, re_pattern, forward, first_fromsel, all_matches, true))
                 return true; // first_node node, first_fromsel
         }
     } else {
         // not first_fromsel or first_fromsel with first_node already parsed
-        if (_parse_node_content_iter(node_iter, text_buffer, pattern, forward, first_fromsel, all_matches, false))
+        if (_parse_node_content_iter(node_iter, text_buffer, re_pattern, forward, first_fromsel, all_matches, false))
             return true; // not first_node node
     }
     // check for children
@@ -669,7 +667,7 @@ bool CtActions::_parse_given_node_content(CtTreeIter node_iter, Glib::ustring pa
         Gtk::TreeIter child_iter = forward ? node_iter->children().begin() : --node_iter->children().end();
         while (child_iter && !_pCtMainWin->get_status_bar().is_progress_stop()) {
             s_state.all_matches_first_in_node = true;
-            while (_parse_given_node_content(_pCtMainWin->get_tree_store().to_ct_tree_iter(child_iter), pattern, forward, first_fromsel, all_matches)) {
+            while (_parse_given_node_content(_pCtMainWin->get_tree_store().to_ct_tree_iter(child_iter), re_pattern, forward, first_fromsel, all_matches)) {
                 s_state.matches_num += 1;
                 if (!all_matches || _pCtMainWin->get_status_bar().is_progress_stop()) break;
             }
@@ -685,7 +683,7 @@ bool CtActions::_parse_given_node_content(CtTreeIter node_iter, Glib::ustring pa
 }
 
 // Returns True if pattern was find, False otherwise
-bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, const std::string& pattern,
+bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, Glib::RefPtr<Glib::Regex> re_pattern,
                              bool forward, bool first_fromsel, bool all_matches, bool first_node)
 {
     bool restore_modified;
@@ -708,10 +706,11 @@ bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter, Glib::RefP
         start_iter = forward ? text_buffer->begin() : text_buffer->end();
         if (all_matches) s_state.all_matches_first_in_node = false;
     }
+
+    pattern_found = false;
     if (_is_node_within_time_filter(tree_iter))
-        pattern_found = _find_pattern(tree_iter, text_buffer, pattern, start_iter, forward, all_matches);
-    else
-        pattern_found = false;
+        pattern_found = _find_pattern(tree_iter, text_buffer, re_pattern, start_iter, forward, all_matches);
+
     if (s_state.newline_trick) {
         buff_start_iter = text_buffer->begin();
         Gtk::TextIter buff_step_iter = buff_start_iter;
@@ -771,8 +770,32 @@ bool CtActions::_is_node_within_time_filter(const CtTreeIter& node_iter)
     return true;
 }
 
+Glib::RefPtr<Glib::Regex> CtActions::_create_re_pattern(Glib::ustring pattern)
+{
+    if (!s_options.search_replace_dict_reg_exp) // NOT REGULAR EXPRESSION
+    {
+        pattern = Glib::Regex::escape_string(pattern);     // backslashes all non alphanum chars => to not spoil re
+        if (s_options.search_replace_dict_whole_word)      // WHOLE WORD
+            pattern = "\\b" + pattern + "\\b";
+        else if (s_options.search_replace_dict_start_word) // START WORD
+            pattern = "\\b" + pattern;
+    }
+    try
+    {
+        if (s_options.search_replace_dict_match_case) // CASE SENSITIVE
+            return Glib::Regex::create(pattern, Glib::RegexCompileFlags::REGEX_MULTILINE);
+        else
+            return Glib::Regex::create(pattern, Glib::RegexCompileFlags::REGEX_MULTILINE | Glib::RegexCompileFlags::REGEX_CASELESS);
+    }
+    catch (Glib::RegexError& e)
+    {
+        CtDialogs::error_dialog(e.what(), *_pCtMainWin);
+        return Glib::RefPtr<Glib::Regex>();
+    }
+}
+
 // """Returns (start_iter, end_iter) or (None, None)"""
-bool CtActions::_find_pattern(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, std::string pattern,
+bool CtActions::_find_pattern(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, Glib::RefPtr<Glib::Regex> re_pattern,
                   Gtk::TextIter start_iter, bool forward, bool all_matches)
 {
     /* Gtk::TextBuffer uses symbols positions
@@ -780,19 +803,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer
      */
 
     Glib::ustring text = text_buffer->get_text();
-    if (!s_options.search_replace_dict_reg_exp) // NOT REGULAR EXPRESSION
-    {
-        pattern = Glib::Regex::escape_string(pattern); // backslashes all non alphanum chars => to not spoil re
-        if (s_options.search_replace_dict_whole_word)  // WHOLE WORD
-            pattern = "\\b" + pattern + "\\b";
-        else if (s_options.search_replace_dict_start_word) // START WORD
-            pattern = "\\b" + pattern;
-    }
-    Glib::RefPtr<Glib::Regex> re_pattern;
-    if (s_options.search_replace_dict_match_case) // CASE SENSITIVE
-        re_pattern = Glib::Regex::create(pattern, Glib::RegexCompileFlags::REGEX_MULTILINE);
-    else
-        re_pattern = Glib::Regex::create(pattern, Glib::RegexCompileFlags::REGEX_MULTILINE | Glib::RegexCompileFlags::REGEX_CASELESS);
+
     int start_offset = start_iter.get_offset();
     // # start_offset -= self.get_num_objs_before_offset(text_buffer, start_offset)
     std::pair<int, int> match_offsets = {-1, -1};
