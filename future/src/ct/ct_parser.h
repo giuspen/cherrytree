@@ -35,6 +35,8 @@
 #include <unordered_map>
 #include <functional>
 #include <array>
+#include <string_view>
+#include <string>
 
 class CtClipboard;
 /**
@@ -56,30 +58,7 @@ class CtParser
 {
 
 protected:
-    struct token_schema {
-        
-        std::string open_tag;
-        
-        bool has_closetag   = true;
-        bool is_symmetrical = true;
-        
-        std::function<void(const std::string&)> action;
-        
-        std::string close_tag = "";
-        
-        /// Whether to capture all the tokens inside it without formatting
-        bool capture_all = false;
-        
-        
-        std::string data = "";
-        
-        bool operator==(const token_schema& other) const
-        {
-            if (is_symmetrical || !has_closetag) return open_tag == other.open_tag;
-            else                                 return (open_tag == other.open_tag) && (close_tag == other.close_tag);
-        }
-    };
-    
+
     enum class PARSING_STATE
     {
         HEAD,
@@ -126,28 +105,11 @@ protected:
         else                   return !_current_element->get_child_text();
     }
     
-    virtual std::vector<std::pair<const token_schema *, std::string>> _parse_tokens(const std::vector<std::string>& tokens) const = 0;
-    
-    /**
-     * @brief Initalise _tokens_schemas with the tokens map
-     * 
-     */
-    virtual void _init_tokens() = 0;
     
     
     const CtConfig* _pCtConfig = nullptr;
 
 
-private:
-    using tags_map_t = std::unordered_map<std::string_view, const token_schema *>;
-    tags_map_t _open_tokens_map;
-    tags_map_t _close_tokens_map;
-    
-protected:
-    /// Tokens to be cached by the parser
-    std::vector<token_schema> _token_schemas;
-    
-    void _build_token_maps();
     
 public:
     explicit CtParser(const CtConfig* pCtConfig) : _pCtConfig(pCtConfig) {}
@@ -159,39 +121,68 @@ public:
 
     void wipe();
     
-    const tags_map_t& open_tokens_map()
-    {
-        _build_token_maps();
-        return _open_tokens_map;
-    };
-    const tags_map_t& close_tokens_map()
-    {
-        _build_token_maps();
-        return _close_tokens_map;
-    }
-    const tags_map_t& open_tokens_map() const { return _open_tokens_map; }
-    const tags_map_t& close_tokens_map() const { return _close_tokens_map; }
+    
     
 };
 
+/**
+ * @brief Interface for parsers which utalise tokens
+ */
+class CtAbstractTokenParser {
+protected:
+    struct token_schema {
+        
+        std::string open_tag;
+        
+        bool has_closetag   = true;
+        bool is_symmetrical = true;
+        
+        std::function<void(const std::string&)> action;
+        
+        std::string close_tag = "";
+        
+        /// Whether to capture all the tokens inside it without formatting
+        bool capture_all = false;
+        
+        
+        std::string data = "";
+        
+        bool operator==(const token_schema& other) const
+        {
+            if (is_symmetrical || !has_closetag) return open_tag == other.open_tag;
+            else                                 return (open_tag == other.open_tag) && (close_tag == other.close_tag);
+        }
+    };
+
+    virtual std::vector<std::pair<const token_schema *, std::string>> _parse_tokens(const std::vector<std::string>& tokens) const = 0;
+    virtual void _init_tokens() = 0;
+    virtual std::vector<std::string> _tokenize(const std::string& text) = 0;
+
+};
 
 
 /**
  * @brief Base class for parsing text data
  * @class CtTextParser
  */
-class CtTextParser: public virtual CtParser
+class CtTextParser: public CtParser, public CtAbstractTokenParser
 {
+private:
+    using tags_map_t = std::unordered_map<std::string_view, const token_schema *>;
+
 protected:
+    /// Tokens to be cached by the parser
+    std::vector<token_schema> _token_schemas;
+    
+    void _build_token_maps();
     /**
      * @brief Transform an input string into a token stream
      * @param tokens
      * @return
      */
     std::vector<std::pair<const token_schema *, std::string>> _parse_tokens(const std::vector<std::string>& tokens) const override;
-    uint8_t _list_level = 0;
 
-    std::vector<std::string> _tokenize(const std::string& text);
+    std::vector<std::string> _tokenize(const std::string& text) override;
 
 private:
     std::unordered_map<char, std::vector<std::string>> _possible_tokens;
@@ -227,6 +218,9 @@ public:
         [[nodiscard]] constexpr size_type raw_end_offset() const noexcept { return 0; }
         [[nodiscard]] const std::string& contents() const noexcept { return _token_contents; }
         [[nodiscard]] std::string raw_str() const { return _open_token + _token_contents + _close_token; }
+
+
+        
     private:
         std::vector<std::string> _pos_tokens;
         std::unordered_set<char> _pos_chars;
@@ -255,6 +249,23 @@ public:
      * @return
      */
     std::pair<Gtk::TextIter, Gtk::TextIter> find_formatting_boundaries(Gtk::TextIter start_bounds, Gtk::TextIter word_end);
+
+    const tags_map_t& open_tokens_map()
+    {
+        _build_token_maps();
+        return _open_tokens_map;
+    };
+    const tags_map_t& close_tokens_map()
+    {
+        _build_token_maps();
+        return _close_tokens_map;
+    }
+    const tags_map_t& open_tokens_map() const { return _open_tokens_map; }
+    const tags_map_t& close_tokens_map() const { return _close_tokens_map; }
+
+private:
+    tags_map_t _open_tokens_map;
+    tags_map_t _close_tokens_map;
 };
 
 
@@ -325,3 +336,22 @@ private:
     using match_pair_t = std::pair<std::shared_ptr<CtMDParser>, std::shared_ptr<CtTextParser::TokenMatcher>>;
     std::unordered_map<std::string, match_pair_t> _md_matchers;
 };
+
+class CtMempadParser: public CtParser {
+public:
+    struct page {
+        int level;
+        std::string name;
+        std::string contents;
+    };
+    
+
+    explicit CtMempadParser(CtConfig* config) : CtParser(config) {}
+    void feed(std::istream& data) override;
+
+    const std::vector<page>& parsed_pages() const { return _parsed_pages; }
+private:
+    std::vector<page> _parsed_pages;
+
+};
+

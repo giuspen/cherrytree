@@ -28,6 +28,15 @@
 #include <fstream>
 #include <sstream>
 
+namespace {
+xmlpp::Element* create_root_plaintext_text_el(xmlpp::Document& doc, const Glib::ustring& text) {
+    xmlpp::Element* el = doc.create_root_node("root")->add_child("slot")->add_child("rich_text");
+    el->set_child_text(text);
+    return el;
+}
+
+}
+
 namespace CtXML {
 
 xmlpp::Element* codebox_to_xml(xmlpp::Element* parent, const Glib::ustring& justification, int char_offset, int frame_width, int frame_height, int width_in_pixels, const Glib::ustring& syntax_highlighting, bool highlight_brackets, bool show_line_numbers) 
@@ -976,7 +985,7 @@ xmlpp::Element* CtTomboyImport::_rich_text_serialize(const Glib::ustring& text_d
 
 
 
-CtZimImport::CtZimImport(CtConfig* config): CtParser(config), CtTextParser(config)
+CtZimImport::CtZimImport(CtConfig* config): CtTextParser(config)
 {
 
 }
@@ -1281,4 +1290,71 @@ std::unique_ptr<ct_imported_node> CtKeepnoteImport::import_file(const fs::path& 
 
     return node;
 
+}
+
+namespace {
+std::unique_ptr<ct_imported_node> mempad_page_to_node(const CtMempadParser::page& page, const fs::path& path) 
+{
+    auto node = std::make_unique<ct_imported_node>(path, page.name);
+    auto& doc = node->xml_content;
+    create_root_plaintext_text_el(doc, page.contents);
+
+    return node;
+}
+
+template<typename ITER>
+ITER up_to_same_level(ITER start, ITER upper_bound, int level) 
+{
+    while(start != upper_bound) {
+        if (start->level == level) {
+            return start;
+        }
+        ++start;
+    }
+    return start;
+}
+
+std::unique_ptr<ct_imported_node> mempad_pages_to_nodes(const CtMempadParser::page& page, const std::vector<CtMempadParser::page>& child_pages, const fs::path& path) 
+{   
+    auto node = mempad_page_to_node(page, path);
+    for (auto iter = child_pages.begin(); iter != child_pages.end(); ++iter) {
+        if (iter->level == page.level + 1) {
+            // Direct child
+            auto last_child_child = up_to_same_level(iter + 1, child_pages.end(), iter->level);
+            std::vector<CtMempadParser::page> child_children;
+            if (iter + 1 != last_child_child) {
+                child_children.insert(child_children.end(), iter + 1, last_child_child);
+            }
+            node->children.emplace_back(mempad_pages_to_nodes(*iter, child_children, path));
+        }
+    }
+    return node;
+}
+
+std::unique_ptr<ct_imported_node> mempad_tree_to_node(const std::vector<CtMempadParser::page>& pages, const fs::path& path) 
+{   
+    CtMempadParser::page dummy_page{
+        .level = 0,
+        .name = "Mempad Root",
+        .contents = ""  
+    };
+    auto node = mempad_pages_to_nodes(dummy_page, pages, path);
+    
+    return node;
+}
+}
+
+std::unique_ptr<ct_imported_node> CtMempadImporter::import_file(const fs::path& file) 
+{
+    std::ifstream infile{file.string()};
+
+    CtMempadParser parser(_config);
+
+    parser.feed(infile);
+
+    std::vector<CtMempadParser::page> pages = parser.parsed_pages();
+    
+    auto node = mempad_tree_to_node(pages, file);
+
+    return node;
 }

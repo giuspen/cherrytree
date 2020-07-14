@@ -122,7 +122,7 @@ std::vector<std::string> CtTextParser::_tokenize(const std::string& text)
     return tokens;
 }
 
-std::vector<std::pair<const CtParser::token_schema *, std::string>> CtTextParser::_parse_tokens(const std::vector<std::string>& tokens) const
+std::vector<std::pair<const CtAbstractTokenParser::token_schema *, std::string>> CtTextParser::_parse_tokens(const std::vector<std::string>& tokens) const
 {
     std::vector<std::pair<const token_schema *, std::string>> token_stream;
     std::unordered_map<std::string_view, bool>                open_tags;
@@ -227,6 +227,31 @@ std::unordered_set<char> shred(const std::vector<std::string>& strings) {
     }
     return chars;
 }
+
+
+void CtTextParser::_build_token_maps() 
+{
+    if (_open_tokens_map.empty() || _close_tokens_map.empty()) {
+        _init_tokens();
+        
+        // Build open tokens
+        if (_open_tokens_map.empty()) {
+            for (const auto& token : _token_schemas) {
+                _open_tokens_map[token.open_tag] = &token;
+            }
+        }
+        // Build close tokens
+        if (_close_tokens_map.empty()) {
+            for (const auto& token : _token_schemas) {
+                if (token.has_closetag) {
+                    if (token.is_symmetrical || !token.has_closetag) _close_tokens_map[token.open_tag]  = &token;
+                    else                                             _close_tokens_map[token.close_tag] = &token;
+                }
+            }
+        }
+    }
+}
+
 
 void CtTextParser::TokenMatcher::pop_back() {
     if (!_finished && !_open_token.empty()) {

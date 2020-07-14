@@ -175,29 +175,6 @@ void CtParser::_add_tag_data(std::string_view tag, std::string data)
 }
 
 
-void CtParser::_build_token_maps() 
-{
-    if (_open_tokens_map.empty() || _close_tokens_map.empty()) {
-        _init_tokens();
-        
-        // Build open tokens
-        if (_open_tokens_map.empty()) {
-            for (const auto& token : _token_schemas) {
-                _open_tokens_map[token.open_tag] = &token;
-            }
-        }
-        // Build close tokens
-        if (_close_tokens_map.empty()) {
-            for (const auto& token : _token_schemas) {
-                if (token.has_closetag) {
-                    if (token.is_symmetrical || !token.has_closetag) _close_tokens_map[token.open_tag]  = &token;
-                    else                                             _close_tokens_map[token.close_tag] = &token;
-                }
-            }
-        }
-    }
-}
-
 
 void CtParser::_add_table(const std::vector<std::vector<std::string>>& table_matrix)
 {
@@ -490,4 +467,87 @@ bool CtMarkdownFilter::active() const noexcept
 { 
     return _active && _config->enableMdFormatting; 
 }
+namespace {
+using c_string = std::vector<char>;
+
+std::vector<c_string> split_by_null(std::istream& in) 
+{
+    // getline will throw on eof otherwise
+    std::vector<c_string> file_strings;
+
+    in.seekg(0, std::ios::end);
+    std::vector<char> buff(in.tellg());
+    in.seekg(0, std::ios::beg);
+
+    in.read(buff.data(), buff.size());
+
+    auto iter = buff.begin();
+    auto last = iter;
+    for(;iter != buff.end(); ++iter) {
+        if (*iter == '\0') {
+            file_strings.emplace_back(last, iter + 1);
+            last = iter + 1;
+        }
+    }
+    
+    in.seekg(0, std::ios::beg);
+
+    return file_strings;
+}
+
+
+std::vector<CtMempadParser::page> parse_mempad_strings(const std::vector<c_string>& mem_strs) 
+{
+    // Expected input is something like MeMpAd1.\0\0...\0...\0... etc
+    
+    std::vector<CtMempadParser::page> parsed_strs;
+
+    auto iter = mem_strs.begin() + 2;
+    while (iter != mem_strs.end()) {
+        // First character will be the number
+        int page_lvl = iter->front();
+        std::string title{iter->begin() + 1, iter->end()};
+
+        ++iter;
+        if (iter == mem_strs.end()) throw std::runtime_error("Unexpected EOF");
+    
+        std::string contents{iter->begin(), iter->end()};
+
+        CtMempadParser::page p{
+            .level = page_lvl,
+            .name = std::move(title),
+            .contents = std::move(contents)
+
+        };
+        parsed_strs.emplace_back(std::move(p));
+
+        ++iter;
+    }
+
+    return parsed_strs;
+}
+}
+
+void CtMempadParser::feed(std::istream& data)
+{
+    /**
+     * The mempad data format is pretty simple:
+     * 
+     * Each file has a header which starts with `MeMpAd` then there is an encoding character " " is ASCII . is UTF-8. Then the page number which is max 1-5 characters
+     * MeMpAd[.| ][0-9]{0,5}
+     * 
+     * Then each page has a level which is (annoyingly) is raw binary, next is the page name and finally the contents
+     */
+
+
+
+    // mempad uses null terminated strings in its format 
+    auto strings = split_by_null(data);
+
+
+    std::vector<page> new_pages = parse_mempad_strings(strings);
+    _parsed_pages.insert(_parsed_pages.cend(), new_pages.begin(), new_pages.end());
+
+}
+
 
