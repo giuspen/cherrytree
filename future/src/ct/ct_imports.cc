@@ -20,6 +20,7 @@
  */
 
 #include "ct_imports.h"
+#include "ct_parser.h"
 #include "ct_misc_utils.h"
 #include "ct_main_win.h"
 #include "ct_export2html.h"
@@ -834,7 +835,7 @@ std::unique_ptr<ct_imported_node> CtHtmlImport::import_file(const fs::path& file
     auto imported_node = std::make_unique<ct_imported_node>(file, file.stem().string());
     CtHtml2Xml html2xml(_config);
     html2xml.set_local_dir(file.parent_path().string());
-    html2xml.set_outter_xml_doc(&imported_node->xml_content);
+    html2xml.set_outter_xml_doc(imported_node->xml_content.get());
     html2xml.feed(ss.str());
 
     return imported_node;
@@ -888,7 +889,7 @@ std::unique_ptr<ct_imported_node> CtTomboyImport::import_file(const fs::path& fi
             auto parent_node = std::make_unique<ct_imported_node>(file, parent_name);
             auto node = std::make_unique<ct_imported_node>(file, node_name);
 
-            _current_node = node->xml_content.create_root_node("root")->add_child("slot");
+            _current_node = node->xml_content->create_root_node("root")->add_child("slot");
             _curr_attributes.clear();
             _chars_counter = 0;
             _is_list_item = false;
@@ -985,10 +986,7 @@ xmlpp::Element* CtTomboyImport::_rich_text_serialize(const Glib::ustring& text_d
 
 
 
-CtZimImport::CtZimImport(CtConfig* config): CtTextParser(config)
-{
-
-}
+CtZimImport::CtZimImport(CtConfig* config) : _zim_parser{std::make_unique<CtZimParser>(config)} {}
 
 std::unique_ptr<ct_imported_node> CtZimImport::import_file(const fs::path& file)
 {
@@ -997,168 +995,21 @@ std::unique_ptr<ct_imported_node> CtZimImport::import_file(const fs::path& file)
     _ensure_notebook_file_in_dir(file.parent_path());
 
     std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, file.stem().string());
-    _current_node = node.get();
-    _current_element = node->xml_content.create_root_node("root")->add_child("slot");
-    _current_element = _current_element->add_child("rich_text");
+    
+    std::ifstream stream;
+    stream.exceptions(std::ios::failbit);
+    stream.open(file.string());
 
-    std::ifstream stream(file.string());
-    feed(stream);
+    _zim_parser->wipe_doc();
+    _zim_parser->feed(stream);
+
+    node->xml_content = _zim_parser->doc().document();
+    node->content_broken_links = _zim_parser->doc().broken_links();
+
     return node;
 }
 
-void CtZimImport::feed(std::istream& data)
-{
-    _init_tokens();
-    _build_token_maps();
-
-    std::string line;
-    while(std::getline(data, line, '\n')) {
-        if (_parse_state == PARSING_STATE::HEAD) {
-            // Creation-Date: .* is the final line of the header
-            if (line.find("Creation-Date:") != std::string::npos) {
-                // TODO: Read the creation date and use it for ts_creation
-                _parse_state = PARSING_STATE::BODY;
-            }
-        } else if (_parse_state == PARSING_STATE::BODY) {
-            _parse_body_line(line);
-        }
-    }
-    // Reset
-    _parse_state = PARSING_STATE::HEAD;
-}
-
-void CtZimImport::_init_tokens()
-{
-    if (_token_schemas.empty()) {
-        _token_schemas = {
-            // Bold
-            {"**", true, true, [this](const std::string& data){
-                _close_current_tag();
-                _add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, data);
-                _close_current_tag();
-            }},
-            // Indentation detection for lists
-            {"\t", false, false, [this](const std::string& data) {
-                _list_level++;
-                // Did a double match for even number of \t tags
-                if (data.empty()) _list_level++;
-            }},
-            {"https://", false, false, [this](const std::string& data) {
-                _close_current_tag();
-                _add_link("https://"+data);
-                _add_text("https://"+data);
-                _close_current_tag();
-            }},
-            {"http://", false, false, [this](const std::string& data) {
-                _close_current_tag();
-                _add_link("http://"+data);
-                _add_text("http://"+data);
-                _close_current_tag();
-            }},
-            // Bullet list
-            {"* ", false, false, [this](const std::string& data) {
-                _add_list(_list_level, data);
-                _list_level = 0;
-            }},
-            // Italic
-            {"//", true, true, [this](const std::string& data) {
-                _close_current_tag();
-                _add_italic_tag(data);
-                _close_current_tag();
-            }},
-            // Strikethrough
-            {"~~", true, true, [this](const std::string& data){
-                _close_current_tag();
-                _add_strikethrough_tag(data);
-                _close_current_tag();
-            }},
-            // Headers
-            {"==", false, false, [this](const std::string &data) {
-                    int count = 5;
-
-                    auto iter = data.begin();
-                    while (*iter == '=') {
-                        count--;
-                        ++iter;
-                    }
-
-                    if (count < 0) {
-                        throw CtImportException(fmt::format("Parsing error while parsing header data: {} - Too many '='", data));
-                    }
-
-                    if (count > 3) {
-                        // Reset to smaller (h3 currently)
-                        count = 3;
-                    }
-
-                    auto str = str::replace(data, "= ", "");
-                    str = str::replace(str, "=", "");
-
-                    _close_current_tag();
-                    _add_scale_tag(count, str);
-                    _close_current_tag();
-            }, "==", true},
-            // External link (e.g https://example.com)
-            {"{{", true, false, [](const std::string&) {
-                // Todo: Implement this (needs image importing)
-            },"}}"},
-            // Todo list
-           // {"[", true, false, links_match_func, "] "},
-            {"[*", true, false, [this](const std::string& data) {
-                _add_todo_list(CHECKBOX_STATE::TICKED, data);
-            }, "]"},
-            {"[x", true, false, [this](const std::string& data) {
-                _add_todo_list(CHECKBOX_STATE::MARKED, data);
-            }, "]"},
-            {"[>", true, false, [this](const std::string& data) {
-                _add_todo_list(CHECKBOX_STATE::MARKED, data);
-            }, "]"},
-            {"[ ", true, false, [this](const std::string& data) {
-                _add_todo_list(CHECKBOX_STATE::UNCHECKED, data);
-            }, "]"},
-            // Internal link (e.g MyPage) - This is just for removing the leftover ']'
-            {"[[", true, false, [this](const std::string& data){
-                _close_current_tag();
-                 _current_node->add_broken_link(data, _current_element);
-                 _add_text(data);
-                _close_current_tag();
-            }, "]]"},
-            // Verbatum - captures all the tokens inside it and print without formatting
-            {"''", true, true, [this](const std::string& data){
-                _add_text(data);
-            }, "''", true},
-            // Suberscript
-            {"^{", true, false, [this](const std::string& data){
-                _close_current_tag();
-                _add_superscript_tag(data);
-                _close_current_tag();
-            }, "}"},
-            // Subscript
-            {"_{", true, false, [this](const std::string& data){
-                _close_current_tag();
-                _add_subscript_tag(data);
-                _close_current_tag();
-            }, "}"}
-
-        };
-    }
-}
-
-void CtZimImport::_parse_body_line(const std::string& line)
-{
-    auto tokens_raw = _tokenize(line);
-    auto tokens = _parse_tokens(tokens_raw);
-
-    for (const auto& token : tokens) {
-        if (token.first) {
-            token.first->action(token.second);
-        } else {
-            _add_text(token.second);
-        }
-
-    }
-    _add_newline();
-}
+CtZimImport::~CtZimImport() = default;
 
 void CtZimImport::_ensure_notebook_file_in_dir(const fs::path& dir)
 {
@@ -1175,7 +1026,7 @@ void CtZimImport::_ensure_notebook_file_in_dir(const fs::path& dir)
     }
 }
 
-
+CtMDImport::~CtMDImport() = default;
 
 std::unique_ptr<ct_imported_node> CtPlainTextImport::import_file(const fs::path& file)
 {
@@ -1191,7 +1042,7 @@ std::unique_ptr<ct_imported_node> CtPlainTextImport::import_file(const fs::path&
         data << infile.rdbuf();
 
         std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, file.stem().string());
-        node->xml_content.create_root_node("root")->add_child("slot")->add_child("rich_text")->add_child_text(data.str());
+        node->xml_content->create_root_node("root")->add_child("slot")->add_child("rich_text")->add_child_text(data.str());
         node->node_syntax = CtConst::PLAIN_TEXT_ID;
         return node;
     }
@@ -1204,7 +1055,7 @@ std::unique_ptr<ct_imported_node> CtPlainTextImport::import_file(const fs::path&
 
 
 
-CtMDImport::CtMDImport(CtConfig* config) : _parser(config)
+CtMDImport::CtMDImport(CtConfig* config) : _parser{std::make_unique<CtMDParser>(config)}
 {
 
 }
@@ -1216,11 +1067,11 @@ std::unique_ptr<ct_imported_node> CtMDImport::import_file(const fs::path& file)
 
     std::ifstream infile(file.string());
     if (!infile) throw std::runtime_error(fmt::format("CtMDImport: cannot open file, what: {}, file: {}", strerror(errno), file));
-    _parser.wipe();
-    _parser.feed(infile);
+    _parser->wipe_doc();
+    _parser->feed(infile);
 
     std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, file.stem().string());
-    node->xml_content.create_root_node_by_import(_parser.get_root_node());
+    node->xml_content = _parser->doc().document();
 
     return node;
 }
@@ -1240,7 +1091,7 @@ std::unique_ptr<ct_imported_node> CtPandocImport::import_file(const fs::path& fi
     std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, file.stem().string());
 
     CtHtml2Xml parser(_config);
-    parser.set_outter_xml_doc(&node->xml_content);
+    parser.set_outter_xml_doc(node->xml_content.get());
     parser.feed(html_buff.str());
 
     return node;
@@ -1262,7 +1113,7 @@ std::unique_ptr<ct_imported_node> node_from_keepnote_dir(const fs::path& dir, Ct
     parser.feed(buff.str());
 
     auto node = std::make_unique<ct_imported_node>(node_path, dir.stem().string());
-    node->xml_content.create_root_node_by_import(parser.doc().get_root_node());
+    node->xml_content->create_root_node_by_import(parser.doc().get_root_node());
     
     return node;
 }
@@ -1297,7 +1148,7 @@ std::unique_ptr<ct_imported_node> mempad_page_to_node(const CtMempadParser::page
 {
     auto node = std::make_unique<ct_imported_node>(path, page.name);
     auto& doc = node->xml_content;
-    create_root_plaintext_text_el(doc, page.contents);
+    create_root_plaintext_text_el(*doc, page.contents);
 
     return node;
 }
@@ -1348,7 +1199,7 @@ std::unique_ptr<ct_imported_node> CtMempadImporter::import_file(const fs::path& 
 {
     std::ifstream infile{file.string()};
 
-    CtMempadParser parser(_config);
+    CtMempadParser parser;
 
     parser.feed(infile);
 

@@ -22,6 +22,7 @@
  */
 
 #include "ct_widgets.h"
+#include "ct_parser.h"
 #include "ct_misc_utils.h"
 #include "ct_const.h"
 #include "ct_main_win.h"
