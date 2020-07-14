@@ -865,17 +865,24 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer
         _pCtMainWin->get_text_view().scroll_to(mark_insert, CtTextView::TEXT_SCROLL_MARGIN);
     }
     if (s_state.replace_active) {
-        if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return false;
-        Glib::ustring replacer_text = s_options.search_replace_dict_replace; /* should be Glib::ustring to count symbols */
-        Gtk::TextIter sel_start, sel_end;
-        text_buffer->get_selection_bounds(sel_start, sel_end);
-        text_buffer->erase(sel_start, sel_end);
-        text_buffer->insert_at_cursor(replacer_text);
-        if (!all_matches)
-            _pCtMainWin->get_text_view().set_selection_at_offset_n_delta(match_offsets.first + num_objs, (int)replacer_text.size());
-        _pCtMainWin->get_state_machine().update_state();
-        tree_iter.pending_edit_db_node_buff();
-    }
+            if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return false;
+            Gtk::TextIter sel_start, sel_end;
+            text_buffer->get_selection_bounds(sel_start, sel_end);
+
+            Glib::ustring origin_text = sel_start.get_text(sel_end);
+            Glib::ustring replacer_text = s_options.search_replace_dict_replace; /* should be Glib::ustring to count symbols */
+
+            // use re_pattern->replace for the cases with \n, maybe it even helps with groups
+            if (s_options.search_replace_dict_reg_exp)
+                replacer_text = re_pattern->replace(origin_text, 0, replacer_text, static_cast<Glib::RegexMatchFlags>(0));
+
+            text_buffer->erase(sel_start, sel_end);
+            text_buffer->insert_at_cursor(replacer_text);
+            if (!all_matches)
+                _pCtMainWin->get_text_view().set_selection_at_offset_n_delta(match_offsets.first + num_objs, (int)replacer_text.size());
+            _pCtMainWin->get_state_machine().update_state();
+            tree_iter.pending_edit_db_node_buff();
+        }
     return true;
 }
 
