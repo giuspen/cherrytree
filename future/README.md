@@ -160,7 +160,9 @@ make install
 
 Install MSYS2: https://www.msys2.org/ (we cover here the packages for 64 bit installation)
 
-Run the following command multiple times in the 'MSYS2 MinGW **64-bit**' terminal until there are no more updates:
+Launch 'MSYS2 MinGW 64-bit' terminal (there are 3 different terminals, make sure it is 64-bit otherwise it will cause issues)
+
+Run the following command multiple times there until there are no more updates:
 ```sh
 pacman -Syuu
 ```
@@ -206,7 +208,12 @@ alias l="ls -lah --color"
 bind '"\e[A":history-search-backward'
 bind '"\e[B":history-search-forward'
 ```
+
+Get cherrytree source, compile and run:
 ```sh
+git clone https://github.com/giuspen/cherrytree.git
+cd cherrytree/future
+
 # build Release (optimised)
 ./build.sh Release
 # build Debug (not optimised, with debug symbols)
@@ -216,3 +223,9 @@ bind '"\e[B":history-search-forward'
 # run unit tests
 ./build/tests/run_tests.exe
 ```
+
+Troubleshooting:
+- Cannot build: make sure to start 64-bit terminal
+- Cannot build: remove `cherrytree/future/build` folder and start `build.sh` script again
+- Tests output warnings and errors: it is ok, at the end it should be like this `OK (49 tests, 49 ran, 6243 checks, 0 ignored, 0 filtered out, 5758 ms)`
+- Cannot start cherrytree: you either have to run cherrytree from the msys2 mingw64 terminal or copy and replace cherrytree in `cherrytree_0.99_win64_portable` folder (downloaded from the site) by the new one, so dependencies are fullfiled 

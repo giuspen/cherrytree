@@ -124,10 +124,21 @@ bool exists(const path& filepath)
     return Glib::file_test(filepath.string(), Glib::FILE_TEST_EXISTS);
 }
 
-// Open Filepath with External App
-void external_filepath_open(const fs::path& filepath, bool open_folder_if_file_not_exists, CtConfig* config)
+void open_weblink(const std::string& link)
 {
-    spdlog::debug("fs::external_filepath_open {}", filepath);
+#if defined(_WIN32) || defined(__APPLE__)
+    g_app_info_launch_default_for_uri(link.c_str(), nullptr, nullptr);
+#else
+    std::vector<std::string> argv = { "xdg-open", link};
+    Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
+    // g_app_info_launch_default_for_uri(link.c_str(), nullptr, nullptr); // doesn't work on KDE
+#endif
+}
+
+// Open Filepath with External App
+void open_filepath(const fs::path& filepath, bool open_folder_if_file_not_exists, CtConfig* config)
+{
+    spdlog::debug("fs::open_filepath {}", filepath);
     if (config->filelinkCustomOn) {
         std::string cmd = fmt::sprintf(config->filelinkCustomAct, filepath.string());
         const int retVal = std::system(cmd.c_str());
@@ -136,25 +147,26 @@ void external_filepath_open(const fs::path& filepath, bool open_folder_if_file_n
         }
     } else {
         if (open_folder_if_file_not_exists && !fs::exists(filepath)) {
-            external_folderpath_open(filepath, config);
+            open_folderpath(filepath, config);
         } else if (!fs::exists(filepath)) {
-            spdlog::error("fs::external_filepath_open: file doesn't exist, {}", filepath.string());
+            spdlog::error("fs::open_filepath: file doesn't exist, {}", filepath.string());
             return;
         } else {
 #ifdef _WIN32
             ShellExecute(GetActiveWindow(), "open", filepath.c_str(), NULL, NULL, SW_SHOWNORMAL);
 #else
-            std::string f_path = "file://" + filepath.string();
-            g_app_info_launch_default_for_uri(f_path.c_str(), nullptr, nullptr);
+            std::vector<std::string> argv = { "xdg-open", "file://" + filepath.string() };
+            Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
+            // g_app_info_launch_default_for_uri(f_path.c_str(), nullptr, nullptr); // doesn't work on KDE
 #endif
         }
     }
 }
 
 // Open Folderpath with External App
-void external_folderpath_open(const fs::path& folderpath, CtConfig* config)
+void open_folderpath(const fs::path& folderpath, CtConfig* config)
 {
-    spdlog::debug("fs::external_folderpath_open {}", folderpath);
+    spdlog::debug("fs::open_folderpath {}", folderpath);
     if (config->folderlinkCustomOn) {
         std::string cmd = fmt::sprintf(config->folderlinkCustomAct, folderpath.string());
         const int retVal = std::system(cmd.c_str());
@@ -169,8 +181,9 @@ void external_folderpath_open(const fs::path& folderpath, CtConfig* config)
         std::vector<std::string> argv = { "open", folderpath.string() };
         Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
 #else
-        std::string f_path = "file://" + folderpath.string();
-        g_app_info_launch_default_for_uri(f_path.c_str(), nullptr, nullptr);
+        std::vector<std::string> argv = { "xdg-open", "file://" + folderpath.string() };
+        Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
+        // g_app_info_launch_default_for_uri(f_path.c_str(), nullptr, nullptr); // doesn't work on KDE
 #endif
     }
 }
