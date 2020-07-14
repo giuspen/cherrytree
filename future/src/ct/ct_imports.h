@@ -240,6 +240,7 @@ protected:
 private:
     void _parse_body_line(const std::string& line);
     void _ensure_notebook_file_in_dir(const fs::path& dir);
+    int _list_level = 0;
 
 private:
     bool              _has_notebook_file {false};
@@ -287,9 +288,12 @@ protected:
     TableRow _current_table_row;
     TableMatrix _current_table;
 public:
-    CtMDParser(CtConfig* config) : CtParser(config), CtTextParser(config) {}
+    CtMDParser(CtConfig* config) : CtTextParser(config) {}
 
     void feed(std::istream& stream) override;
+
+private:
+    uint8_t _list_level = 0;
 
 };
 
@@ -330,5 +334,19 @@ public:
 
 private:
     CtConfig* _config;
+};
+
+class CtMempadImporter: public CtImporterInterface {
+public:
+    explicit CtMempadImporter(CtConfig* config) : _config(config) {}
+
+    std::unique_ptr<ct_imported_node> import_file(const fs::path& file) override;
+
+    std::vector<std::string> file_patterns() override { return {"*.lst"}; };
+    std::string file_pattern_name() override { return _("Mempad File"); }
+
+private:
+    CtConfig* _config;
+
 };
 
