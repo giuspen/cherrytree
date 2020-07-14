@@ -341,6 +341,10 @@ public:
     explicit CtMempadImporter(CtConfig* config) : _config(config) {}
 
     std::unique_ptr<ct_imported_node> import_file(const fs::path& file) override;
+
+    std::vector<std::string> file_patterns() override { return {"*.lst"}; };
+    std::string file_pattern_name() override { return _("Mempad File"); }
+
 private:
     CtConfig* _config;
 
