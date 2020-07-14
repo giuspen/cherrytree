@@ -278,7 +278,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
                  return;
              }
          }
-         else g_app_info_launch_default_for_uri(clean_weblink.c_str(), nullptr, nullptr); // todo: ?
+         else fs::external_weblink_open(clean_weblink);
      }
      else if (vec[0] == CtConst::LINK_TYPE_FILE) // link to file
      {

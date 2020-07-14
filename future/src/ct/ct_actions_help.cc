@@ -26,7 +26,7 @@
 
 void CtActions::online_help()
 {
-    g_app_info_launch_default_for_uri("https://giuspen.com/cherrytreemanual/", nullptr, nullptr);
+    fs::external_weblink_open("https://giuspen.com/cherrytreemanual/");
 }
 
 void CtActions::dialog_about()

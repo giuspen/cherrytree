@@ -124,6 +124,17 @@ bool exists(const path& filepath)
     return Glib::file_test(filepath.string(), Glib::FILE_TEST_EXISTS);
 }
 
+void external_weblink_open(const std::string& link)
+{
+#if defined(_WIN32) || defined(__APPLE__)
+    g_app_info_launch_default_for_uri(link.c_str(), nullptr, nullptr);
+#else
+    std::vector<std::string> argv = { "xdg-open", link};
+    Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
+    // g_app_info_launch_default_for_uri(link.c_str(), nullptr, nullptr); // doesn't work on KDE
+#endif
+}
+
 // Open Filepath with External App
 void external_filepath_open(const fs::path& filepath, bool open_folder_if_file_not_exists, CtConfig* config)
 {
@@ -144,8 +155,9 @@ void external_filepath_open(const fs::path& filepath, bool open_folder_if_file_n
 #ifdef _WIN32
             ShellExecute(GetActiveWindow(), "open", filepath.c_str(), NULL, NULL, SW_SHOWNORMAL);
 #else
-            std::string f_path = "file://" + filepath.string();
-            g_app_info_launch_default_for_uri(f_path.c_str(), nullptr, nullptr);
+            std::vector<std::string> argv = { "xdg-open", "file://" + filepath.string() };
+            Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
+            // g_app_info_launch_default_for_uri(f_path.c_str(), nullptr, nullptr); // doesn't work on KDE
 #endif
         }
     }
@@ -169,8 +181,9 @@ void external_folderpath_open(const fs::path& folderpath, CtConfig* config)
         std::vector<std::string> argv = { "open", folderpath.string() };
         Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
 #else
-        std::string f_path = "file://" + folderpath.string();
-        g_app_info_launch_default_for_uri(f_path.c_str(), nullptr, nullptr);
+        std::vector<std::string> argv = { "xdg-open", "file://" + folderpath.string() };
+        Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
+        // g_app_info_launch_default_for_uri(f_path.c_str(), nullptr, nullptr); // doesn't work on KDE
 #endif
     }
 }
