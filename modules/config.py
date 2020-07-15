@@ -164,6 +164,7 @@ def get_toolbar_ui_str(dad):
     for i, toolbar_element in enumerate(dad.toolbar_ui_list):
         if toolbar_element == cons.CHAR_STAR: dad.toolbar_open_n_recent = i
         elif toolbar_element == cons.TAG_SEPARATOR: toolbar_ui_str += "<separator/>"
+        elif toolbar_element == menus.TOOLBAR_SPLIT: pass
         else: toolbar_ui_str += "<toolitem action='%s'/>" % toolbar_element
     return toolbar_ui_str + "</toolbar></ui>"
 

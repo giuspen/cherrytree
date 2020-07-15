@@ -878,6 +878,7 @@ UI_INFO = """
 </ui>
 """
 
+TOOLBAR_SPLIT = "toolbar_split"
 TOOLBAR_VEC_DEFAULT = ["tree_add_node", "tree_add_subnode", cons.TAG_SEPARATOR, "go_node_prev", "go_node_next", cons.TAG_SEPARATOR, cons.CHAR_STAR, "ct_save", "export_pdf", cons.TAG_SEPARATOR, "find_in_allnodes", cons.TAG_SEPARATOR, "handle_bull_list", "handle_num_list", "handle_todo_list", cons.TAG_SEPARATOR, "handle_image", "handle_table", "handle_codebox", "handle_embfile", "handle_link", "handle_anchor", cons.TAG_SEPARATOR, "fmt_rm", "fmt_color_fg", "fmt_color_bg", "fmt_bold", "fmt_italic", "fmt_underline", "fmt_strikethrough", "fmt_h1", "fmt_h2", "fmt_h3", "fmt_small", "fmt_superscript", "fmt_subscript", "fmt_monospace"]
 
-TOOLBAR_VEC_BLACKLIST = ["anch_cut", "anch_copy", "anch_del", "anch_edit", "emb_file_cut", "emb_file_copy", "emb_file_del", "emb_file_save", "emb_file_open", "img_save", "img_edit", "img_cut", "img_copy", "img_del", "img_link_edit", "img_link_dismiss", "toggle_show_mainwin"]
+TOOLBAR_VEC_BLACKLIST = [TOOLBAR_SPLIT, "anch_cut", "anch_copy", "anch_del", "anch_edit", "emb_file_cut", "emb_file_copy", "emb_file_del", "emb_file_save", "emb_file_open", "img_save", "img_edit", "img_cut", "img_copy", "img_del", "img_link_edit", "img_link_dismiss", "toggle_show_mainwin"]

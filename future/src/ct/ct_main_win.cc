@@ -87,10 +87,11 @@ CtMainWin::CtMainWin(bool             no_gui,
     _pSpecialCharsSubmenu = CtMenu::find_menu_item(_pMenuBar, "SpecialCharsMenu");
     _pMenuBar->show_all();
     gtk_window_add_accel_group(GTK_WINDOW(gobj()), _uCtMenu->default_accel_group());
-    _pToolbar = _uCtMenu->build_toolbar(_pRecentDocsMenuToolButton);
+    _pToolbars = _uCtMenu->build_toolbars(_pRecentDocsMenuToolButton);
 
     _vboxMain.pack_start(*_pMenuBar, false, false);
-    _vboxMain.pack_start(*_pToolbar, false, false);
+    for (auto pToolbar: _pToolbars)
+        _vboxMain.pack_start(*pToolbar, false, false);
     _vboxMain.pack_start(_hPaned);
     _vboxMain.pack_start(_init_status_bar(), false, false);
     _vboxMain.show_all();
@@ -521,7 +522,7 @@ void CtMainWin::config_apply()
     _ctWinHeader.lockIcon.hide();
     _ctWinHeader.bookmarkIcon.hide();
 
-    menu_rebuild_toolbar(false);
+    menu_rebuild_toolbars(false);
 
     _ctStatusBar.progressBar.hide();
     _ctStatusBar.stopButton.hide();
@@ -801,21 +802,27 @@ void CtMainWin::menu_set_visible_exit_app(bool visible)
     CtMenu::find_menu_item(_pMenuBar, "exit_app")->set_visible(visible);
 }
 
-void CtMainWin::menu_rebuild_toolbar(bool new_toolbar)
+void CtMainWin::menu_rebuild_toolbars(bool new_toolbar)
 {
     if (new_toolbar)
     {
-        _vboxMain.remove(*_pToolbar);
-        _pToolbar = _uCtMenu->build_toolbar(_pRecentDocsMenuToolButton);
-        _vboxMain.pack_start(*_pToolbar, false, false);
-        _vboxMain.reorder_child(*_pToolbar, 1);
+        for (auto pToolbar: _pToolbars)
+            _vboxMain.remove(*pToolbar);
+        _pToolbars = _uCtMenu->build_toolbars(_pRecentDocsMenuToolButton);
+        for (auto toolbar = _pToolbars.rbegin(); toolbar != _pToolbars.rend(); ++toolbar)
+        {
+            _vboxMain.pack_start(*(*toolbar), false, false);
+            _vboxMain.reorder_child(*(*toolbar), 1);
+        }
         menu_set_items_recent_documents();
-        _pToolbar->show_all();
+        for (auto pToolbar: _pToolbars)
+            pToolbar->show_all();
     }
 
-    show_hide_toolbar(_pCtConfig->toolbarVisible);
-    _pToolbar->set_toolbar_style(Gtk::ToolbarStyle::TOOLBAR_ICONS);
-    set_toolbar_icon_size(_pCtConfig->toolbarIconSize);
+    show_hide_toolbars(_pCtConfig->toolbarVisible);
+    for (auto pToolbar: _pToolbars)
+        pToolbar->set_toolbar_style(Gtk::ToolbarStyle::TOOLBAR_ICONS);
+    set_toolbars_icon_size(_pCtConfig->toolbarIconSize);
 }
 
 
