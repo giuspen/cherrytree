@@ -38,7 +38,7 @@
 #include <string>
 
 class CtClipboard;
-class CtStatusBar;
+struct CtStatusBar;
 /**
  * @class CtParseError
  * @brief Thrown when an exception occures during parsing

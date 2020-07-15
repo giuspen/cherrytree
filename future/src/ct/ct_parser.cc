@@ -26,7 +26,8 @@
 #include "ct_imports.h"
 #include "ct_logging.h"
 #include "ct_clipboard.h"
-#include <iostream>
+#include "ct_main_win.h"
+
 
 
 void CtDocumentBuilder::wipe()  
