@@ -4274,7 +4274,7 @@ iter_end, exclude_iter_sel_end=True)
             self.embfile_set_tooltip(anchor)
             if self.embfile_show_filename:
                 anchor_label = gtk.Label()
-                anchor_label.set_markup("<b><small>"+pixbuf.filename+"</small></b>")
+                anchor_label.set_markup("<b><small>"+cgi.escape(pixbuf.filename)+"</small></b>")
                 anchor_label.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse(self.rt_def_fg))
                 anchor.frame.set_label_widget(anchor_label)
         else:

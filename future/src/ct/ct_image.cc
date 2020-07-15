@@ -343,7 +343,7 @@ void CtImageEmbFile::update_label_widget()
 {
     if (_pCtMainWin->get_ct_config()->embfileShowFileName)
     {
-        _labelWidget.set_markup("<b><small>"+_fileName.string()+"</small></b>");
+        _labelWidget.set_markup("<b><small>"+str::xml_escape(_fileName.string())+"</small></b>");
         _labelWidget.show();
         _frame.set_label_widget(_labelWidget);
     }
