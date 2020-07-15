@@ -485,3 +485,18 @@ private:
     
 };
 
+class CtLeoParser: public CtParserInterface {
+public:
+    struct leo_node {
+        Glib::ustring content;
+        Glib::ustring name = "";
+        std::vector<leo_node> children;
+    };
+
+
+    void feed(std::istream& in) override;
+
+    const std::vector<leo_node>& nodes() const { return _leo_nodes; } 
+private:
+    std::vector<leo_node> _leo_nodes;
+};

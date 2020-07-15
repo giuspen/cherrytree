@@ -1331,3 +1331,164 @@ void CtZimParser::_parse_body_line(const std::string& line)
     doc_builder().add_newline();
 }
 
+
+namespace {
+// These hash tables use the tx or t attributes of the node as keys 
+using name_lookup_table_t = std::unordered_map<std::string, Glib::ustring>;
+using children_lookup_t = std::unordered_map<std::string, std::vector<std::string>>;
+using node_loopup_table_t = std::unordered_map<std::string, CtLeoParser::leo_node>;
+
+CtLeoParser::leo_node parse_leo_t_el(const xmlpp::Element& node) 
+{
+    assert(node.get_name() == "t");
+
+    CtLeoParser::leo_node lnode;
+
+    if (node.has_child_text()) {
+        lnode.content = node.get_child_text()->get_content();
+    }
+
+    return lnode;
+}
+
+std::pair<std::string, Glib::ustring> read_leo_vnode(const xmlpp::Element& v_el) {
+    assert(v_el.get_name() == "v");
+
+    
+    auto* vh_el = dynamic_cast<const xmlpp::Element*>(v_el.get_first_child());
+    if (!vh_el) throw std::invalid_argument("v element does not have a <vh> child element!");
+
+    std::string tx_id = v_el.get_attribute("t")->get_value();
+    Glib::ustring contents = vh_el->get_child_text()->get_content();
+
+    return {tx_id, contents};
+}
+
+void find_node_children(const xmlpp::Element& v_el, children_lookup_t& children) {
+    assert(v_el.get_name() == "v");
+
+    std::string tx_id = read_leo_vnode(v_el).first;
+    for (auto* node : v_el.get_children("v")) {
+        if (auto* el = dynamic_cast<xmlpp::Element*>(node)) {
+            auto data = read_leo_vnode(*el);
+            
+            children[tx_id].emplace_back(data.first);
+            find_node_children(*el, children);
+
+        } else {
+            throw std::runtime_error("Leo document is malformed");
+        }
+    }
+}
+
+void build_tx_lookup_table(const xmlpp::Node& vnode, name_lookup_table_t& table) {
+    for (auto* node : vnode.get_children("v")) {
+        if (auto* el = dynamic_cast<xmlpp::Element*>(node)) {
+            table.emplace(read_leo_vnode(*el));
+            build_tx_lookup_table(*el, table);
+        }
+    }
+}
+
+name_lookup_table_t generate_tx_lookup_table(const xmlpp::Node& vnode_root) {
+    assert(vnode_root.get_name() == "vnodes");
+
+    name_lookup_table_t tx_id_to_names;
+    build_tx_lookup_table(vnode_root, tx_id_to_names);
+
+    return tx_id_to_names;
+}
+
+children_lookup_t generate_children_lookup_table(const xmlpp::Node& vnode_root) {
+    assert(vnode_root.get_name() == "vnodes");
+    children_lookup_t lookup_tbl;
+    for (auto* node : vnode_root.get_children()) {
+        if (node->get_name() == "v") {
+            if (auto* el = dynamic_cast<xmlpp::Element*>(node)) {
+                find_node_children(*el, lookup_tbl);
+            } else {
+                throw std::runtime_error("Leo document is malformed");
+            }
+        }
+    }
+    return lookup_tbl;
+}
+
+
+void populate_leo_nodes(const xmlpp::Node& vnode_root, node_loopup_table_t& lnodes)  
+{
+    auto tx_lookup = generate_tx_lookup_table(vnode_root);
+    auto child_lookup = generate_children_lookup_table(vnode_root);
+
+    for (auto& node_pair : lnodes) {
+        auto& node = node_pair.second;
+        node.name = tx_lookup.at(node_pair.first);        
+        auto node_children = child_lookup.find(node_pair.first);
+        if (node_children != child_lookup.end()) {
+            for (const auto& child_tx : node_children->second) {
+                auto child = lnodes.at(child_tx);
+                node.children.emplace_back(std::move(child));
+            }
+        }
+    }    
+
+}
+
+node_loopup_table_t parse_leo_tnodes(const xmlpp::Node& tnodes_root) 
+{
+    assert(tnodes_root.get_name() == "tnodes");
+
+    node_loopup_table_t leo_nodes;
+    for (auto* node : tnodes_root.get_children()) {
+        if (node->get_name() == "t") {
+            if (auto* el = dynamic_cast<xmlpp::Element*>(node)) {
+                std::string tx_id = el->get_attribute("tx")->get_value();
+                leo_nodes.emplace(tx_id, parse_leo_t_el(*el));
+            }
+        }
+    }
+
+    return leo_nodes;
+}
+
+xmlpp::Node* find_leo_vnodes_el(const xmlpp::Node& root) {
+    return root.get_children("vnodes").front();
+}
+
+xmlpp::Node* find_leo_tnodes_el(const xmlpp::Node& root) {
+    return root.get_children("tnodes").front();
+}
+
+std::vector<CtLeoParser::leo_node> parse_leo_tree(const xmlpp::Node& vnode_root, xmlpp::Node& tnode_root) {
+    auto l_nodes = parse_leo_tnodes(tnode_root);
+    populate_leo_nodes(vnode_root, l_nodes);
+
+    std::vector<CtLeoParser::leo_node> populated_nodes;
+    for (auto& node : l_nodes) {
+        populated_nodes.emplace_back(std::move(node.second));
+    }
+
+    return populated_nodes;
+}
+
+std::vector<CtLeoParser::leo_node> walk_leo_xml(const xmlpp::Node& root) {
+    auto* vnode = find_leo_vnodes_el(root);
+    auto* tnode = find_leo_tnodes_el(root);
+
+    if (!vnode || !tnode) throw std::runtime_error("Leo XML is malformed");
+
+    return parse_leo_tree(*vnode, *tnode);
+}
+}
+
+void CtLeoParser::feed(std::istream& in) {
+
+    xmlpp::DomParser p;
+    p.parse_stream(in);
+
+    xmlpp::Element* root = p.get_document()->get_root_node();
+
+    auto new_nodes = walk_leo_xml(*root);
+    _leo_nodes.insert(_leo_nodes.cend(), new_nodes.begin(), new_nodes.end());
+}
+

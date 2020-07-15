@@ -147,6 +147,15 @@ void CtActions::import_nodes_from_mempad_file() noexcept {
     }
 }
 
+void CtActions::import_nodes_from_leo_file() noexcept {
+    try {
+        CtLeoImporter importer;
+        _import_from_file(&importer);
+    } catch(const std::exception& e) {
+        spdlog::error("Exception caught while importing from Leo: {}", e.what());
+    }
+}
+
 void CtActions::_import_from_file(CtImporterInterface* importer)
 {
     CtDialogs::file_select_args args(_pCtMainWin);

@@ -225,3 +225,13 @@ private:
 
 };
 
+class CtLeoImporter: public CtImporterInterface {
+public:
+    
+    std::unique_ptr<ct_imported_node> import_file(const fs::path& path) override;
+
+    std::vector<std::string> file_patterns() override { return {"*.leo"}; };
+    std::string file_pattern_name() override { return _("Leo File"); }
+
+};
+
