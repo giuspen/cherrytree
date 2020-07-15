@@ -23,14 +23,7 @@
 #include "ct_logging.h"
 #include <iostream>
 
-template<class T>
-std::unordered_map<char, std::vector<std::string>> build_pos_tokens(const T& tokens) {
-    std::unordered_map<char, std::vector<std::string>> out;
-    for (const auto& token : tokens) {
-        if (!token.first.empty()) out[token.first.front()].emplace_back(token.first);
-    }
-    return out;
-}
+namespace {
 
 constexpr bool nor(bool a, bool b) {
     return !(a || b);
@@ -49,10 +42,10 @@ bool do_token_branch(ITER_T begin, ITER_T end, std::string_view match) {
     return false;
 }
 
-template<class ITER_T>
-std::optional<std::string> branch_token(ITER_T begin, ITER_T end, const std::vector<std::string>& options) {
+template<class ITER_T, class STR_T>
+std::optional<STR_T> branch_token(ITER_T begin, ITER_T end, const std::vector<STR_T>& options) {
     std::size_t largest_len = 0;
-    std::optional<std::string> largest = std::nullopt;
+    std::optional<STR_T> largest = std::nullopt;
     for (const auto& opt : options) {
         if (do_token_branch(begin, end, opt)) {
             // Do a greedy match
@@ -65,24 +58,52 @@ std::optional<std::string> branch_token(ITER_T begin, ITER_T end, const std::vec
     return largest;
 }
 
-
-void CtTextParser::_build_pos_tokens() {
-    if (_possible_tokens.empty()) {
-        auto& open_tags = open_tokens_map();
-        auto& close_tags = close_tokens_map();
-        
-        _possible_tokens = build_pos_tokens(open_tags);
-        auto other_pos  = build_pos_tokens(close_tags);
-        for (const auto& token : other_pos) {
-            auto& tokens_full =  _possible_tokens[token.first];
-            tokens_full.insert(tokens_full.end(), token.second.begin(), token.second.end());
+void build_pos_tokens(const CtTextParser::tags_map_t& in, CtTextParser::pos_tokens_t& out) {
+    for (const auto& token : in) {
+        if (!token.first.empty()) {
+            out[token.first.front()].emplace_back(token.first);
         }
     }
 }
 
-std::vector<std::string> CtTextParser::_tokenize(const std::string& text)
+CtTextParser::pos_tokens_t build_pos_tokens(const CtTextParser::tags_map_t& open_tokens, const CtTextParser::tags_map_t& close_tokens) {
+    
+    CtTextParser::pos_tokens_t pos_tokens;
+    build_pos_tokens(open_tokens, pos_tokens);
+    build_pos_tokens(close_tokens, pos_tokens);
+    
+    return pos_tokens;
+}
+
+CtTextParser::tags_map_t build_tags_map(const std::vector<CtTextParser::token_schema>& tokens, bool open_tags_map) {
+    CtTextParser::tags_map_t tags_map;
+    for (const auto& token : tokens) {
+        std::string_view key = (open_tags_map || token.is_symmetrical) ? token.open_tag : token.close_tag;
+        tags_map[key] = &token;
+    }
+    return tags_map;
+}
+
+template<typename ITER>
+void feed_tags(ITER start, ITER end, CtTokenMatcher::pos_tokens_t& to) {
+    static const std::unordered_set<std::string_view> ignored_tags = {"|", "|\n", "\n==", "\n----"};
+    while (start != end) {
+        if (ignored_tags.find(*start) == ignored_tags.end() && !start->empty()) {
+            to.emplace_back(*start);
+        }
+        ++start;
+    }
+}
+}
+
+
+CtTextParser::CtTextParser(std::vector<token_schema>&& token_schemas) : _token_schemas{std::move(token_schemas)}, _open_tokens_map{build_tags_map(_token_schemas, true)}, 
+    _close_tokens_map{build_tags_map(_token_schemas, false)}, _possible_tokens{build_pos_tokens(_open_tokens_map, _close_tokens_map)}  {}
+
+
+
+std::vector<std::string> CtTextParser::tokenize(const std::string& text) const
 {
-    _build_pos_tokens();
     
     std::vector<std::string> tokens;
     std::string::const_iterator last_pos = text.begin();
@@ -122,7 +143,7 @@ std::vector<std::string> CtTextParser::_tokenize(const std::string& text)
     return tokens;
 }
 
-std::vector<std::pair<const CtAbstractTokenParser::token_schema *, std::string>> CtTextParser::_parse_tokens(const std::vector<std::string>& tokens) const
+std::vector<std::pair<const CtTextParser::token_schema *, std::string>> CtTextParser::parse_tokens(const std::vector<std::string>& tokens) const
 {
     std::vector<std::pair<const token_schema *, std::string>> token_stream;
     std::unordered_map<std::string_view, bool>                open_tags;
@@ -156,7 +177,7 @@ std::vector<std::pair<const CtAbstractTokenParser::token_schema *, std::string>>
                         // Parse the other data in the stream
                         token_stream.emplace_back(tokens_iter->second, "");
                         std::vector<std::string> rem_tokens(token, tokens.end());
-                        auto tokonised_stream = _parse_tokens(rem_tokens);
+                        auto tokonised_stream = parse_tokens(rem_tokens);
                         token_stream.insert(token_stream.end(), tokonised_stream.begin(), tokonised_stream.end());
                     } else {
                         std::string buff;
@@ -228,32 +249,7 @@ std::unordered_set<char> shred(const std::vector<std::string>& strings) {
     return chars;
 }
 
-
-void CtTextParser::_build_token_maps() 
-{
-    if (_open_tokens_map.empty() || _close_tokens_map.empty()) {
-        _init_tokens();
-        
-        // Build open tokens
-        if (_open_tokens_map.empty()) {
-            for (const auto& token : _token_schemas) {
-                _open_tokens_map[token.open_tag] = &token;
-            }
-        }
-        // Build close tokens
-        if (_close_tokens_map.empty()) {
-            for (const auto& token : _token_schemas) {
-                if (token.has_closetag) {
-                    if (token.is_symmetrical || !token.has_closetag) _close_tokens_map[token.open_tag]  = &token;
-                    else                                             _close_tokens_map[token.close_tag] = &token;
-                }
-            }
-        }
-    }
-}
-
-
-void CtTextParser::TokenMatcher::pop_back() {
+void CtTokenMatcher::pop_back() {
     if (!_finished && !_open_token.empty()) {
         if (!_found_open || _token_contents.empty()) {
             _open_token.pop_back();
@@ -264,17 +260,9 @@ void CtTextParser::TokenMatcher::pop_back() {
     }
 }
 
-void CtTextParser::TokenMatcher::_rebuild_pos_tokens(const std::vector<std::string>& from) {
-    static const std::unordered_set<std::string_view> ignored_tags = {"|", "|\n", "\n==", "\n----"};
 
-    for (const auto& token : from) {
-        if (ignored_tags.find(token) == ignored_tags.end()) {
-            _pos_tokens.emplace_back(token);
-        }
-    }
-}
 
-bool CtTextParser::TokenMatcher::_is_valid_token(std::string_view token) {
+bool CtTokenMatcher::_is_valid_token(std::string_view token) {
     auto& open_tkns = _text_parser->open_tokens_map();
     auto& close_tkns = _text_parser->close_tokens_map();
 
@@ -282,13 +270,12 @@ bool CtTextParser::TokenMatcher::_is_valid_token(std::string_view token) {
 }
 
 
-void CtTextParser::TokenMatcher::feed(char ch) {    
-    _text_parser->_build_pos_tokens();
+void CtTokenMatcher::feed(char ch) {    
     bool found = false;
-    auto token_pos = _text_parser->_possible_tokens.find(ch);
-    if (token_pos != _text_parser->_possible_tokens.end()) {
+    auto token_pos = _text_parser->pos_tokens().find(ch);
+    if (token_pos != _text_parser->pos_tokens().end()) {
         if (_pos_tokens.empty()) {
-            _rebuild_pos_tokens(token_pos->second);
+            feed_tags(token_pos->second.begin(), token_pos->second.end(), _pos_tokens);
         } 
         
         if (_pos_chars.empty()) _pos_chars = shred(_pos_tokens);
@@ -316,7 +303,9 @@ void CtTextParser::TokenMatcher::feed(char ch) {
             _token_buff.clear();
             _token_buff += ch;
             found = true;
-            _pos_tokens = token_pos->second;
+            _pos_tokens.clear();
+            feed_tags(token_pos->second.begin(), token_pos->second.end(), _pos_tokens);
+
             _pos_chars.clear();
         }
                 
@@ -328,7 +317,7 @@ void CtTextParser::TokenMatcher::feed(char ch) {
 }
 
 constexpr void require(bool expr, std::string_view msg) {
-    #ifndef NODEBUG // Mimic behaviour of assert(), doesnt abort in rel builds
+    #ifndef NDEBUG // Mimic behaviour of assert(), doesnt abort in rel builds
     if (!expr) {
         spdlog::error("Requirement failed: <{}>", msg);
         std::abort();
@@ -337,7 +326,7 @@ constexpr void require(bool expr, std::string_view msg) {
 } 
 
 
-void CtTextParser::TokenMatcher::erase(int offset) {
+void CtTokenMatcher::erase(int offset) {
     require(offset >= 0, "TokenMatcher::erase: offset >= 0");
     if (!finished()) {
         int lr_offset = static_cast<int>(raw_str().size() - offset);
@@ -376,7 +365,7 @@ void CtTextParser::TokenMatcher::erase(int offset) {
     }
 }
 
-void CtTextParser::TokenMatcher::_reset_and_refeed() {
+void CtTokenMatcher::_reset_and_refeed() {
     std::string raw = raw_str();
     reset();
 
@@ -385,7 +374,7 @@ void CtTextParser::TokenMatcher::_reset_and_refeed() {
     }
 }
 
-void CtTextParser::TokenMatcher::reset() noexcept {
+void CtTokenMatcher::reset() noexcept {
     // All of these are noexcept
     _token_buff.clear();
     _pos_tokens.clear();
@@ -397,7 +386,7 @@ void CtTextParser::TokenMatcher::reset() noexcept {
     _finished = false;
 }
 
-void CtTextParser::TokenMatcher::insert(char ch, int offset) {
+void CtTokenMatcher::insert(char ch, int offset) {
     require(offset >= 0, "TokenMatcher::insert: offset >= 0");
     if (!finished()) {
         std::string raw = raw_str();
@@ -431,7 +420,7 @@ void CtTextParser::TokenMatcher::insert(char ch, int offset) {
 
 }
 
-void CtTextParser::TokenMatcher::_update_tokens() {
+void CtTokenMatcher::_update_tokens() {
     if (!_pos_tokens.empty()) {
         auto pos_token = branch_token(_token_buff.begin(), _token_buff.end(), _pos_tokens);
         if (pos_token) {
@@ -441,8 +430,7 @@ void CtTextParser::TokenMatcher::_update_tokens() {
                 _found_open = true;
 
                 _token_buff.clear();
-                _text_parser->_init_tokens();
-                for (const auto& tkn : _text_parser->_token_schemas) {
+                for (const auto& tkn : _text_parser->token_schemas()) {
                     if (tkn.open_tag == _open_token) {
                         _pos_tokens = {(tkn.is_symmetrical ? tkn.open_tag : tkn.close_tag)};
                         break;
@@ -475,19 +463,18 @@ void CtTextParser::TokenMatcher::_update_tokens() {
 
 }
 
-CtTextParser::TokenMatcher::size_type CtTextParser::TokenMatcher::contents_end_offset() const noexcept
+CtTokenMatcher::size_type CtTokenMatcher::contents_end_offset() const noexcept
 {
     if (_found_open && _close_token.empty()) return _token_buff.size();
     else                                     return _close_token.size();
 }
 
-std::pair<Gtk::TextIter, Gtk::TextIter> CtTextParser::find_formatting_boundaries(Gtk::TextIter start_bounds, Gtk::TextIter word_end)
+std::pair<Gtk::TextIter, Gtk::TextIter> CtTextParser::find_formatting_boundaries(Gtk::TextIter start_bounds, Gtk::TextIter word_end) const
 {
-    _build_token_maps();
     
     Glib::ustring token_str(start_bounds, word_end);
    
-    auto tokens = _tokenize(token_str);
+    auto tokens = tokenize(token_str);
     auto& close_tags = close_tokens_map();
 
     // Forward match

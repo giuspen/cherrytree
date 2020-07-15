@@ -19,181 +19,178 @@
  * MA 02110-1301, USA.
  */
 
-#include "ct_imports.h"
+#include "ct_parser.h"
 #include "ct_const.h"
 #include "ct_misc_utils.h"
 #include "ct_logging.h"
 #include "ct_config.h"
 
-void CtMDParser::_add_scale_to_last(int level) {
-    xmlpp::Element* curr_tmp = _current_element;
-    if (_last_element) _current_element = _last_element;
+CtMDParser::CtMDParser(CtConfig* config) : CtDocBuildingParser{config}, _text_parser{std::make_unique<CtTextParser>(_token_schemas())} {}
 
-    _add_scale_tag(level, std::nullopt);
-    _current_element = curr_tmp;
+
+void CtMDParser::_add_scale_to_last(int level) {
+    doc_builder().with_last_element([this, level]{ doc_builder().add_scale_tag(level, std::nullopt); });
 }
 
-void CtMDParser::_init_tokens()
+
+std::vector<CtTextParser::token_schema> CtMDParser::_token_schemas()
 {
-    if (_token_schemas.empty()) {
-        auto add_codebox = [this](const std::string& data) {
-            auto data_iter = data.begin();
-            while (data_iter != data.end() && *data_iter != '\n') {
-                ++data_iter;
-            }
-            std::string text(data_iter, data.end());
-            std::string lang;
-            if (data_iter != data.begin()) {
-                lang.append(data.begin(), data_iter);
+   
+    auto add_codebox = [this](const std::string& data) {
+        auto data_iter = data.begin();
+        while (data_iter != data.end() && *data_iter != '\n') {
+            ++data_iter;
+        }
+        std::string text(data_iter, data.end());
+        std::string lang;
+        if (data_iter != data.begin()) {
+            lang.append(data.begin(), data_iter);
 
-            }
-            spdlog::debug("CODEBOX: {}, lang: {}", text, lang);
-            _add_codebox(lang, text);
-            
-
-        };
-        auto add_h3 = [this](const std::string& text) {
-            _close_current_tag();
-            _add_scale_tag(3, text + "\n");
-            _close_current_tag();
-        };
-        auto add_list = [this](const std::string& text) {
-            _add_list(_list_level, "");
-            std::istringstream ss(text);
-            feed(ss);
-            _add_newline();
-            _list_level = 0;
-        };
-    
-        _token_schemas = {
-                // Bold
-                {"__", true,  true,  [this](const std::string &data) {
-                    _add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, data);
-                }},
-                // Italic
-                {"_", true, true, [this](const std::string& data){
-                    _add_italic_tag(data);
-                }},
-                // Italic
-                {"*", true, true, [this](const std::string& data){
-                    _add_italic_tag(data);
-                }},
-                // Bold and italic
-                {"***", true, true, [this](const std::string& data){
-                    _add_italic_tag(data);
-                    _add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, std::nullopt);
-                }},
-                // Bold
-                {"**", true,  true,  [this](const std::string &data) {
-                    _add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, data);
-                }},
-                // First part of a link
-                {"[",  true,  false, [this](const std::string &data) {
-                    // Parse for end of display
-                    auto last_pos = data.find_last_of(']');
-                    if (last_pos == std::string::npos) {
-                        spdlog::warn("Unknown data captured: {}; printing as plaintext", data);
-                        _add_text(data);
-                        return;
-                    }
-
-                    std::string title(data.begin(), data.begin() + last_pos);
-                    std::string url(data.begin() + last_pos + 2, data.end());
-                    
-                    _add_text(title, false);
-                    _add_link(url);
-                }, ")", true},
-                // Monospace
-                {"`", true, true, [this](const std::string& data){
-                    _add_monospace_tag(data);
-                }, "`", true},
-                // Footnote
-                {"[^", true, false, [this](const std::string& data){
-                    // Todo: Implement footnotes
-                    _add_text("[^" + data + "]");
-                }, "]"},
-                // Codebox(s)
-                {"~~~", true, true, add_codebox, "~~~", true},
-                {"```", true, true, add_codebox, "```", true},
-                // List
-                {"* ", true, false, add_list, "\n", true},
-                // Also list
-                {"- ", true, false, add_list, "\n", true},
-            
-                // Passthroughs for lists
-                {" -", true, false, [](const std::string&){}, " "},
-                {"-", true, true, [](const std::string&){}},
-                // Strikethrough
-                {"~~", true,  true,  [this](const std::string &data) {
-                    _add_strikethrough_tag(data);
-                }},
-                // Passthrough for ``` and `
-                {"``", true, true, [this](const std::string& data){ _add_text("``" + data + "``"); }},
-                // Headers (h1, h2, etc)
-                {"# ",  true, false, [this](const std::string &data) {
-                    _close_current_tag();
-                    _add_scale_tag(1, data + "\n");
-                    _close_current_tag();
-                }, "\n"},
-                {"## ",  true, false, [this](const std::string &data) {
-                    _close_current_tag();
-                    _add_scale_tag(2, data + "\n");
-                    _close_current_tag();
-                }, "\n"},
-                {"### ",  true, false,  add_h3, "\n"},
-                {"#### ",  true, false,  add_h3, "\n"},
-                {"##### ",  true, false,  add_h3, "\n"},
-                {"###### ",  true, false,  add_h3, "\n"},
-                
-                // H1
-                {"\n==", true, false, [this](const std::string&){
-                    _add_scale_to_last(1);
-                    _add_newline();
-                }, "\n"},
-                // H2
-                {"\n----", true, false, [this](const std::string&){
-                    _add_scale_to_last(2);
-                    _add_newline();
-                }, "\n"},
-                // Horizontal divider
-                {"***\n", true, false, [this](const std::string&){
-                    _add_text(_pCtConfig->hRule + "\n", true);
-                    _add_newline();
-                }, " "},
-                // Tables
-                
-                // Table row
-                {"|", true, false, [this](const std::string& data){
-                    spdlog::debug("Got end: {}", data);
-                    _add_table_cell(data);
-                }, "\n"},
-                // Table header divider
-                {"| -", true, false, [](const std::string&){
-                    // Since cherrytree tables don't use headers, this is not needed
-                }, "- |\n"},
-                // Image link
-                {"![", true, false, [this](const std::string& data){
-                    auto last_pos = data.find_last_of(']');
-                    if (last_pos == std::string::npos) {
-                        spdlog::warn("Image captured unknown data: <{}>; printing as plaintext", data);
-                        _add_text(data);
-                        return;
-                    }
-
-                    std::string title(data.begin(), data.begin() + last_pos);
-                    std::string uri(data.begin() + last_pos + 2, data.end());
-
-                    _add_text(title, false);
-                    _add_image(uri);
-                }, ")", true},
-                // Link
-                {"<", true, false, [this](const std::string& data){
-                    _add_text(data, false);
-                    _add_link(data);
-                }, ">", true}
+        }
+        spdlog::debug("CODEBOX: {}, lang: {}", text, lang);
+        doc_builder().add_codebox(lang, text);
         
-        };
-    }
+    };
+    auto add_h3 = [this](const std::string& text) {
+        doc_builder().close_current_tag();
+        doc_builder().add_scale_tag(3, text + "\n");
+        doc_builder().close_current_tag();
+    };
+    auto add_list = [this](const std::string& text) {
+        doc_builder().add_list(_list_level, "");
+        std::istringstream ss(text);
+        feed(ss);
+        doc_builder().add_newline();
+        _list_level = 0;
+    };
+
+    return {
+        // Bold
+        {"__", true,  true,  [this](const std::string &data) {
+            doc_builder().add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, data);
+        }},
+        // Italic
+        {"_", true, true, [this](const std::string& data){
+            doc_builder().add_italic_tag(data);
+        }},
+        // Italic
+        {"*", true, true, [this](const std::string& data){
+            doc_builder().add_italic_tag(data);
+        }},
+        // Bold and italic
+        {"***", true, true, [this](const std::string& data){
+            doc_builder().add_italic_tag(data);
+            doc_builder().add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, std::nullopt);
+        }},
+        // Bold
+        {"**", true,  true,  [this](const std::string &data) {
+            doc_builder().add_weight_tag(CtConst::TAG_PROP_VAL_HEAVY, data);
+        }},
+        // First part of a link
+        {"[",  true,  false, [this](const std::string &data) {
+            // Parse for end of display
+            auto last_pos = data.find_last_of(']');
+            if (last_pos == std::string::npos) {
+                spdlog::warn("Unknown data captured: {}; printing as plaintext", data);
+                doc_builder().add_text(data);
+                return;
+            }
+
+            std::string title(data.begin(), data.begin() + last_pos);
+            std::string url(data.begin() + last_pos + 2, data.end());
+            
+            doc_builder().add_text(title, false);
+            doc_builder().add_link(url);
+        }, ")", true},
+        // Monospace
+        {"`", true, true, [this](const std::string& data){
+            doc_builder().add_monospace_tag(data);
+        }, "`", true},
+        // Footnote
+        {"[^", true, false, [this](const std::string& data){
+            // Todo: Implement footnotes
+            doc_builder().add_text("[^" + data + "]");
+        }, "]"},
+        // Codebox(s)
+        {"~~~", true, true, add_codebox, "~~~", true},
+        {"```", true, true, add_codebox, "```", true},
+        // List
+        {"* ", true, false, add_list, "\n", true},
+        // Also list
+        {"- ", true, false, add_list, "\n", true},
+    
+        // Passthroughs for lists
+        {" -", true, false, [](const std::string&){}, " "},
+        {"-", true, true, [](const std::string&){}},
+        // Strikethrough
+        {"~~", true,  true,  [this](const std::string &data) {
+            doc_builder().add_strikethrough_tag(data);
+        }},
+        // Passthrough for ``` and `
+        {"``", true, true, [this](const std::string& data){ doc_builder().add_text("``" + data + "``"); }},
+        // Headers (h1, h2, etc)
+        {"# ",  true, false, [this](const std::string &data) {
+            doc_builder().close_current_tag();
+            doc_builder().add_scale_tag(1, data + "\n");
+            doc_builder().close_current_tag();
+        }, "\n"},
+        {"## ",  true, false, [this](const std::string &data) {
+            doc_builder().close_current_tag();
+            doc_builder().add_scale_tag(2, data + "\n");
+            doc_builder().close_current_tag();
+        }, "\n"},
+        {"### ",  true, false,  add_h3, "\n"},
+        {"#### ",  true, false,  add_h3, "\n"},
+        {"##### ",  true, false,  add_h3, "\n"},
+        {"###### ",  true, false,  add_h3, "\n"},
+        
+        // H1
+        {"\n==", true, false, [this](const std::string&){
+            _add_scale_to_last(1);
+            doc_builder().add_newline();
+        }, "\n"},
+        // H2
+        {"\n----", true, false, [this](const std::string&){
+            _add_scale_to_last(2);
+            doc_builder().add_newline();
+        }, "\n"},
+        // Horizontal divider
+        {"***\n", true, false, [this](const std::string&){
+            doc_builder().add_hrule();
+        }, " "},
+        // Tables
+        
+        // Table row
+        {"|", true, false, [this](const std::string& data){
+            spdlog::debug("Got end: {}", data);
+            _add_table_cell(data);
+        }, "\n"},
+        // Table header divider
+        {"| -", true, false, [](const std::string&){
+            // Since cherrytree tables don't use headers, this is not needed
+        }, "- |\n"},
+        // Image link
+        {"![", true, false, [this](const std::string& data){
+            auto last_pos = data.find_last_of(']');
+            if (last_pos == std::string::npos) {
+                spdlog::warn("Image captured unknown data: <{}>; printing as plaintext", data);
+                doc_builder().add_text(data);
+                return;
+            }
+
+            std::string title(data.begin(), data.begin() + last_pos);
+            std::string uri(data.begin() + last_pos + 2, data.end());
+
+            doc_builder().add_text(title, false);
+            doc_builder().add_image(uri);
+        }, ")", true},
+        // Link
+        {"<", true, false, [this](const std::string& data){
+            doc_builder().add_text(data, false);
+            doc_builder().add_link(data);
+        }, ">", true}
+        
+    };
 }
 
 void CtMDParser::_place_free_text() 
@@ -206,8 +203,8 @@ void CtMDParser::_place_free_text()
         }
         std::string last_line(iter.base(), free_txt.cend());
         std::string other_txt(free_txt.cbegin(), iter.base());
-        _add_text(other_txt);
-        _add_text(last_line); // This may be needed for headers
+        doc_builder().add_text(other_txt);
+        doc_builder().add_text(last_line); // This may be needed for headers
 
         std::ostringstream tmp_ss;
         _free_text.swap(tmp_ss);
@@ -216,9 +213,7 @@ void CtMDParser::_place_free_text()
 
 void CtMDParser::feed(std::istream& stream)
 {
-    if (!_current_element) _current_element = _document->create_root_node("root")->add_child("slot")->add_child("rich_text");
-    _init_tokens();
-    _build_token_maps();
+
     
     std::string line;
     std::ostringstream in_stream;
@@ -226,8 +221,8 @@ void CtMDParser::feed(std::istream& stream)
     
     // Feed the line
     try {
-        auto tokens_raw = _tokenize(in_stream.str());
-        auto tokens     = _parse_tokens(tokens_raw);
+        auto tokens_raw = _text_parser->tokenize(in_stream.str());
+        auto tokens     = _text_parser->parse_tokens(tokens_raw);
         
         for (auto iter = tokens.begin(); iter != tokens.end(); ++iter) {
             if (iter->first) {
@@ -281,7 +276,7 @@ void CtMDParser::_add_table_cell(std::string text)
 
 void CtMDParser::_pop_table() 
 {
-    _add_table(_current_table);
+    doc_builder().add_table(_current_table);
     _current_table.clear();
 }
 

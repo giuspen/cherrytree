@@ -34,6 +34,7 @@
 #include <gio/gio.h> // to get mime type
 #include <glibmm/regex.h>
 #include "ct_logging.h"
+#include "ct_parser.h"
 
 
 // keep defines out of class scope, so _on_clip_data_getl can use them

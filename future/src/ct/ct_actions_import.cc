@@ -258,7 +258,7 @@ void CtActions::_create_imported_nodes(ct_imported_node* imported_nodes)
         {
             Glib::RefPtr<Gsv::Buffer> buffer = _pCtMainWin->get_new_text_buffer();
             buffer->begin_not_undoable_action();
-            for (xmlpp::Node* xml_slot : imported_node->xml_content.get_root_node()->get_children("slot"))
+            for (xmlpp::Node* xml_slot : imported_node->xml_content->get_root_node()->get_children("slot"))
                 for (xmlpp::Node* child: xml_slot->get_children())
                 {
                     Gtk::TextIter insert_iter = buffer->get_insert()->get_iter();
