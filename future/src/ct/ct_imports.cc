@@ -613,3 +613,39 @@ std::unique_ptr<ct_imported_node> CtMempadImporter::import_file(const fs::path& 
 
     return node;
 }
+
+namespace {
+std::unique_ptr<ct_imported_node> to_ct_node(const CtLeoParser::leo_node& leo_node, const fs::path& path) {
+    auto node = std::make_unique<ct_imported_node>(path, leo_node.name);
+    node->xml_content = std::make_shared<xmlpp::Document>();
+    create_root_plaintext_text_el(*node->xml_content, leo_node.content);
+
+    for (const auto& l_node : leo_node.children) {
+        node->children.emplace_back(to_ct_node(l_node, path));
+    }
+
+    return node;
+}
+
+std::unique_ptr<ct_imported_node> generate_leo_root_node(std::vector<CtLeoParser::leo_node> leo_nodes, const fs::path& path) {
+    CtLeoParser::leo_node dummy_node;
+    dummy_node.name = "Leo Root";
+    dummy_node.children = std::move(leo_nodes);
+
+    return to_ct_node(dummy_node, path);
+}
+}
+
+std::unique_ptr<ct_imported_node> CtLeoImporter::import_file(const fs::path& path) {
+
+    std::ifstream in{path.string()};
+    if (!in) {
+        throw std::runtime_error(fmt::format("Failed to initalise input file, path: <{}>", path));
+    }
+
+    CtLeoParser parser;
+    parser.feed(in);
+
+
+    return generate_leo_root_node(parser.nodes(), path);
+}

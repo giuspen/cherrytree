@@ -420,6 +420,7 @@ public:
     void import_nodes_from_tomboy_directory() noexcept;
     void import_nodes_from_keepnote_directory() noexcept;
     void import_nodes_from_mempad_file() noexcept;
+    void import_nodes_from_leo_file() noexcept;
 
 private:
     // helper for export actions
