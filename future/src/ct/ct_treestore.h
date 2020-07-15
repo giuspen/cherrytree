@@ -49,7 +49,7 @@ struct CtNodeData
     std::list<CtAnchoredWidget*> anchoredWidgets;
 };
 
-class CtTreeModelColumns : public Gtk::TreeModel::ColumnRecord
+class CtTreeModelColumns final : public Gtk::TreeModel::ColumnRecord
 {
 public:
     CtTreeModelColumns()

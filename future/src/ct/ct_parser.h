@@ -51,6 +51,7 @@ public:
 class CtParserInterface {
 public:
     virtual void feed(std::istream&) = 0;
+    virtual ~CtParserInterface() = default;
 };
 /**
  * @brief Base class for parsers
@@ -222,7 +223,8 @@ public:
     void feed(std::istream& stream) override;
 
  
-
+    virtual ~CtMDParser() = default;
+    
     std::shared_ptr<CtTextParser> text_parser() const { return _text_parser; }
 private:
     
@@ -250,8 +252,9 @@ private:
 
 class CtTokenMatcher {
     using size_type = std::string::size_type;
-    using pos_tokens_t = std::vector<std::string>;
 public:
+    using pos_tokens_t = std::vector<std::string>;
+
     explicit CtTokenMatcher(std::shared_ptr<CtTextParser> text_parser) : _text_parser(std::move(text_parser)) {}
     /// Feed a single character to the end of the matcher
     void feed(char ch);

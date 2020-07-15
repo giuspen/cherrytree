@@ -281,6 +281,9 @@ void CtHtmlParser::handle_charref(std::string_view /*tag*/)
     return attr_list;
 }
 
+const std::set<std::string> CtHtml2Xml::HTML_A_TAGS{"p", "b", "i", "u", "s", CtConst::TAG_PROP_VAL_H1,
+            CtConst::TAG_PROP_VAL_H2, CtConst::TAG_PROP_VAL_H3, "span", "font"};
+
 
 CtHtml2Xml::CtHtml2Xml(CtConfig* config) : _config(config)
 {
@@ -594,6 +597,9 @@ void CtHtml2Xml::handle_data(std::string_view text)
         _table.back().back().text += clean_data;
     }
 }
+
+
+
 
 // Found Entity Reference like &name;
 void CtHtml2Xml::handle_charref(std::string_view /*name*/)

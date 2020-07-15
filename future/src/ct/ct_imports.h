@@ -151,7 +151,6 @@ private:
     void _ensure_notebook_file_in_dir(const fs::path& dir);
 
     bool              _has_notebook_file {false};
-    ct_imported_node* _current_node;
     std::unique_ptr<CtZimParser> _zim_parser;
 };
 

@@ -148,9 +148,6 @@ xmlpp::Element *image_to_xml(xmlpp::Element *parent, const std::string &path, in
 }
 
 
-const std::set<std::string> CtHtml2Xml::HTML_A_TAGS{"p", "b", "i", "u", "s", CtConst::TAG_PROP_VAL_H1,
-            CtConst::TAG_PROP_VAL_H2, CtConst::TAG_PROP_VAL_H3, "span", "font"};
-
 // Parse plain text for possible web links
 std::vector<std::pair<int, int>> CtImports::get_web_links_offsets_from_plain_text(const Glib::ustring& plain_text)
 {
