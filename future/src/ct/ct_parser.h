@@ -192,7 +192,7 @@ private:
 };
 
 
-class CtDocBuildingParser: public virtual CtParserInterface {
+class CtDocBuildingParser: public CtParserInterface {
 public:
     explicit CtDocBuildingParser(CtConfig* config) : _doc_builder{config} {}
     void wipe_doc() { _doc_builder.wipe(); }
