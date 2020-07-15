@@ -206,7 +206,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{find_cat, "toggle_show_allmatches_dlg", "ct_find", _("Show _All Matches Dialog"), KB_CONTROL+KB_SHIFT+"A", _("Show Search All Matches Dialog"), sigc::mem_fun(*pActions, &CtActions::find_allmatchesdialog_restore)});
     const char* view_cat = _("View");
     _actions.push_back(CtMenuAction{view_cat, "toggle_show_tree", "ct_cherries", _("Show/Hide _Tree"), "F9", _("Toggle Show/Hide Tree"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_tree)});
-    _actions.push_back(CtMenuAction{view_cat, "toggle_show_toolbar", "ct_toolbar", _("Show/Hide Tool_bar"), None, _("Toggle Show/Hide Toolbar"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_toolbar)});
+    _actions.push_back(CtMenuAction{view_cat, "toggle_show_toolbar", "ct_toolbar", _("Show/Hide Tool_bar"), None, _("Toggle Show/Hide Toolbar"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_toolbars)});
     _actions.push_back(CtMenuAction{view_cat, "toggle_show_node_name_head", "ct_node_name_header", _("Show/Hide Node Name _Header"), None, _("Toggle Show/Hide Node Name Header"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_node_name_header)});
     _actions.push_back(CtMenuAction{view_cat, "toggle_focus_tree_text", "ct_go-jump", _("Toggle _Focus Tree/Text"), KB_CONTROL+"Tab", _("Toggle Focus Between Tree and Text"), sigc::mem_fun(*pActions, &CtActions::toggle_tree_text)});
     _actions.push_back(CtMenuAction{view_cat, "nodes_all_expand", "ct_zoom-in", _("E_xpand All Nodes"), KB_CONTROL+KB_SHIFT+"E", _("Expand All the Tree Nodes"), sigc::mem_fun(*pActions, &CtActions::nodes_expand_all)});
@@ -376,13 +376,20 @@ Gtk::AccelLabel* CtMenu::get_accel_label(Gtk::MenuItem* item)
     return nullptr;
 }
 
-Gtk::Toolbar* CtMenu::build_toolbar(Gtk::MenuToolButton*& pRecentDocsMenuToolButton)
+std::vector<Gtk::Toolbar*> CtMenu::build_toolbars(Gtk::MenuToolButton*& pRecentDocsMenuToolButton)
 {
-    Gtk::Toolbar* pToolbar{nullptr};
-    _rGtkBuilder->add_from_string(_get_ui_str_toolbar());
-    _rGtkBuilder->get_widget("ToolBar", pToolbar);
-    _rGtkBuilder->get_widget("RecentDocs", pRecentDocsMenuToolButton);
-    return pToolbar;
+    pRecentDocsMenuToolButton = nullptr;
+    std::vector<Gtk::Toolbar*> toolbars;
+    for (const auto& toolbar_str: _get_ui_str_toolbars())
+    {
+        Gtk::Toolbar* pToolbar = nullptr;
+        _rGtkBuilder->add_from_string(toolbar_str);
+        _rGtkBuilder->get_widget("ToolBar" + std::to_string(toolbars.size()), pToolbar);
+        toolbars.push_back(pToolbar);
+        if (!pRecentDocsMenuToolButton)
+            _rGtkBuilder->get_widget("RecentDocs", pRecentDocsMenuToolButton);
+    }
+    return toolbars;
 }
 
 Gtk::MenuBar* CtMenu::build_menubar()
@@ -716,40 +723,61 @@ GtkWidget* CtMenu::_add_separator(GtkWidget* pMenu)
     return pSeparatorItem->gobj();
 }
 
-std::string CtMenu::_get_ui_str_toolbar()
-{
-    std::vector<std::string> vecToolbarElements = str::split(_pCtConfig->toolbarUiList, ",");
-    std::string toolbarUIStr;
-    for (const std::string& element : vecToolbarElements)
+std::vector<std::string> CtMenu::_get_ui_str_toolbars()
+{   
+    auto generate_ui = [&](size_t id, const std::vector<std::string>& items)
     {
-        if (element == CtConst::TAG_SEPARATOR)
+        std::string str;
+        for (const std::string& element: items)
         {
-            toolbarUIStr += "<child><object class='GtkSeparatorToolItem'/></child>";
-        }
-        else
-        {
-            const bool isOpenRecent{element == CtConst::CHAR_STAR};
-            CtMenuAction const* pAction = isOpenRecent ? find_action("ct_open_file") : find_action(element);
-            if (pAction)
+            if (element == CtConst::TAG_SEPARATOR)
             {
-                if (isOpenRecent) toolbarUIStr += "<child><object class='GtkMenuToolButton' id='RecentDocs'>";
-                else toolbarUIStr += "<child><object class='GtkToolButton'>";
-                toolbarUIStr += "<property name='action-name'>win." + pAction->id + "</property>"; // 'win.' is a default action group in Window
-                toolbarUIStr += "<property name='icon-name'>" + pAction->image + "</property>";
-                toolbarUIStr += "<property name='label'>" + pAction->name + "</property>";
-                toolbarUIStr += "<property name='tooltip-text'>" + pAction->desc + "</property>";
-                toolbarUIStr += "<property name='visible'>True</property>";
-                toolbarUIStr += "<property name='use_underline'>True</property>";
-                toolbarUIStr += "</object></child>";
+                str += "<child><object class='GtkSeparatorToolItem'/></child>";
+            }
+            else
+            {
+                const bool isOpenRecent{element == CtConst::CHAR_STAR};
+                CtMenuAction const* pAction = isOpenRecent ? find_action("ct_open_file") : find_action(element);
+                if (pAction)
+                {
+                    if (isOpenRecent) str += "<child><object class='GtkMenuToolButton' id='RecentDocs'>";
+                    else str += "<child><object class='GtkToolButton'>";
+                    str += "<property name='action-name'>win." + pAction->id + "</property>"; // 'win.' is a default action group in Window
+                    str += "<property name='icon-name'>" + pAction->image + "</property>";
+                    str += "<property name='label'>" + pAction->name + "</property>";
+                    str += "<property name='tooltip-text'>" + pAction->desc + "</property>";
+                    str += "<property name='visible'>True</property>";
+                    str += "<property name='use_underline'>True</property>";
+                    str += "</object></child>";
+                }
             }
         }
+        str = "<interface><object class='GtkToolbar' id='ToolBar" + std::to_string(id) + "'>"
+                "<property name='visible'>True</property>"
+                "<property name='can_focus'>False</property>"
+                + str +
+                "</object></interface>";
+        return str;
+    };
+
+    std::vector<std::string> toolbarUIstr;
+    std::vector<std::string> vecToolbarElements = str::split(_pCtConfig->toolbarUiList, ",");
+    std::vector<std::string> toolbar_accumulator;
+    for (const std::string& element : vecToolbarElements) {
+        if (element != CtConst::TOOLBAR_SPLIT)
+            toolbar_accumulator.push_back(element);
+        else if (!toolbar_accumulator.empty()) {
+            toolbarUIstr.push_back(generate_ui(toolbarUIstr.size(), toolbar_accumulator));
+            toolbar_accumulator.clear();
+        }
     }
-    toolbarUIStr = "<interface><object class='GtkToolbar' id='ToolBar'>"
-            "<property name='visible'>True</property>"
-            "<property name='can_focus'>False</property>"
-            + toolbarUIStr +
-            "</object></interface>";
-    return toolbarUIStr;
+
+    if (!toolbar_accumulator.empty()) {
+        toolbarUIstr.push_back(generate_ui(toolbarUIstr.size(), toolbar_accumulator));
+        toolbar_accumulator.clear();
+    }
+
+    return toolbarUIstr;
 }
 
 

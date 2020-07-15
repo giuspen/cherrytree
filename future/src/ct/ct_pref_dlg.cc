@@ -1242,19 +1242,19 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
     button_add->signal_clicked().connect([this, treeview, liststore](){
         if (add_new_item_in_toolbar_model(treeview, liststore)) {
             update_config_toolbar_from_model(liststore);
-            apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbar(true); });
+            apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbars(true); });
         }
     });
     button_remove->signal_clicked().connect([this, treeview, liststore](){
         liststore->erase(treeview->get_selection()->get_selected());
         update_config_toolbar_from_model(liststore);
-        apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbar(true); });
+        apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbars(true); });
     });
     button_reset->signal_clicked().connect([this, pConfig, liststore](){
         if (CtDialogs::question_dialog(reset_warning, *this)) {
             pConfig->toolbarUiList = CtConst::TOOLBAR_VEC_DEFAULT;
             fill_toolbar_model(liststore);
-            apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbar(true); });
+            apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbars(true); });
         }
     });
     treeview->signal_key_press_event().connect([button_remove](GdkEventKey* key) -> bool {
@@ -1266,7 +1266,7 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
     });
     treeview->signal_drag_end().connect([this, liststore](const Glib::RefPtr<Gdk::DragContext>&){
         update_config_toolbar_from_model(liststore);
-        apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbar(true); });
+        apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbars(true); });
     });
 
     return pMainBox;
@@ -1622,8 +1622,11 @@ void CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeIter row, const Glib::ust
     Glib::ustring icon, desc;
     if (key == CtConst::TAG_SEPARATOR)
     {
-        icon = "";
         desc = CtConst::TAG_SEPARATOR_ANSI_REPR;
+    }
+    else if (key == CtConst::TOOLBAR_SPLIT)
+    {
+        desc = _("Split Toolbar");
     }
     else if (key == CtConst::CHAR_STAR)
     {
@@ -1646,12 +1649,14 @@ bool CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeView* treeview, Glib::Ref
 {
     auto itemStore = CtChooseDialogListStore::create();
     itemStore->add_row("", CtConst::TAG_SEPARATOR, CtConst::TAG_SEPARATOR_ANSI_REPR);
+    itemStore->add_row("", CtConst::TOOLBAR_SPLIT, _("Split Toolbar"));
     for (const CtMenuAction& action: _pCtMenu->get_actions())
     {
         if (action.desc.empty()) continue; // skip stub menu entries
         if (action.id == "ct_open_file" && _pCtMainWin->get_ct_config()->toolbarUiList.find(CtConst::CHAR_STAR) != std::string::npos) continue;
         if (vec::exists(CtConst::TOOLBAR_VEC_BLACKLIST, action.id)) continue;
-        itemStore->add_row(action.image, action.id, action.desc);
+        Glib::ustring id = action.id == "ct_open_file" ? CtConst::CHAR_STAR : action.id;
+        itemStore->add_row(action.image, id, action.desc);
     }
 
     auto chosen_row = CtDialogs::choose_item_dialog(*this, _("Select Element to Add"), itemStore);

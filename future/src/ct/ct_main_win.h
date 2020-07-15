@@ -164,14 +164,14 @@ public:
     void menu_set_items_recent_documents();
     void menu_set_items_special_chars();
     void menu_set_visible_exit_app(bool visible);
-    void menu_rebuild_toolbar(bool new_toolbar);
+    void menu_rebuild_toolbars(bool new_toolbar);
 
     void config_switch_tree_side();
 
-    void show_hide_toolbar(bool visible)    { _pToolbar->property_visible() = visible; }
+    void show_hide_toolbars(bool visible)   { for (auto pToolbar: _pToolbars) pToolbar->property_visible() = visible; }
+    void set_toolbars_icon_size(int size)   { for (auto pToolbar: _pToolbars) pToolbar->property_icon_size() = CtMiscUtil::getIconSize(size); }
     void show_hide_tree_view(bool visible)  { _scrolledwindowTree.property_visible() = visible; }
     void show_hide_win_header(bool visible) { _ctWinHeader.headerBox.property_visible() = visible; }
-    void set_toolbar_icon_size(int size)    { _pToolbar->property_icon_size() = CtMiscUtil::getIconSize(size); }
 
     void resetPrevTreeIter()                { _prevTreeIter = CtTreeIter(); }
 
@@ -223,7 +223,7 @@ private:
     Gtk::VBox                    _vboxText;
     Gtk::HPaned                  _hPaned;
     Gtk::MenuBar*                _pMenuBar{nullptr};
-    Gtk::Toolbar*                _pToolbar{nullptr};
+    std::vector<Gtk::Toolbar*>   _pToolbars;
     CtStatusBar                  _ctStatusBar;
     CtWinHeader                  _ctWinHeader;
     Gtk::MenuItem*               _pBookmarksSubmenu{nullptr};

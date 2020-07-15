@@ -207,6 +207,7 @@ const inline static std::array<const gchar*, 4> TAG_ALIGNMENTS {
     TAG_PROP_VAL_FILL
 };
 
+const inline static gchar* TOOLBAR_SPLIT {"toolbar_split"};
 const inline static gchar* TOOLBAR_VEC_DEFAULT {
     "tree_add_node,tree_add_subnode,separator,go_node_prev,go_node_next,"
     "separator,*,ct_save,export_pdf,separator,"

@@ -40,10 +40,10 @@ void CtActions::toggle_show_hide_tree()
 }
 
 // Toggle Show/Hide the Toolbar
-void CtActions::toggle_show_hide_toolbar()
+void CtActions::toggle_show_hide_toolbars()
 {
     _pCtMainWin->get_ct_config()->toolbarVisible = !_pCtMainWin->get_ct_config()->toolbarVisible;
-    _pCtMainWin->show_hide_toolbar(_pCtMainWin->get_ct_config()->toolbarVisible);
+    _pCtMainWin->show_hide_toolbars(_pCtMainWin->get_ct_config()->toolbarVisible);
 }
 
 void CtActions::toggle_show_hide_node_name_header()
@@ -81,7 +81,7 @@ void CtActions::toolbar_icons_size_increase()
         return;
     }
     _pCtMainWin->get_ct_config()->toolbarIconSize += 1;
-    _pCtMainWin->set_toolbar_icon_size(_pCtMainWin->get_ct_config()->toolbarIconSize);
+    _pCtMainWin->set_toolbars_icon_size(_pCtMainWin->get_ct_config()->toolbarIconSize);
 }
 
 // Decrease the Size of the Toolbar Icons
@@ -92,7 +92,7 @@ void CtActions::toolbar_icons_size_decrease()
         return;
     }
     _pCtMainWin->get_ct_config()->toolbarIconSize -= 1;
-    _pCtMainWin->set_toolbar_icon_size(_pCtMainWin->get_ct_config()->toolbarIconSize);
+    _pCtMainWin->set_toolbars_icon_size(_pCtMainWin->get_ct_config()->toolbarIconSize);
 }
 
 // Toggle Fullscreen State
