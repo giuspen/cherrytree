@@ -73,8 +73,8 @@ public:
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
     const CtTableMatrix& get_table_matrix() const { return _tableMatrix; }
-    constexpr int get_col_max() const { return _colMax; }
-    constexpr int get_col_min() const { return _colMin; }
+    int get_col_max() const { return _colMax; }
+    int get_col_min() const { return _colMin; }
 public:
     int  current_row() { return _currentRow < (int)_tableMatrix.size() ? _currentRow : 0; }
     int  current_column() { return _currentColumn < (int)_tableMatrix[0].size() ? _currentColumn : 0; }
