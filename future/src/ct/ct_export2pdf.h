@@ -60,6 +60,7 @@ public:
     [[nodiscard]] virtual double height() const = 0;
     [[nodiscard]] virtual double width() const = 0;
     [[nodiscard]] constexpr bool done() const { return _done; }
+    virtual double height_when_wrapped(double space_left) const = 0;
 
     virtual ~CtPrintable() = default;
 protected:
@@ -81,6 +82,7 @@ public:
     [[nodiscard]] const Glib::RefPtr<Pango::Layout>& layout() const { return _layout; }
     [[nodiscard]] constexpr bool is_newline() const { return _is_newline; }
     [[nodiscard]] const Glib::ustring& text() const { return _text; }
+    double height_when_wrapped(double) const override { return height(); }
 
     virtual ~CtTextPrintable() = default;
 private:
@@ -135,20 +137,25 @@ public:
 
     double height() const override;
     double width() const override;
+    double height_when_wrapped(double) const override { return height(); }
 
 private:
     double _p_height;
 };
 
+class CtDefaultWrappable: public CtPrintable {
+public:
+    double height_when_wrapped(double space_left) const override;
+};
+
 template<class WIDGET_TYPE_T>
-class CtWidgetPrintable : public CtPrintable {
+class CtWidgetPrintable : public CtDefaultWrappable {
     using wrap_ptr_t = std::shared_ptr<WIDGET_TYPE_T>;
 public:
     explicit CtWidgetPrintable(wrap_ptr_t widget_proxy) : _widget_proxy(std::move(widget_proxy)) {}
 
 protected:
     wrap_ptr_t _widget_proxy;
-    mutable std::size_t _last_height = 0;
 };
 
 using CtPrintableVector = std::vector<std::shared_ptr<CtPrintable>>;
@@ -200,11 +207,11 @@ public:
     std::shared_ptr<CtPrintTableProxy> create_new_with(int row_num) { return std::shared_ptr<CtPrintTableProxy>(new CtPrintTableProxy(_table, _startRow, row_num)); }
 
     void     remove_first_rows(int remove_row_num) { _startRow += remove_row_num; _rowNum -= remove_row_num; }
-    CtTable* get_table()                    { return _table; }
-    int      get_row_num()                  { return _rowNum; }
-    int      get_col_num()                  { return (int)_table->get_table_matrix().begin()->size(); }
+    constexpr CtTable* get_table()   const            { return _table; }
+    constexpr int      get_row_num() const            { return _rowNum; }
+    std::size_t      get_col_num() const            { return _table->get_table_matrix().begin()->size(); }
     // todo: it can work slow because of moving iterators every time; to fix: replace list by vector or use cache
-    Glib::ustring get_cell(int row, int col) {
+    Glib::ustring get_cell(int row, int col) const {
         // 0 row is always header row, 1 row starts from _startRow
         row = (row == 0) ? 0 : row - 1 + _startRow;
         auto tableRow = _table->get_table_matrix().begin();
@@ -248,6 +255,7 @@ public:
     CtPrintSomeProxy(CtAnchoredWidget*) {}
 };
 
+
 class CtWidgetImagePrintable: public CtWidgetPrintable<CtPrintImageProxy> {
 public:
     using CtWidgetPrintable::CtWidgetPrintable;
@@ -267,6 +275,9 @@ private:
 
 class CtWidgetTablePrintable: public CtWidgetPrintable<CtPrintTableProxy> {
 public:
+    using tbl_layouts_t = std::vector<std::vector<Glib::RefPtr<Pango::Layout>>>;
+    using tbl_grid_t = std::pair<std::vector<double>, std::vector<double>>;
+    
     using CtWidgetPrintable::CtWidgetPrintable;
 
     PrintPosition print(const PrintingContext& context) override;
@@ -277,31 +288,10 @@ public:
 
     void setup(const PrintInfo& print_info) override;
 private:
-    using tbl_layouts_t = std::vector<std::vector<Glib::RefPtr<Pango::Layout>>>;
-    using tbl_grid_t = std::pair<std::vector<double>, std::vector<double>>;
+    std::size_t _printed_rows = 0;
     tbl_layouts_t _tbl_layouts;
     tbl_grid_t _tbl_grid;
 
-    struct DrawingContext {
-        Cairo::RefPtr<Cairo::Context> cairo_context;
-        std::pair<std::vector<double>, std::vector<double>> table_grid;
-        std::vector<std::vector<Glib::RefPtr<Pango::Layout>>> table_layouts;
-        double x0;
-        double y0;
-        double width;
-        double height;
-        int line_thickness;
-    };
-
-    tbl_layouts_t _get_table_layouts(const PrintInfo& print_info) const;
-
-
-    std::pair<std::vector<double>, std::vector<double>> _get_table_grid(std::vector<std::vector<Glib::RefPtr<Pango::Layout>>>& table_layouts, int col_min) const;
-private:
-    static double _get_table_height_from_grid(const tbl_grid_t& table_grid, int table_line_thickness);
-    static double _get_table_width_from_grid(const tbl_grid_t& table_grid, int table_line_thickness);
-    static void _table_draw_grid(const DrawingContext& context);
-    static void _table_draw_text(const DrawingContext& context);
 };
 
 class CtWidgetCodeboxPrintable: public CtWidgetPrintable<CtPrintCodeboxProxy> {

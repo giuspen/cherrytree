@@ -23,8 +23,212 @@
 #include "ct_dialogs.h"
 #include "ct_logging.h"
 
+#include <numeric>
 #include <utility>
 
+namespace {
+using tbl_grid_t = CtWidgetTablePrintable::tbl_grid_t;
+using tbl_layouts_t = CtWidgetTablePrintable::tbl_layouts_t;
+struct DrawingContext {
+    Cairo::RefPtr<Cairo::Context> cairo_context;
+    std::pair<std::vector<double>, std::vector<double>> table_grid;
+    std::vector<std::vector<Glib::RefPtr<Pango::Layout>>> table_layouts;
+    double x0;
+    double y0;
+    double width;
+    double height;
+    int line_thickness;
+    double max_y;
+};
+
+void table_draw_cols(const DrawingContext& draw_context) {
+    double y = draw_context.y0;
+    double x = draw_context.x0;
+    auto& cairo_context = draw_context.cairo_context;
+
+    if (y + draw_context.height > draw_context.max_y) {
+        y = draw_context.max_y - draw_context.height;
+        if (y <= draw_context.y0) {
+            return;
+        }
+    }
+    cairo_context->move_to(x, y);
+    cairo_context->line_to(x, y + draw_context.height);
+    for (auto& col_w: draw_context.table_grid.second)
+    {
+        x += col_w + draw_context.line_thickness;
+        cairo_context->move_to(x, y);
+        cairo_context->line_to(x, y + draw_context.height);
+    }
+}
+
+typename tbl_layouts_t::size_type calc_displayable_rows(const tbl_grid_t& grid, double max_height) {
+    const auto& row_heights = grid.first;
+    double total_h = 0;
+    typename tbl_layouts_t::size_type i = 0;
+    for (auto row : row_heights) {
+        total_h += row;
+        if (total_h > max_height) return i;
+
+        ++i;
+    }
+
+    return i;
+}
+
+tbl_layouts_t displayable_layouts(const tbl_layouts_t& in, const tbl_grid_t& grid, double max_height) 
+{
+    auto rows = calc_displayable_rows(grid, max_height);
+    
+    tbl_layouts_t out;
+    if (rows > 0) {
+        out.insert(out.cend(), in.begin(), in.begin() + rows);
+    } 
+    return out;
+}
+
+void table_draw_lines(const DrawingContext& draw_context)
+{
+    auto& cairo_context = draw_context.cairo_context;
+    double x = draw_context.x0;
+    double y = draw_context.y0;
+    cairo_context->set_source_rgba(0, 0, 0, 0.3);
+    // draw lines
+    cairo_context->move_to(x, y);
+    cairo_context->line_to(x + draw_context.width, y);
+    for (auto& row_h: draw_context.table_grid.first)
+    {
+        y += row_h + draw_context.line_thickness;
+        if (y > draw_context.max_y) {
+            return;
+        }
+
+        cairo_context->move_to(x, y);
+        cairo_context->line_to(x + draw_context.width, y);
+    }
+}
+
+void table_draw_grid(const DrawingContext& draw_context)
+{
+    table_draw_cols(draw_context);
+    table_draw_lines(draw_context);
+
+    draw_context.cairo_context->stroke();
+}
+struct table_drawing_context {
+    CtPrintable::PrintPosition pos;
+    Cairo::RefPtr<Cairo::Context> cairo_context;
+    double line_thickness;
+};
+
+void table_draw_layout_cell(CtPrintable::PrintPosition pos, const Cairo::RefPtr<Cairo::Context>& cairo_context, const Glib::RefPtr<Pango::Layout>& cell)
+{
+    for (int line_i = 0; line_i < cell->get_line_count(); ++line_i) {
+        auto layout_line = cell->get_line(line_i);
+        double line_height = CtPrint::layout_line_get_width_height(layout_line).height;
+        cairo_context->move_to(pos.x, pos.y + line_height);
+        pos.y += line_height;
+        layout_line->show_in_cairo_context(cairo_context);
+    }
+}
+
+void table_draw_text_row(const table_drawing_context& context, const std::vector<Glib::RefPtr<Pango::Layout>>& layout_row, const std::vector<double>& row) {
+    CtPrintable::PrintPosition pos{context.pos};
+    pos.x += CtConst::GRID_SLIP_OFFSET;
+    for (size_t j = 0; j < row.size(); ++j) {
+        double col_w = row.at(j);
+        auto layout_cell = layout_row.at(j);
+        table_draw_layout_cell(pos, context.cairo_context, layout_cell);
+
+        pos.x += col_w + context.line_thickness;
+    }
+}
+
+// Draw the text inside of the Table Cells
+void table_draw_text(const DrawingContext& context)
+{
+    auto& table_grid = context.table_grid;
+    context.cairo_context->set_source_rgb(0, 0, 0);
+
+    table_drawing_context tbl_context{
+        .pos = {context.x0 + CtConst::GRID_SLIP_OFFSET, context.y0},
+        .cairo_context = context.cairo_context,
+        .line_thickness = context.line_thickness
+    };
+    for (size_t i = 0; i < table_grid.first.size(); ++i)
+    {
+        double row_h = table_grid.first.at(i);
+        table_draw_text_row(tbl_context, context.table_layouts.at(i), table_grid.second);
+
+        tbl_context.pos.y += row_h + context.line_thickness;
+    }
+}
+
+
+// Returns the Table Width given the table_grid vector
+double get_table_width_from_grid(const CtWidgetTablePrintable::tbl_grid_t& table_grid, int table_line_thickness)
+{
+    double table_width = 0;
+    for (auto& col_w: table_grid.second)
+        table_width += col_w + table_line_thickness;
+    return table_width;
+}
+
+double get_table_height_from_grid(const CtWidgetTablePrintable::tbl_grid_t& table_grid, int table_line_thickness)
+{
+    double table_height = 0;
+    for (auto& row_h : table_grid.first)
+        table_height += row_h + table_line_thickness;
+    return table_height;
+}
+
+
+std::pair<std::vector<double>, std::vector<double>> get_table_grid(std::vector<std::vector<Glib::RefPtr<Pango::Layout>>>& table_layouts, int col_min)
+{
+    std::vector<double> rows_h(table_layouts.size(), 0);
+    std::vector<double> cols_w(table_layouts[0].size(), col_min);
+    for (size_t i = 0; i < table_layouts.size(); ++i) {
+        auto layout_row = table_layouts[i];
+        for (size_t j = 0; j < layout_row.size(); ++j)
+        {
+            auto layout_cell = layout_row[j];
+            double cell_height = 0;
+            for (int layout_line_idx = 0; layout_line_idx < layout_cell->get_line_count(); ++ layout_line_idx)
+            {
+                auto layout_line = layout_cell->get_line(layout_line_idx);
+                auto line_size = CtPrint::layout_line_get_width_height(layout_line);
+                cell_height += line_size.height;
+                if (cols_w[j] < line_size.width) cols_w[j] = line_size.width;
+            }
+            if (rows_h[i] < cell_height) rows_h[i] = cell_height;
+        }
+    }
+    return std::make_pair(rows_h, cols_w);
+}
+
+
+std::vector<std::vector<Glib::RefPtr<Pango::Layout>>> get_table_layouts(const CtPrintable::PrintInfo& print_info, const CtPrintTableProxy& tbl_proxy)
+{
+    std::vector<std::vector<Glib::RefPtr<Pango::Layout>>> table_layouts;
+    for (int i = 0; i < tbl_proxy.get_row_num(); ++i) {
+        std::vector<Glib::RefPtr<Pango::Layout>> layouts;
+        for (int j = 0; j < tbl_proxy.get_col_num(); ++j) {
+            Glib::ustring text = str::xml_escape(tbl_proxy.get_cell(i, j));
+            if (i == 0) text = "<b>" + text + "</b>";
+            auto layout = print_info.print_context->create_pango_layout();
+            layout->set_font_description(print_info.font);
+            layout->set_width(static_cast<int>(tbl_proxy.get_table()->get_col_max() * Pango::SCALE));
+            layout->set_wrap(Pango::WRAP_WORD_CHAR);
+            layout->set_markup(text);
+            layouts.push_back(layout);
+        }
+        table_layouts.push_back(std::move(layouts));
+    }
+    return table_layouts;
+}
+
+
+}
 
 std::string dest_id_from_node_and_anchor(int node_id, const std::string& anchor_name)
 {
@@ -117,7 +321,7 @@ void CtExport2Pdf::_nodes_all_export_print_iter(const CtTreeIter& tree_iter, con
     } else {
         break_printable = std::make_shared<CtTextPrintable>(str::repeat(CtConst::CHAR_NEWLINE, 3));
     }
-    node_printables.emplace(node_printables.cbegin(), break_printable);
+    node_printables.emplace_back(break_printable);
 
     tree_printables.insert(tree_printables.cend(), node_printables.cbegin(), node_printables.cend());  
 
@@ -187,9 +391,67 @@ void CtPrint::print_text(CtMainWin* pCtMainWin, const fs::path& pdf_filepath,
 }
 
 
+constexpr double calc_leftover_height(double curr_height, double max, int& nb_loops) {
+    if (curr_height >= max) {
+        curr_height -= max;
+        ++nb_loops;
+        
+        return calc_leftover_height(curr_height, max, nb_loops);
+    }
+    return curr_height;
+}
+
+constexpr long double frac_mod(long double numer, long double denom) 
+{
+    long double n = numer / denom;
+    return numer - n * denom;
+}
+
+constexpr double page_calc(double height, double max, double& rem) {
+    auto product = height / max;
+    double whole = 0;
+    rem = modf(product, &whole);
+    return whole;
+}
+
+class page_counter {
+public:
+    constexpr explicit page_counter(double p_height) : _page_height{p_height} {}
+
+    constexpr void operator+=(double height) {
+        auto pending_height = _curr_y + height;
+        int add_pages = std::trunc(pending_height / _page_height);
+        assert(add_pages >= 0);
+        if (add_pages > 0) {
+            _curr_y = (pending_height - _page_height * add_pages);
+            assert(_curr_y >= 0);
+        } else {
+            _curr_y = pending_height;
+        }
+        _nb_pages += add_pages;
+    }
+    constexpr double pages() const {
+        //int pages = _nb_pages;
+        //calc_leftover_height(_curr_height, _page_height, pages);
+        return _nb_pages + (_curr_y > 0 ? 1 : 0);
+    }
+    constexpr void add_page_break() {
+        ++_nb_pages;
+        _curr_y = 0;
+    }
+    constexpr double curr_y() const { return _curr_y; }
+
+private:
+    const double _page_height;
+    double _curr_y = 0;
+    int _nb_pages = 0;
+
+};
+
 // Here we Compute the Lines Positions, the Number of Pages Needed and the Page Breaks
 void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& context, CtPrintData* print_data)
 {
+    
     _print_info.page_width = context->get_width();
     _print_info.page_height = context->get_height() * 1.02; // tolerance at bottom of the page
 
@@ -198,31 +460,31 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
     layout_newline->set_width(static_cast<int>(_print_info.page_width * Pango::SCALE));
     layout_newline->set_markup(CtConst::CHAR_NEWLINE);
     _print_info.newline_height = layout_line_get_width_height(layout_newline->get_line(0)).height;
+
     CtPrintable::PrintInfo p_info = _print_info;
     p_info.print_context = context;
 
-
-    double total_height = 0;
+    page_counter counter{_print_info.page_height};
+    int breaks = 0;
+    double total = 0;
     for (const auto& printable : print_data->printables)
     {
 
         printable->setup(p_info);
-        auto add_height = printable->height();
+        auto add_height = printable->height_when_wrapped(_print_info.page_height - counter.curr_y());
         if (add_height < 0) {
-            // Forced page break
-            add_height = _print_info.page_height - fmod(total_height, _print_info.page_height);
+            counter.add_page_break();
+            ++breaks;
+        } else if (add_height > 0) {
+            counter += add_height;
+            total += add_height;
         } 
-        total_height += add_height;
 
     }
+    auto size = print_data->printables.size();
+    spdlog::debug("--- STATS ---\nSize: {}\n0.1: {}\n0.2: {}\n0.3: {}\n0.4: {}", size, size * 0.1, size * 0.2, size * 0.3, size * 0.4);
+    auto nb_pages = std::ceil(counter.pages());
 
-    
-    auto nb_pages = std::ceil(total_height / _print_info.page_height);
-    if (fmod(total_height, _print_info.page_height) > 0) {
-        // Remainder page
-        spdlog::debug("Added remainder page");
-        ++nb_pages;
-    }
     print_data->operation->set_n_pages(nb_pages);
     print_data->nb_pages = nb_pages;
     
@@ -262,6 +524,10 @@ void CtPrint::_on_draw_page_text(const Glib::RefPtr<Gtk::PrintContext>& context,
                 print_data->curr_printable_i += 1;
             }
             if (print_context.position.y >= _print_info.page_height) {
+                if ((!printable->done() || print_data->curr_printable_i < print_data->printables.size() - 1) && (page_nr + 1 == print_data->nb_pages)) {
+                    // Last page and printable hasnt fit
+                    throw std::runtime_error(fmt::format("Not all printables fit in the document! ({} were missed)", print_data->printables.size() - print_data->curr_printable_i));
+                }
                 break;
             }
 
@@ -524,12 +790,6 @@ CtPrintable::PrintPosition CtWidgetImagePrintable::print(const CtPrintable::Prin
     if (!_done) {
         auto pixbuf = _widget_proxy->get_pixbuf();
 
-        if (pixbuf->get_height() < context.print_info.page_height && context.position.y + pixbuf->get_height() > context.print_info.page_height) {
-            // Possible to fit on single page, but not this one
-            pos.y += pixbuf->get_height();
-            return pos;
-        }
-
         // should recalc scale because curr_x is changed
         double scale_w = (context.print_info.page_width - context.position.x) / pixbuf->get_width();
         double scale_h = (context.print_info.page_height - context.print_info.newline_height -
@@ -567,63 +827,13 @@ double CtWidgetImagePrintable::height() const
 }
 
 
-std::pair<std::vector<double>, std::vector<double>> CtWidgetTablePrintable::_get_table_grid(std::vector<std::vector<Glib::RefPtr<Pango::Layout>>>& table_layouts, int col_min) const
-{
-    std::vector<double> rows_h(table_layouts.size(), 0);
-    std::vector<double> cols_w(table_layouts[0].size(), col_min);
-    for (size_t i = 0; i < table_layouts.size(); ++i)
-    {
-        auto layout_row = table_layouts[i];
-        for (size_t j = 0; j < layout_row.size(); ++j)
-        {
-            auto layout_cell = layout_row[j];
-            double cell_height = 0;
-            for (int layout_line_idx = 0; layout_line_idx < layout_cell->get_line_count(); ++ layout_line_idx)
-            {
-                auto layout_line = layout_cell->get_line(layout_line_idx);
-                auto line_size = CtPrint::layout_line_get_width_height(layout_line);
-                cell_height += line_size.height;
-                if (cols_w[j] < line_size.width) cols_w[j] = line_size.width;
-            }
-            if (rows_h[i] < cell_height) rows_h[i] = cell_height;
-        }
-    }
-    return std::make_pair(rows_h, cols_w);
-}
 
-double CtWidgetTablePrintable::_get_table_height_from_grid(const CtWidgetTablePrintable::tbl_grid_t& table_grid, int table_line_thickness)
-{
-    double table_height = 0;
-    for (auto& row_h : table_grid.first)
-        table_height += row_h + table_line_thickness;
-    return table_height;
-}
-
-std::vector<std::vector<Glib::RefPtr<Pango::Layout>>> CtWidgetTablePrintable::_get_table_layouts(const PrintInfo& print_info) const
-{
-    std::vector<std::vector<Glib::RefPtr<Pango::Layout>>> table_layouts;
-    for (int i = 0; i < _widget_proxy->get_row_num(); ++i) {
-        std::vector<Glib::RefPtr<Pango::Layout>> layouts;
-        for (int j = 0; j < _widget_proxy->get_col_num(); ++j) {
-            Glib::ustring text = str::xml_escape(_widget_proxy->get_cell(i, j));
-            if (i == 0) text = "<b>" + text + "</b>";
-            auto layout = print_info.print_context->create_pango_layout();
-            layout->set_font_description(print_info.font);
-            layout->set_width(static_cast<int>(_widget_proxy->get_table()->get_col_max() * Pango::SCALE));
-            layout->set_wrap(Pango::WRAP_WORD_CHAR);
-            layout->set_markup(text);
-            layouts.push_back(layout);
-        }
-        table_layouts.push_back(std::move(layouts));
-    }
-    return table_layouts;
-}
 
 
 void CtWidgetTablePrintable::setup(const PrintInfo& print_info)
 {
-    _tbl_layouts = _get_table_layouts(print_info);
-    _tbl_grid = _get_table_grid(_tbl_layouts, _widget_proxy->get_table()->get_col_min());
+    _tbl_layouts = get_table_layouts(print_info, *_widget_proxy);
+    _tbl_grid = get_table_grid(_tbl_layouts, _widget_proxy->get_table()->get_col_min());
 }
 
 Glib::RefPtr<Pango::Layout> CtWidgetCodeboxPrintable::_calc_layout(const PrintInfo& print_info) const
@@ -651,13 +861,8 @@ CtPrintable::PrintPosition CtWidgetCodeboxPrintable::print(const CtPrintable::Pr
     auto pos = context.position;
     if (!_done) {
         auto c_height = height();
-        if (pos.y + c_height > context.print_info.page_height) {
-            spdlog::debug("Codebox too big to fit, needs {} - {} is available", c_height, context.print_info.page_height - pos.y);
-            return pos;
-        }
         pos.y += c_height;
         pos.x += width();
-
 
         DrawContext draw_context{
                 .height = c_height,
@@ -718,12 +923,7 @@ void CtTextPrintable::setup(const PrintInfo& print_info)
 
 double CtTextPrintable::height() const
 {
-    double height = 0;
-    if (_is_newline) {
-        height = CtPrint::get_height_from_layout(_layout);
-    } else {
-        height += _calc_lines_heights();
-    }
+    double height = _calc_lines_heights();
     return height;
 }
 
@@ -789,108 +989,62 @@ std::size_t CtTextPrintable::lines() const
 }
 
 
+double CtDefaultWrappable::height_when_wrapped(double space_left) const {
+    if (space_left < height()) {
+        return space_left + height();
+    } 
+    return height();
+}
+
 CtPrintable::PrintPosition CtWidgetTablePrintable::print(const CtPrintable::PrintingContext& context)
 {
     auto pos = context.position;
     pos.x += width();
     pos.y += height();
 
-    if (pos.y < context.print_info.page_height && !_done) {
-        // Only print if it fits
+    if (!done()) {
+        if (pos.y > context.print_info.page_height && context.position.y != 0 && height() < context.print_info.page_height) {
+            spdlog::debug("Table too big for page: {}/{}", pos.y, context.print_info.page_height);
+            return pos;
+        }
+        auto rem_h = context.print_info.page_height - context.position.y;
+
+        tbl_layouts_t display_layouts{_tbl_layouts.cbegin() + _printed_rows, _tbl_layouts.cend()};
+        tbl_grid_t display_grid{{_tbl_grid.first.cbegin() + _printed_rows, _tbl_grid.first.cend()}, _tbl_grid.second};
+
         DrawingContext draw_context;
         draw_context.cairo_context = context.cairo_context;
-        draw_context.table_layouts = _tbl_layouts;
-        draw_context.table_grid = _tbl_grid;
-        draw_context.width = _get_table_width_from_grid(draw_context.table_grid, context.print_info.table_line_thickness);
-        draw_context.height = _get_table_height_from_grid(draw_context.table_grid, context.print_info.table_line_thickness);
+        draw_context.table_layouts = display_layouts;
+        draw_context.table_grid = display_grid;
+        draw_context.width = get_table_width_from_grid(draw_context.table_grid, context.print_info.table_line_thickness);
+        draw_context.height = get_table_height_from_grid(draw_context.table_grid, context.print_info.table_line_thickness);
         draw_context.x0 = context.position.x;
         draw_context.y0 = context.position.y;
         draw_context.line_thickness = context.print_info.table_line_thickness;
+        draw_context.max_y = context.print_info.page_height;
 
-        _table_draw_grid(draw_context);
-        _table_draw_text(draw_context);
+        _printed_rows += calc_displayable_rows(_tbl_grid, rem_h);
+        table_draw_grid(draw_context);
+        table_draw_text(draw_context);
 
 
-        _done = true;
+        if (_printed_rows >= _tbl_layouts.size()){
+            _done = true;
+        }
     }
     return pos;
 }
 
-void CtWidgetTablePrintable::_table_draw_grid(const DrawingContext& draw_context)
-{
-    auto& cairo_context = draw_context.cairo_context;
-    double x = draw_context.x0;
-    double y = draw_context.y0;
-    cairo_context->set_source_rgba(0, 0, 0, 0.3);
-    // draw lines
-    cairo_context->move_to(x, y);
-    cairo_context->line_to(x + draw_context.width, y);
-    for (auto& row_h: draw_context.table_grid.first)
-    {
-        y += row_h + draw_context.line_thickness;
-        cairo_context->move_to(x, y);
-        cairo_context->line_to(x + draw_context.width, y);
-    }
-    // draw columns
-    y = draw_context.y0;
-    cairo_context->move_to(x, y);
-    cairo_context->line_to(x, y + draw_context.height);
-    for (auto& col_w: draw_context.table_grid.second)
-    {
-        x += col_w + draw_context.line_thickness;
-        cairo_context->move_to(x, y);
-        cairo_context->line_to(x, y + draw_context.height);
-    }
-    cairo_context->stroke();
-}
 
-
-// Draw the text inside of the Table Cells
-void CtWidgetTablePrintable::_table_draw_text(const DrawingContext& context)
-{
-    auto& cairo_context = context.cairo_context;
-    auto& table_grid = context.table_grid;
-    cairo_context->set_source_rgb(0, 0, 0);
-    double y = context.y0;
-    for (size_t i = 0; i < table_grid.first.size(); ++i)
-    {
-        double row_h = table_grid.first.at(i);
-        double x = context.x0 + CtConst::GRID_SLIP_OFFSET;
-        for (size_t j = 0; j < table_grid.second.size(); ++j) {
-            double col_w = table_grid.second.at(j);
-            auto layout_cell = context.table_layouts.at(i).at(j);
-            double local_y = y;
-            for (int layout_line_id = 0; layout_line_id < layout_cell->get_line_count(); ++layout_line_id)
-            {
-                auto layout_line = layout_cell->get_line(layout_line_id);
-                double line_height = CtPrint::layout_line_get_width_height(layout_line).height;
-                cairo_context->move_to(x, local_y + line_height);
-                local_y += line_height;
-                layout_line->show_in_cairo_context(cairo_context);
-            }
-            x += col_w + context.line_thickness;
-        }
-        y += row_h + context.line_thickness;
-    }
-}
-
-// Returns the Table Width given the table_grid vector
-double CtWidgetTablePrintable::_get_table_width_from_grid(const std::pair<std::vector<double>, std::vector<double>>& table_grid, int table_line_thickness)
-{
-    double table_width = 0;
-    for (auto& col_w: table_grid.second)
-        table_width += col_w + table_line_thickness;
-    return table_width;
-}
 
 double CtWidgetTablePrintable::width() const
 {
-    return _get_table_width_from_grid(_tbl_grid, 6);
+    return get_table_width_from_grid(_tbl_grid, 6);
 }
 
 double CtWidgetTablePrintable::height() const
 {
-    return _get_table_height_from_grid(_tbl_grid, 6);
+    return get_table_height_from_grid(_tbl_grid, 6);
 }
 
 void CtPageBreakPrintable::setup(const CtPrintable::PrintInfo& print_info)
@@ -901,7 +1055,9 @@ void CtPageBreakPrintable::setup(const CtPrintable::PrintInfo& print_info)
 CtPrintable::PrintPosition CtPageBreakPrintable::print(const CtPrintable::PrintingContext& context)
 {
     PrintPosition pos = context.position;
-    pos.y += context.print_info.page_height; // Add needed diff to break
+    if (pos.y > 0) {
+        pos.y += context.print_info.page_height; // Add needed diff to break
+    }
     _done = true;
     return pos;
 }
@@ -919,7 +1075,7 @@ double CtPageBreakPrintable::width() const
 CtLinkPrintable::CtLinkPrintable(Glib::ustring title, std::string url) : CtTextPrintable(fmt::format("<span fgcolor='blue'>{}</span>", std::move(title))), _url(std::move(url)) 
 {
     try {
-        Glib::RefPtr<Glib::Regex> node_link_reg = Glib::Regex::create("node\\s([0-9]+).?(.*)?");
+        static const Glib::RefPtr<Glib::Regex> node_link_reg = Glib::Regex::create("node\\s([0-9]+).?(.*)?");
         Glib::MatchInfo m_info;
         node_link_reg->match(_url, m_info);
         if (m_info.matches()) {
