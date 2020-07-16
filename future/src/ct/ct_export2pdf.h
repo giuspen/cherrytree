@@ -137,7 +137,7 @@ public:
 
     double height() const override;
     double width() const override;
-    double height_when_wrapped(double) const override { return height(); }
+    double height_when_wrapped(double space) const override { return space; }
 
 private:
     double _p_height;
@@ -234,13 +234,13 @@ class CtPrintCodeboxProxy : public CtPrintWidgetProxy
 public:
     CtPrintCodeboxProxy(CtCodebox* codebox) : _codebox(codebox), _use_proxy_text(false) {}
     CtPrintCodeboxProxy(CtCodebox* codebox, const Glib::ustring& proxy_text) : _codebox(codebox),_proxy_text(proxy_text), _use_proxy_text(true)  {}
-    CtCodebox*          get_codebox()          { return _codebox; }
-    bool                get_width_in_pixels()  { return _codebox->get_width_in_pixels(); }
-    int                 get_frame_width()      { return _codebox->get_frame_width(); }
-    const Glib::ustring get_text_content()     { return _use_proxy_text ? _proxy_text : pango_from_code_buffer(_codebox); }
+    CtCodebox*          get_codebox()         const { return _codebox; }
+    bool                get_width_in_pixels() const { return _codebox->get_width_in_pixels(); }
+    int                 get_frame_width() const     { return _codebox->get_frame_width(); }
+    const Glib::ustring get_text_content()    const { return _use_proxy_text ? _proxy_text : pango_from_code_buffer(_codebox); }
     void                set_proxy_content(const Glib::ustring& text) { _proxy_text = text; _use_proxy_text = true; }
 
-    Glib::ustring       pango_from_code_buffer(CtCodebox* codebox); // couldn't use CtExport2Pango in .h, so created helper function
+    Glib::ustring       pango_from_code_buffer(CtCodebox* codebox) const; // couldn't use CtExport2Pango in .h, so created helper function
 
 private:
     CtCodebox*    _codebox;
@@ -308,18 +308,8 @@ public:
 
 
 private:
-    struct DrawContext {
-        double height;
-        double width;
-        double x;
-        double y;
-    };
-
     Glib::RefPtr<Pango::Layout> _layout;
-    Glib::RefPtr<Pango::Layout> _calc_layout(const PrintInfo& print_info) const;
-
-    static void _draw_box(const Cairo::RefPtr<Cairo::Context>& cairo_context, const DrawContext& draw_context);
-    void _draw_code(const Cairo::RefPtr<Cairo::Context>& cairo_context, const DrawContext& draw_context);
+    std::size_t _drawn_lines = 0;
 };
 
 using CtWidgetSomePrintable = CtWidgetPrintable<CtPrintSomeProxy>;
