@@ -105,29 +105,22 @@ void CtExport2Pdf::_nodes_all_export_print_iter(const CtTreeIter& tree_iter, con
     {
         node_printables.emplace_back(std::make_shared<CtTextPrintable>(CtExport2Pango().pango_get_from_code_buffer(tree_iter.get_node_text_buffer(), -1, -1)));
     }
+
+    // Push front node name
     if (options.include_node_name) {
-        node_printables.insert(node_printables.cbegin(), generate_node_name_printable(tree_iter.get_node_name(), tree_iter.get_node_id()));
+        node_printables.emplace(node_printables.cbegin(), generate_node_name_printable(tree_iter.get_node_name(), tree_iter.get_node_id()));
     }
-    if (tree_printables.empty()) {
-        tree_printables = node_printables;
+
+    std::shared_ptr<CtPrintable> break_printable;
+    if (options.new_node_page) {
+        break_printable = std::make_shared<CtPageBreakPrintable>();
+    } else {
+        break_printable = std::make_shared<CtTextPrintable>(str::repeat(CtConst::CHAR_NEWLINE, 3));
     }
-    else
-    {
-        if (options.new_node_page)
-        {
-            node_printables.emplace(node_printables.cbegin(), std::make_shared<CtPageBreakPrintable>());
-            tree_printables.insert(tree_printables.cend(), node_printables.cbegin(), node_printables.cend());
-        }
-        else
-        {
-            tree_printables.emplace_back(std::make_shared<CtTextPrintable>(str::repeat(CtConst::CHAR_NEWLINE, 3)));
-            if (node_printables.size() > 1)
-            {
-                node_printables.erase(node_printables.cbegin());
-                tree_printables.insert(tree_printables.cend(), node_printables.cbegin(), node_printables.cend());
-            }
-        }
-    }
+    node_printables.emplace(node_printables.cbegin(), break_printable);
+
+    tree_printables.insert(tree_printables.cend(), node_printables.cbegin(), node_printables.cend());  
+
     
     for (auto& iter: tree_iter->children()) {
         _nodes_all_export_print_iter(_pCtMainWin->get_tree_store().to_ct_tree_iter(iter), options, tree_printables, text_font);
@@ -224,7 +217,7 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
     }
 
     
-    auto nb_pages = std::ceil(total_height / _print_info.page_height) + 1;
+    auto nb_pages = std::ceil(total_height / _print_info.page_height);
     if (fmod(total_height, _print_info.page_height) > 0) {
         // Remainder page
         spdlog::debug("Added remainder page");
