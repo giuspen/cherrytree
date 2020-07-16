@@ -137,7 +137,7 @@ public:
 
     double height() const override;
     double width() const override;
-    double height_when_wrapped(double space) const override { return space; }
+    double height_when_wrapped(double space) const override;
 
 private:
     double _p_height;
