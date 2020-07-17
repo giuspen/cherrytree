@@ -366,10 +366,7 @@ void CtExport2Pdf::_nodes_all_export_print_iter(const CtTreeIter& tree_iter, con
 {
     CtPrintableVector node_printables;
 
-    // Push front node name
-    if (options.include_node_name) {
-        node_printables.emplace_back(generate_node_name_printable(tree_iter.get_node_name(), tree_iter.get_node_id()));
-    }
+   
 
     if (tree_iter.get_node_is_rich_text())
     {
@@ -381,6 +378,10 @@ void CtExport2Pdf::_nodes_all_export_print_iter(const CtTreeIter& tree_iter, con
         node_printables.emplace_back(std::make_shared<CtTextPrintable>(CtExport2Pango().pango_get_from_code_buffer(tree_iter.get_node_text_buffer(), -1, -1)));
     }
 
+     // Push front node name
+    if (options.include_node_name) {
+        node_printables.emplace(node_printables.cbegin(), generate_node_name_printable(tree_iter.get_node_name(), tree_iter.get_node_id()));
+    }
     
 
     std::shared_ptr<CtPrintable> break_printable;
