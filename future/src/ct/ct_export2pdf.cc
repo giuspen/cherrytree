@@ -366,7 +366,10 @@ void CtExport2Pdf::_nodes_all_export_print_iter(const CtTreeIter& tree_iter, con
 {
     CtPrintableVector node_printables;
 
-   
+    // Push front node name
+    if (options.include_node_name) {
+        node_printables.emplace_back(generate_node_name_printable(tree_iter.get_node_name(), tree_iter.get_node_id()));
+    }
 
     if (tree_iter.get_node_is_rich_text())
     {
@@ -377,11 +380,10 @@ void CtExport2Pdf::_nodes_all_export_print_iter(const CtTreeIter& tree_iter, con
     {
         node_printables.emplace_back(std::make_shared<CtTextPrintable>(CtExport2Pango().pango_get_from_code_buffer(tree_iter.get_node_text_buffer(), -1, -1)));
     }
-
-     // Push front node name
     if (options.include_node_name) {
-        node_printables.emplace(node_printables.cbegin(), generate_node_name_printable(tree_iter.get_node_name(), tree_iter.get_node_id()));
+        assert(node_printables.size() >= 1);
     }
+    
     
 
     std::shared_ptr<CtPrintable> break_printable;
@@ -390,7 +392,10 @@ void CtExport2Pdf::_nodes_all_export_print_iter(const CtTreeIter& tree_iter, con
     } else {
         break_printable = std::make_shared<CtTextPrintable>(str::repeat(CtConst::CHAR_NEWLINE, 3));
     }
-    node_printables.emplace_back(break_printable);
+    if (!tree_printables.empty()) {
+        // Not first page
+        tree_printables.emplace_back(break_printable);
+    }
 
     tree_printables.insert(tree_printables.cend(), node_printables.cbegin(), node_printables.cend());  
 
@@ -653,7 +658,6 @@ void CtExport2Pango::pango_get_from_treestore_node(CtTreeIter node_iter, int sel
     if (exclude_anchors) {
         out_widgets.remove_if([](CtAnchoredWidget* widget) { return dynamic_cast<CtImageAnchor*>(widget); });
     }
-    out_printables.clear();
     int start_offset = sel_start < 1 ? 0 : sel_start;
     for (auto widget: out_widgets)
     {
