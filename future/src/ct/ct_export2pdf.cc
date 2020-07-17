@@ -105,20 +105,14 @@ struct table_drawing_context {
     int line_thickness;
 };
 
-void table_draw_layout_cell(CtPrintable::PrintPosition pos, const Cairo::RefPtr<Cairo::Context>& cairo_context, const Glib::RefPtr<Pango::Layout>& cell)
+void table_draw_layout_cell(const CtPrintable::PrintPosition& pos, const Cairo::RefPtr<Cairo::Context>& cairo_context, const Glib::RefPtr<Pango::Layout>& cell)
 {
-    for (int line_i = 0; line_i < cell->get_line_count(); ++line_i) {
-        auto layout_line = cell->get_line(line_i);
-        double line_height = CtPrint::layout_line_get_width_height(layout_line).height;
-        cairo_context->move_to(pos.x, pos.y + line_height);
-        pos.y += line_height;
-        layout_line->show_in_cairo_context(cairo_context);
-    }
+    cairo_context->move_to(pos.x, pos.y);
+    cell->show_in_cairo_context(cairo_context);
 }
 
 void table_draw_text_row(const table_drawing_context& context, const std::vector<Glib::RefPtr<Pango::Layout>>& layout_row, const std::vector<double>& row) {
     CtPrintable::PrintPosition pos{context.pos};
-    pos.x += CtConst::GRID_SLIP_OFFSET;
     for (size_t j = 0; j < row.size(); ++j) {
         double col_w = row.at(j);
         auto layout_cell = layout_row.at(j);
@@ -293,6 +287,12 @@ double sum_line_heights(const std::vector<Glib::RefPtr<Pango::LayoutLine>>& line
     return sum;
 }
 
+void report_print_exception(const std::string& msg, CtMainWin& win) 
+{
+    spdlog::error("Exception occured while printing: {}", msg);
+    CtDialogs::error_dialog(fmt::format("Error during printing:\n{} (exception caught)", msg), win);
+}
+
 }
 
 std::string dest_id_from_node_and_anchor(int node_id, const std::string& anchor_name)
@@ -312,6 +312,7 @@ std::unique_ptr<CtDestPrintable> generate_node_name_printable(Glib::ustring node
             + "</span></i></b>" + CtConst::CHAR_NEWLINE + CtConst::CHAR_NEWLINE, dest_id_from_node_id(node_id));
     return printable;
 }
+
 
 
 
@@ -457,9 +458,9 @@ void CtPrint::print_text(CtMainWin* pCtMainWin, const fs::path& pdf_filepath,
         else if (res == Gtk::PRINT_OPERATION_RESULT_APPLY)
             _pPrintSettings = print_data.operation->get_print_settings();
     }
-    catch (Glib::Error& ex)
+    catch (const std::exception& ex)
     {
-        CtDialogs::error_dialog("Error printing file:\n" + ex.what() + " (exception caught)", *pCtMainWin);
+        report_print_exception(ex.what(), *pCtMainWin);
     } 
 
     if (!print_data.warning.empty()){
@@ -487,51 +488,56 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
 // This Function is Called For Each Page Set in on_begin_print_text
 void CtPrint::_on_draw_page_text(const Glib::RefPtr<Gtk::PrintContext>& context, int page_nr, CtPrintData* print_data)
 {
-    // layout num, line num
-    auto operation = print_data->operation;
-    auto cairo_context = context->get_cairo_context();
-    cairo_context->set_source_rgb(0.5, 0.5, 0.5);
-    cairo_context->set_font_size(12);
-    Glib::ustring page_num_str = std::to_string(page_nr+1) + "/" + std::to_string(operation->property_n_pages());
-    cairo_context->move_to(_print_info.page_width/2., _print_info.page_height+17);
-    cairo_context->show_text(page_num_str);
+    try {
+        // layout num, line num
+        auto operation = print_data->operation;
+        auto cairo_context = context->get_cairo_context();
+        cairo_context->set_source_rgb(0.5, 0.5, 0.5);
+        cairo_context->set_font_size(12);
+        Glib::ustring page_num_str = std::to_string(page_nr+1) + "/" + std::to_string(operation->property_n_pages());
+        cairo_context->move_to(_print_info.page_width/2., _print_info.page_height+17);
+        cairo_context->show_text(page_num_str);
 
-    _print_info.print_context = context;
-    CtPrintable::PrintingContext print_context {
-        .cairo_context = cairo_context,
-        .print_info = _print_info,
-        .print_data = *print_data,
-        .position = {
-                .x = 0,
-                .y = 0
-        }
-    };
-
-    while(!print_data->printables.empty() && print_data->curr_printable_i < print_data->printables.size()) {
-        try {
-            cairo_context->set_source_rgb(0, 0, 0);
-            auto printable = print_data->printables.at(print_data->curr_printable_i);
-
-            print_context.position = printable->print(print_context);
-            if (printable->done()){
-                // Printable has printed all its lines or drawn itself in full or whatever
-                print_data->curr_printable_i += 1;
+        _print_info.print_context = context;
+        CtPrintable::PrintingContext print_context {
+            .cairo_context = cairo_context,
+            .print_info = _print_info,
+            .print_data = *print_data,
+            .position = {
+                    .x = 0,
+                    .y = 0
             }
-            if (print_context.position.y >= _print_info.page_height) {
-                if ((!printable->done() || print_data->curr_printable_i < print_data->printables.size() - 1) && (page_nr + 1 == print_data->nb_pages)) {
-                    // Last page and printable hasnt fit
-                    throw std::runtime_error(fmt::format("Not all printables fit in the document! ({} were missed)", print_data->printables.size() - print_data->curr_printable_i));
+        };
+
+        while(!print_data->printables.empty() && print_data->curr_printable_i < print_data->printables.size()) {
+            try {
+                cairo_context->set_source_rgb(0, 0, 0);
+                auto printable = print_data->printables.at(print_data->curr_printable_i);
+
+                print_context.position = printable->print(print_context);
+                if (printable->done()){
+                    // Printable has printed all its lines or drawn itself in full or whatever
+                    print_data->curr_printable_i += 1;
                 }
-                break;
+                if (print_context.position.y >= _print_info.page_height) {
+                    if ((!printable->done() || print_data->curr_printable_i < print_data->printables.size() - 1) && (page_nr + 1 == print_data->nb_pages)) {
+                        // Last page and printable hasnt fit
+                        throw std::runtime_error(fmt::format("Not all printables fit in the document! ({} were missed)", print_data->printables.size() - print_data->curr_printable_i));
+                    }
+                    break;
+                }
+
+            } catch(std::exception& e) {
+                spdlog::error("Exception caught during printing: {}", e.what());
+                return;
             }
 
-        } catch(std::exception& e) {
-            spdlog::error("Exception caught during printing: {}", e.what());
-            return;
         }
-
+        spdlog::debug("Finished, page num: {}/{}", page_nr + 1, print_data->nb_pages);
+    } catch(const std::exception& e) {
+        report_print_exception(e.what(), *_pCtMainWin);
+        print_data->operation->cancel(); // If an error has got this far it is fatal
     }
-    spdlog::debug("Finished, page num: {}/{}", page_nr + 1, print_data->nb_pages);
 }
 
 // Returns Width and Height of a layout line
@@ -936,11 +942,11 @@ CtPrintable::PrintPosition CtTextPrintable::print(const PrintingContext& context
             spdlog::debug("Out of space on pos: {}/{}", pos.y, context.print_info.page_height);
             break;
         }
-
-        auto line = _layout->get_line(_line_index);
         context.cairo_context->move_to(pos.x, pos.y);
+        auto line = _layout->get_line(_line_index);
+        
         line->show_in_cairo_context(context.cairo_context);
-
+        
         if(_line_index < line_count - 1 || is_newline()) {
             pos.y += CtPrint::layout_line_get_width_height(line).height;
             pos.x = 0;
@@ -1086,6 +1092,12 @@ CtPrintable::PrintPosition print_with_cairo_tag(cairo_t* cairo_obj, const PRINT_
     cairo_tag_begin(cairo_obj, tag_name.c_str(), tag_attrs.c_str());
     CtPrintable::PrintPosition pos = callback();
     cairo_tag_end(cairo_obj, tag_name.c_str());
+
+    auto status = cairo_status(cairo_obj);
+    if (status != CAIRO_STATUS_SUCCESS) {
+        // If we don't throw here, it will throw in the pango signal handler where it cannot be caught
+        throw std::runtime_error(fmt::format("cairo_tag_begin failed with tag name: {}; tag attrs: {}; error message: {}", tag_name, tag_attrs, cairo_status_to_string(status)));
+    }
     return pos;
 }
 
@@ -1097,6 +1109,7 @@ CtPrintable::PrintPosition CtLinkPrintable::print(const PrintingContext& context
     if (!done()) {
         try {
             std::string attrs = fmt::format("{}='{}'", _is_internal ? "dest" : "uri", _url);
+            spdlog::debug("Printed link: {}", attrs);
             pos = print_with_cairo_tag(context.cairo_context->cobj(), [this, &context]() {
                 return CtTextPrintable::print(context);
             }, CAIRO_TAG_LINK, attrs);
