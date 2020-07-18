@@ -24,12 +24,18 @@
 #include <giomm.h>
 #include "CppUTest/CommandLineTestRunner.h"
 
+#ifdef _WIN32
+static void _glib_log_handler(const gchar*, GLogLevelFlags, const gchar*, gpointer)
+{
+}
+#endif // _WIN32
+
 int main(int ac, char** av)
 {
     // libp7za has memory leaks
     MemoryLeakWarningPlugin::turnOffNewDeleteOverloads();
-
-    Gio::init();
-
+#ifdef _WIN32
+    g_log_set_default_handler(_glib_log_handler, nullptr);
+#endif // _WIN32
     return CommandLineTestRunner::RunAllTests(ac, av);
 }

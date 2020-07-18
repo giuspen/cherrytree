@@ -29,7 +29,10 @@
 class TestCtApp : public CtApp
 {
 public:
-    TestCtApp() : CtApp{} {}
+    TestCtApp(const std::vector<std::string>& vec_args)
+     : CtApp{},
+       _vec_args{vec_args}
+    {}
 
     struct ExpectedTag {
         Glib::ustring text_slot;
@@ -38,19 +41,33 @@ public:
     };
 
 private:
-    void on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint) override;
+    void on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint) final;
+    void on_activate() final;
 
+    void _run_test(const fs::path doc_filepath_from, const fs::path doc_filepath_to);
     void _assert_tree_data(CtMainWin* pWin);
     void _assert_node_text(CtTreeIter& ctTreeIter, const Glib::ustring& expectedText);
     void _process_rich_text_buffer(std::list<ExpectedTag>& expectedTags, Glib::RefPtr<Gsv::Buffer> rTextBuffer);
+
+    const std::vector<std::string>& _vec_args;
 };
 
-void TestCtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint)
+void TestCtApp::on_activate()
+{
+    CHECK_EQUAL(4, _vec_args.size());
+    // NOTE: on windows/msys2 unit tests the passed arguments do not work so we end up here
+    _run_test(_vec_args.at(1), _vec_args.at(3));
+}
+
+void TestCtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& /*hint*/)
 {
     CHECK_EQUAL(1, files.size());
-    const fs::path doc_filepath_from{files.front()->get_path()};
     // NOTE: we use the trick of the [-t export_to_txt_dir] argument to pass the target file type
-    const fs::path doc_filepath_to{_export_to_txt_dir};
+    _run_test(files.front()->get_path(), _export_to_txt_dir);
+}
+
+void TestCtApp::_run_test(const fs::path doc_filepath_from, const fs::path doc_filepath_to)
+{
     const CtDocEncrypt docEncrypt_from = fs::get_doc_encrypt(doc_filepath_from);
     const CtDocEncrypt docEncrypt_to = fs::get_doc_encrypt(doc_filepath_to);
 
@@ -504,7 +521,7 @@ TEST_GROUP(CtDocRWGroup)
 {
 };
 
-#ifndef __APPLE__ // TestCtApp causes crash on macos
+#if !defined(__APPLE__) // TestCtApp causes crash on macos
 
 TEST(CtDocRWGroup, CtDocRW_all_variants)
 {
@@ -512,7 +529,7 @@ TEST(CtDocRWGroup, CtDocRW_all_variants)
         for (const std::string& out_doc_path : UT::testAllDocTypes) {
             const std::vector<std::string> vec_args{"cherrytree", in_doc_path, "-t", out_doc_path};
             gchar** pp_args = CtStrUtil::vector_to_array(vec_args);
-            TestCtApp testCtApp{};
+            TestCtApp testCtApp{vec_args};
             testCtApp.run(vec_args.size(), pp_args);
             g_strfreev(pp_args);
         }

@@ -1,4 +1,6 @@
 
+add_compile_options(-Wall -Wextra -Wunreachable-code -Wuninitialized)
+
 include_directories(
     ${CPPUTEST_INCLUDE_DIRS}
     ${CMAKE_SOURCE_DIR}/src/ct
