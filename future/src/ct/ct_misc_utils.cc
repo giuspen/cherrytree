@@ -384,6 +384,7 @@ void CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter,
         else if (str::startswith(tag_name, "style_")) curr_attributes[CtConst::TAG_STYLE] = "";
         else if (str::startswith(tag_name, "underline_")) curr_attributes[CtConst::TAG_UNDERLINE] = "";
         else if (str::startswith(tag_name, "strikethrough_")) curr_attributes[CtConst::TAG_STRIKETHROUGH] = "";
+        else if (str::startswith(tag_name, "indent_")) curr_attributes[CtConst::TAG_INDENT] = "";
         else if (str::startswith(tag_name, "scale_")) curr_attributes[CtConst::TAG_SCALE] = "";
         else if (str::startswith(tag_name, "justification_")) curr_attributes[CtConst::TAG_JUSTIFICATION] = "";
         else if (str::startswith(tag_name, "link_")) curr_attributes[CtConst::TAG_LINK] = "";
@@ -406,6 +407,7 @@ void CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter,
         else if (str::startswith(tag_name, "style_")) curr_attributes[CtConst::TAG_STYLE] = tag_name.substr(6);
         else if (str::startswith(tag_name, "underline_")) curr_attributes[CtConst::TAG_UNDERLINE] = tag_name.substr(10);
         else if (str::startswith(tag_name, "strikethrough_")) curr_attributes[CtConst::TAG_STRIKETHROUGH] = tag_name.substr(14);
+        else if (str::startswith(tag_name, "indent_")) curr_attributes[CtConst::TAG_INDENT] = tag_name.substr(7);
         else if (str::startswith(tag_name, "link_")) curr_attributes[CtConst::TAG_LINK] = tag_name.substr(5);
         else if (str::startswith(tag_name, "family_")) curr_attributes[CtConst::TAG_FAMILY] = tag_name.substr(7);
         //else spdlog::error("Failure processing the toggling ON tag {}", tag_name);

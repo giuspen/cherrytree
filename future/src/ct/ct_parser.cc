@@ -134,6 +134,12 @@ void CtDocumentBuilder::add_strikethrough_tag(std::optional<std::string> data)
     if (data) add_tag_data(CtConst::TAG_STRIKETHROUGH, *data);
 }
 
+void CtDocumentBuilder::add_indent_tag(std::optional<std::string> data)
+{
+    _current_element->set_attribute(CtConst::TAG_INDENT, CtConst::TAG_PROP_VAL_TRUE);
+    if (data) add_tag_data(CtConst::TAG_INDENT, *data);
+}
+
 void CtDocumentBuilder::add_text(std::string text, bool close_tag /* = true */)
 {
     if (!text.empty()) {

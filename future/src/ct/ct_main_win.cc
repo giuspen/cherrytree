@@ -224,12 +224,18 @@ Glib::RefPtr<Gsv::Buffer> CtMainWin::get_new_text_buffer(const Glib::ustring& te
     return rRetTextBuffer;
 }
 
-const std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string& propertyName, const std::string& propertyValue)
+const std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string& propertyName, const std::string& propertyValue, std::optional<Glib::RefPtr<Gtk::TextBuffer>> text_buffer)
 {
     const std::string tagName{propertyName + "_" + propertyValue};
     Glib::RefPtr<Gtk::TextTag> rTextTag = _rGtkTextTagTable->lookup(tagName);
     if (not rTextTag)
     {
+        if (CtConst::TAG_INDENT == propertyName && text_buffer )
+        {
+            gtk_text_buffer_create_tag((*text_buffer)->gobj(), &(tagName[0]), "left_margin", std::stoi( propertyValue ), NULL);
+            return tagName;
+        }
+
         bool identified{true};
         rTextTag = Gtk::TextTag::create(tagName);
         if (CtConst::TAG_WEIGHT == propertyName and CtConst::TAG_PROP_VAL_HEAVY == propertyValue)
