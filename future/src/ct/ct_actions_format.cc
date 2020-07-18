@@ -108,8 +108,8 @@ void CtActions::apply_tag_indent()
     if (not range.iter_start) return;
 
     //Each time we increase indent, we'll add this much margin to the text
-    int indentMargin = _find_previous_indent_margin() + 50;
-    _apply_tag(CtConst::TAG_INDENT, std::to_string(indentMargin), range.iter_start, range.iter_end);
+    int newMargin = _find_previous_indent_margin() + CtConst::INDENT_MARGIN;
+    _apply_tag(CtConst::TAG_INDENT, std::to_string(newMargin), range.iter_start, range.iter_end);
 }
 
 //The 'unindent' button was pressed
@@ -120,15 +120,16 @@ void CtActions::reduce_tag_indent()
     if (not range.iter_start) return;
 
     int prevMargin = _find_previous_indent_margin();
-    if(prevMargin > 0){
-        int indentMargin = _find_previous_indent_margin() - 50;
-        _apply_tag(CtConst::TAG_INDENT, std::to_string(indentMargin), range.iter_start, range.iter_end);
+    if(prevMargin >= CtConst::INDENT_MARGIN){
+        int newMargin = prevMargin - CtConst::INDENT_MARGIN;
+        _apply_tag(CtConst::TAG_INDENT, std::to_string(newMargin), range.iter_start, range.iter_end);
     }
 }
 
+//See if there's already an indent tag on the current text, & if so, return its numerical margin.
+//If not, return the default "zero margin" (i.e. the margin shown in the UI when there's no indentation)
 int CtActions::_find_previous_indent_margin()
 {
-    //See if there's already an indent tag on this text. If so, find its value & increase indent from that previous margin
     CtTextRange range = CtList(_pCtMainWin, _curr_buffer()).get_paragraph_iters();
     std::vector<Glib::RefPtr<Gtk::TextTag>> curr_tags = range.iter_start.get_tags();
     for (auto& curr_tag : curr_tags) {
@@ -138,7 +139,7 @@ int CtActions::_find_previous_indent_margin()
                 return std::stoi(curr_tag_name.substr(7, std::string::npos));
             }
     }
-    return 0;
+    return CtConst::ZERO_MARGIN;
 }
 
 // The H1 Button was Pressed
