@@ -76,7 +76,6 @@ public:
     void add_weight_tag(const Glib::ustring& level, std::optional<std::string> data);
     void add_italic_tag(std::optional<std::string> data);
     void add_strikethrough_tag(std::optional<std::string> data);
-    void add_indent_tag(std::optional<std::string> data);
     void add_list(uint8_t level, const std::string& data);
     void add_ordered_list(unsigned int level, const std::string &data);
     void add_todo_list(checkbox_state state, const std::string& data);
