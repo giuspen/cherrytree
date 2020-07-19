@@ -1271,10 +1271,10 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
     CtConfig* pConfig = pCtMainWin->get_ct_config();
 
     Gtk::Button button_prog_lang;
-    Glib::ustring button_label = (pConfig->codeboxSynHighl != CtConst::PLAIN_TEXT_ID ? pConfig->codeboxSynHighl : pConfig->autoSynHighl);
-    std::string button_stock_id = pCtMainWin->get_code_icon_name(button_label);
-    button_prog_lang.set_label(button_label);
-    button_prog_lang.set_image(*pCtMainWin->new_image_from_stock(button_stock_id, Gtk::ICON_SIZE_MENU));
+    const Glib::ustring syntax_hl_id = (pConfig->codeboxSynHighl != CtConst::PLAIN_TEXT_ID ? pConfig->codeboxSynHighl : pConfig->autoSynHighl);
+    const std::string stock_id = pCtMainWin->get_code_icon_name(syntax_hl_id);
+    button_prog_lang.set_label(syntax_hl_id);
+    button_prog_lang.set_image(*pCtMainWin->new_image_from_stock(stock_id, Gtk::ICON_SIZE_MENU));
     Gtk::RadioButton radiobutton_plain_text(_("Plain Text"));
     Gtk::RadioButton radiobutton_auto_syntax_highl(_("Automatic Syntax Highlighting"));
     radiobutton_auto_syntax_highl.join_group(radiobutton_plain_text);
@@ -1368,8 +1368,9 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
         Gtk::TreeIter res = CtDialogs::choose_item_dialog(dialog, _("Automatic Syntax Highlighting"), rItemStore);
         if (res)
         {
-            std::string stock_id = res->get_value(rItemStore->columns.desc);
-            button_prog_lang.set_label(stock_id);
+            const Glib::ustring syntax_hl_id = res->get_value(rItemStore->columns.desc);
+            const std::string stock_id = pCtMainWin->get_code_icon_name(syntax_hl_id);
+            button_prog_lang.set_label(syntax_hl_id);
             button_prog_lang.set_image(*pCtMainWin->new_image_from_stock(stock_id, Gtk::ICON_SIZE_MENU));
         }
     });
@@ -1614,7 +1615,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     name_vbox.pack_start(name_entry);
     name_vbox.pack_start(is_bold_checkbutton);
     name_vbox.pack_start(*grid_icons);
-    Gtk::Frame name_frame(std::string("<b>")+_("Node Name")+"</b>");
+    Gtk::Frame name_frame(Glib::ustring("<b>")+_("Node Name")+"</b>");
     ((Gtk::Label*)name_frame.get_label_widget())->set_use_markup(true);
     name_frame.set_shadow_type(Gtk::SHADOW_NONE);
     name_frame.add(name_vbox);
@@ -1628,9 +1629,9 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     {
         syntax_hl_id = pCtMainWin->get_ct_config()->autoSynHighl;
     }
-    std::string button_stock_id = pCtMainWin->get_code_icon_name(syntax_hl_id);
+    std::string stock_id = pCtMainWin->get_code_icon_name(syntax_hl_id);
     button_prog_lang.set_label(syntax_hl_id);
-    button_prog_lang.set_image(*pCtMainWin->new_image_from_stock(button_stock_id, Gtk::ICON_SIZE_MENU));
+    button_prog_lang.set_image(*pCtMainWin->new_image_from_stock(stock_id, Gtk::ICON_SIZE_MENU));
     if (nodeData.syntax == CtConst::RICH_TEXT_ID)
     {
         radiobutton_rich_text.set_active(true);
@@ -1650,7 +1651,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     type_vbox.pack_start(radiobutton_plain_text);
     type_vbox.pack_start(radiobutton_auto_syntax_highl);
     type_vbox.pack_start(button_prog_lang);
-    Gtk::Frame type_frame(std::string("<b>")+_("Node Type")+"</b>");
+    Gtk::Frame type_frame(Glib::ustring("<b>")+_("Node Type")+"</b>");
     static_cast<Gtk::Label*>(type_frame.get_label_widget())->set_use_markup(true);
     type_frame.set_shadow_type(Gtk::SHADOW_NONE);
     type_frame.add(type_vbox);
@@ -1664,7 +1665,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     button_browse_tags.set_sensitive(!tags_set.empty());
     tags_hbox.pack_start(tags_entry);
     tags_hbox.pack_start(button_browse_tags, false, false);
-    Gtk::Frame tags_frame(std::string("<b>")+_("Tags for Searching")+"</b>");
+    Gtk::Frame tags_frame(Glib::ustring("<b>")+_("Tags for Searching")+"</b>");
     ((Gtk::Label*)tags_frame.get_label_widget())->set_use_markup(true);
     tags_frame.set_shadow_type(Gtk::SHADOW_NONE);
     tags_frame.add(tags_hbox);
@@ -1690,8 +1691,9 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
         const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog, _("Automatic Syntax Highlighting"), itemStore);
         if (treeIter)
         {
-            std::string stock_id = pCtMainWin->get_code_icon_name(treeIter->get_value(itemStore->columns.desc));
-            button_prog_lang.set_label(stock_id);
+            const Glib::ustring syntax_hl_id = treeIter->get_value(itemStore->columns.desc);
+            const std::string stock_id = pCtMainWin->get_code_icon_name(syntax_hl_id);
+            button_prog_lang.set_label(syntax_hl_id);
             button_prog_lang.set_image(*pCtMainWin->new_image_from_stock(stock_id, Gtk::ICON_SIZE_MENU));
         }
     });
