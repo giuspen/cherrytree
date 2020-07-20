@@ -60,6 +60,13 @@ public:
     virtual std::vector<std::string>          file_patterns() { return {}; }
 };
 
+/// Implementation of file patterns for HTML importers
+class CtHtmlImporterInterface: public CtImporterInterface {
+public:
+    std::string                       file_pattern_name() override { return "HTML Document"; }
+    std::vector<std::string>          file_patterns() override { return {"*.html", "*.htm"}; }
+
+};
 
 namespace CtImports {
 
@@ -93,16 +100,13 @@ class CtConfig;
 
 
 
-class CtHtmlImport : public CtImporterInterface
+class CtHtmlImport : public CtHtmlImporterInterface
 {
 public:
     CtHtmlImport(CtConfig* config);
 
     // virtuals of CtImporterInterface
     std::unique_ptr<ct_imported_node> import_file(const fs::path& file) override;
-    std::string                       file_pattern_name() override { return _("Html Document"); }
-    std::vector<std::string>          file_patterns() override { return {"*.html", "*.htm"}; };
-
 private:
     CtConfig* _config;
 };
@@ -233,5 +237,17 @@ public:
     std::vector<std::string> file_patterns() override { return {"*.leo"}; };
     std::string file_pattern_name() override { return _("Leo File"); }
 
+};
+
+class CtRedNotebookImporter: public CtHtmlImporterInterface {
+public:
+    explicit CtRedNotebookImporter(CtConfig* config) : _ct_config{config} {}
+
+    std::unique_ptr<ct_imported_node> import_file(const fs::path& path) override;
+
+private:
+    std::unique_ptr<ct_imported_node> _parse_input(std::ifstream& infile, const fs::path& path);
+
+    CtConfig* _ct_config;
 };
 
