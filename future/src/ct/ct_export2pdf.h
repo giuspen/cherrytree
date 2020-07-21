@@ -34,20 +34,20 @@ struct CtPangoNewPage : public CtPangoObject
 {
 
 };
-struct CtPangoText : public CtPangoObject
+struct CtPangoWord : public CtPangoObject
 {
-    CtPangoText(const Glib::ustring& text, const Glib::ustring& synt_highl) : text(text), synt_highl(synt_highl) {}
+    CtPangoWord(const Glib::ustring& text, const Glib::ustring& synt_highl) : text(text), synt_highl(synt_highl) {}
     Glib::ustring text;
     Glib::ustring synt_highl;
 };
-struct CtPangoLink : public CtPangoText
+struct CtPangoLink : public CtPangoWord
 {
-    CtPangoLink(const Glib::ustring& text, const Glib::ustring& link) : CtPangoText(text, CtConst::RICH_TEXT_ID), link(link) {}
+    CtPangoLink(const Glib::ustring& text, const Glib::ustring& link) : CtPangoWord(text, CtConst::RICH_TEXT_ID), link(link) {}
     Glib::ustring link;
 };
-struct CtPangoDest : public CtPangoText
+struct CtPangoDest : public CtPangoWord
 {
-    CtPangoDest(const Glib::ustring& text, const Glib::ustring& synt_highl, const Glib::ustring& dest) : CtPangoText(text, synt_highl), dest(dest) {}
+    CtPangoDest(const Glib::ustring& text, const Glib::ustring& synt_highl, const Glib::ustring& dest) : CtPangoWord(text, synt_highl), dest(dest) {}
     Glib::ustring dest;
 };
 struct CtPangoWidget : public CtPangoObject
@@ -67,8 +67,8 @@ public:
 
 private:
     std::vector<CtPangoObjectPtr> _pango_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer);
-    CtPangoObjectPtr              _pango_text_serialize(const Gtk::TextIter& start_iter, Gtk::TextIter end_iter, const std::map<std::string_view, std::string> &curr_attributes);
-    CtPangoObjectPtr              _pango_link(const Glib::ustring& pango_text, const Glib::ustring& url);
+    std::shared_ptr<CtPangoWord>  _pango_text_serialize(const Gtk::TextIter& start_iter, Gtk::TextIter end_iter, const std::map<std::string_view, std::string> &curr_attributes);
+    std::shared_ptr<CtPangoWord>  _pango_link(const Glib::ustring& pango_text, const Glib::ustring& url);
 };
 
 
@@ -99,14 +99,14 @@ struct CtPageElement
     int x;
     int y;
 };
-struct CtPageLine : public CtPageElement
+struct CtPageWord : public CtPageElement
 {
-    CtPageLine(int x, int y, Glib::RefPtr<Pango::LayoutLine> layout_line) : CtPageElement(x, y), layout_line(layout_line) {}
+    CtPageWord(int x, int y, Glib::RefPtr<Pango::LayoutLine> layout_line) : CtPageElement(x, y), layout_line(layout_line) {}
     Glib::RefPtr<Pango::LayoutLine> layout_line;
 };
-struct CtPageTagLine : public CtPageElement
+struct CtPageTagWord : public CtPageElement
 {
-    CtPageTagLine(int x, int y, Glib::RefPtr<Pango::LayoutLine> layout_line, const std::string& tag_name, const std::string& tag_attr)
+    CtPageTagWord(int x, int y, Glib::RefPtr<Pango::LayoutLine> layout_line, const std::string& tag_name, const std::string& tag_attr)
         : CtPageElement(x, y), layout_line(layout_line), tag_name(tag_name), tag_attr(tag_attr) {}
     Glib::RefPtr<Pango::LayoutLine> layout_line;
     std::string tag_name;
@@ -157,6 +157,7 @@ class CtPrint
 {
 public:
     const int BOX_OFFSET = 4;
+    const int LINE_SPACE_OFFSET = 2;
 
 public:
     CtPrint();
@@ -170,7 +171,7 @@ private:
     void _on_draw_page_text(const Glib::RefPtr<Gtk::PrintContext>& context, int page_nr, CtPrintData* print_data);
 
 private:
-    void _process_pango_text(CtPrintData* print_data, CtPangoText* text_slot);
+    void _process_pango_text(CtPrintData* print_data, CtPangoWord* text_slot);
     void _process_pango_image(CtPrintData* print_data, CtImage* image, bool& any_image_resized);
     void _process_pango_codebox(CtPrintData* print_data, CtCodebox* codebox);
     void _process_pango_table(CtPrintData* print_data, CtTable* table);
