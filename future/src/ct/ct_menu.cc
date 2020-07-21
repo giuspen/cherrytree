@@ -165,6 +165,8 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_justify_center", "ct_justify-center", _("Justify _Center"), None, _("Justify Center the Current Paragraph"), sigc::mem_fun(*pActions, &CtActions::apply_tag_justify_center)});
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_justify_right", "ct_justify-right", _("Justify _Right"), None, _("Justify Right the Current Paragraph"), sigc::mem_fun(*pActions, &CtActions::apply_tag_justify_right)});
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_justify_fill", "ct_justify-fill", _("Justify _Fill"), None, _("Justify Fill the Current Paragraph"), sigc::mem_fun(*pActions, &CtActions::apply_tag_justify_fill)});
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_indent", "ct_fmt-indent", _("Indent Paragraph"), KB_CONTROL+KB_SHIFT+"greater", _("Indent the Current Paragraph"), sigc::mem_fun(*pActions, &CtActions::apply_tag_indent)});
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_unindent", "ct_fmt-unindent", _("Unindent Paragraph"), KB_CONTROL+KB_SHIFT+"less", _("Unindent the Current Paragraph"), sigc::mem_fun(*pActions, &CtActions::reduce_tag_indent)});
     const char* tree_cat = _("Tree");
     _actions.push_back(CtMenuAction{tree_cat, "tree_add_node", "ct_tree-node-add", _("Add _Node"), KB_CONTROL+"N", _("Add a Node having the same Parent of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_add)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_add_subnode", "ct_tree-subnode-add", _("Add _SubNode"), KB_CONTROL+KB_SHIFT+"N", _("Add a Child Node to the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_child_add)});
@@ -848,6 +850,9 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='fmt_latest'/>
     <menuitem action='fmt_rm'/>
     <separator/>
+    <menuitem action='fmt_unindent'/>
+    <menuitem action='fmt_indent'/>
+    <separator/>
     <menuitem action='fmt_color_fg'/>
     <menuitem action='fmt_color_bg'/>
     <menuitem action='fmt_bold'/>
@@ -1064,6 +1069,8 @@ const char* CtMenu::_get_popup_menu_ui_str_text()
       <menuitem action='handle_num_list'/>
       <menuitem action='handle_todo_list'/>
   </menu>
+  <menuitem action='fmt_unindent'/>
+  <menuitem action='fmt_indent'/>
   <separator/>
   <menu _name='_Insert' image='ct_insert'>
       <menuitem action='handle_image'/>

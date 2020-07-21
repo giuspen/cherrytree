@@ -112,6 +112,7 @@ const inline static gchar* TAG_BACKGROUND          {"background"};
 const inline static gchar* TAG_STYLE               {"style"};
 const inline static gchar* TAG_UNDERLINE           {"underline"};
 const inline static gchar* TAG_STRIKETHROUGH       {"strikethrough"};
+const inline static gchar* TAG_INDENT              {"indent"};
 const inline static gchar* TAG_SCALE               {"scale"};
 const inline static gchar* TAG_FAMILY              {"family"};
 const inline static gchar* TAG_JUSTIFICATION       {"justification"};
@@ -147,6 +148,7 @@ const inline static gchar* STR_STOCK_CT_IMP          {"ct_import_in_cherrytree"}
 const inline static int MAX_FILE_NAME_LEN              {142};
 const inline static int WHITE_SPACE_BETW_PIXB_AND_TEXT {3};
 const inline static int GRID_SLIP_OFFSET               {3};
+const inline static int INDENT_MARGIN                  {50};
 
 const inline static gchar* CHAR_SPACE             {" "};
 const inline static gchar* CHAR_NEWLINE           {"\n"};
@@ -187,7 +189,7 @@ const inline static std::array<std::string_view, 4> WEB_LINK_STARTERS {
     "ftp://"
 };
 
-const inline static std::array<std::string_view, 10> TAG_PROPERTIES {
+const inline static std::array<std::string_view, 11> TAG_PROPERTIES {
     TAG_WEIGHT,
     TAG_FOREGROUND,
     TAG_BACKGROUND,
@@ -197,7 +199,8 @@ const inline static std::array<std::string_view, 10> TAG_PROPERTIES {
     TAG_SCALE,
     TAG_FAMILY,
     TAG_JUSTIFICATION,
-    TAG_LINK
+    TAG_LINK,
+    TAG_INDENT
 };
 
 const inline static std::array<const gchar*, 4> TAG_ALIGNMENTS {
@@ -215,7 +218,7 @@ const inline static gchar* TOOLBAR_VEC_DEFAULT {
     "separator,handle_image,handle_table,handle_codebox,handle_embfile,"
     "handle_link,handle_anchor,separator,fmt_rm,fmt_color_fg,"
     "fmt_color_bg,fmt_bold,fmt_italic,fmt_underline,fmt_strikethrough,"
-    "fmt_h1,fmt_h2,fmt_h3,fmt_small,fmt_superscript,fmt_subscript,fmt_monospace"
+    "fmt_h1,fmt_h2,fmt_h3,fmt_small,fmt_superscript,fmt_subscript,fmt_monospace,fmt_unindent,fmt_indent"
 };
 
 const inline static std::array<const gchar*, 17>  TOOLBAR_VEC_BLACKLIST {

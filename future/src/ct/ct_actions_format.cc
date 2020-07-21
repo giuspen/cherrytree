@@ -100,6 +100,53 @@ void CtActions::apply_tag_strikethrough()
     _apply_tag(CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROP_VAL_TRUE);
 }
 
+//The Indent button was pressed
+void CtActions::apply_tag_indent()
+{
+    if (not _is_curr_node_not_read_only_or_error()) return;
+    CtTextRange range = CtList(_pCtMainWin, _curr_buffer()).get_paragraph_iters();
+    if (not range.iter_start) return;
+
+    //Each time we increase indent, we'll add this much margin to the text
+    int newMargin = _find_previous_indent_margin() + 1;
+    _apply_tag(CtConst::TAG_INDENT, std::to_string(newMargin), range.iter_start, range.iter_end);
+}
+
+//The 'unindent' button was pressed
+void CtActions::reduce_tag_indent()
+{
+    if (not _is_curr_node_not_read_only_or_error()) return;
+    CtTextRange range = CtList(_pCtMainWin, _curr_buffer()).get_paragraph_iters();
+    if (not range.iter_start) return;
+
+    int newMargin = _find_previous_indent_margin() -1;
+    if (newMargin < 1)
+    {
+        // just remove prev indent tag
+        _curr_buffer()->remove_tag_by_name("indent_1", range.iter_start, range.iter_end);
+    }
+    else
+    {
+        _apply_tag(CtConst::TAG_INDENT, std::to_string(newMargin), range.iter_start, range.iter_end);
+    }
+}
+
+//See if there's already an indent tag on the current text, & if so, return its numerical margin.
+//If not, return the default "zero margin" (i.e. the margin shown in the UI when there's no indentation)
+int CtActions::_find_previous_indent_margin()
+{
+    CtTextRange range = CtList(_pCtMainWin, _curr_buffer()).get_paragraph_iters();
+    std::vector<Glib::RefPtr<Gtk::TextTag>> curr_tags = range.iter_start.get_tags();
+    for (auto& curr_tag : curr_tags) {
+            Glib::ustring curr_tag_name = curr_tag->property_name();
+            if(str::startswith(curr_tag_name, "indent_"))
+            {
+                return std::stoi(curr_tag_name.substr(7, std::string::npos));
+            }
+    }
+    return 0;
+}
+
 // The H1 Button was Pressed
 void CtActions::apply_tag_h1()
 {
@@ -315,6 +362,10 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
             {
                 text_buffer->remove_tag(curr_tag, iter_sel_start, iter_sel_end);
                 property_value = ""; // just tag removal
+            }
+            else if (tag_property == CtConst::TAG_INDENT and str::startswith(curr_tag_name, "indent_")){
+                //Remove old tag but don't reset the value (since we're increasing previous indent to a new value, not toggling it off)
+                text_buffer->remove_tag(curr_tag, iter_sel_start, iter_sel_end);
             }
             else if (tag_property == CtConst::TAG_SCALE and str::startswith(curr_tag_name, "scale_"))
             {

@@ -276,6 +276,8 @@ public:
     void apply_tag_italic();
     void apply_tag_underline();
     void apply_tag_strikethrough();
+    void apply_tag_indent();
+    void reduce_tag_indent();
     void apply_tag_h1();
     void apply_tag_h2();
     void apply_tag_h3();
@@ -298,6 +300,7 @@ private:
                                      Gtk::TextIter* pIterBound);
     void          _text_selection_change_case(gchar change_type);
     int           _table_dialog(Glib::ustring title, bool is_insert);
+    int           _find_previous_indent_margin();
 
 public:
     void          image_insert_png(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> pixbuf,

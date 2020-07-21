@@ -232,7 +232,12 @@ const std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string
     {
         bool identified{true};
         rTextTag = Gtk::TextTag::create(tagName);
-        if (CtConst::TAG_WEIGHT == propertyName and CtConst::TAG_PROP_VAL_HEAVY == propertyValue)
+        if (CtConst::TAG_INDENT == propertyName)
+        {
+            rTextTag->property_left_margin() = CtConst::INDENT_MARGIN * std::stoi(propertyValue);
+            rTextTag->property_indent() = 0;
+        }
+        else if (CtConst::TAG_WEIGHT == propertyName and CtConst::TAG_PROP_VAL_HEAVY == propertyValue)
         {
             rTextTag->property_weight() = PANGO_WEIGHT_HEAVY;
         }
