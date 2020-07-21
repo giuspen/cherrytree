@@ -409,7 +409,7 @@ void CtStorageXmlHelper::_add_rich_text_from_xml(Glib::RefPtr<Gsv::Buffer> buffe
     for (const xmlpp::Attribute* pAttribute : xml_element->get_attributes())
     {
         if (CtStrUtil::contains(CtConst::TAG_PROPERTIES, pAttribute->get_name().c_str()))
-            tags.push_back(_pCtMainWin->get_text_tag_name_exist_or_create(pAttribute->get_name(), pAttribute->get_value(), buffer));
+            tags.push_back(_pCtMainWin->get_text_tag_name_exist_or_create(pAttribute->get_name(), pAttribute->get_value()));
     }
     Gtk::TextIter iter = text_insert_pos ? *text_insert_pos : buffer->end();
     if (tags.size() > 0)

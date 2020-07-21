@@ -149,7 +149,6 @@ const inline static int MAX_FILE_NAME_LEN              {142};
 const inline static int WHITE_SPACE_BETW_PIXB_AND_TEXT {3};
 const inline static int GRID_SLIP_OFFSET               {3};
 const inline static int INDENT_MARGIN                  {50};
-const inline static int ZERO_MARGIN                    {7}; //This seems to be the default "zero" left-margin shown in ct
 
 const inline static gchar* CHAR_SPACE             {" "};
 const inline static gchar* CHAR_NEWLINE           {"\n"};

@@ -108,7 +108,7 @@ void CtActions::apply_tag_indent()
     if (not range.iter_start) return;
 
     //Each time we increase indent, we'll add this much margin to the text
-    int newMargin = _find_previous_indent_margin() + CtConst::INDENT_MARGIN;
+    int newMargin = _find_previous_indent_margin() + 1;
     _apply_tag(CtConst::TAG_INDENT, std::to_string(newMargin), range.iter_start, range.iter_end);
 }
 
@@ -119,9 +119,14 @@ void CtActions::reduce_tag_indent()
     CtTextRange range = CtList(_pCtMainWin, _curr_buffer()).get_paragraph_iters();
     if (not range.iter_start) return;
 
-    int prevMargin = _find_previous_indent_margin();
-    if(prevMargin >= CtConst::INDENT_MARGIN){
-        int newMargin = prevMargin - CtConst::INDENT_MARGIN;
+    int newMargin = _find_previous_indent_margin() -1;
+    if (newMargin < 1)
+    {
+        // just remove prev indent tag
+        _curr_buffer()->remove_tag_by_name("indent_1", range.iter_start, range.iter_end);
+    }
+    else
+    {
         _apply_tag(CtConst::TAG_INDENT, std::to_string(newMargin), range.iter_start, range.iter_end);
     }
 }
@@ -139,7 +144,7 @@ int CtActions::_find_previous_indent_margin()
                 return std::stoi(curr_tag_name.substr(7, std::string::npos));
             }
     }
-    return CtConst::ZERO_MARGIN;
+    return 0;
 }
 
 // The H1 Button was Pressed
@@ -379,7 +384,7 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
     }
     if (not property_value.empty())
     {
-        text_buffer->apply_tag_by_name(_pCtMainWin->get_text_tag_name_exist_or_create(tag_property, property_value, text_buffer),
+        text_buffer->apply_tag_by_name(_pCtMainWin->get_text_tag_name_exist_or_create(tag_property, property_value),
                                        text_buffer->get_iter_at_offset(sel_start_offset),
                                        text_buffer->get_iter_at_offset(sel_end_offset));
     }
