@@ -1912,6 +1912,11 @@ MA 02110-1301, USA.
     dialog.set_logo(icon);
     dialog.set_title(_("About CherryTree"));
 
+    dialog.signal_activate_link().connect([](const Glib::ustring& link){
+       fs::open_weblink(link);
+       return true;
+    }, false);
+
     dialog.set_transient_for(parent);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_modal(true);
