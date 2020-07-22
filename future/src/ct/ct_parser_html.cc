@@ -26,6 +26,38 @@
 
 #include <cassert>
 
+namespace {
+std::vector<std::string> split_rednotebook_html_nodes(const std::string& input) 
+{
+    static const auto reg = Glib::Regex::create("<p>[\\S\\s]<span id=\"(?:[12]\\d{3}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01]))\"></span>[\\S\\s]</p>");
+    std::vector<std::string> out = reg->split(input);
+    return out;
+}
+
+std::optional<std::string> match_rednotebook_title_h1(const Glib::ustring& input) 
+{
+    static const auto reg = Glib::Regex::create("<h1>([\\S\\s]*?)<\\/h1>");
+
+    Glib::MatchInfo mi;
+    reg->match(input, mi);
+    if (mi.matches()) {
+        return mi.fetch(1);
+    }
+    return std::nullopt;
+}
+
+
+std::shared_ptr<xmlpp::Document> html_to_xml_doc(const std::string& contents, CtConfig* config) 
+{
+    CtHtml2Xml parser{config};
+    parser.feed(contents);
+    auto doc = std::make_shared<xmlpp::Document>();
+    doc->create_root_node_by_import(parser.doc().get_root_node());
+
+    return doc;
+}
+
+}
 
 void CtHtmlParser::feed(const std::string& html)
 {
@@ -646,4 +678,36 @@ void CtHtml2Xml::_rich_text_save_pending()
     _slot_text = "";
     _slot_style_id = -1;
 }
+
+
+void CtRedNotebookParser::feed(std::istream& in) 
+{
+    std::ostringstream ss;
+    ss << in.rdbuf();
+    _feed_str(ss.str());
+}
+
+
+void CtRedNotebookParser::_feed_str(const std::string& in) 
+{
+    auto pages = split_rednotebook_html_nodes(in);
+    pages.erase(pages.cbegin(), pages.cbegin() + 1);
+
+    for (const auto& page : pages) {
+        auto name = match_rednotebook_title_h1(page);
+        _add_node(name ? std::move(*name) : "?", page);
+    }
+}
+
+
+void CtRedNotebookParser::_add_node(std::string&& name, const std::string& contents) 
+{
+    node new_node{
+        std::move(name), html_to_xml_doc(contents, _ct_config)
+    };
+
+    _nodes.emplace_back(std::move(new_node));
+}
+
+
 
