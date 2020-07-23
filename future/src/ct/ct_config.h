@@ -87,7 +87,7 @@ public:
     int                                         embfileMaxSize{10};
     bool                                        lineWrapping{true};
     bool                                        autoSmartQuotes{true};
-    bool                                        tripleClickParagraph{true};
+    bool                                        tripleClickParagraph{false};
     bool                                        enableSymbolAutoreplace{true};
     bool                                        enableMdFormatting{false};
     int                                         wrappingIndent{-14};

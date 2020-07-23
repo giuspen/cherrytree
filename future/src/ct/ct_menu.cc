@@ -782,7 +782,6 @@ std::vector<std::string> CtMenu::_get_ui_str_toolbars()
     return toolbarUIstr;
 }
 
-
 const char* CtMenu::_get_ui_str_menu()
 {
     return R"MARKUP(
@@ -850,9 +849,6 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='fmt_latest'/>
     <menuitem action='fmt_rm'/>
     <separator/>
-    <menuitem action='fmt_unindent'/>
-    <menuitem action='fmt_indent'/>
-    <separator/>
     <menuitem action='fmt_color_fg'/>
     <menuitem action='fmt_color_bg'/>
     <menuitem action='fmt_bold'/>
@@ -870,6 +866,9 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='handle_bull_list'/>
     <menuitem action='handle_num_list'/>
     <menuitem action='handle_todo_list'/>
+    <separator/>
+    <menuitem action='fmt_indent'/>
+    <menuitem action='fmt_unindent'/>
     <separator/>
     <menuitem action='fmt_justify_left'/>
     <menuitem action='fmt_justify_center'/>
@@ -1041,78 +1040,78 @@ const char* CtMenu::_get_popup_menu_ui_str_text()
   <menuitem action='paste_plain'/>
   <separator/>
   <menu _name='For_matting' image='ct_fmt-txt'>
-      <menuitem action='fmt_latest'/>
-      <menuitem action='fmt_rm'/>
-      <separator/>
-      <menuitem action='fmt_color_fg'/>
-      <menuitem action='fmt_color_bg'/>
-      <menuitem action='fmt_bold'/>
-      <menuitem action='fmt_italic'/>
-      <menuitem action='fmt_underline'/>
-      <menuitem action='fmt_strikethrough'/>
-      <menuitem action='fmt_h1'/>
-      <menuitem action='fmt_h2'/>
-      <menuitem action='fmt_h3'/>
-      <menuitem action='fmt_small'/>
-      <menuitem action='fmt_superscript'/>
-      <menuitem action='fmt_subscript'/>
-      <menuitem action='fmt_monospace'/>
-  </menu>
-  <menu _name='_Justify' image='ct_justify-center'>
-      <menuitem action='fmt_justify_left'/>
-      <menuitem action='fmt_justify_center'/>
-      <menuitem action='fmt_justify_right'/>
-      <menuitem action='fmt_justify_fill'/>
+    <menuitem action='fmt_latest'/>
+    <menuitem action='fmt_rm'/>
+    <separator/>
+    <menuitem action='fmt_color_fg'/>
+    <menuitem action='fmt_color_bg'/>
+    <menuitem action='fmt_bold'/>
+    <menuitem action='fmt_italic'/>
+    <menuitem action='fmt_underline'/>
+    <menuitem action='fmt_strikethrough'/>
+    <menuitem action='fmt_h1'/>
+    <menuitem action='fmt_h2'/>
+    <menuitem action='fmt_h3'/>
+    <menuitem action='fmt_small'/>
+    <menuitem action='fmt_superscript'/>
+    <menuitem action='fmt_subscript'/>
+    <menuitem action='fmt_monospace'/>
   </menu>
   <menu _name='_List' image='ct_list_bulleted'>
-      <menuitem action='handle_bull_list'/>
-      <menuitem action='handle_num_list'/>
-      <menuitem action='handle_todo_list'/>
+    <menuitem action='handle_bull_list'/>
+    <menuitem action='handle_num_list'/>
+    <menuitem action='handle_todo_list'/>
   </menu>
-  <menuitem action='fmt_unindent'/>
   <menuitem action='fmt_indent'/>
+  <menuitem action='fmt_unindent'/>
+  <menu _name='_Justify' image='ct_justify-center'>
+    <menuitem action='fmt_justify_left'/>
+    <menuitem action='fmt_justify_center'/>
+    <menuitem action='fmt_justify_right'/>
+    <menuitem action='fmt_justify_fill'/>
+  </menu>
   <separator/>
   <menu _name='_Insert' image='ct_insert'>
-      <menuitem action='handle_image'/>
-      <menuitem action='handle_table'/>
-      <menuitem action='handle_codebox'/>
-      <menuitem action='handle_embfile'/>
-      <menuitem action='handle_link'/>
-      <menuitem action='handle_anchor'/>
-      <menuitem action='insert_toc'/>
-      <menuitem action='insert_timestamp'/>
-      <menuitem action='insert_horiz_rule'/>
+    <menuitem action='handle_image'/>
+    <menuitem action='handle_table'/>
+    <menuitem action='handle_codebox'/>
+    <menuitem action='handle_embfile'/>
+    <menuitem action='handle_link'/>
+    <menuitem action='handle_anchor'/>
+    <menuitem action='insert_toc'/>
+    <menuitem action='insert_timestamp'/>
+    <menuitem action='insert_horiz_rule'/>
   </menu>
   <menu _name='C_hange Case' image='ct_case_toggle'>
-      <menuitem action='case_down'/>
-      <menuitem action='case_up'/>
-      <menuitem action='case_tggl'/>
+    <menuitem action='case_down'/>
+    <menuitem action='case_up'/>
+    <menuitem action='case_tggl'/>
   </menu>
   <menu _name='_Row' image='ct_edit'>
-      <menuitem action='cut_row'/>
-      <menuitem action='copy_row'/>
-      <menuitem action='del_row'/>
-      <menuitem action='dup_row'/>
-      <menuitem action='mv_up_row'/>
-      <menuitem action='mv_down_row'/>
+    <menuitem action='cut_row'/>
+    <menuitem action='copy_row'/>
+    <menuitem action='del_row'/>
+    <menuitem action='dup_row'/>
+    <menuitem action='mv_up_row'/>
+    <menuitem action='mv_down_row'/>
   </menu>
   <menuitem action='strip_trail_spaces'/>
   <separator/>
   <menu _name='_Search' image='ct_find'>
-      <menuitem action='find_in_node'/>
-      <menuitem action='find_in_allnodes'/>
-      <menuitem action='find_in_node_n_sub'/>
-      <menuitem action='find_in_node_names'/>
-      <menuitem action='find_iter_fw'/>
-      <menuitem action='find_iter_bw'/>
+    <menuitem action='find_in_node'/>
+    <menuitem action='find_in_allnodes'/>
+    <menuitem action='find_in_node_n_sub'/>
+    <menuitem action='find_in_node_names'/>
+    <menuitem action='find_iter_fw'/>
+    <menuitem action='find_iter_bw'/>
   </menu>
   <menu _name='_Replace' image='ct_find_replace'>
-      <menuitem action='replace_in_node'/>
-      <menuitem action='replace_in_allnodes'/>
-      <menuitem action='replace_in_node_n_sub'/>
-      <menuitem action='replace_in_node_names'/>
-      <menuitem action='replace_iter_fw'/>
-      <menuitem action='find_iter_bw'/>
+    <menuitem action='replace_in_node'/>
+    <menuitem action='replace_in_allnodes'/>
+    <menuitem action='replace_in_node_n_sub'/>
+    <menuitem action='replace_in_node_names'/>
+    <menuitem action='replace_iter_fw'/>
+    <menuitem action='find_iter_bw'/>
   </menu>
 </popup>
     )MARKUP";
@@ -1128,58 +1127,57 @@ const char* CtMenu::_get_popup_menu_ui_str_code()
   <separator/>
   <menuitem action='exec_code'/>
   <menu _name='_Insert' image='ct_insert'>
-      <menuitem action='insert_timestamp'/>
-      <menuitem action='insert_horiz_rule'/>
+    <menuitem action='insert_timestamp'/>
+    <menuitem action='insert_horiz_rule'/>
   </menu>
   <menuitem action='strip_trail_spaces'/>
   <menu _name='C_hange Case' image='ct_case_toggle'>
-      <menuitem action='case_down'/>
-      <menuitem action='case_up'/>
-      <menuitem action='case_tggl'/>
+    <menuitem action='case_down'/>
+    <menuitem action='case_up'/>
+    <menuitem action='case_tggl'/>
   </menu>
   <menu _name='_Row' image='ct_edit'>
-      <menuitem action='cut_row'/>
-      <menuitem action='copy_row'/>
-      <menuitem action='del_row'/>
-      <menuitem action='dup_row'/>
-      <menuitem action='mv_up_row'/>
-      <menuitem action='mv_down_row'/>
+    <menuitem action='cut_row'/>
+    <menuitem action='copy_row'/>
+    <menuitem action='del_row'/>
+    <menuitem action='dup_row'/>
+    <menuitem action='mv_up_row'/>
+    <menuitem action='mv_down_row'/>
   </menu>
   <separator/>
   <menu _name='_Search' image='ct_find'>
-      <menuitem action='find_in_node'/>
-      <menuitem action='find_in_allnodes'/>
-      <menuitem action='find_in_node_n_sub'/>
-      <menuitem action='find_in_node_names'/>
-      <menuitem action='find_iter_fw'/>
-      <menuitem action='find_iter_bw'/>
+    <menuitem action='find_in_node'/>
+    <menuitem action='find_in_allnodes'/>
+    <menuitem action='find_in_node_n_sub'/>
+    <menuitem action='find_in_node_names'/>
+    <menuitem action='find_iter_fw'/>
+    <menuitem action='find_iter_bw'/>
   </menu>
   <menu _name='_Replace' image='ct_find_replace'>
-      <menuitem action='replace_in_node'/>
-      <menuitem action='replace_in_allnodes'/>
-      <menuitem action='replace_in_node_n_sub'/>
-      <menuitem action='replace_in_node_names'/>
-      <menuitem action='replace_iter_fw'/>
-      <menuitem action='find_iter_bw'/>
+    <menuitem action='replace_in_node'/>
+    <menuitem action='replace_in_allnodes'/>
+    <menuitem action='replace_in_node_n_sub'/>
+    <menuitem action='replace_in_node_names'/>
+    <menuitem action='replace_iter_fw'/>
+    <menuitem action='find_iter_bw'/>
   </menu>
 </popup>
     )MARKUP";
 }
 
-
 const char* CtMenu::_get_popup_menu_ui_str_image()
 {
     return R"MARKUP(
 <popup>
-   <menuitem action='img_cut'/>
-   <menuitem action='img_copy'/>
-   <menuitem action='img_del'/>
-   <separator/>
-   <menuitem action='img_edit'/>
-   <menuitem action='img_save'/>
-   <separator/>
-   <menuitem action='img_link_edit'/>
-   <menuitem action='img_link_dismiss'/>
+  <menuitem action='img_cut'/>
+  <menuitem action='img_copy'/>
+  <menuitem action='img_del'/>
+  <separator/>
+  <menuitem action='img_edit'/>
+  <menuitem action='img_save'/>
+  <separator/>
+  <menuitem action='img_link_edit'/>
+  <menuitem action='img_link_dismiss'/>
 </popup>
     )MARKUP";
 }

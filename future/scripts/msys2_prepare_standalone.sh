@@ -12,8 +12,15 @@ GIT_CT_LANGUAGE_SPECS_FOLDER="${GIT_CT_FOLDER}/future/language-specs"
 GIT_CT_LICENSE="${GIT_CT_FOLDER}/license.txt"
 GIT_CT_HUNSPELL="${GIT_CT_FOLDER}/windows"
 GIT_CT_CONFIG_H="${GIT_CT_FOLDER}/future/config.h"
-CT_VERSION_NUM="$(cat ${GIT_CT_CONFIG_H} | grep PACKAGE_VERSION | awk '{print substr($3, 2, length($3)-2)}')"
 
+
+echo "clean and build..."
+cd ${GIT_CT_FUTURE}
+git clean -dfx
+./build.sh
+
+
+CT_VERSION_NUM="$(cat ${GIT_CT_CONFIG_H} | grep PACKAGE_VERSION | awk '{print substr($3, 2, length($3)-2)}')"
 NEW_MSYS2_FOLDER="C:/Users/${USER}/Desktop/cherrytree-msys2"
 NEW_ROOT_FOLDER="C:/Users/${USER}/Desktop/cherrytree_${CT_VERSION_NUM}_win64_portable"
 NEW_MINGW64_FOLDER="${NEW_ROOT_FOLDER}/mingw64"
@@ -21,12 +28,6 @@ NEW_ETC_GTK_FOLDER="${NEW_ROOT_FOLDER}/etc/gtk-3.0"
 NEW_ETC_GTK_SETTINGS_INI="${NEW_ETC_GTK_FOLDER}/settings.ini"
 NEW_HUNSPELL_FOLDER="${NEW_MINGW64_FOLDER}/share/hunspell"
 NEW_CHERRYTREE_SHARE="${NEW_MINGW64_FOLDER}/usr/share/cherrytree"
-
-
-echo "clean and build..."
-cd ${GIT_CT_FUTURE}
-git clean -dfx
-./build.sh
 
 
 echo "cleanup old runs..."
