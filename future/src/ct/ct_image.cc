@@ -283,7 +283,7 @@ CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
                                const double& timeSeconds,
                                const int charOffset,
                                const std::string& justification)
- : CtImage(pCtMainWin, "ct_file_icon", pCtMainWin->get_ct_config()->embfileSize, charOffset, justification),
+ : CtImage(pCtMainWin, _get_icon_for_file(fileName.string()).c_str(), pCtMainWin->get_ct_config()->embfileSize, charOffset, justification),
    _fileName(fileName),
    _rawBlob(rawBlob),
    _timeSeconds(timeSeconds)
@@ -291,6 +291,33 @@ CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageEmbFile::_on_button_press_event), false);
     update_tooltip();
     update_label_widget();
+}
+
+const std::string CtImageEmbFile::_get_icon_for_file(const std::string& filename)
+{
+    //default icon
+    std::string result = "ct_file_icon";
+    char* content_type = g_content_type_guess(filename.c_str(), NULL, 0, NULL);
+    if (content_type != NULL)
+    {
+        char* mime_type = g_content_type_get_mime_type(content_type);
+        g_free(content_type);
+
+        if(mime_type != NULL)
+        {
+            char* icon_name = g_content_type_get_generic_icon_name(mime_type);
+            g_free(mime_type);
+
+            if(icon_name != NULL)
+            {
+                //Use the default icon for 'generic' filetypes
+                if(strcmp(icon_name,"application-x-generic") != 0)
+                    result = icon_name;
+                g_free(icon_name);
+            }
+        }
+    }
+    return result;
 }
 
 void CtImageEmbFile::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*)

@@ -141,6 +141,7 @@ public:
 
 private:
     bool _on_button_press_event(GdkEventButton* event);
+    const std::string _get_icon_for_file(const std::string& filename);
 
 protected:
     fs::path      _fileName;
