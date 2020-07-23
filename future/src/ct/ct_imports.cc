@@ -634,9 +634,35 @@ std::unique_ptr<ct_imported_node> generate_leo_root_node(std::vector<CtLeoParser
 
     return to_ct_node(dummy_node, path);
 }
+
+std::unique_ptr<ct_imported_node> node_to_ct_node(const CtRedNotebookParser::node& node, const fs::path& path) 
+{
+    auto ct_node = std::make_unique<ct_imported_node>(path, node.name);
+
+    if (!node.doc) {
+        ct_node->xml_content = std::make_shared<xmlpp::Document>();
+        create_root_plaintext_text_el(*ct_node->xml_content, "");
+    } else {
+        ct_node->xml_content = node.doc;    
+    }
+    
+    return ct_node;
 }
 
-std::unique_ptr<ct_imported_node> CtLeoImporter::import_file(const fs::path& path) {
+std::unique_ptr<ct_imported_node> generate_ct_node_hierarchy(const std::vector<CtRedNotebookParser::node>& nodes, const fs::path& path) 
+{
+    CtRedNotebookParser::node root { "RedNotebook Root" };
+    auto ct_root = node_to_ct_node(root, path);
+
+    for (const auto& node : nodes) {
+        ct_root->children.emplace_back(node_to_ct_node(node, path));
+    }
+    return ct_root;
+}
+}
+
+std::unique_ptr<ct_imported_node> CtLeoImporter::import_file(const fs::path& path) 
+{
 
     std::ifstream in{path.string()};
     if (!in) {
@@ -649,3 +675,25 @@ std::unique_ptr<ct_imported_node> CtLeoImporter::import_file(const fs::path& pat
 
     return generate_leo_root_node(parser.nodes(), path);
 }
+
+std::unique_ptr<ct_imported_node> CtRedNotebookImporter::import_file(const fs::path& path) 
+{
+    std::ifstream in{path.string()};
+    if (!in) {
+        throw std::runtime_error("Failed to initalise import file");
+    }
+
+    return _parse_input(in, path);    
+}
+
+std::unique_ptr<ct_imported_node> CtRedNotebookImporter::_parse_input(std::ifstream& infile, const fs::path& path) 
+{
+    CtRedNotebookParser p{_ct_config};
+
+    p.feed(infile);
+    const auto& nodes = p.nodes();
+    
+    return generate_ct_node_hierarchy(nodes, path);
+}
+
+

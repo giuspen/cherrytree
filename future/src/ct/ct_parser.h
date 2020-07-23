@@ -299,7 +299,6 @@ private:
     void _reset_and_refeed();
 };
 
-
 class CtHtmlParser
 {
 public:
@@ -324,7 +323,7 @@ public:
     static std::list<html_attr> char2list_attrs(const char** atts);
 };
 
-class CtHtml2Xml : public CtHtmlParser
+class CtHtml2Xml: public CtHtmlParser
 {
 private:
     enum class ParserState {WAIT_BODY, PARSING_BODY, PARSING_TABLE};
@@ -500,3 +499,27 @@ public:
 private:
     std::vector<leo_node> _leo_nodes;
 };
+
+
+class CtRedNotebookParser: public CtParserInterface {
+
+public:
+    struct node {
+        std::string name;
+        std::shared_ptr<xmlpp::Document> doc = nullptr;
+    };
+    explicit CtRedNotebookParser(CtConfig* config) : _ct_config{config} {}
+
+    void feed(std::istream& in) override;
+
+    const std::vector<node>& nodes() const { return _nodes; }
+private:
+    void _feed_str(const std::string& in);
+    void _add_node(std::string&& name, const std::string& contents);
+
+
+    bool _in_p_tag = false;   
+    std::vector<node> _nodes;
+    CtConfig* _ct_config;
+};
+
