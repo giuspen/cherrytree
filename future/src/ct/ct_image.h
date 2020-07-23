@@ -142,6 +142,7 @@ public:
 private:
     bool _on_button_press_event(GdkEventButton* event);
     const std::string _get_icon_for_file(const std::string& filename);
+    Glib::RefPtr<Gdk::Pixbuf> _get_icon_pixbuf_for_file(const std::string& filename, int size);
 
 protected:
     fs::path      _fileName;

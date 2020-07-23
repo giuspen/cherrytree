@@ -283,7 +283,8 @@ CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
                                const double& timeSeconds,
                                const int charOffset,
                                const std::string& justification)
- : CtImage(pCtMainWin, _get_icon_for_file(fileName.string()).c_str(), pCtMainWin->get_ct_config()->embfileSize, charOffset, justification),
+ : CtImage(pCtMainWin, _get_icon_pixbuf_for_file(fileName.string(), pCtMainWin->get_ct_config()->embfileSize), charOffset, justification),
+ //: CtImage(pCtMainWin, _get_icon_for_file(fileName.string()).c_str(), pCtMainWin->get_ct_config()->embfileSize, charOffset, justification),
    _fileName(fileName),
    _rawBlob(rawBlob),
    _timeSeconds(timeSeconds)
@@ -293,6 +294,31 @@ CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
     update_label_widget();
 }
 
+//For use with the version of the CtImage ctor that takes a Pixbuf.  This produces different icons than the version below (I prefer this one).
+Glib::RefPtr<Gdk::Pixbuf> CtImageEmbFile::_get_icon_pixbuf_for_file(const std::string& filename, int size)
+{
+    char* content_type = g_content_type_guess(filename.c_str(), NULL, 0, NULL);
+    char* mime_type = g_content_type_get_mime_type(content_type);
+    g_free(content_type);
+
+    GIcon* icon = g_content_type_get_icon(mime_type);
+    g_free(mime_type);
+
+    const gchar* const * names = g_themed_icon_get_names(G_THEMED_ICON(icon));
+
+    //Doesn't need to be freed
+    GtkIconTheme* icon_theme = gtk_icon_theme_get_default();
+
+    GtkIconInfo* icon_info = gtk_icon_theme_choose_icon(icon_theme, (const gchar**)names, 32, (GtkIconLookupFlags)0);
+    const gchar* icon_filename = gtk_icon_info_get_filename(icon_info);
+    Glib::RefPtr<Gdk::Pixbuf> pix_buf = Gdk::Pixbuf::create_from_file(icon_filename, size, size, true);
+    gtk_icon_info_free (icon_info);
+    g_object_unref(icon);
+
+    return pix_buf;
+}
+
+//Alternative for the CtImage ctor that takes char* stockImage.  This produces different icons than the version above.
 const std::string CtImageEmbFile::_get_icon_for_file(const std::string& filename)
 {
     //default icon
