@@ -755,7 +755,7 @@ void CtMainWin::menu_set_items_recent_documents()
         {
             if (file_open(filepath, ""))
             {
-                _pCtConfig->recentDocsFilepaths.move_or_push_front(Glib::canonicalize_filename(filepath));
+                _pCtConfig->recentDocsFilepaths.move_or_push_front(fs::canonical(filepath));
                 menu_set_items_recent_documents();
             }
         }
@@ -763,7 +763,7 @@ void CtMainWin::menu_set_items_recent_documents()
         {
             g_autofree gchar* title = g_strdup_printf(_("The Document %s was Not Found"), filepath.c_str());
             CtDialogs::error_dialog(Glib::ustring{title}, *this);
-            _pCtConfig->recentDocsFilepaths.move_or_push_back(Glib::canonicalize_filename(filepath));
+            _pCtConfig->recentDocsFilepaths.move_or_push_back(fs::canonical(filepath));
             menu_set_items_recent_documents();
         }
     };

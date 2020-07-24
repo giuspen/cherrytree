@@ -30,6 +30,31 @@
 #include <gtkmm/treeview.h>
 #include <gtkmm/cellrendererpixbuf.h>
 #include <gtkmm/colorchooserdialog.h>
+#include <glibmm-2.4/glibmm/refptr.h>
+
+namespace {
+#if ((GTKMM_VERSION_MAJOR == 3 && GTKMM_VERSION_MINOR > 24) || GTKMM_VERSION_MAJOR >= 4) // FileChooserNative is since gtkmm 3.24
+#define CT_GTKMM_NATIVE_FILECHOOSER 1
+using gtk_file_chooser_t = Gtk::FileChooserNative;
+#else
+// Native file chooser not supported
+#define CT_GTKMM_NATIVE_FILECHOOSER 0
+using gtk_file_chooser_t = Gtk::FileChooserDialog;
+#warning "Your version of gtkmm does not support native file choosers, falling back to FileChooserDialog (see https://github.com/giuspen/cherrytree/issues/1000)"
+#endif
+
+Glib::RefPtr<gtk_file_chooser_t> create_filechooser_dialog(const Glib::ustring& title, Gtk::Window& parent, Gtk::FileChooserAction action) {
+#if !CT_GTKMM_NATIVE_FILECHOOSER
+    // Native file chooser not supported
+    #warning Native file chooser not avaliable on your gtkmm version
+    return Glib::RefPtr<gtk_file_chooser_t>{new Gtk::FileChooserDialog(parent, title, action)};
+#else
+    return gtk_file_chooser_t::create(title, parent, action);
+#endif
+}
+
+}
+
 
 CtDialogTextEntry::CtDialogTextEntry(const Glib::ustring& title,
                                      const bool forPassword,
@@ -1073,7 +1098,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
 // The Select file dialog, Returns the retrieved filepath or None
 std::string CtDialogs::file_select_dialog(const file_select_args& args)
 {
-    auto chooser = Gtk::FileChooserNative::create(_("Select File"), *args.pParentWin, Gtk::FILE_CHOOSER_ACTION_OPEN);
+    auto chooser = create_filechooser_dialog(_("Select File"), *args.pParentWin, Gtk::FILE_CHOOSER_ACTION_OPEN);
     if (args.curr_folder.empty() || !fs::is_directory(args.curr_folder))
     {
         chooser->set_current_folder(g_get_home_dir());
@@ -1098,7 +1123,7 @@ std::string CtDialogs::file_select_dialog(const file_select_args& args)
 // The Select folder dialog, returns the retrieved folderpath or None
 std::string CtDialogs::folder_select_dialog(const std::string& curr_folder, Gtk::Window* pParentWin)
 {
-    auto chooser = Gtk::FileChooserNative::create(_("Select Folder"), *pParentWin, Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
+    auto chooser = create_filechooser_dialog(_("Select Folder"), *pParentWin, Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
     if (curr_folder.empty() || !Glib::file_test(curr_folder, Glib::FILE_TEST_IS_DIR))
     {
         chooser->set_current_folder(g_get_home_dir());
@@ -1113,7 +1138,7 @@ std::string CtDialogs::folder_select_dialog(const std::string& curr_folder, Gtk:
 // The Save file as dialog, Returns the retrieved filepath or None
 std::string CtDialogs::file_save_as_dialog(const file_select_args& args)
 {
-    auto chooser = Gtk::FileChooserNative::create(_("Save File as"), *args.pParentWin, Gtk::FILE_CHOOSER_ACTION_SAVE);
+    auto chooser = create_filechooser_dialog(_("Save File as"), *args.pParentWin, Gtk::FILE_CHOOSER_ACTION_SAVE);
     chooser->set_do_overwrite_confirmation(true);
     if (args.curr_folder.empty() || !fs::is_directory(args.curr_folder))
     {

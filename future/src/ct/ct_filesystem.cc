@@ -33,6 +33,24 @@
 #include "ct_logging.h"
 #include "ct_config.h"
 
+#if GLIBMM_MAJOR_VERSION <= 2 && GLIBMM_MINOR_VERSION <= 64 // canonicalize_filename is since 2.64
+#if __has_include(<filesystem>)
+
+#include <filesystem>
+
+#define CT_GLIB_HAS_CANNONICAL_FILENAME 0
+
+#else
+
+#error glibmm 2.64+ is required on systems which to not support std::filesystem (you may be on apple, see: #916, or using llvm < 9)
+
+#endif
+
+
+#else
+#define CT_GLIB_CANNONICAL_FILENAME 1
+#endif
+
 namespace fs {
 
 bool remove(const fs::path& path2rm)
@@ -233,8 +251,8 @@ fs::path get_cherrytree_datadir()
 
 fs::path get_cherrytree_localedir()
 {
-    std::string sources_po_dir = Glib::canonicalize_filename(Glib::build_filename(_CMAKE_SOURCE_DIR, "po"));
-    if (Glib::file_test(sources_po_dir, Glib::FILE_TEST_IS_DIR)) {
+    fs::path sources_po_dir = fs::canonical(Glib::build_filename(_CMAKE_SOURCE_DIR, "po"));
+    if (fs::is_directory(sources_po_dir)) {
         // we're running from the build sources
         return sources_po_dir;
     }
@@ -323,7 +341,11 @@ CtDocEncrypt get_doc_encrypt(const fs::path& filename)
 
 path canonical(const path& path)
 {
+#if !CT_GLIB_HAS_CANNONICAL_FILENAME 
+    return std::filesystem::canonical(path.string()).string();
+#else
     return Glib::canonicalize_filename(path.string());
+#endif
 }
 
 path path::extension() const
