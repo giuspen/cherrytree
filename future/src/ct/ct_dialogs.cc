@@ -30,7 +30,7 @@
 #include <gtkmm/treeview.h>
 #include <gtkmm/cellrendererpixbuf.h>
 #include <gtkmm/colorchooserdialog.h>
-#include <glibmm-2.4/glibmm/refptr.h>
+
 
 namespace {
 #if ((GTKMM_VERSION_MAJOR == 3 && GTKMM_VERSION_MINOR > 24) || GTKMM_VERSION_MAJOR >= 4) // FileChooserNative is since gtkmm 3.24
