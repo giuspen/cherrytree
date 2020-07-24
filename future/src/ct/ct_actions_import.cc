@@ -165,8 +165,13 @@ void CtActions::import_nodes_from_rednotebook_html() noexcept {
     }
 }
 
+void CtActions::import_nodes_from_notecase_html() noexcept {
+    CtNoteCaseHTMLImporter importer{_pCtMainWin->get_ct_config()};
+    _import_from_file(&importer);
+}
 
-void CtActions::_import_from_file(CtImporterInterface* importer)
+
+void CtActions::_import_from_file(CtImporterInterface* importer) noexcept
 {
     CtDialogs::file_select_args args(_pCtMainWin);
     args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImport;
@@ -188,7 +193,7 @@ void CtActions::_import_from_file(CtImporterInterface* importer)
     }
 }
 
-void CtActions::_import_from_dir(CtImporterInterface* importer, const std::string& custom_dir)
+void CtActions::_import_from_dir(CtImporterInterface* importer, const std::string& custom_dir) noexcept
 {
     std::string start_dir = custom_dir.empty() ? _pCtMainWin->get_ct_config()->pickDirImport : custom_dir;
     std::string import_dir = CtDialogs::folder_select_dialog(start_dir, _pCtMainWin);

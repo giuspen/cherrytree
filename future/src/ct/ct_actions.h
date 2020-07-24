@@ -403,8 +403,8 @@ public:
 
 private:
     // helper for import actions
-    void _import_from_file(CtImporterInterface* importer);
-    void _import_from_dir(CtImporterInterface* importer, const std::string& custom_dir);
+    void _import_from_file(CtImporterInterface* importer) noexcept;
+    void _import_from_dir(CtImporterInterface* importer, const std::string& custom_dir) noexcept;
     void _create_imported_nodes(ct_imported_node* imported_nodes);
 
 public:
@@ -425,6 +425,7 @@ public:
     void import_nodes_from_mempad_file() noexcept;
     void import_nodes_from_leo_file() noexcept;
     void import_nodes_from_rednotebook_html() noexcept;
+    void import_nodes_from_notecase_html() noexcept;
 
 private:
     // helper for export actions

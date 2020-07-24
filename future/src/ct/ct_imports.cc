@@ -649,9 +649,9 @@ std::unique_ptr<ct_imported_node> node_to_ct_node(const CtRedNotebookParser::nod
     return ct_node;
 }
 
-std::unique_ptr<ct_imported_node> generate_ct_node_hierarchy(const std::vector<CtRedNotebookParser::node>& nodes, const fs::path& path) 
+std::unique_ptr<ct_imported_node> generate_ct_node_hierarchy(std::string&& root_name, const std::vector<CtRedNotebookParser::node>& nodes, const fs::path& path) 
 {
-    CtRedNotebookParser::node root { "RedNotebook Root" };
+    CtRedNotebookParser::node root { std::move(root_name) };
     auto ct_root = node_to_ct_node(root, path);
 
     for (const auto& node : nodes) {
@@ -693,7 +693,17 @@ std::unique_ptr<ct_imported_node> CtRedNotebookImporter::_parse_input(std::ifstr
     p.feed(infile);
     const auto& nodes = p.nodes();
     
-    return generate_ct_node_hierarchy(nodes, path);
+    return generate_ct_node_hierarchy("RedNotebook Root", nodes, path);
 }
 
+std::unique_ptr<ct_imported_node> CtNoteCaseHTMLImporter::import_file(const fs::path& path) {
+    std::ifstream in{path.string()};
+    if (!in) {
+        throw std::runtime_error("Failed to setup input file for reading");
+    }
+
+    CtNoteCaseHTMLParser parser{_ct_config};
+    parser.feed(in);
+    return generate_ct_node_hierarchy("NoteCase Root", parser.nodes(), path);
+}
 
