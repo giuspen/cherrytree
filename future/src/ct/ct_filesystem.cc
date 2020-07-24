@@ -342,7 +342,7 @@ CtDocEncrypt get_doc_encrypt(const fs::path& filename)
 path canonical(const path& path)
 {
 #if !CT_GLIB_HAS_CANNONICAL_FILENAME 
-    return std::filesystem::canonical(path.string()).string();
+    return std::filesystem::weakly_canonical(path.string()).string();
 #else
     return Glib::canonicalize_filename(path.string());
 #endif
