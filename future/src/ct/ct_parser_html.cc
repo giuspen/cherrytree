@@ -46,34 +46,9 @@ std::optional<std::string> match_rednotebook_title_h1(const Glib::ustring& input
     return std::nullopt;
 }
 
-struct notecase_split_output {
-    std::string note_name;
-    std::string note_contents;
-};
 
-template<typename ITER>
-std::vector<notecase_split_output> handle_notecase_split_strings(ITER begin, ITER end) {
-    std::vector<notecase_split_output> out;
-    while(begin != end) {
-        notecase_split_output node{*begin, *(begin + 1)};
-        out.emplace_back(std::move(node));
-        if ((begin + 1) == end) break;
-        begin += 2;
-    }
-    return out;
-}
 
-std::vector<notecase_split_output> split_notecase_html_nodes(const std::string& input) 
-{   
-    /*
-     * Each "note" is seperated by a DT with font weight as bold and then a link tag with a 22 length string
-     * (I assume the string is some sort of hash since it is just a jumble of characters, I guess it is used 
-     * as anchor points for links). Links are not handled because they require a pro version.
-     */
-    static const auto reg = Glib::Regex::create("<DT style=\"font-weight: bold;\"><A name=\"[a-z|A-Z|0-9]{22}\"></A>([\\S\\s]*?)</DT>");
-    std::vector<std::string> split_strs = reg->split(input);
-    return handle_notecase_split_strings(split_strs.cbegin() + 1, split_strs.cend());
-}
+
 
 std::shared_ptr<xmlpp::Document> html_to_xml_doc(const std::string& contents, CtConfig* config) 
 {
@@ -83,28 +58,6 @@ std::shared_ptr<xmlpp::Document> html_to_xml_doc(const std::string& contents, Ct
     doc->create_root_node_by_import(parser.doc().get_root_node());
 
     return doc;
-}
-
-CtNoteCaseHTMLParser::node generate_notecase_node(const notecase_split_output& split_node, CtConfig* config) {
-    CtHtml2Xml parser{config};
-    parser.feed(split_node.note_contents);
-
-    CtNoteCaseHTMLParser::node nout{split_node.note_name, std::make_shared<xmlpp::Document>()};
-    nout.doc->create_root_node_by_import(parser.doc().get_root_node());
-
-    return nout;
-}
-
-template<typename ITER>
-std::vector<CtNoteCaseHTMLParser::node> generate_notecase_nodes(ITER begin, ITER end, CtConfig* config) 
-{
-    static_assert(std::is_same_v<typename std::iterator_traits<ITER>::value_type, notecase_split_output>, "generate_notecase_nodes provided with an invalid iterator");
-
-    std::vector<CtNoteCaseHTMLParser::node> nodes;
-    for(; begin != end; ++begin) {
-        nodes.emplace_back(generate_notecase_node(*begin, config));
-    }
-    return nodes;
 }
 
 }
@@ -768,11 +721,27 @@ void CtNoteCaseHTMLParser::feed(std::istream& input) {
 
 
 void CtNoteCaseHTMLParser::_feed_str(const std::string& str) {
-    auto split_nodes = split_notecase_html_nodes(str);
-    std::vector<node> new_nodes = generate_notecase_nodes(std::make_move_iterator(split_nodes.begin()), 
+    auto split_nodes = _split_notecase_html_nodes(str);
+    std::vector<node> new_nodes = _generate_notecase_nodes(std::make_move_iterator(split_nodes.begin()), 
                                                         std::make_move_iterator(split_nodes.end()), _ct_config);
     _nodes.insert(_nodes.cend(), std::make_move_iterator(new_nodes.cbegin()), std::make_move_iterator(new_nodes.cend()));
 }
 
 
+std::vector<CtNoteCaseHTMLParser::notecase_split_output> CtNoteCaseHTMLParser::_split_notecase_html_nodes(const std::string& input) 
+{   
+    /*
+     * Each "note" is seperated by a DT with font weight as bold and then a link tag with a 22 length string
+     * (I assume the string is some sort of hash since it is just a jumble of characters, I guess it is used 
+     * as anchor points for links). Links are not handled because they require a pro version.
+     */
+    static const auto reg = Glib::Regex::create("<DT style=\"font-weight: bold;\"><A name=\"[a-z|A-Z|0-9]{22}\"></A>([\\S\\s]*?)</DT>");
+    std::vector<std::string> split_strs = reg->split(input);
+    return _handle_notecase_split_strings(split_strs.cbegin() + 1, split_strs.cend());
+}
+
+CtNoteCaseHTMLParser::node CtNoteCaseHTMLParser::_generate_notecase_node(const notecase_split_output& split_node, CtConfig* config) {
+    CtNoteCaseHTMLParser::node nout{split_node.note_name, html_to_xml_doc(split_node.note_contents, config)};
+    return nout;
+}
 
