@@ -37,13 +37,19 @@
 #if __has_include(<filesystem>)
 
 #include <filesystem>
+#define CT_USE_FS_STD 1
 
 #else
 
 #error "glibmm 2.64+ is required on systems which to not support std::filesystem (you may be on apple, see: https://github.com/giuspen/cherrytree/issues/916, or using llvm < 9)"
 
-#endif
-#endif
+#endif // __has_include(<filesystem>)
+
+#else
+
+#define CT_USE_FS_STD 0
+
+#endif // GLIBMM_MAJOR_VERSION <= 2 && GLIBMM_MINOR_VERSION < 64
 
 namespace fs {
 
@@ -335,7 +341,7 @@ CtDocEncrypt get_doc_encrypt(const fs::path& filename)
 
 path canonical(const path& path)
 {
-#if __cpp_lib_filesystem // std::filesystem feature test macro
+#if CT_USE_FS_STD
     return std::filesystem::weakly_canonical(path.string()).string();
 #else
     return Glib::canonicalize_filename(path.string());
