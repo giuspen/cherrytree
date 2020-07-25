@@ -33,7 +33,7 @@
 #include "ct_logging.h"
 #include "ct_config.h"
 
-#if GLIBMM_MAJOR_VERSION <= 2 && GLIBMM_MINOR_VERSION <= 64 // canonicalize_filename is since 2.64
+#if GLIBMM_MAJOR_VERSION <= 2 && GLIBMM_MINOR_VERSION < 64 // canonicalize_filename is since 2.64
 #if __has_include(<filesystem>)
 
 #include <filesystem>
@@ -42,7 +42,7 @@
 
 #else
 
-#error glibmm 2.64+ is required on systems which to not support std::filesystem (you may be on apple, see: #916, or using llvm < 9)
+#error "glibmm 2.64+ is required on systems which to not support std::filesystem (you may be on apple, see: https://github.com/giuspen/cherrytree/issues/916, or using llvm < 9)"
 
 #endif
 
