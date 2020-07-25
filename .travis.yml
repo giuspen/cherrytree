@@ -29,6 +29,11 @@ before_install:
         sudo apt install build-essential libgtkmm-3.0-dev xvfb
         sudo apt install libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev
         sudo apt install libcpputest-dev gettext python3-lxml libgspell-1-dev libcurl4-openssl-dev
+        
+        sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+        sudo apt update
+        sudo apt install gcc-9 g++-9 -y
+        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 60 --slave /usr/bin/g++ g++ /usr/bin/g++-9 
         ;;
       windows)
         [[ ! -f C:/tools/msys64/msys2_shell.cmd ]] && rm -rf C:/tools/msys64
