@@ -38,17 +38,11 @@
 
 #include <filesystem>
 
-#define CT_GLIB_HAS_CANNONICAL_FILENAME 0
-
 #else
 
 #error "glibmm 2.64+ is required on systems which to not support std::filesystem (you may be on apple, see: https://github.com/giuspen/cherrytree/issues/916, or using llvm < 9)"
 
 #endif
-
-
-#else
-#define CT_GLIB_CANNONICAL_FILENAME 1
 #endif
 
 namespace fs {
@@ -341,7 +335,7 @@ CtDocEncrypt get_doc_encrypt(const fs::path& filename)
 
 path canonical(const path& path)
 {
-#if !CT_GLIB_HAS_CANNONICAL_FILENAME 
+#if __cpp_lib_filesystem // std::filesystem feature test macro
     return std::filesystem::weakly_canonical(path.string()).string();
 #else
     return Glib::canonicalize_filename(path.string());
