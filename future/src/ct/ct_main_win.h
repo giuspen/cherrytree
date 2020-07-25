@@ -50,7 +50,9 @@ struct CtStatusBar
 
     void set_progress_stop(bool stop) { _progress_stop = stop; }
     bool is_progress_stop()           { return _progress_stop; }
-    void update_status(const Glib::ustring& text) { statusBar.pop(statusId); statusBar.push(text, statusId); }
+    void push(const Glib::ustring& text) { statusBar.push(text, statusId); }
+    void pop() { statusBar.pop(statusId); }
+    void update_status(const Glib::ustring& text) { pop(); push(text); }
 
 private:
     bool _progress_stop;

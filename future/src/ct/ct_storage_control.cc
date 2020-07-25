@@ -30,8 +30,6 @@
 #include "ct_logging.h"
 #include <glib/gstdio.h>
 
-
-
 std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
 {
     if (file_type == CtDocType::SQLite)
@@ -95,8 +93,15 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
     }
 }
 
-/*static*/ CtStorageControl* CtStorageControl::save_as(CtMainWin* pCtMainWin, const fs::path& file_path, const Glib::ustring& password, Glib::ustring& error)
+/*static*/ CtStorageControl* CtStorageControl::save_as(CtMainWin* pCtMainWin,
+                                                       const fs::path& file_path,
+                                                       const Glib::ustring& password,
+                                                       Glib::ustring& error)
 {
+    auto on_scope_exit = scope_guard([&](void*) { pCtMainWin->get_status_bar().pop(); });
+    pCtMainWin->get_status_bar().push(_("Writing to Disk..."));
+    while (gtk_events_pending()) gtk_main_iteration();
+
     std::unique_ptr<CtStorageEntity> storage;
     fs::path extracted_file_path = file_path;
     try
@@ -113,8 +118,8 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
 
         storage = get_entity_by_type(pCtMainWin, fs::get_doc_type(file_path));
         // will save all data because it's the first time
-        CtStorageSyncPending fakePanding;
-        if (!storage->save_treestore(extracted_file_path, fakePanding, error))
+        CtStorageSyncPending fakePending;
+        if (!storage->save_treestore(extracted_file_path, fakePending, error))
             throw std::runtime_error(error);
 
         // encrypt the file
@@ -149,6 +154,10 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
 
 bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
 {
+    auto on_scope_exit = scope_guard([&](void*) { _pCtMainWin->get_status_bar().pop(); });
+    _pCtMainWin->get_status_bar().push(_("Writing to Disk..."));
+    while (gtk_events_pending()) gtk_main_iteration();
+
     // backup system
     // before writing make a main backup as file.ext!
     // then write changes (and encrypt) into the original. If it's OK, then put the main backup to backup rotate
@@ -373,12 +382,10 @@ void CtStorageControl::add_nodes_from_storage(const fs::path& path)
     _pCtMainWin->update_window_save_needed();
 }
 
-
 void CtStorageCache::generate_cache(CtMainWin* pCtMainWin, const CtStorageSyncPending* pending, bool xml)
 {
     std::vector<CtImagePng*> image_list;
 
-    //
     auto& store = pCtMainWin->get_tree_store();
     if (pending == nullptr) // all nodes
     {
