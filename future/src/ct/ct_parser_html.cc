@@ -47,6 +47,9 @@ std::optional<std::string> match_rednotebook_title_h1(const Glib::ustring& input
 }
 
 
+
+
+
 std::shared_ptr<xmlpp::Document> html_to_xml_doc(const std::string& contents, CtConfig* config) 
 {
     CtHtml2Xml parser{config};
@@ -710,4 +713,35 @@ void CtRedNotebookParser::_add_node(std::string&& name, const std::string& conte
 }
 
 
+void CtNoteCaseHTMLParser::feed(std::istream& input) {
+    std::stringstream ss;
+    ss << input.rdbuf();
+    _feed_str(ss.str());
+}
+
+
+void CtNoteCaseHTMLParser::_feed_str(const std::string& str) {
+    auto split_nodes = _split_notecase_html_nodes(str);
+    std::vector<node> new_nodes = _generate_notecase_nodes(std::make_move_iterator(split_nodes.begin()), 
+                                                        std::make_move_iterator(split_nodes.end()), _ct_config);
+    _nodes.insert(_nodes.cend(), std::make_move_iterator(new_nodes.cbegin()), std::make_move_iterator(new_nodes.cend()));
+}
+
+
+std::vector<CtNoteCaseHTMLParser::notecase_split_output> CtNoteCaseHTMLParser::_split_notecase_html_nodes(const std::string& input) 
+{   
+    /*
+     * Each "note" is seperated by a DT with font weight as bold and then a link tag with a 22 length string
+     * (I assume the string is some sort of hash since it is just a jumble of characters, I guess it is used 
+     * as anchor points for links). Links are not handled because they require a pro version.
+     */
+    static const auto reg = Glib::Regex::create("<DT style=\"font-weight: bold;\"><A name=\"[a-z|A-Z|0-9]{22}\"></A>([\\S\\s]*?)</DT>");
+    std::vector<std::string> split_strs = reg->split(input);
+    return _handle_notecase_split_strings(split_strs.cbegin() + 1, split_strs.cend());
+}
+
+CtNoteCaseHTMLParser::node CtNoteCaseHTMLParser::_generate_notecase_node(const notecase_split_output& split_node, CtConfig* config) {
+    CtNoteCaseHTMLParser::node nout{split_node.note_name, html_to_xml_doc(split_node.note_contents, config)};
+    return nout;
+}
 

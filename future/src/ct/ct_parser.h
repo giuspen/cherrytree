@@ -500,14 +500,14 @@ private:
     std::vector<leo_node> _leo_nodes;
 };
 
-
+struct ct_basic_node {
+    std::string name;
+    std::shared_ptr<xmlpp::Document> doc = nullptr;
+};
 class CtRedNotebookParser: public CtParserInterface {
 
 public:
-    struct node {
-        std::string name;
-        std::shared_ptr<xmlpp::Document> doc = nullptr;
-    };
+    using node = ct_basic_node;
     explicit CtRedNotebookParser(CtConfig* config) : _ct_config{config} {}
 
     void feed(std::istream& in) override;
@@ -521,5 +521,52 @@ private:
     bool _in_p_tag = false;   
     std::vector<node> _nodes;
     CtConfig* _ct_config;
+};
+
+class CtNoteCaseHTMLParser: public CtParserInterface {
+public:
+    struct notecase_split_output {
+        std::string note_name;
+        std::string note_contents;
+    };
+
+    using node = ct_basic_node;
+    explicit CtNoteCaseHTMLParser(CtConfig* config) : _ct_config{config} {}
+
+    void feed(std::istream& input) override;
+
+    const std::vector<node>& nodes() const { return _nodes; }
+private:
+    void _feed_str(const std::string& str);
+    
+    static std::vector<notecase_split_output> _split_notecase_html_nodes(const std::string& input);
+
+    static node _generate_notecase_node(const notecase_split_output& split_node, CtConfig* config);
+    template<typename ITER>
+    static std::vector<notecase_split_output> _handle_notecase_split_strings(ITER begin, ITER end) 
+    {
+        std::vector<notecase_split_output> out;
+        while(begin != end) {
+            notecase_split_output node{*begin, *(begin + 1)};
+            out.emplace_back(std::move(node));
+            if ((begin + 1) == end) break;
+            begin += 2;
+        }
+        return out;
+    }
+    template<typename ITER>
+    std::vector<CtNoteCaseHTMLParser::node> _generate_notecase_nodes(ITER begin, ITER end, CtConfig* config) 
+    {
+        static_assert(std::is_same_v<typename std::iterator_traits<ITER>::value_type, notecase_split_output>, "generate_notecase_nodes provided with an invalid iterator");
+
+        std::vector<CtNoteCaseHTMLParser::node> nodes;
+        for(; begin != end; ++begin) {
+            nodes.emplace_back(_generate_notecase_node(*begin, config));
+        }
+        return nodes;
+    }
+
+    CtConfig* _ct_config;
+    std::vector<node> _nodes;
 };
 

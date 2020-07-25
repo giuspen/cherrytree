@@ -251,3 +251,12 @@ private:
     CtConfig* _ct_config;
 };
 
+class CtNoteCaseHTMLImporter: public CtHtmlImporterInterface {
+public:
+    explicit CtNoteCaseHTMLImporter(CtConfig* config) : _ct_config{config} {}
+
+    std::unique_ptr<ct_imported_node> import_file(const fs::path& path) override;
+private:
+
+    CtConfig* _ct_config;
+};
