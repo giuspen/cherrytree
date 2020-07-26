@@ -40,7 +40,7 @@ void CtExport2Pango::pango_get_from_treestore_node(CtTreeIter node_iter, int sel
         int end_text_offset = widget->getOffset();
         _pango_process_slot(start_text_offset, end_text_offset, curr_buffer, out_slots);
         if (CtImageAnchor* anchor = dynamic_cast<CtImageAnchor*>(widget))
-            out_slots.emplace_back(std::make_shared<CtPangoDest>("⚓", CtConst::RICH_TEXT_ID, generate_tag(node_iter.get_node_id(), anchor->get_anchor_name())));
+            out_slots.emplace_back(std::make_shared<CtPangoDest>("⚓", CtConst::RICH_TEXT_ID, "name='" + generate_tag(node_iter.get_node_id(), anchor->get_anchor_name()) + "'"));
         else
             out_slots.emplace_back(std::make_shared<CtPangoWidget>(widget));
         start_text_offset = end_text_offset;
@@ -102,8 +102,8 @@ Glib::ustring CtExport2Pango::pango_get_from_code_buffer(Glib::RefPtr<Gsv::Buffe
             break;
         }
     }
-    if (pango_text.empty() || pango_text[pango_text.size()-1] != g_utf8_get_char(CtConst::CHAR_NEWLINE))
-        pango_text += CtConst::CHAR_NEWLINE;
+    //if (pango_text.empty() || pango_text[pango_text.size()-1] != g_utf8_get_char(CtConst::CHAR_NEWLINE))
+    //    pango_text += CtConst::CHAR_NEWLINE;
     return pango_text;
 }
 
@@ -206,9 +206,9 @@ Glib::ustring CtExport2Pango::_pango_link_url(const Glib::ustring& url)
         // Internal url
         std::string node_id = m_info.fetch(1);
         std::string sect_id = m_info.fetch(2);
-        return generate_tag(node_id, sect_id);
+        return "dest='" + generate_tag(node_id, sect_id) + "'";
     }
-    return CtStrUtil::external_uri_from_internal(url);
+    return "uri='" + CtStrUtil::external_uri_from_internal(url) + "'";
 }
 
 
@@ -283,7 +283,7 @@ void CtExport2Pdf::_nodes_all_export_print_iter(CtTreeIter tree_iter, const CtEx
 CtPangoObjectPtr CtExport2Pdf::_generate_pango_node_name(CtTreeIter tree_iter)
 {
     Glib::ustring text = "<b><i><span size=\"xx-large\">" + str::xml_escape(tree_iter.get_node_name()) + "</span></i></b>" + CtConst::CHAR_NEWLINE + CtConst::CHAR_NEWLINE;
-    auto slot = std::make_shared<CtPangoDest>(text, tree_iter.get_node_syntax_highlighting(), generate_tag(tree_iter.get_node_id(), ""));
+    auto slot = std::make_shared<CtPangoDest>(text, tree_iter.get_node_syntax_highlighting(), "name='" + generate_tag(tree_iter.get_node_id(), "") + "'");
     return slot;
 }
 
@@ -418,18 +418,12 @@ void CtPrint::_on_draw_page_text(const Glib::RefPtr<Gtk::PrintContext>& context,
             }
             else if (auto page_tag = dynamic_cast<CtPageTag*>(element.get()))
             {
-                //cairo_tag_begin(cairo_context->cobj(), page_tag->tag_name.c_str(), page_tag->tag_attr.c_str());
                 cairo_context->set_source_rgb(0, 0, 0);
+
+                cairo_tag_begin(cairo_context->cobj(), page_tag->tag_name.c_str(), page_tag->tag_attr.c_str());
                 cairo_context->move_to(page_tag->x, line.y);
                 page_tag->layout_line->show_in_cairo_context(cairo_context);
-                //cairo_tag_end(cairo_context->cobj(), page_tag->tag_name.c_str());
-
-                auto status = cairo_status(cairo_context->cobj());
-                if (status != CAIRO_STATUS_SUCCESS) {
-                    // If we don't throw here, it will throw in the pango signal handler where it cannot be caught
-                    spdlog::debug("cairo_tag_begin failed with tag name: {}; tag attrs: {}; error message: {}", page_tag->tag_name, page_tag->tag_attr, cairo_status_to_string(status));
-                }
-
+                cairo_tag_end(cairo_context->cobj(), page_tag->tag_name.c_str());
             }
             else if (CtPageImage* page_image = dynamic_cast<CtPageImage*>(element.get()))
             {
@@ -540,7 +534,8 @@ void CtPrint::_process_pango_codebox(CtPrintData* print_data, CtCodebox* codebox
     auto context = print_data->context;
     CtPrintPages& pages = print_data->pages;
 
-    Glib::ustring original_content = codebox->get_text_content();
+    codebox->apply_syntax_highlighting();
+    Glib::ustring original_content = CtExport2Pango().pango_get_from_code_buffer(codebox->get_buffer(), -1, -1);
     while (true)
     {
         // use content if it's ok
