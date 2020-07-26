@@ -296,7 +296,7 @@ CtPrint::CtPrint()
 {
     _pPrintSettings = Gtk::PrintSettings::create();
     _pPageSetup = Gtk::PageSetup::create();
-    //_pPageSetup->set_paper_size(Gtk::PaperSize("iso_a4"));
+    _pPageSetup->set_paper_size(Gtk::PaperSize("iso_a4"));
 }
 
 void CtPrint::run_page_setup_dialog(Gtk::Window* pWin)
@@ -493,6 +493,17 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
 
         if (!pages.last_line().test_element_height(size.height, _page_height))
             pages.line_on_new_page();
+
+        // situation when a bit of space is left but pango cannot wrap the first word
+        // make it on a new line
+        if (text_slot->text != "\n" && pages.last_line().cur_x > 0)
+            if (pages.last_line().cur_x + size.width > _page_width)
+            {
+                pages.new_line();
+                _process_pango_text(print_data, text_slot);
+                return;
+            }
+
 
         pages.last_line().set_height(size.height);
         if (tag_name.empty())
