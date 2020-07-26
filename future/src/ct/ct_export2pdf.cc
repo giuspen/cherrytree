@@ -597,7 +597,7 @@ void CtPrint::_process_pango_table(CtPrintData *print_data, CtTable *table)
         }
 
         // if table is too long, split it
-        int split_row = _table_split_content(table, first_row, _page_height - pages.last_line().y, context);
+        int split_row = _table_split_content(table, first_row, _page_height - pages.last_line().y - BOX_OFFSET, context);
         if (split_row == -1) // need a new page
         {
             pages.new_page();
@@ -608,7 +608,7 @@ void CtPrint::_process_pango_table(CtPrintData *print_data, CtTable *table)
             _table_get_grid(split_layouts, table->get_col_min(), rows_h, cols_w);
             double table_height = _table_get_width_height(rows_h);
             pages.last_line().set_height(table_height + BOX_OFFSET);
-            pages.last_line().elements.push_back(std::make_shared<CtPageTable>(pages.last_line().cur_x, table_layouts, table->get_col_min()));
+            pages.last_line().elements.push_back(std::make_shared<CtPageTable>(pages.last_line().cur_x, split_layouts, table->get_col_min()));
             pages.new_page();
 
             // go to to check the second part
@@ -669,7 +669,7 @@ void CtPrint::_codebox_split_content(CtCodebox* codebox, Glib::ustring original_
             }
 
             splitted_pango.erase(splitted_pango.end());
-            original_splitted_pango.erase(original_splitted_pango.begin(), original_splitted_pango.begin() + (splitted_pango.size() - 1));
+            original_splitted_pango.erase(original_splitted_pango.begin(), original_splitted_pango.begin() + splitted_pango.size());
             first_split = str::join(splitted_pango, CtConst::CHAR_NEWLINE);
             second_split = str::join(original_splitted_pango, CtConst::CHAR_NEWLINE);
             return;
@@ -683,7 +683,8 @@ CtPageTable::TableLayouts CtPrint::_table_get_layouts(CtTable* table, const int 
     for (size_t row = 0; row < table->get_table_matrix().size(); ++row)
     {
         if (first_row != -1 && row > 0 && (int)row < first_row) continue; // skip row out of range except header
-        if (last_row != -1 && (int)row > last_row) continue;
+        if (last_row != -1 && (int)row > last_row) break;
+
         std::vector<Glib::RefPtr<Pango::Layout>> layouts;
         for (size_t col = 0; col < table->get_table_matrix()[0].size(); ++col)
         {
@@ -740,9 +741,9 @@ int CtPrint::_table_split_content(CtTable* table, const int start_row, const int
         auto table_layouts = _table_get_layouts(table, start_row, last_row, context);
         _table_get_grid(table_layouts, table->get_col_min(), rows_h, cols_w);
         double table_height = _table_get_width_height(rows_h);
-        if (table_height + BOX_OFFSET > check_height)
+        if (table_height > check_height)
         {
-            if (start_row == last_row) // not enouth place for 2 rows, add a new page
+            if (start_row == last_row) // not enouth place for 1 row + a header, add a new page
                 return -1;
             return last_row -1;
         }
