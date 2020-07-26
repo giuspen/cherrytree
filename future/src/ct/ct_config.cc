@@ -341,7 +341,7 @@ void CtConfig::_populate_data_from_keyfile()
             if (fileName != "")
             {
                 const std::string filePath = Glib::build_filename(fileDir, fileName);
-                recentDocsFilepaths.move_or_push_front(fs::canonical(filePath));
+                recentDocsFilepaths.move_or_push_front(Glib::canonicalize_filename(filePath));
                 savedFromPyGtk = true;
             }
         }
@@ -354,7 +354,7 @@ void CtConfig::_populate_data_from_keyfile()
         {
             break;
         }
-        filepath = fs::canonical(filepath).string();
+        filepath = Glib::canonicalize_filename(filepath);
         recentDocsFilepaths.push_back(filepath);
         if (not savedFromPyGtk)
         {
@@ -389,17 +389,17 @@ void CtConfig::_populate_data_from_keyfile()
         }
     }
     _populate_string_from_keyfile("pick_dir_import", &pickDirImport);
-    pickDirImport = fs::canonical(pickDirImport).string();
+    pickDirImport = Glib::canonicalize_filename(pickDirImport);
     _populate_string_from_keyfile("pick_dir_export", &pickDirExport);
-    pickDirExport = fs::canonical(pickDirExport).string();
+    pickDirExport = Glib::canonicalize_filename(pickDirExport);
     _populate_string_from_keyfile("pick_dir_file", &pickDirFile);
-    pickDirFile = fs::canonical(pickDirFile).string();
+    pickDirFile = Glib::canonicalize_filename(pickDirFile);
     _populate_string_from_keyfile("pick_dir_img", &pickDirImg);
-    pickDirImg = fs::canonical(pickDirImg).string();
+    pickDirImg = Glib::canonicalize_filename(pickDirImg);
     _populate_string_from_keyfile("pick_dir_csv", &pickDirCsv);
-    pickDirCsv = fs::canonical(pickDirCsv).string();
+    pickDirCsv = Glib::canonicalize_filename(pickDirCsv);
     _populate_string_from_keyfile("pick_dir_cbox", &pickDirCbox);
-    pickDirCbox = fs::canonical(pickDirCbox).string();
+    pickDirCbox = Glib::canonicalize_filename(pickDirCbox);
     _populate_string_from_keyfile("link_type", &linkType);
     _populate_bool_from_keyfile("show_node_name_header", &showNodeNameHeader);
     _populate_int_from_keyfile("nodes_on_node_name_header", &nodesOnNodeNameHeader);

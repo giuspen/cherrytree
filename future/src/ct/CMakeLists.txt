@@ -91,6 +91,3 @@ elseif(WIN32)
 endif()
 
 set_target_properties(cherrytree PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
-
-# install cherrytree
-install(TARGETS cherrytree RUNTIME DESTINATION bin)
