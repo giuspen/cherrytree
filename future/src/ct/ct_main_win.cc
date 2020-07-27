@@ -977,7 +977,7 @@ bool CtMainWin::file_save_ask_user()
     if (get_file_save_needed())
     {
         const CtYesNoCancel yesNoCancel = [this]() {
-            if (_pCtConfig->autosaveOnQuit)
+            if (_pCtConfig->autosaveOnQuit && !_uCtStorage->get_file_path().empty())
                 return CtYesNoCancel::Yes;
             set_visible(true);   // window could be hidden
             return CtDialogs::exit_save_dialog(*this);
