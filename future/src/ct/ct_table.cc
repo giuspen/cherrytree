@@ -344,7 +344,7 @@ void CtTable::_on_populate_popup_header_cell(Gtk::Menu* menu, int row, int col)
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
     _currentRow = row;
     _currentColumn = col;
-    _pCtMainWin->get_ct_actions()->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::TableHeaderCell);
+    _pCtMainWin->get_ct_actions()->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::TableCell);
 }
 
 void CtTable::_on_populate_popup_cell(Gtk::Menu* menu, int row, int col)

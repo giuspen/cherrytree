@@ -91,7 +91,6 @@ void CtActions::table_handle()
     int col_max = _pCtMainWin->get_ct_config()->tableColMin;
     std::list<std::vector<std::string>> rows;
     if (res == 1) {
-        rows.push_back(std::vector<std::string>(_pCtMainWin->get_ct_config()->tableColumns, "click me"));
         std::vector<std::string> empty_row(_pCtMainWin->get_ct_config()->tableColumns, "");
         while ((int)rows.size() < _pCtMainWin->get_ct_config()->tableRows)
             rows.push_back(empty_row);
