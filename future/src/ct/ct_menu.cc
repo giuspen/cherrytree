@@ -475,7 +475,7 @@ Gtk::Menu* CtMenu::build_popup_menu(GtkWidget* pMenu,  POPUP_MENU_TYPE popupMenu
         _add_menu_item(pMenu, find_action("link_delete"));
         return Glib::wrap(GTK_MENU(pMenu));
     }
-    case CtMenu::POPUP_MENU_TYPE::TableHeaderCell:
+    case CtMenu::POPUP_MENU_TYPE::TableCell:
     {
         _add_menu_item(pMenu, find_action("table_cut"));
         _add_menu_item(pMenu, find_action("table_copy"));
@@ -486,16 +486,6 @@ Gtk::Menu* CtMenu::build_popup_menu(GtkWidget* pMenu,  POPUP_MENU_TYPE popupMenu
         _add_separator(pMenu);
         _add_menu_item(pMenu, find_action("table_column_left"));
         _add_menu_item(pMenu, find_action("table_column_right"));
-        _add_separator(pMenu);
-        _add_menu_item(pMenu, find_action("table_edit_properties"));
-        _add_menu_item(pMenu, find_action("table_export"));
-        return Glib::wrap(GTK_MENU(pMenu));
-    }
-    case CtMenu::POPUP_MENU_TYPE::TableCell:
-    {
-        _add_menu_item(pMenu, find_action("table_cut"));
-        _add_menu_item(pMenu, find_action("table_copy"));
-        _add_menu_item(pMenu, find_action("table_delete"));
         _add_separator(pMenu);
         _add_menu_item(pMenu, find_action("table_row_add"));
         _add_menu_item(pMenu, find_action("table_row_cut"));
