@@ -3794,7 +3794,7 @@ iter_end, exclude_iter_sel_end=True)
     def check_unsaved(self):
         """Before close the current document, check for possible Unsaved"""
         if self.curr_tree_iter and (self.curr_buffer.get_modified() or self.file_update):
-            if self.autosave_on_quit: response = 2
+            if self.autosave_on_quit and self.file_name: response = 2
             else: response = support.dialog_exit_save(self.window)
             if response == 2:
                 # button YES pressed or autosave ON
