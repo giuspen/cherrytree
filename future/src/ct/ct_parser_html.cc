@@ -571,6 +571,8 @@ void CtHtml2Xml::_insert_table()
 {
     _rich_text_save_pending();
 
+    if (_table.empty()) return;
+
     // add more cells for rowspan > 1
     for (auto& row: _table)
         for (auto iter = row.begin(); iter != row.end(); ++ iter)
