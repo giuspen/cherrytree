@@ -30,7 +30,7 @@
 #include <libxml++/libxml++.h>
 #include <gtkmm.h>
 #include <unordered_set>
-#include <fstream>
+#include <sstream>
 #include <unordered_map>
 #include <functional>
 #include <array>

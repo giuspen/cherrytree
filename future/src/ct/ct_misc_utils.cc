@@ -893,18 +893,19 @@ int str::indexOf(const Glib::ustring& str, const gunichar& uc)
     return index != std::string::npos ? static_cast<int>(index) : -1;
 }
 
-std::string str::xml_escape(const std::string& text)
+Glib::ustring str::xml_escape(const Glib::ustring& text)
 {
-    std::string buffer;
+    Glib::ustring buffer;
     buffer.reserve(text.size());
-    for(size_t pos = 0; pos != text.size(); ++pos) {
-        switch(text[pos]) {
+    for (auto ch = text.begin(); ch != text.end(); ++ch)
+    {
+        switch(*ch) {
             case '&':  buffer.append("&amp;");       break;
             case '\"': buffer.append("&quot;");      break;
             case '\'': buffer.append("&apos;");      break;
             case '<':  buffer.append("&lt;");        break;
             case '>':  buffer.append("&gt;");        break;
-            default:   buffer.append(&text[pos], 1); break;
+            default:   buffer.append(1, *ch); break;
         }
     }
     return buffer;
@@ -917,7 +918,7 @@ Glib::ustring str::sanitize_bad_symbols(const Glib::ustring& xml_content)
     return re_pattern->replace(xml_content, 0, "", static_cast<Glib::RegexMatchFlags>(0));
 }
 
-std::string str::re_escape(const std::string& text)
+Glib::ustring str::re_escape(const Glib::ustring& text)
 {
     return Glib::Regex::escape_string(text);
 }

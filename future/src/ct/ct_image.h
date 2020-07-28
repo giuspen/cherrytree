@@ -132,7 +132,7 @@ public:
 
     const fs::path& get_file_name() { return _fileName; }
     const std::string&   get_raw_blob() { return _rawBlob; }
-    void                 set_raw_blob(char* buffer, size_t size) { _rawBlob = std::string(buffer, size);}
+    void                 set_raw_blob(const std::string& buffer) { _rawBlob = buffer; }
     double               get_time() { return _timeSeconds; }
     void                 set_time(time_t time) { _timeSeconds = time; }
 

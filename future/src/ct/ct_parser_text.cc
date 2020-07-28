@@ -21,7 +21,7 @@
 
 #include "ct_parser.h"
 #include "ct_logging.h"
-#include <iostream>
+#include <sstream>
 
 namespace {
 

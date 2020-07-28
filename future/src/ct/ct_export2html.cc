@@ -28,7 +28,6 @@
 #include "ct_storage_control.h"
 #include "ct_logging.h"
 #include "ct_process.h"
-#include <fstream>
 #include <filesystem>
 
 
@@ -276,10 +275,7 @@ Glib::ustring CtExport2Html::_get_embfile_html(CtImageEmbFile* embfile, CtTreeIt
     Glib::ustring embfile_html = "<table style=\"" + embfile_align_text + "\"><tr><td><a href=\"" +
             embfile_rel_path.string() + "\">Linked file: " + embfile->get_file_name().string() + " </a></td></tr></table>";
 
-    std::fstream file((embed_dir / embfile_name).string(), std::ios::out | std::ios::binary);
-    long size = (long)embfile->get_raw_blob().size();
-    file.write(embfile->get_raw_blob().c_str(), size);
-    file.close();
+    g_file_set_contents((embed_dir / embfile_name).c_str(), embfile->get_raw_blob().c_str(), (gssize)embfile->get_raw_blob().size(), nullptr);
 
     return embfile_html;
 }

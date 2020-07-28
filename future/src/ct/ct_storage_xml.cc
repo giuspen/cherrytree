@@ -29,7 +29,6 @@
 #include "ct_main_win.h"
 #include "ct_storage_control.h"
 #include "ct_logging.h"
-#include <fstream>
 
 
 CtStorageXml::CtStorageXml(CtMainWin* pCtMainWin) : _pCtMainWin(pCtMainWin)
@@ -218,9 +217,7 @@ std::unique_ptr<xmlpp::DomParser> CtStorageXml::_get_parser(const fs::path& file
         spdlog::error("CtStorageXml::_get_parser: failed to read xml file {}, {}", file_path.string(), e.what());
         spdlog::info("CtStorageXml::_get_parser: trying to sanitize xml file ...");
 
-        auto file = std::fstream(file_path.string(), std::ios::in);
-        std::string buffer(std::istreambuf_iterator<char>(file), {});
-        file.close();
+        std::string buffer =  fs::get_content(file_path);
         Glib::ustring xml_content = str::sanitize_bad_symbols(buffer);
         parser->parse_memory(xml_content);
         spdlog::info("CtStorageXml::_get_parser: xml file is sanitized");

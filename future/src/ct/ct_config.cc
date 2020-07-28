@@ -21,7 +21,6 @@
  * MA 02110-1301, USA.
  */
 
-#include <iostream>
 #include <memory>
 #include <gtkmm.h>
 #include "ct_config.h"
