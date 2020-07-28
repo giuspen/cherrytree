@@ -236,6 +236,14 @@ TEST(MiscUtilsGroup, str__indexOf)
     LONGS_EQUAL(str::indexOf("Saitama さいたま市", uc), 8);
 }
 
+TEST(MiscUtilsGroup, str__xml_escape)
+{
+    STRCMP_EQUAL("", str::xml_escape("").c_str());
+    STRCMP_EQUAL("Ру", str::xml_escape("Ру").c_str());
+    STRCMP_EQUAL("&lt;Ру&gt;", str::xml_escape("<Ру>").c_str());
+    STRCMP_EQUAL("1&lt;2&quot;3&quot;4&amp;&gt;", str::xml_escape("1<2\"3\"4&>").c_str());
+}
+
 TEST(MiscUtilsGroup, str__join)
 {
     std::vector<std::string> empty_v;

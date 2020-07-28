@@ -261,11 +261,11 @@ int indexOf(const std::array<T, size>& array, const T& uc)
     return -1;
 }
 
-std::string xml_escape(const std::string& text);
+Glib::ustring xml_escape(const Glib::ustring& text);
 
 Glib::ustring sanitize_bad_symbols(const Glib::ustring& xml_content);
 
-std::string re_escape(const std::string& text);
+Glib::ustring re_escape(const Glib::ustring& text);
 
 std::string time_format(const std::string& format, const time_t& time);
 
@@ -274,8 +274,7 @@ int byte_pos_to_symb_pos(const Glib::ustring& text, int byte_pos);
 
 Glib::ustring swapcase(const Glib::ustring& text);
 
-template<class String>
-std::string replace(const /* const: func doens't change the source! */ String& subjectStr, const std::string& searchStr, const std::string& replaceStr)
+inline Glib::ustring replace(const /* keep const to make sure source is not changed */ Glib::ustring& subjectStr, const std::string& searchStr, const std::string& replaceStr)
 {
     Glib::ustring text = subjectStr; // Glib::ustring works with unicode
     size_t pos = 0;
@@ -287,23 +286,24 @@ std::string replace(const /* const: func doens't change the source! */ String& s
     return text;
 }
 
-template<class String>
-String trim(String s)
+inline Glib::ustring trim(Glib::ustring s)
 {
-    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int ch) { return !std::isspace(ch); }));
-    s.erase(std::find_if(s.rbegin(), s.rend(), [](int ch) { return !std::isspace(ch); }).base(), s.end());
+    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](gunichar ch) { return !g_unichar_isspace(ch); }));
+    s.erase(std::find_if(s.rbegin(), s.rend(), [](gunichar ch) { return !g_unichar_isspace(ch); }).base(), s.end());
     return s;
 }
 
 template<typename ...Args>
 std::string format(const std::string& in_str, const Args&... args)
 {
-    return fmt::format(str::replace(in_str, "%s", "{}"), args...);
+    return fmt::format(str::replace(in_str, "%s", "{}").c_str(), args...);
 }
 
 template<class STRING>
 std::vector<STRING> split(const STRING& strToSplit, const char* delimiter)
 {
+    // maybe replace by Glib::Regex::split_simple
+
     std::vector<STRING> vecOfStrings;
     gchar** arrayOfStrings = g_strsplit(strToSplit.c_str(), delimiter, -1);
     for (gchar** ptr = arrayOfStrings; *ptr; ptr++)
