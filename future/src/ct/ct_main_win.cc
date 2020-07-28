@@ -1562,10 +1562,10 @@ bool CtMainWin::_on_treeview_scroll_event(GdkEventScroll* event)
 {
     if (!(event->state & GDK_CONTROL_MASK))
         return false;
-    if  (event->direction == GDK_SCROLL_UP || event->direction == GDK_SCROLL_DOWN)
-        _zoom_tree(event->direction == GDK_SCROLL_UP);
-    if  (event->direction == GDK_SCROLL_SMOOTH && event->delta_y != 0)
-        _zoom_tree(event->delta_y > 0);
+    if (event->direction == GDK_SCROLL_UP || event->direction == GDK_SCROLL_DOWN)
+        _zoom_tree(event->direction == GDK_SCROLL_DOWN);
+    if (event->direction == GDK_SCROLL_SMOOTH && event->delta_y != 0)
+        _zoom_tree(event->delta_y < 0);
     return true;
 }
 
@@ -1833,10 +1833,10 @@ bool CtMainWin::_on_textview_scroll_event(GdkEventScroll* event)
 {
     if (!(event->state & GDK_CONTROL_MASK))
         return false;
-    if  (event->direction == GDK_SCROLL_UP || event->direction == GDK_SCROLL_DOWN)
-        _ctTextview.zoom_text(event->direction == GDK_SCROLL_UP);
-    if  (event->direction == GDK_SCROLL_SMOOTH && event->delta_y != 0)
-        _ctTextview.zoom_text(event->delta_y > 0);
+    if (event->direction == GDK_SCROLL_UP || event->direction == GDK_SCROLL_DOWN)
+        _ctTextview.zoom_text(event->direction == GDK_SCROLL_DOWN);
+    if (event->direction == GDK_SCROLL_SMOOTH && event->delta_y != 0)
+        _ctTextview.zoom_text(event->delta_y < 0);
     return true;
 }
 
