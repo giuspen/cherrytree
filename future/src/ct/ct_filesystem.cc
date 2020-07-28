@@ -153,7 +153,9 @@ void open_filepath(const fs::path& filepath, bool open_folder_if_file_not_exists
             return;
         } else {
 #ifdef _WIN32
-            ShellExecute(GetActiveWindow(), "open", filepath.c_str(), NULL, NULL, SW_SHOWNORMAL);
+            glong utf16text_len = 0;
+            g_autofree gunichar2* utf16text = g_utf8_to_utf16(filepath.c_str(), (glong)Glib::ustring(filepath.c_str()).bytes(), nullptr, &utf16text_len, nullptr);
+            ShellExecuteW(GetActiveWindow(), L"open", (LPCWSTR)utf16text, NULL, NULL, SW_SHOWNORMAL);
 #else
             std::vector<std::string> argv = { "xdg-open", "file://" + filepath.string() };
             Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
@@ -176,7 +178,9 @@ void open_folderpath(const fs::path& folderpath, CtConfig* config)
     } else {
         // https://stackoverflow.com/questions/42442189/how-to-open-spawn-a-file-with-glib-gtkmm-in-windows
 #ifdef _WIN32
-        ShellExecute(NULL, "open", folderpath.c_str(), NULL, NULL, SW_SHOWDEFAULT);
+        glong utf16text_len = 0;
+        g_autofree gunichar2* utf16text = g_utf8_to_utf16(folderpath.c_str(), (glong)Glib::ustring(folderpath.c_str()).bytes(), nullptr, &utf16text_len, nullptr);
+        ShellExecuteW(GetActiveWindow(), L"open", (LPCWSTR)utf16text, NULL, NULL, SW_SHOWDEFAULT);
 #elif defined(__APPLE__)
         std::vector<std::string> argv = { "open", folderpath.string() };
         Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
