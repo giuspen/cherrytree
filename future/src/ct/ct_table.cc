@@ -194,7 +194,8 @@ void CtTable::to_csv(std::ostream& output) const {
 }
 
 
-std::unique_ptr<CtTable> CtTable::from_csv(std::istream& input, CtMainWin* main_win, const Glib::ustring& syntax_highlighting, int col_min, int col_max, int offset, const Glib::ustring& justification) {
+std::unique_ptr<CtTable> CtTable::from_csv(const std::string& csv_content, CtMainWin* main_win, const Glib::ustring& syntax_highlighting, int col_min, int col_max, int offset, const Glib::ustring& justification) {
+    std::stringstream input(csv_content);
     CtCSV::CtStringTable str_tbl = CtCSV::table_from_csv(input);
 
     CtTableMatrix tbl_matrix;

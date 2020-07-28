@@ -27,7 +27,6 @@
 #include "ct_storage_xml.h"
 
 #include "ct_logging.h"
-#include <fstream>
 
 // Import a node from a html file
 void CtActions::import_node_from_html_file() noexcept 

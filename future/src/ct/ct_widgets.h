@@ -29,7 +29,6 @@
 #include <gtksourceviewmm.h>
 #include <libxml++/libxml++.h>
 #include <sqlite3.h>
-#include <iostream>
 #include <unordered_map>
 #include <memory>
 #include <gspell/gspell.h>

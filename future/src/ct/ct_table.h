@@ -56,7 +56,7 @@ public:
      * @param input 
      * @return CtTable 
      */
-    static std::unique_ptr<CtTable> from_csv(std::istream& input, CtMainWin* main_win, const Glib::ustring& syntax_highlighting, int col_min, int col_max, int offset, const Glib::ustring& justification);
+    static std::unique_ptr<CtTable> from_csv(const std::string& csv_content, CtMainWin* main_win, const Glib::ustring& syntax_highlighting, int col_min, int col_max, int offset, const Glib::ustring& justification);
 
     void apply_width_height(const int /*parentTextWidth*/) override {}
     void apply_syntax_highlighting() override;

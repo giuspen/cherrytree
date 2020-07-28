@@ -26,7 +26,6 @@
 #include "ct_logging.h"
 #include "ct_storage_control.h"
 #include <gtkmm/dialog.h>
-#include <fstream>
 
 // A Special character insert was Requested
 void CtActions::insert_spec_char_action(gunichar ch)
@@ -107,9 +106,8 @@ void CtActions::table_handle()
         if (filename.empty()) return;
         _pCtMainWin->get_ct_config()->pickDirCsv = Glib::path_get_dirname(filename);
         // todo: find good csv lib
-        std::ifstream infile(filename);
-        pCtTable = CtTable::from_csv(infile, _pCtMainWin, CtConst::TABLE_CELL_TEXT_ID, 40, 60, _curr_buffer()->get_insert()->get_iter().get_offset(), "").release();
-        
+        std::string csv_content = fs::get_content(fs::path(filename));
+        pCtTable = CtTable::from_csv(csv_content, _pCtMainWin, CtConst::TABLE_CELL_TEXT_ID, 40, 60, _curr_buffer()->get_insert()->get_iter().get_offset(), "").release();
     }
 
     if (!pCtTable) {
@@ -198,12 +196,7 @@ void CtActions::embfile_insert()
         }
     }
 
-
-    auto file = std::fstream(filepath, std::ios::in | std::ios::binary);
-    std::vector<char> buffer(std::istreambuf_iterator<char>(file), {});
-    file.close();
-
-    auto blob = std::string(buffer.data(), buffer.size());
+    std::string blob = fs::get_content(filepath);
     std::string name = Glib::path_get_basename(filepath);
     CtAnchoredWidget* pAnchoredWidget = new CtImageEmbFile(_pCtMainWin, name, blob, std::time(nullptr), iter_insert.get_offset(), "");
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());

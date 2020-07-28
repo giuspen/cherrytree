@@ -27,7 +27,6 @@
 #include "ct_clipboard.h"
 #include <gtkmm/dialog.h>
 #include <gtkmm/stock.h>
-#include <fstream>
 #include <cstdlib>
 #include "ct_logging.h"
 #include <spdlog/fmt/bundled/printf.h>
@@ -157,13 +156,8 @@ void CtActions::embfile_open()
             CtConst::CHAR_MINUS + std::to_string(getpid())+
             CtConst::CHAR_MINUS + curr_file_anchor->get_file_name().string();
     fs::path filepath = _pCtMainWin->get_ct_tmp()->getHiddenFilePath(filename);
-    std::fstream file(filepath.string(), std::ios::out | std::ios::binary);
-    long size = (long)curr_file_anchor->get_raw_blob().size();
-    file.write(curr_file_anchor->get_raw_blob().c_str(), size);
-    file.close();
 
-    spdlog::debug("embfile_open {}", filepath);
-
+    g_file_set_contents(filepath.c_str(), curr_file_anchor->get_raw_blob().c_str(), (gssize)curr_file_anchor->get_raw_blob().size(), nullptr);
     fs::open_filepath(filepath.c_str(), false, _pCtMainWin->get_ct_config());
     _embfiles_opened[filepath] = fs::getmtime(filepath);
 
@@ -481,10 +475,7 @@ void CtActions::codebox_load_from_file()
     if (filepath.empty()) return;
     _pCtMainWin->get_ct_config()->pickDirCbox = Glib::path_get_dirname(filepath);
 
-    auto file = std::fstream(filepath, std::ios::in);
-    std::string buffer(std::istreambuf_iterator<char>(file), {});
-    file.close();
-
+    std::string buffer = fs::get_content(filepath);
     curr_codebox_anchor->get_buffer()->set_text(buffer);
 }
 
@@ -686,11 +677,12 @@ void CtActions::table_export()
     _pCtMainWin->get_ct_config()->pickDirCsv = Glib::path_get_dirname(filename);
 
     try {
-        std::ofstream outfile;
-        outfile.exceptions(std::ios::failbit);
-        outfile.open(filename);
+        std::stringstream buffer;
+        curr_table_anchor->to_csv(buffer);
+        std::string result = buffer.str();
 
-        curr_table_anchor->to_csv(outfile);
+        g_file_set_contents(filename.c_str(), result.c_str(), (gssize)result.size(), nullptr);
+
     } catch(std::exception& e) {
         spdlog::error("Exception caught while exporting table: {}", e.what());
         CtDialogs::error_dialog("Exception occured while exporting table, see log for details", *_pCtMainWin);
@@ -748,10 +740,8 @@ bool CtActions::_on_embfiles_sentinel_timeout()
                 if (CtImageEmbFile* embFile = dynamic_cast<CtImageEmbFile*>(widget))
                     if (((size_t)embFile->get_data("open_id")) == embfile_id)
                     {
-                        auto file = std::fstream(filepath.string(), std::ios::in | std::ios::binary);
-                        std::vector<char> buffer(std::istreambuf_iterator<char>(file), {});
-                        file.close();
-                        embFile->set_raw_blob(buffer.data(), buffer.size());
+                        std::string buffer = fs::get_content(filepath);
+                        embFile->set_raw_blob(buffer);
                         embFile->set_time(std::time(nullptr));
                         embFile->update_tooltip();
 
