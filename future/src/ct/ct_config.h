@@ -148,6 +148,7 @@ public:
     std::string                                 ptFont{"Sans 9"};
     std::string                                 treeFont{"Sans 8"};
     std::string                                 codeFont{"Monospace 9"};
+    std::string                                 fallbackFontFamily{"Sans"};
 
     // [colors]
     std::string                                 rtDefFg{CtConst::RICH_TEXT_DARK_FG};

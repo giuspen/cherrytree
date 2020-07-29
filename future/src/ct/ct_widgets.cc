@@ -641,7 +641,8 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
 
     if (CtList(_pCtMainWin, get_buffer()).is_list_todo_beginning(text_iter))
     {
-        get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::X_CURSOR));
+        get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::HAND2)); // Gdk::X_CURSOR doesn't work on Win
+        //get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::X_CURSOR));
         set_tooltip_text("");
         return;
     }
