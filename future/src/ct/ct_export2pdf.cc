@@ -341,10 +341,15 @@ void CtPrint::print_text(CtMainWin* pCtMainWin, const fs::path& pdf_filepath, co
 // Here we Compute the Lines Positions, the Number of Pages Needed and the Page Breaks
 void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& context, CtPrintData* print_data)
 {
+    auto get_fallback_font = [](Pango::FontDescription font, const std::string& fallbackFont) {
+        font.set_family(font.get_family() + "," + fallbackFont);
+        return font;
+    };
+
     print_data->context = context;
-    _rich_font = Pango::FontDescription(_pCtMainWin->get_ct_config()->rtFont);
-    _plain_font = Pango::FontDescription(_pCtMainWin->get_ct_config()->ptFont);
-    _code_font = Pango::FontDescription(_pCtMainWin->get_ct_config()->codeFont);
+    _rich_font = get_fallback_font(Pango::FontDescription(_pCtMainWin->get_ct_config()->rtFont), _pCtMainWin->get_ct_config()->fallbackFontFamily);
+    _plain_font = get_fallback_font(Pango::FontDescription(_pCtMainWin->get_ct_config()->ptFont), _pCtMainWin->get_ct_config()->fallbackFontFamily);
+    _code_font = get_fallback_font(Pango::FontDescription(_pCtMainWin->get_ct_config()->codeFont), "monospace");
     _text_window_width = _pCtMainWin->get_text_view().get_allocation().get_width();
     _table_text_row_height = _rich_font.get_size()/Pango::SCALE;
     _table_line_thickness = 6;
