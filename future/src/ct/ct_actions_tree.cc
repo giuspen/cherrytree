@@ -527,16 +527,21 @@ void CtActions::node_change_father()
     _pCtMainWin->get_tree_store().update_nodes_icon(_pCtMainWin->curr_tree_iter(), true);
 }
 
-bool CtActions::node_move(Gtk::TreeModel::Path src_path, Gtk::TreeModel::Path dest_path)
+bool CtActions::node_move(Gtk::TreeModel::Path src_path, Gtk::TreeModel::Path dest_path, bool only_test_dest)
 {
     if (src_path == dest_path) {
-        CtDialogs::error_dialog(_("The new parent can't be the very node to move!"), *_pCtMainWin);
+        if (!only_test_dest)
+            CtDialogs::error_dialog(_("The new parent can't be the very node to move!"), *_pCtMainWin);
         return false;
     }
     if (dest_path.is_descendant(src_path)) {
-        CtDialogs::error_dialog(_("The new parent can't be one of his children!"), *_pCtMainWin);
+        if (!only_test_dest)
+            CtDialogs::error_dialog(_("The new parent can't be one of his children!"), *_pCtMainWin);
         return false;
     }
+    if (only_test_dest)
+        return true;
+
     Gtk::TreeModel::Path father_path{dest_path};
     father_path.up();
     CtTreeIter father_dest_iter = _pCtMainWin->get_tree_store().get_iter(father_path);

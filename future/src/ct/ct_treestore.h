@@ -137,11 +137,12 @@ private:
 
 protected:
     bool drag_data_get_vfunc(const Gtk::TreeModel::Path& path, Gtk::SelectionData& selection_data) const override;
+    bool row_drop_possible_vfunc(const Gtk::TreeModel::Path& dest, const Gtk::SelectionData& selection_data) const override;
     bool drag_data_received_vfunc(const Gtk::TreeModel::Path& dest, const Gtk::SelectionData& selection_data) override;
 
 private:
     CtMainWin*  _pCtMainWin;
-    mutable std::string _drag_src;
+    mutable Glib::ustring _drag_src;
 
 };
 
