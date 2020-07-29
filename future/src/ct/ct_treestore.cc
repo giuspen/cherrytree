@@ -283,11 +283,17 @@ bool CtDragStore::drag_data_get_vfunc(const Gtk::TreeModel::Path& path, Gtk::Sel
     return Gtk::TreeDragSource::drag_data_get_vfunc(path, selection_data);
 }
 
+bool CtDragStore::row_drop_possible_vfunc(const Gtk::TreeModel::Path& dest, const Gtk::SelectionData& /*selection_data*/) const
+{
+    // row_drop_possible_vfunc fixes crush on win/macos, but removes warnings
+    Gtk::TreeModel::Path src(_drag_src);
+    return _pCtMainWin->get_ct_actions()->node_move(src, dest, true);
+}
 
 bool CtDragStore::drag_data_received_vfunc(const Gtk::TreeModel::Path& dest, const Gtk::SelectionData& /*selection_data*/)
 {
     Gtk::TreeModel::Path src(_drag_src);
-    return _pCtMainWin->get_ct_actions()->node_move(src, dest);
+    return _pCtMainWin->get_ct_actions()->node_move(src, dest, false);
 }
 
 

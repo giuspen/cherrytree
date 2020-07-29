@@ -3,12 +3,12 @@ cmake_minimum_required(VERSION 3.1)
 project(cherrytree)
 set(CT_VERSION "0.99.6")
 
-
+# APPLE has issues with installing in /usr/bin because of SIP
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT AND APPLE)
   set(CMAKE_INSTALL_PREFIX "/usr/local" CACHE PATH "..." FORCE)
 elseif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   set(CMAKE_INSTALL_PREFIX "/usr" CACHE PATH "..." FORCE)
-endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+endif()
 
 if(NOT PYTHON_EXEC)
   set(PYTHON_EXEC "python3")
