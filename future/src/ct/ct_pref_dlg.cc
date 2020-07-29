@@ -885,6 +885,11 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
             apply_for_each_window([](CtMainWin* win) { win->get_tree_store().update_nodes_icon(Gtk::TreeIter(), false);});
         }
     });
+    radiobutton_nodes_startup_restore->signal_toggled().connect([pConfig, radiobutton_nodes_startup_restore, checkbutton_nodes_bookm_exp](){
+        if (!radiobutton_nodes_startup_restore->get_active()) return;
+        pConfig->restoreExpColl = CtRestoreExpColl::FROM_STR;
+        checkbutton_nodes_bookm_exp->set_sensitive(true);
+    });
     radiobutton_nodes_startup_expand->signal_toggled().connect([pConfig, radiobutton_nodes_startup_expand, checkbutton_nodes_bookm_exp](){
         if (!radiobutton_nodes_startup_expand->get_active()) return;
         pConfig->restoreExpColl = CtRestoreExpColl::ALL_EXP;
