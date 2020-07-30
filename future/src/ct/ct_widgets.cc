@@ -365,10 +365,10 @@ void CtTextView::for_event_after_button_press(GdkEvent* event)
     auto text_buffer = get_buffer();
     if (event->button.button == 1 or event->button.button == 2)
     {
-        int x, y;
+        int x, y, trailing;
         window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
         Gtk::TextIter text_iter;
-        get_iter_at_location(text_iter, x, y);
+        get_iter_at_position(text_iter, trailing, x, y); // works better than get_iter_at_location
         auto tags = text_iter.get_tags();
         // check whether we are hovering a link
         for (auto& tag: tags)
@@ -637,12 +637,13 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
     int hovering_link_iter_offset = -1;
     Glib::ustring tooltip;
     Gtk::TextIter text_iter;
-    get_iter_at_location(text_iter, x, y);
+
+    int trailing;
+    get_iter_at_position(text_iter, trailing, x, y); // works better than get_iter_at_location
 
     if (CtList(_pCtMainWin, get_buffer()).is_list_todo_beginning(text_iter))
     {
         get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::HAND2)); // Gdk::X_CURSOR doesn't work on Win
-        //get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::X_CURSOR));
         set_tooltip_text("");
         return;
     }
