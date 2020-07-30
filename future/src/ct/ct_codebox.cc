@@ -1,7 +1,9 @@
 /*
  * ct_codebox.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +29,6 @@
 #include "ct_actions.h"
 #include "ct_storage_sqlite.h"
 #include "ct_logging.h"
-
 
 const constexpr int MIN_SCROLL_HEIGHT = 47;
 
@@ -116,8 +117,11 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
     _ctTextview.signal_button_press_event().connect([this](GdkEventButton* event){
         if (not _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active()) return false;
         _pCtMainWin->get_ct_actions()->curr_codebox_anchor = this;
-        if (event->button != 3 /* right button */)
+        if ( event->button != 3 /* right button */ and
+             event->type != GDK_3BUTTON_PRESS )
+        {
             _pCtMainWin->get_ct_actions()->object_set_selection(this);
+        }
         return false;
     });
     _ctTextview.signal_event_after().connect([this](GdkEvent* event){
