@@ -59,6 +59,12 @@ int main(int argc, char *argv[])
 {
     std::locale::global(std::locale("")); // Set the global C++ locale to the user-specified locale
 
+    // temporary fixes #1065 (Can't Type Multiple Newlines)
+    // caused by fallback fonts
+#ifdef _WIN32
+    Glib::setenv("PANGOCAIRO_BACKEND", "fc");
+#endif
+
 #ifdef HAVE_NLS
     const std::string ct_lang = CtMiscUtil::get_ct_language();
     if (ct_lang != CtConst::LANG_DEFAULT) {
