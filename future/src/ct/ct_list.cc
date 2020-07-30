@@ -1,7 +1,9 @@
 /*
  * ct_list.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -311,7 +313,7 @@ CtListInfo CtList::get_paragraph_list_info(Gtk::TextIter iter_start_orig)
 // Generates and Returns two iters indicating the paragraph bounds
 CtTextRange CtList::get_paragraph_iters(Gtk::TextIter* force_iter /*= nullptr*/)
 {
-    Gtk::TextIter iter_start, iter_end, iter_invalid = _curr_buffer->end();
+    Gtk::TextIter iter_start, iter_end;
     if (!force_iter && _curr_buffer->get_has_selection())
          _curr_buffer->get_selection_bounds(iter_start, iter_end); // there's a selection
     else {
@@ -321,8 +323,11 @@ CtTextRange CtList::get_paragraph_iters(Gtk::TextIter* force_iter /*= nullptr*/)
         iter_end = iter_start;
         if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_NEWLINE)) {
             // we're upon a row end
-            if (!iter_start.backward_char()) return CtTextRange{iter_invalid, iter_invalid};
-            if (iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_NEWLINE)) return CtTextRange{iter_invalid, iter_invalid};
+            if ( not iter_start.backward_char() or  // empty very first line
+                 iter_start.get_char() == g_utf8_get_char(CtConst::CHAR_NEWLINE) ) // empty line
+            {
+                return CtTextRange{iter_end, iter_end};
+            }
         }
     }
     while (iter_end) {
