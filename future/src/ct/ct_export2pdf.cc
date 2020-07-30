@@ -341,8 +341,9 @@ void CtPrint::print_text(CtMainWin* pCtMainWin, const fs::path& pdf_filepath, co
 // Here we Compute the Lines Positions, the Number of Pages Needed and the Page Breaks
 void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& context, CtPrintData* print_data)
 {
-    auto get_fallback_font = [](Pango::FontDescription font, const std::string& fallbackFont) {
-        font.set_family(font.get_family() + "," + fallbackFont);
+    auto get_fallback_font = [](Pango::FontDescription font, const std::string& /*fallbackFont*/) {
+        // fallback font doesn't work right on win32 becuase of pango
+        // font.set_family(font.get_family() + "," + fallbackFont);
         return font;
     };
 
