@@ -828,7 +828,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer
     std::pair<int,int> obj_match_offsets = {-1, -1};
     std::string obj_content;
     if (!s_state.replace_active) {
-        obj_match_offsets = _check_pattern_in_object_between(text_buffer, re_pattern,
+        obj_match_offsets = _check_pattern_in_object_between(tree_iter, text_buffer, re_pattern,
             start_iter.get_offset(), match_offsets.first, forward, obj_content);
     }
     if (obj_match_offsets.first != -1) match_offsets = obj_match_offsets;
@@ -912,8 +912,8 @@ Glib::ustring CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> patt
 }
 
 // Search for the pattern in the given slice and direction
-std::pair<int, int> CtActions::_check_pattern_in_object_between(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Glib::RefPtr<Glib::Regex> pattern,
-                                                              int start_offset, int end_offset, bool forward, std::string& obj_content)
+std::pair<int, int> CtActions::_check_pattern_in_object_between(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, Glib::RefPtr<Glib::Regex> pattern,
+                                                                int start_offset, int end_offset, bool forward, std::string& obj_content)
 {
     if (!forward) start_offset -= 1;
     if (end_offset < 0) {
@@ -926,7 +926,7 @@ std::pair<int, int> CtActions::_check_pattern_in_object_between(Glib::RefPtr<Gtk
     }
     if (!forward) std::swap(start_offset, end_offset);
 
-    std::list<CtAnchoredWidget*> obj_vec = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(start_offset, end_offset);
+    std::list<CtAnchoredWidget*> obj_vec = tree_iter.get_embedded_pixbufs_tables_codeboxes(start_offset, end_offset);
     if (!forward)
         std::reverse(obj_vec.begin(), obj_vec.end());
     for (auto element: obj_vec)
