@@ -277,13 +277,20 @@ void CtStorageControl::_put_in_backup(const fs::path& main_backup)
             hash_dir = str::replace(hash_dir, str, "_");
         std::string new_backup_dir = Glib::build_filename(_pCtMainWin->get_ct_config()->customBackupDir, hash_dir);
         Glib::RefPtr<Gio::File> dir_file = Gio::File::create_for_path(new_backup_dir);
-        if (!dir_file->query_exists())
+        try
+        {
+            if (!dir_file->query_exists())
             if (!dir_file->make_directory_with_parents())
             {
                 spdlog::error("failed to create backup directory: {}", new_backup_dir);
                 return "";
             }
-        return Glib::build_filename(new_backup_dir, _file_path.filename().string()) + CtConst::CHAR_TILDE;
+            return Glib::build_filename(new_backup_dir, _file_path.filename().string()) + CtConst::CHAR_TILDE;
+        }
+        catch (Glib::Error& ex) {
+            spdlog::error("failed to create backup directory: {}, \n{}", new_backup_dir, ex.what());
+            return "";
+        }
     };
 
     std::string new_backup_file = _file_path.string() + CtConst::CHAR_TILDE;
