@@ -3,8 +3,9 @@ set -e
 # based on https://gitlab.gnome.org/GNOME/gedit/-/tree/master/build-aux%2Fwin32
 # and in particular make-gedit-installer.sh
 
-GIT_CT_FOLDER="/home/${USER}/git/cherrytree"
-GIT_CT_FUTURE="${GIT_CT_FOLDER}/future"
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+GIT_CT_FUTURE="$(dirname "${SCRIPT_DIR}")"
+GIT_CT_FOLDER="$(dirname "${GIT_CT_FUTURE}")"
 GIT_CT_EXE="${GIT_CT_FUTURE}/build/cherrytree.exe"
 GIT_CT_LANGUAGES_FOLDER="${GIT_CT_FOLDER}/future/po"
 GIT_CT_DATA_FOLDER="${GIT_CT_FOLDER}/future/data"

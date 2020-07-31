@@ -918,15 +918,13 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_2()
     Gtk::VBox* vbox_misc_tree = Gtk::manage(new Gtk::VBox());
     Gtk::HBox* hbox_tree_nodes_names_width = Gtk::manage(new Gtk::HBox());
     hbox_tree_nodes_names_width->set_spacing(4);
-    Gtk::CheckButton* checkbutton_tree_nodes_names_wrap_ena = Gtk::manage(new Gtk::CheckButton());
+    Gtk::CheckButton* checkbutton_tree_nodes_names_wrap_ena = Gtk::manage(new Gtk::CheckButton(_("Tree Nodes Names Wrapping Width")));
     checkbutton_tree_nodes_names_wrap_ena->set_active(pConfig->cherryWrapEnabled);
-    Gtk::Label* label_tree_nodes_names_width = Gtk::manage(new Gtk::Label(_("Tree Nodes Names Wrapping Width")));
     Glib::RefPtr<Gtk::Adjustment> adj_tree_nodes_names_width = Gtk::Adjustment::create(pConfig->cherryWrapWidth, 10, 10000, 1);
     Gtk::SpinButton* spinbutton_tree_nodes_names_width = Gtk::manage(new Gtk::SpinButton(adj_tree_nodes_names_width));
     spinbutton_tree_nodes_names_width->set_value(pConfig->cherryWrapWidth);
     spinbutton_tree_nodes_names_width->set_sensitive(pConfig->cherryWrapEnabled);
     hbox_tree_nodes_names_width->pack_start(*checkbutton_tree_nodes_names_wrap_ena, false, false);
-    hbox_tree_nodes_names_width->pack_start(*label_tree_nodes_names_width, false, false);
     hbox_tree_nodes_names_width->pack_start(*spinbutton_tree_nodes_names_width, false, false);
     Gtk::CheckButton* checkbutton_tree_right_side = Gtk::manage(new Gtk::CheckButton(_("Display Tree on the Right Side")));
     checkbutton_tree_right_side->set_active(pConfig->treeRightSide);
