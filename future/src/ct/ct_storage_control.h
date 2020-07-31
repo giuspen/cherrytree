@@ -82,7 +82,6 @@ private:
     fs::path                         _file_path;
     Glib::ustring                    _password;
     fs::path                         _extracted_file_path;
-    bool                             _need_backup{true};   // create a backup once, on the first saving
     std::unique_ptr<CtStorageEntity> _storage;
     CtStorageSyncPending             _syncPending;
 };
