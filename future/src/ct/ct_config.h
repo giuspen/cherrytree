@@ -68,6 +68,7 @@ public:
     bool                                        auxIconHide{false};
     int                                         defaultIconText{CtConst::NODE_ICON_BULLET_ID};
     bool                                        treeRightSide{false};
+    bool                                        cherryWrapEnabled{false};
     int                                         cherryWrapWidth{130};
     bool                                        treeClickFocusText{false};
     bool                                        treeClickExpand{false};

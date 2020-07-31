@@ -141,15 +141,15 @@ void CtTreeView::set_cursor_safe(const Gtk::TreeIter& iter)
     set_cursor(get_model()->get_path(iter));
 }
 
-void CtTreeView::set_tree_node_name_wrap_width(int wrap_width)
+void CtTreeView::set_tree_node_name_wrap_width(const bool wrap_enabled, const int wrap_width)
 {
     Gtk::TreeViewColumn* pTVCol0 = get_column(CtTreeView::TITLE_COL_NUM);
     std::vector<Gtk::CellRenderer*> cellRenderers0 = pTVCol0->get_cells();
     if (cellRenderers0.size() > 1) {
-        if (Gtk::CellRendererText *pCellRendererText = dynamic_cast<Gtk::CellRendererText*>(cellRenderers0[1]))
-        {
+        Gtk::CellRendererText *pCellRendererText = dynamic_cast<Gtk::CellRendererText*>(cellRenderers0[1]);
+        if (pCellRendererText) {
             pCellRendererText->property_wrap_mode().set_value(Pango::WRAP_CHAR);
-            pCellRendererText->property_wrap_width().set_value(wrap_width);
+            pCellRendererText->property_wrap_width().set_value(wrap_enabled ? wrap_width : -1);
         }
     }
 }
