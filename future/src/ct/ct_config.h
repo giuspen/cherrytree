@@ -179,6 +179,8 @@ public:
     bool                                        backupCopy{true};
     int                                         backupNum{3};
     bool                                        autosaveOnQuit{false};
+    bool                                        customBackupDirOn{false};
+    std::string                                 customBackupDir{""};
     int                                         limitUndoableSteps{20};
     bool                                        usePandoc{true}; // Whether to use Pandoc for exporting
 

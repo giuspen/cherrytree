@@ -308,6 +308,8 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_boolean(_currentGroup, "backup_copy", backupCopy);
     _uKeyFile->set_integer(_currentGroup, "backup_num", backupNum);
     _uKeyFile->set_boolean(_currentGroup, "autosave_on_quit", autosaveOnQuit);
+    _uKeyFile->set_boolean(_currentGroup, "enable_custom_backup_dir", customBackupDirOn);
+    _uKeyFile->set_string(_currentGroup, "custom_backup_dir", customBackupDir);
     _uKeyFile->set_integer(_currentGroup, "limit_undoable_steps", limitUndoableSteps);
 
     // [keyboard]
@@ -573,6 +575,8 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_bool_from_keyfile("backup_copy", &backupCopy);
     _populate_int_from_keyfile("backup_num", &backupNum);
     _populate_bool_from_keyfile("autosave_on_quit", &autosaveOnQuit);
+    _populate_bool_from_keyfile("enable_custom_backup_dir", &customBackupDirOn);
+    _populate_string_from_keyfile("custom_backup_dir", &customBackupDir);
     _populate_int_from_keyfile("limit_undoable_steps", &limitUndoableSteps);
 
     // [keyboard]
