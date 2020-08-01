@@ -1805,6 +1805,10 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
         nodeData.foregroundRgb24 = CtRgbUtil::get_rgb24str_from_str_any(fg_colorbutton.get_color().to_string());
         pCtMainWin->get_ct_config()->currColors['n'] = nodeData.foregroundRgb24;
     }
+    else
+    {
+        nodeData.foregroundRgb24.clear();
+    }
     return true;
 }
 
