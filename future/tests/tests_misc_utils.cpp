@@ -136,9 +136,11 @@ TEST(MiscUtilsGroup, contains)
 TEST(MiscUtilsGroup, getFontMisc)
 {
     STRCMP_EQUAL("Sans", CtFontUtil::get_font_family("Sans 9").c_str());
-    STRCMP_EQUAL("9", CtFontUtil::get_font_size_str("Sans 9").c_str());
+    CHECK_EQUAL(9, CtFontUtil::get_font_size("Sans 9"));
     STRCMP_EQUAL("Noto Sans", CtFontUtil::get_font_family("Noto Sans 9").c_str());
-    STRCMP_EQUAL("9", CtFontUtil::get_font_size_str("Noto Sans 9").c_str());
+    CHECK_EQUAL(9, CtFontUtil::get_font_size("Noto Sans 9"));
+    STRCMP_EQUAL("Noto Sans 9", CtFontUtil::get_font_str("Noto Sans", 9).c_str());
+    STRCMP_EQUAL("Noto Sans 9", CtFontUtil::get_font_str(Pango::FontDescription("Noto Sans 9")).c_str());
 }
 
 TEST(MiscUtilsGroup, set_rgb24str_from_rgb24int)

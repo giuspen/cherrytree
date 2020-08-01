@@ -36,7 +36,6 @@
 #include "ct_types.h"
 #include "ct_filesystem.h"
 
-
 class CtMDParser;
 class CtClipboard;
 class CtTmp
@@ -99,6 +98,7 @@ public:
 public:
     CtTreeView();
     virtual ~CtTreeView();
+
     void set_cursor_safe(const Gtk::TreeIter& iter);
     void set_tree_node_name_wrap_width(const bool wrap_enabled, const int wrap_width);
 };
@@ -121,18 +121,20 @@ public:
     void for_event_after_key_press(GdkEvent* event, const Glib::ustring& syntaxHighlighting);
 
     void cursor_and_tooltips_handler(int x, int y);
-    void zoom_text(bool is_increase);
+    void zoom_text(const bool is_increase, const std::string& syntaxHighlighting);
     void set_spell_check(bool allow_on);
 
     void set_buffer(const Glib::RefPtr<Gtk::TextBuffer>& buffer);
+
 private:
     bool          _apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor);
     Glib::ustring _get_former_line_indentation(Gtk::TextIter iter_start);
     void          _special_char_replace(gunichar special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_insert);
     /// Replace the char between iter_start and iter_end with another one
     void          _special_char_replace(Glib::ustring special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
-    
+
     bool          _markdown_filter_active();
+
 public:
     static const double TEXT_SCROLL_MARGIN;
 
@@ -141,11 +143,6 @@ private:
     static GspellChecker* _get_spell_checker(const std::string& lang);
 
 private:
-    /// Used to check if rich text syntax has been set for the view
-    [[nodiscard]] bool _buffer_is_rich_text() const;
-private:
-    
     std::unique_ptr<CtMarkdownFilter> _md_handler;
-
     CtMainWin* _pCtMainWin;
 };

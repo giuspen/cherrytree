@@ -125,7 +125,6 @@ void CtAnchoredWidget::insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer)
     }
 }
 
-
 CtTreeView::CtTreeView()
 {
     set_headers_visible(false);
@@ -340,8 +339,6 @@ void CtTextView::for_event_after_triple_click_button1(GdkEvent* event)
     get_iter_at_location(iter_start, x, y);
     _pCtMainWin->apply_tag_try_automatic_bounds_triple_click(text_buffer, iter_start);
 }
-
-
 
 bool CtTextView::_markdown_filter_active() {
     bool is_active = _pCtMainWin->get_ct_config()->enableMdFormatting;
@@ -697,14 +694,23 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
 }
 
 // Increase or Decrease Text Font
-void CtTextView::zoom_text(bool is_increase)
+void CtTextView::zoom_text(const bool is_increase, const std::string& syntaxHighlighting)
 {
     Glib::RefPtr<Gtk::StyleContext> context = get_style_context();
-    Pango::FontDescription description = context->get_font(context->get_state());
-    auto size = description.get_size() / Pango::SCALE + (is_increase ? 1 : -1);
+    Pango::FontDescription fontDesc = context->get_font(context->get_state());
+    int size = fontDesc.get_size() / Pango::SCALE + (is_increase ? 1 : -1);
     if (size < 6) size = 6;
-    description.set_size(size * Pango::SCALE);
-    override_font(description);
+    fontDesc.set_size(size * Pango::SCALE);
+    override_font(fontDesc);
+    if (syntaxHighlighting == CtConst::RICH_TEXT_ID) {
+        _pCtMainWin->get_ct_config()->rtFont = CtFontUtil::get_font_str(fontDesc);
+    }
+    else if (syntaxHighlighting == CtConst::PLAIN_TEXT_ID) {
+        _pCtMainWin->get_ct_config()->ptFont = CtFontUtil::get_font_str(fontDesc);
+    }
+    else {
+        _pCtMainWin->get_ct_config()->codeFont = CtFontUtil::get_font_str(fontDesc);
+    }
 }
 
 void CtTextView::set_spell_check(bool allow_on)

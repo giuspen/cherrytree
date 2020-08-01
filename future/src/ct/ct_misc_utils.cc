@@ -738,14 +738,30 @@ std::string CtStrUtil::external_uri_from_internal(std::string internal_uri) {
 
 }
 
-std::string CtFontUtil::get_font_family(const std::string& fontStr)
+
+Glib::ustring CtFontUtil::get_font_family(const Glib::ustring& fontStr)
 {
     return Pango::FontDescription(fontStr).get_family();
 }
 
-std::string CtFontUtil::get_font_size_str(const std::string& fontStr)
+int CtFontUtil::get_font_size(const Pango::FontDescription& fontDesc)
 {
-    return std::to_string(Pango::FontDescription(fontStr).get_size()/Pango::SCALE);
+    return fontDesc.get_size()/Pango::SCALE;
+}
+
+int CtFontUtil::get_font_size(const Glib::ustring& fontStr)
+{
+    return get_font_size(Pango::FontDescription(fontStr));
+}
+
+Glib::ustring CtFontUtil::get_font_str(const Glib::ustring& fontFamily, const int fontSize)
+{
+    return fontFamily + " " + std::to_string(fontSize);
+}
+
+Glib::ustring CtFontUtil::get_font_str(const Pango::FontDescription& fontDesc)
+{
+    return fontDesc.get_family() + " " + std::to_string(get_font_size(fontDesc));
 }
 
 

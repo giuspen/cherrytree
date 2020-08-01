@@ -205,9 +205,15 @@ std::string external_uri_from_internal(std::string internal_uri);
 
 namespace CtFontUtil {
 
-std::string get_font_family(const std::string& fontStr);
+Glib::ustring get_font_family(const Glib::ustring& fontStr);
 
-std::string get_font_size_str(const std::string& fontStr);
+int get_font_size(const Pango::FontDescription& fontDesc);
+
+int get_font_size(const Glib::ustring& fontStr);
+
+Glib::ustring get_font_str(const Glib::ustring& fontFamily, const int fontSize);
+
+Glib::ustring get_font_str(const Pango::FontDescription& fontDesc);
 
 } // namespace CtFontUtil
 

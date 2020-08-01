@@ -145,9 +145,9 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
         if (!(event->state & GDK_CONTROL_MASK))
             return false;
         if  (event->direction == GDK_SCROLL_UP || event->direction == GDK_SCROLL_DOWN)
-            _ctTextview.zoom_text(event->direction == GDK_SCROLL_UP);
+            _ctTextview.zoom_text(event->direction == GDK_SCROLL_DOWN, get_syntax_highlighting());
         if  (event->direction == GDK_SCROLL_SMOOTH && event->delta_y != 0)
-            _ctTextview.zoom_text(event->delta_y > 0);
+            _ctTextview.zoom_text(event->delta_y < 0, get_syntax_highlighting());
         return true;
     });
     _ctTextview.get_buffer()->signal_insert().connect([this](const Gtk::TextBuffer::iterator& /*pos*/, const Glib::ustring& text, int /*bytes*/) {
@@ -301,11 +301,11 @@ bool CtCodebox::_on_key_press_event(GdkEventKey* event)
             return true;
         }
         if (event->keyval == GDK_KEY_plus || event->keyval == GDK_KEY_KP_Add || event->keyval == GDK_KEY_equal) {
-            _ctTextview.zoom_text(true);
+            _ctTextview.zoom_text(true, get_syntax_highlighting());
             return true;
         }
         else if (event->keyval == GDK_KEY_minus|| event->keyval == GDK_KEY_KP_Subtract) {
-            _ctTextview.zoom_text(false);
+            _ctTextview.zoom_text(false, get_syntax_highlighting());
             return true;
         }
     }

@@ -877,11 +877,12 @@ void CtMainWin::_ensure_curr_doc_in_recent_docs()
 void CtMainWin::_zoom_tree(bool is_increase)
 {
     Glib::RefPtr<Gtk::StyleContext> context = _uCtTreeview->get_style_context();
-    Pango::FontDescription description = context->get_font(context->get_state());
-    auto size = description.get_size() / Pango::SCALE + (is_increase ? 1 : -1);
+    Pango::FontDescription fontDesc = context->get_font(context->get_state());
+    int size = fontDesc.get_size() / Pango::SCALE + (is_increase ? 1 : -1);
     if (size < 6) size = 6;
-    description.set_size(size * Pango::SCALE);
-    _uCtTreeview->override_font(description);
+    fontDesc.set_size(size * Pango::SCALE);
+    _uCtTreeview->override_font(fontDesc);
+    _pCtConfig->treeFont = CtFontUtil::get_font_str(fontDesc);
 }
 
 bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_focus, const Glib::ustring password)
@@ -1639,7 +1640,7 @@ bool CtMainWin::_on_textview_motion_notify_event(GdkEventMotion* event)
 bool CtMainWin::_on_textview_visibility_notify_event(GdkEventVisibility*)
 {
     if (curr_tree_iter().get_node_syntax_highlighting() != CtConst::RICH_TEXT_ID and
-            curr_tree_iter().get_node_syntax_highlighting() != CtConst::PLAIN_TEXT_ID)
+        curr_tree_iter().get_node_syntax_highlighting() != CtConst::PLAIN_TEXT_ID)
     {
         get_text_view().get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
         return false;
@@ -1674,7 +1675,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
 
     auto curr_buffer = get_text_view().get_buffer();
     if (event->key.state & Gdk::SHIFT_MASK)
-     {
+    {
         if (event->key.keyval == GDK_KEY_ISO_Left_Tab and !curr_buffer->get_has_selection())
         {
             auto iter_insert = curr_buffer->get_insert()->get_iter();
@@ -1782,11 +1783,11 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
     else if (event->key.state & Gdk::CONTROL_MASK)
     {
         if (event->key.keyval == GDK_KEY_plus || event->key.keyval == GDK_KEY_KP_Add || event->key.keyval == GDK_KEY_equal) {
-            _ctTextview.zoom_text(true);
+            _ctTextview.zoom_text(true, curr_tree_iter().get_node_syntax_highlighting());
             return true;
         }
         else if (event->key.keyval == GDK_KEY_minus|| event->key.keyval == GDK_KEY_KP_Subtract) {
-            _ctTextview.zoom_text(false);
+            _ctTextview.zoom_text(false, curr_tree_iter().get_node_syntax_highlighting());
             return true;
         }
     }
@@ -1837,9 +1838,9 @@ bool CtMainWin::_on_textview_scroll_event(GdkEventScroll* event)
     if (!(event->state & GDK_CONTROL_MASK))
         return false;
     if (event->direction == GDK_SCROLL_UP || event->direction == GDK_SCROLL_DOWN)
-        _ctTextview.zoom_text(event->direction == GDK_SCROLL_DOWN);
+        _ctTextview.zoom_text(event->direction == GDK_SCROLL_DOWN, curr_tree_iter().get_node_syntax_highlighting());
     if (event->direction == GDK_SCROLL_SMOOTH && event->delta_y != 0)
-        _ctTextview.zoom_text(event->delta_y < 0);
+        _ctTextview.zoom_text(event->delta_y < 0, curr_tree_iter().get_node_syntax_highlighting());
     return true;
 }
 
