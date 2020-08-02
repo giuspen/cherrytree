@@ -157,6 +157,7 @@ public:
     std::string                                 ttDefFg{CtConst::TREE_TEXT_LIGHT_FG};
     std::string                                 ttDefBg{CtConst::TREE_TEXT_LIGHT_BG};
     std::string                                 monospaceBg{CtConst::DEFAULT_MONOSPACE_BG};
+    std::string                                 monospaceFont{"Monospace 9"};
     std::string                                 colorPalette{"#000000:#ffffff:#7f7f7f:#ff0000:#a020f0:"
                                                              "#0000ff:#add8e6:#00ff00:#ffff00:#ffa500:"
                                                              "#e6e6fa:#a52a2a:#8b6914:#1e90ff:#ffc0cb:"

@@ -999,32 +999,38 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
     CtConfig* pConfig = _pCtMainWin->get_ct_config();
 
     Gtk::Image* image_rt = _pCtMainWin->new_image_from_stock("ct_fonts", Gtk::ICON_SIZE_MENU);
+    Gtk::Image* image_ms = _pCtMainWin->new_image_from_stock("ct_fmt-txt-monospace", Gtk::ICON_SIZE_MENU);
     Gtk::Image* image_pt = _pCtMainWin->new_image_from_stock("ct_fonts", Gtk::ICON_SIZE_MENU);
     Gtk::Image* image_code = _pCtMainWin->new_image_from_stock("ct_xml", Gtk::ICON_SIZE_MENU);
     Gtk::Image* image_tree = _pCtMainWin->new_image_from_stock("ct_cherries", Gtk::ICON_SIZE_MENU);
     Gtk::Label* label_rt = Gtk::manage(new Gtk::Label(_("Rich Text")));
+    Gtk::Label* label_ms = Gtk::manage(new Gtk::Label(_("Monospace")));
     Gtk::Label* label_pt = Gtk::manage(new Gtk::Label(_("Plain Text")));
     Gtk::Label* label_code = Gtk::manage(new Gtk::Label(_("Code Font")));
     Gtk::Label* label_tree = Gtk::manage(new Gtk::Label(_("Tree Font")));
     Gtk::FontButton* fontbutton_rt = Gtk::manage(new Gtk::FontButton(pConfig->rtFont));
+    Gtk::FontButton* fontbutton_ms = Gtk::manage(new Gtk::FontButton(pConfig->monospaceFont));
     Gtk::FontButton* fontbutton_pt = Gtk::manage(new Gtk::FontButton(pConfig->ptFont));
     Gtk::FontButton* fontbutton_code = Gtk::manage(new Gtk::FontButton(pConfig->codeFont));
     Gtk::FontButton* fontbutton_tree = Gtk::manage(new Gtk::FontButton(pConfig->treeFont));
-    Gtk::Table* table_fonts = Gtk::manage(new Gtk::Table(4, 3));
+    Gtk::Table* table_fonts = Gtk::manage(new Gtk::Table(5, 3));
     table_fonts->set_row_spacings(2);
     table_fonts->set_col_spacings(4);
-    table_fonts->attach(*image_rt, 0, 1, 0, 1);//, 0, 0); // todo: fix expand param
-    table_fonts->attach(*image_pt, 0, 1, 1, 2);//, 0, 0);
-    table_fonts->attach(*image_code, 0, 1, 2, 3);//, 0, 0);
-    table_fonts->attach(*image_tree, 0, 1, 3, 4);//, 0, 0);
-    table_fonts->attach(*label_rt, 1, 2, 0, 1);// 0, 0);
-    table_fonts->attach(*label_pt, 1, 2, 1, 2);//, 0, 0);
-    table_fonts->attach(*label_code, 1, 2, 2, 3);//, 0, 0);
-    table_fonts->attach(*label_tree, 1, 2, 3, 4);//, 0, 0);
-    table_fonts->attach(*fontbutton_rt, 2, 3, 0, 1);//, yoptions=0);
-    table_fonts->attach(*fontbutton_pt, 2, 3, 1, 2);//, yoptions=0);
-    table_fonts->attach(*fontbutton_code, 2, 3, 2, 3);//, yoptions=0);
-    table_fonts->attach(*fontbutton_tree, 2, 3, 3, 4);//, yoptions=0);
+    table_fonts->attach(*image_rt,   0, 1, 0, 1);
+    table_fonts->attach(*image_ms,   0, 1, 1, 2);
+    table_fonts->attach(*image_pt,   0, 1, 2, 3);
+    table_fonts->attach(*image_code, 0, 1, 3, 4);
+    table_fonts->attach(*image_tree, 0, 1, 4, 5);
+    table_fonts->attach(*label_rt,   1, 2, 0, 1);
+    table_fonts->attach(*label_ms,   1, 2, 1, 2);
+    table_fonts->attach(*label_pt,   1, 2, 2, 3);
+    table_fonts->attach(*label_code, 1, 2, 3, 4);
+    table_fonts->attach(*label_tree, 1, 2, 4, 5);
+    table_fonts->attach(*fontbutton_rt,   2, 3, 0, 1);
+    table_fonts->attach(*fontbutton_ms,   2, 3, 1, 2);
+    table_fonts->attach(*fontbutton_pt,   2, 3, 2, 3);
+    table_fonts->attach(*fontbutton_code, 2, 3, 3, 4);
+    table_fonts->attach(*fontbutton_tree, 2, 3, 4, 5);
 
     Gtk::Frame* frame_fonts = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Fonts")+"</b>"));
     ((Gtk::Label*)frame_fonts->get_label_widget())->set_use_markup(true);
@@ -1043,6 +1049,10 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
     fontbutton_rt->signal_font_set().connect([this, pConfig, fontbutton_rt](){
         pConfig->rtFont = fontbutton_rt->get_font_name();
         apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
+    });
+    fontbutton_ms->signal_font_set().connect([this, pConfig, fontbutton_ms](){
+        pConfig->monospaceFont = fontbutton_ms->get_font_name();
+        need_restart(RESTART_REASON::MONOSPACE);
     });
     fontbutton_pt->signal_font_set().connect([this, pConfig, fontbutton_pt](){
         pConfig->ptFont = fontbutton_pt->get_font_name();

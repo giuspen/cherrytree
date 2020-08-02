@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 project(cherrytree)
-set(CT_VERSION "0.99.6")
+set(CT_VERSION "0.99.7")
 
 # APPLE has issues with installing in /usr/bin because of SIP
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT AND APPLE)

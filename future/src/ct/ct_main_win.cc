@@ -324,6 +324,10 @@ const std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string
             {
                 rTextTag->property_background() = _pCtConfig->monospaceBg;
             }
+            if (not _pCtConfig->monospaceFont.empty())
+            {
+                rTextTag->property_font() = _pCtConfig->monospaceFont;
+            }
         }
         else if (CtConst::TAG_STRIKETHROUGH == propertyName and CtConst::TAG_PROP_VAL_TRUE == propertyValue)
         {
