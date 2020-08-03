@@ -64,6 +64,7 @@ CtMainWin::CtMainWin(bool             no_gui,
     _uCtStorage.reset(CtStorageControl::create_dummy_storage(this));
 
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+    _scrolledwindowTree.get_style_context()->add_class("ct-tree-scroll-panel");
     _scrolledwindowText.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     _scrolledwindowText.add(_ctTextview);
     _vboxText.pack_start(_init_window_header(), false, false);
@@ -513,6 +514,7 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
     _uCtTreeview->enable_model_drag_source();
 
     _uCtTreeview->get_style_context()->add_class("ct-tree-panel");
+    _uCtTreeview->set_margin_bottom(10);  // so horiz scroll doens't prevent to select the bottom element
 }
 
 void CtMainWin::config_apply()
@@ -591,6 +593,7 @@ void CtMainWin::update_theme()
     std::string theme_css;
     theme_css += ".ct-tree-panel { color: " + _pCtConfig->ttDefFg + "; background-color: " + _pCtConfig->ttDefBg + "; } ";
     theme_css += ".ct-tree-panel:selected { background: #5294e2;  } ";
+    theme_css += ".ct-tree-scroll-panel { background-color: " + _pCtConfig->ttDefBg + "; } ";
     theme_css += ".ct-header-panel { background-color: " + _pCtConfig->ttDefBg + "; } ";
     theme_css += ".ct-header-panel button { margin: 2px; padding: 0 4px 0 4px; } ";
     theme_css += ".ct-status-bar bar { margin: 0px; } ";
