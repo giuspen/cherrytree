@@ -374,7 +374,11 @@ void CtTreeStore::treeview_set_tree_path_n_text_cursor(Gtk::TreeView* pTreeView,
             if (static_cast<bool>(textIter))
             {
                 rTextBuffer->place_cursor(textIter);
-                pTextView->scroll_to(textIter, CtTextView::TEXT_SCROLL_MARGIN);
+                // if directly call `scroll_to`, it doesn't work maybe textview is not ready/visible or something else
+                Glib::signal_idle().connect_once([pTextView](){
+                   auto iter = pTextView->get_buffer()->get_insert()->get_iter();
+                   pTextView->scroll_to(iter, CtTextView::TEXT_SCROLL_MARGIN);
+                });
             }
         }
     }
