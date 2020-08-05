@@ -737,6 +737,11 @@ Glib::ustring CtDialogs::img_n_entry_dialog(Gtk::Window& parent,
     pContentArea->pack_start(hbox);
     pContentArea->show_all();
     entry.grab_focus();
+    entry.signal_activate().connect([&](){
+        if (!entry.get_text().empty())
+            dialog.response(Gtk::RESPONSE_ACCEPT);
+    });
+
     return (Gtk::RESPONSE_ACCEPT == dialog.run() ? str::trim(entry.get_text()) : "");
 }
 
@@ -908,6 +913,10 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
         }
         link_type_changed_on_dialog();
     });
+    entry_webs.signal_activate().connect([&](){
+        if (!str::trim(entry_webs.get_text()).empty())
+            dialog.response(Gtk::RESPONSE_ACCEPT);
+    });
     radiobutton_node.signal_toggled().connect([&]()
     {
         if (radiobutton_node.get_active())
@@ -924,6 +933,10 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
         }
         link_type_changed_on_dialog();
     });
+    entry_file.signal_activate().connect([&](){
+        if (!str::trim(entry_file.get_text()).empty())
+            dialog.response(Gtk::RESPONSE_ACCEPT);
+    });
     radiobutton_folder.signal_toggled().connect([&]()
     {
         if (radiobutton_folder.get_active())
@@ -931,6 +944,10 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
             link_entries.type = CtConst::LINK_TYPE_FOLD;
         }
         link_type_changed_on_dialog();
+    });
+    entry_folder.signal_activate().connect([&](){
+        if (!str::trim(entry_folder.get_text()).empty())
+            dialog.response(Gtk::RESPONSE_ACCEPT);
     });
     button_browse_file.signal_clicked().connect([&]()
     {
@@ -1052,7 +1069,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
             return true;
         }
         return false;
-    });
+    }, false);
 
     pContentArea->show_all();
     link_type_changed_on_dialog();
