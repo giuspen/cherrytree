@@ -283,7 +283,7 @@ CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
                                const double& timeSeconds,
                                const int charOffset,
                                const std::string& justification)
- : CtImage(pCtMainWin, "ct_file_icon", pCtMainWin->get_ct_config()->embfileSize, charOffset, justification),
+ : CtImage(pCtMainWin, _get_file_icon(pCtMainWin, fileName), charOffset, justification),
    _fileName(fileName),
    _rawBlob(rawBlob),
    _timeSeconds(timeSeconds)
@@ -372,6 +372,26 @@ void CtImageEmbFile::update_tooltip()
     char buffTooltip[128];
     snprintf(buffTooltip, 128, "%s\n%s (%ld Bytes)\n%s", _fileName.c_str(), humanReadableSize, embfileBytes, strDateTime.c_str());
     set_tooltip_text(buffTooltip);
+}
+
+/*static*/ Glib::RefPtr<Gdk::Pixbuf> CtImageEmbFile::_get_file_icon(CtMainWin* pCtMainWin, const fs::path& fileName)
+{
+    Glib::RefPtr<Gdk::Pixbuf> result;
+
+#ifndef _WIN32
+    g_autofree gchar* ctype = g_content_type_guess(fileName.c_str(), NULL, 0, NULL);
+    if (ctype && !g_content_type_is_unknown(ctype))
+    {
+        if (GIcon* icon = g_content_type_get_icon(ctype)) // Glib::wrap will unref object
+        {
+           Gtk::IconInfo info = pCtMainWin->get_icon_theme()->lookup_icon(Glib::wrap(icon), pCtMainWin->get_ct_config()->embfileSize, Gtk::ICON_LOOKUP_USE_BUILTIN);
+           result = info.load_icon();
+        }
+    }
+#endif
+    if (!result)
+        result = pCtMainWin->get_icon_theme()->load_icon("ct_file_icon", pCtMainWin->get_ct_config()->embfileSize);
+    return result;
 }
 
 // Catches mouse buttons clicks upon files images

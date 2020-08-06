@@ -643,7 +643,7 @@ void CtClipboard::_on_received_to_uri_list(const Gtk::SelectionData& selection_d
             {
                 Glib::ustring file_path = element.substr(7);
                 file_path = str::replace(file_path, "%20", CtConst::CHAR_SPACE);
-                gchar* mimetype = g_content_type_guess(file_path.c_str(), nullptr, 0, nullptr);
+                g_autofree gchar* mimetype = g_content_type_guess(file_path.c_str(), nullptr, 0, nullptr);
                 if (mimetype and str::startswith(mimetype, "image/") and Glib::file_test(file_path, Glib::FILE_TEST_IS_REGULAR))
                 {
                     try

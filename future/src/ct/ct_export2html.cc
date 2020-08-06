@@ -667,7 +667,7 @@ namespace CtPandoc {
 // Checks if the specified file is in the PATH environment variable
 bool in_path(const std::string& file) 
 {
-    auto prog_name = g_find_program_in_path(file.c_str());
+    g_autofree gchar* prog_name = g_find_program_in_path(file.c_str());
     return prog_name != nullptr;
 }
 

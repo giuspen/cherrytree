@@ -140,6 +140,9 @@ public:
     void update_label_widget();
 
 private:
+    static Glib::RefPtr<Gdk::Pixbuf> _get_file_icon(CtMainWin* pCtMainWin, const fs::path& fileName);
+
+private:
     bool _on_button_press_event(GdkEventButton* event);
 
 protected:
