@@ -39,6 +39,7 @@ CtExport2Html::CtExport2Html(CtMainWin* pCtMainWin)
 //Prepare the website folder
 bool CtExport2Html::prepare_html_folder(fs::path dir_place, fs::path new_folder, bool export_overwrite, fs::path& export_path)
 {
+    spdlog::debug("CtExport2Html::prepare_html_folder: start");
     if (dir_place.empty())
     {
         dir_place = CtDialogs::folder_select_dialog(_pCtMainWin->get_ct_config()->pickDirExport, _pCtMainWin);
@@ -76,12 +77,14 @@ bool CtExport2Html::prepare_html_folder(fs::path dir_place, fs::path new_folder,
 
     export_path = _export_dir;
 
+    spdlog::debug("CtExport2Html::prepare_html_folder: end");
     return true;
 }
 
 // Export a Node To HTML
 void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOptions& options, const Glib::ustring& index, int sel_start, int sel_end)
 {
+    spdlog::debug("CtExport2Html::node_export_to_html: start");
     Glib::ustring html_text = str::format(HTML_HEADER, tree_iter.get_node_name());
     if (index != "" && options.index_in_page)
     {
@@ -101,6 +104,7 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
 
     std::vector<Glib::ustring> html_slots;
     std::vector<CtAnchoredWidget*> widgets;
+    spdlog::debug("CtExport2Html::node_export_to_html: prepare content");
     if (tree_iter.get_node_is_rich_text())
     {
         _html_get_from_treestore_node(tree_iter, sel_start, sel_end, html_slots, widgets);
@@ -110,19 +114,32 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
             html_text += html_slots[i];
             if (i < widgets.size())
             {
-                if (CtImageEmbFile* embfile = dynamic_cast<CtImageEmbFile*>(widgets[i]))
-                    html_text += _get_embfile_html(embfile, tree_iter, _embed_dir);
-                else if (CtImage* image = dynamic_cast<CtImage*>(widgets[i]))
-                    html_text += _get_image_html(image, _images_dir, images_count, &tree_iter);
-                else if (CtTable* table = dynamic_cast<CtTable*>(widgets[i]))
-                    html_text += _get_table_html(table);
-                else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widgets[i]))
-                    html_text += _get_codebox_html(codebox);
+                try
+                {
+                    if (CtImageEmbFile* embfile = dynamic_cast<CtImageEmbFile*>(widgets[i]))
+                        html_text += _get_embfile_html(embfile, tree_iter, _embed_dir);
+                    else if (CtImage* image = dynamic_cast<CtImage*>(widgets[i]))
+                        html_text += _get_image_html(image, _images_dir, images_count, &tree_iter);
+                    else if (CtTable* table = dynamic_cast<CtTable*>(widgets[i]))
+                        html_text += _get_table_html(table);
+                    else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widgets[i]))
+                        html_text += _get_codebox_html(codebox);
+                }
+                catch (std::exception& ex)
+                {
+                    spdlog::debug("caught ex: {}", ex.what());
+                }
+                catch (...)
+                {
+                    spdlog::debug("unknown ex");
+                }
             }
         }
     }
     else
         html_text += _html_get_from_code_buffer(tree_iter.get_node_text_buffer(), sel_start, sel_end, tree_iter.get_node_syntax_highlighting());
+
+    spdlog::debug("CtExport2Html::node_export_to_html: after prepare content");
 
     if (index != "" && !options.index_in_page)
         html_text += Glib::ustring("<p align=\"center\">") + Glib::build_filename("images", "home.png") +
@@ -131,8 +148,12 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
     html_text += "</div>"; // div class='page'
     html_text += HTML_FOOTER;
 
+    spdlog::debug("CtExport2Html::node_export_to_html: before writing file");
+
     fs::path node_html_filepath = _export_dir / _get_html_filename(tree_iter);
     g_file_set_contents(node_html_filepath.c_str(), html_text.c_str(), (gssize)html_text.bytes(), nullptr);
+
+    spdlog::debug("CtExport2Html::node_export_to_html: after writing file");
 }
 
 // Export All Nodes To HTML
