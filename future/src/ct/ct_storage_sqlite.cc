@@ -128,7 +128,7 @@ std::optional<std::vector<std::string>> get_quick_check_issues(sqlite3* db) {
     if (!db) throw std::logic_error("get_quick_check_issues passed invalid database object");
 
     sqlite3_stmt_auto stmt(db, "PRAGMA quick_check");
-    
+
     std::vector<std::string> rows;
     while(sqlite3_step(stmt) == SQLITE_ROW) {
         std::string info = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
@@ -139,7 +139,7 @@ std::optional<std::vector<std::string>> get_quick_check_issues(sqlite3* db) {
             rows.emplace_back(info);
         }
     }
-    
+
     return rows;
 }
 
@@ -255,8 +255,17 @@ bool CtStorageSqlite::populate_treestore(const fs::path& file_path, Glib::ustrin
     }
 }
 
-bool CtStorageSqlite::save_treestore(const fs::path& file_path, const CtStorageSyncPending& syncPending, Glib::ustring& error)
+bool CtStorageSqlite::save_treestore(const fs::path& file_path,
+                                     const CtStorageSyncPending& syncPending,
+                                     Glib::ustring& error,
+                                     const CtExporting exporting/*= CtExporting::NONE*/,
+                                     const int /*start_offset = -1*/,
+                                     const int /*end_offset = -1*/)
 {
+    if (CtExporting::NONE != exporting) {
+        //TODO complete export as cherrytree document
+        return false;
+    }
     try
     {
         // it's the first time, a new file will be created
@@ -791,9 +800,9 @@ void CtStorageSqlite::_exec_bind_int64(const char* sqlCmd, const gint64 bind_int
 void CtStorageSqlite::import_nodes(const fs::path& path)
 {
     _open_db(path); // storage is temp so can just open db
-    if (!_check_database_integrity()) return; 
+    if (!_check_database_integrity()) return;
     // _fix_db_tables(); how to do it withough saving changes
-    
+
     std::function<void(gint64, const gint64, Gtk::TreeIter)> add_node_func;
     add_node_func = [this, &add_node_func](gint64 nodeId, const gint64 sequence, Gtk::TreeIter parent_iter) {
         auto node_iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(_node_from_db(nodeId, sequence, parent_iter, _pCtMainWin->get_tree_store().node_id_get()));
@@ -810,9 +819,9 @@ void CtStorageSqlite::import_nodes(const fs::path& path)
     _close_db();
 }
 
-std::unordered_set<std::string> CtStorageSqlite::_get_table_field_names(std::string_view table_name) 
+std::unordered_set<std::string> CtStorageSqlite::_get_table_field_names(std::string_view table_name)
 {
-    // Note, possible SQL injection - Table names passed to this should be hardcoded 
+    // Note, possible SQL injection - Table names passed to this should be hardcoded
     auto fields_info_pragma = fmt::format("PRAGMA table_info({})", table_name);
     sqlite3_stmt_auto stmt(_pDb, fields_info_pragma.c_str());
 
@@ -831,7 +840,7 @@ void CtStorageSqlite::_fix_db_tables()
     const static std::vector<std::vector<std::string>> tables = {
         {"node", "ts_creation", "INTEGER", "ts_lastsave", "INTEGER"}, {"image", "filename", "TEXT", "link", "TEXT", "time", "TEXT"}
     };
-    
+
     try {
         for (const auto& table : tables) {
             auto& table_name = table[0];

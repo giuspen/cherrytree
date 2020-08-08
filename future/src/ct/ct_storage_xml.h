@@ -1,7 +1,9 @@
 /*
  * ct_storage_xml.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +42,7 @@ class CtTableCell;
 class CtStorageCache;
 
 class CtStorageXml : public CtStorageEntity
-{    
+{
 public:
     CtStorageXml(CtMainWin* pCtMainWin);
     ~CtStorageXml() = default;
@@ -50,7 +52,12 @@ public:
     void test_connection() override;
 
     bool populate_treestore(const fs::path& file_path, Glib::ustring& error) override;
-    bool save_treestore(const fs::path& file_path, const CtStorageSyncPending& syncPending, Glib::ustring& error) override;
+    bool save_treestore(const fs::path& file_path,
+                        const CtStorageSyncPending& syncPending,
+                        Glib::ustring& error,
+                        const CtExporting exporting = CtExporting::NONE,
+                        const int start_offset = -1,
+                        const int end_offset = -1) override;
     void vacuum() override;
     void import_nodes(const fs::path& path) override;
 

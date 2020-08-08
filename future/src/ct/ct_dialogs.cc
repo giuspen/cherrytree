@@ -120,11 +120,11 @@ Gtk::TreeIter CtDialogs::choose_item_dialog(Gtk::Window& parent,
 }
 
 // Dialog to select between the Selected Node/Selected Node + Subnodes/All Tree
-CtDialogs::CtProcessNode CtDialogs::selnode_selnodeandsub_alltree_dialog(Gtk::Window& parent,
-                                                                         bool also_selection,
-                                                                         bool* last_include_node_name,
-                                                                         bool* last_new_node_page,
-                                                                         bool* last_index_in_page)
+CtExporting CtDialogs::selnode_selnodeandsub_alltree_dialog(Gtk::Window& parent,
+                                                            bool also_selection,
+                                                            bool* last_include_node_name,
+                                                            bool* last_new_node_page,
+                                                            bool* last_index_in_page)
 {
     Gtk::Dialog dialog(_("Involved Nodes"),
                        parent,
@@ -182,11 +182,11 @@ CtDialogs::CtProcessNode CtDialogs::selnode_selnodeandsub_alltree_dialog(Gtk::Wi
     if (last_index_in_page != nullptr) *last_index_in_page = checkbutton_index_in_page.get_active();
     if (last_new_node_page != nullptr) *last_new_node_page = checkbutton_new_node_page.get_active();
 
-    if (response != Gtk::RESPONSE_ACCEPT)            return CtDialogs::CtProcessNode::NONE;
-    else if (radiobutton_selnode.get_active())       return CtDialogs::CtProcessNode::CURRENT_NODE;
-    else if (radiobutton_selnodeandsub.get_active()) return CtDialogs::CtProcessNode::CURRENT_NODE_AND_SUBNODES;
-    else if (radiobutton_alltree.get_active())       return CtDialogs::CtProcessNode::ALL_TREE;
-    else                                             return CtDialogs::CtProcessNode::SELECTED_TEXT;
+    if (response != Gtk::RESPONSE_ACCEPT) return CtExporting::NONE;
+    if (radiobutton_selnode.get_active()) return CtExporting::CURRENT_NODE;
+    if (radiobutton_selnodeandsub.get_active()) return CtExporting::CURRENT_NODE_AND_SUBNODES;
+    if (radiobutton_alltree.get_active()) return CtExporting::ALL_TREE;
+    return CtExporting::SELECTED_TEXT;
 }
 
 // Dialog to select a color, featuring a palette

@@ -1,7 +1,9 @@
 /*
  * ct_storage_xml.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,25 +32,20 @@
 #include "ct_storage_control.h"
 #include "ct_logging.h"
 
-
 CtStorageXml::CtStorageXml(CtMainWin* pCtMainWin) : _pCtMainWin(pCtMainWin)
 {
-
 }
 
 void CtStorageXml::close_connect()
 {
-
 }
 
 void CtStorageXml::reopen_connect()
 {
-
 }
 
 void CtStorageXml::test_connection()
 {
-
 }
 
 bool CtStorageXml::populate_treestore(const fs::path& file_path, Glib::ustring& error)
@@ -87,8 +84,17 @@ bool CtStorageXml::populate_treestore(const fs::path& file_path, Glib::ustring& 
     }
  }
 
-bool CtStorageXml::save_treestore(const fs::path& file_path, const CtStorageSyncPending&, Glib::ustring& error)
+bool CtStorageXml::save_treestore(const fs::path& file_path,
+                                  const CtStorageSyncPending&,
+                                  Glib::ustring& error,
+                                  const CtExporting exporting/*= CtExporting::NONE*/,
+                                  const int /*start_offset = -1*/,
+                                  const int /*end_offset = -1*/)
 {
+    if (CtExporting::NONE != exporting) {
+        //TODO complete export as cherrytree document
+        return false;
+    }
     try
     {
         xmlpp::Document xml_doc;

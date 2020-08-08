@@ -1,7 +1,9 @@
 /*
  * ct_storage_sqlite.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,7 +47,12 @@ public:
     void test_connection() override;
 
     bool populate_treestore(const fs::path& file_path, Glib::ustring& error) override;
-    bool save_treestore(const fs::path& file_path, const CtStorageSyncPending& syncPending, Glib::ustring& error) override;
+    bool save_treestore(const fs::path& file_path,
+                        const CtStorageSyncPending& syncPending,
+                        Glib::ustring& error,
+                        const CtExporting exporting = CtExporting::NONE,
+                        const int start_offset = -1,
+                        const int end_offset = -1) override;
     void vacuum() override;
     void import_nodes(const fs::path& path) override;
 
@@ -59,18 +66,18 @@ private:
 
     Gtk::TreeIter       _node_from_db(gint64 node_id, gint64 sequence, Gtk::TreeIter parent_iter, gint64 new_id);
 
-    
+
     /**
      * @brief Check that the database contains the required tables
-     * 
-     * @param db 
+     *
+     * @param db
      */
     void                _fix_db_tables();
     /**
      * @brief Get a list of field names for a table
      * @warning Only hardcoded table names should be passed to this method
-     * @param table_name 
-     * @return std::unordered_set<std::string> 
+     * @param table_name
+     * @return std::unordered_set<std::string>
      */
     std::unordered_set<std::string> _get_table_field_names(std::string_view table_name);
 

@@ -371,19 +371,19 @@ void CtActions::toc_insert()
 
     auto toc_type = CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, false, nullptr, nullptr, nullptr);
 
-    if (toc_type == CtDialogs::NONE) return;
+    if (toc_type == CtExporting::NONE) return;
 
     std::vector<TocEntry> entries;
     CtTreeIter curr_node = _pCtMainWin->curr_tree_iter();
-    if (toc_type == CtDialogs::CURRENT_NODE) {
+    if (toc_type == CtExporting::CURRENT_NODE) {
         auto txt_buff = curr_node.get_node_text_buffer();
         _pCtMainWin->get_tree_store().treeview_safe_set_cursor(&_pCtMainWin->get_tree_view(), curr_node);
 
         TocEntry entry = find_toc_entries(*this, curr_node, 0);
         entries.emplace_back(std::move(entry));
-    } else if (toc_type == CtDialogs::CURRENT_NODE_AND_SUBNODES) {
+    } else if (toc_type == CtExporting::CURRENT_NODE_AND_SUBNODES) {
         find_toc_entries_and_children(entries, *this, *_pCtMainWin, curr_node, 0);
-    } else if (toc_type == CtDialogs::ALL_TREE) {
+    } else if (toc_type == CtExporting::ALL_TREE) {
         CtTreeStore& tree_store = _pCtMainWin->get_tree_store();
         CtTreeIter top_node = tree_store.get_ct_iter_first();
         CtTreeIter sib = top_node;

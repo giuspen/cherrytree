@@ -38,7 +38,10 @@ public:
     static CtStorageControl* save_as(CtMainWin* pCtMainWin,
                                      const fs::path& file_path,
                                      const Glib::ustring& password,
-                                     Glib::ustring& error);
+                                     Glib::ustring& error,
+                                     const CtExporting exporting = CtExporting::NONE,
+                                     const int start_offset = -1,
+                                     const int end_offset = -1);
 
 public:
     bool save(bool need_vacuum, Glib::ustring& error);
@@ -68,11 +71,11 @@ public:
     void pending_new_db_node(gint64 node_id);
     void pending_rm_db_nodes(const std::vector<gint64>& node_ids);
     void pending_edit_db_bookmarks();
-    
+
     /**
      * @brief Add the nodes from an external CT file to the current tree
-     * Operates on all CT files, uses the appropraite StorageEntity derivative and extracts 
-     * encrypted files 
+     * Operates on all CT files, uses the appropraite StorageEntity derivative and extracts
+     * encrypted files
      * @param path: The path to the external CT file
      */
     void add_nodes_from_storage(const fs::path& path);

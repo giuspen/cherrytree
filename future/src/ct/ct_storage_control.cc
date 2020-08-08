@@ -95,7 +95,10 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
 /*static*/ CtStorageControl* CtStorageControl::save_as(CtMainWin* pCtMainWin,
                                                        const fs::path& file_path,
                                                        const Glib::ustring& password,
-                                                       Glib::ustring& error)
+                                                       Glib::ustring& error,
+                                                       const CtExporting exporting/*= CtExporting::NONE*/,
+                                                       const int start_offset/*= -1*/,
+                                                       const int end_offset/*= -1*/)
 {
     auto on_scope_exit = scope_guard([&](void*) { pCtMainWin->get_status_bar().pop(); });
     pCtMainWin->get_status_bar().push(_("Writing to Disk..."));
@@ -118,9 +121,9 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
         storage = get_entity_by_type(pCtMainWin, fs::get_doc_type(file_path));
         // will save all data because it's the first time
         CtStorageSyncPending fakePending;
-        if (!storage->save_treestore(extracted_file_path, fakePending, error))
+        if (not storage->save_treestore(extracted_file_path, fakePending, error, exporting, start_offset, end_offset)) {
             throw std::runtime_error(error);
-
+        }
         // encrypt the file
         if (file_path != extracted_file_path)
         {

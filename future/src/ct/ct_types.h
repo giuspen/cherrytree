@@ -30,7 +30,6 @@
 #include <glibmm/ustring.h>
 #include <gtksourceviewmm/buffer.h>
 
-
 namespace fs {
 class path;
 }
@@ -49,7 +48,7 @@ enum class CtSaveNeededUpdType { None, nbuf, npro, ndel, book };
 
 enum class CtXmlNodeType { None, RichText, EncodedPng, Table, CodeBox };
 
-enum class CtExporting { No, All, NodeOnly, NodeAndSubnodes };
+enum class CtExporting { NONE, SELECTED_TEXT, CURRENT_NODE, CURRENT_NODE_AND_SUBNODES, ALL_TREE };
 
 enum class CtListType { None, Todo, Bullet, Number };
 
@@ -114,7 +113,6 @@ struct CtRecentDocsFilepaths : public CtMaxSizedList<fs::path>
     CtRecentDocsFilepaths() : CtMaxSizedList<fs::path>{10} {}
 };
 
-
 struct CtStorageNodeState
 {
     bool upd{false};
@@ -143,7 +141,12 @@ public:
     virtual void test_connection() = 0;
 
     virtual bool populate_treestore(const fs::path& file_path, Glib::ustring& error) = 0;
-    virtual bool save_treestore(const fs::path& file_path, const CtStorageSyncPending& syncPending, Glib::ustring& error) = 0;
+    virtual bool save_treestore(const fs::path& file_path,
+                                const CtStorageSyncPending& syncPending,
+                                Glib::ustring& error,
+                                const CtExporting exporting = CtExporting::NONE,
+                                const int start_offset = -1,
+                                const int end_offset = -1) = 0;
     virtual void vacuum() = 0;
     virtual void import_nodes(const fs::path& path) = 0;
 
