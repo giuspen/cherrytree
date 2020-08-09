@@ -5,27 +5,33 @@ Maintainer: Giuseppe Penone <giuspen@gmail.com>
 Build-Depends:
  debhelper (>= 9),
  desktop-file-utils,
- dh-python,
  gettext,
- python (>= 2.6.6-3~)
-X-Python-Version: >= 2.6
+ python3-lxml,
+ cmake (>= 3.13.2),
+ libcpputest-dev,
+ libxml2-utils,
+ libgtkmm-3.0-dev,
+ libgtksourceviewmm-3.0-dev,
+ libxml++2.6-dev,
+ libsqlite3-dev,
+ libgspell-1-dev,
+ libcurl4-openssl-dev
 Standards-Version: 3.9.5
 Homepage: https://www.giuspen.com/cherrytree/
 Vcs-Git: https://github.com/giuspen/cherrytree.git
 Vcs-Browser: https://github.com/giuspen/cherrytree
 
 Package: cherrytree
-Architecture: all
+Architecture: any
 Depends:
- p7zip-full,
- python-dbus,
- python-enchant,
- python-chardet,
- python-gtk2 (>= 2.16),
- python-gtksourceview2,
- ${misc:Depends}
-Recommends:
- python-appindicator
+ libgtkmm-3.0-1v5,
+ libgtksourceviewmm-3.0-0v5,
+ libxml++2.6-2v5,
+ libsqlite3-0,
+ libgspell-1-2,
+ libcurl4,
+ ${misc:Depends},
+ ${shlibs:Depends}
 Description: hierarchical note taking application
  CherryTree is a hierarchical note taking application, featuring rich text,
  syntax highlighting, images handling, hyperlinks, import/export with support

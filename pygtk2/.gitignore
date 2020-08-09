@@ -1,0 +1,14 @@
+*.pyc
+*.mo
+linux/cherrytree.1.gz
+*.exe
+*.o
+*.gmo
+*.in
+*~
+*.sed
+*.sin
+*Makefile
+debian/files
+.vscode
+build*

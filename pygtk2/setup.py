@@ -163,7 +163,7 @@ if "py2exe" in sys.argv:
        url = "https://www.giuspen.com/cherrytree/",
        license = "GPL",
        windows = [{"script": "cherrytree",
-                   "icon_resources": [(1, "future/icons/cherrytree.ico")]
+                   "icon_resources": [(1, "../icons/cherrytree.ico")]
                    }],
        options={"py2exe": {
                    "includes": "pango,cairo,pangocairo,atk,gobject,gtk,gtksourceview2,gio,enchant",
@@ -187,7 +187,7 @@ else:
        url = "https://www.giuspen.com/cherrytree/",
        license = "GPL",
        data_files = [
-                      ("share/icons/hicolor/scalable/apps", ["future/icons/cherrytree.svg"] ),
+                      ("share/icons/hicolor/scalable/apps", ["../icons/cherrytree.svg"] ),
                       ("share/cherrytree/glade", glob.glob("glade/*.*") ),
                       ("share/cherrytree/language-specs", glob.glob("language-specs/*.lang") ),
                       ("share/cherrytree/modules", glob.glob("modules/*.py") ),

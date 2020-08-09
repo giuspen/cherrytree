@@ -132,7 +132,7 @@
       "name": "cherrytree",
       "buildsystem": "simple",
       "build-commands": [
-        "python setup.py install --prefix=/app -f"
+        "cd pygtk2 && python setup.py install --prefix=/app -f"
       ],
       "sources": [
         {

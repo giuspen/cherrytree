@@ -28,7 +28,7 @@ LicenseFile=C:\Users\{#Username}\Desktop\cherrytree_{#MyAppVersion}_win64_portab
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputBaseFilename=cherrytree_{#MyAppVersion}_setup
-SetupIconFile=C:\msys64\home\{#Username}\git\cherrytree\future\icons\cherrytree.ico
+SetupIconFile=C:\msys64\home\{#Username}\git\cherrytree\icons\cherrytree.ico
 Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern

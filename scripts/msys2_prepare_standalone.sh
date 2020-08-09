@@ -4,19 +4,18 @@ set -e
 # and in particular make-gedit-installer.sh
 
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
-GIT_CT_FUTURE="$(dirname "${SCRIPT_DIR}")"
-GIT_CT_FOLDER="$(dirname "${GIT_CT_FUTURE}")"
-GIT_CT_EXE="${GIT_CT_FUTURE}/build/cherrytree.exe"
-GIT_CT_LANGUAGES_FOLDER="${GIT_CT_FOLDER}/future/po"
-GIT_CT_DATA_FOLDER="${GIT_CT_FOLDER}/future/data"
-GIT_CT_LANGUAGE_SPECS_FOLDER="${GIT_CT_FOLDER}/future/language-specs"
+GIT_CT_FOLDER="$(dirname "${SCRIPT_DIR}")"
+GIT_CT_EXE="${GIT_CT_FOLDER}/build/cherrytree.exe"
+GIT_CT_LANGUAGES_FOLDER="${GIT_CT_FOLDER}/po"
+GIT_CT_DATA_FOLDER="${GIT_CT_FOLDER}/data"
+GIT_CT_LANGUAGE_SPECS_FOLDER="${GIT_CT_FOLDER}/language-specs"
 GIT_CT_LICENSE="${GIT_CT_FOLDER}/license.txt"
-GIT_CT_HUNSPELL="${GIT_CT_FOLDER}/windows"
-GIT_CT_CONFIG_H="${GIT_CT_FOLDER}/future/config.h"
+GIT_CT_HUNSPELL="${GIT_CT_FOLDER}/hunspell"
+GIT_CT_CONFIG_H="${GIT_CT_FOLDER}/config.h"
 
 
 echo "clean and build..."
-cd ${GIT_CT_FUTURE}
+cd ${GIT_CT_FOLDER}
 git clean -dfx
 ./build.sh
 
