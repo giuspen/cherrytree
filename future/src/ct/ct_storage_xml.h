@@ -56,7 +56,7 @@ public:
                         const CtStorageSyncPending& syncPending,
                         Glib::ustring& error,
                         const CtExporting exporting = CtExporting::NONE,
-                        const int start_offset = -1,
+                        const int start_offset = 0,
                         const int end_offset = -1) override;
     void vacuum() override;
     void import_nodes(const fs::path& path) override;
@@ -66,7 +66,12 @@ public:
                                                       std::list<CtAnchoredWidget*>& widgets) const override;
 private:
     Gtk::TreeIter  _node_from_xml(xmlpp::Element* xml_element, gint64 sequence, Gtk::TreeIter parent_iter, gint64 new_id);
-    void           _nodes_to_xml(CtTreeIter* ct_tree_iter, xmlpp::Element* p_node_parent, CtStorageCache* storage_cache);
+    void           _nodes_to_xml(CtTreeIter* ct_tree_iter,
+                                 xmlpp::Element* p_node_parent,
+                                 CtStorageCache* storage_cache,
+                                 const CtExporting exporting = CtExporting::NONE,
+                                 const int start_offset = 0,
+                                 const int end_offset =-1);
     std::unique_ptr<xmlpp::DomParser> _get_parser(const fs::path& file_path);
 
 private:
@@ -80,7 +85,12 @@ class CtStorageXmlHelper
 public:
     CtStorageXmlHelper(CtMainWin* pCtMainWin);
 
-    xmlpp::Element*           node_to_xml(CtTreeIter* ct_tree_iter, xmlpp::Element* p_node_parent, bool with_widgets, CtStorageCache* storage_cache);
+    xmlpp::Element*           node_to_xml(CtTreeIter* ct_tree_iter,
+                                          xmlpp::Element* p_node_parent,
+                                          bool with_widgets,
+                                          CtStorageCache* storage_cache,
+                                          const int start_offset = 0,
+                                          const int end_offset = -1);
 
     Glib::RefPtr<Gsv::Buffer> create_buffer_and_widgets_from_xml(xmlpp::Element* parent_xml_element, const Glib::ustring& syntax,
                                                           std::list<CtAnchoredWidget*>& widgets, Gtk::TextIter* text_insert_pos, int force_offset);
@@ -94,7 +104,7 @@ public:
     void populate_table_matrix(std::vector<std::vector<CtTableCell*>>& tableMatrix, xmlpp::Element* xml_element);
 
     static void save_buffer_no_widgets_to_xml(xmlpp::Element* p_node_parent, Glib::RefPtr<Gtk::TextBuffer> buffer,
-                                       int start_offset, int end_offset, const gchar change_case);
+                                              int start_offset, int end_offset, const gchar change_case);
 
 private:
     void              _add_rich_text_from_xml(Glib::RefPtr<Gsv::Buffer> buffer, xmlpp::Element* xml_element, Gtk::TextIter* text_insert_pos);

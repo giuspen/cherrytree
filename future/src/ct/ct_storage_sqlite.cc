@@ -259,24 +259,22 @@ bool CtStorageSqlite::save_treestore(const fs::path& file_path,
                                      const CtStorageSyncPending& syncPending,
                                      Glib::ustring& error,
                                      const CtExporting exporting/*= CtExporting::NONE*/,
-                                     const int /*start_offset = -1*/,
-                                     const int /*end_offset = -1*/)
+                                     const int start_offset/*= 0*/,
+                                     const int end_offset/*= -1*/)
 {
-    if (CtExporting::NONE != exporting) {
-        //TODO complete export as cherrytree document
-        return false;
-    }
     try
     {
-        // it's the first time, a new file will be created
+        // it's the first time (or an export), a new file will be created
         if (_pDb == nullptr)
         {
             _open_db(file_path);
             _file_path = file_path;
 
             _create_all_tables_in_db();
-            _write_bookmarks_to_db(_pCtMainWin->get_tree_store().bookmarks_get());
-
+            if ( CtExporting::NONE == exporting or
+                 CtExporting::ALL_TREE == exporting ) {
+                _write_bookmarks_to_db(_pCtMainWin->get_tree_store().bookmarks_get());
+            }
             CtStorageNodeState node_state;
             node_state.upd = false; // no need to delete the prev data
             node_state.prop = true;
@@ -284,30 +282,39 @@ bool CtStorageSqlite::save_treestore(const fs::path& file_path,
             node_state.hier = true;
 
             CtStorageCache storage_cache;
-            storage_cache.generate_cache(_pCtMainWin, nullptr /* all nodes */, false);
+            storage_cache.generate_cache(_pCtMainWin, nullptr/*all nodes*/, false);
 
             // function to iterate through the tree
             std::function<void(CtTreeIter, const gint64, const gint64)> save_node_fun;
             save_node_fun = [&](CtTreeIter ct_tree_iter, const gint64 sequence, const gint64 father_id) {
-                _write_node_to_db(&ct_tree_iter, sequence, father_id, node_state, 0, -1, &storage_cache);
-                gint64 child_sequence{0};
-                CtTreeIter ct_tree_iter_child = ct_tree_iter.first_child();
-                while (ct_tree_iter_child) {
-                    ++child_sequence;
-                    save_node_fun(ct_tree_iter_child, child_sequence, ct_tree_iter.get_node_id());
-                    ++ct_tree_iter_child;
+                _write_node_to_db(&ct_tree_iter, sequence, father_id, node_state, start_offset, end_offset, &storage_cache);
+                if ( CtExporting::CURRENT_NODE != exporting and
+                     CtExporting::SELECTED_TEXT != exporting ) {
+                    gint64 child_sequence{0};
+                    CtTreeIter ct_tree_iter_child = ct_tree_iter.first_child();
+                    while (ct_tree_iter_child) {
+                        ++child_sequence;
+                        save_node_fun(ct_tree_iter_child, child_sequence, ct_tree_iter.get_node_id());
+                        ++ct_tree_iter_child;
+                    }
                 }
             };
 
             // saving nodes
             gint64 sequence{0};
-            CtTreeIter ct_tree_iter = _pCtMainWin->get_tree_store().get_ct_iter_first();
-            while (ct_tree_iter) {
-                ++sequence;
-                save_node_fun(ct_tree_iter, sequence, 0);
-                ++ct_tree_iter;
+            if ( CtExporting::NONE == exporting or
+                 CtExporting::ALL_TREE == exporting ) {
+                CtTreeIter ct_tree_iter = _pCtMainWin->get_tree_store().get_ct_iter_first();
+                while (ct_tree_iter) {
+                    ++sequence;
+                    save_node_fun(ct_tree_iter, sequence, 0);
+                    ++ct_tree_iter;
+                }
             }
-
+            else {
+                CtTreeIter ct_tree_iter = _pCtMainWin->curr_tree_iter();
+                save_node_fun(ct_tree_iter, sequence, 0);
+            }
         }
         // or need just update some info
         else
@@ -598,7 +605,8 @@ void CtStorageSqlite::_write_node_to_db(CtTreeIter* ct_tree_iter,
                                         const gint64 sequence,
                                         const gint64 node_father_id,
                                         const CtStorageNodeState& node_state,
-                                        const int start_offset, const int end_offset,
+                                        const int start_offset,
+                                        const int end_offset,
                                         CtStorageCache* storage_cache)
 {
     const gint64 node_id = ct_tree_iter->get_node_id();
@@ -680,7 +688,13 @@ void CtStorageSqlite::_write_node_to_db(CtTreeIter* ct_tree_iter,
         }
         else
         {
-            node_txt = ct_tree_iter->get_node_text_buffer()->get_text();
+            const auto text_buffer = ct_tree_iter->get_node_text_buffer();
+            if (end_offset < 0) {
+                node_txt = text_buffer->get_text();
+            }
+            else {
+                node_txt = text_buffer->get_iter_at_offset(start_offset).get_text(text_buffer->get_iter_at_offset(end_offset));
+            }
         }
 
         // full node rewrite

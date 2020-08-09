@@ -51,7 +51,7 @@ public:
                         const CtStorageSyncPending& syncPending,
                         Glib::ustring& error,
                         const CtExporting exporting = CtExporting::NONE,
-                        const int start_offset = -1,
+                        const int start_offset = 0,
                         const int end_offset = -1) override;
     void vacuum() override;
     void import_nodes(const fs::path& path) override;

@@ -75,6 +75,17 @@ void CtActions::export_to_ctd()
     if (CtExporting::NONE == export_type) {
         return;
     }
+    int start_offset{0};
+    int end_offset{-1};
+    if (CtExporting::SELECTED_TEXT == export_type) {
+        if (not _is_there_text_selection_or_error()) {
+            return;
+        }
+        Gtk::TextIter iter_sel_start, iter_sel_end;
+        _curr_buffer()->get_selection_bounds(iter_sel_start, iter_sel_end);
+        start_offset = iter_sel_start.get_offset();
+        end_offset = iter_sel_end.get_offset();
+    }
     const fs::path currDocFilepath = _pCtMainWin->get_ct_storage()->get_file_path();
     CtDialogs::storage_select_args storageSelArgs(_pCtMainWin);
     if (not currDocFilepath.empty()) {
@@ -84,14 +95,14 @@ void CtActions::export_to_ctd()
     if (not CtDialogs::choose_data_storage_dialog(storageSelArgs)) {
         return;
     }
+    const std::string fileExtension = CtMiscUtil::get_doc_extension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);
     std::string proposed_name;
     if (CtExporting::ALL_TREE == export_type) {
         proposed_name = currDocFilepath.string();
         CtMiscUtil::filepath_extension_fix(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt, proposed_name);
     }
     else {
-        proposed_name = CtMiscUtil::get_node_hierarchical_name(_pCtMainWin->curr_tree_iter()) +
-                        CtMiscUtil::get_doc_extension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);
+        proposed_name = CtMiscUtil::get_node_hierarchical_name(_pCtMainWin->curr_tree_iter()) + fileExtension;
     }
     CtDialogs::file_select_args fileSelArgs(_pCtMainWin);
     fileSelArgs.curr_file_name = proposed_name;
@@ -99,23 +110,13 @@ void CtActions::export_to_ctd()
         fileSelArgs.curr_folder = currDocFilepath.parent_path();
     }
     fileSelArgs.filter_name = _("CherryTree Document");
-    std::string fileExtension = CtMiscUtil::get_doc_extension(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt);
+    
     fileSelArgs.filter_pattern.push_back(std::string{CtConst::CHAR_STAR}+fileExtension);
     std::string new_filepath = CtDialogs::file_save_as_dialog(fileSelArgs);
     if (new_filepath.empty()) {
         return;
     }
     CtMiscUtil::filepath_extension_fix(storageSelArgs.ctDocType, storageSelArgs.ctDocEncrypt, new_filepath);
-    int start_offset{-1};
-    int end_offset{-1};
-    if (CtExporting::SELECTED_TEXT == export_type) {
-        Gtk::TextIter iter_sel_start, iter_sel_end;
-        if (_curr_buffer()->get_has_selection()) {
-            _curr_buffer()->get_selection_bounds(iter_sel_start, iter_sel_end);
-            start_offset = iter_sel_start.get_offset();
-            end_offset = iter_sel_end.get_offset();
-        }
-    }
     Glib::ustring error;
     std::unique_ptr<CtStorageControl> new_storage(CtStorageControl::save_as(_pCtMainWin,
                                                                             new_filepath,

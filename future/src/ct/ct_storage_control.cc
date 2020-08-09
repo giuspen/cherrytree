@@ -32,10 +32,10 @@
 
 std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDocType file_type)
 {
-    if (file_type == CtDocType::SQLite)
+    if (file_type == CtDocType::SQLite) {
         return std::make_unique<CtStorageSqlite>(pCtMainWin);
-    else
-        return std::make_unique<CtStorageXml>(pCtMainWin);
+    }
+    return std::make_unique<CtStorageXml>(pCtMainWin);
 }
 
 /*static*/ CtStorageControl* CtStorageControl::create_dummy_storage(CtMainWin* pCtMainWin)
@@ -97,7 +97,7 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
                                                        const Glib::ustring& password,
                                                        Glib::ustring& error,
                                                        const CtExporting exporting/*= CtExporting::NONE*/,
-                                                       const int start_offset/*= -1*/,
+                                                       const int start_offset/*= 0*/,
                                                        const int end_offset/*= -1*/)
 {
     auto on_scope_exit = scope_guard([&](void*) { pCtMainWin->get_status_bar().pop(); });

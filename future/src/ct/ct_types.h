@@ -145,7 +145,7 @@ public:
                                 const CtStorageSyncPending& syncPending,
                                 Glib::ustring& error,
                                 const CtExporting exporting = CtExporting::NONE,
-                                const int start_offset = -1,
+                                const int start_offset = 0,
                                 const int end_offset = -1) = 0;
     virtual void vacuum() = 0;
     virtual void import_nodes(const fs::path& path) = 0;
@@ -153,7 +153,6 @@ public:
     virtual Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
                                                               const std::string& syntax,
                                                               std::list<CtAnchoredWidget*>& widgets) const = 0;
-
 };
 
 struct CtExportOptions

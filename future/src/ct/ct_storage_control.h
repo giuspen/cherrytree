@@ -40,13 +40,13 @@ public:
                                      const Glib::ustring& password,
                                      Glib::ustring& error,
                                      const CtExporting exporting = CtExporting::NONE,
-                                     const int start_offset = -1,
+                                     const int start_offset = 0,
                                      const int end_offset = -1);
 
 public:
     bool save(bool need_vacuum, Glib::ustring& error);
 
- private:
+private:
     CtStorageControl() = default;
 
     static fs::path _extract_file(CtMainWin* pCtMainWin, const fs::path& file_path, Glib::ustring& password);

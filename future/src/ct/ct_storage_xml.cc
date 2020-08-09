@@ -88,33 +88,39 @@ bool CtStorageXml::save_treestore(const fs::path& file_path,
                                   const CtStorageSyncPending&,
                                   Glib::ustring& error,
                                   const CtExporting exporting/*= CtExporting::NONE*/,
-                                  const int /*start_offset = -1*/,
-                                  const int /*end_offset = -1*/)
+                                  const int start_offset/*= 0*/,
+                                  const int end_offset/*=-1*/)
 {
-    if (CtExporting::NONE != exporting) {
-        //TODO complete export as cherrytree document
-        return false;
-    }
     try
     {
         xmlpp::Document xml_doc;
         xml_doc.create_root_node(CtConst::APP_NAME);
 
-        // save bookmarks
-        Glib::ustring rejoined;
-        str::join_numbers(_pCtMainWin->get_tree_store().bookmarks_get(), rejoined, ",");
-        xmlpp::Element* p_bookmarks_node = xml_doc.get_root_node()->add_child("bookmarks");
-        p_bookmarks_node->set_attribute("list", rejoined);
+        if ( CtExporting::NONE == exporting or
+             CtExporting::ALL_TREE == exporting ) {
+            // save bookmarks
+            Glib::ustring rejoined;
+            str::join_numbers(_pCtMainWin->get_tree_store().bookmarks_get(), rejoined, ",");
+            xmlpp::Element* p_bookmarks_node = xml_doc.get_root_node()->add_child("bookmarks");
+            p_bookmarks_node->set_attribute("list", rejoined);
+        }
 
         CtStorageCache storage_cache;
         storage_cache.generate_cache(_pCtMainWin, nullptr, true);
 
         // save nodes
-        auto ct_tree_iter = _pCtMainWin->get_tree_store().get_ct_iter_first();
-        while (ct_tree_iter)
-        {
-            _nodes_to_xml(&ct_tree_iter, xml_doc.get_root_node(), &storage_cache);
-            ct_tree_iter++;
+        if ( CtExporting::NONE == exporting or
+             CtExporting::ALL_TREE == exporting ) {
+            auto ct_tree_iter = _pCtMainWin->get_tree_store().get_ct_iter_first();
+            while (ct_tree_iter)
+            {
+                _nodes_to_xml(&ct_tree_iter, xml_doc.get_root_node(), &storage_cache, exporting, start_offset, end_offset);
+                ct_tree_iter++;
+            }
+        }
+        else {
+            CtTreeIter ct_tree_iter = _pCtMainWin->curr_tree_iter();
+            _nodes_to_xml(&ct_tree_iter, xml_doc.get_root_node(), &storage_cache, exporting, start_offset, end_offset);
         }
 
         // write file
@@ -199,14 +205,29 @@ Gtk::TreeIter CtStorageXml::_node_from_xml(xmlpp::Element* xml_element, gint64 s
     return _pCtMainWin->get_tree_store().append_node(&node_data, &parent_iter);
 }
 
-void CtStorageXml::_nodes_to_xml(CtTreeIter* ct_tree_iter, xmlpp::Element* p_node_parent, CtStorageCache* storage_cache)
+void CtStorageXml::_nodes_to_xml(CtTreeIter* ct_tree_iter,
+                                 xmlpp::Element* p_node_parent,
+                                 CtStorageCache* storage_cache,
+                                 const CtExporting exporting/*= CtExporting::NONE*/,
+                                 const int start_offset/*= 0*/,
+                                 const int end_offset/*=-1*/)
 {
-    xmlpp::Element* p_node_node =  CtStorageXmlHelper(_pCtMainWin).node_to_xml(ct_tree_iter, p_node_parent, true, storage_cache);
-    CtTreeIter ct_tree_iter_child = ct_tree_iter->first_child();
-    while (ct_tree_iter_child)
-    {
-        _nodes_to_xml(&ct_tree_iter_child, p_node_node, storage_cache);
-        ct_tree_iter_child++;
+    xmlpp::Element* p_node_node =  CtStorageXmlHelper(_pCtMainWin).node_to_xml(
+        ct_tree_iter,
+        p_node_parent,
+        true, 
+        storage_cache,
+        start_offset,
+        end_offset
+    );
+    if ( CtExporting::CURRENT_NODE != exporting and
+         CtExporting::SELECTED_TEXT != exporting ) {
+        CtTreeIter ct_tree_iter_child = ct_tree_iter->first_child();
+        while (ct_tree_iter_child)
+        {
+            _nodes_to_xml(&ct_tree_iter_child, p_node_node, storage_cache, exporting, start_offset, end_offset);
+            ct_tree_iter_child++;
+        }
     }
 }
 
@@ -239,10 +260,14 @@ std::unique_ptr<xmlpp::DomParser> CtStorageXml::_get_parser(const fs::path& file
 
 CtStorageXmlHelper::CtStorageXmlHelper(CtMainWin* pCtMainWin) : _pCtMainWin(pCtMainWin)
 {
-
 }
 
-xmlpp::Element* CtStorageXmlHelper::node_to_xml(CtTreeIter* ct_tree_iter, xmlpp::Element* p_node_parent, bool with_widgets, CtStorageCache* storage_cache)
+xmlpp::Element* CtStorageXmlHelper::node_to_xml(CtTreeIter* ct_tree_iter,
+                                                xmlpp::Element* p_node_parent,
+                                                bool with_widgets,
+                                                CtStorageCache* storage_cache,
+                                                const int start_offset/*= 0*/,
+                                                const int end_offset/*=-1*/)
 {
     xmlpp::Element* p_node_node = p_node_parent->add_child("node");
     p_node_node->set_attribute("name", ct_tree_iter->get_node_name());
@@ -257,12 +282,13 @@ xmlpp::Element* CtStorageXmlHelper::node_to_xml(CtTreeIter* ct_tree_iter, xmlpp:
     p_node_node->set_attribute("ts_lastsave", std::to_string(ct_tree_iter->get_node_modification_time()));
 
     Glib::RefPtr<Gsv::Buffer> buffer = ct_tree_iter->get_node_text_buffer();
-    save_buffer_no_widgets_to_xml(p_node_node, buffer, 0, -1, 'n');
+    save_buffer_no_widgets_to_xml(p_node_node, buffer, start_offset, end_offset, 'n');
 
-    if (with_widgets)
-        for (CtAnchoredWidget* pAnchoredWidget : ct_tree_iter->get_embedded_pixbufs_tables_codeboxes())
-            pAnchoredWidget->to_xml(p_node_node, 0, storage_cache);
-
+    if (with_widgets) {
+        for (CtAnchoredWidget* pAnchoredWidget : ct_tree_iter->get_embedded_pixbufs_tables_codeboxes(start_offset, end_offset)) {
+            pAnchoredWidget->to_xml(p_node_node, start_offset > 0 ? -start_offset : 0, storage_cache);
+        }
+    }
     return p_node_node;
 }
 
@@ -313,7 +339,6 @@ void CtStorageXmlHelper::get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gsv::Buf
     }
 
 }
-
 
 Glib::RefPtr<Gsv::Buffer> CtStorageXmlHelper::create_buffer_no_widgets(const Glib::ustring& syntax, const char* xml_content)
 {
