@@ -93,6 +93,7 @@ public:
 
     void config_apply();
     void config_update_data_from_curr_status();
+    void text_view_apply_cursor_position(CtTreeIter& treeIter, const int cursor_pos);
 
     void update_theme();
 
@@ -254,6 +255,7 @@ private:
     int                 _savedYpos{-1};
     sigc::connection    _autosave_timout_connection;
     bool                _tree_just_auto_expanded{false};
+    std::unordered_map<gint64, int> _nodesCursorPos;
 
 public:
     sigc::signal<void>             signal_app_new_instance = sigc::signal<void>();
@@ -262,5 +264,4 @@ public:
 
     sigc::signal<void, CtMainWin*> signal_app_quit_or_hide_window = sigc::signal<void, CtMainWin*>();
     sigc::signal<void, CtMainWin*> signal_app_quit_window = sigc::signal<void, CtMainWin*>();
-
 };

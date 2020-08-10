@@ -353,9 +353,8 @@ void CtTreeStore::treeview_safe_set_cursor(Gtk::TreeView* pTreeView, Gtk::TreeIt
 }
 
 void CtTreeStore::treeview_set_tree_path_n_text_cursor(Gtk::TreeView* pTreeView,
-                                              Gsv::View* pTextView,
-                                              const std::string& node_path,
-                                              const int cursor_pos)
+                                                       const std::string& node_path,
+                                                       const int cursor_pos)
 {
     bool treeSelFromConfig{false};
     if (not node_path.empty())
@@ -369,17 +368,8 @@ void CtTreeStore::treeview_set_tree_path_n_text_cursor(Gtk::TreeView* pTreeView,
             {
                 pTreeView->expand_row(_rTreeStore->get_path(treeIter), false/*open_all*/);
             }
-            Glib::RefPtr<Gsv::Buffer> rTextBuffer = (*treeIter).get_value(_columns.rColTextBuffer);
-            Gtk::TextIter textIter = rTextBuffer->get_iter_at_offset(cursor_pos);
-            if (static_cast<bool>(textIter))
-            {
-                rTextBuffer->place_cursor(textIter);
-                // if directly call `scroll_to`, it doesn't work maybe textview is not ready/visible or something else
-                Glib::signal_idle().connect_once([pTextView](){
-                   auto iter = pTextView->get_buffer()->get_insert()->get_iter();
-                   pTextView->scroll_to(iter, CtTextView::TEXT_SCROLL_MARGIN);
-                });
-            }
+            CtTreeIter ctTreeIter = to_ct_tree_iter(treeIter);
+            _pCtMainWin->text_view_apply_cursor_position(ctTreeIter, cursor_pos);
         }
     }
     if (not treeSelFromConfig)

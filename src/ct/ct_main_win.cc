@@ -488,6 +488,7 @@ void CtMainWin::apply_tag_try_automatic_bounds_triple_click(Glib::RefPtr<Gtk::Te
 void CtMainWin::_reset_CtTreestore_CtTreeview()
 {
     _prevTreeIter = CtTreeIter();
+    _nodesCursorPos.clear();
 
     _scrolledwindowTree.remove();
     _uCtTreeview.reset(new CtTreeView);
@@ -967,13 +968,16 @@ bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_f
     }
 
     if ( not _no_gui and
-         not node_is_set
-         and iterDocsRestore != _pCtConfig->recentDocsRestore.end() )
+         not node_is_set )
     {
-        _uCtTreestore->treeview_set_tree_path_n_text_cursor(_uCtTreeview.get(),
-                                                            &_ctTextview,
-                                                            iterDocsRestore->second.node_path,
-                                                            iterDocsRestore->second.cursor_pos);
+        if (iterDocsRestore != _pCtConfig->recentDocsRestore.end()) {
+            _uCtTreestore->treeview_set_tree_path_n_text_cursor(_uCtTreeview.get(),
+                                                                iterDocsRestore->second.node_path,
+                                                                iterDocsRestore->second.cursor_pos);
+        }
+        else {
+            _uCtTreestore->treeview_set_tree_path_n_text_cursor(_uCtTreeview.get(), "0", 0);
+        }
         _ctTextview.grab_focus();
     }
 
@@ -1335,13 +1339,29 @@ void CtMainWin::switch_buffer_text_source(Glib::RefPtr<Gsv::Buffer> text_buffer,
     user_active() = user_active_restore;
 }
 
+void CtMainWin::text_view_apply_cursor_position(CtTreeIter& treeIter, const int cursor_pos)
+{
+    Glib::RefPtr<Gsv::Buffer> rTextBuffer = treeIter.get_node_text_buffer();
+    Gtk::TextIter textIter = rTextBuffer->get_iter_at_offset(cursor_pos);
+    if (static_cast<bool>(textIter))
+    {
+        rTextBuffer->place_cursor(textIter);
+        // if directly call `scroll_to`, it doesn't work maybe textview is not ready/visible or something else
+        Glib::signal_idle().connect_once([&](){
+            auto iter = _ctTextview.get_buffer()->get_insert()->get_iter();
+            _ctTextview.scroll_to(iter, CtTextView::TEXT_SCROLL_MARGIN);
+        });
+    }
+}
+
 void CtMainWin::_on_treeview_cursor_changed()
 {
     if (_prevTreeIter)
     {
-        if (_prevTreeIter.get_node_id() == curr_tree_iter().get_node_id())
+        const gint64 prevNodeId = _prevTreeIter.get_node_id();
+        if (prevNodeId == curr_tree_iter().get_node_id()) {
             return;
-
+        }
         Glib::RefPtr<Gsv::Buffer> rTextBuffer = _prevTreeIter.get_node_text_buffer();
         if (rTextBuffer->get_modified())
         {
@@ -1349,9 +1369,14 @@ void CtMainWin::_on_treeview_cursor_changed()
             rTextBuffer->set_modified(false);
             get_state_machine().update_state(_prevTreeIter);
         }
+        _nodesCursorPos[prevNodeId] = rTextBuffer->property_cursor_position();
     }
     CtTreeIter treeIter = curr_tree_iter();
     _uCtTreestore->text_view_apply_textbuffer(treeIter, &_ctTextview);
+    auto mapIter = _nodesCursorPos.find(treeIter.get_node_id());
+    if (mapIter != _nodesCursorPos.end() and mapIter->second > 0) {
+        text_view_apply_cursor_position(treeIter, mapIter->second);
+    }
 
     menu_update_bookmark_menu_item(_uCtTreestore->is_node_bookmarked(treeIter.get_node_id()));
     window_header_update();

@@ -173,9 +173,8 @@ public:
     void treevew_expand_to_tree_row(Gtk::TreeView* pTreeView, Gtk::TreeRow& row);
     void treeview_safe_set_cursor(Gtk::TreeView* pTreeView, Gtk::TreeIter& iter);
     void treeview_set_tree_path_n_text_cursor(Gtk::TreeView* pTreeView,
-                                     Gsv::View* pTextView,
-                                     const std::string& node_path,
-                                     const int cursor_pos);
+                                              const std::string& node_path,
+                                              const int cursor_pos);
     std::string treeview_get_tree_expanded_collapsed_string(Gtk::TreeView& treeView);
     void        treeview_set_tree_expanded_collapsed_string(const std::string& expanded_collapsed_string, Gtk::TreeView& treeView, bool nodes_bookm_exp);
 
