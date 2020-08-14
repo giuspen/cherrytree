@@ -228,6 +228,14 @@ void CtColumnEdit::_edit_insert_delete(const bool isInsert)
                                     cursorPlace.get_x(), cursorPlace.get_y(),
                                     iterStartPoint.get_x(), iterStartPoint.get_y());
                             }
+                            else if (_lastRemovedText.find("\n") != Glib::ustring::npos) {
+                                _myOwnInsertDelete = true;
+                                rTextBuffer->insert_at_cursor(_lastRemovedText);
+                                _myOwnInsertDelete = false;
+                                if (not _enforce_cursor_column_mode_place()) {
+                                    _column_mode_off();
+                                }
+                            }
                         }
                     }
                     else {
@@ -253,10 +261,11 @@ void CtColumnEdit::_edit_insert_delete(const bool isInsert)
                                 // positive, backspace
                                 iterStart.backward_chars(_lastRemovedDeltaOffset);
                             }
-                            _myOwnInsertDelete = true;
-                            rTextBuffer->erase(iterStart, iterEnd);
-                            _myOwnInsertDelete = false;
-                            
+                            if (iterStart.get_text(iterEnd).find("\n") == Glib::ustring::npos) {
+                                _myOwnInsertDelete = true;
+                                rTextBuffer->erase(iterStart, iterEnd);
+                                _myOwnInsertDelete = false;
+                            }
                         }
                     }
                     _mutexLastInOut.unlock();
@@ -311,15 +320,11 @@ void CtColumnEdit::text_removed(const Gtk::TextIter& range_start, const Gtk::Tex
     if (CtColEditState::Off == _state or _myOwnInsertDelete) {
         return;
     }
-    if (range_start.get_line() != range_end.get_line()) {
+    if (0 == _marksStart.size() or not _marksStart.front()) {
         _column_mode_off();
         return;
     }
-    if (0 == _marksStart.size() or not _marksStart.at(0)) {
-        _column_mode_off();
-        return;
-    }
-    Gtk::TextIter firstStartMarkIter = _marksStart.at(0)->get_iter();
+    Gtk::TextIter firstStartMarkIter = _marksStart.front()->get_iter();
     if (not firstStartMarkIter) {
         _column_mode_off();
         return;
@@ -327,7 +332,7 @@ void CtColumnEdit::text_removed(const Gtk::TextIter& range_start, const Gtk::Tex
     _mutexLastInOut.lock();
     _lastRemovedText = range_start.get_text(range_end);
     _lastRemovedPoint = _get_point(range_start);
-    _lastRemovedDeltaOffset = range_end.get_line_offset() - range_start.get_line_offset();
+    _lastRemovedDeltaOffset = _lastRemovedText.size();
     if (range_end.get_line_offset() == firstStartMarkIter.get_line_offset()) {
         //printf("positive, backspace\n");
     }
@@ -335,8 +340,8 @@ void CtColumnEdit::text_removed(const Gtk::TextIter& range_start, const Gtk::Tex
         //printf("negative, delete front\n");
         _lastRemovedDeltaOffset *= -1;
     }
-    else if (CtColEditState::PrEdit == _state and _marksEnd.size() > 0 and _marksEnd.at(0)) {
-        Gtk::TextIter firstEndMarkIter = _marksEnd.at(0)->get_iter();
+    else if (CtColEditState::PrEdit == _state and _marksEnd.size() > 0 and _marksEnd.front()) {
+        Gtk::TextIter firstEndMarkIter = _marksEnd.front()->get_iter();
         if (not firstEndMarkIter) {
             _column_mode_off();
             return;
@@ -383,12 +388,38 @@ void CtColumnEdit::text_removed(const Gtk::TextIter& range_start, const Gtk::Tex
 
 void CtColumnEdit::button_1_released()
 {
-    if (CtColEditState::Selection == _state) {
-        _state = CtColEditState::PrEdit;
-        printf("colMode PRE\n");
-        if (not _enforce_cursor_column_mode_place()) {
-            _column_mode_off();
+    if ( CtColEditState::Selection != _state) {
+        return;
+    }
+    bool unexpected{false};
+    _state = CtColEditState::PrEdit;
+    printf("colMode PRE\n");
+    if ( _marksStart.size() > 0 and
+         _marksEnd.size() > 0 and
+         _marksStart.front() and
+         _marksEnd.front() )
+    {
+        Gtk::TextIter iterLeftCol = _marksStart.front()->get_iter();
+        Gtk::TextIter iterRightCol = _marksEnd.front()->get_iter();
+        if ( iterLeftCol and
+             iterRightCol and
+             _enforce_cursor_column_mode_place() )
+        {
+            if (iterLeftCol.get_line_offset() == iterRightCol.get_line_offset()) {
+                _state = CtColEditState::Edit;
+                printf("colMode EDIT\n");
+                _clear_marks(false/*alsoStart*/);
+            }
         }
+        else {
+            unexpected = true;
+        }
+    }
+    else {
+        unexpected = true;
+    }
+    if (unexpected) {
+        _column_mode_off();
     }
 }
 
