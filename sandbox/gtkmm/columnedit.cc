@@ -1,5 +1,5 @@
 
-// g++ columnedit.cc -o columnedit `pkg-config gtkmm-3.0 --cflags --libs`
+// g++ columnedit.cc -o columnedit `pkg-config gtkmm-3.0 --cflags --libs` -Wall -Wextra -Wunreachable-code -Wuninitialized
 
 #include <gtkmm.h>
 #include <utility>
@@ -27,6 +27,7 @@ private:
     Gdk::Point _get_cursor_column_mode_place();
     void _clear_marks(const bool alsoStart = true);
     void _predit_to_edit();
+    void _predit_to_edit_iter(Gtk::TextIter& iterStart, Gtk::TextIter& iterEnd, bool& firstLine);
     void _column_mode_off();
     void _edit_insert_delete(const bool isInsert);
     bool _enforce_cursor_column_mode_place();
@@ -109,6 +110,20 @@ void CtColumnEdit::_clear_marks(const bool alsoStart)
     }
 }
 
+void CtColumnEdit::_predit_to_edit_iter(Gtk::TextIter& iterStart, Gtk::TextIter& iterEnd, bool& firstLine)
+{
+    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = _textView.get_buffer();
+    if (firstLine) {
+        firstLine = false;
+        const unsigned delta_x = abs(iterEnd.get_line_offset() - iterStart.get_line_offset());
+        _lastInsertedPoint.set_x(_lastInsertedPoint.get_x() - delta_x);
+        _lastRemovedPoint.set_x(_lastRemovedPoint.get_x() - delta_x);
+    }
+    _myOwnInsertDelete = true;
+    rTextBuffer->erase(iterStart, iterEnd);
+    _myOwnInsertDelete = false;
+}
+
 void CtColumnEdit::_predit_to_edit()
 {
     bool unexpected{false};
@@ -116,44 +131,34 @@ void CtColumnEdit::_predit_to_edit()
         _state = CtColEditState::Edit;
         printf("colMode EDIT\n");
         bool firstLine{true};
-        Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = _textView.get_buffer();
         size_t currEndIdx{0};
         for (Glib::RefPtr<Gtk::TextMark>& markStart : _marksStart) {
             if (markStart) {
                 Gtk::TextIter iterStart = markStart->get_iter();
                 if (iterStart) {
-                    while (currEndIdx < _marksEnd.size()) {
-                        if (_marksEnd.at(currEndIdx)) {
-                            Gtk::TextIter iterEnd = _marksEnd.at(currEndIdx)->get_iter();
-                            if (iterEnd) {
-                                if (iterEnd.get_line() < iterStart.get_line()) {
-                                    ++currEndIdx;
-                                }
-                                else {
-                                    if (iterEnd.get_line() == iterStart.get_line()) {
-                                        if (firstLine) {
-                                            firstLine = false;
-                                            const unsigned delta_x = abs(iterEnd.get_line_offset() - iterStart.get_line_offset());
-                                            _lastInsertedPoint.set_x(_lastInsertedPoint.get_x() - delta_x);
-                                            _lastRemovedPoint.set_x(_lastRemovedPoint.get_x() - delta_x);
-                                        }
-                                        _myOwnInsertDelete = true;
-                                        rTextBuffer->erase(iterStart, iterEnd);
-                                        _myOwnInsertDelete = false;
-                                    }
-                                    ++currEndIdx;
-                                    break;
-                                }
-                            }
-                            else {
-                                unexpected = true;
+                    bool hasMatchingEnd{false};
+                    if ( currEndIdx < _marksEnd.size() and
+                         not _marksEnd.at(currEndIdx) )
+                    {
+                        unexpected = true;
+                    }
+                    else {
+                        Gtk::TextIter iterEnd = _marksEnd.at(currEndIdx)->get_iter();
+                        if (iterEnd) {
+                            if (iterEnd.get_line() == iterStart.get_line()) {
+                                hasMatchingEnd = true;
+                                _predit_to_edit_iter(iterStart, iterEnd, firstLine);
+                                ++currEndIdx;
                             }
                         }
                         else {
                             unexpected = true;
                         }
-                        if (unexpected) {
-                            break;
+                    }
+                    if (not hasMatchingEnd) {
+                        Gtk::TextIter iterEnd = iterStart;
+                        if (iterEnd.forward_to_line_end()){
+                            _predit_to_edit_iter(iterStart, iterEnd, firstLine);
                         }
                     }
                 }
@@ -232,6 +237,12 @@ void CtColumnEdit::_edit_insert_delete(const bool isInsert)
                                 _myOwnInsertDelete = true;
                                 rTextBuffer->insert_at_cursor(_lastRemovedText);
                                 _myOwnInsertDelete = false;
+                                if (_lastRemovedDeltaOffset > 0) {
+                                    iterStart = rMarkStart->get_iter();
+                                    if (iterStart and iterStart.forward_char()) {
+                                        rTextBuffer->move_mark(rMarkStart, iterStart);
+                                    }
+                                }
                                 if (not _enforce_cursor_column_mode_place()) {
                                     _column_mode_off();
                                 }
@@ -497,12 +508,12 @@ int main(int argc, char *argv[])
 
     CtColumnEdit columnEdit{textView};
 
-    rTextBuffer->signal_mark_set().connect([&](const Gtk::TextIter& iter, const Glib::RefPtr<Gtk::TextMark>& rMark){
+    rTextBuffer->signal_mark_set().connect([&](const Gtk::TextIter& /*iter*/, const Glib::RefPtr<Gtk::TextMark>& rMark){
         if (rMark->get_name() == "insert") {
             columnEdit.selection_update();
         }
     }, false);
-    rTextBuffer->signal_insert().connect([&](const Gtk::TextIter& pos, const Glib::ustring& text, int bytes){
+    rTextBuffer->signal_insert().connect([&](const Gtk::TextIter& pos, const Glib::ustring& text, int /*bytes*/){
         columnEdit.text_inserted(pos, text);
     }, false);
     rTextBuffer->signal_erase().connect([&](const Gtk::TextIter& range_start, const Gtk::TextIter& range_end){
