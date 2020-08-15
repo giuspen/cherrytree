@@ -49,7 +49,10 @@ void CtActions::import_nodes_from_ct_file() noexcept
         CtDialogs::file_select_args args(_pCtMainWin);
         args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImport;
         args.filter_name = _("CherryTree Document");
-        args.filter_pattern.push_back("*.ct*");
+        args.filter_pattern.push_back("*.ctb"); // macos doesn't understand *.ct*
+        args.filter_pattern.push_back("*.ctx");
+        args.filter_pattern.push_back("*.ctd");
+        args.filter_pattern.push_back("*.ctz");
 
         auto fpath = CtDialogs::file_select_dialog(args);
         if (fpath.empty()) return; // No file selected
