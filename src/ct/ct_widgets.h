@@ -35,6 +35,7 @@
 #include <map>
 #include "ct_types.h"
 #include "ct_filesystem.h"
+#include "ct_column_edit.h"
 
 class CtMDParser;
 class CtClipboard;
@@ -125,6 +126,18 @@ public:
     void set_spell_check(bool allow_on);
 
     void set_buffer(const Glib::RefPtr<Gtk::TextBuffer>& buffer);
+    void selection_update() {
+        _columnEdit.selection_update();
+    }
+    void text_inserted(const Gtk::TextIter& pos, const Glib::ustring& text) {
+        _columnEdit.text_inserted(pos, text);
+    }
+    void text_removed(const Gtk::TextIter& range_start, const Gtk::TextIter& range_end) {
+        _columnEdit.text_removed(range_start, range_end);
+    }
+    bool own_insert_delete_active() {
+        return _columnEdit.own_insert_delete_active();
+    }
 
 private:
     bool          _apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor);
@@ -145,4 +158,5 @@ private:
 private:
     std::unique_ptr<CtMarkdownFilter> _md_handler;
     CtMainWin* _pCtMainWin;
+    CtColumnEdit _columnEdit;
 };

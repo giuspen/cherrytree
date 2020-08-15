@@ -1,5 +1,5 @@
 /*
- * ct_column_edit.h
+ * ct_column_edit.cc
  *
  * Copyright 2009-2020
  * Giuseppe Penone <giuspen@gmail.com>
@@ -21,57 +21,7 @@
  * MA 02110-1301, USA.
  */
 
-// g++ columnedit.cc -o columnedit `pkg-config gtkmm-3.0 --cflags --libs` -Wall -Wextra -Wunreachable-code -Wuninitialized
-
-#include <gtkmm.h>
-#include <utility>
-#include <atomic>
-#include <vector>
-#include <mutex>
-
-enum class CtColEditState { Off, Selection, PrEdit, Edit };
-
-class CtColumnEdit
-{
-public:
-    CtColumnEdit(Gtk::TextView& textView);
-
-    void selection_update();
-    void button_control_changed(const bool isDown) { _ctrlDown = isDown; }
-    void button_alt_changed(const bool isDown) { _altDown = isDown; }
-    void button_1_released();
-    void text_inserted(const Gtk::TextIter& pos, const Glib::ustring& text);
-    void text_removed(const Gtk::TextIter& range_start, const Gtk::TextIter& range_end);
-    void column_mode_off();
-    bool own_insert_delete_active() { return _myOwnInsertDelete; }
-
-private:
-    Gdk::Point _get_point(const Gtk::TextIter& textIter);
-    Gdk::Point _get_cursor_place();
-    Gdk::Point _get_cursor_column_mode_place();
-    void _clear_marks(const bool alsoStart = true);
-    void _predit_to_edit();
-    void _predit_to_edit_iter(Gtk::TextIter& iterStart, Gtk::TextIter& iterEnd, bool& firstLine);
-    void _edit_insert_delete(const bool isInsert);
-    bool _enforce_cursor_column_mode_place();
-
-    Glib::ustring _lastInsertedText;
-    Gdk::Point _lastInsertedPoint;
-    Glib::ustring _lastRemovedText;
-    Gdk::Point _lastRemovedPoint;
-    int _lastRemovedDeltaOffset;
-    std::mutex _mutexLastInOut;
-
-    Gtk::TextView& _textView;
-    std::atomic<CtColEditState> _state{CtColEditState::Off};
-    std::atomic<bool> _ctrlDown{false};
-    std::atomic<bool> _altDown{false};
-    std::atomic<bool> _myOwnInsertDelete{false};
-    Gdk::Point _pointStart{-1,-1};
-    Gdk::Point _pointEnd{-1,-1};
-    std::vector<Glib::RefPtr<Gtk::TextMark>> _marksStart;
-    std::vector<Glib::RefPtr<Gtk::TextMark>> _marksEnd;
-};
+#include "ct_column_edit.h"
 
 CtColumnEdit::CtColumnEdit(Gtk::TextView& textView)
  : _textView{textView}
@@ -503,77 +453,4 @@ void CtColumnEdit::selection_update()
             }
         }
     }
-}
-
-int main(int argc, char *argv[])
-{
-    Gtk::Main kit(argc, argv);
-    Gtk::Window window;
-    window.set_default_size(450, 450);
-    Gtk::TextView textView;
-    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = textView.get_buffer();
-    const char textContent[] =
-        "This is the line number zero\n"
-        "This is the line number one\n"
-        "This is the line number two\n"
-        "This is the line number three\n"
-        "This is the line number four\n"
-        "This is the line number five\n"
-        "This is the line number six\n"
-        "This is the line number seven\n"
-        "This is the line number eight\n"
-        "This is the line number nine\n"
-        "This is the line number ten\n";
-
-    rTextBuffer->insert(rTextBuffer->end(), textContent);
-    rTextBuffer->insert(rTextBuffer->end(), "\n");
-    rTextBuffer->insert(rTextBuffer->end(), textContent);
-
-    window.add(textView);
-    window.show_all();
-
-    CtColumnEdit columnEdit{textView};
-
-    rTextBuffer->signal_mark_set().connect([&](const Gtk::TextIter& /*iter*/, const Glib::RefPtr<Gtk::TextMark>& rMark){
-        if (rMark->get_name() == "insert") {
-            columnEdit.selection_update();
-        }
-    }, false);
-    rTextBuffer->signal_insert().connect([&](const Gtk::TextIter& pos, const Glib::ustring& text, int /*bytes*/){
-        columnEdit.text_inserted(pos, text);
-    }, false);
-    rTextBuffer->signal_erase().connect([&](const Gtk::TextIter& range_start, const Gtk::TextIter& range_end){
-        columnEdit.text_removed(range_start, range_end);
-    }, false);
-
-    textView.signal_event_after().connect([&](GdkEvent* pEvent){
-        switch (pEvent->type) {
-            case GDK_KEY_PRESS: {
-                if (pEvent->key.keyval == GDK_KEY_Control_L) {
-                    columnEdit.button_control_changed(true/*isDown*/);
-                }
-                else if (pEvent->key.keyval == GDK_KEY_Alt_L) {
-                    columnEdit.button_alt_changed(true/*isDown*/);
-                }
-            } break;
-            case GDK_KEY_RELEASE: {
-                if (pEvent->key.keyval == GDK_KEY_Control_L) {
-                    columnEdit.button_control_changed(false/*isDown*/);
-                }
-                else if (pEvent->key.keyval == GDK_KEY_Alt_L) {
-                    columnEdit.button_alt_changed(false/*isDown*/);
-                }
-            } break;
-            case GDK_BUTTON_RELEASE: {
-                if (pEvent->button.button == 1) {
-                    columnEdit.button_1_released();
-                }
-            } break;
-            default:
-                break;
-        }
-    }, false);
-
-    Gtk::Main::run(window);
-    return EXIT_SUCCESS;
 }

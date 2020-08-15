@@ -154,9 +154,9 @@ void CtTreeView::set_tree_node_name_wrap_width(const bool wrap_enabled, const in
 }
 
 CtTextView::CtTextView(CtMainWin* pCtMainWin)
- : _pCtMainWin(pCtMainWin)
+ : _pCtMainWin{pCtMainWin}
+ , _columnEdit{*this}
 {
-    //set_sensitive(false);
     set_smart_home_end(Gsv::SMART_HOME_END_AFTER);
     set_left_margin(7);
     set_right_margin(7);
@@ -177,6 +177,34 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
     {
         set_border_window_size(textWinType, 1);
     }
+    // column edit signals
+    signal_event_after().connect([&](GdkEvent* pEvent){
+        switch (pEvent->type) {
+            case GDK_KEY_PRESS: {
+                if (pEvent->key.keyval == GDK_KEY_Control_L) {
+                    _columnEdit.button_control_changed(true/*isDown*/);
+                }
+                else if (pEvent->key.keyval == GDK_KEY_Alt_L) {
+                    _columnEdit.button_alt_changed(true/*isDown*/);
+                }
+            } break;
+            case GDK_KEY_RELEASE: {
+                if (pEvent->key.keyval == GDK_KEY_Control_L) {
+                    _columnEdit.button_control_changed(false/*isDown*/);
+                }
+                else if (pEvent->key.keyval == GDK_KEY_Alt_L) {
+                    _columnEdit.button_alt_changed(false/*isDown*/);
+                }
+            } break;
+            case GDK_BUTTON_RELEASE: {
+                if (pEvent->button.button == 1) {
+                    _columnEdit.button_1_released();
+                }
+            } break;
+            default:
+                break;
+        }
+    }, false);
 }
 
 CtTextView::~CtTextView()
@@ -350,8 +378,11 @@ bool CtTextView::_markdown_filter_active() {
 
 void CtTextView::set_buffer(const Glib::RefPtr<Gtk::TextBuffer>& buffer)
 {
+    // reset the column mode on the previous buffer
+    _columnEdit.column_mode_off();
+
     Gsv::View::set_buffer(buffer);
-    
+
     // Setup the markdown filter for a new buffer
     if (_markdown_filter_active()) _md_handler->buffer(get_buffer());
 }
@@ -398,8 +429,6 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
     auto config = _pCtMainWin->get_ct_config();
     bool is_code = syntaxHighlighting != CtConst::RICH_TEXT_ID and syntaxHighlighting != CtConst::PLAIN_TEXT_ID;
 
-    
-    
     if (not is_code and config->autoSmartQuotes and (event->key.keyval == GDK_KEY_quotedbl or event->key.keyval == GDK_KEY_apostrophe))
     {
         Gtk::TextIter iter_insert = text_buffer->get_insert()->get_iter();
@@ -443,7 +472,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                 replace_text(char_1, offset_1, offset_1+1);
             }
         }
-    } 
+    }
     else if (event->key.state & Gdk::SHIFT_MASK)
     {
         if (event->key.keyval == GDK_KEY_Return)

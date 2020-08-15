@@ -61,7 +61,8 @@ set(CT_SHARED_FILES
     ct_parser.cc
     ct_process.cc
     ct_filesystem.cc
-    )
+    ct_column_edit.cc
+)
 
 add_library(cherrytree_shared STATIC ${CT_SHARED_FILES})
 target_link_libraries(cherrytree_shared
@@ -80,14 +81,13 @@ target_link_libraries(cherrytree_shared
 
 target_include_directories(cherrytree_shared PUBLIC "..")
 
-
 add_executable(cherrytree ct_main.cc icons.gresource.cc ${CHERRY_EXE_RC})
 target_link_libraries(cherrytree cherrytree_shared)
 
 if(APPLE)
-  target_link_libraries(cherrytree "-framework Foundation -framework AppKit")
+    target_link_libraries(cherrytree "-framework Foundation -framework AppKit")
 elseif(WIN32)
-  target_link_libraries(cherrytree "-mwindows")
+    target_link_libraries(cherrytree "-mwindows")
 endif()
 
 set_target_properties(cherrytree PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")

@@ -526,10 +526,13 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
         ))
     );
     _curr_node_sigc_conn.push_back(
-        rTextBuffer->signal_insert().connect(sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_insert))
+        rTextBuffer->signal_insert().connect(sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_insert), false)
     );
     _curr_node_sigc_conn.push_back(
-        rTextBuffer->signal_erase().connect(sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_erase))
+        rTextBuffer->signal_erase().connect(sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_erase), false)
+    );
+    _curr_node_sigc_conn.push_back(
+        rTextBuffer->signal_mark_set().connect(sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_mark_set), false)
     );
 }
 
@@ -693,16 +696,29 @@ void CtTreeStore::_on_textbuffer_modified_changed(Glib::RefPtr<Gtk::TextBuffer> 
     }
 }
 
-void CtTreeStore::_on_textbuffer_insert(const Gtk::TextBuffer::iterator& /*pos*/, const Glib::ustring& text, int /*bytes*/)
+void CtTreeStore::_on_textbuffer_insert(const Gtk::TextBuffer::iterator& pos, const Glib::ustring& text, int /*bytes*/)
 {
-    if (_pCtMainWin->user_active())
+    if (_pCtMainWin->user_active() and not _pCtMainWin->get_text_view().own_insert_delete_active()) {
+        _pCtMainWin->get_text_view().text_inserted(pos, text);
         _pCtMainWin->get_state_machine().text_variation(_pCtMainWin->curr_tree_iter().get_node_id(), text);
+    }
 }
 
 void CtTreeStore::_on_textbuffer_erase(const Gtk::TextBuffer::iterator& range_start, const Gtk::TextBuffer::iterator& range_end)
 {
-     if (_pCtMainWin->user_active())
+    if (_pCtMainWin->user_active() and not _pCtMainWin->get_text_view().own_insert_delete_active()) {
+       _pCtMainWin->get_text_view().text_removed(range_start, range_end);
        _pCtMainWin->get_state_machine().text_variation(_pCtMainWin->curr_tree_iter().get_node_id(), range_start.get_text(range_end));
+    }
+}
+
+void CtTreeStore::_on_textbuffer_mark_set(const Gtk::TextIter& /*iter*/, const Glib::RefPtr<Gtk::TextMark>& rMark)
+{
+    if (_pCtMainWin->user_active()) {
+        if (rMark->get_name() == "insert") {
+            _pCtMainWin->get_text_view().selection_update();
+        }
+    }
 }
 
 void CtTreeStore::addAnchoredWidgets(Gtk::TreeIter treeIter, std::list<CtAnchoredWidget*> anchoredWidgetList, Gtk::TextView* pTextView)
