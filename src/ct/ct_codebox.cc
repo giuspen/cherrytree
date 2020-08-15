@@ -150,14 +150,26 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
             _ctTextview.zoom_text(event->delta_y < 0, get_syntax_highlighting());
         return true;
     });
-    _ctTextview.get_buffer()->signal_insert().connect([this](const Gtk::TextBuffer::iterator& /*pos*/, const Glib::ustring& text, int /*bytes*/) {
-        if (_pCtMainWin->user_active())
+    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = _ctTextview.get_buffer();
+    rTextBuffer->signal_insert().connect([&](const Gtk::TextIter& pos, const Glib::ustring& text, int /*bytes*/) {
+        if (_pCtMainWin->user_active() and not _ctTextview.own_insert_delete_active()) {
+            _ctTextview.text_inserted(pos, text);
             _pCtMainWin->get_state_machine().text_variation(_pCtMainWin->curr_tree_iter().get_node_id(), text);
-    });
-    _ctTextview.get_buffer()->signal_erase().connect([this](const Gtk::TextBuffer::iterator& range_start, const Gtk::TextBuffer::iterator& range_end) {
-        if (_pCtMainWin->user_active())
-          _pCtMainWin->get_state_machine().text_variation(_pCtMainWin->curr_tree_iter().get_node_id(), range_start.get_text(range_end));
-    });
+        }
+    }, false);
+    rTextBuffer->signal_erase().connect([&](const Gtk::TextIter& range_start, const Gtk::TextIter& range_end) {
+        if (_pCtMainWin->user_active() and not _ctTextview.own_insert_delete_active()) {
+            _ctTextview.text_removed(range_start, range_end);
+            _pCtMainWin->get_state_machine().text_variation(_pCtMainWin->curr_tree_iter().get_node_id(), range_start.get_text(range_end));
+        }
+    }, false);
+    rTextBuffer->signal_mark_set().connect([&](const Gtk::TextIter& /*iter*/, const Glib::RefPtr<Gtk::TextMark>& rMark){
+        if (_pCtMainWin->user_active()) {
+            if (rMark->get_name() == "insert") {
+                _ctTextview.selection_update();
+            }
+        }
+    }, false);
     _uCtPairCodeboxMainWin.reset(new CtPairCodeboxMainWin{this, _pCtMainWin});
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "cut-clipboard", G_CALLBACK(CtClipboard::on_cut_clipboard), _uCtPairCodeboxMainWin.get());
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "copy-clipboard", G_CALLBACK(CtClipboard::on_copy_clipboard), _uCtPairCodeboxMainWin.get());
@@ -250,7 +262,7 @@ void CtCodebox::set_width_height(int newWidth, int newHeight)
         else
             _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     }
-    apply_width_height(_pCtMainWin->get_text_view().get_allocation().get_width());
+    apply_width_height(_ctTextview.get_allocation().get_width());
 }
 
 void CtCodebox::set_highlight_brackets(const bool highlightBrackets)
