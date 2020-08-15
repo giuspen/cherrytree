@@ -95,7 +95,10 @@ void CtActions::file_open()
     CtDialogs::file_select_args args(_pCtMainWin);
     args.curr_folder = _pCtMainWin->get_ct_storage()->get_file_dir();
     args.filter_name = _("CherryTree Document");
-    args.filter_pattern.push_back("*.ct*");
+    args.filter_pattern.push_back("*.ctb"); // macos doesn't understand *.ct*
+    args.filter_pattern.push_back("*.ctx");
+    args.filter_pattern.push_back("*.ctd");
+    args.filter_pattern.push_back("*.ctz");
 
     std::string filepath = CtDialogs::file_select_dialog(args);
 
