@@ -282,7 +282,7 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
         if (tag_property != CtConst::TAG_JUSTIFICATION) {
             if (not _is_there_selected_node_or_error()) return;
             if (tag_property == CtConst::TAG_LINK)
-                _link_entry = CtDialogs::CtLinkEntry(); // reset
+                _link_entry = CtLinkEntry(); // reset
             if (not text_buffer->get_has_selection()) {
                 if (tag_property != CtConst::TAG_LINK) {
                     if (not _pCtMainWin->apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter())) {
@@ -425,29 +425,20 @@ CtCodebox* CtActions::_codebox_in_use()
 }
 
 // Prepare Global Links Variables for Dialog
-bool CtActions::_links_entries_pre_dialog(const Glib::ustring& curr_link, CtDialogs::CtLinkEntry& link_entry)
+bool CtActions::_links_entries_pre_dialog(const Glib::ustring& curr_link, CtLinkEntry& link_entry)
 {
-    auto vec = str::split(curr_link, " ");
-    link_entry.type = vec[0];
-    if (link_entry.type == CtConst::LINK_TYPE_WEBS)        link_entry.webs = vec[1];
-    else if (link_entry.type == CtConst::LINK_TYPE_FILE)   link_entry.file = Glib::Base64::decode(vec[1]);
-    else if (link_entry.type == CtConst::LINK_TYPE_FOLD)   link_entry.fold = Glib::Base64::decode(vec[1]);
-    else if (link_entry.type == CtConst::LINK_TYPE_NODE) {
-        link_entry.node_id = std::stol(vec[1]);
-        if (vec.size() >= 3) {
-            if (vec.size() == 3) link_entry.anch = vec[2];
-            else                 link_entry.anch = curr_link.substr(vec[0].size() + vec[1].size() + 2);
-        }
-    } else {
-        CtDialogs::error_dialog(str::format("Tag Name Not Recognized! (%s)", std::string(link_entry.type)), *_pCtMainWin);
+    const CtLinkEntry new_entry = CtMiscUtil::get_link_entry(curr_link);
+    if (new_entry.type.empty()) {
+        CtDialogs::error_dialog(str::format("Tag Name Not Recognized! (%s)", std::string(curr_link)), *_pCtMainWin);
         link_entry.type = CtConst::LINK_TYPE_WEBS;
         return false;
     }
+    link_entry = new_entry;
     return true;
 }
 
 // Read Global Links Variables from Dialog
-Glib::ustring CtActions::_links_entries_post_dialog(CtDialogs::CtLinkEntry& link_entry)
+Glib::ustring CtActions::_links_entries_post_dialog(CtLinkEntry& link_entry)
 {
      Glib::ustring property_value = "";
      if (link_entry.type == CtConst::LINK_TYPE_WEBS) {

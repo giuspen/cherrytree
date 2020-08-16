@@ -180,11 +180,8 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter, Gtk:
         if (subscript_active) tagged_text = "<sub>" + tagged_text + "</sub>";
         if (monospace_active) tagged_text = "<tt>" + tagged_text + "</tt>";
 
-        if (!link_url.empty())
-        {
-            tagged_text = "<span fgcolor='blue'>" + tagged_text + "</span>";
-            out_slots.emplace_back(std::make_shared<CtPangoLink>(tagged_text, _pango_link_url(link_url)));
-
+        if (!link_url.empty()) {
+            out_slots.emplace_back(_pango_link_url(tagged_text, link_url));
         } else {
             out_slots.emplace_back(std::make_shared<CtPangoText>(tagged_text, CtConst::RICH_TEXT_ID));
         }
@@ -196,20 +193,28 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter, Gtk:
     }
 }
 
-Glib::ustring CtExport2Pango::_pango_link_url(const Glib::ustring& url)
+std::shared_ptr<CtPangoText> CtExport2Pango::_pango_link_url(const Glib::ustring& tagged_text, const Glib::ustring& link)
 {
-    static const Glib::RefPtr<Glib::Regex> node_link_reg = Glib::Regex::create("node\\s([0-9]+).?(.*)?");
-    Glib::MatchInfo m_info;
-    node_link_reg->match(url, m_info);
-    if (m_info.matches())
+    CtLinkEntry link_entry = CtMiscUtil::get_link_entry(link);
+    Glib::ustring uri;
+    if (link_entry.type == CtConst::LINK_TYPE_NODE)
+        uri = "dest='" + generate_tag(link_entry.node_id, link_entry.anch) + "'";
+    else if (link_entry.type == CtConst::LINK_TYPE_WEBS)
+        uri = "uri='" + link_entry.webs + "'";
+    else if (link_entry.type == CtConst::LINK_TYPE_FILE)
+        uri = "uri='" + link_entry.file + "'";
+    else if (link_entry.type == CtConst::LINK_TYPE_FOLD)
+        uri = "uri='" + link_entry.fold + "'";
+    else
     {
-        // Internal url
-        std::string node_id = m_info.fetch(1);
-        std::string sect_id = m_info.fetch(2);
-        return "dest='" + generate_tag(node_id, sect_id) + "'";
+        spdlog::debug("invalid link entry {}, text {}", link, tagged_text);
+        return std::make_shared<CtPangoText>(tagged_text, CtConst::RICH_TEXT_ID);
     }
-    return "uri='" + CtStrUtil::external_uri_from_internal(url) + "'";
+
+    Glib::ustring blue_text = "<span fgcolor='blue'><u>" + tagged_text + "</u></span>";
+    return std::make_shared<CtPangoLink>(blue_text, uri);
 }
+
 
 
 

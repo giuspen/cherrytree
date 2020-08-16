@@ -224,7 +224,7 @@ void CtActions::image_delete()
 void CtActions::image_link_edit()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
-    _link_entry = CtDialogs::CtLinkEntry();
+    _link_entry = CtLinkEntry();
     if  (curr_image_anchor->get_link().empty())
         _link_entry.type = CtConst::LINK_TYPE_WEBS; // default value
     else if (not _links_entries_pre_dialog(curr_image_anchor->get_link(), _link_entry))

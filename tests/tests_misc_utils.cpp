@@ -378,14 +378,21 @@ TEST(MiscUtilsGroup, parallel_for)
         }
 }
 
-TEST(MiscUtilsGroup, external_uri_from_internal) 
+TEST(MiscUtilsGroup, get_link_entry)
 {
-    STRCMP_EQUAL("https://example.com", CtStrUtil::external_uri_from_internal("webs https://example.com").c_str());
-    STRCMP_EQUAL("/home/foo/bar\n", CtStrUtil::external_uri_from_internal("file L2hvbWUvZm9vL2Jhcgo=").c_str());
-    // looks like CppUTest is built on Win32 without the Standard C++ Library 
-#ifndef _WIN32
-    CHECK_THROWS(std::logic_error, CtStrUtil::external_uri_from_internal("https://example.com"));
-    CHECK_THROWS(std::logic_error, CtStrUtil::external_uri_from_internal("/home/foo/bar"));
-#endif
+    STRCMP_EQUAL(CtConst::LINK_TYPE_WEBS, CtMiscUtil::get_link_entry("webs https://example.com").type.c_str());
+    STRCMP_EQUAL("https://example.com", CtMiscUtil::get_link_entry("webs https://example.com").webs.c_str());
+    STRCMP_EQUAL(CtConst::LINK_TYPE_FILE, CtMiscUtil::get_link_entry("file L2hvbWUvZm9vL2Jhcgo=").type.c_str());
+    STRCMP_EQUAL("/home/foo/bar\n", CtMiscUtil::get_link_entry("file L2hvbWUvZm9vL2Jhcgo=").file.c_str());
+    STRCMP_EQUAL(CtConst::LINK_TYPE_FOLD, CtMiscUtil::get_link_entry("fold L2hvbWUvZm9vL2Jhcgo=").type.c_str());
+    STRCMP_EQUAL("/home/foo/bar\n", CtMiscUtil::get_link_entry("fold L2hvbWUvZm9vL2Jhcgo=").fold.c_str());
+    STRCMP_EQUAL(CtConst::LINK_TYPE_NODE, CtMiscUtil::get_link_entry("node 2 hi hi").type.c_str());
+    CHECK(CtMiscUtil::get_link_entry("node 2 hi hi").node_id == 2);
+    STRCMP_EQUAL("hi hi", CtMiscUtil::get_link_entry("node 2 hi hi").anch.c_str());
+
+    STRCMP_EQUAL("", CtMiscUtil::get_link_entry("").type.c_str());
+    STRCMP_EQUAL("", CtMiscUtil::get_link_entry("https://example.com").type.c_str());
+    STRCMP_EQUAL("", CtMiscUtil::get_link_entry("/home/foo/bar").type.c_str());
+    STRCMP_EQUAL("", CtMiscUtil::get_link_entry("home https://example.com").type.c_str());
 }
 

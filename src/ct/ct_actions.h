@@ -53,7 +53,7 @@ public:
     CtImageEmbFile* curr_file_anchor{nullptr};
 
 private:
-    CtDialogs::CtLinkEntry _link_entry;
+    CtLinkEntry _link_entry;
 
 private:
     size_t                          _next_opened_emb_file_id{1};
@@ -262,8 +262,8 @@ private:
     text_view_n_buffer_codebox_proof _get_text_view_n_buffer_codebox_proof();
     CtCodebox* _codebox_in_use();
 
-    bool _links_entries_pre_dialog(const Glib::ustring& curr_link, CtDialogs::CtLinkEntry& link_entry);
-    Glib::ustring _links_entries_post_dialog(CtDialogs::CtLinkEntry& link_entry);
+    bool _links_entries_pre_dialog(const Glib::ustring& curr_link, CtLinkEntry& link_entry);
+    Glib::ustring _links_entries_post_dialog(CtLinkEntry& link_entry);
     Glib::ustring _link_check_around_cursor();
 
 public:
