@@ -607,37 +607,25 @@ Glib::ustring CtExport2Html::_html_text_serialize(Gtk::TextIter start_iter, Gtk:
 
 std::string CtExport2Html::_get_href_from_link_prop_val(Glib::ustring link_prop_val)
 {
-    // todo: I saw the same function before, we need to join them
-
-    if (link_prop_val == "")
+    CtLinkEntry link_entry = CtMiscUtil::get_link_entry(link_prop_val);
+    if (link_entry.type == "")
         return "";
 
     std::string href = "";
-    auto vec = str::split(link_prop_val, " ");
-    if (vec[0] == CtConst::LINK_TYPE_WEBS)
-        href = vec[1];
-    else if (vec[0] == CtConst::LINK_TYPE_FILE)
+    if (link_entry.type == CtConst::LINK_TYPE_WEBS)
+        href = link_entry.webs;
+    else if (link_entry.type == CtConst::LINK_TYPE_FILE)
+        href = "file://" + _link_process_filepath(link_entry.file);
+    else if (link_entry.type == CtConst::LINK_TYPE_FOLD)
+        href = "file://" + _link_process_folderpath(link_entry.fold);
+    else if (link_entry.type == CtConst::LINK_TYPE_NODE)
     {
-        std::string filepath = _link_process_filepath(vec[1]);
-        href = "file://" + filepath;
-    }
-    else if (vec[0] == CtConst::LINK_TYPE_FOLD)
-    {
-        std::string folderpath = _link_process_folderpath(vec[1]);
-        href = "file://" + folderpath;
-    }
-    else if (vec[0] == CtConst::LINK_TYPE_NODE)
-    {
-        CtTreeIter node = _pCtMainWin->get_tree_store().get_node_from_node_id(std::stol(vec[1]));
+        CtTreeIter node = _pCtMainWin->get_tree_store().get_node_from_node_id(link_entry.node_id);
         if (node)
         {
             href = _get_html_filename(node);
-            if (vec.size() >= 3)
-            {
-
-                if (vec.size() == 3) href += "#" + vec[2];
-                else href += "#" + link_prop_val.substr(vec[0].size() + vec[1].size() + 2);
-            }
+            if (!link_entry.anch.empty())
+                href += "#" + link_entry.anch;
         }
     }
     return href;
@@ -645,7 +633,7 @@ std::string CtExport2Html::_get_href_from_link_prop_val(Glib::ustring link_prop_
 
 std::string CtExport2Html::_link_process_filepath(const std::string& filepath_raw)
 {
-    fs::path filepath = Glib::Base64::decode(filepath_raw);
+    fs::path filepath = filepath_raw;
     // todo:
     //if not os.path.isabs(filepath) and os.path.isfile(os.path.join(self.file_dir, filepath)):
     //    filepath = os.path.join(self.file_dir, filepath)
@@ -654,7 +642,7 @@ std::string CtExport2Html::_link_process_filepath(const std::string& filepath_ra
 
 std::string CtExport2Html::_link_process_folderpath(const std::string& folderpath_raw)
 {
-    fs::path folderpath = Glib::Base64::decode(folderpath_raw);
+    fs::path folderpath = folderpath_raw;
     // todo:
     //if not os.path.isabs(folderpath) and os.path.isdir(os.path.join(self.file_dir, folderpath)):
     //    folderpath = os.path.join(self.file_dir, folderpath)
