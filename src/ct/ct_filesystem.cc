@@ -127,7 +127,12 @@ bool exists(const path& filepath)
 void open_weblink(const std::string& link)
 {
 #if defined(_WIN32) || defined(__APPLE__)
-    g_app_info_launch_default_for_uri(link.c_str(), nullptr, nullptr);
+    GError *error = nullptr;
+    if (!g_app_info_launch_default_for_uri(link.c_str(), nullptr, &error))
+    {
+        spdlog::debug("fs::open_weblink failed to open link: {}, error: {}", link, error->message);
+        g_error_free(error);
+    }
 #else
     std::vector<std::string> argv = { "xdg-open", link};
     Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
