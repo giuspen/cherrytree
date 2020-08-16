@@ -65,9 +65,9 @@ public:
     void pango_get_from_treestore_node(CtTreeIter node_iter, int sel_start, int sel_end, std::vector<CtPangoObjectPtr>& out_slots);
 
 private:
-    void          _pango_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer, std::vector<CtPangoObjectPtr>& out_slots);
-    void          _pango_text_serialize(const Gtk::TextIter& start_iter, Gtk::TextIter end_iter, const std::map<std::string_view, std::string> &curr_attributes, std::vector<CtPangoObjectPtr>& out_slots);
-    Glib::ustring _pango_link_url(const Glib::ustring& url);
+    void                         _pango_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer, std::vector<CtPangoObjectPtr>& out_slots);
+    void                         _pango_text_serialize(const Gtk::TextIter& start_iter, Gtk::TextIter end_iter, const std::map<std::string_view, std::string> &curr_attributes, std::vector<CtPangoObjectPtr>& out_slots);
+    std::shared_ptr<CtPangoText> _pango_link_url(const Glib::ustring& tagged_text, const Glib::ustring& link);
 };
 
 

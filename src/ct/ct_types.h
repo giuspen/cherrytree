@@ -60,6 +60,16 @@ class CtCodebox;
 class CtMainWin;
 typedef std::pair<CtCodebox*, CtMainWin*>   CtPairCodeboxMainWin;
 
+struct CtLinkEntry
+{
+    Glib::ustring type;
+    gint64        node_id{-1};
+    Glib::ustring webs;
+    Glib::ustring file;
+    Glib::ustring fold;
+    Glib::ustring anch;
+};
+
 struct CtListInfo
 {
     CtListType type = CtListType::None;

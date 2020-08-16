@@ -65,6 +65,8 @@ std::string clean_from_chars_not_for_filename(std::string filename);
 
 Gtk::BuiltinIconSize getIconSize(int size);
 
+CtLinkEntry get_link_entry(const Glib::ustring& link);
+
 /**
  * @brief Check if the the mime for a file contains a given string
  * @return
@@ -198,8 +200,6 @@ Glib::ustring get_accelerator_label(const std::string& accelerator);
 
 std::string get_internal_link_from_http_url(std::string link_url);
 
-/// reverse get_internal_link_from_http_url and strips internal identifiers
-std::string external_uri_from_internal(std::string internal_uri);
 
 } // namespace CtStrUtil
 

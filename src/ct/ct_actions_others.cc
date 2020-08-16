@@ -224,7 +224,7 @@ void CtActions::image_delete()
 void CtActions::image_link_edit()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
-    _link_entry = CtDialogs::CtLinkEntry();
+    _link_entry = CtLinkEntry();
     if  (curr_image_anchor->get_link().empty())
         _link_entry.type = CtConst::LINK_TYPE_WEBS; // default value
     else if (not _links_entries_pre_dialog(curr_image_anchor->get_link(), _link_entry))
@@ -258,10 +258,10 @@ void CtActions::toggle_show_hide_main_window()
 // Function Called at Every Link Click
 void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_wheel)
 {
-     auto vec = str::split(tag_property_value, " ");
-     if (vec[0] == CtConst::LINK_TYPE_WEBS) // link to webpage
+    CtLinkEntry link_entry = CtMiscUtil::get_link_entry(tag_property_value);
+     if (link_entry.type == CtConst::LINK_TYPE_WEBS) // link to webpage
      {
-         Glib::ustring clean_weblink = str::replace(vec[1], "amp;", "");
+         Glib::ustring clean_weblink = str::replace(link_entry.webs, "amp;", "");
          if (_pCtMainWin->get_ct_config()->weblinkCustomOn)
          {
              std::string cmd = fmt::sprintf(_pCtMainWin->get_ct_config()->weblinkCustomAct, clean_weblink);
@@ -274,9 +274,9 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
          }
          else fs::open_weblink(clean_weblink);
      }
-     else if (vec[0] == CtConst::LINK_TYPE_FILE) // link to file
+     else if (link_entry.type == CtConst::LINK_TYPE_FILE) // link to file
      {
-         fs::path filepath = CtExport2Html::_link_process_filepath(vec[1]);
+         fs::path filepath = CtExport2Html::_link_process_filepath(link_entry.file);
          if (not Glib::file_test(filepath.string(), Glib::FILE_TEST_IS_REGULAR))
          {
              CtDialogs::error_dialog(str::format(_("The File Link '%s' is Not Valid"), filepath.string()), *_pCtMainWin);
@@ -286,9 +286,9 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
              filepath = fs::absolute(filepath).parent_path();
          fs::open_filepath(filepath, true, _pCtMainWin->get_ct_config());
      }
-     else if (vec[0] == CtConst::LINK_TYPE_FOLD) // link to folder
+     else if (link_entry.type == CtConst::LINK_TYPE_FOLD) // link to folder
      {
-         fs::path folderpath = CtExport2Html::_link_process_folderpath(vec[1]).c_str();
+         fs::path folderpath = CtExport2Html::_link_process_folderpath(link_entry.fold).c_str();
          if (not fs::is_directory(folderpath))
          {
              CtDialogs::error_dialog(str::format(_("The Folder Link '%s' is Not Valid"), folderpath.string()), *_pCtMainWin);
@@ -298,24 +298,21 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
              folderpath = Glib::path_get_dirname(fs::absolute(folderpath).string());
          fs::open_folderpath(folderpath, _pCtMainWin->get_ct_config());
      }
-     else if (vec[0] == CtConst::LINK_TYPE_NODE) // link to a tree node
+     else if (link_entry.type == CtConst::LINK_TYPE_NODE) // link to a tree node
      {
-         CtTreeIter tree_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(std::stol(vec[1]));
+         CtTreeIter tree_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(link_entry.node_id);
          if (not tree_iter)
          {
-             CtDialogs::error_dialog(str::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), std::string(vec[1])), *_pCtMainWin);
+             CtDialogs::error_dialog(str::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), std::to_string(link_entry.node_id)), *_pCtMainWin);
              return;
          }
          _pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
          _pCtMainWin->get_text_view().grab_focus();
          _pCtMainWin->get_text_view().get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
          _pCtMainWin->get_text_view().set_tooltip_text("");
-         if (vec.size() >= 3)
+         if (!link_entry.anch.empty())
          {
-             Glib::ustring anchor_name;
-             if (vec.size() == 3) anchor_name = vec[2];
-             else anchor_name = tag_property_value.substr(vec[0].size() + vec[1].size() + 2);
-
+             Glib::ustring anchor_name = link_entry.anch;
              CtImageAnchor* imageAnchor = nullptr;
              for (auto& widget: tree_iter.get_embedded_pixbufs_tables_codeboxes_fast())
                  if (CtImageAnchor* anchor = dynamic_cast<CtImageAnchor*>(widget))
@@ -336,7 +333,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
          }
      }
      else
-         CtDialogs::error_dialog(str::format("Tag Name Not Recognized! (%s)", std::string(vec[0])), *_pCtMainWin);
+         CtDialogs::error_dialog(str::format("Tag Name Not Recognized! (%s)", std::string(tag_property_value)), *_pCtMainWin);
 }
 
 // Cut CodeBox

@@ -272,6 +272,27 @@ Gtk::BuiltinIconSize CtMiscUtil::getIconSize(int size)
     }
 }
 
+CtLinkEntry CtMiscUtil::get_link_entry(const Glib::ustring& link)
+{
+    CtLinkEntry link_entry;
+    auto vec = str::split(link, " ");
+    if (vec.empty()) return CtLinkEntry();
+    link_entry.type = vec[0];
+    if (link_entry.type == CtConst::LINK_TYPE_WEBS)        link_entry.webs = vec[1];
+    else if (link_entry.type == CtConst::LINK_TYPE_FILE)   link_entry.file = Glib::Base64::decode(vec[1]);
+    else if (link_entry.type == CtConst::LINK_TYPE_FOLD)   link_entry.fold = Glib::Base64::decode(vec[1]);
+    else if (link_entry.type == CtConst::LINK_TYPE_NODE) {
+        link_entry.node_id = std::stol(vec[1]);
+        if (vec.size() >= 3) {
+            if (vec.size() == 3) link_entry.anch = vec[2];
+            else                 link_entry.anch = link.substr(vec[0].size() + vec[1].size() + 2);
+        }
+    } else {
+        return CtLinkEntry();
+    }
+    return link_entry;
+}
+
 bool CtMiscUtil::mime_type_contains(const std::string &filepath, const std::string& type)
 {
     using gchar_ptr = std::unique_ptr<gchar, decltype(&g_free)>;
@@ -718,26 +739,6 @@ std::string CtStrUtil::get_internal_link_from_http_url(std::string link_url)
     else if (str::startswith(link_url, "file://"))  return "file " + Glib::Base64::encode(link_url.substr(7));
     else                                            return "webs http://" + link_url;
 }
-
-std::string CtStrUtil::external_uri_from_internal(std::string internal_uri) {
-    constexpr std::array<std::string_view, 2> internal_ids = {"webs ", "file "};
-    auto internal_id_iter = std::find_if(internal_ids.cbegin(), internal_ids.cend(), [internal_uri](std::string_view comp){
-        return str::startswith(internal_uri, std::string(comp.begin(), comp.end()));
-    });
-    if (internal_id_iter != internal_ids.cend()) {
-        // Valid
-        internal_uri.erase(internal_uri.cbegin(), internal_uri.cbegin() + internal_id_iter->size());
-        if (*internal_id_iter == "file ") {
-            // Decode a file url
-            internal_uri = Glib::Base64::decode(internal_uri);
-        }
-    } else {
-        throw std::logic_error(fmt::format("CtStrUtil::get_external_uri_from_internal passed string ({}) which does not contain an internal uri", internal_uri));
-    }
-    return internal_uri;
-
-}
-
 
 Glib::ustring CtFontUtil::get_font_family(const Glib::ustring& fontStr)
 {

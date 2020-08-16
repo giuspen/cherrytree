@@ -378,26 +378,19 @@ const std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string
 // Get the tooltip for the underlying link
 Glib::ustring CtMainWin::sourceview_hovering_link_get_tooltip(const Glib::ustring& link)
 {
+    CtLinkEntry link_entry = CtMiscUtil::get_link_entry(link);
     Glib::ustring tooltip;
-    auto vec = str::split(link, " ");
-    if (vec.size() == 1) { // case when link has wrong format
+    if (link_entry.type == "") { // case when link has wrong format
         tooltip = str::replace(link, "amp;", "");
     } 
-    else if (vec[0] == CtConst::LINK_TYPE_FILE or vec[0] == CtConst::LINK_TYPE_FOLD) {
-        tooltip = Glib::Base64::decode(vec[1]);
-    }
-    else
-    {
-        if (vec[0] == CtConst::LINK_TYPE_NODE)
-            tooltip = _uCtTreestore->get_node_name_from_node_id(std::stol(vec[1]));
-        else
-            tooltip = str::replace(vec[1], "amp;", "");
-        if (vec.size() >= 3)
-        {
-            if (vec.size() == 3) tooltip += "#" + vec[2];
-            else
-                tooltip += "#" + link.substr(vec[0].length() + vec[1].length() + 2);
-        }
+    else if (link_entry.type == CtConst::LINK_TYPE_FILE) {
+        tooltip = link_entry.file;
+    } else if (link_entry.type == CtConst::LINK_TYPE_FOLD) {
+        tooltip = link_entry.fold;
+    } else if (link_entry.type == CtConst::LINK_TYPE_NODE) {
+        tooltip = _uCtTreestore->get_node_name_from_node_id(link_entry.node_id);
+        if (!link_entry.anch.empty())
+            tooltip += "#" + link_entry.anch;
     }
     return tooltip;
 }

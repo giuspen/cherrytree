@@ -209,16 +209,6 @@ Glib::ustring img_n_entry_dialog(Gtk::Window& parent,
                                  const Glib::ustring& entry_content,
                                  const char* img_stock);
 
-struct CtLinkEntry
-{
-    Glib::ustring type;
-    gint64        node_id{-1};
-    Glib::ustring webs;
-    Glib::ustring file;
-    Glib::ustring fold;
-    Glib::ustring anch;
-};
-
 // Dialog to Insert/Edit Links
 bool link_handle_dialog(CtMainWin& ctMainWin,
                         const Glib::ustring& title,
