@@ -174,6 +174,50 @@ void CtHtml2Xml::feed(const std::string& html)
 
 void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
 {
+    auto parse_style_attribute = [&](const Glib::ustring& style_data){
+        for (Glib::ustring& style_attribute: str::split(style_data, ";"))
+        {
+            int colon_pos = str::indexOf(style_attribute, CtConst::CHAR_COLON);
+            if (colon_pos < 0) continue;
+            auto attr_name = str::trim(style_attribute.substr(0, colon_pos).lowercase());
+            Glib::ustring attr_value = str::trim(style_attribute.substr(colon_pos + 1, style_attribute.size() - colon_pos).lowercase());
+            if (attr_name == "color") {
+                auto color = _convert_html_color(attr_value);
+                if (!color.empty())
+                    _add_tag_style(CtConst::TAG_FOREGROUND, color);
+            } else if (attr_name == CtConst::TAG_BACKGROUND || attr_name == "background-color") {
+                auto color = _convert_html_color(attr_value);
+                if (!color.empty())
+                    _add_tag_style(CtConst::TAG_BACKGROUND, color);
+            } else if (attr_name == "text-decoration") {
+                if (attr_value == CtConst::TAG_UNDERLINE || str::startswith(attr_value, "underline"))
+                    _add_tag_style(CtConst::TAG_UNDERLINE, CtConst::TAG_PROP_VAL_SINGLE);
+                else if (attr_value == "line-through")
+                    _add_tag_style(CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROP_VAL_TRUE);
+            } else if (attr_name == "font-weight") {
+                if (attr_value == "bold" || attr_value == "bolder" || attr_value == "700")
+                    _add_tag_style(CtConst::TAG_WEIGHT, CtConst::TAG_PROP_VAL_HEAVY);
+            } else if (attr_name == "font-style") {
+                if (attr_value == CtConst::TAG_PROP_VAL_ITALIC)
+                    _add_tag_style(CtConst::TAG_STYLE, CtConst::TAG_PROP_VAL_ITALIC);
+            } else if (attr_name == "font-size") {
+                try
+                {
+                    attr_value = str::replace(attr_value, "pt", "");
+                    // Can throw std::invalid_argument or std::out_of_range
+                    int font_size = std::stoi(attr_value, nullptr);
+                    if (font_size > 0 && font_size < 11)
+                        _add_tag_style(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SMALL);
+                    else if (font_size > 13 && font_size < 19)
+                        _add_tag_style(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H3);
+                    else if (font_size >= 19)
+                        _add_tag_style(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H2);
+
+                } catch (std::invalid_argument&) {}
+            }
+        }
+    };
+
     _start_adding_tag_styles();
 
     if (vec::exists(CtConst::INVALID_HTML_TAGS, tag)) {
@@ -208,49 +252,8 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
         {
             for (auto& tag_attr: char2list_attrs(atts))
             {
-                if (tag_attr.name != CtConst::TAG_STYLE)
-                    continue;
-                for (Glib::ustring& style_attribute: str::split(Glib::ustring(tag_attr.value.begin()), ";"))
-                {
-                    int colon_pos = str::indexOf(style_attribute, CtConst::CHAR_COLON);
-                    if (colon_pos < 0) continue;
-                    auto attr_name = str::trim(style_attribute.substr(0, colon_pos).lowercase());
-                    Glib::ustring attr_value = str::trim(style_attribute.substr(colon_pos + 1, style_attribute.size() - colon_pos).lowercase());
-                    if (attr_name == "color") {
-                        auto color = _convert_html_color(attr_value);
-                        if (!color.empty())
-                            _add_tag_style(CtConst::TAG_FOREGROUND, color);
-                    } else if (attr_name == CtConst::TAG_BACKGROUND || attr_name == "background-color") {
-                        auto color = _convert_html_color(attr_value);
-                        if (!color.empty())
-                            _add_tag_style(CtConst::TAG_BACKGROUND, color);
-                    } else if (attr_name == "text-decoration") {
-                        if (attr_value == CtConst::TAG_UNDERLINE || str::startswith(attr_value, "underline"))
-                            _add_tag_style(CtConst::TAG_UNDERLINE, CtConst::TAG_PROP_VAL_SINGLE);
-                        else if (attr_value == "line-through")
-                            _add_tag_style(CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROP_VAL_TRUE);
-                    } else if (attr_name == "font-weight") {
-                        if (attr_value == "bold" || attr_value == "bolder" || attr_value == "700")
-                            _add_tag_style(CtConst::TAG_WEIGHT, CtConst::TAG_PROP_VAL_HEAVY);
-                    } else if (attr_name == "font-style") {
-                        if (attr_value == CtConst::TAG_PROP_VAL_ITALIC)
-                            _add_tag_style(CtConst::TAG_STYLE, CtConst::TAG_PROP_VAL_ITALIC);
-                    } else if (attr_name == "font-size") {
-                        try
-                        {
-                            attr_value = str::replace(attr_value, "pt", "");
-                            // Can throw std::invalid_argument or std::out_of_range
-                            int font_size = std::stoi(attr_value, nullptr);
-                            if (font_size > 0 && font_size < 11)
-                                _add_tag_style(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SMALL);
-                            else if (font_size > 13 && font_size < 19)
-                                _add_tag_style(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H3);
-                            else if (font_size >= 19)
-                                _add_tag_style(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H2);
-            
-                        } catch (std::invalid_argument&) {}
-                    }
-                }
+                if (tag_attr.name == CtConst::TAG_STYLE)
+                    parse_style_attribute(Glib::ustring(tag_attr.value.begin()));
             }
         }
         else if (tag == "font")
@@ -268,6 +271,8 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
             for (auto& tag_attr: char2list_attrs(atts)) {
                 if (tag_attr.name == "align")
                     _add_tag_style(CtConst::TAG_JUSTIFICATION, str::trim(Glib::ustring(tag_attr.value.begin()).lowercase()));
+                else if (tag_attr.name == CtConst::TAG_STYLE)
+                    parse_style_attribute(Glib::ustring(tag_attr.value.begin()));
             }
         }
         else if (tag == CtConst::TAG_PROP_VAL_SUP || tag == CtConst::TAG_PROP_VAL_SUB)
@@ -535,13 +540,18 @@ std::string CtHtml2Xml::_convert_html_color(const std::string& html_color)
     Gdk::RGBA rgba;
     if (!rgba.set(html_color))
         return "";
-    // r+g+b black is 0
-    // r+g+b white is 3*1.0 = 3.0
-    double black_level = 3.0 / 100. * 15;    // lower is black-ish
-    double white_level = 3.0 - black_level;  // higher is white-ish
-    double sum_rgb = rgba.get_blue() + rgba.get_green() + rgba.get_red();
-    if (sum_rgb < black_level || sum_rgb > white_level)
-        return "";
+
+    // new method to remove too white and too black colors
+    // from https://stackoverflow.com/questions/596216/formula-to-determine-brightness-of-rgb-color
+    auto sRGBtoLin = [](double colorChannel) {
+        if (colorChannel <= 0.04045) return colorChannel / 12.92;
+        else return pow((( colorChannel + 0.055)/1.055),2.4);
+    };
+    double Y = (0.2126 * sRGBtoLin(rgba.get_red()) + 0.7152 * sRGBtoLin(rgba.get_green()) + 0.0722 * sRGBtoLin(rgba.get_blue()));
+    if (Y < 0.05 /* <5% */ || Y > 0.95 /* >95% */)
+        return ""; // though I think it should explicitly return black/white
+
+
     return CtRgbUtil::rgb_any_to_24(rgba);
 }
 
