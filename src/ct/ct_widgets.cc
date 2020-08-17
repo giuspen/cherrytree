@@ -397,20 +397,26 @@ void CtTextView::for_event_after_button_press(GdkEvent* event)
         window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->button.x, (int)event->button.y, x, y);
         Gtk::TextIter text_iter;
         get_iter_at_position(text_iter, trailing, x, y); // works better than get_iter_at_location
-        auto tags = text_iter.get_tags();
-        // check whether we are hovering a link
-        for (auto& tag: tags)
+        // the issue: get_iter_at_position always gives iter, so we have to check if iter is valid
+        Gdk::Rectangle iter_rect;
+        get_iter_location(text_iter, iter_rect);
+        if (iter_rect.get_x() <= x && x <= (iter_rect.get_x() + iter_rect.get_width()))
         {
-            Glib::ustring tag_name = tag->property_name();
-            if (str::startswith(tag_name, CtConst::TAG_LINK))
+            auto tags = text_iter.get_tags();
+            // check whether we are hovering a link
+            for (auto& tag: tags)
             {
-                _pCtMainWin->get_ct_actions()->link_clicked(tag_name.substr(5), event->button.button == 2);
-                return;
+                Glib::ustring tag_name = tag->property_name();
+                if (str::startswith(tag_name, CtConst::TAG_LINK))
+                {
+                    _pCtMainWin->get_ct_actions()->link_clicked(tag_name.substr(5), event->button.button == 2);
+                    return;
+                }
             }
+            if (CtList(_pCtMainWin, text_buffer).is_list_todo_beginning(text_iter))
+                if (_pCtMainWin->get_ct_actions()->_is_curr_node_not_read_only_or_error())
+                    CtList(_pCtMainWin, text_buffer).todo_list_rotate_status(text_iter);
         }
-        if (CtList(_pCtMainWin, text_buffer).is_list_todo_beginning(text_iter))
-            if (_pCtMainWin->get_ct_actions()->_is_curr_node_not_read_only_or_error())
-                CtList(_pCtMainWin, text_buffer).todo_list_rotate_status(text_iter);
     }
     else if (event->button.button == 3 and not text_buffer->get_has_selection())
     {
@@ -665,44 +671,52 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
     Gtk::TextIter text_iter;
 
     int trailing;
-    get_iter_at_position(text_iter, trailing, x, y); // works better than get_iter_at_location
+    get_iter_at_position(text_iter, trailing, x, y); // works better than get_iter_at_location though has an issue
 
-    if (CtList(_pCtMainWin, get_buffer()).is_list_todo_beginning(text_iter))
+    // the issue: get_iter_at_position always gives iter, so we have to check if iter is valid
+    Gdk::Rectangle iter_rect;
+    get_iter_location(text_iter, iter_rect);
+    if (iter_rect.get_x() <= x && x <= (iter_rect.get_x() + iter_rect.get_width()))
     {
-        get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::HAND2)); // Gdk::X_CURSOR doesn't work on Win
-        set_tooltip_text("");
-        return;
-    }
-    auto tags = text_iter.get_tags();
-    bool find_link = false;
-    for (auto tag: tags)
-    {
-        Glib::ustring tag_name = tag->property_name();
-        if (str::startswith(tag_name, CtConst::TAG_LINK))
+
+        if (CtList(_pCtMainWin, get_buffer()).is_list_todo_beginning(text_iter))
         {
-            find_link = true;
-            hovering_link_iter_offset = text_iter.get_offset();
-            tooltip = _pCtMainWin->sourceview_hovering_link_get_tooltip(tag_name.substr(5));
-            break;
+            get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::HAND2)); // Gdk::X_CURSOR doesn't work on Win
+            set_tooltip_text("");
+            return;
+        }
+        auto tags = text_iter.get_tags();
+        bool find_link = false;
+        for (auto tag: tags)
+        {
+            Glib::ustring tag_name = tag->property_name();
+            if (str::startswith(tag_name, CtConst::TAG_LINK))
+            {
+                find_link = true;
+                hovering_link_iter_offset = text_iter.get_offset();
+                tooltip = _pCtMainWin->sourceview_hovering_link_get_tooltip(tag_name.substr(5));
+                break;
+            }
+        }
+        if (not find_link)
+        {
+            Gtk::TextIter iter_anchor = text_iter;
+            for (int i: {0, 1})
+            {
+                if (i == 1) iter_anchor.backward_char();
+                auto widgets = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(iter_anchor.get_offset(), iter_anchor.get_offset());
+                if (not widgets.empty())
+                    if (CtImagePng* image = dynamic_cast<CtImagePng*>(widgets.front()))
+                        if (not image->get_link().empty())
+                        {
+                            hovering_link_iter_offset = text_iter.get_offset();
+                            tooltip = _pCtMainWin->sourceview_hovering_link_get_tooltip(image->get_link());
+                            break;
+                        }
+            }
         }
     }
-    if (not find_link)
-    {
-        Gtk::TextIter iter_anchor = text_iter;
-        for (int i: {0, 1})
-        {
-            if (i == 1) iter_anchor.backward_char();
-            auto widgets = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(iter_anchor.get_offset(), iter_anchor.get_offset());
-            if (not widgets.empty())
-                if (CtImagePng* image = dynamic_cast<CtImagePng*>(widgets.front()))
-                    if (not image->get_link().empty())
-                    {
-                        hovering_link_iter_offset = text_iter.get_offset();
-                        tooltip = _pCtMainWin->sourceview_hovering_link_get_tooltip(image->get_link());
-                        break;
-                    }
-        }
-    }
+
     if (_pCtMainWin->get_ct_actions()->getCtMainWin()->hovering_link_iter_offset() != hovering_link_iter_offset)
     {
         _pCtMainWin->get_ct_actions()->getCtMainWin()->hovering_link_iter_offset() = hovering_link_iter_offset;
