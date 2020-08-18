@@ -88,6 +88,7 @@ void CtActions::find_in_selected_node()
 
     if (all_matches) {
         s_state.match_store->clear();
+        s_state.match_store->saved_path.clear();
         s_state.all_matches_first_in_node = true;
         while (_parse_node_content_iter(_pCtMainWin->curr_tree_iter(), curr_buffer, re_pattern, forward, first_fromsel, all_matches, true))
             s_state.matches_num += 1;
@@ -168,7 +169,10 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
         node_iter = forward ? _pCtMainWin->get_tree_store().get_iter_first() : _pCtMainWin->get_tree_store().get_tree_iter_last_sibling(_pCtMainWin->get_tree_store().get_store()->children());
     }
     s_state.matches_num = 0;
-    if (all_matches) s_state.match_store->clear();
+    if (all_matches) {
+        s_state.match_store->clear();
+        s_state.match_store->saved_path.clear();
+    }
 
     std::string tree_expanded_collapsed_string = _pCtMainWin->get_tree_store().treeview_get_tree_expanded_collapsed_string(_pCtMainWin->get_tree_view());
     // searching start
@@ -193,7 +197,7 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
             if (!all_matches ||  ctStatusBar.is_progress_stop()) break;
         }
         s_state.processed_nodes += 1;
-        if (s_state.matches_num == 1 || !all_matches) break;
+        if (s_state.matches_num == 1 && !all_matches) break;
         if (for_current_node && !s_state.from_find_iterated) break;
         Gtk::TreeIter last_top_node_iter = node_iter; // we need this if we start from a node that is not in top level
         if (forward) node_iter = ++node_iter;
@@ -284,8 +288,10 @@ void CtActions::find_a_node()
         node_iter = forward ? _pCtMainWin->get_tree_store().get_iter_first() : _pCtMainWin->get_tree_store().get_tree_iter_last_sibling(_pCtMainWin->get_tree_store().get_store()->children());;
 
     s_state.matches_num = 0;
-    if (all_matches)
+    if (all_matches) {
         s_state.match_store->clear();
+        s_state.match_store->saved_path.clear();
+    }
     // searching start
     while (node_iter) {
         if (_parse_node_name(_pCtMainWin->get_tree_store().to_ct_tree_iter(node_iter), re_pattern, forward, all_matches)) {
