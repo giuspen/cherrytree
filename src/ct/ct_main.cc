@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
         auto max_size = 1048576 * 5;
         auto max_files = 3;
         fs::path log_path = fs::get_cherrytree_configdir() / "cherrytree.log";
-        sinks.push_back(std::make_shared<spdlog::sinks::rotating_file_sink_mt>(log_path.c_str(), max_size, max_files));
+        // sinks.push_back(std::make_shared<spdlog::sinks::rotating_file_sink_mt>(log_path.c_str(), max_size, max_files));
 #endif
     }
     catch (const spdlog::spdlog_ex &ex)

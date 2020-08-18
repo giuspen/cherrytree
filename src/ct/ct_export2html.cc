@@ -39,7 +39,6 @@ CtExport2Html::CtExport2Html(CtMainWin* pCtMainWin)
 //Prepare the website folder
 bool CtExport2Html::prepare_html_folder(fs::path dir_place, fs::path new_folder, bool export_overwrite, fs::path& export_path)
 {
-    spdlog::debug("CtExport2Html::prepare_html_folder: start");
     if (dir_place.empty())
     {
         dir_place = CtDialogs::folder_select_dialog(_pCtMainWin->get_ct_config()->pickDirExport, _pCtMainWin);
@@ -72,19 +71,16 @@ bool CtExport2Html::prepare_html_folder(fs::path dir_place, fs::path new_folder,
         fs::path script_js_original = fs::get_cherrytree_datadir() / "data" / "script3.js";
         fs::copy_file(script_js_original, styles_js_filepath);
     }
-
     fs::copy_file(styles_js_filepath, _res_dir / "script3.js");
 
     export_path = _export_dir;
 
-    spdlog::debug("CtExport2Html::prepare_html_folder: end");
     return true;
 }
 
 // Export a Node To HTML
 void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOptions& options, const Glib::ustring& index, int sel_start, int sel_end)
 {
-    spdlog::debug("CtExport2Html::node_export_to_html: start");
     Glib::ustring html_text = str::format(HTML_HEADER, tree_iter.get_node_name());
     if (index != "" && options.index_in_page)
     {
@@ -104,7 +100,6 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
 
     std::vector<Glib::ustring> html_slots;
     std::vector<CtAnchoredWidget*> widgets;
-    spdlog::debug("CtExport2Html::node_export_to_html: prepare content");
     if (tree_iter.get_node_is_rich_text())
     {
         _html_get_from_treestore_node(tree_iter, sel_start, sel_end, html_slots, widgets);
@@ -139,8 +134,6 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
     else
         html_text += _html_get_from_code_buffer(tree_iter.get_node_text_buffer(), sel_start, sel_end, tree_iter.get_node_syntax_highlighting());
 
-    spdlog::debug("CtExport2Html::node_export_to_html: after prepare content");
-
     if (index != "" && !options.index_in_page)
         html_text += Glib::ustring("<p align=\"center\">") + Glib::build_filename("images", "home.png") +
                 "<img src=\"" "\" height=\"22\" width=\"22\">" +
@@ -148,12 +141,8 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
     html_text += "</div>"; // div class='page'
     html_text += HTML_FOOTER;
 
-    spdlog::debug("CtExport2Html::node_export_to_html: before writing file");
-
     fs::path node_html_filepath = _export_dir / _get_html_filename(tree_iter);
     g_file_set_contents(node_html_filepath.c_str(), html_text.c_str(), (gssize)html_text.bytes(), nullptr);
-
-    spdlog::debug("CtExport2Html::node_export_to_html: after writing file");
 }
 
 // Export All Nodes To HTML
