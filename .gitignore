@@ -6,5 +6,6 @@ obj-x86_64-linux-gnu
 debian/autoreconf.after
 debian/autoreconf.before
 debian/cherrytree.debhelper.log
+debian/files
 build
 *.mo
