@@ -67,16 +67,30 @@ bool is_directory(const fs::path& path)
 
 bool copy_file(const path& from, const path& to)
 {
-    Glib::RefPtr<Gio::File> rFileFrom = Gio::File::create_for_path(from.string());
-    Glib::RefPtr<Gio::File> rFileTo = Gio::File::create_for_path(to.string());
-    return rFileFrom->copy(rFileTo, Gio::FILE_COPY_OVERWRITE);
+    try
+    {
+        Glib::RefPtr<Gio::File> rFileFrom = Gio::File::create_for_path(from.string());
+        Glib::RefPtr<Gio::File> rFileTo = Gio::File::create_for_path(to.string());
+        return rFileFrom->copy(rFileTo, Gio::FILE_COPY_OVERWRITE);
+    }
+    catch (Gio::Error& error) {
+        spdlog::debug("fs::copy_file, error: {}, from: {}, to: {}", error.what(), from.string(), to.string());
+        return false;
+    }
 }
 
 bool move_file(const path& from, const path& to)
 {
-    Glib::RefPtr<Gio::File> rFileFrom = Gio::File::create_for_path(from.string());
-    Glib::RefPtr<Gio::File> rFileTo = Gio::File::create_for_path(to.string());
-    return rFileFrom->move(rFileTo, Gio::FILE_COPY_OVERWRITE);
+    try
+    {
+        Glib::RefPtr<Gio::File> rFileFrom = Gio::File::create_for_path(from.string());
+        Glib::RefPtr<Gio::File> rFileTo = Gio::File::create_for_path(to.string());
+        return rFileFrom->move(rFileTo, Gio::FILE_COPY_OVERWRITE);
+    }
+    catch (Gio::Error& error) {
+        spdlog::debug("fs::move_file, error: {}, from: {}, to: {}", error.what(), from.string(), to.string());
+        return false;
+    }
 }
 
 fs::path absolute(const fs::path& path)
