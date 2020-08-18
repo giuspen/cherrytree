@@ -118,7 +118,7 @@ public:
 
     std::array<int, 2> dlg_size;
     std::array<int, 2> dlg_pos;
-    Gtk::TreePath      saved_path;
+    std::string        saved_path; // don't use Gtk::TreePath, see git log
 
 public:
     virtual ~CtMatchDialogStore() {}
