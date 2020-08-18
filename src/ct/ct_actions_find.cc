@@ -197,7 +197,7 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
             if (!all_matches ||  ctStatusBar.is_progress_stop()) break;
         }
         s_state.processed_nodes += 1;
-        if (s_state.matches_num == 1 || !all_matches) break;
+        if (s_state.matches_num == 1 && !all_matches) break;
         if (for_current_node && !s_state.from_find_iterated) break;
         Gtk::TreeIter last_top_node_iter = node_iter; // we need this if we start from a node that is not in top level
         if (forward) node_iter = ++node_iter;
