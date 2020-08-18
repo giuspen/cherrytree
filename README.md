@@ -171,14 +171,13 @@ Install required packages to build cherrytree:
 ```sh
 # toolchain and cmake
 pacman -S --needed --noconfirm mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake
-# gtkmm3, libxml++, sqlite3
+# gtkmm3, gtksourceviewmm3, libxml++2.6, sqlite3, gspell, curl
 pacman -S --needed --noconfirm mingw-w64-x86_64-gtkmm3 mingw-w64-x86_64-gtksourceviewmm3 mingw-w64-x86_64-libxml++2.6 mingw-w64-x86_64-sqlite3 mingw-w64-x86_64-gspell mingw-w64-x86_64-curl
-# python3-lxml, gettext
-pacman -S --needed --noconfirm mingw-w64-x86_64-python3-lxml mingw-w64-x86_64-gettext
-# other
-pacman -S --needed --noconfirm tar nano git mingw-w64-x86_64-meld3
+# python3-lxml, gettext, git, nano, meld3
+pacman -S --needed --noconfirm mingw-w64-x86_64-python3-lxml mingw-w64-x86_64-gettext git nano mingw-w64-x86_64-meld3
 # cpputest (missing package, we need to build manually)
-wget https://github.com/cpputest/cpputest/releases/download/v3.8/cpputest-3.8.tar.gz
+pacman -S --needed --noconfirm autoconf automake libtool make
+wget https://github.com/cpputest/cpputest/releases/downlsoad/v3.8/cpputest-3.8.tar.gz
 tar xf cpputest-3.8.tar.gz
 cd cpputest-3.8
 ./autogen.sh
@@ -228,4 +227,4 @@ Troubleshooting:
 - Cannot build: make sure to start 64-bit terminal
 - Cannot build: remove `cherrytree/build` folder and start `build.sh` script again
 - Tests output warnings and errors: it is ok, at the end it should be like this `OK (49 tests, 49 ran, 6243 checks, 0 ignored, 0 filtered out, 5758 ms)`
-- Cannot start cherrytree: you either have to run cherrytree from the msys2 mingw64 terminal or copy and replace cherrytree in `cherrytree_0.99_win64_portable` folder (downloaded from the site) by the new one, so dependencies are fullfiled 
+- Cannot start cherrytree: you either have to run cherrytree from the msys2 mingw64 terminal or copy and replace cherrytree in `cherrytree_0.99.X_win64_portable` folder (downloaded from the site) by the new one, so dependencies are fulfilled 
