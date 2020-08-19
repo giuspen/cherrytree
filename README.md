@@ -177,7 +177,7 @@ pacman -S --needed --noconfirm mingw-w64-x86_64-gtkmm3 mingw-w64-x86_64-gtksourc
 pacman -S --needed --noconfirm mingw-w64-x86_64-python3-lxml mingw-w64-x86_64-gettext git nano mingw-w64-x86_64-meld3
 # cpputest (missing package, we need to build manually)
 pacman -S --needed --noconfirm autoconf automake libtool make
-wget https://github.com/cpputest/cpputest/releases/downlsoad/v3.8/cpputest-3.8.tar.gz
+wget https://github.com/cpputest/cpputest/releases/download/v3.8/cpputest-3.8.tar.gz
 tar xf cpputest-3.8.tar.gz
 cd cpputest-3.8
 ./autogen.sh
