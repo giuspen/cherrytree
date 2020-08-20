@@ -57,9 +57,12 @@ private:
     CtLinkEntry _link_entry;
 
 private:
-    size_t                          _next_opened_emb_file_id{1};
-    std::map<fs::path, time_t>      _embfiles_opened;
-    sigc::connection                _embfiles_timeout_connection;
+    struct CtEmbFileOpened {
+        fs::path tmp_filepath;
+        time_t mod_time;
+    };
+    std::unordered_map<size_t, CtEmbFileOpened> _embfiles_opened;
+    sigc::connection              _embfiles_timeout_connection;
 
 private:
     CtMainWin*   _pCtMainWin;

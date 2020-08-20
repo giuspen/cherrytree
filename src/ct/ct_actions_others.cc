@@ -143,26 +143,32 @@ void CtActions::embfile_save()
 // Embedded File Open
 void CtActions::embfile_open()
 {
-    size_t open_id = (size_t)curr_file_anchor->get_data("open_id");
-    if (open_id == 0)
-    {
-        open_id = _next_opened_emb_file_id;
-        _next_opened_emb_file_id += 1;
-        curr_file_anchor->set_data("open_id", (void*)open_id);
+    const size_t open_id = curr_file_anchor->get_unique_id();
+    auto mapIter = _embfiles_opened.find(open_id);
+    fs::path tmp_filepath;
+    if (mapIter == _embfiles_opened.end()) {
+        // the file was not opened yet
+        const fs::path filename = std::to_string(_pCtMainWin->curr_tree_iter().get_node_id()) +
+                                                 CtConst::CHAR_MINUS + std::to_string(open_id) +
+                                                 CtConst::CHAR_MINUS + std::to_string(getpid())+
+                                                 CtConst::CHAR_MINUS + curr_file_anchor->get_file_name().string();
+        tmp_filepath = _pCtMainWin->get_ct_tmp()->getHiddenFilePath(filename);
+        _embfiles_opened[open_id] = CtEmbFileOpened{
+            .tmp_filepath = tmp_filepath,
+            .mod_time = 0};
+        mapIter = _embfiles_opened.find(open_id);
+    }
+    else {
+        tmp_filepath = mapIter->second.tmp_filepath;
     }
 
-    fs::path filename = std::to_string(_pCtMainWin->curr_tree_iter().get_node_id()) +
-            CtConst::CHAR_MINUS + std::to_string(open_id) +
-            CtConst::CHAR_MINUS + std::to_string(getpid())+
-            CtConst::CHAR_MINUS + curr_file_anchor->get_file_name().string();
-    fs::path filepath = _pCtMainWin->get_ct_tmp()->getHiddenFilePath(filename);
+    g_file_set_contents(tmp_filepath.c_str(), curr_file_anchor->get_raw_blob().c_str(), (gssize)curr_file_anchor->get_raw_blob().size(), nullptr);
+    fs::open_filepath(tmp_filepath.c_str(), false, _pCtMainWin->get_ct_config());
+    mapIter->second.mod_time = fs::getmtime(tmp_filepath);
 
-    g_file_set_contents(filepath.c_str(), curr_file_anchor->get_raw_blob().c_str(), (gssize)curr_file_anchor->get_raw_blob().size(), nullptr);
-    fs::open_filepath(filepath.c_str(), false, _pCtMainWin->get_ct_config());
-    _embfiles_opened[filepath] = fs::getmtime(filepath);
-
-    if (not _embfiles_timeout_connection)
+    if (not _embfiles_timeout_connection) {
         _embfiles_timeout_connection = Glib::signal_timeout().connect(sigc::mem_fun(*this, &CtActions::_on_embfiles_sentinel_timeout), 500);
+    }
 }
 
 // Save to Disk the selected Image
@@ -708,36 +714,38 @@ void CtActions::_anchor_edit_dialog(CtImageAnchor* anchor, Gtk::TextIter insert_
 // Iteration of the Modification Time Sentinel
 bool CtActions::_on_embfiles_sentinel_timeout()
 {
-    for(auto& item : _embfiles_opened)
+    for (auto& item : _embfiles_opened)
     {
-        const fs::path& filepath = item.first;
-        if (not fs::is_regular_file(filepath))
+        const fs::path& tmp_filepath = item.second.tmp_filepath;
+        if (not fs::is_regular_file(tmp_filepath))
         {
-            spdlog::debug("embdrop{}", filepath);
-            _embfiles_opened.erase(filepath);
+            spdlog::debug("embdrop {}", tmp_filepath);
+            _embfiles_opened.erase(item.first);
             break;
         }
-        if (item.second != fs::getmtime(filepath))
+        if (item.second.mod_time != fs::getmtime(tmp_filepath))
         {
-           _embfiles_opened[filepath] = fs::getmtime(filepath);
-           auto data_vec = str::split(filepath.filename().string(), CtConst::CHAR_MINUS);
-           gint64 node_id = std::stoll(data_vec[0]);
-           size_t embfile_id = std::stol(data_vec[1]);
+            item.second.mod_time = fs::getmtime(tmp_filepath);
+            const auto data_vec = str::split(tmp_filepath.filename().string(), CtConst::CHAR_MINUS);
+            const gint64 node_id = std::stoll(data_vec[0]);
+            const size_t embfile_id = std::stol(data_vec[1]);
 
             CtTreeIter tree_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(node_id);
-            if (not tree_iter) continue;
+            if (not tree_iter) {
+                continue;
+            }
             if (tree_iter.get_node_read_only())
             {
                 CtDialogs::warning_dialog(_("Cannot Edit Embedded File in Read Only Node"), *_pCtMainWin);
                 continue;
             }
             _pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
-            for (auto& widget: tree_iter.get_embedded_pixbufs_tables_codeboxes_fast())
+            for (auto& widget : tree_iter.get_embedded_pixbufs_tables_codeboxes_fast())
             {
-                if (CtImageEmbFile* embFile = dynamic_cast<CtImageEmbFile*>(widget))
-                    if (((size_t)embFile->get_data("open_id")) == embfile_id)
+                if (CtImageEmbFile* embFile = dynamic_cast<CtImageEmbFile*>(widget)) {
+                    if (embFile->get_unique_id() == embfile_id)
                     {
-                        std::string buffer = fs::get_content(filepath);
+                        std::string buffer = fs::get_content(tmp_filepath);
                         embFile->set_raw_blob(buffer);
                         embFile->set_time(std::time(nullptr));
                         embFile->update_tooltip();
@@ -746,7 +754,8 @@ bool CtActions::_on_embfiles_sentinel_timeout()
                         _pCtMainWin->get_status_bar().update_status(_("Embedded File Automatically Updated:") + std::string(CtConst::CHAR_SPACE) + embFile->get_file_name().string());
                         break;
                     }
-           }
+                }
+            }
         }
     }
     return true; // this way we keep the timer alive

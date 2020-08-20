@@ -277,16 +277,24 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
     return true; // do not propagate the event
 }
 
+/*static*/ size_t CtImageEmbFile::get_next_unique_id()
+{
+    static size_t next_unique_id{1};
+    return next_unique_id++;
+}
+
 CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
                                const fs::path& fileName,
                                const std::string& rawBlob,
                                const double& timeSeconds,
                                const int charOffset,
-                               const std::string& justification)
- : CtImage(pCtMainWin, _get_file_icon(pCtMainWin, fileName), charOffset, justification),
-   _fileName(fileName),
-   _rawBlob(rawBlob),
-   _timeSeconds(timeSeconds)
+                               const std::string& justification,
+                               const size_t uniqueId)
+ : CtImage(pCtMainWin, _get_file_icon(pCtMainWin, fileName), charOffset, justification)
+ , _fileName(fileName)
+ , _rawBlob(rawBlob)
+ , _timeSeconds(timeSeconds)
+ , _uniqueId(uniqueId)
 {
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageEmbFile::_on_button_press_event), false);
     update_tooltip();

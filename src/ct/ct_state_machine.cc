@@ -1,7 +1,9 @@
 /*
  * ct_state_machine.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -67,22 +69,29 @@ CtAnchoredWidget* CtAnchoredWidgetState_Anchor::to_widget(CtMainWin* pCtMainWin)
 
 // ImageEmbFile
 CtAnchoredWidgetState_EmbFile::CtAnchoredWidgetState_EmbFile(CtImageEmbFile* embFile)
-    :CtAnchoredWidgetState(embFile->getOffset(), embFile->getJustification()),
-      fileName(embFile->get_file_name()), rawBlob(embFile->get_raw_blob()), timeSeconds(embFile->get_time())
+ : CtAnchoredWidgetState(embFile->getOffset(), embFile->getJustification())
+ , fileName(embFile->get_file_name())
+ , rawBlob(embFile->get_raw_blob())
+ , timeSeconds(embFile->get_time())
+ , uniqueId(embFile->get_unique_id())
 {
-
 }
 
 bool CtAnchoredWidgetState_EmbFile::equal(std::shared_ptr<CtAnchoredWidgetState> state)
 {
     CtAnchoredWidgetState_EmbFile* other_state = dynamic_cast<CtAnchoredWidgetState_EmbFile*>(state.get());
-    return other_state && charOffset == other_state->charOffset && justification == other_state->justification &&
-            fileName == other_state->fileName && rawBlob == other_state->rawBlob && timeSeconds == other_state->timeSeconds;
+    return other_state and
+           charOffset == other_state->charOffset and
+           justification == other_state->justification and
+           fileName == other_state->fileName and
+           rawBlob == other_state->rawBlob and
+           timeSeconds == other_state->timeSeconds and
+           uniqueId == other_state->uniqueId;
 }
 
 CtAnchoredWidget* CtAnchoredWidgetState_EmbFile::to_widget(CtMainWin* pCtMainWin)
 {
-    return new CtImageEmbFile(pCtMainWin, fileName, rawBlob, timeSeconds, charOffset, justification);
+    return new CtImageEmbFile(pCtMainWin, fileName, rawBlob, timeSeconds, charOffset, justification, uniqueId);
 }
 
 // Codebox

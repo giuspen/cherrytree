@@ -1,7 +1,9 @@
 /*
  * ct_image.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -122,7 +124,8 @@ public:
                    const std::string& rawBlob,
                    const double& timeSeconds,
                    const int charOffset,
-                   const std::string& justification);
+                   const std::string& justification,
+                   const size_t uniqueId);
     virtual ~CtImageEmbFile() override {}
 
     void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache) override;
@@ -130,14 +133,17 @@ public:
     CtAnchWidgType get_type() override { return CtAnchWidgType::ImageEmbFile; }
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
-    const fs::path& get_file_name() { return _fileName; }
+    const fs::path&      get_file_name() { return _fileName; }
     const std::string&   get_raw_blob() { return _rawBlob; }
     void                 set_raw_blob(const std::string& buffer) { _rawBlob = buffer; }
     double               get_time() { return _timeSeconds; }
     void                 set_time(time_t time) { _timeSeconds = time; }
+    size_t               get_unique_id() { return _uniqueId; }
 
-    void update_tooltip();
-    void update_label_widget();
+    static size_t        get_next_unique_id();
+
+    void                 update_tooltip();
+    void                 update_label_widget();
 
 private:
     static Glib::RefPtr<Gdk::Pixbuf> _get_file_icon(CtMainWin* pCtMainWin, const fs::path& fileName);
@@ -149,4 +155,5 @@ protected:
     fs::path      _fileName;
     std::string   _rawBlob;      // raw data, not a string
     double        _timeSeconds;
+    const size_t  _uniqueId;
 };

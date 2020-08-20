@@ -489,7 +489,7 @@ void CtStorageSqlite::_image_from_db(const gint64& nodeId, std::list<CtAnchoredW
             if (!fileName.empty())
             {
                 const double timeDouble = sqlite3_column_int64(stmt, 7);
-                anchoredWidgets.push_back(new CtImageEmbFile(_pCtMainWin, fileName, rawBlob, timeDouble, charOffset, justification));
+                anchoredWidgets.push_back(new CtImageEmbFile(_pCtMainWin, fileName, rawBlob, timeDouble, charOffset, justification, CtImageEmbFile::get_next_unique_id()));
             }
             else
             {

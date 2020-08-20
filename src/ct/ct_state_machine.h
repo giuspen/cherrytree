@@ -1,7 +1,9 @@
 /*
  * ct_state_machine.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,8 +51,8 @@ class CtAnchoredWidgetState_ImagePng : public CtAnchoredWidgetState
 public:
     CtAnchoredWidgetState_ImagePng(CtImagePng* image);
     virtual ~CtAnchoredWidgetState_ImagePng() = default;
-    virtual bool equal(std::shared_ptr<CtAnchoredWidgetState> state);
-    virtual CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin);
+    bool equal(std::shared_ptr<CtAnchoredWidgetState> state) override;
+    CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) override;
 
 public:
     Glib::ustring link;
@@ -62,25 +64,26 @@ class CtAnchoredWidgetState_Anchor : public CtAnchoredWidgetState
 public:
     CtAnchoredWidgetState_Anchor(CtImageAnchor* anchor);
     virtual ~CtAnchoredWidgetState_Anchor() = default;
-    virtual bool equal(std::shared_ptr<CtAnchoredWidgetState> state);
-    virtual CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin);
+    bool equal(std::shared_ptr<CtAnchoredWidgetState> state) override;
+    CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) override;
 
 public:
     Glib::ustring name;
 };
 
-class CtAnchoredWidgetState_EmbFile: public CtAnchoredWidgetState
+class CtAnchoredWidgetState_EmbFile : public CtAnchoredWidgetState
 {
 public:
     CtAnchoredWidgetState_EmbFile(CtImageEmbFile* embFile);
     virtual ~CtAnchoredWidgetState_EmbFile() = default;
-    virtual bool equal(std::shared_ptr<CtAnchoredWidgetState> state);
-    virtual CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin);
+    bool equal(std::shared_ptr<CtAnchoredWidgetState> state) override;
+    CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) override;
 
 public:
     fs::path      fileName;
     std::string   rawBlob;      // raw data, not a string
     double        timeSeconds;
+    const size_t  uniqueId;
 };
 
 class CtAnchoredWidgetState_Codebox : public CtAnchoredWidgetState
@@ -88,8 +91,8 @@ class CtAnchoredWidgetState_Codebox : public CtAnchoredWidgetState
 public:
     CtAnchoredWidgetState_Codebox(CtCodebox* codebox);
     virtual ~CtAnchoredWidgetState_Codebox() = default;
-    virtual bool equal(std::shared_ptr<CtAnchoredWidgetState> state);
-    virtual CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin);
+    bool equal(std::shared_ptr<CtAnchoredWidgetState> state) override;
+    CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) override;
 
 public:
     Glib::ustring content, syntax;
@@ -97,20 +100,19 @@ public:
     bool widthInPixels, brackets, showNum;
 };
 
-class CtAnchoredWidgetState_Table: public CtAnchoredWidgetState
+class CtAnchoredWidgetState_Table : public CtAnchoredWidgetState
 {
 public:
     CtAnchoredWidgetState_Table(CtTable* table);
     virtual ~CtAnchoredWidgetState_Table() = default;
-    virtual bool equal(std::shared_ptr<CtAnchoredWidgetState> state);
-    virtual CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin);
+    bool equal(std::shared_ptr<CtAnchoredWidgetState> state) override;
+    CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) override;
 
 public:
     int colMin;
     int colMax;
     std::vector<std::vector<Glib::ustring>> rows;
 };
-
 
 struct CtNodeState
 {

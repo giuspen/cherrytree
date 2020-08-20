@@ -464,7 +464,7 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_image_from_xml(xmlpp::Element* xml
             timeStr = "0";
         }
         double timeDouble = std::stod(timeStr);
-        return new CtImageEmbFile(_pCtMainWin, file_name, rawBlob, timeDouble, charOffset, justification);
+        return new CtImageEmbFile(_pCtMainWin, file_name, rawBlob, timeDouble, charOffset, justification, CtImageEmbFile::get_next_unique_id());
     }
     else
     {
