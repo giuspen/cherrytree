@@ -181,7 +181,10 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
             if (colon_pos < 0) continue;
             auto attr_name = str::trim(style_attribute.substr(0, colon_pos).lowercase());
             Glib::ustring attr_value = str::trim(style_attribute.substr(colon_pos + 1, style_attribute.size() - colon_pos).lowercase());
-            if (attr_name == "color") {
+            if (attr_name == "text-align") {
+                if (attr_value == CtConst::TAG_PROP_VAL_LEFT || attr_value == CtConst::TAG_PROP_VAL_CENTER || attr_value == CtConst::TAG_PROP_VAL_RIGHT)
+                    _add_tag_style(CtConst::TAG_JUSTIFICATION, attr_value);
+            } else if (attr_name == "color") {
                 auto color = _convert_html_color(attr_value);
                 if (!color.empty())
                     _add_tag_style(CtConst::TAG_FOREGROUND, color);
