@@ -25,9 +25,9 @@
 #include "ct_storage_xml.h"
 #include "ct_storage_control.h"
 #include "ct_main_win.h"
-#include <unistd.h>
 #include "ct_logging.h"
-
+#include <unistd.h>
+#include <optional>
 
 const char CtStorageSqlite::TABLE_NODE_CREATE[]{"CREATE TABLE node ("
 "node_id INTEGER UNIQUE,"
