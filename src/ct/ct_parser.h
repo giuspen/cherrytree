@@ -36,6 +36,7 @@
 #include <array>
 #include <string_view>
 #include <string>
+#include <optional>
 
 class CtClipboard;
 struct CtStatusBar;
