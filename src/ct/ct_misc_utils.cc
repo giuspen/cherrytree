@@ -919,10 +919,10 @@ Glib::ustring str::xml_escape(const Glib::ustring& text)
         switch(*ch) {
             case '&':  buffer.append("&amp;");       break;
             case '\"': buffer.append("&quot;");      break;
-            case '\'': buffer.append("&apos;");      break;
+            case '\'': buffer.append("&#39;");       break;
             case '<':  buffer.append("&lt;");        break;
             case '>':  buffer.append("&gt;");        break;
-            default:   buffer.append(1, *ch); break;
+            default:   buffer.append(1, *ch);        break;
         }
     }
     return buffer;
