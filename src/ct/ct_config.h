@@ -28,7 +28,6 @@
 #include <glibmm.h>
 #include "ct_const.h"
 #include "ct_types.h"
-#include "ct_splittable.h"
 #include "ct_filesystem.h"
 
 class CtConfig

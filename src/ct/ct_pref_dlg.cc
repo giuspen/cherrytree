@@ -34,7 +34,6 @@
 #include "ct_dialogs.h"
 #include "ct_codebox.h"
 #include "ct_main_win.h"
-#include "ct_splittable.h"
 #include <gspell/gspell.h>
 
 CtPrefDlg::UniversalModelColumns::~UniversalModelColumns()
