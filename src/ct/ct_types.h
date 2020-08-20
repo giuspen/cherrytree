@@ -123,6 +123,39 @@ struct CtRecentDocsFilepaths : public CtMaxSizedList<fs::path>
     CtRecentDocsFilepaths() : CtMaxSizedList<fs::path>{10} {}
 };
 
+class CtStringSplittable
+{
+private:
+    using vect_t = std::vector<Glib::ustring>;
+
+public:
+
+    CtStringSplittable(const Glib::ustring& str) : _string_cache(str) {
+        for (const auto& ch : _string_cache) {
+            _internal_vec.emplace_back(1, ch);
+        }
+    }
+
+    const Glib::ustring& operator[](int index) const { return _internal_vec[(size_t)index]; }
+
+    int size() const { return (int)_internal_vec.size(); }
+
+    template<typename T>
+    typename vect_t::const_iterator find(const T& item) const { return std::find(_internal_vec.begin(), _internal_vec.end(), item); }
+
+    template<typename T>
+    bool contains(const T& item) const { return std::find(_internal_vec.begin(), _internal_vec.end(), item) != _internal_vec.end(); }
+
+    typename vect_t::const_iterator end() const noexcept { return _internal_vec.end(); }
+    typename vect_t::const_iterator begin() const noexcept { return _internal_vec.begin(); }
+
+    const Glib::ustring& item() const { return _string_cache; }
+
+private:
+    Glib::ustring _string_cache;
+    vect_t        _internal_vec;
+};
+
 struct CtStorageNodeState
 {
     bool upd{false};

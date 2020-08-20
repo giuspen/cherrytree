@@ -322,7 +322,7 @@ void CtActions::_insert_toc_at_pos(Glib::RefPtr<Gtk::TextBuffer> text_buffer, co
         if (entry.is_node) {
             bullet_char = bullets_list[0];
         } else {
-            CtStringSplittable::size_type bullet_index = entry.h_level + 1;
+            int bullet_index = entry.h_level + 1;
             if (bullet_index >= bullets_list.size()) {
                 bullet_index = bullets_list.size() - 1;
             }
