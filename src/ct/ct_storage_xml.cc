@@ -187,7 +187,7 @@ Gtk::TreeIter CtStorageXml::_node_from_xml(xmlpp::Element* xml_element, gint64 s
     node_data.isBold = CtStrUtil::is_str_true(xml_element->get_attribute_value("is_bold"));
     node_data.foregroundRgb24 = xml_element->get_attribute_value("foreground");
     node_data.tsCreation = CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("ts_creation").c_str());
-    node_data.tsLastSave = CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("ts_lastSave").c_str());
+    node_data.tsLastSave = CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("ts_lastsave").c_str());
     node_data.sequence = sequence;
     if (new_id == -1)
     {

@@ -214,11 +214,11 @@ const inline static gchar* TOOLBAR_SPLIT {"toolbar_split"};
 const inline static gchar* TOOLBAR_VEC_DEFAULT {
     "tree_add_node,tree_add_subnode,separator,go_node_prev,go_node_next,"
     "separator,*,ct_save,export_pdf,separator,"
-    "find_in_allnodes,separator,handle_bull_list,handle_num_list,handle_todo_list,"
+    "find_in_allnodes,separator,handle_bull_list,handle_num_list,handle_todo_list,fmt_indent,fmt_unindent,"
     "separator,handle_image,handle_table,handle_codebox,handle_embfile,"
     "handle_link,handle_anchor,separator,fmt_rm,fmt_color_fg,"
     "fmt_color_bg,fmt_bold,fmt_italic,fmt_underline,fmt_strikethrough,"
-    "fmt_h1,fmt_h2,fmt_h3,fmt_small,fmt_superscript,fmt_subscript,fmt_monospace,fmt_unindent,fmt_indent"
+    "fmt_h1,fmt_h2,fmt_h3,fmt_small,fmt_superscript,fmt_subscript,fmt_monospace"
 };
 
 const inline static std::array<const gchar*, 17>  TOOLBAR_VEC_BLACKLIST {
