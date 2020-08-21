@@ -5,7 +5,7 @@
     <rich_text>ciao plain
 йцукенгшщз</rich_text>
   </node>
-  <node name="b" unique_id="2" prog_lang="custom-colors" tags="" readonly="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1564932982" ts_lastsave="0">
+  <node name="b" unique_id="2" prog_lang="custom-colors" tags="" readonly="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1564932982" ts_lastsave="1598022816">
     <rich_text justification="fill">ciao rich</rich_text>
     <rich_text>
 </rich_text>
@@ -38,11 +38,13 @@
 </rich_text>
     <rich_text scale="small">small</rich_text>
     <rich_text>
-a</rich_text>
-    <rich_text scale="sup">super</rich_text>
+</rich_text>
+    <rich_text indent="1">a</rich_text>
+    <rich_text indent="1" scale="sup">super</rich_text>
     <rich_text>
-a</rich_text>
-    <rich_text scale="sub">sub</rich_text>
+</rich_text>
+    <rich_text indent="2">a</rich_text>
+    <rich_text indent="2" scale="sub">sub</rich_text>
     <rich_text>
 </rich_text>
     <rich_text family="monospace">mono</rich_text>
@@ -60,22 +62,14 @@ a</rich_text>
       <node name="html" unique_id="8" prog_lang="html" tags="" readonly="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1593795273" ts_lastsave="0">
         <rich_text>&lt;head&gt;
 &lt;title&gt;NO&lt;/title&gt;
-</rich_text>
-        <rich_text>&lt;</rich_text>
-        <rich_text>/head</rich_text>
-        <rich_text>&gt;</rich_text>
+&lt;/head&gt;</rich_text>
       </node>
       <node name="xml" unique_id="9" prog_lang="xml" tags="" readonly="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1593795405" ts_lastsave="0">
-        <rich_text>&lt;</rich_text>
-        <rich_text>?xml version="1.0" encoding="UTF-8"?</rich_text>
-        <rich_text>&gt;</rich_text>
+        <rich_text>&lt;?xml version="1.0" encoding="UTF-8"?&gt;</rich_text>
       </node>
     </node>
     <node name="py" unique_id="7" prog_lang="python3" tags="" readonly="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1593795143" ts_lastsave="0">
-      <rich_text>print</rich_text>
-      <rich_text>(</rich_text>
-      <rich_text>"ciao!"</rich_text>
-      <rich_text>)</rich_text>
+      <rich_text>print("ciao!")</rich_text>
     </node>
   </node>
   <node name="d" unique_id="4" prog_lang="custom-colors" tags="ciao" readonly="1" custom_icon_id="45" is_bold="1" foreground="#ff0000" ts_creation="1565002032" ts_lastsave="0">

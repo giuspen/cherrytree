@@ -407,7 +407,7 @@ void CtStorageXmlHelper::populate_table_matrix(std::vector<std::vector<CtTableCe
 {
     CtTextIterUtil::SerializeFunc rich_txt_serialize = [&](Gtk::TextIter& start_iter,
                                                            Gtk::TextIter& end_iter,
-                                                           CtTextIterUtil::CurrAttributesMap& curr_attributes) {
+                                                           CtCurrAttributesMap& curr_attributes) {
         xmlpp::Element* p_rich_text_node = p_node_parent->add_child("rich_text");
         for (const auto& map_iter : curr_attributes)
         {

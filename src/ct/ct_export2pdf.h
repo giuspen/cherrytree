@@ -1,7 +1,9 @@
 /*
  * ct_export2pdf.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -66,7 +68,7 @@ public:
 
 private:
     void                         _pango_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer, std::vector<CtPangoObjectPtr>& out_slots);
-    void                         _pango_text_serialize(const Gtk::TextIter& start_iter, Gtk::TextIter end_iter, const std::map<std::string_view, std::string> &curr_attributes, std::vector<CtPangoObjectPtr>& out_slots);
+    void                         _pango_text_serialize(const Gtk::TextIter& start_iter, Gtk::TextIter end_iter, const CtCurrAttributesMap& curr_attributes, std::vector<CtPangoObjectPtr>& out_slots);
     std::shared_ptr<CtPangoText> _pango_link_url(const Glib::ustring& tagged_text, const Glib::ustring& link);
 };
 

@@ -1,7 +1,9 @@
 /*
  * ct_export2pdf.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -111,14 +113,14 @@ Glib::ustring CtExport2Pango::pango_get_from_code_buffer(Glib::RefPtr<Gsv::Buffe
 void CtExport2Pango::_pango_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer, std::vector<CtPangoObjectPtr>& out_slots)
 {
     CtTextIterUtil::generic_process_slot(start_offset, end_offset, curr_buffer,
-                                         [&](Gtk::TextIter& start_iter, Gtk::TextIter& curr_iter, std::map<std::string_view, std::string>& curr_attributes) {
+                                         [&](Gtk::TextIter& start_iter, Gtk::TextIter& curr_iter, CtCurrAttributesMap& curr_attributes) {
             _pango_text_serialize(start_iter, curr_iter, curr_attributes, out_slots);
     });
 }
 
 // Adds a slice to the Pango Text
 void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter, Gtk::TextIter end_iter,
-                                           const std::map<std::string_view, std::string> &curr_attributes, std::vector<CtPangoObjectPtr>& out_slots)
+                                           const CtCurrAttributesMap& curr_attributes, std::vector<CtPangoObjectPtr>& out_slots)
 {
     Glib::ustring pango_attrs;
     bool superscript_active = false;

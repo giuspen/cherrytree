@@ -37,7 +37,7 @@ public:
     struct ExpectedTag {
         Glib::ustring text_slot;
         bool found{false};
-        CtTextIterUtil::CurrAttributesMap attr_map;
+        CtCurrAttributesMap attr_map;
     };
 
 private:
@@ -106,7 +106,7 @@ void TestCtApp::_process_rich_text_buffer(std::list<ExpectedTag>& expectedTags, 
 {
     CtTextIterUtil::SerializeFunc test_slot = [&expectedTags](Gtk::TextIter& start_iter,
                                                               Gtk::TextIter& end_iter,
-                                                              CtTextIterUtil::CurrAttributesMap& curr_attributes)
+                                                              CtCurrAttributesMap& curr_attributes)
     {
         const Glib::ustring slot_text = start_iter.get_text(end_iter);
         for (auto& expTag : expectedTags) {
@@ -201,48 +201,50 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         std::list<ExpectedTag> expectedTags = {
             ExpectedTag{
                 .text_slot="ciao rich",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_FILL}}},
+                .attr_map=CtCurrAttributesMap{{CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_FILL}}},
             ExpectedTag{
                 .text_slot="fore",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_FOREGROUND, "#ffff00000000"}}},
+                .attr_map=CtCurrAttributesMap{{CtConst::TAG_FOREGROUND, "#ffff00000000"}}},
             ExpectedTag{
                 .text_slot="back",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_BACKGROUND, "#e6e6e6e6fafa"}}},
+                .attr_map=CtCurrAttributesMap{{CtConst::TAG_BACKGROUND, "#e6e6e6e6fafa"}}},
             ExpectedTag{
                 .text_slot="bold",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_WEIGHT, CtConst::TAG_PROP_VAL_HEAVY},
-                                                            {CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_CENTER}}},
+                .attr_map=CtCurrAttributesMap{{CtConst::TAG_WEIGHT, CtConst::TAG_PROP_VAL_HEAVY},
+                                              {CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_CENTER}}},
             ExpectedTag{
                 .text_slot="italic",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_STYLE, CtConst::TAG_PROP_VAL_ITALIC}}},
+                .attr_map=CtCurrAttributesMap{{CtConst::TAG_STYLE, CtConst::TAG_PROP_VAL_ITALIC}}},
             ExpectedTag{
                 .text_slot="under",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_UNDERLINE, CtConst::TAG_PROP_VAL_SINGLE},
-                                                            {CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_RIGHT}}},
+                .attr_map=CtCurrAttributesMap{{CtConst::TAG_UNDERLINE, CtConst::TAG_PROP_VAL_SINGLE},
+                                              {CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_RIGHT}}},
             ExpectedTag{
                 .text_slot="strike",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROP_VAL_TRUE}}},
+                .attr_map=CtCurrAttributesMap{{CtConst::TAG_STRIKETHROUGH, CtConst::TAG_PROP_VAL_TRUE}}},
             ExpectedTag{
                 .text_slot="h1",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H1}}},
+                .attr_map=CtCurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H1}}},
             ExpectedTag{
                 .text_slot="h2",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H2}}},
+                .attr_map=CtCurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H2}}},
             ExpectedTag{
                 .text_slot="h3",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H3}}},
+                .attr_map=CtCurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H3}}},
             ExpectedTag{
                 .text_slot="small",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SMALL}}},
+                .attr_map=CtCurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SMALL}}},
             ExpectedTag{
                 .text_slot="super",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SUP}}},
+                .attr_map=CtCurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SUP},
+                                              {CtConst::TAG_INDENT, "1"}}},
             ExpectedTag{
                 .text_slot="sub",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SUB}}},
+                .attr_map=CtCurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SUB},
+                                              {CtConst::TAG_INDENT, "2"}}},
             ExpectedTag{
                 .text_slot="mono",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_FAMILY, CtConst::TAG_PROP_VAL_MONOSPACE}}},
+                .attr_map=CtCurrAttributesMap{{CtConst::TAG_FAMILY, CtConst::TAG_PROP_VAL_MONOSPACE}}},
         };
         _process_rich_text_buffer(expectedTags, ctTreeIter.get_node_text_buffer());
         for (auto& expTag : expectedTags) {
@@ -397,25 +399,25 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         std::list<ExpectedTag> expectedTags = {
             ExpectedTag{
                 .text_slot="link to web ansa.it",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_LINK, "webs http://www.ansa.it"}}},
+                .attr_map=CtCurrAttributesMap{{CtConst::TAG_LINK, "webs http://www.ansa.it"}}},
             ExpectedTag{
                 .text_slot="link to node ‘d’",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{
+                .attr_map=CtCurrAttributesMap{{
                     CtConst::TAG_LINK,
                     std::string{"node "} + std::to_string(node_d_id)
                 }}},
             ExpectedTag{
                 .text_slot="link to node ‘e’ + anchor",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{
+                .attr_map=CtCurrAttributesMap{{
                     CtConst::TAG_LINK,
                     std::string{"node "} + std::to_string(node_e_id) + " йцукенгшщз"
                 }}},
             ExpectedTag{
                 .text_slot="link to folder /etc",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_LINK, "fold L2V0Yw=="}}},
+                .attr_map=CtCurrAttributesMap{{CtConst::TAG_LINK, "fold L2V0Yw=="}}},
             ExpectedTag{
                 .text_slot="link to file /etc/fstab",
-                .attr_map=CtTextIterUtil::CurrAttributesMap{{CtConst::TAG_LINK, "file L2V0Yy9mc3RhYg=="}}},
+                .attr_map=CtCurrAttributesMap{{CtConst::TAG_LINK, "file L2V0Yy9mc3RhYg=="}}},
         };
         _process_rich_text_buffer(expectedTags, ctTreeIter.get_node_text_buffer());
         for (auto& expTag : expectedTags) {

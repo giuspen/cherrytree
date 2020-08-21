@@ -34,6 +34,8 @@
 class CtConfig;
 class CtTreeIter;
 
+using CtCurrAttributesMap = std::unordered_map<std::string_view, std::string>;
+
 template<class F> auto scope_guard(F&& f) {
     return std::unique_ptr<void, typename std::decay<F>::type>{(void*)1, std::forward<F>(f)};
 }
@@ -121,14 +123,11 @@ bool startswith_any(Gtk::TextIter text_iter, const container& str_list)
     return false;
 }
 
-void rich_text_attributes_update(const Gtk::TextIter& text_iter, std::map<std::string_view, std::string>& curr_attributes);
+bool rich_text_attributes_update(const Gtk::TextIter& text_iter, const CtCurrAttributesMap& curr_attributes, CtCurrAttributesMap& delta_attributes);
 
-bool tag_richtext_toggling_on_or_off(const Gtk::TextIter& text_iter);
-
-using CurrAttributesMap = std::map<std::string_view, std::string>;
 using SerializeFunc = std::function<void(Gtk::TextIter& start_iter,
                                          Gtk::TextIter& end_iter,
-                                         CurrAttributesMap& curr_attributes)>;
+                                         CtCurrAttributesMap& curr_attributes)>;
 void generic_process_slot(int start_offset,
                           int end_offset,
                           const Glib::RefPtr<Gtk::TextBuffer>& rTextBuffer,

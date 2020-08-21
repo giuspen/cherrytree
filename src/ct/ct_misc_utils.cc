@@ -389,80 +389,54 @@ bool CtTextIterUtil::get_is_camel_case(Gtk::TextIter iter_start, int num_chars)
     return curr_state == 3;
 }
 
-void CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter, std::map<std::string_view, std::string>& curr_attributes)
+bool CtTextIterUtil::rich_text_attributes_update(const Gtk::TextIter& text_iter, const CtCurrAttributesMap& curr_attributes, CtCurrAttributesMap& delta_attributes)
 {
+    delta_attributes.clear();
     std::vector<Glib::RefPtr<const Gtk::TextTag>> toggled_off = text_iter.get_toggled_tags(false/*toggled_on*/);
-    for (const auto& r_curr_tag : toggled_off)
-    {
+    for (const auto& r_curr_tag : toggled_off) {
         const Glib::ustring tag_name = r_curr_tag->property_name();
-        if (tag_name.empty() or CtConst::GTKSPELLCHECK_TAG_NAME == tag_name)
-        {
+        if (tag_name.empty() or CtConst::GTKSPELLCHECK_TAG_NAME == tag_name) {
             continue;
         }
-        if (str::startswith(tag_name, "weight_")) curr_attributes[CtConst::TAG_WEIGHT] = "";
-        else if (str::startswith(tag_name, "foreground_")) curr_attributes[CtConst::TAG_FOREGROUND] = "";
-        else if (str::startswith(tag_name, "background_")) curr_attributes[CtConst::TAG_BACKGROUND] = "";
-        else if (str::startswith(tag_name, "style_")) curr_attributes[CtConst::TAG_STYLE] = "";
-        else if (str::startswith(tag_name, "underline_")) curr_attributes[CtConst::TAG_UNDERLINE] = "";
-        else if (str::startswith(tag_name, "strikethrough_")) curr_attributes[CtConst::TAG_STRIKETHROUGH] = "";
-        else if (str::startswith(tag_name, "indent_")) curr_attributes[CtConst::TAG_INDENT] = "";
-        else if (str::startswith(tag_name, "scale_")) curr_attributes[CtConst::TAG_SCALE] = "";
-        else if (str::startswith(tag_name, "justification_")) curr_attributes[CtConst::TAG_JUSTIFICATION] = "";
-        else if (str::startswith(tag_name, "link_")) curr_attributes[CtConst::TAG_LINK] = "";
-        else if (str::startswith(tag_name, "family_")) curr_attributes[CtConst::TAG_FAMILY] = "";
-       // else spdlog::error("Failure processing the toggling OFF tag {}", tag_name);
+        if (str::startswith(tag_name, "weight_")) delta_attributes[CtConst::TAG_WEIGHT] = "";
+        else if (str::startswith(tag_name, "foreground_")) delta_attributes[CtConst::TAG_FOREGROUND] = "";
+        else if (str::startswith(tag_name, "background_")) delta_attributes[CtConst::TAG_BACKGROUND] = "";
+        else if (str::startswith(tag_name, "style_")) delta_attributes[CtConst::TAG_STYLE] = "";
+        else if (str::startswith(tag_name, "underline_")) delta_attributes[CtConst::TAG_UNDERLINE] = "";
+        else if (str::startswith(tag_name, "strikethrough_")) delta_attributes[CtConst::TAG_STRIKETHROUGH] = "";
+        else if (str::startswith(tag_name, "indent_")) delta_attributes[CtConst::TAG_INDENT] = "";
+        else if (str::startswith(tag_name, "scale_")) delta_attributes[CtConst::TAG_SCALE] = "";
+        else if (str::startswith(tag_name, "justification_")) delta_attributes[CtConst::TAG_JUSTIFICATION] = "";
+        else if (str::startswith(tag_name, "link_")) delta_attributes[CtConst::TAG_LINK] = "";
+        else if (str::startswith(tag_name, "family_")) delta_attributes[CtConst::TAG_FAMILY] = "";
     }
     std::vector<Glib::RefPtr<const Gtk::TextTag>> toggled_on = text_iter.get_toggled_tags(true/*toggled_on*/);
-    for (const auto& r_curr_tag : toggled_on)
-    {
+    for (const auto& r_curr_tag : toggled_on) {
         const Glib::ustring tag_name = r_curr_tag->property_name();
-        if (tag_name.empty() or CtConst::GTKSPELLCHECK_TAG_NAME == tag_name)
-        {
+        if (tag_name.empty() or CtConst::GTKSPELLCHECK_TAG_NAME == tag_name) {
             continue;
         }
-        if (str::startswith(tag_name, "weight_")) curr_attributes[CtConst::TAG_WEIGHT] = tag_name.substr(7);
-        else if (str::startswith(tag_name, "foreground_")) curr_attributes[CtConst::TAG_FOREGROUND] = tag_name.substr(11);
-        else if (str::startswith(tag_name, "background_")) curr_attributes[CtConst::TAG_BACKGROUND] = tag_name.substr(11);
-        else if (str::startswith(tag_name, "scale_")) curr_attributes[CtConst::TAG_SCALE] = tag_name.substr(6);
-        else if (str::startswith(tag_name, "justification_")) curr_attributes[CtConst::TAG_JUSTIFICATION] = tag_name.substr(14);
-        else if (str::startswith(tag_name, "style_")) curr_attributes[CtConst::TAG_STYLE] = tag_name.substr(6);
-        else if (str::startswith(tag_name, "underline_")) curr_attributes[CtConst::TAG_UNDERLINE] = tag_name.substr(10);
-        else if (str::startswith(tag_name, "strikethrough_")) curr_attributes[CtConst::TAG_STRIKETHROUGH] = tag_name.substr(14);
-        else if (str::startswith(tag_name, "indent_")) curr_attributes[CtConst::TAG_INDENT] = tag_name.substr(7);
-        else if (str::startswith(tag_name, "link_")) curr_attributes[CtConst::TAG_LINK] = tag_name.substr(5);
-        else if (str::startswith(tag_name, "family_")) curr_attributes[CtConst::TAG_FAMILY] = tag_name.substr(7);
-        //else spdlog::error("Failure processing the toggling ON tag {}", tag_name);
+        if (str::startswith(tag_name, "weight_")) delta_attributes[CtConst::TAG_WEIGHT] = tag_name.substr(7);
+        else if (str::startswith(tag_name, "foreground_")) delta_attributes[CtConst::TAG_FOREGROUND] = tag_name.substr(11);
+        else if (str::startswith(tag_name, "background_")) delta_attributes[CtConst::TAG_BACKGROUND] = tag_name.substr(11);
+        else if (str::startswith(tag_name, "scale_")) delta_attributes[CtConst::TAG_SCALE] = tag_name.substr(6);
+        else if (str::startswith(tag_name, "justification_")) delta_attributes[CtConst::TAG_JUSTIFICATION] = tag_name.substr(14);
+        else if (str::startswith(tag_name, "style_")) delta_attributes[CtConst::TAG_STYLE] = tag_name.substr(6);
+        else if (str::startswith(tag_name, "underline_")) delta_attributes[CtConst::TAG_UNDERLINE] = tag_name.substr(10);
+        else if (str::startswith(tag_name, "strikethrough_")) delta_attributes[CtConst::TAG_STRIKETHROUGH] = tag_name.substr(14);
+        else if (str::startswith(tag_name, "indent_")) delta_attributes[CtConst::TAG_INDENT] = tag_name.substr(7);
+        else if (str::startswith(tag_name, "link_")) delta_attributes[CtConst::TAG_LINK] = tag_name.substr(5);
+        else if (str::startswith(tag_name, "family_")) delta_attributes[CtConst::TAG_FAMILY] = tag_name.substr(7);
     }
-}
-
-bool CtTextIterUtil::tag_richtext_toggling_on_or_off(const Gtk::TextIter& text_iter)
-{
-    bool retVal{false};
-    std::vector<Glib::RefPtr<const Gtk::TextTag>> toggled_tags = text_iter.get_toggled_tags(false/*toggled_on*/);
-    ::vec::vector_extend(toggled_tags, text_iter.get_toggled_tags(true/*toggled_on*/));
-    for (const Glib::RefPtr<const Gtk::TextTag>& r_curr_tag : toggled_tags)
-    {
-        const Glib::ustring tag_name = r_curr_tag->property_name();
-        if (tag_name.empty() or CtConst::GTKSPELLCHECK_TAG_NAME == tag_name)
-        {
-            continue;
-        }
-        if ( (str::startswith(tag_name, "weight_")) or
-             (str::startswith(tag_name, "foreground_")) or
-             (str::startswith(tag_name, "background_")) or
-             (str::startswith(tag_name, "scale_")) or
-             (str::startswith(tag_name, "justification_")) or
-             (str::startswith(tag_name, "style_")) or
-             (str::startswith(tag_name, "underline_")) or
-             (str::startswith(tag_name, "strikethrough_")) or
-             (str::startswith(tag_name, "link_")) or
-             (str::startswith(tag_name, "family_")) )
-        {
-            retVal = true;
+    bool anyDelta{false};
+    for (const auto& currDelta : delta_attributes) {
+        auto keyFound = curr_attributes.find(currDelta.first);
+        if (keyFound == curr_attributes.end() or keyFound->second != currDelta.second) {
+            anyDelta = true;
             break;
         }
     }
-    return retVal;
+    return anyDelta;
 }
 
 void CtTextIterUtil::generic_process_slot(int start_offset,
@@ -470,53 +444,8 @@ void CtTextIterUtil::generic_process_slot(int start_offset,
                                           const Glib::RefPtr<Gtk::TextBuffer>& rTextBuffer,
                                           SerializeFunc serialize_func)
 {
-/*    if (end_offset == -1)
-        end_offset = text_buffer->end().get_offset();
-
-    std::map<const gchar*, std::string> curr_attributes;
-     for (auto tag_property: CtConst::TAG_PROPERTIES)
-         curr_attributes[tag_property] = "";
-     Gtk::TextIter start_iter = text_buffer->get_iter_at_offset(start_offset);
-     Gtk::TextIter curr_iter = start_iter;
-     CtTextIterUtil::rich_text_attributes_update(curr_iter, curr_attributes);
-
-     bool tag_found = curr_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr});
-     bool one_more_serialize = true;
-     while (tag_found)
-     {
-         if (curr_iter.get_offset() > end_offset)
-             curr_iter = text_buffer->get_iter_at_offset(end_offset);
-         serialize_func(start_iter, curr_iter, curr_attributes);
-
-         int offset_old = curr_iter.get_offset();
-         if (offset_old >= end_offset)
-         {
-             one_more_serialize = false;
-             break;
-         }
-         else
-         {
-             CtTextIterUtil::rich_text_attributes_update(curr_iter, curr_attributes);
-             start_iter.set_offset(offset_old);
-             tag_found = curr_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr});
-             if (curr_iter.get_offset() == offset_old)
-             {
-                 one_more_serialize = false;
-                 break;
-             }
-         }
-     }
-     if (one_more_serialize)
-     {
-         if (curr_iter.get_offset() > end_offset)
-             curr_iter = text_buffer->get_iter_at_offset(end_offset);
-         serialize_func(start_iter, curr_iter, curr_attributes);
-     }
-     */
-    // todo: make the upper code less ugly
-    // if there is an issue, then try the upper code
-
-    CurrAttributesMap curr_attributes;
+    CtCurrAttributesMap curr_attributes;
+    CtCurrAttributesMap delta_attributes;
     for (const std::string_view tag_property : CtConst::TAG_PROPERTIES) {
         curr_attributes[tag_property] = "";
     }
@@ -524,16 +453,24 @@ void CtTextIterUtil::generic_process_slot(int start_offset,
     Gtk::TextIter curr_end_iter = curr_start_iter;
     Gtk::TextIter real_end_iter = end_offset == -1 ? rTextBuffer->end() : rTextBuffer->get_iter_at_offset(end_offset);
 
-    CtTextIterUtil::rich_text_attributes_update(curr_end_iter, curr_attributes);
+    if (CtTextIterUtil::rich_text_attributes_update(curr_end_iter, curr_attributes, delta_attributes)) {
+        for (auto& currDelta : delta_attributes) {
+            curr_attributes[currDelta.first] = currDelta.second;
+        }
+    }
     while (curr_end_iter.forward_to_tag_toggle(Glib::RefPtr<Gtk::TextTag>{nullptr}))
     {
-        if (curr_end_iter.compare(real_end_iter) >= 0)
+        if (curr_end_iter.compare(real_end_iter) >= 0) {
             break;
+        }
+        if (CtTextIterUtil::rich_text_attributes_update(curr_end_iter, curr_attributes, delta_attributes)) {
+            serialize_func(curr_start_iter, curr_end_iter, curr_attributes);
 
-        serialize_func(curr_start_iter, curr_end_iter, curr_attributes);
-
-        CtTextIterUtil::rich_text_attributes_update(curr_end_iter, curr_attributes);
-        curr_start_iter = curr_end_iter;
+            for (auto& currDelta : delta_attributes) {
+                curr_attributes[currDelta.first] = currDelta.second;
+            }
+            curr_start_iter = curr_end_iter;
+        }
     }
 
     if (curr_start_iter.compare(real_end_iter) < 0)
