@@ -198,8 +198,8 @@ bool CtImagePng::_on_button_press_event(GdkEventButton* event)
     }
     else if (event->button == 3)
     {
-        _pCtMainWin->get_ct_actions()->getCtMainWin()->get_ct_menu().find_action("img_link_dismiss")->signal_set_visible.emit(!_link.empty());
-        _pCtMainWin->get_ct_actions()->getCtMainWin()->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup(event->button, event->time);
+        _pCtMainWin->get_ct_menu().find_action("img_link_dismiss")->signal_set_visible.emit(!_link.empty());
+        _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup(event->button, event->time);
     }
     return true; // do not propagate the event
 }
@@ -270,7 +270,7 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
     _pCtMainWin->get_ct_actions()->curr_anchor_anchor = this;
     _pCtMainWin->get_ct_actions()->object_set_selection(this);
     if (event->button == 3)
-        _pCtMainWin->get_ct_actions()->getCtMainWin()->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->popup(event->button, event->time);
+        _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Anchor)->popup(event->button, event->time);
     else if (event->type == GDK_2BUTTON_PRESS)
         _pCtMainWin->get_ct_actions()->anchor_edit();
 
@@ -411,7 +411,7 @@ bool CtImageEmbFile::_on_button_press_event(GdkEventButton* event)
     _pCtMainWin->get_ct_actions()->curr_file_anchor = this;
     _pCtMainWin->get_ct_actions()->object_set_selection(this);
     if (event->button == 3)
-        _pCtMainWin->get_ct_actions()->getCtMainWin()->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::EmbFile)->popup(event->button, event->time);
+        _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::EmbFile)->popup(event->button, event->time);
     else if (event->type == GDK_2BUTTON_PRESS)
         _pCtMainWin->get_ct_actions()->embfile_open();
 

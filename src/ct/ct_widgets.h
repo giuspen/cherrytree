@@ -110,6 +110,8 @@ public:
     CtTextView(CtMainWin* pCtMainWin);
     virtual ~CtTextView();
 
+    CtMainWin*   getCtMainWin() { return _pCtMainWin; }
+
     void setup_for_syntax(const std::string& syntaxHighlighting); // pygtk: sourceview_set_properties
     void set_pixels_inside_wrap(int space_around_lines, int relative_wrapped_space);
     void set_selection_at_offset_n_delta(int offset, int delta, Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>());

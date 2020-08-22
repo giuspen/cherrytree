@@ -1,7 +1,9 @@
 /*
  * ct_table.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -56,7 +58,7 @@ public:
      * @param input 
      * @return CtTable 
      */
-    static std::unique_ptr<CtTable> from_csv(const std::string& csv_content, CtMainWin* main_win, const Glib::ustring& syntax_highlighting, int col_min, int col_max, int offset, const Glib::ustring& justification);
+    static std::unique_ptr<CtTable> from_csv(const std::string& csv_content, CtMainWin* main_win, int col_min, int col_max, int offset, const Glib::ustring& justification);
 
     void apply_width_height(const int /*parentTextWidth*/) override {}
     void apply_syntax_highlighting() override;

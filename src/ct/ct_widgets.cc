@@ -225,9 +225,9 @@ void CtTextView::setup_for_syntax(const std::string& syntax)
     if (new_class != "ct-view-code") get_style_context()->remove_class("ct-view-code");
     get_style_context()->add_class(new_class);
 
-    if (CtConst::RICH_TEXT_ID == syntax)
+    if ( CtConst::RICH_TEXT_ID == syntax or
+         CtConst::TABLE_CELL_TEXT_ID == syntax )
     {
-        // todo: self.widget_set_colors(self.sourceview, self.rt_def_fg, self.rt_def_bg, False)
         set_highlight_current_line(_pCtMainWin->get_ct_config()->rtHighlCurrLine);
         if (_pCtMainWin->get_ct_config()->rtShowWhiteSpaces)
         {
@@ -236,7 +236,6 @@ void CtTextView::setup_for_syntax(const std::string& syntax)
     }
     else
     {
-        // todo: self.widget_set_colors(self.sourceview, self.rt_def_fg, self.rt_def_bg, True)
         set_highlight_current_line(_pCtMainWin->get_ct_config()->ptHighlCurrLine);
         if (_pCtMainWin->get_ct_config()->ptShowWhiteSpaces)
         {
@@ -271,8 +270,8 @@ void CtTextView::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& 
 {
     if (not _pCtMainWin->get_ct_actions()->_is_curr_node_not_read_only_or_error()) return;
 
-    auto on_scope_exit = scope_guard([&](void*) { _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active() = true; });
-    _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active() = false;
+    auto on_scope_exit = scope_guard([&](void*) { _pCtMainWin->user_active() = true; });
+    _pCtMainWin->user_active() = false;
 
     int curr_offset = list_info.startoffs;
     int end_offset = CtList(_pCtMainWin, get_buffer()).get_multiline_list_element_end_offset(iter_insert, list_info);
@@ -336,8 +335,8 @@ void CtTextView::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& 
             break;
         curr_offset = iter_start.get_offset();
     }
-    _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active() = true;
-    _pCtMainWin->get_ct_actions()->getCtMainWin()->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
+    _pCtMainWin->user_active() = true;
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
 void CtTextView::replace_text(const Glib::ustring& text, int start_offset, int end_offset)
@@ -506,7 +505,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
         {
             int cursor_key_press = iter_insert.get_offset();
             //print "cursor_key_press", cursor_key_press
-            if (cursor_key_press == _pCtMainWin->get_ct_actions()->getCtMainWin()->cursor_key_press())
+            if (cursor_key_press == _pCtMainWin->cursor_key_press())
             {
                 // problem of event-after called twice, once before really executing
                 return;
@@ -717,12 +716,12 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
         }
     }
 
-    if (_pCtMainWin->get_ct_actions()->getCtMainWin()->hovering_link_iter_offset() != hovering_link_iter_offset)
+    if (_pCtMainWin->hovering_link_iter_offset() != hovering_link_iter_offset)
     {
-        _pCtMainWin->get_ct_actions()->getCtMainWin()->hovering_link_iter_offset() = hovering_link_iter_offset;
+        _pCtMainWin->hovering_link_iter_offset() = hovering_link_iter_offset;
         // print "link", dad.hovering_link_iter_offset
     }
-    if (_pCtMainWin->get_ct_actions()->getCtMainWin()->hovering_link_iter_offset() >= 0)
+    if (_pCtMainWin->hovering_link_iter_offset() >= 0)
     {
         get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::HAND2));
         if (tooltip.size() > (size_t)CtConst::MAX_TOOLTIP_LINK_CHARS)
@@ -780,7 +779,7 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
     auto apply_tag_try_node_name = [this](Gtk::TextIter iter_start, Gtk::TextIter iter_end)
     {
         Glib::ustring node_name = get_buffer()->get_text(iter_start, iter_end);
-        CtTreeIter node_dest = _pCtMainWin->get_ct_actions()->getCtMainWin()->get_tree_store().get_node_from_node_name(node_name);
+        CtTreeIter node_dest = _pCtMainWin->get_tree_store().get_node_from_node_name(node_name);
         if (node_dest)
         {
             get_buffer()->select_range(iter_start, iter_end);

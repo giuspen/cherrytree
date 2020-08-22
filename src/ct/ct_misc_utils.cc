@@ -184,19 +184,6 @@ void CtMiscUtil::filepath_extension_fix(const CtDocType ctDocType, const CtDocEn
     }
 }
 
-void CtMiscUtil::widget_set_colors(Gtk::Widget& widget, const std::string& fg, const std::string& /*bg*/,
-                       bool syntax_highl, const std::string& gdk_col_fg)
-{
-    if (syntax_highl) return;
-    //widget.override_background_color(Gdk::RGBA(bg), Gtk::StateFlags::STATE_FLAG_NORMAL);
-    widget.override_color(Gdk::RGBA(fg), Gtk::StateFlags::STATE_FLAG_NORMAL);
-    Glib::RefPtr<Gtk::StyleContext> style = widget.get_style_context();
-    // gtk.STATE_NORMAL, gtk.STATE_ACTIVE, gtk.STATE_PRELIGHT, gtk.STATE_SELECTED, gtk.STATE_INSENSITIVE
-    widget.override_color(gdk_col_fg.empty()? style->get_color(Gtk::StateFlags::STATE_FLAG_SELECTED) : Gdk::RGBA(gdk_col_fg), Gtk::StateFlags::STATE_FLAG_SELECTED);
-    widget.override_color(gdk_col_fg.empty()? style->get_color(Gtk::StateFlags::STATE_FLAG_SELECTED) : Gdk::RGBA(gdk_col_fg), Gtk::StateFlags::STATE_FLAG_ACTIVE);
-    widget.override_background_color(style->get_background_color(Gtk::StateFlags::STATE_FLAG_SELECTED), Gtk::StateFlags::STATE_FLAG_ACTIVE);
-}
-
 bool CtMiscUtil::node_siblings_sort_iteration(Glib::RefPtr<Gtk::TreeStore> model, const Gtk::TreeNodeChildren& children,
                                               std::function<bool(Gtk::TreeIter&, Gtk::TreeIter&)> need_swap)
 {

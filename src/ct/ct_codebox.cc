@@ -41,6 +41,28 @@ CtTextCell::CtTextCell(CtMainWin* pCtMainWin,
     _rTextBuffer = pCtMainWin->get_new_text_buffer(textContent);
     _ctTextview.set_buffer(_rTextBuffer);
     _ctTextview.setup_for_syntax(_syntaxHighlighting);
+
+    _rTextBuffer->signal_insert().connect([&](const Gtk::TextIter& pos, const Glib::ustring& text, int /*bytes*/) {
+        if (_ctTextview.getCtMainWin()->user_active() and not _ctTextview.own_insert_delete_active()) {
+            _ctTextview.text_inserted(pos, text);
+            _ctTextview.getCtMainWin()->get_state_machine().text_variation(_ctTextview.getCtMainWin()->curr_tree_iter().get_node_id(), text);
+            _ctTextview.getCtMainWin()->update_window_save_needed(CtSaveNeededUpdType::nbuf);
+        }
+    }, false);
+    _rTextBuffer->signal_erase().connect([&](const Gtk::TextIter& range_start, const Gtk::TextIter& range_end) {
+        if (_ctTextview.getCtMainWin()->user_active() and not _ctTextview.own_insert_delete_active()) {
+            _ctTextview.text_removed(range_start, range_end);
+            _ctTextview.getCtMainWin()->get_state_machine().text_variation(_ctTextview.getCtMainWin()->curr_tree_iter().get_node_id(), range_start.get_text(range_end));
+            _ctTextview.getCtMainWin()->update_window_save_needed(CtSaveNeededUpdType::nbuf);
+        }
+    }, false);
+    _rTextBuffer->signal_mark_set().connect([&](const Gtk::TextIter& /*iter*/, const Glib::RefPtr<Gtk::TextMark>& rMark){
+        if (_ctTextview.getCtMainWin()->user_active()) {
+            if (rMark->get_name() == "insert") {
+                _ctTextview.selection_update();
+            }
+        }
+    }, false);
 }
 
 CtTextCell::~CtTextCell()
@@ -107,15 +129,15 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
 
     // signals
     _ctTextview.signal_populate_popup().connect([this](Gtk::Menu* menu){
-        if (not _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active()) return;
+        if (not _pCtMainWin->user_active()) return;
         for (auto iter : menu->get_children()) menu->remove(*iter);
         _pCtMainWin->get_ct_actions()->curr_codebox_anchor = this;
-        _pCtMainWin->get_ct_actions()->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::Codebox);
+        _pCtMainWin->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::Codebox);
     });
     _ctTextview.signal_key_press_event().connect(sigc::mem_fun(*this, &CtCodebox::_on_key_press_event), false);
     _ctTextview.signal_key_release_event().connect([this](GdkEventKey*) { _key_down = false; return false; }, false);
     _ctTextview.signal_button_press_event().connect([this](GdkEventButton* event){
-        if (not _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active()) return false;
+        if (not _pCtMainWin->user_active()) return false;
         _pCtMainWin->get_ct_actions()->curr_codebox_anchor = this;
         if ( event->button != 3 /* right button */ and
              event->type != GDK_3BUTTON_PRESS )
@@ -125,7 +147,7 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
         return false;
     });
     _ctTextview.signal_event_after().connect([this](GdkEvent* event){
-        if (not _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active()) return;
+        if (not _pCtMainWin->user_active()) return;
         if (event->type == GDK_2BUTTON_PRESS and event->button.button == 1)
             _ctTextview.for_event_after_double_click_button1(event);
         else if (event->type == GDK_BUTTON_PRESS)
@@ -134,8 +156,8 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
             _ctTextview.for_event_after_key_press(event, _syntaxHighlighting);
     });
     _ctTextview.signal_motion_notify_event().connect([this](GdkEventMotion* event){
-        if (not _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active()) return false;
-        _ctTextview.set_editable(!_pCtMainWin->get_ct_actions()->getCtMainWin()->curr_tree_iter().get_node_read_only());
+        if (not _pCtMainWin->user_active()) return false;
+        _ctTextview.set_editable(!_pCtMainWin->curr_tree_iter().get_node_read_only());
         int x, y;
         _ctTextview.window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, int(event->x), int(event->y), x, y);
         _ctTextview.cursor_and_tooltips_handler(x, y);
@@ -150,26 +172,6 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
             _ctTextview.zoom_text(event->delta_y < 0, get_syntax_highlighting());
         return true;
     });
-    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = _ctTextview.get_buffer();
-    rTextBuffer->signal_insert().connect([&](const Gtk::TextIter& pos, const Glib::ustring& text, int /*bytes*/) {
-        if (_pCtMainWin->user_active() and not _ctTextview.own_insert_delete_active()) {
-            _ctTextview.text_inserted(pos, text);
-            _pCtMainWin->get_state_machine().text_variation(_pCtMainWin->curr_tree_iter().get_node_id(), text);
-        }
-    }, false);
-    rTextBuffer->signal_erase().connect([&](const Gtk::TextIter& range_start, const Gtk::TextIter& range_end) {
-        if (_pCtMainWin->user_active() and not _ctTextview.own_insert_delete_active()) {
-            _ctTextview.text_removed(range_start, range_end);
-            _pCtMainWin->get_state_machine().text_variation(_pCtMainWin->curr_tree_iter().get_node_id(), range_start.get_text(range_end));
-        }
-    }, false);
-    rTextBuffer->signal_mark_set().connect([&](const Gtk::TextIter& /*iter*/, const Glib::RefPtr<Gtk::TextMark>& rMark){
-        if (_pCtMainWin->user_active()) {
-            if (rMark->get_name() == "insert") {
-                _ctTextview.selection_update();
-            }
-        }
-    }, false);
     _uCtPairCodeboxMainWin.reset(new CtPairCodeboxMainWin{this, _pCtMainWin});
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "cut-clipboard", G_CALLBACK(CtClipboard::on_cut_clipboard), _uCtPairCodeboxMainWin.get());
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "copy-clipboard", G_CALLBACK(CtClipboard::on_copy_clipboard), _uCtPairCodeboxMainWin.get());
@@ -283,7 +285,7 @@ void CtCodebox::apply_cursor_pos(const int cursorPos)
 bool CtCodebox::_on_key_press_event(GdkEventKey* event)
 {
     _key_down = true;
-    if (not _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active())
+    if (not _pCtMainWin->user_active())
         return false;
     if (event->state & Gdk::CONTROL_MASK)
     {
@@ -306,10 +308,10 @@ bool CtCodebox::_on_key_press_event(GdkEventKey* event)
         }
         else if (event->keyval == GDK_KEY_space)
         {
-            Gtk::TextIter text_iter = _pCtMainWin->get_ct_actions()->getCtMainWin()->get_text_view().get_buffer()->get_iter_at_child_anchor(getTextChildAnchor());
+            Gtk::TextIter text_iter = _pCtMainWin->get_text_view().get_buffer()->get_iter_at_child_anchor(getTextChildAnchor());
             text_iter.forward_char();
-            _pCtMainWin->get_ct_actions()->getCtMainWin()->get_text_view().get_buffer()->place_cursor(text_iter);
-            _pCtMainWin->get_ct_actions()->getCtMainWin()->get_text_view().grab_focus();
+            _pCtMainWin->get_text_view().get_buffer()->place_cursor(text_iter);
+            _pCtMainWin->get_text_view().grab_focus();
             return true;
         }
         if (event->keyval == GDK_KEY_plus || event->keyval == GDK_KEY_KP_Add || event->keyval == GDK_KEY_equal) {

@@ -1,7 +1,9 @@
 /*
  * ct_table.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,8 +40,6 @@ CtTableCell::~CtTableCell()
 {
 }
 
-
-
 CtTable::CtTable(CtMainWin* pCtMainWin,
                  CtTableMatrix tableMatrix,
                  const int colMin,
@@ -67,33 +67,34 @@ CtTable::~CtTable()
 
 void CtTable::_setup_new_matrix(const CtTableMatrix& tableMatrix, bool apply_style /* = true*/)
 {
-    for (auto widget: _grid.get_children())
+    for (auto widget : _grid.get_children()) {
         _grid.remove(*widget);
-
+    }
     _tableMatrix = tableMatrix;
     for (int row = 0; row < (int)_tableMatrix.size(); ++row)
     {
         for (int col = 0; col < (int)_tableMatrix[row].size(); ++col)
         {
             CtTableCell* pTableCell = _tableMatrix[row][col];
+            CtTextView& textView = pTableCell->get_text_view();
             bool is_header = row == 0;
             // todo: don't know how to use colMax and colMin, so use just colMax
-            pTableCell->get_text_view().set_size_request(_colMax, -1);
-            pTableCell->get_text_view().set_highlight_current_line(false);
+            textView.set_size_request(_colMax, -1);
+            textView.set_highlight_current_line(false);
             if (is_header)
             {
-                pTableCell->get_text_view().get_style_context()->add_class("ct-table-header-cell");
-                pTableCell->get_text_view().set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
-                pTableCell->get_text_view().signal_populate_popup().connect(
-                            sigc::bind(sigc::mem_fun(*this, &CtTable::_on_populate_popup_header_cell), row, col));
+                textView.get_style_context()->add_class("ct-table-header-cell");
+                textView.set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
+                textView.signal_populate_popup().connect(
+                        sigc::bind(sigc::mem_fun(*this, &CtTable::_on_populate_popup_header_cell), row, col));
             }
             else
             {
-                pTableCell->get_text_view().signal_populate_popup().connect(
+                textView.signal_populate_popup().connect(
                         sigc::bind(sigc::mem_fun(*this, &CtTable::_on_populate_popup_cell), row, col));
             }
-            pTableCell->get_text_view().signal_key_press_event().connect(
-                        sigc::bind(sigc::mem_fun(*this, &CtTable::_on_key_press_event_cell), row, col), false);
+            textView.signal_key_press_event().connect(
+                    sigc::bind(sigc::mem_fun(*this, &CtTable::_on_key_press_event_cell), row, col), false);
 
             _grid.attach(*pTableCell, col, row, 1 /*1 cell horiz*/, 1 /*1 cell vert*/);
         }
@@ -178,8 +179,6 @@ bool CtTable::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adj
     return retVal;
 }
 
-
-
 void CtTable::to_csv(std::ostream& output) const {
     CtCSV::CtStringTable tbl;
     for (const CtTableRow& ct_row : _tableMatrix) {
@@ -193,8 +192,7 @@ void CtTable::to_csv(std::ostream& output) const {
     CtCSV::table_to_csv(tbl, output);
 }
 
-
-std::unique_ptr<CtTable> CtTable::from_csv(const std::string& csv_content, CtMainWin* main_win, const Glib::ustring& syntax_highlighting, int col_min, int col_max, int offset, const Glib::ustring& justification) {
+std::unique_ptr<CtTable> CtTable::from_csv(const std::string& csv_content, CtMainWin* main_win, int col_min, int col_max, int offset, const Glib::ustring& justification) {
     std::stringstream input(csv_content);
     CtCSV::CtStringTable str_tbl = CtCSV::table_from_csv(input);
 
@@ -202,7 +200,7 @@ std::unique_ptr<CtTable> CtTable::from_csv(const std::string& csv_content, CtMai
     for (const auto& row : str_tbl) {
         CtTableRow tbl_row;
         for (const auto& cell : row) {
-            auto* ct_cell = new CtTableCell(main_win, cell, syntax_highlighting);
+            auto* ct_cell = new CtTableCell(main_win, cell, CtConst::TABLE_CELL_TEXT_ID);
             tbl_row.emplace_back(ct_cell);
         }
         tbl_matrix.emplace_back(tbl_row);
@@ -340,56 +338,60 @@ CtTableMatrix CtTable::_copy_matrix(int col_add, int col_del, int row_add, int r
 
 void CtTable::_on_populate_popup_header_cell(Gtk::Menu* menu, int row, int col)
 {
-    if (not _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active()) return;
+    if (not _pCtMainWin->user_active()) return;
     for (auto iter : menu->get_children()) menu->remove(*iter);
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
     _currentRow = row;
     _currentColumn = col;
-    _pCtMainWin->get_ct_actions()->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::TableCell);
+    _pCtMainWin->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::TableCell);
 }
 
 void CtTable::_on_populate_popup_cell(Gtk::Menu* menu, int row, int col)
 {
-    if (not _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active()) return;
+    if (not _pCtMainWin->user_active()) return;
     for (auto iter : menu->get_children()) menu->remove(*iter);
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
     _currentRow = row;
     _currentColumn = col;
-    _pCtMainWin->get_ct_actions()->getCtMainWin()->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::TableCell);
+    _pCtMainWin->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::TableCell);
 }
 
 bool CtTable::_on_key_press_event_cell(GdkEventKey* event, int row, int col)
 {
-    if (not _pCtMainWin->get_ct_actions()->getCtMainWin()->user_active()) return false;
+    if (not _pCtMainWin->user_active()) return false;
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
     _currentRow = row;
     _currentColumn = col;
-    // Ctrl+Return for multilines
-    if (event->state & Gdk::CONTROL_MASK && event->keyval == GDK_KEY_Return)
-        return false;
+    int index{-1};
     if (event->state & Gdk::CONTROL_MASK) {
-
-    }
-    else if (event->state & Gdk::SHIFT_MASK) {
-
-    }
-    else if (event->state & Gdk::MOD1_MASK) {
-
-    }
-    else {
-        if (event->keyval == GDK_KEY_Return || event->keyval == GDK_KEY_Tab || event->keyval == GDK_KEY_Up || event->keyval == GDK_KEY_Down) {
-            int index = row * _tableMatrix[0].size() + col;
-            if (event->keyval == GDK_KEY_Up) index -= 1;
-            else index +=1;
-            row = index/_tableMatrix[0].size();
-            col = index%_tableMatrix[0].size();
-            if (index < 0) return true;
-            if (row == (int)_tableMatrix.size()) return true;
-             _currentRow = row;
-             _currentColumn = col;
-             _tableMatrix[row][col]->get_text_view().grab_focus();
-             return true;
+        if (event->keyval == GDK_KEY_Up) {
+            if (row > 0) {
+                index = (row-1) * _tableMatrix[0].size() + col;
+            }
         }
+        else if (event->keyval == GDK_KEY_Down) {
+            if (row+1 < static_cast<int>(_tableMatrix.size())) {
+                index = (row+1) * _tableMatrix[0].size() + col;
+            }
+        }
+        else if (event->keyval == GDK_KEY_Left) {
+            index = row * _tableMatrix[0].size() + col - 1;
+        }
+        else if (event->keyval == GDK_KEY_Right) {
+            index = row * _tableMatrix[0].size() + col + 1;
+        }
+    }
+    if (index >= 0) {
+        row = index / _tableMatrix[0].size();
+        col = index % _tableMatrix[0].size();
+        if ( row < static_cast<int>(_tableMatrix.size()) and
+             col < static_cast<int>(_tableMatrix[0].size()) )
+        {
+            _currentRow = row;
+            _currentColumn = col;
+            _tableMatrix[row][col]->get_text_view().grab_focus();
+        }
+        return true;
     }
     return false;
 }

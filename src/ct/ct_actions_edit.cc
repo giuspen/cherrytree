@@ -109,7 +109,7 @@ void CtActions::table_handle()
         _pCtMainWin->get_ct_config()->pickDirCsv = Glib::path_get_dirname(filename);
         // todo: find good csv lib
         std::string csv_content = fs::get_content(fs::path(filename));
-        pCtTable = CtTable::from_csv(csv_content, _pCtMainWin, CtConst::TABLE_CELL_TEXT_ID, 40, 60, _curr_buffer()->get_insert()->get_iter().get_offset(), "").release();
+        pCtTable = CtTable::from_csv(csv_content, _pCtMainWin, 40, 60, _curr_buffer()->get_insert()->get_iter().get_offset(), "").release();
     }
 
     if (!pCtTable) {

@@ -54,9 +54,6 @@ std::string get_doc_extension(const CtDocType ctDocType, const CtDocEncrypt ctDo
 
 void filepath_extension_fix(const CtDocType ctDocType, const CtDocEncrypt ctDocEncrypt, std::string& filepath);
 
-void widget_set_colors(Gtk::Widget& widget, const std::string& fg, const std::string& bg,
-                       bool syntax_highl, const std::string& gdk_col_fg);
-
 bool node_siblings_sort_iteration(Glib::RefPtr<Gtk::TreeStore> model, const Gtk::TreeNodeChildren& children,
                                   std::function<bool(Gtk::TreeIter&, Gtk::TreeIter&)> need_swap);
 
