@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "CherryTree"
-#define MyAppVersion "0.99.8"
+#define MyAppVersion "0.99.9"
 #define MyAppPublisher "Giuseppe Penone"
 #define MyAppURL "https://www.giuspen.com/cherrytree/"
 #define MyAppExeName "cherrytree.exe"

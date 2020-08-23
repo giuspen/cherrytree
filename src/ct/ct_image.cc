@@ -399,7 +399,9 @@ void CtImageEmbFile::update_tooltip()
            result = info.load_icon();
         }
     }
-#endif
+#else
+    (void)fileName; // silence warning
+#endif // _WIN32
     if (!result)
         result = pCtMainWin->get_icon_theme()->load_icon("ct_file_icon", pCtMainWin->get_ct_config()->embfileSize);
     return result;
