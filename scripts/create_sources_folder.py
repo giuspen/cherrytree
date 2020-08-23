@@ -6,11 +6,12 @@ import builtins
 import re
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
-CMAKELISTS_PATH = os.path.join(SCRIPT_DIR, "CMakeLists.txt")
-PO_DIR = os.path.join(SCRIPT_DIR, "po")
-ICONS_CC_PATH = os.path.join(SCRIPT_DIR, "src", "ct", "icons.gresource.cc")
-MANUAL_GZ_PATH = os.path.join(SCRIPT_DIR, "data", "cherrytree.1.gz")
-DEBIAN_FILES_PATH = os.path.join(SCRIPT_DIR, "debian", "files")
+ROOT_DIR = os.path.dirname(SCRIPT_DIR)
+CMAKELISTS_PATH = os.path.join(ROOT_DIR, "CMakeLists.txt")
+PO_DIR = os.path.join(ROOT_DIR, "po")
+ICONS_CC_PATH = os.path.join(ROOT_DIR, "src", "ct", "icons.gresource.cc")
+MANUAL_GZ_PATH = os.path.join(ROOT_DIR, "data", "cherrytree.1.gz")
+DEBIAN_FILES_PATH = os.path.join(ROOT_DIR, "debian", "files")
 BLACKLIST = (
     ".git",
     ".gitignore",
@@ -30,9 +31,9 @@ with open(CMAKELISTS_PATH, "r") as fd:
         match = re.search(r"set\(CT_VERSION\s+\"(.+)\"\)", fileline)
         if match is not None:
             VERSION = match.group(1)
-            print(VERSION)
+            #print(VERSION)
             break
-DEST_DIR = os.path.join(os.path.dirname(SCRIPT_DIR), "cherrytree_"+VERSION)
+DEST_DIR = os.path.join(os.path.dirname(ROOT_DIR), "cherrytree_"+VERSION)
 
 for element in os.listdir(PO_DIR):
     abspath = os.path.join(PO_DIR, element)
@@ -47,9 +48,9 @@ for filepath in (ICONS_CC_PATH, MANUAL_GZ_PATH, DEBIAN_FILES_PATH):
 if not os.path.isdir(DEST_DIR):
     os.mkdir(DEST_DIR)
 
-for element in os.listdir(SCRIPT_DIR):
+for element in os.listdir(ROOT_DIR):
     if not element in BLACKLIST:
-        src_abspath = os.path.join(SCRIPT_DIR, element)
+        src_abspath = os.path.join(ROOT_DIR, element)
         dst_abspath = os.path.join(DEST_DIR, element)
         if os.path.isdir(src_abspath):
             shutil.copytree(src_abspath, dst_abspath)
