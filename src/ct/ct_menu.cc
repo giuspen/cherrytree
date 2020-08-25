@@ -421,7 +421,8 @@ Gtk::Menu* CtMenu::build_recent_docs_menu(const CtRecentDocsFilepaths& recentDoc
     Gtk::Menu* pMenu = Gtk::manage(new Gtk::Menu());
     for (const fs::path& filepath : recentDocsFilepaths)
     {
-        Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), filepath.c_str(), "ct_open", nullptr, nullptr, filepath.c_str(), nullptr, nullptr, nullptr);
+        bool file_exists = fs::exists(filepath);
+        Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenu->gobj()), filepath.c_str(), file_exists ? "ct_open" : "ct_urgent", nullptr, nullptr, filepath.c_str(), nullptr, nullptr, nullptr);
         pMenuItem->signal_activate().connect(sigc::bind(recent_doc_open_action, filepath.string()));
     }
     Gtk::MenuItem* pMenuItemRm = _add_menu_item(GTK_WIDGET(pMenu->gobj()), _("Remove from list"), "ct_edit_delete", nullptr, nullptr, _("Remove from list"), nullptr, nullptr, nullptr);
