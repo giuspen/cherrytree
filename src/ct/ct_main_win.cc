@@ -1716,12 +1716,21 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
     {
         auto iter_insert = curr_buffer->get_insert()->get_iter();
         auto widgets = curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(iter_insert.get_offset(), iter_insert.get_offset());
-        if (not widgets.empty())
+        if (not widgets.empty()) {
             if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widgets.front()))
             {
                 codebox->get_text_view().grab_focus();
                 return true;
             }
+            if (CtTable* table = dynamic_cast<CtTable*>(widgets.front()))
+            {
+                const CtTableMatrix& tableMatrix = table->get_table_matrix();
+                if (tableMatrix.size() and tableMatrix.front().size()) {
+                    tableMatrix.front().front()->get_text_view().grab_focus();
+                }
+                return true;
+            }
+        }
         CtListInfo list_info = CtList(this, curr_buffer).get_paragraph_list_info(iter_insert);
         if (list_info and list_info.type == CtListType::Todo)
             if (_uCtActions->_is_curr_node_not_read_only_or_error())

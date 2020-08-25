@@ -243,6 +243,7 @@ bool CtDialogs::question_dialog(const Glib::ustring& message,
                               true/* modal */);
     dialog.set_title(_("Question"));
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_OK))->grab_focus();
     return (Gtk::RESPONSE_OK == dialog.run());
 }
 

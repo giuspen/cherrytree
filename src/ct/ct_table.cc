@@ -364,6 +364,14 @@ bool CtTable::_on_key_press_event_cell(GdkEventKey* event, int row, int col)
     _currentColumn = col;
     int index{-1};
     if (event->state & Gdk::CONTROL_MASK) {
+        if (event->keyval == GDK_KEY_space) {
+            CtTextView& textView = _pCtMainWin->get_text_view();
+            Gtk::TextIter text_iter = textView.get_buffer()->get_iter_at_child_anchor(getTextChildAnchor());
+            text_iter.forward_char();
+            textView.get_buffer()->place_cursor(text_iter);
+            textView.grab_focus();
+            return true;
+        }
         if (event->keyval == GDK_KEY_Up) {
             if (row > 0) {
                 index = (row-1) * _tableMatrix[0].size() + col;
