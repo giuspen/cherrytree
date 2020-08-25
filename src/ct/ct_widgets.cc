@@ -413,8 +413,10 @@ void CtTextView::for_event_after_button_press(GdkEvent* event)
                 }
             }
             if (CtList(_pCtMainWin, text_buffer).is_list_todo_beginning(text_iter))
-                if (_pCtMainWin->get_ct_actions()->_is_curr_node_not_read_only_or_error())
+                if (_pCtMainWin->get_ct_actions()->_is_curr_node_not_read_only_or_error()) {
                     CtList(_pCtMainWin, text_buffer).todo_list_rotate_status(text_iter);
+                    _todoRotateTime = event->button.time; // to prevent triple click
+                }
         }
     }
     else if (event->button.button == 3 and not text_buffer->get_has_selection())
