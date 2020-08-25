@@ -140,6 +140,7 @@ public:
     bool own_insert_delete_active() {
         return _columnEdit.own_insert_delete_active();
     }
+    guint64 get_todo_rotate_time() { return _todoRotateTime; }
 
 private:
     bool          _apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor);
@@ -159,6 +160,7 @@ private:
 
 private:
     std::unique_ptr<CtMarkdownFilter> _md_handler;
-    CtMainWin* _pCtMainWin;
+    CtMainWin*   _pCtMainWin;
     CtColumnEdit _columnEdit;
+    guint32      _todoRotateTime{0};
 };
