@@ -164,8 +164,9 @@ CtExporting selnode_selnodeandsub_alltree_dialog(Gtk::Window& parent,
                                                  bool* last_index_in_page /*= nullptr*/);
 
 // Dialog to select a color, featuring a palette
-bool color_pick_dialog(CtMainWin* pCtMainWin,
-                       Gdk::RGBA& color);
+enum class CtPickDlgState {SELECTED, CANCEL, REMOVE_COLOR };
+CtPickDlgState color_pick_dialog(CtMainWin* pCtMainWin, const Glib::ustring& title,
+                                 Gdk::RGBA& color, bool allow_remove_color);
 
 // The Question dialog, returns True if the user presses OK
 bool question_dialog(const Glib::ustring& message,

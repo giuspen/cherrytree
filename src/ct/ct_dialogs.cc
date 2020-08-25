@@ -190,15 +190,17 @@ CtExporting CtDialogs::selnode_selnodeandsub_alltree_dialog(Gtk::Window& parent,
 }
 
 // Dialog to select a color, featuring a palette
-bool CtDialogs::color_pick_dialog(CtMainWin* pCtMainWin,
-                                  Gdk::RGBA& color)
+CtDialogs::CtPickDlgState CtDialogs::color_pick_dialog(CtMainWin* pCtMainWin, const Glib::ustring& title,
+                                                       Gdk::RGBA& color, bool allow_remove_color)
 {
-    Gtk::ColorChooserDialog dialog(_("Pick a Color"),
-                                   *pCtMainWin);
+    Gtk::ColorChooserDialog dialog(title, *pCtMainWin);
     dialog.set_transient_for(*pCtMainWin);
     dialog.set_modal(true);
     dialog.property_destroy_with_parent() = true;
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    if (allow_remove_color){
+        dialog.add_button(_("Remove Color"), Gtk::RESPONSE_NONE);
+    }
     std::vector<std::string> colors = str::split(pCtMainWin->get_ct_config()->colorPalette, ":");
     std::vector<Gdk::RGBA> rgbas;
     for (const std::string& color : colors)
@@ -208,9 +210,12 @@ bool CtDialogs::color_pick_dialog(CtMainWin* pCtMainWin,
     dialog.add_palette(Gtk::Orientation::ORIENTATION_HORIZONTAL, 10, rgbas);
     dialog.set_rgba(color);
 
-    if (Gtk::RESPONSE_OK != dialog.run())
-    {
-        return false;
+    int response = dialog.run();
+    if (Gtk::RESPONSE_NONE == response) {
+        return CtPickDlgState::REMOVE_COLOR;
+    }
+    if (Gtk::RESPONSE_OK != response) {
+        return CtPickDlgState::CANCEL;
     }
 
     std::string ret_color_hex8 = CtRgbUtil::rgb_any_to_24(dialog.get_rgba());
@@ -223,7 +228,7 @@ bool CtDialogs::color_pick_dialog(CtMainWin* pCtMainWin,
     colors.insert(colors.begin(), ret_color_hex8);
 
     color = dialog.get_rgba();
-    return true;
+    return CtPickDlgState::SELECTED;
 }
 
 // The Question dialog, returns True if the user presses OK
@@ -1753,7 +1758,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     fg_colorbutton.signal_pressed().connect([&pCtMainWin, &fg_colorbutton]()
     {
         Gdk::RGBA ret_color = fg_colorbutton.get_rgba();
-        if (CtDialogs::color_pick_dialog(pCtMainWin, ret_color))
+        if (CtDialogs::color_pick_dialog(pCtMainWin, _("Pick a Color"), ret_color, false) == CtPickDlgState::SELECTED)
         {
             fg_colorbutton.set_rgba(ret_color);
         }
