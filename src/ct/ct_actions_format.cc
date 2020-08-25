@@ -331,13 +331,19 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
             iter_sel_end = text_buffer->get_iter_at_offset(bound_offset);
             property_value = _links_entries_post_dialog(_link_entry);
         } else {
-            // todo: assert tag_property[0] in ['f', 'b'], "!! bad tag_property '%s'" % tag_property
             gchar color_for = tag_property[0] == 'f' ? 'f' : 'b';
             Gdk::RGBA ret_color = Gdk::RGBA(_pCtMainWin->get_ct_config()->currColors.at(color_for));
-            if (not CtDialogs::color_pick_dialog(_pCtMainWin, ret_color))
+            Glib::ustring title = tag_property[0] == 'f' ? _("Pick a Foreground Color") : _("Pick a Background Color");
+            auto res = CtDialogs::color_pick_dialog(_pCtMainWin, title, ret_color, true);
+            if (res == CtDialogs::CtPickDlgState::CANCEL) {
                 return;
-            _pCtMainWin->get_ct_config()->currColors[color_for] = CtRgbUtil::rgb_to_string(ret_color);
-            property_value = CtRgbUtil::rgb_to_string(ret_color);
+            }
+            else if (res == CtDialogs::CtPickDlgState::REMOVE_COLOR) {
+                property_value = "-"; // don't use empty because `apply prev tag` command brings a color dialog again
+            } else {
+                _pCtMainWin->get_ct_config()->currColors[color_for] = CtRgbUtil::rgb_to_string(ret_color);
+                property_value = CtRgbUtil::rgb_to_string(ret_color);
+            }
         }
     }
     if (_pCtMainWin->user_active() and tag_property != CtConst::TAG_LINK) {
@@ -383,12 +389,18 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
                 text_buffer->remove_tag(curr_tag, iter_sel_start, iter_sel_end);
         }
     }
+    // avoid adding invalid color
+    if (tag_property == CtConst::TAG_FOREGROUND || tag_property == CtConst::TAG_BACKGROUND)
+        if (property_value == "-")
+            property_value = "";
+
     if (not property_value.empty())
     {
         text_buffer->apply_tag_by_name(_pCtMainWin->get_text_tag_name_exist_or_create(tag_property, property_value),
                                        text_buffer->get_iter_at_offset(sel_start_offset),
                                        text_buffer->get_iter_at_offset(sel_end_offset));
     }
+
     if (restore_cursor_offset != -1) // remove auto selection and restore cursor placement
         text_buffer->place_cursor(text_buffer->get_iter_at_offset(restore_cursor_offset));
     if (_pCtMainWin->user_active())

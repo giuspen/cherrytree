@@ -430,7 +430,8 @@ Gtk::Menu* CtMenu::build_recent_docs_menu(const CtRecentDocsFilepaths& recentDoc
     pMenuItemRm->set_submenu(*pMenuRm);
     for (const fs::path& filepath : recentDocsFilepaths)
     {
-        Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenuRm->gobj()), filepath.c_str(), "ct_edit_delete", nullptr, nullptr, filepath.c_str(), nullptr, nullptr, nullptr);
+        bool file_exists = fs::exists(filepath);
+        Gtk::MenuItem* pMenuItem = _add_menu_item(GTK_WIDGET(pMenuRm->gobj()), filepath.c_str(), file_exists ? "ct_edit_delete" : "ct_urgent", nullptr, nullptr, filepath.c_str(), nullptr, nullptr, nullptr);
         pMenuItem->signal_activate().connect(sigc::bind(recent_doc_rm_action, filepath.string()));
     }
     return pMenu;
