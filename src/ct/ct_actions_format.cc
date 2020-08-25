@@ -277,7 +277,7 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
     if (_pCtMainWin->user_active() and !_is_curr_node_not_syntax_highlighting_or_error()) return;
     if (not text_buffer) text_buffer = _curr_buffer();
 
-
+    int restore_cursor_offset = -1;
     if (not iter_sel_start and !iter_sel_end) {
         if (tag_property != CtConst::TAG_JUSTIFICATION) {
             if (not _is_there_selected_node_or_error()) return;
@@ -285,6 +285,7 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
                 _link_entry = CtLinkEntry(); // reset
             if (not text_buffer->get_has_selection()) {
                 if (tag_property != CtConst::TAG_LINK) {
+                    restore_cursor_offset = text_buffer->get_insert()->get_iter().get_offset();
                     if (not _pCtMainWin->apply_tag_try_automatic_bounds(text_buffer, text_buffer->get_insert()->get_iter())) {
                         CtDialogs::warning_dialog(_("No Text is Selected"), *_pCtMainWin);
                         return;
@@ -388,6 +389,8 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
                                        text_buffer->get_iter_at_offset(sel_start_offset),
                                        text_buffer->get_iter_at_offset(sel_end_offset));
     }
+    if (restore_cursor_offset != -1) // remove auto selection and restore cursor placement
+        text_buffer->place_cursor(text_buffer->get_iter_at_offset(restore_cursor_offset));
     if (_pCtMainWin->user_active())
     {
         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
