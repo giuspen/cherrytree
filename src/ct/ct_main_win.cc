@@ -559,23 +559,23 @@ void CtMainWin::config_update_data_from_curr_status()
 }
 
 void CtMainWin::update_theme()
-{ 
-    auto font_to_string = [](Pango::FontDescription font, std::string /*fallbackFont*/)
+{
+    auto font_to_string = [](const Pango::FontDescription& font, const Glib::ustring& /*fallbackFont*/)->Glib::ustring
     {
         // fallback font doesn't work on Win32 because of pango
         // add fallback font (to help with font on Win; on Linux, font works ok without explicit fallback
         // return " { font-family: \"" + font.get_family() + "\",\"" + fallbackFont +  "\";"
         //            "font-size: " + std::to_string(font.get_size()/Pango::SCALE) + "pt; } ";
-        return " { font-family: " + font.get_family() +
+        return Glib::ustring{" { font-family: "} + font.get_family() +
                  "; font-size: " + std::to_string(font.get_size()/Pango::SCALE) + "pt; } ";
     };
 
-    std::string rtFont = font_to_string(Pango::FontDescription(_pCtConfig->rtFont), _pCtConfig->fallbackFontFamily);
-    std::string plFont = font_to_string(Pango::FontDescription(_pCtConfig->ptFont), _pCtConfig->fallbackFontFamily);
-    std::string codeFont = font_to_string(Pango::FontDescription(_pCtConfig->codeFont), "monospace");
-    std::string treeFont = font_to_string(Pango::FontDescription(_pCtConfig->treeFont), _pCtConfig->fallbackFontFamily);
+    Glib::ustring rtFont = font_to_string(Pango::FontDescription(_pCtConfig->rtFont), _pCtConfig->fallbackFontFamily);
+    Glib::ustring plFont = font_to_string(Pango::FontDescription(_pCtConfig->ptFont), _pCtConfig->fallbackFontFamily);
+    Glib::ustring codeFont = font_to_string(Pango::FontDescription(_pCtConfig->codeFont), "monospace");
+    Glib::ustring treeFont = font_to_string(Pango::FontDescription(_pCtConfig->treeFont), _pCtConfig->fallbackFontFamily);
 
-    std::string font_css;
+    Glib::ustring font_css;
     font_css += ".ct-view-panel.ct-view-rich-text" + rtFont;
     font_css += ".ct-view-panel.ct-view-plain-text" + plFont;
     font_css += ".ct-view-panel.ct-view-code" + codeFont;
@@ -584,7 +584,7 @@ void CtMainWin::update_theme()
     font_css += ".ct-codebox.ct-view-code" + codeFont;
     font_css += ".ct-tree-panel" + treeFont;
 
-    std::string theme_css;
+    Glib::ustring theme_css;
     theme_css += ".ct-tree-panel { color: " + _pCtConfig->ttDefFg + "; background-color: " + _pCtConfig->ttDefBg + "; } ";
     theme_css += ".ct-tree-panel:selected { background: #5294e2;  } ";
     theme_css += ".ct-tree-scroll-panel { background-color: " + _pCtConfig->ttDefBg + "; } ";

@@ -32,7 +32,6 @@
 
 class CtConfig
 {
-    
 public:
     CtConfig();
     virtual ~CtConfig();
@@ -144,11 +143,11 @@ public:
     int                                         tableColMax{60};
 
     // [fonts]
-    std::string                                 rtFont{"Sans 9"};
-    std::string                                 ptFont{"Sans 9"};
-    std::string                                 treeFont{"Sans 8"};
-    std::string                                 codeFont{"Monospace 9"};
-    std::string                                 fallbackFontFamily{"Sans"};
+    Glib::ustring                               rtFont{"Sans 9"};
+    Glib::ustring                               ptFont{"Sans 9"};
+    Glib::ustring                               treeFont{"Sans 8"};
+    Glib::ustring                               codeFont{"Monospace 9"};
+    Glib::ustring                               fallbackFontFamily{"Sans"};
 
     // [colors]
     std::string                                 rtDefFg{CtConst::RICH_TEXT_DARK_FG};
@@ -156,7 +155,7 @@ public:
     std::string                                 ttDefFg{CtConst::TREE_TEXT_LIGHT_FG};
     std::string                                 ttDefBg{CtConst::TREE_TEXT_LIGHT_BG};
     std::string                                 monospaceBg{CtConst::DEFAULT_MONOSPACE_BG};
-    std::string                                 monospaceFont{"Monospace 9"};
+    Glib::ustring                               monospaceFont{"Monospace 9"};
     std::string                                 colorPalette{"#000000:#ffffff:#7f7f7f:#ff0000:#a020f0:"
                                                              "#0000ff:#add8e6:#00ff00:#ffff00:#ffa500:"
                                                              "#e6e6fa:#a52a2a:#8b6914:#1e90ff:#ffc0cb:"
