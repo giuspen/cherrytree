@@ -36,6 +36,8 @@ namespace fs {
 
 class path;
 
+void register_exe_path_detect_if_portable(const char* exe_path);
+
 bool copy_file(const path& from, const path& to);
 
 bool move_file(const path& from, const path& to);
@@ -84,6 +86,7 @@ path get_cherrytree_datadir();
 path get_cherrytree_localedir();
 path get_cherrytree_configdir();
 path get_cherrytree_lang_filepath();
+path get_cherrytree_config_filepath();
 // Filepath is a url so not an fs::path
 std::string download_file(const std::string& filepath);
 

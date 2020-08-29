@@ -36,8 +36,11 @@ public:
     CtConfig();
     virtual ~CtConfig();
 
-    bool load_from_file(const fs::path& filepath = _defaultFilepath);
-    bool write_to_file(const fs::path& filepath = _defaultFilepath);
+    static const fs::path ConfigFilename;
+    static const fs::path LangFilename;
+
+    bool load_from_file(const fs::path& filepath = fs::get_cherrytree_config_filepath());
+    bool write_to_file(const fs::path& filepath =  fs::get_cherrytree_config_filepath());
 
     // [state]
     CtRecentDocsRestore                         recentDocsRestore;
@@ -224,7 +227,6 @@ protected:
     void _unexpected_keyfile_error(const gchar* key, const Glib::KeyFileError& kferror);
 
     static const size_t _maxTempKeySize{20};
-    static const fs::path _defaultFilepath;
 
     gchar _tempKey[_maxTempKeySize];
     std::unique_ptr<Glib::KeyFile> _uKeyFile;

@@ -28,8 +28,8 @@
 #include "ct_logging.h"
 #include "ct_filesystem.h"
 
-
-const fs::path CtConfig::_defaultFilepath{fs::get_cherrytree_configdir() / "config.cfg"};
+const fs::path CtConfig::ConfigFilename{"config.cfg"};
+const fs::path CtConfig::LangFilename{"lang"};
 
 CtConfig::CtConfig()
 {

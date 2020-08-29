@@ -35,11 +35,30 @@
 
 namespace fs {
 
+static fs::path _exePath;
+static fs::path _portableConfigDir;
+
+void register_exe_path_detect_if_portable(const char* exe_path)
+{
+    _exePath = fs::canonical(exe_path);
+    //printf("exePath: %s\n", _exePath.c_str());
+
+#ifdef _WIN32
+    // e.g. cherrytree_0.99.9_win64_portable\mingw64\bin\cherrytree.exe
+    //      cherrytree_0.99.9_win64_portable\config.cfg
+    const fs::path portableConfigDir = _exePath.parent_path().parent_path().parent_path();
+    const fs::path portableConfigFile = portableConfigDir / CtConfig::ConfigFilename;
+    if (is_regular_file(portableConfigFile)) {
+        _portableConfigDir = portableConfigDir;
+    }
+#endif // _WIN32
+}
+
 bool remove(const fs::path& path2rm)
 {
     if (fs::is_directory(path2rm)) {
         if (g_rmdir(path2rm.c_str()) != 0) {
-            spdlog::error("fs::remove: g_rmdir failed to remove {} ", path2rm);
+            spdlog::error("fs::remove: g_rmdir failed to remove {}", path2rm);
             return false;
         }
     }
@@ -280,13 +299,20 @@ fs::path get_cherrytree_localedir()
 
 fs::path get_cherrytree_configdir()
 {
-    //TODO: define rule for local config.cfg/lang files at least for Windows portable
+    if (not _portableConfigDir.empty()) {
+        return _portableConfigDir;
+    }
     return Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME);
 }
 
 fs::path get_cherrytree_lang_filepath()
 {
-    return get_cherrytree_configdir() / "lang";
+    return get_cherrytree_configdir() / CtConfig::LangFilename;
+}
+
+fs::path get_cherrytree_config_filepath()
+{
+    return get_cherrytree_configdir() / CtConfig::ConfigFilename;
 }
 
 std::string download_file(const std::string& filepath)
