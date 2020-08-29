@@ -560,48 +560,49 @@ void CtMainWin::config_update_data_from_curr_status()
 
 void CtMainWin::update_theme()
 {
-    auto font_to_string = [](const Pango::FontDescription& font, const Glib::ustring& /*fallbackFont*/)->Glib::ustring
+    auto font_to_string = [](const Pango::FontDescription& font, const Glib::ustring& /*fallbackFont*/)->std::string
     {
         // fallback font doesn't work on Win32 because of pango
         // add fallback font (to help with font on Win; on Linux, font works ok without explicit fallback
         // return " { font-family: \"" + font.get_family() + "\",\"" + fallbackFont +  "\";"
         //            "font-size: " + std::to_string(font.get_size()/Pango::SCALE) + "pt; } ";
-        return Glib::ustring{" { font-family: "} + font.get_family() +
+        return std::string{" { font-family: "} + Glib::locale_from_utf8(font.get_family()) +
                  "; font-size: " + std::to_string(font.get_size()/Pango::SCALE) + "pt; } ";
     };
 
-    Glib::ustring rtFont = font_to_string(Pango::FontDescription(_pCtConfig->rtFont), _pCtConfig->fallbackFontFamily);
-    Glib::ustring plFont = font_to_string(Pango::FontDescription(_pCtConfig->ptFont), _pCtConfig->fallbackFontFamily);
-    Glib::ustring codeFont = font_to_string(Pango::FontDescription(_pCtConfig->codeFont), "monospace");
-    Glib::ustring treeFont = font_to_string(Pango::FontDescription(_pCtConfig->treeFont), _pCtConfig->fallbackFontFamily);
+    std::string rtFont = font_to_string(Pango::FontDescription(_pCtConfig->rtFont), _pCtConfig->fallbackFontFamily);
+    std::string plFont = font_to_string(Pango::FontDescription(_pCtConfig->ptFont), _pCtConfig->fallbackFontFamily);
+    std::string codeFont = font_to_string(Pango::FontDescription(_pCtConfig->codeFont), "monospace");
+    std::string treeFont = font_to_string(Pango::FontDescription(_pCtConfig->treeFont), _pCtConfig->fallbackFontFamily);
 
-    Glib::ustring font_css;
-    font_css += ".ct-view-panel.ct-view-rich-text" + rtFont;
-    font_css += ".ct-view-panel.ct-view-plain-text" + plFont;
-    font_css += ".ct-view-panel.ct-view-code" + codeFont;
-    font_css += ".ct-codebox.ct-view-rich-text" + rtFont;
-    font_css += ".ct-codebox.ct-view-plain-text" + codeFont;
-    font_css += ".ct-codebox.ct-view-code" + codeFont;
-    font_css += ".ct-tree-panel" + treeFont;
-
-    Glib::ustring theme_css;
-    theme_css += ".ct-tree-panel { color: " + _pCtConfig->ttDefFg + "; background-color: " + _pCtConfig->ttDefBg + "; } ";
-    theme_css += ".ct-tree-panel:selected { background: #5294e2;  } ";
-    theme_css += ".ct-tree-scroll-panel { background-color: " + _pCtConfig->ttDefBg + "; } ";
-    theme_css += ".ct-header-panel { background-color: " + _pCtConfig->ttDefBg + "; } ";
-    theme_css += ".ct-header-panel button { margin: 2px; padding: 0 4px 0 4px; } ";
-    theme_css += ".ct-status-bar bar { margin: 0px; } ";
-    theme_css += ".ct-table-header-cell { font-weight: bold; } ";
-    theme_css += ".ct-table grid { background: #cccccc; border-style:solid; border-width: 1px; border-color: gray; } ";
-    theme_css += "toolbar { padding: 2px 2px 2px 2px; } ";
-    theme_css += "toolbar button { padding: 0px; } ";
+    std::string css_str;
+    css_str.reserve(1100);
+    css_str += ".ct-view-panel.ct-view-rich-text" + rtFont;
+    css_str += ".ct-view-panel.ct-view-plain-text" + plFont;
+    css_str += ".ct-view-panel.ct-view-code" + codeFont;
+    css_str += ".ct-codebox.ct-view-rich-text" + rtFont;
+    css_str += ".ct-codebox.ct-view-plain-text" + codeFont;
+    css_str += ".ct-codebox.ct-view-code" + codeFont;
+    css_str += ".ct-tree-panel" + treeFont;
+    css_str += " ";
+    css_str += ".ct-tree-panel { color: " + _pCtConfig->ttDefFg + "; background-color: " + _pCtConfig->ttDefBg + "; } ";
+    css_str += ".ct-tree-panel:selected { background: #5294e2;  } ";
+    css_str += ".ct-tree-scroll-panel { background-color: " + _pCtConfig->ttDefBg + "; } ";
+    css_str += ".ct-header-panel { background-color: " + _pCtConfig->ttDefBg + "; } ";
+    css_str += ".ct-header-panel button { margin: 2px; padding: 0 4px 0 4px; } ";
+    css_str += ".ct-status-bar bar { margin: 0px; } ";
+    css_str += ".ct-table-header-cell { font-weight: bold; } ";
+    css_str += ".ct-table grid { background: #cccccc; border-style:solid; border-width: 1px; border-color: gray; } ";
+    css_str += "toolbar { padding: 2px 2px 2px 2px; } ";
+    css_str += "toolbar button { padding: 0px; } ";
+    //printf("css_str_len=%zu\n", css_str.size());
 
     if (_css_provider_theme)
     {
         Gtk::StyleContext::remove_provider_for_screen(get_screen(), _css_provider_theme);
     }
     _css_provider_theme = Gtk::CssProvider::create();
-    _css_provider_theme->load_from_data(font_css + " " + theme_css);
+    gtk_css_provider_load_from_data(_css_provider_theme->gobj_copy(), css_str.c_str(), css_str.size(), NULL);
     // _css_provider_theme->load_from_data(theme_css); second call of load_from_data erases css from the first call on mac
     get_style_context()->add_provider_for_screen(get_screen(), _css_provider_theme, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 }
