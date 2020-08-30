@@ -85,14 +85,9 @@ void CtTable::_setup_new_matrix(const CtTableMatrix& tableMatrix, bool apply_sty
             {
                 textView.get_style_context()->add_class("ct-table-header-cell");
                 textView.set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
-                textView.signal_populate_popup().connect(
-                        sigc::bind(sigc::mem_fun(*this, &CtTable::_on_populate_popup_header_cell), row, col));
             }
-            else
-            {
-                textView.signal_populate_popup().connect(
-                        sigc::bind(sigc::mem_fun(*this, &CtTable::_on_populate_popup_cell), row, col));
-            }
+            textView.signal_populate_popup().connect(
+                    sigc::bind(sigc::mem_fun(*this, &CtTable::_on_populate_popup_cell), row, col));
             textView.signal_key_press_event().connect(
                     sigc::bind(sigc::mem_fun(*this, &CtTable::_on_key_press_event_cell), row, col), false);
 
@@ -205,7 +200,7 @@ std::unique_ptr<CtTable> CtTable::from_csv(const std::string& csv_content, CtMai
         }
         tbl_matrix.emplace_back(tbl_row);
     }
-    
+
     return std::make_unique<CtTable>(main_win, tbl_matrix, col_min, col_max, offset, justification);
 }
 
@@ -233,7 +228,7 @@ void CtTable::column_add(int after_column)
 
 void CtTable::column_delete(int column)
 {
-    if (_tableMatrix[0].size() == 1) return;
+    if (_tableMatrix.front().size() == 1) return;
     auto matrix = _copy_matrix(-1, column, -1, -1, -1, -1);
     _setup_new_matrix(matrix);
 }
@@ -247,7 +242,7 @@ void CtTable::column_move_left(int column)
 
 void CtTable::column_move_right(int column)
 {
-    if (column == (int)_tableMatrix[0].size()-1) return;
+    if (column == (int)_tableMatrix.front().size()-1) return;
     // moving to right is same as moving to left for other column
     auto matrix = _copy_matrix(-1, -1, -1, -1, column + 1, -1);
     _setup_new_matrix(matrix);
@@ -328,22 +323,12 @@ CtTableMatrix CtTable::_copy_matrix(int col_add, int col_del, int row_add, int r
         }
         if (row == row_add) {
             matrix.push_back(CtTableRow());
-            while (matrix.back().size() != _tableMatrix[0].size())
+            while (matrix.back().size() != _tableMatrix.front().size())
                 matrix.back().push_back(new CtTableCell(_pCtMainWin, "", CtConst::TABLE_CELL_TEXT_ID));
         }
         if (row == row_move_up) std::swap(matrix[row-1], matrix[row]);
     }
     return matrix;
-}
-
-void CtTable::_on_populate_popup_header_cell(Gtk::Menu* menu, int row, int col)
-{
-    if (not _pCtMainWin->user_active()) return;
-    for (auto iter : menu->get_children()) menu->remove(*iter);
-    _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
-    _currentRow = row;
-    _currentColumn = col;
-    _pCtMainWin->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::TableCell);
 }
 
 void CtTable::_on_populate_popup_cell(Gtk::Menu* menu, int row, int col)
@@ -353,7 +338,11 @@ void CtTable::_on_populate_popup_cell(Gtk::Menu* menu, int row, int col)
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
     _currentRow = row;
     _currentColumn = col;
-    _pCtMainWin->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::TableCell);
+    const bool first_row = 0 == row;
+    const bool first_col = 0 == col;
+    const bool last_row = static_cast<int>(_tableMatrix.size() - 1) == row;
+    const bool last_col = _tableMatrix.size() and static_cast<int>(_tableMatrix.front().size() - 1) == col;
+    _pCtMainWin->get_ct_menu().build_popup_menu_table_cell(GTK_WIDGET(menu->gobj()), first_row, first_col, last_row, last_col);
 }
 
 bool CtTable::_on_key_press_event_cell(GdkEventKey* event, int row, int col)
@@ -374,26 +363,26 @@ bool CtTable::_on_key_press_event_cell(GdkEventKey* event, int row, int col)
         }
         if (event->keyval == GDK_KEY_Up) {
             if (row > 0) {
-                index = (row-1) * _tableMatrix[0].size() + col;
+                index = (row-1) * _tableMatrix.front().size() + col;
             }
         }
         else if (event->keyval == GDK_KEY_Down) {
             if (row+1 < static_cast<int>(_tableMatrix.size())) {
-                index = (row+1) * _tableMatrix[0].size() + col;
+                index = (row+1) * _tableMatrix.front().size() + col;
             }
         }
         else if (event->keyval == GDK_KEY_Left) {
-            index = row * _tableMatrix[0].size() + col - 1;
+            index = row * _tableMatrix.front().size() + col - 1;
         }
         else if (event->keyval == GDK_KEY_Right) {
-            index = row * _tableMatrix[0].size() + col + 1;
+            index = row * _tableMatrix.front().size() + col + 1;
         }
     }
     if (index >= 0) {
-        row = index / _tableMatrix[0].size();
-        col = index % _tableMatrix[0].size();
+        row = index / _tableMatrix.front().size();
+        col = index % _tableMatrix.front().size();
         if ( row < static_cast<int>(_tableMatrix.size()) and
-             col < static_cast<int>(_tableMatrix[0].size()) )
+             col < static_cast<int>(_tableMatrix.front().size()) )
         {
             _currentRow = row;
             _currentColumn = col;

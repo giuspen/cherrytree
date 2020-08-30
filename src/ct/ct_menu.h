@@ -1,7 +1,9 @@
 /*
  * ct_menu.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -58,7 +60,7 @@ public:
     const std::string KB_SHIFT   = "<shift>";
     const std::string KB_ALT     = "<alt>";
 
-    enum POPUP_MENU_TYPE {Node, Text, Code, Link, TableCell, Codebox, Image, Anchor, EmbFile, PopupMenuNum };
+    enum POPUP_MENU_TYPE {Node, Text, Code, Link, Codebox, Image, Anchor, EmbFile, PopupMenuNum };
     enum ACCEL_TYPE {Menu, TreeView };
 
 public:
@@ -88,6 +90,7 @@ public:
 
     Gtk::Menu*                 get_popup_menu(POPUP_MENU_TYPE popupMenuType);
     Gtk::Menu*                 build_popup_menu(GtkWidget* pMenu, POPUP_MENU_TYPE popupMenuType);
+    Gtk::Menu*                 build_popup_menu_table_cell(GtkWidget* pMenu, const bool first_row, const bool first_col, const bool last_row, const bool last_col);
 
 private:
     GtkWidget*     _walk_menu_xml(GtkWidget* pMenu, const char* document, const char* xpath);

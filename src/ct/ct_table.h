@@ -28,7 +28,6 @@
 #include <ostream>
 #include <istream>
 
-
 class CtTextCell;
 class CtTableCell : public CtTextCell, public Gtk::EventBox
 {
@@ -55,10 +54,15 @@ public:
     /**
      * @brief Build a table from csv
      * The input csv should be compatable with the excel csv format
-     * @param input 
-     * @return CtTable 
+     * @param input
+     * @return CtTable
      */
-    static std::unique_ptr<CtTable> from_csv(const std::string& csv_content, CtMainWin* main_win, int col_min, int col_max, int offset, const Glib::ustring& justification);
+    static std::unique_ptr<CtTable> from_csv(const std::string& csv_content,
+                                             CtMainWin* main_win,
+                                             int col_min,
+                                             int col_max,
+                                             int offset,
+                                             const Glib::ustring& justification);
 
     void apply_width_height(const int /*parentTextWidth*/) override {}
     void apply_syntax_highlighting() override;
@@ -67,7 +71,7 @@ public:
     /**
      * @brief Serialise to csv format
      * The output CSV excel csv with double quotes around cells and newlines for each record
-     * @param output 
+     * @param output
      */
     void to_csv(std::ostream& output) const;
     void set_modified_false() override;
@@ -77,9 +81,10 @@ public:
     const CtTableMatrix& get_table_matrix() const { return _tableMatrix; }
     int get_col_max() const { return _colMax; }
     int get_col_min() const { return _colMin; }
+
 public:
-    int  current_row() { return _currentRow < (int)_tableMatrix.size() ? _currentRow : 0; }
-    int  current_column() { return _currentColumn < (int)_tableMatrix[0].size() ? _currentColumn : 0; }
+    int current_row() { return _currentRow < (int)_tableMatrix.size() ? _currentRow : 0; }
+    int current_column() { return _currentColumn < (int)_tableMatrix.front().size() ? _currentColumn : 0; }
 
     void column_add(int after_column);
     void column_delete(int column);
@@ -104,7 +109,6 @@ protected:
     void _populate_xml_rows_cells(xmlpp::Element* p_table_node);
 
 private:
-    void _on_populate_popup_header_cell(Gtk::Menu* menu, int row, int col);
     void _on_populate_popup_cell(Gtk::Menu* menu, int row, int col);
     bool _on_key_press_event_cell(GdkEventKey* event, int row, int co);
 
@@ -113,6 +117,6 @@ protected:
     Gtk::Grid     _grid;
     int           _colMin;
     int           _colMax;
-    int           _currentRow = 0;
-    int           _currentColumn = 0;
+    int           _currentRow{0};
+    int           _currentColumn{0};
 };

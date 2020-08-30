@@ -456,7 +456,7 @@ Gtk::Menu* CtMenu::get_popup_menu(POPUP_MENU_TYPE popupMenuType)
     return _popupMenus[popupMenuType];
 }
 
-Gtk::Menu* CtMenu::build_popup_menu(GtkWidget* pMenu,  POPUP_MENU_TYPE popupMenuType)
+Gtk::Menu* CtMenu::build_popup_menu(GtkWidget* pMenu, POPUP_MENU_TYPE popupMenuType)
 {
     switch (popupMenuType)
     {
@@ -477,34 +477,6 @@ Gtk::Menu* CtMenu::build_popup_menu(GtkWidget* pMenu,  POPUP_MENU_TYPE popupMenu
         _add_menu_item(pMenu, find_action("link_delete"));
         return Glib::wrap(GTK_MENU(pMenu));
     }
-    case CtMenu::POPUP_MENU_TYPE::TableCell:
-    {
-        _add_menu_item(pMenu, find_action("table_cut"));
-        _add_menu_item(pMenu, find_action("table_copy"));
-        _add_menu_item(pMenu, find_action("table_delete"));
-        _add_separator(pMenu);
-        _add_menu_item(pMenu, find_action("table_column_add"));
-        _add_menu_item(pMenu, find_action("table_column_delete"));
-        _add_separator(pMenu);
-        _add_menu_item(pMenu, find_action("table_column_left"));
-        _add_menu_item(pMenu, find_action("table_column_right"));
-        _add_separator(pMenu);
-        _add_menu_item(pMenu, find_action("table_row_add"));
-        _add_menu_item(pMenu, find_action("table_row_cut"));
-        _add_menu_item(pMenu, find_action("table_row_copy"));
-        _add_menu_item(pMenu, find_action("table_row_paste"));
-        _add_menu_item(pMenu, find_action("table_row_delete"));
-        _add_separator(pMenu);
-        _add_menu_item(pMenu, find_action("table_row_up"));
-        _add_menu_item(pMenu, find_action("table_row_down"));
-        _add_menu_item(pMenu, find_action("table_rows_sort_descending"));
-        _add_menu_item(pMenu, find_action("table_rows_sort_ascending"));
-        _add_separator(pMenu);
-        _add_menu_item(pMenu, find_action("table_edit_properties"));
-        _add_menu_item(pMenu, find_action("table_export"));
-        return Glib::wrap(GTK_MENU(pMenu));
-    }
-
     case CtMenu::POPUP_MENU_TYPE::Codebox:
     {
         _add_separator(pMenu);
@@ -531,6 +503,34 @@ Gtk::Menu* CtMenu::build_popup_menu(GtkWidget* pMenu,  POPUP_MENU_TYPE popupMenu
         break;
     }
     return nullptr;
+}
+
+Gtk::Menu* CtMenu::build_popup_menu_table_cell(GtkWidget* pMenu, const bool first_row, const bool first_col, const bool last_row, const bool last_col)
+{
+    _add_menu_item(pMenu, find_action("table_cut"));
+    _add_menu_item(pMenu, find_action("table_copy"));
+    _add_menu_item(pMenu, find_action("table_delete"));
+    _add_separator(pMenu);
+    _add_menu_item(pMenu, find_action("table_column_add"));
+    _add_menu_item(pMenu, find_action("table_column_delete"));
+    _add_separator(pMenu);
+    if (not first_col) _add_menu_item(pMenu, find_action("table_column_left"));
+    if (not last_col) _add_menu_item(pMenu, find_action("table_column_right"));
+    _add_separator(pMenu);
+    _add_menu_item(pMenu, find_action("table_row_add"));
+    _add_menu_item(pMenu, find_action("table_row_cut"));
+    _add_menu_item(pMenu, find_action("table_row_copy"));
+    _add_menu_item(pMenu, find_action("table_row_paste"));
+    _add_menu_item(pMenu, find_action("table_row_delete"));
+    _add_separator(pMenu);
+    if (not first_row) _add_menu_item(pMenu, find_action("table_row_up"));
+    if (not last_row) _add_menu_item(pMenu, find_action("table_row_down"));
+    _add_menu_item(pMenu, find_action("table_rows_sort_descending"));
+    _add_menu_item(pMenu, find_action("table_rows_sort_ascending"));
+    _add_separator(pMenu);
+    _add_menu_item(pMenu, find_action("table_edit_properties"));
+    _add_menu_item(pMenu, find_action("table_export"));
+    return Glib::wrap(GTK_MENU(pMenu));
 }
 
 GtkWidget* CtMenu::_walk_menu_xml(GtkWidget* pMenu, const char* document, const char* xpath)
@@ -718,7 +718,7 @@ GtkWidget* CtMenu::_add_separator(GtkWidget* pMenu)
 }
 
 std::vector<std::string> CtMenu::_get_ui_str_toolbars()
-{   
+{
     auto generate_ui = [&](size_t id, const std::vector<std::string>& items)
     {
         std::string str;
