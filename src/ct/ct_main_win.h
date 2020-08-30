@@ -259,6 +259,7 @@ private:
 
 public:
     sigc::signal<void>             signal_app_new_instance = sigc::signal<void>();
+    sigc::signal<void>             signal_show_hide_main_win = sigc::signal<void>();
     sigc::signal<void, std::function<void(CtMainWin*)>>
                                    signal_app_apply_for_each_window = sigc::signal<void, std::function<void(CtMainWin*)>>();
 

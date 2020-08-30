@@ -223,7 +223,6 @@ CtMainWin* CtApp::_create_window(const bool no_gui)
             if (CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(pWin))
                 callback(pCtMainWin);
     });
-
     pCtMainWin->signal_app_quit_or_hide_window.connect([&](CtMainWin* win) {
         _quit_or_hide_window(win, false);
     });
@@ -234,6 +233,9 @@ CtMainWin* CtApp::_create_window(const bool no_gui)
     pCtMainWin->signal_app_quit_window.connect([&](CtMainWin* win) {
         win->force_exit() = true;
         _quit_or_hide_window(win, false);
+    });
+    pCtMainWin->signal_show_hide_main_win.connect([&]() {
+        _systray_show_hide_windows();
     });
 
     return pCtMainWin;
@@ -279,25 +281,29 @@ bool CtApp::_quit_or_hide_window(CtMainWin* pCtMainWin, bool from_delete)
 
 void CtApp::_systray_show_hide_windows()
 {
-    bool to_show = true;
-    for (Gtk::Window* pWin : get_windows())
-        if (pWin->has_toplevel_focus())
-            to_show = false;
-    for (Gtk::Window* pWin : get_windows())
-    {
-        CtMainWin* win = dynamic_cast<CtMainWin*>(pWin);
-        if (to_show)
+    // this may be called from a right click menu item that has top level focus,
+    // with this trick we let it close and the top level window gets focus back
+    Glib::signal_idle().connect_once([&](){
+        bool to_show = true;
+        for (Gtk::Window* pWin : get_windows())
+            if (pWin->has_toplevel_focus())
+                to_show = false;
+        for (Gtk::Window* pWin : get_windows())
         {
-            win->set_visible(true);
-            win->present();
-            win->restore_position();
+            CtMainWin* win = dynamic_cast<CtMainWin*>(pWin);
+            if (to_show)
+            {
+                win->set_visible(true);
+                win->present();
+                win->restore_position();
+            }
+            else
+            {
+                win->save_position();
+                win->set_visible(false);
+            }
         }
-        else
-        {
-            win->save_position();
-            win->set_visible(false);
-        }
-    }
+    });
 }
 
 void CtApp::_systray_close_all()
