@@ -499,11 +499,10 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_codebox_from_xml(xmlpp::Element* x
 
 CtAnchoredWidget* CtStorageXmlHelper::_create_table_from_xml(xmlpp::Element* xml_element, int charOffset, const Glib::ustring& justification)
 {
-    const int colMin = std::stoi(xml_element->get_attribute_value("col_min"));
-    const int colMax = std::stoi(xml_element->get_attribute_value("col_max"));
+    const int colWidth = std::stoi(xml_element->get_attribute_value("col_max"));
 
     CtTableMatrix tableMatrix;
     populate_table_matrix(tableMatrix, xml_element);
 
-    return new CtTable(_pCtMainWin, tableMatrix, colMin, colMax, charOffset, justification);
+    return new CtTable(_pCtMainWin, tableMatrix, colWidth, charOffset, justification);
 }

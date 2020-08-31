@@ -45,8 +45,7 @@ class CtTable : public CtAnchoredWidget
 public:
     CtTable(CtMainWin* pCtMainWin,
             CtTableMatrix tableMatrix,
-            const int colMin,
-            const int colMax,
+            const int colWidth,
             const int charOffset,
             const std::string& justification);
     virtual ~CtTable();
@@ -59,9 +58,8 @@ public:
      */
     static std::unique_ptr<CtTable> from_csv(const std::string& csv_content,
                                              CtMainWin* main_win,
-                                             int col_min,
-                                             int col_max,
-                                             int offset,
+                                             const int col_width,
+                                             const int offset,
                                              const Glib::ustring& justification);
 
     void apply_width_height(const int /*parentTextWidth*/) override {}
@@ -79,8 +77,7 @@ public:
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
     const CtTableMatrix& get_table_matrix() const { return _tableMatrix; }
-    int get_col_max() const { return _colMax; }
-    int get_col_min() const { return _colMin; }
+    int get_col_width() const { return _colWidth; }
 
 public:
     int current_row() { return _currentRow < (int)_tableMatrix.size() ? _currentRow : 0; }
@@ -97,7 +94,7 @@ public:
     bool row_sort_asc();
     bool row_sort_desc();
 
-    void set_col_min_max(int col_min, int col_max);
+    void set_col_width(const int col_width);
 
 private:
     void _setup_new_matrix(const CtTableMatrix& tableMatrix, bool apply_style = true);
@@ -115,8 +112,7 @@ private:
 protected:
     CtTableMatrix _tableMatrix;
     Gtk::Grid     _grid;
-    int           _colMin;
-    int           _colMax;
+    int           _colWidth;
     int           _currentRow{0};
     int           _currentColumn{0};
 };

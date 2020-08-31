@@ -271,8 +271,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_integer(_currentGroup, "table_rows", tableRows);
     _uKeyFile->set_integer(_currentGroup, "table_columns", tableColumns);
     _uKeyFile->set_integer(_currentGroup, "table_col_mode", static_cast<int>(tableColMode));
-    _uKeyFile->set_integer(_currentGroup, "table_col_min", tableColMin);
-    _uKeyFile->set_integer(_currentGroup, "table_col_max", tableColMax);
+    _uKeyFile->set_integer(_currentGroup, "table_col_width", tableColWidth);
 
     // [fonts]
     _currentGroup = "fonts";
@@ -540,8 +539,7 @@ void CtConfig::_populate_data_from_keyfile()
     {
         tableColMode = static_cast<CtTableColMode>(table_col_mode);
     }
-    _populate_int_from_keyfile("table_col_min", &tableColMin);
-    _populate_int_from_keyfile("table_col_max", &tableColMax);
+    _populate_int_from_keyfile("table_col_width", &tableColWidth);
 
     // [fonts]
     _currentGroup = "fonts";

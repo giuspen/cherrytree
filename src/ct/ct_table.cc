@@ -42,13 +42,11 @@ CtTableCell::~CtTableCell()
 
 CtTable::CtTable(CtMainWin* pCtMainWin,
                  CtTableMatrix tableMatrix,
-                 const int colMin,
-                 const int colMax,
+                 const int colWidth,
                  const int charOffset,
                  const std::string& justification)
  : CtAnchoredWidget(pCtMainWin, charOffset, justification),
-   _colMin(colMin),
-   _colMax(colMax)
+   _colWidth(colWidth)
 {
     _setup_new_matrix(tableMatrix, false /* apply style when node shows */);
 
@@ -78,8 +76,7 @@ void CtTable::_setup_new_matrix(const CtTableMatrix& tableMatrix, bool apply_sty
             CtTableCell* pTableCell = _tableMatrix[row][col];
             CtTextView& textView = pTableCell->get_text_view();
             bool is_header = row == 0;
-            // todo: don't know how to use colMax and colMin, so use just colMax
-            textView.set_size_request(_colMax, -1);
+            textView.set_size_request(_colWidth, -1);
             textView.set_highlight_current_line(false);
             if (is_header)
             {
@@ -117,8 +114,8 @@ void CtTable::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment,
     xmlpp::Element* p_table_node = p_node_parent->add_child("table");
     p_table_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
     p_table_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
-    p_table_node->set_attribute("col_min", std::to_string(_colMin));
-    p_table_node->set_attribute("col_max", std::to_string(_colMax));
+    p_table_node->set_attribute("col_min", std::to_string(_colWidth)); // todo get rid of column min
+    p_table_node->set_attribute("col_max", std::to_string(_colWidth));
     _populate_xml_rows_cells(p_table_node);
 }
 
@@ -162,8 +159,8 @@ bool CtTable::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adj
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
         sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 4, table_txt.c_str(), table_txt.size(), SQLITE_STATIC);
-        sqlite3_bind_int64(p_stmt, 5, _colMin);
-        sqlite3_bind_int64(p_stmt, 6, _colMax);
+        sqlite3_bind_int64(p_stmt, 5, _colWidth); // todo get rid of column min
+        sqlite3_bind_int64(p_stmt, 6, _colWidth);
         if (sqlite3_step(p_stmt) != SQLITE_DONE)
         {
             spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_STEP, sqlite3_errmsg(pDb));
@@ -187,7 +184,12 @@ void CtTable::to_csv(std::ostream& output) const {
     CtCSV::table_to_csv(tbl, output);
 }
 
-std::unique_ptr<CtTable> CtTable::from_csv(const std::string& csv_content, CtMainWin* main_win, int col_min, int col_max, int offset, const Glib::ustring& justification) {
+std::unique_ptr<CtTable> CtTable::from_csv(const std::string& csv_content,
+                                           CtMainWin* main_win,
+                                           const int col_width,
+                                           const int offset,
+                                           const Glib::ustring& justification)
+{
     std::stringstream input(csv_content);
     CtCSV::CtStringTable str_tbl = CtCSV::table_from_csv(input);
 
@@ -201,7 +203,7 @@ std::unique_ptr<CtTable> CtTable::from_csv(const std::string& csv_content, CtMai
         tbl_matrix.emplace_back(tbl_row);
     }
 
-    return std::make_unique<CtTable>(main_win, tbl_matrix, col_min, col_max, offset, justification);
+    return std::make_unique<CtTable>(main_win, tbl_matrix, col_width, offset, justification);
 }
 
 std::shared_ptr<CtAnchoredWidgetState> CtTable::get_state()
@@ -297,10 +299,9 @@ bool CtTable::row_sort_desc()
     return !prev_state->equal(get_state());
 }
 
-void CtTable::set_col_min_max(int col_min, int col_max)
+void CtTable::set_col_width(const int colWidth)
 {
-    _colMin = col_min;
-    _colMax = col_max;
+    _colWidth = colWidth;
     auto matrix = _copy_matrix(-1, -1, -1, -1, -1, -1);
     _setup_new_matrix(matrix);
 }

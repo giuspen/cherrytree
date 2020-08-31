@@ -119,20 +119,24 @@ CtAnchoredWidget* CtAnchoredWidgetState_Codebox::to_widget(CtMainWin* pCtMainWin
 
 // Table
 CtAnchoredWidgetState_Table::CtAnchoredWidgetState_Table(CtTable* table)
-    :CtAnchoredWidgetState(table->getOffset(), table->getJustification()), colMin(table->get_col_min()), colMax(table->get_col_max())
+ : CtAnchoredWidgetState{table->getOffset(), table->getJustification()}
+ , colWidth(table->get_col_width())
 {
     for (auto& row: table->get_table_matrix())
     {
         rows.push_back(std::vector<Glib::ustring>());
-        for (auto& cell: row)  rows.back().push_back(cell->get_text_content());
+        for (auto& cell : row)  rows.back().push_back(cell->get_text_content());
     }
 }
 
 bool CtAnchoredWidgetState_Table::equal(std::shared_ptr<CtAnchoredWidgetState> state)
 {
     CtAnchoredWidgetState_Table* other_state = dynamic_cast<CtAnchoredWidgetState_Table*>(state.get());
-    return other_state && charOffset == other_state->charOffset && justification == other_state->justification &&
-            colMin == other_state->colMin && colMax == other_state->colMax && rows == other_state->rows;
+    return other_state and
+           charOffset == other_state->charOffset and
+           justification == other_state->justification and
+           colWidth == other_state->colWidth and
+           rows == other_state->rows;
 }
 
 CtAnchoredWidget* CtAnchoredWidgetState_Table::to_widget(CtMainWin* pCtMainWin)
@@ -143,12 +147,9 @@ CtAnchoredWidget* CtAnchoredWidgetState_Table::to_widget(CtMainWin* pCtMainWin)
         tableMatrix.push_back(CtTableRow());
         for (auto& cell: row) tableMatrix.back().push_back(new CtTableCell(pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID));
     }
-    return new CtTable(pCtMainWin, tableMatrix, colMin, colMax, charOffset, justification);
+    return new CtTable(pCtMainWin, tableMatrix, colWidth, charOffset, justification);
 }
 
-
-
-//
 CtStateMachine::CtStateMachine(CtMainWin *pCtMainWin) : _pCtMainWin(pCtMainWin)
 {
     _word_regex = Glib::Regex::create("\\w");

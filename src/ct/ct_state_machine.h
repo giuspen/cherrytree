@@ -109,8 +109,7 @@ public:
     CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) override;
 
 public:
-    int colMin;
-    int colMax;
+    int colWidth;
     std::vector<std::vector<Glib::ustring>> rows;
 };
 

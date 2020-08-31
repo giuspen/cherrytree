@@ -142,8 +142,7 @@ public:
     int                                         tableRows{3};
     int                                         tableColumns{3};
     CtTableColMode                              tableColMode{CtTableColMode::RENAME};
-    int                                         tableColMin{40};
-    int                                         tableColMax{60};
+    int                                         tableColWidth{60};
 
     // [fonts]
     Glib::ustring                               rtFont{"Sans 9"};

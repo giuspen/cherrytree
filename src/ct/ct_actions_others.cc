@@ -657,11 +657,10 @@ void CtActions::table_rows_sort_ascending()
 void CtActions::table_edit_properties()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
-    _pCtMainWin->get_ct_config()->tableColMin = curr_table_anchor->get_col_min();
-    _pCtMainWin->get_ct_config()->tableColMax = curr_table_anchor->get_col_max();
+    _pCtMainWin->get_ct_config()->tableColWidth = curr_table_anchor->get_col_width();
     if (!_table_dialog(_("Edit Table Properties"), false))
         return;
-    curr_table_anchor->set_col_min_max(_pCtMainWin->get_ct_config()->tableColMin, _pCtMainWin->get_ct_config()->tableColMax);
+    curr_table_anchor->set_col_width(_pCtMainWin->get_ct_config()->tableColWidth);
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 

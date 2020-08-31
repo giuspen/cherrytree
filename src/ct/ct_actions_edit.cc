@@ -88,8 +88,7 @@ void CtActions::table_handle()
     int res = _table_dialog(_("Insert Table"), true);
     if (res == 0) return;
 
-    int col_min = _pCtMainWin->get_ct_config()->tableColMin;
-    int col_max = _pCtMainWin->get_ct_config()->tableColMin;
+    const int col_width = _pCtMainWin->get_ct_config()->tableColWidth;
     std::list<std::vector<std::string>> rows;
     if (res == 1) {
         std::vector<std::string> empty_row(_pCtMainWin->get_ct_config()->tableColumns, "");
@@ -109,7 +108,7 @@ void CtActions::table_handle()
         _pCtMainWin->get_ct_config()->pickDirCsv = Glib::path_get_dirname(filename);
         // todo: find good csv lib
         std::string csv_content = fs::get_content(fs::path(filename));
-        pCtTable = CtTable::from_csv(csv_content, _pCtMainWin, 40, 60, _curr_buffer()->get_insert()->get_iter().get_offset(), "").release();
+        pCtTable = CtTable::from_csv(csv_content, _pCtMainWin, 60, _curr_buffer()->get_insert()->get_iter().get_offset(), "").release();
     }
 
     if (!pCtTable) {
@@ -121,7 +120,7 @@ void CtActions::table_handle()
                 tableMatrix.back().push_back(new CtTableCell(_pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID));
         }
 
-        pCtTable = new CtTable(_pCtMainWin, tableMatrix, col_min, col_max, _curr_buffer()->get_insert()->get_iter().get_offset(), "");
+        pCtTable = new CtTable(_pCtMainWin, tableMatrix, col_width, _curr_buffer()->get_insert()->get_iter().get_offset(), "");
     }
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
     pCtTable->insertInTextBuffer(gsv_buffer);
@@ -914,17 +913,11 @@ int CtActions::_table_dialog(Glib::ustring title, bool is_insert)
     auto spinbutton_columns = Gtk::SpinButton(adj_columns);
     spinbutton_columns.set_value(_pCtMainWin->get_ct_config()->tableColumns);
 
-    auto label_col_min = Gtk::Label(_("Min Width"));
-    label_col_min.set_halign(Gtk::Align::ALIGN_START);
-    label_col_min.set_margin_left(10);
-    auto adj_col_min = Gtk::Adjustment::create(_pCtMainWin->get_ct_config()->tableColMin, 1, 10000, 1);
-    auto spinbutton_col_min = Gtk::SpinButton(adj_col_min);
-    spinbutton_col_min.set_value(_pCtMainWin->get_ct_config()->tableColMin);
-    auto label_col_max = Gtk::Label(_("Max Width"));
-    label_col_max.set_halign(Gtk::Align::ALIGN_START);
-    auto adj_col_max = Gtk::Adjustment::create(_pCtMainWin->get_ct_config()->tableColMax, 1, 10000, 1);
-    auto spinbutton_col_max = Gtk::SpinButton(adj_col_max);
-    spinbutton_col_max.set_value(_pCtMainWin->get_ct_config()->tableColMax);
+    auto label_col_width = Gtk::Label(_("Width"));
+    label_col_width.set_halign(Gtk::Align::ALIGN_START);
+    auto adj_col_width = Gtk::Adjustment::create(_pCtMainWin->get_ct_config()->tableColWidth, 1, 10000, 1);
+    auto spinbutton_col_width = Gtk::SpinButton(adj_col_width);
+    spinbutton_col_width.set_value(_pCtMainWin->get_ct_config()->tableColWidth);
 
     auto label_size = Gtk::Label(std::string("<b>")+_("Table Size")+"</b>");
     label_size.set_use_markup();
@@ -933,14 +926,12 @@ int CtActions::_table_dialog(Glib::ustring title, bool is_insert)
     label_col.set_use_markup();
     label_col.set_halign(Gtk::Align::ALIGN_START);
 
-
     auto grid = Gtk::Grid();
     grid.property_margin() = 6;
     grid.set_row_spacing(4);
     grid.set_column_spacing(8);
     grid.set_row_homogeneous(true);
 
-   // auto size_frame = Gtk::Frame();
     if (is_insert)
     {
         grid.attach(label_size,         0, 0, 2, 1);
@@ -949,14 +940,9 @@ int CtActions::_table_dialog(Glib::ustring title, bool is_insert)
         grid.attach(label_columns,      2, 1, 1, 1);
         grid.attach(spinbutton_columns, 3, 1, 1, 1);
     }
-    grid.attach(label_col,           0, 2, 2, 1);
-    grid.attach(label_col_min,       0, 3, 1, 1);
-    grid.attach(spinbutton_col_min,  1, 3, 1, 1);
-    grid.attach(label_col_max,       2, 3, 1, 1);
-    grid.attach(spinbutton_col_max,  3, 3, 1, 1);
-
-    //auto col_min_max_frame = Gtk::Frame(std::string("<b>")+_("Column Properties")+"</b>");
-
+    grid.attach(label_col,             0, 2, 2, 1);
+    grid.attach(label_col_width,       0, 3, 1, 1);
+    grid.attach(spinbutton_col_width,  1, 3, 1, 1);
 
     auto checkbutton_table_ins_from_file = Gtk::CheckButton(_("Import from CSV File"));
 
@@ -969,22 +955,29 @@ int CtActions::_table_dialog(Glib::ustring title, bool is_insert)
     checkbutton_table_ins_from_file.signal_toggled().connect([&](){
         grid.set_sensitive(!checkbutton_table_ins_from_file.get_active());
     });
-    spinbutton_col_min.signal_changed().connect([&] {
-        if (spinbutton_col_min.get_value_as_int() > spinbutton_col_max.get_value_as_int())
-            spinbutton_col_max.set_value(spinbutton_col_min.get_value_as_int());
-    });
-    spinbutton_col_max.signal_changed().connect([&] {
-        if (spinbutton_col_max.get_value_as_int() < spinbutton_col_min.get_value_as_int())
-            spinbutton_col_min.set_value(spinbutton_col_max.get_value_as_int());
-    });
+
+    auto on_key_press_dialog = [&](GdkEventKey *pEventKey)->bool
+    {
+        if (GDK_KEY_Return == pEventKey->keyval) {
+            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT));
+            pButton->clicked();
+            return true;
+        }
+        if (GDK_KEY_Escape == pEventKey->keyval) {
+            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_REJECT));
+            pButton->clicked();
+            return true;
+        }
+        return false;
+    };
+    dialog.signal_key_press_event().connect(on_key_press_dialog, false/*call me before other*/);
 
     dialog.run();
     if (dialog.run() == Gtk::RESPONSE_ACCEPT)
     {
         _pCtMainWin->get_ct_config()->tableRows = spinbutton_rows.get_value_as_int();
         _pCtMainWin->get_ct_config()->tableColumns = spinbutton_columns.get_value_as_int();
-        _pCtMainWin->get_ct_config()->tableColMin = spinbutton_col_min.get_value_as_int();
-        _pCtMainWin->get_ct_config()->tableColMax = spinbutton_col_max.get_value_as_int();
+        _pCtMainWin->get_ct_config()->tableColWidth = spinbutton_col_width.get_value_as_int();
         if (checkbutton_table_ins_from_file.get_active())
             return 2;
         return 1;
