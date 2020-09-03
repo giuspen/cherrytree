@@ -20,7 +20,7 @@ with open(SCRIPT_HTML, "r", encoding="utf-8") as fd:
             countries_dict[curr_country] += curr_donation
         else:
             print(supporter_line)
-print(sum_donations)
+print("sum = €{:.2f}\n".format(round(sum_donations, 2)))
 while countries_dict:
     curr_max_key = None
     for curr_key, curr_val in countries_dict.items():
