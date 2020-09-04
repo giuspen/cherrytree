@@ -509,32 +509,32 @@ void CtActions::codebox_increase_width()
 // Decrease CodeBox Width
 void CtActions::codebox_decrease_width()
 {
-     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
-     if (curr_codebox_anchor->get_width_in_pixels())
-     {
-         if (curr_codebox_anchor->get_frame_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX >= CtCodebox::CB_WIDTH_LIMIT_MIN)
-             curr_codebox_anchor->set_width_height(curr_codebox_anchor->get_frame_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX, 0);
-     }
-     else
-     {
-         if (curr_codebox_anchor->get_frame_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC >= CtCodebox::CB_WIDTH_LIMIT_MIN)
-             curr_codebox_anchor->set_width_height(curr_codebox_anchor->get_frame_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC, 0);
-     }
+    if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
+    if (curr_codebox_anchor->get_width_in_pixels())
+    {
+        if (curr_codebox_anchor->get_frame_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX >= CtCodebox::CB_WIDTH_LIMIT_MIN)
+            curr_codebox_anchor->set_width_height(curr_codebox_anchor->get_frame_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX, 0);
+    }
+    else
+    {
+        if (curr_codebox_anchor->get_frame_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC >= CtCodebox::CB_WIDTH_LIMIT_MIN)
+            curr_codebox_anchor->set_width_height(curr_codebox_anchor->get_frame_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC, 0);
+    }
 }
 
 // Increase CodeBox Height
 void CtActions::codebox_increase_height()
 {
-     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
-     curr_codebox_anchor->set_width_height(0, curr_codebox_anchor->get_frame_height() + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
+    if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
+    curr_codebox_anchor->set_width_height(0, curr_codebox_anchor->get_frame_height() + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
 }
 
 // Decrease CodeBox Height
 void CtActions::codebox_decrease_height()
 {
-     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
-     if (curr_codebox_anchor->get_frame_height() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX >= CtCodebox::CB_HEIGHT_LIMIT_MIN)
-         curr_codebox_anchor->set_width_height(0, curr_codebox_anchor->get_frame_height() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
+    if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
+    if (curr_codebox_anchor->get_frame_height() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX >= CtCodebox::CB_HEIGHT_LIMIT_MIN)
+        curr_codebox_anchor->set_width_height(0, curr_codebox_anchor->get_frame_height() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
 }
 
 void CtActions::table_cut()
@@ -658,7 +658,7 @@ void CtActions::table_edit_properties()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
     _pCtMainWin->get_ct_config()->tableColWidth = curr_table_anchor->get_col_width();
-    if (!_table_dialog(_("Edit Table Properties"), false))
+    if (CtDialogs::TableHandleResp::Cancel == CtDialogs::table_handle_dialog(_pCtMainWin, _("Edit Table Properties"), false/*is_insert*/))
         return;
     curr_table_anchor->set_col_width(_pCtMainWin->get_ct_config()->tableColWidth);
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
@@ -671,7 +671,6 @@ void CtActions::table_export()
     args.curr_file_name="";
     args.filter_name=_("CSV File");
     args.filter_pattern={"*.csv"};
-
 
     Glib::ustring filename = CtDialogs::file_save_as_dialog(args);
     if (filename.empty()) return;

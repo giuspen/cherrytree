@@ -85,18 +85,18 @@ void CtActions::table_handle()
 {
     if (!_node_sel_and_rich_text()) return;
     if (!_is_curr_node_not_read_only_or_error()) return;
-    int res = _table_dialog(_("Insert Table"), true);
-    if (res == 0) return;
+    CtDialogs::TableHandleResp res = CtDialogs::table_handle_dialog(_pCtMainWin, _("Insert Table"), true/*is_insert*/);
+    if (res == CtDialogs::TableHandleResp::Cancel) return;
 
     const int col_width = _pCtMainWin->get_ct_config()->tableColWidth;
     std::list<std::vector<std::string>> rows;
-    if (res == 1) {
+    if (res == CtDialogs::TableHandleResp::Ok) {
         std::vector<std::string> empty_row(_pCtMainWin->get_ct_config()->tableColumns, "");
         while ((int)rows.size() < _pCtMainWin->get_ct_config()->tableRows)
             rows.push_back(empty_row);
     }
     CtTable* pCtTable = nullptr;
-    if (res == 2) {
+    if (res == CtDialogs::TableHandleResp::OkFromFile) {
         CtDialogs::file_select_args args(_pCtMainWin);
         args.curr_folder = _pCtMainWin->get_ct_config()->pickDirCsv;
         args.curr_file_name = "";
@@ -888,99 +888,4 @@ void CtActions::_text_selection_change_case(gchar change_type)
     }
     text_buffer->select_range(text_buffer->get_iter_at_offset(start_offset),
                               text_buffer->get_iter_at_offset(end_offset));
-}
-
-// Opens the Table Handle Dialog, pygtk: dialog_tablehandle
-int CtActions::_table_dialog(Glib::ustring title, bool is_insert)
-{
-    Gtk::Dialog dialog(title, *_pCtMainWin, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
-    dialog.set_transient_for(*_pCtMainWin);
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
-    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
-    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
-    dialog.set_default_size(300, -1);
-
-    auto label_rows = Gtk::Label(_("Rows"));
-    label_rows.set_halign(Gtk::Align::ALIGN_START);
-    label_rows.set_margin_left(10);
-    auto adj_rows = Gtk::Adjustment::create(_pCtMainWin->get_ct_config()->tableRows, 1, 10000, 1);
-    auto spinbutton_rows = Gtk::SpinButton(adj_rows);
-    spinbutton_rows.set_value(_pCtMainWin->get_ct_config()->tableRows);
-    auto label_columns = Gtk::Label(_("Columns"));
-    label_columns.set_halign(Gtk::Align::ALIGN_START);
-    auto adj_columns = Gtk::Adjustment::create(_pCtMainWin->get_ct_config()->tableColumns, 1, 10000, 1);
-    auto spinbutton_columns = Gtk::SpinButton(adj_columns);
-    spinbutton_columns.set_value(_pCtMainWin->get_ct_config()->tableColumns);
-
-    auto label_col_width = Gtk::Label(_("Width"));
-    label_col_width.set_halign(Gtk::Align::ALIGN_START);
-    auto adj_col_width = Gtk::Adjustment::create(_pCtMainWin->get_ct_config()->tableColWidth, 1, 10000, 1);
-    auto spinbutton_col_width = Gtk::SpinButton(adj_col_width);
-    spinbutton_col_width.set_value(_pCtMainWin->get_ct_config()->tableColWidth);
-
-    auto label_size = Gtk::Label(std::string("<b>")+_("Table Size")+"</b>");
-    label_size.set_use_markup();
-    label_size.set_halign(Gtk::Align::ALIGN_START);
-    auto label_col = Gtk::Label(std::string("<b>")+_("Column Properties")+"</b>");
-    label_col.set_use_markup();
-    label_col.set_halign(Gtk::Align::ALIGN_START);
-
-    auto grid = Gtk::Grid();
-    grid.property_margin() = 6;
-    grid.set_row_spacing(4);
-    grid.set_column_spacing(8);
-    grid.set_row_homogeneous(true);
-
-    if (is_insert)
-    {
-        grid.attach(label_size,         0, 0, 2, 1);
-        grid.attach(label_rows,         0, 1, 1, 1);
-        grid.attach(spinbutton_rows,    1, 1, 1, 1);
-        grid.attach(label_columns,      2, 1, 1, 1);
-        grid.attach(spinbutton_columns, 3, 1, 1, 1);
-    }
-    grid.attach(label_col,             0, 2, 2, 1);
-    grid.attach(label_col_width,       0, 3, 1, 1);
-    grid.attach(spinbutton_col_width,  1, 3, 1, 1);
-
-    auto checkbutton_table_ins_from_file = Gtk::CheckButton(_("Import from CSV File"));
-
-    auto content_area = dialog.get_content_area();
-    content_area->set_spacing(5);
-    content_area->pack_start(grid);
-    if (is_insert) content_area->pack_start(checkbutton_table_ins_from_file);
-    content_area->show_all();
-
-    checkbutton_table_ins_from_file.signal_toggled().connect([&](){
-        grid.set_sensitive(!checkbutton_table_ins_from_file.get_active());
-    });
-
-    auto on_key_press_dialog = [&](GdkEventKey *pEventKey)->bool
-    {
-        if (GDK_KEY_Return == pEventKey->keyval) {
-            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT));
-            pButton->clicked();
-            return true;
-        }
-        if (GDK_KEY_Escape == pEventKey->keyval) {
-            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_REJECT));
-            pButton->clicked();
-            return true;
-        }
-        return false;
-    };
-    dialog.signal_key_press_event().connect(on_key_press_dialog, false/*call me before other*/);
-
-    dialog.run();
-    if (dialog.run() == Gtk::RESPONSE_ACCEPT)
-    {
-        _pCtMainWin->get_ct_config()->tableRows = spinbutton_rows.get_value_as_int();
-        _pCtMainWin->get_ct_config()->tableColumns = spinbutton_columns.get_value_as_int();
-        _pCtMainWin->get_ct_config()->tableColWidth = spinbutton_col_width.get_value_as_int();
-        if (checkbutton_table_ins_from_file.get_active())
-            return 2;
-        return 1;
-    }
-    return 0;
 }

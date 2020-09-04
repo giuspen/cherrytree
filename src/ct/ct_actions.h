@@ -299,17 +299,16 @@ public:
 
 private:
     // helper for edit actions
-    void          _image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
-                                     Gtk::TextIter insertIter,
-                                     Gtk::TextIter* pIterBound);
-    void          _text_selection_change_case(gchar change_type);
-    int           _table_dialog(Glib::ustring title, bool is_insert);
-    int           _find_previous_indent_margin();
+    void _image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
+                            Gtk::TextIter insertIter,
+                            Gtk::TextIter* pIterBound);
+    void _text_selection_change_case(gchar change_type);
+    int  _find_previous_indent_margin();
 
 public:
-    void          image_insert_png(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> pixbuf,
-                                   const Glib::ustring& link, const Glib::ustring& image_justification);
-    void          image_insert_anchor(Gtk::TextIter iter_insert, const Glib::ustring& name, const Glib::ustring& image_justification);
+    void image_insert_png(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> pixbuf,
+                          const Glib::ustring& link, const Glib::ustring& image_justification);
+    void image_insert_anchor(Gtk::TextIter iter_insert, const Glib::ustring& name, const Glib::ustring& image_justification);
 
     void _insert_toc_at_pos(Glib::RefPtr<Gtk::TextBuffer> text_buffer, const std::vector<TocEntry>& entries);
 public:

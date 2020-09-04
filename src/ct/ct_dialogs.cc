@@ -2227,3 +2227,94 @@ void CtDialogs::summary_info_dialog(CtMainWin* pCtMainWin, const CtSummaryInfo& 
     dialog.run();
     dialog.hide();
 }
+
+// Opens the Table Handle Dialog, pygtk: dialog_tablehandle
+CtDialogs::TableHandleResp CtDialogs::table_handle_dialog(CtMainWin* pCtMainWin, const Glib::ustring& title, const bool is_insert)
+{
+    Gtk::Dialog dialog(title, *pCtMainWin, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    dialog.set_transient_for(*pCtMainWin);
+    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
+    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
+    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    dialog.set_default_size(300, -1);
+
+    auto label_rows = Gtk::Label(_("Rows"));
+    label_rows.set_halign(Gtk::Align::ALIGN_START);
+    label_rows.set_margin_left(10);
+    auto adj_rows = Gtk::Adjustment::create(pCtMainWin->get_ct_config()->tableRows, 1, 10000, 1);
+    auto spinbutton_rows = Gtk::SpinButton(adj_rows);
+    spinbutton_rows.set_value(pCtMainWin->get_ct_config()->tableRows);
+    auto label_columns = Gtk::Label(_("Columns"));
+    label_columns.set_halign(Gtk::Align::ALIGN_START);
+    auto adj_columns = Gtk::Adjustment::create(pCtMainWin->get_ct_config()->tableColumns, 1, 10000, 1);
+    auto spinbutton_columns = Gtk::SpinButton(adj_columns);
+    spinbutton_columns.set_value(pCtMainWin->get_ct_config()->tableColumns);
+
+    auto label_col_width = Gtk::Label(_("Width"));
+    label_col_width.set_halign(Gtk::Align::ALIGN_START);
+    auto adj_col_width = Gtk::Adjustment::create(pCtMainWin->get_ct_config()->tableColWidth, 1, 10000, 1);
+    auto spinbutton_col_width = Gtk::SpinButton(adj_col_width);
+    spinbutton_col_width.set_value(pCtMainWin->get_ct_config()->tableColWidth);
+
+    auto label_size = Gtk::Label(std::string("<b>")+_("Table Size")+"</b>");
+    label_size.set_use_markup();
+    label_size.set_halign(Gtk::Align::ALIGN_START);
+    auto label_col = Gtk::Label(std::string("<b>")+_("Column Properties")+"</b>");
+    label_col.set_use_markup();
+    label_col.set_halign(Gtk::Align::ALIGN_START);
+
+    auto grid = Gtk::Grid();
+    grid.property_margin() = 6;
+    grid.set_row_spacing(4);
+    grid.set_column_spacing(8);
+    grid.set_row_homogeneous(true);
+
+    if (is_insert)
+    {
+        grid.attach(label_size,         0, 0, 2, 1);
+        grid.attach(label_rows,         0, 1, 1, 1);
+        grid.attach(spinbutton_rows,    1, 1, 1, 1);
+        grid.attach(label_columns,      2, 1, 1, 1);
+        grid.attach(spinbutton_columns, 3, 1, 1, 1);
+    }
+    grid.attach(label_col,             0, 2, 2, 1);
+    grid.attach(label_col_width,       0, 3, 1, 1);
+    grid.attach(spinbutton_col_width,  1, 3, 1, 1);
+
+    auto checkbutton_table_ins_from_file = Gtk::CheckButton(_("Import from CSV File"));
+
+    auto content_area = dialog.get_content_area();
+    content_area->set_spacing(5);
+    content_area->pack_start(grid);
+    if (is_insert) content_area->pack_start(checkbutton_table_ins_from_file);
+    content_area->show_all();
+
+    checkbutton_table_ins_from_file.signal_toggled().connect([&](){
+        grid.set_sensitive(!checkbutton_table_ins_from_file.get_active());
+    });
+
+    auto on_key_press_dialog = [&](GdkEventKey *pEventKey)->bool
+    {
+        if (GDK_KEY_Return == pEventKey->keyval) {
+            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT));
+            pButton->grab_focus();
+            pButton->clicked();
+            return true;
+        }
+        return false;
+    };
+    dialog.signal_key_press_event().connect(on_key_press_dialog, false/*call me before other*/);
+
+    const auto resp = dialog.run();
+    if (Gtk::RESPONSE_ACCEPT == resp)
+    {
+        pCtMainWin->get_ct_config()->tableRows = spinbutton_rows.get_value_as_int();
+        pCtMainWin->get_ct_config()->tableColumns = spinbutton_columns.get_value_as_int();
+        pCtMainWin->get_ct_config()->tableColWidth = spinbutton_col_width.get_value_as_int();
+        if (checkbutton_table_ins_from_file.get_active())
+            return TableHandleResp::OkFromFile;
+        return TableHandleResp::Ok;
+    }
+    return TableHandleResp::Cancel;
+}
