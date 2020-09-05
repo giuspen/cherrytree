@@ -1,0 +1,11 @@
+
+0.99.XX (September YY, 2020)
+  * This is the first public release of the 0.99.x serie where Evgenii (@txe) and myself (@giuspen) have rewritten everything from scratch in C++/GTK3
+  * This attempts to list the features not yet ported and brand new against 0.39.x, last Python2/GTK2 branch
+  * A custom background and text is not yet supported, only a light and dark theme
+  * The following imports are missing and may not be implemented at all if not requested: Basket, EPIM HTML, KeyNote, KnowIt, Treepad Lite, TuxCards
+  * New: Duplicate a node and its subnodes (beofre only the selected node could be duplicated)
+  * New: Formatting tag to indent/unindent
+  * New: ...
+  * New: Column edit mode scintilla-like holding down Ctrl and Alt and selecting the column (cut/copy/paste not yet supported)
+  * New: ...
