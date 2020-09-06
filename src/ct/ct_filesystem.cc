@@ -389,6 +389,11 @@ path canonical(const path& path)
     return Glib::canonicalize_filename(path.string());
 }
 
+path canonical(const path& path, const std::string &relative_to)
+{
+    return Glib::canonicalize_filename(path.string(), relative_to);
+}
+
 path path::extension() const
 {
     std::string name = filename().string();
