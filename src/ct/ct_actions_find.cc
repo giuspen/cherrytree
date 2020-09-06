@@ -242,7 +242,6 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
         }
      }
     if (all_matches) {
-        // todo: assert self.processed_nodes == self.dad.num_nodes or self.dad.progress_stop, "%s != %s" % (self.processed_nodes, self.dad.num_nodes)
         ctStatusBar.progressBar.hide();
         ctStatusBar.stopButton.hide();
         ctStatusBar.set_progress_stop(false);

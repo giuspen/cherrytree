@@ -452,7 +452,7 @@ void CtActions::exec_code()
     // if std::system is not enougth, then try g_spawn_async_with_pipes
     int status = std::system(terminal_cmd.c_str());
 
-// todo: fix win32
+
 #ifdef _WIN32
 #define WEXITSTATUS(x) x
 #endif
