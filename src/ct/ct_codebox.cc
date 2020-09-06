@@ -113,10 +113,16 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
     _ctTextview.get_style_context()->add_class("ct-codebox");
     _ctTextview.set_border_width(1);
 
-    if (_frameHeight < MIN_SCROLL_HEIGHT) /* overwise not possible to have 20 px height*/
-        _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_EXTERNAL /* overwise not possible to have 20 px height*/);
-    else
-        _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+    if (!_pCtMainWin->get_ct_config()->codeboxAutoResize) {
+        if (_frameHeight < MIN_SCROLL_HEIGHT) /* overwise not possible to have 20 px height*/
+            _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_EXTERNAL /* overwise not possible to have 20 px height*/);
+        else
+            _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+    } else {
+        _scrolledwindow.set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_NEVER);
+        _ctTextview.set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
+    }
+
     _scrolledwindow.add(_ctTextview);
     _frame.add(_scrolledwindow);
     show_all();
@@ -175,10 +181,6 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
     _uCtPairCodeboxMainWin.reset(new CtPairCodeboxMainWin{this, _pCtMainWin});
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "cut-clipboard", G_CALLBACK(CtClipboard::on_cut_clipboard), _uCtPairCodeboxMainWin.get());
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "copy-clipboard", G_CALLBACK(CtClipboard::on_copy_clipboard), _uCtPairCodeboxMainWin.get());
-
-    // todo: maybe find the better solution
-    //_scrolledwindow.get_vscrollbar()->signal_event_after().connect(sigc::mem_fun(*this, &CtCodebox::_onVScrollEventAfter));
-    //_scrolledwindow.get_hscrollbar()->signal_event_after().connect(sigc::mem_fun(*this, &CtCodebox::_onHScrollEventAfter));
 }
 
 CtCodebox::~CtCodebox()
@@ -259,10 +261,12 @@ void CtCodebox::set_width_height(int newWidth, int newHeight)
     if (newWidth) _frameWidth = newWidth;
     if (newHeight) {
         _frameHeight = newHeight;
-        if (_frameHeight < MIN_SCROLL_HEIGHT) /* overwise not possible to have 20 px height*/
-            _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_EXTERNAL /* overwise not possible to have 20 px height*/);
-        else
-            _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+        if (!_pCtMainWin->get_ct_config()->codeboxAutoResize) {
+            if (_frameHeight < MIN_SCROLL_HEIGHT) /* overwise not possible to have 20 px height*/
+                _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_EXTERNAL /* overwise not possible to have 20 px height*/);
+            else
+                _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+        }
     }
     apply_width_height(_ctTextview.get_allocation().get_width());
 }

@@ -135,9 +135,8 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
         html_text += _html_get_from_code_buffer(tree_iter.get_node_text_buffer(), sel_start, sel_end, tree_iter.get_node_syntax_highlighting());
 
     if (index != "" && !options.index_in_page)
-        html_text += Glib::ustring("<p align=\"center\">") + Glib::build_filename("images", "home.png") +
-                "<img src=\"" "\" height=\"22\" width=\"22\">" +
-                CtConst::CHAR_SPACE + CtConst::CHAR_SPACE + "<a href=\"index.html\">\"" + _("Index") + "</a></p>";
+        html_text += Glib::ustring("<p align=\"center\">") + "<img src=\"" + Glib::build_filename("images", "home.svg") + "\" height=\"22\" width=\"22\">" +
+                CtConst::CHAR_SPACE + CtConst::CHAR_SPACE + "<a href=\"index.html\">" + _("Index") + "</a></p>";
     html_text += "</div>"; // div class='page'
     html_text += HTML_FOOTER;
 
@@ -148,7 +147,8 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
 // Export All Nodes To HTML
 void CtExport2Html::nodes_all_export_to_html(bool all_tree, const CtExportOptions& options)
 {
-    // todo: shutil.copy(os.path.join(cons.GLADE_PATH, "home.png"), self.images_dir)
+    fs::path home_svg = fs::get_cherrytree_datadir() / fs::path("data") / "home.svg";
+    fs::copy_file(home_svg, _images_dir / "home.svg");
 
     // create tree links text
     Glib::ustring tree_links_text = // dont' use R"HTML, it gives unnecessary " "
@@ -604,9 +604,9 @@ std::string CtExport2Html::_get_href_from_link_prop_val(Glib::ustring link_prop_
     if (link_entry.type == CtConst::LINK_TYPE_WEBS)
         href = link_entry.webs;
     else if (link_entry.type == CtConst::LINK_TYPE_FILE)
-        href = "file://" + _link_process_filepath(link_entry.file);
+        href = "file://" + _link_process_filepath(link_entry.file, _pCtMainWin->get_ct_storage()->get_file_path().parent_path().string());
     else if (link_entry.type == CtConst::LINK_TYPE_FOLD)
-        href = "file://" + _link_process_folderpath(link_entry.fold);
+        href = "file://" + _link_process_folderpath(link_entry.fold, _pCtMainWin->get_ct_storage()->get_file_path().parent_path().string());
     else if (link_entry.type == CtConst::LINK_TYPE_NODE)
     {
         CtTreeIter node = _pCtMainWin->get_tree_store().get_node_from_node_id(link_entry.node_id);
@@ -620,21 +620,21 @@ std::string CtExport2Html::_get_href_from_link_prop_val(Glib::ustring link_prop_
     return href;
 }
 
-std::string CtExport2Html::_link_process_filepath(const std::string& filepath_raw)
+std::string CtExport2Html::_link_process_filepath(const std::string& filepath_raw, const std::string& relative_to)
 {
     fs::path filepath = filepath_raw;
-    // todo:
-    //if not os.path.isabs(filepath) and os.path.isfile(os.path.join(self.file_dir, filepath)):
-    //    filepath = os.path.join(self.file_dir, filepath)
+    fs::path abs_filepath = fs::canonical(filepath, relative_to);
+    if (!fs::is_regular_file(filepath) && fs::is_regular_file(abs_filepath))
+        filepath = abs_filepath;
     return filepath.native();
 }
 
-std::string CtExport2Html::_link_process_folderpath(const std::string& folderpath_raw)
+std::string CtExport2Html::_link_process_folderpath(const std::string& folderpath_raw, const std::string& relative_to)
 {
     fs::path folderpath = folderpath_raw;
-    // todo:
-    //if not os.path.isabs(folderpath) and os.path.isdir(os.path.join(self.file_dir, folderpath)):
-    //    folderpath = os.path.join(self.file_dir, folderpath)
+    fs::path abs_folderpath = fs::canonical(folderpath, relative_to);
+    if (!fs::is_directory(folderpath) && fs::is_directory(abs_folderpath))
+        folderpath = abs_folderpath;
     return folderpath.native();
 }
 

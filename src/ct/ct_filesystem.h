@@ -50,6 +50,8 @@ path absolute(const path& path);
 
 path canonical(const path& path);
 
+path canonical(const path& path, const std::string& relative_to);
+
 bool exists(const path& filepath);
 
 time_t getmtime(const path& path);

@@ -25,6 +25,7 @@
 #include "ct_export2html.h"
 #include "ct_pref_dlg.h"
 #include "ct_clipboard.h"
+#include "ct_storage_control.h"
 #include <gtkmm/dialog.h>
 #include <gtkmm/stock.h>
 #include <cstdlib>
@@ -282,7 +283,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
     }
     else if (link_entry.type == CtConst::LINK_TYPE_FILE) // link to file
     {
-        fs::path filepath = CtExport2Html::_link_process_filepath(link_entry.file);
+        fs::path filepath = CtExport2Html::_link_process_filepath(link_entry.file, _pCtMainWin->get_ct_storage()->get_file_path().parent_path().string());
         if (not Glib::file_test(filepath.string(), Glib::FILE_TEST_IS_REGULAR))
         {
             CtDialogs::error_dialog(str::format(_("The File Link '%s' is Not Valid"), filepath.string()), *_pCtMainWin);
@@ -294,7 +295,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
     }
     else if (link_entry.type == CtConst::LINK_TYPE_FOLD) // link to folder
     {
-        fs::path folderpath = CtExport2Html::_link_process_folderpath(link_entry.fold).c_str();
+        fs::path folderpath = CtExport2Html::_link_process_folderpath(link_entry.fold, _pCtMainWin->get_ct_storage()->get_file_path().parent_path().string()).c_str();
         if (not fs::is_directory(folderpath))
         {
             CtDialogs::error_dialog(str::format(_("The Folder Link '%s' is Not Valid"), folderpath.string()), *_pCtMainWin);
@@ -452,7 +453,7 @@ void CtActions::exec_code()
     // if std::system is not enougth, then try g_spawn_async_with_pipes
     int status = std::system(terminal_cmd.c_str());
 
-// todo: fix win32
+
 #ifdef _WIN32
 #define WEXITSTATUS(x) x
 #endif

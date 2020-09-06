@@ -547,8 +547,9 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
         if (pConfig->syntaxHighlighting == CtConst::RICH_TEXT_ID)
             apply_for_each_window([](CtMainWin* win) { win->get_text_view().set_highlight_current_line(win->get_ct_config()->rtHighlCurrLine); });
     });
-    checkbutton_codebox_auto_resize->signal_toggled().connect([pConfig, checkbutton_codebox_auto_resize](){
+    checkbutton_codebox_auto_resize->signal_toggled().connect([this, pConfig, checkbutton_codebox_auto_resize](){
         pConfig->codeboxAutoResize = checkbutton_codebox_auto_resize->get_active();
+        need_restart(RESTART_REASON::CODEBOX_AUTORESIZE);
     });
     spinbutton_embfile_size->signal_value_changed().connect([this, pConfig, spinbutton_embfile_size](){
         pConfig->embfileSize = spinbutton_embfile_size->get_value_as_int();
@@ -680,7 +681,7 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     });
     ((Gtk::CellRendererText*)treeview->get_column(2)->get_cells()[0])->signal_edited().connect([this, pConfig, liststore](const Glib::ustring& path, const Glib::ustring& new_command){
         auto row = liststore->get_iter(path);
-        // todo: the condition doesn't work because it already has the updated value (although docs say otherwise)
+        // the condition doesn't work because it already has the updated value (although docs say otherwise)
         // if (row->get_value(_commandModelColumns.command) == new_command) return;
         row->set_value(_commandModelColumns.desc, new_command);
         pConfig->customCodexecType[row->get_value(_commandModelColumns.key)] = new_command;
