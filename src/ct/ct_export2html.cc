@@ -135,9 +135,8 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
         html_text += _html_get_from_code_buffer(tree_iter.get_node_text_buffer(), sel_start, sel_end, tree_iter.get_node_syntax_highlighting());
 
     if (index != "" && !options.index_in_page)
-        html_text += Glib::ustring("<p align=\"center\">") + Glib::build_filename("images", "home.png") +
-                "<img src=\"" "\" height=\"22\" width=\"22\">" +
-                CtConst::CHAR_SPACE + CtConst::CHAR_SPACE + "<a href=\"index.html\">\"" + _("Index") + "</a></p>";
+        html_text += Glib::ustring("<p align=\"center\">") + "<img src=\"" + Glib::build_filename("images", "home.svg") + "\" height=\"22\" width=\"22\">" +
+                CtConst::CHAR_SPACE + CtConst::CHAR_SPACE + "<a href=\"index.html\">" + _("Index") + "</a></p>";
     html_text += "</div>"; // div class='page'
     html_text += HTML_FOOTER;
 
@@ -148,7 +147,8 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
 // Export All Nodes To HTML
 void CtExport2Html::nodes_all_export_to_html(bool all_tree, const CtExportOptions& options)
 {
-    // todo: shutil.copy(os.path.join(cons.GLADE_PATH, "home.png"), self.images_dir)
+    fs::path home_svg = fs::get_cherrytree_datadir() / fs::path("data") / "home.svg";
+    fs::copy_file(home_svg, _images_dir / "home.svg");
 
     // create tree links text
     Glib::ustring tree_links_text = // dont' use R"HTML, it gives unnecessary " "
