@@ -1652,7 +1652,6 @@ bool CtMainWin::_on_textview_motion_notify_event(GdkEventMotion* event)
     if (curr_tree_iter().get_node_syntax_highlighting() != CtConst::RICH_TEXT_ID
         and curr_tree_iter().get_node_syntax_highlighting() != CtConst::PLAIN_TEXT_ID)
     {
-        // todo: it's ok to create cursor every time?
         get_text_view().get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
         return false;
     }

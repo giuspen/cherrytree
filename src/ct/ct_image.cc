@@ -94,7 +94,6 @@ CtImagePng::CtImagePng(CtMainWin* pCtMainWin,
    _link(link)
 {
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImagePng::_on_button_press_event), false);
-    // todo: DEPRECATED signal_visibility_notify_event().connect([this](){ this->queue_draw(); return false; });    // Problem of image colored frame disappearing
     update_label_widget();
 }
 
@@ -107,7 +106,6 @@ CtImagePng::CtImagePng(CtMainWin* pCtMainWin,
    _link(link)
 {
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImagePng::_on_button_press_event), false);
-    // todo: DEPRECATED signal_visibility_notify_event().connect([this](){ this->queue_draw(); return false; });    // Problem of image colored frame disappearing
     update_label_widget();
 }
 
