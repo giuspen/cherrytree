@@ -547,8 +547,9 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
         if (pConfig->syntaxHighlighting == CtConst::RICH_TEXT_ID)
             apply_for_each_window([](CtMainWin* win) { win->get_text_view().set_highlight_current_line(win->get_ct_config()->rtHighlCurrLine); });
     });
-    checkbutton_codebox_auto_resize->signal_toggled().connect([pConfig, checkbutton_codebox_auto_resize](){
+    checkbutton_codebox_auto_resize->signal_toggled().connect([this, pConfig, checkbutton_codebox_auto_resize](){
         pConfig->codeboxAutoResize = checkbutton_codebox_auto_resize->get_active();
+        need_restart(RESTART_REASON::CODEBOX_AUTORESIZE);
     });
     spinbutton_embfile_size->signal_value_changed().connect([this, pConfig, spinbutton_embfile_size](){
         pConfig->embfileSize = spinbutton_embfile_size->get_value_as_int();
