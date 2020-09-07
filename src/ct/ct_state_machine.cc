@@ -39,7 +39,7 @@ bool CtAnchoredWidgetState_ImagePng::equal(std::shared_ptr<CtAnchoredWidgetState
     return other_state && charOffset == other_state->charOffset && justification == other_state->justification &&
             link == other_state->link &&
             pixbuf->get_byte_length() == other_state->pixbuf->get_byte_length() &&
-            memcmp(pixbuf->get_pixels(), other_state->pixbuf->get_pixels(), pixbuf->get_byte_length() * sizeof(guint8));
+            0 == memcmp(pixbuf->get_pixels(), other_state->pixbuf->get_pixels(), pixbuf->get_byte_length() * sizeof(guint8));
 }
 
 CtAnchoredWidget* CtAnchoredWidgetState_ImagePng::to_widget(CtMainWin* pCtMainWin)
@@ -242,8 +242,11 @@ std::shared_ptr<CtNodeState> CtStateMachine::requested_state_previous(gint64 nod
     if (curr_index_is_last_index(node_id))
         update_state();
     if (_node_states[node_id].index > 0)
+    {
         _node_states[node_id].index -= 1;
-    return _node_states[node_id].get_state();
+        return _node_states[node_id].get_state();
+    }
+    return nullptr;
 }
 
 // The current state is requested
@@ -255,9 +258,12 @@ std::shared_ptr<CtNodeState> CtStateMachine::requested_state_current(gint64 node
 // A Subsequent State, if Existing, is Requested
 std::shared_ptr<CtNodeState> CtStateMachine::requested_state_subsequent(gint64 node_id)
 {
-    if (_node_states[node_id].index < (int)_node_states[node_id].states.size()-1)
+    if (_node_states[node_id].index < (int)_node_states[node_id].states.size()-1)  
+    {
         _node_states[node_id].index += 1;
-    return _node_states[node_id].get_state();
+        return _node_states[node_id].get_state();
+    }
+    return nullptr;
 }
 
 // Delete the states for the given node_id
