@@ -4,8 +4,16 @@
   * This attempts to list the features not yet ported and brand new against 0.39.x, last Python2/GTK2 branch
   * A custom background and text is not yet supported, only a light and dark theme
   * The following imports are missing and may not be implemented at all if not requested: Basket, EPIM HTML, KeyNote, KnowIt, Treepad Lite, TuxCards
-  * New: Duplicate a node and its subnodes (beofre only the selected node could be duplicated)
-  * New: Formatting tag to indent/unindent
-  * New: ...
+  * New: Export to PDF support for hyperlinks (work of @ForeverRainbow)
+  * New: Import from Markdown file/folder (work of @ForeverRainbow)
+  * New: Duplicate a node and its subnodes (before only the selected node could be duplicated)
+  * New: You can now right click a node or an anchor and select to copy a link to it in the clipboard, then paste the link into rich text
+  * New: Formatting tag to indent/unindent (work of @metal450)
+  * New: The tables are implemented with a different library widget, editing a cell is easier, Ctrl+Arrow to move cursor between cells
+  * New: For both codeboxes and tables, Ctrl+Space allows to move the cursor in and out
+  * New: Rich text, monospace tag has the font configurable in the preferences dialog
   * New: Column edit mode scintilla-like holding down Ctrl and Alt and selecting the column (cut/copy/paste not yet supported)
-  * New: ...
+  * New: Foreground and background tags in the rich text can be removed without altering the other tags
+  * New: The cherrytree backup files can be saved in a configured directory rather than the document directory
+  * New: The toolbar supports multiple rows of icons
+  * New: Filetype icons for file attachments on Linux (work of @metal450)
