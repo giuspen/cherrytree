@@ -8,6 +8,7 @@ GIT_CT_FOLDER="$(dirname "${SCRIPT_DIR}")"
 GIT_CT_EXE="${GIT_CT_FOLDER}/build/cherrytree.exe"
 GIT_CT_LANGUAGES_FOLDER="${GIT_CT_FOLDER}/po"
 GIT_CT_DATA_FOLDER="${GIT_CT_FOLDER}/data"
+GIT_CT_ICONS_FOLDER="${GIT_CT_FOLDER}/icons"
 GIT_CT_LANGUAGE_SPECS_FOLDER="${GIT_CT_FOLDER}/language-specs"
 GIT_CT_LICENSE="${GIT_CT_FOLDER}/license.txt"
 GIT_CT_HUNSPELL="${GIT_CT_FOLDER}/hunspell"
@@ -174,6 +175,9 @@ mkdir -p ${NEW_CHERRYTREE_SHARE}/data
 cp -rv ${GIT_CT_LANGUAGE_SPECS_FOLDER} ${NEW_CHERRYTREE_SHARE}/
 cp -v ${GIT_CT_DATA_FOLDER}/script3.js ${NEW_CHERRYTREE_SHARE}/data/
 cp -v ${GIT_CT_DATA_FOLDER}/styles3.css ${NEW_CHERRYTREE_SHARE}/data/
+# share icons
+mkdir -p ${NEW_CHERRYTREE_SHARE}/icons
+cp -v ${GIT_CT_ICONS_FOLDER}/ct_home.svg ${NEW_CHERRYTREE_SHARE}/icons/
 # i18n languages
 for element_rel in $(ls ${GIT_CT_LANGUAGES_FOLDER})
 do

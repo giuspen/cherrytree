@@ -174,13 +174,18 @@ if(${CMAKE_SYSTEM_NAME} MATCHES Linux|.*BSD|DragonFly|Darwin)
             DESTINATION "${SHARE_INSTALL}/metainfo")
   endif(NOT APPLE)
 
-  # share/cherrytree data
+  # share/cherrytree language-specs
   install(DIRECTORY ${CMAKE_SOURCE_DIR}/language-specs
           DESTINATION ${CHERRYTREE_SHARE_INSTALL})
+  # share/cherrytree data
   install(FILES
           "${CMAKE_SOURCE_DIR}/data/script3.js"
           "${CMAKE_SOURCE_DIR}/data/styles3.css"
           DESTINATION "${CHERRYTREE_SHARE_INSTALL}/data")
+  # share/cherrytree icons
+  install(FILES
+          "${CMAKE_SOURCE_DIR}/icons/ct_home.svg"
+          DESTINATION "${CHERRYTREE_SHARE_INSTALL}/icons")
 
   # locale data
   if(USE_NLS)
