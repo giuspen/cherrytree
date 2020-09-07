@@ -1300,7 +1300,14 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     get_text_view().set_buffer(text_buffer);
     get_text_view().set_spell_check(curr_tree_iter().get_node_is_rich_text());
     text_buffer->place_cursor(text_buffer->get_iter_at_offset(state->cursor_pos));
-    get_text_view().scroll_to(text_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
+    Glib::signal_idle().connect_once([&](){
+        auto insert_offset = _ctTextview.get_buffer()->get_insert()->get_iter().get_offset();
+        if (_ctTextview.place_cursor_onscreen()) { // scroll if only cursor wasn't visible
+            auto iter = _ctTextview.get_buffer()->get_iter_at_offset(insert_offset);
+            _ctTextview.get_buffer()->place_cursor(iter);
+            _ctTextview.scroll_to(iter, CtTextView::TEXT_SCROLL_MARGIN);
+        }
+    });
 
     user_active() = user_active_restore;
 
@@ -1337,15 +1344,18 @@ void CtMainWin::text_view_apply_cursor_position(CtTreeIter& treeIter, const int 
 {
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = treeIter.get_node_text_buffer();
     Gtk::TextIter textIter = rTextBuffer->get_iter_at_offset(cursor_pos);
-    if (static_cast<bool>(textIter))
-    {
-        rTextBuffer->place_cursor(textIter);
-        // if directly call `scroll_to`, it doesn't work maybe textview is not ready/visible or something else
-        Glib::signal_idle().connect_once([&](){
-            auto iter = _ctTextview.get_buffer()->get_insert()->get_iter();
+    // if (static_cast<bool>(textIter)) <- don't check because iter at the end returns false
+
+    rTextBuffer->place_cursor(textIter);
+    // if directly call `scroll_to`, it doesn't work maybe textview is not ready/visible or something else
+    Glib::signal_idle().connect_once([&](){
+        auto insert_offset = _ctTextview.get_buffer()->get_insert()->get_iter().get_offset();
+        if (_ctTextview.place_cursor_onscreen()) { // scroll if only cursor wasn't visible
+            auto iter = _ctTextview.get_buffer()->get_iter_at_offset(insert_offset);
+            _ctTextview.get_buffer()->place_cursor(iter);
             _ctTextview.scroll_to(iter, CtTextView::TEXT_SCROLL_MARGIN);
-        });
-    }
+        }
+    });
 }
 
 void CtMainWin::_on_treeview_cursor_changed()

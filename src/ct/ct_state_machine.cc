@@ -221,11 +221,22 @@ void CtStateMachine::node_selected_changed(gint64 node_id)
 // Insertion or Removal of text in the given node_id
 void CtStateMachine::text_variation(gint64 node_id, const Glib::ustring& varied_text)
 {
+    // we need to add state if current state is not last one otherwise second undo stop working
+    if (!curr_index_is_last_index(node_id))
+    {
+        bool saved_not_undoable_timeslot = _pCtMainWin->get_state_machine().not_undoable_timeslot_get(); // if comes from paste html
+        auto on_scope_exit = scope_guard([&](void*) { _pCtMainWin->get_state_machine().not_undoable_timeslot_set(saved_not_undoable_timeslot); });
+        _pCtMainWin->get_state_machine().not_undoable_timeslot_set(false);
+        update_state();
+        return;
+    }
+
     if (varied_text.find(CtConst::CHAR_NEWLINE) != Glib::ustring::npos)
     {
         update_state();
         return;
     }
+
     bool is_alphanum = _word_regex->match(varied_text); // we search for an alphanumeric character
     if (_node_states[node_id].indicator < 2)
     {

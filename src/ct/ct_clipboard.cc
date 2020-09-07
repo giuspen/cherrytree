@@ -286,7 +286,10 @@ void CtClipboard::from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_b
     {
         throw std::invalid_argument("rich text from clipboard error");
     }
+
+    auto on_scope_exit = scope_guard([&](void*) { _pCtMainWin->get_state_machine().not_undoable_timeslot_set(false); });
     _pCtMainWin->get_state_machine().not_undoable_timeslot_set(true);
+
     std::list<CtAnchoredWidget*> widgets;
     for (xmlpp::Node* slot_node: doc->get_root_node()->get_children())
     {
@@ -306,7 +309,6 @@ void CtClipboard::from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_b
                     widgets, &_pCtMainWin->get_text_view());
         _pCtMainWin->get_state_machine().update_state();
     }
-    _pCtMainWin->get_state_machine().not_undoable_timeslot_set(false);
 }
 
 // Write the Selected Content to the Clipboard
