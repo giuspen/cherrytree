@@ -295,14 +295,11 @@ Gtk::Widget* CtPrefDlg::build_tab_text()
     Gtk::VBox* vbox_editor = Gtk::manage(new Gtk::VBox());
     Gtk::CheckButton* checkbutton_auto_smart_quotes = Gtk::manage(new Gtk::CheckButton(_("Enable Smart Quotes Auto Replacement")));
     Gtk::CheckButton* checkbutton_enable_symbol_autoreplace = Gtk::manage(new Gtk::CheckButton(_("Enable Symbol Auto Replacement")));
-    Gtk::CheckButton* checkbutton_md_formatting = Gtk::manage(new Gtk::CheckButton(_("Enable Markdown formatting (Experimental)")));
     checkbutton_auto_smart_quotes->set_active(pConfig->autoSmartQuotes);
     checkbutton_enable_symbol_autoreplace->set_active(pConfig->enableSymbolAutoreplace);
-    checkbutton_md_formatting->set_active(pConfig->enableMdFormatting);
-    
+
     vbox_editor->pack_start(*checkbutton_auto_smart_quotes, false, false);
     vbox_editor->pack_start(*checkbutton_enable_symbol_autoreplace, false, false);
-    vbox_editor->pack_start(*checkbutton_md_formatting, false, false, 0);
 
     Gtk::Frame* frame_editor = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Text Editor")+"</b>"));
     ((Gtk::Label*)frame_editor->get_label_widget())->set_use_markup(true);
@@ -324,10 +321,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text()
     checkbutton_enable_symbol_autoreplace->signal_toggled().connect([pConfig, checkbutton_enable_symbol_autoreplace](){
         pConfig->enableSymbolAutoreplace = checkbutton_enable_symbol_autoreplace->get_active();
     });
-    checkbutton_md_formatting->signal_toggled().connect([pConfig, checkbutton_md_formatting]{
-        pConfig->enableMdFormatting = checkbutton_md_formatting->get_active();
-    });
-    
+
     return pMainBox;
 }
 
@@ -452,6 +446,8 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     spinbutton_limit_undoable_steps->set_value(pConfig->limitUndoableSteps);
     hbox_misc_text->pack_start(*label_limit_undoable_steps, false, false);
     hbox_misc_text->pack_start(*spinbutton_limit_undoable_steps, false, false);
+    Gtk::CheckButton* checkbutton_md_formatting = Gtk::manage(new Gtk::CheckButton(_("Enable Markdown Auto Replacement (Experimental)")));
+    checkbutton_md_formatting->set_active(pConfig->enableMdFormatting);
 
     Gtk::VBox* vbox_misc_text = Gtk::manage(new Gtk::VBox());
     vbox_misc_text->pack_start(*checkbutton_rt_show_white_spaces, false, false);
@@ -460,6 +456,7 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     vbox_misc_text->pack_start(*hbox_embfile_size, false, false);
     vbox_misc_text->pack_start(*checkbutton_embfile_show_filename, false, false);
     vbox_misc_text->pack_start(*hbox_misc_text, false, false);
+    vbox_misc_text->pack_start(*checkbutton_md_formatting, false, false);
     Gtk::Frame* frame_misc_text = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Miscellaneous")+"</b>"));
     ((Gtk::Label*)frame_misc_text->get_label_widget())->set_use_markup(true);
     frame_misc_text->set_shadow_type(Gtk::SHADOW_NONE);
@@ -561,6 +558,9 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     });
     spinbutton_limit_undoable_steps->signal_value_changed().connect([pConfig, spinbutton_limit_undoable_steps](){
         pConfig->limitUndoableSteps = spinbutton_limit_undoable_steps->get_value_as_int();
+    });
+    checkbutton_md_formatting->signal_toggled().connect([pConfig, checkbutton_md_formatting]{
+        pConfig->enableMdFormatting = checkbutton_md_formatting->get_active();
     });
 
     return pMainBox;
