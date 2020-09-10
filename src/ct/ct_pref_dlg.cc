@@ -360,7 +360,7 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     radiobutton_rt_col_dark->join_group(*radiobutton_rt_col_light);
     Gtk::RadioButton* radiobutton_rt_col_custom = Gtk::manage(new Gtk::RadioButton(_("Custom Background")));
     radiobutton_rt_col_custom->set_sensitive(false);
-    radiobutton_rt_col_custom->set_tooltip_text(_("Disabled in Development Version"));
+    radiobutton_rt_col_custom->set_tooltip_text(_("Not Yet Implemented"));
     radiobutton_rt_col_custom->join_group(*radiobutton_rt_col_light);
     Gtk::HBox* hbox_rt_col_custom = Gtk::manage(new Gtk::HBox());
     hbox_rt_col_custom->set_spacing(4);
@@ -1463,9 +1463,6 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_reload_doc_last->set_active(pConfig->reloadDocLast);
     checkbutton_mod_time_sentinel->set_active(pConfig->modTimeSentinel);
 
-    checkbutton_mod_time_sentinel->set_sensitive(false);
-    checkbutton_mod_time_sentinel->set_tooltip_text(_("Disabled in Development Version"));
-
     Gtk::Frame* frame_misc_misc = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Miscellaneous")+"</b>"));
     ((Gtk::Label*)frame_misc_misc->get_label_widget())->set_use_markup(true);
     frame_misc_misc->set_shadow_type(Gtk::SHADOW_NONE);
@@ -1500,7 +1497,6 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
 #ifdef HAVE_NLS
     pMainBox->pack_start(*frame_language, false, false);
 #endif
-
 
     // cannot just turn on systray icon, we have to check if systray exists
     checkbutton_systray->signal_toggled().connect([this, pConfig, checkbutton_systray, checkbutton_start_on_systray](){
@@ -1565,15 +1561,9 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_reload_doc_last->signal_toggled().connect([pConfig, checkbutton_reload_doc_last](){
         pConfig->reloadDocLast = checkbutton_reload_doc_last->get_active();
     });
-    checkbutton_mod_time_sentinel->signal_toggled().connect([pConfig, checkbutton_mod_time_sentinel](){
+    checkbutton_mod_time_sentinel->signal_toggled().connect([this, pConfig, checkbutton_mod_time_sentinel](){
         pConfig->modTimeSentinel = checkbutton_mod_time_sentinel->get_active();
-        if (pConfig->modTimeSentinel) {
-            //if dad.mod_time_sentinel_id == None:
-            //    dad.modification_time_sentinel_start()
-        } else {
-            //if dad.mod_time_sentinel_id != None:
-            //    dad.modification_time_sentinel_stop()
-        }
+        _pCtMainWin->mod_time_sentinel_restart();
     });
     checkbutton_newer_version->signal_toggled().connect([pConfig, checkbutton_newer_version](){
         pConfig->checkVersion = checkbutton_newer_version->get_active();

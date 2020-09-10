@@ -60,6 +60,7 @@ public:
                                                       std::list<CtAnchoredWidget*>& widgets) const;
 
     const fs::path& get_file_path() { return _file_path; }
+    time_t get_mod_time() { return _mod_time; }
     fs::path get_file_name() { return _file_path.empty() ? "" : _file_path.filename(); }
     fs::path get_file_dir()  { return _file_path.empty() ? "" : _file_path.parent_path(); }
 
@@ -83,6 +84,7 @@ public:
 private:
     CtMainWin*                       _pCtMainWin{nullptr};
     fs::path                         _file_path;
+    time_t                           _mod_time{0};
     Glib::ustring                    _password;
     fs::path                         _extracted_file_path;
     std::unique_ptr<CtStorageEntity> _storage;

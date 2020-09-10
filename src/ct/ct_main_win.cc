@@ -119,6 +119,7 @@ CtMainWin::CtMainWin(bool             no_gui,
     signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_window_key_press_event), false);
 
     file_autosave_restart();
+    mod_time_sentinel_restart();
 
     _title_update(false/*saveNeeded*/);
 
@@ -156,6 +157,7 @@ CtMainWin::CtMainWin(bool             no_gui,
 CtMainWin::~CtMainWin()
 {
     _autosave_timout_connection.disconnect();
+    _mod_time_sentinel_timout_connection.disconnect();
     //std::cout << "~CtMainWin" << std::endl;
 }
 
@@ -187,7 +189,7 @@ void CtMainWin::apply_syntax_highlighting(Glib::RefPtr<Gsv::Buffer> text_buffer,
     else if (CtConst::RICH_TEXT_ID == syntax)
     {
         // dark theme
-        if (get_ct_config()->rtDefFg == CtConst::RICH_TEXT_DARK_FG && get_ct_config()->rtDefBg == CtConst::RICH_TEXT_DARK_BG)
+        if (_pCtConfig->rtDefFg == CtConst::RICH_TEXT_DARK_FG && _pCtConfig->rtDefBg == CtConst::RICH_TEXT_DARK_BG)
             text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(CtConst::STYLE_SCHEME_DARK));
         else
             text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(CtConst::STYLE_SCHEME_LIGHT));
@@ -382,7 +384,7 @@ Glib::ustring CtMainWin::sourceview_hovering_link_get_tooltip(const Glib::ustrin
     Glib::ustring tooltip;
     if (link_entry.type == "") { // case when link has wrong format
         tooltip = str::replace(link, "amp;", "");
-    } 
+    }
     else if (link_entry.type == CtConst::LINK_TYPE_FILE) {
         tooltip = link_entry.file;
     } else if (link_entry.type == CtConst::LINK_TYPE_FOLD) {
@@ -490,8 +492,8 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
 
     _uCtTreestore.reset(new CtTreeStore(this));
     _uCtTreestore->tree_view_connect(_uCtTreeview.get());
-    _uCtTreeview->set_tree_node_name_wrap_width(get_ct_config()->cherryWrapEnabled, get_ct_config()->cherryWrapWidth);
-    _uCtTreeview->get_column(CtTreeView::AUX_ICON_COL_NUM)->set_visible(!get_ct_config()->auxIconHide);
+    _uCtTreeview->set_tree_node_name_wrap_width(_pCtConfig->cherryWrapEnabled, _pCtConfig->cherryWrapWidth);
+    _uCtTreeview->get_column(CtTreeView::AUX_ICON_COL_NUM)->set_visible(!_pCtConfig->auxIconHide);
 
     _tree_just_auto_expanded = false;
     _uCtTreeview->signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_cursor_changed));
@@ -534,14 +536,14 @@ void CtMainWin::config_apply()
 
     menu_set_visible_exit_app(_pCtConfig->systrayOn);
 
-    _ctTextview.set_show_line_numbers(get_ct_config()->showLineNumbers);
-    _ctTextview.set_insert_spaces_instead_of_tabs(get_ct_config()->spacesInsteadTabs);
-    _ctTextview.set_tab_width(get_ct_config()->tabsWidth);
-    _ctTextview.set_indent(get_ct_config()->wrappingIndent);
-    _ctTextview.set_pixels_above_lines(get_ct_config()->spaceAroundLines);
-    _ctTextview.set_pixels_below_lines(get_ct_config()->spaceAroundLines);
-    _ctTextview.set_pixels_inside_wrap(get_ct_config()->spaceAroundLines, get_ct_config()->relativeWrappedSpace);
-    _ctTextview.set_wrap_mode(get_ct_config()->lineWrapping ? Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
+    _ctTextview.set_show_line_numbers(_pCtConfig->showLineNumbers);
+    _ctTextview.set_insert_spaces_instead_of_tabs(_pCtConfig->spacesInsteadTabs);
+    _ctTextview.set_tab_width(_pCtConfig->tabsWidth);
+    _ctTextview.set_indent(_pCtConfig->wrappingIndent);
+    _ctTextview.set_pixels_above_lines(_pCtConfig->spaceAroundLines);
+    _ctTextview.set_pixels_below_lines(_pCtConfig->spaceAroundLines);
+    _ctTextview.set_pixels_inside_wrap(_pCtConfig->spaceAroundLines, _pCtConfig->relativeWrappedSpace);
+    _ctTextview.set_wrap_mode(_pCtConfig->lineWrapping ? Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
 
     update_theme();
 }
@@ -662,7 +664,7 @@ void CtMainWin::window_header_update()
                 + str::xml_escape(name) + "</span></b>");
 
     // update last visited buttons
-    if (get_ct_config()->nodesOnNodeNameHeader == 0)
+    if (_pCtConfig->nodesOnNodeNameHeader == 0)
     {
         for (auto button: _ctWinHeader.buttonBox.get_children())
             _ctWinHeader.buttonBox.remove(*button);
@@ -670,7 +672,7 @@ void CtMainWin::window_header_update()
     else
     {
         // add more buttons if that is needed
-        while ((int)_ctWinHeader.buttonBox.get_children().size() < get_ct_config()->nodesOnNodeNameHeader)
+        while ((int)_ctWinHeader.buttonBox.get_children().size() < _pCtConfig->nodesOnNodeNameHeader)
         {
             Gtk::Button* button = Gtk::manage(new Gtk::Button(""));
             auto click = [this](Gtk::Button* button) {
@@ -975,7 +977,7 @@ bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_f
         _ctTextview.grab_focus();
     }
 
-    get_ct_config()->recentDocsFilepaths.move_or_push_front(fs::canonical(filepath));
+    _pCtConfig->recentDocsFilepaths.move_or_push_front(fs::canonical(filepath));
     menu_set_items_recent_documents();
 
     return true;
@@ -1057,7 +1059,7 @@ void CtMainWin::file_save_as(const std::string& new_filepath, const Glib::ustrin
     auto on_scope_exit = scope_guard([&](void*) { _pCtConfig->restoreExpColl = old_restore; });
     _pCtConfig->restoreExpColl = CtRestoreExpColl::FROM_STR;
 
-    // instead of setting all inner states, it's easer just to re-open file
+    // instead of setting all inner states, it's easier just to re-open file
     new_storage.reset();               // we don't need it
     update_window_save_not_needed();   // remove asking to save when we close the old file
     file_open(new_filepath, "", password);
@@ -1065,19 +1067,19 @@ void CtMainWin::file_save_as(const std::string& new_filepath, const Glib::ustrin
 
 void CtMainWin::file_autosave_restart()
 {
-    bool was_connected = !_autosave_timout_connection.empty();
+    const bool was_connected = not _autosave_timout_connection.empty();
     _autosave_timout_connection.disconnect();
-    if (!get_ct_config()->autosaveOn) {
+    if (not _pCtConfig->autosaveOn) {
         if (was_connected) spdlog::debug("autosave was stopped");
         return;
     }
-    if (get_ct_config()->autosaveVal < 1) {
+    if (_pCtConfig->autosaveVal < 1) {
         CtDialogs::error_dialog("Wrong timeout for autosave", *this);
         return;
     }
 
     spdlog::debug("autosave is started");
-    _autosave_timout_connection = Glib::signal_timeout().connect_seconds([this]() {        
+    _autosave_timout_connection = Glib::signal_timeout().connect_seconds([this]() {
         if (get_file_save_needed()) {
             spdlog::debug("autosave: time to save file");
             file_save(false);
@@ -1085,7 +1087,32 @@ void CtMainWin::file_autosave_restart()
             spdlog::debug("autosave: no needs to save file");
         }
         return true;
-    }, get_ct_config()->autosaveVal * 60);
+    }, _pCtConfig->autosaveVal * 60);
+}
+
+void CtMainWin::mod_time_sentinel_restart()
+{
+    const bool was_connected = not _mod_time_sentinel_timout_connection.empty();
+    _mod_time_sentinel_timout_connection.disconnect();
+    if (not _pCtConfig->modTimeSentinel) {
+        if (was_connected) spdlog::debug("mod time sentinel was stopped");
+        return;
+    }
+
+    spdlog::debug("mod time sentinel is started");
+    _mod_time_sentinel_timout_connection = Glib::signal_timeout().connect_seconds([this]() {
+        if (user_active() and _uCtStorage->get_mod_time() > 0) {
+            const time_t currModTime = fs::getmtime(_uCtStorage->get_file_path());
+            if (currModTime > _uCtStorage->get_mod_time()) {
+                spdlog::debug("mod time was {} now {}", _uCtStorage->get_mod_time(), currModTime);
+                fs::path file_path = _uCtStorage->get_file_path();
+                if (file_open(file_path, "")) {
+                    _ctStatusBar.update_status(_("The Document was Reloaded After External Update to CT* File"));
+                }
+            }
+        }
+        return true;
+    }, 5/*sec*/);
 }
 
 bool CtMainWin::file_insert_plain_text(const fs::path& filepath)
@@ -1173,11 +1200,11 @@ void CtMainWin::update_selected_node_statusbar_info()
         {
             statusbar_text += separator_text + _("Tags") + _(": ") + treeIter.get_node_tags();
         }
-        if (get_ct_config()->enableSpellCheck && curr_tree_iter().get_node_is_rich_text())
+        if (_pCtConfig->enableSpellCheck && curr_tree_iter().get_node_is_rich_text())
         {
-            statusbar_text += separator_text + _("Spell Check") + _(": ") + get_ct_config()->spellCheckLang;
+            statusbar_text += separator_text + _("Spell Check") + _(": ") + _pCtConfig->spellCheckLang;
         }
-        if (get_ct_config()->wordCountOn)
+        if (_pCtConfig->wordCountOn)
         {
             statusbar_text += separator_text + _("Word Count") + _(": ") + std::to_string(CtTextIterUtil::get_words_count(get_text_view().get_buffer()));
         }
@@ -1418,10 +1445,10 @@ void CtMainWin::_on_treeview_event_after(GdkEvent* event)
 {
     if (event->type == GDK_BUTTON_PRESS and event->button.button == 1)
     {
-        if (get_ct_config()->treeClickFocusText) {
+        if (_pCtConfig->treeClickFocusText) {
             get_text_view().grab_focus();
         }
-        if (get_ct_config()->treeClickExpand)
+        if (_pCtConfig->treeClickExpand)
         {
             _tree_just_auto_expanded = false;
             Gtk::TreePath path_at_click;
@@ -1445,7 +1472,7 @@ void CtMainWin::_on_treeview_event_after(GdkEvent* event)
         // _on_treeview_row_activated works better for double-click
         // but it doesn't work with one click
         // in this case use real double click
-        if (get_ct_config()->treeClickExpand)
+        if (_pCtConfig->treeClickExpand)
         {
             Gtk::TreePath path_at_click;
             if (get_tree_view().get_path_at_pos((int)event->button.x, (int)event->button.y, path_at_click))
@@ -1465,7 +1492,7 @@ void CtMainWin::_on_treeview_row_activated(const Gtk::TreeModel::Path& path, Gtk
     // _on_treeview_row_activated works better for double-click
     // but it doesn't work with one click
     // in this case use real double click
-    if (get_ct_config()->treeClickExpand)
+    if (_pCtConfig->treeClickExpand)
         return;
     if (_uCtTreeview->row_expanded(path))
         _uCtTreeview->collapse_row(path);
@@ -1476,7 +1503,7 @@ void CtMainWin::_on_treeview_row_activated(const Gtk::TreeModel::Path& path, Gtk
 bool CtMainWin::_on_treeview_test_collapse_row(const Gtk::TreeModel::iterator&,const Gtk::TreeModel::Path&)
 {
     // to fix one click
-    if (get_ct_config()->treeClickExpand)
+    if (_pCtConfig->treeClickExpand)
         if (_tree_just_auto_expanded) {
             _tree_just_auto_expanded = false;
             return true;

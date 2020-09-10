@@ -102,6 +102,7 @@ public:
     void file_save(bool need_vacuum);
     void file_save_as(const std::string& new_filepath, const Glib::ustring& password);
     void file_autosave_restart();
+    void mod_time_sentinel_restart();
     bool file_insert_plain_text(const fs::path& filepath);
 
     void reset();
@@ -254,6 +255,7 @@ private:
     int                 _savedXpos{-1};
     int                 _savedYpos{-1};
     sigc::connection    _autosave_timout_connection;
+    sigc::connection    _mod_time_sentinel_timout_connection;
     bool                _tree_just_auto_expanded{false};
     std::unordered_map<gint64, int> _nodesCursorPos;
 

@@ -75,6 +75,7 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
         CtStorageControl* doc = new CtStorageControl();
         doc->_pCtMainWin = pCtMainWin;
         doc->_file_path = file_path;
+        doc->_mod_time = fs::getmtime(file_path);
         doc->_password = password;
         doc->_extracted_file_path = extracted_file_path;
         doc->_storage.swap(storage);
@@ -137,6 +138,7 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
         CtStorageControl* doc = new CtStorageControl();
         doc->_pCtMainWin = pCtMainWin;
         doc->_file_path = file_path;
+        doc->_mod_time = fs::getmtime(file_path);
         doc->_password = password;
         doc->_extracted_file_path = extracted_file_path;
         doc->_storage.swap(storage);
@@ -155,7 +157,11 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
 
 bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
 {
-    auto on_scope_exit = scope_guard([&](void*) { _pCtMainWin->get_status_bar().pop(); });
+    _mod_time = 0;
+    auto on_scope_exit = scope_guard([&](void*) {
+        _pCtMainWin->get_status_bar().pop();
+        _mod_time = fs::getmtime(_file_path);
+    });
     _pCtMainWin->get_status_bar().push(_("Writing to Disk..."));
     while (gtk_events_pending()) gtk_main_iteration();
 
