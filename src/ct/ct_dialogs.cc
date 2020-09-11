@@ -190,15 +190,17 @@ CtExporting CtDialogs::selnode_selnodeandsub_alltree_dialog(Gtk::Window& parent,
 }
 
 // Dialog to select a color, featuring a palette
-CtDialogs::CtPickDlgState CtDialogs::color_pick_dialog(CtMainWin* pCtMainWin, const Glib::ustring& title,
-                                                       Gdk::RGBA& color, bool allow_remove_color)
+CtDialogs::CtPickDlgState CtDialogs::color_pick_dialog(CtMainWin* pCtMainWin,
+                                                       const Glib::ustring& title,
+                                                       Gdk::RGBA& ret_color,
+                                                       bool allow_remove_color)
 {
-    Gtk::ColorChooserDialog dialog(title, *pCtMainWin);
+    Gtk::ColorChooserDialog dialog(title);
     dialog.set_transient_for(*pCtMainWin);
     dialog.set_modal(true);
     dialog.property_destroy_with_parent() = true;
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
-    if (allow_remove_color){
+    if (allow_remove_color) {
         dialog.add_button(_("Remove Color"), Gtk::RESPONSE_NONE);
     }
     std::vector<std::string> colors = str::split(pCtMainWin->get_ct_config()->colorPalette, ":");
@@ -208,17 +210,30 @@ CtDialogs::CtPickDlgState CtDialogs::color_pick_dialog(CtMainWin* pCtMainWin, co
         rgbas.push_back(Gdk::RGBA(color));
     }
     dialog.add_palette(Gtk::Orientation::ORIENTATION_HORIZONTAL, 10, rgbas);
-    dialog.set_rgba(color);
+    dialog.set_rgba(ret_color);
 
-    int response = dialog.run();
+    auto on_key_press_dialog = [&](GdkEventKey *pEventKey)->bool
+    {
+        if (GDK_KEY_Return == pEventKey->keyval) {
+            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_OK));
+            pButton->grab_focus();
+            pButton->clicked();
+            return true;
+        }
+        return false;
+    };
+    dialog.signal_key_press_event().connect(on_key_press_dialog, false/*call me before other*/);
+
+    const int response = dialog.run();
+
     if (Gtk::RESPONSE_NONE == response) {
         return CtPickDlgState::REMOVE_COLOR;
     }
     if (Gtk::RESPONSE_OK != response) {
         return CtPickDlgState::CANCEL;
     }
-
-    std::string ret_color_hex8 = CtRgbUtil::rgb_any_to_24(dialog.get_rgba());
+    ret_color = dialog.get_rgba();
+    std::string ret_color_hex8 = CtRgbUtil::rgb_any_to_24(ret_color);
     size_t color_qty = colors.size();
     colors.erase(std::find(colors.begin(), colors.end(), ret_color_hex8));
     if (color_qty == colors.size())
@@ -227,7 +242,6 @@ CtDialogs::CtPickDlgState CtDialogs::color_pick_dialog(CtMainWin* pCtMainWin, co
     }
     colors.insert(colors.begin(), ret_color_hex8);
 
-    color = dialog.get_rgba();
     return CtPickDlgState::SELECTED;
 }
 
