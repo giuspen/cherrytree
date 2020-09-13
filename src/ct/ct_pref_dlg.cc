@@ -1502,25 +1502,22 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_systray->signal_toggled().connect([this, pConfig, checkbutton_systray, checkbutton_start_on_systray](){
         if (checkbutton_systray->get_active()) {
             _pCtMainWin->get_status_icon()->set_visible(true);
-            this->set_sensitive(false);
-            Glib::signal_timeout().connect_once([&](){ // can only check status icon in main event loop
-                this->set_sensitive(true);
-                if (_pCtMainWin->get_status_icon()->is_embedded()) {
-                    pConfig->systrayOn = true;
-                    apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(true); });
-                    checkbutton_start_on_systray->set_sensitive(true);
-                } else {
-                    _pCtMainWin->get_status_icon()->set_visible(false);
-                    checkbutton_systray->set_active(false);
-                    CtDialogs::warning_dialog(_("Your system does not appear to support system trays"), *_pCtMainWin);
-                }
-            }, 300);
+            pConfig->systrayOn = CtDialogs::question_dialog(_("Has the System Tray appeared on the panel?"), *this);
+            if (pConfig->systrayOn) {
+                checkbutton_start_on_systray->set_sensitive(true);
+                apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(true); });
+            }
+            else {
+                CtDialogs::warning_dialog(_("Your system does not support the System Tray"), *_pCtMainWin);
+                checkbutton_systray->set_active(false);
+            }
         } else {
             pConfig->systrayOn = false;
             _pCtMainWin->get_status_icon()->set_visible(false);
             apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(false); });
             checkbutton_start_on_systray->set_sensitive(false);
         }
+        checkbutton_systray->get_parent()->grab_focus();
     });
     checkbutton_start_on_systray->signal_toggled().connect([pConfig, checkbutton_start_on_systray](){
         pConfig->startOnSystray = checkbutton_start_on_systray->get_active();

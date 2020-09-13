@@ -253,12 +253,12 @@ bool CtDialogs::question_dialog(const Glib::ustring& message,
                               message,
                               true/* use_markup */,
                               Gtk::MESSAGE_QUESTION,
-                              Gtk::BUTTONS_OK_CANCEL,
+                              Gtk::BUTTONS_YES_NO,
                               true/* modal */);
     dialog.set_title(_("Question"));
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
-    static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_OK))->grab_focus();
-    return (Gtk::RESPONSE_OK == dialog.run());
+    static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_YES))->grab_focus();
+    return (Gtk::RESPONSE_YES == dialog.run());
 }
 
 // The Info dialog

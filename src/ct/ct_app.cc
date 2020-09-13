@@ -293,9 +293,9 @@ void CtApp::_systray_show_hide_windows()
             CtMainWin* win = dynamic_cast<CtMainWin*>(pWin);
             if (to_show)
             {
-                win->set_visible(true);
                 win->present();
                 win->restore_position();
+                win->set_visible(true);
             }
             else
             {

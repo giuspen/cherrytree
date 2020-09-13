@@ -140,17 +140,6 @@ CtMainWin::CtMainWin(bool             no_gui,
     // show status icon if it's needed and also check if systray exists
     if (!_no_gui && _pCtConfig->systrayOn) {
         _pGtkStatusIcon->set_visible(true);
-        Glib::signal_idle().connect_once([&](){
-            if (!_pGtkStatusIcon->is_embedded()) { // is_embedded works only in main event loop
-                if (_pCtConfig->startOnSystray) {
-                    spdlog::warn("Start on systray is enabled but system does not support system trays, starting normally");
-                }
-                _pGtkStatusIcon->set_visible(false);
-                _pCtConfig->systrayOn = false;
-                menu_set_visible_exit_app(false);
-                present();
-            }
-        });
     }
 }
 
