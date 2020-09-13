@@ -15,13 +15,12 @@ GIT_CT_HUNSPELL="${GIT_CT_FOLDER}/hunspell"
 GIT_CT_CONFIG_H="${GIT_CT_FOLDER}/config.h"
 
 
-echo "clean and build..."
+echo "build..."
 cd ${GIT_CT_FOLDER}
-git clean -dfx
 ./build.sh
 
 
-CT_VERSION_NUM="$(cat ${GIT_CT_CONFIG_H} | grep PACKAGE_VERSION | awk '{print substr($3, 2, length($3)-2)}')"
+CT_VERSION_NUM="$(cat ${GIT_CT_CONFIG_H} | grep PACKAGE_VERSION_WINDOWS_STR | awk '{print substr($3, 2, length($3)-2)}')"
 NEW_MSYS2_FOLDER="C:/Users/${USER}/Desktop/cherrytree-msys2"
 NEW_ROOT_FOLDER="C:/Users/${USER}/Desktop/cherrytree_${CT_VERSION_NUM}_win64_portable"
 NEW_MINGW64_FOLDER="${NEW_ROOT_FOLDER}/mingw64"
