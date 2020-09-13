@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 3.1)
 
 project(cherrytree)
-set(CT_VERSION "0.99.10")
+
+file(READ "debian/changelog" CHANGELOG)
+string(REGEX MATCH "cherrytree +\\(([0-9]+\\.[0-9]+\\.[0-9]+)-" _ ${CHANGELOG})
+set(CT_VERSION ${CMAKE_MATCH_1})
+message(STATUS "CT_VERSION = ${CT_VERSION}")
 
 # APPLE has issues with installing in /usr/bin because of SIP
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT AND APPLE)
