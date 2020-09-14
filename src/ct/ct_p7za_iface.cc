@@ -89,16 +89,22 @@ int CtP7zaIface::p7za_extract(const gchar* input_path, const gchar* out_dir, con
 int CtP7zaIface::p7za_archive(const gchar* input_path, const gchar* output_path, const gchar* passwd)
 {
     g_autofree gchar* p_workspace_dir = g_path_get_dirname(output_path);
+    // https://stackoverflow.com/questions/39914398/7zip-fastest-lzma2-compression
     std::vector<std::string> args {
                 "7za",
                 "a",
                 "-p" + std::string(passwd),
                 "-w" + std::string(p_workspace_dir),
-                "-mx1",
+                "-t7z",
+                "-m0=LZMA2:d64k:fb32",
+                "-ms=8m",
+                "-mmt=30",
+                "-mx=1",
                 "-bd",   // Disable progress indicator
                 "-bso0", // Disable standard output, error output is turn on
                 "-bsp0", // Disable progress output
                 "-y",
+                "--",
                 output_path,
                 input_path
     };
