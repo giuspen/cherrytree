@@ -28,6 +28,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <thread>
 
 extern int p7za_exec(int numArgs, char *args[]);
 extern void cherrytree_register_7zaes();
@@ -88,6 +89,9 @@ int CtP7zaIface::p7za_extract(const gchar* input_path, const gchar* out_dir, con
 
 int CtP7zaIface::p7za_archive(const gchar* input_path, const gchar* output_path, const gchar* passwd)
 {
+    size_t concur_num = std::thread::hardware_concurrency();
+    if (concur_num == 0) concur_num = 4;
+
     g_autofree gchar* p_workspace_dir = g_path_get_dirname(output_path);
     // https://stackoverflow.com/questions/39914398/7zip-fastest-lzma2-compression
     std::vector<std::string> args {
@@ -98,7 +102,7 @@ int CtP7zaIface::p7za_archive(const gchar* input_path, const gchar* output_path,
                 "-t7z",
                 "-m0=LZMA2:d64k:fb32",
                 "-ms=8m",
-                "-mmt=30",
+                "-mmt=" + std::to_string(concur_num),
                 "-mx=1",
                 "-bd",   // Disable progress indicator
                 "-bso0", // Disable standard output, error output is turn on
