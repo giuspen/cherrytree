@@ -308,6 +308,7 @@ URI_TYPE get_uri_type(const std::string &uri) {
 void CtMiscUtil::parallel_for(size_t first, size_t last, std::function<void(size_t)> f)
 {
     size_t concur_num = std::thread::hardware_concurrency();
+    if (concur_num == 0) concur_num = 4;
     if (first == last) return;
     if (last < first) return;
     if (last - first < concur_num) // to make slice calc simpler
