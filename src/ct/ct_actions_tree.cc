@@ -124,6 +124,9 @@ void CtActions::node_subnodes_duplicate()
         node_data.tsLastSave = node_data.tsCreation;
         node_data.nodeId = _pCtMainWin->get_tree_store().node_id_get();
         auto new_iter = _pCtMainWin->get_tree_store().append_node(&node_data, &new_parent /* as parent */);
+        if (node_state)
+           _pCtMainWin->load_buffer_from_state(node_state, _pCtMainWin->get_tree_store().to_ct_tree_iter(new_iter));
+
         _pCtMainWin->get_tree_store().to_ct_tree_iter(new_iter).pending_new_db_node();
         return new_iter;
     };
@@ -139,6 +142,7 @@ void CtActions::node_subnodes_duplicate()
     duplicate_subnodes(top_iter, new_top_iter);
 
     _pCtMainWin->get_tree_store().nodes_sequences_fix(new_top_iter->parent(), true);
+    _pCtMainWin->get_tree_view().set_cursor_safe(top_iter);     // this line fixes glich with text_buffer with widgets caused by the next line
     _pCtMainWin->get_tree_view().set_cursor_safe(new_top_iter);
     _pCtMainWin->get_text_view().grab_focus();
 }
