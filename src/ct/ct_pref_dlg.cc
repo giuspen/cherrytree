@@ -100,7 +100,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     checkbutton_auto_indent->set_active(pConfig->autoIndent);
     Gtk::CheckButton* checkbutton_line_nums = Gtk::manage(new Gtk::CheckButton(_("Show Line Numbers")));
     checkbutton_line_nums->set_active(pConfig->showLineNumbers);
-    Gtk::CheckButton* checkbutton_scroll_last_line = Gtk::manage(new Gtk::CheckButton(_("Scroll Beyond last line")));
+    Gtk::CheckButton* checkbutton_scroll_last_line = Gtk::manage(new Gtk::CheckButton(_("Scroll Beyond Last Line")));
     checkbutton_scroll_last_line->set_active(pConfig->scrollBeyondLastLine);
     Gtk::HBox* hbox_space_around_lines = Gtk::manage(new Gtk::HBox());
     hbox_space_around_lines->set_spacing(4);
