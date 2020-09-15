@@ -109,6 +109,7 @@ public:
 
     void                      set_node_text_buffer(Glib::RefPtr<Gsv::Buffer> new_buffer, const std::string& new_syntax_hilighting);
     Glib::RefPtr<Gsv::Buffer> get_node_text_buffer() const;
+    bool                      get_node_buffer_is_style_applied() const;
 
     void                         remove_all_embedded_widgets();
     std::list<CtAnchoredWidget*> get_embedded_pixbufs_tables_codeboxes_fast();

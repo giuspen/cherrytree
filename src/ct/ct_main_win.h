@@ -146,6 +146,7 @@ public:
     std::string               get_code_icon_name(std::string code_type);
     Gtk::Image*               new_image_from_stock(const std::string& stockImage, Gtk::BuiltinIconSize size);
     void                      apply_syntax_highlighting(Glib::RefPtr<Gsv::Buffer> text_buffer, const std::string& syntax);
+    void                      reapply_syntax_highlighting();
     Glib::RefPtr<Gsv::Buffer> get_new_text_buffer(const Glib::ustring& textContent=""); // pygtk: buffer_create
     const std::string         get_text_tag_name_exist_or_create(const std::string& propertyName, const std::string& propertyValue);
     Glib::ustring             sourceview_hovering_link_get_tooltip(const Glib::ustring& link);

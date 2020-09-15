@@ -213,6 +213,7 @@ void CtConfig::_populate_keyfile_from_data()
     _currentGroup = "editor";
     _uKeyFile->set_string(_currentGroup, "syntax_highlighting", syntaxHighlighting);
     _uKeyFile->set_string(_currentGroup, "auto_syn_highl", autoSynHighl);
+    _uKeyFile->set_string(_currentGroup, "rt_style_scheme", rtStyleScheme);
     _uKeyFile->set_string(_currentGroup, "style_scheme", styleSchemeId);
     _uKeyFile->set_boolean(_currentGroup, "enable_spell_check", enableSpellCheck);
     _uKeyFile->set_string(_currentGroup, "spell_check_lang", spellCheckLang);
@@ -282,8 +283,6 @@ void CtConfig::_populate_keyfile_from_data()
 
     // [colors]
     _currentGroup = "colors";
-    _uKeyFile->set_string(_currentGroup, "rt_def_fg", rtDefFg);
-    _uKeyFile->set_string(_currentGroup, "rt_def_bg", rtDefBg);
     _uKeyFile->set_string(_currentGroup, "tt_def_fg", ttDefFg);
     _uKeyFile->set_string(_currentGroup, "tt_def_bg", ttDefBg);
     _uKeyFile->set_string(_currentGroup, "monospace_bg", monospaceBg);
@@ -468,6 +467,7 @@ void CtConfig::_populate_data_from_keyfile()
     _currentGroup = "editor";
     _populate_string_from_keyfile("syntax_highlighting", &syntaxHighlighting);
     _populate_string_from_keyfile("auto_syn_highl", &autoSynHighl);
+    _populate_string_from_keyfile("rt_style_scheme", &rtStyleScheme);
     _populate_string_from_keyfile("style_scheme", &styleSchemeId);
     if (_populate_bool_from_keyfile("enable_spell_check", &enableSpellCheck))
     {
@@ -550,8 +550,6 @@ void CtConfig::_populate_data_from_keyfile()
 
     // [colors]
     _currentGroup = "colors";
-    _populate_string_from_keyfile("rt_def_fg", &rtDefFg);
-    _populate_string_from_keyfile("rt_def_bg", &rtDefBg);
     _populate_string_from_keyfile("tt_def_fg", &ttDefFg);
     _populate_string_from_keyfile("tt_def_bg", &ttDefBg);
     _populate_string_from_keyfile("monospace_bg", &monospaceBg);

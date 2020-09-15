@@ -177,11 +177,7 @@ void CtMainWin::apply_syntax_highlighting(Glib::RefPtr<Gsv::Buffer> text_buffer,
     }
     else if (CtConst::RICH_TEXT_ID == syntax)
     {
-        // dark theme
-        if (_pCtConfig->rtDefFg == CtConst::RICH_TEXT_DARK_FG && _pCtConfig->rtDefBg == CtConst::RICH_TEXT_DARK_BG)
-            text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(CtConst::STYLE_SCHEME_DARK));
-        else
-            text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(CtConst::STYLE_SCHEME_LIGHT));
+        text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(_pCtConfig->rtStyleScheme));
     }
     else
     {
@@ -198,6 +194,22 @@ void CtMainWin::apply_syntax_highlighting(Glib::RefPtr<Gsv::Buffer> text_buffer,
         text_buffer->set_highlight_matching_brackets(true);
     }
     text_buffer->set_data(CtConst::STYLE_APPLIED_ID, (void*)1);
+}
+
+void CtMainWin::reapply_syntax_highlighting()
+{
+    // clean up applied style for created buffers
+    get_tree_store().get_store()->foreach([&](const Gtk::TreePath& /*treePath*/, const Gtk::TreeIter& treeIter)->bool
+    {
+        auto node = get_tree_store().to_ct_tree_iter(treeIter);
+        if (node.get_node_is_rich_text() && node.get_node_buffer_is_style_applied())
+        {
+            node.get_node_text_buffer()->set_data(CtConst::STYLE_APPLIED_ID, (void*)0);
+        }
+        return false; /* false for continue */
+    });
+
+    apply_syntax_highlighting(curr_tree_iter().get_node_text_buffer(), curr_tree_iter().get_node_syntax_highlighting());
 }
 
 Glib::RefPtr<Gsv::Buffer> CtMainWin::get_new_text_buffer(const Glib::ustring& textContent)

@@ -355,22 +355,16 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
 
     Gtk::VBox* vbox_rt_theme = Gtk::manage(new Gtk::VBox());
 
-    Gtk::RadioButton* radiobutton_rt_col_light = Gtk::manage(new Gtk::RadioButton(_("Light Background, Dark Text")));
-    Gtk::RadioButton* radiobutton_rt_col_dark = Gtk::manage(new Gtk::RadioButton(_("Dark Background, Light Text")));
-    radiobutton_rt_col_dark->join_group(*radiobutton_rt_col_light);
-    Gtk::RadioButton* radiobutton_rt_col_custom = Gtk::manage(new Gtk::RadioButton(_("Custom Background")));
-    radiobutton_rt_col_custom->set_sensitive(false);
-    radiobutton_rt_col_custom->set_tooltip_text(_("Not Yet Implemented"));
-    radiobutton_rt_col_custom->join_group(*radiobutton_rt_col_light);
-    Gtk::HBox* hbox_rt_col_custom = Gtk::manage(new Gtk::HBox());
-    hbox_rt_col_custom->set_spacing(4);
-    Gtk::ColorButton* colorbutton_text_bg = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(pConfig->rtDefBg)));
-    Gtk::Label* label_rt_col_custom = Gtk::manage(new Gtk::Label(_("and Text")));
-    Gtk::ColorButton* colorbutton_text_fg = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(pConfig->rtDefFg)));
-    hbox_rt_col_custom->pack_start(*radiobutton_rt_col_custom, false, false);
-    hbox_rt_col_custom->pack_start(*colorbutton_text_bg, false, false);
-    hbox_rt_col_custom->pack_start(*label_rt_col_custom, false, false);
-    hbox_rt_col_custom->pack_start(*colorbutton_text_fg, false, false);
+    Gtk::HBox* hbox_style_scheme = Gtk::manage(new Gtk::HBox());
+    hbox_style_scheme->set_spacing(4);
+    Gtk::Label* label_style_scheme = Gtk::manage(new Gtk::Label(_("Style Scheme")));
+    Gtk::ComboBoxText* combobox_style_scheme = Gtk::manage(new Gtk::ComboBoxText());
+    for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids())
+        combobox_style_scheme->append(scheme);
+    combobox_style_scheme->set_active_text(pConfig->rtStyleScheme);
+    hbox_style_scheme->pack_start(*label_style_scheme, false, false);
+    hbox_style_scheme->pack_start(*combobox_style_scheme, false, false);
+
     Gtk::CheckButton* checkbutton_monospace_bg = Gtk::manage(new Gtk::CheckButton(_("Monospace Background")));
     std::string mono_color = pConfig->monospaceBg.empty() ? CtConst::DEFAULT_MONOSPACE_BG : pConfig->monospaceBg;
     Gtk::ColorButton* colorbutton_monospace_bg = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(mono_color)));
@@ -379,13 +373,14 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     hbox_monospace_bg->pack_start(*checkbutton_monospace_bg, false, false);
     hbox_monospace_bg->pack_start(*colorbutton_monospace_bg, false, false);
 
-    auto size_group_1 = Gtk::SizeGroup::create(Gtk::SizeGroupMode::SIZE_GROUP_HORIZONTAL);
-    size_group_1->add_widget(*radiobutton_rt_col_custom);
-    size_group_1->add_widget(*checkbutton_monospace_bg);
+    checkbutton_monospace_bg->set_active(!pConfig->monospaceBg.empty());
+    colorbutton_monospace_bg->set_sensitive(!pConfig->monospaceBg.empty());
 
-    vbox_rt_theme->pack_start(*radiobutton_rt_col_light, false, false);
-    vbox_rt_theme->pack_start(*radiobutton_rt_col_dark, false, false);
-    vbox_rt_theme->pack_start(*hbox_rt_col_custom, false, false);
+   // auto size_group_1 = Gtk::SizeGroup::create(Gtk::SizeGroupMode::SIZE_GROUP_HORIZONTAL);
+  //  size_group_1->add_widget(*hbox_style_scheme);
+  //  size_group_1->add_widget(*checkbutton_monospace_bg);
+
+    vbox_rt_theme->pack_start(*hbox_style_scheme, false, false);
     vbox_rt_theme->pack_start(*hbox_monospace_bg, false, false);
     Gtk::Frame* frame_rt_theme = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Theme")+"</b>"));
     ((Gtk::Label*)frame_rt_theme->get_label_widget())->set_use_markup(true);
@@ -395,32 +390,6 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     align_rt_theme->add(*vbox_rt_theme);
     frame_rt_theme->add(*align_rt_theme);
 
-    if (pConfig->rtDefFg == CtConst::RICH_TEXT_DARK_FG && pConfig->rtDefBg == CtConst::RICH_TEXT_DARK_BG)
-    {
-        radiobutton_rt_col_dark->set_active(true);
-        colorbutton_text_fg->set_sensitive(false);
-        colorbutton_text_bg->set_sensitive(false);
-    }
-    else if (pConfig->rtDefFg == CtConst::RICH_TEXT_LIGHT_FG && pConfig->rtDefBg == CtConst::RICH_TEXT_LIGHT_BG)
-    {
-        radiobutton_rt_col_light->set_active(true);
-        colorbutton_text_fg->set_sensitive(false);
-        colorbutton_text_bg->set_sensitive(false);
-    }
-    else
-    {
-        radiobutton_rt_col_custom->set_active(true);
-    }
-    if (!pConfig->monospaceBg.empty())
-    {
-        checkbutton_monospace_bg->set_active(true);
-        colorbutton_monospace_bg->set_sensitive(true);
-    }
-    else
-    {
-        checkbutton_monospace_bg->set_active(false);
-        colorbutton_monospace_bg->set_sensitive(false);
-    }
 
     Gtk::HBox* hbox_misc_text = Gtk::manage(new Gtk::HBox());
     hbox_misc_text->set_spacing(4);
@@ -488,36 +457,9 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
             win->update_selected_node_statusbar_info();
         });
     });
-    colorbutton_text_fg->signal_color_set().connect([this, pConfig, colorbutton_text_fg](){
-        pConfig->rtDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_text_fg->get_rgba());
-        apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
-    });
-    colorbutton_text_bg->signal_color_set().connect([this, pConfig, colorbutton_text_bg](){
-        pConfig->rtDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_text_bg->get_rgba());
-        apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
-    });
-    radiobutton_rt_col_light->signal_toggled().connect([radiobutton_rt_col_light, colorbutton_text_fg, colorbutton_text_bg](){
-        if (!radiobutton_rt_col_light->get_active()) return;
-        colorbutton_text_fg->set_rgba(Gdk::RGBA(CtConst::RICH_TEXT_LIGHT_FG));
-        colorbutton_text_bg->set_rgba(Gdk::RGBA(CtConst::RICH_TEXT_LIGHT_BG));
-        colorbutton_text_fg->set_sensitive(false);
-        colorbutton_text_bg->set_sensitive(false);
-        g_signal_emit_by_name(colorbutton_text_fg->gobj(), "color-set");
-        g_signal_emit_by_name(colorbutton_text_bg->gobj(), "color-set");
-    });
-    radiobutton_rt_col_dark->signal_toggled().connect([radiobutton_rt_col_dark, colorbutton_text_fg, colorbutton_text_bg](){
-        if (!radiobutton_rt_col_dark->get_active()) return;
-        colorbutton_text_fg->set_rgba(Gdk::RGBA(CtConst::RICH_TEXT_DARK_FG));
-        colorbutton_text_bg->set_rgba(Gdk::RGBA(CtConst::RICH_TEXT_DARK_BG));
-        colorbutton_text_fg->set_sensitive(false);
-        colorbutton_text_bg->set_sensitive(false);
-        g_signal_emit_by_name(colorbutton_text_fg->gobj(), "color-set");
-        g_signal_emit_by_name(colorbutton_text_bg->gobj(), "color-set");
-    });
-    radiobutton_rt_col_custom->signal_toggled().connect([radiobutton_rt_col_custom, colorbutton_text_fg, colorbutton_text_bg](){
-        if (!radiobutton_rt_col_custom->get_active()) return;
-        colorbutton_text_fg->set_sensitive(true);
-        colorbutton_text_bg->set_sensitive(true);
+    combobox_style_scheme->signal_changed().connect([this, pConfig, combobox_style_scheme](){
+        pConfig->rtStyleScheme = combobox_style_scheme->get_active_text();
+        apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting(); });
     });
     checkbutton_monospace_bg->signal_toggled().connect([this, pConfig, checkbutton_monospace_bg, colorbutton_monospace_bg](){
         if (checkbutton_monospace_bg->get_active())
