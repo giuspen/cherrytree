@@ -97,7 +97,7 @@ void CtApp::on_activate()
     if (get_windows().size() == 0)
     {
         CtMainWin* pAppWindow = _create_window();
-        if (not CtApp::_uCtCfg->recentDocsFilepaths.empty())
+        if (CtApp::_uCtCfg->reloadDocLast && not CtApp::_uCtCfg->recentDocsFilepaths.empty())
         {
             Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(CtApp::_uCtCfg->recentDocsFilepaths.front().string());
             if (r_file->query_exists())
