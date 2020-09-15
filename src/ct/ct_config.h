@@ -152,8 +152,7 @@ public:
     Glib::ustring                               fallbackFontFamily{"Sans"};
 
     // [colors]
-    std::string                                 rtDefFg{CtConst::RICH_TEXT_DARK_FG};
-    std::string                                 rtDefBg{CtConst::RICH_TEXT_DARK_BG};
+    std::string                                 rtStyleScheme{CtConst::STYLE_SCHEME_DARK};
     std::string                                 ttDefFg{CtConst::TREE_TEXT_LIGHT_FG};
     std::string                                 ttDefBg{CtConst::TREE_TEXT_LIGHT_BG};
     std::string                                 monospaceBg{CtConst::DEFAULT_MONOSPACE_BG};

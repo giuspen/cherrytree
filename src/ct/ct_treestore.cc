@@ -178,6 +178,11 @@ Glib::RefPtr<Gsv::Buffer> CtTreeIter::get_node_text_buffer() const
     return rRetTextBuffer;
 }
 
+bool CtTreeIter::get_node_buffer_is_style_applied() const
+{
+    return !!(*this)->get_value(_pColumns->rColTextBuffer);
+}
+
 int CtTreeIter::get_pango_weight_from_is_bold(bool isBold)
 {
     return isBold ? PANGO_WEIGHT_HEAVY : PANGO_WEIGHT_NORMAL;
