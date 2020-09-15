@@ -81,6 +81,7 @@ public:
     bool                                        enableSpellCheck{false};
     std::string                                 spellCheckLang;
     bool                                        showLineNumbers{false};
+    bool                                        scrollBeyondLastLine{false};
     bool                                        spacesInsteadTabs{false};
     int                                         tabsWidth{4};
     int                                         anchorSize{16};

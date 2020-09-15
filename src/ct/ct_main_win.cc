@@ -583,6 +583,9 @@ void CtMainWin::update_theme()
     css_str += ".ct-view-panel.ct-view-rich-text" + rtFont;
     css_str += ".ct-view-panel.ct-view-plain-text" + plFont;
     css_str += ".ct-view-panel.ct-view-code" + codeFont;
+    if (get_ct_config()->scrollBeyondLastLine) {
+        css_str += ".ct-view-panel { padding-bottom: 400px } ";
+    }
     css_str += ".ct-codebox.ct-view-rich-text" + rtFont;
     css_str += ".ct-codebox.ct-view-plain-text" + codeFont;
     css_str += ".ct-codebox.ct-view-code" + codeFont;
