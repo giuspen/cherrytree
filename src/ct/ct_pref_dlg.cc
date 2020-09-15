@@ -100,6 +100,8 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     checkbutton_auto_indent->set_active(pConfig->autoIndent);
     Gtk::CheckButton* checkbutton_line_nums = Gtk::manage(new Gtk::CheckButton(_("Show Line Numbers")));
     checkbutton_line_nums->set_active(pConfig->showLineNumbers);
+    Gtk::CheckButton* checkbutton_scroll_last_line = Gtk::manage(new Gtk::CheckButton(_("Scroll Beyond last line")));
+    checkbutton_scroll_last_line->set_active(pConfig->scrollBeyondLastLine);
     Gtk::HBox* hbox_space_around_lines = Gtk::manage(new Gtk::HBox());
     hbox_space_around_lines->set_spacing(4);
     Gtk::Label* label_space_around_lines = Gtk::manage(new Gtk::Label(_("Vertical Space Around Lines")));
@@ -133,6 +135,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     vbox_text_editor->pack_start(*hbox_wrapping_indent, false, false);
     vbox_text_editor->pack_start(*checkbutton_auto_indent, false, false);
     vbox_text_editor->pack_start(*checkbutton_line_nums, false, false);
+    vbox_text_editor->pack_start(*checkbutton_scroll_last_line, false, false);
     vbox_text_editor->pack_start(*hbox_space_around_lines, false, false);
     vbox_text_editor->pack_start(*hbox_relative_wrapped_space, false, false);
     Gtk::Frame* frame_text_editor = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Text Editor")+"</b>"));
@@ -272,11 +275,15 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
         pConfig->showLineNumbers = checkbutton_line_nums->get_active();
         apply_for_each_window([](CtMainWin* win) { win->get_text_view().set_show_line_numbers(win->get_ct_config()->showLineNumbers); });
     });
+    checkbutton_scroll_last_line->signal_toggled().connect([this, pConfig, checkbutton_scroll_last_line](){
+        pConfig->scrollBeyondLastLine = checkbutton_scroll_last_line->get_active();
+        apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
+    });
     entry_timestamp_format->signal_changed().connect([pConfig, entry_timestamp_format](){
         pConfig->timestampFormat = entry_timestamp_format->get_text();
     });
     button_strftime_help->signal_clicked().connect([](){
-        if (0 != system("xdg-open https://docs.python.org/2/library/time.html#time.strftime")) g_print("? xdg-open");
+        fs::open_weblink("https://docs.python.org/2/library/time.html#time.strftime");
     });
     entry_horizontal_rule->signal_changed().connect([pConfig, entry_horizontal_rule](){
         pConfig->hRule = entry_horizontal_rule->get_text();
