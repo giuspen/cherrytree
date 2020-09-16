@@ -193,9 +193,9 @@ void CtCodebox::apply_width_height(const int parentTextWidth)
     _scrolledwindow.set_size_request(frameWidth, _frameHeight);
 }
 
-void CtCodebox::apply_syntax_highlighting()
+void CtCodebox::apply_syntax_highlighting(const bool forceReApply)
 {
-    _pCtMainWin->apply_syntax_highlighting(get_buffer(), _syntaxHighlighting);
+    _pCtMainWin->apply_syntax_highlighting(get_buffer(), _syntaxHighlighting, forceReApply);
 }
 
 void CtCodebox::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*)

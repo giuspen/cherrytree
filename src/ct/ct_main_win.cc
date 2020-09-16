@@ -167,13 +167,14 @@ Gtk::Image* CtMainWin::new_image_from_stock(const std::string& stockImage, Gtk::
     return image;
 }
 
-void CtMainWin::apply_syntax_highlighting(Glib::RefPtr<Gsv::Buffer> text_buffer, const std::string& syntax)
+void CtMainWin::apply_syntax_highlighting(Glib::RefPtr<Gsv::Buffer> text_buffer, const std::string& syntax, const bool forceReApply)
 {
-    if (text_buffer->get_data(CtConst::STYLE_APPLIED_ID))
+    if (not forceReApply and text_buffer->get_data(CtConst::STYLE_APPLIED_ID)) {
         return;
+    }
     if (CtConst::TABLE_CELL_TEXT_ID == syntax)
     {
-        text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(CtConst::STYLE_SCHEME_LIGHT));
+        text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(_pCtConfig->taStyleScheme));
     }
     else if (CtConst::RICH_TEXT_ID == syntax)
     {
@@ -181,7 +182,7 @@ void CtMainWin::apply_syntax_highlighting(Glib::RefPtr<Gsv::Buffer> text_buffer,
     }
     else
     {
-        text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(_pCtConfig->styleSchemeId));
+        text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(_pCtConfig->ptStyleScheme));
         if (CtConst::PLAIN_TEXT_ID == syntax)
         {
             text_buffer->set_highlight_syntax(false);
@@ -196,20 +197,49 @@ void CtMainWin::apply_syntax_highlighting(Glib::RefPtr<Gsv::Buffer> text_buffer,
     text_buffer->set_data(CtConst::STYLE_APPLIED_ID, (void*)1);
 }
 
-void CtMainWin::reapply_syntax_highlighting()
+void CtMainWin::reapply_syntax_highlighting(const char target/*'r':RichText, 'p':PlainTextNCode, 't':Table*/)
 {
     // clean up applied style for created buffers
     get_tree_store().get_store()->foreach([&](const Gtk::TreePath& /*treePath*/, const Gtk::TreeIter& treeIter)->bool
     {
         auto node = get_tree_store().to_ct_tree_iter(treeIter);
-        if (node.get_node_is_rich_text() && node.get_node_buffer_is_style_applied())
-        {
-            node.get_node_text_buffer()->set_data(CtConst::STYLE_APPLIED_ID, (void*)0);
+        switch (target) {
+            case 'r': {
+                if (node.get_node_is_rich_text()) {
+                    apply_syntax_highlighting(curr_tree_iter().get_node_text_buffer(), curr_tree_iter().get_node_syntax_highlighting(), true/*forceReApply*/);
+                }
+            } break;
+            case 'p': {
+                if (node.get_node_is_rich_text() and node.get_node_buffer_already_loaded()) {
+                    // let's look for codeboxes
+                    std::list<CtAnchoredWidget*> anchoredWidgets = node.get_embedded_pixbufs_tables_codeboxes_fast();
+                    for (auto pAnchoredWidget : anchoredWidgets) {
+                        if (CtAnchWidgType::CodeBox == pAnchoredWidget->get_type()) {
+                            pAnchoredWidget->apply_syntax_highlighting(true/*forceReApply*/);
+                        }
+                    }
+                }
+                else {
+                    apply_syntax_highlighting(curr_tree_iter().get_node_text_buffer(), curr_tree_iter().get_node_syntax_highlighting(), true/*forceReApply*/);
+                }
+            } break;
+            case 't': {
+                if (node.get_node_is_rich_text() and node.get_node_buffer_already_loaded()) {
+                    // let's look for tables
+                    std::list<CtAnchoredWidget*> anchoredWidgets = node.get_embedded_pixbufs_tables_codeboxes_fast();
+                    for (auto pAnchoredWidget : anchoredWidgets) {
+                        if (CtAnchWidgType::Table == pAnchoredWidget->get_type()) {
+                            pAnchoredWidget->apply_syntax_highlighting(true/*forceReApply*/);
+                        }
+                    }
+                }
+            } break;
+            default:
+                spdlog::debug("bad theme target");
+                break;
         }
         return false; /* false for continue */
     });
-
-    apply_syntax_highlighting(curr_tree_iter().get_node_text_buffer(), curr_tree_iter().get_node_syntax_highlighting());
 }
 
 Glib::RefPtr<Gsv::Buffer> CtMainWin::get_new_text_buffer(const Glib::ustring& textContent)

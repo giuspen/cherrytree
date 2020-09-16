@@ -63,7 +63,7 @@ public:
                                              const Glib::ustring& justification);
 
     void apply_width_height(const int /*parentTextWidth*/) override {}
-    void apply_syntax_highlighting() override;
+    void apply_syntax_highlighting(const bool forceReApply) override;
     void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
     /**
@@ -98,7 +98,7 @@ public:
 
 private:
     void _setup_new_matrix(const CtTableMatrix& tableMatrix, bool apply_style = true);
-    void _apply_styles_to_cells();
+    void _apply_styles_to_cells(const bool forceReApply);
 
     CtTableMatrix _copy_matrix(int col_add, int col_del, int row_add, int row_del, int col_move_left, int row_move_up);
 

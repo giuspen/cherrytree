@@ -178,9 +178,9 @@ Glib::RefPtr<Gsv::Buffer> CtTreeIter::get_node_text_buffer() const
     return rRetTextBuffer;
 }
 
-bool CtTreeIter::get_node_buffer_is_style_applied() const
+bool CtTreeIter::get_node_buffer_already_loaded() const
 {
-    return !!(*this)->get_value(_pColumns->rColTextBuffer);
+    return static_cast<bool>((*this)->get_value(_pColumns->rColTextBuffer));
 }
 
 int CtTreeIter::get_pango_weight_from_is_bold(bool isBold)
@@ -489,7 +489,7 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
     spdlog::debug("Node name: {}", treeIter.get_node_name());
 
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = treeIter.get_node_text_buffer();
-    _pCtMainWin->apply_syntax_highlighting(rTextBuffer, treeIter.get_node_syntax_highlighting());
+    _pCtMainWin->apply_syntax_highlighting(rTextBuffer, treeIter.get_node_syntax_highlighting(), false/*forceReApply*/);
     pTextView->setup_for_syntax(treeIter.get_node_syntax_highlighting());
     pTextView->set_buffer(rTextBuffer);
     pTextView->set_spell_check(treeIter.get_node_is_rich_text());
@@ -506,7 +506,7 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
                 // Gtk::TextIter textIter = rTextBuffer->get_iter_at_child_anchor(rChildAnchor);
                 pTextView->add_child_at_anchor(*pCtAnchoredWidget, rChildAnchor);
                 pCtAnchoredWidget->apply_width_height(pTextView->get_allocation().get_width());
-                pCtAnchoredWidget->apply_syntax_highlighting();
+                pCtAnchoredWidget->apply_syntax_highlighting(false/*forceReApply*/);
             }
             else
             {
@@ -742,7 +742,7 @@ void CtTreeStore::addAnchoredWidgets(Gtk::TreeIter treeIter, std::list<CtAnchore
             {
                 pTextView->add_child_at_anchor(*pCtAnchoredWidget, rChildAnchor);
                 pCtAnchoredWidget->apply_width_height(pTextView->get_allocation().get_width());
-                pCtAnchoredWidget->apply_syntax_highlighting();
+                pCtAnchoredWidget->apply_syntax_highlighting(false/*forceReApply*/);
             }
         }
     }

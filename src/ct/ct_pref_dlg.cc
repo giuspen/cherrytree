@@ -53,8 +53,8 @@ CtPrefDlg::CtPrefDlg(CtMainWin* parent)
     pNotebook->append_page(*build_tab_text(),              _("Text"));
     pNotebook->append_page(*build_tab_rich_text(),         _("Rich Text"));
     pNotebook->append_page(*build_tab_plain_text_n_code(), _("Plain Text and Code"));
-    pNotebook->append_page(*build_tab_tree_1(),            _("Tree") + std::string(" 1"));
-    pNotebook->append_page(*build_tab_tree_2(),            _("Tree") + std::string(" 2"));
+    pNotebook->append_page(*build_tab_tree(),              _("Tree"));
+    pNotebook->append_page(*build_tab_theme(),             _("Theme"));
     pNotebook->append_page(*build_tab_fonts(),             _("Fonts"));
     pNotebook->append_page(*build_tab_links(),             _("Links"));
     pNotebook->append_page(*build_tab_toolbar(),           _("Toolbar"));
@@ -360,44 +360,6 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     align_spell_check->add(*vbox_spell_check);
     frame_spell_check->add(*align_spell_check);
 
-    Gtk::VBox* vbox_rt_theme = Gtk::manage(new Gtk::VBox());
-
-    Gtk::HBox* hbox_style_scheme = Gtk::manage(new Gtk::HBox());
-    hbox_style_scheme->set_spacing(4);
-    Gtk::Label* label_style_scheme = Gtk::manage(new Gtk::Label(_("Style Scheme")));
-    Gtk::ComboBoxText* combobox_style_scheme = Gtk::manage(new Gtk::ComboBoxText());
-    for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids())
-        combobox_style_scheme->append(scheme);
-    combobox_style_scheme->set_active_text(pConfig->rtStyleScheme);
-    hbox_style_scheme->pack_start(*label_style_scheme, false, false);
-    hbox_style_scheme->pack_start(*combobox_style_scheme, false, false);
-
-    Gtk::CheckButton* checkbutton_monospace_bg = Gtk::manage(new Gtk::CheckButton(_("Monospace Background")));
-    std::string mono_color = pConfig->monospaceBg.empty() ? CtConst::DEFAULT_MONOSPACE_BG : pConfig->monospaceBg;
-    Gtk::ColorButton* colorbutton_monospace_bg = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(mono_color)));
-    Gtk::HBox* hbox_monospace_bg = Gtk::manage(new Gtk::HBox());
-    hbox_monospace_bg->set_spacing(4);
-    hbox_monospace_bg->pack_start(*checkbutton_monospace_bg, false, false);
-    hbox_monospace_bg->pack_start(*colorbutton_monospace_bg, false, false);
-
-    checkbutton_monospace_bg->set_active(!pConfig->monospaceBg.empty());
-    colorbutton_monospace_bg->set_sensitive(!pConfig->monospaceBg.empty());
-
-   // auto size_group_1 = Gtk::SizeGroup::create(Gtk::SizeGroupMode::SIZE_GROUP_HORIZONTAL);
-  //  size_group_1->add_widget(*hbox_style_scheme);
-  //  size_group_1->add_widget(*checkbutton_monospace_bg);
-
-    vbox_rt_theme->pack_start(*hbox_style_scheme, false, false);
-    vbox_rt_theme->pack_start(*hbox_monospace_bg, false, false);
-    Gtk::Frame* frame_rt_theme = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Theme")+"</b>"));
-    ((Gtk::Label*)frame_rt_theme->get_label_widget())->set_use_markup(true);
-    frame_rt_theme->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_rt_theme = Gtk::manage(new Gtk::Alignment());
-    align_rt_theme->set_padding(3, 6, 6, 6);
-    align_rt_theme->add(*vbox_rt_theme);
-    frame_rt_theme->add(*align_rt_theme);
-
-
     Gtk::HBox* hbox_misc_text = Gtk::manage(new Gtk::HBox());
     hbox_misc_text->set_spacing(4);
     Gtk::CheckButton* checkbutton_rt_show_white_spaces = Gtk::manage(new Gtk::CheckButton(_("Show White Spaces")));
@@ -446,7 +408,6 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     pMainBox->set_margin_left(6);
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_spell_check, false, false);
-    pMainBox->pack_start(*frame_rt_theme, false, false);
     pMainBox->pack_start(*frame_misc_text, false, false);
 
     checkbutton_spell_check->signal_toggled().connect([this, pConfig, checkbutton_spell_check, combobox_spell_check_lang](){
@@ -463,25 +424,6 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
             win->get_text_view().set_spell_check(win->curr_tree_iter().get_node_is_rich_text());
             win->update_selected_node_statusbar_info();
         });
-    });
-    combobox_style_scheme->signal_changed().connect([this, pConfig, combobox_style_scheme](){
-        pConfig->rtStyleScheme = combobox_style_scheme->get_active_text();
-        apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting(); });
-    });
-    checkbutton_monospace_bg->signal_toggled().connect([this, pConfig, checkbutton_monospace_bg, colorbutton_monospace_bg](){
-        if (checkbutton_monospace_bg->get_active())
-        {
-            pConfig->monospaceBg = CtRgbUtil::rgb_any_to_24(colorbutton_monospace_bg->get_rgba());
-            colorbutton_monospace_bg->set_sensitive(true);
-        } else {
-            pConfig->monospaceBg = "";
-            colorbutton_monospace_bg->set_sensitive(false);
-        }
-        need_restart(RESTART_REASON::MONOSPACE);
-    });
-    colorbutton_monospace_bg->signal_color_set().connect([this, pConfig, colorbutton_monospace_bg](){
-        pConfig->monospaceBg = CtRgbUtil::rgb_any_to_24(colorbutton_monospace_bg->get_rgba());
-        need_restart(RESTART_REASON::MONOSPACE);
     });
     checkbutton_rt_show_white_spaces->signal_toggled().connect([this, pConfig, checkbutton_rt_show_white_spaces](){
         pConfig->rtShowWhiteSpaces = checkbutton_rt_show_white_spaces->get_active();
@@ -520,21 +462,12 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     CtConfig* pConfig = _pCtMainWin->get_ct_config();
 
     Gtk::VBox* vbox_syntax = Gtk::manage(new Gtk::VBox());
-    Gtk::HBox* hbox_style_scheme = Gtk::manage(new Gtk::HBox());
-    hbox_style_scheme->set_spacing(4);
-    Gtk::Label* label_style_scheme = Gtk::manage(new Gtk::Label(_("Style Scheme")));
-    Gtk::ComboBoxText* combobox_style_scheme = Gtk::manage(new Gtk::ComboBoxText());
-    for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids())
-        combobox_style_scheme->append(scheme);
-    combobox_style_scheme->set_active_text(pConfig->styleSchemeId);
-    hbox_style_scheme->pack_start(*label_style_scheme, false, false);
-    hbox_style_scheme->pack_start(*combobox_style_scheme, false, false);
+
     Gtk::CheckButton* checkbutton_pt_show_white_spaces = Gtk::manage(new Gtk::CheckButton(_("Show White Spaces")));
     checkbutton_pt_show_white_spaces->set_active(pConfig->ptShowWhiteSpaces);
     Gtk::CheckButton* checkbutton_pt_highl_curr_line = Gtk::manage(new Gtk::CheckButton(_("Highlight Current Line")));
     checkbutton_pt_highl_curr_line->set_active(pConfig->ptHighlCurrLine);
 
-    vbox_syntax->pack_start(*hbox_style_scheme, false, false);
     vbox_syntax->pack_start(*checkbutton_pt_show_white_spaces, false, false);
     vbox_syntax->pack_start(*checkbutton_pt_highl_curr_line, false, false);
 
@@ -613,11 +546,6 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     pMainBox->pack_start(*frame_syntax, false, false);
     pMainBox->pack_start(*frame_codexec, true, true);
 
-
-    combobox_style_scheme->signal_changed().connect([this, pConfig, combobox_style_scheme](){
-        pConfig->styleSchemeId = combobox_style_scheme->get_active_text();
-        need_restart(RESTART_REASON::SCHEME);
-    });
     checkbutton_pt_show_white_spaces->signal_toggled().connect([this, pConfig, checkbutton_pt_show_white_spaces](){
         pConfig->ptShowWhiteSpaces = checkbutton_pt_show_white_spaces->get_active();
         if (pConfig->syntaxHighlighting != CtConst::RICH_TEXT_ID)
@@ -657,9 +585,11 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     return pMainBox;
 }
 
-Gtk::Widget* CtPrefDlg::build_tab_tree_1()
+Gtk::Widget* CtPrefDlg::build_tab_theme()
 {
     CtConfig* pConfig = _pCtMainWin->get_ct_config();
+
+    // Tree Theme
     Gtk::Box* vbox_tt_theme = Gtk::manage(new Gtk::VBox());
 
     Gtk::RadioButton* radiobutton_tt_col_light = Gtk::manage(new Gtk::RadioButton(_("Light Background, Dark Text")));
@@ -680,7 +610,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     vbox_tt_theme->pack_start(*radiobutton_tt_col_light, false, false);
     vbox_tt_theme->pack_start(*radiobutton_tt_col_dark, false, false);
     vbox_tt_theme->pack_start(*hbox_tt_col_custom, false, false);
-    Gtk::Frame* frame_tt_theme = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Theme")+"</b>"));
+    Gtk::Frame* frame_tt_theme = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Tree")+"</b>"));
     ((Gtk::Label*)frame_tt_theme->get_label_widget())->set_use_markup(true);
     frame_tt_theme->set_shadow_type(Gtk::SHADOW_NONE);
     Gtk::Alignment* align_tt_theme = Gtk::manage(new Gtk::Alignment());
@@ -704,6 +634,170 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     {
         radiobutton_tt_col_custom->set_active(true);
     }
+
+    // Rich Text Theme
+    Gtk::VBox* vbox_rt_theme = Gtk::manage(new Gtk::VBox());
+
+    Gtk::HBox* hbox_style_scheme_rt = Gtk::manage(new Gtk::HBox());
+    hbox_style_scheme_rt->set_spacing(4);
+    Gtk::Label* label_style_scheme_rt = Gtk::manage(new Gtk::Label(_("Style Scheme")));
+    Gtk::ComboBoxText* combobox_style_scheme_rt = Gtk::manage(new Gtk::ComboBoxText());
+    for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids())
+        combobox_style_scheme_rt->append(scheme);
+    combobox_style_scheme_rt->set_active_text(pConfig->rtStyleScheme);
+    hbox_style_scheme_rt->pack_start(*label_style_scheme_rt, false, false);
+    hbox_style_scheme_rt->pack_start(*combobox_style_scheme_rt, false, false);
+
+    Gtk::CheckButton* checkbutton_monospace_bg = Gtk::manage(new Gtk::CheckButton(_("Monospace Background")));
+    std::string mono_color = pConfig->monospaceBg.empty() ? CtConst::DEFAULT_MONOSPACE_BG : pConfig->monospaceBg;
+    Gtk::ColorButton* colorbutton_monospace_bg = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(mono_color)));
+    Gtk::HBox* hbox_monospace_bg = Gtk::manage(new Gtk::HBox());
+    hbox_monospace_bg->set_spacing(4);
+    hbox_monospace_bg->pack_start(*checkbutton_monospace_bg, false, false);
+    hbox_monospace_bg->pack_start(*colorbutton_monospace_bg, false, false);
+
+    checkbutton_monospace_bg->set_active(!pConfig->monospaceBg.empty());
+    colorbutton_monospace_bg->set_sensitive(!pConfig->monospaceBg.empty());
+
+    //auto size_group_1 = Gtk::SizeGroup::create(Gtk::SizeGroupMode::SIZE_GROUP_HORIZONTAL);
+    //size_group_1->add_widget(*hbox_style_scheme_rt);
+    //size_group_1->add_widget(*checkbutton_monospace_bg);
+
+    vbox_rt_theme->pack_start(*hbox_style_scheme_rt, false, false);
+    vbox_rt_theme->pack_start(*hbox_monospace_bg, false, false);
+    Gtk::Frame* frame_rt_theme = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Rich Text")+"</b>"));
+    ((Gtk::Label*)frame_rt_theme->get_label_widget())->set_use_markup(true);
+    frame_rt_theme->set_shadow_type(Gtk::SHADOW_NONE);
+    Gtk::Alignment* align_rt_theme = Gtk::manage(new Gtk::Alignment());
+    align_rt_theme->set_padding(3, 6, 6, 6);
+    align_rt_theme->add(*vbox_rt_theme);
+    frame_rt_theme->add(*align_rt_theme);
+
+    // Plain Text and Code Theme
+    Gtk::VBox* vbox_pt_theme = Gtk::manage(new Gtk::VBox());
+
+    Gtk::HBox* hbox_style_scheme_pt = Gtk::manage(new Gtk::HBox());
+    hbox_style_scheme_pt->set_spacing(4);
+    Gtk::Label* label_style_scheme_pt = Gtk::manage(new Gtk::Label(_("Style Scheme")));
+    Gtk::ComboBoxText* combobox_style_scheme_pt = Gtk::manage(new Gtk::ComboBoxText());
+    for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids())
+        combobox_style_scheme_pt->append(scheme);
+    combobox_style_scheme_pt->set_active_text(pConfig->ptStyleScheme);
+    hbox_style_scheme_pt->pack_start(*label_style_scheme_pt, false, false);
+    hbox_style_scheme_pt->pack_start(*combobox_style_scheme_pt, false, false);
+
+    vbox_pt_theme->pack_start(*hbox_style_scheme_pt, false, false);
+    Gtk::Frame* frame_pt_theme = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Plain Text and Code")+"</b>"));
+    ((Gtk::Label*)frame_pt_theme->get_label_widget())->set_use_markup(true);
+    frame_pt_theme->set_shadow_type(Gtk::SHADOW_NONE);
+    Gtk::Alignment* align_pt_theme = Gtk::manage(new Gtk::Alignment());
+    align_pt_theme->set_padding(3, 6, 6, 6);
+    align_pt_theme->add(*vbox_pt_theme);
+    frame_pt_theme->add(*align_pt_theme);
+
+    // Table Theme
+    Gtk::VBox* vbox_ta_theme = Gtk::manage(new Gtk::VBox());
+
+    Gtk::HBox* hbox_style_scheme_ta = Gtk::manage(new Gtk::HBox());
+    hbox_style_scheme_ta->set_spacing(4);
+    Gtk::Label* label_style_scheme_ta = Gtk::manage(new Gtk::Label(_("Style Scheme")));
+    Gtk::ComboBoxText* combobox_style_scheme_ta = Gtk::manage(new Gtk::ComboBoxText());
+    for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids())
+        combobox_style_scheme_ta->append(scheme);
+    combobox_style_scheme_ta->set_active_text(pConfig->taStyleScheme);
+    hbox_style_scheme_ta->pack_start(*label_style_scheme_ta, false, false);
+    hbox_style_scheme_ta->pack_start(*combobox_style_scheme_ta, false, false);
+
+    vbox_ta_theme->pack_start(*hbox_style_scheme_ta, false, false);
+    Gtk::Frame* frame_ta_theme = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Table")+"</b>"));
+    ((Gtk::Label*)frame_ta_theme->get_label_widget())->set_use_markup(true);
+    frame_ta_theme->set_shadow_type(Gtk::SHADOW_NONE);
+    Gtk::Alignment* align_ta_theme = Gtk::manage(new Gtk::Alignment());
+    align_ta_theme->set_padding(3, 6, 6, 6);
+    align_ta_theme->add(*vbox_ta_theme);
+    frame_ta_theme->add(*align_ta_theme);
+
+    Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
+    pMainBox->set_spacing(3);
+    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_top(6);
+    pMainBox->pack_start(*frame_tt_theme, false, false);
+    pMainBox->pack_start(*frame_rt_theme, false, false);
+    pMainBox->pack_start(*frame_pt_theme, false, false);
+    pMainBox->pack_start(*frame_ta_theme, false, false);
+
+    auto update_tree_color = [this, pConfig, colorbutton_tree_fg, colorbutton_tree_bg]() {
+        pConfig->ttDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_fg->get_rgba());
+        pConfig->ttDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_bg->get_rgba());
+        apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
+    };
+
+    colorbutton_tree_fg->signal_color_set().connect([update_tree_color, radiobutton_tt_col_custom](){
+        if (!radiobutton_tt_col_custom->get_active()) return;
+        update_tree_color();
+    });
+    colorbutton_tree_bg->signal_color_set().connect([update_tree_color, radiobutton_tt_col_custom](){
+        if (!radiobutton_tt_col_custom->get_active()) return;
+        update_tree_color();
+    });
+    radiobutton_tt_col_light->signal_toggled().connect([radiobutton_tt_col_light, colorbutton_tree_fg, colorbutton_tree_bg, update_tree_color](){
+        if (!radiobutton_tt_col_light->get_active()) return;
+        colorbutton_tree_fg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_LIGHT_FG));
+        colorbutton_tree_bg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_LIGHT_BG));
+        colorbutton_tree_fg->set_sensitive(false);
+        colorbutton_tree_bg->set_sensitive(false);
+        update_tree_color();
+    });
+    radiobutton_tt_col_dark->signal_toggled().connect([radiobutton_tt_col_dark, colorbutton_tree_fg, colorbutton_tree_bg, update_tree_color](){
+        if (!radiobutton_tt_col_dark->get_active()) return;
+        colorbutton_tree_fg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_DARK_FG));
+        colorbutton_tree_bg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_DARK_BG));
+        colorbutton_tree_fg->set_sensitive(false);
+        colorbutton_tree_bg->set_sensitive(false);
+        update_tree_color();
+    });
+    radiobutton_tt_col_custom->signal_toggled().connect([radiobutton_tt_col_custom, colorbutton_tree_fg, colorbutton_tree_bg](){
+        if (!radiobutton_tt_col_custom->get_active()) return;
+        colorbutton_tree_fg->set_sensitive(true);
+        colorbutton_tree_bg->set_sensitive(true);
+    });
+
+    combobox_style_scheme_rt->signal_changed().connect([this, pConfig, combobox_style_scheme_rt](){
+        pConfig->rtStyleScheme = combobox_style_scheme_rt->get_active_text();
+        apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('r'/*RichText*/); });
+    });
+    checkbutton_monospace_bg->signal_toggled().connect([this, pConfig, checkbutton_monospace_bg, colorbutton_monospace_bg](){
+        if (checkbutton_monospace_bg->get_active())
+        {
+            pConfig->monospaceBg = CtRgbUtil::rgb_any_to_24(colorbutton_monospace_bg->get_rgba());
+            colorbutton_monospace_bg->set_sensitive(true);
+        } else {
+            pConfig->monospaceBg = "";
+            colorbutton_monospace_bg->set_sensitive(false);
+        }
+        need_restart(RESTART_REASON::MONOSPACE);
+    });
+    colorbutton_monospace_bg->signal_color_set().connect([this, pConfig, colorbutton_monospace_bg](){
+        pConfig->monospaceBg = CtRgbUtil::rgb_any_to_24(colorbutton_monospace_bg->get_rgba());
+        need_restart(RESTART_REASON::MONOSPACE);
+    });
+
+    combobox_style_scheme_pt->signal_changed().connect([this, pConfig, combobox_style_scheme_pt](){
+        pConfig->ptStyleScheme = combobox_style_scheme_pt->get_active_text();
+        apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('p'/*PlainTextNCode*/); });
+    });
+
+    combobox_style_scheme_ta->signal_changed().connect([this, pConfig, combobox_style_scheme_ta](){
+        pConfig->taStyleScheme = combobox_style_scheme_ta->get_active_text();
+        apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('t'/*Table*/); });
+    });
+
+    return pMainBox;
+}
+
+Gtk::Widget* CtPrefDlg::build_tab_tree()
+{
+    CtConfig* pConfig = _pCtMainWin->get_ct_config();
 
     Gtk::VBox* vbox_nodes_icons = Gtk::manage(new Gtk::VBox());
 
@@ -765,49 +859,84 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     radiobutton_nodes_startup_expand->set_active(pConfig->restoreExpColl == CtRestoreExpColl::ALL_EXP);
     radiobutton_nodes_startup_collapse->set_active(pConfig->restoreExpColl == CtRestoreExpColl::ALL_COLL);
 
+    Gtk::VBox* vbox_misc_tree = Gtk::manage(new Gtk::VBox());
+    Gtk::HBox* hbox_tree_nodes_names_width = Gtk::manage(new Gtk::HBox());
+    hbox_tree_nodes_names_width->set_spacing(4);
+    Gtk::CheckButton* checkbutton_tree_nodes_names_wrap_ena = Gtk::manage(new Gtk::CheckButton(_("Tree Nodes Names Wrapping Width")));
+    checkbutton_tree_nodes_names_wrap_ena->set_active(pConfig->cherryWrapEnabled);
+    Glib::RefPtr<Gtk::Adjustment> adj_tree_nodes_names_width = Gtk::Adjustment::create(pConfig->cherryWrapWidth, 10, 10000, 1);
+    Gtk::SpinButton* spinbutton_tree_nodes_names_width = Gtk::manage(new Gtk::SpinButton(adj_tree_nodes_names_width));
+    spinbutton_tree_nodes_names_width->set_value(pConfig->cherryWrapWidth);
+    spinbutton_tree_nodes_names_width->set_sensitive(pConfig->cherryWrapEnabled);
+    hbox_tree_nodes_names_width->pack_start(*checkbutton_tree_nodes_names_wrap_ena, false, false);
+    hbox_tree_nodes_names_width->pack_start(*spinbutton_tree_nodes_names_width, false, false);
+    Gtk::CheckButton* checkbutton_tree_right_side = Gtk::manage(new Gtk::CheckButton(_("Display Tree on the Right Side")));
+    checkbutton_tree_right_side->set_active(pConfig->treeRightSide);
+    Gtk::CheckButton* checkbutton_tree_click_focus_text = Gtk::manage(new Gtk::CheckButton(_("Move Focus to Text at Mouse Click")));
+    checkbutton_tree_click_focus_text->set_active(pConfig->treeClickFocusText);
+    Gtk::CheckButton* checkbutton_tree_click_expand = Gtk::manage(new Gtk::CheckButton(_("Expand Node at Mouse Click")));
+    checkbutton_tree_click_expand->set_active(pConfig->treeClickExpand);
+    Gtk::HBox* hbox_nodes_on_node_name_header = Gtk::manage(new Gtk::HBox());
+    hbox_nodes_on_node_name_header->set_spacing(4);
+    Gtk::Label* label_nodes_on_node_name_header = Gtk::manage(new Gtk::Label(_("Last Visited Nodes on Node Name Header")));
+    Glib::RefPtr<Gtk::Adjustment> adj_nodes_on_node_name_header = Gtk::Adjustment::create(pConfig->nodesOnNodeNameHeader, 0, 100, 1);
+    Gtk::SpinButton* spinbutton_nodes_on_node_name_header = Gtk::manage(new Gtk::SpinButton(adj_nodes_on_node_name_header));
+    spinbutton_nodes_on_node_name_header->set_value(pConfig->nodesOnNodeNameHeader);
+    hbox_nodes_on_node_name_header->pack_start(*label_nodes_on_node_name_header, false, false);
+    hbox_nodes_on_node_name_header->pack_start(*spinbutton_nodes_on_node_name_header, false, false);
+
+    vbox_misc_tree->pack_start(*hbox_tree_nodes_names_width, false, false);
+    vbox_misc_tree->pack_start(*checkbutton_tree_right_side, false, false);
+    vbox_misc_tree->pack_start(*checkbutton_tree_click_focus_text, false, false);
+    vbox_misc_tree->pack_start(*checkbutton_tree_click_expand, false, false);
+    vbox_misc_tree->pack_start(*hbox_nodes_on_node_name_header, false, false);
+    Gtk::Frame* frame_misc_tree = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Miscellaneous")+"</b>"));
+    ((Gtk::Label*)frame_misc_tree->get_label_widget())->set_use_markup(true);
+    frame_misc_tree->set_shadow_type(Gtk::SHADOW_NONE);
+    Gtk::Alignment* align_misc_tree = Gtk::manage(new Gtk::Alignment());
+    align_misc_tree->set_padding(3, 6, 6, 6);
+    align_misc_tree->add(*vbox_misc_tree);
+    frame_misc_tree->add(*align_misc_tree);
+
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
     pMainBox->set_margin_left(6);
     pMainBox->set_margin_top(6);
-    pMainBox->pack_start(*frame_tt_theme, false, false);
     pMainBox->pack_start(*frame_nodes_icons, false, false);
     pMainBox->pack_start(*frame_nodes_startup, false, false);
+    pMainBox->pack_start(*frame_misc_tree, false, false);
 
-    auto update_tree_color = [this, pConfig, colorbutton_tree_fg, colorbutton_tree_bg]() {
-        pConfig->ttDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_fg->get_rgba());
-        pConfig->ttDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_bg->get_rgba());
-        apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
-    };
+    checkbutton_tree_nodes_names_wrap_ena->signal_toggled().connect([this,
+                                                                     pConfig,
+                                                                     checkbutton_tree_nodes_names_wrap_ena,
+                                                                     spinbutton_tree_nodes_names_width](){
+        pConfig->cherryWrapEnabled = checkbutton_tree_nodes_names_wrap_ena->get_active();
+        spinbutton_tree_nodes_names_width->set_sensitive(pConfig->cherryWrapEnabled);
+        apply_for_each_window([pConfig](CtMainWin* win) {
+            win->get_tree_view().set_tree_node_name_wrap_width(pConfig->cherryWrapEnabled, pConfig->cherryWrapWidth);
+        });
+    });
+    spinbutton_tree_nodes_names_width->signal_value_changed().connect([this, pConfig, spinbutton_tree_nodes_names_width](){
+        pConfig->cherryWrapWidth = spinbutton_tree_nodes_names_width->get_value_as_int();
+        apply_for_each_window([pConfig](CtMainWin* win) {
+            win->get_tree_view().set_tree_node_name_wrap_width(pConfig->cherryWrapEnabled, pConfig->cherryWrapWidth);
+        });
+    });
+    checkbutton_tree_right_side->signal_toggled().connect([this, pConfig, checkbutton_tree_right_side](){
+        pConfig->treeRightSide = checkbutton_tree_right_side->get_active();
+        apply_for_each_window([](CtMainWin* win) { win->config_switch_tree_side(); });
+    });
+    checkbutton_tree_click_focus_text->signal_toggled().connect([pConfig, checkbutton_tree_click_focus_text](){
+        pConfig->treeClickFocusText = checkbutton_tree_click_focus_text->get_active();
+    });
+    checkbutton_tree_click_expand->signal_toggled().connect([pConfig, checkbutton_tree_click_expand](){
+        pConfig->treeClickExpand = checkbutton_tree_click_expand->get_active();
+    });
+    spinbutton_nodes_on_node_name_header->signal_value_changed().connect([this, pConfig, spinbutton_nodes_on_node_name_header](){
+        pConfig->nodesOnNodeNameHeader = spinbutton_nodes_on_node_name_header->get_value_as_int();
+        apply_for_each_window([](CtMainWin* win) { win->window_header_update(); });
+    });
 
-    colorbutton_tree_fg->signal_color_set().connect([update_tree_color, radiobutton_tt_col_custom](){
-        if (!radiobutton_tt_col_custom->get_active()) return;
-        update_tree_color();
-    });
-    colorbutton_tree_bg->signal_color_set().connect([update_tree_color, radiobutton_tt_col_custom](){
-        if (!radiobutton_tt_col_custom->get_active()) return;
-        update_tree_color();
-    });
-    radiobutton_tt_col_light->signal_toggled().connect([radiobutton_tt_col_light, colorbutton_tree_fg, colorbutton_tree_bg, update_tree_color](){
-        if (!radiobutton_tt_col_light->get_active()) return;
-        colorbutton_tree_fg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_LIGHT_FG));
-        colorbutton_tree_bg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_LIGHT_BG));
-        colorbutton_tree_fg->set_sensitive(false);
-        colorbutton_tree_bg->set_sensitive(false);
-        update_tree_color();
-    });
-    radiobutton_tt_col_dark->signal_toggled().connect([radiobutton_tt_col_dark, colorbutton_tree_fg, colorbutton_tree_bg, update_tree_color](){
-        if (!radiobutton_tt_col_dark->get_active()) return;
-        colorbutton_tree_fg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_DARK_FG));
-        colorbutton_tree_bg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_DARK_BG));
-        colorbutton_tree_fg->set_sensitive(false);
-        colorbutton_tree_bg->set_sensitive(false);
-        update_tree_color();
-    });
-    radiobutton_tt_col_custom->signal_toggled().connect([radiobutton_tt_col_custom, colorbutton_tree_fg, colorbutton_tree_bg](){
-        if (!radiobutton_tt_col_custom->get_active()) return;
-        colorbutton_tree_fg->set_sensitive(true);
-        colorbutton_tree_bg->set_sensitive(true);
-    });
     radiobutton_node_icon_cherry->signal_toggled().connect([this, pConfig, radiobutton_node_icon_cherry](){
         if (!radiobutton_node_icon_cherry->get_active()) return;
         pConfig->nodesIcons = "c";
@@ -855,89 +984,6 @@ Gtk::Widget* CtPrefDlg::build_tab_tree_1()
     checkbutton_aux_icon_hide->signal_toggled().connect([this, pConfig, checkbutton_aux_icon_hide](){
         pConfig->auxIconHide = checkbutton_aux_icon_hide->get_active();
         apply_for_each_window([pConfig](CtMainWin* win) { win->get_tree_view().get_column(CtTreeView::AUX_ICON_COL_NUM)->set_visible(!pConfig->auxIconHide); });
-    });
-
-    return pMainBox;
-}
-
-Gtk::Widget* CtPrefDlg::build_tab_tree_2()
-{
-    CtConfig* pConfig = _pCtMainWin->get_ct_config();
-
-    Gtk::VBox* vbox_misc_tree = Gtk::manage(new Gtk::VBox());
-    Gtk::HBox* hbox_tree_nodes_names_width = Gtk::manage(new Gtk::HBox());
-    hbox_tree_nodes_names_width->set_spacing(4);
-    Gtk::CheckButton* checkbutton_tree_nodes_names_wrap_ena = Gtk::manage(new Gtk::CheckButton(_("Tree Nodes Names Wrapping Width")));
-    checkbutton_tree_nodes_names_wrap_ena->set_active(pConfig->cherryWrapEnabled);
-    Glib::RefPtr<Gtk::Adjustment> adj_tree_nodes_names_width = Gtk::Adjustment::create(pConfig->cherryWrapWidth, 10, 10000, 1);
-    Gtk::SpinButton* spinbutton_tree_nodes_names_width = Gtk::manage(new Gtk::SpinButton(adj_tree_nodes_names_width));
-    spinbutton_tree_nodes_names_width->set_value(pConfig->cherryWrapWidth);
-    spinbutton_tree_nodes_names_width->set_sensitive(pConfig->cherryWrapEnabled);
-    hbox_tree_nodes_names_width->pack_start(*checkbutton_tree_nodes_names_wrap_ena, false, false);
-    hbox_tree_nodes_names_width->pack_start(*spinbutton_tree_nodes_names_width, false, false);
-    Gtk::CheckButton* checkbutton_tree_right_side = Gtk::manage(new Gtk::CheckButton(_("Display Tree on the Right Side")));
-    checkbutton_tree_right_side->set_active(pConfig->treeRightSide);
-    Gtk::CheckButton* checkbutton_tree_click_focus_text = Gtk::manage(new Gtk::CheckButton(_("Move Focus to Text at Mouse Click")));
-    checkbutton_tree_click_focus_text->set_active(pConfig->treeClickFocusText);
-    Gtk::CheckButton* checkbutton_tree_click_expand = Gtk::manage(new Gtk::CheckButton(_("Expand Node at Mouse Click")));
-    checkbutton_tree_click_expand->set_active(pConfig->treeClickExpand);
-    Gtk::HBox* hbox_nodes_on_node_name_header = Gtk::manage(new Gtk::HBox());
-    hbox_nodes_on_node_name_header->set_spacing(4);
-    Gtk::Label* label_nodes_on_node_name_header = Gtk::manage(new Gtk::Label(_("Last Visited Nodes on Node Name Header")));
-    Glib::RefPtr<Gtk::Adjustment> adj_nodes_on_node_name_header = Gtk::Adjustment::create(pConfig->nodesOnNodeNameHeader, 0, 100, 1);
-    Gtk::SpinButton* spinbutton_nodes_on_node_name_header = Gtk::manage(new Gtk::SpinButton(adj_nodes_on_node_name_header));
-    spinbutton_nodes_on_node_name_header->set_value(pConfig->nodesOnNodeNameHeader);
-    hbox_nodes_on_node_name_header->pack_start(*label_nodes_on_node_name_header, false, false);
-    hbox_nodes_on_node_name_header->pack_start(*spinbutton_nodes_on_node_name_header, false, false);
-
-    vbox_misc_tree->pack_start(*hbox_tree_nodes_names_width, false, false);
-    vbox_misc_tree->pack_start(*checkbutton_tree_right_side, false, false);
-    vbox_misc_tree->pack_start(*checkbutton_tree_click_focus_text, false, false);
-    vbox_misc_tree->pack_start(*checkbutton_tree_click_expand, false, false);
-    vbox_misc_tree->pack_start(*hbox_nodes_on_node_name_header, false, false);
-    Gtk::Frame* frame_misc_tree = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Miscellaneous")+"</b>"));
-    ((Gtk::Label*)frame_misc_tree->get_label_widget())->set_use_markup(true);
-    frame_misc_tree->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_misc_tree = Gtk::manage(new Gtk::Alignment());
-    align_misc_tree->set_padding(3, 6, 6, 6);
-    align_misc_tree->add(*vbox_misc_tree);
-    frame_misc_tree->add(*align_misc_tree);
-
-    Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
-    pMainBox->set_spacing(3);
-    pMainBox->set_margin_left(6);
-    pMainBox->set_margin_top(6);
-    pMainBox->pack_start(*frame_misc_tree, false, false);
-
-    checkbutton_tree_nodes_names_wrap_ena->signal_toggled().connect([this,
-                                                                     pConfig,
-                                                                     checkbutton_tree_nodes_names_wrap_ena,
-                                                                     spinbutton_tree_nodes_names_width](){
-        pConfig->cherryWrapEnabled = checkbutton_tree_nodes_names_wrap_ena->get_active();
-        spinbutton_tree_nodes_names_width->set_sensitive(pConfig->cherryWrapEnabled);
-        apply_for_each_window([pConfig](CtMainWin* win) {
-            win->get_tree_view().set_tree_node_name_wrap_width(pConfig->cherryWrapEnabled, pConfig->cherryWrapWidth);
-        });
-    });
-    spinbutton_tree_nodes_names_width->signal_value_changed().connect([this, pConfig, spinbutton_tree_nodes_names_width](){
-        pConfig->cherryWrapWidth = spinbutton_tree_nodes_names_width->get_value_as_int();
-        apply_for_each_window([pConfig](CtMainWin* win) {
-            win->get_tree_view().set_tree_node_name_wrap_width(pConfig->cherryWrapEnabled, pConfig->cherryWrapWidth);
-        });
-    });
-    checkbutton_tree_right_side->signal_toggled().connect([this, pConfig, checkbutton_tree_right_side](){
-        pConfig->treeRightSide = checkbutton_tree_right_side->get_active();
-        apply_for_each_window([](CtMainWin* win) { win->config_switch_tree_side(); });
-    });
-    checkbutton_tree_click_focus_text->signal_toggled().connect([pConfig, checkbutton_tree_click_focus_text](){
-        pConfig->treeClickFocusText = checkbutton_tree_click_focus_text->get_active();
-    });
-    checkbutton_tree_click_expand->signal_toggled().connect([pConfig, checkbutton_tree_click_expand](){
-        pConfig->treeClickExpand = checkbutton_tree_click_expand->get_active();
-    });
-    spinbutton_nodes_on_node_name_header->signal_value_changed().connect([this, pConfig, spinbutton_nodes_on_node_name_header](){
-        pConfig->nodesOnNodeNameHeader = spinbutton_nodes_on_node_name_header->get_value_as_int();
-        apply_for_each_window([](CtMainWin* win) { win->window_header_update(); });
     });
 
     return pMainBox;

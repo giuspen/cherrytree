@@ -41,8 +41,8 @@ private:
     Gtk::Widget* build_tab_text();
     Gtk::Widget* build_tab_rich_text();
     Gtk::Widget* build_tab_plain_text_n_code();
-    Gtk::Widget* build_tab_tree_1();
-    Gtk::Widget* build_tab_tree_2();
+    Gtk::Widget* build_tab_theme();
+    Gtk::Widget* build_tab_tree();
     Gtk::Widget* build_tab_fonts();
     Gtk::Widget* build_tab_links();
     Gtk::Widget* build_tab_toolbar();

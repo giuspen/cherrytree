@@ -91,21 +91,24 @@ void CtTable::_setup_new_matrix(const CtTableMatrix& tableMatrix, bool apply_sty
             _grid.attach(*pTableCell, col, row, 1 /*1 cell horiz*/, 1 /*1 cell vert*/);
         }
     }
-    if (apply_style)
-        _apply_styles_to_cells();
+    if (apply_style) {
+        _apply_styles_to_cells(false/*forceReApply*/);
+    }
     _grid.show_all();
 }
 
-void CtTable::_apply_styles_to_cells()
+void CtTable::_apply_styles_to_cells(const bool forceReApply)
 {
-    for (CtTableRow& tableRow : _tableMatrix)
-        for (CtTableCell* pTableCell : tableRow)
-            _pCtMainWin->apply_syntax_highlighting(pTableCell->get_buffer(), pTableCell->get_syntax_highlighting());
+    for (CtTableRow& tableRow : _tableMatrix) {
+        for (CtTableCell* pTableCell : tableRow) {
+            _pCtMainWin->apply_syntax_highlighting(pTableCell->get_buffer(), pTableCell->get_syntax_highlighting(), forceReApply);
+        }
+    }
 }
 
-void CtTable::apply_syntax_highlighting()
+void CtTable::apply_syntax_highlighting(const bool forceReApply)
 {
-    _apply_styles_to_cells();
+    _apply_styles_to_cells(forceReApply);
 }
 
 void CtTable::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*)

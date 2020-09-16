@@ -77,11 +77,13 @@ public:
     // [editor]
     std::string                                 syntaxHighlighting{CtConst::RICH_TEXT_ID};
     std::string                                 autoSynHighl{CtConst::SYN_HIGHL_BASH};
-    std::string                                 styleSchemeId{CtConst::STYLE_SCHEME_DARK};
+    std::string                                 rtStyleScheme{CtConst::STYLE_SCHEME_DARK};
+    std::string                                 ptStyleScheme{CtConst::STYLE_SCHEME_DARK};
+    std::string                                 taStyleScheme{CtConst::STYLE_SCHEME_DARK};
     bool                                        enableSpellCheck{false};
     std::string                                 spellCheckLang;
     bool                                        showLineNumbers{false};
-    bool                                        scrollBeyondLastLine{false};
+    bool                                        scrollBeyondLastLine{true};
     bool                                        spacesInsteadTabs{false};
     int                                         tabsWidth{4};
     int                                         anchorSize{16};
@@ -153,7 +155,6 @@ public:
     Glib::ustring                               fallbackFontFamily{"Sans"};
 
     // [colors]
-    std::string                                 rtStyleScheme{CtConst::STYLE_SCHEME_DARK};
     std::string                                 ttDefFg{CtConst::TREE_TEXT_LIGHT_FG};
     std::string                                 ttDefBg{CtConst::TREE_TEXT_LIGHT_BG};
     std::string                                 monospaceBg{CtConst::DEFAULT_MONOSPACE_BG};

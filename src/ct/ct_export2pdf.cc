@@ -558,7 +558,7 @@ void CtPrint::_process_pango_codebox(CtPrintData* print_data, CtCodebox* codebox
     auto context = print_data->context;
     CtPrintPages& pages = print_data->pages;
 
-    codebox->apply_syntax_highlighting();
+    codebox->apply_syntax_highlighting(false/*forceReApply*/);
     Glib::ustring original_content = CtExport2Pango().pango_get_from_code_buffer(codebox->get_buffer(), -1, -1);
     while (true)
     {

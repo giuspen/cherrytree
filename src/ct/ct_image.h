@@ -48,7 +48,7 @@ public:
     virtual ~CtImage() override;
 
     void apply_width_height(const int /*parentTextWidth*/) override {}
-    void apply_syntax_highlighting() override {}
+    void apply_syntax_highlighting(const bool /*forceReApply*/) override {}
     void set_modified_false() override {}
 
     void save(const fs::path& file_name, const Glib::ustring& type);
