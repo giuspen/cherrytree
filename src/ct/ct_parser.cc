@@ -686,14 +686,13 @@ CtLeoParser::leo_node parse_leo_t_el(const xmlpp::Element& node)
 std::pair<std::string, Glib::ustring> read_leo_vnode(const xmlpp::Element& v_el) {
     assert(v_el.get_name() == "v");
 
-    
-    auto* vh_el = dynamic_cast<const xmlpp::Element*>(v_el.get_first_child());
-    if (!vh_el) throw std::invalid_argument("v element does not have a <vh> child element!");
-
     std::string tx_id = v_el.get_attribute("t")->get_value();
-    Glib::ustring contents = vh_el->get_child_text()->get_content();
-
-    return {tx_id, contents};
+    if (auto* vh_el = dynamic_cast<const xmlpp::Element*>(v_el.get_first_child())) {
+        Glib::ustring contents = vh_el->get_child_text()->get_content();
+        return {tx_id, contents};
+    } else {
+        return {tx_id, ""};
+    }
 }
 
 void find_node_children(const xmlpp::Element& v_el, children_lookup_t& children) {
