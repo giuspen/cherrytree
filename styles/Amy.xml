@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (C) 2009 tm2gtksw2(Alexandre da Silva)
+
+ This file was generated from a textmate theme named Amy
+ with tm2gtksw2 tool. (Alexandre da Silva)
+
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Library General Public
+ License as published by the Free Software Foundation; either
+ version 2 of the License, or (at your option) any later version.
+
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Library General Public License for more details.
+
+ You should have received a copy of the GNU Library General Public
+ License along with this library; if not, write to the
+ Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ Boston, MA 02111-1307, USA.
+-->
+
+<style-scheme id="amy" _name="Amy" version="1.0">
+  <author>tm2gtksw2(Alexandre da Silva)</author>
+  <_description>GMate Theme - Generated from textmate theme with tm2gtksw2</_description>
+
+  <style name="bracket-match"  background="#380017" bold="true"/>
+  <style name="bracket-mismatch"  background="#380017" underline="true"/>
+  <style name="css:at-rules" foreground="#80a0ff"/>
+  <style name="current-line"  background="#380017"/>
+  <style name="cursor" foreground="#7070ff"/>
+  <style name="def:base-n-integer"  bold="true"/>
+  <style name="def:boolean" foreground="#707090"/>
+  <style name="def:builtin" foreground="#707090"/>
+  <style name="def:character" foreground="#666666"/>
+  <style name="def:comment" foreground="#404080" background="#200020" italic="true"/>
+  <style name="def:complex" foreground="#7090b0"/>
+  <style name="def:decimal" foreground="#7090b0"/>
+  <style name="def:doc-comment" foreground="#404080" background="#200020" italic="true"/>
+  <style name="def:doc-comment-element" foreground="#404080" background="#200020" italic="true"/>
+  <style name="def:error" foreground="#400080" background="#ffff00" bold="true"/>
+  <style name="def:floating-point" foreground="#7090b0"/>
+  <style name="def:function" foreground="#50a0a0"/>
+  <style name="def:identifier" foreground="#008080"/>
+  <style name="def:keyword" foreground="#80a0ff"/>
+  <style name="def:note"  bold="true" underline="true" italic="true"/>
+  <style name="def:number" foreground="#7090b0"/>
+  <style name="def:operator" foreground="#a0a0ff"/>
+  <style name="def:preprocessor"  background="#200020"/>
+  <style name="def:reserved" foreground="#a080ff"/>
+  <style name="def:shebang" foreground="#404080" background="#200020" italic="true"/>
+  <style name="def:special-char"  background="#200020"/>
+  <style name="def:special-constant" foreground="#707090"/>
+  <style name="def:statement" foreground="#a080ff"/>
+  <style name="def:string" foreground="#999999"/>
+  <style name="draw-spaces" foreground="#bfbfbf"/>
+  <style name="html:dtd" foreground="#999999"/>
+  <style name="html:tag" foreground="#009090"/>
+  <style name="line-numbers" foreground="#d0d0ff" background="#380017"/>
+  <style name="perl:builtin" foreground="#50a0a0"/>
+  <style name="perl:include-statement" foreground="#a080ff"/>
+  <style name="perl:special-variable" foreground="#707090"/>
+  <style name="perl:variable" foreground="#008080"/>
+  <style name="php:string" foreground="#999999"/>
+  <style name="python:builtin-constant" foreground="#a080ff"/>
+  <style name="python:builtin-function" foreground="#50a0a0"/>
+  <style name="python:module-handler" foreground="#a080ff"/>
+  <style name="python:special-variable" foreground="#a080ff"/>
+  <style name="ruby:attribute-definition" foreground="#a080ff"/>
+  <style name="ruby:builtin" foreground="#008080"/>
+  <style name="ruby:class-variable" foreground="#008080"/>
+  <style name="ruby:constant" foreground="#008080"/>
+  <style name="ruby:global-variable" foreground="#50a0a0"/>
+  <style name="ruby:instance-variable" foreground="#008080"/>
+  <style name="ruby:module-handler" foreground="#a080ff"/>
+  <style name="ruby:predefined-variable" foreground="#707090"/>
+  <style name="ruby:regex" foreground="#999999"/>
+  <style name="ruby:special-variable" foreground="#a080ff"/>
+  <style name="rubyonrails:attribute-definition" foreground="#a080ff"/>
+  <style name="rubyonrails:block-parameter" foreground="#80b0b0"/>
+  <style name="rubyonrails:builtin" foreground="#008080"/>
+  <style name="rubyonrails:class-variable" foreground="#008080"/>
+  <style name="rubyonrails:complex-interpolation" foreground="#666666"/>
+  <style name="rubyonrails:constant" foreground="#008080"/>
+  <style name="rubyonrails:global-variable" foreground="#50a0a0"/>
+  <style name="rubyonrails:instance-variable" foreground="#008080"/>
+  <style name="rubyonrails:module-handler" foreground="#a080ff"/>
+  <style name="rubyonrails:predefined-variable" foreground="#707090"/>
+  <style name="rubyonrails:rails" foreground="#008080"/>
+  <style name="rubyonrails:regex" foreground="#999999"/>
+  <style name="rubyonrails:simple-interpolation" foreground="#666666"/>
+  <style name="rubyonrails:special-variable" foreground="#a080ff"/>
+  <style name="search-match"  background="#380017" bold="true" underline="true"/>
+  <style name="selection" foreground="#d0d0ff" background="#50000f"/>
+  <style name="text" foreground="#d0d0ff" background="#200020"/>
+  <style name="xml:element-name" foreground="#009090"/>
+  <style name="xml:namespace" foreground="#009090"/>
+  <style name="xml:tag" foreground="#009090"/>
+  
+
+</style-scheme>
+
