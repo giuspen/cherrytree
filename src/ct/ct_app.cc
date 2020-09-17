@@ -49,12 +49,16 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
     _rTextTagTable = Gtk::TextTagTable::create();
 
     _rLanguageManager = Gsv::LanguageManager::create();
-    std::vector<std::string> searchPath = _rLanguageManager->get_search_path();
+    std::vector<std::string> langSearchPath = _rLanguageManager->get_search_path();
     fs::path ctLanguagesSpecsPath = fs::get_cherrytree_datadir() / "language-specs";
-    searchPath.push_back(ctLanguagesSpecsPath.string());
-    _rLanguageManager->set_search_path(searchPath);
+    langSearchPath.push_back(ctLanguagesSpecsPath.string());
+    _rLanguageManager->set_search_path(langSearchPath);
 
     _rStyleSchemeManager = Gsv::StyleSchemeManager::create();
+    std::vector<std::string> styleSearchPath = _rStyleSchemeManager->get_search_path();
+    fs::path ctStylesPath = fs::get_cherrytree_datadir() / "styles";
+    styleSearchPath.push_back(ctStylesPath.string());
+    _rStyleSchemeManager->set_search_path(styleSearchPath);
 
     _rCssProvider = Gtk::CssProvider::create();
 
