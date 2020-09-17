@@ -115,26 +115,26 @@ Glib::ustring CtExport2Txt::get_codebox_plain(CtCodebox* codebox)
 // Process a Single plain Slot
 Glib::ustring CtExport2Txt::_plain_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer, bool check_link_target)
 {
-        if (end_offset == -1)
-            end_offset = curr_buffer->end().get_offset();
-        // begin operations
-        Gtk::TextIter start_iter = curr_buffer->get_iter_at_offset(start_offset);
-        Gtk::TextIter end_iter = curr_buffer->get_iter_at_offset(end_offset);
-        // todo: check how check_link_target works
-        if (!check_link_target)
-            return curr_buffer->get_text(start_iter, end_iter);
+    if (end_offset == -1)
+        end_offset = curr_buffer->end().get_offset();
+    // begin operations
+    Gtk::TextIter start_iter = curr_buffer->get_iter_at_offset(start_offset);
+    Gtk::TextIter end_iter = curr_buffer->get_iter_at_offset(end_offset);
+    // todo: check how check_link_target works
+    if (!check_link_target)
+        return curr_buffer->get_text(start_iter, end_iter);
 
-        Glib::ustring start_link = _tag_link_in_given_iter(start_iter);
-        Glib::ustring middle_link = _tag_link_in_given_iter(curr_buffer->get_iter_at_offset((start_offset+end_offset)/2-1));
-        Glib::ustring end_link = _tag_link_in_given_iter(curr_buffer->get_iter_at_offset(end_offset-1));
-        if (start_link !="" && start_link == middle_link && middle_link == end_link && !str::startswith(start_link, "node"))
-        {
-            return _pCtMainWin->sourceview_hovering_link_get_tooltip(start_link);
-        }
-        else
-        {
-            return curr_buffer->get_text(start_iter, end_iter);
-        }
+    Glib::ustring start_link = _tag_link_in_given_iter(start_iter);
+    Glib::ustring middle_link = _tag_link_in_given_iter(curr_buffer->get_iter_at_offset((start_offset+end_offset)/2-1));
+    Glib::ustring end_link = _tag_link_in_given_iter(curr_buffer->get_iter_at_offset(end_offset-1));
+    if (start_link !="" && start_link == middle_link && middle_link == end_link && !str::startswith(start_link, "node"))
+    {
+        return _pCtMainWin->sourceview_hovering_link_get_tooltip(start_link);
+    }
+    else
+    {
+        return curr_buffer->get_text(start_iter, end_iter);
+    }
 }
 
 // Check for tag link in given_iter

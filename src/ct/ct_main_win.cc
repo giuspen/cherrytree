@@ -416,7 +416,9 @@ Glib::ustring CtMainWin::sourceview_hovering_link_get_tooltip(const Glib::ustrin
     if (link_entry.type == "") { // case when link has wrong format
         tooltip = str::replace(link, "amp;", "");
     }
-    else if (link_entry.type == CtConst::LINK_TYPE_FILE) {
+    else if (link_entry.type == CtConst::LINK_TYPE_WEBS) {
+        tooltip = str::replace(link_entry.webs, "amp;", "");
+    } else if (link_entry.type == CtConst::LINK_TYPE_FILE) {
         tooltip = link_entry.file;
     } else if (link_entry.type == CtConst::LINK_TYPE_FOLD) {
         tooltip = link_entry.fold;
