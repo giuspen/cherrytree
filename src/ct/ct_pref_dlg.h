@@ -1,7 +1,9 @@
 /*
  * ct_pref_dlg.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,15 +36,14 @@ class CtPrefDlg : public Gtk::Dialog
 {
 public:
     CtPrefDlg(CtMainWin* pCtMainWin);
-    virtual ~CtPrefDlg() override;
 
 private:
     Gtk::Widget* build_tab_text_n_code();
-    Gtk::Widget* build_tab_text();
     Gtk::Widget* build_tab_rich_text();
     Gtk::Widget* build_tab_plain_text_n_code();
-    Gtk::Widget* build_tab_theme();
+    Gtk::Widget* build_tab_special_characters();
     Gtk::Widget* build_tab_tree();
+    Gtk::Widget* build_tab_theme();
     Gtk::Widget* build_tab_fonts();
     Gtk::Widget* build_tab_links();
     Gtk::Widget* build_tab_toolbar();
@@ -60,7 +61,6 @@ private:
 
 private:
     void need_restart(RESTART_REASON reason, const gchar* msg = nullptr);
-
 
     void fill_custom_exec_commands_model(Glib::RefPtr<Gtk::ListStore> model);
     void add_new_command_in_model(Glib::RefPtr<Gtk::ListStore> model);
@@ -87,7 +87,6 @@ private:
        Gtk::TreeModelColumn<Glib::ustring>  desc;
        Gtk::TreeModelColumn<Glib::ustring>  shortcut;
        UniversalModelColumns() { add(icon); add(key); add(desc); add(shortcut); }
-       virtual ~UniversalModelColumns();
     };
 
 private:

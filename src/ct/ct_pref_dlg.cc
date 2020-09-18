@@ -36,10 +36,6 @@
 #include "ct_main_win.h"
 #include <gspell/gspell.h>
 
-CtPrefDlg::UniversalModelColumns::~UniversalModelColumns()
-{
-}
-
 CtPrefDlg::CtPrefDlg(CtMainWin* parent)
  : Gtk::Dialog(_("Preferences"), *parent, true)
 {
@@ -49,26 +45,22 @@ CtPrefDlg::CtPrefDlg(CtMainWin* parent)
 
     Gtk::Notebook* pNotebook = Gtk::manage(new Gtk::Notebook());
     pNotebook->set_tab_pos(Gtk::PositionType::POS_LEFT);
-    pNotebook->append_page(*build_tab_text_n_code(),       _("Text and Code"));
-    pNotebook->append_page(*build_tab_text(),              _("Text"));
-    pNotebook->append_page(*build_tab_rich_text(),         _("Rich Text"));
-    pNotebook->append_page(*build_tab_plain_text_n_code(), _("Plain Text and Code"));
-    pNotebook->append_page(*build_tab_tree(),              _("Tree"));
-    pNotebook->append_page(*build_tab_theme(),             _("Theme"));
-    pNotebook->append_page(*build_tab_fonts(),             _("Fonts"));
-    pNotebook->append_page(*build_tab_links(),             _("Links"));
-    pNotebook->append_page(*build_tab_toolbar(),           _("Toolbar"));
-    pNotebook->append_page(*build_tab_kb_shortcuts(),      _("Keyboard Shortcuts"));
-    pNotebook->append_page(*build_tab_misc(),              _("Miscellaneous"));
+    pNotebook->append_page(*build_tab_text_n_code(),        _("Text and Code"));
+    pNotebook->append_page(*build_tab_rich_text(),          _("Rich Text"));
+    pNotebook->append_page(*build_tab_plain_text_n_code(),  _("Plain Text and Code"));
+    pNotebook->append_page(*build_tab_special_characters(), _("Special Characters"));
+    pNotebook->append_page(*build_tab_tree(),               _("Tree"));
+    pNotebook->append_page(*build_tab_theme(),              _("Theme"));
+    pNotebook->append_page(*build_tab_fonts(),              _("Fonts"));
+    pNotebook->append_page(*build_tab_links(),              _("Links"));
+    pNotebook->append_page(*build_tab_toolbar(),            _("Toolbar"));
+    pNotebook->append_page(*build_tab_kb_shortcuts(),       _("Keyboard Shortcuts"));
+    pNotebook->append_page(*build_tab_misc(),               _("Miscellaneous"));
 
     get_content_area()->pack_start(*pNotebook);
     get_content_area()->show_all();
 
     add_button(Gtk::Stock::CLOSE, 1);
-}
-
-CtPrefDlg::~CtPrefDlg()
-{
 }
 
 Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
@@ -170,33 +162,6 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     size_group_2->add_widget(*label_timestamp);
     size_group_2->add_widget(*label_horizontal_rule);
 
-    Gtk::HBox* hbox_special_chars = Gtk::manage(new Gtk::HBox());
-    hbox_special_chars->set_spacing(4);
-    Gtk::VBox* vbox_special_chars = Gtk::manage(new Gtk::VBox());
-    Gtk::Label* label_special_chars = Gtk::manage(new Gtk::Label(_("Special Characters")));
-    Gtk::HBox* hbox_reset = Gtk::manage(new Gtk::HBox());
-    Gtk::Button* button_reset = Gtk::manage(new Gtk::Button());
-    button_reset->set_image(*_pCtMainWin->new_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
-    button_reset->set_tooltip_text(_("Reset to Default"));
-    hbox_reset->pack_start(*Gtk::manage(new Gtk::Label()), true, false);
-    hbox_reset->pack_start(*button_reset, false, false);
-    hbox_reset->pack_start(*Gtk::manage(new Gtk::Label()), true, false);
-    vbox_special_chars->pack_start(*Gtk::manage(new Gtk::Label()), false, false);
-    vbox_special_chars->pack_start(*label_special_chars, false, false);
-    vbox_special_chars->pack_start(*hbox_reset, false, false);
-    vbox_special_chars->pack_start(*Gtk::manage(new Gtk::Label()), false, false);
-    Gtk::Frame* frame_special_chars = Gtk::manage(new Gtk::Frame());
-    frame_special_chars->set_size_request(-1, 80);
-    frame_special_chars->set_shadow_type(Gtk::SHADOW_IN);
-    Gtk::ScrolledWindow* scrolledwindow_special_chars = Gtk::manage(new Gtk::ScrolledWindow());
-    scrolledwindow_special_chars->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-    frame_special_chars->add(*scrolledwindow_special_chars);
-    Gtk::TextView* textview_special_chars = Gtk::manage(new Gtk::TextView());
-    textview_special_chars->get_buffer()->set_text(pConfig->specialChars.item());
-    textview_special_chars->set_wrap_mode(Gtk::WRAP_CHAR);
-    scrolledwindow_special_chars->add(*textview_special_chars);
-    hbox_special_chars->pack_start(*vbox_special_chars, false, false);
-    hbox_special_chars->pack_start(*frame_special_chars);
     Gtk::HBox* hbox_selword_chars = Gtk::manage(new Gtk::HBox());
     hbox_selword_chars->set_spacing(4);
     Gtk::Label* label_selword_chars = Gtk::manage(new Gtk::Label(_("Chars to Select at Double Click")));
@@ -209,7 +174,6 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     vbox_misc_all->set_spacing(2);
     vbox_misc_all->pack_start(*hbox_timestamp);
     vbox_misc_all->pack_start(*hbox_horizontal_rule);
-    vbox_misc_all->pack_start(*hbox_special_chars);
     vbox_misc_all->pack_start(*hbox_selword_chars);
     Gtk::Frame* frame_misc_all = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Miscellaneous")+"</b>"));
     ((Gtk::Label*)frame_misc_all->get_label_widget())->set_use_markup(true);
@@ -226,20 +190,6 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     pMainBox->pack_start(*frame_text_editor, false, false);
     pMainBox->pack_start(*frame_misc_all, false, false);
 
-    textview_special_chars->get_buffer()->signal_changed().connect([this, pConfig, textview_special_chars](){
-        Glib::ustring new_special_chars = textview_special_chars->get_buffer()->get_text();
-        new_special_chars = str::replace(new_special_chars, CtConst::CHAR_NEWLINE, "");
-        if ((pConfig->specialChars.item()) != new_special_chars)
-        {
-            pConfig->specialChars = new_special_chars;
-            apply_for_each_window([](CtMainWin* win) { win->menu_set_items_special_chars(); });
-        }
-    });
-    button_reset->signal_clicked().connect([this, textview_special_chars](){
-        if (CtDialogs::question_dialog(reset_warning, *this)) {
-            textview_special_chars->get_buffer()->set_text(CtConst::SPECIAL_CHARS_DEFAULT);
-        }
-    });
     spinbutton_tab_width->signal_value_changed().connect([this, pConfig, spinbutton_tab_width](){
         pConfig->tabsWidth = spinbutton_tab_width->get_value_as_int();
         apply_for_each_window([](CtMainWin* win) { win->get_text_view().set_tab_width((guint)win->get_ct_config()->tabsWidth); });
@@ -283,7 +233,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
         pConfig->timestampFormat = entry_timestamp_format->get_text();
     });
     button_strftime_help->signal_clicked().connect([](){
-        fs::open_weblink("https://docs.python.org/2/library/time.html#time.strftime");
+        fs::open_weblink("https://linux.die.net/man/3/strftime");
     });
     entry_horizontal_rule->signal_changed().connect([pConfig, entry_horizontal_rule](){
         pConfig->hRule = entry_horizontal_rule->get_text();
@@ -295,9 +245,77 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     return pMainBox;
 }
 
-Gtk::Widget* CtPrefDlg::build_tab_text()
+Gtk::Widget* CtPrefDlg::build_tab_special_characters()
 {
     CtConfig* pConfig = _pCtMainWin->get_ct_config();
+
+    Gtk::HBox* hbox_special_chars = Gtk::manage(new Gtk::HBox());
+    hbox_special_chars->set_spacing(4);
+    Gtk::VBox* vbox_special_chars = Gtk::manage(new Gtk::VBox());
+    Gtk::Label* label_special_chars = Gtk::manage(new Gtk::Label(_("Special Characters")));
+    Gtk::HBox* hbox_reset = Gtk::manage(new Gtk::HBox());
+    Gtk::Button* button_reset = Gtk::manage(new Gtk::Button());
+    button_reset->set_image(*_pCtMainWin->new_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset->set_tooltip_text(_("Reset to Default"));
+    hbox_reset->pack_start(*Gtk::manage(new Gtk::Label()), true, false);
+    hbox_reset->pack_start(*button_reset, false, false);
+    hbox_reset->pack_start(*Gtk::manage(new Gtk::Label()), true, false);
+    vbox_special_chars->pack_start(*Gtk::manage(new Gtk::Label()), false, false);
+    vbox_special_chars->pack_start(*label_special_chars, false, false);
+    vbox_special_chars->pack_start(*hbox_reset, false, false);
+    vbox_special_chars->pack_start(*Gtk::manage(new Gtk::Label()), false, false);
+    Gtk::Frame* frame_special_chars = Gtk::manage(new Gtk::Frame());
+    frame_special_chars->set_size_request(-1, 80);
+    frame_special_chars->set_shadow_type(Gtk::SHADOW_IN);
+    Gtk::ScrolledWindow* scrolledwindow_special_chars = Gtk::manage(new Gtk::ScrolledWindow());
+    scrolledwindow_special_chars->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+    frame_special_chars->add(*scrolledwindow_special_chars);
+    Gtk::TextView* textview_special_chars = Gtk::manage(new Gtk::TextView());
+    textview_special_chars->get_buffer()->set_text(pConfig->specialChars.item());
+    textview_special_chars->set_wrap_mode(Gtk::WRAP_CHAR);
+    scrolledwindow_special_chars->add(*textview_special_chars);
+    hbox_special_chars->pack_start(*vbox_special_chars, false, false);
+    hbox_special_chars->pack_start(*frame_special_chars);
+
+    Gtk::HBox* hbox_bullist_chars = Gtk::manage(new Gtk::HBox());
+    hbox_bullist_chars->set_spacing(4);
+    Gtk::Label* label_bullist_chars = Gtk::manage(new Gtk::Label(_("Chars for Bulleted List")));
+    Gtk::Entry* entry_bullist_chars = Gtk::manage(new Gtk::Entry());
+    entry_bullist_chars->set_text(pConfig->charsListbul.item());
+    hbox_bullist_chars->pack_start(*label_bullist_chars, false, false);
+    hbox_bullist_chars->pack_start(*entry_bullist_chars);
+
+    Gtk::HBox* hbox_todolist_chars = Gtk::manage(new Gtk::HBox());
+    hbox_todolist_chars->set_spacing(4);
+    Gtk::Label* label_todolist_chars = Gtk::manage(new Gtk::Label(_("Chars for Todo List")));
+    Gtk::Entry* entry_todolist_chars = Gtk::manage(new Gtk::Entry());
+    entry_todolist_chars->set_text(pConfig->charsTodo.item());
+    hbox_todolist_chars->pack_start(*label_todolist_chars, false, false);
+    hbox_todolist_chars->pack_start(*entry_todolist_chars);
+
+    Gtk::HBox* hbox_toc_chars = Gtk::manage(new Gtk::HBox());
+    hbox_toc_chars->set_spacing(4);
+    Gtk::Label* label_toc_chars = Gtk::manage(new Gtk::Label(_("Chars for Table Of Content")));
+    Gtk::Entry* entry_toc_chars = Gtk::manage(new Gtk::Entry());
+    entry_toc_chars->set_text(pConfig->charsToc.item());
+    hbox_toc_chars->pack_start(*label_toc_chars, false, false);
+    hbox_toc_chars->pack_start(*entry_toc_chars);
+
+    Gtk::HBox* hbox_dquote_chars = Gtk::manage(new Gtk::HBox());
+    hbox_dquote_chars->set_spacing(4);
+    Gtk::Label* label_dquote_chars = Gtk::manage(new Gtk::Label(_("Chars for Smart Double Quotes")));
+    Gtk::Entry* entry_dquote_chars = Gtk::manage(new Gtk::Entry());
+    entry_dquote_chars->set_text(pConfig->chars_smart_dquote.item());
+    hbox_dquote_chars->pack_start(*label_dquote_chars, false, false);
+    hbox_dquote_chars->pack_start(*entry_dquote_chars);
+
+    Gtk::HBox* hbox_squote_chars = Gtk::manage(new Gtk::HBox());
+    hbox_squote_chars->set_spacing(4);
+    Gtk::Label* label_squote_chars = Gtk::manage(new Gtk::Label(_("Chars for Smart Single Quotes")));
+    Gtk::Entry* entry_squote_chars = Gtk::manage(new Gtk::Entry());
+    entry_squote_chars->set_text(pConfig->chars_smart_squote.item());
+    hbox_squote_chars->pack_start(*label_squote_chars, false, false);
+    hbox_squote_chars->pack_start(*entry_squote_chars);
 
     Gtk::VBox* vbox_editor = Gtk::manage(new Gtk::VBox());
     Gtk::CheckButton* checkbutton_auto_smart_quotes = Gtk::manage(new Gtk::CheckButton(_("Enable Smart Quotes Auto Replacement")));
@@ -305,6 +323,12 @@ Gtk::Widget* CtPrefDlg::build_tab_text()
     checkbutton_auto_smart_quotes->set_active(pConfig->autoSmartQuotes);
     checkbutton_enable_symbol_autoreplace->set_active(pConfig->enableSymbolAutoreplace);
 
+    vbox_editor->pack_start(*hbox_special_chars, false, false);
+    vbox_editor->pack_start(*hbox_bullist_chars, false, false);
+    vbox_editor->pack_start(*hbox_todolist_chars, false, false);
+    vbox_editor->pack_start(*hbox_toc_chars, false, false);
+    vbox_editor->pack_start(*hbox_dquote_chars, false, false);
+    vbox_editor->pack_start(*hbox_squote_chars, false, false);
     vbox_editor->pack_start(*checkbutton_auto_smart_quotes, false, false);
     vbox_editor->pack_start(*checkbutton_enable_symbol_autoreplace, false, false);
 
@@ -321,6 +345,37 @@ Gtk::Widget* CtPrefDlg::build_tab_text()
     pMainBox->set_margin_left(6);
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_editor, false, false);
+
+    textview_special_chars->get_buffer()->signal_changed().connect([this, pConfig, textview_special_chars](){
+        Glib::ustring new_special_chars = textview_special_chars->get_buffer()->get_text();
+        new_special_chars = str::replace(new_special_chars, CtConst::CHAR_NEWLINE, "");
+        if ((pConfig->specialChars.item()) != new_special_chars)
+        {
+            pConfig->specialChars = new_special_chars;
+            apply_for_each_window([](CtMainWin* win) { win->menu_set_items_special_chars(); });
+        }
+    });
+    button_reset->signal_clicked().connect([this, textview_special_chars](){
+        if (CtDialogs::question_dialog(reset_warning, *this)) {
+            textview_special_chars->get_buffer()->set_text(CtConst::SPECIAL_CHARS_DEFAULT);
+        }
+    });
+
+    entry_bullist_chars->signal_changed().connect([pConfig, entry_bullist_chars](){
+        pConfig->charsListbul = entry_bullist_chars->get_text();
+    });
+    entry_todolist_chars->signal_changed().connect([pConfig, entry_todolist_chars](){
+        pConfig->charsTodo = entry_todolist_chars->get_text();
+    });
+    entry_toc_chars->signal_changed().connect([pConfig, entry_toc_chars](){
+        pConfig->charsToc = entry_toc_chars->get_text();
+    });
+    entry_dquote_chars->signal_changed().connect([pConfig, entry_dquote_chars](){
+        pConfig->chars_smart_dquote = entry_dquote_chars->get_text();
+    });
+    entry_squote_chars->signal_changed().connect([pConfig, entry_squote_chars](){
+        pConfig->chars_smart_squote = entry_squote_chars->get_text();
+    });
 
     checkbutton_auto_smart_quotes->signal_toggled().connect([pConfig, checkbutton_auto_smart_quotes](){
         pConfig->autoSmartQuotes = checkbutton_auto_smart_quotes->get_active();
