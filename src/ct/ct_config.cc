@@ -223,7 +223,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_boolean(_currentGroup, "spaces_instead_tabs", spacesInsteadTabs);
     _uKeyFile->set_integer(_currentGroup, "tabs_width", tabsWidth);
     _uKeyFile->set_integer(_currentGroup, "anchor_size", anchorSize);
-    _uKeyFile->set_integer(_currentGroup, "embfile_size", embfileSize);
+    _uKeyFile->set_integer(_currentGroup, "embfile_icon_size", embfileIconSize);
     _uKeyFile->set_boolean(_currentGroup, "embfile_show_filename", embfileShowFileName);
     _uKeyFile->set_integer(_currentGroup, "embfile_max_size", embfileMaxSize);
     _uKeyFile->set_boolean(_currentGroup, "line_wrapping", lineWrapping);
@@ -480,7 +480,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_bool_from_keyfile("spaces_instead_tabs", &spacesInsteadTabs);
     _populate_int_from_keyfile("tabs_width", &tabsWidth);
     _populate_int_from_keyfile("anchor_size", &anchorSize);
-    _populate_int_from_keyfile("embfile_size", &embfileSize);
+    _populate_int_from_keyfile("embfile_icon_size", &embfileIconSize);
     _populate_bool_from_keyfile("embfile_show_filename", &embfileShowFileName);
     _populate_int_from_keyfile("embfile_max_size", &embfileMaxSize);
     _populate_bool_from_keyfile("line_wrapping", &lineWrapping);

@@ -21,3 +21,4 @@
   * New: The toolbar supports multiple rows of icons
   * New: Filetype icons for file attachments on Linux (work of @metal450)
   * New: it is configurable whether to wrap or not the nodes names in the tree; off by default
+  * New: Now configurable from the preferences dialog "Embedded file size limit", "Triple click to select the whole paragraph"

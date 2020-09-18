@@ -63,7 +63,6 @@ const inline static gchar* STYLE_APPLIED_ID         {"<style-applied>"};
 const inline static gchar* SYN_HIGHL_BASH           {"sh"};
 const inline static gchar* STYLE_SCHEME_LIGHT       {"classic"};
 const inline static gchar* STYLE_SCHEME_DARK        {"cobalt"};
-const inline static gchar* STYLE_SCHEME_GRAY        {"oblivion"};
 const inline static gchar* TIMESTAMP_FORMAT_DEFAULT {"%Y/%m/%d - %H:%M"};
 
 const inline static Glib::ustring SPECIAL_CHARS_DEFAULT {"“”„‘’•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑σ√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝"};
@@ -96,10 +95,6 @@ const inline static gchar* COLOR_24_BLUEBG      {"#001b33"};
 const inline static gchar* COLOR_24_LBLACK      {"#0b0c0c"};
 const inline static gchar* COLOR_24_GRAY        {"#e0e0e0"};
 const inline static gchar* DEFAULT_MONOSPACE_BG {"#7f7f7f"};
-const inline static gchar* RICH_TEXT_DARK_FG      {COLOR_24_WHITE};
-const inline static gchar* RICH_TEXT_DARK_BG      {COLOR_24_BLUEBG};
-const inline static gchar* RICH_TEXT_LIGHT_FG     {COLOR_24_BLACK};
-const inline static gchar* RICH_TEXT_LIGHT_BG     {COLOR_24_WHITE};
 const inline static gchar* TREE_TEXT_DARK_FG      {COLOR_24_WHITE};
 const inline static gchar* TREE_TEXT_DARK_BG      {COLOR_24_BLUEBG};
 const inline static gchar* TREE_TEXT_LIGHT_FG     {COLOR_24_LBLACK};

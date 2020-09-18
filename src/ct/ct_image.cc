@@ -393,7 +393,7 @@ void CtImageEmbFile::update_tooltip()
     {
         if (GIcon* icon = g_content_type_get_icon(ctype)) // Glib::wrap will unref object
         {
-           Gtk::IconInfo info = pCtMainWin->get_icon_theme()->lookup_icon(Glib::wrap(icon), pCtMainWin->get_ct_config()->embfileSize, Gtk::ICON_LOOKUP_USE_BUILTIN);
+           Gtk::IconInfo info = pCtMainWin->get_icon_theme()->lookup_icon(Glib::wrap(icon), pCtMainWin->get_ct_config()->embfileIconSize, Gtk::ICON_LOOKUP_USE_BUILTIN);
            result = info.load_icon();
         }
     }
@@ -401,7 +401,7 @@ void CtImageEmbFile::update_tooltip()
     (void)fileName; // silence warning
 #endif // _WIN32
     if (!result)
-        result = pCtMainWin->get_icon_theme()->load_icon("ct_file_icon", pCtMainWin->get_ct_config()->embfileSize);
+        result = pCtMainWin->get_icon_theme()->load_icon("ct_file_icon", pCtMainWin->get_ct_config()->embfileIconSize);
     return result;
 }
 

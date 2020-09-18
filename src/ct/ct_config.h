@@ -79,7 +79,7 @@ public:
     std::string                                 autoSynHighl{CtConst::SYN_HIGHL_BASH};
     std::string                                 rtStyleScheme{CtConst::STYLE_SCHEME_DARK};
     std::string                                 ptStyleScheme{CtConst::STYLE_SCHEME_DARK};
-    std::string                                 taStyleScheme{CtConst::STYLE_SCHEME_DARK};
+    std::string                                 taStyleScheme{CtConst::STYLE_SCHEME_LIGHT};
     bool                                        enableSpellCheck{false};
     std::string                                 spellCheckLang;
     bool                                        showLineNumbers{false};
@@ -87,7 +87,7 @@ public:
     bool                                        spacesInsteadTabs{false};
     int                                         tabsWidth{4};
     int                                         anchorSize{16};
-    int                                         embfileSize{48};
+    int                                         embfileIconSize{48};
     bool                                        embfileShowFileName{true};
     int                                         embfileMaxSize{10};
     bool                                        lineWrapping{true};

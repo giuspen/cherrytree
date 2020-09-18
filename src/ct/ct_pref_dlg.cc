@@ -368,14 +368,25 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     checkbutton_rt_highl_curr_line->set_active(pConfig->rtHighlCurrLine);
     Gtk::CheckButton* checkbutton_codebox_auto_resize = Gtk::manage(new Gtk::CheckButton(_("Expand CodeBoxes Automatically")));
     checkbutton_codebox_auto_resize->set_active(pConfig->codeboxAutoResize);
-    Gtk::HBox* hbox_embfile_size = Gtk::manage(new Gtk::HBox());
-    hbox_embfile_size->set_spacing(4);
-    Gtk::Label* label_embfile_size = Gtk::manage(new Gtk::Label(_("Embedded File Icon Size")));
-    Glib::RefPtr<Gtk::Adjustment> adj_embfile_size = Gtk::Adjustment::create(pConfig->embfileSize, 1, 1000, 1);
-    Gtk::SpinButton* spinbutton_embfile_size = Gtk::manage(new Gtk::SpinButton(adj_embfile_size));
-    spinbutton_embfile_size->set_value(pConfig->embfileSize);
-    hbox_embfile_size->pack_start(*label_embfile_size, false, false);
-    hbox_embfile_size->pack_start(*spinbutton_embfile_size, false, false);
+
+    Gtk::HBox* hbox_embfile_icon_size = Gtk::manage(new Gtk::HBox());
+    hbox_embfile_icon_size->set_spacing(4);
+    Gtk::Label* label_embfile_icon_size = Gtk::manage(new Gtk::Label(_("Embedded File Icon Size")));
+    Glib::RefPtr<Gtk::Adjustment> adj_embfile_icon_size = Gtk::Adjustment::create(pConfig->embfileIconSize, 1, 1000, 1);
+    Gtk::SpinButton* spinbutton_embfile_icon_size = Gtk::manage(new Gtk::SpinButton(adj_embfile_icon_size));
+    spinbutton_embfile_icon_size->set_value(pConfig->embfileIconSize);
+    hbox_embfile_icon_size->pack_start(*label_embfile_icon_size, false, false);
+    hbox_embfile_icon_size->pack_start(*spinbutton_embfile_icon_size, false, false);
+
+    Gtk::HBox* hbox_embfile_max_size = Gtk::manage(new Gtk::HBox());
+    hbox_embfile_max_size->set_spacing(4);
+    Gtk::Label* label_embfile_max_size = Gtk::manage(new Gtk::Label(_("Embedded File Size Limit")));
+    Glib::RefPtr<Gtk::Adjustment> adj_embfile_max_size = Gtk::Adjustment::create(pConfig->embfileIconSize, 1, 1000, 1);
+    Gtk::SpinButton* spinbutton_embfile_max_size = Gtk::manage(new Gtk::SpinButton(adj_embfile_max_size));
+    spinbutton_embfile_max_size->set_value(pConfig->embfileMaxSize);
+    hbox_embfile_max_size->pack_start(*label_embfile_max_size, false, false);
+    hbox_embfile_max_size->pack_start(*spinbutton_embfile_max_size, false, false);
+
     Gtk::CheckButton* checkbutton_embfile_show_filename = Gtk::manage(new Gtk::CheckButton(_("Show File Name on Top of Embedded File Icon")));
     checkbutton_embfile_show_filename->set_active(pConfig->embfileShowFileName);
     Gtk::Label* label_limit_undoable_steps = Gtk::manage(new Gtk::Label(_("Limit of Undoable Steps Per Node")));
@@ -384,6 +395,8 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     spinbutton_limit_undoable_steps->set_value(pConfig->limitUndoableSteps);
     hbox_misc_text->pack_start(*label_limit_undoable_steps, false, false);
     hbox_misc_text->pack_start(*spinbutton_limit_undoable_steps, false, false);
+    Gtk::CheckButton* checkbutton_triple_click_sel_paragraph = Gtk::manage(new Gtk::CheckButton(_("At Triple Click Select the Whole Paragraph")));
+    checkbutton_triple_click_sel_paragraph->set_active(pConfig->tripleClickParagraph);
     Gtk::CheckButton* checkbutton_md_formatting = Gtk::manage(new Gtk::CheckButton(_("Enable Markdown Auto Replacement (Experimental)")));
     checkbutton_md_formatting->set_active(pConfig->enableMdFormatting);
 
@@ -391,9 +404,11 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     vbox_misc_text->pack_start(*checkbutton_rt_show_white_spaces, false, false);
     vbox_misc_text->pack_start(*checkbutton_rt_highl_curr_line, false, false);
     vbox_misc_text->pack_start(*checkbutton_codebox_auto_resize, false, false);
-    vbox_misc_text->pack_start(*hbox_embfile_size, false, false);
+    vbox_misc_text->pack_start(*hbox_embfile_icon_size, false, false);
+    vbox_misc_text->pack_start(*hbox_embfile_max_size, false, false);
     vbox_misc_text->pack_start(*checkbutton_embfile_show_filename, false, false);
     vbox_misc_text->pack_start(*hbox_misc_text, false, false);
+    vbox_misc_text->pack_start(*checkbutton_triple_click_sel_paragraph, false, false);
     vbox_misc_text->pack_start(*checkbutton_md_formatting, false, false);
     Gtk::Frame* frame_misc_text = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Miscellaneous")+"</b>"));
     ((Gtk::Label*)frame_misc_text->get_label_widget())->set_use_markup(true);
@@ -439,9 +454,12 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
         pConfig->codeboxAutoResize = checkbutton_codebox_auto_resize->get_active();
         need_restart(RESTART_REASON::CODEBOX_AUTORESIZE);
     });
-    spinbutton_embfile_size->signal_value_changed().connect([this, pConfig, spinbutton_embfile_size](){
-        pConfig->embfileSize = spinbutton_embfile_size->get_value_as_int();
+    spinbutton_embfile_icon_size->signal_value_changed().connect([this, pConfig, spinbutton_embfile_icon_size](){
+        pConfig->embfileIconSize = spinbutton_embfile_icon_size->get_value_as_int();
         need_restart(RESTART_REASON::EMBFILE_SIZE);
+    });
+    spinbutton_embfile_max_size->signal_value_changed().connect([this, pConfig, spinbutton_embfile_max_size](){
+        pConfig->embfileMaxSize = spinbutton_embfile_max_size->get_value_as_int();
     });
     checkbutton_embfile_show_filename->signal_toggled().connect([this, pConfig, checkbutton_embfile_show_filename](){
         pConfig->embfileShowFileName = checkbutton_embfile_show_filename->get_active();
@@ -449,6 +467,9 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     });
     spinbutton_limit_undoable_steps->signal_value_changed().connect([pConfig, spinbutton_limit_undoable_steps](){
         pConfig->limitUndoableSteps = spinbutton_limit_undoable_steps->get_value_as_int();
+    });
+    checkbutton_triple_click_sel_paragraph->signal_toggled().connect([pConfig, checkbutton_triple_click_sel_paragraph]{
+        pConfig->tripleClickParagraph = checkbutton_triple_click_sel_paragraph->get_active();
     });
     checkbutton_md_formatting->signal_toggled().connect([pConfig, checkbutton_md_formatting]{
         pConfig->enableMdFormatting = checkbutton_md_formatting->get_active();
