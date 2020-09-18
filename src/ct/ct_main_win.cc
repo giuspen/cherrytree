@@ -1443,6 +1443,8 @@ void CtMainWin::_on_treeview_cursor_changed()
     auto mapIter = _nodesCursorPos.find(treeIter.get_node_id());
     if (mapIter != _nodesCursorPos.end() and mapIter->second > 0) {
         text_view_apply_cursor_position(treeIter, mapIter->second);
+    } else {
+        text_view_apply_cursor_position(treeIter, 0);
     }
 
     menu_update_bookmark_menu_item(_uCtTreestore->is_node_bookmarked(treeIter.get_node_id()));
