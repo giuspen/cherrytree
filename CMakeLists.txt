@@ -182,6 +182,9 @@ if(${CMAKE_SYSTEM_NAME} MATCHES Linux|.*BSD|DragonFly|Darwin)
   # share/cherrytree language-specs
   install(DIRECTORY ${CMAKE_SOURCE_DIR}/language-specs
           DESTINATION ${CHERRYTREE_SHARE_INSTALL})
+  # share/cherrytree styles
+  install(DIRECTORY ${CMAKE_SOURCE_DIR}/styles
+          DESTINATION ${CHERRYTREE_SHARE_INSTALL})
   # share/cherrytree data
   install(FILES
           "${CMAKE_SOURCE_DIR}/data/script3.js"

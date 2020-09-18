@@ -6,7 +6,8 @@
   * New: Export to PDF support for hyperlinks (work of @ForeverRainbow)
   * New: Duplicate a node and its subnodes (before only the selected node could be duplicated)
   * New: Option to scroll beyond the last line, enabled by default
-  * New: The rich text does no longer have light/dark/custom theme but a range of themes to select from like for plain text and code
+  * New: The rich text does no longer have light/dark/custom theme but a range of themes to select from like already for plain text & code
+  * New: Tables also can select their own theme like rich text and plain text & code
   * New: You can now right click a node or an anchor and select to copy a link to it in the clipboard, then paste the link into rich text
   * New: Formatting tag to indent/unindent (work of @metal450)
   * New: The tables are implemented with a different library widget, editing a cell is easier, Ctrl+Arrow to move cursor between cells
@@ -19,3 +20,4 @@
   * New: Option for markdown auto replacement to rich text (work of @ForeverRainbow)
   * New: The toolbar supports multiple rows of icons
   * New: Filetype icons for file attachments on Linux (work of @metal450)
+  * New: it is configurable whether to wrap or not the nodes names in the tree; off by default

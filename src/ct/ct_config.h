@@ -144,7 +144,6 @@ public:
     // [table]
     int                                         tableRows{3};
     int                                         tableColumns{3};
-    CtTableColMode                              tableColMode{CtTableColMode::RENAME};
     int                                         tableColWidth{60};
 
     // [fonts]
