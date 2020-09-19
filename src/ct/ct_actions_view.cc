@@ -98,8 +98,10 @@ void CtActions::toolbar_icons_size_decrease()
 // Toggle Fullscreen State
 void CtActions::fullscreen_toggle()
 {
-    if (_pCtMainWin->get_state_flags() & GDK_WINDOW_STATE_FULLSCREEN)
+    if (_pCtMainWin->get_window()->get_state() & GDK_WINDOW_STATE_FULLSCREEN) {
         _pCtMainWin->unfullscreen();
-    else
+    }
+    else {
         _pCtMainWin->fullscreen();
+    }
 }
