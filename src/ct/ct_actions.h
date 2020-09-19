@@ -32,7 +32,6 @@
 #include "ct_filesystem.h"
 #include <optional>
 
-
 class CtMainWin;
 class CtImporterInterface;
 struct ct_imported_node;
@@ -121,6 +120,7 @@ private:
 
 public:
     CtMainWin*   getCtMainWin() { return _pCtMainWin; }
+    bool         get_were_embfiles_opened() { return _embfiles_opened.size(); }
 
 private:
     Glib::RefPtr<Gtk::TextBuffer> _curr_buffer() { return _pCtMainWin->get_text_view().get_buffer(); }

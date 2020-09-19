@@ -1021,6 +1021,16 @@ bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_f
 
 bool CtMainWin::file_save_ask_user()
 {
+    if (_uCtActions->get_were_embfiles_opened()) {
+        const Glib::ustring message = Glib::ustring{"<b>"} +
+            _("Temporary Files were Created and Opened with External Applications.") +
+            "</b>\n\n<b>" + _("Quit the External Applications Before Quit CherryTree.") +
+            "</b>\n\n<b>" + _("Did you Quit the External Applications?") + "</b>";
+        if (not CtDialogs::question_dialog(message, *this)) {
+            return false;
+        }
+    }
+
     if (get_file_save_needed())
     {
         const CtYesNoCancel yesNoCancel = [this]() {
