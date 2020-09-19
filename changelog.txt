@@ -1,8 +1,9 @@
 
 0.99.XX (September YY, 2020)
   * This is the first public release of the 0.99.x serie where Evgenii (@txe) and myself (@giuspen) have rewritten everything from scratch in C++/GTK3
-  * This attempts to list the features not yet ported and brand new against 0.39.x, last Python2/GTK2 branch
+  * This attempts to list the features not yet ported and brand new against 0.39.4, currently last Python2/GTK2 release
   * The following imports are missing and may not be implemented at all if not requested: Basket, EPIM HTML, KeyNote, KnowIt, Treepad Lite, TuxCards
+  * Ubuntu AppIndicator is not currently supported
   * New: Export to PDF support for hyperlinks (work of @ForeverRainbow)
   * New: Duplicate a node and its subnodes (before only the selected node could be duplicated)
   * New: Option to scroll beyond the last line, enabled by default
@@ -20,5 +21,6 @@
   * New: Option for markdown auto replacement to rich text (work of @ForeverRainbow)
   * New: The toolbar supports multiple rows of icons
   * New: Filetype icons for file attachments on Linux (work of @metal450)
-  * New: it is configurable whether to wrap or not the nodes names in the tree; off by default
+  * New: it is configurable whether to wrap or not the nodes names in the tree, off by default
   * New: Now configurable from the preferences dialog are the "Embedded file size limit", "Triple click to select the whole paragraph", "Chars for bulleted list", "Chars for todo list", "Chars for table of content", "Chars for smart double quote", "Chars for smart single quote"
+  * New: It is configurable whether to show the document directory in the window title or not

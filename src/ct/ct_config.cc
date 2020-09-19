@@ -299,12 +299,13 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_string(_currentGroup, "toolbar_ui_list", toolbarUiList);
     _uKeyFile->set_boolean(_currentGroup, "systray", systrayOn);
     _uKeyFile->set_boolean(_currentGroup, "start_on_systray", startOnSystray);
-    _uKeyFile->set_boolean(_currentGroup, "use_appind", useAppInd);
+    //_uKeyFile->set_boolean(_currentGroup, "use_appind", useAppInd);
     _uKeyFile->set_boolean(_currentGroup, "autosave_on", autosaveOn);
     _uKeyFile->set_integer(_currentGroup, "autosave_val", autosaveVal);
     _uKeyFile->set_boolean(_currentGroup, "check_version", checkVersion);
     _uKeyFile->set_boolean(_currentGroup, "word_count", wordCountOn);
     _uKeyFile->set_boolean(_currentGroup, "reload_doc_last", reloadDocLast);
+    _uKeyFile->set_boolean(_currentGroup, "win_title_doc_dir", winTitleShowDocDir);
     _uKeyFile->set_boolean(_currentGroup, "mod_time_sentinel", modTimeSentinel);
     _uKeyFile->set_boolean(_currentGroup, "backup_copy", backupCopy);
     _uKeyFile->set_integer(_currentGroup, "backup_num", backupNum);
@@ -564,11 +565,17 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_bool_from_keyfile("systray", &systrayOn);
     _populate_bool_from_keyfile("start_on_systray", &startOnSystray);
     _populate_bool_from_keyfile("use_appind", &useAppInd);
+    if (useAppInd) {
+        // if coming from pygtk2 version that supports appindicator which we currently do not
+        systrayOn = false;
+        startOnSystray = false;
+    }
     _populate_bool_from_keyfile("autosave_on", &autosaveOn);
     _populate_int_from_keyfile("autosave_val", &autosaveVal);
     _populate_bool_from_keyfile("check_version", &checkVersion);
     _populate_bool_from_keyfile("word_count", &wordCountOn);
     _populate_bool_from_keyfile("reload_doc_last", &reloadDocLast);
+    _populate_bool_from_keyfile("win_title_doc_dir", &winTitleShowDocDir);
     _populate_bool_from_keyfile("mod_time_sentinel", &modTimeSentinel);
     _populate_bool_from_keyfile("backup_copy", &backupCopy);
     _populate_int_from_keyfile("backup_num", &backupNum);

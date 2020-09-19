@@ -24,6 +24,7 @@
 #pragma once
 
 #include <unordered_map>
+#include <optional>
 
 #include <glibmm/i18n.h>
 #include <gtkmm.h>
@@ -158,6 +159,8 @@ private:
     Gtk::EventBox& _init_window_header();
 
 public:
+    void window_title_update(std::optional<bool> saveNeeded = std::nullopt);
+
     void window_header_update();
     void window_header_update_lock_icon(bool show);
     void window_header_update_bookmark_icon(bool show);
@@ -202,7 +205,6 @@ private:
     void                _on_textview_event_after(GdkEvent* event); // pygtk: on_sourceview_event_after
     bool                _on_textview_scroll_event(GdkEventScroll* event);
 
-    void                _title_update(const bool saveNeeded); // pygtk: window_title_update
     void                _reset_CtTreestore_CtTreeview();
     void                _ensure_curr_doc_in_recent_docs();
     void                _zoom_tree(bool is_increase);

@@ -1524,15 +1524,18 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     Gtk::CheckButton* checkbutton_word_count = Gtk::manage(new Gtk::CheckButton(_("Enable Word Count in Statusbar")));
     Gtk::CheckButton* checkbutton_reload_doc_last = Gtk::manage(new Gtk::CheckButton(_("Reload Document From Last Session")));
     Gtk::CheckButton* checkbutton_mod_time_sentinel = Gtk::manage(new Gtk::CheckButton(_("Reload After External Update to CT* File")));
+    Gtk::CheckButton* checkbutton_win_title_doc_dir = Gtk::manage(new Gtk::CheckButton(_("Show the Document Directory in the Window Title")));
     vbox_misc_misc->pack_start(*checkbutton_newer_version, false, false);
     vbox_misc_misc->pack_start(*checkbutton_word_count, false, false);
     vbox_misc_misc->pack_start(*checkbutton_reload_doc_last, false, false);
     vbox_misc_misc->pack_start(*checkbutton_mod_time_sentinel, false, false);
+    vbox_misc_misc->pack_start(*checkbutton_win_title_doc_dir, false, false);
 
     checkbutton_newer_version->set_active(pConfig->checkVersion);
     checkbutton_word_count->set_active(pConfig->wordCountOn);
     checkbutton_reload_doc_last->set_active(pConfig->reloadDocLast);
     checkbutton_mod_time_sentinel->set_active(pConfig->modTimeSentinel);
+    checkbutton_win_title_doc_dir->set_active(pConfig->winTitleShowDocDir);
 
     Gtk::Frame* frame_misc_misc = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Miscellaneous")+"</b>"));
     ((Gtk::Label*)frame_misc_misc->get_label_widget())->set_use_markup(true);
@@ -1632,6 +1635,10 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_mod_time_sentinel->signal_toggled().connect([this, pConfig, checkbutton_mod_time_sentinel](){
         pConfig->modTimeSentinel = checkbutton_mod_time_sentinel->get_active();
         _pCtMainWin->mod_time_sentinel_restart();
+    });
+    checkbutton_win_title_doc_dir->signal_toggled().connect([this, pConfig, checkbutton_win_title_doc_dir](){
+        pConfig->winTitleShowDocDir = checkbutton_win_title_doc_dir->get_active();
+        _pCtMainWin->window_title_update();
     });
     checkbutton_newer_version->signal_toggled().connect([pConfig, checkbutton_newer_version](){
         pConfig->checkVersion = checkbutton_newer_version->get_active();

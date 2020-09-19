@@ -121,7 +121,7 @@ CtMainWin::CtMainWin(bool             no_gui,
     file_autosave_restart();
     mod_time_sentinel_restart();
 
-    _title_update(false/*saveNeeded*/);
+    window_title_update(false/*saveNeeded*/);
 
     config_apply();
 
@@ -964,7 +964,7 @@ bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_f
 
     _uCtStorage.reset(new_storage);
 
-    _title_update(false/*saveNeeded*/);
+    window_title_update(false/*saveNeeded*/);
     menu_set_bookmark_menu_items();
     bool can_vacuum = fs::get_doc_type(_uCtStorage->get_file_path()) == CtDocType::SQLite;
     _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(can_vacuum);
@@ -1270,7 +1270,7 @@ void CtMainWin::update_selected_node_statusbar_info()
 
 void CtMainWin::update_window_save_not_needed()
 {
-    _title_update(false/*save_needed*/);
+    window_title_update(false/*save_needed*/);
     _fileSaveNeeded = false;
     CtTreeIter treeIter = curr_tree_iter();
     if (treeIter)
@@ -1296,7 +1296,7 @@ void CtMainWin::update_window_save_needed(const CtSaveNeededUpdType update_type,
     }
     if (false == _fileSaveNeeded)
     {
-        _title_update(true/*save_needed*/);
+        window_title_update(true/*save_needed*/);
         _fileSaveNeeded = true;
     }
     switch (update_type)
@@ -1964,16 +1964,22 @@ bool CtMainWin::_on_textview_scroll_event(GdkEventScroll* event)
     return true;
 }
 
-void CtMainWin::_title_update(const bool saveNeeded)
+void CtMainWin::window_title_update(std::optional<bool> saveNeeded)
 {
     Glib::ustring title;
-    if (saveNeeded)
-    {
+    title.reserve(100);
+    if (not saveNeeded.has_value()) {
+        const Glib::ustring currTitle = get_title();
+        saveNeeded = not currTitle.empty() and currTitle.at(0) == '*';
+    }
+    if (saveNeeded.value()) {
         title += "*";
     }
-    if (_uCtStorage->get_file_path() != "")
-    {
-        title += _uCtStorage->get_file_name().string() + " - " + _uCtStorage->get_file_dir().string() + " - ";
+    if (not _uCtStorage->get_file_path().empty()) {
+        title += _uCtStorage->get_file_name().string() + " - ";
+        if (_pCtConfig->winTitleShowDocDir) {
+            title += _uCtStorage->get_file_dir().string() + " - ";
+        }
     }
     title += "CherryTree ";
     title += CtConst::CT_VERSION;
