@@ -1,7 +1,9 @@
 /*
  * ct_imports.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,7 +45,7 @@ struct ct_imported_node
     gint64                           node_id {-1};     // generated at the end
     std::string                      node_syntax {CtConst::RICH_TEXT_ID};
     std::shared_ptr<xmlpp::Document> xml_content{std::make_shared<xmlpp::Document>()};
-    std::map<Glib::ustring, std::vector<xmlpp::Element*>> content_broken_links; 
+    std::map<Glib::ustring, std::vector<xmlpp::Element*>> content_broken_links;
     std::list<std::unique_ptr<ct_imported_node>> children;
 
     ct_imported_node(fs::path _path, const Glib::ustring& _name) : path(std::move(_path)), node_name(_name) {}
@@ -70,19 +72,20 @@ public:
 
 namespace CtImports {
 
-    std::vector<std::pair<int, int>> get_web_links_offsets_from_plain_text(const Glib::ustring& plain_text);
-    std::unique_ptr<ct_imported_node> traverse_dir(const fs::path& dir, CtImporterInterface* importer);
+std::vector<std::pair<size_t, size_t>> get_web_links_offsets_from_plain_text(const Glib::ustring& plain_text);
+std::unique_ptr<ct_imported_node> traverse_dir(const fs::path& dir, CtImporterInterface* importer);
 
-}
+} // namespace CtImports
 
 struct CtStatusBar;
 
 namespace CtXML {
+
 xmlpp::Element* codebox_to_xml(xmlpp::Element* parent, const Glib::ustring& justification, int char_offset, int frame_width, int frame_height, int width_in_pixels, const Glib::ustring& syntax_highlighting, bool highlight_brackets, bool show_line_numbers);
 xmlpp::Element* table_to_xml(const std::vector<std::vector<std::string>> &matrix, xmlpp::Element *parent, int char_offset, Glib::ustring justification, int col_min, int col_max);
 xmlpp::Element* image_to_xml(xmlpp::Element* parent, const std::string& path, int char_offset, const Glib::ustring& justification, CtStatusBar* status_bar = nullptr);
 
-} // CtXML
+} // namespace CtXML
 
 /**
  * @class CtImportException
@@ -231,7 +234,7 @@ private:
 
 class CtLeoImporter: public CtImporterInterface {
 public:
-    
+
     std::unique_ptr<ct_imported_node> import_file(const fs::path& path) override;
 
     std::vector<std::string> file_patterns() override { return {"*.leo"}; };

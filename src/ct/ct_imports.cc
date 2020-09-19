@@ -1,7 +1,9 @@
 /*
  * ct_imports.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,17 +32,18 @@
 #include <sstream>
 
 namespace {
+
 xmlpp::Element* create_root_plaintext_text_el(xmlpp::Document& doc, const Glib::ustring& text) {
     xmlpp::Element* el = doc.create_root_node("root")->add_child("slot")->add_child("rich_text");
     el->set_child_text(text);
     return el;
 }
 
-}
+} // namespace (anonymous)
 
 namespace CtXML {
 
-xmlpp::Element* codebox_to_xml(xmlpp::Element* parent, const Glib::ustring& justification, int char_offset, int frame_width, int frame_height, int width_in_pixels, const Glib::ustring& syntax_highlighting, bool highlight_brackets, bool show_line_numbers) 
+xmlpp::Element* codebox_to_xml(xmlpp::Element* parent, const Glib::ustring& justification, int char_offset, int frame_width, int frame_height, int width_in_pixels, const Glib::ustring& syntax_highlighting, bool highlight_brackets, bool show_line_numbers)
 {
     xmlpp::Element* p_codebox_node = parent->add_child("codebox");
     p_codebox_node->set_attribute("char_offset", std::to_string(char_offset));
@@ -54,7 +57,7 @@ xmlpp::Element* codebox_to_xml(xmlpp::Element* parent, const Glib::ustring& just
     return p_codebox_node;
 }
 
-void table_row_to_xml(const std::vector<std::string>& row, xmlpp::Element* parent) 
+void table_row_to_xml(const std::vector<std::string>& row, xmlpp::Element* parent)
 {
     xmlpp::Element* row_element = parent->add_child("row");
     for (const auto& cell : row) {
@@ -70,32 +73,32 @@ xmlpp::Element* table_to_xml(const std::vector<std::vector<std::string>>& matrix
     tbl_node->set_attribute(CtConst::TAG_JUSTIFICATION, justification);
     tbl_node->set_attribute("col_min", std::to_string(col_min));
     tbl_node->set_attribute("col_max", std::to_string(col_max));
-    
+
     // Header goes at end
     for (auto row_iter = matrix.cbegin() + 1; row_iter != matrix.cend(); ++row_iter) {
         table_row_to_xml(*row_iter, tbl_node);
     }
     table_row_to_xml(matrix.front(), tbl_node);
-    
+
     return tbl_node;
 }
 
-xmlpp::Element *image_to_xml(xmlpp::Element *parent, const std::string &path, int char_offset, const Glib::ustring &justification, CtStatusBar* status_bar /* = nullptr */) 
+xmlpp::Element *image_to_xml(xmlpp::Element *parent, const std::string &path, int char_offset, const Glib::ustring &justification, CtStatusBar* status_bar /* = nullptr */)
 {
     Glib::RefPtr<Gdk::Pixbuf> pixbuf;
-    
+
     // Get uri type
     CtMiscUtil::URI_TYPE path_type = CtMiscUtil::get_uri_type(path);
     if (path_type == CtMiscUtil::URI_TYPE::UNKNOWN) {
         throw std::runtime_error(fmt::format("Could not determine type for path: {}", path));
     }
     if (path_type == CtMiscUtil::URI_TYPE::WEB_URL) {
-    
+
         if (status_bar) {
             status_bar->update_status(std::string(_("Downloading")) + " " + path + " ...");
             while (gtk_events_pending()) gtk_main_iteration();
         }
-    
+
         // Download
         try {
             std::string file_buffer = fs::download_file(path);
@@ -104,7 +107,7 @@ xmlpp::Element *image_to_xml(xmlpp::Element *parent, const std::string &path, in
                 pixbuf_loader->write(reinterpret_cast<const guint8 *>(file_buffer.c_str()), file_buffer.size());
                 pixbuf_loader->close();
                 pixbuf = pixbuf_loader->get_pixbuf();
-    
+
             }
         }
         catch (std::exception &e) {
@@ -112,14 +115,14 @@ xmlpp::Element *image_to_xml(xmlpp::Element *parent, const std::string &path, in
             throw;
         }
     } else if (path_type == CtMiscUtil::URI_TYPE::LOCAL_FILEPATH) {
-    
+
         // Load from local
         try {
             if (Glib::file_test(path, Glib::FILE_TEST_IS_REGULAR)) {
                 pixbuf = Gdk::Pixbuf::create_from_file(path);
                 if (!pixbuf) throw std::runtime_error("Failed to create pixbuf from file");
             }
-            
+
         }
         catch (std::exception& e) {
             spdlog::error("Exception occured while loading image from disk: {}", e.what());
@@ -135,40 +138,49 @@ xmlpp::Element *image_to_xml(xmlpp::Element *parent, const std::string &path, in
     pixbuf->save_to_buffer(pBuffer, buffer_size, "png");
     const std::string rawBlob = std::string(pBuffer, buffer_size);
     const std::string encodedBlob = Glib::Base64::encode(rawBlob);
-    
+
     xmlpp::Element* image_element = parent->add_child("encoded_png");
     image_element->set_attribute("char_offset", std::to_string(char_offset));
     image_element->set_attribute(CtConst::TAG_JUSTIFICATION, justification);
     image_element->set_attribute("link", std::string(CtConst::LINK_TYPE_WEBS) + " " + path);
     image_element->add_child_text(encodedBlob);
-    
+
     if (status_bar) status_bar->update_status("");
     return image_element;
 }
-}
 
+} // namespace CtXML
 
 // Parse plain text for possible web links
-std::vector<std::pair<int, int>> CtImports::get_web_links_offsets_from_plain_text(const Glib::ustring& plain_text)
+std::vector<std::pair<size_t, size_t>> CtImports::get_web_links_offsets_from_plain_text(const Glib::ustring& plain_text)
 {
-    std::vector<std::pair<int, int>> web_links;
-    int max_end_offset = (int)plain_text.size();
-    int max_start_offset = max_end_offset - 7;
-    int start_offset = 0;
+    std::vector<std::pair<size_t, size_t>> web_links;
+    size_t max_end_offset = plain_text.size();
+    size_t max_start_offset = max_end_offset - 7;
+    size_t start_offset = 0;
+    unsigned lastCharBeforeURL = 0;
     while (start_offset < max_start_offset)
     {
         if (str::startswith_any(plain_text.substr(start_offset), CtConst::WEB_LINK_STARTERS))
         {
-            int end_offset = start_offset + 3;
-            while (end_offset < max_end_offset
-                   && plain_text[(size_t)end_offset] != g_utf8_get_char(CtConst::CHAR_SPACE)
-                   && plain_text[(size_t)end_offset] != g_utf8_get_char(CtConst::CHAR_NEWLINE))
-                end_offset += 1;
+            size_t end_offset = start_offset + 3;
+            unsigned closingParenthesisChar = 0;
+            if (lastCharBeforeURL == '(') closingParenthesisChar = ')';
+            else if (lastCharBeforeURL == '[') closingParenthesisChar = ']';
+            else if (lastCharBeforeURL == '{') closingParenthesisChar = '}';
+            while (end_offset < max_end_offset and
+                   plain_text[end_offset] != ' ' and
+                   plain_text[end_offset] != '\n' and
+                   plain_text[end_offset] != closingParenthesisChar) {
+                ++end_offset;
+            }
             web_links.push_back(std::make_pair(start_offset, end_offset));
             start_offset = end_offset + 1;
         }
-        else
-            start_offset += 1;
+        else {
+            lastCharBeforeURL = plain_text.at(start_offset);
+            ++start_offset;
+        }
     }
     return web_links;
 }
@@ -399,7 +411,7 @@ std::unique_ptr<ct_imported_node> CtZimImport::import_file(const fs::path& file)
     _ensure_notebook_file_in_dir(file.parent_path());
 
     std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, file.stem().string());
-    
+
     std::ifstream stream;
     stream.exceptions(std::ios::failbit);
     stream.open(file.string());
@@ -501,7 +513,7 @@ std::unique_ptr<ct_imported_node> CtPandocImport::import_file(const fs::path& fi
     return node;
 }
 
-std::unique_ptr<ct_imported_node> node_from_keepnote_dir(const fs::path& dir, CtConfig* config)  
+std::unique_ptr<ct_imported_node> node_from_keepnote_dir(const fs::path& dir, CtConfig* config)
 {
     fs::path node_path = dir / "page.html";
     if (!fs::exists(node_path)) throw CtImportException(fmt::format("Directory: <{}> does not contain a page.html file", dir));
@@ -518,11 +530,11 @@ std::unique_ptr<ct_imported_node> node_from_keepnote_dir(const fs::path& dir, Ct
 
     auto node = std::make_unique<ct_imported_node>(node_path, dir.stem().string());
     node->xml_content->create_root_node_by_import(parser.doc().get_root_node());
-    
+
     return node;
 }
 
-bool is_keepnote_ignored_name(const std::string& name) 
+bool is_keepnote_ignored_name(const std::string& name)
 {
     for (const std::string& str : {"__TRASH__", "__NOTEBOOK__"}) {
         if (str.find(name) != std::string::npos) return true;
@@ -530,7 +542,7 @@ bool is_keepnote_ignored_name(const std::string& name)
     return false;
 }
 
-std::unique_ptr<ct_imported_node> CtKeepnoteImport::import_file(const fs::path& file) 
+std::unique_ptr<ct_imported_node> CtKeepnoteImport::import_file(const fs::path& file)
 {
     assert(fs::is_directory(file));
 
@@ -548,7 +560,7 @@ std::unique_ptr<ct_imported_node> CtKeepnoteImport::import_file(const fs::path& 
 }
 
 namespace {
-std::unique_ptr<ct_imported_node> mempad_page_to_node(const CtMempadParser::page& page, const fs::path& path) 
+std::unique_ptr<ct_imported_node> mempad_page_to_node(const CtMempadParser::page& page, const fs::path& path)
 {
     auto node = std::make_unique<ct_imported_node>(path, page.name);
     auto& doc = node->xml_content;
@@ -558,7 +570,7 @@ std::unique_ptr<ct_imported_node> mempad_page_to_node(const CtMempadParser::page
 }
 
 template<typename ITER>
-ITER up_to_same_level(ITER start, ITER upper_bound, int level) 
+ITER up_to_same_level(ITER start, ITER upper_bound, int level)
 {
     while(start != upper_bound) {
         if (start->level == level) {
@@ -569,8 +581,8 @@ ITER up_to_same_level(ITER start, ITER upper_bound, int level)
     return start;
 }
 
-std::unique_ptr<ct_imported_node> mempad_pages_to_nodes(const CtMempadParser::page& page, const std::vector<CtMempadParser::page>& child_pages, const fs::path& path) 
-{   
+std::unique_ptr<ct_imported_node> mempad_pages_to_nodes(const CtMempadParser::page& page, const std::vector<CtMempadParser::page>& child_pages, const fs::path& path)
+{
     auto node = mempad_page_to_node(page, path);
     for (auto iter = child_pages.begin(); iter != child_pages.end(); ++iter) {
         if (iter->level == page.level + 1) {
@@ -586,20 +598,20 @@ std::unique_ptr<ct_imported_node> mempad_pages_to_nodes(const CtMempadParser::pa
     return node;
 }
 
-std::unique_ptr<ct_imported_node> mempad_tree_to_node(const std::vector<CtMempadParser::page>& pages, const fs::path& path) 
-{   
+std::unique_ptr<ct_imported_node> mempad_tree_to_node(const std::vector<CtMempadParser::page>& pages, const fs::path& path)
+{
     CtMempadParser::page dummy_page{
         .level = 0,
         .name = "Mempad Root",
-        .contents = ""  
+        .contents = ""
     };
     auto node = mempad_pages_to_nodes(dummy_page, pages, path);
-    
+
     return node;
 }
 }
 
-std::unique_ptr<ct_imported_node> CtMempadImporter::import_file(const fs::path& file) 
+std::unique_ptr<ct_imported_node> CtMempadImporter::import_file(const fs::path& file)
 {
     std::ifstream infile{file.string()};
 
@@ -608,7 +620,7 @@ std::unique_ptr<ct_imported_node> CtMempadImporter::import_file(const fs::path& 
     parser.feed(infile);
 
     std::vector<CtMempadParser::page> pages = parser.parsed_pages();
-    
+
     auto node = mempad_tree_to_node(pages, file);
 
     return node;
@@ -635,7 +647,7 @@ std::unique_ptr<ct_imported_node> generate_leo_root_node(std::vector<CtLeoParser
     return to_ct_node(dummy_node, path);
 }
 
-std::unique_ptr<ct_imported_node> node_to_ct_node(const CtRedNotebookParser::node& node, const fs::path& path) 
+std::unique_ptr<ct_imported_node> node_to_ct_node(const CtRedNotebookParser::node& node, const fs::path& path)
 {
     auto ct_node = std::make_unique<ct_imported_node>(path, node.name);
 
@@ -643,13 +655,13 @@ std::unique_ptr<ct_imported_node> node_to_ct_node(const CtRedNotebookParser::nod
         ct_node->xml_content = std::make_shared<xmlpp::Document>();
         create_root_plaintext_text_el(*ct_node->xml_content, "");
     } else {
-        ct_node->xml_content = node.doc;    
+        ct_node->xml_content = node.doc;
     }
-    
+
     return ct_node;
 }
 
-std::unique_ptr<ct_imported_node> generate_ct_node_hierarchy(std::string&& root_name, const std::vector<CtRedNotebookParser::node>& nodes, const fs::path& path) 
+std::unique_ptr<ct_imported_node> generate_ct_node_hierarchy(std::string&& root_name, const std::vector<CtRedNotebookParser::node>& nodes, const fs::path& path)
 {
     CtRedNotebookParser::node root { std::move(root_name) };
     auto ct_root = node_to_ct_node(root, path);
@@ -661,7 +673,7 @@ std::unique_ptr<ct_imported_node> generate_ct_node_hierarchy(std::string&& root_
 }
 }
 
-std::unique_ptr<ct_imported_node> CtLeoImporter::import_file(const fs::path& path) 
+std::unique_ptr<ct_imported_node> CtLeoImporter::import_file(const fs::path& path)
 {
 
     std::ifstream in{path.string()};
@@ -676,23 +688,23 @@ std::unique_ptr<ct_imported_node> CtLeoImporter::import_file(const fs::path& pat
     return generate_leo_root_node(parser.nodes(), path);
 }
 
-std::unique_ptr<ct_imported_node> CtRedNotebookImporter::import_file(const fs::path& path) 
+std::unique_ptr<ct_imported_node> CtRedNotebookImporter::import_file(const fs::path& path)
 {
     std::ifstream in{path.string()};
     if (!in) {
         throw std::runtime_error("Failed to initalise import file");
     }
 
-    return _parse_input(in, path);    
+    return _parse_input(in, path);
 }
 
-std::unique_ptr<ct_imported_node> CtRedNotebookImporter::_parse_input(std::ifstream& infile, const fs::path& path) 
+std::unique_ptr<ct_imported_node> CtRedNotebookImporter::_parse_input(std::ifstream& infile, const fs::path& path)
 {
     CtRedNotebookParser p{_ct_config};
 
     p.feed(infile);
     const auto& nodes = p.nodes();
-    
+
     return generate_ct_node_hierarchy("RedNotebook Root", nodes, path);
 }
 
