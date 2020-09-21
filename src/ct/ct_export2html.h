@@ -48,7 +48,8 @@ public:
     CtExport2Html(CtMainWin* pCtMainWin);
 
     void          node_export_to_html(CtTreeIter tree_iter, const CtExportOptions& options, const Glib::ustring& index, int sel_start, int sel_end);
-    void          nodes_all_export_to_html(bool all_tree, const CtExportOptions& options);
+    void          nodes_all_export_to_multiple_html(bool all_tree, const CtExportOptions& options);
+    void          nodes_all_export_to_single_html(bool all_tree, const CtExportOptions& options);
     Glib::ustring selection_export_to_html(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter start_iter,
                                            Gtk::TextIter end_iter, const Glib::ustring& syntax_highlighting);
     Glib::ustring table_export_to_html(CtTable* table);

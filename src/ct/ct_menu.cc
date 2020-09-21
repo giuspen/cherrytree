@@ -219,8 +219,7 @@ void CtMenu::init_actions(CtActions* pActions)
     const char* export_cat = _("Export");
     _actions.push_back(CtMenuAction{export_cat, "export_pdf", "ct_to_pdf", _("Export To _PDF"), None, _("Export To PDF"), sigc::mem_fun(*pActions, &CtActions::export_to_pdf)});
     _actions.push_back(CtMenuAction{export_cat, "export_html", "ct_to_html", _("Export To _HTML"), None, _("Export To HTML"), sigc::mem_fun(*pActions, &CtActions::export_to_html)});
-    _actions.push_back(CtMenuAction{export_cat, "export_txt_multiple", "ct_to_txt", _("Export to Multiple Plain _Text Files"), None, _("Export to Multiple Plain Text Files"), sigc::mem_fun(*pActions, &CtActions::export_to_txt_multiple)});
-    _actions.push_back(CtMenuAction{export_cat, "export_txt_single", "ct_to_txt", _("Export to _Single Plain Text File"), None, _("Export to Single Plain Text File"), sigc::mem_fun(*pActions, &CtActions::export_to_txt_single)});
+    _actions.push_back(CtMenuAction{export_cat, "export_txt", "ct_to_txt", _("Export to Plain _Text"), None, _("Export to Plain Text"), sigc::mem_fun(*pActions, &CtActions::export_to_txt)});
     _actions.push_back(CtMenuAction{export_cat, "export_ctd", "ct_to_cherrytree", _("_Export To CherryTree Document"), None, _("Export To CherryTree Document"), sigc::mem_fun(*pActions, &CtActions::export_to_ctd)});
     const char* import_cat = _("Import");
     _actions.push_back(CtMenuAction{import_cat, "import_cherrytree", "ct_from_cherrytree", _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_ct_file) /* dad.nodes_add_from_cherrytree_file */});
@@ -922,8 +921,7 @@ const char* CtMenu::_get_ui_str_menu()
     <menu action='TreeExportMenu'>
       <menuitem action='export_pdf'/>
       <menuitem action='export_html'/>
-      <menuitem action='export_txt_multiple'/>
-      <menuitem action='export_txt_single'/>
+      <menuitem action='export_txt'/>
       <menuitem action='export_ctd'/>
     </menu>
     <separator/>
@@ -992,8 +990,7 @@ const char* CtMenu::_get_ui_str_menu()
   <menu action='ExportMenu'>
     <menuitem action='export_pdf'/>
     <menuitem action='export_html'/>
-    <menuitem action='export_txt_multiple'/>
-    <menuitem action='export_txt_single'/>
+    <menuitem action='export_txt'/>
     <menuitem action='export_ctd'/>
   </menu>
 

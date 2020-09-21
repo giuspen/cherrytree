@@ -124,7 +124,8 @@ CtExporting CtDialogs::selnode_selnodeandsub_alltree_dialog(Gtk::Window& parent,
                                                             bool also_selection,
                                                             bool* last_include_node_name,
                                                             bool* last_new_node_page,
-                                                            bool* last_index_in_page)
+                                                            bool* last_index_in_page,
+                                                            bool* last_single_file)
 {
     Gtk::Dialog dialog(_("Involved Nodes"),
                        parent,
@@ -175,12 +176,18 @@ CtExporting CtDialogs::selnode_selnodeandsub_alltree_dialog(Gtk::Window& parent,
         checkbutton_new_node_page.set_active(*last_new_node_page);
         content_area->pack_start(checkbutton_new_node_page);
     }
+    auto checkbutton_single_file = Gtk::CheckButton(_("Single File"));
+    if (last_single_file != nullptr) {
+        checkbutton_single_file.set_active(*last_single_file);
+        content_area->pack_start(checkbutton_single_file);
+    }
     content_area->show_all();
     int response = dialog.run();
 
     if (last_include_node_name != nullptr) *last_include_node_name = checkbutton_node_name.get_active();
     if (last_index_in_page != nullptr) *last_index_in_page = checkbutton_index_in_page.get_active();
     if (last_new_node_page != nullptr) *last_new_node_page = checkbutton_new_node_page.get_active();
+    if (last_single_file != nullptr) *last_single_file = checkbutton_single_file.get_active();
 
     if (response != Gtk::RESPONSE_ACCEPT) return CtExporting::NONE;
     if (radiobutton_selnode.get_active()) return CtExporting::CURRENT_NODE;
