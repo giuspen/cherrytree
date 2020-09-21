@@ -145,7 +145,7 @@ void CtExport2Html::node_export_to_html(CtTreeIter tree_iter, const CtExportOpti
 }
 
 // Export All Nodes To HTML
-void CtExport2Html::nodes_all_export_to_html(bool all_tree, const CtExportOptions& options)
+void CtExport2Html::nodes_all_export_to_multiple_html(bool all_tree, const CtExportOptions& options)
 {
     fs::path home_svg = fs::get_cherrytree_datadir() / fs::path("icons") / "ct_home.svg";
     fs::copy_file(home_svg, _images_dir / "home.svg");

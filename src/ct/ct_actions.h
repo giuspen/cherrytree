@@ -434,7 +434,7 @@ private:
     // helper for export actions
     void _export_print(bool save_to_pdf, const fs::path& auto_path, bool auto_overwrite);
     void _export_to_html(const fs::path& auto_path, bool auto_overwrite);
-    void _export_to_txt(bool is_single, const fs::path& auto_path, bool auto_overwrite);
+    void _export_to_txt(const fs::path& auto_path, bool auto_overwrite);
 
     fs::path _get_pdf_filepath(const fs::path& proposed_name);
     fs::path _get_txt_filepath(const fs::path& proposed_name);
@@ -446,8 +446,7 @@ public:
     void export_print();
     void export_to_pdf();
     void export_to_html();
-    void export_to_txt_multiple();
-    void export_to_txt_single();
+    void export_to_txt();
     void export_to_ctd();
 
     void export_to_pdf_auto(const std::string& dir, bool overwrite);
