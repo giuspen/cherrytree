@@ -159,9 +159,10 @@ Gtk::TreeIter choose_item_dialog(Gtk::Window& parent,
 // Dialog to select between the Selected Node/Selected Node + Subnodes/All Tree
 CtExporting selnode_selnodeandsub_alltree_dialog(Gtk::Window& parent,
                                                  bool also_selection,
-                                                 bool* last_include_node_name /*= nullptr*/,
-                                                 bool* last_new_node_page /*= nullptr*/,
-                                                 bool* last_index_in_page /*= nullptr*/);
+                                                 bool* last_include_node_name,
+                                                 bool* last_new_node_page,
+                                                 bool* last_index_in_page,
+                                                 bool* last_single_file);
 
 // Dialog to select a color, featuring a palette
 enum class CtPickDlgState {SELECTED, CANCEL, REMOVE_COLOR };

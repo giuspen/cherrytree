@@ -201,6 +201,80 @@ void CtExport2Html::nodes_all_export_to_html(bool all_tree, const CtExportOption
     }
 }
 
+
+// Export All Nodes To Single HTML
+void CtExport2Html::nodes_all_export_to_single_html(bool all_tree, const CtExportOptions&)
+{
+    fs::path index_html_filepath = _export_dir / "index.html";
+    Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(index_html_filepath.string());
+    Glib::RefPtr<Gio::FileOutputStream> rFileStream = rFile->append_to();
+
+    // create html pages
+    // function to iterate nodes
+    Glib::ustring tree_links_text = "";
+    std::function<void(CtTreeIter)> traverseFunc;
+    traverseFunc = [this, &traverseFunc, rFileStream](CtTreeIter tree_iter) {
+        Glib::ustring html_text = "<div class='page'>";
+        html_text += "<h1 class='title'>" + tree_iter.get_node_name() + "</h1><br/>";
+        std::vector<Glib::ustring> html_slots;
+        std::vector<CtAnchoredWidget*> widgets;
+        if (tree_iter.get_node_is_rich_text())
+        {
+            _html_get_from_treestore_node(tree_iter, -1, -1, html_slots, widgets);
+            int images_count = 0;
+            for (size_t i = 0; i < html_slots.size(); ++i)
+            {
+                html_text += html_slots[i];
+                if (i < widgets.size())
+                {
+                    try
+                    {
+                        if (CtImageEmbFile* embfile = dynamic_cast<CtImageEmbFile*>(widgets[i]))
+                            html_text += _get_embfile_html(embfile, tree_iter, _embed_dir);
+                        else if (CtImage* image = dynamic_cast<CtImage*>(widgets[i]))
+                            html_text += _get_image_html(image, _images_dir, images_count, &tree_iter);
+                        else if (CtTable* table = dynamic_cast<CtTable*>(widgets[i]))
+                            html_text += _get_table_html(table);
+                        else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widgets[i]))
+                            html_text += _get_codebox_html(codebox);
+                    }
+                    catch (std::exception& ex)
+                    {
+                        spdlog::debug("caught ex: {}", ex.what());
+                    }
+                    catch (...)
+                    {
+                        spdlog::debug("unknown ex");
+                    }
+                }
+            }
+        }
+        else
+            html_text += _html_get_from_code_buffer(tree_iter.get_node_text_buffer(), -1, -1, tree_iter.get_node_syntax_highlighting());
+         html_text += "</div>"; // div class='page'
+         rFileStream->write(html_text.c_str(), html_text.bytes());
+         html_text.clear();
+
+        for (auto& child: tree_iter->children())
+            traverseFunc(_pCtMainWin->get_tree_store().to_ct_tree_iter(child));
+    };
+
+
+    Glib::ustring html_header = str::format(HTML_HEADER, _pCtMainWin->get_ct_storage()->get_file_name());
+    rFileStream->write(html_header.c_str(), html_header.bytes());
+
+    // start to iterarte nodes
+    CtTreeIter tree_iter = all_tree ? _pCtMainWin->get_tree_store().get_ct_iter_first() : _pCtMainWin->curr_tree_iter();
+    for (;tree_iter; ++tree_iter)
+    {
+        traverseFunc(tree_iter);
+        if (!all_tree) break;
+    }
+    rFileStream->write(HTML_FOOTER.c_str(), HTML_FOOTER.bytes());
+    rFileStream->flush();
+    rFileStream->close();
+}
+
 // Creating the Tree Links Text - iter
 void CtExport2Html::_tree_links_text_iter(CtTreeIter tree_iter, Glib::ustring& tree_links_text, int tree_count_level, bool index_in_page)
 {

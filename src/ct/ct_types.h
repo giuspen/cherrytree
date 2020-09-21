@@ -201,6 +201,7 @@ struct CtExportOptions
     bool include_node_name{true};
     bool new_node_page{false};
     bool index_in_page{true};
+    bool single_file{false};
 };
 
 struct CtSummaryInfo

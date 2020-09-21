@@ -370,7 +370,7 @@ void CtActions::toc_insert()
     if (!_is_there_selected_node_or_error()) return;
     if (!_node_sel_and_rich_text()) return;
 
-    auto toc_type = CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, false, nullptr, nullptr, nullptr);
+    auto toc_type = CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, false, nullptr, nullptr, nullptr, nullptr);
 
     if (toc_type == CtExporting::NONE) return;
 
