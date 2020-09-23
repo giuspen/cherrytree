@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.38.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-20 09:10+0100\n"
-"PO-Revision-Date: 2020-09-20 07:44+0200\n"
+"POT-Creation-Date: 2020-09-22 20:07+0100\n"
+"PO-Revision-Date: 2020-09-23 07:10+0200\n"
 "Last-Translator: Åke Engelbrektson <eson@svenskasprakfiler.se>\n"
 "Language-Team: Swedish\n"
 "Language: sv\n"
@@ -49,7 +49,7 @@ msgstr "Text och kod"
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:744
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1077
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1235
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1662
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1669
 msgid "Rich Text"
 msgstr "Rich Text"
 
@@ -120,7 +120,7 @@ msgid "Enable Automatic Indentation"
 msgstr "Aktivera automatiskt indrag"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:93
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1378
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1385
 msgid "Show Line Numbers"
 msgstr "Visa radnummer"
 
@@ -293,7 +293,7 @@ msgid "Use Different Cherries per Level"
 msgstr "Använd olika körsbär per nivå"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:881
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1636
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1643
 msgid "Use Selected Icon"
 msgstr "Använd vald ikon"
 
@@ -350,7 +350,7 @@ msgid "Last Visited Nodes on Node Name Header"
 msgstr "Senast besökta poster i postrubriken"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1035
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1792
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1799
 msgid "Select Node Icon"
 msgstr "Välj postikon"
 
@@ -360,8 +360,8 @@ msgstr "Monospace"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1079
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1239
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1318
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1664
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1325
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1671
 msgid "Plain Text"
 msgstr "Oformaterad text"
 
@@ -390,22 +390,22 @@ msgid "Custom Actions"
 msgstr "Anpassade åtgärder"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1184
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:793
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:800
 msgid "To WebSite"
 msgstr "Till webbplats"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1186
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:834
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:841
 msgid "To Node"
 msgstr "Till post"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1188
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:804
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:811
 msgid "To File"
 msgstr "Till fil"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1190
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:819
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:826
 msgid "To Folder"
 msgstr "Till mapp"
 
@@ -552,7 +552,7 @@ msgstr "Ingen tangentbordsgenväg"
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_import.cc:51
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:80
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:97
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_export.cc:112
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_export.cc:108
 msgid "CherryTree Document"
 msgstr "CherryTree-dokument"
 
@@ -826,7 +826,7 @@ msgid "The Folder Link '%s' is Not Valid"
 msgstr "Mapplänken \"%s\" är inte giltig"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:313
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:691
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:698
 #, c-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Länken pekar mot en post som inte finns längre (ID=%s)"
@@ -885,17 +885,17 @@ msgstr "Kan inte redigera inbäddad fil i skrivskyddad post"
 msgid "Embedded File Automatically Updated:"
 msgstr "Inbäddad fil automatiskt uppdaterad:"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_export.cc:332
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_export.cc:338
 msgid "PDF File"
 msgstr "PDF-fil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_export.cc:350
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_export.cc:356
 msgid "Plain Text Document"
 msgstr "Oformaterat textdokument"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:35
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1226
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1013
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1020
 msgid "No Node is Selected"
 msgstr "Ingen kod vald"
 
@@ -968,12 +968,12 @@ msgid "CherryTree Hierarchical Note Taking"
 msgstr "CherryTree hierarkiska anteckningar"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:76
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:266
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:265
 msgid "Show/Hide _CherryTree"
 msgstr "Visa/Dölj _CherryTree"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:76
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:266
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:265
 msgid "Toggle Show/Hide CherryTree"
 msgstr "Visa/Dölj CherryTree"
 
@@ -1085,7 +1085,7 @@ msgid "The Document was Reloaded After External Update to CT* File"
 msgstr "Dokumentet lästes in igen, efter extern uppdatering till CT*-fil"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1231
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1694
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1701
 msgid "Node Type"
 msgstr "Posttyp"
 
@@ -1195,7 +1195,7 @@ msgid "Start a New Instance of CherryTree"
 msgstr "Starta en ny instans av CherryTree"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:103
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:258
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:257
 msgid "_Open File"
 msgstr "_Öppna fil"
 
@@ -1216,12 +1216,12 @@ msgid "Save File and Vacuum"
 msgstr "Spara fil och dammsug"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:106
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:257
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:256
 msgid "Save _As"
 msgstr "S_para som"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:106
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:257
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:256
 msgid "Save File As"
 msgstr "Spara fil som"
 
@@ -1290,7 +1290,7 @@ msgid "_About"
 msgstr "_Om"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:117
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1957
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1964
 msgid "About CherryTree"
 msgstr "Om CherryTree"
 
@@ -1439,7 +1439,7 @@ msgid "Paste as Plain Text, Discard the Rich Text Formatting"
 msgstr "Klistra in som oformaterad text, ta bort Rich Text-formateringen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:138
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:304
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:303
 msgid "Cu_t Row"
 msgstr "Klipp ut _rad"
 
@@ -1448,7 +1448,7 @@ msgid "Cut the Current Row/Selected Rows"
 msgstr "Klipp ut aktuell rad/markerade rader"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:139
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:305
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:304
 msgid "_Copy Row"
 msgstr "_Kopiera rad"
 
@@ -1457,7 +1457,7 @@ msgid "Copy the Current Row/Selected Rows"
 msgstr "Kopiera aktuell rad/markerade rader"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:140
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:307
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:306
 msgid "De_lete Row"
 msgstr "T_a bort rad"
 
@@ -1754,7 +1754,7 @@ msgid "Tree _Info"
 msgstr "Träd_information"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:178
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2187
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2194
 msgid "Tree Summary Information"
 msgstr "Sammanfattad trädinformation"
 
@@ -1871,7 +1871,7 @@ msgid "_Handle Bookmarks"
 msgstr "_Hantera bokmärken"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:192
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:411
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:418
 msgid "Handle the Bookmarks List"
 msgstr "Hantera bokmärkeslistan"
 
@@ -2096,708 +2096,704 @@ msgid "Export To HTML"
 msgstr "Exportera till HTML"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:222
-msgid "Export to Multiple Plain _Text Files"
-msgstr "Exportera till flera oformaterade _textfiler"
+msgid "Export to Plain _Text"
+msgstr "Exportera till oformaterad _text"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:222
-msgid "Export to Multiple Plain Text Files"
-msgstr "Exportera till flera oformaterade textfiler"
+msgid "Export to Plain Text"
+msgstr "Exportera till oformaterad text"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:223
-msgid "Export to _Single Plain Text File"
-msgstr "Exportera till _enskild oformaterad textfil"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:223
-msgid "Export to Single Plain Text File"
-msgstr "Exportera till enskild oformaterad textfil"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:224
 msgid "_Export To CherryTree Document"
 msgstr "_Exportera till CherryTree-dokument"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:224
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:223
 msgid "Export To CherryTree Document"
 msgstr "Exportera till CherryTree-dokument"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:225
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:224
 msgid "Import"
 msgstr "Importera"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:226
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:225
 msgid "From _CherryTree File"
 msgstr "Från _CherryTree-fil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:226
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:225
 msgid "Add Nodes of a CherryTree File to the Current Tree"
 msgstr "Lägg till poster från en CherryTree-fil till aktuellt träd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:227
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:226
 msgid "From _Plain Text File"
 msgstr "Från _oformaterad textfil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:227
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:226
 msgid "Add Node from a Plain Text File to the Current Tree"
 msgstr "Lägg till en post från en oformaterad textfil till aktuellt träd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:228
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:227
 msgid "From _Folder of Plain Text Files"
 msgstr "Från _mapp med Plain Text-filer"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:228
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:227
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
 msgstr ""
 "Lägg till poster från en mapp med oformaterade textfiler till aktuellt träd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:229
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:228
 msgid "From _HTML File"
 msgstr "Från _HTML-fil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:229
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:228
 msgid "Add Node from an HTML File to the Current Tree"
 msgstr "Lägg till en post från en HTML-fil till aktuellt träd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:230
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:229
 msgid "From _Folder of HTML Files"
 msgstr "Från _mapp med HTML-filer"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:230
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:229
 msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
 msgstr "Lägg till poster från en mapp med HTML-filer till aktuellt träd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:231
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:230
 msgid "From _Markdown File"
 msgstr "Från _Markdown-fil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:231
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:230
 msgid "Add a node from a Markdown File to the Current Tree"
 msgstr "Lägg till en post från en Markdown-fil till aktuellt träd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:232
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:231
 msgid "From _Folder of Markdown Files"
 msgstr "Från _mapp med Markdown-filer"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:232
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:231
 msgid "Add Nodes from a Folder of Markdown Files to the Current Tree"
 msgstr "Lägg till poster från en mapp med Markdown-filer till aktuellt träd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:235
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:234
 msgid "From _Gnote Folder"
 msgstr "Från _Gnote-mapp"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:235
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:234
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
 msgstr "Lägg till poster från en Gnote-mapp till aktuellt träd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:236
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:235
 msgid "From _KeepNote Folder"
 msgstr "Från _KeepNote-mapp"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:236
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:235
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
 msgstr "Lägg till poster från en KeepNote-mapp till aktuellt träd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:239
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:238
 msgid "From _Leo File"
 msgstr "Från _Leo-fil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:239
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:238
 msgid "Add Nodes of a Leo File to the Current Tree"
 msgstr "Lägg till poster från en Leo-fil till aktuellt träd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:240
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:239
 msgid "From _Mempad File"
 msgstr "Från _Mempad-fil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:240
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:239
 msgid "Add Nodes of a Mempad File to the Current Tree"
 msgstr "Lägg till poster från en Mempad-fil till aktuellt träd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:241
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:240
 msgid "From _NoteCase HTML File"
 msgstr "Från _NoteCase HTML-fil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:241
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:240
 msgid "Add Nodes of a NoteCase HTML File to the Current Tree"
 msgstr "Lägg till poster från en NoteCase HTML-fil till aktuellt träd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:242
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:241
 msgid "From _RedNotebook HTML"
 msgstr "Från _RedNotebook HTML"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:242
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:241
 msgid "Add Nodes of a RedNotebook HTML file to the Current Tree"
 msgstr "Lägg till poster från en RedNotebook HTML-fil till aktuellt träd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:243
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:242
 msgid "From T_omboy Folder"
 msgstr "Från T_omboy-mapp"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:243
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:242
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
 msgstr "Lägg till poster från en Tomboy-mapp till aktuellt träd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:246
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:245
 msgid "From _Zim Folder"
 msgstr "Från _Zim-mapp"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:246
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:245
 msgid "Add Nodes of a Zim Folder to the Current Tree"
 msgstr "Lägg till poster från en Zim-mapp till aktuellt träd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:247
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:246
 msgid "From File using _Pandoc"
 msgstr "Från fil med hjälp av _Pandoc"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:247
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:246
 msgid "Add a node to the current tree using Pandoc"
 msgstr "Lägg till en post till aktuellt träd, med hjälp av Pandoc"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:249
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:248
 msgid "C_ut Anchor"
 msgstr "Klipp ut _fästpunkt"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:249
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:248
 msgid "Cut the Selected Anchor"
 msgstr "Klipp ut markerad fästpunkt"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:250
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:249
 msgid "_Copy Anchor"
 msgstr "_Kopiera fästpunkt"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:250
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:249
 msgid "Copy the Selected Anchor"
 msgstr "Kopiera markerad fästpunkt"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:251
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:250
 msgid "_Delete Anchor"
 msgstr "_Ta bort fästpunkt"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:251
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:250
 msgid "Delete the Selected Anchor"
 msgstr "Ta bort markerad fästpunkt"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:252
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:251
 msgid "Edit _Anchor"
 msgstr "Redigera _fästpunkt"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:252
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:251
 msgid "Edit the Underlying Anchor"
 msgstr "Redigera den underliggande fästpunkten"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:253
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:252
 msgid "Copy Anchor Link"
 msgstr "Kopiera fästpunktslänk"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:253
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:252
 msgid "Copy Link to the Underlying Anchor to Clipboard"
 msgstr "Kopiera länk till underliggande fästpunkt, till urklipp"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:254
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:253
 msgid "C_ut Embedded File"
 msgstr "Klipp ut _inbäddad fil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:254
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:253
 msgid "Cut the Selected Embedded File"
 msgstr "Klipp ut markerad inbäddad fil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:255
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:254
 msgid "_Copy Embedded File"
 msgstr "_Kopiera inbäddad fil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:255
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:254
 msgid "Copy the Selected Embedded File"
 msgstr "Kopiera markerad inbäddad fil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:256
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:255
 msgid "_Delete Embedded File"
 msgstr "_Ta bort inbäddad fil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:256
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:255
 msgid "Delete the Selected Embedded File"
 msgstr "Ta bort markerad inbäddad fil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:258
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:257
 msgid "Open Embedded File"
 msgstr "Öppna inbäddad fil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:259
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:258
 msgid "_Save Image as PNG"
 msgstr "_Spara bild som PNG"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:259
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:258
 msgid "Save the Selected Image as a PNG file"
 msgstr "Spara markerad bild som en PNG-fil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:260
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:259
 msgid "_Edit Image"
 msgstr "_Redigera bild"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:260
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:259
 msgid "Edit the Selected Image"
 msgstr "Redigera markerad bild"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:261
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:260
 msgid "C_ut Image"
 msgstr "Klipp ut _bild"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:261
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:260
 msgid "Cut the Selected Image"
 msgstr "Klipp ut markerad bild"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:262
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:261
 msgid "_Copy Image"
 msgstr "_Kopiera bild"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:262
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:261
 msgid "Copy the Selected Image"
 msgstr "Kopiera markerad bild"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:263
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:262
 msgid "_Delete Image"
 msgstr "_Ta bort bild"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:263
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:262
 msgid "Delete the Selected Image"
 msgstr "Ta bort markerad bild"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:264
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:290
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:263
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:289
 msgid "Edit _Link"
 msgstr "Redigera _länk"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:264
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:263
 msgid "Edit the Link Associated to the Image"
 msgstr "Redigera länken som associeras med bilden"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:265
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:293
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:264
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:292
 msgid "D_ismiss Link"
 msgstr "A_vfärda länk"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:265
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:264
 msgid "Dismiss the Link Associated to the Image"
 msgstr "Avfärda länken som associeras med bilden"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:290
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:289
 msgid "Edit the Underlying Link"
 msgstr "Redigera den underliggande länken"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:291
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:290
 msgid "C_ut Link"
 msgstr "Klipp ut _länk"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:291
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:290
 msgid "Cut the Selected Link"
 msgstr "Klipp ut markerad länk"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:292
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:291
 msgid "_Copy Link"
 msgstr "_Kopiera länk"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:292
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:291
 msgid "Copy the Selected Link"
 msgstr "Kopiera markerad länk"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:293
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:292
 msgid "Dismiss the Selected Link"
 msgstr "Avfärda markerad länk"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:294
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:293
 msgid "_Delete Link"
 msgstr "_Ta bort länk"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:294
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:293
 msgid "Delete the Selected Link"
 msgstr "Ta bort markerad länk"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:296
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:295
 msgid "C_ut Table"
 msgstr "Klipp ut _tabell"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:296
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:295
 msgid "Cut the Selected Table"
 msgstr "Klipp ut markerad tabell"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:297
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:296
 msgid "_Copy Table"
 msgstr "_Kopiera tabell"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:297
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:296
 msgid "Copy the Selected Table"
 msgstr "Kopiera markerad tabell"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:298
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:297
 msgid "_Delete Table"
 msgstr "_Ta bort tabell"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:298
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:297
 msgid "Delete the Selected Table"
 msgstr "Ta bort markerad tabell"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:299
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:298
 msgid "_Add Column"
 msgstr "_Lägg till kolumn"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:299
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:298
 msgid "Add a Table Column"
 msgstr "Lägg till en tabellkolumn"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:300
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:299
 msgid "De_lete Column"
 msgstr "Ta _bort kolumn"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:300
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:299
 msgid "Delete the Selected Table Column"
 msgstr "Ta bort markerad tabellkolumn"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:301
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:300
 msgid "Move Column _Left"
 msgstr "Flytta kolumn åt _vänster"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:301
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:300
 msgid "Move the Selected Column Left"
 msgstr "Flytta markerad kolumn åt vänster"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:302
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:301
 msgid "Move Column _Right"
 msgstr "Flytta kolumn åt _höger"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:302
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:301
 msgid "Move the Selected Column Right"
 msgstr "Flytta markerad kolumn åt höger"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:303
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:302
 msgid "_Add Row"
 msgstr "_Lägg till rad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:303
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:302
 msgid "Add a Table Row"
 msgstr "Lägg till en tabellrad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:304
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:303
 msgid "Cut a Table Row"
 msgstr "Klipp ut en tabellrad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:305
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:304
 msgid "Copy a Table Row"
 msgstr "Kopiera en tabellrad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:306
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:305
 msgid "_Paste Row"
 msgstr "_Klistra in rad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:306
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:305
 msgid "Paste a Table Row"
 msgstr "Klistra in en tabellrad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:307
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:306
 msgid "Delete the Selected Table Row"
 msgstr "Ta bort markerad tabellrad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:308
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:307
 msgid "Move Row _Up"
 msgstr "Flytta _upp rad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:308
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:307
 msgid "Move the Selected Row Up"
 msgstr "Flytta upp markerad rad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:309
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:308
 msgid "Move Row _Down"
 msgstr "Flytta _ner rad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:309
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:308
 msgid "Move the Selected Row Down"
 msgstr "Flytta ner markerad rad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:310
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:309
 msgid "Sort Rows De_scending"
 msgstr "Sortera rader s_junkande"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:310
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:309
 msgid "Sort all the Rows Descending"
 msgstr "Sortera alla rader sjunkande"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:311
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:310
 msgid "Sort Rows As_cending"
 msgstr "Sortera s_tigande"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:311
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:310
 msgid "Sort all the Rows Ascending"
 msgstr "Sortera alla rader stigande"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:312
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:311
 msgid "_Edit Table Properties"
 msgstr "_Redigera tabellegenskaper"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:312
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:311
 msgid "Edit the Table Properties"
 msgstr "Redigera tabellegenskaperna"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:313
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:312
 msgid "_Table Export"
 msgstr "_Tabellexport"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:313
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:312
 msgid "Export Table as CSV File"
 msgstr "Exportera tabell som CSV-fil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:315
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:314
 msgid "Change CodeBox _Properties"
 msgstr "Ändra kodbox_egenskaper"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:315
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:314
 msgid "Edit the Properties of the CodeBox"
 msgstr "Redigera egenskaperna för kodboxen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:316
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:315
 msgid "_Execute CodeBox Code"
 msgstr "_Exekvera kodboxkod"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:316
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:315
 msgid "Execute CodeBox Code"
 msgstr "Exekvera kodboxkod"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:317
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:316
 msgid "CodeBox _Load From Text File"
 msgstr "Kodbox _inläsning från textfil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:317
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:316
 msgid "Load the CodeBox Content From a Text File"
 msgstr "Läs in kodboxinnehållet från en textfil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:318
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:317
 msgid "CodeBox _Save To Text File"
 msgstr "Kodbox _spara till textfil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:318
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:317
 msgid "Save the CodeBox Content To a Text File"
 msgstr "Spara kodboxinnehållet till en textfil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:319
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:318
 msgid "C_ut CodeBox"
 msgstr "Klipp ut _kodbox"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:319
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:318
 msgid "Cut the Selected CodeBox"
 msgstr "Klipp ut markerad kodbox"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:320
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:319
 msgid "_Copy CodeBox"
 msgstr "_Kopiera kodbox"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:320
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:319
 msgid "Copy the Selected CodeBox"
 msgstr "Kopiera markerad kodbox"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:321
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:320
 msgid "_Delete CodeBox"
 msgstr "_Ta bort kodbox"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:321
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:320
 msgid "Delete the Selected CodeBox"
 msgstr "Ta bort markerad kodbox"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:322
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:321
 msgid "Delete CodeBox _Keep Content"
 msgstr "Ta bort kodbox _bevara innehåll"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:322
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:321
 msgid "Delete the Selected CodeBox But Keep Its Content"
 msgstr "Ta bort markerad kodbox men bevara innehållet"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:323
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:322
 msgid "Increase CodeBox Width"
 msgstr "Öka kodboxbredden"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:323
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:322
 msgid "Increase the Width of the CodeBox"
 msgstr "Utöka kodboxens bredd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:324
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:323
 msgid "Decrease CodeBox Width"
 msgstr "Minska kodboxens bredd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:324
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:323
 msgid "Decrease the Width of the CodeBox"
 msgstr "Minska kodboxens bredd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:325
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:324
 msgid "Increase CodeBox Height"
 msgstr "Öka kodboxhöjden"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:325
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:324
 msgid "Increase the Height of the CodeBox"
 msgstr "Utöka kodboxens höjd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:326
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:325
 msgid "Decrease CodeBox Height"
 msgstr "Minska kodboxens höjd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:326
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:325
 msgid "Decrease the Height of the CodeBox"
 msgstr "Minska kodboxens höjd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:428
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:427
 msgid "Remove from list"
 msgstr "Ta bort från listan"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:129
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:130
 msgid "Involved Nodes"
 msgstr "Involverade poster"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:139
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:140
 msgid "Selected Text Only"
 msgstr "Endast markerad text"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:140
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:141
 msgid "Selected Node Only"
 msgstr "Endast markerad post"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:141
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:142
 msgid "Selected Node and Subnodes"
 msgstr "Markerad post med underposter"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:142
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:143
 msgid "All the Tree"
 msgstr "Hela trädet"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:157
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:158
 msgid "Include Node Name"
 msgstr "Inkludera postnamn"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:165
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:166
 msgid "Links Tree in Every Page"
 msgstr "Länkträd på varje sida"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:172
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:173
 msgid "New Node in New Page"
 msgstr "Ny post på ny sida"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:204
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:179
+msgid "Single File"
+msgstr "Enskild fil"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:211
 msgid "Remove Color"
 msgstr "Ta bort färg"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:258
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:265
 msgid "Question"
 msgstr "Fråga"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:274
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:281
 msgid "Info"
 msgstr "Info"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:289
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1857
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:296
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1864
 msgid "Warning"
 msgstr "Varning"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:304
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:311
 msgid "Error"
 msgstr "Fel"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:665
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:672
 #, c-format
 msgid "Hide (Restore with '%s')"
 msgstr "Dölj (återställ med \"%s\")"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:668
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1658
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:675
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1665
 msgid "Node Name"
 msgstr "Postnamn"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:669
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:676
 msgid "Line"
 msgstr "Rad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:670
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:677
 msgid "Line Content"
 msgstr "Radinnehåll"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:866
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:873
 msgid "Anchor Name (optional)"
 msgstr "Fästpunktsnamn (valfritt)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1027
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1034
 msgid "There are No Anchors in the Selected Node"
 msgstr "Det finns inga fästpunkter i markerad post"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1036
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1043
 msgid "Choose Existing Anchor"
 msgstr "Välj befintlig fästpunkt"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1036
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1043
 msgid "Anchor Name"
 msgstr "Fästpunktsnamn"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1116
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1123
 msgid "Select File"
 msgstr "Välj fil"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1141
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1148
 msgid "Select Folder"
 msgstr "Välj mappa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1156
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1163
 msgid "Save File as"
 msgstr "Spara fil som"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1217
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1339
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2268
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1224
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1346
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2275
 msgid "Width"
 msgstr "Bredd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1220
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1343
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1227
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1350
 msgid "Height"
 msgstr "Höjd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1319
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1408
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1665
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1731
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1326
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1415
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1672
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1738
 msgid "Automatic Syntax Highlighting"
 msgstr "Automatisk syntaxmarkering"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1334
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1341
 msgid "Type"
 msgstr "Typ"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1348
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1355
 msgid "pixels"
 msgstr "bildpunkter"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1373
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1380
 msgid "Size"
 msgstr "Storlek"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1380
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1387
 msgid "Highlight Matching Brackets"
 msgstr "Belys matchande klamrar"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1389
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1396
 msgid "Options"
 msgstr "Alternativ"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1470
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1477
 msgid "Choose Storage Type"
 msgstr "Välj lagringstyp"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1480
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1483
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1487
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1490
 msgid "Not Protected"
 msgstr "Inte skyddad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1482
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1484
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1489
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1491
 msgid "Password Protected"
 msgstr "Lösenordsskyddad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1492
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1499
 msgid "Storage Type"
 msgstr "Lagringstyp"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1501
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1508
 msgid ""
 "CT saves the document in an encrypted 7zip archive. When viewing or editing "
 "the document, CT extracts the encrypted archive to a temporary folder, and "
@@ -2812,59 +2808,59 @@ msgstr ""
 "eller systemet kraschar, kvarstår det avkrypterade dokumentet i den "
 "temporära mappen."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1509
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1516
 msgid "Enter the New Password Twice"
 msgstr "Ange det nya lösenordet två gånger"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1592
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1599
 msgid "The Password Fields Must be Filled"
 msgstr "Lösenordsfältet måste fyllas i"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1597
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1604
 msgid "The Two Inserted Passwords Do Not Match"
 msgstr "De två angivna lösenorden stämmer inte överens"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1626
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1633
 msgid "Bold"
 msgstr "Fet"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1630
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1637
 msgid "Use Selected Color"
 msgstr "Använd vald färg"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1645
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1652
 msgid "click me"
 msgstr "klicka mig"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1708
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1715
 msgid "Tags for Searching"
 msgstr "Taggar för sökning"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1712
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1719
 msgid "Read Only"
 msgstr "Skrivskyddad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1751
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1758
 msgid "Choose Existing Tag"
 msgstr "Välj befintlig tagg"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1751
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1758
 msgid "Tag Name"
 msgstr "Taggnamn"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1776
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1783
 msgid "Pick a Color"
 msgstr "Välj en färg"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1868
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1875
 msgid "The Current Document was Updated."
 msgstr "Aktuellt dokument uppdaterades."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1868
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1875
 msgid "Do you want to Save the Changes?"
 msgstr "Vill du spara ändringarna?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1916
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1923
 msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
 "Highlighting"
@@ -2872,7 +2868,7 @@ msgstr ""
 "Ett hierarkiskt anteckningsprogram, innehållande både Rich Text och "
 "syntaxmarkering"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1917
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1924
 msgid ""
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
@@ -2905,131 +2901,131 @@ msgstr ""
 "det här programmet. Om inte, skriv till Free Software Foundation, Inc., \n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1937
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1944
 msgid "Armenian"
 msgstr "Armeniska"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1938
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1945
 msgid "Chinese Simplified"
 msgstr "Förenklad kinesiska"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1939
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1946
 msgid "Czech"
 msgstr "Tjeckiska"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1940
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1947
 msgid "Dutch"
 msgstr "Nederländska"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1941
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1948
 msgid "Finnish"
 msgstr "Slutför"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1942
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1949
 msgid "French"
 msgstr "Franska"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1943
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1950
 msgid "German"
 msgstr "Tyska"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1944
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1951
 msgid "Greek"
 msgstr "Grekiska"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1945
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1952
 msgid "Italian"
 msgstr "Italienska"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1946
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1953
 msgid "Japanese"
 msgstr "Japanska"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1947
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1954
 msgid "Lithuanian"
 msgstr "Litauiska"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1948
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1955
 msgid "Polish"
 msgstr "Polska"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1949
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1956
 msgid "Portuguese Brazil"
 msgstr "Portugisisk-brasilienska"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1950
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1957
 msgid "Russian"
 msgstr "Ryska"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1951
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1958
 msgid "Slovenian"
 msgstr "Slovenska"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1952
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1959
 msgid "Spanish"
 msgstr "Spanska"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1953
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1960
 msgid "Swedish"
 msgstr "Svenska"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1954
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1961
 msgid "Turkish"
 msgstr "Turkiska"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1955
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1962
 msgid "Ukrainian"
 msgstr "Ukrainska"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2199
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2206
 msgid "Number of Rich Text Nodes"
 msgstr "Antal Rich Text-poster"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2204
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2211
 msgid "Number of Plain Text Nodes"
 msgstr "Antal oformaterade textposter"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2209
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2216
 msgid "Number of Code Nodes"
 msgstr "Antal kodposter"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2214
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2221
 msgid "Number of Images"
 msgstr "Antal bilder"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2219
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2226
 msgid "Number of Embedded Files"
 msgstr "Antal inbäddade filer"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2224
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2231
 msgid "Number of Tables"
 msgstr "Antal tabeller"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2229
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2236
 msgid "Number of CodeBoxes"
 msgstr "Antal kodboxar"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2234
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2241
 msgid "Number of Anchors"
 msgstr "Antal fästpunkter"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2256
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2263
 msgid "Rows"
 msgstr "Rader"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2262
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2269
 msgid "Columns"
 msgstr "Kolumner"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2274
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2281
 msgid "Table Size"
 msgstr "Tabellstorlek"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2277
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2284
 msgid "Column Properties"
 msgstr "Kolumnegenskaper"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2299
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2306
 msgid "Import from CSV File"
 msgstr "Importera från CSV-fil"
 
@@ -3055,6 +3051,15 @@ msgstr ""
 #: /home/giuspen/git/cherrytree/src/ct/ct_export2pdf.cc:395
 msgid "Warning: One or More Images Were Reduced to Enter the Page"
 msgstr "Varning: En eller flera bilder reducerades för att öppna sidan"
+
+#~ msgid "Export to Multiple Plain _Text Files"
+#~ msgstr "Exportera till flera oformaterade _textfiler"
+
+#~ msgid "Export to Multiple Plain Text Files"
+#~ msgstr "Exportera till flera oformaterade textfiler"
+
+#~ msgid "Export to _Single Plain Text File"
+#~ msgstr "Exportera till _enskild oformaterad textfil"
 
 #~ msgid "Unknown"
 #~ msgstr "Okänd"

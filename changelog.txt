@@ -5,6 +5,7 @@
   * The following imports are missing and may not be implemented at all if not requested: Basket, EPIM HTML, KeyNote, KnowIt, Treepad Lite, TuxCards
   * Ubuntu AppIndicator is not currently supported
   * New: Export to PDF support for hyperlinks (work of @ForeverRainbow)
+  * New: Export to HTML option to produce a single file
   * New: Duplicate a node and its subnodes (before only the selected node could be duplicated)
   * New: Option to scroll beyond the last line, enabled by default
   * New: The rich text does no longer have light/dark/custom theme but a range of themes to select from like already for plain text & code
