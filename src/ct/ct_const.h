@@ -333,7 +333,7 @@ const inline static std::array<std::pair<const std::string, const std::string>, 
     std::make_pair("sh",         std::string("sh ") + CODE_EXEC_TMP_SRC)
 };
 
-const inline static std::array<std::pair<const gchar*, const gchar*>, 11> CODE_EXEC_TYPE_EXT_DEFAULT {
+const inline static std::array<std::pair<const std::string, const std::string>, 8> CODE_EXEC_TYPE_EXT_DEFAULT {
     std::make_pair("c",          "c"),
     std::make_pair("cpp",        "cpp"),
     std::make_pair("dosbatch",   "bat"),

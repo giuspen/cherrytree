@@ -405,7 +405,7 @@ void CtActions::exec_code()
 {
     if (!_is_there_selected_node_or_error()) return;
 
-    Glib::ustring code_type;
+    std::string code_type;
     Glib::ustring code_val;
     auto proof = _get_text_view_n_buffer_codebox_proof();
     if (proof.from_codebox) {
@@ -419,24 +419,12 @@ void CtActions::exec_code()
         code_type = _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting();
         code_val = _curr_buffer()->begin().get_text(_curr_buffer()->end());
     }
-    std::string binary_cmd = [&]() -> std::string {
-        for (auto& it: _pCtMainWin->get_ct_config()->customCodexecType)
-            if (it.first == code_type) return it.second;
-        for (const auto& it: CtConst::CODE_EXEC_TYPE_CMD_DEFAULT)
-            if (it.first == code_type) return it.second;
-        return "";
-    }();
+    std::string binary_cmd = CtPrefDlg::get_code_exec_type_cmd(_pCtMainWin, code_type);
     if (binary_cmd.empty()) {
         CtDialogs::warning_dialog(str::format(_("You must associate a command to '%s'.\nDo so in the Preferences Dialog"), code_type), *_pCtMainWin);
         return;
     }
-    std::string code_type_ext = [&]() -> std::string {
-        for (auto& it: _pCtMainWin->get_ct_config()->customCodexecExt)
-            if (it.first == code_type) return it.second;
-        for (const auto& it: CtConst::CODE_EXEC_TYPE_EXT_DEFAULT)
-            if (it.first == code_type) return it.second;
-        return "text";
-    }();
+    std::string code_type_ext = CtPrefDlg::get_code_exec_ext(_pCtMainWin, code_type);
     Glib::ustring code_exec_term = CtPrefDlg::get_code_exec_term_run(_pCtMainWin);
 
     fs::path filepath_src_tmp = _pCtMainWin->get_ct_tmp()->getHiddenFilePath("exec_code." + code_type_ext);

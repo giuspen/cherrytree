@@ -556,7 +556,7 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     frame_syntax->add(*align_syntax);
 
     Glib::RefPtr<Gtk::ListStore> liststore = Gtk::ListStore::create(_commandModelColumns);
-    fill_custom_exec_commands_model(liststore);
+    _fill_custom_exec_commands_model(liststore);
     Gtk::TreeView* treeview = Gtk::manage(new Gtk::TreeView(liststore));
     treeview->set_headers_visible(false);
     treeview->set_size_request(300, 200);
@@ -592,7 +592,7 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     Gtk::Button* button_reset_term = Gtk::manage(new Gtk::Button());
     button_reset_term->set_image(*_pCtMainWin->new_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
     button_reset_term->set_tooltip_text(_("Reset to Default"));
-    hbox_term_run->pack_start(*entry_term_run, true, false);
+    hbox_term_run->pack_start(*entry_term_run, true, true);
     hbox_term_run->pack_start(*button_reset_term, false, false);
     Gtk::HBox* hbox_cmd_per_type = Gtk::manage(new Gtk::HBox());
     hbox_cmd_per_type->pack_start(*scrolledwindow, true, true);
@@ -643,12 +643,12 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
         pConfig->customCodexecTerm = entry_term_run->get_text();
     });
     button_add->signal_clicked().connect([this, liststore](){
-        add_new_command_in_model(liststore);
+        _add_new_command_in_model(liststore);
     });
     button_reset_cmds->signal_clicked().connect([this, pConfig, liststore](){
         if (CtDialogs::question_dialog(reset_warning, *this)) {
             pConfig->customCodexecType.clear();
-            fill_custom_exec_commands_model(liststore);
+            _fill_custom_exec_commands_model(liststore);
         }
     });
     button_reset_term->signal_clicked().connect([this, pConfig, entry_term_run](){
@@ -1682,55 +1682,78 @@ std::string CtPrefDlg::get_code_exec_term_run(CtMainWin* pCtMainWin)
     return CtConst::CODE_EXEC_TERM_RUN_DEFAULT.at(op_sys);
 }
 
-void CtPrefDlg::fill_custom_exec_commands_model(Glib::RefPtr<Gtk::ListStore> model)
+std::set<std::string> CtPrefDlg::_get_code_exec_type_keys()
 {
-    std::set<std::string> used_code_exec_keys;
-    for (auto& it: _pCtMainWin->get_ct_config()->customCodexecType)
-        used_code_exec_keys.insert(it.first);
-    for (const auto& it: CtConst::CODE_EXEC_TYPE_CMD_DEFAULT)
-        used_code_exec_keys.insert(it.first);
+    std::set<std::string> retSetCodexecTypeKeys;
+    for (const auto& it : _pCtMainWin->get_ct_config()->customCodexecType) {
+        retSetCodexecTypeKeys.insert(it.first);
+    }
+    for (const auto& it : CtConst::CODE_EXEC_TYPE_CMD_DEFAULT) {
+        retSetCodexecTypeKeys.insert(it.first);
+    }
+    return retSetCodexecTypeKeys;
+}
 
-    model->clear();
-    for (auto& key: used_code_exec_keys)
-    {
-        std::string command;
-        if (_pCtMainWin->get_ct_config()->customCodexecType.find(key) != _pCtMainWin->get_ct_config()->customCodexecType.end())
-            command = _pCtMainWin->get_ct_config()->customCodexecType.at(key);
-        else {
-            for (auto it: CtConst:: CODE_EXEC_TYPE_CMD_DEFAULT)
-                if (it.first == key)
-                    command = it.second;
+std::string CtPrefDlg::get_code_exec_ext(CtMainWin* pCtMainWin, const std::string code_type)
+{
+    for (const auto& it : pCtMainWin->get_ct_config()->customCodexecExt) {
+        if (it.first == code_type) {
+            return it.second;
         }
+    }
+    for (const auto& it : CtConst::CODE_EXEC_TYPE_EXT_DEFAULT) {
+        if (it.first == code_type) {
+            return it.second;
+        }
+    }
+    return "txt";
+}
 
-        Gtk::TreeModel::Row row = *(model->append());
-        row[_commandModelColumns.icon] = _pCtMainWin->get_code_icon_name(key);
-        row[_commandModelColumns.key] = key;
-        row[_commandModelColumns.desc] = command;
+std::string CtPrefDlg::get_code_exec_type_cmd(CtMainWin* pCtMainWin, const std::string code_type)
+{
+    for (const auto& it : pCtMainWin->get_ct_config()->customCodexecType) {
+        if (it.first == code_type) {
+            return it.second;
+        }
+    }
+    for (const auto& it : CtConst::CODE_EXEC_TYPE_CMD_DEFAULT) {
+        if (it.first == code_type) {
+            return it.second;
+        }
+    }
+    return std::string{};
+}
+
+void CtPrefDlg::_fill_custom_exec_commands_model(Glib::RefPtr<Gtk::ListStore> rModel)
+{
+    rModel->clear();
+    for (const auto& code_type : _get_code_exec_type_keys())
+    {
+        Gtk::TreeModel::Row row = *(rModel->append());
+        row[_commandModelColumns.icon] = _pCtMainWin->get_code_icon_name(code_type);
+        row[_commandModelColumns.key] = code_type;
+        row[_commandModelColumns.desc] = CtPrefDlg::get_code_exec_type_cmd(_pCtMainWin, code_type);
     }
 }
 
-void CtPrefDlg::add_new_command_in_model(Glib::RefPtr<Gtk::ListStore> /*model*/)
+void CtPrefDlg::_add_new_command_in_model(Glib::RefPtr<Gtk::ListStore> rModel)
 {
-    std::set<std::string> used_code_exec_keys;
-    for (auto& it: _pCtMainWin->get_ct_config()->customCodexecType)
-        used_code_exec_keys.insert(it.first);
-    for (const auto& it: CtConst::CODE_EXEC_TYPE_CMD_DEFAULT)
-        used_code_exec_keys.insert(it.first);
-    // todo: add code based on this:
-    /*
-    def on_button_add_clicked(button):
-        icon_n_key_list = []
-        all_codexec_keys = get_code_exec_type_keys(dad)
-        for key in dad.available_languages:
-            if not key in all_codexec_keys:
-                stock_id = get_stock_id_for_code_type(key)
-                icon_n_key_list.append([key, stock_id, key])
-        sel_key = support.dialog_choose_element_in_list(dad.window, _("Select Element to Add"), [], "", icon_n_key_list)
-        if sel_key:
-            default_type_command = "REPLACE_ME %s" % CODE_EXEC_TMP_SRC
-            liststore_append_element(sel_key, default_type_command)
-            dad.custom_codexec_type[sel_key] = default_type_command
-     */
+    const std::set<std::string> all_codexec_keys = _get_code_exec_type_keys();
+    auto itemStore = CtChooseDialogListStore::create();
+    for (const auto& lang : _pCtMainWin->get_language_manager()->get_language_ids())
+    {
+        if (0 == all_codexec_keys.count(lang)) {
+            itemStore->add_row(_pCtMainWin->get_code_icon_name(lang), "", lang);
+        }
+    }
+    const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(*this, _("Select Element to Add"), itemStore);
+    if (treeIter) {
+        Gtk::TreeModel::Row row = *(rModel->append());
+        const auto code_type = treeIter->get_value(itemStore->columns.desc);
+        row[_commandModelColumns.icon] = _pCtMainWin->get_code_icon_name(code_type);
+        row[_commandModelColumns.key] = code_type;
+        row[_commandModelColumns.desc] = std::string{"REPLACE_ME "} + CtConst::CODE_EXEC_TMP_SRC;
+    }
 }
 
 void CtPrefDlg::fill_toolbar_model(Glib::RefPtr<Gtk::ListStore> model)

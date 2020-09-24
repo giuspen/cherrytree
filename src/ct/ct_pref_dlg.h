@@ -62,8 +62,9 @@ private:
 private:
     void need_restart(RESTART_REASON reason, const gchar* msg = nullptr);
 
-    void fill_custom_exec_commands_model(Glib::RefPtr<Gtk::ListStore> model);
-    void add_new_command_in_model(Glib::RefPtr<Gtk::ListStore> model);
+    void _fill_custom_exec_commands_model(Glib::RefPtr<Gtk::ListStore> model);
+    void _add_new_command_in_model(Glib::RefPtr<Gtk::ListStore> model);
+    std::set<std::string> _get_code_exec_type_keys();
 
     void fill_toolbar_model(Glib::RefPtr<Gtk::ListStore> model);
     void add_new_item_in_toolbar_model(Gtk::TreeIter row, const Glib::ustring& key);
@@ -78,6 +79,8 @@ private:
 
 public:
     static std::string get_code_exec_term_run(CtMainWin* pCtMainWin);
+    static std::string get_code_exec_type_cmd(CtMainWin* pCtMainWin, const std::string code_type);
+    static std::string get_code_exec_ext(CtMainWin* pCtMainWin, const std::string code_type);
 
 private:
     struct UniversalModelColumns : public Gtk::TreeModel::ColumnRecord
