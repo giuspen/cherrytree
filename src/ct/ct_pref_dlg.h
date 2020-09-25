@@ -62,8 +62,9 @@ private:
 private:
     void need_restart(RESTART_REASON reason, const gchar* msg = nullptr);
 
-    void _fill_custom_exec_commands_model(Glib::RefPtr<Gtk::ListStore> model);
-    void _add_new_command_in_model(Glib::RefPtr<Gtk::ListStore> model);
+    void _fill_custom_exec_commands_model(Glib::RefPtr<Gtk::ListStore> rModel);
+    void _add_new_command_in_model(Gtk::TreeView* pTreeview, Glib::RefPtr<Gtk::ListStore> rModel);
+    void _remove_command_from_model(Gtk::TreeView* pTreeview, Glib::RefPtr<Gtk::ListStore> rModel);
     std::set<std::string> _get_code_exec_type_keys();
 
     void fill_toolbar_model(Glib::RefPtr<Gtk::ListStore> model);
@@ -87,9 +88,10 @@ private:
     {
        Gtk::TreeModelColumn<Glib::ustring>  icon;
        Gtk::TreeModelColumn<Glib::ustring>  key;
+       Gtk::TreeModelColumn<Glib::ustring>  ext;
        Gtk::TreeModelColumn<Glib::ustring>  desc;
        Gtk::TreeModelColumn<Glib::ustring>  shortcut;
-       UniversalModelColumns() { add(icon); add(key); add(desc); add(shortcut); }
+       UniversalModelColumns() { add(icon); add(key); add(ext); add(desc); add(shortcut); }
     };
 
 private:

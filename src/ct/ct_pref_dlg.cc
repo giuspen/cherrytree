@@ -119,7 +119,6 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     size_group_1->add_widget(*label_space_around_lines);
     size_group_1->add_widget(*label_relative_wrapped_space);
 
-
     Gtk::VBox* vbox_text_editor = Gtk::manage(new Gtk::VBox());
     vbox_text_editor->pack_start(*hbox_tab_width, false, false);
     vbox_text_editor->pack_start(*checkbutton_spaces_tabs, false, false);
@@ -563,12 +562,12 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
 
     Gtk::CellRendererPixbuf pixbuf_renderer;
     pixbuf_renderer.property_stock_size() = Gtk::BuiltinIconSize::ICON_SIZE_LARGE_TOOLBAR;
-    int col_num = treeview->append_column("", pixbuf_renderer) - 1;
-    treeview->get_column(col_num)->add_attribute(pixbuf_renderer, "icon-name", _shortcutModelColumns.icon);
+    const int col_num_pixbuf = treeview->append_column("", pixbuf_renderer) - 1;
+    treeview->get_column(col_num_pixbuf)->add_attribute(pixbuf_renderer, "icon-name", _shortcutModelColumns.icon);
 
     treeview->append_column("", _commandModelColumns.key);
-    treeview->append_column_editable("", _commandModelColumns.desc);
-    treeview->set_expander_column(*treeview->get_column(1));
+    const int col_num_ext = treeview->append_column_editable("", _commandModelColumns.ext) - 1;
+    const int col_num_desc = treeview->append_column_editable("", _commandModelColumns.desc) - 1;
 
     Gtk::ScrolledWindow* scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow());
     scrolledwindow->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
@@ -577,11 +576,15 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     Gtk::Button* button_add = Gtk::manage(new Gtk::Button());
     button_add->set_image(*_pCtMainWin->new_image_from_stock("ct_add", Gtk::ICON_SIZE_BUTTON));
     button_add->set_tooltip_text(_("Add"));
+    Gtk::Button* button_remove = Gtk::manage(new Gtk::Button());
+    button_remove->set_image(*_pCtMainWin->new_image_from_stock("ct_remove", Gtk::ICON_SIZE_BUTTON));
+    button_remove->set_tooltip_text(_("Remove Selected"));
     Gtk::Button* button_reset_cmds = Gtk::manage(new Gtk::Button());
     button_reset_cmds->set_image(*_pCtMainWin->new_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
     button_reset_cmds->set_tooltip_text(_("Reset to Default"));
     Gtk::VBox* vbox_buttons = Gtk::manage(new Gtk::VBox());
     vbox_buttons->pack_start(*button_add, false, false);
+    vbox_buttons->pack_start(*button_remove, false, false);
     vbox_buttons->pack_start(*Gtk::manage(new Gtk::Label()), true, false);
     vbox_buttons->pack_start(*button_reset_cmds, false, false);
 
@@ -632,18 +635,26 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
         if (pConfig->syntaxHighlighting != CtConst::RICH_TEXT_ID)
             apply_for_each_window([](CtMainWin* win) { win->get_text_view().set_highlight_current_line(win->get_ct_config()->ptHighlCurrLine); });
     });
-    ((Gtk::CellRendererText*)treeview->get_column(2)->get_cells()[0])->signal_edited().connect([this, pConfig, liststore](const Glib::ustring& path, const Glib::ustring& new_command){
+    Gtk::CellRendererText* pCellRendererText = dynamic_cast<Gtk::CellRendererText*>(treeview->get_column(col_num_desc)->get_cells()[0]);
+    pCellRendererText->signal_edited().connect([this, pConfig, liststore](const Glib::ustring& path, const Glib::ustring& new_command){
         auto row = liststore->get_iter(path);
-        // the condition doesn't work because it already has the updated value (although docs say otherwise)
-        // if (row->get_value(_commandModelColumns.command) == new_command) return;
         row->set_value(_commandModelColumns.desc, new_command);
         pConfig->customCodexecType[row->get_value(_commandModelColumns.key)] = new_command;
+    });
+    pCellRendererText = dynamic_cast<Gtk::CellRendererText*>(treeview->get_column(col_num_ext)->get_cells()[0]);
+    pCellRendererText->signal_edited().connect([this, pConfig, liststore](const Glib::ustring& path, const Glib::ustring& new_ext){
+        auto row = liststore->get_iter(path);
+        row->set_value(_commandModelColumns.ext, new_ext);
+        pConfig->customCodexecExt[row->get_value(_commandModelColumns.key)] = new_ext;
     });
     entry_term_run->signal_changed().connect([pConfig, entry_term_run](){
         pConfig->customCodexecTerm = entry_term_run->get_text();
     });
-    button_add->signal_clicked().connect([this, liststore](){
-        _add_new_command_in_model(liststore);
+    button_add->signal_clicked().connect([this, treeview, liststore](){
+        _add_new_command_in_model(treeview, liststore);
+    });
+    button_remove->signal_clicked().connect([this, treeview, liststore](){
+        _remove_command_from_model(treeview, liststore);
     });
     button_reset_cmds->signal_clicked().connect([this, pConfig, liststore](){
         if (CtDialogs::question_dialog(reset_warning, *this)) {
@@ -1309,8 +1320,8 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
 
     Gtk::CellRendererPixbuf pixbuf_renderer;
     pixbuf_renderer.property_stock_size() = Gtk::BuiltinIconSize::ICON_SIZE_LARGE_TOOLBAR;
-    int col_num = treeview->append_column("", pixbuf_renderer) - 1;
-    treeview->get_column(col_num)->add_attribute(pixbuf_renderer, "icon-name", _shortcutModelColumns.icon);
+    const int col_num_pixbuf = treeview->append_column("", pixbuf_renderer) - 1;
+    treeview->get_column(col_num_pixbuf)->add_attribute(pixbuf_renderer, "icon-name", _shortcutModelColumns.icon);
 
     treeview->append_column("", _toolbarModelColumns.desc);
     Gtk::ScrolledWindow* scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow());
@@ -1387,8 +1398,8 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
     // icon column
     Gtk::CellRendererPixbuf pixbuf_renderer;
     pixbuf_renderer.property_stock_size() = Gtk::BuiltinIconSize::ICON_SIZE_LARGE_TOOLBAR;
-    int col_num = treeview->append_column("", pixbuf_renderer) - 1;
-    treeview->get_column(col_num)->add_attribute(pixbuf_renderer, "icon-name", _shortcutModelColumns.icon);
+    const int col_num_pixbuf = treeview->append_column("", pixbuf_renderer) - 1;
+    treeview->get_column(col_num_pixbuf)->add_attribute(pixbuf_renderer, "icon-name", _shortcutModelColumns.icon);
     // shortcut column
     auto shortcut_cell_renderer = Gtk::manage(new Gtk::CellRendererText());
     shortcut_cell_renderer->property_xalign() = 1;
@@ -1732,11 +1743,12 @@ void CtPrefDlg::_fill_custom_exec_commands_model(Glib::RefPtr<Gtk::ListStore> rM
         Gtk::TreeModel::Row row = *(rModel->append());
         row[_commandModelColumns.icon] = _pCtMainWin->get_code_icon_name(code_type);
         row[_commandModelColumns.key] = code_type;
+        row[_commandModelColumns.ext] = CtPrefDlg::get_code_exec_ext(_pCtMainWin, code_type);
         row[_commandModelColumns.desc] = CtPrefDlg::get_code_exec_type_cmd(_pCtMainWin, code_type);
     }
 }
 
-void CtPrefDlg::_add_new_command_in_model(Glib::RefPtr<Gtk::ListStore> rModel)
+void CtPrefDlg::_add_new_command_in_model(Gtk::TreeView* pTreeview, Glib::RefPtr<Gtk::ListStore> rModel)
 {
     const std::set<std::string> all_codexec_keys = _get_code_exec_type_keys();
     auto itemStore = CtChooseDialogListStore::create();
@@ -1748,11 +1760,31 @@ void CtPrefDlg::_add_new_command_in_model(Glib::RefPtr<Gtk::ListStore> rModel)
     }
     const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(*this, _("Select Element to Add"), itemStore);
     if (treeIter) {
-        Gtk::TreeModel::Row row = *(rModel->append());
+        Gtk::TreeIter newTreeIter = rModel->append();
+        Gtk::TreeModel::Row row = *newTreeIter;
         const auto code_type = treeIter->get_value(itemStore->columns.desc);
         row[_commandModelColumns.icon] = _pCtMainWin->get_code_icon_name(code_type);
         row[_commandModelColumns.key] = code_type;
+        row[_commandModelColumns.ext] = CtPrefDlg::get_code_exec_ext(_pCtMainWin, code_type);
         row[_commandModelColumns.desc] = std::string{"REPLACE_ME "} + CtConst::CODE_EXEC_TMP_SRC;
+        pTreeview->set_cursor(rModel->get_path(newTreeIter));
+    }
+}
+
+void CtPrefDlg::_remove_command_from_model(Gtk::TreeView* pTreeview, Glib::RefPtr<Gtk::ListStore> rModel)
+{
+    Gtk::TreeIter sel_iter = pTreeview->get_selection()->get_selected();
+    if (sel_iter) {
+        const auto code_type = sel_iter->get_value(_commandModelColumns.key);
+        auto& customCodexecType = _pCtMainWin->get_ct_config()->customCodexecType;
+        auto& customCodexecExt = _pCtMainWin->get_ct_config()->customCodexecExt;
+        if (customCodexecType.count(code_type)) {
+            customCodexecType.erase(code_type);
+        }
+        if (customCodexecExt.count(code_type)) {
+            customCodexecExt.erase(code_type);
+        }
+        rModel->erase(sel_iter);
     }
 }
 
