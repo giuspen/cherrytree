@@ -1,7 +1,9 @@
 /*
  * ct_parser.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,16 +46,19 @@ struct CtStatusBar;
  * @class CtParseError
  * @brief Thrown when an exception occures during parsing
  */
-class CtParseError: public std::runtime_error {
+class CtParseError : public std::runtime_error
+{
 public:
     explicit CtParseError(const std::string& msg) : std::runtime_error("[Parse Exception]: " + msg) {}
 };
 
-class CtParserInterface {
+class CtParserInterface
+{
 public:
     virtual void feed(std::istream&) = 0;
     virtual ~CtParserInterface() = default;
 };
+
 /**
  * @brief Base class for parsers
  */
@@ -61,6 +66,7 @@ class CtConfig;
 class CtDocumentBuilder
 {
     using broken_links_t = std::map<Glib::ustring, std::vector<xmlpp::Element*>>;
+
 public:
     enum class checkbox_state
     {
@@ -71,8 +77,6 @@ public:
 
     explicit CtDocumentBuilder(const CtConfig* pCtConfig);
 
-    
-    
     void add_scale_tag(int level, std::optional<std::string> data);
     void add_weight_tag(const Glib::ustring& level, std::optional<std::string> data);
     void add_italic_tag(std::optional<std::string> data);
@@ -97,20 +101,20 @@ public:
 
     /// Rollback to last element and run func
     void with_last_element(const std::function<void()>& func);
-    
+
     [[nodiscard]] constexpr bool tag_empty() const
     {
         if (!_current_element) return true;
         else                   return !_current_element->get_child_text();
     }
-    
+
     std::string to_string() { return _document->write_to_string(); }
     xmlpp::Node* root_node() const { return _document->get_root_node(); }
     const broken_links_t& broken_links() const { return _broken_links; }
     std::shared_ptr<xmlpp::Document> document() const { return _document; }
 
     void wipe();
-    
+
 private:
     const CtConfig* _pCtConfig = nullptr;
     std::unordered_map<std::string_view, bool> _open_tags;
@@ -133,22 +137,21 @@ class CtTextParser
 {
 public:
     struct token_schema {
-        
+
         std::string open_tag;
-        
+
         bool has_closetag   = true;
         bool is_symmetrical = true;
-        
+
         std::function<void(const std::string&)> action;
-        
+
         std::string close_tag = "";
-        
+
         /// Whether to capture all the tokens inside it without formatting
         bool capture_all = false;
-        
-        
+
         std::string data = "";
-        
+
         bool operator==(const token_schema& other) const
         {
             if (is_symmetrical || !has_closetag) return open_tag == other.open_tag;
@@ -156,12 +159,10 @@ public:
         }
     };
 
-    using tags_map_t = std::unordered_map<std::string_view, const token_schema *>;
+    using tags_map_t = std::unordered_map<std::string_view, const token_schema*>;
     using pos_tokens_t = std::unordered_map<char, std::vector<std::string_view>>;
 
-
     explicit CtTextParser(std::vector<token_schema>&& token_schemas);
-
 
     /**
      * @brief Find the formatting boundries for a word based on stored tags
@@ -179,22 +180,22 @@ public:
      * @param tokens
      * @return
      */
-    std::vector<std::pair<const token_schema *, std::string>> parse_tokens(const std::vector<std::string>& tokens) const;
+    std::vector<std::pair<const token_schema*, std::string>> parse_tokens(const std::vector<std::string>& tokens) const;
 
     std::vector<std::string> tokenize(const std::string& text) const;
 
 private:
     /// Tokens to be cached by the parser
     const std::vector<token_schema> _token_schemas;
-  
+
     const tags_map_t _open_tokens_map;
     const tags_map_t _close_tokens_map;
-    
+
     const pos_tokens_t _possible_tokens;
 };
 
-
-class CtDocBuildingParser: public CtParserInterface {
+class CtDocBuildingParser : public CtParserInterface
+{
 public:
     explicit CtDocBuildingParser(CtConfig* config) : _doc_builder{config} {}
     void wipe_doc() { _doc_builder.wipe(); }
@@ -208,14 +209,13 @@ protected:
 
 private:
     CtDocumentBuilder _doc_builder;
-
 };
 
 /**
  * @brief Markdown parser
  * @class CtMDParser
  */
-class CtMDParser: public CtDocBuildingParser
+class CtMDParser : public CtDocBuildingParser
 {
 public:
     explicit CtMDParser(CtConfig* config);
@@ -223,12 +223,11 @@ public:
 
     void feed(std::istream& stream) override;
 
- 
     virtual ~CtMDParser() = default;
-    
+
     std::shared_ptr<CtTextParser> text_parser() const { return _text_parser; }
+
 private:
-    
     void _place_free_text();
     void _add_scale_to_last(int level);
     void _add_table_cell(std::string text);
@@ -237,7 +236,7 @@ private:
     /// Add the current table to the output xml
     void _pop_table();
     std::vector<CtTextParser::token_schema> _token_schemas();
-    
+
     using TableRow = std::vector<std::string>;
     using TableMatrix = std::vector<TableRow>;
     TableRow _current_table_row;
@@ -248,11 +247,12 @@ private:
 
     uint8_t _list_level = 0;
     std::shared_ptr<CtTextParser> _text_parser;
-
 };
 
-class CtTokenMatcher {
+class CtTokenMatcher
+{
     using size_type = std::string::size_type;
+
 public:
     using pos_tokens_t = std::vector<std::string>;
 
@@ -281,8 +281,6 @@ public:
     [[nodiscard]] const std::string& contents() const noexcept { return _token_contents; }
     [[nodiscard]] std::string raw_str() const { return _open_token + _token_contents + _close_token; }
 
-
-    
 private:
     pos_tokens_t _pos_tokens;
     std::unordered_set<char> _pos_chars;
@@ -324,7 +322,7 @@ public:
     static std::list<html_attr> char2list_attrs(const char** atts);
 };
 
-class CtHtml2Xml: public CtHtmlParser
+class CtHtml2Xml : public CtHtmlParser
 {
 private:
     enum class ParserState {WAIT_BODY, PARSING_BODY, PARSING_TABLE};
@@ -345,12 +343,10 @@ private:
         std::map<std::string, std::string> styles;
     };
 
-
     static const std::set<std::string> HTML_A_TAGS;
 
 public:
     CtHtml2Xml(CtConfig* config);
-
 
 public:
     // virtuals of CtHtmlParser
@@ -384,8 +380,8 @@ private:
     void        _rich_text_save_pending();
 
 private:
-    CtConfig*             _config {nullptr};
-    CtStatusBar*          _status_bar {nullptr};
+    CtConfig*             _config{nullptr};
+    CtStatusBar*          _status_bar{nullptr};
     std::string           _local_dir;
 
     // releated to parsing html
@@ -403,8 +399,8 @@ private:
 
     // related to generating xml
     xmlpp::Document        _temp_doc;
-    xmlpp::Document*       _outter_doc {nullptr};
-    xmlpp::Document*       _xml_doc {nullptr};
+    xmlpp::Document*       _outter_doc{nullptr};
+    xmlpp::Document*       _xml_doc{nullptr};
     xmlpp::Element*        _slot_root;
     int                    _char_offset;
     std::string            _slot_text;
@@ -416,15 +412,16 @@ private:
  * @brief Watches a TextBuffer and applies markdown formatting to it
  * @class CtMarkdownFilter
  */
-class CtMarkdownFilter {
+class CtMarkdownFilter
+{
 public:
     CtMarkdownFilter(std::unique_ptr<CtClipboard> clipboard, Glib::RefPtr<Gtk::TextBuffer> buffer, CtConfig* config);
     /// Reset parser state
     void reset() noexcept;
-    
+
     /// Connect to a new buffer
     void buffer(Glib::RefPtr<Gtk::TextBuffer> text_buffer);
-    
+
     constexpr void active(bool active) noexcept { _active = active; }
     [[nodiscard]] bool active() const noexcept;
 
@@ -436,7 +433,7 @@ private:
     void _apply_tag(const Glib::ustring& tag, const Gtk::TextIter& start, const Gtk::TextIter& end);
 
     std::string _get_new_md_tag_name() const;
-    
+
 private:
     std::array<sigc::connection, 4> _buff_connections;
     bool _active = false;
@@ -448,33 +445,45 @@ private:
     std::shared_ptr<CtMDParser> _md_parser;
     std::unique_ptr<CtClipboard> _clipboard;
 
-
     using match_pair_t = std::pair<std::shared_ptr<CtMDParser>, std::shared_ptr<CtTokenMatcher>>;
     std::unordered_map<std::string, match_pair_t> _md_matchers;
 };
 
-class CtMempadParser: public CtParserInterface {
+class CtMempadParser : public CtParserInterface
+{
 public:
     struct page {
         int level;
         std::string name;
         std::string contents;
     };
-    
+
     void feed(std::istream& data) override;
 
     const std::vector<page>& parsed_pages() const { return _parsed_pages; }
+
 private:
     std::vector<page> _parsed_pages;
-
 };
 
+class CtTreepadParser : public CtParserInterface
+{
+public:
+    void feed(std::istream& data) override;
 
-class CtZimParser: public CtDocBuildingParser {
+    const std::vector<CtMempadParser::page>& parsed_pages() const { return _parsed_pages; }
+
+private:
+    std::vector<CtMempadParser::page> _parsed_pages;
+};
+
+class CtZimParser : public CtDocBuildingParser
+{
 public:
     explicit CtZimParser(CtConfig* config);
 
     void feed(std::istream& in) override;
+
 private:
     std::vector<CtTextParser::token_schema> _token_schemas();
 
@@ -482,10 +491,10 @@ private:
 
     int _list_level = 0;
     std::shared_ptr<CtTextParser> _text_parser;
-    
 };
 
-class CtLeoParser: public CtParserInterface {
+class CtLeoParser : public CtParserInterface
+{
 public:
     struct leo_node {
         Glib::ustring content;
@@ -493,10 +502,10 @@ public:
         std::vector<leo_node> children;
     };
 
-
     void feed(std::istream& in) override;
 
-    const std::vector<leo_node>& nodes() const { return _leo_nodes; } 
+    const std::vector<leo_node>& nodes() const { return _leo_nodes; }
+
 private:
     std::vector<leo_node> _leo_nodes;
 };
@@ -505,8 +514,9 @@ struct ct_basic_node {
     std::string name;
     std::shared_ptr<xmlpp::Document> doc = nullptr;
 };
-class CtRedNotebookParser: public CtParserInterface {
 
+class CtRedNotebookParser : public CtParserInterface
+{
 public:
     using node = ct_basic_node;
     explicit CtRedNotebookParser(CtConfig* config) : _ct_config{config} {}
@@ -514,17 +524,19 @@ public:
     void feed(std::istream& in) override;
 
     const std::vector<node>& nodes() const { return _nodes; }
+
 private:
     void _feed_str(const std::string& in);
     void _add_node(std::string&& name, const std::string& contents);
 
 
-    bool _in_p_tag = false;   
+    bool _in_p_tag = false;
     std::vector<node> _nodes;
     CtConfig* _ct_config;
 };
 
-class CtNoteCaseHTMLParser: public CtParserInterface {
+class CtNoteCaseHTMLParser : public CtParserInterface
+{
 public:
     struct notecase_split_output {
         std::string note_name;
@@ -537,14 +549,15 @@ public:
     void feed(std::istream& input) override;
 
     const std::vector<node>& nodes() const { return _nodes; }
+
 private:
     void _feed_str(const std::string& str);
-    
+
     static std::vector<notecase_split_output> _split_notecase_html_nodes(const std::string& input);
 
     static node _generate_notecase_node(const notecase_split_output& split_node, CtConfig* config);
     template<typename ITER>
-    static std::vector<notecase_split_output> _handle_notecase_split_strings(ITER begin, ITER end) 
+    static std::vector<notecase_split_output> _handle_notecase_split_strings(ITER begin, ITER end)
     {
         std::vector<notecase_split_output> out;
         while(begin != end) {
@@ -556,7 +569,7 @@ private:
         return out;
     }
     template<typename ITER>
-    std::vector<CtNoteCaseHTMLParser::node> _generate_notecase_nodes(ITER begin, ITER end, CtConfig* config) 
+    std::vector<CtNoteCaseHTMLParser::node> _generate_notecase_nodes(ITER begin, ITER end, CtConfig* config)
     {
         static_assert(std::is_same_v<typename std::iterator_traits<ITER>::value_type, notecase_split_output>, "generate_notecase_nodes provided with an invalid iterator");
 
@@ -570,4 +583,3 @@ private:
     CtConfig* _ct_config;
     std::vector<node> _nodes;
 };
-

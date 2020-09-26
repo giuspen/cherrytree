@@ -426,6 +426,7 @@ public:
     void import_nodes_from_tomboy_directory() noexcept;
     void import_nodes_from_keepnote_directory() noexcept;
     void import_nodes_from_mempad_file() noexcept;
+    void import_nodes_from_treepad_file() noexcept;
     void import_nodes_from_leo_file() noexcept;
     void import_nodes_from_rednotebook_html() noexcept;
     void import_nodes_from_notecase_html() noexcept;

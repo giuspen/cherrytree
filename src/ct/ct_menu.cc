@@ -222,11 +222,11 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{export_cat, "export_txt", "ct_to_txt", _("Export to Plain _Text"), None, _("Export to Plain Text"), sigc::mem_fun(*pActions, &CtActions::export_to_txt)});
     _actions.push_back(CtMenuAction{export_cat, "export_ctd", "ct_to_cherrytree", _("_Export To CherryTree Document"), None, _("Export To CherryTree Document"), sigc::mem_fun(*pActions, &CtActions::export_to_ctd)});
     const char* import_cat = _("Import");
-    _actions.push_back(CtMenuAction{import_cat, "import_cherrytree", "ct_from_cherrytree", _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_ct_file) /* dad.nodes_add_from_cherrytree_file */});
-    _actions.push_back(CtMenuAction{import_cat, "import_txt_file", "ct_from_txt", _("From _Plain Text File"), None, _("Add Node from a Plain Text File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_node_from_plaintext_file) /* dad.nodes_add_from_plain_text_file */});
-    _actions.push_back(CtMenuAction{import_cat, "import_txt_folder", "ct_from_txt", _("From _Folder of Plain Text Files"), None, _("Add Nodes from a Folder of Plain Text Files to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_plaintext_directory) /* dad.nodes_add_from_plain_text_folder */});
-    _actions.push_back(CtMenuAction{import_cat, "import_html_file", "ct_from_html", _("From _HTML File"), None, _("Add Node from an HTML File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_node_from_html_file) /* dad.nodes_add_from_html_file */});
-    _actions.push_back(CtMenuAction{import_cat, "import_html_folder", "ct_from_html", _("From _Folder of HTML Files"), None, _("Add Nodes from a Folder of HTML Files to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_node_from_html_directory) /* dad.nodes_add_from_html_folder */});
+    _actions.push_back(CtMenuAction{import_cat, "import_cherrytree", "ct_from_cherrytree", _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_ct_file)});
+    _actions.push_back(CtMenuAction{import_cat, "import_txt_file", "ct_from_txt", _("From _Plain Text File"), None, _("Add Node from a Plain Text File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_node_from_plaintext_file)});
+    _actions.push_back(CtMenuAction{import_cat, "import_txt_folder", "ct_from_txt", _("From _Folder of Plain Text Files"), None, _("Add Nodes from a Folder of Plain Text Files to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_plaintext_directory)});
+    _actions.push_back(CtMenuAction{import_cat, "import_html_file", "ct_from_html", _("From _HTML File"), None, _("Add Node from an HTML File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_node_from_html_file)});
+    _actions.push_back(CtMenuAction{import_cat, "import_html_folder", "ct_from_html", _("From _Folder of HTML Files"), None, _("Add Nodes from a Folder of HTML Files to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_node_from_html_directory)});
     _actions.push_back(CtMenuAction{import_cat, "import_md_file",  CtConst::STR_STOCK_CT_IMP, _("From _Markdown File"), None, _("Add a node from a Markdown File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_node_from_md_file)});
     _actions.push_back(CtMenuAction{import_cat, "import_md_folder",  CtConst::STR_STOCK_CT_IMP, _("From _Folder of Markdown Files"), None, _("Add Nodes from a Folder of Markdown Files to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_md_directory)});
     //_actions.push_back(CtMenuAction{import_cat, "import_basket", CtConst::STR_STOCK_CT_IMP, _("From _Basket Folder"), None, _("Add Nodes of a Basket Folder to the Current Tree"), sigc::signal<void>() /* dad.nodes_add_from_basket_folder */});
@@ -235,12 +235,12 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{import_cat, "import_keepnote", CtConst::STR_STOCK_CT_IMP, _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_keepnote_directory) /* dad.nodes_add_from_keepnote_folder */});
     //_actions.push_back(CtMenuAction{import_cat, "import_keynote", CtConst::STR_STOCK_CT_IMP, _("From K_eyNote File"), None, _("Add Nodes of a KeyNote File to the Current Tree"), sigc::signal<void>() /* dad.nodes_add_from_keynote_file */});
     //_actions.push_back(CtMenuAction{import_cat, "import_knowit", CtConst::STR_STOCK_CT_IMP, _("From K_nowit File"), None, _("Add Nodes of a Knowit File to the Current Tree"), sigc::signal<void>() /* dad.nodes_add_from_knowit_file */});
-    _actions.push_back(CtMenuAction{import_cat, "import_leo", CtConst::STR_STOCK_CT_IMP, _("From _Leo File"), None, _("Add Nodes of a Leo File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_leo_file) /* dad.nodes_add_from_leo_file */});
-    _actions.push_back(CtMenuAction{import_cat, "import_mempad", CtConst::STR_STOCK_CT_IMP, _("From _Mempad File"), None, _("Add Nodes of a Mempad File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_mempad_file) /* dad.nodes_add_from_mempad_file */});
-    _actions.push_back(CtMenuAction{import_cat, "import_notecase", CtConst::STR_STOCK_CT_IMP, _("From _NoteCase HTML File"), None, _("Add Nodes of a NoteCase HTML File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_notecase_html) /* dad.nodes_add_from_notecase_file */});
-    _actions.push_back(CtMenuAction{import_cat, "import_rednotebook", CtConst::STR_STOCK_CT_IMP, _("From _RedNotebook HTML"), None, _("Add Nodes of a RedNotebook HTML file to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_rednotebook_html) /* dad.nodes_add_from_rednotebook_folder */});
+    _actions.push_back(CtMenuAction{import_cat, "import_leo", CtConst::STR_STOCK_CT_IMP, _("From _Leo File"), None, _("Add Nodes of a Leo File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_leo_file)});
+    _actions.push_back(CtMenuAction{import_cat, "import_mempad", CtConst::STR_STOCK_CT_IMP, _("From _Mempad File"), None, _("Add Nodes of a Mempad File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_mempad_file)});
+    _actions.push_back(CtMenuAction{import_cat, "import_notecase", CtConst::STR_STOCK_CT_IMP, _("From _NoteCase HTML File"), None, _("Add Nodes of a NoteCase HTML File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_notecase_html)});
+    _actions.push_back(CtMenuAction{import_cat, "import_rednotebook", CtConst::STR_STOCK_CT_IMP, _("From _RedNotebook HTML"), None, _("Add Nodes of a RedNotebook HTML file to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_rednotebook_html)});
     _actions.push_back(CtMenuAction{import_cat, "import_tomboy", CtConst::STR_STOCK_CT_IMP, _("From T_omboy Folder"), None, _("Add Nodes of a Tomboy Folder to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_tomboy_directory)});
-    //_actions.push_back(CtMenuAction{import_cat, "import_treepad", CtConst::STR_STOCK_CT_IMP, _("From T_reepad Lite File"), None, _("Add Nodes of a Treepad Lite File to the Current Tree"), sigc::signal<void>() /* dad.nodes_add_from_treepad_file */});
+    _actions.push_back(CtMenuAction{import_cat, "import_treepad", CtConst::STR_STOCK_CT_IMP, _("From T_reepad Lite File"), None, _("Add Nodes of a Treepad Lite File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_treepad_file)});
     //_actions.push_back(CtMenuAction{import_cat, "import_tuxcards", CtConst::STR_STOCK_CT_IMP, _("From _TuxCards File"), None, _("Add Nodes of a TuxCards File to the Current Tree"), sigc::signal<void>() /* dad.nodes_add_from_tuxcards_file */});
     _actions.push_back(CtMenuAction{import_cat, "import_zim", CtConst::STR_STOCK_CT_IMP, _("From _Zim Folder"), None, _("Add Nodes of a Zim Folder to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_zim_directory) /* dad.nodes_add_from_zim_folder */});
     _actions.push_back(CtMenuAction{import_cat, "import_pandoc_file", CtConst::STR_STOCK_CT_IMP, _("From File using _Pandoc"), None, _("Add a node to the current tree using Pandoc"), sigc::mem_fun(*pActions, &CtActions::import_node_from_pandoc) });
@@ -914,6 +914,7 @@ const char* CtMenu::_get_ui_str_menu()
       <menuitem action='import_notecase'/>
       <menuitem action='import_rednotebook'/>
       <menuitem action='import_tomboy'/>
+      <menuitem action='import_treepad'/>
       <menuitem action='import_zim'/>
       <menuitem action='import_pandoc_file'/>
     </menu>
@@ -983,6 +984,7 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='import_notecase'/>
     <menuitem action='import_rednotebook'/>
     <menuitem action='import_tomboy'/>
+    <menuitem action='import_treepad'/>
     <menuitem action='import_zim'/>
     <menuitem action='import_pandoc_file'/>
   </menu>

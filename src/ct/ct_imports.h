@@ -53,7 +53,6 @@ struct ct_imported_node
     bool has_content() { return xml_content->get_root_node(); }
 };
 
-
 class CtImporterInterface
 {
 public:
@@ -63,11 +62,11 @@ public:
 };
 
 /// Implementation of file patterns for HTML importers
-class CtHtmlImporterInterface: public CtImporterInterface {
+class CtHtmlImporterInterface: public CtImporterInterface
+{
 public:
     std::string                       file_pattern_name() override { return "HTML Document"; }
     std::vector<std::string>          file_patterns() override { return {"*.html", "*.htm"}; }
-
 };
 
 namespace CtImports {
@@ -96,13 +95,9 @@ public:
     explicit CtImportException(const std::string& msg) : std::runtime_error("[Import Exception]: " + msg) {}
 };
 
-
-
-// pygtk: HTMLHandler
 class CtConfig;
 
-
-
+// pygtk: HTMLHandler
 class CtHtmlImport : public CtHtmlImporterInterface
 {
 public:
@@ -113,7 +108,6 @@ public:
 private:
     CtConfig* _config;
 };
-
 
 class CtTomboyImport : public CtImporterInterface
 {
@@ -138,13 +132,12 @@ private:
     std::map<std::string, std::string> _curr_attributes;
 };
 
-
 class CtZimParser;
 /**
  * @brief Import handler for Zim Wiki directories
  * @class CtZimImport
  */
-class CtZimImport: public CtImporterInterface
+class CtZimImport : public CtImporterInterface
 {
 public:
     explicit CtZimImport(CtConfig* config);
@@ -154,6 +147,7 @@ public:
     std::unique_ptr<ct_imported_node> import_file(const fs::path& file) override;
 
     ~CtZimImport();
+
 private:
     void _ensure_notebook_file_in_dir(const fs::path& dir);
 
@@ -161,9 +155,7 @@ private:
     std::unique_ptr<CtZimParser> _zim_parser;
 };
 
-
-
-class CtPlainTextImport: public CtImporterInterface
+class CtPlainTextImport : public CtImporterInterface
 {
 public:
     CtPlainTextImport(CtConfig*) {}
@@ -175,11 +167,8 @@ public:
     std::vector<std::string>          file_patterns() override { return {"*.txt"}; };
 };
 
-
 class CtMDParser;
-
-
-class CtMDImport: public CtImporterInterface
+class CtMDImport : public CtImporterInterface
 {
 public:
     CtMDImport(CtConfig* config);
@@ -194,8 +183,7 @@ private:
     std::unique_ptr<CtMDParser> _parser;
 };
 
-
-class CtPandocImport: public CtImporterInterface
+class CtPandocImport : public CtImporterInterface
 {
 public:
     CtPandocImport(CtConfig* config);
@@ -208,8 +196,8 @@ private:
     CtConfig* _config;
 };
 
-
-class CtKeepnoteImport: public CtImporterInterface {
+class CtKeepnoteImport : public CtImporterInterface
+{
 public:
     explicit CtKeepnoteImport(CtConfig* config) : _config(config) {}
     std::unique_ptr<ct_imported_node> import_file(const fs::path& file) override;
@@ -218,31 +206,46 @@ private:
     CtConfig* _config;
 };
 
-class CtMempadImporter: public CtImporterInterface {
+class CtMempadImporter : public CtImporterInterface
+{
 public:
     explicit CtMempadImporter(CtConfig* config) : _config(config) {}
 
     std::unique_ptr<ct_imported_node> import_file(const fs::path& file) override;
 
     std::vector<std::string> file_patterns() override { return {"*.lst"}; };
-    std::string file_pattern_name() override { return _("Mempad File"); }
+    std::string file_pattern_name() override { return _("Mempad Document"); }
 
 private:
     CtConfig* _config;
-
 };
 
-class CtLeoImporter: public CtImporterInterface {
+class CtTreepadImporter : public CtImporterInterface
+{
+public:
+    explicit CtTreepadImporter(CtConfig* config) : _config(config) {}
+
+    std::unique_ptr<ct_imported_node> import_file(const fs::path& file) override;
+
+    std::vector<std::string> file_patterns() override { return {"*.hjt"}; };
+    std::string file_pattern_name() override { return _("Treepad Document"); }
+
+private:
+    CtConfig* _config;
+};
+
+class CtLeoImporter : public CtImporterInterface
+{
 public:
 
     std::unique_ptr<ct_imported_node> import_file(const fs::path& path) override;
 
     std::vector<std::string> file_patterns() override { return {"*.leo"}; };
-    std::string file_pattern_name() override { return _("Leo File"); }
-
+    std::string file_pattern_name() override { return _("Leo Document"); }
 };
 
-class CtRedNotebookImporter: public CtHtmlImporterInterface {
+class CtRedNotebookImporter : public CtHtmlImporterInterface
+{
 public:
     explicit CtRedNotebookImporter(CtConfig* config) : _ct_config{config} {}
 
@@ -254,7 +257,8 @@ private:
     CtConfig* _ct_config;
 };
 
-class CtNoteCaseHTMLImporter: public CtHtmlImporterInterface {
+class CtNoteCaseHTMLImporter: public CtHtmlImporterInterface
+{
 public:
     explicit CtNoteCaseHTMLImporter(CtConfig* config) : _ct_config{config} {}
 

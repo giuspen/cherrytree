@@ -225,16 +225,11 @@ std::unique_ptr<ct_imported_node> CtImports::traverse_dir(const fs::path& dir, C
         }
     }
 
-
     return dir_node;
 }
 
-
-
-
 CtHtmlImport::CtHtmlImport(CtConfig* config) : _config(config)
 {
-
 }
 
 std::unique_ptr<ct_imported_node> CtHtmlImport::import_file(const fs::path& file)
@@ -257,12 +252,8 @@ std::unique_ptr<ct_imported_node> CtHtmlImport::import_file(const fs::path& file
     return imported_node;
 }
 
-
-
-
 CtTomboyImport::CtTomboyImport(CtConfig* config) : _config(config)
 {
-
 }
 
 std::unique_ptr<ct_imported_node> CtTomboyImport::import_file(const fs::path& file)
@@ -398,10 +389,6 @@ xmlpp::Element* CtTomboyImport::_rich_text_serialize(const Glib::ustring& text_d
     return dom_iter;
 }
 
-
-
-
-
 CtZimImport::CtZimImport(CtConfig* config) : _zim_parser{std::make_unique<CtZimParser>(config)} {}
 
 std::unique_ptr<ct_imported_node> CtZimImport::import_file(const fs::path& file)
@@ -469,11 +456,8 @@ std::unique_ptr<ct_imported_node> CtPlainTextImport::import_file(const fs::path&
     return nullptr;
 }
 
-
-
 CtMDImport::CtMDImport(CtConfig* config) : _parser{std::make_unique<CtMDParser>(config)}
 {
-
 }
 
 std::unique_ptr<ct_imported_node> CtMDImport::import_file(const fs::path& file)
@@ -492,11 +476,8 @@ std::unique_ptr<ct_imported_node> CtMDImport::import_file(const fs::path& file)
     return node;
 }
 
-
-
 CtPandocImport::CtPandocImport(CtConfig* config): _config(config)
 {
-
 }
 
 std::unique_ptr<ct_imported_node> CtPandocImport::import_file(const fs::path& file)
@@ -556,10 +537,10 @@ std::unique_ptr<ct_imported_node> CtKeepnoteImport::import_file(const fs::path& 
     }
 
     return node;
-
 }
 
 namespace {
+
 std::unique_ptr<ct_imported_node> mempad_page_to_node(const CtMempadParser::page& page, const fs::path& path)
 {
     auto node = std::make_unique<ct_imported_node>(path, page.name);
@@ -609,7 +590,8 @@ std::unique_ptr<ct_imported_node> mempad_tree_to_node(const std::vector<CtMempad
 
     return node;
 }
-}
+
+} // namespace (anonymous)
 
 std::unique_ptr<ct_imported_node> CtMempadImporter::import_file(const fs::path& file)
 {
@@ -626,7 +608,23 @@ std::unique_ptr<ct_imported_node> CtMempadImporter::import_file(const fs::path& 
     return node;
 }
 
+std::unique_ptr<ct_imported_node> CtTreepadImporter::import_file(const fs::path& file)
+{
+    std::ifstream infile{file.string()};
+
+    CtTreepadParser parser;
+
+    parser.feed(infile);
+
+    std::vector<CtMempadParser::page> pages = parser.parsed_pages();
+
+    auto node = mempad_tree_to_node(pages, file);
+
+    return node;
+}
+
 namespace {
+
 std::unique_ptr<ct_imported_node> to_ct_node(const CtLeoParser::leo_node& leo_node, const fs::path& path) {
     auto node = std::make_unique<ct_imported_node>(path, leo_node.name);
     node->xml_content = std::make_shared<xmlpp::Document>();
@@ -671,11 +669,11 @@ std::unique_ptr<ct_imported_node> generate_ct_node_hierarchy(std::string&& root_
     }
     return ct_root;
 }
-}
+
+} // namespace (anonymous)
 
 std::unique_ptr<ct_imported_node> CtLeoImporter::import_file(const fs::path& path)
 {
-
     std::ifstream in{path.string()};
     if (!in) {
         throw std::runtime_error(fmt::format("Failed to initalise input file, path: <{}>", path));
@@ -683,7 +681,6 @@ std::unique_ptr<ct_imported_node> CtLeoImporter::import_file(const fs::path& pat
 
     CtLeoParser parser;
     parser.feed(in);
-
 
     return generate_leo_root_node(parser.nodes(), path);
 }
@@ -708,7 +705,8 @@ std::unique_ptr<ct_imported_node> CtRedNotebookImporter::_parse_input(std::ifstr
     return generate_ct_node_hierarchy("RedNotebook Root", nodes, path);
 }
 
-std::unique_ptr<ct_imported_node> CtNoteCaseHTMLImporter::import_file(const fs::path& path) {
+std::unique_ptr<ct_imported_node> CtNoteCaseHTMLImporter::import_file(const fs::path& path)
+{
     std::ifstream in{path.string()};
     if (!in) {
         throw std::runtime_error("Failed to setup input file for reading");
@@ -718,4 +716,3 @@ std::unique_ptr<ct_imported_node> CtNoteCaseHTMLImporter::import_file(const fs::
     parser.feed(in);
     return generate_ct_node_hierarchy("NoteCase Root", parser.nodes(), path);
 }
-
