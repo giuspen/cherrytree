@@ -507,7 +507,7 @@ void CtMempadParser::feed(std::istream& data)
      */
 
     // mempad uses null terminated strings in its format
-    auto strings = split_by_null(data);
+    std::vector<c_string> strings = split_by_null(data);
 
     std::vector<page> new_pages = parse_mempad_strings(strings);
     _parsed_pages.insert(_parsed_pages.cend(), new_pages.begin(), new_pages.end());
@@ -515,7 +515,46 @@ void CtMempadParser::feed(std::istream& data)
 
 void CtTreepadParser::feed(std::istream& data)
 {
-    // TODO
+    std::string lineStr;
+    Glib::RefPtr<Glib::Regex> rRegExpInteger = Glib::Regex::create("\\d+");
+    while (std::getline(data, lineStr)) {
+        size_t currSize = lineStr.size();
+        if (currSize > 0 and lineStr.at(currSize - 1) == '\r') {
+            lineStr.erase(currSize - 1);
+        }
+        switch (_currState) {
+            case States::CollectingNodeContent: {
+                if (str::startswith(lineStr, "<end node>")) {
+                    _currState = States::WaitingForNodeTag;
+                }
+                else {
+                    _parsed_pages.back().contents += lineStr + '\n';
+                }
+            } break;
+            case States::WaitingForNodeTag: {
+                if (str::startswith(lineStr, "<node>")) {
+                    _currState = States::WaitingForNodeName;
+                }
+            } break;
+            case States::WaitingForNodeName: {
+                _parsed_pages.emplace_back(CtMempadParser::page{
+                    .level = 0,
+                    .name = lineStr,
+                    .contents = std::string{}
+                });
+                _currState = States::WaitingForNodeLevel;
+            } break;
+            case States::WaitingForNodeLevel: {
+                if (rRegExpInteger->match(lineStr)) {
+                    _parsed_pages.back().level = std::stoi(lineStr);
+                    _currState = States::CollectingNodeContent;
+                }
+                else {
+                    _parsed_pages.back().name += " " + lineStr;
+                }
+            } break;
+        }
+    }
 }
 
 CtZimParser::CtZimParser(CtConfig* config)

@@ -470,10 +470,16 @@ class CtTreepadParser : public CtParserInterface
 {
 public:
     void feed(std::istream& data) override;
-
     const std::vector<CtMempadParser::page>& parsed_pages() const { return _parsed_pages; }
 
 private:
+    enum class States {
+        WaitingForNodeTag,
+        WaitingForNodeName,
+        WaitingForNodeLevel,
+        CollectingNodeContent
+    };
+    States _currState{States::WaitingForNodeTag};
     std::vector<CtMempadParser::page> _parsed_pages;
 };
 

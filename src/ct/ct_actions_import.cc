@@ -145,22 +145,24 @@ void CtActions::import_nodes_from_treepad_file() noexcept
 {
     try {
         CtTreepadImporter importer(_pCtMainWin->get_ct_config());
-        _import_from_file(&importer);
+        _import_from_file(&importer, true/*dummy_root*/);
     } catch(const std::exception& e) {
         spdlog::error("Exception caught while importing from Treepad: {}", e.what());
     }
 }
 
-void CtActions::import_nodes_from_mempad_file() noexcept {
+void CtActions::import_nodes_from_mempad_file() noexcept
+{
     try {
         CtMempadImporter importer(_pCtMainWin->get_ct_config());
-        _import_from_file(&importer);
+        _import_from_file(&importer, true/*dummy_root*/);
     } catch(const std::exception& e) {
         spdlog::error("Exception caught while importing from Mempad: {}", e.what());
     }
 }
 
-void CtActions::import_nodes_from_leo_file() noexcept {
+void CtActions::import_nodes_from_leo_file() noexcept
+{
     try {
         CtLeoImporter importer;
         _import_from_file(&importer);
@@ -169,7 +171,8 @@ void CtActions::import_nodes_from_leo_file() noexcept {
     }
 }
 
-void CtActions::import_nodes_from_rednotebook_html() noexcept {
+void CtActions::import_nodes_from_rednotebook_html() noexcept
+{
     try {
         CtRedNotebookImporter importer{_pCtMainWin->get_ct_config()};
         _import_from_file(&importer);
@@ -178,12 +181,13 @@ void CtActions::import_nodes_from_rednotebook_html() noexcept {
     }
 }
 
-void CtActions::import_nodes_from_notecase_html() noexcept {
+void CtActions::import_nodes_from_notecase_html() noexcept
+{
     CtNoteCaseHTMLImporter importer{_pCtMainWin->get_ct_config()};
     _import_from_file(&importer);
 }
 
-void CtActions::_import_from_file(CtImporterInterface* importer) noexcept
+void CtActions::_import_from_file(CtImporterInterface* importer, const bool dummy_root) noexcept
 {
     CtDialogs::file_select_args args(_pCtMainWin);
     args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImport;
@@ -196,7 +200,7 @@ void CtActions::_import_from_file(CtImporterInterface* importer) noexcept
     try {
         std::unique_ptr<ct_imported_node> node = importer->import_file(filepath);
         if (!node) return;
-        _create_imported_nodes(node.get());
+        _create_imported_nodes(node.get(), dummy_root);
     }
     catch (std::exception& ex) {
         spdlog::error("import exception: {}", ex.what());
@@ -249,7 +253,7 @@ static Gtk::TreeIter select_parent_dialog(CtMainWin* pCtMainWin)
     return Gtk::TreeIter();
 }
 
-void CtActions::_create_imported_nodes(ct_imported_node* imported_nodes)
+void CtActions::_create_imported_nodes(ct_imported_node* imported_nodes, const bool dummy_root)
 {
     // to apply functions to nodes
     std::function<void(ct_imported_node*, std::function<void(ct_imported_node*)>)> foreach_nodes;
@@ -325,8 +329,9 @@ void CtActions::_create_imported_nodes(ct_imported_node* imported_nodes)
     };
 
     Gtk::TreeIter parent_iter = select_parent_dialog(_pCtMainWin);
-    if (imported_nodes->has_content())
+    if (not dummy_root and imported_nodes->has_content()) {
         create_nodes(parent_iter, imported_nodes);
+    }
     else // skip top if it's dir
     {
         for (auto& child : imported_nodes->children)

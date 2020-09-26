@@ -553,7 +553,7 @@ std::unique_ptr<ct_imported_node> mempad_page_to_node(const CtMempadParser::page
 template<typename ITER>
 ITER up_to_same_level(ITER start, ITER upper_bound, int level)
 {
-    while(start != upper_bound) {
+    while (start != upper_bound) {
         if (start->level == level) {
             return start;
         }
@@ -562,7 +562,9 @@ ITER up_to_same_level(ITER start, ITER upper_bound, int level)
     return start;
 }
 
-std::unique_ptr<ct_imported_node> mempad_pages_to_nodes(const CtMempadParser::page& page, const std::vector<CtMempadParser::page>& child_pages, const fs::path& path)
+std::unique_ptr<ct_imported_node> mempad_pages_to_nodes(const CtMempadParser::page& page,
+                                                        const std::vector<CtMempadParser::page>& child_pages,
+                                                        const fs::path& path)
 {
     auto node = mempad_page_to_node(page, path);
     for (auto iter = child_pages.begin(); iter != child_pages.end(); ++iter) {
@@ -583,7 +585,7 @@ std::unique_ptr<ct_imported_node> mempad_tree_to_node(const std::vector<CtMempad
 {
     CtMempadParser::page dummy_page{
         .level = 0,
-        .name = "Mempad Root",
+        .name = "Root",
         .contents = ""
     };
     auto node = mempad_pages_to_nodes(dummy_page, pages, path);
