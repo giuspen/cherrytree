@@ -1433,10 +1433,16 @@ void CtMainWin::text_view_apply_cursor_position(CtTreeIter& treeIter, const int 
 
 void CtMainWin::_on_treeview_cursor_changed()
 {
+    CtTreeIter treeIter = curr_tree_iter();
+    if (not treeIter) {
+        // just removed the last node on the tree?
+        _prevTreeIter = treeIter;
+        return;
+    }
     if (_prevTreeIter)
     {
         const gint64 prevNodeId = _prevTreeIter.get_node_id();
-        if (prevNodeId == curr_tree_iter().get_node_id()) {
+        if (prevNodeId == treeIter.get_node_id()) {
             return;
         }
         Glib::RefPtr<Gsv::Buffer> rTextBuffer = _prevTreeIter.get_node_text_buffer();
@@ -1448,7 +1454,6 @@ void CtMainWin::_on_treeview_cursor_changed()
         }
         _nodesCursorPos[prevNodeId] = rTextBuffer->property_cursor_position();
     }
-    CtTreeIter treeIter = curr_tree_iter();
     _uCtTreestore->text_view_apply_textbuffer(treeIter, &_ctTextview);
     auto mapIter = _nodesCursorPos.find(treeIter.get_node_id());
     if (mapIter != _nodesCursorPos.end() and mapIter->second > 0) {
