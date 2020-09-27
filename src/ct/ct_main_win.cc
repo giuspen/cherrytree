@@ -54,6 +54,7 @@ CtMainWin::CtMainWin(bool             no_gui,
    _ctTextview(this),
    _ctStateMachine(this)
 {
+    get_style_context()->add_class("ct-app-win");
     if (not _no_gui) {
         set_icon(_pGtkIconTheme->load_icon(CtConst::APP_NAME, 48));
     }
