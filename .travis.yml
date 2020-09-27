@@ -5,6 +5,14 @@ jobs:
   include:
     - os: linux
       dist: focal
+      arch: amd64
+      cache: apt
+      addons:
+        apt:
+          update: true
+    - os: linux
+      dist: focal
+      arch: arm64
       cache: apt
       addons:
         apt:
