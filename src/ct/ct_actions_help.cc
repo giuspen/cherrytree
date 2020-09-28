@@ -60,12 +60,12 @@ void CtActions::check_for_newer_version()
             gint64 weighted_latest_v = splitted_latest_v[0]*10000 + splitted_latest_v[1]*100 + splitted_latest_v[2];
             gint64 weighted_local_v = splitted_local_v[0]*10000 + splitted_local_v[1]*100 + splitted_local_v[2];
             if (weighted_latest_v > weighted_local_v) {
-                CtDialogs::info_dialog(Glib::ustring{_("A Newer Version Is Available!")} + " (" PACKAGE_VERSION ")", *_pCtMainWin);
+                CtDialogs::info_dialog(Glib::ustring{_("A Newer Version Is Available!")} + " (" + latest_version_from_server + ")", *_pCtMainWin);
                 _pCtMainWin->update_selected_node_statusbar_info();
             }
             else {
                 if (weighted_latest_v == weighted_local_v) {
-                    statusbar.update_status(Glib::ustring{_("You Are Using the Latest Version Available")} + " (" PACKAGE_VERSION ")");
+                    statusbar.update_status(Glib::ustring{_("You Are Using the Latest Version Available")} + " (" + latest_version_from_server + ")");
                 }
                 else {
                     statusbar.update_status(_("You Are Using a Development Version"));
