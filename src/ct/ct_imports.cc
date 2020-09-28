@@ -156,6 +156,9 @@ std::vector<std::pair<size_t, size_t>> CtImports::get_web_links_offsets_from_pla
 {
     std::vector<std::pair<size_t, size_t>> web_links;
     size_t max_end_offset = plain_text.size();
+    if (max_end_offset < 7) {
+        return web_links;
+    }
     size_t max_start_offset = max_end_offset - 7;
     size_t start_offset = 0;
     unsigned lastCharBeforeURL = 0;
