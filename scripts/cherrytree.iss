@@ -37,20 +37,20 @@ ChangesAssociations=yes
 [Registry]
 Root: HKCR; Subkey: ".ctb"; ValueType: string; ValueName: ""; ValueData: "CherryTreeB"; Flags: uninsdeletevalue
 Root: HKCR; Subkey: "CherryTreeB"; ValueType: string; ValueName: ""; ValueData: "CherryTree SQLite Document"; Flags: uninsdeletekey
-Root: HKCR; Subkey: "CherryTreeB\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\bin\{#MyAppExeName},0"
-Root: HKCR; Subkey: "CherryTreeB\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\bin\{#MyAppExeName}"" ""%1"""
+Root: HKCR; Subkey: "CherryTreeB\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\mingw64\bin\{#MyAppExeName},0"
+Root: HKCR; Subkey: "CherryTreeB\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\mingw64\bin\{#MyAppExeName}"" ""%1"""
 Root: HKCR; Subkey: ".ctx"; ValueType: string; ValueName: ""; ValueData: "CherryTreeX"; Flags: uninsdeletevalue
 Root: HKCR; Subkey: "CherryTreeX"; ValueType: string; ValueName: ""; ValueData: "CherryTree SQLite Zipped"; Flags: uninsdeletekey
-Root: HKCR; Subkey: "CherryTreeX\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\bin\{#MyAppExeName},0"
-Root: HKCR; Subkey: "CherryTreeX\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\bin\{#MyAppExeName}"" ""%1"""
+Root: HKCR; Subkey: "CherryTreeX\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\mingw64\bin\{#MyAppExeName},0"
+Root: HKCR; Subkey: "CherryTreeX\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\mingw64\bin\{#MyAppExeName}"" ""%1"""
 Root: HKCR; Subkey: ".ctd"; ValueType: string; ValueName: ""; ValueData: "CherryTreeD"; Flags: uninsdeletevalue
 Root: HKCR; Subkey: "CherryTreeD"; ValueType: string; ValueName: ""; ValueData: "CherryTree XML Document"; Flags: uninsdeletekey
-Root: HKCR; Subkey: "CherryTreeD\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\bin\{#MyAppExeName},0"
-Root: HKCR; Subkey: "CherryTreeD\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\bin\{#MyAppExeName}"" ""%1"""
+Root: HKCR; Subkey: "CherryTreeD\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\mingw64\bin\{#MyAppExeName},0"
+Root: HKCR; Subkey: "CherryTreeD\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\mingw64\bin\{#MyAppExeName}"" ""%1"""
 Root: HKCR; Subkey: ".ctz"; ValueType: string; ValueName: ""; ValueData: "CherryTreeZ"; Flags: uninsdeletevalue
 Root: HKCR; Subkey: "CherryTreeZ"; ValueType: string; ValueName: ""; ValueData: "CherryTree XML Zipped"; Flags: uninsdeletekey
-Root: HKCR; Subkey: "CherryTreeZ\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\bin\{#MyAppExeName},0"
-Root: HKCR; Subkey: "CherryTreeZ\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\bin\{#MyAppExeName}"" ""%1"""
+Root: HKCR; Subkey: "CherryTreeZ\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\mingw64\bin\{#MyAppExeName},0"
+Root: HKCR; Subkey: "CherryTreeZ\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\mingw64\bin\{#MyAppExeName}"" ""%1"""
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -86,8 +86,8 @@ Source: "C:\Users\{#Username}\Desktop\cherrytree_{#MyAppVersion}_win64_portable\
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\mingw64\bin\{#MyAppExeName}"
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\mingw64\bin\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
 Filename: "{app}\mingw64\bin\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
