@@ -58,7 +58,12 @@ void glib_log_handler(const gchar*, GLogLevelFlags log_level, const gchar* msg, 
 
 int main(int argc, char *argv[])
 {
-    std::locale::global(std::locale("")); // Set the global C++ locale to the user-specified locale
+    try {
+        std::locale::global(std::locale("")); // Set the global C++ locale to the user-specified locale
+    }
+    catch (std::exception& e) {
+        g_warning("%s\n", e.what());
+    }
 
     fs::register_exe_path_detect_if_portable(argv[0]);
 
