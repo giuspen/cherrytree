@@ -30,7 +30,7 @@
 #include <gtkmm/stock.h>
 #include <cstdlib>
 #include "ct_logging.h"
-#include <spdlog/fmt/bundled/printf.h>
+#include "config_spdlog.h"
 
 // Cut Link
 void CtActions::link_cut()

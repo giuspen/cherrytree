@@ -85,8 +85,17 @@ elseif (CMAKE_BUILD_TYPE STREQUAL "Debug")
 endif()
 
 
+# Add an option to use an external spdlog build instead of the bundled
+# Call it SPDLOG_FMT_EXTERNAL instead of something like EXTERNAL_SPDLOG because
+# the former is used as a #define in a couple of files so it simplifies things
+# just a little bit.
+option(SPDLOG_FMT_EXTERNAL "Use external spdlog and fmt" OFF)
+
 # Create the configuration files config.h in the root dir
 configure_file(${CMAKE_SOURCE_DIR}/config.h.cmake ${CMAKE_SOURCE_DIR}/config.h)
+# Create a configuration file for spdlog in the src/ct dir
+configure_file(${CMAKE_SOURCE_DIR}/src/ct/config_spdlog.h.cmake ${CMAKE_SOURCE_DIR}/src/ct/config_spdlog.h)
+
 
 option(BUILD_TESTING "Build tests" ON)
 if (BUILD_TESTING)
@@ -104,14 +113,18 @@ pkg_check_modules(GSPELL gspell-1 REQUIRED)
 pkg_check_modules(LIBXML libxml++-2.6 REQUIRED)
 pkg_check_modules(SQLITE sqlite3 REQUIRED)
 pkg_check_modules(CURL libcurl REQUIRED)
+if(SPDLOG_FMT_EXTERNAL)
+  pkg_check_modules(SPDLOG spdlog REQUIRED)
+endif()
 if(BUILD_TESTING)
   pkg_check_modules(CPPUTEST cpputest  REQUIRED)
 endif()
 
 add_subdirectory(src/7za)
 
-# Spdlog
-add_subdirectory(src/spdlog)
+if(NOT SPDLOG_FMT_EXTERNAL)
+  add_subdirectory(src/spdlog)
+endif()
 
 
 include(FindPackageHandleStandardArgs)
@@ -128,6 +141,9 @@ include_directories(
   SYSTEM ${CURL_INCLUDE_DIRS}
   include_directories(.) # to find src/fmt
 )
+if(SPDLOG_FMT_EXTERNAL)
+  include_directories(SYSTEM ${SPDLOG_INCLUDE_DIRS})
+endif()
 
 add_subdirectory(src/ct)
 

@@ -27,3 +27,6 @@
 /* folder with root CMakeLists.txt */
 #define _CMAKE_SOURCE_DIR "${CMAKE_SOURCE_DIR}"
 #define _CMAKE_BINARY_DIR "${CMAKE_BINARY_DIR}"
+
+/* Use an external spdlog/fmt or the one we bundle? */
+#cmakedefine SPDLOG_FMT_EXTERNAL

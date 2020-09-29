@@ -29,6 +29,7 @@
 #include "ct_types.h"
 #include "ct_logging.h"
 #include <glibmm/miscutils.h>
+#include "config_spdlog.h"
 
 class CtConfig;
 

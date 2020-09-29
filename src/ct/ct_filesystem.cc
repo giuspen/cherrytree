@@ -24,7 +24,6 @@
 #include <glibmm/miscutils.h>
 #include <glib/gstdio.h>
 #include <curl/curl.h>
-#include <spdlog/fmt/bundled/printf.h>
 #include <system_error>
 
 #include "ct_filesystem.h"
@@ -32,6 +31,7 @@
 #include "ct_const.h"
 #include "ct_logging.h"
 #include "ct_config.h"
+#include "config_spdlog.h"
 
 namespace fs {
 

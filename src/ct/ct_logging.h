@@ -23,7 +23,7 @@
 
 #pragma once
 
-
+#include "config.h"
 #define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/fmt.h>

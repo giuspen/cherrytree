@@ -1,4 +1,3 @@
-
 add_compile_options(-Wall -Wextra -Wunreachable-code -Wuninitialized)
 
 if(USE_NLS)
@@ -76,8 +75,12 @@ target_link_libraries(cherrytree_shared
     ${CURL_LIBRARIES}
     pthread
     7za_static
-    spdlog::spdlog
 )
+if(SPDLOG_FMT_EXTERNAL)
+  target_link_libraries(cherrytree_shared ${SPDLOG_LIBRARIES})
+else()
+  target_link_libraries(cherrytree_shared spdlog::spdlog)
+endif()
 
 target_include_directories(cherrytree_shared PUBLIC "..")
 

@@ -23,6 +23,7 @@
 
 #pragma once
 
+#include "config_spdlog.h"
 #include "ct_types.h"
 #include <gtksourceviewmm.h>
 #include <gtkmm/treeiter.h>
