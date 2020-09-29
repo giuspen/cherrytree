@@ -123,7 +123,9 @@ void CtHtmlParser::handle_charref(std::string_view /*tag*/)
     {
         html_attr attr;
         attr.name = *(atts++);
-        attr.value = *(atts++);
+        if (*atts != nullptr) {
+            attr.value = *(atts++);
+        }
         attr_list.push_back(attr);
     }
     return attr_list;
