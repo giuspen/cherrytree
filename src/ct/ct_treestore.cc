@@ -209,7 +209,24 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes_f
     if (*this)
     {
         get_node_text_buffer(); // to load buffer\widgets if not loaded
-        return (*this)->get_value(_pColumns->colAnchoredWidgets);
+        // removes invalid widgets (if they were deleted from buffer)
+        std::list<CtAnchoredWidget*> retAnchoredWidgetsList;
+        bool resave_widgets = false;
+        for (CtAnchoredWidget* pCtAnchoredWidget : (*this)->get_value(_pColumns->colAnchoredWidgets))
+        {
+            Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
+            if (rChildAnchor && !rChildAnchor->get_deleted()) {
+                retAnchoredWidgetsList.push_back(pCtAnchoredWidget);
+            } else {
+                delete pCtAnchoredWidget;
+                resave_widgets = true;
+            }
+        }
+        if (resave_widgets) {
+            (*this)->set_value(_pColumns->colAnchoredWidgets, retAnchoredWidgetsList);
+        }
+
+        return retAnchoredWidgetsList;
     }
     return std::list<CtAnchoredWidget*>();
 }
