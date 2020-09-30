@@ -269,7 +269,7 @@ Glib::ustring sanitize_bad_symbols(const Glib::ustring& xml_content);
 
 Glib::ustring re_escape(const Glib::ustring& text);
 
-std::string time_format(const std::string& format, const time_t& time);
+Glib::ustring time_format(const std::string& format, const time_t& time);
 
 int symb_pos_to_byte_pos(const Glib::ustring& text, int symb_pos);
 int byte_pos_to_symb_pos(const Glib::ustring& text, int byte_pos);

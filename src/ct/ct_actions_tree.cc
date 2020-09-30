@@ -442,9 +442,9 @@ void CtActions::node_date()
 {
     time_t time = std::time(nullptr);
 
-    std::string year = str::time_format("%Y", time);
-    std::string month = str::time_format("%B", time);
-    std::string day = str::time_format("%d %a", time);
+    Glib::ustring year = str::time_format("%Y", time);
+    Glib::ustring month = str::time_format("%B", time);
+    Glib::ustring day = str::time_format("%d %a", time);
 
     _pCtMainWin->get_state_machine().set_go_bk_fw_click(true); // so nodes don't be in the list of visited
     _node_child_exist_or_create(Gtk::TreeIter(), year);
