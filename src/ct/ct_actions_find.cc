@@ -474,7 +474,7 @@ std::string CtActions::_dialog_search(const std::string& title, bool replace_on,
     if (multiple_nodes) {
         std::string ts_format = "%A, %d %B %Y, %H:%M";
         ts_node_created_after_checkbutton = Gtk::manage(new Gtk::CheckButton(_("Node Created After")));
-        std::string ts_label = str::time_format(ts_format, s_options.ts_cre_after.time);
+        Glib::ustring ts_label = str::time_format(ts_format, s_options.ts_cre_after.time);
         auto ts_node_created_after_button = Gtk::manage(new Gtk::Button(ts_label));
         auto ts_node_created_after_hbox = Gtk::manage(new Gtk::HBox());
         ts_node_created_after_hbox->set_homogeneous(true);

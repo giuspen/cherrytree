@@ -865,15 +865,19 @@ Glib::ustring str::re_escape(const Glib::ustring& text)
     return Glib::Regex::escape_string(text);
 }
 
-std::string str::time_format(const std::string& format, const time_t& time)
+Glib::ustring str::time_format(const std::string& format, const time_t& time)
 {
     std::tm* localtime = std::localtime(&time);
     char buffer[100];
-    if (strftime(buffer, sizeof(buffer), format.c_str(), localtime))
-        return buffer;
-    else if (strftime(buffer, sizeof(buffer), CtConst::TIMESTAMP_FORMAT_DEFAULT, localtime))
-        return buffer;
-    return "";
+    size_t len = strftime(buffer, sizeof(buffer), format.c_str(), localtime);
+    if (len == 0)
+        len = strftime(buffer, sizeof(buffer), CtConst::TIMESTAMP_FORMAT_DEFAULT, localtime);
+
+    if (len == 0) return "";
+    if (g_utf8_validate(buffer, len, NULL)) return buffer;
+
+    g_autofree gchar* date = g_locale_to_utf8(buffer, len, NULL, NULL, NULL);
+    return date;
 }
 
 int str::symb_pos_to_byte_pos(const Glib::ustring& text, int symb_pos)

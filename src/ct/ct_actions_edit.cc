@@ -410,7 +410,7 @@ void CtActions::timestamp_insert()
     if (not proof.text_buffer) return;
 
     time_t time = std::time(nullptr);
-    std::string timestamp = str::time_format(_pCtMainWin->get_ct_config()->timestampFormat, time);
+    Glib::ustring timestamp = str::time_format(_pCtMainWin->get_ct_config()->timestampFormat, time);
     proof.text_buffer->insert_at_cursor(timestamp);
 }
 

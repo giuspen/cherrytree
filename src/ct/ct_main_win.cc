@@ -1257,12 +1257,12 @@ void CtMainWin::update_selected_node_statusbar_info()
         }
         if (treeIter.get_node_creating_time() > 0)
         {
-            const std::string timestamp_creation = str::time_format(_pCtConfig->timestampFormat, treeIter.get_node_creating_time());
+            const Glib::ustring timestamp_creation = str::time_format(_pCtConfig->timestampFormat, treeIter.get_node_creating_time());
             statusbar_text += separator_text + _("Date Created") + _(": ") + timestamp_creation;
         }
         if (treeIter.get_node_modification_time() > 0)
         {
-            const std::string timestamp_lastsave = str::time_format(_pCtConfig->timestampFormat, treeIter.get_node_modification_time());
+            const Glib::ustring timestamp_lastsave = str::time_format(_pCtConfig->timestampFormat, treeIter.get_node_modification_time());
             statusbar_text += separator_text + _("Date Modified") + _(": ") + timestamp_lastsave;
         }
     }
