@@ -489,25 +489,34 @@ void CtActions::codebox_save_to_file()
 void CtActions::codebox_increase_width()
 {
     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
-    if (curr_codebox_anchor->get_width_in_pixels())
-         curr_codebox_anchor->set_width_height(curr_codebox_anchor->get_frame_width() + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX, 0);
-     else
-         curr_codebox_anchor->set_width_height(curr_codebox_anchor->get_frame_width() + CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC, 0);
+    int prevFrameWidth = curr_codebox_anchor->get_frame_width();
+    if (_pCtMainWin->get_ct_config()->codeboxAutoResize and prevFrameWidth < curr_codebox_anchor->get_text_view().get_allocated_width() ) {
+        prevFrameWidth = curr_codebox_anchor->get_text_view().get_allocated_width();
+    }
+    if (curr_codebox_anchor->get_width_in_pixels()) {
+        curr_codebox_anchor->set_width_height(prevFrameWidth + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX, 0);
+    }
+    else {
+        curr_codebox_anchor->set_width_height(prevFrameWidth + CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC, 0);
+    }
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
 }
 
 // Decrease CodeBox Width
 void CtActions::codebox_decrease_width()
 {
     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
-    if (curr_codebox_anchor->get_width_in_pixels())
-    {
-        if (curr_codebox_anchor->get_frame_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX >= CtCodebox::CB_WIDTH_LIMIT_MIN)
+    if (curr_codebox_anchor->get_width_in_pixels()) {
+        if (curr_codebox_anchor->get_frame_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX >= CtCodebox::CB_WIDTH_LIMIT_MIN) {
             curr_codebox_anchor->set_width_height(curr_codebox_anchor->get_frame_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX, 0);
+            _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
+        }
     }
-    else
-    {
-        if (curr_codebox_anchor->get_frame_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC >= CtCodebox::CB_WIDTH_LIMIT_MIN)
+    else {
+        if (curr_codebox_anchor->get_frame_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC >= CtCodebox::CB_WIDTH_LIMIT_MIN) {
             curr_codebox_anchor->set_width_height(curr_codebox_anchor->get_frame_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC, 0);
+            _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
+        }
     }
 }
 
@@ -515,15 +524,22 @@ void CtActions::codebox_decrease_width()
 void CtActions::codebox_increase_height()
 {
     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
-    curr_codebox_anchor->set_width_height(0, curr_codebox_anchor->get_frame_height() + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
+    int prevFrameHeight = curr_codebox_anchor->get_frame_height();
+    if (_pCtMainWin->get_ct_config()->codeboxAutoResize and prevFrameHeight < curr_codebox_anchor->get_text_view().get_allocated_height() ) {
+        prevFrameHeight = curr_codebox_anchor->get_text_view().get_allocated_height();
+    }
+    curr_codebox_anchor->set_width_height(0, prevFrameHeight + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
 }
 
 // Decrease CodeBox Height
 void CtActions::codebox_decrease_height()
 {
     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
-    if (curr_codebox_anchor->get_frame_height() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX >= CtCodebox::CB_HEIGHT_LIMIT_MIN)
+    if (curr_codebox_anchor->get_frame_height() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX >= CtCodebox::CB_HEIGHT_LIMIT_MIN) {
         curr_codebox_anchor->set_width_height(0, curr_codebox_anchor->get_frame_height() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
+        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
+    }
 }
 
 void CtActions::table_cut()

@@ -1447,6 +1447,17 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
             spinbutton_width.set_value(90);
         }
     });
+    auto on_key_press_dialog = [&](GdkEventKey *pEventKey)->bool
+    {
+        if (GDK_KEY_Return == pEventKey->keyval) {
+            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT));
+            pButton->grab_focus();
+            pButton->clicked();
+            return true;
+        }
+        return false;
+    };
+    dialog.signal_key_press_event().connect(on_key_press_dialog, false/*call me before other*/);
 
     const int response = dialog.run();
     dialog.hide();
