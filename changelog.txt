@@ -1,4 +1,17 @@
 
+0.99.14 (September 30th, 2020)
+  * fix crash when pasting a single character (#1186)
+  * fix remove invalid (deleted) anchor widgets from the list (#1190)
+  * fix crash while importing from html due to odd attrs amount (#1191)
+  * fix encoding issue str::time_format returns UTF-8 (#1197)
+  * fix codebox change width/height was not being detected as a change to be saved
+  * fix width/height increase when auto resize is enabled (as by default in 0.99.x)
+  * fix message of newer version available showing old version while new version expected
+  * fix windows crash on exception 'locale::facet::_S_create_c_locale name not valid' (#1184)
+  * fix windows installer issues with generated shortcut and double click on file from explorer (#1184)
+  * fix windows detected paths for locale and data folders
+  * Japanese language updated (Piyo)
+
 0.99.13 (September 27th, 2020)
   * This is the first public release of the 0.99.x serie where Evgenii (@txe) and myself (@giuspen) have rewritten everything from scratch in C++/GTK3
   * This attempts to list the features not yet ported and brand new against 0.39.4, currently last Python2/GTK2 release

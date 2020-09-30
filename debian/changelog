@@ -1,31 +1,16 @@
-cherrytree (0.99.13-1) focal; urgency=low
+cherrytree (0.99.14-1) focal; urgency=low
 
-  * This is the first public release of the 0.99.x serie where Evgenii (@txe) and myself (@giuspen) have rewritten everything from scratch in C++/GTK3
-  * This attempts to list the features not yet ported and brand new against 0.39.4, currently last Python2/GTK2 release
-  * The following imports are missing and may not be implemented at all if not requested: Basket, EPIM HTML, KeyNote, KnowIt, TuxCards
-  * Ubuntu AppIndicator is not currently supported
-  * New: Export to PDF support for hyperlinks (work of @ForeverRainbow)
-  * New: Export to HTML option to produce a single file
-  * New: Duplicate a node and its subnodes (before only the selected node could be duplicated)
-  * New: Option to scroll beyond the last line, enabled by default
-  * New: The rich text does no longer have light/dark/custom theme but a range of themes to select from like already for plain text & code
-  * New: Tables also can select their own theme like rich text and plain text & code
-  * New: You can now right click a node or an anchor and select to copy a link to it in the clipboard, then paste the link into rich text
-  * New: Formatting tag to indent/unindent (work of @metal450)
-  * New: The tables are implemented with a different library widget, editing a cell is easier, Ctrl+Arrow to move cursor between cells
-  * New: For both codeboxes and tables, Ctrl+Space allows to move the cursor in and out
-  * New: Rich text, monospace tag has the font configurable in the preferences dialog
-  * New: Column edit mode scintilla-like holding down Ctrl and Alt and selecting the column (cut/copy/paste not yet supported)
-  * New: Foreground and background tags in the rich text can be removed without altering the other tags
-  * New: The cherrytree backup files can be saved in a configured directory rather than the document directory
-  * New: Code build/execution, in preferences dialog it is configurable also the file extension of the temporary generated file
-  * New: Import from markdown file/folder (work of @ForeverRainbow)
-  * New: Option for markdown auto replacement to rich text (work of @ForeverRainbow)
-  * New: The toolbar supports multiple rows of icons
-  * New: Filetype icons for file attachments on Linux (work of @metal450)
-  * New: it is configurable whether to wrap or not the nodes names in the tree, off by default
-  * New: Now configurable from the preferences dialog are the "Embedded file size limit", "Triple click to select the whole paragraph", "Chars for bulleted list", "Chars for todo list", "Chars for table of content", "Chars for smart double quote", "Chars for smart single quote"
-  * New: It is configurable whether to show the document directory in the window title or not
+  * fix crash when pasting a single character (#1186)
+  * fix remove invalid (deleted) anchor widgets from the list (#1190)
+  * fix crash while importing from html due to odd attrs amount (#1191)
+  * fix encoding issue str::time_format returns UTF-8 (#1197)
+  * fix codebox change width/height was not being detected as a change to be saved
+  * fix width/height increase when auto resize is enabled (as by default in 0.99.x)
+  * fix message of newer version available showing old version while new version expected
+  * fix windows crash on exception 'locale::facet::_S_create_c_locale name not valid' (#1184)
+  * fix windows installer issues with generated shortcut and double click on file from explorer (#1184)
+  * fix windows detected paths for locale and data folders
+  * Japanese language updated (Piyo)
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sun, 27 Sep 2020 21:11:39 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Wed, 30 Sep 2020 21:38:15 +0100

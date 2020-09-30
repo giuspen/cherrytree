@@ -284,7 +284,17 @@ fs::path get_cherrytree_datadir()
         // we're running from the build sources
         return _CMAKE_SOURCE_DIR;
     }
+#ifdef _WIN32
+    // e.g. cherrytree_0.99.9_win64_portable\mingw64\bin\cherrytree.exe
+    //      cherrytree_0.99.9_win64_portable\mingw64\usr\share\cherrytree\language-specs
+    //      cherrytree_0.99.9_win64_portable\mingw64\usr\share\cherrytree\styles
+    //      cherrytree_0.99.9_win64_portable\mingw64\usr\share\cherrytree\data
+    //      cherrytree_0.99.9_win64_portable\mingw64\usr\share\cherrytree\icons
+    const fs::path mingw64Dir = _exePath.parent_path().parent_path();
+    return mingw64Dir / "usr" / "share" / "cherrytree";
+#else
     return CHERRYTREE_DATADIR;
+#endif // _WIN32
 }
 
 fs::path get_cherrytree_localedir()
@@ -294,7 +304,14 @@ fs::path get_cherrytree_localedir()
         // we're running from the build sources
         return sources_po_dir;
     }
+#ifdef _WIN32
+    // e.g. cherrytree_0.99.9_win64_portable\mingw64\bin\cherrytree.exe
+    //      cherrytree_0.99.9_win64_portable\mingw64\share\locale
+    const fs::path mingw64Dir = _exePath.parent_path().parent_path();
+    return mingw64Dir / "share" / "locale";
+#else
     return CHERRYTREE_LOCALEDIR;
+#endif // _WIN32
 }
 
 fs::path get_cherrytree_configdir()
