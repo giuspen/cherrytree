@@ -1695,14 +1695,16 @@ void CtMainWin::_on_textview_populate_popup(Gtk::Menu* menu)
 {
     if (curr_tree_iter().get_node_syntax_highlighting() == CtConst::RICH_TEXT_ID)
     {
-        // todo:
-        /*for (auto menuitem: menu->get_children())
-            if (menu->)
-            try:
-                if menuitem.get_image().get_property("stock") == "ct_edit_paste":
-                    menuitem.set_sensitive(True)
-            except: pass
-        */
+        for (auto child: menu->get_children())
+        {
+            if (auto menuItem = dynamic_cast<Gtk::MenuItem*>(child))
+                if (menuItem->get_label() == "_Paste")
+                {
+                    menuItem->set_sensitive(true);
+                    break;
+                }
+        }
+
         if (hovering_link_iter_offset() >= 0)
         {
             Gtk::TextIter target_iter = curr_buffer()->get_iter_at_offset(hovering_link_iter_offset());
