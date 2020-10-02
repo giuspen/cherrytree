@@ -27,6 +27,7 @@
 #include "ct_storage_control.h"
 #include "config.h"
 #include "ct_logging.h"
+#include <iostream>
 
 CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HANDLES_OPEN)
 {
@@ -323,6 +324,7 @@ void CtApp::_systray_close_all()
 
 void CtApp::_add_main_option_entries()
 {
+    add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "version",            'v', _("Print CherryTree version"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_STRING,   "node",               'n', _("Node name to focus"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME, "export_to_html_dir", 'x', _("Export to HTML at specified directory path"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME, "export_to_txt_dir",  't', _("Export to Text at specified directory path"));
@@ -345,6 +347,10 @@ int CtApp::_on_handle_local_options(const Glib::RefPtr<Glib::VariantDict>& rOpti
         return -1; // Keep going
     }
 
+    if (rOptions->contains("version")) {
+        std::cout << "CherryTree " << CtConst::CT_VERSION << std::endl;
+        return 0; // to exit app
+    }
     rOptions->lookup_value("node", _node_to_focus);
     rOptions->lookup_value("export_to_html_dir", _export_to_html_dir);
     rOptions->lookup_value("export_to_txt_dir", _export_to_txt_dir);
