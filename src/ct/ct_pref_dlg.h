@@ -55,7 +55,8 @@ private:
                          SHOW_EMBFILE_NAME = 1 << 2, LINKS              = 1 << 3,
                          ANCHOR_SIZE       = 1 << 4, COLOR              = 1 << 5,
                          SCHEME            = 1 << 6, LANG               = 1 << 7,
-                         SHORTCUT          = 1 << 8, CODEBOX_AUTORESIZE = 1 << 9};
+                         SHORTCUT          = 1 << 8, CODEBOX_AUTORESIZE = 1 << 9,
+                         TREE_NODE_WRAP    = 1 << 10};
 
     const Glib::ustring reset_warning = Glib::ustring("<b>")+_("Are you sure to Reset to Default?")+"</b>";
 

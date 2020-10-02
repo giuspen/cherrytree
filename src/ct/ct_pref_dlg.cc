@@ -999,15 +999,11 @@ Gtk::Widget* CtPrefDlg::build_tab_tree()
                                                                      spinbutton_tree_nodes_names_width](){
         pConfig->cherryWrapEnabled = checkbutton_tree_nodes_names_wrap_ena->get_active();
         spinbutton_tree_nodes_names_width->set_sensitive(pConfig->cherryWrapEnabled);
-        apply_for_each_window([pConfig](CtMainWin* win) {
-            win->get_tree_view().set_tree_node_name_wrap_width(pConfig->cherryWrapEnabled, pConfig->cherryWrapWidth);
-        });
+        need_restart(RESTART_REASON::TREE_NODE_WRAP);
     });
     spinbutton_tree_nodes_names_width->signal_value_changed().connect([this, pConfig, spinbutton_tree_nodes_names_width](){
         pConfig->cherryWrapWidth = spinbutton_tree_nodes_names_width->get_value_as_int();
-        apply_for_each_window([pConfig](CtMainWin* win) {
-            win->get_tree_view().set_tree_node_name_wrap_width(pConfig->cherryWrapEnabled, pConfig->cherryWrapWidth);
-        });
+        need_restart(RESTART_REASON::TREE_NODE_WRAP);
     });
     checkbutton_tree_right_side->signal_toggled().connect([this, pConfig, checkbutton_tree_right_side](){
         pConfig->treeRightSide = checkbutton_tree_right_side->get_active();
@@ -1758,11 +1754,23 @@ void CtPrefDlg::_add_new_command_in_model(Gtk::TreeView* pTreeview, Glib::RefPtr
             itemStore->add_row(_pCtMainWin->get_code_icon_name(lang), "", lang);
         }
     }
-    const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(*this, _("Select Element to Add"), itemStore);
-    if (treeIter) {
-        Gtk::TreeIter newTreeIter = rModel->append();
+    const Gtk::TreeIter treeIterChosen = CtDialogs::choose_item_dialog(*this, _("Select Element to Add"), itemStore);
+    if (treeIterChosen) {
+        const auto code_type = treeIterChosen->get_value(itemStore->columns.desc);
+        Gtk::TreeIter newTreeIter;
+        Gtk::TreeIter loopPrevTreeIter;
+        for (const auto& currTreeIter : rModel->children()) {
+            const int result = currTreeIter->get_value(_commandModelColumns.key).compare(code_type);
+            if (result > 0) {
+                newTreeIter = loopPrevTreeIter ? rModel->insert_after(loopPrevTreeIter) : rModel->prepend();
+                break;
+            }
+            loopPrevTreeIter = currTreeIter;
+        }
+        if (not newTreeIter) {
+            newTreeIter = rModel->append();
+        }
         Gtk::TreeModel::Row row = *newTreeIter;
-        const auto code_type = treeIter->get_value(itemStore->columns.desc);
         row[_commandModelColumns.icon] = _pCtMainWin->get_code_icon_name(code_type);
         row[_commandModelColumns.key] = code_type;
         row[_commandModelColumns.ext] = CtPrefDlg::get_code_exec_ext(_pCtMainWin, code_type);
