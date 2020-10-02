@@ -837,7 +837,9 @@ bool CtTreeStore::is_node_bookmarked(const gint64 node_id)
 
 std::string CtTreeStore::get_node_name_from_node_id(const gint64 node_id)
 {
-    return _nodes_names_dict.at(node_id);
+    auto iter = _nodes_names_dict.find(node_id); // node_id from link can be invalid
+    if (iter != _nodes_names_dict.end()) return iter->second;
+    return "";
 }
 
 CtTreeIter CtTreeStore::get_node_from_node_id(const gint64 node_id)
