@@ -7,7 +7,7 @@ import re
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 ROOT_DIR = os.path.dirname(SCRIPT_DIR)
-CMAKELISTS_PATH = os.path.join(ROOT_DIR, "CMakeLists.txt")
+DEBIAN_CHANGELOG_PATH = os.path.join(ROOT_DIR, "debian", "changelog")
 PO_DIR = os.path.join(ROOT_DIR, "po")
 ICONS_CC_PATH = os.path.join(ROOT_DIR, "src", "ct", "icons.gresource.cc")
 MANUAL_GZ_PATH = os.path.join(ROOT_DIR, "data", "cherrytree.1.gz")
@@ -26,9 +26,9 @@ BLACKLIST = (
     "sandbox"
 )
 VERSION = "?"
-with open(CMAKELISTS_PATH, "r") as fd:
+with open(DEBIAN_CHANGELOG_PATH, "r") as fd:
     for fileline in fd:
-        match = re.search(r"set\(CT_VERSION\s+\"(.+)\"\)", fileline)
+        match = re.search(r"cherrytree +\(([0-9]+\.[0-9]+\.[0-9]+)-", fileline)
         if match is not None:
             VERSION = match.group(1)
             #print(VERSION)

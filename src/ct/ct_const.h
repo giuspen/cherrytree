@@ -345,7 +345,7 @@ const inline static std::array<std::pair<const std::string, const std::string>, 
 };
 
 const inline static std::unordered_map<std::string, std::string> CODE_EXEC_TERM_RUN_DEFAULT {
-    {"linux", std::string("xterm -hold -geometry 180x45 -e \"") + CODE_EXEC_COMMAND + "\""},
+    {"linux", std::string("xterm -hold -geometry 180x45 -e \"") + CODE_EXEC_COMMAND + "\" &"},
     {"win",   std::string("start cmd /k \"") + CODE_EXEC_COMMAND + "\""}
 };
 

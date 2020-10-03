@@ -324,7 +324,7 @@ void CtApp::_systray_close_all()
 
 void CtApp::_add_main_option_entries()
 {
-    add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "version",            'v', _("Print CherryTree version"));
+    add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "version",            'V', _("Print CherryTree version"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_STRING,   "node",               'n', _("Node name to focus"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME, "export_to_html_dir", 'x', _("Export to HTML at specified directory path"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME, "export_to_txt_dir",  't', _("Export to Text at specified directory path"));

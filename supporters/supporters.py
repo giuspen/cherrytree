@@ -7,6 +7,7 @@ SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 SCRIPT_HTML = os.path.join(SCRIPT_DIR, "supporters.html")
 
 sum_donations = float(0)
+num_supporters = 0
 countries_dict = {}
 with open(SCRIPT_HTML, "r", encoding="utf-8") as fd:
     for supporter_line in fd:
@@ -18,9 +19,10 @@ with open(SCRIPT_HTML, "r", encoding="utf-8") as fd:
             if not curr_country in list(countries_dict.keys()):
                 countries_dict[curr_country] = float(0)
             countries_dict[curr_country] += curr_donation
+            num_supporters += 1
         else:
             print(supporter_line)
-print("sum = €{:.2f}\n".format(round(sum_donations, 2)))
+print("{} supporters, sum = €{:.2f}\n".format(num_supporters, round(sum_donations, 2)))
 while countries_dict:
     curr_max_key = None
     for curr_key, curr_val in countries_dict.items():
@@ -28,5 +30,5 @@ while countries_dict:
             curr_max_key = curr_key
         elif curr_val > countries_dict[curr_max_key]:
             curr_max_key = curr_key
-    print(curr_max_key, countries_dict[curr_max_key])
+    print(curr_max_key, round(countries_dict[curr_max_key], 2))
     del countries_dict[curr_max_key]
