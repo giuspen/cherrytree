@@ -172,8 +172,8 @@ public:
     bool                                        systrayOn{false};
     bool                                        startOnSystray{false};
     bool                                        useAppInd{false};
-    bool                                        autosaveOn{false};
-    int                                         autosaveVal{5};
+    bool                                        autosaveOn{true};
+    int                                         autosaveVal{1};
     bool                                        checkVersion{false};
     bool                                        wordCountOn{false};
     bool                                        reloadDocLast{true};
