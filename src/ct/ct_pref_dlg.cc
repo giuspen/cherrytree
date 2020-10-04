@@ -656,6 +656,11 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     button_remove->signal_clicked().connect([this, treeview, liststore](){
         _remove_command_from_model(treeview, liststore);
     });
+    auto button_remove_test_sensitive = [button_remove, treeview](){
+        button_remove->set_sensitive(treeview->get_selection()->get_selected());
+    };
+    treeview->signal_cursor_changed().connect(button_remove_test_sensitive);
+    button_remove_test_sensitive();
     button_reset_cmds->signal_clicked().connect([this, pConfig, liststore](){
         if (CtDialogs::question_dialog(reset_warning, *this)) {
             pConfig->customCodexecType.clear();
@@ -1375,6 +1380,11 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
         update_config_toolbar_from_model(liststore);
         apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbars(true); });
     });
+    auto button_remove_test_sensitive = [button_remove, treeview](){
+        button_remove->set_sensitive(treeview->get_selection()->get_selected());
+    };
+    treeview->signal_cursor_changed().connect(button_remove_test_sensitive);
+    button_remove_test_sensitive();
 
     return pMainBox;
 }
@@ -1414,7 +1424,7 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
 
     Gtk::VBox* vbox_buttons = Gtk::manage(new Gtk::VBox());
     Gtk::Button* button_edit = Gtk::manage(new Gtk::Button());
-    button_edit->set_image(*_pCtMainWin->new_image_from_stock("ct_add",  Gtk::ICON_SIZE_BUTTON));
+    button_edit->set_image(*_pCtMainWin->new_image_from_stock("ct_edit",  Gtk::ICON_SIZE_BUTTON));
     button_edit->set_tooltip_text(_("Change Selected"));
     Gtk::Button* button_reset = Gtk::manage(new Gtk::Button());
     button_reset->set_image(*_pCtMainWin->new_image_from_stock("ct_undo",  Gtk::ICON_SIZE_BUTTON));
@@ -1444,6 +1454,12 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
     treeview->signal_row_activated().connect([button_edit](const Gtk::TreeModel::Path&, Gtk::TreeViewColumn*){
         button_edit->clicked();
     });
+    auto button_edit_test_sensitive = [this, button_edit, treeview](){
+        auto iter_sel = treeview->get_selection()->get_selected();
+        button_edit->set_sensitive(iter_sel and not iter_sel->get_value(_shortcutModelColumns.key).empty());
+    };
+    treeview->signal_cursor_changed().connect(button_edit_test_sensitive);
+    button_edit_test_sensitive();
 
     return pMainBox;
 }
@@ -1887,10 +1903,10 @@ void CtPrefDlg::fill_shortcut_model(Glib::RefPtr<Gtk::TreeStore> model)
 
 bool CtPrefDlg::edit_shortcut(Gtk::TreeView* treeview)
 {
-    auto row = treeview->get_selection()->get_selected();
-    if (!row || row->get_value(_shortcutModelColumns.key).empty()) return false;
-    std::string shortcut = row->get_value(_shortcutModelColumns.shortcut);
-    std::string id = row->get_value(_shortcutModelColumns.key);
+    auto tree_iter = treeview->get_selection()->get_selected();
+    if (!tree_iter || tree_iter->get_value(_shortcutModelColumns.key).empty()) return false;
+    std::string shortcut = tree_iter->get_value(_shortcutModelColumns.shortcut);
+    std::string id = tree_iter->get_value(_shortcutModelColumns.key);
     if (edit_shortcut_dialog(shortcut)) {
         if (shortcut != "") {
             for(const CtMenuAction& action : _pCtMenu->get_actions())
