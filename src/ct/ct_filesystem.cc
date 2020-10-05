@@ -79,9 +79,9 @@ bool is_regular_file(const path& file)
     return Glib::file_test(file.string(), Glib::FILE_TEST_IS_REGULAR);
 }
 
-bool is_directory(const fs::path& path)
+bool is_directory(const fs::path& p)
 {
-    return Glib::file_test(path.string(), Glib::FILE_TEST_IS_DIR);
+    return Glib::file_test(p.string(), Glib::FILE_TEST_IS_DIR);
 }
 
 bool copy_file(const path& from, const path& to)
@@ -112,31 +112,31 @@ bool move_file(const path& from, const path& to)
     }
 }
 
-fs::path absolute(const fs::path& path)
+fs::path absolute(const fs::path& p)
 {
-    Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(path.string());
+    Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(p.string());
     return rFile->get_path();
 }
 
-time_t getmtime(const path& path)
+time_t getmtime(const path& p)
 {
     time_t time = 0;
     GStatBuf st;
-    if (g_stat(path.c_str(), &st) == 0)
+    if (g_stat(p.c_str(), &st) == 0)
         time = st.st_mtime;
     return time;
 }
 
-std::uintmax_t file_size(const path& path)
+std::uintmax_t file_size(const path& p)
 {
-    if (fs::is_directory(path)) {
-        spdlog::error("fs::file_size: path is a directory, {}", path);
+    if (fs::is_directory(p)) {
+        spdlog::error("fs::file_size: path is a directory, {}", p);
         return 0;
     }
 
     GStatBuf st;
-    if (g_stat(path.c_str(), &st) != 0) {
-        spdlog::error("fs::file_size: g_stat failed, {}", path);
+    if (g_stat(p.c_str(), &st) != 0) {
+        spdlog::error("fs::file_size: g_stat failed, {}", p);
         return 0;
     }
 
@@ -401,14 +401,38 @@ CtDocEncrypt get_doc_encrypt(const fs::path& filename)
     return retDocEncrypt;
 }
 
-path canonical(const path& path)
+path canonical(const path& p)
 {
-    return Glib::canonicalize_filename(path.string());
+    return Glib::canonicalize_filename(p.string());
 }
 
-path canonical(const path& path, const std::string &relative_to)
+path canonical(const path& p, const path& base)
 {
-    return Glib::canonicalize_filename(path.string(), relative_to);
+    return Glib::canonicalize_filename(p.string(), base.string());
+}
+
+path relative(const path& p, const path& base)
+{
+    Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(p.string());
+    Glib::RefPtr<Gio::File> rDir = Gio::File::create_for_path(base.string());
+    std::string rel_filepath = rDir->get_relative_path(rFile);
+    if (not rel_filepath.empty()) {
+        return rel_filepath;
+    }
+    unsigned countUp{0};
+    while (rDir->has_parent()) {
+        rDir = rDir->get_parent();
+        ++countUp;
+        rel_filepath = rDir->get_relative_path(rFile);
+        if (not rel_filepath.empty()) {
+            path retPath{rel_filepath};
+            for (unsigned i = 0; i < countUp; ++i) {
+                retPath = ".." / retPath;
+            }
+            return retPath;
+        }
+    }
+    return p;
 }
 
 path path::extension() const

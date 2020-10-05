@@ -44,19 +44,21 @@ bool move_file(const path& from, const path& to);
 
 bool is_regular_file(const path& file);
 
-bool is_directory(const path& path);
+bool is_directory(const path& p);
 
-path absolute(const path& path);
+path absolute(const path& p);
 
-path canonical(const path& path);
+path canonical(const path& p);
 
-path canonical(const path& path, const std::string& relative_to);
+path canonical(const path& p, const path& base);
+
+path relative(const path& p, const path& base);
 
 bool exists(const path& filepath);
 
-time_t getmtime(const path& path);
+time_t getmtime(const path& p);
 
-std::uintmax_t file_size(const path& path);
+std::uintmax_t file_size(const path& p);
 
 std::list<path> get_dir_entries(const path& dir);
 
@@ -82,7 +84,7 @@ std::uintmax_t remove_all(const path& dir);
 * @param path
 * @return
 */
-bool remove(const path& path);
+bool remove(const path& p);
 
 path get_cherrytree_datadir();
 path get_cherrytree_localedir();
@@ -111,7 +113,7 @@ public:
     }
 
     path() = default;
-    path(std::string path) : _path(std::move(path)) {}
+    path(std::string p) : _path(std::move(p)) {}
     path(const char* cpath) : _path(cpath) {}
     template<typename ITERATOR_T>
     path(ITERATOR_T begin, ITERATOR_T end) : _path(begin, end) {}
@@ -172,7 +174,7 @@ template<>
 struct fmt::formatter<fs::path> {
     constexpr auto parse(format_parse_context& ctx) { return ctx.begin(); }
     template<typename FormatContext>
-    auto format(const fs::path& path, FormatContext& ctx) {
-        return format_to(ctx.out(), "{}", path.string());
+    auto format(const fs::path& p, FormatContext& ctx) {
+        return format_to(ctx.out(), "{}", p.string());
     }
 };

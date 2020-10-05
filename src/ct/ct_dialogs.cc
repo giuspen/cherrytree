@@ -991,9 +991,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
         ctMainWin.get_ct_config()->pickDirFile = Glib::path_get_dirname(filepath);
         if (ctMainWin.get_ct_config()->linksRelative)
         {
-            Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(filepath);
-            Glib::RefPtr<Gio::File> rDir = Gio::File::create_for_path(ctMainWin.get_ct_storage()->get_file_dir().string());
-            filepath = rFile->get_relative_path(rDir);
+            filepath = fs::relative(filepath, ctMainWin.get_ct_storage()->get_file_dir()).string();
         }
         entry_file.set_text(filepath);
     });
@@ -1007,9 +1005,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
         ctMainWin.get_ct_config()->pickDirFile = filepath;
         if (ctMainWin.get_ct_config()->linksRelative)
         {
-            Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(filepath);
-            Glib::RefPtr<Gio::File> rDir = Gio::File::create_for_path(ctMainWin.get_ct_storage()->get_file_dir().string());
-            filepath = rFile->get_relative_path(rDir);
+            filepath = fs::relative(filepath, ctMainWin.get_ct_storage()->get_file_dir()).string();
         }
         entry_folder.set_text(filepath);
     });

@@ -192,3 +192,15 @@ TEST(FileSystemGroup, get_content)
 
     fs::remove(test_file_path);
 }
+
+TEST(FileSystemGroup, relative)
+{
+#ifdef _WIN32
+    
+#else
+    STRCMP_EQUAL("test.txt", fs::relative("/tmp/test.txt", "/tmp").c_str());
+    STRCMP_EQUAL("tmp/test.txt", fs::relative("/tmp/test.txt", "/").c_str());
+    STRCMP_EQUAL("../test.txt", fs::relative("/tmp/test.txt", "/tmp/one").c_str());
+    STRCMP_EQUAL("../../test.txt", fs::relative("/tmp/test.txt", "/tmp/one/two").c_str());
+#endif // _WIN32
+}
