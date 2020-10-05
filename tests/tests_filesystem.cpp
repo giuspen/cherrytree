@@ -196,7 +196,11 @@ TEST(FileSystemGroup, get_content)
 TEST(FileSystemGroup, relative)
 {
 #ifdef _WIN32
-    
+    STRCMP_EQUAL("test.txt", fs::relative("C:\\tmp\\test.txt", "C:\\tmp").c_str());
+    STRCMP_EQUAL("tmp\\test.txt", fs::relative("C:\\tmp\\test.txt", "C:\\").c_str());
+    STRCMP_EQUAL("..\\test.txt", fs::relative("C:\\tmp\\test.txt", "C:\\tmp\\one").c_str());
+    STRCMP_EQUAL("..\\..\\test.txt", fs::relative("C:\\tmp\\test.txt", "C:\\tmp\\one\\two").c_str());
+    STRCMP_EQUAL("C:\\tmp\\test.txt", fs::relative("C:\\tmp\\test.txt", "D:\\tmp").c_str());
 #else
     STRCMP_EQUAL("test.txt", fs::relative("/tmp/test.txt", "/tmp").c_str());
     STRCMP_EQUAL("tmp/test.txt", fs::relative("/tmp/test.txt", "/").c_str());
