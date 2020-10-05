@@ -276,9 +276,10 @@ int byte_pos_to_symb_pos(const Glib::ustring& text, int byte_pos);
 
 Glib::ustring swapcase(const Glib::ustring& text);
 
-inline Glib::ustring replace(const /* keep const to make sure source is not changed */ Glib::ustring& subjectStr, const std::string& searchStr, const std::string& replaceStr)
+template<class STRING>
+inline STRING replace(const /* keep const to make sure source is not changed */ STRING& subjectStr, const std::string& searchStr, const std::string& replaceStr)
 {
-    Glib::ustring text = subjectStr; // Glib::ustring works with unicode
+    STRING text = subjectStr; // Glib::ustring works with unicode
     size_t pos = 0;
     while ((pos = text.find(searchStr, pos)) != std::string::npos)
     {

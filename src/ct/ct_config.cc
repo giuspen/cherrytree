@@ -43,6 +43,15 @@ CtConfig::~CtConfig()
 
 bool CtConfig::load_from_file(const fs::path& filepath)
 {
+#ifdef _WIN32
+    // compatibility with old pygtk2 version
+    if (not fs::exists(filepath)) {
+        const std::string old_pygtk2_filepath = str::replace(filepath.string(), "\\Local\\", "\\Roaming\\");
+        if (fs::exists(old_pygtk2_filepath)) {
+            fs::copy_file(old_pygtk2_filepath, filepath);
+        }
+    }
+#endif // _WIN32
     if (fs::exists(filepath))
     {
         _uKeyFile = std::make_unique<Glib::KeyFile>();
