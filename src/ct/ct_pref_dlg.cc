@@ -451,8 +451,10 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     hbox_misc_text->pack_start(*spinbutton_limit_undoable_steps, false, false);
     Gtk::CheckButton* checkbutton_triple_click_sel_paragraph = Gtk::manage(new Gtk::CheckButton(_("At Triple Click Select the Whole Paragraph")));
     checkbutton_triple_click_sel_paragraph->set_active(pConfig->tripleClickParagraph);
+#ifdef MD_AUTO_REPLACEMENT
     Gtk::CheckButton* checkbutton_md_formatting = Gtk::manage(new Gtk::CheckButton(_("Enable Markdown Auto Replacement (Experimental)")));
     checkbutton_md_formatting->set_active(pConfig->enableMdFormatting);
+#endif // MD_AUTO_REPLACEMENT
 
     Gtk::VBox* vbox_misc_text = Gtk::manage(new Gtk::VBox());
     vbox_misc_text->pack_start(*checkbutton_rt_show_white_spaces, false, false);
@@ -463,7 +465,9 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     vbox_misc_text->pack_start(*checkbutton_embfile_show_filename, false, false);
     vbox_misc_text->pack_start(*hbox_misc_text, false, false);
     vbox_misc_text->pack_start(*checkbutton_triple_click_sel_paragraph, false, false);
+#ifdef MD_AUTO_REPLACEMENT
     vbox_misc_text->pack_start(*checkbutton_md_formatting, false, false);
+#endif // MD_AUTO_REPLACEMENT
     Gtk::Frame* frame_misc_text = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Miscellaneous")+"</b>"));
     ((Gtk::Label*)frame_misc_text->get_label_widget())->set_use_markup(true);
     frame_misc_text->set_shadow_type(Gtk::SHADOW_NONE);
@@ -525,9 +529,11 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     checkbutton_triple_click_sel_paragraph->signal_toggled().connect([pConfig, checkbutton_triple_click_sel_paragraph]{
         pConfig->tripleClickParagraph = checkbutton_triple_click_sel_paragraph->get_active();
     });
+#ifdef MD_AUTO_REPLACEMENT
     checkbutton_md_formatting->signal_toggled().connect([pConfig, checkbutton_md_formatting]{
         pConfig->enableMdFormatting = checkbutton_md_formatting->get_active();
     });
+#endif // MD_AUTO_REPLACEMENT
 
     return pMainBox;
 }

@@ -408,6 +408,7 @@ private:
     std::list<slot_styles> _slot_styles_cache;
 };
 
+#ifdef MD_AUTO_REPLACEMENT
 /**
  * @brief Watches a TextBuffer and applies markdown formatting to it
  * @class CtMarkdownFilter
@@ -448,6 +449,7 @@ private:
     using match_pair_t = std::pair<std::shared_ptr<CtMDParser>, std::shared_ptr<CtTokenMatcher>>;
     std::unordered_map<std::string, match_pair_t> _md_matchers;
 };
+#endif // MD_AUTO_REPLACEMENT
 
 class CtMempadParser : public CtParserInterface
 {

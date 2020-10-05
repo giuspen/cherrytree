@@ -94,7 +94,9 @@ public:
     bool                                        autoSmartQuotes{true};
     bool                                        tripleClickParagraph{false};
     bool                                        enableSymbolAutoreplace{true};
+#ifdef MD_AUTO_REPLACEMENT
     bool                                        enableMdFormatting{false};
+#endif // MD_AUTO_REPLACEMENT
     int                                         wrappingIndent{-14};
     bool                                        autoIndent{true};
     bool                                        rtShowWhiteSpaces{false};
@@ -139,7 +141,7 @@ public:
     bool                                        codeboxLineNum{false};
     bool                                        codeboxMatchBra{true};
     std::string                                 codeboxSynHighl{CtConst::PLAIN_TEXT_ID};
-    bool                                        codeboxAutoResize{false};
+    bool                                        codeboxAutoResize{true};
 
     // [table]
     int                                         tableRows{3};

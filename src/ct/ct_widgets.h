@@ -149,7 +149,9 @@ private:
     /// Replace the char between iter_start and iter_end with another one
     void          _special_char_replace(Glib::ustring special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
 
+#ifdef MD_AUTO_REPLACEMENT
     bool          _markdown_filter_active();
+#endif // MD_AUTO_REPLACEMENT
 
 public:
     static const double TEXT_SCROLL_MARGIN;
@@ -159,7 +161,9 @@ private:
     static GspellChecker* _get_spell_checker(const std::string& lang);
 
 private:
+#ifdef MD_AUTO_REPLACEMENT
     std::unique_ptr<CtMarkdownFilter> _md_handler;
+#endif // MD_AUTO_REPLACEMENT
     CtMainWin*   _pCtMainWin;
     CtColumnEdit _columnEdit;
     guint32      _todoRotateTime{0};

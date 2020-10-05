@@ -213,7 +213,9 @@ CtTextView::~CtTextView()
 
 void CtTextView::setup_for_syntax(const std::string& syntax)
 {
+#ifdef MD_AUTO_REPLACEMENT
     if (_markdown_filter_active()) _md_handler->active(syntax == CtConst::RICH_TEXT_ID);
+#endif // MD_AUTO_REPLACEMENT
 
     std::string new_class;
     if (CtConst::RICH_TEXT_ID == syntax)         { new_class = "ct-view-rich-text"; }
@@ -367,6 +369,7 @@ void CtTextView::for_event_after_triple_click_button1(GdkEvent* event)
     _pCtMainWin->apply_tag_try_automatic_bounds_triple_click(text_buffer, iter_start);
 }
 
+#ifdef MD_AUTO_REPLACEMENT
 bool CtTextView::_markdown_filter_active() {
     bool is_active = _pCtMainWin->get_ct_config()->enableMdFormatting;
     if (is_active && !_md_handler) {
@@ -374,6 +377,7 @@ bool CtTextView::_markdown_filter_active() {
     }
     return is_active;
 }
+#endif // MD_AUTO_REPLACEMENT
 
 void CtTextView::set_buffer(const Glib::RefPtr<Gtk::TextBuffer>& buffer)
 {
@@ -382,8 +386,10 @@ void CtTextView::set_buffer(const Glib::RefPtr<Gtk::TextBuffer>& buffer)
 
     Gsv::View::set_buffer(buffer);
 
+#ifdef MD_AUTO_REPLACEMENT
     // Setup the markdown filter for a new buffer
     if (_markdown_filter_active()) _md_handler->buffer(get_buffer());
+#endif // MD_AUTO_REPLACEMENT
 }
 
 // Called after every gtk.gdk.BUTTON_PRESS on the SourceView

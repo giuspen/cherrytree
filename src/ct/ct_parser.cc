@@ -217,6 +217,7 @@ void CtDocumentBuilder::add_table(const std::vector<std::vector<std::string>>& t
     close_current_tag();
 }
 
+#ifdef MD_AUTO_REPLACEMENT
 CtMarkdownFilter::CtMarkdownFilter(std::unique_ptr<CtClipboard> clipboard, Glib::RefPtr<Gtk::TextBuffer> buff, CtConfig* config)
  : _config(config)
  , _clipboard(std::move(clipboard))
@@ -432,6 +433,7 @@ bool CtMarkdownFilter::active() const noexcept
 {
     return _active && _config->enableMdFormatting;
 }
+#endif // MD_AUTO_REPLACEMENT
 
 namespace {
 
