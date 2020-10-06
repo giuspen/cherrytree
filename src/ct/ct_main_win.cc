@@ -1456,18 +1456,24 @@ void CtMainWin::_on_treeview_cursor_changed()
         _nodesCursorPos[prevNodeId] = rTextBuffer->property_cursor_position();
     }
     _uCtTreestore->text_view_apply_textbuffer(treeIter, &_ctTextview);
-    auto mapIter = _nodesCursorPos.find(treeIter.get_node_id());
-    if (mapIter != _nodesCursorPos.end() and mapIter->second > 0) {
-        text_view_apply_cursor_position(treeIter, mapIter->second);
-    } else {
-        text_view_apply_cursor_position(treeIter, 0);
+
+    if (user_active()) {
+        // NOTE: text_view_apply_cursor_position() uses Glib::signal_idle().connect_once()
+        //       which is hanging the tree nodes iteration
+        auto mapIter = _nodesCursorPos.find(treeIter.get_node_id());
+        if (mapIter != _nodesCursorPos.end() and mapIter->second > 0) {
+            text_view_apply_cursor_position(treeIter, mapIter->second);
+        } else {
+            text_view_apply_cursor_position(treeIter, 0);
+        }
+
+        menu_update_bookmark_menu_item(_uCtTreestore->is_node_bookmarked(treeIter.get_node_id()));
+        window_header_update();
+        window_header_update_lock_icon(treeIter.get_node_read_only());
+        window_header_update_bookmark_icon(_uCtTreestore->is_node_bookmarked(treeIter.get_node_id()));
+        update_selected_node_statusbar_info();
     }
 
-    menu_update_bookmark_menu_item(_uCtTreestore->is_node_bookmarked(treeIter.get_node_id()));
-    window_header_update();
-    window_header_update_lock_icon(treeIter.get_node_read_only());
-    window_header_update_bookmark_icon(_uCtTreestore->is_node_bookmarked(treeIter.get_node_id()));
-    update_selected_node_statusbar_info();
     get_state_machine().node_selected_changed(treeIter.get_node_id());
 
     _prevTreeIter = treeIter;
