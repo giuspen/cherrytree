@@ -159,7 +159,11 @@ bool exists(const path& filepath)
 
 void open_weblink(const std::string& link)
 {
-#if defined(_WIN32) || defined(__APPLE__)
+#if defined(_WIN32)
+    glong utf16text_len = 0;
+    g_autofree gunichar2* utf16text = g_utf8_to_utf16(link.c_str(), (glong)Glib::ustring(link.c_str()).bytes(), nullptr, &utf16text_len, nullptr);
+    ShellExecuteW(GetActiveWindow(), L"open", (LPCWSTR)utf16text, NULL, NULL, SW_SHOWNORMAL);
+#elif defined(__APPLE__)
     GError *error = nullptr;
     if (!g_app_info_launch_default_for_uri(link.c_str(), nullptr, &error))
     {
