@@ -40,7 +40,9 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
     _uCtCfg.reset(new CtConfig());
     //std::cout << _uCtCfg->specialChars.size() << "\t" << _uCtCfg->specialChars << std::endl;
 
+    std::string user_dir_icons = Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME, "icons");
     _rIcontheme = Gtk::IconTheme::get_default();
+    _rIcontheme->append_search_path(user_dir_icons);
     _rIcontheme->add_resource_path("/icons/");
     //_print_gresource_icons();
 
