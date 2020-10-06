@@ -652,26 +652,28 @@ std::time_t CtDialogs::date_select_dialog(Gtk::Window& parent,
 
 void CtDialogs::match_dialog(const Glib::ustring& title,
                              CtMainWin& ctMainWin,
-                             Glib::RefPtr<CtMatchDialogStore> rModel)
+                             Glib::RefPtr<CtMatchDialogStore>& rModel)
 {
-    Gtk::Dialog matchesDialog(title,
-                              ctMainWin,
-                              Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
-    matchesDialog.set_transient_for(ctMainWin);
+    static Gtk::Dialog* pMatchesDialog;
+    pMatchesDialog = new Gtk::Dialog{title,
+                                     ctMainWin,
+                                     Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
+    pMatchesDialog->set_transient_for(ctMainWin);
     if (rModel->dlg_size[0] > 0)
     {
-        matchesDialog.set_default_size(rModel->dlg_size[0], rModel->dlg_size[1]);
-        matchesDialog.move(rModel->dlg_pos[0], rModel->dlg_pos[1]);
+        pMatchesDialog->set_default_size(rModel->dlg_size[0], rModel->dlg_size[1]);
+        pMatchesDialog->move(rModel->dlg_pos[0], rModel->dlg_pos[1]);
     }
     else
     {
-        matchesDialog.set_default_size(700, 350);
-        matchesDialog.set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
+        pMatchesDialog->set_default_size(700, 350);
+        pMatchesDialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
     }
     CtMenuAction* pAction = ctMainWin.get_ct_menu().find_action("toggle_show_allmatches_dlg");
-    Gtk::Button* pButtonHide = matchesDialog.add_button(str::format(_("Hide (Restore with '%s')"), CtStrUtil::get_accelerator_label(pAction->get_shortcut(ctMainWin.get_ct_config()))), Gtk::RESPONSE_CLOSE);
+    Gtk::Button* pButtonHide = pMatchesDialog->add_button(str::format(_("Hide (Restore with '%s')"), CtStrUtil::get_accelerator_label(pAction->get_shortcut(ctMainWin.get_ct_config()))), Gtk::RESPONSE_CLOSE);
     pButtonHide->set_image_from_icon_name("ct_close", Gtk::ICON_SIZE_BUTTON);
-    Gtk::TreeView* pTreeview = Gtk::manage(new Gtk::TreeView(rModel));
+    static Gtk::TreeView* pTreeview;
+    pTreeview = Gtk::manage(new Gtk::TreeView(rModel));
     pTreeview->append_column(_("Node Name"), rModel->columns.node_name);
     pTreeview->append_column(_("Line"), rModel->columns.line_num);
     pTreeview->append_column(_("Line Content"), rModel->columns.line_content);
@@ -681,10 +683,10 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
     Gtk::ScrolledWindow* pScrolledwindowAllmatches = Gtk::manage(new Gtk::ScrolledWindow());
     pScrolledwindowAllmatches->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     pScrolledwindowAllmatches->add(*pTreeview);
-    Gtk::Box* pContentArea = matchesDialog.get_content_area();
+    Gtk::Box* pContentArea = pMatchesDialog->get_content_area();
     pContentArea->pack_start(*pScrolledwindowAllmatches);
 
-    auto select_found_line = [pTreeview, rModel, &ctMainWin]()
+    static auto select_found_line = [&]()
     {
         Gtk::TreeIter list_iter = pTreeview->get_selection()->get_selected();
         if (!list_iter)
@@ -727,18 +729,20 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
     pTreeview->signal_cursor_changed().connect([&]() {
         select_found_line();
     });
+    auto on_allmatchesdialog_delete_event = [&](GdkEventAny* /*any_event*/)->bool{
+        pMatchesDialog->get_position(rModel->dlg_pos[0], rModel->dlg_pos[1]);
+        pMatchesDialog->get_size(rModel->dlg_size[0], rModel->dlg_size[1]);
+        Gtk::TreeIter list_iter = pTreeview->get_selection()->get_selected();
+        rModel->saved_path = pTreeview->get_model()->get_path(list_iter).to_string();
+        return false;
+    };
+    pMatchesDialog->signal_delete_event().connect(on_allmatchesdialog_delete_event);
     pButtonHide->signal_clicked().connect([&]()
     {
-        matchesDialog.close();
+        pMatchesDialog->close();
     });
 
-    matchesDialog.show_all();
-    matchesDialog.run();
-
-    matchesDialog.get_position(rModel->dlg_pos[0], rModel->dlg_pos[1]);
-    matchesDialog.get_size(rModel->dlg_size[0], rModel->dlg_size[1]);
-    Gtk::TreeIter list_iter = pTreeview->get_selection()->get_selected();
-    rModel->saved_path = pTreeview->get_model()->get_path(list_iter).to_string();
+    pMatchesDialog->show_all();
 }
 
 // Insert/Edit Anchor Name
