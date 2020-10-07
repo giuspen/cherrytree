@@ -1,4 +1,22 @@
 
+0.99.15 (October 7th, 2020)
+  * fix paste in context-menu for images in clipboard is greyed-out (#1196)
+  * fix Crash when clicking on dead link in TOC (#1189)
+  * added command line option --version/-V (#1204)
+  * fix preferences dialog option to enable/disable node name wrap requires cherrytree restart
+  * code execution on linux avoid to blocks cherrytree adding trailing ampersand (#1201, thanks @4Syno)
+  * autosave is enabled by default (#1140)
+  * fix preferences dialog keyboard shortcuts tab wrong icon (#1210)
+  * expand codeboxes automatically enabled by default (#141, #197, #719)
+  * fix Windows settings from old pygtk2 version are not preserved (#1212)
+  * fix relative links not working (#1213)
+  * export to plain HTML added node level into title class (#1166)
+  * icons for the icon theme can be overridden placing in ~/.config/cherrytree/icons or windows equivalent (#1179)
+  * fix Windows 7 Crash when clicking website link in Help/About (#1215)
+  * fix insert TOC hangs (#1211)
+  * fix Can't do anything with search results window open (#1224)
+  * configurable highlight matching brackets for rich text and plain text (#1227)
+
 0.99.14 (September 30th, 2020)
   * fix crash when pasting a single character (#1186)
   * fix remove invalid (deleted) anchor widgets from the list (#1190)
