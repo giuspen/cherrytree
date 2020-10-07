@@ -103,6 +103,8 @@ public:
     bool                                        ptShowWhiteSpaces{true};
     bool                                        rtHighlCurrLine{true};
     bool                                        ptHighlCurrLine{true};
+    bool                                        rtHighlMatchBra{false};
+    bool                                        ptHighlMatchBra{true};
     int                                         spaceAroundLines{0};
     int                                         relativeWrappedSpace{50};
     Glib::ustring                               hRule{"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"};

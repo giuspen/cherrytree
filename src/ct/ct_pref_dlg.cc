@@ -420,6 +420,8 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     checkbutton_rt_show_white_spaces->set_active(pConfig->rtShowWhiteSpaces);
     Gtk::CheckButton* checkbutton_rt_highl_curr_line = Gtk::manage(new Gtk::CheckButton(_("Highlight Current Line")));
     checkbutton_rt_highl_curr_line->set_active(pConfig->rtHighlCurrLine);
+    Gtk::CheckButton* checkbutton_rt_highl_match_bra = Gtk::manage(new Gtk::CheckButton(_("Highlight Matching Brackets")));
+    checkbutton_rt_highl_match_bra->set_active(pConfig->rtHighlMatchBra);
     Gtk::CheckButton* checkbutton_codebox_auto_resize = Gtk::manage(new Gtk::CheckButton(_("Expand CodeBoxes Automatically")));
     checkbutton_codebox_auto_resize->set_active(pConfig->codeboxAutoResize);
 
@@ -459,6 +461,7 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     Gtk::VBox* vbox_misc_text = Gtk::manage(new Gtk::VBox());
     vbox_misc_text->pack_start(*checkbutton_rt_show_white_spaces, false, false);
     vbox_misc_text->pack_start(*checkbutton_rt_highl_curr_line, false, false);
+    vbox_misc_text->pack_start(*checkbutton_rt_highl_match_bra, false, false);
     vbox_misc_text->pack_start(*checkbutton_codebox_auto_resize, false, false);
     vbox_misc_text->pack_start(*hbox_embfile_icon_size, false, false);
     vbox_misc_text->pack_start(*hbox_embfile_max_size, false, false);
@@ -508,6 +511,13 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
         if (pConfig->syntaxHighlighting == CtConst::RICH_TEXT_ID)
             apply_for_each_window([](CtMainWin* win) { win->get_text_view().set_highlight_current_line(win->get_ct_config()->rtHighlCurrLine); });
     });
+    checkbutton_rt_highl_match_bra->signal_toggled().connect([this, pConfig, checkbutton_rt_highl_match_bra](){
+        pConfig->rtHighlMatchBra = checkbutton_rt_highl_match_bra->get_active();
+        apply_for_each_window([](CtMainWin* win) {
+            win->reapply_syntax_highlighting('r'/*RichText*/);
+            win->reapply_syntax_highlighting('t'/*Table*/);
+        });
+    });
     checkbutton_codebox_auto_resize->signal_toggled().connect([this, pConfig, checkbutton_codebox_auto_resize](){
         pConfig->codeboxAutoResize = checkbutton_codebox_auto_resize->get_active();
         need_restart(RESTART_REASON::CODEBOX_AUTORESIZE);
@@ -548,9 +558,12 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     checkbutton_pt_show_white_spaces->set_active(pConfig->ptShowWhiteSpaces);
     Gtk::CheckButton* checkbutton_pt_highl_curr_line = Gtk::manage(new Gtk::CheckButton(_("Highlight Current Line")));
     checkbutton_pt_highl_curr_line->set_active(pConfig->ptHighlCurrLine);
+    Gtk::CheckButton* checkbutton_pt_highl_match_bra = Gtk::manage(new Gtk::CheckButton(_("Highlight Matching Brackets")));
+    checkbutton_pt_highl_match_bra->set_active(pConfig->ptHighlMatchBra);
 
     vbox_syntax->pack_start(*checkbutton_pt_show_white_spaces, false, false);
     vbox_syntax->pack_start(*checkbutton_pt_highl_curr_line, false, false);
+    vbox_syntax->pack_start(*checkbutton_pt_highl_match_bra, false, false);
 
     Gtk::Frame* frame_syntax = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Text Editor")+"</b>"));
     ((Gtk::Label*)frame_syntax->get_label_widget())->set_use_markup(true);
@@ -640,6 +653,10 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
         pConfig->ptHighlCurrLine = checkbutton_pt_highl_curr_line->get_active();
         if (pConfig->syntaxHighlighting != CtConst::RICH_TEXT_ID)
             apply_for_each_window([](CtMainWin* win) { win->get_text_view().set_highlight_current_line(win->get_ct_config()->ptHighlCurrLine); });
+    });
+    checkbutton_pt_highl_match_bra->signal_toggled().connect([this, pConfig, checkbutton_pt_highl_match_bra](){
+        pConfig->ptHighlMatchBra = checkbutton_pt_highl_match_bra->get_active();
+        apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('p'/*PlainTextNCode*/); });
     });
     Gtk::CellRendererText* pCellRendererText = dynamic_cast<Gtk::CellRendererText*>(treeview->get_column(col_num_desc)->get_cells()[0]);
     pCellRendererText->signal_edited().connect([this, pConfig, liststore](const Glib::ustring& path, const Glib::ustring& new_command){
@@ -756,10 +773,6 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
 
     checkbutton_monospace_bg->set_active(!pConfig->monospaceBg.empty());
     colorbutton_monospace_bg->set_sensitive(!pConfig->monospaceBg.empty());
-
-    //auto size_group_1 = Gtk::SizeGroup::create(Gtk::SizeGroupMode::SIZE_GROUP_HORIZONTAL);
-    //size_group_1->add_widget(*hbox_style_scheme_rt);
-    //size_group_1->add_widget(*checkbutton_monospace_bg);
 
     vbox_rt_theme->pack_start(*hbox_style_scheme_rt, false, false);
     vbox_rt_theme->pack_start(*hbox_monospace_bg, false, false);

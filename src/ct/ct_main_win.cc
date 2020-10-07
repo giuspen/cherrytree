@@ -176,10 +176,12 @@ void CtMainWin::apply_syntax_highlighting(Glib::RefPtr<Gsv::Buffer> text_buffer,
     if (CtConst::TABLE_CELL_TEXT_ID == syntax)
     {
         text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(_pCtConfig->taStyleScheme));
+        text_buffer->set_highlight_matching_brackets(_pCtConfig->rtHighlMatchBra);
     }
     else if (CtConst::RICH_TEXT_ID == syntax)
     {
         text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(_pCtConfig->rtStyleScheme));
+        text_buffer->set_highlight_matching_brackets(_pCtConfig->rtHighlMatchBra);
     }
     else
     {
@@ -193,7 +195,7 @@ void CtMainWin::apply_syntax_highlighting(Glib::RefPtr<Gsv::Buffer> text_buffer,
             text_buffer->set_language(_pGsvLanguageManager->get_language(syntax));
             text_buffer->set_highlight_syntax(true);
         }
-        text_buffer->set_highlight_matching_brackets(true);
+        text_buffer->set_highlight_matching_brackets(_pCtConfig->ptHighlMatchBra);
     }
     text_buffer->set_data(CtConst::STYLE_APPLIED_ID, (void*)1);
 }

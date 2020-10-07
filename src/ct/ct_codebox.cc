@@ -196,6 +196,7 @@ void CtCodebox::apply_width_height(const int parentTextWidth)
 void CtCodebox::apply_syntax_highlighting(const bool forceReApply)
 {
     _pCtMainWin->apply_syntax_highlighting(get_buffer(), _syntaxHighlighting, forceReApply);
+    _rTextBuffer->set_highlight_matching_brackets(_highlightBrackets);
 }
 
 void CtCodebox::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*)

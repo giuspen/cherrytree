@@ -733,7 +733,7 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
         pMatchesDialog->get_position(rModel->dlg_pos[0], rModel->dlg_pos[1]);
         pMatchesDialog->get_size(rModel->dlg_size[0], rModel->dlg_size[1]);
         Gtk::TreeIter list_iter = pTreeview->get_selection()->get_selected();
-        rModel->saved_path = pTreeview->get_model()->get_path(list_iter).to_string();
+        rModel->saved_path = list_iter ? pTreeview->get_model()->get_path(list_iter).to_string() : "";
         return false;
     };
     pMatchesDialog->signal_delete_event().connect(on_allmatchesdialog_delete_event);

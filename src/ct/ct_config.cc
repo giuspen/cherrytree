@@ -248,6 +248,8 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_boolean(_currentGroup, "pt_show_white_spaces", ptShowWhiteSpaces);
     _uKeyFile->set_boolean(_currentGroup, "rt_highl_curr_line", rtHighlCurrLine);
     _uKeyFile->set_boolean(_currentGroup, "pt_highl_curr_line", ptHighlCurrLine);
+    _uKeyFile->set_boolean(_currentGroup, "rt_highl_match_bra", rtHighlMatchBra);
+    _uKeyFile->set_boolean(_currentGroup, "pt_highl_match_bra", ptHighlMatchBra);
     _uKeyFile->set_integer(_currentGroup, "space_around_lines", spaceAroundLines);
     _uKeyFile->set_integer(_currentGroup, "relative_wrapped_space", relativeWrappedSpace);
     _uKeyFile->set_string(_currentGroup, "h_rule", hRule);
@@ -508,6 +510,8 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_bool_from_keyfile("pt_show_white_spaces", &ptShowWhiteSpaces);
     _populate_bool_from_keyfile("rt_highl_curr_line", &rtHighlCurrLine);
     _populate_bool_from_keyfile("pt_highl_curr_line", &ptHighlCurrLine);
+    _populate_bool_from_keyfile("rt_highl_match_bra", &rtHighlMatchBra);
+    _populate_bool_from_keyfile("pt_highl_match_bra", &ptHighlMatchBra);
     _populate_int_from_keyfile("space_around_lines", &spaceAroundLines);
     _populate_int_from_keyfile("relative_wrapped_space", &relativeWrappedSpace);
     _populate_string_from_keyfile("h_rule", &hRule);
