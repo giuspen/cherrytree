@@ -25,6 +25,7 @@
 #include "ct_const.h"
 #include "ct_misc_utils.h"
 #include <libxml++/libxml++.h>
+#include <libxml2/libxml/parser.h>
 #include "ct_image.h"
 #include "ct_codebox.h"
 #include "ct_table.h"
@@ -237,6 +238,7 @@ std::unique_ptr<xmlpp::DomParser> CtStorageXml::_get_parser(const fs::path& file
     auto parser = std::make_unique<xmlpp::DomParser>();
     try
     {
+        parser->set_parser_options(xmlParserOption::XML_PARSE_HUGE);
         parser->parse_file(file_path.string());
     }
     catch (xmlpp::exception& e)
