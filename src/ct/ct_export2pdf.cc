@@ -200,13 +200,13 @@ std::shared_ptr<CtPangoText> CtExport2Pango::_pango_link_url(const Glib::ustring
     CtLinkEntry link_entry = CtMiscUtil::get_link_entry(link);
     Glib::ustring uri;
     if (link_entry.type == CtConst::LINK_TYPE_NODE)
-        uri = "dest='" + generate_tag(link_entry.node_id, link_entry.anch) + "'";
+        uri = "dest='" + str::xml_escape(generate_tag(link_entry.node_id, link_entry.anch)) + "'";
     else if (link_entry.type == CtConst::LINK_TYPE_WEBS)
-        uri = "uri='" + link_entry.webs + "'";
+        uri = "uri='" + str::xml_escape(link_entry.webs) + "'";
     else if (link_entry.type == CtConst::LINK_TYPE_FILE)
-        uri = "uri='" + link_entry.file + "'";
+        uri = "uri='" + str::xml_escape(link_entry.file) + "'";
     else if (link_entry.type == CtConst::LINK_TYPE_FOLD)
-        uri = "uri='" + link_entry.fold + "'";
+        uri = "uri='" + str::xml_escape(link_entry.fold) + "'";
     else
     {
         spdlog::debug("invalid link entry {}, text {}", link, tagged_text);
