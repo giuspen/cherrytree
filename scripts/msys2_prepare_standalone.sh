@@ -91,7 +91,9 @@ rm -rf ${NEW_MINGW64_FOLDER}/bin/update-*
 rm -rf ${NEW_MINGW64_FOLDER}/bin/gdbm*.exe
 rm -rf ${NEW_MINGW64_FOLDER}/bin/py*
 rm -rf ${NEW_MINGW64_FOLDER}/bin/*-config
-# remove other useless folders
+rm -f ${NEW_MINGW64_FOLDER}/bin/tcl86.dll
+rm -f ${NEW_MINGW64_FOLDER}/bin/tk86.dll
+# remove other useless folders/files
 rm -rf ${NEW_MINGW64_FOLDER}/var
 rm -rf ${NEW_MINGW64_FOLDER}/ssl
 rm -rf ${NEW_MINGW64_FOLDER}/include
@@ -118,6 +120,7 @@ rm -rf ${NEW_MINGW64_FOLDER}/share/gir-*
 rm -rf ${NEW_MINGW64_FOLDER}/share/graphite*
 rm -rf ${NEW_MINGW64_FOLDER}/share/installed-tests
 rm -rf ${NEW_MINGW64_FOLDER}/share/vala
+rm -f ${NEW_MINGW64_FOLDER}/share/sqlite/extensions/*.c
 # remove on the lib folder
 rm -rf ${NEW_MINGW64_FOLDER}/lib/atkmm*
 rm -rf ${NEW_MINGW64_FOLDER}/lib/cairomm*
@@ -130,13 +133,19 @@ rm -rf ${NEW_MINGW64_FOLDER}/lib/giomm*
 rm -rf ${NEW_MINGW64_FOLDER}/lib/girepository*
 rm -rf ${NEW_MINGW64_FOLDER}/lib/glib*
 rm -rf ${NEW_MINGW64_FOLDER}/lib/gtk*
+rm -rf ${NEW_MINGW64_FOLDER}/lib/itcl*
 rm -rf ${NEW_MINGW64_FOLDER}/lib/libxml*
 rm -rf ${NEW_MINGW64_FOLDER}/lib/pango*
 rm -rf ${NEW_MINGW64_FOLDER}/lib/python*
 rm -rf ${NEW_MINGW64_FOLDER}/lib/pkgconfig
 rm -rf ${NEW_MINGW64_FOLDER}/lib/peas-demo
-rm -rf ${NEW_MINGW64_FOLDER}/lib/terminfo
+rm -rf ${NEW_MINGW64_FOLDER}/lib/reg*
 rm -rf ${NEW_MINGW64_FOLDER}/lib/sigc*
+rm -rf ${NEW_MINGW64_FOLDER}/lib/sqlite*
+rm -rf ${NEW_MINGW64_FOLDER}/lib/terminfo
+rm -rf ${NEW_MINGW64_FOLDER}/lib/tcl*
+rm -rf ${NEW_MINGW64_FOLDER}/lib/tdbc*
+rm -rf ${NEW_MINGW64_FOLDER}/lib/thread*
 rm -rf ${NEW_MINGW64_FOLDER}/lib/tk*
 rm -rf ${NEW_MINGW64_FOLDER}/lib/*.sh
 
