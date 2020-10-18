@@ -71,7 +71,8 @@ int main(int argc, char *argv[])
     const std::string ct_lang = CtMiscUtil::get_ct_language();
     if (ct_lang != CtConst::LANG_DEFAULT) {
         const std::string ct_lang_utf8 = ct_lang + ".UTF-8";
-        if ( Glib::setenv("LANG", ct_lang_utf8, true/*overwrite*/) and
+        if ( Glib::setenv("LANGUAGE", ct_lang_utf8, true/*overwrite*/) and
+             Glib::setenv("LANG", ct_lang_utf8, true/*overwrite*/) and
              Glib::setenv("LC_ALL", ct_lang_utf8, true/*overwrite*/) ) {
             g_message("Language overwrite = %s (localedir = %s)", ct_lang.c_str(), fs::get_cherrytree_localedir().c_str());
         }

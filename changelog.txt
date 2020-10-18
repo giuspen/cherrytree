@@ -1,4 +1,11 @@
 
+0.99.16 (October XXth, 2020)
+  * fix crash when exporting to pdf due to missing escape in links (#1239)
+  * supports for huge xml files (#1238)
+  * fix 0.39 crashes on 0.99 file (#1250)
+  * fix 'Insert Today’s Node' not respecting chosen language (#1258)
+  * windows/msys2 bundle removed unnecessary tcl/tk files
+
 0.99.15 (October 7th, 2020)
   * fix paste in context-menu for images in clipboard is greyed-out (#1196)
   * fix Crash when clicking on dead link in TOC (#1189)
