@@ -6,7 +6,6 @@ Build-Depends:
  debhelper (>= 9),
  desktop-file-utils,
  gettext,
- python3-lxml,
  cmake (>= 3.13.2),
  libcpputest-dev,
  libxml2-utils,

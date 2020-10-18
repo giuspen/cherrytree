@@ -6,7 +6,7 @@
 import os
 import subprocess
 import glob
-from lxml import etree
+import xml.etree.ElementTree as ET
 import html
 
 SCRIPTS_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -27,13 +27,13 @@ GRESOURCE_SOURCE_FILEPATH_NOEXT = os.path.join(SRC_DIR, "icons.gresource")
 
 def main(args):
     # write gresource xml
-    gresources_Element = etree.Element("gresources")
-    gresource_Element = etree.SubElement(gresources_Element, "gresource", prefix="/icons")
+    gresources_Element = ET.Element("gresources")
+    gresource_Element = ET.SubElement(gresources_Element, "gresource", prefix="/icons")
     for svg_filepath in glob.glob(os.path.join(ICONS_DIR, "*.svg")):
-        file_Element = etree.SubElement(gresource_Element, "file", preprocess="xml-stripblanks", compressed="true")
+        file_Element = ET.SubElement(gresource_Element, "file", preprocess="xml-stripblanks", compressed="true")
         file_Element.text = html.escape(os.path.basename(svg_filepath))
-    gresources_ElementTree = etree.ElementTree(gresources_Element)
-    gresources_ElementTree.write(GRESOURCE_XML_FILEPATH, xml_declaration=True, encoding='UTF-8', pretty_print=True)
+    gresources_ElementTree = ET.ElementTree(gresources_Element)
+    gresources_ElementTree.write(GRESOURCE_XML_FILEPATH, xml_declaration=True, encoding='UTF-8')
 
     # convert gresource xml to source file
     shell_cmd = ("glib-compile-resources", "--target="+GRESOURCE_SOURCE_FILEPATH_NOEXT+".cc", "--generate-source", GRESOURCE_XML_FILEPATH)
