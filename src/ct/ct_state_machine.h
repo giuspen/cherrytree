@@ -82,7 +82,7 @@ public:
 public:
     fs::path      fileName;
     std::string   rawBlob;      // raw data, not a string
-    double        timeSeconds;
+    time_t        timeSeconds;
     const size_t  uniqueId;
 };
 

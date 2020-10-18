@@ -512,6 +512,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
                     static const std::string embedded_file = Glib::Base64::decode("0LnRhtGD0LrQtdC90LPRiNGJ0LcK");
                     CHECK_EQUAL(embedded_file.size(), pImageEmbFile->get_raw_blob().size());
                     MEMCMP_EQUAL(embedded_file.c_str(), pImageEmbFile->get_raw_blob().c_str(), embedded_file.size());
+                    CHECK_EQUAL(1565442560, pImageEmbFile->get_time());
                 } break;
             }
         }

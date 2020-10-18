@@ -284,7 +284,7 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
 CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
                                const fs::path& fileName,
                                const std::string& rawBlob,
-                               const double& timeSeconds,
+                               const time_t timeSeconds,
                                const int charOffset,
                                const std::string& justification,
                                const size_t uniqueId)

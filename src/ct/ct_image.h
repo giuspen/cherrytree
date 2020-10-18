@@ -122,7 +122,7 @@ public:
     CtImageEmbFile(CtMainWin* pCtMainWin,
                    const fs::path& fileName,
                    const std::string& rawBlob,
-                   const double& timeSeconds,
+                   const time_t timeSeconds,
                    const int charOffset,
                    const std::string& justification,
                    const size_t uniqueId);
@@ -136,8 +136,8 @@ public:
     const fs::path&      get_file_name() { return _fileName; }
     const std::string&   get_raw_blob() { return _rawBlob; }
     void                 set_raw_blob(const std::string& buffer) { _rawBlob = buffer; }
-    double               get_time() { return _timeSeconds; }
-    void                 set_time(time_t time) { _timeSeconds = time; }
+    time_t               get_time() { return _timeSeconds; }
+    void                 set_time(const time_t time) { _timeSeconds = time; }
     size_t               get_unique_id() { return _uniqueId; }
 
     static size_t        get_next_unique_id();
@@ -154,6 +154,6 @@ private:
 protected:
     fs::path      _fileName;
     std::string   _rawBlob;      // raw data, not a string
-    double        _timeSeconds;
+    time_t        _timeSeconds;
     const size_t  _uniqueId;
 };
