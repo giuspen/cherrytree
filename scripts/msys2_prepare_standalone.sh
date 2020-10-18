@@ -95,7 +95,6 @@ rm -f ${NEW_MINGW64_FOLDER}/bin/tcl86.dll
 rm -f ${NEW_MINGW64_FOLDER}/bin/tk86.dll
 # remove other useless folders/files
 rm -rf ${NEW_MINGW64_FOLDER}/var
-rm -rf ${NEW_MINGW64_FOLDER}/ssl
 rm -rf ${NEW_MINGW64_FOLDER}/include
 rm -rf ${NEW_MINGW64_FOLDER}/libexec
 rm -rf ${NEW_MINGW64_FOLDER}/share/man

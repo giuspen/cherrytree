@@ -1,10 +1,12 @@
 
-0.99.16 (October XXth, 2020)
+0.99.16 (October 18th, 2020)
   * fix crash when exporting to pdf due to missing escape in links (#1239)
   * supports for huge xml files (#1238)
   * fix 0.39 crashes on 0.99 file (#1250)
   * fix 'Insert Today’s Node' not respecting chosen language (#1258)
-  * windows/msys2 bundle removed unnecessary tcl/tk files
+  * fix windows/msys2 portable and installer missing ssl folder (#1203)
+  * windows/msys2 portable and installer removed unnecessary tcl/tk files
+  * removed python3-lxml from build dependencies
 
 0.99.15 (October 7th, 2020)
   * fix paste in context-menu for images in clipboard is greyed-out (#1196)

@@ -1,21 +1,12 @@
-cherrytree (0.99.15-1) focal; urgency=low
+cherrytree (0.99.16-1) focal; urgency=low
 
-  * fix paste in context-menu for images in clipboard is greyed-out (#1196)
-  * fix Crash when clicking on dead link in TOC (#1189)
-  * added command line option --version/-V (#1204)
-  * fix preferences dialog option to enable/disable node name wrap requires cherrytree restart
-  * code execution on linux avoid to blocks cherrytree adding trailing ampersand (#1201, thanks @4Syno)
-  * autosave is enabled by default (#1140)
-  * fix preferences dialog keyboard shortcuts tab wrong icon (#1210)
-  * expand codeboxes automatically enabled by default (#141, #197, #719)
-  * fix Windows settings from old pygtk2 version are not preserved (#1212)
-  * fix relative links not working (#1213)
-  * export to plain HTML added node level into title class (#1166)
-  * icons for the icon theme can be overridden placing in ~/.config/cherrytree/icons or windows equivalent (#1179)
-  * fix Windows 7 Crash when clicking website link in Help/About (#1215)
-  * fix insert TOC hangs (#1211)
-  * fix Can't do anything with search results window open (#1224)
-  * configurable highlight matching brackets for rich text and plain text (#1227)
+  * fix crash when exporting to pdf due to missing escape in links (#1239)
+  * supports for huge xml files (#1238)
+  * fix 0.39 crashes on 0.99 file (#1250)
+  * fix 'Insert Today’s Node' not respecting chosen language (#1258)
+  * fix windows/msys2 portable and installer missing ssl folder (#1203)
+  * windows/msys2 portable and installer removed unnecessary tcl/tk files
+  * removed python3-lxml from build dependencies
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Wed, 07 Oct 2020 21:31:05 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Sun, 18 Oct 2020 21:22:12 +0100
