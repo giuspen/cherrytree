@@ -19,7 +19,18 @@ jobs:
           update: true
     - os: windows
     - os: osx
-      osx_image: xcode11.4
+      osx_image: xcode11.6
+      addons:
+        homebrew:
+          packages:
+          - python3
+          - cmake
+          - pkg-config
+          - gtksourceviewmm3
+          - gnome-icon-theme
+          - gspell
+          - libxml++
+          - cpputest
 
 compiler:
   - gcc
@@ -53,10 +64,6 @@ before_install:
         taskkill //IM gpg-agent.exe //F  # https://travis-ci.community/t/4967
         export PATH=/C/tools/msys64/mingw64/bin:$PATH
         export MAKE=mingw32-make  # so that Autotools can find it
-        ;;
-      osx)
-        brew update
-        brew install python3 cmake pkg-config gtksourceviewmm3 gnome-icon-theme gspell libxml++ cpputest
         ;;
     esac
 install:
