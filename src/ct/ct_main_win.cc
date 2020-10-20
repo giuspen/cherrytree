@@ -200,12 +200,49 @@ void CtMainWin::apply_syntax_highlighting(Glib::RefPtr<Gsv::Buffer> text_buffer,
     text_buffer->set_data(CtConst::STYLE_APPLIED_ID, (void*)1);
 }
 
+void CtMainWin::resetup_for_syntax(const char target/*'r':RichText, 'p':PlainTextNCode*/)
+{
+    CtTreeIter treeIter = curr_tree_iter();
+    if ('r' == target) {
+        // we have to reapply only if the selected node is rich text
+        if (treeIter and treeIter.get_node_syntax_highlighting() == CtConst::RICH_TEXT_ID) {
+            _ctTextview.setup_for_syntax(treeIter.get_node_syntax_highlighting());
+        }
+    }
+    else if ('p' == target) {
+        // we have to reapply only if the selected node is rich text
+        if (treeIter and treeIter.get_node_syntax_highlighting() != CtConst::RICH_TEXT_ID) {
+            _ctTextview.setup_for_syntax(treeIter.get_node_syntax_highlighting());
+        }
+        // we need also to reapply to all codeboxes that were already loaded
+        get_tree_store().get_store()->foreach([&](const Gtk::TreePath& /*treePath*/, const Gtk::TreeIter& treeIter)->bool
+        {
+            CtTreeIter node = get_tree_store().to_ct_tree_iter(treeIter);
+            if (node.get_node_is_rich_text() and node.get_node_buffer_already_loaded()) {
+                // let's look for codeboxes
+                std::list<CtAnchoredWidget*> anchoredWidgets = node.get_embedded_pixbufs_tables_codeboxes_fast();
+                for (auto pAnchoredWidget : anchoredWidgets) {
+                    if (CtAnchWidgType::CodeBox == pAnchoredWidget->get_type()) {
+                        CtCodebox* pCodebox = dynamic_cast<CtCodebox*>(pAnchoredWidget);
+                        if (pCodebox) {
+                            pCodebox->get_text_view().setup_for_syntax(pCodebox->get_syntax_highlighting());
+                        }
+                    }
+                }
+            }
+            return false; /* false for continue */
+        });
+    }
+    else {
+        spdlog::debug("bad reapply target {}", target);
+    }
+}
+
 void CtMainWin::reapply_syntax_highlighting(const char target/*'r':RichText, 'p':PlainTextNCode, 't':Table*/)
 {
-    // clean up applied style for created buffers
     get_tree_store().get_store()->foreach([&](const Gtk::TreePath& /*treePath*/, const Gtk::TreeIter& treeIter)->bool
     {
-        auto node = get_tree_store().to_ct_tree_iter(treeIter);
+        CtTreeIter node = get_tree_store().to_ct_tree_iter(treeIter);
         switch (target) {
             case 'r': {
                 if (node.get_node_is_rich_text()) {
@@ -238,7 +275,7 @@ void CtMainWin::reapply_syntax_highlighting(const char target/*'r':RichText, 'p'
                 }
             } break;
             default:
-                spdlog::debug("bad theme target");
+                spdlog::debug("bad reapply target {}", target);
                 break;
         }
         return false; /* false for continue */

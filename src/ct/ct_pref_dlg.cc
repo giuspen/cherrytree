@@ -503,13 +503,15 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     });
     checkbutton_rt_show_white_spaces->signal_toggled().connect([this, pConfig, checkbutton_rt_show_white_spaces](){
         pConfig->rtShowWhiteSpaces = checkbutton_rt_show_white_spaces->get_active();
-        if (pConfig->syntaxHighlighting == CtConst::RICH_TEXT_ID)
-            apply_for_each_window([](CtMainWin* win) { win->get_text_view().set_draw_spaces(win->get_ct_config()->rtShowWhiteSpaces ? CtCodebox::DRAW_SPACES_FLAGS : (Gsv::DrawSpacesFlags)0); });
+        apply_for_each_window([](CtMainWin* win) {
+            win->resetup_for_syntax('r'/*RichText*/);
+        });
     });
     checkbutton_rt_highl_curr_line->signal_toggled().connect([this, pConfig, checkbutton_rt_highl_curr_line](){
         pConfig->rtHighlCurrLine = checkbutton_rt_highl_curr_line->get_active();
-        if (pConfig->syntaxHighlighting == CtConst::RICH_TEXT_ID)
-            apply_for_each_window([](CtMainWin* win) { win->get_text_view().set_highlight_current_line(win->get_ct_config()->rtHighlCurrLine); });
+        apply_for_each_window([](CtMainWin* win) {
+            win->resetup_for_syntax('r'/*RichText*/);
+        });
     });
     checkbutton_rt_highl_match_bra->signal_toggled().connect([this, pConfig, checkbutton_rt_highl_match_bra](){
         pConfig->rtHighlMatchBra = checkbutton_rt_highl_match_bra->get_active();
@@ -646,13 +648,15 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
 
     checkbutton_pt_show_white_spaces->signal_toggled().connect([this, pConfig, checkbutton_pt_show_white_spaces](){
         pConfig->ptShowWhiteSpaces = checkbutton_pt_show_white_spaces->get_active();
-        if (pConfig->syntaxHighlighting != CtConst::RICH_TEXT_ID)
-            apply_for_each_window([](CtMainWin* win) { win->get_text_view().set_draw_spaces(win->get_ct_config()->ptShowWhiteSpaces ? CtCodebox::DRAW_SPACES_FLAGS : (Gsv::DrawSpacesFlags)0); });
+        apply_for_each_window([](CtMainWin* win) {
+            win->resetup_for_syntax('p'/*PlainTextNCode*/);
+        });
     });
     checkbutton_pt_highl_curr_line->signal_toggled().connect([this, pConfig, checkbutton_pt_highl_curr_line](){
         pConfig->ptHighlCurrLine = checkbutton_pt_highl_curr_line->get_active();
-        if (pConfig->syntaxHighlighting != CtConst::RICH_TEXT_ID)
-            apply_for_each_window([](CtMainWin* win) { win->get_text_view().set_highlight_current_line(win->get_ct_config()->ptHighlCurrLine); });
+        apply_for_each_window([](CtMainWin* win) {
+            win->resetup_for_syntax('p'/*PlainTextNCode*/);
+        });
     });
     checkbutton_pt_highl_match_bra->signal_toggled().connect([this, pConfig, checkbutton_pt_highl_match_bra](){
         pConfig->ptHighlMatchBra = checkbutton_pt_highl_match_bra->get_active();

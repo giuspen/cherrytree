@@ -231,17 +231,21 @@ void CtTextView::setup_for_syntax(const std::string& syntax)
          CtConst::TABLE_CELL_TEXT_ID == syntax )
     {
         set_highlight_current_line(_pCtMainWin->get_ct_config()->rtHighlCurrLine);
-        if (_pCtMainWin->get_ct_config()->rtShowWhiteSpaces)
-        {
+        if (_pCtMainWin->get_ct_config()->rtShowWhiteSpaces) {
             set_draw_spaces(Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE);
+        }
+        else {
+            set_draw_spaces(static_cast<Gsv::DrawSpacesFlags>(0));
         }
     }
     else
     {
         set_highlight_current_line(_pCtMainWin->get_ct_config()->ptHighlCurrLine);
-        if (_pCtMainWin->get_ct_config()->ptShowWhiteSpaces)
-        {
+        if (_pCtMainWin->get_ct_config()->ptShowWhiteSpaces) {
             set_draw_spaces(Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE);
+        }
+        else {
+            set_draw_spaces(static_cast<Gsv::DrawSpacesFlags>(0));
         }
     }
 }
