@@ -518,17 +518,25 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_string_from_keyfile("special_chars", &specialChars);
     _populate_string_from_keyfile("selword_chars", &selwordChars);
     _populate_string_from_keyfile("chars_listbul", &charsListbul);
+    if (charsListbul.size() < CtConst::CHARS_LISTBUL_DEFAULT.size()) {
+        charsListbul = CtConst::CHARS_LISTBUL_DEFAULT;
+    }
     _populate_string_from_keyfile("chars_toc", &charsToc);
-
-    // bug fix for alfa version when charsTodo is really long
-    Glib::ustring tempCharsToDo;
-    _populate_string_from_keyfile("chars_todo", &tempCharsToDo);
-    if (tempCharsToDo.size() > 4 && tempCharsToDo[0] == tempCharsToDo[3])
-        tempCharsToDo = CtConst::CHARS_TODO_DEFAULT;
-    charsTodo = tempCharsToDo;
-
+    if (charsToc.size() < CtConst::CHARS_TOC_DEFAULT.size()) {
+        charsToc = CtConst::CHARS_TOC_DEFAULT;
+    }
+    _populate_string_from_keyfile("chars_todo", &charsTodo);
+    if (charsTodo.size() != CtConst::CHARS_TODO_DEFAULT.size()) {
+        charsTodo = CtConst::CHARS_TODO_DEFAULT;
+    }
     _populate_string_from_keyfile("chars_smart_dquote", &chars_smart_dquote);
+    if (chars_smart_dquote.size() != CtConst::CHARS_SMART_DQUOTE_DEFAULT.size()) {
+        chars_smart_dquote = CtConst::CHARS_SMART_DQUOTE_DEFAULT;
+    }
     _populate_string_from_keyfile("chars_smart_squote", &chars_smart_squote);
+    if (chars_smart_squote.size() != CtConst::CHARS_SMART_SQUOTE_DEFAULT.size()) {
+        chars_smart_squote = CtConst::CHARS_SMART_SQUOTE_DEFAULT;
+    }
     _populate_string_from_keyfile("latest_tag_prop", &latestTagProp);
     _populate_string_from_keyfile("latest_tag_val", &latestTagVal);
     _populate_string_from_keyfile("timestamp_format", &timestampFormat);

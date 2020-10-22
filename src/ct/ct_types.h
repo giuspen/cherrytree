@@ -127,16 +127,15 @@ private:
     using vect_t = std::vector<Glib::ustring>;
 
 public:
-
     CtStringSplittable(const Glib::ustring& str) : _string_cache(str) {
         for (const auto& ch : _string_cache) {
             _internal_vec.emplace_back(1, ch);
         }
     }
 
-    const Glib::ustring& operator[](int index) const { return _internal_vec[(size_t)index]; }
+    const Glib::ustring& operator[](size_t index) const { return _internal_vec[index]; }
 
-    int size() const { return (int)_internal_vec.size(); }
+    size_t size() const { return _internal_vec.size(); }
 
     template<typename T>
     typename vect_t::const_iterator find(const T& item) const { return std::find(_internal_vec.begin(), _internal_vec.end(), item); }
