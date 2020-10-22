@@ -238,7 +238,7 @@ std::optional<Glib::ustring> iter_in_tag(const Gtk::TextIter& iter, const Glib::
     for (const auto& iter_tag : iter.get_tags()) {
         Glib::ustring tag_name;
         iter_tag->get_property("name", tag_name);
-        spdlog::debug("TAG: {}", tag_name);
+        //spdlog::debug("TAG: {}", tag_name);
         if (str::startswith(tag_name, tag)) {
             return tag_name;
         }
@@ -280,15 +280,16 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, int depth)
 
                 Gtk::TextIter start_iter(text_iter);
                 Gtk::TextIter end_iter(text_iter);
-                while (!start_iter.starts_line()) {
-                    if (!start_iter.backward_word_start()) break;
+                while (not start_iter.starts_line()) {
+                    if (not start_iter.backward_word_start()) break;
                 }
 
-                while (!end_iter.ends_line()) {
-                    if (!end_iter.forward_word_end()) break;
+                while (not end_iter.ends_line() and not end_iter.get_child_anchor()) {
+                    if (not end_iter.forward_word_end()) break;
                 }
 
                 Glib::ustring txt(start_iter, end_iter);
+                //spdlog::debug("{} - {}", txt, txt.size());
 
                 auto mark = text_buffer->create_mark(end_iter, false);
 
@@ -297,7 +298,7 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, int depth)
 
                 text_iter = mark->get_iter();
                 text_buffer->delete_mark(mark);
-                spdlog::debug("INSERT DONE");
+                //spdlog::debug("INSERT DONE");
                 entry.children.emplace_back(fmt::format("node {} {}", node_id, anchor_txt), false, txt, depth + 1, h_lvl);
             }
             catch(std::invalid_argument&) {
