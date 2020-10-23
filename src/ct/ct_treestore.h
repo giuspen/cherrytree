@@ -112,7 +112,7 @@ public:
     bool                      get_node_buffer_already_loaded() const;
 
     void                         remove_all_embedded_widgets();
-    std::list<CtAnchoredWidget*> get_embedded_pixbufs_tables_codeboxes_fast();
+    std::list<CtAnchoredWidget*> get_embedded_pixbufs_tables_codeboxes_fast(const char doSort = 'n');
     std::list<CtAnchoredWidget*> get_embedded_pixbufs_tables_codeboxes(int start_offset = -1, int end_offset = -1);
 
     void pending_edit_db_node_prop();

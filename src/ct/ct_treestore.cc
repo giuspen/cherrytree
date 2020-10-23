@@ -204,7 +204,7 @@ void CtTreeIter::remove_all_embedded_widgets()
     }
 }
 
-std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes_fast()
+std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes_fast(const char doSort)
 {
     if (*this)
     {
@@ -226,9 +226,30 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes_f
             (*this)->set_value(_pColumns->colAnchoredWidgets, retAnchoredWidgetsList);
         }
 
+        if (doSort != 'n') {
+            if (doSort == 'd') {
+                // desc
+                struct {
+                    bool operator()(CtAnchoredWidget* a, CtAnchoredWidget* b) const {
+                        return *a > *b;
+                    }
+                } customCompare;
+                retAnchoredWidgetsList.sort(customCompare);
+            }
+            else {
+                // asc
+                struct {
+                    bool operator()(CtAnchoredWidget* a, CtAnchoredWidget* b) const {
+                        return *a < *b;
+                    }
+                } customCompare;
+                retAnchoredWidgetsList.sort(customCompare);
+            }
+        }
+
         return retAnchoredWidgetsList;
     }
-    return std::list<CtAnchoredWidget*>();
+    return std::list<CtAnchoredWidget*>{};
 }
 
 std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes(int start_offset /*= -1*/, int end_offset /*= -1*/)
@@ -513,7 +534,7 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
     pTextView->set_sensitive(true);
     pTextView->set_editable(not treeIter.get_node_read_only());
 
-    for (CtAnchoredWidget* pCtAnchoredWidget : treeIter.get_embedded_pixbufs_tables_codeboxes_fast())
+    for (CtAnchoredWidget* pCtAnchoredWidget : treeIter.get_embedded_pixbufs_tables_codeboxes_fast('d'/*sort descending*/))
     {
         Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
         if (rChildAnchor)

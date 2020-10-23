@@ -78,8 +78,11 @@ public:
     void updateJustification(const std::string& justification) { _justification = justification; }
     void updateJustification(const Gtk::TextIter& textIter);
 
-    int getOffset() { return _charOffset; }
-    const std::string& getJustification() { return _justification; }
+    int getOffset() const { return _charOffset; }
+    const std::string& getJustification() const { return _justification; }
+
+    bool operator<(const CtAnchoredWidget &other) { return getOffset() < other.getOffset(); }
+    bool operator>(const CtAnchoredWidget &other) { return getOffset() > other.getOffset(); }
 
 protected:
     CtMainWin* _pCtMainWin;
