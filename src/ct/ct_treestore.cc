@@ -339,9 +339,8 @@ bool CtDragStore::drag_data_received_vfunc(const Gtk::TreeModel::Path& dest, con
     return _pCtMainWin->get_ct_actions()->node_move(src, dest, false);
 }
 
-
-
 /********************************************************/
+
 CtTreeStore::CtTreeStore(CtMainWin* pCtMainWin)
  : _pCtMainWin(pCtMainWin)
 {
@@ -379,23 +378,7 @@ void CtTreeStore::_iter_delete_anchored_widgets(const Gtk::TreeModel::Children& 
     }
 }
 
-void CtTreeStore::treevew_expand_to_tree_row(Gtk::TreeView* pTreeView, Gtk::TreeRow& row)
-{
-    Gtk::TreeIter iterParent = row.parent();
-    if (static_cast<bool>(iterParent))
-    {
-        pTreeView->expand_to_path(_rTreeStore->get_path(iterParent));
-    }
-}
-
-void CtTreeStore::treeview_safe_set_cursor(Gtk::TreeView* pTreeView, Gtk::TreeIter& treeIter)
-{
-    Gtk::TreeRow row = *treeIter;
-    treevew_expand_to_tree_row(pTreeView, row);
-    pTreeView->set_cursor(_rTreeStore->get_path(treeIter));
-}
-
-void CtTreeStore::treeview_set_tree_path_n_text_cursor(Gtk::TreeView* pTreeView,
+void CtTreeStore::treeview_set_tree_path_n_text_cursor(CtTreeView* pTreeView,
                                                        const std::string& node_path,
                                                        const int cursor_pos)
 {
@@ -405,7 +388,7 @@ void CtTreeStore::treeview_set_tree_path_n_text_cursor(Gtk::TreeView* pTreeView,
         Gtk::TreeIter treeIter = _rTreeStore->get_iter(node_path);
         if (static_cast<bool>(treeIter))
         {
-            treeview_safe_set_cursor(pTreeView, treeIter);
+            pTreeView->set_cursor_safe(treeIter);
             treeSelFromConfig = true;
             if (_pCtMainWin->get_ct_config()->treeClickExpand)
             {

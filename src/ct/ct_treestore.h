@@ -31,6 +31,7 @@
 
 class CtMainWin;
 class CtAnchoredWidget;
+class CtTreeView;
 
 struct CtNodeData
 {
@@ -171,9 +172,7 @@ public:
 
     void addAnchoredWidgets(Gtk::TreeIter treeIter, std::list<CtAnchoredWidget*> anchoredWidgetList, Gtk::TextView* pTextView);
 
-    void treevew_expand_to_tree_row(Gtk::TreeView* pTreeView, Gtk::TreeRow& row);
-    void treeview_safe_set_cursor(Gtk::TreeView* pTreeView, Gtk::TreeIter& iter);
-    void treeview_set_tree_path_n_text_cursor(Gtk::TreeView* pTreeView,
+    void treeview_set_tree_path_n_text_cursor(CtTreeView* pTreeView,
                                               const std::string& node_path,
                                               const int cursor_pos);
     std::string treeview_get_tree_expanded_collapsed_string(Gtk::TreeView& treeView);

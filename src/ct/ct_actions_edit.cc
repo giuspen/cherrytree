@@ -347,7 +347,7 @@ void CtActions::_insert_toc_at_pos(Glib::RefPtr<Gtk::TextBuffer> text_buffer, co
 
 void find_toc_entries_and_children(std::list<TocEntry>& entries, CtActions& actions, CtMainWin& main_win, CtTreeIter& node, int depth)
 {
-    main_win.get_tree_store().treeview_safe_set_cursor(&main_win.get_tree_view(), node);
+    main_win.get_tree_view().set_cursor_safe(node);
     TocEntry entry = find_toc_entries(actions, node, depth);
     entries.emplace_back(entry);
 
@@ -371,7 +371,7 @@ void CtActions::toc_insert()
     CtTreeIter curr_node = _pCtMainWin->curr_tree_iter();
     if (toc_type == CtExporting::CURRENT_NODE) {
         auto txt_buff = curr_node.get_node_text_buffer();
-        _pCtMainWin->get_tree_store().treeview_safe_set_cursor(&_pCtMainWin->get_tree_view(), curr_node);
+        _pCtMainWin->get_tree_view().set_cursor_safe(curr_node);
 
         TocEntry entry = find_toc_entries(*this, curr_node, 0);
         entries.emplace_back(std::move(entry));
@@ -398,7 +398,7 @@ void CtActions::toc_insert()
 
     _insert_toc_at_pos(curr_node.get_node_text_buffer(), entries);
 
-    _pCtMainWin->get_tree_store().treeview_safe_set_cursor(&_pCtMainWin->get_tree_view(), curr_node);
+    _pCtMainWin->get_tree_view().set_cursor_safe(curr_node);
 }
 
 // Insert Timestamp

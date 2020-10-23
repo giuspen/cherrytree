@@ -1033,7 +1033,7 @@ bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_f
     bool node_is_set = false;
     if (node_to_focus != "") {
         if (CtTreeIter node = get_tree_store().get_node_from_node_name(node_to_focus)) {
-            get_tree_store().treeview_safe_set_cursor(_uCtTreeview.get(), node);
+            _uCtTreeview->set_cursor_safe(node);
             _ctTextview.grab_focus();
             node_is_set = true;
         }

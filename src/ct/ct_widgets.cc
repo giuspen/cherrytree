@@ -134,10 +134,14 @@ CtTreeView::~CtTreeView()
 {
 }
 
-void CtTreeView::set_cursor_safe(const Gtk::TreeIter& iter)
+void CtTreeView::set_cursor_safe(const Gtk::TreeIter& treeIter)
 {
-    expand_to_path(get_model()->get_path(iter));
-    set_cursor(get_model()->get_path(iter));
+    Gtk::TreeRow row = *treeIter;
+    Gtk::TreeIter iterParent = row.parent();
+    if (iterParent) {
+        expand_to_path(get_model()->get_path(iterParent));
+    }
+    set_cursor(get_model()->get_path(treeIter));
 }
 
 void CtTreeView::set_tree_node_name_wrap_width(const bool wrap_enabled, const int wrap_width)
