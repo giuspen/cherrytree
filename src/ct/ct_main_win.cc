@@ -1479,10 +1479,11 @@ void CtMainWin::_on_treeview_cursor_changed()
         _prevTreeIter = treeIter;
         return;
     }
+    const gint64 nodeId = treeIter.get_node_id();
     if (_prevTreeIter)
     {
         const gint64 prevNodeId = _prevTreeIter.get_node_id();
-        if (prevNodeId == treeIter.get_node_id()) {
+        if (prevNodeId == nodeId) {
             return;
         }
         Glib::RefPtr<Gsv::Buffer> rTextBuffer = _prevTreeIter.get_node_text_buffer();
@@ -1494,26 +1495,37 @@ void CtMainWin::_on_treeview_cursor_changed()
         }
         _nodesCursorPos[prevNodeId] = rTextBuffer->property_cursor_position();
     }
+
     _uCtTreestore->text_view_apply_textbuffer(treeIter, &_ctTextview);
 
     if (user_active()) {
+        // workaround for nodes with anchored widgets very first visualisation glitches
+        if ( _nodesCursorPos.count(nodeId) == 0 and
+             treeIter.get_embedded_pixbufs_tables_codeboxes_fast().size() > 0 ) {
+            while (gtk_events_pending()) gtk_main_iteration();
+            CtTreeIter emptyTreeIter{};
+            _uCtTreestore->text_view_apply_textbuffer(emptyTreeIter, &_ctTextview);
+            while (gtk_events_pending()) gtk_main_iteration();
+            _uCtTreestore->text_view_apply_textbuffer(treeIter, &_ctTextview);
+        }
+
         // NOTE: text_view_apply_cursor_position() uses Glib::signal_idle().connect_once()
         //       which is hanging the tree nodes iteration
-        auto mapIter = _nodesCursorPos.find(treeIter.get_node_id());
+        auto mapIter = _nodesCursorPos.find(nodeId);
         if (mapIter != _nodesCursorPos.end() and mapIter->second > 0) {
             text_view_apply_cursor_position(treeIter, mapIter->second);
         } else {
             text_view_apply_cursor_position(treeIter, 0);
         }
 
-        menu_update_bookmark_menu_item(_uCtTreestore->is_node_bookmarked(treeIter.get_node_id()));
+        menu_update_bookmark_menu_item(_uCtTreestore->is_node_bookmarked(nodeId));
         window_header_update();
         window_header_update_lock_icon(treeIter.get_node_read_only());
-        window_header_update_bookmark_icon(_uCtTreestore->is_node_bookmarked(treeIter.get_node_id()));
+        window_header_update_bookmark_icon(_uCtTreestore->is_node_bookmarked(nodeId));
         update_selected_node_statusbar_info();
     }
 
-    get_state_machine().node_selected_changed(treeIter.get_node_id());
+    get_state_machine().node_selected_changed(nodeId);
 
     _prevTreeIter = treeIter;
 }

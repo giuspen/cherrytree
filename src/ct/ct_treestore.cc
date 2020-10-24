@@ -517,7 +517,7 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
     pTextView->set_sensitive(true);
     pTextView->set_editable(not treeIter.get_node_read_only());
 
-    for (CtAnchoredWidget* pCtAnchoredWidget : treeIter.get_embedded_pixbufs_tables_codeboxes_fast('d'/*sort descending*/))
+    for (CtAnchoredWidget* pCtAnchoredWidget : treeIter.get_embedded_pixbufs_tables_codeboxes_fast())
     {
         Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
         if (rChildAnchor)
