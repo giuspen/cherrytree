@@ -1,12 +1,11 @@
-cherrytree (0.99.16-1) focal; urgency=low
+cherrytree (0.99.17-1) focal; urgency=low
 
-  * fix crash when exporting to pdf due to missing escape in links (#1239)
-  * supports for huge xml files (#1238)
-  * fix 0.39 crashes on 0.99 file (#1250)
-  * fix 'Insert Today’s Node' not respecting chosen language (#1258)
-  * fix windows/msys2 portable and installer missing ssl folder (#1203)
-  * windows/msys2 portable and installer removed unnecessary tcl/tk files
-  * removed python3-lxml from build dependencies
+  * fix visualisation glitches of nodes with anchored widgets (#1205)
+  * fix re-inserting Table Of Contents (#1266)
+  * protect preferences dialog tab special characters from bad settings causing crash (#1261)
+  * bundled default gtksourceview styles to ensure availability (#1272)
+  * fix dynamic change of 'show white spaces' and 'highlight current line' via preferences dialog (#1262)
+  * Finnish language updated (Henri Kaustinen)
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sun, 18 Oct 2020 21:22:12 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Sat, 24 Oct 2020 21:34:47 +0100
