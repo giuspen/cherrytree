@@ -658,15 +658,17 @@ void CtPrint::_codebox_split_content(CtCodebox* codebox, Glib::ustring original_
     for (size_t i = 0; i < original_splitted_pango.size(); ++i)
     {
         auto& element = original_splitted_pango[i];
-        auto last_close = element.rfind("</span");
-        auto last_open = element.rfind("<span");
-        if (last_close < last_open)
+        Glib::ustring::size_type last_close = element.rfind("</span");
+        Glib::ustring::size_type last_open = element.rfind("<span");
+        if (last_close < element.size() and last_open < element.size() and last_close < last_open)
         {
             auto non_closed_span = element.substr(last_open);
-            auto end_non_closed_span_idx = non_closed_span.find(">");
-            non_closed_span = non_closed_span.substr(0, end_non_closed_span_idx+1);
-            original_splitted_pango[i] += "</span>";
-            original_splitted_pango[i+1] = non_closed_span + original_splitted_pango[i+1];
+            Glib::ustring::size_type end_non_closed_span_idx = non_closed_span.find(">");
+            if (end_non_closed_span_idx < non_closed_span.size()) {
+                non_closed_span = non_closed_span.substr(0, end_non_closed_span_idx+1);
+                original_splitted_pango[i] += "</span>";
+                original_splitted_pango[i+1] = non_closed_span + original_splitted_pango[i+1];
+            }
         }
     }
 
