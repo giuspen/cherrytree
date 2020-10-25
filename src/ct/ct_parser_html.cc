@@ -161,7 +161,9 @@ void CtHtml2Xml::feed(const std::string& html)
     _slot_style_id = -1;
     _slot_styles_cache.clear();
 
-    if (str::startswith(html, "<!doctype html>"))
+    const Glib::ustring doctype = "<!DOCTYPE HTML";
+    const Glib::ustring html_type = html.substr(0, doctype.size());
+    if (html_type.uppercase() == doctype)
         CtHtmlParser::feed(html);
     else {
         // if not fixed, we can skip some items
