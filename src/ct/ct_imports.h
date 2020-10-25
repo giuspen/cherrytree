@@ -51,6 +51,7 @@ struct ct_imported_node
     ct_imported_node(fs::path _path, const Glib::ustring& _name) : path(std::move(_path)), node_name(_name) {}
     void add_broken_link(const Glib::ustring& link, xmlpp::Element* el) { content_broken_links[link].push_back(el); }
     bool has_content() { return xml_content->get_root_node(); }
+    void copy_content(std::unique_ptr<ct_imported_node>& copy_node) { node_syntax = copy_node->node_syntax; xml_content = copy_node->xml_content; content_broken_links = copy_node->content_broken_links; }
 };
 
 class CtImporterInterface
@@ -105,6 +106,7 @@ public:
 
     // virtuals of CtImporterInterface
     std::unique_ptr<ct_imported_node> import_file(const fs::path& file) override;
+
 private:
     CtConfig* _config;
 };
@@ -263,6 +265,7 @@ public:
     explicit CtNoteCaseHTMLImporter(CtConfig* config) : _ct_config{config} {}
 
     std::unique_ptr<ct_imported_node> import_file(const fs::path& path) override;
+
 private:
 
     CtConfig* _ct_config;

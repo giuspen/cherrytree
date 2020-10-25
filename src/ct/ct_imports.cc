@@ -196,7 +196,7 @@ std::unique_ptr<ct_imported_node> CtImports::traverse_dir(const fs::path& dir, C
         if (fs::is_directory(dir_item))
         {
             if (auto node = traverse_dir(dir_item, importer))
-              dir_node->children.emplace_back(std::move(node));
+                dir_node->children.emplace_back(std::move(node));
         }
         else if (auto node = importer->import_file(dir_item))
             dir_node->children.emplace_back(std::move(node));
@@ -207,26 +207,56 @@ std::unique_ptr<ct_imported_node> CtImports::traverse_dir(const fs::path& dir, C
         return nullptr;
 
     // not the best place but
-    // if there are node (dir) with subnodes  and node with content, both with the same name, join them
-    for (auto child_it = dir_node->children.begin(); child_it != dir_node->children.end(); ++child_it)
-    {
-        if ((*child_it)->has_content() && (*child_it)->children.empty()) // node with content
+    // two cases:
+    // 1. children with the same names, one with content and other as dir, join them
+    // 2. dir contains  note with the same name, join them (from keepnote)
+
+    std::function<void(std::unique_ptr<ct_imported_node>&)> join_subdir_subnote;
+    join_subdir_subnote = [&](std::unique_ptr<ct_imported_node>& node) {
+        for (auto iter1 = node->children.begin(); iter1 != node->children.end(); ++iter1)
         {
-            for (auto dir_it = dir_node->children.begin(); dir_it != dir_node->children.end(); ++dir_it)
+            if ((*iter1)->has_content() && (*iter1)->children.empty()) // node with content
             {
-                if (!(*dir_it)->has_content()) // dir node
+                for (auto iter2 = node->children.begin(); iter2 != node->children.end(); ++iter2)
                 {
-                    if (child_it->get() == dir_it->get()) continue;
-                    if ((*child_it)->node_name == (*dir_it)->node_name)
+                    if (!(*iter2)->has_content()) // dir node
                     {
-                        std::swap((*child_it)->children, (*dir_it)->children);
-                        dir_node->children.erase(dir_it);
-                        break;
+                        if (iter1->get() == iter2->get()) continue; // same node?
+                        if ((*iter1)->node_name == (*iter2)->node_name)
+                        {
+                            std::swap((*iter1)->children, (*iter2)->children);
+                            node->children.erase(iter2);
+                            break;
+                        }
                     }
                 }
             }
         }
-    }
+        for (auto& child: node->children)
+            join_subdir_subnote(child);
+    };
+
+    std::function<void(std::unique_ptr<ct_imported_node>&)> join_parent_dir_subnote;
+    join_parent_dir_subnote = [&](std::unique_ptr<ct_imported_node>& node) {
+        if (!node->has_content())
+        {
+            for (auto iter = node->children.begin(); iter != node->children.end(); ++iter)
+            {
+                if ((*iter)->has_content() && (*iter)->children.empty() && node->node_name == (*iter)->node_name)
+                {
+                    node->copy_content((*iter));
+                    node->children.erase(iter);
+                    break;
+                }
+            }
+        }
+        for (auto& child: node->children)
+            join_parent_dir_subnote(child);
+    };
+
+    join_subdir_subnote(dir_node);
+    join_parent_dir_subnote(dir_node);
+
 
     return dir_node;
 }
@@ -497,47 +527,28 @@ std::unique_ptr<ct_imported_node> CtPandocImport::import_file(const fs::path& fi
     return node;
 }
 
-std::unique_ptr<ct_imported_node> node_from_keepnote_dir(const fs::path& dir, CtConfig* config)
+std::unique_ptr<ct_imported_node> CtKeepnoteImport::import_file(const fs::path& file)
 {
-    fs::path node_path = dir / "page.html";
-    if (!fs::exists(node_path)) throw CtImportException(fmt::format("Directory: <{}> does not contain a page.html file", dir));
+    for (auto ignore: {"__TRASH__", "__NOTEBOOK__"})
+        if (file.string().find(ignore) != std::string::npos)
+            return nullptr;
+    if (file.filename().string() != "page.html")
+        return nullptr;
 
     std::ifstream infile;
     infile.exceptions(std::ios::failbit);
-    infile.open(node_path.string());
+    infile.open(file.string());
 
     std::ostringstream buff;
     buff << infile.rdbuf();
 
-    CtHtml2Xml parser(config);
+    CtHtml2Xml parser(_config);
     parser.feed(buff.str());
 
-    auto node = std::make_unique<ct_imported_node>(node_path, dir.stem().string());
+    auto node = std::make_unique<ct_imported_node>(file, file.parent_path().stem().string());
     node->xml_content->create_root_node_by_import(parser.doc().get_root_node());
-
-    return node;
-}
-
-bool is_keepnote_ignored_name(const std::string& name)
-{
-    for (const std::string& str : {"__TRASH__", "__NOTEBOOK__"}) {
-        if (str.find(name) != std::string::npos) return true;
-    }
-    return false;
-}
-
-std::unique_ptr<ct_imported_node> CtKeepnoteImport::import_file(const fs::path& file)
-{
-    assert(fs::is_directory(file));
-
-    auto node = std::make_unique<ct_imported_node>(file, file.stem().string());
-    std::list<fs::path> files = fs::get_dir_entries(file);
-    for (const auto& path : files) {
-        if (fs::is_directory(path) && !is_keepnote_ignored_name(path.string())) {
-            // Valid node directory
-            node->children.emplace_back(node_from_keepnote_dir(path, _config));
-        }
-    }
+    spdlog::debug(buff.str());
+    spdlog::debug(node->xml_content->write_to_string());
 
     return node;
 }
