@@ -37,24 +37,26 @@ struct CtPangoNewPage : public CtPangoObject
 };
 struct CtPangoText : public CtPangoObject
 {
-    CtPangoText(const Glib::ustring& text, const Glib::ustring& synt_highl) : text(text), synt_highl(synt_highl) {}
+    CtPangoText(const Glib::ustring& text, const Glib::ustring& synt_highl, int indent) : text(text), synt_highl(synt_highl), indent(indent) {}
     Glib::ustring text;
     Glib::ustring synt_highl;
+    int           indent;  // paragraph indent
 };
 struct CtPangoLink : public CtPangoText
 {
-    CtPangoLink(const Glib::ustring& text, const Glib::ustring& link) : CtPangoText(text, CtConst::RICH_TEXT_ID), link(link) {}
+    CtPangoLink(const Glib::ustring& text, int indent, const Glib::ustring& link) : CtPangoText(text, CtConst::RICH_TEXT_ID, indent), link(link) {}
     Glib::ustring link;
 };
 struct CtPangoDest : public CtPangoText
 {
-    CtPangoDest(const Glib::ustring& text, const Glib::ustring& synt_highl, const Glib::ustring& dest) : CtPangoText(text, synt_highl), dest(dest) {}
+    CtPangoDest(const Glib::ustring& text, const Glib::ustring& synt_highl, int indent, const Glib::ustring& dest) : CtPangoText(text, synt_highl, indent), dest(dest) {}
     Glib::ustring dest;
 };
 struct CtPangoWidget : public CtPangoObject
 {
-    CtPangoWidget(CtAnchoredWidget* widget) : widget(widget) {}
+    CtPangoWidget(CtAnchoredWidget* widget, int indent) : widget(widget), indent(indent) {}
     CtAnchoredWidget* widget;
+    int               indent;
 };
 using CtPangoObjectPtr = std::shared_ptr<CtPangoObject>;
 
@@ -69,7 +71,7 @@ public:
 private:
     void                         _pango_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer, std::vector<CtPangoObjectPtr>& out_slots);
     void                         _pango_text_serialize(const Gtk::TextIter& start_iter, Gtk::TextIter end_iter, const CtCurrAttributesMap& curr_attributes, std::vector<CtPangoObjectPtr>& out_slots);
-    std::shared_ptr<CtPangoText> _pango_link_url(const Glib::ustring& tagged_text, const Glib::ustring& link);
+    std::shared_ptr<CtPangoText> _pango_link_url(const Glib::ustring& tagged_text, const Glib::ustring& link, int indent);
 };
 
 
@@ -204,9 +206,9 @@ private:
 
 private:
     void _process_pango_text(CtPrintData* print_data, CtPangoText* text_slot);
-    void _process_pango_image(CtPrintData* print_data, CtImage* image, bool& any_image_resized);
-    void _process_pango_codebox(CtPrintData* print_data, CtCodebox* codebox);
-    void _process_pango_table(CtPrintData* print_data, CtTable* table);
+    void _process_pango_image(CtPrintData* print_data, CtImage* image, int indent, bool& any_image_resized);
+    void _process_pango_codebox(CtPrintData* print_data, CtCodebox* codebox, int indent);
+    void _process_pango_table(CtPrintData* print_data, CtTable* table, int indent);
 
     Glib::RefPtr<Pango::Layout> _codebox_get_layout(CtCodebox* codebox, Glib::ustring content, Glib::RefPtr<Gtk::PrintContext> context);
     void                        _codebox_split_content(CtCodebox* codebox, Glib::ustring original_content, const int check_height, const Glib::RefPtr<Gtk::PrintContext>& context,
