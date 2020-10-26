@@ -52,7 +52,7 @@ void CtExport2Pango::pango_get_from_treestore_node(CtTreeIter node_iter, int sel
         }
 
         if (CtImageAnchor* anchor = dynamic_cast<CtImageAnchor*>(widget))
-            out_slots.emplace_back(std::make_shared<CtPangoDest>("⚓", CtConst::RICH_TEXT_ID, widget_indent, "name='" + generate_tag(node_iter.get_node_id(), anchor->get_anchor_name()) + "'"));
+            out_slots.emplace_back(std::make_shared<CtPangoDest>("<sup>⚓</sup>", CtConst::RICH_TEXT_ID, widget_indent, "name='" + generate_tag(node_iter.get_node_id(), anchor->get_anchor_name()) + "'"));
         else
             out_slots.emplace_back(std::make_shared<CtPangoWidget>(widget, widget_indent));
         start_text_offset = end_text_offset;
