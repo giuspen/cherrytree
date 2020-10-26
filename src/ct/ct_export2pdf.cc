@@ -507,18 +507,17 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
         tag_attr = pango_dest->dest;
     }
 
+    int paragraph_width = _page_width - text_slot->indent;
+
     auto layout = context->create_pango_layout();
     layout->set_font_description(*font);
-    layout->set_width(int(_page_width * Pango::SCALE));
+    layout->set_width(int(paragraph_width  * Pango::SCALE));
     // the next line fixes the link issue, allowing to start paragraphs from where a link ends
-    // also applies paragraph indent
+    // don't apply paragraph indent because set_indent will work only for the first line
     // also avoid `\n` because new lines also got indent
     if (text_slot->text != "\n")
-        layout->set_indent(int((pages.last_line().cur_x + text_slot->indent)  * Pango::SCALE));
+        layout->set_indent(int(pages.last_line().cur_x  * Pango::SCALE));
     layout->set_markup(text_slot->text);
-
-    if (pages.last_line().cur_x == 0)
-        pages.last_line().cur_x = text_slot->indent;
 
     int layout_count = layout->get_line_count();
     for (int i = 0; i < layout_count; ++i)
@@ -532,14 +531,16 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
         // situation when a bit of space is left but pango cannot wrap the first word
         // make it on a new line
         if (text_slot->text != "\n" && pages.last_line().cur_x > 0)
-            if (pages.last_line().cur_x + text_slot->indent + size.width > _page_width)
+            if (pages.last_line().cur_x + size.width > paragraph_width)
             {
                 pages.new_line();
-                pages.last_line().cur_x = text_slot->indent;
                 _process_pango_text(print_data, text_slot);
                 return;
             }
 
+        // move x before applying a new element
+        if (pages.last_line().cur_x == 0)
+            pages.last_line().cur_x = text_slot->indent;
 
         pages.last_line().set_height(size.height);
         if (tag_name.empty())
@@ -548,10 +549,7 @@ void CtPrint::_process_pango_text(CtPrintData* print_data, CtPangoText* text_slo
             pages.last_line().elements.push_back(std::make_shared<CtPageTag>(pages.last_line().cur_x, layout_line, tag_name, tag_attr));
 
         if (i < layout_count - 1) // the paragragh was wrapped, so it's  multiline
-        {
             pages.new_line();
-            pages.last_line().cur_x = text_slot->indent;
-        }
         else
             pages.last_line().cur_x += size.width;
     }
