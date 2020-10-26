@@ -1,3 +1,7 @@
+# CherryTree
+A hierarchical note taking application, featuring rich text and syntax highlighting, storing data in a single XML or SQLite file.
+The project home page is [giuspen.com/cherrytree](https://www.giuspen.com/cherrytree/).
+
 # Installation Guide
 
 - [Debian/Linux Mint/Ubuntu](#building-cherrytree-on-ubuntu-2004)
