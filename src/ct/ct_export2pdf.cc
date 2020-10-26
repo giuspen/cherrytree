@@ -560,6 +560,7 @@ void CtPrint::_process_pango_image(CtPrintData* print_data, CtImage* image, int 
     auto context = print_data->context;
     CtPrintPages& pages = print_data->pages;
 
+    // calculate image
     auto pixbuf = image->get_pixbuf();
     double scale_w = (_page_width - pages.last_line().cur_x) / pixbuf->get_width();
     double scale_h = (_page_height - _layout_newline_height - CtConst::WHITE_SPACE_BETW_PIXB_AND_TEXT)/pixbuf->get_height();
@@ -570,14 +571,41 @@ void CtPrint::_process_pango_image(CtPrintData* print_data, CtImage* image, int 
     double pixbuf_width = pixbuf->get_width() * scale;
     double pixbuf_height = pixbuf->get_height() * scale + CtConst::WHITE_SPACE_BETW_PIXB_AND_TEXT;
 
-    if (!pages.last_line().test_element_height(pixbuf_height, _page_height))
+    // calculate label if it exists
+    Cairo::Rectangle label_size{0,0,0,0};
+    auto label_layout = context->create_pango_layout();
+    label_layout->set_font_description(_plain_font);
+    if (auto emb_file = dynamic_cast<CtImageEmbFile*>(image))
+    {
+        label_layout->set_markup("<b><small>"+str::xml_escape(emb_file->get_file_name().string())+"</small></b>");
+        label_size = _get_width_height_from_layout_line(label_layout->get_line(0));
+    }
+
+
+    if (!pages.last_line().test_element_height(pixbuf_height + label_size.height, _page_height))
         pages.line_on_new_page();
+
     if (pages.last_line().cur_x == 0)
         pages.last_line().cur_x = indent;
 
+    // insert label line
+    if (label_size.height != 0)
+    {
+        int prev_x = pages.last_line().cur_x;
+        int prev_y = pages.last_line().y;
+        pages.last_line().set_height(label_size.height);
+        pages.last_line().elements.push_back(std::make_shared<CtPageText>(pages.last_line().cur_x, label_layout->get_line(0)));
+        pages.new_line();
+        pages.last_line().cur_x = prev_x;
+        pages.last_line().y = prev_y - CtConst::WHITE_SPACE_BETW_PIXB_AND_TEXT; // this removes additional 2px;
+    }
+
+    // insert image
     pages.last_line().set_height(pixbuf_height);
     pages.last_line().elements.push_back(std::make_shared<CtPageImage>(pages.last_line().cur_x, image, scale));
-    pages.last_line().cur_x += pixbuf_width;
+
+    // move to right
+    pages.last_line().cur_x += std::max(pixbuf_width, label_size.width);
 }
 
 void CtPrint::_process_pango_codebox(CtPrintData* print_data, CtCodebox* codebox, int indent)
