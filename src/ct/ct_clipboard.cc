@@ -514,7 +514,11 @@ void CtClipboard::_on_received_to_plain_text(const Gtk::SelectionData& selection
 // From Clipboard to Rich Text
 void CtClipboard::_on_received_to_rich_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
+#ifdef __APPLE__
+    Glib::ustring rich_text = selection_data.get_data_as_string();
+#else
     Glib::ustring rich_text = selection_data.get_text();
+#endif
     if (rich_text.empty())
     {
         spdlog::error("? no clipboard rich text");
@@ -527,7 +531,11 @@ void CtClipboard::_on_received_to_rich_text(const Gtk::SelectionData& selection_
 // From Clipboard to CodeBox
 void CtClipboard::_on_received_to_codebox(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
+#ifdef __APPLE__
+    Glib::ustring xml_text = selection_data.get_data_as_string();
+#else
     Glib::ustring xml_text = selection_data.get_text();
+#endif
     if (xml_text.empty())
     {
         spdlog::error("? no clipboard xml text");
@@ -540,7 +548,11 @@ void CtClipboard::_on_received_to_codebox(const Gtk::SelectionData& selection_da
 // From Clipboard to Table
 void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool, CtTable* parentTable)
 {
+#ifdef __APPLE__
+    Glib::ustring xml_text = selection_data.get_data_as_string();
+#else
     Glib::ustring xml_text = selection_data.get_text();
+#endif
     if (xml_text.empty())
     {   
         spdlog::error("? no clipboard xml text");
