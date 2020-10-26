@@ -348,16 +348,18 @@ void CtPrint::print_text(CtMainWin* pCtMainWin, const fs::path& pdf_filepath, co
 // Here we Compute the Lines Positions, the Number of Pages Needed and the Page Breaks
 void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& context, CtPrintData* print_data)
 {
-    auto get_fallback_font = [](Pango::FontDescription font, const std::string& /*fallbackFont*/) {
-        // fallback font doesn't work right on win32 becuase of pango
-        // font.set_family(font.get_family() + "," + fallbackFont);
+    auto get_font_with_fallback_ = [](Pango::FontDescription font, const std::string& fallbackFont) {
+#ifdef _WIN32
+        // explicit fallback is needed on Win32, linux works OK without it
+        font.set_family(font.get_family() + "," + fallbackFont);
+#endif
         return font;
     };
 
     print_data->context = context;
-    _rich_font = get_fallback_font(Pango::FontDescription(_pCtMainWin->get_ct_config()->rtFont), _pCtMainWin->get_ct_config()->fallbackFontFamily);
-    _plain_font = get_fallback_font(Pango::FontDescription(_pCtMainWin->get_ct_config()->ptFont), _pCtMainWin->get_ct_config()->fallbackFontFamily);
-    _code_font = get_fallback_font(Pango::FontDescription(_pCtMainWin->get_ct_config()->codeFont), "monospace");
+    _rich_font = get_font_with_fallback_(Pango::FontDescription(_pCtMainWin->get_ct_config()->rtFont), _pCtMainWin->get_ct_config()->fallbackFontFamily);
+    _plain_font = get_font_with_fallback_(Pango::FontDescription(_pCtMainWin->get_ct_config()->ptFont), _pCtMainWin->get_ct_config()->fallbackFontFamily);
+    _code_font = get_font_with_fallback_(Pango::FontDescription(_pCtMainWin->get_ct_config()->codeFont), "monospace");
     _text_window_width = _pCtMainWin->get_text_view().get_allocation().get_width();
     _table_text_row_height = _rich_font.get_size()/Pango::SCALE;
     _table_line_thickness = 6;
