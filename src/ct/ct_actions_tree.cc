@@ -202,7 +202,7 @@ void CtActions::_node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeDat
     if (node_state)
         _pCtMainWin->load_buffer_from_state(node_state, _pCtMainWin->get_tree_store().to_ct_tree_iter(nodeIter));
     _pCtMainWin->get_tree_store().to_ct_tree_iter(nodeIter).pending_new_db_node();
-    _pCtMainWin->get_tree_store().nodes_sequences_fix(curr_iter ? curr_iter->parent() : Gtk::TreeIter(), false);
+    _pCtMainWin->get_tree_store().nodes_sequences_fix(nodeIter->parent(), false);
     _pCtMainWin->get_tree_store().update_node_aux_icon(nodeIter);
     _pCtMainWin->get_tree_view().set_cursor_safe(nodeIter);
     _pCtMainWin->get_text_view().grab_focus();
