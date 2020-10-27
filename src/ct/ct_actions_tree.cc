@@ -409,7 +409,8 @@ void CtActions::node_delete()
 
     _pCtMainWin->resetPrevTreeIter();
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::ndel);
-    _pCtMainWin->get_tree_store().get_store()->erase(_pCtMainWin->curr_tree_iter());
+
+    Gtk::TreeIter erase_iter = _pCtMainWin->curr_tree_iter();
 
     if (new_iter)
     {
@@ -423,6 +424,8 @@ void CtActions::node_delete()
         _pCtMainWin->update_selected_node_statusbar_info();
         _pCtMainWin->get_text_view().set_sensitive(false);
     }
+
+    _pCtMainWin->get_tree_store().get_store()->erase(erase_iter);
 }
 
 void CtActions::node_toggle_read_only()
