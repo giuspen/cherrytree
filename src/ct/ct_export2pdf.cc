@@ -368,6 +368,8 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
 #ifdef _WIN32
         // explicit fallback is needed on Win32, linux works OK without it
         font.set_family(font.get_family() + "," + fallbackFont);
+#else
+        (void)fallbackFont; // to silence the warning
 #endif
         return font;
     };

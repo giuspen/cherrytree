@@ -596,7 +596,6 @@ void CtMainWin::config_apply()
     }
     _hPaned.property_position() = _pCtConfig->hpanedPos;
 
-
     show_hide_tree_view(_pCtConfig->treeVisible);
     show_hide_win_header(_pCtConfig->showNodeNameHeader);
     _ctWinHeader.lockIcon.hide();
@@ -642,6 +641,7 @@ void CtMainWin::update_theme()
         return " { font-family: \"" + Glib::locale_from_utf8(font.get_family()) + "\",\"" + fallbackFont +  "\""
                     "; font-size: " + std::to_string(font.get_size()/Pango::SCALE) + "pt; } ";
 #else
+        (void)fallbackFont; // to silence the warning
         return std::string{" { font-family: "} + Glib::locale_from_utf8(font.get_family()) +
                  "; font-size: " + std::to_string(font.get_size()/Pango::SCALE) + "pt; } ";
 #endif
@@ -1215,7 +1215,7 @@ bool CtMainWin::file_insert_plain_text(const fs::path& filepath)
             node_content = str::sanitize_bad_symbols(node_content);
             std::string name = filepath.filename().string();
             get_ct_actions()->_node_child_exist_or_create(Gtk::TreeIter(), name);
-            get_text_view().get_buffer()->insert(get_text_view().get_buffer()->end(), node_content);
+            _ctTextview.get_buffer()->insert(_ctTextview.get_buffer()->end(), node_content);
             g_free(text);
             return true;
         }
@@ -1294,7 +1294,7 @@ void CtMainWin::update_selected_node_statusbar_info()
         }
         if (_pCtConfig->wordCountOn)
         {
-            statusbar_text += separator_text + _("Word Count") + _(": ") + std::to_string(CtTextIterUtil::get_words_count(get_text_view().get_buffer()));
+            statusbar_text += separator_text + _("Word Count") + _(": ") + std::to_string(CtTextIterUtil::get_words_count(_ctTextview.get_buffer()));
         }
         if (treeIter.get_node_creating_time() > 0)
         {
@@ -1403,17 +1403,30 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     }
 
     // xml storage doesn't have widgets, so load them seperatrly
-    for (auto widgetState: state->widgetStates)
+    for (auto widgetState : state->widgetStates) {
         widgets.push_back(widgetState->to_widget(this));
-    for (auto widget: widgets)
+    }
+    for (auto widget : widgets) {
         widget->insertInTextBuffer(gsv_buffer);
-    get_tree_store().addAnchoredWidgets(tree_iter, widgets, &get_text_view());
+    }
+    get_tree_store().addAnchoredWidgets(tree_iter, widgets, &_ctTextview);
 
     text_buffer->end_not_undoable_action();
     text_buffer->set_modified(false);
 
-    get_text_view().set_buffer(text_buffer);
-    get_text_view().set_spell_check(curr_tree_iter().get_node_is_rich_text());
+    _uCtTreestore->text_view_apply_textbuffer(tree_iter, &_ctTextview);
+    if (widgets.size() > 0) {
+        // workaround for nodes with anchored widgets very first visualisation glitches
+        while (gtk_events_pending()) gtk_main_iteration();
+        CtTreeIter emptyTreeIter{};
+        _uCtTreestore->text_view_apply_textbuffer(emptyTreeIter, &_ctTextview);
+        while (gtk_events_pending()) gtk_main_iteration();
+        _uCtTreestore->text_view_apply_textbuffer(tree_iter, &_ctTextview);
+    }
+    _ctTextview.grab_focus();
+
+    _ctTextview.set_spell_check(curr_tree_iter().get_node_is_rich_text());
+
     text_buffer->place_cursor(text_buffer->get_iter_at_offset(state->cursor_pos));
     Glib::signal_idle().connect_once([&](){
         auto insert_offset = _ctTextview.get_buffer()->get_insert()->get_iter().get_offset();
@@ -1503,7 +1516,8 @@ void CtMainWin::_on_treeview_cursor_changed()
     if (user_active()) {
         // workaround for nodes with anchored widgets very first visualisation glitches
         if ( _nodesCursorPos.count(nodeId) == 0 and
-             treeIter.get_embedded_pixbufs_tables_codeboxes_fast().size() > 0 ) {
+             treeIter.get_embedded_pixbufs_tables_codeboxes_fast().size() > 0 )
+        {
             while (gtk_events_pending()) gtk_main_iteration();
             CtTreeIter emptyTreeIter{};
             _uCtTreestore->text_view_apply_textbuffer(emptyTreeIter, &_ctTextview);
@@ -1559,7 +1573,7 @@ void CtMainWin::_on_treeview_event_after(GdkEvent* event)
     if (event->type == GDK_BUTTON_PRESS and event->button.button == 1)
     {
         if (_pCtConfig->treeClickFocusText) {
-            get_text_view().grab_focus();
+            _ctTextview.grab_focus();
         }
         if (_pCtConfig->treeClickExpand)
         {
@@ -1804,12 +1818,12 @@ bool CtMainWin::_on_textview_motion_notify_event(GdkEventMotion* event)
     if (curr_tree_iter().get_node_syntax_highlighting() != CtConst::RICH_TEXT_ID
         and curr_tree_iter().get_node_syntax_highlighting() != CtConst::PLAIN_TEXT_ID)
     {
-        get_text_view().get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
+        _ctTextview.get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
         return false;
     }
     int x, y;
-    get_text_view().window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->x, (int)event->y, x, y);
-    get_text_view().cursor_and_tooltips_handler(x, y);
+    _ctTextview.window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, (int)event->x, (int)event->y, x, y);
+    _ctTextview.cursor_and_tooltips_handler(x, y);
     return false;
 }
 
@@ -1819,14 +1833,14 @@ bool CtMainWin::_on_textview_visibility_notify_event(GdkEventVisibility*)
     if (curr_tree_iter().get_node_syntax_highlighting() != CtConst::RICH_TEXT_ID and
         curr_tree_iter().get_node_syntax_highlighting() != CtConst::PLAIN_TEXT_ID)
     {
-        get_text_view().get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
+        _ctTextview.get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
         return false;
     }
     int x,y, bx, by;
     Gdk::ModifierType mask;
-    get_text_view().get_window(Gtk::TEXT_WINDOW_TEXT)->get_pointer(x, y, mask);
-    get_text_view().window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, x, y, bx, by);
-    get_text_view().cursor_and_tooltips_handler(bx, by);
+    _ctTextview.get_window(Gtk::TEXT_WINDOW_TEXT)->get_pointer(x, y, mask);
+    _ctTextview.window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, x, y, bx, by);
+    _ctTextview.cursor_and_tooltips_handler(bx, by);
     return false;
 }
 
@@ -1850,7 +1864,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
     if (event->type != GDK_KEY_PRESS)
         return false;
 
-    auto curr_buffer = get_text_view().get_buffer();
+    auto curr_buffer = _ctTextview.get_buffer();
     if (event->key.state & Gdk::SHIFT_MASK)
     {
         if (event->key.keyval == GDK_KEY_ISO_Left_Tab and !curr_buffer->get_has_selection())
@@ -1859,7 +1873,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             CtListInfo list_info = CtList(this, curr_buffer).get_paragraph_list_info(iter_insert);
             if (list_info and list_info.level)
             {
-                get_text_view().list_change_level(iter_insert, list_info, false);
+                _ctTextview.list_change_level(iter_insert, list_info, false);
                 return true;
             }
         }
@@ -1936,7 +1950,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             CtListInfo list_info = CtList(this, curr_buffer).get_paragraph_list_info(iter_insert);
             if (list_info)
             {
-                get_text_view().list_change_level(iter_insert, list_info, true);
+                _ctTextview.list_change_level(iter_insert, list_info, true);
                 return true;
             }
         }
@@ -1957,7 +1971,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             if (dynamic_cast<CtTable*>(widgets.front()))
             {
                 curr_buffer->place_cursor(iter_sel_end);
-                get_text_view().grab_focus();
+                _ctTextview.grab_focus();
                 return true;
             }
             else
@@ -1985,13 +1999,13 @@ void CtMainWin::_on_textview_event_after(GdkEvent* event)
 {
     if (event->type == GDK_2BUTTON_PRESS and event->button.button == 1)
     {
-        get_text_view().for_event_after_double_click_button1(event);
+        _ctTextview.for_event_after_double_click_button1(event);
     }
     if (event->type == GDK_3BUTTON_PRESS and event->button.button == 1)
     {
         if (curr_tree_iter().get_node_is_rich_text() and _pCtConfig->tripleClickParagraph)
-            if (get_text_view().get_todo_rotate_time() != event->button.time)
-                get_text_view().for_event_after_triple_click_button1(event);
+            if (_ctTextview.get_todo_rotate_time() != event->button.time)
+                _ctTextview.for_event_after_triple_click_button1(event);
     }
     else if (event->type == GDK_BUTTON_PRESS or event->type == GDK_KEY_PRESS)
     {
@@ -2001,11 +2015,11 @@ void CtMainWin::_on_textview_event_after(GdkEvent* event)
         }
         if (event->type == GDK_BUTTON_PRESS)
         {
-            get_text_view().for_event_after_button_press(event);
+            _ctTextview.for_event_after_button_press(event);
         }
         if (event->type == GDK_KEY_PRESS)
         {
-            get_text_view().for_event_after_key_press(event, curr_tree_iter().get_node_syntax_highlighting());
+            _ctTextview.for_event_after_key_press(event, curr_tree_iter().get_node_syntax_highlighting());
         }
     }
     else if (event->type == GDK_KEY_RELEASE)
