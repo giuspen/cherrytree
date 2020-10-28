@@ -1,4 +1,15 @@
 
+0.99.18 (October 28th, 2020)
+  * fix crash when exporting to pdf (#1291)
+  * fix freeze/crash when deleting a node (#1285)
+  * fix garbled special characters on windows (#1065, #1269, #1245)
+  * fix visualisation glitches of anchored widgets at undo/redo time (#1205)
+  * fix order for new created nodes (#1263)
+  * fix PDF export: paragraph format lost (#1268)
+  * fix content missing in PDF export (#1265)
+  * fix paste not working on macOS (#1259)
+  * fix Keepnote import (#1276)
+
 0.99.17 (October 24th, 2020)
   * fix visualisation glitches of nodes with anchored widgets (#1205)
   * fix re-inserting Table Of Contents (#1266)

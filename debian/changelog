@@ -1,11 +1,14 @@
-cherrytree (0.99.17-1) focal; urgency=low
+cherrytree (0.99.18-1) focal; urgency=low
 
-  * fix visualisation glitches of nodes with anchored widgets (#1205)
-  * fix re-inserting Table Of Contents (#1266)
-  * protect preferences dialog tab special characters from bad settings causing crash (#1261)
-  * bundled default gtksourceview styles to ensure availability (#1272)
-  * fix dynamic change of 'show white spaces' and 'highlight current line' via preferences dialog (#1262)
-  * Finnish language updated (Henri Kaustinen)
+  * fix crash when exporting to pdf (#1291)
+  * fix freeze/crash when deleting a node (#1285)
+  * fix garbled special characters on windows (#1065, #1269, #1245)
+  * fix visualisation glitches of anchored widgets at undo/redo time (#1205)
+  * fix order for new created nodes (#1263)
+  * fix PDF export: paragraph format lost (#1268)
+  * fix content missing in PDF export (#1265)
+  * fix paste not working on macOS (#1259)
+  * fix Keepnote import (#1276)
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sat, 24 Oct 2020 21:34:47 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Wed, 28 Oct 2020 21:51:36 +0000
