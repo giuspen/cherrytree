@@ -40,8 +40,7 @@ private:
       <meta name="generator" content="CherryTree">
       <link rel="stylesheet" href="res/styles3.css" type="text/css" />
     </head>
-    <body>
-    )HTML";
+    <body>)HTML"; // after <body> should not be any whitespaces
     const Glib::ustring HTML_FOOTER = R"HTML(</body></html>)HTML";
 
 public:
