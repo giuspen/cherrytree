@@ -138,7 +138,7 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
         if (not _pCtMainWin->user_active()) return;
         for (auto iter : menu->get_children()) menu->remove(*iter);
         _pCtMainWin->get_ct_actions()->curr_codebox_anchor = this;
-        _pCtMainWin->get_ct_menu().build_popup_menu(GTK_WIDGET(menu->gobj()), CtMenu::POPUP_MENU_TYPE::Codebox);
+        _pCtMainWin->get_ct_menu().build_popup_menu(menu, CtMenu::POPUP_MENU_TYPE::Codebox);
     });
     _ctTextview.signal_key_press_event().connect(sigc::mem_fun(*this, &CtCodebox::_on_key_press_event), false);
     _ctTextview.signal_key_release_event().connect([this](GdkEventKey*) { _key_down = false; return false; }, false);
