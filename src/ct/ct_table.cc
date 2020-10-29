@@ -346,7 +346,7 @@ void CtTable::_on_populate_popup_cell(Gtk::Menu* menu, int row, int col)
     const bool first_col = 0 == col;
     const bool last_row = static_cast<int>(_tableMatrix.size() - 1) == row;
     const bool last_col = _tableMatrix.size() and static_cast<int>(_tableMatrix.front().size() - 1) == col;
-    _pCtMainWin->get_ct_menu().build_popup_menu_table_cell(GTK_WIDGET(menu->gobj()), first_row, first_col, last_row, last_col);
+    _pCtMainWin->get_ct_menu().build_popup_menu_table_cell(menu, first_row, first_col, last_row, last_col);
 }
 
 bool CtTable::_on_key_press_event_cell(GdkEventKey* event, int row, int col)
