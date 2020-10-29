@@ -335,14 +335,14 @@ CtMenuAction* CtMenu::find_action(const std::string& id)
     return nullptr;
 }
 
-/*static*/CtMenu::ACCEL_TYPE CtMenu::get_accel_type(const std::string& action_name)
+/*static*/ CtMenu::ACCEL_TYPE CtMenu::get_accel_type(const std::string& action_name)
 {
     if (TREE_VIEW_ACCEL_ACTION.count(action_name) != 0)
         return ACCEL_TYPE::TreeView;
     return ACCEL_TYPE::Menu;
 }
 
-Gtk::MenuItem* CtMenu::find_menu_item(Gtk::MenuBar* menuBar, std::string name)
+/*static*/ Gtk::MenuItem* CtMenu::find_menu_item(Gtk::MenuBar* menuBar, std::string name)
 {
     for (Gtk::Widget* child : menuBar->get_children())
         if (auto menuItem = dynamic_cast<Gtk::MenuItem*>(child))
@@ -362,12 +362,31 @@ Gtk::MenuItem* CtMenu::find_menu_item(Gtk::MenuBar* menuBar, std::string name)
     return nullptr;
 }
 
-Gtk::AccelLabel* CtMenu::get_accel_label(Gtk::MenuItem* item)
+/*static*/ Gtk::AccelLabel* CtMenu::get_accel_label(Gtk::MenuItem* item)
 {
     if (auto box = dynamic_cast<Gtk::Box*>(item->get_child()))
         if (auto label = dynamic_cast<Gtk::AccelLabel*>(box->get_children().back()))
             return label;
     return nullptr;
+}
+
+/*static*/ int CtMenu::calculate_image_shift(Gtk::MenuItem* menuItem)
+{
+    if (menuItem)
+        if (auto box = dynamic_cast<Gtk::Box *>(menuItem->get_child()))
+            if (auto image = dynamic_cast<Gtk::Image *>(box->get_children()[0]))
+            {
+                auto allocation_menuitem = menuItem->get_allocation();
+                auto allocation_image = image->get_allocation();
+
+                int shift = -allocation_image.get_x();
+                if (menuItem->get_direction() == Gtk::TEXT_DIR_RTL) {
+                    shift += (allocation_menuitem.get_width() - allocation_image.get_width());
+                }
+                return shift;
+            }
+    return 0;
+
 }
 
 std::vector<Gtk::Toolbar*> CtMenu::build_toolbars(Gtk::MenuToolButton*& pRecentDocsMenuToolButton)
@@ -678,6 +697,34 @@ Gtk::MenuItem* CtMenu::_add_menu_item(Gtk::MenuShell* pMenuShell, CtMenuAction* 
         box->pack_start(*pLabel, true, true, 0);
 
         pMenuItem->add(*box);
+
+        // to fix image placement in MenuBar /context menu
+        // based on inkscape: src/ui/desktop/menu-icon-shift.cpp
+        // we don't know which MenuItem will be first mapped, so connect  all of them
+        static std::list<sigc::connection>* static_map_connectons = new std::list<sigc::connection>();
+        if (static_map_connectons != nullptr) // if null then the fix was applied
+        {
+            static_map_connectons->push_back(pMenuItem->signal_map().connect([pMenuItem]
+            {
+                spdlog::debug("shift images in MenuBar/context menu");
+                int shift = CtMenu::calculate_image_shift(pMenuItem);
+                if (shift != 0) {
+                    auto provider = Gtk::CssProvider::create();
+                    auto const screen = Gdk::Screen::get_default();
+                    Gtk::StyleContext::add_provider_for_screen(screen, provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+                    if (pMenuItem->get_direction() == Gtk::TEXT_DIR_RTL) {
+                        provider->load_from_data("menuitem box image {margin-right:" + std::to_string(shift) + "px;}");
+                    } else {
+                        provider->load_from_data("menuitem box image {margin-left:" + std::to_string(shift) + "px;}");
+                    }
+                }
+                // we don't need to call this again, so kill all map connections
+                for (auto& connections: *static_map_connectons)
+                    connections.disconnect();
+                delete static_map_connectons;
+                static_map_connectons = nullptr;
+            }));
+        }
     }
     else
     {
