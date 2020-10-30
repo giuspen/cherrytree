@@ -482,8 +482,7 @@ void CtMenu::build_popup_menu(Gtk::Menu* pMenu, POPUP_MENU_TYPE popupMenuType)
     case CtMenu::POPUP_MENU_TYPE::Image: _walk_menu_xml(pMenu, _get_popup_menu_ui_str_image(), nullptr); break;
     case CtMenu::POPUP_MENU_TYPE::Anchor: _walk_menu_xml(pMenu, _get_popup_menu_ui_str_anchor(), nullptr); break;
     case CtMenu::POPUP_MENU_TYPE::EmbFile: _walk_menu_xml(pMenu, _get_popup_menu_ui_str_embfile(), nullptr); break;
-    case CtMenu::POPUP_MENU_TYPE::Link:
-    {
+    case CtMenu::POPUP_MENU_TYPE::Link: {
         _add_menu_separator(pMenu);
         _add_menu_item(pMenu, find_action("apply_tag_link"));
         _add_menu_separator(pMenu);
@@ -491,9 +490,8 @@ void CtMenu::build_popup_menu(Gtk::Menu* pMenu, POPUP_MENU_TYPE popupMenuType)
         _add_menu_item(pMenu, find_action("link_copy"));
         _add_menu_item(pMenu, find_action("link_dismiss"));
         _add_menu_item(pMenu, find_action("link_delete"));
-    }
-    case CtMenu::POPUP_MENU_TYPE::Codebox:
-    {
+    } break;
+    case CtMenu::POPUP_MENU_TYPE::Codebox: {
         _add_menu_separator(pMenu);
         _add_menu_item(pMenu, find_action("cut_plain"));
         _add_menu_item(pMenu, find_action("copy_plain"));
@@ -512,7 +510,7 @@ void CtMenu::build_popup_menu(Gtk::Menu* pMenu, POPUP_MENU_TYPE popupMenuType)
         _add_menu_item(pMenu, find_action("codebox_decrease_width"));
         _add_menu_item(pMenu, find_action("codebox_increase_height"));
         _add_menu_item(pMenu, find_action("codebox_decrease_height"));
-    }
+    } break;
     case CtMenu::POPUP_MENU_TYPE::PopupMenuNum:
     {
     }

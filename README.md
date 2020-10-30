@@ -51,7 +51,7 @@ cpack -G DEB
 
 Install dependencies::
 ```sh
-sudo apt install build-essential libxml2-utils cmake libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev libcpputest-dev gettext libgspell-1-dev libcurl4-openssl-dev
+sudo apt install build-essential libxml2-utils cmake libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev libcpputest-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev
 ```
 Get cherrytree source, compile and run:
 ```sh
@@ -140,7 +140,7 @@ xdg-open /usr/share/doc/libxml++2.6/reference/html/index.html
 
 Install dependencies:
 ```sh
-brew install python3 cmake pkg-config gtksourceviewmm3 gnome-icon-theme gspell libxml++ cpputest
+brew install python3 cmake pkg-config gtksourceviewmm3 gnome-icon-theme gspell libxml++ cpputest curl uchardet
 ```
 
 Get cherrytree source, compile and run:
@@ -175,7 +175,7 @@ Install required packages to build cherrytree:
 # toolchain and cmake
 pacman -S --needed --noconfirm mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake
 # gtkmm3, gtksourceviewmm3, libxml++2.6, sqlite3, gspell, curl
-pacman -S --needed --noconfirm mingw-w64-x86_64-gtkmm3 mingw-w64-x86_64-gtksourceviewmm3 mingw-w64-x86_64-libxml++2.6 mingw-w64-x86_64-sqlite3 mingw-w64-x86_64-gspell mingw-w64-x86_64-curl
+pacman -S --needed --noconfirm mingw-w64-x86_64-gtkmm3 mingw-w64-x86_64-gtksourceviewmm3 mingw-w64-x86_64-libxml++2.6 mingw-w64-x86_64-sqlite3 mingw-w64-x86_64-gspell mingw-w64-x86_64-curl mingw-w64-x86_64-uchardet
 # gettext, git, nano, meld3
 pacman -S --needed --noconfirm mingw-w64-x86_64-gettext git nano mingw-w64-x86_64-meld3
 # cpputest (missing package, we need to build manually)

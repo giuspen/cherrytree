@@ -31,6 +31,8 @@ jobs:
           - gspell
           - libxml++
           - cpputest
+          - curl
+          - uchardet
 
 compiler:
   - gcc
@@ -41,7 +43,7 @@ before_install:
       linux)
         sudo apt install build-essential cmake libgtkmm-3.0-dev xvfb
         sudo apt install libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev
-        sudo apt install libcpputest-dev gettext libgspell-1-dev libcurl4-openssl-dev
+        sudo apt install libcpputest-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev
         ;;
       windows)
         [[ ! -f C:/tools/msys64/msys2_shell.cmd ]] && rm -rf C:/tools/msys64
@@ -61,6 +63,7 @@ before_install:
         $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-sqlite3
         $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-gspell
         $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-curl
+        $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-uchardet
         taskkill //IM gpg-agent.exe //F  # https://travis-ci.community/t/4967
         export PATH=/C/tools/msys64/mingw64/bin:$PATH
         export MAKE=mingw32-make  # so that Autotools can find it

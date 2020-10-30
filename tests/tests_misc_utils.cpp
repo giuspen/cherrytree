@@ -27,10 +27,18 @@
 #include "tests_common.h"
 #include "CppUTest/CommandLineTestRunner.h"
 
-
 TEST_GROUP(MiscUtilsGroup)
 {
 };
+
+TEST(MiscUtilsGroup, files_encodings)
+{
+    auto _get_file_encoding = [](const std::string& inFilepath)->std::string{
+        std::string inString = Glib::file_get_contents(inFilepath);
+        return CtStrUtil::get_encoding(inString.c_str(), inString.size());
+    };
+    STRCMP_EQUAL("UTF-8", _get_file_encoding(UT::testCtdDocPath).c_str());
+}
 
 TEST(MiscUtilsGroup, is_str_true)
 {

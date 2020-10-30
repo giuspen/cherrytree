@@ -196,6 +196,7 @@ Glib::ustring get_accelerator_label(const std::string& accelerator);
 
 std::string get_internal_link_from_http_url(std::string link_url);
 
+std::string get_encoding(const char* const pData, const size_t dataLen);
 
 } // namespace CtStrUtil
 

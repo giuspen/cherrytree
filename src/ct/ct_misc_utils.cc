@@ -32,6 +32,7 @@
 #include <regex>
 #include <glib/gstdio.h> // to get stats
 #include <curl/curl.h>
+#include <uchardet.h>
 #include <spdlog/fmt/bundled/printf.h>
 
 #include <thread> // for parallel_for
@@ -663,6 +664,18 @@ std::string CtStrUtil::get_internal_link_from_http_url(std::string link_url)
     if (str::startswith(link_url, "http"))          return "webs " + link_url;
     else if (str::startswith(link_url, "file://"))  return "file " + Glib::Base64::encode(link_url.substr(7));
     else                                            return "webs http://" + link_url;
+}
+
+std::string CtStrUtil::get_encoding(const char* const pData, const size_t dataLen)
+{
+    std::string retStr;
+    uchardet_t handle = uchardet_new();
+    if (0 == uchardet_handle_data(handle, pData, dataLen)) {
+        uchardet_data_end(handle);
+        retStr = uchardet_get_charset(handle);
+    }
+    uchardet_delete(handle);
+    return retStr;
 }
 
 Glib::ustring CtFontUtil::get_font_family(const Glib::ustring& fontStr)
