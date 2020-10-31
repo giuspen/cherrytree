@@ -394,6 +394,8 @@ public:
     void table_column_delete();
     void table_column_left();
     void table_column_right();
+    void table_column_increase_width();
+    void table_column_decrease_width();
     void table_row_add();
     void table_row_cut();
     void table_row_copy();

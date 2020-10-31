@@ -297,6 +297,8 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{table_cat, "table_column_delete", "ct_edit_delete", _("De_lete Column"), None, _("Delete the Selected Table Column"), sigc::mem_fun(*pActions, &CtActions::table_column_delete)});
     _actions.push_back(CtMenuAction{table_cat, "table_column_left", "ct_go-back", _("Move Column _Left"), None, _("Move the Selected Column Left"), sigc::mem_fun(*pActions, &CtActions::table_column_left)});
     _actions.push_back(CtMenuAction{table_cat, "table_column_right", "ct_go-forward", _("Move Column _Right"), None, _("Move the Selected Column Right"), sigc::mem_fun(*pActions, &CtActions::table_column_right)});
+    _actions.push_back(CtMenuAction{table_cat, "table_column_increase_width", "ct_go-forward", _("Increase Column Width"), KB_CONTROL+"period", _("Increase the Width of the Column"), sigc::mem_fun(*pActions, &CtActions::table_column_increase_width)});
+    _actions.push_back(CtMenuAction{table_cat, "table_column_decrease_width", "ct_go-back", _("Decrease Column Width"), KB_CONTROL+KB_ALT+"period", _("Decrease the Width of the Column"), sigc::mem_fun(*pActions, &CtActions::table_column_decrease_width)});
     _actions.push_back(CtMenuAction{table_cat, "table_row_add", "ct_add", _("_Add Row"), KB_CONTROL+"comma", _("Add a Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_add)});
     _actions.push_back(CtMenuAction{table_cat, "table_row_cut", "ct_edit_cut", _("Cu_t Row"), None, _("Cut a Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_cut)});
     _actions.push_back(CtMenuAction{table_cat, "table_row_copy", "ct_edit_copy", _("_Copy Row"), None, _("Copy a Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_copy)});
@@ -528,6 +530,9 @@ void CtMenu::build_popup_menu_table_cell(Gtk::Menu* pMenu, const bool first_row,
     _add_menu_separator(pMenu);
     if (not first_col) _add_menu_item(pMenu, find_action("table_column_left"));
     if (not last_col) _add_menu_item(pMenu, find_action("table_column_right"));
+    _add_menu_separator(pMenu);
+    _add_menu_item(pMenu, find_action("table_column_increase_width"));
+    _add_menu_item(pMenu, find_action("table_column_decrease_width"));
     _add_menu_separator(pMenu);
     _add_menu_item(pMenu, find_action("table_row_add"));
     _add_menu_item(pMenu, find_action("table_row_cut"));

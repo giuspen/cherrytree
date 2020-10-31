@@ -485,7 +485,6 @@ void CtActions::codebox_save_to_file()
     g_file_set_contents(filepath.c_str(), text.c_str(), (gssize)text.bytes(), nullptr);
 }
 
-// Increase CodeBox Width
 void CtActions::codebox_increase_width()
 {
     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
@@ -502,7 +501,6 @@ void CtActions::codebox_increase_width()
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
 }
 
-// Decrease CodeBox Width
 void CtActions::codebox_decrease_width()
 {
     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
@@ -520,7 +518,6 @@ void CtActions::codebox_decrease_width()
     }
 }
 
-// Increase CodeBox Height
 void CtActions::codebox_increase_height()
 {
     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
@@ -532,7 +529,6 @@ void CtActions::codebox_increase_height()
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
 }
 
-// Decrease CodeBox Height
 void CtActions::codebox_decrease_height()
 {
     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
@@ -588,6 +584,24 @@ void CtActions::table_column_right()
     if (!_is_curr_node_not_read_only_or_error()) return;
     curr_table_anchor->column_move_right(curr_table_anchor->current_column());
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
+}
+
+void CtActions::table_column_increase_width()
+{
+    if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
+    curr_table_anchor->set_col_width(curr_table_anchor->get_col_width() + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
+    curr_table_anchor->get_table_matrix()[curr_table_anchor->current_row()][curr_table_anchor->current_column()]->get_text_view().grab_focus();
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
+}
+
+void CtActions::table_column_decrease_width()
+{
+    if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
+    if (curr_table_anchor->get_col_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX >= CtCodebox::CB_WIDTH_LIMIT_MIN) {
+        curr_table_anchor->set_col_width(curr_table_anchor->get_col_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
+        curr_table_anchor->get_table_matrix()[curr_table_anchor->current_row()][curr_table_anchor->current_column()]->get_text_view().grab_focus();
+        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
+    }
 }
 
 void CtActions::table_row_add()

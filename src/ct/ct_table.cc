@@ -365,6 +365,15 @@ bool CtTable::_on_key_press_event_cell(GdkEventKey* event, int row, int col)
             textView.grab_focus();
             return true;
         }
+        if (event->keyval == GDK_KEY_period) {
+            if (event->state & Gdk::MOD1_MASK) {
+                _pCtMainWin->get_ct_actions()->table_column_decrease_width();
+            }
+            else {
+                _pCtMainWin->get_ct_actions()->table_column_increase_width();
+            }
+            return true;
+        }
         if (event->keyval == GDK_KEY_Up) {
             if (row > 0) {
                 index = (row-1) * _tableMatrix.front().size() + col;
