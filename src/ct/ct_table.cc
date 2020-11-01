@@ -356,7 +356,15 @@ bool CtTable::_on_key_press_event_cell(GdkEventKey* event, int row, int col)
     _currentRow = row;
     _currentColumn = col;
     int index{-1};
-    if (event->state & Gdk::CONTROL_MASK) {
+    if (event->keyval == GDK_KEY_Tab or event->keyval == GDK_KEY_ISO_Left_Tab) {
+        if (event->state & Gdk::SHIFT_MASK) {
+            index = row * _tableMatrix.front().size() + col - 1;
+        }
+        else {
+            index = row * _tableMatrix.front().size() + col + 1;
+        }
+    }
+    else if (event->state & Gdk::CONTROL_MASK) {
         if (event->keyval == GDK_KEY_space) {
             CtTextView& textView = _pCtMainWin->get_text_view();
             Gtk::TextIter text_iter = textView.get_buffer()->get_iter_at_child_anchor(getTextChildAnchor());
