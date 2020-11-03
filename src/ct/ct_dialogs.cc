@@ -737,7 +737,7 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
         return false;
     };
     pMatchesDialog->signal_delete_event().connect(on_allmatchesdialog_delete_event);
-    pButtonHide->signal_clicked().connect([&]()
+    pButtonHide->signal_clicked().connect([pMatchesDialog]()
     {
         pMatchesDialog->close();
     });
