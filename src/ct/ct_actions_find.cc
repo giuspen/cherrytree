@@ -100,7 +100,7 @@ void CtActions::find_in_selected_node()
         CtDialogs::info_dialog(str::format(_("The pattern '%s' was not found"), pattern), *_pCtMainWin);
     else if (all_matches) {
         s_state.match_dialog_title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
-        CtDialogs::match_dialog(s_state.match_dialog_title, *_pCtMainWin, s_state.match_store);
+        CtDialogs::match_dialog(s_state.match_dialog_title, _pCtMainWin, s_state.match_store);
     }
     else if (s_options.search_replace_dict_idialog) {
         _iterated_find_dialog();
@@ -234,7 +234,7 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
     else {
         if (all_matches) {
             s_state.match_dialog_title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
-            CtDialogs::match_dialog(s_state.match_dialog_title, *_pCtMainWin, s_state.match_store);
+            CtDialogs::match_dialog(s_state.match_dialog_title, _pCtMainWin, s_state.match_store);
         } else {
             _pCtMainWin->get_tree_view().set_cursor_safe(_pCtMainWin->curr_tree_iter());
             if (s_options.search_replace_dict_idialog)
@@ -315,7 +315,7 @@ void CtActions::find_a_node()
         CtDialogs::info_dialog(str::format(_("The pattern '%s' was not found"), pattern.c_str()), *_pCtMainWin);
     else if (all_matches) {
         s_state.match_dialog_title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
-        CtDialogs::match_dialog(s_state.match_dialog_title, *_pCtMainWin, s_state.match_store);
+        CtDialogs::match_dialog(s_state.match_dialog_title, _pCtMainWin, s_state.match_store);
     }
     else if (s_options.search_replace_dict_idialog)
         _iterated_find_dialog();
@@ -394,7 +394,7 @@ void CtActions::replace_again()
 // Restore AllMatchesDialog
 void CtActions::find_allmatchesdialog_restore()
 {
-    CtDialogs::match_dialog(s_state.match_dialog_title, *_pCtMainWin, s_state.match_store);
+    CtDialogs::match_dialog(s_state.match_dialog_title, _pCtMainWin, s_state.match_store);
 }
 
 // Opens the Search Dialog
