@@ -202,7 +202,7 @@ std::time_t date_select_dialog(Gtk::Window& parent,
 
 // the All Matches Dialog
 void match_dialog(const Glib::ustring& title,
-                  CtMainWin& ctMainWin,
+                  CtMainWin* ctMainWin,
                   Glib::RefPtr<CtMatchDialogStore>& rModel);
 
 // Insert/Edit Anchor Name

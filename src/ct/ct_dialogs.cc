@@ -651,14 +651,12 @@ std::time_t CtDialogs::date_select_dialog(Gtk::Window& parent,
 }
 
 void CtDialogs::match_dialog(const Glib::ustring& title,
-                             CtMainWin& ctMainWin,
+                             CtMainWin* ctMainWin,
                              Glib::RefPtr<CtMatchDialogStore>& rModel)
 {
-    static Gtk::Dialog* pMatchesDialog;
-    pMatchesDialog = new Gtk::Dialog{title,
-                                     ctMainWin,
-                                     Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
-    pMatchesDialog->set_transient_for(ctMainWin);
+    // cannot use static because dialog can be used in the several windows
+    Gtk::Dialog* pMatchesDialog = new Gtk::Dialog{title, *ctMainWin, Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
+    pMatchesDialog->set_transient_for(*ctMainWin);
     if (rModel->dlg_size[0] > 0)
     {
         pMatchesDialog->set_default_size(rModel->dlg_size[0], rModel->dlg_size[1]);
@@ -669,11 +667,12 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
         pMatchesDialog->set_default_size(700, 350);
         pMatchesDialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
     }
-    CtMenuAction* pAction = ctMainWin.get_ct_menu().find_action("toggle_show_allmatches_dlg");
-    Gtk::Button* pButtonHide = pMatchesDialog->add_button(str::format(_("Hide (Restore with '%s')"), CtStrUtil::get_accelerator_label(pAction->get_shortcut(ctMainWin.get_ct_config()))), Gtk::RESPONSE_CLOSE);
+    CtMenuAction* pAction = ctMainWin->get_ct_menu().find_action("toggle_show_allmatches_dlg");
+    Glib::ustring label = CtStrUtil::get_accelerator_label(pAction->get_shortcut(ctMainWin->get_ct_config()));
+    Gtk::Button* pButtonHide = pMatchesDialog->add_button(str::format(_("Hide (Restore with '%s')"), label), Gtk::RESPONSE_CLOSE);
     pButtonHide->set_image_from_icon_name("ct_close", Gtk::ICON_SIZE_BUTTON);
-    static Gtk::TreeView* pTreeview;
-    pTreeview = Gtk::manage(new Gtk::TreeView(rModel));
+
+    Gtk::TreeView* pTreeview = Gtk::manage(new Gtk::TreeView(rModel));
     pTreeview->append_column(_("Node Name"), rModel->columns.node_name);
     pTreeview->append_column(_("Line"), rModel->columns.line_num);
     pTreeview->append_column(_("Line Content"), rModel->columns.line_content);
@@ -686,7 +685,7 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
     Gtk::Box* pContentArea = pMatchesDialog->get_content_area();
     pContentArea->pack_start(*pScrolledwindowAllmatches);
 
-    static auto select_found_line = [&]()
+    auto select_found_line = [pTreeview, rModel, ctMainWin]()
     {
         Gtk::TreeIter list_iter = pTreeview->get_selection()->get_selected();
         if (!list_iter)
@@ -694,22 +693,22 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
             return;
         }
         gint64 node_id = list_iter->get_value(rModel->columns.node_id);
-        CtTreeIter tree_iter = ctMainWin.get_tree_store().get_node_from_node_id(node_id);
+        CtTreeIter tree_iter = ctMainWin->get_tree_store().get_node_from_node_id(node_id);
         if (!tree_iter)
         {
-            CtDialogs::error_dialog(str::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), node_id), ctMainWin);
+            CtDialogs::error_dialog(str::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), node_id), *ctMainWin);
             rModel->erase(list_iter);
             return;
         }
         // remove previous selection because it can cause freezing in specific cases, see more in issue
-        auto fake_iter = ctMainWin.get_text_view().get_buffer()->get_iter_at_offset(-1);
-        ctMainWin.get_text_view().get_buffer()->place_cursor(fake_iter);
+        auto fake_iter = ctMainWin->get_text_view().get_buffer()->get_iter_at_offset(-1);
+        ctMainWin->get_text_view().get_buffer()->place_cursor(fake_iter);
 
-        ctMainWin.get_tree_view().set_cursor_safe(tree_iter);
-        auto rCurrBuffer = ctMainWin.get_text_view().get_buffer();
+        ctMainWin->get_tree_view().set_cursor_safe(tree_iter);
+        auto rCurrBuffer = ctMainWin->get_text_view().get_buffer();
         rCurrBuffer->select_range(rCurrBuffer->get_iter_at_offset(list_iter->get_value(rModel->columns.start_offset)),
                                   rCurrBuffer->get_iter_at_offset(list_iter->get_value(rModel->columns.end_offset)));
-        ctMainWin.get_text_view().scroll_to(rCurrBuffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
+        ctMainWin->get_text_view().scroll_to(rCurrBuffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
 
         // pump events so UI's not going to freeze (#835)
         while (gdk_events_pending())
@@ -726,14 +725,15 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
         }
     }
 
-    pTreeview->signal_cursor_changed().connect([&]() {
-        select_found_line();
-    });
-    auto on_allmatchesdialog_delete_event = [&](GdkEventAny* /*any_event*/)->bool{
+    pTreeview->signal_cursor_changed().connect(select_found_line);
+
+    auto on_allmatchesdialog_delete_event = [pMatchesDialog, rModel, pTreeview](GdkEventAny* /*any_event*/)->bool{
         pMatchesDialog->get_position(rModel->dlg_pos[0], rModel->dlg_pos[1]);
         pMatchesDialog->get_size(rModel->dlg_size[0], rModel->dlg_size[1]);
         Gtk::TreeIter list_iter = pTreeview->get_selection()->get_selected();
         rModel->saved_path = list_iter ? pTreeview->get_model()->get_path(list_iter).to_string() : "";
+
+        delete pMatchesDialog; // should delete ourselves
         return false;
     };
     pMatchesDialog->signal_delete_event().connect(on_allmatchesdialog_delete_event);
