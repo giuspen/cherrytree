@@ -676,10 +676,10 @@ void CtActions::table_rows_sort_ascending()
 void CtActions::table_edit_properties()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
-    _pCtMainWin->get_ct_config()->tableColWidth = curr_table_anchor->get_col_width();
+    _pCtMainWin->get_ct_config()->tableColWidthDefault = curr_table_anchor->get_col_width_default();
     if (CtDialogs::TableHandleResp::Cancel == CtDialogs::table_handle_dialog(_pCtMainWin, _("Edit Table Properties"), false/*is_insert*/))
         return;
-    curr_table_anchor->set_col_width(_pCtMainWin->get_ct_config()->tableColWidth);
+    curr_table_anchor->set_col_width_default(_pCtMainWin->get_ct_config()->tableColWidthDefault);
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true /*new_machine_state*/);
 }
 

@@ -109,7 +109,8 @@ public:
     CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) override;
 
 public:
-    int colWidth;
+    int colWidthDefault;
+    CtTableColWidths colWidths;
     std::vector<std::vector<Glib::ustring>> rows;
 };
 

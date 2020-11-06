@@ -2283,11 +2283,11 @@ CtDialogs::TableHandleResp CtDialogs::table_handle_dialog(CtMainWin* pCtMainWin,
     auto spinbutton_columns = Gtk::SpinButton(adj_columns);
     spinbutton_columns.set_value(pCtMainWin->get_ct_config()->tableColumns);
 
-    auto label_col_width = Gtk::Label(_("Width"));
+    auto label_col_width = Gtk::Label(_("Default Width"));
     label_col_width.set_halign(Gtk::Align::ALIGN_START);
-    auto adj_col_width = Gtk::Adjustment::create(pCtMainWin->get_ct_config()->tableColWidth, 1, 10000, 1);
+    auto adj_col_width = Gtk::Adjustment::create(pCtMainWin->get_ct_config()->tableColWidthDefault, 1, 10000, 1);
     auto spinbutton_col_width = Gtk::SpinButton(adj_col_width);
-    spinbutton_col_width.set_value(pCtMainWin->get_ct_config()->tableColWidth);
+    spinbutton_col_width.set_value(pCtMainWin->get_ct_config()->tableColWidthDefault);
 
     auto label_size = Gtk::Label(std::string("<b>")+_("Table Size")+"</b>");
     label_size.set_use_markup();
@@ -2343,7 +2343,7 @@ CtDialogs::TableHandleResp CtDialogs::table_handle_dialog(CtMainWin* pCtMainWin,
     {
         pCtMainWin->get_ct_config()->tableRows = spinbutton_rows.get_value_as_int();
         pCtMainWin->get_ct_config()->tableColumns = spinbutton_columns.get_value_as_int();
-        pCtMainWin->get_ct_config()->tableColWidth = spinbutton_col_width.get_value_as_int();
+        pCtMainWin->get_ct_config()->tableColWidthDefault = spinbutton_col_width.get_value_as_int();
         if (checkbutton_table_ins_from_file.get_active())
             return TableHandleResp::OkFromFile;
         return TableHandleResp::Ok;

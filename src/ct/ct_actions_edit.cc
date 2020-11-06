@@ -88,7 +88,7 @@ void CtActions::table_handle()
     CtDialogs::TableHandleResp res = CtDialogs::table_handle_dialog(_pCtMainWin, _("Insert Table"), true/*is_insert*/);
     if (res == CtDialogs::TableHandleResp::Cancel) return;
 
-    const int col_width = _pCtMainWin->get_ct_config()->tableColWidth;
+    const int col_width = _pCtMainWin->get_ct_config()->tableColWidthDefault;
     std::list<std::vector<std::string>> rows;
     if (res == CtDialogs::TableHandleResp::Ok) {
         std::vector<std::string> empty_row(_pCtMainWin->get_ct_config()->tableColumns, "");
@@ -120,7 +120,7 @@ void CtActions::table_handle()
                 tableMatrix.back().push_back(new CtTableCell(_pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID));
         }
 
-        pCtTable = new CtTable(_pCtMainWin, tableMatrix, col_width, _curr_buffer()->get_insert()->get_iter().get_offset(), "");
+        pCtTable = new CtTable(_pCtMainWin, tableMatrix, col_width, _curr_buffer()->get_insert()->get_iter().get_offset(), "", CtTableColWidths{});
     }
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
     pCtTable->insertInTextBuffer(gsv_buffer);

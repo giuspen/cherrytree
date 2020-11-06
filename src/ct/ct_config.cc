@@ -286,7 +286,7 @@ void CtConfig::_populate_keyfile_from_data()
     _currentGroup = "table";
     _uKeyFile->set_integer(_currentGroup, "table_rows", tableRows);
     _uKeyFile->set_integer(_currentGroup, "table_columns", tableColumns);
-    _uKeyFile->set_integer(_currentGroup, "table_col_width", tableColWidth);
+    _uKeyFile->set_integer(_currentGroup, "table_col_width", tableColWidthDefault);
 
     // [fonts]
     _currentGroup = "fonts";
@@ -563,7 +563,7 @@ void CtConfig::_populate_data_from_keyfile()
     _currentGroup = "table";
     _populate_int_from_keyfile("table_rows", &tableRows);
     _populate_int_from_keyfile("table_columns", &tableColumns);
-    _populate_int_from_keyfile("table_col_width", &tableColWidth);
+    _populate_int_from_keyfile("table_col_width", &tableColWidthDefault);
 
     // [fonts]
     _currentGroup = "fonts";

@@ -86,7 +86,11 @@ struct CtRecentDocRestore
     int           cursor_pos{0};
 };
 
-typedef std::unordered_map<std::string, CtRecentDocRestore>   CtRecentDocsRestore;
+typedef std::unordered_map<std::string, CtRecentDocRestore> CtRecentDocsRestore;
+class CtTableCell;
+typedef std::vector<CtTableCell*>   CtTableRow;
+typedef std::vector<CtTableRow>     CtTableMatrix;
+typedef std::vector<int>            CtTableColWidths;
 
 template<class TYPE>
 class CtMaxSizedList : public std::list<TYPE>

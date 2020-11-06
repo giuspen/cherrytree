@@ -449,7 +449,13 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
                     STRCMP_EQUAL(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
                     auto pTable = dynamic_cast<CtTable*>(pAnchWidget);
                     CHECK(pTable);
-                    CHECK_EQUAL(60, pTable->get_col_width());
+                    CHECK_EQUAL(60, pTable->get_col_width_default());
+                    const CtTableColWidths expected_column_widths{105, 75};
+                    const CtTableColWidths actual_column_widths = pTable->get_col_widths();
+                    CHECK_EQUAL(expected_column_widths.size(), actual_column_widths.size());
+                    for (size_t i = 0; i < expected_column_widths.size(); ++i) {
+                        CHECK_EQUAL(expected_column_widths.at(i), actual_column_widths.at(i));
+                    }
                     const CtTableMatrix& tableMatrix = pTable->get_table_matrix();
                     // three rows
                     CHECK_EQUAL(3, tableMatrix.size());

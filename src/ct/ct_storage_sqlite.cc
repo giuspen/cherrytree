@@ -556,12 +556,13 @@ void CtStorageSqlite::_table_from_db(const gint64& nodeId, std::list<CtAnchoredW
         if (justification.empty()) justification = CtConst::TAG_PROP_VAL_LEFT;
 
         const char* textContent = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3));
-        const int colWidth = sqlite3_column_int64(stmt, 5);
+        const int colWidthDefault = sqlite3_column_int64(stmt, 5);
 
         CtTableMatrix tableMatrix;
-        if (CtStorageXmlHelper(_pCtMainWin).populate_table_matrix(tableMatrix, textContent))
+        CtTableColWidths tableColWidths;
+        if (CtStorageXmlHelper(_pCtMainWin).populate_table_matrix(tableMatrix, textContent, tableColWidths))
         {
-            anchoredWidgets.push_back(new CtTable(_pCtMainWin, tableMatrix, colWidth, charOffset, justification));
+            anchoredWidgets.push_back(new CtTable(_pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, tableColWidths));
         }
         else
         {

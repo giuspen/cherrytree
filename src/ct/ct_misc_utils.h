@@ -144,6 +144,7 @@ gint64 gint64_from_gstring(const gchar* inGstring, bool hexPrefix=false);
 
 guint32 guint32_from_hex_chars(const char* hexChars, guint8 numChars);
 
+std::vector<int> gstring_split_to_int(const gchar* inStr, const gchar* delimiter, gint max_tokens=-1);
 std::vector<gint64> gstring_split_to_int64(const gchar* inStr, const gchar* delimiter, gint max_tokens=-1);
 
 // returned pointer must be freed with g_strfreev()
@@ -333,9 +334,10 @@ std::string join(const std::vector<STRING>& cnt, const std::string& delimer)
     return ss.str();
 }
 
-template<class String, class Vector>
-void join_numbers(const Vector& in_numbers_vec, String& outString, const gchar* delimiter=" ")
+template<class Vector>
+std::string join_numbers(const Vector& in_numbers_vec, const gchar* delimiter=" ")
 {
+    std::string outString;
     bool firstIteration{true};
     for(const auto& element : in_numbers_vec)
     {
@@ -343,6 +345,7 @@ void join_numbers(const Vector& in_numbers_vec, String& outString, const gchar* 
         else firstIteration = false;
         outString += std::to_string(element);
     }
+    return outString;
 }
 
 Glib::ustring repeat(const Glib::ustring& input, int num);

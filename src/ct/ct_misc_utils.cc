@@ -541,12 +541,22 @@ guint32 CtStrUtil::guint32_from_hex_chars(const char* hexChars, guint8 numChars)
     return (guint32)strtoul(hexstring, nullptr, 16);
 }
 
+std::vector<int> CtStrUtil::gstring_split_to_int(const gchar* inStr, const gchar* delimiter, gint max_tokens)
+{
+    std::vector<int> retVec;
+    gchar** arrayOfStrings = g_strsplit(inStr, delimiter, max_tokens);
+    for (gchar** ptr = arrayOfStrings; *ptr; ptr++) {
+        int curr_int = gint64_from_gstring(*ptr);
+        retVec.push_back(curr_int);
+    }
+    g_strfreev(arrayOfStrings);
+    return retVec;
+}
 std::vector<gint64> CtStrUtil::gstring_split_to_int64(const gchar* inStr, const gchar* delimiter, gint max_tokens)
 {
     std::vector<gint64> retVec;
     gchar** arrayOfStrings = g_strsplit(inStr, delimiter, max_tokens);
-    for (gchar** ptr = arrayOfStrings; *ptr; ptr++)
-    {
+    for (gchar** ptr = arrayOfStrings; *ptr; ptr++) {
         gint64 curr_int = gint64_from_gstring(*ptr);
         retVec.push_back(curr_int);
     }

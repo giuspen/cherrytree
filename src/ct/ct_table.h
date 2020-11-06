@@ -38,16 +38,15 @@ public:
     virtual ~CtTableCell();
 };
 
-typedef std::vector<CtTableCell*> CtTableRow;
-typedef std::vector<CtTableRow> CtTableMatrix;
 class CtTable : public CtAnchoredWidget
 {
 public:
     CtTable(CtMainWin* pCtMainWin,
-            CtTableMatrix tableMatrix,
-            const int colWidth,
+            const CtTableMatrix& tableMatrix,
+            const int colWidthDefault,
             const int charOffset,
-            const std::string& justification);
+            const std::string& justification,
+            const CtTableColWidths& colWidths);
     virtual ~CtTable();
 
     /**
@@ -77,7 +76,12 @@ public:
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
     const CtTableMatrix& get_table_matrix() const { return _tableMatrix; }
-    int get_col_width() const { return _colWidth; }
+    const CtTableColWidths& get_col_widths() const { return _colWidths; }
+    int get_col_width_default() const { return _colWidthDefault; }
+    int get_col_width(const std::optional<size_t> optColIdx = std::nullopt) const {
+        const size_t colIdx = optColIdx.value_or(_currentColumn);
+        return colIdx < _colWidths.size() ? _colWidths.at(colIdx) : _colWidthDefault;
+    }
 
 public:
     int current_row() { return _currentRow < (int)_tableMatrix.size() ? _currentRow : 0; }
@@ -94,7 +98,8 @@ public:
     bool row_sort_asc();
     bool row_sort_desc();
 
-    void set_col_width(const int col_width);
+    void set_col_width_default(const int colWidthDefault);
+    void set_col_width(const int colWidth, std::optional<size_t> optColIdx = std::nullopt);
 
 private:
     void _setup_new_matrix(const CtTableMatrix& tableMatrix, bool apply_style = true);
@@ -110,9 +115,10 @@ private:
     bool _on_key_press_event_cell(GdkEventKey* event, int row, int co);
 
 protected:
-    CtTableMatrix _tableMatrix;
-    Gtk::Grid     _grid;
-    int           _colWidth;
-    int           _currentRow{0};
-    int           _currentColumn{0};
+    CtTableMatrix    _tableMatrix;
+    Gtk::Grid        _grid;
+    int              _colWidthDefault;
+    CtTableColWidths _colWidths;
+    int              _currentRow{0};
+    int              _currentColumn{0};
 };

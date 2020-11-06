@@ -100,10 +100,8 @@ bool CtStorageXml::save_treestore(const fs::path& file_path,
         if ( CtExporting::NONE == exporting or
              CtExporting::ALL_TREE == exporting ) {
             // save bookmarks
-            Glib::ustring rejoined;
-            str::join_numbers(_pCtMainWin->get_tree_store().bookmarks_get(), rejoined, ",");
             xmlpp::Element* p_bookmarks_node = xml_doc.get_root_node()->add_child("bookmarks");
-            p_bookmarks_node->set_attribute("list", rejoined);
+            p_bookmarks_node->set_attribute("list", str::join_numbers(_pCtMainWin->get_tree_store().bookmarks_get(), ","));
         }
 
         CtStorageCache storage_cache;
@@ -369,19 +367,21 @@ Glib::RefPtr<Gsv::Buffer> CtStorageXmlHelper::create_buffer_no_widgets(const Gli
     return Glib::RefPtr<Gsv::Buffer>();
 }
 
-bool CtStorageXmlHelper::populate_table_matrix(std::vector<std::vector<CtTableCell*>>& tableMatrix, const char* xml_content)
+bool CtStorageXmlHelper::populate_table_matrix(CtTableMatrix& tableMatrix,
+                                               const char* xml_content,
+                                               CtTableColWidths& tableColWidths)
 {
     xmlpp::DomParser parser;
     parser.parse_memory(xml_content);
     if (parser.get_document() && parser.get_document()->get_root_node())
     {
-        populate_table_matrix(tableMatrix, parser.get_document()->get_root_node());
+        populate_table_matrix(tableMatrix, parser.get_document()->get_root_node(), tableColWidths);
         return true;
     }
     return false;
 }
 
-void CtStorageXmlHelper::populate_table_matrix(std::vector<std::vector<CtTableCell*>>& tableMatrix, xmlpp::Element* xml_element)
+void CtStorageXmlHelper::populate_table_matrix(CtTableMatrix& tableMatrix, xmlpp::Element* xml_element, CtTableColWidths& tableColWidths)
 {
     for (xmlpp::Node* pNodeRow : xml_element->get_children("row"))
     {
@@ -393,11 +393,11 @@ void CtStorageXmlHelper::populate_table_matrix(std::vector<std::vector<CtTableCe
             tableMatrix.back().push_back(new CtTableCell(_pCtMainWin, textContent, CtConst::TABLE_CELL_TEXT_ID));
         }
     }
-    bool head_back = xml_element->get_attribute_value("head_front").empty();
-    if (head_back)
-    {
-        tableMatrix.insert(tableMatrix.begin(), tableMatrix.back());
-        tableMatrix.pop_back();
+    tableMatrix.insert(tableMatrix.begin(), tableMatrix.back());
+    tableMatrix.pop_back();
+    auto colWidthsStr = xml_element->get_attribute_value("col_widths");
+    if (not colWidthsStr.empty()) {
+        tableColWidths = CtStrUtil::gstring_split_to_int(colWidthsStr.c_str(), ",");
     }
 }
 
@@ -501,10 +501,11 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_codebox_from_xml(xmlpp::Element* x
 
 CtAnchoredWidget* CtStorageXmlHelper::_create_table_from_xml(xmlpp::Element* xml_element, int charOffset, const Glib::ustring& justification)
 {
-    const int colWidth = std::stoi(xml_element->get_attribute_value("col_max"));
+    const int colWidthDefault = std::stoi(xml_element->get_attribute_value("col_max"));
 
     CtTableMatrix tableMatrix;
-    populate_table_matrix(tableMatrix, xml_element);
+    CtTableColWidths tableColWidths;
+    populate_table_matrix(tableMatrix, xml_element, tableColWidths);
 
-    return new CtTable(_pCtMainWin, tableMatrix, colWidth, charOffset, justification);
+    return new CtTable(_pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, tableColWidths);
 }

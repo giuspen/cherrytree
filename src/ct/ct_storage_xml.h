@@ -65,13 +65,13 @@ public:
                                                       const std::string& syntax,
                                                       std::list<CtAnchoredWidget*>& widgets) const override;
 private:
-    Gtk::TreeIter  _node_from_xml(xmlpp::Element* xml_element, gint64 sequence, Gtk::TreeIter parent_iter, gint64 new_id);
-    void           _nodes_to_xml(CtTreeIter* ct_tree_iter,
-                                 xmlpp::Element* p_node_parent,
-                                 CtStorageCache* storage_cache,
-                                 const CtExporting exporting = CtExporting::NONE,
-                                 const int start_offset = 0,
-                                 const int end_offset =-1);
+    Gtk::TreeIter _node_from_xml(xmlpp::Element* xml_element, gint64 sequence, Gtk::TreeIter parent_iter, gint64 new_id);
+    void _nodes_to_xml(CtTreeIter* ct_tree_iter,
+                       xmlpp::Element* p_node_parent,
+                       CtStorageCache* storage_cache,
+                       const CtExporting exporting = CtExporting::NONE,
+                       const int start_offset = 0,
+                       const int end_offset =-1);
     std::unique_ptr<xmlpp::DomParser> _get_parser(const fs::path& file_path);
 
 private:
@@ -85,23 +85,30 @@ class CtStorageXmlHelper
 public:
     CtStorageXmlHelper(CtMainWin* pCtMainWin);
 
-    xmlpp::Element*           node_to_xml(CtTreeIter* ct_tree_iter,
-                                          xmlpp::Element* p_node_parent,
-                                          bool with_widgets,
-                                          CtStorageCache* storage_cache,
-                                          const int start_offset = 0,
-                                          const int end_offset = -1);
+    xmlpp::Element* node_to_xml(CtTreeIter* ct_tree_iter,
+                                xmlpp::Element* p_node_parent,
+                                bool with_widgets,
+                                CtStorageCache* storage_cache,
+                                const int start_offset = 0,
+                                const int end_offset = -1);
 
-    Glib::RefPtr<Gsv::Buffer> create_buffer_and_widgets_from_xml(xmlpp::Element* parent_xml_element, const Glib::ustring& syntax,
-                                                          std::list<CtAnchoredWidget*>& widgets, Gtk::TextIter* text_insert_pos, int force_offset);
+    Glib::RefPtr<Gsv::Buffer> create_buffer_and_widgets_from_xml(
+        xmlpp::Element* parent_xml_element,
+        const Glib::ustring& syntax,
+        std::list<CtAnchoredWidget*>& widgets,
+        Gtk::TextIter* text_insert_pos,
+        int force_offset);
 
-    void                      get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gsv::Buffer> buffer, xmlpp::Node* slot_node,
-                                                       std::list<CtAnchoredWidget*>& widgets, Gtk::TextIter* text_insert_pos, int force_offset);
+    void get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gsv::Buffer> buffer,
+                                           xmlpp::Node* slot_node,
+                                           std::list<CtAnchoredWidget*>& widgets,
+                                           Gtk::TextIter* text_insert_pos,
+                                           int force_offset);
 
     Glib::RefPtr<Gsv::Buffer> create_buffer_no_widgets(const Glib::ustring& syntax, const char* xml_content);
 
-    bool populate_table_matrix(std::vector<std::vector<CtTableCell*>>& tableMatrix, const char* xml_content);
-    void populate_table_matrix(std::vector<std::vector<CtTableCell*>>& tableMatrix, xmlpp::Element* xml_element);
+    bool populate_table_matrix(CtTableMatrix& tableMatrix, const char* xml_content, CtTableColWidths& tableColWidths);
+    void populate_table_matrix(CtTableMatrix& tableMatrix, xmlpp::Element* xml_element, CtTableColWidths& tableColWidths);
 
     static void save_buffer_no_widgets_to_xml(xmlpp::Element* p_node_parent, Glib::RefPtr<Gtk::TextBuffer> buffer,
                                               int start_offset, int end_offset, const gchar change_case);

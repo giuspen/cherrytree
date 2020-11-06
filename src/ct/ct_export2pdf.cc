@@ -669,14 +669,14 @@ void CtPrint::_process_pango_table(CtPrintData *print_data, CtTable *table, int 
         // use table is length is ok
         std::vector<double> rows_h, cols_w;
         auto table_layouts = _table_get_layouts(table, first_row, -1, context);
-        _table_get_grid(table_layouts, table->get_col_width(), rows_h, cols_w);
+        _table_get_grid(table_layouts, table->get_col_width_default(), rows_h, cols_w);
         double table_height = _table_get_width_height(rows_h);
         if (pages.last_line().test_element_height(table_height + BOX_OFFSET, _page_height))
         {
             if (pages.last_line().cur_x == 0)
                 pages.last_line().cur_x = indent;
             pages.last_line().set_height(table_height + BOX_OFFSET);
-            pages.last_line().elements.push_back(std::make_shared<CtPageTable>(pages.last_line().cur_x, table_layouts, table->get_col_width()));
+            pages.last_line().elements.push_back(std::make_shared<CtPageTable>(pages.last_line().cur_x, table_layouts, table->get_col_width_default()));
             pages.last_line().cur_x += _table_get_width_height(cols_w);
             return;
         }
@@ -690,12 +690,12 @@ void CtPrint::_process_pango_table(CtPrintData *print_data, CtTable *table, int 
         else
         {
             auto split_layouts = _table_get_layouts(table, first_row, split_row, context);
-            _table_get_grid(split_layouts, table->get_col_width(), rows_h, cols_w);
+            _table_get_grid(split_layouts, table->get_col_width_default(), rows_h, cols_w);
             double table_height = _table_get_width_height(rows_h);
             if (pages.last_line().cur_x == 0)
                 pages.last_line().cur_x = indent;
             pages.last_line().set_height(table_height + BOX_OFFSET);
-            pages.last_line().elements.push_back(std::make_shared<CtPageTable>(pages.last_line().cur_x, split_layouts, table->get_col_width()));
+            pages.last_line().elements.push_back(std::make_shared<CtPageTable>(pages.last_line().cur_x, split_layouts, table->get_col_width_default()));
             pages.new_page();
 
             // go to to check the second part
@@ -781,7 +781,7 @@ CtPageTable::TableLayouts CtPrint::_table_get_layouts(CtTable* table, const int 
             if (row == 0) text = "<b>" + text + "</b>";
             auto cell_layout = context->create_pango_layout();
             cell_layout->set_font_description(_rich_font);
-            cell_layout->set_width(int(table->get_col_width() * Pango::SCALE));
+            cell_layout->set_width(int(table->get_col_width_default() * Pango::SCALE));
             cell_layout->set_wrap(Pango::WRAP_WORD_CHAR);
             cell_layout->set_markup(text);
             layouts.push_back(cell_layout);
@@ -828,7 +828,7 @@ int CtPrint::_table_split_content(CtTable* table, const int start_row, const int
     {
         std::vector<double> rows_h, cols_w;
         auto table_layouts = _table_get_layouts(table, start_row, last_row, context);
-        _table_get_grid(table_layouts, table->get_col_width(), rows_h, cols_w);
+        _table_get_grid(table_layouts, table->get_col_width_default(), rows_h, cols_w);
         double table_height = _table_get_width_height(rows_h);
         if (table_height > check_height)
         {

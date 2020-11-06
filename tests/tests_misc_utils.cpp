@@ -104,6 +104,12 @@ TEST(MiscUtilsGroup, str__split)
     }
 }
 
+TEST(MiscUtilsGroup, gstring_split_to_int)
+{
+    std::vector<int> splittedVec = CtStrUtil::gstring_split_to_int("-1, 1,0, 1000", ",");
+    CHECK(std::vector<int>({-1, 1, 0, 1000}) == splittedVec);
+}
+
 TEST(MiscUtilsGroup, gstring_split_to_int64)
 {
     std::vector<gint64> splittedVec = CtStrUtil::gstring_split_to_int64("-1, 1,0, 1000", ",");
@@ -279,16 +285,7 @@ TEST(MiscUtilsGroup, str__join)
 TEST(MiscUtilsGroup, str__join_numbers)
 {
     std::vector<gint64> vecToJoin({-1, 1, 0, 1000});
-    {
-        Glib::ustring rejoined;
-        str::join_numbers(vecToJoin, rejoined, ",");
-        STRCMP_EQUAL("-1,1,0,1000", rejoined.c_str());
-    }
-    {
-        std::string rejoined;
-        str::join_numbers(vecToJoin, rejoined);
-        STRCMP_EQUAL("-1 1 0 1000", rejoined.c_str());
-    }
+    STRCMP_EQUAL("-1,1,0,1000", str::join_numbers(vecToJoin, ",").c_str());
 }
 
 TEST(MiscUtilsGroup, str__swapcase)

@@ -571,7 +571,11 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
     if (parentTable)
     {
         CtTableMatrix tableMatrix;
-        CtStorageXmlHelper(_pCtMainWin).populate_table_matrix(tableMatrix, static_cast<xmlpp::Element*>(doc->get_root_node()->get_first_child("table")));
+        CtTableColWidths tableColWidths;
+        CtStorageXmlHelper(_pCtMainWin).populate_table_matrix(
+            tableMatrix,
+            static_cast<xmlpp::Element*>(doc->get_root_node()->get_first_child("table")),
+            tableColWidths);
 
         int col_num = (int)parentTable->get_table_matrix()[0].size();
         int insert_after = parentTable->current_row() - 1;

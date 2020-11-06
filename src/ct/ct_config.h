@@ -148,7 +148,7 @@ public:
     // [table]
     int                                         tableRows{3};
     int                                         tableColumns{3};
-    int                                         tableColWidth{60};
+    int                                         tableColWidthDefault{60};
 
     // [fonts]
     Glib::ustring                               rtFont{"Sans 9"};
