@@ -122,6 +122,8 @@ CtAnchoredWidgetState_Table::CtAnchoredWidgetState_Table(CtTable* table)
  : CtAnchoredWidgetState{table->getOffset(), table->getJustification()}
  , colWidthDefault{table->get_col_width_default()}
  , colWidths{table->get_col_widths()}
+ , currRow{table->current_row()}
+ , currCol{table->current_column()}
 {
     for (auto& row: table->get_table_matrix())
     {
@@ -138,6 +140,8 @@ bool CtAnchoredWidgetState_Table::equal(std::shared_ptr<CtAnchoredWidgetState> s
            justification == other_state->justification and
            colWidthDefault == other_state->colWidthDefault and
            colWidths == other_state->colWidths and
+           currRow == other_state->currRow and
+           currCol == other_state->currCol and
            rows == other_state->rows;
 }
 
@@ -151,7 +155,7 @@ CtAnchoredWidget* CtAnchoredWidgetState_Table::to_widget(CtMainWin* pCtMainWin)
             tableMatrix.back().push_back(new CtTableCell(pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID));
         }
     }
-    return new CtTable(pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, colWidths);
+    return new CtTable(pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, colWidths, currRow, currCol);
 }
 
 CtStateMachine::CtStateMachine(CtMainWin *pCtMainWin) : _pCtMainWin(pCtMainWin)

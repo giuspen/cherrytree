@@ -1428,6 +1428,7 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     _ctTextview.set_spell_check(curr_tree_iter().get_node_is_rich_text());
 
     text_buffer->place_cursor(text_buffer->get_iter_at_offset(state->cursor_pos));
+    (void)_try_move_focus_to_anchored_widget_if_on_it();
     Glib::signal_idle().connect_once([&](){
         auto insert_offset = _ctTextview.get_buffer()->get_insert()->get_iter().get_offset();
         if (_ctTextview.place_cursor_onscreen()) { // scroll if only cursor wasn't visible
@@ -1859,6 +1860,23 @@ void CtMainWin::_on_textview_size_allocate(Gtk::Allocation& allocation)
     }
 }
 
+bool CtMainWin::_try_move_focus_to_anchored_widget_if_on_it()
+{
+    auto iter_insert = _ctTextview.get_buffer()->get_insert()->get_iter();
+    auto widgets = curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(iter_insert.get_offset(), iter_insert.get_offset());
+    if (not widgets.empty()) {
+        if (CtCodebox* pCodebox = dynamic_cast<CtCodebox*>(widgets.front())) {
+            pCodebox->get_text_view().grab_focus();
+            return true;
+        }
+        if (CtTable* pTable = dynamic_cast<CtTable*>(widgets.front())) {
+            pTable->get_table_matrix().at(pTable->current_row()).at(pTable->current_column())->get_text_view().grab_focus();
+            return true;
+        }
+    }
+    return false;
+}
+
 bool CtMainWin::_on_textview_event(GdkEvent* event)
 {
     if (event->type != GDK_KEY_PRESS)
@@ -1880,23 +1898,10 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
     }
     else if (event->key.state & Gdk::CONTROL_MASK and event->key.keyval == GDK_KEY_space)
     {
-        auto iter_insert = curr_buffer->get_insert()->get_iter();
-        auto widgets = curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(iter_insert.get_offset(), iter_insert.get_offset());
-        if (not widgets.empty()) {
-            if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widgets.front()))
-            {
-                codebox->get_text_view().grab_focus();
-                return true;
-            }
-            if (CtTable* table = dynamic_cast<CtTable*>(widgets.front()))
-            {
-                const CtTableMatrix& tableMatrix = table->get_table_matrix();
-                if (tableMatrix.size() and tableMatrix.front().size()) {
-                    tableMatrix.front().front()->get_text_view().grab_focus();
-                }
-                return true;
-            }
+        if (_try_move_focus_to_anchored_widget_if_on_it()) {
+            return true;
         }
+        auto iter_insert = _ctTextview.get_buffer()->get_insert()->get_iter();
         CtListInfo list_info = CtList(this, curr_buffer).get_paragraph_list_info(iter_insert);
         if (list_info and list_info.type == CtListType::Todo)
             if (_uCtActions->_is_curr_node_not_read_only_or_error())

@@ -45,10 +45,14 @@ CtTable::CtTable(CtMainWin* pCtMainWin,
                  const int colWidthDefault,
                  const int charOffset,
                  const std::string& justification,
-                 const CtTableColWidths& colWidths)
+                 const CtTableColWidths& colWidths,
+                 const int currRow,
+                 const int currCol)
  : CtAnchoredWidget{pCtMainWin, charOffset, justification}
  , _colWidthDefault{colWidthDefault}
  , _colWidths{colWidths}
+ , _currentRow{currRow}
+ , _currentColumn{currCol}
 {
     _setup_new_matrix(tableMatrix, false/*apply style when node shows*/);
 

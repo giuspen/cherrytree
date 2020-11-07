@@ -46,7 +46,9 @@ public:
             const int colWidthDefault,
             const int charOffset,
             const std::string& justification,
-            const CtTableColWidths& colWidths);
+            const CtTableColWidths& colWidths,
+            const int currRow = 0,
+            const int currCol = 0);
     virtual ~CtTable();
 
     /**
