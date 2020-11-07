@@ -99,7 +99,13 @@ CtAnchoredWidget::CtAnchoredWidget(CtMainWin* pCtMainWin, const int charOffset, 
    _justification(justification)
 {
     _frame.set_shadow_type(Gtk::ShadowType::SHADOW_NONE);
-    signal_button_press_event().connect([](GdkEventButton* /*pEvent*/){ return true; });
+    signal_button_press_event().connect([this](GdkEventButton* /*pEvent*/){
+        _pCtMainWin->curr_buffer()->place_cursor(_pCtMainWin->curr_buffer()->get_iter_at_child_anchor((_rTextChildAnchor)));
+        if (not _pCtMainWin->curr_buffer()->get_modified()) {
+            _pCtMainWin->get_state_machine().update_curr_state_cursor_pos(_pCtMainWin->curr_tree_iter().get_node_id());
+        }
+        return true; // we need to block this or the focus will go to the text buffer below
+    });
     add(_frame);
 }
 

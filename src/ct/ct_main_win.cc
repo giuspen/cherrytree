@@ -770,7 +770,7 @@ void CtMainWin::window_header_update()
         gint64 curr_node = curr_tree_iter().get_node_id();
         int button_idx = 0;
         auto buttons = _ctWinHeader.buttonBox.get_children();
-        auto nodes = get_state_machine().get_visited_nodes_list();
+        auto nodes = _ctStateMachine.get_visited_nodes_list();
         _ctWinHeader.button_to_node_id.clear();
         for (auto iter = nodes.rbegin(); iter != nodes.rend(); ++iter)
         {
@@ -1113,7 +1113,7 @@ void CtMainWin::file_save(bool need_vacuum)
     if (_uCtStorage->save(need_vacuum, error))
     {
         update_window_save_not_needed();
-        get_state_machine().update_state();
+        _ctStateMachine.update_state();
     }
     else
     {
@@ -1231,7 +1231,7 @@ void CtMainWin::reset()
     auto on_scope_exit = scope_guard([&](void*) { user_active() = true; });
     user_active() = false;
 
-    get_state_machine().reset();
+    _ctStateMachine.reset();
 
     _uCtStorage.reset(CtStorageControl::create_dummy_storage(this));
 
@@ -1370,7 +1370,7 @@ void CtMainWin::update_window_save_needed(const CtSaveNeededUpdType update_type,
             rm_node_ids.push_back(top_node_id);
             _uCtTreestore->pending_rm_db_nodes(rm_node_ids);
             for (auto node_id: rm_node_ids)
-                get_state_machine().delete_states(node_id);
+                _ctStateMachine.delete_states(node_id);
         } break;
         case CtSaveNeededUpdType::book:
         {
@@ -1378,7 +1378,17 @@ void CtMainWin::update_window_save_needed(const CtSaveNeededUpdType update_type,
         } break;
     }
     if (new_machine_state && treeIter)
-        get_state_machine().update_state(treeIter);
+        _ctStateMachine.update_state(treeIter);
+}
+
+void CtMainWin::re_load_current_buffer(const bool new_machine_state)
+{
+    CtTreeIter currTreeIter = curr_tree_iter();
+    if (new_machine_state) {
+        _ctStateMachine.update_state(currTreeIter);
+    }
+    std::shared_ptr<CtNodeState> currState = _ctStateMachine.requested_state_current(currTreeIter.get_node_id());
+    load_buffer_from_state(currState, currTreeIter);
 }
 
 // Load Text Buffer from State Machine
@@ -1507,7 +1517,7 @@ void CtMainWin::_on_treeview_cursor_changed()
         {
             _fileSaveNeeded = true;
             rTextBuffer->set_modified(false);
-            get_state_machine().update_state(_prevTreeIter);
+            _ctStateMachine.update_state(_prevTreeIter);
         }
         _nodesCursorPos[prevNodeId] = rTextBuffer->property_cursor_position();
     }
@@ -1542,7 +1552,7 @@ void CtMainWin::_on_treeview_cursor_changed()
         update_selected_node_statusbar_info();
     }
 
-    get_state_machine().node_selected_changed(nodeId);
+    _ctStateMachine.node_selected_changed(nodeId);
 
     _prevTreeIter = treeIter;
 }
@@ -2016,7 +2026,7 @@ void CtMainWin::_on_textview_event_after(GdkEvent* event)
     {
         if (curr_tree_iter() and not curr_buffer()->get_modified())
         {
-            get_state_machine().update_curr_state_cursor_pos(curr_tree_iter().get_node_id());
+            _ctStateMachine.update_curr_state_cursor_pos(curr_tree_iter().get_node_id());
         }
         if (event->type == GDK_BUTTON_PRESS)
         {
