@@ -12,11 +12,12 @@ echo "CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
 cd ${BUILD_DIR}
 if [ -n "${IS_MSYS2_BUILD}" ]
 then
-  cmake .. -G"MSYS Makefiles" -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+  cmake .. -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_MAKE_PROGRAM=mingw32-make.exe -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -G"MSYS Makefiles"
+  mingw32-make -j$(nproc --all)
 else
   cmake .. -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+  make -j$(nproc --all)
 fi
-make -j$(nproc --all)
 
 # run unit tests
 ./tests/run_tests

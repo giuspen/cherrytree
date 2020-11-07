@@ -91,10 +91,7 @@ script:
         ;;
       windows)
         cd ${TRAVIS_BUILD_DIR}
-        mkdir build && cd build
-        $mingw64 cmake -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_MAKE_PROGRAM=mingw32-make.exe -DCMAKE_BUILD_TYPE=Release -G 'MSYS Makefiles' ../
-        $mingw64 mingw32-make -j$(nproc --all)
-        $mingw64 ./tests/run_tests
+        $mingw64 ./build.sh Release
         ;;
       osx)
         cd ${TRAVIS_BUILD_DIR}
