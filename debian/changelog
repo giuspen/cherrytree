@@ -1,14 +1,15 @@
-cherrytree (0.99.18-1) focal; urgency=low
+cherrytree (0.99.19-1) focal; urgency=low
 
-  * fix crash when exporting to pdf (#1291)
-  * fix freeze/crash when deleting a node (#1285)
-  * fix garbled special characters on windows (#1065, #1269, #1245)
-  * fix visualisation glitches of anchored widgets at undo/redo time (#1205)
-  * fix order for new created nodes (#1263)
-  * fix PDF export: paragraph format lost (#1268)
-  * fix content missing in PDF export (#1265)
-  * fix paste not working on macOS (#1259)
-  * fix Keepnote import (#1276)
+  * the table columns widths are no longer forced equal - modify with right click menu or Ctrl+Period/Ctrl+Alt+Period (#1228)
+  * fix search in current node not searching in the current node (#1293)
+  * fix rich text monospace tagged text does not zoom (#1264)
+  * fix import of plain text file non ascii/utf-8 (new library needed - uchardet)
+  * improved undo/redo for codeboxes and tables, restoring cursor position
+  * fix visualisation glitches in tables after altering rows/columns (#1205)
+  * fix menus have excessive white-space before icons (#1289)
+  * support in tables for navigation with Tab and Shift+Tab (#1228) in addition to Ctrl+Arrows
+  * removed unnecessary whitespaces from html copy/paste
+  * French language updated (Klaus Becker)
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Wed, 28 Oct 2020 21:51:36 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Sat, 07 Nov 2020 19:28:18 +0000

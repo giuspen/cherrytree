@@ -1,4 +1,16 @@
 
+0.99.19 (November 7th, 2020)
+  * the table columns widths are no longer forced equal - modify with right click menu or Ctrl+Period/Ctrl+Alt+Period (#1228)
+  * fix search in current node not searching in the current node (#1293)
+  * fix rich text monospace tagged text does not zoom (#1264)
+  * fix import of plain text file non ascii/utf-8 (new library needed - uchardet)
+  * improved undo/redo for codeboxes and tables, restoring cursor position
+  * fix visualisation glitches in tables after altering rows/columns (#1205)
+  * fix menus have excessive white-space before icons (#1289)
+  * support in tables for navigation with Tab and Shift+Tab (#1228) in addition to Ctrl+Arrows
+  * removed unnecessary whitespaces from html copy/paste
+  * French language updated (Klaus Becker)
+
 0.99.18 (October 28th, 2020)
   * fix crash when exporting to pdf (#1291)
   * fix freeze/crash when deleting a node (#1285)
