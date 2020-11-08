@@ -944,6 +944,7 @@ void CtMainWin::_ensure_curr_doc_in_recent_docs()
     {
         _pCtConfig->recentDocsFilepaths.move_or_push_front(fs::canonical(currDocFilePath));
         CtRecentDocRestore prevDocRestore;
+        prevDocRestore.visited_nodes = str::join_numbers(_ctStateMachine.get_visited_nodes_list(), ",");
         prevDocRestore.exp_coll_str = _uCtTreestore->treeview_get_tree_expanded_collapsed_string(*_uCtTreeview);
         const CtTreeIter prevTreeIter = curr_tree_iter();
         if (prevTreeIter)
@@ -1055,6 +1056,16 @@ bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_f
         _ctTextview.grab_focus();
     }
 
+    if (iterDocsRestore != _pCtConfig->recentDocsRestore.end())
+    {
+        auto nodes = CtStrUtil::gstring_split_to_int64(iterDocsRestore->second.visited_nodes.c_str(), ",");
+        if (nodes.size() > 0) {
+            _ctStateMachine.set_visited_nodes_list(nodes);
+            window_header_update();
+        }
+    }
+
+
     _pCtConfig->recentDocsFilepaths.move_or_push_front(fs::canonical(filepath));
     menu_set_items_recent_documents();
 
@@ -1133,6 +1144,7 @@ void CtMainWin::file_save_as(const std::string& new_filepath, const Glib::ustrin
 
     // remember expanded nodes for new file
     CtRecentDocRestore doc_state_restore;
+    doc_state_restore.visited_nodes = str::join_numbers(_ctStateMachine.get_visited_nodes_list(), ",");
     doc_state_restore.exp_coll_str = _uCtTreestore->treeview_get_tree_expanded_collapsed_string(*_uCtTreeview);
     if (const CtTreeIter curr_iter = curr_tree_iter())
     {
