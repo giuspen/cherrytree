@@ -199,6 +199,8 @@ std::string get_internal_link_from_http_url(std::string link_url);
 
 std::string get_encoding(const char* const pData, const size_t dataLen);
 
+void convert_from_bom(Glib::ustring& text);
+
 } // namespace CtStrUtil
 
 namespace CtFontUtil {
@@ -268,8 +270,6 @@ int indexOf(const std::array<T, size>& array, const T& uc)
 Glib::ustring xml_escape(const Glib::ustring& text);
 
 Glib::ustring sanitize_bad_symbols(const Glib::ustring& xml_content);
-
-void convert_from_bom(Glib::ustring& text);
 
 Glib::ustring re_escape(const Glib::ustring& text);
 
