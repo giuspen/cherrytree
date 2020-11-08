@@ -174,6 +174,8 @@ void CtConfig::_populate_keyfile_from_data()
         const CtRecentDocsRestore::iterator mapIt = recentDocsRestore.find(filepath.string());
         if (mapIt != recentDocsRestore.end())
         {
+            snprintf(_tempKey, _maxTempKeySize, "visit_%d", i);
+            _uKeyFile->set_string(_currentGroup, _tempKey, mapIt->second.visited_nodes);
             snprintf(_tempKey, _maxTempKeySize, "expcol_%d", i);
             _uKeyFile->set_string(_currentGroup, _tempKey, mapIt->second.exp_coll_str);
             snprintf(_tempKey, _maxTempKeySize, "nodep_%d", i);
@@ -378,6 +380,8 @@ void CtConfig::_populate_data_from_keyfile()
             snprintf(_tempKey, _maxTempKeySize, "nodep_%d", i);
             if (_populate_string_from_keyfile(_tempKey, &recentDocRestore.node_path))
             {
+                snprintf(_tempKey, _maxTempKeySize, "visit_%d", i);
+                _populate_string_from_keyfile(_tempKey, &recentDocRestore.visited_nodes);
                 snprintf(_tempKey, _maxTempKeySize, "expcol_%d", i);
                 _populate_string_from_keyfile(_tempKey, &recentDocRestore.exp_coll_str);
                 snprintf(_tempKey, _maxTempKeySize, "curs_%d", i);

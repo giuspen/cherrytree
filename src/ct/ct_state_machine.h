@@ -160,6 +160,7 @@ public:
     void set_go_bk_fw_click(bool val) { _go_bk_fw_click = val; }
 
     const std::vector<gint64>& get_visited_nodes_list() { return _visited_nodes_list; }
+    void  set_visited_nodes_list(const std::vector<gint64>& list) { _visited_nodes_list = list; _visited_nodes_idx = _visited_nodes_list.size() - 1;}
 
 private:
     CtMainWin*                  _pCtMainWin;

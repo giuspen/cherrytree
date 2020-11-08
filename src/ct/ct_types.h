@@ -81,9 +81,10 @@ struct CtListInfo
 
 struct CtRecentDocRestore
 {
-    std::string   exp_coll_str;
-    std::string   node_path;
-    int           cursor_pos{0};
+    std::string   exp_coll_str;   // list of expanded nodes
+    std::string   visited_nodes;
+    std::string   node_path;      // the current node
+    int           cursor_pos{0};  // cursor position in the current node
 };
 
 typedef std::unordered_map<std::string, CtRecentDocRestore> CtRecentDocsRestore;
