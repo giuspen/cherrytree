@@ -1049,12 +1049,12 @@ void CtActions::_iterated_find_dialog()
 
 void CtActions::_update_all_matches_progress()
 {
-    // todo: progress bar doesn't show the progress of the bar
     double frac = double(s_state.processed_nodes)/double(s_state.counted_nodes);
     _pCtMainWin->get_status_bar().progressBar.set_fraction(frac);
     if (s_state.matches_num != s_state.latest_matches) {
         s_state.latest_matches = s_state.matches_num;
         _pCtMainWin->get_status_bar().progressBar.set_text(std::to_string(s_state.matches_num));
     }
+    while (gtk_events_pending()) gtk_main_iteration();
 }
 
