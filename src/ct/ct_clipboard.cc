@@ -454,7 +454,7 @@ void  CtClipboard::_on_clip_data_get(Gtk::SelectionData& selection_data, CtClipb
 void CtClipboard::_on_received_to_plain_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool force_plain_text)
 {
     Glib::ustring plain_text = selection_data.get_text();
-    str::convert_from_bom(plain_text);
+    CtStrUtil::convert_from_bom(plain_text);
     plain_text = str::sanitize_bad_symbols(plain_text);
 
     if (plain_text.empty())
@@ -618,7 +618,7 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
 void CtClipboard::_on_received_to_html(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
     Glib::ustring html_content = selection_data.get_data_as_string();
-    str::convert_from_bom(html_content);
+    CtStrUtil::convert_from_bom(html_content);
 
 #ifdef _WIN32
     html_content = Win32HtmlFormat().convert_from_ms_clipboard(html_content);
@@ -646,7 +646,7 @@ void CtClipboard::_on_received_to_image(const Gtk::SelectionData& selection_data
 void CtClipboard::_on_received_to_uri_list(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
     Glib::ustring uri_content = selection_data.get_text();
-    str::convert_from_bom(uri_content);
+    CtStrUtil::convert_from_bom(uri_content);
     uri_content = str::sanitize_bad_symbols(uri_content);
 
     if (_pCtMainWin->curr_tree_iter().get_node_syntax_highlighting() != CtConst::RICH_TEXT_ID)
