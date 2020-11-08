@@ -269,6 +269,8 @@ Glib::ustring xml_escape(const Glib::ustring& text);
 
 Glib::ustring sanitize_bad_symbols(const Glib::ustring& xml_content);
 
+void convert_from_bom(Glib::ustring& text);
+
 Glib::ustring re_escape(const Glib::ustring& text);
 
 Glib::ustring time_format(const std::string& format, const time_t& time);

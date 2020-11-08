@@ -883,6 +883,33 @@ Glib::ustring str::sanitize_bad_symbols(const Glib::ustring& xml_content)
     return re_pattern->replace(xml_content, 0, "", static_cast<Glib::RegexMatchFlags>(0));
 }
 
+void str::convert_from_bom(Glib::ustring& text)
+{
+    const char* sbuf = text.c_str();
+    int slen = text.bytes();
+    const char* charset = nullptr;
+    if (slen>=4 && memcmp(sbuf, "\x84\x31\x95\x33", 4)==0)
+        charset = "GB-18030";
+    else if (slen>=4 && memcmp(sbuf, "\x00\x00\xFE\xFF", 4)==0)
+        charset = "UTF-32BE";
+    else if (slen>=4 && memcmp(sbuf, "\xFF\xFE\x00\x00", 4)==0)
+        charset = "UTF-32LE";
+    else if (slen>=2 && memcmp(sbuf, "\xFE\xFF", 2)==0)
+        charset = "UTF-16BE";
+    else if (slen>=2 && memcmp(sbuf, "\xFF\xFE", 2)==0)
+        charset = "UTF-16LE";
+
+    if (charset)
+    {
+        gsize bytes_written = 0;
+        if (gchar* converted_text = g_convert(sbuf, slen, "UTF-8", charset, 0, &bytes_written, nullptr))
+        {
+            text = converted_text;
+            g_free(converted_text);
+        }
+    }
+}
+
 Glib::ustring str::re_escape(const Glib::ustring& text)
 {
     return Glib::Regex::escape_string(text);
