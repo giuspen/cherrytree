@@ -383,6 +383,9 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
     _text_window_width = _pCtMainWin->get_text_view().get_allocation().get_width();
     _table_text_row_height = _rich_font.get_size()/Pango::SCALE;
     _table_line_thickness = 6;
+    // standard - 72, but MS print to pdf - 600
+    // it helps to fix window pixels, otherwise images, etc will be too small
+    _page_dpi_scale = context->get_dpi_x() / 72.0; 
     _page_width = context->get_width();
     _page_height = context->get_height() * 1.02; // tolerance at bottom of the page
     _layout_newline_height = [&](){
@@ -462,7 +465,7 @@ void CtPrint::_on_draw_page_text(const Glib::RefPtr<Gtk::PrintContext>& context,
             }
             else if (CtPageImage* page_image = dynamic_cast<CtPageImage*>(element.get()))
             {
-                auto scale = page_image->scale;
+                auto scale = page_image->scale; // it also contains _page_dpi_scale
                 auto pixbuf = page_image->image->get_pixbuf();
                 double pixbuf_height = pixbuf->get_height() * scale;
                 cairo_context->save();
@@ -566,14 +569,16 @@ void CtPrint::_process_pango_image(CtPrintData* print_data, CtImage* image, int 
 
     // calculate image
     auto pixbuf = image->get_pixbuf();
-    double scale_w = (_page_width - pages.last_line().cur_x) / pixbuf->get_width();
-    double scale_h = (_page_height - _layout_newline_height - CtConst::WHITE_SPACE_BETW_PIXB_AND_TEXT)/pixbuf->get_height();
+    double scale_w = (_page_width - pages.last_line().cur_x) / (pixbuf->get_width() * _page_dpi_scale);
+    double scale_h = (_page_height - _layout_newline_height - (CtConst::WHITE_SPACE_BETW_PIXB_AND_TEXT * _page_dpi_scale)) / (pixbuf->get_height() * _page_dpi_scale);
     double scale = std::min(scale_w, scale_h);
     if (scale > 1.0) scale = 1.0;
     if (scale < 1.0) any_image_resized = true;
 
+    scale *=  _page_dpi_scale; // need to compensate high dpi
+
     double pixbuf_width = pixbuf->get_width() * scale;
-    double pixbuf_height = pixbuf->get_height() * scale + CtConst::WHITE_SPACE_BETW_PIXB_AND_TEXT;
+    double pixbuf_height = pixbuf->get_height() * scale + (CtConst::WHITE_SPACE_BETW_PIXB_AND_TEXT * _page_dpi_scale);
 
     // calculate label if it exists
     Cairo::Rectangle label_size{0,0,0,0};
@@ -601,7 +606,7 @@ void CtPrint::_process_pango_image(CtPrintData* print_data, CtImage* image, int 
         pages.last_line().elements.push_back(std::make_shared<CtPageText>(pages.last_line().cur_x, label_layout->get_line(0)));
         pages.new_line();
         pages.last_line().cur_x = prev_x;
-        pages.last_line().y = prev_y - CtConst::WHITE_SPACE_BETW_PIXB_AND_TEXT; // this removes additional 2px;
+        pages.last_line().y = prev_y - (CtConst::WHITE_SPACE_BETW_PIXB_AND_TEXT * _page_dpi_scale); // this removes additional 2px;
     }
 
     // insert image
@@ -624,12 +629,12 @@ void CtPrint::_process_pango_codebox(CtPrintData* print_data, CtCodebox* codebox
         // use content if it's ok
         auto codebox_layout = _codebox_get_layout(codebox, original_content, context);
         double codebox_height = _get_height_from_layout(codebox_layout);
-        if (pages.last_line().test_element_height(codebox_height + BOX_OFFSET, _page_height))
+        if (pages.last_line().test_element_height(codebox_height + (BOX_OFFSET * _page_dpi_scale), _page_height))
         {
             if (pages.last_line().cur_x == 0)
                 pages.last_line().cur_x = indent;
 
-            pages.last_line().set_height(codebox_height + BOX_OFFSET);
+            pages.last_line().set_height(codebox_height + (BOX_OFFSET * _page_dpi_scale));
             pages.last_line().elements.push_back(std::make_shared<CtPageCodebox>(pages.last_line().cur_x, codebox_layout));
             pages.last_line().cur_x += _get_width_from_layout(codebox_layout);
             return;
@@ -650,7 +655,7 @@ void CtPrint::_process_pango_codebox(CtPrintData* print_data, CtCodebox* codebox
             if (pages.last_line().cur_x == 0)
                 pages.last_line().cur_x = indent;
 
-            pages.last_line().set_height(codebox_height + BOX_OFFSET);
+            pages.last_line().set_height(codebox_height + (BOX_OFFSET * _page_dpi_scale));
             pages.last_line().elements.push_back(std::make_shared<CtPageCodebox>(pages.last_line().cur_x, first_split_layout));
             pages.new_page();
 
@@ -673,18 +678,18 @@ void CtPrint::_process_pango_table(CtPrintData *print_data, CtTable *table, int 
         auto table_layouts = _table_get_layouts(table, first_row, -1, context);
         _table_get_grid(table_layouts, table->get_col_width_default(), rows_h, cols_w);
         double table_height = _table_get_width_height(rows_h);
-        if (pages.last_line().test_element_height(table_height + BOX_OFFSET, _page_height))
+        if (pages.last_line().test_element_height(table_height + (BOX_OFFSET * _page_dpi_scale), _page_height))
         {
             if (pages.last_line().cur_x == 0)
                 pages.last_line().cur_x = indent;
-            pages.last_line().set_height(table_height + BOX_OFFSET);
-            pages.last_line().elements.push_back(std::make_shared<CtPageTable>(pages.last_line().cur_x, table_layouts, table->get_col_width_default()));
+            pages.last_line().set_height(table_height + (BOX_OFFSET * _page_dpi_scale));
+            pages.last_line().elements.push_back(std::make_shared<CtPageTable>(pages.last_line().cur_x, table_layouts, table->get_col_width_default() * _page_dpi_scale));
             pages.last_line().cur_x += _table_get_width_height(cols_w);
             return;
         }
 
         // if table is too long, split it
-        int split_row = _table_split_content(table, first_row, _page_height - pages.last_line().y - BOX_OFFSET, context);
+        int split_row = _table_split_content(table, first_row, _page_height - pages.last_line().y - (BOX_OFFSET * _page_dpi_scale), context);
         if (split_row == -1) // need a new page
         {
             pages.new_page();
@@ -696,8 +701,8 @@ void CtPrint::_process_pango_table(CtPrintData *print_data, CtTable *table, int 
             double table_height = _table_get_width_height(rows_h);
             if (pages.last_line().cur_x == 0)
                 pages.last_line().cur_x = indent;
-            pages.last_line().set_height(table_height + BOX_OFFSET);
-            pages.last_line().elements.push_back(std::make_shared<CtPageTable>(pages.last_line().cur_x, split_layouts, table->get_col_width_default()));
+            pages.last_line().set_height(table_height + (BOX_OFFSET * _page_dpi_scale));
+            pages.last_line().elements.push_back(std::make_shared<CtPageTable>(pages.last_line().cur_x, split_layouts, table->get_col_width_default() * _page_dpi_scale));
             pages.new_page();
 
             // go to to check the second part
@@ -711,6 +716,7 @@ Glib::RefPtr<Pango::Layout> CtPrint::_codebox_get_layout(CtCodebox* codebox, Gli
     auto layout = context->create_pango_layout();
     layout->set_font_description(_code_font);
     double codebox_width = codebox->get_width_in_pixels() ? codebox->get_frame_width() : _text_window_width * codebox->get_frame_width()/100.;
+    codebox_width *= _page_dpi_scale;
     if (codebox_width > _page_width)
         codebox_width = _page_width;
     layout->set_width(int(codebox_width * Pango::SCALE));
@@ -783,7 +789,7 @@ CtPageTable::TableLayouts CtPrint::_table_get_layouts(CtTable* table, const int 
             if (row == 0) text = "<b>" + text + "</b>";
             auto cell_layout = context->create_pango_layout();
             cell_layout->set_font_description(_rich_font);
-            cell_layout->set_width(int(table->get_col_width_default() * Pango::SCALE));
+            cell_layout->set_width(int((table->get_col_width_default() * _page_dpi_scale) * Pango::SCALE));
             cell_layout->set_wrap(Pango::WRAP_WORD_CHAR);
             cell_layout->set_markup(text);
             layouts.push_back(cell_layout);
@@ -819,7 +825,7 @@ double CtPrint::_table_get_width_height(std::vector<double>& data)
 {
     double acc = 0;
     for (auto& value: data)
-        acc += value + _table_line_thickness;
+        acc += value + (_table_line_thickness * _page_dpi_scale);
     return acc;
 }
 
@@ -857,7 +863,7 @@ void CtPrint::_draw_codebox_code(Cairo::RefPtr<Cairo::Context> cairo_context, Gl
     {
         auto layout_line = codebox_layout->get_line(layout_line_idx);
         double line_height = _get_width_height_from_layout_line(layout_line).height;
-        cairo_context->move_to(x0 + CtConst::GRID_SLIP_OFFSET, y + line_height);
+        cairo_context->move_to(x0 + (CtConst::GRID_SLIP_OFFSET * _page_dpi_scale), y + line_height);
         y += line_height;
         layout_line->show_in_cairo_context(cairo_context);
     }
@@ -874,7 +880,7 @@ void CtPrint::_draw_table_grid(Cairo::RefPtr<Cairo::Context> cairo_context, cons
     cairo_context->line_to(x + table_width, y);
     for (auto& row_h: rows_h)
     {
-        y += row_h + _table_line_thickness;
+        y += row_h + (_table_line_thickness * _page_dpi_scale);
         cairo_context->move_to(x, y);
         cairo_context->line_to(x + table_width, y);
     }
@@ -884,7 +890,7 @@ void CtPrint::_draw_table_grid(Cairo::RefPtr<Cairo::Context> cairo_context, cons
     cairo_context->line_to(x, y + table_height);
     for (auto& col_w: cols_w)
     {
-        x += col_w + _table_line_thickness;
+        x += col_w + (_table_line_thickness * _page_dpi_scale);
         cairo_context->move_to(x, y);
         cairo_context->line_to(x, y + table_height);
     }
@@ -899,7 +905,7 @@ void CtPrint::_draw_table_text(Cairo::RefPtr<Cairo::Context> cairo_context, cons
     for (size_t i = 0; i < rows_h.size(); ++i)
     {
         double row_h = rows_h[i];
-        double x = x0 + CtConst::GRID_SLIP_OFFSET;
+        double x = x0 + (CtConst::GRID_SLIP_OFFSET * _page_dpi_scale);
         for (size_t j = 0; j < cols_w.size(); ++j)
         {
             double col_w = cols_w[j];
@@ -913,9 +919,9 @@ void CtPrint::_draw_table_text(Cairo::RefPtr<Cairo::Context> cairo_context, cons
                 local_y += line_height;
                 layout_line->show_in_cairo_context(cairo_context);
             }
-            x += col_w + _table_line_thickness;
+            x += col_w + (_table_line_thickness * _page_dpi_scale);
         }
-        y += row_h + _table_line_thickness;
+        y += row_h + (_table_line_thickness * _page_dpi_scale);
     }
 }
 
@@ -940,7 +946,7 @@ double CtPrint::_get_height_from_layout(Glib::RefPtr<Pango::Layout> layout)
         height += line_height;
     }
 
-    return height + 2 * CtConst::GRID_SLIP_OFFSET;
+    return height + 2 * (CtConst::GRID_SLIP_OFFSET * _page_dpi_scale);
 }
 
 // Returns the Height given the Layout
@@ -954,5 +960,5 @@ double CtPrint::_get_width_from_layout(Glib::RefPtr<Pango::Layout> layout)
         if (line_width > width)
             width = line_width;
     }
-    return width + 2 * CtConst::GRID_SLIP_OFFSET;
+    return width + 2 * (CtConst::GRID_SLIP_OFFSET * _page_dpi_scale);
 }
