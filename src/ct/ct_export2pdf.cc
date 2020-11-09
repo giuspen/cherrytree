@@ -174,11 +174,13 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter, Gtk:
                 indent = CtConst::INDENT_MARGIN * std::stoi(property_value);
                 continue;
             }
+            /* comment it, but Giuseppe may want to return code with additional background color checks
             else if (tag_property == CtConst::TAG_FOREGROUND)
             {
                 Glib::ustring color_no_white = CtRgbUtil::rgb_to_no_white(property_value);
                 property_value = CtRgbUtil::get_rgb24str_from_str_any(color_no_white);
             }
+            */
             pango_attrs += std::string(" ") + tag_property.data() + "=\"" + property_value + "\"";
         }
         if (tag_property == CtConst::TAG_LINK) {
