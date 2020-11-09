@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.1)
 project(cherrytree)
 
 file(READ "debian/changelog" CHANGELOG)
-string(REGEX MATCH "cherrytree +\\(([0-9]+)\\.([0-9]+)\\.([0-9]+)-" _ ${CHANGELOG})
+string(REGEX MATCH "cherrytree +\\(([0-9]+)\\.([0-9]+)\\.([0-9]+)[-+]" _ ${CHANGELOG})
 set(CT_VERSION ${CMAKE_MATCH_1}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3})
 set(CT_VERSION_WINDOWS ${CMAKE_MATCH_1},${CMAKE_MATCH_2},${CMAKE_MATCH_3},0)
 message(STATUS "CT_VERSION = ${CT_VERSION}")
