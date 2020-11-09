@@ -255,6 +255,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{others_cat, "emb_file_del", "ct_edit_delete", _("_Delete Embedded File"), None, _("Delete the Selected Embedded File"), sigc::mem_fun(*pActions, &CtActions::embfile_delete)});
     _actions.push_back(CtMenuAction{others_cat, "emb_file_save", "ct_save-as", _("Save _As"), None, _("Save File As"), sigc::mem_fun(*pActions, &CtActions::embfile_save)});
     _actions.push_back(CtMenuAction{others_cat, "emb_file_open", "ct_open", _("_Open File"), None, _("Open Embedded File"), sigc::mem_fun(*pActions, &CtActions::embfile_open)});
+    _actions.push_back(CtMenuAction{others_cat, "emb_file_rename", "ct_edit", _("_Rename"), None, _("Rename Embedded File"), sigc::mem_fun(*pActions, &CtActions::embfile_rename)});
     _actions.push_back(CtMenuAction{others_cat, "img_save", "ct_image_save", _("_Save Image as PNG"), None, _("Save the Selected Image as a PNG file"), sigc::mem_fun(*pActions, &CtActions::image_save)});
     _actions.push_back(CtMenuAction{others_cat, "img_edit", "ct_image_edit", _("_Edit Image"), None, _("Edit the Selected Image"), sigc::mem_fun(*pActions, &CtActions::image_edit)});
     _actions.push_back(CtMenuAction{others_cat, "img_cut", "ct_edit_cut", _("C_ut Image"), None, _("Cut the Selected Image"), sigc::mem_fun(*pActions, &CtActions::image_cut)});
@@ -1212,6 +1213,8 @@ const char* CtMenu::_get_popup_menu_ui_str_embfile()
   <separator/>
   <menuitem action='emb_file_open'/>
   <menuitem action='emb_file_save'/>
+  <separator/>
+  <menuitem action='emb_file_rename'/>
 </popup>
     )MARKUP";
 }

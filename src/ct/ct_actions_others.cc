@@ -172,6 +172,20 @@ void CtActions::embfile_open()
     }
 }
 
+// Embedded File Rename
+void CtActions::embfile_rename()
+{
+    if (not _is_curr_node_not_read_only_or_error()) return;
+
+    Glib::ustring name = curr_file_anchor->get_file_name().string();
+    Glib::ustring ret_name = CtDialogs::img_n_entry_dialog(*_pCtMainWin, _("Rename"), name, "");
+    if (ret_name.empty()) return;
+
+    curr_file_anchor->set_file_name(ret_name.c_str());
+    curr_file_anchor->update_label_widget();
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
+}
+
 // Save to Disk the selected Image
 void CtActions::image_save()
 {
