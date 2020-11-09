@@ -34,9 +34,9 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
     Gsv::init();
 
     std::string config_dir = Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME);
-    if (g_mkdir_with_parents(config_dir.c_str(), 0755) < 0)
-        g_warning("Could not create config directory: %s", config_dir.c_str());
-
+    if (g_mkdir_with_parents(config_dir.c_str(), 0755) < 0) {
+        spdlog::warn("Could not create config directory: {}", config_dir.c_str());
+    }
     _uCtCfg.reset(new CtConfig());
     //std::cout << _uCtCfg->specialChars.size() << "\t" << _uCtCfg->specialChars << std::endl;
 
@@ -109,14 +109,15 @@ void CtApp::on_activate()
             Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(CtApp::_uCtCfg->recentDocsFilepaths.front().string());
             if (r_file->query_exists())
             {
-                if (not pAppWindow->file_open(r_file->get_path(), ""))
+                const std::string canonicalPath = fs::canonical(r_file->get_path()).string();
+                if (not pAppWindow->file_open(canonicalPath, ""))
                 {
-                    g_warning("Couldn't open file: %s", r_file->get_path().c_str());
+                    spdlog::warn("Couldn't open file: %s", canonicalPath);
                 }
             }
             else
             {
-                g_message("Last doc not found: %s", CtApp::_uCtCfg->recentDocsFilepaths.front().c_str());
+                spdlog::info("Last doc not found: {}", CtApp::_uCtCfg->recentDocsFilepaths.front());
                 CtApp::_uCtCfg->recentDocsFilepaths.move_or_push_back(CtApp::_uCtCfg->recentDocsFilepaths.front());
                 pAppWindow->menu_set_items_recent_documents();
             }
@@ -154,7 +155,8 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
         {
             spdlog::debug("file to export: {}", r_file->get_path());
             CtMainWin* pWin = _create_window(true/*no_gui*/);
-            if (pWin->file_open(r_file->get_path(), "")) {
+            const std::string canonicalPath = fs::canonical(r_file->get_path()).string();
+            if (pWin->file_open(canonicalPath, "")) {
                 try {
                     if (not _export_to_txt_dir.empty()) {
                         pWin->get_ct_actions()->export_to_txt_auto(_export_to_txt_dir, _export_overwrite);
@@ -186,9 +188,10 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
         {
             // there is not a window already running with that document
             pAppWindow = _create_window();
-            if (not pAppWindow->file_open(r_file->get_path(), _node_to_focus))
+            const std::string canonicalPath = fs::canonical(r_file->get_path()).string();
+            if (not pAppWindow->file_open(canonicalPath, _node_to_focus))
             {
-                g_warning("Couldn't open file: %s", r_file->get_path().c_str());
+                spdlog::warn("Couldn't open file: {}", canonicalPath);
             }
         }
         // window can be hidden, so show it

@@ -405,8 +405,18 @@ CtDocEncrypt get_doc_encrypt(const fs::path& filename)
     return retDocEncrypt;
 }
 
-path canonical(const path& p)
+path canonical(const path& p, const bool resolveSymlink)
 {
+    if (resolveSymlink and Glib::file_test(p.string(), Glib::FILE_TEST_IS_SYMLINK)) {
+        g_autoptr(GError) pError{nullptr};
+        g_autofree gchar* pOutStr = g_file_read_link(p.c_str(), &pError);
+        if (pOutStr) {
+            if (g_path_is_absolute(pOutStr)) {
+                return Glib::canonicalize_filename(pOutStr);
+            }
+            return Glib::canonicalize_filename(pOutStr, Glib::path_get_dirname(p.string()));
+        }
+    }
     return Glib::canonicalize_filename(p.string());
 }
 

@@ -48,7 +48,7 @@ bool is_directory(const path& p);
 
 path absolute(const path& p);
 
-path canonical(const path& p);
+path canonical(const path& p, const bool resolveSymlink = true);
 
 path canonical(const path& p, const path& base);
 
