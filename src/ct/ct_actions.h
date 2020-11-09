@@ -363,6 +363,7 @@ public:
     void embfile_delete();
     void embfile_save();
     void embfile_open();
+    void embfile_rename();
     void image_save();
     void image_edit();
     void image_cut();
