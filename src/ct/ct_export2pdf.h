@@ -244,6 +244,7 @@ private:
     int                              _table_text_row_height;
     int                              _table_line_thickness;
     double                           _layout_newline_height;
+    double                           _page_dpi_scale;
     double                           _page_width;
     double                           _page_height;
 };
