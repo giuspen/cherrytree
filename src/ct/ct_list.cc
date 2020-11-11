@@ -258,8 +258,7 @@ CtListInfo CtList::get_next_list_info_on_level(Gtk::TextIter iter_start, int lev
 {
     CtListInfo ret_val;
     while (iter_start) {
-        if (!char_iter_forward_to_newline(iter_start))
-            break;
+        (void)char_iter_forward_to_newline(iter_start);
         CtListInfo list_info = get_paragraph_list_info(iter_start);
         if (!list_info)
             break;
