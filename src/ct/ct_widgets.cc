@@ -552,18 +552,24 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
             int chars_to_startoffs = 1 + CtList(_pCtMainWin, text_buffer).get_leading_chars_num(list_info.type, list_info.num) + 3*list_info.level;
             if ((insert_offset - list_info.startoffs) == chars_to_startoffs)
             {
-                Gtk::TextIter iter_list_quit;
-                // enter on empty list element
-                if (list_info.level > 0)
-                {
-                    list_change_level(iter_insert, list_info, false);
-                    iter_insert = text_buffer->get_insert()->get_iter();
-                    iter_list_quit = text_buffer->get_iter_at_offset(iter_insert.get_offset()-1);
+                if (iter_insert.ends_line()) {
+                    // enter on empty list element
+                    Gtk::TextIter iter_list_quit;
+                    if (list_info.level > 0)
+                    {
+                        list_change_level(iter_insert, list_info, false);
+                        iter_insert = text_buffer->get_insert()->get_iter();
+                        iter_list_quit = text_buffer->get_iter_at_offset(iter_insert.get_offset()-1);
+                    }
+                    else
+                        iter_list_quit = text_buffer->get_iter_at_offset(list_info.startoffs);
+                    text_buffer->erase(iter_list_quit, iter_insert);
+                    return;
                 }
-                else
-                    iter_list_quit = text_buffer->get_iter_at_offset(list_info.startoffs);
-                text_buffer->erase(iter_list_quit, iter_insert);
-                return;
+                // the list element was not empty, this list element should get a new list prefix
+                iter_start = iter_insert;
+                (void)iter_start.backward_chars(2);
+                list_info = CtList(_pCtMainWin, text_buffer).get_paragraph_list_info(iter_start);
             }
             // list new element
             int curr_level = list_info.level;
