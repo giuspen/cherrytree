@@ -589,7 +589,24 @@ void CtHtml2Xml::_insert_image(std::string img_path, std::string trailing_chars)
 
     bool image_good = false;
 
-    // trying to download
+
+    // 1. trying base64 encoding
+    try
+    {
+        if (str::startswith(img_path, "data:image") && img_path.find(',') != std::string::npos)
+        {
+            const std::string image_base64 = img_path.substr(img_path.find(',') + 1);
+            const std::string image_raw = Glib::Base64::decode(image_base64);
+            Glib::RefPtr<Gdk::PixbufLoader> pixbuf_loader = Gdk::PixbufLoader::create();
+            pixbuf_loader->write((const guint8*)image_raw.c_str(), image_raw.size());
+            pixbuf_loader->close();
+            auto pixbuf = pixbuf_loader->get_pixbuf();
+            insert_image(pixbuf);
+            image_good = true;
+        }
+    } catch (...) { }
+
+    // 2. trying to download
     try {
         std::string file_buffer = fs::download_file(img_path);
         if (!file_buffer.empty()) {
@@ -602,7 +619,7 @@ void CtHtml2Xml::_insert_image(std::string img_path, std::string trailing_chars)
         }
     }  catch (...) { }
 
-    // trying to load from disk
+    // 3. trying to load from disk
     try {
         if (!image_good) {
             std::string local_image = Glib::build_filename(_local_dir, img_path);
