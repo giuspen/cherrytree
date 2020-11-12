@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.38.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-11 22:05+0000\n"
+"POT-Creation-Date: 2020-11-12 20:50+0000\n"
 "PO-Revision-Date: 2020-11-12 21:07+0100\n"
 "Last-Translator: Åke Engelbrektson <eson@svenskasprakfiler.se>\n"
 "Language-Team: Swedish\n"
@@ -1145,6 +1145,10 @@ msgstr "For_matering"
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:85
 msgid "_Tree"
 msgstr "_Träd"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:86
+msgid "Node _Move"
+msgstr "_Flytta post"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:87
 msgid "Nodes _Sort"
@@ -3210,9 +3214,6 @@ msgstr "Varning: En eller flera bilder reducerades för att öppna sidan"
 
 #~ msgid "Add Nodes of a TuxCards File to the Current Tree"
 #~ msgstr "Lägg till poster från en TuxCards-fil till aktuellt träd"
-
-#~ msgid "Node _Move"
-#~ msgstr "_Flytta post"
 
 #~ msgid "_Justify"
 #~ msgstr "_Justera"

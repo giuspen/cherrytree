@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-11 21:32+0000\n"
+"POT-Creation-Date: 2020-11-12 20:50+0000\n"
 "PO-Revision-Date: 2020-11-12 13:37+0900\n"
 "Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
 "Language-Team: Japanese\n"
@@ -1145,6 +1145,10 @@ msgstr "書式(_M)"
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:85
 msgid "_Tree"
 msgstr "ツリー(_T)"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:86
+msgid "Node _Move"
+msgstr "ノードの移動(_M)"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:87
 msgid "Nodes _Sort"
@@ -3210,9 +3214,6 @@ msgstr "警告: ページに収まるように、一つ以上の画像が縮小�
 
 #~ msgid "Export to _Single Plain Text File"
 #~ msgstr "単一のテキスト形式ファイルにエクスポート(_S)"
-
-#~ msgid "Node _Move"
-#~ msgstr "ノードの移動(_M)"
 
 #~ msgid "_Justify"
 #~ msgstr "行揃え(_J)"

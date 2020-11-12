@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-11 21:32+0000\n"
+"POT-Creation-Date: 2020-11-12 20:50+0000\n"
 "PO-Revision-Date: 2020-11-12 08:51+0100\n"
 "Last-Translator: Erik Lovrič <erik.lovric@gmail.com>\n"
 "Language-Team: Slovenian\n"
@@ -1145,6 +1145,10 @@ msgstr "_Oblikovanje"
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:85
 msgid "_Tree"
 msgstr "D_revo"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:86
+msgid "Node _Move"
+msgstr "_Premikaj vozlišče"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:87
 msgid "Nodes _Sort"
@@ -3212,9 +3216,6 @@ msgstr "Pozor: ena ali več slik je bilo pomanjšanih ob vstopu na stran"
 
 #~ msgid "Add Nodes of a TuxCards File to the Current Tree"
 #~ msgstr "Dodaj vozlišča iz TuxCards datoteke k trenutnemu drevesu"
-
-#~ msgid "Node _Move"
-#~ msgstr "_Premikaj vozlišče"
 
 #~ msgid "_Justify"
 #~ msgstr "_Poravnaj"

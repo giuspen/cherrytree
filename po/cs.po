@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-11 21:32+0000\n"
+"POT-Creation-Date: 2020-11-12 20:50+0000\n"
 "PO-Revision-Date: 2020-11-11 23:10+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -1149,6 +1149,10 @@ msgstr "_Formát"
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:85
 msgid "_Tree"
 msgstr "S_trom"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:86
+msgid "Node _Move"
+msgstr "Po_sunutí uzlu"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:87
 msgid "Nodes _Sort"
@@ -3218,9 +3222,6 @@ msgstr ""
 
 #~ msgid "Add Nodes of a TuxCards File to the Current Tree"
 #~ msgstr "Přidat uzly ze souboru TuxCards do současné stromové stavby"
-
-#~ msgid "Node _Move"
-#~ msgstr "Po_sunutí uzlu"
 
 #~ msgid "_Justify"
 #~ msgstr "_Zarovnat"

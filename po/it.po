@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-11 21:32+0000\n"
+"POT-Creation-Date: 2020-11-12 20:50+0000\n"
 "PO-Revision-Date: 2020-11-12 03:20+0100\n"
 "Last-Translator: Vincenzo Reale <smart2128@baslug.org>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -1150,6 +1150,10 @@ msgstr "F_ormattazione"
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:85
 msgid "_Tree"
 msgstr "_Albero"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:86
+msgid "Node _Move"
+msgstr "_Sposta nodo"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:87
 msgid "Nodes _Sort"
@@ -3221,9 +3225,6 @@ msgstr ""
 
 #~ msgid "Add Nodes of a TuxCards File to the Current Tree"
 #~ msgstr "Aggiungi i nodi di un file di TuxCards all'albero corrente"
-
-#~ msgid "Node _Move"
-#~ msgstr "_Sposta nodo"
 
 #~ msgid "_Justify"
 #~ msgstr "_Giustifica"

@@ -83,7 +83,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{"", "EditMenu", None, _("_Edit"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "FormattingMenu", None, _("For_matting"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "TreeMenu", None, _("_Tree"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "TreeMoveMenu", "ct_go-jump", ("Node _Move"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "TreeMoveMenu", "ct_go-jump", _("Node _Move"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "TreeSortMenu", "ct_sort-asc", _("Nodes _Sort"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "TreeImportMenu", CtConst::STR_STOCK_CT_IMP, _("Nodes _Import"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "TreeExportMenu", "ct_export_from_cherrytree", _("Nodes E_xport"), None, None, sigc::signal<void>()});

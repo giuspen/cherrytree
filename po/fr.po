@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: svn_cherrytree 0.14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-11 22:05+0000\n"
+"POT-Creation-Date: 2020-11-12 20:50+0000\n"
 "PO-Revision-Date: 2020-11-12 19:25+0100\n"
 "Last-Translator: Klaus Becker <colonius@free.fr>\n"
 "Language-Team: French\n"
@@ -1165,6 +1165,10 @@ msgstr "For_mat"
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:85
 msgid "_Tree"
 msgstr "_Arborescence"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:86
+msgid "Node _Move"
+msgstr "_Déplacer le Nœud"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:87
 msgid "Nodes _Sort"
@@ -3257,9 +3261,6 @@ msgstr ""
 
 #~ msgid "Export to _Single Plain Text File"
 #~ msgstr "Exporter en Texte Brut (fichier unique)"
-
-#~ msgid "Node _Move"
-#~ msgstr "_Déplacer le Nœud"
 
 #~ msgid "_Justify"
 #~ msgstr "_Justifier"
