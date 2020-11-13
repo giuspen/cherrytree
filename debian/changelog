@@ -1,15 +1,17 @@
-cherrytree (0.99.19-1) focal; urgency=low
+cherrytree (0.99.20-1) focal; urgency=low
 
-  * the table columns widths are no longer forced equal - modify with right click menu or Ctrl+Period/Ctrl+Alt+Period (#1228)
-  * fix search in current node not searching in the current node (#1293)
-  * fix rich text monospace tagged text does not zoom (#1264)
-  * fix import of plain text file non ascii/utf-8 (new library needed - uchardet)
-  * improved undo/redo for codeboxes and tables, restoring cursor position
-  * fix visualisation glitches in tables after altering rows/columns (#1205)
-  * fix menus have excessive white-space before icons (#1289)
-  * support in tables for navigation with Tab and Shift+Tab (#1228) in addition to Ctrl+Arrows
-  * removed unnecessary whitespaces from html copy/paste
-  * French language updated (Klaus Becker)
+  * fix cannot save after editing old .ctd File (#1331)
+  * fix HTML Interpretation on Paste (#1317)
+  * fix PDF export: wrong colours (#1311)
+  * fix instead of increasing enumeration on enter, list removed enumeration
+  * fix progress bar during search not visible (#1302)
+  * fix Microsoft Print to PDF erroneous (#1270)
+  * fix pressing enter at the beginning of a non empty list element must not quit the list (#1327)
+  * fix pressing enter in middle of numbered list did not update very latest list element if at buffer end without newline
+  * fix pasting images with data:image/base64 format
+  * last visited nodes are now restored when closing and reopening a document (#1319)
+  * file attachments can now be renamed (#1301)
+  * symlinks to cherrytree document paths are now resolved
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sat, 07 Nov 2020 19:28:18 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Fri, 13 Nov 2020 23:16:17 +0000
