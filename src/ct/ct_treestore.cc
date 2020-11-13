@@ -61,6 +61,12 @@ gint64 CtTreeIter::get_node_id() const
     return (*this) ? (*this)->get_value(_pColumns->colNodeUniqueId) : -1;
 }
 
+void CtTreeIter::set_node_id(const gint64 new_id)
+{
+   if (*this)
+       (*this)->set_value(_pColumns->colNodeUniqueId, new_id);
+}
+
 std::vector<gint64> CtTreeIter::get_children_node_ids() const
 {
     std::vector<gint64> retVec;

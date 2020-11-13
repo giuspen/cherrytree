@@ -65,9 +65,14 @@ bool CtStorageXml::populate_treestore(const fs::path& file_path, Glib::ustring& 
         }
 
         // read nodes
+        std::list<CtTreeIter> nodes_with_duplicated_id;
         std::function<void(xmlpp::Element*, const gint64, Gtk::TreeIter)> nodes_from_xml;
         nodes_from_xml = [&](xmlpp::Element* xml_element, const gint64 sequence, Gtk::TreeIter parent_iter) {
-            Gtk::TreeIter new_iter = _node_from_xml(xml_element, sequence, parent_iter, -1);
+            bool has_duplicated_id = false;
+            Gtk::TreeIter new_iter = _node_from_xml(xml_element, sequence, parent_iter, -1, &has_duplicated_id);
+            if (has_duplicated_id) {
+                nodes_with_duplicated_id.push_back(_pCtMainWin->get_tree_store().to_ct_tree_iter(new_iter));
+            }
             gint64 child_sequence = 0;
             for (xmlpp::Node* xml_node : xml_element->get_children("node"))
                 nodes_from_xml(static_cast<xmlpp::Element*>(xml_node), ++child_sequence, new_iter);
@@ -75,6 +80,11 @@ bool CtStorageXml::populate_treestore(const fs::path& file_path, Glib::ustring& 
         gint64 sequence = 0;
         for (xmlpp::Node* xml_node: parser->get_document()->get_root_node()->get_children("node"))
             nodes_from_xml(static_cast<xmlpp::Element*>(xml_node), ++sequence, Gtk::TreeIter());
+
+        // fixes duplicated ids by setting new ids
+        for (auto& node: nodes_with_duplicated_id) {
+            node.set_node_id(_pCtMainWin->get_tree_store().node_id_get());
+        }
 
         return true;
     }
@@ -144,7 +154,7 @@ void CtStorageXml::import_nodes(const fs::path& path)
 
     std::function<void(xmlpp::Element*, const gint64 sequence, Gtk::TreeIter)> recursive_import_func;
     recursive_import_func = [this, &recursive_import_func](xmlpp::Element* xml_element, const gint64 sequence, Gtk::TreeIter parent_iter) {
-        auto new_iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(_node_from_xml(xml_element, sequence, parent_iter, _pCtMainWin->get_tree_store().node_id_get()));
+        auto new_iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(_node_from_xml(xml_element, sequence, parent_iter, _pCtMainWin->get_tree_store().node_id_get(), nullptr));
         new_iter.pending_new_db_node();
 
         gint64 child_sequence = 0;
@@ -165,14 +175,17 @@ Glib::RefPtr<Gsv::Buffer> CtStorageXml::get_delayed_text_buffer(const gint64& no
         spdlog::error(" ! cannot found xml buffer in CtStorageXml::get_delayed_text_buffer, node_id: {}", node_id);
         return Glib::RefPtr<Gsv::Buffer>();
     }
+
     auto node_buffer = _delayed_text_buffers[node_id];
     _delayed_text_buffers.erase(node_id);
     auto xml_element = dynamic_cast<xmlpp::Element*>(node_buffer->get_root_node()->get_first_child());
     return  CtStorageXmlHelper(_pCtMainWin).create_buffer_and_widgets_from_xml(xml_element, syntax, widgets, nullptr, -1);
 }
 
-Gtk::TreeIter CtStorageXml::_node_from_xml(xmlpp::Element* xml_element, gint64 sequence, Gtk::TreeIter parent_iter, gint64 new_id)
+Gtk::TreeIter CtStorageXml::_node_from_xml(xmlpp::Element* xml_element, gint64 sequence, Gtk::TreeIter parent_iter, gint64 new_id, bool* has_duplicated_id)
 {
+    if (has_duplicated_id) *has_duplicated_id = false;
+
     CtNodeData node_data;
     if (new_id == -1)
         node_data.nodeId = CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("unique_id").c_str());
@@ -190,11 +203,21 @@ Gtk::TreeIter CtStorageXml::_node_from_xml(xmlpp::Element* xml_element, gint64 s
     node_data.sequence = sequence;
     if (new_id == -1)
     {
-        // because of widgets which are slow to insert for now, delay creating buffers
-        // save node data in a separate document
-        auto node_buffer = std::make_shared<xmlpp::Document>();
-        node_buffer->create_root_node("root")->import_node(xml_element);
-        _delayed_text_buffers[node_data.nodeId] = node_buffer;
+        if (_delayed_text_buffers.count(node_data.nodeId) != 0) {
+            spdlog::debug("node has duplicated id {}, will be fixed", node_data.nodeId);
+            if (has_duplicated_id) *has_duplicated_id = true;
+            // create buffer now because we cannot put a duplicate id in _delayed_text_buffers
+            // the id will be fixed on top level code
+            node_data.rTextBuffer = CtStorageXmlHelper(_pCtMainWin).create_buffer_and_widgets_from_xml(xml_element, node_data.syntax, node_data.anchoredWidgets, nullptr, -1);
+        }
+        else
+        {
+            // because of widgets which are slow to insert for now, delay creating buffers
+            // save node data in a separate document
+            auto node_buffer = std::make_shared<xmlpp::Document>();
+            node_buffer->create_root_node("root")->import_node(xml_element);
+            _delayed_text_buffers[node_data.nodeId] = node_buffer;
+        }
     }
     else {
         // create buffer now because imported document will be closed

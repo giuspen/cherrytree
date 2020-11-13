@@ -94,6 +94,7 @@ public:
     void          set_node_read_only(bool val);
     gint64        get_node_sequence() const;
     gint64        get_node_id() const;
+    void          set_node_id(const gint64 new_id);
     std::vector<gint64> get_children_node_ids() const;
     guint16       get_node_custom_icon_id() const;
     Glib::ustring get_node_name() const;
