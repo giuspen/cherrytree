@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.38-rc2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-27 20:13+0100\n"
-"PO-Revision-Date: 2020-09-27 16:34+0200\n"
+"POT-Creation-Date: 2020-11-12 20:50+0000\n"
+"PO-Revision-Date: 2020-11-15 18:26+0100\n"
 "Last-Translator: Luuk Geurts\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:105
 #: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:165
 msgid "Writing to Disk..."
-msgstr "Schrijven naar schijf"
+msgstr "Naar schijf wegschrijven..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:191
 #: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:197
@@ -47,15 +47,15 @@ msgid "Text and Code"
 msgstr "Tekst en code"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:49
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:755
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1088
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1236
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1669
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:833
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1162
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1289
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1680
 msgid "Rich Text"
 msgstr "Rich Text"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:50
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:777
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:855
 msgid "Plain Text and Code"
 msgstr "Platte tekst en code"
 
@@ -65,7 +65,7 @@ msgid "Special Characters"
 msgstr "Speciale tekens"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:52
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:700
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:782
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:170
 msgid "Tree"
 msgstr "Boom"
@@ -75,7 +75,7 @@ msgid "Theme"
 msgstr "Thema"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:54
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1117
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1191
 msgid "Fonts"
 msgstr "Lettertypen"
 
@@ -93,10 +93,10 @@ msgstr "Sneltoetsen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:58
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:177
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:467
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:980
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1241
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1551
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:524
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1058
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1315
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1636
 msgid "Miscellaneous"
 msgstr "Diversen"
 
@@ -106,7 +106,7 @@ msgstr "Tab breedte"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:78
 msgid "Insert Spaces Instead of Tabs"
-msgstr "Spaties invoegen in plaats van tabs"
+msgstr "Spaties in plaats van tabs invoegen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:80
 msgid "Use Line Wrapping"
@@ -114,11 +114,11 @@ msgstr "Regelterugloop gebruiken"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:84
 msgid "Line Wrapping Indentation"
-msgstr "Regelterugloop inspringen"
+msgstr "Inspringing bij regelterugloop"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:91
 msgid "Enable Automatic Indentation"
-msgstr "Automatisch inspringen inschakelen"
+msgstr "Automatische inspringing inschakelen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:93
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1385
@@ -138,8 +138,8 @@ msgid "Vertical Space in Wrapped Lines"
 msgstr "Regelafstand van regels met tekstterugloop"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:132
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:334
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:549
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:339
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:620
 msgid "Text Editor"
 msgstr "Tekstverwerker"
 
@@ -153,403 +153,409 @@ msgstr "Horizontale lijn"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:166
 msgid "Chars to Select at Double Click"
-msgstr "Karakter selecteren bij dubbelklikken"
+msgstr "Geselecteerde karakters bij dubbelklikken"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:258
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:584
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:597
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1338
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1425
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:655
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:668
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1412
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1504
 msgid "Reset to Default"
 msgstr "Terugzetten naar standaardwaarden"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:281
 msgid "Chars for Bulleted List"
-msgstr "Teken voor opsomming"
+msgstr "Tekens voor opsomming"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:289
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:290
 msgid "Chars for Todo List"
-msgstr "Teken voor todo lijst"
+msgstr "Tekens voor todo lijst"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:297
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:299
 msgid "Chars for Table Of Content"
-msgstr "Teken voor inhoudsopgave"
+msgstr "Tekens voor inhoudsopgave"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:305
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:308
 msgid "Chars for Smart Double Quotes"
-msgstr "Teken voor slimme dubbele aanhalingstekens"
+msgstr "Tekens voor slimme dubbele aanhalingstekens"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:313
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:317
 msgid "Chars for Smart Single Quotes"
-msgstr "Teken voor slimme enkele aanhalingstekens"
+msgstr "Tekens voor slimme enkele aanhalingstekens"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:320
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:325
 msgid "Enable Smart Quotes Auto Replacement"
-msgstr "Schakel slimme aanhalingstekens automatisch vervangen in"
+msgstr "Schakel automatisch vervangen slimme aanhalingstekens in"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:321
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:326
 msgid "Enable Symbol Auto Replacement"
-msgstr "Schakel symbolen automatisch vervangen in"
+msgstr "Schakel automatisch vervangen symbolen in"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:394
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:444
 msgid "Enable Spell Check"
 msgstr "Spellingcontrole inschakelen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:398
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:448
 msgid "Spell Check Language"
 msgstr "Spellingcontrole taal"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:409
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1252
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:459
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1305
 msgid "Spell Check"
 msgstr "Spellingscontrole"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:419
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:541
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:469
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:609
 msgid "Show White Spaces"
 msgstr "Witruimte weergeven"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:421
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:543
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:471
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:611
 msgid "Highlight Current Line"
 msgstr "Huidige regel markeren"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:423
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:473
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:613
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1387
+msgid "Highlight Matching Brackets"
+msgstr "Bij elkaar behorende haken markeren"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:475
 msgid "Expand CodeBoxes Automatically"
 msgstr "Vergroot codevak automatisch"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:428
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:480
 msgid "Embedded File Icon Size"
 msgstr "Ingevoegde bestand pictogram grootte"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:437
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:489
 msgid "Embedded File Size Limit"
 msgstr "Max. grootte ingevoegde bestanden"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:444
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:496
 msgid "Show File Name on Top of Embedded File Icon"
 msgstr "Toon de bestandsnaam boven het pictogram voor ingebed bestand"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:446
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:498
 msgid "Limit of Undoable Steps Per Node"
-msgstr "Maximum ongedaan maak stappen per knoop"
+msgstr "Max. ongedaan maak stappen per knoop"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:452
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:504
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "Selecteer bij driedubbelklik de gehele alinea"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:454
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:507
 msgid "Enable Markdown Auto Replacement (Experimental)"
 msgstr "Schakel automatische vervanging Markdown in (experimenteel)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:578
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1332
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:649
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1406
 msgid "Add"
 msgstr "Toevoegen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:581
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1335
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:652
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1409
 msgid "Remove Selected"
 msgstr "Verwijder de geselecteerde"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:604
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:675
 msgid "Command per Node/CodeBox Type"
 msgstr "Commando per knoop/Codevak type"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:608
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:679
 msgid "Terminal Command"
 msgstr "Terminal commando"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:613
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:684
 msgid "Code Execution"
 msgstr "Code uitvoeren"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:682
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:764
 msgid "Light Background, Dark Text"
 msgstr "Lichte achtergrond, donkere tekst"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:683
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:765
 msgid "Dark Background, Light Text"
 msgstr "Donkere achtergrond, lichte tekst"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:685
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:767
 msgid "Custom Background"
 msgstr "Aangepaste achtergrond"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:690
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:772
 msgid "and Text"
 msgstr "en tekst"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:730
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:768
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:790
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:812
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:846
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:868
 msgid "Style Scheme"
 msgstr "Stijlschema"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:738
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:820
 msgid "Monospace Background"
 msgstr "Vaste breedte achtergrond"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:799
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:877
 msgid "Table"
 msgstr "Tabel"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:891
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:969
 msgid "Use Different Cherries per Level"
 msgstr "Gebruik verschillende Cherries per niveau"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:892
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1643
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:970
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1654
 msgid "Use Selected Icon"
 msgstr "Gebruik het geselecteerde pictogram"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:894
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:972
 msgid "No Icon"
 msgstr "Geen pictogram"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:896
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:974
 msgid "Hide Right Side Auxiliary Icon"
 msgstr "Verberg het rechter hulppictogram"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:910
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:988
 msgid "Default Text Nodes Icons"
 msgstr "Standaard tekstknopen pictogrammen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:924
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1002
 msgid "Restore Expanded/Collapsed Status"
 msgstr "Inklappen/uitklappen status herstellen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:925
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1003
 msgid "Expand all Nodes"
 msgstr "Alle knopen uitklappen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:927
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1005
 msgid "Collapse all Nodes"
 msgstr "Alle knopen inklappen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:929
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1007
 msgid "Nodes in Bookmarks Always Visible"
 msgstr "Knopen in bladwijzers altijd zichtbaar"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:937
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1015
 msgid "Nodes Status at Startup"
 msgstr "Knopen status bij opstarten"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:952
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1030
 msgid "Tree Nodes Names Wrapping Width"
 msgstr "Boom knoopnamen regelterugloop breedte"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:960
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1038
 msgid "Display Tree on the Right Side"
 msgstr "Boom aan de rechterzijde weergeven"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:962
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1040
 msgid "Move Focus to Text at Mouse Click"
 msgstr "Verplaats de focus naar de tekst bij muisklik"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:964
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1042
 msgid "Expand Node at Mouse Click"
 msgstr "Klap knoop uit bij muisklik"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:968
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1046
 msgid "Last Visited Nodes on Node Name Header"
 msgstr "Laatst bezochte knopen weergeven in knoopnaam kop"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1046
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1799
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1120
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1810
 msgid "Select Node Icon"
 msgstr "Selecteer het knoop pictogram"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1089
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1163
 msgid "Monospace"
 msgstr "Vaste breedte"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1090
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1240
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1164
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1293
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1325
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1671
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1682
 msgid "Plain Text"
 msgstr "Platte tekst"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1091
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1165
 msgid "Code Font"
 msgstr "Code lettertype"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1092
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1166
 msgid "Tree Font"
 msgstr "Boom lettertype"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1159
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1233
 msgid "Enable Custom Web Link Clicked Action"
 msgstr "Aangepaste webkoppeling klik-actie inschakelen "
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1161
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1235
 msgid "Enable Custom File Link Clicked Action"
 msgstr "Aangepaste bestandskoppeling klik-actie inschakelen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1163
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1237
 msgid "Enable Custom Folder Link Clicked Action"
 msgstr "Aangepaste map koppeling klik-actie inschakelen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1172
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1246
 msgid "Custom Actions"
 msgstr "Aangepaste acties"
 
 # Change English source to: "To Website"
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1195
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:800
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1269
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:804
 msgid "To WebSite"
 msgstr "Naar website"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1197
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:841
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1271
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:845
 msgid "To Node"
 msgstr "Naar knoop"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1199
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:811
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1273
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:815
 msgid "To File"
 msgstr "Naar bestand"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1201
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:826
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1275
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:830
 msgid "To Folder"
 msgstr "Naar map"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1216
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1290
 msgid "Colors"
 msgstr "Kleuren"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1225
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1299
 msgid "Underline Links"
 msgstr "Onderstreep koppelingen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1227
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1301
 msgid "Use Relative Paths for Files And Folders"
 msgstr "Gebruik relatieve paden voor bestanden en mappen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1231
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1305
 msgid "Anchor Size"
 msgstr "Anker grootte"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1422
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1501
 msgid "Change Selected"
 msgstr "Pas de geselecteerde aan"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1460
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1545
 msgid "Enable System Tray Docking"
 msgstr "In systeemvak verbergen inschakelen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1461
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1546
 msgid "Start Minimized in the System Tray"
 msgstr "Geminimaliseerd in systeemvak opstarten"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1465
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1550
 msgid "System Tray"
 msgstr "Systeemvak"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1480
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1565
 msgid "Autosave Every"
 msgstr "Automatisch opslaan na"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1483
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1568
 msgid "Minutes"
 msgstr "minuten"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1487
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1572
 msgid "Autosave on Quit"
 msgstr "Automatisch opslaan bij afsluiten"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1488
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1573
 msgid "Create a Backup Copy Before Saving"
 msgstr "Reservekopie maken voor opslaan"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1491
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1576
 msgid "Number of Backups to Keep"
 msgstr "Aantal bewaarde backups"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1496
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1581
 msgid "Custom Backup Directory"
 msgstr "Aangepaste backup map"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1525
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1610
 msgid "Saving"
 msgstr "Opslaan"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1534
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1619
 msgid "Automatically Check for Newer Version"
 msgstr "Automatisch op nieuwe versies controleren"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1535
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1620
 msgid "Enable Word Count in Statusbar"
 msgstr "Toon aantal woorden in statusbalk"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1536
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1621
 msgid "Reload Document From Last Session"
 msgstr "Document laden uit laatste sessie"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1537
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1622
 msgid "Reload After External Update to CT* File"
 msgstr "Opnieuw inladen na externe bijwerking van CT* bestand"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1538
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1623
 msgid "Show the Document Directory in the Window Title"
 msgstr "Toon de bestandsmap in de venstertitel"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1566
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1651
 msgid "Language"
 msgstr "Taal"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1590
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1675
 msgid "Has the System Tray appeared on the panel?"
 msgstr "Is het systeemvak verschenen op de balk?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1596
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1681
 msgid "Your system does not support the System Tray"
 msgstr "Er is geen systeemvak beschikbaar"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1664
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1749
 msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "De nieuwe taal is beschikbaar nadat CherryTree opnieuw is opgestart"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1677
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1762
 msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr "Om de verandering toe te passen moet CherryTree opnieuw worden gestart"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1761
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1841
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1846
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1938
 msgid "Select Element to Add"
 msgstr "Selecteer toe te voegen element"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1808
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1831
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1905
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1928
 msgid "Split Toolbar"
 msgstr "Splits knoppenbalk"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1813
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1910
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:103
 msgid "Open a CherryTree Document"
 msgstr "Een CherryTree document openen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1891
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1988
 #, c-format
 msgid "The Keyboard Shortcut '%s' is already in use"
 msgstr "De sneltoets '%s' is al in gebruik"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1892
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1989
 #, c-format
 msgid "The current associated action is '%s'"
 msgstr "De huidige geassocieerde actie is '%s'"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1893
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1990
 msgid "Do you want to steal the shortcut?"
 msgstr "Wilt u de sneltoets stelen?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1912
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:2009
 msgid "Edit Keyboard Shortcut"
 msgstr "Pas sneltoets aan"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1918
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:2015
 msgid "No Keyboard Shortcut"
 msgstr "Geen sneltoets"
 
@@ -585,14 +591,14 @@ msgstr "Index"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:80
 msgid "Image Format Not Recognized"
-msgstr "Afbeelding opmaak niet herkend"
+msgstr "Afbeeldingstype niet herkend"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:88
 msgid "Insert Table"
 msgstr "Tabel invoegen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:103
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:661
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:718
 msgid "CSV File"
 msgstr "CSV bestand"
 
@@ -612,7 +618,7 @@ msgstr "Wilt u verder gaan?"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:803
 msgid "Lines Stripped"
-msgstr "Gestippelde lijn"
+msgstr "Gestripte regels"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:811
 msgid "Image Properties"
@@ -797,7 +803,7 @@ msgid "Undo"
 msgstr "Ongedaan maken"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_imports.cc:98
-#: /home/giuspen/git/cherrytree/src/ct/ct_parser_html.cc:582
+#: /home/giuspen/git/cherrytree/src/ct/ct_parser_html.cc:586
 msgid "Downloading"
 msgstr "Ophalen"
 
@@ -810,49 +816,53 @@ msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "De grootte van de knoppenbalk is al op de minimale waarde"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:181
+msgid "Rename"
+msgstr "Hernoemen"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:195
 msgid "PNG Image"
 msgstr "PNG afbeelding"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:193
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:207
 #, c-format
 msgid "Write to %s Failed"
 msgstr "Schrijven naar %s mislukt"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:240
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:254
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:328
 msgid "Insert/Edit Link"
 msgstr "Koppeling invoegen/wijzigen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:289
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:303
 #, c-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "Het bestandskoppeling '%s' is ongeldig"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:301
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:315
 #, c-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "De mapkoppeling '%s' is ongeldig"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:313
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:698
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:327
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:699
 #, c-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "De koppeling verwijst naar een knoop die niet meer bestaat (Id = %s)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:332
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:346
 #, c-format
 msgid "No anchor named '%s' found"
 msgstr "Geen anker met naam '%s' gevonden"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:392
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:406
 msgid "Edit CodeBox"
 msgstr "Codevak wijzigen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:416
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:430
 msgid "No CodeBox is Selected"
 msgstr "Geen codevak geselecteerd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:424
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:438
 #, c-format
 msgid ""
 "You must associate a command to '%s'.\n"
@@ -861,11 +871,11 @@ msgstr ""
 "Associeer een commando met '%s'.\n"
 "Dit kan onder voorkeuren"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:436
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:450
 msgid "Do you want to Execute the Code?"
 msgstr "Wilt u de code uitvoeren?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:454
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:468
 msgid ""
 "Install the package 'xterm' or configure a different terminal in the "
 "Preferences Dialog"
@@ -873,23 +883,23 @@ msgstr ""
 "Installeer het 'xterm' pakket of configureer een andere terminal in het "
 "voorkeuren dialoogvenster"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:650
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:706
 msgid "Edit Table Properties"
 msgstr "Wijzig tabeleigenschappen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:685
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:742
 msgid "Insert Anchor"
 msgstr "Anker invoegen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:685
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:742
 msgid "Edit Anchor"
 msgstr "Anker wijzigen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:726
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:783
 msgid "Cannot Edit Embedded File in Read Only Node"
 msgstr "Kan geen ingevoegde bestanden in Alleen Lezen modus bewerken"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:741
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:798
 msgid "Embedded File Automatically Updated:"
 msgstr "Ingevoegde bestand is automatisch geüpdate:"
 
@@ -902,7 +912,7 @@ msgid "Plain Text Document"
 msgstr "Platte tekst document"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:35
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1227
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1280
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1020
 msgid "No Node is Selected"
 msgstr "Geen knoop geselecteerd"
@@ -922,8 +932,8 @@ msgstr "Deze eigenschap is alleen beschikbaar voor Rich Text knopen"
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:66
 msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes"
 msgstr ""
-"Deze eigenschap is niet beschikbaar voor knopen met Automatische Syntax "
-"Markering"
+"Deze eigenschap is niet beschikbaar voor knopen met automatische syntax "
+"markering"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:172
 msgid "New Child Node Properties"
@@ -954,65 +964,69 @@ msgstr "Weet u zeker dat u <b>de knoop '%s' wilt verwijderen?</b>"
 msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr "Deze knoop <b>heeft kinderen die ook zullen worden verwijderd!</b>"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:511
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:514
 msgid "Select the New Parent"
 msgstr "Selecteer de nieuwe ouder"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:517
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:538
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:520
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:541
 msgid "The new parent can't be the very node to move!"
 msgstr "Verplaatsen mislukt: een knoop kan niet zichzelf als ouder hebben!"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:521
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:524
 msgid "The new chosen parent is still the old parent!"
 msgstr "Geen wijziging: de nieuw gekozen ouder is dezelfde als de oude ouder!"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:526
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:543
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:529
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:546
 msgid "The new parent can't be one of his children!"
 msgstr "De nieuwe ouder kan niet een van zijn kinderen zijn!"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:69
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:72
 msgid "CherryTree Hierarchical Note Taking"
 msgstr "CherryTree hiërarchisch notitie programma"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:76
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:265
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:79
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:266
 msgid "Show/Hide _CherryTree"
 msgstr "_CherryTree weergeven/verbergen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:76
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:265
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:79
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:266
 msgid "Toggle Show/Hide CherryTree"
 msgstr "CherryTree weergeven/verbergen wisselen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:78
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:81
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:113
 msgid "_Exit CherryTree"
 msgstr "_CherryTree afsluiten"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:78
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:81
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:113
 msgid "Exit from CherryTree"
 msgstr "CherryTree afsluiten"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:326
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:332
+msgid "Print CherryTree version"
+msgstr "Toon CherryTree versie"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:333
 msgid "Node name to focus"
 msgstr "Knoop naam om op te focussen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:327
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:334
 msgid "Export to HTML at specified directory path"
 msgstr "Exporteer naar HTML op opgegeven map pad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:328
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:335
 msgid "Export to Text at specified directory path"
 msgstr "Exporteer naar TXT op opgegeven map pad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:329
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:336
 msgid "Export to PDF at specified file path"
 msgstr "Exporteer naar PDF op opgegeven bestandspad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:330
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:337
 msgid "Overwrite if export path already exists"
 msgstr "Overschrijven als export pad reeds bestaat"
 
@@ -1036,39 +1050,39 @@ msgstr "Kies een voorgrond kleur"
 msgid "Pick a Background Color"
 msgstr "Kies een achtergrond kleur"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:808
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:849
 #, c-format
 msgid "The Document %s was Not Found"
 msgstr "Het document %s is niet gevonden"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:829
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:870
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:90
 msgid "Open a Recent CherryTree Document"
 msgstr "Een recent CherryTree document openen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:848
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:889
 msgid "Hide"
 msgstr "Verbergen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:848
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:889
 msgid "Quit"
 msgstr "_Afsluiten"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:849
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:890
 msgid "Hide the Window"
 msgstr "Verberg het venster"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:849
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:890
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:112
 msgid "Quit the Application"
 msgstr "Applicatie afsluiten"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:940
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:982
 #, c-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" is geen CherryTree document"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:957
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:999
 #, c-format
 msgid ""
 "Error Parsing the CherryTree File:\n"
@@ -1077,49 +1091,49 @@ msgstr ""
 "Fout bij het parsen van het CherryTree bestand:\n"
 "\"%s\""
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1027
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1079
 msgid "Temporary Files were Created and Opened with External Applications."
 msgstr "Tijdelijke bestanden zijn gemaakt en geopend met externe applicaties."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1028
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1080
 msgid "Quit the External Applications Before Quit CherryTree."
 msgstr "Sluit de externe applicatie af vóór sluiten CherryTree"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1029
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1081
 msgid "Did you Quit the External Applications?"
 msgstr "Heeft u de externe applicatie afgesloten?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1157
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1210
 msgid "The Document was Reloaded After External Update to CT* File"
 msgstr "Dit document is herladen na een externe update van CT* bestand"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1232
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1701
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1285
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1712
 msgid "Node Type"
 msgstr "Knoop type"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1232
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1248
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1252
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1256
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1261
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1266
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1285
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1301
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1305
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1309
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1314
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1319
 msgid ": "
 msgstr ": "
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1248
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1301
 msgid "Tags"
 msgstr "Labels"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1256
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1309
 msgid "Word Count"
 msgstr "Woorden tellen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1261
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1314
 msgid "Date Created"
 msgstr "Aanmaakdatum"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1266
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1319
 msgid "Date Modified"
 msgstr "Wijzigingsdatum"
 
@@ -1139,17 +1153,21 @@ msgstr "Op_maak"
 msgid "_Tree"
 msgstr "B_oom"
 
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:86
+msgid "Node _Move"
+msgstr "Knooppunt _verplaatsen"
+
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:87
 msgid "Nodes _Sort"
 msgstr "Sorteer knopen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:88
 msgid "Nodes _Import"
-msgstr "Knopen _Importeren"
+msgstr "Knopen _importeren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:89
 msgid "Nodes E_xport"
-msgstr "Knopen E_xporteren"
+msgstr "Knopen e_xporteren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:90
 msgid "_Recent Documents"
@@ -1299,7 +1317,7 @@ msgid "_About"
 msgstr "_Over"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:117
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1964
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1975
 msgid "About CherryTree"
 msgstr "Over CherryTree"
 
@@ -1448,7 +1466,7 @@ msgid "Paste as Plain Text, Discard the Rich Text Formatting"
 msgstr "Als platte tekst plakken, Rich Text opmaak negeren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:138
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:303
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:304
 msgid "Cu_t Row"
 msgstr "Rij knippen"
 
@@ -1457,7 +1475,7 @@ msgid "Cut the Current Row/Selected Rows"
 msgstr "Huidige rij/geselecteerde rijen knippen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:139
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:304
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:305
 msgid "_Copy Row"
 msgstr "Rij kopiëren"
 
@@ -1466,7 +1484,7 @@ msgid "Copy the Current Row/Selected Rows"
 msgstr "Huidige rij/geselecteerde rijen kopiëren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:140
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:306
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:307
 msgid "De_lete Row"
 msgstr "Rij verwijderen"
 
@@ -1734,7 +1752,7 @@ msgstr "Geselecteerde knopen en subknopen dupliceren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:174
 msgid "Duplicate the Selected Node With SubNodes"
-msgstr "Dupliceer de geselecteerde knoop met subknopen"
+msgstr "Dupliceert de geselecteerde knoop met subknopen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:175
 msgid "Change Node _Properties"
@@ -1766,7 +1784,7 @@ msgstr "Boom _informatie"
 
 # Change the English source to: "Summary of the information contained in the tree"
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:178
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2194
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2205
 msgid "Tree Summary Information"
 msgstr "Samenvatting van de informatie in de boom"
 
@@ -1851,8 +1869,8 @@ msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Parent's "
 "Syntax Highlighting"
 msgstr ""
-"De Syntax Markering van de kinderen van de geselecteerde knoop wijzigen naar "
-"de Syntax Markering van de ouder"
+"De syntax markering van de kinderen van de geselecteerde knoop wijzigen naar "
+"de syntax markering van de ouder"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:189
 msgid "De_lete Node"
@@ -2033,11 +2051,11 @@ msgstr "Knoppenbalk weergeven/verbergen wisselen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:212
 msgid "Show/Hide Node Name _Header"
-msgstr "Knoop naam balk weergeven/verbergen"
+msgstr "Knoopnaambalk weergeven/verbergen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:212
 msgid "Toggle Show/Hide Node Name Header"
-msgstr "Knoop naam balk weergeven/verbergen wisselen"
+msgstr "Knoopnaambalk weergeven/verbergen wisselen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:213
 msgid "Toggle _Focus Tree/Text"
@@ -2259,7 +2277,7 @@ msgstr "Knopen uit een Zim map aan de huidige boom toevoegen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:246
 msgid "From File using _Pandoc"
-msgstr "Van bestand gebruikmakend van _Pandoc"
+msgstr "Van bestand mbv _Pandoc"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:246
 msgid "Add a node to the current tree using Pandoc"
@@ -2334,324 +2352,348 @@ msgid "Open Embedded File"
 msgstr "Open ingevoegde bestand"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:258
+msgid "_Rename"
+msgstr "He_rnoemen"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:258
+msgid "Rename Embedded File"
+msgstr "Hernoem ingesloten bestand"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:259
 msgid "_Save Image as PNG"
 msgstr "Afbeelding op_slaan als PNG"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:258
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:259
 msgid "Save the Selected Image as a PNG file"
 msgstr "Geselecteerde afbeelding opslaan als PNG bestand"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:259
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:260
 msgid "_Edit Image"
 msgstr "_Afbeelding wijzigen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:259
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:260
 msgid "Edit the Selected Image"
 msgstr "Geselecteerde afbeelding wijzigen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:260
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:261
 msgid "C_ut Image"
 msgstr "_Afbeelding knippen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:260
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:261
 msgid "Cut the Selected Image"
 msgstr "Geselecteerde afbeelding knippen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:261
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:262
 msgid "_Copy Image"
 msgstr "_Afbeelding kopiëren"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:261
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:262
 msgid "Copy the Selected Image"
 msgstr "Geselecteerde afbeelding kopiëren"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:262
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:263
 msgid "_Delete Image"
 msgstr "_Afbeelding verwijderen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:262
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:263
 msgid "Delete the Selected Image"
 msgstr "Geselecteerde afbeelding verwijderen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:263
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:289
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:264
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:288
 msgid "Edit _Link"
 msgstr "Koppeling wijzigen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:263
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:264
 msgid "Edit the Link Associated to the Image"
 msgstr "Wijzig de koppeling geassocieerd met de afbeelding"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:264
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:292
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:265
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:291
 msgid "D_ismiss Link"
 msgstr "Koppeling afwijzen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:264
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:265
 msgid "Dismiss the Link Associated to the Image"
 msgstr "De koppeling geassocieerd met afbeelding verwijderen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:289
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:288
 msgid "Edit the Underlying Link"
 msgstr "Onderliggende koppeling wijzigen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:290
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:289
 msgid "C_ut Link"
 msgstr "Koppeling knippen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:290
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:289
 msgid "Cut the Selected Link"
 msgstr "Geselecteerde koppeling knippen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:291
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:290
 msgid "_Copy Link"
 msgstr "Koppeling kopiëren"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:291
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:290
 msgid "Copy the Selected Link"
 msgstr "Geselecteerde koppeling kopiëren"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:292
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:291
 msgid "Dismiss the Selected Link"
 msgstr "Geselecteerde afbeelding afwijzen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:293
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:292
 msgid "_Delete Link"
 msgstr "Koppeling verwijderen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:293
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:292
 msgid "Delete the Selected Link"
 msgstr "Geselecteerde koppeling verwijderen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:295
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:294
 msgid "C_ut Table"
 msgstr "Tabel knippen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:295
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:294
 msgid "Cut the Selected Table"
 msgstr "Geselecteerde tabel knippen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:296
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:295
 msgid "_Copy Table"
 msgstr "Tabel kopiëren"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:296
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:295
 msgid "Copy the Selected Table"
 msgstr "Geselecteerde tabel kopiëren"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:297
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:296
 msgid "_Delete Table"
 msgstr "Tabel verwijderen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:297
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:296
 msgid "Delete the Selected Table"
 msgstr "Geselecteerde tabel verwijderen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:298
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:297
 msgid "_Add Column"
 msgstr "Kolom toevoegen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:298
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:297
 msgid "Add a Table Column"
 msgstr "Tabel kolom toevoegen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:299
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:298
 msgid "De_lete Column"
 msgstr "Ko_lom verwijderen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:299
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:298
 msgid "Delete the Selected Table Column"
 msgstr "Verwijder de geselecteerde kolom"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:300
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:299
 msgid "Move Column _Left"
 msgstr "Verplaats de kolom naar _links"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:300
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:299
 msgid "Move the Selected Column Left"
 msgstr "Verplaatst de geselecteerde kolom naar links"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:301
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:300
 msgid "Move Column _Right"
 msgstr "Verplaats de kolom naar _rechts"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:301
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:300
 msgid "Move the Selected Column Right"
 msgstr "Verplaatst de geselecteerde kolom naar rechts"
 
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:301
+msgid "Increase Column Width"
+msgstr "Kolombreedte vergroten"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:301
+msgid "Increase the Width of the Column"
+msgstr "Vergroot de kolom breedte"
+
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:302
+msgid "Decrease Column Width"
+msgstr "Kolombreedte verkleinen"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:302
+msgid "Decrease the Width of the Column"
+msgstr "Verkleint de kolom breedte"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:303
 msgid "_Add Row"
 msgstr "Rij toevoegen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:302
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:303
 msgid "Add a Table Row"
 msgstr "Tabel rij toevoegen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:303
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:304
 msgid "Cut a Table Row"
 msgstr "Tabel rij knippen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:304
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:305
 msgid "Copy a Table Row"
 msgstr "Tabel rij kopiëren"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:305
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:306
 msgid "_Paste Row"
 msgstr "Rij plakken"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:305
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:306
 msgid "Paste a Table Row"
 msgstr "Tabel rij plakken"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:306
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:307
 msgid "Delete the Selected Table Row"
 msgstr "Geselecteerde tabel rij verwijderen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:307
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:308
 msgid "Move Row _Up"
 msgstr "Rij _omhoog verplaatsen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:307
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:308
 msgid "Move the Selected Row Up"
 msgstr "Verplaatst de geselecteerde rij omhoog"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:308
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:309
 msgid "Move Row _Down"
 msgstr "Rij omlaag verplaatsen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:308
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:309
 msgid "Move the Selected Row Down"
 msgstr "Verplaatst de geselecteerde rij omlaag"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:309
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:310
 msgid "Sort Rows De_scending"
 msgstr "Rijen aflopend sorteren"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:309
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:310
 msgid "Sort all the Rows Descending"
 msgstr "Sorteert alle rijen aflopend"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:310
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:311
 msgid "Sort Rows As_cending"
 msgstr "Rijen oplopend sorteren"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:310
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:311
 msgid "Sort all the Rows Ascending"
 msgstr "Sorteert alle rijen oplopend"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:311
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:312
 msgid "_Edit Table Properties"
 msgstr "Tabel eigenschappen wijzigen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:311
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:312
 msgid "Edit the Table Properties"
 msgstr "Wijzigt de tabel eigenschappen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:312
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:313
 msgid "_Table Export"
 msgstr "_Tabel exporteren"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:312
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:313
 msgid "Export Table as CSV File"
 msgstr "Tabel als CSV bestand exporteren"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:314
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:315
 msgid "Change CodeBox _Properties"
 msgstr "Codevak eigenschappen wijzigen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:314
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:315
 msgid "Edit the Properties of the CodeBox"
 msgstr "Wijzigt de codevak eigenschappen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:315
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:316
 msgid "_Execute CodeBox Code"
 msgstr "Voer code in het cod_evak uit"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:315
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:316
 msgid "Execute CodeBox Code"
 msgstr "Voer de code in de codebox uit"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:316
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:317
 msgid "CodeBox _Load From Text File"
 msgstr "Codevak _laden uit tekstbestand"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:316
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:317
 msgid "Load the CodeBox Content From a Text File"
 msgstr "Importeert de codevak inhoud uit een tekstbestand"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:317
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:318
 msgid "CodeBox _Save To Text File"
 msgstr "Codevak _Opslaan als tekstbestand"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:317
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:318
 msgid "Save the CodeBox Content To a Text File"
 msgstr "Codevak als een tekstbestand opslaan"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:318
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:319
 msgid "C_ut CodeBox"
 msgstr "Codevak knippen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:318
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:319
 msgid "Cut the Selected CodeBox"
 msgstr "Knip het geselecteerde codevak"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:319
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:320
 msgid "_Copy CodeBox"
 msgstr "Codevak kopiëren"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:319
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:320
 msgid "Copy the Selected CodeBox"
 msgstr "Kopieer het geselecteerde codevak"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:320
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:321
 msgid "_Delete CodeBox"
 msgstr "Codevak verwijderen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:320
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:321
 msgid "Delete the Selected CodeBox"
 msgstr "Verwijder het geselecteerde codevak"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:321
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:322
 msgid "Delete CodeBox _Keep Content"
 msgstr "Codevak verwijderen inhoud bewaren"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:321
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:322
 msgid "Delete the Selected CodeBox But Keep Its Content"
 msgstr "Verwijder het geselecteerde codevak maar bewaar de inhoud"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:322
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:323
 msgid "Increase CodeBox Width"
 msgstr "Codevak breedte vergroten"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:322
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:323
 msgid "Increase the Width of the CodeBox"
 msgstr "Vergroot de codevak breedte"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:323
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:324
 msgid "Decrease CodeBox Width"
 msgstr "Codevak breedte verkleinen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:323
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:324
 msgid "Decrease the Width of the CodeBox"
 msgstr "Verkleint de codevak breedte"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:324
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:325
 msgid "Increase CodeBox Height"
 msgstr "Codevak hoogte vergroten"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:324
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:325
 msgid "Increase the Height of the CodeBox"
 msgstr "Vergroot de codevak hoogte"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:325
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:326
 msgid "Decrease CodeBox Height"
 msgstr "Codevak hoogte verkleinen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:325
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:326
 msgid "Decrease the Height of the CodeBox"
 msgstr "Verkleint de codevak hoogte"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:427
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:444
 msgid "Remove from list"
 msgstr "Verwijderen uit _Bladwijzers"
 
@@ -2704,7 +2746,7 @@ msgid "Info"
 msgstr "Info"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:296
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1864
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1875
 msgid "Warning"
 msgstr "Waarschuwing"
 
@@ -2717,20 +2759,20 @@ msgstr "Fout"
 msgid "Hide (Restore with '%s')"
 msgstr "Verbergen (herstellen met '%s')"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:675
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1665
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:676
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1676
 msgid "Node Name"
 msgstr "Knoopnaam"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:676
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:677
 msgid "Line"
 msgstr "Regel"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:677
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:678
 msgid "Line Content"
 msgstr "Regelinhoud"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:873
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:877
 msgid "Anchor Name (optional)"
 msgstr "Ankernaam (optioneel)"
 
@@ -2760,7 +2802,6 @@ msgstr "Bestand opslaan als"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1224
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1346
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2275
 msgid "Width"
 msgstr "Breedte"
 
@@ -2771,10 +2812,10 @@ msgstr "Hoogte"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1326
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1415
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1672
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1738
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1683
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1749
 msgid "Automatic Syntax Highlighting"
-msgstr "Automatische Syntax Markering"
+msgstr "Automatische syntax markering"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1341
 msgid "Type"
@@ -2788,33 +2829,29 @@ msgstr "pixels"
 msgid "Size"
 msgstr "Grootte"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1387
-msgid "Highlight Matching Brackets"
-msgstr "Bij elkaar behorende haken markeren"
-
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1396
 msgid "Options"
 msgstr "Opties"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1477
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1488
 msgid "Choose Storage Type"
 msgstr "Kies opslagtype"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1487
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1490
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1498
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1501
 msgid "Not Protected"
 msgstr "Niet beveiligd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1489
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1491
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1500
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1502
 msgid "Password Protected"
 msgstr "Wachtwoord beveiligd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1499
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1510
 msgid "Storage Type"
 msgstr "Opslagtype"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1508
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1519
 msgid ""
 "CT saves the document in an encrypted 7zip archive. When viewing or editing "
 "the document, CT extracts the encrypted archive to a temporary folder, and "
@@ -2830,67 +2867,67 @@ msgstr ""
 "geval van een applicatie of systeem crash, het onversleutelde document in de "
 "tijdelijke map achterblijft."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1516
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1527
 msgid "Enter the New Password Twice"
 msgstr "Geef tweemaal het nieuwe wachtwoord in"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1599
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1610
 msgid "The Password Fields Must be Filled"
 msgstr "De wachtwoord velden moeten zijn ingevuld"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1604
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1615
 msgid "The Two Inserted Passwords Do Not Match"
 msgstr "De ingegeven wachtwoorden komen niet overeen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1633
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1644
 msgid "Bold"
 msgstr "Vet"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1637
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1648
 msgid "Use Selected Color"
 msgstr "Gebruik de geselecteerde kleur"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1652
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1663
 msgid "click me"
 msgstr "klik hier"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1715
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1726
 msgid "Tags for Searching"
 msgstr "Labels om te zoeken"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1719
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1730
 msgid "Read Only"
 msgstr "Alleen lezen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1758
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1769
 msgid "Choose Existing Tag"
 msgstr "Kies bestaand label"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1758
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1769
 msgid "Tag Name"
 msgstr "Labelnaam"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1783
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1794
 msgid "Pick a Color"
 msgstr "Kies een kleur"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1875
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1886
 msgid "The Current Document was Updated."
 msgstr "Het huidige document is ververst."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1875
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1886
 msgid "Do you want to Save the Changes?"
 msgstr "Wilt u de wijzigingen opslaan?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1923
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1934
 msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
 "Highlighting"
 msgstr ""
-"CherryTree hiërarchische notitie programma, gekenmerkt door Rich Text en "
-"Syntax Markering"
+"Een hiërarchisch notitie programma, gekenmerkt door Rich Text en syntax "
+"markering"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1924
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1935
 msgid ""
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
@@ -2925,131 +2962,135 @@ msgstr ""
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1944
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1955
 msgid "Armenian"
 msgstr "Armeens"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1945
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1956
 msgid "Chinese Simplified"
 msgstr "Chinees vereenvoudigd"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1946
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1957
 msgid "Czech"
 msgstr "Tsjechisch"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1947
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1958
 msgid "Dutch"
 msgstr "Nederlands"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1948
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1959
 msgid "Finnish"
-msgstr "Klaar"
+msgstr "Fins"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1949
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1960
 msgid "French"
 msgstr "Frans"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1950
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1961
 msgid "German"
 msgstr "Duits"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1951
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1962
 msgid "Greek"
 msgstr "Grieks"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1952
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1963
 msgid "Italian"
 msgstr "Italiaans"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1953
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1964
 msgid "Japanese"
 msgstr "Japans"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1954
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1965
 msgid "Lithuanian"
 msgstr "Litouws"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1955
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1966
 msgid "Polish"
 msgstr "Pools"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1956
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1967
 msgid "Portuguese Brazil"
 msgstr "Braziliaans Portugees"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1957
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1968
 msgid "Russian"
 msgstr "Russisch"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1958
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1969
 msgid "Slovenian"
 msgstr "Sloveens"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1959
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1970
 msgid "Spanish"
 msgstr "Spaans"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1960
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1971
 msgid "Swedish"
 msgstr "Zweeds"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1961
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1972
 msgid "Turkish"
 msgstr "Turks"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1962
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1973
 msgid "Ukrainian"
 msgstr "Oekraïns"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2206
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2217
 msgid "Number of Rich Text Nodes"
 msgstr "Aantal Rich Text knopen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2211
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2222
 msgid "Number of Plain Text Nodes"
 msgstr "Aantal platte tekst knopen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2216
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2227
 msgid "Number of Code Nodes"
 msgstr "Aantal code knopen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2221
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2232
 msgid "Number of Images"
 msgstr "Aantal afbeeldingen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2226
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2237
 msgid "Number of Embedded Files"
 msgstr "Aantal ingevoegde bestanden"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2231
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2242
 msgid "Number of Tables"
 msgstr "Aantal tabellen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2236
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2247
 msgid "Number of CodeBoxes"
 msgstr "Aantal codevakken"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2241
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2252
 msgid "Number of Anchors"
 msgstr "Aantal ankers"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2263
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2274
 msgid "Rows"
 msgstr "Rijen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2269
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2280
 msgid "Columns"
 msgstr "Kolommen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2281
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2286
+msgid "Default Width"
+msgstr "Standaard breedte"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2292
 msgid "Table Size"
 msgstr "Tabel grootte"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2284
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2295
 msgid "Column Properties"
 msgstr "Kolom eigenschappen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2306
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2317
 msgid "Import from CSV File"
 msgstr "Importeren van CSV bestand"
 
@@ -3071,10 +3112,10 @@ msgstr ""
 #, c-format
 msgid "%s write failed - is file blocked by a sync program?"
 msgstr ""
-"%s wegschrijven mislukt -  wordt het bestand geblokkeerd door een sync "
+"%s wegschrijven mislukt - wordt het bestand geblokkeerd door een sync "
 "programma?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_export2pdf.cc:395
+#: /home/giuspen/git/cherrytree/src/ct/ct_export2pdf.cc:420
 msgid "Warning: One or More Images Were Reduced to Enter the Page"
 msgstr "Waarschuwing: een of meer afbeeldingen zijn verkleind tot de pagina"
 
@@ -3148,9 +3189,6 @@ msgstr "Waarschuwing: een of meer afbeeldingen zijn verkleind tot de pagina"
 #~ msgid "Not Any H1, H2 or H3 Formatting Found"
 #~ msgstr "Geen enkele H1, H2 of H3 opmaak gevonden"
 
-#~ msgid "Rename Column"
-#~ msgstr "Kolom hernoemen"
-
 #~ msgid "Min Width"
 #~ msgstr "Minimum breedte"
 
@@ -3194,9 +3232,6 @@ msgstr "Waarschuwing: een of meer afbeeldingen zijn verkleind tot de pagina"
 
 #~ msgid "Add Nodes of a TuxCards File to the Current Tree"
 #~ msgstr "Knooppunten uit een TuxCards bestand aan de huidige boom toevoegen"
-
-#~ msgid "Node _Move"
-#~ msgstr "Knooppunt _verplaatsen"
 
 #~ msgid "_Justify"
 #~ msgstr "_Uitgevuld"
