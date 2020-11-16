@@ -7,6 +7,7 @@ The project home page is [giuspen.com/cherrytree](https://www.giuspen.com/cherry
 - [Debian/Linux Mint/Ubuntu](#building-cherrytree-on-ubuntu-2004)
 - [Arch Linux/Manjaro Linux](#building-cherrytree-on-arch)
 - [Fedora](#building-cherrytree-on-fedora)
+- [Opensuse](#building-cherrytree-on-opensuse)
 - [MacOs](#building-cherrytree-on-macos)
 - [Windows](#building-cherrytree-on-windows)
 
@@ -134,6 +135,23 @@ xdg-open /usr/share/doc/gtksourceviewmm-3.0/reference/html/index.html
 xdg-open /usr/share/doc/glibmm-2.4/reference/html/index.html
 xdg-open /usr/share/doc/pangomm-1.4/reference/html/index.html
 xdg-open /usr/share/doc/libxml++2.6/reference/html/index.html
+```
+
+## Building Cherrytree on Opensuse
+
+Installd dependencies:
+```sh
+sudo zypper install cmake gcc-c++ gtkmm3-devel gtksourceviewmm3_0-devel gspell-devel libxml++26-devel sqlite3-devel libcurl-devel libuchardet-devel
+```
+
+Get cherrytree source, compile and run:
+```sh
+git clone https://github.com/giuspen/cherrytree.git
+mkdir cherrytree/build
+cd cherrytree/build
+cmake ../ -DBUILD_TESTING=''
+make -j$(nproc --all)
+./build/cherrytree
 ```
 
 ## Building Cherrytree on MacOS
