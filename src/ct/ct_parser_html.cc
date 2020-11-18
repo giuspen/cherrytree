@@ -23,6 +23,7 @@
 #include "ct_misc_utils.h"
 #include "ct_const.h"
 #include "ct_main_win.h"
+#include "ct_storage_xml.h"
 
 #include <cassert>
 
@@ -673,30 +674,18 @@ void CtHtml2Xml::_insert_table()
         if (row.size() < row_len)
             row.insert(row.end(), row_len - row.size(), {1, ""});
 
-    // todo: remove this copy-paste (table.cc)
-    xmlpp::Element* p_table_node = _slot_root->add_child("table");
-    p_table_node->set_attribute("char_offset", std::to_string(_char_offset));
-    p_table_node->set_attribute(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_LEFT);
-    p_table_node->set_attribute("col_min", std::to_string(40));
-    p_table_node->set_attribute("col_max", std::to_string(400));
 
-
-    auto row_to_xml = [&](const std::list<table_cell>& row) {
-        xmlpp::Element* p_row_node = p_table_node->add_child("row");
-        for (const auto& cell: row)
-        {
-            xmlpp::Element* p_cell_node = p_row_node->add_child("cell");
-            p_cell_node->add_child_text(str::trim(cell.text));
-        }
-    };
-    // put header at the end
-    bool is_header = true;
+    std::vector<std::vector<Glib::ustring>> rows;
+    rows.reserve(_table.size());
     for (const auto& row: _table)
     {
-        if (is_header) { is_header = false; continue; }
-        row_to_xml(row);
+        rows.push_back(std::vector<Glib::ustring>{});
+        rows.back().reserve(row.size());
+        for (const auto& cell: row)
+            rows.back().push_back(str::trim(cell.text));
     }
-    row_to_xml(_table.front());
+
+    CtXmlHelper::table_to_xml(_slot_root, rows, _char_offset, CtConst::TAG_PROP_VAL_LEFT, _config->tableColWidthDefault, "");
 
     _char_offset += 1;
 }

@@ -29,6 +29,7 @@
 #include "ct_logging.h"
 #include "ct_clipboard.h"
 #include "ct_main_win.h"
+#include "ct_storage_xml.h"
 
 void CtDocumentBuilder::wipe()
 {
@@ -211,9 +212,9 @@ void CtDocumentBuilder::add_tag_data(std::string_view tag, std::string data)
     _open_tags[tag] = true;
 }
 
-void CtDocumentBuilder::add_table(const std::vector<std::vector<std::string>>& table_matrix)
+void CtDocumentBuilder::add_table(const std::vector<std::vector<Glib::ustring>>& table_matrix)
 {
-    CtXML::table_to_xml(table_matrix, _current_element->get_parent(), 0, CtConst::TAG_PROP_VAL_LEFT, 40, 400);
+    CtXmlHelper::table_to_xml(_current_element->get_parent(), table_matrix, 0, CtConst::TAG_PROP_VAL_LEFT, 400, "");
     close_current_tag();
 }
 

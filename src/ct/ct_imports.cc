@@ -66,23 +66,6 @@ void table_row_to_xml(const std::vector<std::string>& row, xmlpp::Element* paren
     }
 }
 
-xmlpp::Element* table_to_xml(const std::vector<std::vector<std::string>>& matrix, xmlpp::Element* parent, int char_offset, Glib::ustring justification, int col_min, int col_max)
-{
-    xmlpp::Element* tbl_node = parent->add_child("table");
-    tbl_node->set_attribute("char_offset", std::to_string(char_offset));
-    tbl_node->set_attribute(CtConst::TAG_JUSTIFICATION, justification);
-    tbl_node->set_attribute("col_min", std::to_string(col_min));
-    tbl_node->set_attribute("col_max", std::to_string(col_max));
-
-    // Header goes at end
-    for (auto row_iter = matrix.cbegin() + 1; row_iter != matrix.cend(); ++row_iter) {
-        table_row_to_xml(*row_iter, tbl_node);
-    }
-    table_row_to_xml(matrix.front(), tbl_node);
-
-    return tbl_node;
-}
-
 xmlpp::Element *image_to_xml(xmlpp::Element *parent, const std::string &path, int char_offset, const Glib::ustring &justification, CtStatusBar* status_bar /* = nullptr */)
 {
     Glib::RefPtr<Gdk::Pixbuf> pixbuf;

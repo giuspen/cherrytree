@@ -94,7 +94,7 @@ public:
     void add_monospace_tag(std::optional<std::string> text);
     void add_tag_data(std::string_view, std::string data);
     void add_codebox(const std::string& language, const std::string& text);
-    void add_table(const std::vector<std::vector<std::string>>& table_matrix);
+    void add_table(const std::vector<std::vector<Glib::ustring>>& table_matrix);
     void add_image(const std::string& path) noexcept;
     void add_hrule();
     void add_broken_link(const std::string& link);
@@ -237,7 +237,7 @@ private:
     void _pop_table();
     std::vector<CtTextParser::token_schema> _token_schemas();
 
-    using TableRow = std::vector<std::string>;
+    using TableRow = std::vector<Glib::ustring>;
     using TableMatrix = std::vector<TableRow>;
     TableRow _current_table_row;
     TableMatrix _current_table;

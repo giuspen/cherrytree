@@ -122,3 +122,8 @@ private:
 private:
     CtMainWin* _pCtMainWin;
 };
+
+namespace CtXmlHelper
+{
+    void table_to_xml(xmlpp::Element* parent, const std::vector<std::vector<Glib::ustring>>& rows, int char_offset, Glib::ustring justification, int defaultWidth, Glib::ustring colWidths);
+};

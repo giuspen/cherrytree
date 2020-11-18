@@ -25,6 +25,7 @@
 #include "ct_main_win.h"
 #include "ct_actions.h"
 #include "ct_storage_sqlite.h"
+#include "ct_storage_xml.h"
 #include "ct_logging.h"
 #include "ct_misc_utils.h"
 
@@ -54,6 +55,11 @@ CtTable::CtTable(CtMainWin* pCtMainWin,
  , _currentRow{currRow}
  , _currentColumn{currCol}
 {
+    // column widths can be empty or wrong, trying to fix it
+    // so we don't need to check it again and again
+    while (_colWidths.size() < tableMatrix[0].size())
+        _colWidths.push_back(0); // 0 means we use default width
+
     _setup_new_matrix(tableMatrix, false/*apply style when node shows*/);
 
     _grid.set_column_spacing(1);
@@ -66,7 +72,7 @@ CtTable::CtTable(CtMainWin* pCtMainWin,
 
 CtTable::~CtTable()
 {
-    // no need for deleting cells, _grid will clean up cells
+    // no need to delete cells, _grid will clean up cells
 }
 
 void CtTable::_setup_new_matrix(const CtTableMatrix& tableMatrix, bool apply_style /* = true*/)
@@ -116,14 +122,16 @@ void CtTable::apply_syntax_highlighting(const bool forceReApply)
 
 void CtTable::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*)
 {
-    // todo: fix a duplicate in imports.cc
-    xmlpp::Element* p_table_node = p_node_parent->add_child("table");
-    p_table_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
-    p_table_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
-    p_table_node->set_attribute("col_min", std::to_string(_colWidthDefault)); // todo get rid of column min
-    p_table_node->set_attribute("col_max", std::to_string(_colWidthDefault));
-    p_table_node->set_attribute("col_widths", str::join_numbers(_colWidths, ","));
-    _populate_xml_rows_cells(p_table_node);
+    std::vector<std::vector<Glib::ustring>> rows;
+    rows.reserve(_tableMatrix.size());
+    for (auto& row: _tableMatrix)
+    {
+        rows.push_back(std::vector<Glib::ustring>());
+        rows.back().reserve(row.size());
+        for (auto& cell : row)  rows.back().push_back(cell->get_text_content());
+    }
+
+    CtXmlHelper::table_to_xml(p_node_parent, rows, _charOffset+offset_adjustment, _justification, _colWidthDefault, str::join_numbers(_colWidths, ","));
 }
 
 void CtTable::_populate_xml_rows_cells(xmlpp::Element* p_table_node)
@@ -231,6 +239,7 @@ void CtTable::set_modified_false()
 void CtTable::column_add(int after_column)
 {
     auto matrix = _copy_matrix(after_column, -1, -1, -1, -1, -1);
+    _colWidths.insert(_colWidths.begin() + after_column + 1, 0);
     _setup_new_matrix(matrix);
 }
 
@@ -238,6 +247,7 @@ void CtTable::column_delete(int column)
 {
     if (_tableMatrix.front().size() == 1) return;
     auto matrix = _copy_matrix(-1, column, -1, -1, -1, -1);
+    _colWidths.erase(_colWidths.begin() + column);
     _setup_new_matrix(matrix);
 }
 
@@ -245,9 +255,7 @@ void CtTable::column_move_left(int column)
 {
     if (column == 0) return;
     auto matrix = _copy_matrix(-1, -1, -1, -1, column, -1);
-    const int colWidthTmp = get_col_width(column-1);
-    _colWidths[column-1] = _colWidths[column];
-    _colWidths[column] = colWidthTmp;
+    std::swap(_colWidths[column-1], _colWidths[column]);
     _setup_new_matrix(matrix);
 }
 
@@ -256,9 +264,7 @@ void CtTable::column_move_right(int column)
     if (column == (int)_tableMatrix.front().size()-1) return;
     // moving to right is same as moving to left for other column
     auto matrix = _copy_matrix(-1, -1, -1, -1, column + 1, -1);
-    const int colWidthTmp = get_col_width(column+1);
-    _colWidths[column+1] = _colWidths[column];
-    _colWidths[column] = colWidthTmp;
+    std::swap(_colWidths[column+1], _colWidths[column]);
     _setup_new_matrix(matrix);
 }
 
@@ -314,7 +320,8 @@ bool CtTable::row_sort_desc()
 void CtTable::set_col_width_default(const int colWidthDefault)
 {
     _colWidthDefault = colWidthDefault;
-    if (_colWidths.empty()) {
+    bool has_default_widths = vec::exists(_colWidths, 0);
+    if (has_default_widths) {
         auto matrix = _copy_matrix(-1, -1, -1, -1, -1, -1);
         _setup_new_matrix(matrix);
     }
@@ -323,11 +330,6 @@ void CtTable::set_col_width_default(const int colWidthDefault)
 void CtTable::set_col_width(const int colWidth, std::optional<size_t> optColIdx/* = std::nullopt*/)
 {
     const size_t colIdx = optColIdx.value_or(_currentColumn);
-    // ensure the column widths are of the right size
-    while (_colWidths.size() < _tableMatrix.front().size()) {
-        // the table is using the default width for this column
-        _colWidths.push_back(_colWidthDefault);
-    }
     _colWidths[colIdx] = colWidth;
     auto matrix = _copy_matrix(-1, -1, -1, -1, -1, -1);
     _setup_new_matrix(matrix);
