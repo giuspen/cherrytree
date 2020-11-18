@@ -60,7 +60,7 @@ static void _slashes_convert(std::string& path)
 }
 #endif // _WIN32
 
-int CtP7zaIface::p7za_extract(const gchar* input_path, const gchar* out_dir, const gchar* passwd)
+int CtP7zaIface::p7za_extract(const gchar* input_path, const gchar* out_dir, const gchar* passwd, bool suppress_error)
 {
     std::vector<std::string> args {
                 "7za",
@@ -70,7 +70,7 @@ int CtP7zaIface::p7za_extract(const gchar* input_path, const gchar* out_dir, con
                 "-bd",   // Disable progress indicator
                 "-bso0", // Disable standard output, error output is turn on
                 "-bsp0", // Disable progress output
-                "-bse1", // redirect error output into standard output
+                suppress_error ? "-bse0" : "-bse1", // redirect error output into standard output
                 "-y",
                 "-o" + std::string(out_dir),
                 input_path

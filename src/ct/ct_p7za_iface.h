@@ -25,7 +25,7 @@
 
 namespace CtP7zaIface {
 
-int p7za_extract(const gchar* input_path, const gchar* out_dir, const gchar* passwd);
+int p7za_extract(const gchar* input_path, const gchar* out_dir, const gchar* passwd, bool suppress_error);
 
 int p7za_archive(const gchar* input_path, const gchar* output_path, const gchar* passwd);
 
