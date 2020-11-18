@@ -82,7 +82,7 @@ public:
     int get_col_width_default() const { return _colWidthDefault; }
     int get_col_width(const std::optional<size_t> optColIdx = std::nullopt) const {
         const size_t colIdx = optColIdx.value_or(_currentColumn);
-        return colIdx < _colWidths.size() ? _colWidths.at(colIdx) : _colWidthDefault;
+        return _colWidths.at(colIdx) != 0 ? _colWidths.at(colIdx) : _colWidthDefault;
     }
 
 public:

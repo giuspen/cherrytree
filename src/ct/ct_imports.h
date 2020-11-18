@@ -82,7 +82,6 @@ struct CtStatusBar;
 namespace CtXML {
 
 xmlpp::Element* codebox_to_xml(xmlpp::Element* parent, const Glib::ustring& justification, int char_offset, int frame_width, int frame_height, int width_in_pixels, const Glib::ustring& syntax_highlighting, bool highlight_brackets, bool show_line_numbers);
-xmlpp::Element* table_to_xml(const std::vector<std::vector<std::string>> &matrix, xmlpp::Element *parent, int char_offset, Glib::ustring justification, int col_min, int col_max);
 xmlpp::Element* image_to_xml(xmlpp::Element* parent, const std::string& path, int char_offset, const Glib::ustring& justification, CtStatusBar* status_bar = nullptr);
 
 } // namespace CtXML

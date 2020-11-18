@@ -533,3 +533,33 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_table_from_xml(xmlpp::Element* xml
 
     return new CtTable(_pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, tableColWidths);
 }
+
+namespace CtXmlHelper
+{
+    void table_to_xml(xmlpp::Element* p_parent, const std::vector<std::vector<Glib::ustring>>& rows, int char_offset, Glib::ustring justification, int defaultWidth, Glib::ustring colWidths)
+    {
+        xmlpp::Element* p_table_node = p_parent->add_child("table");
+        p_table_node->set_attribute("char_offset", std::to_string(char_offset));
+        p_table_node->set_attribute(CtConst::TAG_JUSTIFICATION, justification);
+        p_table_node->set_attribute("col_min", std::to_string(defaultWidth)); // todo get rid of column min
+        p_table_node->set_attribute("col_max", std::to_string(defaultWidth));
+        p_table_node->set_attribute("col_widths", colWidths);
+
+        auto row_to_xml = [&](const std::vector<Glib::ustring>& tableRow) {
+            xmlpp::Element* row_element = p_table_node->add_child("row");
+            for (const auto& cell : tableRow) {
+                xmlpp::Element* cell_element = row_element->add_child("cell");
+                cell_element->set_child_text(cell);
+            }
+        };
+
+        // put header at the end
+        bool is_header = true;
+        for (auto& row: rows)
+        {
+            if (is_header) { is_header = false; }
+            else row_to_xml(row);
+        }
+        row_to_xml(rows[0]);
+    }
+};
