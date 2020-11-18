@@ -262,7 +262,7 @@ Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64
             }
             password = dialogTextEntry.get_entry_text();
         }
-        if (0 == CtP7zaIface::p7za_extract(file_path.c_str(), temp_dir.c_str(), password.c_str()))
+        if (0 == CtP7zaIface::p7za_extract(file_path.c_str(), temp_dir.c_str(), password.c_str(), false))
             if (g_file_test(temp_file_path.c_str(), G_FILE_TEST_IS_REGULAR))
                 return temp_file_path;
         password.clear();

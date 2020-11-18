@@ -69,7 +69,7 @@ TEST(TmpP7zipGroup, P7zaIfaceMisc)
 {
     // extract our test archive
     CtTmp ctTmp;
-    CHECK_EQUAL(0, CtP7zaIface::p7za_extract(UT::ctzInputPath.c_str(), ctTmp.getHiddenDirPath(UT::ctzInputPath).c_str(), UT::testPassword));
+    CHECK_EQUAL(0, CtP7zaIface::p7za_extract(UT::ctzInputPath.c_str(), ctTmp.getHiddenDirPath(UT::ctzInputPath).c_str(), UT::testPassword, false));
     CHECK(Glib::file_test(ctTmp.getHiddenFilePath(UT::ctzInputPath).string(), Glib::FILE_TEST_EXISTS));
 
     // read and parse xml of extracted archive
@@ -93,7 +93,7 @@ TEST(TmpP7zipGroup, P7zaIfaceMisc)
     CHECK_FALSE(Glib::file_test(ctTmp.getHiddenFilePath(UT::ctzInputPath).string(), Glib::FILE_TEST_EXISTS));
 
     // extract again from the archive that we created
-    CHECK_EQUAL(0, CtP7zaIface::p7za_extract(ctzTmpPathBis.c_str(), ctTmp.getHiddenDirPath(UT::ctzInputPath).c_str(), UT::testPasswordBis));
+    CHECK_EQUAL(0, CtP7zaIface::p7za_extract(ctzTmpPathBis.c_str(), ctTmp.getHiddenDirPath(UT::ctzInputPath).c_str(), UT::testPasswordBis, false));
     CHECK(Glib::file_test(ctTmp.getHiddenFilePath(UT::ctzInputPath).string(), Glib::FILE_TEST_EXISTS));
     std::string xml_txt_bis = Glib::file_get_contents(ctTmp.getHiddenFilePath(UT::ctzInputPath).string());
     STRCMP_EQUAL(xml_txt.c_str(), xml_txt_bis.c_str());
@@ -115,11 +115,11 @@ TEST(TmpP7zipGroup, P7zaExtravtWrongPasswd)
     const std::string ctdTmpPath{(ctTmp.getHiddenDirPath(UT::ctzInputPath) /"7zr.ctd").string()};
 
     // wrong password
-    CHECK(0 != CtP7zaIface::p7za_extract(UT::ctzInputPath.c_str(), ctTmp.getHiddenDirPath(UT::ctzInputPath).c_str(), "wrongpassword"));
+    CHECK(0 != CtP7zaIface::p7za_extract(UT::ctzInputPath.c_str(), ctTmp.getHiddenDirPath(UT::ctzInputPath).c_str(), "wrongpassword", true));
     CHECK_FALSE(Glib::file_test(ctdTmpPath, Glib::FILE_TEST_EXISTS));
 
     // correct password
-    CHECK_EQUAL(0, CtP7zaIface::p7za_extract(UT::ctzInputPath.c_str(), ctTmp.getHiddenDirPath(UT::ctzInputPath).c_str(), UT::testPassword));
+    CHECK_EQUAL(0, CtP7zaIface::p7za_extract(UT::ctzInputPath.c_str(), ctTmp.getHiddenDirPath(UT::ctzInputPath).c_str(), UT::testPassword, false));
     CHECK_TRUE(Glib::file_test(ctdTmpPath, Glib::FILE_TEST_EXISTS));
     g_remove(ctTmp.getHiddenFilePath(UT::ctzInputPath).string().c_str());
 }
