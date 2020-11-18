@@ -314,11 +314,13 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
         else if (tag == "li") {
             if (_list_type == 'u') {
                 if (_list_level < 0) {
-                    // A ul _should_ have appeared before this
-                    throw std::runtime_error("List item appeared before list declaration");
+                    // A <ul> _should_ have appeared before this
+                    // but ok, use just some default list
+                    _rich_text_serialize(_config->charsListbul[0] + CtConst::CHAR_SPACE);
                 }
-                _rich_text_serialize(_config->charsListbul[_list_level] + CtConst::CHAR_SPACE);
-
+                else {
+                    _rich_text_serialize(_config->charsListbul[_list_level] + CtConst::CHAR_SPACE);
+                }
             }
             else {
                 _rich_text_serialize(std::to_string(_list_num) + ". ");
