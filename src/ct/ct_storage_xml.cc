@@ -267,8 +267,11 @@ std::unique_ptr<xmlpp::DomParser> CtStorageXml::_get_parser(const fs::path& file
         spdlog::error("CtStorageXml::_get_parser: failed to read xml file {}, {}", file_path.string(), e.what());
         spdlog::info("CtStorageXml::_get_parser: trying to sanitize xml file ...");
 
-        Glib::ustring buffer = fs::get_content(file_path);
-        CtStrUtil::convert_from_bom(buffer);
+        std::string buffer = fs::get_content(file_path);
+        const std::string codeset = CtStrUtil::get_encoding(buffer.c_str(), buffer.size());
+        if (CtStrUtil::is_codeset_not_utf8(codeset)) {
+            buffer = Glib::convert_with_fallback(buffer, "UTF-8", codeset);
+        }
         Glib::ustring xml_content = str::sanitize_bad_symbols(buffer);
         parser->parse_memory(xml_content);
         spdlog::info("CtStorageXml::_get_parser: xml file is sanitized");

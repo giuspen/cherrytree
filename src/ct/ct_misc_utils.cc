@@ -678,47 +678,46 @@ std::string CtStrUtil::get_internal_link_from_http_url(std::string link_url)
 
 std::string CtStrUtil::get_encoding(const char* const pData, const size_t dataLen)
 {
-    std::string retStr;
-    uchardet_t handle = uchardet_new();
-    if (0 == uchardet_handle_data(handle, pData, dataLen)) {
-        uchardet_data_end(handle);
-        retStr = uchardet_get_charset(handle);
+    std::string charset;
+    if (dataLen >=4 && memcmp(pData, "\x84\x31\x95\x33", 4) == 0) {
+        charset = "GB-18030";
     }
-    uchardet_delete(handle);
-    return retStr;
+    else if (dataLen >= 4 && memcmp(pData, "\x00\x00\xFE\xFF", 4) == 0) {
+        charset = "UTF-32BE";
+    }
+    else if (dataLen>= 4 && memcmp(pData, "\xFF\xFE\x00\x00", 4) == 0) {
+        charset = "UTF-32LE";
+    }
+    else if (dataLen >= 2 && memcmp(pData, "\xFE\xFF", 2) == 0) {
+        charset = "UTF-16BE";
+    }
+    else if (dataLen >= 2 && memcmp(pData, "\xFF\xFE", 2) == 0) {
+        charset = "UTF-16LE";
+    }
+    else {
+        uchardet_t handle = uchardet_new();
+        if (0 == uchardet_handle_data(handle, pData, dataLen)) {
+            uchardet_data_end(handle);
+            charset = uchardet_get_charset(handle);
+        }
+        uchardet_delete(handle);
+    }
+    spdlog::debug("{} -> charset: {}", dataLen, charset);
+    return charset;
 }
 
-void CtStrUtil::convert_from_bom(Glib::ustring& text)
+bool CtStrUtil::is_codeset_not_utf8(const std::string& codeset)
 {
-    const std::string codeset = CtStrUtil::get_encoding(text.c_str(), text.size());
-    if (codeset != "" && codeset != "ASCII" && codeset != "UTF-8")
-        text = Glib::convert_with_fallback(text, "UTF-8", codeset);
+    return not codeset.empty() and codeset != "ASCII" and codeset != "UTF-8";
+}
 
-    /*
-    const char* sbuf = text.c_str();
-    int slen = text.bytes();
-    const char* charset = nullptr;
-    if (slen>=4 && memcmp(sbuf, "\x84\x31\x95\x33", 4)==0)
-        charset = "GB-18030";
-    else if (slen>=4 && memcmp(sbuf, "\x00\x00\xFE\xFF", 4)==0)
-        charset = "UTF-32BE";
-    else if (slen>=4 && memcmp(sbuf, "\xFF\xFE\x00\x00", 4)==0)
-        charset = "UTF-32LE";
-    else if (slen>=2 && memcmp(sbuf, "\xFE\xFF", 2)==0)
-        charset = "UTF-16BE";
-    else if (slen>=2 && memcmp(sbuf, "\xFF\xFE", 2)==0)
-        charset = "UTF-16LE";
-
-    if (charset)
-    {
-        gsize bytes_written = 0;
-        if (gchar* converted_text = g_convert(sbuf, slen, "UTF-8", charset, 0, &bytes_written, nullptr))
-        {
-            text = converted_text;
-            g_free(converted_text);
-        }
+Glib::ustring CtStrUtil::convert_raw_to_utf8(const std::string& rawText)
+{
+    const std::string codeset = CtStrUtil::get_encoding(rawText.c_str(), rawText.size());
+    if (CtStrUtil::is_codeset_not_utf8(codeset)) {
+        return Glib::convert_with_fallback(rawText, "UTF-8", codeset);
     }
-    */
+    return rawText;
 }
 
 Glib::ustring CtFontUtil::get_font_family(const Glib::ustring& fontStr)

@@ -199,7 +199,9 @@ std::string get_internal_link_from_http_url(std::string link_url);
 
 std::string get_encoding(const char* const pData, const size_t dataLen);
 
-void convert_from_bom(Glib::ustring& text);
+bool is_codeset_not_utf8(const std::string& codeset);
+
+Glib::ustring convert_raw_to_utf8(const std::string& rawData);
 
 } // namespace CtStrUtil
 

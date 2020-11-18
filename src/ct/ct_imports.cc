@@ -461,7 +461,7 @@ std::unique_ptr<ct_imported_node> CtPlainTextImport::import_file(const fs::path&
         data << infile.rdbuf();
         std::string converted = data.str();
         const std::string codeset = CtStrUtil::get_encoding(converted.c_str(), converted.size());
-        if (codeset != "ASCII" and codeset != "UTF-8") {
+        if (CtStrUtil::is_codeset_not_utf8(codeset)) {
             converted = Glib::convert_with_fallback(converted, "UTF-8", codeset);
         }
         std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, file.stem().string());
