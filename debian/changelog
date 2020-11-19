@@ -1,17 +1,10 @@
-cherrytree (0.99.20-1) focal; urgency=low
+cherrytree (0.99.21-1) focal; urgency=low
 
-  * fix cannot save after editing old .ctd File (#1331)
-  * fix HTML Interpretation on Paste (#1317)
-  * fix PDF export: wrong colours (#1311)
-  * fix instead of increasing enumeration on enter, list removed enumeration
-  * fix progress bar during search not visible (#1302)
-  * fix Microsoft Print to PDF erroneous (#1270)
-  * fix pressing enter at the beginning of a non empty list element must not quit the list (#1327)
-  * fix pressing enter in middle of numbered list did not update very latest list element if at buffer end without newline
-  * fix pasting images with data:image/base64 format
-  * last visited nodes are now restored when closing and reopening a document (#1319)
-  * file attachments can now be renamed (#1301)
-  * symlinks to cherrytree document paths are now resolved
+  * fix issue with clipboard on Windows (#1336, #1344, #1341)
+  * fix crash when triying to move a table column (#1342)
+  * fix crash when pasting HTML (#1346)
+  * suppressed misleading print of error while executing unit tests at build time (#1340)
+  * updated languages German, Dutch, Turkish
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Fri, 13 Nov 2020 23:16:17 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Thu, 19 Nov 2020 22:19:41 +0000

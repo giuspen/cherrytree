@@ -1,4 +1,11 @@
 
+0.99.21 (November 19th, 2020)
+  * fix issue with clipboard on Windows (#1336, #1344, #1341)
+  * fix crash when triying to move a table column (#1342)
+  * fix crash when pasting HTML (#1346)
+  * suppressed misleading print of error while executing unit tests at build time (#1340)
+  * updated languages German, Dutch, Turkish
+
 0.99.20 (November 13th, 2020)
   * fix cannot save after editing old .ctd File (#1331)
   * fix HTML Interpretation on Paste (#1317)
