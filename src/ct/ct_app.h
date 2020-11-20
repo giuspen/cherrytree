@@ -62,8 +62,10 @@ protected:
     std::string   _export_to_txt_dir;
     std::string   _export_to_pdf_file;
     bool          _export_overwrite{false};
+    bool          _startup2{false};
 
 protected:
+    void on_startup2();
     void on_activate() override;
     void on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint) override;
     void on_window_removed(Gtk::Window* window) override;
