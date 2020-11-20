@@ -33,6 +33,38 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
 {
     Gsv::init();
 
+    // action to call from second instance
+    // user wanted to create a new window from command line
+    add_action("new-window", [&]() {
+        if (_startup2)
+            _create_window()->present();
+    });
+
+    _add_main_option_entries();
+    signal_handle_local_options().connect(sigc::mem_fun(*this, &CtApp::_on_handle_local_options), false);
+
+    // This is normally called for us... but after the "handle_local_options" signal is emitted. If
+    // we want to rely on actions for handling options, we need to call it here. This appears to
+    // have no unwanted side-effect. It will also trigger the call to on_startup().
+    register_application();
+}
+
+CtApp::~CtApp()
+{
+    //std::cout << "~CtApp()" << std::endl;
+}
+
+/* static */ Glib::RefPtr<CtApp> CtApp::create()
+{
+    return Glib::RefPtr<CtApp>(new CtApp());
+}
+
+// small optimization: second instance doesn't need all UI initialization, so we call it on the real startup
+void CtApp::on_startup2()
+{
+    if (_startup2) return;
+    _startup2 = true;
+
     std::string config_dir = Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME);
     if (g_mkdir_with_parents(config_dir.c_str(), 0755) < 0) {
         spdlog::warn("Could not create config directory: {}", config_dir.c_str());
@@ -83,23 +115,12 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
         systrayMenu->show_all();
         systrayMenu->popup(button, activate_time);
     });
-
-    _add_main_option_entries();
-    signal_handle_local_options().connect(sigc::mem_fun(*this, &CtApp::_on_handle_local_options), false);
-}
-
-CtApp::~CtApp()
-{
-    //std::cout << "~CtApp()" << std::endl;
-}
-
-Glib::RefPtr<CtApp> CtApp::create()
-{
-    return Glib::RefPtr<CtApp>(new CtApp());
 }
 
 void CtApp::on_activate()
 {
+    on_startup2();
+
     // start of main instance
     if (get_windows().size() == 0)
     {
@@ -145,6 +166,8 @@ void CtApp::on_activate()
 
 void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& /*hint*/)
 {
+    on_startup2();
+
     // do some export stuff from console and close app after
     if ( not _export_to_txt_dir.empty() or
          not _export_to_html_dir.empty() or
@@ -335,6 +358,7 @@ void CtApp::_add_main_option_entries()
     add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME, "export_to_txt_dir",  't', _("Export to Text at specified directory path"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME, "export_to_pdf_file", 'p', _("Export to PDF at specified file path"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "export_overwrite",   'w', _("Overwrite if export path already exists"));
+    add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "new-window",         '\0',_("Create a new window"));
 }
 
 void CtApp::_print_gresource_icons()
@@ -356,11 +380,19 @@ int CtApp::_on_handle_local_options(const Glib::RefPtr<Glib::VariantDict>& rOpti
         std::cout << "CherryTree " << CtConst::CT_VERSION << std::endl;
         return 0; // to exit app
     }
+
+    bool new_window = false;
     rOptions->lookup_value("node", _node_to_focus);
     rOptions->lookup_value("export_to_html_dir", _export_to_html_dir);
     rOptions->lookup_value("export_to_txt_dir", _export_to_txt_dir);
     rOptions->lookup_value("export_to_pdf_file", _export_to_pdf_file);
     rOptions->lookup_value("export_overwrite", _export_overwrite);
+    rOptions->lookup_value("new-window", new_window);
+
+    if (new_window) {
+        activate_action("new-window"); // will call 'new-window' action in primary instance
+        return 0; // to exit app
+    }
 
     return -1; // Keep going
 }
