@@ -65,16 +65,18 @@ void CtApp::_on_startup()
     if (_startup2) return;
     _startup2 = true;
 
-    std::string config_dir = Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME);
-    if (g_mkdir_with_parents(config_dir.c_str(), 0755) < 0) {
-        spdlog::warn("Could not create config directory: {}", config_dir.c_str());
+    const fs::path config_dir = fs::get_cherrytree_configdir();
+    if (not fs::exists(config_dir)) {
+        if (g_mkdir_with_parents(config_dir.c_str(), 0755) < 0) {
+            spdlog::warn("Could not create config directory: {}", config_dir.c_str());
+        }
     }
     _uCtCfg.reset(new CtConfig());
     //std::cout << _uCtCfg->specialChars.size() << "\t" << _uCtCfg->specialChars << std::endl;
 
-    std::string user_dir_icons = Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME, "icons");
+    const fs::path user_dir_icons = config_dir / "icons";
     _rIcontheme = Gtk::IconTheme::get_default();
-    _rIcontheme->append_search_path(user_dir_icons);
+    _rIcontheme->append_search_path(user_dir_icons.string());
     _rIcontheme->add_resource_path("/icons/");
     //_print_gresource_icons();
 

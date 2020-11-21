@@ -55,7 +55,13 @@ bool CtConfig::load_from_file(const fs::path& filepath)
     if (fs::exists(filepath))
     {
         _uKeyFile = std::make_unique<Glib::KeyFile>();
-        _uKeyFile->load_from_file(filepath.string());
+        try {
+            _uKeyFile->load_from_file(filepath.string());
+        }
+        catch (Glib::Error& error) {
+            spdlog::error("CtConfig {}: {}", filepath, error.what());
+            return false;
+        }
         _populate_data_from_keyfile();
         _uKeyFile.reset(nullptr);
         spdlog::debug("{} parsed", filepath);

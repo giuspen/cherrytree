@@ -56,7 +56,7 @@ bool CtExport2Html::prepare_html_folder(fs::path dir_place, fs::path new_folder,
     g_mkdir_with_parents(_embed_dir.c_str(), 0777);
     g_mkdir_with_parents(_res_dir.c_str(), 0777);
 
-    fs::path config_dir = fs::path(Glib::get_user_config_dir()) / CtConst::APP_NAME;
+    fs::path config_dir = fs::get_cherrytree_configdir();
     fs::path styles_css_filepath = config_dir / "styles3.css";
     if (!fs::is_regular_file(styles_css_filepath))
     {

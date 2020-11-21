@@ -36,7 +36,7 @@ void CtActions::dialog_about()
 
 void CtActions::folder_cfg_open()
 {
-    fs::open_folderpath(Glib::get_user_config_dir() / fs::path(CtConst::APP_NAME), _pCtMainWin->get_ct_config());
+    fs::open_folderpath(fs::get_cherrytree_configdir(), _pCtMainWin->get_ct_config());
 }
 
 void CtActions::check_for_newer_version()
