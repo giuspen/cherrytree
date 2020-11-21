@@ -97,7 +97,7 @@ make -j$(nproc --all)
 
 ## Building Cherrytree on Fedora
 
-Installd dependencies:
+Install dependencies:
 ```sh
 sudo dnf install @development-tools gcc-c++ libtool autoconf gtkmm30-devel gtksourceviewmm3-devel libxml++-devel libsq3-devel gettext-devel gettext intltool libxml2 gspell-devel
 ```
@@ -139,7 +139,7 @@ xdg-open /usr/share/doc/libxml++2.6/reference/html/index.html
 
 ## Building Cherrytree on Opensuse
 
-Installd dependencies:
+Install dependencies:
 ```sh
 sudo zypper install cmake gcc-c++ gtkmm3-devel gtksourceviewmm3_0-devel gspell-devel libxml++26-devel sqlite3-devel libcurl-devel libuchardet-devel
 ```
