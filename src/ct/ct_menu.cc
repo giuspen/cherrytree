@@ -282,7 +282,6 @@ void CtMenu::init_actions(CtActions* pActions)
         }
     }
 
-
     // for popup menus
     const char* link_cat = "";
     _actions.push_back(CtMenuAction{link_cat, "apply_tag_link", "ct_link_handle", _("Edit _Link"), None, _("Edit the Underlying Link"), sigc::mem_fun(*pActions, &CtActions::apply_tag_link)});
@@ -389,7 +388,6 @@ CtMenuAction* CtMenu::find_action(const std::string& id)
                 return shift;
             }
     return 0;
-
 }
 
 std::vector<Gtk::Toolbar*> CtMenu::build_toolbars(Gtk::MenuToolButton*& pRecentDocsMenuToolButton)
@@ -1123,6 +1121,10 @@ const char* CtMenu::_get_popup_menu_ui_str_text()
 </popup>
     )MARKUP";
 }
+#if 0
+// the following is to have xgettext add <menu _name='THIS_STRING' to the strings to be translated
+_("For_matting"),_("_List"),_("_Justify"),_("_Insert"),_("C_hange Case"),_("_Row"),_("_Search"),_("_Replace")
+#endif
 
 const char* CtMenu::_get_popup_menu_ui_str_code()
 {
@@ -1171,6 +1173,10 @@ const char* CtMenu::_get_popup_menu_ui_str_code()
 </popup>
     )MARKUP";
 }
+#if 0
+// the following is to have xgettext add <menu _name='THIS_STRING' to the strings to be translated
+_("_Insert"),_("C_hange Case"),_("_Row"),_("_Search"),_("_Replace")
+#endif
 
 const char* CtMenu::_get_popup_menu_ui_str_image()
 {

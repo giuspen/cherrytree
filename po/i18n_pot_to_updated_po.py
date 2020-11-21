@@ -17,7 +17,7 @@ for po_filepath in glob.glob(os.path.join(SCRIPT_DIR, "*.po")):
                  "-U",
                  "--backup=none",
                  po_filepath,
-                 APP_NAME+".pot")
+                 os.path.join(os.path.dirname(po_filepath), APP_NAME+".pot"))
     subprocess.call(shell_cmd)
     if args.zip:
         subprocess.call(["zip", "-j", "-9", po_filepath+".zip", po_filepath])
