@@ -54,6 +54,7 @@ private:
 
 void TestCtApp::on_activate()
 {
+    _on_startup();
     CHECK_EQUAL(4, _vec_args.size());
     // NOTE: on windows/msys2 unit tests the passed arguments do not work so we end up here
     _run_test(_vec_args.at(1), _vec_args.at(3));
@@ -61,6 +62,7 @@ void TestCtApp::on_activate()
 
 void TestCtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& /*hint*/)
 {
+    _on_startup();
     CHECK_EQUAL(1, files.size());
     // NOTE: we use the trick of the [-t export_to_txt_dir] argument to pass the target file type
     _run_test(files.front()->get_path(), _export_to_txt_dir);

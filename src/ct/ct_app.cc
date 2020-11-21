@@ -60,7 +60,7 @@ CtApp::~CtApp()
 }
 
 // small optimization: second instance doesn't need all UI initialization, so we call it on the real startup
-void CtApp::on_startup2()
+void CtApp::_on_startup()
 {
     if (_startup2) return;
     _startup2 = true;
@@ -119,7 +119,7 @@ void CtApp::on_startup2()
 
 void CtApp::on_activate()
 {
-    on_startup2();
+    _on_startup();
 
     // start of main instance
     if (get_windows().size() == 0)
@@ -166,7 +166,7 @@ void CtApp::on_activate()
 
 void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& /*hint*/)
 {
-    on_startup2();
+    _on_startup();
 
     // do some export stuff from console and close app after
     if ( not _export_to_txt_dir.empty() or
@@ -358,7 +358,7 @@ void CtApp::_add_main_option_entries()
     add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME, "export_to_txt_dir",  't', _("Export to Text at specified directory path"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME, "export_to_pdf_file", 'p', _("Export to PDF at specified file path"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "export_overwrite",   'w', _("Overwrite if export path already exists"));
-    add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "new-window",         '\0',_("Create a new window"));
+    add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "new-window",         'N', _("Create a new window"));
 }
 
 void CtApp::_print_gresource_icons()

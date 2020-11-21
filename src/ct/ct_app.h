@@ -65,7 +65,7 @@ protected:
     bool          _startup2{false};
 
 protected:
-    void on_startup2();
+    void _on_startup();
     void on_activate() override;
     void on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint) override;
     void on_window_removed(Gtk::Window* window) override;
