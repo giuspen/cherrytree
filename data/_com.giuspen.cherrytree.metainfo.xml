@@ -33,6 +33,6 @@
  <update_contact>giuspen@gmail.com</update_contact>
  <content_rating type="oars-1.0" />
  <releases>
-  <release version="0.99.2" date="2020-06-21" />
+<!-- <release version="0.99.2" date="2020-06-21" /> -->
  </releases>
 </component>

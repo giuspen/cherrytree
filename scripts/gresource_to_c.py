@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-# 'xmllint' optional to strip svg xml files (sudo apt install libxml2-utils)
-
 import os
 import subprocess
 import glob
@@ -39,7 +37,6 @@ def main(args):
     shell_cmd = ("glib-compile-resources", "--target="+GRESOURCE_SOURCE_FILEPATH_NOEXT+".cc", "--generate-source", GRESOURCE_XML_FILEPATH)
     subprocess.call(shell_cmd, cwd=ICONS_DIR)
     return 0
-
 
 if __name__ == '__main__':
     import sys

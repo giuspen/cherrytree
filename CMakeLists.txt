@@ -158,6 +158,13 @@ if(USE_NLS)
 endif()
 
 
+# rebuild metainfo xml
+execute_process(
+    COMMAND ${PYTHON_EXEC} ${CMAKE_SOURCE_DIR}/scripts/metainfo_xml_write.py
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+)
+
+
 # set icon on macos
 if(APPLE)
   install(CODE "execute_process(COMMAND ${PYTHON_EXEC} ${CMAKE_SOURCE_DIR}/scripts/set_icon_macos.py ${CMAKE_SOURCE_DIR}/icons/cherrytree.ico ${CMAKE_INSTALL_PREFIX}/bin/cherrytree)")

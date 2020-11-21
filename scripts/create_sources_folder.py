@@ -28,7 +28,7 @@ BLACKLIST = (
 VERSION = "?"
 with open(DEBIAN_CHANGELOG_PATH, "r") as fd:
     for fileline in fd:
-        match = re.search(r"cherrytree +\(([0-9]+\.[0-9]+\.[0-9]+)-", fileline)
+        match = re.search(r"cherrytree +\(([0-9]+\.[0-9]+\.[0-9]+)[-+]", fileline)
         if match is not None:
             VERSION = match.group(1)
             #print(VERSION)

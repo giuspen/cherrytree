@@ -2,6 +2,7 @@ cherrytree
 config.h
 *.gresource.*
 data/cherrytree.1.gz
+data/com.giuspen.cherrytree.metainfo.xml
 obj-x86_64-linux-gnu
 debian/autoreconf.after
 debian/autoreconf.before
