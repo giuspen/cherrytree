@@ -131,9 +131,90 @@
                     "sha256" : "6d71091bcd1863133460d4188d04102810e9123de19706fb656b7bb915b4adc3"
                 }
             ]
+        },
+        {
+            "name" : "gtksourceview",
+            "config-opts" : [
+                "--disable-documentation"
+            ],
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://download.gnome.org/sources/gtksourceview/3.24/gtksourceview-3.24.11.tar.xz",
+                    "sha256" : "691b074a37b2a307f7f48edc5b8c7afa7301709be56378ccf9cc9735909077fd"
+                }
+            ]
+        },
+        {
+            "name" : "gtksourceviewmm",
+            "config-opts" : [
+                "--disable-documentation"
+            ],
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://download.gnome.org/sources/gtksourceviewmm/3.21/gtksourceviewmm-3.21.3.tar.xz",
+                    "sha256" : "dbb00b1c28e0407cc27d8b07a2ed0b4ea22f92e4b3e3006431cbd6726b6256b5"
+                }
+            ]
+        },
+        {
+            "name" : "libxml++",
+            "config-opts" : [
+                "--disable-documentation"
+            ],
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://download.gnome.org/sources/libxml++/2.42/libxml++-2.42.0.tar.xz",
+                    "sha256" : "3d032aede98a033eb5e815b4bfa9fa7b4e745268e6fd1ce8b1d0f70bcaf4736d"
+                }
+            ]
+        },
+        {
+            "name" : "gspell",
+            "cleanup": [
+                "/bin"
+            ],
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://download.gnome.org/sources/gspell/1.9/gspell-1.9.1.tar.xz",
+                    "sha256" : "dcbb769dfdde8e3c0a8ed3102ce7e661abbf7ddf85df08b29915e92cd723abdd"
+                }
+            ]
+        },
+        {
+            "name" : "uchardet",
+            "buildsystem": "cmake",
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://www.freedesktop.org/software/uchardet/releases/uchardet-0.0.7.tar.xz",
+                    "sha256" : "3fc79408ae1d84b406922fa9319ce005631c95ca0f34b205fad867e8b30e45b1"
+                }
+            ]
+        },
+        {
+            "name" : "cpputest",
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://github.com/cpputest/cpputest/releases/download/v4.0/cpputest-4.0.tar.gz",
+                    "sha256" : "21c692105db15299b5529af81a11a7ad80397f92c122bd7bf1e4a4b0e85654f7"
+                }
+            ]
+        },
+        {
+            "name" : "cherrytree",
+            "buildsystem": "cmake",
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://www.giuspen.com/software/cherrytree_0.99.21.tar.xz",
+                    "sha256" : "13975afada775174a56266bdf113fc879624167aced8784e44aba15620e6ba57"
+                }
+            ]
         }
-
-
-
     ]
 }

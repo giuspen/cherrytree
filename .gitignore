@@ -11,3 +11,4 @@ debian/files
 build
 *.mo
 .vscode/settings.json
+.flatpak-builder
