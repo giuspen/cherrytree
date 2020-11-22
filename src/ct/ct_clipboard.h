@@ -60,7 +60,9 @@ public:
     Glib::ustring rich_text_get_from_text_buffer_selection(CtTreeIter node_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer,
                                                            Gtk::TextIter iter_sel_start, Gtk::TextIter iter_sel_end,
                                                            gchar change_case = 'n', bool exclude_iter_sel_end = false);
-    void from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_buffer, const Glib::ustring& xml_string);
+    void from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                                   const Glib::ustring& xml_string,
+                                   bool* const pPasteHadWidgets = nullptr);
 
 private:
     void _rich_text_process_slot(xmlpp::Element* root, int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> text_buffer,

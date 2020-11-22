@@ -277,7 +277,9 @@ void CtClipboard::_rich_text_process_slot(xmlpp::Element* root, int start_offset
 }
 
 // From XML String to Text Buffer
-void CtClipboard::from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_buffer, const Glib::ustring& xml_string)
+void CtClipboard::from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                                            const Glib::ustring& xml_string,
+                                            bool* const pPasteHadWidgets/*= nullptr*/)
 {
     xmlpp::DomParser parser;
     parser.parse_memory(xml_string);
@@ -287,7 +289,10 @@ void CtClipboard::from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_b
         throw std::invalid_argument("rich text from clipboard error");
     }
 
-    auto on_scope_exit = scope_guard([&](void*) { _pCtMainWin->get_state_machine().not_undoable_timeslot_set(false); });
+    auto on_scope_exit = scope_guard([&](void*) {
+        _pCtMainWin->get_state_machine().not_undoable_timeslot_set(false);
+        _pCtMainWin->get_state_machine().update_state();
+    });
     _pCtMainWin->get_state_machine().not_undoable_timeslot_set(true);
 
     std::list<CtAnchoredWidget*> widgets;
@@ -302,12 +307,17 @@ void CtClipboard::from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_b
             CtStorageXmlHelper(_pCtMainWin).get_text_buffer_one_slot_from_xml(gsv_buffer, child_node, widgets, &insert_iter, insert_iter.get_offset());
         }
     }
-    if (not widgets.empty())
-    {
+    if (not widgets.empty()) {
         _pCtMainWin->get_tree_store().addAnchoredWidgets(
                     _pCtMainWin->curr_tree_iter(),
-                    widgets, &_pCtMainWin->get_text_view());
-        _pCtMainWin->get_state_machine().update_state();
+                    widgets,
+                    &_pCtMainWin->get_text_view());
+        if (pPasteHadWidgets) {
+            *pPasteHadWidgets = true;
+        }
+    }
+    else if (pPasteHadWidgets) {
+        *pPasteHadWidgets = false;
     }
 }
 
@@ -530,8 +540,14 @@ void CtClipboard::_on_received_to_rich_text(const Gtk::SelectionData& selection_
         spdlog::error("? no clipboard rich text");
         return;
     }
-    from_xml_string_to_buffer(pTextView->get_buffer(), rich_text);
-    pTextView->scroll_to(pTextView->get_buffer()->get_insert());
+    bool pasteHadWidgets{false};
+    from_xml_string_to_buffer(pTextView->get_buffer(), rich_text, &pasteHadWidgets);
+    if (pasteHadWidgets) {
+        _pCtMainWin->re_load_current_buffer();
+    }
+    else {
+        pTextView->scroll_to(pTextView->get_buffer()->get_insert());
+    }
 }
 
 // From Clipboard to CodeBox
@@ -633,8 +649,14 @@ void CtClipboard::_on_received_to_html(const Gtk::SelectionData& selection_data,
 
     CtHtml2Xml parser(_pCtMainWin->get_ct_config());
     parser.feed(html_content);
-    from_xml_string_to_buffer(pTextView->get_buffer(), parser.to_string());
-    pTextView->scroll_to(pTextView->get_buffer()->get_insert());
+    bool pasteHadWidgets{false};
+    from_xml_string_to_buffer(pTextView->get_buffer(), parser.to_string(), &pasteHadWidgets);
+    if (pasteHadWidgets) {
+        _pCtMainWin->re_load_current_buffer();
+    }
+    else {
+        pTextView->scroll_to(pTextView->get_buffer()->get_insert());
+    }
 }
 
 // From Clipboard to Image
