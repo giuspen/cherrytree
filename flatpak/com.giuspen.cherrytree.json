@@ -1,146 +1,139 @@
 {
-  "app-id": "com.giuspen.cherrytree",
-  "runtime": "org.freedesktop.Platform",
-  "runtime-version": "19.08",
-  "sdk": "org.freedesktop.Sdk",
-  "command": "cherrytree",
-  "rename-desktop-file": "cherrytree.desktop",
-  "rename-icon": "cherrytree",
-  "finish-args": [
-    "--socket=x11",
-    "--filesystem=host"
-  ],
-  "cleanup": [
-    "/include",
-    "/share/bash-completion",
-    "/lib/pkgconfig/",
-    "/lib/*.a",
-    "/lib/*.la",
-    "/lib/cairo/*.a",
-    "/lib/cairo/*.la",
-    "/share/doc/",
-    "/man/"
-  ],
-  "modules": [
-    "shared-modules/intltool/intltool-0.51.json",
-    {
-      "name": "cairo",
-      "sources": [
+    "app-id": "com.giuspen.cherrytree",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "3.38",
+    "sdk": "org.gnome.Sdk",
+    "command": "cherrytree",
+    "rename-desktop-file": "cherrytree.desktop",
+    "rename-icon": "cherrytree",
+    "finish-args": [
+        "--share=ipc",
+        "--socket=x11",
+        "--socket=wayland",
+        "--filesystem=host",
+        "--filesystem=xdg-run/gvfs",
+        "--talk-name=org.gtk.vfs",
+        "--talk-name=org.gtk.vfs.*"
+    ],
+    "cleanup": [
+        "/bin/poppler-glib-demo",
+        "/bin/gsl-*",
+        "/include",
+        "/lib/pkgconfig",
+        "/share/aclocal",
+        "/share/devhelp",
+        "/share/doc",
+        "/share/gc",
+        "/share/info",
+        "/share/man",
+        "/share/pkgconfig",
+        "*.la",
+        "*.a"
+    ],
+    "modules": [
         {
-          "type": "archive",
-          "url": "https://www.cairographics.org/releases/cairo-1.16.0.tar.xz",
-          "sha256": "5e7b29b3f113ef870d1e3ecf8adf21f923396401604bda16d44be45e66052331"
-        }
-      ]
-    },
-    "shared-modules/gtk2/gtk2.json",
-    {
-      "name": "gtksourceview",
-      "sources": [
-        {
-          "type": "archive",
-          "url": "https://download.gnome.org/sources/gtksourceview/2.10/gtksourceview-2.10.5.tar.bz2",
-          "sha256": "c585773743b1df8a04b1be7f7d90eecdf22681490d6810be54c81a7ae152191e"
-        }
-      ]
-    },
-    "shared-modules/python2.7/python-2.7.json",
-    {
-      "name": "pycairo",
-      "buildsystem": "meson",
-      "config-opts": [
-        "-Dpython=python"
-      ],
-      "sources": [
-        {
-          "type": "archive",
-          "url": "https://github.com/pygobject/pycairo/archive/v1.18.1.zip",
-          "sha256": "7340f8c7e164718bcc5de23d4bcff39ac81994a070edefdcdbcd1e31c9502754"
-        }
-      ]
-    },
-    {
-      "name": "pygobject",
-      "config-opts": [
-        "--disable-introspection"
-      ],
-      "sources": [
-        {
-          "type": "archive",
-          "url": "https://download.gnome.org/sources/pygobject/2.28/pygobject-2.28.7.tar.xz",
-          "sha256": "bb9d25a3442ca7511385a7c01b057492095c263784ef31231ffe589d83a96a5a"
-        }
-      ]
-    },
-    {
-      "name": "pango",
-      "sources": [
-        {
-          "type": "archive",
-          "url": "https://download.gnome.org/sources/pango/1.38/pango-1.38.1.tar.xz",
-          "sha256": "1320569f6c6d75d6b66172b2d28e59c56ee864ee9df202b76799c4506a214eb7"
-        }
-      ]
-    },
-    {
-      "name": "pygtk",
-      "sources": [
-        {
-          "type": "archive",
-          "url": "https://download.gnome.org/sources/pygtk/2.24/pygtk-2.24.0.tar.bz2",
-          "sha256": "cd1c1ea265bd63ff669e92a2d3c2a88eb26bcd9e5363e0f82c896e649f206912"
+            "name": "mm-common",
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/mm-common/1.0/mm-common-1.0.1.tar.xz",
+                    "sha256": "28a2d775afbf05c5c957b24b220ed6e9b2023179b98ecde471d89e9754ea5ac9"
+                }
+            ],
+            "cleanup": [
+                "*"
+            ]
         },
         {
-          "type": "shell",
-          "commands": [
-            "cp -p /usr/share/automake-*/config.{sub,guess} ."
-          ]
-        }
-      ]
-    },
-    {
-      "name": "pygtksourceview",
-      "config-opts": [
-        "--disable-docs"
-      ],
-      "sources": [
+            "name": "sigc++-2",
+            "config-opts": [
+                "--disable-documentation"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/libsigc++/2.10/libsigc++-2.10.3.tar.xz",
+                    "sha256": "0b68dfc6313c6cc90ac989c6d722a1bf0585ad13846e79746aa87cb265904786"
+                }
+            ]
+        },
         {
-          "type": "archive",
-          "url": "https://download.gnome.org/sources/pygtksourceview/2.10/pygtksourceview-2.10.1.tar.bz2",
-          "sha256": "b4b47c5aeb67a26141cb03663091dfdf5c15c8a8aae4d69c46a6a943ca4c5974"
-        }
-      ]
-    },
-    {
-      "name": "p7zip",
-      "buildsystem": "simple",
-      "build-commands": [
-        "cp makefile.linux_amd64 makefile.linux",
-        "make all",
-        "sed -i 's/DEST_HOME=\\/usr\\/local/DEST_HOME=\\/app/g' install.sh",
-        "./install.sh"
-      ],
-      "sources": [
+            "name": "cairomm",
+            "config-opts": [
+                "--disable-documentation"
+            ],
+            "cleanup": [
+                "/lib/cairomm-1.0"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://www.cairographics.org/releases/cairomm-1.12.2.tar.gz",
+                    "sha256": "45c47fd4d0aa77464a75cdca011143fea3ef795c4753f6e860057da5fb8bd599"
+                }
+            ]
+        },
         {
-          "type": "archive",
-          "url": "https://www.giuspen.com/software/p7zip_16.02_src_all.tar.bz2",
-          "sha256": "5eb20ac0e2944f6cb9c2d51dd6c4518941c185347d4089ea89087ffdd6e2341f"
-        }
-      ]
-    },
-    {
-      "name": "cherrytree",
-      "buildsystem": "simple",
-      "build-commands": [
-        "cd pygtk2 && python setup.py install --prefix=/app -f"
-      ],
-      "sources": [
+            "name": "glibmm",
+            "cleanup": [
+                "/lib/glibmm-2.4"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/glibmm/2.64/glibmm-2.64.2.tar.xz",
+                    "sha256": "a75282e58d556d9b2bb44262b6f5fb76c824ac46a25a06f527108bec86b8d4ec"
+                }
+            ]
+        },
         {
-          "type": "archive",
-          "url": "https://www.giuspen.com/software/cherrytree-0.39.4.tar.xz",
-          "sha256": "6db3d17c49dfd3c7d83ad2cc8b8be28350497566acfe827e6f178538669b4f76"
+            "name": "pangomm",
+            "config-opts": [
+                "--disable-documentation"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/pangomm/2.42/pangomm-2.42.1.tar.xz",
+                    "sha256": "14bf04939930870d5cfa96860ed953ad2ce07c3fd8713add4a1bfe585589f40f"
+                }
+            ]
+        },
+        {
+            "name": "atkmm",
+            "config-opts": [
+                "--disable-documentation"
+            ],
+            "cleanup": [
+                "/lib/atkmm-1.6"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/atkmm/2.28/atkmm-2.28.0.tar.xz",
+                    "sha256": "4c4cfc917fd42d3879ce997b463428d6982affa0fb660cafcc0bc2d9afcedd3a"
+                }
+            ]
+        },
+        {
+            "name" : "gtkmm",
+            "config-opts" : [
+                "--disable-documentation"
+            ],
+            "cleanup": [
+                "/lib/gtkmm-3.0"
+            ],
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://download.gnome.org/sources/gtkmm/3.24/gtkmm-3.24.2.tar.xz",
+                    "sha256" : "6d71091bcd1863133460d4188d04102810e9123de19706fb656b7bb915b4adc3"
+                }
+            ]
         }
-      ]
-    }
-  ]
+
+
+
+    ]
 }
