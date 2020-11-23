@@ -1,10 +1,11 @@
-cherrytree (0.99.21-1) focal; urgency=low
+cherrytree (0.99.22-1) focal; urgency=low
 
-  * fix issue with clipboard on Windows (#1336, #1344, #1341)
-  * fix crash when triying to move a table column (#1342)
-  * fix crash when pasting HTML (#1346)
-  * suppressed misleading print of error while executing unit tests at build time (#1340)
-  * updated languages German, Dutch, Turkish
+  * fixed not saving node properties when only node properties are changed (#1364)
+  * fix issue (gitch) pasting tables from clipboard (#1358)
+  * added command line switch --new-window (#1339)
+  * the rich text tagged monospace is not forced to use a dedicated font anymore - configurable and off by default (#1343)
+  * fixed crash when manually generating config.cfg (with BOM) for windows portable
+  * fixed issues with portable version not using portable config dir
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Thu, 19 Nov 2020 22:19:41 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Mon, 23 Nov 2020 23:03:13 +0000

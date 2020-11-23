@@ -1,4 +1,12 @@
 
+0.99.22 (November 23rd, 2020)
+  * fixed not saving node properties when only node properties are changed (#1364)
+  * fix issue (gitch) pasting tables from clipboard (#1358)
+  * added command line switch --new-window (#1339)
+  * the rich text tagged monospace is not forced to use a dedicated font anymore - configurable and off by default (#1343)
+  * fixed crash when manually generating config.cfg (with BOM) for windows portable
+  * fixed issues with portable version not using portable config dir
+
 0.99.21 (November 19th, 2020)
   * fix issue with clipboard on Windows (#1336, #1344, #1341)
   * fix crash when triying to move a table column (#1342)
