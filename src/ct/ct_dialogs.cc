@@ -1812,6 +1812,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
         {
             nodeData.customIconId = static_cast<guint32>(std::stoi(treeIter->get_value(itemStore->columns.key)));
             c_icon_button.set_label("");
+            c_icon_button.property_always_show_image() = true; // to fix not showing image on Win32
             c_icon_button.set_image(*pCtMainWin->new_image_from_stock(treeIter->get_value(itemStore->columns.stock_id), Gtk::ICON_SIZE_BUTTON));
         }
     });
