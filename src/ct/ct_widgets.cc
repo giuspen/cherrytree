@@ -774,18 +774,19 @@ void CtTextView::zoom_text(const bool is_increase, const std::string& syntaxHigh
     override_font(fontDesc);
 
     if (syntaxHighlighting == CtConst::RICH_TEXT_ID) {
-        _pCtMainWin->get_ct_config()->rtFont = CtFontUtil::get_font_str(fontDesc);
+        auto pCtConfig = _pCtMainWin->get_ct_config();
+        pCtConfig->rtFont = CtFontUtil::get_font_str(fontDesc);
         // also fix monospace font size
-        if (not _pCtMainWin->get_ct_config()->monospaceFont.empty())
-        {
-            Pango::FontDescription monoFontDesc(_pCtMainWin->get_ct_config()->monospaceFont);
+        if (pCtConfig->msDedicatedFont and not pCtConfig->monospaceFont.empty()) {
+            Pango::FontDescription monoFontDesc(pCtConfig->monospaceFont);
             int monoSize = monoFontDesc.get_size() / Pango::SCALE + (is_increase ? 1 : -1);
             if (monoSize < 6) monoSize = 6;
             monoFontDesc.set_size(monoSize * Pango::SCALE);
 
-            _pCtMainWin->get_ct_config()->monospaceFont = CtFontUtil::get_font_str(monoFontDesc);
-            if (auto tag = get_buffer()->get_tag_table()->lookup(CtConst::TAG_FAMILY + Glib::ustring("_") + CtConst::TAG_PROP_VAL_MONOSPACE))
-                tag->property_font() = _pCtMainWin->get_ct_config()->monospaceFont;
+            pCtConfig->monospaceFont = CtFontUtil::get_font_str(monoFontDesc);
+            if (auto tag = get_buffer()->get_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
+                tag->property_font() = pCtConfig->monospaceFont;
+            }
         }
     }
     else if (syntaxHighlighting == CtConst::PLAIN_TEXT_ID) {

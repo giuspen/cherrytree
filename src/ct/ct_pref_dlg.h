@@ -83,6 +83,7 @@ public:
     static std::string get_code_exec_term_run(CtMainWin* pCtMainWin);
     static std::string get_code_exec_type_cmd(CtMainWin* pCtMainWin, const std::string code_type);
     static std::string get_code_exec_ext(CtMainWin* pCtMainWin, const std::string code_type);
+    static Gtk::Frame* new_managed_frame_with_align(const Glib::ustring& frameLabel, Gtk::Widget* pFrameChild);
 
 private:
     struct UniversalModelColumns : public Gtk::TreeModel::ColumnRecord

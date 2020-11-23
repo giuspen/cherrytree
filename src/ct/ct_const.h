@@ -133,6 +133,7 @@ const inline static gchar* TAG_PROP_VAL_LEFT         {"left"};
 const inline static gchar* TAG_PROP_VAL_CENTER       {"center"};
 const inline static gchar* TAG_PROP_VAL_RIGHT        {"right"};
 const inline static gchar* TAG_PROP_VAL_FILL         {"fill"};
+const inline static Glib::ustring TAG_ID_MONOSPACE {TAG_FAMILY + Glib::ustring{"_"} + TAG_PROP_VAL_MONOSPACE};
 
 const inline static gchar* STR_KEY_UP                {"Up"};
 const inline static gchar* STR_KEY_DOWN              {"Down"};

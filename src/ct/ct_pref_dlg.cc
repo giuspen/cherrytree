@@ -63,6 +63,18 @@ CtPrefDlg::CtPrefDlg(CtMainWin* parent)
     add_button(Gtk::Stock::CLOSE, 1);
 }
 
+Gtk::Frame* CtPrefDlg::new_managed_frame_with_align(const Glib::ustring& frameLabel, Gtk::Widget* pFrameChild)
+{
+    auto pFrame = Gtk::manage(new Gtk::Frame{Glib::ustring{"<b>"}+frameLabel+"</b>"});
+    dynamic_cast<Gtk::Label*>(pFrame->get_label_widget())->set_use_markup(true);
+    pFrame->set_shadow_type(Gtk::SHADOW_NONE);
+    auto pAlign = Gtk::manage(new Gtk::Alignment());
+    pAlign->set_padding(3, 6, 6, 6);
+    pAlign->add(*pFrameChild);
+    pFrame->add(*pAlign);
+    return pFrame;
+}
+
 Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
 {
     CtConfig* pConfig = _pCtMainWin->get_ct_config();
@@ -129,13 +141,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     vbox_text_editor->pack_start(*checkbutton_scroll_last_line, false, false);
     vbox_text_editor->pack_start(*hbox_space_around_lines, false, false);
     vbox_text_editor->pack_start(*hbox_relative_wrapped_space, false, false);
-    Gtk::Frame* frame_text_editor = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Text Editor")+"</b>"));
-    ((Gtk::Label*)frame_text_editor->get_label_widget())->set_use_markup(true);
-    frame_text_editor->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_text_editor = Gtk::manage(new Gtk::Alignment());
-    align_text_editor->set_padding(3, 6, 6, 6);
-    align_text_editor->add(*vbox_text_editor);
-    frame_text_editor->add(*align_text_editor);
+    Gtk::Frame* frame_text_editor = new_managed_frame_with_align(_("Text Editor"), vbox_text_editor);
 
     Gtk::HBox* hbox_timestamp = Gtk::manage(new Gtk::HBox());
     hbox_timestamp->set_spacing(4);
@@ -174,13 +180,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     vbox_misc_all->pack_start(*hbox_timestamp);
     vbox_misc_all->pack_start(*hbox_horizontal_rule);
     vbox_misc_all->pack_start(*hbox_selword_chars);
-    Gtk::Frame* frame_misc_all = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Miscellaneous")+"</b>"));
-    ((Gtk::Label*)frame_misc_all->get_label_widget())->set_use_markup(true);
-    frame_misc_all->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_misc_all = Gtk::manage(new Gtk::Alignment());
-    align_misc_all->set_padding(3, 6, 6, 6);
-    align_misc_all->add(*vbox_misc_all);
-    frame_misc_all->add(*align_misc_all);
+    Gtk::Frame* frame_misc_all = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc_all);
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
@@ -336,13 +336,7 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     vbox_editor->pack_start(*checkbutton_auto_smart_quotes, false, false);
     vbox_editor->pack_start(*checkbutton_enable_symbol_autoreplace, false, false);
 
-    Gtk::Frame* frame_editor = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Text Editor")+"</b>"));
-    ((Gtk::Label*)frame_editor->get_label_widget())->set_use_markup(true);
-    frame_editor->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_editor = Gtk::manage(new Gtk::Alignment());
-    align_editor->set_padding(3, 6, 6, 6);
-    align_editor->add(*vbox_editor);
-    frame_editor->add(*align_editor);
+    Gtk::Frame* frame_editor = new_managed_frame_with_align(_("Text Editor"), vbox_editor);
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
@@ -456,13 +450,7 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     hbox_spell_check_lang->pack_start(*combobox_spell_check_lang);
     vbox_spell_check->pack_start(*checkbutton_spell_check, false, false);
     vbox_spell_check->pack_start(*hbox_spell_check_lang, false, false);
-    Gtk::Frame* frame_spell_check = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Spell Check")+"</b>"));
-    ((Gtk::Label*)frame_spell_check->get_label_widget())->set_use_markup(true);
-    frame_spell_check->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_spell_check = Gtk::manage(new Gtk::Alignment());
-    align_spell_check->set_padding(3, 6, 6, 6);
-    align_spell_check->add(*vbox_spell_check);
-    frame_spell_check->add(*align_spell_check);
+    Gtk::Frame* frame_spell_check = new_managed_frame_with_align(_("Spell Check"), vbox_spell_check);
 
     Gtk::HBox* hbox_misc_text = Gtk::manage(new Gtk::HBox());
     hbox_misc_text->set_spacing(4);
@@ -521,13 +509,7 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
 #ifdef MD_AUTO_REPLACEMENT
     vbox_misc_text->pack_start(*checkbutton_md_formatting, false, false);
 #endif // MD_AUTO_REPLACEMENT
-    Gtk::Frame* frame_misc_text = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Miscellaneous")+"</b>"));
-    ((Gtk::Label*)frame_misc_text->get_label_widget())->set_use_markup(true);
-    frame_misc_text->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_misc_text = Gtk::manage(new Gtk::Alignment());
-    align_misc_text->set_padding(3, 6, 6, 6);
-    align_misc_text->add(*vbox_misc_text);
-    frame_misc_text->add(*align_misc_text);
+    Gtk::Frame* frame_misc_text = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc_text);
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
@@ -617,13 +599,7 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     vbox_syntax->pack_start(*checkbutton_pt_highl_curr_line, false, false);
     vbox_syntax->pack_start(*checkbutton_pt_highl_match_bra, false, false);
 
-    Gtk::Frame* frame_syntax = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Text Editor")+"</b>"));
-    ((Gtk::Label*)frame_syntax->get_label_widget())->set_use_markup(true);
-    frame_syntax->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_syntax = Gtk::manage(new Gtk::Alignment());
-    align_syntax->set_padding(3, 6, 6, 6);
-    align_syntax->add(*vbox_syntax);
-    frame_syntax->add(*align_syntax);
+    Gtk::Frame* frame_syntax = new_managed_frame_with_align(_("Text Editor"), vbox_syntax);
 
     Glib::RefPtr<Gtk::ListStore> liststore = Gtk::ListStore::create(_commandModelColumns);
     _fill_custom_exec_commands_model(liststore);
@@ -672,22 +648,16 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     hbox_cmd_per_type->pack_start(*scrolledwindow, true, true);
     hbox_cmd_per_type->pack_start(*vbox_buttons, false, false);
 
-    Gtk::Label* label = Gtk::manage(new Gtk::Label(std::string("<b>")+_("Command per Node/CodeBox Type")+"</b>"));
+    Gtk::Label* label = Gtk::manage(new Gtk::Label(Glib::ustring{"<b>"}+_("Command per Node/CodeBox Type")+"</b>"));
     label->set_use_markup(true);
     vbox_codexec->pack_start(*label, false, false);
     vbox_codexec->pack_start(*hbox_cmd_per_type, true, true);
-    Gtk::Label* label2 = Gtk::manage(new Gtk::Label(std::string("<b>")+_("Terminal Command")+"</b>"));
+    Gtk::Label* label2 = Gtk::manage(new Gtk::Label(Glib::ustring{"<b>"}+_("Terminal Command")+"</b>"));
     label2->set_use_markup(true);
     vbox_codexec->pack_start(*label2, false, false);
     vbox_codexec->pack_start(*hbox_term_run, false, false);
 
-    Gtk::Frame* frame_codexec = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Code Execution")+"</b>"));
-    ((Gtk::Label*)frame_codexec->get_label_widget())->set_use_markup(true);
-    frame_codexec->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_codexec = Gtk::manage(new Gtk::Alignment());
-    align_codexec->set_padding(3, 6, 6, 6);
-    align_codexec->add(*vbox_codexec);
-    frame_codexec->add(*align_codexec);
+    Gtk::Frame* frame_codexec = new_managed_frame_with_align(_("Code Execution"), vbox_codexec);
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
@@ -779,13 +749,7 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     vbox_tt_theme->pack_start(*radiobutton_tt_col_light, false, false);
     vbox_tt_theme->pack_start(*radiobutton_tt_col_dark, false, false);
     vbox_tt_theme->pack_start(*hbox_tt_col_custom, false, false);
-    Gtk::Frame* frame_tt_theme = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Tree")+"</b>"));
-    ((Gtk::Label*)frame_tt_theme->get_label_widget())->set_use_markup(true);
-    frame_tt_theme->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_tt_theme = Gtk::manage(new Gtk::Alignment());
-    align_tt_theme->set_padding(3, 6, 6, 6);
-    align_tt_theme->add(*vbox_tt_theme);
-    frame_tt_theme->add(*align_tt_theme);
+    Gtk::Frame* frame_tt_theme = new_managed_frame_with_align(_("Tree"), vbox_tt_theme);
 
     if (pConfig->ttDefFg == CtConst::TREE_TEXT_DARK_FG && pConfig->ttDefBg == CtConst::TREE_TEXT_DARK_BG)
     {
@@ -830,13 +794,7 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
 
     vbox_rt_theme->pack_start(*hbox_style_scheme_rt, false, false);
     vbox_rt_theme->pack_start(*hbox_monospace_bg, false, false);
-    Gtk::Frame* frame_rt_theme = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Rich Text")+"</b>"));
-    ((Gtk::Label*)frame_rt_theme->get_label_widget())->set_use_markup(true);
-    frame_rt_theme->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_rt_theme = Gtk::manage(new Gtk::Alignment());
-    align_rt_theme->set_padding(3, 6, 6, 6);
-    align_rt_theme->add(*vbox_rt_theme);
-    frame_rt_theme->add(*align_rt_theme);
+    Gtk::Frame* frame_rt_theme = new_managed_frame_with_align(_("Rich Text"), vbox_rt_theme);
 
     // Plain Text and Code Theme
     Gtk::VBox* vbox_pt_theme = Gtk::manage(new Gtk::VBox());
@@ -852,13 +810,7 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     hbox_style_scheme_pt->pack_start(*combobox_style_scheme_pt, false, false);
 
     vbox_pt_theme->pack_start(*hbox_style_scheme_pt, false, false);
-    Gtk::Frame* frame_pt_theme = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Plain Text and Code")+"</b>"));
-    ((Gtk::Label*)frame_pt_theme->get_label_widget())->set_use_markup(true);
-    frame_pt_theme->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_pt_theme = Gtk::manage(new Gtk::Alignment());
-    align_pt_theme->set_padding(3, 6, 6, 6);
-    align_pt_theme->add(*vbox_pt_theme);
-    frame_pt_theme->add(*align_pt_theme);
+    Gtk::Frame* frame_pt_theme = new_managed_frame_with_align(_("Plain Text and Code"), vbox_pt_theme);
 
     // Table Theme
     Gtk::VBox* vbox_ta_theme = Gtk::manage(new Gtk::VBox());
@@ -874,13 +826,7 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     hbox_style_scheme_ta->pack_start(*combobox_style_scheme_ta, false, false);
 
     vbox_ta_theme->pack_start(*hbox_style_scheme_ta, false, false);
-    Gtk::Frame* frame_ta_theme = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Table")+"</b>"));
-    ((Gtk::Label*)frame_ta_theme->get_label_widget())->set_use_markup(true);
-    frame_ta_theme->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_ta_theme = Gtk::manage(new Gtk::Alignment());
-    align_ta_theme->set_padding(3, 6, 6, 6);
-    align_ta_theme->add(*vbox_ta_theme);
-    frame_ta_theme->add(*align_ta_theme);
+    Gtk::Frame* frame_ta_theme = new_managed_frame_with_align(_("Table"), vbox_ta_theme);
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
@@ -932,19 +878,23 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
         apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('r'/*RichText*/); });
     });
     checkbutton_monospace_bg->signal_toggled().connect([this, pConfig, checkbutton_monospace_bg, colorbutton_monospace_bg](){
-        if (checkbutton_monospace_bg->get_active())
-        {
-            pConfig->monospaceBg = CtRgbUtil::rgb_any_to_24(colorbutton_monospace_bg->get_rgba());
-            colorbutton_monospace_bg->set_sensitive(true);
-        } else {
-            pConfig->monospaceBg = "";
-            colorbutton_monospace_bg->set_sensitive(false);
+        pConfig->monospaceBg = checkbutton_monospace_bg->get_active() ?
+            CtRgbUtil::rgb_any_to_24(colorbutton_monospace_bg->get_rgba()) : "";
+        colorbutton_monospace_bg->set_sensitive(not pConfig->monospaceBg.empty());
+        if (not pConfig->monospaceBg.empty()) {
+            if (auto tag = _pCtMainWin->get_text_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
+                tag->property_background() = pConfig->monospaceBg;
+            }
         }
-        need_restart(RESTART_REASON::MONOSPACE);
+        else {
+            need_restart(RESTART_REASON::MONOSPACE);
+        }
     });
     colorbutton_monospace_bg->signal_color_set().connect([this, pConfig, colorbutton_monospace_bg](){
         pConfig->monospaceBg = CtRgbUtil::rgb_any_to_24(colorbutton_monospace_bg->get_rgba());
-        need_restart(RESTART_REASON::MONOSPACE);
+        if (auto tag = _pCtMainWin->get_text_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
+            tag->property_background() = pConfig->monospaceBg;
+        }
     });
 
     combobox_style_scheme_pt->signal_changed().connect([this, pConfig, combobox_style_scheme_pt](){
@@ -985,13 +935,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree()
     vbox_nodes_icons->pack_start(*c_icon_hbox, false, false);
     vbox_nodes_icons->pack_start(*radiobutton_node_icon_none, false, false);
     vbox_nodes_icons->pack_start(*checkbutton_aux_icon_hide, false, false);
-    Gtk::Frame* frame_nodes_icons = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Default Text Nodes Icons")+"</b>"));
-    ((Gtk::Label*)frame_nodes_icons->get_label_widget())->set_use_markup(true);
-    frame_nodes_icons->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_nodes_icons = Gtk::manage(new Gtk::Alignment());
-    align_nodes_icons->set_padding(3, 6, 6, 6);
-    align_nodes_icons->add(*vbox_nodes_icons);
-    frame_nodes_icons->add(*align_nodes_icons);
+    Gtk::Frame* frame_nodes_icons = new_managed_frame_with_align(_("Default Text Nodes Icons"), vbox_nodes_icons);
 
     radiobutton_node_icon_cherry->set_active(pConfig->nodesIcons == "c");
     radiobutton_node_icon_custom->set_active(pConfig->nodesIcons == "b");
@@ -1012,13 +956,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree()
     vbox_nodes_startup->pack_start(*radiobutton_nodes_startup_expand, false, false);
     vbox_nodes_startup->pack_start(*radiobutton_nodes_startup_collapse, false, false);
     vbox_nodes_startup->pack_start(*checkbutton_nodes_bookm_exp, false, false);
-    Gtk::Frame* frame_nodes_startup = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Nodes Status at Startup")+"</b>"));
-    ((Gtk::Label*)frame_nodes_startup->get_label_widget())->set_use_markup(true);
-    frame_nodes_startup->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_nodes_startup = Gtk::manage(new Gtk::Alignment());
-    align_nodes_startup->set_padding(3, 6, 6, 6);
-    align_nodes_startup->add(*vbox_nodes_startup);
-    frame_nodes_startup->add(*align_nodes_startup);
+    Gtk::Frame* frame_nodes_startup = new_managed_frame_with_align(_("Nodes Status at Startup"), vbox_nodes_startup);
 
     radiobutton_nodes_startup_restore->set_active(pConfig->restoreExpColl == CtRestoreExpColl::FROM_STR);
     radiobutton_nodes_startup_expand->set_active(pConfig->restoreExpColl == CtRestoreExpColl::ALL_EXP);
@@ -1055,13 +993,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree()
     vbox_misc_tree->pack_start(*checkbutton_tree_click_focus_text, false, false);
     vbox_misc_tree->pack_start(*checkbutton_tree_click_expand, false, false);
     vbox_misc_tree->pack_start(*hbox_nodes_on_node_name_header, false, false);
-    Gtk::Frame* frame_misc_tree = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Miscellaneous")+"</b>"));
-    ((Gtk::Label*)frame_misc_tree->get_label_widget())->set_use_markup(true);
-    frame_misc_tree->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_misc_tree = Gtk::manage(new Gtk::Alignment());
-    align_misc_tree->set_padding(3, 6, 6, 6);
-    align_misc_tree->add(*vbox_misc_tree);
-    frame_misc_tree->add(*align_misc_tree);
+    Gtk::Frame* frame_misc_tree = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc_tree);
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
@@ -1160,41 +1092,42 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
     Gtk::Image* image_code = _pCtMainWin->new_image_from_stock("ct_xml", Gtk::ICON_SIZE_MENU);
     Gtk::Image* image_tree = _pCtMainWin->new_image_from_stock("ct_cherries", Gtk::ICON_SIZE_MENU);
     Gtk::Label* label_rt = Gtk::manage(new Gtk::Label(_("Rich Text")));
-    Gtk::Label* label_ms = Gtk::manage(new Gtk::Label(_("Monospace")));
+    label_rt->set_halign(Gtk::Align::ALIGN_END);
+    Gtk::CheckButton* checkbutton_ms = Gtk::manage(new Gtk::CheckButton(_("Monospace")));
+    checkbutton_ms->set_halign(Gtk::Align::ALIGN_END);
+    checkbutton_ms->set_active(pConfig->msDedicatedFont);
     Gtk::Label* label_pt = Gtk::manage(new Gtk::Label(_("Plain Text")));
+    label_pt->set_halign(Gtk::Align::ALIGN_END);
     Gtk::Label* label_code = Gtk::manage(new Gtk::Label(_("Code Font")));
+    label_code->set_halign(Gtk::Align::ALIGN_END);
     Gtk::Label* label_tree = Gtk::manage(new Gtk::Label(_("Tree Font")));
+    label_tree->set_halign(Gtk::Align::ALIGN_END);
     Gtk::FontButton* fontbutton_rt = Gtk::manage(new Gtk::FontButton(pConfig->rtFont));
     Gtk::FontButton* fontbutton_ms = Gtk::manage(new Gtk::FontButton(pConfig->monospaceFont));
+    fontbutton_ms->set_sensitive(pConfig->msDedicatedFont);
     Gtk::FontButton* fontbutton_pt = Gtk::manage(new Gtk::FontButton(pConfig->ptFont));
     Gtk::FontButton* fontbutton_code = Gtk::manage(new Gtk::FontButton(pConfig->codeFont));
     Gtk::FontButton* fontbutton_tree = Gtk::manage(new Gtk::FontButton(pConfig->treeFont));
-    Gtk::Table* table_fonts = Gtk::manage(new Gtk::Table(5, 3));
-    table_fonts->set_row_spacings(2);
-    table_fonts->set_col_spacings(4);
-    table_fonts->attach(*image_rt,   0, 1, 0, 1);
-    table_fonts->attach(*image_ms,   0, 1, 1, 2);
-    table_fonts->attach(*image_pt,   0, 1, 2, 3);
-    table_fonts->attach(*image_code, 0, 1, 3, 4);
-    table_fonts->attach(*image_tree, 0, 1, 4, 5);
-    table_fonts->attach(*label_rt,   1, 2, 0, 1);
-    table_fonts->attach(*label_ms,   1, 2, 1, 2);
-    table_fonts->attach(*label_pt,   1, 2, 2, 3);
-    table_fonts->attach(*label_code, 1, 2, 3, 4);
-    table_fonts->attach(*label_tree, 1, 2, 4, 5);
-    table_fonts->attach(*fontbutton_rt,   2, 3, 0, 1);
-    table_fonts->attach(*fontbutton_ms,   2, 3, 1, 2);
-    table_fonts->attach(*fontbutton_pt,   2, 3, 2, 3);
-    table_fonts->attach(*fontbutton_code, 2, 3, 3, 4);
-    table_fonts->attach(*fontbutton_tree, 2, 3, 4, 5);
-
-    Gtk::Frame* frame_fonts = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Fonts")+"</b>"));
-    ((Gtk::Label*)frame_fonts->get_label_widget())->set_use_markup(true);
-    frame_fonts->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_fonts = Gtk::manage(new Gtk::Alignment());
-    align_fonts->set_padding(3, 6, 6, 6);
-    align_fonts->add(*table_fonts);
-    frame_fonts->add(*align_fonts);
+    Gtk::Grid* grid_fonts = Gtk::manage(new Gtk::Grid());
+    grid_fonts->set_row_spacing(2);
+    grid_fonts->set_column_spacing(4);
+    grid_fonts->set_row_homogeneous(true);
+    grid_fonts->attach(*image_rt,        0, 0, 1, 1);
+    grid_fonts->attach(*image_ms,        0, 1, 1, 1);
+    grid_fonts->attach(*image_pt,        0, 2, 1, 1);
+    grid_fonts->attach(*image_code,      0, 3, 1, 1);
+    grid_fonts->attach(*image_tree,      0, 4, 1, 1);
+    grid_fonts->attach(*label_rt,        1, 0, 1, 1);
+    grid_fonts->attach(*checkbutton_ms,  1, 1, 1, 1);
+    grid_fonts->attach(*label_pt,        1, 2, 1, 1);
+    grid_fonts->attach(*label_code,      1, 3, 1, 1);
+    grid_fonts->attach(*label_tree,      1, 4, 1, 1);
+    grid_fonts->attach(*fontbutton_rt,   2, 0, 1, 1);
+    grid_fonts->attach(*fontbutton_ms,   2, 1, 1, 1);
+    grid_fonts->attach(*fontbutton_pt,   2, 2, 1, 1);
+    grid_fonts->attach(*fontbutton_code, 2, 3, 1, 1);
+    grid_fonts->attach(*fontbutton_tree, 2, 4, 1, 1);
+    Gtk::Frame* frame_fonts = new_managed_frame_with_align(_("Fonts"), grid_fonts);
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
@@ -1206,9 +1139,19 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
         pConfig->rtFont = fontbutton_rt->get_font_name();
         apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
     });
+    checkbutton_ms->signal_toggled().connect([this, pConfig, checkbutton_ms, fontbutton_ms](){
+        pConfig->msDedicatedFont = checkbutton_ms->get_active();
+        fontbutton_ms->set_sensitive(pConfig->msDedicatedFont);
+        if (auto tag = _pCtMainWin->get_text_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
+            tag->property_family() = pConfig->msDedicatedFont ? "" : CtConst::TAG_PROP_VAL_MONOSPACE;
+            tag->property_font() = pConfig->msDedicatedFont ? pConfig->monospaceFont : "";
+        }
+    });
     fontbutton_ms->signal_font_set().connect([this, pConfig, fontbutton_ms](){
         pConfig->monospaceFont = fontbutton_ms->get_font_name();
-        need_restart(RESTART_REASON::MONOSPACE);
+        if (auto tag = _pCtMainWin->get_text_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
+            tag->property_font() = pConfig->monospaceFont;
+        }
     });
     fontbutton_pt->signal_font_set().connect([this, pConfig, fontbutton_pt](){
         pConfig->ptFont = fontbutton_pt->get_font_name();
@@ -1243,13 +1186,7 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
     vbox_links_actions->pack_start(*checkbutton_custom_folderlink_cmd, false, false);
     vbox_links_actions->pack_start(*entry_custom_folderlink_cmd, false, false);
 
-    Gtk::Frame* frame_links_actions = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Custom Actions")+"</b>"));
-    ((Gtk::Label*)frame_links_actions->get_label_widget())->set_use_markup(true);
-    frame_links_actions->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_links_actions = Gtk::manage(new Gtk::Alignment());
-    align_links_actions->set_padding(3, 6, 6, 6);
-    align_links_actions->add(*vbox_links_actions);
-    frame_links_actions->add(*align_links_actions);
+    Gtk::Frame* frame_links_actions = new_managed_frame_with_align(_("Custom Actions"), vbox_links_actions);
 
     checkbutton_custom_weblink_cmd->set_active(pConfig->weblinkCustomOn);
     entry_custom_weblink_cmd->set_sensitive(pConfig->weblinkCustomOn);
@@ -1287,13 +1224,7 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
     grid_links_colors->attach(*label_col_link_fold, 2, 1, 1, 1);
     grid_links_colors->attach(*colorbutton_col_link_fold, 3, 1, 1, 1);
 
-    Gtk::Frame* frame_links_colors = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Colors")+"</b>"));
-    ((Gtk::Label*)frame_links_colors->get_label_widget())->set_use_markup(true);
-    frame_links_colors->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_links_colors = Gtk::manage(new Gtk::Alignment());
-    align_links_colors->set_padding(3, 6, 6, 6);
-    align_links_colors->add(*grid_links_colors);
-    frame_links_colors->add(*align_links_colors);
+    Gtk::Frame* frame_links_colors = new_managed_frame_with_align(_("Colors"), grid_links_colors);
 
     Gtk::VBox* vbox_links_misc = Gtk::manage(new Gtk::VBox());
     Gtk::CheckButton* checkbutton_links_underline = Gtk::manage(new Gtk::CheckButton(_("Underline Links")));
@@ -1312,13 +1243,7 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
     vbox_links_misc->pack_start(*checkbutton_links_relative, false, false);
     vbox_links_misc->pack_start(*hbox_anchor_size, false, false);
 
-    Gtk::Frame* frame_links_misc = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Miscellaneous")+"</b>"));
-    ((Gtk::Label*)frame_links_misc->get_label_widget())->set_use_markup(true);
-    frame_links_misc->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_links_misc = Gtk::manage(new Gtk::Alignment());
-    align_links_misc->set_padding(3, 6, 6, 6);
-    align_links_misc->add(*vbox_links_misc);
-    frame_links_misc->add(*align_links_misc);
+    Gtk::Frame* frame_links_misc = new_managed_frame_with_align(_("Miscellaneous"), vbox_links_misc);
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
@@ -1547,13 +1472,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     vbox_system_tray->pack_start(*checkbutton_systray, false, false);
     vbox_system_tray->pack_start(*checkbutton_start_on_systray, false, false);
 
-    Gtk::Frame* frame_system_tray = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("System Tray")+"</b>"));
-    ((Gtk::Label*)frame_system_tray->get_label_widget())->set_use_markup(true);
-    frame_system_tray->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_system_tray = Gtk::manage(new Gtk::Alignment());
-    align_system_tray->set_padding(3, 6, 6, 6);
-    align_system_tray->add(*vbox_system_tray);
-    frame_system_tray->add(*align_system_tray);
+    Gtk::Frame* frame_system_tray = new_managed_frame_with_align(_("System Tray"), vbox_system_tray);
 
     checkbutton_systray->set_active(pConfig->systrayOn);
     checkbutton_start_on_systray->set_active(pConfig->startOnSystray);
@@ -1607,13 +1526,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     entry_custom_backup_dir->set_sensitive(pConfig->backupCopy && pConfig->customBackupDirOn);
     button_custom_backup_dir->set_sensitive(pConfig->backupCopy && pConfig->customBackupDirOn);
 
-    Gtk::Frame* frame_saving = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Saving")+"</b>"));
-    ((Gtk::Label*)frame_saving->get_label_widget())->set_use_markup(true);
-    frame_saving->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_saving = Gtk::manage(new Gtk::Alignment());
-    align_saving->set_padding(3, 6, 6, 6);
-    align_saving->add(*vbox_saving);
-    frame_saving->add(*align_saving);
+    Gtk::Frame* frame_saving = new_managed_frame_with_align(_("Saving"), vbox_saving);
 
     Gtk::VBox* vbox_misc_misc = Gtk::manage(new Gtk::VBox());
     Gtk::CheckButton* checkbutton_newer_version = Gtk::manage(new Gtk::CheckButton(_("Automatically Check for Newer Version")));
@@ -1633,13 +1546,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_mod_time_sentinel->set_active(pConfig->modTimeSentinel);
     checkbutton_win_title_doc_dir->set_active(pConfig->winTitleShowDocDir);
 
-    Gtk::Frame* frame_misc_misc = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Miscellaneous")+"</b>"));
-    ((Gtk::Label*)frame_misc_misc->get_label_widget())->set_use_markup(true);
-    frame_misc_misc->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_misc_misc = Gtk::manage(new Gtk::Alignment());
-    align_misc_misc->set_padding(3, 6, 6, 6);
-    align_misc_misc->add(*vbox_misc_misc);
-    frame_misc_misc->add(*align_misc_misc);
+    Gtk::Frame* frame_misc_misc = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc_misc);
 
 #ifdef HAVE_NLS
     Gtk::VBox* vbox_language = Gtk::manage(new Gtk::VBox());
@@ -1648,13 +1555,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
         combobox_country_language->append(lang);
     combobox_country_language->set_active_text(CtMiscUtil::get_ct_language());
     vbox_language->pack_start(*combobox_country_language, false, false);
-    Gtk::Frame* frame_language = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Language")+"</b>"));
-    ((Gtk::Label*)frame_language->get_label_widget())->set_use_markup(true);
-    frame_language->set_shadow_type(Gtk::SHADOW_NONE);
-    Gtk::Alignment* align_language = Gtk::manage(new Gtk::Alignment());
-    align_language->set_padding(3, 6, 6, 6);
-    align_language->add(*vbox_language);
-    frame_language->add(*align_language);
+    Gtk::Frame* frame_language = new_managed_frame_with_align(_("Language"), vbox_language);
 #endif
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
