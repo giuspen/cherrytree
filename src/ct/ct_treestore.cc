@@ -614,6 +614,10 @@ void CtTreeStore::get_node_data(const Gtk::TreeIter& treeIter, CtNodeData& nodeD
 {
     Gtk::TreeRow row = *treeIter;
 
+    if (!treeIter->get_value(_columns.rColTextBuffer)) {
+        to_ct_tree_iter(treeIter).get_node_text_buffer();
+    }
+
     nodeData.name =  row[_columns.colNodeName];
     nodeData.rTextBuffer = row[_columns.rColTextBuffer];
     nodeData.nodeId = row[_columns.colNodeUniqueId];
