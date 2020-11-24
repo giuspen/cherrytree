@@ -133,26 +133,35 @@ void CtActions::export_to_pdf_auto(const std::string& dir, bool overwrite)
     _export_print(true, dir, overwrite);
 }
 
-void CtActions::export_to_html_auto(const std::string& dir, bool overwrite)
+void CtActions::export_to_html_auto(const std::string& dir, bool overwrite, bool single_file)
 {
     spdlog::debug("html export to: {}", dir);
-    spdlog::debug("overwrite: {}", overwrite);
+    spdlog::debug("overwrite: {} single_file: {}", overwrite, single_file);
+    _export_options.single_file = single_file;
     _export_to_html(dir, overwrite);
 }
 
-void CtActions::export_to_txt_auto(const std::string& dir, bool overwrite)
+void CtActions::export_to_txt_auto(const std::string& dir, bool overwrite, bool single_file)
 {
     spdlog::debug("txt export to: {}", dir);
-    spdlog::debug("overwrite: {}", overwrite);
+    spdlog::debug("overwrite: {} single_file: {}", overwrite, single_file);
+    _export_options.single_file = single_file;
     _export_to_txt(dir, overwrite);
 }
 
 void CtActions::_export_print(bool save_to_pdf, const fs::path& auto_path, bool auto_overwrite)
 {
-    if (!_is_there_selected_node_or_error()) return;
-    auto export_type = !auto_path.empty() ? CtExporting::ALL_TREE
-                                       : CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, true, &_export_options.include_node_name,
-                                                                                         &_export_options.new_node_page, nullptr, nullptr);
+    CtExporting export_type;
+    if (!auto_path.empty())
+    {
+        export_type = CtExporting::ALL_TREE;
+    }
+    else
+    {
+        if (!_is_there_selected_node_or_error()) return;
+        export_type = CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, true, &_export_options.include_node_name,
+                                                                      &_export_options.new_node_page, nullptr, nullptr);
+    }
     if (export_type == CtExporting::NONE) return;
 
     fs::path pdf_filepath;
@@ -211,10 +220,17 @@ void CtActions::_export_print(bool save_to_pdf, const fs::path& auto_path, bool 
 // Export to HTML
 void CtActions::_export_to_html(const fs::path& auto_path, bool auto_overwrite)
 {
-    if (!_is_there_selected_node_or_error()) return;
-    auto export_type = auto_path != "" ? CtExporting::ALL_TREE
-                                       : CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, true, &_export_options.include_node_name,
-                                                                                         nullptr, &_export_options.index_in_page, &_export_options.single_file);
+    CtExporting export_type;
+    if (!auto_path.empty())
+    {
+        export_type = CtExporting::ALL_TREE;
+    }
+    else
+    {
+        if (!_is_there_selected_node_or_error()) return;
+        export_type = CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, true, &_export_options.include_node_name,
+                                                                      nullptr, &_export_options.index_in_page, &_export_options.single_file);
+    }
     if (export_type == CtExporting::NONE) return;
 
     CtExport2Html export2html(_pCtMainWin);
@@ -240,7 +256,7 @@ void CtActions::_export_to_html(const fs::path& auto_path, bool auto_overwrite)
     {
         fs::path folder_name = _pCtMainWin->get_ct_storage()->get_file_name();
         if (export2html.prepare_html_folder(auto_path, folder_name, auto_overwrite, ret_html_path)) {
-            if (auto_path.empty() && _export_options.single_file) {
+            if (_export_options.single_file) {
                 export2html.nodes_all_export_to_single_html(true, _export_options);
             } else {
                 export2html.nodes_all_export_to_multiple_html(true, _export_options);
@@ -257,7 +273,7 @@ void CtActions::_export_to_html(const fs::path& auto_path, bool auto_overwrite)
         if (export2html.prepare_html_folder("", folder_name, false, ret_html_path))
             export2html.node_export_to_html(_pCtMainWin->curr_tree_iter(), _export_options, "", iter_start.get_offset(), iter_end.get_offset());
     }
-    if (!ret_html_path.empty()) {
+    if (!ret_html_path.empty() && auto_path.empty()) {
        fs::open_folderpath(ret_html_path, _pCtMainWin->get_ct_config());
     }
 }
@@ -265,21 +281,23 @@ void CtActions::_export_to_html(const fs::path& auto_path, bool auto_overwrite)
 // Export To Plain Text Multiple (or single) Files
 void CtActions::_export_to_txt(const fs::path& auto_path, bool auto_overwrite)
 {
-    if (!_is_there_selected_node_or_error()) return;
     CtExporting export_type;
-    if (auto_path != "")
+    if (!auto_path.empty())
     {
         _export_options.include_node_name = true;
         export_type = CtExporting::ALL_TREE;
     }
     else
+    {
+        if (!_is_there_selected_node_or_error()) return;
         export_type = CtDialogs::selnode_selnodeandsub_alltree_dialog(*_pCtMainWin, true, &_export_options.include_node_name, nullptr, nullptr, &_export_options.single_file);
+    }
     if (export_type == CtExporting::NONE) return;
 
     if (export_type == CtExporting::CURRENT_NODE)
     {
         fs::path txt_filepath = CtMiscUtil::get_node_hierarchical_name(_pCtMainWin->curr_tree_iter());
-        txt_filepath = _get_txt_filepath(txt_filepath);
+        txt_filepath = _get_txt_filepath("", txt_filepath);
         if (txt_filepath.empty()) return;
         CtExport2Txt(_pCtMainWin).node_export_to_txt(_pCtMainWin->curr_tree_iter(), txt_filepath, _export_options, -1, -1);
     }
@@ -287,7 +305,7 @@ void CtActions::_export_to_txt(const fs::path& auto_path, bool auto_overwrite)
     {
         if (_export_options.single_file)
         {
-           fs::path txt_filepath = _get_txt_filepath(_pCtMainWin->get_ct_storage()->get_file_name());
+           fs::path txt_filepath = _get_txt_filepath("", _pCtMainWin->get_ct_storage()->get_file_name());
            if (txt_filepath.empty()) return;
            CtExport2Txt(_pCtMainWin).nodes_all_export_to_txt(false, "", txt_filepath, _export_options);
         }
@@ -300,19 +318,15 @@ void CtActions::_export_to_txt(const fs::path& auto_path, bool auto_overwrite)
     }
     else if (export_type == CtExporting::ALL_TREE)
     {
-        if (auto_path.empty() && _export_options.single_file)
+        if (_export_options.single_file)
         {
-            fs::path txt_filepath = _get_txt_filepath(_pCtMainWin->get_ct_storage()->get_file_name());
+            fs::path txt_filepath = _get_txt_filepath(auto_path, _pCtMainWin->get_ct_storage()->get_file_name());
             if (txt_filepath.empty()) return;
             CtExport2Txt(_pCtMainWin).nodes_all_export_to_txt(true, "", txt_filepath, _export_options);
         }
         else
         {
-            fs::path folder_path;
-            if (!auto_path.empty())
-                folder_path = _get_txt_folder(auto_path, _pCtMainWin->get_ct_storage()->get_file_name(), auto_overwrite);
-            else
-                folder_path = _get_txt_folder("", _pCtMainWin->get_ct_storage()->get_file_name(), false);
+            auto folder_path = _get_txt_folder(auto_path, _pCtMainWin->get_ct_storage()->get_file_name(), auto_overwrite);
             if (folder_path.empty()) return;
             CtExport2Txt(_pCtMainWin).nodes_all_export_to_txt(true, folder_path, "", _export_options);
         }
@@ -324,7 +338,7 @@ void CtActions::_export_to_txt(const fs::path& auto_path, bool auto_overwrite)
         _curr_buffer()->get_selection_bounds(iter_start, iter_end);
 
         fs::path txt_filepath = CtMiscUtil::get_node_hierarchical_name(_pCtMainWin->curr_tree_iter());
-        txt_filepath = _get_txt_filepath(txt_filepath);
+        txt_filepath = _get_txt_filepath("", txt_filepath);
         if (txt_filepath.empty()) return;
         CtExport2Txt(_pCtMainWin).node_export_to_txt(_pCtMainWin->curr_tree_iter(), txt_filepath, _export_options, iter_start.get_offset(), iter_end.get_offset());
     }
@@ -348,15 +362,24 @@ fs::path CtActions::_get_pdf_filepath(const fs::path& proposed_name)
 }
 
 // Prepare for the txt file save
-fs::path CtActions::_get_txt_filepath(const fs::path& proposed_name)
+fs::path CtActions::_get_txt_filepath(const fs::path& dir_place, const fs::path& proposed_name)
 {
-    CtDialogs::file_select_args args(_pCtMainWin);
-    args.curr_folder = _pCtMainWin->get_ct_config()->pickDirExport;
-    args.curr_file_name = proposed_name.string() + ".txt";
-    args.filter_name = _("Plain Text Document");
-    args.filter_pattern = {"*.txt"};
+    fs::path filename;
+    if (dir_place.empty())
+    {
+        CtDialogs::file_select_args args(_pCtMainWin);
+        args.curr_folder = _pCtMainWin->get_ct_config()->pickDirExport;
+        args.curr_file_name = proposed_name.string() + ".txt";
+        args.filter_name = _("Plain Text Document");
+        args.filter_pattern = {"*.txt"};
 
-    fs::path filename = CtDialogs::file_save_as_dialog(args);
+        filename = CtDialogs::file_save_as_dialog(args);
+    }
+    else
+    {
+        filename = dir_place / proposed_name.string();
+    }
+
     if (!filename.empty())
     {
         if (filename.extension() != ".txt") filename += ".txt";
@@ -369,10 +392,10 @@ fs::path CtActions::_get_txt_filepath(const fs::path& proposed_name)
 
 fs::path CtActions::_get_txt_folder(fs::path dir_place, fs::path new_folder, bool export_overwrite)
 {
-    if (dir_place == "")
+    if (dir_place.empty())
     {
         dir_place = CtDialogs::folder_select_dialog(_pCtMainWin->get_ct_config()->pickDirExport, _pCtMainWin);
-        if (dir_place == "")
+        if (dir_place.empty())
             return "";
     }
     new_folder = CtMiscUtil::clean_from_chars_not_for_filename(new_folder.string()) + "_TXT";
