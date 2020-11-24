@@ -41,6 +41,18 @@ code .
 Build with: Ctrl+Shift+B
 Debug with: F5
 
+## Build/Debug with Visual Studio Code using a container
+
+It is possible to use a container as a full-featured development environment from VS Code.
+This works on any operating system that supports Docker.
+
+1. Install the [system requirements](https://code.visualstudio.com/docs/remote/containers#_system-requirements).
+2. Open the project in VS Code.
+3. (optional) Edit `.devcontainer/devcontainer.json` to set your `DISPLAY` environment variable and/or edit other settings.
+   It is also possible to run the container on a remote Docker host, see the comment at the end.
+4. Run the *Remote-Containers: Open Folder in Container...* command.
+5. See previous section for Build and Debug instructions.
+
 ## To test install locally and create a package
 ```sh
 cmake -DCMAKE_INSTALL_PREFIX=./local_usr ../
