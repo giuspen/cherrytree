@@ -37,8 +37,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://download.gnome.org/sources/mm-common/1.0/mm-common-1.0.1.tar.xz",
-                    "sha256": "28a2d775afbf05c5c957b24b220ed6e9b2023179b98ecde471d89e9754ea5ac9"
+                    "url": "https://download.gnome.org/sources/mm-common/1.0/mm-common-1.0.2.tar.xz",
+                    "sha256": "a2a99f3fa943cf662f189163ed39a2cfc19a428d906dd4f92b387d3659d1641d"
                 }
             ],
             "cleanup": [
@@ -53,8 +53,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://download.gnome.org/sources/libsigc++/2.10/libsigc++-2.10.3.tar.xz",
-                    "sha256": "0b68dfc6313c6cc90ac989c6d722a1bf0585ad13846e79746aa87cb265904786"
+                    "url": "https://download.gnome.org/sources/libsigc++/2.10/libsigc++-2.10.6.tar.xz",
+                    "sha256": "dda176dc4681bda9d5a2ac1bc55273bdd381662b7a6d49e918267d13e8774e1b"
                 }
             ]
         },
@@ -69,8 +69,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://www.cairographics.org/releases/cairomm-1.12.2.tar.gz",
-                    "sha256": "45c47fd4d0aa77464a75cdca011143fea3ef795c4753f6e860057da5fb8bd599"
+                    "url": "https://www.cairographics.org/releases/cairomm-1.14.2.tar.xz",
+                    "sha256": "0126b9cc295dc36bc9c0860d5b720cb5469fd78d5620c8f10cc5f0c07b928de3"
                 }
             ]
         },
@@ -207,12 +207,14 @@
         },
         {
             "name" : "cherrytree",
+            "config-opts" : [
+            ],
             "buildsystem": "cmake",
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://www.giuspen.com/software/cherrytree_0.99.21.tar.xz",
-                    "sha256" : "13975afada775174a56266bdf113fc879624167aced8784e44aba15620e6ba57"
+                    "url" : "https://www.giuspen.com/software/cherrytree_0.99.22.tar.xz",
+                    "sha256" : "906e9be1c069db61a20cf898357c24f00e8af954bc1d0421f88a52e591bb778b"
                 }
             ]
         }
