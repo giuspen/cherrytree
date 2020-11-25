@@ -278,7 +278,7 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
     if (not text_buffer) text_buffer = _curr_buffer();
 
     int restore_cursor_offset = -1;
-    if (not iter_sel_start and !iter_sel_end) {
+    if (not iter_sel_start.has_value() or not iter_sel_end.has_value()) {
         if (tag_property != CtConst::TAG_JUSTIFICATION) {
             if (not _is_there_selected_node_or_error()) return;
             if (tag_property == CtConst::TAG_LINK)
@@ -308,11 +308,18 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
                     }
                 }
             }
-            text_buffer->get_selection_bounds(*iter_sel_start, *iter_sel_end);
-         } else {
+            Gtk::TextIter it_sel_start, it_sel_end;
+            text_buffer->get_selection_bounds(it_sel_start, it_sel_end);
+            iter_sel_start = it_sel_start;
+            iter_sel_end = it_sel_end;
+        } else {
             CtDialogs::warning_dialog(_("The Cursor is Not into a Paragraph"), *_pCtMainWin);
             return;
         }
+    }
+    if (not iter_sel_start.has_value() or not iter_sel_end.has_value()) {
+        spdlog::error("unexp no iter_sel");
+        return;
     }
     if (property_value.empty()) {
         if (tag_property == CtConst::TAG_LINK) {
@@ -354,39 +361,39 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
     int sel_end_offset = iter_sel_end->get_offset();
     // if there's already a tag about this property, we remove it before apply the new one
     for (int offset = sel_start_offset; offset < sel_end_offset; ++offset) {
-        auto iter_sel_start = text_buffer->get_iter_at_offset(offset);
-        std::vector<Glib::RefPtr<Gtk::TextTag>> curr_tags = iter_sel_start.get_tags();
+        Gtk::TextIter it_sel_start = text_buffer->get_iter_at_offset(offset);
+        std::vector<Glib::RefPtr<Gtk::TextTag>> curr_tags = it_sel_start.get_tags();
         for (auto& curr_tag : curr_tags) {
             Glib::ustring curr_tag_name = curr_tag->property_name();
             //#print tag_name
             if (curr_tag_name.empty()) continue;
-            auto iter_sel_end = text_buffer->get_iter_at_offset(offset+1);
+            Gtk::TextIter it_sel_end = text_buffer->get_iter_at_offset(offset+1);
             if ((tag_property == CtConst::TAG_WEIGHT and str::startswith(curr_tag_name, "weight_"))
                or (tag_property == CtConst::TAG_STYLE and str::startswith(curr_tag_name, "style_"))
                or (tag_property == CtConst::TAG_UNDERLINE and str::startswith(curr_tag_name, "underline_"))
                or (tag_property == CtConst::TAG_STRIKETHROUGH and str::startswith(curr_tag_name, "strikethrough_"))
                or (tag_property == CtConst::TAG_FAMILY and str::startswith(curr_tag_name, "family_")))
             {
-                text_buffer->remove_tag(curr_tag, iter_sel_start, iter_sel_end);
+                text_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
                 property_value = ""; // just tag removal
             }
             else if (tag_property == CtConst::TAG_INDENT and str::startswith(curr_tag_name, "indent_")){
                 //Remove old tag but don't reset the value (since we're increasing previous indent to a new value, not toggling it off)
-                text_buffer->remove_tag(curr_tag, iter_sel_start, iter_sel_end);
+                text_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
             }
             else if (tag_property == CtConst::TAG_SCALE and str::startswith(curr_tag_name, "scale_"))
             {
-                text_buffer->remove_tag(curr_tag, iter_sel_start, iter_sel_end);
+                text_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
                 // #print property_value, tag_name[6:]
                 if (property_value == curr_tag_name.substr(6))
                     property_value = ""; // just tag removal
             }
             else if (tag_property == CtConst::TAG_JUSTIFICATION and str::startswith(curr_tag_name, "justification_"))
-                text_buffer->remove_tag(curr_tag, iter_sel_start, iter_sel_end);
+                text_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
             else if ((tag_property == CtConst::TAG_FOREGROUND and str::startswith(curr_tag_name, "foreground_"))
                or (tag_property == CtConst::TAG_BACKGROUND and str::startswith(curr_tag_name, "background_"))
                or (tag_property == CtConst::TAG_LINK and str::startswith(curr_tag_name, "link_")))
-                text_buffer->remove_tag(curr_tag, iter_sel_start, iter_sel_end);
+                text_buffer->remove_tag(curr_tag, it_sel_start, it_sel_end);
         }
     }
     // avoid adding invalid color
