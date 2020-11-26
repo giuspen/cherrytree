@@ -1,11 +1,6 @@
-cherrytree (0.99.22-1) focal; urgency=low
+cherrytree (0.99.23-1) focal; urgency=low
 
-  * fixed not saving node properties when only node properties are changed (#1364)
-  * fix issue (gitch) pasting tables from clipboard (#1358)
-  * added command line switch --new-window (#1339)
-  * the rich text tagged monospace is not forced to use a dedicated font anymore - configurable and off by default (#1343)
-  * fixed crash when manually generating config.cfg (with BOM) for windows portable
-  * fixed issues with portable version not using portable config dir
+  * fixed crash applying rich text tags in flatpak version (#1367, #1369, #1372, #1374, #1378)
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Mon, 23 Nov 2020 23:03:13 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Thu, 26 Nov 2020 21:22:20 +0000

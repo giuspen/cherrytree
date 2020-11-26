@@ -1,4 +1,7 @@
 
+0.99.23 (November 26th, 2020)
+  * fixed crash applying rich text tags in flatpak version (#1367, #1369, #1372, #1374, #1378)
+
 0.99.22 (November 23rd, 2020)
   * fixed not saving node properties when only node properties are changed (#1364)
   * fix issue (gitch) pasting tables from clipboard (#1358)
