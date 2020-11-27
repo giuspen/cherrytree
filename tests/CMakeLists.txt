@@ -45,6 +45,7 @@ package_add_test(run_tests
   tests_clipboard.cpp
   tests_encoding.cpp
   tests_filesystem.cpp
+  tests_main.cpp
   tests_misc_utils.cpp
   tests_read_write.cpp
   tests_tmp_n_p7zip.cpp
