@@ -67,6 +67,7 @@ sudo apt install build-essential libxml2-utils cmake libgtkmm-3.0-dev libgtksour
 Get cherrytree source, compile and run:
 ```sh
 git clone https://github.com/giuspen/cherrytree.git
+git submodule update --init
 mkdir cherrytree/build
 cd cherrytree/build
 cmake ../
@@ -97,6 +98,7 @@ sudo pacman -S gtksourceviewmm libxml++2.6 gspell
 Get cherrytree source, compile and run:
 ```sh
 git clone https://github.com/giuspen/cherrytree.git
+git submodule update --init
 mkdir cherrytree/build
 cd cherrytree/build
 cmake ../
@@ -114,6 +116,7 @@ sudo dnf install @development-tools gcc-c++ libtool autoconf gtkmm30-devel gtkso
 Get cherrytree source, compile and run:
 ```sh
 git clone https://github.com/giuspen/cherrytree.git
+git submodule update --init
 mkdir cherrytree/build
 cd cherrytree/build
 cmake ../
@@ -145,6 +148,7 @@ sudo zypper install cmake gcc-c++ gtkmm3-devel gtksourceviewmm3_0-devel gspell-d
 Get cherrytree source, compile and run:
 ```sh
 git clone https://github.com/giuspen/cherrytree.git
+git submodule update --init
 mkdir cherrytree/build
 cd cherrytree/build
 cmake ../ -DBUILD_TESTING=''
@@ -162,6 +166,7 @@ brew install python3 cmake pkg-config gtksourceviewmm3 gnome-icon-theme gspell l
 Get cherrytree source, compile and run:
 ```sh
 git clone https://github.com/giuspen/cherrytree.git
+git submodule update --init
 mkdir cherrytree/build
 cd cherrytree/build
 cmake ../
@@ -221,6 +226,7 @@ bind '"\e[B":history-search-forward'
 Get cherrytree source, compile and run:
 ```sh
 git clone https://github.com/giuspen/cherrytree.git
+git submodule update --init
 cd cherrytree
 
 # build Release (optimised)
