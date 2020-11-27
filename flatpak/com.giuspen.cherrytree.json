@@ -196,16 +196,6 @@
             ]
         },
         {
-            "name" : "cpputest",
-            "sources" : [
-                {
-                    "type" : "archive",
-                    "url" : "https://github.com/cpputest/cpputest/releases/download/v4.0/cpputest-4.0.tar.gz",
-                    "sha256" : "21c692105db15299b5529af81a11a7ad80397f92c122bd7bf1e4a4b0e85654f7"
-                }
-            ]
-        },
-        {
             "name" : "cherrytree",
             "config-opts" : [
             ],
@@ -213,8 +203,8 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://www.giuspen.com/software/cherrytree_0.99.22.tar.xz",
-                    "sha256" : "906e9be1c069db61a20cf898357c24f00e8af954bc1d0421f88a52e591bb778b"
+                    "url" : "https://www.giuspen.com/software/cherrytree_0.99.22.1.tar.xz",
+                    "sha256" : "ed9fa0f09085514cb37d6f2a10a1d6ad5dc3a93349975b92d9a878e585e0ccc7"
                 }
             ]
         }
