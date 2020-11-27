@@ -528,17 +528,41 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
 
 #if !defined(__APPLE__) // TestCtApp causes crash on macos
 
-TEST(CtDocRWGroup, CtDocRW_all_variants)
+class ReadWriteMultipleParametersTests : public ::testing::TestWithParam<std::tuple<std::string, std::string>>
 {
-    for (const std::string& in_doc_path : UT::testAllDocTypes) {
-        for (const std::string& out_doc_path : UT::testAllDocTypes) {
-            const std::vector<std::string> vec_args{"cherrytree", in_doc_path, "-t", out_doc_path};
-            gchar** pp_args = CtStrUtil::vector_to_array(vec_args);
-            TestCtApp testCtApp{vec_args};
-            testCtApp.run(vec_args.size(), pp_args);
-            g_strfreev(pp_args);
-        }
-    }
+};
+
+TEST_P(ReadWriteMultipleParametersTests, ChecksReadWrite)
+{
+    const std::string in_doc_path = std::get<0>(GetParam());
+    const std::string out_doc_path = std::get<1>(GetParam());
+    const std::vector<std::string> vec_args{"cherrytree", in_doc_path, "-t", out_doc_path};
+    gchar** pp_args = CtStrUtil::vector_to_array(vec_args);
+    TestCtApp testCtApp{vec_args};
+    testCtApp.run(vec_args.size(), pp_args);
+    g_strfreev(pp_args);
 }
+
+INSTANTIATE_TEST_CASE_P(
+        ReadWriteTests,
+        ReadWriteMultipleParametersTests,
+        ::testing::Values(
+                std::make_tuple(UT::testCtbDocPath, UT::testCtbDocPath),
+                std::make_tuple(UT::testCtbDocPath, UT::testCtdDocPath),
+                std::make_tuple(UT::testCtbDocPath, UT::testCtxDocPath),
+                std::make_tuple(UT::testCtbDocPath, UT::testCtzDocPath),
+                std::make_tuple(UT::testCtdDocPath, UT::testCtbDocPath),
+                std::make_tuple(UT::testCtdDocPath, UT::testCtdDocPath),
+                std::make_tuple(UT::testCtdDocPath, UT::testCtxDocPath),
+                std::make_tuple(UT::testCtdDocPath, UT::testCtzDocPath),
+                std::make_tuple(UT::testCtxDocPath, UT::testCtbDocPath),
+                std::make_tuple(UT::testCtxDocPath, UT::testCtdDocPath),
+                std::make_tuple(UT::testCtxDocPath, UT::testCtxDocPath),
+                std::make_tuple(UT::testCtxDocPath, UT::testCtzDocPath),
+                std::make_tuple(UT::testCtzDocPath, UT::testCtbDocPath),
+                std::make_tuple(UT::testCtzDocPath, UT::testCtdDocPath),
+                std::make_tuple(UT::testCtzDocPath, UT::testCtxDocPath),
+                std::make_tuple(UT::testCtzDocPath, UT::testCtzDocPath))
+);
 
 #endif // __APPLE__

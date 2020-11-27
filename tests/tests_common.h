@@ -41,7 +41,6 @@ const std::string testCtbDocPath{Glib::build_filename(unitTestsDataDir, "test.ct
 const std::string testCtdDocPath{Glib::build_filename(unitTestsDataDir, "test.ctd")};
 const std::string testCtxDocPath{Glib::build_filename(unitTestsDataDir, "test.ctx")};
 const std::string testCtzDocPath{Glib::build_filename(unitTestsDataDir, "test.ctz")};
-const std::list<std::string> testAllDocTypes{testCtbDocPath, testCtdDocPath, testCtxDocPath, testCtzDocPath};
 const gchar testPassword[]{"7zr"};
 const gchar testPasswordBis[]{"7zr2"};
 
