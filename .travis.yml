@@ -30,7 +30,6 @@ jobs:
           - gnome-icon-theme
           - gspell
           - libxml++
-          - cpputest
           - curl
           - uchardet
 
@@ -43,7 +42,7 @@ before_install:
       linux)
         sudo apt install build-essential cmake libgtkmm-3.0-dev xvfb
         sudo apt install libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev
-        sudo apt install libcpputest-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev
+        sudo apt install gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev
         ;;
       windows)
         [[ ! -f C:/tools/msys64/msys2_shell.cmd ]] && rm -rf C:/tools/msys64
@@ -69,19 +68,7 @@ before_install:
         export MAKE=mingw32-make  # so that Autotools can find it
         ;;
     esac
-install:
-- |-
-    case $TRAVIS_OS_NAME in
-      windows)
-        $mingw64 wget https://github.com/cpputest/cpputest/releases/download/v3.8/cpputest-3.8.tar.gz
-        $mingw64 tar xf cpputest-3.8.tar.gz
-        cd cpputest-3.8
-        $mingw64 ./autogen.sh
-        $mingw64 ./configure --disable-memory-leak-detection
-        $mingw64 mingw32-make
-        $mingw64 mingw32-make install
-        ;;
-    esac
+
 script:
 - |-
     case $TRAVIS_OS_NAME in

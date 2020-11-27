@@ -1,7 +1,9 @@
 /*
  * tests_types.cpp
  *
- * Copyright 2019-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,12 +22,8 @@
  */
 
 #include "ct_types.h"
-#include "CppUTest/CommandLineTestRunner.h"
 #include "ct_filesystem.h"
-
-TEST_GROUP(TestTypesGroup)
-{
-};
+#include "tests_common.h"
 
 TEST(TestTypesGroup, ctMaxSizedList)
 {
@@ -33,19 +31,19 @@ TEST(TestTypesGroup, ctMaxSizedList)
     maxSizedList.push_back(1);
     maxSizedList.push_back(2);
     maxSizedList.push_back(3);
-    CHECK_EQUAL(3, maxSizedList.size());
-    CHECK_EQUAL(1, maxSizedList.front());
-    CHECK_EQUAL(3, maxSizedList.back());
+    ASSERT_EQ(3, maxSizedList.size());
+    ASSERT_EQ(1, maxSizedList.front());
+    ASSERT_EQ(3, maxSizedList.back());
     maxSizedList.move_or_push_back(1);
-    CHECK_EQUAL(3, maxSizedList.size());
-    CHECK_EQUAL(2, maxSizedList.front());
-    CHECK_EQUAL(1, maxSizedList.back());
+    ASSERT_EQ(3, maxSizedList.size());
+    ASSERT_EQ(2, maxSizedList.front());
+    ASSERT_EQ(1, maxSizedList.back());
     maxSizedList.move_or_push_front(3);
-    CHECK_EQUAL(3, maxSizedList.size());
-    CHECK_EQUAL(3, maxSizedList.front());
-    CHECK_EQUAL(1, maxSizedList.back());
+    ASSERT_EQ(3, maxSizedList.size());
+    ASSERT_EQ(3, maxSizedList.front());
+    ASSERT_EQ(1, maxSizedList.back());
     maxSizedList.move_or_push_front(4);
-    CHECK_EQUAL(3, maxSizedList.size());
-    CHECK_EQUAL(4, maxSizedList.front());
-    CHECK_EQUAL(2, maxSizedList.back());
+    ASSERT_EQ(3, maxSizedList.size());
+    ASSERT_EQ(4, maxSizedList.front());
+    ASSERT_EQ(2, maxSizedList.back());
 }

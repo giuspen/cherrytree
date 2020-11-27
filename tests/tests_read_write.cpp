@@ -24,7 +24,6 @@
 #include "ct_app.h"
 #include "ct_misc_utils.h"
 #include "tests_common.h"
-#include "CppUTest/CommandLineTestRunner.h"
 
 class TestCtApp : public CtApp
 {
@@ -55,7 +54,7 @@ private:
 void TestCtApp::on_activate()
 {
     _on_startup();
-    CHECK_EQUAL(4, _vec_args.size());
+    ASSERT_EQ(4, _vec_args.size());
     // NOTE: on windows/msys2 unit tests the passed arguments do not work so we end up here
     _run_test(_vec_args.at(1), _vec_args.at(3));
 }
@@ -63,7 +62,7 @@ void TestCtApp::on_activate()
 void TestCtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& /*hint*/)
 {
     _on_startup();
-    CHECK_EQUAL(1, files.size());
+    ASSERT_EQ(1, files.size());
     // NOTE: we use the trick of the [-t export_to_txt_dir] argument to pass the target file type
     _run_test(files.front()->get_path(), _export_to_txt_dir);
 }
@@ -75,9 +74,9 @@ void TestCtApp::_run_test(const fs::path doc_filepath_from, const fs::path doc_f
 
     CtMainWin* pWin = _create_window(true/*start_hidden*/);
     // tree empty
-    CHECK_FALSE(pWin->get_tree_store().get_iter_first());
+    ASSERT_FALSE(pWin->get_tree_store().get_iter_first());
     // load file
-    CHECK(pWin->file_open(doc_filepath_from, "", docEncrypt_from != CtDocEncrypt::True ? "" : UT::testPassword));
+    ASSERT_TRUE(pWin->file_open(doc_filepath_from, "", docEncrypt_from != CtDocEncrypt::True ? "" : UT::testPassword));
     // do not check/walk the tree before calling the save_as to test that
     // even without visiting each node we save it all
 
@@ -93,9 +92,9 @@ void TestCtApp::_run_test(const fs::path doc_filepath_from, const fs::path doc_f
     // new empty window/tree
     CtMainWin* pWin2 = _create_window(true/*start_hidden*/);
     // tree empty
-    CHECK_FALSE(pWin2->get_tree_store().get_iter_first());
+    ASSERT_FALSE(pWin2->get_tree_store().get_iter_first());
     // load file previously saved
-    CHECK(pWin2->file_open(tmp_filepath, "", docEncrypt_to != CtDocEncrypt::True ? "" : UT::testPasswordBis));
+    ASSERT_TRUE(pWin2->file_open(tmp_filepath, "", docEncrypt_to != CtDocEncrypt::True ? "" : UT::testPasswordBis));
     // check tree
     _assert_tree_data(pWin2);
 
@@ -117,11 +116,11 @@ void TestCtApp::_process_rich_text_buffer(std::list<ExpectedTag>& expectedTags, 
                 for (const auto& currPair : curr_attributes) {
                     if (expTag.attr_map.count(currPair.first) != 0) {
                         // we defined it
-                        STRCMP_EQUAL(expTag.attr_map[currPair.first].c_str(), currPair.second.c_str());
+                        ASSERT_STREQ(expTag.attr_map[currPair.first].c_str(), currPair.second.c_str());
                     }
                     else {
                         // we haven't defined, expect empty!
-                        STRCMP_EQUAL("", currPair.second.c_str());
+                        ASSERT_STREQ("", currPair.second.c_str());
                     }
                 }
                 break;
@@ -134,8 +133,8 @@ void TestCtApp::_process_rich_text_buffer(std::list<ExpectedTag>& expectedTags, 
 void TestCtApp::_assert_node_text(CtTreeIter& ctTreeIter, const Glib::ustring& expectedText)
 {
     const Glib::RefPtr<Gsv::Buffer> rTextBuffer = ctTreeIter.get_node_text_buffer();
-    CHECK(static_cast<bool>(rTextBuffer));
-    STRCMP_EQUAL(expectedText.c_str(), rTextBuffer->get_text().c_str());
+    ASSERT_TRUE(static_cast<bool>(rTextBuffer));
+    ASSERT_STREQ(expectedText.c_str(), rTextBuffer->get_text().c_str());
 }
 
 #define _NL "\n"
@@ -144,25 +143,25 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
 {
     CtSummaryInfo summaryInfo{};
     pWin->get_tree_store().populateSummaryInfo(summaryInfo);
-    CHECK_EQUAL(3, summaryInfo.nodes_rich_text_num);
-    CHECK_EQUAL(1, summaryInfo.nodes_plain_text_num);
-    CHECK_EQUAL(5, summaryInfo.nodes_code_num);
-    CHECK_EQUAL(1, summaryInfo.images_num);
-    CHECK_EQUAL(1, summaryInfo.embfile_num);
-    CHECK_EQUAL(1, summaryInfo.tables_num);
-    CHECK_EQUAL(1, summaryInfo.codeboxes_num);
-    CHECK_EQUAL(1, summaryInfo.anchors_num);
+    ASSERT_EQ(3, summaryInfo.nodes_rich_text_num);
+    ASSERT_EQ(1, summaryInfo.nodes_plain_text_num);
+    ASSERT_EQ(5, summaryInfo.nodes_code_num);
+    ASSERT_EQ(1, summaryInfo.images_num);
+    ASSERT_EQ(1, summaryInfo.embfile_num);
+    ASSERT_EQ(1, summaryInfo.tables_num);
+    ASSERT_EQ(1, summaryInfo.codeboxes_num);
+    ASSERT_EQ(1, summaryInfo.anchors_num);
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("йцукенгшщз");
-        CHECK(ctTreeIter);
-        STRCMP_EQUAL("0", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
-        CHECK_FALSE(ctTreeIter.get_node_is_bold());
-        CHECK_FALSE(ctTreeIter.get_node_read_only());
-        CHECK_EQUAL(0, ctTreeIter.get_node_custom_icon_id());
-        STRCMP_EQUAL("йцукенгшщз", ctTreeIter.get_node_tags().c_str());
-        STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
-        STRCMP_EQUAL("plain-text", ctTreeIter.get_node_syntax_highlighting().c_str());
-        CHECK(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
+        ASSERT_TRUE(ctTreeIter);
+        ASSERT_STREQ("0", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        ASSERT_FALSE(ctTreeIter.get_node_is_bold());
+        ASSERT_FALSE(ctTreeIter.get_node_read_only());
+        ASSERT_EQ(0, ctTreeIter.get_node_custom_icon_id());
+        ASSERT_STREQ("йцукенгшщз", ctTreeIter.get_node_tags().c_str());
+        ASSERT_STREQ("", ctTreeIter.get_node_foreground().c_str());
+        ASSERT_STREQ("plain-text", ctTreeIter.get_node_syntax_highlighting().c_str());
+        ASSERT_TRUE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
         const Glib::ustring expectedText{
             "ciao plain" _NL
             "йцукенгшщз"
@@ -171,16 +170,16 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("b");
-        CHECK(ctTreeIter);
+        ASSERT_TRUE(ctTreeIter);
         // assert node properties
-        STRCMP_EQUAL("1", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
-        CHECK_FALSE(ctTreeIter.get_node_is_bold());
-        CHECK_FALSE(ctTreeIter.get_node_read_only());
-        CHECK_EQUAL(0, ctTreeIter.get_node_custom_icon_id());
-        STRCMP_EQUAL("", ctTreeIter.get_node_tags().c_str());
-        STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
-        STRCMP_EQUAL("custom-colors", ctTreeIter.get_node_syntax_highlighting().c_str());
-        CHECK(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
+        ASSERT_STREQ("1", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        ASSERT_FALSE(ctTreeIter.get_node_is_bold());
+        ASSERT_FALSE(ctTreeIter.get_node_read_only());
+        ASSERT_EQ(0, ctTreeIter.get_node_custom_icon_id());
+        ASSERT_STREQ("", ctTreeIter.get_node_tags().c_str());
+        ASSERT_STREQ("", ctTreeIter.get_node_foreground().c_str());
+        ASSERT_STREQ("custom-colors", ctTreeIter.get_node_syntax_highlighting().c_str());
+        ASSERT_TRUE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
         // assert text
         const Glib::ustring expectedText{
             "ciao rich" _NL
@@ -250,20 +249,20 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         };
         _process_rich_text_buffer(expectedTags, ctTreeIter.get_node_text_buffer());
         for (auto& expTag : expectedTags) {
-            CHECK(expTag.found);
+            ASSERT_TRUE(expTag.found);
         }
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("c");
-        CHECK(ctTreeIter);
-        STRCMP_EQUAL("1:0", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
-        CHECK_FALSE(ctTreeIter.get_node_is_bold());
-        CHECK_FALSE(ctTreeIter.get_node_read_only());
-        CHECK_EQUAL(0, ctTreeIter.get_node_custom_icon_id());
-        STRCMP_EQUAL("", ctTreeIter.get_node_tags().c_str());
-        STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
-        STRCMP_EQUAL("c", ctTreeIter.get_node_syntax_highlighting().c_str());
-        CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
+        ASSERT_TRUE(ctTreeIter);
+        ASSERT_STREQ("1:0", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        ASSERT_FALSE(ctTreeIter.get_node_is_bold());
+        ASSERT_FALSE(ctTreeIter.get_node_read_only());
+        ASSERT_EQ(0, ctTreeIter.get_node_custom_icon_id());
+        ASSERT_STREQ("", ctTreeIter.get_node_tags().c_str());
+        ASSERT_STREQ("", ctTreeIter.get_node_foreground().c_str());
+        ASSERT_STREQ("c", ctTreeIter.get_node_syntax_highlighting().c_str());
+        ASSERT_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
         const Glib::ustring expectedText{
             "int main(int argc, char *argv[])" _NL
             "{" _NL
@@ -274,15 +273,15 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("sh");
-        CHECK(ctTreeIter);
-        STRCMP_EQUAL("1:1", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
-        CHECK_FALSE(ctTreeIter.get_node_is_bold());
-        CHECK_FALSE(ctTreeIter.get_node_read_only());
-        CHECK_EQUAL(0, ctTreeIter.get_node_custom_icon_id());
-        STRCMP_EQUAL("", ctTreeIter.get_node_tags().c_str());
-        STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
-        STRCMP_EQUAL("sh", ctTreeIter.get_node_syntax_highlighting().c_str());
-        CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
+        ASSERT_TRUE(ctTreeIter);
+        ASSERT_STREQ("1:1", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        ASSERT_FALSE(ctTreeIter.get_node_is_bold());
+        ASSERT_FALSE(ctTreeIter.get_node_read_only());
+        ASSERT_EQ(0, ctTreeIter.get_node_custom_icon_id());
+        ASSERT_STREQ("", ctTreeIter.get_node_tags().c_str());
+        ASSERT_STREQ("", ctTreeIter.get_node_foreground().c_str());
+        ASSERT_STREQ("sh", ctTreeIter.get_node_syntax_highlighting().c_str());
+        ASSERT_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
         const Glib::ustring expectedText{
             "echo \"ciao!\""
         };
@@ -290,15 +289,15 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("html");
-        CHECK(ctTreeIter);
-        STRCMP_EQUAL("1:1:0", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
-        CHECK_FALSE(ctTreeIter.get_node_is_bold());
-        CHECK_FALSE(ctTreeIter.get_node_read_only());
-        CHECK_EQUAL(0, ctTreeIter.get_node_custom_icon_id());
-        STRCMP_EQUAL("", ctTreeIter.get_node_tags().c_str());
-        STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
-        STRCMP_EQUAL("html", ctTreeIter.get_node_syntax_highlighting().c_str());
-        CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
+        ASSERT_TRUE(ctTreeIter);
+        ASSERT_STREQ("1:1:0", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        ASSERT_FALSE(ctTreeIter.get_node_is_bold());
+        ASSERT_FALSE(ctTreeIter.get_node_read_only());
+        ASSERT_EQ(0, ctTreeIter.get_node_custom_icon_id());
+        ASSERT_STREQ("", ctTreeIter.get_node_tags().c_str());
+        ASSERT_STREQ("", ctTreeIter.get_node_foreground().c_str());
+        ASSERT_STREQ("html", ctTreeIter.get_node_syntax_highlighting().c_str());
+        ASSERT_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
         const Glib::ustring expectedText{
             "<head>" _NL
             "<title>NO</title>" _NL
@@ -308,15 +307,15 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("xml");
-        CHECK(ctTreeIter);
-        STRCMP_EQUAL("1:1:1", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
-        CHECK_FALSE(ctTreeIter.get_node_is_bold());
-        CHECK_FALSE(ctTreeIter.get_node_read_only());
-        CHECK_EQUAL(0, ctTreeIter.get_node_custom_icon_id());
-        STRCMP_EQUAL("", ctTreeIter.get_node_tags().c_str());
-        STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
-        STRCMP_EQUAL("xml", ctTreeIter.get_node_syntax_highlighting().c_str());
-        CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
+        ASSERT_TRUE(ctTreeIter);
+        ASSERT_STREQ("1:1:1", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        ASSERT_FALSE(ctTreeIter.get_node_is_bold());
+        ASSERT_FALSE(ctTreeIter.get_node_read_only());
+        ASSERT_EQ(0, ctTreeIter.get_node_custom_icon_id());
+        ASSERT_STREQ("", ctTreeIter.get_node_tags().c_str());
+        ASSERT_STREQ("", ctTreeIter.get_node_foreground().c_str());
+        ASSERT_STREQ("xml", ctTreeIter.get_node_syntax_highlighting().c_str());
+        ASSERT_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
         const Glib::ustring expectedText{
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
         };
@@ -324,15 +323,15 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("py");
-        CHECK(ctTreeIter);
-        STRCMP_EQUAL("1:2", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
-        CHECK_FALSE(ctTreeIter.get_node_is_bold());
-        CHECK_FALSE(ctTreeIter.get_node_read_only());
-        CHECK_EQUAL(0, ctTreeIter.get_node_custom_icon_id());
-        STRCMP_EQUAL("", ctTreeIter.get_node_tags().c_str());
-        STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
-        STRCMP_EQUAL("python3", ctTreeIter.get_node_syntax_highlighting().c_str());
-        CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
+        ASSERT_TRUE(ctTreeIter);
+        ASSERT_STREQ("1:2", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        ASSERT_FALSE(ctTreeIter.get_node_is_bold());
+        ASSERT_FALSE(ctTreeIter.get_node_read_only());
+        ASSERT_EQ(0, ctTreeIter.get_node_custom_icon_id());
+        ASSERT_STREQ("", ctTreeIter.get_node_tags().c_str());
+        ASSERT_STREQ("", ctTreeIter.get_node_foreground().c_str());
+        ASSERT_STREQ("python3", ctTreeIter.get_node_syntax_highlighting().c_str());
+        ASSERT_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
         const Glib::ustring expectedText{
             "print(\"ciao!\")"
         };
@@ -341,17 +340,17 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
     gint64 node_d_id{0};
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("d");
-        CHECK(ctTreeIter);
+        ASSERT_TRUE(ctTreeIter);
         node_d_id = ctTreeIter.get_node_id();
-        CHECK(node_d_id > 0);
-        STRCMP_EQUAL("2", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
-        CHECK(ctTreeIter.get_node_is_bold());
-        CHECK(ctTreeIter.get_node_read_only());
-        CHECK_EQUAL(45, ctTreeIter.get_node_custom_icon_id());
-        STRCMP_EQUAL("ciao", ctTreeIter.get_node_tags().c_str());
-        STRCMP_EQUAL("#ff0000", ctTreeIter.get_node_foreground().c_str());
-        STRCMP_EQUAL("custom-colors", ctTreeIter.get_node_syntax_highlighting().c_str());
-        CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
+        ASSERT_TRUE(node_d_id > 0);
+        ASSERT_STREQ("2", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        ASSERT_TRUE(ctTreeIter.get_node_is_bold());
+        ASSERT_TRUE(ctTreeIter.get_node_read_only());
+        ASSERT_EQ(45, ctTreeIter.get_node_custom_icon_id());
+        ASSERT_STREQ("ciao", ctTreeIter.get_node_tags().c_str());
+        ASSERT_STREQ("#ff0000", ctTreeIter.get_node_foreground().c_str());
+        ASSERT_STREQ("custom-colors", ctTreeIter.get_node_syntax_highlighting().c_str());
+        ASSERT_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
         const Glib::ustring expectedText{
             "second rich" _NL
         };
@@ -359,18 +358,18 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
     }
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("e");
-        CHECK(ctTreeIter);
+        ASSERT_TRUE(ctTreeIter);
         // assert node properties
         const gint64 node_e_id = ctTreeIter.get_node_id();
-        CHECK(node_e_id > 0);
-        STRCMP_EQUAL("3", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
-        CHECK_FALSE(ctTreeIter.get_node_is_bold());
-        CHECK_FALSE(ctTreeIter.get_node_read_only());
-        CHECK_EQUAL(0, ctTreeIter.get_node_custom_icon_id());
-        STRCMP_EQUAL("", ctTreeIter.get_node_tags().c_str());
-        STRCMP_EQUAL("", ctTreeIter.get_node_foreground().c_str());
-        STRCMP_EQUAL("custom-colors", ctTreeIter.get_node_syntax_highlighting().c_str());
-        CHECK_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
+        ASSERT_TRUE(node_e_id > 0);
+        ASSERT_STREQ("3", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
+        ASSERT_FALSE(ctTreeIter.get_node_is_bold());
+        ASSERT_FALSE(ctTreeIter.get_node_read_only());
+        ASSERT_EQ(0, ctTreeIter.get_node_custom_icon_id());
+        ASSERT_STREQ("", ctTreeIter.get_node_tags().c_str());
+        ASSERT_STREQ("", ctTreeIter.get_node_foreground().c_str());
+        ASSERT_STREQ("custom-colors", ctTreeIter.get_node_syntax_highlighting().c_str());
+        ASSERT_FALSE(pWin->get_tree_store().is_node_bookmarked(ctTreeIter.get_node_id()));
         // assert text
         const Glib::ustring expectedText{
             "anchored widgets:" _NL
@@ -423,113 +422,109 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         };
         _process_rich_text_buffer(expectedTags, ctTreeIter.get_node_text_buffer());
         for (auto& expTag : expectedTags) {
-            CHECK(expTag.found);
+            ASSERT_TRUE(expTag.found);
         }
         // assert anchored widgets
         std::list<CtAnchoredWidget*> anchoredWidgets = ctTreeIter.get_embedded_pixbufs_tables_codeboxes();
-        CHECK_EQUAL(5, anchoredWidgets.size());
+        ASSERT_EQ(5, anchoredWidgets.size());
         for (CtAnchoredWidget* pAnchWidget : anchoredWidgets) {
             switch (pAnchWidget->get_type()) {
                 case CtAnchWidgType::CodeBox: {
-                    CHECK_EQUAL(28, pAnchWidget->getOffset());
-                    STRCMP_EQUAL(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
+                    ASSERT_EQ(28, pAnchWidget->getOffset());
+                    ASSERT_STREQ(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
                     auto pCodebox = dynamic_cast<CtCodebox*>(pAnchWidget);
-                    CHECK(pCodebox);
-                    STRCMP_EQUAL(
+                    ASSERT_TRUE(pCodebox);
+                    ASSERT_STREQ(
                         "def test_function:" _NL
                         "    print \"hi there йцукенгшщз\"",
                         pCodebox->get_text_content().c_str());
-                    STRCMP_EQUAL("python", pCodebox->get_syntax_highlighting().c_str());
-                    CHECK(pCodebox->get_width_in_pixels());
-                    CHECK_EQUAL(280,  pCodebox->get_frame_width());
-                    CHECK_EQUAL(50,  pCodebox->get_frame_height());
-                    CHECK(pCodebox->get_highlight_brackets());
-                    CHECK_FALSE(pCodebox->get_show_line_numbers());
+                    ASSERT_STREQ("python", pCodebox->get_syntax_highlighting().c_str());
+                    ASSERT_TRUE(pCodebox->get_width_in_pixels());
+                    ASSERT_EQ(280,  pCodebox->get_frame_width());
+                    ASSERT_EQ(50,  pCodebox->get_frame_height());
+                    ASSERT_TRUE(pCodebox->get_highlight_brackets());
+                    ASSERT_FALSE(pCodebox->get_show_line_numbers());
                 } break;
                 case CtAnchWidgType::Table: {
-                    CHECK_EQUAL(49, pAnchWidget->getOffset());
-                    STRCMP_EQUAL(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
+                    ASSERT_EQ(49, pAnchWidget->getOffset());
+                    ASSERT_STREQ(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
                     auto pTable = dynamic_cast<CtTable*>(pAnchWidget);
-                    CHECK(pTable);
-                    CHECK_EQUAL(60, pTable->get_col_width_default());
+                    ASSERT_TRUE(pTable);
+                    ASSERT_EQ(60, pTable->get_col_width_default());
                     const CtTableColWidths expected_column_widths{105, 75};
                     const CtTableColWidths actual_column_widths = pTable->get_col_widths();
-                    CHECK_EQUAL(expected_column_widths.size(), actual_column_widths.size());
+                    ASSERT_EQ(expected_column_widths.size(), actual_column_widths.size());
                     for (size_t i = 0; i < expected_column_widths.size(); ++i) {
-                        CHECK_EQUAL(expected_column_widths.at(i), actual_column_widths.at(i));
+                        ASSERT_EQ(expected_column_widths.at(i), actual_column_widths.at(i));
                     }
                     const CtTableMatrix& tableMatrix = pTable->get_table_matrix();
                     // three rows
-                    CHECK_EQUAL(3, tableMatrix.size());
+                    ASSERT_EQ(3, tableMatrix.size());
                     // two columns
-                    CHECK_EQUAL(2, tableMatrix.at(0).size());
+                    ASSERT_EQ(2, tableMatrix.at(0).size());
                     {
                         CtTableCell* pCell = tableMatrix.at(0).at(0);
-                        STRCMP_EQUAL("h1", pCell->get_text_content().c_str());
-                        STRCMP_EQUAL(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
+                        ASSERT_STREQ("h1", pCell->get_text_content().c_str());
+                        ASSERT_STREQ(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
                     }
                     {
                         CtTableCell* pCell = tableMatrix.at(0).at(1);
-                        STRCMP_EQUAL("h2", pCell->get_text_content().c_str());
-                        STRCMP_EQUAL(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
+                        ASSERT_STREQ("h2", pCell->get_text_content().c_str());
+                        ASSERT_STREQ(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
                     }
                     {
                         CtTableCell* pCell = tableMatrix.at(1).at(0);
-                        STRCMP_EQUAL("йцукенгшщз", pCell->get_text_content().c_str());
-                        STRCMP_EQUAL(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
+                        ASSERT_STREQ("йцукенгшщз", pCell->get_text_content().c_str());
+                        ASSERT_STREQ(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
                     }
                     {
                         CtTableCell* pCell = tableMatrix.at(1).at(1);
-                        STRCMP_EQUAL("2", pCell->get_text_content().c_str());
-                        STRCMP_EQUAL(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
+                        ASSERT_STREQ("2", pCell->get_text_content().c_str());
+                        ASSERT_STREQ(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
                     }
                     {
                         CtTableCell* pCell = tableMatrix.at(2).at(0);
-                        STRCMP_EQUAL("3", pCell->get_text_content().c_str());
-                        STRCMP_EQUAL(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
+                        ASSERT_STREQ("3", pCell->get_text_content().c_str());
+                        ASSERT_STREQ(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
                     }
                     {
                         CtTableCell* pCell = tableMatrix.at(2).at(1);
-                        STRCMP_EQUAL("4", pCell->get_text_content().c_str());
-                        STRCMP_EQUAL(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
+                        ASSERT_STREQ("4", pCell->get_text_content().c_str());
+                        ASSERT_STREQ(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
                     }
                 } break;
                 case CtAnchWidgType::ImagePng: {
-                    CHECK_EQUAL(59, pAnchWidget->getOffset());
-                    STRCMP_EQUAL(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
+                    ASSERT_EQ(59, pAnchWidget->getOffset());
+                    ASSERT_STREQ(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
                     auto pImagePng = dynamic_cast<CtImagePng*>(pAnchWidget);
-                    CHECK(pImagePng);
-                    STRCMP_EQUAL("webs http://www.ansa.it", pImagePng->get_link().c_str());
+                    ASSERT_TRUE(pImagePng);
+                    ASSERT_STREQ("webs http://www.ansa.it", pImagePng->get_link().c_str());
                     static const std::string embedded_png = Glib::Base64::decode("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");
-                    CHECK_EQUAL(embedded_png.size(), pImagePng->get_raw_blob().size());
-                    MEMCMP_EQUAL(embedded_png.c_str(), pImagePng->get_raw_blob().c_str(), embedded_png.size());
+                    ASSERT_EQ(embedded_png.size(), pImagePng->get_raw_blob().size());
+                    ASSERT_EQ(embedded_png, pImagePng->get_raw_blob());
                 } break;
                 case CtAnchWidgType::ImageAnchor: {
-                    CHECK_EQUAL(39, pAnchWidget->getOffset());
-                    STRCMP_EQUAL(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
+                    ASSERT_EQ(39, pAnchWidget->getOffset());
+                    ASSERT_STREQ(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
                     auto pImageAnchor = dynamic_cast<CtImageAnchor*>(pAnchWidget);
-                    CHECK(pImageAnchor);
-                    STRCMP_EQUAL("йцукенгшщз", pImageAnchor->get_anchor_name().c_str());
+                    ASSERT_TRUE(pImageAnchor);
+                    ASSERT_STREQ("йцукенгшщз", pImageAnchor->get_anchor_name().c_str());
                 } break;
                 case CtAnchWidgType::ImageEmbFile: {
-                    CHECK_EQUAL(77, pAnchWidget->getOffset());
-                    STRCMP_EQUAL(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
+                    ASSERT_EQ(77, pAnchWidget->getOffset());
+                    ASSERT_STREQ(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
                     auto pImageEmbFile = dynamic_cast<CtImageEmbFile*>(pAnchWidget);
-                    CHECK(pImageEmbFile);
-                    STRCMP_EQUAL("йцукенгшщз.txt", pImageEmbFile->get_file_name().c_str());
+                    ASSERT_TRUE(pImageEmbFile);
+                    ASSERT_STREQ("йцукенгшщз.txt", pImageEmbFile->get_file_name().c_str());
                     static const std::string embedded_file = Glib::Base64::decode("0LnRhtGD0LrQtdC90LPRiNGJ0LcK");
-                    CHECK_EQUAL(embedded_file.size(), pImageEmbFile->get_raw_blob().size());
-                    MEMCMP_EQUAL(embedded_file.c_str(), pImageEmbFile->get_raw_blob().c_str(), embedded_file.size());
-                    CHECK_EQUAL(1565442560, pImageEmbFile->get_time());
+                    ASSERT_EQ(embedded_file.size(), pImageEmbFile->get_raw_blob().size());
+                    ASSERT_EQ(embedded_file, pImageEmbFile->get_raw_blob());
+                    ASSERT_EQ(1565442560, pImageEmbFile->get_time());
                 } break;
             }
         }
     }
 }
-
-TEST_GROUP(CtDocRWGroup)
-{
-};
 
 #if !defined(__APPLE__) // TestCtApp causes crash on macos
 

@@ -27,8 +27,6 @@ https://developer.gnome.org/libxml++/stable/
 https://wiki.gnome.org/Projects/gspell
 https://developer.gnome.org/gspell/stable/
 
-https://cpputest.github.io/
-
 
 ## Build/Debug with Visual Studio Code on Linux
 
@@ -64,7 +62,7 @@ cpack -G DEB
 
 Install dependencies::
 ```sh
-sudo apt install build-essential libxml2-utils cmake libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev libcpputest-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev
+sudo apt install build-essential libxml2-utils cmake libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev
 ```
 Get cherrytree source, compile and run:
 ```sh
@@ -94,7 +92,6 @@ xdg-open /usr/share/doc/libgspell-1-dev/html/index.html
 Install dependencies:
 ```sh
 sudo pacman -S gtksourceviewmm libxml++2.6 gspell
-sudo pamac build cpputest
 ```
 
 Get cherrytree source, compile and run:
@@ -113,17 +110,6 @@ Install dependencies:
 ```sh
 sudo dnf install @development-tools gcc-c++ libtool autoconf gtkmm30-devel gtksourceviewmm3-devel libxml++-devel libsq3-devel gettext-devel gettext intltool libxml2 gspell-devel
 ```
-
-Install CppUTest:
-```sh
-git clone git://github.com/cpputest/cpputest.git
-cd cpputest/cpputest_build
-autoreconf .. -i
-../configure
-sudo make install
-```
-
-(OPTIONAL) See https://cpputest.github.io/ for more information on CppUTest
 
 Get cherrytree source, compile and run:
 ```sh
@@ -170,7 +156,7 @@ make -j$(nproc --all)
 
 Install dependencies:
 ```sh
-brew install python3 cmake pkg-config gtksourceviewmm3 gnome-icon-theme gspell libxml++ cpputest curl uchardet
+brew install python3 cmake pkg-config gtksourceviewmm3 gnome-icon-theme gspell libxml++ curl uchardet
 ```
 
 Get cherrytree source, compile and run:
@@ -208,15 +194,6 @@ pacman -S --needed --noconfirm mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake
 pacman -S --needed --noconfirm mingw-w64-x86_64-gtkmm3 mingw-w64-x86_64-gtksourceviewmm3 mingw-w64-x86_64-libxml++2.6 mingw-w64-x86_64-sqlite3 mingw-w64-x86_64-gspell mingw-w64-x86_64-curl mingw-w64-x86_64-uchardet
 # gettext, git, nano, meld3
 pacman -S --needed --noconfirm mingw-w64-x86_64-gettext git nano mingw-w64-x86_64-meld3
-# cpputest (missing package, we need to build manually)
-pacman -S --needed --noconfirm autoconf automake libtool make
-wget https://github.com/cpputest/cpputest/releases/download/v3.8/cpputest-3.8.tar.gz
-tar xf cpputest-3.8.tar.gz
-cd cpputest-3.8
-./autogen.sh
-./configure --disable-memory-leak-detection
-make
-make install
 ```
 
 use native windows theme

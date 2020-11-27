@@ -23,11 +23,6 @@
 
 #include "ct_clipboard.h"
 #include "tests_common.h"
-#include "CppUTest/CommandLineTestRunner.h"
-
-TEST_GROUP(ClipboardGroup)
-{
-};
 
 TEST(ClipboardGroup, ms_clip_convert)
 {
@@ -40,14 +35,14 @@ TEST(ClipboardGroup, ms_clip_convert)
     g_file_get_contents(resultClip_path.c_str(), &resultClip, nullptr, nullptr);
     Glib::ustring converted = Win32HtmlFormat().convert_from_ms_clipboard(inputClip);
 
-    CHECK_TRUE(inputClip != nullptr);
-    CHECK_TRUE(resultClip != nullptr);
-    STRCMP_EQUAL(resultClip, converted.data());
+    ASSERT_TRUE(inputClip != nullptr);
+    ASSERT_TRUE(resultClip != nullptr);
+    ASSERT_STREQ(resultClip, converted.data());
     g_free(inputClip);
     g_free(resultClip);
 
     Glib::ustring html = "<html></html>";
     Glib::ustring converted_2 = Win32HtmlFormat().convert_from_ms_clipboard(html);
-    STRCMP_EQUAL(html.data(), converted_2.data());
+    ASSERT_STREQ(html.data(), converted_2.data());
 #endif
 }

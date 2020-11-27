@@ -105,9 +105,6 @@ pkg_check_modules(LIBXML libxml++-2.6 REQUIRED)
 pkg_check_modules(SQLITE sqlite3 REQUIRED)
 pkg_check_modules(CURL libcurl REQUIRED)
 pkg_check_modules(UCHARDET uchardet REQUIRED)
-if(BUILD_TESTING)
-  pkg_check_modules(CPPUTEST cpputest  REQUIRED)
-endif()
 
 add_subdirectory(src/7za)
 
@@ -135,6 +132,7 @@ add_subdirectory(src/ct)
 
 if(BUILD_TESTING)
   enable_testing()
+  include(GoogleTest)
   add_subdirectory(tests)
 endif()
 

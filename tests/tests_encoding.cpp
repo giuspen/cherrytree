@@ -23,15 +23,10 @@
 
 #include "ct_logging.h"
 #include "tests_common.h"
-#include "CppUTest/CommandLineTestRunner.h"
-
-TEST_GROUP(EncodingGroup)
-{
-};
 
 TEST(EncodingGroup, ustring_format)
 {
     // on win32 this could throw an exception due to locale
     Glib::ustring str = "привет こんにちは";
-    STRCMP_EQUAL(str.c_str(), fmt::format("{}", str).c_str());
+    ASSERT_STREQ(str.c_str(), fmt::format("{}", str).c_str());
 }
