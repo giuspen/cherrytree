@@ -51,3 +51,13 @@ package_add_test(run_tests
   tests_tmp_n_p7zip.cpp
   tests_types.cpp
 )
+
+if(UNIX AND NOT APPLE)
+  add_custom_command(TARGET run_tests POST_BUILD
+    COMMAND xvfb-run ./run_tests
+  )
+else()
+  add_custom_command(TARGET run_tests POST_BUILD
+    COMMAND ./run_tests
+  )
+endif()
