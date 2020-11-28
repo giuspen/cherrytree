@@ -130,7 +130,9 @@ include_directories(
 
 add_subdirectory(src/ct)
 
-if(BUILD_TESTING)
+# unfortunately I haven't found a way yet to run the unit tests
+# with necessary xvfb or xvfb-run in the flatpak build
+if(BUILD_TESTING AND NOT DEFINED ENV{FLATPAK_BUILDER_BUILDDIR})
   enable_testing()
   include(GoogleTest)
   add_subdirectory(tests)

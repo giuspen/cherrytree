@@ -8,6 +8,7 @@
     "rename-icon": "cherrytree",
     "finish-args": [
         "--share=ipc",
+        "--share=network",
         "--socket=x11",
         "--socket=wayland",
         "--filesystem=host",
@@ -197,14 +198,12 @@
         },
         {
             "name" : "cherrytree",
-            "config-opts" : [
-            ],
             "buildsystem": "cmake",
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://www.giuspen.com/software/cherrytree_0.99.22.1.tar.xz",
-                    "sha256" : "ed9fa0f09085514cb37d6f2a10a1d6ad5dc3a93349975b92d9a878e585e0ccc7"
+                    "url" : "https://www.giuspen.com/software/cherrytree_0.99.23.1.tar.xz",
+                    "sha256" : "733f9ec217bb1693e79f8a91b208a3014972ff80ce194f4f8e3bb2ab7729606b"
                 }
             ]
         }

@@ -151,7 +151,7 @@ git clone https://github.com/giuspen/cherrytree.git
 git submodule update --init
 mkdir cherrytree/build
 cd cherrytree/build
-cmake ../ -DBUILD_TESTING=''
+cmake ../
 make -j$(nproc --all)
 ./build/cherrytree
 ```
@@ -235,12 +235,9 @@ cd cherrytree
 ./build.sh Debug
 # run cherrytree
 ./build/cherrytree.exe
-# run unit tests
-./build/tests/run_tests.exe
 ```
 
 Troubleshooting:
 - Cannot build: make sure to start 64-bit terminal
 - Cannot build: remove `cherrytree/build` folder and start `build.sh` script again
-- Tests output warnings and errors: it is ok, at the end it should be like this `OK (49 tests, 49 ran, 6243 checks, 0 ignored, 0 filtered out, 5758 ms)`
 - Cannot start cherrytree: you either have to run cherrytree from the msys2 mingw64 terminal or copy and replace cherrytree in `cherrytree_0.99.X_win64_portable` folder (downloaded from the site) by the new one, so dependencies are fulfilled 

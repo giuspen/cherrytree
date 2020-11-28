@@ -85,6 +85,5 @@ script:
         mkdir build && cd build
         cmake ../
         make -j$(sysctl -n hw.ncpu)
-        ./tests/run_tests
         ;;
     esac
