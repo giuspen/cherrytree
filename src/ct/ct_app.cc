@@ -123,9 +123,8 @@ void CtApp::on_activate()
 {
     _on_startup();
 
-    // start of main instance
-    if (get_windows().size() == 0)
-    {
+    if (get_windows().size() == 0) {
+        // start of main instance
         CtMainWin* pAppWindow = _create_window();
         if (CtApp::_uCtCfg->reloadDocLast && not CtApp::_uCtCfg->recentDocsFilepaths.empty())
         {
@@ -145,9 +144,12 @@ void CtApp::on_activate()
                 pAppWindow->menu_set_items_recent_documents();
             }
         }
+        if (CtApp::_uCtCfg->checkVersion) {
+            pAppWindow->get_ct_actions()->check_for_newer_version();
+        }
     }
-    else // start of the second instance
-    {
+    else {
+        // start of the second instance
         Gtk::Window* any_shown_win = nullptr;
         for (Gtk::Window* pWin : get_windows())
             if (pWin->get_visible())
@@ -162,7 +164,6 @@ void CtApp::on_activate()
             // also it fixes an issue with a missing systray
             _systray_show_hide_windows();
         }
-
     }
 }
 
@@ -209,14 +210,18 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
     for (const Glib::RefPtr<Gio::File>& r_file : files)
     {
         CtMainWin* pAppWindow = _get_window_by_path(r_file->get_path());
-        if (nullptr == pAppWindow)
-        {
+        if (nullptr == pAppWindow) {
             // there is not a window already running with that document
             pAppWindow = _create_window();
             const std::string canonicalPath = fs::canonical(r_file->get_path()).string();
-            if (not pAppWindow->file_open(canonicalPath, _node_to_focus))
-            {
+            if (not pAppWindow->file_open(canonicalPath, _node_to_focus)) {
                 spdlog::warn("Couldn't open file: {}", canonicalPath);
+            }
+            if (get_windows().size() == 1) {
+                // start of main instance
+                if (CtApp::_uCtCfg->checkVersion) {
+                    pAppWindow->get_ct_actions()->check_for_newer_version();
+                }
             }
         }
         // window can be hidden, so show it

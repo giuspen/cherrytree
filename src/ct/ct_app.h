@@ -34,9 +34,7 @@
 #include "ct_actions.h"
 #include "ct_export2pdf.h"
 
-class CtMenu;
 class CtMainWin;
-class CtActions;
 class CtApp : public Gtk::Application
 {
 protected:
