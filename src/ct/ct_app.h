@@ -60,6 +60,7 @@ protected:
     std::string   _export_to_txt_dir;
     std::string   _export_to_pdf_file;
     bool          _export_overwrite{false};
+    bool          _export_single_file{false};
     bool          _startup2{false};
 
 protected:

@@ -443,7 +443,7 @@ private:
     void _export_to_txt(const fs::path& auto_path, bool auto_overwrite);
 
     fs::path _get_pdf_filepath(const fs::path& proposed_name);
-    fs::path _get_txt_filepath(const fs::path& proposed_name);
+    fs::path _get_txt_filepath(const fs::path& dir_place, const fs::path& proposed_name);
     fs::path _get_txt_folder(fs::path dir_place, fs::path new_folder, bool export_overwrite);
 
 public:
@@ -456,8 +456,8 @@ public:
     void export_to_ctd();
 
     void export_to_pdf_auto(const std::string& dir, bool overwrite);
-    void export_to_html_auto(const std::string& dir, bool overwrite);
-    void export_to_txt_auto(const std::string& dir, bool overwrite);
+    void export_to_html_auto(const std::string& dir, bool overwrite, bool single_file);
+    void export_to_txt_auto(const std::string& dir, bool overwrite, bool single_file);
 
 private:
     // helpers for help actions
