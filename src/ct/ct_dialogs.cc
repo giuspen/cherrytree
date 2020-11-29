@@ -605,7 +605,7 @@ std::time_t CtDialogs::date_select_dialog(Gtk::Window& parent,
 
     Gtk::Box* pContentArea = dialog.get_content_area();
     Gtk::Calendar calendar;
-    calendar.select_month((guint)(struct_time.tm_mon-1), (guint)struct_time.tm_year); // month 0-11
+    calendar.select_month((guint)(struct_time.tm_mon), (guint)(struct_time.tm_year + 1900)); // month 0-11
     calendar.select_day((guint)struct_time.tm_mday); // day 1-31
     Glib::RefPtr<Gtk::Adjustment> rAdj_h = Gtk::Adjustment::create(struct_time.tm_hour, 0, 23, 1);
     Gtk::SpinButton spinbutton_h(rAdj_h);
@@ -640,8 +640,8 @@ std::time_t CtDialogs::date_select_dialog(Gtk::Window& parent,
     calendar.get_date(new_year, new_month, new_day);
 
     std::tm tmtime = {};
-    tmtime.tm_year = (int)new_year;
-    tmtime.tm_mon = (int)(new_month) + 1;
+    tmtime.tm_year = (int)new_year - 1900;
+    tmtime.tm_mon = (int)(new_month);
     tmtime.tm_mday = (int)new_day;
     tmtime.tm_hour = spinbutton_h.get_value_as_int();
     tmtime.tm_min = spinbutton_m.get_value_as_int();
