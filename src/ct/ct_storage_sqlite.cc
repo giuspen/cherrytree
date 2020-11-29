@@ -131,7 +131,7 @@ std::optional<std::vector<std::string>> get_quick_check_issues(sqlite3* db) {
 
     std::vector<std::string> rows;
     while(sqlite3_step(stmt) == SQLITE_ROW) {
-        std::string info = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
+        std::string info = CtStorageSqlite::safe_sqlite3_column_text(stmt, 0);
         if (info == "ok" && rows.empty()) {
             // First column and is OK, database is fine
             return std::nullopt;
@@ -386,9 +386,9 @@ Gtk::TreeIter CtStorageSqlite::_node_from_db(gint64 node_id, gint64 sequence, Gt
 
     CtNodeData nodeData;
     nodeData.nodeId = new_id == -1 ? node_id : new_id;
-    nodeData.name = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
-    nodeData.syntax = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
-    nodeData.tags = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
+    nodeData.name = safe_sqlite3_column_text(stmt, 0);
+    nodeData.syntax = safe_sqlite3_column_text(stmt, 1);
+    nodeData.tags = safe_sqlite3_column_text(stmt, 2);
     gint64 readonly_n_custom_icon_id = sqlite3_column_int64(stmt, 3);
     nodeData.isRO = static_cast<bool>(readonly_n_custom_icon_id & 0x01);
     nodeData.customIconId = readonly_n_custom_icon_id >> 1;
@@ -431,7 +431,7 @@ Glib::RefPtr<Gsv::Buffer> CtStorageSqlite::get_delayed_text_buffer(const gint64&
     }
 
     Glib::RefPtr<Gsv::Buffer> rRetTextBuffer{nullptr};
-    const char* textContent = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
+    const char* textContent = safe_sqlite3_column_text(stmt, 0);
     if (CtConst::RICH_TEXT_ID != syntax)
     {
         rRetTextBuffer = _pCtMainWin->get_new_text_buffer(textContent);
@@ -471,18 +471,18 @@ void CtStorageSqlite::_image_from_db(const gint64& nodeId, std::list<CtAnchoredW
     while (SQLITE_ROW == sqlite3_step(stmt))
     {
         int charOffset = sqlite3_column_int64(stmt, 1);
-        Glib::ustring justification = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
+        Glib::ustring justification = safe_sqlite3_column_text(stmt, 2);
         if (justification.empty()) justification = CtConst::TAG_PROP_VAL_LEFT;
 
         // image
-        const Glib::ustring anchorName = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3));
+        const Glib::ustring anchorName = safe_sqlite3_column_text(stmt, 3);
         if (!anchorName.empty())
         {
             anchoredWidgets.push_back(new CtImageAnchor(_pCtMainWin, anchorName, charOffset, justification));
         }
         else
         {
-            fs::path fileName = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 5));
+            fs::path fileName = safe_sqlite3_column_text(stmt, 5);
             const void* pBlob = sqlite3_column_blob(stmt, 4);
             const int blobSize = sqlite3_column_bytes(stmt, 4);
             const std::string rawBlob(reinterpret_cast<const char*>(pBlob), static_cast<size_t>(blobSize));
@@ -493,7 +493,7 @@ void CtStorageSqlite::_image_from_db(const gint64& nodeId, std::list<CtAnchoredW
             }
             else
             {
-                const Glib::ustring link = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 6));
+                const Glib::ustring link = safe_sqlite3_column_text(stmt, 6);
                 anchoredWidgets.push_back(new CtImagePng(_pCtMainWin, rawBlob, link, charOffset, justification));
             }
         }
@@ -514,11 +514,11 @@ void CtStorageSqlite::_codebox_from_db(const gint64& nodeId ,std::list<CtAnchore
     while (SQLITE_ROW == sqlite3_step(stmt))
     {
         int charOffset = sqlite3_column_int64(stmt, 1);
-        Glib::ustring justification = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
+        Glib::ustring justification = safe_sqlite3_column_text(stmt, 2);
         if (justification.empty()) justification = CtConst::TAG_PROP_VAL_LEFT;
 
-        const Glib::ustring textContent = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3));
-        const Glib::ustring syntaxHighlighting = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 4));
+        const Glib::ustring textContent = safe_sqlite3_column_text(stmt, 3);
+        const Glib::ustring syntaxHighlighting = safe_sqlite3_column_text(stmt, 4);
         const int frameWidth = sqlite3_column_int64(stmt, 5);
         const int frameHeight = sqlite3_column_int64(stmt, 6);
         const bool widthInPixels = sqlite3_column_int64(stmt, 7);
@@ -552,10 +552,10 @@ void CtStorageSqlite::_table_from_db(const gint64& nodeId, std::list<CtAnchoredW
     while (SQLITE_ROW == sqlite3_step(stmt))
     {
         int charOffset = sqlite3_column_int64(stmt, 1);
-        Glib::ustring justification = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
+        Glib::ustring justification = safe_sqlite3_column_text(stmt, 2);
         if (justification.empty()) justification = CtConst::TAG_PROP_VAL_LEFT;
 
-        const char* textContent = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3));
+        const char* textContent = safe_sqlite3_column_text(stmt, 3);
         const int colWidthDefault = sqlite3_column_int64(stmt, 5);
 
         CtTableMatrix tableMatrix;
@@ -842,7 +842,7 @@ std::unordered_set<std::string> CtStorageSqlite::_get_table_field_names(std::str
     std::unordered_set<std::string> fields;
     while(sqlite3_step(stmt) == SQLITE_ROW) {
         // Name is the second column
-        std::string name = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+        std::string name = safe_sqlite3_column_text(stmt, 1);
         fields.emplace(std::move(name));
     }
 
@@ -870,6 +870,12 @@ void CtStorageSqlite::_fix_db_tables()
         }
 
     } catch(std::runtime_error& e) {
-            throw std::runtime_error(fmt::format("Error while adding ts_creation and ts_lastsave to node table: {}", e.what()));
-        }
+        throw std::runtime_error(fmt::format("Error while adding ts_creation and ts_lastsave to node table: {}", e.what()));
+    }
+}
+
+const char* CtStorageSqlite::safe_sqlite3_column_text(sqlite3_stmt* stmt, int iCol)
+{
+    const char* pStr = reinterpret_cast<const char*>(sqlite3_column_text(stmt, iCol));
+    return pStr ? pStr : "";
 }

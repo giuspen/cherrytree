@@ -66,7 +66,6 @@ private:
 
     Gtk::TreeIter       _node_from_db(gint64 node_id, gint64 sequence, Gtk::TreeIter parent_iter, gint64 new_id);
 
-
     /**
      * @brief Check that the database contains the required tables
      *
@@ -121,7 +120,7 @@ public:
     static const char TABLE_BOOKMARK_DELETE[];
     static const Glib::ustring ERR_SQLITE_PREPV2;
     static const Glib::ustring ERR_SQLITE_STEP;
-
+    static const char* safe_sqlite3_column_text(sqlite3_stmt* stmt, int iCol);
 
 private:
     CtMainWin*    _pCtMainWin;
