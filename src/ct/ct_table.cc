@@ -364,7 +364,7 @@ CtTableMatrix CtTable::_copy_matrix(int col_add, int col_del, int row_add, int r
 void CtTable::_on_populate_popup_cell(Gtk::Menu* menu, int row, int col)
 {
     if (not _pCtMainWin->user_active()) return;
-    for (auto iter : menu->get_children()) menu->remove(*iter);
+    //for (auto iter : menu->get_children()) menu->remove(*iter);
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
     _currentRow = row;
     _currentColumn = col;

@@ -136,7 +136,7 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
     // signals
     _ctTextview.signal_populate_popup().connect([this](Gtk::Menu* menu){
         if (not _pCtMainWin->user_active()) return;
-        for (auto iter : menu->get_children()) menu->remove(*iter);
+        //for (auto iter : menu->get_children()) menu->remove(*iter);
         _pCtMainWin->get_ct_actions()->curr_codebox_anchor = this;
         _pCtMainWin->get_ct_menu().build_popup_menu(menu, CtMenu::POPUP_MENU_TYPE::Codebox);
     });

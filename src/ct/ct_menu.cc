@@ -520,6 +520,7 @@ void CtMenu::build_popup_menu(Gtk::Menu* pMenu, POPUP_MENU_TYPE popupMenuType)
 
 void CtMenu::build_popup_menu_table_cell(Gtk::Menu* pMenu, const bool first_row, const bool first_col, const bool last_row, const bool last_col)
 {
+    _add_menu_separator(pMenu);
     _add_menu_item(pMenu, find_action("table_cut"));
     _add_menu_item(pMenu, find_action("table_copy"));
     _add_menu_item(pMenu, find_action("table_delete"));
