@@ -262,9 +262,19 @@ Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64
             }
             password = dialogTextEntry.get_entry_text();
         }
-        if (0 == CtP7zaIface::p7za_extract(file_path.c_str(), temp_dir.c_str(), password.c_str(), false))
-            if (g_file_test(temp_file_path.c_str(), G_FILE_TEST_IS_REGULAR))
+        if (0 == CtP7zaIface::p7za_extract(file_path.c_str(), temp_dir.c_str(), password.c_str(), false)) {
+            if (fs::is_regular_file(temp_file_path)) {
                 return temp_file_path;
+            }
+            const std::list<fs::path> filesInTmpDir = fs::get_dir_entries(temp_file_path.parent_path());
+            if (filesInTmpDir.size() == 1 and
+                fs::get_doc_type(filesInTmpDir.front()) == fs::get_doc_type(temp_file_path) and
+                fs::move_file(filesInTmpDir.front(), temp_file_path))
+            {
+                spdlog::debug("encrypt doc renamed {} -> {}", filesInTmpDir.front().filename(), temp_file_path.filename());
+                return temp_file_path;
+            }
+        }
         password.clear();
     }
 }
