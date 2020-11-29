@@ -285,7 +285,7 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, int depth)
                 }
 
                 while (not end_iter.ends_line() and not end_iter.get_child_anchor()) {
-                    if (not end_iter.forward_word_end()) break;
+                    if (not end_iter.forward_char()) break;
                 }
 
                 Glib::ustring txt(start_iter, end_iter);
