@@ -2,7 +2,3 @@
 
 %:
 	dh $@ --buildsystem=cmake --parallel
-
-override_dh_auto_test:
-	# skip running the tests after building the debian package because it fails on launchpad ppa
-	true
