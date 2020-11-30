@@ -1,4 +1,13 @@
 
+0.99.24 (November 30th, 2020)
+  * fix crash parsing sqlite node with image (#1337)
+  * fix bugs with search time filter (#1381)
+  * fix can't open encrypted .ctx/.ctz file when the filename is renamed (#1383)
+  * fix missing copy/cut/paste for tables and codeboxes in right click menu (#1379)
+  * fix insert TOC with closing bracket at the end of the headline (#1382)
+  * fix Automatically Check for Newer version (#1380)
+  * added commandline option -s/--export_single_file for exports to html and plaintext (work of Sylvain Pasche)
+
 0.99.23 (November 26th, 2020)
   * fixed crash applying rich text tags in flatpak version (#1367, #1369, #1372, #1374, #1378)
 
