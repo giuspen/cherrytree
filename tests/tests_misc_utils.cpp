@@ -26,6 +26,18 @@
 #include "ct_filesystem.h"
 #include "tests_common.h"
 
+TEST(MiscUtilsGroup, scope_guard)
+{
+    int var = -1;
+    {
+        auto on_scope_exit = scope_guard([&](void*) {
+            var = 0;
+        });
+        ASSERT_EQ(-1, var);
+    }
+    ASSERT_EQ(0, var);
+}
+
 TEST(MiscUtilsGroup, files_encodings)
 {
     auto _get_file_encoding = [](const std::string& inFilepath)->std::string{
@@ -52,10 +64,14 @@ TEST(MiscUtilsGroup, str__replace)
     {
         Glib::ustring testReplaceStr = "one two threetwo";
         ASSERT_STREQ("one four threefour", str::replace(testReplaceStr, "two", "four").c_str());
+        ASSERT_STREQ("four two threetwo", str::replace(testReplaceStr, "one", "four").c_str());
+        ASSERT_STREQ("one two", str::replace(testReplaceStr, "two three", "").c_str());
     }
     {
         std::string testReplaceStr = "one two threetwo";
         ASSERT_STREQ("one four threefour", str::replace(testReplaceStr, "two", "four").c_str());
+        ASSERT_STREQ("four two threetwo", str::replace(testReplaceStr, "one", "four").c_str());
+        ASSERT_STREQ("one two", str::replace(testReplaceStr, "two three", "").c_str());
     }
 }
 
@@ -307,6 +323,17 @@ TEST(MiscUtilsGroup, vec_remove)
     ASSERT_TRUE(v_3.size() == 2);
 }
 
+TEST(MiscUtilsGroup, vec_extend)
+{
+    std::vector<uint8_t> testVec = {0x12, 0x34};
+    vec::vector_extend(testVec, std::vector<uint8_t>{0x56, 0x78});
+    ASSERT_THAT(testVec, testing::ElementsAre(0x12, 0x34, 0x56, 0x78));
+    vec::vector_extend(testVec, std::vector<uint8_t>{0x9a});
+    ASSERT_THAT(testVec, testing::ElementsAre(0x12, 0x34, 0x56, 0x78, 0x9a));
+    vec::vector_extend(testVec, std::vector<uint8_t>{});
+    ASSERT_THAT(testVec, testing::ElementsAre(0x12, 0x34, 0x56, 0x78, 0x9a));
+}
+
 TEST(MiscUtilsGroup, get__uri_type)
 {
     ASSERT_TRUE(CtMiscUtil::get_uri_type("https://google.com") == CtMiscUtil::URI_TYPE::WEB_URL);
@@ -395,4 +422,3 @@ TEST(MiscUtilsGroup, get_link_entry)
     ASSERT_STREQ("", CtMiscUtil::get_link_entry("/home/foo/bar").type.c_str());
     ASSERT_STREQ("", CtMiscUtil::get_link_entry("home https://example.com").type.c_str());
 }
-
