@@ -1,5 +1,5 @@
 name: cherrytree
-version: 0.39.4
+version: 0.99.24
 summary: Hierarchical note taking application
 description: |
   A hierarchical note taking application, featuring rich text and syntax highlighting, storing data in a single XML or SQLite file. The project home page is giuspen.com/cherrytree.
@@ -34,7 +34,7 @@ plugs:
 
 apps:
   cherrytree:
-    command: desktop-launch $SNAP/bin/cherrytree
+    command: bin/desktop-launch $SNAP/usr/bin/cherrytree
     plugs:
       - home
       - unity7
@@ -99,19 +99,26 @@ parts:
     prime: [-* ]
 
   cherrytree:
-    source: https://github.com/giuspen/cherrytree.git
-    source-depth: 1
-    plugin: python
-    python-version: python2
+    source: .
+    source-tag: '0.99.24'
+    plugin: nil
     override-build: |
+      set -x
+      cd pygtk2
+      python2.7 setup.py install --prefix=$SNAPCRAFT_PART_INSTALL/usr -f 
       sed -i 's|^Icon=.*|Icon=${SNAP}/meta/gui/cherrytree.png|' linux/cherrytree.desktop
-      snapcraftctl build
+      sed -i 's|#!/root/parts/cherrytree/install/usr/bin/python2.7|#!/usr/bin/env python2.7|' $SNAPCRAFT_PART_INSTALL/usr/bin/cherrytree
+      sed -i 's|VERSION = "0.39.4"|VERSION = "0.99.24"|' $SNAPCRAFT_PART_INSTALL/usr/share/cherrytree/modules/cons.py
       mkdir -p $SNAPCRAFT_PART_INSTALL/meta/gui/
       cp glade/cherrytree.png $SNAPCRAFT_PART_INSTALL/meta/gui/
+      mkdir -p $SNAPCRAFT_PART_INSTALL/share/applications/
+      cp linux/cherrytree.desktop $SNAPCRAFT_PART_INSTALL/share/applications/
     build-packages:
+      - python2.7
       - gettext
       - desktop-file-utils
     stage-packages:
+      - python2.7-minimal
       - python-gtk2
       - python-gtksourceview2
       - p7zip-full
