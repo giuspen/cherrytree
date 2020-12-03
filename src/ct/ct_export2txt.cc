@@ -1,7 +1,9 @@
 /*
  * ct_export2txt.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,8 +33,12 @@ CtExport2Txt::CtExport2Txt(CtMainWin* pCtMainWin)
 Glib::ustring CtExport2Txt::node_export_to_txt(CtTreeIter tree_iter, fs::path filepath, CtExportOptions export_options, int sel_start, int sel_end)
 {
     Glib::ustring plain_text;
-    if (export_options.include_node_name)
-        plain_text = tree_iter.get_node_name().uppercase() + CtConst::CHAR_NEWLINE;
+    if (export_options.include_node_name) {
+        for (int i = 0; i < 1+_pCtMainWin->get_tree_store().get_store()->iter_depth(tree_iter); ++i) {
+            plain_text += "#";
+        }
+        plain_text += CtConst::CHAR_SPACE + tree_iter.get_node_name() + CtConst::CHAR_NEWLINE;
+    }
     plain_text += selection_export_to_txt(tree_iter.get_node_text_buffer(), sel_start, sel_end, false);
     plain_text += str::repeat(CtConst::CHAR_NEWLINE, 2);
     if (filepath != "")
