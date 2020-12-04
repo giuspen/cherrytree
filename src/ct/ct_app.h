@@ -61,16 +61,17 @@ protected:
     std::string   _export_to_pdf_file;
     bool          _export_overwrite{false};
     bool          _export_single_file{false};
-    bool          _startup2{false};
+    bool          _new_window{false};
+    bool          _initDone{false};
 
 protected:
-    void _on_startup();
-    void on_activate() override;
-    void on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint) override;
-    void on_window_removed(Gtk::Window* window) override;
+    void        on_activate() override;
+    void        on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& hint) override;
+    void        on_window_removed(Gtk::Window* window) override;
 
-    void _add_main_option_entries();
-    void _print_gresource_icons();
+    void        _on_startup();
+    void        _add_main_option_entries();
+    void        _print_gresource_icons();
 
 protected:
     CtMainWin*  _create_window(const bool no_gui = false);
@@ -78,6 +79,6 @@ protected:
     bool        _quit_or_hide_window(CtMainWin* pCtMainWin, bool from_delete);
     int         _on_handle_local_options(const Glib::RefPtr<Glib::VariantDict>& rOptions);
 
-    void _systray_show_hide_windows();
-    void _systray_close_all();
+    void        _systray_show_hide_windows();
+    void        _systray_close_all();
 };

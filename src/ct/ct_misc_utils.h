@@ -30,6 +30,9 @@
 #include <spdlog/fmt/fmt.h>
 #include <unordered_set>
 #include <type_traits>
+#include <deque>
+#include <mutex>
+#include <condition_variable>
 
 class CtConfig;
 class CtTreeIter;
@@ -39,6 +42,34 @@ using CtCurrAttributesMap = std::unordered_map<std::string_view, std::string>;
 template<class F> auto scope_guard(F&& f) {
     return std::unique_ptr<void, typename std::decay<F>::type>{(void*)1, std::forward<F>(f)};
 }
+
+template <class T> class ThreadSafeDEQueue
+{
+public:
+    void push_back(T t) {
+        std::lock_guard<std::mutex> lock(m);
+        q.push_back(t);
+        c.notify_one();
+    }
+    T pop_front() {
+        std::unique_lock<std::mutex> lock(m);
+        while (q.empty()) {
+            c.wait(lock);
+        }
+        T val = q.front();
+        q.pop_front();
+        return val;
+    }
+    bool empty() const {
+        std::unique_lock<std::mutex> lock(m);
+        return q.empty();
+    }
+
+private:
+    std::deque<T> q{};
+    mutable std::mutex m{};
+    std::condition_variable c{};
+};
 
 namespace CtCSV {
     using CtStringTable = std::vector<std::vector<std::string>>;

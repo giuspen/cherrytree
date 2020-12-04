@@ -36,8 +36,7 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
     // action to call from second instance
     // user wanted to create a new window from command line
     add_action("new-window", [&]() {
-        if (_startup2)
-            _create_window()->present();
+        _new_window = true;
     });
 
     _add_main_option_entries();
@@ -62,8 +61,8 @@ CtApp::~CtApp()
 // small optimization: second instance doesn't need all UI initialization, so we call it on the real startup
 void CtApp::_on_startup()
 {
-    if (_startup2) return;
-    _startup2 = true;
+    if (_initDone) return;
+    _initDone = true;
 
     const fs::path config_dir = fs::get_cherrytree_configdir();
     if (not fs::exists(config_dir)) {
@@ -150,21 +149,27 @@ void CtApp::on_activate()
     }
     else {
         // start of the second instance
-        Gtk::Window* any_shown_win = nullptr;
-        for (Gtk::Window* pWin : get_windows())
-            if (pWin->get_visible())
-                any_shown_win = pWin;
-        if (any_shown_win)
-        {
-            any_shown_win->present();
+        if (_new_window) {
+            _create_window()->present();
         }
-        else
-        {
-            // all windows are hidden, show them
-            // also it fixes an issue with a missing systray
-            _systray_show_hide_windows();
+        else {
+            Gtk::Window* any_shown_win = nullptr;
+            for (Gtk::Window* pWin : get_windows())
+                if (pWin->get_visible())
+                    any_shown_win = pWin;
+            if (any_shown_win)
+            {
+                any_shown_win->present();
+            }
+            else
+            {
+                // all windows are hidden, show them
+                // also it fixes an issue with a missing systray
+                _systray_show_hide_windows();
+            }
         }
     }
+    _new_window = false; // reset for future calls
 }
 
 void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::ustring& /*hint*/)
@@ -227,6 +232,7 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
         // window can be hidden, so show it
         pAppWindow->present();
     }
+    _new_window = false; // reset for future calls
 }
 
 void CtApp::on_window_removed(Gtk::Window* window)
@@ -389,7 +395,8 @@ int CtApp::_on_handle_local_options(const Glib::RefPtr<Glib::VariantDict>& rOpti
         return 0; // to exit app
     }
 
-    bool new_window = false;
+    bool new_window{false};
+
     rOptions->lookup_value("node", _node_to_focus);
     rOptions->lookup_value("export_to_html_dir", _export_to_html_dir);
     rOptions->lookup_value("export_to_txt_dir", _export_to_txt_dir);
@@ -399,8 +406,7 @@ int CtApp::_on_handle_local_options(const Glib::RefPtr<Glib::VariantDict>& rOpti
     rOptions->lookup_value("new-window", new_window);
 
     if (new_window) {
-        activate_action("new-window"); // will call 'new-window' action in primary instance
-        return 0; // to exit app
+        activate_action("new-window");
     }
 
     return -1; // Keep going
