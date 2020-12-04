@@ -107,7 +107,7 @@ parts:
       cd pygtk2
       python2.7 setup.py install --prefix=$SNAPCRAFT_PART_INSTALL/usr -f 
       sed -i 's|^Icon=.*|Icon=${SNAP}/meta/gui/cherrytree.png|' linux/cherrytree.desktop
-      sed -i 's|#!/root/parts/cherrytree/install/usr/bin/python2.7|#!/usr/bin/env python2.7|' $SNAPCRAFT_PART_INSTALL/usr/bin/cherrytree
+      sed -i '1s|.*|#!/usr/bin/env python2.7|' $SNAPCRAFT_PART_INSTALL/usr/bin/cherrytree
       sed -i 's|VERSION = "0.39.4"|VERSION = "0.99.24"|' $SNAPCRAFT_PART_INSTALL/usr/share/cherrytree/modules/cons.py
       mkdir -p $SNAPCRAFT_PART_INSTALL/meta/gui/
       cp glade/cherrytree.png $SNAPCRAFT_PART_INSTALL/meta/gui/
