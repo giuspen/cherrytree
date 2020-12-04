@@ -1968,7 +1968,7 @@ MA 02110-1301, USA.
  _("Portuguese Brazil")+" (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>"+CtConst::CHAR_NEWLINE+
  _("Russian")+" (ru) Andriy Kovtun <kovtunos@yandex.ru>"+CtConst::CHAR_NEWLINE+
  _("Slovenian")+" (sl) Erik Lovrič <erik.lovric@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Spanish")+" (es) Daniel MC <i.e.betel@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Spanish")+" (es) UserFav <userfav.post@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Swedish")+" (sv) Åke Engelbrektson <eson@svenskasprakfiler.se>"+CtConst::CHAR_NEWLINE+
  _("Turkish")+" (tr) Ferhat Aydin <ferhataydin44@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Ukrainian")+" (uk) Andriy Kovtun <kovtunos@yandex.ru>");
