@@ -631,6 +631,7 @@ void CtMainWin::config_update_data_from_curr_status()
     }
     _pCtConfig->hpanedPos = _hPaned.property_position();
     _ensure_curr_doc_in_recent_docs();
+    _ctTextview.synch_spell_check_change_from_gspell_right_click_menu();
 }
 
 void CtMainWin::update_theme()

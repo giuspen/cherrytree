@@ -119,6 +119,7 @@ void CtActions::quit_window()
 
 void CtActions::dialog_preferences()
 {
+    _pCtMainWin->get_text_view().synch_spell_check_change_from_gspell_right_click_menu();
     CtPrefDlg prefDlg(_pCtMainWin);
     prefDlg.show();
     prefDlg.run();

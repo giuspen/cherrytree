@@ -799,19 +799,40 @@ void CtTextView::zoom_text(const bool is_increase, const std::string& syntaxHigh
 
 void CtTextView::set_spell_check(bool allow_on)
 {
+    auto pCtConfig = _pCtMainWin->get_ct_config();
     auto gtk_view = GTK_TEXT_VIEW(gobj());
-    auto gtk_buffer = gtk_text_view_get_buffer (gtk_view);
-    auto gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer (gtk_buffer);
+    auto gtk_buffer = gtk_text_view_get_buffer(gtk_view);
+    auto gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer(gtk_buffer);
 
-    auto gspell_checker = _get_spell_checker(_pCtMainWin->get_ct_config()->spellCheckLang);
+    auto gspell_checker = _get_spell_checker(pCtConfig->spellCheckLang);
     auto old_gspell_checker = gspell_text_buffer_get_spell_checker(gspell_buffer);
-    if (gspell_checker != old_gspell_checker)
-        gspell_text_buffer_set_spell_checker (gspell_buffer, gspell_checker);
-    // g_object_unref (gspell_checker); no need to unref because we keep it global
+    if (gspell_checker != old_gspell_checker) {
+        gspell_text_buffer_set_spell_checker(gspell_buffer, gspell_checker);
+        // g_object_unref (gspell_checker); no need to unref because we keep it global
+    }
+    auto gspell_view = gspell_text_view_get_from_gtk_text_view(gtk_view);
+    gspell_text_view_set_inline_spell_checking(gspell_view, allow_on && pCtConfig->enableSpellCheck);
+    gspell_text_view_set_enable_language_menu(gspell_view, allow_on && pCtConfig->enableSpellCheck);
+}
 
-    auto gspell_view = gspell_text_view_get_from_gtk_text_view (gtk_view);
-    gspell_text_view_set_inline_spell_checking (gspell_view, allow_on && _pCtMainWin->get_ct_config()->enableSpellCheck);
-    gspell_text_view_set_enable_language_menu (gspell_view, allow_on && _pCtMainWin->get_ct_config()->enableSpellCheck);
+void CtTextView::synch_spell_check_change_from_gspell_right_click_menu()
+{
+    auto pCtConfig = _pCtMainWin->get_ct_config();
+    auto gtk_view = GTK_TEXT_VIEW(gobj());
+    auto gtk_buffer = gtk_text_view_get_buffer(gtk_view);
+    if (not pCtConfig->enableSpellCheck) {
+        return;
+    }
+    auto gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer(gtk_buffer);
+    auto gspell_checker = gspell_text_buffer_get_spell_checker(gspell_buffer);
+    const GspellLanguage* pGspellLang = gspell_checker_get_language(gspell_checker);
+    if (not pGspellLang) {
+        return;
+    }
+    const std::string currSpellCheckLang = gspell_language_get_code(pGspellLang);
+    if (currSpellCheckLang != pCtConfig->spellCheckLang) {
+        pCtConfig->spellCheckLang = currSpellCheckLang;
+    }
 }
 
 // Try and apply link to previous word (after space or newline)
