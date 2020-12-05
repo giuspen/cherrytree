@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_file.cc:80
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_file.cc:97
@@ -90,7 +90,7 @@ msgstr "Otras opciones"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:72
 msgid "Tab Width"
-msgstr "Ancho de pestaña"
+msgstr "Ancho de tabulador"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:78
 msgid "Insert Spaces Instead of Tabs"
@@ -133,7 +133,7 @@ msgstr "Editor de texto"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:142
 msgid "Timestamp Format"
-msgstr "Formato Timestamp"
+msgstr "Formato de estampa de Fecha/Hora"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:153
 msgid "Horizontal Rule"
@@ -214,7 +214,7 @@ msgstr "Expandir Caja de Código automáticamente"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:480
 msgid "Embedded File Icon Size"
-msgstr "Archivo incrustado tamaño icono"
+msgstr "Tamaño de icono de Archivo incrustado"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:489
 msgid "Embedded File Size Limit"
@@ -282,7 +282,7 @@ msgstr "Esquema de estilo"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:820
 msgid "Monospace Background"
-msgstr "Fondo monospace"
+msgstr "Fondo de monoespaciado"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:877
 msgid "Table"
@@ -303,7 +303,7 @@ msgstr "Sin icono"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:974
 msgid "Hide Right Side Auxiliary Icon"
-msgstr "Esconder icono auxiliar de la izquierda"
+msgstr "Esconder iconos auxiliares de la derecha"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:988
 msgid "Default Text Nodes Icons"
@@ -323,7 +323,7 @@ msgstr "Contraer todos los nodos"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:1007
 msgid "Nodes in Bookmarks Always Visible"
-msgstr "Nodos en Favoritos siempre visibles"
+msgstr "Nodos en Marcadores siempre visibles"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:1015
 msgid "Nodes Status at Startup"
@@ -459,7 +459,7 @@ msgstr "Hacer una copia de seguridad antes de guardar"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:1576
 msgid "Number of Backups to Keep"
-msgstr "Cantidad de backups a guardar"
+msgstr "Cantidad de copias de seguridad a mantener"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:1581
 msgid "Custom Backup Directory"
@@ -471,7 +471,7 @@ msgstr "Guardando"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:1619
 msgid "Automatically Check for Newer Version"
-msgstr "Buscar nueva versión de forma automática"
+msgstr "Comprobar por nueva versión de forma automática"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:1620
 msgid "Enable Word Count in Statusbar"
@@ -507,7 +507,7 @@ msgstr "El nuevo idioma estará disponible una vez reinicie CherryTree"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:1762
 msgid "This Change will have Effect Only After Restarting CherryTree"
-msgstr "El cambio surgirá efecto después de reiniciar CherryTree"
+msgstr "Este cambio surgirá efecto después de reiniciar CherryTree"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:1846
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:1938
@@ -685,11 +685,11 @@ msgstr "Ejecutar código"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:109
 msgid "Open Preferences _Directory"
-msgstr "Abrir directorio de preferencias"
+msgstr "Abrir _directorio de Preferencias"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:109
 msgid "Open the Directory with Preferences Files"
-msgstr "Abrir el directorio con los archivos de preferencias"
+msgstr "Abrir el directorio con los archivos de preferencias/configuración"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:110
 msgid "Pa_ge Setup"
@@ -740,11 +740,11 @@ msgstr "Comprobar si hay una nueva versión"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:116
 msgid "Online _Manual"
-msgstr "_Manual online"
+msgstr "_Manual en línea"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:116
 msgid "Application's Online Manual"
-msgstr "Manual online del programa del programa"
+msgstr "Manual en línea del programa"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:117
 msgid "_About"
@@ -834,11 +834,11 @@ msgstr "Insertar Tabla de Contenidos"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:129
 msgid "Insert Ti_mestamp"
-msgstr "Insertar Ti_mestamp"
+msgstr "Insertar Fecha/Hora"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:129
 msgid "Insert Timestamp"
-msgstr "Insertar Timestamp"
+msgstr "Insertar Fecha/Hora"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:130
 msgid "Insert _Horizontal Rule"
@@ -1540,7 +1540,7 @@ msgstr "Reducir el tamaño de los iconos de la barra de herramientas"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:218
 msgid "_Full Screen On/Off"
-msgstr "Pantalla completa on/o_ff"
+msgstr "Activar/Desactivar Pantalla completa"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:218
 msgid "Toggle Full Screen On/Off"
@@ -1604,7 +1604,7 @@ msgstr "Añadir nodos de un archivo de texto sin formato al árbol actual"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:227
 msgid "From _Folder of Plain Text Files"
-msgstr "Desde una carpe_ta archivos de texto sin formato"
+msgstr "Desde carpe_ta con archivos de texto sin formato"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:227
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
@@ -1622,7 +1622,7 @@ msgstr "Añadir nodo de un archivo HTML al árbol actual"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:229
 msgid "From _Folder of HTML Files"
-msgstr "Desde una carpeta de archivos HTML"
+msgstr "Desde carpeta con archivos HTML"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:229
 msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
@@ -1638,7 +1638,7 @@ msgstr "Añadir nodo desde un archivo Markdown al árbol actual"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:231
 msgid "From _Folder of Markdown Files"
-msgstr "Desde una carpeta de archivos Markdown"
+msgstr "Desde carpeta con archivos Markdown"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:231
 msgid "Add Nodes from a Folder of Markdown Files to the Current Tree"
