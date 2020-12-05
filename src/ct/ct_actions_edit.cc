@@ -246,17 +246,6 @@ std::optional<Glib::ustring> iter_in_tag(const Gtk::TextIter& iter, const Glib::
     return std::nullopt;
 }
 
-void anchor_insert_if_missing(CtActions& actions, Gtk::TextIter insert_iter, const Glib::ustring& default_value)
-{
-    auto anchor = insert_iter.get_child_anchor();
-    if (anchor) {
-        return;
-    }
-
-    // Didn't find any anchor, insert it
-    actions.image_insert_anchor(insert_iter, default_value, "right");
-}
-
 TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, int depth)
 {
     int node_id = node.get_node_id();
@@ -294,7 +283,15 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, int depth)
                 auto mark = text_buffer->create_mark(end_iter, false);
 
                 std::string anchor_txt = fmt::format("h{}-{}", h_lvl, encountered_headers[h_lvl]);
-                anchor_insert_if_missing(actions, end_iter, anchor_txt);
+                auto anchor = end_iter.get_child_anchor();
+                if (anchor) {
+                    const int endOffset = end_iter.get_offset();
+                    auto iter_bound = end_iter;
+                    iter_bound.forward_char();
+                    text_buffer->erase(end_iter, iter_bound);
+                    end_iter = text_buffer->get_iter_at_offset(endOffset);
+                }
+                actions.image_insert_anchor(end_iter, anchor_txt, "right");
 
                 text_iter = mark->get_iter();
                 text_buffer->delete_mark(mark);
