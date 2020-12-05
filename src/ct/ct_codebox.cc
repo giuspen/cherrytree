@@ -79,15 +79,15 @@ Glib::ustring CtTextCell::get_text_content() const
 void CtTextCell::set_syntax_highlighting(const std::string& syntaxHighlighting, Gsv::LanguageManager* pGsvLanguageManager)
 {
     _syntaxHighlighting = syntaxHighlighting;
-    if (CtConst::RICH_TEXT_ID != syntaxHighlighting)
+    if (CtConst::TABLE_CELL_TEXT_ID == syntaxHighlighting or
+        CtConst::RICH_TEXT_ID == syntaxHighlighting or
+        CtConst::PLAIN_TEXT_ID == syntaxHighlighting)
     {
-        if (CtConst::PLAIN_TEXT_ID == syntaxHighlighting)
-            _rTextBuffer->set_highlight_syntax(false);
-        else
-        {
-            _rTextBuffer->set_language(pGsvLanguageManager->get_language(syntaxHighlighting));
-            _rTextBuffer->set_highlight_syntax(true);
-        }
+        _rTextBuffer->set_highlight_syntax(false);
+    }
+    else {
+        _rTextBuffer->set_language(pGsvLanguageManager->get_language(syntaxHighlighting));
+        _rTextBuffer->set_highlight_syntax(true);
     }
 }
 
