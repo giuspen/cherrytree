@@ -441,9 +441,11 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     hbox_spell_check_lang->set_spacing(4);
     Gtk::Label* label_spell_check_lang = Gtk::manage(new Gtk::Label(_("Spell Check Language")));
     Gtk::ComboBoxText* combobox_spell_check_lang = Gtk::manage(new Gtk::ComboBoxText());
-    for (const GList *l = gspell_language_get_available(); l != NULL; l = l->next)
-            combobox_spell_check_lang->append(gspell_language_get_code((const GspellLanguage*)l->data), gspell_language_get_name((const GspellLanguage*)l->data));
-    combobox_spell_check_lang->set_active_text(pConfig->spellCheckLang);
+    for (const GList* l = gspell_language_get_available(); l != NULL; l = l->next) {
+        auto pGspellLang = reinterpret_cast<const GspellLanguage*>(l->data);
+        combobox_spell_check_lang->append(gspell_language_get_code(pGspellLang), gspell_language_get_name(pGspellLang));
+    }
+    combobox_spell_check_lang->set_active_id(pConfig->spellCheckLang);
     combobox_spell_check_lang->set_sensitive(pConfig->enableSpellCheck);
 
     hbox_spell_check_lang->pack_start(*label_spell_check_lang, false, false);
@@ -527,7 +529,7 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
         });
     });
     combobox_spell_check_lang->signal_changed().connect([this, pConfig, combobox_spell_check_lang](){
-        pConfig->spellCheckLang = combobox_spell_check_lang->get_active_text();
+        pConfig->spellCheckLang = combobox_spell_check_lang->get_active_id();
         apply_for_each_window([](CtMainWin* win) {
             win->get_text_view().set_spell_check(win->curr_tree_iter().get_node_is_rich_text());
             win->update_selected_node_statusbar_info();
