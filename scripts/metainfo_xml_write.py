@@ -21,7 +21,10 @@ with open(DEBIAN_CHANGELOG_PATH, "r") as fd:
             VERSION = match.group(1)
             #print(VERSION)
             break
-DATE = time.strftime("%Y-%m-%d", time.gmtime())
+DATE = time.strftime(
+    "%Y-%m-%d",
+    time.gmtime(int(os.environ.get('SOURCE_DATE_EPOCH', time.time())))
+)
 
 # <?xml version="1.0" encoding="UTF-8"?>
 # <component type="desktop-application">
