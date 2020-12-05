@@ -443,14 +443,19 @@ void CtDialogs::bookmarks_handle_dialog(CtMainWin* pCtMainWin)
 
     Gtk::Button button_move_up;
     button_move_up.set_image_from_icon_name("ct_go-up", Gtk::ICON_SIZE_DND);
+    button_move_up.set_tooltip_text(_("Move the Selected Bookmark Up"));
     Gtk::Button button_move_down;
     button_move_down.set_image_from_icon_name("ct_go-down", Gtk::ICON_SIZE_DND);
+    button_move_down.set_tooltip_text(_("Move the Selected Bookmark Down"));
     Gtk::Button button_delete;
-    button_delete.set_image_from_icon_name("ct_clear", Gtk::ICON_SIZE_DND);
+    button_delete.set_image_from_icon_name("ct_remove", Gtk::ICON_SIZE_DND);
+    button_delete.set_tooltip_text(_("Remove the Selected Bookmark"));
     Gtk::Button button_sort_desc;
     button_sort_desc.set_image_from_icon_name("ct_sort-desc", Gtk::ICON_SIZE_DND);
+    button_sort_desc.set_tooltip_text(_("Sort the Bookmarks Descending"));
     Gtk::Button button_sort_asc;
     button_sort_asc.set_image_from_icon_name("ct_sort-asc", Gtk::ICON_SIZE_DND);
+    button_sort_asc.set_tooltip_text(_("Sort the Bookmarks Ascending"));
     Gtk::Label label1;
     Gtk::Label label2;
     Gtk::HBox hbox;
