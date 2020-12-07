@@ -2453,7 +2453,7 @@ msgstr "Le Document %s est introuvable"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:889
 msgid "Hide"
-msgstr "Cahcer"
+msgstr "Cacher"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:889
 msgid "Quit"
