@@ -25,6 +25,7 @@
 #include "ct_const.h"
 #include "ct_filesystem.h"
 #include "tests_common.h"
+#include <thread>
 
 TEST(MiscUtilsGroup, scope_guard)
 {
@@ -36,6 +37,52 @@ TEST(MiscUtilsGroup, scope_guard)
         ASSERT_EQ(-1, var);
     }
     ASSERT_EQ(0, var);
+}
+
+TEST(MiscUtilsGroup, ThreadSafeDEQueue_1)
+{
+    ThreadSafeDEQueue<int> threadSafeDEQueue;
+    auto f_first = [&threadSafeDEQueue](){
+        ASSERT_TRUE(threadSafeDEQueue.empty());
+        ASSERT_EQ(1, threadSafeDEQueue.pop_front());
+        threadSafeDEQueue.push_back(2);
+        g_usleep(1);
+        ASSERT_EQ(3, threadSafeDEQueue.pop_front());
+    };
+    auto f_second = [&threadSafeDEQueue](){
+        ASSERT_TRUE(threadSafeDEQueue.empty());
+        threadSafeDEQueue.push_back(1);
+        g_usleep(1);
+        ASSERT_EQ(2, threadSafeDEQueue.pop_front());
+        threadSafeDEQueue.push_back(3);
+    };
+    std::thread first(f_first);
+    std::thread second(f_second);
+    first.join();
+    second.join();
+}
+
+TEST(MiscUtilsGroup, ThreadSafeDEQueue_2)
+{
+    ThreadSafeDEQueue<int> threadSafeDEQueue;
+    auto f_first = [&threadSafeDEQueue](){
+        for (int i = 0; i < 100; ++i) {
+            g_usleep(1);
+            threadSafeDEQueue.push_back(i);
+        }
+    };
+    auto f_second = [&threadSafeDEQueue](){
+        for (int i = 0; i < 200; ++i) {
+            threadSafeDEQueue.pop_front();
+        }
+    };
+    std::thread first(f_first);
+    std::thread second(f_second);
+    std::thread third(f_first);
+    ASSERT_TRUE(threadSafeDEQueue.empty());
+    first.join();
+    second.join();
+    third.join();
 }
 
 TEST(MiscUtilsGroup, files_encodings)
@@ -355,8 +402,8 @@ TEST(MiscUtilsGroup, mime__type_contains)
     ASSERT_TRUE(CtMiscUtil::mime_type_contains(UT::unitTestsDataDir+"/mimetype_html.html", "text/"));
     ASSERT_TRUE(CtMiscUtil::mime_type_contains(UT::unitTestsDataDir+"/mimetype_html.html", "html"));
 
-// test doesn't work on WIN32 and MacOS (Travis)
-#if !(defined(_WIN32) || (defined(_TRAVIS) && defined(__APPLE__)))
+// test doesn't work on WIN32 and MacOS
+#if !(defined(_WIN32) || defined(__APPLE__))
     ASSERT_TRUE(CtMiscUtil::mime_type_contains(UT::unitTestsDataDir+"/mimetype_cpp.cpp", "text/"));
 #endif
 
