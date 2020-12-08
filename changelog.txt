@@ -1,4 +1,14 @@
 
+0.99.25 (December 8th, 2020)
+  * icon theme update (#1408, work of @userfav/Ugo Yak)
+  * fix TOC generation when existing anchor but wrong name (#1382)
+  * export to plain text do not alter node name case and prefix with a # per node level (#1385)
+  * fix spell-check language selection from preferences dialog not working (#1400)
+  * fix spell-check language selection from right click menu was not saved to preferences
+  * added missing tooltips on the bookmarks handle dialog (#1403)
+  * improved command line switch --new-window (#1339)
+  * updated language Spanish to 100% (@userfav), fixed typo in language French (@bataillec)
+
 0.99.24 (November 30th, 2020)
   * fix crash parsing sqlite node with image (#1337)
   * fix bugs with search time filter (#1381)
