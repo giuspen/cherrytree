@@ -60,8 +60,16 @@ public:
         q.pop_front();
         return val;
     }
+    std::optional<T> peek() {
+        std::optional<T> retVal;
+        std::lock_guard<std::mutex> lock(m);
+        if (not q.empty()) {
+            retVal = q.front();
+        }
+        return retVal;
+    }
     bool empty() const {
-        std::unique_lock<std::mutex> lock(m);
+        std::lock_guard<std::mutex> lock(m);
         return q.empty();
     }
 

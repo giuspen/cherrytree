@@ -43,16 +43,27 @@ TEST(MiscUtilsGroup, ThreadSafeDEQueue_1)
 {
     ThreadSafeDEQueue<int> threadSafeDEQueue;
     auto f_first = [&threadSafeDEQueue](){
-        ASSERT_TRUE(threadSafeDEQueue.empty());
         ASSERT_EQ(1, threadSafeDEQueue.pop_front());
         threadSafeDEQueue.push_back(2);
-        g_usleep(1);
+        while (true) {
+            g_usleep(1);
+            std::optional<int> peeked = threadSafeDEQueue.peek();
+            if (not peeked.has_value() or 3 == peeked.value()) {
+                break;
+            }
+        }
         ASSERT_EQ(3, threadSafeDEQueue.pop_front());
     };
     auto f_second = [&threadSafeDEQueue](){
         ASSERT_TRUE(threadSafeDEQueue.empty());
         threadSafeDEQueue.push_back(1);
-        g_usleep(1);
+        while (true) {
+            g_usleep(1);
+            std::optional<int> peeked = threadSafeDEQueue.peek();
+            if (not peeked.has_value() or 2 == peeked.value()) {
+                break;
+            }
+        }
         ASSERT_EQ(2, threadSafeDEQueue.pop_front());
         threadSafeDEQueue.push_back(3);
     };
