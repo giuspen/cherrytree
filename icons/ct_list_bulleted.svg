@@ -7,39 +7,39 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="16"
-   height="16"
-   viewBox="0 0 4.2333332 4.2333332"
-   version="1.1"
-   id="svg29"
+   sodipodi:docname="ct_list_bulleted.svg"
    inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-   sodipodi:docname="ct_list_bulleted.svg">
+   id="svg29"
+   version="1.1"
+   viewBox="0 0 4.2333332 4.2333332"
+   height="16"
+   width="16">
   <defs
      id="defs23" />
   <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="10.78269"
-     inkscape:cx="4.0288706"
-     inkscape:cy="6.418643"
-     inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
-     inkscape:document-rotation="0"
-     showgrid="true"
-     inkscape:window-width="1366"
-     inkscape:window-height="715"
-     inkscape:window-x="-8"
-     inkscape:window-y="22"
-     inkscape:window-maximized="1"
+     inkscape:snap-global="false"
      units="px"
-     inkscape:snap-global="false">
+     inkscape:window-maximized="1"
+     inkscape:window-y="22"
+     inkscape:window-x="-8"
+     inkscape:window-height="715"
+     inkscape:window-width="1366"
+     showgrid="true"
+     inkscape:document-rotation="0"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="mm"
+     inkscape:cy="6.418643"
+     inkscape:cx="4.0288706"
+     inkscape:zoom="19.116447"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base">
     <inkscape:grid
-       type="xygrid"
-       id="grid9" />
+       id="grid9"
+       type="xygrid" />
   </sodipodi:namedview>
   <metadata
      id="metadata26">
@@ -49,23 +49,33 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:label="Capa 1"
+     id="layer1"
      inkscape:groupmode="layer"
-     id="layer1">
+     inkscape:label="Capa 1">
     <path
-       id="path17"
-       d="M 2.3846365,2.6467995 V 3.1727303 H 4.2334381 V 2.6467995 Z"
-       style="color:#bebebe;fill:#333333;stroke-width:0.328691;marker:none" />
+       id="path833"
+       d="M 2.3802542,2.6864156 V 3.1727303 H 4.0897936 V 2.6864156 Z"
+       style="color:#bebebe;fill:none;stroke:#d4d4d4;stroke-width:0.25;stroke-opacity:1;marker:none" />
     <circle
-       r="0.92330849"
-       cy="1.7222592"
-       cx="1.1984291"
+       cy="1.8315169"
+       cx="1.1588345"
+       id="circle835"
+       style="fill:none;stroke:#d4d4d4;stroke-width:0.25;stroke-linecap:round;stroke-opacity:1;stop-color:#000000"
+       r="0.85375965" />
+    <path
+       style="color:#bebebe;fill:#1a1a1a;stroke-width:0.25;marker:none"
+       d="M 2.3802542,2.6864156 V 3.1727303 H 4.0897936 V 2.6864156 Z"
+       id="path17" />
+    <circle
+       style="fill:#1a1a1a;stroke-width:0.25;stroke-linecap:round;stop-color:#000000"
        id="path12"
-       style="fill:#333333;stroke-width:1.87555;stroke-linecap:round;stop-color:#000000" />
+       cx="1.1588345"
+       cy="1.8315169"
+       r="0.85375965" />
   </g>
 </svg>
