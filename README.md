@@ -54,7 +54,7 @@ This works on any operating system that supports Docker.
 ## To test install locally and create a package
 ```sh
 cmake -DCMAKE_INSTALL_PREFIX=./local_usr ../
-make -j$(nproc --all)  && make install
+make -j$(nproc --all) && make install
 cpack -G DEB
 ```
 
@@ -67,9 +67,10 @@ sudo apt install build-essential libxml2-utils cmake libgtkmm-3.0-dev libgtksour
 Get cherrytree source, compile and run:
 ```sh
 git clone https://github.com/giuspen/cherrytree.git
+cd cherrytree
 git submodule update --init
-mkdir cherrytree/build
-cd cherrytree/build
+mkdir build
+cd build
 cmake ../
 make -j$(nproc --all)
 ./build/cherrytree
@@ -98,9 +99,10 @@ sudo pacman -S gtksourceviewmm libxml++2.6 gspell
 Get cherrytree source, compile and run:
 ```sh
 git clone https://github.com/giuspen/cherrytree.git
+cd cherrytree
 git submodule update --init
-mkdir cherrytree/build
-cd cherrytree/build
+mkdir build
+cd build
 cmake ../
 make -j$(nproc --all)
 ./build/cherrytree
@@ -116,9 +118,10 @@ sudo dnf install @development-tools gcc-c++ libtool autoconf gtkmm30-devel gtkso
 Get cherrytree source, compile and run:
 ```sh
 git clone https://github.com/giuspen/cherrytree.git
+cd cherrytree
 git submodule update --init
-mkdir cherrytree/build
-cd cherrytree/build
+mkdir build
+cd build
 cmake ../
 make -j$(nproc --all)
 ./build/cherrytree
@@ -148,9 +151,10 @@ sudo zypper install cmake gcc-c++ gtkmm3-devel gtksourceviewmm3_0-devel gspell-d
 Get cherrytree source, compile and run:
 ```sh
 git clone https://github.com/giuspen/cherrytree.git
+cd cherrytree
 git submodule update --init
-mkdir cherrytree/build
-cd cherrytree/build
+mkdir build
+cd build
 cmake ../
 make -j$(nproc --all)
 ./build/cherrytree
@@ -166,9 +170,10 @@ brew install python3 cmake pkg-config gtksourceviewmm3 gnome-icon-theme gspell l
 Get cherrytree source, compile and run:
 ```sh
 git clone https://github.com/giuspen/cherrytree.git
+cd cherrytree
 git submodule update --init
-mkdir cherrytree/build
-cd cherrytree/build
+mkdir build
+cd build
 cmake ../
 make -j$(sysctl -n hw.ncpu)
 ./build/cherrytree
@@ -226,8 +231,8 @@ bind '"\e[B":history-search-forward'
 Get cherrytree source, compile and run:
 ```sh
 git clone https://github.com/giuspen/cherrytree.git
-git submodule update --init
 cd cherrytree
+git submodule update --init
 
 # build Release (optimised)
 ./build.sh Release
