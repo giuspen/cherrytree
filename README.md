@@ -169,7 +169,7 @@ git clone https://github.com/giuspen/cherrytree.git
 cd cherrytree
 git submodule update --init
 mkdir build
-build
+cd build
 cmake ../
 make -j$(sysctl -n hw.ncpu)
 ./build/cherrytree
