@@ -8,77 +8,77 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   version="1.0"
-   id="svg2"
-   height="24"
-   width="24"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
    sodipodi:docname="ct_case_toggle.svg"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)">
+   width="48"
+   height="48"
+   id="svg2"
+   version="1.0">
   <sodipodi:namedview
-     inkscape:document-rotation="0"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1"
-     objecttolerance="10"
-     gridtolerance="10"
-     guidetolerance="10"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:window-width="1366"
-     inkscape:window-height="715"
-     id="namedview91"
-     showgrid="false"
-     inkscape:zoom="13.51013"
-     inkscape:cx="12"
-     inkscape:cy="13.210913"
-     inkscape:window-x="-8"
-     inkscape:window-y="22"
+     inkscape:current-layer="svg2"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg2" />
+     inkscape:window-y="22"
+     inkscape:window-x="-8"
+     inkscape:cy="28.676709"
+     inkscape:cx="35.512412"
+     inkscape:zoom="5.9879694"
+     showgrid="false"
+     id="namedview91"
+     inkscape:window-height="715"
+     inkscape:window-width="1366"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     guidetolerance="10"
+     gridtolerance="10"
+     objecttolerance="10"
+     borderopacity="1"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     inkscape:document-rotation="0" />
   <defs
      id="defs4">
     <linearGradient
        id="linearGradient24077">
       <stop
-         style="stop-color:#ffffff;stop-opacity:1;"
+         id="stop24079"
          offset="0"
-         id="stop24079" />
+         style="stop-color:#ffffff;stop-opacity:1;" />
       <stop
-         id="stop24085"
+         style="stop-color:#ffffff;stop-opacity:0"
          offset="0.5"
-         style="stop-color:#ffffff;stop-opacity:0" />
+         id="stop24085" />
       <stop
-         style="stop-color:#ffffff;stop-opacity:0;"
+         id="stop24081"
          offset="1"
-         id="stop24081" />
+         style="stop-color:#ffffff;stop-opacity:0;" />
     </linearGradient>
     <filter
-       height="1.4926217"
-       y="-0.24631083"
-       width="1.468009"
-       x="-0.23400448"
+       style="color-interpolation-filters:sRGB"
        id="filter24008-6"
-       style="color-interpolation-filters:sRGB">
+       x="-0.23400448"
+       width="1.468009"
+       y="-0.24631083"
+       height="1.4926217">
       <feGaussianBlur
-         id="feGaussianBlur24010-8"
-         stdDeviation="1.26769" />
+         stdDeviation="1.26769"
+         id="feGaussianBlur24010-8" />
     </filter>
     <linearGradient
-       y2="14.324797"
-       x2="-15.999137"
-       y1="14.324797"
-       x1="-27.999138"
-       gradientTransform="matrix(-1,0,0,1,-10,0)"
-       gradientUnits="userSpaceOnUse"
+       xlink:href="#linearGradient24077"
        id="linearGradient24405"
-       xlink:href="#linearGradient24077" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-1,0,0,1,-10,0)"
+       x1="-27.999138"
+       y1="14.324797"
+       x2="-15.999137"
+       y2="14.324797" />
     <clipPath
-       id="clipPath24385-2"
-       clipPathUnits="userSpaceOnUse">
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath24385-2">
       <path
-         d="m 11.999135,19.000849 -7.00085,-6.19157 7.00085,-6.16053 v 3.67605 h 6.00085 v 5 h -6.00085 z"
+         style="color:#bebebe;display:inline;overflow:visible;visibility:visible;fill:#333333;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
          id="path24387-3"
-         style="color:#bebebe;display:inline;overflow:visible;visibility:visible;fill:#333333;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+         d="m 11.999135,19.000849 -7.00085,-6.19157 7.00085,-6.16053 v 3.67605 h 6.00085 v 5 h -6.00085 z" />
     </clipPath>
   </defs>
   <metadata
@@ -114,532 +114,532 @@
     </rdf:RDF>
   </metadata>
   <path
-     id="path914"
-     d="m 20.978896,12.927971 -0.88011,-2.889473 h -4.425465 l -0.88011,2.889473 H 12.020033 L 16.304344,0.73917032 h 3.146812 L 23.752078,12.927971 H 20.978896 M 19.484369,7.879787 C 18.670674,5.2615072 18.211246,3.780834 18.106081,3.4376285 18.006434,3.0944231 17.934482,2.8232023 17.890205,2.6239673 17.707535,3.3324847 17.184451,5.0843752 16.32095,7.879787 h 3.163419"
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12px;line-height:125%;font-family:'Open Sans';-inkscape-font-specification:'Open Sans Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:none;fill-opacity:1;stroke:#d4d4d4;stroke-width:1;stroke-opacity:1" />
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12px;line-height:125%;font-family:'Open Sans';-inkscape-font-specification:'Open Sans Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:none;fill-opacity:1;stroke:#f2f2f2;stroke-width:3;stroke-opacity:1"
+     d="m 40.166923,25.972939 -1.76022,-5.778946 h -8.85093 l -1.76022,5.778946 H 22.249197 L 30.817819,1.5953376 h 6.293624 L 45.713287,25.972939 H 40.166923 M 37.177869,15.876571 C 35.550479,10.640011 34.631623,7.6786649 34.421293,6.9922539 34.221999,6.3058431 34.078095,5.7634015 33.989541,5.3649315 33.624201,6.7819663 32.578033,10.285747 30.851031,15.876571 h 6.326838"
+     id="path914" />
   <path
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12px;line-height:125%;font-family:'Open Sans';-inkscape-font-specification:'Open Sans Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:none;fill-opacity:1;stroke:#d4d4d4;stroke-width:1;stroke-opacity:1"
-     d="m 19.729899,23.285054 -0.469612,-1.209949 h -0.06367 c -0.408594,0.514843 -0.830448,0.872924 -1.265564,1.07465 -0.429819,0.196293 -0.992291,0.294507 -1.687419,0.294507 -0.854326,0 -1.528231,-0.244108 -2.02172,-0.732327 -0.488185,-0.488219 -0.732277,-1.183325 -0.732277,-2.085455 0,-0.944514 0.328994,-1.63962 0.986982,-2.085319 0.66329,-0.450998 1.660885,-0.700405 2.992782,-0.748222 l 1.544148,-0.04754 v -0.390004 c -6e-6,-0.901995 -0.461659,-1.353128 -1.384959,-1.353128 -0.711054,0 -1.546803,0.215039 -2.50725,0.644844 l -0.803913,-1.639757 c 1.024124,-0.535899 2.159681,-0.803915 3.406677,-0.803915 1.193924,0 2.109267,0.260001 2.746037,0.780008 0.636753,0.520141 0.955134,1.310745 0.955142,2.371947 v 5.929935 h -1.695379 m -0.716357,-4.123094 -0.939224,0.03261 c -0.705748,0.02173 -1.231078,0.148475 -1.575987,0.381989 -0.344915,0.233513 -0.517372,0.589013 -0.517368,1.066636 -4e-6,0.68451 0.392666,1.026698 1.178009,1.026698 0.562469,0 1.010856,-0.161789 1.345161,-0.485502 0.3396,-0.323712 0.509404,-0.753519 0.509409,-1.289417 v -0.732327"
-     id="path916" />
+     id="path916"
+     d="m 38.285353,46.224787 -0.939224,-2.419898 h -0.12734 c -0.817188,1.029686 -1.660896,1.745848 -2.531128,2.1493 -0.859638,0.392586 -1.984582,0.589014 -3.374838,0.589014 -1.708652,0 -3.056462,-0.488216 -4.04344,-1.464654 -0.97637,-0.976438 -1.464554,-2.36665 -1.464554,-4.17091 0,-1.889028 0.657988,-3.27924 1.973964,-4.170638 1.32658,-0.901996 3.32177,-1.40081 5.985564,-1.496444 l 3.088296,-0.09508 v -0.780008 c -1.2e-5,-1.80399 -0.923318,-2.706256 -2.769918,-2.706256 -1.422108,0 -3.093606,0.430078 -5.0145,1.289688 l -1.607826,-3.279514 c 2.048248,-1.071798 4.319362,-1.60783 6.813354,-1.60783 2.387848,0 4.218534,0.520002 5.492074,1.560016 1.273506,1.040282 1.910268,2.62149 1.910284,4.743894 v 11.85987 h -3.390758 m -1.432714,-8.246188 -1.878448,0.06522 c -1.411496,0.04346 -2.462156,0.29695 -3.151974,0.763978 -0.68983,0.467026 -1.034744,1.178026 -1.034736,2.133272 -8e-6,1.36902 0.785332,2.053396 2.356018,2.053396 1.124938,0 2.021712,-0.323578 2.690322,-0.971004 0.6792,-0.647424 1.018808,-1.507038 1.018818,-2.578834 v -1.464654"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12px;line-height:125%;font-family:'Open Sans';-inkscape-font-specification:'Open Sans Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:none;fill-opacity:1;stroke:#f2f2f2;stroke-width:3;stroke-opacity:1" />
   <path
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12px;line-height:125%;font-family:'Open Sans';-inkscape-font-specification:'Open Sans Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:1.41703"
-     d="m 20.978896,12.927971 -0.88011,-2.889473 h -4.425465 l -0.88011,2.889473 H 12.020033 L 16.304344,0.73917032 h 3.146812 L 23.752078,12.927971 H 20.978896 M 19.484369,7.879787 C 18.670674,5.2615072 18.211246,3.780834 18.106081,3.4376285 18.006434,3.0944231 17.934482,2.8232023 17.890205,2.6239673 17.707535,3.3324847 17.184451,5.0843752 16.32095,7.879787 h 3.163419"
-     id="path7974" />
+     id="path7974"
+     d="m 40.166923,25.972939 -1.76022,-5.778946 h -8.85093 l -1.76022,5.778946 H 22.249197 L 30.817819,1.5953376 h 6.293624 L 45.713287,25.972939 H 40.166923 M 37.177869,15.876571 C 35.550479,10.640011 34.631623,7.6786649 34.421293,6.9922539 34.221999,6.3058431 34.078095,5.7634015 33.989541,5.3649315 33.624201,6.7819663 32.578033,10.285747 30.851031,15.876571 h 6.326838"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12px;line-height:125%;font-family:'Open Sans';-inkscape-font-specification:'Open Sans Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:2.83406" />
   <g
-     style="display:none"
+     transform="translate(-15,-160)"
      id="layer2"
-     transform="translate(-15,-160)">
+     style="display:none">
     <rect
-       y="160"
-       x="15"
-       height="24"
-       width="24"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
        id="left_ptr"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+       width="24"
+       height="24"
+       x="15"
+       y="160" />
     <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       y="160"
+       x="50"
+       height="24"
+       width="24"
        id="hand1"
-       width="24"
-       height="24"
-       x="50"
-       y="160" />
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
     <rect
-       y="160"
-       x="190"
-       height="24"
-       width="24"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
        id="hand2"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       y="160"
-       x="85"
-       height="24"
        width="24"
+       height="24"
+       x="190"
+       y="160" />
+    <rect
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
        id="grabbing"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+       width="24"
+       height="24"
+       x="85"
+       y="160" />
     <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       y="160"
+       x="120"
+       height="24"
+       width="24"
        id="plus"
-       width="24"
-       height="24"
-       x="120"
-       y="160" />
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
     <rect
-       y="160"
-       x="155"
-       height="24"
-       width="24"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
        id="right_ptr"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="pencil"
-       width="24.0625"
+       width="24"
        height="24"
-       x="224.9375"
+       x="155"
        y="160" />
     <rect
        y="160"
-       x="260"
+       x="224.9375"
        height="24"
-       width="24"
+       width="24.0625"
+       id="pencil"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+    <rect
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
        id="xterm"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+       width="24"
+       height="24"
+       x="260"
+       y="160" />
     <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       y="364"
+       x="14"
+       height="24"
+       width="24"
        id="left_ptr_watch_0001"
-       width="24"
-       height="24"
-       x="14"
-       y="364" />
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
     <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       y="337"
+       x="14"
+       height="24"
+       width="24"
        id="watch_0001"
-       width="24"
-       height="24"
-       x="14"
-       y="337" />
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
     <rect
-       y="195"
-       x="85"
-       height="24"
-       width="24"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
        id="bottom_side"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+       width="24"
+       height="24"
+       x="85"
+       y="195" />
     <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       y="195"
+       x="120"
+       height="24"
+       width="24"
        id="top_side"
-       width="24"
-       height="24"
-       x="120"
-       y="195" />
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
     <rect
-       y="195"
-       x="155"
-       height="24"
-       width="24"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
        id="right_side"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+       width="24"
+       height="24"
+       x="155"
+       y="195" />
     <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       y="195"
+       x="189.9375"
+       height="24"
+       width="24.0625"
        id="left_side"
-       width="24.0625"
-       height="24"
-       x="189.9375"
-       y="195" />
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
     <rect
-       y="195"
-       x="225"
-       height="24"
-       width="24"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
        id="bottom_left_corner"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="bottom_right_corner"
-       width="24"
-       height="24"
-       x="260"
-       y="195" />
-    <rect
-       y="195"
-       x="295"
-       height="24"
-       width="24"
-       id="top_left_corner"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       y="195"
-       x="15"
-       height="24"
-       width="24"
-       id="question_arrow"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="top_right_corner"
-       width="24"
-       height="24"
-       x="330"
-       y="195" />
-    <rect
-       y="160"
-       x="330"
-       height="24"
-       width="24"
-       id="X_cursor"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       y="230.06064"
-       x="50"
-       height="24"
-       width="24"
-       id="lr_angle"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="ul_angle"
-       width="24"
-       height="24"
-       x="85"
-       y="230.06064" />
-    <rect
-       y="230.06064"
-       x="120"
-       height="24"
-       width="24"
-       id="ur_angle"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="top_tee"
-       width="24"
-       height="24"
-       x="155"
-       y="230.06064" />
-    <rect
-       y="230.06064"
-       x="189.9375"
-       height="24"
-       width="24.0625"
-       id="bottom_tee"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="left_tee"
        width="24"
        height="24"
        x="225"
-       y="230.06064" />
+       y="195" />
     <rect
-       y="230.06064"
+       y="195"
        x="260"
        height="24"
        width="24"
-       id="right_tee"
+       id="bottom_right_corner"
        style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
     <rect
        style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="copy"
+       id="top_left_corner"
        width="24"
-       height="23.939362"
+       height="24"
        x="295"
-       y="230.06064" />
+       y="195" />
     <rect
        style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="ll_angle"
+       id="question_arrow"
        width="24"
        height="24"
        x="15"
-       y="230.06064" />
+       y="195" />
     <rect
-       y="230.06064"
+       y="195"
        x="330"
        height="24"
        width="24"
+       id="top_right_corner"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+    <rect
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       id="X_cursor"
+       width="24"
+       height="24"
+       x="330"
+       y="160" />
+    <rect
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       id="lr_angle"
+       width="24"
+       height="24"
+       x="50"
+       y="230.06064" />
+    <rect
+       y="230.06064"
+       x="85"
+       height="24"
+       width="24"
+       id="ul_angle"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+    <rect
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       id="ur_angle"
+       width="24"
+       height="24"
+       x="120"
+       y="230.06064" />
+    <rect
+       y="230.06064"
+       x="155"
+       height="24"
+       width="24"
+       id="top_tee"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+    <rect
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       id="bottom_tee"
+       width="24.0625"
+       height="24"
+       x="189.9375"
+       y="230.06064" />
+    <rect
+       y="230.06064"
+       x="225"
+       height="24"
+       width="24"
+       id="left_tee"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+    <rect
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       id="right_tee"
+       width="24"
+       height="24"
+       x="260"
+       y="230.06064" />
+    <rect
+       y="230.06064"
+       x="295"
+       height="23.939362"
+       width="24"
+       id="copy"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+    <rect
+       y="230.06064"
+       x="15"
+       height="24"
+       width="24"
+       id="ll_angle"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+    <rect
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
        id="move"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+       width="24"
+       height="24"
+       x="330"
+       y="230.06064" />
     <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       y="265.0329"
+       x="50"
+       height="24"
+       width="24"
        id="circle"
-       width="24"
-       height="24"
-       x="50"
-       y="265.0329" />
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
     <rect
-       y="265.0329"
-       x="15"
-       height="24"
-       width="24"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
        id="link"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       y="265"
-       x="85"
-       height="24.03289"
-       width="24"
-       id="crossed_circle"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="cross"
-       width="24"
-       height="24"
-       x="120"
-       y="265" />
-    <rect
-       y="265"
-       x="155"
-       height="24"
-       width="24"
-       id="crosshair"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       y="265.0329"
-       x="224"
-       height="24"
-       width="24"
-       id="dnd-ask"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="dnd-none"
-       width="24"
-       height="24"
-       x="189"
-       y="265.0329" />
-    <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="dnd-copy"
-       width="24"
-       height="24.03289"
-       x="259"
-       y="265" />
-    <rect
-       y="265"
-       x="294"
-       height="24"
-       width="24"
-       id="dnd-link"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="dnd-move"
-       width="24"
-       height="24"
-       x="329"
-       y="265" />
-    <rect
-       y="300"
-       x="50"
-       height="24"
-       width="24"
-       id="bd_double_arrow"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="fd_double_arrow"
        width="24"
        height="24"
        x="15"
-       y="300" />
+       y="265.0329" />
     <rect
        style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="sb_v_double_arrow"
+       id="crossed_circle"
        width="24"
        height="24.03289"
        x="85"
-       y="299.9671" />
+       y="265" />
     <rect
-       y="299.9671"
+       y="265"
        x="120"
        height="24"
        width="24"
-       id="sb_h_double_arrow"
+       id="cross"
        style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
     <rect
        style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="sb_right_arrow"
+       id="crosshair"
        width="24"
        height="24"
        x="155"
-       y="299.9671" />
+       y="265" />
     <rect
        style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="sb_up_arrow"
+       id="dnd-ask"
        width="24"
        height="24"
        x="224"
-       y="300" />
+       y="265.0329" />
     <rect
-       y="300"
+       y="265.0329"
        x="189"
        height="24"
        width="24"
-       id="sb_left_arrow"
+       id="dnd-none"
        style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
     <rect
-       y="299.9671"
+       y="265"
        x="259"
        height="24.03289"
        width="24"
-       id="sb_down_arrow"
+       id="dnd-copy"
        style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
     <rect
        style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="tcross"
+       id="dnd-link"
        width="24"
-       height="24.03289"
+       height="24"
        x="294"
-       y="299.9671" />
+       y="265" />
+    <rect
+       y="265"
+       x="329"
+       height="24"
+       width="24"
+       id="dnd-move"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+    <rect
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       id="bd_double_arrow"
+       width="24"
+       height="24"
+       x="50"
+       y="300" />
     <rect
        y="300"
-       x="329"
-       height="23.999992"
-       width="24"
-       id="dotbox"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       y="337"
-       x="42"
+       x="15"
        height="24"
        width="24"
-       id="watch_0002"
+       id="fd_double_arrow"
        style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
     <rect
-       y="337"
-       x="70"
-       height="24"
+       y="299.9671"
+       x="85"
+       height="24.03289"
        width="24"
-       id="watch_0003"
+       id="sb_v_double_arrow"
        style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
     <rect
        style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="watch_0004"
+       id="sb_h_double_arrow"
        width="24"
        height="24"
-       x="98"
-       y="337" />
+       x="120"
+       y="299.9671" />
     <rect
-       y="337"
-       x="126"
+       y="299.9671"
+       x="155"
        height="24"
        width="24"
-       id="watch_0005"
+       id="sb_right_arrow"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+    <rect
+       y="300"
+       x="224"
+       height="24"
+       width="24"
+       id="sb_up_arrow"
        style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
     <rect
        style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="watch_0006"
+       id="sb_left_arrow"
        width="24"
        height="24"
-       x="154"
-       y="337" />
+       x="189"
+       y="300" />
     <rect
        style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="watch_0007"
+       id="sb_down_arrow"
        width="24"
-       height="24"
-       x="182"
-       y="337" />
+       height="24.03289"
+       x="259"
+       y="299.9671" />
     <rect
-       y="337"
-       x="210"
-       height="24"
-       width="24"
-       id="watch_0008"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       y="364"
-       x="42"
-       height="24"
-       width="24"
-       id="left_ptr_watch_0002"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="left_ptr_watch_0003"
-       width="24"
-       height="24"
-       x="70"
-       y="364" />
-    <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="left_ptr_watch_0004"
-       width="24"
-       height="24"
-       x="98"
-       y="364" />
-    <rect
-       y="364"
-       x="126"
-       height="24"
-       width="24"
-       id="left_ptr_watch_0005"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="left_ptr_watch_0006"
-       width="24"
-       height="24"
-       x="154"
-       y="364" />
-    <rect
-       y="364"
-       x="182"
-       height="24"
-       width="24"
-       id="left_ptr_watch_0007"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       y="364"
-       x="210"
-       height="24"
-       width="24"
-       id="left_ptr_watch_0008"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       y="337"
-       x="238"
-       height="24"
-       width="24"
-       id="watch_0009"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="watch_0010"
-       width="24"
-       height="24"
-       x="266"
-       y="337" />
-    <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="watch_0011"
-       width="24"
-       height="24"
+       y="299.9671"
        x="294"
+       height="24.03289"
+       width="24"
+       id="tcross"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+    <rect
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       id="dotbox"
+       width="24"
+       height="23.999992"
+       x="329"
+       y="300" />
+    <rect
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       id="watch_0002"
+       width="24"
+       height="24"
+       x="42"
+       y="337" />
+    <rect
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       id="watch_0003"
+       width="24"
+       height="24"
+       x="70"
        y="337" />
     <rect
        y="337"
-       x="322"
+       x="98"
        height="24"
        width="24"
+       id="watch_0004"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+    <rect
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       id="watch_0005"
+       width="24"
+       height="24"
+       x="126"
+       y="337" />
+    <rect
+       y="337"
+       x="154"
+       height="24"
+       width="24"
+       id="watch_0006"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+    <rect
+       y="337"
+       x="182"
+       height="24"
+       width="24"
+       id="watch_0007"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+    <rect
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       id="watch_0008"
+       width="24"
+       height="24"
+       x="210"
+       y="337" />
+    <rect
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       id="left_ptr_watch_0002"
+       width="24"
+       height="24"
+       x="42"
+       y="364" />
+    <rect
+       y="364"
+       x="70"
+       height="24"
+       width="24"
+       id="left_ptr_watch_0003"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+    <rect
+       y="364"
+       x="98"
+       height="24"
+       width="24"
+       id="left_ptr_watch_0004"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+    <rect
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       id="left_ptr_watch_0005"
+       width="24"
+       height="24"
+       x="126"
+       y="364" />
+    <rect
+       y="364"
+       x="154"
+       height="24"
+       width="24"
+       id="left_ptr_watch_0006"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+    <rect
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       id="left_ptr_watch_0007"
+       width="24"
+       height="24"
+       x="182"
+       y="364" />
+    <rect
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       id="left_ptr_watch_0008"
+       width="24"
+       height="24"
+       x="210"
+       y="364" />
+    <rect
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       id="watch_0009"
+       width="24"
+       height="24"
+       x="238"
+       y="337" />
+    <rect
+       y="337"
+       x="266"
+       height="24"
+       width="24"
+       id="watch_0010"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+    <rect
+       y="337"
+       x="294"
+       height="24"
+       width="24"
+       id="watch_0011"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
+    <rect
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
        id="watch_0012"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="watch_0013"
        width="24"
        height="24"
+       x="322"
+       y="337" />
+    <rect
+       y="337"
        x="350"
-       y="337" />
-    <rect
-       y="337"
-       x="378"
        height="24"
        width="24"
-       id="watch_0014"
-       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
-    <rect
-       y="337"
-       x="406"
-       height="24"
-       width="24"
-       id="watch_0015"
+       id="watch_0013"
        style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
     <rect
        style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-       id="watch_0016"
+       id="watch_0014"
        width="24"
        height="24"
-       x="434"
+       x="378"
        y="337" />
+    <rect
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+       id="watch_0015"
+       width="24"
+       height="24"
+       x="406"
+       y="337" />
+    <rect
+       y="337"
+       x="434"
+       height="24"
+       width="24"
+       id="watch_0016"
+       style="color:#000000;display:block;overflow:visible;visibility:visible;opacity:0.3;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate" />
   </g>
   <path
-     d="M 6.2558594 0.037109375 L 0.095703125 7.0390625 L 3.7714844 7.0390625 L 3.7714844 16.892578 L 0.095703125 16.892578 L 6.2558594 23.892578 L 12.447266 16.892578 L 8.7714844 16.892578 L 8.7714844 7.0390625 L 12.447266 7.0390625 L 6.2558594 0.037109375 z "
-     style="color:#bebebe;display:inline;overflow:visible;visibility:visible;fill:#3689e6;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
-     id="path24292" />
+     id="path24292"
+     style="color:#bebebe;display:inline;overflow:visible;visibility:visible;fill:#0d52bf;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;enable-background:accumulate"
+     d="M 12.416016,0.03710937 0.09570312,14.041016 H 7.4472657 V 33.748047 H 0.09570312 l 12.32031288,14 12.382813,-14 H 17.447266 V 14.041016 h 7.351563 z" />
   <path
-     id="path7976"
-     d="m 19.729899,23.285054 -0.469612,-1.209949 h -0.06367 c -0.408594,0.514843 -0.830448,0.872924 -1.265564,1.07465 -0.429819,0.196293 -0.992291,0.294507 -1.687419,0.294507 -0.854326,0 -1.528231,-0.244108 -2.02172,-0.732327 -0.488185,-0.488219 -0.732277,-1.183325 -0.732277,-2.085455 0,-0.944514 0.328994,-1.63962 0.986982,-2.085319 0.66329,-0.450998 1.660885,-0.700405 2.992782,-0.748222 l 1.544148,-0.04754 v -0.390004 c -6e-6,-0.901995 -0.461659,-1.353128 -1.384959,-1.353128 -0.711054,0 -1.546803,0.215039 -2.50725,0.644844 l -0.803913,-1.639757 c 1.024124,-0.535899 2.159681,-0.803915 3.406677,-0.803915 1.193924,0 2.109267,0.260001 2.746037,0.780008 0.636753,0.520141 0.955134,1.310745 0.955142,2.371947 v 5.929935 h -1.695379 m -0.716357,-4.123094 -0.939224,0.03261 c -0.705748,0.02173 -1.231078,0.148475 -1.575987,0.381989 -0.344915,0.233513 -0.517372,0.589013 -0.517368,1.066636 -4e-6,0.68451 0.392666,1.026698 1.178009,1.026698 0.562469,0 1.010856,-0.161789 1.345161,-0.485502 0.3396,-0.323712 0.509404,-0.753519 0.509409,-1.289417 v -0.732327"
-     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12px;line-height:125%;font-family:'Open Sans';-inkscape-font-specification:'Open Sans Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:1.35842" />
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12px;line-height:125%;font-family:'Open Sans';-inkscape-font-specification:'Open Sans Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:2.71684"
+     d="m 38.285353,46.224787 -0.939224,-2.419898 h -0.12734 c -0.817188,1.029686 -1.660896,1.745848 -2.531128,2.1493 -0.859638,0.392586 -1.984582,0.589014 -3.374838,0.589014 -1.708652,0 -3.056462,-0.488216 -4.04344,-1.464654 -0.97637,-0.976438 -1.464554,-2.36665 -1.464554,-4.17091 0,-1.889028 0.657988,-3.27924 1.973964,-4.170638 1.32658,-0.901996 3.32177,-1.40081 5.985564,-1.496444 l 3.088296,-0.09508 v -0.780008 c -1.2e-5,-1.80399 -0.923318,-2.706256 -2.769918,-2.706256 -1.422108,0 -3.093606,0.430078 -5.0145,1.289688 l -1.607826,-3.279514 c 2.048248,-1.071798 4.319362,-1.60783 6.813354,-1.60783 2.387848,0 4.218534,0.520002 5.492074,1.560016 1.273506,1.040282 1.910268,2.62149 1.910284,4.743894 v 11.85987 h -3.390758 m -1.432714,-8.246188 -1.878448,0.06522 c -1.411496,0.04346 -2.462156,0.29695 -3.151974,0.763978 -0.68983,0.467026 -1.034744,1.178026 -1.034736,2.133272 -8e-6,1.36902 0.785332,2.053396 2.356018,2.053396 1.124938,0 2.021712,-0.323578 2.690322,-0.971004 0.6792,-0.647424 1.018808,-1.507038 1.018818,-2.578834 v -1.464654"
+     id="path7976" />
 </svg>

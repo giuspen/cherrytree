@@ -7,39 +7,40 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   sodipodi:docname="ct_list_bulleted.svg"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-   id="svg29"
+   width="48"
+   height="48"
+   viewBox="0 0 12.7 12.7"
    version="1.1"
-   viewBox="0 0 4.2333332 4.2333332"
-   height="16"
-   width="16">
+   id="svg29"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   sodipodi:docname="ct_list_bulleted.svg">
   <defs
      id="defs23" />
   <sodipodi:namedview
-     inkscape:snap-global="false"
-     units="px"
-     inkscape:window-maximized="1"
-     inkscape:window-y="22"
-     inkscape:window-x="-8"
-     inkscape:window-height="715"
-     inkscape:window-width="1366"
-     showgrid="true"
-     inkscape:document-rotation="0"
-     inkscape:current-layer="layer1"
-     inkscape:document-units="mm"
-     inkscape:cy="6.418643"
-     inkscape:cx="4.0288706"
-     inkscape:zoom="19.116447"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
-     borderopacity="1.0"
-     bordercolor="#666666"
+     id="base"
      pagecolor="#ffffff"
-     id="base">
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="8.482601"
+     inkscape:cx="23.678271"
+     inkscape:cy="26.959148"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="true"
+     inkscape:window-width="1366"
+     inkscape:window-height="715"
+     inkscape:window-x="-8"
+     inkscape:window-y="22"
+     inkscape:window-maximized="1"
+     units="px"
+     inkscape:snap-global="true"
+     showguides="false">
     <inkscape:grid
-       id="grid9"
-       type="xygrid" />
+       type="xygrid"
+       id="grid18" />
   </sodipodi:namedview>
   <metadata
      id="metadata26">
@@ -54,28 +55,28 @@
     </rdf:RDF>
   </metadata>
   <g
-     id="layer1"
+     inkscape:label="Capa 1"
      inkscape:groupmode="layer"
-     inkscape:label="Capa 1">
-    <path
-       id="path833"
-       d="M 2.3802542,2.6864156 V 3.1727303 H 4.0897936 V 2.6864156 Z"
-       style="color:#bebebe;fill:none;stroke:#d4d4d4;stroke-width:0.25;stroke-opacity:1;marker:none" />
+     id="layer1">
     <circle
-       cy="1.8315169"
-       cx="1.1588345"
+       r="2.3134401"
+       cy="5.9360924"
+       cx="2.9779711"
        id="circle835"
-       style="fill:none;stroke:#d4d4d4;stroke-width:0.25;stroke-linecap:round;stroke-opacity:1;stop-color:#000000"
-       r="0.85375965" />
-    <path
-       style="color:#bebebe;fill:#1a1a1a;stroke-width:0.25;marker:none"
-       d="M 2.3802542,2.6864156 V 3.1727303 H 4.0897936 V 2.6864156 Z"
-       id="path17" />
+       style="fill:none;stroke:#f2f2f2;stroke-width:0.79375;stroke-linecap:round;stroke-opacity:1;stop-color:#000000" />
     <circle
-       style="fill:#1a1a1a;stroke-width:0.25;stroke-linecap:round;stop-color:#000000"
+       style="fill:#1a1a1a;stroke-width:4.69936;stroke-linecap:round;stop-color:#000000"
        id="path12"
-       cx="1.1588345"
-       cy="1.8315169"
-       r="0.85375965" />
+       cx="2.9779711"
+       cy="5.9360924"
+       r="2.3134401" />
+    <path
+       id="path53"
+       d="M 7.1488328,8.6104335 V 10.054167 H 12.223982 V 8.6104335 Z"
+       style="color:#bebebe;fill:none;stroke:#f2f2f2;stroke-width:0.902295;marker:none" />
+    <path
+       style="color:#bebebe;fill:#1a1a1a;stroke-width:0.902295;marker:none"
+       d="M 7.1488328,8.6104335 V 10.054167 H 12.223982 V 8.6104335 Z"
+       id="path17" />
   </g>
 </svg>
