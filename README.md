@@ -166,9 +166,10 @@ brew install python3 cmake pkg-config gtksourceviewmm3 gnome-icon-theme gspell l
 Get cherrytree source, compile and run:
 ```sh
 git clone https://github.com/giuspen/cherrytree.git
+cd cherrytree
 git submodule update --init
-mkdir cherrytree/build
-cd cherrytree/build
+mkdir build
+build
 cmake ../
 make -j$(sysctl -n hw.ncpu)
 ./build/cherrytree
