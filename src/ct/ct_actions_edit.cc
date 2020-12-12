@@ -230,7 +230,13 @@ struct TocEntry
     unsigned int depth = 0;
     unsigned int h_level = 0;
     std::list<TocEntry> children;
-    TocEntry(std::string a_link, bool is_n, std::string txt, unsigned int dep, unsigned int h_lvl = 0) : anchor_link(std::move(a_link)), text(std::move(txt)), is_node(is_n), depth(dep), h_level(h_lvl) {}
+    TocEntry(std::string a_link, bool is_n, std::string txt, unsigned int dep, unsigned int h_lvl = 0)
+     : anchor_link(std::move(a_link))
+     , text(std::move(txt))
+     , is_node(is_n)
+     , depth(dep)
+     , h_level(h_lvl)
+    {}
 };
 
 std::optional<Glib::ustring> iter_in_tag(const Gtk::TextIter& iter, const Glib::ustring& tag)
@@ -250,7 +256,6 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, int depth)
 {
     int node_id = node.get_node_id();
     TocEntry entry(fmt::format("node {}", node_id), true, node.get_node_name(), depth);
-
     std::string scale_tag("scale_");
     std::unordered_map<int, int> encountered_headers;
     auto text_buffer = node.get_node_text_buffer();
@@ -282,15 +287,22 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, int depth)
 
                 auto mark = text_buffer->create_mark(end_iter, false);
 
-                std::string anchor_txt = fmt::format("h{}-{}", h_lvl, encountered_headers[h_lvl]);
-                auto anchor = end_iter.get_child_anchor();
-                if (anchor) {
-                    const int endOffset = end_iter.get_offset();
-                    auto iter_bound = end_iter;
-                    iter_bound.forward_char();
-                    text_buffer->erase(end_iter, iter_bound);
-                    end_iter = text_buffer->get_iter_at_offset(endOffset);
+                Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = end_iter.get_child_anchor();
+                if (rChildAnchor) {
+                    CtAnchoredWidget* pCtAnchoredWidget = node.get_anchored_widget(rChildAnchor);
+                    if (pCtAnchoredWidget) {
+                        auto pCtImageAnchor = dynamic_cast<CtImageAnchor*>(pCtAnchoredWidget);
+                        static Glib::RefPtr<Glib::Regex> rRegExpAnchorName = Glib::Regex::create("h\\d+-\\d+");
+                        if (pCtImageAnchor and rRegExpAnchorName->match(pCtImageAnchor->get_anchor_name())) {
+                            const int endOffset = end_iter.get_offset();
+                            auto iter_bound = end_iter;
+                            iter_bound.forward_char();
+                            text_buffer->erase(end_iter, iter_bound);
+                            end_iter = text_buffer->get_iter_at_offset(endOffset);
+                        }
+                    }
                 }
+                const std::string anchor_txt = fmt::format("h{}-{}", h_lvl, encountered_headers[h_lvl]);
                 actions.image_insert_anchor(end_iter, anchor_txt, "right");
 
                 text_iter = mark->get_iter();

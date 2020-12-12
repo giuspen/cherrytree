@@ -260,38 +260,42 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes_f
     return std::list<CtAnchoredWidget*>{};
 }
 
-std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes(int start_offset /*= -1*/, int end_offset /*= -1*/)
+std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes(int start_offset/*= -1*/, int end_offset/*= -1*/)
 {
     get_node_text_buffer(); // to load buffer\widgets if not loaded
     std::list<CtAnchoredWidget*> retAnchoredWidgetsList;
-    if ((*this) and (*this)->get_value(_pColumns->colAnchoredWidgets).size() > 0)
-    {
+    if ((*this) and (*this)->get_value(_pColumns->colAnchoredWidgets).size() > 0) {
         Glib::RefPtr<Gsv::Buffer> rTextBuffer = get_node_text_buffer();
         Gtk::TextIter curr_iter = start_offset >= 0 ? rTextBuffer->get_iter_at_offset(start_offset) : rTextBuffer->begin();
-        do
-        {
-            if ((end_offset >= 0) and (curr_iter.get_offset() > end_offset))
-            {
+        do {
+            if (end_offset >= 0 and curr_iter.get_offset() > end_offset) {
                 break;
             }
             Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = curr_iter.get_child_anchor();
-            if (rChildAnchor)
-            {
-                for (CtAnchoredWidget* pCtAnchoredWidget : (*this)->get_value(_pColumns->colAnchoredWidgets))
-                {
-                    if (rChildAnchor == pCtAnchoredWidget->getTextChildAnchor())
-                    {
-                        pCtAnchoredWidget->updateOffset(curr_iter.get_offset());
-                        pCtAnchoredWidget->updateJustification(curr_iter);
-                        retAnchoredWidgetsList.push_back(pCtAnchoredWidget);
-                        break;
-                    }
+            if (rChildAnchor) {
+                auto pCtAnchoredWidget = get_anchored_widget(rChildAnchor);
+                if (pCtAnchoredWidget) {
+                    pCtAnchoredWidget->updateOffset(curr_iter.get_offset());
+                    pCtAnchoredWidget->updateJustification(curr_iter);
+                    retAnchoredWidgetsList.push_back(pCtAnchoredWidget);
                 }
             }
         }
         while (curr_iter.forward_char());
     }
     return retAnchoredWidgetsList;
+}
+
+CtAnchoredWidget* CtTreeIter::get_anchored_widget(Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor)
+{
+    if (*this) {
+        for (CtAnchoredWidget* pCtAnchoredWidget : (*this)->get_value(_pColumns->colAnchoredWidgets)) {
+            if (rChildAnchor == pCtAnchoredWidget->getTextChildAnchor()) {
+                return pCtAnchoredWidget;
+            }
+        }
+    }
+    return nullptr;
 }
 
 void CtTreeIter::pending_edit_db_node_prop()
