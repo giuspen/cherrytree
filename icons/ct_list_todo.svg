@@ -7,40 +7,40 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="48"
-   height="48"
-   viewBox="0 0 12.7 12.7"
-   version="1.1"
-   id="svg29"
+   sodipodi:docname="ct_list_todo.svg"
    inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-   sodipodi:docname="ct_list_todo.svg">
+   id="svg29"
+   version="1.1"
+   viewBox="0 0 4.2333333 4.2333333"
+   height="16"
+   width="16">
   <defs
      id="defs23" />
   <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="8.482601"
-     inkscape:cx="23.678271"
-     inkscape:cy="26.959148"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer1"
-     inkscape:document-rotation="0"
-     showgrid="true"
-     inkscape:window-width="1366"
-     inkscape:window-height="715"
-     inkscape:window-x="-8"
-     inkscape:window-y="22"
-     inkscape:window-maximized="1"
-     units="px"
+     showguides="false"
      inkscape:snap-global="true"
-     showguides="false">
+     units="px"
+     inkscape:window-maximized="1"
+     inkscape:window-y="22"
+     inkscape:window-x="-8"
+     inkscape:window-height="715"
+     inkscape:window-width="1366"
+     showgrid="true"
+     inkscape:document-rotation="0"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="px"
+     inkscape:cy="9.5759609"
+     inkscape:cx="5.3542611"
+     inkscape:zoom="30.077316"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base">
     <inkscape:grid
-       type="xygrid"
-       id="grid18" />
+       id="grid18"
+       type="xygrid" />
   </sodipodi:namedview>
   <metadata
      id="metadata26">
@@ -55,58 +55,30 @@
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:label="Capa 1"
+     id="layer1"
      inkscape:groupmode="layer"
-     id="layer1">
+     inkscape:label="Capa 1">
     <g
-       id="g31"
+       style="fill:none;fill-opacity:1;stroke:#f2f2f2;stroke-opacity:1"
        transform="matrix(2.5289195,0,0,2.5289195,0.45361386,2.0358129)"
-       style="fill:none;fill-opacity:1;stroke:#f2f2f2;stroke-opacity:1">
-      <path
-         style="color:#bebebe;fill:none;fill-opacity:1;stroke:#f2f2f2;stroke-width:0.351927;stroke-opacity:1;marker:none"
-         d="M 2.1178035,1.0573924 H 1.5908661 v 2.1153853 h 0.5269374 z"
-         id="path23" />
-      <path
-         id="path25"
-         d="M 0.53030343,1.0573924 H 0.00336606 v 2.1153853 h 0.52693737 z"
-         style="color:#bebebe;fill:none;fill-opacity:1;stroke:#f2f2f2;stroke-width:0.351927;stroke-opacity:1;marker:none" />
-      <path
-         style="color:#bebebe;fill:none;fill-opacity:1;stroke:#f2f2f2;stroke-width:0.351927;stroke-opacity:1;marker:none"
-         d="M 2.1185641,1.584517 V 1.0575797 H 0.00318057 V 1.584517 Z"
-         id="path27" />
-      <path
-         id="path29"
-         d="M 2.1185641,3.1720171 V 2.6450798 H 0.00318057 v 0.5269373 z"
-         style="color:#bebebe;fill:none;fill-opacity:1;stroke:#f2f2f2;stroke-width:0.351927;stroke-opacity:1;marker:none" />
-    </g>
-    <g
-       style="fill:#1a1a1a;fill-opacity:1"
-       transform="matrix(2.5289195,0,0,2.5289195,0.45361386,2.0358129)"
-       id="g840">
-      <path
-         id="path15"
-         d="M 2.1178035,1.0573924 H 1.5908661 v 2.1153853 h 0.5269374 z"
-         style="color:#bebebe;fill:#1a1a1a;fill-opacity:1;stroke-width:0.351927;marker:none" />
-      <path
-         style="color:#bebebe;fill:#1a1a1a;fill-opacity:1;stroke-width:0.351927;marker:none"
-         d="M 0.53030343,1.0573924 H 0.00336606 v 2.1153853 h 0.52693737 z"
-         id="path20" />
-      <path
-         id="path22"
-         d="M 2.1185641,1.584517 V 1.0575797 H 0.00318057 V 1.584517 Z"
-         style="color:#bebebe;fill:#1a1a1a;fill-opacity:1;stroke-width:0.351927;marker:none" />
-      <path
-         style="color:#bebebe;fill:#1a1a1a;fill-opacity:1;stroke-width:0.351927;marker:none"
-         d="M 2.1185641,3.1720171 V 2.6450798 H 0.00318057 v 0.5269373 z"
-         id="path24" />
-    </g>
+       id="g31" />
     <path
-       id="path53"
-       d="M 7.1488328,8.6104335 V 10.054167 H 12.223982 V 8.6104335 Z"
-       style="color:#bebebe;fill:none;stroke:#f2f2f2;stroke-width:0.902295;marker:none" />
+       style="color:#bebebe;fill:none;stroke-width:0.26458333;marker:none;stroke:#ffffff"
+       d="M 3.175,2.6458333 V 3.175 H 3.6987142 V 2.6458333 Z"
+       id="path854" />
     <path
-       style="color:#bebebe;fill:#1a1a1a;stroke-width:0.902295;marker:none"
-       d="M 7.1488328,8.6104335 V 10.054167 H 12.223982 V 8.6104335 Z"
-       id="path17" />
+       id="path17"
+       d="M 3.175,2.6458333 V 3.175 H 3.6987142 V 2.6458333 Z"
+       style="color:#bebebe;fill:#0e141f;stroke-width:0.175479;marker:none;fill-opacity:1" />
+    <path
+       transform="scale(0.26458333)"
+       d="M 2 4 L 2 12 L 10 12 L 10 4 L 2 4 z M 4 6 L 8 6 L 8 10 L 4 10 L 4 6 z "
+       style="opacity:1;fill:none;stroke:#ffffff;stroke-width:0.999999;stroke-linecap:round;stop-color:#000000"
+       id="path843" />
+    <path
+       id="rect836"
+       style="opacity:1;fill:#0e141f;stroke:none;stroke-width:0.999999;stroke-linecap:round;stop-color:#000000;fill-opacity:1"
+       d="M 2 4 L 2 12 L 10 12 L 10 4 L 2 4 z M 4 6 L 8 6 L 8 10 L 4 10 L 4 6 z "
+       transform="scale(0.26458333)" />
   </g>
 </svg>
