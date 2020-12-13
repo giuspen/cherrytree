@@ -114,7 +114,8 @@ protected:
 
 private:
     void _on_populate_popup_cell(Gtk::Menu* menu, int row, int col);
-    bool _on_key_press_event_cell(GdkEventKey* event, int row, int co);
+    bool _on_button_press_event_cell(GdkEventButton* event, int row, int col);
+    bool _on_key_press_event_cell(GdkEventKey* event, int row, int col);
 
 protected:
     CtTableMatrix    _tableMatrix;

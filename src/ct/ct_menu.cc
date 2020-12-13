@@ -304,8 +304,8 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{table_cat, "table_row_copy", "ct_edit_copy", _("_Copy Row"), None, _("Copy a Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_copy)});
     _actions.push_back(CtMenuAction{table_cat, "table_row_paste", "ct_edit_paste", _("_Paste Row"), None, _("Paste a Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_paste)});
     _actions.push_back(CtMenuAction{table_cat, "table_row_delete", "ct_edit_delete", _("De_lete Row"), KB_CONTROL+KB_ALT+"comma", _("Delete the Selected Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_delete)});
-    _actions.push_back(CtMenuAction{table_cat, "table_row_up", "ct_go-up", _("Move Row _Up"), KB_CONTROL+KB_ALT+"period", _("Move the Selected Row Up"), sigc::mem_fun(*pActions, &CtActions::table_row_up)});
-    _actions.push_back(CtMenuAction{table_cat, "table_row_down", "ct_go-down", _("Move Row _Down"), KB_CONTROL+"period", _("Move the Selected Row Down"), sigc::mem_fun(*pActions, &CtActions::table_row_down)});
+    _actions.push_back(CtMenuAction{table_cat, "table_row_up", "ct_go-up", _("Move Row _Up"), None, _("Move the Selected Row Up"), sigc::mem_fun(*pActions, &CtActions::table_row_up)});
+    _actions.push_back(CtMenuAction{table_cat, "table_row_down", "ct_go-down", _("Move Row _Down"), None, _("Move the Selected Row Down"), sigc::mem_fun(*pActions, &CtActions::table_row_down)});
     _actions.push_back(CtMenuAction{table_cat, "table_rows_sort_descending", "ct_sort-desc", _("Sort Rows De_scending"), None, _("Sort all the Rows Descending"), sigc::mem_fun(*pActions, &CtActions::table_rows_sort_descending)});
     _actions.push_back(CtMenuAction{table_cat, "table_rows_sort_ascending", "ct_sort-asc", _("Sort Rows As_cending"), None, _("Sort all the Rows Ascending"), sigc::mem_fun(*pActions, &CtActions::table_rows_sort_ascending)});
     _actions.push_back(CtMenuAction{table_cat, "table_edit_properties", "ct_table_edit", _("_Edit Table Properties"), None, _("Edit the Table Properties"), sigc::mem_fun(*pActions, &CtActions::table_edit_properties)});
@@ -535,10 +535,10 @@ void CtMenu::build_popup_menu_table_cell(Gtk::Menu* pMenu, const bool first_row,
     _add_menu_item(pMenu, find_action("table_column_decrease_width"));
     _add_menu_separator(pMenu);
     _add_menu_item(pMenu, find_action("table_row_add"));
+    _add_menu_item(pMenu, find_action("table_row_delete"));
     _add_menu_item(pMenu, find_action("table_row_cut"));
     _add_menu_item(pMenu, find_action("table_row_copy"));
     _add_menu_item(pMenu, find_action("table_row_paste"));
-    _add_menu_item(pMenu, find_action("table_row_delete"));
     _add_menu_separator(pMenu);
     if (not first_row) _add_menu_item(pMenu, find_action("table_row_up"));
     if (not last_row) _add_menu_item(pMenu, find_action("table_row_down"));

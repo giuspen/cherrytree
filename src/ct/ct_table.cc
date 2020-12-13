@@ -96,6 +96,8 @@ void CtTable::_setup_new_matrix(const CtTableMatrix& tableMatrix, bool apply_sty
                     sigc::bind(sigc::mem_fun(*this, &CtTable::_on_populate_popup_cell), row, col));
             textView.signal_key_press_event().connect(
                     sigc::bind(sigc::mem_fun(*this, &CtTable::_on_key_press_event_cell), row, col), false);
+            textView.signal_button_press_event().connect(
+                    sigc::bind(sigc::mem_fun(*this, &CtTable::_on_button_press_event_cell), row, col), false);
 
             _grid.attach(*pTableCell, col, row, 1 /*1 cell horiz*/, 1 /*1 cell vert*/);
         }
@@ -375,6 +377,17 @@ void CtTable::_on_populate_popup_cell(Gtk::Menu* menu, int row, int col)
     _pCtMainWin->get_ct_menu().build_popup_menu_table_cell(menu, first_row, first_col, last_row, last_col);
 }
 
+bool CtTable::_on_button_press_event_cell(GdkEventButton* event, int row, int col)
+{
+    _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
+    _currentRow = row;
+    _currentColumn = col;
+    if ( event->button != 3/*right button*/ and event->type != GDK_3BUTTON_PRESS) {
+        _pCtMainWin->get_ct_actions()->object_set_selection(this);
+    }
+    return false;
+}
+
 bool CtTable::_on_key_press_event_cell(GdkEventKey* event, int row, int col)
 {
     if (not _pCtMainWin->user_active()) return false;
@@ -405,6 +418,15 @@ bool CtTable::_on_key_press_event_cell(GdkEventKey* event, int row, int col)
             }
             else {
                 _pCtMainWin->get_ct_actions()->table_column_increase_width();
+            }
+            return true;
+        }
+        if (event->keyval == GDK_KEY_comma) {
+            if (event->state & Gdk::MOD1_MASK) {
+                _pCtMainWin->get_ct_actions()->table_row_delete();
+            }
+            else {
+                _pCtMainWin->get_ct_actions()->table_row_add();
             }
             return true;
         }
