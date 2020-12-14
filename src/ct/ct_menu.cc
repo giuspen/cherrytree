@@ -272,15 +272,6 @@ void CtMenu::init_actions(CtActions* pActions)
     {
         pActions->getCtMainWin()->add_action(action.id, action.run_action);
     }
-    // add accelerators for tree view
-    for (const CtMenuAction& action : _actions)
-    {
-        if (get_accel_type(action.id) == ACCEL_TYPE::TreeView)
-        {
-            //Gtk::AccelKey accel_key(action.get_shortcut(_pCtConfig));
-            //pActions->getCtMainWin()->get_tree_view().add_accelerator("activate", _pAccelGroup, accel_key.get_key(), accel_key.get_mod(), Gtk::ACCEL_VISIBLE);
-        }
-    }
 
     // for popup menus
     const char* link_cat = "";
@@ -335,13 +326,6 @@ CtMenuAction* CtMenu::find_action(const std::string& id)
         }
     }
     return nullptr;
-}
-
-/*static*/ CtMenu::ACCEL_TYPE CtMenu::get_accel_type(const std::string& action_name)
-{
-    if (TREE_VIEW_ACCEL_ACTION.count(action_name) != 0)
-        return ACCEL_TYPE::TreeView;
-    return ACCEL_TYPE::Menu;
 }
 
 /*static*/ Gtk::MenuItem* CtMenu::find_menu_item(Gtk::MenuBar* menuBar, std::string name)
@@ -619,8 +603,6 @@ Gtk::Menu* CtMenu::_add_menu_submenu(Gtk::MenuShell* pMenuShell, const char* id,
 Gtk::MenuItem* CtMenu::_add_menu_item(Gtk::MenuShell* pMenuShell, CtMenuAction* pAction)
 {
     std::string shortcut = pAction->get_shortcut(_pCtConfig);
-    if (get_accel_type(pAction->id) != ACCEL_TYPE::Menu)
-        shortcut = "";
     Gtk::MenuItem* pMenuItem = _add_menu_item(pMenuShell,
                                               pAction->name.c_str(),
                                               pAction->image.c_str(),

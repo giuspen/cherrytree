@@ -2125,13 +2125,14 @@ bool CtMainWin::_on_treeview_drag_motion(const Glib::RefPtr<Gdk::DragContext>& /
     return true;
 }
 
-void CtMainWin::_on_treeview_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& /*context*/,
+void CtMainWin::_on_treeview_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
                                                 int x,
                                                 int y,
                                                 const Gtk::SelectionData& selection_data,
                                                 guint /*info*/,
-                                                guint /*time*/)
+                                                guint time)
 {
+    auto on_scope_exit = scope_guard([&](void*) { context->drag_finish(false, false, time); });
     Gtk::TreePath treePathDest;
     Gtk::TreeViewDropPosition treeDropPos{Gtk::TREE_VIEW_DROP_BEFORE};
     if (not _uCtTreeview->get_dest_row_at_pos(x, y, treePathDest, treeDropPos)) {

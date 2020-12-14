@@ -61,7 +61,6 @@ public:
     const std::string KB_ALT     = "<alt>";
 
     enum POPUP_MENU_TYPE {Node, Text, Code, Link, Codebox, Image, Anchor, EmbFile, PopupMenuNum };
-    enum ACCEL_TYPE {Menu, TreeView };
 
 public:
    static Gtk::MenuItem* create_menu_item(Gtk::Menu* pMenu, const char* name, const char* image, const char* desc);
@@ -73,7 +72,6 @@ public:
     const std::list<CtMenuAction>& get_actions() { return _actions; }
     Glib::RefPtr<Gtk::AccelGroup> get_accel_group() { return _pAccelGroup; }
 
-    static ACCEL_TYPE       get_accel_type(const std::string& action_name);
     static Gtk::MenuItem*   find_menu_item(Gtk::MenuBar* menuBar, std::string name);
     static Gtk::AccelLabel* get_accel_label(Gtk::MenuItem* item);
     static int              calculate_image_shift(Gtk::MenuItem* menuItem);
