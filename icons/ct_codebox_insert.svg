@@ -28,7 +28,7 @@
      inkscape:window-height="715"
      id="namedview28"
      showgrid="true"
-     inkscape:zoom="15.00822"
+     inkscape:zoom="13.849345"
      inkscape:cx="1.6206904"
      inkscape:cy="8.4259022"
      inkscape:window-x="-8"
@@ -92,7 +92,7 @@
          id="stop3604" />
     </linearGradient>
     <linearGradient
-       gradientTransform="matrix(0.28571361,0,0,0.17382686,1.1428731,4.5614882)"
+       gradientTransform="matrix(0.28571361,0,0,0.17382686,1.1428731,5.5297111)"
        gradientUnits="userSpaceOnUse"
        xlink:href="#linearGradient3600"
        id="linearGradient3806"
@@ -121,7 +121,7 @@
        y1="50.786446"
        x1="-51.786404" />
     <linearGradient
-       gradientTransform="translate(0,2)"
+       gradientTransform="translate(0,2.9682229)"
        xlink:href="#linearGradient875"
        id="linearGradient877"
        x1="7.5957031"
@@ -444,19 +444,19 @@
     </rdf:RDF>
   </metadata>
   <rect
-     y="4"
+     y="4.9682198"
      x="1"
      height="10"
      width="14"
      id="rect864"
      style="opacity:1;fill:#666666;fill-opacity:0.971631;stroke-width:2;stroke-linecap:round;stop-color:#000000" />
   <path
-     d="m 2,5 c 2.7383794,0 11.950109,5.088e-4 11.950109,5.088e-4 L 13.950123,13 C 13.950123,13 5.9833741,13 2,13 2,10.333333 2,7.6666665 2,5 Z"
+     d="m 2,5.9682229 c 2.7383794,0 11.950109,5.088e-4 11.950109,5.088e-4 l 1.4e-5,7.9994923 c 0,0 -7.9667489,0 -11.950123,0 0,-2.666667 0,-5.3333346 0,-8.0000011 z"
      id="path4160"
      style="display:inline;fill:url(#linearGradient3806);fill-opacity:1;stroke:none;stroke-width:0.755929" />
   <path
      style="color:#bebebe;opacity:1;isolation:auto;mix-blend-mode:normal;fill:url(#linearGradient877);fill-opacity:1;stroke-width:0.65463;marker:none"
-     d="M 8.4042969,5.9870361 6.6953125,11.987049 H 7.5957031 L 9.3046875,5.9870361 Z m -2.4042969,1 -2,1.25 V 9.7370454 L 6,10.987049 V 9.9870487 L 4.5,8.9889891 6,7.9870361 Z m 4,0 v 1 L 11.5,8.9889891 10,9.9870487 V 10.987049 L 12,9.7370454 V 8.2370361 Z"
+     d="M 8.4042969,6.955259 6.6953125,12.955273 H 7.5957031 L 9.3046875,6.955259 Z m -2.4042969,1 -2,1.25 v 1.50001 l 2,1.250004 v -1 L 4.5,9.9572124 6,8.955259 Z m 4,0 v 1 L 11.5,9.9572124 10,10.955273 v 1 l 2,-1.250004 v -1.50001 z"
      id="path848" />
   <g
      transform="translate(-16.823611,-421.93039)"
