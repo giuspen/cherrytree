@@ -220,7 +220,7 @@ void CtMainWin::resetup_for_syntax(const char target/*'r':RichText, 'p':PlainTex
             CtTreeIter node = get_tree_store().to_ct_tree_iter(treeIter);
             if (node.get_node_is_rich_text() and node.get_node_buffer_already_loaded()) {
                 // let's look for codeboxes
-                std::list<CtAnchoredWidget*> anchoredWidgets = node.get_embedded_pixbufs_tables_codeboxes_fast();
+                std::list<CtAnchoredWidget*> anchoredWidgets = node.get_anchored_widgets_fast();
                 for (auto pAnchoredWidget : anchoredWidgets) {
                     if (CtAnchWidgType::CodeBox == pAnchoredWidget->get_type()) {
                         CtCodebox* pCodebox = dynamic_cast<CtCodebox*>(pAnchoredWidget);
@@ -252,7 +252,7 @@ void CtMainWin::reapply_syntax_highlighting(const char target/*'r':RichText, 'p'
             case 'p': {
                 if (node.get_node_is_rich_text() and node.get_node_buffer_already_loaded()) {
                     // let's look for codeboxes
-                    std::list<CtAnchoredWidget*> anchoredWidgets = node.get_embedded_pixbufs_tables_codeboxes_fast();
+                    std::list<CtAnchoredWidget*> anchoredWidgets = node.get_anchored_widgets_fast();
                     for (auto pAnchoredWidget : anchoredWidgets) {
                         if (CtAnchWidgType::CodeBox == pAnchoredWidget->get_type()) {
                             pAnchoredWidget->apply_syntax_highlighting(true/*forceReApply*/);
@@ -266,7 +266,7 @@ void CtMainWin::reapply_syntax_highlighting(const char target/*'r':RichText, 'p'
             case 't': {
                 if (node.get_node_is_rich_text() and node.get_node_buffer_already_loaded()) {
                     // let's look for tables
-                    std::list<CtAnchoredWidget*> anchoredWidgets = node.get_embedded_pixbufs_tables_codeboxes_fast();
+                    std::list<CtAnchoredWidget*> anchoredWidgets = node.get_anchored_widgets_fast();
                     for (auto pAnchoredWidget : anchoredWidgets) {
                         if (CtAnchWidgType::Table == pAnchoredWidget->get_type()) {
                             pAnchoredWidget->apply_syntax_highlighting(true/*forceReApply*/);
@@ -579,9 +579,15 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
     _uCtTreeview->signal_scroll_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_scroll_event));
     _uCtTreeview->signal_popup_menu().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_popup_menu));
 
-    //_uCtTreeview->set_reorderable(true); // tree store handles insert/removing rows
-    _uCtTreeview->enable_model_drag_dest(Gdk::ACTION_MOVE);
-    _uCtTreeview->enable_model_drag_source();
+    _uCtTreeview->drag_source_set(std::vector<Gtk::TargetEntry>{Gtk::TargetEntry{"CT_DND", Gtk::TARGET_SAME_WIDGET, 0}},
+                                  Gdk::BUTTON1_MASK,
+                                  Gdk::ACTION_MOVE);
+    _uCtTreeview->drag_dest_set(std::vector<Gtk::TargetEntry>{Gtk::TargetEntry{"CT_DND", Gtk::TARGET_SAME_WIDGET, 0}},
+                                Gtk::DEST_DEFAULT_ALL,
+                                Gdk::ACTION_MOVE);
+    _uCtTreeview->signal_drag_motion().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_drag_motion));
+    _uCtTreeview->signal_drag_data_received().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_drag_data_received));
+    _uCtTreeview->signal_drag_data_get().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_drag_data_get));
 
     _uCtTreeview->get_style_context()->add_class("ct-tree-panel");
     _uCtTreeview->set_margin_bottom(10);  // so horiz scroll doens't prevent to select the bottom element
@@ -1228,7 +1234,7 @@ bool CtMainWin::file_insert_plain_text(const fs::path& filepath)
             Glib::ustring node_content(text, length);
             node_content = str::sanitize_bad_symbols(node_content);
             std::string name = filepath.filename().string();
-            get_ct_actions()->_node_child_exist_or_create(Gtk::TreeIter(), name);
+            _uCtActions->node_child_exist_or_create(Gtk::TreeIter(), name);
             _ctTextview.get_buffer()->insert(_ctTextview.get_buffer()->end(), node_content);
             g_free(text);
             return true;
@@ -1333,7 +1339,7 @@ void CtMainWin::update_window_save_not_needed()
     {
         Glib::RefPtr<Gsv::Buffer> rTextBuffer = treeIter.get_node_text_buffer();
         rTextBuffer->set_modified(false);
-        std::list<CtAnchoredWidget*> anchoredWidgets = treeIter.get_embedded_pixbufs_tables_codeboxes_fast();
+        std::list<CtAnchoredWidget*> anchoredWidgets = treeIter.get_anchored_widgets_fast();
         for (CtAnchoredWidget* pAnchoredWidget : anchoredWidgets)
         {
             pAnchoredWidget->set_modified_false();
@@ -1541,7 +1547,7 @@ void CtMainWin::_on_treeview_cursor_changed()
     if (user_active()) {
         // workaround for nodes with anchored widgets very first visualisation glitches
         if ( _nodesCursorPos.count(nodeId) == 0 and
-             treeIter.get_embedded_pixbufs_tables_codeboxes_fast().size() > 0 )
+             treeIter.get_anchored_widgets_fast().size() > 0 )
         {
             while (gtk_events_pending()) gtk_main_iteration();
             CtTreeIter emptyTreeIter{};
@@ -1876,7 +1882,7 @@ void CtMainWin::_on_textview_size_allocate(Gtk::Allocation& allocation)
     else if (_prevTextviewWidth != allocation.get_width())
     {
         _prevTextviewWidth = allocation.get_width();
-        auto widgets = curr_tree_iter().get_embedded_pixbufs_tables_codeboxes_fast();
+        auto widgets = curr_tree_iter().get_anchored_widgets_fast();
         for (auto& widget: widgets)
             if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widget))
                 if (not codebox->get_width_in_pixels())
@@ -1887,7 +1893,7 @@ void CtMainWin::_on_textview_size_allocate(Gtk::Allocation& allocation)
 bool CtMainWin::_try_move_focus_to_anchored_widget_if_on_it()
 {
     auto iter_insert = _ctTextview.get_buffer()->get_insert()->get_iter();
-    auto widgets = curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(iter_insert.get_offset(), iter_insert.get_offset());
+    auto widgets = curr_tree_iter().get_anchored_widgets(iter_insert.get_offset(), iter_insert.get_offset());
     if (not widgets.empty()) {
         if (CtCodebox* pCodebox = dynamic_cast<CtCodebox*>(widgets.front())) {
             pCodebox->get_text_view().grab_focus();
@@ -1953,7 +1959,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             curr_buffer->get_selection_bounds(iter_sel_start, iter_sel_end);
             int num_chars = iter_sel_end.get_offset() - iter_sel_start.get_offset();
             if (num_chars != 1) return false;
-            auto widgets = curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(iter_sel_start.get_offset(), iter_sel_start.get_offset());
+            auto widgets = curr_tree_iter().get_anchored_widgets(iter_sel_start.get_offset(), iter_sel_start.get_offset());
             if (widgets.empty()) return false;
             if (CtImageAnchor* anchor = dynamic_cast<CtImageAnchor*>(widgets.front()))
             {
@@ -1992,7 +1998,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
             {
                 return false;
             }
-            auto widgets = curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(iter_sel_start.get_offset(), iter_sel_start.get_offset());
+            auto widgets = curr_tree_iter().get_anchored_widgets(iter_sel_start.get_offset(), iter_sel_start.get_offset());
             if (widgets.empty())
             {
                 return false;
@@ -2094,4 +2100,87 @@ void CtMainWin::window_title_update(std::optional<bool> saveNeeded)
     title += "CherryTree ";
     title += CtConst::CT_VERSION;
     set_title(title);
+}
+
+bool CtMainWin::_on_treeview_drag_motion(const Glib::RefPtr<Gdk::DragContext>& /*context*/,
+                                         int x,
+                                         int y,
+                                         guint /*time*/)
+{
+    if (y < CtConst::TREE_DRAG_EDGE_PROX or y > (_uCtTreeview->get_allocation().get_height() - CtConst::TREE_DRAG_EDGE_PROX)) {
+        const int delta = y < CtConst::TREE_DRAG_EDGE_PROX ? -CtConst::TREE_DRAG_EDGE_SCROLL : CtConst::TREE_DRAG_EDGE_SCROLL;
+        Gtk::Scrollbar* vscroll_obj = _scrolledwindowTree.get_vscrollbar();
+        vscroll_obj->set_value(vscroll_obj->get_value() + delta);
+    }
+    if (x < CtConst::TREE_DRAG_EDGE_PROX or x > (_uCtTreeview->get_allocation().get_width() - CtConst::TREE_DRAG_EDGE_PROX)) {
+        const int delta = x < CtConst::TREE_DRAG_EDGE_PROX ? -CtConst::TREE_DRAG_EDGE_SCROLL : CtConst::TREE_DRAG_EDGE_SCROLL;
+        Gtk::Scrollbar* hscroll_obj = _scrolledwindowTree.get_hscrollbar();
+        hscroll_obj->set_value(hscroll_obj->get_value() + delta);
+    }
+    Gtk::TreePath treePath;
+    Gtk::TreeViewDropPosition treeDropPos{Gtk::TREE_VIEW_DROP_BEFORE};
+    if (_uCtTreeview->get_dest_row_at_pos(x, y, treePath, treeDropPos)) {
+        _uCtTreeview->set_drag_dest_row(treePath, treeDropPos);
+    }
+    return true;
+}
+
+void CtMainWin::_on_treeview_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& /*context*/,
+                                                int x,
+                                                int y,
+                                                const Gtk::SelectionData& selection_data,
+                                                guint /*info*/,
+                                                guint /*time*/)
+{
+    Gtk::TreePath treePathDest;
+    Gtk::TreeViewDropPosition treeDropPos{Gtk::TREE_VIEW_DROP_BEFORE};
+    if (not _uCtTreeview->get_dest_row_at_pos(x, y, treePathDest, treeDropPos)) {
+        return;
+    }
+    const std::string treePathSrcStr = selection_data.get_data_as_string();
+    if (treePathSrcStr.empty()) {
+        return;
+    }
+    Gtk::TreePath treePathSrc{treePathSrcStr};
+    if (treePathDest == treePathSrc) {
+        return;
+    }
+    CtTreeIter drag_iter = _uCtTreestore->get_iter(treePathSrc);
+    if (not drag_iter) {
+        return;
+    }
+    CtTreeIter drop_iter = _uCtTreestore->get_iter(treePathDest);
+    if (not drop_iter) {
+        return;
+    }
+    CtTreeIter move_towards_top_iter = drop_iter.parent();
+    while (move_towards_top_iter) {
+        if (move_towards_top_iter == drag_iter) {
+            CtDialogs::error_dialog(_("The new parent can't be one of his children!"), *this);
+            return;
+        }
+        move_towards_top_iter = move_towards_top_iter.parent();
+    }
+    if (treeDropPos == Gtk::TREE_VIEW_DROP_BEFORE) {
+        auto prev_iter = drop_iter;
+        --prev_iter;
+        // note: prev_iter could be None, use drop_iter to retrieve the parent
+        _uCtActions->node_move_after(drag_iter, drop_iter.parent(), prev_iter, true/*set_first*/);
+    }
+    else if (treeDropPos == Gtk::TREE_VIEW_DROP_AFTER) {
+        _uCtActions->node_move_after(drag_iter, drop_iter.parent(), drop_iter);
+    }
+    else {
+        _uCtActions->node_move_after(drag_iter, drop_iter);
+    }
+}
+
+void CtMainWin::_on_treeview_drag_data_get(const Glib::RefPtr<Gdk::DragContext>& /*context*/,
+                                           Gtk::SelectionData& selection_data,
+                                           guint /*info*/,
+                                           guint /*time*/)
+{
+    Gtk::TreeIter sel_iter = _uCtTreeview->get_selection()->get_selected();
+    const Glib::ustring treePathStr = _uCtTreeview->get_model()->get_path(sel_iter).to_string();
+    selection_data.set("UTF8_STRING", 8, (const guint8*)treePathStr.c_str(), (int)treePathStr.size());
 }

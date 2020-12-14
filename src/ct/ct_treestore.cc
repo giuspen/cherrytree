@@ -212,7 +212,7 @@ void CtTreeIter::remove_all_embedded_widgets()
     }
 }
 
-std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes_fast(const char doSort)
+std::list<CtAnchoredWidget*> CtTreeIter::get_anchored_widgets_fast(const char doSort)
 {
     if (*this)
     {
@@ -260,7 +260,7 @@ std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes_f
     return std::list<CtAnchoredWidget*>{};
 }
 
-std::list<CtAnchoredWidget*> CtTreeIter::get_embedded_pixbufs_tables_codeboxes(int start_offset/*= -1*/, int end_offset/*= -1*/)
+std::list<CtAnchoredWidget*> CtTreeIter::get_anchored_widgets(int start_offset/*= -1*/, int end_offset/*= -1*/)
 {
     get_node_text_buffer(); // to load buffer\widgets if not loaded
     std::list<CtAnchoredWidget*> retAnchoredWidgetsList;
@@ -318,45 +318,10 @@ void CtTreeIter::pending_new_db_node()
     _pCtMainWin->get_ct_storage()->pending_new_db_node(get_node_id());
 }
 
-
-/*********************************************************/
-
-/*static*/ Glib::RefPtr<CtDragStore> CtDragStore::create(CtMainWin* pCtMainWin, const Gtk::TreeModelColumnRecord& columns)
-{
-    return Glib::RefPtr<CtDragStore>(new CtDragStore(pCtMainWin, columns));
-}
-
-CtDragStore::CtDragStore(CtMainWin* pCtMainWin, const Gtk::TreeModelColumnRecord& columns)
-    : Gtk::TreeStore(columns), _pCtMainWin(pCtMainWin)
-{
-
-}
-
-bool CtDragStore::drag_data_get_vfunc(const Gtk::TreeModel::Path& path, Gtk::SelectionData& selection_data) const
-{
-    _drag_src = path.to_string();
-    return Gtk::TreeDragSource::drag_data_get_vfunc(path, selection_data);
-}
-
-bool CtDragStore::row_drop_possible_vfunc(const Gtk::TreeModel::Path& dest, const Gtk::SelectionData& /*selection_data*/) const
-{
-    // row_drop_possible_vfunc fixes crush on win/macos, but removes warnings
-    Gtk::TreeModel::Path src(_drag_src);
-    return _pCtMainWin->get_ct_actions()->node_move(src, dest, true);
-}
-
-bool CtDragStore::drag_data_received_vfunc(const Gtk::TreeModel::Path& dest, const Gtk::SelectionData& /*selection_data*/)
-{
-    Gtk::TreeModel::Path src(_drag_src);
-    return _pCtMainWin->get_ct_actions()->node_move(src, dest, false);
-}
-
-/********************************************************/
-
 CtTreeStore::CtTreeStore(CtMainWin* pCtMainWin)
  : _pCtMainWin(pCtMainWin)
 {
-    _rTreeStore = CtDragStore::create(pCtMainWin, _columns);
+    _rTreeStore = Gtk::TreeStore::create(_columns);
 }
 
 CtTreeStore::~CtTreeStore()
@@ -529,7 +494,7 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
     pTextView->set_sensitive(true);
     pTextView->set_editable(not treeIter.get_node_read_only());
 
-    for (CtAnchoredWidget* pCtAnchoredWidget : treeIter.get_embedded_pixbufs_tables_codeboxes_fast())
+    for (CtAnchoredWidget* pCtAnchoredWidget : treeIter.get_anchored_widgets_fast())
     {
         Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
         if (rChildAnchor)
@@ -914,11 +879,6 @@ void CtTreeStore::bookmarks_set(const std::list<gint64>& bookmarks)
     _bookmarks = bookmarks;
 }
 
-Glib::RefPtr<CtDragStore> CtTreeStore::get_store()
-{
-    return _rTreeStore;
-}
-
 Gtk::TreeIter CtTreeStore::get_iter_first()
 {
     return _rTreeStore->get_iter("0");
@@ -933,11 +893,6 @@ Gtk::TreeIter CtTreeStore::get_tree_iter_last_sibling(const Gtk::TreeNodeChildre
 {
     if (children.empty()) return Gtk::TreeIter();
     return --children.end();
-}
-
-Gtk::TreeIter CtTreeStore::get_tree_iter_prev_sibling(Gtk::TreeIter tree_iter)
-{
-    return --tree_iter;
 }
 
 Gtk::TreePath CtTreeStore::get_path(Gtk::TreeIter tree_iter)
@@ -990,7 +945,7 @@ void CtTreeStore::populateSummaryInfo(CtSummaryInfo& summaryInfo)
                 ++summaryInfo.nodes_code_num;
             }
             (void)ctTreeIter.get_node_text_buffer(); // ensure the node content is populated
-            for (CtAnchoredWidget* pAnchoredWidget : ctTreeIter.get_embedded_pixbufs_tables_codeboxes_fast()) {
+            for (CtAnchoredWidget* pAnchoredWidget : ctTreeIter.get_anchored_widgets_fast()) {
                 switch (pAnchoredWidget->get_type()) {
                     case CtAnchWidgType::CodeBox: ++summaryInfo.codeboxes_num; break;
                     case CtAnchWidgType::ImageAnchor: ++summaryInfo.anchors_num; break;

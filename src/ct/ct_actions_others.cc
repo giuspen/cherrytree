@@ -335,7 +335,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
         {
             Glib::ustring anchor_name = link_entry.anch;
             CtImageAnchor* imageAnchor = nullptr;
-            for (auto& widget: tree_iter.get_embedded_pixbufs_tables_codeboxes_fast())
+            for (auto& widget: tree_iter.get_anchored_widgets_fast())
                 if (CtImageAnchor* anchor = dynamic_cast<CtImageAnchor*>(widget))
                     if (anchor->get_anchor_name() == anchor_name)
                         imageAnchor = anchor;
@@ -784,7 +784,7 @@ bool CtActions::_on_embfiles_sentinel_timeout()
                 continue;
             }
             _pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
-            for (auto& widget : tree_iter.get_embedded_pixbufs_tables_codeboxes_fast())
+            for (auto& widget : tree_iter.get_anchored_widgets_fast())
             {
                 if (CtImageEmbFile* embFile = dynamic_cast<CtImageEmbFile*>(widget)) {
                     if (embFile->get_unique_id() == embfile_id)

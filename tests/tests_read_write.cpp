@@ -425,7 +425,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
             ASSERT_TRUE(expTag.found);
         }
         // assert anchored widgets
-        std::list<CtAnchoredWidget*> anchoredWidgets = ctTreeIter.get_embedded_pixbufs_tables_codeboxes();
+        std::list<CtAnchoredWidget*> anchoredWidgets = ctTreeIter.get_anchored_widgets();
         ASSERT_EQ(5, anchoredWidgets.size());
         for (CtAnchoredWidget* pAnchWidget : anchoredWidgets) {
             switch (pAnchWidget->get_type()) {

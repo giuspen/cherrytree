@@ -198,6 +198,20 @@ private:
     bool                _on_treeview_key_press_event(GdkEventKey* event);
     bool                _on_treeview_popup_menu();
     bool                _on_treeview_scroll_event(GdkEventScroll* event);
+    bool                _on_treeview_drag_motion(const Glib::RefPtr<Gdk::DragContext>& context,
+                                                 int x,
+                                                 int y,
+                                                 guint time);
+    void                _on_treeview_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
+                                                        int x,
+                                                        int y,
+                                                        const Gtk::SelectionData& selection_data,
+                                                        guint info,
+                                                        guint time);
+    void                _on_treeview_drag_data_get(const Glib::RefPtr<Gdk::DragContext>& context,
+                                                   Gtk::SelectionData& selection_data,
+                                                   guint info,
+                                                   guint time);
 
     void                _on_textview_populate_popup(Gtk::Menu* menu);
     bool                _on_textview_motion_notify_event(GdkEventMotion* event);

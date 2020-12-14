@@ -145,6 +145,8 @@ const inline static int MAX_FILE_NAME_LEN              {142};
 const inline static int WHITE_SPACE_BETW_PIXB_AND_TEXT {3};
 const inline static int GRID_SLIP_OFFSET               {3};
 const inline static int INDENT_MARGIN                  {50};
+const inline static int TREE_DRAG_EDGE_PROX            {10};
+const inline static int TREE_DRAG_EDGE_SCROLL          {15};
 
 const inline static gchar* CHAR_SPACE             {" "};
 const inline static gchar* CHAR_NEWLINE           {"\n"};

@@ -247,7 +247,7 @@ Glib::ustring CtClipboard::rich_text_get_from_text_buffer_selection(CtTreeIter n
     int iter_sel_end_offset = iter_sel_end.get_offset();
     if (exclude_iter_sel_end)
         iter_sel_end_offset -= 1;
-    std::list<CtAnchoredWidget*> widget_vector = node_iter.get_embedded_pixbufs_tables_codeboxes(iter_sel_start_offset, iter_sel_end_offset);
+    std::list<CtAnchoredWidget*> widget_vector = node_iter.get_anchored_widgets(iter_sel_start_offset, iter_sel_end_offset);
 
     xmlpp::Document doc;
     auto root = doc.create_root_node("root");
@@ -328,7 +328,7 @@ void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buf
     CtImage* pixbuf_target = nullptr;
     if (not pCodebox and node_syntax_high == CtConst::RICH_TEXT_ID and num_chars == 1)
     {
-        std::list<CtAnchoredWidget*> widget_vector = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(iter_sel_start.get_offset(), iter_sel_end.get_offset());
+        std::list<CtAnchoredWidget*> widget_vector = _pCtMainWin->curr_tree_iter().get_anchored_widgets(iter_sel_start.get_offset(), iter_sel_end.get_offset());
         if (widget_vector.size() > 0)
         {
             if (CtImage* image = dynamic_cast<CtImage*>(widget_vector.front()))

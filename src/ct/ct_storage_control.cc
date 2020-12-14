@@ -443,7 +443,7 @@ void CtStorageCache::generate_cache(CtMainWin* pCtMainWin, const CtStorageSyncPe
     {
         store.get_store()->foreach([&](const Gtk::TreePath&, const Gtk::TreeIter& iter)->bool
         {
-            for (auto widget: store.to_ct_tree_iter(iter).get_embedded_pixbufs_tables_codeboxes_fast())
+            for (auto widget: store.to_ct_tree_iter(iter).get_anchored_widgets_fast())
                 if (widget->get_type() == CtAnchWidgType::ImagePng) // important to check type
                     if (auto image = dynamic_cast<CtImagePng*>(widget))
                         image_list.emplace_back(image);
@@ -457,7 +457,7 @@ void CtStorageCache::generate_cache(CtMainWin* pCtMainWin, const CtStorageSyncPe
             CtTreeIter ct_tree_iter = store.get_node_from_node_id(node_pair.first);
             if (node_pair.second.buff && ct_tree_iter.get_node_is_rich_text())
             {
-                for (auto widget: ct_tree_iter.get_embedded_pixbufs_tables_codeboxes_fast())
+                for (auto widget: ct_tree_iter.get_anchored_widgets_fast())
                     if (widget->get_type() == CtAnchWidgType::ImagePng) // important to check type
                         if (auto image = dynamic_cast<CtImagePng*>(widget))
                             image_list.emplace_back(image);

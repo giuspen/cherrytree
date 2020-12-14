@@ -114,8 +114,8 @@ public:
     bool                      get_node_buffer_already_loaded() const;
 
     void                         remove_all_embedded_widgets();
-    std::list<CtAnchoredWidget*> get_embedded_pixbufs_tables_codeboxes_fast(const char doSort = 'n');
-    std::list<CtAnchoredWidget*> get_embedded_pixbufs_tables_codeboxes(int start_offset = -1, int end_offset = -1);
+    std::list<CtAnchoredWidget*> get_anchored_widgets_fast(const char doSort = 'n');
+    std::list<CtAnchoredWidget*> get_anchored_widgets(int start_offset = -1, int end_offset = -1);
     CtAnchoredWidget*            get_anchored_widget(Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor);
 
     void pending_edit_db_node_prop();
@@ -129,25 +129,6 @@ public:
 private:
     const CtTreeModelColumns* _pColumns{nullptr};
     CtMainWin*                _pCtMainWin{nullptr};
-};
-
-class CtDragStore : public Gtk::TreeStore
-{
-public:
-    static Glib::RefPtr<CtDragStore> create(CtMainWin* pCtMainWin, const Gtk::TreeModelColumnRecord& columns);
-
-private:
-    CtDragStore(CtMainWin* pCtMainWin, const Gtk::TreeModelColumnRecord& columns);
-
-protected:
-    bool drag_data_get_vfunc(const Gtk::TreeModel::Path& path, Gtk::SelectionData& selection_data) const override;
-    bool row_drop_possible_vfunc(const Gtk::TreeModel::Path& dest, const Gtk::SelectionData& selection_data) const override;
-    bool drag_data_received_vfunc(const Gtk::TreeModel::Path& dest, const Gtk::SelectionData& selection_data) override;
-
-private:
-    CtMainWin*  _pCtMainWin;
-    mutable Glib::ustring _drag_src;
-
 };
 
 class CtTextView;
@@ -194,11 +175,10 @@ public:
     const std::list<gint64>&       bookmarks_get();
     void                           bookmarks_set(const std::list<gint64>& bookmarks);
 
-    Glib::RefPtr<CtDragStore>       get_store();
+    Glib::RefPtr<Gtk::TreeStore>    get_store() { return _rTreeStore; }
     Gtk::TreeIter                   get_iter_first();
     CtTreeIter                      get_ct_iter_first();
     Gtk::TreeIter                   get_tree_iter_last_sibling(const Gtk::TreeNodeChildren& children);
-    Gtk::TreeIter                   get_tree_iter_prev_sibling(Gtk::TreeIter tree_iter);
     Gtk::TreePath                   get_path(Gtk::TreeIter tree_iter);
     CtTreeIter                      get_iter(Gtk::TreePath& path);
     CtTreeIter                      to_ct_tree_iter(Gtk::TreeIter tree_iter);
@@ -221,7 +201,7 @@ protected:
 
 private:
     CtTreeModelColumns              _columns;
-    Glib::RefPtr<CtDragStore>       _rTreeStore;
+    Glib::RefPtr<Gtk::TreeStore>    _rTreeStore;
     std::list<gint64>               _bookmarks;
     std::set<Glib::ustring>         _usedTags;
     std::map<gint64, Glib::ustring> _nodes_names_dict; // for link tooltips

@@ -931,7 +931,7 @@ std::pair<int, int> CtActions::_check_pattern_in_object_between(CtTreeIter tree_
     }
     if (!forward) std::swap(start_offset, end_offset);
 
-    std::list<CtAnchoredWidget*> obj_vec = tree_iter.get_embedded_pixbufs_tables_codeboxes(start_offset, end_offset);
+    std::list<CtAnchoredWidget*> obj_vec = tree_iter.get_anchored_widgets(start_offset, end_offset);
     if (!forward)
         std::reverse(obj_vec.begin(), obj_vec.end());
     for (auto element: obj_vec)

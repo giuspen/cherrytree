@@ -312,7 +312,7 @@ xmlpp::Element* CtStorageXmlHelper::node_to_xml(CtTreeIter* ct_tree_iter,
     save_buffer_no_widgets_to_xml(p_node_node, buffer, start_offset, end_offset, 'n');
 
     if (with_widgets) {
-        for (CtAnchoredWidget* pAnchoredWidget : ct_tree_iter->get_embedded_pixbufs_tables_codeboxes(start_offset, end_offset)) {
+        for (CtAnchoredWidget* pAnchoredWidget : ct_tree_iter->get_anchored_widgets(start_offset, end_offset)) {
             pAnchoredWidget->to_xml(p_node_node, start_offset > 0 ? -start_offset : 0, storage_cache);
         }
     }

@@ -35,7 +35,7 @@ void CtExport2Pango::pango_get_from_treestore_node(CtTreeIter node_iter, int sel
 {
     auto curr_buffer = node_iter.get_node_text_buffer();
 
-    std::list<CtAnchoredWidget*> out_widgets = node_iter.get_embedded_pixbufs_tables_codeboxes(sel_start, sel_end);
+    std::list<CtAnchoredWidget*> out_widgets = node_iter.get_anchored_widgets(sel_start, sel_end);
     int start_text_offset = sel_start < 1 ? 0 : sel_start;
     for (auto widget: out_widgets)
     {

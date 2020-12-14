@@ -731,7 +731,7 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
             for (int i: {0, 1})
             {
                 if (i == 1) iter_anchor.backward_char();
-                auto widgets = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(iter_anchor.get_offset(), iter_anchor.get_offset());
+                auto widgets = _pCtMainWin->curr_tree_iter().get_anchored_widgets(iter_anchor.get_offset(), iter_anchor.get_offset());
                 if (not widgets.empty())
                     if (CtImagePng* image = dynamic_cast<CtImagePng*>(widgets.front()))
                         if (not image->get_link().empty())

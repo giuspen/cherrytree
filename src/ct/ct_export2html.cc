@@ -311,7 +311,7 @@ Glib::ustring CtExport2Html::selection_export_to_html(Glib::RefPtr<Gtk::TextBuff
         fs::path tempFolder = _pCtMainWin->get_ct_tmp()->getHiddenDirPath("IMAGE_TEMP_FOLDER");
 
         int start_offset = start_iter.get_offset();
-        std::list<CtAnchoredWidget*> widgets = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(start_iter.get_offset(), end_iter.get_offset());
+        std::list<CtAnchoredWidget*> widgets = _pCtMainWin->curr_tree_iter().get_anchored_widgets(start_iter.get_offset(), end_iter.get_offset());
         for (CtAnchoredWidget* widget: widgets)
         {
             int end_offset = widget->getOffset();
@@ -505,7 +505,7 @@ void CtExport2Html::_html_get_from_treestore_node(CtTreeIter node_iter, int sel_
                                                   std::vector<Glib::ustring>& out_slots, std::vector<CtAnchoredWidget*>& out_widgets)
 {
     auto curr_buffer = node_iter.get_node_text_buffer();
-    auto widgets = node_iter.get_embedded_pixbufs_tables_codeboxes(sel_start, sel_end);
+    auto widgets = node_iter.get_anchored_widgets(sel_start, sel_end);
     out_widgets = std::vector<CtAnchoredWidget*>(widgets.begin(), widgets.end()); // copy from list to vector
 
     out_slots.clear();

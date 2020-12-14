@@ -208,7 +208,7 @@ void CtActions::_node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeDat
     _pCtMainWin->get_text_view().grab_focus();
 }
 
-void CtActions::_node_child_exist_or_create(Gtk::TreeIter parentIter, const std::string& nodeName)
+void CtActions::node_child_exist_or_create(Gtk::TreeIter parentIter, const std::string& nodeName)
 {
     Gtk::TreeIter childIter = parentIter ? parentIter->children().begin() : _pCtMainWin->get_tree_store().get_iter_first();
     for (; childIter; ++childIter)
@@ -226,7 +226,7 @@ void CtActions::_node_child_exist_or_create(Gtk::TreeIter parentIter, const std:
 }
 
 // Move a node to a parent and after a sibling
-void CtActions::_node_move_after(Gtk::TreeIter iter_to_move, Gtk::TreeIter father_iter,
+void CtActions::node_move_after(Gtk::TreeIter iter_to_move, Gtk::TreeIter father_iter,
                                  Gtk::TreeIter brother_iter /*= Gtk::TreeIter()*/, bool set_first /*= false*/)
 {
     Gtk::TreeIter new_node_iter;
@@ -450,10 +450,10 @@ void CtActions::node_date()
     Glib::ustring day = str::time_format("%d %a", time);
 
     _pCtMainWin->get_state_machine().set_go_bk_fw_click(true); // so nodes don't be in the list of visited
-    _node_child_exist_or_create(Gtk::TreeIter(), year);
-    _node_child_exist_or_create(_pCtMainWin->curr_tree_iter(), month);
+    node_child_exist_or_create(Gtk::TreeIter(), year);
+    node_child_exist_or_create(_pCtMainWin->curr_tree_iter(), month);
     _pCtMainWin->get_state_machine().set_go_bk_fw_click(false);
-    _node_child_exist_or_create(_pCtMainWin->curr_tree_iter(), day);
+    node_child_exist_or_create(_pCtMainWin->curr_tree_iter(), day);
 }
 
 void CtActions::node_up()
@@ -493,7 +493,7 @@ void CtActions::node_right()
     if (!_is_there_selected_node_or_error()) return;
     auto prev_iter = --_pCtMainWin->curr_tree_iter();
     if (!prev_iter) return;
-    _node_move_after(_pCtMainWin->curr_tree_iter(), prev_iter);
+    node_move_after(_pCtMainWin->curr_tree_iter(), prev_iter);
     _pCtMainWin->get_tree_store().update_nodes_icon(_pCtMainWin->curr_tree_iter(), true);
 }
 
@@ -502,7 +502,7 @@ void CtActions::node_left()
     if (!_is_there_selected_node_or_error()) return;
     Gtk::TreeIter father_iter = _pCtMainWin->curr_tree_iter()->parent();
     if (!father_iter) return;
-    _node_move_after(_pCtMainWin->curr_tree_iter(), father_iter->parent(), father_iter);
+    node_move_after(_pCtMainWin->curr_tree_iter(), father_iter->parent(), father_iter);
     _pCtMainWin->get_tree_store().update_nodes_icon(_pCtMainWin->curr_tree_iter(), true);
 }
 
@@ -530,7 +530,7 @@ void CtActions::node_change_father()
             return;
         }
 
-    _node_move_after(_pCtMainWin->curr_tree_iter(), father_iter);
+    node_move_after(_pCtMainWin->curr_tree_iter(), father_iter);
     _pCtMainWin->get_tree_store().update_nodes_icon(_pCtMainWin->curr_tree_iter(), true);
 }
 
@@ -563,16 +563,16 @@ bool CtActions::node_move(Gtk::TreeModel::Path src_path, Gtk::TreeModel::Path de
     if (_pCtMainWin->get_tree_store().get_iter(dest_path)) {
         if (dest_path.prev()) {
             CtTreeIter dest_iter = _pCtMainWin->get_tree_store().get_iter(dest_path); // move iter to insert `before` it
-            _node_move_after(src_iter, father_dest_iter, dest_iter, false);
+            node_move_after(src_iter, father_dest_iter, dest_iter, false);
         } else {
-            _node_move_after(src_iter, father_dest_iter, CtTreeIter(), true); // put it as first
+            node_move_after(src_iter, father_dest_iter, CtTreeIter(), true); // put it as first
         }
     } else { // case 2, 3
         if (dest_path.prev()) {
             CtTreeIter dest_iter = _pCtMainWin->get_tree_store().get_iter(dest_path); // put after siblings
-            _node_move_after(src_iter, father_dest_iter, dest_iter, false);
+            node_move_after(src_iter, father_dest_iter, dest_iter, false);
         } else {
-            _node_move_after(src_iter, father_dest_iter, CtTreeIter(), true); // put it as first child
+            node_move_after(src_iter, father_dest_iter, CtTreeIter(), true); // put it as first child
         }
     }
     return true;

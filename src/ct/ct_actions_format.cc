@@ -439,7 +439,7 @@ CtCodebox* CtActions::_codebox_in_use()
     if (not curr_codebox_anchor) return nullptr;
     if (not _curr_buffer()) return nullptr;
     Gtk::TextIter iter_sel_start = _curr_buffer()->get_insert()->get_iter();
-    auto widgets = _pCtMainWin->curr_tree_iter().get_embedded_pixbufs_tables_codeboxes(iter_sel_start.get_offset(), iter_sel_start.get_offset());
+    auto widgets = _pCtMainWin->curr_tree_iter().get_anchored_widgets(iter_sel_start.get_offset(), iter_sel_start.get_offset());
     if (widgets.empty()) return nullptr;
     if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widgets.front()))
         return codebox;
