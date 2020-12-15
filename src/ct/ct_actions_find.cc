@@ -719,7 +719,8 @@ bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter, Glib::RefP
     if (s_state.newline_trick) {
         buff_start_iter = text_buffer->begin();
         Gtk::TextIter buff_step_iter = buff_start_iter;
-        if (buff_step_iter.forward_char()) text_buffer->erase(buff_start_iter, buff_step_iter);
+        (void)buff_step_iter.forward_char();
+        text_buffer->erase(buff_start_iter, buff_step_iter);
         if (restore_modified) text_buffer->set_modified(false);
     }
     if (s_state.replace_active && pattern_found)
