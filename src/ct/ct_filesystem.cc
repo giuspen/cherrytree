@@ -284,7 +284,7 @@ std::uintmax_t remove_all(const path& dir)
 
 fs::path get_cherrytree_datadir()
 {
-    if (Glib::file_test(_CMAKE_BINARY_DIR, Glib::FILE_TEST_IS_DIR)) {
+    if (_exePath.parent_path() == fs::canonical(_CMAKE_BINARY_DIR)) {
         // we're running from the build sources
         return _CMAKE_SOURCE_DIR;
     }
@@ -303,10 +303,9 @@ fs::path get_cherrytree_datadir()
 
 fs::path get_cherrytree_localedir()
 {
-    std::string sources_po_dir = Glib::canonicalize_filename(Glib::build_filename(_CMAKE_SOURCE_DIR, "po"));
-    if (Glib::file_test(sources_po_dir, Glib::FILE_TEST_IS_DIR)) {
+    if (_exePath.parent_path() == fs::canonical(_CMAKE_BINARY_DIR)) {
         // we're running from the build sources
-        return sources_po_dir;
+        return Glib::canonicalize_filename(Glib::build_filename(_CMAKE_SOURCE_DIR, "po"));
     }
 #ifdef _WIN32
     // e.g. cherrytree_0.99.9_win64_portable\mingw64\bin\cherrytree.exe

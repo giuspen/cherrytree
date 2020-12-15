@@ -53,5 +53,7 @@ package_add_test(run_tests
 )
 
 add_custom_command(TARGET run_tests POST_BUILD
-  COMMAND ./run_tests
+  COMMAND ${CMAKE_BINARY_DIR}/run_tests
 )
+
+set_target_properties(run_tests PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")

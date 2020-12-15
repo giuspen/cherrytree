@@ -22,7 +22,7 @@
  */
 
 #include "gtest/gtest.h"
-#include <giomm.h>
+#include "ct_filesystem.h"
 
 #ifdef _WIN32
 static void _glib_log_handler(const gchar*, GLogLevelFlags, const gchar*, gpointer)
@@ -35,6 +35,7 @@ int main(int argc, char **argv)
 #ifdef _WIN32
     g_log_set_default_handler(_glib_log_handler, nullptr);
 #endif // _WIN32
+    fs::register_exe_path_detect_if_portable(argv[0]);
     ::testing::InitGoogleTest(&argc, argv); 
     return RUN_ALL_TESTS();
 }
