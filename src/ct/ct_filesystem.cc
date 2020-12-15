@@ -177,6 +177,27 @@ void open_weblink(const std::string& link)
 #endif
 }
 
+void _open_path_with_default_app(const fs::path& file_or_folder_path)
+{
+#ifdef _WIN32
+    // https://stackoverflow.com/questions/42442189/how-to-open-spawn-a-file-with-glib-gtkmm-in-windows
+    glong utf16text_len = 0;
+    g_autofree gunichar2* utf16text = g_utf8_to_utf16(file_or_folder_path.c_str(),
+                                                      (glong)Glib::ustring(file_or_folder_path.c_str()).bytes(),
+                                                      nullptr,
+                                                      &utf16text_len,
+                                                      nullptr);
+    ShellExecuteW(GetActiveWindow(), L"open", (LPCWSTR)utf16text, NULL, NULL, SW_SHOWDEFAULT);
+#elif defined(__APPLE__)
+    std::vector<std::string> argv = { "open", file_or_folder_path.string() };
+    Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
+#else
+    std::vector<std::string> argv = { "xdg-open", "file://" + file_or_folder_path.string() };
+    Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
+    // g_app_info_launch_default_for_uri(f_path.c_str(), nullptr, nullptr); // doesn't work on KDE
+#endif
+}
+
 // Open Filepath with External App
 void open_filepath(const fs::path& filepath, bool open_folder_if_file_not_exists, CtConfig* config)
 {
@@ -187,22 +208,17 @@ void open_filepath(const fs::path& filepath, bool open_folder_if_file_not_exists
         if (retVal != 0) {
             spdlog::error("system({}) returned {}", cmd, retVal);
         }
-    } else {
+    }
+    else {
         if (open_folder_if_file_not_exists && !fs::exists(filepath)) {
             open_folderpath(filepath, config);
-        } else if (!fs::exists(filepath)) {
+        }
+        else if (!fs::exists(filepath)) {
             spdlog::error("fs::open_filepath: file doesn't exist, {}", filepath.string());
             return;
-        } else {
-#ifdef _WIN32
-            glong utf16text_len = 0;
-            g_autofree gunichar2* utf16text = g_utf8_to_utf16(filepath.c_str(), (glong)Glib::ustring(filepath.c_str()).bytes(), nullptr, &utf16text_len, nullptr);
-            ShellExecuteW(GetActiveWindow(), L"open", (LPCWSTR)utf16text, NULL, NULL, SW_SHOWNORMAL);
-#else
-            std::vector<std::string> argv = { "xdg-open", "file://" + filepath.string() };
-            Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
-            // g_app_info_launch_default_for_uri(f_path.c_str(), nullptr, nullptr); // doesn't work on KDE
-#endif
+        }
+        else {
+            _open_path_with_default_app(filepath);
         }
     }
 }
@@ -217,20 +233,9 @@ void open_folderpath(const fs::path& folderpath, CtConfig* config)
         if (retVal != 0) {
             spdlog::error("system({}) returned {}", cmd, retVal);
         }
-    } else {
-        // https://stackoverflow.com/questions/42442189/how-to-open-spawn-a-file-with-glib-gtkmm-in-windows
-#ifdef _WIN32
-        glong utf16text_len = 0;
-        g_autofree gunichar2* utf16text = g_utf8_to_utf16(folderpath.c_str(), (glong)Glib::ustring(folderpath.c_str()).bytes(), nullptr, &utf16text_len, nullptr);
-        ShellExecuteW(GetActiveWindow(), L"open", (LPCWSTR)utf16text, NULL, NULL, SW_SHOWDEFAULT);
-#elif defined(__APPLE__)
-        std::vector<std::string> argv = { "open", folderpath.string() };
-        Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
-#else
-        std::vector<std::string> argv = { "xdg-open", "file://" + folderpath.string() };
-        Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
-        // g_app_info_launch_default_for_uri(f_path.c_str(), nullptr, nullptr); // doesn't work on KDE
-#endif
+    }
+    else {
+        _open_path_with_default_app(folderpath);
     }
 }
 
