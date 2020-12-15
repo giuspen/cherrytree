@@ -834,8 +834,10 @@ void CtMainWin::menu_set_bookmark_menu_items()
     }
 
     sigc::slot<void, gint64> bookmark_action = [&](gint64 node_id) {
-        Gtk::TreeIter tree_iter = _uCtTreestore->get_node_from_node_id(node_id);
-        _uCtTreeview->set_cursor_safe(tree_iter);
+        CtTreeIter tree_iter = _uCtTreestore->get_node_from_node_id(node_id);
+        if (tree_iter) {
+            _uCtTreeview->set_cursor_safe(tree_iter);
+        }
     };
     _pBookmarksSubmenu->set_submenu(*_uCtMenu->build_bookmarks_menu(bookmarks, bookmark_action));
 }

@@ -362,15 +362,13 @@ std::vector<STRING> split(const STRING& strToSplit, const char* delimiter)
     return vecOfStrings;
 }
 
-
-template<class STRING>
-std::string join(const std::vector<STRING>& cnt, const std::string& delimer)
+template<class STRLIST>
+std::string join(const STRLIST& cnt, const std::string& delim)
 {
-    bool firstTime = true;
+    bool firstTime{true};
     std::stringstream ss;
-    for (auto& v: cnt)
-    {
-        if (not firstTime) ss << delimer;
+    for (auto& v : cnt) {
+        if (not firstTime) ss << delim;
         else firstTime = false;
         ss << v;
     }

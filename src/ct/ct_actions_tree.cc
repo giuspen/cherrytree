@@ -378,30 +378,37 @@ void CtActions::node_delete()
     if (!_is_there_selected_node_or_error()) return;
     if (!_is_curr_node_not_read_only_or_error()) return;
 
-    std::function<void(Gtk::TreeIter, int, std::vector<std::string>&)> collect_children;
-    collect_children = [this, &collect_children](Gtk::TreeIter iter, int level, std::vector<std::string>& list) {
-      if (list.size() > 15) {
-          if (list.size() == 16)
-            list.push_back(std::string(CtConst::CHAR_NEWLINE) + "...");
-      } else {
-          list.push_back(CtConst::CHAR_NEWLINE + str::repeat(CtConst::CHAR_SPACE, level*3) + _pCtMainWin->get_ct_config()->charsListbul[0] +
-                  CtConst::CHAR_SPACE + _pCtMainWin->get_tree_store().to_ct_tree_iter(iter).get_node_name());
-          for (auto child: iter->children())
-              collect_children(child, level + 1, list);
-      }
+    std::function<void(Gtk::TreeIter, int, std::list<gint64>&, std::list<std::string>&)> collect_children;
+    collect_children = [this, &collect_children](Gtk::TreeIter iter,
+                                                 int level,
+                                                 std::list<gint64>& listIds,
+                                                 std::list<std::string>& listWarns) {
+        CtTreeIter ctTreeIter = _pCtMainWin->get_tree_store().to_ct_tree_iter(iter);
+        listIds.push_back(ctTreeIter.get_node_id());
+        if (listWarns.size() > 15) {
+            if (listWarns.size() == 16) {
+                listWarns.push_back(std::string(CtConst::CHAR_NEWLINE) + "...");
+            }
+        }
+        else {
+            listWarns.push_back(CtConst::CHAR_NEWLINE + str::repeat(CtConst::CHAR_SPACE, level*3) + _pCtMainWin->get_ct_config()->charsListbul[0] + CtConst::CHAR_SPACE + ctTreeIter.get_node_name());
+            for (auto child : iter->children()) {
+                collect_children(child, level + 1, listIds, listWarns);
+            }
+        }
     };
 
-
+    std::list<gint64> lstNodesIds;
+    std::list<std::string> lstNodesWarn;
+    collect_children(_pCtMainWin->curr_tree_iter(), 0, lstNodesIds, lstNodesWarn);
     Glib::ustring warning_label = str::format(_("Are you sure to <b>Delete the node '%s'?</b>"), _pCtMainWin->curr_tree_iter().get_node_name());
-    if (!_pCtMainWin->curr_tree_iter()->children().empty())
-    {
-        std::vector<std::string> lst;
-        collect_children(_pCtMainWin->curr_tree_iter(), 0, lst);
+    if (!_pCtMainWin->curr_tree_iter()->children().empty()) {
         warning_label += str::repeat(CtConst::CHAR_NEWLINE, 2) + _("The node <b>has Children, they will be Deleted too!</b>");
-        warning_label += str::join(lst, "");
+        warning_label += str::join(lstNodesWarn, "");
     }
-    if (!CtDialogs::question_dialog(warning_label, *_pCtMainWin))
+    if (!CtDialogs::question_dialog(warning_label, *_pCtMainWin)) {
         return;
+    }
     // next selected node will be previous sibling or next sibling or parent or None
     Gtk::TreeIter new_iter = --_pCtMainWin->curr_tree_iter();
     if (!new_iter) new_iter = ++_pCtMainWin->curr_tree_iter();
@@ -412,13 +419,11 @@ void CtActions::node_delete()
 
     Gtk::TreeIter erase_iter = _pCtMainWin->curr_tree_iter();
 
-    if (new_iter)
-    {
+    if (new_iter) {
         _pCtMainWin->get_tree_view().set_cursor_safe(new_iter);
         _pCtMainWin->get_text_view().grab_focus();
     }
-    else
-    {
+    else {
         _curr_buffer()->set_text("");
         _pCtMainWin->window_header_update();
         _pCtMainWin->update_selected_node_statusbar_info();
@@ -426,6 +431,17 @@ void CtActions::node_delete()
     }
 
     _pCtMainWin->get_tree_store().get_store()->erase(erase_iter);
+
+    bool anyRemovedBookmarked{false};
+    for (gint64 nodeId : lstNodesIds) {
+        if (_pCtMainWin->get_tree_store().bookmarks_remove(nodeId)) {
+            anyRemovedBookmarked = true;
+        }
+    }
+    if (anyRemovedBookmarked) {
+        _pCtMainWin->menu_set_bookmark_menu_items();
+        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::book);
+    }
 }
 
 void CtActions::node_toggle_read_only()
@@ -680,7 +696,6 @@ void CtActions::bookmark_curr_node_remove()
         _pCtMainWin->menu_update_bookmark_menu_item(false);
         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::book);
     }
-
 }
 
 void CtActions::bookmarks_handle()
