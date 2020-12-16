@@ -13,7 +13,7 @@
    version="1.1"
    id="svg6"
    sodipodi:docname="ct_sort-asc.svg"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)">
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)">
   <metadata
      id="metadata12">
     <rdf:RDF>
@@ -22,7 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -218,14 +218,14 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1366"
-     inkscape:window-height="715"
+     inkscape:window-height="717"
      id="namedview8"
      showgrid="true"
      inkscape:zoom="16"
-     inkscape:cx="4.0117128"
-     inkscape:cy="9.1366726"
-     inkscape:window-x="-8"
-     inkscape:window-y="22"
+     inkscape:cx="-6.5507872"
+     inkscape:cy="8.8866726"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg6">
     <inkscape:grid
@@ -237,8 +237,7 @@
      id="g841"
      transform="translate(-873,-77)" />
   <g
-     aria-label="
-Z"
+     aria-label=" Z"
      transform="matrix(0.2827049,0,0,0.20887731,19.148975,4.4294462)"
      id="g124"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Geometr415 Blk BT';-inkscape-font-specification:'Geometr415 Blk BT';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect106);fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:4.11516923" />
@@ -246,6 +245,29 @@ Z"
      style="fill:black;fill-opacity:1;stroke:none;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect92);"
      id="text90"
      xml:space="preserve" />
+  <g
+     aria-label="A"
+     transform="matrix(0.23926824,0,0,0.20700256,16.895717,6.9317049)"
+     id="g120"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Geometr415 Blk BT';-inkscape-font-specification:'Geometr415 Blk BT';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect98);fill:#1a1a1a;fill-opacity:1;stroke:#ffffff;stroke-width:8.98668688;opacity:0.7">
+    <path
+       d="m -55.605469,-8.6132813 h 7.441407 l -3.671875,-8.8671877 z m -10.585937,9.0039063 14.433594,-29.199219 h 0.429687 l 14.121094,29.199219 h -7.070313 l -1.796875,-4.1210938 h -11.484375 l -1.835937,4.1210938 z"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Geometr415 Blk BT';-inkscape-font-specification:'Geometr415 Blk BT';fill:#1a1a1a;stroke:#ffffff;stroke-width:8.98668688"
+       id="path118"
+       inkscape:connector-curvature="0" />
+  </g>
+  <g
+     aria-label=" Z"
+     transform="matrix(0.2827049,0,0,0.20887731,19.148975,4.4294462)"
+     id="g130"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Geometr415 Blk BT';-inkscape-font-specification:'Geometr415 Blk BT';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect106);fill:#1a1a1a;fill-opacity:1;stroke:#ffffff;stroke-width:8.23033845;opacity:0.7">
+    <path
+       d="m -64.316406,50.390625 14.082031,-22.402344 h -11.310247 l -0.252253,-5.917969 h 22.480469 l -14.042969,22.324219 h 14.042969 l 0.03117,5.996094 z"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Geometr415 Blk BT';-inkscape-font-specification:'Geometr415 Blk BT';fill:#1a1a1a;stroke:#ffffff;stroke-width:8.23033845"
+       id="path128"
+       sodipodi:nodetypes="ccccccccc"
+       inkscape:connector-curvature="0" />
+  </g>
   <g
      transform="rotate(-90,10.012045,6.9879515)"
      id="g28">
@@ -263,60 +285,27 @@ Z"
        d="m 7.4999965,8.5224087 c -0.5059188,1.637e-4 -0.9998361,0.545123 -1,1.0506969 V 10.553808 L 3.8265895,8 6.4999965,5.3938097 v 0.9752625 c 1.639e-4,0.5055734 0.4940812,1.1066704 1,1.1068342" />
   </g>
   <g
-     transform="translate(14)"
-     id="g311">
-    <g
-       id="g142"
-       transform="translate(-14)">
-      <g
-         aria-label="A"
-         transform="matrix(0.23926824,0,0,0.20700256,16.895717,6.9317049)"
-         id="g120"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Geometr415 Blk BT';-inkscape-font-specification:'Geometr415 Blk BT';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect98);fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:4.49334">
-        <path
-           d="m -55.605469,-8.6132813 h 7.441407 l -3.671875,-8.8671877 z m -10.585937,9.0039063 14.433594,-29.199219 h 0.429687 l 14.121094,29.199219 h -7.070313 l -1.796875,-4.1210938 h -11.484375 l -1.835937,4.1210938 z"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Geometr415 Blk BT';-inkscape-font-specification:'Geometr415 Blk BT';fill:none;stroke:#ffffff;stroke-width:4.49334"
-           id="path118" />
-      </g>
-      <g
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Geometr415 Blk BT';-inkscape-font-specification:'Geometr415 Blk BT';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect98);fill:#1a1a1a;fill-opacity:1;stroke:none"
-         id="text96"
-         transform="matrix(0.23926824,0,0,0.20700256,16.895717,6.9317049)"
-         aria-label="A">
-        <path
-           id="path112"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Geometr415 Blk BT';-inkscape-font-specification:'Geometr415 Blk BT';fill:#1a1a1a"
-           d="m -55.605469,-8.6132813 h 7.441407 l -3.671875,-8.8671877 z m -10.585937,9.0039063 14.433594,-29.199219 h 0.429687 l 14.121094,29.199219 h -7.070313 l -1.796875,-4.1210938 h -11.484375 l -1.835937,4.1210938 z" />
-      </g>
-    </g>
-    <g
-       id="g136"
-       transform="translate(-14)">
-      <g
-         aria-label="
-Z"
-         transform="matrix(0.2827049,0,0,0.20887731,19.148975,4.4294462)"
-         id="g130"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Geometr415 Blk BT';-inkscape-font-specification:'Geometr415 Blk BT';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect106);fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:4.11517">
-        <path
-           d="m -64.316406,50.390625 14.082031,-22.402344 h -11.310247 l -0.252253,-5.917969 h 22.480469 l -14.042969,22.324219 h 14.042969 l 0.03117,5.996094 z"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Geometr415 Blk BT';-inkscape-font-specification:'Geometr415 Blk BT';fill:none;stroke:#ffffff;stroke-width:4.11517"
-           id="path128"
-           sodipodi:nodetypes="ccccccccc" />
-      </g>
-      <g
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Geometr415 Blk BT';-inkscape-font-specification:'Geometr415 Blk BT';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect106);fill:#1a1a1a;fill-opacity:1;stroke:none"
-         id="text104"
-         transform="matrix(0.2827049,0,0,0.20887731,19.148975,4.4294462)"
-         aria-label="
-Z">
-        <path
-           sodipodi:nodetypes="ccccccccc"
-           id="path115"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Geometr415 Blk BT';-inkscape-font-specification:'Geometr415 Blk BT';fill:#1a1a1a"
-           d="m -64.316406,50.390625 14.082031,-22.402344 h -11.310247 l -0.252253,-5.917969 h 22.480469 l -14.042969,22.324219 h 14.042969 l 0.03117,5.996094 z" />
-      </g>
-    </g>
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Geometr415 Blk BT';-inkscape-font-specification:'Geometr415 Blk BT';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect98);fill:#1a1a1a;fill-opacity:1;stroke:none"
+     id="text96"
+     transform="matrix(0.23926824,0,0,0.20700256,16.895717,6.9317049)"
+     aria-label="A">
+    <path
+       id="path112"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Geometr415 Blk BT';-inkscape-font-specification:'Geometr415 Blk BT';fill:#1a1a1a"
+       d="m -55.605469,-8.6132813 h 7.441407 l -3.671875,-8.8671877 z m -10.585937,9.0039063 14.433594,-29.199219 h 0.429687 l 14.121094,29.199219 h -7.070313 l -1.796875,-4.1210938 h -11.484375 l -1.835937,4.1210938 z"
+       inkscape:connector-curvature="0" />
+  </g>
+  <g
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Geometr415 Blk BT';-inkscape-font-specification:'Geometr415 Blk BT';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect106);fill:#1a1a1a;fill-opacity:1;stroke:none"
+     id="text104"
+     transform="matrix(0.2827049,0,0,0.20887731,19.148975,4.4294462)"
+     aria-label=" Z">
+    <path
+       sodipodi:nodetypes="ccccccccc"
+       id="path115"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Geometr415 Blk BT';-inkscape-font-specification:'Geometr415 Blk BT';fill:#1a1a1a"
+       d="m -64.316406,50.390625 14.082031,-22.402344 h -11.310247 l -0.252253,-5.917969 h 22.480469 l -14.042969,22.324219 h 14.042969 l 0.03117,5.996094 z"
+       inkscape:connector-curvature="0" />
   </g>
   <text
      style="fill:black;fill-opacity:1;stroke:none;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect265);"

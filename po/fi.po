@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-27 20:13+0100\n"
-"PO-Revision-Date: 2020-10-22 13:30+0300\n"
+"POT-Creation-Date: 2020-12-10 21:50+0000\n"
+"PO-Revision-Date: 2020-12-16 09:23+0200\n"
 "Last-Translator: henri k <henrikau@posteo.net>\n"
 "Language-Team: Finnish\n"
 "Language: fi\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:105
 #: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:165
@@ -25,8 +25,8 @@ msgstr "Kirjoitetaan levylle..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:191
 #: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:197
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:321
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:328
+#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:331
+#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:338
 #, c-format
 msgid "You Have No Write Access to %s"
 msgstr "Sinulla ei ole kirjoitusoikeutta kohteeseen %s"
@@ -46,15 +46,15 @@ msgid "Text and Code"
 msgstr "Teksti ja koodi"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:49
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:755
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1088
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1236
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1669
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:799
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1096
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1291
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1685
 msgid "Rich Text"
 msgstr "Muotoiltu teksti"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:50
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:777
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:815
 msgid "Plain Text and Code"
 msgstr "Raakateksti ja koodi"
 
@@ -64,7 +64,7 @@ msgid "Special Characters"
 msgstr "Erikoismerkit"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:52
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:700
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:754
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:170
 msgid "Tree"
 msgstr "Puu"
@@ -74,7 +74,7 @@ msgid "Theme"
 msgstr "Teema"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:54
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1117
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1132
 msgid "Fonts"
 msgstr "Kirjasimet"
 
@@ -91,74 +91,74 @@ msgid "Keyboard Shortcuts"
 msgstr "Pikanäppäimet"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:58
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:177
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:467
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:980
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1241
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:183
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:514
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:998
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1248
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1551
 msgid "Miscellaneous"
 msgstr "Sekalaiset"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:72
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:84
 msgid "Tab Width"
 msgstr "Sarkaimen leveys"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:78
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:90
 msgid "Insert Spaces Instead of Tabs"
 msgstr "Lisää välilyöntejä sarkainten sijaan"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:80
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:92
 msgid "Use Line Wrapping"
 msgstr "Käytä rivitystä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:84
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:96
 msgid "Line Wrapping Indentation"
 msgstr "Rivityksen sisennys"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:91
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:103
 msgid "Enable Automatic Indentation"
 msgstr "Ota käyttöön automaattinen sisennys"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:93
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1385
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:105
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1390
 msgid "Show Line Numbers"
 msgstr "Näytä rivinumerot"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:95
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:107
 msgid "Scroll Beyond Last Line"
 msgstr "Vieritä viimeisen rivin jälkeen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:99
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:111
 msgid "Vertical Space Around Lines"
 msgstr "Rivienvälinen pystysuuntainen tila"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:109
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:121
 msgid "Vertical Space in Wrapped Lines"
 msgstr "Rivitettyjen rivien pystysuuntainen tila"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:132
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:334
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:549
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:144
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:339
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:604
 msgid "Text Editor"
 msgstr "Tekstieditori"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:142
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:148
 msgid "Timestamp Format"
 msgstr "Aikaleiman muoto"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:153
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:159
 msgid "Horizontal Rule"
 msgstr "Vaakaviiva"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:166
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:172
 msgid "Chars to Select at Double Click"
 msgstr "Tuplaklikatessa valittavat merkit"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:258
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:584
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:597
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1338
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1425
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:633
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:646
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1339
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1431
 msgid "Reset to Default"
 msgstr "Palauta oletus"
 
@@ -166,311 +166,317 @@ msgstr "Palauta oletus"
 msgid "Chars for Bulleted List"
 msgstr "Merkit luetteloon"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:289
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:290
 msgid "Chars for Todo List"
 msgstr "Merkit todo-listaan"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:297
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:299
 msgid "Chars for Table Of Content"
 msgstr "Merkit sisällysluetteloon"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:305
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:308
 msgid "Chars for Smart Double Quotes"
 msgstr "Merkit älykkäisiin lainausmerkkeihin"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:313
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:317
 msgid "Chars for Smart Single Quotes"
 msgstr "Merkit älykkäisiin heittomerkkeihin"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:320
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:325
 msgid "Enable Smart Quotes Auto Replacement"
 msgstr "Ota käyttöön älykäs lainauksen korvaus"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:321
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:326
 msgid "Enable Symbol Auto Replacement"
 msgstr "Ota käyttöön symbolien automaattinen korvaaminen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:394
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:438
 msgid "Enable Spell Check"
 msgstr "Aseta kielentarkastus päälle"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:398
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:442
 msgid "Spell Check Language"
 msgstr "Kielentarkastuksen kieli"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:409
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1252
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:455
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1307
 msgid "Spell Check"
 msgstr "Kielentarkistus"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:419
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:541
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:459
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:593
 msgid "Show White Spaces"
 msgstr "Näytä välilyönnit"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:421
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:543
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:461
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:595
 msgid "Highlight Current Line"
 msgstr "Korosta nykyinen rivi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:423
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:463
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:597
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1392
+msgid "Highlight Matching Brackets"
+msgstr "Korosta vastaavat sulkeet"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:465
 msgid "Expand CodeBoxes Automatically"
 msgstr "Laajenna Koodilaatikot automaattisesti"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:428
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:470
 msgid "Embedded File Icon Size"
 msgstr "Upotetun tiedoston ikonin koko"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:437
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:479
 msgid "Embedded File Size Limit"
 msgstr "Upotetun tiedoston kokorajoitus"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:444
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:486
 msgid "Show File Name on Top of Embedded File Icon"
 msgstr "Näytä tiedostonimi upotetun tiedoston ikonin yläpuolella"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:446
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:488
 msgid "Limit of Undoable Steps Per Node"
 msgstr "Rajoita kumottavien vaiheiden määrää solmua kohden"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:452
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:494
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "Triplaklikatessa valitse koko kappale"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:454
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:497
 msgid "Enable Markdown Auto Replacement (Experimental)"
 msgstr "Ota käyttöön automaattinen Markdown-korvaaja (kokeellinen)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:578
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1332
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:627
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1333
 msgid "Add"
 msgstr "Lisää"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:581
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1335
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:630
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1336
 msgid "Remove Selected"
 msgstr "Poista valitut"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:604
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:653
 msgid "Command per Node/CodeBox Type"
 msgstr "Komentoja per solmu/koodilaatikko -tyyppi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:608
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:657
 msgid "Terminal Command"
 msgstr "Päätekomento"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:613
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:662
 msgid "Code Execution"
 msgstr "Koodin suoritus"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:682
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:736
 msgid "Light Background, Dark Text"
 msgstr "Vaalea tausta, tumma teksti"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:683
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:737
 msgid "Dark Background, Light Text"
 msgstr "Tumma tausta, vaalea teksti"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:685
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:739
 msgid "Custom Background"
 msgstr "Muokattu tausta"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:690
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:744
 msgid "and Text"
 msgstr "ja teksti"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:730
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:768
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:790
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:778
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:806
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:822
 msgid "Style Scheme"
 msgstr "Tyyli"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:738
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:786
 msgid "Monospace Background"
 msgstr "Tasarivinen tausta"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:799
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:831
 msgid "Table"
 msgstr "Taulukko"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:891
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:921
 msgid "Use Different Cherries per Level"
 msgstr "Käytä erilaisia kirsikoita joka tasolla"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:892
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1643
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:922
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1659
 msgid "Use Selected Icon"
 msgstr "Käytä valittua ikonia"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:894
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:924
 msgid "No Icon"
 msgstr "Ei ikonia"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:896
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:926
 msgid "Hide Right Side Auxiliary Icon"
 msgstr "Piilota oikeanpuoleinen apuikoni"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:910
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:940
 msgid "Default Text Nodes Icons"
 msgstr "Oletus tekstisolmuikonit"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:924
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:948
 msgid "Restore Expanded/Collapsed Status"
 msgstr "Palauta laajennettu/kokoon taitettu -tila"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:925
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:949
 msgid "Expand all Nodes"
 msgstr "Laajenna kaikki solmut"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:927
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:951
 msgid "Collapse all Nodes"
 msgstr "Taita kokoon kaikki solmut"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:929
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:953
 msgid "Nodes in Bookmarks Always Visible"
 msgstr "Solmut kirjanmerkeissä aina näkyvissä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:937
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:961
 msgid "Nodes Status at Startup"
 msgstr "Solmujen tila käynnistyksessä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:952
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:970
 msgid "Tree Nodes Names Wrapping Width"
 msgstr "Puun solmujen nimien rivityksen leveys"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:960
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:978
 msgid "Display Tree on the Right Side"
 msgstr "Näytä puu oikealla puolella"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:962
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:980
 msgid "Move Focus to Text at Mouse Click"
 msgstr "Siirrä kohdistus tekstiin hiiren klikkauksella"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:964
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:982
 msgid "Expand Node at Mouse Click"
 msgstr "Laajenna solmu hiiren klikkauksella"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:968
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:986
 msgid "Last Visited Nodes on Node Name Header"
 msgstr "Viimeksi vieraillut solmut solmun nimiotsikossa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1046
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1799
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1054
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1815
 msgid "Select Node Icon"
 msgstr "Valitse solmun ikoni"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1089
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1098
 msgid "Monospace"
 msgstr "Tasavälinen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1090
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1240
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1325
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1671
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1101
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1295
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1330
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1687
 msgid "Plain Text"
 msgstr "Raakateksti"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1091
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1103
 msgid "Code Font"
 msgstr "Koodin kirjasin"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1092
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1105
 msgid "Tree Font"
 msgstr "Puun kirjasin"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1159
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1178
 msgid "Enable Custom Web Link Clicked Action"
 msgstr "Käytä muokattua nettilinkin klikkaamisen toimintoa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1161
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1180
 msgid "Enable Custom File Link Clicked Action"
 msgstr "Käytä muokattua tiedostolinkin klikkaamisen toimintoa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1163
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1182
 msgid "Enable Custom Folder Link Clicked Action"
 msgstr "Käytä muokattua kansiolinkin klikkaamisen toimintoa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1172
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1191
 msgid "Custom Actions"
 msgstr "Muokatut toiminnot"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1195
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:800
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1208
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:809
 msgid "To WebSite"
 msgstr "Nettisivulle"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1197
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:841
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1210
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:850
 msgid "To Node"
 msgstr "Solmuun"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1199
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:811
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1212
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:820
 msgid "To File"
 msgstr "Tiedostoon"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1201
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:826
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1214
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:835
 msgid "To Folder"
 msgstr "Kansioon"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1216
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1229
 msgid "Colors"
 msgstr "Värit"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1225
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1232
 msgid "Underline Links"
 msgstr "Alleviivaa linkit"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1227
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1234
 msgid "Use Relative Paths for Files And Folders"
 msgstr "Käytä suhteellisia polkua tiedostoille ja kansioille"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1231
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1238
 msgid "Anchor Size"
 msgstr "Ankkurin koko"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1422
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1428
 msgid "Change Selected"
 msgstr "Muuta valittua"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1460
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1472
 msgid "Enable System Tray Docking"
 msgstr "Telakoi ilmoitusalueelle"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1461
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1473
 msgid "Start Minimized in the System Tray"
 msgstr "Aloita pienennettynä ilmoitusalueella"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1465
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1477
 msgid "System Tray"
 msgstr "Ilmoitusalue"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1480
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1486
 msgid "Autosave Every"
 msgstr "Tallenna automaattisesti joka"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1483
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1489
 msgid "Minutes"
 msgstr "Minuutit"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1487
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1493
 msgid "Autosave on Quit"
 msgstr "Tallenna lopetettaessa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1488
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1494
 msgid "Create a Backup Copy Before Saving"
 msgstr "Luo varmuuskopio ennen tallentamista"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1491
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1497
 msgid "Number of Backups to Keep"
 msgstr "Varmuuskopioiden lukumäärä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1496
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1502
 msgid "Custom Backup Directory"
 msgstr "Muokattu varmuuskopiohakemisto"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1525
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1531
 msgid "Saving"
 msgstr "Tallentaminen"
 
@@ -494,27 +500,27 @@ msgstr "Lataa kun tehty ulkoinen päivitys CT* -tiedostoon"
 msgid "Show the Document Directory in the Window Title"
 msgstr "Näytä dokumentin hakemisto ikkunan otsikossa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1566
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1560
 msgid "Language"
 msgstr "Kieli"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1590
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1578
 msgid "Has the System Tray appeared on the panel?"
 msgstr "Onko järjestelmän ilmoitin ilmestynyt paneeliin?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1596
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1584
 msgid "Your system does not support the System Tray"
 msgstr "Järjestelmäsi ei tue järjestelmän ilmoitinta"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1664
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1652
 msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "Uusi kieli on saatavilla, kun CherryTree käynnistetään uudelleen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1677
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1665
 msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr "Muutokset tulevat voimaan käynnistettyäsi uudelleen CherryTree:n"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1761
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1749
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1841
 msgid "Select Element to Add"
 msgstr "Valitse lisättävä elementti"
@@ -588,7 +594,7 @@ msgid "Insert Table"
 msgstr "Lisää taulukko"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:103
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:661
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:718
 msgid "CSV File"
 msgstr "CSV -tiedosto"
 
@@ -606,15 +612,15 @@ msgstr "Suurin koko upotetuille tiedostoille on %s Mt"
 msgid "Do you want to Continue?"
 msgstr "Haluatko jatkaa?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:803
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:800
 msgid "Lines Stripped"
 msgstr "Rivejä karsittu"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:811
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:808
 msgid "Image Properties"
 msgstr "Kuvan ominaisuudet"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:857
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:854
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:76
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:51
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:290
@@ -791,8 +797,8 @@ msgstr "Korvaa"
 msgid "Undo"
 msgstr "Kumoa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_imports.cc:98
-#: /home/giuspen/git/cherrytree/src/ct/ct_parser_html.cc:582
+#: /home/giuspen/git/cherrytree/src/ct/ct_imports.cc:81
+#: /home/giuspen/git/cherrytree/src/ct/ct_parser_html.cc:589
 msgid "Downloading"
 msgstr "Ladataan"
 
@@ -805,49 +811,53 @@ msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "Työkalurivin ikonien koko on jo pienin mahdollinen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:181
+msgid "Rename"
+msgstr "Nimeä uudelleen"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:195
 msgid "PNG Image"
 msgstr "PNG -kuva"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:193
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:207
 #, c-format
 msgid "Write to %s Failed"
 msgstr "Kirjoitus kohteeseen %s epäonnistui"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:240
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:328
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:254
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:335
 msgid "Insert/Edit Link"
 msgstr "Lisää/muokkaa linkkiä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:289
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:303
 #, c-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "Tiedostolinkki '%s' ei kelpaa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:301
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:315
 #, c-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "Kansiolinkki '%s' ei kelpaa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:313
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:698
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:327
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:704
 #, c-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr "Linkki viittaa solmuun, jota ei ole enää olemassa (Id = %s)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:332
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:346
 #, c-format
 msgid "No anchor named '%s' found"
 msgstr "Ankkuria '%s' ei löydetty"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:392
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:406
 msgid "Edit CodeBox"
 msgstr "Muokkaa koodilaatikkoa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:416
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:430
 msgid "No CodeBox is Selected"
 msgstr "Koodilaatikkoa ei valittu"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:424
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:438
 #, c-format
 msgid ""
 "You must associate a command to '%s'.\n"
@@ -856,47 +866,47 @@ msgstr ""
 "Sinun täytyy liittää komento '%s':ään.\n"
 "Tee niin Asetukset -dialogissa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:436
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:450
 msgid "Do you want to Execute the Code?"
 msgstr "Haluatko suorittaa koodin?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:454
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:468
 msgid ""
 "Install the package 'xterm' or configure a different terminal in the "
 "Preferences Dialog"
 msgstr "Asenna paketti 'xterm' tai aseta eri terminaali Asetukset -dialogissa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:650
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:706
 msgid "Edit Table Properties"
 msgstr "Muokkaa taulukon ominaisuuksia"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:685
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:742
 msgid "Insert Anchor"
 msgstr "Lisää ankkuri"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:685
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:742
 msgid "Edit Anchor"
 msgstr "Muokkaa ankkuria"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:726
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:783
 msgid "Cannot Edit Embedded File in Read Only Node"
 msgstr "Upotettua tiedostoa ei voida muokata Vain-luku -tilassa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:741
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:798
 msgid "Embedded File Automatically Updated:"
 msgstr "Upotetut, automaattisesti päivittyvät tiedostot:"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_export.cc:338
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_export.cc:352
 msgid "PDF File"
 msgstr "PDF -tiedosto"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_export.cc:356
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_export.cc:373
 msgid "Plain Text Document"
 msgstr "Raakatekstiasiakirja"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:35
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1227
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1020
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1282
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1025
 msgid "No Node is Selected"
 msgstr "Solmua ei ole valittu"
 
@@ -947,67 +957,79 @@ msgstr "Haluatko varmasti <b>Poistaa solmun '%s'?</b>"
 msgid "The node <b>has Children, they will be Deleted too!</b>"
 msgstr "Solmulla <b>on jälkeläisiä, jotka poistetaan myös!</b>"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:511
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:514
 msgid "Select the New Parent"
 msgstr "Valitse uusi vanhempi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:517
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:538
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:520
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:541
 msgid "The new parent can't be the very node to move!"
 msgstr "Uusi vanhempi ei voi olla uusin siirrettävä solmu!"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:521
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:524
 msgid "The new chosen parent is still the old parent!"
 msgstr "Uusi valittu vanhempi on edelleen vanha vanhempi!"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:526
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:543
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:529
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:546
 msgid "The new parent can't be one of his children!"
 msgstr "Uusi vanhempi ei voi olla yksi sen jälkeläisistä!"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:69
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:105
 msgid "CherryTree Hierarchical Note Taking"
 msgstr "CherryTree hierarkkinen muistiinpanojen tekeminen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:76
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:265
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:112
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:266
 msgid "Show/Hide _CherryTree"
 msgstr "Näytä/piilota _CherryTree"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:76
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:265
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:112
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:266
 msgid "Toggle Show/Hide CherryTree"
 msgstr "Vaihda näytä/piilota CherryTree"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:78
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:114
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:113
 msgid "_Exit CherryTree"
 msgstr "Poistu _CherryTree:stä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:78
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:114
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:113
 msgid "Exit from CherryTree"
 msgstr "Poistu CherryTree:stä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:326
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:368
+msgid "Print CherryTree version"
+msgstr "Tulosta CherryTree:n versio"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:369
 msgid "Node name to focus"
 msgstr "Kohdistettavan solmun nimi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:327
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:370
 msgid "Export to HTML at specified directory path"
 msgstr "Vie HTML-tiedostoksi määritellyllä hakemistopolulla"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:328
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:371
 msgid "Export to Text at specified directory path"
 msgstr "Vie tekstiksi määritellyllä hakemistopolulla"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:329
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:372
 msgid "Export to PDF at specified file path"
 msgstr "Vie PDF-tiedostoksi määritellyllä hakemistopolulla"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:330
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:373
 msgid "Overwrite if export path already exists"
 msgstr "Ylikirjoita jos viennin polku on jo olemassa"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:374
+msgid "Export to a single file (for HTML or TXT)"
+msgstr "Vie yksittäinen tiedosto (HTML tai TXT)"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:375
+msgid "Create a new window"
+msgstr "Luo uusi ikkuna"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:38
 msgid "No Previous Text Format Was Performed During This Session"
@@ -1017,51 +1039,51 @@ msgstr "Edellistä tekstin muotoilua ei ole tehty tämän istunnon aikana"
 msgid "Link Name"
 msgstr "Linkin nimi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:313
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:316
 msgid "The Cursor is Not into a Paragraph"
 msgstr "Kursori ei ole kappaleessa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:336
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:343
 msgid "Pick a Foreground Color"
 msgstr "Valitse tekstin väri"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:336
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:343
 msgid "Pick a Background Color"
 msgstr "Valitse taustan väri"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:808
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:851
 #, c-format
 msgid "The Document %s was Not Found"
 msgstr "Asiakirjaa %s ei löydetty"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:829
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:872
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:90
 msgid "Open a Recent CherryTree Document"
 msgstr "Avaa viimeisimmät asiakirjat"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:848
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:891
 msgid "Hide"
 msgstr "Piilota"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:848
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:891
 msgid "Quit"
 msgstr "Lopeta"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:849
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:892
 msgid "Hide the Window"
 msgstr "Piilota ikkuna"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:849
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:892
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:112
 msgid "Quit the Application"
 msgstr "Lopeta ohjelma"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:940
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:984
 #, c-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" ei ole CherryTree -asiakirja"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:957
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1001
 #, c-format
 msgid ""
 "Error Parsing the CherryTree File:\n"
@@ -1070,49 +1092,49 @@ msgstr ""
 "Virhe jäsennettäessä CherryTree -tiedostoa:\n"
 "\"%s\""
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1027
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1081
 msgid "Temporary Files were Created and Opened with External Applications."
 msgstr "Väliaikaistiedostot luotiin ja avattiin ulkoisilla sovelluksilla."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1028
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1082
 msgid "Quit the External Applications Before Quit CherryTree."
 msgstr "Lopeta ulkoinen sovellus ennen CherryTree:n lopettamista."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1029
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1083
 msgid "Did you Quit the External Applications?"
 msgstr "Lopetitko ulkoisen sovelluksen?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1157
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1212
 msgid "The Document was Reloaded After External Update to CT* File"
 msgstr "Asiakirja avattiin uudelleen CT* -tiedostoksi päivittämisen jälkeen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1232
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1701
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1287
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1717
 msgid "Node Type"
 msgstr "Solmun tyyppi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1232
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1248
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1252
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1256
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1261
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1266
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1287
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1303
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1307
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1311
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1316
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1321
 msgid ": "
 msgstr ": "
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1248
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1303
 msgid "Tags"
 msgstr "Avainsanat"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1256
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1311
 msgid "Word Count"
 msgstr "Sanojen lukumäärä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1261
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1316
 msgid "Date Created"
 msgstr "Päivämäärä luotu"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1266
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1321
 msgid "Date Modified"
 msgstr "Päivämäärä muutettu"
 
@@ -1125,12 +1147,17 @@ msgid "_Edit"
 msgstr "_Muokkaa"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:84
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1127
 msgid "For_matting"
 msgstr "_Muotoilu"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:85
 msgid "_Tree"
 msgstr "_Puu"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:86
+msgid "Node _Move"
+msgstr "_Siirrä solmua"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:87
 msgid "Nodes _Sort"
@@ -1157,10 +1184,14 @@ msgid "Insert a Special Character"
 msgstr "Lisää erikoismerkki"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:92
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1127
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1179
 msgid "C_hange Case"
 msgstr "Vai_hda pien-/suuraakkoset"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:93
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1127
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1179
 msgid "_Search"
 msgstr "_Etsi"
 
@@ -1292,7 +1323,7 @@ msgid "_About"
 msgstr "T_ietoja"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:117
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1964
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1981
 msgid "About CherryTree"
 msgstr "Tietoja CherryTree:stä"
 
@@ -1756,7 +1787,7 @@ msgid "Tree _Info"
 msgstr "Puun t_iedot"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:178
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2194
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2211
 msgid "Tree Summary Information"
 msgstr "Puun tietojen yhteenveto"
 
@@ -2322,150 +2353,174 @@ msgid "Open Embedded File"
 msgstr "Avaa upotettu tiedosto"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:258
+msgid "_Rename"
+msgstr "_Nimeä"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:258
+msgid "Rename Embedded File"
+msgstr "Nimeä upotettu tiedosto"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:259
 msgid "_Save Image as PNG"
 msgstr "_Tallenna kuva PNG -tiedostona"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:258
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:259
 msgid "Save the Selected Image as a PNG file"
 msgstr "Tallenna valittu kuva PNG -tiedostona"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:259
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:260
 msgid "_Edit Image"
 msgstr "_Muokkaa kuvaa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:259
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:260
 msgid "Edit the Selected Image"
 msgstr "Muokkaa valittua kuvaa"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:260
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:261
 msgid "C_ut Image"
 msgstr "_Leikkaa kuva"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:260
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:261
 msgid "Cut the Selected Image"
 msgstr "Leikkaa valittu kuva"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:261
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:262
 msgid "_Copy Image"
 msgstr "_Kopioi kuva"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:261
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:262
 msgid "Copy the Selected Image"
 msgstr "Kopioi valittu kuva"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:262
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:263
 msgid "_Delete Image"
 msgstr "_Poista kuva"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:262
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:263
 msgid "Delete the Selected Image"
 msgstr "Poista valittu kuva"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:263
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:289
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:264
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:287
 msgid "Edit _Link"
 msgstr "_Muokkaa linkkiä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:263
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:264
 msgid "Edit the Link Associated to the Image"
 msgstr "Muokkaa kuvaan yhdistettyä linkkiä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:264
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:292
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:265
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:290
 msgid "D_ismiss Link"
 msgstr "_Erota linkki"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:264
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:265
 msgid "Dismiss the Link Associated to the Image"
 msgstr "Erota kuvaan liitetty linkki"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:289
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:287
 msgid "Edit the Underlying Link"
 msgstr "Muokkaa alla olevaa linkkiä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:290
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:288
 msgid "C_ut Link"
 msgstr "_Leikkaa linkki"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:290
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:288
 msgid "Cut the Selected Link"
 msgstr "Leikkaa valittu linkki"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:291
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:289
 msgid "_Copy Link"
 msgstr "_Kopioi linkki"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:291
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:289
 msgid "Copy the Selected Link"
 msgstr "Kopioi valittu linkki"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:292
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:290
 msgid "Dismiss the Selected Link"
 msgstr "Hylkää valittu linkki"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:293
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:291
 msgid "_Delete Link"
 msgstr "_Poista linkki"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:293
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:291
 msgid "Delete the Selected Link"
 msgstr "Poista valittu linkki"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:295
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:293
 msgid "C_ut Table"
 msgstr "_Leikkaa taulukko"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:295
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:293
 msgid "Cut the Selected Table"
 msgstr "Leikkaa valittu taulukko"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:296
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:294
 msgid "_Copy Table"
 msgstr "_Kopioi taulukko"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:296
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:294
 msgid "Copy the Selected Table"
 msgstr "Kopioi valittu taulukko"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:297
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:295
 msgid "_Delete Table"
 msgstr "_Poista taulukko"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:297
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:295
 msgid "Delete the Selected Table"
 msgstr "Poista valittu taulukko"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:298
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:296
 msgid "_Add Column"
 msgstr "_Lisää sarake"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:298
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:296
 msgid "Add a Table Column"
 msgstr "Lisää taulukkosarake"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:299
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:297
 msgid "De_lete Column"
 msgstr "_Poista sarake"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:299
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:297
 msgid "Delete the Selected Table Column"
 msgstr "Poista valittu taulukkosarake"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:300
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:298
 msgid "Move Column _Left"
 msgstr "Siirrä sarake _vasemmalle"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:300
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:298
 msgid "Move the Selected Column Left"
 msgstr "Siirrä valittu sarake _vasemmalle"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:301
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:299
 msgid "Move Column _Right"
 msgstr "Siirrä sarake _oikealle"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:301
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:299
 msgid "Move the Selected Column Right"
 msgstr "Siirrä valittu sarake oikealle"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:300
+msgid "Increase Column Width"
+msgstr "Lisää sarakkeen leveyttä"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:300
+msgid "Increase the Width of the Column"
+msgstr "Lisää sarakkeen leveyttä"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:301
+msgid "Decrease Column Width"
+msgstr "Vähennä sarakkeen leveyttä"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:301
+msgid "Decrease the Width of the Column"
+msgstr "Vähennä sarakkeen leveyttä"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:302
 msgid "_Add Row"
@@ -2639,9 +2694,32 @@ msgstr "Vähennä koodilaatikon korkeutta"
 msgid "Decrease the Height of the CodeBox"
 msgstr "Vähennä koodilaatikon korkeutta"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:427
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:442
 msgid "Remove from list"
 msgstr "_Poista listasta"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1127
+msgid "_List"
+msgstr "_Listaa"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1127
+msgid "_Justify"
+msgstr "_Tasaa"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1127
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1179
+msgid "_Insert"
+msgstr "_Lisää"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1127
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1179
+msgid "_Row"
+msgstr "_Rivi"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1127
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1179
+msgid "_Replace"
+msgstr "_Korvaa"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:130
 msgid "Involved Nodes"
@@ -2692,7 +2770,7 @@ msgid "Info"
 msgstr "Info"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:296
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1864
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1881
 msgid "Warning"
 msgstr "Varoitus"
 
@@ -2700,109 +2778,124 @@ msgstr "Varoitus"
 msgid "Error"
 msgstr "Virhe"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:672
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:446
+msgid "Move the Selected Bookmark Up"
+msgstr "Siirrä valittu kirjainmerkki ylöspäin"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:449
+msgid "Move the Selected Bookmark Down"
+msgstr "Siirrä valittu kirjainmerkki alaspäin"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:452
+msgid "Remove the Selected Bookmark"
+msgstr "Poista valittu kirjainmerkki"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:455
+msgid "Sort the Bookmarks Descending"
+msgstr "Järjestä kirjainmerkit laskevasti"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:458
+msgid "Sort the Bookmarks Ascending"
+msgstr "Järjestä kirjainmerkit nousevasti"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:677
 #, c-format
 msgid "Hide (Restore with '%s')"
 msgstr "Piilota (palauta '%s':lla)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:675
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1665
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:681
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1681
 msgid "Node Name"
 msgstr "Solmun nimi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:676
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:682
 msgid "Line"
 msgstr "Rivi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:677
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:683
 msgid "Line Content"
 msgstr "Rivin sisältö"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:873
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:882
 msgid "Anchor Name (optional)"
 msgstr "Ankkurin nimi (valinnainen)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1034
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1039
 msgid "There are No Anchors in the Selected Node"
 msgstr "Valitussa solmussa ei ole ankkureita"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1043
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1048
 msgid "Choose Existing Anchor"
 msgstr "Valitse olemassa oleva ankkuri"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1043
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1048
 msgid "Anchor Name"
 msgstr "Ankkurin nimi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1123
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1128
 msgid "Select File"
 msgstr "Valitse tiedosto"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1148
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1153
 msgid "Select Folder"
 msgstr "Valitse kansio"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1163
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1168
 msgid "Save File as"
 msgstr "Tallenna tiedosto nimellä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1224
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1346
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2275
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1229
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1351
 msgid "Width"
 msgstr "Leveys"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1227
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1350
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1232
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1355
 msgid "Height"
 msgstr "Korkeus"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1326
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1415
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1672
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1738
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1331
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1420
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1688
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1754
 msgid "Automatic Syntax Highlighting"
 msgstr "Automaattinen syntaksin korostus"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1341
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1346
 msgid "Type"
 msgstr "Tyyppi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1355
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1360
 msgid "pixels"
 msgstr "pikseliä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1380
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1385
 msgid "Size"
 msgstr "Koko"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1387
-msgid "Highlight Matching Brackets"
-msgstr "Korosta vastaavat sulkeet"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1396
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1401
 msgid "Options"
 msgstr "Valinnat"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1477
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1493
 msgid "Choose Storage Type"
 msgstr "Vaihda tallennustyyppiä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1487
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1490
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1503
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1506
 msgid "Not Protected"
 msgstr "Suojaamaton"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1489
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1491
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1505
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1507
 msgid "Password Protected"
 msgstr "Salasanasuojattu"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1499
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1515
 msgid "Storage Type"
 msgstr "Tallennustyyppi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1508
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1524
 msgid ""
 "CT saves the document in an encrypted 7zip archive. When viewing or editing "
 "the document, CT extracts the encrypted archive to a temporary folder, and "
@@ -2816,59 +2909,59 @@ msgstr ""
 "väliaikaiskansiosta. Huomaa, että sovelluksen tai järjestelmän kaatuessa "
 "suojaamaton asiakirja jää väliaikaiskansioon."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1516
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1532
 msgid "Enter the New Password Twice"
 msgstr "Syötä uusi salasana kahdesti"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1599
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1615
 msgid "The Password Fields Must be Filled"
 msgstr "Salasanakentät pitää täyttää"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1604
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1620
 msgid "The Two Inserted Passwords Do Not Match"
 msgstr "Kaksi syötettyä salasanaa eivät vastanneet toisiaan"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1633
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1649
 msgid "Bold"
 msgstr "Lihavoitu"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1637
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1653
 msgid "Use Selected Color"
 msgstr "Käytä valittua väriä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1652
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1668
 msgid "click me"
 msgstr "klikkaa minua"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1715
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1731
 msgid "Tags for Searching"
 msgstr "Avainsanat etsimistä varten"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1719
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1735
 msgid "Read Only"
 msgstr "Vain-luku"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1758
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1774
 msgid "Choose Existing Tag"
 msgstr "Valitse olemassa oleva avainsana"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1758
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1774
 msgid "Tag Name"
 msgstr "Avainsanan nimi"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1783
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1799
 msgid "Pick a Color"
 msgstr "Valitse väri"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1875
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1892
 msgid "The Current Document was Updated."
 msgstr "Nykyinen asiakirja on päivitetty."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1875
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1892
 msgid "Do you want to Save the Changes?"
 msgstr "Haluatko tallentaa muutokset?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1923
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1940
 msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
 "Highlighting"
@@ -2876,7 +2969,7 @@ msgstr ""
 "Hierarkkinen muistiinpanojentekosovellus, joka sisältää muotoillun tekstin "
 "sekä syntaksin korostuksen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1924
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1941
 msgid ""
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
@@ -2910,131 +3003,135 @@ msgstr ""
 "Foundation,\n"
 "Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1944
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1961
 msgid "Armenian"
 msgstr "Armenialinen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1945
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1962
 msgid "Chinese Simplified"
 msgstr "Yksinkertaistettu kiinalainen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1946
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1963
 msgid "Czech"
 msgstr "Tsekkiläinen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1947
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1964
 msgid "Dutch"
 msgstr "Alankomaalainen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1948
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1965
 msgid "Finnish"
 msgstr "Suomalainen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1949
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1966
 msgid "French"
 msgstr "Ranskalainen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1950
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1967
 msgid "German"
 msgstr "Saksalainen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1951
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1968
 msgid "Greek"
 msgstr "Kreikkalainen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1952
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1969
 msgid "Italian"
 msgstr "Italialainen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1953
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1970
 msgid "Japanese"
 msgstr "Japanilainen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1954
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1971
 msgid "Lithuanian"
 msgstr "Liettualainen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1955
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1972
 msgid "Polish"
 msgstr "Puolalainen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1956
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1973
 msgid "Portuguese Brazil"
 msgstr "Brasilian portugali"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1957
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1974
 msgid "Russian"
 msgstr "Venäläinen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1958
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1975
 msgid "Slovenian"
 msgstr "Slovenialainen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1959
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1976
 msgid "Spanish"
 msgstr "Espanjalainen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1960
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1977
 msgid "Swedish"
 msgstr "Ruotsalainen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1961
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1978
 msgid "Turkish"
 msgstr "Turkkilainen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1962
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1979
 msgid "Ukrainian"
 msgstr "Ukrainalainen"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2206
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2223
 msgid "Number of Rich Text Nodes"
 msgstr "Muotoiltua tekstiä sisältävien solmujen määrä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2211
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2228
 msgid "Number of Plain Text Nodes"
 msgstr "Raakatekstiä sisältävien solmujen määrä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2216
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2233
 msgid "Number of Code Nodes"
 msgstr "Koodisolmujen lukumäärä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2221
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2238
 msgid "Number of Images"
 msgstr "Kuvien lukumäärä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2226
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2243
 msgid "Number of Embedded Files"
 msgstr "Upotettujen tiedostojen lukumäärä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2231
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2248
 msgid "Number of Tables"
 msgstr "Taulukkojen lukumäärä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2236
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2253
 msgid "Number of CodeBoxes"
 msgstr "Koodilaatikkojen lukumäärä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2241
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2258
 msgid "Number of Anchors"
 msgstr "Ankkurien lukumäärä"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2263
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2280
 msgid "Rows"
 msgstr "Rivit"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2269
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2286
 msgid "Columns"
 msgstr "Sarakkeet"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2281
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2292
+msgid "Default Width"
+msgstr "Oletusleveys"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2298
 msgid "Table Size"
 msgstr "Taulukon koko"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2284
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2301
 msgid "Column Properties"
 msgstr "Sarakkeen ominaisuudet"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2306
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2323
 msgid "Import from CSV File"
 msgstr "Tuo CSV -tiedostosta"
 
@@ -3056,7 +3153,7 @@ msgstr ""
 msgid "%s write failed - is file blocked by a sync program?"
 msgstr "%s kirjoittaminen epäonnistui. Estääkö synkronointi tiedoston käytön?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_export2pdf.cc:395
+#: /home/giuspen/git/cherrytree/src/ct/ct_export2pdf.cc:420
 msgid "Warning: One or More Images Were Reduced to Enter the Page"
 msgstr "Varoitus: Yksi tai useampi kuva vähennettiin"
 
@@ -3121,9 +3218,6 @@ msgstr "Varoitus: Yksi tai useampi kuva vähennettiin"
 #~ msgid "Not Any H1, H2 or H3 Formatting Found"
 #~ msgstr "Ei yhtään Otsikko 1, -2 tai -3 -muotoilua löydetty"
 
-#~ msgid "Rename Column"
-#~ msgstr "Nimeä sarake uudelleen"
-
 #~ msgid "Min Width"
 #~ msgstr "Vähimmäisleveys"
 
@@ -3174,24 +3268,6 @@ msgstr "Varoitus: Yksi tai useampi kuva vähennettiin"
 
 #~ msgid "Export to _Single Plain Text File"
 #~ msgstr "Vie _yhdeksi raakatekstitiedostoksi"
-
-#~ msgid "Node _Move"
-#~ msgstr "_Siirrä solmua"
-
-#~ msgid "_Justify"
-#~ msgstr "_Tasaa"
-
-#~ msgid "_List"
-#~ msgstr "_Listaa"
-
-#~ msgid "_Insert"
-#~ msgstr "_Lisää"
-
-#~ msgid "_Row"
-#~ msgstr "_Rivi"
-
-#~ msgid "_Replace"
-#~ msgstr "_Korvaa"
 
 #~ msgid "Insert _NewLine"
 #~ msgstr "Lisää _rivinvaihto"
