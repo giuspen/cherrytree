@@ -420,7 +420,7 @@ Gtk::Menu* CtMenu::build_recent_docs_menu(const CtRecentDocsFilepaths& recentDoc
     for (const fs::path& filepath : recentDocsFilepaths)
     {
         bool file_exists = fs::exists(filepath);
-        Gtk::MenuItem* pMenuItem = _add_menu_item(pMenu, filepath.c_str(), file_exists ? "ct_open" : "ct_urgent", nullptr, _pAccelGroup, filepath.c_str(), nullptr, nullptr, nullptr);
+        Gtk::MenuItem* pMenuItem = _add_menu_item(pMenu, filepath.c_str(), file_exists ? "ct_open" : "ct_urgent", nullptr, _pAccelGroup, filepath.c_str(), nullptr, nullptr, nullptr, false/*use_underline*/);
         pMenuItem->signal_activate().connect(sigc::bind(recent_doc_open_action, filepath.string()));
     }
     Gtk::MenuItem* pMenuItemRm = _add_menu_item(pMenu, _("Remove from list"), "ct_edit_delete", nullptr, _pAccelGroup, _("Remove from list"), nullptr, nullptr, nullptr);
@@ -625,7 +625,8 @@ Gtk::MenuItem* CtMenu::_add_menu_item(Gtk::MenuShell* pMenuShell, CtMenuAction* 
                                                  const char* desc,
                                                  gpointer action_data,
                                                  sigc::signal<void, bool>* signal_set_sensitive,
-                                                 sigc::signal<void, bool>* signal_set_visible)
+                                                 sigc::signal<void, bool>* signal_set_visible,
+                                                 const bool use_underline/*= true*/)
 {
     Gtk::MenuItem* pMenuItem = Gtk::manage(new Gtk::MenuItem());
 
@@ -634,7 +635,7 @@ Gtk::MenuItem* CtMenu::_add_menu_item(Gtk::MenuShell* pMenuShell, CtMenuAction* 
         pMenuItem->set_tooltip_text(desc);
     }
     // Now create the label and add it to the menu item
-    Gtk::AccelLabel* pLabel = Gtk::manage(new Gtk::AccelLabel(name, true));
+    Gtk::AccelLabel* pLabel = Gtk::manage(new Gtk::AccelLabel{name, use_underline});
     pLabel->set_xalign(0.0);
     pLabel->set_accel_widget(*pMenuItem);
     if (shortcut && strlen(shortcut))

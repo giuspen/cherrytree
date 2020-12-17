@@ -95,11 +95,16 @@ private:
     void                    _walk_menu_xml(Gtk::MenuShell* pMenuShell, xmlpp::Node* pNode);
     Gtk::Menu*              _add_menu_submenu(Gtk::MenuShell* pMenuShell, const char* id, const char* name, const char* image);
     Gtk::MenuItem*          _add_menu_item(Gtk::MenuShell* pMenuShell, CtMenuAction* pAction);
-    static Gtk::MenuItem*   _add_menu_item(Gtk::MenuShell* pMenuShell, const char* name, const char* image,
-                                           const char*shortcut, Glib::RefPtr<Gtk::AccelGroup> accelGroup,
-                                           const char* desc, gpointer action_data,
+    static Gtk::MenuItem*   _add_menu_item(Gtk::MenuShell* pMenuShell,
+                                           const char* name,
+                                           const char* image,
+                                           const char* shortcut,
+                                           Glib::RefPtr<Gtk::AccelGroup> accelGroup,
+                                           const char* desc,
+                                           gpointer action_data,
                                            sigc::signal<void, bool>* signal_set_sensitive,
-                                           sigc::signal<void, bool>* signal_set_visible);
+                                           sigc::signal<void, bool>* signal_set_visible,
+                                           const bool use_underline = true);
     static void             _add_menu_item_image_or_label(Gtk::MenuItem* pMenuItem, const char* image, Gtk::AccelLabel* label);
     Gtk::SeparatorMenuItem* _add_menu_separator(Gtk::MenuShell* pMenuShell);
 
