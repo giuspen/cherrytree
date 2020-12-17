@@ -32,6 +32,7 @@
 #include <type_traits>
 #include <deque>
 #include <mutex>
+#include <optional>
 #include <condition_variable>
 
 class CtConfig;
