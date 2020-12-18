@@ -133,8 +133,8 @@ public:
     std::string                                 folderlinkCustomAct{"open %s &"};
 #else
     std::string                                 weblinkCustomAct{"firefox %s &"};
-    std::string                                 filelinkCustomAct{"xdg-open %s &"};
-    std::string                                 folderlinkCustomAct{"xdg-open %s &"};
+    std::string                                 filelinkCustomAct{"xdg-open \"file://%s\" &"};
+    std::string                                 folderlinkCustomAct{"xdg-open \"file://%s\" &"};
 #endif
     // [codebox]
     double                                      codeboxWidth{500};

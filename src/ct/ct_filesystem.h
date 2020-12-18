@@ -37,6 +37,7 @@ namespace fs {
 class path;
 
 void register_exe_path_detect_if_portable(const char* exe_path);
+bool alter_locale_env_var(const std::string& key, const std::string& val);
 
 bool copy_file(const path& from, const path& to);
 

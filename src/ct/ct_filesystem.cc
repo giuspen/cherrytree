@@ -26,6 +26,8 @@
 #include <curl/curl.h>
 #include <spdlog/fmt/bundled/printf.h>
 #include <system_error>
+#include <utility>
+#include <unordered_map>
 
 #include "ct_filesystem.h"
 #include "ct_misc_utils.h"
@@ -37,6 +39,20 @@ namespace fs {
 
 static fs::path _exePath;
 static fs::path _portableConfigDir;
+static std::unordered_map<std::string, std::pair<std::string,std::string>> _alteredLocaleEnvVars;
+
+void _locale_env_vars_set_for_external_cmd(const bool isPre)
+{
+    for (const auto& currPair : _alteredLocaleEnvVars) {
+        (void)Glib::setenv(currPair.first, isPre ? currPair.second.first : currPair.second.second, true/*overwrite*/);
+    }
+}
+
+bool alter_locale_env_var(const std::string& key, const std::string& val)
+{
+    _alteredLocaleEnvVars[key] = std::make_pair(Glib::getenv(key), val);
+    return Glib::setenv(key, val, true/*overwrite*/);
+}
 
 void register_exe_path_detect_if_portable(const char* exe_path)
 {
@@ -179,6 +195,7 @@ void open_weblink(const std::string& link)
 
 void _open_path_with_default_app(const fs::path& file_or_folder_path)
 {
+    _locale_env_vars_set_for_external_cmd(true/*isPre*/);
 #ifdef _WIN32
     // https://stackoverflow.com/questions/42442189/how-to-open-spawn-a-file-with-glib-gtkmm-in-windows
     glong utf16text_len = 0;
@@ -196,6 +213,7 @@ void _open_path_with_default_app(const fs::path& file_or_folder_path)
     Glib::spawn_async("", argv, Glib::SpawnFlags::SPAWN_SEARCH_PATH);
     // g_app_info_launch_default_for_uri(f_path.c_str(), nullptr, nullptr); // doesn't work on KDE
 #endif
+    _locale_env_vars_set_for_external_cmd(false/*isPre*/);
 }
 
 // Open Filepath with External App
@@ -204,7 +222,9 @@ void open_filepath(const fs::path& filepath, bool open_folder_if_file_not_exists
     spdlog::debug("fs::open_filepath {}", filepath);
     if (config->filelinkCustomOn) {
         std::string cmd = fmt::sprintf(config->filelinkCustomAct, filepath.string());
+        _locale_env_vars_set_for_external_cmd(true/*isPre*/);
         const int retVal = std::system(cmd.c_str());
+        _locale_env_vars_set_for_external_cmd(false/*isPre*/);
         if (retVal != 0) {
             spdlog::error("system({}) returned {}", cmd, retVal);
         }
@@ -229,7 +249,9 @@ void open_folderpath(const fs::path& folderpath, CtConfig* config)
     spdlog::debug("fs::open_folderpath {}", folderpath);
     if (config->folderlinkCustomOn) {
         std::string cmd = fmt::sprintf(config->folderlinkCustomAct, folderpath.string());
+        _locale_env_vars_set_for_external_cmd(true/*isPre*/);
         const int retVal = std::system(cmd.c_str());
+        _locale_env_vars_set_for_external_cmd(false/*isPre*/);
         if (retVal != 0) {
             spdlog::error("system({}) returned {}", cmd, retVal);
         }
