@@ -71,6 +71,6 @@ os.chdir(os.path.dirname(DEST_DIRPATH))
 subprocess.call(("tar", "cfJ", DEST_TAR_XZ_NAME, DEST_DIRNAME))
 print("... done")
 
-print("Signing {} ...".format(DEST_TAR_XZ_PATH))
+print("Writing {}.gpg ...".format(DEST_TAR_XZ_PATH))
 subprocess.call(("gpg", "--sign", DEST_TAR_XZ_PATH))
 print("... done")
