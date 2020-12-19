@@ -4,6 +4,7 @@ import os
 import shutil
 import builtins
 import re
+import subprocess
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 ROOT_DIR = os.path.dirname(SCRIPT_DIR)
@@ -35,7 +36,11 @@ with open(DEBIAN_CHANGELOG_PATH, "r") as fd:
             VERSION = match.group(1)
             #print(VERSION)
             break
-DEST_DIR = os.path.join(os.path.dirname(ROOT_DIR), "cherrytree_"+VERSION)
+DEST_DIRNAME = "cherrytree_"+VERSION
+DEST_TAR_XZ_NAME = DEST_DIRNAME+".tar.xz"
+DEST_FOLDERPATH = os.path.dirname(ROOT_DIR)
+DEST_DIRPATH = os.path.join(DEST_FOLDERPATH, DEST_DIRNAME)
+DEST_TAR_XZ_PATH = os.path.join(DEST_FOLDERPATH, DEST_TAR_XZ_NAME)
 
 for element in os.listdir(PO_DIR):
     abspath = os.path.join(PO_DIR, element)
@@ -47,16 +52,25 @@ for filepath in (ICONS_CC_PATH, MANUAL_GZ_PATH, DEBIAN_FILES_PATH):
     if os.path.isfile(filepath):
         os.remove(filepath)
 
-if not os.path.isdir(DEST_DIR):
-    os.mkdir(DEST_DIR)
+if not os.path.isdir(DEST_DIRPATH):
+    os.mkdir(DEST_DIRPATH)
 
+print("Writing {} ...".format(DEST_DIRPATH))
 for element in os.listdir(ROOT_DIR):
     if not element in BLACKLIST:
         src_abspath = os.path.join(ROOT_DIR, element)
-        dst_abspath = os.path.join(DEST_DIR, element)
+        dst_abspath = os.path.join(DEST_DIRPATH, element)
         if os.path.isdir(src_abspath):
             shutil.copytree(src_abspath, dst_abspath)
         else:
             shutil.copy2(src_abspath, dst_abspath)
+print("... done")
 
-print("-->", DEST_DIR)
+print("Writing {} ...".format(DEST_TAR_XZ_PATH))
+os.chdir(os.path.dirname(DEST_DIRPATH))
+subprocess.call(("tar", "cfJ", DEST_TAR_XZ_NAME, DEST_DIRNAME))
+print("... done")
+
+print("Signing {} ...".format(DEST_TAR_XZ_PATH))
+subprocess.call(("gpg", "--sign", DEST_TAR_XZ_PATH))
+print("... done")
