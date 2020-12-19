@@ -662,10 +662,15 @@ void CtClipboard::_on_received_to_html(const Gtk::SelectionData& selection_data,
 // From Clipboard to Image
 void CtClipboard::_on_received_to_image(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
-    Glib::RefPtr<const Gdk::Pixbuf> pixbuf = selection_data.get_pixbuf();
-    Glib::ustring link = "";
-    _pCtMainWin->get_ct_actions()->image_insert_png(pTextView->get_buffer()->get_insert()->get_iter(), pixbuf->copy(), link, "");
-    pTextView->scroll_to(pTextView->get_buffer()->get_insert());
+    Glib::RefPtr<const Gdk::Pixbuf> rPixbuf = selection_data.get_pixbuf();
+    if (rPixbuf) {
+        Glib::ustring link = "";
+        _pCtMainWin->get_ct_actions()->image_insert_png(pTextView->get_buffer()->get_insert()->get_iter(), rPixbuf->copy(), link, "");
+        pTextView->scroll_to(pTextView->get_buffer()->get_insert());
+    }
+    else {
+        spdlog::debug("invalid image in clipboard");
+    }
 }
 
 // From Clipboard to URI list
