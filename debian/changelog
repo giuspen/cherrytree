@@ -1,17 +1,7 @@
-cherrytree (0.99.26-1) focal; urgency=low
+cherrytree (0.99.27-1) focal; urgency=low
 
-  * fix crash trying to open a bookmarked node that was deleted (#1430)
-  * fix crash when trying to paste invalid image in clipboard (#1440)
-  * fix tree drag n drop freezing issue (#1377)
-  * when (re)generating TOC do not remove anchors created from the user (#1382)
-  * fix recent documents list does't show undercores (#1435)
-  * fix when setting language different than Default, open folder link not working if non ASCII characters in path (#1423)
-  * fix non working keyboard shorcuts Alt+Left/Right to go to previous/next visited nodes (#1412)
-  * keyboard shortcut to delete a node becomes Ctrl+Delete since this action now works also with focus on the text/while editing text (#1412)
-  * fix table keyboard shortcut Ctrl+comma (add row) and Ctrl+Alt+comma (delete row) (#1417)
-  * fix some icons are invisible on dark theme + several icons improvements (#1414, work of @userfav/Ugo Yak)
-  * fix find function adds empty lines to blank nodes (#1428)
-  * fix wrongly detecting being run from the sorces directory build folder (#1422)
+  * fix select text with keyboard not working, regression of 0.99.26 (#1441, #1444, #1448)
+  * updated Dutch (Luuk Geurts)
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sat, 19 Dec 2020 20:39:16 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Mon, 21 Dec 2020 23:19:07 +0000

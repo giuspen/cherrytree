@@ -1,4 +1,8 @@
 
+0.99.27 (December 21st, 2020)
+  * fix select text with keyboard not working, regression of 0.99.26 (#1441, #1444, #1448)
+  * updated Dutch (Luuk Geurts)
+
 0.99.26 (December 19th, 2020)
   * fix crash trying to open a bookmarked node that was deleted (#1430)
   * fix crash when trying to paste invalid image in clipboard (#1440)
