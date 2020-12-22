@@ -71,6 +71,9 @@ os.chdir(os.path.dirname(DEST_DIRPATH))
 subprocess.call(("tar", "cfJ", DEST_TAR_XZ_NAME, DEST_DIRNAME))
 print("... done")
 
-print("Writing {}.gpg ...".format(DEST_TAR_XZ_PATH))
-subprocess.call(("gpg", "--sign", DEST_TAR_XZ_PATH))
+print("Writing {}.asc ...".format(DEST_TAR_XZ_PATH))
+subprocess.call(("gpg2", "--digest-algo", "SHA512", "--armor", "--detach-sign", DEST_TAR_XZ_PATH))
 print("... done")
+
+print("Verify:")
+subprocess.call(("gpg2", "--verify", "{}.asc".format(DEST_TAR_XZ_PATH)))
