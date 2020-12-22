@@ -25,6 +25,7 @@
 
 #include "ct_codebox.h"
 #include "ct_widgets.h"
+#include <optional>
 #include <ostream>
 #include <istream>
 
