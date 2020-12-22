@@ -7,7 +7,7 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
    sodipodi:docname="ct_justify-center.svg"
    id="svg14"
    version="1.1"
@@ -29,14 +29,14 @@
   <sodipodi:namedview
      inkscape:current-layer="svg14"
      inkscape:window-maximized="1"
-     inkscape:window-y="22"
-     inkscape:window-x="-8"
-     inkscape:cy="8"
-     inkscape:cx="8"
+     inkscape:window-y="0"
+     inkscape:window-x="0"
+     inkscape:cy="7.8818725"
+     inkscape:cx="3.0091149"
      inkscape:zoom="33.861729"
      showgrid="false"
      id="namedview16"
-     inkscape:window-height="715"
+     inkscape:window-height="717"
      inkscape:window-width="1366"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0"
@@ -47,51 +47,45 @@
      bordercolor="#666666"
      pagecolor="#ffffff" />
   <g
-     style="stroke:#f2f2f2;stroke-width:2"
-     color="#bebebe"
-     transform="translate(-653 -77)"
+     style="color:#bebebe;stroke:#ffffff;stroke-width:2;opacity:0.7"
+     transform="translate(-653,-77)"
      id="g855">
     <rect
-       fill="#666"
        height="1"
        overflow="visible"
-       style="marker:none;stroke:#f2f2f2;stroke-width:2"
+       style="overflow:visible;fill:#666666;stroke:#ffffff;stroke-width:2;marker:none"
        width="14"
        x="654"
        y="78"
        id="rect845" />
     <rect
-       fill="#666"
        height="1"
        overflow="visible"
-       style="marker:none;stroke:#f2f2f2;stroke-width:2"
+       style="overflow:visible;fill:#666666;stroke:#ffffff;stroke-width:2;marker:none"
        width="10"
        x="656"
        y="81"
        id="rect847" />
     <rect
-       fill="#666"
        height="1"
        overflow="visible"
-       style="marker:none;stroke:#f2f2f2;stroke-width:2"
+       style="overflow:visible;fill:#666666;stroke:#ffffff;stroke-width:2;marker:none"
        width="10"
        x="656"
        y="87"
        id="rect849" />
     <rect
-       fill="#666"
        height="1"
        overflow="visible"
-       style="marker:none;stroke:#f2f2f2;stroke-width:2"
+       style="overflow:visible;fill:#666666;stroke:#ffffff;stroke-width:2;marker:none"
        width="14"
        x="654"
        y="90"
        id="rect851" />
     <rect
-       fill="#666"
        height="1"
        overflow="visible"
-       style="marker:none;stroke:#f2f2f2;stroke-width:2"
+       style="overflow:visible;fill:#666666;stroke:#ffffff;stroke-width:2;marker:none"
        width="14"
        x="654"
        y="84"
@@ -100,13 +94,14 @@
   <g
      id="g12"
      transform="translate(-653 -77)"
-     color="#bebebe">
+     color="#bebebe"
+     style="fill:#1a1a1a">
     <rect
        id="rect2"
        y="78"
        x="654"
        width="14"
-       style="marker:none"
+       style="marker:none;fill:#1a1a1a"
        overflow="visible"
        height="1"
        fill="#666" />
@@ -115,7 +110,7 @@
        y="81"
        x="656"
        width="10"
-       style="marker:none"
+       style="marker:none;fill:#1a1a1a"
        overflow="visible"
        height="1"
        fill="#666" />
@@ -124,7 +119,7 @@
        y="87"
        x="656"
        width="10"
-       style="marker:none"
+       style="marker:none;fill:#1a1a1a"
        overflow="visible"
        height="1"
        fill="#666" />
@@ -133,7 +128,7 @@
        y="90"
        x="654"
        width="14"
-       style="marker:none"
+       style="marker:none;fill:#1a1a1a"
        overflow="visible"
        height="1"
        fill="#666" />
@@ -142,7 +137,7 @@
        y="84"
        x="654"
        width="14"
-       style="marker:none"
+       style="marker:none;fill:#1a1a1a"
        overflow="visible"
        height="1"
        fill="#666" />
