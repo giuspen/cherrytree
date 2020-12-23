@@ -79,7 +79,7 @@ endif()
 
 add_compile_options(-Wno-deprecated -Wno-deprecated-declarations)
 if(CMAKE_BUILD_TYPE STREQUAL "")
-  add_compile_options(-O3)
+  add_compile_options(-O2)
 elseif (CMAKE_BUILD_TYPE STREQUAL "Debug")
   add_compile_options(-O0 -g)
 endif()
