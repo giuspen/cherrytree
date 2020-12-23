@@ -636,7 +636,9 @@ std::vector<CtTextParser::token_schema> CtZimParser::_token_schemas()
                 ++iter;
             }
             if (count < 0) {
-                throw CtImportException(fmt::format("Parsing error while parsing header data: {} - Too many '='", data));
+                // false alarm, it's just a plain text separator
+                doc_builder().add_text(data);
+                return;
             }
 
             if (count > 3) {
