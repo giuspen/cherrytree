@@ -3196,6 +3196,9 @@ msgstr "Запись в %s не удалась"
 msgid "Writing to Disk..."
 msgstr "Запись на диск..."
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Дополнительные коментарии
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ msgid "Export to Multiple Plain _Text Files"
 #~ msgstr "Экспорт в несколько текстовых файлов"
 
@@ -3223,29 +3226,8 @@ msgstr "Запись на диск..."
 #~ msgid "Suggestions"
 #~ msgstr "Варианты"
 
-#~ msgid "NoteCase Document"
-#~ msgstr "Документ NoteCase"
-
 #~ msgid "EPIM HTML Document"
 #~ msgstr "EPIM HTML документ"
-
-#~ msgid "HTML Document"
-#~ msgstr "HTML документ"
-
-#~ msgid "Treepad Document"
-#~ msgstr "Документ Treepad"
-
-#~ msgid "KeyNote Document"
-#~ msgstr "Документ KeyNote"
-
-#~ msgid "Mempad Document"
-#~ msgstr "Документ Mempad"
-
-#~ msgid "Knowit Document"
-#~ msgstr "Документ Knowit"
-
-#~ msgid "Leo Document"
-#~ msgstr "Документ Leo"
 
 #~ msgid ""
 #~ "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
@@ -3311,9 +3293,6 @@ msgstr "Запись на диск..."
 
 #~ msgid "Insert NewLine Char"
 #~ msgstr "Вставить символ новой строки"
-
-#~ msgid "Are you sure to Reset to Default?"
-#~ msgstr "Вы уверены что хотите сбросить настройки?"
 
 #~ msgid "Use AppIndicator for Docking"
 #~ msgstr "Использовать AppIndicator"
