@@ -1,7 +1,9 @@
 /*
  * ct_parser_html.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2020
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,10 +21,10 @@
  * MA 02110-1301, USA.
  */
 
+#include "ct_main_win.h"
 #include "ct_parser.h"
 #include "ct_misc_utils.h"
 #include "ct_const.h"
-#include "ct_main_win.h"
 #include "ct_storage_xml.h"
 
 #include <cassert>

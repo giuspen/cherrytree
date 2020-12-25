@@ -21,20 +21,18 @@
  * MA 02110-1301, USA.
  */
 
+#include "ct_main_win.h"
 #include "ct_misc_utils.h"
 #include <pangomm.h>
 #include <iostream>
 #include <cstring>
 #include "ct_const.h"
-#include "ct_main_win.h"
 #include "ct_logging.h"
 #include <ctime>
 #include <regex>
 #include <glib/gstdio.h> // to get stats
 #include <curl/curl.h>
 #include <uchardet.h>
-#include <spdlog/fmt/bundled/printf.h>
-
 #include <thread> // for parallel_for
 #include <future> // parallel_for
 

@@ -21,10 +21,10 @@
  * MA 02110-1301, USA.
  */
 
+#include "ct_main_win.h"
 #include <algorithm>
 #include "ct_treestore.h"
 #include "ct_misc_utils.h"
-#include "ct_main_win.h"
 #include "ct_storage_control.h"
 #include "ct_actions.h"
 #include "ct_logging.h"

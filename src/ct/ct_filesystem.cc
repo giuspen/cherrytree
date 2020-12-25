@@ -24,7 +24,6 @@
 #include <glibmm/miscutils.h>
 #include <glib/gstdio.h>
 #include <curl/curl.h>
-#include <spdlog/fmt/bundled/printf.h>
 #include <system_error>
 #include <utility>
 #include <unordered_map>

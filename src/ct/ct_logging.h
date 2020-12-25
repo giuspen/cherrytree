@@ -23,8 +23,13 @@
 
 #pragma once
 
-
 #define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG
+#ifdef _WIN32
+#include <fmt/printf.h>
+#define SPDLOG_FMT_EXTERNAL
+#else
+#include <spdlog/fmt/bundled/printf.h>
+#endif
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/fmt.h>
 #include <glibmm/ustring.h>
@@ -38,10 +43,3 @@ struct fmt::formatter<Glib::ustring>: formatter<string_view> {
     return formatter<string_view>::format(c.c_str(), ctx);
   }
 };
-
-
-
-
-
-
-

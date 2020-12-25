@@ -24,10 +24,10 @@
 #pragma once
 
 #include "ct_types.h"
+#include "ct_logging.h"
 #include <gtksourceviewmm.h>
 #include <gtkmm/treeiter.h>
 #include <gtkmm/treestore.h>
-#include <spdlog/fmt/fmt.h>
 #include <unordered_set>
 #include <type_traits>
 #include <deque>

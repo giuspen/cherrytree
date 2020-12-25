@@ -21,9 +21,9 @@
  * MA 02110-1301, USA.
  */
 
+#include "ct_main_win.h"
 #include "ct_list.h"
 #include "ct_const.h"
-#include "ct_main_win.h"
 #include <gtkmm/textbuffer.h>
 
 /*
