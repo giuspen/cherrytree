@@ -49,7 +49,7 @@ set(CPACK_CREATE_DESKTOP_LINKS ${CPACK_PACKAGE_CONTACT})
 set(CPACK_PACKAGE_INSTALL_DIRECTORY ${CPACK_PACKAGE_CONTACT})
 set(CPACK_STRIP_FILES TRUE)
 
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgtkmm-3.0-1v5, libgtksourceviewmm-3.0-0v5, libxml++2.6-2v5, libsqlite3-0, libgspell-1-2, libcurl4, libuchardet0")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgtkmm-3.0-1v5, libgtksourceviewmm-3.0-0v5, libxml++2.6-2v5, libsqlite3-0, libgspell-1-2, libcurl4, libuchardet0 libspdlog1")
 set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://www.giuspen.com/cherrytree/")
 #set(CPACK_DEBIAN_PACKAGE_SECTION "graphics") which one?
 set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
@@ -105,11 +105,9 @@ pkg_check_modules(LIBXML libxml++-2.6 REQUIRED)
 pkg_check_modules(SQLITE sqlite3 REQUIRED)
 pkg_check_modules(CURL libcurl REQUIRED)
 pkg_check_modules(UCHARDET uchardet REQUIRED)
+pkg_check_modules(SPDLOG spdlog REQUIRED)
 
 add_subdirectory(src/7za)
-
-# Spdlog
-add_subdirectory(src/spdlog)
 
 
 include(FindPackageHandleStandardArgs)
@@ -125,7 +123,8 @@ include_directories(
   SYSTEM ${SQLITE_INCLUDE_DIRS}
   SYSTEM ${CURL_INCLUDE_DIRS}
   SYSTEM ${UCHARDET_INCLUDE_DIRS}
-  include_directories(.) # to find src/fmt
+  SYSTEM ${SPDLOG_INCLUDE_DIRS}
+  include_directories(.) # config.h
 )
 
 add_subdirectory(src/ct)

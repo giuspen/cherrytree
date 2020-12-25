@@ -75,9 +75,9 @@ target_link_libraries(cherrytree_shared
     ${SQLITE_LIBRARIES}
     ${CURL_LIBRARIES}
     ${UCHARDET_LIBRARIES}
+    ${SPDLOG_LIBRARIES}
     pthread
     7za_static
-    spdlog::spdlog
 )
 
 target_include_directories(cherrytree_shared PUBLIC "..")

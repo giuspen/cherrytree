@@ -15,7 +15,8 @@ Build-Depends:
  libsqlite3-dev,
  libgspell-1-dev,
  libcurl4-openssl-dev,
- libuchardet-dev
+ libuchardet-dev,
+ libspdlog-dev
 Standards-Version: 3.9.5
 Homepage: https://www.giuspen.com/cherrytree/
 Vcs-Git: https://github.com/giuspen/cherrytree.git
@@ -31,6 +32,7 @@ Depends:
  libgspell-1-2,
  libcurl4,
  libuchardet0,
+ libspdlog1,
  ${misc:Depends},
  ${shlibs:Depends}
 Description: hierarchical note taking application
