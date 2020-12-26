@@ -517,20 +517,20 @@ std::string CtActions::_dialog_search(const std::string& title, bool replace_on,
         ts_frame->set_shadow_type(Gtk::SHADOW_NONE);
         ts_frame->add(*ts_node_vbox);
 
-        auto on_ts_node_button_clicked = [&dialog, ts_format](Gtk::Button* button, const char* title, std::time_t& ts_value) {
-            std::time_t new_time = CtDialogs::date_select_dialog(dialog, title, ts_value);
+        auto on_ts_node_button_clicked = [&dialog, ts_format](Gtk::Button* button, const char* title, std::time_t* ts_value) {
+            std::time_t new_time = CtDialogs::date_select_dialog(dialog, title, *ts_value);
             if (new_time == 0) return;
-             ts_value = new_time;
-             button->set_label(str::time_format(ts_format, new_time));
+            *ts_value = new_time;
+            button->set_label(str::time_format(ts_format, new_time));
         };
         ts_node_created_after_button->signal_clicked().connect(sigc::bind(on_ts_node_button_clicked, ts_node_created_after_button,
-                                                                          _("Node Created After"), s_options.ts_cre_after.time));
+                                                                          _("Node Created After"), &s_options.ts_cre_after.time));
         ts_node_created_before_button->signal_clicked().connect(sigc::bind(on_ts_node_button_clicked, ts_node_created_before_button,
-                                                                           _("Node Created Before"), s_options.ts_cre_before.time));
+                                                                           _("Node Created Before"), &s_options.ts_cre_before.time));
         ts_node_modified_after_button->signal_clicked().connect(sigc::bind(on_ts_node_button_clicked, ts_node_modified_after_button,
-                                                                           _("Node Modified After"), s_options.ts_mod_after.time));
+                                                                           _("Node Modified After"), &s_options.ts_mod_after.time));
         ts_node_modified_before_button->signal_clicked().connect(sigc::bind(on_ts_node_button_clicked, ts_node_modified_before_button,
-                                                                            _("Node Modified Before"), s_options.ts_mod_before.time));
+                                                                            _("Node Modified Before"), &s_options.ts_mod_before.time));
     }
     auto iter_dialog_checkbutton = Gtk::CheckButton(_("Show Iterated Find/Replace Dialog"));
     iter_dialog_checkbutton.set_active(s_options.search_replace_dict_idialog);
@@ -605,37 +605,38 @@ std::string CtActions::_dialog_search(const std::string& title, bool replace_on,
 // Recursive function that searchs for the given pattern
 bool CtActions::_parse_node_name(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex> re_pattern, bool forward, bool all_matches)
 {
-    Glib::MatchInfo match;
     if (_is_node_within_time_filter(node_iter)) {
+        Glib::MatchInfo match;
         Glib::ustring text_name = node_iter.get_node_name();
         if (!re_pattern->match(text_name, match)) {
             Glib::ustring text_tags = node_iter.get_node_tags();
             re_pattern->match(text_tags, match);
         }
-    }
-    if (match.matches()) {
-        if (all_matches) {
-            gint64 node_id = node_iter.get_node_id();
-            Glib::ustring node_name = node_iter.get_node_name();
-            Glib::ustring node_hier_name = CtMiscUtil::get_node_hierarchical_name(node_iter, " << ", false, false);
-            Glib::ustring line_content = _get_first_line_content(node_iter.get_node_text_buffer());
-            s_state.match_store->add_row(node_id, node_name, str::xml_escape(node_hier_name), 0, 0, 1, line_content);
+
+        if (match.matches()) {
+            if (all_matches) {
+                gint64 node_id = node_iter.get_node_id();
+                Glib::ustring node_name = node_iter.get_node_name();
+                Glib::ustring node_hier_name = CtMiscUtil::get_node_hierarchical_name(node_iter, " << ", false, false);
+                Glib::ustring line_content = _get_first_line_content(node_iter.get_node_text_buffer());
+                s_state.match_store->add_row(node_id, node_name, str::xml_escape(node_hier_name), 0, 0, 1, line_content);
+            }
+            if (s_state.replace_active && !node_iter.get_node_read_only()) {
+                std::string replacer_text = s_options.search_replace_dict_replace;
+                Glib::ustring text_name = node_iter.get_node_name();
+                //str::replace(text_name, s_state.curr_find_pattern.c_str(), replacer_text.c_str());
+                text_name = re_pattern->replace(text_name, 0, replacer_text, static_cast<Glib::RegexMatchFlags>(0));
+                node_iter.set_node_name(text_name);
+                node_iter.pending_edit_db_node_prop();
+            }
+            if (!all_matches) {
+                _pCtMainWin->get_tree_view().set_cursor_safe(node_iter);
+                _pCtMainWin->get_text_view().grab_focus();
+                return true;
+            }
+            else
+                s_state.matches_num += 1;
         }
-        if (s_state.replace_active && !node_iter.get_node_read_only()) {
-            std::string replacer_text = s_options.search_replace_dict_replace;
-            Glib::ustring text_name = node_iter.get_node_name();
-            //str::replace(text_name, s_state.curr_find_pattern.c_str(), replacer_text.c_str());
-            text_name = re_pattern->replace(text_name, 0, replacer_text, static_cast<Glib::RegexMatchFlags>(0));
-            node_iter.set_node_name(text_name);
-            node_iter.pending_edit_db_node_prop();
-        }
-        if (!all_matches) {
-            _pCtMainWin->get_tree_view().set_cursor_safe(node_iter);
-            _pCtMainWin->get_text_view().grab_focus();
-            return true;
-        }
-        else
-            s_state.matches_num += 1;
     }
 
     // check for children
