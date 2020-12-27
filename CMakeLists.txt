@@ -105,6 +105,7 @@ pkg_check_modules(LIBXML libxml++-2.6 REQUIRED)
 pkg_check_modules(SQLITE sqlite3 REQUIRED)
 pkg_check_modules(CURL libcurl REQUIRED)
 pkg_check_modules(UCHARDET uchardet REQUIRED)
+pkg_check_modules(FMT fmt REQUIRED)
 pkg_check_modules(SPDLOG spdlog REQUIRED)
 
 add_subdirectory(src/7za)
@@ -123,6 +124,7 @@ include_directories(
   SYSTEM ${SQLITE_INCLUDE_DIRS}
   SYSTEM ${CURL_INCLUDE_DIRS}
   SYSTEM ${UCHARDET_INCLUDE_DIRS}
+  SYSTEM ${FMT_INCLUDE_DIRS}
   SYSTEM ${SPDLOG_INCLUDE_DIRS}
   include_directories(.) # config.h
 )

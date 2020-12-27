@@ -197,6 +197,17 @@
             ]
         },
         {
+            "name" : "fmt",
+            "buildsystem": "cmake",
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://github.com/fmtlib/fmt/releases/download/7.1.2/fmt-7.1.2.zip",
+                    "sha256" : "4d6968ab7c01e95cc76df136755703defb985105a117b83057e4fd5d53680ea7"
+                }
+            ]
+        },
+        {
             "name" : "spdlog",
             "buildsystem": "cmake",
             "sources" : [

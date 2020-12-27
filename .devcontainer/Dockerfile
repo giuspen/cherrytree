@@ -16,6 +16,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
       libgtksourceviewmm-3.0-dev \
       libsqlite3-dev \
       libuchardet-dev \
+      libfmt-dev \
       libspdlog-dev \
       libxml++2.6-dev \
       libxml2-utils

@@ -16,6 +16,7 @@ Build-Depends:
  libgspell-1-dev,
  libcurl4-openssl-dev,
  libuchardet-dev,
+ libfmt-dev,
  libspdlog-dev
 Standards-Version: 3.9.5
 Homepage: https://www.giuspen.com/cherrytree/

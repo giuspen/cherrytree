@@ -1,6 +1,9 @@
 
 add_compile_options(-Wall -Wextra -Wunreachable-code -Wuninitialized)
 
+add_definitions(-DSPDLOG_FMT_EXTERNAL)
+add_definitions(-DSPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_DEBUG)
+
 if(USE_NLS)
     add_definitions(-DHAVE_NLS)
 endif()
@@ -75,6 +78,7 @@ target_link_libraries(cherrytree_shared
     ${SQLITE_LIBRARIES}
     ${CURL_LIBRARIES}
     ${UCHARDET_LIBRARIES}
+    ${FMT_LIBRARIES}
     ${SPDLOG_LIBRARIES}
     pthread
     7za_static

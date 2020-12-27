@@ -23,15 +23,9 @@
 
 #pragma once
 
-#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG
-#ifdef _WIN32
-#include <fmt/printf.h>
-#define SPDLOG_FMT_EXTERNAL
-#else
-#include <spdlog/fmt/bundled/printf.h>
-#endif
 #include <spdlog/spdlog.h>
-#include <spdlog/fmt/fmt.h>
+#include <fmt/core.h>
+#include <fmt/printf.h>
 #include <glibmm/ustring.h>
 
 // ostream works badly on Win32 due to locale encoding
