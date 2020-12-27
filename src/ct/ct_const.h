@@ -228,8 +228,8 @@ const inline static std::array<const gchar*, 18>  TOOLBAR_VEC_BLACKLIST {
 
 const inline static gchar* LANG_DEFAULT{"default"};
 
-const inline static std::array<const gchar*, 21> AVAILABLE_LANGS {
-    LANG_DEFAULT, "cs", "de", "el", "en", "es", "fi", "fr", "hy", "it",
+const inline static std::array<const gchar*, 22> AVAILABLE_LANGS {
+    LANG_DEFAULT, "bg", "cs", "de", "el", "en", "es", "fi", "fr", "hy", "it",
     "ja", "lt", "nl", "pl", "pt_BR", "ru", "sl", "sv", "tr", "uk", "zh_CN"
 };
 
