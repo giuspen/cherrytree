@@ -59,6 +59,9 @@ include(CPack)
 
 set(CMAKE_CXX_STANDARD 17)
 
+add_definitions(-DSPDLOG_FMT_EXTERNAL)
+add_definitions(-DSPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_DEBUG)
+
 # temporarily disable these warnings: Only <gtksourceview/gtksource.h> can be included directly.
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   add_compile_options(-Wno-cpp)

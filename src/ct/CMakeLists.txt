@@ -1,9 +1,6 @@
 
 add_compile_options(-Wall -Wextra -Wunreachable-code -Wuninitialized)
 
-add_definitions(-DSPDLOG_FMT_EXTERNAL)
-add_definitions(-DSPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_DEBUG)
-
 if(USE_NLS)
     add_definitions(-DHAVE_NLS)
 endif()
@@ -22,7 +19,6 @@ if(MINGW)
                                            -o ${CMAKE_CURRENT_BINARY_DIR}/cherrytree_rc.o )
     set(CHERRY_EXE_RC ${CMAKE_CURRENT_BINARY_DIR}/cherrytree_rc.o)
 endif(MINGW)
-
 
 set(CT_SHARED_FILES
     ct_actions_edit.cc
