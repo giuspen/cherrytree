@@ -88,8 +88,8 @@ struct CtRecentDocRestore
 };
 
 typedef std::unordered_map<std::string, CtRecentDocRestore> CtRecentDocsRestore;
-class CtTableCell;
-typedef std::vector<CtTableCell*>   CtTableRow;
+class CtTextCell;
+typedef std::vector<CtTextCell*>    CtTableRow;
 typedef std::vector<CtTableRow>     CtTableMatrix;
 typedef std::vector<int>            CtTableColWidths;
 

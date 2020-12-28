@@ -38,7 +38,6 @@ namespace xmlpp {
 class CtAnchoredWidget;
 class CtMainWin;
 class CtTreeIter;
-class CtTableCell;
 class CtStorageCache;
 
 class CtStorageXml : public CtStorageEntity

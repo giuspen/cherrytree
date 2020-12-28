@@ -463,32 +463,32 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
                     // two columns
                     ASSERT_EQ(2, tableMatrix.at(0).size());
                     {
-                        CtTableCell* pCell = tableMatrix.at(0).at(0);
+                        CtTextCell* pCell = tableMatrix.at(0).at(0);
                         ASSERT_STREQ("h1", pCell->get_text_content().c_str());
                         ASSERT_STREQ(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
                     }
                     {
-                        CtTableCell* pCell = tableMatrix.at(0).at(1);
+                        CtTextCell* pCell = tableMatrix.at(0).at(1);
                         ASSERT_STREQ("h2", pCell->get_text_content().c_str());
                         ASSERT_STREQ(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
                     }
                     {
-                        CtTableCell* pCell = tableMatrix.at(1).at(0);
+                        CtTextCell* pCell = tableMatrix.at(1).at(0);
                         ASSERT_STREQ("йцукенгшщз", pCell->get_text_content().c_str());
                         ASSERT_STREQ(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
                     }
                     {
-                        CtTableCell* pCell = tableMatrix.at(1).at(1);
+                        CtTextCell* pCell = tableMatrix.at(1).at(1);
                         ASSERT_STREQ("2", pCell->get_text_content().c_str());
                         ASSERT_STREQ(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
                     }
                     {
-                        CtTableCell* pCell = tableMatrix.at(2).at(0);
+                        CtTextCell* pCell = tableMatrix.at(2).at(0);
                         ASSERT_STREQ("3", pCell->get_text_content().c_str());
                         ASSERT_STREQ(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
                     }
                     {
-                        CtTableCell* pCell = tableMatrix.at(2).at(1);
+                        CtTextCell* pCell = tableMatrix.at(2).at(1);
                         ASSERT_STREQ("4", pCell->get_text_content().c_str());
                         ASSERT_STREQ(CtConst::TABLE_CELL_TEXT_ID, pCell->get_syntax_highlighting().c_str());
                     }

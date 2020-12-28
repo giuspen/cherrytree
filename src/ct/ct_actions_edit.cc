@@ -117,7 +117,7 @@ void CtActions::table_handle()
         {
             tableMatrix.push_back(CtTableRow{});
             for (auto& cell: row)
-                tableMatrix.back().push_back(new CtTableCell(_pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID));
+                tableMatrix.back().push_back(new CtTextCell{_pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID});
         }
 
         pCtTable = new CtTable(_pCtMainWin, tableMatrix, col_width, _curr_buffer()->get_insert()->get_iter().get_offset(), "", CtTableColWidths{});

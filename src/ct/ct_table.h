@@ -29,16 +29,6 @@
 #include <ostream>
 #include <istream>
 
-class CtTextCell;
-class CtTableCell : public CtTextCell, public Gtk::EventBox
-{
-public:
-    CtTableCell(CtMainWin* pCtMainWin,
-                const Glib::ustring& textContent,
-                const Glib::ustring& syntaxHighlighting);
-    virtual ~CtTableCell();
-};
-
 class CtTable : public CtAnchoredWidget
 {
 public:
@@ -95,7 +85,7 @@ public:
     void column_move_left(int column);
     void column_move_right(int column);
     void row_add(int after_row, std::vector<Glib::ustring>* row = nullptr);
-    void row_delete(int row);
+    void row_delete(const size_t rowIdx);
     void row_move_up(int row);
     void row_move_down(int row);
     bool row_sort_asc();

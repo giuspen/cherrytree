@@ -152,7 +152,7 @@ CtAnchoredWidget* CtAnchoredWidgetState_Table::to_widget(CtMainWin* pCtMainWin)
     {
         tableMatrix.push_back(CtTableRow());
         for (const auto& cell : row) {
-            tableMatrix.back().push_back(new CtTableCell(pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID));
+            tableMatrix.back().push_back(new CtTextCell{pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID});
         }
     }
     return new CtTable(pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, colWidths, currRow, currCol);

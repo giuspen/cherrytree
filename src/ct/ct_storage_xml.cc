@@ -417,7 +417,7 @@ void CtStorageXmlHelper::populate_table_matrix(CtTableMatrix& tableMatrix, xmlpp
         {
             xmlpp::TextNode* pTextNode = static_cast<xmlpp::Element*>(pNodeCell)->get_child_text();
             const Glib::ustring textContent = pTextNode ? pTextNode->get_content() : "";
-            tableMatrix.back().push_back(new CtTableCell(_pCtMainWin, textContent, CtConst::TABLE_CELL_TEXT_ID));
+            tableMatrix.back().push_back(new CtTextCell{_pCtMainWin, textContent, CtConst::TABLE_CELL_TEXT_ID});
         }
     }
     tableMatrix.insert(tableMatrix.begin(), tableMatrix.back());
