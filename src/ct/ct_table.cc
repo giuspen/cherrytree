@@ -48,7 +48,7 @@ CtTable::CtTable(CtMainWin* pCtMainWin,
     while (_colWidths.size() < tableMatrix[0].size())
         _colWidths.push_back(0); // 0 means we use default width
 
-    _setup_new_matrix(tableMatrix, false/*apply style when node shows*/);
+    _setup_new_matrix(tableMatrix);
 
     _grid.set_column_spacing(1);
     _grid.set_row_spacing(1);
@@ -66,7 +66,7 @@ CtTable::~CtTable()
     }
 }
 
-void CtTable::_setup_new_matrix(const CtTableMatrix& tableMatrix, bool apply_style /* = true*/)
+void CtTable::_setup_new_matrix(const CtTableMatrix& tableMatrix)
 {
     for (auto widget : _grid.get_children()) {
         _grid.remove(*widget);
@@ -74,29 +74,32 @@ void CtTable::_setup_new_matrix(const CtTableMatrix& tableMatrix, bool apply_sty
     _tableMatrix = tableMatrix;
     for (size_t row = 0; row < _tableMatrix.size(); ++row) {
         for (size_t col = 0; col < _tableMatrix[row].size(); ++col) {
-            CtTextCell* pTextCell = _tableMatrix[row][col];
-            CtTextView& textView = pTextCell->get_text_view();
-            bool is_header = 0 == row;
-            textView.set_size_request(get_col_width(col), -1);
-            textView.set_highlight_current_line(false);
-            if (is_header) {
-                textView.get_style_context()->add_class("ct-table-header-cell");
-                textView.set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
-            }
-            textView.signal_populate_popup().connect(
-                    sigc::bind(sigc::mem_fun(*this, &CtTable::_on_populate_popup_cell), row, col));
-            textView.signal_key_press_event().connect(
-                    sigc::bind(sigc::mem_fun(*this, &CtTable::_on_key_press_event_cell), row, col), false);
-            textView.signal_button_press_event().connect(
-                    sigc::bind(sigc::mem_fun(*this, &CtTable::_on_button_press_event_cell), row, col), false);
-
-            _grid.attach(pTextCell->get_text_view(), col, row, 1/*# cell horiz*/, 1/*# cell vert*/);
+            _new_text_cell_attach(row, col, _tableMatrix[row][col]);
         }
     }
-    if (apply_style) {
-        _apply_styles_to_cells(false/*forceReApply*/);
+}
+
+void CtTable::_new_text_cell_attach(const size_t rowIdx, const size_t colIdx, CtTextCell* pTextCell)
+{
+    CtTextView& textView = pTextCell->get_text_view();
+    const bool is_header = 0 == rowIdx;
+    textView.set_size_request(get_col_width(colIdx), -1);
+    textView.set_highlight_current_line(false);
+    if (is_header) {
+        textView.get_style_context()->add_class("ct-table-header-cell");
+        textView.set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
     }
-    _grid.show_all();
+    textView.signal_populate_popup().connect(
+            sigc::bind(sigc::mem_fun(*this, &CtTable::_on_populate_popup_cell), rowIdx, colIdx));
+    textView.signal_key_press_event().connect(
+            sigc::bind(sigc::mem_fun(*this, &CtTable::_on_key_press_event_cell), rowIdx, colIdx), false);
+    textView.signal_button_press_event().connect(
+            sigc::bind(sigc::mem_fun(*this, &CtTable::_on_button_press_event_cell), rowIdx, colIdx), false);
+
+    _grid.attach(pTextCell->get_text_view(), colIdx, rowIdx, 1/*# cell horiz*/, 1/*# cell vert*/);
+
+    _pCtMainWin->apply_syntax_highlighting(pTextCell->get_buffer(), pTextCell->get_syntax_highlighting(), false/*forceReApply*/);
+    textView.show();
 }
 
 void CtTable::_apply_styles_to_cells(const bool forceReApply)
@@ -236,12 +239,17 @@ void CtTable::column_add(int after_column)
     _setup_new_matrix(matrix);
 }
 
-void CtTable::column_delete(int column)
+void CtTable::column_delete(const size_t colIdx)
 {
-    if (_tableMatrix.front().size() == 1) return;
-    auto matrix = _copy_matrix(-1, column, -1, -1, -1, -1);
-    _colWidths.erase(_colWidths.begin() + column);
-    _setup_new_matrix(matrix);
+    if (1 == _tableMatrix.front().size() or colIdx >= _tableMatrix.front().size()) {
+        return;
+    }
+    _grid.remove_column(colIdx);
+    _colWidths.erase(_colWidths.begin()+colIdx);
+    for (CtTableRow& tableRow : _tableMatrix) {
+        delete tableRow.at(colIdx);
+        tableRow.erase(tableRow.begin()+colIdx);
+    }
 }
 
 void CtTable::column_move_left(int column)
@@ -261,13 +269,18 @@ void CtTable::column_move_right(int column)
     _setup_new_matrix(matrix);
 }
 
-void CtTable::row_add(int after_row, std::vector<Glib::ustring>* row /*= nullptr*/)
+void CtTable::row_add(const size_t afterRowIdx, const std::vector<Glib::ustring>* pNewRow/*= nullptr*/)
 {
-    auto matrix = _copy_matrix(-1, -1, after_row, -1, -1, -1);
-    if (row && row->size() == matrix[0].size())
-        for (int col = 0; col < (int)matrix[0].size(); ++col)
-            matrix[after_row + 1][col]->get_text_view().get_buffer()->set_text(row->at(col));
-    _setup_new_matrix(matrix);
+    const size_t newRowIdx = afterRowIdx + 1;
+    _tableMatrix.insert(_tableMatrix.begin()+newRowIdx, CtTableRow{});
+    _grid.insert_row(newRowIdx);
+    const Glib::ustring emptyCell;
+    for (size_t colIdx = 0; colIdx < _tableMatrix.front().size(); ++colIdx) {
+        const Glib::ustring* pStr = not pNewRow or pNewRow->size() <= colIdx ? &emptyCell : &pNewRow->at(colIdx);
+        auto pTextCell = new CtTextCell{_pCtMainWin, *pStr, CtConst::TABLE_CELL_TEXT_ID};
+        _tableMatrix.at(newRowIdx).push_back(pTextCell);
+        _new_text_cell_attach(newRowIdx, colIdx, pTextCell);
+    }
 }
 
 void CtTable::row_delete(const size_t rowIdx)

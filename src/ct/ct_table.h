@@ -81,10 +81,10 @@ public:
     int current_column() { return _currentColumn < (int)_tableMatrix.front().size() ? _currentColumn : 0; }
 
     void column_add(int after_column);
-    void column_delete(int column);
+    void column_delete(const size_t colIdx);
     void column_move_left(int column);
     void column_move_right(int column);
-    void row_add(int after_row, std::vector<Glib::ustring>* row = nullptr);
+    void row_add(const size_t afterRowIdx, const std::vector<Glib::ustring>* pNewRow = nullptr);
     void row_delete(const size_t rowIdx);
     void row_move_up(int row);
     void row_move_down(int row);
@@ -95,8 +95,9 @@ public:
     void set_col_width(const int colWidth, std::optional<size_t> optColIdx = std::nullopt);
 
 private:
-    void _setup_new_matrix(const CtTableMatrix& tableMatrix, bool apply_style = true);
+    void _setup_new_matrix(const CtTableMatrix& tableMatrix);
     void _apply_styles_to_cells(const bool forceReApply);
+    void _new_text_cell_attach(const size_t rowIdx, const size_t colIdx, CtTextCell* pTextCell);
 
     CtTableMatrix _copy_matrix(int col_add, int col_del, int row_add, int row_del, int col_move_left, int row_move_up);
 
