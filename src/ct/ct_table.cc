@@ -35,8 +35,8 @@ CtTable::CtTable(CtMainWin* pCtMainWin,
                  const int charOffset,
                  const std::string& justification,
                  const CtTableColWidths& colWidths,
-                 const int currRow,
-                 const int currCol)
+                 const size_t currRow,
+                 const size_t currCol)
  : CtAnchoredWidget{pCtMainWin, charOffset, justification}
  , _colWidthDefault{colWidthDefault}
  , _colWidths{colWidths}
@@ -72,9 +72,9 @@ void CtTable::_setup_new_matrix(const CtTableMatrix& tableMatrix)
         _grid.remove(*widget);
     }
     _tableMatrix = tableMatrix;
-    for (size_t row = 0; row < _tableMatrix.size(); ++row) {
-        for (size_t col = 0; col < _tableMatrix[row].size(); ++col) {
-            _new_text_cell_attach(row, col, _tableMatrix[row][col]);
+    for (size_t rowIdx = 0; rowIdx < _tableMatrix.size(); ++rowIdx) {
+        for (size_t colIdx = 0; colIdx < _tableMatrix[rowIdx].size(); ++colIdx) {
+            _new_text_cell_attach(rowIdx, colIdx, _tableMatrix[rowIdx][colIdx]);
         }
     }
 }
@@ -232,11 +232,16 @@ void CtTable::set_modified_false()
     }
 }
 
-void CtTable::column_add(int after_column)
+void CtTable::column_add(const size_t afterColIdx)
 {
-    auto matrix = _copy_matrix(after_column, -1, -1, -1, -1, -1);
-    _colWidths.insert(_colWidths.begin() + after_column + 1, 0);
-    _setup_new_matrix(matrix);
+    const size_t newColIdx = afterColIdx + 1;
+    _grid.insert_column(newColIdx);
+    _colWidths.insert(_colWidths.begin()+newColIdx, 0);
+    for (size_t rowIdx = 0; rowIdx < _tableMatrix.size(); ++rowIdx) {
+        auto pTextCell = new CtTextCell{_pCtMainWin, "", CtConst::TABLE_CELL_TEXT_ID};
+        _tableMatrix.at(rowIdx).insert(_tableMatrix.at(rowIdx).begin()+newColIdx, pTextCell);
+        _new_text_cell_attach(rowIdx, newColIdx, pTextCell);
+    }
 }
 
 void CtTable::column_delete(const size_t colIdx)
@@ -252,21 +257,30 @@ void CtTable::column_delete(const size_t colIdx)
     }
 }
 
-void CtTable::column_move_left(int column)
+void CtTable::column_move_left(const size_t colIdx)
 {
-    if (column == 0) return;
-    auto matrix = _copy_matrix(-1, -1, -1, -1, column, -1);
-    std::swap(_colWidths[column-1], _colWidths[column]);
-    _setup_new_matrix(matrix);
+    if (colIdx == 0) {
+        return;
+    }
+    const size_t colIdxLeft = colIdx - 1;
+    std::swap(_colWidths[colIdxLeft], _colWidths[colIdx]);
+    _grid.remove_column(colIdxLeft);
+    _grid.remove_column(colIdxLeft);
+    _grid.insert_column(colIdxLeft);
+    _grid.insert_column(colIdxLeft);
+    for (size_t rowIdx = 0; rowIdx < _tableMatrix.size(); ++rowIdx) {
+        std::swap(_tableMatrix[rowIdx][colIdxLeft], _tableMatrix[rowIdx][colIdx]);
+        _new_text_cell_attach(rowIdx, colIdxLeft, _tableMatrix[rowIdx][colIdxLeft]);
+        _new_text_cell_attach(rowIdx, colIdx, _tableMatrix[rowIdx][colIdx]);
+    }
 }
 
-void CtTable::column_move_right(int column)
+void CtTable::column_move_right(const size_t colIdx)
 {
-    if (column == (int)_tableMatrix.front().size()-1) return;
-    // moving to right is same as moving to left for other column
-    auto matrix = _copy_matrix(-1, -1, -1, -1, column + 1, -1);
-    std::swap(_colWidths[column+1], _colWidths[column]);
-    _setup_new_matrix(matrix);
+    if (colIdx == _tableMatrix.front().size()-1) {
+        return;
+    }
+    column_move_left(colIdx+1);
 }
 
 void CtTable::row_add(const size_t afterRowIdx, const std::vector<Glib::ustring>* pNewRow/*= nullptr*/)
@@ -295,19 +309,29 @@ void CtTable::row_delete(const size_t rowIdx)
     _tableMatrix.erase(_tableMatrix.begin()+rowIdx);
 }
 
-void CtTable::row_move_up(int row)
+void CtTable::row_move_up(const size_t rowIdx)
 {
-    if (row == 0) return;
-    auto matrix = _copy_matrix(-1, -1, -1, -1, -1, row);
-    _setup_new_matrix(matrix);
+    if (rowIdx == 0) {
+        return;
+    }
+    const size_t rowIdxUp = rowIdx - 1;
+    _grid.remove_row(rowIdxUp);
+    _grid.remove_row(rowIdxUp);
+    _grid.insert_row(rowIdxUp);
+    _grid.insert_row(rowIdxUp);
+    std::swap(_tableMatrix[rowIdxUp], _tableMatrix[rowIdx]);
+    for (size_t colIdx = 0; colIdx < _tableMatrix.front().size(); ++colIdx) {
+        _new_text_cell_attach(rowIdxUp, colIdx, _tableMatrix[rowIdxUp][colIdx]);
+        _new_text_cell_attach(rowIdx, colIdx, _tableMatrix[rowIdx][colIdx]);
+    }
 }
 
-void CtTable::row_move_down(int row)
+void CtTable::row_move_down(const size_t rowIdx)
 {
-    if (row == (int)_tableMatrix.size()-1) return;
-    // moving up is same as moving down for other row
-    auto matrix = _copy_matrix(-1, -1, -1, -1, -1, row + 1);
-    _setup_new_matrix(matrix);
+    if (rowIdx == _tableMatrix.size()-1) {
+        return;
+    }
+    row_move_up(rowIdx+1);
 }
 
 bool CtTable::row_sort_asc()
@@ -380,44 +404,44 @@ CtTableMatrix CtTable::_copy_matrix(int col_add, int col_del, int row_add, int r
     return matrix;
 }
 
-void CtTable::_on_populate_popup_cell(Gtk::Menu* menu, int row, int col)
+void CtTable::_on_populate_popup_cell(Gtk::Menu* menu, const size_t rowIdx, const size_t colIdx)
 {
     if (not _pCtMainWin->user_active()) return;
     //for (auto iter : menu->get_children()) menu->remove(*iter);
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
-    _currentRow = row;
-    _currentColumn = col;
-    const bool first_row = 0 == row;
-    const bool first_col = 0 == col;
-    const bool last_row = static_cast<int>(_tableMatrix.size() - 1) == row;
-    const bool last_col = _tableMatrix.size() and static_cast<int>(_tableMatrix.front().size() - 1) == col;
+    _currentRow = rowIdx;
+    _currentColumn = colIdx;
+    const bool first_row = 0 == rowIdx;
+    const bool first_col = 0 == colIdx;
+    const bool last_row = _tableMatrix.size()-1 == rowIdx;
+    const bool last_col = _tableMatrix.size() and _tableMatrix.front().size()-1 == colIdx;
     _pCtMainWin->get_ct_menu().build_popup_menu_table_cell(menu, first_row, first_col, last_row, last_col);
 }
 
-bool CtTable::_on_button_press_event_cell(GdkEventButton* event, int row, int col)
+bool CtTable::_on_button_press_event_cell(GdkEventButton* event, const size_t rowIdx, const size_t colIdx)
 {
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
-    _currentRow = row;
-    _currentColumn = col;
+    _currentRow = rowIdx;
+    _currentColumn = colIdx;
     if ( event->button != 3/*right button*/ and event->type != GDK_3BUTTON_PRESS) {
         _pCtMainWin->get_ct_actions()->object_set_selection(this);
     }
     return false;
 }
 
-bool CtTable::_on_key_press_event_cell(GdkEventKey* event, int row, int col)
+bool CtTable::_on_key_press_event_cell(GdkEventKey* event, const size_t rowIdx, const size_t colIdx)
 {
     if (not _pCtMainWin->user_active()) return false;
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
-    _currentRow = row;
-    _currentColumn = col;
+    _currentRow = rowIdx;
+    _currentColumn = colIdx;
     int index{-1};
     if (event->keyval == GDK_KEY_Tab or event->keyval == GDK_KEY_ISO_Left_Tab) {
         if (event->state & Gdk::SHIFT_MASK) {
-            index = row * _tableMatrix.front().size() + col - 1;
+            index = rowIdx * _tableMatrix.front().size() + colIdx - 1;
         }
         else {
-            index = row * _tableMatrix.front().size() + col + 1;
+            index = rowIdx * _tableMatrix.front().size() + colIdx + 1;
         }
     }
     else if (event->state & Gdk::CONTROL_MASK) {
@@ -448,31 +472,31 @@ bool CtTable::_on_key_press_event_cell(GdkEventKey* event, int row, int col)
             return true;
         }
         if (event->keyval == GDK_KEY_Up) {
-            if (row > 0) {
-                index = (row-1) * _tableMatrix.front().size() + col;
+            if (rowIdx > 0) {
+                index = (rowIdx-1) * _tableMatrix.front().size() + colIdx;
             }
         }
         else if (event->keyval == GDK_KEY_Down) {
-            if (row+1 < static_cast<int>(_tableMatrix.size())) {
-                index = (row+1) * _tableMatrix.front().size() + col;
+            if (rowIdx+1 < _tableMatrix.size()) {
+                index = (rowIdx+1) * _tableMatrix.front().size() + colIdx;
             }
         }
         else if (event->keyval == GDK_KEY_Left) {
-            index = row * _tableMatrix.front().size() + col - 1;
+            index = rowIdx * _tableMatrix.front().size() + colIdx - 1;
         }
         else if (event->keyval == GDK_KEY_Right) {
-            index = row * _tableMatrix.front().size() + col + 1;
+            index = rowIdx * _tableMatrix.front().size() + colIdx + 1;
         }
     }
     if (index >= 0) {
-        row = index / _tableMatrix.front().size();
-        col = index % _tableMatrix.front().size();
-        if ( row < static_cast<int>(_tableMatrix.size()) and
-             col < static_cast<int>(_tableMatrix.front().size()) )
+        const size_t nextRowIdx = index / _tableMatrix.front().size();
+        const size_t nextColIdx = index % _tableMatrix.front().size();
+        if ( nextRowIdx < _tableMatrix.size() and
+             nextColIdx < _tableMatrix.front().size() )
         {
-            _currentRow = row;
-            _currentColumn = col;
-            _tableMatrix[row][col]->get_text_view().grab_focus();
+            _currentRow = nextRowIdx;
+            _currentColumn = nextColIdx;
+            _tableMatrix[nextRowIdx][nextColIdx]->get_text_view().grab_focus();
         }
         return true;
     }

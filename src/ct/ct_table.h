@@ -38,8 +38,8 @@ public:
             const int charOffset,
             const std::string& justification,
             const CtTableColWidths& colWidths,
-            const int currRow = 0,
-            const int currCol = 0);
+            const size_t currRow = 0,
+            const size_t currCol = 0);
     virtual ~CtTable();
 
     /**
@@ -77,17 +77,17 @@ public:
     }
 
 public:
-    int current_row() { return _currentRow < (int)_tableMatrix.size() ? _currentRow : 0; }
-    int current_column() { return _currentColumn < (int)_tableMatrix.front().size() ? _currentColumn : 0; }
+    size_t current_row() { return _currentRow < _tableMatrix.size() ? _currentRow : 0; }
+    size_t current_column() { return _currentColumn < _tableMatrix.front().size() ? _currentColumn : 0; }
 
-    void column_add(int after_column);
+    void column_add(const size_t afterColIdx);
     void column_delete(const size_t colIdx);
-    void column_move_left(int column);
-    void column_move_right(int column);
+    void column_move_left(const size_t colIdx);
+    void column_move_right(const size_t colIdx);
     void row_add(const size_t afterRowIdx, const std::vector<Glib::ustring>* pNewRow = nullptr);
     void row_delete(const size_t rowIdx);
-    void row_move_up(int row);
-    void row_move_down(int row);
+    void row_move_up(const size_t rowIdx);
+    void row_move_down(const size_t rowIdx);
     bool row_sort_asc();
     bool row_sort_desc();
 
@@ -105,15 +105,15 @@ protected:
     void _populate_xml_rows_cells(xmlpp::Element* p_table_node);
 
 private:
-    void _on_populate_popup_cell(Gtk::Menu* menu, int row, int col);
-    bool _on_button_press_event_cell(GdkEventButton* event, int row, int col);
-    bool _on_key_press_event_cell(GdkEventKey* event, int row, int col);
+    void _on_populate_popup_cell(Gtk::Menu* menu, const size_t rowIdx, const size_t colIdx);
+    bool _on_button_press_event_cell(GdkEventButton* event, const size_t rowIdx, const size_t colIdx);
+    bool _on_key_press_event_cell(GdkEventKey* event, const size_t rowIdx, const size_t colIdx);
 
 protected:
     CtTableMatrix    _tableMatrix;
     Gtk::Grid        _grid;
     int              _colWidthDefault;
     CtTableColWidths _colWidths;
-    int              _currentRow{0};
-    int              _currentColumn{0};
+    size_t           _currentRow{0};
+    size_t           _currentColumn{0};
 };
