@@ -112,8 +112,8 @@ public:
     int colWidthDefault;
     CtTableColWidths colWidths;
     std::vector<std::vector<Glib::ustring>> rows;
-    int currRow;
-    int currCol;
+    size_t currRow;
+    size_t currCol;
 };
 
 struct CtNodeState
