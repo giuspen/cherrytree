@@ -52,8 +52,13 @@ CtTable::CtTable(CtMainWin* pCtMainWin,
 
     _grid.set_column_spacing(1);
     _grid.set_row_spacing(1);
+    _grid.signal_key_press_event().connect(sigc::mem_fun(*this, &CtTable::_on_key_press_event_grid), false);
+    _grid.signal_button_press_event().connect(sigc::mem_fun(*this, &CtTable::_on_button_press_event_grid), false);
+    _grid.signal_set_focus_child().connect(sigc::mem_fun(*this, &CtTable::_on_set_focus_child_grid));
+
     _frame.get_style_context()->add_class("ct-table");
     _frame.add(_grid);
+
     show_all();
 }
 
@@ -89,12 +94,7 @@ void CtTable::_new_text_cell_attach(const size_t rowIdx, const size_t colIdx, Ct
         textView.get_style_context()->add_class("ct-table-header-cell");
         textView.set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
     }
-    textView.signal_populate_popup().connect(
-            sigc::bind(sigc::mem_fun(*this, &CtTable::_on_populate_popup_cell), rowIdx, colIdx));
-    textView.signal_key_press_event().connect(
-            sigc::bind(sigc::mem_fun(*this, &CtTable::_on_key_press_event_cell), rowIdx, colIdx), false);
-    textView.signal_button_press_event().connect(
-            sigc::bind(sigc::mem_fun(*this, &CtTable::_on_button_press_event_cell), rowIdx, colIdx), false);
+    textView.signal_populate_popup().connect(sigc::mem_fun(*this, &CtTable::_on_populate_popup_cell));
 
     _grid.attach(pTextCell->get_text_view(), colIdx, rowIdx, 1/*# cell horiz*/, 1/*# cell vert*/);
 
@@ -259,20 +259,19 @@ void CtTable::column_delete(const size_t colIdx)
 
 void CtTable::column_move_left(const size_t colIdx)
 {
-    if (colIdx == 0) {
+    if (0 == colIdx) {
         return;
     }
     const size_t colIdxLeft = colIdx - 1;
     std::swap(_colWidths[colIdxLeft], _colWidths[colIdx]);
     _grid.remove_column(colIdxLeft);
-    _grid.remove_column(colIdxLeft);
-    _grid.insert_column(colIdxLeft);
-    _grid.insert_column(colIdxLeft);
+    _grid.insert_column(colIdx);
     for (size_t rowIdx = 0; rowIdx < _tableMatrix.size(); ++rowIdx) {
         std::swap(_tableMatrix[rowIdx][colIdxLeft], _tableMatrix[rowIdx][colIdx]);
-        _new_text_cell_attach(rowIdx, colIdxLeft, _tableMatrix[rowIdx][colIdxLeft]);
-        _new_text_cell_attach(rowIdx, colIdx, _tableMatrix[rowIdx][colIdx]);
+        CtTextView& textView = _tableMatrix.at(rowIdx).at(colIdx)->get_text_view();
+        _grid.attach(textView, colIdx, rowIdx, 1/*# cell horiz*/, 1/*# cell vert*/);
     }
+    _currentColumn = colIdxLeft;
 }
 
 void CtTable::column_move_right(const size_t colIdx)
@@ -311,19 +310,27 @@ void CtTable::row_delete(const size_t rowIdx)
 
 void CtTable::row_move_up(const size_t rowIdx)
 {
-    if (rowIdx == 0) {
+    if (0 == rowIdx) {
         return;
     }
     const size_t rowIdxUp = rowIdx - 1;
     _grid.remove_row(rowIdxUp);
-    _grid.remove_row(rowIdxUp);
-    _grid.insert_row(rowIdxUp);
-    _grid.insert_row(rowIdxUp);
+    _grid.insert_row(rowIdx);
     std::swap(_tableMatrix[rowIdxUp], _tableMatrix[rowIdx]);
     for (size_t colIdx = 0; colIdx < _tableMatrix.front().size(); ++colIdx) {
-        _new_text_cell_attach(rowIdxUp, colIdx, _tableMatrix[rowIdxUp][colIdx]);
-        _new_text_cell_attach(rowIdx, colIdx, _tableMatrix[rowIdx][colIdx]);
+        CtTextView& textView = _tableMatrix.at(rowIdx).at(colIdx)->get_text_view();
+        _grid.attach(textView, colIdx, rowIdx, 1/*# cell horiz*/, 1/*# cell vert*/);
+        if (0 == rowIdxUp) {
+            // we swapped header
+            CtTextView& textViewUp = _tableMatrix.at(rowIdxUp).at(colIdx)->get_text_view();
+            textViewUp.get_style_context()->add_class("ct-table-header-cell");
+            textViewUp.set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
+            textView.get_style_context()->remove_class("ct-table-header-cell");
+            textView.set_wrap_mode(_pCtMainWin->get_ct_config()->lineWrapping ?
+                                   Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
+        }
     }
+    _currentRow = rowIdxUp;
 }
 
 void CtTable::row_move_down(const size_t rowIdx)
@@ -404,13 +411,12 @@ CtTableMatrix CtTable::_copy_matrix(int col_add, int col_del, int row_add, int r
     return matrix;
 }
 
-void CtTable::_on_populate_popup_cell(Gtk::Menu* menu, const size_t rowIdx, const size_t colIdx)
+void CtTable::_on_populate_popup_cell(Gtk::Menu* menu)
 {
     if (not _pCtMainWin->user_active()) return;
-    //for (auto iter : menu->get_children()) menu->remove(*iter);
+    const size_t rowIdx = current_row();
+    const size_t colIdx = current_column();
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
-    _currentRow = rowIdx;
-    _currentColumn = colIdx;
     const bool first_row = 0 == rowIdx;
     const bool first_col = 0 == colIdx;
     const bool last_row = _tableMatrix.size()-1 == rowIdx;
@@ -418,23 +424,34 @@ void CtTable::_on_populate_popup_cell(Gtk::Menu* menu, const size_t rowIdx, cons
     _pCtMainWin->get_ct_menu().build_popup_menu_table_cell(menu, first_row, first_col, last_row, last_col);
 }
 
-bool CtTable::_on_button_press_event_cell(GdkEventButton* event, const size_t rowIdx, const size_t colIdx)
+void CtTable::_on_set_focus_child_grid(Gtk::Widget* pWidget)
+{
+    for (size_t rowIdx = 0; rowIdx < _tableMatrix.size(); ++rowIdx) {
+        for (size_t colIdx = 0; colIdx < _tableMatrix[rowIdx].size(); ++colIdx) {
+            if (pWidget == &_tableMatrix.at(rowIdx).at(colIdx)->get_text_view()) {
+                _currentRow = rowIdx;
+                _currentColumn = colIdx;
+                break;
+            }
+        }
+    }
+}
+
+bool CtTable::_on_button_press_event_grid(GdkEventButton* event)
 {
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
-    _currentRow = rowIdx;
-    _currentColumn = colIdx;
     if ( event->button != 3/*right button*/ and event->type != GDK_3BUTTON_PRESS) {
         _pCtMainWin->get_ct_actions()->object_set_selection(this);
     }
     return false;
 }
 
-bool CtTable::_on_key_press_event_cell(GdkEventKey* event, const size_t rowIdx, const size_t colIdx)
+bool CtTable::_on_key_press_event_grid(GdkEventKey* event)
 {
     if (not _pCtMainWin->user_active()) return false;
+    const size_t rowIdx = current_row();
+    const size_t colIdx = current_column();
     _pCtMainWin->get_ct_actions()->curr_table_anchor = this;
-    _currentRow = rowIdx;
-    _currentColumn = colIdx;
     int index{-1};
     if (event->keyval == GDK_KEY_Tab or event->keyval == GDK_KEY_ISO_Left_Tab) {
         if (event->state & Gdk::SHIFT_MASK) {

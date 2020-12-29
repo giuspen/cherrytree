@@ -105,9 +105,10 @@ protected:
     void _populate_xml_rows_cells(xmlpp::Element* p_table_node);
 
 private:
-    void _on_populate_popup_cell(Gtk::Menu* menu, const size_t rowIdx, const size_t colIdx);
-    bool _on_button_press_event_cell(GdkEventButton* event, const size_t rowIdx, const size_t colIdx);
-    bool _on_key_press_event_cell(GdkEventKey* event, const size_t rowIdx, const size_t colIdx);
+    void _on_populate_popup_cell(Gtk::Menu* menu);
+    bool _on_button_press_event_grid(GdkEventButton* event);
+    bool _on_key_press_event_grid(GdkEventKey* event);
+    void _on_set_focus_child_grid(Gtk::Widget* pWidget);
 
 protected:
     CtTableMatrix    _tableMatrix;
