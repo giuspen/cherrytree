@@ -1447,14 +1447,15 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     text_buffer->set_modified(false);
 
     _uCtTreestore->text_view_apply_textbuffer(tree_iter, &_ctTextview);
+#ifdef WORKAROUND_ANCHORED_TEXT_VISUAL_GLITCHES
     if (widgets.size() > 0) {
-        // workaround for nodes with anchored widgets very first visualisation glitches
         while (gtk_events_pending()) gtk_main_iteration();
         CtTreeIter emptyTreeIter{};
         _uCtTreestore->text_view_apply_textbuffer(emptyTreeIter, &_ctTextview);
         while (gtk_events_pending()) gtk_main_iteration();
         _uCtTreestore->text_view_apply_textbuffer(tree_iter, &_ctTextview);
     }
+#endif // WORKAROUND_ANCHORED_TEXT_VISUAL_GLITCHES
     _ctTextview.grab_focus();
 
     _ctTextview.set_spell_check(curr_tree_iter().get_node_is_rich_text());
@@ -1547,7 +1548,7 @@ void CtMainWin::_on_treeview_cursor_changed()
     _uCtTreestore->text_view_apply_textbuffer(treeIter, &_ctTextview);
 
     if (user_active()) {
-        // workaround for nodes with anchored widgets very first visualisation glitches
+#ifdef WORKAROUND_ANCHORED_TEXT_VISUAL_GLITCHES
         if ( _nodesCursorPos.count(nodeId) == 0 and
              treeIter.get_anchored_widgets_fast().size() > 0 )
         {
@@ -1557,6 +1558,7 @@ void CtMainWin::_on_treeview_cursor_changed()
             while (gtk_events_pending()) gtk_main_iteration();
             _uCtTreestore->text_view_apply_textbuffer(treeIter, &_ctTextview);
         }
+#endif // WORKAROUND_ANCHORED_TEXT_VISUAL_GLITCHES
 
         // NOTE: text_view_apply_cursor_position() uses Glib::signal_idle().connect_once()
         //       which is hanging the tree nodes iteration

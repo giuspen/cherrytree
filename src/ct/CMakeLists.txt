@@ -1,6 +1,7 @@
 
 add_compile_options(-Wall -Wextra -Wunreachable-code -Wuninitialized)
 
+add_definitions(-DWORKAROUND_ANCHORED_TEXT_VISUAL_GLITCHES)
 if(USE_NLS)
     add_definitions(-DHAVE_NLS)
 endif()

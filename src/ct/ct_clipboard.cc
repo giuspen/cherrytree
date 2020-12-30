@@ -542,10 +542,13 @@ void CtClipboard::_on_received_to_rich_text(const Gtk::SelectionData& selection_
     }
     bool pasteHadWidgets{false};
     from_xml_string_to_buffer(pTextView->get_buffer(), rich_text, &pasteHadWidgets);
+#ifdef WORKAROUND_ANCHORED_TEXT_VISUAL_GLITCHES
     if (pasteHadWidgets) {
         _pCtMainWin->re_load_current_buffer();
     }
-    else {
+    else
+#endif // WORKAROUND_ANCHORED_TEXT_VISUAL_GLITCHES
+    {
         pTextView->scroll_to(pTextView->get_buffer()->get_insert());
     }
 }
@@ -651,10 +654,13 @@ void CtClipboard::_on_received_to_html(const Gtk::SelectionData& selection_data,
     parser.feed(html_content);
     bool pasteHadWidgets{false};
     from_xml_string_to_buffer(pTextView->get_buffer(), parser.to_string(), &pasteHadWidgets);
+#ifdef WORKAROUND_ANCHORED_TEXT_VISUAL_GLITCHES
     if (pasteHadWidgets) {
         _pCtMainWin->re_load_current_buffer();
     }
-    else {
+    else
+#endif // WORKAROUND_ANCHORED_TEXT_VISUAL_GLITCHES
+    {
         pTextView->scroll_to(pTextView->get_buffer()->get_insert());
     }
 }
