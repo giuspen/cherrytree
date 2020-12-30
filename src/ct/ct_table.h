@@ -88,18 +88,17 @@ public:
     void row_delete(const size_t rowIdx);
     void row_move_up(const size_t rowIdx);
     void row_move_down(const size_t rowIdx);
-    bool row_sort_asc();
-    bool row_sort_desc();
+    bool row_sort_asc() { return _row_sort(true/*sortAsc*/); }
+    bool row_sort_desc() { return _row_sort(false/*sortAsc*/); }
 
     void set_col_width_default(const int colWidthDefault);
     void set_col_width(const int colWidth, std::optional<size_t> optColIdx = std::nullopt);
 
 private:
-    void _setup_new_matrix(const CtTableMatrix& tableMatrix);
     void _apply_styles_to_cells(const bool forceReApply);
     void _new_text_cell_attach(const size_t rowIdx, const size_t colIdx, CtTextCell* pTextCell);
-
-    CtTableMatrix _copy_matrix(int col_add, int col_del, int row_add, int row_del, int col_move_left, int row_move_up);
+    bool _row_sort(const bool sortAsc);
+    void _apply_remove_header_style(const bool isApply, CtTextView& textView);
 
 protected:
     void _populate_xml_rows_cells(xmlpp::Element* p_table_node);
