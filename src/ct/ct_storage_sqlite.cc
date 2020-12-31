@@ -220,7 +220,6 @@ bool CtStorageSqlite::populate_treestore(const fs::path& file_path, Glib::ustrin
         // open db
         _open_db(file_path);
         _file_path = file_path;
-        _fix_db_tables();
 
         if (!_check_database_integrity()) return false;
 
@@ -322,9 +321,14 @@ bool CtStorageSqlite::save_treestore(const fs::path& file_path,
             CtStorageCache storage_cache;
             storage_cache.generate_cache(_pCtMainWin, &syncPending, false);
 
+            // check db tables columns (for document created with old version)
+            if (syncPending.fix_db_tables) {
+                _fix_db_tables();
+            }
             // update bookmarks
-            if (syncPending.bookmarks_to_write)
+            if (syncPending.bookmarks_to_write) {
                 _write_bookmarks_to_db(_pCtMainWin->get_tree_store().bookmarks_get());
+            }
             // update changed nodes
             for (const auto& node_pair : syncPending.nodes_to_write_dict)
             {
@@ -815,7 +819,6 @@ void CtStorageSqlite::import_nodes(const fs::path& path)
 {
     _open_db(path); // storage is temp so can just open db
     if (!_check_database_integrity()) return;
-    // _fix_db_tables(); how to do it withough saving changes
 
     std::function<void(gint64, const gint64, Gtk::TreeIter)> add_node_func;
     add_node_func = [this, &add_node_func](gint64 nodeId, const gint64 sequence, Gtk::TreeIter parent_iter) {
@@ -870,7 +873,7 @@ void CtStorageSqlite::_fix_db_tables()
         }
 
     } catch(std::runtime_error& e) {
-        throw std::runtime_error(fmt::format("Error while adding ts_creation and ts_lastsave to node table: {}", e.what()));
+        throw std::runtime_error(fmt::format("Error while adding mising column to table: {}", e.what()));
     }
 }
 

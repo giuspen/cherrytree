@@ -214,6 +214,7 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
         if (need_backup)
             _put_in_backup(main_backup);
 
+        _syncPending.fix_db_tables = false;
         _syncPending.bookmarks_to_write = false;
         _syncPending.nodes_to_rm_set.clear();
         _syncPending.nodes_to_write_dict.clear();
