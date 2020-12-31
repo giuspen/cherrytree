@@ -105,8 +105,8 @@ protected:
 
 private:
     void _on_populate_popup_cell(Gtk::Menu* menu);
+    bool _on_key_press_event_cell(GdkEventKey* event);
     bool _on_button_press_event_grid(GdkEventButton* event);
-    bool _on_key_press_event_grid(GdkEventKey* event);
     void _on_set_focus_child_grid(Gtk::Widget* pWidget);
 
 protected:

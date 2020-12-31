@@ -57,7 +57,6 @@ CtTable::CtTable(CtMainWin* pCtMainWin,
 
     _grid.set_column_spacing(1);
     _grid.set_row_spacing(1);
-    _grid.signal_key_press_event().connect(sigc::mem_fun(*this, &CtTable::_on_key_press_event_grid), false);
     _grid.signal_button_press_event().connect(sigc::mem_fun(*this, &CtTable::_on_button_press_event_grid), false);
     _grid.signal_set_focus_child().connect(sigc::mem_fun(*this, &CtTable::_on_set_focus_child_grid));
 
@@ -86,6 +85,7 @@ void CtTable::_new_text_cell_attach(const size_t rowIdx, const size_t colIdx, Ct
         _apply_remove_header_style(true/*isApply*/, textView);
     }
     textView.signal_populate_popup().connect(sigc::mem_fun(*this, &CtTable::_on_populate_popup_cell));
+    textView.signal_key_press_event().connect(sigc::mem_fun(*this, &CtTable::_on_key_press_event_cell), false);
 
     _grid.attach(pTextCell->get_text_view(), colIdx, rowIdx, 1/*# cell horiz*/, 1/*# cell vert*/);
 
@@ -438,7 +438,7 @@ bool CtTable::_on_button_press_event_grid(GdkEventButton* event)
     return false;
 }
 
-bool CtTable::_on_key_press_event_grid(GdkEventKey* event)
+bool CtTable::_on_key_press_event_cell(GdkEventKey* event)
 {
     if (not _pCtMainWin->user_active()) return false;
     const size_t rowIdx = current_row();
@@ -503,8 +503,6 @@ bool CtTable::_on_key_press_event_grid(GdkEventKey* event)
         if ( nextRowIdx < _tableMatrix.size() and
              nextColIdx < _tableMatrix.front().size() )
         {
-            _currentRow = nextRowIdx;
-            _currentColumn = nextColIdx;
             _tableMatrix[nextRowIdx][nextColIdx]->get_text_view().grab_focus();
         }
         return true;
