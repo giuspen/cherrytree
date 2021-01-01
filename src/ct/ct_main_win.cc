@@ -1,7 +1,7 @@
 ﻿/*
  * ct_main_win.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -1447,29 +1447,19 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     text_buffer->set_modified(false);
 
     _uCtTreestore->text_view_apply_textbuffer(tree_iter, &_ctTextview);
-#ifdef WORKAROUND_ANCHORED_TEXT_VISUAL_GLITCHES
-    if (widgets.size() > 0) {
-        while (gtk_events_pending()) gtk_main_iteration();
-        CtTreeIter emptyTreeIter{};
-        _uCtTreestore->text_view_apply_textbuffer(emptyTreeIter, &_ctTextview);
-        while (gtk_events_pending()) gtk_main_iteration();
-        _uCtTreestore->text_view_apply_textbuffer(tree_iter, &_ctTextview);
-    }
-#endif // WORKAROUND_ANCHORED_TEXT_VISUAL_GLITCHES
     _ctTextview.grab_focus();
 
     _ctTextview.set_spell_check(curr_tree_iter().get_node_is_rich_text());
 
     text_buffer->place_cursor(text_buffer->get_iter_at_offset(state->cursor_pos));
     (void)_try_move_focus_to_anchored_widget_if_on_it();
-    Glib::signal_idle().connect_once([&](){
-        auto insert_offset = _ctTextview.get_buffer()->get_insert()->get_iter().get_offset();
-        if (_ctTextview.place_cursor_onscreen()) { // scroll if only cursor wasn't visible
-            auto iter = _ctTextview.get_buffer()->get_iter_at_offset(insert_offset);
-            _ctTextview.get_buffer()->place_cursor(iter);
-            _ctTextview.scroll_to(iter, CtTextView::TEXT_SCROLL_MARGIN);
-        }
-    });
+
+    while (gtk_events_pending()) gtk_main_iteration();
+    if (_ctTextview.place_cursor_onscreen()) { // scroll if only cursor wasn't visible
+        auto iter = text_buffer->get_iter_at_offset(state->cursor_pos);
+        _ctTextview.get_buffer()->place_cursor(iter);
+        _ctTextview.scroll_to(iter, CtTextView::TEXT_SCROLL_MARGIN);
+    }
 
     user_active() = user_active_restore;
 
@@ -1509,15 +1499,12 @@ void CtMainWin::text_view_apply_cursor_position(CtTreeIter& treeIter, const int 
     // if (static_cast<bool>(textIter)) <- don't check because iter at the end returns false
 
     rTextBuffer->place_cursor(textIter);
-    // if directly call `scroll_to`, it doesn't work maybe textview is not ready/visible or something else
-    Glib::signal_idle().connect_once([&](){
-        auto insert_offset = _ctTextview.get_buffer()->get_insert()->get_iter().get_offset();
-        if (_ctTextview.place_cursor_onscreen()) { // scroll if only cursor wasn't visible
-            auto iter = _ctTextview.get_buffer()->get_iter_at_offset(insert_offset);
-            _ctTextview.get_buffer()->place_cursor(iter);
-            _ctTextview.scroll_to(iter, CtTextView::TEXT_SCROLL_MARGIN);
-        }
-    });
+    while (gtk_events_pending()) gtk_main_iteration();
+    if (_ctTextview.place_cursor_onscreen()) { // scroll if only cursor wasn't visible
+        auto iter = rTextBuffer->get_iter_at_offset(cursor_pos);
+        _ctTextview.get_buffer()->place_cursor(iter);
+        _ctTextview.scroll_to(iter, CtTextView::TEXT_SCROLL_MARGIN);
+    }
 }
 
 void CtMainWin::_on_treeview_cursor_changed()
@@ -1548,20 +1535,6 @@ void CtMainWin::_on_treeview_cursor_changed()
     _uCtTreestore->text_view_apply_textbuffer(treeIter, &_ctTextview);
 
     if (user_active()) {
-#ifdef WORKAROUND_ANCHORED_TEXT_VISUAL_GLITCHES
-        if ( _nodesCursorPos.count(nodeId) == 0 and
-             treeIter.get_anchored_widgets_fast().size() > 0 )
-        {
-            while (gtk_events_pending()) gtk_main_iteration();
-            CtTreeIter emptyTreeIter{};
-            _uCtTreestore->text_view_apply_textbuffer(emptyTreeIter, &_ctTextview);
-            while (gtk_events_pending()) gtk_main_iteration();
-            _uCtTreestore->text_view_apply_textbuffer(treeIter, &_ctTextview);
-        }
-#endif // WORKAROUND_ANCHORED_TEXT_VISUAL_GLITCHES
-
-        // NOTE: text_view_apply_cursor_position() uses Glib::signal_idle().connect_once()
-        //       which is hanging the tree nodes iteration
         auto mapIter = _nodesCursorPos.find(nodeId);
         if (mapIter != _nodesCursorPos.end() and mapIter->second > 0) {
             text_view_apply_cursor_position(treeIter, mapIter->second);

@@ -1,7 +1,7 @@
 /*
  * ct_codebox.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -125,6 +125,7 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
 
     _scrolledwindow.add(_ctTextview);
     _frame.add(_scrolledwindow);
+    _frame.signal_size_allocate().connect(sigc::mem_fun(*this, &CtCodebox::_on_size_allocate_frame));
     show_all();
 
     _ctTextview.set_monospace(true); // todo: remove than styles are implemented

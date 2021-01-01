@@ -1,7 +1,7 @@
 /*
  * ct_table.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -62,7 +62,7 @@ CtTable::CtTable(CtMainWin* pCtMainWin,
 
     _frame.get_style_context()->add_class("ct-table");
     _frame.add(_grid);
-
+    _frame.signal_size_allocate().connect(sigc::mem_fun(*this, &CtTable::_on_size_allocate_frame));
     show_all();
 }
 

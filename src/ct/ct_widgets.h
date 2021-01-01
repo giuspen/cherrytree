@@ -1,7 +1,7 @@
 /*
  * ct_widgets.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -61,7 +61,7 @@ class CtAnchoredWidget : public Gtk::EventBox
 {
 public:
     CtAnchoredWidget(CtMainWin* pCtMainWin, const int charOffset, const std::string& justification);
-    virtual ~CtAnchoredWidget();
+    virtual ~CtAnchoredWidget() {}
 
     void insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer);
     Glib::RefPtr<Gtk::TextChildAnchor> getTextChildAnchor() { return _rTextChildAnchor; }
@@ -85,12 +85,16 @@ public:
     bool operator>(const CtAnchoredWidget &other) { return getOffset() > other.getOffset(); }
 
 protected:
+    void _on_size_allocate_frame(Gtk::Allocation& allocation);
+
+protected:
     CtMainWin* _pCtMainWin;
     int _charOffset;
     std::string _justification;
     Gtk::Frame _frame;
     Gtk::Label _labelWidget;
     Glib::RefPtr<Gtk::TextChildAnchor> _rTextChildAnchor;
+    Gtk::Allocation _lastAllocation;
 };
 
 class CtTreeView : public Gtk::TreeView
@@ -101,7 +105,7 @@ public:
 
 public:
     CtTreeView();
-    virtual ~CtTreeView();
+    virtual ~CtTreeView() {}
 
     void set_cursor_safe(const Gtk::TreeIter& iter);
     void set_tree_node_name_wrap_width(const bool wrap_enabled, const int wrap_width);

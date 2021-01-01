@@ -1,7 +1,7 @@
 /*
  * ct_widgets.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -109,10 +109,6 @@ CtAnchoredWidget::CtAnchoredWidget(CtMainWin* pCtMainWin, const int charOffset, 
     add(_frame);
 }
 
-CtAnchoredWidget::~CtAnchoredWidget()
-{
-}
-
 void CtAnchoredWidget::updateJustification(const Gtk::TextIter& textIter)
 {
     updateJustification(CtTextIterUtil::get_text_iter_alignment(textIter, _pCtMainWin));
@@ -131,13 +127,26 @@ void CtAnchoredWidget::insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer)
     }
 }
 
+void CtAnchoredWidget::_on_size_allocate_frame(Gtk::Allocation& allocation)
+{
+    if (allocation == _lastAllocation) {
+        return;
+    }
+    const bool needWorkaround = _lastAllocation.get_height() != allocation.get_height();
+    _lastAllocation = allocation;
+    if (not needWorkaround) {
+        return;
+    }
+    Glib::signal_idle().connect_once([&](){
+        CtTextView& textView = _pCtMainWin->get_text_view();
+        textView.set_wrap_mode(_pCtMainWin->get_ct_config()->lineWrapping ? Gtk::WrapMode::WRAP_NONE : Gtk::WrapMode::WRAP_WORD_CHAR);
+        textView.set_wrap_mode(_pCtMainWin->get_ct_config()->lineWrapping ? Gtk::WrapMode::WRAP_WORD_CHAR : Gtk::WrapMode::WRAP_NONE);
+    });
+}
+
 CtTreeView::CtTreeView()
 {
     set_headers_visible(false);
-}
-
-CtTreeView::~CtTreeView()
-{
 }
 
 void CtTreeView::set_cursor_safe(const Gtk::TreeIter& treeIter)
