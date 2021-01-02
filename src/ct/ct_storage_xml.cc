@@ -1,7 +1,7 @@
 /*
  * ct_storage_xml.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -237,7 +237,7 @@ void CtStorageXml::_nodes_to_xml(CtTreeIter* ct_tree_iter,
     xmlpp::Element* p_node_node =  CtStorageXmlHelper(_pCtMainWin).node_to_xml(
         ct_tree_iter,
         p_node_parent,
-        true, 
+        true,
         storage_cache,
         start_offset,
         end_offset
@@ -257,30 +257,31 @@ std::unique_ptr<xmlpp::DomParser> CtStorageXml::_get_parser(const fs::path& file
 {
     // open file
     auto parser = std::make_unique<xmlpp::DomParser>();
-    try
-    {
+    bool parseOk{true};
+    try {
         parser->set_parser_options(xmlParserOption::XML_PARSE_HUGE);
         parser->parse_file(file_path.string());
     }
-    catch (xmlpp::exception& e)
-    {
-        spdlog::error("CtStorageXml::_get_parser: failed to read xml file {}, {}", file_path.string(), e.what());
-        spdlog::info("CtStorageXml::_get_parser: trying to sanitize xml file ...");
+    catch (xmlpp::exception& e) {
+        spdlog::error("{} {} {}", __FUNCTION__, file_path.string(), e.what());
 
         std::string buffer = fs::get_content(file_path);
         const std::string codeset = CtStrUtil::get_encoding(buffer.c_str(), buffer.size());
         if (CtStrUtil::is_codeset_not_utf8(codeset)) {
             buffer = Glib::convert_with_fallback(buffer, "UTF-8", codeset);
         }
-        Glib::ustring xml_content = str::sanitize_bad_symbols(buffer);
-        parser->parse_memory(xml_content);
-        spdlog::info("CtStorageXml::_get_parser: xml file is sanitized");
+        parseOk = CtXmlHelper::safe_parse_memory(*parser, buffer);
     }
 
-    if (!parser->get_document())
+    if (not parseOk) {
+        throw std::runtime_error("xml parse fail");
+    }
+    if (not parser->get_document()) {
         throw std::runtime_error("document is null");
-    if (parser->get_document()->get_root_node()->get_name() != CtConst::APP_NAME)
+    }
+    if (parser->get_document()->get_root_node()->get_name() != CtConst::APP_NAME) {
         throw std::runtime_error("document contains the wrong node root");
+    }
     return parser;
 }
 
@@ -364,34 +365,16 @@ void CtStorageXmlHelper::get_text_buffer_one_slot_from_xml(Glib::RefPtr<Gsv::Buf
             widgets.push_back(widget);
         }
     }
-
 }
 
 Glib::RefPtr<Gsv::Buffer> CtStorageXmlHelper::create_buffer_no_widgets(const Glib::ustring& syntax, const char* xml_content)
 {
     xmlpp::DomParser parser;
-    try
-    {
-        parser.parse_memory(xml_content);
-    }
-    catch (xmlpp::parse_error& e)
-    {
-        spdlog::error("CtStorageXmlHelper:create_buffer_no_widgets: {}", e.what());
-        try
-        {
-            parser.parse_memory(str::sanitize_bad_symbols(xml_content));
-            spdlog::info("CtStorageXmlHelper:create_buffer_no_widgets: xml is sanitized");
-        }
-        catch (std::exception& e)
-        {
-            spdlog::error("CtStorageXmlHelper:create_buffer_no_widgets: sanitizing xml is failed, {}", e.what());
-            return Glib::RefPtr<Gsv::Buffer>();
-        }
-    }
     std::list<CtAnchoredWidget*> widgets;
-    if (parser.get_document() && parser.get_document()->get_root_node())
+    if (CtXmlHelper::safe_parse_memory(parser, xml_content)) {
         return create_buffer_and_widgets_from_xml(parser.get_document()->get_root_node(), syntax, widgets, nullptr, -1);
-    return Glib::RefPtr<Gsv::Buffer>();
+    }
+    return Glib::RefPtr<Gsv::Buffer>{};
 }
 
 bool CtStorageXmlHelper::populate_table_matrix(CtTableMatrix& tableMatrix,
@@ -399,9 +382,7 @@ bool CtStorageXmlHelper::populate_table_matrix(CtTableMatrix& tableMatrix,
                                                CtTableColWidths& tableColWidths)
 {
     xmlpp::DomParser parser;
-    parser.parse_memory(xml_content);
-    if (parser.get_document() && parser.get_document()->get_root_node())
-    {
+    if (CtXmlHelper::safe_parse_memory(parser, xml_content)) {
         populate_table_matrix(tableMatrix, parser.get_document()->get_root_node(), tableColWidths);
         return true;
     }
@@ -537,32 +518,53 @@ CtAnchoredWidget* CtStorageXmlHelper::_create_table_from_xml(xmlpp::Element* xml
     return new CtTable(_pCtMainWin, tableMatrix, colWidthDefault, charOffset, justification, tableColWidths);
 }
 
-namespace CtXmlHelper
+void CtXmlHelper::table_to_xml(xmlpp::Element* p_parent,
+                               const std::vector<std::vector<Glib::ustring>>& rows,
+                               int char_offset,
+                               Glib::ustring justification,
+                               int defaultWidth,
+                               Glib::ustring colWidths)
 {
-    void table_to_xml(xmlpp::Element* p_parent, const std::vector<std::vector<Glib::ustring>>& rows, int char_offset, Glib::ustring justification, int defaultWidth, Glib::ustring colWidths)
-    {
-        xmlpp::Element* p_table_node = p_parent->add_child("table");
-        p_table_node->set_attribute("char_offset", std::to_string(char_offset));
-        p_table_node->set_attribute(CtConst::TAG_JUSTIFICATION, justification);
-        p_table_node->set_attribute("col_min", std::to_string(defaultWidth)); // todo get rid of column min
-        p_table_node->set_attribute("col_max", std::to_string(defaultWidth));
-        p_table_node->set_attribute("col_widths", colWidths);
+    xmlpp::Element* p_table_node = p_parent->add_child("table");
+    p_table_node->set_attribute("char_offset", std::to_string(char_offset));
+    p_table_node->set_attribute(CtConst::TAG_JUSTIFICATION, justification);
+    p_table_node->set_attribute("col_min", std::to_string(defaultWidth)); // todo get rid of column min
+    p_table_node->set_attribute("col_max", std::to_string(defaultWidth));
+    p_table_node->set_attribute("col_widths", colWidths);
 
-        auto row_to_xml = [&](const std::vector<Glib::ustring>& tableRow) {
-            xmlpp::Element* row_element = p_table_node->add_child("row");
-            for (const auto& cell : tableRow) {
-                xmlpp::Element* cell_element = row_element->add_child("cell");
-                cell_element->set_child_text(cell);
-            }
-        };
-
-        // put header at the end
-        bool is_header = true;
-        for (auto& row: rows)
-        {
-            if (is_header) { is_header = false; }
-            else row_to_xml(row);
+    auto row_to_xml = [&](const std::vector<Glib::ustring>& tableRow) {
+        xmlpp::Element* row_element = p_table_node->add_child("row");
+        for (const auto& cell : tableRow) {
+            xmlpp::Element* cell_element = row_element->add_child("cell");
+            cell_element->set_child_text(cell);
         }
-        row_to_xml(rows[0]);
+    };
+
+    // put header at the end
+    bool is_header = true;
+    for (auto& row: rows)
+    {
+        if (is_header) { is_header = false; }
+        else row_to_xml(row);
     }
-};
+    row_to_xml(rows[0]);
+}
+
+bool CtXmlHelper::safe_parse_memory(xmlpp::DomParser& parser, const Glib::ustring& xml_content)
+{
+    try {
+        parser.parse_memory(xml_content);
+    }
+    catch (xmlpp::parse_error& e) {
+        spdlog::error("{} {}", __FUNCTION__, e.what());
+        try {
+            parser.parse_memory(str::sanitize_bad_symbols(xml_content));
+            spdlog::info("{} xml sanitised", __FUNCTION__);
+        }
+        catch (std::exception& e) {
+            spdlog::error("{} {}", __FUNCTION__, e.what());
+            return false;
+        }
+    }
+    return parser.get_document() and parser.get_document()->get_root_node();
+}

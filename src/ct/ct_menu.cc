@@ -1,7 +1,7 @@
 /*
  * ct_menu.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -26,6 +26,7 @@
 #include "ct_config.h"
 #include "ct_actions.h"
 #include "ct_app.h"
+#include "ct_storage_xml.h"
 #include <glibmm/i18n.h>
 #include <sigc++/sigc++.h>
 #include <gtk/gtk.h>
@@ -447,7 +448,7 @@ Gtk::Menu* CtMenu::get_popup_menu(POPUP_MENU_TYPE popupMenuType)
 }
 
 void CtMenu::build_popup_menu(Gtk::Menu* pMenu, POPUP_MENU_TYPE popupMenuType)
-{    
+{
     switch (popupMenuType)
     {
     case CtMenu::POPUP_MENU_TYPE::Node: _walk_menu_xml(pMenu, _get_ui_str_menu(), "/menubar/menu[@action='TreeMenu']/*"); break;
@@ -525,13 +526,13 @@ void CtMenu::build_popup_menu_table_cell(Gtk::Menu* pMenu, const bool first_row,
 void CtMenu::_walk_menu_xml(Gtk::MenuShell* pMenuShell, const char* document, const char* xpath)
 {
     xmlpp::DomParser parser;
-    parser.parse_memory(document);
-    if (xpath)
-    {
+    if (not CtXmlHelper::safe_parse_memory(parser, document)) {
+        return;
+    }
+    if (xpath) {
         _walk_menu_xml(pMenuShell, parser.get_document()->get_root_node()->find(xpath)[0]);
     }
-    else
-    {
+    else {
         _walk_menu_xml(pMenuShell, parser.get_document()->get_root_node());
     }
 }

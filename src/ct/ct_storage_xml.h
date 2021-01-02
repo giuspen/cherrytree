@@ -1,7 +1,7 @@
 /*
  * ct_storage_xml.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -122,7 +122,15 @@ private:
     CtMainWin* _pCtMainWin;
 };
 
-namespace CtXmlHelper
-{
-    void table_to_xml(xmlpp::Element* parent, const std::vector<std::vector<Glib::ustring>>& rows, int char_offset, Glib::ustring justification, int defaultWidth, Glib::ustring colWidths);
-};
+namespace CtXmlHelper {
+
+void table_to_xml(xmlpp::Element* parent,
+                  const std::vector<std::vector<Glib::ustring>>& rows,
+                  int char_offset,
+                  Glib::ustring justification,
+                  int defaultWidth,
+                  Glib::ustring colWidths);
+
+bool safe_parse_memory(xmlpp::DomParser& parser, const Glib::ustring& xml_content);
+
+} // namespace CtXmlHelper

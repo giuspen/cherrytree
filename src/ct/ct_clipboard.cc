@@ -282,9 +282,8 @@ void CtClipboard::from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_b
                                             bool* const pPasteHadWidgets/*= nullptr*/)
 {
     xmlpp::DomParser parser;
-    parser.parse_memory(xml_string);
-    xmlpp::Document* doc = parser.get_document();
-    if (doc->get_root_node()->get_name() != "root")
+    if (not CtXmlHelper::safe_parse_memory(parser, xml_string) or
+        parser.get_document()->get_root_node()->get_name() != "root")
     {
         throw std::invalid_argument("rich text from clipboard error");
     }
@@ -296,7 +295,7 @@ void CtClipboard::from_xml_string_to_buffer(Glib::RefPtr<Gtk::TextBuffer> text_b
     _pCtMainWin->get_state_machine().not_undoable_timeslot_set(true);
 
     std::list<CtAnchoredWidget*> widgets;
-    for (xmlpp::Node* slot_node: doc->get_root_node()->get_children())
+    for (xmlpp::Node* slot_node: parser.get_document()->get_root_node()->get_children())
     {
         if (slot_node->get_name() != "slot")
             continue;
@@ -571,15 +570,15 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
     Glib::ustring xml_text = selection_data.get_text();
 #endif
     if (xml_text.empty())
-    {   
+    {
         spdlog::error("? no clipboard xml text");
         return;
     }
 
     xmlpp::DomParser parser;
-    parser.parse_memory(xml_text);
-    xmlpp::Document* doc = parser.get_document();
-    if (doc->get_root_node()->get_name() != "root" or not doc->get_root_node()->get_first_child("table"))
+    if (not CtXmlHelper::safe_parse_memory(parser, xml_text) or
+        parser.get_document()->get_root_node()->get_name() != "root" or
+        not parser.get_document()->get_root_node()->get_first_child("table"))
     {
         spdlog::error("table from clipboard error");
         return;
@@ -591,7 +590,7 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
         CtTableColWidths tableColWidths;
         CtStorageXmlHelper(_pCtMainWin).populate_table_matrix(
             tableMatrix,
-            static_cast<xmlpp::Element*>(doc->get_root_node()->get_first_child("table")),
+            static_cast<xmlpp::Element*>(parser.get_document()->get_root_node()->get_first_child("table")),
             tableColWidths);
 
         int col_num = (int)parentTable->get_table_matrix()[0].size();
@@ -615,7 +614,7 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
         std::list<CtAnchoredWidget*> widgets;
         Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(pTextView->get_buffer());
         Gtk::TextIter insert_iter = pTextView->get_buffer()->get_insert()->get_iter();
-        CtStorageXmlHelper(_pCtMainWin).get_text_buffer_one_slot_from_xml(gsv_buffer, doc->get_root_node()->get_first_child("table"), widgets, &insert_iter, insert_iter.get_offset());
+        CtStorageXmlHelper(_pCtMainWin).get_text_buffer_one_slot_from_xml(gsv_buffer, parser.get_document()->get_root_node()->get_first_child("table"), widgets, &insert_iter, insert_iter.get_offset());
         if (not widgets.empty())
         {
             _pCtMainWin->get_tree_store().addAnchoredWidgets(
@@ -828,9 +827,9 @@ void CtClipboard::_yaml_to_codebox(const Glib::ustring& yaml_text, Gtk::TextView
 void CtClipboard::_xml_to_codebox(const Glib::ustring &xml_text, Gtk::TextView* pTextView)
 {
     xmlpp::DomParser parser;
-    parser.parse_memory(xml_text);
-    xmlpp::Document* doc = parser.get_document();
-    if (doc->get_root_node()->get_name() != "root" or not doc->get_root_node()->get_first_child("codebox"))
+    if (not CtXmlHelper::safe_parse_memory(parser, xml_text) or
+        parser.get_document()->get_root_node()->get_name() != "root" or
+        not parser.get_document()->get_root_node()->get_first_child("codebox"))
     {
         spdlog::error("codebox from clipboard error");
         return;
@@ -839,7 +838,7 @@ void CtClipboard::_xml_to_codebox(const Glib::ustring &xml_text, Gtk::TextView* 
     std::list<CtAnchoredWidget*> widgets;
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(pTextView->get_buffer());
     Gtk::TextIter insert_iter = pTextView->get_buffer()->get_insert()->get_iter();
-    CtStorageXmlHelper(_pCtMainWin).get_text_buffer_one_slot_from_xml(gsv_buffer, doc->get_root_node()->get_first_child("codebox"), widgets, &insert_iter, insert_iter.get_offset());
+    CtStorageXmlHelper(_pCtMainWin).get_text_buffer_one_slot_from_xml(gsv_buffer, parser.get_document()->get_root_node()->get_first_child("codebox"), widgets, &insert_iter, insert_iter.get_offset());
     if (not widgets.empty())
     {
         _pCtMainWin->get_tree_store().addAnchoredWidgets(
