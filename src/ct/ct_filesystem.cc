@@ -353,12 +353,12 @@ fs::path get_cherrytree_configdir()
 
 fs::path get_cherrytree_lang_filepath()
 {
-    return get_cherrytree_configdir() / CtConfig::LangFilename;
+    return fs::canonical(get_cherrytree_configdir() / CtConfig::LangFilename);
 }
 
 fs::path get_cherrytree_config_filepath()
 {
-    return get_cherrytree_configdir() / CtConfig::ConfigFilename;
+    return fs::canonical(get_cherrytree_configdir() / CtConfig::ConfigFilename);
 }
 
 std::string download_file(const std::string& filepath)
