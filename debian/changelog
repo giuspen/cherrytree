@@ -1,7 +1,17 @@
-cherrytree (0.99.27-1) focal; urgency=low
+cherrytree (0.99.28-1) focal; urgency=low
 
-  * fix select text with keyboard not working, regression of 0.99.26 (#1441, #1444, #1448)
-  * updated Dutch (Luuk Geurts)
+  * improved performance of tables (#1416, #1427, #1446, #1447)
+  * improved sanitisation from bad characters at xml parse time (#1465)
+  * fix time filter for find in nodes names and tags (#1453)
+  * fix color for selected item in tree not consistent with selected item in menu (#1456)
+  * icon theme new save icon and other improvements (@userfav/Ugo Yak)
+  * fix config.cfg re-created when symlinked (#1464)
+  * support for sqlite database generated with old version of cherrytree, convert at write time not read time
+  * fix failed import from zim (#1273)
+  * spdlog and fmt libraries no longer bundled but to be installed separately (#1199, #1433, #1458)
+  * build optimisation changed from -O3 to -O2 (#1433)
+  * new language supported: Bulgarian (Iliya Nikolaev)
+  * updated Turkish (Ferhat Aydin)
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Mon, 21 Dec 2020 23:19:07 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Sat, 02 Jan 2021 21:27:27 +0000
