@@ -1908,6 +1908,7 @@ bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut)
     kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_CONTROL.c_str(), "");
     kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_SHIFT.c_str(), "");
     kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_ALT.c_str(), "");
+    kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_META.c_str(), "");
 
     Gtk::Dialog dialog(_("Edit Keyboard Shortcut"), *this, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
@@ -1921,9 +1922,11 @@ bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut)
     Gtk::ToggleButton* ctrl_toggle = Gtk::manage(new Gtk::ToggleButton("control"));
     Gtk::ToggleButton* shift_toggle = Gtk::manage(new Gtk::ToggleButton("shift"));
     Gtk::ToggleButton* alt_toggle = Gtk::manage(new Gtk::ToggleButton("alt"));
+    Gtk::ToggleButton* meta_toggle = Gtk::manage(new Gtk::ToggleButton("meta"));
     ctrl_toggle->set_size_request(70, 1);
     shift_toggle->set_size_request(70, 1);
     alt_toggle->set_size_request(70, 1);
+    meta_toggle->set_size_request(70,1);
     Gtk::Entry* key_entry = Gtk::manage(new Gtk::Entry());
     Gtk::VBox* vbox = Gtk::manage(new Gtk::VBox());
     Gtk::HBox* hbox = Gtk::manage(new Gtk::HBox());
@@ -1931,6 +1934,7 @@ bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut)
     hbox->pack_start(*ctrl_toggle);
     hbox->pack_start(*shift_toggle);
     hbox->pack_start(*alt_toggle);
+    hbox->pack_start(*meta_toggle);
     hbox->pack_start(*key_entry);
     hbox->set_spacing(5);
     vbox->pack_start(*radiobutton_kb_none);
@@ -1941,6 +1945,7 @@ bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut)
     auto b1 = Glib::Binding::bind_property(key_entry->property_sensitive(), ctrl_toggle->property_sensitive());
     auto b2 = Glib::Binding::bind_property(key_entry->property_sensitive(), shift_toggle->property_sensitive());
     auto b3 = Glib::Binding::bind_property(key_entry->property_sensitive(), alt_toggle->property_sensitive());
+    auto b5 = Glib::Binding::bind_property(key_entry->property_sensitive(), meta_toggle->property_sensitive());
     auto b4 = Glib::Binding::bind_property(radiobutton_kb_shortcut->property_active(), key_entry->property_sensitive());
 
     key_entry->set_sensitive(!kb_shortcut_key.empty());
@@ -1950,6 +1955,7 @@ bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut)
     ctrl_toggle->set_active(shortcut.find(_pCtMenu->KB_CONTROL) != std::string::npos);
     shift_toggle->set_active(shortcut.find(_pCtMenu->KB_SHIFT) != std::string::npos);
     alt_toggle->set_active(shortcut.find(_pCtMenu->KB_ALT) != std::string::npos);
+    meta_toggle->set_active(shortcut.find(_pCtMenu->KB_META) != std::string::npos);
 
     key_entry->signal_key_press_event().connect([key_entry](GdkEventKey* key)->bool{
         Glib::ustring keyname = gdk_keyval_name(key->keyval);
@@ -1968,6 +1974,7 @@ bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut)
         if (ctrl_toggle->get_active()) shortcut += _pCtMenu->KB_CONTROL;
         if (shift_toggle->get_active()) shortcut += _pCtMenu->KB_SHIFT;
         if (alt_toggle->get_active()) shortcut += _pCtMenu->KB_ALT;
+        if (meta_toggle->get_active()) shortcut += _pCtMenu->KB_META;
         shortcut += key_entry->get_text();
     }
     return true;
