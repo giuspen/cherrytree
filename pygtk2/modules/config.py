@@ -1998,7 +1998,7 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
         if not tree_iter: return
         action_name = model[tree_iter][0]
         kb_shortcut_full = model[tree_iter][2] if model[tree_iter][2] else ""
-        kb_shortcut_key = kb_shortcut_full.replace(menus.KB_CONTROL, "").replace(menus.KB_SHIFT, "").replace(menus.KB_ALT, "").replace(menus.KB_META, "")
+        kb_shortcut_key = kb_shortcut_full.replace(menus.KB_CONTROL, "").replace(menus.KB_SHIFT, "").replace(menus.KB_ALT, "")
         #print "'%s' -> '%s'" % (action_name, kb_shortcut)
         dialog = gtk.Dialog(title=_("Edit Keyboard Shortcut"),
             parent=dad.window,
@@ -2013,8 +2013,7 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
         ctrl_toggle = gtk.ToggleButton("control")
         shift_toggle = gtk.ToggleButton("shift")
         alt_toggle = gtk.ToggleButton("alt")
-        meta_toggle = gtk.ToggleButton("meta")
-        for widget in [ctrl_toggle, shift_toggle, alt_toggle, meta_toggle]:
+        for widget in [ctrl_toggle, shift_toggle, alt_toggle]:
             widget.set_size_request(70, -1)
         key_entry = gtk.Entry()
         key_entry.set_text(kb_shortcut_key)
@@ -2024,7 +2023,6 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
         hbox.pack_start(ctrl_toggle)
         hbox.pack_start(shift_toggle)
         hbox.pack_start(alt_toggle)
-        hbox.pack_start(meta_toggle)
         hbox.pack_start(key_entry)
         hbox.set_spacing(5)
         vbox.pack_start(radiobutton_kb_none)
@@ -2063,7 +2061,6 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
         ctrl_toggle.set_active(menus.KB_CONTROL in kb_shortcut_full)
         shift_toggle.set_active(menus.KB_SHIFT in kb_shortcut_full)
         alt_toggle.set_active(menus.KB_ALT in kb_shortcut_full)
-        meta_toggle.set_active(menus.KB_META) in kb_shortcut_full)
         kb_shortcut_on_off(bool(kb_shortcut_full))
         content_area.show_all()
         response = dialog.run()
@@ -2075,7 +2072,6 @@ def preferences_tab_kb_shortcuts(dad, vbox_tool, pref_dialog):
                 if ctrl_toggle.get_active(): kb_shortcut_full += menus.KB_CONTROL
                 if shift_toggle.get_active(): kb_shortcut_full += menus.KB_SHIFT
                 if alt_toggle.get_active(): kb_shortcut_full += menus.KB_ALT
-                if meta_toggle.get_active(): kb_shortcut_full += menus.KB_META
                 kb_shortcut_full += kb_shortcut_key
             #print kb_shortcut_full
             if kb_shortcut_full:
