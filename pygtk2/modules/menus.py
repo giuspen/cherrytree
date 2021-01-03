@@ -24,6 +24,7 @@ import cons
 KB_CONTROL = "<control>"
 KB_SHIFT = "<shift>"
 KB_ALT = "<alt>"
+KB_META = "<meta>"
 
 CONFIG_ACTIONS_DICT = {
 "file": [
