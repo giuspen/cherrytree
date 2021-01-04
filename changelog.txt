@@ -1,4 +1,8 @@
 
+0.99.29 (January 4th, 2021)
+  * fix unable to open sqlite document created with old document version (#1471)
+  * added meta modifier shortcut key support (#1467, work of Chris Stahly)
+
 0.99.28 (January 2nd, 2021)
   * improved performance of tables (#1416, #1427, #1446, #1447)
   * improved sanitisation from bad characters at xml parse time (#1465)
