@@ -48,9 +48,8 @@ public:
      * @param input
      * @return CtTable
      */
-    static std::unique_ptr<CtTable> from_csv(const std::string& csv_content,
+    static std::unique_ptr<CtTable> from_csv(const std::string& filepath,
                                              CtMainWin* main_win,
-                                             const int col_width,
                                              const int offset,
                                              const Glib::ustring& justification);
 

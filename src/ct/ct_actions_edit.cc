@@ -103,23 +103,20 @@ void CtActions::table_handle()
         args.filter_name = _("CSV File");
         args.filter_pattern = {"*.csv"};
 
-        Glib::ustring filename = CtDialogs::file_select_dialog(args);
-        if (filename.empty()) return;
-        _pCtMainWin->get_ct_config()->pickDirCsv = Glib::path_get_dirname(filename);
-        // todo: find good csv lib
-        std::string csv_content = fs::get_content(fs::path(filename));
-        pCtTable = CtTable::from_csv(csv_content, _pCtMainWin, 60, _curr_buffer()->get_insert()->get_iter().get_offset(), "").release();
+        std::string filepath = CtDialogs::file_select_dialog(args);
+        if (filepath.empty()) return;
+        _pCtMainWin->get_ct_config()->pickDirCsv = Glib::path_get_dirname(filepath);
+        pCtTable = CtTable::from_csv(filepath, _pCtMainWin, _curr_buffer()->get_insert()->get_iter().get_offset(), "").release();
     }
 
     if (!pCtTable) {
         CtTableMatrix tableMatrix;
-        for(auto& row: rows)
-        {
+        for (auto& row : rows) {
             tableMatrix.push_back(CtTableRow{});
-            for (auto& cell: row)
+            for (auto& cell : row) {
                 tableMatrix.back().push_back(new CtTextCell{_pCtMainWin, cell, CtConst::TABLE_CELL_TEXT_ID});
+            }
         }
-
         pCtTable = new CtTable(_pCtMainWin, tableMatrix, col_width, _curr_buffer()->get_insert()->get_iter().get_offset(), "", CtTableColWidths{});
     }
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());

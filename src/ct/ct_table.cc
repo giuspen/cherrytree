@@ -28,6 +28,7 @@
 #include "ct_storage_xml.h"
 #include "ct_logging.h"
 #include "ct_misc_utils.h"
+#include <fstream>
 
 CtTable::CtTable(CtMainWin* pCtMainWin,
                  const CtTableMatrix& tableMatrix,
@@ -187,26 +188,44 @@ void CtTable::to_csv(std::ostream& output) const {
     CtCSV::table_to_csv(tbl, output);
 }
 
-std::unique_ptr<CtTable> CtTable::from_csv(const std::string& csv_content,
+std::unique_ptr<CtTable> CtTable::from_csv(const std::string& filepath,
                                            CtMainWin* main_win,
-                                           const int col_width,
                                            const int offset,
                                            const Glib::ustring& justification)
 {
-    std::stringstream input(csv_content);
+    std::ifstream input(filepath);
+    if (not input.is_open()) {
+        return std::unique_ptr<CtTable>{nullptr};
+    }
     CtCSV::CtStringTable str_tbl = CtCSV::table_from_csv(input);
 
     CtTableMatrix tbl_matrix;
-    for (const auto& row : str_tbl) {
-        CtTableRow tbl_row;
-        for (const auto& cell : row) {
-            auto* ct_cell = new CtTextCell{main_win, cell, CtConst::TABLE_CELL_TEXT_ID};
-            tbl_row.emplace_back(ct_cell);
+    if (str_tbl.size() and str_tbl.front().size()) {
+        const size_t numColumns = str_tbl.front().size();
+        size_t currRow{0};
+        for (const auto& row : str_tbl) {
+            ++currRow;
+            CtTableRow tbl_row;
+            size_t currCol{0};
+            for (const auto& cell : row) {
+                ++currCol;
+                if (currCol > numColumns) {
+                    spdlog::warn("from_csv row {} col {} > {}", currRow, currCol, numColumns);
+                    break;
+                }
+                auto* ct_cell = new CtTextCell{main_win, cell, CtConst::TABLE_CELL_TEXT_ID};
+                tbl_row.emplace_back(ct_cell);
+            }
+            while (currCol < numColumns) {
+                ++currCol;
+                auto* ct_cell = new CtTextCell{main_win, "", CtConst::TABLE_CELL_TEXT_ID};
+                tbl_row.emplace_back(ct_cell);
+            }
+            tbl_matrix.emplace_back(tbl_row);
         }
-        tbl_matrix.emplace_back(tbl_row);
     }
 
-    return std::make_unique<CtTable>(main_win, tbl_matrix, col_width, offset, justification, CtTableColWidths{});
+    return std::make_unique<CtTable>(main_win, tbl_matrix, 60, offset, justification, CtTableColWidths{});
 }
 
 std::shared_ptr<CtAnchoredWidgetState> CtTable::get_state()
