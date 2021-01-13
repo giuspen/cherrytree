@@ -1,7 +1,7 @@
 /*
  * ct_actions_find.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -383,20 +383,16 @@ void CtActions::toc_insert()
         entries.emplace_back(std::move(entry));
     }
     else if (toc_type == CtExporting::CURRENT_NODE_AND_SUBNODES) {
-        _pCtMainWin->user_active() = false;
         find_toc_entries_and_children(entries, *this, *_pCtMainWin, curr_node, 0);
-        _pCtMainWin->user_active() = true;
     }
     else if (toc_type == CtExporting::ALL_TREE) {
         CtTreeStore& tree_store = _pCtMainWin->get_tree_store();
         CtTreeIter top_node = tree_store.get_ct_iter_first();
         CtTreeIter sib = top_node;
-        _pCtMainWin->user_active() = false;
         while (sib) {
             find_toc_entries_and_children(entries, *this, *_pCtMainWin, sib, 0);
             ++sib;
         }
-        _pCtMainWin->user_active() = true;
     }
     else {
         return;
