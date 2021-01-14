@@ -108,6 +108,21 @@ make -j$(nproc --all)
 ./build/cherrytree
 ```
 
+## Building Cherrytree on Gentoo
+
+Install dependencies:
+```sh
+sudo emerge --newuse gtkmm gtksourceviewmm glibmm pangomm gspell libxml2 sqlite curl uchardet libfmt spdlog
+```
+Get cherrytree source, compile and run:
+```sh
+git clone https://github.com/giuspen/cherrytree.git
+cd cherrytree/
+git submodule update --init
+./build.sh
+```
+
+
 ## Building Cherrytree on Fedora 33
 
 Install dependencies:
