@@ -1,7 +1,7 @@
 /*
  * ct_actions_tree.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -172,7 +172,7 @@ void CtActions::_node_add(bool duplicate, bool add_child)
         std::string title = add_child ? _("New Child Node Properties") : _("New Node Properties");
         nodeData.isBold = false;
         nodeData.customIconId = 0;
-        nodeData.syntax = CtConst::RICH_TEXT_ID;
+        nodeData.syntax = _pCtMainWin->curr_tree_iter() ? _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting() : CtConst::RICH_TEXT_ID;
         nodeData.isRO = false;
         if (not CtDialogs::node_prop_dialog(title, _pCtMainWin, nodeData, _pCtMainWin->get_tree_store().get_used_tags()))
             return;
