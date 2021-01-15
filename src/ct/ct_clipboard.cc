@@ -440,8 +440,8 @@ void  CtClipboard::_on_clip_data_get(Gtk::SelectionData& selection_data, CtClipb
         }
         else
         {
-            Glib::ustring html = Win32HtmlFormat().encode(clip_data->html_text);
-            selection_data.set(target, 8, (const guint8*)html.c_str(), (int)html.bytes());
+            std::string html = Win32HtmlFormat().encode(clip_data->html_text);
+            selection_data.set(target, 8, (const guint8*)html.c_str(), (int)html.size());
         }
 #endif // _WIN32
     }
@@ -849,7 +849,7 @@ void CtClipboard::_xml_to_codebox(const Glib::ustring &xml_text, Gtk::TextView* 
     pTextView->scroll_to(pTextView->get_buffer()->get_insert());
 }
 
-Glib::ustring Win32HtmlFormat::encode(Glib::ustring html_in)
+std::string Win32HtmlFormat::encode(std::string html_in)
 {
     std::string MARKER_BLOCK_OUTPUT = \
             "Version:1.0\r\n" \
@@ -865,16 +865,16 @@ Glib::ustring Win32HtmlFormat::encode(Glib::ustring html_in)
             "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">" \
             "<HTML><HEAD>{}</HEAD><BODY><!--StartFragment-->{}<!--EndFragment--></BODY></HTML>";
 
-    Glib::ustring head = "", source = CtConst::APP_NAME + Glib::ustring(CtConst::CT_VERSION);
-    Glib::ustring html = fmt::format(DEFAULT_HTML_BODY, head, html_in);
-    Glib::ustring::size_type fragmentStart = html.find(html_in);
-    Glib::ustring::size_type fragmentEnd = fragmentStart + html_in.size();
+    std::string head = "", source = CtConst::APP_NAME + std::string(CtConst::CT_VERSION);
+    std::string html = fmt::format(DEFAULT_HTML_BODY, head, html_in);
+    std::string::size_type fragmentStart = html.find(html_in);
+    std::string::size_type fragmentEnd = fragmentStart + html_in.size();
 
     // How long is the prefix going to be?
-    Glib::ustring dummyPrefix = fmt::format(MARKER_BLOCK_OUTPUT, 0, 0, 0, 0, 0, 0, source);
-    Glib::ustring::size_type lenPrefix = dummyPrefix.size();
+    std::string dummyPrefix = fmt::format(MARKER_BLOCK_OUTPUT, 0, 0, 0, 0, 0, 0, source);
+    std::string::size_type lenPrefix = dummyPrefix.size();
 
-    Glib::ustring prefix = fmt::format(MARKER_BLOCK_OUTPUT,
+    std::string prefix = fmt::format(MARKER_BLOCK_OUTPUT,
                 lenPrefix, html.size() + lenPrefix,
                 fragmentStart + lenPrefix, fragmentEnd + lenPrefix,
                 fragmentStart + lenPrefix, fragmentEnd + lenPrefix,
@@ -882,9 +882,9 @@ Glib::ustring Win32HtmlFormat::encode(Glib::ustring html_in)
     return prefix + html;
 }
 
-Glib::ustring Win32HtmlFormat::convert_from_ms_clipboard(Glib::ustring html_in)
+std::string Win32HtmlFormat::convert_from_ms_clipboard(std::string html_in)
 {
-    auto get_arg_value = [&](Glib::ustring arg_name) {
+    auto get_arg_value = [&](std::string arg_name) {
         auto re = Glib::Regex::create(arg_name + "\\s*:\\s*(.*?)$", Glib::RegexCompileFlags::REGEX_CASELESS | Glib::RegexCompileFlags::REGEX_MULTILINE);
         Glib::MatchInfo match;
         if (!re->match(html_in, match))

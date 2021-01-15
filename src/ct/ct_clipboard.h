@@ -102,6 +102,6 @@ private:
 class Win32HtmlFormat
 {
 public:
-    Glib::ustring encode(Glib::ustring html_in);
-    Glib::ustring convert_from_ms_clipboard(Glib::ustring html_in);
+    std::string encode(std::string html_in);
+    std::string convert_from_ms_clipboard(std::string html_in);
 };
