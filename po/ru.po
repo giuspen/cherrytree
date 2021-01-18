@@ -1,1608 +1,318 @@
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Russian translations for PACKAGE package.
 # Copyright (C) 2010 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# maul <giuspen@gmail.com>, 2010.
-#
+# mail <giuspen@gmail.com>, 2010.
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-10 21:50+0000\n"
-"PO-Revision-Date: 2020-12-13 11:16+0300\n"
-"Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
-"Language-Team: Russian <kovtunos@yandex.ru>\n"
+"POT-Creation-Date: 2020-09-27 20:13+0100\n"
+"PO-Revision-Date: 2021-01-18 01:23+0600\n"
+"Last-Translator: Viktor Polyanskiy <camilot55@yandex.ru>\n"
+"Language-Team: Russian <camilot55@yandex.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 "X-Language: ru_RU\n"
 "X-Source-Language: C\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:105
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:165
-msgid "Writing to Disk..."
-msgstr "Запись на диск..."
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Имена стандартных диалогов и дополнительных меню
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+msgid "Save File as"
+msgstr "Сохранить как..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:191
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:197
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:331
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:338
-#, c-format
-msgid "You Have No Write Access to %s"
-msgstr "Запись в файл \"%s\" недоступна"
+msgid "Select File"
+msgstr "Открыть..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:254
-#, c-format
-msgid "Enter Password for %s"
-msgstr "Введите пароль для %s"
+msgid "Select Folder"
+msgstr "Выбрать..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:40
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:114
-msgid "Preferences"
-msgstr "Настройки"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:48
-msgid "Text and Code"
-msgstr "Текст и код"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:49
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:799
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1096
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1291
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1685
-msgid "Rich Text"
-msgstr "Форматированный текст"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:50
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:815
-msgid "Plain Text and Code"
-msgstr "Обычный текст и код"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:51
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:254
-msgid "Special Characters"
-msgstr "Символы"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:52
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:754
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:170
-msgid "Tree"
-msgstr "Дерево"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:53
-msgid "Theme"
-msgstr "Тема"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:54
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1132
-msgid "Fonts"
-msgstr "Шрифты"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:55
-msgid "Links"
-msgstr "Ссылка"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:56
-msgid "Toolbar"
-msgstr "Панель инструментов"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:57
-msgid "Keyboard Shortcuts"
-msgstr "Горячие клавиши"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:58
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:183
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:514
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:998
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1248
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1551
-msgid "Miscellaneous"
-msgstr "Разное"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:84
-msgid "Tab Width"
-msgstr "Ширина табуляции"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:90
-msgid "Insert Spaces Instead of Tabs"
-msgstr "Пробелы вместо табуляции"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:92
-msgid "Use Line Wrapping"
-msgstr "Перенос текста"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:96
-msgid "Line Wrapping Indentation"
-msgstr "Отступ переноса текста"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:103
-msgid "Enable Automatic Indentation"
-msgstr "Автоматический отступ"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:105
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1390
-msgid "Show Line Numbers"
-msgstr "Нумерация строк"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:107
-msgid "Scroll Beyond Last Line"
-msgstr "Прокрутка за пределы документа"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:111
-msgid "Vertical Space Around Lines"
-msgstr "Вертикальный отступ"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:121
-msgid "Vertical Space in Wrapped Lines"
-msgstr "Вертикальный отступ для строк"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:144
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:339
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:604
-msgid "Text Editor"
-msgstr "Текстовый редактор"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:148
-msgid "Timestamp Format"
-msgstr "Формат даты"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:159
-msgid "Horizontal Rule"
-msgstr "Горизонтальная линия"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:172
-msgid "Chars to Select at Double Click"
-msgstr "Выделять двойным нажатием"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:258
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:633
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:646
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1339
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1431
-msgid "Reset to Default"
-msgstr "Значения по умолчанию"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:281
-msgid "Chars for Bulleted List"
-msgstr "Маркированный список"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:290
-msgid "Chars for Todo List"
-msgstr "To-Do список"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:299
-msgid "Chars for Table Of Content"
-msgstr "Оглавление"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:308
-msgid "Chars for Smart Double Quotes"
-msgstr "Для автозамены двойных кавычек"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:317
-msgid "Chars for Smart Single Quotes"
-msgstr "Для автозамены кавычек"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:325
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "Автозамена кавычек"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:326
-msgid "Enable Symbol Auto Replacement"
-msgstr "Автозамена символов"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:438
-msgid "Enable Spell Check"
-msgstr "Проверка орфографии"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:442
-msgid "Spell Check Language"
-msgstr "Словарь:"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:455
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1307
-msgid "Spell Check"
-msgstr "Орфография"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:459
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:593
-msgid "Show White Spaces"
-msgstr "Отображать пробелы"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:461
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:595
-msgid "Highlight Current Line"
-msgstr "Подсвечивать активную строку"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:463
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:597
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1392
-msgid "Highlight Matching Brackets"
-msgstr "Подсвечивать парные скобки"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:465
-msgid "Expand CodeBoxes Automatically"
-msgstr "Автоподбор по содержимому блока кода"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:470
-msgid "Embedded File Icon Size"
-msgstr "Размер значка вставляемого файла"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:479
-msgid "Embedded File Size Limit"
-msgstr "Максимальный размер вставляемого файла (Мб)"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:486
-msgid "Show File Name on Top of Embedded File Icon"
-msgstr "Имя файла над значком"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:488
-msgid "Limit of Undoable Steps Per Node"
-msgstr "Максимальное количество операций отмены"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:494
-msgid "At Triple Click Select the Whole Paragraph"
-msgstr "Выделять параграф тройным нажатием"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:497
-msgid "Enable Markdown Auto Replacement (Experimental)"
-msgstr "Включить автозамену Markdown (Экспериментально)"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:627
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1333
-msgid "Add"
-msgstr "Добавить"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:630
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1336
-msgid "Remove Selected"
-msgstr ""
-"Удалить\n"
-"\n"
-"Удалить часто используемые команды"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:653
-msgid "Command per Node/CodeBox Type"
-msgstr "Команда по типу ветви/блока кода"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:657
-msgid "Terminal Command"
-msgstr "Команда терминала"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:662
-msgid "Code Execution"
-msgstr "Выполнение кода"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:736
-msgid "Light Background, Dark Text"
-msgstr "Тёмный текст на светлом фоне"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:737
-msgid "Dark Background, Light Text"
-msgstr "Светлый текст на тёмном фоне"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:739
-msgid "Custom Background"
-msgstr "Цвет фона"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:744
-msgid "and Text"
-msgstr "Цвет текста"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:778
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:806
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:822
-msgid "Style Scheme"
-msgstr "Стиль"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:786
-msgid "Monospace Background"
-msgstr "Цвет фона моношрифта"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:831
-msgid "Table"
-msgstr "Таблица"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:921
-msgid "Use Different Cherries per Level"
-msgstr "Разные вишенки для каждой ветви"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:922
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1659
-msgid "Use Selected Icon"
-msgstr "Значок ветви"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:924
-msgid "No Icon"
-msgstr "Без значка"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:926
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Скрыть дополнительный значок с правой стороны"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:940
-msgid "Default Text Nodes Icons"
-msgstr "Значки"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:948
-msgid "Restore Expanded/Collapsed Status"
-msgstr "Запоминать состояние ветвей"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:949
-msgid "Expand all Nodes"
-msgstr "Разворачивать ветви"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:951
-msgid "Collapse all Nodes"
-msgstr "Сворачивать ветви"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:953
-msgid "Nodes in Bookmarks Always Visible"
-msgstr "Всегда видимые ветви в закладках"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:961
-msgid "Nodes Status at Startup"
-msgstr "Состояние"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:970
-msgid "Tree Nodes Names Wrapping Width"
-msgstr "Ширина переноса в названиях ветви"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:978
-msgid "Display Tree on the Right Side"
-msgstr "Отображать панель дерева справа"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:980
-msgid "Move Focus to Text at Mouse Click"
-msgstr "Переместить фокус на текст кликом мышки"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:982
-msgid "Expand Node at Mouse Click"
-msgstr "Развернуть ветвь кликом мышки"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:986
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Последние посещённые ветви в заголовке"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1054
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1815
-msgid "Select Node Icon"
-msgstr "Смена значка"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1098
-msgid "Monospace"
-msgstr "Моноширинный текст"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1101
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1295
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1330
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1687
-msgid "Plain Text"
-msgstr "Обычный текст"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1103
-msgid "Code Font"
-msgstr "Шрифт блока кода"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1105
-msgid "Tree Font"
-msgstr "Текст дерева"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1178
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "Открывать веб-страницы"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1180
-msgid "Enable Custom File Link Clicked Action"
-msgstr "Открывать файлы"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1182
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Открывать папки"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1191
-msgid "Custom Actions"
-msgstr "Действия"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1208
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:809
-msgid "To WebSite"
-msgstr "Сайт:"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1210
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:850
-msgid "To Node"
-msgstr "Ветвь:"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1212
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:820
-msgid "To File"
-msgstr "Файл: "
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1214
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:835
-msgid "To Folder"
-msgstr "Папка:"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1229
-msgid "Colors"
-msgstr "Цвета"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1232
-msgid "Underline Links"
-msgstr "Подчёркивать ссылки"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1234
-msgid "Use Relative Paths for Files And Folders"
-msgstr "Использовать относительные пути к файлам и папкам"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1238
-msgid "Anchor Size"
-msgstr "Размер значка якоря"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1428
-msgid "Change Selected"
-msgstr ""
-"Изменить\n"
-"\n"
-"Изменить комбинацию клавиш"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1472
-msgid "Enable System Tray Docking"
-msgstr "Отображать значок CherryTree в области уведомлений"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1473
-msgid "Start Minimized in the System Tray"
-msgstr "Сворачивать CherryTree в область уведомлений после старта"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1477
-msgid "System Tray"
-msgstr "Панель задач"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1486
-msgid "Autosave Every"
-msgstr "Автосохранение каждые"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1489
-msgid "Minutes"
-msgstr "минут"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1493
-msgid "Autosave on Quit"
-msgstr "Сохранить при закрытии"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1494
-msgid "Create a Backup Copy Before Saving"
-msgstr "Создать резервную копию"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1497
-msgid "Number of Backups to Keep"
-msgstr "Количество резервных копий"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1502
-msgid "Custom Backup Directory"
-msgstr "Папка для резервных копий"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1531
-msgid "Saving"
-msgstr "Сохранение"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1534
-msgid "Automatically Check for Newer Version"
-msgstr "Проверять наличие обновлений"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1535
-msgid "Enable Word Count in Statusbar"
-msgstr "Количество слов в строке состояния"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1536
-msgid "Reload Document From Last Session"
-msgstr "Загружать последний открытый документ"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1537
-msgid "Reload After External Update to CT* File"
-msgstr "Повторно загрузить документ после изменения"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1538
-msgid "Show the Document Directory in the Window Title"
-msgstr "Путь к файлу в заголовке главного окна"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1560
-msgid "Language"
-msgstr "Язык"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1578
-msgid "Has the System Tray appeared on the panel?"
-msgstr "Значок CherryTree появился в области уведомлений?"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1584
-msgid "Your system does not support the System Tray"
-msgstr "Ваша система не поддерживает область уведомлений!"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1652
-msgid "The New Language will be Available Only After Restarting CherryTree"
-msgstr "Новый язык будет доступен после перезапуска CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1665
-msgid "This Change will have Effect Only After Restarting CherryTree"
-msgstr "Изменения вступят после перезапуска CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1749
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1841
-msgid "Select Element to Add"
-msgstr "Часто используемые команды"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1808
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1831
-msgid "Split Toolbar"
-msgstr "Разделить панель инструментов"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1813
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:103
-msgid "Open a CherryTree Document"
-msgstr ""
-"Открыть\n"
-"\n"
-"Открыть существующий документ CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1891
-#, c-format
-msgid "The Keyboard Shortcut '%s' is already in use"
-msgstr "Комбинация клавиш ' %s ' уже используется!"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1892
-#, c-format
-msgid "The current associated action is '%s'"
-msgstr "Данная комбинация выполняет действие ' %s '"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1893
-msgid "Do you want to steal the shortcut?"
-msgstr "Переопределить комбинацию клавиш?"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1912
-msgid "Edit Keyboard Shortcut"
-msgstr "Новая комбинация"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:1918
-msgid "No Keyboard Shortcut"
-msgstr "Не задана"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_import.cc:53
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:80
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:97
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_export.cc:108
-msgid "CherryTree Document"
-msgstr "Документ CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_import.cc:104
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_import.cc:115
-msgid "Pandoc executable could not be found, please ensure it is in your path"
-msgstr ""
-"Исполняемый файл Pandoc не найден.\n"
-"\n"
-"Пожалуйста проверьте его наличие"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_import.cc:234
-msgid "Who is the Parent?"
-msgstr "Добавить в"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_import.cc:242
-msgid "The Tree Root"
-msgstr "Дерево"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_import.cc:243
-msgid "The Selected Node"
-msgstr "Ветвь"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_export2html.cc:139
-msgid "Index"
-msgstr "Содержание"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:80
-msgid "Image Format Not Recognized"
-msgstr "Неизвестный формат изображения"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:88
-msgid "Insert Table"
-msgstr "Вставить таблицу"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:103
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:718
 msgid "CSV File"
 msgstr "Файл CSV"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:146
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:124
-msgid "Insert a CodeBox"
-msgstr "Вставить блок кода"
+msgid "CherryTree Document"
+msgstr "Документ CherryTree"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:189
-#, c-format
-msgid "The Maximum Size for Embedded Files is %s MB"
-msgstr "Максимальный размер файла превышает %s Мб"
+msgid "NoteCase Document"
+msgstr "Документ NoteCase"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:191
-msgid "Do you want to Continue?"
-msgstr "Продолжить?"
+msgid "HTML Document"
+msgstr "HTML документ"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:800
-msgid "Lines Stripped"
-msgstr "строк очищено"
+msgid "Treepad Document"
+msgstr "Документ Treepad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:808
-msgid "Image Properties"
-msgstr "Свойства изображения"
+msgid "KeyNote Document"
+msgstr "Документ KeyNote"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:854
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:76
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:51
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:290
-msgid "No Text is Selected"
-msgstr "Текст не выделен"
+msgid "Mempad Document"
+msgstr "Документ Mempad"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_help.cc:45
-msgid "Checking for Newer Version..."
-msgstr "Проверка доступности новой версии..."
+msgid "Knowit Document"
+msgstr "Документ Knowit"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_help.cc:51
-msgid "Failed to Retrieve Latest Version Information - Try Again Later"
-msgstr "Сервер не отвечает. Попробуйте позже"
+msgid "Leo Document"
+msgstr "Документ Leo"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_help.cc:63
-msgid "A Newer Version Is Available!"
-msgstr "Доступна новая версия!"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_help.cc:68
-msgid "You Are Using the Latest Version Available"
-msgstr "У вас установленна последняя версия CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_help.cc:71
-msgid "You Are Using a Development Version"
-msgstr "Вы используете версию для разработчика"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:60
-msgid "Replace in Current Node..."
-msgstr "Заменить в активной ветви..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:60
-msgid "Search in Current Node..."
-msgstr "Найти в активной ветви..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:100
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:233
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:315
-#, c-format
-msgid "The pattern '%s' was not found"
-msgstr "Искомый элемент '%s' не найден!"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:102
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:236
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:317
-msgid "Matches"
-msgstr "совпадений"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:132
-msgid "Replace in Selected Node and Subnodes"
-msgstr "Заменить в активной ветви с дочерними"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:132
-msgid "Replace in All Nodes"
-msgstr "Заменить в ветвях"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:134
-msgid "Search in Selected Node and Subnodes"
-msgstr "Найти в активной ветви с дочерними..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:134
-msgid "Search in All Nodes"
-msgstr "Найти в ветвях"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:256
-msgid "Replace in Node Names..."
-msgstr "Заменить в названиях ветвей..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:256
-msgid "Search For a Node Name..."
-msgstr "Найти в названиях ветвей и тэгах..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:331
-msgid "No Previous Search Was Performed During This Session"
-msgstr "Вы ещё не проводили поиск или замену текста"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:421
-msgid "Search for"
-msgstr "Найти:"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:431
-msgid "Replace with"
-msgstr "Заменить на:"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:447
-msgid "Match Case"
-msgstr "Учитывать регистр"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:449
-msgid "Regular Expression"
-msgstr "Регулярное выражение"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:451
-msgid "Whole Word"
-msgstr "Только слово целиком"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:453
-msgid "Start Word"
-msgstr "Начало слова"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:455
-msgid "Forward"
-msgstr "Вперёд"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:457
-msgid "Backward"
-msgstr "Назад"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:460
-msgid "All, List Matches"
-msgstr "Все совпадения"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:462
-msgid "First From Selection"
-msgstr "Первое совпадение от выделенного"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:465
-msgid "First in All Range"
-msgstr "Первое совпадение по всему документу"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:476
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:527
-msgid "Node Created After"
-msgstr "Созданной после"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:483
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:529
-msgid "Node Created Before"
-msgstr "Созданной до"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:490
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:531
-msgid "Node Modified After"
-msgstr "Изменённой после"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:497
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:533
-msgid "Node Modified Before"
-msgstr "Изменённой до"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:515
-msgid "Time filter"
-msgstr "По дате ветви"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:535
-msgid "Show Iterated Find/Replace Dialog"
-msgstr "Показать диалог Найти/Заменить"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:559
-msgid "Search options"
-msgstr "Настройки поиска"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:1005
-msgid "Iterate Latest Find/Replace"
-msgstr "Повторить Найти/Заменить"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:1006
-msgid "Close"
-msgstr "Закрыть"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:1007
-msgid "Find Previous"
-msgstr "Предыдущий"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:1008
-msgid "Find Next"
-msgstr "Следующий"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:1009
-msgid "Replace"
-msgstr "Заменить"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:1010
-msgid "Undo"
-msgstr "Отменить"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_imports.cc:81
-#: /home/giuspen/git/cherrytree/src/ct/ct_parser_html.cc:589
-msgid "Downloading"
-msgstr "Загрузка"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:80
-msgid "The Size of the Toolbar Icons is already at the Maximum Value"
-msgstr "Размер значков панели инструментов максимальный"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:91
-msgid "The Size of the Toolbar Icons is already at the Minimum Value"
-msgstr "Размер значков панели инструментов минимальный"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:181
-msgid "Rename"
-msgstr "Переименовать"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:195
-msgid "PNG Image"
-msgstr "Изображение PNG"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:207
-#, c-format
-msgid "Write to %s Failed"
-msgstr "Запись в %s не удалась"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:254
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:335
-msgid "Insert/Edit Link"
-msgstr "Вставить ссылку"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:303
-#, c-format
-msgid "The File Link '%s' is Not Valid"
-msgstr "Некорректная ссылка на файл '%s'"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:315
-#, c-format
-msgid "The Folder Link '%s' is Not Valid"
-msgstr "Некорректная ссылка на папку '%s'"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:327
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:704
-#, c-format
-msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr ""
-"Некорректная ссылка на ветвь.\n"
-"\n"
-"Ветви уже не существует (Id = %s).\n"
-"Скорей всего она была удалена из документа"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:346
-#, c-format
-msgid "No anchor named '%s' found"
-msgstr "Искомый якорь ' %s ' не найден!"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:406
-msgid "Edit CodeBox"
-msgstr "Свойства блок кода"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:430
-msgid "No CodeBox is Selected"
-msgstr "Блок кода не выбран"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:438
-#, c-format
-msgid ""
-"You must associate a command to '%s'.\n"
-"Do so in the Preferences Dialog"
-msgstr ""
-"Вы должны связать команду с языком ' %s'.\n"
-"\n"
-"Это можно сделать в настройках приложения"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:450
-msgid "Do you want to Execute the Code?"
-msgstr "Выполнить код?"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:468
-msgid ""
-"Install the package 'xterm' or configure a different terminal in the "
-"Preferences Dialog"
-msgstr ""
-"Установите пакет 'xterm' или настройте другой терминал в настройках "
-"приложения"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:706
-msgid "Edit Table Properties"
-msgstr "Свойства таблицы"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:742
-msgid "Insert Anchor"
-msgstr "Вставить якорь"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:742
-msgid "Edit Anchor"
-msgstr "Свойства якоря"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:783
-msgid "Cannot Edit Embedded File in Read Only Node"
-msgstr "Невозможно редактировать файл. Ветвь только для чтения!"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:798
-msgid "Embedded File Automatically Updated:"
-msgstr "Файл автоматически обновлён:"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_export.cc:352
 msgid "PDF File"
 msgstr "Документ PDF"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_export.cc:373
+msgid "PNG Image"
+msgstr "Изображение PNG"
+
 msgid "Plain Text Document"
 msgstr "Обычный текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:35
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1282
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1025
-msgid "No Node is Selected"
-msgstr "Ветвь не выбрана"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:42
-msgid "The Tree is Empty!"
-msgstr ""
-"Пустое дерево!\n"
-"\n"
-"Создайте Ваше первое дерево!\n"
-"Для начала работы добавьте новую ветвь:\n"
-"Главное меню\\Дерево\\Новая ветвь"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:51
-msgid "The Selected Node is Read Only"
-msgstr ""
-"Эта ветвь доступна \"только для чтения\".\n"
-"\n"
-"Для редактирования измените свойства ветви."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:64
-msgid "This Feature is Available Only in Rich Text Nodes"
-msgstr "Эта функция доступна только для форматированного текста"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:66
-msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes"
-msgstr "Эта функция не доступна для подсветки синтаксиса"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:172
-msgid "New Child Node Properties"
-msgstr "Свойства новой дочерней ветви"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:172
-msgid "New Node Properties"
-msgstr "Свойства новой ветви"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:292
-msgid "Node Properties"
-msgstr "Свойства ветви"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:300
-msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
-msgstr ""
-"При отключении режима форматирования текста, вы полностью \n"
-"потеряете форматирование текста для данной ветви.\n"
-"Продолжить?"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:395
-#, c-format
-msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "Вы действительно хотите удалить ветвь <b>' %s '</b>?"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:400
-msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "<b>Также будут удалены следующие дочерние ветви !</b>"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:514
-msgid "Select the New Parent"
-msgstr "Выберите родителя"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:520
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:541
-msgid "The new parent can't be the very node to move!"
-msgstr "Новую родительскую ветвь невозможно двигать!"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:524
-msgid "The new chosen parent is still the old parent!"
-msgstr "Выбранная новая родительская ветвь является старой!"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:529
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:546
-msgid "The new parent can't be one of his children!"
-msgstr "Новая родительская ветвь не может быть дочерней!"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:105
+#
+# Конец Имена стандартных диалогов и дополнительных меню
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Диалог Панель задач Подсказка на значке в области уведомлений на панели задача
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 msgid "CherryTree Hierarchical Note Taking"
 msgstr "Записная книжка CherryTree"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:112
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:266
 msgid "Show/Hide _CherryTree"
-msgstr "Открыть CherryTree"
+msgstr "<b> Открыть CherryTree </b>"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:112
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:266
 msgid "Toggle Show/Hide CherryTree"
 msgstr ""
 "Открыть CherryTree\n"
 "\n"
 "Активизировать CherryTree"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:114
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:113
 msgid "_Exit CherryTree"
 msgstr "Выход"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:114
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:113
 msgid "Exit from CherryTree"
 msgstr ""
 "Выход\n"
 "\n"
 "Выйти из CherryTree"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:368
-msgid "Print CherryTree version"
-msgstr "Версия программы"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:369
-msgid "Node name to focus"
-msgstr "Название ветви для фокуса"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:370
-msgid "Export to HTML at specified directory path"
-msgstr "Экспорт в HTML в существующую папку"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:371
-msgid "Export to Text at specified directory path"
-msgstr "Экспорт в TXT в существующую папку"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:372
-msgid "Export to PDF at specified file path"
-msgstr "Экспорт в PDF в существующую папку"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:373
-msgid "Overwrite if export path already exists"
-msgstr "Перезаписать, если файл уже существует"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:374
-msgid "Export to a single file (for HTML or TXT)"
-msgstr "Экспорт в файл (HTML или TXT)"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:375
-msgid "Create a new window"
-msgstr "Новое окно"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:38
-msgid "No Previous Text Format Was Performed During This Session"
-msgstr "Вы ещё не проводили форматирование текста"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:297
-msgid "Link Name"
-msgstr "Вставить ссылку"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:316
-msgid "The Cursor is Not into a Paragraph"
-msgstr "Курсор за пределами абзаца"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:343
-msgid "Pick a Foreground Color"
-msgstr "Цвета текста"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:343
-msgid "Pick a Background Color"
-msgstr "Цвета фона"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:851
-#, c-format
-msgid "The Document %s was Not Found"
-msgstr ""
-"Приложение CherryTree завершило поиск документа.\n"
-"\n"
-"Документ ' %s ' не найден!"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:872
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:90
-msgid "Open a Recent CherryTree Document"
-msgstr ""
-"История\n"
-"\n"
-"Щёлкните здесь, чтобы посмотреть\n"
-"какие документы были открыты ранее.\n"
-"Также можно удалить из истории недавно\n"
-"открытые документы CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:891
 msgid "Hide"
-msgstr "Свернуть"
+msgstr "Свернуть..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:891
-msgid "Quit"
-msgstr "Выход"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:892
 msgid "Hide the Window"
 msgstr ""
-"Свернуть\n"
+"Свернуть...\n"
 "\n"
 "Свернуть CherryTree в область уведомлений"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:892
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:112
-msgid "Quit the Application"
-msgstr ""
-"Выход\n"
-"\n"
-"Выйти из CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:984
-#, c-format
-msgid "\"%s\" is Not a CherryTree Document"
-msgstr "\"%s\" не является документом CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1001
-#, c-format
-msgid ""
-"Error Parsing the CherryTree File:\n"
-"\"%s\""
-msgstr ""
-"Ошибка открытия файла CherryTree:\n"
-"\"%s\""
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1081
-msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "Созданы временные файлы, которые открыты в другом приложении."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1082
-msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "Закройте внешнее приложение перед выходом из CherryTree."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1083
-msgid "Did you Quit the External Applications?"
-msgstr "Вы завершили внешнее приложение?"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1212
-msgid "The Document was Reloaded After External Update to CT* File"
-msgstr ""
-"Документ был повторно загружен после обновления файла другой программой"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1287
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1717
-msgid "Node Type"
-msgstr "Тип"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1287
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1303
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1307
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1311
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1316
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1321
-msgid ": "
-msgstr ": "
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1303
+#
+# Конец диалога Панель задач
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Общие элементы в гавного окна, диалогах и дополнительных меню
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#: В строке состояния
 msgid "Tags"
 msgstr "Тэгов"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1311
+#: В строке состояния
 msgid "Word Count"
 msgstr "Слов"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1316
+#: В строке состояния
 msgid "Date Created"
 msgstr "Создан"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:1321
+#: В строке состояния
 msgid "Date Modified"
 msgstr "Изменён"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:82
-msgid "_File"
-msgstr "Файл"
+#: В строке состояния
+msgid "Checking for Newer Version..."
+msgstr "Проверка доступности новой версии..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:83
-msgid "_Edit"
-msgstr "Правка"
+#: В строке состояния
+msgid "Failed to Retrieve Latest Version Information - Try Again Later"
+msgstr "Сервер не отвечает. Попробуйте позже"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:84
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1127
-msgid "For_matting"
-msgstr "Формат"
+#: В строке состояния
+msgid "A Newer Version Is Available!"
+msgstr "Доступна новая версия!"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:85
-msgid "_Tree"
+#: В строке состояния
+msgid "Downloading"
+msgstr "Загрузка"
+
+#: В строке состояния
+msgid "You Are Using the Latest Version Available"
+msgstr "У вас установлена последняя версия CherryTree"
+
+# Контекстное меню редактирование текста при нажатии правой кнопки мыши в текстовом редакторе
+msgid "_Justify"
+msgstr "Выравнивание"
+
+msgid "_Insert"
+msgstr "Вставить"
+
+msgid "_Row"
+msgstr "Строка"
+
+msgid "_List"
+msgstr "Список"
+
+msgid "_Replace"
+msgstr "Замена"
+
+# Диалог совпадений и редактирование свойств ветви
+msgid "Matches"
+msgstr " совпадений"
+
+msgid "Node Name"
+msgstr "Имя"
+
+msgid "Line"
+msgstr "Строка"
+
+msgid "Line Content"
+msgstr "Содержимое"
+
+msgid "Hide (Restore with '%s')"
+msgstr "Закрыть"
+
+msgid "Pick a Color"
+msgstr "Выбор цвета"
+
+msgid "Reset to Default"
+msgstr "Значения по умолчанию"
+
+msgid "Are you sure to Reset to Default?"
+msgstr "Восстановить значения по умолчанию?"
+
+msgid "Remove Color"
+msgstr "Очистить"
+
+msgid "Plain Text"
+msgstr "Обычный текст"
+
+msgid ": "
+msgstr ": "
+
+msgid "Do you want to Continue?"
+msgstr "Продолжить?"
+
+msgid "Involved Nodes"
+msgstr "Выбрать..."
+
+msgid "Selected Text Only"
+msgstr "Текст"
+
+msgid "Selected Node Only"
+msgstr "Ветвь"
+
+msgid "Selected Node and Subnodes"
+msgstr "Ветвь с дочерними"
+
+msgid "All the Tree"
 msgstr "Дерево"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:86
-msgid "Node _Move"
-msgstr "Переместить"
+msgid "Include Node Name"
+msgstr "Печатать имя ветви"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:87
-msgid "Nodes _Sort"
-msgstr "Сортировать"
+msgid "New Node in New Page"
+msgstr "Новую ветвь с новой страницы"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:88
-msgid "Nodes _Import"
-msgstr "Импорт"
+msgid "Links Tree in Every Page"
+msgstr "Дерево ссылок на каждой страницe"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:89
-msgid "Nodes E_xport"
-msgstr "Экспорт"
+msgid "Single File"
+msgstr "Один файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:90
-msgid "_Recent Documents"
-msgstr "История"
+msgid "Show Line Numbers"
+msgstr "Нумерация строк"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:91
-msgid "Insert _Special Character"
-msgstr "Вставить символ"
+msgid "Highlight Matching Brackets"
+msgstr "Подсвечивать парные скобки"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:91
-msgid "Insert a Special Character"
+msgid "Width"
+msgstr "Ширина"
+
+msgid "Height"
+msgstr "Высота  "
+
+msgid "Image Format Not Recognized"
+msgstr "Не известный формат изображения"
+
+msgid "Edit _Link"
+msgstr "Свойства ссылки..."
+
+msgid "Edit the Underlying Link"
 msgstr ""
-"Вставить символ\n"
+"Свойства ссылки...\n"
 "\n"
-"Вставить символ, отсутствующий на клавиатуре, например\n"
-"символ авторского права, товарного знака, абзаца и т.д.\n"
-"\n"
-"Символы для вставки можно изменить\n"
-"в настройках приложения"
+"Изменить свойства ссылки"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:92
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1127
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1179
-msgid "C_hange Case"
-msgstr "Регистр"
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Используется в меню правка и контестных(таблица, текст)
+msgid "De_lete Row"
+msgstr "Удалить строку"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:93
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1127
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1179
-msgid "_Search"
-msgstr "Поиск"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:94
-msgid "_View"
-msgstr "Вид"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:95
-msgid "_Bookmarks"
-msgstr "Закладки"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:96
-msgid "_Import"
-msgstr "Импорт"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:97
-msgid "E_xport"
-msgstr "Экспорт"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:98
-msgid "_Help"
-msgstr "Справка"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:101
-msgid "File"
-msgstr "Файл"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:102
-msgid "New _Instance"
-msgstr "Новое окно"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:102
-msgid "Start a New Instance of CherryTree"
+# Подсказка для Меню:Правка/Удалить_строку
+msgid "Delete the Current Row/Selected Rows"
 msgstr ""
-"Создать\n"
+"Удалить строку\n"
 "\n"
-"Создать новый экземпляр CherryTree"
+"Удалить текстовую строку из документа"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:103
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:257
-msgid "_Open File"
-msgstr "Открыть"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:104
-msgid "_Save"
-msgstr "Сохранить"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:104
-msgid "Save File"
+# Подсказка для Контекстное_Меню:Редактировать_таблицу_(правая_кнопка_мыши)
+msgid "Delete the Selected Table Row"
 msgstr ""
-"Сохранить\n"
+"Удалить строку\n"
 "\n"
-"Сохранить активный документ CherryTree"
+"Удалить строку из таблицы"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:105
-msgid "Save and _Vacuum"
-msgstr "Сохранить и сжать"
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Используется в меню правка и контестных(таблица, текст)
+msgid "_Copy Row"
+msgstr "Копировать строку"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:105
-msgid "Save File and Vacuum"
+# Подсказка для Меню:Правка/Копировать_строку
+msgid "Copy the Current Row/Selected Rows"
 msgstr ""
-"Сохранить и сжать\n"
+"Копировать строку\n"
 "\n"
-"Сохранить и сжать документ CherryTree до \n"
-"минимального размера при помощи фрагментирования"
+"Копировать текстовую строку в буфер обмена"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:106
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:256
-msgid "Save _As"
-msgstr "Сохранить как..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:106
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:256
-msgid "Save File As"
-msgstr "Сохранить как..."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:107
-msgid "Command Palette"
-msgstr "Команды"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:108
-msgid "_Execute Code"
-msgstr "Выполнить"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:108
-msgid "Execute Code"
+# Подсказка дляКонтекстное_Меню:Редактировать_таблицу_(правая_кнопка_мыши)
+msgid "Copy a Table Row"
 msgstr ""
-"Выполнить\n"
+"Копировать строку\n"
 "\n"
-"Выполнить код из блока кода с помощью\n"
-"интерпретатора или компилятора"
+"Копировать строку таблицы в буфер обмена"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:109
-msgid "Open Preferences _Directory"
-msgstr "Открыть настройки"
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Используется в меню правка и контестных(таблица, текст)
+msgid "Cu_t Row"
+msgstr "Вырезать строку"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:109
-msgid "Open the Directory with Preferences Files"
+# Подсказка для Меню:Правка/Вырезать_строку
+msgid "Cut the Current Row/Selected Rows"
 msgstr ""
-"Открыть настройки\n"
+"Вырезать строку\n"
 "\n"
-"Открыть папку с настройками приложения"
+"Вырезать текстовую строку в буфер обмена"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:110
-msgid "Pa_ge Setup"
-msgstr "Параметры страницы"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:110
-msgid "Set up the Page for Printing"
+# Подсказка для Контекстное_Меню:Редактировать_таблицу_(правая_кнопка_мыши)
+msgid "Cut a Table Row"
 msgstr ""
-"Параметры страницы\n"
+"Вырезать строку\n"
 "\n"
-"Настроить параметры страницы для печати: \n"
-"ориентация, поля, размер и подача бумаги"
+"Вырезать строку таблицы в буфер обмена"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:111
-msgid "_Print"
-msgstr "_Печать"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:111
-msgid "Print"
-msgstr ""
-"Печать\n"
-"\n"
-"Настроить параметры печати документа"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:112
-msgid "_Quit"
-msgstr "Выход"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:114
-msgid "_Preferences"
-msgstr "Настройки приложения"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:115
-msgid "_Check Newer Version"
-msgstr "Проверить обновления"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:115
-msgid "Check for a Newer Version"
-msgstr ""
-"Проверить обновления\n"
-"\n"
-"Проверить наличие обновления CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:116
-msgid "Online _Manual"
-msgstr "Справка в интернете"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:116
-msgid "Application's Online Manual"
-msgstr ""
-"Справка в интернете\n"
-"\n"
-"Показать онлайн справку по CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:117
-msgid "_About"
-msgstr "О программе"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:117
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1981
-msgid "About CherryTree"
-msgstr ""
-"О программе CherryTree\n"
-"\n"
-"Отобразить информацию о программе."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:118
-msgid "Editor"
-msgstr "Правка"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:119
-msgid "_Undo"
-msgstr "Отменить"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:119
-msgid "Undo Last Operation"
-msgstr ""
-"Отменить\n"
-"\n"
-"Отменить последнюю операцию"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:120
-msgid "_Redo"
-msgstr "Вернуть"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:120
-msgid "Redo Previously Discarded Operation"
-msgstr ""
-"Вернуть\n"
-"\n"
-"Вернуть последнюю операцию"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:121
-msgid "Insert I_mage"
-msgstr "Вставить изображение"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:121
-msgid "Insert an Image"
-msgstr ""
-"Вставить изображение\n"
-"\n"
-"Вставить изображение в документ для\n"
-"иллюстрации определённого понятия"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:123
-msgid "Insert _Table"
-msgstr "Вставить таблицу"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:123
-msgid "Insert a Table"
-msgstr ""
-"Вставить таблицу\n"
-"\n"
-"Вставить таблицу в документ"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:124
-msgid "Insert _CodeBox"
-msgstr "Вставить блок кода"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:125
-msgid "Insert _File"
-msgstr "Вставить файл"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:125
-msgid "Insert File"
-msgstr ""
-"Вставить файл\n"
-"\n"
-"Вставить файл в документ"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:126
-msgid "Insert/Edit _Link"
-msgstr "Изменение ссылки"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:126
-msgid "Insert a Link/Edit the Underlying Link"
-msgstr ""
-"Вставить ссылку\n"
-"\n"
-"Создать ссылку на веб-страницу, ветвь, якорь, \n"
-"папку, файл путём вставки перекрёстной ссылки"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:127
-msgid "Insert _Anchor"
-msgstr "Вставить якорь"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:127
-msgid "Insert an Anchor"
-msgstr ""
-"Вставить якорь\n"
-"\n"
-"Вставить якорь в документ\n"
-"\n"
-"Якорь - это закладка на элементы, такие как заголовки, рисунки, ветви, \n"
-"файлы и таблицы, блоки кода, фрагменты текста. Чтобы сослаться на якорь \n"
-"необходимо вставить в нужном месте ссылку или использовать \n"
-"перекрёстную ссылку, такую как 'см. таблицу 7' или 'Вернуться к... '. \n"
-"Ссылка на якорь обновляются автоматически, если содержимое\n"
-"перемещается в другое место"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:128
-msgid "Insert T_OC"
-msgstr "Вставить оглавление"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:128
-msgid "Insert Table of Contents"
-msgstr ""
-"Вставить оглавление\n"
-"\n"
-"Вставить оглавление в документ.\n"
-"Оглавление создаётся из заголовков.\n"
-"Приложение CherryTree выполнит поиск этих\n"
-"заголовков и включит оглавление в документ."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:129
-msgid "Insert Ti_mestamp"
-msgstr "Вставить дату"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:129
-msgid "Insert Timestamp"
-msgstr ""
-"Вставить дату\n"
-"\n"
-"Вставить в документ дату и время.\n"
-"\n"
-"Формат даты и времени можно изменить\n"
-"в настройках приложения"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:130
-msgid "Insert _Horizontal Rule"
-msgstr "Bставить линию"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:130
-msgid "Insert Horizontal Rule"
-msgstr ""
-"Bставить линию\n"
-"\n"
-"Bставить горизонтальную разделительну линию.\n"
-"\n"
-"Символы линии и их количество можно\n"
-"изменить в настройках приложения"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:131
-msgid "_Lower Case of Selection/Word"
-msgstr "строчные"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:131
-msgid "Lower the Case of the Selection/the Underlying Word"
-msgstr ""
-"строчные \n"
-"\n"
-"Преобразовать все буквы \n"
-"выделенного текста в строчные"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:132
-msgid "_Upper Case of Selection/Word"
-msgstr "Верхний регистр"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:132
-msgid "Upper the Case of the Selection/the Underlying Word"
-msgstr ""
-"Верхний регистр \n"
-"\n"
-"Преобразовать все буквы \n"
-"выделенного текста в ПРОПИСНЫЕ "
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:133
-msgid "_Toggle Case of Selection/Word"
-msgstr "Переключить регистр"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:133
-msgid "Toggle the Case of the Selection/the Underlying Word"
-msgstr ""
-"Переключить регистр\n"
-"\n"
-"Преобразовать все буквы выделенного \n"
-"текста в строчные или ПРОПИСНЫЕ"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:134
-msgid "Enable/Disable _Spell Check"
-msgstr "Орфография"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:134
-msgid "Toggle Enable/Disable Spell Check"
-msgstr "Проверка орфографии"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:135
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 msgid "Cu_t as Plain Text"
 msgstr "Вырезать текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:135
 msgid "Cut as Plain Text, Discard the Rich Text Formatting"
 msgstr ""
 "Вырезать текст\n"
@@ -1610,11 +320,9 @@ msgstr ""
 "Вырезать выделенный фрагмент текста\n"
 "без форматирования в буфер обмена"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:136
 msgid "_Copy as Plain Text"
 msgstr "Копировать текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:136
 msgid "Copy as Plain Text, Discard the Rich Text Formatting"
 msgstr ""
 "Копировать текст\n"
@@ -1622,157 +330,1565 @@ msgstr ""
 "Копировать выделенный фрагмент текста\n"
 "без форматирования в буфер обмена"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:137
 msgid "_Paste as Plain Text"
 msgstr "Вставить текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:137
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
 msgstr ""
 "Вставить текст\n"
 "\n"
 "Вставить текст без форматирования из буфера обмена"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:138
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:303
-msgid "Cu_t Row"
-msgstr "Вырезать строку"
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Информационные окна и сервисные сообщения
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+msgid "Error"
+msgstr "Ошибка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:138
-msgid "Cut the Current Row/Selected Rows"
+msgid "Question"
+msgstr "Вопрос"
+
+msgid "Info"
+msgstr "Информация"
+
+msgid "The Tree is Empty!"
 msgstr ""
-"Вырезать строку\n"
+"<b> Пустое дерево! </b>\n"
 "\n"
-"Вырезать выделенную текстовую строку в буфер обмена"
+"Создайте Ваше первое дерево!\n"
+"Для начала работы добавьте новую ветвь:\n"
+"<b>Главное меню\\Дерево\\Новая ветвь </b>"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:139
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:304
-msgid "_Copy Row"
-msgstr "Копировать строку"
+msgid "No Node is Selected"
+msgstr "Ветвь не выбрана"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:139
-msgid "Copy the Current Row/Selected Rows"
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr "Созданы временные файлы, которые открыты в другом приложении."
+
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr "Закройте внешнее приложение перед выходом из CherryTree."
+
+msgid "Did you Quit the External Applications?"
+msgstr "Вы завершили внешнее приложение?"
+
+msgid "The Selected Node is Read Only"
 msgstr ""
-"Копировать строку\n"
+"Эта ветвь доступна <b>\"только для чтения\"</b>.\n"
 "\n"
-"Копировать выделенную текстовую строку в буфер обмена"
+"Для редактирования измените свойства ветви."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:140
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:306
-msgid "De_lete Row"
-msgstr "Удалить строку"
+msgid "Cannot Edit Embedded File in Read Only Node"
+msgstr "<b>\"Только чтение!\"</b> Невозможно отредактировать файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:140
-msgid "Delete the Current Row/Selected Rows"
+msgid ""
+"Error Parsing the CherryTree File:\n"
+"\"%s\""
 msgstr ""
-"Удалить строку\n"
-"\n"
-"Удалить выделенную текстовую строку из документа"
+"Ошибка открытия файла CherryTree:\n"
+"\"%s\""
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:141
+msgid "\"%s\" is Not a CherryTree Document"
+msgstr "\"%s\" не является документом CherryTree"
+
+msgid "%s write failed - file is missing. Reattach usb driver or shared resource"
+msgstr ""
+"Файл: <b>\"%s\"</b> - отсутствует.\n"
+"\n"
+"Попробуйте повторно подключить устройство USB."
+
+msgid "%s write failed - is file blocked by a sync program?"
+msgstr ""
+"Файл: <b>\"%s\"</b> - доступен только для чтения.\n"
+"\n"
+"Попробуйте сохранить его под другим именем."
+
+msgid "You Have No Write Access to %s"
+msgstr "Запись в файл <b>\"%s\"</b> недоступна"
+
+msgid "The Current Document was Updated."
+msgstr "Документ CherryTree был изменён."
+
+msgid "Do you want to Save the Changes?"
+msgstr "Сохранить изменения в документе?"
+
+msgid "Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"
+msgstr ""
+"При смене <b> \"Форматированный текст\" </b> на <b> \"Обычный текст\" </b>,\n"
+"вы полностью потеряете форматирование текста для данной ветви.\n"
+"Продолжить?"
+
+msgid "No Previous Text Format Was Performed During This Session"
+msgstr "Вы ещё не проводили форматирование текста"
+
+msgid "This Feature is Available Only in Rich Text Nodes"
+msgstr "Эта функция доступна только для форматированного текста"
+
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes"
+msgstr "Эта функция не доступна для подсветки синтаксиса"
+
+msgid "You Are Using a Development Version"
+msgstr "Вы используете версию для разработчика"
+
+msgid "This Change will have Effect Only After Restarting CherryTree"
+msgstr "Изменения вступят в силу после рестарта приложения"
+
+msgid "Install the package 'xterm' or configure a different terminal in the Preferences Dialog"
+msgstr "Установите пакет 'xterm' или настройте другой терминал в настройках приложения"
+
+#: Языки
+msgid "Turkish"
+msgstr "Турецкий"
+
+msgid "German"
+msgstr "Немецкий"
+
+msgid "Armenian"
+msgstr "Армянский"
+
+msgid "Swedish"
+msgstr "Шведский"
+
+msgid "Spanish"
+msgstr "Испанский"
+
+msgid "Slovenian"
+msgstr "Словенский"
+
+msgid "Russian"
+msgstr "Русский"
+
+msgid "Chinese Simplified"
+msgstr "Китайский Упрощённый"
+
+msgid "Polish"
+msgstr "Польский"
+
+msgid "Portuguese Brazil"
+msgstr "Португальский (Бразилия)"
+
+msgid "Lithuanian"
+msgstr "Литовский"
+
+msgid "Japanese"
+msgstr "Японский"
+
+msgid "Italian"
+msgstr "Итальянский"
+
+msgid "Greek"
+msgstr "Греческий"
+
+msgid "French"
+msgstr "Французский"
+
+msgid "Finnish"
+msgstr "Финский"
+
+msgid "Dutch"
+msgstr "Голландский"
+
+msgid "Czech"
+msgstr "Чешский"
+
+msgid "Ukrainian"
+msgstr "Украинский"
+
+#
+# Конец Общие элементы в стандартных диалогах и дополнительных меню
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Меню "Файл" и контекстные меню
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+msgid "_File"
+msgstr "Файл"
+
+msgid "New _Instance"
+msgstr "Создать..."
+
+msgid "Start a New Instance of CherryTree"
+msgstr ""
+"Создать...\n"
+"\n"
+"Создать новый экземпляр CherryTree"
+
+msgid "_Open File"
+msgstr "Открыть..."
+
+msgid "Open a CherryTree Document"
+msgstr ""
+"Открыть...\n"
+"\n"
+"Открыть существующий документ CherryTree"
+
+msgid "_Recent Documents"
+msgstr "История..."
+
+msgid "Open a Recent CherryTree Document"
+msgstr ""
+"История...\n"
+"\n"
+"Кликните здесь, чтобы посмотреть\n"
+"какие документы были открыты ранее.\n"
+"Также можно удалить из истории недавно\n"
+"открытые документы CherryTree"
+
+msgid "Remove from list"
+msgstr "Удалить из истории"
+
+msgid "Save and _Vacuum"
+msgstr "Сохранить и сжать"
+
+msgid "Save File and Vacuum"
+msgstr ""
+"Сохранить и сжать\n"
+"\n"
+"Сохранить и сжать документ CherryTree до \n"
+"минимального размера при помощи фрагментирования"
+
+msgid "_Save"
+msgstr "Сохранить"
+
+msgid "Save File"
+msgstr ""
+"Сохранить\n"
+"\n"
+"Сохранить текущий документ CherryTree"
+
+msgid "Save _As"
+msgstr "Сохранить как..."
+
+msgid "Save File As"
+msgstr ""
+"Сохранить как...\n"
+"\n"
+"Сохранить текущий документ под другим\n"
+"именем или с другим расширением.\n"
+"\n"
+"Сохранить вставленный файл"
+
+msgid "Choose Storage Type"
+msgstr "Тип файла"
+
+msgid "Storage Type"
+msgstr "Тип:"
+
+msgid "Not Protected"
+msgstr "без шифрования"
+
+msgid "Password Protected"
+msgstr "с шифрованием"
+
+msgid "Enter Password for %s"
+msgstr "Введите пароль для %s"
+
+msgid "Enter the New Password Twice"
+msgstr "Введите и подтвердите пароль для проверки"
+
+msgid "CT saves the document in an encrypted 7zip archive. When viewing or editing the document, CT extracts the encrypted archive to a temporary folder, and works on the unencrypted copy. When closing, the unencrypted copy is deleted from the temporary directory. Note that in the case of application or system crash, the unencrypted document will remain in the temporary folder."
+msgstr "CherryTree сохраняет документ в зашифрованном 7zip-архиве. Во время открытия или редактирования документа CherryTree извлекает его из зашифрованного архива во временную папку и работает с ним как с обычным архивом. После закрытия файла незашифрованная копия документа удаляется из временной папки. Во время краха системы или приложения незашифрованный документ может остаться во временной папке."
+
+msgid "The Password Fields Must be Filled"
+msgstr "Вы не задали пароль"
+
+msgid "The Two Inserted Passwords Do Not Match"
+msgstr "Пароли не совпадают"
+
+msgid "Pa_ge Setup"
+msgstr "Параметры страницы"
+
+msgid "Set up the Page for Printing"
+msgstr ""
+"Параметры страницы\n"
+"\n"
+"Настроить параметры страницы для печати: \n"
+"ориентация, поля, размер и подача бумаги"
+
+msgid "_Print"
+msgstr "_Печать"
+
+msgid "Print"
+msgstr ""
+"Печать\n"
+"\n"
+"Настроить параметры печати документа"
+
+#: Название меню и подсказки
+msgid "Command Palette"
+msgstr "Команды..."
+
+msgid "_Execute Code"
+msgstr "Выполнить..."
+
+msgid "Execute Code"
+msgstr ""
+"Выполнить...\n"
+"\n"
+"Выполнить код из CodeBox с помощью\n"
+"интерпритатора или компилятора"
+
+msgid "Warning"
+msgstr "Предупреждение"
+
+msgid "No CodeBox is Selected"
+msgstr "CodeBox не выбран"
+
+msgid ""
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog"
+msgstr ""
+"Вы должны связать команду с языком <b>' %s '</b>.\n"
+"\n"
+"Это можно сделать в настройках приложения"
+
+msgid "Do you want to Execute the Code?"
+msgstr "Выполнить код?"
+
+msgid "_Quit"
+msgstr "Выход"
+
+msgid "Quit"
+msgstr "Выход"
+
+msgid "Quit the Application"
+msgstr ""
+"Выход\n"
+"\n"
+"Выйти из CherryTree"
+
+#
+# конец меню "Файл" и контекстных_меню
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Меню "Правка" и контекстные_меню
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+msgid "_Edit"
+msgstr "Правка"
+
+#: Меню:Правка/Настройки...
+msgid "_Preferences"
+msgstr "Настройки..."
+
+#: Подсказка и имя окна
+msgid "Preferences"
+msgstr "Настройки приложения"
+
+# Вкладка1:Правка/Настройки.../Текст_и_код
+msgid "Text and Code"
+msgstr "Текст и код"
+
+msgid "Text Editor"
+msgstr "Текстовый редактор"
+
+msgid "Tab Width"
+msgstr "Ширина табуляции"
+
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Пробелы вместо табуляции"
+
+msgid "Use Line Wrapping"
+msgstr "Перенос текста"
+
+msgid "Line Wrapping Indentation"
+msgstr "Отступ переноса текста"
+
+msgid "Enable Automatic Indentation"
+msgstr "Автоматический отступ"
+
+msgid "Scroll Beyond Last Line"
+msgstr "Прокрутка за пределы документа"
+
+msgid "Vertical Space Around Lines"
+msgstr "Вертикальный отступ"
+
+msgid "Vertical Space in Wrapped Lines"
+msgstr "Вертикальный отступ для строк"
+
+msgid "Timestamp Format"
+msgstr "Формат даты"
+
+msgid "Horizontal Rule"
+msgstr "Горизонтальная линия"
+
+msgid "Chars to Select at Double Click"
+msgstr "Выделять двойным нажатием"
+
+# Вкладка2:Правка/Настройки.../Форматированный_текст
+msgid "Rich Text"
+msgstr "Форматированный текст"
+
+msgid "Spell Check"
+msgstr "Орфография"
+
+msgid "Enable Spell Check"
+msgstr "Проверка орфографии"
+
+msgid "Spell Check Language"
+msgstr "Словарь:"
+
+msgid "Show White Spaces"
+msgstr "Отображать пробелы"
+
+msgid "Highlight Current Line"
+msgstr "Подсвечивать активную строку"
+
+msgid "Expand CodeBoxes Automatically"
+msgstr "Автоподбор по содержимому CodeBox"
+
+msgid "Embedded File Icon Size"
+msgstr "Размер значка вставляемого файла                          "
+
+msgid "Embedded File Size Limit"
+msgstr "Максимальный размер вставляемого файла (Мб)"
+
+msgid "Show File Name on Top of Embedded File Icon"
+msgstr "Имя файла над значком"
+
+msgid "Limit of Undoable Steps Per Node"
+msgstr "Максимальное количество операций отмены      "
+
+msgid "At Triple Click Select the Whole Paragraph"
+msgstr "Выделять параграф тройным нажатием"
+
+# Вкладка3:Правка/Настройки.../Обычный_текст_и_код
+msgid "Plain Text and Code"
+msgstr "Обычный текст и код"
+
+msgid "Code Execution"
+msgstr "Выполнение кода"
+
+msgid "Command per Node/CodeBox Type"
+msgstr "Команда по типу Ветвь/CodeBox"
+
+msgid "Terminal Command"
+msgstr "Команда терминала"
+
+# Вкладка4:Правка/Настройки.../Специальные_символы
+msgid "Special Characters"
+msgstr "Символы"
+
+msgid "Chars for Bulleted List"
+msgstr "Маркированный список"
+
+msgid "Chars for Todo List"
+msgstr "To-Do список                    "
+
+msgid "Chars for Table Of Content"
+msgstr "Оглавление                       "
+
+msgid "Chars for Smart Double Quotes"
+msgstr "Для автозамены двойных кавычек"
+
+msgid "Chars for Smart Single Quotes"
+msgstr "Для автозамены кавычек                 "
+
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "Автозамена кавычек"
+
+msgid "Enable Symbol Auto Replacement"
+msgstr "Автозамена символов"
+
+# Вкладка5:Правка/Настройки.../Дерево
+msgid "Tree"
+msgstr "Дерево"
+
+msgid "Default Text Nodes Icons"
+msgstr "Значки"
+
+msgid "Use Different Cherries per Level"
+msgstr "Разные вишенки для каждой ветви"
+
+msgid "Use Selected Icon"
+msgstr "Значок ветви"
+
+msgid "No Icon"
+msgstr "Без значка"
+
+msgid "Hide Right Side Auxiliary Icon"
+msgstr "Скрыть дополнительный значок с правой стороны ветви"
+
+msgid "Nodes Status at Startup"
+msgstr "Состояние"
+
+msgid "Restore Expanded/Collapsed Status"
+msgstr "Запоминать состояние ветвей"
+
+msgid "Expand all Nodes"
+msgstr "Разворачивать ветви"
+
+msgid "Collapse all Nodes"
+msgstr "Сворачивать ветви"
+
+msgid "Nodes in Bookmarks Always Visible"
+msgstr "Всегда видимые ветви в закладках"
+
+msgid "Tree Nodes Names Wrapping Width"
+msgstr "Ширина переноса в имени ветви"
+
+msgid "Display Tree on the Right Side"
+msgstr "Отображать панель дерева справа"
+
+msgid "Move Focus to Text at Mouse Click"
+msgstr "Перемещать фокус на текст кликом мышки"
+
+msgid "Expand Node at Mouse Click"
+msgstr "Разворачивать ветвь кликом мышки"
+
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Последние посещённые ветви в заголовке"
+
+# Вкладка6:Правка/Настройки.../Тема
+msgid "Theme"
+msgstr "Тема"
+
+msgid "Light Background, Dark Text"
+msgstr "Тёмный текст на светлом фоне"
+
+msgid "Dark Background, Light Text"
+msgstr "Светлый текст на тёмном фоне"
+
+msgid "Custom Background"
+msgstr "Цвет фона"
+
+msgid "and Text"
+msgstr "Цвет текста"
+
+msgid "Style Scheme"
+msgstr "Стиль"
+
+msgid "Monospace Background"
+msgstr "Цвет фона моношрифта"
+
+msgid "Table"
+msgstr "Таблица"
+
+# Вкладка7:Правка/Настройки.../Шрифты
+msgid "Fonts"
+msgstr "Шрифты"
+
+msgid "Monospace"
+msgstr "Моноширинный текст"
+
+msgid "Code Font"
+msgstr "Текст CodeBox-а"
+
+msgid "Tree Font"
+msgstr "Текст дерева"
+
+# Вкладка8:Правка/Настройки.../Ссылка
+msgid "Links"
+msgstr "Ссылка"
+
+msgid "Custom Actions"
+msgstr "Действия"
+
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Открывать веб-страницы"
+
+msgid "Enable Custom File Link Clicked Action"
+msgstr "Открывать файлы"
+
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "Открывать папки"
+
+msgid "Colors"
+msgstr "Цвета"
+
+msgid "To WebSite"
+msgstr "Сайт:   "
+
+msgid "To File"
+msgstr "Файл:  "
+
+msgid "To Node"
+msgstr "Ветвь:"
+
+msgid "To Folder"
+msgstr "Папка:"
+
+msgid "Underline Links"
+msgstr "Подчёркивать ссылки"
+
+msgid "Use Relative Paths for Files And Folders"
+msgstr "Использовать относительные пути к файлам и папкам"
+
+msgid "Anchor Size"
+msgstr "Размер значка якоря"
+
+# Вкладка9:Правка/Настройки.../Панель_инструментов
+# Названия значков в панели берутся из "подсказок"
+msgid "Toolbar"
+msgstr "Панель инструментов"
+
+# Подсказка для кнопки +
+msgid "Add"
+msgstr "Добавить часто используемые команды"
+
+# Подсказка для кнопки -
+msgid "Remove Selected"
+msgstr "Удалить часто используемые команды"
+
+msgid "Select Element to Add"
+msgstr "Часто используемые команды"
+
+msgid "Split Toolbar"
+msgstr "Разделитель панели инструментов"
+
+# Вкладка10:Правка/Настройки.../Горячие_клавиши
+msgid "Keyboard Shortcuts"
+msgstr "Горячие клавиши"
+
+# Подсказка для кнопки карандашик
+msgid "Change Selected"
+msgstr "Изменить комбинацию клавиш"
+
+msgid "Edit Keyboard Shortcut"
+msgstr "Новая комбинация..."
+
+msgid "No Keyboard Shortcut"
+msgstr "Не задана"
+
+msgid "The Keyboard Shortcut '%s' is already in use"
+msgstr ""
+" \n"
+"Комбинация клавиш ' %s ' уже используется!"
+
+msgid "The current associated action is '%s'"
+msgstr "Данная комбинация выполняет действие <b>' %s '</b>"
+
+msgid "Do you want to steal the shortcut?"
+msgstr "Переопределить комбинацию клавиш?"
+
+#: Название:Файл
+msgid "File"
+msgstr "Файл"
+
+#: Название:Правка
+msgid "Editor"
+msgstr "Правка"
+
+#: Название:Формат
+msgid "Format"
+msgstr "Формат"
+
+#: Название:Поиск/Замена
+msgid "Find/Replace"
+msgstr "Поиск/Замена"
+
+#: Название:Вид
+msgid "View"
+msgstr "Вид"
+
+#: Название:Экспорт
+msgid "Export"
+msgstr "Экспорт"
+
+#: Название:Импорт
+msgid "Import"
+msgstr "Импорт"
+
+# Вкладка11:Правка/Настройки.../Разное
+msgid "Miscellaneous"
+msgstr "Разное"
+
+msgid "System Tray"
+msgstr "Панель задач"
+
+msgid "Enable System Tray Docking"
+msgstr "Отображать значок CherryTree в области уведомлений"
+
+msgid "Start Minimized in the System Tray"
+msgstr "Сворачивать CherryTree в область уведомлений после старта"
+
+msgid "Has the System Tray appeared on the panel?"
+msgstr "Значок CherryTree появился в области уведомлений?"
+
+msgid "Your system does not support the System Tray"
+msgstr ""
+" \n"
+"Ваша система не поддерживает область уведомлений!"
+
+msgid "Saving"
+msgstr "Сохранение"
+
+msgid "Autosave Every"
+msgstr "Автосохранение каждые"
+
+msgid "Minutes"
+msgstr "минут"
+
+msgid "Autosave on Quit"
+msgstr "Сохранить при закрытии"
+
+msgid "Create a Backup Copy Before Saving"
+msgstr "Создать резервную копию"
+
+msgid "Number of Backups to Keep"
+msgstr "Количество резервных копий"
+
+msgid "Custom Backup Directory"
+msgstr "Папка для резервных копий"
+
+msgid "Automatically Check for Newer Version"
+msgstr "Проверять наличие обновлений"
+
+msgid "Enable Word Count in Statusbar"
+msgstr "Количество слов в строке состояния"
+
+msgid "Reload Document From Last Session"
+msgstr "Загружать последний открытый документ"
+
+msgid "Reload After External Update to CT* File"
+msgstr "Повторно загрузить документ после изменения"
+
+msgid "Show the Document Directory in the Window Title"
+msgstr "Путь к файлу в заголовке главного окна"
+
+msgid "Language"
+msgstr "Язык"
+
+# msgstr "Новый язык будет доступен после рестарта CherryTree"
+msgid "The New Language will be Available Only After Restarting CherryTree"
+msgstr "Изменения вступят в силу после рестарта приложения"
+
+# Меню:Правка/Отменить
+msgid "Undo"
+msgstr "Отменить"
+
+msgid "Undo Last Operation"
+msgstr ""
+"Отменить\n"
+"\n"
+"Отменить последнюю операцию"
+
+# Меню:Правка/Вернуть
+msgid "_Redo"
+msgstr "Вернуть"
+
+msgid "Redo Previously Discarded Operation"
+msgstr ""
+"Вернуть\n"
+"\n"
+"Вернуть отменённую операцию"
+
+# Меню:Правка/Вставить изображение
+msgid "Insert I_mage"
+msgstr "Изображение"
+
+msgid "Insert an Image"
+msgstr ""
+"Изображение\n"
+"\n"
+"Вставить изображение в документ для\n"
+"иллюстрации определённого понятия"
+
+# Контекстное_Меню:Редактировать_изображение_(правая_кнопка_мыши)
+msgid "C_ut Image"
+msgstr "Вырезать изображение"
+
+msgid "Cut the Selected Image"
+msgstr ""
+"Вырезать изображение\n"
+"\n"
+"Вырезать изображение в буфер обмена"
+
+msgid "_Copy Image"
+msgstr "Копировать изображение"
+
+msgid "Copy the Selected Image"
+msgstr ""
+"Копировать изображение\n"
+"\n"
+"Копировать изображение в буфер обмена"
+
+msgid "_Delete Image"
+msgstr "Удалить изображение"
+
+msgid "Delete the Selected Image"
+msgstr ""
+"Удалить изображение\n"
+"\n"
+"Удалить изображение из документа"
+
+msgid "_Edit Image"
+msgstr "Свойства изображения..."
+
+msgid "Edit the Selected Image"
+msgstr ""
+"Свойства изображения...\n"
+"\n"
+"Изменить свойства изображения:\n"
+"ширину, высоту и поворот"
+
+#: Название окошка
+msgid "Image Properties"
+msgstr "Свойства изображения"
+
+msgid "_Save Image as PNG"
+msgstr "Сохранить изображение..."
+
+msgid "Save the Selected Image as a PNG file"
+msgstr ""
+"Сохранить изображение\n"
+"\n"
+"Сохранить изображение в формате PNG"
+
+msgid "Edit the Link Associated to the Image"
+msgstr ""
+"Свойства ссылки...\n"
+"\n"
+"Изменить свойства ссылки связанной с изображением"
+
+msgid "Dismiss the Link Associated to the Image"
+msgstr ""
+"Очистить ссылку\n"
+"\n"
+"Очистить ссылку связанную с изображением"
+
+# Меню:Правка/Вставить таблицу
+msgid "Insert _Table"
+msgstr "Таблица"
+
+# Подсказка
+msgid "Insert a Table"
+msgstr ""
+"Таблица\n"
+"\n"
+"Вставить таблицу в документ"
+
+# Название окошка и его содержимого
+msgid "Insert Table"
+msgstr "Вставить таблицу"
+
+msgid "Table Size"
+msgstr "Размер таблицы"
+
+msgid "Rows"
+msgstr "Число строк:"
+
+msgid "Columns"
+msgstr "Число столбцов:"
+
+msgid "Column Properties"
+msgstr "Ширина столбца"
+
+msgid "Default Width"
+msgstr "По умолчанию:"
+
+msgid "Import from CSV File"
+msgstr "Импортировать данные из файла CSV"
+
+# Контекстное_Меню:Редактировать_таблицу_(правая_кнопка_мыши)
+msgid "C_ut Table"
+msgstr "Вырезать таблицу"
+
+msgid "Cut the Selected Table"
+msgstr ""
+"Вырезать таблицу\n"
+"\n"
+"Вырезать таблицу в буфер обмена"
+
+msgid "_Copy Table"
+msgstr "Копировать таблицу"
+
+msgid "Copy the Selected Table"
+msgstr ""
+"Копировать таблицу\n"
+"\n"
+"Копировать таблицу в буфер обмена"
+
+msgid "_Delete Table"
+msgstr "Удалить таблицу"
+
+msgid "Delete the Selected Table"
+msgstr ""
+"Удалить таблицу\n"
+"\n"
+"Удалить таблицу из документа"
+
+msgid "_Add Column"
+msgstr "Добавить столбец"
+
+msgid "Add a Table Column"
+msgstr ""
+"Добавить столбец\n"
+"\n"
+"Добавить столбец в таблицу"
+
+msgid "De_lete Column"
+msgstr "Удалить столбец"
+
+msgid "Delete the Selected Table Column"
+msgstr ""
+"Удалить столбец\n"
+"\n"
+"Удалить столбец из таблицы"
+
+msgid "Move Column _Left"
+msgstr "Столбец влево"
+
+msgid "Move the Selected Column Left"
+msgstr ""
+"Столбец влево\n"
+"\n"
+"Переместить столбец таблицы влево"
+
+msgid "Move Column _Right"
+msgstr "Столбец вправо"
+
+msgid "Move the Selected Column Right"
+msgstr ""
+"Столбец вправо\n"
+"\n"
+"Переместить столбец таблицы вправо"
+
+msgid "Increase Column Width"
+msgstr "Увеличить ширину"
+
+msgid "Increase the Width of the Column"
+msgstr ""
+"Увеличить ширину\n"
+"\n"
+"Увеличить ширину столбца таблицы"
+
+msgid "Decrease Column Width"
+msgstr "Уменьшить ширину"
+
+msgid "Decrease the Width of the Column"
+msgstr ""
+"Уменьшить ширину\n"
+"\n"
+"Уменьшить ширину столбца таблицы"
+
+msgid "_Add Row"
+msgstr "Добавить строку"
+
+msgid "Add a Table Row"
+msgstr ""
+"Добавить строку\n"
+"\n"
+"Добавить строку в таблицу"
+
+msgid "_Paste Row"
+msgstr "_Вставить строку"
+
+msgid "Paste a Table Row"
+msgstr ""
+"Вставить строку\n"
+"\n"
+"Вставить строку в таблицу из буфера обмена"
+
+msgid "Move Row _Up"
+msgstr "Строку вверх"
+
+msgid "Move the Selected Row Up"
+msgstr ""
+"Строку вверх\n"
+"\n"
+"Переместить строку таблицы вверх"
+
+msgid "Move Row _Down"
+msgstr "Строку вниз"
+
+msgid "Move the Selected Row Down"
+msgstr ""
+"Строку вниз\n"
+"\n"
+"Переместить строку таблицы вниз"
+
+msgid "Sort Rows De_scending"
+msgstr "Сортировать по убыванию"
+
+msgid "Sort all the Rows Descending"
+msgstr ""
+"Сортировать по убыванию\n"
+"\n"
+"Сортировать все строки таблицы по убыванию"
+
+msgid "Sort Rows As_cending"
+msgstr "Сортировать по возрастанию"
+
+msgid "Sort all the Rows Ascending"
+msgstr ""
+"Сортировать по возрастанию\n"
+"\n"
+"Сортировать все строки таблицы по возрастанию"
+
+msgid "_Edit Table Properties"
+msgstr "Свойства таблицы..."
+
+msgid "Edit the Table Properties"
+msgstr ""
+"Свойства таблицы...\n"
+"\n"
+"Изменить свойства таблицы"
+
+# Название окошка
+msgid "Edit Table Properties"
+msgstr "Свойства таблицы"
+
+msgid "_Table Export"
+msgstr "Экспорт таблицы"
+
+msgid "Export Table as CSV File"
+msgstr ""
+"Экспорт таблицы\n"
+"\n"
+"Экспортировать данные таблицы в файл CSV"
+
+# Меню:Правка/Вставить CodeBox
+msgid "Insert _CodeBox"
+msgstr "CodeBox"
+
+# Подсказка и Название окошка при добавлении нового поля CodeBox
+msgid "Insert a CodeBox"
+msgstr "Вставить CodeBox"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "Automatic Syntax Highlighting"
+msgstr "Подсветка синтаксиса"
+
+msgid "Size"
+msgstr "Размер"
+
+msgid "pixels"
+msgstr "пикселей"
+
+msgid "Options"
+msgstr "Настройки"
+
+# Контекстное_Меню:Редактировать_CodeBox_(правая_кнопка_мыши)
+msgid "Change CodeBox _Properties"
+msgstr "Свойства CodeBox..."
+
+msgid "Edit the Properties of the CodeBox"
+msgstr ""
+"Свойства CodeBox...\n"
+"\n"
+"Изменить свойства CodeBox"
+
+# Название окошка
+msgid "Edit CodeBox"
+msgstr "Свойства CodeBox"
+
+msgid "CodeBox _Load From Text File"
+msgstr "Загрузить в CodeBox..."
+
+msgid "Load the CodeBox Content From a Text File"
+msgstr ""
+"Загрузить в CodeBox...\n"
+"\n"
+"Загрузить програмный код в CodeBox\n"
+"из текстового файла"
+
+msgid "CodeBox _Save To Text File"
+msgstr "Сохранить из CodeBox..."
+
+msgid "Save the CodeBox Content To a Text File"
+msgstr ""
+"Сохранить из CodeBox...\n"
+"\n"
+"Сохранить содержимое CodeBox\n"
+"в текстовый файл"
+
+msgid "C_ut CodeBox"
+msgstr "Вырезать CodeBox"
+
+msgid "Cut the Selected CodeBox"
+msgstr ""
+"Вырезать CodeBox\n"
+"\n"
+"Вырезать CodeBox в буфер обмена"
+
+msgid "_Copy CodeBox"
+msgstr "Копировать CodeBox"
+
+msgid "Copy the Selected CodeBox"
+msgstr ""
+"Копировать CodeBox\n"
+"\n"
+"Копировать CodeBox в буфер обмена"
+
+msgid "_Delete CodeBox"
+msgstr "Удалить CodeBox"
+
+msgid "Delete the Selected CodeBox"
+msgstr ""
+"Удалить CodeBox\n"
+"\n"
+"Удалить CodeBox из документа"
+
+msgid "Delete CodeBox _Keep Content"
+msgstr "Удалить CodeBox с..."
+
+msgid "Delete the Selected CodeBox But Keep Its Content"
+msgstr ""
+"Удалить CodeBox с...\n"
+"\n"
+"Удалить CodeBox с сохранением содержимого.\n"
+"\n"
+"Удаляется только контейнер CodeBox, а текст \n"
+"содержащийся в CodeBox вставляется в документ"
+
+msgid "Increase CodeBox Width"
+msgstr "Увеличить ширину"
+
+msgid "Increase the Width of the CodeBox"
+msgstr ""
+"Увеличить ширину\n"
+"\n"
+"Увеличить ширину CodeBox"
+
+msgid "Decrease CodeBox Width"
+msgstr "Уменьшить ширину"
+
+msgid "Decrease the Width of the CodeBox"
+msgstr ""
+"Уменьшить ширину\n"
+"\n"
+"Уменьшить ширину CodeBox"
+
+msgid "Increase CodeBox Height"
+msgstr "Увеличить высоту"
+
+msgid "Increase the Height of the CodeBox"
+msgstr ""
+"Увеличить высоту\n"
+"\n"
+"Увеличить высоту CodeBox"
+
+msgid "Decrease CodeBox Height"
+msgstr "Уменьшить высоту"
+
+msgid "Decrease the Height of the CodeBox"
+msgstr ""
+"Уменьшить высоту\n"
+"\n"
+"Уменьшить высоту CodeBox"
+
+# Меню:Правка/Вставить файл
+msgid "Insert _File"
+msgstr "Файл"
+
+msgid "Insert File"
+msgstr ""
+"Файл\n"
+"\n"
+"Вставить файл в документ"
+
+msgid "The Maximum Size for Embedded Files is %s MB"
+msgstr ""
+"Максимальный размер файла превышает %s Мб\n"
+" "
+
+# Контекстное_Меню:Редактировать_Файл_(правая_кнопка_мыши)
+msgid "C_ut Embedded File"
+msgstr "Вырезать файл"
+
+msgid "Cut the Selected Embedded File"
+msgstr ""
+"Вырезать файл\n"
+"\n"
+"Вырезать файл в буфер обмена"
+
+msgid "_Copy Embedded File"
+msgstr "Копировать файл"
+
+msgid "Copy the Selected Embedded File"
+msgstr ""
+"Копировать файл\n"
+"\n"
+"Копировать файл в буфер обмена"
+
+msgid "_Delete Embedded File"
+msgstr "Удалить файл"
+
+msgid "Delete the Selected Embedded File"
+msgstr ""
+"Удалить файл\n"
+"\n"
+"Удалить файл из документа"
+
+msgid "Open Embedded File"
+msgstr ""
+"Открыть файл...\n"
+"\n"
+"Открыть вставленный файл"
+
+msgid "_Rename"
+msgstr "Переименовать"
+
+msgid "Rename Embedded File"
+msgstr ""
+"Переименовать\n"
+"\n"
+"Переименовать вставленный файл"
+
+# Меню:Правка/Вставить_ссылку
+msgid "Insert/Edit _Link"
+msgstr "Ссылка"
+
+msgid "Insert a Link/Edit the Underlying Link"
+msgstr ""
+"Ссылка\n"
+"\n"
+"Вставить ссылку в документ.\n"
+"\n"
+"Создать ссылку на веб-страницу, ветвь, якорь, \n"
+"папку, файл путём вставки перекрёстной ссылки"
+
+# Название окошка и его содержимого
+msgid "Link Name"
+msgstr "Вставить ссылку"
+
+# Название_окошка_для_редактирования_ссылки
+msgid "Insert/Edit Link"
+msgstr "Изменение ссылки"
+
+msgid "C_ut Link"
+msgstr "Вырезать ссылку"
+
+msgid "Cut the Selected Link"
+msgstr ""
+"Вырезать ссылку\n"
+"\n"
+"Вырезать ссылку в буфер обмена"
+
+msgid "_Copy Link"
+msgstr "Копировать ссылку"
+
+msgid "Copy the Selected Link"
+msgstr ""
+"Копировать ссылку\n"
+"\n"
+"Копировать ссылку в буфер обмена"
+
+msgid "D_ismiss Link"
+msgstr "Очистить ссылку"
+
+msgid "Dismiss the Selected Link"
+msgstr ""
+"Очистить ссылку\n"
+"\n"
+"Удаляется только ссылка из документа, но не текст"
+
+# msgstr "Очистить выделенную ссылку"
+msgid "_Delete Link"
+msgstr "Удалить ссылку"
+
+msgid "Delete the Selected Link"
+msgstr ""
+"Удалить ссылку\n"
+"\n"
+"Удаляется ссылка и текст из документа"
+
+msgid "The File Link '%s' is Not Valid"
+msgstr "Некорректная ссылка на файл '%s'"
+
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "Некорректная ссылка на папку '%s'"
+
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr ""
+"Некорректная ссылка на ветвь.\n"
+"\n"
+"Ветви уже не существует (Id = %s).\n"
+"Вероятно она была удалена из документа"
+
+# Меню:Правка/Вставить_якорь
+msgid "Insert _Anchor"
+msgstr "Якорь"
+
+msgid "Insert an Anchor"
+msgstr ""
+"Якорь\n"
+"\n"
+"Вставить якорь в документ.\n"
+"\n"
+"Якорь - это закладка на элементы, такие как заголовки, рисунки, ветви, \n"
+"файлы и таблицы, CodeBox-ы, фрагменты текста. Чтобы сослаться на якорь \n"
+"необходимо вставить в нужном месте ссылку или использовать \n"
+"перекрёстную ссылку, такую как 'см. таблицу 7' или 'Вернуться к... '. \n"
+"Ссылка на якорь обновляются автоматически, если содержимое\n"
+"перемещается в другое место"
+
+# Название_окошка_при_добавлении_якоря
+msgid "Insert Anchor"
+msgstr "Вставить якорь"
+
+msgid "Edit _Anchor"
+msgstr "Свойства якоря..."
+
+msgid "Edit the Underlying Anchor"
+msgstr ""
+"Свойства якоря...\n"
+"\n"
+"Изменить свойства якоря"
+
+# Название_окошка_для_редактирования_якоря
+msgid "Edit Anchor"
+msgstr "Свойства якоря"
+
+msgid "C_ut Anchor"
+msgstr "Вырезать якорь"
+
+msgid "Cut the Selected Anchor"
+msgstr ""
+"Вырезать якорь\n"
+"\n"
+"Вырезать якорь в буфер обмена"
+
+msgid "_Copy Anchor"
+msgstr "Копировать якорь"
+
+msgid "Copy the Selected Anchor"
+msgstr ""
+"Копировать якорь\n"
+"\n"
+"Копировать якорь в буфер обмена"
+
+msgid "_Delete Anchor"
+msgstr "Удалить якорь"
+
+msgid "Delete the Selected Anchor"
+msgstr ""
+"Удалить якорь\n"
+"\n"
+"Удалить якорь из документа\n"
+"\n"
+"При удалении якоря из документа ссылка на него \n"
+"остаётся, её необходимо удалить или изменить"
+
+msgid "Copy Anchor Link"
+msgstr "Копировать ссылку"
+
+msgid "Copy Link to the Underlying Anchor to Clipboard"
+msgstr ""
+"Копировать ссылку\n"
+"\n"
+"Копировать ссылку на якорь в буфер обмена"
+
+msgid "Anchor Name"
+msgstr "Имя якоря"
+
+msgid "Anchor Name (optional)"
+msgstr " Добавить якорь к ссылке (не обязательно)"
+
+msgid "Choose Existing Anchor"
+msgstr "Выберите якорь"
+
+# Меню:Правка/Вставить оглавление
+msgid "Insert T_OC"
+msgstr "Оглавление"
+
+# Подсказка
+msgid "Insert Table of Contents"
+msgstr ""
+"Оглавление\n"
+"\n"
+"Вставить оглавление в документ.\n"
+"\n"
+"Оглавление создаётся из заголовков.\n"
+"Приложение CherryTree выполнит поиск этих\n"
+"заголовков и включит оглавление в документ."
+
+# Меню:Правка/Вставить дату
+msgid "Insert Ti_mestamp"
+msgstr "Время и дата"
+
+msgid "Insert Timestamp"
+msgstr ""
+"Время и дата\n"
+"\n"
+"Вставить время и дату в документ.\n"
+"\n"
+"Формат времени и даты можно изменить\n"
+"в настройках приложения"
+
+# Меню:Правка/Вставить символ
+msgid "Insert _Special Character"
+msgstr "Символ"
+
+msgid "Insert a Special Character"
+msgstr ""
+"Символ\n"
+"\n"
+"Вставить символ в документ.\n"
+"\n"
+"Вставить символ, отсутствующий на клавиатуре, например\n"
+"символ авторского права, товарного знака, абзаца и т.д.\n"
+"Символы для вставки можно добавить или изменить\n"
+"в настройках приложения"
+
+# Меню:Правка/Bставить_горизонтальную_линию
+msgid "Insert _Horizontal Rule"
+msgstr "Линия"
+
+msgid "Insert Horizontal Rule"
+msgstr ""
+"Линия\n"
+"\n"
+"Вставить горизонтальную линию в документ.\n"
+"\n"
+"Символы линии и их количество можно\n"
+"изменить в настройках приложения"
+
+# Меню:Правка/Очистить_пробелы_в_конце_строки
+msgid "Stri_p Trailing Spaces"
+msgstr "Удалить пробелы"
+
+msgid "Strip Trailing Spaces"
+msgstr ""
+"Удалить пробелы\n"
+"\n"
+"Удалить лишние пробелы в конце строк"
+
+msgid "Lines Stripped"
+msgstr " строк очищено"
+
+# Меню:Правка/Регистр
+msgid "C_hange Case"
+msgstr "Регистр"
+
+msgid "_Lower Case of Selection/Word"
+msgstr "строчные"
+
+msgid "Lower the Case of the Selection/the Underlying Word"
+msgstr ""
+"строчные \n"
+"\n"
+"Преобразовать все буквы \n"
+"выделенного текста в строчные "
+
+msgid "_Upper Case of Selection/Word"
+msgstr "ПРОПИСНЫЕ"
+
+msgid "Upper the Case of the Selection/the Underlying Word"
+msgstr ""
+"ПРОПИСНЫЕ \n"
+"\n"
+"Преобразовать все буквы \n"
+"выделенного текста в ПРОПИСНЫЕ "
+
+msgid "_Toggle Case of Selection/Word"
+msgstr "иЗМЕНИТЬ"
+
+msgid "Toggle the Case of the Selection/the Underlying Word"
+msgstr ""
+"иЗМЕНИТЬ \n"
+"\n"
+"Преобразовать все буквы выделенного \n"
+"текста в строчные или ПРОПИСНЫЕ"
+
+# Меню:Правка/Орфография
+msgid "Enable/Disable _Spell Check"
+msgstr "Орфография"
+
+msgid "Toggle Enable/Disable Spell Check"
+msgstr "Включить/Выключить проверку орфографии"
+
+#
+# (См Общие) Меню:Правка/Вырезать_текст
+# (См Общие) Меню:Правка/Копировать_текст
+# (См Общие) Меню:Правка/Вставить_текст
+# (См Общие) Меню:Правка/Вырезать_строку
+# (См Общие) Меню:Правка/Копировать_строку
+# (См Общие) Меню:Правка/Удалить_строку
+#
+# Меню:Правка/Дублировать строку
 msgid "_Duplicate Row"
 msgstr "Дублировать строку"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:141
+# Подсказка
 msgid "Duplicate the Current Row/Selection"
 msgstr ""
 "Дублировать строку\n"
 "\n"
-"Скопировать и вставить выделенную текстовую строку или \n"
-"выделенный фрагмент текста в следующую строку документа"
+"Скопировать и вставить текстовую строку или выделенный\n"
+"фрагмент текста в следующую строку документа"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:142
+# Меню:Правка/Строку вверх
 msgid "Move _Up Row"
 msgstr "Строку вверх"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:142
 msgid "Move Up the Current Row/Selected Rows"
 msgstr ""
 "Строку вверх\n"
 "\n"
-"Переместить выделенную текстовую строку вверх на один уровень"
+"Переместить текстовую строку вверх на один уровень"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:143
+# Меню:Правка/Строку вниз
 msgid "Move _Down Row"
 msgstr "Строку вниз"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:143
 msgid "Move Down the Current Row/Selected Rows"
 msgstr ""
 "Строку вниз\n"
 "\n"
-"Переместить выделенную текстовую строку вниз на один уровень"
+"Переместить текстовую строку вниз на один уровень"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:144
-msgid "Stri_p Trailing Spaces"
-msgstr "Удалить пробелы"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:144
-msgid "Strip Trailing Spaces"
-msgstr ""
-"Удалить пробелы \n"
-"\n"
-"Удалить лишние пробелы в конце строк \n"
-"по всему тексту в активной ветви "
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:145
-msgid "Format"
+#
+# конец меню "Правка" и контекстных_меню
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Меню "Формат" и контекстные меню
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+msgid "For_matting"
 msgstr "Формат"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:146
 msgid "Format _Latest"
 msgstr "Формат по образцу"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:146
 msgid "Memory of Latest Text Format Type"
 msgstr ""
-"Формат по образцу \n"
+"Формат по образцу\n"
 "\n"
-"Запомнить последнее форматирование текста. \n"
-"Копировать форматирование из одного места и \n"
-"применить его в другом"
+"Запомнить последнее форматирование текста\n"
+"и применить его к другим фрагментам текста"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:147
 msgid "_Remove Formatting"
 msgstr "Очистить формат"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:147
 msgid "Remove the Formatting from the Selected Text"
 msgstr ""
 "Очистить формат \n"
 "\n"
-"Удаление любого форматирования из выделенного текста.\n"
-"Остаётся только обычный текст"
+"Удалить форматирование из выделенного текста"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:148
 msgid "Text _Color Foreground"
 msgstr "Цвет текста"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:148
 msgid "Change the Color of the Selected Text Foreground"
 msgstr ""
 "Цвет текста\n"
 "\n"
 "Изменить цвет текста"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:149
 msgid "Text C_olor Background"
 msgstr "Цвет фона"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:149
 msgid "Change the Color of the Selected Text Background"
 msgstr ""
 "Цвет фона \n"
 "\n"
 "Изменить цвет фона.\n"
+"\n"
 "Текст будет выглядеть так, как \n"
 "будто его выделили маркером"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:150
+msgid "Pick a Background Color"
+msgstr "Цвета фона"
+
+msgid "Pick a Foreground Color"
+msgstr "Цвета текста"
+
 msgid "Toggle _Bold Property"
 msgstr "Полужирный"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:150
 msgid "Toggle Bold Property of the Selected Text"
 msgstr ""
 "Полужирный \n"
@@ -1780,11 +1896,9 @@ msgstr ""
 "Применить полужирное начертание \n"
 "к выделенному тексту"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:151
 msgid "Toggle _Italic Property"
 msgstr "Курсив"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:151
 msgid "Toggle Italic Property of the Selected Text"
 msgstr ""
 "Курсив \n"
@@ -1792,22 +1906,18 @@ msgstr ""
 "Применить курсивное начертание \n"
 "к выделенному тексту"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:152
 msgid "Toggle _Underline Property"
 msgstr "Подчёркнутый"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:152
 msgid "Toggle Underline Property of the Selected Text"
 msgstr ""
 "Подчёркнутый \n"
 "\n"
 "Подчёркивать выделенный текст"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:153
 msgid "Toggle Stri_kethrough Property"
 msgstr "Зачёркнутый"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:153
 msgid "Toggle Strikethrough Property of the Selected Text"
 msgstr ""
 "Зачёркнутый \n"
@@ -1815,47 +1925,39 @@ msgstr ""
 "Добавить линию, проходящую через \n"
 "середину выделенного текста"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:154
 msgid "Toggle h_1 Property"
 msgstr "Заголовок 1"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:154
 msgid "Toggle h1 Property of the Selected Text"
 msgstr ""
 "Заголовок 1\n"
 "\n"
-"Применить к выделенному фрагменту \n"
-"стиль начертания текста Заголовок 1"
+"Применить к абзацу стиль\n"
+"начертания текста \"Заголовок 1\" "
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:155
 msgid "Toggle h_2 Property"
 msgstr "Заголовок 2"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:155
 msgid "Toggle h2 Property of the Selected Text"
 msgstr ""
 "Заголовок 2\n"
 "\n"
-"Применить к выделенному фрагменту \n"
-"стиль начертания текста Заголовок 2"
+"Применить к абзацу стиль\n"
+"начертания текста \"Заголовок 2\" "
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:156
 msgid "Toggle h_3 Property"
 msgstr "Заголовок 3"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:156
 msgid "Toggle h3 Property of the Selected Text"
 msgstr ""
 "Заголовок 3\n"
 "\n"
-"Применить к выделенному фрагменту \n"
-"стиль начертания текста Заголовок 3"
+"Применить к абзацу стиль\n"
+"начертания текста \"Заголовок 3\" "
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:157
 msgid "Toggle _Small Property"
 msgstr "Уменьшить размер"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:157
 msgid "Toggle Small Property of the Selected Text"
 msgstr ""
 "Уменьшить размер\n"
@@ -1863,11 +1965,9 @@ msgstr ""
 "Уменьшить размер шрифта \n"
 "выделенного фрагмента теста"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:158
 msgid "Toggle Su_perscript Property"
 msgstr "Надстрочный знак"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:158
 msgid "Toggle Superscript Property of the Selected Text"
 msgstr ""
 "Надстрочный знак\n"
@@ -1875,11 +1975,9 @@ msgstr ""
 "Создать маленькие знаки \n"
 "выше опорной линии теста"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:159
 msgid "Toggle Su_bscript Property"
 msgstr "Подстрочный знак"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:159
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr ""
 "Подстрочный знак\n"
@@ -1887,11 +1985,9 @@ msgstr ""
 "Создать маленькие знаки \n"
 "ниже опорной линии теста"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:160
 msgid "Toggle _Monospace Property"
 msgstr "Моношрифт"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:160
 msgid "Toggle Monospace Property of the Selected Text"
 msgstr ""
 "Моношрифт\n"
@@ -1899,77 +1995,83 @@ msgstr ""
 "Применить моношрифт, в котором\n"
 "все знаки имеют одинаковую ширину"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:161
 msgid "Set/Unset _Bulleted List"
 msgstr "Маркированный список"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:161
 msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
 msgstr ""
 "Маркированный список\n"
 "\n"
 "Начало маркированного списка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:162
 msgid "Set/Unset _Numbered List"
 msgstr "Нумерованный список"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:162
 msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
 msgstr ""
 "Нумерованный список\n"
 "\n"
 "Начало нумерованного списка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:163
 msgid "Set/Unset _To-Do List"
 msgstr "To-Do список"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:163
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
 msgstr ""
 "To-Do список\n"
 "\n"
 "Начало To-Do списка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:164
+msgid "Indent Paragraph"
+msgstr "Увеличить отступ"
+
+msgid "Indent the Current Paragraph"
+msgstr ""
+"Увеличить отступ\n"
+"\n"
+"Увеличить отступ от края колонки одной\n"
+"или нескольких строк, идущих подряд."
+
+msgid "Unindent Paragraph"
+msgstr "Уменьшить отступ"
+
+msgid "Unindent the Current Paragraph"
+msgstr ""
+"Уменьшить отступ\n"
+"\n"
+"Уменьшить отступ от края колонки одной\n"
+"или нескольких строк, идущих подряд."
+
 msgid "Justify _Left"
 msgstr "Выровнять по левому краю"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:164
 msgid "Justify Left the Current Paragraph"
 msgstr ""
 "Выровнять по левому краю\n"
 "\n"
 "Выровнять текст по левому краю"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:165
 msgid "Justify _Center"
 msgstr "Выровнять по центру"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:165
 msgid "Justify Center the Current Paragraph"
 msgstr ""
 "Выровнять по центру\n"
 "\n"
 "Выровнять текст по центру"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:166
 msgid "Justify _Right"
 msgstr "Выровнять по правому краю"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:166
 msgid "Justify Right the Current Paragraph"
 msgstr ""
 "Выровнять по правому краю\n"
 "\n"
 "Выровнять текст по правому краю"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:167
 msgid "Justify _Fill"
 msgstr "Выровнять по ширине"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:167
 msgid "Justify Fill the Current Paragraph"
 msgstr ""
 "Выровнять по ширине\n"
@@ -1978,189 +2080,242 @@ msgstr ""
 "левому и правому краям поля за счёт\n"
 "добавления дополнительных интервалов\n"
 "между словами там, где это необходимо.\n"
-"\n"
 "Текст распределяется равномерно между\n"
 "левым и правым краями страницы"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:168
-msgid "Indent Paragraph"
-msgstr "Увеличить отступ"
+#
+# конец меню "Формат" и контекстных_меню
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Меню "Дерево" и контекстные меню
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+msgid "_Tree"
+msgstr "Дерево"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:168
-msgid "Indent the Current Paragraph"
-msgstr ""
-"Увеличить отступ\n"
-"\n"
-"Увеличить отступ от края колонки одной\n"
-"или нескольких строк, идущих подряд."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:169
-msgid "Unindent Paragraph"
-msgstr "Уменьшить отступ"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:169
-msgid "Unindent the Current Paragraph"
-msgstr ""
-"Уменьшить отступ\n"
-"\n"
-"Уменьшить отступ от края колонки одной\n"
-"или нескольких строк, идущих подряд."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:171
 msgid "Add _Node"
 msgstr "Новая ветвь"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:171
 msgid "Add a Node having the same Parent of the Selected Node"
 msgstr ""
 "Новая ветвь\n"
 "\n"
-"Добавить новую родительскую ветвь"
+"Добавить новою родительскую ветвь"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:172
+# Название окошка
+msgid "New Node Properties"
+msgstr "Свойства новой ветви"
+
 msgid "Add _SubNode"
 msgstr "Новая дочерняя ветвь"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:172
 msgid "Add a Child Node to the Selected Node"
 msgstr ""
 "Новая дочерняя ветвь\n"
 "\n"
-"Добавить к активной родительской ветви\n"
-"новую дочернюю ветвь"
+"Добавить новую дочернюю ветвь \n"
+"к родительской ветви"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:173
+# Название окошка
+msgid "New Child Node Properties"
+msgstr "Свойства новой дочерней ветви"
+
 msgid "_Duplicate Node"
 msgstr "Дублировать ветвь"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:173
 msgid "Duplicate the Selected Node"
 msgstr ""
 "Дублировать ветвь\n"
 "\n"
-"Скопировать и вставить активную \n"
-"ветвь без дочерних ветвей"
+"Скопировать и вставить ветвь без дочерних"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:174
 msgid "_Duplicate Node and Sub Nodes"
 msgstr "Дублировать с дочерними"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:174
 msgid "Duplicate the Selected Node With SubNodes"
 msgstr ""
 "Дублировать с дочерними\n"
 "\n"
-"Скопировать и вставить активную \n"
-"ветвь совместно с дочерними"
+"Скопировать и вставить ветвь вместе с дочерними"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:175
 msgid "Change Node _Properties"
-msgstr "Свойства ветви"
+msgstr "Свойства ветви..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:175
 msgid "Edit the Properties of the Selected Node"
 msgstr ""
-"Свойства ветви\n"
+"Свойства ветви...\n"
 "\n"
 "Изменить свойства ветви"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:176
+# Диалог Изменения свойст ветви
+msgid "Node Properties"
+msgstr "Свойства ветви"
+
+msgid "Bold"
+msgstr "Полужирный"
+
+msgid "Use Selected Color"
+msgstr "Цвет заголовка"
+
+msgid "click me"
+msgstr "Сменить..."
+
+msgid "Select Node Icon"
+msgstr "Смена значка"
+
+msgid "Node Type"
+msgstr "Тип"
+
+msgid "Tags for Searching"
+msgstr "Тэги для поиска"
+
+msgid "Choose Existing Tag"
+msgstr "Тэги"
+
+msgid "Read Only"
+msgstr "Только чтение"
+
+# Меню:Дерево/Только чтение
 msgid "Toggle _Read Only"
 msgstr "Только чтение"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:176
 msgid "Toggle the Read Only Property of the Selected Node"
 msgstr ""
 "Только чтение\n"
 "\n"
-"Включить режим Только чтение.\n"
-"В данном режиме нельзя вносить какие\n"
-"либо изменения в текст документа"
+"Защитить текст документа от форматирования и редактирования"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:177
+msgid "Add to _Bookmarks"
+msgstr "Добавить в закладки"
+
+msgid "Add the Current Node to the Bookmarks List"
+msgstr ""
+"Добавить в закладки\n"
+"\n"
+"Добавить ветвь в список закладок"
+
+msgid "_Remove from Bookmarks"
+msgstr "Удалить из закладок"
+
+msgid "Remove the Current Node from the Bookmarks List"
+msgstr ""
+"Удалить из закладок\n"
+"\n"
+"Удалить ветвь из списка закладок"
+
+msgid "Copy Link to Node"
+msgstr "Копировать ссылку"
+
+msgid "Copy Link to the Selected Node to Clipboard"
+msgstr ""
+"Копировать ссылку\n"
+"\n"
+"Копировать ссылку на ветвь в буфер обмена"
+
 msgid "Insert Today's Node"
-msgstr "Вставить ветвь по дате"
+msgstr "Вставить ветвь..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:177
 msgid "Insert a Node with Hierarchy Year/Month/Day"
 msgstr ""
-"Вставить ветвь\n"
+"Вставить ветвь...\n"
 "\n"
 "Вставить ветвь с иерархией Год/Месяц/День.\n"
+"\n"
 "Если ветвь с сегодняшней датой существует, то \n"
 "ветвь не добавляется, а становится активной"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:178
+# Суммарная Информация о дереве
 msgid "Tree _Info"
-msgstr "Информация"
+msgstr "Информация..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:178
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2211
+# Подсказка и название окна
 msgid "Tree Summary Information"
 msgstr "Информация о дереве"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:179
+msgid "Number of Rich Text Nodes"
+msgstr "Ветвей с форматированным текстом"
+
+msgid "Number of Plain Text Nodes"
+msgstr "Ветвей с обычым текстом"
+
+msgid "Number of Code Nodes"
+msgstr "Ветвей с кодом"
+
+msgid "Number of Images"
+msgstr "Изображений"
+
+msgid "Number of Embedded Files"
+msgstr "Файлов"
+
+msgid "Number of Tables"
+msgstr "Таблиц"
+
+msgid "Number of CodeBoxes"
+msgstr "CodeBox-ов"
+
+msgid "Number of Anchors"
+msgstr "Якорей"
+
+# Не отображается перевод раскрывающегося меню Node Move (Переместить)
+msgid "Node _Move"
+msgstr "Переместить"
+
 msgid "Node _Up"
 msgstr "Ветвь вверх"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:179
 msgid "Move the Selected Node Up"
 msgstr ""
 "Ветвь вверх\n"
 "\n"
-"Переместить активную ветвь вверх на один уровень"
+"Переместить ветвь вверх на один уровень"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:180
 msgid "Node _Down"
 msgstr "Ветвь вниз"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:180
 msgid "Move the Selected Node Down"
 msgstr ""
 "Ветвь вниз\n"
 "\n"
-"Переместить активную ветвь вниз на один уровень"
+"Переместить ветвь вниз на один уровень"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:181
 msgid "Node _Left"
 msgstr "Ветвь влево"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:181
 msgid "Move the Selected Node Left"
 msgstr ""
 "Ветвь влево\n"
 "\n"
-"Переместить активную ветвь влево на один уровень"
+"Переместить ветвь влево на один уровень"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:182
 msgid "Node _Right"
 msgstr "Ветвь вправо"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:182
 msgid "Move the Selected Node Right"
 msgstr ""
 "Ветвь вправо\n"
 "\n"
-"Переместить активную ветвь вправо на один уровень"
+"Переместить ветвь вправо на один уровень"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:183
 msgid "Node Change _Parent"
 msgstr "Сменить родителя"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:183
 msgid "Change the Selected Node's Parent"
 msgstr ""
 "Сменить родителя\n"
 "\n"
 "Сменить родительскую ветвь.\n"
-"Активная ветвь перемещается\n"
-"к новой родительской ветви"
+"Ветвь перемещается к новой\n"
+"родительской ветви"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:184
+msgid "Select the New Parent"
+msgstr "Выберите родителя..."
+
+# Сортировка родительских ветвей или всего дерева
+msgid "Nodes _Sort"
+msgstr "Сортировать"
+
 msgid "Sort Tree _Ascending"
 msgstr "Дерево по возрастанию"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:184
 msgid "Sort the Tree Ascending"
 msgstr ""
 "Дерево по возрастанию\n"
@@ -2168,11 +2323,9 @@ msgstr ""
 "Сортировать все ветви\n"
 "дерева по возрастанию"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:185
 msgid "Sort Tree _Descending"
 msgstr "Дерево по убыванию"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:185
 msgid "Sort the Tree Descending"
 msgstr ""
 "Дерево по убыванию\n"
@@ -2180,137 +2333,98 @@ msgstr ""
 "Сортировать ветви \n"
 "дерева по убыванию"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:186
 msgid "Sort Siblings A_scending"
 msgstr "Ветви по возрастанию"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:186
 msgid "Sort all the Siblings of the Selected Node Ascending"
 msgstr ""
 "Ветви по возрастанию\n"
 "\n"
-"Сортировать активную ветвь с дочерними по возрастанию"
+"Сортировать ветвь с дочерними по возрастанию"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:187
 msgid "Sort Siblings D_escending"
 msgstr "Ветви по убыванию"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:187
 msgid "Sort all the Siblings of the Selected Node Descending"
 msgstr ""
 "Ветви по убыванию\n"
 "\n"
-"Сортировать активную ветвь с дочерними по убыванию"
+"Сортировать ветвь с дочерними по убыванию"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:188
+# Меню:Дерево/Импорт (См меню Импорт)
+msgid "Nodes _Import"
+msgstr "Импорт"
+
+# Меню:Дерево/Экспорт (См меню Экспорт)
+msgid "Nodes E_xport"
+msgstr "Экспорт"
+
 msgid "_Inherit Syntax"
 msgstr "Наследовать синтаксис"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:188
-msgid ""
-"Change the Selected Node's Children Syntax Highlighting to the Parent's "
-"Syntax Highlighting"
+msgid "Change the Selected Node's Children Syntax Highlighting to the Parent's Syntax Highlighting"
 msgstr ""
 "Наследовать синтаксис\n"
 "\n"
 "Синхронизировать тип подсветки синтаксиса с родительской ветвью"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:189
 msgid "De_lete Node"
 msgstr "Удалить ветвь"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:189
 msgid "Delete the Selected Node"
 msgstr ""
 "Удалить ветвь\n"
 "\n"
-"Удалить активную ветвь из дерева"
+"Удалить ветвь из дерева"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:190
-msgid "Add to _Bookmarks"
-msgstr "Добавить в закладки"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:190
-msgid "Add the Current Node to the Bookmarks List"
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
 msgstr ""
-"Добавить в закладки\n"
-"\n"
-"Добавить активную ветвь в список закладок"
+" \n"
+"Вы действительно хотите удалить ветвь <b>' %s '</b>?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:191
-msgid "_Remove from Bookmarks"
-msgstr "Удалить из закладок"
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "<b> Также будут удалены следующие дочерние ветви!</b>"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:191
-msgid "Remove the Current Node from the Bookmarks List"
-msgstr ""
-"Удалить из закладок\n"
-"\n"
-"Удалить активную ветвь из списка закладок"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:192
-msgid "_Handle Bookmarks"
-msgstr "Управление закладками"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:192
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:418
-msgid "Handle the Bookmarks List"
-msgstr "Закладки"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:193
 msgid "Go _Back"
 msgstr "Назад"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:193
 msgid "Go to the Previous Visited Node"
 msgstr ""
 "Назад\n"
 "\n"
 "Перейти к предыдущей ветви"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:194
 msgid "Go _Forward"
 msgstr "Вперёд"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:194
 msgid "Go to the Next Visited Node"
 msgstr ""
 "Вперёд\n"
 "\n"
 "Перейти к следующей ветви"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:195
-msgid "Copy Link to Node"
-msgstr "Копировать ссылку"
+#
+# конец меню "Дерево" и контекстных_меню
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Меню "Поиск" и контекстные меню
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+msgid "_Search"
+msgstr "Поиск"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:195
-msgid "Copy Link to the Selected Node to Clipboard"
-msgstr ""
-"Копировать ссылку\n"
-"\n"
-"Копировать ссылку на ветвь в буфер обмена"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:196
-msgid "Find/Replace"
-msgstr "Поиск/Замена"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:197
 msgid "_Find in Node Content"
 msgstr "Искать в ветви"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:197
 msgid "Find into the Selected Node Content"
 msgstr ""
 "Искать в ветви\n"
 "\n"
 "Поиск текста или другого содержимого\n"
-"в содержании активной ветви"
+"в содержании ветви"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:198
 msgid "Find in _All Nodes Contents"
 msgstr "Искать во всех ветвях"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:198
 msgid "Find into All the Tree Nodes Contents"
 msgstr ""
 "Искать во всех ветвях\n"
@@ -2318,140 +2432,234 @@ msgstr ""
 "Поиск текста или другого содержимого\n"
 "в содержании всех ветвей"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:199
 msgid "Find in _Selected Node and Subnodes Contents"
 msgstr "Искать в ветви с дочерними"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:199
 msgid "Find into the Selected Node and Subnodes Contents"
 msgstr ""
 "Искать в ветви с дочерними\n"
 "\n"
 "Поиск текста или другого содержимого\n"
-"в содержании активной ветви с дочерними"
+"в содержании ветви с дочерними "
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:200
 msgid "Find in _Nodes Names and Tags"
-msgstr "Искать в названиях ветвей и тэгах"
+msgstr "Искать в именах ветвей и тэгах"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:200
 msgid "Find in Nodes Names and Tags"
 msgstr ""
-"Искать в названиях ветвей и тэгах\n"
+"Искать в именах ветвей и тэгах\n"
 "\n"
 "Поиск текста или другого содержимого\n"
-"в названиях ветвей и тэгах"
+"в именах ветвей и тэгах"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:201
 msgid "Find _Again"
-msgstr "Искать следующее"
+msgstr "Искать следующее..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:201
 msgid "Iterate the Last Find Operation"
 msgstr ""
-"Искать следующее\n"
+"Искать следующее...\n"
 "\n"
-"Продолжить поиск текста или другого содержимого"
+"Продолжить поиск текста или другого\n"
+"содержимого в прямом направлении"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:202
 msgid "Find _Back"
-msgstr "Искать предыдущее"
+msgstr "Искать предыдущее..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:202
 msgid "Iterate the Last Find Operation in Opposite Direction"
 msgstr ""
-"Искать предыдущее\n"
+"Искать предыдущее...\n"
 "\n"
-"Поиск текста или другого содержимого в обратном направлении"
+"Продолжить поиск текста или другого\n"
+"содержимого в обратном направлении"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:203
 msgid "_Replace in Node Content"
 msgstr "Заменить в ветви"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:203
 msgid "Replace into the Selected Node Content"
 msgstr ""
 "Заменить в ветви\n"
 "\n"
-"Заменить текст в содержании активной ветви"
+"Заменить текст или другое содержимое в ветви"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:204
 msgid "Replace in _All Nodes Contents"
 msgstr "Заменить во всех ветвях"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:204
 msgid "Replace into All the Tree Nodes Contents"
 msgstr ""
 "Заменить во всех ветвях\n"
 "\n"
-"Заменить текст в содержании всех ветвей"
+"Заменить текст или другое содержимое в всех ветвей"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:205
 msgid "Replace in _Selected Node and Subnodes Contents"
 msgstr "Заменить в ветви с дочерними"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:205
 msgid "Replace into the Selected Node and Subnodes Contents"
 msgstr ""
 "Заменить в ветви с дочерними\n"
 "\n"
-"Заменить текст в содержании активной ветви с дочерними"
+"Заменить текст или другое содержимое в ветви с дочерними"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:206
 msgid "Replace in Nodes _Names"
-msgstr "Заменить в названиях ветвей"
+msgstr "Заменить в именах ветвей"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:206
 msgid "Replace in Nodes Names"
 msgstr ""
-"Заменить в названиях ветвей\n"
+"Заменить в именах ветвей\n"
 "\n"
-"Заменить текст в названиях ветвей"
+"Заменить текст или другое содержимое в именах ветвей"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:207
 msgid "Replace _Again"
-msgstr "Повторить замену"
+msgstr "Повторить замену..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:207
 msgid "Iterate the Last Replace Operation"
 msgstr ""
-"Повторить замену\n"
+"Повторить замену...\n"
 "\n"
 "Продолжить замену текста или другого содержимого"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:208
-msgid "Show _All Matches Dialog"
-msgstr "Совпадения"
+# Контекстное_меню "Поиск_Замена"
+msgid "Search in Current Node..."
+msgstr "Найти в ветви..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:208
-msgid "Show Search All Matches Dialog"
+msgid "Search in All Nodes"
+msgstr "Найти в ветвях..."
+
+msgid "Search in Selected Node and Subnodes"
+msgstr "Найти в ветви с дочерними..."
+
+msgid "Search For a Node Name..."
+msgstr "Найти в именах ветвей и тэгах..."
+
+msgid "Replace in Current Node..."
+msgstr "Заменить в ветви..."
+
+msgid "Replace in All Nodes"
+msgstr "Заменить в ветвях..."
+
+msgid "Replace in Selected Node and Subnodes"
+msgstr "Заменить в ветви с дочерними..."
+
+msgid "Replace in Node Names..."
+msgstr "Заменить в именах ветвей..."
+
+msgid "Search for"
+msgstr "Найти:"
+
+msgid "Replace with"
+msgstr "Заменить на:"
+
+msgid "Search options"
+msgstr "Параметры поиска"
+
+msgid "Match Case"
+msgstr "Учитывать регистр"
+
+msgid "Whole Word"
+msgstr "Только слово целиком"
+
+msgid "Regular Expression"
+msgstr "Регулярное выражение"
+
+msgid "Start Word"
+msgstr "Начало слова"
+
+msgid "Forward"
+msgstr "Вперёд"
+
+msgid "Backward"
+msgstr "Назад"
+
+msgid "All, List Matches"
+msgstr "Все совпадения"
+
+msgid "First From Selection"
+msgstr "Первое совпадение от выделенного"
+
+msgid "First in All Range"
+msgstr "Первое совпадение по всему документу"
+
+msgid "Time filter"
+msgstr "По дате ветви..."
+
+msgid "Node Created After"
+msgstr "Создана после"
+
+msgid "Node Created Before"
+msgstr "Создана до"
+
+msgid "Node Modified After"
+msgstr "Изменена после"
+
+msgid "Node Modified Before"
+msgstr "Изменена до"
+
+# Диалог последних замен
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "Показать диалог Найти/Заменить"
+
+msgid "Iterate Latest Find/Replace"
+msgstr "Повторить Найти/Заменить"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "Find Previous"
+msgstr "Предыдущий"
+
+msgid "Find Next"
+msgstr "Следующий"
+
+msgid "Replace"
+msgstr "Заменить"
+
+msgid "_Undo"
+msgstr "Отменить"
+
+# Сообщения поиска
+msgid "No Previous Search Was Performed During This Session"
+msgstr "Вы ещё не проводили поиск или замену текста"
+
+msgid "The pattern '%s' was not found"
 msgstr ""
-"Совпадения...\n"
+"Приложение CherryTree завершило поиск в документе.\n"
 "\n"
-"Показать совпадения найденные при последнем поиске"
+"Искомый элемент <b>' %s '</b> не найден!"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:209
-msgid "View"
+msgid "The Document %s was Not Found"
+msgstr ""
+"Приложение CherryTree завершило поиск документа.\n"
+"\n"
+"Документ <b>' %s '</b> не найден!"
+
+msgid "No anchor named '%s' found"
+msgstr ""
+"Приложение CherryTree завершило поиск в документе.\n"
+"\n"
+"Искомый якорь <b>' %s '</b> не найден!"
+
+#
+# конец меню "Поиск" и контекстных_меню
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Меню "Вид" и контекстные меню
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+msgid "_View"
 msgstr "Вид"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:210
 msgid "Show/Hide _Tree"
 msgstr "Дерево"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:210
 msgid "Toggle Show/Hide Tree"
 msgstr ""
 "Дерево\n"
 "\n"
-"Показать или скрыть панель дерева, которая\n"
-"отображает структуру файла и позволяет \n"
-"быстро перемещаться по ветвям документа"
+"Показать или скрыть навигатор по дереву, который\n"
+"озволяет просматривать древовидное представление\n"
+"документа и быстро перемещаться по его ветвям"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:211
 msgid "Show/Hide Tool_bar"
 msgstr "Панель инструментов"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:211
 msgid "Toggle Show/Hide Toolbar"
 msgstr ""
 "Панель инструментов\n"
@@ -2467,92 +2675,324 @@ msgstr ""
 "Вы можете легко добавить кнопки на панель \n"
 "инструментов, в настройках приложения"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:212
 msgid "Show/Hide Node Name _Header"
 msgstr "Заголовок"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:212
 msgid "Toggle Show/Hide Node Name Header"
 msgstr ""
 "Заголовок\n"
 "\n"
 "Показать или скрыть заголовок ветви в текстовом редакторе"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:213
-msgid "Toggle _Focus Tree/Text"
-msgstr "Переключить фокус"
+msgid "Show _All Matches Dialog"
+msgstr "Совпадения..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:213
+msgid "Show Search All Matches Dialog"
+msgstr ""
+"Совпадения...\n"
+"\n"
+"Показать совпадения найденные при последнем поиске"
+
+msgid "Toggle _Focus Tree/Text"
+msgstr "Переключить фокус..."
+
 msgid "Toggle Focus Between Tree and Text"
 msgstr ""
-"Переключить фокус\n"
+"Переключить фокус...\n"
 "\n"
-"Переключить фокус между Панелью дерева и Текстовым редактором"
+"Переключить фокус между Деревом и Текстовым редактором"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:214
 msgid "E_xpand All Nodes"
-msgstr "Развернуть"
+msgstr "Развернуть..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:214
 msgid "Expand All the Tree Nodes"
 msgstr ""
-"Развернуть\n"
+"Развернуть...\n"
 "\n"
 "Развернуть все ветви"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:215
 msgid "_Collapse All Nodes"
-msgstr "Свернуть"
+msgstr "Свернуть..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:215
 msgid "Collapse All the Tree Nodes"
 msgstr ""
-"Свернуть\n"
+"Свернуть...\n"
 "\n"
 "Свернуть все ветви"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:216
 msgid "_Increase Toolbar Icons Size"
-msgstr "Увеличить значки"
+msgstr "Увеличить значки..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:216
 msgid "Increase the Size of the Toolbar Icons"
 msgstr ""
-"Увеличить значки\n"
+"Увеличить значки...\n"
 "\n"
 "Увеличить размер значков панели инструментов"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:217
-msgid "_Decrease Toolbar Icons Size"
-msgstr "Уменьшить значки"
+msgid "The Size of the Toolbar Icons is already at the Maximum Value"
+msgstr "Размер значков панели инструментов максимальный"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:217
+msgid "_Decrease Toolbar Icons Size"
+msgstr "Уменьшить значки..."
+
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr ""
-"Уменьшить значки\n"
+"Уменьшить значки...\n"
 "\n"
 "Уменьшить размер значков панели инструментов"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:218
+msgid "The Size of the Toolbar Icons is already at the Minimum Value"
+msgstr "Размер значков панели инструментов минимальный"
+
 msgid "_Full Screen On/Off"
 msgstr "На весь экран"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:218
 msgid "Toggle Full Screen On/Off"
 msgstr ""
 "На весь экран\n"
 "\n"
 "Развернуть приложение на весь экран"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:219
-msgid "Export"
+#
+# конец меню "Вид" и контекстных_меню
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Меню "Закладки" и контекстные меню
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+msgid "_Bookmarks"
+msgstr "Закладки"
+
+msgid "_Handle Bookmarks"
+msgstr "Управление закладками"
+
+msgid "Handle the Bookmarks List"
+msgstr "Закладки..."
+
+msgid "Move the Selected Bookmark Up"
+msgstr "Переместить вверх"
+
+msgid "Move the Selected Bookmark Down"
+msgstr "Переместить вниз"
+
+msgid "Remove the Selected Bookmark"
+msgstr "Удалить закладку"
+
+msgid "Sort the Bookmarks Descending"
+msgstr "Сортировать по убыванию"
+
+msgid "Sort the Bookmarks Ascending"
+msgstr "Сортировать по возрастанию"
+
+#
+# конец меню "Закладки" и контекстных_меню
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Меню "Импорт" и контекстные меню
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+msgid "_Import"
+msgstr "Импорт"
+
+msgid "From _CherryTree File"
+msgstr "Из документа CherryTree"
+
+msgid "Add Nodes of a CherryTree File to the Current Tree"
+msgstr ""
+"Из документа CherryTree\n"
+"\n"
+"Импортировать данные из документа CherryTree\n"
+"в текущее дерево документа CherryTree"
+
+msgid "The database file %s is corrupt, see log for more details"
+msgstr "Документ CherryTree %s повреждён, смотрите лог для подробной информации"
+
+msgid "From _Plain Text File"
+msgstr "Из текстового файла"
+
+msgid "Add Node from a Plain Text File to the Current Tree"
+msgstr ""
+"Из текстового файла\n"
+"\n"
+"Импортировать данные из текстового файла\n"
+"в текущее дерево документа CherryTree"
+
+msgid "From _Folder of Plain Text Files"
+msgstr "Из папки с текстовыми файлами"
+
+msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
+msgstr ""
+"Из папки с текстовыми файлами\n"
+"\n"
+"Импортировать данные из папки с текстовыми файлами\n"
+"в текущее дерево документа CherryTree"
+
+msgid "From _HTML File"
+msgstr "Из файла HTML"
+
+msgid "Add Node from an HTML File to the Current Tree"
+msgstr ""
+"Из файла HTML\n"
+"\n"
+"Импортировать данные из файла HTML\n"
+"в текущее дерево документа CherryTree"
+
+msgid "From _Folder of HTML Files"
+msgstr "Из папки с файлами HTML"
+
+msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
+msgstr ""
+"Из папки с файлами HTML\n"
+"\n"
+"Импортировать данные из папки с файлами HTML\n"
+"в текущее дерево документа CherryTree"
+
+msgid "From _Markdown File"
+msgstr "Из файла Markdown"
+
+msgid "Add a node from a Markdown File to the Current Tree"
+msgstr ""
+"Из файла Markdown\n"
+"\n"
+"Импортировать данные из файла Markdown\n"
+"в текущее дерево документа CherryTree"
+
+msgid "From _Folder of Markdown Files"
+msgstr "Из папки с файлами Markdown"
+
+msgid "Add Nodes from a Folder of Markdown Files to the Current Tree"
+msgstr ""
+"Из папки с файлами Markdown\n"
+"\n"
+"Импортировать данные из папки с файлами Markdown\n"
+"в текущее дерево документа CherryTree"
+
+msgid "From _Gnote Folder"
+msgstr "Из Gnote"
+
+msgid "Add Nodes of a Gnote Folder to the Current Tree"
+msgstr ""
+"Из Gnote\n"
+"\n"
+"Импортировать данные из файла Gnote\n"
+"в текущее дерево документа CherryTree"
+
+msgid "From _KeepNote Folder"
+msgstr "Из KeepNote"
+
+msgid "Add Nodes of a KeepNote Folder to the Current Tree"
+msgstr ""
+"Из KeepNote\n"
+"\n"
+"Импортировать данные из файла KeepNote\n"
+"в текущее дерево документа CherryTree"
+
+msgid "From _Leo File"
+msgstr "Из Leo"
+
+msgid "Add Nodes of a Leo File to the Current Tree"
+msgstr ""
+"Из Leo\n"
+"\n"
+"Импортировать данные из файла Leo\n"
+"в текущее дерево документа CherryTree"
+
+msgid "From _Mempad File"
+msgstr "Из Mempad"
+
+msgid "Add Nodes of a Mempad File to the Current Tree"
+msgstr ""
+"Из Mempad\n"
+"\n"
+"Импортировать данные из файла Mempad\n"
+"в текущее дерево документа CherryTree"
+
+msgid "From _NoteCase HTML File"
+msgstr "Из NoteCase HTML файла"
+
+msgid "Add Nodes of a NoteCase HTML File to the Current Tree"
+msgstr ""
+"Из NoteCase HTML файла\n"
+"\n"
+"Импортировать данные из NoteCase HTML файла\n"
+"в текущее дерево документа CherryTree"
+
+msgid "From _RedNotebook HTML"
+msgstr "Из RedNotebook HTML"
+
+msgid "Add Nodes of a RedNotebook HTML file to the Current Tree"
+msgstr ""
+"Из RedNotebook HTML\n"
+"\n"
+"Импортировать данные из файла RedNotebook HTML\n"
+"в текущее дерево документа CherryTree"
+
+msgid "From T_omboy Folder"
+msgstr "Из T_omboy"
+
+msgid "Add Nodes of a Tomboy Folder to the Current Tree"
+msgstr ""
+"Из T_omboy\n"
+"\n"
+"Импортировать данные из папки с файлами Tomboy\n"
+"в текущее дерево документа CherryTree"
+
+msgid "From T_reepad Lite File"
+msgstr "Из T_reepad"
+
+msgid "Add Nodes of a Treepad Lite File to the Current Tree"
+msgstr ""
+"Из T_reepad\n"
+"\n"
+"Импортировать данные из файла Treepad\n"
+"в текущее дерево документа CherryTree"
+
+msgid "From _Zim Folder"
+msgstr "Из Zim"
+
+msgid "Add Nodes of a Zim Folder to the Current Tree"
+msgstr ""
+"Из Zim\n"
+"\n"
+"Импортировать данные из папки с файлами Zim\n"
+"в текущее дерево документа CherryTree"
+
+msgid "From File using _Pandoc"
+msgstr "Из файла используя Pandoc"
+
+msgid "Add a node to the current tree using Pandoc"
+msgstr ""
+"Из файла используя Pandoc\n"
+"\n"
+"Импортировать данные из файла в документ \n"
+"CherryTree с использованием Pandoc"
+
+msgid "Pandoc executable could not be found, please ensure it is in your path"
+msgstr ""
+"Исполняемый файл Pandoc не найден.\n"
+"\n"
+"Пожалуйста проверьте его наличие"
+
+# Диалог Выбрать родителя при импорте данных
+msgid "Who is the Parent?"
+msgstr "Добавить в..."
+
+msgid "The Selected Node"
+msgstr "Ветвь"
+
+msgid "The Tree Root"
+msgstr "Дерево"
+
+#
+# конец меню "Импорт" и контекстных_меню
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Меню "Экспорт" и контекстные меню
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+msgid "E_xport"
 msgstr "Экспорт"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:220
 msgid "Export To _PDF"
 msgstr "Преобразовать в _PDF"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:220
 msgid "Export To PDF"
 msgstr ""
 "Преобразовать в PDF\n"
@@ -2562,1126 +3002,98 @@ msgstr ""
 "ветвь, ветвь с дочерними\n"
 "или полностью всё дерево"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:221
+msgid "Warning: One or More Images Were Reduced to Enter the Page"
+msgstr "Предупреждение: одно или несколько изображений были уменьшены"
+
 msgid "Export To _HTML"
 msgstr "Преобразовать в HTML"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:221
 msgid "Export To HTML"
 msgstr ""
 "Преобразовать в HTML\n"
 "\n"
 "Преобразовать в HTML файл:\n"
 "выбранный фрагмента текста,\n"
-"ветвь, ветвь с её дочерними\n"
+"ветвь, ветвь с дочерними\n"
 "или полностью всё дерево"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:222
+msgid "Index"
+msgstr "Содержание"
+
 msgid "Export to Plain _Text"
 msgstr "Преобразовать в текстовый файл"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:222
 msgid "Export to Plain Text"
 msgstr ""
 "Преобразовать в текстовый файл\n"
 "\n"
 "Преобразовать в txt файл:\n"
 "выбранный фрагмента текста,\n"
-"ветвь, ветвь с её дочерними\n"
+"ветвь, ветвь с дочерними\n"
 "или полностью всё дерево"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:223
 msgid "_Export To CherryTree Document"
 msgstr "Преобразовать в документ CherryTree"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:223
 msgid "Export To CherryTree Document"
 msgstr ""
 "Преобразовать в документ CherryTree\n"
 "\n"
 "Преобразовать в CherryTree файл:\n"
 "выбранный фрагмента текста,\n"
-"ветвь, ветвь с её дочерними\n"
+"ветвь, ветвь с дочерними\n"
 "или полностью всё дерево"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:224
-msgid "Import"
-msgstr "Импорт"
+msgid "No Text is Selected"
+msgstr "Текст не выделен"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:225
-msgid "From _CherryTree File"
-msgstr "Из документа CherryTree"
+#
+# конец меню "Экспорт" и контекстных_меню
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Меню "Справка" и контекстные меню
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+msgid "_Help"
+msgstr "Справка"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:225
-msgid "Add Nodes of a CherryTree File to the Current Tree"
-msgstr ""
-"Из документа CherryTree\n"
-"\n"
-"Импортировать данные из документа CherryTree\n"
-"в текущее дерево документа CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:226
-msgid "From _Plain Text File"
-msgstr "Из текстового файла"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:226
-msgid "Add Node from a Plain Text File to the Current Tree"
-msgstr ""
-"Из текстового файла\n"
-"\n"
-"Импортировать данные из текстового файла\n"
-"в текущее дерево документа CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:227
-msgid "From _Folder of Plain Text Files"
-msgstr "Из папки с текстовыми файлами"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:227
-msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
-msgstr ""
-"Из папки с текстовыми файлами\n"
-"\n"
-"Импортировать данные из папки с текстовыми файлами\n"
-"в текущее дерево документа CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:228
-msgid "From _HTML File"
-msgstr "Из файла HTML"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:228
-msgid "Add Node from an HTML File to the Current Tree"
-msgstr ""
-"Из файла HTML\n"
-"\n"
-"Импортировать данные из файла HTML\n"
-"в текущее дерево документа CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:229
-msgid "From _Folder of HTML Files"
-msgstr "Из папки с файлами HTML"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:229
-msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
-msgstr ""
-"Из папки с файлами HTML\n"
-"\n"
-"Импортировать данные из папки с файлами HTML\n"
-"в текущее дерево документа CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:230
-msgid "From _Markdown File"
-msgstr "Из файла Markdown"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:230
-msgid "Add a node from a Markdown File to the Current Tree"
-msgstr ""
-"Из файла Markdown\n"
-"\n"
-"Импортировать данные из файла Markdown\n"
-"в текущее дерево документа CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:231
-msgid "From _Folder of Markdown Files"
-msgstr "Из папки с файлами Markdown"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:231
-msgid "Add Nodes from a Folder of Markdown Files to the Current Tree"
-msgstr ""
-"Из папки с файлами Markdown\n"
-"\n"
-"Импортировать данные из папки с файлами Markdown\n"
-"в текущее дерево документа CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:234
-msgid "From _Gnote Folder"
-msgstr "Из Gnote"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:234
-msgid "Add Nodes of a Gnote Folder to the Current Tree"
-msgstr ""
-"Из Gnote\n"
-"\n"
-"Импортировать данные из файла Gnote\n"
-"в текущее дерево документа CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:235
-msgid "From _KeepNote Folder"
-msgstr "Из KeepNote"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:235
-msgid "Add Nodes of a KeepNote Folder to the Current Tree"
-msgstr ""
-"Из KeepNote\n"
-"\n"
-"Импортировать данные из файла KeepNote\n"
-"в текущее дерево документа CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:238
-msgid "From _Leo File"
-msgstr "Из Leo"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:238
-msgid "Add Nodes of a Leo File to the Current Tree"
-msgstr ""
-"Из Leo\n"
-"\n"
-"Импортировать данные из файла Leo\n"
-"в текущее дерево документа CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:239
-msgid "From _Mempad File"
-msgstr "Из Mempad"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:239
-msgid "Add Nodes of a Mempad File to the Current Tree"
-msgstr ""
-"Из Mempad\n"
-"\n"
-"Импортировать данные из файла Mempad\n"
-"в текущее дерево документа CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:240
-msgid "From _NoteCase HTML File"
-msgstr "Из NoteCase HTML"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:240
-msgid "Add Nodes of a NoteCase HTML File to the Current Tree"
-msgstr ""
-"Из NoteCase HTML файла\n"
-"\n"
-"Импортировать данные из NoteCase HTML файла\n"
-"в текущее дерево документа CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:241
-msgid "From _RedNotebook HTML"
-msgstr "Из RedNotebook HTML"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:241
-msgid "Add Nodes of a RedNotebook HTML file to the Current Tree"
-msgstr ""
-"Из RedNotebook HTML\n"
-"\n"
-"Импортировать данные из файла RedNotebook HTML\n"
-"в текущее дерево документа CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:242
-msgid "From T_omboy Folder"
-msgstr "Из T_omboy"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:242
-msgid "Add Nodes of a Tomboy Folder to the Current Tree"
-msgstr ""
-"Из Tomboy\n"
-"\n"
-"Импортировать данные из папки с файлами Tomboy\n"
-"в текущее дерево документа CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:243
-msgid "From T_reepad Lite File"
-msgstr "Из T_reepad"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:243
-msgid "Add Nodes of a Treepad Lite File to the Current Tree"
-msgstr ""
-"Из Treepad\n"
-"\n"
-"Импортировать данные из файла Treepad\n"
-"в текущее дерево документа CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:245
-msgid "From _Zim Folder"
-msgstr "Из Zim"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:245
-msgid "Add Nodes of a Zim Folder to the Current Tree"
-msgstr ""
-"Из Zim\n"
-"\n"
-"Импортировать данные из папки с файлами Zim\n"
-"в текущее дерево документа CherryTree"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:246
-msgid "From File using _Pandoc"
-msgstr "Из файла используя Pandoc"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:246
-msgid "Add a node to the current tree using Pandoc"
-msgstr ""
-"Из файла используя Pandoc\n"
-"\n"
-"Импортировать данные из файла в документ \n"
-"CherryTree с использованием Pandoc"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:248
-msgid "C_ut Anchor"
-msgstr "Вырезать якорь"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:248
-msgid "Cut the Selected Anchor"
-msgstr ""
-"Вырезать якорь\n"
-"\n"
-"Вырезать якорь в буфер обмена"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:249
-msgid "_Copy Anchor"
-msgstr "Копировать якорь"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:249
-msgid "Copy the Selected Anchor"
-msgstr ""
-"Копировать якорь\n"
-"\n"
-"Копировать якорь в буфер обмена"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:250
-msgid "_Delete Anchor"
-msgstr "Удалить якорь"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:250
-msgid "Delete the Selected Anchor"
-msgstr ""
-"Удалить якорь\n"
-"\n"
-"Удалить якорь из документа\n"
-"\n"
-"При удалении якоря из документа ссылка на него \n"
-"остаётся, её необходимо удалить или изменить"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:251
-msgid "Edit _Anchor"
-msgstr "Свойства якоря"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:251
-msgid "Edit the Underlying Anchor"
-msgstr ""
-"Свойства якоря\n"
-"\n"
-"Изменить свойства якоря"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:252
-msgid "Copy Anchor Link"
-msgstr "Копировать ссылку"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:252
-msgid "Copy Link to the Underlying Anchor to Clipboard"
-msgstr ""
-"Копировать ссылку\n"
-"\n"
-"Копировать ссылку на якорь в буфер обмена"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:253
-msgid "C_ut Embedded File"
-msgstr "Вырезать файл"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:253
-msgid "Cut the Selected Embedded File"
-msgstr ""
-"Вырезать файл\n"
-"\n"
-"Вырезать файл в буфер обмена"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:254
-msgid "_Copy Embedded File"
-msgstr "Копировать файл"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:254
-msgid "Copy the Selected Embedded File"
-msgstr ""
-"Копировать файл\n"
-"\n"
-"Копировать файл в буфер обмена"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:255
-msgid "_Delete Embedded File"
-msgstr "Удалить файл"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:255
-msgid "Delete the Selected Embedded File"
-msgstr ""
-"Удалить файл\n"
-"\n"
-"Удалить файл из документа"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:257
-msgid "Open Embedded File"
-msgstr ""
-"Открыть файл\n"
-"\n"
-"Открыть вставленный файл"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:258
-msgid "_Rename"
-msgstr "Переименовать"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:258
-msgid "Rename Embedded File"
-msgstr ""
-"Переименовать\n"
-"\n"
-"Переименовать вставленный файл"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:259
-msgid "_Save Image as PNG"
-msgstr "Сохранить изображение"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:259
-msgid "Save the Selected Image as a PNG file"
-msgstr ""
-"Сохранить изображение\n"
-"\n"
-"Сохранить изображение в формате PNG"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:260
-msgid "_Edit Image"
-msgstr "Свойства изображения"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:260
-msgid "Edit the Selected Image"
-msgstr ""
-"Свойства изображения\n"
-"\n"
-"Изменить свойства изображения:\n"
-"ширину, высоту и поворот"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:261
-msgid "C_ut Image"
-msgstr "Вырезать изображение"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:261
-msgid "Cut the Selected Image"
-msgstr ""
-"Вырезать изображение\n"
-"\n"
-"Вырезать изображение в буфер обмена"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:262
-msgid "_Copy Image"
-msgstr "Копировать изображение"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:262
-msgid "Copy the Selected Image"
-msgstr ""
-"Копировать изображение\n"
-"\n"
-"Копировать изображение в буфер обмена"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:263
-msgid "_Delete Image"
-msgstr "Удалить изображение"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:263
-msgid "Delete the Selected Image"
-msgstr ""
-"Удалить изображение\n"
-"\n"
-"Удалить изображение из документа"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:264
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:287
-msgid "Edit _Link"
-msgstr "Свойства ссылки"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:264
-msgid "Edit the Link Associated to the Image"
-msgstr ""
-"Свойства ссылки\n"
-"\n"
-"Изменить свойства ссылки связанной с изображением"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:265
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:290
-msgid "D_ismiss Link"
-msgstr "Очистить ссылку"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:265
-msgid "Dismiss the Link Associated to the Image"
-msgstr ""
-"Очистить ссылку\n"
-"\n"
-"Очистить ссылку связанную с изображением"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:287
-msgid "Edit the Underlying Link"
-msgstr ""
-"Свойства ссылки\n"
-"\n"
-"Изменить свойства ссылки"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:288
-msgid "C_ut Link"
-msgstr "Вырезать ссылку"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:288
-msgid "Cut the Selected Link"
-msgstr ""
-"Вырезать ссылку\n"
-"\n"
-"Вырезать ссылку в буфер обмена"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:289
-msgid "_Copy Link"
-msgstr "Копировать ссылку"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:289
-msgid "Copy the Selected Link"
-msgstr ""
-"Копировать ссылку\n"
-"\n"
-"Копировать ссылку в буфер обмена"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:290
-msgid "Dismiss the Selected Link"
-msgstr ""
-"Очистить ссылку\n"
-"\n"
-"Удаляется только ссылка из документа, но не текст"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:291
-msgid "_Delete Link"
-msgstr "Удалить ссылку"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:291
-msgid "Delete the Selected Link"
-msgstr ""
-"Удалить ссылку\n"
-"\n"
-"Удаляется ссылка и текст из документа"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:293
-msgid "C_ut Table"
-msgstr "Вырезать таблицу"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:293
-msgid "Cut the Selected Table"
-msgstr ""
-"Вырезать таблицу\n"
-"\n"
-"Вырезать таблицу в буфер обмена"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:294
-msgid "_Copy Table"
-msgstr "Копировать таблицу"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:294
-msgid "Copy the Selected Table"
-msgstr ""
-"Копировать таблицу\n"
-"\n"
-"Копировать таблицу в буфер обмена"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:295
-msgid "_Delete Table"
-msgstr "Удалить таблицу"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:295
-msgid "Delete the Selected Table"
-msgstr ""
-"Удалить таблицу\n"
-"\n"
-"Удалить таблицу из документа"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:296
-msgid "_Add Column"
-msgstr "Добавить столбец"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:296
-msgid "Add a Table Column"
-msgstr ""
-"Добавить столбец\n"
-"\n"
-"Добавить столбец в таблицу"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:297
-msgid "De_lete Column"
-msgstr "Удалить столбец"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:297
-msgid "Delete the Selected Table Column"
-msgstr ""
-"Удалить столбец\n"
-"\n"
-"Удалить активный столбец из таблицы"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:298
-msgid "Move Column _Left"
-msgstr "Столбец влево"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:298
-msgid "Move the Selected Column Left"
-msgstr ""
-"Столбец влево\n"
-"\n"
-"Переместить активный столбец таблицы влево"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:299
-msgid "Move Column _Right"
-msgstr "Столбец вправо"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:299
-msgid "Move the Selected Column Right"
-msgstr ""
-"Столбец вправо\n"
-"\n"
-"Переместить активный столбец таблицы вправо"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:300
-msgid "Increase Column Width"
-msgstr "Увеличить ширину"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:300
-msgid "Increase the Width of the Column"
-msgstr ""
-"Увеличить ширину\n"
-"\n"
-"Увеличить ширину активного столбца таблицы"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:301
-msgid "Decrease Column Width"
-msgstr "Уменьшить ширину"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:301
-msgid "Decrease the Width of the Column"
-msgstr ""
-"Уменьшить ширину\n"
-"\n"
-"Уменьшить ширину активного столбца таблицы"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:302
-msgid "_Add Row"
-msgstr "Добавить строку"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:302
-msgid "Add a Table Row"
-msgstr ""
-"Добавить строку\n"
-"\n"
-"Добавить строку в таблицу"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:303
-msgid "Cut a Table Row"
-msgstr ""
-"Вырезать строку\n"
-"\n"
-"Вырезать активную строку таблицы в буфер обмена"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:304
-msgid "Copy a Table Row"
-msgstr ""
-"Копировать строку\n"
-"\n"
-"Копировать активную строку таблицы в буфер обмена"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:305
-msgid "_Paste Row"
-msgstr "Вставить строку"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:305
-msgid "Paste a Table Row"
-msgstr ""
-"Вставить строку\n"
-"\n"
-"Вставить строку в таблицу из буфера обмена"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:306
-msgid "Delete the Selected Table Row"
-msgstr ""
-"Удалить строку\n"
-"\n"
-"Удалить активную строку из таблицы"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:307
-msgid "Move Row _Up"
-msgstr "Строку вверх"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:307
-msgid "Move the Selected Row Up"
-msgstr ""
-"Строку вверх\n"
-"\n"
-"Переместить активную строку таблицы вверх"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:308
-msgid "Move Row _Down"
-msgstr "Строку вниз"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:308
-msgid "Move the Selected Row Down"
-msgstr ""
-"Строку вниз\n"
-"\n"
-"Переместить активную строку таблицы вниз"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:309
-msgid "Sort Rows De_scending"
-msgstr "Сортировать по убыванию"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:309
-msgid "Sort all the Rows Descending"
-msgstr ""
-"Сортировать по убыванию\n"
-"\n"
-"Сортировать все строки таблицы по убыванию"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:310
-msgid "Sort Rows As_cending"
-msgstr "Сортировать по возрастанию"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:310
-msgid "Sort all the Rows Ascending"
-msgstr ""
-"Сортировать по возрастанию\n"
-"\n"
-"Сортировать все строки таблицы по возрастанию"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:311
-msgid "_Edit Table Properties"
-msgstr "Свойства таблицы"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:311
-msgid "Edit the Table Properties"
-msgstr ""
-"Свойства таблицы\n"
-"\n"
-"Изменить свойства таблицы"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:312
-msgid "_Table Export"
-msgstr "Экспорт таблицы"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:312
-msgid "Export Table as CSV File"
-msgstr ""
-"Экспорт таблицы\n"
-"\n"
-"Экспортировать данные таблицы в файл CSV"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:314
-msgid "Change CodeBox _Properties"
-msgstr "Свойства блока кода"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:314
-msgid "Edit the Properties of the CodeBox"
-msgstr ""
-"Свойства ветви\n"
-"\n"
-"Изменить свойства ветви"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:315
-msgid "_Execute CodeBox Code"
-msgstr "Выполнить блок кода"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:315
-msgid "Execute CodeBox Code"
-msgstr ""
-"Выполнить блок кода\n"
-"\n"
-"Выполнить код из блока кода с помощью\n"
-"интерпретатора или компилятора"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:316
-msgid "CodeBox _Load From Text File"
-msgstr "Загрузить в блок кода"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:316
-msgid "Load the CodeBox Content From a Text File"
-msgstr ""
-"Загрузить в блок кода\n"
-"\n"
-"Загрузить программный код в блок кода\n"
-"из текстового файла"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:317
-msgid "CodeBox _Save To Text File"
-msgstr "Сохранить из блока кода"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:317
-msgid "Save the CodeBox Content To a Text File"
-msgstr ""
-"Сохранить из блока кода\n"
-"\n"
-"Сохранить содержимое блока кода\n"
-"в текстовый файл"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:318
-msgid "C_ut CodeBox"
-msgstr "Вырезать блок кода"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:318
-msgid "Cut the Selected CodeBox"
-msgstr ""
-"Вырезать блок кода\n"
-"\n"
-"Вырезать блок кода в буфер обмена"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:319
-msgid "_Copy CodeBox"
-msgstr "Копировать блок кода"
+msgid "_Check Newer Version"
+msgstr "Проверить обновления..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:319
-msgid "Copy the Selected CodeBox"
+msgid "Check for a Newer Version"
 msgstr ""
-"Копировать блок кода\n"
+"Проверить обновления...\n"
 "\n"
-"Копировать блок кода в буфер обмена"
+"Проверить наличие обновлений CherryTree"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:320
-msgid "_Delete CodeBox"
-msgstr "Удалить блок кода"
+msgid "Online _Manual"
+msgstr "Справка в интернете"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:320
-msgid "Delete the Selected CodeBox"
+msgid "Application's Online Manual"
 msgstr ""
-"Удалить блок кода\n"
+"Справка в интернете\n"
 "\n"
-"Удалить блок кода из документа"
+"Показать онлайн справку по CherryTree"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:321
-msgid "Delete CodeBox _Keep Content"
-msgstr "Удалить блок кода с..."
+msgid "Open Preferences _Directory"
+msgstr "Открыть настройки..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:321
-msgid "Delete the Selected CodeBox But Keep Its Content"
+msgid "Open the Directory with Preferences Files"
 msgstr ""
-"Удалить блок кода с...\n"
+"Открыть настройки...\n"
 "\n"
-"Удалить блок кода с сохранением содержимого.\n"
-"Удаляется только контейнер, а текст содержащийся \n"
-"в блоке кода, вставляется в документ"
+"Открыть папку с настройками приложения"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:322
-msgid "Increase CodeBox Width"
-msgstr "Увеличить ширину"
+msgid "_About"
+msgstr "О приложении..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:322
-msgid "Increase the Width of the CodeBox"
-msgstr ""
-"Увеличить ширину\n"
-"\n"
-"Увеличить ширину блока кода"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:323
-msgid "Decrease CodeBox Width"
-msgstr "Уменьшить ширину"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:323
-msgid "Decrease the Width of the CodeBox"
-msgstr ""
-"Уменьшить ширину\n"
-"\n"
-"Уменьшить ширину блока кода"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:324
-msgid "Increase CodeBox Height"
-msgstr "Увеличить высоту"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:324
-msgid "Increase the Height of the CodeBox"
-msgstr ""
-"Увеличить высоту\n"
-"\n"
-"Увеличить высоту блока кода"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:325
-msgid "Decrease CodeBox Height"
-msgstr "Уменьшить высоту"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:325
-msgid "Decrease the Height of the CodeBox"
-msgstr ""
-"Уменьшить высоту\n"
-"\n"
-"Уменьшить высоту блока кода"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:442
-msgid "Remove from list"
-msgstr "Удалить из истории"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1127
-msgid "_List"
-msgstr "Список"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1127
-msgid "_Justify"
-msgstr "Выравнивание"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1127
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1179
-msgid "_Insert"
-msgstr "Вставить"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1127
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1179
-msgid "_Row"
-msgstr "Строка"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1127
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:1179
-msgid "_Replace"
-msgstr "Замена"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:130
-msgid "Involved Nodes"
-msgstr "Связанные ветви"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:140
-msgid "Selected Text Only"
-msgstr "Текст"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:141
-msgid "Selected Node Only"
-msgstr "Ветвь"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:142
-msgid "Selected Node and Subnodes"
-msgstr "Ветвь с дочерними ветвями"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:143
-msgid "All the Tree"
-msgstr "Дерево"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:158
-msgid "Include Node Name"
-msgstr "Печатать название ветви"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:166
-msgid "Links Tree in Every Page"
-msgstr "Дерево ссылок на каждой страницe"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:173
-msgid "New Node in New Page"
-msgstr "Новую ветвь с новой страницы"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:179
-msgid "Single File"
-msgstr "Один файл"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:211
-msgid "Remove Color"
-msgstr "Очистить"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:265
-msgid "Question"
-msgstr "Вопрос"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:281
-msgid "Info"
-msgstr "Информация"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:296
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1881
-msgid "Warning"
-msgstr "Предупреждение"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:311
-msgid "Error"
-msgstr "Ошибка"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:446
-msgid "Move the Selected Bookmark Up"
-msgstr ""
-"Закладку вверх\n"
-"\n"
-"Переместить закладку вверх на один уровень"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:449
-msgid "Move the Selected Bookmark Down"
-msgstr ""
-"Закладку вниз\n"
-"\n"
-"Переместить закладку вниз на один уровень"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:452
-msgid "Remove the Selected Bookmark"
-msgstr "Удалить выбранную закладку"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:455
-msgid "Sort the Bookmarks Descending"
-msgstr "Закладки по убыванию"
+# Подсказка и Название окошка
+msgid "About CherryTree"
+msgstr "О приложении..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:458
-msgid "Sort the Bookmarks Ascending"
-msgstr "Закладки по возрастанию"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:677
-#, c-format
-msgid "Hide (Restore with '%s')"
-msgstr "Свернуть (Восстановить с '%s')"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:681
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1681
-msgid "Node Name"
-msgstr "Ветвь"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:682
-msgid "Line"
-msgstr "Строка"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:683
-msgid "Line Content"
-msgstr "Содержимое"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:882
-msgid "Anchor Name (optional)"
-msgstr "Имя якоря (по желанию)"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1039
-msgid "There are No Anchors in the Selected Node"
-msgstr "В данной ветви нет якорей"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1048
-msgid "Choose Existing Anchor"
-msgstr "Выберите якорь"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1048
-msgid "Anchor Name"
-msgstr "Имя якоря"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1128
-msgid "Select File"
-msgstr "Открыть"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1153
-msgid "Select Folder"
-msgstr "Выбрать"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1168
-msgid "Save File as"
-msgstr ""
-"Сохранить как...\n"
-"\n"
-"Сохранить активный документ под\n"
-"другим именем и с другим расширением.\n"
-"\n"
-"Сохранить вставленный файл"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1229
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1351
-msgid "Width"
-msgstr "Ширина"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1232
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1355
-msgid "Height"
-msgstr "Высота"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1331
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1420
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1688
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1754
-msgid "Automatic Syntax Highlighting"
-msgstr "Подсветка синтаксиса"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1346
-msgid "Type"
-msgstr "Тип"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1360
-msgid "pixels"
-msgstr "пикселей"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1385
-msgid "Size"
-msgstr "Размер"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1401
-msgid "Options"
-msgstr "Настройки"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1493
-msgid "Choose Storage Type"
-msgstr "Тип файла"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1503
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1506
-msgid "Not Protected"
-msgstr "без шифрования"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1505
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1507
-msgid "Password Protected"
-msgstr "с шифрованием"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1515
-msgid "Storage Type"
-msgstr "Тип:"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1524
-msgid ""
-"CT saves the document in an encrypted 7zip archive. When viewing or editing "
-"the document, CT extracts the encrypted archive to a temporary folder, and "
-"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
-"from the temporary directory. Note that in the case of application or system "
-"crash, the unencrypted document will remain in the temporary folder."
-msgstr ""
-"CherryTree сохраняет документ в зашифрованном 7zip-архиве. Во время открытия "
-"или редактирования документа CherryTree извлекает его из зашифрованного "
-"архива во временную папку и работает с ним как с обычным архивом. После "
-"закрытия файла незашифрованная копия документа удаляется из временной папки. "
-"Во время краха системы или приложения незашифрованный документ может "
-"остаться во временной папке."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1532
-msgid "Enter the New Password Twice"
-msgstr "Введите и подтвердите пароль для проверки"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1615
-msgid "The Password Fields Must be Filled"
-msgstr "Вы не задали пароль"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1620
-msgid "The Two Inserted Passwords Do Not Match"
-msgstr "Пароли не совпадают"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1649
-msgid "Bold"
-msgstr "Полужирный"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1653
-msgid "Use Selected Color"
-msgstr "Цвет заголовка"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1668
-msgid "click me"
-msgstr "Сменить"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1731
-msgid "Tags for Searching"
-msgstr "Тэги для поиска"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1735
-msgid "Read Only"
-msgstr "Только чтение"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1774
-msgid "Choose Existing Tag"
-msgstr "Тэги"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1774
-msgid "Tag Name"
-msgstr "Название тэга"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1799
-msgid "Pick a Color"
-msgstr "Выбор цвета"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1892
-msgid "The Current Document was Updated."
-msgstr "Документ CherryTree был изменён."
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1892
-msgid "Do you want to Save the Changes?"
-msgstr "Сохранить изменения в документе?"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1940
-msgid ""
-"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
-"Highlighting"
-msgstr ""
-"Записная книжка с иерархической древовидной структурой с возможностью "
-"форматирования текста и подсветкой синтаксиса"
+msgid "A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting"
+msgstr "Записная книжка с иерархической древовидной структурой с возможностью форматирования текста и подсветкой синтаксиса"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1941
+# Лицензия
 msgid ""
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
@@ -3719,165 +3131,73 @@ msgstr ""
 "напишите в Фонд Свободного ПО, \n"
 "675 Mass Ave, Cambridge, MA 02139, USA.\n"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1961
-msgid "Armenian"
-msgstr "Армянский"
+#
+# конец меню "Справка" и контекстных_меню
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Пока не нашёл где это
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+msgid "_Execute CodeBox Code"
+msgstr "Выполнить код CodeBox"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1962
-msgid "Chinese Simplified"
-msgstr "Китайский Упрощённый"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1963
-msgid "Czech"
-msgstr "Чешский"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1964
-msgid "Dutch"
-msgstr "Голландский"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1965
-msgid "Finnish"
-msgstr "Финский"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1966
-msgid "French"
-msgstr "Французский"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1967
-msgid "German"
-msgstr "Немецкий"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1968
-msgid "Greek"
-msgstr "Греческий"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1969
-msgid "Italian"
-msgstr "Итальянский"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1970
-msgid "Japanese"
-msgstr "Японский"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1971
-msgid "Lithuanian"
-msgstr "Литовский"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1972
-msgid "Polish"
-msgstr "Польский"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1973
-msgid "Portuguese Brazil"
-msgstr "Португальский Бразилий"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1974
-msgid "Russian"
-msgstr "Русский"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1975
-msgid "Slovenian"
-msgstr "Словенский"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1976
-msgid "Spanish"
-msgstr "Испанский"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1977
-msgid "Swedish"
-msgstr "Шведский"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1978
-msgid "Turkish"
-msgstr "Турецкий"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:1979
-msgid "Ukrainian"
-msgstr "Украинский"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2223
-msgid "Number of Rich Text Nodes"
-msgstr "Ветвей с форматированным текстом"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2228
-msgid "Number of Plain Text Nodes"
-msgstr "Ветвей с обычным текстом"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2233
-msgid "Number of Code Nodes"
-msgstr "Ветвей с кодом"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2238
-msgid "Number of Images"
-msgstr "Изображений"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2243
-msgid "Number of Embedded Files"
-msgstr "Файлов"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2248
-msgid "Number of Tables"
-msgstr "Таблиц"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2253
-msgid "Number of CodeBoxes"
-msgstr "Блоков кода"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2258
-msgid "Number of Anchors"
-msgstr "Якорей"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2280
-msgid "Rows"
-msgstr "Число строк:"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2286
-msgid "Columns"
-msgstr "Число столбцов:"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2292
-msgid "Default Width"
-msgstr "По умолчанию:"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2298
-msgid "Table Size"
-msgstr "Размер таблицы"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2301
-msgid "Column Properties"
-msgstr "Ширина столбца"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:2323
-msgid "Import from CSV File"
-msgstr "Импортировать данные из файла CSV"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_sqlite.cc:157
-#, c-format
-msgid "The database file %s is corrupt, see log for more details"
+msgid "Execute CodeBox Code"
 msgstr ""
-"Документ CherryTree %s повреждён, смотрите лог для подробной информации"
-
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_sqlite.cc:208
-#, c-format
-msgid ""
-"%s write failed - file is missing. Reattach usb driver or shared resource"
-msgstr ""
-"Файл: \"%s\" - отсутствует.\n"
+"Выполнить код CodeBox\n"
 "\n"
-"Попробуйте повторно подключить устройство USB."
+"Выполнить код из CodeBox с помощью\n"
+"интерпритатора или компилятора"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_sqlite.cc:211
-#, c-format
-msgid "%s write failed - is file blocked by a sync program?"
-msgstr ""
-"Файл: \"%s\" - доступен только для чтения.\n"
-"\n"
-"Попробуйте сохранить его под другим именем."
+msgid "Export to PDF at specified file path"
+msgstr "Экспорт в PDF в существующую директорию"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_export2pdf.cc:420
-msgid "Warning: One or More Images Were Reduced to Enter the Page"
-msgstr "Предупреждение: одно или несколько изображений были уменьшены"
+msgid "Export to HTML at specified directory path"
+msgstr "Экспорт в HTML в существующую директорию"
 
+msgid "Export to Text at specified directory path"
+msgstr "Экспорт в TXT в существующую директорию"
+
+msgid "Embedded File Automatically Updated:"
+msgstr "Файл автоматически обновлён:"
+
+msgid "Enable Markdown Auto Replacement (Experimental)"
+msgstr "Включить автозамену Markdown (Экспериментально)"
+
+msgid "Node name to focus"
+msgstr "Имя ветви для фокуса"
+
+msgid "Tag Name"
+msgstr "Тэг"
+
+msgid "The Cursor is Not into a Paragraph"
+msgstr "Курсор за пределами абзаца"
+
+msgid "The Document was Reloaded After External Update to CT* File"
+msgstr "Документ был повторно загружен после обновления файла другой программой"
+
+msgid "The new chosen parent is still the old parent!"
+msgstr "Выбранная новая родительская ветвь является старой!"
+
+msgid "The new parent can't be one of his children!"
+msgstr "Новая родительская ветвь не может быть дочерней!"
+
+msgid "The new parent can't be the very node to move!"
+msgstr "Новую родительскую ветвь невозможно двигать!"
+
+msgid "There are No Anchors in the Selected Node"
+msgstr "В данной ветви нет якорей"
+
+msgid "Overwrite if export path already exists"
+msgstr "Перезаписать, если файл уже существует"
+
+msgid "Write to %s Failed"
+msgstr "Запись в %s не удалась"
+
+msgid "Writing to Disk..."
+msgstr "Запись на диск..."
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Дополнительные коментарии
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ msgid "Export to Multiple Plain _Text Files"
 #~ msgstr "Экспорт в несколько текстовых файлов"
 
@@ -3905,33 +3225,10 @@ msgstr "Предупреждение: одно или несколько изо�
 #~ msgid "Suggestions"
 #~ msgstr "Варианты"
 
-#~ msgid "NoteCase Document"
-#~ msgstr "Документ NoteCase"
-
 #~ msgid "EPIM HTML Document"
 #~ msgstr "EPIM HTML документ"
 
-#~ msgid "HTML Document"
-#~ msgstr "HTML документ"
-
-#~ msgid "Treepad Document"
-#~ msgstr "Документ Treepad"
-
-#~ msgid "KeyNote Document"
-#~ msgstr "Документ KeyNote"
-
-#~ msgid "Mempad Document"
-#~ msgstr "Документ Mempad"
-
-#~ msgid "Knowit Document"
-#~ msgstr "Документ Knowit"
-
-#~ msgid "Leo Document"
-#~ msgstr "Документ Leo"
-
-#~ msgid ""
-#~ "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
-#~ "Installed Properly"
+#~ msgid "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be Installed Properly"
 #~ msgstr "Файл '7za' не найден. Проверьте, установлен ли пакет 'p7zip-full'"
 
 #~ msgid "Wrong Password"
@@ -3993,9 +3290,6 @@ msgstr "Предупреждение: одно или несколько изо�
 
 #~ msgid "Insert NewLine Char"
 #~ msgstr "Вставить символ новой строки"
-
-#~ msgid "Are you sure to Reset to Default?"
-#~ msgstr "Вы уверены что хотите сбросить настройки?"
 
 #~ msgid "Use AppIndicator for Docking"
 #~ msgstr "Использовать AppIndicator"
