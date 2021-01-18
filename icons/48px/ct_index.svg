@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg4212"
+   height="48"
+   width="48"
+   version="1.1"
+   sodipodi:docname="ct_index.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
+  <sodipodi:namedview
+     inkscape:document-rotation="0"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="715"
+     id="namedview86"
+     showgrid="true"
+     inkscape:zoom="6.7403446"
+     inkscape:cx="15.90884"
+     inkscape:cy="27.52461"
+     inkscape:window-x="-8"
+     inkscape:window-y="22"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4212"
+     showguides="false">
+    <inkscape:grid
+       id="grid906"
+       type="xygrid" />
+  </sodipodi:namedview>
+  <defs
+     id="defs4214">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient945">
+      <stop
+         style="stop-color:#cccccc;stop-opacity:1"
+         offset="0"
+         id="stop941" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="1"
+         id="stop943" />
+    </linearGradient>
+    <linearGradient
+       osb:paint="solid"
+       id="linearGradient4526">
+      <stop
+         id="stop4528"
+         offset="0"
+         style="stop-color:#ffffff;stop-opacity:1;" />
+    </linearGradient>
+    <linearGradient
+       gradientTransform="matrix(2.0798086,0,0,2.2563521,-0.89102251,-2.1340269)"
+       inkscape:collect="always"
+       xlink:href="#linearGradient945"
+       id="linearGradient947"
+       x1="13.328012"
+       y1="19.977493"
+       x2="13.328012"
+       y2="13.601875"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <metadata
+     id="metadata4217">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <path
+     id="path921"
+     style="opacity:0.7;fill:none;stroke:#ffffff;stroke-width:4.30337"
+     d="M 5.8153316,45.919341 5.8440232,25.853017 C 6.751395,23.836253 8.8772864,21.896978 11.991773,23.358792 L 11.846483,8.470459 C 11.972409,0.98074313 24.3529,0.19033621 24.295103,8.7361439 l 0.08255,6.1154961 c 4.438573,-0.856305 4.833339,3.18243 4.833339,3.18243 0,0 4.358158,-3.087686 6.306465,2.284023 3.53765,-3.497344 7.406179,-0.308317 7.329776,4.832816 l -0.0093,20.783468 z M 39.85588,42.892531 39.840904,24.360995 C 39.065686,19.548213 35.523044,22.760809 35.364056,28.30417 35.36567,20.064627 30.5141,17.172051 29.102814,26.703633 27.448025,17.060367 23.400413,14.280245 21.121878,24.196608 L 20.932404,8.6117702 c -0.09893,-3.71919 -5.789793,-3.7184719 -5.841581,-0.060495 l -0.03956,23.4402178 c 0.01627,3.151314 -3.078858,2.876195 -3.079705,0.03551 l -0.0077,-5.507043 C 8.7246438,25.919613 8.9670568,27.810674 8.9455647,30.39549 l -0.10341,12.437692 z"
+     sodipodi:nodetypes="cccccccccccccccccccccscc" />
+  <path
+     sodipodi:nodetypes="ccccccccccccccccccccc"
+     id="path850"
+     d="M 7.1760279,41.738632 C 8.9995171,35.875335 5.7074084,29.661111 8.7567178,25.047298 L 14.763341,24.018381 14.9741,6.2981105 l 3.477514,-2.8581037 4.080196,3.3114726 -0.602679,6.4060956 0.21075,4.915948 2.529102,-1.486217 2.84524,1.600539 1.791448,3.086748 2.318339,-1.943505 2.212963,1.37189 1.686068,2.057831 3.007221,-1.624181 2.261746,4.596614 0.632268,16.805665 -3.161371,2.40081 -15.701503,0.669684 -9.905655,0.01641 z"
+     style="fill:url(#linearGradient947);fill-opacity:1;stroke:none;stroke-width:2.81617;stop-color:#000000" />
+  <path
+     sodipodi:nodetypes="cccccccccccccccccccccscc"
+     d="M 5.8153316,45.919341 5.8440232,25.853017 C 6.751395,23.836253 8.8772864,21.896978 11.991773,23.358792 L 11.846483,8.470459 C 11.972409,0.98074313 24.3529,0.19033621 24.295103,8.7361439 l 0.08255,6.1154961 c 4.438573,-0.856305 4.833339,3.18243 4.833339,3.18243 0,0 4.358158,-3.087686 6.306465,2.284023 3.53765,-3.497344 7.406179,-0.308317 7.329776,4.832816 l -0.0093,20.783468 z M 39.85588,42.892531 39.840904,24.360995 C 39.065686,19.548213 35.523044,22.760809 35.364056,28.30417 35.36567,20.064627 30.5141,17.172051 29.102814,26.703633 27.448025,17.060367 23.400413,14.280245 21.121878,24.196608 L 20.932404,8.6117702 c -0.09893,-3.71919 -5.789793,-3.7184719 -5.841581,-0.060495 l -0.03956,23.4402178 c 0.01627,3.151314 -3.078858,2.876195 -3.079705,0.03551 l -0.0077,-5.507043 C 8.7246438,25.919613 8.9670568,27.810674 8.9455647,30.39549 l -0.10341,12.437692 z"
+     style="fill:#1a1a1a;stroke-width:2.16628"
+     id="path839" />
+  <path
+     sodipodi:nodetypes="ccc"
+     id="path842"
+     d="m 26.698351,29.809362 c -2.550494,7.748291 -5.828798,0.623459 -5.828798,0.623459 0,0 2.670767,3.305028 5.828798,-0.623459 z"
+     style="fill:#1a1a1a;stroke:none;stroke-width:2.81617;stop-color:#000000" />
+  <path
+     style="fill:#1a1a1a;stroke:none;stroke-width:2.81617;stop-color:#000000"
+     d="m 34.044665,29.740239 c -2.550496,7.748291 -5.828791,0.623461 -5.828791,0.623461 0,0 2.670767,3.305026 5.828791,-0.623461 z"
+     id="path844"
+     sodipodi:nodetypes="ccc" />
+  <path
+     sodipodi:nodetypes="ccc"
+     id="path906"
+     d="m 41.617377,29.740239 c -2.550496,7.748291 -5.82879,0.623461 -5.82879,0.623461 0,0 2.670765,3.305026 5.82879,-0.623461 z"
+     style="fill:#1a1a1a;stroke:none;stroke-width:2.81617;stop-color:#000000" />
+</svg>

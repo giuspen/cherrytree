@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   sodipodi:docname="ct_justify-left.svg"
+   id="svg14"
+   version="1.1"
+   width="16"
+   height="16">
+  <metadata
+     id="metadata20">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs18" />
+  <sodipodi:namedview
+     inkscape:current-layer="svg14"
+     inkscape:window-maximized="1"
+     inkscape:window-y="22"
+     inkscape:window-x="-8"
+     inkscape:cy="8"
+     inkscape:cx="8"
+     inkscape:zoom="33.861729"
+     showgrid="false"
+     id="namedview16"
+     inkscape:window-height="715"
+     inkscape:window-width="1366"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     guidetolerance="10"
+     gridtolerance="10"
+     objecttolerance="10"
+     borderopacity="1"
+     bordercolor="#666666"
+     pagecolor="#ffffff" />
+  <g
+     style="stroke:#f2f2f2;stroke-width:2"
+     color="#bebebe"
+     transform="translate(-613 -77)"
+     id="g855">
+    <rect
+       fill="#666"
+       height="1"
+       overflow="visible"
+       style="marker:none;stroke:#f2f2f2;stroke-width:2"
+       width="14"
+       x="614"
+       y="78"
+       id="rect845" />
+    <rect
+       fill="#666"
+       height="1"
+       overflow="visible"
+       style="marker:none;stroke:#f2f2f2;stroke-width:2"
+       width="10"
+       x="614"
+       y="81"
+       id="rect847" />
+    <rect
+       fill="#666"
+       height="1"
+       overflow="visible"
+       style="marker:none;stroke:#f2f2f2;stroke-width:2"
+       width="10"
+       x="614"
+       y="87"
+       id="rect849" />
+    <rect
+       fill="#666"
+       height="1"
+       overflow="visible"
+       style="marker:none;stroke:#f2f2f2;stroke-width:2"
+       width="14"
+       x="614"
+       y="90"
+       id="rect851" />
+    <rect
+       fill="#666"
+       height="1"
+       overflow="visible"
+       style="marker:none;stroke:#f2f2f2;stroke-width:2"
+       width="14"
+       x="614"
+       y="84"
+       id="rect853" />
+  </g>
+  <g
+     id="g12"
+     transform="translate(-613 -77)"
+     color="#bebebe">
+    <rect
+       id="rect2"
+       y="78"
+       x="614"
+       width="14"
+       style="marker:none"
+       overflow="visible"
+       height="1"
+       fill="#666" />
+    <rect
+       id="rect4"
+       y="81"
+       x="614"
+       width="10"
+       style="marker:none"
+       overflow="visible"
+       height="1"
+       fill="#666" />
+    <rect
+       id="rect6"
+       y="87"
+       x="614"
+       width="10"
+       style="marker:none"
+       overflow="visible"
+       height="1"
+       fill="#666" />
+    <rect
+       id="rect8"
+       y="90"
+       x="614"
+       width="14"
+       style="marker:none"
+       overflow="visible"
+       height="1"
+       fill="#666" />
+    <rect
+       id="rect10"
+       y="84"
+       x="614"
+       width="14"
+       style="marker:none"
+       overflow="visible"
+       height="1"
+       fill="#666" />
+  </g>
+</svg>
