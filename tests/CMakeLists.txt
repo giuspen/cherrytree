@@ -52,8 +52,10 @@ package_add_test(run_tests
   tests_types.cpp
 )
 
-add_custom_command(TARGET run_tests POST_BUILD
-  COMMAND ${CMAKE_BINARY_DIR}/run_tests
-)
+if(AUTO_RUN_TESTING AND NOT DEFINED ENV{FLATPAK_BUILDER_BUILDDIR} AND NOT DEFINED ENV{DEB_BUILD_OPTIONS})
+  add_custom_command(TARGET run_tests POST_BUILD
+    COMMAND ${CMAKE_BINARY_DIR}/run_tests
+  )
+endif()
 
 set_target_properties(run_tests PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
