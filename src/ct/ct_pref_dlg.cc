@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -1553,9 +1553,29 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
 #ifdef HAVE_NLS
     Gtk::VBox* vbox_language = Gtk::manage(new Gtk::VBox());
     Gtk::ComboBoxText* combobox_country_language = Gtk::manage(new Gtk::ComboBoxText());
-    for (auto lang : CtConst::AVAILABLE_LANGS)
-        combobox_country_language->append(lang);
-    combobox_country_language->set_active_text(CtMiscUtil::get_ct_language());
+    combobox_country_language->append(CtConst::LANG_DEFAULT, "-");
+    combobox_country_language->append("bg", _("Bulgarian"));
+    combobox_country_language->append("cs", _("Czech"));
+    combobox_country_language->append("de", _("German"));
+    combobox_country_language->append("el", _("Greek"));
+    combobox_country_language->append("en", _("English"));
+    combobox_country_language->append("es", _("Spanish"));
+    combobox_country_language->append("fi", _("Finnish"));
+    combobox_country_language->append("fr", _("French"));
+    combobox_country_language->append("hy", _("Armenian"));
+    combobox_country_language->append("it", _("Italian"));
+    combobox_country_language->append("ja", _("Japanese"));
+    combobox_country_language->append("lt", _("Lithuanian"));
+    combobox_country_language->append("nl", _("Dutch"));
+    combobox_country_language->append("pl", _("Polish"));
+    combobox_country_language->append("pt_BR", _("Portuguese Brazil"));
+    combobox_country_language->append("ru", _("Russian"));
+    combobox_country_language->append("sl", _("Slovenian"));
+    combobox_country_language->append("sv", _("Swedish"));
+    combobox_country_language->append("tr", _("Turkish"));
+    combobox_country_language->append("uk", _("Ukrainian"));
+    combobox_country_language->append("zh_CN", _("Chinese Simplified"));
+    combobox_country_language->set_active_id(CtMiscUtil::get_ct_language());
     vbox_language->pack_start(*combobox_country_language, false, false);
     Gtk::Frame* frame_language = new_managed_frame_with_align(_("Language"), vbox_language);
 #endif
@@ -1648,7 +1668,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     });
 #ifdef HAVE_NLS
     combobox_country_language->signal_changed().connect([this, combobox_country_language](){
-        Glib::ustring new_lang = combobox_country_language->get_active_text();
+        Glib::ustring new_lang = combobox_country_language->get_active_id();
         need_restart(RESTART_REASON::LANG, _("The New Language will be Available Only After Restarting CherryTree"));
         g_file_set_contents(fs::get_cherrytree_lang_filepath().c_str(),
                             new_lang.c_str(), (gssize)new_lang.bytes(), nullptr);
