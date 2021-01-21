@@ -790,6 +790,9 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='print_page_setup'/>
     <menuitem action='do_print'/>
     <separator/>
+    <menuitem action='preferences_dlg'/>
+    <menuitem action='tree_parse_info'/>
+    <separator/>
     <menuitem action='command_palette'/>
     <menuitem action='exec_code'/>
     <separator/>
@@ -798,8 +801,6 @@ const char* CtMenu::_get_ui_str_menu()
   </menu>
 
   <menu action='EditMenu'>
-    <menuitem action='preferences_dlg'/>
-    <separator/>
     <menuitem action='act_undo'/>
     <menuitem action='act_redo'/>
     <separator/>
@@ -879,7 +880,6 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='node_unbookmark'/>
     <menuitem action='tree_node_link'/>
     <menuitem action='tree_node_date'/>
-    <menuitem action='tree_parse_info'/>
     <separator/>
     <menu action='TreeMoveMenu'>
       <menuitem action='tree_node_up'/>
