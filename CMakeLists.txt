@@ -34,7 +34,6 @@ if(NOT SHARE_INSTALL)
 endif(NOT SHARE_INSTALL)
 set(CHERRYTREE_SHARE_INSTALL "${SHARE_INSTALL}/cherrytree")
 
-
 set(CPACK_PACKAGE_NAME "cherrytree")
 set(CPACK_PACKAGE_CONTACT "Giuseppe Penone <giuspen@gmail.com>")
 set(CPACK_PACKAGE_VENDOR ${CPACK_PACKAGE_CONTACT})
@@ -49,13 +48,12 @@ set(CPACK_CREATE_DESKTOP_LINKS ${CPACK_PACKAGE_CONTACT})
 set(CPACK_PACKAGE_INSTALL_DIRECTORY ${CPACK_PACKAGE_CONTACT})
 set(CPACK_STRIP_FILES TRUE)
 
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgtkmm-3.0-1v5, libgtksourceviewmm-3.0-0v5, libxml++2.6-2v5, libsqlite3-0, libgspell-1-2, libcurl4, libuchardet0 libspdlog1")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgtkmm-3.0-1v5, libgtksourceviewmm-3.0-0v5, libxml++2.6-2v5, libsqlite3-0, libgspell-1-2, libcurl4, libuchardet0 libspdlog1 gnome-icon-theme")
 set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://www.giuspen.com/cherrytree/")
 #set(CPACK_DEBIAN_PACKAGE_SECTION "graphics") which one?
 set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
 
 include(CPack)
-
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -69,7 +67,6 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options("-Wno-#warnings")
   add_compile_options(-Wthread-safety)
 endif()
-
 
 if(APPLE)
   link_directories(/usr/local/lib /usr/local/opt/gettext/lib)
@@ -86,7 +83,6 @@ if(CMAKE_BUILD_TYPE STREQUAL "")
 elseif(CMAKE_BUILD_TYPE STREQUAL "Debug")
   add_compile_options(-O0 -g)
 endif()
-
 
 # Create the configuration files config.h in the root dir
 configure_file(${CMAKE_SOURCE_DIR}/config.h.cmake ${CMAKE_SOURCE_DIR}/config.h)
@@ -118,7 +114,6 @@ pkg_check_modules(SPDLOG spdlog REQUIRED)
 
 add_subdirectory(src/7za)
 
-
 include(FindPackageHandleStandardArgs)
 
 # For both src and tests targets
@@ -147,7 +142,6 @@ if(BUILD_TESTING)
   add_subdirectory(tests)
 endif()
 
-
 # rebuild man pages
 set(MANFILE_FULL "${CMAKE_SOURCE_DIR}/data/cherrytree.1")
 set(MANFILE_FULL_GZ "${MANFILE_FULL}.gz")
@@ -157,7 +151,6 @@ add_custom_command(
 )
 add_custom_target(man_pages ALL DEPENDS ${MANFILE_FULL_GZ})
 
-
 # rebuild languages binaries
 if(USE_NLS)
   execute_process(
@@ -166,13 +159,11 @@ if(USE_NLS)
   )
 endif()
 
-
 # rebuild metainfo xml
 execute_process(
-    COMMAND ${PYTHON_EXEC} ${CMAKE_SOURCE_DIR}/scripts/metainfo_xml_write.py
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  COMMAND ${PYTHON_EXEC} ${CMAKE_SOURCE_DIR}/scripts/metainfo_xml_write.py
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 )
-
 
 # set icon on macos
 if(APPLE)
