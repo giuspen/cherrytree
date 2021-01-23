@@ -1,7 +1,7 @@
 /*
  * ct_actions_format.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -268,11 +268,10 @@ void CtActions::apply_tag_justify_fill()
     _apply_tag(CtConst::TAG_JUSTIFICATION, CtConst::TAG_PROP_VAL_FILL, range.iter_start, range.iter_end);
 }
 
-// Apply a tag
-void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring property_value /*= ""*/,
-                std::optional<Gtk::TextIter> iter_sel_start /*= std::nullopt*/,
-                std::optional<Gtk::TextIter> iter_sel_end /*= std::nullopt*/,
-                Glib::RefPtr<Gtk::TextBuffer> text_buffer /*= Glib::RefPtr<Gtk::TextBuffer>()*/)
+void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring property_value/*= ""*/,
+                           std::optional<Gtk::TextIter> iter_sel_start/*= std::nullopt*/,
+                           std::optional<Gtk::TextIter> iter_sel_end/*= std::nullopt*/,
+                           Glib::RefPtr<Gtk::TextBuffer> text_buffer/*= Glib::RefPtr<Gtk::TextBuffer>{}*/)
 {
     if (_pCtMainWin->user_active() and !_is_curr_node_not_syntax_highlighting_or_error()) return;
     if (not text_buffer) text_buffer = _curr_buffer();
@@ -281,8 +280,6 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
     if (not iter_sel_start.has_value() or not iter_sel_end.has_value()) {
         if (tag_property != CtConst::TAG_JUSTIFICATION) {
             if (not _is_there_selected_node_or_error()) return;
-            if (tag_property == CtConst::TAG_LINK)
-                _link_entry = CtLinkEntry(); // reset
             if (not text_buffer->get_has_selection()) {
                 if (tag_property != CtConst::TAG_LINK) {
                     restore_cursor_offset = text_buffer->get_insert()->get_iter().get_offset();
@@ -301,7 +298,6 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
                             int end_offset = text_buffer->get_insert()->get_iter().get_offset();
                             text_buffer->select_range(text_buffer->get_iter_at_offset(start_offset), text_buffer->get_iter_at_offset(end_offset));
                         }
-                        _link_entry.type = CtConst::LINK_TYPE_WEBS; // default value
                     } else {
                         if (not _links_entries_pre_dialog(tag_property_value, _link_entry))
                             return;
