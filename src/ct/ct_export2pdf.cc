@@ -1,7 +1,7 @@
 /*
  * ct_export2pdf.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -48,7 +48,7 @@ void CtExport2Pango::pango_get_from_treestore_node(CtTreeIter node_iter, int sel
         {
             auto attr_iter = iter_attributes.find(CtConst::TAG_INDENT);
             if (attr_iter != iter_attributes.end())
-                widget_indent = CtConst::INDENT_MARGIN * std::stoi(attr_iter->second);
+                widget_indent = not attr_iter->second.empty() ? CtConst::INDENT_MARGIN * std::stoi(attr_iter->second) : 0;
         }
 
         if (CtImageAnchor* anchor = dynamic_cast<CtImageAnchor*>(widget))
@@ -171,7 +171,7 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter, Gtk:
             }
             else if (tag_property == CtConst::TAG_INDENT)
             {
-                indent = CtConst::INDENT_MARGIN * std::stoi(property_value);
+                indent = not property_value.empty() ? CtConst::INDENT_MARGIN * std::stoi(property_value) : 0;
                 continue;
             }
             /* comment it, but Giuseppe may want to return code with additional background color checks
