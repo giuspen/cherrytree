@@ -1,7 +1,15 @@
-cherrytree (0.99.29-1) focal; urgency=low
+cherrytree (0.99.30-1) focal; urgency=low
 
-  * fix unable to open sqlite document created with old document version (#1471)
-  * added meta modifier shortcut key support (#1467, work of Chris Stahly)
+  * moved top menu items 'Edit'->'Preferences' and 'Tree'->'Tree Info' to 'File' menu (#1497)
+  * fix Table of Contents not saving (#1484)
+  * fix export to pdf crash
+  * fix crash when importing CSV file (#1476)
+  * fix copy from cherrytree to external app in windows (#1472)
+  * improved language selection in preferences dialog (#1496)
+  * fix when creating new node/subnode not proposing syntax highlighting of selected node (#1481)
+  * insert link dialog to remember/repropose last selection (#1413)
+  * new icon for generic code node (@uservaf/Ugo Yak, #1451)
+  * fixes to Russian translation from new maintainer Viktor Polyanskiy
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Mon, 04 Jan 2021 22:30:56 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Sun, 24 Jan 2021 22:07:21 +0000
