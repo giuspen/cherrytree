@@ -1,7 +1,9 @@
 /*
  * ct_parser_text.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2021
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,10 +26,6 @@
 #include <sstream>
 
 namespace {
-
-constexpr bool nor(bool a, bool b) {
-    return !(a || b);
-}
 
 template<class ITER_T>
 bool do_token_branch(ITER_T begin, ITER_T end, std::string_view match) {

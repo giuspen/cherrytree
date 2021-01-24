@@ -562,7 +562,7 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
         pConfig->embfileIconSize = spinbutton_embfile_icon_size->get_value_as_int();
         need_restart(RESTART_REASON::EMBFILE_SIZE);
     });
-    spinbutton_embfile_max_size->signal_value_changed().connect([this, pConfig, spinbutton_embfile_max_size](){
+    spinbutton_embfile_max_size->signal_value_changed().connect([pConfig, spinbutton_embfile_max_size](){
         pConfig->embfileMaxSize = spinbutton_embfile_max_size->get_value_as_int();
     });
     checkbutton_embfile_show_filename->signal_toggled().connect([this, pConfig, checkbutton_embfile_show_filename](){

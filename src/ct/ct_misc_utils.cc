@@ -1,7 +1,7 @@
 /*
  * ct_misc_utils.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -433,7 +433,7 @@ void CtTextIterUtil::generic_process_slot(int start_offset,
 {
     CtCurrAttributesMap curr_attributes;
     CtCurrAttributesMap delta_attributes;
-    for (const std::string_view tag_property : CtConst::TAG_PROPERTIES) {
+    for (const auto& tag_property : CtConst::TAG_PROPERTIES) {
         curr_attributes[tag_property] = "";
     }
     Gtk::TextIter curr_start_iter = rTextBuffer->get_iter_at_offset(start_offset);

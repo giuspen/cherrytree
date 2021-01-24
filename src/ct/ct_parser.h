@@ -1,7 +1,7 @@
 /*
  * ct_parser.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -537,8 +537,6 @@ private:
     void _feed_str(const std::string& in);
     void _add_node(std::string&& name, const std::string& contents);
 
-
-    bool _in_p_tag = false;
     std::vector<node> _nodes;
     CtConfig* _ct_config;
 };

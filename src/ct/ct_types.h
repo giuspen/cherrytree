@@ -1,7 +1,7 @@
 /*
  * ct_types.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -133,7 +133,7 @@ private:
 
 public:
     CtStringSplittable(const Glib::ustring& str) : _string_cache(str) {
-        for (const auto& ch : _string_cache) {
+        for (const auto ch : _string_cache) {
             _internal_vec.emplace_back(1, ch);
         }
     }
