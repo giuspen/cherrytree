@@ -1,7 +1,7 @@
 /*
  * ct_actions_import.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -144,7 +144,7 @@ void CtActions::import_nodes_from_keepnote_directory() noexcept {
 void CtActions::import_nodes_from_treepad_file() noexcept
 {
     try {
-        CtTreepadImporter importer(_pCtMainWin->get_ct_config());
+        CtTreepadImporter importer;
         _import_from_file(&importer, true/*dummy_root*/);
     } catch(const std::exception& e) {
         spdlog::error("Exception caught while importing from Treepad: {}", e.what());
@@ -154,7 +154,7 @@ void CtActions::import_nodes_from_treepad_file() noexcept
 void CtActions::import_nodes_from_mempad_file() noexcept
 {
     try {
-        CtMempadImporter importer(_pCtMainWin->get_ct_config());
+        CtMempadImporter importer;
         _import_from_file(&importer, true/*dummy_root*/);
     } catch(const std::exception& e) {
         spdlog::error("Exception caught while importing from Mempad: {}", e.what());

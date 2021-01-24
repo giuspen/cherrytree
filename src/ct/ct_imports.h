@@ -1,7 +1,7 @@
 /*
  * ct_imports.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -210,29 +210,19 @@ private:
 class CtMempadImporter : public CtImporterInterface
 {
 public:
-    explicit CtMempadImporter(CtConfig* config) : _config(config) {}
-
     std::unique_ptr<ct_imported_node> import_file(const fs::path& file) override;
 
     std::vector<std::string> file_patterns() override { return {"*.lst"}; };
     std::string file_pattern_name() override { return _("Mempad Document"); }
-
-private:
-    CtConfig* _config;
 };
 
 class CtTreepadImporter : public CtImporterInterface
 {
 public:
-    explicit CtTreepadImporter(CtConfig* config) : _config(config) {}
-
     std::unique_ptr<ct_imported_node> import_file(const fs::path& file) override;
 
     std::vector<std::string> file_patterns() override { return {"*.hjt"}; };
     std::string file_pattern_name() override { return _("Treepad Document"); }
-
-private:
-    CtConfig* _config;
 };
 
 class CtLeoImporter : public CtImporterInterface
