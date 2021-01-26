@@ -1,7 +1,7 @@
 /*
   ct_filesystem.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -127,10 +127,13 @@ bool move_file(const path& from, const path& to)
     }
 }
 
-fs::path absolute(const fs::path& p)
+path absolute(const path& p)
 {
-    Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(p.string());
-    return rFile->get_path();
+    GFile* pGFile = g_file_new_for_path(p.c_str());
+    g_autofree gchar* pAbsPath = g_file_get_path(pGFile);
+    path retPath{pAbsPath};
+    g_object_unref(pGFile);
+    return retPath;
 }
 
 time_t getmtime(const path& p)
@@ -452,19 +455,27 @@ path canonical(const path& p, const path& base)
 
 path relative(const path& p, const path& base)
 {
-    Glib::RefPtr<Gio::File> rFile = Gio::File::create_for_path(p.string());
-    Glib::RefPtr<Gio::File> rDir = Gio::File::create_for_path(base.string());
-    std::string rel_filepath = rDir->get_relative_path(rFile);
-    if (not rel_filepath.empty()) {
-        return rel_filepath;
+    GFile* pGFile_File = g_file_new_for_path(p.c_str());
+    GFile* pGFile_Dir = g_file_new_for_path(base.c_str());
+    auto on_scope_exit = scope_guard([&](void*) {
+        g_object_unref(pGFile_File);
+        g_object_unref(pGFile_Dir);
+    });
+    {
+        g_autofree gchar* pRelPath = g_file_get_relative_path(pGFile_Dir, pGFile_File);
+        if (pRelPath) {
+            return path{pRelPath};
+        }
     }
     unsigned countUp{0};
-    while (rDir->has_parent()) {
-        rDir = rDir->get_parent();
+    while (g_file_has_parent(pGFile_Dir, NULL)) {
+        GFile* pGFile_TmpDir = g_file_get_parent(pGFile_Dir);
+        g_object_unref(pGFile_Dir);
+        pGFile_Dir = pGFile_TmpDir;
         ++countUp;
-        rel_filepath = rDir->get_relative_path(rFile);
-        if (not rel_filepath.empty()) {
-            path retPath{rel_filepath};
+        g_autofree gchar* pRelPath = g_file_get_relative_path(pGFile_Dir, pGFile_File);
+        if (pRelPath) {
+            path retPath{pRelPath};
             for (unsigned i = 0; i < countUp; ++i) {
                 retPath = ".." / retPath;
             }
