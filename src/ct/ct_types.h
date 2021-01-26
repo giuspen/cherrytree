@@ -27,6 +27,11 @@
 #include <list>
 #include <set>
 #include <unordered_map>
+#include <deque>
+#include <mutex>
+#include <optional>
+#include <condition_variable>
+#include <type_traits>
 #include <glibmm/ustring.h>
 #include <gtksourceviewmm/buffer.h>
 
@@ -56,7 +61,9 @@ enum class CtRestoreExpColl : int { FROM_STR=0, ALL_EXP=1, ALL_COLL=2 };
 
 class CtCodebox;
 class CtMainWin;
-typedef std::pair<CtCodebox*, CtMainWin*>   CtPairCodeboxMainWin;
+using CtPairCodeboxMainWin = std::pair<CtCodebox*, CtMainWin*>;
+
+using CtCurrAttributesMap = std::unordered_map<std::string_view, std::string>;
 
 struct CtLinkEntry
 {
@@ -86,12 +93,12 @@ struct CtRecentDocRestore
     std::string   node_path;      // the current node
     int           cursor_pos{0};  // cursor position in the current node
 };
+using CtRecentDocsRestore = std::unordered_map<std::string, CtRecentDocRestore>;
 
-typedef std::unordered_map<std::string, CtRecentDocRestore> CtRecentDocsRestore;
 class CtTextCell;
-typedef std::vector<CtTextCell*>    CtTableRow;
-typedef std::vector<CtTableRow>     CtTableMatrix;
-typedef std::vector<int>            CtTableColWidths;
+using CtTableRow = std::vector<CtTextCell*>;
+using CtTableMatrix = std::vector<CtTableRow>;
+using CtTableColWidths = std::vector<int>;
 
 template<class TYPE>
 class CtMaxSizedList : public std::list<TYPE>
@@ -219,4 +226,54 @@ struct CtSummaryInfo
     size_t tables_num{0};
     size_t codeboxes_num{0};
     size_t anchors_num{0};
+};
+
+template<class F> auto scope_guard(F&& f) {
+    return std::unique_ptr<void, typename std::decay<F>::type>{(void*)1, std::forward<F>(f)};
+}
+
+template <class T, size_t MAX> class ThreadSafeDEQueue
+{
+public:
+    void push_back(T t) {
+        std::lock_guard<std::mutex> lock(m);
+        if (q.size() < MAX) {
+            q.push_back(t);
+            c.notify_one();
+        }
+    }
+    T pop_front() {
+        std::unique_lock<std::mutex> lock(m);
+        while (q.empty()) {
+            c.wait(lock);
+        }
+        T val = q.front();
+        q.pop_front();
+        return val;
+    }
+    std::optional<T> peek() const {
+        std::optional<T> retVal;
+        std::lock_guard<std::mutex> lock(m);
+        if (not q.empty()) {
+            retVal = q.front();
+        }
+        return retVal;
+    }
+    bool empty() const {
+        std::lock_guard<std::mutex> lock(m);
+        return q.empty();
+    }
+    size_t size() const {
+        std::lock_guard<std::mutex> lock(m);
+        return q.size();
+    }
+    void clear() {
+        std::lock_guard<std::mutex> lock(m);
+        q.clear();
+    }
+
+private:
+    std::deque<T> q{};
+    mutable std::mutex m{};
+    std::condition_variable c{};
 };
