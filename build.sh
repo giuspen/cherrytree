@@ -16,5 +16,10 @@ then
   mingw32-make -j$(nproc --all)
 else
   cmake .. -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-  make -j$(nproc --all)
+  if [ $(uname) == "Darwin" ]
+  then
+    make -j$(sysctl -n hw.ncpu)
+  else
+    make -j$(nproc --all)
+  fi
 fi
