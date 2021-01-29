@@ -1,7 +1,7 @@
 /*
  * ct_app.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -46,11 +46,6 @@ CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HAN
     // we want to rely on actions for handling options, we need to call it here. This appears to
     // have no unwanted side-effect. It will also trigger the call to on_startup().
     register_application();
-}
-
-CtApp::~CtApp()
-{
-    //std::cout << "~CtApp()" << std::endl;
 }
 
 /* static */ Glib::RefPtr<CtApp> CtApp::create()
@@ -179,7 +174,7 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
     // do some export stuff from console and close app after
     if ( not _export_to_txt_dir.empty() or
          not _export_to_html_dir.empty() or
-         not _export_to_pdf_file.empty() )
+         not _export_to_pdf_dir.empty() )
     {
         spdlog::debug("export arguments are detected");
         for (const Glib::RefPtr<Gio::File>& r_file : files)
@@ -195,8 +190,8 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
                     if (not _export_to_html_dir.empty()) {
                         pWin->get_ct_actions()->export_to_html_auto(_export_to_html_dir, _export_overwrite, _export_single_file);
                     }
-                    if (not _export_to_pdf_file.empty()) {
-                        pWin->get_ct_actions()->export_to_pdf_auto(_export_to_pdf_file, _export_overwrite);
+                    if (not _export_to_pdf_dir.empty()) {
+                        pWin->get_ct_actions()->export_to_pdf_auto(_export_to_pdf_dir, _export_overwrite);
                     }
                 }
                 catch (std::exception& e) {
@@ -369,7 +364,7 @@ void CtApp::_add_main_option_entries()
     add_main_option_entry(Gio::Application::OPTION_TYPE_STRING,   "node",               'n', _("Node name to focus"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME, "export_to_html_dir", 'x', _("Export to HTML at specified directory path"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME, "export_to_txt_dir",  't', _("Export to Text at specified directory path"));
-    add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME, "export_to_pdf_file", 'p', _("Export to PDF at specified file path"));
+    add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME, "export_to_pdf_dir",  'p', _("Export to PDF at specified directory path"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "export_overwrite",   'w', _("Overwrite if export path already exists"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "export_single_file", 's', _("Export to a single file (for HTML or TXT)"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "new-window",         'N', _("Create a new window"));
@@ -400,7 +395,7 @@ int CtApp::_on_handle_local_options(const Glib::RefPtr<Glib::VariantDict>& rOpti
     rOptions->lookup_value("node", _node_to_focus);
     rOptions->lookup_value("export_to_html_dir", _export_to_html_dir);
     rOptions->lookup_value("export_to_txt_dir", _export_to_txt_dir);
-    rOptions->lookup_value("export_to_pdf_file", _export_to_pdf_file);
+    rOptions->lookup_value("export_to_pdf_dir", _export_to_pdf_dir);
     rOptions->lookup_value("export_overwrite", _export_overwrite);
     rOptions->lookup_value("export_single_file", _export_single_file);
     rOptions->lookup_value("new-window", new_window);

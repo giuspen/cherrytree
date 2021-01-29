@@ -1,7 +1,7 @@
 /*
  * ct_app.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -39,7 +39,6 @@ class CtApp : public Gtk::Application
 {
 protected:
     CtApp();
-    virtual ~CtApp() override;
 
 public:
     static Glib::RefPtr<CtApp> create();
@@ -58,7 +57,7 @@ protected:
     Glib::ustring _node_to_focus;
     std::string   _export_to_html_dir;
     std::string   _export_to_txt_dir;
-    std::string   _export_to_pdf_file;
+    std::string   _export_to_pdf_dir;
     bool          _export_overwrite{false};
     bool          _export_single_file{false};
     bool          _new_window{false};
