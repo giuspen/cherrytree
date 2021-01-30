@@ -6,6 +6,7 @@ The project home page is [giuspen.com/cherrytree](https://www.giuspen.com/cherry
 
 - [Debian/Linux Mint/Ubuntu](#building-cherrytree-on-ubuntu-2004)
 - [Arch Linux/Manjaro Linux](#building-cherrytree-on-arch)
+- [Gentoo](#building-cherrytree-on-gentoo)
 - [Fedora](#building-cherrytree-on-fedora)
 - [Opensuse](#building-cherrytree-on-opensuse)
 - [MacOs](#building-cherrytree-on-macos)
@@ -58,9 +59,9 @@ make -j$(nproc --all) && make install
 cpack -G DEB
 ```
 
-## Building Cherrytree on Ubuntu 20.04
+## Building Cherrytree on Ubuntu 20.04+
 
-Install dependencies::
+Install dependencies:
 ```sh
 sudo apt install build-essential libxml2-utils cmake libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev libfmt-dev libspdlog-dev gnome-icon-theme
 ```
@@ -69,10 +70,7 @@ Get cherrytree source, compile and run:
 git clone https://github.com/giuspen/cherrytree.git
 cd cherrytree
 git submodule update --init
-mkdir build
-cd build
-cmake ../
-make -j$(nproc --all)
+./build.sh
 ./build/cherrytree
 ```
 Install documentation:
@@ -101,10 +99,7 @@ Get cherrytree source, compile and run:
 git clone https://github.com/giuspen/cherrytree.git
 cd cherrytree
 git submodule update --init
-mkdir build
-cd build
-cmake ../
-make -j$(nproc --all)
+./build.sh
 ./build/cherrytree
 ```
 
@@ -120,10 +115,10 @@ git clone https://github.com/giuspen/cherrytree.git
 cd cherrytree/
 git submodule update --init
 ./build.sh
+./build/cherrytree
 ```
 
-
-## Building Cherrytree on Fedora 33
+## Building Cherrytree on Fedora 33+
 
 Install dependencies:
 ```sh
@@ -135,11 +130,8 @@ Get cherrytree source, compile and run:
 git clone https://github.com/giuspen/cherrytree.git
 cd cherrytree
 git submodule update --init
-mkdir build
-cd build
-cmake ../
-make -j$(nproc --all)
-./cherrytree
+./build.sh
+./build/cherrytree
 ```
 
 (OPTIONAL) Download Documentation
@@ -168,10 +160,7 @@ Get cherrytree source, compile and run:
 git clone https://github.com/giuspen/cherrytree.git
 cd cherrytree
 git submodule update --init
-mkdir build
-cd build
-cmake ../
-make -j$(nproc --all)
+./build.sh
 ./build/cherrytree
 ```
 
@@ -179,7 +168,7 @@ make -j$(nproc --all)
 
 Install dependencies:
 ```sh
-brew install python3 cmake pkg-config gtksourceviewmm3 gnome-icon-theme gspell libxml++ curl uchardet fmt spdlog
+brew install cmake pkg-config python3 adwaita-icon-theme fmt gspell gtksourceviewmm3 libxml++ spdlog uchardet curl
 ```
 
 Get cherrytree source, compile and run:
@@ -187,18 +176,9 @@ Get cherrytree source, compile and run:
 git clone https://github.com/giuspen/cherrytree.git
 cd cherrytree
 git submodule update --init
-mkdir build
-cd build
-cmake ../
-make -j$(sysctl -n hw.ncpu)
+./build.sh
 ./build/cherrytree
 ```
-
-To install:
-```sh
-make install
-```
-
 
 ## Building Cherrytree on Windows
 
@@ -250,12 +230,7 @@ Get cherrytree source, compile and run:
 git clone https://github.com/giuspen/cherrytree.git
 cd cherrytree
 git submodule update --init
-
-# build Release (optimised)
-./build.sh Release
-# build Debug (not optimised, with debug symbols)
-./build.sh Debug
-# run cherrytree
+./build.sh
 ./build/cherrytree.exe
 ```
 

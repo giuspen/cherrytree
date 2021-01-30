@@ -1,7 +1,9 @@
 
-- The Gtkmm3 version was started after Inkscape's https://github.com/flathub/org.inkscape.Inkscape
+- This was started after Inkscape's https://github.com/flathub/org.inkscape.Inkscape
 
 - Cherrytree's flathub repo is at https://github.com/flathub/com.giuspen.cherrytree/
+
+- This is not meant to stay at pace with the official com.giuspen.cherrytree.json but will be upgraded only when changes other than url/sha256 are issued
 
 
 
