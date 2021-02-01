@@ -93,24 +93,26 @@ void CtApp::_on_startup()
 
     _rCssProvider = Gtk::CssProvider::create();
 
-    _rStatusIcon = Gtk::StatusIcon::create(CtConst::APP_NAME);
-    _rStatusIcon->set_visible(false);
-    _rStatusIcon->set_name(CtConst::APP_NAME);
-    _rStatusIcon->set_title(CtConst::APP_NAME);
-    _rStatusIcon->set_tooltip_markup(_("CherryTree Hierarchical Note Taking"));
-    _rStatusIcon->signal_button_press_event().connect([&](GdkEventButton* event) {
-        if (event->button == 1) { _systray_show_hide_windows(); }
-        return false;
-    });
-    _rStatusIcon->signal_popup_menu().connect([&](guint button, guint32 activate_time){
-        Gtk::Menu* systrayMenu = Gtk::manage(new Gtk::Menu());
-        auto item1 = CtMenu::create_menu_item(systrayMenu, _("Show/Hide _CherryTree"), CtConst::APP_NAME, _("Toggle Show/Hide CherryTree"));
-        item1->signal_activate().connect([&] {_systray_show_hide_windows();});
-        auto item2 = CtMenu::create_menu_item(systrayMenu, _("_Exit CherryTree"), "ct_quit-app", _("Exit from CherryTree"));
-        item2->signal_activate().connect([&] { _systray_close_all(); });
-        systrayMenu->show_all();
-        systrayMenu->popup(button, activate_time);
-    });
+    if (not _no_gui) {
+        _rStatusIcon = Gtk::StatusIcon::create(CtConst::APP_NAME);
+        _rStatusIcon->set_visible(false);
+        _rStatusIcon->set_name(CtConst::APP_NAME);
+        _rStatusIcon->set_title(CtConst::APP_NAME);
+        _rStatusIcon->set_tooltip_markup(_("CherryTree Hierarchical Note Taking"));
+        _rStatusIcon->signal_button_press_event().connect([&](GdkEventButton* event) {
+            if (event->button == 1) { _systray_show_hide_windows(); }
+            return false;
+        });
+        _rStatusIcon->signal_popup_menu().connect([&](guint button, guint32 activate_time){
+            Gtk::Menu* systrayMenu = Gtk::manage(new Gtk::Menu());
+            auto item1 = CtMenu::create_menu_item(systrayMenu, _("Show/Hide _CherryTree"), CtConst::APP_NAME, _("Toggle Show/Hide CherryTree"));
+            item1->signal_activate().connect([&] {_systray_show_hide_windows();});
+            auto item2 = CtMenu::create_menu_item(systrayMenu, _("_Exit CherryTree"), "ct_quit-app", _("Exit from CherryTree"));
+            item2->signal_activate().connect([&] { _systray_close_all(); });
+            systrayMenu->show_all();
+            systrayMenu->popup(button, activate_time);
+        });
+    }
 }
 
 void CtApp::on_activate()
@@ -176,6 +178,7 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
          not _export_to_html_dir.empty() or
          not _export_to_pdf_dir.empty() )
     {
+        _no_gui = true;
         spdlog::debug("export arguments are detected");
         for (const Glib::RefPtr<Gio::File>& r_file : files)
         {

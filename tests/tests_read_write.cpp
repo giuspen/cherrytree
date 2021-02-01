@@ -1,7 +1,7 @@
 /*
  * tests_read_write.cpp
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -31,7 +31,9 @@ public:
     TestCtApp(const std::vector<std::string>& vec_args)
      : CtApp{},
        _vec_args{vec_args}
-    {}
+    {
+        _no_gui = true;
+    }
 
     struct ExpectedTag {
         Glib::ustring text_slot;
@@ -526,8 +528,6 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
     }
 }
 
-#if !defined(__APPLE__) // TestCtApp causes crash on macos
-
 class ReadWriteMultipleParametersTests : public ::testing::TestWithParam<std::tuple<std::string, std::string>>
 {
 };
@@ -564,5 +564,3 @@ INSTANTIATE_TEST_CASE_P(
                 std::make_tuple(UT::testCtzDocPath, UT::testCtxDocPath),
                 std::make_tuple(UT::testCtzDocPath, UT::testCtzDocPath))
 );
-
-#endif // __APPLE__

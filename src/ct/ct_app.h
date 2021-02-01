@@ -62,6 +62,7 @@ protected:
     bool          _export_single_file{false};
     bool          _new_window{false};
     bool          _initDone{false};
+    bool          _no_gui{false};
 
 protected:
     void        on_activate() override;
