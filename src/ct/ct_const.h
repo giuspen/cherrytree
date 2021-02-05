@@ -1,7 +1,7 @@
 /*
  * ct_extern const.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -214,7 +214,7 @@ const inline static gchar* TOOLBAR_VEC_DEFAULT {
     "separator,*,ct_save,export_pdf,separator,"
     "find_in_allnodes,separator,handle_bull_list,handle_num_list,handle_todo_list,fmt_indent,fmt_unindent,"
     "separator,handle_image,handle_table,handle_codebox,handle_embfile,"
-    "handle_link,handle_anchor,separator,fmt_rm,fmt_color_fg,"
+    "handle_link,handle_anchor,separator,fmt_clone,fmt_latest,fmt_rm,fmt_color_fg,"
     "fmt_color_bg,fmt_bold,fmt_italic,fmt_underline,fmt_strikethrough,"
     "fmt_h1,fmt_h2,fmt_h3,fmt_small,fmt_superscript,fmt_subscript,fmt_monospace"
 };

@@ -29,15 +29,65 @@
 #include "ct_list.h"
 #include <optional>
 
+void CtActions::_save_tags_at_cursor_as_latest(Glib::RefPtr<Gtk::TextBuffer> rTextBuffer, int cursorOffset)
+{
+    std::list<std::string> tagProperties;
+    std::list<std::string> tagValues;
+    if (cursorOffset < 0) {
+        cursorOffset = rTextBuffer->property_cursor_position();
+    }
+    Gtk::TextIter textIter = rTextBuffer->get_iter_at_offset(cursorOffset);
+    std::vector<Glib::RefPtr<Gtk::TextTag>> curr_tags = textIter.get_tags();
+    for (auto& curr_tag : curr_tags) {
+        Glib::ustring tag_name = curr_tag->property_name();
+        if (tag_name.empty() or CtConst::GTKSPELLCHECK_TAG_NAME == tag_name) {
+            continue;
+        }
+        std::pair<std::string, std::string> tagPropNVal;
+        if (str::startswith(tag_name, "weight_")) tagPropNVal = std::make_pair(CtConst::TAG_WEIGHT, tag_name.substr(7));
+        else if (str::startswith(tag_name, "foreground_")) tagPropNVal = std::make_pair(CtConst::TAG_FOREGROUND, tag_name.substr(11));
+        else if (str::startswith(tag_name, "background_")) tagPropNVal = std::make_pair(CtConst::TAG_BACKGROUND, tag_name.substr(11));
+        else if (str::startswith(tag_name, "scale_")) tagPropNVal = std::make_pair(CtConst::TAG_SCALE, tag_name.substr(6));
+        else if (str::startswith(tag_name, "justification_")) tagPropNVal = std::make_pair(CtConst::TAG_JUSTIFICATION, tag_name.substr(14));
+        else if (str::startswith(tag_name, "style_")) tagPropNVal = std::make_pair(CtConst::TAG_STYLE, tag_name.substr(6));
+        else if (str::startswith(tag_name, "underline_")) tagPropNVal = std::make_pair(CtConst::TAG_UNDERLINE, tag_name.substr(10));
+        else if (str::startswith(tag_name, "strikethrough_")) tagPropNVal = std::make_pair(CtConst::TAG_STRIKETHROUGH, tag_name.substr(14));
+        else if (str::startswith(tag_name, "indent_")) tagPropNVal = std::make_pair(CtConst::TAG_INDENT, tag_name.substr(7));
+        //else if (str::startswith(tag_name, "link_")) tagPropNVal = std::make_pair(CtConst::TAG_LINK], tag_name.substr(5));
+        else if (str::startswith(tag_name, "family_")) tagPropNVal = std::make_pair(CtConst::TAG_FAMILY, tag_name.substr(7));
+        if (not tagPropNVal.first.empty()) {
+            tagProperties.push_back(tagPropNVal.first);
+            tagValues.push_back(tagPropNVal.second);
+        }
+        
+    }
+    if (not tagProperties.empty()) {
+        _pCtMainWin->get_ct_config()->latestTagProp = str::join(tagProperties, ",");
+        _pCtMainWin->get_ct_config()->latestTagVal = str::join(tagValues, ",");
+    }
+}
+
+void CtActions::save_tags_at_cursor_as_latest()
+{
+    _save_tags_at_cursor_as_latest(_curr_buffer(), -1);
+}
 
 // The Iterate Tagging Button was Pressed
-void CtActions::apply_tag_latest()
+void CtActions::apply_tags_latest()
 {
+    if (not _is_there_selected_node_or_error()) return;
+    if (not _is_curr_node_not_syntax_highlighting_or_error()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
     if (_pCtMainWin->get_ct_config()->latestTagProp.empty())
         CtDialogs::warning_dialog(_("No Previous Text Format Was Performed During This Session"), *_pCtMainWin);
-    else
-        _apply_tag(_pCtMainWin->get_ct_config()->latestTagProp, _pCtMainWin->get_ct_config()->latestTagVal);
+    else {
+        remove_text_formatting();
+        std::vector<std::string> tagProperties = str::split(_pCtMainWin->get_ct_config()->latestTagProp, ",");
+        std::vector<std::string> tagValues = str::split(_pCtMainWin->get_ct_config()->latestTagVal, ",");
+        for (size_t i = 0; i < tagProperties.size(); ++i) {
+            _apply_tag(tagProperties.at(i), tagValues.at(i));
+        }
+    }
 }
 
 // Cleans the Selected Text from All Formatting Tags
@@ -138,11 +188,11 @@ int CtActions::_find_previous_indent_margin()
     CtTextRange range = CtList(_pCtMainWin, _curr_buffer()).get_paragraph_iters();
     std::vector<Glib::RefPtr<Gtk::TextTag>> curr_tags = range.iter_start.get_tags();
     for (auto& curr_tag : curr_tags) {
-            Glib::ustring curr_tag_name = curr_tag->property_name();
-            if(str::startswith(curr_tag_name, "indent_"))
-            {
-                return std::stoi(curr_tag_name.substr(7, std::string::npos));
-            }
+        Glib::ustring curr_tag_name = curr_tag->property_name();
+        if(str::startswith(curr_tag_name, "indent_"))
+        {
+            return std::stoi(curr_tag_name.substr(7, std::string::npos));
+        }
     }
     return 0;
 }
@@ -349,10 +399,6 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
             }
         }
     }
-    if (_pCtMainWin->user_active() and tag_property != CtConst::TAG_LINK) {
-        _pCtMainWin->get_ct_config()->latestTagProp = tag_property;
-        _pCtMainWin->get_ct_config()->latestTagVal = property_value;
-    }
     int sel_start_offset = iter_sel_start->get_offset();
     int sel_end_offset = iter_sel_end->get_offset();
     // if there's already a tag about this property, we remove it before apply the new one
@@ -397,8 +443,7 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
         if (property_value == "-")
             property_value = "";
 
-    if (not property_value.empty())
-    {
+    if (not property_value.empty()) {
         text_buffer->apply_tag_by_name(_pCtMainWin->get_text_tag_name_exist_or_create(tag_property, property_value),
                                        text_buffer->get_iter_at_offset(sel_start_offset),
                                        text_buffer->get_iter_at_offset(sel_end_offset));
@@ -406,8 +451,8 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
 
     if (restore_cursor_offset != -1) // remove auto selection and restore cursor placement
         text_buffer->place_cursor(text_buffer->get_iter_at_offset(restore_cursor_offset));
-    if (_pCtMainWin->user_active())
-    {
+    if (_pCtMainWin->user_active())     {
+        _save_tags_at_cursor_as_latest(text_buffer, sel_start_offset);
         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
     }
 }

@@ -1,7 +1,7 @@
 /*
  * ct_actions.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -268,14 +268,15 @@ private:
     };
     text_view_n_buffer_codebox_proof _get_text_view_n_buffer_codebox_proof();
     CtCodebox* _codebox_in_use();
-
+    void _save_tags_at_cursor_as_latest(Glib::RefPtr<Gtk::TextBuffer> rTextBuffer, int cursorOffset);
     bool _links_entries_pre_dialog(const Glib::ustring& curr_link, CtLinkEntry& link_entry);
     Glib::ustring _links_entries_post_dialog(CtLinkEntry& link_entry);
     Glib::ustring _link_check_around_cursor();
 
 public:
     // format actions
-    void apply_tag_latest();
+    void save_tags_at_cursor_as_latest();
+    void apply_tags_latest();
     void remove_text_formatting();
     void apply_tag_foreground();
     void apply_tag_background();

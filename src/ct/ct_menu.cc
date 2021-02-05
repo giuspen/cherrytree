@@ -133,7 +133,8 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{editor_cat, "mv_down_row", "ct_go-down", _("Move _Down Row"), KB_ALT+CtConst::STR_KEY_DOWN, _("Move Down the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_down)});
     _actions.push_back(CtMenuAction{editor_cat, "strip_trail_spaces", "ct_clear", _("Stri_p Trailing Spaces"), None, _("Strip Trailing Spaces"), sigc::mem_fun(*pActions, &CtActions::strip_trailing_spaces)});
     const char* fmt_cat = _("Format");
-    _actions.push_back(CtMenuAction{fmt_cat, "fmt_latest", "ct_fmt-txt-latest", _("Format _Latest"), "F7", _("Memory of Latest Text Format Type"), sigc::mem_fun(*pActions, &CtActions::apply_tag_latest)});
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_clone", "ct_fmt-txt-clone", _("Format C_lone"), None, _("Clone the Text Format Type at Cursor"), sigc::mem_fun(*pActions, &CtActions::save_tags_at_cursor_as_latest)});
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_latest", "ct_fmt-txt-latest", _("Format _Latest"), "F7", _("Memory of Latest Text Format Type"), sigc::mem_fun(*pActions, &CtActions::apply_tags_latest)});
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_rm", "ct_fmt-txt-clear", _("_Remove Formatting"), KB_CONTROL+KB_SHIFT+"R", _("Remove the Formatting from the Selected Text"), sigc::mem_fun(*pActions, &CtActions::remove_text_formatting)});
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_color_fg", "ct_color_fg", _("Text _Color Foreground"), KB_SHIFT+KB_ALT+"F", _("Change the Color of the Selected Text Foreground"), sigc::mem_fun(*pActions, &CtActions::apply_tag_foreground)});
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_color_bg", "ct_color_bg", _("Text C_olor Background"), KB_SHIFT+KB_ALT+"B", _("Change the Color of the Selected Text Background"), sigc::mem_fun(*pActions, &CtActions::apply_tag_background)});
@@ -838,6 +839,7 @@ const char* CtMenu::_get_ui_str_menu()
   </menu>
 
   <menu action='FormattingMenu'>
+    <menuitem action='fmt_clone'/>
     <menuitem action='fmt_latest'/>
     <menuitem action='fmt_rm'/>
     <separator/>
@@ -1019,6 +1021,7 @@ const char* CtMenu::_get_popup_menu_ui_str_text()
   <menuitem action='paste_plain'/>
   <separator/>
   <menu _name='For_matting' image='ct_fmt-txt'>
+    <menuitem action='fmt_clone'/>
     <menuitem action='fmt_latest'/>
     <menuitem action='fmt_rm'/>
     <separator/>
