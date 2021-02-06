@@ -1,7 +1,7 @@
 /*
  * ct_image.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -52,9 +52,6 @@ CtImage::CtImage(CtMainWin* pCtMainWin,
                  const std::string& justification)
  : CtAnchoredWidget(pCtMainWin, charOffset, justification)
 {
-    if (pCtMainWin->no_gui()) {
-        return;
-    }
     _rPixbuf = _pCtMainWin->get_icon_theme()->load_icon(stockImage, size);
 
     _image.set(_rPixbuf);
@@ -383,10 +380,6 @@ void CtImageEmbFile::update_tooltip()
 /*static*/ Glib::RefPtr<Gdk::Pixbuf> CtImageEmbFile::_get_file_icon(CtMainWin* pCtMainWin, const fs::path& fileName)
 {
     Glib::RefPtr<Gdk::Pixbuf> result;
-    if (pCtMainWin->no_gui()) {
-        return result;
-    }
-
 #ifndef _WIN32
     g_autofree gchar* ctype = g_content_type_guess(fileName.c_str(), NULL, 0, NULL);
     if (ctype && !g_content_type_is_unknown(ctype))

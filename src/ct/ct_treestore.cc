@@ -1,7 +1,7 @@
 /*
  * ct_treestore.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -608,9 +608,7 @@ void CtTreeStore::get_node_data(const Gtk::TreeIter& treeIter, CtNodeData& nodeD
 void CtTreeStore::update_node_data(const Gtk::TreeIter& treeIter, const CtNodeData& nodeData)
 {
     Gtk::TreeRow row = *treeIter;
-    if (not _pCtMainWin->no_gui()) {
-        row[_columns.rColPixbuf] = _get_node_icon(_rTreeStore->iter_depth(treeIter), nodeData.syntax, nodeData.customIconId);
-    }
+    row[_columns.rColPixbuf] = _get_node_icon(_rTreeStore->iter_depth(treeIter), nodeData.syntax, nodeData.customIconId);
     row[_columns.colNodeName] = nodeData.name;
     row[_columns.rColTextBuffer] = nodeData.rTextBuffer;
     row[_columns.colNodeUniqueId] = nodeData.nodeId;
@@ -633,9 +631,6 @@ void CtTreeStore::update_node_data(const Gtk::TreeIter& treeIter, const CtNodeDa
 
 void CtTreeStore::update_node_icon(const Gtk::TreeIter& treeIter)
 {
-    if (_pCtMainWin->no_gui()) {
-        return;
-    }
     auto icon = _get_node_icon(_rTreeStore->iter_depth(treeIter),
                                treeIter->get_value(_columns.colSyntaxHighlighting),
                                treeIter->get_value(_columns.colCustomIconId));
@@ -655,9 +650,6 @@ void CtTreeStore::update_nodes_icon(Gtk::TreeIter father_iter, bool cherry_only)
 
 void CtTreeStore::update_node_aux_icon(const Gtk::TreeIter& treeIter)
 {
-    if (_pCtMainWin->no_gui()) {
-        return;
-    }
     bool is_ro = treeIter->get_value(_columns.colNodeRO);
     bool is_bookmark = vec::exists(_bookmarks, treeIter->get_value(_columns.colNodeUniqueId));
     std::string stock_id;

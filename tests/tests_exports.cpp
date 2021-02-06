@@ -36,33 +36,57 @@ public:
     CtTmp* getCtTmp() { return _uCtTmp.get(); }
 };
 
-class ExportToTxtMultipleParametersTests : public ::testing::TestWithParam<std::string>
+enum class ExportType { None, Txt, Pdf, Html };
+
+class ExportsMultipleParametersTests : public ::testing::TestWithParam<std::tuple<std::string, std::string>>
 {
 };
 
-TEST_P(ExportToTxtMultipleParametersTests, ChecksExportToTxt)
+TEST_P(ExportsMultipleParametersTests, ChecksExports)
 {
     TestCtApp testCtApp{};
-    const std::string inDocPath = GetParam();
+    const std::string inDocPath = std::get<0>(GetParam());
+    const std::string exportSwitch = std::get<1>(GetParam());
     fs::path tmpDirpath = testCtApp.getCtTmp()->getHiddenDirPath("UT");
-    const std::vector<std::string> vec_args{"cherrytree", inDocPath, "--export_to_txt_dir", tmpDirpath.string(), "--export_single_file"};
+    fs::path tmpFilepath;
+    ExportType exportType{ExportType::None};
+    if (exportSwitch.find("txt") != std::string::npos) {
+        exportType = ExportType::Txt;
+        tmpFilepath = tmpDirpath / (Glib::path_get_basename(inDocPath)+".txt");
+    }
+    else if (exportSwitch.find("pdf") != std::string::npos) {
+        exportType = ExportType::Pdf;
+        tmpFilepath = tmpDirpath / (Glib::path_get_basename(inDocPath)+".pdf");
+    }
+    else if (exportSwitch.find("html") != std::string::npos) {
+        exportType = ExportType::Html;
+        
+    }
+    ASSERT_FALSE(ExportType::None == exportType);
+    const std::vector<std::string> vec_args{"cherrytree", inDocPath, exportSwitch, tmpDirpath.string(), "--export_single_file"};
     gchar** pp_args = CtStrUtil::vector_to_array(vec_args);
     testCtApp.run(vec_args.size(), pp_args);
-    fs::path tmpFilepath = tmpDirpath / (Glib::path_get_basename(inDocPath)+".txt");
     ASSERT_TRUE(fs::is_regular_file(tmpFilepath));
-    std::string expTxt_path{Glib::build_filename(UT::unitTestsDataDir, "test.export.txt")};
-    std::string expTxt = Glib::file_get_contents(expTxt_path);
-    std::string resultTxt = Glib::file_get_contents(tmpFilepath.string());
-    ASSERT_FALSE(resultTxt.empty());
-    ASSERT_STREQ(expTxt.c_str(), resultTxt.c_str());
+    if (ExportType::Txt == exportType) {
+        std::string expTxt_path{Glib::build_filename(UT::unitTestsDataDir, "test.export.txt")};
+        std::string expTxt = Glib::file_get_contents(expTxt_path);
+        std::string resultTxt = Glib::file_get_contents(tmpFilepath.string());
+        ASSERT_FALSE(resultTxt.empty());
+        ASSERT_STREQ(expTxt.c_str(), resultTxt.c_str());
+    }
+    else if (ExportType::Pdf == exportType) {
+        ASSERT_NE(0, fs::file_size(tmpFilepath));
+    }
     ASSERT_TRUE(fs::remove(tmpFilepath));
     ASSERT_FALSE(fs::is_regular_file(tmpFilepath));
     g_strfreev(pp_args);
 }
 
 INSTANTIATE_TEST_CASE_P(
-        ExportToTxtTests,
-        ExportToTxtMultipleParametersTests,
-        ::testing::Values(UT::testCtbDocPath,
-                          UT::testCtdDocPath)
+        ExportsTests,
+        ExportsMultipleParametersTests,
+        ::testing::Values(std::make_tuple(UT::testCtbDocPath, "--export_to_txt_dir"),
+                          std::make_tuple(UT::testCtdDocPath, "--export_to_txt_dir"),
+                          std::make_tuple(UT::testCtbDocPath, "--export_to_pdf_dir"),
+                          std::make_tuple(UT::testCtdDocPath, "--export_to_pdf_dir"))
 );

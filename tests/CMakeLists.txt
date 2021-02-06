@@ -42,10 +42,10 @@ if(DEFINED ENV{TRAVIS})
 endif()
 
 package_add_test(run_tests_no_x
+  tests_main.cpp
   tests_clipboard.cpp
   tests_encoding.cpp
   tests_filesystem.cpp
-  tests_main.cpp
   tests_misc_utils.cpp
   tests_tmp_n_p7zip.cpp
   tests_types.cpp
@@ -54,11 +54,13 @@ package_add_test(run_tests_no_x
 package_add_test(run_tests_with_x_1
   tests_main.cpp
   tests_exports.cpp
+  ../src/ct/icons.gresource.cc
 )
 
 package_add_test(run_tests_with_x_2
   tests_main.cpp
   tests_read_write.cpp
+  ../src/ct/icons.gresource.cc
 )
 
 if(AUTO_RUN_TESTING)
