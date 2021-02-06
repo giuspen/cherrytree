@@ -60,7 +60,7 @@ TEST_P(ExportsMultipleParametersTests, ChecksExports)
     }
     else if (exportSwitch.find("html") != std::string::npos) {
         exportType = ExportType::Html;
-        
+        tmpFilepath = tmpDirpath / (Glib::path_get_basename(inDocPath)+"_HTML") / "index.html";
     }
     ASSERT_FALSE(ExportType::None == exportType);
     const std::vector<std::string> vec_args{"cherrytree", inDocPath, exportSwitch, tmpDirpath.string(), "--export_single_file"};
@@ -68,17 +68,29 @@ TEST_P(ExportsMultipleParametersTests, ChecksExports)
     testCtApp.run(vec_args.size(), pp_args);
     ASSERT_TRUE(fs::is_regular_file(tmpFilepath));
     if (ExportType::Txt == exportType) {
-        std::string expTxt_path{Glib::build_filename(UT::unitTestsDataDir, "test.export.txt")};
-        std::string expTxt = Glib::file_get_contents(expTxt_path);
+        std::string expectTxt_path{Glib::build_filename(UT::unitTestsDataDir, "test.export.txt")};
+        std::string expectTxt = Glib::file_get_contents(expectTxt_path);
         std::string resultTxt = Glib::file_get_contents(tmpFilepath.string());
         ASSERT_FALSE(resultTxt.empty());
-        ASSERT_STREQ(expTxt.c_str(), resultTxt.c_str());
+        ASSERT_STREQ(expectTxt.c_str(), resultTxt.c_str());
     }
     else if (ExportType::Pdf == exportType) {
         ASSERT_NE(0, fs::file_size(tmpFilepath));
     }
-    ASSERT_TRUE(fs::remove(tmpFilepath));
-    ASSERT_FALSE(fs::is_regular_file(tmpFilepath));
+    else if (ExportType::Html == exportType) {
+        std::string expectHtml_path{Glib::build_filename(UT::unitTestsDataDir, "test.export.html")};
+        std::string expectHtml = str::replace(Glib::file_get_contents(expectHtml_path),
+                                              "_REPLACE_TITLE_",
+                                              Glib::path_get_basename(inDocPath));
+        std::string resultHtml = Glib::file_get_contents(tmpFilepath.string());
+        ASSERT_FALSE(resultHtml.empty());
+        ASSERT_EQ(expectHtml.size(), resultHtml.size());
+        ASSERT_STREQ(expectHtml.c_str(), resultHtml.c_str());
+    }
+    if (ExportType::Html != exportType) {
+        ASSERT_TRUE(fs::remove(tmpFilepath));
+        ASSERT_FALSE(fs::is_regular_file(tmpFilepath));
+    }
     g_strfreev(pp_args);
 }
 
@@ -88,5 +100,7 @@ INSTANTIATE_TEST_CASE_P(
         ::testing::Values(std::make_tuple(UT::testCtbDocPath, "--export_to_txt_dir"),
                           std::make_tuple(UT::testCtdDocPath, "--export_to_txt_dir"),
                           std::make_tuple(UT::testCtbDocPath, "--export_to_pdf_dir"),
-                          std::make_tuple(UT::testCtdDocPath, "--export_to_pdf_dir"))
+                          std::make_tuple(UT::testCtdDocPath, "--export_to_pdf_dir"),
+                          std::make_tuple(UT::testCtbDocPath, "--export_to_html_dir"),
+                          std::make_tuple(UT::testCtdDocPath, "--export_to_html_dir"))
 );

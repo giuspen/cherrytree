@@ -46,16 +46,7 @@ CtTmp::~CtTmp()
         g_free(currPair.second);
     }
     for (const auto& currPair : _mapHiddenDirs) {
-        if (Glib::file_test(currPair.second, Glib::FILE_TEST_IS_DIR)) {
-            for (const fs::path& filepath : fs::get_dir_entries(currPair.second)) {
-                if (0 != g_remove(filepath.string().c_str())) {
-                    spdlog::error("!! g_remove");
-                }
-            }
-            if (0 != g_rmdir(currPair.second)) {
-                spdlog::error("!! g_rmdir");
-            }
-        }
+        fs::remove_all(currPair.second);
         g_free(currPair.second);
     }
 }

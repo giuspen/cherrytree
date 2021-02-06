@@ -13,6 +13,7 @@ ICONS_DIR = os.path.join(ROOT_DIR, "icons")
 SRC_DIR = os.path.join(ROOT_DIR, "src", "ct")
 GRESOURCE_XML_FILEPATH = os.path.join(ROOT_DIR, "icons.gresource.xml")
 GRESOURCE_SOURCE_FILEPATH_NOEXT = os.path.join(SRC_DIR, "icons.gresource")
+GRESOURCE_SOURCE_FILEPATH_CC = GRESOURCE_SOURCE_FILEPATH_NOEXT+".cc"
 
 # https://developer.gnome.org/gtkmm-tutorial/stable/sec-gio-resource.html.en
 #
@@ -24,6 +25,10 @@ GRESOURCE_SOURCE_FILEPATH_NOEXT = os.path.join(SRC_DIR, "icons.gresource")
 # </gresources>
 
 def main(args):
+    if os.path.isfile(GRESOURCE_SOURCE_FILEPATH_CC):
+        print("{} found".format(GRESOURCE_SOURCE_FILEPATH_CC))
+        return 0
+
     # write gresource xml
     gresources_Element = ET.Element("gresources")
     gresource_Element = ET.SubElement(gresources_Element, "gresource", prefix="/icons")
@@ -34,8 +39,9 @@ def main(args):
     gresources_ElementTree.write(GRESOURCE_XML_FILEPATH, xml_declaration=True, encoding='UTF-8')
 
     # convert gresource xml to source file
-    shell_cmd = ("glib-compile-resources", "--target="+GRESOURCE_SOURCE_FILEPATH_NOEXT+".cc", "--generate-source", GRESOURCE_XML_FILEPATH)
+    shell_cmd = ("glib-compile-resources", "--target="+GRESOURCE_SOURCE_FILEPATH_CC, "--generate-source", GRESOURCE_XML_FILEPATH)
     subprocess.call(shell_cmd, cwd=ICONS_DIR)
+    print("+ {}".format(GRESOURCE_SOURCE_FILEPATH_CC))
     return 0
 
 if __name__ == '__main__':
