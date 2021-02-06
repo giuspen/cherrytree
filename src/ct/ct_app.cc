@@ -29,7 +29,8 @@
 #include "ct_logging.h"
 #include <iostream>
 
-CtApp::CtApp() : Gtk::Application("com.giuspen.cherrytree", Gio::APPLICATION_HANDLES_OPEN)
+CtApp::CtApp(const char* application_id)
+ : Gtk::Application{application_id, Gio::APPLICATION_HANDLES_OPEN}
 {
     Gsv::init();
 

@@ -1,7 +1,7 @@
 /*
  * tests_clipboard.cpp
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -30,19 +30,16 @@ TEST(ClipboardGroup, ms_clip_convert)
 #if !(defined(_TRAVIS) && defined(_WIN32))
     std::string inputClip_path{Glib::build_filename(UT::unitTestsDataDir, "clipboard_ms_input.txt")};
     std::string resultClip_path{Glib::build_filename(UT::unitTestsDataDir, "clipboard_ms_result.txt")};
-    gchar* inputClip{nullptr}, *resultClip{nullptr};
-    g_file_get_contents(inputClip_path.c_str(), &inputClip, nullptr, nullptr);
-    g_file_get_contents(resultClip_path.c_str(), &resultClip, nullptr, nullptr);
-    Glib::ustring converted = Win32HtmlFormat().convert_from_ms_clipboard(inputClip);
+    std::string inputClip = Glib::file_get_contents(inputClip_path);
+    std::string resultClip = Glib::file_get_contents(resultClip_path);
+    std::string converted = Win32HtmlFormat().convert_from_ms_clipboard(inputClip);
 
-    ASSERT_TRUE(inputClip != nullptr);
-    ASSERT_TRUE(resultClip != nullptr);
-    ASSERT_STREQ(resultClip, converted.data());
-    g_free(inputClip);
-    g_free(resultClip);
+    ASSERT_FALSE(inputClip.empty());
+    ASSERT_FALSE(resultClip.empty());
+    ASSERT_STREQ(resultClip.c_str(), converted.c_str());
 
-    Glib::ustring html = "<html></html>";
-    Glib::ustring converted_2 = Win32HtmlFormat().convert_from_ms_clipboard(html);
-    ASSERT_STREQ(html.data(), converted_2.data());
+    std::string html = "<html></html>";
+    std::string converted_2 = Win32HtmlFormat().convert_from_ms_clipboard(html);
+    ASSERT_STREQ(html.c_str(), converted_2.c_str());
 #endif
 }

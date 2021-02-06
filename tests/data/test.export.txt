@@ -1,0 +1,71 @@
+# йцукенгшщз
+ciao plain
+йцукенгшщз
+
+# b
+ciao rich
+fore
+back
+bold
+italic
+under
+strike
+h1
+h2
+h3
+small
+asuper
+asub
+mono
+
+
+## c
+int main(int argc, char *argv[])
+{
+    return 0;
+}
+
+
+## sh
+echo "ciao!"
+
+### html
+<head>
+<title>NO</title>
+</head>
+
+### xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+## py
+print("ciao!")
+
+# d
+second rich
+
+
+# e
+anchored widgets:
+
+codebox:
+
+
+anchor:
+
+
+table:
+
+
+image:
+
+
+embedded file:
+
+
+link to web ansa.it
+link to node ‘d’
+link to node ‘e’ + anchor
+link to folder /etc
+link to file /etc/fstab
+
+

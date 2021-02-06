@@ -60,7 +60,7 @@ TEST(TestTypesGroup, scope_guard)
     ASSERT_EQ(0, var);
 }
 
-TEST(TestTypesGroup, ThreadSafeDEQueue_1)
+TEST(TestTypesGroup, ThreadSafeDEQueue_TwoThreadsHandshake)
 {
     ThreadSafeDEQueue<int,500> threadSafeDEQueue;
     auto f_first = [&threadSafeDEQueue](){
@@ -94,30 +94,30 @@ TEST(TestTypesGroup, ThreadSafeDEQueue_1)
     second.join();
 }
 
-TEST(TestTypesGroup, ThreadSafeDEQueue_2)
+TEST(TestTypesGroup, ThreadSafeDEQueue_TwoThreadsPushOneThreadPop)
 {
     ThreadSafeDEQueue<int,500> threadSafeDEQueue;
-    auto f_first = [&threadSafeDEQueue](){
+    auto f_push = [&threadSafeDEQueue](){
         for (int i = 0; i < 100; ++i) {
             g_usleep(1);
             threadSafeDEQueue.push_back(i);
         }
     };
-    auto f_second = [&threadSafeDEQueue](){
+    auto f_pop = [&threadSafeDEQueue](){
         for (int i = 0; i < 200; ++i) {
             threadSafeDEQueue.pop_front();
         }
     };
-    std::thread first(f_first);
-    std::thread second(f_second);
-    std::thread third(f_first);
+    std::thread first(f_push);
+    std::thread second(f_pop);
+    std::thread third(f_push);
     first.join();
     second.join();
     third.join();
     ASSERT_TRUE(threadSafeDEQueue.empty());
 }
 
-TEST(TestTypesGroup, SafeQueue_3)
+TEST(TestTypesGroup, ThreadSafeDEQueue_MaxElements)
 {
     ThreadSafeDEQueue<int,3> threadSafeDEQueue;
     for (int i = 0; i < 5; ++i) {

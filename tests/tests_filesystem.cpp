@@ -1,7 +1,7 @@
 /*
  * tests_filesystem.cpp
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -67,20 +67,20 @@ TEST(FileSystemGroup, get_cherrytree_localedir)
 
 TEST(FileSystemGroup, is_regular_file)
 {
-    ASSERT_EQ(true, fs::is_regular_file(UT::unitTestsDataDir + "/test.ctd"));
-    ASSERT_EQ(true, fs::is_regular_file(UT::unitTestsDataDir + "/test.ctb"));
-    ASSERT_EQ(true, fs::is_regular_file(UT::unitTestsDataDir + "/md_testfile.md"));
-    ASSERT_EQ(false, fs::is_regular_file(UT::unitTestsDataDir));
-    ASSERT_EQ(false, fs::is_regular_file(fs::absolute(UT::unitTestsDataDir)));
-    ASSERT_EQ(false, fs::is_regular_file(fs::absolute(UT::unitTestsDataDir).parent_path()));
+    ASSERT_TRUE(fs::is_regular_file(UT::unitTestsDataDir + "/test.ctd"));
+    ASSERT_TRUE(fs::is_regular_file(UT::unitTestsDataDir + "/test.ctb"));
+    ASSERT_TRUE(fs::is_regular_file(UT::unitTestsDataDir + "/md_testfile.md"));
+    ASSERT_FALSE(fs::is_regular_file(UT::unitTestsDataDir));
+    ASSERT_FALSE(fs::is_regular_file(fs::absolute(UT::unitTestsDataDir)));
+    ASSERT_FALSE(fs::is_regular_file(fs::absolute(UT::unitTestsDataDir).parent_path()));
 }
 
 TEST(FileSystemGroup, is_directory)
 {
-    ASSERT_EQ(true, fs::is_directory(UT::unitTestsDataDir));
-    ASSERT_EQ(false, fs::is_directory(UT::unitTestsDataDir + "/test.ctd"));
-    ASSERT_EQ(true, fs::is_directory(fs::path(UT::unitTestsDataDir).parent_path()));
-    ASSERT_EQ(false, fs::is_directory(fs::path(UT::unitTestsDataDir).parent_path() / "test_consts.h"));
+    ASSERT_TRUE(fs::is_directory(UT::unitTestsDataDir));
+    ASSERT_FALSE(fs::is_directory(UT::unitTestsDataDir + "/test.ctd"));
+    ASSERT_TRUE(fs::is_directory(fs::path(UT::unitTestsDataDir).parent_path()));
+    ASSERT_FALSE(fs::is_directory(fs::path(UT::unitTestsDataDir).parent_path() / "test_consts.h"));
 }
 
 TEST(FileSystemGroup, get_doc_type)
@@ -102,10 +102,10 @@ TEST(FileSystemGroup, get_doc_encrypt)
 
 TEST(FileSystemGroup, path_is_absolute)
 {
-    ASSERT_EQ(true, fs::path("/home/foo").is_absolute());
-    ASSERT_EQ(false, fs::path("/home/foo").is_relative());
-    ASSERT_EQ(true, fs::path("home/foo").is_relative());
-    ASSERT_EQ(false, fs::path("home/foo").is_absolute());
+    ASSERT_TRUE(fs::path("/home/foo").is_absolute());
+    ASSERT_FALSE(fs::path("/home/foo").is_relative());
+    ASSERT_TRUE(fs::path("home/foo").is_relative());
+    ASSERT_FALSE(fs::path("home/foo").is_absolute());
 }
 
 TEST(FileSystemGroup, path_parent_path)

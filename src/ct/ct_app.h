@@ -38,12 +38,12 @@ class CtMainWin;
 class CtApp : public Gtk::Application
 {
 protected:
-    CtApp();
+    CtApp(const char* application_id = "com.giuspen.cherrytree");
 
 public:
     static Glib::RefPtr<CtApp> create();
 
-private:
+protected:
     std::unique_ptr<CtConfig> _uCtCfg;
     std::unique_ptr<CtTmp> _uCtTmp;
     Glib::RefPtr<Gtk::IconTheme> _rIcontheme;

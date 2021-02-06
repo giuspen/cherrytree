@@ -29,7 +29,7 @@ class TestCtApp : public CtApp
 {
 public:
     TestCtApp(const std::vector<std::string>& vec_args)
-     : CtApp{},
+     : CtApp{"com.giuspen.cherrytree_test_read_write"},
        _vec_args{vec_args}
     {
         _no_gui = true;

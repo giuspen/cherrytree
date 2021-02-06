@@ -41,21 +41,40 @@ if(DEFINED ENV{TRAVIS})
   add_definitions(-D_TRAVIS)
 endif()
 
-package_add_test(run_tests
+package_add_test(run_tests_no_x
   tests_clipboard.cpp
   tests_encoding.cpp
   tests_filesystem.cpp
   tests_main.cpp
   tests_misc_utils.cpp
-  tests_read_write.cpp
   tests_tmp_n_p7zip.cpp
   tests_types.cpp
 )
 
-if(AUTO_RUN_TESTING AND NOT DEFINED ENV{FLATPAK_BUILDER_BUILDDIR})
-  add_custom_command(TARGET run_tests POST_BUILD
-    COMMAND ${CMAKE_BINARY_DIR}/run_tests
+package_add_test(run_tests_with_x_1
+  tests_main.cpp
+  tests_exports.cpp
+)
+
+package_add_test(run_tests_with_x_2
+  tests_main.cpp
+  tests_read_write.cpp
+)
+
+if(AUTO_RUN_TESTING)
+  add_custom_command(TARGET run_tests_no_x POST_BUILD
+    COMMAND ${CMAKE_BINARY_DIR}/run_tests_no_x
   )
+  if(NOT DEFINED ENV{FLATPAK_BUILDER_BUILDDIR})
+    add_custom_command(TARGET run_tests_with_x_1 POST_BUILD
+      COMMAND ${CMAKE_BINARY_DIR}/run_tests_with_x_1
+    )
+    add_custom_command(TARGET run_tests_with_x_2 POST_BUILD
+      COMMAND ${CMAKE_BINARY_DIR}/run_tests_with_x_2
+    )
+  endif()
 endif()
 
-set_target_properties(run_tests PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
+set_target_properties(run_tests_no_x PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
+set_target_properties(run_tests_with_x_1 PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
+set_target_properties(run_tests_with_x_2 PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
