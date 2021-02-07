@@ -130,9 +130,15 @@ TEST(FileSystemGroup, path_native)
 #else
     std::string first = "\\foo";
 #endif
-    fs::path path("/foo");
+    fs::path p("/foo");
+    ASSERT_STREQ(p.string_native().c_str(), first.c_str());
+}
 
-    ASSERT_STREQ(path.native().c_str(), first.c_str());
+TEST(FileSystemGroup, path_unix)
+{
+    fs::path p("C:\\foo\\bar");
+    std::string first = "C:/foo/bar";
+    ASSERT_STREQ(p.string_unix().c_str(), first.c_str());
 }
 
 TEST(FileSystemGroup, remove)

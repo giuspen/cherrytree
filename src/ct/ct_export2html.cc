@@ -355,7 +355,7 @@ Glib::ustring CtExport2Html::_get_embfile_html(CtImageEmbFile* embfile, CtTreeIt
     fs::path embfile_name = std::to_string(tree_iter.get_node_id()) + "-" +  embfile->get_file_name().string();
     fs::path embfile_rel_path = "EmbeddedFiles" / embfile_name;
     Glib::ustring embfile_html = "<table style=\"" + embfile_align_text + "\"><tr><td><a href=\"" +
-            embfile_rel_path.unix() + "\">Linked file: " + embfile->get_file_name().string() + " </a></td></tr></table>";
+            embfile_rel_path.string_unix() + "\">Linked file: " + embfile->get_file_name().string() + " </a></td></tr></table>";
 
     g_file_set_contents((embed_dir / embfile_name).c_str(), embfile->get_raw_blob().c_str(), (gssize)embfile->get_raw_blob().size(), nullptr);
 
@@ -373,12 +373,12 @@ Glib::ustring CtExport2Html::_get_image_html(CtImage* image, const fs::path& ima
     if (tree_iter)
     {
         image_name = std::to_string(tree_iter->get_node_id()) + "-" + std::to_string(images_count) + ".png";
-        image_rel_path = (fs::path{"images"} / image_name).unix();
+        image_rel_path = (fs::path{"images"} / image_name).string_unix();
     }
     else
     {
         image_name = std::to_string(images_count) + ".png";
-        image_rel_path = "file://" + (images_dir / image_name).unix();
+        image_rel_path = "file://" + (images_dir / image_name).string_unix();
     }
 
     Glib::ustring image_html = "<img src=\"" + image_rel_path + "\" alt=\"" + image_rel_path + "\" />";
@@ -698,7 +698,7 @@ std::string CtExport2Html::_link_process_filepath(const std::string& filepath_ra
     fs::path abs_filepath = fs::canonical(filepath, relative_to);
     if (!fs::is_regular_file(filepath) && fs::is_regular_file(abs_filepath))
         filepath = abs_filepath;
-    return filepath.unix();
+    return filepath.string_unix();
 }
 
 std::string CtExport2Html::_link_process_folderpath(const std::string& folderpath_raw, const std::string& relative_to)
@@ -707,7 +707,7 @@ std::string CtExport2Html::_link_process_folderpath(const std::string& folderpat
     fs::path abs_folderpath = fs::canonical(folderpath, relative_to);
     if (!fs::is_directory(folderpath) && fs::is_directory(abs_folderpath))
         folderpath = abs_folderpath;
-    return folderpath.unix();
+    return folderpath.string_unix();
 }
 
 // Returns the style attribute(s) according to the alignment

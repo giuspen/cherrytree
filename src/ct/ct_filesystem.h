@@ -154,8 +154,8 @@ public:
     [[nodiscard]] path parent_path() const { return Glib::path_get_dirname(_path); }
     [[nodiscard]] path extension() const;
     [[nodiscard]] path stem() const;
-    [[nodiscard]] std::string native() const;
-    [[nodiscard]] std::string unix() const;
+    [[nodiscard]] std::string string_native() const;
+    [[nodiscard]] std::string string_unix() const;
 
 private:
     std::string _path;

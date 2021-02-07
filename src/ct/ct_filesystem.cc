@@ -506,7 +506,7 @@ path path::stem() const
     return name.substr(0, dot_pos);
 }
 
-std::string path::native() const
+std::string path::string_native() const
 {
 #ifdef _WIN32
     return str::replace(_path, CtConst::CHAR_SLASH, CtConst::CHAR_BSLASH);
@@ -515,9 +515,9 @@ std::string path::native() const
 #endif
 }
 
-std::string path::unix() const
+std::string path::string_unix() const
 {
-    return str::replace(_path, CtConst::CHAR_BSLASH, CtConst::CHAR_SLASH);;
+    return str::replace(_path, CtConst::CHAR_BSLASH, CtConst::CHAR_SLASH);
 }
 
 } // namespace fs
