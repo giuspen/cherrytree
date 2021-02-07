@@ -34,7 +34,34 @@ public:
         _on_startup(); // so that _uCtTmp is ready straight away
     }
     CtTmp* getCtTmp() { return _uCtTmp.get(); }
+    void register_args(const std::vector<std::string>* pVecArgs) { _pVecArgs = pVecArgs; }
+
+private:
+    void on_activate() final;
+
+    const std::vector<std::string>* _pVecArgs{nullptr};
 };
+
+void TestCtApp::on_activate()
+{
+    // NOTE: on windows/msys2 unit tests the passed arguments do not work so we end up here
+    ASSERT_TRUE(_pVecArgs);
+    if (_pVecArgs->at(2) == "--export_to_txt_dir") {
+        _export_to_txt_dir = _pVecArgs->at(3);
+    }
+    else if (_pVecArgs->at(2) == "--export_to_pdf_dir") {
+        _export_to_pdf_dir = _pVecArgs->at(3);
+    }
+    else if (_pVecArgs->at(2) == "--export_to_html_dir") {
+        _export_to_html_dir = _pVecArgs->at(3);
+    }
+    if (std::find(_pVecArgs->begin(), _pVecArgs->end(), "--export_single_file") != _pVecArgs->end()) {
+        _export_single_file = true;
+    }
+    Glib::RefPtr<Gio::File> rFile =  Gio::File::create_for_path(_pVecArgs->at(1));
+    Gio::Application::type_vec_files files{rFile};
+    on_open(files, "");
+}
 
 enum class ExportType { None, Txt, Pdf, Html };
 
@@ -64,6 +91,7 @@ TEST_P(ExportsMultipleParametersTests, ChecksExports)
     }
     ASSERT_FALSE(ExportType::None == exportType);
     const std::vector<std::string> vec_args{"cherrytree", inDocPath, exportSwitch, tmpDirpath.string(), "--export_single_file"};
+    testCtApp.register_args(&vec_args);
     gchar** pp_args = CtStrUtil::vector_to_array(vec_args);
     testCtApp.run(vec_args.size(), pp_args);
     ASSERT_TRUE(fs::is_regular_file(tmpFilepath));
@@ -85,6 +113,7 @@ TEST_P(ExportsMultipleParametersTests, ChecksExports)
         std::string resultHtml = Glib::file_get_contents(tmpFilepath.string());
         ASSERT_FALSE(resultHtml.empty());
         ASSERT_EQ(expectHtml.size(), resultHtml.size());
+        //g_file_set_contents(Glib::build_filename(UT::unitTestsDataDir, "test.export.htmll").c_str(), resultHtml.c_str(), -1, NULL);
         ASSERT_STREQ(expectHtml.c_str(), resultHtml.c_str());
     }
     if (ExportType::Html != exportType) {

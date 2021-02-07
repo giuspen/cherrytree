@@ -1,7 +1,7 @@
 /*
  * ct_filesystem.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -101,12 +101,6 @@ std::string download_file(const std::string& filepath);
 */
 class path
 {
-#ifdef _WIN32
-    static const char path_sep{'\\'};
-#else
-    static const char path_sep{'/'};
-#endif
-
 public:
     friend void swap(path& lhs, path& rhs) noexcept {
         using std::swap;
@@ -161,12 +155,10 @@ public:
     [[nodiscard]] path extension() const;
     [[nodiscard]] path stem() const;
     [[nodiscard]] std::string native() const;
+    [[nodiscard]] std::string unix() const;
 
 private:
     std::string _path;
-
-    /// From Slash to Backslash when needed
-    static std::string _get_platform_path(std::string filepath);
 };
 
 } // namespace fs

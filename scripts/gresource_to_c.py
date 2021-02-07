@@ -6,6 +6,7 @@ import subprocess
 import glob
 import xml.etree.ElementTree as ET
 import html
+import filecmp
 
 SCRIPTS_DIR = os.path.dirname(os.path.realpath(__file__))
 ROOT_DIR = os.path.dirname(SCRIPTS_DIR)
@@ -14,6 +15,7 @@ SRC_DIR = os.path.join(ROOT_DIR, "src", "ct")
 GRESOURCE_XML_FILEPATH = os.path.join(ROOT_DIR, "icons.gresource.xml")
 GRESOURCE_SOURCE_FILEPATH_NOEXT = os.path.join(SRC_DIR, "icons.gresource")
 GRESOURCE_SOURCE_FILEPATH_CC = GRESOURCE_SOURCE_FILEPATH_NOEXT+".cc"
+GRESOURCE_SOURCE_FILEPATH_CC_TMP = GRESOURCE_SOURCE_FILEPATH_CC+".tmp"
 
 # https://developer.gnome.org/gtkmm-tutorial/stable/sec-gio-resource.html.en
 #
@@ -25,10 +27,6 @@ GRESOURCE_SOURCE_FILEPATH_CC = GRESOURCE_SOURCE_FILEPATH_NOEXT+".cc"
 # </gresources>
 
 def main(args):
-    if os.path.isfile(GRESOURCE_SOURCE_FILEPATH_CC):
-        print("{} found".format(GRESOURCE_SOURCE_FILEPATH_CC))
-        return 0
-
     # write gresource xml
     gresources_Element = ET.Element("gresources")
     gresource_Element = ET.SubElement(gresources_Element, "gresource", prefix="/icons")
@@ -39,8 +37,15 @@ def main(args):
     gresources_ElementTree.write(GRESOURCE_XML_FILEPATH, xml_declaration=True, encoding='UTF-8')
 
     # convert gresource xml to source file
-    shell_cmd = ("glib-compile-resources", "--target="+GRESOURCE_SOURCE_FILEPATH_CC, "--generate-source", GRESOURCE_XML_FILEPATH)
+    shell_cmd = ("glib-compile-resources", "--target="+GRESOURCE_SOURCE_FILEPATH_CC_TMP, "--generate-source", GRESOURCE_XML_FILEPATH)
     subprocess.call(shell_cmd, cwd=ICONS_DIR)
+
+    if os.path.isfile(GRESOURCE_SOURCE_FILEPATH_CC):
+        if filecmp.cmp(GRESOURCE_SOURCE_FILEPATH_CC, GRESOURCE_SOURCE_FILEPATH_CC_TMP):
+            print("{} up to date".format(GRESOURCE_SOURCE_FILEPATH_CC))
+            return 0
+        os.remove(GRESOURCE_SOURCE_FILEPATH_CC)
+    os.rename(GRESOURCE_SOURCE_FILEPATH_CC_TMP, GRESOURCE_SOURCE_FILEPATH_CC)
     print("+ {}".format(GRESOURCE_SOURCE_FILEPATH_CC))
     return 0
 

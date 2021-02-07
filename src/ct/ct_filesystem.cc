@@ -508,17 +508,16 @@ path path::stem() const
 
 std::string path::native() const
 {
-    return _get_platform_path(_path);
-}
-
-std::string path::_get_platform_path(std::string filepath)
-{
 #ifdef _WIN32
-    filepath = str::replace(filepath, CtConst::CHAR_SLASH, CtConst::CHAR_BSLASH);
+    return str::replace(_path, CtConst::CHAR_SLASH, CtConst::CHAR_BSLASH);
 #else
-    filepath = str::replace(filepath, CtConst::CHAR_BSLASH, CtConst::CHAR_SLASH);
+    return str::replace(_path, CtConst::CHAR_BSLASH, CtConst::CHAR_SLASH);
 #endif
-    return filepath;
 }
 
-} // namespace fs 
+std::string path::unix() const
+{
+    return str::replace(_path, CtConst::CHAR_BSLASH, CtConst::CHAR_SLASH);;
+}
+
+} // namespace fs

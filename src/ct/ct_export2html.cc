@@ -1,7 +1,7 @@
 /*
  * ct_export2html.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -29,7 +29,6 @@
 #include "ct_logging.h"
 #include "ct_process.h"
 #include "ct_filesystem.h"
-
 
 CtExport2Html::CtExport2Html(CtMainWin* pCtMainWin)
  : _pCtMainWin(pCtMainWin)
@@ -201,7 +200,6 @@ void CtExport2Html::nodes_all_export_to_multiple_html(bool all_tree, const CtExp
     }
 }
 
-
 // Export All Nodes To Single HTML
 void CtExport2Html::nodes_all_export_to_single_html(bool all_tree, const CtExportOptions&)
 {
@@ -251,9 +249,9 @@ void CtExport2Html::nodes_all_export_to_single_html(bool all_tree, const CtExpor
         }
         else
             html_text += _html_get_from_code_buffer(tree_iter.get_node_text_buffer(), -1, -1, tree_iter.get_node_syntax_highlighting());
-         html_text += "</div>"; // div class='page'
-         rFileStream->write(html_text.c_str(), html_text.bytes());
-         html_text.clear();
+        html_text += "</div>"; // div class='page'
+        rFileStream->write(html_text.c_str(), html_text.bytes());
+        html_text.clear();
 
         for (auto& child: tree_iter->children())
             traverseFunc(_pCtMainWin->get_tree_store().to_ct_tree_iter(child), node_level + 1);
@@ -357,7 +355,7 @@ Glib::ustring CtExport2Html::_get_embfile_html(CtImageEmbFile* embfile, CtTreeIt
     fs::path embfile_name = std::to_string(tree_iter.get_node_id()) + "-" +  embfile->get_file_name().string();
     fs::path embfile_rel_path = "EmbeddedFiles" / embfile_name;
     Glib::ustring embfile_html = "<table style=\"" + embfile_align_text + "\"><tr><td><a href=\"" +
-            embfile_rel_path.string() + "\">Linked file: " + embfile->get_file_name().string() + " </a></td></tr></table>";
+            embfile_rel_path.unix() + "\">Linked file: " + embfile->get_file_name().string() + " </a></td></tr></table>";
 
     g_file_set_contents((embed_dir / embfile_name).c_str(), embfile->get_raw_blob().c_str(), (gssize)embfile->get_raw_blob().size(), nullptr);
 
@@ -375,12 +373,12 @@ Glib::ustring CtExport2Html::_get_image_html(CtImage* image, const fs::path& ima
     if (tree_iter)
     {
         image_name = std::to_string(tree_iter->get_node_id()) + "-" + std::to_string(images_count) + ".png";
-        image_rel_path = Glib::build_filename ("images", image_name);
+        image_rel_path = (fs::path{"images"} / image_name).unix();
     }
     else
     {
         image_name = std::to_string(images_count) + ".png";
-        image_rel_path = "file://" + (images_dir / image_name).string();
+        image_rel_path = "file://" + (images_dir / image_name).unix();
     }
 
     Glib::ustring image_html = "<img src=\"" + image_rel_path + "\" alt=\"" + image_rel_path + "\" />";
@@ -700,7 +698,7 @@ std::string CtExport2Html::_link_process_filepath(const std::string& filepath_ra
     fs::path abs_filepath = fs::canonical(filepath, relative_to);
     if (!fs::is_regular_file(filepath) && fs::is_regular_file(abs_filepath))
         filepath = abs_filepath;
-    return filepath.native();
+    return filepath.unix();
 }
 
 std::string CtExport2Html::_link_process_folderpath(const std::string& folderpath_raw, const std::string& relative_to)
@@ -709,7 +707,7 @@ std::string CtExport2Html::_link_process_folderpath(const std::string& folderpat
     fs::path abs_folderpath = fs::canonical(folderpath, relative_to);
     if (!fs::is_directory(folderpath) && fs::is_directory(abs_folderpath))
         folderpath = abs_folderpath;
-    return folderpath.native();
+    return folderpath.unix();
 }
 
 // Returns the style attribute(s) according to the alignment
