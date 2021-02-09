@@ -78,7 +78,6 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{"", "TreeImportMenu", CtConst::STR_STOCK_CT_IMP, _("Nodes _Import"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "TreeExportMenu", "ct_export_from_cherrytree", _("Nodes E_xport"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "RecentDocsMenu", "ct_open", _("_Recent Documents"), None, _("Open a Recent CherryTree Document"), sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "SpecialCharsMenu", "ct_insert", _("Insert _Special Character"), None, _("Insert a Special Character"), sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "ChangeCaseMenu", "ct_case_toggle", _("C_hange Case"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "SearchMenu", None, _("_Search"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "ViewMenu", None, _("_View"), None, None, sigc::signal<void>()});
@@ -117,6 +116,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{editor_cat, "handle_anchor", "ct_anchor_insert", _("Insert _Anchor"), KB_CONTROL+KB_ALT+"A", _("Insert an Anchor"), sigc::mem_fun(*pActions, &CtActions::anchor_handle)});
     _actions.push_back(CtMenuAction{editor_cat, "insert_toc", "ct_index", _("Insert T_OC"), None, _("Insert Table of Contents"), sigc::mem_fun(*pActions, &CtActions::toc_insert)});
     _actions.push_back(CtMenuAction{editor_cat, "insert_timestamp", "ct_timestamp", _("Insert Ti_mestamp"), KB_CONTROL+KB_ALT+"M", _("Insert Timestamp"), sigc::mem_fun(*pActions, &CtActions::timestamp_insert)});
+    _actions.push_back(CtMenuAction{editor_cat, "insert_special_char", "ct_insert", _("Insert _Special Character"), None, _("Insert a Special Character"), sigc::mem_fun(*pActions, &CtActions::special_char_insert)});
     _actions.push_back(CtMenuAction{editor_cat, "insert_horiz_rule", "ct_horiz_rule", _("Insert _Horizontal Rule"), KB_CONTROL+"R", _("Insert Horizontal Rule"), sigc::mem_fun(*pActions, &CtActions::horizontal_rule_insert)});
     _actions.push_back(CtMenuAction{editor_cat, "case_down", "ct_case_lower", _("_Lower Case of Selection/Word"), KB_CONTROL+"W", _("Lower the Case of the Selection/the Underlying Word"), sigc::mem_fun(*pActions, &CtActions::text_selection_lower_case)});
     _actions.push_back(CtMenuAction{editor_cat, "case_up", "ct_case_upper", _("_Upper Case of Selection/Word"), KB_CONTROL+KB_SHIFT+"W", _("Upper the Case of the Selection/the Underlying Word"), sigc::mem_fun(*pActions, &CtActions::text_selection_upper_case)});
@@ -422,18 +422,6 @@ Gtk::Menu* CtMenu::build_recent_docs_menu(const CtRecentDocsFilepaths& recentDoc
         bool file_exists = fs::exists(filepath);
         Gtk::MenuItem* pMenuItem = _add_menu_item(pMenuRm, filepath.c_str(), file_exists ? "ct_edit_delete" : "ct_urgent", nullptr, _pAccelGroup, filepath.c_str(), nullptr, nullptr, nullptr);
         pMenuItem->signal_activate().connect(sigc::bind(recent_doc_rm_action, filepath.string()));
-    }
-    return pMenu;
-}
-
-Gtk::Menu* CtMenu::build_special_chars_menu(const Glib::ustring& specialChars, sigc::slot<void, gunichar>& spec_char_action)
-{
-    Gtk::Menu* pMenu = Gtk::manage(new Gtk::Menu());
-    for (gunichar ch : specialChars)
-    {
-        Glib::ustring name = Glib::ustring(1, ch);
-        Gtk::MenuItem* pMenuItem = _add_menu_item(pMenu, name.c_str(), nullptr, nullptr, _pAccelGroup, name.c_str(), nullptr, nullptr, nullptr);
-        pMenuItem->signal_activate().connect(sigc::bind(spec_char_action, ch));
     }
     return pMenu;
 }
@@ -813,8 +801,7 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='handle_anchor'/>
     <menuitem action='insert_toc'/>
     <menuitem action='insert_timestamp'/>
-    <menu action='SpecialCharsMenu'>
-    </menu>
+    <menuitem action='insert_special_char'/>
     <menuitem action='insert_horiz_rule'/>
     <menuitem action='strip_trail_spaces'/>
     <separator/>
@@ -1062,6 +1049,7 @@ const char* CtMenu::_get_popup_menu_ui_str_text()
     <menuitem action='handle_anchor'/>
     <menuitem action='insert_toc'/>
     <menuitem action='insert_timestamp'/>
+    <menuitem action='insert_special_char'/>
     <menuitem action='insert_horiz_rule'/>
   </menu>
   <menu _name='C_hange Case' image='ct_case_toggle'>
@@ -1114,6 +1102,7 @@ const char* CtMenu::_get_popup_menu_ui_str_code()
   <menuitem action='exec_code'/>
   <menu _name='_Insert' image='ct_insert'>
     <menuitem action='insert_timestamp'/>
+    <menuitem action='insert_special_char'/>
     <menuitem action='insert_horiz_rule'/>
   </menu>
   <menuitem action='strip_trail_spaces'/>

@@ -347,10 +347,8 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     textview_special_chars->get_buffer()->signal_changed().connect([this, pConfig, textview_special_chars](){
         Glib::ustring new_special_chars = textview_special_chars->get_buffer()->get_text();
         new_special_chars = str::replace(new_special_chars, CtConst::CHAR_NEWLINE, "");
-        if ((pConfig->specialChars.item()) != new_special_chars)
-        {
+        if (pConfig->specialChars.item() != new_special_chars) {
             pConfig->specialChars = new_special_chars;
-            apply_for_each_window([](CtMainWin* win) { win->menu_set_items_special_chars(); });
         }
     });
     button_reset->signal_clicked().connect([this, textview_special_chars](){

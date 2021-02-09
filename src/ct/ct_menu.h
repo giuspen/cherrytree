@@ -1,7 +1,7 @@
 /*
  * ct_menu.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -84,8 +84,6 @@ public:
     Gtk::Menu*                 build_recent_docs_menu(const CtRecentDocsFilepaths& recentDocsFilepaths,
                                                       sigc::slot<void, const std::string&>& recent_doc_open_action,
                                                       sigc::slot<void, const std::string&>& recent_doc_rm_action);
-    Gtk::Menu*                 build_special_chars_menu(const Glib::ustring& specialChars,
-                                                        sigc::slot<void, gunichar>& spec_char_action);
 
     Gtk::Menu*                 get_popup_menu(POPUP_MENU_TYPE popupMenuType);
     void                       build_popup_menu(Gtk::Menu* pMenu, POPUP_MENU_TYPE popupMenuType);

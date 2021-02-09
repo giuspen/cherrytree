@@ -29,15 +29,6 @@
 #include "ct_storage_control.h"
 #include <gtkmm/dialog.h>
 
-// A Special character insert was Requested
-void CtActions::insert_spec_char_action(gunichar ch)
-{
-    auto proof = _get_text_view_n_buffer_codebox_proof();
-    if (not proof.text_buffer) return;
-    if (not _is_curr_node_not_read_only_or_error()) return;
-    proof.text_buffer->insert_at_cursor(Glib::ustring(1, ch));
-}
-
 // Step Back for the Current Node, if Possible
 void CtActions::requested_step_back()
 {
@@ -414,6 +405,23 @@ void CtActions::timestamp_insert()
     time_t time = std::time(nullptr);
     Glib::ustring timestamp = str::time_format(_pCtMainWin->get_ct_config()->timestampFormat, time);
     proof.text_buffer->insert_at_cursor(timestamp);
+}
+
+void CtActions::special_char_insert()
+{
+    if (not _is_curr_node_not_read_only_or_error()) return;
+
+    text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
+    if (not proof.text_buffer) return;
+
+    auto itemStore = CtChooseDialogListStore::create();
+    for (gunichar ch : _pCtMainWin->get_ct_config()->specialChars.item()) {
+        itemStore->add_row("", "", Glib::ustring{1, ch});
+    }
+    const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(*_pCtMainWin, _("Insert a Special Character"), itemStore);
+    if (treeIter) {
+        proof.text_buffer->insert_at_cursor(treeIter->get_value(itemStore->columns.desc));
+    }
 }
 
 // Insert a Horizontal Line

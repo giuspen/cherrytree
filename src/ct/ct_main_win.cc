@@ -84,7 +84,6 @@ CtMainWin::CtMainWin(bool             no_gui,
     _pMenuBar->set_name("MenuBar");
     _pBookmarksSubmenu = CtMenu::find_menu_item(_pMenuBar, "BookmarksMenu");
     _pRecentDocsSubmenu = CtMenu::find_menu_item(_pMenuBar, "RecentDocsMenu");
-    _pSpecialCharsSubmenu = CtMenu::find_menu_item(_pMenuBar, "SpecialCharsMenu");
     _pMenuBar->show_all();
     add_accel_group(_uCtMenu->get_accel_group());
     _pToolbars = _uCtMenu->build_toolbars(_pRecentDocsMenuToolButton);
@@ -125,7 +124,6 @@ CtMainWin::CtMainWin(bool             no_gui,
     config_apply();
 
     menu_set_items_recent_documents();
-    menu_set_items_special_chars();
     _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(false);
 
     if (_no_gui) {
@@ -882,12 +880,6 @@ void CtMainWin::menu_set_items_recent_documents()
                                                                                recent_doc_open_action,
                                                                                recent_doc_rm_action));
     }
-}
-
-void CtMainWin::menu_set_items_special_chars()
-{
-    sigc::slot<void, gunichar> spec_char_action = sigc::mem_fun(*_uCtActions, &CtActions::insert_spec_char_action);
-    _pSpecialCharsSubmenu->set_submenu(*_uCtMenu->build_special_chars_menu(_pCtConfig->specialChars.item(), spec_char_action));
 }
 
 void CtMainWin::menu_set_visible_exit_app(bool visible)

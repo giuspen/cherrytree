@@ -319,7 +319,6 @@ private:
 
 public:
     // edit actions
-    void insert_spec_char_action(gunichar ch);
     void requested_step_back();
     void requested_step_ahead();
     void image_handle();
@@ -330,6 +329,7 @@ public:
     void anchor_handle();
     void toc_insert();
     void timestamp_insert();
+    void special_char_insert();
     void horizontal_rule_insert();
     void text_selection_lower_case();
     void text_selection_upper_case();

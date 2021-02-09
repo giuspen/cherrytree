@@ -1,7 +1,7 @@
 /*
  * ct_main_win.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -171,7 +171,6 @@ public:
     void menu_set_bookmark_menu_items();
 
     void menu_set_items_recent_documents();
-    void menu_set_items_special_chars();
     void menu_set_visible_exit_app(bool visible);
     void menu_rebuild_toolbars(bool new_toolbar);
 
@@ -250,7 +249,6 @@ private:
     CtStatusBar                  _ctStatusBar;
     CtWinHeader                  _ctWinHeader;
     Gtk::MenuItem*               _pBookmarksSubmenu{nullptr};
-    Gtk::MenuItem*               _pSpecialCharsSubmenu{nullptr};
     Gtk::MenuItem*               _pRecentDocsSubmenu{nullptr};
     Gtk::MenuToolButton*         _pRecentDocsMenuToolButton{nullptr};
     Gtk::ScrolledWindow          _scrolledwindowTree;
