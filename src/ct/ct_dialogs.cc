@@ -1,7 +1,7 @@
 /*
  * ct_dialogs.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -202,7 +202,7 @@ CtDialogs::CtPickDlgState CtDialogs::color_pick_dialog(CtMainWin* pCtMainWin,
                                                        Gdk::RGBA& ret_color,
                                                        bool allow_remove_color)
 {
-    Gtk::ColorChooserDialog dialog(title);
+    Gtk::ColorChooserDialog dialog{title};
     dialog.set_transient_for(*pCtMainWin);
     dialog.set_modal(true);
     dialog.property_destroy_with_parent() = true;
@@ -212,15 +212,13 @@ CtDialogs::CtPickDlgState CtDialogs::color_pick_dialog(CtMainWin* pCtMainWin,
     }
     std::vector<std::string> colors = str::split(pCtMainWin->get_ct_config()->colorPalette, ":");
     std::vector<Gdk::RGBA> rgbas;
-    for (const std::string& color : colors)
-    {
+    for (const std::string& color : colors) {
         rgbas.push_back(Gdk::RGBA(color));
     }
     dialog.add_palette(Gtk::Orientation::ORIENTATION_HORIZONTAL, 10, rgbas);
     dialog.set_rgba(ret_color);
 
-    auto on_key_press_dialog = [&](GdkEventKey *pEventKey)->bool
-    {
+    auto on_key_press_dialog = [&](GdkEventKey *pEventKey)->bool{
         if (GDK_KEY_Return == pEventKey->keyval) {
             Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_OK));
             pButton->grab_focus();
@@ -241,10 +239,11 @@ CtDialogs::CtPickDlgState CtDialogs::color_pick_dialog(CtMainWin* pCtMainWin,
     }
     ret_color = dialog.get_rgba();
     std::string ret_color_hex8 = CtRgbUtil::rgb_any_to_24(ret_color);
-    size_t color_qty = colors.size();
-    colors.erase(std::find(colors.begin(), colors.end(), ret_color_hex8));
-    if (color_qty == colors.size())
-    {
+    auto it = std::find(colors.begin(), colors.end(), ret_color_hex8);
+    if (it != colors.end()) {
+        colors.erase(it);
+    }
+    else {
         colors.pop_back();
     }
     colors.insert(colors.begin(), ret_color_hex8);
@@ -1934,7 +1933,7 @@ void CtDialogs::dialog_about(Gtk::Window& parent, Glib::RefPtr<Gdk::Pixbuf> icon
     auto dialog = Gtk::AboutDialog();
     dialog.set_program_name("CherryTree");
     dialog.set_version(CtConst::CT_VERSION);
-    dialog.set_copyright("Copyright © 2009-2020\n"
+    dialog.set_copyright("Copyright © 2009-2021\n"
                          "Giuseppe Penone <giuspen@gmail.com>\n"
                          "Evgenii Gurianov <https://github.com/txe>");
     dialog.set_comments(_("A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting"));
