@@ -47,6 +47,15 @@ set(CT_SHARED_FILES
   ct_misc_utils.cc
   ct_p7za_iface.cc
   ct_pref_dlg.cc
+  ct_pref_dlg_kb_shortcuts.cc
+  ct_pref_dlg_misc.cc
+  ct_pref_dlg_plain_text_n_code.cc
+  ct_pref_dlg_rich_text.cc
+  ct_pref_dlg_special_chars.cc
+  ct_pref_dlg_text_n_code.cc
+  ct_pref_dlg_theme.cc
+  ct_pref_dlg_toolbar.cc
+  ct_pref_dlg_tree.cc
   ct_state_machine.cc
   ct_storage_control.cc
   ct_storage_sqlite.cc

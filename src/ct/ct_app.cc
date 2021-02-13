@@ -66,7 +66,7 @@ void CtApp::_on_startup()
             spdlog::warn("Could not create config directory: {}", config_dir.c_str());
         }
     }
-    _uCtCfg.reset(new CtConfig());
+    _uCtCfg.reset(new CtConfig{});
     //std::cout << _uCtCfg->specialChars.size() << "\t" << _uCtCfg->specialChars << std::endl;
 
     const fs::path user_dir_icons = config_dir / "icons";
@@ -75,21 +75,25 @@ void CtApp::_on_startup()
     _rIcontheme->add_resource_path("/icons/");
     //_print_gresource_icons();
 
-    _uCtTmp.reset(new CtTmp());
+    _uCtTmp.reset(new CtTmp{});
     //std::cout << _uCtTmp->get_root_dirpath() << std::endl;
 
     _rTextTagTable = Gtk::TextTagTable::create();
 
     _rLanguageManager = Gsv::LanguageManager::create();
     std::vector<std::string> langSearchPath = _rLanguageManager->get_search_path();
-    fs::path ctLanguagesSpecsPath = fs::get_cherrytree_datadir() / "language-specs";
-    langSearchPath.push_back(ctLanguagesSpecsPath.string());
+    fs::path ctLanguageSpecsData = fs::get_cherrytree_datadir() / "language-specs";
+    langSearchPath.push_back(ctLanguageSpecsData.string());
+    fs::path ctLanguageSpecsConfig = config_dir / "language-specs";
+    langSearchPath.push_back(ctLanguageSpecsConfig.string());
     _rLanguageManager->set_search_path(langSearchPath);
 
     _rStyleSchemeManager = Gsv::StyleSchemeManager::create();
     std::vector<std::string> styleSearchPath = _rStyleSchemeManager->get_search_path();
-    fs::path ctStylesPath = fs::get_cherrytree_datadir() / "styles";
-    styleSearchPath.push_back(ctStylesPath.string());
+    fs::path ctStylesData = fs::get_cherrytree_datadir() / "styles";
+    styleSearchPath.push_back(ctStylesData.string());
+    fs::path ctStylesConfig = config_dir / "styles";
+    styleSearchPath.push_back(ctStylesConfig.string());
     _rStyleSchemeManager->set_search_path(styleSearchPath);
 
     _rCssProvider = Gtk::CssProvider::create();

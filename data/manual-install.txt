@@ -12,7 +12,6 @@
 6. copy only the directories (ru, it,...) and their content from the po directory into /usr/share/locale
 
 7. the mime type registration requires furthermore:
-- cherrytree.xml to /usr/share/mime/packages
 - cherrytree.mime and cherrytree.keys to /usr/share/mime-info
 - cherrytree.applications to /usr/share/application-registry
 
