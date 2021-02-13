@@ -51,20 +51,17 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     vbox_tt_theme->pack_start(*hbox_tt_col_custom, false, false);
     Gtk::Frame* frame_tt_theme = new_managed_frame_with_align(_("Tree"), vbox_tt_theme);
 
-    if (pConfig->ttDefFg == CtConst::TREE_TEXT_DARK_FG && pConfig->ttDefBg == CtConst::TREE_TEXT_DARK_BG)
-    {
+    if (pConfig->ttDefFg == CtConst::TREE_TEXT_DARK_FG && pConfig->ttDefBg == CtConst::TREE_TEXT_DARK_BG) {
         radiobutton_tt_col_dark->set_active(true);
         colorbutton_tree_fg->set_sensitive(false);
         colorbutton_tree_bg->set_sensitive(false);
     }
-    else if (pConfig->ttDefFg == CtConst::TREE_TEXT_LIGHT_FG && pConfig->ttDefBg == CtConst::TREE_TEXT_LIGHT_BG)
-    {
+    else if (pConfig->ttDefFg == CtConst::TREE_TEXT_LIGHT_FG && pConfig->ttDefBg == CtConst::TREE_TEXT_LIGHT_BG) {
         radiobutton_tt_col_light->set_active(true);
         colorbutton_tree_fg->set_sensitive(false);
         colorbutton_tree_bg->set_sensitive(false);
     }
-    else
-    {
+    else {
         radiobutton_tt_col_custom->set_active(true);
     }
 
@@ -128,6 +125,11 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     vbox_ta_theme->pack_start(*hbox_style_scheme_ta, false, false);
     Gtk::Frame* frame_ta_theme = new_managed_frame_with_align(_("Table"), vbox_ta_theme);
 
+    // Theme Editor
+    auto grid_theme_editor = Gtk::manage(new Gtk::Grid{});
+
+    Gtk::Frame* frame_theme_editor = new_managed_frame_with_align(_("Style Scheme Editor"), grid_theme_editor);
+
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
     pMainBox->set_spacing(3);
     pMainBox->set_margin_left(6);
@@ -136,6 +138,7 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     pMainBox->pack_start(*frame_rt_theme, false, false);
     pMainBox->pack_start(*frame_pt_theme, false, false);
     pMainBox->pack_start(*frame_ta_theme, false, false);
+    pMainBox->pack_start(*frame_theme_editor, false, false);
 
     auto update_tree_color = [this, pConfig, colorbutton_tree_fg, colorbutton_tree_bg]() {
         pConfig->ttDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_fg->get_rgba());

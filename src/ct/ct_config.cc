@@ -1,7 +1,7 @@
 /*
  * ct_config.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -315,6 +315,14 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_string(_currentGroup, "col_link_node", colLinkNode);
     _uKeyFile->set_string(_currentGroup, "col_link_file", colLinkFile);
     _uKeyFile->set_string(_currentGroup, "col_link_fold", colLinkFold);
+    _uKeyFile->set_string(_currentGroup, "style_text_fg", userStyleTextFg);
+    _uKeyFile->set_string(_currentGroup, "style_text_bg", userStyleTextBg);
+    _uKeyFile->set_string(_currentGroup, "style_sel_fg", userStyleSelectionFg);
+    _uKeyFile->set_string(_currentGroup, "style_sel_bg", userStyleSelectionBg);
+    _uKeyFile->set_string(_currentGroup, "style_cusor", userStyleCursor);
+    _uKeyFile->set_string(_currentGroup, "style_curr_line", userStyleCurrentLine);
+    _uKeyFile->set_string(_currentGroup, "style_linenum_fg", userStyleLineNumbersFg);
+    _uKeyFile->set_string(_currentGroup, "style_linenum_bg", userStyleLineNumbersBg);
 
     // [misc]
     _currentGroup = "misc";
@@ -595,6 +603,14 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_string_from_keyfile("col_link_node", &colLinkNode);
     _populate_string_from_keyfile("col_link_file", &colLinkFile);
     _populate_string_from_keyfile("col_link_fold", &colLinkFold);
+    _populate_string_from_keyfile("style_text_fg", &userStyleTextFg);
+    _populate_string_from_keyfile("style_text_bg", &userStyleTextBg);
+    _populate_string_from_keyfile("style_sel_fg", &userStyleSelectionFg);
+    _populate_string_from_keyfile("style_sel_bg", &userStyleSelectionBg);
+    _populate_string_from_keyfile("style_cusor", &userStyleCursor);
+    _populate_string_from_keyfile("style_curr_line", &userStyleCurrentLine);
+    _populate_string_from_keyfile("style_linenum_fg", &userStyleLineNumbersFg);
+    _populate_string_from_keyfile("style_linenum_bg", &userStyleLineNumbersBg);
 
     // [misc]
     _currentGroup = "misc";

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
  Copyright (C) 2006-2007 Will Farrington <wcfarrington@gmail.com>
- Copyright (C) 2020 Giuseppe Penone <giuspen@gmail.com>
+ Copyright (C) 2020-2021 Giuseppe Penone <giuspen@gmail.com>
 
  Free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -54,6 +54,7 @@
   <style name="selection"                   foreground="white" background="sky_blue"/>
   <style name="cursor"                      foreground="white"/>
   <style name="current-line"                background="medium_blue"/>
+  <style name="current-line-number"         background="medium_blue"/>
   <style name="line-numbers"                foreground="bluish_grey" background="black_blue"/>
   <style name="draw-spaces"                 foreground="bluish_grey"/>
   <style name="right-margin"                foreground="light_grey" background="light_grey"/>

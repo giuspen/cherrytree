@@ -1,7 +1,7 @@
 /*
  * ct_config.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -171,6 +171,14 @@ public:
     std::string                                 colLinkNode{CtConst::COLOR_48_LINK_NODE};
     std::string                                 colLinkFile{CtConst::COLOR_48_LINK_FILE};
     std::string                                 colLinkFold{CtConst::COLOR_48_LINK_FOLD};
+    std::string                                 userStyleTextFg{CtConst::COLOR_24_WHITE};
+    std::string                                 userStyleTextBg{CtConst::COLOR_24_BLACK};
+    std::string                                 userStyleSelectionFg{CtConst::COLOR_24_WHITE};
+    std::string                                 userStyleSelectionBg{"#0088ff"};
+    std::string                                 userStyleCursor{CtConst::COLOR_24_WHITE};
+    std::string                                 userStyleCurrentLine{"#003b70"};
+    std::string                                 userStyleLineNumbersFg{"#777777"};
+    std::string                                 userStyleLineNumbersBg{"#000d1a"};
 
     // [misc]
     std::string                                 toolbarUiList{CtConst::TOOLBAR_VEC_DEFAULT};
