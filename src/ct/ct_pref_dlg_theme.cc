@@ -164,9 +164,22 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
 
     Gtk::Frame* frame_theme_editor = new_managed_frame_with_align(_("Style Scheme Editor"), pGridThemeEditor);
 
-    auto f_onUserStyleChanged = [this, pConfig](){
+    auto f_onUserStyleChanged = [this,
+                                 pConfig,
+                                 combobox_style_scheme_rt,
+                                 combobox_style_scheme_pt,
+                                 combobox_style_scheme_ta](){
         pConfig->update_user_style();
         _pCtMainWin->get_style_scheme_manager()->force_rescan();
+        if (combobox_style_scheme_rt->get_active_text() == "user-style") {
+            apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('r'/*RichText*/); });
+        }
+        if (combobox_style_scheme_pt->get_active_text() == "user-style") {
+            apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('p'/*PlainTextNCode*/); });
+        }
+        if (combobox_style_scheme_ta->get_active_text() == "user-style") {
+            apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('t'/*Table*/); });
+        }
     };
     pColorButtonTextFg->signal_color_set().connect([pColorButtonTextFg, pConfig, f_onUserStyleChanged](){
         pConfig->userStyleTextFg = CtRgbUtil::rgb_any_to_24(pColorButtonTextFg->get_rgba());
