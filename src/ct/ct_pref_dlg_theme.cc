@@ -91,12 +91,12 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     vbox_rt_theme->pack_start(*hbox_monospace_bg, false, false);
     Gtk::Frame* frame_rt_theme = new_managed_frame_with_align(_("Rich Text"), vbox_rt_theme);
 
-    // Plain Text and Code Theme
+    // Plain Text Theme
     auto vbox_pt_theme = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
 
     auto hbox_style_scheme_pt = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     auto label_style_scheme_pt = Gtk::manage(new Gtk::Label{_("Style Scheme")});
-    auto combobox_style_scheme_pt = Gtk::manage(new Gtk::ComboBoxText());
+    auto combobox_style_scheme_pt = Gtk::manage(new Gtk::ComboBoxText{});
     for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids()) {
         combobox_style_scheme_pt->append(scheme);
     }
@@ -105,14 +105,14 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     hbox_style_scheme_pt->pack_start(*combobox_style_scheme_pt, false, false);
 
     vbox_pt_theme->pack_start(*hbox_style_scheme_pt, false, false);
-    Gtk::Frame* frame_pt_theme = new_managed_frame_with_align(_("Plain Text and Code"), vbox_pt_theme);
+    Gtk::Frame* frame_pt_theme = new_managed_frame_with_align(_("Plain Text"), vbox_pt_theme);
 
     // Table Theme
     auto vbox_ta_theme = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
 
     auto hbox_style_scheme_ta = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     auto label_style_scheme_ta = Gtk::manage(new Gtk::Label{_("Style Scheme")});
-    auto combobox_style_scheme_ta = Gtk::manage(new Gtk::ComboBoxText());
+    auto combobox_style_scheme_ta = Gtk::manage(new Gtk::ComboBoxText{});
     for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids()) {
         combobox_style_scheme_ta->append(scheme);
     }
@@ -122,6 +122,24 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
 
     vbox_ta_theme->pack_start(*hbox_style_scheme_ta, false, false);
     Gtk::Frame* frame_ta_theme = new_managed_frame_with_align(_("Table"), vbox_ta_theme);
+
+    // Code Theme
+    auto vbox_co_theme = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+
+    auto hbox_style_scheme_co = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_style_scheme_co = Gtk::manage(new Gtk::Label{_("Style Scheme")});
+    auto combobox_style_scheme_co = Gtk::manage(new Gtk::ComboBoxText{});
+    for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids()) {
+        if (scheme != "user-style") {
+            combobox_style_scheme_co->append(scheme);
+        }
+    }
+    combobox_style_scheme_co->set_active_text(pConfig->coStyleScheme);
+    hbox_style_scheme_co->pack_start(*label_style_scheme_co, false, false);
+    hbox_style_scheme_co->pack_start(*combobox_style_scheme_co, false, false);
+
+    vbox_co_theme->pack_start(*hbox_style_scheme_co, false, false);
+    Gtk::Frame* frame_co_theme = new_managed_frame_with_align(_("Code"), vbox_co_theme);
 
     // Theme Editor
     auto pGridThemeEditor = Gtk::manage(new Gtk::Grid{});
@@ -221,6 +239,7 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     pVBoxMain->pack_start(*frame_rt_theme, false, false);
     pVBoxMain->pack_start(*frame_pt_theme, false, false);
     pVBoxMain->pack_start(*frame_ta_theme, false, false);
+    pVBoxMain->pack_start(*frame_co_theme, false, false);
     pVBoxMain->pack_start(*frame_theme_editor, false, false);
 
     auto update_tree_color = [this, pConfig, colorbutton_tree_fg, colorbutton_tree_bg]() {
@@ -291,6 +310,11 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     combobox_style_scheme_ta->signal_changed().connect([this, pConfig, combobox_style_scheme_ta](){
         pConfig->taStyleScheme = combobox_style_scheme_ta->get_active_text();
         apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('t'/*Table*/); });
+    });
+
+    combobox_style_scheme_co->signal_changed().connect([this, pConfig, combobox_style_scheme_co](){
+        pConfig->coStyleScheme = combobox_style_scheme_co->get_active_text();
+        apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('p'/*PlainTextNCode*/); });
     });
 
     return pVBoxMain;

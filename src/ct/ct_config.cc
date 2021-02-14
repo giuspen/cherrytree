@@ -232,6 +232,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_string(_currentGroup, "rt_style_scheme", rtStyleScheme);
     _uKeyFile->set_string(_currentGroup, "pt_style_scheme", ptStyleScheme);
     _uKeyFile->set_string(_currentGroup, "ta_style_scheme", taStyleScheme);
+    _uKeyFile->set_string(_currentGroup, "co_style_scheme", coStyleScheme);
     _uKeyFile->set_boolean(_currentGroup, "enable_spell_check", enableSpellCheck);
     _uKeyFile->set_string(_currentGroup, "spell_check_lang", spellCheckLang);
     _uKeyFile->set_boolean(_currentGroup, "show_line_numbers", showLineNumbers);
@@ -503,6 +504,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_string_from_keyfile("rt_style_scheme", &rtStyleScheme);
     _populate_string_from_keyfile("pt_style_scheme", &ptStyleScheme);
     _populate_string_from_keyfile("ta_style_scheme", &taStyleScheme);
+    _populate_string_from_keyfile("co_style_scheme", &coStyleScheme);
     if (_populate_bool_from_keyfile("enable_spell_check", &enableSpellCheck))
     {
         _populate_string_from_keyfile("spell_check_lang", &spellCheckLang);

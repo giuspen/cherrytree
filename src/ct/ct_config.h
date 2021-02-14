@@ -84,6 +84,7 @@ public:
     std::string                                 rtStyleScheme{CtConst::STYLE_SCHEME_DARK};
     std::string                                 ptStyleScheme{CtConst::STYLE_SCHEME_DARK};
     std::string                                 taStyleScheme{CtConst::STYLE_SCHEME_LIGHT};
+    std::string                                 coStyleScheme{CtConst::STYLE_SCHEME_DARK};
     bool                                        enableSpellCheck{false};
     std::string                                 spellCheckLang;
     bool                                        showLineNumbers{false};

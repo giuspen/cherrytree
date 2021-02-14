@@ -164,30 +164,28 @@ Gtk::Image* CtMainWin::new_image_from_stock(const std::string& stockImage, Gtk::
     return image;
 }
 
-void CtMainWin::apply_syntax_highlighting(Glib::RefPtr<Gsv::Buffer> text_buffer, const std::string& syntax, const bool forceReApply)
+void CtMainWin::apply_syntax_highlighting(Glib::RefPtr<Gsv::Buffer> text_buffer,
+                                          const std::string& syntax,
+                                          const bool forceReApply)
 {
     if (not forceReApply and text_buffer->get_data(CtConst::STYLE_APPLIED_ID)) {
         return;
     }
-    if (CtConst::TABLE_CELL_TEXT_ID == syntax)
-    {
+    if (CtConst::TABLE_CELL_TEXT_ID == syntax) {
         text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(_pCtConfig->taStyleScheme));
         text_buffer->set_highlight_matching_brackets(_pCtConfig->rtHighlMatchBra);
     }
-    else if (CtConst::RICH_TEXT_ID == syntax)
-    {
+    else if (CtConst::RICH_TEXT_ID == syntax) {
         text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(_pCtConfig->rtStyleScheme));
         text_buffer->set_highlight_matching_brackets(_pCtConfig->rtHighlMatchBra);
     }
-    else
-    {
-        text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(_pCtConfig->ptStyleScheme));
-        if (CtConst::PLAIN_TEXT_ID == syntax)
-        {
+    else {
+        if (CtConst::PLAIN_TEXT_ID == syntax) {
+            text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(_pCtConfig->ptStyleScheme));
             text_buffer->set_highlight_syntax(false);
         }
-        else
-        {
+        else {
+            text_buffer->set_style_scheme(_pGsvStyleSchemeManager->get_scheme(_pCtConfig->coStyleScheme));
             text_buffer->set_language(_pGsvLanguageManager->get_language(syntax));
             text_buffer->set_highlight_syntax(true);
         }
