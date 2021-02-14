@@ -320,7 +320,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_string(_currentGroup, "style_sel_fg", userStyleSelectionFg);
     _uKeyFile->set_string(_currentGroup, "style_sel_bg", userStyleSelectionBg);
     _uKeyFile->set_string(_currentGroup, "style_cusor", userStyleCursor);
-    _uKeyFile->set_string(_currentGroup, "style_curr_line", userStyleCurrentLine);
+    _uKeyFile->set_string(_currentGroup, "style_curr_line_bg", userStyleCurrentLineBg);
     _uKeyFile->set_string(_currentGroup, "style_linenum_fg", userStyleLineNumbersFg);
     _uKeyFile->set_string(_currentGroup, "style_linenum_bg", userStyleLineNumbersBg);
 
@@ -608,7 +608,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_string_from_keyfile("style_sel_fg", &userStyleSelectionFg);
     _populate_string_from_keyfile("style_sel_bg", &userStyleSelectionBg);
     _populate_string_from_keyfile("style_cusor", &userStyleCursor);
-    _populate_string_from_keyfile("style_curr_line", &userStyleCurrentLine);
+    _populate_string_from_keyfile("style_curr_line_bg", &userStyleCurrentLineBg);
     _populate_string_from_keyfile("style_linenum_fg", &userStyleLineNumbersFg);
     _populate_string_from_keyfile("style_linenum_bg", &userStyleLineNumbersBg);
 

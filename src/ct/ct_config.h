@@ -176,7 +176,7 @@ public:
     std::string                                 userStyleSelectionFg{CtConst::COLOR_24_WHITE};
     std::string                                 userStyleSelectionBg{"#0088ff"};
     std::string                                 userStyleCursor{CtConst::COLOR_24_WHITE};
-    std::string                                 userStyleCurrentLine{"#003b70"};
+    std::string                                 userStyleCurrentLineBg{"#003b70"};
     std::string                                 userStyleLineNumbersFg{"#777777"};
     std::string                                 userStyleLineNumbersBg{"#000d1a"};
 

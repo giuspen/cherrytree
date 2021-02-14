@@ -29,18 +29,17 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     CtConfig* pConfig = _pCtMainWin->get_ct_config();
 
     // Tree Theme
-    Gtk::Box* vbox_tt_theme = Gtk::manage(new Gtk::VBox());
+    auto vbox_tt_theme = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
 
-    Gtk::RadioButton* radiobutton_tt_col_light = Gtk::manage(new Gtk::RadioButton(_("Light Background, Dark Text")));
-    Gtk::RadioButton* radiobutton_tt_col_dark = Gtk::manage(new Gtk::RadioButton(_("Dark Background, Light Text")));
+    auto radiobutton_tt_col_light = Gtk::manage(new Gtk::RadioButton{_("Light Background, Dark Text")});
+    auto radiobutton_tt_col_dark = Gtk::manage(new Gtk::RadioButton{_("Dark Background, Light Text")});
     radiobutton_tt_col_dark->join_group(*radiobutton_tt_col_light);
-    Gtk::RadioButton* radiobutton_tt_col_custom = Gtk::manage(new Gtk::RadioButton(_("Custom Background")));
+    auto radiobutton_tt_col_custom = Gtk::manage(new Gtk::RadioButton{_("Custom Background")});
     radiobutton_tt_col_custom->join_group(*radiobutton_tt_col_light);
-    Gtk::HBox* hbox_tt_col_custom = Gtk::manage(new Gtk::HBox());
-    hbox_tt_col_custom->set_spacing(4);
-    Gtk::ColorButton* colorbutton_tree_bg = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(pConfig->ttDefBg)));
-    Gtk::Label* label_tt_col_custom = Gtk::manage(new Gtk::Label(_("and Text")));
-    Gtk::ColorButton* colorbutton_tree_fg = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(pConfig->ttDefFg)));
+    auto hbox_tt_col_custom = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto colorbutton_tree_bg = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA{pConfig->ttDefBg}));
+    auto label_tt_col_custom = Gtk::manage(new Gtk::Label{_("and Text")});
+    auto colorbutton_tree_fg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->ttDefFg}});
     hbox_tt_col_custom->pack_start(*radiobutton_tt_col_custom, false, false);
     hbox_tt_col_custom->pack_start(*colorbutton_tree_bg, false, false);
     hbox_tt_col_custom->pack_start(*label_tt_col_custom, false, false);
@@ -66,23 +65,22 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     }
 
     // Rich Text Theme
-    Gtk::VBox* vbox_rt_theme = Gtk::manage(new Gtk::VBox());
+    auto vbox_rt_theme = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
 
-    Gtk::HBox* hbox_style_scheme_rt = Gtk::manage(new Gtk::HBox());
-    hbox_style_scheme_rt->set_spacing(4);
-    Gtk::Label* label_style_scheme_rt = Gtk::manage(new Gtk::Label(_("Style Scheme")));
-    Gtk::ComboBoxText* combobox_style_scheme_rt = Gtk::manage(new Gtk::ComboBoxText());
-    for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids())
+    auto hbox_style_scheme_rt = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_style_scheme_rt = Gtk::manage(new Gtk::Label{_("Style Scheme")});
+    auto combobox_style_scheme_rt = Gtk::manage(new Gtk::ComboBoxText{});
+    for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids()) {
         combobox_style_scheme_rt->append(scheme);
+    }
     combobox_style_scheme_rt->set_active_text(pConfig->rtStyleScheme);
     hbox_style_scheme_rt->pack_start(*label_style_scheme_rt, false, false);
     hbox_style_scheme_rt->pack_start(*combobox_style_scheme_rt, false, false);
 
-    Gtk::CheckButton* checkbutton_monospace_bg = Gtk::manage(new Gtk::CheckButton(_("Monospace Background")));
+    auto checkbutton_monospace_bg = Gtk::manage(new Gtk::CheckButton{_("Monospace Background")});
     std::string mono_color = pConfig->monospaceBg.empty() ? CtConst::DEFAULT_MONOSPACE_BG : pConfig->monospaceBg;
-    Gtk::ColorButton* colorbutton_monospace_bg = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(mono_color)));
-    Gtk::HBox* hbox_monospace_bg = Gtk::manage(new Gtk::HBox());
-    hbox_monospace_bg->set_spacing(4);
+    auto colorbutton_monospace_bg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{mono_color}});
+    auto hbox_monospace_bg = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     hbox_monospace_bg->pack_start(*checkbutton_monospace_bg, false, false);
     hbox_monospace_bg->pack_start(*colorbutton_monospace_bg, false, false);
 
@@ -94,14 +92,14 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     Gtk::Frame* frame_rt_theme = new_managed_frame_with_align(_("Rich Text"), vbox_rt_theme);
 
     // Plain Text and Code Theme
-    Gtk::VBox* vbox_pt_theme = Gtk::manage(new Gtk::VBox());
+    auto vbox_pt_theme = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
 
-    Gtk::HBox* hbox_style_scheme_pt = Gtk::manage(new Gtk::HBox());
-    hbox_style_scheme_pt->set_spacing(4);
-    Gtk::Label* label_style_scheme_pt = Gtk::manage(new Gtk::Label(_("Style Scheme")));
-    Gtk::ComboBoxText* combobox_style_scheme_pt = Gtk::manage(new Gtk::ComboBoxText());
-    for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids())
+    auto hbox_style_scheme_pt = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_style_scheme_pt = Gtk::manage(new Gtk::Label{_("Style Scheme")});
+    auto combobox_style_scheme_pt = Gtk::manage(new Gtk::ComboBoxText());
+    for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids()) {
         combobox_style_scheme_pt->append(scheme);
+    }
     combobox_style_scheme_pt->set_active_text(pConfig->ptStyleScheme);
     hbox_style_scheme_pt->pack_start(*label_style_scheme_pt, false, false);
     hbox_style_scheme_pt->pack_start(*combobox_style_scheme_pt, false, false);
@@ -110,14 +108,14 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     Gtk::Frame* frame_pt_theme = new_managed_frame_with_align(_("Plain Text and Code"), vbox_pt_theme);
 
     // Table Theme
-    Gtk::VBox* vbox_ta_theme = Gtk::manage(new Gtk::VBox());
+    auto vbox_ta_theme = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
 
-    Gtk::HBox* hbox_style_scheme_ta = Gtk::manage(new Gtk::HBox());
-    hbox_style_scheme_ta->set_spacing(4);
-    Gtk::Label* label_style_scheme_ta = Gtk::manage(new Gtk::Label(_("Style Scheme")));
-    Gtk::ComboBoxText* combobox_style_scheme_ta = Gtk::manage(new Gtk::ComboBoxText());
-    for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids())
+    auto hbox_style_scheme_ta = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_style_scheme_ta = Gtk::manage(new Gtk::Label{_("Style Scheme")});
+    auto combobox_style_scheme_ta = Gtk::manage(new Gtk::ComboBoxText());
+    for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids()) {
         combobox_style_scheme_ta->append(scheme);
+    }
     combobox_style_scheme_ta->set_active_text(pConfig->taStyleScheme);
     hbox_style_scheme_ta->pack_start(*label_style_scheme_ta, false, false);
     hbox_style_scheme_ta->pack_start(*combobox_style_scheme_ta, false, false);
@@ -126,19 +124,79 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     Gtk::Frame* frame_ta_theme = new_managed_frame_with_align(_("Table"), vbox_ta_theme);
 
     // Theme Editor
-    auto grid_theme_editor = Gtk::manage(new Gtk::Grid{});
+    auto pGridThemeEditor = Gtk::manage(new Gtk::Grid{});
+    pGridThemeEditor->set_row_homogeneous(true);
+    pGridThemeEditor->set_column_spacing(4);
 
-    Gtk::Frame* frame_theme_editor = new_managed_frame_with_align(_("Style Scheme Editor"), grid_theme_editor);
+    auto pLabelTextFg = Gtk::manage(new Gtk::Label{_("Text Foreground")});
+    auto pColorButtonTextFg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleTextFg}});
+    auto pLabelTextBg = Gtk::manage(new Gtk::Label{_("Text Background")});
+    auto pColorButtonTextBg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleTextBg}});
+    auto pLabelSelectionFg = Gtk::manage(new Gtk::Label{_("Selection Foreground")});
+    auto pColorButtonSelectionFg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleSelectionFg}});
+    auto pLabelSelectionBg = Gtk::manage(new Gtk::Label{_("Selection Background")});
+    auto pColorButtonSelectionBg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleSelectionBg}});
+    auto pLabelCursor = Gtk::manage(new Gtk::Label{_("Cursor")});
+    auto pColorButtonCursor = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleCursor}});
+    auto pLabelCurrentLineBg = Gtk::manage(new Gtk::Label{_("Current Line Background")});
+    auto pColorButtonCurrentLineBg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleCurrentLineBg}});
+    auto pLabelLineNumbersFg = Gtk::manage(new Gtk::Label{_("Line Numbers Foreground")});
+    auto pColorButtonLineNumbersFg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleLineNumbersFg}});
+    auto pLabelLineNumbersBg = Gtk::manage(new Gtk::Label{_("Line Numbers Background")});
+    auto pColorButtonLineNumbersBg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleLineNumbersBg}});
 
-    Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
-    pMainBox->set_spacing(3);
-    pMainBox->set_margin_left(6);
-    pMainBox->set_margin_top(6);
-    pMainBox->pack_start(*frame_tt_theme, false, false);
-    pMainBox->pack_start(*frame_rt_theme, false, false);
-    pMainBox->pack_start(*frame_pt_theme, false, false);
-    pMainBox->pack_start(*frame_ta_theme, false, false);
-    pMainBox->pack_start(*frame_theme_editor, false, false);
+    pGridThemeEditor->attach(*pLabelTextFg,              0, 0, 1, 1);
+    pGridThemeEditor->attach(*pColorButtonTextFg,        1, 0, 1, 1);
+    pGridThemeEditor->attach(*pLabelTextBg,              2, 0, 1, 1);
+    pGridThemeEditor->attach(*pColorButtonTextBg,        3, 0, 1, 1);
+    pGridThemeEditor->attach(*pLabelSelectionFg,         0, 1, 1, 1);
+    pGridThemeEditor->attach(*pColorButtonSelectionFg,   1, 1, 1, 1);
+    pGridThemeEditor->attach(*pLabelSelectionBg,         2, 1, 1, 1);
+    pGridThemeEditor->attach(*pColorButtonSelectionBg,   3, 1, 1, 1);
+    pGridThemeEditor->attach(*pLabelCursor,              0, 2, 1, 1);
+    pGridThemeEditor->attach(*pColorButtonCursor,        1, 2, 1, 1);
+    pGridThemeEditor->attach(*pLabelCurrentLineBg,       2, 2, 1, 1);
+    pGridThemeEditor->attach(*pColorButtonCurrentLineBg, 3, 2, 1, 1);
+    pGridThemeEditor->attach(*pLabelLineNumbersFg,       0, 3, 1, 1);
+    pGridThemeEditor->attach(*pColorButtonLineNumbersFg, 1, 3, 1, 1);
+    pGridThemeEditor->attach(*pLabelLineNumbersBg,       2, 3, 1, 1);
+    pGridThemeEditor->attach(*pColorButtonLineNumbersBg, 3, 3, 1, 1);
+
+    Gtk::Frame* frame_theme_editor = new_managed_frame_with_align(_("Style Scheme Editor"), pGridThemeEditor);
+
+    pColorButtonTextFg->signal_color_set().connect([pColorButtonTextFg, pConfig](){
+        pConfig->userStyleTextFg = CtRgbUtil::rgb_any_to_24(pColorButtonTextFg->get_rgba());
+    });
+    pColorButtonTextBg->signal_color_set().connect([pColorButtonTextBg, pConfig](){
+        pConfig->userStyleTextBg = CtRgbUtil::rgb_any_to_24(pColorButtonTextBg->get_rgba());
+    });
+    pColorButtonSelectionFg->signal_color_set().connect([pColorButtonSelectionFg, pConfig](){
+        pConfig->userStyleSelectionFg = CtRgbUtil::rgb_any_to_24(pColorButtonSelectionFg->get_rgba());
+    });
+    pColorButtonSelectionBg->signal_color_set().connect([pColorButtonSelectionBg, pConfig](){
+        pConfig->userStyleSelectionBg = CtRgbUtil::rgb_any_to_24(pColorButtonSelectionBg->get_rgba());
+    });
+    pColorButtonCursor->signal_color_set().connect([pColorButtonCursor, pConfig](){
+        pConfig->userStyleCursor = CtRgbUtil::rgb_any_to_24(pColorButtonCursor->get_rgba());
+    });
+    pColorButtonCurrentLineBg->signal_color_set().connect([pColorButtonCurrentLineBg, pConfig](){
+        pConfig->userStyleCurrentLineBg = CtRgbUtil::rgb_any_to_24(pColorButtonCurrentLineBg->get_rgba());
+    });
+    pColorButtonLineNumbersFg->signal_color_set().connect([pColorButtonLineNumbersFg, pConfig](){
+        pConfig->userStyleLineNumbersFg = CtRgbUtil::rgb_any_to_24(pColorButtonLineNumbersFg->get_rgba());
+    });
+    pColorButtonLineNumbersBg->signal_color_set().connect([pColorButtonLineNumbersBg, pConfig](){
+        pConfig->userStyleLineNumbersBg = CtRgbUtil::rgb_any_to_24(pColorButtonLineNumbersBg->get_rgba());
+    });
+
+    auto pVBoxMain = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+    pVBoxMain->set_margin_left(6);
+    pVBoxMain->set_margin_top(6);
+    pVBoxMain->pack_start(*frame_tt_theme, false, false);
+    pVBoxMain->pack_start(*frame_rt_theme, false, false);
+    pVBoxMain->pack_start(*frame_pt_theme, false, false);
+    pVBoxMain->pack_start(*frame_ta_theme, false, false);
+    pVBoxMain->pack_start(*frame_theme_editor, false, false);
 
     auto update_tree_color = [this, pConfig, colorbutton_tree_fg, colorbutton_tree_bg]() {
         pConfig->ttDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_fg->get_rgba());
@@ -156,16 +214,16 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     });
     radiobutton_tt_col_light->signal_toggled().connect([radiobutton_tt_col_light, colorbutton_tree_fg, colorbutton_tree_bg, update_tree_color](){
         if (!radiobutton_tt_col_light->get_active()) return;
-        colorbutton_tree_fg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_LIGHT_FG));
-        colorbutton_tree_bg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_LIGHT_BG));
+        colorbutton_tree_fg->set_rgba(Gdk::RGBA{CtConst::TREE_TEXT_LIGHT_FG});
+        colorbutton_tree_bg->set_rgba(Gdk::RGBA{CtConst::TREE_TEXT_LIGHT_BG});
         colorbutton_tree_fg->set_sensitive(false);
         colorbutton_tree_bg->set_sensitive(false);
         update_tree_color();
     });
     radiobutton_tt_col_dark->signal_toggled().connect([radiobutton_tt_col_dark, colorbutton_tree_fg, colorbutton_tree_bg, update_tree_color](){
         if (!radiobutton_tt_col_dark->get_active()) return;
-        colorbutton_tree_fg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_DARK_FG));
-        colorbutton_tree_bg->set_rgba(Gdk::RGBA(CtConst::TREE_TEXT_DARK_BG));
+        colorbutton_tree_fg->set_rgba(Gdk::RGBA{CtConst::TREE_TEXT_DARK_FG});
+        colorbutton_tree_bg->set_rgba(Gdk::RGBA{CtConst::TREE_TEXT_DARK_BG});
         colorbutton_tree_fg->set_sensitive(false);
         colorbutton_tree_bg->set_sensitive(false);
         update_tree_color();
@@ -210,5 +268,5 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
         apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('t'/*Table*/); });
     });
 
-    return pMainBox;
+    return pVBoxMain;
 }

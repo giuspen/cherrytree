@@ -5,7 +5,7 @@
   <style name="text"                foreground="_userStyleTextFg_" background="_userStyleTextBg_"/>
   <style name="selection"           foreground="_userStyleSelectionFg_" background="_userStyleSelectionBg_"/>
   <style name="cursor"              foreground="_userStyleCursor_"/>
-  <style name="current-line"        background="_userStyleCurrentLine_"/>
-  <style name="current-line-number" background="_userStyleCurrentLine_"/>
+  <style name="current-line"        background="_userStyleCurrentLineBg_"/>
+  <style name="current-line-number" background="_userStyleCurrentLineBg_"/>
   <style name="line-numbers"        foreground="_userStyleLineNumbersFg_" background="_userStyleLineNumbersBg_"/>
 </style-scheme>
