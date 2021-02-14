@@ -364,6 +364,21 @@ fs::path get_cherrytree_config_filepath()
     return fs::canonical(get_cherrytree_configdir() / CtConfig::ConfigFilename);
 }
 
+fs::path get_cherrytree_config_language_specs_dirpath()
+{
+    return get_cherrytree_configdir() / CtConfig::ConfigLanguageSpecsDirname;
+}
+
+fs::path get_cherrytree_config_styles_dirpath()
+{
+    return get_cherrytree_configdir() / CtConfig::ConfigStylesDirname;
+}
+
+fs::path get_cherrytree_config_user_style_filepath()
+{
+    return fs::canonical(get_cherrytree_config_styles_dirpath() / CtConfig::UserStyleFilename);
+}
+
 std::string download_file(const std::string& filepath)
 {
     struct local {

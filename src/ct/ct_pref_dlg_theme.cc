@@ -164,29 +164,41 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
 
     Gtk::Frame* frame_theme_editor = new_managed_frame_with_align(_("Style Scheme Editor"), pGridThemeEditor);
 
-    pColorButtonTextFg->signal_color_set().connect([pColorButtonTextFg, pConfig](){
+    auto f_onUserStyleChanged = [this, pConfig](){
+        pConfig->update_user_style();
+        _pCtMainWin->get_style_scheme_manager()->force_rescan();
+    };
+    pColorButtonTextFg->signal_color_set().connect([pColorButtonTextFg, pConfig, f_onUserStyleChanged](){
         pConfig->userStyleTextFg = CtRgbUtil::rgb_any_to_24(pColorButtonTextFg->get_rgba());
+        f_onUserStyleChanged();
     });
-    pColorButtonTextBg->signal_color_set().connect([pColorButtonTextBg, pConfig](){
+    pColorButtonTextBg->signal_color_set().connect([pColorButtonTextBg, pConfig, f_onUserStyleChanged](){
         pConfig->userStyleTextBg = CtRgbUtil::rgb_any_to_24(pColorButtonTextBg->get_rgba());
+        f_onUserStyleChanged();
     });
-    pColorButtonSelectionFg->signal_color_set().connect([pColorButtonSelectionFg, pConfig](){
+    pColorButtonSelectionFg->signal_color_set().connect([pColorButtonSelectionFg, pConfig, f_onUserStyleChanged](){
         pConfig->userStyleSelectionFg = CtRgbUtil::rgb_any_to_24(pColorButtonSelectionFg->get_rgba());
+        f_onUserStyleChanged();
     });
-    pColorButtonSelectionBg->signal_color_set().connect([pColorButtonSelectionBg, pConfig](){
+    pColorButtonSelectionBg->signal_color_set().connect([pColorButtonSelectionBg, pConfig, f_onUserStyleChanged](){
         pConfig->userStyleSelectionBg = CtRgbUtil::rgb_any_to_24(pColorButtonSelectionBg->get_rgba());
+        f_onUserStyleChanged();
     });
-    pColorButtonCursor->signal_color_set().connect([pColorButtonCursor, pConfig](){
+    pColorButtonCursor->signal_color_set().connect([pColorButtonCursor, pConfig, f_onUserStyleChanged](){
         pConfig->userStyleCursor = CtRgbUtil::rgb_any_to_24(pColorButtonCursor->get_rgba());
+        f_onUserStyleChanged();
     });
-    pColorButtonCurrentLineBg->signal_color_set().connect([pColorButtonCurrentLineBg, pConfig](){
+    pColorButtonCurrentLineBg->signal_color_set().connect([pColorButtonCurrentLineBg, pConfig, f_onUserStyleChanged](){
         pConfig->userStyleCurrentLineBg = CtRgbUtil::rgb_any_to_24(pColorButtonCurrentLineBg->get_rgba());
+        f_onUserStyleChanged();
     });
-    pColorButtonLineNumbersFg->signal_color_set().connect([pColorButtonLineNumbersFg, pConfig](){
+    pColorButtonLineNumbersFg->signal_color_set().connect([pColorButtonLineNumbersFg, pConfig, f_onUserStyleChanged](){
         pConfig->userStyleLineNumbersFg = CtRgbUtil::rgb_any_to_24(pColorButtonLineNumbersFg->get_rgba());
+        f_onUserStyleChanged();
     });
-    pColorButtonLineNumbersBg->signal_color_set().connect([pColorButtonLineNumbersBg, pConfig](){
+    pColorButtonLineNumbersBg->signal_color_set().connect([pColorButtonLineNumbersBg, pConfig, f_onUserStyleChanged](){
         pConfig->userStyleLineNumbersBg = CtRgbUtil::rgb_any_to_24(pColorButtonLineNumbersBg->get_rgba());
+        f_onUserStyleChanged();
     });
 
     auto pVBoxMain = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});

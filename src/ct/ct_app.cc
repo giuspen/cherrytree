@@ -63,7 +63,7 @@ void CtApp::_on_startup()
     const fs::path config_dir = fs::get_cherrytree_configdir();
     if (not fs::exists(config_dir)) {
         if (g_mkdir_with_parents(config_dir.c_str(), 0755) < 0) {
-            spdlog::warn("Could not create config directory: {}", config_dir.c_str());
+            spdlog::warn("Could not create config dir {}", config_dir.c_str());
         }
     }
     _uCtCfg.reset(new CtConfig{});
@@ -82,17 +82,17 @@ void CtApp::_on_startup()
 
     _rLanguageManager = Gsv::LanguageManager::create();
     std::vector<std::string> langSearchPath = _rLanguageManager->get_search_path();
-    fs::path ctLanguageSpecsData = fs::get_cherrytree_datadir() / "language-specs";
+    fs::path ctLanguageSpecsData = fs::get_cherrytree_datadir() / CtConfig::ConfigLanguageSpecsDirname;
     langSearchPath.push_back(ctLanguageSpecsData.string());
-    fs::path ctLanguageSpecsConfig = config_dir / "language-specs";
+    fs::path ctLanguageSpecsConfig = fs::get_cherrytree_config_language_specs_dirpath();
     langSearchPath.push_back(ctLanguageSpecsConfig.string());
     _rLanguageManager->set_search_path(langSearchPath);
 
     _rStyleSchemeManager = Gsv::StyleSchemeManager::create();
     std::vector<std::string> styleSearchPath = _rStyleSchemeManager->get_search_path();
-    fs::path ctStylesData = fs::get_cherrytree_datadir() / "styles";
+    fs::path ctStylesData = fs::get_cherrytree_datadir() / CtConfig::ConfigStylesDirname;
     styleSearchPath.push_back(ctStylesData.string());
-    fs::path ctStylesConfig = config_dir / "styles";
+    fs::path ctStylesConfig = fs::get_cherrytree_config_styles_dirpath();
     styleSearchPath.push_back(ctStylesConfig.string());
     _rStyleSchemeManager->set_search_path(styleSearchPath);
 

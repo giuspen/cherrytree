@@ -30,15 +30,14 @@
 
 const fs::path CtConfig::ConfigFilename{"config.cfg"};
 const fs::path CtConfig::LangFilename{"lang"};
+const fs::path CtConfig::ConfigLanguageSpecsDirname{"language-specs"};
+const fs::path CtConfig::ConfigStylesDirname{"styles"};
+const fs::path CtConfig::UserStyleFilename{"user-style.xml"};
 
 CtConfig::CtConfig()
 {
     (void)load_from_file();
-}
-
-CtConfig::~CtConfig()
-{
-    //std::cout << "~CtConfig()" << std::endl;
+    _ensure_user_style_exists();
 }
 
 bool CtConfig::load_from_file(const fs::path& filepath)
@@ -652,4 +651,39 @@ void CtConfig::_populate_data_from_keyfile()
     // [codexec_ext]
     _currentGroup = "codexec_ext";
     _populate_map_from_current_group(&customCodexecExt);
+}
+
+void CtConfig::_ensure_user_style_exists()
+{
+    const fs::path userStyleFilepath = fs::get_cherrytree_config_user_style_filepath();
+    if (not fs::is_regular_file(userStyleFilepath)) {
+        update_user_style();
+    }
+}
+
+void CtConfig::update_user_style()
+{
+    const fs::path userStyleTemplateFilepath = fs::get_cherrytree_datadir() / "data" / CtConfig::UserStyleFilename;
+    if (not fs::is_regular_file(userStyleTemplateFilepath)) {
+        spdlog::warn("Unexp missing {}", userStyleTemplateFilepath.c_str());
+        return;
+    }
+    const fs::path userStyleDirpath = fs::get_cherrytree_config_styles_dirpath();
+    if (not fs::is_directory(userStyleDirpath)) {
+        if (g_mkdir_with_parents(userStyleDirpath.c_str(), 0755) < 0) {
+            spdlog::warn("Could not create config dir {}", userStyleDirpath.c_str());
+            return;
+        }
+    }
+    std::string userStyleText = fs::get_content(userStyleTemplateFilepath);
+    userStyleText = str::replace(userStyleText, "_userStyleTextFg_", userStyleTextFg);
+    userStyleText = str::replace(userStyleText, "_userStyleTextBg_", userStyleTextBg);
+    userStyleText = str::replace(userStyleText, "_userStyleSelectionFg_", userStyleSelectionFg);
+    userStyleText = str::replace(userStyleText, "_userStyleSelectionBg_", userStyleSelectionBg);
+    userStyleText = str::replace(userStyleText, "_userStyleCursor_", userStyleCursor);
+    userStyleText = str::replace(userStyleText, "_userStyleCurrentLineBg_", userStyleCurrentLineBg);
+    userStyleText = str::replace(userStyleText, "_userStyleLineNumbersFg_", userStyleLineNumbersFg);
+    userStyleText = str::replace(userStyleText, "_userStyleLineNumbersBg_", userStyleLineNumbersBg);
+    const fs::path userStyleFilepath = fs::get_cherrytree_config_user_style_filepath();
+    Glib::file_set_contents(userStyleFilepath.string(), userStyleText);
 }

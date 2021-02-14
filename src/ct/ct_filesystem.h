@@ -92,6 +92,9 @@ path get_cherrytree_localedir();
 path get_cherrytree_configdir();
 path get_cherrytree_lang_filepath();
 path get_cherrytree_config_filepath();
+path get_cherrytree_config_language_specs_dirpath();
+path get_cherrytree_config_styles_dirpath();
+path get_cherrytree_config_user_style_filepath();
 // Filepath is a url so not an fs::path
 std::string download_file(const std::string& filepath);
 

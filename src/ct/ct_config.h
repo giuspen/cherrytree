@@ -34,13 +34,17 @@ class CtConfig
 {
 public:
     CtConfig();
-    virtual ~CtConfig();
 
     static const fs::path ConfigFilename;
     static const fs::path LangFilename;
+    static const fs::path ConfigLanguageSpecsDirname;
+    static const fs::path ConfigStylesDirname;
+    static const fs::path UserStyleFilename;
 
     bool load_from_file(const fs::path& filepath = fs::get_cherrytree_config_filepath());
     bool write_to_file(const fs::path& filepath =  fs::get_cherrytree_config_filepath());
+
+    void update_user_style();
 
     // [state]
     CtRecentDocsRestore                         recentDocsRestore;
@@ -238,6 +242,8 @@ protected:
     void _populate_data_from_keyfile();
     void _populate_keyfile_from_data();
     void _unexpected_keyfile_error(const gchar* key, const Glib::KeyFileError& kferror);
+
+    void _ensure_user_style_exists();
 
     static const size_t _maxTempKeySize{20};
 
