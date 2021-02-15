@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<style-scheme id="user-style" _name="User Style" version="1.0">
+<style-scheme id="_userStyleId_" _name="User Style" version="1.0">
   <author>Current User</author>
   <_description>User Defined Style</_description>
   <style name="text"                foreground="_userStyleTextFg_" background="_userStyleTextBg_"/>

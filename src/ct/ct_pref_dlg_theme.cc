@@ -111,95 +111,120 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     Gtk::Frame* frame_style_schemes = new_managed_frame_with_align(_("Style Schemes"), pGridStyleSchemes);
 
     // Theme Editor
-    auto pGridThemeEditor = Gtk::manage(new Gtk::Grid{});
-    pGridThemeEditor->set_row_homogeneous(true);
-    pGridThemeEditor->set_column_spacing(4);
-
-    auto pLabelTextFg = Gtk::manage(new Gtk::Label{_("Text Foreground")});
-    auto pColorButtonTextFg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleTextFg}});
-    auto pLabelTextBg = Gtk::manage(new Gtk::Label{_("Text Background")});
-    auto pColorButtonTextBg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleTextBg}});
-    auto pLabelSelectionFg = Gtk::manage(new Gtk::Label{_("Selection Foreground")});
-    auto pColorButtonSelectionFg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleSelectionFg}});
-    auto pLabelSelectionBg = Gtk::manage(new Gtk::Label{_("Selection Background")});
-    auto pColorButtonSelectionBg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleSelectionBg}});
-    auto pLabelCursor = Gtk::manage(new Gtk::Label{_("Cursor")});
-    auto pColorButtonCursor = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleCursor}});
-    auto pLabelCurrentLineBg = Gtk::manage(new Gtk::Label{_("Current Line Background")});
-    auto pColorButtonCurrentLineBg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleCurrentLineBg}});
-    auto pLabelLineNumbersFg = Gtk::manage(new Gtk::Label{_("Line Numbers Foreground")});
-    auto pColorButtonLineNumbersFg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleLineNumbersFg}});
-    auto pLabelLineNumbersBg = Gtk::manage(new Gtk::Label{_("Line Numbers Background")});
-    auto pColorButtonLineNumbersBg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleLineNumbersBg}});
-
-    pGridThemeEditor->attach(*pLabelTextFg,              0, 0, 1, 1);
-    pGridThemeEditor->attach(*pColorButtonTextFg,        1, 0, 1, 1);
-    pGridThemeEditor->attach(*pLabelTextBg,              2, 0, 1, 1);
-    pGridThemeEditor->attach(*pColorButtonTextBg,        3, 0, 1, 1);
-    pGridThemeEditor->attach(*pLabelSelectionFg,         0, 1, 1, 1);
-    pGridThemeEditor->attach(*pColorButtonSelectionFg,   1, 1, 1, 1);
-    pGridThemeEditor->attach(*pLabelSelectionBg,         2, 1, 1, 1);
-    pGridThemeEditor->attach(*pColorButtonSelectionBg,   3, 1, 1, 1);
-    pGridThemeEditor->attach(*pLabelCursor,              0, 2, 1, 1);
-    pGridThemeEditor->attach(*pColorButtonCursor,        1, 2, 1, 1);
-    pGridThemeEditor->attach(*pLabelCurrentLineBg,       2, 2, 1, 1);
-    pGridThemeEditor->attach(*pColorButtonCurrentLineBg, 3, 2, 1, 1);
-    pGridThemeEditor->attach(*pLabelLineNumbersFg,       0, 3, 1, 1);
-    pGridThemeEditor->attach(*pColorButtonLineNumbersFg, 1, 3, 1, 1);
-    pGridThemeEditor->attach(*pLabelLineNumbersBg,       2, 3, 1, 1);
-    pGridThemeEditor->attach(*pColorButtonLineNumbersBg, 3, 3, 1, 1);
-
-    Gtk::Frame* frame_theme_editor = new_managed_frame_with_align(_("Style Scheme Editor"), pGridThemeEditor);
+    auto pNotebook = Gtk::manage(new Gtk::Notebook{});
 
     auto f_onUserStyleChanged = [this,
                                  pConfig,
                                  combobox_style_scheme_rt,
                                  combobox_style_scheme_pt,
-                                 combobox_style_scheme_ta](){
-        pConfig->update_user_style();
+                                 combobox_style_scheme_ta](const unsigned num){
+        pConfig->update_user_style(num);
         _pCtMainWin->get_style_scheme_manager()->force_rescan();
-        if (combobox_style_scheme_rt->get_active_text() == "user-style") {
+        const std::string styleId = CtConfig::get_user_style_id(num);
+        if (combobox_style_scheme_rt->get_active_text() == styleId) {
             apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('r'/*RichText*/); });
         }
-        if (combobox_style_scheme_pt->get_active_text() == "user-style") {
+        if (combobox_style_scheme_pt->get_active_text() == styleId) {
             apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('p'/*PlainTextNCode*/); });
         }
-        if (combobox_style_scheme_ta->get_active_text() == "user-style") {
+        if (combobox_style_scheme_ta->get_active_text() == styleId) {
             apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('t'/*Table*/); });
         }
     };
-    pColorButtonTextFg->signal_color_set().connect([pColorButtonTextFg, pConfig, f_onUserStyleChanged](){
-        pConfig->userStyleTextFg = CtRgbUtil::rgb_any_to_24(pColorButtonTextFg->get_rgba());
-        f_onUserStyleChanged();
-    });
-    pColorButtonTextBg->signal_color_set().connect([pColorButtonTextBg, pConfig, f_onUserStyleChanged](){
-        pConfig->userStyleTextBg = CtRgbUtil::rgb_any_to_24(pColorButtonTextBg->get_rgba());
-        f_onUserStyleChanged();
-    });
-    pColorButtonSelectionFg->signal_color_set().connect([pColorButtonSelectionFg, pConfig, f_onUserStyleChanged](){
-        pConfig->userStyleSelectionFg = CtRgbUtil::rgb_any_to_24(pColorButtonSelectionFg->get_rgba());
-        f_onUserStyleChanged();
-    });
-    pColorButtonSelectionBg->signal_color_set().connect([pColorButtonSelectionBg, pConfig, f_onUserStyleChanged](){
-        pConfig->userStyleSelectionBg = CtRgbUtil::rgb_any_to_24(pColorButtonSelectionBg->get_rgba());
-        f_onUserStyleChanged();
-    });
-    pColorButtonCursor->signal_color_set().connect([pColorButtonCursor, pConfig, f_onUserStyleChanged](){
-        pConfig->userStyleCursor = CtRgbUtil::rgb_any_to_24(pColorButtonCursor->get_rgba());
-        f_onUserStyleChanged();
-    });
-    pColorButtonCurrentLineBg->signal_color_set().connect([pColorButtonCurrentLineBg, pConfig, f_onUserStyleChanged](){
-        pConfig->userStyleCurrentLineBg = CtRgbUtil::rgb_any_to_24(pColorButtonCurrentLineBg->get_rgba());
-        f_onUserStyleChanged();
-    });
-    pColorButtonLineNumbersFg->signal_color_set().connect([pColorButtonLineNumbersFg, pConfig, f_onUserStyleChanged](){
-        pConfig->userStyleLineNumbersFg = CtRgbUtil::rgb_any_to_24(pColorButtonLineNumbersFg->get_rgba());
-        f_onUserStyleChanged();
-    });
-    pColorButtonLineNumbersBg->signal_color_set().connect([pColorButtonLineNumbersBg, pConfig, f_onUserStyleChanged](){
-        pConfig->userStyleLineNumbersBg = CtRgbUtil::rgb_any_to_24(pColorButtonLineNumbersBg->get_rgba());
-        f_onUserStyleChanged();
-    });
+
+    Gtk::Grid* pGridThemeEditor[CtConfig::NumUserStyles];
+    Gtk::Label* pLabelTextFg[CtConfig::NumUserStyles];
+    Gtk::ColorButton* pColorButtonTextFg[CtConfig::NumUserStyles];
+    Gtk::Label* pLabelTextBg[CtConfig::NumUserStyles];
+    Gtk::ColorButton* pColorButtonTextBg[CtConfig::NumUserStyles];
+    Gtk::Label* pLabelSelectionFg[CtConfig::NumUserStyles];
+    Gtk::ColorButton* pColorButtonSelectionFg[CtConfig::NumUserStyles];
+    Gtk::Label* pLabelSelectionBg[CtConfig::NumUserStyles];
+    Gtk::ColorButton* pColorButtonSelectionBg[CtConfig::NumUserStyles];
+    Gtk::Label* pLabelCursor[CtConfig::NumUserStyles];
+    Gtk::ColorButton* pColorButtonCursor[CtConfig::NumUserStyles];
+    Gtk::Label* pLabelCurrentLineBg[CtConfig::NumUserStyles];
+    Gtk::ColorButton* pColorButtonCurrentLineBg[CtConfig::NumUserStyles];
+    Gtk::Label* pLabelLineNumbersFg[CtConfig::NumUserStyles];
+    Gtk::ColorButton* pColorButtonLineNumbersFg[CtConfig::NumUserStyles];
+    Gtk::Label* pLabelLineNumbersBg[CtConfig::NumUserStyles];
+    Gtk::ColorButton* pColorButtonLineNumbersBg[CtConfig::NumUserStyles];
+
+    for (unsigned i = 0; i < CtConfig::NumUserStyles; ++i) {
+        pGridThemeEditor[i] = Gtk::manage(new Gtk::Grid{});
+        pGridThemeEditor[i]->set_row_homogeneous(true);
+        pGridThemeEditor[i]->set_column_spacing(4);
+
+        pLabelTextFg[i] = Gtk::manage(new Gtk::Label{_("Text Foreground")});
+        pColorButtonTextFg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleTextFg[i]}});
+        pLabelTextBg[i] = Gtk::manage(new Gtk::Label{_("Text Background")});
+        pColorButtonTextBg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleTextBg[i]}});
+        pLabelSelectionFg[i] = Gtk::manage(new Gtk::Label{_("Selection Foreground")});
+        pColorButtonSelectionFg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleSelectionFg[i]}});
+        pLabelSelectionBg[i] = Gtk::manage(new Gtk::Label{_("Selection Background")});
+        pColorButtonSelectionBg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleSelectionBg[i]}});
+        pLabelCursor[i] = Gtk::manage(new Gtk::Label{_("Cursor")});
+        pColorButtonCursor[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleCursor[i]}});
+        pLabelCurrentLineBg[i] = Gtk::manage(new Gtk::Label{_("Current Line Background")});
+        pColorButtonCurrentLineBg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleCurrentLineBg[i]}});
+        pLabelLineNumbersFg[i] = Gtk::manage(new Gtk::Label{_("Line Numbers Foreground")});
+        pColorButtonLineNumbersFg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleLineNumbersFg[i]}});
+        pLabelLineNumbersBg[i] = Gtk::manage(new Gtk::Label{_("Line Numbers Background")});
+        pColorButtonLineNumbersBg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleLineNumbersBg[i]}});
+
+        pGridThemeEditor[i]->attach(*pLabelTextFg[i],              0, 0, 1, 1);
+        pGridThemeEditor[i]->attach(*pColorButtonTextFg[i],        1, 0, 1, 1);
+        pGridThemeEditor[i]->attach(*pLabelTextBg[i],              2, 0, 1, 1);
+        pGridThemeEditor[i]->attach(*pColorButtonTextBg[i],        3, 0, 1, 1);
+        pGridThemeEditor[i]->attach(*pLabelSelectionFg[i],         0, 1, 1, 1);
+        pGridThemeEditor[i]->attach(*pColorButtonSelectionFg[i],   1, 1, 1, 1);
+        pGridThemeEditor[i]->attach(*pLabelSelectionBg[i],         2, 1, 1, 1);
+        pGridThemeEditor[i]->attach(*pColorButtonSelectionBg[i],   3, 1, 1, 1);
+        pGridThemeEditor[i]->attach(*pLabelCursor[i],              0, 2, 1, 1);
+        pGridThemeEditor[i]->attach(*pColorButtonCursor[i],        1, 2, 1, 1);
+        pGridThemeEditor[i]->attach(*pLabelCurrentLineBg[i],       2, 2, 1, 1);
+        pGridThemeEditor[i]->attach(*pColorButtonCurrentLineBg[i], 3, 2, 1, 1);
+        pGridThemeEditor[i]->attach(*pLabelLineNumbersFg[i],       0, 3, 1, 1);
+        pGridThemeEditor[i]->attach(*pColorButtonLineNumbersFg[i], 1, 3, 1, 1);
+        pGridThemeEditor[i]->attach(*pLabelLineNumbersBg[i],       2, 3, 1, 1);
+        pGridThemeEditor[i]->attach(*pColorButtonLineNumbersBg[i], 3, 3, 1, 1);
+        pNotebook->append_page(*(pGridThemeEditor[i]), CtConfig::get_user_style_id(i+1));
+
+        pColorButtonTextFg[i]->signal_color_set().connect([pColorButtonTextFg, i, pConfig, f_onUserStyleChanged](){
+            pConfig->userStyleTextFg[i] = CtRgbUtil::rgb_any_to_24(pColorButtonTextFg[i]->get_rgba());
+            f_onUserStyleChanged(i+1);
+        });
+        pColorButtonTextBg[i]->signal_color_set().connect([pColorButtonTextBg, i, pConfig, f_onUserStyleChanged](){
+            pConfig->userStyleTextBg[i] = CtRgbUtil::rgb_any_to_24(pColorButtonTextBg[i]->get_rgba());
+            f_onUserStyleChanged(i+1);
+        });
+        pColorButtonSelectionFg[i]->signal_color_set().connect([pColorButtonSelectionFg, i, pConfig, f_onUserStyleChanged](){
+            pConfig->userStyleSelectionFg[i] = CtRgbUtil::rgb_any_to_24(pColorButtonSelectionFg[i]->get_rgba());
+            f_onUserStyleChanged(i+1);
+        });
+        pColorButtonSelectionBg[i]->signal_color_set().connect([pColorButtonSelectionBg, i, pConfig, f_onUserStyleChanged](){
+            pConfig->userStyleSelectionBg[i] = CtRgbUtil::rgb_any_to_24(pColorButtonSelectionBg[i]->get_rgba());
+            f_onUserStyleChanged(i+1);
+        });
+        pColorButtonCursor[i]->signal_color_set().connect([pColorButtonCursor, i, pConfig, f_onUserStyleChanged](){
+            pConfig->userStyleCursor[i] = CtRgbUtil::rgb_any_to_24(pColorButtonCursor[i]->get_rgba());
+            f_onUserStyleChanged(i+1);
+        });
+        pColorButtonCurrentLineBg[i]->signal_color_set().connect([pColorButtonCurrentLineBg, i, pConfig, f_onUserStyleChanged](){
+            pConfig->userStyleCurrentLineBg[i] = CtRgbUtil::rgb_any_to_24(pColorButtonCurrentLineBg[i]->get_rgba());
+            f_onUserStyleChanged(i+1);
+        });
+        pColorButtonLineNumbersFg[i]->signal_color_set().connect([pColorButtonLineNumbersFg, i, pConfig, f_onUserStyleChanged](){
+            pConfig->userStyleLineNumbersFg[i] = CtRgbUtil::rgb_any_to_24(pColorButtonLineNumbersFg[i]->get_rgba());
+            f_onUserStyleChanged(i+1);
+        });
+        pColorButtonLineNumbersBg[i]->signal_color_set().connect([pColorButtonLineNumbersBg, i, pConfig, f_onUserStyleChanged](){
+            pConfig->userStyleLineNumbersBg[i] = CtRgbUtil::rgb_any_to_24(pColorButtonLineNumbersBg[i]->get_rgba());
+            f_onUserStyleChanged(i+1);
+        });
+    }
+
+    Gtk::Frame* frame_theme_editor = new_managed_frame_with_align(_("Style Scheme Editor"), pNotebook);
 
     auto pVBoxMain = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
     pVBoxMain->set_margin_left(6);

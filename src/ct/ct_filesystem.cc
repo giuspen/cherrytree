@@ -374,9 +374,9 @@ fs::path get_cherrytree_config_styles_dirpath()
     return get_cherrytree_configdir() / CtConfig::ConfigStylesDirname;
 }
 
-fs::path get_cherrytree_config_user_style_filepath()
+fs::path get_cherrytree_config_user_style_filepath(const unsigned num)
 {
-    return fs::canonical(get_cherrytree_config_styles_dirpath() / CtConfig::UserStyleFilename);
+    return fs::canonical(get_cherrytree_config_styles_dirpath() / ("user-style-" + std::to_string(num) + ".xml"));
 }
 
 std::string download_file(const std::string& filepath)

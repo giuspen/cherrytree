@@ -39,12 +39,14 @@ public:
     static const fs::path LangFilename;
     static const fs::path ConfigLanguageSpecsDirname;
     static const fs::path ConfigStylesDirname;
-    static const fs::path UserStyleFilename;
+    static const fs::path UserStyleTemplate;
+    static constexpr unsigned NumUserStyles{2};
 
     bool load_from_file(const fs::path& filepath = fs::get_cherrytree_config_filepath());
     bool write_to_file(const fs::path& filepath =  fs::get_cherrytree_config_filepath());
 
-    void update_user_style();
+    void update_user_style(const unsigned num);
+    static std::string get_user_style_id(const unsigned num);
 
     // [state]
     CtRecentDocsRestore                         recentDocsRestore;
@@ -81,10 +83,10 @@ public:
     // [editor]
     std::string                                 syntaxHighlighting{CtConst::RICH_TEXT_ID};
     std::string                                 autoSynHighl{CtConst::SYN_HIGHL_BASH};
-    std::string                                 rtStyleScheme{CtConst::STYLE_SCHEME_DARK};
-    std::string                                 ptStyleScheme{CtConst::STYLE_SCHEME_DARK};
-    std::string                                 taStyleScheme{CtConst::STYLE_SCHEME_LIGHT};
-    std::string                                 coStyleScheme{CtConst::STYLE_SCHEME_DARK};
+    std::string                                 rtStyleScheme{"user-1"};
+    std::string                                 ptStyleScheme{"user-1"};
+    std::string                                 taStyleScheme{"user-2"};
+    std::string                                 coStyleScheme{"cobalt-darkened"};
     bool                                        enableSpellCheck{false};
     std::string                                 spellCheckLang;
     bool                                        showLineNumbers{false};
@@ -176,14 +178,14 @@ public:
     std::string                                 colLinkNode{CtConst::COLOR_48_LINK_NODE};
     std::string                                 colLinkFile{CtConst::COLOR_48_LINK_FILE};
     std::string                                 colLinkFold{CtConst::COLOR_48_LINK_FOLD};
-    std::string                                 userStyleTextFg{CtConst::COLOR_24_WHITE};
-    std::string                                 userStyleTextBg{CtConst::COLOR_24_BLACK};
-    std::string                                 userStyleSelectionFg{CtConst::COLOR_24_WHITE};
-    std::string                                 userStyleSelectionBg{"#0088ff"};
-    std::string                                 userStyleCursor{CtConst::COLOR_24_WHITE};
-    std::string                                 userStyleCurrentLineBg{"#003b70"};
-    std::string                                 userStyleLineNumbersFg{"#777777"};
-    std::string                                 userStyleLineNumbersBg{"#000d1a"};
+    std::string                                 userStyleTextFg[NumUserStyles]{CtConst::COLOR_24_WHITE, CtConst::COLOR_24_BLACK};
+    std::string                                 userStyleTextBg[NumUserStyles]{CtConst::COLOR_24_BLACK, CtConst::COLOR_24_WHITE};
+    std::string                                 userStyleSelectionFg[NumUserStyles]{CtConst::COLOR_24_WHITE, CtConst::COLOR_24_WHITE};
+    std::string                                 userStyleSelectionBg[NumUserStyles]{"#0088ff", "#43ace8"};
+    std::string                                 userStyleCursor[NumUserStyles]{CtConst::COLOR_24_WHITE, CtConst::COLOR_24_BLACK};
+    std::string                                 userStyleCurrentLineBg[NumUserStyles]{"#003b70", "#eef6ff"};
+    std::string                                 userStyleLineNumbersFg[NumUserStyles]{"#777777", CtConst::COLOR_24_BLACK};
+    std::string                                 userStyleLineNumbersBg[NumUserStyles]{"#000d1a", "#d6d2d0"};
 
     // [misc]
     std::string                                 toolbarUiList{CtConst::TOOLBAR_VEC_DEFAULT};
@@ -218,19 +220,16 @@ public:
     std::map<std::string, std::string>          customCodexecExt;
 
 protected:
-    template<class String> bool _populate_string_from_keyfile(const gchar* key, String* pTarget)
+    template<class String> bool _populate_string_from_keyfile(std::string key, String* pTarget)
     {
         bool gotIt{false};
-        if (_uKeyFile->has_group(_currentGroup) && _uKeyFile->has_key(_currentGroup, key))
-        {
-            try
-            {
+        if (_uKeyFile->has_group(_currentGroup) && _uKeyFile->has_key(_currentGroup, key)) {
+            try {
                 *pTarget = _uKeyFile->get_string(_currentGroup, key);
                 gotIt = true;
             }
-            catch (Glib::KeyFileError& kferror)
-            {
-                _unexpected_keyfile_error(key, kferror);
+            catch (Glib::KeyFileError& kferror) {
+                _unexpected_keyfile_error(key.c_str(), kferror);
             }
         }
         return gotIt;
@@ -244,7 +243,7 @@ protected:
     void _populate_keyfile_from_data();
     void _unexpected_keyfile_error(const gchar* key, const Glib::KeyFileError& kferror);
 
-    void _ensure_user_style_exists();
+    void _ensure_user_styles_exist();
 
     static const size_t _maxTempKeySize{20};
 
