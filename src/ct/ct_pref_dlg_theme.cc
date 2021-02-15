@@ -64,70 +64,33 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
         radiobutton_tt_col_custom->set_active(true);
     }
 
-    // Rich Text Theme
-    auto vbox_rt_theme = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+    // Style Schemes
+    auto pGridStyleSchemes = Gtk::manage(new Gtk::Grid{});
+    pGridStyleSchemes->set_row_homogeneous(true);
+    pGridStyleSchemes->set_column_spacing(4);
 
-    auto hbox_style_scheme_rt = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
-    auto label_style_scheme_rt = Gtk::manage(new Gtk::Label{_("Style Scheme")});
+    auto label_style_scheme_rt = Gtk::manage(new Gtk::Label{_("Rich Text")});
     auto combobox_style_scheme_rt = Gtk::manage(new Gtk::ComboBoxText{});
     for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids()) {
         combobox_style_scheme_rt->append(scheme);
     }
     combobox_style_scheme_rt->set_active_text(pConfig->rtStyleScheme);
-    hbox_style_scheme_rt->pack_start(*label_style_scheme_rt, false, false);
-    hbox_style_scheme_rt->pack_start(*combobox_style_scheme_rt, false, false);
 
-    auto checkbutton_monospace_bg = Gtk::manage(new Gtk::CheckButton{_("Monospace Background")});
-    std::string mono_color = pConfig->monospaceBg.empty() ? CtConst::DEFAULT_MONOSPACE_BG : pConfig->monospaceBg;
-    auto colorbutton_monospace_bg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{mono_color}});
-    auto hbox_monospace_bg = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
-    hbox_monospace_bg->pack_start(*checkbutton_monospace_bg, false, false);
-    hbox_monospace_bg->pack_start(*colorbutton_monospace_bg, false, false);
-
-    checkbutton_monospace_bg->set_active(!pConfig->monospaceBg.empty());
-    colorbutton_monospace_bg->set_sensitive(!pConfig->monospaceBg.empty());
-
-    vbox_rt_theme->pack_start(*hbox_style_scheme_rt, false, false);
-    vbox_rt_theme->pack_start(*hbox_monospace_bg, false, false);
-    Gtk::Frame* frame_rt_theme = new_managed_frame_with_align(_("Rich Text"), vbox_rt_theme);
-
-    // Plain Text Theme
-    auto vbox_pt_theme = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
-
-    auto hbox_style_scheme_pt = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
-    auto label_style_scheme_pt = Gtk::manage(new Gtk::Label{_("Style Scheme")});
+    auto label_style_scheme_pt = Gtk::manage(new Gtk::Label{_("Plain Text")});
     auto combobox_style_scheme_pt = Gtk::manage(new Gtk::ComboBoxText{});
     for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids()) {
         combobox_style_scheme_pt->append(scheme);
     }
     combobox_style_scheme_pt->set_active_text(pConfig->ptStyleScheme);
-    hbox_style_scheme_pt->pack_start(*label_style_scheme_pt, false, false);
-    hbox_style_scheme_pt->pack_start(*combobox_style_scheme_pt, false, false);
 
-    vbox_pt_theme->pack_start(*hbox_style_scheme_pt, false, false);
-    Gtk::Frame* frame_pt_theme = new_managed_frame_with_align(_("Plain Text"), vbox_pt_theme);
-
-    // Table Theme
-    auto vbox_ta_theme = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
-
-    auto hbox_style_scheme_ta = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
-    auto label_style_scheme_ta = Gtk::manage(new Gtk::Label{_("Style Scheme")});
+    auto label_style_scheme_ta = Gtk::manage(new Gtk::Label{_("Table")});
     auto combobox_style_scheme_ta = Gtk::manage(new Gtk::ComboBoxText{});
     for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids()) {
         combobox_style_scheme_ta->append(scheme);
     }
     combobox_style_scheme_ta->set_active_text(pConfig->taStyleScheme);
-    hbox_style_scheme_ta->pack_start(*label_style_scheme_ta, false, false);
-    hbox_style_scheme_ta->pack_start(*combobox_style_scheme_ta, false, false);
 
-    vbox_ta_theme->pack_start(*hbox_style_scheme_ta, false, false);
-    Gtk::Frame* frame_ta_theme = new_managed_frame_with_align(_("Table"), vbox_ta_theme);
-
-    // Code Theme
-    auto vbox_co_theme = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
-
-    auto hbox_style_scheme_co = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
-    auto label_style_scheme_co = Gtk::manage(new Gtk::Label{_("Style Scheme")});
+    auto label_style_scheme_co = Gtk::manage(new Gtk::Label{_("Code")});
     auto combobox_style_scheme_co = Gtk::manage(new Gtk::ComboBoxText{});
     for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids()) {
         if (scheme != "user-style") {
@@ -135,11 +98,17 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
         }
     }
     combobox_style_scheme_co->set_active_text(pConfig->coStyleScheme);
-    hbox_style_scheme_co->pack_start(*label_style_scheme_co, false, false);
-    hbox_style_scheme_co->pack_start(*combobox_style_scheme_co, false, false);
 
-    vbox_co_theme->pack_start(*hbox_style_scheme_co, false, false);
-    Gtk::Frame* frame_co_theme = new_managed_frame_with_align(_("Code"), vbox_co_theme);
+    pGridStyleSchemes->attach(*label_style_scheme_rt,     0, 0, 1, 1);
+    pGridStyleSchemes->attach(*combobox_style_scheme_rt,  1, 0, 1, 1);
+    pGridStyleSchemes->attach(*label_style_scheme_pt,     2, 0, 1, 1);
+    pGridStyleSchemes->attach(*combobox_style_scheme_pt,  3, 0, 1, 1);
+    pGridStyleSchemes->attach(*label_style_scheme_ta,     0, 1, 1, 1);
+    pGridStyleSchemes->attach(*combobox_style_scheme_ta,  1, 1, 1, 1);
+    pGridStyleSchemes->attach(*label_style_scheme_co,     2, 1, 1, 1);
+    pGridStyleSchemes->attach(*combobox_style_scheme_co,  3, 1, 1, 1);
+
+    Gtk::Frame* frame_style_schemes = new_managed_frame_with_align(_("Style Schemes"), pGridStyleSchemes);
 
     // Theme Editor
     auto pGridThemeEditor = Gtk::manage(new Gtk::Grid{});
@@ -236,10 +205,7 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     pVBoxMain->set_margin_left(6);
     pVBoxMain->set_margin_top(6);
     pVBoxMain->pack_start(*frame_tt_theme, false, false);
-    pVBoxMain->pack_start(*frame_rt_theme, false, false);
-    pVBoxMain->pack_start(*frame_pt_theme, false, false);
-    pVBoxMain->pack_start(*frame_ta_theme, false, false);
-    pVBoxMain->pack_start(*frame_co_theme, false, false);
+    pVBoxMain->pack_start(*frame_style_schemes, false, false);
     pVBoxMain->pack_start(*frame_theme_editor, false, false);
 
     auto update_tree_color = [this, pConfig, colorbutton_tree_fg, colorbutton_tree_bg]() {
@@ -281,25 +247,6 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     combobox_style_scheme_rt->signal_changed().connect([this, pConfig, combobox_style_scheme_rt](){
         pConfig->rtStyleScheme = combobox_style_scheme_rt->get_active_text();
         apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('r'/*RichText*/); });
-    });
-    checkbutton_monospace_bg->signal_toggled().connect([this, pConfig, checkbutton_monospace_bg, colorbutton_monospace_bg](){
-        pConfig->monospaceBg = checkbutton_monospace_bg->get_active() ?
-            CtRgbUtil::rgb_any_to_24(colorbutton_monospace_bg->get_rgba()) : "";
-        colorbutton_monospace_bg->set_sensitive(not pConfig->monospaceBg.empty());
-        if (not pConfig->monospaceBg.empty()) {
-            if (auto tag = _pCtMainWin->get_text_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
-                tag->property_background() = pConfig->monospaceBg;
-            }
-        }
-        else {
-            need_restart(RESTART_REASON::MONOSPACE);
-        }
-    });
-    colorbutton_monospace_bg->signal_color_set().connect([this, pConfig, colorbutton_monospace_bg](){
-        pConfig->monospaceBg = CtRgbUtil::rgb_any_to_24(colorbutton_monospace_bg->get_rgba());
-        if (auto tag = _pCtMainWin->get_text_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
-            tag->property_background() = pConfig->monospaceBg;
-        }
     });
 
     combobox_style_scheme_pt->signal_changed().connect([this, pConfig, combobox_style_scheme_pt](){

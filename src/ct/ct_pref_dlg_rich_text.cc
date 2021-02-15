@@ -59,6 +59,16 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     Gtk::CheckButton* checkbutton_codebox_auto_resize = Gtk::manage(new Gtk::CheckButton(_("Expand CodeBoxes Automatically")));
     checkbutton_codebox_auto_resize->set_active(pConfig->codeboxAutoResize);
 
+    auto checkbutton_monospace_bg = Gtk::manage(new Gtk::CheckButton{_("Monospace Background")});
+    std::string mono_color = pConfig->monospaceBg.empty() ? CtConst::DEFAULT_MONOSPACE_BG : pConfig->monospaceBg;
+    auto colorbutton_monospace_bg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{mono_color}});
+    auto hbox_monospace_bg = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    hbox_monospace_bg->pack_start(*checkbutton_monospace_bg, false, false);
+    hbox_monospace_bg->pack_start(*colorbutton_monospace_bg, false, false);
+
+    checkbutton_monospace_bg->set_active(!pConfig->monospaceBg.empty());
+    colorbutton_monospace_bg->set_sensitive(!pConfig->monospaceBg.empty());
+
     Gtk::HBox* hbox_embfile_icon_size = Gtk::manage(new Gtk::HBox());
     hbox_embfile_icon_size->set_spacing(4);
     Gtk::Label* label_embfile_icon_size = Gtk::manage(new Gtk::Label(_("Embedded File Icon Size")));
@@ -97,6 +107,7 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     vbox_misc_text->pack_start(*checkbutton_rt_highl_curr_line, false, false);
     vbox_misc_text->pack_start(*checkbutton_rt_highl_match_bra, false, false);
     vbox_misc_text->pack_start(*checkbutton_codebox_auto_resize, false, false);
+    vbox_misc_text->pack_start(*hbox_monospace_bg, false, false);
     vbox_misc_text->pack_start(*hbox_embfile_icon_size, false, false);
     vbox_misc_text->pack_start(*hbox_embfile_max_size, false, false);
     vbox_misc_text->pack_start(*checkbutton_embfile_show_filename, false, false);
@@ -152,6 +163,27 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
         pConfig->codeboxAutoResize = checkbutton_codebox_auto_resize->get_active();
         need_restart(RESTART_REASON::CODEBOX_AUTORESIZE);
     });
+
+    checkbutton_monospace_bg->signal_toggled().connect([this, pConfig, checkbutton_monospace_bg, colorbutton_monospace_bg](){
+        pConfig->monospaceBg = checkbutton_monospace_bg->get_active() ?
+            CtRgbUtil::rgb_any_to_24(colorbutton_monospace_bg->get_rgba()) : "";
+        colorbutton_monospace_bg->set_sensitive(not pConfig->monospaceBg.empty());
+        if (not pConfig->monospaceBg.empty()) {
+            if (auto tag = _pCtMainWin->get_text_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
+                tag->property_background() = pConfig->monospaceBg;
+            }
+        }
+        else {
+            need_restart(RESTART_REASON::MONOSPACE);
+        }
+    });
+    colorbutton_monospace_bg->signal_color_set().connect([this, pConfig, colorbutton_monospace_bg](){
+        pConfig->monospaceBg = CtRgbUtil::rgb_any_to_24(colorbutton_monospace_bg->get_rgba());
+        if (auto tag = _pCtMainWin->get_text_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
+            tag->property_background() = pConfig->monospaceBg;
+        }
+    });
+
     spinbutton_embfile_icon_size->signal_value_changed().connect([this, pConfig, spinbutton_embfile_icon_size](){
         pConfig->embfileIconSize = spinbutton_embfile_icon_size->get_value_as_int();
         need_restart(RESTART_REASON::EMBFILE_SIZE);
