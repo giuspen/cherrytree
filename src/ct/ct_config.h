@@ -40,7 +40,6 @@ public:
     static const fs::path ConfigLanguageSpecsDirname;
     static const fs::path ConfigStylesDirname;
     static const fs::path UserStyleTemplate;
-    static constexpr unsigned NumUserStyles{2};
 
     bool load_from_file(const fs::path& filepath = fs::get_cherrytree_config_filepath());
     bool write_to_file(const fs::path& filepath =  fs::get_cherrytree_config_filepath());
@@ -178,14 +177,14 @@ public:
     std::string                                 colLinkNode{CtConst::COLOR_48_LINK_NODE};
     std::string                                 colLinkFile{CtConst::COLOR_48_LINK_FILE};
     std::string                                 colLinkFold{CtConst::COLOR_48_LINK_FOLD};
-    std::string                                 userStyleTextFg[NumUserStyles]{CtConst::COLOR_24_WHITE, CtConst::COLOR_24_BLACK};
-    std::string                                 userStyleTextBg[NumUserStyles]{CtConst::COLOR_24_BLACK, CtConst::COLOR_24_WHITE};
-    std::string                                 userStyleSelectionFg[NumUserStyles]{CtConst::COLOR_24_WHITE, CtConst::COLOR_24_WHITE};
-    std::string                                 userStyleSelectionBg[NumUserStyles]{"#0088ff", "#43ace8"};
-    std::string                                 userStyleCursor[NumUserStyles]{CtConst::COLOR_24_WHITE, CtConst::COLOR_24_BLACK};
-    std::string                                 userStyleCurrentLineBg[NumUserStyles]{"#003b70", "#eef6ff"};
-    std::string                                 userStyleLineNumbersFg[NumUserStyles]{"#777777", CtConst::COLOR_24_BLACK};
-    std::string                                 userStyleLineNumbersBg[NumUserStyles]{"#000d1a", "#d6d2d0"};
+    std::array<std::string,CtConst::NUM_USER_STYLES> userStyleTextFg{CtConst::USER_STYLE_TEXT_FG};
+    std::array<std::string,CtConst::NUM_USER_STYLES> userStyleTextBg{CtConst::USER_STYLE_TEXT_BG};
+    std::array<std::string,CtConst::NUM_USER_STYLES> userStyleSelectionFg{CtConst::USER_STYLE_SELECTION_FG};
+    std::array<std::string,CtConst::NUM_USER_STYLES> userStyleSelectionBg{CtConst::USER_STYLE_SELECTION_BG};
+    std::array<std::string,CtConst::NUM_USER_STYLES> userStyleCursor{CtConst::USER_STYLE_CURSOR};
+    std::array<std::string,CtConst::NUM_USER_STYLES> userStyleCurrentLineBg{CtConst::USER_STYLE_CURRENT_LINE_BG};
+    std::array<std::string,CtConst::NUM_USER_STYLES> userStyleLineNumbersFg{CtConst::USER_STYLE_LINE_NUMBERS_FG};
+    std::array<std::string,CtConst::NUM_USER_STYLES> userStyleLineNumbersBg{CtConst::USER_STYLE_LINE_NUMBERS_BG};
 
     // [misc]
     std::string                                 toolbarUiList{CtConst::TOOLBAR_VEC_DEFAULT};

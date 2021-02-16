@@ -315,7 +315,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_string(_currentGroup, "col_link_node", colLinkNode);
     _uKeyFile->set_string(_currentGroup, "col_link_file", colLinkFile);
     _uKeyFile->set_string(_currentGroup, "col_link_fold", colLinkFold);
-    for (unsigned n = 1; n <= CtConfig::NumUserStyles; ++n) {
+    for (unsigned n = 1; n <= CtConst::NUM_USER_STYLES; ++n) {
         const unsigned i = n-1;
         _uKeyFile->set_string(_currentGroup, "style_"+std::to_string(n)+"_text_fg", userStyleTextFg[i]);
         _uKeyFile->set_string(_currentGroup, "style_"+std::to_string(n)+"_text_bg", userStyleTextBg[i]);
@@ -607,7 +607,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_string_from_keyfile("col_link_node", &colLinkNode);
     _populate_string_from_keyfile("col_link_file", &colLinkFile);
     _populate_string_from_keyfile("col_link_fold", &colLinkFold);
-    for (unsigned n = 1; n <= CtConfig::NumUserStyles; ++n) {
+    for (unsigned n = 1; n <= CtConst::NUM_USER_STYLES; ++n) {
         const unsigned i = n-1;
         _populate_string_from_keyfile("style_"+std::to_string(n)+"_text_fg", &userStyleTextFg[i]);
         _populate_string_from_keyfile("style_"+std::to_string(n)+"_text_bg", &userStyleTextBg[i]);
@@ -663,7 +663,7 @@ void CtConfig::_populate_data_from_keyfile()
 
 void CtConfig::_ensure_user_styles_exist()
 {
-    for (unsigned n = 1; n <= CtConfig::NumUserStyles; ++n) {
+    for (unsigned n = 1; n <= CtConst::NUM_USER_STYLES; ++n) {
         const fs::path userStyleFilepath = fs::get_cherrytree_config_user_style_filepath(n);
         if (not fs::is_regular_file(userStyleFilepath)) {
             update_user_style(n);

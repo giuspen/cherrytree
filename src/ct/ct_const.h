@@ -99,6 +99,15 @@ const inline static gchar* TREE_TEXT_DARK_FG      {COLOR_24_WHITE};
 const inline static gchar* TREE_TEXT_DARK_BG      {COLOR_24_BLUEBG};
 const inline static gchar* TREE_TEXT_LIGHT_FG     {COLOR_24_LBLACK};
 const inline static gchar* TREE_TEXT_LIGHT_BG     {COLOR_24_GRAY};
+const inline static unsigned NUM_USER_STYLES{2};
+const inline static std::array<std::string,NUM_USER_STYLES> USER_STYLE_TEXT_FG{COLOR_24_WHITE, COLOR_24_BLACK};
+const inline static std::array<std::string,NUM_USER_STYLES> USER_STYLE_TEXT_BG{COLOR_24_BLACK, COLOR_24_WHITE};
+const inline static std::array<std::string,NUM_USER_STYLES> USER_STYLE_SELECTION_FG{COLOR_24_WHITE, COLOR_24_WHITE};
+const inline static std::array<std::string,NUM_USER_STYLES> USER_STYLE_SELECTION_BG{"#0088ff", "#43ace8"};
+const inline static std::array<std::string,NUM_USER_STYLES> USER_STYLE_CURSOR{COLOR_24_WHITE, COLOR_24_BLACK};
+const inline static std::array<std::string,NUM_USER_STYLES> USER_STYLE_CURRENT_LINE_BG{"#003b70", "#eef6ff"};
+const inline static std::array<std::string,NUM_USER_STYLES> USER_STYLE_LINE_NUMBERS_FG{"#777777", COLOR_24_BLACK};
+const inline static std::array<std::string,NUM_USER_STYLES> USER_STYLE_LINE_NUMBERS_BG{"#000d1a", "#d6d2d0"};
 
 const inline static gchar* GTKSPELLCHECK_TAG_NAME  {"gtkspellchecker-misspelled"};
 const inline static gchar* TAG_WEIGHT              {"weight"};
