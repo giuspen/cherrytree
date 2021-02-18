@@ -1,7 +1,7 @@
 /*
  * ct_imports.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -530,6 +530,7 @@ std::unique_ptr<ct_imported_node> CtKeepnoteImport::import_file(const fs::path& 
     buff << infile.rdbuf();
 
     CtHtml2Xml parser(_config);
+    parser.set_local_dir(file.parent_path().string());
     parser.feed(buff.str());
 
     auto node = std::make_unique<ct_imported_node>(file, file.parent_path().stem().string());
