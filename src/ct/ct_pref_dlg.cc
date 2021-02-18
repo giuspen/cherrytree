@@ -25,7 +25,29 @@
 #include "ct_main_win.h"
 
 CtPrefDlg::CtPrefDlg(CtMainWin* parent)
- : Gtk::Dialog(_("Preferences"), *parent, true)
+ : Gtk::Dialog{_("Preferences"), *parent, true}
+ , _mapCountryLanguages{
+        {"bg", _("Bulgarian")},
+        {"cs", _("Czech")},
+        {"de", _("German")},
+        {"el", _("Greek")},
+        {"en", _("English")},
+        {"es", _("Spanish")},
+        {"fi", _("Finnish")},
+        {"fr", _("French")},
+        {"hy", _("Armenian")},
+        {"it", _("Italian")},
+        {"ja", _("Japanese")},
+        {"lt", _("Lithuanian")},
+        {"nl", _("Dutch")},
+        {"pl", _("Polish")},
+        {"pt_BR", _("Portuguese Brazil")},
+        {"ru", _("Russian")},
+        {"sl", _("Slovenian")},
+        {"sv", _("Swedish")},
+        {"tr", _("Turkish")},
+        {"uk", _("Ukrainian")},
+        {"zh_CN", _("Chinese Simplified")}}
 {
     _restartReasons = 0;
     _pCtMainWin = parent;

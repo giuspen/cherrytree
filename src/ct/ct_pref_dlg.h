@@ -103,4 +103,5 @@ private:
     CtMainWin*            _pCtMainWin;
     CtMenu*               _pCtMenu;
     int                   _restartReasons;
+    const std::map<std::string, Glib::ustring> _mapCountryLanguages;
 };

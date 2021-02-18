@@ -111,33 +111,18 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     Gtk::Frame* frame_misc_misc = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc_misc);
 
 #ifdef HAVE_NLS
-    Gtk::VBox* vbox_language = Gtk::manage(new Gtk::VBox());
-    Gtk::ComboBoxText* combobox_country_language = Gtk::manage(new Gtk::ComboBoxText());
-    combobox_country_language->append(CtConst::LANG_DEFAULT, "-");
-    combobox_country_language->append("bg", _("Bulgarian"));
-    combobox_country_language->append("cs", _("Czech"));
-    combobox_country_language->append("de", _("German"));
-    combobox_country_language->append("el", _("Greek"));
-    combobox_country_language->append("en", _("English"));
-    combobox_country_language->append("es", _("Spanish"));
-    combobox_country_language->append("fi", _("Finnish"));
-    combobox_country_language->append("fr", _("French"));
-    combobox_country_language->append("hy", _("Armenian"));
-    combobox_country_language->append("it", _("Italian"));
-    combobox_country_language->append("ja", _("Japanese"));
-    combobox_country_language->append("lt", _("Lithuanian"));
-    combobox_country_language->append("nl", _("Dutch"));
-    combobox_country_language->append("pl", _("Polish"));
-    combobox_country_language->append("pt_BR", _("Portuguese Brazil"));
-    combobox_country_language->append("ru", _("Russian"));
-    combobox_country_language->append("sl", _("Slovenian"));
-    combobox_country_language->append("sv", _("Swedish"));
-    combobox_country_language->append("tr", _("Turkish"));
-    combobox_country_language->append("uk", _("Ukrainian"));
-    combobox_country_language->append("zh_CN", _("Chinese Simplified"));
-    combobox_country_language->set_active_id(CtMiscUtil::get_ct_language());
-    vbox_language->pack_start(*combobox_country_language, false, false);
-    Gtk::Frame* frame_language = new_managed_frame_with_align(_("Language"), vbox_language);
+    auto f_getButtonLabel = [this](const std::string langCode)->Glib::ustring{
+        auto it = _mapCountryLanguages.find(langCode);
+        return it != _mapCountryLanguages.end() ? it->second : "-";
+    };
+    auto f_getStockId = [](const std::string langCode)->std::string{
+        return langCode == CtConst::LANG_DEFAULT ? "ct_node_no_icon" : "ct_" + langCode;
+    };
+    const auto currLangId = CtMiscUtil::get_ct_language();
+    auto button_country_language = Gtk::manage(new Gtk::Button{});
+    button_country_language->set_label(f_getButtonLabel(currLangId));
+    button_country_language->set_image(*_pCtMainWin->new_image_from_stock(f_getStockId(currLangId), Gtk::ICON_SIZE_MENU));
+    Gtk::Frame* frame_language = new_managed_frame_with_align(_("Language"), button_country_language);
 #endif
 
     Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
@@ -227,11 +212,21 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
         apply_for_each_window([](CtMainWin* win) { win->update_selected_node_statusbar_info(); });
     });
 #ifdef HAVE_NLS
-    combobox_country_language->signal_changed().connect([this, combobox_country_language](){
-        Glib::ustring new_lang = combobox_country_language->get_active_id();
-        need_restart(RESTART_REASON::LANG, _("The New Language will be Available Only After Restarting CherryTree"));
-        g_file_set_contents(fs::get_cherrytree_lang_filepath().c_str(),
-                            new_lang.c_str(), (gssize)new_lang.bytes(), nullptr);
+    button_country_language->signal_clicked().connect([this, button_country_language, f_getStockId, f_getButtonLabel](){
+        Glib::RefPtr<CtChooseDialogListStore> rItemStore = CtChooseDialogListStore::create();
+        rItemStore->add_row(f_getStockId(CtConst::LANG_DEFAULT), CtConst::LANG_DEFAULT, "-");
+        for (const auto& currPair : _mapCountryLanguages) {
+            rItemStore->add_row(f_getStockId(currPair.first), currPair.first, currPair.second);
+        }
+        Gtk::TreeIter res = CtDialogs::choose_item_dialog(*this, _("Language"), rItemStore);
+        if (res) {
+            const Glib::ustring selLangId = res->get_value(rItemStore->columns.key);
+            button_country_language->set_label(f_getButtonLabel(selLangId));
+            button_country_language->set_image(*_pCtMainWin->new_image_from_stock(f_getStockId(selLangId), Gtk::ICON_SIZE_MENU));
+            need_restart(RESTART_REASON::LANG, _("The New Language will be Available Only After Restarting CherryTree"));
+            g_file_set_contents(fs::get_cherrytree_lang_filepath().c_str(),
+                                selLangId.c_str(), (gssize)selLangId.bytes(), nullptr);
+        }
     });
 #endif
 
