@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-17 18:22+0000\n"
-"PO-Revision-Date: 2021-02-17 18:40+0000\n"
+"POT-Creation-Date: 2021-02-16 23:09+0000\n"
+"PO-Revision-Date: 2021-02-17 21:39+0600\n"
 "Last-Translator: Viktor Polyanskiy <camilot55@yandex.ru>\n"
 "Language-Team: Russian <camilot55@yandex.ru>\n"
 "Language: ru\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Language: ru_RU\n"
 "X-Source-Language: C\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_file.cc:80
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_file.cc:97
@@ -397,6 +397,10 @@ msgstr "Файл"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:72
 msgid "_Edit"
 msgstr "Правка"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:77
+msgid "_Tools"
+msgstr "Инструменты"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:73
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1070
@@ -1191,52 +1195,62 @@ msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:154
 msgid "Justify _Left"
-msgstr "Выровнять по левому краю"
+msgstr "По левому краю"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:154
 msgid "Justify Left the Current Paragraph"
 msgstr ""
-"Выровнять по левому краю\n"
+"По левому краю\n"
 "\n"
-"Выровнять текст по левому краю"
+"Выравнивание содержимого по левому краю"
+"\n"
+"Этот тип выравнивания обычно используется\n"
+"для основного текста и облегчает чтение документа."
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:155
 msgid "Justify _Center"
-msgstr "Выровнять по центру"
+msgstr "По центру"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:155
 msgid "Justify Center the Current Paragraph"
 msgstr ""
-"Выровнять по центру\n"
+"По центру\n"
 "\n"
-"Выровнять текст по центру"
+"Выравнивание содержимого по центру"
+"\n"
+"С помощью этого типа выравнивания вы можете\n"
+"придать документу официальный вид. Он часто \n"
+"используется для цитат и заголовков."
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:156
 msgid "Justify _Right"
-msgstr "Выровнять по правому краю"
+msgstr "По правому краю"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:156
 msgid "Justify Right the Current Paragraph"
 msgstr ""
-"Выровнять по правому краю\n"
+"По правому краю\n"
 "\n"
-"Выровнять текст по правому краю"
+"Выравнивание содержимого по правому краю"
+"\n"
+"Этот тип выравнивания обычно используется\n"
+"для небольших фрагментов содержимого текста."
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:157
 msgid "Justify _Fill"
-msgstr "Выровнять по ширине"
+msgstr "По ширине"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:157
 msgid "Justify Fill the Current Paragraph"
 msgstr ""
-"Выровнять по ширине\n"
+"По ширине\n"
 "\n"
-"Выровнять текст одновременно по\n"
-"левому и правому краям поля за счёт\n"
-"добавления дополнительных интервалов\n"
-"между словами там, где это необходимо.\n"
-"Текст распределяется равномерно между\n"
-"левым и правым краями страницы"
+"Выравнивание содержимого по ширине"
+"\n"
+"Равномерное распределение текста между\n"
+"левым и правым краям поля.\n"
+"Выровненный по ширине текст делает края\n"
+"документа ровными и чёткими."
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:158
 msgid "Indent Paragraph"
@@ -1549,48 +1563,48 @@ msgstr "Поиск/Замена"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:187
 msgid "_Find in Node Content"
-msgstr "Искать в ветви"
+msgstr "В ветви"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:187
 msgid "Find into the Selected Node Content"
 msgstr ""
-"Искать в ветви\n"
+"В ветви\n"
 "\n"
 "Поиск текста или другого содержимого\n"
 "в содержании ветви"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:188
 msgid "Find in _All Nodes Contents"
-msgstr "Искать во всех ветвях"
+msgstr "Во всех ветвях"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:188
 msgid "Find into All the Tree Nodes Contents"
 msgstr ""
-"Искать во всех ветвях\n"
+"Во всех ветвях\n"
 "\n"
 "Поиск текста или другого содержимого\n"
 "в содержании всех ветвей"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:189
 msgid "Find in _Selected Node and Subnodes Contents"
-msgstr "Искать в ветви с дочерними"
+msgstr "В ветви с дочерними"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:189
 msgid "Find into the Selected Node and Subnodes Contents"
 msgstr ""
-"Искать в ветви с дочерними\n"
+"В ветви с дочерними\n"
 "\n"
 "Поиск текста или другого содержимого\n"
 "в содержании ветви с дочерними "
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:190
 msgid "Find in _Nodes Names and Tags"
-msgstr "Искать в именах ветвей и тэгах"
+msgstr "В именах ветвей и тэгах"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:190
 msgid "Find in Nodes Names and Tags"
 msgstr ""
-"Искать в именах ветвей и тэгах\n"
+"В именах ветвей и тэгах\n"
 "\n"
 "Поиск текста или другого содержимого\n"
 "в именах ветвей и тэгах"
@@ -1621,45 +1635,45 @@ msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:193
 msgid "_Replace in Node Content"
-msgstr "Заменить в ветви"
+msgstr "В ветви"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:193
 msgid "Replace into the Selected Node Content"
 msgstr ""
-"Заменить в ветви\n"
+"В ветви\n"
 "\n"
 "Заменить текст или другое содержимое в ветви"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:194
 msgid "Replace in _All Nodes Contents"
-msgstr "Заменить во всех ветвях"
+msgstr "Во всех ветвях"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:194
 msgid "Replace into All the Tree Nodes Contents"
 msgstr ""
-"Заменить во всех ветвях\n"
+"Во всех ветвях\n"
 "\n"
 "Заменить текст или другое содержимое в всех ветвей"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:195
 msgid "Replace in _Selected Node and Subnodes Contents"
-msgstr "Заменить в ветви с дочерними"
+msgstr "В ветви с дочерними"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:195
 msgid "Replace into the Selected Node and Subnodes Contents"
 msgstr ""
-"Заменить в ветви с дочерними\n"
+"В ветви с дочерними\n"
 "\n"
 "Заменить текст или другое содержимое в ветви с дочерними"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:196
 msgid "Replace in Nodes _Names"
-msgstr "Заменить в именах ветвей"
+msgstr "В именах ветвей"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:196
 msgid "Replace in Nodes Names"
 msgstr ""
-"Заменить в именах ветвей\n"
+"В именах ветвей\n"
 "\n"
 "Заменить текст или другое содержимое в именах ветвей"
 
@@ -2675,22 +2689,32 @@ msgstr "Список"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1070
 msgid "_Justify"
-msgstr "Выравнивание"
+msgstr "Выровнять..."
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1070
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1123
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:74
 msgid "_Insert"
 msgstr "Вставка"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1045
+msgid "_Paste"
+msgstr "Вставить"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1070
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1123
 msgid "_Row"
 msgstr "Строка"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1070
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1123
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1087
 msgid "_Replace"
 msgstr "Заменить"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:953
+msgid "_Find"
+msgstr "Найти..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:873
+msgid "_Font"
+msgstr "Шрифт"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:60
 msgid "Replace in Current Node..."
@@ -3302,9 +3326,8 @@ msgid "Sort the Bookmarks Ascending"
 msgstr "Сортировать по возрастанию"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:676
-#, c-format
 msgid "Hide (Restore with '%s')"
-msgstr "Закрыть (Восстановить с помощью '%s')"
+msgstr "Закрыть"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:680
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1680
@@ -3979,18 +4002,6 @@ msgstr "Размер значков панели инструментов мак
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_view.cc:91
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "Размер значков панели инструментов минимальный"
-
-#~ msgid "_Tools"
-#~ msgstr "Инструменты"
-
-#~ msgid "_Paste"
-#~ msgstr "Вставить"
-
-#~ msgid "_Find"
-#~ msgstr "Найти..."
-
-#~ msgid "_Font"
-#~ msgstr "Шрифт"
 
 #~ msgid "NoteCase Document"
 #~ msgstr "Документ NoteCase"
