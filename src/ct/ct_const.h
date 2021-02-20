@@ -249,7 +249,7 @@ const inline static int NODE_ICON_SIZE             {16};
 const inline static int MAX_TOOLTIP_LINK_CHARS     {150};
 
 // former NODES_STOCK
-const inline static std::array<const gchar*, 49> NODE_CUSTOM_ICONS {
+const inline static std::array<const gchar*, 95> NODE_CUSTOM_ICONS {
     nullptr,            // NEVER USED
     "ct_circle-green",  //  1
     "ct_circle-yellow", //  2
@@ -299,6 +299,52 @@ const inline static std::array<const gchar*, 49> NODE_CUSTOM_ICONS {
     "ct_xml",           // 46
     "ct_c",             // 47
     "ct_cpp",           // 48
+    "ct_perl",          // 49
+    "ct_pin",           // 50
+    "ct_anchor",        // 51
+    "ct_edit",          // 52
+    "ct_save",          // 53
+    "ct_execute",       // 54
+    "ct_preferences",   // 55
+    "ct_clear",         // 56
+    "ct_stop",          // 57
+    "ct_close",         // 58
+    "ct_quit-app",      // 59
+    "ct_file",          // 60
+    "ct_print",         // 61
+    "ct_file_icon",     // 62
+    "ct_link_handle",   // 63
+    "ct_link_website",  // 64
+    "ct_network",       // 65
+    "ct_go-back",       // 66
+    "ct_go-down",       // 67
+    "ct_go-forward",    // 68
+    "ct_go-up",         // 69
+    "ct_go-jump",       // 70
+    "ct_zoom-out",      // 71
+    "ct_zoom-in",       // 72
+    "ct_bg",            // 73
+    "ct_cs",            // 74
+    "ct_de",            // 75
+    "ct_el",            // 76
+    "ct_en",            // 77
+    "ct_en_US",         // 78
+    "ct_es",            // 79
+    "ct_fi",            // 80
+    "ct_fr",            // 81
+    "ct_hy",            // 82
+    "ct_it",            // 83
+    "ct_ja",            // 84
+    "ct_lt",            // 85
+    "ct_nl",            // 86
+    "ct_pl",            // 87
+    "ct_pt_BR",         // 88
+    "ct_ru",            // 89
+    "ct_sl",            // 90
+    "ct_sv",            // 91
+    "ct_tr",            // 92
+    "ct_uk",            // 93
+    "ct_zh_CN"          // 94
 };
 
 // former NODES_ICONS
