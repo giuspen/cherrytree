@@ -185,8 +185,10 @@ cp -v ${GIT_CT_LICENSE} ${NEW_ROOT_FOLDER}/
 mkdir -p ${NEW_CHERRYTREE_SHARE}/data
 cp -rv ${GIT_CT_LANGUAGE_SPECS_FOLDER} ${NEW_CHERRYTREE_SHARE}/
 cp -rv ${GIT_CT_STYLES_FOLDER} ${NEW_CHERRYTREE_SHARE}/
-cp -v ${GIT_CT_DATA_FOLDER}/script3.js ${NEW_CHERRYTREE_SHARE}/data/
-cp -v ${GIT_CT_DATA_FOLDER}/styles3.css ${NEW_CHERRYTREE_SHARE}/data/
+for element_rel in script3.js styles3.css user-style.xml
+do
+  cp -v ${GIT_CT_DATA_FOLDER}/${element_rel} ${NEW_CHERRYTREE_SHARE}/data/
+done
 # share icons
 mkdir -p ${NEW_CHERRYTREE_SHARE}/icons
 cp -v ${GIT_CT_ICONS_FOLDER}/ct_home.svg ${NEW_CHERRYTREE_SHARE}/icons/
