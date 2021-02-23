@@ -32,7 +32,11 @@
 #include <regex>
 #include <glib/gstdio.h> // to get stats
 #include <curl/curl.h>
+#ifndef __APPLE__
 #include <uchardet/uchardet.h>
+#else
+#include <uchardet.h>
+#endif // __APPLE__
 #include <thread> // for parallel_for
 #include <future> // parallel_for
 
