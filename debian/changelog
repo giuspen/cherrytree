@@ -1,15 +1,15 @@
-cherrytree (0.99.30-1) focal; urgency=low
+cherrytree (0.99.31-1) focal; urgency=low
 
-  * moved top menu items 'Edit'->'Preferences' and 'Tree'->'Tree Info' to 'File' menu (#1497)
-  * fix Table of Contents not saving (#1484)
-  * fix export to pdf crash
-  * fix crash when importing CSV file (#1476)
-  * fix copy from cherrytree to external app in windows (#1472)
-  * improved language selection in preferences dialog (#1496)
-  * fix when creating new node/subnode not proposing syntax highlighting of selected node (#1481)
-  * insert link dialog to remember/repropose last selection (#1413)
-  * new icon for generic code node (@uservaf/Ugo Yak, #1451)
-  * fixes to Russian translation from new maintainer Viktor Polyanskiy
+  * in preferences dialog tab themes there are now two style schemes, one starting from dark colors and one starting from light colors (#1362)
+  * a different style scheme can now be selected for plain text and code (used to share the same)
+  * implemented 'format clone' cloning formatting at cursor which can then be applied with existing menu item 'format latest' (#600)
+  * insert special symbols changed from having a submenu item per symbol to a dialog listing all the symbols (#1503)
+  * added few more icons as selectable as custom node icon (#1514)
+  * fix mac os big sur crash when formatting text foreground/background color with RGB not from palette (#1512)
+  * removed default global shortcut Ctrl+Delete to delete tree node because overrides text editor standard (#1513)
+  * fixed import from keepnote missing images (#1516)
+  * preferences dialog, selection of ui language, added flags (#1511)
+  * fixed misleading command line argument to export to pdf - the user is expected to pass a directory path, not a file path
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sun, 24 Jan 2021 22:07:21 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Tue, 23 Feb 2021 21:48:08 +0000
