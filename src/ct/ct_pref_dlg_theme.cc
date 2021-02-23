@@ -93,7 +93,7 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     auto label_style_scheme_co = Gtk::manage(new Gtk::Label{_("Code")});
     auto combobox_style_scheme_co = Gtk::manage(new Gtk::ComboBoxText{});
     for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids()) {
-        if (scheme != "user-style") {
+        if (not Glib::str_has_prefix(scheme, "user-")) {
             combobox_style_scheme_co->append(scheme);
         }
     }
