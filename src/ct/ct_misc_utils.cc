@@ -32,7 +32,7 @@
 #include <regex>
 #include <glib/gstdio.h> // to get stats
 #include <curl/curl.h>
-#include <uchardet.h>
+#include <uchardet/uchardet.h>
 #include <thread> // for parallel_for
 #include <future> // parallel_for
 

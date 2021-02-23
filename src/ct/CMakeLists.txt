@@ -89,8 +89,6 @@ target_link_libraries(cherrytree_shared
   7za_static
 )
 
-target_include_directories(cherrytree_shared PUBLIC "..")
-
 add_executable(cherrytree ct_main.cc icons.gresource.cc ${CHERRY_EXE_RC})
 target_link_libraries(cherrytree cherrytree_shared)
 
