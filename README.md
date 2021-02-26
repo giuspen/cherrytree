@@ -166,7 +166,13 @@ git submodule update --init
 
 ## Building Cherrytree on MacOS
 
-Install dependencies:
+Cherrytree is now part of [Homebrew](https://brew.sh/index_it)!
+```
+brew update
+brew install cherrytree
+```
+
+If for any reason you prefer to build it yourself, install dependencies:
 ```sh
 brew install cmake pkg-config python3 adwaita-icon-theme fmt gspell gtksourceviewmm3 libxml++ spdlog uchardet curl
 ```
