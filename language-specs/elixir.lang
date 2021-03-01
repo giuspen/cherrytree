@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is to be used with GtkSourceView
+
+ Author: Steffen Bauer <steffen.aus.karlsruhe@gmail.com>
+ Copyright (C) 2013-2020 Steffen Bauer
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+-->
+
+<!--
+
+ GtkSourceView Syntax highlighting for the Elixir programming language
+
+ Covers Elixir 1.10.x
+
+-->
+
+<language id="elixir" _name="Elixir" version="2.0" _section="Sources">
+
+  <metadata>
+   <property name="mimetypes">text/x-elixir</property>
+   <property name="globs">*.exs;*.ex</property>
+   <property name="line-comment-start">#</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"              _name="Comment"               map-to="def:comment"/>
+    <style id="atom"                 _name="Atom"                  map-to="def:type"/>
+    <style id="keyword"              _name="Keyword"               map-to="def:type"/>
+    <style id="sigil"                _name="Sigil"                 map-to="def:type"/>
+    <style id="charcode"             _name="Charcode"              map-to="def:character"/>
+    <style id="string"               _name="String"                map-to="def:string"/>
+    <style id="string-interpolation" _name="String interpolation"  map-to="def:special-char"/>
+    <style id="codepoint"            _name="Codepoint"             map-to="def:special-char"/>
+    <style id="character"            _name="Character"             map-to="def:character"/>
+    <style id="floating-point"       _name="Floating point number" map-to="def:floating-point"/>
+    <style id="base-n-integer"       _name="Base-N Integer"        map-to="def:base-n-integer"/>
+    <style id="decimal"              _name="Decimal number"        map-to="def:decimal"/>
+    <style id="boolean"              _name="Boolean"               map-to="def:type"/>
+    <style id="module"               _name="Module"                map-to="def:preprocessor"/>
+    <style id="builtin-name"         _name="Builtin Name"          map-to="def:keyword"/>
+    <style id="attribute"            _name="Attribute"             map-to="def:builtin"/>
+  </styles>
+
+  <definitions>
+
+    <context id="quoted-string">
+    <include>
+      <context id="multiline-double-quoted-string" style-ref="string">
+        <start>(~[crswCRSWDTNU])?"""</start>
+        <end>^\s*"""</end>
+      </context>
+
+      <context id="multiline-single-quoted-string" style-ref="string">
+        <start>(~[crswCRSWDTNU])?'''</start>
+        <end>^\s*'''</end>
+      </context>
+
+      <context id="string-double-quote" style-ref="string">
+        <start>"</start> <end>"</end>
+        <include> <context ref="codepoint"/>
+                  <context ref="def:escape"/>
+                  <context ref="string-interpolation"/> </include>
+      </context>
+
+      <context id="string-single-quote" style-ref="string">
+        <start>'</start> <end>'</end>
+        <include> <context ref="codepoint"/>
+                  <context ref="def:escape"/>
+                  <context ref="string-interpolation"/> </include>
+      </context>
+    </include>
+    </context>
+
+    <context id="sigils">
+    <include>
+      <context id="sigil-parentheses-interpolation" style-ref="sigil">
+        <start>~[crsw]\(</start> <end>\)[fgimrsuxbac]*</end>
+        <include> <context ref="codepoint"/>
+                  <context ref="def:escape"/>
+                  <context ref="string-interpolation"/> </include>
+      </context>
+
+      <context id="sigil-brackets-interpolation" style-ref="sigil">
+        <start>~[crsw]\[</start> <end>\][fgimrsuxbac]*</end>
+        <include> <context ref="codepoint"/>
+                  <context ref="def:escape"/>
+                  <context ref="string-interpolation"/> </include>
+      </context>
+
+      <context id="sigil-curly_brackets-interpolation" style-ref="sigil">
+        <start>~[crsw]\{</start> <end>\}[fgimrsuxbac]*</end>
+        <include> <context ref="codepoint"/>
+                  <context ref="def:escape"/>
+                  <context ref="string-interpolation"/> </include>
+      </context>
+
+      <context id="sigil-chevrons-interpolation" style-ref="sigil">
+        <start>~[crsw]&lt;</start> <end>&gt;[fgimrsuxbac]*</end>
+        <include> <context ref="codepoint"/>
+                  <context ref="def:escape"/>
+                  <context ref="string-interpolation"/> </include>
+      </context>
+
+      <context id="sigil-pipes-interpolation" style-ref="sigil">
+        <start>~[crsw]\|</start> <end>\|[fgimrsuxbac]*</end>
+        <include> <context ref="codepoint"/>
+                  <context ref="def:escape"/>
+                  <context ref="string-interpolation"/> </include>
+      </context>
+
+      <context id="sigil-slashes-interpolation" style-ref="sigil">
+        <start>~[crsw]/</start> <end>/[fgimrsuxbac]*</end>
+        <include> <context ref="codepoint"/>
+                  <context ref="def:escape"/>
+                  <context ref="string-interpolation"/> </include>
+      </context>
+
+      <context id="sigil-double-quotes-interpolation" style-ref="sigil">
+        <start>~[crsw]"</start> <end>"[fgimrsuxbac]*</end>
+        <include> <context ref="codepoint"/>
+                  <context ref="def:escape"/>
+                  <context ref="string-interpolation"/> </include>
+      </context>
+
+      <context id="sigil-single-quotes-interpolation" style-ref="sigil">
+        <start>~[crsw]'</start> <end>'[fgimrsuxbac]*</end>
+        <include> <context ref="codepoint"/>
+                  <context ref="def:escape"/>
+                  <context ref="string-interpolation"/> </include>
+      </context>
+
+      <context id="sigil-without-interpolation" style-ref="sigil">
+        <match>~[CRSWDTNU](\((.)*?\)|\[(.)*?\]|\{(.)*?\}|&lt;(.)*?&gt;|\|(.)*?\||/(.)*/|"(.)*"|'(.)*')[fgimrsuxbac]*</match>
+      </context>
+    </include>
+    </context>
+
+
+    <context id="elixir-std">
+    <include>
+      <context ref="def:shebang"/>
+      <context ref="def:shell-like-comment"/>
+      <context ref="quoted-string"/>
+
+      <context id="line-comment" style-ref="comment" end-at-line-end="true">
+        <start>#</start>
+        <include> <context ref="def:in-line-comment"/> </include>
+      </context>
+      <context id="atom" style-ref="atom">
+        <match>\:[a-zA-Z_](\w)*(!|\?)?</match>
+      </context>
+
+      <context id="charcode" style-ref="charcode">
+        <match extended="true">(?&lt;![\w\.])((\?.)|(\?\\.))(?![\w\.])</match>
+      </context>
+
+      <context id="codepoint" style-ref="codepoint" extend-parent="false">
+        <match>\\u(([0-9a-fA-F]){4}|({[0-9a-fA-F]{1,6}}))</match>
+      </context>
+
+      <context ref="sigils"/>
+
+      <context id="kernel_special_chars" style-ref="builtin-name">
+        <match extended="true">
+          (\s|^)(alias|var|struct)\!|(\s|^)(match|(function|macro)_exported)\?|(\^(?=[\w]+))|((\\|&amp;|\|){2})|((-|\=|\|)&gt;)
+        </match>
+      </context>
+
+      <context id="capture" style-ref="sigil">
+        <match>\&amp;[0-9]*</match>
+      </context>
+
+      <context id="struct_map" style-ref="module">
+        <match>%([A-Z](\w)*)?</match>
+      </context>
+
+      <context id="string-interpolation" style-ref="string-interpolation" extend-parent="false">
+        <match>\#{.*?}</match>
+      </context>
+
+      <context id="float" style-ref="floating-point">
+        <match extended="true">
+          (?&lt;![\w\.])[0-9]+\.[0-9]+([Ee][+-]?[0-9]+)?(?![\w\.])
+        </match>
+      </context>
+
+      <context id="base-n-number" style-ref="base-n-integer">
+        <match extended="true">
+          (?&lt;![\w\.])0[oxb]?[0-9a-fA-F]+(?![\w\.])
+        </match>
+      </context>
+
+      <context id="decimal-number" style-ref="decimal">
+        <match extended="true">
+          (?&lt;![\w\.])[0-9]+(?![\w\.])
+        </match>
+      </context>
+
+      <context id="attributes" style-ref="attribute">
+        <match extended="true">(?&lt;![\w\.])\@[a-zA-Z_](\w)*</match>
+      </context>
+
+      <context id="module" style-ref="module">
+        <match extended="true">(?&lt;![\w])[A-Z](\w)*</match>
+      </context>
+
+      <context id="builtins" style-ref="builtin-name">
+        <keyword>do</keyword>
+        <keyword>when</keyword>
+        <keyword>end</keyword>
+      </context>
+
+      <context id="boolean" style-ref="boolean">
+        <keyword>true</keyword>
+        <keyword>false</keyword>
+        <keyword>nil</keyword>
+      </context>
+
+      <context id="SpecialForms" style-ref="builtin-name">
+        <keyword>alias|import|require</keyword>
+        <keyword>case</keyword>
+        <keyword>fn</keyword>
+        <keyword>receive|after</keyword>
+        <keyword>try|catch|rescue</keyword>
+        <keyword>super</keyword>
+        <keyword>quote|unquote|unquote_splicing</keyword>
+        <keyword>for</keyword>
+        <keyword>with</keyword>
+
+        <keyword>__CALLER__</keyword>
+        <keyword>__DIR__</keyword>
+        <keyword>__ENV__</keyword>
+        <keyword>__MODULE__</keyword>
+        <keyword>__STACKTRACE__</keyword>
+        <keyword>__aliases__</keyword>
+        <keyword>__block__</keyword>
+      </context>
+
+      <context id="kernel" style-ref="builtin-name">
+        <keyword>abs|trunc|rem|div|round|max|min|floor|ceil</keyword>
+        <keyword>and|or|not</keyword>
+        <keyword>throw|raise|reraise</keyword>
+        <keyword>hd|tl|in|length|elem|put_elem|destructure</keyword>
+        <keyword>to_(string|charlist)</keyword>
+        <keyword>is_(atom|binary|bitstring|boolean|float|function|integer|list|map|map_key|nil|number|pid|port|reference|struct|tuple)</keyword>
+        <keyword>(bit|byte|map|tuple)_size</keyword>
+        <keyword>binary_part</keyword>
+        <keyword>def(delegate|exception|guard|guardp|impl|macro|macrop|module|overridable|p|protocol|struct)?</keyword>
+        <keyword>sigil_[crswCRSWDNTU]</keyword>
+        <keyword>if|else|unless|cond</keyword>
+        <keyword>binding</keyword>
+        <keyword>node|self|spawn|spawn_link|spawn_monitor|send|exit</keyword>
+        <keyword>struct|get_and_update_in|get_in|put_in|pop_in|update_in</keyword>
+        <keyword>apply|inspect|make_ref|use</keyword>
+      </context>
+
+      <context id="keyword" style-ref="keyword">
+        <match extended="true">
+          (?&lt;![\w\.])[a-zA-Z_]*(\w)*(!|\?)?\:
+        </match>
+      </context>
+
+    </include>
+    </context>
+
+    <context id="elixir-exunit">
+    <start>ExUnit</start>
+    <include>
+      <context id="exunit" style-ref="builtin-name">
+        <keyword>(doc)?test</keyword>
+        <keyword>describe</keyword>
+        <keyword>assert(_in_delta|_raise|_receive|_received)?</keyword>
+        <keyword>refute(_in_delta|_receive|_received)?</keyword>
+        <keyword>flunk</keyword>
+        <keyword>catch(_error|_exit|_throw)</keyword>
+        <keyword>setup(_all)?</keyword>
+        <keyword>on_exit</keyword>
+        <keyword>capture(_io|_log)</keyword>
+        <keyword>register(_attribute|_test)</keyword>
+        <keyword>using</keyword>
+        <keyword>(start|stop)_supervised</keyword>
+      </context>
+      <context ref="elixir-std"/>
+    </include>
+    </context>
+
+    <context id="elixir" class="no-spell-check">
+    <include>
+      <context ref="elixir-exunit"/>
+      <context ref="elixir-std"/>
+    </include>
+    </context>
+
+  </definitions>
+
+</language>
+
