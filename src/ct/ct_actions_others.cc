@@ -421,8 +421,8 @@ void CtActions::exec_code()
     std::string code_type;
     Glib::ustring code_val;
     auto proof = _get_text_view_n_buffer_codebox_proof();
-    if (proof.from_codebox) {
-        code_type = proof.codebox->get_syntax_highlighting();
+    if (proof.codebox) {
+        code_type = proof.syntax_highl;
         code_val = proof.codebox->get_text_content();
     } else {
         if (_pCtMainWin->curr_tree_iter().get_node_is_rich_text()) {

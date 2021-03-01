@@ -260,14 +260,14 @@ public:
 
 private:
     struct text_view_n_buffer_codebox_proof {
-        CtTextView*                     text_view;
-        Glib::RefPtr<Gtk::TextBuffer>   text_buffer;
-        std::string                     syntax_highl;
-        CtCodebox*                      codebox;
-        bool                            from_codebox;
+        CtTextView*  text_view;
+        std::string  syntax_highl;
+        CtCodebox*   codebox;
+        CtTable*     table;
     };
     text_view_n_buffer_codebox_proof _get_text_view_n_buffer_codebox_proof();
     CtCodebox* _codebox_in_use();
+    CtTable* _table_in_use();
     void _save_tags_at_cursor_as_latest(Glib::RefPtr<Gtk::TextBuffer> rTextBuffer, int cursorOffset);
     bool _links_entries_pre_dialog(const Glib::ustring& curr_link, CtLinkEntry& link_entry);
     Glib::ustring _links_entries_post_dialog(CtLinkEntry& link_entry);

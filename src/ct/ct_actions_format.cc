@@ -257,9 +257,8 @@ void CtActions::list_bulleted_handler()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
     text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
-    if (not proof.text_buffer) return;
-    if (proof.from_codebox or _is_curr_node_not_syntax_highlighting_or_error(true))
-        CtList(_pCtMainWin, proof.text_buffer).list_handler(CtListType::Bullet);
+    if (not proof.text_view->get_buffer()) return;
+    CtList{_pCtMainWin, proof.text_view->get_buffer()}.list_handler(CtListType::Bullet);
 }
 
 // Handler of the Numbered List
@@ -267,9 +266,8 @@ void CtActions::list_numbered_handler()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
     text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
-    if (not proof.text_buffer) return;
-    if (proof.from_codebox or _is_curr_node_not_syntax_highlighting_or_error(true))
-        CtList(_pCtMainWin, proof.text_buffer).list_handler(CtListType::Number);
+    if (not proof.text_view->get_buffer()) return;
+    CtList{_pCtMainWin, proof.text_view->get_buffer()}.list_handler(CtListType::Number);
 }
 
 // Handler of the ToDo List
@@ -277,9 +275,8 @@ void CtActions::list_todo_handler()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
     text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
-    if (not proof.text_buffer) return;
-    if (proof.from_codebox or _is_curr_node_not_syntax_highlighting_or_error(true))
-        CtList(_pCtMainWin, proof.text_buffer).list_handler(CtListType::Todo);
+    if (not proof.text_view->get_buffer()) return;
+    CtList{_pCtMainWin, proof.text_view->get_buffer()}.list_handler(CtListType::Todo);
 }
 
 // The Justify Left Button was Pressed
@@ -459,22 +456,24 @@ void CtActions::_apply_tag(const Glib::ustring& tag_property, Glib::ustring prop
 
 CtActions::text_view_n_buffer_codebox_proof CtActions::_get_text_view_n_buffer_codebox_proof()
 {
-    CtCodebox* codebox = _codebox_in_use();
-    if (codebox)
-        return text_view_n_buffer_codebox_proof{&codebox->get_text_view(),
-                    codebox->get_text_view().get_buffer(),
-                    codebox->get_syntax_highlighting(),
-                    codebox,
-                    true};
-    else
-        return text_view_n_buffer_codebox_proof{&_pCtMainWin->get_text_view(),
-                    _pCtMainWin->get_text_view().get_buffer(),
-                    _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting(),
+    if (CtCodebox* pCodebox = _codebox_in_use()) {
+        return text_view_n_buffer_codebox_proof{&pCodebox->get_text_view(),
+                    pCodebox->get_syntax_highlighting(),
+                    pCodebox,
+                    nullptr};
+    }
+    if (CtTable* pTable = _table_in_use()) {
+        return text_view_n_buffer_codebox_proof{&pTable->get_table_matrix().at(pTable->current_row()).at(pTable->current_column())->get_text_view(),
+                    CtConst::PLAIN_TEXT_ID,
                     nullptr,
-                    false};
+                    pTable};
+    }
+    return text_view_n_buffer_codebox_proof{&_pCtMainWin->get_text_view(),
+                _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting(),
+                nullptr,
+                nullptr};
 }
 
-// Returns a CodeBox SourceView if Currently in Use or None
 CtCodebox* CtActions::_codebox_in_use()
 {
     if (not curr_codebox_anchor) return nullptr;
@@ -482,8 +481,20 @@ CtCodebox* CtActions::_codebox_in_use()
     Gtk::TextIter iter_sel_start = _curr_buffer()->get_insert()->get_iter();
     auto widgets = _pCtMainWin->curr_tree_iter().get_anchored_widgets(iter_sel_start.get_offset(), iter_sel_start.get_offset());
     if (widgets.empty()) return nullptr;
-    if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widgets.front()))
-        return codebox;
+    if (auto pCtCodebox = dynamic_cast<CtCodebox*>(widgets.front()))
+        return pCtCodebox;
+    return nullptr;
+}
+
+CtTable* CtActions::_table_in_use()
+{
+    if (not curr_table_anchor) return nullptr;
+    if (not _curr_buffer()) return nullptr;
+    Gtk::TextIter iter_sel_start = _curr_buffer()->get_insert()->get_iter();
+    auto widgets = _pCtMainWin->curr_tree_iter().get_anchored_widgets(iter_sel_start.get_offset(), iter_sel_start.get_offset());
+    if (widgets.empty()) return nullptr;
+    if (auto pCtTable = dynamic_cast<CtTable*>(widgets.front()))
+        return pCtTable;
     return nullptr;
 }
 
