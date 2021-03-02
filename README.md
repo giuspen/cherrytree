@@ -63,7 +63,7 @@ cpack -G DEB
 
 Install dependencies:
 ```sh
-sudo apt install build-essential libxml2-utils cmake libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev libfmt-dev libspdlog-dev gnome-icon-theme
+sudo apt install build-essential cmake ninja-build libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev libfmt-dev libspdlog-dev gnome-icon-theme
 ```
 Get cherrytree source, compile and run:
 ```sh
@@ -122,7 +122,7 @@ git submodule update --init
 
 Install dependencies:
 ```sh
-sudo dnf install @development-tools gcc-c++ libtool autoconf gtkmm30-devel gtksourceviewmm3-devel libxml++-devel libsq3-devel gettext-devel gettext intltool libxml2 gspell-devel cmake libcurl-devel uchardet-devel fmt spdlog-devel
+sudo dnf install @development-tools gcc-c++ libtool autoconf gtkmm30-devel gtksourceviewmm3-devel libxml++-devel libsq3-devel gettext-devel gettext intltool libxml2 gspell-devel cmake ninja-build libcurl-devel uchardet-devel fmt spdlog-devel
 ```
 
 Get cherrytree source, compile and run:
@@ -152,7 +152,7 @@ xdg-open /usr/share/doc/libxml++2.6/reference/html/index.html
 
 Install dependencies:
 ```sh
-sudo zypper install cmake gcc-c++ gtkmm3-devel gtksourceviewmm3_0-devel gspell-devel libxml++26-devel sqlite3-devel libcurl-devel libuchardet-devel fmt spdlog-devel
+sudo zypper install cmake ninja gcc-c++ gtkmm3-devel gtksourceviewmm3_0-devel gspell-devel libxml++26-devel sqlite3-devel libcurl-devel libuchardet-devel fmt spdlog-devel
 ```
 
 Get cherrytree source, compile and run:
@@ -174,7 +174,7 @@ brew install cherrytree
 
 If for any reason you prefer to build it yourself, install dependencies:
 ```sh
-brew install cmake pkg-config python3 adwaita-icon-theme fmt gspell gtksourceviewmm3 libxml++ spdlog uchardet curl
+brew install cmake ninja pkg-config python3 adwaita-icon-theme fmt gspell gtksourceviewmm3 libxml++ spdlog uchardet curl
 ```
 
 Get cherrytree source, compile and run:
@@ -199,8 +199,8 @@ pacman -Syuu
 
 Install required packages to build cherrytree:
 ```sh
-# toolchain and cmake
-pacman -S --needed --noconfirm mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake
+# toolchain, cmake, ninja
+pacman -S --needed --noconfirm mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake mingw-w64-x86_64-ninja
 # gtkmm3, gtksourceviewmm3, libxml++2.6, sqlite3
 pacman -S --needed --noconfirm mingw-w64-x86_64-gtkmm3 mingw-w64-x86_64-gtksourceviewmm3 mingw-w64-x86_64-libxml++2.6 mingw-w64-x86_64-sqlite3
 # gspell, curl, uchardet, fmt, spdlog
