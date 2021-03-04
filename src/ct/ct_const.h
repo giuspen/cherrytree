@@ -249,7 +249,7 @@ const inline static int NODE_ICON_SIZE             {16};
 const inline static int MAX_TOOLTIP_LINK_CHARS     {150};
 
 // former NODES_STOCK
-const inline static std::array<const gchar*, 95> NODE_CUSTOM_ICONS {
+const inline static std::array<const gchar*, 122> NODE_CUSTOM_ICONS {
     nullptr,            // NEVER USED
     "ct_circle-green",  //  1
     "ct_circle-yellow", //  2
@@ -344,7 +344,34 @@ const inline static std::array<const gchar*, 95> NODE_CUSTOM_ICONS {
     "ct_sv",            // 91
     "ct_tr",            // 92
     "ct_uk",            // 93
-    "ct_zh_CN"          // 94
+    "ct_zh_CN",         // 94
+    "ct_sports",        // 95
+    "ct_briefcase",     // 96
+    "ct_camera",        // 97
+    "ct_chart",         // 98
+    "ct_clapperboard",  // 99
+    "ct_maths",        // 100
+    "ct_games",        // 101
+    "ct_globe",        // 102
+    "ct_server",       // 103
+    "ct_money",        // 104
+    "ct_painting",     // 105
+    "ct_puzzle",       // 106
+    "ct_shopping",     // 107
+    "ct_heart",        // 108
+    "ct_smile",        // 109
+    "ct_smile_cool",   // 110
+    "ct_smile_surpr",  // 111
+    "ct_skull",        // 112
+    "ct_no_access",    // 113
+    "ct_ruby",         // 114
+    "ct_tux",          // 115
+    "ct_gnome",        // 116
+    "ct_debian",       // 117
+    "ct_ubuntu",       // 118
+    "ct_freebsd",      // 119
+    "ct_win10",        // 120
+    "ct_win2012"       // 121
 };
 
 // former NODES_ICONS
@@ -362,7 +389,7 @@ const inline static std::array<const gchar*, 11> NODE_CHERRY_ICONS {
     CHERRY_GRAY         // 10
 };
 
-const inline static std::array<std::pair<const gchar*, const gchar*>, 11> NODE_CODE_ICONS {
+const inline static std::array<std::pair<const gchar*, const gchar*>, 12> NODE_CODE_ICONS {
     std::make_pair("python", "ct_python"),
     std::make_pair("python3", "ct_python"),
     std::make_pair("perl", "ct_perl"),
@@ -373,7 +400,8 @@ const inline static std::array<std::pair<const gchar*, const gchar*>, 11> NODE_C
     std::make_pair("html", "ct_html"),
     std::make_pair("xml", "ct_xml"),
     std::make_pair("c", "ct_c"),
-    std::make_pair("cpp", "ct_cpp")
+    std::make_pair("cpp", "ct_cpp"),
+    std::make_pair("ruby", "ct_ruby")
 };
 
 const inline static gchar* CODE_EXEC_TMP_SRC  {"<tmp_src_path>"};

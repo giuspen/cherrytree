@@ -1,30 +1,79 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32" enable-background="new 0 0 32 32" xml:space="preserve">  <image id="image0" width="32" height="32" x="0" y="0"
-    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
-AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAC5VBMVEUAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAArj1tKo3VKpHVPpnnn5+fDaXDCZGzBZGuwSFFSpXp0wpp1xJv+/v7ejJPci5LC
-a3I9mmpduIleuYr9/f3YeYHWeH+7WWE0lWJYtIRZtob8/PzWdHzUc3u4Uloxkl9SsYBTs4H6+vrT
-b3fRb3a1T1cvjl1MrXtNr3z4+PjQanLOaXG0TVUsi1lHqndIrHj39/fOZm7MZW2xSlMphlZApXBB
-qHNCqXP19fXLYGjIX2euSFAlglE5oGs6o2w7pG07pW3z8/PIWmLHWmPFWGGqREwie00ymmQznWY0
-n2c0oGg0oWjx8fHFVF3EVF3AUlumQUkdckYqjlorklwrlF0slV8sll/l5eW5S1S4S1S3SlOzSVGc
-O0MabkIki1Umj1gmklonlVwoll3o6Oi6SFK6SFG6R1C3Rk+yRU2ZOEAXaj8fhVAfilIgjlQhkVch
-kle4Qky2QkuzQEmuP0iUNT0VZzwYgUsZhk0aiU8bjFEbjlIbj1K2PUa1PUazPUawPEWqOUKRMjoS
-ZDkUfkcUgkkVhksViU0Wi04WjE7k5OSzOUKxOEGtN0CnNT6PMDcRYjgPe0MQf0UQgkcRhkkRiEoR
-iUsSiUvj4+OyNkCyNT+xND6uMz2qMjujMTqNLjYPYDYLeUALfEIMgEQMhEYNhkcNh0gOiEkPiEkQ
-iEmxMz2wMjywMTuuMDqsMDqnLjehLTaLLDMNXjQHdj0HeT4IfUAIgUIJhEQKhUUNh0cTiUzh4eGx
-NkCwND6uMTutLjisLTeqLDanKzWjKjOfKTKJKjINXTMGdjwGeT0GfD8IgEEKhEQMhUYQh0kViUwc
-jFKyP0iwOUKuNT6sLzmpLTemKzSkKTOhKDKdJzCIKjEWWjcca0IdbkQecUUfdEghd0sqfFEvflUz
-gFg4gly6urq5ubmbTVSZSU+WREqRO0KOOD+LNj2KNTyINDuGMzp6LjT///+PtV1dAAAACHRSTlMA
-AwcIGyAcBPU1PH8AAAABYktHRPbc20phAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH5QIG
-ETkbTPOhPAAAAZVJREFUOMtjYBgWgJGDkwsCuHnggJcPAvgFGBmYBIWEoUAEDkShQEycmYFJQlIK
-CqThQAYKZOWACuQVFKFACQ6UoUBFFahATV0DCjThQAsKtHWACnT19KHAAA4MocDIGKjAxNQMCszh
-wAIKLK2ACqxtbO0gwB4OHKDA0QmowNnF1c0dDDzgwBMCvLx9gAp8/fwDAoNAIBgOQsAgNDQsHKgg
-IjIqOiYWBOLgIB4MEhKTkoEKUlLT0jMyMoEgCw6yQSAnNy+/AKigsKi4pLS0DAgQcVEOBhWVVdVA
-BTW1dfUNjU1AgLCiGQRaWtvaO4AKOru6e3r7+oFgAhxMBINJk6dMBSqYNn3GzFmz58yZO3ceHMxf
-sBAIFi1eshSoYNnyFStXrV6zdt16hIKFGzZu2rR5y9Zt24EKduzctXvP3n371x84CAeHDh85euz4
-iZOnTgMVnDl77vyFi5cuX7mKUHDt+o2bt27fuXvvPlDBg4ePHj95+uz5i5evYOD1m7fv3n/4+Onz
-l6/MDIwsrHgAG/tA5xmiAACfA+aZYzK4tgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMS0wMi0wNlQx
-Nzo1NzoyNyswMzowMNpRqy8AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjEtMDItMDZUMTc6NTc6Mjcr
-MDM6MDCrDBOTAAAAAElFTkSuQmCC" />
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1"
+   x="0"
+   y="0"
+   width="640"
+   height="480"
+   id="svg378"
+   inkscape:version="0.48.1 r9760"
+   sodipodi:docname="it.svg">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1280"
+     inkscape:window-height="746"
+     id="namedview4602"
+     showgrid="false"
+     inkscape:zoom="0.4021669"
+     inkscape:cx="531.495"
+     inkscape:cy="385.41213"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg378" />
+  <metadata
+     id="metadata4604">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs380" />
+  <g
+     inkscape:label="#g5823"
+     id="flag"
+     transform="scale(0.60207414,0.67733372)">
+    <rect
+       id="rect171"
+       style="font-size:12px;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt"
+       y="0"
+       x="0"
+       height="708.66101"
+       width="1062.99" />
+    <rect
+       id="rect403"
+       style="font-size:12px;fill:#005700;fill-rule:evenodd;stroke-width:1pt"
+       y="0"
+       x="0"
+       height="708.66101"
+       width="354.33099" />
+    <rect
+       id="rect135"
+       style="font-size:12px;fill:#fc0000;fill-rule:evenodd;stroke-width:1pt"
+       y="0"
+       x="708.66101"
+       height="708.66101"
+       width="354.33099" />
+  </g>
 </svg>

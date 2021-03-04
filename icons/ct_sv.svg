@@ -1,30 +1,133 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32" enable-background="new 0 0 32 32" xml:space="preserve">  <image id="image0" width="32" height="32" x="0" y="0"
-    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
-AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAC4lBMVEUAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAArY5BKfKTmx0rmyE/myVTmylZYhqpah6tWhapUhKlPgKdSgaZ0oMN1ocT+4nV1
-oMNTgaY9cZtdkLhekrr93V5ekLg9cpw0apVYjLVZjbf721k1bJcxZ5JSiLJTibT62FNTiLIyaZUv
-ZI9Mg65NhLD31U1Ng64wZ5MsYotHf6tIgK1Iga3200hIf6wuZZEpXodAeaZBe6hCe6n00UJBeqcr
-Yo7GpiXsyDnwzDryzTvyzjvuyjrSsCi+nyLnwjLsxzPuyTTwyjTwyzTvyjTvyTTrxjPNqyWxkx3X
-tCreuivhvCvjvizkvyzivSvduSrCoSCsjxrWsiTeuSbivCblvyfnwCfnwSjmwCfjvSbduCW+nh0X
-RmsfWIYfW4sgXY4hYJIhYJPmviEgXo8aTXYVQ2cYU4IZVoYaWYobW40bXI8bXJDlvBsaXI8bW44a
-WYsaVoYYS3QSQGUUT38UUoMVVIcVVooWWIwWWI3juhYVV4sVVYgVUoMVSHERPmIPTHwQTn8QUIMR
-U4cRVIkRVYriuBLiuBMTVosSVYoQUYQTR28PPWELSXoLS30MTYEMUIUNUYcNUogOU4niuA/iuBDi
-uBEUVosSVYsRVIoPU4kOUogMUIQLTYELS3wRRG0NOl4HRncHR3oISn4ITIIJToQKT4bgthDgtxPg
-uBXguBgbWo0cW40dXI4aWo0WV4sUVooOUocKT4UKToQJTYIIS4AHSX0HR3kPQ2sNOl0GRXcGR3oG
-SX0ITIEMUIYQU4jgtxXguBzguSDguiYpZJIrZZMsZpQrZpMqZJMnY5IiX5AfXY4XV4sTVIcMT4UK
-TYIHSn8HR3sGRXgPQmsWPFscSGwdSm4eTHEfT3UhUngqWH0vXH+5njO5nzi5oDq5oD1AaIdBaIdC
-aYc/Z4Y9ZYU6ZIQ3YYIyXX8tWXwjUXYfTnMdS28cSm4cSWwZQWL///+ykW8TAAAACHRSTlMAAwcI
-GyAcBPU1PH8AAAABYktHRPVF0hvbAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH5QIGEgEM
-2vkmWQAAAahJREFUOMtjYBgWgJGDEwK4uHl4+fiBgE9AUAgqxsnByMAkLCIKBmJAIIoGxCWYGZgk
-paTBQAYIpNGArBxQgbyCIhgoAYEiGlBQBipQUVUDA3UgUEMDGppABVraOmCgCwQ6aEBPH6jAwNDI
-GARMgMAYDZiaARWYW1hagYA1EFihARtboAI7ewdHJ+zA0dkFqMDVzd3D0wsb8Pbx9QMq8A8IDAoO
-wQaCQ8PCgQoiIqOiY2LjMEFsfEJiElBBckpqWnp6RkYmEGQgg/T0rNRsoIKc3Lz8gsKiomIgKEIG
-JaVl5RVABZVV1TW1dfX1DUBQjwzqGpuaW4AKWtvaOzq7urt7enp7+2Cgv7u7u6tzQvtEoIJJk6dM
-nTZ9xsxZs+eAFMwF4nnzF8xcuHD6osVLlgIVLFu+YuWq1Wumr123fsPGTZs3b9q4Zeu2ru07du7a
-vWfvPqCC/QcOHjq888jRY8dPnDx1+syZs+fOX7h46fKVq9f2XL9xE6jg1u07d+/df/Dw0eMnT589
-f/HixctXr9+8fff+w92Pnz5/YWZgZGHFA9jYBzrPEAUAYSTZcDvoMYEAAAAldEVYdGRhdGU6Y3Jl
-YXRlADIwMjEtMDItMDZUMTg6MDE6MTIrMDM6MDBd34pbAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIx
-LTAyLTA2VDE4OjAxOjEyKzAzOjAwLIIy5wAAAABJRU5ErkJggg==" />
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg589"
+   sodipodi:version="0.32"
+   width="640"
+   height="480"
+   sodipodi:docname="se.svg"
+   version="1.1"
+   inkscape:version="0.48.1 r9760">
+  <sodipodi:namedview
+     id="base"
+     showgrid="false"
+     inkscape:zoom="0.41697696"
+     inkscape:cx="88.733917"
+     inkscape:cy="248.03149"
+     inkscape:window-width="1280"
+     inkscape:window-height="746"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg589" />
+  <metadata
+     id="metadata3065">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs591">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath5088">
+      <rect
+         id="rect5090"
+         height="490.73123"
+         x="118.96873"
+         style="fill:#000000;fill-opacity:0.67000002;stroke:none"
+         width="490.73123"
+         y="7.3057327" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath15333">
+      <rect
+         id="rect15335"
+         height="512"
+         x="-53.421101"
+         style="fill:#000000;fill-opacity:0.67000002;stroke:none"
+         width="682.66669"
+         y="9.0621488e-06" />
+    </clipPath>
+  </defs>
+  <g
+     transform="matrix(0.9375,0,0,0.9375,50.082281,-8.4957649e-6)"
+     id="flag"
+     clip-path="url(#clipPath15333)"
+     inkscape:label="#g15292">
+    <g
+       id="g558"
+       transform="matrix(2.9257139,0,0,2.9257139,-745.33426,-969.48397)">
+      <rect
+         style="font-size:12px;fill:#004073;fill-rule:evenodd;stroke-width:1pt"
+         id="rect552"
+         width="87.499992"
+         height="69.999992"
+         x="213.35979"
+         y="331.46967"
+         sodipodi:fill-cmyk="(1 0.5 0.1 0.498039)" />
+      <rect
+         style="font-size:12px;fill:#003f73;fill-rule:evenodd;stroke-width:1pt"
+         id="rect553"
+         width="87.499992"
+         height="69.999992"
+         x="213.35977"
+         y="436.36215"
+         sodipodi:fill-cmyk="(1 0.5 0.1 0.5)" />
+      <rect
+         style="font-size:12px;fill:#ffcc00;fill-rule:evenodd;stroke-width:1pt"
+         id="rect554"
+         width="87.500008"
+         height="34.99995"
+         x="213.35562"
+         y="401.42789"
+         sodipodi:fill-cmyk="(0 0.2 1 0)" />
+      <rect
+         style="font-size:12px;fill:#ffcc00;fill-rule:evenodd;stroke-width:1pt"
+         id="rect556"
+         width="35"
+         height="175.00002"
+         x="300.50119"
+         y="331.36664"
+         sodipodi:fill-cmyk="(0 0.2 1 0)" />
+      <rect
+         style="font-size:12px;fill:#ffcc00;fill-rule:evenodd;stroke-width:1pt"
+         id="rect557"
+         width="157.5"
+         height="34.999985"
+         x="334.38953"
+         y="401.43695"
+         sodipodi:fill-cmyk="(0 0.2 1 0)" />
+      <rect
+         style="font-size:12px;fill:#003f73;fill-rule:evenodd;stroke-width:1pt"
+         id="rect558"
+         width="157.50002"
+         height="70.000053"
+         x="335.4653"
+         y="436.36661"
+         sodipodi:fill-cmyk="(1 0.5 0.1 0.5)" />
+      <rect
+         style="font-size:12px;fill:#003f73;fill-rule:evenodd;stroke-width:1pt"
+         id="rect559"
+         width="157.50002"
+         height="70.000053"
+         x="335.4653"
+         y="331.47415"
+         sodipodi:fill-cmyk="(1 0.5 0.1 0.5)" />
+    </g>
+  </g>
 </svg>
