@@ -1,7 +1,7 @@
 /*
  * ct_dialogs.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -25,10 +25,7 @@
 
 #include "ct_misc_utils.h"
 #include "ct_filesystem.h"
-#include <gtkmm/dialog.h>
-#include <gtkmm/liststore.h>
-#include <gtkmm/treestore.h>
-#include <gtkmm/treeview.h>
+#include <gtkmm.h>
 #include <array>
 
 class CtMainWin;
@@ -150,11 +147,11 @@ public:
 
 namespace CtDialogs {
 
-
 Gtk::TreeIter choose_item_dialog(Gtk::Window& parent,
                                  const Glib::ustring& title,
                                  Glib::RefPtr<CtChooseDialogListStore> model,
-                                 const gchar* single_column_name = nullptr);
+                                 const gchar* single_column_name = nullptr,
+                                 const std::string& pathToSelect = "0");
 
 // Dialog to select between the Selected Node/Selected Node + Subnodes/All Tree
 CtExporting selnode_selnodeandsub_alltree_dialog(Gtk::Window& parent,
