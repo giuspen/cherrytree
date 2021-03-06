@@ -139,10 +139,21 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
 
     button_prog_lang.signal_clicked().connect([&dialog, &pCtMainWin, &button_prog_lang](){
         auto itemStore = CtChooseDialogListStore::create();
-        for (auto lang : pCtMainWin->get_language_manager()->get_language_ids()) {
+        unsigned pathSelectIdx{0};
+        unsigned pathCurrIdx{0};
+        const auto currSyntaxHighl = button_prog_lang.get_label();
+        for (const auto& lang : pCtMainWin->get_language_manager()->get_language_ids()) {
             itemStore->add_row(pCtMainWin->get_code_icon_name(lang), "", lang);
+            if (lang == currSyntaxHighl) {
+                pathSelectIdx = pathCurrIdx;
+            }
+            ++pathCurrIdx;
         }
-        const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog, _("Automatic Syntax Highlighting"), itemStore);
+        const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog,
+                                                                     _("Automatic Syntax Highlighting"),
+                                                                     itemStore,
+                                                                     nullptr/*single_column_name*/,
+                                                                     std::to_string(pathSelectIdx));
         if (treeIter) {
             const Glib::ustring syntax_hl_id = treeIter->get_value(itemStore->columns.desc);
             const std::string stock_id = pCtMainWin->get_code_icon_name(syntax_hl_id);
@@ -189,7 +200,12 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
         for (size_t i = 1 /*skip 0*/; i < CtConst::NODE_CUSTOM_ICONS.size(); ++i) {
             itemStore->add_row(CtConst::NODE_CUSTOM_ICONS[i], std::to_string(i), "");
         }
-        const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog, _("Select Node Icon"), itemStore);
+        const unsigned iconIdToSelect = nodeData.customIconId > 0 ? nodeData.customIconId - 1 : 0;
+        const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog,
+                                                                     _("Select Node Icon"),
+                                                                     itemStore,
+                                                                     nullptr/*single_column_name*/,
+                                                                     std::to_string(iconIdToSelect));
         if (treeIter) {
             nodeData.customIconId = static_cast<guint32>(std::stoi(treeIter->get_value(itemStore->columns.key)));
             c_icon_button.set_label("");

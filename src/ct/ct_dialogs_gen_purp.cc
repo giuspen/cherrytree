@@ -88,7 +88,8 @@ Gtk::TreeIter CtDialogs::choose_item_dialog(Gtk::Window& parent,
     pScrolledwindow->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     auto pElementsTreeview = Gtk::manage(new Gtk::TreeView{rModel});
     pElementsTreeview->set_headers_visible(false);
-    pElementsTreeview->get_selection()->select(Gtk::TreePath{pathToSelect});
+    const auto treePathToSelect = Gtk::TreePath{pathToSelect};
+    pElementsTreeview->get_selection()->select(treePathToSelect);
     pElementsTreeview->signal_row_activated().connect([&](const Gtk::TreeModel::Path&, Gtk::TreeViewColumn*) {
         if (Gtk::TreeIter iter = pElementsTreeview->get_selection()->get_selected()) {
             static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT))->clicked();
@@ -111,6 +112,7 @@ Gtk::TreeIter CtDialogs::choose_item_dialog(Gtk::Window& parent,
     pContentArea->pack_start(*pScrolledwindow);
     pContentArea->show_all();
     pElementsTreeview->grab_focus();
+    pElementsTreeview->scroll_to_row(treePathToSelect, 0.5);
 
     return Gtk::RESPONSE_ACCEPT == dialog.run() ? pElementsTreeview->get_selection()->get_selected() : Gtk::TreeIter{};
 }
