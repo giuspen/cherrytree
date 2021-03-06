@@ -48,6 +48,9 @@ set(CT_SHARED_FILES
   ct_imports.cc
   ct_list.cc
   ct_main_win.cc
+  ct_main_win_buffer.cc
+  ct_main_win_events.cc
+  ct_main_win_file.cc
   ct_menu.cc
   ct_misc_utils.cc
   ct_p7za_iface.cc
