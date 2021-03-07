@@ -28,9 +28,9 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
 {
     CtConfig* pConfig = _pCtMainWin->get_ct_config();
 
-    Gtk::VBox* vbox_system_tray = Gtk::manage(new Gtk::VBox());
-    Gtk::CheckButton* checkbutton_systray = Gtk::manage(new Gtk::CheckButton(_("Enable System Tray Docking")));
-    Gtk::CheckButton* checkbutton_start_on_systray = Gtk::manage(new Gtk::CheckButton(_("Start Minimized in the System Tray")));
+    auto vbox_system_tray = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+    Gtk::CheckButton* checkbutton_systray = Gtk::manage(new Gtk::CheckButton{_("Enable System Tray Docking")});
+    Gtk::CheckButton* checkbutton_start_on_systray = Gtk::manage(new Gtk::CheckButton{_("Start Minimized in the System Tray")});
     vbox_system_tray->pack_start(*checkbutton_systray, false, false);
     vbox_system_tray->pack_start(*checkbutton_start_on_systray, false, false);
 
@@ -40,31 +40,28 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_start_on_systray->set_active(pConfig->startOnSystray);
     checkbutton_start_on_systray->set_sensitive(pConfig->systrayOn);
 
-    Gtk::VBox* vbox_saving = Gtk::manage(new Gtk::VBox());
-    Gtk::HBox* hbox_autosave = Gtk::manage(new Gtk::HBox());
-    hbox_autosave->set_spacing(4);
-    Gtk::CheckButton* checkbutton_autosave = Gtk::manage(new Gtk::CheckButton(_("Autosave Every")));
+    auto vbox_saving = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+    auto hbox_autosave = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    Gtk::CheckButton* checkbutton_autosave = Gtk::manage(new Gtk::CheckButton{_("Autosave Every")});
     Glib::RefPtr<Gtk::Adjustment> adjustment_autosave = Gtk::Adjustment::create(pConfig->autosaveVal, 1, 1000, 1);
     Gtk::SpinButton* spinbutton_autosave = Gtk::manage(new Gtk::SpinButton(adjustment_autosave));
-    Gtk::Label* label_autosave = Gtk::manage(new Gtk::Label(_("Minutes")));
+    Gtk::Label* label_autosave = Gtk::manage(new Gtk::Label{_("Minutes")});
     hbox_autosave->pack_start(*checkbutton_autosave, false, false);
     hbox_autosave->pack_start(*spinbutton_autosave, false, false);
     hbox_autosave->pack_start(*label_autosave, false, false);
-    Gtk::CheckButton* checkbutton_autosave_on_quit = Gtk::manage(new Gtk::CheckButton(_("Autosave on Quit")));
-    Gtk::CheckButton* checkbutton_backup_before_saving = Gtk::manage(new Gtk::CheckButton(_("Create a Backup Copy Before Saving")));
-    Gtk::HBox* hbox_num_backups = Gtk::manage(new Gtk::HBox());
-    hbox_num_backups->set_spacing(4);
-    Gtk::Label* label_num_backups = Gtk::manage(new Gtk::Label(_("Number of Backups to Keep")));
+    Gtk::CheckButton* checkbutton_autosave_on_quit = Gtk::manage(new Gtk::CheckButton{_("Autosave on Quit")});
+    Gtk::CheckButton* checkbutton_backup_before_saving = Gtk::manage(new Gtk::CheckButton{_("Create a Backup Copy Before Saving")});
+    auto hbox_num_backups = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    Gtk::Label* label_num_backups = Gtk::manage(new Gtk::Label{_("Number of Backups to Keep")});
     Glib::RefPtr<Gtk::Adjustment> adjustment_num_backups = Gtk::Adjustment::create(pConfig->backupNum, 1, 100, 1);
-    Gtk::SpinButton* spinbutton_num_backups = Gtk::manage(new Gtk::SpinButton(adjustment_num_backups));
+    Gtk::SpinButton* spinbutton_num_backups = Gtk::manage(new Gtk::SpinButton{adjustment_num_backups});
     spinbutton_num_backups->set_sensitive(pConfig->backupCopy);
     spinbutton_num_backups->set_value(pConfig->backupNum);
-    Gtk::CheckButton* checkbutton_custom_backup_dir = Gtk::manage(new Gtk::CheckButton(_("Custom Backup Directory")));
-    Gtk::Entry* entry_custom_backup_dir = Gtk::manage(new Gtk::Entry());
+    Gtk::CheckButton* checkbutton_custom_backup_dir = Gtk::manage(new Gtk::CheckButton{_("Custom Backup Directory")});
+    Gtk::Entry* entry_custom_backup_dir = Gtk::manage(new Gtk::Entry{});
     entry_custom_backup_dir->property_editable() = false;
-    Gtk::Button* button_custom_backup_dir = Gtk::manage(new Gtk::Button("..."));
-    Gtk::HBox* hbox_custom_backup_dir = Gtk::manage(new Gtk::HBox());
-    hbox_custom_backup_dir->set_spacing(4);
+    Gtk::Button* button_custom_backup_dir = Gtk::manage(new Gtk::Button{"..."});
+    auto hbox_custom_backup_dir = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
 
     hbox_num_backups->pack_start(*label_num_backups, false, false);
     hbox_num_backups->pack_start(*spinbutton_num_backups, false, false);
@@ -90,12 +87,12 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
 
     Gtk::Frame* frame_saving = new_managed_frame_with_align(_("Saving"), vbox_saving);
 
-    Gtk::VBox* vbox_misc_misc = Gtk::manage(new Gtk::VBox());
-    Gtk::CheckButton* checkbutton_newer_version = Gtk::manage(new Gtk::CheckButton(_("Automatically Check for Newer Version")));
-    Gtk::CheckButton* checkbutton_word_count = Gtk::manage(new Gtk::CheckButton(_("Enable Word Count in Statusbar")));
-    Gtk::CheckButton* checkbutton_reload_doc_last = Gtk::manage(new Gtk::CheckButton(_("Reload Document From Last Session")));
-    Gtk::CheckButton* checkbutton_mod_time_sentinel = Gtk::manage(new Gtk::CheckButton(_("Reload After External Update to CT* File")));
-    Gtk::CheckButton* checkbutton_win_title_doc_dir = Gtk::manage(new Gtk::CheckButton(_("Show the Document Directory in the Window Title")));
+    auto vbox_misc_misc = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+    Gtk::CheckButton* checkbutton_newer_version = Gtk::manage(new Gtk::CheckButton{_("Automatically Check for Newer Version")});
+    Gtk::CheckButton* checkbutton_word_count = Gtk::manage(new Gtk::CheckButton{_("Enable Word Count in Statusbar")});
+    Gtk::CheckButton* checkbutton_reload_doc_last = Gtk::manage(new Gtk::CheckButton{_("Reload Document From Last Session")});
+    Gtk::CheckButton* checkbutton_mod_time_sentinel = Gtk::manage(new Gtk::CheckButton{_("Reload After External Update to CT* File")});
+    Gtk::CheckButton* checkbutton_win_title_doc_dir = Gtk::manage(new Gtk::CheckButton{_("Show the Document Directory in the Window Title")});
     vbox_misc_misc->pack_start(*checkbutton_newer_version, false, false);
     vbox_misc_misc->pack_start(*checkbutton_word_count, false, false);
     vbox_misc_misc->pack_start(*checkbutton_reload_doc_last, false, false);
@@ -122,11 +119,11 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     auto button_country_language = Gtk::manage(new Gtk::Button{});
     button_country_language->set_label(f_getButtonLabel(currLangId));
     button_country_language->set_image(*_pCtMainWin->new_image_from_stock(f_getStockId(currLangId), Gtk::ICON_SIZE_MENU));
+    button_country_language->set_always_show_image(true);
     Gtk::Frame* frame_language = new_managed_frame_with_align(_("Language"), button_country_language);
 #endif
 
-    Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
-    pMainBox->set_spacing(3);
+    auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
     pMainBox->set_margin_left(6);
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_system_tray, false, false);
@@ -149,7 +146,8 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
                 CtDialogs::warning_dialog(_("Your system does not support the System Tray"), *_pCtMainWin);
                 checkbutton_systray->set_active(false);
             }
-        } else {
+        }
+        else {
             pConfig->systrayOn = false;
             _pCtMainWin->get_status_icon()->set_visible(false);
             apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(false); });
@@ -214,11 +212,22 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
 #ifdef HAVE_NLS
     button_country_language->signal_clicked().connect([this, button_country_language, f_getStockId, f_getButtonLabel](){
         Glib::RefPtr<CtChooseDialogListStore> rItemStore = CtChooseDialogListStore::create();
+        const std::string currLang = CtMiscUtil::get_ct_language();
         rItemStore->add_row(f_getStockId(CtConst::LANG_DEFAULT), CtConst::LANG_DEFAULT, "-");
+        unsigned pathSelectIdx{0};
+        unsigned pathCurrIdx{1};
         for (const auto& currPair : _mapCountryLanguages) {
             rItemStore->add_row(f_getStockId(currPair.first), currPair.first, currPair.second);
+            if (currLang == currPair.first) {
+                pathSelectIdx = pathCurrIdx;
+            }
+            ++pathCurrIdx;
         }
-        Gtk::TreeIter res = CtDialogs::choose_item_dialog(*this, _("Language"), rItemStore);
+        Gtk::TreeIter res = CtDialogs::choose_item_dialog(*this,
+                                                          _("Language"),
+                                                          rItemStore,
+                                                          nullptr/*single_column_name*/,
+                                                          std::to_string(pathSelectIdx));
         if (res) {
             const Glib::ustring selLangId = res->get_value(rItemStore->columns.key);
             button_country_language->set_label(f_getButtonLabel(selLangId));
@@ -229,6 +238,5 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
         }
     });
 #endif
-
     return pMainBox;
 }
