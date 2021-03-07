@@ -52,18 +52,17 @@ Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& parent_win
     Gtk::Image image{rOriginalPixbuf};
     scrolledwindow.add(viewport);
     viewport.add(image);
-    Gtk::HBox hbox_1;
+    Gtk::Box hbox_1{Gtk::ORIENTATION_HORIZONTAL, 2/*spacing*/};
     hbox_1.pack_start(button_rotate_90_ccw, false, false);
     hbox_1.pack_start(scrolledwindow);
     hbox_1.pack_start(button_rotate_90_cw, false, false);
-    hbox_1.set_spacing(2);
     Gtk::Label label_width{_("Width")};
     Glib::RefPtr<Gtk::Adjustment> rAdj_width = Gtk::Adjustment::create(width, 1, 10000, 1);
-    Gtk::SpinButton spinbutton_width(rAdj_width);
+    Gtk::SpinButton spinbutton_width{rAdj_width};
     Gtk::Label label_height{_("Height")};
     Glib::RefPtr<Gtk::Adjustment> rAdj_height = Gtk::Adjustment::create(height, 1, 10000, 1);
     Gtk::SpinButton spinbutton_height{rAdj_height};
-    Gtk::HBox hbox_2;
+    Gtk::Box hbox_2{Gtk::ORIENTATION_HORIZONTAL};
     hbox_2.pack_start(label_width);
     hbox_2.pack_start(spinbutton_width);
     hbox_2.pack_start(label_height);
@@ -172,7 +171,7 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
     else {
         radiobutton_auto_syntax_highl.set_active(true);
     }
-    Gtk::VBox type_vbox;
+    Gtk::Box type_vbox{Gtk::ORIENTATION_VERTICAL};
     type_vbox.pack_start(radiobutton_plain_text);
     type_vbox.pack_start(radiobutton_auto_syntax_highl);
     type_vbox.pack_start(button_prog_lang);
@@ -196,19 +195,17 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
     radiobutton_codebox_pixels.set_active(pConfig->codeboxWidthPixels);
     radiobutton_codebox_percent.set_active(!pConfig->codeboxWidthPixels);
 
-    Gtk::VBox vbox_pix_perc;
+    Gtk::Box vbox_pix_perc{Gtk::ORIENTATION_VERTICAL};
     vbox_pix_perc.pack_start(radiobutton_codebox_pixels);
     vbox_pix_perc.pack_start(radiobutton_codebox_percent);
-    Gtk::HBox hbox_width;
+    Gtk::Box hbox_width{Gtk::ORIENTATION_HORIZONTAL, 5/*spacing*/};
     hbox_width.pack_start(label_width, false, false);
     hbox_width.pack_start(spinbutton_width, false, false);
     hbox_width.pack_start(vbox_pix_perc);
-    hbox_width.set_spacing(5);
-    Gtk::HBox hbox_height;
+    Gtk::Box hbox_height{Gtk::ORIENTATION_HORIZONTAL, 5/*spacing*/};
     hbox_height.pack_start(label_height, false, false);
     hbox_height.pack_start(spinbutton_height, false, false);
-    hbox_height.set_spacing(5);
-    Gtk::VBox vbox_size;
+    Gtk::Box vbox_size{Gtk::ORIENTATION_VERTICAL};
     vbox_size.pack_start(hbox_width);
     vbox_size.pack_start(hbox_height);
     Gtk::Alignment size_align;
@@ -224,7 +221,7 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
     checkbutton_codebox_linenumbers.set_active(pConfig->codeboxLineNum);
     Gtk::CheckButton checkbutton_codebox_matchbrackets{_("Highlight Matching Brackets")};
     checkbutton_codebox_matchbrackets.set_active(pConfig->codeboxMatchBra);
-    Gtk::VBox vbox_options;
+    Gtk::Box vbox_options{Gtk::ORIENTATION_VERTICAL};
     vbox_options.pack_start(checkbutton_codebox_linenumbers);
     vbox_options.pack_start(checkbutton_codebox_matchbrackets);
     Gtk::Alignment opt_align;
@@ -245,10 +242,21 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
 
     button_prog_lang.signal_clicked().connect([&button_prog_lang, &dialog, pCtMainWin](){
         Glib::RefPtr<CtChooseDialogListStore> rItemStore = CtChooseDialogListStore::create();
+        unsigned pathSelectIdx{0};
+        unsigned pathCurrIdx{0};
+        const auto currSyntaxHighl = button_prog_lang.get_label();
         for (const std::string& lang : pCtMainWin->get_language_manager()->get_language_ids()) {
             rItemStore->add_row(pCtMainWin->get_code_icon_name(lang), "", lang);
+            if (lang == currSyntaxHighl) {
+                pathSelectIdx = pathCurrIdx;
+            }
+            ++pathCurrIdx;
         }
-        Gtk::TreeIter res = CtDialogs::choose_item_dialog(dialog, _("Automatic Syntax Highlighting"), rItemStore);
+        Gtk::TreeIter res = CtDialogs::choose_item_dialog(dialog,
+                                                          _("Automatic Syntax Highlighting"),
+                                                          rItemStore,
+                                                          nullptr/*single_column_name*/,
+                                                          std::to_string(pathSelectIdx));
         if (res) {
             const Glib::ustring syntax_hl_id = res->get_value(rItemStore->columns.desc);
             const std::string stock_id = pCtMainWin->get_code_icon_name(syntax_hl_id);
