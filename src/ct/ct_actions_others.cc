@@ -30,6 +30,9 @@
 #include <gtkmm/stock.h>
 #include <cstdlib>
 #include "ct_logging.h"
+#ifndef _WIN32
+#include <sys/wait.h> // WEXITSTATUS __FreeBSD__ (#1550)
+#endif // !_WIN32
 
 // Cut Link
 void CtActions::link_cut()
