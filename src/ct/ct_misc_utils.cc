@@ -934,7 +934,10 @@ Glib::ustring str::time_format(const std::string& format, const time_t& time)
     if (g_utf8_validate(buffer, len, NULL)) return buffer;
 
     g_autofree gchar* date = g_locale_to_utf8(buffer, len, NULL, NULL, NULL);
-    return date;
+    if (date) return date;
+
+    const std::string codeset = CtStrUtil::get_encoding(buffer, len);
+    return Glib::convert_with_fallback(buffer, "UTF-8", codeset);
 }
 
 int str::symb_pos_to_byte_pos(const Glib::ustring& text, int symb_pos)
