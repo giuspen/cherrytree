@@ -1,7 +1,7 @@
 /*
  * ct_actions_find.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -29,7 +29,6 @@
 #include "ct_image.h"
 #include "ct_dialogs.h"
 #include "ct_logging.h"
-
 
 void CtActions::_find_init()
 {
@@ -90,14 +89,16 @@ void CtActions::find_in_selected_node()
         s_state.match_store->clear();
         s_state.match_store->saved_path.clear();
         s_state.all_matches_first_in_node = true;
-        while (_parse_node_content_iter(_pCtMainWin->curr_tree_iter(), curr_buffer, re_pattern, forward, first_fromsel, all_matches, true))
+        while (_parse_node_content_iter(_pCtMainWin->curr_tree_iter(), curr_buffer, re_pattern, forward, first_fromsel, all_matches, true)) {
             s_state.matches_num += 1;
         }
-    else if (_parse_node_content_iter(_pCtMainWin->curr_tree_iter(), curr_buffer, re_pattern, forward, first_fromsel, all_matches, true))
+    }
+    else if (_parse_node_content_iter(_pCtMainWin->curr_tree_iter(), curr_buffer, re_pattern, forward, first_fromsel, all_matches, true)) {
         s_state.matches_num = 1;
-
-    if (s_state.matches_num == 0)
+    }
+    if (s_state.matches_num == 0) {
         CtDialogs::info_dialog(str::format(_("The pattern '%s' was not found"), pattern), *_pCtMainWin);
+    }
     else if (all_matches) {
         s_state.match_dialog_title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
         CtDialogs::match_dialog(s_state.match_dialog_title, _pCtMainWin, s_state.match_store);
@@ -107,7 +108,8 @@ void CtActions::find_in_selected_node()
     }
 }
 
-static int _count_nodes(const Gtk::TreeNodeChildren& children) {
+static int _count_nodes(const Gtk::TreeNodeChildren& children)
+{
     int count = 1;
     for(auto& child: children) { count += _count_nodes(child.children()); }
     return count;
@@ -235,12 +237,13 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
         if (all_matches) {
             s_state.match_dialog_title = std::to_string(s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
             CtDialogs::match_dialog(s_state.match_dialog_title, _pCtMainWin, s_state.match_store);
-        } else {
+        }
+        else {
             _pCtMainWin->get_tree_view().set_cursor_safe(_pCtMainWin->curr_tree_iter());
             if (s_options.search_replace_dict_idialog)
                 _iterated_find_dialog();
         }
-     }
+    }
     if (all_matches) {
         ctStatusBar.progressBar.hide();
         ctStatusBar.stopButton.hide();
@@ -324,9 +327,10 @@ void CtActions::find_a_node()
 }
 
 // Continue the previous search (a_node/in_selected_node/in_all_nodes)
-void CtActions::find_again()
+void CtActions::_find_again(const bool fromIterativeDialog)
 {
-    s_options.search_replace_dict_idialog = false;
+    const bool restore_search_replace_dict_idialog = s_options.search_replace_dict_idialog;
+    s_options.search_replace_dict_idialog = fromIterativeDialog;
     s_state.from_find_iterated = true;
     if (s_state.curr_find_where.empty()) CtDialogs::warning_dialog(_("No Previous Search Was Performed During This Session"), *_pCtMainWin);
     else if (s_state.curr_find_where == "in_selected_node") find_in_selected_node();
@@ -334,15 +338,15 @@ void CtActions::find_again()
     else if (s_state.curr_find_where == "in_sel_nod_n_sub") _find_in_all_nodes(true);
     else if (s_state.curr_find_where == "a_node")           find_a_node();
     s_state.from_find_iterated = false;
+    s_options.search_replace_dict_idialog = restore_search_replace_dict_idialog;
 }
 
 // Continue the previous search (a_node/in_selected_node/in_all_nodes) but in Opposite Direction
-void CtActions::find_back()
+void CtActions::_find_back(const bool fromIterativeDialog)
 {
-    s_options.search_replace_dict_idialog = false;
     s_state.from_find_back = true;
     s_state.replace_active = false;
-    find_again();
+    _find_again(fromIterativeDialog);
 }
 
 // Replace a pattern in the selected Node
@@ -386,7 +390,7 @@ void CtActions::replace_again()
 {
     s_state.replace_active = true;
     s_state.replace_subsequent = true;
-    find_again();
+    _find_again(false/*fromIterativeDialog*/);
     s_state.replace_active = false;
     s_state.replace_subsequent = false;
 }
@@ -400,7 +404,9 @@ void CtActions::find_allmatchesdialog_restore()
 // Opens the Search Dialog
 std::string CtActions::_dialog_search(const std::string& title, bool replace_on, bool multiple_nodes, bool pattern_required)
 {
-    Gtk::Dialog dialog(title, *_pCtMainWin, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    Gtk::Dialog dialog{title,
+                       *_pCtMainWin,
+                       Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
     dialog.set_transient_for(*_pCtMainWin);
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
     dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
@@ -408,7 +414,7 @@ std::string CtActions::_dialog_search(const std::string& title, bool replace_on,
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(400, -1);
 
-    auto search_entry = Gtk::Entry();
+    Gtk::Entry search_entry{};
     search_entry.set_text(s_options.search_replace_dict_find);
 
     auto button_ok = dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT);
@@ -423,81 +429,80 @@ std::string CtActions::_dialog_search(const std::string& title, bool replace_on,
     search_frame.set_shadow_type(Gtk::SHADOW_NONE);
     search_frame.add(search_entry);
 
-    Gtk::Frame* replace_frame = nullptr;
-    Gtk::Entry* replace_entry = nullptr;
+    Gtk::Frame* replace_frame{nullptr};
+    Gtk::Entry* replace_entry{nullptr};
     if (replace_on) {
-        replace_entry = Gtk::manage(new Gtk::Entry());
+        replace_entry = Gtk::manage(new Gtk::Entry{});
         replace_entry->set_text(s_options.search_replace_dict_replace);
-        replace_frame = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Replace with")+"</b>"));
+        replace_frame = Gtk::manage(new Gtk::Frame{std::string("<b>")+_("Replace with")+"</b>"});
         dynamic_cast<Gtk::Label*>(replace_frame->get_label_widget())->set_use_markup(true);
         replace_frame->set_shadow_type(Gtk::SHADOW_NONE);
         replace_frame->add(*replace_entry);
     }
-    auto opt_vbox = Gtk::VBox();
-    opt_vbox.set_spacing(1);
-    auto four_1_hbox = Gtk::HBox();
+    Gtk::Box opt_vbox{Gtk::ORIENTATION_VERTICAL, 1/*spacing*/};
+    Gtk::Box four_1_hbox{Gtk::ORIENTATION_HORIZONTAL};
     four_1_hbox.set_homogeneous(true);
-    auto four_2_hbox = Gtk::HBox();
+    Gtk::Box four_2_hbox{Gtk::ORIENTATION_HORIZONTAL};
     four_2_hbox.set_homogeneous(true);
-    auto bw_fw_hbox = Gtk::HBox();
+    Gtk::Box bw_fw_hbox{Gtk::ORIENTATION_HORIZONTAL};
     bw_fw_hbox.set_homogeneous(true);
-    auto three_hbox = Gtk::HBox();
+    Gtk::Box three_hbox{Gtk::ORIENTATION_HORIZONTAL};
     three_hbox.set_homogeneous(true);
-    auto three_vbox = Gtk::VBox();
-    auto match_case_checkbutton = Gtk::CheckButton(_("Match Case"));
+    Gtk::Box three_vbox{Gtk::ORIENTATION_VERTICAL};
+    Gtk::CheckButton match_case_checkbutton{_("Match Case")};
     match_case_checkbutton.set_active(s_options.search_replace_dict_match_case);
-    auto reg_exp_checkbutton = Gtk::CheckButton(_("Regular Expression"));
+    Gtk::CheckButton reg_exp_checkbutton{_("Regular Expression")};
     reg_exp_checkbutton.set_active(s_options.search_replace_dict_reg_exp);
-    auto whole_word_checkbutton = Gtk::CheckButton(_("Whole Word"));
+    Gtk::CheckButton whole_word_checkbutton{_("Whole Word")};
     whole_word_checkbutton.set_active(s_options.search_replace_dict_whole_word);
-    auto start_word_checkbutton = Gtk::CheckButton(_("Start Word"));
+    Gtk::CheckButton start_word_checkbutton{_("Start Word")};
     start_word_checkbutton.set_active(s_options.search_replace_dict_start_word);
-    auto fw_radiobutton = Gtk::RadioButton(_("Forward"));
+    Gtk::RadioButton fw_radiobutton{_("Forward")};
     fw_radiobutton.set_active(s_options.search_replace_dict_fw);
-    auto bw_radiobutton = Gtk::RadioButton(_("Backward"));
+    Gtk::RadioButton bw_radiobutton{_("Backward")};
     bw_radiobutton.join_group(fw_radiobutton);
     bw_radiobutton.set_active(!s_options.search_replace_dict_fw);
-    auto all_radiobutton = Gtk::RadioButton(_("All, List Matches"));
+    Gtk::RadioButton all_radiobutton{_("All, List Matches")};
     all_radiobutton.set_active(s_options.search_replace_dict_a_ff_fa == 0);
-    auto first_from_radiobutton = Gtk::RadioButton(_("First From Selection"));
+    Gtk::RadioButton first_from_radiobutton{_("First From Selection")};
     first_from_radiobutton.join_group(all_radiobutton);
     first_from_radiobutton.set_active(s_options.search_replace_dict_a_ff_fa == 1);
-    auto first_all_radiobutton = Gtk::RadioButton(_("First in All Range"));
+    Gtk::RadioButton first_all_radiobutton{_("First in All Range")};
     first_all_radiobutton.join_group(all_radiobutton);
     first_all_radiobutton.set_active(s_options.search_replace_dict_a_ff_fa == 2);
 
-    Gtk::Frame* ts_frame = nullptr;
-    Gtk::CheckButton* ts_node_created_after_checkbutton = nullptr;
-    Gtk::CheckButton* ts_node_created_before_checkbutton = nullptr;
-    Gtk::CheckButton* ts_node_modified_after_checkbutton = nullptr;
-    Gtk::CheckButton* ts_node_modified_before_checkbutton = nullptr;
+    Gtk::Frame* ts_frame{nullptr};
+    Gtk::CheckButton* ts_node_created_after_checkbutton{nullptr};
+    Gtk::CheckButton* ts_node_created_before_checkbutton{nullptr};
+    Gtk::CheckButton* ts_node_modified_after_checkbutton{nullptr};
+    Gtk::CheckButton* ts_node_modified_before_checkbutton{nullptr};
     if (multiple_nodes) {
         std::string ts_format = "%A, %d %B %Y, %H:%M";
-        ts_node_created_after_checkbutton = Gtk::manage(new Gtk::CheckButton(_("Node Created After")));
+        ts_node_created_after_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Node Created After")});
         Glib::ustring ts_label = str::time_format(ts_format, s_options.ts_cre_after.time);
-        auto ts_node_created_after_button = Gtk::manage(new Gtk::Button(ts_label));
-        auto ts_node_created_after_hbox = Gtk::manage(new Gtk::HBox());
+        auto ts_node_created_after_button = Gtk::manage(new Gtk::Button{ts_label});
+        auto ts_node_created_after_hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
         ts_node_created_after_hbox->set_homogeneous(true);
         ts_node_created_after_hbox->pack_start(*ts_node_created_after_checkbutton);
         ts_node_created_after_hbox->pack_start(*ts_node_created_after_button);
-        ts_node_created_before_checkbutton = Gtk::manage(new Gtk::CheckButton(_("Node Created Before")));
+        ts_node_created_before_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Node Created Before")});
         ts_label = str::time_format(ts_format, s_options.ts_cre_before.time);
-        auto ts_node_created_before_button = Gtk::manage(new Gtk::Button(ts_label));
-        auto ts_node_created_before_hbox = Gtk::manage(new Gtk::HBox());
+        auto ts_node_created_before_button = Gtk::manage(new Gtk::Button{ts_label});
+        auto ts_node_created_before_hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
         ts_node_created_before_hbox->set_homogeneous(true);
         ts_node_created_before_hbox->pack_start(*ts_node_created_before_checkbutton);
         ts_node_created_before_hbox->pack_start(*ts_node_created_before_button);
-        ts_node_modified_after_checkbutton = Gtk::manage(new Gtk::CheckButton(_("Node Modified After")));
+        ts_node_modified_after_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Node Modified After")});
         ts_label = str::time_format(ts_format, s_options.ts_mod_after.time);
-        auto ts_node_modified_after_button = Gtk::manage(new Gtk::Button(ts_label));
-        auto ts_node_modified_after_hbox = Gtk::manage(new Gtk::HBox());
+        auto ts_node_modified_after_button = Gtk::manage(new Gtk::Button{ts_label});
+        auto ts_node_modified_after_hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
         ts_node_modified_after_hbox->set_homogeneous(true);
         ts_node_modified_after_hbox->pack_start(*ts_node_modified_after_checkbutton);
         ts_node_modified_after_hbox->pack_start(*ts_node_modified_after_button);
-        ts_node_modified_before_checkbutton = Gtk::manage(new Gtk::CheckButton(_("Node Modified Before")));
+        ts_node_modified_before_checkbutton = Gtk::manage(new Gtk::CheckButton{_("Node Modified Before")});
         ts_label = str::time_format(ts_format, s_options.ts_mod_before.time);
-        auto ts_node_modified_before_button = Gtk::manage(new Gtk::Button(ts_label));
-        auto ts_node_modified_before_hbox = Gtk::manage(new Gtk::HBox());
+        auto ts_node_modified_before_button = Gtk::manage(new Gtk::Button{ts_label});
+        auto ts_node_modified_before_hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
         ts_node_modified_before_hbox->set_homogeneous(true);
         ts_node_modified_before_hbox->pack_start(*ts_node_modified_before_checkbutton);
         ts_node_modified_before_hbox->pack_start(*ts_node_modified_before_button);
@@ -505,14 +510,14 @@ std::string CtActions::_dialog_search(const std::string& title, bool replace_on,
         ts_node_created_before_checkbutton->set_active(s_options.ts_cre_before.on);
         ts_node_modified_after_checkbutton->set_active(s_options.ts_mod_after.on);
         ts_node_modified_before_checkbutton->set_active(s_options.ts_mod_before.on);
-        auto ts_node_vbox = Gtk::manage(new Gtk::VBox());
+        auto ts_node_vbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
         ts_node_vbox->pack_start(*ts_node_created_after_hbox);
         ts_node_vbox->pack_start(*ts_node_created_before_hbox);
-        ts_node_vbox->pack_start(*Gtk::manage(new Gtk::HSeparator()));
+        ts_node_vbox->pack_start(*Gtk::manage(new Gtk::HSeparator{}));
         ts_node_vbox->pack_start(*ts_node_modified_after_hbox);
         ts_node_vbox->pack_start(*ts_node_modified_before_hbox);
 
-        ts_frame = Gtk::manage(new Gtk::Frame(std::string("<b>")+_("Time filter")+"</b>"));
+        ts_frame = Gtk::manage(new Gtk::Frame{std::string("<b>")+_("Time filter")+"</b>"});
         dynamic_cast<Gtk::Label*>(ts_frame->get_label_widget())->set_use_markup(true);
         ts_frame->set_shadow_type(Gtk::SHADOW_NONE);
         ts_frame->add(*ts_node_vbox);
@@ -532,7 +537,7 @@ std::string CtActions::_dialog_search(const std::string& title, bool replace_on,
         ts_node_modified_before_button->signal_clicked().connect(sigc::bind(on_ts_node_button_clicked, ts_node_modified_before_button,
                                                                             _("Node Modified Before"), &s_options.ts_mod_before.time));
     }
-    auto iter_dialog_checkbutton = Gtk::CheckButton(_("Show Iterated Find/Replace Dialog"));
+    Gtk::CheckButton iter_dialog_checkbutton{_("Show Iterated Find/Replace Dialog")};
     iter_dialog_checkbutton.set_active(s_options.search_replace_dict_idialog);
     four_1_hbox.pack_start(match_case_checkbutton);
     four_1_hbox.pack_start(reg_exp_checkbutton);
@@ -546,17 +551,17 @@ std::string CtActions::_dialog_search(const std::string& title, bool replace_on,
     three_hbox.pack_start(three_vbox);
     opt_vbox.pack_start(four_1_hbox);
     opt_vbox.pack_start(four_2_hbox);
-    opt_vbox.pack_start(*Gtk::manage(new Gtk::HSeparator()));
+    opt_vbox.pack_start(*Gtk::manage(new Gtk::HSeparator{}));
     opt_vbox.pack_start(bw_fw_hbox);
-    opt_vbox.pack_start(*Gtk::manage(new Gtk::HSeparator()));
+    opt_vbox.pack_start(*Gtk::manage(new Gtk::HSeparator{}));
     opt_vbox.pack_start(three_hbox);
-    opt_vbox.pack_start(*Gtk::manage(new Gtk::HSeparator()));
+    opt_vbox.pack_start(*Gtk::manage(new Gtk::HSeparator{}));
     if (multiple_nodes) {
         opt_vbox.pack_start(*ts_frame);
-        opt_vbox.pack_start(*Gtk::manage(new Gtk::HSeparator()));
+        opt_vbox.pack_start(*Gtk::manage(new Gtk::HSeparator{}));
     }
     opt_vbox.pack_start(iter_dialog_checkbutton);
-    auto opt_frame = Gtk::Frame(std::string("<b>")+_("Search options")+"</b>");
+    Gtk::Frame opt_frame{std::string("<b>")+_("Search options")+"</b>"};
     dynamic_cast<Gtk::Label*>(opt_frame.get_label_widget())->set_use_markup(true);
     opt_frame.set_shadow_type(Gtk::SHADOW_NONE);
     opt_frame.add(opt_vbox);
@@ -601,7 +606,6 @@ std::string CtActions::_dialog_search(const std::string& title, bool replace_on,
     return s_options.search_replace_dict_find;
 }
 
-
 // Recursive function that searchs for the given pattern
 bool CtActions::_parse_node_name(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex> re_pattern, bool forward, bool all_matches)
 {
@@ -643,8 +647,7 @@ bool CtActions::_parse_node_name(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex>
     if (!node_iter->children().empty()) {
         Gtk::TreeIter child_iter = forward ? node_iter->children().begin() : --node_iter->children().end();
         while (child_iter) {
-            if (_parse_node_name(_pCtMainWin->get_tree_store().to_ct_tree_iter(child_iter), re_pattern, forward, all_matches)
-                    && !all_matches)
+            if (_parse_node_name(_pCtMainWin->get_tree_store().to_ct_tree_iter(child_iter), re_pattern, forward, all_matches) and !all_matches)
                 return true;
             child_iter = forward ? ++child_iter : --child_iter;
         }
@@ -653,7 +656,11 @@ bool CtActions::_parse_node_name(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex>
 }
 
 // Returns True if pattern was found, False otherwise
-bool CtActions::_parse_given_node_content(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex> re_pattern, bool forward, bool first_fromsel, bool all_matches)
+bool CtActions::_parse_given_node_content(CtTreeIter node_iter,
+                                          Glib::RefPtr<Glib::Regex> re_pattern,
+                                          bool forward,
+                                          bool first_fromsel,
+                                          bool all_matches)
 {
     auto text_buffer = node_iter.get_node_text_buffer();
     if (!s_state.first_useful_node) {
@@ -689,8 +696,13 @@ bool CtActions::_parse_given_node_content(CtTreeIter node_iter, Glib::RefPtr<Gli
 }
 
 // Returns True if pattern was find, False otherwise
-bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, Glib::RefPtr<Glib::Regex> re_pattern,
-                             bool forward, bool first_fromsel, bool all_matches, bool first_node)
+bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter,
+                                         Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                                         Glib::RefPtr<Glib::Regex> re_pattern,
+                                         bool forward,
+                                         bool first_fromsel,
+                                         bool all_matches,
+                                         bool first_node)
 {
     bool restore_modified;
     Gtk::TextIter start_iter;
@@ -701,14 +713,16 @@ bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter, Glib::RefP
         s_state.newline_trick = true;
         restore_modified = !text_buffer->get_modified();
         text_buffer->insert(buff_start_iter, CtConst::CHAR_NEWLINE);
-    } else {
+    }
+    else {
         s_state.newline_trick = false;
         restore_modified = false;
     }
     if ((first_fromsel && first_node) || (all_matches && !s_state.all_matches_first_in_node)) {
         gint64 node_id = tree_iter.get_node_id();
         start_iter = _get_inner_start_iter(text_buffer, forward, node_id);
-    } else {
+    }
+    else {
         start_iter = forward ? text_buffer->begin() : text_buffer->end();
         if (all_matches) s_state.all_matches_first_in_node = false;
     }
@@ -735,7 +749,8 @@ Gtk::TextIter CtActions::_get_inner_start_iter(Glib::RefPtr<Gtk::TextBuffer> tex
     Gtk::TextIter start_iter, min_iter, max_iter;
     if (text_buffer->get_has_selection()) {
         text_buffer->get_selection_bounds(min_iter, max_iter);
-    } else {
+    }
+    else {
         min_iter = text_buffer->get_iter_at_mark(text_buffer->get_insert());
         max_iter = min_iter;
     }
@@ -743,14 +758,15 @@ Gtk::TextIter CtActions::_get_inner_start_iter(Glib::RefPtr<Gtk::TextBuffer> tex
         // it's a find or subsequent replace, so we want, given a selected word, to find for the subsequent one
         if (forward)    start_iter = max_iter;
         else            start_iter = min_iter;
-    } else {
+    }
+    else {
         // it's a first replace, so we want, given a selected word, to replace starting from this one
         if (forward)    start_iter = min_iter;
         else            start_iter = max_iter;
     }
-    if (s_state.latest_node_offset != -1
-            && s_state.latest_node_offset_node_id == node_id
-            && s_state.latest_node_offset == start_iter.get_offset())
+    if (s_state.latest_node_offset != -1 and
+        s_state.latest_node_offset_node_id == node_id and
+        s_state.latest_node_offset == start_iter.get_offset())
     {
         if (forward) start_iter.forward_char();
         else         start_iter.backward_char();
@@ -779,31 +795,32 @@ bool CtActions::_is_node_within_time_filter(const CtTreeIter& node_iter)
 
 Glib::RefPtr<Glib::Regex> CtActions::_create_re_pattern(Glib::ustring pattern)
 {
-    if (!s_options.search_replace_dict_reg_exp) // NOT REGULAR EXPRESSION
-    {
+    if (!s_options.search_replace_dict_reg_exp) { // NOT REGULAR EXPRESSION
         pattern = Glib::Regex::escape_string(pattern);     // backslashes all non alphanum chars => to not spoil re
         if (s_options.search_replace_dict_whole_word)      // WHOLE WORD
             pattern = "\\b" + pattern + "\\b";
         else if (s_options.search_replace_dict_start_word) // START WORD
             pattern = "\\b" + pattern;
     }
-    try
-    {
+    try {
         if (s_options.search_replace_dict_match_case) // CASE SENSITIVE
             return Glib::Regex::create(pattern, Glib::RegexCompileFlags::REGEX_MULTILINE);
         else
             return Glib::Regex::create(pattern, Glib::RegexCompileFlags::REGEX_MULTILINE | Glib::RegexCompileFlags::REGEX_CASELESS);
     }
-    catch (Glib::RegexError& e)
-    {
+    catch (Glib::RegexError& e) {
         CtDialogs::error_dialog(e.what(), *_pCtMainWin);
         return Glib::RefPtr<Glib::Regex>();
     }
 }
 
 // """Returns (start_iter, end_iter) or (None, None)"""
-bool CtActions::_find_pattern(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, Glib::RefPtr<Glib::Regex> re_pattern,
-                  Gtk::TextIter start_iter, bool forward, bool all_matches)
+bool CtActions::_find_pattern(CtTreeIter tree_iter,
+                              Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                              Glib::RefPtr<Glib::Regex> re_pattern,
+                              Gtk::TextIter start_iter,
+                              bool forward,
+                              bool all_matches)
 {
     /* Gtk::TextBuffer uses symbols positions
      * Glib::Regex uses byte positions
@@ -819,7 +836,8 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer
         if (re_pattern->match(text, str::symb_pos_to_byte_pos(text, start_offset), match))
             if (match.matches())
                 match.fetch_pos(0, match_offsets.first, match_offsets.second);
-    } else {
+    }
+    else {
         Glib::MatchInfo match;
         re_pattern->match(text, str::symb_pos_to_byte_pos(text, start_offset) /*as len*/, 0 /*as start position*/, match);
         while (match.matches()) {
@@ -868,59 +886,61 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer
         if (!s_state.newline_trick) line_num += 1;
         s_state.match_store->add_row(node_id, node_name, str::xml_escape(node_hier_name), start_offset, end_offset, line_num, line_content);
         // #print line_num, self.matches_num
-    } else {
+    }
+    else {
         _pCtMainWin->get_text_view().scroll_to(mark_insert, CtTextView::TEXT_SCROLL_MARGIN);
     }
     if (s_state.replace_active) {
-            if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return false;
-            Gtk::TextIter sel_start, sel_end;
-            text_buffer->get_selection_bounds(sel_start, sel_end);
+        if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return false;
+        Gtk::TextIter sel_start, sel_end;
+        text_buffer->get_selection_bounds(sel_start, sel_end);
 
-            Glib::ustring origin_text = sel_start.get_text(sel_end);
-            Glib::ustring replacer_text = s_options.search_replace_dict_replace; /* should be Glib::ustring to count symbols */
+        Glib::ustring origin_text = sel_start.get_text(sel_end);
+        Glib::ustring replacer_text = s_options.search_replace_dict_replace; /* should be Glib::ustring to count symbols */
 
-            // use re_pattern->replace for the cases with \n, maybe it even helps with groups
-            if (s_options.search_replace_dict_reg_exp)
-                replacer_text = re_pattern->replace(origin_text, 0, replacer_text, static_cast<Glib::RegexMatchFlags>(0));
+        // use re_pattern->replace for the cases with \n, maybe it even helps with groups
+        if (s_options.search_replace_dict_reg_exp)
+            replacer_text = re_pattern->replace(origin_text, 0, replacer_text, static_cast<Glib::RegexMatchFlags>(0));
 
-            text_buffer->erase(sel_start, sel_end);
-            text_buffer->insert_at_cursor(replacer_text);
-            if (!all_matches)
-                _pCtMainWin->get_text_view().set_selection_at_offset_n_delta(match_offsets.first + num_objs, (int)replacer_text.size());
-            _pCtMainWin->get_state_machine().update_state();
-            tree_iter.pending_edit_db_node_buff();
-        }
+        text_buffer->erase(sel_start, sel_end);
+        text_buffer->insert_at_cursor(replacer_text);
+        if (!all_matches)
+            _pCtMainWin->get_text_view().set_selection_at_offset_n_delta(match_offsets.first + num_objs, (int)replacer_text.size());
+        _pCtMainWin->get_state_machine().update_state();
+        tree_iter.pending_edit_db_node_buff();
+    }
     return true;
 }
 
 // Search for the pattern in the given object
 Glib::ustring CtActions::_check_pattern_in_object(Glib::RefPtr<Glib::Regex> pattern, CtAnchoredWidget* obj)
 {
-    if (CtImageEmbFile* image = dynamic_cast<CtImageEmbFile*>(obj))
-    {
+    if (CtImageEmbFile* image = dynamic_cast<CtImageEmbFile*>(obj)) {
         if (pattern->match(image->get_file_name().string())) return image->get_file_name().string();
     }
-    else if (CtImageAnchor* image = dynamic_cast<CtImageAnchor*>(obj))
-    {
+    else if (CtImageAnchor* image = dynamic_cast<CtImageAnchor*>(obj)) {
         if (pattern->match(image->get_anchor_name())) return image->get_anchor_name();
     }
-    else if (CtTable* table = dynamic_cast<CtTable*>(obj))
-    {
+    else if (CtTable* table = dynamic_cast<CtTable*>(obj)) {
         for (auto& row: table->get_table_matrix())
             for (auto& col: row)
                 if (pattern->match(col->get_text_content()))
                     return "<table>";
     }
-    else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(obj))
-    {
+    else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(obj)) {
         if (pattern->match(codebox->get_text_content())) return "<codebox>";
     }
     return "";
 }
 
 // Search for the pattern in the given slice and direction
-std::pair<int, int> CtActions::_check_pattern_in_object_between(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, Glib::RefPtr<Glib::Regex> pattern,
-                                                                int start_offset, int end_offset, bool forward, std::string& obj_content)
+std::pair<int, int> CtActions::_check_pattern_in_object_between(CtTreeIter tree_iter,
+                                                                Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                                                                Glib::RefPtr<Glib::Regex> pattern,
+                                                                int start_offset,
+                                                                int end_offset,
+                                                                bool forward,
+                                                                std::string& obj_content)
 {
     if (!forward) start_offset -= 1;
     if (end_offset < 0) {
@@ -936,8 +956,7 @@ std::pair<int, int> CtActions::_check_pattern_in_object_between(CtTreeIter tree_
     std::list<CtAnchoredWidget*> obj_vec = tree_iter.get_anchored_widgets(start_offset, end_offset);
     if (!forward)
         std::reverse(obj_vec.begin(), obj_vec.end());
-    for (auto element: obj_vec)
-    {
+    for (auto element : obj_vec) {
         obj_content = _check_pattern_in_object(pattern, element);
         if (!obj_content.empty())
             return {element->getOffset(), element->getOffset() + 1};
@@ -1002,9 +1021,10 @@ std::string CtActions::_get_first_line_content(Glib::RefPtr<Gtk::TextBuffer> tex
 // Iterated Find/Replace Dialog
 void CtActions::_iterated_find_dialog()
 {
-    if (!s_state.iteratedfinddialog)
-    {
-        auto dialog = new Gtk::Dialog(_("Iterate Latest Find/Replace"), *_pCtMainWin, Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    if (!s_state.iteratedfinddialog) {
+        auto dialog = new Gtk::Dialog{_("Iterate Latest Find/Replace"),
+                                      *_pCtMainWin,
+                                      Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
         auto button_close = dialog->add_button(_("Close"), 0);
         auto button_find_bw = dialog->add_button(_("Find Previous"), 4);
         auto button_find_fw = dialog->add_button(_("Find Next"), 1);
@@ -1016,6 +1036,11 @@ void CtActions::_iterated_find_dialog()
         button_find_fw->set_image_from_icon_name("ct_find_again", Gtk::ICON_SIZE_BUTTON);
         button_replace->set_image_from_icon_name("ct_find_replace", Gtk::ICON_SIZE_BUTTON);
         button_undo->set_image_from_icon_name("ct_undo", Gtk::ICON_SIZE_BUTTON);
+        button_close->set_always_show_image(true);
+        button_find_bw->set_always_show_image(true);
+        button_find_fw->set_always_show_image(true);
+        button_replace->set_always_show_image(true);
+        button_undo->set_always_show_image(true);
 
         button_find_fw->grab_focus();
         button_find_fw->grab_default();
@@ -1026,22 +1051,22 @@ void CtActions::_iterated_find_dialog()
         button_find_fw->signal_clicked().connect([this, dialog](){
             dialog->hide();
             s_state.replace_active = false;
-            find_again();
+            _find_again(true/*fromIterativeDialog*/);
         });
         button_find_bw->signal_clicked().connect([this, dialog](){
             dialog->hide();
             s_state.replace_active = false;
-            find_back();
+            _find_back(true/*fromIterativeDialog*/);
         });
         button_replace->signal_clicked().connect([this, dialog](){
-           dialog->hide();
-           s_state.replace_active = true;
-           s_state.replace_subsequent = true;
-           find_again();
-           s_state.replace_subsequent = false;
+            dialog->hide();
+            s_state.replace_active = true;
+            s_state.replace_subsequent = true;
+            _find_again(true/*fromIterativeDialog*/);
+            s_state.replace_subsequent = false;
         });
         button_undo->signal_clicked().connect([this](){
-           requested_step_back();
+            requested_step_back();
         });
 
         s_state.iteratedfinddialog.reset(dialog);

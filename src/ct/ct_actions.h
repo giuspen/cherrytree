@@ -227,8 +227,8 @@ public:
     void find_in_all_nodes()             { _find_in_all_nodes(false); }
     void find_in_sel_node_and_subnodes() { _find_in_all_nodes(true); }
     void find_a_node();
-    void find_again();
-    void find_back();
+    void find_again() { _find_again(false/*fromIterativeDialog*/); }
+    void find_back() { _find_back(false/*fromIterativeDialog*/); }
     void replace_in_selected_node();
     void replace_in_all_nodes();
     void replace_in_sel_node_and_subnodes();
@@ -238,6 +238,8 @@ public:
 
 private:
     // helpers for view actions
+    void _find_again(const bool fromIterativeDialog);
+    void _find_back(const bool fromIterativeDialog);
 
 public:
     // view actions
