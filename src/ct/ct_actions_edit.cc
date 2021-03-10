@@ -418,7 +418,7 @@ void CtActions::special_char_insert()
     for (gunichar ch : _pCtMainWin->get_ct_config()->specialChars.item()) {
         itemStore->add_row("", "", Glib::ustring{1, ch});
     }
-    const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(*_pCtMainWin, _("Insert a Special Character"), itemStore);
+    const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(*_pCtMainWin, _("Insert _Special Character"), itemStore);
     if (treeIter) {
         proof.text_view->get_buffer()->insert_at_cursor(treeIter->get_value(itemStore->columns.desc));
     }
