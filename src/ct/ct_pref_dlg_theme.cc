@@ -93,7 +93,7 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     auto label_style_scheme_co = Gtk::manage(new Gtk::Label{_("Code")});
     auto combobox_style_scheme_co = Gtk::manage(new Gtk::ComboBoxText{});
     for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids()) {
-        if (not Glib::str_has_prefix(scheme, "user-")) {
+        if (scheme != "user-style") {
             combobox_style_scheme_co->append(scheme);
         }
     }
@@ -257,7 +257,7 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
                 f_onUserStyleChanged(i+1);
             }
         });
-        pButtonsResetToDefault[i]->signal_clicked().connect([i, pConfig,
+        pButtonsResetToDefault[i]->signal_clicked().connect([this, i, pConfig,
                                                              pColorButtonTextFg,
                                                              pColorButtonTextBg,
                                                              pColorButtonSelectionFg,
@@ -268,6 +268,8 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
                                                              pColorButtonLineNumbersBg,
                                                              f_onUserStyleChanged](){
             bool anyChange{false};
+            if (CtDialogs::question_dialog(reset_warning, *this)) {
+
             if (pConfig->userStyleTextFg[i] != CtConst::USER_STYLE_TEXT_FG[i]) {
                 pConfig->userStyleTextFg[i] = CtConst::USER_STYLE_TEXT_FG[i];
                 pColorButtonTextFg[i]->set_rgba(Gdk::RGBA{pConfig->userStyleTextFg[i]});
@@ -314,6 +316,7 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
             else {
                 spdlog::debug("{} nothing to reset", CtConfig::get_user_style_id(i+1));
             }
+					}
         });
     }
 
