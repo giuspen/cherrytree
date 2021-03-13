@@ -448,12 +448,26 @@ void CtActions::special_char_insert()
     if (not proof.text_view->get_buffer()) return;
 
     auto itemStore = CtChooseDialogListStore::create();
+    unsigned pathSelectIdx{0};
+    unsigned pathCurrIdx{0};
+    const Glib::ustring lastSpecialChar = _pCtMainWin->get_ct_config()->lastSpecialChar;
     for (gunichar ch : _pCtMainWin->get_ct_config()->specialChars.item()) {
-        itemStore->add_row("", "", Glib::ustring{1, ch});
+        const Glib::ustring specialChar{1, ch};
+        itemStore->add_row("", "", specialChar);
+        if (lastSpecialChar == specialChar) {
+            pathSelectIdx = pathCurrIdx;
+        }
+        ++pathCurrIdx;
     }
-    const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(*_pCtMainWin, _("Insert a Special Character"), itemStore);
+    const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(*_pCtMainWin,
+                                                                 _("Insert a Special Character"),
+                                                                 itemStore,
+                                                                 nullptr/*single_column_name*/,
+                                                                 std::to_string(pathSelectIdx));
     if (treeIter) {
-        proof.text_view->get_buffer()->insert_at_cursor(treeIter->get_value(itemStore->columns.desc));
+        const Glib::ustring specialChar = treeIter->get_value(itemStore->columns.desc);
+        proof.text_view->get_buffer()->insert_at_cursor(specialChar);
+        _pCtMainWin->get_ct_config()->lastSpecialChar = specialChar;
     }
 }
 
