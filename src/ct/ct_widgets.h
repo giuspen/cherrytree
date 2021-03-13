@@ -115,7 +115,6 @@ class CtTextView : public Gsv::View
 {
 public:
     CtTextView(CtMainWin* pCtMainWin);
-    virtual ~CtTextView();
 
     CtMainWin*   getCtMainWin() { return _pCtMainWin; }
 

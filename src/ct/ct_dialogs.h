@@ -202,6 +202,16 @@ void match_dialog(const Glib::ustring& title,
                   CtMainWin* ctMainWin,
                   Glib::RefPtr<CtMatchDialogStore>& rModel);
 
+void iterated_find_dialog(CtMainWin* pCtMainWin,
+                          CtSearchState& s_state);
+
+std::string dialog_search(Gtk::Window* pParentWin,
+                          const std::string& title,
+                          CtSearchOptions& s_options,
+                          bool replace_on,
+                          bool multiple_nodes,
+                          bool pattern_required);
+
 // Insert/Edit Anchor Name
 Glib::ustring img_n_entry_dialog(Gtk::Window& parent,
                                  const Glib::ustring& title,

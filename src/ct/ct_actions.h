@@ -70,53 +70,8 @@ private:
     CtExportOptions _export_options;
 
 private:
-    struct CtSearchOptions {
-        struct time_search {
-            std::time_t time;
-            bool        on;
-        };
-
-        time_search ts_cre_after;
-        time_search ts_cre_before;
-        time_search ts_mod_after;
-        time_search ts_mod_before;
-        std::string search_replace_dict_find        = "";
-        std::string search_replace_dict_replace     = "";
-        bool        search_replace_dict_match_case  = false;
-        bool        search_replace_dict_reg_exp     = false;
-        bool        search_replace_dict_whole_word  = false;
-        bool        search_replace_dict_start_word  = false;
-        bool        search_replace_dict_fw          = true;
-        int         search_replace_dict_a_ff_fa     = 0;
-        bool        search_replace_dict_idialog     = true;
-    } s_options;
-
-    struct CtSearchState {
-        bool         replace_active     = false;
-        bool         replace_subsequent = false;
-        std::string  curr_find_where    = "";
-        std::string  curr_find_pattern  = "";
-        bool         from_find_iterated = false;
-        bool         from_find_back     = false;
-        bool         newline_trick      = false;
-
-        bool         first_useful_node  = false;
-        int          counted_nodes      = 0;
-        int          processed_nodes    = 0;
-        int          latest_matches     = 0;
-
-        int          matches_num;
-        bool         all_matches_first_in_node = false;
-
-        int          latest_node_offset = -1;
-        gint64       latest_node_offset_node_id = -1;
-
-        std::unique_ptr<Gtk::Dialog> iteratedfinddialog;
-
-        Glib::RefPtr<CtMatchDialogStore> match_store;
-        std::string   match_dialog_title;
-
-    } s_state;
+    CtSearchOptions _s_options;
+    CtSearchState _s_state;
 
 public:
     CtMainWin*   getCtMainWin() { return _pCtMainWin; }
@@ -202,7 +157,6 @@ private:
     // helpers for find actions
     void                _find_init();
     void                _find_in_all_nodes(bool for_current_node);
-    std::string         _dialog_search(const std::string& title, bool replace_on, bool multiple_nodes, bool pattern_required);
     bool                _parse_node_name(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex> re_pattern, bool forward, bool all_matches);
     bool                _parse_given_node_content(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex> re_pattern, bool forward, bool first_fromsel, bool all_matches);
     bool                _parse_node_content_iter(const CtTreeIter& tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, Glib::RefPtr<Glib::Regex> re_pattern,
@@ -215,10 +169,14 @@ private:
     std::string         _get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter text_iter);
     std::string         _get_first_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer);
     Glib::ustring       _check_pattern_in_object(Glib::RefPtr<Glib::Regex> pattern, CtAnchoredWidget* obj);
-    std::pair<int, int> _check_pattern_in_object_between(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, Glib::RefPtr<Glib::Regex> pattern,
-                                                         int start_offset, int end_offset, bool forward, std::string& obj_content);
+    std::pair<int, int> _check_pattern_in_object_between(CtTreeIter tree_iter,
+                                                         Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                                                         Glib::RefPtr<Glib::Regex> pattern,
+                                                         int start_offset,
+                                                         int end_offset,
+                                                         bool forward,
+                                                         std::string& obj_content);
     int                 _get_num_objs_before_offset(Glib::RefPtr<Gtk::TextBuffer> text_buffer, int max_offset);
-    void                _iterated_find_dialog();
     void                _update_all_matches_progress();
 
 public:
@@ -227,8 +185,8 @@ public:
     void find_in_all_nodes()             { _find_in_all_nodes(false); }
     void find_in_sel_node_and_subnodes() { _find_in_all_nodes(true); }
     void find_a_node();
-    void find_again() { _find_again(false/*fromIterativeDialog*/); }
-    void find_back() { _find_back(false/*fromIterativeDialog*/); }
+    void find_again() { find_again_iter(false/*fromIterativeDialog*/); }
+    void find_back() { find_back_iter(false/*fromIterativeDialog*/); }
     void replace_in_selected_node();
     void replace_in_all_nodes();
     void replace_in_sel_node_and_subnodes();
@@ -236,10 +194,10 @@ public:
     void replace_again();
     void find_allmatchesdialog_restore();
 
-private:
-    // helpers for view actions
-    void _find_again(const bool fromIterativeDialog);
-    void _find_back(const bool fromIterativeDialog);
+public:
+    // helpers for find actions
+    void find_again_iter(const bool fromIterativeDialog);
+    void find_back_iter(const bool fromIterativeDialog);
 
 public:
     // view actions
@@ -255,10 +213,11 @@ public:
 
 public:
     // helper for format actions
-    void _apply_tag(const Glib::ustring& tag_property, Glib::ustring property_value = "",
-                    std::optional<Gtk::TextIter> iter_sel_start = std::nullopt,
-                    std::optional<Gtk::TextIter> iter_sel_end = std::nullopt,
-                    Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>());
+    void apply_tag(const Glib::ustring& tag_property,
+                   Glib::ustring property_value = "",
+                   std::optional<Gtk::TextIter> iter_sel_start = std::nullopt,
+                   std::optional<Gtk::TextIter> iter_sel_end = std::nullopt,
+                   Glib::RefPtr<Gtk::TextBuffer> text_buffer = Glib::RefPtr<Gtk::TextBuffer>{});
 
 private:
     struct text_view_n_buffer_codebox_proof {
