@@ -288,41 +288,42 @@ struct CtSearchOptions {
     time_search ts_cre_before;
     time_search ts_mod_after;
     time_search ts_mod_before;
-    std::string search_replace_dict_find        = "";
-    std::string search_replace_dict_replace     = "";
-    bool        search_replace_dict_match_case  = false;
-    bool        search_replace_dict_reg_exp     = false;
-    bool        search_replace_dict_whole_word  = false;
-    bool        search_replace_dict_start_word  = false;
-    bool        search_replace_dict_fw          = true;
-    int         search_replace_dict_a_ff_fa     = 0;
-    bool        search_replace_dict_idialog     = true;
+    std::string search_replace_dict_find;
+    std::string search_replace_dict_replace;
+    bool        search_replace_dict_match_case{false};
+    bool        search_replace_dict_reg_exp{false};
+    bool        search_replace_dict_whole_word{false};
+    bool        search_replace_dict_start_word{false};
+    bool        search_replace_dict_fw{true};
+    int         search_replace_dict_a_ff_fa{0};
+    bool        search_replace_dict_idialog{true};
 };
 
 namespace Gtk { class Dialog; }
 class CtMatchDialogStore;
 
 struct CtSearchState {
-    bool         replace_active     = false;
-    bool         replace_subsequent = false;
-    std::string  curr_find_where    = "";
-    std::string  curr_find_pattern  = "";
-    bool         from_find_iterated = false;
-    bool         from_find_back     = false;
-    bool         newline_trick      = false;
+    bool         replace_active{false};
+    bool         replace_subsequent{false};
+    std::string  curr_find_where;
+    std::string  curr_find_pattern;
+    bool         from_find_iterated{false};
+    bool         from_find_back{false};
+    bool         newline_trick{false};
 
-    bool         first_useful_node  = false;
-    int          counted_nodes      = 0;
-    int          processed_nodes    = 0;
-    int          latest_matches     = 0;
+    bool         first_useful_node{false};
+    int          counted_nodes{0};
+    int          processed_nodes{0};
+    int          latest_matches{0};
 
     int          matches_num;
-    bool         all_matches_first_in_node = false;
+    bool         all_matches_first_in_node{false};
 
-    int          latest_node_offset = -1;
-    gint64       latest_node_offset_node_id = -1;
+    int          latest_node_offset{-1};
+    gint64       latest_node_offset_node_id{-1};
 
     std::unique_ptr<Gtk::Dialog> iteratedfinddialog;
+    int          iterDialogPos[2]{-1,-1};
 
     Glib::RefPtr<CtMatchDialogStore> match_store;
     std::string   match_dialog_title;

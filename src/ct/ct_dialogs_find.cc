@@ -156,14 +156,26 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
             *ts_value = new_time;
             button->set_label(str::time_format(ts_format, new_time));
         };
-        ts_node_created_after_button->signal_clicked().connect(sigc::bind(on_ts_node_button_clicked, ts_node_created_after_button,
-                                                                          _("Node Created After"), &s_options.ts_cre_after.time));
-        ts_node_created_before_button->signal_clicked().connect(sigc::bind(on_ts_node_button_clicked, ts_node_created_before_button,
-                                                                           _("Node Created Before"), &s_options.ts_cre_before.time));
-        ts_node_modified_after_button->signal_clicked().connect(sigc::bind(on_ts_node_button_clicked, ts_node_modified_after_button,
-                                                                           _("Node Modified After"), &s_options.ts_mod_after.time));
-        ts_node_modified_before_button->signal_clicked().connect(sigc::bind(on_ts_node_button_clicked, ts_node_modified_before_button,
-                                                                            _("Node Modified Before"), &s_options.ts_mod_before.time));
+        ts_node_created_after_button->signal_clicked().connect(
+            sigc::bind(on_ts_node_button_clicked,
+                       ts_node_created_after_button,
+                       _("Node Created After"),
+                       &s_options.ts_cre_after.time));
+        ts_node_created_before_button->signal_clicked().connect(
+            sigc::bind(on_ts_node_button_clicked,
+                       ts_node_created_before_button,
+                       _("Node Created Before"),
+                       &s_options.ts_cre_before.time));
+        ts_node_modified_after_button->signal_clicked().connect(
+            sigc::bind(on_ts_node_button_clicked,
+                       ts_node_modified_after_button,
+                       _("Node Modified After"),
+                       &s_options.ts_mod_after.time));
+        ts_node_modified_before_button->signal_clicked().connect(
+            sigc::bind(on_ts_node_button_clicked,
+                       ts_node_modified_before_button,
+                       _("Node Modified Before"),
+                       &s_options.ts_mod_before.time));
     }
     Gtk::CheckButton iter_dialog_checkbutton{_("Show Iterated Find/Replace Dialog")};
     iter_dialog_checkbutton.set_active(s_options.search_replace_dict_idialog);
@@ -254,14 +266,14 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
     Gtk::Button* pButtonHide = pMatchesDialog->add_button(str::format(_("Hide (Restore with '%s')"), label), Gtk::RESPONSE_CLOSE);
     pButtonHide->set_image_from_icon_name("ct_close", Gtk::ICON_SIZE_BUTTON);
 
-    Gtk::TreeView* pTreeview = Gtk::manage(new Gtk::TreeView(rModel));
+    Gtk::TreeView* pTreeview = Gtk::manage(new Gtk::TreeView{rModel});
     pTreeview->append_column(_("Node Name"), rModel->columns.node_name);
     pTreeview->append_column(_("Line"), rModel->columns.line_num);
     pTreeview->append_column(_("Line Content"), rModel->columns.line_content);
     pTreeview->append_column("", rModel->columns.node_hier_name);
     pTreeview->get_column(3)->property_visible() = false;
     pTreeview->set_tooltip_column(3);
-    Gtk::ScrolledWindow* pScrolledwindowAllmatches = Gtk::manage(new Gtk::ScrolledWindow());
+    Gtk::ScrolledWindow* pScrolledwindowAllmatches = Gtk::manage(new Gtk::ScrolledWindow{});
     pScrolledwindowAllmatches->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     pScrolledwindowAllmatches->add(*pTreeview);
     Gtk::Box* pContentArea = pMatchesDialog->get_content_area();
@@ -275,7 +287,8 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
         gint64 node_id = list_iter->get_value(rModel->columns.node_id);
         CtTreeIter tree_iter = pCtMainWin->get_tree_store().get_node_from_node_id(node_id);
         if (!tree_iter) {
-            CtDialogs::error_dialog(str::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), node_id), *pCtMainWin);
+            CtDialogs::error_dialog(str::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), node_id),
+                                    *pCtMainWin);
             rModel->erase(list_iter);
             return;
         }
@@ -323,13 +336,13 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
 }
 
 // Iterated Find/Replace Dialog
-void CtDialogs::iterated_find_dialog(CtMainWin* pCtMainWin,
-                                     CtSearchState& s_state)
+void CtDialogs::iterated_find_dialog(CtMainWin* pCtMainWin, CtSearchState& s_state)
 {
     if (!s_state.iteratedfinddialog) {
+        spdlog::debug("+iteratedfinddialog");
         auto pDialog = new Gtk::Dialog{_("Iterate Latest Find/Replace"),
-                                      *pCtMainWin,
-                                      Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
+                                       *pCtMainWin,
+                                       Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
         auto button_close = pDialog->add_button(_("Close"), 0);
         auto button_find_bw = pDialog->add_button(_("Find Previous"), 4);
         auto button_find_fw = pDialog->add_button(_("Find Next"), 1);
@@ -350,20 +363,24 @@ void CtDialogs::iterated_find_dialog(CtMainWin* pCtMainWin,
         button_find_fw->grab_focus();
         button_find_fw->grab_default();
 
-        button_close->signal_clicked().connect([pDialog](){
+        button_close->signal_clicked().connect([pDialog, &s_state](){
+            pDialog->get_position(s_state.iterDialogPos[0], s_state.iterDialogPos[1]);
             pDialog->hide();
         });
         button_find_fw->signal_clicked().connect([pDialog, &s_state, pCtMainWin](){
+            pDialog->get_position(s_state.iterDialogPos[0], s_state.iterDialogPos[1]);
             pDialog->hide();
             s_state.replace_active = false;
             pCtMainWin->get_ct_actions()->find_again_iter(true/*fromIterativeDialog*/);
         });
         button_find_bw->signal_clicked().connect([pDialog, &s_state, pCtMainWin](){
+            pDialog->get_position(s_state.iterDialogPos[0], s_state.iterDialogPos[1]);
             pDialog->hide();
             s_state.replace_active = false;
             pCtMainWin->get_ct_actions()->find_back_iter(true/*fromIterativeDialog*/);
         });
         button_replace->signal_clicked().connect([pDialog, &s_state, pCtMainWin](){
+            pDialog->get_position(s_state.iterDialogPos[0], s_state.iterDialogPos[1]);
             pDialog->hide();
             s_state.replace_active = true;
             s_state.replace_subsequent = true;
@@ -377,4 +394,7 @@ void CtDialogs::iterated_find_dialog(CtMainWin* pCtMainWin,
         s_state.iteratedfinddialog.reset(pDialog);
     }
     s_state.iteratedfinddialog->show();
+    if (s_state.iterDialogPos[0] >= 0) {
+        s_state.iteratedfinddialog->move(s_state.iterDialogPos[0], s_state.iterDialogPos[1]);
+    }
 }
