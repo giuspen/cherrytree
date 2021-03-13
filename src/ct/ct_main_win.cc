@@ -164,6 +164,7 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
 {
     _prevTreeIter = CtTreeIter{};
     _nodesCursorPos.clear();
+    _nodesVScrollPos.clear();
 
     _scrolledwindowTree.remove();
     _uCtTreeview.reset(new CtTreeView);

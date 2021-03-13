@@ -92,6 +92,7 @@ struct CtRecentDocRestore
     std::string   visited_nodes;
     std::string   node_path;      // the current node
     int           cursor_pos{0};  // cursor position in the current node
+    int           v_adj_val{0};   // text vertical scrollbar position in the current node
 };
 using CtRecentDocsRestore = std::unordered_map<std::string, CtRecentDocRestore>;
 

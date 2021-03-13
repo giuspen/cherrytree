@@ -241,13 +241,13 @@ void CtStateMachine::node_selected_changed(gint64 node_id)
     }
     if (!map::exists(_node_states, node_id)) {
         auto node = _pCtMainWin->curr_tree_iter();
-        auto state = std::shared_ptr<CtNodeState>(new CtNodeState());
+        auto state = std::shared_ptr<CtNodeState>(new CtNodeState{});
         CtStorageXmlHelper{_pCtMainWin}.save_buffer_no_widgets_to_xml(state->buffer_xml.get_root_node(),
                                                                       node.get_node_text_buffer(), 0, -1, 'n');
         state->buffer_xml_string = state->buffer_xml.write_to_string();
-        for (auto widget: node.get_anchored_widgets())
+        for (auto widget : node.get_anchored_widgets()) {
             state->widgetStates.push_back(widget->get_state());
-        state->cursor_pos = 0;
+        }
 
         CtNodeStates states;
         states.states.push_back(state);
@@ -394,10 +394,18 @@ void CtStateMachine::update_state(CtTreeIter tree_iter)
     node_states.indicator = 0; // the current buffer state is saved
 }
 
-// If the buffer is still not modified update cursor pos
 void CtStateMachine::update_curr_state_cursor_pos(gint64 node_id)
 {
-    if (!map::exists(_node_states, node_id)) return;
-    int cursor_pos = _pCtMainWin->curr_buffer()->property_cursor_position();
+    if (not map::exists(_node_states, node_id)) return;
+    const int cursor_pos = _pCtMainWin->curr_buffer()->property_cursor_position();
     _node_states[node_id].get_state()->cursor_pos = cursor_pos;
+}
+
+void CtStateMachine::update_curr_state_v_adj_val(gint64 node_id)
+{
+    if (not_undoable_timeslot_get()) return;
+    if (not _pCtMainWin->user_active()) return;
+    if (not map::exists(_node_states, node_id)) return;
+    const int v_adj_val = round(_pCtMainWin->getScrolledwindowText().get_vadjustment()->get_value());
+    _node_states[node_id].get_state()->v_adj_val = v_adj_val;
 }

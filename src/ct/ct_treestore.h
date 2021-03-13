@@ -1,7 +1,7 @@
 /*
  * ct_treestore.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -157,7 +157,8 @@ public:
 
     void treeview_set_tree_path_n_text_cursor(CtTreeView* pTreeView,
                                               const std::string& node_path,
-                                              const int cursor_pos);
+                                              const int cursor_pos,
+                                              const int v_adj_val);
     std::string treeview_get_tree_expanded_collapsed_string(Gtk::TreeView& treeView);
     void        treeview_set_tree_expanded_collapsed_string(const std::string& expanded_collapsed_string, Gtk::TreeView& treeView, bool nodes_bookm_exp);
 

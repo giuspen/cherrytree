@@ -352,7 +352,8 @@ void CtTreeStore::_iter_delete_anchored_widgets(const Gtk::TreeModel::Children& 
 
 void CtTreeStore::treeview_set_tree_path_n_text_cursor(CtTreeView* pTreeView,
                                                        const std::string& node_path,
-                                                       const int cursor_pos)
+                                                       const int cursor_pos,
+                                                       const int v_adj_val)
 {
     bool treeSelFromConfig{false};
     if (not node_path.empty()) {
@@ -364,7 +365,7 @@ void CtTreeStore::treeview_set_tree_path_n_text_cursor(CtTreeView* pTreeView,
                 pTreeView->expand_row(_rTreeStore->get_path(treeIter), false/*open_all*/);
             }
             CtTreeIter ctTreeIter = to_ct_tree_iter(treeIter);
-            _pCtMainWin->text_view_apply_cursor_position(ctTreeIter, cursor_pos);
+            _pCtMainWin->text_view_apply_cursor_position(ctTreeIter, cursor_pos, v_adj_val);
         }
     }
     if (not treeSelFromConfig) {
@@ -471,12 +472,12 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
     _pCtMainWin->apply_syntax_highlighting(rTextBuffer, treeIter.get_node_syntax_highlighting(), false/*forceReApply*/);
     pTextView->setup_for_syntax(treeIter.get_node_syntax_highlighting());
     pTextView->set_buffer(rTextBuffer);
-    pTextView->set_spell_check(treeIter.get_node_is_rich_text());
+    const bool node_is_rich_text = treeIter.get_node_is_rich_text();
+    pTextView->set_spell_check(node_is_rich_text);
     pTextView->set_sensitive(true);
     pTextView->set_editable(not treeIter.get_node_read_only());
 
-    for (CtAnchoredWidget* pCtAnchoredWidget : treeIter.get_anchored_widgets_fast())
-    {
+    for (CtAnchoredWidget* pCtAnchoredWidget : treeIter.get_anchored_widgets_fast()) {
         Glib::RefPtr<Gtk::TextChildAnchor> rChildAnchor = pCtAnchoredWidget->getTextChildAnchor();
         if (rChildAnchor) {
             if (0 == rChildAnchor->get_widgets().size()) {
@@ -514,6 +515,14 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
     _curr_node_sigc_conn.push_back(
         rTextBuffer->signal_mark_set().connect(sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_mark_set), false)
     );
+    if (node_is_rich_text) {
+        const auto nodeId = treeIter.get_node_id();
+        _curr_node_sigc_conn.push_back(
+            _pCtMainWin->getScrolledwindowText().get_vadjustment()->signal_value_changed().connect([this, nodeId](){
+                _pCtMainWin->get_state_machine().update_curr_state_v_adj_val(nodeId);
+            })
+        );
+    }
 }
 
 Glib::RefPtr<Gdk::Pixbuf> CtTreeStore::_get_node_icon(int nodeDepth, const std::string &syntax, guint32 customIconId)

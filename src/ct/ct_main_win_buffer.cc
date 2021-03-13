@@ -434,11 +434,7 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     (void)_try_move_focus_to_anchored_widget_if_on_it();
 
     while (gtk_events_pending()) gtk_main_iteration();
-    if (_ctTextview.place_cursor_onscreen()) { // scroll if only cursor wasn't visible
-        auto iter = text_buffer->get_iter_at_offset(state->cursor_pos);
-        _ctTextview.get_buffer()->place_cursor(iter);
-        _ctTextview.scroll_to(iter, CtTextView::TEXT_SCROLL_MARGIN);
-    }
+    _scrolledwindowText.get_vadjustment()->set_value(state->v_adj_val);
 
     user_active() = user_active_restore;
 
@@ -472,19 +468,16 @@ void CtMainWin::switch_buffer_text_source(Glib::RefPtr<Gsv::Buffer> text_buffer,
     user_active() = user_active_restore;
 }
 
-void CtMainWin::text_view_apply_cursor_position(CtTreeIter& treeIter, const int cursor_pos)
+void CtMainWin::text_view_apply_cursor_position(CtTreeIter& treeIter, const int cursor_pos, const int v_adj_val)
 {
     Glib::RefPtr<Gsv::Buffer> rTextBuffer = treeIter.get_node_text_buffer();
     Gtk::TextIter textIter = rTextBuffer->get_iter_at_offset(cursor_pos);
     // if (static_cast<bool>(textIter)) <- don't check because iter at the end returns false
 
     rTextBuffer->place_cursor(textIter);
+
     while (gtk_events_pending()) gtk_main_iteration();
-    if (_ctTextview.place_cursor_onscreen()) { // scroll if only cursor wasn't visible
-        auto iter = rTextBuffer->get_iter_at_offset(cursor_pos);
-        _ctTextview.get_buffer()->place_cursor(iter);
-        _ctTextview.scroll_to(iter, CtTextView::TEXT_SCROLL_MARGIN);
-    }
+    _scrolledwindowText.get_vadjustment()->set_value(v_adj_val);
 }
 
 bool CtMainWin::_try_move_focus_to_anchored_widget_if_on_it()

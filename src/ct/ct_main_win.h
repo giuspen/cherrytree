@@ -94,7 +94,7 @@ public:
 
     void config_apply();
     void config_update_data_from_curr_status();
-    void text_view_apply_cursor_position(CtTreeIter& treeIter, const int cursor_pos);
+    void text_view_apply_cursor_position(CtTreeIter& treeIter, const int cursor_pos, const int v_adj_val);
 
     void update_theme();
 
@@ -119,7 +119,9 @@ public:
     void update_selected_node_statusbar_info();
 
     Glib::RefPtr<Gtk::TextBuffer>     curr_buffer() { return _ctTextview.get_buffer(); }
-    CtTreeIter                        curr_tree_iter()  { return _uCtTreestore->to_ct_tree_iter(_uCtTreeview->get_selection()->get_selected()); }
+    CtTreeIter                        curr_tree_iter()  {
+        return _uCtTreestore->to_ct_tree_iter(_uCtTreeview->get_selection()->get_selected());
+    }
     CtTreeStore&                      get_tree_store()  { return *_uCtTreestore; }
     CtTreeView&                       get_tree_view()   { return *_uCtTreeview; }
     CtTextView&                       get_text_view()   { return _ctTextview; }
@@ -137,6 +139,7 @@ public:
     Gsv::LanguageManager*             get_language_manager() { return _pGsvLanguageManager; }
     Gsv::StyleSchemeManager*          get_style_scheme_manager() { return _pGsvStyleSchemeManager; }
     Gtk::StatusIcon*                  get_status_icon() { return _pGtkStatusIcon; }
+    Gtk::ScrolledWindow&              getScrolledwindowText() { return _scrolledwindowText; }
 
     bool&         user_active()      { return _userActive; } // use as a function, because it's easier to put breakpoint
     bool&         force_exit()       { return _forceExit; }
@@ -187,43 +190,43 @@ public:
     void restore_position()                 { if (_savedXpos != -1) move(_savedXpos, _savedYpos); }
 
 private:
-    bool                _on_window_key_press_event(GdkEventKey* event);
+    bool _on_window_key_press_event(GdkEventKey* event);
 
-    void                _on_treeview_cursor_changed(); // pygtk: on_node_changed
-    bool                _on_treeview_button_release_event(GdkEventButton* event);
-    void                _on_treeview_event_after(GdkEvent* event); // pygtk: on_event_after_tree
-    void                _on_treeview_row_activated(const Gtk::TreeModel::Path&, Gtk::TreeViewColumn*);
-    bool                _on_treeview_test_collapse_row(const Gtk::TreeModel::iterator&,const Gtk::TreeModel::Path&);
-    bool                _on_treeview_key_press_event(GdkEventKey* event);
-    bool                _on_treeview_popup_menu();
-    bool                _on_treeview_scroll_event(GdkEventScroll* event);
-    bool                _on_treeview_drag_motion(const Glib::RefPtr<Gdk::DragContext>& context,
+    void _on_treeview_cursor_changed(); // pygtk: on_node_changed
+    bool _on_treeview_button_release_event(GdkEventButton* event);
+    void _on_treeview_event_after(GdkEvent* event); // pygtk: on_event_after_tree
+    void _on_treeview_row_activated(const Gtk::TreeModel::Path&, Gtk::TreeViewColumn*);
+    bool _on_treeview_test_collapse_row(const Gtk::TreeModel::iterator&,const Gtk::TreeModel::Path&);
+    bool _on_treeview_key_press_event(GdkEventKey* event);
+    bool _on_treeview_popup_menu();
+    bool _on_treeview_scroll_event(GdkEventScroll* event);
+    bool _on_treeview_drag_motion(const Glib::RefPtr<Gdk::DragContext>& context,
                                                  int x,
                                                  int y,
                                                  guint time);
-    void                _on_treeview_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
-                                                        int x,
-                                                        int y,
-                                                        const Gtk::SelectionData& selection_data,
-                                                        guint info,
-                                                        guint time);
-    void                _on_treeview_drag_data_get(const Glib::RefPtr<Gdk::DragContext>& context,
-                                                   Gtk::SelectionData& selection_data,
-                                                   guint info,
-                                                   guint time);
+    void _on_treeview_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
+                                         int x,
+                                         int y,
+                                         const Gtk::SelectionData& selection_data,
+                                         guint info,
+                                         guint time);
+    void _on_treeview_drag_data_get(const Glib::RefPtr<Gdk::DragContext>& context,
+                                    Gtk::SelectionData& selection_data,
+                                    guint info,
+                                    guint time);
 
-    void                _on_textview_populate_popup(Gtk::Menu* menu);
-    bool                _on_textview_motion_notify_event(GdkEventMotion* event);
-    bool                _on_textview_visibility_notify_event(GdkEventVisibility* event);
-    void                _on_textview_size_allocate(Gtk::Allocation& allocation);
-    bool                _on_textview_event(GdkEvent* event); // pygtk: on_sourceview_event
-    void                _on_textview_event_after(GdkEvent* event); // pygtk: on_sourceview_event_after
-    bool                _on_textview_scroll_event(GdkEventScroll* event);
+    void _on_textview_populate_popup(Gtk::Menu* menu);
+    bool _on_textview_motion_notify_event(GdkEventMotion* event);
+    bool _on_textview_visibility_notify_event(GdkEventVisibility* event);
+    void _on_textview_size_allocate(Gtk::Allocation& allocation);
+    bool _on_textview_event(GdkEvent* event); // pygtk: on_sourceview_event
+    void _on_textview_event_after(GdkEvent* event); // pygtk: on_sourceview_event_after
+    bool _on_textview_scroll_event(GdkEventScroll* event);
 
-    void                _reset_CtTreestore_CtTreeview();
-    void                _ensure_curr_doc_in_recent_docs();
-    void                _zoom_tree(bool is_increase);
-    bool                _try_move_focus_to_anchored_widget_if_on_it();
+    void _reset_CtTreestore_CtTreeview();
+    void _ensure_curr_doc_in_recent_docs();
+    void _zoom_tree(bool is_increase);
+    bool _try_move_focus_to_anchored_widget_if_on_it();
 
 private:
     const bool                   _no_gui;
@@ -276,6 +279,7 @@ private:
     sigc::connection    _mod_time_sentinel_timout_connection;
     bool                _tree_just_auto_expanded{false};
     std::unordered_map<gint64, int> _nodesCursorPos;
+    std::unordered_map<gint64, int> _nodesVScrollPos;
 
 public:
     sigc::signal<void>             signal_app_new_instance = sigc::signal<void>();

@@ -191,10 +191,11 @@ bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_f
         if (iterDocsRestore != _pCtConfig->recentDocsRestore.end()) {
             _uCtTreestore->treeview_set_tree_path_n_text_cursor(_uCtTreeview.get(),
                                                                 iterDocsRestore->second.node_path,
-                                                                iterDocsRestore->second.cursor_pos);
+                                                                iterDocsRestore->second.cursor_pos,
+                                                                iterDocsRestore->second.v_adj_val);
         }
         else {
-            _uCtTreestore->treeview_set_tree_path_n_text_cursor(_uCtTreeview.get(), "0", 0);
+            _uCtTreestore->treeview_set_tree_path_n_text_cursor(_uCtTreeview.get(), "0", 0, 0);
         }
         _ctTextview.grab_focus();
     }
@@ -283,6 +284,7 @@ void CtMainWin::file_save_as(const std::string& new_filepath, const Glib::ustrin
     if (const CtTreeIter curr_iter = curr_tree_iter()) {
         doc_state_restore.node_path = _uCtTreestore->get_path(curr_iter).to_string();
         doc_state_restore.cursor_pos = curr_iter.get_node_text_buffer()->property_cursor_position();
+        doc_state_restore.v_adj_val = round(_scrolledwindowText.get_vadjustment()->get_value());
     }
     _pCtConfig->recentDocsFilepaths.move_or_push_front(fs::canonical(new_filepath));
     _pCtConfig->recentDocsRestore[new_filepath] = doc_state_restore;
@@ -384,6 +386,7 @@ void CtMainWin::_ensure_curr_doc_in_recent_docs()
             prevDocRestore.node_path = _uCtTreestore->get_path(prevTreeIter).to_string();
             const Glib::RefPtr<Gsv::Buffer> rTextBuffer = prevTreeIter.get_node_text_buffer();
             prevDocRestore.cursor_pos = rTextBuffer->property_cursor_position();
+            prevDocRestore.v_adj_val = round(_scrolledwindowText.get_vadjustment()->get_value());
         }
         _pCtConfig->recentDocsRestore[currDocFilePath.string()] = prevDocRestore;
     }

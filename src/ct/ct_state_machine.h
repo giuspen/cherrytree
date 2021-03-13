@@ -1,7 +1,7 @@
 /*
  * ct_state_machine.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -37,7 +37,10 @@ class CtMainWin;
 class CtAnchoredWidgetState
 {
 public:
-    CtAnchoredWidgetState(int charOffset, const std::string& justification) : charOffset(charOffset), justification(justification) {}
+    CtAnchoredWidgetState(int charOffset, const std::string& justification)
+     : charOffset(charOffset)
+     , justification(justification)
+    {}
     virtual bool equal(std::shared_ptr<CtAnchoredWidgetState> state) = 0;
     virtual CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) = 0;
 
@@ -50,7 +53,7 @@ class CtAnchoredWidgetState_ImagePng : public CtAnchoredWidgetState
 {
 public:
     CtAnchoredWidgetState_ImagePng(CtImagePng* image);
-    virtual ~CtAnchoredWidgetState_ImagePng() = default;
+
     bool equal(std::shared_ptr<CtAnchoredWidgetState> state) override;
     CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) override;
 
@@ -63,7 +66,7 @@ class CtAnchoredWidgetState_Anchor : public CtAnchoredWidgetState
 {
 public:
     CtAnchoredWidgetState_Anchor(CtImageAnchor* anchor);
-    virtual ~CtAnchoredWidgetState_Anchor() = default;
+
     bool equal(std::shared_ptr<CtAnchoredWidgetState> state) override;
     CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) override;
 
@@ -75,7 +78,7 @@ class CtAnchoredWidgetState_EmbFile : public CtAnchoredWidgetState
 {
 public:
     CtAnchoredWidgetState_EmbFile(CtImageEmbFile* embFile);
-    virtual ~CtAnchoredWidgetState_EmbFile() = default;
+
     bool equal(std::shared_ptr<CtAnchoredWidgetState> state) override;
     CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) override;
 
@@ -90,7 +93,7 @@ class CtAnchoredWidgetState_Codebox : public CtAnchoredWidgetState
 {
 public:
     CtAnchoredWidgetState_Codebox(CtCodebox* codebox);
-    virtual ~CtAnchoredWidgetState_Codebox() = default;
+
     bool equal(std::shared_ptr<CtAnchoredWidgetState> state) override;
     CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) override;
 
@@ -104,7 +107,7 @@ class CtAnchoredWidgetState_Table : public CtAnchoredWidgetState
 {
 public:
     CtAnchoredWidgetState_Table(CtTable* table);
-    virtual ~CtAnchoredWidgetState_Table() = default;
+
     bool equal(std::shared_ptr<CtAnchoredWidgetState> state) override;
     CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) override;
 
@@ -119,12 +122,12 @@ public:
 struct CtNodeState
 {
     CtNodeState()  { buffer_xml.create_root_node("buffer"); }
-    ~CtNodeState() { }
 
     std::list<std::shared_ptr<CtAnchoredWidgetState>> widgetStates;
     xmlpp::Document buffer_xml;
     Glib::ustring   buffer_xml_string;
-    int             cursor_pos;
+    int             cursor_pos{0};
+    int             v_adj_val{0};
 };
 
 struct CtNodeStates
@@ -156,11 +159,15 @@ public:
     void update_state();
     void update_state(CtTreeIter tree_iter);
     void update_curr_state_cursor_pos(gint64 node_id);
+    void update_curr_state_v_adj_val(gint64 node_id);
 
     void set_go_bk_fw_click(bool val) { _go_bk_fw_click = val; }
 
     const std::vector<gint64>& get_visited_nodes_list() { return _visited_nodes_list; }
-    void  set_visited_nodes_list(const std::vector<gint64>& list) { _visited_nodes_list = list; _visited_nodes_idx = _visited_nodes_list.size() - 1;}
+    void set_visited_nodes_list(const std::vector<gint64>& list) {
+        _visited_nodes_list = list;
+        _visited_nodes_idx = _visited_nodes_list.size() - 1;
+    }
 
 private:
     CtMainWin*                  _pCtMainWin;
@@ -173,4 +180,3 @@ private:
 
     std::map<gint64, CtNodeStates> _node_states;
 };
-

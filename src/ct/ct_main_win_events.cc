@@ -40,13 +40,13 @@ void CtMainWin::_on_treeview_cursor_changed()
             return;
         }
         Glib::RefPtr<Gsv::Buffer> rTextBuffer = _prevTreeIter.get_node_text_buffer();
-        if (rTextBuffer->get_modified())
-        {
+        if (rTextBuffer->get_modified()) {
             _fileSaveNeeded = true;
             rTextBuffer->set_modified(false);
             _ctStateMachine.update_state(_prevTreeIter);
         }
         _nodesCursorPos[prevNodeId] = rTextBuffer->property_cursor_position();
+        _nodesVScrollPos[prevNodeId] = round(_scrolledwindowText.get_vadjustment()->get_value());
     }
 
     _uCtTreestore->text_view_apply_textbuffer(treeIter, &_ctTextview);
@@ -54,9 +54,10 @@ void CtMainWin::_on_treeview_cursor_changed()
     if (user_active()) {
         auto mapIter = _nodesCursorPos.find(nodeId);
         if (mapIter != _nodesCursorPos.end() and mapIter->second > 0) {
-            text_view_apply_cursor_position(treeIter, mapIter->second);
-        } else {
-            text_view_apply_cursor_position(treeIter, 0);
+            text_view_apply_cursor_position(treeIter, mapIter->second, _nodesVScrollPos.at(nodeId));
+        }
+        else {
+            text_view_apply_cursor_position(treeIter, 0, 0);
         }
 
         menu_update_bookmark_menu_item(_uCtTreestore->is_node_bookmarked(nodeId));

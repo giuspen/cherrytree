@@ -115,6 +115,7 @@ public:
     int                                         relativeWrappedSpace{50};
     Glib::ustring                               hRule{"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"};
     CtStringSplittable                          specialChars{CtConst::SPECIAL_CHARS_DEFAULT};
+    Glib::ustring                               lastSpecialChar{};
     CtStringSplittable                          selwordChars{CtConst::SELWORD_CHARS_DEFAULT};
     CtStringSplittable                          charsListbul{CtConst::CHARS_LISTBUL_DEFAULT};
     CtStringSplittable                          charsToc{CtConst::CHARS_TOC_DEFAULT};
