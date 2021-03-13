@@ -1,7 +1,7 @@
 /*
  * ct_image.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -45,7 +45,7 @@ public:
             Glib::RefPtr<Gdk::Pixbuf> pixBuf,
             const int charOffset,
             const std::string& justification);
-    virtual ~CtImage() override;
+    ~CtImage() override;
 
     void apply_width_height(const int /*parentTextWidth*/) override {}
     void apply_syntax_highlighting(const bool /*forceReApply*/) override {}
@@ -72,7 +72,7 @@ public:
                const Glib::ustring& link,
                const int charOffset,
                const std::string& justification);
-    virtual ~CtImagePng() override {}
+    ~CtImagePng() override {}
 
     void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
@@ -98,7 +98,7 @@ public:
                   const Glib::ustring& anchorName,
                   const int charOffset,
                   const std::string& justification);
-    virtual ~CtImageAnchor() override {}
+    ~CtImageAnchor() override {}
 
     void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
@@ -126,7 +126,7 @@ public:
                    const int charOffset,
                    const std::string& justification,
                    const size_t uniqueId);
-    virtual ~CtImageEmbFile() override {}
+    ~CtImageEmbFile() override {}
 
     void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache) override;
     bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;

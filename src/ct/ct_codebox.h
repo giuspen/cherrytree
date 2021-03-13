@@ -1,7 +1,7 @@
 /*
  * ct_codebox.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2017-2021 Giuseppe Penone <giuspen@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -70,7 +70,7 @@ public:
               const bool widthInPixels,
               const bool highlightBrackets,
               const bool showLineNumbers);
-    virtual ~CtCodebox();
+    ~CtCodebox() override;
 
     void apply_width_height(const int parentTextWidth) override;
     void apply_syntax_highlighting(const bool forceReApply) override;

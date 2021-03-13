@@ -61,7 +61,7 @@ class CtAnchoredWidget : public Gtk::EventBox
 {
 public:
     CtAnchoredWidget(CtMainWin* pCtMainWin, const int charOffset, const std::string& justification);
-    virtual ~CtAnchoredWidget() {}
+    ~CtAnchoredWidget() override {}
 
     void insertInTextBuffer(Glib::RefPtr<Gsv::Buffer> rTextBuffer);
     Glib::RefPtr<Gtk::TextChildAnchor> getTextChildAnchor() { return _rTextChildAnchor; }

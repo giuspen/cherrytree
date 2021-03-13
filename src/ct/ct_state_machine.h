@@ -41,6 +41,8 @@ public:
      : charOffset(charOffset)
      , justification(justification)
     {}
+    virtual ~CtAnchoredWidgetState() {}
+
     virtual bool equal(std::shared_ptr<CtAnchoredWidgetState> state) = 0;
     virtual CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) = 0;
 

@@ -1,7 +1,7 @@
 /*
  * ct_table.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -40,7 +40,7 @@ public:
             const CtTableColWidths& colWidths,
             const size_t currRow = 0,
             const size_t currCol = 0);
-    virtual ~CtTable();
+    ~CtTable() override;
 
     /**
      * @brief Build a table from csv
