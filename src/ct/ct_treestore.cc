@@ -324,6 +324,9 @@ CtTreeStore::CtTreeStore(CtMainWin* pCtMainWin)
 CtTreeStore::~CtTreeStore()
 {
     _iter_delete_anchored_widgets(_rTreeStore->children());
+    for (sigc::connection& sigc_conn : _curr_node_sigc_conn) {
+        sigc_conn.disconnect();
+    }
 }
 
 void CtTreeStore::pending_rm_db_nodes(const std::vector<gint64>& node_ids)
