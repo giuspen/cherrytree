@@ -403,7 +403,8 @@ Gtk::TreeIter CtStorageSqlite::_node_from_db(gint64 node_id, gint64 sequence, Gt
     nodeData.tags = safe_sqlite3_column_text(*uStmt, 2);
     gint64 readonly_n_custom_icon_id = sqlite3_column_int64(*uStmt, 3);
     nodeData.isRO = static_cast<bool>(readonly_n_custom_icon_id & 0x01);
-    nodeData.customIconId = readonly_n_custom_icon_id >> 1;
+    nodeData.customIconId = (readonly_n_custom_icon_id >> 1) & 0xffff;
+    nodeData.lockId = readonly_n_custom_icon_id >> 17;
     gint64 richtxt_bold_foreground = sqlite3_column_int64(*uStmt, 4);
     nodeData.isBold = static_cast<bool>((richtxt_bold_foreground >> 1) & 0x01);
     nodeData.sequence = sequence;
@@ -622,6 +623,7 @@ void CtStorageSqlite::_write_node_to_db(CtTreeIter* ct_tree_iter,
     // is_ro is packed with additional bitfield data
     gint64 is_ro = ct_tree_iter->get_node_read_only() ? 0x01 : 0x00;
     is_ro |= ct_tree_iter->get_node_custom_icon_id() << 1;
+    is_ro |= ((gint64)ct_tree_iter->get_node_lock_id()) << 17;
     // is_richtxt is packed with additional bitfield data
     gint64 is_richtxt = ct_tree_iter->get_node_is_rich_text() ? 0x01 : 0x00;
     if (ct_tree_iter->get_node_is_bold())

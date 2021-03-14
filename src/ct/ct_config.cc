@@ -346,6 +346,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_boolean(_currentGroup, "enable_custom_backup_dir", customBackupDirOn);
     _uKeyFile->set_string(_currentGroup, "custom_backup_dir", customBackupDir);
     _uKeyFile->set_integer(_currentGroup, "limit_undoable_steps", limitUndoableSteps);
+    _uKeyFile->set_integer(_currentGroup, "user_lock_id", userLockId);
 
     // [keyboard]
     _currentGroup = "keyboard";
@@ -643,6 +644,8 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_bool_from_keyfile("enable_custom_backup_dir", &customBackupDirOn);
     _populate_string_from_keyfile("custom_backup_dir", &customBackupDir);
     _populate_int_from_keyfile("limit_undoable_steps", &limitUndoableSteps);
+    _populate_int_from_keyfile("user_lock_id", &userLockId);
+    userLockId = _build_lock_id(userLockId);
 
     // [keyboard]
     _currentGroup = "keyboard";
@@ -659,6 +662,17 @@ void CtConfig::_populate_data_from_keyfile()
     // [codexec_ext]
     _currentGroup = "codexec_ext";
     _populate_map_from_current_group(&customCodexecExt);
+}
+
+int CtConfig::_build_lock_id(const int id)
+{
+    if (0 == userLockId) {
+        auto duration = std::chrono::system_clock::now().time_since_epoch();
+        auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+        srand(millis);
+        return rand();
+    }
+    return id;
 }
 
 void CtConfig::_ensure_user_styles_exist()

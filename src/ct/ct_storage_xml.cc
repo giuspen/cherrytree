@@ -196,6 +196,7 @@ Gtk::TreeIter CtStorageXml::_node_from_xml(xmlpp::Element* xml_element, gint64 s
     node_data.tags = xml_element->get_attribute_value("tags");
     node_data.isRO = CtStrUtil::is_str_true(xml_element->get_attribute_value("readonly"));
     node_data.customIconId = (guint32)CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("custom_icon_id").c_str());
+    node_data.lockId = (guint32)CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("lock_id").c_str());
     node_data.isBold = CtStrUtil::is_str_true(xml_element->get_attribute_value("is_bold"));
     node_data.foregroundRgb24 = xml_element->get_attribute_value("foreground");
     node_data.tsCreation = CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("ts_creation").c_str());
@@ -304,6 +305,7 @@ xmlpp::Element* CtStorageXmlHelper::node_to_xml(CtTreeIter* ct_tree_iter,
     p_node_node->set_attribute("tags", ct_tree_iter->get_node_tags());
     p_node_node->set_attribute("readonly", std::to_string(ct_tree_iter->get_node_read_only()));
     p_node_node->set_attribute("custom_icon_id", std::to_string(ct_tree_iter->get_node_custom_icon_id()));
+    p_node_node->set_attribute("lock_id", std::to_string(ct_tree_iter->get_node_lock_id()));
     p_node_node->set_attribute("is_bold", std::to_string(ct_tree_iter->get_node_is_bold()));
     p_node_node->set_attribute("foreground", ct_tree_iter->get_node_foreground());
     p_node_node->set_attribute("ts_creation", std::to_string(ct_tree_iter->get_node_creating_time()));

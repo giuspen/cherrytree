@@ -164,6 +164,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{tree_cat, "tree_dup_node_subnodes", "ct_tree-nodesub-dupl", _("_Duplicate Node and Sub Nodes"), None, _("Duplicate the Selected Node With SubNodes"), sigc::mem_fun(*pActions, &CtActions::node_subnodes_duplicate)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_prop", "ct_cherry_edit", _("Change Node _Properties"), "F2", _("Edit the Properties of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_edit)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_toggle_ro", "ct_locked", _("Toggle _Read Only"), KB_CONTROL+KB_ALT+"R", _("Toggle the Read Only Property of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_toggle_read_only)});
+    _actions.push_back(CtMenuAction{tree_cat, "tree_node_toggle_lock", "ct_locked", _("Lock"), KB_CONTROL+KB_ALT+"L", _("Acquire/Release Lock on the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_toggle_lock)});   
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_date", "ct_calendar", _("Insert Today's Node"), "F8", _("Insert a Node with Hierarchy Year/Month/Day"), sigc::mem_fun(*pActions, &CtActions::node_date)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_parse_info", "ct_info", _("Tree _Info"), None, _("Tree Summary Information"), sigc::mem_fun(*pActions, &CtActions::tree_info)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_up", "ct_go-up", _("Node _Up"), KB_SHIFT+KB_ALT+CtConst::STR_KEY_UP, _("Move the Selected Node Up"), sigc::mem_fun(*pActions, &CtActions::node_up)});
@@ -844,6 +845,7 @@ const char* CtMenu::_get_ui_str_menu()
     <separator/>
     <menuitem action='tree_node_prop'/>
     <menuitem action='tree_node_toggle_ro'/>
+    <menuitem action='tree_node_toggle_lock'/>
     <menuitem action='node_bookmark'/>
     <menuitem action='node_unbookmark'/>
     <menuitem action='tree_node_link'/>

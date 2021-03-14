@@ -41,6 +41,7 @@ struct CtNodeData
     Glib::ustring  tags;
     bool           isRO{false};
     guint32        customIconId{0};
+    guint32        lockId{0};
     bool           isBold{false};
     std::string    foregroundRgb24;
     gint64         tsCreation{0};
@@ -57,7 +58,7 @@ public:
     {
         add(rColPixbuf); add(colNodeName); add(rColTextBuffer); add(colNodeUniqueId);
         add(colSyntaxHighlighting); add(colNodeSequence); add(colNodeTags); add(colNodeRO);
-        add(rColPixbufAux); add(colCustomIconId); add(colWeight); add(colForeground);
+        add(rColPixbufAux); add(colCustomIconId); add(colNodeLockId); add(colWeight); add(colForeground);
         add(colTsCreation); add(colTsLastSave); add(colAnchoredWidgets);
     }
     ~CtTreeModelColumns() final {}
@@ -71,6 +72,7 @@ public:
     Gtk::TreeModelColumn<bool>                       colNodeRO;
     Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>  rColPixbufAux;
     Gtk::TreeModelColumn<guint16>                    colCustomIconId;
+    Gtk::TreeModelColumn<guint32>                    colNodeLockId;
     Gtk::TreeModelColumn<int>                        colWeight;
     Gtk::TreeModelColumn<std::string>                colForeground;
     Gtk::TreeModelColumn<gint64>                     colTsCreation;
@@ -97,6 +99,8 @@ public:
     void          set_node_id(const gint64 new_id);
     std::vector<gint64> get_children_node_ids() const;
     guint16       get_node_custom_icon_id() const;
+    guint32       get_node_lock_id() const;
+    void          set_node_lock_id(guint32 node_lock_id);
     Glib::ustring get_node_name() const;
     void          set_node_name(const Glib::ustring& node_name);
     Glib::ustring get_node_tags() const;
@@ -112,6 +116,7 @@ public:
     void                      set_node_text_buffer(Glib::RefPtr<Gsv::Buffer> new_buffer, const std::string& new_syntax_hilighting);
     Glib::RefPtr<Gsv::Buffer> get_node_text_buffer() const;
     bool                      get_node_buffer_already_loaded() const;
+    bool                      get_is_node_or_parent_locked(CtTreeIter& node) const;
 
     void                         remove_all_embedded_widgets();
     std::list<CtAnchoredWidget*> get_anchored_widgets_fast(const char doSort = 'n');

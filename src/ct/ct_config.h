@@ -204,6 +204,7 @@ public:
     bool                                        customBackupDirOn{false};
     std::string                                 customBackupDir{""};
     int                                         limitUndoableSteps{20};
+    int                                         userLockId{0};
     bool                                        usePandoc{true}; // Whether to use Pandoc for exporting
 
     // [keyboard]
@@ -242,6 +243,7 @@ protected:
     void _populate_keyfile_from_data();
     void _unexpected_keyfile_error(const gchar* key, const Glib::KeyFileError& kferror);
 
+    int  _build_lock_id(const int id);
     void _ensure_user_styles_exist();
 
     static const size_t _maxTempKeySize{20};

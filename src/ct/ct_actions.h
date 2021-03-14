@@ -130,6 +130,7 @@ public: // todo: fix naming
     bool          _is_there_selected_node_or_error();
     bool          _is_tree_not_empty_or_error();
     bool          _is_curr_node_not_read_only_or_error();
+    bool          _is_curr_node_or_parent_not_locked_or_error();
     bool          _is_curr_node_not_syntax_highlighting_or_error(bool plain_text_ok = false);
     bool          _is_there_text_selection_or_error();
 
@@ -178,6 +179,7 @@ public:
     void node_inherit_syntax();
     void node_delete();
     void node_toggle_read_only();
+    void node_toggle_lock();
     void node_date();
     void node_up();
     void node_down();

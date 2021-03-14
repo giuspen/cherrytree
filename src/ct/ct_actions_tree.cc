@@ -45,12 +45,27 @@ bool CtActions::_is_tree_not_empty_or_error()
     return true;
 }
 
+bool CtActions::_is_curr_node_or_parent_not_locked_or_error()
+{
+    CtTreeIter node;
+    if (_pCtMainWin->curr_tree_iter().get_is_node_or_parent_locked(node)) {
+        CtDialogs::error_dialog(str::format(_("The Node {} is Locked by {}"), node.get_node_name().c_str(), node.get_node_lock_id()), *_pCtMainWin);
+        return true;
+    }
+    return false;
+}
+
 bool CtActions::_is_curr_node_not_read_only_or_error()
 {
     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) {
         CtDialogs::error_dialog(_("The Selected Node is Read Only"), *_pCtMainWin);
         return false;
     }
+    
+    if (_is_curr_node_or_parent_not_locked_or_error()) {
+        return false;
+    }
+
     return true;
 }
 
@@ -172,6 +187,7 @@ void CtActions::_node_add(bool duplicate, bool add_child)
         std::string title = add_child ? _("New Child Node Properties") : _("New Node Properties");
         nodeData.isBold = false;
         nodeData.customIconId = 0;
+        nodeData.lockId = 0;
         nodeData.syntax = _pCtMainWin->curr_tree_iter() ? _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting() : CtConst::RICH_TEXT_ID;
         nodeData.isRO = false;
         if (not CtDialogs::node_prop_dialog(title, _pCtMainWin, nodeData, _pCtMainWin->get_tree_store().get_used_tags()))
@@ -220,6 +236,7 @@ void CtActions::node_child_exist_or_create(Gtk::TreeIter parentIter, const std::
     nodeData.name = nodeName;
     nodeData.isBold = false;
     nodeData.customIconId = 0;
+    nodeData.lockId = 0;
     nodeData.syntax = CtConst::RICH_TEXT_ID;
     nodeData.isRO = false;
     _node_add_with_data(parentIter, nodeData, true, nullptr);
@@ -447,10 +464,24 @@ void CtActions::node_delete()
 void CtActions::node_toggle_read_only()
 {
     if (!_is_there_selected_node_or_error()) return;
+    if (_is_curr_node_or_parent_not_locked_or_error()) return;
     bool node_is_ro = !_pCtMainWin->curr_tree_iter().get_node_read_only();
     _pCtMainWin->curr_tree_iter().set_node_read_only(node_is_ro);
     _pCtMainWin->get_text_view().set_editable(!node_is_ro);
     _pCtMainWin->window_header_update_lock_icon(node_is_ro);
+    _pCtMainWin->update_selected_node_statusbar_info();
+    _pCtMainWin->get_tree_store().update_node_aux_icon(_pCtMainWin->curr_tree_iter());
+    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::npro);
+    _pCtMainWin->get_text_view().grab_focus();
+}
+
+void CtActions::node_toggle_lock()
+{
+    if (!_is_there_selected_node_or_error()) return;
+    if (_is_curr_node_or_parent_not_locked_or_error()) return;
+    guint32 node_lock_id = _pCtMainWin->curr_tree_iter().get_node_lock_id(); 
+    node_lock_id = node_lock_id > 0u ? 0u : (guint32) _pCtMainWin->get_ct_config()->userLockId;
+    _pCtMainWin->curr_tree_iter().set_node_lock_id(node_lock_id);
     _pCtMainWin->update_selected_node_statusbar_info();
     _pCtMainWin->get_tree_store().update_node_aux_icon(_pCtMainWin->curr_tree_iter());
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::npro);

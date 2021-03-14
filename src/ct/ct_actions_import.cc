@@ -285,6 +285,7 @@ void CtActions::_create_imported_nodes(ct_imported_node* imported_nodes, const b
         node_data.nodeId = imported_node->node_id;
         node_data.isBold = false;
         node_data.customIconId = 0;
+        node_data.lockId = 0;
         node_data.isRO = false;
         node_data.syntax = imported_node->node_syntax;
         node_data.tsCreation = std::time(nullptr);
