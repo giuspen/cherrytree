@@ -475,10 +475,8 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
             }
         }
     }
-    else if (event->key.state & Gdk::SHIFT_MASK)
-    {
-        if (event->key.keyval == GDK_KEY_Return)
-        {
+    else if (event->key.state & Gdk::SHIFT_MASK) {
+        if (GDK_KEY_Return == event->key.keyval or GDK_KEY_KP_Enter == event->key.keyval) {
             Gtk::TextIter iter_insert = text_buffer->get_insert()->get_iter();
             Gtk::TextIter iter_start = iter_insert;
             iter_start.backward_char();
@@ -488,8 +486,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
             }
         }
     }
-    else if (event->key.keyval == GDK_KEY_Return or event->key.keyval == GDK_KEY_space)
-    {
+    else if (GDK_KEY_Return == event->key.keyval or GDK_KEY_KP_Enter == event->key.keyval or GDK_KEY_space == event->key.keyval) {
         Gtk::TextIter iter_insert = text_buffer->get_insert()->get_iter();
         if (syntaxHighlighting == CtConst::RICH_TEXT_ID) {
             Gtk::TextIter iter_end_link = iter_insert;
@@ -499,7 +496,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
             }
         }
         Gtk::TextIter iter_start = iter_insert;
-        if (event->key.keyval == GDK_KEY_Return) {
+        if (GDK_KEY_Return == event->key.keyval or GDK_KEY_KP_Enter == event->key.keyval) {
             int cursor_key_press = iter_insert.get_offset();
             //print "cursor_key_press", cursor_key_press
             if (cursor_key_press == _pCtMainWin->cursor_key_press()) {

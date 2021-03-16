@@ -122,15 +122,15 @@ Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& parent_win
         width = (int)(height*image_w_h_ration);
         image_load_into_dialog();
     });
-    auto on_key_press_dialog = [&](GdkEventKey *pEventKey)->bool{
-        if (GDK_KEY_Return == pEventKey->keyval) {
-            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT));
+    auto on_key_press_dialog = [&](GdkEventKey* pEventKey)->bool{
+        if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {
+            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT));
             pButton->grab_focus();
             pButton->clicked();
             return true;
         }
         if (GDK_KEY_Escape == pEventKey->keyval) {
-            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_REJECT));
+            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_REJECT));
             pButton->grab_focus();
             pButton->clicked();
             return true;
@@ -267,8 +267,8 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
     radiobutton_auto_syntax_highl.signal_toggled().connect([&radiobutton_auto_syntax_highl, &button_prog_lang](){
         button_prog_lang.set_sensitive(radiobutton_auto_syntax_highl.get_active());
     });
-    dialog.signal_key_press_event().connect([&](GdkEventKey* key){
-        if (key->keyval == GDK_KEY_Return) {
+    dialog.signal_key_press_event().connect([&](GdkEventKey* pEventKey){
+        if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {
             spinbutton_width.update();
             spinbutton_height.update();
             dialog.response(Gtk::RESPONSE_ACCEPT);
@@ -277,24 +277,22 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
         return false;
     });
     radiobutton_codebox_pixels.signal_toggled().connect([&radiobutton_codebox_pixels, &spinbutton_width](){
-        if (radiobutton_codebox_pixels.get_active())
-        {
+        if (radiobutton_codebox_pixels.get_active()) {
             spinbutton_width.set_value(700);
         }
-        else if (spinbutton_width.get_value() > 100)
-        {
+        else if (spinbutton_width.get_value() > 100) {
             spinbutton_width.set_value(90);
         }
     });
-    auto on_key_press_dialog = [&](GdkEventKey *pEventKey)->bool{
-        if (GDK_KEY_Return == pEventKey->keyval) {
-            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT));
+    auto on_key_press_dialog = [&](GdkEventKey* pEventKey)->bool{
+        if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {
+            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT));
             pButton->grab_focus();
             pButton->clicked();
             return true;
         }
         if (GDK_KEY_Escape == pEventKey->keyval) {
-            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_REJECT));
+            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_REJECT));
             pButton->grab_focus();
             pButton->clicked();
             return true;
@@ -391,15 +389,15 @@ CtDialogs::TableHandleResp CtDialogs::table_handle_dialog(CtMainWin* pCtMainWin,
         grid.set_sensitive(!checkbutton_table_ins_from_file.get_active());
     });
 
-    auto on_key_press_dialog = [&](GdkEventKey *pEventKey)->bool{
-        if (GDK_KEY_Return == pEventKey->keyval) {
-            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT));
+    auto on_key_press_dialog = [&](GdkEventKey* pEventKey)->bool{
+        if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {
+            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT));
             pButton->grab_focus();
             pButton->clicked();
             return true;
         }
         if (GDK_KEY_Escape == pEventKey->keyval) {
-            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_REJECT));
+            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_REJECT));
             pButton->grab_focus();
             pButton->clicked();
             return true;

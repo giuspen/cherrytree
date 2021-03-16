@@ -52,16 +52,16 @@ CtDialogTextEntry::CtDialogTextEntry(const Glib::ustring& title,
     get_vbox()->show_all();
 }
 
-bool CtDialogTextEntry::_on_entry_key_press_event(GdkEventKey *pEventKey)
+bool CtDialogTextEntry::_on_entry_key_press_event(GdkEventKey* pEventKey)
 {
-    if (GDK_KEY_Return == pEventKey->keyval) {
-        Gtk::Button *pButton = static_cast<Gtk::Button*>(get_widget_for_response(Gtk::RESPONSE_OK));
+    if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {
+        Gtk::Button* pButton = static_cast<Gtk::Button*>(get_widget_for_response(Gtk::RESPONSE_OK));
         pButton->grab_focus();
         pButton->clicked();
         return true;
     }
     if (GDK_KEY_Escape == pEventKey->keyval) {
-        Gtk::Button *pButton = static_cast<Gtk::Button*>(get_widget_for_response(Gtk::RESPONSE_CANCEL));
+        Gtk::Button* pButton = static_cast<Gtk::Button*>(get_widget_for_response(Gtk::RESPONSE_CANCEL));
         pButton->grab_focus();
         pButton->clicked();
         return true;
@@ -232,9 +232,9 @@ CtDialogs::CtPickDlgState CtDialogs::color_pick_dialog(CtMainWin* pCtMainWin,
     dialog.add_palette(Gtk::Orientation::ORIENTATION_HORIZONTAL, 10, rgbas);
     dialog.set_rgba(ret_color);
 
-    auto on_key_press_dialog = [&](GdkEventKey *pEventKey)->bool{
-        if (GDK_KEY_Return == pEventKey->keyval) {
-            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_OK));
+    auto on_key_press_dialog = [&](GdkEventKey* pEventKey)->bool{
+        if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {
+            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_OK));
             pButton->grab_focus();
             pButton->clicked();
             return true;

@@ -302,11 +302,9 @@ bool CtDialogs::choose_data_storage_dialog(storage_select_args& args)
             passw_frame.set_sensitive(false);
         }
     };
-    auto on_key_press_edit_data_storage_type_dialog = [&](GdkEventKey *pEventKey)->bool
-    {
-        if (GDK_KEY_Return == pEventKey->keyval)
-        {
-            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT));
+    auto on_key_press_edit_data_storage_type_dialog = [&](GdkEventKey* pEventKey)->bool{
+        if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {
+            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT));
             pButton->clicked();
             return true;
         }
@@ -366,15 +364,15 @@ CtYesNoCancel CtDialogs::exit_save_dialog(Gtk::Window& parent)
     hbox.set_spacing(5);
     Gtk::Box* pContentArea = dialog.get_content_area();
     pContentArea->pack_start(hbox);
-    auto on_key_press_dialog = [&](GdkEventKey *pEventKey)->bool{
-        if (GDK_KEY_Return == pEventKey->keyval) {
-            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_YES));
+    auto on_key_press_dialog = [&](GdkEventKey* pEventKey)->bool{
+        if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {
+            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_YES));
             pButton->grab_focus();
             pButton->clicked();
             return true;
         }
         if (GDK_KEY_Escape == pEventKey->keyval) {
-            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_CANCEL));
+            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_CANCEL));
             pButton->grab_focus();
             pButton->clicked();
             return true;

@@ -241,7 +241,7 @@ bool CtMainWin::_on_treeview_key_press_event(GdkEventKey* event)
             get_tree_view().expand_row(get_tree_store().get_path(curr_tree_iter()), false);
             return true;
         }
-        else if (event->keyval == GDK_KEY_Return) {
+        else if (GDK_KEY_Return == event->keyval or GDK_KEY_KP_Enter == event->keyval) {
             auto path = get_tree_store().get_path(curr_tree_iter());
             if (_uCtTreeview->row_expanded(path))
                 _uCtTreeview->collapse_row(path);
@@ -405,7 +405,7 @@ bool CtMainWin::_on_textview_event(GdkEvent* event)
                 return true;
             }
     }
-    else if (event->key.keyval == GDK_KEY_Return) {
+    else if (GDK_KEY_Return == event->key.keyval or GDK_KEY_KP_Enter == event->key.keyval) {
         auto iter_insert = curr_buffer->get_insert()->get_iter();
         if (iter_insert)
             cursor_key_press() = iter_insert.get_offset();
@@ -502,7 +502,7 @@ void CtMainWin::_on_textview_event_after(GdkEvent* event)
         }
     }
     else if (event->type == GDK_KEY_RELEASE) {
-        if (event->key.keyval == GDK_KEY_Return or event->key.keyval == GDK_KEY_space) {
+        if (GDK_KEY_Return == event->key.keyval or GDK_KEY_KP_Enter == event->key.keyval or event->key.keyval == GDK_KEY_space) {
             if (_pCtConfig->wordCountOn) {
                 update_selected_node_statusbar_info();
             }

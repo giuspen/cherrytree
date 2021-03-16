@@ -213,12 +213,13 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
     content_area->show_all();
     search_entry.grab_focus();
 
-    auto press_enter = [&dialog, &button_ok](GdkEventKey* key){
-        if (key->keyval == GDK_KEY_Return)
+    auto press_enter = [&dialog, &button_ok](GdkEventKey* pEventKey){
+        if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {
             if (button_ok && button_ok->get_sensitive()) {
                 dialog.response(Gtk::RESPONSE_ACCEPT);
                 return true;
             }
+        }
         return false;
     };
     dialog.signal_key_press_event().connect(press_enter);

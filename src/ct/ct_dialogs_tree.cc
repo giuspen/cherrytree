@@ -213,15 +213,15 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
             c_icon_button.set_image(*pCtMainWin->new_image_from_stock(treeIter->get_value(itemStore->columns.stock_id), Gtk::ICON_SIZE_BUTTON));
         }
     });
-    auto on_key_press_dialog = [&](GdkEventKey *pEventKey)->bool{
-        if (GDK_KEY_Return == pEventKey->keyval) {
-            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT));
+    auto on_key_press_dialog = [&](GdkEventKey* pEventKey)->bool{
+        if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {
+            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT));
             pButton->grab_focus();
             pButton->clicked();
             return true;
         }
         if (GDK_KEY_Escape == pEventKey->keyval) {
-            Gtk::Button *pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_REJECT));
+            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_REJECT));
             pButton->grab_focus();
             pButton->clicked();
             return true;
