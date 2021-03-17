@@ -23,6 +23,7 @@
 
 #include "ct_pref_dlg.h"
 #include "ct_main_win.h"
+#include <optional>
 
 Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
 {
@@ -30,7 +31,7 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
 
     Glib::RefPtr<Gtk::TreeStore> treestore = Gtk::TreeStore::create(_shortcutModelColumns);
     fill_shortcut_model(treestore);
-    Gtk::TreeView* treeview = Gtk::manage(new Gtk::TreeView(treestore));
+    auto treeview = Gtk::manage(new Gtk::TreeView{treestore});
     treeview->set_headers_visible(false);
     treeview->set_reorderable(true);
     treeview->set_size_request(300, 300);
@@ -42,9 +43,9 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
     const int col_num_pixbuf = treeview->append_column("", pixbuf_renderer) - 1;
     treeview->get_column(col_num_pixbuf)->add_attribute(pixbuf_renderer, "icon-name", _shortcutModelColumns.icon);
     // shortcut column
-    auto shortcut_cell_renderer = Gtk::manage(new Gtk::CellRendererText());
+    auto shortcut_cell_renderer = Gtk::manage(new Gtk::CellRendererText{});
     shortcut_cell_renderer->property_xalign() = 1;
-    auto shortcut_column = Gtk::manage(new Gtk::TreeViewColumn());
+    auto shortcut_column = Gtk::manage(new Gtk::TreeViewColumn{});
     shortcut_column->pack_start(*shortcut_cell_renderer, true);
     shortcut_column->set_cell_data_func(*shortcut_cell_renderer, [&](Gtk::CellRenderer* cell, const Gtk::TreeIter& iter){
         ((Gtk::CellRendererText*)cell)->property_markup() = "  " + str::xml_escape(CtStrUtil::get_accelerator_label(iter->get_value(_shortcutModelColumns.shortcut))) + "  ";
@@ -54,36 +55,47 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
     treeview->append_column("", _shortcutModelColumns.desc);
 
     treeview->expand_all();
-    Gtk::ScrolledWindow* scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow());
+    auto scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow{});
     scrolledwindow->add(*treeview);
 
-    Gtk::VBox* vbox_buttons = Gtk::manage(new Gtk::VBox());
-    Gtk::Button* button_edit = Gtk::manage(new Gtk::Button());
+    auto vbox_buttons = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+    auto button_edit = Gtk::manage(new Gtk::Button{});
     button_edit->set_image(*_pCtMainWin->new_image_from_stock("ct_edit",  Gtk::ICON_SIZE_BUTTON));
     button_edit->set_tooltip_text(_("Change Selected"));
-    Gtk::Button* button_reset = Gtk::manage(new Gtk::Button());
+    auto button_reset = Gtk::manage(new Gtk::Button{});
     button_reset->set_image(*_pCtMainWin->new_image_from_stock("ct_undo",  Gtk::ICON_SIZE_BUTTON));
     button_reset->set_tooltip_text(_("Reset to Default"));
     vbox_buttons->pack_start(*button_edit, false, false);
-    vbox_buttons->pack_start(*Gtk::manage(new Gtk::Label()), true, true);
+    vbox_buttons->pack_start(*Gtk::manage(new Gtk::Label{}), true, true);
     vbox_buttons->pack_start(*button_reset, false, false);
-    Gtk::HBox* hbox_main = Gtk::manage(new Gtk::HBox());
+    auto hbox_main = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
     hbox_main->pack_start(*scrolledwindow, true, true);
     hbox_main->pack_start(*vbox_buttons, false, false);
 
-    Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
-    pMainBox->set_spacing(3);
-    pMainBox->add(*hbox_main);
+    auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
+    pMainBox->pack_start(*hbox_main);
 
-    button_edit->signal_clicked().connect([this, treeview](){
-        if (edit_shortcut(treeview))
-            need_restart(RESTART_REASON::SHORTCUT);
+    auto f_after_treestore_changes = [this, scrolledwindow, treeview, treestore](){
+        const auto vscroll = scrolledwindow->get_vadjustment()->get_value();
+        auto tree_iter = treeview->get_selection()->get_selected();
+        std::optional<Gtk::TreePath> tree_path;
+        if (tree_iter) tree_path = treestore->get_path(tree_iter);
+        fill_shortcut_model(treestore);
+        treeview->expand_all();
+        while (gtk_events_pending()) gtk_main_iteration();
+        scrolledwindow->get_vadjustment()->set_value(vscroll);
+        if (tree_path.has_value()) treeview->set_cursor(tree_path.value());
+        need_restart(RESTART_REASON::SHORTCUT);
+    };
+    button_edit->signal_clicked().connect([this, treeview, f_after_treestore_changes](){
+        if (edit_shortcut(treeview)) {
+            f_after_treestore_changes();
+        }
     });
-    button_reset->signal_clicked().connect([this, pConfig, treestore](){
+    button_reset->signal_clicked().connect([this, pConfig, f_after_treestore_changes](){
         if (CtDialogs::question_dialog(reset_warning, *this)) {
             pConfig->customKbShortcuts.clear();
-            fill_shortcut_model(treestore);
-            need_restart(RESTART_REASON::SHORTCUT);
+            f_after_treestore_changes();
         }
     });
     treeview->signal_row_activated().connect([button_edit](const Gtk::TreeModel::Path&, Gtk::TreeViewColumn*){
@@ -107,7 +119,7 @@ bool CtPrefDlg::edit_shortcut(Gtk::TreeView* treeview)
     std::string id = tree_iter->get_value(_shortcutModelColumns.key);
     if (edit_shortcut_dialog(shortcut)) {
         if (shortcut != "") {
-            for(const CtMenuAction& action : _pCtMenu->get_actions())
+            for (const CtMenuAction& action : _pCtMenu->get_actions())
                 if (action.get_shortcut(_pCtMainWin->get_ct_config()) == shortcut && action.id != id) {
                     // todo: this is a shorter version from python code
                     std::string message = "<b>" + str::format(_("The Keyboard Shortcut '%s' is already in use"), CtStrUtil::get_accelerator_label(shortcut)) + "</b>\n\n";
@@ -132,45 +144,39 @@ bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut)
     kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_ALT.c_str(), "");
     kb_shortcut_key = str::replace(kb_shortcut_key, _pCtMenu->KB_META.c_str(), "");
 
-    Gtk::Dialog dialog(_("Edit Keyboard Shortcut"), *this, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
+    Gtk::Dialog dialog{_("Edit Keyboard Shortcut"),
+                       *this,
+                       Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
     dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
     dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     dialog.set_default_size(400, 100);
-    Gtk::RadioButton* radiobutton_kb_none = Gtk::manage(new Gtk::RadioButton(_("No Keyboard Shortcut")));
-    Gtk::RadioButton* radiobutton_kb_shortcut = Gtk::manage(new Gtk::RadioButton());
+    auto radiobutton_kb_none = Gtk::manage(new Gtk::RadioButton{_("No Keyboard Shortcut")});
+    auto radiobutton_kb_shortcut = Gtk::manage(new Gtk::RadioButton{});
     radiobutton_kb_shortcut->join_group(*radiobutton_kb_none);
-    Gtk::ToggleButton* ctrl_toggle = Gtk::manage(new Gtk::ToggleButton("control"));
-    Gtk::ToggleButton* shift_toggle = Gtk::manage(new Gtk::ToggleButton("shift"));
-    Gtk::ToggleButton* alt_toggle = Gtk::manage(new Gtk::ToggleButton("alt"));
-    Gtk::ToggleButton* meta_toggle = Gtk::manage(new Gtk::ToggleButton("meta"));
+    auto ctrl_toggle = Gtk::manage(new Gtk::ToggleButton{"control"});
+    auto shift_toggle = Gtk::manage(new Gtk::ToggleButton{"shift"});
+    auto alt_toggle = Gtk::manage(new Gtk::ToggleButton{"alt"});
+    auto meta_toggle = Gtk::manage(new Gtk::ToggleButton{"meta"});
     ctrl_toggle->set_size_request(70, 1);
     shift_toggle->set_size_request(70, 1);
     alt_toggle->set_size_request(70, 1);
     meta_toggle->set_size_request(70,1);
-    Gtk::Entry* key_entry = Gtk::manage(new Gtk::Entry());
-    Gtk::VBox* vbox = Gtk::manage(new Gtk::VBox());
-    Gtk::HBox* hbox = Gtk::manage(new Gtk::HBox());
+    auto key_entry = Gtk::manage(new Gtk::Entry{});
+    auto vbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+    auto hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 5/*spacing*/});
     hbox->pack_start(*radiobutton_kb_shortcut);
     hbox->pack_start(*ctrl_toggle);
     hbox->pack_start(*shift_toggle);
     hbox->pack_start(*alt_toggle);
     hbox->pack_start(*meta_toggle);
     hbox->pack_start(*key_entry);
-    hbox->set_spacing(5);
     vbox->pack_start(*radiobutton_kb_none);
     vbox->pack_start(*hbox);
     auto content_area = dialog.get_content_area();
     content_area->pack_start(*vbox);
 
-    auto b1 = Glib::Binding::bind_property(key_entry->property_sensitive(), ctrl_toggle->property_sensitive());
-    auto b2 = Glib::Binding::bind_property(key_entry->property_sensitive(), shift_toggle->property_sensitive());
-    auto b3 = Glib::Binding::bind_property(key_entry->property_sensitive(), alt_toggle->property_sensitive());
-    auto b5 = Glib::Binding::bind_property(key_entry->property_sensitive(), meta_toggle->property_sensitive());
-    auto b4 = Glib::Binding::bind_property(radiobutton_kb_shortcut->property_active(), key_entry->property_sensitive());
-
-    key_entry->set_sensitive(!kb_shortcut_key.empty());
     key_entry->set_text(kb_shortcut_key);
     radiobutton_kb_none->set_active(kb_shortcut_key.empty());
     radiobutton_kb_shortcut->set_active(!kb_shortcut_key.empty());
@@ -178,6 +184,19 @@ bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut)
     shift_toggle->set_active(shortcut.find(_pCtMenu->KB_SHIFT) != std::string::npos);
     alt_toggle->set_active(shortcut.find(_pCtMenu->KB_ALT) != std::string::npos);
     meta_toggle->set_active(shortcut.find(_pCtMenu->KB_META) != std::string::npos);
+
+    auto f_kb_shortcut_on_off = [ctrl_toggle, shift_toggle, alt_toggle, meta_toggle, key_entry, radiobutton_kb_shortcut](){
+        const bool isSensitive = radiobutton_kb_shortcut->get_active();
+        ctrl_toggle->set_sensitive(isSensitive);
+        shift_toggle->set_sensitive(isSensitive);
+        alt_toggle->set_sensitive(isSensitive);
+        meta_toggle->set_sensitive(isSensitive);
+        key_entry->set_sensitive(isSensitive);
+    };
+    f_kb_shortcut_on_off();
+
+    radiobutton_kb_shortcut->signal_toggled().connect(f_kb_shortcut_on_off);
+    radiobutton_kb_none->signal_toggled().connect(f_kb_shortcut_on_off);
 
     key_entry->signal_key_press_event().connect([key_entry](GdkEventKey* key)->bool{
         Glib::ustring keyname = gdk_keyval_name(key->keyval);
@@ -207,8 +226,7 @@ void CtPrefDlg::fill_shortcut_model(Glib::RefPtr<Gtk::TreeStore> model)
     model->clear();
     std::string category_name = "no name";
     Gtk::TreeModel::Row cat_row;
-    for(const CtMenuAction& action: _pCtMenu->get_actions())
-    {
+    for (const CtMenuAction& action : _pCtMenu->get_actions()) {
         if (action.category.empty()) continue;
         if (action.category != category_name) {
             category_name = action.category;
