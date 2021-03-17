@@ -1,7 +1,7 @@
 /*
  * ct_storage_control.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -412,7 +412,7 @@ void CtStorageControl::pending_edit_db_bookmarks()
     _syncPending.bookmarks_to_write = true;
 }
 
-void CtStorageControl::add_nodes_from_storage(const fs::path& path)
+void CtStorageControl::add_nodes_from_storage(const fs::path& path, Gtk::TreeIter parent_iter)
 {
     if (!fs::is_regular_file(path)) {
         throw std::runtime_error(fmt::format("File: {} - is not a regular file", path));
@@ -429,9 +429,9 @@ void CtStorageControl::add_nodes_from_storage(const fs::path& path)
     }
 
     std::unique_ptr<CtStorageEntity> storage = get_entity_by_type(_pCtMainWin, fs::get_doc_type(extracted_file_path));
-    storage->import_nodes(extracted_file_path);
+    storage->import_nodes(extracted_file_path, parent_iter);
 
-    _pCtMainWin->get_tree_store().nodes_sequences_fix(Gtk::TreeIter(), false);
+    _pCtMainWin->get_tree_store().nodes_sequences_fix(parent_iter, false);
     _pCtMainWin->update_window_save_needed();
 }
 

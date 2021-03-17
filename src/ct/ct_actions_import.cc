@@ -27,8 +27,57 @@
 #include "ct_storage_control.h"
 #include "ct_export2html.h"
 #include "ct_storage_xml.h"
-
 #include "ct_logging.h"
+#include <optional>
+
+static std::optional<Gtk::TreeIter> select_parent_dialog(CtMainWin* pCtMainWin)
+{
+    if (!pCtMainWin->curr_tree_iter()) {
+        return Gtk::TreeIter{};
+    }
+    Gtk::Dialog dialog{_("Who is the Parent?"),
+                       *pCtMainWin,
+                       Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
+    dialog.set_transient_for(*pCtMainWin);
+    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
+    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
+    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    dialog.set_default_size(350, -1);
+
+    Gtk::RadioButton radiobutton_root{_("The Tree Root")};
+    Gtk::RadioButton radiobutton_curr_node{_("The Selected Node")};
+    radiobutton_curr_node.join_group(radiobutton_root);
+    auto pContentArea = dialog.get_content_area();
+    pContentArea->pack_start(radiobutton_root);
+    pContentArea->pack_start(radiobutton_curr_node);
+    pContentArea->show_all();
+
+    auto on_key_press_dialog = [&](GdkEventKey* pEventKey)->bool{
+        if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {
+            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT));
+            pButton->grab_focus();
+            pButton->clicked();
+            return true;
+        }
+        if (GDK_KEY_Escape == pEventKey->keyval) {
+            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_REJECT));
+            pButton->grab_focus();
+            pButton->clicked();
+            return true;
+        }
+        return false;
+    };
+    dialog.signal_key_press_event().connect(on_key_press_dialog, false/*call me before other*/);
+
+    if (dialog.run() == Gtk::RESPONSE_ACCEPT) {
+        if (radiobutton_curr_node.get_active()) {
+            return pCtMainWin->curr_tree_iter();
+        }
+        return Gtk::TreeIter{};
+    }
+    return std::nullopt;
+}
 
 // Import a node from a html file
 void CtActions::import_node_from_html_file() noexcept
@@ -46,8 +95,7 @@ void CtActions::import_node_from_html_directory() noexcept
 
 void CtActions::import_nodes_from_ct_file() noexcept
 {
-    try
-    {
+    try {
         CtDialogs::file_select_args args(_pCtMainWin);
         args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImport;
         args.filter_name = _("CherryTree Document");
@@ -60,8 +108,13 @@ void CtActions::import_nodes_from_ct_file() noexcept
         if (fpath.empty()) return; // No file selected
         _pCtMainWin->get_ct_config()->pickDirImport = Glib::path_get_dirname(fpath);
 
+        std::optional<Gtk::TreeIter> parent_iter = select_parent_dialog(_pCtMainWin);
+        if (not parent_iter.has_value()) {
+            return;
+        }
+
         // Add the nodes through the storage type
-        _pCtMainWin->get_ct_storage()->add_nodes_from_storage(fpath);
+        _pCtMainWin->get_ct_storage()->add_nodes_from_storage(fpath, parent_iter.value());
 
     } catch(std::exception& e) {
         spdlog::error("Exception caught while importing node from CT file: {}", e.what());
@@ -226,33 +279,6 @@ void CtActions::_import_from_dir(CtImporterInterface* importer, const std::strin
     }
 }
 
-static Gtk::TreeIter select_parent_dialog(CtMainWin* pCtMainWin)
-{
-    if (!pCtMainWin->curr_tree_iter())
-        return Gtk::TreeIter();
-
-    Gtk::Dialog dialog(_("Who is the Parent?"), *pCtMainWin, Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT);
-    dialog.set_transient_for(*pCtMainWin);
-    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
-    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
-    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
-    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
-    dialog.set_default_size(350, -1);
-
-    auto radiobutton_root = Gtk::RadioButton(_("The Tree Root"));
-    auto radiobutton_curr_node = Gtk::RadioButton(_("The Selected Node"));
-    radiobutton_curr_node.join_group(radiobutton_root);
-    auto content_area = dialog.get_content_area();
-    content_area->pack_start(radiobutton_root);
-    content_area->pack_start(radiobutton_curr_node);
-    content_area->show_all();
-    if (dialog.run() == Gtk::RESPONSE_ACCEPT)
-        if (radiobutton_curr_node.get_active())
-           return pCtMainWin->curr_tree_iter();
-
-    return Gtk::TreeIter();
-}
-
 void CtActions::_create_imported_nodes(ct_imported_node* imported_nodes, const bool dummy_root)
 {
     // to apply functions to nodes
@@ -328,16 +354,20 @@ void CtActions::_create_imported_nodes(ct_imported_node* imported_nodes, const b
             create_nodes(iter, child.get());
     };
 
-    Gtk::TreeIter parent_iter = select_parent_dialog(_pCtMainWin);
+    std::optional<Gtk::TreeIter> parent_iter = select_parent_dialog(_pCtMainWin);
+    if (not parent_iter.has_value()) {
+        return;
+    }
     if (not dummy_root and imported_nodes->has_content()) {
-        create_nodes(parent_iter, imported_nodes);
+        create_nodes(parent_iter.value(), imported_nodes);
     }
     else // skip top if it's dir
     {
-        for (auto& child : imported_nodes->children)
-            create_nodes(parent_iter, child.get());
+        for (auto& child : imported_nodes->children) {
+            create_nodes(parent_iter.value(), child.get());
+        }
     }
 
-    _pCtMainWin->get_tree_store().nodes_sequences_fix(parent_iter, true);
+    _pCtMainWin->get_tree_store().nodes_sequences_fix(parent_iter.value(), true);
     _pCtMainWin->update_window_save_needed();
 }

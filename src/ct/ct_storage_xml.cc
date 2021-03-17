@@ -148,7 +148,7 @@ void CtStorageXml::vacuum()
 {
 }
 
-void CtStorageXml::import_nodes(const fs::path& path)
+void CtStorageXml::import_nodes(const fs::path& path, const Gtk::TreeIter& parent_iter)
 {
     auto parser = _get_parser(path);
 
@@ -158,13 +158,15 @@ void CtStorageXml::import_nodes(const fs::path& path)
         new_iter.pending_new_db_node();
 
         gint64 child_sequence = 0;
-        for (xmlpp::Node* xml_node : xml_element->get_children("node"))
+        for (xmlpp::Node* xml_node : xml_element->get_children("node")) {
             recursive_import_func(static_cast<xmlpp::Element*>(xml_node), ++child_sequence, new_iter);
+        }
     };
 
     gint64 sequence = 0;
-    for (xmlpp::Node* xml_node: parser->get_document()->get_root_node()->get_children("node"))
-        recursive_import_func(static_cast<xmlpp::Element*>(xml_node), ++sequence, _pCtMainWin->get_tree_store().to_ct_tree_iter(Gtk::TreeIter()));
+    for (xmlpp::Node* xml_node : parser->get_document()->get_root_node()->get_children("node")) {
+        recursive_import_func(static_cast<xmlpp::Element*>(xml_node), ++sequence, _pCtMainWin->get_tree_store().to_ct_tree_iter(parent_iter));
+    }
 }
 
 Glib::RefPtr<Gsv::Buffer> CtStorageXml::get_delayed_text_buffer(const gint64& node_id,

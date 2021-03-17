@@ -184,6 +184,7 @@ struct CtStorageSyncPending
 
 struct CtNodeData;
 class CtAnchoredWidget;
+namespace Gtk { class TreeIter; }
 class CtStorageEntity
 {
 public:
@@ -202,7 +203,7 @@ public:
                                 const int start_offset = 0,
                                 const int end_offset = -1) = 0;
     virtual void vacuum() = 0;
-    virtual void import_nodes(const fs::path& path) = 0;
+    virtual void import_nodes(const fs::path& path, const Gtk::TreeIter& parent_iter) = 0;
 
     virtual Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
                                                               const std::string& syntax,

@@ -79,7 +79,7 @@ public:
      * encrypted files
      * @param path: The path to the external CT file
      */
-    void add_nodes_from_storage(const fs::path& path);
+    void add_nodes_from_storage(const fs::path& path, Gtk::TreeIter parent_iter);
 
 private:
     CtMainWin*                       _pCtMainWin{nullptr};

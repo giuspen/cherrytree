@@ -820,7 +820,7 @@ void CtStorageSqlite::_exec_bind_int64(const char* sqlCmd, const gint64 bind_int
         throw std::runtime_error(ERR_SQLITE_STEP + sqlite3_errmsg(_pDb));
 }
 
-void CtStorageSqlite::import_nodes(const fs::path& path)
+void CtStorageSqlite::import_nodes(const fs::path& path, const Gtk::TreeIter& parent_iter)
 {
     _open_db(path); // storage is temp so can just open db
     if (!_check_database_integrity()) return;
@@ -834,10 +834,10 @@ void CtStorageSqlite::import_nodes(const fs::path& path)
             add_node_func(child_id, ++child_sequence, node_iter);
         }
     };
-    gint64 sequence = 0;
-    for (auto node_id : _get_children_node_ids_from_db(0))
-        add_node_func(node_id, ++sequence, Gtk::TreeIter());
-
+    gint64 sequence{0};
+    for (auto node_id : _get_children_node_ids_from_db(0)) {
+        add_node_func(node_id, ++sequence, parent_iter);
+    }
     _close_db();
 }
 

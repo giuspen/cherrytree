@@ -1,7 +1,7 @@
 /*
  * ct_storage_sqlite.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -54,7 +54,7 @@ public:
                         const int start_offset = 0,
                         const int end_offset = -1) override;
     void vacuum() override;
-    void import_nodes(const fs::path& path) override;
+    void import_nodes(const fs::path& path, const Gtk::TreeIter& parent_iter) override;
 
     Glib::RefPtr<Gsv::Buffer> get_delayed_text_buffer(const gint64& node_id,
                                                       const std::string& syntax,
