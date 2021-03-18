@@ -35,8 +35,8 @@ const constexpr int MIN_SCROLL_HEIGHT = 47;
 CtTextCell::CtTextCell(CtMainWin* pCtMainWin,
                        const Glib::ustring& textContent,
                        const std::string& syntaxHighlighting)
- : _syntaxHighlighting(syntaxHighlighting),
-   _ctTextview(pCtMainWin)
+ : _syntaxHighlighting{syntaxHighlighting}
+ , _ctTextview{pCtMainWin}
 {
     _rTextBuffer = pCtMainWin->get_new_text_buffer(textContent);
     _ctTextview.set_buffer(_rTextBuffer);
@@ -63,10 +63,6 @@ CtTextCell::CtTextCell(CtMainWin* pCtMainWin,
             }
         }
     }, false);
-}
-
-CtTextCell::~CtTextCell()
-{
 }
 
 Glib::ustring CtTextCell::get_text_content() const
@@ -104,20 +100,21 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
                      const bool widthInPixels,
                      const bool highlightBrackets,
                      const bool showLineNumbers)
- : CtAnchoredWidget(pCtMainWin, charOffset, justification),
-   CtTextCell(pCtMainWin, textContent, syntaxHighlighting),
-   _frameWidth(frameWidth),
-   _frameHeight(frameHeight),
-   _key_down(false)
+ : CtAnchoredWidget{pCtMainWin, charOffset, justification}
+ , CtTextCell{pCtMainWin, textContent, syntaxHighlighting}
+ , _frameWidth{frameWidth}
+ , _frameHeight{frameHeight}
 {
     _ctTextview.get_style_context()->add_class("ct-codebox");
     _ctTextview.set_border_width(1);
 
     if (!_pCtMainWin->get_ct_config()->codeboxAutoResize) {
-        if (_frameHeight < MIN_SCROLL_HEIGHT) /* overwise not possible to have 20 px height*/
+        if (_frameHeight < MIN_SCROLL_HEIGHT) { /* overwise not possible to have 20 px height*/
             _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_EXTERNAL /* overwise not possible to have 20 px height*/);
-        else
+        }
+        else {
             _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+        }
     } else {
         _scrolledwindow.set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_NEVER);
         _ctTextview.set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
@@ -184,10 +181,6 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "copy-clipboard", G_CALLBACK(CtClipboard::on_copy_clipboard), _uCtPairCodeboxMainWin.get());
 }
 
-CtCodebox::~CtCodebox()
-{
-}
-
 void CtCodebox::apply_width_height(const int parentTextWidth)
 {
     int frameWidth = _widthInPixels ? _frameWidth : (parentTextWidth*_frameWidth)/100;
@@ -219,13 +212,11 @@ bool CtCodebox::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_a
 {
     bool retVal{true};
     sqlite3_stmt *p_stmt;
-    if (sqlite3_prepare_v2(pDb, CtStorageSqlite::TABLE_CODEBOX_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
-    {
+    if (sqlite3_prepare_v2(pDb, CtStorageSqlite::TABLE_CODEBOX_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK) {
         spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_PREPV2, sqlite3_errmsg(pDb));
         retVal = false;
     }
-    else
-    {
+    else {
         const std::string codebox_txt = get_text_content();
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
@@ -237,8 +228,7 @@ bool CtCodebox::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_a
         sqlite3_bind_int64(p_stmt, 8, _widthInPixels);
         sqlite3_bind_int64(p_stmt, 9, _highlightBrackets);
         sqlite3_bind_int64(p_stmt, 10, _showLineNumbers);
-        if (sqlite3_step(p_stmt) != SQLITE_DONE)
-        {
+        if (sqlite3_step(p_stmt) != SQLITE_DONE) {
             spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_STEP, sqlite3_errmsg(pDb));
             retVal = false;
         }
@@ -260,7 +250,9 @@ void CtCodebox::set_show_line_numbers(const bool showLineNumbers)
 
 void CtCodebox::set_width_height(int newWidth, int newHeight)
 {
-    if (newWidth) _frameWidth = newWidth;
+    if (newWidth) {
+        _frameWidth = newWidth;
+    }
     if (newHeight) {
         _frameHeight = newHeight;
         if (!_pCtMainWin->get_ct_config()->codeboxAutoResize) {
@@ -270,7 +262,7 @@ void CtCodebox::set_width_height(int newWidth, int newHeight)
                 _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
         }
     }
-    apply_width_height(_ctTextview.get_allocation().get_width());
+    apply_width_height(_pCtMainWin->get_text_view().get_allocation().get_width());
 }
 
 void CtCodebox::set_highlight_brackets(const bool highlightBrackets)
@@ -281,8 +273,7 @@ void CtCodebox::set_highlight_brackets(const bool highlightBrackets)
 
 void CtCodebox::apply_cursor_pos(const int cursorPos)
 {
-    if (cursorPos > 0)
-    {
+    if (cursorPos > 0) {
         _rTextBuffer->place_cursor(_rTextBuffer->get_iter_at_offset(cursorPos));
     }
 }
@@ -293,27 +284,23 @@ bool CtCodebox::_on_key_press_event(GdkEventKey* event)
     _key_down = true;
     if (not _pCtMainWin->user_active())
         return false;
-    if (event->state & Gdk::CONTROL_MASK)
-    {
+    if (event->state & Gdk::CONTROL_MASK) {
         _pCtMainWin->get_ct_actions()->curr_codebox_anchor = this;
-        if (event->keyval == GDK_KEY_period)
-        {
+        if (event->keyval == GDK_KEY_period) {
             if (event->state & Gdk::MOD1_MASK)
                 _pCtMainWin->get_ct_actions()->codebox_decrease_width();
             else
                 _pCtMainWin->get_ct_actions()->codebox_increase_width();
             return true;
         }
-        else if (event->keyval == GDK_KEY_comma)
-        {
+        else if (event->keyval == GDK_KEY_comma) {
             if (event->state & Gdk::MOD1_MASK)
                 _pCtMainWin->get_ct_actions()->codebox_decrease_height();
             else
                 _pCtMainWin->get_ct_actions()->codebox_increase_height();
             return true;
         }
-        else if (event->keyval == GDK_KEY_space)
-        {
+        else if (event->keyval == GDK_KEY_space) {
             Gtk::TextIter text_iter = _pCtMainWin->get_text_view().get_buffer()->get_iter_at_child_anchor(getTextChildAnchor());
             text_iter.forward_char();
             _pCtMainWin->get_text_view().get_buffer()->place_cursor(text_iter);
@@ -330,23 +317,18 @@ bool CtCodebox::_on_key_press_event(GdkEventKey* event)
         }
     }
     //std::cout << "keyval " << event->keyval << std::endl;
-    if (event->keyval == GDK_KEY_Tab or event->keyval == GDK_KEY_ISO_Left_Tab)
-    {
+    if (event->keyval == GDK_KEY_Tab or event->keyval == GDK_KEY_ISO_Left_Tab) {
         auto text_buffer = _ctTextview.get_buffer();
-        if (not text_buffer->get_has_selection())
-        {
+        if (not text_buffer->get_has_selection()) {
             Gtk::TextIter iter_insert = text_buffer->get_insert()->get_iter();
             CtListInfo list_info = CtList(_pCtMainWin, text_buffer).get_paragraph_list_info(iter_insert);
             bool backward = event->state & Gdk::SHIFT_MASK;
-            if (list_info)
-            {
-                if (backward and list_info.level)
-                {
+            if (list_info) {
+                if (backward and list_info.level) {
                     _ctTextview.list_change_level(iter_insert, list_info, false);
                     return true;
                 }
-                else if (not backward)
-                {
+                else if (not backward) {
                     _ctTextview.list_change_level(iter_insert, list_info, true);
                     return true;
                 }

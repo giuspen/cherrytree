@@ -1,7 +1,9 @@
 /*
  * ct_codebox.h
  *
- * Copyright 2017-2021 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2021
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,7 +34,7 @@ public:
     CtTextCell(CtMainWin* pCtMainWin,
                const Glib::ustring& textContent,
                const std::string& syntaxHighlighting);
-    virtual ~CtTextCell();
+    virtual ~CtTextCell() {}
 
     Glib::ustring get_text_content() const;
     Glib::RefPtr<Gsv::Buffer> get_buffer() { return _rTextBuffer; }
@@ -70,7 +72,6 @@ public:
               const bool widthInPixels,
               const bool highlightBrackets,
               const bool showLineNumbers);
-    ~CtCodebox() override;
 
     void apply_width_height(const int parentTextWidth) override;
     void apply_syntax_highlighting(const bool forceReApply) override;
@@ -102,5 +103,5 @@ private:
     bool _highlightBrackets{true};
     bool _showLineNumbers{false};
     Gtk::ScrolledWindow _scrolledwindow;
-    bool _key_down;
+    bool _key_down{false};
 };

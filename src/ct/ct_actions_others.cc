@@ -38,31 +38,33 @@
 void CtActions::link_cut()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
-    if (!_link_check_around_cursor().empty())
+    if (!_link_check_around_cursor().empty()) {
         g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
+    }
 }
 
 // Copy Link
 void CtActions::link_copy()
 {
-    if (!_link_check_around_cursor().empty())
+    if (!_link_check_around_cursor().empty()) {
         g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "copy-clipboard");
+    }
 }
 
 //Dismiss Link
 void CtActions::link_dismiss()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
-    if (!_link_check_around_cursor().empty())
+    if (!_link_check_around_cursor().empty()) {
         remove_text_formatting();
+    }
 }
 
 // Delete Link
 void CtActions::link_delete()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
-    if (!_link_check_around_cursor().empty())
-    {
+    if (!_link_check_around_cursor().empty()) {
         _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
         _pCtMainWin->get_text_view().grab_focus();
     }
@@ -103,7 +105,7 @@ void CtActions::anchor_edit()
 
 void CtActions::anchor_link_to_clipboard()
 {
-    CtClipboard(_pCtMainWin).anchor_link_to_clipboard(_pCtMainWin->curr_tree_iter(), curr_anchor_anchor->get_anchor_name());
+    CtClipboard{_pCtMainWin}.anchor_link_to_clipboard(_pCtMainWin->curr_tree_iter(), curr_anchor_anchor->get_anchor_name());
 }
 
 // Cut Embedded File
@@ -132,7 +134,7 @@ void CtActions::embfile_delete()
 // Embedded File Save Dialog
 void CtActions::embfile_save()
 {
-    CtDialogs::file_select_args args(_pCtMainWin);
+    CtDialogs::file_select_args args{_pCtMainWin};
     args.curr_folder = _pCtMainWin->get_ct_config()->pickDirFile;
     args.curr_file_name = curr_file_anchor->get_file_name();
 
@@ -248,16 +250,18 @@ void CtActions::image_link_edit()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
     _link_entry = CtLinkEntry();
-    if  (curr_image_anchor->get_link().empty())
+    if (curr_image_anchor->get_link().empty()) {
         _link_entry.type = CtConst::LINK_TYPE_WEBS; // default value
-    else if (not _links_entries_pre_dialog(curr_image_anchor->get_link(), _link_entry))
-       return;
-    CtTreeIter sel_tree_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(_link_entry.node_id);
-    if (not CtDialogs::link_handle_dialog(*_pCtMainWin, _("Insert/Edit Link"), sel_tree_iter, _link_entry))
+    }
+    else if (not _links_entries_pre_dialog(curr_image_anchor->get_link(), _link_entry)) {
         return;
+    }
+    CtTreeIter sel_tree_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(_link_entry.node_id);
+    if (not CtDialogs::link_handle_dialog(*_pCtMainWin, _("Insert/Edit Link"), sel_tree_iter, _link_entry)) {
+        return;
+    }
     Glib::ustring property_value = _links_entries_post_dialog(_link_entry);
-    if (not property_value.empty())
-    {
+    if (not property_value.empty()) {
         curr_image_anchor->set_link(property_value);
         curr_image_anchor->update_label_widget();
         _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
@@ -282,11 +286,9 @@ void CtActions::toggle_show_hide_main_window()
 void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_wheel)
 {
     CtLinkEntry link_entry = CtMiscUtil::get_link_entry(tag_property_value);
-    if (link_entry.type == CtConst::LINK_TYPE_WEBS) // link to webpage
-    {
+    if (link_entry.type == CtConst::LINK_TYPE_WEBS) { // link to webpage
         Glib::ustring clean_weblink = str::replace(link_entry.webs, "amp;", "");
-        if (_pCtMainWin->get_ct_config()->weblinkCustomOn)
-        {
+        if (_pCtMainWin->get_ct_config()->weblinkCustomOn) {
             std::string cmd = fmt::sprintf(_pCtMainWin->get_ct_config()->weblinkCustomAct, clean_weblink);
             int retr = std::system(cmd.c_str());
             if (retr == -1) {
@@ -295,37 +297,35 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
                 return;
             }
         }
-        else fs::open_weblink(clean_weblink);
+        else {
+            fs::open_weblink(clean_weblink);
+        }
     }
-    else if (link_entry.type == CtConst::LINK_TYPE_FILE) // link to file
-    {
+    else if (link_entry.type == CtConst::LINK_TYPE_FILE) { // link to file
         fs::path filepath = CtExport2Html::_link_process_filepath(link_entry.file, _pCtMainWin->get_ct_storage()->get_file_path().parent_path().string());
-        if (not Glib::file_test(filepath.string(), Glib::FILE_TEST_IS_REGULAR))
-        {
+        if (not Glib::file_test(filepath.string(), Glib::FILE_TEST_IS_REGULAR)) {
             CtDialogs::error_dialog(str::format(_("The File Link '%s' is Not Valid"), filepath.string()), *_pCtMainWin);
             return;
         }
-        if (from_wheel)
+        if (from_wheel) {
             filepath = fs::absolute(filepath).parent_path();
+        }
         fs::open_filepath(filepath, true, _pCtMainWin->get_ct_config());
     }
-    else if (link_entry.type == CtConst::LINK_TYPE_FOLD) // link to folder
-    {
+    else if (link_entry.type == CtConst::LINK_TYPE_FOLD) { // link to folder
         fs::path folderpath = CtExport2Html::_link_process_folderpath(link_entry.fold, _pCtMainWin->get_ct_storage()->get_file_path().parent_path().string()).c_str();
-        if (not fs::is_directory(folderpath))
-        {
+        if (not fs::is_directory(folderpath)) {
             CtDialogs::error_dialog(str::format(_("The Folder Link '%s' is Not Valid"), folderpath.string()), *_pCtMainWin);
             return;
         }
-        if (from_wheel)
+        if (from_wheel) {
             folderpath = Glib::path_get_dirname(fs::absolute(folderpath).string());
+        }
         fs::open_folderpath(folderpath, _pCtMainWin->get_ct_config());
     }
-    else if (link_entry.type == CtConst::LINK_TYPE_NODE) // link to a tree node
-    {
+    else if (link_entry.type == CtConst::LINK_TYPE_NODE) { // link to a tree node
         CtTreeIter tree_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(link_entry.node_id);
-        if (not tree_iter)
-        {
+        if (not tree_iter) {
             CtDialogs::error_dialog(str::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), std::to_string(link_entry.node_id)), *_pCtMainWin);
             return;
         }
@@ -333,30 +333,32 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
         _pCtMainWin->get_text_view().grab_focus();
         _pCtMainWin->get_text_view().get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::XTERM));
         _pCtMainWin->get_text_view().set_tooltip_text("");
-        if (!link_entry.anch.empty())
-        {
+        if (!link_entry.anch.empty()) {
             Glib::ustring anchor_name = link_entry.anch;
             CtImageAnchor* imageAnchor = nullptr;
-            for (auto& widget: tree_iter.get_anchored_widgets_fast())
-                if (CtImageAnchor* anchor = dynamic_cast<CtImageAnchor*>(widget))
-                    if (anchor->get_anchor_name() == anchor_name)
+            for (auto& widget : tree_iter.get_anchored_widgets_fast()) {
+                if (auto anchor = dynamic_cast<CtImageAnchor*>(widget)) {
+                    if (anchor->get_anchor_name() == anchor_name) {
                         imageAnchor = anchor;
-            if (not imageAnchor)
-            {
-                if (anchor_name.size() > (size_t)CtConst::MAX_TOOLTIP_LINK_CHARS)
+                    }
+                }
+            }
+            if (not imageAnchor) {
+                if (anchor_name.size() > (size_t)CtConst::MAX_TOOLTIP_LINK_CHARS) {
                     anchor_name = anchor_name.substr(0, (size_t)CtConst::MAX_TOOLTIP_LINK_CHARS) + "...";
+                }
                 CtDialogs::warning_dialog(str::format(_("No anchor named '%s' found"), std::string(anchor_name)), *_pCtMainWin);
             }
-            else
-            {
+            else {
                 Gtk::TextIter iter_anchor = _curr_buffer()->get_iter_at_child_anchor(imageAnchor->getTextChildAnchor());
                 _curr_buffer()->place_cursor(iter_anchor);
                 _pCtMainWin->get_text_view().scroll_to(_curr_buffer()->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
             }
         }
     }
-    else
+    else {
         CtDialogs::error_dialog(str::format("Tag Name Not Recognized! (%s)", std::string(tag_property_value)), *_pCtMainWin);
+    }
 }
 
 // Cut CodeBox
@@ -449,14 +451,13 @@ void CtActions::exec_code()
     binary_cmd = str::replace(binary_cmd, CtConst::CODE_EXEC_TMP_BIN, filepath_bin_tmp.string());
     Glib::ustring terminal_cmd = str::replace(code_exec_term, CtConst::CODE_EXEC_COMMAND, binary_cmd);
 
-    if (!CtDialogs::question_dialog(std::string("<b>")+_("Do you want to Execute the Code?")+"</b>", *_pCtMainWin))
+    if (!CtDialogs::question_dialog(std::string("<b>")+_("Do you want to Execute the Code?")+"</b>", *_pCtMainWin)) {
         return;
-
+    }
     g_file_set_contents(filepath_src_tmp.c_str(), code_val.c_str(), (gssize)code_val.bytes(), nullptr);
 
     // if std::system is not enougth, then try g_spawn_async_with_pipes
     int status = std::system(terminal_cmd.c_str());
-
 
 #ifdef _WIN32
 #define WEXITSTATUS(x) x
@@ -466,8 +467,9 @@ void CtActions::exec_code()
     if (WEXITSTATUS(status) != 0) {
         if (str::startswith(terminal_cmd, "xterm ")) {
             status = std::system("xterm -version");
-            if (WEXITSTATUS(status) != 0)
+            if (WEXITSTATUS(status) != 0) {
                 CtDialogs::error_dialog(_("Install the package 'xterm' or configure a different terminal in the Preferences Dialog"), *_pCtMainWin);
+            }
         }
     }
 }
@@ -505,16 +507,19 @@ void CtActions::codebox_increase_width()
 {
     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
     int prevFrameWidth = curr_codebox_anchor->get_frame_width();
-    if (_pCtMainWin->get_ct_config()->codeboxAutoResize and prevFrameWidth < curr_codebox_anchor->get_text_view().get_allocated_width() ) {
-        prevFrameWidth = curr_codebox_anchor->get_text_view().get_allocated_width();
-    }
     if (curr_codebox_anchor->get_width_in_pixels()) {
+        if (_pCtMainWin->get_ct_config()->codeboxAutoResize and prevFrameWidth < curr_codebox_anchor->get_text_view().get_allocated_width() ) {
+            prevFrameWidth = curr_codebox_anchor->get_text_view().get_allocated_width();
+        }
         curr_codebox_anchor->set_width_height(prevFrameWidth + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX, 0);
+        _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
     }
     else {
-        curr_codebox_anchor->set_width_height(prevFrameWidth + CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC, 0);
+        if (prevFrameWidth + CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC < 100) {
+            curr_codebox_anchor->set_width_height(prevFrameWidth + CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC, 0);
+            _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
+        }
     }
-    _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
 }
 
 void CtActions::codebox_decrease_width()
@@ -527,7 +532,7 @@ void CtActions::codebox_decrease_width()
         }
     }
     else {
-        if (curr_codebox_anchor->get_frame_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC >= CtCodebox::CB_WIDTH_LIMIT_MIN) {
+        if (curr_codebox_anchor->get_frame_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC >= CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC) {
             curr_codebox_anchor->set_width_height(curr_codebox_anchor->get_frame_width() - CtCodebox::CB_WIDTH_HEIGHT_STEP_PERC, 0);
             _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
         }
@@ -641,15 +646,15 @@ void CtActions::table_row_copy()
     // remove rows between current and header
     while (table_state->rows.size() > 2)
         table_state->rows.erase(table_state->rows.begin() + 1);
-    CtTable* new_table = dynamic_cast<CtTable*>(table_state->to_widget(_pCtMainWin));
-    CtClipboard(_pCtMainWin).table_row_to_clipboard(new_table);
+    auto new_table = dynamic_cast<CtTable*>(table_state->to_widget(_pCtMainWin));
+    CtClipboard{_pCtMainWin}.table_row_to_clipboard(new_table);
     delete new_table;
 }
 
 void CtActions::table_row_paste()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
-    CtClipboard(_pCtMainWin).table_row_paste(curr_table_anchor);
+    CtClipboard{_pCtMainWin}.table_row_paste(curr_table_anchor);
 }
 
 void CtActions::table_row_delete()
@@ -701,11 +706,11 @@ void CtActions::table_edit_properties()
 
 void CtActions::table_export()
 {
-    CtDialogs::file_select_args args(_pCtMainWin);
-    args.curr_folder=_pCtMainWin->get_ct_config()->pickDirCsv;
-    args.curr_file_name="";
-    args.filter_name=_("CSV File");
-    args.filter_pattern={"*.csv"};
+    CtDialogs::file_select_args args{_pCtMainWin};
+    args.curr_folder = _pCtMainWin->get_ct_config()->pickDirCsv;
+    args.curr_file_name = "";
+    args.filter_name = _("CSV File");
+    args.filter_pattern = {"*.csv"};
 
     Glib::ustring filename = CtDialogs::file_save_as_dialog(args);
     if (filename.empty()) return;
@@ -719,7 +724,8 @@ void CtActions::table_export()
 
         g_file_set_contents(filename.c_str(), result.c_str(), (gssize)result.size(), nullptr);
 
-    } catch(std::exception& e) {
+    }
+    catch(std::exception& e) {
         spdlog::error("Exception caught while exporting table: {}", e.what());
         CtDialogs::error_dialog("Exception occured while exporting table, see log for details", *_pCtMainWin);
     }
@@ -734,8 +740,7 @@ void CtActions::_anchor_edit_dialog(CtImageAnchor* anchor, Gtk::TextIter insert_
     if (ret_anchor_name.empty()) return;
 
     Glib::ustring image_justification;
-    if (iter_bound) // only in case of modify
-    {
+    if (iter_bound) { // only in case of modify
         image_justification = CtTextIterUtil::get_text_iter_alignment(insert_iter, _pCtMainWin);
         int image_offset = insert_iter.get_offset();
         _curr_buffer()->erase(insert_iter, *iter_bound);
@@ -747,17 +752,14 @@ void CtActions::_anchor_edit_dialog(CtImageAnchor* anchor, Gtk::TextIter insert_
 // Iteration of the Modification Time Sentinel
 bool CtActions::_on_embfiles_sentinel_timeout()
 {
-    for (auto& item : _embfiles_opened)
-    {
+    for (auto& item : _embfiles_opened) {
         const fs::path& tmp_filepath = item.second.tmp_filepath;
-        if (not fs::is_regular_file(tmp_filepath))
-        {
+        if (not fs::is_regular_file(tmp_filepath)) {
             spdlog::debug("embdrop {}", tmp_filepath);
             _embfiles_opened.erase(item.first);
             break;
         }
-        if (item.second.mod_time != fs::getmtime(tmp_filepath))
-        {
+        if (item.second.mod_time != fs::getmtime(tmp_filepath)) {
             item.second.mod_time = fs::getmtime(tmp_filepath);
             const auto data_vec = str::split(tmp_filepath.filename().string(), CtConst::CHAR_MINUS);
             const gint64 node_id = std::stoll(data_vec[0]);
@@ -767,17 +769,14 @@ bool CtActions::_on_embfiles_sentinel_timeout()
             if (not tree_iter) {
                 continue;
             }
-            if (tree_iter.get_node_read_only())
-            {
+            if (tree_iter.get_node_read_only()) {
                 CtDialogs::warning_dialog(_("Cannot Edit Embedded File in Read Only Node"), *_pCtMainWin);
                 continue;
             }
             _pCtMainWin->get_tree_view().set_cursor_safe(tree_iter);
-            for (auto& widget : tree_iter.get_anchored_widgets_fast())
-            {
-                if (CtImageEmbFile* embFile = dynamic_cast<CtImageEmbFile*>(widget)) {
-                    if (embFile->get_unique_id() == embfile_id)
-                    {
+            for (auto& widget : tree_iter.get_anchored_widgets_fast()) {
+                if (auto embFile = dynamic_cast<CtImageEmbFile*>(widget)) {
+                    if (embFile->get_unique_id() == embfile_id) {
                         std::string buffer = fs::get_content(tmp_filepath);
                         embFile->set_raw_blob(buffer);
                         embFile->set_time(std::time(nullptr));
