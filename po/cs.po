@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-16 23:09+0000\n"
-"PO-Revision-Date: 2021-02-17 09:14+0100\n"
+"PO-Revision-Date: 2021-03-18 19:18+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 19.04.0\n"
+"X-Generator: Lokalize 20.12.0\n"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_file.cc:80
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_file.cc:97
@@ -73,7 +73,7 @@ msgstr "Automaticky vyhledat novou verzi"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:95
 msgid "Enable Word Count in Statusbar"
-msgstr "Povolit počet slov ve stavového řádku"
+msgstr "Povolit počet slov ve stavovém řádku"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:96
 msgid "Reload Document From Last Session"
@@ -618,12 +618,12 @@ msgstr "Vložit jednu tabulku"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:112
 msgid "Insert _CodeBox"
-msgstr "Vložit _CodeBox"
+msgstr "Vložit _pole s kódem"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:112
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:134
 msgid "Insert a CodeBox"
-msgstr "Vložit CodeBox"
+msgstr "Vložit pole s kódem"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:113
 msgid "Insert _File"
@@ -933,12 +933,12 @@ msgstr "Formátovat vybraný text jako písmo se stejnou roztečí"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:151
 msgid "Set/Unset _Bulleted List"
-msgstr "Zapnout/Vypnout _seznam s odrážkami"
+msgstr "Zapnout/Vypnout _odrážkový seznam"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:151
 msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
 msgstr ""
-"Zapnout/Vypnout nynější odstavec/výběr jako položku seznamu s odrážkami"
+"Zapnout/Vypnout nynější odstavec/výběr jako položku odrážkového seznamu"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:152
 msgid "Set/Unset _Numbered List"
@@ -1164,7 +1164,7 @@ msgstr "Smazat vybraný uzel"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:180
 msgid "Add to _Bookmarks"
-msgstr "Přidat do_záložek"
+msgstr "Přidat do _záložek"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:180
 msgid "Add the Current Node to the Bookmarks List"
@@ -1437,7 +1437,7 @@ msgstr "Přidat uzly ze souboru CherryTree do současné stromové stavby"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:216
 msgid "From _Plain Text File"
-msgstr "Ze souboru _prostého textu"
+msgstr "Ze souboru s _prostým textem"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:216
 msgid "Add Node from a Plain Text File to the Current Tree"
@@ -2785,8 +2785,9 @@ msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
 "Highlighting"
 msgstr ""
-"Program k hierarchickému vedení poznámek, s vlastnostmi, jaké má formátovaný "
-"text (RTF), a zvýrazňování skladby"
+"Program ke stupňovitě rozvrstvenému vedení poznámek, s vlastnostmi"
+" formátovaného "
+"text (RTF) a se zvýrazňováním skladby"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1940
 msgid ""
@@ -2846,7 +2847,7 @@ msgstr "Počet tabulek"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:2253
 msgid "Number of CodeBoxes"
-msgstr "Počet obdélníků se zdrojovým kódem"
+msgstr "Počet polí se zdrojovým kódem"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:2258
 msgid "Number of Anchors"
@@ -3010,11 +3011,11 @@ msgstr "Soubor PDF"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_export.cc:373
 msgid "Plain Text Document"
-msgstr "Dokument prostý text"
+msgstr "Dokument s prostým textem"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:61
 msgid "Chars for Bulleted List"
-msgstr "Znaky pro seznam s odrážkami"
+msgstr "Znaky pro odrážkový seznam"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:70
 msgid "Chars for Todo List"
@@ -3092,11 +3093,11 @@ msgstr "Nebyla nalezena žádná kotva s názvem '%s'"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:405
 msgid "Edit CodeBox"
-msgstr "Upravit CodeBox"
+msgstr "Upravit pole s kódem"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:429
 msgid "No CodeBox is Selected"
-msgstr "Není vybrán žádný CodeBox"
+msgstr "Není vybráno žádné pole s kódem"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:437
 #, c-format
