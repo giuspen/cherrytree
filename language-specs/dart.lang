@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Copyright (C) 2019 Olzhas Suleimen
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="dart" name="Dart" version="2.0" _section="Source">
+
+  <metadata>
+    <property name="mimetypes">application/dart;application/x-dart;text/x-dart;text/dart</property>
+    <property name="globs">*.dart</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="error" name="Error" map-to="def:error"/>
+    <style id="escaped" name="Escaped" map-to="def:special-char"/>
+    <style id="string" name="String" map-to="def:string" />
+    <style id="null-value" name="Null" map-to="def:special-constant"/>
+    <style id="bool" name="Boolean" map-to="def:boolean"/>
+    <style id="num" name="Numeric" map-to="def:decimal"/>
+    <style id="external" name="Externals" map-to="def:preprocessor"/>
+    <style id="keyword" name="Keywords" map-to="def:keyword"/>
+    <style id="type" name="Data Types" map-to="def:type"/>
+  </styles>
+
+  <definitions>
+
+    <context id="data" style-ref="string">
+      <start>`</start>
+      <end>`</end>
+    </context>
+
+    <context id="field" style-ref="type">
+      <start>\[</start>
+      <end>\]</end>
+    </context>
+
+    <context id="line-doc-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>///</start>
+      <include>
+        <context ref="data"/>
+        <context ref="field"/>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>//</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="block-comment" style-ref="comment" class="comment" class-disabled="no-spell-check">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="data"/>
+        <context ref="field"/>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="close-comment-outside-comment" style-ref="error">
+      <match>\*/(?!\*)</match>
+    </context>
+
+    <context id="escaped" style-ref="escaped">
+      <match>\\([\\\"\'nrbtf]|[0-9]{1,3}|u[a-fA-f0-9]{1,4}|u{?[a-fA-f0-9]{1,6}}?)</match>
+    </context>
+
+    <context id="expression-identifier" style-ref="escaped">
+      <match>\$_?\w+</match>
+    </context>
+
+    <context id="expression" style-ref="escaped">
+      <start>\$\{</start>
+      <end>\}</end>
+    </context>
+
+    <context id="single-quoted-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>'</start>
+      <end>'</end>
+      <include>
+        <context ref="escaped" />
+        <context ref="expression-identifier" />
+        <context ref="expression" />
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="double-quoted-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="escaped" />
+        <context ref="expression-identifier" />
+        <context ref="expression" />
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="raw-single-quoted-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>r'</start>
+      <end>'</end>
+      <include>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="raw-double-quoted-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>r"</start>
+      <end>"</end>
+      <include>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="multiline-single-quoted-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>'''</start>
+      <end>'''</end>
+      <include>
+        <context ref="escaped" />
+        <context ref="expression-identifier" />
+        <context ref="expression" />
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="multiline-double-quoted-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>"""</start>
+      <end>"""</end>
+      <include>
+        <context ref="escaped" />
+        <context ref="expression-identifier" />
+        <context ref="expression" />
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="raw-multiline-single-quoted-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>r'''</start>
+      <end>'''</end>
+      <include>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="raw-multiline-double-quoted-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>r"""</start>
+      <end>"""</end>
+      <include>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="null-value" style-ref="null-value">
+      <keyword>null</keyword>
+    </context>
+
+    <context id="bool" style-ref="bool">
+      <keyword>true</keyword>
+      <keyword>false</keyword>
+    </context>
+
+    <context id="numeric" style-ref="num">
+      <match extended="true">(\b([0-9]+|0[xX][0-9a-fA-F]+)\b|\b([0-9]+[Ee][-]?[0-9]+|([0-9]*\.[0-9]+|[0-9]+\.)([Ee][-]?[0-9]+)?))</match>
+    </context>
+
+    <context id="external" style-ref="external">
+      <keyword>import</keyword>
+      <keyword>export</keyword>
+      <keyword>library</keyword>
+      <keyword>part of</keyword>
+      <keyword>part</keyword>
+      <keyword>hide</keyword>
+      <keyword>show</keyword>
+      <keyword>deferred</keyword>
+    </context>
+
+    <context id="keyword" style-ref="keyword">
+      <keyword>abstract</keyword>
+      <keyword>mixin</keyword>
+      <keyword>extends</keyword>
+      <keyword>class</keyword>
+      <keyword>enum</keyword>
+      <keyword>factory</keyword>
+      <keyword>implements</keyword>
+      <keyword>interface</keyword>
+      <keyword>with</keyword>
+
+      <keyword>async</keyword>
+      <keyword>await</keyword>
+      <keyword>yield</keyword>
+      <keyword>sync</keyword>
+
+      <keyword>covariant</keyword>
+
+      <keyword>if</keyword>
+      <keyword>else</keyword>
+      <keyword>continue</keyword>
+      <keyword>break</keyword>
+      <keyword>for</keyword>
+      <keyword>while</keyword>
+      <keyword>do</keyword>
+      <keyword>case</keyword>
+      <keyword>switch</keyword>
+      <keyword>default</keyword>
+
+      <keyword>try</keyword>
+      <keyword>catch</keyword>
+      <keyword>throw</keyword>
+      <keyword>rethrow</keyword>
+      <keyword>finally</keyword>
+
+      <keyword>this</keyword>
+      <keyword>super</keyword>
+      <keyword>get</keyword>
+      <keyword>set</keyword>
+      <keyword>operator</keyword>
+
+      <keyword>as</keyword>
+      <keyword>is</keyword>
+
+      <keyword>in</keyword>
+
+      <keyword>on</keyword>
+
+      <keyword>return</keyword>
+
+      <keyword>assert</keyword>
+      <keyword>print</keyword>
+    </context>
+
+    <context id="annotation" style-ref="keyword">
+      <match extended="true">
+        @_?\w+\b
+      </match>
+    </context>
+
+    <context id="type" style-ref="type">
+      <keyword>void</keyword>
+      <keyword>dynamic</keyword>
+      <keyword>bool</keyword>
+      <keyword>int</keyword>
+      <keyword>double</keyword>
+      <keyword>num</keyword>
+
+      <keyword>var</keyword>
+      <keyword>final</keyword>
+      <keyword>static</keyword>
+
+      <keyword>new</keyword>
+      <keyword>const</keyword>
+
+      <keyword>typedef</keyword>
+    </context>
+
+    <context id="type-class" style-ref="type">
+      <match extended="true">
+        \b_?[A-Z]\w*\b
+      </match>
+    </context>
+
+    <context id="dart" class="no-spell-check">
+      <include>
+        <context ref="line-doc-comment"/>
+        <context ref="line-comment"/>
+        <context ref="block-comment"/>
+        <context ref="close-comment-outside-comment"/>
+        <context ref="raw-multiline-single-quoted-string"/>
+        <context ref="raw-multiline-double-quoted-string"/>
+        <context ref="multiline-single-quoted-string"/>
+        <context ref="multiline-double-quoted-string"/>
+        <context ref="raw-single-quoted-string"/>
+        <context ref="raw-double-quoted-string"/>
+        <context ref="single-quoted-string"/>
+        <context ref="double-quoted-string"/>
+        <context ref="null-value"/>
+        <context ref="bool"/>
+        <context ref="numeric"/>
+        <context ref="external"/>
+        <context ref="keyword"/>
+        <context ref="annotation"/>
+        <context ref="type"/>
+        <context ref="type-class"/>
+      </include>
+    </context>
+
+  </definitions>
+
+</language>
