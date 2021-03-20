@@ -1,16 +1,13 @@
-cherrytree (0.99.32-1) focal; urgency=low
+cherrytree (0.99.33-1) focal; urgency=low
 
-  * improved restoring of exact vertical scroll position (#1151)
-  * fix iterated find/replace dialog disappearing after first button click
-  * more node icons (#1514)
-  * fix copy as plain text not working in table cell (#1528)
-  * close image resize dialog when pressing enter (#1547)
-  * fix crash at find in all nodes before dialog pops up, Windows OS (#1460)
-  * improved dialog to select an item in the list focusing the item that was last used (e.g. special characters)
-  * in nodes icons cycle cherries colors after reaching a node level superior to the max number of cherries colors (#692)
-  * fixed issue with tree on the right side not properly restoring the tree width (#1534)
+  * fix crash editing keyboard shortcuts on windows (#1559, #1560)
+  * fix changing codebox width of codeboxes having width set in percentage (#1556)
+  * treat equally return key presses and numeric keypad enter key presses (#1547)
+  * fix import from cherrytree file missing dialog asking for parent node (#1562)
   * user-* themes are not to be selectable for code, now excluded from the list
-  * added support for language 'elixir' by @SteffenBauer (#1541)
+  * added automatic syntax highlighting for the Dart language (#1569)
+  * updated Czech language (Pavel Fric)
+  * updated Finnish language (Henri Kaustinen)
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sat, 13 Mar 2021 22:53:08 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Sat, 20 Mar 2021 14:33:41 +0000

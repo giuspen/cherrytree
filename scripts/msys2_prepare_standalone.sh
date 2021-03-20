@@ -14,8 +14,14 @@ GIT_CT_STYLES_FOLDER="${GIT_CT_FOLDER}/styles"
 GIT_CT_LICENSE="${GIT_CT_FOLDER}/license.txt"
 GIT_CT_HUNSPELL="${GIT_CT_FOLDER}/hunspell"
 GIT_CT_CONFIG_H="${GIT_CT_FOLDER}/config.h"
+DOWNGRADE_PACKAGE_LOCATION="http://repo.msys2.org/mingw/x86_64"
+DOWNGRADE_PACKAGE_NAME="mingw-w64-x86_64-gtkmm3-3.24.2-1-any.pkg.tar.xz"
 
-
+if [ -n ${DOWNGRADE_PACKAGE_NAME} ]
+then
+  wget "${DOWNGRADE_PACKAGE_LOCATION}/${DOWNGRADE_PACKAGE_NAME}"
+  pacman -U --noconfirm ${DOWNGRADE_PACKAGE_NAME}
+fi
 echo "build..."
 cd ${GIT_CT_FOLDER}
 ./build.sh
@@ -44,8 +50,8 @@ pushd ${NEW_MSYS2_FOLDER} > /dev/null
 mkdir -p var/lib/pacman
 mkdir -p var/log
 mkdir -p tmp
-pacman -Syu --root "${NEW_MSYS2_FOLDER}"
-pacman -S --noconfirm --root "${NEW_MSYS2_FOLDER}" \
+pacman -Syu --root ${NEW_MSYS2_FOLDER}
+pacman -S --noconfirm --root ${NEW_MSYS2_FOLDER} \
   filesystem \
   bash \
   pacman \
@@ -63,6 +69,17 @@ if [ "$_result" -ne "0" ]; then
   echo "failed to create base data via command 'pacman -S <packages names list> --noconfirm --root ${NEW_MSYS2_FOLDER}'"
   exit 1
 fi
+if [ -n ${DOWNGRADE_PACKAGE_NAME} ]
+then
+  wget "${DOWNGRADE_PACKAGE_LOCATION}/${DOWNGRADE_PACKAGE_NAME}"
+  pacman -U --noconfirm --root ${NEW_MSYS2_FOLDER} ${DOWNGRADE_PACKAGE_NAME}
+  _result=$?
+  if [ "$_result" -ne "0" ]; then
+    echo "failed to downgrade package"
+    exit 1
+  fi
+fi
+
 popd > /dev/null
 
 

@@ -1,4 +1,14 @@
 
+0.99.33 (March 20th, 2021)
+  * fix crash editing keyboard shortcuts on windows (#1559, #1560)
+  * fix changing codebox width of codeboxes having width set in percentage (#1556)
+  * treat equally return key presses and numeric keypad enter key presses (#1547)
+  * fix import from cherrytree file missing dialog asking for parent node (#1562)
+  * user-* themes are not to be selectable for code, now excluded from the list
+  * added automatic syntax highlighting for the Dart language (#1569)
+  * updated Czech language (Pavel Fric)
+  * updated Finnish language (Henri Kaustinen)
+
 0.99.32 (March 13th, 2021)
   * improved restoring of exact vertical scroll position (#1151)
   * fix iterated find/replace dialog disappearing after first button click
