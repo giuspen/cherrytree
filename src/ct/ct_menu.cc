@@ -70,20 +70,31 @@ void CtMenu::init_actions(CtActions* pActions)
     // stubs for menu bar
     _actions.push_back(CtMenuAction{"", "FileMenu", None, _("_File"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "EditMenu", None, _("_Edit"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "FormattingMenu", None, _("For_matting"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "InsertMenu", None, _("_Insert"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "FormatMenu", None, _("_Format"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "TreeMenu", None, _("_Tree"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "TreeMoveMenu", "ct_go-jump", _("Node _Move"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "TreeSortMenu", "ct_sort-asc", _("Nodes _Sort"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "TreeImportMenu", CtConst::STR_STOCK_CT_IMP, _("Nodes _Import"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "TreeExportMenu", "ct_export_from_cherrytree", _("Nodes E_xport"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "RecentDocsMenu", "ct_open", _("_Recent Documents"), None, _("Open a Recent CherryTree Document"), sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "ChangeCaseMenu", "ct_case_toggle", _("C_hange Case"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "ToolsMenu", None, _("_Tools"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "SearchMenu", None, _("_Search"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "ViewMenu", None, _("_View"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "BookmarksMenu", None, _("_Bookmarks"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "ImportMenu", None, _("_Import"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "ExportMenu", None, _("E_xport"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "HelpMenu", None, _("_Help"), None, None, sigc::signal<void>()});
+
+    // stubs for sumenu bar
+    _actions.push_back(CtMenuAction{"", "TreeMoveSubMenu", "ct_go-jump", _("Node _Move"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "TreeSortSubMenu", "ct_sort-asc", _("Nodes _Sort"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "BookmarksSubMenu", "ct_pin", _("_Bookmarks"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "ImportSubMenu", CtConst::STR_STOCK_CT_IMP, _("_Import"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "ExportSubMenu", "ct_export_from_cherrytree", _("_Export"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "RecentDocsSubMenu", "ct_open", _("_Recent Documents"), None, _("Open a Recent CherryTree Document"), sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "ChangeCaseSubMenu", "ct_case_toggle", _("C_hange Case"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "ListSubMenu", "ct_list_bulleted", _("_List"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "JustifySubMenu", "ct_justify-center", _("_Justify"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "FontSubMenu", "ct_fonts", _("_Font"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "ToggleSubMenu", "ct_fmt-txt-large", _("_Toggle"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "InsertSubMenu", "ct_insert", _("I_nsert"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "FindSubMenu", "ct_find", _("_Find"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "ReplaceSubMenu", "ct_find_replace", _("_Replace"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "RowSubMenu", "ct_edit", _("_Row"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "FormattingSubMenu", "ct_fmt-txt", _("_Format"), None, None, sigc::signal<void>()});
 
     // main actions
     const char* file_cat = _("File");
@@ -92,22 +103,16 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{file_cat, "ct_save", "ct_save", _("_Save"), KB_CONTROL+"S", _("Save File"), sigc::mem_fun(*pActions, &CtActions::file_save)});
     _actions.push_back(CtMenuAction{file_cat, "ct_vacuum", "ct_clear", _("Save and _Vacuum"), None, _("Save File and Vacuum"), sigc::mem_fun(*pActions, &CtActions::file_vacuum)});
     _actions.push_back(CtMenuAction{file_cat, "ct_save_as", "ct_save-as", _("Save _As"), KB_CONTROL+KB_SHIFT+"S", _("Save File As"), sigc::mem_fun(*pActions, &CtActions::file_save_as)});
-    _actions.push_back(CtMenuAction{file_cat, "command_palette", "ct_execute", _("Command Palette"), KB_CONTROL+KB_SHIFT+"P", _("Command Palette"), sigc::mem_fun(*pActions, &CtActions::command_palette)});
-    _actions.push_back(CtMenuAction{file_cat, "exec_code", "ct_execute", _("_Execute Code"), "F5", _("Execute Code"), sigc::mem_fun(*pActions, &CtActions::exec_code)});
-    _actions.push_back(CtMenuAction{file_cat, "open_cfg_folder", "ct_directory", _("Open Preferences _Directory"), None, _("Open the Directory with Preferences Files"), sigc::mem_fun(*pActions, &CtActions::folder_cfg_open)});
     _actions.push_back(CtMenuAction{file_cat, "print_page_setup", "ct_print", _("Pa_ge Setup"), None, _("Set up the Page for Printing"), sigc::mem_fun(*pActions, &CtActions::export_print_page_setup)});
     _actions.push_back(CtMenuAction{file_cat, "do_print", "ct_print", _("_Print"), KB_CONTROL+"P", _("Print"), sigc::mem_fun(*pActions, &CtActions::export_print)});
+    _actions.push_back(CtMenuAction{file_cat, "preferences_dlg", "ct_preferences", _("_Preferences"), KB_CONTROL+KB_ALT+"P", _("Preferences"), sigc::mem_fun(*pActions, &CtActions::dialog_preferences) });
+    _actions.push_back(CtMenuAction{file_cat, "tree_parse_info", "ct_info", _("Tree _Info"), None, _("Tree Summary Information"), sigc::mem_fun(*pActions, &CtActions::tree_info)});
     _actions.push_back(CtMenuAction{file_cat, "quit_app", "ct_quit-app", _("_Quit"), KB_CONTROL+"Q", _("Quit the Application"), sigc::mem_fun(*pActions, &CtActions::quit_or_hide_window)});
     _actions.push_back(CtMenuAction{file_cat, "exit_app", "ct_quit-app", _("_Exit CherryTree"), KB_CONTROL+KB_SHIFT+"Q", _("Exit from CherryTree"), sigc::mem_fun(*pActions, &CtActions::quit_window)});
-    _actions.push_back(CtMenuAction{file_cat, "preferences_dlg", "ct_preferences", _("_Preferences"), KB_CONTROL+KB_ALT+"P", _("Preferences"), sigc::mem_fun(*pActions, &CtActions::dialog_preferences) });
-    _actions.push_back(CtMenuAction{file_cat, "ct_check_newer", "ct_network", _("_Check Newer Version"), None, _("Check for a Newer Version"), sigc::mem_fun(*pActions, &CtActions::check_for_newer_version)});
-    _actions.push_back(CtMenuAction{file_cat, "ct_help", "ct_help", _("Online _Manual"), "F1", _("Application's Online Manual"), sigc::mem_fun(*pActions, &CtActions::online_help)});
-    _actions.push_back(CtMenuAction{file_cat, "ct_about", "ct_about", _("_About"), None, _("About CherryTree"), sigc::mem_fun(*pActions, &CtActions::dialog_about)});
-    const char* editor_cat = _("Editor");
+    const char* editor_cat = _("Edit/Insert");
     _actions.push_back(CtMenuAction{editor_cat, "act_undo", "ct_undo", _("_Undo"), KB_CONTROL+"Z", _("Undo Last Operation"), sigc::mem_fun(*pActions, &CtActions::requested_step_back)});
     _actions.push_back(CtMenuAction{editor_cat, "act_redo", "ct_redo", _("_Redo"), KB_CONTROL+"Y", _("Redo Previously Discarded Operation"), sigc::mem_fun(*pActions, &CtActions::requested_step_ahead)});
     _actions.push_back(CtMenuAction{editor_cat, "handle_image", "ct_image_insert", _("Insert I_mage"), KB_CONTROL+KB_ALT+"I", _("Insert an Image"), sigc::mem_fun(*pActions, &CtActions::image_handle)});
-    //_actions.push_back(CtAction{"handle_screenshot", "screenshot_insert", _("Insert _Screenshot"), KB_CONTROL+KB_SHIFT+KB_ALT+"S", _("Insert a Screenshot"), sigc::signal<void>() /* dad.screenshot_handle */});
     _actions.push_back(CtMenuAction{editor_cat, "handle_table", "ct_table_insert", _("Insert _Table"), KB_CONTROL+KB_ALT+"T", _("Insert a Table"), sigc::mem_fun(*pActions, &CtActions::table_handle)});
     _actions.push_back(CtMenuAction{editor_cat, "handle_codebox", "ct_codebox_insert", _("Insert _CodeBox"), KB_CONTROL+KB_ALT+"C", _("Insert a CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_handle)});
     _actions.push_back(CtMenuAction{editor_cat, "handle_embfile", "ct_file_icon", _("Insert _File"), KB_CONTROL+KB_ALT+"E", _("Insert File"), sigc::mem_fun(*pActions, &CtActions::embfile_insert)});
@@ -120,7 +125,6 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{editor_cat, "case_down", "ct_case_lower", _("_Lower Case of Selection/Word"), KB_CONTROL+"W", _("Lower the Case of the Selection/the Underlying Word"), sigc::mem_fun(*pActions, &CtActions::text_selection_lower_case)});
     _actions.push_back(CtMenuAction{editor_cat, "case_up", "ct_case_upper", _("_Upper Case of Selection/Word"), KB_CONTROL+KB_SHIFT+"W", _("Upper the Case of the Selection/the Underlying Word"), sigc::mem_fun(*pActions, &CtActions::text_selection_upper_case)});
     _actions.push_back(CtMenuAction{editor_cat, "case_tggl", "ct_case_toggle", _("_Toggle Case of Selection/Word"), KB_CONTROL+"G", _("Toggle the Case of the Selection/the Underlying Word"), sigc::mem_fun(*pActions, &CtActions::text_selection_toggle_case)});
-    _actions.push_back(CtMenuAction{editor_cat, "spellcheck_toggle", "ct_spell-check", _("Enable/Disable _Spell Check"), KB_CONTROL+KB_ALT+"S", _("Toggle Enable/Disable Spell Check"), sigc::mem_fun(*pActions, &CtActions::toggle_ena_dis_spellcheck)});
     _actions.push_back(CtMenuAction{editor_cat, "cut_plain", "ct_edit_cut", _("Cu_t as Plain Text"), KB_CONTROL+KB_SHIFT+"X", _("Cut as Plain Text, Discard the Rich Text Formatting"), sigc::mem_fun(*pActions, &CtActions::cut_as_plain_text)});
     _actions.push_back(CtMenuAction{editor_cat, "copy_plain", "ct_edit_copy", _("_Copy as Plain Text"), KB_CONTROL+KB_SHIFT+"C", _("Copy as Plain Text, Discard the Rich Text Formatting"), sigc::mem_fun(*pActions, &CtActions::copy_as_plain_text)});
     _actions.push_back(CtMenuAction{editor_cat, "paste_plain", "ct_edit_paste", _("_Paste as Plain Text"), KB_CONTROL+KB_SHIFT+"V", _("Paste as Plain Text, Discard the Rich Text Formatting"), sigc::mem_fun(*pActions, &CtActions::paste_as_plain_text)});
@@ -130,7 +134,6 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{editor_cat, "dup_row", "ct_add", _("_Duplicate Row"), KB_CONTROL+"D", _("Duplicate the Current Row/Selection"), sigc::mem_fun(*pActions, &CtActions::text_row_selection_duplicate)});
     _actions.push_back(CtMenuAction{editor_cat, "mv_up_row", "ct_go-up", _("Move _Up Row"), KB_ALT+CtConst::STR_KEY_UP, _("Move Up the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_up)});
     _actions.push_back(CtMenuAction{editor_cat, "mv_down_row", "ct_go-down", _("Move _Down Row"), KB_ALT+CtConst::STR_KEY_DOWN, _("Move Down the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_down)});
-    _actions.push_back(CtMenuAction{editor_cat, "strip_trail_spaces", "ct_clear", _("Stri_p Trailing Spaces"), None, _("Strip Trailing Spaces"), sigc::mem_fun(*pActions, &CtActions::strip_trailing_spaces)});
     const char* fmt_cat = _("Format");
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_clone", "ct_fmt-txt-clone", _("Format C_lone"), None, _("Clone the Text Format Type at Cursor"), sigc::mem_fun(*pActions, &CtActions::save_tags_at_cursor_as_latest)});
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_latest", "ct_fmt-txt-latest", _("Format _Latest"), "F7", _("Memory of Latest Text Format Type"), sigc::mem_fun(*pActions, &CtActions::apply_tags_latest)});
@@ -157,15 +160,28 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_justify_fill", "ct_justify-fill", _("Justify _Fill"), None, _("Justify Fill the Current Paragraph"), sigc::mem_fun(*pActions, &CtActions::apply_tag_justify_fill)});
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_indent", "ct_fmt-indent", _("Indent Paragraph"), KB_CONTROL+KB_SHIFT+"greater", _("Indent the Current Paragraph"), sigc::mem_fun(*pActions, &CtActions::apply_tag_indent)});
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_unindent", "ct_fmt-unindent", _("Unindent Paragraph"), KB_CONTROL+KB_SHIFT+"less", _("Unindent the Current Paragraph"), sigc::mem_fun(*pActions, &CtActions::reduce_tag_indent)});
+    const char* tools_cat = _("Tools");
+    _actions.push_back(CtMenuAction{tools_cat, "spellcheck_toggle", "ct_spell-check", _("Enable/Disable _Spell Check"), KB_CONTROL+KB_ALT+"S", _("Toggle Enable/Disable Spell Check"), sigc::mem_fun(*pActions, &CtActions::toggle_ena_dis_spellcheck)});
+    _actions.push_back(CtMenuAction{tools_cat, "strip_trail_spaces", "ct_clear", _("Stri_p Trailing Spaces"), None, _("Strip Trailing Spaces"), sigc::mem_fun(*pActions, &CtActions::strip_trailing_spaces)});
+    _actions.push_back(CtMenuAction{tools_cat, "command_palette", "ct_execute", _("_Command Palette"), KB_CONTROL+KB_SHIFT+"P", _("Command Palette"), sigc::mem_fun(*pActions, &CtActions::command_palette)});
+    _actions.push_back(CtMenuAction{tools_cat, "exec_code", "ct_execute", _("_Execute Code"), "F5", _("Execute Code"), sigc::mem_fun(*pActions, &CtActions::exec_code)});
     const char* tree_cat = _("Tree");
+    _actions.push_back(CtMenuAction{tree_cat, "go_node_prev", "ct_go-back", _("Go _Back"), KB_ALT+CtConst::STR_KEY_LEFT, _("Go to the Previous Visited Node"), sigc::mem_fun(*pActions, &CtActions::node_go_back)});
+    _actions.push_back(CtMenuAction{tree_cat, "go_node_next", "ct_go-forward", _("Go _Forward"), KB_ALT+CtConst::STR_KEY_RIGHT, _("Go to the Next Visited Node"), sigc::mem_fun(*pActions, &CtActions::node_go_forward)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_add_node", "ct_tree-node-add", _("Add _Node"), KB_CONTROL+"N", _("Add a Node having the same Parent of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_add)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_add_subnode", "ct_tree-subnode-add", _("Add _SubNode"), KB_CONTROL+KB_SHIFT+"N", _("Add a Child Node to the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_child_add)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_dup_node", "ct_tree-node-dupl", _("_Duplicate Node"), KB_CONTROL+KB_SHIFT+"D", _("Duplicate the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_duplicate)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_dup_node_subnodes", "ct_tree-nodesub-dupl", _("_Duplicate Node and Sub Nodes"), None, _("Duplicate the Selected Node With SubNodes"), sigc::mem_fun(*pActions, &CtActions::node_subnodes_duplicate)});
+    _actions.push_back(CtMenuAction{tree_cat, "tree_node_date", "ct_calendar", _("Insert Today's Node"), "F8", _("Insert a Node with Hierarchy Year/Month/Day"), sigc::mem_fun(*pActions, &CtActions::node_date)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_prop", "ct_cherry_edit", _("Change Node _Properties"), "F2", _("Edit the Properties of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_edit)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_toggle_ro", "ct_locked", _("Toggle _Read Only"), KB_CONTROL+KB_ALT+"R", _("Toggle the Read Only Property of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_toggle_read_only)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_node_date", "ct_calendar", _("Insert Today's Node"), "F8", _("Insert a Node with Hierarchy Year/Month/Day"), sigc::mem_fun(*pActions, &CtActions::node_date)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_parse_info", "ct_info", _("Tree _Info"), None, _("Tree Summary Information"), sigc::mem_fun(*pActions, &CtActions::tree_info)});
+    _actions.push_back(CtMenuAction{tree_cat, "tree_node_link", "ct_node_link", _("Copy Link to Node"), None, _("Copy Link to the Selected Node to Clipboard"), sigc::mem_fun(*pActions, &CtActions::node_link_to_clipboard)});
+    _actions.push_back(CtMenuAction{tree_cat, "child_nodes_inherit_syntax", "ct_execute", _("_Inherit Syntax"), None, _("Change the Selected Node's Children Syntax Highlighting to the Parent's Syntax Highlighting"), sigc::mem_fun(*pActions, &CtActions::node_inherit_syntax)});
+    _actions.push_back(CtMenuAction{tree_cat, "handle_bookmarks", "ct_edit", _("_Handle Bookmarks"), None, _("Handle the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmarks_handle)});
+    _actions.push_back(CtMenuAction{tree_cat, "node_bookmark", "ct_pin-add", _("Add to _Bookmarks"), KB_CONTROL+KB_SHIFT+"B", _("Add the Current Node to the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmark_curr_node)});
+    _actions.push_back(CtMenuAction{tree_cat, "node_unbookmark", "ct_pin-remove", _("_Remove from Bookmarks"), KB_CONTROL+KB_ALT+"B", _("Remove the Current Node from the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmark_curr_node_remove)});
+    _actions.push_back(CtMenuAction{tree_cat, "nodes_all_expand", "ct_zoom-in", _("E_xpand All Nodes"), KB_CONTROL+KB_SHIFT+"E", _("Expand All the Tree Nodes"), sigc::mem_fun(*pActions, &CtActions::nodes_expand_all)});
+    _actions.push_back(CtMenuAction{tree_cat, "nodes_all_collapse", "ct_zoom-out", _("_Collapse All Nodes"), KB_CONTROL+KB_SHIFT+"L", _("Collapse All the Tree Nodes"), sigc::mem_fun(*pActions, &CtActions::nodes_collapse_all)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_up", "ct_go-up", _("Node _Up"), KB_SHIFT+KB_ALT+CtConst::STR_KEY_UP, _("Move the Selected Node Up"), sigc::mem_fun(*pActions, &CtActions::node_up)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_down", "ct_go-down", _("Node _Down"), KB_SHIFT+KB_ALT+CtConst::STR_KEY_DOWN, _("Move the Selected Node Down"), sigc::mem_fun(*pActions, &CtActions::node_down)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_left", "ct_go-back", _("Node _Left"), KB_SHIFT+KB_ALT+CtConst::STR_KEY_LEFT, _("Move the Selected Node Left"), sigc::mem_fun(*pActions, &CtActions::node_left)});
@@ -175,14 +191,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{tree_cat, "tree_all_sort_desc", "ct_sort-desc", _("Sort Tree _Descending"), None, _("Sort the Tree Descending"), sigc::mem_fun(*pActions, &CtActions::tree_sort_descending)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_sibl_sort_asc", "ct_sort-asc", _("Sort Siblings A_scending"), None, _("Sort all the Siblings of the Selected Node Ascending"), sigc::mem_fun(*pActions, &CtActions::node_siblings_sort_ascending)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_sibl_sort_desc", "ct_sort-desc", _("Sort Siblings D_escending"), None, _("Sort all the Siblings of the Selected Node Descending"), sigc::mem_fun(*pActions, &CtActions::node_siblings_sort_descending)});
-    _actions.push_back(CtMenuAction{tree_cat, "child_nodes_inherit_syntax", "ct_execute", _("_Inherit Syntax"), None, _("Change the Selected Node's Children Syntax Highlighting to the Parent's Syntax Highlighting"), sigc::mem_fun(*pActions, &CtActions::node_inherit_syntax)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_del", "ct_edit_delete", _("De_lete Node"), None, _("Delete the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_delete)});
-    _actions.push_back(CtMenuAction{tree_cat, "node_bookmark", "ct_pin-add", _("Add to _Bookmarks"), KB_CONTROL+KB_SHIFT+"B", _("Add the Current Node to the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmark_curr_node)});
-    _actions.push_back(CtMenuAction{tree_cat, "node_unbookmark", "ct_pin-remove", _("_Remove from Bookmarks"), KB_CONTROL+KB_ALT+"B", _("Remove the Current Node from the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmark_curr_node_remove)});
-    _actions.push_back(CtMenuAction{tree_cat, "handle_bookmarks", "ct_edit", _("_Handle Bookmarks"), None, _("Handle the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmarks_handle)});
-    _actions.push_back(CtMenuAction{tree_cat, "go_node_prev", "ct_go-back", _("Go _Back"), KB_ALT+CtConst::STR_KEY_LEFT, _("Go to the Previous Visited Node"), sigc::mem_fun(*pActions, &CtActions::node_go_back)});
-    _actions.push_back(CtMenuAction{tree_cat, "go_node_next", "ct_go-forward", _("Go _Forward"), KB_ALT+CtConst::STR_KEY_RIGHT, _("Go to the Next Visited Node"), sigc::mem_fun(*pActions, &CtActions::node_go_forward)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_node_link", "ct_node_link", _("Copy Link to Node"), None, _("Copy Link to the Selected Node to Clipboard"), sigc::mem_fun(*pActions, &CtActions::node_link_to_clipboard)});
     const char* find_cat = _("Find/Replace");
     _actions.push_back(CtMenuAction{find_cat, "find_in_node", "ct_find_sel", _("_Find in Node Content"), KB_CONTROL+"F", _("Find into the Selected Node Content"), sigc::mem_fun(*pActions, &CtActions::find_in_selected_node)});
     _actions.push_back(CtMenuAction{find_cat, "find_in_allnodes", "ct_find_all", _("Find in _All Nodes Contents"), KB_CONTROL+KB_SHIFT+"F", _("Find into All the Tree Nodes Contents"), sigc::mem_fun(*pActions, &CtActions::find_in_all_nodes)});
@@ -197,20 +206,13 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{find_cat, "replace_iter_fw", "ct_replace_again", _("Replace _Again"), "F6", _("Iterate the Last Replace Operation"), sigc::mem_fun(*pActions, &CtActions::replace_again)});
     _actions.push_back(CtMenuAction{find_cat, "toggle_show_allmatches_dlg", "ct_find", _("Show _All Matches Dialog"), KB_CONTROL+KB_SHIFT+"A", _("Show Search All Matches Dialog"), sigc::mem_fun(*pActions, &CtActions::find_allmatchesdialog_restore)});
     const char* view_cat = _("View");
-    _actions.push_back(CtMenuAction{view_cat, "toggle_show_tree", "ct_cherries", _("Show/Hide _Tree"), "F9", _("Toggle Show/Hide Tree"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_tree)});
+    _actions.push_back(CtMenuAction{view_cat, "toggle_show_tree", "ct_cherries", _("Show/Hide _Tree Explorer"), "F9", _("Toggle Show/Hide Tree"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_tree)});
     _actions.push_back(CtMenuAction{view_cat, "toggle_show_toolbar", "ct_toolbar", _("Show/Hide Tool_bar"), None, _("Toggle Show/Hide Toolbar"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_toolbars)});
     _actions.push_back(CtMenuAction{view_cat, "toggle_show_node_name_head", "ct_node_name_header", _("Show/Hide Node Name _Header"), None, _("Toggle Show/Hide Node Name Header"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_node_name_header)});
     _actions.push_back(CtMenuAction{view_cat, "toggle_focus_tree_text", "ct_go-jump", _("Toggle _Focus Tree/Text"), KB_CONTROL+"Tab", _("Toggle Focus Between Tree and Text"), sigc::mem_fun(*pActions, &CtActions::toggle_tree_text)});
-    _actions.push_back(CtMenuAction{view_cat, "nodes_all_expand", "ct_zoom-in", _("E_xpand All Nodes"), KB_CONTROL+KB_SHIFT+"E", _("Expand All the Tree Nodes"), sigc::mem_fun(*pActions, &CtActions::nodes_expand_all)});
-    _actions.push_back(CtMenuAction{view_cat, "nodes_all_collapse", "ct_zoom-out", _("_Collapse All Nodes"), KB_CONTROL+KB_SHIFT+"L", _("Collapse All the Tree Nodes"), sigc::mem_fun(*pActions, &CtActions::nodes_collapse_all)});
     _actions.push_back(CtMenuAction{view_cat, "toolbar_icons_size_p", "ct_add", _("_Increase Toolbar Icons Size"), None, _("Increase the Size of the Toolbar Icons"), sigc::mem_fun(*pActions, &CtActions::toolbar_icons_size_increase)});
     _actions.push_back(CtMenuAction{view_cat, "toolbar_icons_size_m", "ct_remove", _("_Decrease Toolbar Icons Size"), None, _("Decrease the Size of the Toolbar Icons"), sigc::mem_fun(*pActions, &CtActions::toolbar_icons_size_decrease)});
     _actions.push_back(CtMenuAction{view_cat, "toggle_fullscreen", "ct_fullscreen", _("_Full Screen On/Off"), "F11", _("Toggle Full Screen On/Off"), sigc::mem_fun(*pActions, &CtActions::fullscreen_toggle)});
-    const char* export_cat = _("Export");
-    _actions.push_back(CtMenuAction{export_cat, "export_pdf", "ct_to_pdf", _("Export To _PDF"), None, _("Export To PDF"), sigc::mem_fun(*pActions, &CtActions::export_to_pdf)});
-    _actions.push_back(CtMenuAction{export_cat, "export_html", "ct_to_html", _("Export To _HTML"), None, _("Export To HTML"), sigc::mem_fun(*pActions, &CtActions::export_to_html)});
-    _actions.push_back(CtMenuAction{export_cat, "export_txt", "ct_to_txt", _("Export to Plain _Text"), None, _("Export to Plain Text"), sigc::mem_fun(*pActions, &CtActions::export_to_txt)});
-    _actions.push_back(CtMenuAction{export_cat, "export_ctd", "ct_to_cherrytree", _("_Export To CherryTree Document"), None, _("Export To CherryTree Document"), sigc::mem_fun(*pActions, &CtActions::export_to_ctd)});
     const char* import_cat = _("Import");
     _actions.push_back(CtMenuAction{import_cat, "import_cherrytree", "ct_from_cherrytree", _("From _CherryTree File"), None, _("Add Nodes of a CherryTree File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_ct_file)});
     _actions.push_back(CtMenuAction{import_cat, "import_txt_file", "ct_from_txt", _("From _Plain Text File"), None, _("Add Node from a Plain Text File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_node_from_plaintext_file)});
@@ -219,21 +221,26 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{import_cat, "import_html_folder", "ct_from_html", _("From _Folder of HTML Files"), None, _("Add Nodes from a Folder of HTML Files to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_node_from_html_directory)});
     _actions.push_back(CtMenuAction{import_cat, "import_md_file",  CtConst::STR_STOCK_CT_IMP, _("From _Markdown File"), None, _("Add a node from a Markdown File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_node_from_md_file)});
     _actions.push_back(CtMenuAction{import_cat, "import_md_folder",  CtConst::STR_STOCK_CT_IMP, _("From _Folder of Markdown Files"), None, _("Add Nodes from a Folder of Markdown Files to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_md_directory)});
-    //_actions.push_back(CtMenuAction{import_cat, "import_basket", CtConst::STR_STOCK_CT_IMP, _("From _Basket Folder"), None, _("Add Nodes of a Basket Folder to the Current Tree"), sigc::signal<void>() /* dad.nodes_add_from_basket_folder */});
-    //_actions.push_back(CtMenuAction{import_cat, "import_epim_html", CtConst::STR_STOCK_CT_IMP, _("From _EssentialPIM HTML File"), None, _("Add Node from an EssentialPIM HTML File to the Current Tree"), sigc::signal<void>() /* dad.nodes_add_from_epim_html_file */});
     _actions.push_back(CtMenuAction{import_cat, "import_gnote", CtConst::STR_STOCK_CT_IMP, _("From _Gnote Folder"), None, _("Add Nodes of a Gnote Folder to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_gnote_directory)});
     _actions.push_back(CtMenuAction{import_cat, "import_keepnote", CtConst::STR_STOCK_CT_IMP, _("From _KeepNote Folder"), None, _("Add Nodes of a KeepNote Folder to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_keepnote_directory) /* dad.nodes_add_from_keepnote_folder */});
-    //_actions.push_back(CtMenuAction{import_cat, "import_keynote", CtConst::STR_STOCK_CT_IMP, _("From K_eyNote File"), None, _("Add Nodes of a KeyNote File to the Current Tree"), sigc::signal<void>() /* dad.nodes_add_from_keynote_file */});
-    //_actions.push_back(CtMenuAction{import_cat, "import_knowit", CtConst::STR_STOCK_CT_IMP, _("From K_nowit File"), None, _("Add Nodes of a Knowit File to the Current Tree"), sigc::signal<void>() /* dad.nodes_add_from_knowit_file */});
     _actions.push_back(CtMenuAction{import_cat, "import_leo", CtConst::STR_STOCK_CT_IMP, _("From _Leo File"), None, _("Add Nodes of a Leo File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_leo_file)});
     _actions.push_back(CtMenuAction{import_cat, "import_mempad", CtConst::STR_STOCK_CT_IMP, _("From _Mempad File"), None, _("Add Nodes of a Mempad File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_mempad_file)});
     _actions.push_back(CtMenuAction{import_cat, "import_notecase", CtConst::STR_STOCK_CT_IMP, _("From _NoteCase HTML File"), None, _("Add Nodes of a NoteCase HTML File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_notecase_html)});
     _actions.push_back(CtMenuAction{import_cat, "import_rednotebook", CtConst::STR_STOCK_CT_IMP, _("From _RedNotebook HTML"), None, _("Add Nodes of a RedNotebook HTML file to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_rednotebook_html)});
     _actions.push_back(CtMenuAction{import_cat, "import_tomboy", CtConst::STR_STOCK_CT_IMP, _("From T_omboy Folder"), None, _("Add Nodes of a Tomboy Folder to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_tomboy_directory)});
     _actions.push_back(CtMenuAction{import_cat, "import_treepad", CtConst::STR_STOCK_CT_IMP, _("From T_reepad Lite File"), None, _("Add Nodes of a Treepad Lite File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_treepad_file)});
-    //_actions.push_back(CtMenuAction{import_cat, "import_tuxcards", CtConst::STR_STOCK_CT_IMP, _("From _TuxCards File"), None, _("Add Nodes of a TuxCards File to the Current Tree"), sigc::signal<void>() /* dad.nodes_add_from_tuxcards_file */});
     _actions.push_back(CtMenuAction{import_cat, "import_zim", CtConst::STR_STOCK_CT_IMP, _("From _Zim Folder"), None, _("Add Nodes of a Zim Folder to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_zim_directory) /* dad.nodes_add_from_zim_folder */});
     _actions.push_back(CtMenuAction{import_cat, "import_pandoc_file", CtConst::STR_STOCK_CT_IMP, _("From File using _Pandoc"), None, _("Add a node to the current tree using Pandoc"), sigc::mem_fun(*pActions, &CtActions::import_node_from_pandoc) });
+    const char* export_cat = _("Export");
+    _actions.push_back(CtMenuAction{export_cat, "export_pdf", "ct_to_pdf", _("Export To _PDF"), None, _("Export To PDF"), sigc::mem_fun(*pActions, &CtActions::export_to_pdf)});
+    _actions.push_back(CtMenuAction{export_cat, "export_html", "ct_to_html", _("Export To _HTML"), None, _("Export To HTML"), sigc::mem_fun(*pActions, &CtActions::export_to_html)});
+    _actions.push_back(CtMenuAction{export_cat, "export_txt", "ct_to_txt", _("Export to Plain _Text"), None, _("Export to Plain Text"), sigc::mem_fun(*pActions, &CtActions::export_to_txt)});
+    _actions.push_back(CtMenuAction{export_cat, "export_ctd", "ct_to_cherrytree", _("_Export To CherryTree Document"), None, _("Export To CherryTree Document"), sigc::mem_fun(*pActions, &CtActions::export_to_ctd)});
+    const char* help_cat = _("Help");
+    _actions.push_back(CtMenuAction{help_cat, "ct_check_newer", "ct_network", _("_Check Newer Version"), None, _("Check for a Newer Version"), sigc::mem_fun(*pActions, &CtActions::check_for_newer_version)});
+    _actions.push_back(CtMenuAction{help_cat, "ct_help", "ct_help", _("Online _Manual"), "F1", _("Application's Online Manual"), sigc::mem_fun(*pActions, &CtActions::online_help)});
+    _actions.push_back(CtMenuAction{help_cat, "ct_about", "ct_about", _("_About"), None, _("About CherryTree"), sigc::mem_fun(*pActions, &CtActions::dialog_about)});
+    _actions.push_back(CtMenuAction{help_cat, "open_cfg_folder", "ct_directory", _("Open Preferences _Directory"), None, _("Open the Directory with Preferences Files"), sigc::mem_fun(*pActions, &CtActions::folder_cfg_open)});
     const char* others_cat = "";
     _actions.push_back(CtMenuAction{others_cat, "anch_cut", "ct_edit_cut", _("C_ut Anchor"), None, _("Cut the Selected Anchor"), sigc::mem_fun(*pActions, &CtActions::anchor_cut)});
     _actions.push_back(CtMenuAction{others_cat, "anch_copy", "ct_edit_copy", _("_Copy Anchor"), None, _("Copy the Selected Anchor"), sigc::mem_fun(*pActions, &CtActions::anchor_copy)});
@@ -451,8 +458,6 @@ void CtMenu::build_popup_menu(Gtk::Menu* pMenu, POPUP_MENU_TYPE popupMenuType)
             _add_menu_item(pMenu, find_action("cut_plain"));
             _add_menu_item(pMenu, find_action("copy_plain"));
             _add_menu_separator(pMenu);
-            _add_menu_item(pMenu, find_action("codebox_change_properties"));
-            _add_menu_item(pMenu, find_action("exec_code"));
             _add_menu_item(pMenu, find_action("codebox_load_from_file"));
             _add_menu_item(pMenu, find_action("codebox_save_to_file"));
             _add_menu_separator(pMenu);
@@ -465,6 +470,9 @@ void CtMenu::build_popup_menu(Gtk::Menu* pMenu, POPUP_MENU_TYPE popupMenuType)
             _add_menu_item(pMenu, find_action("codebox_decrease_width"));
             _add_menu_item(pMenu, find_action("codebox_increase_height"));
             _add_menu_item(pMenu, find_action("codebox_decrease_height"));
+            _add_menu_separator(pMenu);
+            _add_menu_item(pMenu, find_action("exec_code"));
+            _add_menu_item(pMenu, find_action("codebox_change_properties"));
         } break;
         case CtMenu::POPUP_MENU_TYPE::PopupMenuNum: {
         } break;
@@ -491,11 +499,11 @@ void CtMenu::build_popup_menu_table_cell(Gtk::Menu* pMenu,
     _add_menu_item(pMenu, find_action("table_column_increase_width"));
     _add_menu_item(pMenu, find_action("table_column_decrease_width"));
     _add_menu_separator(pMenu);
-    _add_menu_item(pMenu, find_action("table_row_add"));
-    _add_menu_item(pMenu, find_action("table_row_delete"));
     _add_menu_item(pMenu, find_action("table_row_cut"));
     _add_menu_item(pMenu, find_action("table_row_copy"));
     _add_menu_item(pMenu, find_action("table_row_paste"));
+    _add_menu_item(pMenu, find_action("table_row_add"));
+    _add_menu_item(pMenu, find_action("table_row_delete"));
     _add_menu_separator(pMenu);
     if (not first_row) _add_menu_item(pMenu, find_action("table_row_up"));
     if (not last_row) _add_menu_item(pMenu, find_action("table_row_down"));
@@ -748,126 +756,10 @@ const char* CtMenu::_get_ui_str_menu()
   <menu action='FileMenu'>
     <menuitem action='ct_new_inst'/>
     <menuitem action='ct_open_file'/>
-    <menu action='RecentDocsMenu'>
+    <menu action='RecentDocsSubMenu'>
     </menu>
     <separator/>
-    <menuitem action='ct_vacuum'/>
-    <menuitem action='ct_save'/>
-    <menuitem action='ct_save_as'/>
-    <separator/>
-    <menuitem action='print_page_setup'/>
-    <menuitem action='do_print'/>
-    <separator/>
-    <menuitem action='preferences_dlg'/>
-    <menuitem action='tree_parse_info'/>
-    <separator/>
-    <menuitem action='command_palette'/>
-    <menuitem action='exec_code'/>
-    <separator/>
-    <menuitem action='quit_app'/>
-    <menuitem action='exit_app'/>
-  </menu>
-
-  <menu action='EditMenu'>
-    <menuitem action='act_undo'/>
-    <menuitem action='act_redo'/>
-    <separator/>
-    <menuitem action='handle_image'/>
-    <menuitem action='handle_table'/>
-    <menuitem action='handle_codebox'/>
-    <menuitem action='handle_embfile'/>
-    <menuitem action='handle_link'/>
-    <menuitem action='handle_anchor'/>
-    <menuitem action='insert_toc'/>
-    <menuitem action='insert_timestamp'/>
-    <menuitem action='insert_special_char'/>
-    <menuitem action='insert_horiz_rule'/>
-    <menuitem action='strip_trail_spaces'/>
-    <separator/>
-    <menu action='ChangeCaseMenu'>
-      <menuitem action='case_down'/>
-      <menuitem action='case_up'/>
-      <menuitem action='case_tggl'/>
-    </menu>
-    <separator/>
-    <menuitem action='spellcheck_toggle'/>
-    <separator/>
-    <menuitem action='cut_plain'/>
-    <menuitem action='copy_plain'/>
-    <menuitem action='paste_plain'/>
-    <separator/>
-    <menuitem action='cut_row'/>
-    <menuitem action='copy_row'/>
-    <menuitem action='del_row'/>
-    <menuitem action='dup_row'/>
-    <menuitem action='mv_up_row'/>
-    <menuitem action='mv_down_row'/>
-  </menu>
-
-  <menu action='FormattingMenu'>
-    <menuitem action='fmt_clone'/>
-    <menuitem action='fmt_latest'/>
-    <menuitem action='fmt_rm'/>
-    <separator/>
-    <menuitem action='fmt_color_fg'/>
-    <menuitem action='fmt_color_bg'/>
-    <menuitem action='fmt_bold'/>
-    <menuitem action='fmt_italic'/>
-    <menuitem action='fmt_underline'/>
-    <menuitem action='fmt_strikethrough'/>
-    <menuitem action='fmt_h1'/>
-    <menuitem action='fmt_h2'/>
-    <menuitem action='fmt_h3'/>
-    <menuitem action='fmt_small'/>
-    <menuitem action='fmt_superscript'/>
-    <menuitem action='fmt_subscript'/>
-    <menuitem action='fmt_monospace'/>
-    <separator/>
-    <menuitem action='handle_bull_list'/>
-    <menuitem action='handle_num_list'/>
-    <menuitem action='handle_todo_list'/>
-    <separator/>
-    <menuitem action='fmt_indent'/>
-    <menuitem action='fmt_unindent'/>
-    <separator/>
-    <menuitem action='fmt_justify_left'/>
-    <menuitem action='fmt_justify_center'/>
-    <menuitem action='fmt_justify_right'/>
-    <menuitem action='fmt_justify_fill'/>
-  </menu>
-
-  <menu action='TreeMenu'>
-    <menuitem action='tree_add_node'/>
-    <menuitem action='tree_add_subnode'/>
-    <menuitem action='tree_dup_node'/>
-    <menuitem action='tree_dup_node_subnodes'/>
-    <separator/>
-    <menuitem action='tree_node_prop'/>
-    <menuitem action='tree_node_toggle_ro'/>
-    <menuitem action='node_bookmark'/>
-    <menuitem action='node_unbookmark'/>
-    <menuitem action='tree_node_link'/>
-    <menuitem action='tree_node_date'/>
-    <separator/>
-    <menu action='TreeMoveMenu'>
-      <menuitem action='tree_node_up'/>
-      <menuitem action='tree_node_down'/>
-      <menuitem action='tree_node_left'/>
-      <menuitem action='tree_node_right'/>
-      <menuitem action='tree_node_new_father'/>
-    </menu>
-    <separator/>
-    <menu action='TreeSortMenu'>
-      <menuitem action='tree_all_sort_asc'/>
-      <menuitem action='tree_all_sort_desc'/>
-      <menuitem action='tree_sibl_sort_asc'/>
-      <menuitem action='tree_sibl_sort_desc'/>
-    </menu>
-    <separator/>
-    <menuitem action='find_in_node_names'/>
-    <menuitem action='replace_in_node_names'/>
-    <separator/>
-    <menu action='TreeImportMenu'>
+    <menu action='ImportSubMenu'>
       <menuitem action='import_cherrytree'/>
       <menuitem action='import_txt_file'/>
       <menuitem action='import_txt_folder'/>
@@ -886,82 +778,185 @@ const char* CtMenu::_get_ui_str_menu()
       <menuitem action='import_zim'/>
       <menuitem action='import_pandoc_file'/>
     </menu>
-    <separator/>
-    <menu action='TreeExportMenu'>
+    <menu action='ExportSubMenu'>
       <menuitem action='export_pdf'/>
       <menuitem action='export_html'/>
       <menuitem action='export_txt'/>
       <menuitem action='export_ctd'/>
     </menu>
     <separator/>
+    <menuitem action='ct_vacuum'/>
+    <menuitem action='ct_save'/>
+    <menuitem action='ct_save_as'/>
+    <separator/>
+    <menuitem action='print_page_setup'/>
+    <menuitem action='do_print'/>
+    <separator/>
+    <menuitem action='preferences_dlg'/>
+    <menuitem action='tree_parse_info'/>
+    <separator/>
+    <menuitem action='quit_app'/>
+    <menuitem action='exit_app'/>
+  </menu>
+
+  <menu action='EditMenu'>
+    <menuitem action='act_undo'/>
+    <menuitem action='act_redo'/>
+    <separator/>
+    <menuitem action='cut_plain'/>
+    <menuitem action='copy_plain'/>
+    <menuitem action='paste_plain'/>
+    <separator/>
+    <menuitem action='cut_row'/>
+    <menuitem action='copy_row'/>
+    <menuitem action='dup_row'/>
+    <menuitem action='mv_up_row'/>
+    <menuitem action='mv_down_row'/>
+    <menuitem action='del_row'/>
+  </menu>
+
+  <menu action='InsertMenu'>
+    <menuitem action='handle_image'/>
+    <menuitem action='handle_table'/>
+    <menuitem action='handle_codebox'/>
+    <menuitem action='handle_embfile'/>
+    <menuitem action='handle_link'/>
+    <menuitem action='handle_anchor'/>
+    <menuitem action='insert_toc'/>
+    <menuitem action='insert_timestamp'/>
+    <menuitem action='insert_special_char'/>
+    <menuitem action='insert_horiz_rule'/>
+    <menu action='ListSubMenu'>
+     <menuitem action='handle_bull_list'/>
+     <menuitem action='handle_num_list'/>
+     <menuitem action='handle_todo_list'/>
+    </menu>
+  </menu>
+
+  <menu action='FormatMenu'>
+    <menuitem action='fmt_clone'/>
+    <menuitem action='fmt_latest'/>
+    <menuitem action='fmt_rm'/>
+    <separator/>
+    <menuitem action='fmt_color_fg'/>
+    <menuitem action='fmt_color_bg'/>
+    <separator/>
+    <menu action='FontSubMenu'>
+      <menuitem action='fmt_bold'/>
+      <menuitem action='fmt_italic'/>
+      <menuitem action='fmt_underline'/>
+      <menuitem action='fmt_strikethrough'/>
+      <menuitem action='fmt_monospace'/>
+      <menuitem action='fmt_small'/>
+    </menu>
+    <menu action='ChangeCaseSubMenu'>
+      <menuitem action='case_down'/>
+      <menuitem action='case_up'/>
+      <menuitem action='case_tggl'/>
+    </menu>
+    <menu action='ToggleSubMenu'>
+      <menuitem action='fmt_h1'/>
+      <menuitem action='fmt_h2'/>
+      <menuitem action='fmt_h3'/>
+    </menu>
+    <separator/>
+    <menuitem action='fmt_superscript'/>
+    <menuitem action='fmt_subscript'/>
+    <separator/>
+    <menuitem action='fmt_indent'/>
+    <menuitem action='fmt_unindent'/>
+    <separator/>
+    <menu action='JustifySubMenu'>
+      <menuitem action='fmt_justify_left'/>
+      <menuitem action='fmt_justify_center'/>
+      <menuitem action='fmt_justify_right'/>
+      <menuitem action='fmt_justify_fill'/>
+    </menu>
+  </menu>
+
+  <menu action='ToolsMenu'>
+    <menuitem action='spellcheck_toggle'/>
+    <separator/>
+    <menuitem action='strip_trail_spaces'/>
+    <separator/>
+    <menuitem action='command_palette'/>
+    <menuitem action='exec_code'/>
+  </menu>
+
+  <menu action='TreeMenu'>
+    <menuitem action='go_node_next'/>
+    <menuitem action='go_node_prev'/>
+    <separator/>
+    <menuitem action='tree_add_node'/>
+    <menuitem action='tree_add_subnode'/>
+    <menuitem action='tree_dup_node'/>
+    <menuitem action='tree_dup_node_subnodes'/>
+    <menuitem action='tree_node_date'/>
+    <separator/>
+    <menuitem action='tree_node_prop'/>
+    <menuitem action='tree_node_toggle_ro'/>
+    <menuitem action='tree_node_link'/>
     <menuitem action='child_nodes_inherit_syntax'/>
     <separator/>
-    <menuitem action='tree_node_del'/>
+    <menu action='BookmarksSubMenu'>
+      <menuitem action='handle_bookmarks'/>
+    </menu>
+    <menuitem action='node_bookmark'/>
+    <menuitem action='node_unbookmark'/>
     <separator/>
-    <menuitem action='go_node_prev'/>
-    <menuitem action='go_node_next'/>
+    <menuitem action='nodes_all_expand'/>
+    <menuitem action='nodes_all_collapse'/>
+    <separator/>
+    <menu action='TreeMoveSubMenu'>
+      <menuitem action='tree_node_up'/>
+      <menuitem action='tree_node_down'/>
+      <menuitem action='tree_node_left'/>
+      <menuitem action='tree_node_right'/>
+      <menuitem action='tree_node_new_father'/>
+    </menu>
+    <menu action='TreeSortSubMenu'>
+      <menuitem action='tree_all_sort_asc'/>
+      <menuitem action='tree_all_sort_desc'/>
+      <menuitem action='tree_sibl_sort_asc'/>
+      <menuitem action='tree_sibl_sort_desc'/>
+    </menu>
+    <separator/>
+    <menuitem action='tree_node_del'/>
   </menu>
 
   <menu action='SearchMenu'>
-    <menuitem action='find_in_node'/>
-    <menuitem action='find_in_allnodes'/>
-    <menuitem action='find_in_node_n_sub'/>
-    <menuitem action='find_in_node_names'/>
+    <menu action='FindSubMenu'>
+      <menuitem action='find_in_node'/>
+      <menuitem action='find_in_allnodes'/>
+      <menuitem action='find_in_node_n_sub'/>
+      <menuitem action='find_in_node_names'/>
+    </menu>
+    <menu action='ReplaceSubMenu'>
+      <menuitem action='replace_in_node'/>
+      <menuitem action='replace_in_allnodes'/>
+      <menuitem action='replace_in_node_n_sub'/>
+      <menuitem action='replace_in_node_names'/>
+    </menu>
+    <separator/>
     <menuitem action='find_iter_fw'/>
     <menuitem action='find_iter_bw'/>
     <separator/>
-    <menuitem action='replace_in_node'/>
-    <menuitem action='replace_in_allnodes'/>
-    <menuitem action='replace_in_node_n_sub'/>
-    <menuitem action='replace_in_node_names'/>
     <menuitem action='replace_iter_fw'/>
+    <separator/>
+    <menuitem action='toggle_show_allmatches_dlg'/>
   </menu>
 
   <menu action='ViewMenu'>
     <menuitem action='toggle_show_tree'/>
     <menuitem action='toggle_show_toolbar'/>
     <menuitem action='toggle_show_node_name_head'/>
-    <menuitem action='toggle_show_allmatches_dlg'/>
     <separator/>
     <menuitem action='toggle_focus_tree_text'/>
-    <menuitem action='nodes_all_expand'/>
-    <menuitem action='nodes_all_collapse'/>
     <separator/>
     <menuitem action='toolbar_icons_size_p'/>
     <menuitem action='toolbar_icons_size_m'/>
     <separator/>
     <menuitem action='toggle_fullscreen'/>
-  </menu>
-
-  <menu action='BookmarksMenu'>
-    <menuitem action='handle_bookmarks'/>
-  </menu>
-
-  <menu action='ImportMenu'>
-    <menuitem action='import_cherrytree'/>
-    <menuitem action='import_txt_file'/>
-    <menuitem action='import_txt_folder'/>
-    <menuitem action='import_html_file'/>
-    <menuitem action='import_html_folder'/>
-    <menuitem action='import_md_file'/>
-    <menuitem action='import_md_folder'/>
-    <menuitem action='import_gnote'/>
-    <menuitem action='import_keepnote'/>
-    <menuitem action='import_leo'/>
-    <menuitem action='import_mempad'/>
-    <menuitem action='import_notecase'/>
-    <menuitem action='import_rednotebook'/>
-    <menuitem action='import_tomboy'/>
-    <menuitem action='import_treepad'/>
-    <menuitem action='import_zim'/>
-    <menuitem action='import_pandoc_file'/>
-  </menu>
-
-  <menu action='ExportMenu'>
-    <menuitem action='export_pdf'/>
-    <menuitem action='export_html'/>
-    <menuitem action='export_txt'/>
-    <menuitem action='export_ctd'/>
   </menu>
 
   <menu action='HelpMenu'>
@@ -986,40 +981,53 @@ const char* CtMenu::_get_popup_menu_ui_str_text()
   <menuitem action='copy_plain'/>
   <menuitem action='paste_plain'/>
   <separator/>
-  <menu _name='For_matting' image='ct_fmt-txt'>
+  <menu action='RowSubMenu'>
+    <menuitem action='cut_row'/>
+    <menuitem action='copy_row'/>
+    <menuitem action='dup_row'/>
+    <menuitem action='mv_up_row'/>
+    <menuitem action='mv_down_row'/>
+    <menuitem action='del_row'/>
+    <separator/>
+    <menuitem action='strip_trail_spaces'/>
+  </menu>
+  <menu action='FormattingSubMenu'>
     <menuitem action='fmt_clone'/>
     <menuitem action='fmt_latest'/>
     <menuitem action='fmt_rm'/>
     <separator/>
     <menuitem action='fmt_color_fg'/>
     <menuitem action='fmt_color_bg'/>
+    <separator/>
     <menuitem action='fmt_bold'/>
     <menuitem action='fmt_italic'/>
     <menuitem action='fmt_underline'/>
     <menuitem action='fmt_strikethrough'/>
+    <separator/>
     <menuitem action='fmt_h1'/>
     <menuitem action='fmt_h2'/>
     <menuitem action='fmt_h3'/>
+    <separator/>
     <menuitem action='fmt_small'/>
     <menuitem action='fmt_superscript'/>
     <menuitem action='fmt_subscript'/>
     <menuitem action='fmt_monospace'/>
+    <separator/>
+    <menuitem action='fmt_indent'/>
+    <menuitem action='fmt_unindent'/>
   </menu>
-  <menu _name='_List' image='ct_list_bulleted'>
+  <menu action='ListSubMenu'>
     <menuitem action='handle_bull_list'/>
     <menuitem action='handle_num_list'/>
     <menuitem action='handle_todo_list'/>
   </menu>
-  <menuitem action='fmt_indent'/>
-  <menuitem action='fmt_unindent'/>
-  <menu _name='_Justify' image='ct_justify-center'>
+  <menu action='JustifySubMenu'>
     <menuitem action='fmt_justify_left'/>
     <menuitem action='fmt_justify_center'/>
     <menuitem action='fmt_justify_right'/>
     <menuitem action='fmt_justify_fill'/>
   </menu>
-  <separator/>
-  <menu _name='_Insert' image='ct_insert'>
+  <menu action='InsertSubMenu'>
     <menuitem action='handle_image'/>
     <menuitem action='handle_table'/>
     <menuitem action='handle_codebox'/>
@@ -1031,22 +1039,13 @@ const char* CtMenu::_get_popup_menu_ui_str_text()
     <menuitem action='insert_special_char'/>
     <menuitem action='insert_horiz_rule'/>
   </menu>
-  <menu _name='C_hange Case' image='ct_case_toggle'>
+  <menu action='ChangeCaseSubMenu'>
     <menuitem action='case_down'/>
     <menuitem action='case_up'/>
     <menuitem action='case_tggl'/>
   </menu>
-  <menu _name='_Row' image='ct_edit'>
-    <menuitem action='cut_row'/>
-    <menuitem action='copy_row'/>
-    <menuitem action='del_row'/>
-    <menuitem action='dup_row'/>
-    <menuitem action='mv_up_row'/>
-    <menuitem action='mv_down_row'/>
-  </menu>
-  <menuitem action='strip_trail_spaces'/>
   <separator/>
-  <menu _name='_Search' image='ct_find'>
+  <menu action='FindSubMenu'>
     <menuitem action='find_in_node'/>
     <menuitem action='find_in_allnodes'/>
     <menuitem action='find_in_node_n_sub'/>
@@ -1054,21 +1053,16 @@ const char* CtMenu::_get_popup_menu_ui_str_text()
     <menuitem action='find_iter_fw'/>
     <menuitem action='find_iter_bw'/>
   </menu>
-  <menu _name='_Replace' image='ct_find_replace'>
+  <menu action='ReplaceSubMenu'>
     <menuitem action='replace_in_node'/>
     <menuitem action='replace_in_allnodes'/>
     <menuitem action='replace_in_node_n_sub'/>
     <menuitem action='replace_in_node_names'/>
     <menuitem action='replace_iter_fw'/>
-    <menuitem action='find_iter_bw'/>
   </menu>
 </popup>
     )MARKUP";
 }
-#if 0
-// the following is to have xgettext add <menu _name='THIS_STRING' to the strings to be translated
-_("For_matting"),_("_List"),_("_Justify"),_("_Insert"),_("C_hange Case"),_("_Row"),_("_Search"),_("_Replace")
-#endif
 
 const char* CtMenu::_get_popup_menu_ui_str_code()
 {
@@ -1079,27 +1073,28 @@ const char* CtMenu::_get_popup_menu_ui_str_code()
   <menuitem action='copy_plain'/>
   <separator/>
   <menuitem action='exec_code'/>
-  <menu _name='_Insert' image='ct_insert'>
+  <menu action='InsertSubMenu'>
     <menuitem action='insert_timestamp'/>
     <menuitem action='insert_special_char'/>
     <menuitem action='insert_horiz_rule'/>
   </menu>
-  <menuitem action='strip_trail_spaces'/>
-  <menu _name='C_hange Case' image='ct_case_toggle'>
+  <menu action='ChangeCaseSubMenu'>
     <menuitem action='case_down'/>
     <menuitem action='case_up'/>
     <menuitem action='case_tggl'/>
   </menu>
-  <menu _name='_Row' image='ct_edit'>
+  <menu action='RowSubMenu'>
     <menuitem action='cut_row'/>
     <menuitem action='copy_row'/>
     <menuitem action='del_row'/>
     <menuitem action='dup_row'/>
     <menuitem action='mv_up_row'/>
     <menuitem action='mv_down_row'/>
+  <separator/>
+    <menuitem action='strip_trail_spaces'/>
   </menu>
   <separator/>
-  <menu _name='_Search' image='ct_find'>
+  <menu action='FindSubMenu'>
     <menuitem action='find_in_node'/>
     <menuitem action='find_in_allnodes'/>
     <menuitem action='find_in_node_n_sub'/>
@@ -1107,21 +1102,16 @@ const char* CtMenu::_get_popup_menu_ui_str_code()
     <menuitem action='find_iter_fw'/>
     <menuitem action='find_iter_bw'/>
   </menu>
-  <menu _name='_Replace' image='ct_find_replace'>
+  <menu action='ReplaceSubMenu'>
     <menuitem action='replace_in_node'/>
     <menuitem action='replace_in_allnodes'/>
     <menuitem action='replace_in_node_n_sub'/>
     <menuitem action='replace_in_node_names'/>
     <menuitem action='replace_iter_fw'/>
-    <menuitem action='find_iter_bw'/>
   </menu>
 </popup>
     )MARKUP";
 }
-#if 0
-// the following is to have xgettext add <menu _name='THIS_STRING' to the strings to be translated
-_("_Insert"),_("C_hange Case"),_("_Row"),_("_Search"),_("_Replace")
-#endif
 
 const char* CtMenu::_get_popup_menu_ui_str_image()
 {

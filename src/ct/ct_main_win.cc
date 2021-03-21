@@ -74,8 +74,8 @@ CtMainWin::CtMainWin(bool                            no_gui,
 
     _pMenuBar = _uCtMenu->build_menubar();
     _pMenuBar->set_name("MenuBar");
-    _pBookmarksSubmenu = CtMenu::find_menu_item(_pMenuBar, "BookmarksMenu");
-    _pRecentDocsSubmenu = CtMenu::find_menu_item(_pMenuBar, "RecentDocsMenu");
+    _pBookmarksSubmenu = CtMenu::find_menu_item(_pMenuBar, "BookmarksSubMenu");
+    _pRecentDocsSubmenu = CtMenu::find_menu_item(_pMenuBar, "RecentDocsSubMenu");
     _pMenuBar->show_all();
     add_accel_group(_uCtMenu->get_accel_group());
     _pToolbars = _uCtMenu->build_toolbars(_pRecentDocsMenuToolButton);
