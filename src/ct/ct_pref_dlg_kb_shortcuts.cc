@@ -155,10 +155,10 @@ bool CtPrefDlg::edit_shortcut_dialog(std::string& shortcut)
     auto radiobutton_kb_none = Gtk::manage(new Gtk::RadioButton{_("No Keyboard Shortcut")});
     auto radiobutton_kb_shortcut = Gtk::manage(new Gtk::RadioButton{});
     radiobutton_kb_shortcut->join_group(*radiobutton_kb_none);
-    auto ctrl_toggle = Gtk::manage(new Gtk::ToggleButton{"control"});
-    auto shift_toggle = Gtk::manage(new Gtk::ToggleButton{"shift"});
-    auto alt_toggle = Gtk::manage(new Gtk::ToggleButton{"alt"});
-    auto meta_toggle = Gtk::manage(new Gtk::ToggleButton{"meta"});
+    auto ctrl_toggle = Gtk::manage(new Gtk::ToggleButton{"Ctrl"});
+    auto shift_toggle = Gtk::manage(new Gtk::ToggleButton{"Shift"});
+    auto alt_toggle = Gtk::manage(new Gtk::ToggleButton{"Alt"});
+    auto meta_toggle = Gtk::manage(new Gtk::ToggleButton{"Meta"});
     ctrl_toggle->set_size_request(70, 1);
     shift_toggle->set_size_request(70, 1);
     alt_toggle->set_size_request(70, 1);

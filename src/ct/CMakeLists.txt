@@ -53,6 +53,8 @@ set(CT_SHARED_FILES
   ct_main_win_events.cc
   ct_main_win_file.cc
   ct_menu.cc
+  ct_menu_actions.cc
+  ct_menu_ui.cc
   ct_misc_utils.cc
   ct_p7za_iface.cc
   ct_pref_dlg.cc

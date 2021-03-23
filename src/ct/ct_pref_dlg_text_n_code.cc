@@ -100,6 +100,7 @@ Gtk::Widget* CtPrefDlg::build_tab_text_n_code()
     entry_timestamp_format->set_text(pConfig->timestampFormat);
     Gtk::Button* button_strftime_help = Gtk::manage(new Gtk::Button());
     button_strftime_help->set_image(*_pCtMainWin->new_image_from_stock("ct_help", Gtk::ICON_SIZE_BUTTON));
+    button_strftime_help->set_tooltip_text(_("Online Manual"));
     hbox_timestamp->pack_start(*label_timestamp, false, false);
     hbox_timestamp->pack_start(*entry_timestamp_format, false, false);
     hbox_timestamp->pack_start(*button_strftime_help, false, false);

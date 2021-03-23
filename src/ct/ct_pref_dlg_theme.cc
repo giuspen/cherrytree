@@ -48,7 +48,7 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     vbox_tt_theme->pack_start(*radiobutton_tt_col_light, false, false);
     vbox_tt_theme->pack_start(*radiobutton_tt_col_dark, false, false);
     vbox_tt_theme->pack_start(*hbox_tt_col_custom, false, false);
-    Gtk::Frame* frame_tt_theme = new_managed_frame_with_align(_("Tree"), vbox_tt_theme);
+    Gtk::Frame* frame_tt_theme = new_managed_frame_with_align(_("Tree Explorer"), vbox_tt_theme);
 
     if (pConfig->ttDefFg == CtConst::TREE_TEXT_DARK_FG && pConfig->ttDefBg == CtConst::TREE_TEXT_DARK_BG) {
         radiobutton_tt_col_dark->set_active(true);
@@ -257,7 +257,7 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
                 f_onUserStyleChanged(i+1);
             }
         });
-        pButtonsResetToDefault[i]->signal_clicked().connect([i, pConfig,
+        pButtonsResetToDefault[i]->signal_clicked().connect([this, i, pConfig,
                                                              pColorButtonTextFg,
                                                              pColorButtonTextBg,
                                                              pColorButtonSelectionFg,
@@ -267,6 +267,9 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
                                                              pColorButtonLineNumbersFg,
                                                              pColorButtonLineNumbersBg,
                                                              f_onUserStyleChanged](){
+            if (not CtDialogs::question_dialog(reset_warning, *this)) {
+                return;
+            }
             bool anyChange{false};
             if (pConfig->userStyleTextFg[i] != CtConst::USER_STYLE_TEXT_FG[i]) {
                 pConfig->userStyleTextFg[i] = CtConst::USER_STYLE_TEXT_FG[i];

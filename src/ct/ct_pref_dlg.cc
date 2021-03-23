@@ -59,7 +59,7 @@ CtPrefDlg::CtPrefDlg(CtMainWin* parent)
     pNotebook->append_page(*build_tab_rich_text(),          _("Rich Text"));
     pNotebook->append_page(*build_tab_plain_text_n_code(),  _("Plain Text and Code"));
     pNotebook->append_page(*build_tab_special_characters(), _("Special Characters"));
-    pNotebook->append_page(*build_tab_tree(),               _("Tree"));
+    pNotebook->append_page(*build_tab_tree(),               _("Tree Explorer"));
     pNotebook->append_page(*build_tab_theme(),              _("Theme"));
     pNotebook->append_page(*build_tab_fonts(),              _("Fonts"));
     pNotebook->append_page(*build_tab_links(),              _("Links"));

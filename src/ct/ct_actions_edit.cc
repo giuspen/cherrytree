@@ -460,7 +460,7 @@ void CtActions::special_char_insert()
         ++pathCurrIdx;
     }
     const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(*_pCtMainWin,
-                                                                 _("Insert a Special Character"),
+                                                                 _("Special Characters"),
                                                                  itemStore,
                                                                  nullptr/*single_column_name*/,
                                                                  std::to_string(pathSelectIdx));
