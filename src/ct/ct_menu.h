@@ -60,7 +60,7 @@ public:
     const std::string KB_SHIFT   = "<shift>";
     const std::string KB_ALT     = "<alt>";
     const std::string KB_META    = "<meta>";
-
+    
     enum POPUP_MENU_TYPE {Node, Text, Code, Link, Codebox, Image, Anchor, EmbFile, PopupMenuNum };
 
 public:
