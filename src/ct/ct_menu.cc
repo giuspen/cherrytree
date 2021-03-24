@@ -21,8 +21,8 @@
  * MA 02110-1301, USA.
  */
 
-#include "ct_menu.h"
 #include "ct_actions.h"
+#include "ct_menu.h"
 #include "ct_storage_xml.h"
 
 static xmlpp::Attribute* get_attribute(xmlpp::Node* pNode, char const* name)

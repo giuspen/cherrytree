@@ -21,9 +21,9 @@
  * MA 02110-1301, USA.
  */
 
+#include "ct_actions.h"
 #include "ct_menu.h"
 #include "ct_const.h"
-#include "ct_actions.h"
 
 CtMenuAction* CtMenu::find_action(const std::string& id)
 {
