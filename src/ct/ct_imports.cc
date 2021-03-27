@@ -449,17 +449,11 @@ CtMDImport::~CtMDImport() = default;
 
 std::unique_ptr<ct_imported_node> CtPlainTextImport::import_file(const fs::path& file)
 {
-    if (!CtMiscUtil::mime_type_contains(file.string(), "text/"))
+    if (!CtMiscUtil::mime_type_contains(file.string(), "text/")) {
         return nullptr;
-
-    try
-    {
-        std::ifstream infile;
-        infile.exceptions(std::ios_base::failbit);
-        infile.open(file.string());
-        std::ostringstream data;
-        data << infile.rdbuf();
-        std::string converted = data.str();
+    }
+    try {
+        std::string converted = Glib::file_get_contents(file.string());
         const std::string codeset = CtStrUtil::get_encoding(converted.c_str(), converted.size());
         if (CtStrUtil::is_codeset_not_utf8(codeset)) {
             converted = Glib::convert_with_fallback(converted, "UTF-8", codeset);
@@ -469,9 +463,8 @@ std::unique_ptr<ct_imported_node> CtPlainTextImport::import_file(const fs::path&
         node->node_syntax = CtConst::PLAIN_TEXT_ID;
         return node;
     }
-    catch (std::exception& ex)
-    {
-        spdlog::error("CtPlainTextImport, what: , file: {}", ex.what(), file);
+    catch (std::exception& ex) {
+        spdlog::error("CtPlainTextImport, what: {}, file: {}", ex.what(), file);
     }
     return nullptr;
 }
