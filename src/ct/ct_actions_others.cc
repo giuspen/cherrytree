@@ -485,7 +485,7 @@ void CtActions::codebox_load_from_file()
     if (filepath.empty()) return;
     _pCtMainWin->get_ct_config()->pickDirCbox = Glib::path_get_dirname(filepath);
 
-    std::string buffer = fs::get_content(filepath);
+    std::string buffer = Glib::file_get_contents(filepath);
     curr_codebox_anchor->get_buffer()->set_text(buffer);
 }
 
@@ -777,7 +777,7 @@ bool CtActions::_on_embfiles_sentinel_timeout()
             for (auto& widget : tree_iter.get_anchored_widgets_fast()) {
                 if (auto embFile = dynamic_cast<CtImageEmbFile*>(widget)) {
                     if (embFile->get_unique_id() == embfile_id) {
-                        std::string buffer = fs::get_content(tmp_filepath);
+                        std::string buffer = Glib::file_get_contents(tmp_filepath.string());
                         embFile->set_raw_blob(buffer);
                         embFile->set_time(std::time(nullptr));
                         embFile->update_tooltip();

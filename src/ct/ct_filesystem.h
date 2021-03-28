@@ -67,8 +67,6 @@ void open_weblink(const std::string& link);
 void open_filepath(const path& filepath, bool open_folder_if_file_not_exists, CtConfig* config);
 void open_folderpath(const path& folderpath, CtConfig* config);
 
-std::string get_content(const path& filepath);
-
 path prepare_export_folder(const path& dir_place, path new_folder, bool overwrite_existing);
 
 CtDocType get_doc_type(const path& fileName);

@@ -263,20 +263,6 @@ void open_folderpath(const fs::path& folderpath, CtConfig* config)
     }
 }
 
-std::string get_content(const path& filepath)
-{
-    gchar *contents = NULL;
-    gsize  length   = 0;
-    g_file_get_contents(filepath.c_str(), &contents, &length, NULL);
-    if (contents)
-    {
-        std::string result(contents, length);
-        g_free(contents);
-        return result;
-    }
-    return std::string();
-}
-
 path prepare_export_folder(const path& dir_place, path new_folder, bool overwrite_existing)
 {
     if (fs::is_directory(dir_place / new_folder))

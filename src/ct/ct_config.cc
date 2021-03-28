@@ -663,7 +663,7 @@ void CtConfig::update_user_style(const unsigned num)
             return;
         }
     }
-    std::string userStyleText = fs::get_content(userStyleTemplateFilepath);
+    std::string userStyleText = Glib::file_get_contents(userStyleTemplateFilepath.string());
     const unsigned i = num-1;
     userStyleText = str::replace(userStyleText, "_userStyleId_", CtConfig::get_user_style_id(num));
     userStyleText = str::replace(userStyleText, "_userStyleTextFg_", userStyleTextFg[i]);

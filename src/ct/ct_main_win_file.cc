@@ -125,7 +125,7 @@ bool CtMainWin::file_open(const fs::path& filepath, const std::string& node_to_f
     if (fs::get_doc_type(filepath) == CtDocType::None) {
         // can't open file but can insert content into a new node
         if (file_insert_plain_text(filepath)) {
-            return false; // that's right
+            return true;
         }
         CtDialogs::error_dialog(str::format(_("\"%s\" is Not a CherryTree Document"), filepath.string()), *this);
         return false;
@@ -353,23 +353,22 @@ void CtMainWin::mod_time_sentinel_restart()
 bool CtMainWin::file_insert_plain_text(const fs::path& filepath)
 {
     spdlog::debug("trying to insert text file as node: {}", filepath);
-
-    gchar *text = nullptr;
-    gsize length = 0;
     try {
-        if (g_file_get_contents (filepath.c_str(), &text, &length, nullptr)) {
-            Glib::ustring node_content(text, length);
-            node_content = str::sanitize_bad_symbols(node_content);
+        std::string node_contents = Glib::file_get_contents(filepath.string());
+        if (not node_contents.empty()) {
+            const std::string codeset = CtStrUtil::get_encoding(node_contents.c_str(), node_contents.size());
+            if (CtStrUtil::is_codeset_not_utf8(codeset)) {
+                node_contents = Glib::convert_with_fallback(node_contents, "UTF-8", codeset);
+            }
             std::string name = filepath.filename().string();
-            _uCtActions->node_child_exist_or_create(Gtk::TreeIter(), name);
-            _ctTextview.get_buffer()->insert(_ctTextview.get_buffer()->end(), node_content);
-            g_free(text);
+            _uCtActions->node_child_exist_or_create(Gtk::TreeIter{}, name);
+            _ctTextview.get_buffer()->insert(_ctTextview.get_buffer()->end(), node_contents);
             return true;
         }
     }
-    catch (...) {
+    catch (std::exception& ex) {
+        spdlog::error("{}, what: {}, file: {}", __FUNCTION__, ex.what(), filepath);
     }
-    g_free(text);
     return false;
 }
 

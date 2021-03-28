@@ -207,7 +207,7 @@ void CtActions::embfile_insert()
         }
     }
 
-    std::string blob = fs::get_content(filepath);
+    std::string blob = Glib::file_get_contents(filepath);
     std::string name = Glib::path_get_basename(filepath);
     CtAnchoredWidget* pAnchoredWidget = new CtImageEmbFile{_pCtMainWin,
                                                            name,

@@ -29,7 +29,6 @@
 #include "ct_logging.h"
 #include <libxml2/libxml/SAX.h>
 #include <fstream>
-#include <sstream>
 
 namespace {
 
@@ -244,31 +243,25 @@ std::unique_ptr<ct_imported_node> CtImports::traverse_dir(const fs::path& dir, C
     return dir_node;
 }
 
-CtHtmlImport::CtHtmlImport(CtConfig* config) : _config(config)
+CtHtmlImport::CtHtmlImport(CtConfig* config) : _config{config}
 {
 }
 
 std::unique_ptr<ct_imported_node> CtHtmlImport::import_file(const fs::path& file)
 {
-    if (file.extension() != ".html" && file.extension() != ".htm")
+    if (file.extension() != ".html" && file.extension() != ".htm") {
         return nullptr;
-
-    std::ifstream infile;
-    infile.exceptions(std::ios_base::failbit);
-    infile.open(file.string());
-    std::ostringstream ss;
-    ss << infile.rdbuf();
-
-    auto imported_node = std::make_unique<ct_imported_node>(file, file.stem().string());
-    CtHtml2Xml html2xml(_config);
+    }
+    std::string htmlStr = Glib::file_get_contents(file.string());
+    auto node = std::make_unique<ct_imported_node>(file, file.stem().string());
+    CtHtml2Xml html2xml{_config};
     html2xml.set_local_dir(file.parent_path().string());
-    html2xml.set_outter_xml_doc(imported_node->xml_content.get());
-    html2xml.feed(ss.str());
-
-    return imported_node;
+    html2xml.set_outter_xml_doc(node->xml_content.get());
+    html2xml.feed(htmlStr);
+    return node;
 }
 
-CtTomboyImport::CtTomboyImport(CtConfig* config) : _config(config)
+CtTomboyImport::CtTomboyImport(CtConfig* config) : _config{config}
 {
 }
 
@@ -458,13 +451,13 @@ std::unique_ptr<ct_imported_node> CtPlainTextImport::import_file(const fs::path&
         if (CtStrUtil::is_codeset_not_utf8(codeset)) {
             converted = Glib::convert_with_fallback(converted, "UTF-8", codeset);
         }
-        std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, file.stem().string());
+        auto node = std::make_unique<ct_imported_node>(file, file.stem().string());
         node->xml_content->create_root_node("root")->add_child("slot")->add_child("rich_text")->add_child_text(converted);
         node->node_syntax = CtConst::PLAIN_TEXT_ID;
         return node;
     }
     catch (std::exception& ex) {
-        spdlog::error("CtPlainTextImport, what: {}, file: {}", ex.what(), file);
+        spdlog::error("{}, what: {}, file: {}", __FUNCTION__, ex.what(), file);
     }
     return nullptr;
 }
@@ -515,22 +508,14 @@ std::unique_ptr<ct_imported_node> CtKeepnoteImport::import_file(const fs::path& 
     if (file.filename().string() != "page.html")
         return nullptr;
 
-    std::ifstream infile;
-    infile.exceptions(std::ios::failbit);
-    infile.open(file.string());
-
-    std::ostringstream buff;
-    buff << infile.rdbuf();
-
-    CtHtml2Xml parser(_config);
+    std::string keepnoteStr = Glib::file_get_contents(file.string());
+    CtHtml2Xml parser{_config};
     parser.set_local_dir(file.parent_path().string());
-    parser.feed(buff.str());
-
+    parser.feed(keepnoteStr);
     auto node = std::make_unique<ct_imported_node>(file, file.parent_path().stem().string());
     node->xml_content->create_root_node_by_import(parser.doc().get_root_node());
-    spdlog::debug(buff.str());
-    spdlog::debug(node->xml_content->write_to_string());
-
+    //spdlog::debug(keepnoteStr);
+    //spdlog::debug(node->xml_content->write_to_string());
     return node;
 }
 

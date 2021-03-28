@@ -177,22 +177,6 @@ TEST(FileSystemGroup, remove)
     ASSERT_FALSE(fs::exists(test_dir_path));
 }
 
-TEST(FileSystemGroup, get_content)
-{
-    std::string content = "blabla";
-    fs::path test_file_path = fs::path{UT::unitTestsDataDir} / fs::path{"test_file.txt"};
-    {
-        fs::remove(test_file_path);
-        std::ofstream test_file_ofstr{test_file_path.string()};
-        test_file_ofstr << content;
-        test_file_ofstr.close();
-    }
-
-    ASSERT_STREQ(content.c_str(), fs::get_content(test_file_path.c_str()).c_str());
-
-    fs::remove(test_file_path);
-}
-
 TEST(FileSystemGroup, relative)
 {
 #ifdef _WIN32
