@@ -521,8 +521,10 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
     if (node_is_rich_text) {
         const auto nodeId = treeIter.get_node_id();
         _curr_node_sigc_conn.push_back(
-            _pCtMainWin->getScrolledwindowText().get_vadjustment()->signal_value_changed().connect([this, nodeId](){
-                _pCtMainWin->get_state_machine().update_curr_state_v_adj_val(nodeId);
+            _pCtMainWin->getScrolledwindowText().get_vadjustment()->signal_value_changed().connect([this, pTextView, nodeId](){
+                if (not pTextView->get_buffer()->get_modified()) {
+                    _pCtMainWin->get_state_machine().update_curr_state_v_adj_val(nodeId);
+                }
             })
         );
     }
