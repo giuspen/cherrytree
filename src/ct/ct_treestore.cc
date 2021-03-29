@@ -521,10 +521,8 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
     if (node_is_rich_text) {
         const auto nodeId = treeIter.get_node_id();
         _curr_node_sigc_conn.push_back(
-            _pCtMainWin->getScrolledwindowText().get_vadjustment()->signal_value_changed().connect([this, pTextView, nodeId](){
-                if (not pTextView->get_buffer()->get_modified()) {
-                    _pCtMainWin->get_state_machine().update_curr_state_v_adj_val(nodeId);
-                }
+            _pCtMainWin->getScrolledwindowText().get_vadjustment()->signal_value_changed().connect([this, nodeId](){
+                _pCtMainWin->get_state_machine().update_curr_state_v_adj_val(nodeId);
             })
         );
     }
@@ -698,6 +696,10 @@ void CtTreeStore::_on_textbuffer_mark_set(const Gtk::TextIter& /*iter*/, const G
 {
     if (_pCtMainWin->user_active()) {
         if (rMark->get_name() == "insert") {
+            const auto currTreeIter = _pCtMainWin->curr_tree_iter();
+            if (currTreeIter and currTreeIter.get_node_is_rich_text()) {
+                _pCtMainWin->get_state_machine().update_curr_state_cursor_pos(currTreeIter.get_node_id());
+            }
             _pCtMainWin->get_text_view().selection_update();
         }
     }

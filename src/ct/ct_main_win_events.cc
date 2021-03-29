@@ -491,9 +491,6 @@ void CtMainWin::_on_textview_event_after(GdkEvent* event)
         }
     }
     else if (event->type == GDK_BUTTON_PRESS or event->type == GDK_KEY_PRESS) {
-        if (curr_tree_iter() and not curr_buffer()->get_modified()) {
-            _ctStateMachine.update_curr_state_cursor_pos(curr_tree_iter().get_node_id());
-        }
         if (event->type == GDK_BUTTON_PRESS) {
             _ctTextview.for_event_after_button_press(event);
         }

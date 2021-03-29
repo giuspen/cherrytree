@@ -368,7 +368,6 @@ void CtStateMachine::update_state(CtTreeIter tree_iter)
     for (auto widget : tree_iter.get_anchored_widgets()) {
         new_state->widgetStates.push_back(widget->get_state());
     }
-    new_state->cursor_pos = tree_iter.get_node_text_buffer()->property_cursor_position();
 
     if (node_states.states.size() > 0) {
         auto compare_widgets = [](const std::list<std::shared_ptr<CtAnchoredWidgetState>> lhs,
@@ -381,7 +380,6 @@ void CtStateMachine::update_state(CtTreeIter tree_iter)
         if (new_state->buffer_xml_string == last_state->buffer_xml_string and
             compare_widgets(new_state->widgetStates, last_state->widgetStates))
         {
-            last_state->cursor_pos = new_state->cursor_pos;
             return; // #print "update_state not needed"
         }
     }
@@ -396,16 +394,24 @@ void CtStateMachine::update_state(CtTreeIter tree_iter)
 
 void CtStateMachine::update_curr_state_cursor_pos(gint64 node_id)
 {
-    if (not map::exists(_node_states, node_id)) return;
-    const int cursor_pos = _pCtMainWin->curr_buffer()->property_cursor_position();
-    _node_states[node_id].get_state()->cursor_pos = cursor_pos;
+    if (not_undoable_timeslot_get()) return;
+    if (not _pCtMainWin->user_active()) return;
+    const auto iterStates = _node_states.find(node_id);
+    if (iterStates == _node_states.end()) return;
+    if (0 == iterStates->second.indicator) {
+        const int cursor_pos = _pCtMainWin->curr_buffer()->property_cursor_position();
+        iterStates->second.get_state()->cursor_pos = cursor_pos;
+    }
 }
 
 void CtStateMachine::update_curr_state_v_adj_val(gint64 node_id)
 {
     if (not_undoable_timeslot_get()) return;
     if (not _pCtMainWin->user_active()) return;
-    if (not map::exists(_node_states, node_id)) return;
-    const int v_adj_val = round(_pCtMainWin->getScrolledwindowText().get_vadjustment()->get_value());
-    _node_states[node_id].get_state()->v_adj_val = v_adj_val;
+    const auto iterStates = _node_states.find(node_id);
+    if (iterStates == _node_states.end()) return;
+    if (0 == iterStates->second.indicator) {
+        const int v_adj_val = round(_pCtMainWin->getScrolledwindowText().get_vadjustment()->get_value());
+        iterStates->second.get_state()->v_adj_val = v_adj_val;
+    }
 }
