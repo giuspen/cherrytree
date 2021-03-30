@@ -42,6 +42,7 @@ protected:
 
 public:
     static Glib::RefPtr<CtApp> create();
+    void                       close_all_windows(const bool userCanInteract = true);
 
 protected:
     std::unique_ptr<CtConfig> _uCtCfg;
@@ -76,9 +77,7 @@ protected:
 protected:
     CtMainWin*  _create_window(const bool no_gui = false);
     CtMainWin*  _get_window_by_path(const std::string& filepath);
-    bool        _quit_or_hide_window(CtMainWin* pCtMainWin, bool from_delete);
+    bool        _quit_or_hide_window(CtMainWin* pCtMainWin, const bool from_delete, const bool userCanInteract = true);
     int         _on_handle_local_options(const Glib::RefPtr<Glib::VariantDict>& rOptions);
-
     void        _systray_show_hide_windows();
-    void        _systray_close_all();
 };

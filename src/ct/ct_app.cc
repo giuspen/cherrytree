@@ -54,6 +54,18 @@ CtApp::CtApp(const char* application_id)
     return Glib::RefPtr<CtApp>(new CtApp());
 }
 
+#ifndef _WIN32
+static CtApp* pThis{nullptr};
+static void signal_callback_handler(int signum)
+{
+    if (pThis) {
+        spdlog::debug("closing all windows gracefully");
+        pThis->close_all_windows(false/*userCanInteract*/);
+    }
+    exit(signum);
+}
+#endif
+
 // small optimization: second instance doesn't need all UI initialization, so we call it on the real startup
 void CtApp::_on_startup()
 {
@@ -113,10 +125,18 @@ void CtApp::_on_startup()
             auto item1 = CtMenu::create_menu_item(systrayMenu, _("Show/Hide _CherryTree"), CtConst::APP_NAME, _("Toggle Show/Hide CherryTree"));
             item1->signal_activate().connect([&] {_systray_show_hide_windows();});
             auto item2 = CtMenu::create_menu_item(systrayMenu, _("_Exit CherryTree"), "ct_quit-app", _("Exit from CherryTree"));
-            item2->signal_activate().connect([&] { _systray_close_all(); });
+            item2->signal_activate().connect([&] { close_all_windows(true/*userCanInteract*/); });
             systrayMenu->show_all();
             systrayMenu->popup(button, activate_time);
         });
+#ifndef _WIN32
+        pThis = this;
+        signal(SIGTERM, signal_callback_handler); // kill/killall
+        signal(SIGINT, signal_callback_handler);  // Ctrl+C
+        signal(SIGQUIT, signal_callback_handler); // Ctrl+Backslash
+        signal(SIGHUP, signal_callback_handler);  // user’s terminal disconnected
+        // SIGKILL cannot be handled or ignored, and is therefore always fatal
+#endif
     }
 }
 
@@ -301,31 +321,34 @@ CtMainWin* CtApp::_get_window_by_path(const std::string& filepath)
     return nullptr;
 }
 
-bool CtApp::_quit_or_hide_window(CtMainWin* pCtMainWin, bool from_delete)
+bool CtApp::_quit_or_hide_window(CtMainWin* pCtMainWin, const bool from_delete, const bool userCanInteract)
 {
     pCtMainWin->config_update_data_from_curr_status();
     _uCtCfg->write_to_file();
 
-    if (_uCtCfg->systrayOn && !pCtMainWin->force_exit() /* if didn't come from quit_window */)
-    {
+    if (_uCtCfg->systrayOn and not pCtMainWin->force_exit()) {
         pCtMainWin->save_position();
         pCtMainWin->set_visible(false);
-        return false; // to stop deleting window
+        return false; // stop deleting window
     }
-    else
-    {
-        // trying to save changes, it show window if needed
-        if (!pCtMainWin->file_save_ask_user())
-        {
-            pCtMainWin->force_exit() = false;
-            return false;  // to stop deleting windows
-        }
-        pCtMainWin->force_exit() = true; // this is for on_window_removed
-        if (!from_delete)                // signal from remove, no need to remove again
-            remove_window(*pCtMainWin);  // object will be destroyed in on_window_removed
 
-        return true; // continue deleting window
+    // trying to save changes, show window if possible/needed
+    if (userCanInteract) {
+        if (not pCtMainWin->file_save_ask_user()) {
+            pCtMainWin->force_exit() = false;
+            return false;  // stop deleting window
+        }
     }
+    else {
+        // shutdown/kill/killall/Ctrl+C...
+        pCtMainWin->file_save(false/*need_vacuum*/);
+    }
+
+    pCtMainWin->force_exit() = true; // this is for on_window_removed
+    if (not from_delete) {           // signal from remove, no need to remove again
+        remove_window(*pCtMainWin);  // object will be destroyed in on_window_removed
+    }
+    return true; // continue deleting window
 }
 
 void CtApp::_systray_show_hide_windows()
@@ -355,15 +378,16 @@ void CtApp::_systray_show_hide_windows()
     });
 }
 
-void CtApp::_systray_close_all()
+void CtApp::close_all_windows(const bool userCanInteract)
 {
-    for (Gtk::Window* pWin : get_windows())
-        if (CtMainWin* win = dynamic_cast<CtMainWin*>(pWin))
-        {
+    for (Gtk::Window* pWin : get_windows()) {
+        if (CtMainWin* win = dynamic_cast<CtMainWin*>(pWin)) {
             win->force_exit() = true;
-            if (!_quit_or_hide_window(win, false))
+            if (not _quit_or_hide_window(win, false, userCanInteract)) {
                 break;
+            }
         }
+    }
 }
 
 void CtApp::_add_main_option_entries()
