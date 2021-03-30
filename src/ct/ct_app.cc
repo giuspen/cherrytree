@@ -54,7 +54,6 @@ CtApp::CtApp(const char* application_id)
     return Glib::RefPtr<CtApp>(new CtApp());
 }
 
-#ifndef _WIN32
 static CtApp* pThis{nullptr};
 static void signal_callback_handler(int signum)
 {
@@ -64,7 +63,6 @@ static void signal_callback_handler(int signum)
     }
     exit(signum);
 }
-#endif
 
 // small optimization: second instance doesn't need all UI initialization, so we call it on the real startup
 void CtApp::_on_startup()
@@ -129,14 +127,14 @@ void CtApp::_on_startup()
             systrayMenu->show_all();
             systrayMenu->popup(button, activate_time);
         });
-#ifndef _WIN32
         pThis = this;
         signal(SIGTERM, signal_callback_handler); // kill/killall
         signal(SIGINT, signal_callback_handler);  // Ctrl+C
+#ifndef _WIN32
         signal(SIGQUIT, signal_callback_handler); // Ctrl+Backslash
         signal(SIGHUP, signal_callback_handler);  // user’s terminal disconnected
+#endif // not _WIN32
         // SIGKILL cannot be handled or ignored, and is therefore always fatal
-#endif
     }
 }
 
