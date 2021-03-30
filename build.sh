@@ -34,8 +34,8 @@ then
   cpack -G DEB
   DISTRIB_ID="$(grep DISTRIB_ID /etc/lsb-release | awk -F= '{print $2}')"
   DISTRIB_RELEASE="$(grep DISTRIB_RELEASE /etc/lsb-release | awk -F= '{print $2}')"
-  PROJECT_VER="$(grep 'PROJECT_VER ' ../config.h | awk -F\" '{print $2}')"
-  TARGET_PACKAGE_NAME="radar_test-${PROJECT_VER}~${DISTRIB_ID}${DISTRIB_RELEASE}_amd64.deb"
-  mv -v radar_test-${PROJECT_VER}-Linux.deb ${TARGET_PACKAGE_NAME}
-  mv -v radar_test-${PROJECT_VER}-Linux.deb.sha256 ${TARGET_PACKAGE_NAME}.sha256
+  PACKAGE_VERSION="$(grep 'PACKAGE_VERSION ' ../config.h | awk -F\" '{print $2}')"
+  TARGET_PACKAGE_NAME="cherrytree-${PACKAGE_VERSION}~${DISTRIB_ID}${DISTRIB_RELEASE}_amd64.deb"
+  mv -v cherrytree-${PACKAGE_VERSION}-Linux.deb ${TARGET_PACKAGE_NAME}
+  mv -v cherrytree-${PACKAGE_VERSION}-Linux.deb.sha256 ${TARGET_PACKAGE_NAME}.sha256
 fi
