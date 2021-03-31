@@ -199,10 +199,7 @@ void CtStorageSqlite::test_connection()
 
     _close_db();
 
-    // todo: fix for win32
-#ifndef _WIN32
-    usleep(500 * 1000); // wait 0.5 sec, file can be block by sync program like Dropbox
-#endif
+    g_usleep(500 * 1000); // wait 0.5 sec, file can be block by sync program like Dropbox
 
     try {
         _open_db(_file_path);
