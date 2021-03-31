@@ -42,6 +42,10 @@ CtConfig::CtConfig()
 
 bool CtConfig::load_from_file(const fs::path& filepath)
 {
+    const fs::path filepathTmp = filepath.string() + ".tmp";
+    if (fs::exists(filepathTmp)) {
+        (void)fs::move_file(filepathTmp, filepath);
+    }
 #ifdef _WIN32
     // compatibility with old pygtk2 version
     if (not fs::exists(filepath)) {
@@ -73,8 +77,10 @@ bool CtConfig::write_to_file(const fs::path& filepath)
 {
     _uKeyFile = std::make_unique<Glib::KeyFile>();
     _populate_keyfile_from_data();
-    const bool writeSucceeded = _uKeyFile->save_to_file(filepath.string());
+    const fs::path filepathTmp = filepath.string() + ".tmp";
+    const bool writeSucceeded = _uKeyFile->save_to_file(filepathTmp.string());
     _uKeyFile.reset(nullptr);
+    (void)fs::move_file(filepathTmp, filepath);
     return writeSucceeded;
 }
 
