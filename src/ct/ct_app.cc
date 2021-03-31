@@ -57,9 +57,18 @@ CtApp::CtApp(const char* application_id)
 static CtApp* pThis{nullptr};
 static void signal_callback_handler(int signum)
 {
+    static bool taken{false};
+    if (taken) {
+        spdlog::debug("ignored signal {}", signum);
+        return;
+    }
+    taken = true;
     if (pThis) {
-        spdlog::debug("closing all windows gracefully");
+        spdlog::debug("closing all windows gracefully ({})", signum);
         pThis->close_all_windows(false/*userCanInteract*/);
+    }
+    else {
+        spdlog::error("unexpected missing pThis ({})", signum);
     }
     exit(signum);
 }

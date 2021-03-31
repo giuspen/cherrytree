@@ -1,7 +1,7 @@
 /*
  * ct_main.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -89,20 +89,16 @@ int main(int argc, char *argv[])
     std::vector<spdlog::sink_ptr> sinks;
     sinks.push_back(std::make_shared<spdlog::sinks::stdout_color_sink_mt>());
 
-#if 0 // log to file, currently disabled
-    try
-    {
+    try {
         // Create a file rotating logger with 5mb size max and 3 rotated files
         auto max_size = 1048576 * 5;
         auto max_files = 3;
         fs::path log_path = fs::get_cherrytree_configdir() / "cherrytree.log";
         sinks.push_back(std::make_shared<spdlog::sinks::rotating_file_sink_mt>(log_path.c_str(), max_size, max_files));
     }
-    catch (const spdlog::spdlog_ex &ex)
-    {
+    catch (const spdlog::spdlog_ex &ex) {
         spdlog::debug("Log init failed: {}", ex.what());
     }
-#endif // log to file, currently disabled
 
     spdlog::drop(""); // remove the default logger (if you want, you can use its name)
     // these two loggers are the same, they just add "[  ]" and "[gtk]" in their output
