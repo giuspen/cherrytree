@@ -51,7 +51,7 @@ msgstr "Autozapis przy wyjściu"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:54
 msgid "Create a Backup Copy Before Saving"
-msgstr "Stwórz kopie zapasową przed zapisem"
+msgstr "Stwórz kopię zapasową przed zapisem"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:57
 msgid "Number of Backups to Keep"
@@ -83,7 +83,7 @@ msgstr "Przeładuj zewnętrzne zmiany w pliku CT"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:98
 msgid "Show the Document Directory in the Window Title"
-msgstr "Pokazuj folder dokumentu w tytyle okna"
+msgstr "Pokazuj folder dokumentu w tytule okna"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:111
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:46
@@ -126,7 +126,7 @@ msgstr "Hiszpański"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:123
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1965
 msgid "Finnish"
-msgstr "Zakończ"
+msgstr "Fiński"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:124
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1966
@@ -136,7 +136,7 @@ msgstr "Francuski"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:125
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1960
 msgid "Armenian"
-msgstr "Ormianin"
+msgstr "Ormiański"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:126
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1969
@@ -327,11 +327,11 @@ msgstr "Włącz własne akcje dla linków internetowych"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:159
 msgid "Enable Custom File Link Clicked Action"
-msgstr "Włącz własną akcje dla linków do pliku"
+msgstr "Włącz własne akcje dla linków do pliku"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:161
 msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Włącz własne akcje dla linków do pliku"
+msgstr "Włącz własne akcje dla linków do folderu"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:170
 msgid "Custom Actions"
@@ -350,7 +350,7 @@ msgstr "Do gałęzi"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:191
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:819
 msgid "To File"
-msgstr "Do pliku "
+msgstr "Do pliku"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:193
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:834
@@ -404,11 +404,11 @@ msgstr "_Sortowanie gałęzi"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:77
 msgid "Nodes _Import"
-msgstr "_Importuj gałęzię"
+msgstr "_Importuj gałęzie"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:78
 msgid "Nodes E_xport"
-msgstr "Eksportuj gałęzi"
+msgstr "Eksportuj gałęzie"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:79
 msgid "_Recent Documents"
@@ -461,7 +461,7 @@ msgstr "Nowa _Instancja"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:90
 msgid "Start a New Instance of CherryTree"
-msgstr "Uruchom nową okno programu"
+msgstr "Uruchom nową instancję programu"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:91
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:247
@@ -537,7 +537,7 @@ msgstr "_Zakończ"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:100
 #: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:888
 msgid "Quit the Application"
-msgstr "Zamknij aplikacje"
+msgstr "Zamknij aplikację"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:101
 #: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:115
@@ -588,7 +588,7 @@ msgstr "Cofnij"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:107
 msgid "Undo Last Operation"
-msgstr "Cofnij ostatnią operacje"
+msgstr "Cofnij ostatnią operację"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:108
 msgid "_Redo"
@@ -596,7 +596,7 @@ msgstr "Ponów"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:108
 msgid "Redo Previously Discarded Operation"
-msgstr "Ponów poprzednio odrzucone operacje"
+msgstr "Ponów poprzednio odrzuconą operację"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:109
 msgid "Insert I_mage"
@@ -608,11 +608,11 @@ msgstr "Dodaj obrazek"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:111
 msgid "Insert _Table"
-msgstr "Dodaj ta_bele"
+msgstr "Dodaj ta_belę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:111
 msgid "Insert a Table"
-msgstr "Dodaj tabele"
+msgstr "Dodaj tabelę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:112
 msgid "Insert _CodeBox"
@@ -641,11 +641,11 @@ msgstr "Dodaj/Zmień Link "
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:115
 msgid "Insert _Anchor"
-msgstr "Dod_aj Kotwice"
+msgstr "Dod_aj Kotwicę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:115
 msgid "Insert an Anchor"
-msgstr "Dodaj kotwice"
+msgstr "Dodaj kotwicę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:116
 msgid "Insert T_OC"
@@ -657,11 +657,11 @@ msgstr "Dodaj spis treści"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:117
 msgid "Insert Ti_mestamp"
-msgstr "Dodaj date/godzine"
+msgstr "Dodaj date/godzinę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:117
 msgid "Insert Timestamp"
-msgstr "Dodaj date/godzine"
+msgstr "Dodaj date/godzinę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:118
 msgid "Insert _Special Character"
@@ -694,7 +694,7 @@ msgstr "Duże znaki zaznaczenia/słowa"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:121
 msgid "Upper the Case of the Selection/the Underlying Word"
-msgstr "Zmień zaznaczenie/słowo na duże znaki"
+msgstr "Zmień zaznaczenie/słowo na wielkie znaki"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:122
 msgid "_Toggle Case of Selection/Word"
@@ -734,7 +734,7 @@ msgstr "Wklej jako surowy tekst"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:126
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
-msgstr "Wklej jako surowy, odrzucając formatowanie"
+msgstr "Wklej jako surowy tekst, odrzucając formatowanie"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:127
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:283
@@ -743,7 +743,7 @@ msgstr "Wytnij wiersz"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:127
 msgid "Cut the Current Row/Selected Rows"
-msgstr "Wytnij zaznaczony wiersz (wiersze)"
+msgstr "Wytnij aktualny wiersz/zaznaczone wiersze"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:128
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:284
@@ -752,7 +752,7 @@ msgstr "Kopiuj wiersz"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:128
 msgid "Copy the Current Row/Selected Rows"
-msgstr "Kopiuj zaznaczony wiersz (wiersze)"
+msgstr "Kopiuj aktualny wiersz/zaznaczone wiersze"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:129
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:286
@@ -761,7 +761,7 @@ msgstr "Usuń wiersz"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:129
 msgid "Delete the Current Row/Selected Rows"
-msgstr "Usuń zaznaczony wiersz (wiersze)"
+msgstr "Usuń aktualny wiersz/zaznaczone wiersze)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:130
 msgid "_Duplicate Row"
@@ -769,7 +769,7 @@ msgstr "_Duplikuj Wiersz"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:130
 msgid "Duplicate the Current Row/Selection"
-msgstr "Duplikuj cały wiersz/Zaznaczenie"
+msgstr "Duplikuj aktualny wiersz/Zaznaczenie"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:131
 msgid "Move _Up Row"
@@ -777,7 +777,7 @@ msgstr "Przenieś wiersz wyżej"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:131
 msgid "Move Up the Current Row/Selected Rows"
-msgstr "Przenieś zaznaczony wiersz (wiersze) wyżej"
+msgstr "Przenieś aktualny wiersz/zaznaczone wiersze wyżej"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:132
 msgid "Move _Down Row"
@@ -785,15 +785,15 @@ msgstr "Przenieś wiersz w dół"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:132
 msgid "Move Down the Current Row/Selected Rows"
-msgstr "Przenieś zaznaczony wiersz (wiersze) niżej"
+msgstr "Przenieś aktualny wiersz/zaznaczone wiersze niżej"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:133
 msgid "Stri_p Trailing Spaces"
-msgstr "Usuń _nadmierne spacje"
+msgstr "Usuń _nadmiarowe spacje"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:133
 msgid "Strip Trailing Spaces"
-msgstr "Usuń nadmierne spacje"
+msgstr "Usuń nadmiarowe spacje"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:134
 msgid "Format"
@@ -805,7 +805,7 @@ msgstr "Sklonuj formatowanie"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:135
 msgid "Clone the Text Format Type at Cursor"
-msgstr "Sklonuj format przy kursorze"
+msgstr "Sklonuj formatowanie przy kursorze"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:136
 msgid "Format _Latest"
@@ -877,7 +877,7 @@ msgstr "Przełącz H1"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:144
 msgid "Toggle h1 Property of the Selected Text"
-msgstr "Przełącz H_1 fla zaznaczonego tekstu"
+msgstr "Przełącz H_1 dla zaznaczonego tekstu"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:145
 msgid "Toggle h_2 Property"
@@ -941,7 +941,7 @@ msgstr "Przełącz numerowaną listę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:152
 msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
-msgstr "Przełącz aktualny paragraf/zaznaczenie jako lista numerowaną"
+msgstr "Przełącz aktualny paragraf/zaznaczenie jako listę numerowaną"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:153
 msgid "Set/Unset _To-Do List"
@@ -949,7 +949,7 @@ msgstr "Przełącz listę do-zrobienia"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:153
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
-msgstr "Przełącz aktualny paragraf/zaznaczenie jako liste do-zrobienia"
+msgstr "Przełącz aktualny paragraf/zaznaczenie jako listę do zrobienia"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:154
 msgid "Justify _Left"
@@ -1005,7 +1005,7 @@ msgstr "Dodaj gałąź"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:161
 msgid "Add a Node having the same Parent of the Selected Node"
-msgstr "Dodaj gałąź mającą tą samą nadrzędną gałąź co zaznaczona"
+msgstr "Dodaj gałąź mającą tę samą nadrzędną gałąź co zaznaczona"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:162
 msgid "Add _SubNode"
@@ -1025,7 +1025,7 @@ msgstr "Duplikuj zaznaczoną gałąź"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:164
 msgid "_Duplicate Node and Sub Nodes"
-msgstr "Duplikuj gałęź i jej podrzędne"
+msgstr "Duplikuj gałąź i jej podrzędne"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:164
 msgid "Duplicate the Selected Node With SubNodes"
@@ -1049,7 +1049,7 @@ msgstr "Przełącz 'tylko do odczytu' dla zaznaczonego tekstu"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:167
 msgid "Insert Today's Node"
-msgstr "Dodaj dzisiejszą gałęź"
+msgstr "Dodaj dzisiejszą gałąź"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:167
 msgid "Insert a Node with Hierarchy Year/Month/Day"
@@ -1066,7 +1066,7 @@ msgstr "Skrócone informacje o drzewie"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:169
 msgid "Node _Up"
-msgstr "gałąź do góry"
+msgstr "Gałąź do góry"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:169
 msgid "Move the Selected Node Up"
@@ -1074,7 +1074,7 @@ msgstr "Przenieś gałąź wyżej"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:170
 msgid "Node _Down"
-msgstr "gałąź w dół"
+msgstr "Gałąź w dół"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:170
 msgid "Move the Selected Node Down"
@@ -1082,7 +1082,7 @@ msgstr "Przenieś gałąź niżej"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:171
 msgid "Node _Left"
-msgstr "gałąź w lewo"
+msgstr "Gałąź w lewo"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:171
 msgid "Move the Selected Node Left"
@@ -1090,7 +1090,7 @@ msgstr "Przenieś gałąź w lewo"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:172
 msgid "Node _Right"
-msgstr "Gałąź na prawo"
+msgstr "Gałąź w prawo"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:172
 msgid "Move the Selected Node Right"
@@ -1098,11 +1098,11 @@ msgstr "Przenieś gałąź w prawo"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:173
 msgid "Node Change _Parent"
-msgstr "Zmień nadrzędną gałęź"
+msgstr "Zmień nadrzędną gałąź"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:173
 msgid "Change the Selected Node's Parent"
-msgstr "Zmień nadrzędną gałęź"
+msgstr "Zmień nadrzędną gałąź"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:174
 msgid "Sort Tree _Ascending"
@@ -1122,19 +1122,19 @@ msgstr "Posortuj drzewo malejąco"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:176
 msgid "Sort Siblings A_scending"
-msgstr "Posortuj gałęzi potomne rosnąco"
+msgstr "Posortuj gałęzie potomne rosnąco"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:176
 msgid "Sort all the Siblings of the Selected Node Ascending"
-msgstr "Posortuj wszystkie potomne gałęzi rosnąco"
+msgstr "Posortuj wszystkie potomne gałęzie rosnąco"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:177
 msgid "Sort Siblings D_escending"
-msgstr "Posortuj gałęzi potomne malejąco"
+msgstr "Posortuj gałęzie potomne malejąco"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:177
 msgid "Sort all the Siblings of the Selected Node Descending"
-msgstr "Posortuj wszystkie potomne gałęzi malejąco"
+msgstr "Posortuj wszystkie potomne gałęzie malejąco"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:178
 msgid "_Inherit Syntax"
@@ -1156,7 +1156,7 @@ msgstr "Usuń zaznaczoną gałąź"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:180
 msgid "Add to _Bookmarks"
-msgstr "DOdaj do _Zakładek"
+msgstr "Dodaj do _Zakładek"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:180
 msgid "Add the Current Node to the Bookmarks List"
@@ -1177,7 +1177,7 @@ msgstr "Zakładki"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:182
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:417
 msgid "Handle the Bookmarks List"
-msgstr "Obsłuż liste zakładek"
+msgstr "Obsłuż listę zakładek"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:183
 msgid "Go _Back"
@@ -1253,7 +1253,7 @@ msgstr "Znajdź wstecz"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:192
 msgid "Iterate the Last Find Operation in Opposite Direction"
-msgstr "Powtórz ostatnią operacje w odwrotnym kierunku"
+msgstr "Powtórz ostatnią operację w odwrotnym kierunku"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:193
 msgid "_Replace in Node Content"
@@ -1297,11 +1297,11 @@ msgstr "Powtórz ostatnią zamianę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:198
 msgid "Show _All Matches Dialog"
-msgstr "Pokarz okno wszystkich pasujących"
+msgstr "Pokaż okno wszystkich pasujących"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:198
 msgid "Show Search All Matches Dialog"
-msgstr "Pokarz okno Znajdź wszystkie pasujące"
+msgstr "Pokaż okno Znajdź wszystkie pasujące"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:199
 msgid "View"
@@ -1317,11 +1317,11 @@ msgstr "Przełącz wyświetlanie Drzewa"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:201
 msgid "Show/Hide Tool_bar"
-msgstr "Wyświetl/Ukryj pasek narzędziowy"
+msgstr "Wyświetl/Ukryj pasek narzędzi"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:201
 msgid "Toggle Show/Hide Toolbar"
-msgstr "Przełącz wyświetlanie paska narzędziowego"
+msgstr "Przełącz wyświetlanie paska narzędzi"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:202
 msgid "Show/Hide Node Name _Header"
@@ -1357,19 +1357,19 @@ msgstr "Zwiń wszystkie gałęzie"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:206
 msgid "_Increase Toolbar Icons Size"
-msgstr "Zwiększ rozmiar ikon na pasku narzędziowym"
+msgstr "Zwiększ rozmiar ikon na pasku narzędzi"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:206
 msgid "Increase the Size of the Toolbar Icons"
-msgstr "Zwiększ rozmiar ikon na pasku narzędziowym"
+msgstr "Zwiększ rozmiar ikon na pasku narzędzi"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:207
 msgid "_Decrease Toolbar Icons Size"
-msgstr "Zmniejsz rozmiar ikon na pasku narzędziowym"
+msgstr "Zmniejsz rozmiar ikon na pasku narzędzi"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:207
 msgid "Decrease the Size of the Toolbar Icons"
-msgstr "Zmniejsz rozmiar ikon na pasku narzędziowym"
+msgstr "Zmniejsz rozmiar ikon na pasku narzędzi"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:208
 msgid "_Full Screen On/Off"
@@ -1429,7 +1429,7 @@ msgstr "Dodaj gałąź z pliku CherryTree do aktualnego drzewa"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:216
 msgid "From _Plain Text File"
-msgstr "z pojedyńczego pliku tekstowewgo"
+msgstr "z pojedynczego pliku tekstowewgo"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:216
 msgid "Add Node from a Plain Text File to the Current Tree"
@@ -1441,7 +1441,7 @@ msgstr "Z _folderu z plikami tekstowymi"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:217
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
-msgstr "Dodaj gałęzi z folderu z plikami tekstowymi do aktualnego drzewa"
+msgstr "Dodaj gałęzie z folderu z plikami tekstowymi do aktualnego drzewa"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:218
 msgid "From _HTML File"
@@ -1457,7 +1457,7 @@ msgstr "Z _folderu z plikami HTML"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:219
 msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
-msgstr "Dodaj gałęzi z folderu z plikami HTML do aktualnego drzewa"
+msgstr "Dodaj gałęzie z folderu z plikami HTML do aktualnego drzewa"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:220
 msgid "From _Markdown File"
@@ -1473,7 +1473,7 @@ msgstr "Z _folderu z plikami Markdown"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:221
 msgid "Add Nodes from a Folder of Markdown Files to the Current Tree"
-msgstr "Dodaj gałęzi z folderu z plikami Markdown do aktualnego drzewa"
+msgstr "Dodaj gałęzie z folderu z plikami Markdown do aktualnego drzewa"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:224
 msgid "From _Gnote Folder"
@@ -1481,7 +1481,7 @@ msgstr "Z folderu _Gnote"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:224
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
-msgstr "Dodaj gałęzi z folderu Gnote do aktualnego drzewa"
+msgstr "Dodaj gałęzie z folderu Gnote do aktualnego drzewa"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:225
 msgid "From _KeepNote Folder"
@@ -1489,7 +1489,7 @@ msgstr "Z folderu _KeepNote"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:225
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
-msgstr "Dodaj gałąź z folderu KeepNote do aktualnego drzewa"
+msgstr "Dodaj gałęzie z folderu KeepNote do aktualnego drzewa"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:228
 msgid "From _Leo File"
@@ -1497,7 +1497,7 @@ msgstr "Z pliku _Leo"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:228
 msgid "Add Nodes of a Leo File to the Current Tree"
-msgstr "Dodaj gałąź z pliku Leo do aktualnego drzewa"
+msgstr "Dodaj gałęzie z pliku Leo do aktualnego drzewa"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:229
 msgid "From _Mempad File"
@@ -1505,7 +1505,7 @@ msgstr "Z pliku _Mempad"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:229
 msgid "Add Nodes of a Mempad File to the Current Tree"
-msgstr "Dodaj gałąź z pliku Mempad do aktualnego drzewa"
+msgstr "Dodaj gałęzie z pliku Mempad do aktualnego drzewa"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:230
 msgid "From _NoteCase HTML File"
@@ -1513,7 +1513,7 @@ msgstr "Z pliku HTML _NoteCase"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:230
 msgid "Add Nodes of a NoteCase HTML File to the Current Tree"
-msgstr "Dodaj gałąź z pliku HTML NoteCase  do aktualnego drzewa"
+msgstr "Dodaj gałęzie z pliku HTML NoteCase do aktualnego drzewa"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:231
 msgid "From _RedNotebook HTML"
@@ -1521,7 +1521,7 @@ msgstr "Z pliku HTML _RedNotebook"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:231
 msgid "Add Nodes of a RedNotebook HTML file to the Current Tree"
-msgstr "Dodaj gałąź z pliku HTML RedNotebook do aktualnego drzewa"
+msgstr "Dodaj gałęzie z pliku HTML RedNotebook do aktualnego drzewa"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:232
 msgid "From T_omboy Folder"
@@ -1537,7 +1537,7 @@ msgstr "Z pliku T_reepad"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:233
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
-msgstr "Dodaj gałęzi z pliku Treepad Lite do aktualnego drzewa"
+msgstr "Dodaj gałęzie z pliku Treepad Lite do aktualnego drzewa"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:235
 msgid "From _Zim Folder"
@@ -1557,35 +1557,35 @@ msgstr "Dodaj gałąź z użyciem Pandoc"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:238
 msgid "C_ut Anchor"
-msgstr "Wytnij kotwice"
+msgstr "Wytnij kotwicę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:238
 msgid "Cut the Selected Anchor"
-msgstr "Wytnij zaznaczoną kotwice"
+msgstr "Wytnij zaznaczoną kotwicę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:239
 msgid "_Copy Anchor"
-msgstr "Kopiuj kotwice"
+msgstr "Kopiuj kotwicę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:239
 msgid "Copy the Selected Anchor"
-msgstr "Kopiuj zaznaczoną kotwice"
+msgstr "Kopiuj zaznaczoną kotwicę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:240
 msgid "_Delete Anchor"
-msgstr "_Usuń kotwice"
+msgstr "_Usuń kotwicę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:240
 msgid "Delete the Selected Anchor"
-msgstr "Usuń zaznaczoną kotwice"
+msgstr "Usuń zaznaczoną kotwicę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:241
 msgid "Edit _Anchor"
-msgstr "Zmień Kotwice"
+msgstr "Zmień Kotwicę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:241
 msgid "Edit the Underlying Anchor"
-msgstr "Zmień kotwice"
+msgstr "Zmień kotwicę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:242
 msgid "Copy Anchor Link"
@@ -1687,7 +1687,7 @@ msgstr "Odrzuć link"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:255
 msgid "Dismiss the Link Associated to the Image"
-msgstr "Odrzuć link przypisany z obrazem"
+msgstr "Odrzuć link przypisany do obrazu"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:256
 #: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:113
@@ -1733,59 +1733,59 @@ msgstr "Usuń zaznaczony link"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:273
 msgid "C_ut Table"
-msgstr "Dodaj ta_bele"
+msgstr "Wytnij ta_belę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:273
 msgid "Cut the Selected Table"
-msgstr "Usuń zaznaczony wiersz w tabeli"
+msgstr "Wytnij zaznaczony wiersz tabeli"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:274
 msgid "_Copy Table"
-msgstr "_Kopiuj tabele"
+msgstr "_Kopiuj tabelę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:274
 msgid "Copy the Selected Table"
-msgstr "Kopiuj zaznaczoną tabele"
+msgstr "Kopiuj zaznaczoną tabelę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:275
 msgid "_Delete Table"
-msgstr "_Usuń tabele"
+msgstr "_Usuń tabelę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:275
 msgid "Delete the Selected Table"
-msgstr "Usuń zaznaczoną tabele"
+msgstr "Usuń zaznaczoną tabelę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:276
 msgid "_Add Column"
-msgstr "Dodaj kolumne"
+msgstr "Dodaj kolumnę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:276
 msgid "Add a Table Column"
-msgstr "Dodaj kolumne tabeli"
+msgstr "Dodaj kolumnę tabeli"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:277
 msgid "De_lete Column"
-msgstr "Usuń kolumne"
+msgstr "Usuń kolumnę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:277
 msgid "Delete the Selected Table Column"
-msgstr "Usuń zaznaczoną kolumne tabeli"
+msgstr "Usuń zaznaczoną kolumnę tabeli"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:278
 msgid "Move Column _Left"
-msgstr "Prznieś kolumne w lewo"
+msgstr "Prznieś kolumnę w lewo"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:278
 msgid "Move the Selected Column Left"
-msgstr "Przenieś zaznaczoną kolumne w lewo"
+msgstr "Przenieś zaznaczoną kolumnę w lewo"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:279
 msgid "Move Column _Right"
-msgstr "Prznieś kolumne w prawo"
+msgstr "Prznieś kolumnę w prawo"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:279
 msgid "Move the Selected Column Right"
-msgstr "Przenieś zaznaczoną kolumne w prawo"
+msgstr "Przenieś zaznaczoną kolumnę w prawo"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:280
 msgid "Increase Column Width"
@@ -1865,11 +1865,11 @@ msgstr "Posortuj wszystkie wiersze rosnąco"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:291
 msgid "_Edit Table Properties"
-msgstr "Edytuj wlaściwości tabeli"
+msgstr "Edytuj właściwości tabeli"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:291
 msgid "Edit the Table Properties"
-msgstr "Edytuj wlaściwości tabeli"
+msgstr "Edytuj właściwości tabeli"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:292
 msgid "_Table Export"
@@ -1877,7 +1877,7 @@ msgstr "Eksport tabeli"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:292
 msgid "Export Table as CSV File"
-msgstr "Eksportuj tabele jako plik CSV"
+msgstr "Eksportuj tabelę jako plik CSV"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:294
 msgid "Change CodeBox _Properties"
@@ -1945,7 +1945,7 @@ msgstr "Usuń zaznaczone pole kodu, ale zachowaj zawartość"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:302
 msgid "Increase CodeBox Width"
-msgstr "Zwiększ pole kodu"
+msgstr "Zwiększ szerokość pola kodu"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:302
 msgid "Increase the Width of the CodeBox"
@@ -2121,7 +2121,7 @@ msgstr "Filtr czasowy"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:535
 msgid "Show Iterated Find/Replace Dialog"
-msgstr "Pokarz okno Znajdź/Zamien"
+msgstr "Pokaż okno Znajdź/Zamien"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:559
 msgid "Search options"
@@ -2161,7 +2161,7 @@ msgstr "Wyświetl wersję CherryTree"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:372
 msgid "Node name to focus"
-msgstr "Nazwa gałęzi do skupienia"
+msgstr "Nazwa gałęzi do aktywacji"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:373
 msgid "Export to HTML at specified directory path"
@@ -2190,8 +2190,7 @@ msgstr "Stwórz nowe okno"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:104
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:115
 msgid "Pandoc executable could not be found, please ensure it is in your path"
-msgstr ""
-"Plik wykonywalny Pandoc nie został znaleziony, upewnij się że jest dostępny"
+msgstr "Plik wykonywalny Pandoc nie został znaleziony, upewnij się, że jest dostępny"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:234
 msgid "Who is the Parent?"
@@ -2239,7 +2238,7 @@ msgstr "Wybierz kolor tła"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_export2html.cc:138
 msgid "Index"
-msgstr "Index"
+msgstr "Indeks"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_help.cc:45
 msgid "Checking for Newer Version..."
@@ -2247,8 +2246,7 @@ msgstr "Sprawdzanie czy jest nowa wersja"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_help.cc:51
 msgid "Failed to Retrieve Latest Version Information - Try Again Later"
-msgstr ""
-"Nie udało się pobrać informacji o nowej wersji - Proszę spróbować pózniej"
+msgstr "Nie udało się pobrać informacji o nowej wersji - Proszę spróbować pózniej"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_help.cc:63
 msgid "A Newer Version Is Available!"
@@ -2256,7 +2254,7 @@ msgstr "Nowa wersja jest dostępna"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_help.cc:68
 msgid "You Are Using the Latest Version Available"
-msgstr "To jest aktualna dostępna wersja"
+msgstr "To jest aktualna wersja"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_help.cc:71
 msgid "You Are Using a Development Version"
@@ -2354,7 +2352,7 @@ msgstr "Data modyfikacji"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:545
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:562
 msgid "The new parent can't be one of his children!"
-msgstr "Nowa gałąź nadrzędna nie może być jedna z jej gałęzi podrzędnych!"
+msgstr "Nowa gałąź nadrzędna nie może być jedną z jej gałęzi podrzędnych!"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:63
 msgid "Change Selected"
@@ -2385,7 +2383,7 @@ msgstr "Brak skrótu klawiszowego"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_imports.cc:81
 #: /home/giuseppe/git/cherrytree/src/ct/ct_parser_html.cc:591
 msgid "Downloading"
-msgstr "Ściąganie"
+msgstr "Pobieranie"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_storage_sqlite.cc:159
 #, c-format
@@ -2396,14 +2394,13 @@ msgstr "Plik bazy danych %s jest uszkodzony. Zobacz log po więcej szczegółów
 #, c-format
 msgid ""
 "%s write failed - file is missing. Reattach usb driver or shared resource"
-msgstr "%s nie został zapisany - nie znaleziono pliku"
+msgstr ""
+"%s nie został zapisany - nie znaleziono pliku"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_storage_sqlite.cc:213
 #, c-format
 msgid "%s write failed - is file blocked by a sync program?"
-msgstr ""
-"%s nie został zapisany - czy nie jest blokowany przez aplikację do "
-"synchronizacji?"
+msgstr "%s nie został zapisany - czy plik nie jest blokowany przez aplikację do synchronizacji?"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:71
 msgid "Image Format Not Recognized"
@@ -2411,7 +2408,7 @@ msgstr "Format pliku nie rozpoznany"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:79
 msgid "Insert Table"
-msgstr "Dodaj ta_bele"
+msgstr "Dodaj ta_belę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:94
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:704
@@ -2445,11 +2442,11 @@ msgstr "Wstaw spacje zamiast tabulatorów"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:41
 msgid "Use Line Wrapping"
-msgstr "Użyj załamywania lini"
+msgstr "Użyj zawijania wierszy"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:45
 msgid "Line Wrapping Indentation"
-msgstr "Wcięcia lini"
+msgstr "Wcięcia zawijanych wierszy"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:52
 msgid "Enable Automatic Indentation"
@@ -2458,19 +2455,19 @@ msgstr "Włącz automatyczne wcięcia"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:54
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1389
 msgid "Show Line Numbers"
-msgstr "Wyświetl numery lini"
+msgstr "Wyświetl numery wierszy"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:56
 msgid "Scroll Beyond Last Line"
-msgstr "Skroluj poniżej ostatni lini"
+msgstr "Przewiń poniżej ostatni wierszy"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:60
 msgid "Vertical Space Around Lines"
-msgstr "Pionowy odstęp pomiędzy liniami"
+msgstr "Pionowy odstęp pomiędzy wierszami"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:70
 msgid "Vertical Space in Wrapped Lines"
-msgstr "Pionowy odstęp pomiędzy liniami zawiniętymi"
+msgstr "Pionowy odstęp pomiędzy wierszami zawiniętymi"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:93
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:119
@@ -2538,11 +2535,11 @@ msgstr "Łącz drzewo na każdej stronie"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:173
 msgid "New Node in New Page"
-msgstr "Nowa gałęź w nowej stronie"
+msgstr "Nowa gałąź na nowej stronie"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:179
 msgid "Single File"
-msgstr "Pojedyńczy Plik"
+msgstr "Pojedynczy Plik"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:211
 msgid "Remove Color"
@@ -2640,12 +2637,12 @@ msgstr "Zapisz plik jako"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1228
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1350
 msgid "Width"
-msgstr "Dlugość "
+msgstr "Długość"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1231
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1354
 msgid "Height"
-msgstr "Wysokość "
+msgstr "Wysokość"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1330
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1419
@@ -2747,7 +2744,7 @@ msgstr "Tylko do odczytu"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1773
 msgid "Choose Existing Tag"
-msgstr "Wybierz istniejącego znacznika"
+msgstr "Wybierz istniejący znacznik"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1773
 msgid "Tag Name"
@@ -2882,7 +2879,7 @@ msgstr "Własne tło"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:41
 msgid "and Text"
-msgstr "i tekst"
+msgstr "i Tekst"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:86
 msgid "Table"
@@ -2971,12 +2968,12 @@ msgid ""
 "Do you want to Continue?"
 msgstr ""
 "Zmiana typu gałęzi spowoduje utrate formatowania tej gałęzi, Czy chcesz "
-"kontynułować?"
+"kontynuować?"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:404
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "Jesteś pewien aby <b>Usunąć gałąź '%s'?</b>"
+msgstr "Jesteś pewien, że chcesz <b>Usunąć gałąź '%s'?</b>"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:406
 msgid "The node <b>has Children, they will be Deleted too!</b>"
@@ -3025,7 +3022,7 @@ msgstr "Znaki dla inteligentnych pojedynczych cudzysłowiów"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:105
 msgid "Enable Smart Quotes Auto Replacement"
-msgstr "Włącz inteligętne cudzysłowia"
+msgstr "Włącz inteligentne cudzysłowia"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:106
 msgid "Enable Symbol Auto Replacement"
@@ -3110,15 +3107,15 @@ msgstr "zainstaluj pakiet 'xterm' lub ustaw inny terminal w ustawieniach"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:693
 msgid "Edit Table Properties"
-msgstr "Edytuj wlaściwości tabeli"
+msgstr "Edytuj właściwości tabeli"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:728
 msgid "Insert Anchor"
-msgstr "Dod_aj Kotwice"
+msgstr "Dod_aj Kotwicę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:728
 msgid "Edit Anchor"
-msgstr "Zmień Kotwice"
+msgstr "Zmień Kotwicę"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:769
 msgid "Cannot Edit Embedded File in Read Only Node"
@@ -3146,7 +3143,7 @@ msgstr "Tło Monospace"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:74
 msgid "Embedded File Icon Size"
-msgstr "Rozmiar ikony dolączonego pliku"
+msgstr "Rozmiar ikony dołączonego pliku"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:83
 msgid "Embedded File Size Limit"
@@ -3154,7 +3151,7 @@ msgstr "Limit rozmiaru dla dołączonego pliku"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:90
 msgid "Show File Name on Top of Embedded File Icon"
-msgstr "Wyświetl nazwę pliku powyżej ikony dołączonegopliku"
+msgstr "Wyświetl nazwę pliku powyżej ikony dołączonego pliku"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:92
 msgid "Limit of Undoable Steps Per Node"
@@ -3166,7 +3163,7 @@ msgstr "Przy potrójnym kliknięciu zaznacz cały paragraf"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:101
 msgid "Enable Markdown Auto Replacement (Experimental)"
-msgstr "Włącz inteligętną zamianę Markdown"
+msgstr "Włącz inteligentną zamianę Markdown"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:33
 msgid "Use Different Cherries per Level"
@@ -3226,11 +3223,11 @@ msgstr "Ostatnio wyświetlana gałąź na nagłówku gałęzi"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_view.cc:80
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
-msgstr "Rozmiar paska narzędziowego jest już największy"
+msgstr "Rozmiar paska narzędzi jest już największy"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_view.cc:91
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
-msgstr "Rozmiar paska narzędziowego jest już najmniejszy"
+msgstr "Rozmiar paska narzędzi jest już najmniejszy"
 
 #~ msgid "Export to PDF at specified file path"
 #~ msgstr "Wyeksportuj do PDF w wybranym folderze"
@@ -3242,7 +3239,7 @@ msgstr "Rozmiar paska narzędziowego jest już najmniejszy"
 #~ msgstr "Eksportuj do wielu plików tekstowych"
 
 #~ msgid "Export to _Single Plain Text File"
-#~ msgstr "Eksportuj jako pojedyńczy plik tekstowy"
+#~ msgstr "Eksportuj jako pojedynczy plik tekstowy"
 
 #~ msgid "Unknown"
 #~ msgstr "Nieznany"
@@ -3304,7 +3301,7 @@ msgstr "Rozmiar paska narzędziowego jest już najmniejszy"
 #~ msgstr "Nie znaleziono żadnego H1, H2 lub H3"
 
 #~ msgid "Min Width"
-#~ msgstr "Min szerokość"
+#~ msgstr "Minimalna szerokość"
 
 #~ msgid "Max Width"
 #~ msgstr "Maksymalna Szerokość"
@@ -3313,13 +3310,13 @@ msgstr "Rozmiar paska narzędziowego jest już najmniejszy"
 #~ msgstr "Kliknij aby zmienić ustawienia kolumn"
 
 #~ msgid "Table Column Action"
-#~ msgstr "Akcja kolumny tabli"
+#~ msgstr "Akcja kolumny tabeli"
 
 #~ msgid "From _Basket Folder"
-#~ msgstr "Z folderu Basket"
+#~ msgstr "Z folderu Koszyk"
 
 #~ msgid "Add Nodes of a Basket Folder to the Current Tree"
-#~ msgstr "Dodaj gałąź z folderu Basket do aktualnego drzewa"
+#~ msgstr "Dodaj gałąź z folderu Koszyk do aktualnego drzewa"
 
 #~ msgid "From _EssentialPIM HTML File"
 #~ msgstr "Z pliku HTML _EssentialPIM"
@@ -3331,19 +3328,19 @@ msgstr "Rozmiar paska narzędziowego jest już najmniejszy"
 #~ msgstr "Z pliku K_eyNote"
 
 #~ msgid "Add Nodes of a KeyNote File to the Current Tree"
-#~ msgstr "Dodaj gałęzi z pliku KeyNote do aktualnego drzewa"
+#~ msgstr "Dodaj gałęzie z pliku KeyNote do aktualnego drzewa"
 
 #~ msgid "From K_nowit File"
 #~ msgstr "Z pliku K_nowit"
 
 #~ msgid "Add Nodes of a Knowit File to the Current Tree"
-#~ msgstr "Dodaj gałąź z pliku Knowit do aktualnego drzewa"
+#~ msgstr "Dodaj gałęzie z pliku Knowit do aktualnego drzewa"
 
 #~ msgid "From _TuxCards File"
 #~ msgstr "Z pliku _TuxCards"
 
 #~ msgid "Add Nodes of a TuxCards File to the Current Tree"
-#~ msgstr "Dodaj gałąź z pliku TuxCards do aktualnego drzewa"
+#~ msgstr "Dodaj gałęzie z pliku TuxCards do aktualnego drzewa"
 
 #~ msgid "Insert _NewLine"
 #~ msgstr "Dodaj _Nową linię"
@@ -3413,13 +3410,13 @@ msgstr "Rozmiar paska narzędziowego jest już najmniejszy"
 #~ msgstr "Zamień we wszystkich gałęziach"
 
 #~ msgid "Code Nodes"
-#~ msgstr "Gałęzi kodu"
+#~ msgstr "Gałąź kodu"
 
 #~ msgid "Use Cherries as Nodes Icons"
-#~ msgstr "Użyj wisienek jako ikony gałęźi"
+#~ msgstr "Użyj wisienek jako ikony gałęzi"
 
 #~ msgid "Do Not Display Nodes Icons"
-#~ msgstr "Nie wyświetlaj ikon gałęźi"
+#~ msgstr "Nie wyświetlaj ikon gałęzi"
 
 #~ msgid "All Nodes"
 #~ msgstr "Wszystkie gałęzie"
