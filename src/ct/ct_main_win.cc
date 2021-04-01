@@ -97,7 +97,6 @@ CtMainWin::CtMainWin(bool                            no_gui,
     _ctTextview.signal_populate_popup().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_populate_popup));
     _ctTextview.signal_motion_notify_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_motion_notify_event));
     _ctTextview.signal_visibility_notify_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_visibility_notify_event));
-    _ctTextview.signal_size_allocate().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_size_allocate));
     _ctTextview.signal_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_event));
     _ctTextview.signal_event_after().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_event_after));
     _ctTextview.signal_scroll_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_scroll_event));
@@ -122,17 +121,23 @@ CtMainWin::CtMainWin(bool                            no_gui,
     if (_no_gui) {
         set_visible(false);
     }
-    else if (_pCtConfig->systrayOn && _pCtConfig->startOnSystray) {
-        set_visible(false);
-    }
     else {
-        present();
-    }
-    _hPaned.property_position() = _pCtConfig->hpanedPos; // must be after present() (#1534)
+        if (_pCtConfig->systrayOn and _pCtConfig->startOnSystray) {
+            set_visible(false);
+        }
+        else {
+            present();
+        }
+        _hPaned.property_position() = _pCtConfig->hpanedPos; // must be after present() (#1534)
+        _ctTextview.signal_size_allocate().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_size_allocate));
+        auto rGdkWin = get_window();
+        rGdkWin->set_events(rGdkWin->get_events() | Gdk::STRUCTURE_MASK);
+        signal_configure_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_window_configure_event), false);
 
-    // show status icon if it's needed and also check if systray exists
-    if (!_no_gui && _pCtConfig->systrayOn) {
-        _pGtkStatusIcon->set_visible(true);
+        // show status icon if it's needed and also check if systray exists
+        if (_pCtConfig->systrayOn) {
+            _pGtkStatusIcon->set_visible(true);
+        }
     }
 }
 
@@ -234,13 +239,6 @@ void CtMainWin::config_apply()
 
 void CtMainWin::config_update_data_from_curr_status()
 {
-    _pCtConfig->winIsMaximised = is_maximized();
-    if (not _pCtConfig->winIsMaximised)
-    {
-        get_position(_pCtConfig->winRect[0], _pCtConfig->winRect[1]);
-        get_size(_pCtConfig->winRect[2], _pCtConfig->winRect[3]);
-    }
-    _pCtConfig->hpanedPos = _hPaned.property_position();
     _ensure_curr_doc_in_recent_docs();
     _ctTextview.synch_spell_check_change_from_gspell_right_click_menu();
 }

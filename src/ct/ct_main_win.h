@@ -191,6 +191,7 @@ public:
 
 private:
     bool _on_window_key_press_event(GdkEventKey* event);
+    bool _on_window_configure_event(GdkEventConfigure* configure_event);
 
     void _on_treeview_cursor_changed(); // pygtk: on_node_changed
     bool _on_treeview_button_release_event(GdkEventButton* event);

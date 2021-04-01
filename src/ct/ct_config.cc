@@ -35,52 +35,53 @@ const fs::path CtConfig::ConfigStylesDirname{"styles"};
 const fs::path CtConfig::UserStyleTemplate{"user-style.xml"};
 
 CtConfig::CtConfig()
+ : _configFilepath{fs::get_cherrytree_config_filepath()}
+ , _configFilepathTmp{_configFilepath.string() + ".tmp"}
 {
     (void)load_from_file();
     _ensure_user_styles_exist();
 }
 
-bool CtConfig::load_from_file(const fs::path& filepath)
+bool CtConfig::load_from_file()
 {
-    const fs::path filepathTmp = filepath.string() + ".tmp";
-    if (fs::exists(filepathTmp)) {
-        (void)fs::move_file(filepathTmp, filepath);
+    if (fs::exists(_configFilepathTmp)) {
+        if (not fs::move_file(_configFilepathTmp, _configFilepath)) {
+            spdlog::error("{} -> {}", _configFilepathTmp, _configFilepath);
+        }
     }
 #ifdef _WIN32
     // compatibility with old pygtk2 version
-    if (not fs::exists(filepath)) {
-        const std::string old_pygtk2_filepath = str::replace(filepath.string(), "\\Local\\", "\\Roaming\\");
+    if (not fs::exists(_configFilepath)) {
+        const std::string old_pygtk2_filepath = str::replace(_configFilepath.string(), "\\Local\\", "\\Roaming\\");
         if (fs::exists(old_pygtk2_filepath)) {
-            fs::copy_file(old_pygtk2_filepath, filepath);
+            fs::copy_file(old_pygtk2_filepath, _configFilepath);
         }
     }
 #endif // _WIN32
-    if (fs::exists(filepath)) {
+    if (fs::exists(_configFilepath)) {
         _uKeyFile = std::make_unique<Glib::KeyFile>();
         try {
-            _uKeyFile->load_from_file(filepath.string());
+            _uKeyFile->load_from_file(_configFilepath.string());
         }
         catch (Glib::Error& error) {
-            spdlog::error("CtConfig {}: {}", filepath, error.what());
+            spdlog::error("CtConfig {}: {}", _configFilepath, error.what());
             return false;
         }
         _populate_data_from_keyfile();
         _uKeyFile.reset(nullptr);
-        spdlog::debug("{} parsed", filepath);
+        spdlog::debug("{} parsed", _configFilepath);
         return true;
     }
-    spdlog::warn("{} missing", filepath);
+    spdlog::warn("{} missing", _configFilepath);
     return false;
 }
 
-bool CtConfig::write_to_file(const fs::path& filepath)
+bool CtConfig::write_to_file()
 {
     _uKeyFile = std::make_unique<Glib::KeyFile>();
     _populate_keyfile_from_data();
-    const fs::path filepathTmp = filepath.string() + ".tmp";
-    const bool writeSucceeded = _uKeyFile->save_to_file(filepathTmp.string());
+    const bool writeSucceeded = _uKeyFile->save_to_file(_configFilepathTmp.string());
     _uKeyFile.reset(nullptr);
-    (void)fs::move_file(filepathTmp, filepath);
     return writeSucceeded;
 }
 

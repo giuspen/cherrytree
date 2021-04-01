@@ -49,28 +49,16 @@ CtApp::CtApp(const char* application_id)
     register_application();
 }
 
-/* static */ Glib::RefPtr<CtApp> CtApp::create()
+/*static*/Glib::RefPtr<CtApp> CtApp::create()
 {
-    return Glib::RefPtr<CtApp>(new CtApp());
+    return Glib::RefPtr<CtApp>(new CtApp{});
 }
 
-static CtApp* pThis{nullptr};
-static void signal_callback_handler(int signum)
+static CtApp* _pCtApp{nullptr};
+static void kill_callback_handler(int signum)
 {
-    static bool taken{false};
-    if (taken) {
-        spdlog::debug("ignored signal {}", signum);
-        return;
-    }
-    taken = true;
-    if (pThis) {
-        spdlog::debug("closing all windows gracefully ({})", signum);
-        pThis->close_all_windows(false/*userCanInteract*/);
-    }
-    else {
-        spdlog::error("unexpected missing pThis ({})", signum);
-    }
-    exit(signum);
+    spdlog::debug("{} {}", __FUNCTION__, signum);
+    _pCtApp->close_all_windows(true/*fromKillCallback*/);
 }
 
 // small optimization: second instance doesn't need all UI initialization, so we call it on the real startup
@@ -132,16 +120,16 @@ void CtApp::_on_startup()
             auto item1 = CtMenu::create_menu_item(systrayMenu, _("Show/Hide _CherryTree"), CtConst::APP_NAME, _("Toggle Show/Hide CherryTree"));
             item1->signal_activate().connect([&] {_systray_show_hide_windows();});
             auto item2 = CtMenu::create_menu_item(systrayMenu, _("_Exit CherryTree"), "ct_quit-app", _("Exit from CherryTree"));
-            item2->signal_activate().connect([&] { close_all_windows(true/*userCanInteract*/); });
+            item2->signal_activate().connect([&] { close_all_windows(false/*fromKillCallback*/); });
             systrayMenu->show_all();
             systrayMenu->popup(button, activate_time);
         });
-        pThis = this;
-        signal(SIGTERM, signal_callback_handler); // kill/killall
-        signal(SIGINT, signal_callback_handler);  // Ctrl+C
+        _pCtApp = this;
+        signal(SIGTERM, kill_callback_handler); // kill/killall
+        signal(SIGINT, kill_callback_handler);  // Ctrl+C
 #ifndef _WIN32
-        signal(SIGQUIT, signal_callback_handler); // Ctrl+Backslash
-        signal(SIGHUP, signal_callback_handler);  // user’s terminal disconnected
+        signal(SIGQUIT, kill_callback_handler); // Ctrl+Backslash
+        signal(SIGHUP, kill_callback_handler);  // user’s terminal disconnected
 #endif // not _WIN32
         // SIGKILL cannot be handled or ignored, and is therefore always fatal
     }
@@ -154,19 +142,15 @@ void CtApp::on_activate()
     if (get_windows().size() == 0) {
         // start of main instance
         CtMainWin* pAppWindow = _create_window();
-        if (CtApp::_uCtCfg->reloadDocLast && not CtApp::_uCtCfg->recentDocsFilepaths.empty())
-        {
+        if (CtApp::_uCtCfg->reloadDocLast && not CtApp::_uCtCfg->recentDocsFilepaths.empty()) {
             Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(CtApp::_uCtCfg->recentDocsFilepaths.front().string());
-            if (r_file->query_exists())
-            {
+            if (r_file->query_exists()) {
                 const std::string canonicalPath = fs::canonical(r_file->get_path()).string();
-                if (not pAppWindow->file_open(canonicalPath, ""))
-                {
+                if (not pAppWindow->file_open(canonicalPath, "")) {
                     spdlog::warn("Couldn't open file: %s", canonicalPath);
                 }
             }
-            else
-            {
+            else {
                 spdlog::info("Last doc not found: {}", CtApp::_uCtCfg->recentDocsFilepaths.front());
                 CtApp::_uCtCfg->recentDocsFilepaths.move_or_push_back(CtApp::_uCtCfg->recentDocsFilepaths.front());
                 pAppWindow->menu_set_items_recent_documents();
@@ -183,15 +167,15 @@ void CtApp::on_activate()
         }
         else {
             Gtk::Window* any_shown_win = nullptr;
-            for (Gtk::Window* pWin : get_windows())
-                if (pWin->get_visible())
+            for (Gtk::Window* pWin : get_windows()) {
+                if (pWin->get_visible()) {
                     any_shown_win = pWin;
-            if (any_shown_win)
-            {
+                }
+            }
+            if (any_shown_win) {
                 any_shown_win->present();
             }
-            else
-            {
+            else {
                 // all windows are hidden, show them
                 // also it fixes an issue with a missing systray
                 _systray_show_hide_windows();
@@ -212,8 +196,7 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
     {
         _no_gui = true;
         spdlog::debug("export arguments are detected");
-        for (const Glib::RefPtr<Gio::File>& r_file : files)
-        {
+        for (const Glib::RefPtr<Gio::File>& r_file : files) {
             spdlog::debug("file to export: {}", r_file->get_path());
             CtMainWin* pWin = _create_window(true/*no_gui*/);
             const std::string canonicalPath = fs::canonical(r_file->get_path()).string();
@@ -242,8 +225,7 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
     }
 
     // ordinary app start with filepath argument
-    for (const Glib::RefPtr<Gio::File>& r_file : files)
-    {
+    for (const Glib::RefPtr<Gio::File>& r_file : files) {
         CtMainWin* pAppWindow = _get_window_by_path(r_file->get_path());
         if (nullptr == pAppWindow) {
             // there is not a window already running with that document
@@ -269,12 +251,12 @@ void CtApp::on_window_removed(Gtk::Window* window)
 {
     // override this function, so hidden windows won't be deleted from the window list
     // but destroy window when that is needed
-    if (CtMainWin* win = dynamic_cast<CtMainWin*>(window))
-        if (win->force_exit())
-        {
+    if (CtMainWin* win = dynamic_cast<CtMainWin*>(window)) {
+        if (win->force_exit()) {
             Gtk::Application::on_window_removed(window);
             delete window;
         }
+    }
 }
 
 CtMainWin* CtApp::_create_window(const bool no_gui)
@@ -300,15 +282,15 @@ CtMainWin* CtApp::_create_window(const bool no_gui)
                 callback(pCtMainWin);
     });
     pCtMainWin->signal_app_quit_or_hide_window.connect([&](CtMainWin* win) {
-        _quit_or_hide_window(win, false);
+        _quit_or_hide_window(win, false/*fromDelete*/, false/*fromKillCallback*/);
     });
     pCtMainWin->signal_delete_event().connect([this, pCtMainWin](GdkEventAny*) {
-        bool good = _quit_or_hide_window(pCtMainWin, true);
+        bool good = _quit_or_hide_window(pCtMainWin, true/*fromDelete*/, false/*fromKillCallback*/);
         return !good;
     });
     pCtMainWin->signal_app_quit_window.connect([&](CtMainWin* win) {
         win->force_exit() = true;
-        _quit_or_hide_window(win, false);
+        _quit_or_hide_window(win, false/*fromDelete*/, false/*fromKillCallback*/);
     });
     pCtMainWin->signal_show_hide_main_win.connect([&]() {
         _systray_show_hide_windows();
@@ -319,43 +301,43 @@ CtMainWin* CtApp::_create_window(const bool no_gui)
 
 CtMainWin* CtApp::_get_window_by_path(const std::string& filepath)
 {
-    for (Gtk::Window* pWin : get_windows())
-    {
+    for (Gtk::Window* pWin : get_windows()) {
         CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(pWin);
-        if (filepath == pCtMainWin->get_ct_storage()->get_file_path())
+        if (filepath == pCtMainWin->get_ct_storage()->get_file_path()) {
             return pCtMainWin;
+        }
     }
     return nullptr;
 }
 
-bool CtApp::_quit_or_hide_window(CtMainWin* pCtMainWin, const bool from_delete, const bool userCanInteract)
+bool CtApp::_quit_or_hide_window(CtMainWin* pCtMainWin, const bool from_delete, const bool fromKillCallback)
 {
+    std::lock_guard<std::mutex> lock(_quitOrHideWinMutex);
+
     pCtMainWin->config_update_data_from_curr_status();
     _uCtCfg->write_to_file();
 
-    if (_uCtCfg->systrayOn and not pCtMainWin->force_exit()) {
-        pCtMainWin->save_position();
-        pCtMainWin->set_visible(false);
-        return false; // stop deleting window
-    }
-
-    // trying to save changes, show window if possible/needed
-    if (userCanInteract) {
+    if (not fromKillCallback) {
+        if (_uCtCfg->systrayOn and not pCtMainWin->force_exit()) {
+            pCtMainWin->save_position();
+            pCtMainWin->set_visible(false);
+            return false; // stop deleting window
+        }
+        // trying to save changes, show window if possible/needed
         if (not pCtMainWin->file_save_ask_user()) {
             pCtMainWin->force_exit() = false;
             return false;  // stop deleting window
         }
     }
     else {
-        // shutdown/kill/killall/Ctrl+C...
-        pCtMainWin->file_save(false/*need_vacuum*/);
+        // It's too dangerous to try and save the document while being killed
     }
 
     pCtMainWin->force_exit() = true; // this is for on_window_removed
     if (not from_delete) {           // signal from remove, no need to remove again
         remove_window(*pCtMainWin);  // object will be destroyed in on_window_removed
     }
-    return true; // continue deleting window
+    return true; // keep deleting window
 }
 
 void CtApp::_systray_show_hide_windows()
@@ -370,14 +352,12 @@ void CtApp::_systray_show_hide_windows()
         for (Gtk::Window* pWin : get_windows())
         {
             CtMainWin* win = dynamic_cast<CtMainWin*>(pWin);
-            if (to_show)
-            {
+            if (to_show) {
                 win->present();
                 win->restore_position();
                 win->set_visible(true);
             }
-            else
-            {
+            else {
                 win->save_position();
                 win->set_visible(false);
             }
@@ -385,12 +365,12 @@ void CtApp::_systray_show_hide_windows()
     });
 }
 
-void CtApp::close_all_windows(const bool userCanInteract)
+void CtApp::close_all_windows(const bool fromKillCallback)
 {
     for (Gtk::Window* pWin : get_windows()) {
         if (CtMainWin* win = dynamic_cast<CtMainWin*>(pWin)) {
             win->force_exit() = true;
-            if (not _quit_or_hide_window(win, false, userCanInteract)) {
+            if (not _quit_or_hide_window(win, false/*fromDelete*/, fromKillCallback)) {
                 break;
             }
         }

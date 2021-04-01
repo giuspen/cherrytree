@@ -41,8 +41,8 @@ public:
     static const fs::path ConfigStylesDirname;
     static const fs::path UserStyleTemplate;
 
-    bool load_from_file(const fs::path& filepath = fs::get_cherrytree_config_filepath());
-    bool write_to_file(const fs::path& filepath =  fs::get_cherrytree_config_filepath());
+    bool load_from_file();
+    bool write_to_file();
 
     void update_user_style(const unsigned num);
     static std::string get_user_style_id(const unsigned num);
@@ -250,4 +250,7 @@ protected:
     gchar _tempKey[_maxTempKeySize];
     std::unique_ptr<Glib::KeyFile> _uKeyFile;
     std::string _currentGroup;
+
+    const fs::path _configFilepath;
+    const fs::path _configFilepathTmp;
 };

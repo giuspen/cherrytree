@@ -64,6 +64,7 @@ protected:
     bool          _new_window{false};
     bool          _initDone{false};
     bool          _no_gui{false};
+    std::mutex    _quitOrHideWinMutex;
 
 protected:
     void        on_activate() override;
@@ -77,7 +78,7 @@ protected:
 protected:
     CtMainWin*  _create_window(const bool no_gui = false);
     CtMainWin*  _get_window_by_path(const std::string& filepath);
-    bool        _quit_or_hide_window(CtMainWin* pCtMainWin, const bool from_delete, const bool userCanInteract = true);
+    bool        _quit_or_hide_window(CtMainWin* pCtMainWin, const bool fromDelete, const bool fromKillCallback);
     int         _on_handle_local_options(const Glib::RefPtr<Glib::VariantDict>& rOptions);
     void        _systray_show_hide_windows();
 };

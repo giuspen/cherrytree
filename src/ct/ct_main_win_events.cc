@@ -358,8 +358,19 @@ bool CtMainWin::_on_textview_visibility_notify_event(GdkEventVisibility*)
     return false;
 }
 
+bool CtMainWin::_on_window_configure_event(GdkEventConfigure*/*configure_event*/)
+{
+    _pCtConfig->winIsMaximised = is_maximized();
+    if (not _pCtConfig->winIsMaximised) {
+        get_position(_pCtConfig->winRect[0], _pCtConfig->winRect[1]);
+        get_size(_pCtConfig->winRect[2], _pCtConfig->winRect[3]);
+    }
+    return false;
+}
+
 void CtMainWin::_on_textview_size_allocate(Gtk::Allocation& allocation)
 {
+    _pCtConfig->hpanedPos = _hPaned.property_position();
     if (_prevTextviewWidth == 0) {
         _prevTextviewWidth = allocation.get_width();
     }
