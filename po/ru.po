@@ -623,55 +623,60 @@ msgstr "Японский"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:436
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:41
-msgid "Korean"
-msgstr "Корейский"
+msgid "Kazakh"
+msgstr "Казахский"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:437
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:42
+msgid "Korean"
+msgstr "Корейский"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:438
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:43
 msgid "Lithuanian"
 msgstr "Литовский"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:438
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:44
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:439
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:45
 msgid "Polish"
 msgstr "Польский"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:439
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:45
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:440
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:46
 msgid "Portuguese Brazil"
 msgstr "Португальский (Бразилия)"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:440
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:46
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:441
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:47
 msgid "Russian"
 msgstr "Русский"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:441
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:47
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:442
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:48
 msgid "Slovenian"
 msgstr "Словенский"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:442
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:443
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:35
 msgid "Spanish"
 msgstr "Испанский"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:443
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:48
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:444
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:49
 msgid "Swedish"
 msgstr "Шведский"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:444
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:49
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:445
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:50
 msgid "Turkish"
 msgstr "Турецкий"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:445
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:50
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:446
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:51
 msgid "Ukrainian"
 msgstr "Украинский"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:447
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:448
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:212
 msgid "About CherryTree"
 msgstr "О приложении..."
@@ -2017,7 +2022,7 @@ msgstr ""
 "Команды...\n"
 "\n"
 "Выполнить любую из команд представленную\n"
-"в \"Настройки приложения\\Горячие клавиши\" "
+"в \"Файл\\Настройки...\\Горячие клавиши\" "
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:137
 msgid "_Execute Code"
@@ -3228,6 +3233,7 @@ msgstr ""
 "Удалить строку\n"
 "\n"
 "Удалить строку из таблицы"
+
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:264
 msgid "Move Row _Up"
 msgstr "Строку вверх"

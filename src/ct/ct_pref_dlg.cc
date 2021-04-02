@@ -38,6 +38,7 @@ CtPrefDlg::CtPrefDlg(CtMainWin* parent)
         {"hy", _("Armenian")},
         {"it", _("Italian")},
         {"ja", _("Japanese")},
+        {"kk_KZ", _("Kazakh")},
         {"ko", _("Korean")},
         {"lt", _("Lithuanian")},
         {"nl", _("Dutch")},
