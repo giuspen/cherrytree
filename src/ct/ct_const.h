@@ -372,7 +372,7 @@ const inline static std::array<const gchar*, 124> NODE_CUSTOM_ICONS {
     "ct_freebsd",      // 119
     "ct_win10",        // 120
     "ct_win2012",      // 121
-    "ct_ko"            // 122
+    "ct_ko",           // 122
     "ct_kk_KZ"         // 123
 };
 
