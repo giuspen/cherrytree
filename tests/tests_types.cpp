@@ -125,3 +125,29 @@ TEST(TestTypesGroup, ThreadSafeDEQueue_MaxElements)
     }
     ASSERT_EQ(3, threadSafeDEQueue.size());
 }
+
+TEST(TestTypesGroup, ctScalableTag)
+{
+    {
+        char serialised[]{"1.728000;;;0;0;0"};
+        CtScalableTag scalableTag{serialised};
+        ASSERT_DOUBLE_EQ(1.728, scalableTag.scale);
+        ASSERT_TRUE(scalableTag.foreground.empty());
+        ASSERT_TRUE(scalableTag.background.empty());
+        ASSERT_FALSE(scalableTag.bold);
+        ASSERT_FALSE(scalableTag.italic);
+        ASSERT_FALSE(scalableTag.underline);
+        ASSERT_STREQ(serialised, scalableTag.serialise().c_str());
+    }
+    {
+        char serialised[]{"0.678000;#000000;#ffffff;1;1;1"};
+        CtScalableTag scalableTag{serialised};
+        ASSERT_DOUBLE_EQ(0.678, scalableTag.scale);
+        ASSERT_STREQ("#000000", scalableTag.foreground.c_str());
+        ASSERT_STREQ("#ffffff", scalableTag.background.c_str());
+        ASSERT_TRUE(scalableTag.bold);
+        ASSERT_TRUE(scalableTag.italic);
+        ASSERT_TRUE(scalableTag.underline);
+        ASSERT_STREQ(serialised, scalableTag.serialise().c_str());
+    }
+}

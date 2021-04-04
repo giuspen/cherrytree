@@ -129,6 +129,53 @@ private:
     }
 };
 
+struct CtScalableTag
+{
+    const std::string sep{";"};
+    CtScalableTag(const char* serialised) {
+        gchar** arrayOfStrings = g_strsplit(serialised, sep.c_str(), -1);
+        gchar** ptr = arrayOfStrings;
+        if (*ptr) {
+            scale = std::stod(*ptr);
+            ++ptr;
+            if (*ptr) {
+                foreground = *ptr;
+                ++ptr;
+                if (*ptr) {
+                    background = *ptr;
+                    ++ptr;
+                    if (*ptr) {
+                        bold = std::stoi(*ptr);
+                        ++ptr;
+                        if (*ptr) {
+                            italic = std::stoi(*ptr);
+                            ++ptr;
+                            if (*ptr) {
+                                underline = std::stoi(*ptr);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        g_strfreev(arrayOfStrings);
+    }
+    std::string serialise() const {
+        return std::to_string(scale) + sep +
+               foreground + sep +
+               background + sep +
+               std::to_string(bold) + sep +
+               std::to_string(italic) + sep +
+               std::to_string(underline);
+    }
+    double scale{1.0};
+    std::string foreground;
+    std::string background;
+    bool bold{false};
+    bool italic{false};
+    bool underline{false};
+};
+
 struct CtRecentDocsFilepaths : public CtMaxSizedList<fs::path>
 {
     CtRecentDocsFilepaths() : CtMaxSizedList<fs::path>{10} {}
