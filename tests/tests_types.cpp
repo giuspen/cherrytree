@@ -149,5 +149,13 @@ TEST(TestTypesGroup, ctScalableTag)
         ASSERT_TRUE(scalableTag.italic);
         ASSERT_TRUE(scalableTag.underline);
         ASSERT_STREQ(serialised, scalableTag.serialise().c_str());
+
+        scalableTag.deserialise("1.728000;;;0;0;0");
+        ASSERT_DOUBLE_EQ(1.728, scalableTag.scale);
+        ASSERT_TRUE(scalableTag.foreground.empty());
+        ASSERT_TRUE(scalableTag.background.empty());
+        ASSERT_FALSE(scalableTag.bold);
+        ASSERT_FALSE(scalableTag.italic);
+        ASSERT_FALSE(scalableTag.underline);
     }
 }

@@ -133,6 +133,9 @@ struct CtScalableTag
 {
     const std::string sep{";"};
     CtScalableTag(const char* serialised) {
+        deserialise(serialised);
+    }
+    void deserialise(const char* serialised) {
         gchar** arrayOfStrings = g_strsplit(serialised, sep.c_str(), -1);
         gchar** ptr = arrayOfStrings;
         if (*ptr) {
