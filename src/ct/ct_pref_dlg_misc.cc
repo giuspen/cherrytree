@@ -26,8 +26,6 @@
 
 Gtk::Widget* CtPrefDlg::build_tab_misc()
 {
-    CtConfig* pConfig = _pCtMainWin->get_ct_config();
-
     auto vbox_system_tray = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
     Gtk::CheckButton* checkbutton_systray = Gtk::manage(new Gtk::CheckButton{_("Enable System Tray Docking")});
     Gtk::CheckButton* checkbutton_start_on_systray = Gtk::manage(new Gtk::CheckButton{_("Start Minimized in the System Tray")});
@@ -36,14 +34,14 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
 
     Gtk::Frame* frame_system_tray = new_managed_frame_with_align(_("System Tray"), vbox_system_tray);
 
-    checkbutton_systray->set_active(pConfig->systrayOn);
-    checkbutton_start_on_systray->set_active(pConfig->startOnSystray);
-    checkbutton_start_on_systray->set_sensitive(pConfig->systrayOn);
+    checkbutton_systray->set_active(_pConfig->systrayOn);
+    checkbutton_start_on_systray->set_active(_pConfig->startOnSystray);
+    checkbutton_start_on_systray->set_sensitive(_pConfig->systrayOn);
 
     auto vbox_saving = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
     auto hbox_autosave = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     Gtk::CheckButton* checkbutton_autosave = Gtk::manage(new Gtk::CheckButton{_("Autosave Every")});
-    Glib::RefPtr<Gtk::Adjustment> adjustment_autosave = Gtk::Adjustment::create(pConfig->autosaveVal, 1, 1000, 1);
+    Glib::RefPtr<Gtk::Adjustment> adjustment_autosave = Gtk::Adjustment::create(_pConfig->autosaveVal, 1, 1000, 1);
     Gtk::SpinButton* spinbutton_autosave = Gtk::manage(new Gtk::SpinButton(adjustment_autosave));
     Gtk::Label* label_autosave = Gtk::manage(new Gtk::Label{_("Minutes")});
     hbox_autosave->pack_start(*checkbutton_autosave, false, false);
@@ -53,10 +51,10 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     Gtk::CheckButton* checkbutton_backup_before_saving = Gtk::manage(new Gtk::CheckButton{_("Create a Backup Copy Before Saving")});
     auto hbox_num_backups = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     Gtk::Label* label_num_backups = Gtk::manage(new Gtk::Label{_("Number of Backups to Keep")});
-    Glib::RefPtr<Gtk::Adjustment> adjustment_num_backups = Gtk::Adjustment::create(pConfig->backupNum, 1, 100, 1);
+    Glib::RefPtr<Gtk::Adjustment> adjustment_num_backups = Gtk::Adjustment::create(_pConfig->backupNum, 1, 100, 1);
     Gtk::SpinButton* spinbutton_num_backups = Gtk::manage(new Gtk::SpinButton{adjustment_num_backups});
-    spinbutton_num_backups->set_sensitive(pConfig->backupCopy);
-    spinbutton_num_backups->set_value(pConfig->backupNum);
+    spinbutton_num_backups->set_sensitive(_pConfig->backupCopy);
+    spinbutton_num_backups->set_value(_pConfig->backupNum);
     Gtk::CheckButton* checkbutton_custom_backup_dir = Gtk::manage(new Gtk::CheckButton{_("Custom Backup Directory")});
     Gtk::Entry* entry_custom_backup_dir = Gtk::manage(new Gtk::Entry{});
     entry_custom_backup_dir->property_editable() = false;
@@ -74,16 +72,16 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     vbox_saving->pack_start(*checkbutton_custom_backup_dir, false, false);
     vbox_saving->pack_start(*hbox_custom_backup_dir, false, false);
 
-    checkbutton_autosave->set_active(pConfig->autosaveOn);
-    spinbutton_autosave->set_value(pConfig->autosaveVal);
-    spinbutton_autosave->set_sensitive(pConfig->autosaveOn);
-    checkbutton_autosave_on_quit->set_active(pConfig->autosaveOnQuit);
-    checkbutton_backup_before_saving->set_active(pConfig->backupCopy);
-    checkbutton_custom_backup_dir->set_sensitive(pConfig->backupCopy);
-    checkbutton_custom_backup_dir->set_active(pConfig->customBackupDirOn);
-    entry_custom_backup_dir->set_text(pConfig->customBackupDir);
-    entry_custom_backup_dir->set_sensitive(pConfig->backupCopy && pConfig->customBackupDirOn);
-    button_custom_backup_dir->set_sensitive(pConfig->backupCopy && pConfig->customBackupDirOn);
+    checkbutton_autosave->set_active(_pConfig->autosaveOn);
+    spinbutton_autosave->set_value(_pConfig->autosaveVal);
+    spinbutton_autosave->set_sensitive(_pConfig->autosaveOn);
+    checkbutton_autosave_on_quit->set_active(_pConfig->autosaveOnQuit);
+    checkbutton_backup_before_saving->set_active(_pConfig->backupCopy);
+    checkbutton_custom_backup_dir->set_sensitive(_pConfig->backupCopy);
+    checkbutton_custom_backup_dir->set_active(_pConfig->customBackupDirOn);
+    entry_custom_backup_dir->set_text(_pConfig->customBackupDir);
+    entry_custom_backup_dir->set_sensitive(_pConfig->backupCopy && _pConfig->customBackupDirOn);
+    button_custom_backup_dir->set_sensitive(_pConfig->backupCopy && _pConfig->customBackupDirOn);
 
     Gtk::Frame* frame_saving = new_managed_frame_with_align(_("Saving"), vbox_saving);
 
@@ -99,11 +97,11 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     vbox_misc_misc->pack_start(*checkbutton_mod_time_sentinel, false, false);
     vbox_misc_misc->pack_start(*checkbutton_win_title_doc_dir, false, false);
 
-    checkbutton_newer_version->set_active(pConfig->checkVersion);
-    checkbutton_word_count->set_active(pConfig->wordCountOn);
-    checkbutton_reload_doc_last->set_active(pConfig->reloadDocLast);
-    checkbutton_mod_time_sentinel->set_active(pConfig->modTimeSentinel);
-    checkbutton_win_title_doc_dir->set_active(pConfig->winTitleShowDocDir);
+    checkbutton_newer_version->set_active(_pConfig->checkVersion);
+    checkbutton_word_count->set_active(_pConfig->wordCountOn);
+    checkbutton_reload_doc_last->set_active(_pConfig->reloadDocLast);
+    checkbutton_mod_time_sentinel->set_active(_pConfig->modTimeSentinel);
+    checkbutton_win_title_doc_dir->set_active(_pConfig->winTitleShowDocDir);
 
     Gtk::Frame* frame_misc_misc = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc_misc);
 
@@ -134,11 +132,11 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
 #endif
 
     // cannot just turn on systray icon, we have to check if systray exists
-    checkbutton_systray->signal_toggled().connect([this, pConfig, checkbutton_systray, checkbutton_start_on_systray](){
+    checkbutton_systray->signal_toggled().connect([this, checkbutton_systray, checkbutton_start_on_systray](){
         if (checkbutton_systray->get_active()) {
             _pCtMainWin->get_status_icon()->set_visible(true);
-            pConfig->systrayOn = CtDialogs::question_dialog(_("Has the System Tray appeared on the panel?"), *this);
-            if (pConfig->systrayOn) {
+            _pConfig->systrayOn = CtDialogs::question_dialog(_("Has the System Tray appeared on the panel?"), *this);
+            if (_pConfig->systrayOn) {
                 checkbutton_start_on_systray->set_sensitive(true);
                 apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(true); });
             }
@@ -148,65 +146,65 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
             }
         }
         else {
-            pConfig->systrayOn = false;
+            _pConfig->systrayOn = false;
             _pCtMainWin->get_status_icon()->set_visible(false);
             apply_for_each_window([](CtMainWin* win) { win->menu_set_visible_exit_app(false); });
             checkbutton_start_on_systray->set_sensitive(false);
         }
         checkbutton_systray->get_parent()->grab_focus();
     });
-    checkbutton_start_on_systray->signal_toggled().connect([pConfig, checkbutton_start_on_systray](){
-        pConfig->startOnSystray = checkbutton_start_on_systray->get_active();
+    checkbutton_start_on_systray->signal_toggled().connect([this, checkbutton_start_on_systray](){
+        _pConfig->startOnSystray = checkbutton_start_on_systray->get_active();
     });
-    checkbutton_autosave->signal_toggled().connect([this, pConfig, checkbutton_autosave, spinbutton_autosave](){
-        pConfig->autosaveOn = checkbutton_autosave->get_active();
+    checkbutton_autosave->signal_toggled().connect([this, checkbutton_autosave, spinbutton_autosave](){
+        _pConfig->autosaveOn = checkbutton_autosave->get_active();
         _pCtMainWin->file_autosave_restart();
-        spinbutton_autosave->set_sensitive(pConfig->autosaveOn);
+        spinbutton_autosave->set_sensitive(_pConfig->autosaveOn);
     });
-    spinbutton_autosave->signal_value_changed().connect([this, pConfig, spinbutton_autosave](){
-        pConfig->autosaveVal = spinbutton_autosave->get_value_as_int();
+    spinbutton_autosave->signal_value_changed().connect([this, spinbutton_autosave](){
+        _pConfig->autosaveVal = spinbutton_autosave->get_value_as_int();
         _pCtMainWin->file_autosave_restart();
     });
-    checkbutton_autosave_on_quit->signal_toggled().connect([pConfig, checkbutton_autosave_on_quit](){
-        pConfig->autosaveOnQuit = checkbutton_autosave_on_quit->get_active();
+    checkbutton_autosave_on_quit->signal_toggled().connect([this, checkbutton_autosave_on_quit](){
+        _pConfig->autosaveOnQuit = checkbutton_autosave_on_quit->get_active();
     });
-    checkbutton_backup_before_saving->signal_toggled().connect([pConfig, checkbutton_backup_before_saving, spinbutton_num_backups, checkbutton_custom_backup_dir, entry_custom_backup_dir, button_custom_backup_dir](){
-        pConfig->backupCopy = checkbutton_backup_before_saving->get_active();
-        spinbutton_num_backups->set_sensitive(pConfig->backupCopy);
-        checkbutton_custom_backup_dir->set_sensitive(pConfig->backupCopy);
-        entry_custom_backup_dir->set_sensitive(pConfig->backupCopy && pConfig->customBackupDirOn);
-        button_custom_backup_dir->set_sensitive(pConfig->backupCopy && pConfig->customBackupDirOn);
+    checkbutton_backup_before_saving->signal_toggled().connect([this, checkbutton_backup_before_saving, spinbutton_num_backups, checkbutton_custom_backup_dir, entry_custom_backup_dir, button_custom_backup_dir](){
+        _pConfig->backupCopy = checkbutton_backup_before_saving->get_active();
+        spinbutton_num_backups->set_sensitive(_pConfig->backupCopy);
+        checkbutton_custom_backup_dir->set_sensitive(_pConfig->backupCopy);
+        entry_custom_backup_dir->set_sensitive(_pConfig->backupCopy && _pConfig->customBackupDirOn);
+        button_custom_backup_dir->set_sensitive(_pConfig->backupCopy && _pConfig->customBackupDirOn);
     });
-    spinbutton_num_backups->signal_value_changed().connect([pConfig, spinbutton_num_backups](){
-        pConfig->backupNum = spinbutton_num_backups->get_value_as_int();
+    spinbutton_num_backups->signal_value_changed().connect([this, spinbutton_num_backups](){
+        _pConfig->backupNum = spinbutton_num_backups->get_value_as_int();
     });
-    checkbutton_custom_backup_dir->signal_toggled().connect([pConfig, checkbutton_custom_backup_dir, entry_custom_backup_dir, button_custom_backup_dir](){
-        pConfig->customBackupDirOn = checkbutton_custom_backup_dir->get_active();
+    checkbutton_custom_backup_dir->signal_toggled().connect([this, checkbutton_custom_backup_dir, entry_custom_backup_dir, button_custom_backup_dir](){
+        _pConfig->customBackupDirOn = checkbutton_custom_backup_dir->get_active();
         entry_custom_backup_dir->set_sensitive(checkbutton_custom_backup_dir->get_active());
         button_custom_backup_dir->set_sensitive(checkbutton_custom_backup_dir->get_active());
     });
-    button_custom_backup_dir->signal_clicked().connect([this, pConfig, entry_custom_backup_dir](){
-        auto dir_place = CtDialogs::folder_select_dialog(pConfig->customBackupDir, _pCtMainWin);
+    button_custom_backup_dir->signal_clicked().connect([this, entry_custom_backup_dir](){
+        auto dir_place = CtDialogs::folder_select_dialog(_pConfig->customBackupDir, _pCtMainWin);
         if (dir_place.empty()) return;
         entry_custom_backup_dir->set_text(dir_place);
-        pConfig->customBackupDir = dir_place;
+        _pConfig->customBackupDir = dir_place;
     });
-    checkbutton_reload_doc_last->signal_toggled().connect([pConfig, checkbutton_reload_doc_last](){
-        pConfig->reloadDocLast = checkbutton_reload_doc_last->get_active();
+    checkbutton_reload_doc_last->signal_toggled().connect([this, checkbutton_reload_doc_last](){
+        _pConfig->reloadDocLast = checkbutton_reload_doc_last->get_active();
     });
-    checkbutton_mod_time_sentinel->signal_toggled().connect([this, pConfig, checkbutton_mod_time_sentinel](){
-        pConfig->modTimeSentinel = checkbutton_mod_time_sentinel->get_active();
+    checkbutton_mod_time_sentinel->signal_toggled().connect([this, checkbutton_mod_time_sentinel](){
+        _pConfig->modTimeSentinel = checkbutton_mod_time_sentinel->get_active();
         _pCtMainWin->mod_time_sentinel_restart();
     });
-    checkbutton_win_title_doc_dir->signal_toggled().connect([this, pConfig, checkbutton_win_title_doc_dir](){
-        pConfig->winTitleShowDocDir = checkbutton_win_title_doc_dir->get_active();
+    checkbutton_win_title_doc_dir->signal_toggled().connect([this, checkbutton_win_title_doc_dir](){
+        _pConfig->winTitleShowDocDir = checkbutton_win_title_doc_dir->get_active();
         _pCtMainWin->window_title_update();
     });
-    checkbutton_newer_version->signal_toggled().connect([pConfig, checkbutton_newer_version](){
-        pConfig->checkVersion = checkbutton_newer_version->get_active();
+    checkbutton_newer_version->signal_toggled().connect([this, checkbutton_newer_version](){
+        _pConfig->checkVersion = checkbutton_newer_version->get_active();
     });
-    checkbutton_word_count->signal_toggled().connect([this, pConfig, checkbutton_word_count](){
-        pConfig->wordCountOn = checkbutton_word_count->get_active();
+    checkbutton_word_count->signal_toggled().connect([this, checkbutton_word_count](){
+        _pConfig->wordCountOn = checkbutton_word_count->get_active();
         apply_for_each_window([](CtMainWin* win) { win->update_selected_node_statusbar_info(); });
     });
 #ifdef HAVE_NLS

@@ -31,6 +31,7 @@
 #include "ct_menu.h"
 
 class CtMainWin;
+class CtConfig;
 
 class CtPrefDlg : public Gtk::Dialog
 {
@@ -40,6 +41,7 @@ public:
 private:
     Gtk::Widget* build_tab_text_n_code();
     Gtk::Widget* build_tab_rich_text();
+    Gtk::Widget* build_tab_format();
     Gtk::Widget* build_tab_plain_text_n_code();
     Gtk::Widget* build_tab_special_characters();
     Gtk::Widget* build_tab_tree();
@@ -100,8 +102,9 @@ private:
     UniversalModelColumns _commandModelColumns;
     UniversalModelColumns _toolbarModelColumns;
     UniversalModelColumns _shortcutModelColumns;
-    CtMainWin*            _pCtMainWin;
-    CtMenu*               _pCtMenu;
-    int                   _restartReasons;
+    CtMainWin* const      _pCtMainWin;
+    CtMenu* const         _pCtMenu;
+    CtConfig* const       _pConfig;
+    int                   _restartReasons{0};
     const std::map<std::string, Glib::ustring> _mapCountryLanguages;
 };

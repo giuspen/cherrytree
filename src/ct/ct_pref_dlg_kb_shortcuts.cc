@@ -27,8 +27,6 @@
 
 Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
 {
-    CtConfig* pConfig = _pCtMainWin->get_ct_config();
-
     Glib::RefPtr<Gtk::TreeStore> treestore = Gtk::TreeStore::create(_shortcutModelColumns);
     fill_shortcut_model(treestore);
     auto treeview = Gtk::manage(new Gtk::TreeView{treestore});
@@ -92,9 +90,9 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
             f_after_treestore_changes();
         }
     });
-    button_reset->signal_clicked().connect([this, pConfig, f_after_treestore_changes](){
+    button_reset->signal_clicked().connect([this, f_after_treestore_changes](){
         if (CtDialogs::question_dialog(reset_warning, *this)) {
-            pConfig->customKbShortcuts.clear();
+            _pConfig->customKbShortcuts.clear();
             f_after_treestore_changes();
         }
     });

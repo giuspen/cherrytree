@@ -26,11 +26,9 @@
 
 Gtk::Widget* CtPrefDlg::build_tab_rich_text()
 {
-    CtConfig* pConfig = _pCtMainWin->get_ct_config();
-
     Gtk::VBox* vbox_spell_check = Gtk::manage(new Gtk::VBox());
     Gtk::CheckButton* checkbutton_spell_check = Gtk::manage(new Gtk::CheckButton(_("Enable Spell Check")));
-    checkbutton_spell_check->set_active(pConfig->enableSpellCheck);
+    checkbutton_spell_check->set_active(_pConfig->enableSpellCheck);
     Gtk::HBox* hbox_spell_check_lang = Gtk::manage(new Gtk::HBox());
     hbox_spell_check_lang->set_spacing(4);
     Gtk::Label* label_spell_check_lang = Gtk::manage(new Gtk::Label(_("Spell Check Language")));
@@ -39,8 +37,8 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
         auto pGspellLang = reinterpret_cast<const GspellLanguage*>(l->data);
         combobox_spell_check_lang->append(gspell_language_get_code(pGspellLang), gspell_language_get_name(pGspellLang));
     }
-    combobox_spell_check_lang->set_active_id(pConfig->spellCheckLang);
-    combobox_spell_check_lang->set_sensitive(pConfig->enableSpellCheck);
+    combobox_spell_check_lang->set_active_id(_pConfig->spellCheckLang);
+    combobox_spell_check_lang->set_sensitive(_pConfig->enableSpellCheck);
 
     hbox_spell_check_lang->pack_start(*label_spell_check_lang, false, false);
     hbox_spell_check_lang->pack_start(*combobox_spell_check_lang);
@@ -51,55 +49,45 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     Gtk::HBox* hbox_misc_text = Gtk::manage(new Gtk::HBox());
     hbox_misc_text->set_spacing(4);
     Gtk::CheckButton* checkbutton_rt_show_white_spaces = Gtk::manage(new Gtk::CheckButton(_("Show White Spaces")));
-    checkbutton_rt_show_white_spaces->set_active(pConfig->rtShowWhiteSpaces);
+    checkbutton_rt_show_white_spaces->set_active(_pConfig->rtShowWhiteSpaces);
     Gtk::CheckButton* checkbutton_rt_highl_curr_line = Gtk::manage(new Gtk::CheckButton(_("Highlight Current Line")));
-    checkbutton_rt_highl_curr_line->set_active(pConfig->rtHighlCurrLine);
+    checkbutton_rt_highl_curr_line->set_active(_pConfig->rtHighlCurrLine);
     Gtk::CheckButton* checkbutton_rt_highl_match_bra = Gtk::manage(new Gtk::CheckButton(_("Highlight Matching Brackets")));
-    checkbutton_rt_highl_match_bra->set_active(pConfig->rtHighlMatchBra);
+    checkbutton_rt_highl_match_bra->set_active(_pConfig->rtHighlMatchBra);
     Gtk::CheckButton* checkbutton_codebox_auto_resize = Gtk::manage(new Gtk::CheckButton(_("Expand CodeBoxes Automatically")));
-    checkbutton_codebox_auto_resize->set_active(pConfig->codeboxAutoResize);
-
-    auto checkbutton_monospace_bg = Gtk::manage(new Gtk::CheckButton{_("Monospace Background")});
-    std::string mono_color = pConfig->monospaceBg.empty() ? CtConst::DEFAULT_MONOSPACE_BG : pConfig->monospaceBg;
-    auto colorbutton_monospace_bg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{mono_color}});
-    auto hbox_monospace_bg = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
-    hbox_monospace_bg->pack_start(*checkbutton_monospace_bg, false, false);
-    hbox_monospace_bg->pack_start(*colorbutton_monospace_bg, false, false);
-
-    checkbutton_monospace_bg->set_active(!pConfig->monospaceBg.empty());
-    colorbutton_monospace_bg->set_sensitive(!pConfig->monospaceBg.empty());
+    checkbutton_codebox_auto_resize->set_active(_pConfig->codeboxAutoResize);
 
     Gtk::HBox* hbox_embfile_icon_size = Gtk::manage(new Gtk::HBox());
     hbox_embfile_icon_size->set_spacing(4);
     Gtk::Label* label_embfile_icon_size = Gtk::manage(new Gtk::Label(_("Embedded File Icon Size")));
-    Glib::RefPtr<Gtk::Adjustment> adj_embfile_icon_size = Gtk::Adjustment::create(pConfig->embfileIconSize, 1, 1000, 1);
+    Glib::RefPtr<Gtk::Adjustment> adj_embfile_icon_size = Gtk::Adjustment::create(_pConfig->embfileIconSize, 1, 1000, 1);
     Gtk::SpinButton* spinbutton_embfile_icon_size = Gtk::manage(new Gtk::SpinButton(adj_embfile_icon_size));
-    spinbutton_embfile_icon_size->set_value(pConfig->embfileIconSize);
+    spinbutton_embfile_icon_size->set_value(_pConfig->embfileIconSize);
     hbox_embfile_icon_size->pack_start(*label_embfile_icon_size, false, false);
     hbox_embfile_icon_size->pack_start(*spinbutton_embfile_icon_size, false, false);
 
     Gtk::HBox* hbox_embfile_max_size = Gtk::manage(new Gtk::HBox());
     hbox_embfile_max_size->set_spacing(4);
     Gtk::Label* label_embfile_max_size = Gtk::manage(new Gtk::Label(_("Embedded File Size Limit")));
-    Glib::RefPtr<Gtk::Adjustment> adj_embfile_max_size = Gtk::Adjustment::create(pConfig->embfileIconSize, 1, 1000, 1);
+    Glib::RefPtr<Gtk::Adjustment> adj_embfile_max_size = Gtk::Adjustment::create(_pConfig->embfileIconSize, 1, 1000, 1);
     Gtk::SpinButton* spinbutton_embfile_max_size = Gtk::manage(new Gtk::SpinButton(adj_embfile_max_size));
-    spinbutton_embfile_max_size->set_value(pConfig->embfileMaxSize);
+    spinbutton_embfile_max_size->set_value(_pConfig->embfileMaxSize);
     hbox_embfile_max_size->pack_start(*label_embfile_max_size, false, false);
     hbox_embfile_max_size->pack_start(*spinbutton_embfile_max_size, false, false);
 
     Gtk::CheckButton* checkbutton_embfile_show_filename = Gtk::manage(new Gtk::CheckButton(_("Show File Name on Top of Embedded File Icon")));
-    checkbutton_embfile_show_filename->set_active(pConfig->embfileShowFileName);
+    checkbutton_embfile_show_filename->set_active(_pConfig->embfileShowFileName);
     Gtk::Label* label_limit_undoable_steps = Gtk::manage(new Gtk::Label(_("Limit of Undoable Steps Per Node")));
-    Glib::RefPtr<Gtk::Adjustment> adj_limit_undoable_steps = Gtk::Adjustment::create(pConfig->limitUndoableSteps, 1, 10000, 1);
+    Glib::RefPtr<Gtk::Adjustment> adj_limit_undoable_steps = Gtk::Adjustment::create(_pConfig->limitUndoableSteps, 1, 10000, 1);
     Gtk::SpinButton* spinbutton_limit_undoable_steps = Gtk::manage(new Gtk::SpinButton(adj_limit_undoable_steps));
-    spinbutton_limit_undoable_steps->set_value(pConfig->limitUndoableSteps);
+    spinbutton_limit_undoable_steps->set_value(_pConfig->limitUndoableSteps);
     hbox_misc_text->pack_start(*label_limit_undoable_steps, false, false);
     hbox_misc_text->pack_start(*spinbutton_limit_undoable_steps, false, false);
     Gtk::CheckButton* checkbutton_triple_click_sel_paragraph = Gtk::manage(new Gtk::CheckButton(_("At Triple Click Select the Whole Paragraph")));
-    checkbutton_triple_click_sel_paragraph->set_active(pConfig->tripleClickParagraph);
+    checkbutton_triple_click_sel_paragraph->set_active(_pConfig->tripleClickParagraph);
 #ifdef MD_AUTO_REPLACEMENT
     Gtk::CheckButton* checkbutton_md_formatting = Gtk::manage(new Gtk::CheckButton(_("Enable Markdown Auto Replacement (Experimental)")));
-    checkbutton_md_formatting->set_active(pConfig->enableMdFormatting);
+    checkbutton_md_formatting->set_active(_pConfig->enableMdFormatting);
 #endif // MD_AUTO_REPLACEMENT
 
     Gtk::VBox* vbox_misc_text = Gtk::manage(new Gtk::VBox());
@@ -107,7 +95,6 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     vbox_misc_text->pack_start(*checkbutton_rt_highl_curr_line, false, false);
     vbox_misc_text->pack_start(*checkbutton_rt_highl_match_bra, false, false);
     vbox_misc_text->pack_start(*checkbutton_codebox_auto_resize, false, false);
-    vbox_misc_text->pack_start(*hbox_monospace_bg, false, false);
     vbox_misc_text->pack_start(*hbox_embfile_icon_size, false, false);
     vbox_misc_text->pack_start(*hbox_embfile_max_size, false, false);
     vbox_misc_text->pack_start(*checkbutton_embfile_show_filename, false, false);
@@ -118,94 +105,127 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
 #endif // MD_AUTO_REPLACEMENT
     Gtk::Frame* frame_misc_text = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc_text);
 
-    Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
-    pMainBox->set_spacing(3);
+    auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
     pMainBox->set_margin_left(6);
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_spell_check, false, false);
     pMainBox->pack_start(*frame_misc_text, false, false);
 
-    checkbutton_spell_check->signal_toggled().connect([this, pConfig, checkbutton_spell_check, combobox_spell_check_lang](){
-        pConfig->enableSpellCheck = checkbutton_spell_check->get_active();
-        combobox_spell_check_lang->set_sensitive(pConfig->enableSpellCheck);
+    checkbutton_spell_check->signal_toggled().connect([this, checkbutton_spell_check, combobox_spell_check_lang](){
+        _pConfig->enableSpellCheck = checkbutton_spell_check->get_active();
+        combobox_spell_check_lang->set_sensitive(_pConfig->enableSpellCheck);
         apply_for_each_window([](CtMainWin* win) {
             win->get_text_view().set_spell_check(win->curr_tree_iter().get_node_is_rich_text());
             win->update_selected_node_statusbar_info();
         });
     });
-    combobox_spell_check_lang->signal_changed().connect([this, pConfig, combobox_spell_check_lang](){
-        pConfig->spellCheckLang = combobox_spell_check_lang->get_active_id();
+    combobox_spell_check_lang->signal_changed().connect([this, combobox_spell_check_lang](){
+        _pConfig->spellCheckLang = combobox_spell_check_lang->get_active_id();
         apply_for_each_window([](CtMainWin* win) {
             win->get_text_view().set_spell_check(win->curr_tree_iter().get_node_is_rich_text());
             win->update_selected_node_statusbar_info();
         });
     });
-    checkbutton_rt_show_white_spaces->signal_toggled().connect([this, pConfig, checkbutton_rt_show_white_spaces](){
-        pConfig->rtShowWhiteSpaces = checkbutton_rt_show_white_spaces->get_active();
+    checkbutton_rt_show_white_spaces->signal_toggled().connect([this, checkbutton_rt_show_white_spaces](){
+        _pConfig->rtShowWhiteSpaces = checkbutton_rt_show_white_spaces->get_active();
         apply_for_each_window([](CtMainWin* win) {
             win->resetup_for_syntax('r'/*RichText*/);
         });
     });
-    checkbutton_rt_highl_curr_line->signal_toggled().connect([this, pConfig, checkbutton_rt_highl_curr_line](){
-        pConfig->rtHighlCurrLine = checkbutton_rt_highl_curr_line->get_active();
+    checkbutton_rt_highl_curr_line->signal_toggled().connect([this, checkbutton_rt_highl_curr_line](){
+        _pConfig->rtHighlCurrLine = checkbutton_rt_highl_curr_line->get_active();
         apply_for_each_window([](CtMainWin* win) {
             win->resetup_for_syntax('r'/*RichText*/);
         });
     });
-    checkbutton_rt_highl_match_bra->signal_toggled().connect([this, pConfig, checkbutton_rt_highl_match_bra](){
-        pConfig->rtHighlMatchBra = checkbutton_rt_highl_match_bra->get_active();
+    checkbutton_rt_highl_match_bra->signal_toggled().connect([this, checkbutton_rt_highl_match_bra](){
+        _pConfig->rtHighlMatchBra = checkbutton_rt_highl_match_bra->get_active();
         apply_for_each_window([](CtMainWin* win) {
             win->reapply_syntax_highlighting('r'/*RichText*/);
             win->reapply_syntax_highlighting('t'/*Table*/);
         });
     });
-    checkbutton_codebox_auto_resize->signal_toggled().connect([this, pConfig, checkbutton_codebox_auto_resize](){
-        pConfig->codeboxAutoResize = checkbutton_codebox_auto_resize->get_active();
+    checkbutton_codebox_auto_resize->signal_toggled().connect([this, checkbutton_codebox_auto_resize](){
+        _pConfig->codeboxAutoResize = checkbutton_codebox_auto_resize->get_active();
         need_restart(RESTART_REASON::CODEBOX_AUTORESIZE);
     });
+    spinbutton_embfile_icon_size->signal_value_changed().connect([this, spinbutton_embfile_icon_size](){
+        _pConfig->embfileIconSize = spinbutton_embfile_icon_size->get_value_as_int();
+        need_restart(RESTART_REASON::EMBFILE_SIZE);
+    });
+    spinbutton_embfile_max_size->signal_value_changed().connect([this, spinbutton_embfile_max_size](){
+        _pConfig->embfileMaxSize = spinbutton_embfile_max_size->get_value_as_int();
+    });
+    checkbutton_embfile_show_filename->signal_toggled().connect([this, checkbutton_embfile_show_filename](){
+        _pConfig->embfileShowFileName = checkbutton_embfile_show_filename->get_active();
+        need_restart(RESTART_REASON::SHOW_EMBFILE_NAME);
+    });
+    spinbutton_limit_undoable_steps->signal_value_changed().connect([this, spinbutton_limit_undoable_steps](){
+        _pConfig->limitUndoableSteps = spinbutton_limit_undoable_steps->get_value_as_int();
+    });
+    checkbutton_triple_click_sel_paragraph->signal_toggled().connect([this, checkbutton_triple_click_sel_paragraph]{
+        _pConfig->tripleClickParagraph = checkbutton_triple_click_sel_paragraph->get_active();
+    });
+#ifdef MD_AUTO_REPLACEMENT
+    checkbutton_md_formatting->signal_toggled().connect([this, checkbutton_md_formatting]{
+        _pConfig->enableMdFormatting = checkbutton_md_formatting->get_active();
+    });
+#endif // MD_AUTO_REPLACEMENT
 
-    checkbutton_monospace_bg->signal_toggled().connect([this, pConfig, checkbutton_monospace_bg, colorbutton_monospace_bg](){
-        pConfig->monospaceBg = checkbutton_monospace_bg->get_active() ?
+    return pMainBox;
+}
+
+Gtk::Widget* CtPrefDlg::build_tab_format()
+{
+    auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
+    pMainBox->set_margin_left(6);
+    pMainBox->set_margin_top(6);
+
+    auto pNotebookScalable = Gtk::manage(new Gtk::Notebook{});
+    auto vbox_misc = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+
+    for (int i = 1; i <= 7; ++i) {
+        auto vboxTab = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+        Glib::ustring tabLabel = i != 7 ? Glib::ustring{"h"} + std::to_string(i) : _("Small");
+        pNotebookScalable->append_page(*vboxTab, tabLabel);
+    }
+
+    auto checkbutton_monospace_bg = Gtk::manage(new Gtk::CheckButton{_("Monospace Background")});
+    std::string mono_color = _pConfig->monospaceBg.empty() ? CtConst::DEFAULT_MONOSPACE_BG : _pConfig->monospaceBg;
+    auto colorbutton_monospace_bg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{mono_color}});
+    auto hbox_monospace_bg = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    hbox_monospace_bg->pack_start(*checkbutton_monospace_bg, false, false);
+    hbox_monospace_bg->pack_start(*colorbutton_monospace_bg, false, false);
+    vbox_misc->pack_start(*hbox_monospace_bg, false, false);
+
+    checkbutton_monospace_bg->set_active(!_pConfig->monospaceBg.empty());
+    colorbutton_monospace_bg->set_sensitive(!_pConfig->monospaceBg.empty());
+
+    Gtk::Frame* pFrameScalable = new_managed_frame_with_align(_("Scalable Tags"), pNotebookScalable);
+    Gtk::Frame* pFrameMisc = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc);
+
+    checkbutton_monospace_bg->signal_toggled().connect([this, checkbutton_monospace_bg, colorbutton_monospace_bg](){
+        _pConfig->monospaceBg = checkbutton_monospace_bg->get_active() ?
             CtRgbUtil::rgb_any_to_24(colorbutton_monospace_bg->get_rgba()) : "";
-        colorbutton_monospace_bg->set_sensitive(not pConfig->monospaceBg.empty());
-        if (not pConfig->monospaceBg.empty()) {
+        colorbutton_monospace_bg->set_sensitive(not _pConfig->monospaceBg.empty());
+        if (not _pConfig->monospaceBg.empty()) {
             if (auto tag = _pCtMainWin->get_text_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
-                tag->property_background() = pConfig->monospaceBg;
+                tag->property_background() = _pConfig->monospaceBg;
             }
         }
         else {
             need_restart(RESTART_REASON::MONOSPACE);
         }
     });
-    colorbutton_monospace_bg->signal_color_set().connect([this, pConfig, colorbutton_monospace_bg](){
-        pConfig->monospaceBg = CtRgbUtil::rgb_any_to_24(colorbutton_monospace_bg->get_rgba());
+    colorbutton_monospace_bg->signal_color_set().connect([this, colorbutton_monospace_bg](){
+        _pConfig->monospaceBg = CtRgbUtil::rgb_any_to_24(colorbutton_monospace_bg->get_rgba());
         if (auto tag = _pCtMainWin->get_text_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
-            tag->property_background() = pConfig->monospaceBg;
+            tag->property_background() = _pConfig->monospaceBg;
         }
     });
 
-    spinbutton_embfile_icon_size->signal_value_changed().connect([this, pConfig, spinbutton_embfile_icon_size](){
-        pConfig->embfileIconSize = spinbutton_embfile_icon_size->get_value_as_int();
-        need_restart(RESTART_REASON::EMBFILE_SIZE);
-    });
-    spinbutton_embfile_max_size->signal_value_changed().connect([pConfig, spinbutton_embfile_max_size](){
-        pConfig->embfileMaxSize = spinbutton_embfile_max_size->get_value_as_int();
-    });
-    checkbutton_embfile_show_filename->signal_toggled().connect([this, pConfig, checkbutton_embfile_show_filename](){
-        pConfig->embfileShowFileName = checkbutton_embfile_show_filename->get_active();
-        need_restart(RESTART_REASON::SHOW_EMBFILE_NAME);
-    });
-    spinbutton_limit_undoable_steps->signal_value_changed().connect([pConfig, spinbutton_limit_undoable_steps](){
-        pConfig->limitUndoableSteps = spinbutton_limit_undoable_steps->get_value_as_int();
-    });
-    checkbutton_triple_click_sel_paragraph->signal_toggled().connect([pConfig, checkbutton_triple_click_sel_paragraph]{
-        pConfig->tripleClickParagraph = checkbutton_triple_click_sel_paragraph->get_active();
-    });
-#ifdef MD_AUTO_REPLACEMENT
-    checkbutton_md_formatting->signal_toggled().connect([pConfig, checkbutton_md_formatting]{
-        pConfig->enableMdFormatting = checkbutton_md_formatting->get_active();
-    });
-#endif // MD_AUTO_REPLACEMENT
+    pMainBox->pack_start(*pFrameScalable, false, false);
+    pMainBox->pack_start(*pFrameMisc, false, false);
 
     return pMainBox;
 }

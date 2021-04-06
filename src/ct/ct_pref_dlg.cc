@@ -50,15 +50,15 @@ CtPrefDlg::CtPrefDlg(CtMainWin* parent)
         {"tr", _("Turkish")},
         {"uk", _("Ukrainian")},
         {"zh_CN", _("Chinese Simplified")}}
+ , _pCtMainWin{parent}
+ , _pCtMenu{&_pCtMainWin->get_ct_menu()}
+ , _pConfig{_pCtMainWin->get_ct_config()}
 {
-    _restartReasons = 0;
-    _pCtMainWin = parent;
-    _pCtMenu = &_pCtMainWin->get_ct_menu();
-
-    Gtk::Notebook* pNotebook = Gtk::manage(new Gtk::Notebook());
+    auto pNotebook = Gtk::manage(new Gtk::Notebook{});
     pNotebook->set_tab_pos(Gtk::PositionType::POS_LEFT);
     pNotebook->append_page(*build_tab_text_n_code(),        _("Text and Code"));
     pNotebook->append_page(*build_tab_rich_text(),          _("Rich Text"));
+    pNotebook->append_page(*build_tab_format(),             _("Format"));
     pNotebook->append_page(*build_tab_plain_text_n_code(),  _("Plain Text and Code"));
     pNotebook->append_page(*build_tab_special_characters(), _("Special Characters"));
     pNotebook->append_page(*build_tab_tree(),               _("Tree Explorer"));
@@ -89,8 +89,6 @@ Gtk::Frame* CtPrefDlg::new_managed_frame_with_align(const Glib::ustring& frameLa
 
 Gtk::Widget* CtPrefDlg::build_tab_fonts()
 {
-    CtConfig* pConfig = _pCtMainWin->get_ct_config();
-
     Gtk::Image* image_rt = _pCtMainWin->new_image_from_stock("ct_fonts", Gtk::ICON_SIZE_MENU);
     Gtk::Image* image_ms = _pCtMainWin->new_image_from_stock("ct_fmt-txt-monospace", Gtk::ICON_SIZE_MENU);
     Gtk::Image* image_pt = _pCtMainWin->new_image_from_stock("ct_fonts", Gtk::ICON_SIZE_MENU);
@@ -100,19 +98,19 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
     label_rt->set_halign(Gtk::Align::ALIGN_END);
     Gtk::CheckButton* checkbutton_ms = Gtk::manage(new Gtk::CheckButton(_("Monospace")));
     checkbutton_ms->set_halign(Gtk::Align::ALIGN_END);
-    checkbutton_ms->set_active(pConfig->msDedicatedFont);
+    checkbutton_ms->set_active(_pConfig->msDedicatedFont);
     Gtk::Label* label_pt = Gtk::manage(new Gtk::Label(_("Plain Text")));
     label_pt->set_halign(Gtk::Align::ALIGN_END);
     Gtk::Label* label_code = Gtk::manage(new Gtk::Label(_("Code Font")));
     label_code->set_halign(Gtk::Align::ALIGN_END);
     Gtk::Label* label_tree = Gtk::manage(new Gtk::Label(_("Tree Font")));
     label_tree->set_halign(Gtk::Align::ALIGN_END);
-    Gtk::FontButton* fontbutton_rt = Gtk::manage(new Gtk::FontButton(pConfig->rtFont));
-    Gtk::FontButton* fontbutton_ms = Gtk::manage(new Gtk::FontButton(pConfig->monospaceFont));
-    fontbutton_ms->set_sensitive(pConfig->msDedicatedFont);
-    Gtk::FontButton* fontbutton_pt = Gtk::manage(new Gtk::FontButton(pConfig->ptFont));
-    Gtk::FontButton* fontbutton_code = Gtk::manage(new Gtk::FontButton(pConfig->codeFont));
-    Gtk::FontButton* fontbutton_tree = Gtk::manage(new Gtk::FontButton(pConfig->treeFont));
+    Gtk::FontButton* fontbutton_rt = Gtk::manage(new Gtk::FontButton(_pConfig->rtFont));
+    Gtk::FontButton* fontbutton_ms = Gtk::manage(new Gtk::FontButton(_pConfig->monospaceFont));
+    fontbutton_ms->set_sensitive(_pConfig->msDedicatedFont);
+    Gtk::FontButton* fontbutton_pt = Gtk::manage(new Gtk::FontButton(_pConfig->ptFont));
+    Gtk::FontButton* fontbutton_code = Gtk::manage(new Gtk::FontButton(_pConfig->codeFont));
+    Gtk::FontButton* fontbutton_tree = Gtk::manage(new Gtk::FontButton(_pConfig->treeFont));
     Gtk::Grid* grid_fonts = Gtk::manage(new Gtk::Grid());
     grid_fonts->set_row_spacing(2);
     grid_fonts->set_column_spacing(4);
@@ -140,34 +138,34 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_fonts, false, false);
 
-    fontbutton_rt->signal_font_set().connect([this, pConfig, fontbutton_rt](){
-        pConfig->rtFont = fontbutton_rt->get_font_name();
+    fontbutton_rt->signal_font_set().connect([this, fontbutton_rt](){
+        _pConfig->rtFont = fontbutton_rt->get_font_name();
         apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
     });
-    checkbutton_ms->signal_toggled().connect([this, pConfig, checkbutton_ms, fontbutton_ms](){
-        pConfig->msDedicatedFont = checkbutton_ms->get_active();
-        fontbutton_ms->set_sensitive(pConfig->msDedicatedFont);
+    checkbutton_ms->signal_toggled().connect([this, checkbutton_ms, fontbutton_ms](){
+        _pConfig->msDedicatedFont = checkbutton_ms->get_active();
+        fontbutton_ms->set_sensitive(_pConfig->msDedicatedFont);
         if (auto tag = _pCtMainWin->get_text_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
-            tag->property_family() = pConfig->msDedicatedFont ? "" : CtConst::TAG_PROP_VAL_MONOSPACE;
-            tag->property_font() = pConfig->msDedicatedFont ? pConfig->monospaceFont : "";
+            tag->property_family() = _pConfig->msDedicatedFont ? "" : CtConst::TAG_PROP_VAL_MONOSPACE;
+            tag->property_font() = _pConfig->msDedicatedFont ? _pConfig->monospaceFont : "";
         }
     });
-    fontbutton_ms->signal_font_set().connect([this, pConfig, fontbutton_ms](){
-        pConfig->monospaceFont = fontbutton_ms->get_font_name();
+    fontbutton_ms->signal_font_set().connect([this, fontbutton_ms](){
+        _pConfig->monospaceFont = fontbutton_ms->get_font_name();
         if (auto tag = _pCtMainWin->get_text_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
-            tag->property_font() = pConfig->monospaceFont;
+            tag->property_font() = _pConfig->monospaceFont;
         }
     });
-    fontbutton_pt->signal_font_set().connect([this, pConfig, fontbutton_pt](){
-        pConfig->ptFont = fontbutton_pt->get_font_name();
+    fontbutton_pt->signal_font_set().connect([this, fontbutton_pt](){
+        _pConfig->ptFont = fontbutton_pt->get_font_name();
         apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
     });
-    fontbutton_code->signal_font_set().connect([this, pConfig, fontbutton_code](){
-        pConfig->codeFont = fontbutton_code->get_font_name();
+    fontbutton_code->signal_font_set().connect([this, fontbutton_code](){
+        _pConfig->codeFont = fontbutton_code->get_font_name();
         apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
     });
-    fontbutton_tree->signal_font_set().connect([this, pConfig, fontbutton_tree](){
-        pConfig->treeFont = fontbutton_tree->get_font_name();
+    fontbutton_tree->signal_font_set().connect([this, fontbutton_tree](){
+        _pConfig->treeFont = fontbutton_tree->get_font_name();
         apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
     });
     return pMainBox;
@@ -175,8 +173,6 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
 
 Gtk::Widget* CtPrefDlg::build_tab_links()
 {
-    CtConfig* pConfig = _pCtMainWin->get_ct_config();
-
     Gtk::VBox* vbox_links_actions = Gtk::manage(new Gtk::VBox());
     Gtk::CheckButton* checkbutton_custom_weblink_cmd = Gtk::manage(new Gtk::CheckButton(_("Enable Custom Web Link Clicked Action")));
     Gtk::Entry* entry_custom_weblink_cmd = Gtk::manage(new Gtk::Entry());
@@ -193,15 +189,15 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
 
     Gtk::Frame* frame_links_actions = new_managed_frame_with_align(_("Custom Actions"), vbox_links_actions);
 
-    checkbutton_custom_weblink_cmd->set_active(pConfig->weblinkCustomOn);
-    entry_custom_weblink_cmd->set_sensitive(pConfig->weblinkCustomOn);
-    entry_custom_weblink_cmd->set_text(pConfig->weblinkCustomAct);
-    checkbutton_custom_filelink_cmd->set_active(pConfig->filelinkCustomOn);
-    entry_custom_filelink_cmd->set_sensitive(pConfig->filelinkCustomOn);
-    entry_custom_filelink_cmd->set_text(pConfig->filelinkCustomAct);
-    checkbutton_custom_folderlink_cmd->set_active(pConfig->folderlinkCustomOn);
-    entry_custom_folderlink_cmd->set_sensitive(pConfig->folderlinkCustomOn);
-    entry_custom_folderlink_cmd->set_text(pConfig->folderlinkCustomAct);
+    checkbutton_custom_weblink_cmd->set_active(_pConfig->weblinkCustomOn);
+    entry_custom_weblink_cmd->set_sensitive(_pConfig->weblinkCustomOn);
+    entry_custom_weblink_cmd->set_text(_pConfig->weblinkCustomAct);
+    checkbutton_custom_filelink_cmd->set_active(_pConfig->filelinkCustomOn);
+    entry_custom_filelink_cmd->set_sensitive(_pConfig->filelinkCustomOn);
+    entry_custom_filelink_cmd->set_text(_pConfig->filelinkCustomAct);
+    checkbutton_custom_folderlink_cmd->set_active(_pConfig->folderlinkCustomOn);
+    entry_custom_folderlink_cmd->set_sensitive(_pConfig->folderlinkCustomOn);
+    entry_custom_folderlink_cmd->set_text(_pConfig->folderlinkCustomAct);
 
     Gtk::Grid* grid_links_colors = Gtk::manage(new Gtk::Grid());
     grid_links_colors->set_row_spacing(2);
@@ -209,13 +205,13 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
     grid_links_colors->set_row_homogeneous(true);
 
     Gtk::Label* label_col_link_webs = Gtk::manage(new Gtk::Label(_("To WebSite")));
-    Gtk::ColorButton* colorbutton_col_link_webs = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(pConfig->colLinkWebs)));
+    Gtk::ColorButton* colorbutton_col_link_webs = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(_pConfig->colLinkWebs)));
     Gtk::Label* label_col_link_node = Gtk::manage(new Gtk::Label(_("To Node")));
-    Gtk::ColorButton* colorbutton_col_link_node = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(pConfig->colLinkNode)));
+    Gtk::ColorButton* colorbutton_col_link_node = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(_pConfig->colLinkNode)));
     Gtk::Label* label_col_link_file = Gtk::manage(new Gtk::Label(_("To File")));
-    Gtk::ColorButton* colorbutton_col_link_file = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(pConfig->colLinkFile)));
+    Gtk::ColorButton* colorbutton_col_link_file = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(_pConfig->colLinkFile)));
     Gtk::Label* label_col_link_fold = Gtk::manage(new Gtk::Label(_("To Folder")));
-    Gtk::ColorButton* colorbutton_col_link_fold = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(pConfig->colLinkFold)));
+    Gtk::ColorButton* colorbutton_col_link_fold = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(_pConfig->colLinkFold)));
 
     grid_links_colors->attach(*label_col_link_webs, 0, 0, 1, 1);
     grid_links_colors->attach(*colorbutton_col_link_webs, 1, 0, 1, 1);
@@ -233,15 +229,15 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
 
     Gtk::VBox* vbox_links_misc = Gtk::manage(new Gtk::VBox());
     Gtk::CheckButton* checkbutton_links_underline = Gtk::manage(new Gtk::CheckButton(_("Underline Links")));
-    checkbutton_links_underline->set_active(pConfig->linksUnderline);
+    checkbutton_links_underline->set_active(_pConfig->linksUnderline);
     Gtk::CheckButton* checkbutton_links_relative = Gtk::manage(new Gtk::CheckButton(_("Use Relative Paths for Files And Folders")));
-    checkbutton_links_relative->set_active(pConfig->linksRelative);
+    checkbutton_links_relative->set_active(_pConfig->linksRelative);
     Gtk::HBox* hbox_anchor_size = Gtk::manage(new Gtk::HBox());
     hbox_anchor_size->set_spacing(4);
     Gtk::Label* label_anchor_size = Gtk::manage(new Gtk::Label(_("Anchor Size")));
-    Glib::RefPtr<Gtk::Adjustment> adj_anchor_size = Gtk::Adjustment::create(pConfig->anchorSize, 1, 1000, 1);
+    Glib::RefPtr<Gtk::Adjustment> adj_anchor_size = Gtk::Adjustment::create(_pConfig->anchorSize, 1, 1000, 1);
     Gtk::SpinButton* spinbutton_anchor_size = Gtk::manage(new Gtk::SpinButton(adj_anchor_size));
-    spinbutton_anchor_size->set_value(pConfig->anchorSize);
+    spinbutton_anchor_size->set_value(_pConfig->anchorSize);
     hbox_anchor_size->pack_start(*label_anchor_size, false, false);
     hbox_anchor_size->pack_start(*spinbutton_anchor_size, false, false);
     vbox_links_misc->pack_start(*checkbutton_links_underline, false, false);
@@ -258,52 +254,52 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
     pMainBox->pack_start(*frame_links_colors, false, false);
     pMainBox->pack_start(*frame_links_misc, false, false);
 
-    checkbutton_custom_weblink_cmd->signal_toggled().connect([pConfig, checkbutton_custom_weblink_cmd, entry_custom_weblink_cmd](){
-        pConfig->weblinkCustomOn = checkbutton_custom_weblink_cmd->get_active();
-        entry_custom_weblink_cmd->set_sensitive(pConfig->weblinkCustomOn);
+    checkbutton_custom_weblink_cmd->signal_toggled().connect([this, checkbutton_custom_weblink_cmd, entry_custom_weblink_cmd](){
+        _pConfig->weblinkCustomOn = checkbutton_custom_weblink_cmd->get_active();
+        entry_custom_weblink_cmd->set_sensitive(_pConfig->weblinkCustomOn);
     });
-    entry_custom_weblink_cmd->signal_changed().connect([pConfig, entry_custom_weblink_cmd](){
-        pConfig->weblinkCustomAct = entry_custom_weblink_cmd->get_text();
+    entry_custom_weblink_cmd->signal_changed().connect([this, entry_custom_weblink_cmd](){
+        _pConfig->weblinkCustomAct = entry_custom_weblink_cmd->get_text();
     });
-    checkbutton_custom_filelink_cmd->signal_toggled().connect([pConfig, checkbutton_custom_filelink_cmd, entry_custom_filelink_cmd](){
-        pConfig->filelinkCustomOn = checkbutton_custom_filelink_cmd->get_active();
-        entry_custom_filelink_cmd->set_sensitive(pConfig->filelinkCustomOn);
+    checkbutton_custom_filelink_cmd->signal_toggled().connect([this, checkbutton_custom_filelink_cmd, entry_custom_filelink_cmd](){
+        _pConfig->filelinkCustomOn = checkbutton_custom_filelink_cmd->get_active();
+        entry_custom_filelink_cmd->set_sensitive(_pConfig->filelinkCustomOn);
     });
-    entry_custom_filelink_cmd->signal_changed().connect([pConfig, entry_custom_filelink_cmd](){
-        pConfig->filelinkCustomAct = entry_custom_filelink_cmd->get_text();
+    entry_custom_filelink_cmd->signal_changed().connect([this, entry_custom_filelink_cmd](){
+        _pConfig->filelinkCustomAct = entry_custom_filelink_cmd->get_text();
     });
-    checkbutton_custom_folderlink_cmd->signal_toggled().connect([pConfig, checkbutton_custom_folderlink_cmd, entry_custom_folderlink_cmd](){
-        pConfig->folderlinkCustomOn = checkbutton_custom_folderlink_cmd->get_active();
-        entry_custom_folderlink_cmd->set_sensitive(pConfig->folderlinkCustomOn);
+    checkbutton_custom_folderlink_cmd->signal_toggled().connect([this, checkbutton_custom_folderlink_cmd, entry_custom_folderlink_cmd](){
+        _pConfig->folderlinkCustomOn = checkbutton_custom_folderlink_cmd->get_active();
+        entry_custom_folderlink_cmd->set_sensitive(_pConfig->folderlinkCustomOn);
     });
-    entry_custom_folderlink_cmd->signal_changed().connect([pConfig, entry_custom_folderlink_cmd](){
-        pConfig->folderlinkCustomAct = entry_custom_folderlink_cmd->get_text();
+    entry_custom_folderlink_cmd->signal_changed().connect([this, entry_custom_folderlink_cmd](){
+        _pConfig->folderlinkCustomAct = entry_custom_folderlink_cmd->get_text();
     });
-    checkbutton_links_relative->signal_toggled().connect([pConfig, checkbutton_links_relative](){
-        pConfig->linksRelative = checkbutton_links_relative->get_active();
+    checkbutton_links_relative->signal_toggled().connect([this, checkbutton_links_relative](){
+        _pConfig->linksRelative = checkbutton_links_relative->get_active();
     });
-    checkbutton_links_underline->signal_toggled().connect([this, pConfig, checkbutton_links_underline](){
-        pConfig->linksUnderline = checkbutton_links_underline->get_active();
+    checkbutton_links_underline->signal_toggled().connect([this, checkbutton_links_underline](){
+        _pConfig->linksUnderline = checkbutton_links_underline->get_active();
         need_restart(RESTART_REASON::LINKS);
     });
-    spinbutton_anchor_size->signal_value_changed().connect([this, pConfig, spinbutton_anchor_size](){
-        pConfig->anchorSize = spinbutton_anchor_size->get_value_as_int();
+    spinbutton_anchor_size->signal_value_changed().connect([this, spinbutton_anchor_size](){
+        _pConfig->anchorSize = spinbutton_anchor_size->get_value_as_int();
         need_restart(RESTART_REASON::ANCHOR_SIZE);
     });
-    colorbutton_col_link_webs->signal_color_set().connect([this, pConfig, colorbutton_col_link_webs](){
-        pConfig->colLinkWebs = CtRgbUtil::rgb_to_string(colorbutton_col_link_webs->get_rgba());
+    colorbutton_col_link_webs->signal_color_set().connect([this, colorbutton_col_link_webs](){
+        _pConfig->colLinkWebs = CtRgbUtil::rgb_to_string(colorbutton_col_link_webs->get_rgba());
         need_restart(RESTART_REASON::COLOR);
     });
-    colorbutton_col_link_node->signal_color_set().connect([this, pConfig, colorbutton_col_link_node](){
-        pConfig->colLinkNode = CtRgbUtil::rgb_to_string(colorbutton_col_link_node->get_rgba());
+    colorbutton_col_link_node->signal_color_set().connect([this, colorbutton_col_link_node](){
+        _pConfig->colLinkNode = CtRgbUtil::rgb_to_string(colorbutton_col_link_node->get_rgba());
         need_restart(RESTART_REASON::COLOR);
     });
-    colorbutton_col_link_file->signal_color_set().connect([this, pConfig, colorbutton_col_link_file](){
-        pConfig->colLinkFile =  CtRgbUtil::rgb_to_string(colorbutton_col_link_file->get_rgba());
+    colorbutton_col_link_file->signal_color_set().connect([this, colorbutton_col_link_file](){
+        _pConfig->colLinkFile =  CtRgbUtil::rgb_to_string(colorbutton_col_link_file->get_rgba());
         need_restart(RESTART_REASON::COLOR);
     });
-    colorbutton_col_link_fold->signal_color_set().connect([this, pConfig, colorbutton_col_link_fold](){
-        pConfig->colLinkFold = CtRgbUtil::rgb_to_string(colorbutton_col_link_fold->get_rgba());
+    colorbutton_col_link_fold->signal_color_set().connect([this, colorbutton_col_link_fold](){
+        _pConfig->colLinkFold = CtRgbUtil::rgb_to_string(colorbutton_col_link_fold->get_rgba());
         need_restart(RESTART_REASON::COLOR);
     });
 

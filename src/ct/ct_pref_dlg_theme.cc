@@ -26,8 +26,6 @@
 
 Gtk::Widget* CtPrefDlg::build_tab_theme()
 {
-    CtConfig* pConfig = _pCtMainWin->get_ct_config();
-
     // Tree Theme
     auto vbox_tt_theme = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
 
@@ -37,9 +35,9 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     auto radiobutton_tt_col_custom = Gtk::manage(new Gtk::RadioButton{_("Custom Background")});
     radiobutton_tt_col_custom->join_group(*radiobutton_tt_col_light);
     auto hbox_tt_col_custom = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
-    auto colorbutton_tree_bg = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA{pConfig->ttDefBg}));
+    auto colorbutton_tree_bg = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA{_pConfig->ttDefBg}));
     auto label_tt_col_custom = Gtk::manage(new Gtk::Label{_("and Text")});
-    auto colorbutton_tree_fg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->ttDefFg}});
+    auto colorbutton_tree_fg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{_pConfig->ttDefFg}});
     hbox_tt_col_custom->pack_start(*radiobutton_tt_col_custom, false, false);
     hbox_tt_col_custom->pack_start(*colorbutton_tree_bg, false, false);
     hbox_tt_col_custom->pack_start(*label_tt_col_custom, false, false);
@@ -50,12 +48,12 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     vbox_tt_theme->pack_start(*hbox_tt_col_custom, false, false);
     Gtk::Frame* frame_tt_theme = new_managed_frame_with_align(_("Tree Explorer"), vbox_tt_theme);
 
-    if (pConfig->ttDefFg == CtConst::TREE_TEXT_DARK_FG && pConfig->ttDefBg == CtConst::TREE_TEXT_DARK_BG) {
+    if (_pConfig->ttDefFg == CtConst::TREE_TEXT_DARK_FG && _pConfig->ttDefBg == CtConst::TREE_TEXT_DARK_BG) {
         radiobutton_tt_col_dark->set_active(true);
         colorbutton_tree_fg->set_sensitive(false);
         colorbutton_tree_bg->set_sensitive(false);
     }
-    else if (pConfig->ttDefFg == CtConst::TREE_TEXT_LIGHT_FG && pConfig->ttDefBg == CtConst::TREE_TEXT_LIGHT_BG) {
+    else if (_pConfig->ttDefFg == CtConst::TREE_TEXT_LIGHT_FG && _pConfig->ttDefBg == CtConst::TREE_TEXT_LIGHT_BG) {
         radiobutton_tt_col_light->set_active(true);
         colorbutton_tree_fg->set_sensitive(false);
         colorbutton_tree_bg->set_sensitive(false);
@@ -74,21 +72,21 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids()) {
         combobox_style_scheme_rt->append(scheme);
     }
-    combobox_style_scheme_rt->set_active_text(pConfig->rtStyleScheme);
+    combobox_style_scheme_rt->set_active_text(_pConfig->rtStyleScheme);
 
     auto label_style_scheme_pt = Gtk::manage(new Gtk::Label{_("Plain Text")});
     auto combobox_style_scheme_pt = Gtk::manage(new Gtk::ComboBoxText{});
     for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids()) {
         combobox_style_scheme_pt->append(scheme);
     }
-    combobox_style_scheme_pt->set_active_text(pConfig->ptStyleScheme);
+    combobox_style_scheme_pt->set_active_text(_pConfig->ptStyleScheme);
 
     auto label_style_scheme_ta = Gtk::manage(new Gtk::Label{_("Table")});
     auto combobox_style_scheme_ta = Gtk::manage(new Gtk::ComboBoxText{});
     for (auto& scheme : _pCtMainWin->get_style_scheme_manager()->get_scheme_ids()) {
         combobox_style_scheme_ta->append(scheme);
     }
-    combobox_style_scheme_ta->set_active_text(pConfig->taStyleScheme);
+    combobox_style_scheme_ta->set_active_text(_pConfig->taStyleScheme);
 
     auto label_style_scheme_co = Gtk::manage(new Gtk::Label{_("Code")});
     auto combobox_style_scheme_co = Gtk::manage(new Gtk::ComboBoxText{});
@@ -97,7 +95,7 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
             combobox_style_scheme_co->append(scheme);
         }
     }
-    combobox_style_scheme_co->set_active_text(pConfig->coStyleScheme);
+    combobox_style_scheme_co->set_active_text(_pConfig->coStyleScheme);
 
     pGridStyleSchemes->attach(*label_style_scheme_rt,     0, 0, 1, 1);
     pGridStyleSchemes->attach(*combobox_style_scheme_rt,  1, 0, 1, 1);
@@ -114,11 +112,10 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     auto pNotebook = Gtk::manage(new Gtk::Notebook{});
 
     auto f_onUserStyleChanged = [this,
-                                 pConfig,
                                  combobox_style_scheme_rt,
                                  combobox_style_scheme_pt,
                                  combobox_style_scheme_ta](const unsigned num){
-        pConfig->update_user_style(num);
+        _pConfig->update_user_style(num);
         _pCtMainWin->get_style_scheme_manager()->force_rescan();
         const std::string styleId = CtConfig::get_user_style_id(num);
         if (combobox_style_scheme_rt->get_active_text() == styleId) {
@@ -160,21 +157,21 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
         pGridThemeEditor[i]->set_border_width(4);
 
         pLabelTextFg[i] = Gtk::manage(new Gtk::Label{_("Text Foreground")});
-        pColorButtonTextFg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleTextFg[i]}});
+        pColorButtonTextFg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{_pConfig->userStyleTextFg[i]}});
         pLabelTextBg[i] = Gtk::manage(new Gtk::Label{_("Text Background")});
-        pColorButtonTextBg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleTextBg[i]}});
+        pColorButtonTextBg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{_pConfig->userStyleTextBg[i]}});
         pLabelSelectionFg[i] = Gtk::manage(new Gtk::Label{_("Selection Foreground")});
-        pColorButtonSelectionFg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleSelectionFg[i]}});
+        pColorButtonSelectionFg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{_pConfig->userStyleSelectionFg[i]}});
         pLabelSelectionBg[i] = Gtk::manage(new Gtk::Label{_("Selection Background")});
-        pColorButtonSelectionBg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleSelectionBg[i]}});
+        pColorButtonSelectionBg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{_pConfig->userStyleSelectionBg[i]}});
         pLabelCursor[i] = Gtk::manage(new Gtk::Label{_("Cursor")});
-        pColorButtonCursor[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleCursor[i]}});
+        pColorButtonCursor[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{_pConfig->userStyleCursor[i]}});
         pLabelCurrentLineBg[i] = Gtk::manage(new Gtk::Label{_("Current Line Background")});
-        pColorButtonCurrentLineBg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleCurrentLineBg[i]}});
+        pColorButtonCurrentLineBg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{_pConfig->userStyleCurrentLineBg[i]}});
         pLabelLineNumbersFg[i] = Gtk::manage(new Gtk::Label{_("Line Numbers Foreground")});
-        pColorButtonLineNumbersFg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleLineNumbersFg[i]}});
+        pColorButtonLineNumbersFg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{_pConfig->userStyleLineNumbersFg[i]}});
         pLabelLineNumbersBg[i] = Gtk::manage(new Gtk::Label{_("Line Numbers Background")});
-        pColorButtonLineNumbersBg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{pConfig->userStyleLineNumbersBg[i]}});
+        pColorButtonLineNumbersBg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{_pConfig->userStyleLineNumbersBg[i]}});
         pButtonsResetToDefault[i] = Gtk::manage(new Gtk::Button{});
         pButtonsResetToDefault[i]->set_image(*_pCtMainWin->new_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
         pButtonsResetToDefault[i]->set_tooltip_text(_("Reset to Default"));
@@ -201,63 +198,63 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
 
         pNotebook->append_page(*(pVBoxThemeEditor[i]), CtConfig::get_user_style_id(i+1));
 
-        pColorButtonTextFg[i]->signal_color_set().connect([pColorButtonTextFg, i, pConfig, f_onUserStyleChanged](){
+        pColorButtonTextFg[i]->signal_color_set().connect([this, pColorButtonTextFg, i, f_onUserStyleChanged](){
             const std::string rgba = CtRgbUtil::rgb_any_to_24(pColorButtonTextFg[i]->get_rgba());
-            if (rgba != pConfig->userStyleTextFg[i]) {
-                pConfig->userStyleTextFg[i] = rgba;
+            if (rgba != _pConfig->userStyleTextFg[i]) {
+                _pConfig->userStyleTextFg[i] = rgba;
                 f_onUserStyleChanged(i+1);
             }
         });
-        pColorButtonTextBg[i]->signal_color_set().connect([pColorButtonTextBg, i, pConfig, f_onUserStyleChanged](){
+        pColorButtonTextBg[i]->signal_color_set().connect([this, pColorButtonTextBg, i, f_onUserStyleChanged](){
             const std::string rgba = CtRgbUtil::rgb_any_to_24(pColorButtonTextBg[i]->get_rgba());
-            if (rgba != pConfig->userStyleTextBg[i]) {
-                pConfig->userStyleTextBg[i] = rgba;
+            if (rgba != _pConfig->userStyleTextBg[i]) {
+                _pConfig->userStyleTextBg[i] = rgba;
                 f_onUserStyleChanged(i+1);
             }
         });
-        pColorButtonSelectionFg[i]->signal_color_set().connect([pColorButtonSelectionFg, i, pConfig, f_onUserStyleChanged](){
+        pColorButtonSelectionFg[i]->signal_color_set().connect([this, pColorButtonSelectionFg, i, f_onUserStyleChanged](){
             const std::string rgba = CtRgbUtil::rgb_any_to_24(pColorButtonSelectionFg[i]->get_rgba());
-            if (rgba != pConfig->userStyleSelectionFg[i]) {
-                pConfig->userStyleSelectionFg[i] = rgba;
+            if (rgba != _pConfig->userStyleSelectionFg[i]) {
+                _pConfig->userStyleSelectionFg[i] = rgba;
                 f_onUserStyleChanged(i+1);
             }
         });
-        pColorButtonSelectionBg[i]->signal_color_set().connect([pColorButtonSelectionBg, i, pConfig, f_onUserStyleChanged](){
+        pColorButtonSelectionBg[i]->signal_color_set().connect([this, pColorButtonSelectionBg, i, f_onUserStyleChanged](){
             const std::string rgba = CtRgbUtil::rgb_any_to_24(pColorButtonSelectionBg[i]->get_rgba());
-            if (rgba != pConfig->userStyleSelectionBg[i]) {
-                pConfig->userStyleSelectionBg[i] = rgba;
+            if (rgba != _pConfig->userStyleSelectionBg[i]) {
+                _pConfig->userStyleSelectionBg[i] = rgba;
                 f_onUserStyleChanged(i+1);
             }
         });
-        pColorButtonCursor[i]->signal_color_set().connect([pColorButtonCursor, i, pConfig, f_onUserStyleChanged](){
+        pColorButtonCursor[i]->signal_color_set().connect([this, pColorButtonCursor, i, f_onUserStyleChanged](){
             const std::string rgba = CtRgbUtil::rgb_any_to_24(pColorButtonCursor[i]->get_rgba());
-            if (rgba != pConfig->userStyleCursor[i]) {
-                pConfig->userStyleCursor[i] = rgba;
+            if (rgba != _pConfig->userStyleCursor[i]) {
+                _pConfig->userStyleCursor[i] = rgba;
                 f_onUserStyleChanged(i+1);
             }
         });
-        pColorButtonCurrentLineBg[i]->signal_color_set().connect([pColorButtonCurrentLineBg, i, pConfig, f_onUserStyleChanged](){
+        pColorButtonCurrentLineBg[i]->signal_color_set().connect([this, pColorButtonCurrentLineBg, i, f_onUserStyleChanged](){
             const std::string rgba = CtRgbUtil::rgb_any_to_24(pColorButtonCurrentLineBg[i]->get_rgba());
-            if (rgba != pConfig->userStyleCurrentLineBg[i]) {
-                pConfig->userStyleCurrentLineBg[i] = rgba;
+            if (rgba != _pConfig->userStyleCurrentLineBg[i]) {
+                _pConfig->userStyleCurrentLineBg[i] = rgba;
                 f_onUserStyleChanged(i+1);
             }
         });
-        pColorButtonLineNumbersFg[i]->signal_color_set().connect([pColorButtonLineNumbersFg, i, pConfig, f_onUserStyleChanged](){
+        pColorButtonLineNumbersFg[i]->signal_color_set().connect([this, pColorButtonLineNumbersFg, i, f_onUserStyleChanged](){
             const std::string rgba = CtRgbUtil::rgb_any_to_24(pColorButtonLineNumbersFg[i]->get_rgba());
-            if (rgba != pConfig->userStyleLineNumbersFg[i]) {
-                pConfig->userStyleLineNumbersFg[i] = rgba;
+            if (rgba != _pConfig->userStyleLineNumbersFg[i]) {
+                _pConfig->userStyleLineNumbersFg[i] = rgba;
                 f_onUserStyleChanged(i+1);
             }
         });
-        pColorButtonLineNumbersBg[i]->signal_color_set().connect([pColorButtonLineNumbersBg, i, pConfig, f_onUserStyleChanged](){
+        pColorButtonLineNumbersBg[i]->signal_color_set().connect([this, pColorButtonLineNumbersBg, i, f_onUserStyleChanged](){
             const std::string rgba = CtRgbUtil::rgb_any_to_24(pColorButtonLineNumbersBg[i]->get_rgba());
-            if (rgba != pConfig->userStyleLineNumbersBg[i]) {
-                pConfig->userStyleLineNumbersBg[i] = rgba;
+            if (rgba != _pConfig->userStyleLineNumbersBg[i]) {
+                _pConfig->userStyleLineNumbersBg[i] = rgba;
                 f_onUserStyleChanged(i+1);
             }
         });
-        pButtonsResetToDefault[i]->signal_clicked().connect([this, i, pConfig,
+        pButtonsResetToDefault[i]->signal_clicked().connect([this, i,
                                                              pColorButtonTextFg,
                                                              pColorButtonTextBg,
                                                              pColorButtonSelectionFg,
@@ -271,44 +268,44 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
                 return;
             }
             bool anyChange{false};
-            if (pConfig->userStyleTextFg[i] != CtConst::USER_STYLE_TEXT_FG[i]) {
-                pConfig->userStyleTextFg[i] = CtConst::USER_STYLE_TEXT_FG[i];
-                pColorButtonTextFg[i]->set_rgba(Gdk::RGBA{pConfig->userStyleTextFg[i]});
+            if (_pConfig->userStyleTextFg[i] != CtConst::USER_STYLE_TEXT_FG[i]) {
+                _pConfig->userStyleTextFg[i] = CtConst::USER_STYLE_TEXT_FG[i];
+                pColorButtonTextFg[i]->set_rgba(Gdk::RGBA{_pConfig->userStyleTextFg[i]});
                 anyChange = true;
             }
-            if (pConfig->userStyleTextBg[i] != CtConst::USER_STYLE_TEXT_BG[i]) {
-                pConfig->userStyleTextBg[i] = CtConst::USER_STYLE_TEXT_BG[i];
-                pColorButtonTextBg[i]->set_rgba(Gdk::RGBA{pConfig->userStyleTextBg[i]});
+            if (_pConfig->userStyleTextBg[i] != CtConst::USER_STYLE_TEXT_BG[i]) {
+                _pConfig->userStyleTextBg[i] = CtConst::USER_STYLE_TEXT_BG[i];
+                pColorButtonTextBg[i]->set_rgba(Gdk::RGBA{_pConfig->userStyleTextBg[i]});
                 anyChange = true;
             }
-            if (pConfig->userStyleSelectionFg[i] != CtConst::USER_STYLE_SELECTION_FG[i]) {
-                pConfig->userStyleSelectionFg[i] = CtConst::USER_STYLE_SELECTION_FG[i];
-                pColorButtonSelectionFg[i]->set_rgba(Gdk::RGBA{pConfig->userStyleSelectionFg[i]});
+            if (_pConfig->userStyleSelectionFg[i] != CtConst::USER_STYLE_SELECTION_FG[i]) {
+                _pConfig->userStyleSelectionFg[i] = CtConst::USER_STYLE_SELECTION_FG[i];
+                pColorButtonSelectionFg[i]->set_rgba(Gdk::RGBA{_pConfig->userStyleSelectionFg[i]});
                 anyChange = true;
             }
-            if (pConfig->userStyleSelectionBg[i] != CtConst::USER_STYLE_SELECTION_BG[i]) {
-                pConfig->userStyleSelectionBg[i] = CtConst::USER_STYLE_SELECTION_BG[i];
-                pColorButtonSelectionBg[i]->set_rgba(Gdk::RGBA{pConfig->userStyleSelectionBg[i]});
+            if (_pConfig->userStyleSelectionBg[i] != CtConst::USER_STYLE_SELECTION_BG[i]) {
+                _pConfig->userStyleSelectionBg[i] = CtConst::USER_STYLE_SELECTION_BG[i];
+                pColorButtonSelectionBg[i]->set_rgba(Gdk::RGBA{_pConfig->userStyleSelectionBg[i]});
                 anyChange = true;
             }
-            if (pConfig->userStyleCursor[i] != CtConst::USER_STYLE_CURSOR[i]) {
-                pConfig->userStyleCursor[i] = CtConst::USER_STYLE_CURSOR[i];
-                pColorButtonCursor[i]->set_rgba(Gdk::RGBA{pConfig->userStyleCursor[i]});
+            if (_pConfig->userStyleCursor[i] != CtConst::USER_STYLE_CURSOR[i]) {
+                _pConfig->userStyleCursor[i] = CtConst::USER_STYLE_CURSOR[i];
+                pColorButtonCursor[i]->set_rgba(Gdk::RGBA{_pConfig->userStyleCursor[i]});
                 anyChange = true;
             }
-            if (pConfig->userStyleCurrentLineBg[i] != CtConst::USER_STYLE_CURRENT_LINE_BG[i]) {
-                pConfig->userStyleCurrentLineBg[i] = CtConst::USER_STYLE_CURRENT_LINE_BG[i];
-                pColorButtonCurrentLineBg[i]->set_rgba(Gdk::RGBA{pConfig->userStyleCurrentLineBg[i]});
+            if (_pConfig->userStyleCurrentLineBg[i] != CtConst::USER_STYLE_CURRENT_LINE_BG[i]) {
+                _pConfig->userStyleCurrentLineBg[i] = CtConst::USER_STYLE_CURRENT_LINE_BG[i];
+                pColorButtonCurrentLineBg[i]->set_rgba(Gdk::RGBA{_pConfig->userStyleCurrentLineBg[i]});
                 anyChange = true;
             }
-            if (pConfig->userStyleLineNumbersFg[i] != CtConst::USER_STYLE_LINE_NUMBERS_FG[i]) {
-                pConfig->userStyleLineNumbersFg[i] = CtConst::USER_STYLE_LINE_NUMBERS_FG[i];
-                pColorButtonLineNumbersFg[i]->set_rgba(Gdk::RGBA{pConfig->userStyleLineNumbersFg[i]});
+            if (_pConfig->userStyleLineNumbersFg[i] != CtConst::USER_STYLE_LINE_NUMBERS_FG[i]) {
+                _pConfig->userStyleLineNumbersFg[i] = CtConst::USER_STYLE_LINE_NUMBERS_FG[i];
+                pColorButtonLineNumbersFg[i]->set_rgba(Gdk::RGBA{_pConfig->userStyleLineNumbersFg[i]});
                 anyChange = true;
             }
-            if (pConfig->userStyleLineNumbersBg[i] != CtConst::USER_STYLE_LINE_NUMBERS_BG[i]) {
-                pConfig->userStyleLineNumbersBg[i] = CtConst::USER_STYLE_LINE_NUMBERS_BG[i];
-                pColorButtonLineNumbersBg[i]->set_rgba(Gdk::RGBA{pConfig->userStyleLineNumbersBg[i]});
+            if (_pConfig->userStyleLineNumbersBg[i] != CtConst::USER_STYLE_LINE_NUMBERS_BG[i]) {
+                _pConfig->userStyleLineNumbersBg[i] = CtConst::USER_STYLE_LINE_NUMBERS_BG[i];
+                pColorButtonLineNumbersBg[i]->set_rgba(Gdk::RGBA{_pConfig->userStyleLineNumbersBg[i]});
                 anyChange = true;
             }
             if (anyChange) {
@@ -329,9 +326,9 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     pVBoxMain->pack_start(*frame_style_schemes, false, false);
     pVBoxMain->pack_start(*frame_theme_editor, false, false);
 
-    auto update_tree_color = [this, pConfig, colorbutton_tree_fg, colorbutton_tree_bg]() {
-        pConfig->ttDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_fg->get_rgba());
-        pConfig->ttDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_bg->get_rgba());
+    auto update_tree_color = [this, colorbutton_tree_fg, colorbutton_tree_bg]() {
+        _pConfig->ttDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_fg->get_rgba());
+        _pConfig->ttDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_bg->get_rgba());
         apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
     };
 
@@ -365,23 +362,23 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
         colorbutton_tree_bg->set_sensitive(true);
     });
 
-    combobox_style_scheme_rt->signal_changed().connect([this, pConfig, combobox_style_scheme_rt](){
-        pConfig->rtStyleScheme = combobox_style_scheme_rt->get_active_text();
+    combobox_style_scheme_rt->signal_changed().connect([this, combobox_style_scheme_rt](){
+        _pConfig->rtStyleScheme = combobox_style_scheme_rt->get_active_text();
         apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('r'/*RichText*/); });
     });
 
-    combobox_style_scheme_pt->signal_changed().connect([this, pConfig, combobox_style_scheme_pt](){
-        pConfig->ptStyleScheme = combobox_style_scheme_pt->get_active_text();
+    combobox_style_scheme_pt->signal_changed().connect([this, combobox_style_scheme_pt](){
+        _pConfig->ptStyleScheme = combobox_style_scheme_pt->get_active_text();
         apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('p'/*PlainTextNCode*/); });
     });
 
-    combobox_style_scheme_ta->signal_changed().connect([this, pConfig, combobox_style_scheme_ta](){
-        pConfig->taStyleScheme = combobox_style_scheme_ta->get_active_text();
+    combobox_style_scheme_ta->signal_changed().connect([this, combobox_style_scheme_ta](){
+        _pConfig->taStyleScheme = combobox_style_scheme_ta->get_active_text();
         apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('t'/*Table*/); });
     });
 
-    combobox_style_scheme_co->signal_changed().connect([this, pConfig, combobox_style_scheme_co](){
-        pConfig->coStyleScheme = combobox_style_scheme_co->get_active_text();
+    combobox_style_scheme_co->signal_changed().connect([this, combobox_style_scheme_co](){
+        _pConfig->coStyleScheme = combobox_style_scheme_co->get_active_text();
         apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('p'/*PlainTextNCode*/); });
     });
 

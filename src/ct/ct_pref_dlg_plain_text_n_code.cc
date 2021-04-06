@@ -26,16 +26,14 @@
 
 Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
 {
-    CtConfig* pConfig = _pCtMainWin->get_ct_config();
-
     Gtk::VBox* vbox_syntax = Gtk::manage(new Gtk::VBox());
 
     Gtk::CheckButton* checkbutton_pt_show_white_spaces = Gtk::manage(new Gtk::CheckButton(_("Show White Spaces")));
-    checkbutton_pt_show_white_spaces->set_active(pConfig->ptShowWhiteSpaces);
+    checkbutton_pt_show_white_spaces->set_active(_pConfig->ptShowWhiteSpaces);
     Gtk::CheckButton* checkbutton_pt_highl_curr_line = Gtk::manage(new Gtk::CheckButton(_("Highlight Current Line")));
-    checkbutton_pt_highl_curr_line->set_active(pConfig->ptHighlCurrLine);
+    checkbutton_pt_highl_curr_line->set_active(_pConfig->ptHighlCurrLine);
     Gtk::CheckButton* checkbutton_pt_highl_match_bra = Gtk::manage(new Gtk::CheckButton(_("Highlight Matching Brackets")));
-    checkbutton_pt_highl_match_bra->set_active(pConfig->ptHighlMatchBra);
+    checkbutton_pt_highl_match_bra->set_active(_pConfig->ptHighlMatchBra);
 
     vbox_syntax->pack_start(*checkbutton_pt_show_white_spaces, false, false);
     vbox_syntax->pack_start(*checkbutton_pt_highl_curr_line, false, false);
@@ -108,36 +106,36 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     pMainBox->pack_start(*frame_syntax, false, false);
     pMainBox->pack_start(*frame_codexec, true, true);
 
-    checkbutton_pt_show_white_spaces->signal_toggled().connect([this, pConfig, checkbutton_pt_show_white_spaces](){
-        pConfig->ptShowWhiteSpaces = checkbutton_pt_show_white_spaces->get_active();
+    checkbutton_pt_show_white_spaces->signal_toggled().connect([this, checkbutton_pt_show_white_spaces](){
+        _pConfig->ptShowWhiteSpaces = checkbutton_pt_show_white_spaces->get_active();
         apply_for_each_window([](CtMainWin* win) {
             win->resetup_for_syntax('p'/*PlainTextNCode*/);
         });
     });
-    checkbutton_pt_highl_curr_line->signal_toggled().connect([this, pConfig, checkbutton_pt_highl_curr_line](){
-        pConfig->ptHighlCurrLine = checkbutton_pt_highl_curr_line->get_active();
+    checkbutton_pt_highl_curr_line->signal_toggled().connect([this, checkbutton_pt_highl_curr_line](){
+        _pConfig->ptHighlCurrLine = checkbutton_pt_highl_curr_line->get_active();
         apply_for_each_window([](CtMainWin* win) {
             win->resetup_for_syntax('p'/*PlainTextNCode*/);
         });
     });
-    checkbutton_pt_highl_match_bra->signal_toggled().connect([this, pConfig, checkbutton_pt_highl_match_bra](){
-        pConfig->ptHighlMatchBra = checkbutton_pt_highl_match_bra->get_active();
+    checkbutton_pt_highl_match_bra->signal_toggled().connect([this, checkbutton_pt_highl_match_bra](){
+        _pConfig->ptHighlMatchBra = checkbutton_pt_highl_match_bra->get_active();
         apply_for_each_window([](CtMainWin* win) { win->reapply_syntax_highlighting('p'/*PlainTextNCode*/); });
     });
     Gtk::CellRendererText* pCellRendererText = dynamic_cast<Gtk::CellRendererText*>(treeview->get_column(col_num_desc)->get_cells()[0]);
-    pCellRendererText->signal_edited().connect([this, pConfig, liststore](const Glib::ustring& path, const Glib::ustring& new_command){
+    pCellRendererText->signal_edited().connect([this, liststore](const Glib::ustring& path, const Glib::ustring& new_command){
         auto row = liststore->get_iter(path);
         row->set_value(_commandModelColumns.desc, new_command);
-        pConfig->customCodexecType[row->get_value(_commandModelColumns.key)] = new_command;
+        _pConfig->customCodexecType[row->get_value(_commandModelColumns.key)] = new_command;
     });
     pCellRendererText = dynamic_cast<Gtk::CellRendererText*>(treeview->get_column(col_num_ext)->get_cells()[0]);
-    pCellRendererText->signal_edited().connect([this, pConfig, liststore](const Glib::ustring& path, const Glib::ustring& new_ext){
+    pCellRendererText->signal_edited().connect([this, liststore](const Glib::ustring& path, const Glib::ustring& new_ext){
         auto row = liststore->get_iter(path);
         row->set_value(_commandModelColumns.ext, new_ext);
-        pConfig->customCodexecExt[row->get_value(_commandModelColumns.key)] = new_ext;
+        _pConfig->customCodexecExt[row->get_value(_commandModelColumns.key)] = new_ext;
     });
-    entry_term_run->signal_changed().connect([pConfig, entry_term_run](){
-        pConfig->customCodexecTerm = entry_term_run->get_text();
+    entry_term_run->signal_changed().connect([this, entry_term_run](){
+        _pConfig->customCodexecTerm = entry_term_run->get_text();
     });
     button_add->signal_clicked().connect([this, treeview, liststore](){
         _add_new_command_in_model(treeview, liststore);
@@ -150,15 +148,15 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     };
     treeview->signal_cursor_changed().connect(button_remove_test_sensitive);
     button_remove_test_sensitive();
-    button_reset_cmds->signal_clicked().connect([this, pConfig, liststore](){
+    button_reset_cmds->signal_clicked().connect([this, liststore](){
         if (CtDialogs::question_dialog(reset_warning, *this)) {
-            pConfig->customCodexecType.clear();
+            _pConfig->customCodexecType.clear();
             _fill_custom_exec_commands_model(liststore);
         }
     });
-    button_reset_term->signal_clicked().connect([this, pConfig, entry_term_run](){
+    button_reset_term->signal_clicked().connect([this, entry_term_run](){
         if (CtDialogs::question_dialog(reset_warning, *this)) {
-            pConfig->customCodexecTerm.clear();
+            _pConfig->customCodexecTerm.clear();
             entry_term_run->set_text(get_code_exec_term_run(_pCtMainWin));
         }
     });

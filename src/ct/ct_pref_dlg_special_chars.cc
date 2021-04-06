@@ -26,8 +26,6 @@
 
 Gtk::Widget* CtPrefDlg::build_tab_special_characters()
 {
-    CtConfig* pConfig = _pCtMainWin->get_ct_config();
-
     Gtk::HBox* hbox_special_chars = Gtk::manage(new Gtk::HBox());
     hbox_special_chars->set_spacing(4);
     Gtk::VBox* vbox_special_chars = Gtk::manage(new Gtk::VBox());
@@ -50,7 +48,7 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     scrolledwindow_special_chars->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     frame_special_chars->add(*scrolledwindow_special_chars);
     Gtk::TextView* textview_special_chars = Gtk::manage(new Gtk::TextView());
-    textview_special_chars->get_buffer()->set_text(pConfig->specialChars.item());
+    textview_special_chars->get_buffer()->set_text(_pConfig->specialChars.item());
     textview_special_chars->set_wrap_mode(Gtk::WRAP_CHAR);
     scrolledwindow_special_chars->add(*textview_special_chars);
     hbox_special_chars->pack_start(*vbox_special_chars, false, false);
@@ -61,7 +59,7 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     Gtk::Label* label_bullist_chars = Gtk::manage(new Gtk::Label(_("Chars for Bulleted List")));
     Gtk::Entry* entry_bullist_chars = Gtk::manage(new Gtk::Entry());
     entry_bullist_chars->set_icon_from_icon_name("ct_undo", Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY);
-    entry_bullist_chars->set_text(pConfig->charsListbul.item());
+    entry_bullist_chars->set_text(_pConfig->charsListbul.item());
     hbox_bullist_chars->pack_start(*label_bullist_chars, false, false);
     hbox_bullist_chars->pack_start(*entry_bullist_chars);
 
@@ -70,7 +68,7 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     Gtk::Label* label_todolist_chars = Gtk::manage(new Gtk::Label(_("Chars for Todo List")));
     Gtk::Entry* entry_todolist_chars = Gtk::manage(new Gtk::Entry());
     entry_todolist_chars->set_icon_from_icon_name("ct_undo", Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY);
-    entry_todolist_chars->set_text(pConfig->charsTodo.item());
+    entry_todolist_chars->set_text(_pConfig->charsTodo.item());
     hbox_todolist_chars->pack_start(*label_todolist_chars, false, false);
     hbox_todolist_chars->pack_start(*entry_todolist_chars);
 
@@ -79,7 +77,7 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     Gtk::Label* label_toc_chars = Gtk::manage(new Gtk::Label(_("Chars for Table Of Content")));
     Gtk::Entry* entry_toc_chars = Gtk::manage(new Gtk::Entry());
     entry_toc_chars->set_icon_from_icon_name("ct_undo", Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY);
-    entry_toc_chars->set_text(pConfig->charsToc.item());
+    entry_toc_chars->set_text(_pConfig->charsToc.item());
     hbox_toc_chars->pack_start(*label_toc_chars, false, false);
     hbox_toc_chars->pack_start(*entry_toc_chars);
 
@@ -88,7 +86,7 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     Gtk::Label* label_dquote_chars = Gtk::manage(new Gtk::Label(_("Chars for Smart Double Quotes")));
     Gtk::Entry* entry_dquote_chars = Gtk::manage(new Gtk::Entry());
     entry_dquote_chars->set_icon_from_icon_name("ct_undo", Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY);
-    entry_dquote_chars->set_text(pConfig->chars_smart_dquote.item());
+    entry_dquote_chars->set_text(_pConfig->chars_smart_dquote.item());
     hbox_dquote_chars->pack_start(*label_dquote_chars, false, false);
     hbox_dquote_chars->pack_start(*entry_dquote_chars);
 
@@ -97,15 +95,15 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     Gtk::Label* label_squote_chars = Gtk::manage(new Gtk::Label(_("Chars for Smart Single Quotes")));
     Gtk::Entry* entry_squote_chars = Gtk::manage(new Gtk::Entry());
     entry_squote_chars->set_icon_from_icon_name("ct_undo", Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY);
-    entry_squote_chars->set_text(pConfig->chars_smart_squote.item());
+    entry_squote_chars->set_text(_pConfig->chars_smart_squote.item());
     hbox_squote_chars->pack_start(*label_squote_chars, false, false);
     hbox_squote_chars->pack_start(*entry_squote_chars);
 
     Gtk::VBox* vbox_editor = Gtk::manage(new Gtk::VBox());
     Gtk::CheckButton* checkbutton_auto_smart_quotes = Gtk::manage(new Gtk::CheckButton(_("Enable Smart Quotes Auto Replacement")));
     Gtk::CheckButton* checkbutton_enable_symbol_autoreplace = Gtk::manage(new Gtk::CheckButton(_("Enable Symbol Auto Replacement")));
-    checkbutton_auto_smart_quotes->set_active(pConfig->autoSmartQuotes);
-    checkbutton_enable_symbol_autoreplace->set_active(pConfig->enableSymbolAutoreplace);
+    checkbutton_auto_smart_quotes->set_active(_pConfig->autoSmartQuotes);
+    checkbutton_enable_symbol_autoreplace->set_active(_pConfig->enableSymbolAutoreplace);
 
     vbox_editor->pack_start(*hbox_special_chars, false, false);
     vbox_editor->pack_start(*hbox_bullist_chars, false, false);
@@ -124,11 +122,11 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_editor, false, false);
 
-    textview_special_chars->get_buffer()->signal_changed().connect([pConfig, textview_special_chars](){
+    textview_special_chars->get_buffer()->signal_changed().connect([this, textview_special_chars](){
         Glib::ustring new_special_chars = textview_special_chars->get_buffer()->get_text();
         new_special_chars = str::replace(new_special_chars, CtConst::CHAR_NEWLINE, "");
-        if (pConfig->specialChars.item() != new_special_chars) {
-            pConfig->specialChars = new_special_chars;
+        if (_pConfig->specialChars.item() != new_special_chars) {
+            _pConfig->specialChars = new_special_chars;
         }
     });
     button_reset->signal_clicked().connect([this, textview_special_chars](){
@@ -137,9 +135,9 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
         }
     });
 
-    entry_bullist_chars->signal_changed().connect([pConfig, entry_bullist_chars](){
+    entry_bullist_chars->signal_changed().connect([this, entry_bullist_chars](){
         if (entry_bullist_chars->get_text().size() >= CtConst::CHARS_LISTBUL_DEFAULT.size()) {
-            pConfig->charsListbul = entry_bullist_chars->get_text();
+            _pConfig->charsListbul = entry_bullist_chars->get_text();
             entry_bullist_chars->set_icon_from_icon_name("ct_undo", Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY);
         }
         else {
@@ -149,9 +147,9 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     entry_bullist_chars->signal_icon_release().connect([entry_bullist_chars](Gtk::EntryIconPosition /*icon_position*/, const GdkEventButton* /*event*/){
         entry_bullist_chars->set_text(CtConst::CHARS_LISTBUL_DEFAULT);
     });
-    entry_todolist_chars->signal_changed().connect([pConfig, entry_todolist_chars](){
+    entry_todolist_chars->signal_changed().connect([this, entry_todolist_chars](){
         if (entry_todolist_chars->get_text().size() == CtConst::CHARS_TODO_DEFAULT.size()) {
-            pConfig->charsTodo = entry_todolist_chars->get_text();
+            _pConfig->charsTodo = entry_todolist_chars->get_text();
             entry_todolist_chars->set_icon_from_icon_name("ct_undo", Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY);
         }
         else {
@@ -161,9 +159,9 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     entry_todolist_chars->signal_icon_release().connect([entry_todolist_chars](Gtk::EntryIconPosition /*icon_position*/, const GdkEventButton* /*event*/){
         entry_todolist_chars->set_text(CtConst::CHARS_TODO_DEFAULT);
     });
-    entry_toc_chars->signal_changed().connect([pConfig, entry_toc_chars](){
+    entry_toc_chars->signal_changed().connect([this, entry_toc_chars](){
         if (entry_toc_chars->get_text().size() >= CtConst::CHARS_TOC_DEFAULT.size()) {
-            pConfig->charsToc = entry_toc_chars->get_text();
+            _pConfig->charsToc = entry_toc_chars->get_text();
             entry_toc_chars->set_icon_from_icon_name("ct_undo", Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY);
         }
         else {
@@ -173,9 +171,9 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     entry_toc_chars->signal_icon_release().connect([entry_toc_chars](Gtk::EntryIconPosition /*icon_position*/, const GdkEventButton* /*event*/){
         entry_toc_chars->set_text(CtConst::CHARS_TOC_DEFAULT);
     });
-    entry_dquote_chars->signal_changed().connect([pConfig, entry_dquote_chars](){
+    entry_dquote_chars->signal_changed().connect([this, entry_dquote_chars](){
         if (entry_dquote_chars->get_text().size() == CtConst::CHARS_SMART_DQUOTE_DEFAULT.size()) {
-            pConfig->chars_smart_dquote = entry_dquote_chars->get_text();
+            _pConfig->chars_smart_dquote = entry_dquote_chars->get_text();
             entry_dquote_chars->set_icon_from_icon_name("ct_undo", Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY);
         }
         else {
@@ -185,9 +183,9 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     entry_dquote_chars->signal_icon_release().connect([entry_dquote_chars](Gtk::EntryIconPosition /*icon_position*/, const GdkEventButton* /*event*/){
         entry_dquote_chars->set_text(CtConst::CHARS_SMART_DQUOTE_DEFAULT);
     });
-    entry_squote_chars->signal_changed().connect([pConfig, entry_squote_chars](){
+    entry_squote_chars->signal_changed().connect([this, entry_squote_chars](){
         if (entry_squote_chars->get_text().size() == CtConst::CHARS_SMART_SQUOTE_DEFAULT.size()) {
-            pConfig->chars_smart_squote = entry_squote_chars->get_text();
+            _pConfig->chars_smart_squote = entry_squote_chars->get_text();
             entry_squote_chars->set_icon_from_icon_name("ct_undo", Gtk::EntryIconPosition::ENTRY_ICON_SECONDARY);
         }
         else {
@@ -198,11 +196,11 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
         entry_squote_chars->set_text(CtConst::CHARS_SMART_SQUOTE_DEFAULT);
     });
 
-    checkbutton_auto_smart_quotes->signal_toggled().connect([pConfig, checkbutton_auto_smart_quotes](){
-        pConfig->autoSmartQuotes = checkbutton_auto_smart_quotes->get_active();
+    checkbutton_auto_smart_quotes->signal_toggled().connect([this, checkbutton_auto_smart_quotes](){
+        _pConfig->autoSmartQuotes = checkbutton_auto_smart_quotes->get_active();
     });
-    checkbutton_enable_symbol_autoreplace->signal_toggled().connect([pConfig, checkbutton_enable_symbol_autoreplace](){
-        pConfig->enableSymbolAutoreplace = checkbutton_enable_symbol_autoreplace->get_active();
+    checkbutton_enable_symbol_autoreplace->signal_toggled().connect([this, checkbutton_enable_symbol_autoreplace](){
+        _pConfig->enableSymbolAutoreplace = checkbutton_enable_symbol_autoreplace->get_active();
     });
 
     return pMainBox;

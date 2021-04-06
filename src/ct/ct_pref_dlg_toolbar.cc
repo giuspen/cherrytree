@@ -26,8 +26,6 @@
 
 Gtk::Widget* CtPrefDlg::build_tab_toolbar()
 {
-    CtConfig* pConfig = _pCtMainWin->get_ct_config();
-
     Glib::RefPtr<Gtk::ListStore> liststore = Gtk::ListStore::create(_toolbarModelColumns);
     fill_toolbar_model(liststore);
     Gtk::TreeView* treeview = Gtk::manage(new Gtk::TreeView(liststore));
@@ -79,9 +77,9 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
         update_config_toolbar_from_model(liststore);
         apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbars(true); });
     });
-    button_reset->signal_clicked().connect([this, pConfig, liststore](){
+    button_reset->signal_clicked().connect([this, liststore](){
         if (CtDialogs::question_dialog(reset_warning, *this)) {
-            pConfig->toolbarUiList = CtConst::TOOLBAR_VEC_DEFAULT;
+            _pConfig->toolbarUiList = CtConst::TOOLBAR_VEC_DEFAULT;
             fill_toolbar_model(liststore);
             apply_for_each_window([](CtMainWin* win) { win->menu_rebuild_toolbars(true); });
         }
