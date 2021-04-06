@@ -279,8 +279,8 @@ TocEntry find_toc_entries(CtActions& actions, CtTreeIter& node, unsigned depth)
     Gtk::TextIter text_iter = text_buffer->begin();
 
     do {
-        auto tag_name = iter_in_tag(text_iter, scale_tag);
-        if (tag_name) {
+        std::optional<Glib::ustring> tag_name = iter_in_tag(text_iter, scale_tag);
+        if (tag_name and not Glib::str_has_suffix(tag_name.value(), CtConst::TAG_PROP_VAL_SMALL)) {
             auto h_start = tag_name->find(scale_tag) + scale_tag.length() + 1;
             auto begin = tag_name->begin();
             std::advance(begin, h_start);

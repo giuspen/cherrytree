@@ -619,9 +619,6 @@ Glib::ustring CtExport2Html::_html_text_serialize(Gtk::TextIter start_iter,
                 {
                     // TODO apply user defined scalable tag properies
                     hN_active = property_value;
-                    if (property_value == CtConst::TAG_PROP_VAL_H1) property_value = "xx-large";
-                    else if (property_value == CtConst::TAG_PROP_VAL_H2) property_value = "x-large";
-                    else property_value = "large";
                 }
             }
         }
