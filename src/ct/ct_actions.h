@@ -247,9 +247,12 @@ public:
     void apply_tag_strikethrough();
     void apply_tag_indent();
     void reduce_tag_indent();
-    void apply_tag_h1();
-    void apply_tag_h2();
-    void apply_tag_h3();
+    void apply_tag_h1() { _apply_tag_hN(CtConst::TAG_PROP_VAL_H1); }
+    void apply_tag_h2() { _apply_tag_hN(CtConst::TAG_PROP_VAL_H2); }
+    void apply_tag_h3() { _apply_tag_hN(CtConst::TAG_PROP_VAL_H3); }
+    void apply_tag_h4() { _apply_tag_hN(CtConst::TAG_PROP_VAL_H4); }
+    void apply_tag_h5() { _apply_tag_hN(CtConst::TAG_PROP_VAL_H5); }
+    void apply_tag_h6() { _apply_tag_hN(CtConst::TAG_PROP_VAL_H6); }
     void apply_tag_small();
     void apply_tag_superscript();
     void apply_tag_subscript();
@@ -269,6 +272,7 @@ private:
                             Gtk::TextIter* pIterBound);
     void _text_selection_change_case(gchar change_type);
     int  _find_previous_indent_margin();
+    void _apply_tag_hN(const char* tagPropScaleVal);
 
 public:
     void image_insert_png(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> pixbuf,

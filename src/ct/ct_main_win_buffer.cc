@@ -152,6 +152,11 @@ Glib::RefPtr<Gsv::Buffer> CtMainWin::get_new_text_buffer(const Glib::ustring& te
     return rRetTextBuffer;
 }
 
+void CtMainWin::apply_scalable_properties(Glib::RefPtr<Gtk::TextTag> rTextTag, CtScalableTag* pCtScalableTag)
+{
+    rTextTag->property_scale() = pCtScalableTag->scale;
+}
+
 const std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string& propertyName,
                                                                const std::string& propertyValue)
 {
@@ -175,16 +180,25 @@ const std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string
         }
         else if (CtConst::TAG_SCALE == propertyName) {
             if (CtConst::TAG_PROP_VAL_SMALL == propertyValue) {
-                rTextTag->property_scale() = PANGO_SCALE_SMALL;
+                apply_scalable_properties(rTextTag, &_pCtConfig->scalableSmall);
             }
             else if (CtConst::TAG_PROP_VAL_H1 == propertyValue) {
-                rTextTag->property_scale() = PANGO_SCALE_XX_LARGE;
+                apply_scalable_properties(rTextTag, &_pCtConfig->scalableH1);
             }
             else if (CtConst::TAG_PROP_VAL_H2 == propertyValue) {
-                rTextTag->property_scale() = PANGO_SCALE_X_LARGE;
+                apply_scalable_properties(rTextTag, &_pCtConfig->scalableH2);
             }
             else if (CtConst::TAG_PROP_VAL_H3 == propertyValue) {
-                rTextTag->property_scale() = PANGO_SCALE_LARGE;
+                apply_scalable_properties(rTextTag, &_pCtConfig->scalableH3);
+            }
+            else if (CtConst::TAG_PROP_VAL_H4 == propertyValue) {
+                apply_scalable_properties(rTextTag, &_pCtConfig->scalableH4);
+            }
+            else if (CtConst::TAG_PROP_VAL_H5 == propertyValue) {
+                apply_scalable_properties(rTextTag, &_pCtConfig->scalableH5);
+            }
+            else if (CtConst::TAG_PROP_VAL_H6 == propertyValue) {
+                apply_scalable_properties(rTextTag, &_pCtConfig->scalableH6);
             }
             else if (CtConst::TAG_PROP_VAL_SUB == propertyValue or CtConst::TAG_PROP_VAL_SUP == propertyValue) {
                 rTextTag->property_scale() = PANGO_SCALE_X_SMALL;

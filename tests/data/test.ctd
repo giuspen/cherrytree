@@ -5,7 +5,7 @@
     <rich_text>ciao plain
 йцукенгшщз</rich_text>
   </node>
-  <node name="b" unique_id="2" prog_lang="custom-colors" tags="" readonly="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1564932982" ts_lastsave="1598022816">
+  <node name="b" unique_id="2" prog_lang="custom-colors" tags="" readonly="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1564932982" ts_lastsave="1617718637">
     <rich_text justification="fill">ciao rich</rich_text>
     <rich_text>
 </rich_text>
@@ -34,6 +34,15 @@
     <rich_text>
 </rich_text>
     <rich_text scale="h3">h3</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text scale="h4">h4</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text scale="h5">h5</rich_text>
+    <rich_text>
+</rich_text>
+    <rich_text scale="h6">h6</rich_text>
     <rich_text>
 </rich_text>
     <rich_text scale="small">small</rich_text>

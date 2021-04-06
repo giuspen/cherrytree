@@ -194,6 +194,9 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
             "h1" _NL
             "h2" _NL
             "h3" _NL
+            "h4" _NL
+            "h5" _NL
+            "h6" _NL
             "small" _NL
             "asuper" _NL
             "asub" _NL
@@ -234,6 +237,15 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
             ExpectedTag{
                 .text_slot="h3",
                 .attr_map=CtCurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H3}}},
+            ExpectedTag{
+                .text_slot="h4",
+                .attr_map=CtCurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H4}}},
+            ExpectedTag{
+                .text_slot="h5",
+                .attr_map=CtCurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H5}}},
+            ExpectedTag{
+                .text_slot="h6",
+                .attr_map=CtCurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H6}}},
             ExpectedTag{
                 .text_slot="small",
                 .attr_map=CtCurrAttributesMap{{CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_SMALL}}},

@@ -188,6 +188,9 @@ const char* CtMenu::_get_ui_str_menu()
       <menuitem action='fmt_h1'/>
       <menuitem action='fmt_h2'/>
       <menuitem action='fmt_h3'/>
+      <menuitem action='fmt_h4'/>
+      <menuitem action='fmt_h5'/>
+      <menuitem action='fmt_h6'/>
     </menu>
     <separator/>
     <menuitem action='fmt_superscript'/>
@@ -337,6 +340,9 @@ const char* CtMenu::_get_popup_menu_ui_str_text()
     <menuitem action='fmt_h1'/>
     <menuitem action='fmt_h2'/>
     <menuitem action='fmt_h3'/>
+    <menuitem action='fmt_h4'/>
+    <menuitem action='fmt_h5'/>
+    <menuitem action='fmt_h6'/>
     <separator/>
     <menuitem action='fmt_small'/>
     <menuitem action='fmt_superscript'/>

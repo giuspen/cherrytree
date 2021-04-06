@@ -138,39 +138,39 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter, Gtk:
     bool monospace_active = false;
     int indent = 0;
     std::string link_url;
-    for (auto tag_property: CtConst::TAG_PROPERTIES)
-    {
-        if ((tag_property != CtConst::TAG_JUSTIFICATION && tag_property != CtConst::TAG_LINK) && !curr_attributes.at(tag_property).empty())
+    for (auto tag_property : CtConst::TAG_PROPERTIES) {
+        if (tag_property != CtConst::TAG_JUSTIFICATION and
+            tag_property != CtConst::TAG_LINK and
+            not curr_attributes.at(tag_property).empty())
         {
             auto property_value = curr_attributes.at(tag_property);
             // tag names fix
-            if (tag_property == CtConst::TAG_SCALE)
-            {
-                if (property_value == CtConst::TAG_PROP_VAL_SUP)
-                {
+            if (tag_property == CtConst::TAG_SCALE) {
+                if (property_value == CtConst::TAG_PROP_VAL_SUP) {
                     superscript_active = true;
                     continue;
                 }
-                else if (property_value == CtConst::TAG_PROP_VAL_SUB)
-                {
+                else if (property_value == CtConst::TAG_PROP_VAL_SUB) {
                     subscript_active = true;
                     continue;
                 }
-                else
+                else {
                     tag_property = "size";
-                // tag properties fix
+                }
+                // TODO apply user defined scalable tag properies
                 if (property_value == CtConst::TAG_PROP_VAL_SMALL) property_value = "x-small";
                 else if (property_value == CtConst::TAG_PROP_VAL_H1) property_value = "xx-large";
                 else if (property_value == CtConst::TAG_PROP_VAL_H2) property_value = "x-large";
-                else if (property_value == CtConst::TAG_PROP_VAL_H3) property_value = "large";
+                else if (property_value == CtConst::TAG_PROP_VAL_H3 or
+                         property_value == CtConst::TAG_PROP_VAL_H4 or
+                         property_value == CtConst::TAG_PROP_VAL_H5 or
+                         property_value == CtConst::TAG_PROP_VAL_H6) property_value = "large";
             }
-            else if (tag_property == CtConst::TAG_FAMILY)
-            {
+            else if (tag_property == CtConst::TAG_FAMILY) {
                 monospace_active = true;
                 continue;
             }
-            else if (tag_property == CtConst::TAG_INDENT)
-            {
+            else if (tag_property == CtConst::TAG_INDENT) {
                 indent = not property_value.empty() ? CtConst::INDENT_MARGIN * std::stoi(property_value) : 0;
                 continue;
             }
@@ -181,7 +181,7 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter, Gtk:
                 property_value = CtRgbUtil::get_rgb24str_from_str_any(color_no_white);
             }
             */
-            pango_attrs += std::string(" ") + tag_property.data() + "=\"" + property_value + "\"";
+            pango_attrs += std::string{" "} + tag_property.data() + "=\"" + property_value + "\"";
         }
         if (tag_property == CtConst::TAG_LINK) {
             link_url = curr_attributes.at(tag_property);

@@ -59,7 +59,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{"", "ListSubMenu", "ct_list_bulleted", _("_List"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "JustifySubMenu", "ct_justify-center", _("_Justify"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "FontSubMenu", "ct_fonts", _("_Font"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "ToggleSubMenu", "ct_fmt-txt-large", _("_Toggle"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "ToggleSubMenu", "ct_fmt-txt-h1", _("_Toggle"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "InsertSubMenu", "ct_insert", _("I_nsert"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "FindSubMenu", "ct_find", _("_Find"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "ReplaceSubMenu", "ct_find_replace", _("_Replace"), None, None, sigc::signal<void>()});
@@ -114,9 +114,12 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_italic", "ct_fmt-txt-italic", _("Toggle _Italic Property"), KB_CONTROL+"I", _("Toggle Italic Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_italic)});
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_underline", "ct_fmt-txt-underline", _("Toggle _Underline Property"), KB_CONTROL+"U", _("Toggle Underline Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_underline)});
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_strikethrough", "ct_fmt-txt-strikethrough", _("Toggle Stri_kethrough Property"), KB_CONTROL+"E", _("Toggle Strikethrough Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_strikethrough)});
-    _actions.push_back(CtMenuAction{fmt_cat, "fmt_h1", "ct_fmt-txt-large", _("Toggle h_1 Property"), KB_CONTROL+"1", _("Toggle h1 Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_h1)});
-    _actions.push_back(CtMenuAction{fmt_cat, "fmt_h2", "ct_fmt-txt-large2", _("Toggle h_2 Property"), KB_CONTROL+"2", _("Toggle h2 Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_h2)});
-    _actions.push_back(CtMenuAction{fmt_cat, "fmt_h3", "ct_fmt-txt-large3", _("Toggle h_3 Property"), KB_CONTROL+"3", _("Toggle h3 Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_h3)});
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_h1", "ct_fmt-txt-h1", _("Toggle h_1 Property"), KB_CONTROL+"1", _("Toggle h1 Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_h1)});
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_h2", "ct_fmt-txt-h2", _("Toggle h_2 Property"), KB_CONTROL+"2", _("Toggle h2 Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_h2)});
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_h3", "ct_fmt-txt-h3", _("Toggle h_3 Property"), KB_CONTROL+"3", _("Toggle h3 Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_h3)});
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_h4", "ct_fmt-txt-h4", _("Toggle h_4 Property"), KB_CONTROL+"4", _("Toggle h4 Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_h4)});
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_h5", "ct_fmt-txt-h5", _("Toggle h_5 Property"), KB_CONTROL+"5", _("Toggle h5 Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_h5)});
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_h6", "ct_fmt-txt-h6", _("Toggle h_6 Property"), KB_CONTROL+"6", _("Toggle h6 Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_h6)});
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_small", "ct_fmt-txt-small", _("Toggle _Small Property"), KB_CONTROL+"0", _("Toggle Small Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_small)});
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_superscript", "ct_fmt-txt-superscript", _("Toggle Su_perscript Property"), None, _("Toggle Superscript Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_superscript)});
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_subscript", "ct_fmt-txt-subscript", _("Toggle Su_bscript Property"), None, _("Toggle Subscript Property of the Selected Text"), sigc::mem_fun(*pActions, &CtActions::apply_tag_subscript)});

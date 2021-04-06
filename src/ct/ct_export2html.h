@@ -1,7 +1,7 @@
 /*
  * ct_export2html.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -33,15 +33,20 @@
 class CtExport2Html
 {
 private:
-    const Glib::ustring HTML_HEADER = R"HTML(<!doctype html><html>
-    <head>
-      <meta http-equiv="content-type" content="text/html; charset=utf-8">
-      <title>%s</title>
-      <meta name="generator" content="CherryTree">
-      <link rel="stylesheet" href="res/styles3.css" type="text/css" />
-    </head>
-    <body>)HTML"; // after <body> should not be any whitespaces
-    const Glib::ustring HTML_FOOTER = R"HTML(</body></html>)HTML";
+    const Glib::ustring HTML_HEADER = R"HTML(<!doctype html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>%s</title>
+  <meta name="generator" content="CherryTree">
+  <link rel="stylesheet" href="res/styles3.css" type="text/css" />
+</head>
+<body>
+)HTML"; // after <body> should not be any whitespaces
+    const Glib::ustring HTML_FOOTER = R"HTML(
+</body>
+</html>
+)HTML";
 
 public:
     CtExport2Html(CtMainWin* pCtMainWin);

@@ -194,31 +194,12 @@ int CtActions::_find_previous_indent_margin()
     return 0;
 }
 
-// The H1 Button was Pressed
-void CtActions::apply_tag_h1()
+void CtActions::_apply_tag_hN(const char* tagPropScaleVal)
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
     CtTextRange range = CtList{_pCtMainWin, _curr_buffer()}.get_paragraph_iters();
     if (not range.iter_start) return;
-    apply_tag(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H1, range.iter_start, range.iter_end);
-}
-
-// The H2 Button was Pressed
-void CtActions::apply_tag_h2()
-{
-    if (not _is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList{_pCtMainWin, _curr_buffer()}.get_paragraph_iters();
-    if (not range.iter_start) return;
-    apply_tag(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H2, range.iter_start, range.iter_end);
-}
-
-// The H3 Button was Pressed
-void CtActions::apply_tag_h3()
-{
-    if (not _is_curr_node_not_read_only_or_error()) return;
-    CtTextRange range = CtList{_pCtMainWin, _curr_buffer()}.get_paragraph_iters();
-    if (not range.iter_start) return;
-    apply_tag(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H3, range.iter_start, range.iter_end);
+    apply_tag(CtConst::TAG_SCALE, tagPropScaleVal, range.iter_start, range.iter_end);
 }
 
 // The Small Button was Pressed

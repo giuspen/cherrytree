@@ -1,7 +1,7 @@
 /*
  * ct_parser_html.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -134,12 +134,14 @@ void CtHtmlParser::handle_charref(std::string_view /*tag*/)
     return attr_list;
 }
 
-const std::set<std::string> CtHtml2Xml::HTML_A_TAGS{"p", "b", "i", "u", "s", CtConst::TAG_PROP_VAL_H1,
-            CtConst::TAG_PROP_VAL_H2, CtConst::TAG_PROP_VAL_H3, "span", "font"};
+const std::set<std::string> CtHtml2Xml::HTML_A_TAGS{
+    "p", "b", "i", "u", "s",
+    CtConst::TAG_PROP_VAL_H1, CtConst::TAG_PROP_VAL_H2, CtConst::TAG_PROP_VAL_H3,
+    CtConst::TAG_PROP_VAL_H4, CtConst::TAG_PROP_VAL_H5, CtConst::TAG_PROP_VAL_H6,
+    "span", "font"};
 
 CtHtml2Xml::CtHtml2Xml(CtConfig* config) : _config(config)
 {
-
 }
 
 void CtHtml2Xml::feed(const std::string& html)
@@ -280,24 +282,23 @@ void CtHtml2Xml::handle_starttag(std::string_view tag, const char** atts)
         {
             for (auto& tag_attr: char2list_attrs(atts)) {
                 if (tag_attr.name == "align")
-                    _add_tag_style(CtConst::TAG_JUSTIFICATION, str::trim(Glib::ustring(tag_attr.value.begin()).lowercase()));
+                    _add_tag_style(CtConst::TAG_JUSTIFICATION, str::trim(Glib::ustring{tag_attr.value.begin()}.lowercase()));
                 else if (tag_attr.name == CtConst::TAG_STYLE)
-                    parse_style_attribute(Glib::ustring(tag_attr.value.begin()));
+                    parse_style_attribute(Glib::ustring{tag_attr.value.begin()});
             }
         }
         else if (tag == CtConst::TAG_PROP_VAL_SUP || tag == CtConst::TAG_PROP_VAL_SUB)
         {
             _add_tag_style(CtConst::TAG_SCALE, tag.begin());
         }
-        else if (tag  == CtConst::TAG_PROP_VAL_H1 || tag == CtConst::TAG_PROP_VAL_H2  || tag == CtConst::TAG_PROP_VAL_H3
-                 || tag == CtConst::TAG_PROP_VAL_H4  || tag == CtConst::TAG_PROP_VAL_H5  || tag == CtConst::TAG_PROP_VAL_H6)
+        else if (tag == CtConst::TAG_PROP_VAL_H1 or tag == CtConst::TAG_PROP_VAL_H2 or tag == CtConst::TAG_PROP_VAL_H3 or
+                 tag == CtConst::TAG_PROP_VAL_H4 or tag == CtConst::TAG_PROP_VAL_H5 or tag == CtConst::TAG_PROP_VAL_H6)
         {
             _rich_text_serialize(CtConst::CHAR_NEWLINE);
-            if (tag == CtConst::TAG_PROP_VAL_H1 || tag == CtConst::TAG_PROP_VAL_H2) _add_tag_style(CtConst::TAG_SCALE, tag.begin());
-            else _add_tag_style(CtConst::TAG_SCALE, CtConst::TAG_PROP_VAL_H3);
-            for (auto& tag_attr: char2list_attrs(atts)) {
+            _add_tag_style(CtConst::TAG_SCALE, tag.begin());
+            for (auto& tag_attr : char2list_attrs(atts)) {
                 if (tag_attr.name == "align")
-                    _add_tag_style(CtConst::TAG_JUSTIFICATION, str::trim(Glib::ustring(tag_attr.value.begin()).lowercase()));
+                    _add_tag_style(CtConst::TAG_JUSTIFICATION, str::trim(Glib::ustring{tag_attr.value.begin()}.lowercase()));
             }
         }
         else if (tag == "a")
@@ -400,8 +401,9 @@ void CtHtml2Xml::handle_endtag(std::string_view tag)
         if (tag == "p") _rich_text_serialize(CtConst::CHAR_NEWLINE);
         else if (tag == "div") _rich_text_serialize(CtConst::CHAR_NEWLINE);
         else if (tag == "pre") _html_pre_tag_open = false;
-        else if (tag == CtConst::TAG_PROP_VAL_H1 || tag == CtConst::TAG_PROP_VAL_H2 || tag == CtConst::TAG_PROP_VAL_H3
-                 || tag == CtConst::TAG_PROP_VAL_H4 || tag == CtConst::TAG_PROP_VAL_H5 || tag == CtConst::TAG_PROP_VAL_H6) {
+        else if (tag == CtConst::TAG_PROP_VAL_H1 or tag == CtConst::TAG_PROP_VAL_H2 or tag == CtConst::TAG_PROP_VAL_H3 or
+                 tag == CtConst::TAG_PROP_VAL_H4 or tag == CtConst::TAG_PROP_VAL_H5 or tag == CtConst::TAG_PROP_VAL_H6)
+        {
             _rich_text_serialize(CtConst::CHAR_NEWLINE);
         }
         else if (tag == "li") _rich_text_serialize(CtConst::CHAR_NEWLINE);

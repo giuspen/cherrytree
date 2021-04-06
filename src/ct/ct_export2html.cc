@@ -532,126 +532,126 @@ Glib::ustring CtExport2Html::_html_process_slot(int start_offset, int end_offset
 
     curr_html_text = str::replace(curr_html_text, "<br/><p ", "<p ");
     curr_html_text = str::replace(curr_html_text, "</p><br/>", "</p>");
-    for (auto header: {CtConst::TAG_PROP_VAL_H1, CtConst::TAG_PROP_VAL_H2, CtConst::TAG_PROP_VAL_H3})
-        curr_html_text = str::replace(curr_html_text, ("</" + Glib::ustring(header) + "><" + Glib::ustring(header) + " >").c_str(), "");
-
+    for (auto header : {CtConst::TAG_PROP_VAL_H1, CtConst::TAG_PROP_VAL_H2, CtConst::TAG_PROP_VAL_H3,
+                        CtConst::TAG_PROP_VAL_H4, CtConst::TAG_PROP_VAL_H5, CtConst::TAG_PROP_VAL_H6}) {
+        curr_html_text = str::replace(curr_html_text, ("</" + Glib::ustring{header} + "><" + Glib::ustring{header} + " >").c_str(), "");
+    }
     return curr_html_text;
 }
 
 // Adds a slice to the HTML Text
-Glib::ustring CtExport2Html::_html_text_serialize(Gtk::TextIter start_iter, Gtk::TextIter end_iter, const CtCurrAttributesMap& curr_attributes)
+Glib::ustring CtExport2Html::_html_text_serialize(Gtk::TextIter start_iter,
+                                                  Gtk::TextIter end_iter,
+                                                  const CtCurrAttributesMap& curr_attributes)
 {
     Glib::ustring inner_text = str::xml_escape(start_iter.get_text(end_iter));
-    if (inner_text == "") return "";
+    if (inner_text.empty()) return inner_text;
     inner_text = str::replace(inner_text, CtConst::CHAR_NEWLINE, "<br />");
 
-    Glib::ustring html_attrs = "";
-    bool superscript_active = false;
-    bool subscript_active = false;
-    bool monospace_active = false;
-    bool bold_active = false;
-    bool italic_active = false;
-    for (auto tag_property: CtConst::TAG_PROPERTIES)
-    {
-        if (curr_attributes.at(tag_property) == "")
+    Glib::ustring html_attrs;
+    bool superscript_active{false};
+    bool subscript_active{false};
+    bool monospace_active{false};
+    bool bold_active{false};
+    bool italic_active{false};
+    Glib::ustring hN_active;
+    for (auto tag_property : CtConst::TAG_PROPERTIES) {
+        if (curr_attributes.at(tag_property).empty()) {
             continue;
+        }
         Glib::ustring property_value = curr_attributes.at(tag_property);
-        if (tag_property == CtConst::TAG_WEIGHT)
-        {
+        if (tag_property == CtConst::TAG_WEIGHT) {
             // font-weight:bolder
             // tag_property = "font-weight"
             // property_value = "bolder"
             bold_active = true;
             continue;
         }
-        else if (tag_property == CtConst::TAG_FOREGROUND)
-        {
+        else if (tag_property == CtConst::TAG_FOREGROUND) {
             // color:#FFFF00
             tag_property = "color";
             Glib::ustring color_no_white = CtRgbUtil::rgb_to_no_white(property_value);
             property_value = CtRgbUtil::get_rgb24str_from_str_any(color_no_white);
         }
-        else if (tag_property == CtConst::TAG_BACKGROUND)
-        {
+        else if (tag_property == CtConst::TAG_BACKGROUND) {
             // background-color:#FFFF00
             tag_property = "background-color";
             property_value = CtRgbUtil::get_rgb24str_from_str_any(property_value);
         }
-        else if (tag_property == CtConst::TAG_STYLE)
-        {
+        else if (tag_property == CtConst::TAG_STYLE) {
             // font-style:italic
             // tag_property = "font-style"
             // property_value = cons.TAG_PROP_ITALIC
             italic_active = true;
             continue;
         }
-        else if (tag_property == CtConst::TAG_UNDERLINE)
-        {
+        else if (tag_property == CtConst::TAG_UNDERLINE) {
             // text-decoration:underline
             tag_property = "text-decoration";
             property_value = CtConst::TAG_UNDERLINE;
         }
-        else if (tag_property == CtConst::TAG_STRIKETHROUGH)
-        {
+        else if (tag_property == CtConst::TAG_STRIKETHROUGH) {
             // text-decoration:line-through
             tag_property = "text-decoration";
             property_value = "line-through";
         }
-        else if (tag_property == CtConst::TAG_SCALE)
-        {
-            if (property_value == CtConst::TAG_PROP_VAL_SUP)
-            {
+        else if (tag_property == CtConst::TAG_SCALE) {
+            if (property_value == CtConst::TAG_PROP_VAL_SUP) {
                 superscript_active = true;
                 continue;
             }
-            else if (property_value == CtConst::TAG_PROP_VAL_SUB)
-            {
+            else if (property_value == CtConst::TAG_PROP_VAL_SUB) {
                 subscript_active = true;
                 continue;
             }
-            else
-            {
+            else {
                 // font-size:xx-large/x-large/x-small
                 tag_property = "font-size";
-                if (property_value == CtConst::TAG_PROP_VAL_SMALL) property_value = "x-small";
-                else if (property_value == CtConst::TAG_PROP_VAL_H1) property_value = "xx-large";
-                else if (property_value == CtConst::TAG_PROP_VAL_H2) property_value = "x-large";
-                else if (property_value == CtConst::TAG_PROP_VAL_H3) property_value = "large";
+                if (property_value == CtConst::TAG_PROP_VAL_SMALL) {
+                    property_value = "x-small";
+                }
+                else if (property_value == CtConst::TAG_PROP_VAL_H1 or
+                         property_value == CtConst::TAG_PROP_VAL_H2 or
+                         property_value == CtConst::TAG_PROP_VAL_H3 or
+                         property_value == CtConst::TAG_PROP_VAL_H4 or
+                         property_value == CtConst::TAG_PROP_VAL_H5 or
+                         property_value == CtConst::TAG_PROP_VAL_H6)
+                {
+                    // TODO apply user defined scalable tag properies
+                    hN_active = property_value;
+                    if (property_value == CtConst::TAG_PROP_VAL_H1) property_value = "xx-large";
+                    else if (property_value == CtConst::TAG_PROP_VAL_H2) property_value = "x-large";
+                    else property_value = "large";
+                }
             }
         }
-        else if (tag_property == CtConst::TAG_FAMILY)
-        {
+        else if (tag_property == CtConst::TAG_FAMILY) {
             monospace_active = true;
             continue;
         }
-        else if (tag_property == CtConst::TAG_JUSTIFICATION)
-        {
+        else if (tag_property == CtConst::TAG_JUSTIFICATION) {
             // text-align:center/left/right
             // tag_property = "text-align"
             continue;
         }
-        else if (tag_property == CtConst::TAG_LINK)
-        {
+        else if (tag_property == CtConst::TAG_LINK) {
             // <a href="http://www.example.com/">link-text goes here</a>
             Glib::ustring href = _get_href_from_link_prop_val(property_value);
-            if (href == "")
+            if (href.empty()) {
                 continue;
+            }
             Glib::ustring html_text = "<a href=\"" + href + "\">" + inner_text + "</a>";
             return html_text;
         }
-        html_attrs += Glib::ustring(tag_property.data()) + ":" + property_value + ";";
+        html_attrs += Glib::ustring{tag_property.data()} + ":" + property_value + ";";
     }
     Glib::ustring tagged_text;
-    if (html_attrs == "" || inner_text == "<br />")
+    if (html_attrs.empty() || inner_text == "<br />") {
         tagged_text = inner_text;
-    else
-    {
-        if (html_attrs.find("xx-large") != Glib::ustring::npos)
-            tagged_text = "<h1>" + inner_text + "</h1>";
-        else if (html_attrs.find("x-large") != Glib::ustring::npos)
-            tagged_text = "<h2>" + inner_text + "</h2>";
-        else if (html_attrs.find("large") != Glib::ustring::npos)
-            tagged_text = "<h3>" + inner_text + "</h3>";
+    }
+    else {
+        if (not hN_active.empty())
+            tagged_text = Glib::ustring{"<"} + hN_active + ">" + inner_text + Glib::ustring{"</"} + hN_active + ">";
         else if (html_attrs.find("x-small") != Glib::ustring::npos)
             tagged_text = "<small>" + inner_text + "</small>";
         else
