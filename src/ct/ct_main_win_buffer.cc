@@ -155,6 +155,15 @@ Glib::RefPtr<Gsv::Buffer> CtMainWin::get_new_text_buffer(const Glib::ustring& te
 void CtMainWin::apply_scalable_properties(Glib::RefPtr<Gtk::TextTag> rTextTag, CtScalableTag* pCtScalableTag)
 {
     rTextTag->property_scale() = pCtScalableTag->scale;
+    if (not pCtScalableTag->foreground.empty()) {
+        rTextTag->property_foreground() = pCtScalableTag->foreground;
+    }
+    if (not pCtScalableTag->background.empty()) {
+        rTextTag->property_background() = pCtScalableTag->background;
+    }
+    rTextTag->property_weight() = pCtScalableTag->bold ? Pango::Weight::WEIGHT_HEAVY : Pango::Weight::WEIGHT_NORMAL;
+    rTextTag->property_style() = pCtScalableTag->italic ? Pango::Style::STYLE_ITALIC : Pango::Style::STYLE_NORMAL;
+    rTextTag->property_underline() = pCtScalableTag->underline ? Pango::Underline::UNDERLINE_SINGLE : Pango::Underline::UNDERLINE_NONE;
 }
 
 const std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string& propertyName,
@@ -170,7 +179,7 @@ const std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string
             rTextTag->property_indent() = 0;
         }
         else if (CtConst::TAG_WEIGHT == propertyName and CtConst::TAG_PROP_VAL_HEAVY == propertyValue) {
-            rTextTag->property_weight() = PANGO_WEIGHT_HEAVY;
+            rTextTag->property_weight() = Pango::Weight::WEIGHT_HEAVY;
         }
         else if (CtConst::TAG_FOREGROUND == propertyName) {
             rTextTag->property_foreground() = propertyValue;
