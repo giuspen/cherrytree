@@ -26,6 +26,9 @@
 
 CtPrefDlg::CtPrefDlg(CtMainWin* parent)
  : Gtk::Dialog{_("Preferences"), *parent, true}
+ , _pCtMainWin{parent}
+ , _pCtMenu{&_pCtMainWin->get_ct_menu()}
+ , _pConfig{_pCtMainWin->get_ct_config()}
  , _mapCountryLanguages{
         {"bg", _("Bulgarian")},
         {"cs", _("Czech")},
@@ -50,9 +53,6 @@ CtPrefDlg::CtPrefDlg(CtMainWin* parent)
         {"tr", _("Turkish")},
         {"uk", _("Ukrainian")},
         {"zh_CN", _("Chinese Simplified")}}
- , _pCtMainWin{parent}
- , _pCtMenu{&_pCtMainWin->get_ct_menu()}
- , _pConfig{_pCtMainWin->get_ct_config()}
 {
     auto pNotebook = Gtk::manage(new Gtk::Notebook{});
     pNotebook->set_tab_pos(Gtk::PositionType::POS_LEFT);

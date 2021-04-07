@@ -184,22 +184,78 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
     auto pNotebookScalable = Gtk::manage(new Gtk::Notebook{});
     auto vbox_misc = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
 
-    for (int i = 1; i <= 7; ++i) {
+    const std::array<CtScalableTag*,7> scalables{
+        &_pConfig->scalableH1, &_pConfig->scalableH2, &_pConfig->scalableH3,
+        &_pConfig->scalableH4, &_pConfig->scalableH5, &_pConfig->scalableH6,
+        &_pConfig->scalableSmall};
+
+    for (unsigned i = 0; i < scalables.size(); ++i) {
+        CtScalableTag* pScalable = scalables.at(i);
         auto vboxTab = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
-        Glib::ustring tabLabel = i != 7 ? Glib::ustring{"h"} + std::to_string(i) : _("Small");
+        vboxTab->set_margin_left(6);
+        vboxTab->set_margin_top(6);
+
+        Gtk::Image* pImageBold = _pCtMainWin->new_image_from_stock("ct_fmt-txt-bold", Gtk::ICON_SIZE_MENU);
+        Gtk::Image* pImageItalic = _pCtMainWin->new_image_from_stock("ct_fmt-txt-italic", Gtk::ICON_SIZE_MENU);
+        Gtk::Image* pImageUnderline = _pCtMainWin->new_image_from_stock("ct_fmt-txt-underline", Gtk::ICON_SIZE_MENU);
+        Gtk::Image* pImageFg = _pCtMainWin->new_image_from_stock("ct_color_fg", Gtk::ICON_SIZE_MENU);
+        Gtk::Image* pImageBg = _pCtMainWin->new_image_from_stock("ct_color_bg", Gtk::ICON_SIZE_MENU);
+
+        auto pLabel_scaleTab = Gtk::manage(new Gtk::Label{_("Scale")});
+        auto pAdj_scaleTab = Gtk::Adjustment::create(pScalable->scale, 0.1, 10.0, 0.1);
+        auto pSpinButton_scaleTab = Gtk::manage(new Gtk::SpinButton{pAdj_scaleTab});
+        pSpinButton_scaleTab->set_digits(6);
+        auto checkbutton_boldTab = Gtk::manage(new Gtk::CheckButton{_("Bold")});
+        auto checkbutton_italicTab = Gtk::manage(new Gtk::CheckButton{_("Italic")});
+        auto checkbutton_underlineTab = Gtk::manage(new Gtk::CheckButton{_("Underline")});
+        auto hboxScaleBoItUnTab = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+        hboxScaleBoItUnTab->pack_start(*pLabel_scaleTab, false, false);
+        hboxScaleBoItUnTab->pack_start(*pSpinButton_scaleTab, false, false);
+        hboxScaleBoItUnTab->pack_start(*pImageBold, false, false);
+        hboxScaleBoItUnTab->pack_start(*checkbutton_boldTab, false, false);
+        hboxScaleBoItUnTab->pack_start(*pImageItalic, false, false);
+        hboxScaleBoItUnTab->pack_start(*checkbutton_italicTab, false, false);
+        hboxScaleBoItUnTab->pack_start(*pImageUnderline, false, false);
+        hboxScaleBoItUnTab->pack_start(*checkbutton_underlineTab, false, false);
+        vboxTab->pack_start(*hboxScaleBoItUnTab, false, false);
+        checkbutton_boldTab->set_active(pScalable->bold);
+        checkbutton_italicTab->set_active(pScalable->italic);
+        checkbutton_underlineTab->set_active(pScalable->underline);
+
+        auto checkbutton_fgTab = Gtk::manage(new Gtk::CheckButton{_("Text Color Foreground")});
+        std::string fgTab_color = pScalable->foreground.empty() ? CtConst::COLOR_24_GRAY : pScalable->foreground;
+        auto colorbutton_fgTab = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{fgTab_color}});
+        auto checkbutton_bgTab = Gtk::manage(new Gtk::CheckButton{_("Text Color Background")});
+        std::string bgTab_color = pScalable->background.empty() ? CtConst::COLOR_24_GRAY : pScalable->background;
+        auto colorbutton_bgTab = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{bgTab_color}});
+        auto hboxFgBgTab = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+        hboxFgBgTab->pack_start(*pImageFg, false, false);
+        hboxFgBgTab->pack_start(*checkbutton_fgTab, false, false);
+        hboxFgBgTab->pack_start(*colorbutton_fgTab, false, false);
+        hboxFgBgTab->pack_start(*pImageBg, false, false);
+        hboxFgBgTab->pack_start(*checkbutton_bgTab, false, false);
+        hboxFgBgTab->pack_start(*colorbutton_bgTab, false, false);
+        vboxTab->pack_start(*hboxFgBgTab, false, false);
+        checkbutton_fgTab->set_active(not pScalable->foreground.empty());
+        colorbutton_fgTab->set_sensitive(not pScalable->foreground.empty());
+        checkbutton_bgTab->set_active(not pScalable->background.empty());
+        colorbutton_bgTab->set_sensitive(not pScalable->background.empty());
+
+        Glib::ustring tabLabel = i != 6 ? Glib::ustring{"h"} + std::to_string(i+1) : _("Small");
         pNotebookScalable->append_page(*vboxTab, tabLabel);
     }
 
-    auto checkbutton_monospace_bg = Gtk::manage(new Gtk::CheckButton{_("Monospace Background")});
+    Gtk::Image* pImageMsBg = _pCtMainWin->new_image_from_stock("ct_color_bg", Gtk::ICON_SIZE_MENU);
+    auto checkbutton_monospace_bg = Gtk::manage(new Gtk::CheckButton{_("Monospace Text Color Background")});
     std::string mono_color = _pConfig->monospaceBg.empty() ? CtConst::DEFAULT_MONOSPACE_BG : _pConfig->monospaceBg;
     auto colorbutton_monospace_bg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{mono_color}});
     auto hbox_monospace_bg = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    hbox_monospace_bg->pack_start(*pImageMsBg, false, false);
     hbox_monospace_bg->pack_start(*checkbutton_monospace_bg, false, false);
     hbox_monospace_bg->pack_start(*colorbutton_monospace_bg, false, false);
     vbox_misc->pack_start(*hbox_monospace_bg, false, false);
-
-    checkbutton_monospace_bg->set_active(!_pConfig->monospaceBg.empty());
-    colorbutton_monospace_bg->set_sensitive(!_pConfig->monospaceBg.empty());
+    checkbutton_monospace_bg->set_active(not _pConfig->monospaceBg.empty());
+    colorbutton_monospace_bg->set_sensitive(not _pConfig->monospaceBg.empty());
 
     Gtk::Frame* pFrameScalable = new_managed_frame_with_align(_("Scalable Tags"), pNotebookScalable);
     Gtk::Frame* pFrameMisc = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc);
