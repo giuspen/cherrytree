@@ -1257,11 +1257,11 @@ msgid "_Justify"
 msgstr "Выровнять"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:61
-msgid "_Font"
+msgid "_Font Property"
 msgstr "Шрифт"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:62
-msgid "_Toggle"
+msgid "_Toggle Heading Property"
 msgstr "Заголовок"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:63
@@ -1828,6 +1828,42 @@ msgstr ""
 "\n"
 "Применить к абзацу стиль\n"
 "начертания текста \"Заголовок 3\" "
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:119
+msgid "Toggle h_4 Property"
+msgstr "Заголовок 4"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:119
+msgid "Toggle h4 Property of the Selected Text"
+msgstr ""
+"Заголовок 4\n"
+"\n"
+"Применить к абзацу стиль\n"
+"начертания текста \"Заголовок 4\" "
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:119
+msgid "Toggle h_5 Property"
+msgstr "Заголовок 5"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:119
+msgid "Toggle h5 Property of the Selected Text"
+msgstr ""
+"Заголовок 5\n"
+"\n"
+"Применить к абзацу стиль\n"
+"начертания текста \"Заголовок 5\" "
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:119
+msgid "Toggle h_6 Property"
+msgstr "Заголовок 6"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:119
+msgid "Toggle h6 Property of the Selected Text"
+msgstr ""
+"Заголовок 6\n"
+"\n"
+"Применить к абзацу стиль\n"
+"начертания текста \"Заголовок 6\" "
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:120
 msgid "Toggle _Small Property"

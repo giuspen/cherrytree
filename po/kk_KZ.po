@@ -1268,11 +1268,11 @@ msgid "_Justify"
 msgstr "Тегiстелу"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:61
-msgid "_Font"
+msgid "_Font Property"
 msgstr "Қарiп"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:62
-msgid "_Toggle"
+msgid "_Toggle Heading Property"
 msgstr "Тақырып"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:63
@@ -1835,6 +1835,42 @@ msgstr ""
 "\n"
 "Стильдың азатжолына қолдану \n"
 "мәтiннiң пiшiнi \"Тақырып 3\""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:119
+msgid "Toggle h_4 Property"
+msgstr "Тақырып 4"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:119
+msgid "Toggle h4 Property of the Selected Text"
+msgstr ""
+"Тақырып 4\n"
+"\n"
+"Стильдың азатжолына қолдану \n"
+"мәтiннiң пiшiнi \"Тақырып 4\""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:119
+msgid "Toggle h_5 Property"
+msgstr "Тақырып 5"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:119
+msgid "Toggle h5 Property of the Selected Text"
+msgstr ""
+"Тақырып 5\n"
+"\n"
+"Стильдың азатжолына қолдану \n"
+"мәтiннiң пiшiнi \"Тақырып 5\""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:119
+msgid "Toggle h_6 Property"
+msgstr "Тақырып 6"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:119
+msgid "Toggle h6 Property of the Selected Text"
+msgstr ""
+"Тақырып 6\n"
+"\n"
+"Стильдың азатжолына қолдану \n"
+"мәтiннiң пiшiнi \"Тақырып 6\""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:120
 msgid "Toggle _Small Property"

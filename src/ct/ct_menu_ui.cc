@@ -168,6 +168,22 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='fmt_latest'/>
     <menuitem action='fmt_rm'/>
     <separator/>
+    <menuitem action='fmt_color_fg'/>
+    <menuitem action='fmt_color_bg'/>
+    <separator/>
+    <menu action='FontSubMenu'>
+      <menuitem action='fmt_bold'/>
+      <menuitem action='fmt_italic'/>
+      <menuitem action='fmt_underline'/>
+      <menuitem action='fmt_strikethrough'/>
+      <menuitem action='fmt_monospace'/>
+      <menuitem action='fmt_small'/>
+    </menu>
+    <menu action='ChangeCaseSubMenu'>
+      <menuitem action='case_down'/>
+      <menuitem action='case_up'/>
+      <menuitem action='case_tggl'/>
+    </menu>
     <menu action='HeadingSubMenu'>
       <menuitem action='fmt_h1'/>
       <menuitem action='fmt_h2'/>
@@ -176,22 +192,9 @@ const char* CtMenu::_get_ui_str_menu()
       <menuitem action='fmt_h5'/>
       <menuitem action='fmt_h6'/>
     </menu>
-    <menuitem action='fmt_color_fg'/>
-    <menuitem action='fmt_color_bg'/>
-    <menuitem action='fmt_bold'/>
-    <menuitem action='fmt_italic'/>
-    <menuitem action='fmt_underline'/>
-    <menuitem action='fmt_strikethrough'/>
-    <menuitem action='fmt_monospace'/>
-    <menuitem action='fmt_small'/>
+    <separator/>
     <menuitem action='fmt_superscript'/>
     <menuitem action='fmt_subscript'/>
-    <separator/>
-    <menu action='ChangeCaseSubMenu'>
-      <menuitem action='case_down'/>
-      <menuitem action='case_up'/>
-      <menuitem action='case_tggl'/>
-    </menu>
     <separator/>
     <menuitem action='fmt_indent'/>
     <menuitem action='fmt_unindent'/>
@@ -326,16 +329,11 @@ const char* CtMenu::_get_popup_menu_ui_str_text()
     <menuitem action='fmt_latest'/>
     <menuitem action='fmt_rm'/>
     <separator/>
-    <menu action='HeadingSubMenu'>
-      <menuitem action='fmt_h1'/>
-      <menuitem action='fmt_h2'/>
-      <menuitem action='fmt_h3'/>
-      <menuitem action='fmt_h4'/>
-      <menuitem action='fmt_h5'/>
-      <menuitem action='fmt_h6'/>
-    </menu>
+    <separator/>
     <menuitem action='fmt_color_fg'/>
     <menuitem action='fmt_color_bg'/>
+    <separator/>
+    <menu action='FontSubMenu'>
     <menuitem action='fmt_bold'/>
     <menuitem action='fmt_italic'/>
     <menuitem action='fmt_underline'/>
@@ -344,6 +342,15 @@ const char* CtMenu::_get_popup_menu_ui_str_text()
     <menuitem action='fmt_small'/>
     <menuitem action='fmt_superscript'/>
     <menuitem action='fmt_subscript'/>
+    </menu>
+    <menu action='HeadingSubMenu'>
+      <menuitem action='fmt_h1'/>
+      <menuitem action='fmt_h2'/>
+      <menuitem action='fmt_h3'/>
+      <menuitem action='fmt_h4'/>
+      <menuitem action='fmt_h5'/>
+      <menuitem action='fmt_h6'/>
+    </menu>
     <separator/>
   </menu>
   <menu action='ChangeCaseSubMenu'>
