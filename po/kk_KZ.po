@@ -3738,10 +3738,6 @@ msgstr "Сөздiк:"
 msgid "Expand CodeBoxes Automatically"
 msgstr "Iшiндегi CodeBox бойымен өздiгiнен таңдау"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:62
-msgid "Monospace Background"
-msgstr "Моношрифта фон"
-
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:74
 msgid "Embedded File Icon Size"
 msgstr "Қыстыртылатын файлды белгiшенiң өлшемi"
@@ -3765,6 +3761,18 @@ msgstr "Үш еселi басумен параграфты ерекшелеу"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:101
 msgid "Enable Markdown Auto Replacement (Experimental)"
 msgstr "Markdown автоалмастыру қосу (Эксперименталдi)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:189
+msgid "Small"
+msgstr "Ұсақ"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:193
+msgid "Monospace Background"
+msgstr "Моношрифта фон"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:204
+msgid "Scalable Tags"
+msgstr "Масштаб жасалатын тегтер"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:61
 msgid "Chars for Bulleted List"
