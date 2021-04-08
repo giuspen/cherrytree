@@ -58,6 +58,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{"", "ChangeCaseSubMenu", "ct_case_toggle", _("C_hange Case"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "ListSubMenu", "ct_list_bulleted", _("_List"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "JustifySubMenu", "ct_justify-center", _("_Justify"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "FontSubMenu", "ct_fonts", _("_Toggle Font Property"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "HeadingSubMenu", "ct_fmt-txt-h1", _("_Toggle Heading Property"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "InsertSubMenu", "ct_insert", _("I_nsert"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "FindSubMenu", "ct_find", _("_Find"), None, None, sigc::signal<void>()});
