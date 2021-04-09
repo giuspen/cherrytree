@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-23 22:20+0000\n"
-"PO-Revision-Date: 2021-03-20 00:25+0600\n"
+"POT-Creation-Date: 2021-04-08 20:34+0100\n"
+"PO-Revision-Date: 2021-04-09 22:46+0600\n"
 "Last-Translator: Viktor Polyanskiy <camilot55@yandex.ru>\n"
 "Language-Team: Russian <camilot55@yandex.ru>\n"
 "Language: ru\n"
@@ -23,778 +23,45 @@ msgstr ""
 "X-Source-Language: C\n"
 "X-Generator: Poedit 2.4.2\n"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:87
-msgid "Image Format Not Recognized"
-msgstr "Не известный формат изображения"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:225
+msgid "Remove Color"
+msgstr "Очистить"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:95
-msgid "Insert Table"
-msgstr "Вставить таблицу"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:278
+msgid "Question"
+msgstr "Вопрос"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:111
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:712
-msgid "CSV File"
-msgstr "Файл CSV"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:293
+msgid "Info"
+msgstr "Информация"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:155
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:87
-msgid "Insert a CodeBox"
-msgstr "Вставить CodeBox"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:199
-msgid "The Maximum Size for Embedded Files is %s MB"
-msgstr ""
-"Максимальный размер файла превышает %s Мб\n"
-" "
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:201
-msgid "Do you want to Continue?"
-msgstr "Продолжить?"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:463
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:63
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:32
-msgid "Special Characters"
-msgstr "Спецсимволы"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:847
-msgid "Lines Stripped"
-msgstr " строк очищено"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:855
-msgid "Image Properties"
-msgstr "Свойства изображения"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:907
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:101
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:332
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:76
-msgid "No Text is Selected"
-msgstr "Текст не выделен"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_export.cc:108
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_file.cc:80
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_file.cc:97
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:101
-msgid "CherryTree Document"
-msgstr "Документ CherryTree"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_export.cc:352
-msgid "PDF File"
-msgstr "Документ PDF"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_export.cc:373
-#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:167
-msgid "Plain Text Document"
-msgstr "Текстовый документ"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:59
-msgid "Replace in Current Node..."
-msgstr "Заменить в ветви..."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:59
-msgid "Search in Current Node..."
-msgstr "Найти в ветви..."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:100
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:236
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:319
-msgid "The pattern '%s' was not found"
-msgstr ""
-"Приложение CherryTree завершило поиск в документе.\n"
-"\n"
-"Искомый элемент <b>' %s '</b> не найден!"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:103
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:239
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:321
-msgid "Matches"
-msgstr " совпадений"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:134
-msgid "Replace in Selected Node and Subnodes"
-msgstr "Заменить в ветви с дочерними..."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:134
-msgid "Replace in All Nodes"
-msgstr "Заменить в ветвях..."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:136
-msgid "Search in Selected Node and Subnodes"
-msgstr "Найти в ветви с дочерними..."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:136
-msgid "Search in All Nodes"
-msgstr "Найти в ветвях..."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:260
-msgid "Replace in Node Names..."
-msgstr "Заменить в именах ветвей..."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:260
-msgid "Search For a Node Name..."
-msgstr "Найти в именах ветвей и тэгах..."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:336
-msgid "No Previous Search Was Performed During This Session"
-msgstr "Вы ещё не проводили поиск или замену текста"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:82
-msgid "No Previous Text Format Was Performed During This Session"
-msgstr "Вы ещё не проводили форматирование текста"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:321
-msgid "Link Name"
-msgstr "Вставить ссылку"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:342
-msgid "The Cursor is Not into a Paragraph"
-msgstr "Курсор за пределами абзаца"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:361
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:260
-msgid "Insert/Edit Link"
-msgstr "Свойства ссылки"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:370
-msgid "Pick a Foreground Color"
-msgstr "Выберите цвет"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:370
-msgid "Pick a Background Color"
-msgstr "Выберите цвет"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_help.cc:45
-msgid "Checking for Newer Version..."
-msgstr "Проверка доступности новой версии..."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_help.cc:51
-msgid "Failed to Retrieve Latest Version Information - Try Again Later"
-msgstr "Сервер не отвечает. Попробуйте позже"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_help.cc:63
-msgid "A Newer Version Is Available!"
-msgstr "Доступна новая версия!"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_help.cc:68
-msgid "You Are Using the Latest Version Available"
-msgstr "Обновления не найдены! Вы используете последнюю версию CherryTree"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_help.cc:71
-msgid "You Are Using a Development Version"
-msgstr "Вы используете версию для разработчика"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:38
-msgid "Who is the Parent?"
-msgstr "Добавить в..."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:48
-msgid "The Tree Root"
-msgstr "Дерево"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:49
-msgid "The Selected Node"
-msgstr "Ветвь"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:157
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:168
-msgid "Pandoc executable could not be found, please ensure it is in your path"
-msgstr ""
-"Исполняемый файл Pandoc не найден.\n"
-"\n"
-"Пожалуйста проверьте его наличие"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:185
-msgid "Rename"
-msgstr "Переименовать"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:199
-msgid "PNG Image"
-msgstr "Изображение PNG"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:211
-msgid "Write to %s Failed"
-msgstr "Запись в %s не удалась"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:307
-msgid "The File Link '%s' is Not Valid"
-msgstr "Некорректная ссылка на файл '%s'"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:318
-msgid "The Folder Link '%s' is Not Valid"
-msgstr "Некорректная ссылка на папку '%s'"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:329
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:291
-msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr ""
-"Некорректная ссылка на ветвь.\n"
-"\n"
-"Ветви уже не существует (Id = %s).\n"
-"Вероятно она была удалена из документа"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:350
-msgid "No anchor named '%s' found"
-msgstr ""
-"Приложение CherryTree завершило поиск в документе.\n"
-"\n"
-"Искомый якорь <b>' %s '</b> не найден!"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:410
-msgid "Edit CodeBox"
-msgstr "Свойства CodeBox"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:434
-msgid "No CodeBox is Selected"
-msgstr "CodeBox не выбран"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:442
-msgid ""
-"You must associate a command to '%s'.\n"
-"Do so in the Preferences Dialog"
-msgstr ""
-"Вы должны связать команду с языком <b>' %s '</b>.\n"
-"\n"
-"Это можно сделать в настройках приложения"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:454
-msgid "Do you want to Execute the Code?"
-msgstr "Выполнить код?"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:471
-msgid ""
-"Install the package 'xterm' or configure a different terminal in the "
-"Preferences Dialog"
-msgstr ""
-"Установите пакет 'xterm' или настройте\n"
-"другой терминал в настройках приложения"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:701
-msgid "Edit Table Properties"
-msgstr "Свойства таблицы"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:737
-msgid "Insert Anchor"
-msgstr "Вставить якорь"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:737
-msgid "Edit Anchor"
-msgstr "Свойства якоря"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:773
-msgid "Cannot Edit Embedded File in Read Only Node"
-msgstr "<b>\"Только чтение!\"</b> Невозможно отредактировать файл"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:786
-msgid "Embedded File Automatically Updated:"
-msgstr "Файл автоматически обновлён:"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:35
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:242
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:575
-msgid "No Node is Selected"
-msgstr "Ветвь не выбрана"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:42
-msgid "The Tree is Empty!"
-msgstr ""
-"<b> Пустое дерево! </b>\n"
-"\n"
-"Создайте Ваше первое дерево!\n"
-"Для начала работы добавьте новую ветвь:\n"
-"<b>Главное меню\\Дерево\\Новая ветвь </b>"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:51
-msgid "The Selected Node is Read Only"
-msgstr ""
-"Эта ветвь доступна <b>\"только для чтения\"</b>.\n"
-"\n"
-"Для редактирования измените свойства ветви."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:64
-msgid "This Feature is Available Only in Rich Text Nodes"
-msgstr "Эта функция доступна только для форматированного текста"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:66
-msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes"
-msgstr "Эта функция не доступна для подсветки синтаксиса"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:172
-msgid "New Child Node Properties"
-msgstr "Свойства новой дочерней ветви"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:172
-msgid "New Node Properties"
-msgstr "Свойства новой ветви"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:292
-msgid "Node Properties"
-msgstr "Свойства ветви"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:300
-msgid ""
-"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
-"Do you want to Continue?"
-msgstr ""
-"При смене <b> \"Форматированный текст\" </b> на <b> \"Обычный текст\" </b>,\n"
-"вы полностью потеряете форматирование текста для данной ветви.\n"
-"Продолжить?"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:404
-msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr ""
-" \n"
-"Вы действительно хотите удалить ветвь <b>' %s '</b>?"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:406
-msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "<b> Также будут удалены следующие дочерние ветви!</b>"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:530
-msgid "Select the New Parent"
-msgstr "Выберите родителя..."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:536
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:557
-msgid "The new parent can't be the very node to move!"
-msgstr "Новую родительскую ветвь невозможно переместить!"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:540
-msgid "The new chosen parent is still the old parent!"
-msgstr "Выбранная новая родительская ветвь уже является родителем!"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:545
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:562
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_events.cc:587
-msgid "The new parent can't be one of his children!"
-msgstr "Новая родительская ветвь не может быть дочерней!"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_view.cc:80
-msgid "The Size of the Toolbar Icons is already at the Maximum Value"
-msgstr "Размер значков панели инструментов максимальный"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_view.cc:91
-msgid "The Size of the Toolbar Icons is already at the Minimum Value"
-msgstr "Размер значков панели инструментов минимальный"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:113
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "Записная книжка CherryTree"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:120
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:236
-msgid "Show/Hide _CherryTree"
-msgstr "Открыть CherryTree"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:123
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:236
-msgid "Toggle Show/Hide CherryTree"
-msgstr ""
-"Открыть CherryTree\n"
-"\n"
-"Активизировать CherryTree"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:122
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:81
-msgid "_Exit CherryTree"
-msgstr "Выход"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:122
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:81
-msgid "Exit from CherryTree"
-msgstr ""
-"Выход\n"
-"\n"
-"Выйти из CherryTree"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:392
-msgid "Print CherryTree version"
-msgstr "Версия для печати"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:384
-msgid "Node name to focus"
-msgstr "Имя ветви для фокуса"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:384
-msgid "Export to HTML at specified directory path"
-msgstr"Экспорт в HTML в существующую директорию"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:385
-msgid "Export to Text at specified directory path"
-msgstr "Экспорт в TXT в существующую директорию"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:386
-msgid "Export to PDF at specified directory path"
-msgstr "Экспорт в PDF в существующую директорию"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:387
-msgid "Overwrite if export path already exists"
-msgstr "Перезаписать, если файл уже существует"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:388
-msgid "Export to a single file (for HTML or TXT)"
-msgstr "Экспорт в один файл (для HTML или TXT)"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:389
-msgid "Create a new window"
-msgstr "Создать новое окно"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:33
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:153
-msgid "Handle the Bookmarks List"
-msgstr "Перечень закладок"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:61
-msgid "Move the Selected Bookmark Up"
-msgstr "Переместить вверх"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:64
-msgid "Move the Selected Bookmark Down"
-msgstr "Переместить вниз"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:67
-msgid "Remove the Selected Bookmark"
-msgstr "Удалить закладку"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:70
-msgid "Sort the Bookmarks Descending"
-msgstr "Сортировать по убыванию"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:73
-msgid "Sort the Bookmarks Ascending"
-msgstr "Сортировать по возрастанию"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:213
-msgid "Choose Storage Type"
-msgstr "Тип файла"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:223
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:226
-msgid "Not Protected"
-msgstr "без шифрования"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:225
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:227
-msgid "Password Protected"
-msgstr "с шифрованием"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:235
-msgid "Storage Type"
-msgstr "Тип:"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:244
-msgid ""
-"CT saves the document in an encrypted 7zip archive. When viewing or editing "
-"the document, CT extracts the encrypted archive to a temporary folder, and "
-"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
-"from the temporary directory. Note that in the case of application or system "
-"crash, the unencrypted document will remain in the temporary folder."
-msgstr ""
-"CherryTree сохраняет документ в зашифрованном 7zip-архиве. Во время открытия "
-"или редактирования документа CherryTree извлекает его из зашифрованного "
-"архива во временную папку и работает с ним как с обычным архивом. После "
-"закрытия файла незашифрованная копия документа удаляется из временной папки. "
-"Во время краха системы или приложения незашифрованный документ может "
-"остаться во временной папке."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:252
-msgid "Enter the New Password Twice"
-msgstr "Введите и подтвердите пароль для проверки"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:333
-msgid "The Password Fields Must be Filled"
-msgstr "Вы не задали пароль"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:338
-msgid "The Two Inserted Passwords Do Not Match"
-msgstr "Пароли не совпадают"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:348
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:307
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:348
 msgid "Warning"
 msgstr "Предупреждение"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:359
-msgid "The Current Document was Updated."
-msgstr "Документ CherryTree был изменён."
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:321
+msgid "Error"
+msgstr "Ошибка"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:359
-msgid "Do you want to Save the Changes?"
-msgstr "Сохранить изменения в документе?"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:329
+msgid "Select File"
+msgstr "Открыть..."
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:404
-msgid ""
-"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
-"Highlighting"
-msgstr ""
-"Записная книжка с иерархической древовидной структурой с возможностью "
-"форматирования текста и подсветкой синтаксиса"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:350
+msgid "Select Folder"
+msgstr "Выбрать..."
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:405
-msgid ""
-"\n"
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program; if not, write to the Free Software\n"
-"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
-"MA 02110-1301, USA.\n"
-msgstr ""
-"\n"
-"Эта программа является свободным программным обеспечением;\n"
-"вы можете распространять и/или изменять его согласно условиям\n"
-"Стандартной Общественной Лицензии GNU,\n"
-"опубликованной Фондом свободного программного обеспечения,\n"
-"либо Лицензии версии 3, либо (на ваше усмотрение) \n"
-"любой более поздней версии.\n"
-" \n"
-"Программа распространяется в надежде, что она будет полезной,\n"
-"но БЕЗ КАКИХ БЫ ТО НИ БЫЛО ГАРАНТИЙНЫХ ОБЯЗАТЕЛЬСТВ; \n"
-"даже без косвенных гарантийных обязательств, связанных\n"
-"с ПОТРЕБИТЕЛЬСКИМИ СВОЙСТВАМИ и ПРИГОДНОСТЬЮ\n"
-"ДЛЯ ОПРЕДЕЛЕННЫХ ЦЕЛЕЙ. Для подробностей смотрите\n"
-"Стандартную Общественную Лицензию GNU.\n"
-"\n"
-"Вы должны были получить копию Стандартной Общественной\n"
-"Лицензии GNU вместе с этой программой. Если это не так,\n"
-"напишите в Фонд Свободного ПО, \n"
-"675 Mass Ave, Cambridge, MA 02139, USA.\n"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:363
+msgid "Save File as"
+msgstr "Сохранить как..."
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:425
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:38
-msgid "Armenian"
-msgstr "Армянский"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:426
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:30
-msgid "Bulgarian"
-msgstr "Болгарский"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:427
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:51
-msgid "Chinese Simplified"
-msgstr "Китайский (упрощённый)"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:428
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:31
-msgid "Czech"
-msgstr "Чешский"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:429
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:43
-msgid "Dutch"
-msgstr "Голландский"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:430
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:36
-msgid "Finnish"
-msgstr "Финский"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:431
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:37
-msgid "French"
-msgstr "Французский"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:432
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:32
-msgid "German"
-msgstr "Немецкий"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:433
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:33
-msgid "Greek"
-msgstr "Греческий"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:434
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:39
-msgid "Italian"
-msgstr "Итальянский"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:435
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:40
-msgid "Japanese"
-msgstr "Японский"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:436
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:41
-msgid "Kazakh"
-msgstr "Казахский"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:437
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:42
-msgid "Korean"
-msgstr "Корейский"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:438
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:43
-msgid "Lithuanian"
-msgstr "Литовский"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:439
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:45
-msgid "Polish"
-msgstr "Польский"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:440
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:46
-msgid "Portuguese Brazil"
-msgstr "Португальский (Бразилия)"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:441
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:47
-msgid "Russian"
-msgstr "Русский"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:442
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:48
-msgid "Slovenian"
-msgstr "Словенский"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:443
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:35
-msgid "Spanish"
-msgstr "Испанский"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:444
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:49
-msgid "Swedish"
-msgstr "Шведский"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:445
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:50
-msgid "Turkish"
-msgstr "Турецкий"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:446
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:51
-msgid "Ukrainian"
-msgstr "Украинский"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:448
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:215
-msgid "About CherryTree"
-msgstr "О приложении..."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:463
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:79
-msgid "Tree Summary Information"
-msgstr "Информация о дереве"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:475
-msgid "Number of Rich Text Nodes"
-msgstr "Ветвей с форматированным текстом"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:480
-msgid "Number of Plain Text Nodes"
-msgstr "Ветвей с обычым текстом"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:485
-msgid "Number of Code Nodes"
-msgstr "Ветвей с кодом"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:490
-msgid "Number of Images"
-msgstr "Изображений"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:495
-msgid "Number of Embedded Files"
-msgstr "Файлов"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:500
-msgid "Number of Tables"
-msgstr "Таблиц"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:505
-msgid "Number of CodeBoxes"
-msgstr "CodeBox-ов"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:510
-msgid "Number of Anchors"
-msgstr "Якорей"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:59
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:183
-msgid "Width"
-msgstr "Ширина"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:62
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:187
-msgid "Height"
-msgstr "Высота  "
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:164
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:84
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:583
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:102
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:77
-msgid "Plain Text"
-msgstr "Обычный текст"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:165
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:256
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:85
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:153
-msgid "Automatic Syntax Highlighting"
-msgstr "Подсветка синтаксиса"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:178
-msgid "Type"
-msgstr "Тип"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:192
-msgid "pixels"
-msgstr "пикселей"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:215
-msgid "Size"
-msgstr "Размер"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:220
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:52
-msgid "Show Line Numbers"
-msgstr "Нумерация строк"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:222
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:35
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:55
-msgid "Highlight Matching Brackets"
-msgstr "Подсвечивать парные скобки"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:231
-msgid "Options"
-msgstr "Настройки"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:338
-msgid "Rows"
-msgstr "Число строк:"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:344
-msgid "Columns"
-msgstr "Число столбцов:"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:350
-msgid "Default Width"
-msgstr "Значение:"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:356
-msgid "Table Size"
-msgstr "Размер таблицы"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:359
-msgid "Column Properties"
-msgstr "Ширина столбца"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:380
-msgid "Import from CSV File"
-msgstr "Импортировать данные из файла CSV"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_file.cc:80
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_file.cc:97
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:101
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_export.cc:108
+msgid "CherryTree Document"
+msgstr "Документ CherryTree"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:55
 msgid "Search for"
@@ -873,6 +140,7 @@ msgid "Search options"
 msgstr "Параметры поиска"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:267
+#, c-format
 msgid "Hide (Restore with '%s')"
 msgstr "Свернуть/Восстановить ('%s')"
 
@@ -888,6 +156,16 @@ msgstr "Строка"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:273
 msgid "Line Content"
 msgstr "Содержимое"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:291
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:329
+#, c-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr ""
+"Некорректная ссылка на ветвь.\n"
+"\n"
+"Ветви уже не существует (Id = %s).\n"
+"Вероятно она была удалена из документа"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:344
 msgid "Iterate Latest Find/Replace"
@@ -913,53 +191,787 @@ msgstr "Заменить"
 msgid "Undo"
 msgstr "Отменить"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:225
-msgid "Remove Color"
-msgstr "Очистить"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:30
+msgid "Enable System Tray Docking"
+msgstr "Отображать значок CherryTree в области уведомлений"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:278
-msgid "Question"
-msgstr "Вопрос"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:31
+msgid "Start Minimized in the System Tray"
+msgstr "Сворачивать CherryTree в область уведомлений после старта"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:293
-msgid "Info"
-msgstr "Информация"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:35
+msgid "System Tray"
+msgstr "Панель задач"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:321
-msgid "Error"
-msgstr "Ошибка"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:43
+msgid "Autosave Every"
+msgstr "Автосохранение каждые"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:329
-msgid "Select File"
-msgstr "Открыть..."
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:46
+msgid "Minutes"
+msgstr "минут"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:350
-msgid "Select Folder"
-msgstr "Выбрать..."
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:50
+msgid "Autosave on Quit"
+msgstr "Сохранить при закрытии"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:363
-msgid "Save File as"
-msgstr "Сохранить как..."
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:51
+msgid "Create a Backup Copy Before Saving"
+msgstr "Создать резервную копию"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:49
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:53
+msgid "Number of Backups to Keep"
+msgstr "Количество резервных копий"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:58
+msgid "Custom Backup Directory"
+msgstr "Папка для резервных копий"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:86
+msgid "Saving"
+msgstr "Сохранение"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:89
+msgid "Automatically Check for Newer Version"
+msgstr "Проверять наличие обновлений"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:90
+msgid "Enable Word Count in Statusbar"
+msgstr "Количество слов в строке состояния"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:91
+msgid "Reload Document From Last Session"
+msgstr "Загружать последний открытый документ"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:92
+msgid "Reload After External Update to CT* File"
+msgstr "Повторно загрузить документ после изменения"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:93
+msgid "Show the Document Directory in the Window Title"
+msgstr "Путь к файлу в заголовке главного окна"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:106
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:70
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:247
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:131
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:106
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:261
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:105
+msgid "Miscellaneous"
+msgstr "Разное"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:121
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:225
+msgid "Language"
+msgstr "Язык"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:138
+msgid "Has the System Tray appeared on the panel?"
+msgstr "Значок CherryTree появился в области уведомлений?"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:144
+msgid "Your system does not support the System Tray"
+msgstr ""
+" \n"
+"Ваша система не поддерживает область уведомлений!"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:233
+msgid "The New Language will be Available Only After Restarting CherryTree"
+msgstr ""
+"Чтобы изменения вступили в силу,\n"
+"следует перезапустить приложение"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:59
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:183
+msgid "Width"
+msgstr "Ширина"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:62
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:187
+msgid "Height"
+msgstr "Высота  "
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:164
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:102
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:583
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:77
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:84
+msgid "Plain Text"
+msgstr "Обычный текст"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:165
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:256
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:85
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:153
+msgid "Automatic Syntax Highlighting"
+msgstr "Подсветка синтаксиса"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:178
+msgid "Type"
+msgstr "Тип"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:192
+msgid "pixels"
+msgstr "пикселей"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:215
+msgid "Size"
+msgstr "Размер"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:220
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:52
+msgid "Show Line Numbers"
+msgstr "Нумерация строк"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:222
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:35
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:55
+msgid "Highlight Matching Brackets"
+msgstr "Подсвечивать парные скобки"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:231
+msgid "Options"
+msgstr "Настройки"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:338
+msgid "Rows"
+msgstr "Число строк:"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:344
+msgid "Columns"
+msgstr "Число столбцов:"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:350
+msgid "Default Width"
+msgstr "Значение:"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:356
+msgid "Table Size"
+msgstr "Размер таблицы"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:359
+msgid "Column Properties"
+msgstr "Ширина столбца"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:380
+msgid "Import from CSV File"
+msgstr "Импортировать данные из файла CSV"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:48
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:65
+msgid "Add"
+msgstr "Добавить часто используемые команды"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:51
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:68
+msgid "Remove Selected"
+msgstr "Удалить часто используемые команды"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:54
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:65
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:177
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:36
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:71
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:84
+msgid "Reset to Default"
+msgstr "Значения по умолчанию"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:124
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:147
+msgid "Split Toolbar"
+msgstr "Разделитель"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:129
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:72
+msgid "Open a CherryTree Document"
+msgstr ""
+"Открыть...\n"
+"\n"
+"Открыть существующий документ CherryTree"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:157
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:247
+msgid "Select Element to Add"
+msgstr "Часто используемые команды"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:28
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:78
+msgid "Preferences"
+msgstr "Настройки приложения"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:33
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:426
+msgid "Bulgarian"
+msgstr "Болгарский"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:34
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:428
+msgid "Czech"
+msgstr "Чешский"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:35
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:432
+msgid "German"
+msgstr "Немецкий"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:36
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:433
+msgid "Greek"
+msgstr "Греческий"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:37
+msgid "English"
+msgstr "Английский"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:38
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:443
+msgid "Spanish"
+msgstr "Испанский"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:39
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:430
+msgid "Finnish"
+msgstr "Финский"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:40
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:431
+msgid "French"
+msgstr "Французский"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:41
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:425
+msgid "Armenian"
+msgstr "Армянский"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:42
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:434
+msgid "Italian"
+msgstr "Итальянский"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:43
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:435
+msgid "Japanese"
+msgstr "Японский"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:44
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:436
+msgid "Kazakh"
+msgstr "Казахский"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:45
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:437
+msgid "Korean"
+msgstr "Корейский"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:46
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:438
+msgid "Lithuanian"
+msgstr "Литовский"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:47
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:429
+msgid "Dutch"
+msgstr "Голландский"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:48
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:439
+msgid "Polish"
+msgstr "Польский"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:49
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:440
+msgid "Portuguese Brazil"
+msgstr "Португальский (Бразилия)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:50
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:441
+msgid "Russian"
+msgstr "Русский"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:51
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:442
+msgid "Slovenian"
+msgstr "Словенский"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:52
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:444
+msgid "Swedish"
+msgstr "Шведский"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:53
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:445
+msgid "Turkish"
+msgstr "Турецкий"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:54
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:446
+msgid "Ukrainian"
+msgstr "Украинский"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:55
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:427
+msgid "Chinese Simplified"
+msgstr "Китайский (упрощённый)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:59
+msgid "Text and Code"
+msgstr "Текст и код"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:60
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:97
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:580
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:70
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:82
+msgid "Rich Text"
+msgstr "Форматированный текст"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:61
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:107
+msgid "Format"
+msgstr "Формат"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:62
+msgid "Plain Text and Code"
+msgstr "Обычный текст и код"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:63
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:463
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:32
+msgid "Special Characters"
+msgstr "Спецсимволы"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:64
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:49
+msgid "Tree Explorer"
+msgstr "Обозреватель дерева"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:65
+msgid "Theme"
+msgstr "Тема"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:66
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:133
+msgid "Fonts"
+msgstr "Шрифты"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:67
+msgid "Links"
+msgstr "Ссылки"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:68
+msgid "Toolbar"
+msgstr "Панель инструментов"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:69
+msgid "Keyboard Shortcuts"
+msgstr "Горячие клавиши"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:99
+msgid "Monospace"
+msgstr "Моноширинный текст"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:104
+msgid "Code Font"
+msgstr "Текст кода"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:106
+msgid "Tree Font"
+msgstr "Текст дерева"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:177
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "При открытии ссылки на веб-страницу"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:179
+msgid "Enable Custom File Link Clicked Action"
+msgstr "При открытии ссылки на файл"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:181
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "При открытии ссылки на папку"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:190
+msgid "Custom Actions"
+msgstr "Действие"
+
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:207
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:49
 msgid "To WebSite"
 msgstr "Сайт:   "
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:60
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:209
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:90
+msgid "To Node"
+msgstr "Ветвь:"
+
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:211
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:60
 msgid "To File"
 msgstr "Файл:  "
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:75
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:213
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:75
 msgid "To Folder"
 msgstr "Папка:"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:90
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:209
-msgid "To Node"
-msgstr "Ветвь:"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:228
+msgid "Colors"
+msgstr "Цвета"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:231
+msgid "Underline Links"
+msgstr "Подчёркивать ссылки"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:233
+msgid "Use Relative Paths for Files And Folders"
+msgstr "Использовать относительные пути к файлам и папкам"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:237
+msgid "Anchor Size"
+msgstr "Размер значка якоря"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:313
+msgid "This Change will have Effect Only After Restarting CherryTree"
+msgstr ""
+"Чтобы изменения вступили в силу,\n"
+"следует перезапустить приложение"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:130
+#, c-format
+msgid "\"%s\" is Not a CherryTree Document"
+msgstr "\"%s\" не является документом CherryTree"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:146
+#, c-format
+msgid ""
+"Error Parsing the CherryTree File:\n"
+"\"%s\""
+msgstr ""
+"Ошибка открытия файла CherryTree:\n"
+"\"%s\""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:221
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr "Созданы временные файлы, которые открыты в другом приложении."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:222
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr "Закройте внешнее приложение перед выходом из CherryTree."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:223
+msgid "Did you Quit the External Applications?"
+msgstr "Вы завершили внешнее приложение?"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:345
+msgid "The Document was Reloaded After External Update to CT* File"
+msgstr ""
+"Документ был повторно загружен после обновления файла другой программой"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:152
+msgid "Remove from list"
+msgstr "Удалить из истории"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:59
+msgid "Replace in Current Node..."
+msgstr "Заменить в ветви..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:59
+msgid "Search in Current Node..."
+msgstr "Найти в ветви..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:100
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:236
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:319
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr ""
+"Приложение CherryTree завершило поиск в документе.\n"
+"\n"
+"Искомый элемент <b>' %s '</b> не найден!"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:103
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:239
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:321
+msgid "Matches"
+msgstr " совпадений"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:134
+msgid "Replace in Selected Node and Subnodes"
+msgstr "Заменить в ветви с дочерними..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:134
+msgid "Replace in All Nodes"
+msgstr "Заменить в ветвях..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:136
+msgid "Search in Selected Node and Subnodes"
+msgstr "Найти в ветви с дочерними..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:136
+msgid "Search in All Nodes"
+msgstr "Найти в ветвях..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:260
+msgid "Replace in Node Names..."
+msgstr "Заменить в именах ветвей..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:260
+msgid "Search For a Node Name..."
+msgstr "Найти в именах ветвей и тэгах..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:336
+msgid "No Previous Search Was Performed During This Session"
+msgstr "Вы ещё не проводили поиск или замену текста"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:113
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "Записная книжка CherryTree"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:120
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:236
+msgid "Show/Hide _CherryTree"
+msgstr "Открыть CherryTree"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:120
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:236
+msgid "Toggle Show/Hide CherryTree"
+msgstr ""
+"Открыть CherryTree\n"
+"\n"
+"Активизировать CherryTree"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:122
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:81
+msgid "_Exit CherryTree"
+msgstr "Выход"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:122
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:81
+msgid "Exit from CherryTree"
+msgstr ""
+"Выход\n"
+"\n"
+"Выйти из CherryTree"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:382
+msgid "Print CherryTree version"
+msgstr "Версия для печати"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:383
+msgid "Node name to focus"
+msgstr "Имя ветви для фокуса"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:384
+msgid "Export to HTML at specified directory path"
+msgstr "Экспорт в HTML в существующую директорию"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:385
+msgid "Export to Text at specified directory path"
+msgstr "Экспорт в TXT в существующую директорию"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:386
+msgid "Export to PDF at specified directory path"
+msgstr "Экспорт в PDF в существующую директорию"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:387
+msgid "Overwrite if export path already exists"
+msgstr "Перезаписать, если файл уже существует"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:388
+msgid "Export to a single file (for HTML or TXT)"
+msgstr "Экспорт в один файл (для HTML или TXT)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:389
+msgid "Create a new window"
+msgstr "Создать новое окно"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:38
+msgid "Who is the Parent?"
+msgstr "Добавить в..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:48
+msgid "The Tree Root"
+msgstr "Дерево"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:49
+msgid "The Selected Node"
+msgstr "Ветвь"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:157
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:168
+msgid "Pandoc executable could not be found, please ensure it is in your path"
+msgstr ""
+"Исполняемый файл Pandoc не найден.\n"
+"\n"
+"Пожалуйста проверьте его наличие"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:82
+msgid "No Previous Text Format Was Performed During This Session"
+msgstr "Вы ещё не проводили форматирование текста"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:101
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:313
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:907
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:76
+msgid "No Text is Selected"
+msgstr "Текст не выделен"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:321
+msgid "Link Name"
+msgstr "Вставить ссылку"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:342
+msgid "The Cursor is Not into a Paragraph"
+msgstr "Курсор за пределами абзаца"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:361
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:260
+msgid "Insert/Edit Link"
+msgstr "Свойства ссылки"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:370
+msgid "Pick a Foreground Color"
+msgstr "Выберите цвет"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:370
+msgid "Pick a Background Color"
+msgstr "Выберите цвет"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_export2html.cc:138
+msgid "Index"
+msgstr "Содержание"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_help.cc:45
+msgid "Checking for Newer Version..."
+msgstr "Проверка доступности новой версии..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_help.cc:51
+msgid "Failed to Retrieve Latest Version Information - Try Again Later"
+msgstr "Сервер не отвечает. Попробуйте позже"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_help.cc:63
+msgid "A Newer Version Is Available!"
+msgstr "Доступна новая версия!"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_help.cc:68
+msgid "You Are Using the Latest Version Available"
+msgstr "Обновления не найдены! Вы используете последнюю версию CherryTree"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_help.cc:71
+msgid "You Are Using a Development Version"
+msgstr "Вы используете версию для разработчика"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:449
+#, c-format
+msgid "The Document %s was Not Found"
+msgstr ""
+"Приложение CherryTree завершило поиск документа.\n"
+"\n"
+"Документ <b>' %s '</b> не найден!"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:467
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:57
+msgid "Open a Recent CherryTree Document"
+msgstr ""
+"История...\n"
+"\n"
+"Кликните здесь, чтобы посмотреть\n"
+"какие документы были открыты ранее.\n"
+"Также можно удалить из истории недавно\n"
+"открытые документы CherryTree"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:479
+msgid "Hide"
+msgstr "Свернуть..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:479
+msgid "Quit"
+msgstr "Выход"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:480
+msgid "Hide the Window"
+msgstr ""
+"Свернуть...\n"
+"\n"
+"Свернуть CherryTree в область уведомлений"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:480
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:80
+msgid "Quit the Application"
+msgstr ""
+"Выход\n"
+"\n"
+"Выйти из CherryTree"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:573
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:242
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:35
+msgid "No Node is Selected"
+msgstr "Ветвь не выбрана"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:577
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:110
+msgid "Node Type"
+msgstr "Тип"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:577
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:589
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:592
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:595
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:599
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:603
+msgid ": "
+msgstr ": "
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:589
+msgid "Tags"
+msgstr "Тэги"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:592
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:47
+msgid "Spell Check"
+msgstr "Орфография"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:595
+msgid "Word Count"
+msgstr "Слов"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:599
+msgid "Date Created"
+msgstr "Создан"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:603
+msgid "Date Modified"
+msgstr "Изменён"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:62
+msgid "Change Selected"
+msgstr "Изменить комбинацию клавиш"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:123
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use"
+msgstr ""
+" \n"
+"Комбинация клавиш ' %s ' уже используется!"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:124
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "Данная комбинация выполняет действие <b>' %s '</b>"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:125
+msgid "Do you want to steal the shortcut?"
+msgstr "Переопределить комбинацию клавиш?"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:145
+msgid "Edit Keyboard Shortcut"
+msgstr "Новая комбинация..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:153
+msgid "No Keyboard Shortcut"
+msgstr "Не задана"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:122
 msgid "Anchor Name (optional)"
@@ -976,6 +988,511 @@ msgstr "Выберите якорь"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:260
 msgid "Anchor Name"
 msgstr "Имя якоря"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.cc:80
+#: /home/giuseppe/git/cherrytree/src/ct/ct_parser_html.cc:593
+msgid "Downloading"
+msgstr "Загрузка"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_sqlite.cc:159
+#, c-format
+msgid "The database file %s is corrupt, see log for more details"
+msgstr ""
+"Документ CherryTree %s повреждён, смотрите лог для подробной информации"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_sqlite.cc:207
+#, c-format
+msgid ""
+"%s write failed - file is missing. Reattach usb driver or shared resource"
+msgstr ""
+"Файл: <b>\"%s\"</b> - отсутствует.\n"
+"\n"
+"Попробуйте повторно подключить устройство USB."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_sqlite.cc:210
+#, c-format
+msgid "%s write failed - is file blocked by a sync program?"
+msgstr ""
+"Файл: <b>\"%s\"</b> - доступен только для чтения.\n"
+"\n"
+"Попробуйте сохранить его под другим именем."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:87
+msgid "Image Format Not Recognized"
+msgstr "Не известный формат изображения"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:95
+msgid "Insert Table"
+msgstr "Вставить таблицу"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:111
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:712
+msgid "CSV File"
+msgstr "Файл CSV"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:155
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:87
+msgid "Insert a CodeBox"
+msgstr "Вставить CodeBox"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:199
+#, c-format
+msgid "The Maximum Size for Embedded Files is %s MB"
+msgstr ""
+"Максимальный размер файла превышает %s Мб\n"
+" "
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:201
+msgid "Do you want to Continue?"
+msgstr "Продолжить?"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:847
+msgid "Lines Stripped"
+msgstr " строк очищено"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:855
+msgid "Image Properties"
+msgstr "Свойства изображения"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:31
+msgid "Tab Width"
+msgstr "Ширина табуляции"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:37
+msgid "Insert Spaces Instead of Tabs"
+msgstr "Пробелы вместо табуляции"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:39
+msgid "Use Line Wrapping"
+msgstr "Переносить строки"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:43
+msgid "Line Wrapping Indentation"
+msgstr "Отступ строк"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:50
+msgid "Enable Automatic Indentation"
+msgstr "Автоматический отступ"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:54
+msgid "Scroll Beyond Last Line"
+msgstr "Прокрутка за пределы строки"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:58
+msgid "Vertical Space Around Lines"
+msgstr "Междустрочный интервал"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:68
+msgid "Vertical Space in Wrapped Lines"
+msgstr "Вертикальный отступ строк"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:91
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:117
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:42
+msgid "Text Editor"
+msgstr "Текстовый редактор"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:95
+msgid "Timestamp Format"
+msgstr "Формат даты"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:101
+msgid "Online Manual"
+msgstr "Справка в интернете"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:107
+msgid "Horizontal Rule"
+msgstr "Горизонтальная линия"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:120
+msgid "Chars to Select at Double Click"
+msgstr "Выделять двойным нажатием"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:105
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:165
+msgid "Writing to Disk..."
+msgstr "Запись на диск..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:191
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:197
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:332
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:339
+#, c-format
+msgid "You Have No Write Access to %s"
+msgstr "Запись в файл <b>\"%s\"</b> недоступна"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:255
+#, c-format
+msgid "Enter Password for %s"
+msgstr "Введите пароль для %s"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:33
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:153
+msgid "Handle the Bookmarks List"
+msgstr "Перечень закладок"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:61
+msgid "Move the Selected Bookmark Up"
+msgstr "Переместить вверх"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:64
+msgid "Move the Selected Bookmark Down"
+msgstr "Переместить вниз"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:67
+msgid "Remove the Selected Bookmark"
+msgstr "Удалить закладку"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:70
+msgid "Sort the Bookmarks Descending"
+msgstr "Сортировать по убыванию"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:73
+msgid "Sort the Bookmarks Ascending"
+msgstr "Сортировать по возрастанию"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:213
+msgid "Choose Storage Type"
+msgstr "Тип файла"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:223
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:226
+msgid "Not Protected"
+msgstr "без шифрования"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:225
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:227
+msgid "Password Protected"
+msgstr "с шифрованием"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:235
+msgid "Storage Type"
+msgstr "Тип:"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:244
+msgid ""
+"CT saves the document in an encrypted 7zip archive. When viewing or editing "
+"the document, CT extracts the encrypted archive to a temporary folder, and "
+"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
+"from the temporary directory. Note that in the case of application or system "
+"crash, the unencrypted document will remain in the temporary folder."
+msgstr ""
+"CherryTree сохраняет документ в зашифрованном 7zip-архиве. Во время открытия "
+"или редактирования документа CherryTree извлекает его из зашифрованного "
+"архива во временную папку и работает с ним как с обычным архивом. После "
+"закрытия файла незашифрованная копия документа удаляется из временной папки. "
+"Во время краха системы или приложения незашифрованный документ может "
+"остаться во временной папке."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:252
+msgid "Enter the New Password Twice"
+msgstr "Введите и подтвердите пароль для проверки"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:333
+msgid "The Password Fields Must be Filled"
+msgstr "Вы не задали пароль"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:338
+msgid "The Two Inserted Passwords Do Not Match"
+msgstr "Пароли не совпадают"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:359
+msgid "The Current Document was Updated."
+msgstr "Документ CherryTree был изменён."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:359
+msgid "Do you want to Save the Changes?"
+msgstr "Сохранить изменения в документе?"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:404
+msgid ""
+"A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
+"Highlighting"
+msgstr ""
+"Записная книжка с иерархической древовидной структурой с возможностью "
+"форматирования текста и подсветкой синтаксиса"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:405
+msgid ""
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 3 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
+"MA 02110-1301, USA.\n"
+msgstr ""
+"\n"
+"Эта программа является свободным программным обеспечением;\n"
+"вы можете распространять и/или изменять его согласно условиям\n"
+"Стандартной Общественной Лицензии GNU,\n"
+"опубликованной Фондом свободного программного обеспечения,\n"
+"либо Лицензии версии 3, либо (на ваше усмотрение) \n"
+"любой более поздней версии.\n"
+" \n"
+"Программа распространяется в надежде, что она будет полезной,\n"
+"но БЕЗ КАКИХ БЫ ТО НИ БЫЛО ГАРАНТИЙНЫХ ОБЯЗАТЕЛЬСТВ; \n"
+"даже без косвенных гарантийных обязательств, связанных\n"
+"с ПОТРЕБИТЕЛЬСКИМИ СВОЙСТВАМИ и ПРИГОДНОСТЬЮ\n"
+"ДЛЯ ОПРЕДЕЛЕННЫХ ЦЕЛЕЙ. Для подробностей смотрите\n"
+"Стандартную Общественную Лицензию GNU.\n"
+"\n"
+"Вы должны были получить копию Стандартной Общественной\n"
+"Лицензии GNU вместе с этой программой. Если это не так,\n"
+"напишите в Фонд Свободного ПО, \n"
+"675 Mass Ave, Cambridge, MA 02139, USA.\n"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:448
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:215
+msgid "About CherryTree"
+msgstr "О приложении..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:463
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:79
+msgid "Tree Summary Information"
+msgstr "Информация о дереве"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:475
+msgid "Number of Rich Text Nodes"
+msgstr "Ветвей с форматированным текстом"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:480
+msgid "Number of Plain Text Nodes"
+msgstr "Ветвей с обычым текстом"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:485
+msgid "Number of Code Nodes"
+msgstr "Ветвей с кодом"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:490
+msgid "Number of Images"
+msgstr "Изображений"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:495
+msgid "Number of Embedded Files"
+msgstr "Файлов"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:500
+msgid "Number of Tables"
+msgstr "Таблиц"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:505
+msgid "Number of CodeBoxes"
+msgstr "CodeBox-ов"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:510
+msgid "Number of Anchors"
+msgstr "Якорей"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:32
+msgid "Light Background, Dark Text"
+msgstr "Тёмный текст на светлом фоне"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:33
+msgid "Dark Background, Light Text"
+msgstr "Светлый текст на тёмном фоне"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:35
+msgid "Custom Background"
+msgstr "Фон"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:39
+msgid "and Text"
+msgstr "Текст"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:84
+msgid "Table"
+msgstr "Таблица"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:91
+msgid "Code"
+msgstr "Код"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:109
+msgid "Style Schemes"
+msgstr "Текстовый редактор"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:159
+msgid "Text Foreground"
+msgstr "Текст"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:161
+msgid "Text Background"
+msgstr "Фон"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:163
+msgid "Selection Foreground"
+msgstr "Выделенный текст"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:165
+msgid "Selection Background"
+msgstr "Фон выделенного текста"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:167
+msgid "Cursor"
+msgstr "Курсор"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:169
+msgid "Current Line Background"
+msgstr "Фон активной строки"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:171
+msgid "Line Numbers Foreground"
+msgstr "Нумерация строк"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:173
+msgid "Line Numbers Background"
+msgstr "Фон нумерации строк"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:320
+msgid "Style Scheme Editor"
+msgstr "Настраиваемая тема"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_export2pdf.cc:420
+msgid "Warning: One or More Images Were Reduced to Enter the Page"
+msgstr "Предупреждение: одно или несколько изображений были уменьшены"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:42
+msgid "The Tree is Empty!"
+msgstr ""
+"<b> Пустое дерево! </b>\n"
+"\n"
+"Создайте Ваше первое дерево!\n"
+"Для начала работы добавьте новую ветвь:\n"
+"<b>Главное меню\\Дерево\\Новая ветвь </b>"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:51
+msgid "The Selected Node is Read Only"
+msgstr ""
+"Эта ветвь доступна <b>\"только для чтения\"</b>.\n"
+"\n"
+"Для редактирования измените свойства ветви."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:64
+msgid "This Feature is Available Only in Rich Text Nodes"
+msgstr "Эта функция доступна только для форматированного текста"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:66
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes"
+msgstr "Эта функция не доступна для подсветки синтаксиса"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:172
+msgid "New Child Node Properties"
+msgstr "Свойства новой дочерней ветви"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:172
+msgid "New Node Properties"
+msgstr "Свойства новой ветви"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:292
+msgid "Node Properties"
+msgstr "Свойства ветви"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:300
+msgid ""
+"Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
+"Do you want to Continue?"
+msgstr ""
+"При смене <b> \"Форматированный текст\" </b> на <b> \"Обычный текст\" </b>,\n"
+"вы полностью потеряете форматирование текста для данной ветви.\n"
+"Продолжить?"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:404
+#, c-format
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
+msgstr ""
+" \n"
+"Вы действительно хотите удалить ветвь <b>' %s '</b>?"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:406
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "<b> Также будут удалены следующие дочерние ветви!</b>"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:530
+msgid "Select the New Parent"
+msgstr "Выберите родителя..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:536
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:557
+msgid "The new parent can't be the very node to move!"
+msgstr "Новую родительскую ветвь невозможно переместить!"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:540
+msgid "The new chosen parent is still the old parent!"
+msgstr "Выбранная новая родительская ветвь уже является родителем!"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:545
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:562
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_events.cc:587
+msgid "The new parent can't be one of his children!"
+msgstr "Новая родительская ветвь не может быть дочерней!"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_export.cc:352
+msgid "PDF File"
+msgstr "Документ PDF"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_export.cc:373
+#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:167
+msgid "Plain Text Document"
+msgstr "Текстовый документ"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:59
+msgid "Chars for Bulleted List"
+msgstr "Маркированный список"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:68
+msgid "Chars for Todo List"
+msgstr "To-Do список                    "
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:77
+msgid "Chars for Table Of Content"
+msgstr "Оглавление                       "
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:86
+msgid "Chars for Smart Double Quotes"
+msgstr "Для автозамены двойных кавычек"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:95
+msgid "Chars for Smart Single Quotes"
+msgstr "Для автозамены кавычек                 "
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:103
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "Автозамена кавычек"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:104
+msgid "Enable Symbol Auto Replacement"
+msgstr "Автозамена символов"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:31
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:51
+msgid "Show White Spaces"
+msgstr "Отображать пробелы"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:33
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:53
+msgid "Highlight Current Line"
+msgstr "Подсвечивать активную строку"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:91
+msgid "Command per Node/CodeBox Type"
+msgstr "Команда интерпретатора/компилятора"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:95
+msgid "Terminal Command"
+msgstr "Команда терминала"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:100
+msgid "Code Execution"
+msgstr "Выполнение кода"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:48
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:208
@@ -994,19 +1511,6 @@ msgstr "Значок ветви"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:65
 msgid "click me"
 msgstr "Сменить..."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:82
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:580
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:60
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:97
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:70
-msgid "Rich Text"
-msgstr "Форматированный текст"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:110
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:577
-msgid "Node Type"
-msgstr "Тип"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:124
 msgid "Tags for Searching"
@@ -1069,122 +1573,218 @@ msgstr "Новую ветвь с новой страницы"
 msgid "Single File"
 msgstr "Один файл"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_export2html.cc:138
-msgid "Index"
-msgstr "Содержание"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:185
+msgid "Rename"
+msgstr "Переименовать"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_export2pdf.cc:420
-msgid "Warning: One or More Images Were Reduced to Enter the Page"
-msgstr "Предупреждение: одно или несколько изображений были уменьшены"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:199
+msgid "PNG Image"
+msgstr "Изображение PNG"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.cc:80
-#: /home/giuseppe/git/cherrytree/src/ct/ct_parser_html.cc:593
-msgid "Downloading"
-msgstr "Загрузка"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:211
+#, c-format
+msgid "Write to %s Failed"
+msgstr "Запись в %s не удалась"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:449
-msgid "The Document %s was Not Found"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:307
+#, c-format
+msgid "The File Link '%s' is Not Valid"
+msgstr "Некорректная ссылка на файл '%s'"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:318
+#, c-format
+msgid "The Folder Link '%s' is Not Valid"
+msgstr "Некорректная ссылка на папку '%s'"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:350
+#, c-format
+msgid "No anchor named '%s' found"
 msgstr ""
-"Приложение CherryTree завершило поиск документа.\n"
+"Приложение CherryTree завершило поиск в документе.\n"
 "\n"
-"Документ <b>' %s '</b> не найден!"
+"Искомый якорь <b>' %s '</b> не найден!"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:467
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:57
-msgid "Open a Recent CherryTree Document"
-msgstr ""
-"История...\n"
-"\n"
-"Кликните здесь, чтобы посмотреть\n"
-"какие документы были открыты ранее.\n"
-"Также можно удалить из истории недавно\n"
-"открытые документы CherryTree"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:410
+msgid "Edit CodeBox"
+msgstr "Свойства CodeBox"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:479
-msgid "Hide"
-msgstr "Свернуть..."
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:434
+msgid "No CodeBox is Selected"
+msgstr "CodeBox не выбран"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:479
-msgid "Quit"
-msgstr "Выход"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:480
-msgid "Hide the Window"
-msgstr ""
-"Свернуть...\n"
-"\n"
-"Свернуть CherryTree в область уведомлений"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:480
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:80
-msgid "Quit the Application"
-msgstr ""
-"Выход\n"
-"\n"
-"Выйти из CherryTree"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:577
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:589
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:592
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:595
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:599
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:603
-msgid ": "
-msgstr ": "
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:589
-msgid "Tags"
-msgstr "Тэги"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:592
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:47
-msgid "Spell Check"
-msgstr "Орфография"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:595
-msgid "Word Count"
-msgstr "Слов"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:599
-msgid "Date Created"
-msgstr "Создан"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:603
-msgid "Date Modified"
-msgstr "Изменён"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:130
-msgid "\"%s\" is Not a CherryTree Document"
-msgstr "\"%s\" не является документом CherryTree"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:146
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:442
+#, c-format
 msgid ""
-"Error Parsing the CherryTree File:\n"
-"\"%s\""
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog"
 msgstr ""
-"Ошибка открытия файла CherryTree:\n"
-"\"%s\""
+"Вы должны связать команду с языком <b>' %s '</b>.\n"
+"\n"
+"Это можно сделать в настройках приложения"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:221
-msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "Созданы временные файлы, которые открыты в другом приложении."
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:454
+msgid "Do you want to Execute the Code?"
+msgstr "Выполнить код?"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:222
-msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "Закройте внешнее приложение перед выходом из CherryTree."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:223
-msgid "Did you Quit the External Applications?"
-msgstr "Вы завершили внешнее приложение?"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:345
-msgid "The Document was Reloaded After External Update to CT* File"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:471
+msgid ""
+"Install the package 'xterm' or configure a different terminal in the "
+"Preferences Dialog"
 msgstr ""
-"Документ был повторно загружен после обновления файла другой программой"
+"Установите пакет 'xterm' или настройте\n"
+"другой терминал в настройках приложения"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:152
-msgid "Remove from list"
-msgstr "Удалить из истории"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:701
+msgid "Edit Table Properties"
+msgstr "Свойства таблицы"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:737
+msgid "Insert Anchor"
+msgstr "Вставить якорь"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:737
+msgid "Edit Anchor"
+msgstr "Свойства якоря"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:773
+msgid "Cannot Edit Embedded File in Read Only Node"
+msgstr "<b>\"Только чтение!\"</b> Невозможно отредактировать файл"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:786
+msgid "Embedded File Automatically Updated:"
+msgstr "Файл автоматически обновлён:"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:30
+msgid "Enable Spell Check"
+msgstr "Проверка орфографии"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:34
+msgid "Spell Check Language"
+msgstr "Словарь:"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:57
+msgid "Expand CodeBoxes Automatically"
+msgstr "Автоподбор по содержимому CodeBox"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:62
+msgid "Embedded File Icon Size"
+msgstr "Размер значка вставляемого файла                          "
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:71
+msgid "Embedded File Size Limit"
+msgstr "Максимальный размер вставляемого файла (Мб)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:78
+msgid "Show File Name on Top of Embedded File Icon"
+msgstr "Имя файла над значком"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:80
+msgid "Limit of Undoable Steps Per Node"
+msgstr "Максимальное количество операций отмены      "
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:86
+msgid "At Triple Click Select the Whole Paragraph"
+msgstr "Выделять параграф тройным нажатием"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:89
+msgid "Enable Markdown Auto Replacement (Experimental)"
+msgstr "Включить автозамену Markdown (Экспериментально)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:204
+msgid "Scale"
+msgstr "Размер"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:209
+msgid "Italic"
+msgstr "Курсив"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:210
+msgid "Underline"
+msgstr "Подчёркнутый"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:225
+msgid "Text Color Foreground"
+msgstr "Текст"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:228
+msgid "Text Color Background"
+msgstr "Фон"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:244
+msgid "Small"
+msgstr "Мелкий"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:249
+msgid "Monospace Text Color Background"
+msgstr "Фон моношрифта"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:204
+msgid "Scalable Tags"
+msgstr "Масштабируемые теги"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:31
+msgid "Use Different Cherries per Level"
+msgstr "Разные вишенки для каждого уровня"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:34
+msgid "No Icon"
+msgstr "Без значка"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:36
+msgid "Hide Right Side Auxiliary Icon"
+msgstr "Скрыть значок справа от ветви"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:49
+msgid "Default Text Nodes Icons"
+msgstr "Значки"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:57
+msgid "Restore Expanded/Collapsed Status"
+msgstr "Запоминать состояние ветвей"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:58
+msgid "Expand all Nodes"
+msgstr "Разворачивать ветви"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:60
+msgid "Collapse all Nodes"
+msgstr "Сворачивать ветви"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:62
+msgid "Nodes in Bookmarks Always Visible"
+msgstr "Не скрывать ветви в закладках"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:70
+msgid "Nodes Status at Startup"
+msgstr "Состояние"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:78
+msgid "Tree Nodes Names Wrapping Width"
+msgstr "Ширина переноса в имени ветви"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:86
+msgid "Display Tree on the Right Side"
+msgstr "Обозреватель дерева справа"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:88
+msgid "Move Focus to Text at Mouse Click"
+msgstr "Перемещать фокус на текст кликом мышки"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:90
+msgid "Expand Node at Mouse Click"
+msgstr "Разворачивать ветвь кликом мышки"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:93
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "Последние посещённые ветви в заголовке"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_view.cc:80
+msgid "The Size of the Toolbar Icons is already at the Maximum Value"
+msgstr "Размер значков панели инструментов максимальный"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_view.cc:91
+msgid "The Size of the Toolbar Icons is already at the Minimum Value"
+msgstr "Размер значков панели инструментов минимальный"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:41
 msgid "_File"
@@ -1303,14 +1903,6 @@ msgstr ""
 msgid "_Open File"
 msgstr "Открыть..."
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:72
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:129
-msgid "Open a CherryTree Document"
-msgstr ""
-"Открыть...\n"
-"\n"
-"Открыть существующий документ CherryTree"
-
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:73
 msgid "_Save"
 msgstr "Сохранить"
@@ -1334,7 +1926,7 @@ msgstr ""
 "Сохранить и сжать документ CherryTree до \n"
 "минимального размера при помощи фрагментирования"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:76
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:75
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:226
 msgid "Save _As"
 msgstr "Сохранить как..."
@@ -1376,11 +1968,6 @@ msgstr ""
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:78
 msgid "_Preferences"
 msgstr "Настройки..."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:78
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:28
-msgid "Preferences"
-msgstr "Настройки приложения"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:79
 msgid "Tree _Info"
@@ -1686,11 +2273,6 @@ msgstr ""
 "\n"
 "Переместить текстовую строку вниз на один уровень"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:61
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:107
-msgid "Format"
-msgstr "Формат"
-
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:108
 msgid "Format C_lone"
 msgstr "Клонировать формат"
@@ -1727,23 +2309,23 @@ msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:111
 msgid "Text _Color Foreground"
-msgstr "Цвет текста"
+msgstr "Текст"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:111
 msgid "Change the Color of the Selected Text Foreground"
 msgstr ""
-"Цвет текста\n"
+"Текст\n"
 "\n"
 "Изменить цвет текста"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:112
 msgid "Text C_olor Background"
-msgstr "Цвет фона"
+msgstr "Фон"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:112
 msgid "Change the Color of the Selected Text Background"
 msgstr ""
-"Цвет фона \n"
+"Фон \n"
 "\n"
 "Изменить цвет фона.\n"
 "\n"
@@ -2033,7 +2615,7 @@ msgstr ""
 msgid "Tools"
 msgstr "Инструменты"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:136
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:137
 msgid "Enable/Disable _Spell Check"
 msgstr "Орфография"
 
@@ -3477,568 +4059,6 @@ msgstr ""
 "Уменьшить высоту\n"
 "\n"
 "Уменьшить высоту CodeBox"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:34
-msgid "English"
-msgstr "Английский"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:59
-msgid "Text and Code"
-msgstr "Текст и код"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:62
-msgid "Plain Text and Code"
-msgstr "Обычный текст и код"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:64
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:49
-msgid "Tree Explorer"
-msgstr "Обозреватель дерева"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:65
-msgid "Theme"
-msgstr "Тема"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:66
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:133
-msgid "Fonts"
-msgstr "Шрифты"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:67
-msgid "Links"
-msgstr "Ссылки"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:68
-msgid "Toolbar"
-msgstr "Панель инструментов"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:69
-msgid "Keyboard Shortcuts"
-msgstr "Горячие клавиши"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:70
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:247
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:106
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:106
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:205
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:131
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:105
-msgid "Miscellaneous"
-msgstr "Разное"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:99
-msgid "Monospace"
-msgstr "Моноширинный текст"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:104
-msgid "Code Font"
-msgstr "Текст кода"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:106
-msgid "Tree Font"
-msgstr "Текст дерева"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:177
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "При открытии ссылки на веб-страницу"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:179
-msgid "Enable Custom File Link Clicked Action"
-msgstr "При открытии ссылки на файл"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:181
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "При открытии ссылки на папку"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:190
-msgid "Custom Actions"
-msgstr "Действие"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:228
-msgid "Colors"
-msgstr "Цвета"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:231
-msgid "Underline Links"
-msgstr "Подчёркивать ссылки"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:233
-msgid "Use Relative Paths for Files And Folders"
-msgstr "Использовать относительные пути к файлам и папкам"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:237
-msgid "Anchor Size"
-msgstr "Размер значка якоря"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:313
-msgid "This Change will have Effect Only After Restarting CherryTree"
-msgstr ""
-"Чтобы изменения вступили в силу,\n"
-"следует перезапустить приложение"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:62
-msgid "Change Selected"
-msgstr "Изменить комбинацию клавиш"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:65
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:71
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:84
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:36
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:177
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:54
-msgid "Reset to Default"
-msgstr "Значения по умолчанию"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:123
-msgid "The Keyboard Shortcut '%s' is already in use"
-msgstr ""
-" \n"
-"Комбинация клавиш ' %s ' уже используется!"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:124
-msgid "The current associated action is '%s'"
-msgstr "Данная комбинация выполняет действие <b>' %s '</b>"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:125
-msgid "Do you want to steal the shortcut?"
-msgstr "Переопределить комбинацию клавиш?"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:145
-msgid "Edit Keyboard Shortcut"
-msgstr "Новая комбинация..."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:153
-msgid "No Keyboard Shortcut"
-msgstr "Не задана"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:30
-msgid "Enable System Tray Docking"
-msgstr "Отображать значок CherryTree в области уведомлений"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:31
-msgid "Start Minimized in the System Tray"
-msgstr "Сворачивать CherryTree в область уведомлений после старта"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:35
-msgid "System Tray"
-msgstr "Панель задач"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:43
-msgid "Autosave Every"
-msgstr "Автосохранение каждые"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:46
-msgid "Minutes"
-msgstr "минут"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:50
-msgid "Autosave on Quit"
-msgstr "Сохранить при закрытии"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:51
-msgid "Create a Backup Copy Before Saving"
-msgstr "Создать резервную копию"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:53
-msgid "Number of Backups to Keep"
-msgstr "Количество резервных копий"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:58
-msgid "Custom Backup Directory"
-msgstr "Папка для резервных копий"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:86
-msgid "Saving"
-msgstr "Сохранение"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:89
-msgid "Automatically Check for Newer Version"
-msgstr "Проверять наличие обновлений"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:90
-msgid "Enable Word Count in Statusbar"
-msgstr "Количество слов в строке состояния"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:91
-msgid "Reload Document From Last Session"
-msgstr "Загружать последний открытый документ"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:92
-msgid "Reload After External Update to CT* File"
-msgstr "Повторно загрузить документ после изменения"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:93
-msgid "Show the Document Directory in the Window Title"
-msgstr "Путь к файлу в заголовке главного окна"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:121
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:225
-msgid "Language"
-msgstr "Язык"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:138
-msgid "Has the System Tray appeared on the panel?"
-msgstr "Значок CherryTree появился в области уведомлений?"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:144
-msgid "Your system does not support the System Tray"
-msgstr ""
-" \n"
-"Ваша система не поддерживает область уведомлений!"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:233
-msgid "The New Language will be Available Only After Restarting CherryTree"
-msgstr ""
-"Чтобы изменения вступили в силу,\n"
-"следует перезапустить приложение"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:31
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:51
-msgid "Show White Spaces"
-msgstr "Отображать пробелы"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:33
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:53
-msgid "Highlight Current Line"
-msgstr "Подсвечивать активную строку"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:42
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:117
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:91
-msgid "Text Editor"
-msgstr "Текстовый редактор"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:65
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:48
-msgid "Add"
-msgstr "Добавить часто используемые команды"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:68
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:51
-msgid "Remove Selected"
-msgstr "Удалить часто используемые команды"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:91
-msgid "Command per Node/CodeBox Type"
-msgstr "Команда интерпретатора/компилятора"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:95
-msgid "Terminal Command"
-msgstr "Команда терминала"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:100
-msgid "Code Execution"
-msgstr "Выполнение кода"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:247
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:157
-msgid "Select Element to Add"
-msgstr "Часто используемые команды"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:30
-msgid "Enable Spell Check"
-msgstr "Проверка орфографии"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:34
-msgid "Spell Check Language"
-msgstr "Словарь:"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:57
-msgid "Expand CodeBoxes Automatically"
-msgstr "Автоподбор по содержимому CodeBox"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:62
-msgid "Embedded File Icon Size"
-msgstr "Размер значка вставляемого файла                          "
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:71
-msgid "Embedded File Size Limit"
-msgstr "Максимальный размер вставляемого файла (Мб)"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:78
-msgid "Show File Name on Top of Embedded File Icon"
-msgstr "Имя файла над значком"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:80
-msgid "Limit of Undoable Steps Per Node"
-msgstr "Максимальное количество операций отмены      "
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:86
-msgid "At Triple Click Select the Whole Paragraph"
-msgstr "Выделять параграф тройным нажатием"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:89
-msgid "Enable Markdown Auto Replacement (Experimental)"
-msgstr "Включить автозамену Markdown (Экспериментально)"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:204
-msgid "Scale"
-msgstr "Размер"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:209
-msgid "Italic"
-msgstr "Курсив"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:210
-msgid "Underline"
-msgstr "Подчёркнутый"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:225
-msgid "Text Color Foreground"
-msgstr "Текст"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:228
-msgid "Text Color Background"
-msgstr "Фон"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:244
-msgid "Small"
-msgstr "Мелкий"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:249
-msgid "Monospace Text Color Background"
-msgstr "Фон моношрифта"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:204
-msgid "Scalable Tags"
-msgstr "Масштабируемые теги"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:59
-msgid "Chars for Bulleted List"
-msgstr "Маркированный список"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:68
-msgid "Chars for Todo List"
-msgstr "To-Do список                    "
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:77
-msgid "Chars for Table Of Content"
-msgstr "Оглавление                       "
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:86
-msgid "Chars for Smart Double Quotes"
-msgstr "Для автозамены двойных кавычек"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:95
-msgid "Chars for Smart Single Quotes"
-msgstr "Для автозамены кавычек                 "
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:103
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "Автозамена кавычек"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:104
-msgid "Enable Symbol Auto Replacement"
-msgstr "Автозамена символов"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:31
-msgid "Tab Width"
-msgstr "Ширина табуляции"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:37
-msgid "Insert Spaces Instead of Tabs"
-msgstr "Пробелы вместо табуляции"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:39
-msgid "Use Line Wrapping"
-msgstr "Переносить строки"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:43
-msgid "Line Wrapping Indentation"
-msgstr "Отступ строк"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:50
-msgid "Enable Automatic Indentation"
-msgstr "Автоматический отступ"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:54
-msgid "Scroll Beyond Last Line"
-msgstr "Прокрутка за пределы строки"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:58
-msgid "Vertical Space Around Lines"
-msgstr "Междустрочный интервал"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:68
-msgid "Vertical Space in Wrapped Lines"
-msgstr "Вертикальный отступ строк"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:95
-msgid "Timestamp Format"
-msgstr "Формат даты"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:101
-msgid "Online Manual"
-msgstr "Справка в интернете"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:107
-msgid "Horizontal Rule"
-msgstr "Горизонтальная линия"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:120
-msgid "Chars to Select at Double Click"
-msgstr "Выделять двойным нажатием"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:32
-msgid "Light Background, Dark Text"
-msgstr "Тёмный текст на светлом фоне"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:33
-msgid "Dark Background, Light Text"
-msgstr "Светлый текст на тёмном фоне"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:35
-msgid "Custom Background"
-msgstr "Фон"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:39
-msgid "and Text"
-msgstr "Текст"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:84
-msgid "Table"
-msgstr "Таблица"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:91
-msgid "Code"
-msgstr "Код"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:109
-msgid "Style Schemes"
-msgstr "Текстовый редактор"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:159
-msgid "Text Foreground"
-msgstr "Текст"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:161
-msgid "Text Background"
-msgstr "Фон"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:163
-msgid "Selection Foreground"
-msgstr "Выделенный текст"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:165
-msgid "Selection Background"
-msgstr "Фон выделенного текста"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:167
-msgid "Cursor"
-msgstr "Курсор"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:169
-msgid "Current Line Background"
-msgstr "Фон активной строки"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:171
-msgid "Line Numbers Foreground"
-msgstr "Нумерация строк"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:173
-msgid "Line Numbers Background"
-msgstr "Фон нумерации строк"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:320
-msgid "Style Scheme Editor"
-msgstr "Настраиваемая тема"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:124
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:147
-msgid "Split Toolbar"
-msgstr "Разделитель"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:31
-msgid "Use Different Cherries per Level"
-msgstr "Разные вишенки для каждого уровня"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:34
-msgid "No Icon"
-msgstr "Без значка"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:36
-msgid "Hide Right Side Auxiliary Icon"
-msgstr "Скрыть значок справа от ветви"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:49
-msgid "Default Text Nodes Icons"
-msgstr "Значки"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:57
-msgid "Restore Expanded/Collapsed Status"
-msgstr "Запоминать состояние ветвей"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:58
-msgid "Expand all Nodes"
-msgstr "Разворачивать ветви"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:60
-msgid "Collapse all Nodes"
-msgstr "Сворачивать ветви"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:62
-msgid "Nodes in Bookmarks Always Visible"
-msgstr "Не скрывать ветви в закладках"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:70
-msgid "Nodes Status at Startup"
-msgstr "Состояние"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:78
-msgid "Tree Nodes Names Wrapping Width"
-msgstr "Ширина переноса в имени ветви"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:86
-msgid "Display Tree on the Right Side"
-msgstr "Обозреватель дерева справа"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:88
-msgid "Move Focus to Text at Mouse Click"
-msgstr "Перемещать фокус на текст кликом мышки"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:90
-msgid "Expand Node at Mouse Click"
-msgstr "Разворачивать ветвь кликом мышки"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:93
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "Последние посещённые ветви в заголовке"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:105
-#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:165
-msgid "Writing to Disk..."
-msgstr "Запись на диск..."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:191
-#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:197
-#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:332
-#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:339
-msgid "You Have No Write Access to %s"
-msgstr "Запись в файл <b>\"%s\"</b> недоступна"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:255
-msgid "Enter Password for %s"
-msgstr "Введите пароль для %s"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_sqlite.cc:159
-msgid "The database file %s is corrupt, see log for more details"
-msgstr ""
-"Документ CherryTree %s повреждён, смотрите лог для подробной информации"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_sqlite.cc:207
-msgid ""
-"%s write failed - file is missing. Reattach usb driver or shared resource"
-msgstr ""
-"Файл: <b>\"%s\"</b> - отсутствует.\n"
-"\n"
-"Попробуйте повторно подключить устройство USB."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_sqlite.cc:210
-msgid "%s write failed - is file blocked by a sync program?"
-msgstr ""
-"Файл: <b>\"%s\"</b> - доступен только для чтения.\n"
-"\n"
-"Попробуйте сохранить его под другим именем."
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:182
 msgid "Markdown Document"

@@ -1722,23 +1722,23 @@ msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:111
 msgid "Text _Color Foreground"
-msgstr "Мәтiннiң түсi"
+msgstr "Мәтiн"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:111
 msgid "Change the Color of the Selected Text Foreground"
 msgstr ""
-"Мәтiннiң түсi\n"
+"Мәтiн\n"
 "\n"
 "Мәтiннiң түсiн өзгерту"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:112
 msgid "Text C_olor Background"
-msgstr "Фонның түсi"
+msgstr "Фон"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:112
 msgid "Change the Color of the Selected Text Background"
 msgstr ""
-"Фонның түсi\n"
+"Фон\n"
 "\n"
 "Фонның түсiн өзгерту.\n"
 "\n"
@@ -3032,7 +3032,7 @@ msgstr "Бейненi көшiрiп алу"
 msgid "Copy the Selected Image"
 msgstr ""
 "Бейненi көшiрiп алу\n"
-"\n"
+ÿ n"
 "Алмасу буферiне бейненi көшiрiп алу"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:233
