@@ -184,13 +184,23 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
     auto pNotebookScalable = Gtk::manage(new Gtk::Notebook{});
     auto vbox_misc = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
 
-    const std::array<CtScalableTag*,7> scalables{
+    const std::array<CtScalableTag*,7> scalablesCfg{
         &_pConfig->scalableH1, &_pConfig->scalableH2, &_pConfig->scalableH3,
         &_pConfig->scalableH4, &_pConfig->scalableH5, &_pConfig->scalableH6,
         &_pConfig->scalableSmall};
+    const Glib::ustring tagPrefix = Glib::ustring{CtConst::TAG_SCALE} + CtConst::CHAR_USCORE;
+    static const std::array<Glib::ustring,7> scalablesTagId{
+        tagPrefix + CtConst::TAG_PROP_VAL_H1,
+        tagPrefix + CtConst::TAG_PROP_VAL_H2,
+        tagPrefix + CtConst::TAG_PROP_VAL_H3,
+        tagPrefix + CtConst::TAG_PROP_VAL_H4,
+        tagPrefix + CtConst::TAG_PROP_VAL_H5,
+        tagPrefix + CtConst::TAG_PROP_VAL_H6,
+        tagPrefix + CtConst::TAG_PROP_VAL_SMALL};
 
-    for (unsigned i = 0; i < scalables.size(); ++i) {
-        CtScalableTag* pScalable = scalables.at(i);
+    for (unsigned i = 0; i < scalablesCfg.size(); ++i) {
+        CtScalableTag* pScalableCfg = scalablesCfg.at(i);
+        const Glib::ustring* pScalableTagId = &scalablesTagId.at(i);
         auto vboxTab = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
         vboxTab->set_margin_left(6);
         vboxTab->set_margin_top(6);
@@ -202,47 +212,110 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
         Gtk::Image* pImageBg = _pCtMainWin->new_image_from_stock("ct_color_bg", Gtk::ICON_SIZE_MENU);
 
         auto pLabel_scaleTab = Gtk::manage(new Gtk::Label{_("Scale")});
-        auto pAdj_scaleTab = Gtk::Adjustment::create(pScalable->scale, 0.1, 10.0, 0.1);
+        auto pAdj_scaleTab = Gtk::Adjustment::create(pScalableCfg->scale, 0.1, 10.0, 0.1);
         auto pSpinButton_scaleTab = Gtk::manage(new Gtk::SpinButton{pAdj_scaleTab});
         pSpinButton_scaleTab->set_digits(6);
-        auto checkbutton_boldTab = Gtk::manage(new Gtk::CheckButton{_("Bold")});
-        auto checkbutton_italicTab = Gtk::manage(new Gtk::CheckButton{_("Italic")});
-        auto checkbutton_underlineTab = Gtk::manage(new Gtk::CheckButton{_("Underline")});
+        auto pCheckButton_boldTab = Gtk::manage(new Gtk::CheckButton{_("Bold")});
+        auto pCheckButton_italicTab = Gtk::manage(new Gtk::CheckButton{_("Italic")});
+        auto pCheckButton_underlineTab = Gtk::manage(new Gtk::CheckButton{_("Underline")});
         auto hboxScaleBoItUnTab = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
         hboxScaleBoItUnTab->pack_start(*pLabel_scaleTab, false, false);
         hboxScaleBoItUnTab->pack_start(*pSpinButton_scaleTab, false, false);
         hboxScaleBoItUnTab->pack_start(*pImageBold, false, false);
-        hboxScaleBoItUnTab->pack_start(*checkbutton_boldTab, false, false);
+        hboxScaleBoItUnTab->pack_start(*pCheckButton_boldTab, false, false);
         hboxScaleBoItUnTab->pack_start(*pImageItalic, false, false);
-        hboxScaleBoItUnTab->pack_start(*checkbutton_italicTab, false, false);
+        hboxScaleBoItUnTab->pack_start(*pCheckButton_italicTab, false, false);
         hboxScaleBoItUnTab->pack_start(*pImageUnderline, false, false);
-        hboxScaleBoItUnTab->pack_start(*checkbutton_underlineTab, false, false);
+        hboxScaleBoItUnTab->pack_start(*pCheckButton_underlineTab, false, false);
         vboxTab->pack_start(*hboxScaleBoItUnTab, false, false);
-        checkbutton_boldTab->set_active(pScalable->bold);
-        checkbutton_italicTab->set_active(pScalable->italic);
-        checkbutton_underlineTab->set_active(pScalable->underline);
+        pCheckButton_boldTab->set_active(pScalableCfg->bold);
+        pCheckButton_italicTab->set_active(pScalableCfg->italic);
+        pCheckButton_underlineTab->set_active(pScalableCfg->underline);
 
-        auto checkbutton_fgTab = Gtk::manage(new Gtk::CheckButton{_("Text Color Foreground")});
-        std::string fgTab_color = pScalable->foreground.empty() ? CtConst::COLOR_24_GRAY : pScalable->foreground;
-        auto colorbutton_fgTab = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{fgTab_color}});
-        auto checkbutton_bgTab = Gtk::manage(new Gtk::CheckButton{_("Text Color Background")});
-        std::string bgTab_color = pScalable->background.empty() ? CtConst::COLOR_24_GRAY : pScalable->background;
-        auto colorbutton_bgTab = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{bgTab_color}});
+        auto pCheckButton_fgTab = Gtk::manage(new Gtk::CheckButton{_("Text Color Foreground")});
+        std::string fgTab_color = pScalableCfg->foreground.empty() ? CtConst::COLOR_24_GRAY : pScalableCfg->foreground;
+        auto pColorButton_fgTab = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{fgTab_color}});
+        auto pCheckButton_bgTab = Gtk::manage(new Gtk::CheckButton{_("Text Color Background")});
+        std::string bgTab_color = pScalableCfg->background.empty() ? CtConst::COLOR_24_GRAY : pScalableCfg->background;
+        auto pColorButton_bgTab = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{bgTab_color}});
         auto hboxFgBgTab = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
         hboxFgBgTab->pack_start(*pImageFg, false, false);
-        hboxFgBgTab->pack_start(*checkbutton_fgTab, false, false);
-        hboxFgBgTab->pack_start(*colorbutton_fgTab, false, false);
+        hboxFgBgTab->pack_start(*pCheckButton_fgTab, false, false);
+        hboxFgBgTab->pack_start(*pColorButton_fgTab, false, false);
         hboxFgBgTab->pack_start(*pImageBg, false, false);
-        hboxFgBgTab->pack_start(*checkbutton_bgTab, false, false);
-        hboxFgBgTab->pack_start(*colorbutton_bgTab, false, false);
+        hboxFgBgTab->pack_start(*pCheckButton_bgTab, false, false);
+        hboxFgBgTab->pack_start(*pColorButton_bgTab, false, false);
         vboxTab->pack_start(*hboxFgBgTab, false, false);
-        checkbutton_fgTab->set_active(not pScalable->foreground.empty());
-        colorbutton_fgTab->set_sensitive(not pScalable->foreground.empty());
-        checkbutton_bgTab->set_active(not pScalable->background.empty());
-        colorbutton_bgTab->set_sensitive(not pScalable->background.empty());
+        pCheckButton_fgTab->set_active(not pScalableCfg->foreground.empty());
+        pColorButton_fgTab->set_sensitive(not pScalableCfg->foreground.empty());
+        pCheckButton_bgTab->set_active(not pScalableCfg->background.empty());
+        pColorButton_bgTab->set_sensitive(not pScalableCfg->background.empty());
 
         Glib::ustring tabLabel = i != 6 ? Glib::ustring{"h"} + std::to_string(i+1) : _("Small");
         pNotebookScalable->append_page(*vboxTab, tabLabel);
+
+        pSpinButton_scaleTab->signal_value_changed().connect([pSpinButton_scaleTab, pScalableCfg, pScalableTagId, this](){
+            pScalableCfg->scale = pSpinButton_scaleTab->get_value();
+            if (auto rTag = _pCtMainWin->get_text_tag_table()->lookup(*pScalableTagId)) {
+                _pCtMainWin->apply_scalable_properties(rTag, pScalableCfg);
+            }
+        });
+        pCheckButton_boldTab->signal_toggled().connect([pCheckButton_boldTab, pScalableCfg, pScalableTagId, this](){
+            pScalableCfg->bold = pCheckButton_boldTab->get_active();
+            if (auto rTag = _pCtMainWin->get_text_tag_table()->lookup(*pScalableTagId)) {
+                _pCtMainWin->apply_scalable_properties(rTag, pScalableCfg);
+            }
+        });
+        pCheckButton_italicTab->signal_toggled().connect([pCheckButton_italicTab, pScalableCfg, pScalableTagId, this](){
+            pScalableCfg->italic = pCheckButton_italicTab->get_active();
+            if (auto rTag = _pCtMainWin->get_text_tag_table()->lookup(*pScalableTagId)) {
+                _pCtMainWin->apply_scalable_properties(rTag, pScalableCfg);
+            }
+        });
+        pCheckButton_underlineTab->signal_toggled().connect([pCheckButton_underlineTab, pScalableCfg, pScalableTagId, this](){
+            pScalableCfg->underline = pCheckButton_underlineTab->get_active();
+            if (auto rTag = _pCtMainWin->get_text_tag_table()->lookup(*pScalableTagId)) {
+                _pCtMainWin->apply_scalable_properties(rTag, pScalableCfg);
+            }
+        });
+        pCheckButton_fgTab->signal_toggled().connect([pCheckButton_fgTab, pColorButton_fgTab, pScalableCfg, pScalableTagId, this](){
+            pScalableCfg->foreground = pCheckButton_fgTab->get_active() ?
+                CtRgbUtil::rgb_any_to_24(pColorButton_fgTab->get_rgba()) : "";
+            pColorButton_fgTab->set_sensitive(not pScalableCfg->foreground.empty());
+            if (not pScalableCfg->foreground.empty()) {
+                if (auto rTag = _pCtMainWin->get_text_tag_table()->lookup(*pScalableTagId)) {
+                    _pCtMainWin->apply_scalable_properties(rTag, pScalableCfg);
+                }
+            }
+            else {
+                need_restart(RESTART_REASON::SCALABLE_TAGS);
+            }
+        });
+        pColorButton_fgTab->signal_color_set().connect([pColorButton_fgTab, pScalableCfg, pScalableTagId, this](){
+            pScalableCfg->foreground = CtRgbUtil::rgb_any_to_24(pColorButton_fgTab->get_rgba());
+            if (auto rTag = _pCtMainWin->get_text_tag_table()->lookup(*pScalableTagId)) {
+                _pCtMainWin->apply_scalable_properties(rTag, pScalableCfg);
+            }
+        });
+        pCheckButton_bgTab->signal_toggled().connect([pCheckButton_bgTab, pColorButton_bgTab, pScalableCfg, pScalableTagId, this](){
+            pScalableCfg->background = pCheckButton_bgTab->get_active() ?
+                CtRgbUtil::rgb_any_to_24(pColorButton_bgTab->get_rgba()) : "";
+            pColorButton_bgTab->set_sensitive(not pScalableCfg->background.empty());
+            if (not pScalableCfg->background.empty()) {
+                if (auto rTag = _pCtMainWin->get_text_tag_table()->lookup(*pScalableTagId)) {
+                    _pCtMainWin->apply_scalable_properties(rTag, pScalableCfg);
+                }
+            }
+            else {
+                need_restart(RESTART_REASON::SCALABLE_TAGS);
+            }
+        });
+        pColorButton_bgTab->signal_color_set().connect([pColorButton_bgTab, pScalableCfg, pScalableTagId, this](){
+            pScalableCfg->background = CtRgbUtil::rgb_any_to_24(pColorButton_bgTab->get_rgba());
+            if (auto rTag = _pCtMainWin->get_text_tag_table()->lookup(*pScalableTagId)) {
+                _pCtMainWin->apply_scalable_properties(rTag, pScalableCfg);
+            }
+        });
     }
 
     Gtk::Image* pImageMsBg = _pCtMainWin->new_image_from_stock("ct_color_bg", Gtk::ICON_SIZE_MENU);
