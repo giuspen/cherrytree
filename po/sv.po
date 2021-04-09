@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.38.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-17 18:22+0000\n"
-"PO-Revision-Date: 2021-02-17 07:42+0100\n"
+"POT-Creation-Date: 2021-04-08 20:37+0100\n"
+"PO-Revision-Date: 2021-04-09 07:47+0200\n"
 "Last-Translator: Åke Engelbrektson <eson@svenskasprakfiler.se>\n"
 "Language-Team: Swedish\n"
 "Language: sv\n"
@@ -18,2224 +18,792 @@ msgstr ""
 "X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:225
+msgid "Remove Color"
+msgstr "Ta bort färg"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:278
+msgid "Question"
+msgstr "Fråga"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:293
+msgid "Info"
+msgstr "Info"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:307
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:348
+msgid "Warning"
+msgstr "Varning"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:321
+msgid "Error"
+msgstr "Fel"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:329
+msgid "Select File"
+msgstr "Välj fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:350
+msgid "Select Folder"
+msgstr "Välj mappa"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:363
+msgid "Save File as"
+msgstr "Spara fil som"
+
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_file.cc:80
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_file.cc:97
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:53
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:101
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_export.cc:108
 msgid "CherryTree Document"
 msgstr "CherryTree-dokument"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:32
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:55
+msgid "Search for"
+msgstr "Sök efter"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:65
+msgid "Replace with"
+msgstr "Ersätt med"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:80
+msgid "Match Case"
+msgstr "Skiftläge"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:82
+msgid "Regular Expression"
+msgstr "Regular Expression"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:84
+msgid "Whole Word"
+msgstr "Hela ord"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:86
+msgid "Start Word"
+msgstr "Startord"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:88
+msgid "Forward"
+msgstr "Framåt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:90
+msgid "Backward"
+msgstr "Tillbaka"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:93
+msgid "All, List Matches"
+msgstr "Alla, listmatchningar"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:95
+msgid "First From Selection"
+msgstr "Första i markerat"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:98
+msgid "First in All Range"
+msgstr "Första i hela intervallet"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:109
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:162
+msgid "Node Created After"
+msgstr "Post skapad efter"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:116
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:167
+msgid "Node Created Before"
+msgstr "Post skapad före"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:123
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:172
+msgid "Node Modified After"
+msgstr "Post ändrad efter"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:130
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:177
+msgid "Node Modified Before"
+msgstr "Post ändrad före"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:148
+msgid "Time filter"
+msgstr "Tidsfilter"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:180
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "Visa upprepad dialog för Sök/Ersätt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:204
+msgid "Search options"
+msgstr "Sökalternativ"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:267
+#, c-format
+msgid "Hide (Restore with '%s')"
+msgstr "Dölj (återställ med \"%s\")"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:271
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:78
+msgid "Node Name"
+msgstr "Postnamn"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:272
+msgid "Line"
+msgstr "Rad"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:273
+msgid "Line Content"
+msgstr "Radinnehåll"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:291
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:329
+#, c-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr "Länken pekar mot en post som inte finns längre (ID=%s)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:344
+msgid "Iterate Latest Find/Replace"
+msgstr "Upprepa senaste Sök/Ersätt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:347
+msgid "Close"
+msgstr "Stäng"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:348
+msgid "Find Previous"
+msgstr "Sök föregående"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:349
+msgid "Find Next"
+msgstr "Sök nästa"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:350
+msgid "Replace"
+msgstr "Ersätt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:351
+msgid "Undo"
+msgstr "Ångra"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:30
 msgid "Enable System Tray Docking"
 msgstr "Aktivera systemfältsdockning"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:33
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:31
 msgid "Start Minimized in the System Tray"
 msgstr "Starta minimerad till systemfältet"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:37
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:35
 msgid "System Tray"
 msgstr "Systemfältet"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:46
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:43
 msgid "Autosave Every"
 msgstr "Spara automatiskt varje"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:49
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:46
 msgid "Minutes"
 msgstr "Minuter"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:53
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:50
 msgid "Autosave on Quit"
 msgstr "Spara automatiskt vid avslut"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:54
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:51
 msgid "Create a Backup Copy Before Saving"
 msgstr "Skapa en säkerhetskopia före spara"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:57
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:53
 msgid "Number of Backups to Keep"
 msgstr "Antal säkerhetskopior att spara"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:62
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:58
 msgid "Custom Backup Directory"
 msgstr "Anpassad säkerhetskopieringsmapp"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:91
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:86
 msgid "Saving"
 msgstr "Sparar"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:94
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:89
 msgid "Automatically Check for Newer Version"
 msgstr "Sök automatiskt efter nya versioner"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:95
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:90
 msgid "Enable Word Count in Statusbar"
 msgstr "Aktivera ordräknare i statusfältet"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:96
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:91
 msgid "Reload Document From Last Session"
 msgstr "Läs in dokument från senaste sessionen"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:97
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:92
 msgid "Reload After External Update to CT* File"
 msgstr "Läs in igen efter extern uppdatering till CT*-fil"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:98
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:93
 msgid "Show the Document Directory in the Window Title"
 msgstr "Visa dokumenmappen i fönsterrubriken"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:111
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:46
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:227
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:132
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:119
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:110
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:106
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:70
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:247
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:131
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:106
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:261
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:105
 msgid "Miscellaneous"
 msgstr "Diverse"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:117
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1961
-msgid "Bulgarian"
-msgstr "Bulgariska"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:118
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1963
-msgid "Czech"
-msgstr "Tjeckiska"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:119
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1967
-msgid "German"
-msgstr "Tyska"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:120
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1968
-msgid "Greek"
-msgstr "Grekiska"
-
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:121
-msgid "English"
-msgstr "Engelska"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:122
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1976
-msgid "Spanish"
-msgstr "Spanska"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:123
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1965
-msgid "Finnish"
-msgstr "Slutför"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:124
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1966
-msgid "French"
-msgstr "Franska"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:125
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1960
-msgid "Armenian"
-msgstr "Armeniska"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:126
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1969
-msgid "Italian"
-msgstr "Italienska"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:127
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1970
-msgid "Japanese"
-msgstr "Japanska"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:128
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1971
-msgid "Lithuanian"
-msgstr "Litauiska"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:129
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1964
-msgid "Dutch"
-msgstr "Nederländska"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:130
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1972
-msgid "Polish"
-msgstr "Polska"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:131
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1973
-msgid "Portuguese Brazil"
-msgstr "Portugisisk-brasilienska"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:132
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1974
-msgid "Russian"
-msgstr "Ryska"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:133
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1975
-msgid "Slovenian"
-msgstr "Slovenska"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:134
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1977
-msgid "Swedish"
-msgstr "Svenska"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:135
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1978
-msgid "Turkish"
-msgstr "Turkiska"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:136
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1979
-msgid "Ukrainian"
-msgstr "Ukrainska"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:137
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1962
-msgid "Chinese Simplified"
-msgstr "Förenklad kinesiska"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:140
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:225
 msgid "Language"
 msgstr "Språk"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:158
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:138
 msgid "Has the System Tray appeared on the panel?"
 msgstr "Har systemfältet visats på panelen?"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:164
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:144
 msgid "Your system does not support the System Tray"
 msgstr "Ditt system stödjer inte systemfältet"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:232
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:233
 msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr "Det nya språket blir tillgängligt först efter omstart av CherryTree"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:50
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:67
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:59
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:183
+msgid "Width"
+msgstr "Bredd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:62
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:187
+msgid "Height"
+msgstr "Höjd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:164
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:102
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:583
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:77
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:84
+msgid "Plain Text"
+msgstr "Oformaterad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:165
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:256
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:85
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:153
+msgid "Automatic Syntax Highlighting"
+msgstr "Automatisk syntaxmarkering"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:178
+msgid "Type"
+msgstr "Typ"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:192
+msgid "pixels"
+msgstr "bildpunkter"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:215
+msgid "Size"
+msgstr "Storlek"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:220
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:52
+msgid "Show Line Numbers"
+msgstr "Visa radnummer"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:222
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:35
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:55
+msgid "Highlight Matching Brackets"
+msgstr "Belys matchande klamrar"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:231
+msgid "Options"
+msgstr "Alternativ"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:338
+msgid "Rows"
+msgstr "Rader"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:344
+msgid "Columns"
+msgstr "Kolumner"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:350
+msgid "Default Width"
+msgstr "Standardbredd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:356
+msgid "Table Size"
+msgstr "Tabellstorlek"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:359
+msgid "Column Properties"
+msgstr "Kolumnegenskaper"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:380
+msgid "Import from CSV File"
+msgstr "Importera från CSV-fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:48
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:65
 msgid "Add"
 msgstr "Lägg till"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:53
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:70
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:51
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:68
 msgid "Remove Selected"
 msgstr "Ta bort markerat"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:56
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:66
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:180
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:38
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:73
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:86
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:54
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:65
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:177
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:36
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:71
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:84
 msgid "Reset to Default"
 msgstr "Återställ till standard"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:126
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:149
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:124
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:147
 msgid "Split Toolbar"
 msgstr "Dela verktygsfält"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:131
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:91
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:129
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:72
 msgid "Open a CherryTree Document"
 msgstr "Öppna ett CherryTree-dokument"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:159
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:249
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:157
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:247
 msgid "Select Element to Add"
 msgstr "Välj element att lägga till"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:28
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:102
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:78
 msgid "Preferences"
 msgstr "Inställningar"
 
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:33
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:426
+msgid "Bulgarian"
+msgstr "Bulgariska"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:34
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:428
+msgid "Czech"
+msgstr "Tjeckiska"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:35
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:432
+msgid "German"
+msgstr "Tyska"
+
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:36
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:433
+msgid "Greek"
+msgstr "Grekiska"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:37
+msgid "English"
+msgstr "Engelska"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:38
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:443
+msgid "Spanish"
+msgstr "Spanska"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:39
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:430
+msgid "Finnish"
+msgstr "Slutför"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:40
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:431
+msgid "French"
+msgstr "Franska"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:41
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:425
+msgid "Armenian"
+msgstr "Armeniska"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:42
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:434
+msgid "Italian"
+msgstr "Italienska"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:43
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:435
+msgid "Japanese"
+msgstr "Japanska"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:44
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:436
+msgid "Kazakh"
+msgstr "Kazakiska"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:45
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:437
+msgid "Korean"
+msgstr "Koreanska"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:46
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:438
+msgid "Lithuanian"
+msgstr "Litauiska"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:47
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:429
+msgid "Dutch"
+msgstr "Nederländska"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:48
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:439
+msgid "Polish"
+msgstr "Polska"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:49
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:440
+msgid "Portuguese Brazil"
+msgstr "Portugisisk-brasilienska"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:50
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:441
+msgid "Russian"
+msgstr "Ryska"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:51
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:442
+msgid "Slovenian"
+msgstr "Slovenska"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:52
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:444
+msgid "Swedish"
+msgstr "Svenska"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:53
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:445
+msgid "Turkish"
+msgstr "Turkiska"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:54
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:446
+msgid "Ukrainian"
+msgstr "Ukrainska"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:55
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:427
+msgid "Chinese Simplified"
+msgstr "Förenklad kinesiska"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:59
 msgid "Text and Code"
 msgstr "Text och kod"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:37
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:75
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:1287
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1684
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:72
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:60
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:97
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:580
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:70
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:82
 msgid "Rich Text"
 msgstr "Rich Text"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:38
-msgid "Plain Text and Code"
-msgstr "Oformaterad text och kod"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:39
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:34
-msgid "Special Characters"
-msgstr "Specialtecken"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:40
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:160
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:51
-msgid "Tree"
-msgstr "Träd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:41
-msgid "Theme"
-msgstr "Tema"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:42
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:111
-msgid "Fonts"
-msgstr "Teckensnitt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:43
-msgid "Links"
-msgstr "Länkar"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:44
-msgid "Toolbar"
-msgstr "Verktygsfält"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:45
-msgid "Keyboard Shortcuts"
-msgstr "Tangenbordsgenvägar"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:77
-msgid "Monospace"
-msgstr "Monospace"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:80
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:1291
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1329
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1686
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:79
-msgid "Plain Text"
-msgstr "Oformaterad text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:82
-msgid "Code Font"
-msgstr "Kodteckensnitt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:84
-msgid "Tree Font"
-msgstr "Trädteckensnitt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:157
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "Aktivera anpassad klickåtgärd för webblänk"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:159
-msgid "Enable Custom File Link Clicked Action"
-msgstr "Aktivera anpassad klickåtgärd för fillänk"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:161
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "Aktivera anpassad klickåtgärd för mapplänk"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:170
-msgid "Custom Actions"
-msgstr "Anpassade åtgärder"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:187
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:808
-msgid "To WebSite"
-msgstr "Till webbplats"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:189
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:849
-msgid "To Node"
-msgstr "Till post"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:191
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:819
-msgid "To File"
-msgstr "Till fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:193
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:834
-msgid "To Folder"
-msgstr "Till mapp"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:208
-msgid "Colors"
-msgstr "Färger"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:211
-msgid "Underline Links"
-msgstr "Stryk under länkar"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:213
-msgid "Use Relative Paths for Files And Folders"
-msgstr "Använd relativa sökvägar för filer och mappar"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:217
-msgid "Anchor Size"
-msgstr "Fästpunktsstorlek"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:293
-msgid "This Change will have Effect Only After Restarting CherryTree"
-msgstr "Denna ändring blir tillgängligt först efter omstart av CherryTree"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:71
-msgid "_File"
-msgstr "_Arkiv"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:72
-msgid "_Edit"
-msgstr "_Redigera"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:73
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1070
-msgid "For_matting"
-msgstr "For_matering"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:74
-msgid "_Tree"
-msgstr "_Träd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:75
-msgid "Node _Move"
-msgstr "_Flytta post"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:76
-msgid "Nodes _Sort"
-msgstr "_Sortera poster"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:77
-msgid "Nodes _Import"
-msgstr "_Importera poster"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:78
-msgid "Nodes E_xport"
-msgstr "E_xportera poster"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:79
-msgid "_Recent Documents"
-msgstr "_Tidigare dokument"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:79
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:874
-msgid "Open a Recent CherryTree Document"
-msgstr "Öppna ett tidigare CherryTree-dokument"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:80
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1070
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1123
-msgid "C_hange Case"
-msgstr "_Ändra skiftläge"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:81
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1070
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1123
-msgid "_Search"
-msgstr "_Sök"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:82
-msgid "_View"
-msgstr "_Visa"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:83
-msgid "_Bookmarks"
-msgstr "_Bokmärken"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:84
-msgid "_Import"
-msgstr "_Importera"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:85
-msgid "E_xport"
-msgstr "E_xportera"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:86
-msgid "_Help"
-msgstr "_Hjälp"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:89
-msgid "File"
-msgstr "Arkiv"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:90
-msgid "New _Instance"
-msgstr "Ny _instans"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:90
-msgid "Start a New Instance of CherryTree"
-msgstr "Starta en ny instans av CherryTree"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:91
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:247
-msgid "_Open File"
-msgstr "_Öppna fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:92
-msgid "_Save"
-msgstr "_Spara"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:92
-msgid "Save File"
-msgstr "Spara fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:93
-msgid "Save and _Vacuum"
-msgstr "Spara och _dammsug"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:93
-msgid "Save File and Vacuum"
-msgstr "Spara fil och dammsug"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:94
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:246
-msgid "Save _As"
-msgstr "S_para som"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:94
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:246
-msgid "Save File As"
-msgstr "Spara fil som"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:95
-msgid "Command Palette"
-msgstr "Kommandopalett"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:96
-msgid "_Execute Code"
-msgstr "_Exekvera kod"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:96
-msgid "Execute Code"
-msgstr "Exekvera kod"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:97
-msgid "Open Preferences _Directory"
-msgstr "Öppna _inställningsmappen"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:97
-msgid "Open the Directory with Preferences Files"
-msgstr "Öppna mappen med inställningsfiler"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:98
-msgid "Pa_ge Setup"
-msgstr "_Utskriftsinställningar"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:98
-msgid "Set up the Page for Printing"
-msgstr "Ställ in sidan för utskrift"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:99
-msgid "_Print"
-msgstr "_Skriv ut"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:99
-msgid "Print"
-msgstr "Skriv ut"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:100
-msgid "_Quit"
-msgstr "A_vsluta"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:100
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:888
-msgid "Quit the Application"
-msgstr "Avsluta programmet"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:101
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:115
-msgid "_Exit CherryTree"
-msgstr "Avsluta CherryTree"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:101
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:115
-msgid "Exit from CherryTree"
-msgstr "Avsluta CherryTree"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:102
-msgid "_Preferences"
-msgstr "_Inställningar"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:103
-msgid "_Check Newer Version"
-msgstr "_Sök efter en nyare version"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:103
-msgid "Check for a Newer Version"
-msgstr "Sök efter en nyare version"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:104
-msgid "Online _Manual"
-msgstr "Online-_manual"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:104
-msgid "Application's Online Manual"
-msgstr "Programmets online-manual"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:105
-msgid "_About"
-msgstr "_Om"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:105
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1981
-msgid "About CherryTree"
-msgstr "Om CherryTree"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:106
-msgid "Editor"
-msgstr "Redigerare"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:107
-msgid "_Undo"
-msgstr "_Ångra"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:107
-msgid "Undo Last Operation"
-msgstr "Ångra senaste åtgärden"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:108
-msgid "_Redo"
-msgstr "_Upprepa"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:108
-msgid "Redo Previously Discarded Operation"
-msgstr "Upprepa tidigare ångrad åtgärd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:109
-msgid "Insert I_mage"
-msgstr "Infoga b_ild"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:109
-msgid "Insert an Image"
-msgstr "Infoga en bild"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:111
-msgid "Insert _Table"
-msgstr "Infoga _tabell"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:111
-msgid "Insert a Table"
-msgstr "Infoga en tabell"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:112
-msgid "Insert _CodeBox"
-msgstr "Infoga en _kodbox"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:112
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:134
-msgid "Insert a CodeBox"
-msgstr "Infoga en kodbox"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:113
-msgid "Insert _File"
-msgstr "Infoga _fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:113
-msgid "Insert File"
-msgstr "Infoga fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:114
-msgid "Insert/Edit _Link"
-msgstr "Infoga/Redigera _länk"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:114
-msgid "Insert a Link/Edit the Underlying Link"
-msgstr "Infoga en länk/Redigera den underliggande länken"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:115
-msgid "Insert _Anchor"
-msgstr "Infoga en _fästpunkt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:115
-msgid "Insert an Anchor"
-msgstr "Infoga en fästpunkt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:116
-msgid "Insert T_OC"
-msgstr "Infoga T_OC"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:116
-msgid "Insert Table of Contents"
-msgstr "Infoga tabell över innehåll"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:117
-msgid "Insert Ti_mestamp"
-msgstr "Infoga ti_dsstämpel"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:117
-msgid "Insert Timestamp"
-msgstr "Infoga tidsstämpel"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:118
-msgid "Insert _Special Character"
-msgstr "Infoga _specialtecken"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:118
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:421
-msgid "Insert a Special Character"
-msgstr "Infoga ett specialtecken"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:119
-msgid "Insert _Horizontal Rule"
-msgstr "Infoga _horisontell avgränsare"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:119
-msgid "Insert Horizontal Rule"
-msgstr "Infoga horisontell avgränsare"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:120
-msgid "_Lower Case of Selection/Word"
-msgstr "_Gemener för markering/ord"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:120
-msgid "Lower the Case of the Selection/the Underlying Word"
-msgstr "Ändra till gemener i markering/det underliggande ordet"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:121
-msgid "_Upper Case of Selection/Word"
-msgstr "_Versal för markering/ord"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:121
-msgid "Upper the Case of the Selection/the Underlying Word"
-msgstr "Versal för markering/underliggande ord"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:122
-msgid "_Toggle Case of Selection/Word"
-msgstr "_Växla skiftläge för markering/ord"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:122
-msgid "Toggle the Case of the Selection/the Underlying Word"
-msgstr "Växla skiftläge för markering/underliggande ord"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:123
-msgid "Enable/Disable _Spell Check"
-msgstr "Aktivera/Inaktivera _stavningskontroll"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:123
-msgid "Toggle Enable/Disable Spell Check"
-msgstr "Stavningskontroll på/av"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:124
-msgid "Cu_t as Plain Text"
-msgstr "Klipp ut som _oformaterad text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:124
-msgid "Cut as Plain Text, Discard the Rich Text Formatting"
-msgstr "Klipp ut som oformaterad text, ta bort Rich Text-formateringen"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:125
-msgid "_Copy as Plain Text"
-msgstr "_Kopiera som oformaterad text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:125
-msgid "Copy as Plain Text, Discard the Rich Text Formatting"
-msgstr "Kopiera som oformaterad text, ta bort Rich Text-formateringen"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:126
-msgid "_Paste as Plain Text"
-msgstr "_Klistra in som oformaterad text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:126
-msgid "Paste as Plain Text, Discard the Rich Text Formatting"
-msgstr "Klistra in som oformaterad text, ta bort Rich Text-formateringen"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:127
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:283
-msgid "Cu_t Row"
-msgstr "Klipp ut _rad"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:127
-msgid "Cut the Current Row/Selected Rows"
-msgstr "Klipp ut aktuell rad/markerade rader"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:128
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:284
-msgid "_Copy Row"
-msgstr "_Kopiera rad"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:128
-msgid "Copy the Current Row/Selected Rows"
-msgstr "Kopiera aktuell rad/markerade rader"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:129
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:286
-msgid "De_lete Row"
-msgstr "T_a bort rad"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:129
-msgid "Delete the Current Row/Selected Rows"
-msgstr "Ta bort aktuell rad/markerade rader"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:130
-msgid "_Duplicate Row"
-msgstr "_Klona rad"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:130
-msgid "Duplicate the Current Row/Selection"
-msgstr "Klona aktuell rad/markering"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:131
-msgid "Move _Up Row"
-msgstr "Flytta _upp rad"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:131
-msgid "Move Up the Current Row/Selected Rows"
-msgstr "Flytta upp aktuell rad/markerade rader"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:132
-msgid "Move _Down Row"
-msgstr "Flytta _ner kolumn"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:132
-msgid "Move Down the Current Row/Selected Rows"
-msgstr "Flytta ner aktuell rad/markerade rader"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:133
-msgid "Stri_p Trailing Spaces"
-msgstr "Ta _bort efterföljande blanksteg"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:133
-msgid "Strip Trailing Spaces"
-msgstr "Ta bort efterföljande blanksteg"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:134
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:61
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:107
 msgid "Format"
 msgstr "Formatera"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:135
-msgid "Format C_lone"
-msgstr "Formatera k_lon"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:135
-msgid "Clone the Text Format Type at Cursor"
-msgstr "Klona textformattyp vid markören"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:136
-msgid "Format _Latest"
-msgstr "Formatera _senaste"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:136
-msgid "Memory of Latest Text Format Type"
-msgstr "Minne för senaste textformattyp"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:137
-msgid "_Remove Formatting"
-msgstr "_Ta bort formatering"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:137
-msgid "Remove the Formatting from the Selected Text"
-msgstr "Ta bort formateringen från markerad text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:138
-msgid "Text _Color Foreground"
-msgstr "Textfärg _förgrund"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:138
-msgid "Change the Color of the Selected Text Foreground"
-msgstr "Ändra färg på markerad text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:139
-msgid "Text C_olor Background"
-msgstr "Textfärg _bakgrund"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:139
-msgid "Change the Color of the Selected Text Background"
-msgstr "Ändra färg på markerad textbakgrund"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:140
-msgid "Toggle _Bold Property"
-msgstr "_Fet stil på/av"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:140
-msgid "Toggle Bold Property of the Selected Text"
-msgstr "Fet stil på/av för markerad text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:141
-msgid "Toggle _Italic Property"
-msgstr "_Kursiv stil på/av"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:141
-msgid "Toggle Italic Property of the Selected Text"
-msgstr "Kursiv stil på/av för markerad text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:142
-msgid "Toggle _Underline Property"
-msgstr "Understruken stil på/av"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:142
-msgid "Toggle Underline Property of the Selected Text"
-msgstr "Understruken stil på/av för markerad text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:143
-msgid "Toggle Stri_kethrough Property"
-msgstr "Genomstruken stil på/av"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:143
-msgid "Toggle Strikethrough Property of the Selected Text"
-msgstr "Genomstruken stil på/av för markerad text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:144
-msgid "Toggle h_1 Property"
-msgstr "H1 på/av"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:144
-msgid "Toggle h1 Property of the Selected Text"
-msgstr "H1 på/av för markerad text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:145
-msgid "Toggle h_2 Property"
-msgstr "H2 på/av"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:145
-msgid "Toggle h2 Property of the Selected Text"
-msgstr "H2 på/av för markerad text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:146
-msgid "Toggle h_3 Property"
-msgstr "H3 på/av"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:146
-msgid "Toggle h3 Property of the Selected Text"
-msgstr "H3 på/av för markerad text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:147
-msgid "Toggle _Small Property"
-msgstr "Liten stil på/av"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:147
-msgid "Toggle Small Property of the Selected Text"
-msgstr "Liten stil på/av för markerad text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:148
-msgid "Toggle Su_perscript Property"
-msgstr "Upphöjd stil på/av"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:148
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "Upphöjd stil på/av för markerad text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:149
-msgid "Toggle Su_bscript Property"
-msgstr "Nedsänkt stil på/av"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:149
-msgid "Toggle Subscript Property of the Selected Text"
-msgstr "Nedsänkt stil på/av för markerad text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:150
-msgid "Toggle _Monospace Property"
-msgstr "_Fastbredd på/av"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:150
-msgid "Toggle Monospace Property of the Selected Text"
-msgstr "Fastbredd på/av för markerad text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:151
-msgid "Set/Unset _Bulleted List"
-msgstr "_Punktlista på/av"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:151
-msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
-msgstr "Ange/förkasta det aktuella stycket/markeringen som en punktlista"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:152
-msgid "Set/Unset _Numbered List"
-msgstr "_Numrerad lista på/av"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:152
-msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
-msgstr "Ange/förkasta det aktuella stycket/markeringen som en numrerad lista"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:153
-msgid "Set/Unset _To-Do List"
-msgstr "Att-göra-lista på/av"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:153
-msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
-msgstr "Ange/förkasta det aktuella stycket/markeringen som en att-göra-lista"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:154
-msgid "Justify _Left"
-msgstr "Justera _vänster"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:154
-msgid "Justify Left the Current Paragraph"
-msgstr "Justera aktuellt stycke åt vänster"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:155
-msgid "Justify _Center"
-msgstr "_Centrera"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:155
-msgid "Justify Center the Current Paragraph"
-msgstr "Centrera aktuellt stycke"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:156
-msgid "Justify _Right"
-msgstr "Justera _höger"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:156
-msgid "Justify Right the Current Paragraph"
-msgstr "Justera aktuellt stycke åt höger"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:157
-msgid "Justify _Fill"
-msgstr "_Sidanpassa"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:157
-msgid "Justify Fill the Current Paragraph"
-msgstr "Fyll ut aktuellt stycke"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:158
-msgid "Indent Paragraph"
-msgstr "Dra in stycket"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:158
-msgid "Indent the Current Paragraph"
-msgstr "Dra in aktuellt stycke"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:159
-msgid "Unindent Paragraph"
-msgstr "Ta bort indrag från stycket"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:159
-msgid "Unindent the Current Paragraph"
-msgstr "Ta bort indrag från aktuellt stycke"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:161
-msgid "Add _Node"
-msgstr "Lägg till _post"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:161
-msgid "Add a Node having the same Parent of the Selected Node"
-msgstr "Lägg till en post underdnad den markerade posten"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:162
-msgid "Add _SubNode"
-msgstr "Lägg till _underpost"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:162
-msgid "Add a Child Node to the Selected Node"
-msgstr "Lägg till en underpost till markerad post"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:163
-msgid "_Duplicate Node"
-msgstr "_Klona post"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:163
-msgid "Duplicate the Selected Node"
-msgstr "Klona markerad post"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:164
-msgid "_Duplicate Node and Sub Nodes"
-msgstr "_Duplicera post med underposter"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:164
-msgid "Duplicate the Selected Node With SubNodes"
-msgstr "Duplicera markerad post med underposter"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:165
-msgid "Change Node _Properties"
-msgstr "Ändra _postegenskaper"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:165
-msgid "Edit the Properties of the Selected Node"
-msgstr "Redigera egenskaperna för markerad post"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:166
-msgid "Toggle _Read Only"
-msgstr "_Skrivskydd på/av"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:166
-msgid "Toggle the Read Only Property of the Selected Node"
-msgstr "Skrivskydd på/av för markerad post"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:167
-msgid "Insert Today's Node"
-msgstr "Infoga dagens post"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:167
-msgid "Insert a Node with Hierarchy Year/Month/Day"
-msgstr "Infoga en post med hierarkin År/Månad/Dag"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:168
-msgid "Tree _Info"
-msgstr "Träd_information"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:168
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:2211
-msgid "Tree Summary Information"
-msgstr "Sammanfattad trädinformation"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:169
-msgid "Node _Up"
-msgstr "Post _upp"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:169
-msgid "Move the Selected Node Up"
-msgstr "Flytta upp markerad post"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:170
-msgid "Node _Down"
-msgstr "Post _ner"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:170
-msgid "Move the Selected Node Down"
-msgstr "Flytta ner markerad post"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:171
-msgid "Node _Left"
-msgstr "Post åt _vänster"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:171
-msgid "Move the Selected Node Left"
-msgstr "Flytta markerad post åt vänster"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:172
-msgid "Node _Right"
-msgstr "Post åt _höger"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:172
-msgid "Move the Selected Node Right"
-msgstr "Flytta markerad post åt höger"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:173
-msgid "Node Change _Parent"
-msgstr "Byt _överordnad post"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:173
-msgid "Change the Selected Node's Parent"
-msgstr "Ändra markerade posters överordnad"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:174
-msgid "Sort Tree _Ascending"
-msgstr "Sortera trädet s_tigande"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:174
-msgid "Sort the Tree Ascending"
-msgstr "Sortera trädet stigande"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:175
-msgid "Sort Tree _Descending"
-msgstr "Sortera trädet s_junkande"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:175
-msgid "Sort the Tree Descending"
-msgstr "Sortera trädet sjunkande"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:176
-msgid "Sort Siblings A_scending"
-msgstr "Sortera underposter s_tigande"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:176
-msgid "Sort all the Siblings of the Selected Node Ascending"
-msgstr "Sortera alla underposter till markerad post stigande"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:177
-msgid "Sort Siblings D_escending"
-msgstr "Sortera underposter s_junkande"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:177
-msgid "Sort all the Siblings of the Selected Node Descending"
-msgstr "Sortera alla underposter till markerad post sjunkande"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:178
-msgid "_Inherit Syntax"
-msgstr "_Ärv syntax"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:178
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:62
+msgid "Plain Text and Code"
+msgstr "Oformaterad text och kod"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:63
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:463
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:32
+msgid "Special Characters"
+msgstr "Specialtecken"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:64
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:49
+msgid "Tree Explorer"
+msgstr "Trädutforskare"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:65
+msgid "Theme"
+msgstr "Tema"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:66
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:133
+msgid "Fonts"
+msgstr "Teckensnitt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:67
+msgid "Links"
+msgstr "Länkar"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:68
+msgid "Toolbar"
+msgstr "Verktygsfält"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:69
+msgid "Keyboard Shortcuts"
+msgstr "Tangenbordsgenvägar"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:99
+msgid "Monospace"
+msgstr "Monospace"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:104
+msgid "Code Font"
+msgstr "Kodteckensnitt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:106
+msgid "Tree Font"
+msgstr "Trädteckensnitt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:177
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "Aktivera anpassad klickåtgärd för webblänk"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:179
+msgid "Enable Custom File Link Clicked Action"
+msgstr "Aktivera anpassad klickåtgärd för fillänk"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:181
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "Aktivera anpassad klickåtgärd för mapplänk"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:190
+msgid "Custom Actions"
+msgstr "Anpassade åtgärder"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:207
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:49
+msgid "To WebSite"
+msgstr "Till webbplats"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:209
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:90
+msgid "To Node"
+msgstr "Till post"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:211
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:60
+msgid "To File"
+msgstr "Till fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:213
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:75
+msgid "To Folder"
+msgstr "Till mapp"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:228
+msgid "Colors"
+msgstr "Färger"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:231
+msgid "Underline Links"
+msgstr "Stryk under länkar"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:233
+msgid "Use Relative Paths for Files And Folders"
+msgstr "Använd relativa sökvägar för filer och mappar"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:237
+msgid "Anchor Size"
+msgstr "Fästpunktsstorlek"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:313
+msgid "This Change will have Effect Only After Restarting CherryTree"
+msgstr "Denna ändring blir tillgängligt först efter omstart av CherryTree"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:130
+#, c-format
+msgid "\"%s\" is Not a CherryTree Document"
+msgstr "\"%s\" är inte ett CherryTree-dokument"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:146
+#, c-format
 msgid ""
-"Change the Selected Node's Children Syntax Highlighting to the Parent's "
-"Syntax Highlighting"
+"Error Parsing the CherryTree File:\n"
+"\"%s\""
 msgstr ""
-"Ändra markerad underposts syntaxmarkering till överordnad posts "
-"syntaxmarkering"
+"Fel vid tolkning av CherryTree-filen:\n"
+"\"%s\""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:179
-msgid "De_lete Node"
-msgstr "T_a bort post"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:221
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr "Temporära filer skapades och öppnades med externa program."
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:179
-msgid "Delete the Selected Node"
-msgstr "Ta bort markerad post"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:222
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr "Avsluta externa program innan CherryTree avslutas."
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:180
-msgid "Add to _Bookmarks"
-msgstr "Lägg till i _Bokmärken"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:223
+msgid "Did you Quit the External Applications?"
+msgstr "Har du avslutat de externa programmen?"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:180
-msgid "Add the Current Node to the Bookmarks List"
-msgstr "Lägg till aktuell post i bokmärkeslistan"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:345
+msgid "The Document was Reloaded After External Update to CT* File"
+msgstr "Dokumentet lästes in igen, efter extern uppdatering till CT*-fil"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:181
-msgid "_Remove from Bookmarks"
-msgstr "_Ta bort från bokmärken"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:181
-msgid "Remove the Current Node from the Bookmarks List"
-msgstr "Ta bort aktuell post från bokmärkeslistan"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:182
-msgid "_Handle Bookmarks"
-msgstr "_Hantera bokmärken"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:182
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:417
-msgid "Handle the Bookmarks List"
-msgstr "Hantera bokmärkeslistan"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:183
-msgid "Go _Back"
-msgstr "Gå _bakåt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:183
-msgid "Go to the Previous Visited Node"
-msgstr "Gå till föregående besökta post"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:184
-msgid "Go _Forward"
-msgstr "Gå _framåt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:184
-msgid "Go to the Next Visited Node"
-msgstr "Gå till nästa besökta post"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:185
-msgid "Copy Link to Node"
-msgstr "Kopiera länk till post"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:185
-msgid "Copy Link to the Selected Node to Clipboard"
-msgstr "Kopiera länk markerad post, till urklipp"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:186
-msgid "Find/Replace"
-msgstr "Sök/Ersätt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:187
-msgid "_Find in Node Content"
-msgstr "_Sök i postinnehåll"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:187
-msgid "Find into the Selected Node Content"
-msgstr "Sök i markerad posts innehåll"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:188
-msgid "Find in _All Nodes Contents"
-msgstr "Sök i _allt postinnehåll"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:188
-msgid "Find into All the Tree Nodes Contents"
-msgstr "Sök i alla trädposters innehåll"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:189
-msgid "Find in _Selected Node and Subnodes Contents"
-msgstr "Sök i _markerad posts och underposters innehåll"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:189
-msgid "Find into the Selected Node and Subnodes Contents"
-msgstr "Sök i markerad posts och underposters innehåll"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:190
-msgid "Find in _Nodes Names and Tags"
-msgstr "Sök i _postnamn och taggar"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:190
-msgid "Find in Nodes Names and Tags"
-msgstr "Sök i postnamn och taggar"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:191
-msgid "Find _Again"
-msgstr "Sök _igen"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:191
-msgid "Iterate the Last Find Operation"
-msgstr "Upprepa senaste sökningen"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:192
-msgid "Find _Back"
-msgstr "Sök _bakåt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:192
-msgid "Iterate the Last Find Operation in Opposite Direction"
-msgstr "Upprepa senaste sökningen i omvänd ordning"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:193
-msgid "_Replace in Node Content"
-msgstr "_Ersätt i postinnehåll"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:193
-msgid "Replace into the Selected Node Content"
-msgstr "Ersätt i markerad posts innehåll"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:194
-msgid "Replace in _All Nodes Contents"
-msgstr "Ersätt i _alla posters innehåll"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:194
-msgid "Replace into All the Tree Nodes Contents"
-msgstr "Ersätt i alla trädposters innehåll"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:195
-msgid "Replace in _Selected Node and Subnodes Contents"
-msgstr "Ersätt i _markerad post och underposters innehåll"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:195
-msgid "Replace into the Selected Node and Subnodes Contents"
-msgstr "Ersätt i markerad post och underposters innehåll"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:196
-msgid "Replace in Nodes _Names"
-msgstr "Ersätt i post_namn"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:196
-msgid "Replace in Nodes Names"
-msgstr "Ersätt i postnamn"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:197
-msgid "Replace _Again"
-msgstr "Ersätt _igen"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:197
-msgid "Iterate the Last Replace Operation"
-msgstr "Upprepa senaste ersättningen"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:198
-msgid "Show _All Matches Dialog"
-msgstr "Visa dialog för _alla matchningar"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:198
-msgid "Show Search All Matches Dialog"
-msgstr "Visa dialog för sök alla matchningar"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:199
-msgid "View"
-msgstr "Visa"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:200
-msgid "Show/Hide _Tree"
-msgstr "Visa/Dölj _träd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:200
-msgid "Toggle Show/Hide Tree"
-msgstr "Visa/Dölj trädstruktur"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:201
-msgid "Show/Hide Tool_bar"
-msgstr "Visa/Dölj _verktygsfält"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:201
-msgid "Toggle Show/Hide Toolbar"
-msgstr "Visa/Dölj verktygsfält"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:202
-msgid "Show/Hide Node Name _Header"
-msgstr "Visa/Dölj postnamns_rubrik"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:202
-msgid "Toggle Show/Hide Node Name Header"
-msgstr "Visa/Dölj postnamnsrubrik"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:203
-msgid "Toggle _Focus Tree/Text"
-msgstr "_Fokusera träd/text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:203
-msgid "Toggle Focus Between Tree and Text"
-msgstr "Växla fokus mellan träd och text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:204
-msgid "E_xpand All Nodes"
-msgstr "E_xpandera alla poster"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:204
-msgid "Expand All the Tree Nodes"
-msgstr "Expandera alla trädposter"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:205
-msgid "_Collapse All Nodes"
-msgstr "_Komprimera alla poster"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:205
-msgid "Collapse All the Tree Nodes"
-msgstr "Komprimera alla trädposter"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:206
-msgid "_Increase Toolbar Icons Size"
-msgstr "_Öka storleken på verktygsfältets ikoner"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:206
-msgid "Increase the Size of the Toolbar Icons"
-msgstr "Öka storleken på verktygsfältets ikoner"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:207
-msgid "_Decrease Toolbar Icons Size"
-msgstr "_Minska storleken på verktygsfältets ikoner"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:207
-msgid "Decrease the Size of the Toolbar Icons"
-msgstr "Minska storleken på verktygsfältets ikoner"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:208
-msgid "_Full Screen On/Off"
-msgstr "Helskärmsläge på/av"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:208
-msgid "Toggle Full Screen On/Off"
-msgstr "Helskärmsläge på/av"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:209
-msgid "Export"
-msgstr "Exportera"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:210
-msgid "Export To _PDF"
-msgstr "Exportera till _PDF"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:210
-msgid "Export To PDF"
-msgstr "Exportera till PDF"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:211
-msgid "Export To _HTML"
-msgstr "Exportera till _HTML"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:211
-msgid "Export To HTML"
-msgstr "Exportera till HTML"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:212
-msgid "Export to Plain _Text"
-msgstr "Exportera till oformaterad _text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:212
-msgid "Export to Plain Text"
-msgstr "Exportera till oformaterad text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:213
-msgid "_Export To CherryTree Document"
-msgstr "_Exportera till CherryTree-dokument"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:213
-msgid "Export To CherryTree Document"
-msgstr "Exportera till CherryTree-dokument"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:214
-msgid "Import"
-msgstr "Importera"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:215
-msgid "From _CherryTree File"
-msgstr "Från _CherryTree-fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:215
-msgid "Add Nodes of a CherryTree File to the Current Tree"
-msgstr "Lägg till poster från en CherryTree-fil till aktuellt träd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:216
-msgid "From _Plain Text File"
-msgstr "Från _oformaterad textfil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:216
-msgid "Add Node from a Plain Text File to the Current Tree"
-msgstr "Lägg till en post från en oformaterad textfil till aktuellt träd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:217
-msgid "From _Folder of Plain Text Files"
-msgstr "Från _mapp med Plain Text-filer"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:217
-msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
-msgstr ""
-"Lägg till poster från en mapp med oformaterade textfiler till aktuellt träd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:218
-msgid "From _HTML File"
-msgstr "Från _HTML-fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:218
-msgid "Add Node from an HTML File to the Current Tree"
-msgstr "Lägg till en post från en HTML-fil till aktuellt träd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:219
-msgid "From _Folder of HTML Files"
-msgstr "Från _mapp med HTML-filer"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:219
-msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
-msgstr "Lägg till poster från en mapp med HTML-filer till aktuellt träd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:220
-msgid "From _Markdown File"
-msgstr "Från _Markdown-fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:220
-msgid "Add a node from a Markdown File to the Current Tree"
-msgstr "Lägg till en post från en Markdown-fil till aktuellt träd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:221
-msgid "From _Folder of Markdown Files"
-msgstr "Från _mapp med Markdown-filer"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:221
-msgid "Add Nodes from a Folder of Markdown Files to the Current Tree"
-msgstr "Lägg till poster från en mapp med Markdown-filer till aktuellt träd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:224
-msgid "From _Gnote Folder"
-msgstr "Från _Gnote-mapp"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:224
-msgid "Add Nodes of a Gnote Folder to the Current Tree"
-msgstr "Lägg till poster från en Gnote-mapp till aktuellt träd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:225
-msgid "From _KeepNote Folder"
-msgstr "Från _KeepNote-mapp"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:225
-msgid "Add Nodes of a KeepNote Folder to the Current Tree"
-msgstr "Lägg till poster från en KeepNote-mapp till aktuellt träd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:228
-msgid "From _Leo File"
-msgstr "Från _Leo-fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:228
-msgid "Add Nodes of a Leo File to the Current Tree"
-msgstr "Lägg till poster från en Leo-fil till aktuellt träd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:229
-msgid "From _Mempad File"
-msgstr "Från _Mempad-fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:229
-msgid "Add Nodes of a Mempad File to the Current Tree"
-msgstr "Lägg till poster från en Mempad-fil till aktuellt träd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:230
-msgid "From _NoteCase HTML File"
-msgstr "Från _NoteCase HTML-fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:230
-msgid "Add Nodes of a NoteCase HTML File to the Current Tree"
-msgstr "Lägg till poster från en NoteCase HTML-fil till aktuellt träd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:231
-msgid "From _RedNotebook HTML"
-msgstr "Från _RedNotebook HTML"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:231
-msgid "Add Nodes of a RedNotebook HTML file to the Current Tree"
-msgstr "Lägg till poster från en RedNotebook HTML-fil till aktuellt träd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:232
-msgid "From T_omboy Folder"
-msgstr "Från T_omboy-mapp"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:232
-msgid "Add Nodes of a Tomboy Folder to the Current Tree"
-msgstr "Lägg till poster från en Tomboy-mapp till aktuellt träd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:233
-msgid "From T_reepad Lite File"
-msgstr "Från T_reepad Lite-fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:233
-msgid "Add Nodes of a Treepad Lite File to the Current Tree"
-msgstr "Lägg till poster från en Treepad Lite-fil till aktuellt träd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:235
-msgid "From _Zim Folder"
-msgstr "Från _Zim-mapp"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:235
-msgid "Add Nodes of a Zim Folder to the Current Tree"
-msgstr "Lägg till poster från en Zim-mapp till aktuellt träd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:236
-msgid "From File using _Pandoc"
-msgstr "Från fil med hjälp av _Pandoc"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:236
-msgid "Add a node to the current tree using Pandoc"
-msgstr "Lägg till en post till aktuellt träd, med hjälp av Pandoc"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:238
-msgid "C_ut Anchor"
-msgstr "Klipp ut _fästpunkt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:238
-msgid "Cut the Selected Anchor"
-msgstr "Klipp ut markerad fästpunkt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:239
-msgid "_Copy Anchor"
-msgstr "_Kopiera fästpunkt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:239
-msgid "Copy the Selected Anchor"
-msgstr "Kopiera markerad fästpunkt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:240
-msgid "_Delete Anchor"
-msgstr "_Ta bort fästpunkt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:240
-msgid "Delete the Selected Anchor"
-msgstr "Ta bort markerad fästpunkt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:241
-msgid "Edit _Anchor"
-msgstr "Redigera _fästpunkt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:241
-msgid "Edit the Underlying Anchor"
-msgstr "Redigera den underliggande fästpunkten"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:242
-msgid "Copy Anchor Link"
-msgstr "Kopiera fästpunktslänk"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:242
-msgid "Copy Link to the Underlying Anchor to Clipboard"
-msgstr "Kopiera länk till underliggande fästpunkt, till urklipp"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:243
-msgid "C_ut Embedded File"
-msgstr "Klipp ut _inbäddad fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:243
-msgid "Cut the Selected Embedded File"
-msgstr "Klipp ut markerad inbäddad fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:244
-msgid "_Copy Embedded File"
-msgstr "_Kopiera inbäddad fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:244
-msgid "Copy the Selected Embedded File"
-msgstr "Kopiera markerad inbäddad fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:245
-msgid "_Delete Embedded File"
-msgstr "_Ta bort inbäddad fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:245
-msgid "Delete the Selected Embedded File"
-msgstr "Ta bort markerad inbäddad fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:247
-msgid "Open Embedded File"
-msgstr "Öppna inbäddad fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:248
-msgid "_Rename"
-msgstr "_Byt namn"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:248
-msgid "Rename Embedded File"
-msgstr "Byt namn på inbäddad fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:249
-msgid "_Save Image as PNG"
-msgstr "_Spara bild som PNG"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:249
-msgid "Save the Selected Image as a PNG file"
-msgstr "Spara markerad bild som en PNG-fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:250
-msgid "_Edit Image"
-msgstr "_Redigera bild"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:250
-msgid "Edit the Selected Image"
-msgstr "Redigera markerad bild"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:251
-msgid "C_ut Image"
-msgstr "Klipp ut _bild"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:251
-msgid "Cut the Selected Image"
-msgstr "Klipp ut markerad bild"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:252
-msgid "_Copy Image"
-msgstr "_Kopiera bild"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:252
-msgid "Copy the Selected Image"
-msgstr "Kopiera markerad bild"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:253
-msgid "_Delete Image"
-msgstr "_Ta bort bild"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:253
-msgid "Delete the Selected Image"
-msgstr "Ta bort markerad bild"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:254
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:267
-msgid "Edit _Link"
-msgstr "Redigera _länk"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:254
-msgid "Edit the Link Associated to the Image"
-msgstr "Redigera länken som associeras med bilden"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:255
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:270
-msgid "D_ismiss Link"
-msgstr "A_vfärda länk"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:255
-msgid "Dismiss the Link Associated to the Image"
-msgstr "Avfärda länken som associeras med bilden"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:256
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:113
-msgid "Show/Hide _CherryTree"
-msgstr "Visa/Dölj _CherryTree"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:256
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:113
-msgid "Toggle Show/Hide CherryTree"
-msgstr "Visa/Dölj CherryTree"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:267
-msgid "Edit the Underlying Link"
-msgstr "Redigera den underliggande länken"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:268
-msgid "C_ut Link"
-msgstr "Klipp ut _länk"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:268
-msgid "Cut the Selected Link"
-msgstr "Klipp ut markerad länk"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:269
-msgid "_Copy Link"
-msgstr "_Kopiera länk"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:269
-msgid "Copy the Selected Link"
-msgstr "Kopiera markerad länk"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:270
-msgid "Dismiss the Selected Link"
-msgstr "Avfärda markerad länk"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:271
-msgid "_Delete Link"
-msgstr "_Ta bort länk"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:271
-msgid "Delete the Selected Link"
-msgstr "Ta bort markerad länk"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:273
-msgid "C_ut Table"
-msgstr "Klipp ut _tabell"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:273
-msgid "Cut the Selected Table"
-msgstr "Klipp ut markerad tabell"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:274
-msgid "_Copy Table"
-msgstr "_Kopiera tabell"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:274
-msgid "Copy the Selected Table"
-msgstr "Kopiera markerad tabell"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:275
-msgid "_Delete Table"
-msgstr "_Ta bort tabell"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:275
-msgid "Delete the Selected Table"
-msgstr "Ta bort markerad tabell"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:276
-msgid "_Add Column"
-msgstr "_Lägg till kolumn"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:276
-msgid "Add a Table Column"
-msgstr "Lägg till en tabellkolumn"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:277
-msgid "De_lete Column"
-msgstr "Ta _bort kolumn"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:277
-msgid "Delete the Selected Table Column"
-msgstr "Ta bort markerad tabellkolumn"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:278
-msgid "Move Column _Left"
-msgstr "Flytta kolumn åt _vänster"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:278
-msgid "Move the Selected Column Left"
-msgstr "Flytta markerad kolumn åt vänster"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:279
-msgid "Move Column _Right"
-msgstr "Flytta kolumn åt _höger"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:279
-msgid "Move the Selected Column Right"
-msgstr "Flytta markerad kolumn åt höger"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:280
-msgid "Increase Column Width"
-msgstr "Öka kolumnbredden"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:280
-msgid "Increase the Width of the Column"
-msgstr "Utöka kolumnens bredd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:281
-msgid "Decrease Column Width"
-msgstr "Minska kolumnbredden"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:281
-msgid "Decrease the Width of the Column"
-msgstr "Minska kolumnens bredd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:282
-msgid "_Add Row"
-msgstr "_Lägg till rad"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:282
-msgid "Add a Table Row"
-msgstr "Lägg till en tabellrad"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:283
-msgid "Cut a Table Row"
-msgstr "Klipp ut en tabellrad"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:284
-msgid "Copy a Table Row"
-msgstr "Kopiera en tabellrad"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:285
-msgid "_Paste Row"
-msgstr "_Klistra in rad"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:285
-msgid "Paste a Table Row"
-msgstr "Klistra in en tabellrad"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:286
-msgid "Delete the Selected Table Row"
-msgstr "Ta bort markerad tabellrad"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:287
-msgid "Move Row _Up"
-msgstr "Flytta _upp rad"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:287
-msgid "Move the Selected Row Up"
-msgstr "Flytta upp markerad rad"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:288
-msgid "Move Row _Down"
-msgstr "Flytta _ner rad"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:288
-msgid "Move the Selected Row Down"
-msgstr "Flytta ner markerad rad"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:289
-msgid "Sort Rows De_scending"
-msgstr "Sortera rader s_junkande"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:289
-msgid "Sort all the Rows Descending"
-msgstr "Sortera alla rader sjunkande"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:290
-msgid "Sort Rows As_cending"
-msgstr "Sortera s_tigande"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:290
-msgid "Sort all the Rows Ascending"
-msgstr "Sortera alla rader stigande"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:291
-msgid "_Edit Table Properties"
-msgstr "_Redigera tabellegenskaper"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:291
-msgid "Edit the Table Properties"
-msgstr "Redigera tabellegenskaperna"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:292
-msgid "_Table Export"
-msgstr "_Tabellexport"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:292
-msgid "Export Table as CSV File"
-msgstr "Exportera tabell som CSV-fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:294
-msgid "Change CodeBox _Properties"
-msgstr "Ändra kodbox_egenskaper"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:294
-msgid "Edit the Properties of the CodeBox"
-msgstr "Redigera egenskaperna för kodboxen"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:295
-msgid "_Execute CodeBox Code"
-msgstr "_Exekvera kodboxkod"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:295
-msgid "Execute CodeBox Code"
-msgstr "Exekvera kodboxkod"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:296
-msgid "CodeBox _Load From Text File"
-msgstr "Kodbox _inläsning från textfil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:296
-msgid "Load the CodeBox Content From a Text File"
-msgstr "Läs in kodboxinnehållet från en textfil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:297
-msgid "CodeBox _Save To Text File"
-msgstr "Kodbox _spara till textfil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:297
-msgid "Save the CodeBox Content To a Text File"
-msgstr "Spara kodboxinnehållet till en textfil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:298
-msgid "C_ut CodeBox"
-msgstr "Klipp ut _kodbox"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:298
-msgid "Cut the Selected CodeBox"
-msgstr "Klipp ut markerad kodbox"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:299
-msgid "_Copy CodeBox"
-msgstr "_Kopiera kodbox"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:299
-msgid "Copy the Selected CodeBox"
-msgstr "Kopiera markerad kodbox"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:300
-msgid "_Delete CodeBox"
-msgstr "_Ta bort kodbox"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:300
-msgid "Delete the Selected CodeBox"
-msgstr "Ta bort markerad kodbox"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:301
-msgid "Delete CodeBox _Keep Content"
-msgstr "Ta bort kodbox _bevara innehåll"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:301
-msgid "Delete the Selected CodeBox But Keep Its Content"
-msgstr "Ta bort markerad kodbox men bevara innehållet"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:302
-msgid "Increase CodeBox Width"
-msgstr "Öka kodboxbredden"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:302
-msgid "Increase the Width of the CodeBox"
-msgstr "Utöka kodboxens bredd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:303
-msgid "Decrease CodeBox Width"
-msgstr "Minska kodboxens bredd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:303
-msgid "Decrease the Width of the CodeBox"
-msgstr "Minska kodboxens bredd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:304
-msgid "Increase CodeBox Height"
-msgstr "Öka kodboxhöjden"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:304
-msgid "Increase the Height of the CodeBox"
-msgstr "Utöka kodboxens höjd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:305
-msgid "Decrease CodeBox Height"
-msgstr "Minska kodboxens höjd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:305
-msgid "Decrease the Height of the CodeBox"
-msgstr "Minska kodboxens höjd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:410
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:152
 msgid "Remove from list"
 msgstr "Ta bort från listan"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1070
-msgid "_List"
-msgstr "_Lista"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1070
-msgid "_Justify"
-msgstr "_Justera"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1070
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1123
-msgid "_Insert"
-msgstr "_Infoga"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1070
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1123
-msgid "_Row"
-msgstr "_Rad"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1070
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:1123
-msgid "_Replace"
-msgstr "_Ersätt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:60
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:59
 msgid "Replace in Current Node..."
 msgstr "Ersätt i aktuell post..."
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:60
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:59
 msgid "Search in Current Node..."
 msgstr "Sök i aktuell post..."
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:100
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:233
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:315
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:236
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:319
 #, c-format
 msgid "The pattern '%s' was not found"
 msgstr "Mönstret \"%s\" hittades inte"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:102
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:236
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:317
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:103
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:239
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:321
 msgid "Matches"
 msgstr "Matchar"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:132
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:134
 msgid "Replace in Selected Node and Subnodes"
 msgstr "Ersätt i markerad post och underposter"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:132
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:134
 msgid "Replace in All Nodes"
 msgstr "Ersätt i alla poster"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:134
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:136
 msgid "Search in Selected Node and Subnodes"
 msgstr "Sök i markerad post med underposter"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:134
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:136
 msgid "Search in All Nodes"
 msgstr "Sök i alla poster"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:256
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:260
 msgid "Replace in Node Names..."
 msgstr "Ersätt i postnamn..."
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:256
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:260
 msgid "Search For a Node Name..."
 msgstr "Sök efter ett postnamn..."
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:331
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:336
 msgid "No Previous Search Was Performed During This Session"
 msgstr "Ingen sökning har utförts tidigare under denna session"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:421
-msgid "Search for"
-msgstr "Sök efter"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:431
-msgid "Replace with"
-msgstr "Ersätt med"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:447
-msgid "Match Case"
-msgstr "Skiftläge"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:449
-msgid "Regular Expression"
-msgstr "Regular Expression"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:451
-msgid "Whole Word"
-msgstr "Hela ord"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:453
-msgid "Start Word"
-msgstr "Startord"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:455
-msgid "Forward"
-msgstr "Framåt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:457
-msgid "Backward"
-msgstr "Tillbaka"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:460
-msgid "All, List Matches"
-msgstr "Alla, listmatchningar"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:462
-msgid "First From Selection"
-msgstr "Första i markerat"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:465
-msgid "First in All Range"
-msgstr "Första i hela intervallet"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:476
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:527
-msgid "Node Created After"
-msgstr "Post skapad efter"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:483
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:529
-msgid "Node Created Before"
-msgstr "Post skapad före"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:490
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:531
-msgid "Node Modified After"
-msgstr "Post ändrad efter"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:497
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:533
-msgid "Node Modified Before"
-msgstr "Post ändrad före"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:515
-msgid "Time filter"
-msgstr "Tidsfilter"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:535
-msgid "Show Iterated Find/Replace Dialog"
-msgstr "Visa upprepad dialog för Sök/Ersätt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:559
-msgid "Search options"
-msgstr "Sökalternativ"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:1007
-msgid "Iterate Latest Find/Replace"
-msgstr "Upprepa senaste Sök/Ersätt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:1008
-msgid "Close"
-msgstr "Stäng"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:1009
-msgid "Find Previous"
-msgstr "Sök föregående"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:1010
-msgid "Find Next"
-msgstr "Sök nästa"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:1011
-msgid "Replace"
-msgstr "Ersätt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:1012
-msgid "Undo"
-msgstr "Ångra"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:106
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:113
 msgid "CherryTree Hierarchical Note Taking"
 msgstr "CherryTree hierarkiska anteckningar"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:371
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:120
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:236
+msgid "Show/Hide _CherryTree"
+msgstr "Visa/Dölj _CherryTree"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:120
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:236
+msgid "Toggle Show/Hide CherryTree"
+msgstr "Visa/Dölj CherryTree"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:122
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:81
+msgid "_Exit CherryTree"
+msgstr "Avsluta CherryTree"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:122
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:81
+msgid "Exit from CherryTree"
+msgstr "Avsluta CherryTree"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:382
 msgid "Print CherryTree version"
 msgstr "Skriv ut CherryTree-version"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:372
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:383
 msgid "Node name to focus"
 msgstr "Postnamn att fokusera"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:373
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:384
 msgid "Export to HTML at specified directory path"
 msgstr "Exportera till HTML på angiven mappsökväg"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:374
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:385
 msgid "Export to Text at specified directory path"
 msgstr "Exportera till text på angiven mappsökväg"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:375
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:386
 msgid "Export to PDF at specified directory path"
 msgstr "Exportera till PDF på angiven mappsökväg"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:376
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:387
 msgid "Overwrite if export path already exists"
 msgstr "Skriv över om exportsökvägen redan finns"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:377
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:388
 msgid "Export to a single file (for HTML or TXT)"
 msgstr "Exportera till en enskild fil (för HTML och TXT)"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:378
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:389
 msgid "Create a new window"
 msgstr "Skapa ett nytt fönster"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:104
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:115
-msgid "Pandoc executable could not be found, please ensure it is in your path"
-msgstr "Körbar Pandoc kunde inte hittas, tillse att den finns på din sökväg"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:234
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:38
 msgid "Who is the Parent?"
 msgstr "Vilken är den överordnade?"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:242
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:48
 msgid "The Tree Root"
 msgstr "Trädroten"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:243
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:49
 msgid "The Selected Node"
 msgstr "Markerad post"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:157
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:168
+msgid "Pandoc executable could not be found, please ensure it is in your path"
+msgstr "Körbar Pandoc kunde inte hittas, tillse att den finns på din sökväg"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:82
 msgid "No Previous Text Format Was Performed During This Session"
 msgstr "Ingen textformatering har utförts tidigare under denna session"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:101
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:337
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:867
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:313
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:907
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:76
 msgid "No Text is Selected"
 msgstr "Ingen text markerad"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:344
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:321
 msgid "Link Name"
 msgstr "Länknamn"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:362
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:342
 msgid "The Cursor is Not into a Paragraph"
 msgstr "Markören är inte i något stycke"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:381
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:253
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:361
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:260
 msgid "Insert/Edit Link"
 msgstr "Infoga/Redigera länk"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:389
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:370
 msgid "Pick a Foreground Color"
 msgstr "Välj en förgrundsfärg"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:389
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:370
 msgid "Pick a Background Color"
 msgstr "Välj en bakgrundsfärg"
 
@@ -2263,128 +831,118 @@ msgstr "Du använder den senaste versionen"
 msgid "You Are Using a Development Version"
 msgstr "Du använder en utvecklingsversion"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:853
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:449
 #, c-format
 msgid "The Document %s was Not Found"
 msgstr "Dokumentet \"%s\" hittades inte"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:887
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:467
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:57
+msgid "Open a Recent CherryTree Document"
+msgstr "Öppna ett tidigare CherryTree-dokument"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:479
 msgid "Hide"
 msgstr "Dölj"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:887
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:479
 msgid "Quit"
 msgstr "Avsluta"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:888
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:480
 msgid "Hide the Window"
 msgstr "Dölj fönstret"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:980
-#, c-format
-msgid "\"%s\" is Not a CherryTree Document"
-msgstr "\"%s\" är inte ett CherryTree-dokument"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:480
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:80
+msgid "Quit the Application"
+msgstr "Avsluta programmet"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:997
-#, c-format
-msgid ""
-"Error Parsing the CherryTree File:\n"
-"\"%s\""
-msgstr ""
-"Fel vid tolkning av CherryTree-filen:\n"
-"\"%s\""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:1077
-msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "Temporära filer skapades och öppnades med externa program."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:1078
-msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "Avsluta externa program innan CherryTree avslutas."
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:1079
-msgid "Did you Quit the External Applications?"
-msgstr "Har du avslutat de externa programmen?"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:1208
-msgid "The Document was Reloaded After External Update to CT* File"
-msgstr "Dokumentet lästes in igen, efter extern uppdatering till CT*-fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:1278
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1024
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:573
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:242
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:35
 msgid "No Node is Selected"
 msgstr "Ingen kod vald"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:1283
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1716
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:577
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:110
 msgid "Node Type"
 msgstr "Posttyp"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:1283
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:1299
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:1303
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:1307
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:1312
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:1317
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:577
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:589
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:592
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:595
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:599
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:603
 msgid ": "
 msgstr ": "
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:1299
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:589
 msgid "Tags"
 msgstr "Taggar"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:1303
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:49
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:592
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:47
 msgid "Spell Check"
 msgstr "Stavningskontroll"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:1307
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:595
 msgid "Word Count"
 msgstr "Ordräkning"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:1312
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:599
 msgid "Date Created"
 msgstr "Skapad"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:1317
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:603
 msgid "Date Modified"
 msgstr "Ändrad"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:2125
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:545
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:562
-msgid "The new parent can't be one of his children!"
-msgstr "Den nya överordnade mappen kan inte vara en av dess underordnade!"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:63
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:62
 msgid "Change Selected"
 msgstr "Ändra markerat"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:113
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:123
 #, c-format
 msgid "The Keyboard Shortcut '%s' is already in use"
 msgstr "Tangenbordsgenvägen \"%s\" används redan"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:114
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:124
 #, c-format
 msgid "The current associated action is '%s'"
 msgstr "Nuvarande associerad åtgärd är \"%s\""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:115
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:125
 msgid "Do you want to steal the shortcut?"
 msgstr "Vill du stjäla genvägen?"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:135
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:145
 msgid "Edit Keyboard Shortcut"
 msgstr "Redigera tangentbordsgenväg"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:141
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:153
 msgid "No Keyboard Shortcut"
 msgstr "Ingen tangentbordsgenväg"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.cc:81
-#: /home/giuseppe/git/cherrytree/src/ct/ct_parser_html.cc:591
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:122
+msgid "Anchor Name (optional)"
+msgstr "Fästpunktsnamn (valfritt)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:253
+msgid "There are No Anchors in the Selected Node"
+msgstr "Det finns inga fästpunkter i markerad post"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:260
+msgid "Choose Existing Anchor"
+msgstr "Välj befintlig fästpunkt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:260
+msgid "Anchor Name"
+msgstr "Fästpunktsnamn"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.cc:80
+#: /home/giuseppe/git/cherrytree/src/ct/ct_parser_html.cc:593
 msgid "Downloading"
 msgstr "Nerladdning"
 
@@ -2393,7 +951,7 @@ msgstr "Nerladdning"
 msgid "The database file %s is corrupt, see log for more details"
 msgstr "Databasfilen %s är skadad, se loggen för mer detaljerad info"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_sqlite.cc:210
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_sqlite.cc:207
 #, c-format
 msgid ""
 "%s write failed - file is missing. Reattach usb driver or shared resource"
@@ -2401,94 +959,98 @@ msgstr ""
 "%s skrivning misslyckades - Filen saknas. Återanslut USB-disk eller delad "
 "resurs"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_sqlite.cc:213
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_sqlite.cc:210
 #, c-format
 msgid "%s write failed - is file blocked by a sync program?"
 msgstr ""
 "%s skrivning misslyckades - Är filen blockerad av ett synkroniseringsprogram?"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:71
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:87
 msgid "Image Format Not Recognized"
 msgstr "Bildformatet kan inte identifieras"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:79
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:95
 msgid "Insert Table"
 msgstr "Infoga tabell"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:94
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:704
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:111
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:712
 msgid "CSV File"
 msgstr "CSV-fil"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:177
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:155
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:87
+msgid "Insert a CodeBox"
+msgstr "Infoga en kodbox"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:199
 #, c-format
 msgid "The Maximum Size for Embedded Files is %s MB"
 msgstr "Maximal storlek på inbäddade filer är %s MB"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:179
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:201
 msgid "Do you want to Continue?"
 msgstr "Vill du fortsätta?"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:813
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:847
 msgid "Lines Stripped"
 msgstr "Rader rensade"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:821
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:855
 msgid "Image Properties"
 msgstr "Bildegenskaper"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:33
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:31
 msgid "Tab Width"
 msgstr "Tabulatorbredd"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:39
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:37
 msgid "Insert Spaces Instead of Tabs"
 msgstr "Infoga blanksteg istället för tabbar"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:41
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:39
 msgid "Use Line Wrapping"
 msgstr "Använd radbrytning"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:45
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:43
 msgid "Line Wrapping Indentation"
 msgstr "Radbrytningsindrag"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:52
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:50
 msgid "Enable Automatic Indentation"
 msgstr "Aktivera automatiskt indrag"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:54
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1389
-msgid "Show Line Numbers"
-msgstr "Visa radnummer"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:56
 msgid "Scroll Beyond Last Line"
 msgstr "Skrolla bortom sista raden"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:60
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:58
 msgid "Vertical Space Around Lines"
 msgstr "Vertikalt mellanrum runt rader"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:70
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:68
 msgid "Vertical Space in Wrapped Lines"
 msgstr "Vertikalt mellanrum i radbrutna rader"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:93
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:119
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:44
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:91
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:117
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:42
 msgid "Text Editor"
 msgstr "Textredigerare"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:97
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:95
 msgid "Timestamp Format"
 msgstr "Tidsstämpelformat"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:108
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:101
+msgid "Online Manual"
+msgstr "Online-manual"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:107
 msgid "Horizontal Rule"
 msgstr "Horisontell avgränsare"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:121
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:120
 msgid "Chars to Select at Double Click"
 msgstr "Tecken att välja vid dubbelklick"
 
@@ -2510,193 +1072,50 @@ msgstr "Du har inte skrivbehörighet i %s"
 msgid "Enter Password for %s"
 msgstr "Ange lösenord för %s"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:130
-msgid "Involved Nodes"
-msgstr "Involverade poster"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:33
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:153
+msgid "Handle the Bookmarks List"
+msgstr "Hantera bokmärkeslistan"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:140
-msgid "Selected Text Only"
-msgstr "Endast markerad text"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:141
-msgid "Selected Node Only"
-msgstr "Endast markerad post"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:142
-msgid "Selected Node and Subnodes"
-msgstr "Markerad post med underposter"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:143
-msgid "All the Tree"
-msgstr "Hela trädet"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:158
-msgid "Include Node Name"
-msgstr "Inkludera postnamn"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:166
-msgid "Links Tree in Every Page"
-msgstr "Länkträd på varje sida"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:173
-msgid "New Node in New Page"
-msgstr "Ny post på ny sida"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:179
-msgid "Single File"
-msgstr "Enskild fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:211
-msgid "Remove Color"
-msgstr "Ta bort färg"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:264
-msgid "Question"
-msgstr "Fråga"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:280
-msgid "Info"
-msgstr "Info"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:295
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1880
-msgid "Warning"
-msgstr "Varning"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:310
-msgid "Error"
-msgstr "Fel"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:445
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:61
 msgid "Move the Selected Bookmark Up"
 msgstr "Flytta upp markerat bokmärke"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:448
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:64
 msgid "Move the Selected Bookmark Down"
 msgstr "Flytta ner markerat bokmärke"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:451
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:67
 msgid "Remove the Selected Bookmark"
 msgstr "Ta bort markerat bokmärke"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:454
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:70
 msgid "Sort the Bookmarks Descending"
 msgstr "Sortera bokmärken sjunkande"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:457
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:73
 msgid "Sort the Bookmarks Ascending"
 msgstr "Sortera bokmärken stigande"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:676
-#, c-format
-msgid "Hide (Restore with '%s')"
-msgstr "Dölj (återställ med \"%s\")"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:680
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1680
-msgid "Node Name"
-msgstr "Postnamn"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:681
-msgid "Line"
-msgstr "Rad"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:682
-msgid "Line Content"
-msgstr "Radinnehåll"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:703
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:326
-#, c-format
-msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr "Länken pekar mot en post som inte finns längre (ID=%s)"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:881
-msgid "Anchor Name (optional)"
-msgstr "Fästpunktsnamn (valfritt)"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1038
-msgid "There are No Anchors in the Selected Node"
-msgstr "Det finns inga fästpunkter i markerad post"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1047
-msgid "Choose Existing Anchor"
-msgstr "Välj befintlig fästpunkt"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1047
-msgid "Anchor Name"
-msgstr "Fästpunktsnamn"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1127
-msgid "Select File"
-msgstr "Välj fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1152
-msgid "Select Folder"
-msgstr "Välj mappa"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1167
-msgid "Save File as"
-msgstr "Spara fil som"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1228
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1350
-msgid "Width"
-msgstr "Bredd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1231
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1354
-msgid "Height"
-msgstr "Höjd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1330
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1419
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1687
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1753
-msgid "Automatic Syntax Highlighting"
-msgstr "Automatisk syntaxmarkering"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1345
-msgid "Type"
-msgstr "Typ"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1359
-msgid "pixels"
-msgstr "bildpunkter"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1384
-msgid "Size"
-msgstr "Storlek"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1391
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:37
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:57
-msgid "Highlight Matching Brackets"
-msgstr "Belys matchande klamrar"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1400
-msgid "Options"
-msgstr "Alternativ"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1492
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:213
 msgid "Choose Storage Type"
 msgstr "Välj lagringstyp"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1502
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1505
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:223
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:226
 msgid "Not Protected"
 msgstr "Inte skyddad"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1504
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1506
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:225
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:227
 msgid "Password Protected"
 msgstr "Lösenordsskyddad"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1514
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:235
 msgid "Storage Type"
 msgstr "Lagringstyp"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1523
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:244
 msgid ""
 "CT saves the document in an encrypted 7zip archive. When viewing or editing "
 "the document, CT extracts the encrypted archive to a temporary folder, and "
@@ -2711,69 +1130,27 @@ msgstr ""
 "eller systemet kraschar, kvarstår det avkrypterade dokumentet i den "
 "temporära mappen."
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1531
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:252
 msgid "Enter the New Password Twice"
 msgstr "Ange det nya lösenordet två gånger"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1614
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:333
 msgid "The Password Fields Must be Filled"
 msgstr "Lösenordsfältet måste fyllas i"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1619
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:338
 msgid "The Two Inserted Passwords Do Not Match"
 msgstr "De två angivna lösenorden stämmer inte överens"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1648
-msgid "Bold"
-msgstr "Fet"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1652
-msgid "Use Selected Color"
-msgstr "Använd vald färg"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1658
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:34
-msgid "Use Selected Icon"
-msgstr "Använd vald ikon"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1667
-msgid "click me"
-msgstr "klicka mig"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1730
-msgid "Tags for Searching"
-msgstr "Taggar för sökning"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1734
-msgid "Read Only"
-msgstr "Skrivskyddad"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1773
-msgid "Choose Existing Tag"
-msgstr "Välj befintlig tagg"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1773
-msgid "Tag Name"
-msgstr "Taggnamn"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1798
-msgid "Pick a Color"
-msgstr "Välj en färg"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1814
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:166
-msgid "Select Node Icon"
-msgstr "Välj postikon"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1891
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:359
 msgid "The Current Document was Updated."
 msgstr "Aktuellt dokument uppdaterades."
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1891
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:359
 msgid "Do you want to Save the Changes?"
 msgstr "Vill du spara ändringarna?"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1939
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:404
 msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
 "Highlighting"
@@ -2781,7 +1158,7 @@ msgstr ""
 "Ett hierarkiskt anteckningsprogram, innehållande både Rich Text och "
 "syntaxmarkering"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:1940
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:405
 msgid ""
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
@@ -2814,119 +1191,105 @@ msgstr ""
 "det här programmet. Om inte, skriv till Free Software Foundation, Inc., \n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:2223
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:448
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:215
+msgid "About CherryTree"
+msgstr "Om CherryTree"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:463
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:79
+msgid "Tree Summary Information"
+msgstr "Sammanfattad trädinformation"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:475
 msgid "Number of Rich Text Nodes"
 msgstr "Antal Rich Text-poster"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:2228
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:480
 msgid "Number of Plain Text Nodes"
 msgstr "Antal oformaterade textposter"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:2233
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:485
 msgid "Number of Code Nodes"
 msgstr "Antal kodposter"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:2238
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:490
 msgid "Number of Images"
 msgstr "Antal bilder"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:2243
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:495
 msgid "Number of Embedded Files"
 msgstr "Antal inbäddade filer"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:2248
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:500
 msgid "Number of Tables"
 msgstr "Antal tabeller"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:2253
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:505
 msgid "Number of CodeBoxes"
 msgstr "Antal kodboxar"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:2258
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:510
 msgid "Number of Anchors"
 msgstr "Antal fästpunkter"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:2280
-msgid "Rows"
-msgstr "Rader"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:2286
-msgid "Columns"
-msgstr "Kolumner"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:2292
-msgid "Default Width"
-msgstr "Standardbredd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:2298
-msgid "Table Size"
-msgstr "Tabellstorlek"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:2301
-msgid "Column Properties"
-msgstr "Kolumnegenskaper"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:2323
-msgid "Import from CSV File"
-msgstr "Importera från CSV-fil"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:34
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:32
 msgid "Light Background, Dark Text"
 msgstr "Ljus bakgrund, mörk text"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:35
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:33
 msgid "Dark Background, Light Text"
 msgstr "Mörk bakgrund, ljus text"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:37
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:35
 msgid "Custom Background"
 msgstr "Anpassad bakgrund"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:41
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:39
 msgid "and Text"
 msgstr "och text"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:86
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:84
 msgid "Table"
 msgstr "Tabell"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:93
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:91
 msgid "Code"
 msgstr "Kod"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:111
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:109
 msgid "Style Schemes"
 msgstr "Stilscheman"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:162
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:159
 msgid "Text Foreground"
 msgstr "Textförgrund"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:164
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:161
 msgid "Text Background"
 msgstr "Textbakgrund"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:166
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:163
 msgid "Selection Foreground"
 msgstr "Markeringsförgrund"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:168
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:165
 msgid "Selection Background"
 msgstr "Markeringsbakgrund"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:170
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:167
 msgid "Cursor"
 msgstr "Markör"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:172
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:169
 msgid "Current Line Background"
 msgstr "Bakgrund för aktuell rad"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:174
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:171
 msgid "Line Numbers Foreground"
 msgstr "Radnummerförgrund"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:176
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:173
 msgid "Line Numbers Background"
 msgstr "Bakgrund för radnummer"
 
@@ -2997,101 +1360,187 @@ msgstr "Ny överordnad kan inte vara den post som flyttas!"
 msgid "The new chosen parent is still the old parent!"
 msgstr "Ny överordnad är fortfarande den gamla!"
 
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:545
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:562
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_events.cc:587
+msgid "The new parent can't be one of his children!"
+msgstr "Den nya överordnade mappen kan inte vara en av dess underordnade!"
+
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_export.cc:352
 msgid "PDF File"
 msgstr "PDF-fil"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_export.cc:373
+#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:167
 msgid "Plain Text Document"
 msgstr "Oformaterat textdokument"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:61
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:59
 msgid "Chars for Bulleted List"
 msgstr "Tecken för punktlista"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:70
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:68
 msgid "Chars for Todo List"
 msgstr "Tecken för Att-göra-listan"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:79
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:77
 msgid "Chars for Table Of Content"
 msgstr "Tecken för tabell över innehåll"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:88
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:86
 msgid "Chars for Smart Double Quotes"
 msgstr "Tecken för smarta dubbla citattecken"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:97
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:95
 msgid "Chars for Smart Single Quotes"
 msgstr "Tecken för smarta enkla citattecken"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:105
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:103
 msgid "Enable Smart Quotes Auto Replacement"
 msgstr "Aktivera automatisk ersättning av smarta citationstecken"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:106
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:104
 msgid "Enable Symbol Auto Replacement"
 msgstr "Aktivera automatisk ersättning av tecken"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:33
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:53
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:31
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:51
 msgid "Show White Spaces"
 msgstr "Visa blanksteg"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:35
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:55
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:33
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:53
 msgid "Highlight Current Line"
 msgstr "Belys aktuell rad"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:93
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:91
 msgid "Command per Node/CodeBox Type"
 msgstr "Kommando per post/kodboxtyp"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:97
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:95
 msgid "Terminal Command"
 msgstr "Terminalkommando"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:102
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:100
 msgid "Code Execution"
 msgstr "Kodexekvering"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:180
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:48
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:208
+msgid "Bold"
+msgstr "Fet"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:52
+msgid "Use Selected Color"
+msgstr "Använd vald färg"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:58
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:32
+msgid "Use Selected Icon"
+msgstr "Använd vald ikon"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:65
+msgid "click me"
+msgstr "klicka mig"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:124
+msgid "Tags for Searching"
+msgstr "Taggar för sökning"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:128
+msgid "Read Only"
+msgstr "Skrivskyddad"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:172
+msgid "Choose Existing Tag"
+msgstr "Välj befintlig tagg"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:172
+msgid "Tag Name"
+msgstr "Taggnamn"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:191
+msgid "Pick a Color"
+msgstr "Välj en färg"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:205
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:160
+msgid "Select Node Icon"
+msgstr "Välj postikon"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:364
+msgid "Involved Nodes"
+msgstr "Involverade poster"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:373
+msgid "Selected Text Only"
+msgstr "Endast markerad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:374
+msgid "Selected Node Only"
+msgstr "Endast markerad post"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:375
+msgid "Selected Node and Subnodes"
+msgstr "Markerad post med underposter"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:376
+msgid "All the Tree"
+msgstr "Hela trädet"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:390
+msgid "Include Node Name"
+msgstr "Inkludera postnamn"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:397
+msgid "Links Tree in Every Page"
+msgstr "Länkträd på varje sida"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:403
+msgid "New Node in New Page"
+msgstr "Ny post på ny sida"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:408
+msgid "Single File"
+msgstr "Enskild fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:185
 msgid "Rename"
 msgstr "Byt namn"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:194
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:199
 msgid "PNG Image"
 msgstr "PNG-bild"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:206
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:211
 #, c-format
 msgid "Write to %s Failed"
 msgstr "Kunde inte skriva till %s"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:302
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:307
 #, c-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "Fillänken \"%s\" är inte giltig"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:314
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:318
 #, c-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "Mapplänken \"%s\" är inte giltig"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:345
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:350
 #, c-format
 msgid "No anchor named '%s' found"
 msgstr "Ingen fästpunkt kallad \"%s\" hittades"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:405
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:410
 msgid "Edit CodeBox"
 msgstr "Redigera kodbox"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:429
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:434
 msgid "No CodeBox is Selected"
 msgstr "Ingen kodbox vald"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:437
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:442
 #, c-format
 msgid ""
 "You must associate a command to '%s'.\n"
@@ -3100,11 +1549,11 @@ msgstr ""
 "Du måste associera ett kommando med \"%s\".\n"
 "Gör så i inställningarna."
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:449
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:454
 msgid "Do you want to Execute the Code?"
 msgstr "Vill du köra koden?"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:467
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:471
 msgid ""
 "Install the package 'xterm' or configure a different terminal in the "
 "Preferences Dialog"
@@ -3112,119 +1561,147 @@ msgstr ""
 "Installera paketet \"xterm\" eller konfigurera en annan terminal i "
 "inställningarna"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:693
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:701
 msgid "Edit Table Properties"
 msgstr "Redigera tabellegenskaper"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:728
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:737
 msgid "Insert Anchor"
 msgstr "Infoga fästpunkt"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:728
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:737
 msgid "Edit Anchor"
 msgstr "Redigera fästpunkt"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:769
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:773
 msgid "Cannot Edit Embedded File in Read Only Node"
 msgstr "Kan inte redigera inbäddad fil i skrivskyddad post"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:784
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:786
 msgid "Embedded File Automatically Updated:"
 msgstr "Inbäddad fil automatiskt uppdaterad:"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:32
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:30
 msgid "Enable Spell Check"
 msgstr "Aktivera stavningskontroll"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:36
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:34
 msgid "Spell Check Language"
 msgstr "Stavningsspråk"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:59
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:57
 msgid "Expand CodeBoxes Automatically"
 msgstr "Expandera kodboxar automatiskt"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:62
-msgid "Monospace Background"
-msgstr "Bakgrund för fastbredd"
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:74
 msgid "Embedded File Icon Size"
 msgstr "Ikonstorlek för inbäddad fil"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:83
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:71
 msgid "Embedded File Size Limit"
 msgstr "Inbäddad filstorleksgräns"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:90
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:78
 msgid "Show File Name on Top of Embedded File Icon"
 msgstr "Visa filnamn ovanför ikon för inbäddad fil"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:92
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:80
 msgid "Limit of Undoable Steps Per Node"
 msgstr "Gräns för ångrade steg per post"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:98
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:86
 msgid "At Triple Click Select the Whole Paragraph"
 msgstr "Markera hela stycket vid trippelklick"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:101
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:89
 msgid "Enable Markdown Auto Replacement (Experimental)"
 msgstr "Aktivera automatisk ersättning av Markdown (Experimentellt)"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:33
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:204
+msgid "Scale"
+msgstr "Skala"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:209
+msgid "Italic"
+msgstr "Kursiv"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:210
+msgid "Underline"
+msgstr "Stryk under"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:225
+msgid "Text Color Foreground"
+msgstr "Textfärg förgrund"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:228
+msgid "Text Color Background"
+msgstr "Textfärgs bakgrund"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:244
+msgid "Small"
+msgstr "Liten"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:249
+msgid "Monospace Text Color Background"
+msgstr "Monospace textfärg bakgrund"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:260
+msgid "Scalable Tags"
+msgstr "Skalbara taggar"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:31
 msgid "Use Different Cherries per Level"
 msgstr "Använd olika körsbär per nivå"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:36
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:34
 msgid "No Icon"
 msgstr "Ingen ikon"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:38
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:36
 msgid "Hide Right Side Auxiliary Icon"
 msgstr "Dölj extraikon på höger sida"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:52
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:49
 msgid "Default Text Nodes Icons"
 msgstr "Standardikoner för textposter"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:60
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:57
 msgid "Restore Expanded/Collapsed Status"
 msgstr "Återställ status för expandera/komprimera"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:61
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:58
 msgid "Expand all Nodes"
 msgstr "Expandera alla poster"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:63
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:60
 msgid "Collapse all Nodes"
 msgstr "Komprimera alla poster"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:65
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:62
 msgid "Nodes in Bookmarks Always Visible"
 msgstr "Poster i bokmärken alltid synliga"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:73
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:70
 msgid "Nodes Status at Startup"
 msgstr "Poststatus vid uppstart"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:82
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:78
 msgid "Tree Nodes Names Wrapping Width"
 msgstr "Radbrytningsbredd för trädposter"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:90
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:86
 msgid "Display Tree on the Right Side"
 msgstr "Visa trädet på höger sida"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:92
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:88
 msgid "Move Focus to Text at Mouse Click"
 msgstr "Flytta fokus till text vid musklick"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:94
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:90
 msgid "Expand Node at Mouse Click"
 msgstr "Expandera post vid musklick"
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:98
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:93
 msgid "Last Visited Nodes on Node Name Header"
 msgstr "Senast besökta poster i postrubriken"
 
@@ -3235,6 +1712,1658 @@ msgstr "Storleken på verktygsfältets ikoner är redan största möjliga"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_view.cc:91
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "Storleken på verktygsfältets ikoner är redan minsta möjliga"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:41
+msgid "_File"
+msgstr "_Arkiv"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:42
+msgid "_Edit"
+msgstr "_Redigera"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:43
+msgid "_Insert"
+msgstr "_Infoga"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:44
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:67
+msgid "_Format"
+msgstr "_Formatera"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:45
+msgid "_Tree"
+msgstr "_Träd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:46
+msgid "_Tools"
+msgstr "_Verktyg"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:47
+msgid "_Search"
+msgstr "_Sök"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:48
+msgid "_View"
+msgstr "_Visa"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:49
+msgid "_Help"
+msgstr "_Hjälp"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:52
+msgid "Node _Move"
+msgstr "_Flytta post"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:53
+msgid "Nodes _Sort"
+msgstr "_Sortera poster"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:54
+msgid "_Bookmarks"
+msgstr "_Bokmärken"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:55
+msgid "_Import"
+msgstr "_Importera"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:56
+msgid "_Export"
+msgstr "_Exportera"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:57
+msgid "_Recent Documents"
+msgstr "_Tidigare dokument"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:58
+msgid "C_hange Case"
+msgstr "_Ändra skiftläge"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:59
+msgid "_List"
+msgstr "_Lista"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:60
+msgid "_Justify"
+msgstr "_Justera"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:61
+msgid "_Toggle Font Property"
+msgstr "Växla _Teckensnittsegenskap"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:62
+msgid "_Toggle Heading Property"
+msgstr "Växla _rubrikegenskap"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:63
+msgid "I_nsert"
+msgstr "_Infoga"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:64
+msgid "_Find"
+msgstr "_Sök"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:65
+msgid "_Replace"
+msgstr "_Ersätt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:66
+msgid "_Row"
+msgstr "_Rad"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:70
+msgid "File"
+msgstr "Arkiv"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:71
+msgid "New _Instance"
+msgstr "Ny _instans"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:71
+msgid "Start a New Instance of CherryTree"
+msgstr "Starta en ny instans av CherryTree"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:72
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:227
+msgid "_Open File"
+msgstr "_Öppna fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:73
+msgid "_Save"
+msgstr "_Spara"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:73
+msgid "Save File"
+msgstr "Spara fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:74
+msgid "Save and _Vacuum"
+msgstr "Spara och _dammsug"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:74
+msgid "Save File and Vacuum"
+msgstr "Spara fil och dammsug"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:75
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:226
+msgid "Save _As"
+msgstr "S_para som"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:75
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:226
+msgid "Save File As"
+msgstr "Spara fil som"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:76
+msgid "Pa_ge Setup"
+msgstr "_Utskriftsinställningar"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:76
+msgid "Set up the Page for Printing"
+msgstr "Ställ in sidan för utskrift"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:77
+msgid "_Print"
+msgstr "_Skriv ut"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:77
+msgid "Print"
+msgstr "Skriv ut"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:78
+msgid "_Preferences"
+msgstr "_Inställningar"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:79
+msgid "Tree _Info"
+msgstr "Träd_information"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:80
+msgid "_Quit"
+msgstr "A_vsluta"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:82
+msgid "Edit/Insert"
+msgstr "Redigera/Infoga"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:83
+msgid "_Undo"
+msgstr "_Ångra"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:83
+msgid "Undo Last Operation"
+msgstr "Ångra senaste åtgärden"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:84
+msgid "_Redo"
+msgstr "_Upprepa"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:84
+msgid "Redo Previously Discarded Operation"
+msgstr "Upprepa tidigare ångrad åtgärd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:85
+msgid "Insert I_mage"
+msgstr "Infoga b_ild"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:85
+msgid "Insert an Image"
+msgstr "Infoga en bild"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:86
+msgid "Insert _Table"
+msgstr "Infoga _tabell"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:86
+msgid "Insert a Table"
+msgstr "Infoga en tabell"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:87
+msgid "Insert _CodeBox"
+msgstr "Infoga en _kodbox"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:88
+msgid "Insert _File"
+msgstr "Infoga _fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:88
+msgid "Insert File"
+msgstr "Infoga fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:89
+msgid "Insert/Edit _Link"
+msgstr "Infoga/Redigera _länk"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:89
+msgid "Insert a Link/Edit the Underlying Link"
+msgstr "Infoga en länk/Redigera den underliggande länken"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:90
+msgid "Insert _Anchor"
+msgstr "Infoga en _fästpunkt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:90
+msgid "Insert an Anchor"
+msgstr "Infoga en fästpunkt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:91
+msgid "Insert T_OC"
+msgstr "Infoga T_OC"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:91
+msgid "Insert Table of Contents"
+msgstr "Infoga tabell över innehåll"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:92
+msgid "Insert Ti_mestamp"
+msgstr "Infoga ti_dsstämpel"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:92
+msgid "Insert Timestamp"
+msgstr "Infoga tidsstämpel"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:93
+msgid "Insert _Special Character"
+msgstr "Infoga _specialtecken"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:93
+msgid "Insert a Special Character"
+msgstr "Infoga ett specialtecken"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:94
+msgid "Insert _Horizontal Rule"
+msgstr "Infoga _horisontell avgränsare"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:94
+msgid "Insert Horizontal Rule"
+msgstr "Infoga horisontell avgränsare"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:95
+msgid "_Lower Case of Selection/Word"
+msgstr "_Gemener för markering/ord"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:95
+msgid "Lower the Case of the Selection/the Underlying Word"
+msgstr "Ändra till gemener i markering/det underliggande ordet"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:96
+msgid "_Upper Case of Selection/Word"
+msgstr "_Versal för markering/ord"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:96
+msgid "Upper the Case of the Selection/the Underlying Word"
+msgstr "Versal för markering/underliggande ord"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:97
+msgid "_Toggle Case of Selection/Word"
+msgstr "_Växla skiftläge för markering/ord"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:97
+msgid "Toggle the Case of the Selection/the Underlying Word"
+msgstr "Växla skiftläge för markering/underliggande ord"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:98
+msgid "Cu_t as Plain Text"
+msgstr "Klipp ut som _oformaterad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:98
+msgid "Cut as Plain Text, Discard the Rich Text Formatting"
+msgstr "Klipp ut som oformaterad text, ta bort Rich Text-formateringen"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:99
+msgid "_Copy as Plain Text"
+msgstr "_Kopiera som oformaterad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:99
+msgid "Copy as Plain Text, Discard the Rich Text Formatting"
+msgstr "Kopiera som oformaterad text, ta bort Rich Text-formateringen"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:100
+msgid "_Paste as Plain Text"
+msgstr "_Klistra in som oformaterad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:100
+msgid "Paste as Plain Text, Discard the Rich Text Formatting"
+msgstr "Klistra in som oformaterad text, ta bort Rich Text-formateringen"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:101
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:263
+msgid "Cu_t Row"
+msgstr "Klipp ut _rad"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:101
+msgid "Cut the Current Row/Selected Rows"
+msgstr "Klipp ut aktuell rad/markerade rader"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:102
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:264
+msgid "_Copy Row"
+msgstr "_Kopiera rad"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:102
+msgid "Copy the Current Row/Selected Rows"
+msgstr "Kopiera aktuell rad/markerade rader"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:103
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:266
+msgid "De_lete Row"
+msgstr "T_a bort rad"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:103
+msgid "Delete the Current Row/Selected Rows"
+msgstr "Ta bort aktuell rad/markerade rader"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:104
+msgid "_Duplicate Row"
+msgstr "_Klona rad"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:104
+msgid "Duplicate the Current Row/Selection"
+msgstr "Klona aktuell rad/markering"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:105
+msgid "Move _Up Row"
+msgstr "Flytta _upp rad"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:105
+msgid "Move Up the Current Row/Selected Rows"
+msgstr "Flytta upp aktuell rad/markerade rader"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:106
+msgid "Move _Down Row"
+msgstr "Flytta _ner kolumn"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:106
+msgid "Move Down the Current Row/Selected Rows"
+msgstr "Flytta ner aktuell rad/markerade rader"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:108
+msgid "Format C_lone"
+msgstr "Formatera k_lon"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:108
+msgid "Clone the Text Format Type at Cursor"
+msgstr "Klona textformattyp vid markören"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:109
+msgid "Format _Latest"
+msgstr "Formatera _senaste"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:109
+msgid "Memory of Latest Text Format Type"
+msgstr "Minne för senaste textformattyp"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:110
+msgid "_Remove Formatting"
+msgstr "_Ta bort formatering"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:110
+msgid "Remove the Formatting from the Selected Text"
+msgstr "Ta bort formateringen från markerad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:111
+msgid "Text _Color Foreground"
+msgstr "Textfärg _förgrund"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:111
+msgid "Change the Color of the Selected Text Foreground"
+msgstr "Ändra färg på markerad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:112
+msgid "Text C_olor Background"
+msgstr "Textfärg _bakgrund"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:112
+msgid "Change the Color of the Selected Text Background"
+msgstr "Ändra färg på markerad textbakgrund"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:113
+msgid "Toggle _Bold Property"
+msgstr "_Fet stil på/av"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:113
+msgid "Toggle Bold Property of the Selected Text"
+msgstr "Fet stil på/av för markerad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:114
+msgid "Toggle _Italic Property"
+msgstr "_Kursiv stil på/av"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:114
+msgid "Toggle Italic Property of the Selected Text"
+msgstr "Kursiv stil på/av för markerad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:115
+msgid "Toggle _Underline Property"
+msgstr "Understruken stil på/av"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:115
+msgid "Toggle Underline Property of the Selected Text"
+msgstr "Understruken stil på/av för markerad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:116
+msgid "Toggle Stri_kethrough Property"
+msgstr "Genomstruken stil på/av"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:116
+msgid "Toggle Strikethrough Property of the Selected Text"
+msgstr "Genomstruken stil på/av för markerad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:117
+msgid "Toggle h_1 Property"
+msgstr "H1 på/av"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:117
+msgid "Toggle h1 Property of the Selected Text"
+msgstr "H1 på/av för markerad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:118
+msgid "Toggle h_2 Property"
+msgstr "H2 på/av"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:118
+msgid "Toggle h2 Property of the Selected Text"
+msgstr "H2 på/av för markerad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:119
+msgid "Toggle h_3 Property"
+msgstr "H3 på/av"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:119
+msgid "Toggle h3 Property of the Selected Text"
+msgstr "H3 på/av för markerad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:120
+msgid "Toggle h_4 Property"
+msgstr "Växla H_4-egenskap"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:120
+msgid "Toggle h4 Property of the Selected Text"
+msgstr "Växla H4-egenskap för markerad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:121
+msgid "Toggle h_5 Property"
+msgstr "Växla H_5-egenskap"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:121
+msgid "Toggle h5 Property of the Selected Text"
+msgstr "Växla H5-egenskap för markerad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:122
+msgid "Toggle h_6 Property"
+msgstr "Växla H_6-egenskap"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:122
+msgid "Toggle h6 Property of the Selected Text"
+msgstr "Växla H6-egenskap för markerad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:123
+msgid "Toggle _Small Property"
+msgstr "Liten stil på/av"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:123
+msgid "Toggle Small Property of the Selected Text"
+msgstr "Liten stil på/av för markerad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:124
+msgid "Toggle Su_perscript Property"
+msgstr "Upphöjd stil på/av"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:124
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "Upphöjd stil på/av för markerad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:125
+msgid "Toggle Su_bscript Property"
+msgstr "Nedsänkt stil på/av"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:125
+msgid "Toggle Subscript Property of the Selected Text"
+msgstr "Nedsänkt stil på/av för markerad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:126
+msgid "Toggle _Monospace Property"
+msgstr "_Fastbredd på/av"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:126
+msgid "Toggle Monospace Property of the Selected Text"
+msgstr "Fastbredd på/av för markerad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:127
+msgid "Set/Unset _Bulleted List"
+msgstr "_Punktlista på/av"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:127
+msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
+msgstr "Ange/förkasta det aktuella stycket/markeringen som en punktlista"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:128
+msgid "Set/Unset _Numbered List"
+msgstr "_Numrerad lista på/av"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:128
+msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
+msgstr "Ange/förkasta det aktuella stycket/markeringen som en numrerad lista"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:129
+msgid "Set/Unset _To-Do List"
+msgstr "Att-göra-lista på/av"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:129
+msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
+msgstr "Ange/förkasta det aktuella stycket/markeringen som en att-göra-lista"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:130
+msgid "Justify _Left"
+msgstr "Justera _vänster"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:130
+msgid "Justify Left the Current Paragraph"
+msgstr "Justera aktuellt stycke åt vänster"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:131
+msgid "Justify _Center"
+msgstr "_Centrera"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:131
+msgid "Justify Center the Current Paragraph"
+msgstr "Centrera aktuellt stycke"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:132
+msgid "Justify _Right"
+msgstr "Justera _höger"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:132
+msgid "Justify Right the Current Paragraph"
+msgstr "Justera aktuellt stycke åt höger"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:133
+msgid "Justify _Fill"
+msgstr "_Sidanpassa"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:133
+msgid "Justify Fill the Current Paragraph"
+msgstr "Fyll ut aktuellt stycke"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:134
+msgid "Indent Paragraph"
+msgstr "Dra in stycket"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:134
+msgid "Indent the Current Paragraph"
+msgstr "Dra in aktuellt stycke"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:135
+msgid "Unindent Paragraph"
+msgstr "Ta bort indrag från stycket"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:135
+msgid "Unindent the Current Paragraph"
+msgstr "Ta bort indrag från aktuellt stycke"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:136
+msgid "Tools"
+msgstr "Verktyg"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:137
+msgid "Enable/Disable _Spell Check"
+msgstr "Aktivera/Inaktivera _stavningskontroll"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:137
+msgid "Toggle Enable/Disable Spell Check"
+msgstr "Stavningskontroll på/av"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:138
+msgid "Stri_p Trailing Spaces"
+msgstr "Ta _bort efterföljande blanksteg"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:138
+msgid "Strip Trailing Spaces"
+msgstr "Ta bort efterföljande blanksteg"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:139
+msgid "_Command Palette"
+msgstr "_Kommandopalett"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:139
+msgid "Command Palette"
+msgstr "Kommandopalett"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:140
+msgid "_Execute Code"
+msgstr "_Exekvera kod"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:140
+msgid "Execute Code"
+msgstr "Exekvera kod"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:141
+msgid "Tree"
+msgstr "Träd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:142
+msgid "Go _Back"
+msgstr "Gå _bakåt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:142
+msgid "Go to the Previous Visited Node"
+msgstr "Gå till föregående besökta post"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:143
+msgid "Go _Forward"
+msgstr "Gå _framåt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:143
+msgid "Go to the Next Visited Node"
+msgstr "Gå till nästa besökta post"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:144
+msgid "Add _Node"
+msgstr "Lägg till _post"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:144
+msgid "Add a Node having the same Parent of the Selected Node"
+msgstr "Lägg till en post underdnad den markerade posten"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:145
+msgid "Add _SubNode"
+msgstr "Lägg till _underpost"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:145
+msgid "Add a Child Node to the Selected Node"
+msgstr "Lägg till en underpost till markerad post"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:146
+msgid "_Duplicate Node"
+msgstr "_Klona post"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:146
+msgid "Duplicate the Selected Node"
+msgstr "Klona markerad post"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:147
+msgid "_Duplicate Node and Sub Nodes"
+msgstr "_Duplicera post med underposter"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:147
+msgid "Duplicate the Selected Node With SubNodes"
+msgstr "Duplicera markerad post med underposter"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:148
+msgid "Insert Today's Node"
+msgstr "Infoga dagens post"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:148
+msgid "Insert a Node with Hierarchy Year/Month/Day"
+msgstr "Infoga en post med hierarkin År/Månad/Dag"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:149
+msgid "Change Node _Properties"
+msgstr "Ändra _postegenskaper"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:149
+msgid "Edit the Properties of the Selected Node"
+msgstr "Redigera egenskaperna för markerad post"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:150
+msgid "Toggle _Read Only"
+msgstr "_Skrivskydd på/av"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:150
+msgid "Toggle the Read Only Property of the Selected Node"
+msgstr "Skrivskydd på/av för markerad post"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:151
+msgid "Copy Link to Node"
+msgstr "Kopiera länk till post"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:151
+msgid "Copy Link to the Selected Node to Clipboard"
+msgstr "Kopiera länk markerad post, till urklipp"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:152
+msgid "_Inherit Syntax"
+msgstr "_Ärv syntax"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:152
+msgid ""
+"Change the Selected Node's Children Syntax Highlighting to the Parent's "
+"Syntax Highlighting"
+msgstr ""
+"Ändra markerad underposts syntaxmarkering till överordnad posts "
+"syntaxmarkering"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:153
+msgid "_Handle Bookmarks"
+msgstr "_Hantera bokmärken"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:154
+msgid "Add to _Bookmarks"
+msgstr "Lägg till i _Bokmärken"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:154
+msgid "Add the Current Node to the Bookmarks List"
+msgstr "Lägg till aktuell post i bokmärkeslistan"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:155
+msgid "_Remove from Bookmarks"
+msgstr "_Ta bort från bokmärken"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:155
+msgid "Remove the Current Node from the Bookmarks List"
+msgstr "Ta bort aktuell post från bokmärkeslistan"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:156
+msgid "E_xpand All Nodes"
+msgstr "E_xpandera alla poster"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:156
+msgid "Expand All the Tree Nodes"
+msgstr "Expandera alla trädposter"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:157
+msgid "_Collapse All Nodes"
+msgstr "_Komprimera alla poster"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:157
+msgid "Collapse All the Tree Nodes"
+msgstr "Komprimera alla trädposter"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:158
+msgid "Node _Up"
+msgstr "Post _upp"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:158
+msgid "Move the Selected Node Up"
+msgstr "Flytta upp markerad post"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:159
+msgid "Node _Down"
+msgstr "Post _ner"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:159
+msgid "Move the Selected Node Down"
+msgstr "Flytta ner markerad post"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:160
+msgid "Node _Left"
+msgstr "Post åt _vänster"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:160
+msgid "Move the Selected Node Left"
+msgstr "Flytta markerad post åt vänster"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:161
+msgid "Node _Right"
+msgstr "Post åt _höger"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:161
+msgid "Move the Selected Node Right"
+msgstr "Flytta markerad post åt höger"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:162
+msgid "Node Change _Parent"
+msgstr "Byt _överordnad post"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:162
+msgid "Change the Selected Node's Parent"
+msgstr "Ändra markerade posters överordnad"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:163
+msgid "Sort Tree _Ascending"
+msgstr "Sortera trädet s_tigande"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:163
+msgid "Sort the Tree Ascending"
+msgstr "Sortera trädet stigande"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:164
+msgid "Sort Tree _Descending"
+msgstr "Sortera trädet s_junkande"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:164
+msgid "Sort the Tree Descending"
+msgstr "Sortera trädet sjunkande"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:165
+msgid "Sort Siblings A_scending"
+msgstr "Sortera underposter s_tigande"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:165
+msgid "Sort all the Siblings of the Selected Node Ascending"
+msgstr "Sortera alla underposter till markerad post stigande"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:166
+msgid "Sort Siblings D_escending"
+msgstr "Sortera underposter s_junkande"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:166
+msgid "Sort all the Siblings of the Selected Node Descending"
+msgstr "Sortera alla underposter till markerad post sjunkande"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:167
+msgid "De_lete Node"
+msgstr "T_a bort post"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:167
+msgid "Delete the Selected Node"
+msgstr "Ta bort markerad post"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:168
+msgid "Find/Replace"
+msgstr "Sök/Ersätt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:169
+msgid "_Find in Node Content"
+msgstr "_Sök i postinnehåll"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:169
+msgid "Find into the Selected Node Content"
+msgstr "Sök i markerad posts innehåll"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:170
+msgid "Find in _All Nodes Contents"
+msgstr "Sök i _allt postinnehåll"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:170
+msgid "Find into All the Tree Nodes Contents"
+msgstr "Sök i alla trädposters innehåll"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:171
+msgid "Find in _Selected Node and Subnodes Contents"
+msgstr "Sök i _markerad posts och underposters innehåll"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:171
+msgid "Find into the Selected Node and Subnodes Contents"
+msgstr "Sök i markerad posts och underposters innehåll"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:172
+msgid "Find in _Nodes Names and Tags"
+msgstr "Sök i _postnamn och taggar"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:172
+msgid "Find in Nodes Names and Tags"
+msgstr "Sök i postnamn och taggar"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:173
+msgid "Find _Again"
+msgstr "Sök _igen"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:173
+msgid "Iterate the Last Find Operation"
+msgstr "Upprepa senaste sökningen"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:174
+msgid "Find _Back"
+msgstr "Sök _bakåt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:174
+msgid "Iterate the Last Find Operation in Opposite Direction"
+msgstr "Upprepa senaste sökningen i omvänd ordning"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:175
+msgid "_Replace in Node Content"
+msgstr "_Ersätt i postinnehåll"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:175
+msgid "Replace into the Selected Node Content"
+msgstr "Ersätt i markerad posts innehåll"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:176
+msgid "Replace in _All Nodes Contents"
+msgstr "Ersätt i _alla posters innehåll"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:176
+msgid "Replace into All the Tree Nodes Contents"
+msgstr "Ersätt i alla trädposters innehåll"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:177
+msgid "Replace in _Selected Node and Subnodes Contents"
+msgstr "Ersätt i _markerad post och underposters innehåll"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:177
+msgid "Replace into the Selected Node and Subnodes Contents"
+msgstr "Ersätt i markerad post och underposters innehåll"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:178
+msgid "Replace in Nodes _Names"
+msgstr "Ersätt i post_namn"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:178
+msgid "Replace in Nodes Names"
+msgstr "Ersätt i postnamn"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:179
+msgid "Replace _Again"
+msgstr "Ersätt _igen"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:179
+msgid "Iterate the Last Replace Operation"
+msgstr "Upprepa senaste ersättningen"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:180
+msgid "Show _All Matches Dialog"
+msgstr "Visa dialog för _alla matchningar"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:180
+msgid "Show Search All Matches Dialog"
+msgstr "Visa dialog för sök alla matchningar"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:181
+msgid "View"
+msgstr "Visa"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:182
+msgid "Show/Hide _Tree Explorer"
+msgstr "Visa/Dölj _trädutforskare"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:182
+msgid "Toggle Show/Hide Tree"
+msgstr "Visa/Dölj trädstruktur"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:183
+msgid "Show/Hide Tool_bar"
+msgstr "Visa/Dölj _verktygsfält"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:183
+msgid "Toggle Show/Hide Toolbar"
+msgstr "Visa/Dölj verktygsfält"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:184
+msgid "Show/Hide Node Name _Header"
+msgstr "Visa/Dölj postnamns_rubrik"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:184
+msgid "Toggle Show/Hide Node Name Header"
+msgstr "Visa/Dölj postnamnsrubrik"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:185
+msgid "Toggle _Focus Tree/Text"
+msgstr "_Fokusera träd/text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:185
+msgid "Toggle Focus Between Tree and Text"
+msgstr "Växla fokus mellan träd och text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:186
+msgid "_Increase Toolbar Icons Size"
+msgstr "_Öka storleken på verktygsfältets ikoner"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:186
+msgid "Increase the Size of the Toolbar Icons"
+msgstr "Öka storleken på verktygsfältets ikoner"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:187
+msgid "_Decrease Toolbar Icons Size"
+msgstr "_Minska storleken på verktygsfältets ikoner"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:187
+msgid "Decrease the Size of the Toolbar Icons"
+msgstr "Minska storleken på verktygsfältets ikoner"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:188
+msgid "_Full Screen On/Off"
+msgstr "Helskärmsläge på/av"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:188
+msgid "Toggle Full Screen On/Off"
+msgstr "Helskärmsläge på/av"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:189
+msgid "Import"
+msgstr "Importera"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:190
+msgid "From _CherryTree File"
+msgstr "Från _CherryTree-fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:190
+msgid "Add Nodes of a CherryTree File to the Current Tree"
+msgstr "Lägg till poster från en CherryTree-fil till aktuellt träd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:191
+msgid "From _Plain Text File"
+msgstr "Från _oformaterad textfil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:191
+msgid "Add Node from a Plain Text File to the Current Tree"
+msgstr "Lägg till en post från en oformaterad textfil till aktuellt träd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:192
+msgid "From _Folder of Plain Text Files"
+msgstr "Från _mapp med Plain Text-filer"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:192
+msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
+msgstr ""
+"Lägg till poster från en mapp med oformaterade textfiler till aktuellt träd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:193
+msgid "From _HTML File"
+msgstr "Från _HTML-fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:193
+msgid "Add Node from an HTML File to the Current Tree"
+msgstr "Lägg till en post från en HTML-fil till aktuellt träd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:194
+msgid "From _Folder of HTML Files"
+msgstr "Från _mapp med HTML-filer"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:194
+msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
+msgstr "Lägg till poster från en mapp med HTML-filer till aktuellt träd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:195
+msgid "From _Markdown File"
+msgstr "Från _Markdown-fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:195
+msgid "Add a node from a Markdown File to the Current Tree"
+msgstr "Lägg till en post från en Markdown-fil till aktuellt träd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:196
+msgid "From _Folder of Markdown Files"
+msgstr "Från _mapp med Markdown-filer"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:196
+msgid "Add Nodes from a Folder of Markdown Files to the Current Tree"
+msgstr "Lägg till poster från en mapp med Markdown-filer till aktuellt träd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:197
+msgid "From _Gnote Folder"
+msgstr "Från _Gnote-mapp"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:197
+msgid "Add Nodes of a Gnote Folder to the Current Tree"
+msgstr "Lägg till poster från en Gnote-mapp till aktuellt träd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:198
+msgid "From _KeepNote Folder"
+msgstr "Från _KeepNote-mapp"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:198
+msgid "Add Nodes of a KeepNote Folder to the Current Tree"
+msgstr "Lägg till poster från en KeepNote-mapp till aktuellt träd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:199
+msgid "From _Leo File"
+msgstr "Från _Leo-fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:199
+msgid "Add Nodes of a Leo File to the Current Tree"
+msgstr "Lägg till poster från en Leo-fil till aktuellt träd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:200
+msgid "From _Mempad File"
+msgstr "Från _Mempad-fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:200
+msgid "Add Nodes of a Mempad File to the Current Tree"
+msgstr "Lägg till poster från en Mempad-fil till aktuellt träd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:201
+msgid "From _NoteCase HTML File"
+msgstr "Från _NoteCase HTML-fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:201
+msgid "Add Nodes of a NoteCase HTML File to the Current Tree"
+msgstr "Lägg till poster från en NoteCase HTML-fil till aktuellt träd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:202
+msgid "From _RedNotebook HTML"
+msgstr "Från _RedNotebook HTML"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:202
+msgid "Add Nodes of a RedNotebook HTML file to the Current Tree"
+msgstr "Lägg till poster från en RedNotebook HTML-fil till aktuellt träd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:203
+msgid "From T_omboy Folder"
+msgstr "Från T_omboy-mapp"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:203
+msgid "Add Nodes of a Tomboy Folder to the Current Tree"
+msgstr "Lägg till poster från en Tomboy-mapp till aktuellt träd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:204
+msgid "From T_reepad Lite File"
+msgstr "Från T_reepad Lite-fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:204
+msgid "Add Nodes of a Treepad Lite File to the Current Tree"
+msgstr "Lägg till poster från en Treepad Lite-fil till aktuellt träd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:205
+msgid "From _Zim Folder"
+msgstr "Från _Zim-mapp"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:205
+msgid "Add Nodes of a Zim Folder to the Current Tree"
+msgstr "Lägg till poster från en Zim-mapp till aktuellt träd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:206
+msgid "From File using _Pandoc"
+msgstr "Från fil med hjälp av _Pandoc"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:206
+msgid "Add a node to the current tree using Pandoc"
+msgstr "Lägg till en post till aktuellt träd, med hjälp av Pandoc"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:207
+msgid "Export"
+msgstr "Exportera"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:208
+msgid "Export To _PDF"
+msgstr "Exportera till _PDF"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:208
+msgid "Export To PDF"
+msgstr "Exportera till PDF"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:209
+msgid "Export To _HTML"
+msgstr "Exportera till _HTML"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:209
+msgid "Export To HTML"
+msgstr "Exportera till HTML"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:210
+msgid "Export to Plain _Text"
+msgstr "Exportera till oformaterad _text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:210
+msgid "Export to Plain Text"
+msgstr "Exportera till oformaterad text"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:211
+msgid "_Export To CherryTree Document"
+msgstr "_Exportera till CherryTree-dokument"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:211
+msgid "Export To CherryTree Document"
+msgstr "Exportera till CherryTree-dokument"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:212
+msgid "Help"
+msgstr "Hjälp"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:213
+msgid "_Check Newer Version"
+msgstr "_Sök efter en nyare version"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:213
+msgid "Check for a Newer Version"
+msgstr "Sök efter en nyare version"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:214
+msgid "Online _Manual"
+msgstr "Online-_manual"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:214
+msgid "Application's Online Manual"
+msgstr "Programmets online-manual"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:215
+msgid "_About"
+msgstr "_Om"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:216
+msgid "Open Preferences _Directory"
+msgstr "Öppna _inställningsmappen"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:216
+msgid "Open the Directory with Preferences Files"
+msgstr "Öppna mappen med inställningsfiler"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:218
+msgid "C_ut Anchor"
+msgstr "Klipp ut _fästpunkt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:218
+msgid "Cut the Selected Anchor"
+msgstr "Klipp ut markerad fästpunkt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:219
+msgid "_Copy Anchor"
+msgstr "_Kopiera fästpunkt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:219
+msgid "Copy the Selected Anchor"
+msgstr "Kopiera markerad fästpunkt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:220
+msgid "_Delete Anchor"
+msgstr "_Ta bort fästpunkt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:220
+msgid "Delete the Selected Anchor"
+msgstr "Ta bort markerad fästpunkt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:221
+msgid "Edit _Anchor"
+msgstr "Redigera _fästpunkt"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:221
+msgid "Edit the Underlying Anchor"
+msgstr "Redigera den underliggande fästpunkten"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:222
+msgid "Copy Anchor Link"
+msgstr "Kopiera fästpunktslänk"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:222
+msgid "Copy Link to the Underlying Anchor to Clipboard"
+msgstr "Kopiera länk till underliggande fästpunkt, till urklipp"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:223
+msgid "C_ut Embedded File"
+msgstr "Klipp ut _inbäddad fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:223
+msgid "Cut the Selected Embedded File"
+msgstr "Klipp ut markerad inbäddad fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:224
+msgid "_Copy Embedded File"
+msgstr "_Kopiera inbäddad fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:224
+msgid "Copy the Selected Embedded File"
+msgstr "Kopiera markerad inbäddad fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:225
+msgid "_Delete Embedded File"
+msgstr "_Ta bort inbäddad fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:225
+msgid "Delete the Selected Embedded File"
+msgstr "Ta bort markerad inbäddad fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:227
+msgid "Open Embedded File"
+msgstr "Öppna inbäddad fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:228
+msgid "_Rename"
+msgstr "_Byt namn"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:228
+msgid "Rename Embedded File"
+msgstr "Byt namn på inbäddad fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:229
+msgid "_Save Image as PNG"
+msgstr "_Spara bild som PNG"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:229
+msgid "Save the Selected Image as a PNG file"
+msgstr "Spara markerad bild som en PNG-fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:230
+msgid "_Edit Image"
+msgstr "_Redigera bild"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:230
+msgid "Edit the Selected Image"
+msgstr "Redigera markerad bild"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:231
+msgid "C_ut Image"
+msgstr "Klipp ut _bild"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:231
+msgid "Cut the Selected Image"
+msgstr "Klipp ut markerad bild"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:232
+msgid "_Copy Image"
+msgstr "_Kopiera bild"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:232
+msgid "Copy the Selected Image"
+msgstr "Kopiera markerad bild"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:233
+msgid "_Delete Image"
+msgstr "_Ta bort bild"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:233
+msgid "Delete the Selected Image"
+msgstr "Ta bort markerad bild"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:234
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:247
+msgid "Edit _Link"
+msgstr "Redigera _länk"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:234
+msgid "Edit the Link Associated to the Image"
+msgstr "Redigera länken som associeras med bilden"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:235
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:250
+msgid "D_ismiss Link"
+msgstr "A_vfärda länk"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:235
+msgid "Dismiss the Link Associated to the Image"
+msgstr "Avfärda länken som associeras med bilden"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:247
+msgid "Edit the Underlying Link"
+msgstr "Redigera den underliggande länken"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:248
+msgid "C_ut Link"
+msgstr "Klipp ut _länk"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:248
+msgid "Cut the Selected Link"
+msgstr "Klipp ut markerad länk"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:249
+msgid "_Copy Link"
+msgstr "_Kopiera länk"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:249
+msgid "Copy the Selected Link"
+msgstr "Kopiera markerad länk"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:250
+msgid "Dismiss the Selected Link"
+msgstr "Avfärda markerad länk"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:251
+msgid "_Delete Link"
+msgstr "_Ta bort länk"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:251
+msgid "Delete the Selected Link"
+msgstr "Ta bort markerad länk"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:253
+msgid "C_ut Table"
+msgstr "Klipp ut _tabell"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:253
+msgid "Cut the Selected Table"
+msgstr "Klipp ut markerad tabell"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:254
+msgid "_Copy Table"
+msgstr "_Kopiera tabell"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:254
+msgid "Copy the Selected Table"
+msgstr "Kopiera markerad tabell"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:255
+msgid "_Delete Table"
+msgstr "_Ta bort tabell"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:255
+msgid "Delete the Selected Table"
+msgstr "Ta bort markerad tabell"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:256
+msgid "_Add Column"
+msgstr "_Lägg till kolumn"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:256
+msgid "Add a Table Column"
+msgstr "Lägg till en tabellkolumn"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:257
+msgid "De_lete Column"
+msgstr "Ta _bort kolumn"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:257
+msgid "Delete the Selected Table Column"
+msgstr "Ta bort markerad tabellkolumn"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:258
+msgid "Move Column _Left"
+msgstr "Flytta kolumn åt _vänster"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:258
+msgid "Move the Selected Column Left"
+msgstr "Flytta markerad kolumn åt vänster"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:259
+msgid "Move Column _Right"
+msgstr "Flytta kolumn åt _höger"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:259
+msgid "Move the Selected Column Right"
+msgstr "Flytta markerad kolumn åt höger"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:260
+msgid "Increase Column Width"
+msgstr "Öka kolumnbredden"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:260
+msgid "Increase the Width of the Column"
+msgstr "Utöka kolumnens bredd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:261
+msgid "Decrease Column Width"
+msgstr "Minska kolumnbredden"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:261
+msgid "Decrease the Width of the Column"
+msgstr "Minska kolumnens bredd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:262
+msgid "_Add Row"
+msgstr "_Lägg till rad"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:262
+msgid "Add a Table Row"
+msgstr "Lägg till en tabellrad"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:263
+msgid "Cut a Table Row"
+msgstr "Klipp ut en tabellrad"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:264
+msgid "Copy a Table Row"
+msgstr "Kopiera en tabellrad"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:265
+msgid "_Paste Row"
+msgstr "_Klistra in rad"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:265
+msgid "Paste a Table Row"
+msgstr "Klistra in en tabellrad"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:266
+msgid "Delete the Selected Table Row"
+msgstr "Ta bort markerad tabellrad"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:267
+msgid "Move Row _Up"
+msgstr "Flytta _upp rad"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:267
+msgid "Move the Selected Row Up"
+msgstr "Flytta upp markerad rad"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:268
+msgid "Move Row _Down"
+msgstr "Flytta _ner rad"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:268
+msgid "Move the Selected Row Down"
+msgstr "Flytta ner markerad rad"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:269
+msgid "Sort Rows De_scending"
+msgstr "Sortera rader s_junkande"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:269
+msgid "Sort all the Rows Descending"
+msgstr "Sortera alla rader sjunkande"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:270
+msgid "Sort Rows As_cending"
+msgstr "Sortera s_tigande"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:270
+msgid "Sort all the Rows Ascending"
+msgstr "Sortera alla rader stigande"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:271
+msgid "_Edit Table Properties"
+msgstr "_Redigera tabellegenskaper"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:271
+msgid "Edit the Table Properties"
+msgstr "Redigera tabellegenskaperna"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:272
+msgid "_Table Export"
+msgstr "_Tabellexport"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:272
+msgid "Export Table as CSV File"
+msgstr "Exportera tabell som CSV-fil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:274
+msgid "Change CodeBox _Properties"
+msgstr "Ändra kodbox_egenskaper"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:274
+msgid "Edit the Properties of the CodeBox"
+msgstr "Redigera egenskaperna för kodboxen"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:275
+msgid "_Execute CodeBox Code"
+msgstr "_Exekvera kodboxkod"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:275
+msgid "Execute CodeBox Code"
+msgstr "Exekvera kodboxkod"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:276
+msgid "CodeBox _Load From Text File"
+msgstr "Kodbox _inläsning från textfil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:276
+msgid "Load the CodeBox Content From a Text File"
+msgstr "Läs in kodboxinnehållet från en textfil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:277
+msgid "CodeBox _Save To Text File"
+msgstr "Kodbox _spara till textfil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:277
+msgid "Save the CodeBox Content To a Text File"
+msgstr "Spara kodboxinnehållet till en textfil"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:278
+msgid "C_ut CodeBox"
+msgstr "Klipp ut _kodbox"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:278
+msgid "Cut the Selected CodeBox"
+msgstr "Klipp ut markerad kodbox"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:279
+msgid "_Copy CodeBox"
+msgstr "_Kopiera kodbox"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:279
+msgid "Copy the Selected CodeBox"
+msgstr "Kopiera markerad kodbox"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:280
+msgid "_Delete CodeBox"
+msgstr "_Ta bort kodbox"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:280
+msgid "Delete the Selected CodeBox"
+msgstr "Ta bort markerad kodbox"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:281
+msgid "Delete CodeBox _Keep Content"
+msgstr "Ta bort kodbox _bevara innehåll"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:281
+msgid "Delete the Selected CodeBox But Keep Its Content"
+msgstr "Ta bort markerad kodbox men bevara innehållet"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:282
+msgid "Increase CodeBox Width"
+msgstr "Öka kodboxbredden"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:282
+msgid "Increase the Width of the CodeBox"
+msgstr "Utöka kodboxens bredd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:283
+msgid "Decrease CodeBox Width"
+msgstr "Minska kodboxens bredd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:283
+msgid "Decrease the Width of the CodeBox"
+msgstr "Minska kodboxens bredd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:284
+msgid "Increase CodeBox Height"
+msgstr "Öka kodboxhöjden"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:284
+msgid "Increase the Height of the CodeBox"
+msgstr "Utöka kodboxens höjd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:285
+msgid "Decrease CodeBox Height"
+msgstr "Minska kodboxens höjd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:285
+msgid "Decrease the Height of the CodeBox"
+msgstr "Minska kodboxens höjd"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:182
+msgid "Markdown Document"
+msgstr "Markdown-dokument"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:216
+msgid "Mempad Document"
+msgstr "Mempad-dokument"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:225
+msgid "Treepad Document"
+msgstr "Treepad-dokument"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:235
+msgid "Leo Document"
+msgstr "Leo-dokument"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.h:63
+msgid "Are you sure to Reset to Default?"
+msgstr "Vill du verkligen återställa till standardvärden?"
+
+#~ msgid "For_matting"
+#~ msgstr "For_matering"
+
+#~ msgid "Nodes _Import"
+#~ msgstr "_Importera poster"
+
+#~ msgid "Nodes E_xport"
+#~ msgstr "E_xportera poster"
+
+#~ msgid "E_xport"
+#~ msgstr "E_xportera"
+
+#~ msgid "Editor"
+#~ msgstr "Redigerare"
+
+#~ msgid "Monospace Background"
+#~ msgstr "Bakgrund för fastbredd"
 
 #~ msgid "Export to PDF at specified file path"
 #~ msgstr "Exportera till PDF på angiven mappsökväg"
@@ -3275,20 +3404,11 @@ msgstr "Storleken på verktygsfältets ikoner är redan minsta möjliga"
 #~ msgid "HTML Document"
 #~ msgstr "HTML-dokument"
 
-#~ msgid "Treepad Document"
-#~ msgstr "Treepad-dokument"
-
 #~ msgid "KeyNote Document"
 #~ msgstr "KeyNote-dokument"
 
-#~ msgid "Mempad Document"
-#~ msgstr "Mempad-dokument"
-
 #~ msgid "Knowit Document"
 #~ msgstr "Knowit-dokument"
-
-#~ msgid "Leo Document"
-#~ msgstr "Leo-dokument"
 
 #~ msgid ""
 #~ "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
@@ -3356,9 +3476,6 @@ msgstr "Storleken på verktygsfältets ikoner är redan minsta möjliga"
 
 #~ msgid "Insert NewLine Char"
 #~ msgstr "Infoga ny-rad-tecken"
-
-#~ msgid "Are you sure to Reset to Default?"
-#~ msgstr "Vill du verkligen återställa till standardvärden?"
 
 #~ msgid "Use AppIndicator for Docking"
 #~ msgstr "Använd programindikator för dockning"
