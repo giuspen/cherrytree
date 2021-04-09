@@ -3032,7 +3032,7 @@ msgstr "Бейненi көшiрiп алу"
 msgid "Copy the Selected Image"
 msgstr ""
 "Бейненi көшiрiп алу\n"
-ÿ n"
+"\n"
 "Алмасу буферiне бейненi көшiрiп алу"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:233
