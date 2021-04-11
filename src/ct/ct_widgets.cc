@@ -804,6 +804,27 @@ void CtTextView::synch_spell_check_change_from_gspell_right_click_menu()
 // Try and apply link to previous word (after space or newline)
 bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
 {
+    if (iter_end.backward_char()) {
+        switch (iter_end.get_char()) {
+            case ',': case ';': case '.': case ')': case '}': {
+                // do not restore/drop latest char
+            } break;
+            case ']': {
+                // we can drop only if not two subsequent ]] which is a special case
+                if (iter_end.backward_char()) {
+                    if (iter_end.get_char() == ']') {
+                        iter_end.forward_chars(2); // restore
+                    }
+                    else {
+                        iter_end.forward_char(); // do not restore/drop latest char
+                    }
+                }
+            } break;
+            default: {
+                iter_end.forward_char(); // restore
+            } break;
+        }
+    }
     // Apply Link to Node Tag if the text is a node name
     auto apply_tag_try_node_name = [this](Gtk::TextIter iter_start, Gtk::TextIter iter_end){
         Glib::ustring node_name = get_buffer()->get_text(iter_start, iter_end);
@@ -826,7 +847,7 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
         while (iter_start.backward_char()) {
             auto curr_char = iter_start.get_char();
             if (curr_char == '\n') {
-                break;
+                break; // fail
             }
             if (curr_char == '[') {
                 if (curr_state == 0) {
@@ -834,8 +855,11 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
                 }
                 else {
                     curr_state = 2;
-                    break;
+                    break; // success
                 }
+            }
+            else if (1 == curr_state) {
+                break; // fail
             }
         }
         if (curr_state == 2) {
@@ -858,7 +882,13 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
             auto curr_char = iter_start.get_char();
             if (curr_char == ' ' or curr_char == '\n' or curr_char == '\r' or curr_char == '\t') {
                 iter_start.forward_char();
-                break;
+                switch (iter_start.get_char()) {
+                    case '(': case '{': case '[': {
+                        iter_start.forward_char(); // drop first char
+                    } break;
+                    default: break; // switch
+                }
+                break; // while
             }
         }
         int num_chars = iter_end.get_offset() - iter_start.get_offset();
