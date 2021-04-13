@@ -673,9 +673,9 @@ std::string CtExport2Html::_get_href_from_link_prop_val(Glib::ustring link_prop_
     if (link_entry.type == CtConst::LINK_TYPE_WEBS)
         href = link_entry.webs;
     else if (link_entry.type == CtConst::LINK_TYPE_FILE)
-        href = "file://" + _link_process_filepath(link_entry.file, _pCtMainWin->get_ct_storage()->get_file_path().parent_path().string());
+        href = "file://" + link_process_filepath(link_entry.file, _pCtMainWin->get_ct_storage()->get_file_path().parent_path().string(), true/*forHtml*/);
     else if (link_entry.type == CtConst::LINK_TYPE_FOLD)
-        href = "file://" + _link_process_folderpath(link_entry.fold, _pCtMainWin->get_ct_storage()->get_file_path().parent_path().string());
+        href = "file://" + link_process_folderpath(link_entry.fold, _pCtMainWin->get_ct_storage()->get_file_path().parent_path().string(), true/*forHtml*/);
     else if (link_entry.type == CtConst::LINK_TYPE_NODE)
     {
         CtTreeIter node = _pCtMainWin->get_tree_store().get_node_from_node_id(link_entry.node_id);
@@ -689,22 +689,22 @@ std::string CtExport2Html::_get_href_from_link_prop_val(Glib::ustring link_prop_
     return href;
 }
 
-std::string CtExport2Html::_link_process_filepath(const std::string& filepath_raw, const std::string& relative_to)
+std::string CtExport2Html::link_process_filepath(const std::string& filepath_raw, const std::string& relative_to, const bool forHtml)
 {
     fs::path filepath = filepath_raw;
     fs::path abs_filepath = fs::canonical(filepath, relative_to);
     if (!fs::is_regular_file(filepath) && fs::is_regular_file(abs_filepath))
         filepath = abs_filepath;
-    return filepath.string_unix();
+    return forHtml ? filepath.string_unix() : filepath.string();
 }
 
-std::string CtExport2Html::_link_process_folderpath(const std::string& folderpath_raw, const std::string& relative_to)
+std::string CtExport2Html::link_process_folderpath(const std::string& folderpath_raw, const std::string& relative_to, const bool forHtml)
 {
     fs::path folderpath = folderpath_raw;
     fs::path abs_folderpath = fs::canonical(folderpath, relative_to);
     if (!fs::is_directory(folderpath) && fs::is_directory(abs_folderpath))
         folderpath = abs_folderpath;
-    return folderpath.string_unix();
+    return forHtml ? folderpath.string_unix() : folderpath.string();
 }
 
 // Returns the style attribute(s) according to the alignment

@@ -79,8 +79,8 @@ private:
     Glib::ustring _get_html_filename(CtTreeIter tree_iter);
 
 public:
-    static std::string _link_process_filepath(const std::string& filepath_raw, const std::string& relative_to);
-    static std::string _link_process_folderpath(const std::string& folderpath_raw, const std::string& relative_to);
+    static std::string link_process_filepath(const std::string& filepath_raw, const std::string& relative_to, const bool forHtml);
+    static std::string link_process_folderpath(const std::string& folderpath_raw, const std::string& relative_to, const bool forHtml);
 
 private:
     CtMainWin*    _pCtMainWin;
