@@ -305,21 +305,17 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
         fs::path filepath = CtExport2Html::link_process_filepath(link_entry.file, _pCtMainWin->get_ct_storage()->get_file_path().parent_path().string(), false/*forHtml*/);
         if (from_wheel) {
             filepath = fs::absolute(filepath).parent_path();
-#ifndef _WIN32
             if (not fs::is_directory(filepath)) {
                 CtDialogs::error_dialog(str::format(_("The Folder Link '%s' is Not Valid"), filepath.string()), *_pCtMainWin);
                 return;
             }
-#endif // !_WIN32  Glib::file_test() not working with UNC paths (e.g. \\samba)
             fs::open_folderpath(filepath, _pCtMainWin->get_ct_config());
         }
         else {
-#ifndef _WIN32
             if (not Glib::file_test(filepath.string(), Glib::FILE_TEST_IS_REGULAR)) {
                 CtDialogs::error_dialog(str::format(_("The File Link '%s' is Not Valid"), filepath.string()), *_pCtMainWin);
                 return;
             }
-#endif // !_WIN32 Glib::file_test() not working with UNC paths (e.g. \\samba)
             fs::open_filepath(filepath, true, _pCtMainWin->get_ct_config());
         }
     }
@@ -328,12 +324,10 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
         if (from_wheel) {
             folderpath = Glib::path_get_dirname(fs::absolute(folderpath).string());
         }
-#ifndef _WIN32
         if (not fs::is_directory(folderpath)) {
             CtDialogs::error_dialog(str::format(_("The Folder Link '%s' is Not Valid"), folderpath.string()), *_pCtMainWin);
             return;
         }
-#endif // !_WIN32  Glib::file_test() not working with UNC paths (e.g. \\samba)
         fs::open_folderpath(folderpath, _pCtMainWin->get_ct_config());
     }
     else if (link_entry.type == CtConst::LINK_TYPE_NODE) { // link to a tree node
