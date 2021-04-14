@@ -532,8 +532,8 @@ void CtMainWin::_zoom_tree(bool is_increase)
     int size = fontDesc.get_size() / Pango::SCALE + (is_increase ? 1 : -1);
     if (size < 6) size = 6;
     fontDesc.set_size(size * Pango::SCALE);
-    _uCtTreeview->override_font(fontDesc);
     _pCtConfig->treeFont = CtFontUtil::get_font_str(fontDesc);
+    signal_app_apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
 }
 
 void CtMainWin::reset()

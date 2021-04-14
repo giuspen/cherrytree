@@ -737,7 +737,6 @@ void CtTextView::zoom_text(const bool is_increase, const std::string& syntaxHigh
     int size = fontDesc.get_size() / Pango::SCALE + (is_increase ? 1 : -1);
     if (size < 6) size = 6;
     fontDesc.set_size(size * Pango::SCALE);
-    override_font(fontDesc);
 
     if (syntaxHighlighting == CtConst::RICH_TEXT_ID) {
         auto pCtConfig = _pCtMainWin->get_ct_config();
@@ -761,6 +760,7 @@ void CtTextView::zoom_text(const bool is_increase, const std::string& syntaxHigh
     else {
         _pCtMainWin->get_ct_config()->codeFont = CtFontUtil::get_font_str(fontDesc);
     }
+    _pCtMainWin->signal_app_apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
 }
 
 void CtTextView::set_spell_check(bool allow_on)
