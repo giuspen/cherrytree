@@ -1,4 +1,18 @@
 
+0.99.34 (April 14th, 2021)
+  * implementation of configurable h1,h2,h3,small + (now supported) h4,h5,h6 (#349,#753,#1063)
+  * reorganised the main menu (work of Viktor Polyanskiy / @Camilot55)
+  * fix undo/redo state machine vertical scrollbar position and cursor position (#1151)
+  * fix crash when importing text/html files with non ascii file name on windows (#1578)
+  * fix links to file/folder on windows with UNC path (#1565)
+  * detect system shutdown to save config (#1581)
+  * improved recognition of web link as you type in case of start with ({[, end with ,;.)}] (#1589)
+  * fixed wheel click on file link (to open parent folder)
+  * fix zooming text/tree font not being properly enforced like preferences dialog does (#1568)
+  * added support for Korean Language (work of Sean Lee)
+  * added support for Kazakh Language (work of Viktor Polyanskiy / @Camilot55)
+  * enabled logging to config folder, max size 5MB
+
 0.99.33 (March 20th, 2021)
   * fix crash editing keyboard shortcuts on windows (#1559, #1560)
   * fix changing codebox width of codeboxes having width set in percentage (#1556)
