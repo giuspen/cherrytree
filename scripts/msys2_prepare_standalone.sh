@@ -175,7 +175,7 @@ mkdir ${LOCALE_TMP}
 for element_rel in $(ls ${GIT_CT_LANGUAGES_FOLDER})
 do
   element_abs=${GIT_CT_LANGUAGES_FOLDER}/${element_rel}
-  [ -d ${element_abs} ] && mv -fv ${LOCALE}/${element_rel} ${LOCALE_TMP}/
+  [ -d ${element_abs} ] && [ -d ${LOCALE}/${element_rel} ] && mv -fv ${LOCALE}/${element_rel} ${LOCALE_TMP}/
 done
 
 rm -rf ${LOCALE}
