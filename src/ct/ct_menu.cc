@@ -57,15 +57,15 @@ CtMenu::CtMenu(CtConfig* pCtConfig, CtActions* pActions)
     return _add_menu_item(pMenu, name, image, nullptr, Glib::RefPtr<Gtk::AccelGroup>{}, desc, nullptr, nullptr, nullptr);
 }
 
-/*static*/ Gtk::MenuItem* CtMenu::find_menu_item(Gtk::MenuBar* menuBar, std::string name)
+/*static*/ Gtk::MenuItem* CtMenu::find_menu_item(Gtk::MenuShell* menuShell, std::string name)
 {
-    for (Gtk::Widget* child : menuBar->get_children())
+    for (Gtk::Widget* child : menuShell->get_children())
         if (auto menuItem = dynamic_cast<Gtk::MenuItem*>(child))
             if (menuItem->get_name() == name)
                 return menuItem;
 
     // check first level menu items, these menu items have complicated structure
-    for (Gtk::Widget* child : menuBar->get_children())
+    for (Gtk::Widget* child : menuShell->get_children())
         if (auto menuItem = dynamic_cast<Gtk::MenuItem*>(child))
             if (Gtk::Menu* subMenu = menuItem->get_submenu())
                 for (Gtk::Widget* subChild : subMenu->get_children())

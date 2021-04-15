@@ -74,7 +74,16 @@ CtMainWin::CtMainWin(bool                            no_gui,
 
     _pMenuBar = _uCtMenu->build_menubar();
     _pMenuBar->set_name("MenuBar");
-    _pBookmarksSubmenu = CtMenu::find_menu_item(_pMenuBar, "BookmarksSubMenu");
+    _pBookmarksSubmenus[0] = CtMenu::find_menu_item(_pMenuBar, "BookmarksSubMenu");
+    auto pPopumMenuTree = _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node);
+    for (Gtk::Widget* child : pPopumMenuTree->get_children()) {
+        if (auto menuItem = dynamic_cast<Gtk::MenuItem*>(child)) {
+            if (menuItem->has_submenu()) {
+                _pBookmarksSubmenus[1] = menuItem; // TODO FIND BETTER WAY TO IDENTIFY THAN FIRST WITH SUBMENU
+                break;
+            }
+        }
+    }
     _pRecentDocsSubmenu = CtMenu::find_menu_item(_pMenuBar, "RecentDocsSubMenu");
     _pMenuBar->show_all();
     add_accel_group(_uCtMenu->get_accel_group());
@@ -433,7 +442,10 @@ void CtMainWin::menu_set_bookmark_menu_items()
             _uCtTreeview->set_cursor_safe(tree_iter);
         }
     };
-    _pBookmarksSubmenu->set_submenu(*_uCtMenu->build_bookmarks_menu(bookmarks, bookmark_action));
+    _pBookmarksSubmenus[0]->set_submenu(*_uCtMenu->build_bookmarks_menu(bookmarks, bookmark_action));
+    if (_pBookmarksSubmenus[1]) {
+        _pBookmarksSubmenus[1]->set_submenu(*_uCtMenu->build_bookmarks_menu(bookmarks, bookmark_action));
+    }
 }
 
 void CtMainWin::menu_set_items_recent_documents()

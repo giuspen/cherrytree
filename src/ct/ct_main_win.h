@@ -253,7 +253,7 @@ private:
     std::vector<Gtk::Toolbar*>   _pToolbars;
     CtStatusBar                  _ctStatusBar;
     CtWinHeader                  _ctWinHeader;
-    Gtk::MenuItem*               _pBookmarksSubmenu{nullptr};
+    Gtk::MenuItem*               _pBookmarksSubmenus[2]{nullptr,nullptr};
     Gtk::MenuItem*               _pRecentDocsSubmenu{nullptr};
     Gtk::MenuToolButton*         _pRecentDocsMenuToolButton{nullptr};
     Gtk::ScrolledWindow          _scrolledwindowTree;

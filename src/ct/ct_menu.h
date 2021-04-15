@@ -73,7 +73,7 @@ public:
     const std::list<CtMenuAction>& get_actions() { return _actions; }
     Glib::RefPtr<Gtk::AccelGroup> get_accel_group() { return _pAccelGroup; }
 
-    static Gtk::MenuItem*   find_menu_item(Gtk::MenuBar* menuBar, std::string name);
+    static Gtk::MenuItem*   find_menu_item(Gtk::MenuShell* menuShell, std::string name);
     static Gtk::AccelLabel* get_accel_label(Gtk::MenuItem* item);
     static int              calculate_image_shift(Gtk::MenuItem* menuItem);
 
