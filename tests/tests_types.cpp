@@ -130,17 +130,25 @@ TEST(TestTypesGroup, ctScalableTag)
 {
     {
         char serialised[]{"1.728000;;;0;0;0"};
-        CtScalableTag scalableTag{serialised};
+        char fallback[]{"1728;;;0;0;0"};
+        CtScalableTag scalableTag{serialised, fallback};
         ASSERT_DOUBLE_EQ(1.728, scalableTag.scale);
         ASSERT_TRUE(scalableTag.foreground.empty());
         ASSERT_TRUE(scalableTag.background.empty());
         ASSERT_FALSE(scalableTag.bold);
         ASSERT_FALSE(scalableTag.italic);
         ASSERT_FALSE(scalableTag.underline);
-        ASSERT_STREQ(serialised, scalableTag.serialise().c_str());
+        ASSERT_STREQ(fallback, scalableTag.serialise().c_str());
     }
     {
-        char serialised[]{"0.678000;#000000;#ffffff;1;1;1"};
+        char serialised[]{"1,000000;;;0;0;0"};
+        char fallback[]{"1728;;;0;0;0"};
+        CtScalableTag scalableTag{serialised, fallback};
+        ASSERT_DOUBLE_EQ(1.728, scalableTag.scale);
+        ASSERT_STREQ(fallback, scalableTag.serialise().c_str());
+    }
+    {
+        char serialised[]{"678;#000000;#ffffff;1;1;1"};
         CtScalableTag scalableTag{serialised};
         ASSERT_DOUBLE_EQ(0.678, scalableTag.scale);
         ASSERT_STREQ("#000000", scalableTag.foreground.c_str());
@@ -150,7 +158,7 @@ TEST(TestTypesGroup, ctScalableTag)
         ASSERT_TRUE(scalableTag.underline);
         ASSERT_STREQ(serialised, scalableTag.serialise().c_str());
 
-        scalableTag.deserialise("1.728000;;;0;0;0");
+        scalableTag.deserialise("1728;;;0;0;0");
         ASSERT_DOUBLE_EQ(1.728, scalableTag.scale);
         ASSERT_TRUE(scalableTag.foreground.empty());
         ASSERT_TRUE(scalableTag.background.empty());

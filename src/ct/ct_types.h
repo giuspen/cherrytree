@@ -132,14 +132,17 @@ private:
 struct CtScalableTag
 {
     const std::string sep{";"};
-    CtScalableTag(const char* serialised) {
-        deserialise(serialised);
+    CtScalableTag(const char* serialised, const char* fallback = "") {
+        deserialise(serialised, fallback);
     }
-    void deserialise(const char* serialised) {
+    void deserialise(const char* serialised, const char* fallback = "") {
+        if (strchr(serialised, '.') or strchr(serialised, ',')) {
+            serialised = fallback; // legacy scale stored as double was not locale proof
+        }
         gchar** arrayOfStrings = g_strsplit(serialised, sep.c_str(), -1);
         gchar** ptr = arrayOfStrings;
         if (*ptr) {
-            scale = std::stod(*ptr);
+            scale = static_cast<double>(std::stoi(*ptr))/1000;
             ++ptr;
             if (*ptr) {
                 foreground = *ptr;
@@ -164,7 +167,7 @@ struct CtScalableTag
         g_strfreev(arrayOfStrings);
     }
     std::string serialise() const {
-        return std::to_string(scale) + sep +
+        return std::to_string(static_cast<unsigned>(round(scale*1000))) + sep +
                foreground + sep +
                background + sep +
                std::to_string(bold) + sep +

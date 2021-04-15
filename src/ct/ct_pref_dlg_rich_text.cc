@@ -214,7 +214,7 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
         auto pLabel_scaleTab = Gtk::manage(new Gtk::Label{_("Scale")});
         auto pAdj_scaleTab = Gtk::Adjustment::create(pScalableCfg->scale, 0.1, 10.0, 0.1);
         auto pSpinButton_scaleTab = Gtk::manage(new Gtk::SpinButton{pAdj_scaleTab});
-        pSpinButton_scaleTab->set_digits(6);
+        pSpinButton_scaleTab->set_digits(3);
         auto pCheckButton_boldTab = Gtk::manage(new Gtk::CheckButton{_("Bold")});
         auto pCheckButton_italicTab = Gtk::manage(new Gtk::CheckButton{_("Italic")});
         auto pCheckButton_underlineTab = Gtk::manage(new Gtk::CheckButton{_("Underline")});
