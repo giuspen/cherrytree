@@ -116,6 +116,16 @@ CtMainWin::CtMainWin(bool                            no_gui,
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "paste-clipboard", G_CALLBACK(CtClipboard::on_paste_clipboard), _uCtPairCodeboxMainWin.get());
 
     signal_key_press_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_window_key_press_event), false);
+    signal_show().connect([this](){
+        auto rGdkWin = this->get_window();
+        if (rGdkWin) {
+            rGdkWin->set_events(rGdkWin->get_events() | Gdk::STRUCTURE_MASK);
+            //spdlog::debug("OK events + STRUCTURE_MASK");
+        }
+        else {
+            spdlog::warn("!! unexp not get_window()");
+        }
+    });
 
     file_autosave_restart();
     mod_time_sentinel_restart();
@@ -139,8 +149,6 @@ CtMainWin::CtMainWin(bool                            no_gui,
         }
         _hPaned.property_position() = _pCtConfig->hpanedPos; // must be after present() (#1534)
         _ctTextview.signal_size_allocate().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_size_allocate));
-        auto rGdkWin = get_window();
-        rGdkWin->set_events(rGdkWin->get_events() | Gdk::STRUCTURE_MASK);
         signal_configure_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_window_configure_event), false);
 
         // show status icon if it's needed and also check if systray exists
