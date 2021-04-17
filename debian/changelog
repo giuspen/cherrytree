@@ -1,7 +1,7 @@
-cherrytree (0.99.35-1) focal; urgency=low
+cherrytree (0.99.36-1) focal; urgency=low
 
-  * fix issue in 0.99.34 H1/H2/H3/H4/H5/H6/small not working for certain locale (#1611)
-  * fix issue with bookmarks in tree right click menu (#1613)
+  * fix segfault on startup when configured to start on systray (in 0.99.34,0.99.35 - #1610, #1619)
+  * updated Japanese language (Piyo)
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Fri, 16 Apr 2021 00:15:30 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Sat, 17 Apr 2021 22:27:52 +0100
