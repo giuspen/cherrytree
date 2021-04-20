@@ -116,13 +116,15 @@ void CtApp::_on_startup()
             return false;
         });
         _rStatusIcon->signal_popup_menu().connect([&](guint button, guint32 activate_time){
-            Gtk::Menu* systrayMenu = Gtk::manage(new Gtk::Menu());
-            auto item1 = CtMenu::create_menu_item(systrayMenu, _("Show/Hide _CherryTree"), CtConst::APP_NAME, _("Toggle Show/Hide CherryTree"));
-            item1->signal_activate().connect([&] {_systray_show_hide_windows();});
-            auto item2 = CtMenu::create_menu_item(systrayMenu, _("_Exit CherryTree"), "ct_quit-app", _("Exit from CherryTree"));
-            item2->signal_activate().connect([&] { close_all_windows(false/*fromKillCallback*/); });
-            systrayMenu->show_all();
-            systrayMenu->popup(button, activate_time);
+            if (not _uStatusIconMenu) {
+                _uStatusIconMenu = std::make_unique<Gtk::Menu>();
+                auto item1 = CtMenu::create_menu_item(_uStatusIconMenu.get(), _("Show/Hide _CherryTree"), CtConst::APP_NAME, _("Toggle Show/Hide CherryTree"));
+                item1->signal_activate().connect([&](){ _systray_show_hide_windows(); });
+                auto item2 = CtMenu::create_menu_item(_uStatusIconMenu.get(), _("_Exit CherryTree"), "ct_quit-app", _("Exit from CherryTree"));
+                item2->signal_activate().connect([&](){ close_all_windows(false/*fromKillCallback*/); });
+            }
+            _uStatusIconMenu->show_all();
+            _uStatusIconMenu->popup(button, activate_time);
         });
         _pCtApp = this;
         signal(SIGTERM, kill_callback_handler); // kill/killall
@@ -342,27 +344,32 @@ bool CtApp::_quit_or_hide_window(CtMainWin* pCtMainWin, const bool from_delete, 
 
 void CtApp::_systray_show_hide_windows()
 {
-    // this may be called from a right click menu item that has top level focus,
-    // with this trick we let it close and the top level window gets focus back
-    Glib::signal_idle().connect_once([&](){
-        bool to_show = true;
-        for (Gtk::Window* pWin : get_windows())
-            if (pWin->has_toplevel_focus())
-                to_show = false;
-        for (Gtk::Window* pWin : get_windows())
-        {
-            CtMainWin* win = dynamic_cast<CtMainWin*>(pWin);
-            if (to_show) {
-                win->present();
-                win->restore_position();
-                win->set_visible(true);
-            }
-            else {
-                win->save_position();
-                win->set_visible(false);
-            }
+    if (_uStatusIconMenu) {
+        _uStatusIconMenu->hide();
+    }
+    while (gtk_events_pending()) gtk_main_iteration();
+    bool to_show{true};
+    for (Gtk::Window* pWin : get_windows()) {
+#ifdef _WIN32
+        if (pWin->get_visible()) {
+#else
+        if (pWin->has_toplevel_focus()) {
+#endif
+            to_show = false;
         }
-    });
+    }
+    for (Gtk::Window* pWin : get_windows()) {
+        CtMainWin* win = dynamic_cast<CtMainWin*>(pWin);
+        if (to_show) {
+            win->present();
+            win->restore_position();
+            win->set_visible(true);
+        }
+        else {
+            win->save_position();
+            win->set_visible(false);
+        }
+    }
 }
 
 void CtApp::close_all_windows(const bool fromKillCallback)

@@ -47,6 +47,7 @@ public:
 protected:
     std::unique_ptr<CtConfig> _uCtCfg;
     std::unique_ptr<CtTmp> _uCtTmp;
+    std::unique_ptr<Gtk::Menu> _uStatusIconMenu;
     Glib::RefPtr<Gtk::IconTheme> _rIcontheme;
     Glib::RefPtr<Gtk::TextTagTable> _rTextTagTable;
     Glib::RefPtr<Gtk::CssProvider> _rCssProvider;
