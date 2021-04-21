@@ -262,20 +262,35 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
         });
         pCheckButton_boldTab->signal_toggled().connect([pCheckButton_boldTab, pScalableCfg, pScalableTagId, this](){
             pScalableCfg->bold = pCheckButton_boldTab->get_active();
-            if (auto rTag = _pCtMainWin->get_text_tag_table()->lookup(*pScalableTagId)) {
-                _pCtMainWin->apply_scalable_properties(rTag, pScalableCfg);
+            if (pScalableCfg->bold) {
+                if (auto rTag = _pCtMainWin->get_text_tag_table()->lookup(*pScalableTagId)) {
+                    _pCtMainWin->apply_scalable_properties(rTag, pScalableCfg);
+                }
+            }
+            else {
+                need_restart(RESTART_REASON::SCALABLE_TAGS);
             }
         });
         pCheckButton_italicTab->signal_toggled().connect([pCheckButton_italicTab, pScalableCfg, pScalableTagId, this](){
             pScalableCfg->italic = pCheckButton_italicTab->get_active();
-            if (auto rTag = _pCtMainWin->get_text_tag_table()->lookup(*pScalableTagId)) {
-                _pCtMainWin->apply_scalable_properties(rTag, pScalableCfg);
+            if (pScalableCfg->italic) {
+                if (auto rTag = _pCtMainWin->get_text_tag_table()->lookup(*pScalableTagId)) {
+                    _pCtMainWin->apply_scalable_properties(rTag, pScalableCfg);
+                }
+            }
+            else {
+                need_restart(RESTART_REASON::SCALABLE_TAGS);
             }
         });
         pCheckButton_underlineTab->signal_toggled().connect([pCheckButton_underlineTab, pScalableCfg, pScalableTagId, this](){
             pScalableCfg->underline = pCheckButton_underlineTab->get_active();
-            if (auto rTag = _pCtMainWin->get_text_tag_table()->lookup(*pScalableTagId)) {
-                _pCtMainWin->apply_scalable_properties(rTag, pScalableCfg);
+            if (pScalableCfg->underline) {
+                if (auto rTag = _pCtMainWin->get_text_tag_table()->lookup(*pScalableTagId)) {
+                    _pCtMainWin->apply_scalable_properties(rTag, pScalableCfg);
+                }
+            }
+            else {
+                need_restart(RESTART_REASON::SCALABLE_TAGS);
             }
         });
         pCheckButton_fgTab->signal_toggled().connect([pCheckButton_fgTab, pColorButton_fgTab, pScalableCfg, pScalableTagId, this](){

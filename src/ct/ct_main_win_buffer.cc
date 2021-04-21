@@ -161,9 +161,15 @@ void CtMainWin::apply_scalable_properties(Glib::RefPtr<Gtk::TextTag> rTextTag, C
     if (not pCtScalableTag->background.empty()) {
         rTextTag->property_background() = pCtScalableTag->background;
     }
-    rTextTag->property_weight() = pCtScalableTag->bold ? Pango::Weight::WEIGHT_HEAVY : Pango::Weight::WEIGHT_NORMAL;
-    rTextTag->property_style() = pCtScalableTag->italic ? Pango::Style::STYLE_ITALIC : Pango::Style::STYLE_NORMAL;
-    rTextTag->property_underline() = pCtScalableTag->underline ? Pango::Underline::UNDERLINE_SINGLE : Pango::Underline::UNDERLINE_NONE;
+    if (pCtScalableTag->bold) {
+        rTextTag->property_weight() = Pango::Weight::WEIGHT_HEAVY;
+    }
+    if (pCtScalableTag->italic) {
+        rTextTag->property_style() = Pango::Style::STYLE_ITALIC;
+    }
+    if (pCtScalableTag->underline) {
+        rTextTag->property_underline() = Pango::Underline::UNDERLINE_SINGLE;
+    }
 }
 
 const std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string& propertyName,
