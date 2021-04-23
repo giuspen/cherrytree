@@ -7,2871 +7,3465 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cherrytree 0.26\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-15 11:35+0100\n"
-"PO-Revision-Date: 2016-05-26 18:20+0800\n"
+"POT-Creation-Date: 2021-04-08 20:37+0100\n"
+"PO-Revision-Date: 2021-04-23 15:11+0800\n"
 "Last-Translator: Channing Wong <mamimoluo@gmail.com>\n"
 "Language-Team: Chinese (simplified)\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 2.4.2\n"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:97
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3541
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4976
-msgid "Plain Text"
-msgstr "纯文本"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:225
+msgid "Remove Color"
+msgstr "删除颜色"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:98
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3543
-msgid "Automatic Syntax Highlighting"
-msgstr "自动语法高亮"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:109
-msgid "Type"
-msgstr "类型"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:114
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:892
-msgid "Width"
-msgstr "宽"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:118
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:895
-msgid "Height"
-msgstr "高"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:123
-msgid "pixels"
-msgstr "像素"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:148
-msgid "Size"
-msgstr "尺寸"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:153
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:636
-msgid "Show Line Numbers"
-msgstr "显示行号"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:155
-msgid "Highlight Matching Brackets"
-msgstr "高亮括号匹配"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:164
-msgid "Options"
-msgstr "选项"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:216
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:186
-msgid "Insert a CodeBox"
-msgstr "插入一个代码框"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/codeboxes.py:375
-msgid "Edit CodeBox"
-msgstr "编辑代码框"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:46
-msgid "Iterate Latest Find/Replace"
-msgstr "重复上次搜索/替换"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:49
-msgid "Close"
-msgstr "关闭"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:50
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:51
-msgid "Find"
-msgstr "搜索"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:52
-msgid "Replace"
-msgstr "替换"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:53
-msgid "Undo"
-msgstr "撤销"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:109
-msgid "Replace in Current Node..."
-msgstr "在当前节点中替换..."
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:110
-msgid "Search in Current Node..."
-msgstr "在当前节点中搜索..."
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:138
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:244
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:319
-#, python-format
-msgid "The pattern '%s' was not found"
-msgstr "匹配模式 '%s' 未找到"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:140
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:247
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:321
-msgid "Matches"
-msgstr "已匹配"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:163
-msgid "Replace in Selected Node and Subnodes"
-msgstr "在已选节点及子节点中替换"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:164
-msgid "Replace in All Nodes"
-msgstr "在所有节点中替换"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:166
-msgid "Search in Selected Node and Subnodes"
-msgstr "在已选节点及子节点中搜索"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:167
-msgid "Search in All Nodes"
-msgstr "在所有节点中搜索"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:263
-msgid "Replace in Node Names..."
-msgstr "替换节点名称..."
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:264
-msgid "Search For a Node Name..."
-msgstr "搜索节点名称..."
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:599
-msgid "No Previous Search Was Performed During This Session"
-msgstr "当前会话没有历史搜索"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:640
-#, python-format
-msgid "Hide (Restore with '%s')"
-msgstr "隐藏 (用 ‘%s’ 恢复)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:653
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3536
-msgid "Node Name"
-msgstr "节点名称"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:655
-msgid "Line"
-msgstr "行"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:657
-msgid "Line Content"
-msgstr "首行内容"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/findreplace.py:686
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4830
-#, python-format
-msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr "链接所指向的节点不存在 (Id = %s)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/printing.py:213
-msgid "Warning: One or More Images Were Reduced to Enter the Page"
-msgstr "警告：一张或多张图片被压缩并插入到当前页面"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:172
-msgid "New _Instance"
-msgstr "新建实例(_I)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:172
-msgid "Start a New Instance of CherryTree"
-msgstr "开始一个新的CherryTree实例"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:173
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:307
-msgid "_Open File"
-msgstr "打开文件(_O)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:173
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1549
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:46
-msgid "Open a CherryTree Document"
-msgstr "打开一个CherryTree文档"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:174
-msgid "_Save"
-msgstr "保存(_S)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:174
-msgid "Save File"
-msgstr "保存文件"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:175
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:306
-msgid "Save _As"
-msgstr "另存为(_A)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:175
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:306
-msgid "Save File As"
-msgstr "另存文件为"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:176
-msgid "Open Preferences _Directory"
-msgstr "打开偏好目录(_D)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:176
-msgid "Open the Directory with Preferences Files"
-msgstr "通过偏好文件打开目录"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:177
-msgid "Pa_ge Setup"
-msgstr "页面设置(_G)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:177
-msgid "Set up the Page for Printing"
-msgstr "设置打印页面"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:178
-msgid "_Print"
-msgstr "打印(_P)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:178
-msgid "Print"
-msgstr "打印"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:179
-msgid "_Quit"
-msgstr "退出(_Q)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:179
-msgid "Quit the Application"
-msgstr "退出程序"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:180
-msgid "_Exit CherryTree"
-msgstr "退出CherryTree(_E)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:180
-msgid "Exit from CherryTree"
-msgstr "从CherryTree中退出"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:181
-msgid "_Preferences"
-msgstr "设置(_P)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:181
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1996
-msgid "Preferences"
-msgstr "设置"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:182
-msgid "_Undo"
-msgstr "撤销(_U)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:182
-msgid "Undo Last Operation"
-msgstr "撤销上次操作"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:183
-msgid "_Redo"
-msgstr "重做(_R)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:183
-msgid "Redo Previously Discarded Operation"
-msgstr "重复上次已撤销的操作"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:184
-msgid "Insert I_mage"
-msgstr "插入图片(_I)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:184
-msgid "Insert an Image"
-msgstr "插入一张图片"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:185
-msgid "Insert _Table"
-msgstr "插入表格(_T)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:185
-msgid "Insert a Table"
-msgstr "插入一个表格"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:186
-msgid "Insert _CodeBox"
-msgstr "插入代码框(_C)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:187
-msgid "Insert _File"
-msgstr "插入文件(_F)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:187
-msgid "Insert File"
-msgstr "插入文件"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:188
-msgid "Insert/Edit _Link"
-msgstr "插入/编辑链接(_L)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:188
-msgid "Insert a Link/Edit the Underlying Link"
-msgstr "插入/编辑链接"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:189
-msgid "Insert _Anchor"
-msgstr "插入锚点(_A)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:189
-msgid "Insert an Anchor"
-msgstr "插入一个锚点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:190
-msgid "Insert T_OC"
-msgstr "插入文档目录(_O)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:190
-msgid "Insert Table of Contents"
-msgstr "插入文档目录"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:191
-msgid "Insert Ti_mestamp"
-msgstr "插入时间戳(_M)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:191
-msgid "Insert Timestamp"
-msgstr "插入时间戳"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:192
-msgid "Insert _Horizontal Rule"
-msgstr "插入分割线(_H)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:192
-msgid "Insert Horizontal Rule"
-msgstr "插入分割线"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:193
-msgid "_Lower Case of Selection/Word"
-msgstr "选中文字转换为小写(_L)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:193
-msgid "Lower the Case of the Selection/the Underlying Word"
-msgstr "选中文字转换为小写"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:194
-msgid "_Upper Case of Selection/Word"
-msgstr "选中文字转换为大写(_U)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:194
-msgid "Upper the Case of the Selection/the Underlying Word"
-msgstr "选中文字转换为大写"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:195
-msgid "_Toggle Case of Selection/Word"
-msgstr "切换已选中文字的大小写(_T)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:195
-msgid "Toggle the Case of the Selection/the Underlying Word"
-msgstr "切换已选中文字的大小写"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:196
-msgid "Enable/Disable _Spell Check"
-msgstr "启用/禁用拼写检查(_S)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:196
-msgid "Toggle Enable/Disable Spell Check"
-msgstr "启用/禁用拼写检查"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:197
-msgid "Cu_t as Plain Text"
-msgstr "剪切为纯文本(_t)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:197
-msgid "Cut as Plain Text, Discard the Rich Text Formatting"
-msgstr "剪切为纯文本，去除富文本的格式"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:198
-msgid "_Copy as Plain Text"
-msgstr "复制为纯文本(_C)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:198
-msgid "Copy as Plain Text, Discard the Rich Text Formatting"
-msgstr "复制为纯文本，去除富文本的格式"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:199
-msgid "_Paste as Plain Text"
-msgstr "粘贴为纯文本(_P)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:199
-msgid "Paste as Plain Text, Discard the Rich Text Formatting"
-msgstr "粘贴为纯文本，去除富文本的格式"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:200
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:600
-msgid "Cu_t Row"
-msgstr "剪切行(_X)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:200
-msgid "Cut the Current Row/Selected Rows"
-msgstr "剪切当前/已选中行"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:201
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:601
-msgid "_Copy Row"
-msgstr "复制行(_C)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:201
-msgid "Copy the Current Row/Selected Rows"
-msgstr "复制当前/已选中行"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:202
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:603
-msgid "De_lete Row"
-msgstr "删除行(_L)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:202
-msgid "Delete the Current Row/Selected Rows"
-msgstr "删除当前/已选中行"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:203
-msgid "_Duplicate Row"
-msgstr "复制行(_D)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:203
-msgid "Duplicate the Current Row/Selection"
-msgstr "复制当前/已选中行"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:204
-msgid "Move _Up Row"
-msgstr "上移(_U)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:204
-msgid "Move Up the Current Row/Selected Rows"
-msgstr "上移当前/已选中行"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:205
-msgid "Move _Down Row"
-msgstr "下移(_D)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:205
-msgid "Move Down the Current Row/Selected Rows"
-msgstr "下移当前/已选中行"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:206
-msgid "Format _Latest"
-msgstr "上次格式(_L)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:206
-msgid "Memory of Latest Text Format Type"
-msgstr "上次所操作的文字格式类型"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:207
-msgid "_Remove Formatting"
-msgstr "移除格式化(_R)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:207
-msgid "Remove the Formatting from the Selected Text"
-msgstr "移除已选择文字格式化"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:208
-msgid "Text _Color Foreground"
-msgstr "文字前景色(_C)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:208
-msgid "Change the Color of the Selected Text Foreground"
-msgstr "修改已选文字的前景色"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:209
-msgid "Text C_olor Background"
-msgstr "文字背景色(_O)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:209
-msgid "Change the Color of the Selected Text Background"
-msgstr "修改已选文字的背景色"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:210
-msgid "Toggle _Bold Property"
-msgstr "切换粗体(_B)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:210
-msgid "Toggle Bold Property of the Selected Text"
-msgstr "切换已选文字的粗体属性"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:211
-msgid "Toggle _Italic Property"
-msgstr "切换斜体(_I)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:211
-msgid "Toggle Italic Property of the Selected Text"
-msgstr "切换已选文字的斜体属性"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:212
-msgid "Toggle _Underline Property"
-msgstr "切换下划线(_U)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:212
-msgid "Toggle Underline Property of the Selected Text"
-msgstr "切换已选文字的下划线属性"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:213
-msgid "Toggle Stri_kethrough Property"
-msgstr "切换删除线(_K)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:213
-msgid "Toggle Strikethrough Property of the Selected Text"
-msgstr "切换已选文字的删除线属性"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:214
-msgid "Toggle h_1 Property"
-msgstr "切换h1(_1)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:214
-msgid "Toggle h1 Property of the Selected Text"
-msgstr "切换已选文字的h1属性"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:215
-msgid "Toggle h_2 Property"
-msgstr "切换h2(_2)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:215
-msgid "Toggle h2 Property of the Selected Text"
-msgstr "切换已选文字的h2属性"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:216
-msgid "Toggle h_3 Property"
-msgstr "切换h3(_3)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:216
-msgid "Toggle h3 Property of the Selected Text"
-msgstr "切换已选文字的h3属性"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:217
-msgid "Toggle _Small Property"
-msgstr "切换小字(_S)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:217
-msgid "Toggle Small Property of the Selected Text"
-msgstr "切换已选文字的小字属性"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:218
-msgid "Toggle Su_perscript Property"
-msgstr "切换上标(_P)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:218
-msgid "Toggle Superscript Property of the Selected Text"
-msgstr "切换已选文字的上标属性"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:219
-msgid "Toggle Su_bscript Property"
-msgstr "切换下标(_B)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:219
-msgid "Toggle Subscript Property of the Selected Text"
-msgstr "切换已选文字的下标属性"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:220
-msgid "Toggle _Monospace Property"
-msgstr "切换等宽(_M)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:220
-msgid "Toggle Monospace Property of the Selected Text"
-msgstr "切换已选文字的等宽属性"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:221
-msgid "Set/Unset _Bulleted List"
-msgstr "设置/取消符号列表(_B)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:221
-msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
-msgstr "设置/取消符号列表"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:222
-msgid "Set/Unset _Numbered List"
-msgstr "设置/取消数字列表(_N)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:222
-msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
-msgstr "设置/取消符号列表"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:223
-msgid "Set/Unset _To-Do List"
-msgstr "设置/取消To-Do列表(_T)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:223
-msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
-msgstr "设置/取消符号列表"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:224
-msgid "Justify _Left"
-msgstr "左对齐(_L)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:224
-msgid "Justify Left the Current Paragraph"
-msgstr "前端段落左对齐"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:225
-msgid "Justify _Center"
-msgstr "居中对其(_C)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:225
-msgid "Justify Center the Current Paragraph"
-msgstr "当前段落居中对其"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:226
-msgid "Justify _Right"
-msgstr "右对齐(_R)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:226
-msgid "Justify Right the Current Paragraph"
-msgstr "当前段落右对齐"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:227
-msgid "Justify _Fill"
-msgstr "两端对齐(_F)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:227
-msgid "Justify Fill the Current Paragraph"
-msgstr "当前段落两端对齐"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:228
-msgid "Add _Node"
-msgstr "添加节点(_N)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:228
-msgid "Add a Node having the same Parent of the Selected Node"
-msgstr "添加一个当前选中节点的上级节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:229
-msgid "Add _SubNode"
-msgstr "添加子节点(_S)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:229
-msgid "Add a Child Node to the Selected Node"
-msgstr "为当前所选节点添加一个子节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:230
-msgid "_Duplicate Node"
-msgstr "复制节点(_D)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:230
-msgid "Duplicate the Selected Node"
-msgstr "复制已选择节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:231
-msgid "Change Node _Properties"
-msgstr "修改节点属性(_P)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:231
-msgid "Edit the Properties of the Selected Node"
-msgstr "编辑当前所选节点的属性"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:232
-msgid "Toggle _Read Only"
-msgstr "切换只读(_R)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:232
-msgid "Toggle the Read Only Property of the Selected Node"
-msgstr "切换已选节点的只读属性"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:233
-msgid "Insert Today's Node"
-msgstr "插入今日节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:233
-msgid "Insert a Node with Hierarchy Year/Month/Day"
-msgstr "插入一个 年/月/日 层级节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:234
-msgid "Tree _Info"
-msgstr "树信息(_I)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:234
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3973
-msgid "Tree Summary Information"
-msgstr "树摘要信息"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:235
-msgid "Node _Up"
-msgstr "上移节点(_U)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:235
-msgid "Move the Selected Node Up"
-msgstr "将当前所选节点向上移动"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:236
-msgid "Node _Down"
-msgstr "下移节点(_D)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:236
-msgid "Move the Selected Node Down"
-msgstr "将当前所选节点向下移动"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:237
-msgid "Node _Left"
-msgstr "左移节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:237
-msgid "Move the Selected Node Left"
-msgstr "将当前所选节点向左移动"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:238
-msgid "Node _Right"
-msgstr "右移节点(_R)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:238
-msgid "Move the Selected Node Right"
-msgstr "将当前所选节点向右移动"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:239
-msgid "Node Change _Parent"
-msgstr "改变父节点(_P)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:239
-msgid "Change the Selected Node's Parent"
-msgstr "改变当前所选节点的父节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:240
-msgid "Sort Tree _Ascending"
-msgstr "升序排序树(_A)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:240
-msgid "Sort the Tree Ascending"
-msgstr "升序排序所有树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:241
-msgid "Sort Tree _Descending"
-msgstr "降序排序树(_D)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:241
-msgid "Sort the Tree Descending"
-msgstr "降序排序所有树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:242
-msgid "Sort Siblings A_scending"
-msgstr "升序排序同级(_S)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:242
-msgid "Sort all the Siblings of the Selected Node Ascending"
-msgstr "升序排序所有与当前所选同级的节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:243
-msgid "Sort Siblings D_escending"
-msgstr "降序排序同级(_E)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:243
-msgid "Sort all the Siblings of the Selected Node Descending"
-msgstr "降序排序所有与当前所选同级的节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:244
-msgid "_Inherit Syntax"
-msgstr "继承语法高亮(_I)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:244
-msgid ""
-"Change the Selected Node's Children Syntax Highlighting to the Parent's "
-"Syntax Highlighting"
-msgstr "改变当前所选节点的子节点语法高亮与其父节点相同"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:245
-msgid "De_lete Node"
-msgstr "删除节点(_L)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:245
-msgid "Delete the Selected Node"
-msgstr "删除已选择节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:246
-msgid "Go _Back"
-msgstr "后退(_B)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:246
-msgid "Go to the Previous Visited Node"
-msgstr "回到上一个已访问过的节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:247
-msgid "Go _Forward"
-msgstr "前进(_F)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:247
-msgid "Go to the Next Visited Node"
-msgstr "回到下一个已访问过的节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:248
-msgid "_Find in Node Content"
-msgstr "在节点内容中搜索(_F)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:248
-msgid "Find into the Selected Node Content"
-msgstr "在已选节点内容中搜索"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:249
-msgid "Find in _All Nodes Contents"
-msgstr "在所有节点内容中搜索(_A)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:249
-msgid "Find into All the Tree Nodes Contents"
-msgstr "在所有节点内容中搜索"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:250
-msgid "Find in _Selected Node and Subnodes Contents"
-msgstr "在已选节点及子节点的内容中搜索(_S)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:250
-msgid "Find into the Selected Node and Subnodes Contents"
-msgstr "在已选节点及子节点的内容中搜索"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:251
-msgid "Find in _Nodes Names and Tags"
-msgstr "在节点名和标签中搜索(_N)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:251
-msgid "Find in Nodes Names and Tags"
-msgstr "在节点名和标签中搜索"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:252
-msgid "Find _Again"
-msgstr "重复搜索(_A)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:252
-msgid "Iterate the Last Find Operation"
-msgstr "重复上次的搜索操作"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:253
-msgid "Find _Back"
-msgstr "反向搜索(_B)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:253
-msgid "Iterate the Last Find Operation in Opposite Direction"
-msgstr "反方向重复上次搜索"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:254
-msgid "_Replace in Node Content"
-msgstr "在节点内容中替换(_R)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:254
-msgid "Replace into the Selected Node Content"
-msgstr "在当前已选节点内容中替换"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:255
-msgid "Replace in _All Nodes Contents"
-msgstr "在所有节点内容中替换(_A)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:255
-msgid "Replace into All the Tree Nodes Contents"
-msgstr "在所有树节点内容中替换"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:256
-msgid "Replace in _Selected Node and Subnodes Contents"
-msgstr "在已选节点及子节点内容中替换(_S)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:256
-msgid "Replace into the Selected Node and Subnodes Contents"
-msgstr "替换到已选节点及子节点的内容中"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:257
-msgid "Replace in Nodes _Names"
-msgstr "替换节点名称(_N)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:257
-msgid "Replace in Nodes Names"
-msgstr "替换节点名称"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:258
-msgid "Replace _Again"
-msgstr "重复上次替换(_A)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:258
-msgid "Iterate the Last Replace Operation"
-msgstr "重复上次替换操作"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:259
-msgid "Show/Hide _Tree"
-msgstr "显示/隐藏树(_T)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:259
-msgid "Toggle Show/Hide Tree"
-msgstr "切换树的显示"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:260
-msgid "Show/Hide Tool_bar"
-msgstr "显示/隐藏工具栏(_B)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:260
-msgid "Toggle Show/Hide Toolbar"
-msgstr "切换工具栏的显示"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:261
-msgid "Show/Hide Node Name _Header"
-msgstr "显示/隐藏节点标题头(_H)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:261
-msgid "Toggle Show/Hide Node Name Header"
-msgstr "切换节点标题头的显示"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:262
-msgid "Show _All Matches Dialog"
-msgstr "显示所有已匹配的对话框"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:262
-msgid "Show Search All Matches Dialog"
-msgstr "显示所有已匹配的搜索对话框"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:263
-msgid "Toggle _Focus Tree/Text"
-msgstr "切换树/文本焦点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:263
-msgid "Toggle Focus Between Tree and Text"
-msgstr "在树和文本件切换焦点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:264
-msgid "E_xpand All Nodes"
-msgstr "展开所有节点(_X)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:264
-msgid "Expand All the Tree Nodes"
-msgstr "展开所有树节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:265
-msgid "_Collapse All Nodes"
-msgstr "收缩所有节点(_C)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:265
-msgid "Collapse All the Tree Nodes"
-msgstr "收缩所有树节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:266
-msgid "_Increase Toolbar Icons Size"
-msgstr "增加工具栏图标大小(_I)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:266
-msgid "Increase the Size of the Toolbar Icons"
-msgstr "增加工具栏图标大小"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:267
-msgid "_Decrease Toolbar Icons Size"
-msgstr "减少工具栏图标大小(_D)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:267
-msgid "Decrease the Size of the Toolbar Icons"
-msgstr "减少工具栏图标大小"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:268
-msgid "_Full Screen On/Off"
-msgstr "切换全屏(_F)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:268
-msgid "Toggle Full Screen On/Off"
-msgstr "切换全屏"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:269
-msgid "Add to _Bookmarks"
-msgstr "添加到书签(_B)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:269
-msgid "Add the Current Node to the Bookmarks List"
-msgstr "添加当前节点到书签列表"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:270
-msgid "_Remove from Bookmarks"
-msgstr "从书签中移除(_R)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:270
-msgid "Remove the Current Node from the Bookmarks List"
-msgstr "从当前节点到书签列表中删除"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:271
-msgid "_Handle Bookmarks"
-msgstr "处理书签(_H)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:271
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1590
-msgid "Handle the Bookmarks List"
-msgstr "处理书签列表"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:272
-msgid "From _CherryTree File"
-msgstr "从CherryTree文件(_C)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:272
-msgid "Add Nodes of a CherryTree File to the Current Tree"
-msgstr "从CherryTree文件添加节点到当前树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:273
-msgid "From _Plain Text File"
-msgstr "从纯文本文件(_P)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:273
-msgid "Add Node from a Plain Text File to the Current Tree"
-msgstr "从纯文本文件添加节点到当前树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:274
-msgid "From _Folder of Plain Text Files"
-msgstr "从纯文本文件夹(_F)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:274
-msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
-msgstr "从纯文本文件夹添加节点到当前树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:275
-msgid "From _HTML File"
-msgstr "从HTML文件(_H)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:275
-msgid "Add Node from an HTML File to the Current Tree"
-msgstr "从HTML文件添加节点到当前树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:276
-msgid "From _Folder of HTML Files"
-msgstr "从HTML文件夹(_F)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:276
-msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
-msgstr "从HTML文件夹添加节点到当前树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:277
-msgid "From _Basket Folder"
-msgstr "从Basket文件夹(_B)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:277
-msgid "Add Nodes of a Basket Folder to the Current Tree"
-msgstr "从Basket文件夹添加节点到当前树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:278
-msgid "From _EssentialPIM HTML File"
-msgstr "从EPIM HTML文件(_E)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:278
-msgid "Add Node from an EssentialPIM HTML File to the Current Tree"
-msgstr "从EPIM HTML文件添加节点到当前树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:279
-msgid "From _Gnote Folder"
-msgstr "从Gnote文件夹(_G)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:279
-msgid "Add Nodes of a Gnote Folder to the Current Tree"
-msgstr "从Gnote文件夹添加节点到当前树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:280
-msgid "From _KeepNote Folder"
-msgstr "从KeepNote文件夹(_K)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:280
-msgid "Add Nodes of a KeepNote Folder to the Current Tree"
-msgstr "从KeepNote文件夹添加节点到当前树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:281
-msgid "From K_eyNote File"
-msgstr "从KeyNote文件(_e)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:281
-msgid "Add Nodes of a KeyNote File to the Current Tree"
-msgstr "从KeyNote文件添加节点到当前树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:282
-msgid "From K_nowit File"
-msgstr "从Knowit文件(_N)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:282
-msgid "Add Nodes of a Knowit File to the Current Tree"
-msgstr "从Knowit文件添加节点到当前树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:283
-msgid "From _Leo File"
-msgstr "从Leo文件(_L)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:283
-msgid "Add Nodes of a Leo File to the Current Tree"
-msgstr "从Leo文件添加节点到当前树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:284
-msgid "From _Mempad File"
-msgstr "从Mempad文件(_M)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:284
-msgid "Add Nodes of a Mempad File to the Current Tree"
-msgstr "从Mempad文件添加节点到当前树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:285
-msgid "From _NoteCase File"
-msgstr "从NoteCase文件(_N)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:285
-msgid "Add Nodes of a NoteCase File to the Current Tree"
-msgstr "从NoteCase文件添加节点到当前树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:286
-msgid "From _RedNotebook Folder"
-msgstr "从RedNotebook文件夹(_R)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:286
-msgid "Add Nodes of a RedNotebook Folder to the Current Tree"
-msgstr "从RedNotebook文件夹添加节点到当前树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:287
-msgid "From T_omboy Folder"
-msgstr "从Tomboy文件夹(_O)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:287
-msgid "Add Nodes of a Tomboy Folder to the Current Tree"
-msgstr "从Tomboy文件夹添加节点到当前树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:288
-msgid "From T_reepad Lite File"
-msgstr "从Treepad文件(_R)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:288
-msgid "Add Nodes of a Treepad Lite File to the Current Tree"
-msgstr "从Treepad文件添加节点到当前树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:289
-msgid "From _TuxCards File"
-msgstr "从TuxCards文件(_T)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:289
-msgid "Add Nodes of a TuxCards File to the Current Tree"
-msgstr "从TuxCards文件添加节点到当前树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:290
-msgid "From _Zim Folder"
-msgstr "从Zim文件夹(_Z)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:290
-msgid "Add Nodes of a Zim Folder to the Current Tree"
-msgstr "从Zim文件夹添加节点到当前树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:291
-msgid "Export To _PDF"
-msgstr "导出到PDF(_P)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:291
-msgid "Export To PDF"
-msgstr "导出到PDF"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:292
-msgid "Export To _HTML"
-msgstr "导出到HTML(_H)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:292
-msgid "Export To HTML"
-msgstr "导出到HTML"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:293
-msgid "Export to Multiple Plain _Text Files"
-msgstr "导出到多个文本文件(_T)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:293
-msgid "Export to Multiple Plain Text Files"
-msgstr "导出到多个文本文件"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:294
-msgid "Export to _Single Plain Text File"
-msgstr "导出到独个文本文件(_S)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:294
-msgid "Export to Single Plain Text File"
-msgstr "导出到独个文本文件"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:295
-msgid "_Export To CherryTree Document"
-msgstr "导出到CherryTree文档(_E)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:295
-msgid "Export To CherryTree Document"
-msgstr "导出到CherryTree文档"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:296
-msgid "_Check Newer Version"
-msgstr "检查新版本(_C)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:296
-msgid "Check for a Newer Version"
-msgstr "检查新的版本"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:297
-msgid "Online _Manual"
-msgstr "在线手册(_M)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:297
-msgid "Application's Online Manual"
-msgstr "程序的在线手册"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:298
-msgid "_About"
-msgstr "关于(_A)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:298
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:749
-msgid "About CherryTree"
-msgstr "关于CherryTree"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:299
-msgid "C_ut Anchor"
-msgstr "剪切锚点(_U)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:299
-msgid "Cut the Selected Anchor"
-msgstr "剪切已选中的锚点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:300
-msgid "_Copy Anchor"
-msgstr "复制锚点(_C)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:300
-msgid "Copy the Selected Anchor"
-msgstr "复制已选中的锚点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:301
-msgid "_Delete Anchor"
-msgstr "删除锚点(_D)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:301
-msgid "Delete the Selected Anchor"
-msgstr "删除已选中的锚点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:302
-msgid "Edit _Anchor"
-msgstr "编辑锚点(_A)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:302
-msgid "Edit the Underlying Anchor"
-msgstr "编辑锚点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:303
-msgid "C_ut Embedded File"
-msgstr "剪切嵌入文件(_U)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:303
-msgid "Cut the Selected Embedded File"
-msgstr "剪切已选中的嵌入文件"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:304
-msgid "_Copy Embedded File"
-msgstr "复制嵌入文件(_C)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:304
-msgid "Copy the Selected Embedded File"
-msgstr "复制已选中的嵌入文件"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:305
-msgid "_Delete Embedded File"
-msgstr "删除嵌入文件(_D)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:305
-msgid "Delete the Selected Embedded File"
-msgstr "删除已选中的嵌入文件"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:307
-msgid "Open Embedded File"
-msgstr "打开嵌入文件"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:308
-msgid "_Save Image as PNG"
-msgstr "图片另存为PNG(_S)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:308
-msgid "Save the Selected Image as a PNG file"
-msgstr "将选中图片另存为PNG文件"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:309
-msgid "_Edit Image"
-msgstr "编辑图片(_E)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:309
-msgid "Edit the Selected Image"
-msgstr "编辑选中图片"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:310
-msgid "C_ut Image"
-msgstr "剪切图片(_X)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:310
-msgid "Cut the Selected Image"
-msgstr "剪切已选中图片"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:311
-msgid "_Copy Image"
-msgstr "复制图片(_C)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:311
-msgid "Copy the Selected Image"
-msgstr "复制已选中图片"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:312
-msgid "_Delete Image"
-msgstr "删除图片(_D)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:312
-msgid "Delete the Selected Image"
-msgstr "删除已选中图片"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:313
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:580
-msgid "Edit _Link"
-msgstr "编辑链接(_L)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:313
-msgid "Edit the Link Associated to the Image"
-msgstr "编辑图片所关联的链接"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:314
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:584
-msgid "D_ismiss Link"
-msgstr "取消链接(_D)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:314
-msgid "Dismiss the Link Associated to the Image"
-msgstr "忽略图片所关联的链接"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:315
-msgid "Show/Hide _CherryTree"
-msgstr "显示/隐藏CherryTree(_C)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:315
-msgid "Toggle Show/Hide CherryTree"
-msgstr "切换CherryTree的显示"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:316
-msgid "Stri_p Trailing Spaces"
-msgstr "删除行尾空格(_p)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:316
-msgid "Strip Trailing Spaces"
-msgstr "删除行尾空格"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:324
-msgid "_File"
-msgstr "文件(_F)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:325
-msgid "_Edit"
-msgstr "编辑(_E)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:326
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:455
-msgid "For_matting"
-msgstr "格式化(_M)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:327
-msgid "_Tree"
-msgstr "树(_T)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:328
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:388
-msgid "Node _Move"
-msgstr "移动节点(_M)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:329
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:406
-msgid "Nodes _Import"
-msgstr "导入节点(_I)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:330
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:427
-msgid "Nodes E_xport"
-msgstr "导出节点(_X)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:331
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:496
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:541
-msgid "C_hange Case"
-msgstr "改变大小写(_H)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:332
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:511
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:555
-msgid "_Search"
-msgstr "搜索(_S)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:333
-msgid "_View"
-msgstr "视图(_V)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:334
-msgid "_Bookmarks"
-msgstr "书签(_B)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:335
-msgid "_Import"
-msgstr "导入(_I)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:336
-msgid "E_xport"
-msgstr "导出(_X)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:337
-msgid "_Help"
-msgstr "帮助(_H)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:396
-msgid "Nodes _Sort"
-msgstr "节点排序(_S)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:473
-msgid "_Justify"
-msgstr "对齐(_J)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:479
-msgid "_List"
-msgstr "列表(_L)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:485
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:536
-msgid "_Insert"
-msgstr "插入(_I)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:501
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:546
-msgid "_Row"
-msgstr "行(_R)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:519
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:563
-msgid "_Replace"
-msgstr "替换(_R)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:580
-msgid "Edit the Underlying Link"
-msgstr "编辑相关链接"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:582
-msgid "C_ut Link"
-msgstr "剪切链接(_U)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:582
-msgid "Cut the Selected Link"
-msgstr "剪切已选择链接"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:583
-msgid "_Copy Link"
-msgstr "复制链接(_C)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:583
-msgid "Copy the Selected Link"
-msgstr "复制已选择链接"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:584
-msgid "Dismiss the Selected Link"
-msgstr "取消选中链接"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:585
-msgid "_Delete Link"
-msgstr "删除链接(_D)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:585
-msgid "Delete the Selected Link"
-msgstr "删除已选择链接"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:595
-msgid "C_ut Table"
-msgstr "剪切表格(_X)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:595
-msgid "Cut the Selected Table"
-msgstr "剪切已选中表格"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:596
-msgid "_Copy Table"
-msgstr "复制表格(_C)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:596
-msgid "Copy the Selected Table"
-msgstr "复制已选中表格"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:597
-msgid "_Delete Table"
-msgstr "删除表格(_D)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:597
-msgid "Delete the Selected Table"
-msgstr "删除已选中表格"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:599
-msgid "_Add Row"
-msgstr "添加行(_A)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:599
-msgid "Add a Table Row"
-msgstr "添加一行"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:600
-msgid "Cut a Table Row"
-msgstr "剪切一行"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:601
-msgid "Copy a Table Row"
-msgstr "复制一行"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:602
-msgid "_Paste Row"
-msgstr "粘贴行(_P)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:602
-msgid "Paste a Table Row"
-msgstr "粘贴一行"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:603
-msgid "Delete the Selected Table Row"
-msgstr "删除当前所选行"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:605
-msgid "Move Row _Up"
-msgstr "上移行(_U)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:605
-msgid "Move the Selected Row Up"
-msgstr "将当前所选行向上移动"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:606
-msgid "Move Row _Down"
-msgstr "下移行(_D)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:606
-msgid "Move the Selected Row Down"
-msgstr "将当前所选行向下移动"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:607
-msgid "Sort Rows De_scending"
-msgstr "降序排序行(_S)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:607
-msgid "Sort all the Rows Descending"
-msgstr "降序排序所有行"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:608
-msgid "Sort Rows As_cending"
-msgstr "升序排序行(_C)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:608
-msgid "Sort all the Rows Ascending"
-msgstr "升序排序所有行"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:610
-msgid "_Edit Table Properties"
-msgstr "编辑表格属性(_E)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:610
-msgid "Edit the Table Properties"
-msgstr "编辑表格属性"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:611
-msgid "_Table Export"
-msgstr "导出表格(_T)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:611
-msgid "Export Table as CSV File"
-msgstr "导出表格为CSV文件"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:622
-msgid "Insert _NewLine"
-msgstr "插入新行(_N)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:622
-msgid "Insert NewLine Char"
-msgstr "插入换行字符"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:633
-msgid "Change CodeBox _Properties"
-msgstr "修改代码框属性(_P)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:633
-msgid "Edit the Properties of the CodeBox"
-msgstr "编辑代码框属性"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:634
-msgid "CodeBox _Load From Text File"
-msgstr "加载文本文件到代码框"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:634
-msgid "Load the CodeBox Content From a Text File"
-msgstr "加载文本文件到代码框中"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:635
-msgid "CodeBox _Save To Text File"
-msgstr "代码框保存到文本文件(_S)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:635
-msgid "Save the CodeBox Content To a Text File"
-msgstr "保存代码框内容到文本文件"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:637
-msgid "C_ut CodeBox"
-msgstr "剪切代码框(_U)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:637
-msgid "Cut the Selected CodeBox"
-msgstr "剪切当前所选的代码框"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:638
-msgid "_Copy CodeBox"
-msgstr "复制代码框(_C)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:638
-msgid "Copy the Selected CodeBox"
-msgstr "复制当前所选的代码框"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:639
-msgid "_Delete CodeBox"
-msgstr "删除代码框(_D)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:639
-msgid "Delete the Selected CodeBox"
-msgstr "删除当前所选的代码框"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:640
-msgid "Delete CodeBox _Keep Content"
-msgstr "删除代码框但保留其内容(_ K)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:640
-msgid "Delete the Selected CodeBox But Keep Its Content"
-msgstr "删除所选的代码框但保留其内容"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:642
-msgid "Increase CodeBox Width"
-msgstr "增加代码框宽度"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:642
-msgid "Increase the Width of the CodeBox"
-msgstr "增加代码框的宽度"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:643
-msgid "Decrease CodeBox Width"
-msgstr "减少代码框宽度"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:643
-msgid "Decrease the Width of the CodeBox"
-msgstr "减少代码框的宽度"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:644
-msgid "Increase CodeBox Height"
-msgstr "增加代码框高度"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:644
-msgid "Increase the Height of the CodeBox"
-msgstr "增加代码框的高度"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:645
-msgid "Decrease CodeBox Height"
-msgstr "减少代码框高度"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/menus.py:645
-msgid "Decrease the Height of the CodeBox"
-msgstr "减少代码框的高度"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:567
-msgid "Save File as"
-msgstr "文件另存为"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:598
-msgid "Select File"
-msgstr "选择文件"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:629
-msgid "Select Folder"
-msgstr "选择文件夹"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:657
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:278
 msgid "Question"
 msgstr "询问"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:672
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:293
 msgid "Info"
 msgstr "消息"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:678
-msgid "This Change will have Effect Only After Restarting CherryTree"
-msgstr "改变仅在CherryTree下次启动时生效"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:688
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:970
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1004
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1047
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:307
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:348
 msgid "Warning"
 msgstr "警告"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:700
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:321
 msgid "Error"
 msgstr "错误"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:711
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:329
+msgid "Select File"
+msgstr "选择文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:350
+msgid "Select Folder"
+msgstr "选择文件夹"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:363
+msgid "Save File as"
+msgstr "文件另存为"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_file.cc:80
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_file.cc:97
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:101
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_export.cc:108
+msgid "CherryTree Document"
+msgstr "CherryTree文档"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:55
+msgid "Search for"
+msgstr "查找"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:65
+msgid "Replace with"
+msgstr "替换为"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:80
+msgid "Match Case"
+msgstr "匹配大小写"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:82
+msgid "Regular Expression"
+msgstr "正则表达式"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:84
+msgid "Whole Word"
+msgstr "完整单词"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:86
+msgid "Start Word"
+msgstr "单词开始部分"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:88
+msgid "Forward"
+msgstr "向前"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:90
+msgid "Backward"
+msgstr "向后"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:93
+msgid "All, List Matches"
+msgstr "所有，并列出匹配"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:95
+msgid "First From Selection"
+msgstr "在所选中搜索"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:98
+msgid "First in All Range"
+msgstr "在当前页搜索"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:109
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:162
+msgid "Node Created After"
+msgstr "在此之后创建的节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:116
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:167
+msgid "Node Created Before"
+msgstr "在此之前创建的节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:123
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:172
+msgid "Node Modified After"
+msgstr "在此之后修改的节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:130
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:177
+msgid "Node Modified Before"
+msgstr "在此之前修改过的节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:148
+msgid "Time filter"
+msgstr "时间筛选器"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:180
+msgid "Show Iterated Find/Replace Dialog"
+msgstr "显示循环搜索/替换对话框"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:204
+msgid "Search options"
+msgstr "搜索选项"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:267
+#, c-format
+msgid "Hide (Restore with '%s')"
+msgstr "隐藏 (用 ‘%s’ 恢复)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:271
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:78
+msgid "Node Name"
+msgstr "节点名称"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:272
+msgid "Line"
+msgstr "行"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:273
+msgid "Line Content"
+msgstr "首行内容"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:291
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:329
+#, c-format
+msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
+msgstr "链接所指向的节点不存在 (Id = %s)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:344
+msgid "Iterate Latest Find/Replace"
+msgstr "重复上次搜索/替换"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:347
+msgid "Close"
+msgstr "关闭"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:348
+msgid "Find Previous"
+msgstr "查找上一个"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:349
+msgid "Find Next"
+msgstr "查找下一个"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:350
+msgid "Replace"
+msgstr "替换"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:351
+msgid "Undo"
+msgstr "撤销"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:30
+msgid "Enable System Tray Docking"
+msgstr "启用系统托盘"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:31
+msgid "Start Minimized in the System Tray"
+msgstr "程序启动后最小化到托盘"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:35
+msgid "System Tray"
+msgstr "系统托盘"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:43
+msgid "Autosave Every"
+msgstr "自动保存每隔"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:46
+msgid "Minutes"
+msgstr "分钟"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:50
+msgid "Autosave on Quit"
+msgstr "退出前自动保存"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:51
+msgid "Create a Backup Copy Before Saving"
+msgstr "保存前创建备份"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:53
+msgid "Number of Backups to Keep"
+msgstr "欲保留的备份数"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:58
+msgid "Custom Backup Directory"
+msgstr "自定义备份目录"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:86
+msgid "Saving"
+msgstr "保存中"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:89
+msgid "Automatically Check for Newer Version"
+msgstr "自动检查新版本"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:90
+msgid "Enable Word Count in Statusbar"
+msgstr "启用状态栏中的字数统计"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:91
+msgid "Reload Document From Last Session"
+msgstr "重载上一次会话中的文档"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:92
+msgid "Reload After External Update to CT* File"
+msgstr "将重载，因CT*文件在外部被修改"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:93
+msgid "Show the Document Directory in the Window Title"
+msgstr "在窗口标题中显示文件目录"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:106
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:70
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:247
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:131
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:106
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:261
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:105
+msgid "Miscellaneous"
+msgstr "杂项"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:121
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:225
+msgid "Language"
+msgstr "语言"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:138
+msgid "Has the System Tray appeared on the panel?"
+msgstr "系统托盘是否已出现在面板上？"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:144
+msgid "Your system does not support the System Tray"
+msgstr "你的系统不支持系统托盘"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:233
+msgid "The New Language will be Available Only After Restarting CherryTree"
+msgstr "新语言仅在CherryTree下次启动时生效"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:59
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:183
+msgid "Width"
+msgstr "宽"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:62
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:187
+msgid "Height"
+msgstr "高"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:164
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:102
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:583
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:77
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:84
+msgid "Plain Text"
+msgstr "纯文本"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:165
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:256
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:85
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:153
+msgid "Automatic Syntax Highlighting"
+msgstr "自动语法高亮"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:178
+msgid "Type"
+msgstr "类型"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:192
+msgid "pixels"
+msgstr "像素"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:215
+msgid "Size"
+msgstr "尺寸"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:220
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:52
+msgid "Show Line Numbers"
+msgstr "显示行号"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:222
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:35
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:55
+msgid "Highlight Matching Brackets"
+msgstr "高亮括号匹配"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:231
+msgid "Options"
+msgstr "选项"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:338
+msgid "Rows"
+msgstr "行"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:344
+msgid "Columns"
+msgstr "列"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:350
+msgid "Default Width"
+msgstr "默认宽度"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:356
+msgid "Table Size"
+msgstr "表格尺寸"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:359
+msgid "Column Properties"
+msgstr "列属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:380
+msgid "Import from CSV File"
+msgstr "从CSV文件导入"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:48
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:65
+msgid "Add"
+msgstr "添加"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:51
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:68
+msgid "Remove Selected"
+msgstr "移除所选"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:54
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:65
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:177
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:36
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:71
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:84
+msgid "Reset to Default"
+msgstr "还原至默认"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:124
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:147
+msgid "Split Toolbar"
+msgstr "分割工具栏"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:129
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:72
+msgid "Open a CherryTree Document"
+msgstr "打开一个CherryTree文档"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:157
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:247
+msgid "Select Element to Add"
+msgstr "选择元素添加"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:28
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:78
+msgid "Preferences"
+msgstr "设置"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:33
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:426
+msgid "Bulgarian"
+msgstr "保加利亚语"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:34
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:428
+msgid "Czech"
+msgstr "捷克语"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:35
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:432
+msgid "German"
+msgstr "德语"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:36
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:433
+msgid "Greek"
+msgstr "希腊语"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:37
+msgid "English"
+msgstr "英语"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:38
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:443
+msgid "Spanish"
+msgstr "西班牙语"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:39
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:430
+msgid "Finnish"
+msgstr "芬兰语"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:40
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:431
+msgid "French"
+msgstr "法语"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:41
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:425
+msgid "Armenian"
+msgstr "亚美尼亚"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:42
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:434
+msgid "Italian"
+msgstr "意大利语"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:43
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:435
+msgid "Japanese"
+msgstr "日语"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:44
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:436
+msgid "Kazakh"
+msgstr "哈萨克语"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:45
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:437
+msgid "Korean"
+msgstr "韩语"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:46
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:438
+msgid "Lithuanian"
+msgstr "立陶宛语"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:47
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:429
+msgid "Dutch"
+msgstr "荷兰语"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:48
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:439
+msgid "Polish"
+msgstr "波兰语"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:49
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:440
+msgid "Portuguese Brazil"
+msgstr "巴西葡萄牙语"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:50
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:441
+msgid "Russian"
+msgstr "俄语"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:51
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:442
+msgid "Slovenian"
+msgstr "斯洛文尼亚语"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:52
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:444
+msgid "Swedish"
+msgstr "瑞典语"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:53
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:445
+msgid "Turkish"
+msgstr "土耳其语"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:54
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:446
+msgid "Ukrainian"
+msgstr "乌克兰语"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:55
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:427
+msgid "Chinese Simplified"
+msgstr "简体中文"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:59
+msgid "Text and Code"
+msgstr "纯文本和代码"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:60
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:97
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:580
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:70
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:82
+msgid "Rich Text"
+msgstr "富文本"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:61
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:107
+msgid "Format"
+msgstr "格式化"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:62
+msgid "Plain Text and Code"
+msgstr "纯文本和代码"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:63
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:463
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:32
+msgid "Special Characters"
+msgstr "特殊字符"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:64
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:49
+msgid "Tree Explorer"
+msgstr "树型资源管理器"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:65
+msgid "Theme"
+msgstr "主题"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:66
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:133
+msgid "Fonts"
+msgstr "字体"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:67
+msgid "Links"
+msgstr "链接"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:68
+msgid "Toolbar"
+msgstr "工具栏"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:69
+msgid "Keyboard Shortcuts"
+msgstr "快捷键"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:99
+msgid "Monospace"
+msgstr "等宽字体"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:104
+msgid "Code Font"
+msgstr "代码字体"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:106
+msgid "Tree Font"
+msgstr "树型字体"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:177
+msgid "Enable Custom Web Link Clicked Action"
+msgstr "启用并定义Web链接点击动作"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:179
+msgid "Enable Custom File Link Clicked Action"
+msgstr "启用并定义文件链接点击动作"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:181
+msgid "Enable Custom Folder Link Clicked Action"
+msgstr "启用并定义文件夹链接点击动作"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:190
+msgid "Custom Actions"
+msgstr "自定义动作"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:207
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:49
+msgid "To WebSite"
+msgstr "连接到网址"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:209
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:90
+msgid "To Node"
+msgstr "连接到节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:211
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:60
+msgid "To File"
+msgstr "连接到文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:213
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:75
+msgid "To Folder"
+msgstr "连接到文件夹"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:228
+msgid "Colors"
+msgstr "颜色"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:231
+msgid "Underline Links"
+msgstr "链接下划线"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:233
+msgid "Use Relative Paths for Files And Folders"
+msgstr "对文件和文件夹使用相对路径"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:237
+msgid "Anchor Size"
+msgstr "锚点大小"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:313
+msgid "This Change will have Effect Only After Restarting CherryTree"
+msgstr "改变仅在CherryTree下次启动时生效"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:130
+#, c-format
+msgid "\"%s\" is Not a CherryTree Document"
+msgstr "\"%s\" 不是一个CherryTree文档"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:146
+#, c-format
+msgid ""
+"Error Parsing the CherryTree File:\n"
+"\"%s\""
+msgstr ""
+"解析CherryTree文件时出错：\n"
+"\"%s\""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:221
+msgid "Temporary Files were Created and Opened with External Applications."
+msgstr "临时文件已被创建并被外部程序打开。"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:222
+msgid "Quit the External Applications Before Quit CherryTree."
+msgstr "退出CherryTree前先退出外部程序。"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:223
+msgid "Did you Quit the External Applications?"
+msgstr "要退出外部程序吗？"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:345
+msgid "The Document was Reloaded After External Update to CT* File"
+msgstr "因CT*文件在外部被修改，文档已重载"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:152
+msgid "Remove from list"
+msgstr "从列表中删除"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:59
+msgid "Replace in Current Node..."
+msgstr "在当前节点中替换..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:59
+msgid "Search in Current Node..."
+msgstr "在当前节点中搜索..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:100
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:236
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:319
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr "匹配模式 '%s' 未找到"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:103
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:239
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:321
+msgid "Matches"
+msgstr "已匹配"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:134
+msgid "Replace in Selected Node and Subnodes"
+msgstr "在已选节点及子节点中替换"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:134
+msgid "Replace in All Nodes"
+msgstr "在所有节点中替换"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:136
+msgid "Search in Selected Node and Subnodes"
+msgstr "在已选节点及子节点中搜索"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:136
+msgid "Search in All Nodes"
+msgstr "在所有节点中搜索"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:260
+msgid "Replace in Node Names..."
+msgstr "替换节点名称..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:260
+msgid "Search For a Node Name..."
+msgstr "搜索节点名称..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:336
+msgid "No Previous Search Was Performed During This Session"
+msgstr "当前会话没有历史搜索"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:113
+msgid "CherryTree Hierarchical Note Taking"
+msgstr "CherryTree层级笔记记录"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:120
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:236
+msgid "Show/Hide _CherryTree"
+msgstr "显示/隐藏CherryTree(_C)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:120
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:236
+msgid "Toggle Show/Hide CherryTree"
+msgstr "切换CherryTree的显示"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:122
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:81
+msgid "_Exit CherryTree"
+msgstr "退出CherryTree(_E)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:122
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:81
+msgid "Exit from CherryTree"
+msgstr "从CherryTree中退出"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:382
+msgid "Print CherryTree version"
+msgstr "打印CherryTree版本"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:383
+msgid "Node name to focus"
+msgstr "要关注的节点名称"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:384
+msgid "Export to HTML at specified directory path"
+msgstr "在指定的目录路径下导出为HTML"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:385
+msgid "Export to Text at specified directory path"
+msgstr "在指定的目录路径下导出为文本"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:386
+msgid "Export to PDF at specified directory path"
+msgstr "在指定的目录路径下导出为PDF格式"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:387
+msgid "Overwrite if export path already exists"
+msgstr "如果导出路径已经存在，则覆盖"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:388
+msgid "Export to a single file (for HTML or TXT)"
+msgstr "Export to a single file (for HTML or TXT)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:389
+msgid "Create a new window"
+msgstr "创建一个新窗口"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:38
+msgid "Who is the Parent?"
+msgstr "哪个是父节点？"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:48
+msgid "The Tree Root"
+msgstr "树根"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:49
+msgid "The Selected Node"
+msgstr "已选择的节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:157
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:168
+msgid "Pandoc executable could not be found, please ensure it is in your path"
+msgstr "Pandoc executable could not be found, please ensure it is in your path"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:82
+msgid "No Previous Text Format Was Performed During This Session"
+msgstr "当前会话没有格式化操作历史"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:101
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:313
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:907
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:76
+msgid "No Text is Selected"
+msgstr "没有文字被选择"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:321
+msgid "Link Name"
+msgstr "链接名称"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:342
+msgid "The Cursor is Not into a Paragraph"
+msgstr "光标未进入一个段落"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:361
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:260
+msgid "Insert/Edit Link"
+msgstr "插入/编辑链接"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:370
+msgid "Pick a Foreground Color"
+msgstr "选择前景色"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:370
+msgid "Pick a Background Color"
+msgstr "选择背景颜色"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_export2html.cc:138
+msgid "Index"
+msgstr "索引"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_help.cc:45
+msgid "Checking for Newer Version..."
+msgstr "查找新版本..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_help.cc:51
+msgid "Failed to Retrieve Latest Version Information - Try Again Later"
+msgstr "获取最新版本信息失败，稍候再试"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_help.cc:63
+msgid "A Newer Version Is Available!"
+msgstr "有新版本可用！"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_help.cc:68
+msgid "You Are Using the Latest Version Available"
+msgstr "您使用的是最新版本"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_help.cc:71
+msgid "You Are Using a Development Version"
+msgstr "您正在使用开发版本"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:449
+#, c-format
+msgid "The Document %s was Not Found"
+msgstr "文档 %s 未找到"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:467
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:57
+msgid "Open a Recent CherryTree Document"
+msgstr "最近打开的CherryTree文档"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:479
+msgid "Hide"
+msgstr "隐藏"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:479
+msgid "Quit"
+msgstr "退出"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:480
+msgid "Hide the Window"
+msgstr "隐藏窗口"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:480
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:80
+msgid "Quit the Application"
+msgstr "退出程序"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:573
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:242
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:35
+msgid "No Node is Selected"
+msgstr "没有节点被选中"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:577
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:110
+msgid "Node Type"
+msgstr "节点类型"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:577
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:589
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:592
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:595
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:599
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:603
+msgid ": "
+msgstr ": "
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:589
+msgid "Tags"
+msgstr "标签"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:592
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:47
+msgid "Spell Check"
+msgstr "拼写检查"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:595
+msgid "Word Count"
+msgstr "字数"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:599
+msgid "Date Created"
+msgstr "创建日期"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:603
+msgid "Date Modified"
+msgstr "修改日期"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:62
+msgid "Change Selected"
+msgstr "改变当前所选"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:123
+#, c-format
+msgid "The Keyboard Shortcut '%s' is already in use"
+msgstr "快捷键’%s’已被占用"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:124
+#, c-format
+msgid "The current associated action is '%s'"
+msgstr "当前关联动作是’%s’"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:125
+msgid "Do you want to steal the shortcut?"
+msgstr "要覆盖这个快捷键吗？"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:145
+msgid "Edit Keyboard Shortcut"
+msgstr "编辑快捷键"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:153
+msgid "No Keyboard Shortcut"
+msgstr "没有快捷键"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:122
+msgid "Anchor Name (optional)"
+msgstr "锚点名称(可选)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:253
+msgid "There are No Anchors in the Selected Node"
+msgstr "在已选中的节点中没有锚点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:260
+msgid "Choose Existing Anchor"
+msgstr "选择现有的锚点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:260
+msgid "Anchor Name"
+msgstr "锚点名称"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.cc:80
+#: /home/giuseppe/git/cherrytree/src/ct/ct_parser_html.cc:593
+msgid "Downloading"
+msgstr "正在下载"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_sqlite.cc:159
+#, c-format
+msgid "The database file %s is corrupt, see log for more details"
+msgstr "数据库文件%s已损坏，详细情况请看日志"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_sqlite.cc:207
+#, c-format
+msgid ""
+"%s write failed - file is missing. Reattach usb driver or shared resource"
+msgstr "%s 写入失败 - 文件丢失。重新连接usb驱动或共享资源"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_sqlite.cc:210
+#, c-format
+msgid "%s write failed - is file blocked by a sync program?"
+msgstr "%s 写入失败 - 文件被同步程序阻止了吗？"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:87
+msgid "Image Format Not Recognized"
+msgstr "图片格式未能识别"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:95
+msgid "Insert Table"
+msgstr "插入表格"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:111
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:712
+msgid "CSV File"
+msgstr "CSV 文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:155
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:87
+msgid "Insert a CodeBox"
+msgstr "插入一个代码框"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:199
+#, c-format
+msgid "The Maximum Size for Embedded Files is %s MB"
+msgstr "嵌入文件的最大尺寸是 %s MB"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:201
+msgid "Do you want to Continue?"
+msgstr "你想继续吗？"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:847
+msgid "Lines Stripped"
+msgstr "已删除行尾空格的行"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:855
+msgid "Image Properties"
+msgstr "图片属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:31
+msgid "Tab Width"
+msgstr "制表符宽度"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:37
+msgid "Insert Spaces Instead of Tabs"
+msgstr "用空格代替Tab"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:39
+msgid "Use Line Wrapping"
+msgstr "启用换行显示"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:43
+msgid "Line Wrapping Indentation"
+msgstr "换行缩进"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:50
+msgid "Enable Automatic Indentation"
+msgstr "启用自动缩进"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:54
+msgid "Scroll Beyond Last Line"
+msgstr "滚动到最后一行之后"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:58
+msgid "Vertical Space Around Lines"
+msgstr "行之间的距离"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:68
+msgid "Vertical Space in Wrapped Lines"
+msgstr "换行之间的间距"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:91
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:117
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:42
+msgid "Text Editor"
+msgstr "文本编辑器"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:95
+msgid "Timestamp Format"
+msgstr "时间戳格式"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:101
+msgid "Online Manual"
+msgstr "在线手册"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:107
+msgid "Horizontal Rule"
+msgstr "定义分割线"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:120
+msgid "Chars to Select at Double Click"
+msgstr "双击选中图表"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:105
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:165
+msgid "Writing to Disk..."
+msgstr "正在写入到磁盘..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:191
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:197
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:332
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:339
+#, c-format
+msgid "You Have No Write Access to %s"
+msgstr "您没有%s文件的写入权限"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:255
+#, c-format
+msgid "Enter Password for %s"
+msgstr "请输入 %s 的密码"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:33
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:153
+msgid "Handle the Bookmarks List"
+msgstr "处理书签列表"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:61
+msgid "Move the Selected Bookmark Up"
+msgstr "将所选书签上移"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:64
+msgid "Move the Selected Bookmark Down"
+msgstr "将所选书签下移"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:67
+msgid "Remove the Selected Bookmark"
+msgstr "删除选定的书签"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:70
+msgid "Sort the Bookmarks Descending"
+msgstr "对书签进行降序排序"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:73
+msgid "Sort the Bookmarks Ascending"
+msgstr "书签升序排序"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:213
+msgid "Choose Storage Type"
+msgstr "选择存储类型"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:223
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:226
+msgid "Not Protected"
+msgstr "不保护"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:225
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:227
+msgid "Password Protected"
+msgstr "密码保护"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:235
+msgid "Storage Type"
+msgstr "存储类型"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:244
+msgid ""
+"CT saves the document in an encrypted 7zip archive. When viewing or editing "
+"the document, CT extracts the encrypted archive to a temporary folder, and "
+"works on the unencrypted copy. When closing, the unencrypted copy is deleted "
+"from the temporary directory. Note that in the case of application or system "
+"crash, the unencrypted document will remain in the temporary folder."
+msgstr ""
+"CT将文档保存在加密的7zip存档中。在查看或编辑文档时，CT会将加密的存档提取到临"
+"时文件夹中，然后处理未加密的副本。关闭时，未加密的副本将从临时目录中删除。请"
+"注意，在应用程序或系统崩溃的情况下，未加密的文档将保留在临时文件夹中。"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:252
+msgid "Enter the New Password Twice"
+msgstr "输入两次密码"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:333
+msgid "The Password Fields Must be Filled"
+msgstr "密码必填"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:338
+msgid "The Two Inserted Passwords Do Not Match"
+msgstr "两次输入密码不匹配"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:359
+msgid "The Current Document was Updated."
+msgstr "当前文档已自动更新。"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:359
+msgid "Do you want to Save the Changes?"
+msgstr "要保存文件的修改吗？"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:404
 msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
 "Highlighting"
 msgstr "一个层级式笔记记录程序，具有富文本和代码高亮的功能"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:712
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:405
 msgid ""
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
 "the Free Software Foundation; either version 3 of the License, or\n"
 "(at your option) any later version.\n"
-"  \n"
+"\n"
 "This program is distributed in the hope that it will be useful,\n"
 "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
 "GNU General Public License for more details.\n"
-"  \n"
+"\n"
 "You should have received a copy of the GNU General Public License\n"
 "along with this program; if not, write to the Free Software\n"
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
 "MA 02110-1301, USA.\n"
 msgstr ""
 "\n"
-"此软件为自由软件，您可以在自由软件基金会发布的GNU通用许可证的条款下进行修改"
-"或再发布；\n"
-"许可协议可以是第三版，或之后的任何新版本。\n"
-"  \n"
-"发布本程序是希望给您带来便利，但不做任何担保，甚至没有适销性或特定目的而隐含"
-"的担保。\n"
-"有关详细信息，请参阅GNU通用许可证。\n"
-"  \n"
-"您应该随本程序收到了一份GNU通用许可证；如果没有，可写一份信向自由软件基金会"
-"索取。\n"
-"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
-"MA 02110-1301, USA.\n"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:732
-msgid "Armenian"
-msgstr "亚美尼亚"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:733
-msgid "Chinese Simplified"
-msgstr "简体中文"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:734
-msgid "Czech"
-msgstr "捷克语"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:735
-msgid "Dutch"
-msgstr "荷兰语"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:736
-msgid "French"
-msgstr "法语"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:737
-msgid "German"
-msgstr "德语"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:738
-msgid "Italian"
-msgstr "意大利语"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:739
-msgid "Japanese"
-msgstr "日语"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:740
-msgid "Lithuanian"
-msgstr "立陶宛语"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:741
-msgid "Polish"
-msgstr "波兰语"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:742
-msgid "Portuguese Brazil"
-msgstr "巴西葡萄牙语"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:743
-msgid "Russian"
-msgstr "俄语"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:744
-msgid "Slovenian"
-msgstr "斯洛文尼亚语"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:745
-msgid "Spanish"
-msgstr "西班牙语"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:746
-msgid "Turkish"
-msgstr "土耳其语"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:747
-msgid "Ukrainian"
-msgstr "乌克兰语"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1007
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1050
-msgid "Cancel"
-msgstr "取消"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1008
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1052
-msgid "Yes"
-msgstr "是"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1020
-msgid "Temporary Files were Created and Opened with External Applications."
-msgstr "临时文件已被创建并被外部程序打开。"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1020
-msgid "Quit the External Applications Before Quit CherryTree."
-msgstr "退出CherryTree前先退出外部程序。"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1020
-msgid "Did you Quit the External Applications?"
-msgstr "要退出外部程序吗？"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1051
-msgid "No"
-msgstr "否"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1066
-msgid "The Current Document was Updated."
-msgstr "当前文档已自动更新。"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1066
-msgid "Do you want to Save the Changes?"
-msgstr "要保存文件的修改吗？"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1109
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1413
-msgid "To WebSite"
-msgstr "连接到网址"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1120
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1427
-msgid "To File"
-msgstr "连接到文件"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1135
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1434
-msgid "To Folder"
-msgstr "连接到文件夹"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1150
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1420
-msgid "To Node"
-msgstr "连接到节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1186
-msgid "Anchor Name (optional)"
-msgstr "锚点名称(可选)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1260
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3934
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4972
-msgid "No Node is Selected"
-msgstr "没有节点被选中"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1273
-msgid "There are No Anchors in the Selected Node"
-msgstr "在已选中的节点中没有锚点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1275
-msgid "Choose Existing Anchor"
-msgstr "选择现有的锚点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1275
-msgid "Anchor Name"
-msgstr "锚点名称"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1414
-msgid "Involved Nodes"
-msgstr "涉及到的节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1420
-msgid "Selected Text Only"
-msgstr "已选择的文本"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1421
-msgid "Selected Node Only"
-msgstr "已选择的节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1422
-msgid "Selected Node and Subnodes"
-msgstr "已选择的节点和子节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1423
-msgid "All the Tree"
-msgstr "所有的树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1434
-msgid "Include Node Name"
-msgstr "包含节点名称"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1440
-msgid "Links Tree in Every Page"
-msgstr "在所有页面中链接树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1445
-msgid "New Node in New Page"
-msgstr "在新页面建立新节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1510
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1243
-msgid "Insert _Special Character"
-msgstr "插入特殊字符(_S)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1512
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1245
-msgid "Insert a Special Character"
-msgstr "插入一个特殊字符"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1541
-msgid "_Recent Documents"
-msgstr "最近文档(_R)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1543
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1550
-msgid "Open a Recent CherryTree Document"
-msgstr "最近打开的CherryTree文档"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/support.py:1575
-#, python-format
-msgid "The Document %s was Not Found"
-msgstr "文档 %s 未找到"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/pgsc_spellcheck.py:68
-msgid "Unknown"
-msgstr "未知"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/pgsc_spellcheck.py:423
-msgid "(no suggestions)"
-msgstr "(无建议)"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/pgsc_spellcheck.py:439
-msgid "Add \"{}\" to Dictionary"
-msgstr "把 \"{}\" 加入到字典"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/pgsc_spellcheck.py:442
-msgid "Ignore All"
-msgstr "全部忽略"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/pgsc_spellcheck.py:453
-msgid "Languages"
-msgstr "语言"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/pgsc_spellcheck.py:464
-msgid "Suggestions"
-msgstr "建议"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/exports.py:119
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:808
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1482
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1680
-msgid "CherryTree Document"
-msgstr "CherryTree文档"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/exports.py:180
-msgid "PDF File"
-msgstr "PDF文件"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/exports.py:266
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:966
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:974
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:987
-msgid "Plain Text Document"
-msgstr "纯文本文档"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/exports.py:669
-msgid "Index"
-msgstr "索引"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:616
-msgid "Tab Width"
-msgstr "Tab宽度  "
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:622
-msgid "Insert Spaces Instead of Tabs"
-msgstr "用空格代替Tab"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:624
-msgid "Use Line Wrapping"
-msgstr "启用换行显示"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:628
-msgid "Line Wrapping Indentation"
-msgstr "换行缩进"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:634
-msgid "Enable Automatic Indentation"
-msgstr "启用自动缩进"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:640
-msgid "Vertical Space Around Lines"
-msgstr "行之间的距离"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:648
-msgid "Vertical Space in Wrapped Lines"
-msgstr "换行之间的间距"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:665
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:998
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1035
-msgid "Text Editor"
-msgstr "文本编辑器"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:675
-msgid "Timestamp Format"
-msgstr "时间戳格式"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:685
-msgid "Horizontal Rule"
-msgstr "定义分割线"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:693
-msgid "Special Characters"
-msgstr "特殊字符"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:697
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1562
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1739
-msgid "Reset to Default"
-msgstr "还原至默认"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:720
-msgid "Chars to Select at Double Click"
-msgstr "双击选中图表"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:732
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:898
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1095
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1469
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1876
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2018
-msgid "Miscellaneous"
-msgstr "杂项"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:750
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1696
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1781
-msgid "Are you sure to Reset to Default?"
-msgstr "确认要还原至默认吗？"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:806
-msgid "Enable Spell Check"
-msgstr "启用拼写检查"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:810
-msgid "Spell Check Language"
-msgstr "语言拼写检查"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:823
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4980
-msgid "Spell Check"
-msgstr "拼写检查"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:833
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1141
+"本程序是自由软件；你可以根据GNU通用公共许可证的条款重新发布它和/或修改它。\n"
+"它是根据GNU通用公共许可证的条款发布的。\n"
+"自由软件基金会；许可证的第三版，或(由你选择)任何后来的版本。\n"
+"\n"
+"分发这个程序是希望它能起到作用，\n"
+"但没有任何保证；甚至没有隐含的保证\n"
+"适销性适合某一特定目的适销性或适销性。请参阅\n"
+"GNU通用公共许可证，了解更多详细信息.\n"
+"\n"
+"您应该已经收到了GNU通用公共许可证的副本\n"
+"与此程序一起使用；如果不是，请写信给自由软件\n"
+"基金会公司，地址：波士顿富兰克林大街51号，5楼，波士顿,\n"
+"麻省理工学院02110-1301年，美国。\n"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:448
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:215
+msgid "About CherryTree"
+msgstr "关于CherryTree"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:463
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:79
+msgid "Tree Summary Information"
+msgstr "树摘要信息"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:475
+msgid "Number of Rich Text Nodes"
+msgstr "富文本节点个数"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:480
+msgid "Number of Plain Text Nodes"
+msgstr "纯文本节点个数"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:485
+msgid "Number of Code Nodes"
+msgstr "代码节点个数"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:490
+msgid "Number of Images"
+msgstr "图片节点个数"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:495
+msgid "Number of Embedded Files"
+msgstr "嵌入文件个数"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:500
+msgid "Number of Tables"
+msgstr "表格个数"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:505
+msgid "Number of CodeBoxes"
+msgstr "代码框个数"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:510
+msgid "Number of Anchors"
+msgstr "锚点个数"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:32
 msgid "Light Background, Dark Text"
 msgstr "浅色背景，深色文字"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:834
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1142
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:33
 msgid "Dark Background, Light Text"
 msgstr "深色背景，浅色文字"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:836
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1144
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:35
 msgid "Custom Background"
 msgstr "自定义背景"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:841
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1149
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:39
 msgid "and Text"
 msgstr "和文字"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:851
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1159
-msgid "Theme"
-msgstr "主题"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:871
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1026
-msgid "Show White Spaces"
-msgstr "显示空白字符"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:873
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1028
-msgid "Highlight Current Line"
-msgstr "高亮当前行"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:875
-msgid "Expand CodeBoxes Automatically"
-msgstr "代码框自适应"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:879
-msgid "Embedded File Icon Size"
-msgstr "嵌入文件的图标大小"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:885
-msgid "Limit of Undoable Steps Per Node"
-msgstr "每个节点撤销步数限制"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:993
-msgid "Enable Smart Quotes Auto Replacement"
-msgstr "启动智能引号替换"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1018
-msgid "Style Scheme"
-msgstr "主题"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1069
-msgid "Tree Nodes Names Wrapping Width"
-msgstr "节点名称换行显示时的宽度"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1075
-msgid "Display Tree on the Right Side"
-msgstr "节点树显示在右侧"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1077
-msgid "Move Focus to Text at Mouse Click"
-msgstr "点击鼠标移动焦距至文字"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1079
-msgid "Expand Node at Mouse Click"
-msgstr "点击鼠标展开节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1083
-msgid "Last Visited Nodes on Node Name Header"
-msgstr "节点标题头上次访问的节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1179
-msgid "Use Different Cherries per Level"
-msgstr "每层及使用不同的樱桃图标"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1180
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3518
-msgid "Use Selected Icon"
-msgstr "使用所选图标"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1182
-msgid "No Icon"
-msgstr "无图标"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1195
-msgid "Default Text Nodes Icons"
-msgstr "文本节点的默认图标"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1209
-msgid "Restore Expanded/Collapsed Status"
-msgstr "还原展开/收起状态"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1210
-msgid "Expand all Nodes"
-msgstr "展开所有节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1212
-msgid "Collapse all Nodes"
-msgstr "收缩所有节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1214
-msgid "Nodes in Bookmarks Always Visible"
-msgstr "在书签中的节点始终显示"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1222
-msgid "Nodes Status at Startup"
-msgstr "启动时节点状态"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1289
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3627
-msgid "Select Node Icon"
-msgstr "选择节点图标"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1324
-msgid "Text Font"
-msgstr "文本字体"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1325
-msgid "Code Font"
-msgstr "代码字体"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1326
-msgid "Tree Font"
-msgstr "树字体"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1343
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2014
-msgid "Fonts"
-msgstr "字体"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1375
-msgid "Enable Custom Web Link Clicked Action"
-msgstr "启用并定义Web链接点击动作"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1377
-msgid "Enable Custom File Link Clicked Action"
-msgstr "启用并定义文件链接点击动作"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1379
-msgid "Enable Custom Folder Link Clicked Action"
-msgstr "启用并定义文件夹链接点击动作"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1388
-msgid "Custom Actions"
-msgstr "自定义动作"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1444
-msgid "Colors"
-msgstr "颜色"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1453
-msgid "Underline Links"
-msgstr "链接下划线"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1455
-msgid "Use Relative Paths for Files And Folders"
-msgstr "对文件和文件夹使用相对路径"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1459
-msgid "Anchor Size"
-msgstr "锚点大小"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1559
-msgid "Change Selected"
-msgstr "改变当前所选"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1573
-msgid "File"
-msgstr "文件"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1574
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2012
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2013
-msgid "Tree"
-msgstr "树"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1575
-msgid "Editor"
-msgstr "编辑者"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1576
-msgid "Format"
-msgstr "格式化"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1577
-msgid "Find/Replace"
-msgstr "查找/替换"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1578
-msgid "View"
-msgstr "视图"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1579
-msgid "Export"
-msgstr "导出"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1580
-msgid "Import"
-msgstr "导入"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1600
-msgid "Edit Keyboard Shortcut"
-msgstr "编辑快捷键"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1607
-msgid "No Keyboard Shortcut"
-msgstr "没有快捷键"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
-#, python-format
-msgid "The Keyboard Shortcut '%s' is already in use"
-msgstr "快捷键’%s’已被占用"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
-#, python-format
-msgid "The current associated action is '%s'"
-msgstr "当前关联动作是’%s’"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1677
-msgid "Do you want to steal the shortcut?"
-msgstr "要覆盖这个快捷键吗？"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1733
-msgid "Add"
-msgstr "添加"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1736
-msgid "Remove Selected"
-msgstr "移除所选"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1766
-msgid "Select Element to Add"
-msgstr "选择元素添加"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1803
-msgid "Enable System Tray Docking"
-msgstr "启用系统托盘"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1804
-msgid "Start Minimized in the System Tray"
-msgstr "程序启动后最小化到托盘"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1805
-msgid "Use AppIndicator for Docking"
-msgstr "采用窗口停靠模式"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1810
-msgid "System Tray"
-msgstr "系统托盘"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1827
-msgid "Autosave Every"
-msgstr "自动保存每隔"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1830
-msgid "Minutes"
-msgstr "分钟"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1834
-msgid "Autosave on Quit"
-msgstr "退出前自动保存"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1835
-msgid "Create a Backup Copy Before Saving"
-msgstr "保存前创建备份"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1838
-msgid "Number of Backups to Keep"
-msgstr "欲保留的备份数"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1856
-msgid "Saving"
-msgstr "保存中"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1865
-msgid "Automatically Check for Newer Version"
-msgstr "自动检查新版本"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1866
-msgid "Reload Document From Last Session"
-msgstr "重载上一次会话中的文档"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1867
-msgid "Reload After External Update to CT* File"
-msgstr "将重载，因CT*文件在外部被修改"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1892
-msgid "Language"
-msgstr "语言"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:1988
-msgid "The New Language will be Available Only After Restarting CherryTree"
-msgstr "新语言仅在CherryTree下次启动时生效"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2008
-msgid "Text and Code"
-msgstr "纯文本和代码"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2009
-msgid "Text"
-msgstr "文字"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2010
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3540
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4975
-msgid "Rich Text"
-msgstr "富文本"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2011
-msgid "Plain Text and Code"
-msgstr "纯文本和代码"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2015
-msgid "Links"
-msgstr "链接"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2016
-msgid "Toolbar"
-msgstr "工具栏"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/config.py:2017
-msgid "Keyboard Shortcuts"
-msgstr "快捷键"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:63
-msgid "Rename Column"
-msgstr "重命名列"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:74
-msgid "Delete Column"
-msgstr "删除列"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:82
-msgid "Add Column"
-msgstr "添加列"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:93
-msgid "Move Column Left"
-msgstr "左移列"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:101
-msgid "Move Column Right"
-msgstr "右移列"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:183
-msgid "Rows"
-msgstr "行"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:187
-msgid "Columns"
-msgstr "列"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:202
-msgid "Table Size"
-msgstr "表格尺寸"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:207
-msgid "Min Width"
-msgstr "最小宽度"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:211
-msgid "Max Width"
-msgstr "最大宽度"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:226
-msgid "Column Properties"
-msgstr "列属性"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:231
-msgid "Import from CSV File"
-msgstr "从CSV文件导入"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:270
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:292
-msgid "CSV File"
-msgstr "CSV 文件"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:286
-msgid "Insert Table"
-msgstr "插入表格"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:321
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3524
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/imports.py:2361
-msgid "click me"
-msgstr "点击这里"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:330
-msgid "Click to Edit the Column Settings"
-msgstr "点击设置表格列"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:377
-msgid "Edit Table Properties"
-msgstr "编辑表格属性"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/tablez.py:472
-msgid "Table Column Action"
-msgstr "表格列操作"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:238
-msgid "Checking for Newer Version..."
-msgstr "查找新版本..."
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:251
-msgid "A Newer Version Is Available!"
-msgstr "有新版本可用！"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:257
-msgid "You Are Using the Latest Version Available"
-msgstr "您使用的是最新版本"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:259
-msgid "You Are Using a Development Version"
-msgstr "您正在使用开发版本"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:263
-msgid "Failed to Retrieve Latest Version Information - Try Again Later"
-msgstr "获取最新版本信息失败，稍候再试"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:297
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3949
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4550
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:5027
-msgid "No Text is Selected"
-msgstr "没有文字被选择"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:784
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2471
-msgid "The new parent can't be one of his children!"
-msgstr "父节点不能是其自身的子节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:832
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2048
-#, python-format
-msgid "\"%s\" is Not a CherryTree Document"
-msgstr "\"%s\" 不是一个CherryTree文档"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:838
-msgid "NoteCase Document"
-msgstr "NoteCase 文档"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:930
-msgid "EPIM HTML Document"
-msgstr "EPIM HTML 文档"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:944
-msgid "HTML Document"
-msgstr "HTML 文档"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1000
-msgid "Treepad Document"
-msgstr "Treepad 文档"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1021
-msgid "KeyNote Document"
-msgstr "KeyNote 文档"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1041
-msgid "Mempad Document"
-msgstr "Mempad 文档"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1060
-msgid "Knowit Document"
-msgstr "Knowit 文档"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1080
-msgid "Leo Document"
-msgstr "Leo 文档"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1112
-msgid "Who is the Parent?"
-msgstr "哪个是父节点？"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1119
-msgid "The Tree Root"
-msgstr "树根"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1120
-msgid "The Selected Node"
-msgstr "已选择的节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1336
-msgid "The Document was Reloaded After External Update to CT* File"
-msgstr "因CT*文件在外部被修改，文档已重载"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1363
-msgid "CherryTree Hierarchical Note Taking"
-msgstr "CherryTree层级笔记记录"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1646
-#, python-format
-msgid "You Have No Write Access to %s"
-msgstr "您没有%s文件的写入权限"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1660
-msgid "Writing to Disk..."
-msgstr "正在写入到磁盘..."
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1782
-msgid "Choose Storage Type"
-msgstr "选择存储类型"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1789
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1792
-msgid "Not Protected"
-msgstr "不保护"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1790
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1794
-msgid "Password Protected"
-msgstr "密码保护"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1801
-msgid "Storage Type"
-msgstr "存储类型"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1812
-msgid "Enter the New Password Twice"
-msgstr "输入两次密码"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1855
-msgid "The Password Fields Must be Filled"
-msgstr "密码必填"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1858
-msgid "The Two Inserted Passwords Do Not Match"
-msgstr "两次输入密码不匹配"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1862
-#, python-format
-msgid "The Characters  %s  are Not Allowed"
-msgstr "%s 字符被禁用"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1880
-msgid ""
-"Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
-"Installed Properly"
-msgstr "二进制可执行文件'7za'未找到请检查'p7zip-full'是否已被正确安装"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1886
-#, python-format
-msgid "Enter Password for %s"
-msgstr "请输入 %s 的密码"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1957
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:1974
-msgid "Wrong Password"
-msgstr "密码错误"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2459
-msgid "Select the New Parent"
-msgstr "选择新的父节点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2463
-msgid "The new parent can't be the very node to move!"
-msgstr "新的父节点不能随意移动！"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2466
-msgid "The new chosen parent is still the old parent!"
-msgstr "新选择的父节点和原先一样！"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2719
-msgid "New Node Properties"
-msgstr "新的节点属性"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2779
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:84
+msgid "Table"
+msgstr "列表"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:91
+msgid "Code"
+msgstr "编码"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:109
+msgid "Style Schemes"
+msgstr "样式方案"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:159
+msgid "Text Foreground"
+msgstr "文本前景"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:161
+msgid "Text Background"
+msgstr "文本背景"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:163
+msgid "Selection Foreground"
+msgstr "选择前景"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:165
+msgid "Selection Background"
+msgstr "选择背景"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:167
+msgid "Cursor"
+msgstr "光标"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:169
+msgid "Current Line Background"
+msgstr "当前行背景"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:171
+msgid "Line Numbers Foreground"
+msgstr "行号前景"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:173
+msgid "Line Numbers Background"
+msgstr "行号背景"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:320
+msgid "Style Scheme Editor"
+msgstr "样式方案编辑器"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_export2pdf.cc:420
+msgid "Warning: One or More Images Were Reduced to Enter the Page"
+msgstr "警告：一张或多张图片被压缩并插入到当前页面"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:42
+msgid "The Tree is Empty!"
+msgstr "树型为空！"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:51
+msgid "The Selected Node is Read Only"
+msgstr "已选择节点为只读"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:64
+msgid "This Feature is Available Only in Rich Text Nodes"
+msgstr "此功能仅在富文本节点中有效"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:66
+msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes"
+msgstr "此功能在代码自动高亮的节点中无效"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:172
 msgid "New Child Node Properties"
 msgstr "新的子节点属性"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2803
-#, python-format
-msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "确认<b>删除</b> '%s' 节点吗？"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:172
+msgid "New Node Properties"
+msgstr "新的节点属性"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2805
-msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "此节点所包含的子节点将一并被删除！"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2839
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:292
 msgid "Node Properties"
 msgstr "节点属性"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:2852
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:300
 msgid ""
 "Leaving the Node Type Rich Text you will Lose all Formatting for This Node, "
 "Do you want to Continue?"
 msgstr "脱离富文本将丢失此节点的所有格式，继续吗？"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3396
-msgid "Search for"
-msgstr "查找"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:404
+#, c-format
+msgid "Are you sure to <b>Delete the node '%s'?</b>"
+msgstr "确实要<b>删除节点“%s”吗</b>"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3403
-msgid "Replace with"
-msgstr "替换为"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:406
+msgid "The node <b>has Children, they will be Deleted too!</b>"
+msgstr "此节点<b>有子节点，它们也将被删除</b>"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3418
-msgid "Match Case"
-msgstr "匹配大小写"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:530
+msgid "Select the New Parent"
+msgstr "选择新的父节点"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3420
-msgid "Regular Expression"
-msgstr "正则表达式"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:536
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:557
+msgid "The new parent can't be the very node to move!"
+msgstr "新的父节点不能随意移动！"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3422
-msgid "Whole Word"
-msgstr "完整单词"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:540
+msgid "The new chosen parent is still the old parent!"
+msgstr "新选择的父节点和原先一样！"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3424
-msgid "Start Word"
-msgstr "单词开始部分"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:545
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:562
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_events.cc:587
+msgid "The new parent can't be one of his children!"
+msgstr "父节点不能是其自身的子节点！"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3426
-msgid "Forward"
-msgstr "向前"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_export.cc:352
+msgid "PDF File"
+msgstr "PDF文件"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3428
-msgid "Backward"
-msgstr "向后"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_export.cc:373
+#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:167
+msgid "Plain Text Document"
+msgstr "纯文本文档"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3431
-msgid "All, List Matches"
-msgstr "所有，并列出匹配"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:59
+msgid "Chars for Bulleted List"
+msgstr "列举式列表的字符"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3433
-msgid "First From Selection"
-msgstr "在所选中搜索"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:68
+msgid "Chars for Todo List"
+msgstr "待办事项列表的字符"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3436
-msgid "First in All Range"
-msgstr "在当前页搜索"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:77
+msgid "Chars for Table Of Content"
+msgstr "字符表的内容"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3439
-msgid "Show Iterated Find/Replace Dialog"
-msgstr "显示循环搜索/替换对话框"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:86
+msgid "Chars for Smart Double Quotes"
+msgstr "智能双引号的字符数"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3459
-msgid "Search options"
-msgstr "搜索选项"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:95
+msgid "Chars for Smart Single Quotes"
+msgstr "智能单引号的字符"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3507
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:103
+msgid "Enable Smart Quotes Auto Replacement"
+msgstr "启动智能引号替换"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:104
+msgid "Enable Symbol Auto Replacement"
+msgstr "启用符号自动替换"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:31
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:51
+msgid "Show White Spaces"
+msgstr "显示空白字符"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:33
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:53
+msgid "Highlight Current Line"
+msgstr "高亮当前行"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:91
+msgid "Command per Node/CodeBox Type"
+msgstr "用于节点/代码框类型的命令"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:95
+msgid "Terminal Command"
+msgstr "终端命令"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:100
+msgid "Code Execution"
+msgstr "代码执行"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:48
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:208
 msgid "Bold"
 msgstr "粗体"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3509
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:52
 msgid "Use Selected Color"
 msgstr "使用所选颜色"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3565
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4974
-msgid "Node Type"
-msgstr "节点类型"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:58
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:32
+msgid "Use Selected Icon"
+msgstr "使用所选图标"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3579
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:65
+msgid "click me"
+msgstr "点击这里"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:124
 msgid "Tags for Searching"
 msgstr "搜索标签"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3583
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4978
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:128
 msgid "Read Only"
 msgstr "只读"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3606
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:172
 msgid "Choose Existing Tag"
 msgstr "选择现有的标签"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3606
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:172
 msgid "Tag Name"
 msgstr "变量名称"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3657
-msgid "The Size of the Toolbar Icons is already at the Maximum Value"
-msgstr "工具栏图标已经最大"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3665
-msgid "The Size of the Toolbar Icons is already at the Minimum Value"
-msgstr "工具栏图标已经最小"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3755
-msgid "Edit Anchor"
-msgstr "编辑锚点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3758
-msgid "Insert Anchor"
-msgstr "插入锚点"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3779
-msgid "The Maximum Size for Embedded Files is 10 MB"
-msgstr "嵌入文件的最大尺寸是10MB"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3843
-msgid "Cannot Edit Embedded File in Read Only Node"
-msgstr "不能编辑只读节点的嵌入文件"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3857
-msgid "Embedded File Automatically Updated:"
-msgstr "嵌入文件已自动更新："
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3906
-msgid "Not Any H1, H2 or H3 Formatting Found"
-msgstr "未找到任何H1，H2或H3格式"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3926
-msgid "This Feature is Available Only in Rich Text Nodes"
-msgstr "此功能仅在富文本节点中有效"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3928
-msgid "This Feature is Not Available in Automatic Syntax Highlighting Nodes"
-msgstr "此功能在代码自动高亮的节点中无效"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3941
-msgid "The Tree is Empty!"
-msgstr "树为空！"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3960
-msgid "The Selected Node is Read Only"
-msgstr "已选择节点为只读"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3981
-msgid "Number of Rich Text Nodes"
-msgstr "富文本节点个数"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3984
-msgid "Number of Plain Text Nodes"
-msgstr "纯文本节点个数"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3987
-msgid "Number of Code Nodes"
-msgstr "代码节点个数"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3990
-msgid "Number of Images"
-msgstr "图片节点个数"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3993
-msgid "Number of Embedded Files"
-msgstr "嵌入文件个数"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3996
-msgid "Number of Tables"
-msgstr "表格个数"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:3999
-msgid "Number of CodeBoxes"
-msgstr "代码框个数"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4002
-msgid "Number of Anchors"
-msgstr "锚点个数"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4089
-msgid "Image Format Not Recognized"
-msgstr "图片格式未能识别"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4093
-msgid "Image Properties"
-msgstr "图片属性"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4174
-msgid "PNG Image"
-msgstr "PNG图片"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4180
-#, python-format
-msgid "Write to %s Failed"
-msgstr "写入到 %s 失败"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4289
-msgid "Lines Stripped"
-msgstr "已删除行尾空格的行"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4423
-msgid "No Previous Text Format Was Performed During This Session"
-msgstr "当前会话没有格式化操作历史"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4511
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4578
-msgid "Insert/Edit Link"
-msgstr "插入/编辑链接"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4556
-msgid "Link Name"
-msgstr "链接名称"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4568
-msgid "The Cursor is Not into a Paragraph"
-msgstr "光标未进入一个段落"
-
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4583
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:191
 msgid "Pick a Color"
 msgstr "选择颜色"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4812
-#, python-format
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:205
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:160
+msgid "Select Node Icon"
+msgstr "选择节点图标"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:364
+msgid "Involved Nodes"
+msgstr "涉及到的节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:373
+msgid "Selected Text Only"
+msgstr "已选择的文本"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:374
+msgid "Selected Node Only"
+msgstr "已选择的节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:375
+msgid "Selected Node and Subnodes"
+msgstr "已选择的节点和子节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:376
+msgid "All the Tree"
+msgstr "所有的树"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:390
+msgid "Include Node Name"
+msgstr "包含节点名称"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:397
+msgid "Links Tree in Every Page"
+msgstr "在所有页面中链接树"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:403
+msgid "New Node in New Page"
+msgstr "在新页面建立新节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:408
+msgid "Single File"
+msgstr "单独的文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:185
+msgid "Rename"
+msgstr "重命名"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:199
+msgid "PNG Image"
+msgstr "PNG图片"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:211
+#, c-format
+msgid "Write to %s Failed"
+msgstr "写入到 %s 失败"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:307
+#, c-format
 msgid "The File Link '%s' is Not Valid"
 msgstr "文件链接'%s'无效"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4821
-#, python-format
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:318
+#, c-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr "文件夹链接'%s'无效"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4840
-#, python-format
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:350
+#, c-format
 msgid "No anchor named '%s' found"
 msgstr "未找到锚点 '%s'"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4974
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4979
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4980
-msgid ": "
-msgstr ": "
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:410
+msgid "Edit CodeBox"
+msgstr "编辑代码框"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/core.py:4979
-msgid "Tags"
-msgstr "标签"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:434
+msgid "No CodeBox is Selected"
+msgstr "未选中任何代码框"
 
-#: /home/giuspen/Software/GIT-SW/git_cherrytree/modules/imports.py:2259
-msgid "Downloading"
-msgstr "正在下载"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:442
+#, c-format
+msgid ""
+"You must associate a command to '%s'.\n"
+"Do so in the Preferences Dialog"
+msgstr ""
+"你必须将一个命令与'%s'联系起来。\n"
+"在 \"首选项 \"对话框中这样做"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:454
+msgid "Do you want to Execute the Code?"
+msgstr "你想执行代码吗？"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:471
+msgid ""
+"Install the package 'xterm' or configure a different terminal in the "
+"Preferences Dialog"
+msgstr "安装软件包‘xterm’或在首选项对话框中配置不同的终端"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:701
+msgid "Edit Table Properties"
+msgstr "编辑表格属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:737
+msgid "Insert Anchor"
+msgstr "插入锚点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:737
+msgid "Edit Anchor"
+msgstr "编辑锚点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:773
+msgid "Cannot Edit Embedded File in Read Only Node"
+msgstr "不能编辑只读节点的嵌入文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:786
+msgid "Embedded File Automatically Updated:"
+msgstr "嵌入文件已自动更新："
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:30
+msgid "Enable Spell Check"
+msgstr "启用拼写检查"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:34
+msgid "Spell Check Language"
+msgstr "语言拼写检查"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:57
+msgid "Expand CodeBoxes Automatically"
+msgstr "代码框自适应"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:62
+msgid "Embedded File Icon Size"
+msgstr "嵌入文件的图标大小"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:71
+msgid "Embedded File Size Limit"
+msgstr "嵌入式文件大小限制"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:78
+msgid "Show File Name on Top of Embedded File Icon"
+msgstr "在嵌入式文件图标的顶部显示文件名"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:80
+msgid "Limit of Undoable Steps Per Node"
+msgstr "每个节点撤销步数限制"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:86
+msgid "At Triple Click Select the Whole Paragraph"
+msgstr "三次点击选择整个段落"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:89
+msgid "Enable Markdown Auto Replacement (Experimental)"
+msgstr "启用Markdown自动替换（实验性）。"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:204
+msgid "Scale"
+msgstr "规模"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:209
+msgid "Italic"
+msgstr "斜体"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:210
+msgid "Underline"
+msgstr "下划线"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:225
+msgid "Text Color Foreground"
+msgstr "文本颜色前景"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:228
+msgid "Text Color Background"
+msgstr "文本颜色背景"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:244
+msgid "Small"
+msgstr "小型的"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:249
+msgid "Monospace Text Color Background"
+msgstr "等宽文本颜色背景"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:260
+msgid "Scalable Tags"
+msgstr "可伸缩标签"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:31
+msgid "Use Different Cherries per Level"
+msgstr "每层及使用不同的樱桃图标"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:34
+msgid "No Icon"
+msgstr "无图标"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:36
+msgid "Hide Right Side Auxiliary Icon"
+msgstr "隐藏右侧辅助图标"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:49
+msgid "Default Text Nodes Icons"
+msgstr "文本节点的默认图标"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:57
+msgid "Restore Expanded/Collapsed Status"
+msgstr "还原展开/收起状态"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:58
+msgid "Expand all Nodes"
+msgstr "展开所有节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:60
+msgid "Collapse all Nodes"
+msgstr "收缩所有节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:62
+msgid "Nodes in Bookmarks Always Visible"
+msgstr "在书签中的节点始终显示"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:70
+msgid "Nodes Status at Startup"
+msgstr "启动时节点状态"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:78
+msgid "Tree Nodes Names Wrapping Width"
+msgstr "节点名称换行显示时的宽度"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:86
+msgid "Display Tree on the Right Side"
+msgstr "节点树显示在右侧"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:88
+msgid "Move Focus to Text at Mouse Click"
+msgstr "点击鼠标移动焦距至文字"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:90
+msgid "Expand Node at Mouse Click"
+msgstr "点击鼠标展开节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:93
+msgid "Last Visited Nodes on Node Name Header"
+msgstr "节点标题头上次访问的节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_view.cc:80
+msgid "The Size of the Toolbar Icons is already at the Maximum Value"
+msgstr "工具栏图标已经最大"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_view.cc:91
+msgid "The Size of the Toolbar Icons is already at the Minimum Value"
+msgstr "工具栏图标已经最小"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:41
+msgid "_File"
+msgstr "_文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:42
+msgid "_Edit"
+msgstr "_编辑"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:43
+msgid "_Insert"
+msgstr "_插入"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:44
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:67
+msgid "_Format"
+msgstr "_格式"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:45
+msgid "_Tree"
+msgstr "_树型"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:46
+msgid "_Tools"
+msgstr "_工具"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:47
+msgid "_Search"
+msgstr "_搜索"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:48
+msgid "_View"
+msgstr "_查看"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:49
+msgid "_Help"
+msgstr "_帮助"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:52
+msgid "Node _Move"
+msgstr "节点_移动"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:53
+msgid "Nodes _Sort"
+msgstr "节点_排序"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:54
+msgid "_Bookmarks"
+msgstr "_书签"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:55
+msgid "_Import"
+msgstr "_导入"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:56
+msgid "_Export"
+msgstr "_导出"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:57
+msgid "_Recent Documents"
+msgstr "最近文档(_R)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:58
+msgid "C_hange Case"
+msgstr "改变大小写(_H)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:59
+msgid "_List"
+msgstr "列表(_L)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:60
+msgid "_Justify"
+msgstr "对齐(_J)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:61
+msgid "_Toggle Font Property"
+msgstr "_切换字体属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:62
+msgid "_Toggle Heading Property"
+msgstr "_切换标题属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:63
+msgid "I_nsert"
+msgstr "_植入"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:64
+msgid "_Find"
+msgstr "_查找"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:65
+msgid "_Replace"
+msgstr "_替换"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:66
+msgid "_Row"
+msgstr "_行"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:70
+msgid "File"
+msgstr "文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:71
+msgid "New _Instance"
+msgstr "新建实例(_I)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:71
+msgid "Start a New Instance of CherryTree"
+msgstr "开始一个新的CherryTree实例"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:72
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:227
+msgid "_Open File"
+msgstr "打开文件(_O)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:73
+msgid "_Save"
+msgstr "保存(_S)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:73
+msgid "Save File"
+msgstr "保存文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:74
+msgid "Save and _Vacuum"
+msgstr "保存并清理"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:74
+msgid "Save File and Vacuum"
+msgstr "保存文件并清理"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:75
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:226
+msgid "Save _As"
+msgstr "另存为(_A)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:75
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:226
+msgid "Save File As"
+msgstr "另存文件为"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:76
+msgid "Pa_ge Setup"
+msgstr "页面设置(_G)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:76
+msgid "Set up the Page for Printing"
+msgstr "设置打印页面"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:77
+msgid "_Print"
+msgstr "打印(_P)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:77
+msgid "Print"
+msgstr "打印"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:78
+msgid "_Preferences"
+msgstr "设置(_P)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:79
+msgid "Tree _Info"
+msgstr "树信息(_I)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:80
+msgid "_Quit"
+msgstr "退出(_Q)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:82
+msgid "Edit/Insert"
+msgstr "编辑/插入"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:83
+msgid "_Undo"
+msgstr "撤销(_U)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:83
+msgid "Undo Last Operation"
+msgstr "撤销上次操作"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:84
+msgid "_Redo"
+msgstr "重做(_R)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:84
+msgid "Redo Previously Discarded Operation"
+msgstr "重复上次已撤销的操作"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:85
+msgid "Insert I_mage"
+msgstr "插入图片(_I)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:85
+msgid "Insert an Image"
+msgstr "插入一张图片"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:86
+msgid "Insert _Table"
+msgstr "插入表格(_T)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:86
+msgid "Insert a Table"
+msgstr "插入一个表格"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:87
+msgid "Insert _CodeBox"
+msgstr "插入代码框(_C)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:88
+msgid "Insert _File"
+msgstr "插入文件(_F)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:88
+msgid "Insert File"
+msgstr "插入文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:89
+msgid "Insert/Edit _Link"
+msgstr "插入/编辑链接(_L)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:89
+msgid "Insert a Link/Edit the Underlying Link"
+msgstr "插入/编辑链接"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:90
+msgid "Insert _Anchor"
+msgstr "插入锚点(_A)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:90
+msgid "Insert an Anchor"
+msgstr "插入一个锚点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:91
+msgid "Insert T_OC"
+msgstr "插入文档目录(_O)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:91
+msgid "Insert Table of Contents"
+msgstr "插入文档目录"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:92
+msgid "Insert Ti_mestamp"
+msgstr "插入时间戳(_M)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:92
+msgid "Insert Timestamp"
+msgstr "插入时间戳"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:93
+msgid "Insert _Special Character"
+msgstr "插入特殊字符(_S)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:93
+msgid "Insert a Special Character"
+msgstr "插入一个特殊字符"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:94
+msgid "Insert _Horizontal Rule"
+msgstr "插入分割线(_H)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:94
+msgid "Insert Horizontal Rule"
+msgstr "插入分割线"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:95
+msgid "_Lower Case of Selection/Word"
+msgstr "选中文字转换为小写(_L)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:95
+msgid "Lower the Case of the Selection/the Underlying Word"
+msgstr "选中文字转换为小写"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:96
+msgid "_Upper Case of Selection/Word"
+msgstr "选中文字转换为大写(_U)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:96
+msgid "Upper the Case of the Selection/the Underlying Word"
+msgstr "选中文字转换为大写"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:97
+msgid "_Toggle Case of Selection/Word"
+msgstr "切换已选中文字的大小写(_T)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:97
+msgid "Toggle the Case of the Selection/the Underlying Word"
+msgstr "切换已选中文字的大小写"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:98
+msgid "Cu_t as Plain Text"
+msgstr "剪切为纯文本(_t)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:98
+msgid "Cut as Plain Text, Discard the Rich Text Formatting"
+msgstr "剪切为纯文本，去除富文本的格式"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:99
+msgid "_Copy as Plain Text"
+msgstr "复制为纯文本(_C)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:99
+msgid "Copy as Plain Text, Discard the Rich Text Formatting"
+msgstr "复制为纯文本，去除富文本的格式"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:100
+msgid "_Paste as Plain Text"
+msgstr "粘贴为纯文本(_P)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:100
+msgid "Paste as Plain Text, Discard the Rich Text Formatting"
+msgstr "粘贴为纯文本，去除富文本的格式"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:101
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:263
+msgid "Cu_t Row"
+msgstr "剪切行(_X)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:101
+msgid "Cut the Current Row/Selected Rows"
+msgstr "剪切当前/已选中行"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:102
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:264
+msgid "_Copy Row"
+msgstr "复制行(_C)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:102
+msgid "Copy the Current Row/Selected Rows"
+msgstr "复制当前/已选中行"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:103
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:266
+msgid "De_lete Row"
+msgstr "删除行(_L)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:103
+msgid "Delete the Current Row/Selected Rows"
+msgstr "删除当前/已选中行"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:104
+msgid "_Duplicate Row"
+msgstr "复制行(_D)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:104
+msgid "Duplicate the Current Row/Selection"
+msgstr "复制当前/已选中行"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:105
+msgid "Move _Up Row"
+msgstr "上移(_U)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:105
+msgid "Move Up the Current Row/Selected Rows"
+msgstr "上移当前/已选中行"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:106
+msgid "Move _Down Row"
+msgstr "下移(_D)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:106
+msgid "Move Down the Current Row/Selected Rows"
+msgstr "下移当前/已选中行"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:108
+msgid "Format C_lone"
+msgstr "单独格式化"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:108
+msgid "Clone the Text Format Type at Cursor"
+msgstr "在光标处克隆文本格式类型"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:109
+msgid "Format _Latest"
+msgstr "上次格式(_L)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:109
+msgid "Memory of Latest Text Format Type"
+msgstr "上次所操作的文字格式类型"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:110
+msgid "_Remove Formatting"
+msgstr "移除格式化(_R)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:110
+msgid "Remove the Formatting from the Selected Text"
+msgstr "移除已选择文字格式化"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:111
+msgid "Text _Color Foreground"
+msgstr "文字前景色(_C)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:111
+msgid "Change the Color of the Selected Text Foreground"
+msgstr "修改已选文字的前景色"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:112
+msgid "Text C_olor Background"
+msgstr "文字背景色(_O)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:112
+msgid "Change the Color of the Selected Text Background"
+msgstr "修改已选文字的背景色"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:113
+msgid "Toggle _Bold Property"
+msgstr "切换粗体(_B)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:113
+msgid "Toggle Bold Property of the Selected Text"
+msgstr "切换已选文字的粗体属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:114
+msgid "Toggle _Italic Property"
+msgstr "切换斜体(_I)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:114
+msgid "Toggle Italic Property of the Selected Text"
+msgstr "切换已选文字的斜体属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:115
+msgid "Toggle _Underline Property"
+msgstr "切换下划线(_U)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:115
+msgid "Toggle Underline Property of the Selected Text"
+msgstr "切换已选文字的下划线属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:116
+msgid "Toggle Stri_kethrough Property"
+msgstr "切换删除线(_K)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:116
+msgid "Toggle Strikethrough Property of the Selected Text"
+msgstr "切换已选文字的删除线属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:117
+msgid "Toggle h_1 Property"
+msgstr "切换h_1属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:117
+msgid "Toggle h1 Property of the Selected Text"
+msgstr "切换选定文本的h1属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:118
+msgid "Toggle h_2 Property"
+msgstr "切换h_2属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:118
+msgid "Toggle h2 Property of the Selected Text"
+msgstr "切换选定文本的h2属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:119
+msgid "Toggle h_3 Property"
+msgstr "切换h_3属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:119
+msgid "Toggle h3 Property of the Selected Text"
+msgstr "切换选定文本的h3属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:120
+msgid "Toggle h_4 Property"
+msgstr "切换h_4属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:120
+msgid "Toggle h4 Property of the Selected Text"
+msgstr "切换选定文本的h4属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:121
+msgid "Toggle h_5 Property"
+msgstr "切换h_5属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:121
+msgid "Toggle h5 Property of the Selected Text"
+msgstr "切换所选文本的h5属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:122
+msgid "Toggle h_6 Property"
+msgstr "切换h_6属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:122
+msgid "Toggle h6 Property of the Selected Text"
+msgstr "切换选定文本的h6属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:123
+msgid "Toggle _Small Property"
+msgstr "切换小字(_S)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:123
+msgid "Toggle Small Property of the Selected Text"
+msgstr "切换已选文字的小字属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:124
+msgid "Toggle Su_perscript Property"
+msgstr "切换上标(_P)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:124
+msgid "Toggle Superscript Property of the Selected Text"
+msgstr "切换已选文字的上标属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:125
+msgid "Toggle Su_bscript Property"
+msgstr "切换下标(_B)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:125
+msgid "Toggle Subscript Property of the Selected Text"
+msgstr "切换已选文字的下标属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:126
+msgid "Toggle _Monospace Property"
+msgstr "切换等宽(_M)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:126
+msgid "Toggle Monospace Property of the Selected Text"
+msgstr "切换已选文字的等宽属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:127
+msgid "Set/Unset _Bulleted List"
+msgstr "设置/取消符号列表(_B)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:127
+msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
+msgstr "设置/取消符号列表"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:128
+msgid "Set/Unset _Numbered List"
+msgstr "设置/取消数字列表(_N)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:128
+msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
+msgstr "设置/取消符号列表"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:129
+msgid "Set/Unset _To-Do List"
+msgstr "设置/取消To-Do列表(_T)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:129
+msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
+msgstr "设置/取消符号列表"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:130
+msgid "Justify _Left"
+msgstr "左对齐(_L)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:130
+msgid "Justify Left the Current Paragraph"
+msgstr "前端段落左对齐"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:131
+msgid "Justify _Center"
+msgstr "居中对其(_C)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:131
+msgid "Justify Center the Current Paragraph"
+msgstr "当前段落居中对其"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:132
+msgid "Justify _Right"
+msgstr "右对齐(_R)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:132
+msgid "Justify Right the Current Paragraph"
+msgstr "当前段落右对齐"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:133
+msgid "Justify _Fill"
+msgstr "两端对齐(_F)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:133
+msgid "Justify Fill the Current Paragraph"
+msgstr "当前段落两端对齐"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:134
+msgid "Indent Paragraph"
+msgstr "缩进段落"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:134
+msgid "Indent the Current Paragraph"
+msgstr "缩进当前段落"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:135
+msgid "Unindent Paragraph"
+msgstr "取消缩进段落"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:135
+msgid "Unindent the Current Paragraph"
+msgstr "解除当前段落的缩进"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:136
+msgid "Tools"
+msgstr "工具"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:137
+msgid "Enable/Disable _Spell Check"
+msgstr "启用/禁用拼写检查(_S)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:137
+msgid "Toggle Enable/Disable Spell Check"
+msgstr "启用/禁用拼写检查"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:138
+msgid "Stri_p Trailing Spaces"
+msgstr "删除行尾空格(_p)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:138
+msgid "Strip Trailing Spaces"
+msgstr "删除行尾空格"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:139
+msgid "_Command Palette"
+msgstr "_命令选项板"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:139
+msgid "Command Palette"
+msgstr "命令选项板"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:140
+msgid "_Execute Code"
+msgstr "_执行代码"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:140
+msgid "Execute Code"
+msgstr "执行代码"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:141
+msgid "Tree"
+msgstr "树型"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:142
+msgid "Go _Back"
+msgstr "后退(_B)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:142
+msgid "Go to the Previous Visited Node"
+msgstr "回到上一个已访问过的节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:143
+msgid "Go _Forward"
+msgstr "前进(_F)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:143
+msgid "Go to the Next Visited Node"
+msgstr "回到下一个已访问过的节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:144
+msgid "Add _Node"
+msgstr "添加节点(_N)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:144
+msgid "Add a Node having the same Parent of the Selected Node"
+msgstr "添加一个当前选中节点的上级节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:145
+msgid "Add _SubNode"
+msgstr "添加子节点(_S)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:145
+msgid "Add a Child Node to the Selected Node"
+msgstr "为当前所选节点添加一个子节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:146
+msgid "_Duplicate Node"
+msgstr "复制节点(_D)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:146
+msgid "Duplicate the Selected Node"
+msgstr "复制所选节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:147
+msgid "_Duplicate Node and Sub Nodes"
+msgstr "复制带有子节点的选定节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:147
+msgid "Duplicate the Selected Node With SubNodes"
+msgstr "Duplicate the Selected Node With SubNodes"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:148
+msgid "Insert Today's Node"
+msgstr "插入今日节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:148
+msgid "Insert a Node with Hierarchy Year/Month/Day"
+msgstr "插入一个 年/月/日 层级节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:149
+msgid "Change Node _Properties"
+msgstr "修改节点属性(_P)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:149
+msgid "Edit the Properties of the Selected Node"
+msgstr "编辑当前所选节点的属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:150
+msgid "Toggle _Read Only"
+msgstr "切换只读(_R)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:150
+msgid "Toggle the Read Only Property of the Selected Node"
+msgstr "切换已选节点的只读属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:151
+msgid "Copy Link to Node"
+msgstr "将链接复制到节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:151
+msgid "Copy Link to the Selected Node to Clipboard"
+msgstr "将指向选定节点的链接复制到剪贴板"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:152
+msgid "_Inherit Syntax"
+msgstr "继承语法高亮(_I)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:152
+msgid ""
+"Change the Selected Node's Children Syntax Highlighting to the Parent's "
+"Syntax Highlighting"
+msgstr "改变当前所选节点的子节点语法高亮与其父节点相同"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:153
+msgid "_Handle Bookmarks"
+msgstr "处理书签(_H)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:154
+msgid "Add to _Bookmarks"
+msgstr "添加到书签(_B)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:154
+msgid "Add the Current Node to the Bookmarks List"
+msgstr "添加当前节点到书签列表"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:155
+msgid "_Remove from Bookmarks"
+msgstr "从书签中移除(_R)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:155
+msgid "Remove the Current Node from the Bookmarks List"
+msgstr "从当前节点到书签列表中删除"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:156
+msgid "E_xpand All Nodes"
+msgstr "展开所有节点(_X)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:156
+msgid "Expand All the Tree Nodes"
+msgstr "展开所有树节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:157
+msgid "_Collapse All Nodes"
+msgstr "收缩所有节点(_C)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:157
+msgid "Collapse All the Tree Nodes"
+msgstr "收缩所有树节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:158
+msgid "Node _Up"
+msgstr "上移节点(_U)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:158
+msgid "Move the Selected Node Up"
+msgstr "将当前所选节点向上移动"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:159
+msgid "Node _Down"
+msgstr "下移节点(_D)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:159
+msgid "Move the Selected Node Down"
+msgstr "将当前所选节点向下移动"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:160
+msgid "Node _Left"
+msgstr "左移节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:160
+msgid "Move the Selected Node Left"
+msgstr "将当前所选节点向左移动"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:161
+msgid "Node _Right"
+msgstr "右移节点(_R)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:161
+msgid "Move the Selected Node Right"
+msgstr "将当前所选节点向右移动"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:162
+msgid "Node Change _Parent"
+msgstr "改变父节点(_P)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:162
+msgid "Change the Selected Node's Parent"
+msgstr "改变当前所选节点的父节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:163
+msgid "Sort Tree _Ascending"
+msgstr "升序排序树(_A)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:163
+msgid "Sort the Tree Ascending"
+msgstr "升序排序所有树"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:164
+msgid "Sort Tree _Descending"
+msgstr "降序排序树(_D)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:164
+msgid "Sort the Tree Descending"
+msgstr "降序排序所有树"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:165
+msgid "Sort Siblings A_scending"
+msgstr "升序排序同级(_S)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:165
+msgid "Sort all the Siblings of the Selected Node Ascending"
+msgstr "升序排序所有与当前所选同级的节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:166
+msgid "Sort Siblings D_escending"
+msgstr "降序排序同级(_E)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:166
+msgid "Sort all the Siblings of the Selected Node Descending"
+msgstr "降序排序所有与当前所选同级的节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:167
+msgid "De_lete Node"
+msgstr "删除节点(_L)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:167
+msgid "Delete the Selected Node"
+msgstr "删除已选择节点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:168
+msgid "Find/Replace"
+msgstr "查找/替换"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:169
+msgid "_Find in Node Content"
+msgstr "在节点内容中搜索(_F)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:169
+msgid "Find into the Selected Node Content"
+msgstr "在已选节点内容中搜索"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:170
+msgid "Find in _All Nodes Contents"
+msgstr "在所有节点内容中搜索(_A)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:170
+msgid "Find into All the Tree Nodes Contents"
+msgstr "在所有节点内容中搜索"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:171
+msgid "Find in _Selected Node and Subnodes Contents"
+msgstr "在已选节点及子节点的内容中搜索(_S)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:171
+msgid "Find into the Selected Node and Subnodes Contents"
+msgstr "在已选节点及子节点的内容中搜索"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:172
+msgid "Find in _Nodes Names and Tags"
+msgstr "在节点名和标签中搜索(_N)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:172
+msgid "Find in Nodes Names and Tags"
+msgstr "在节点名和标签中搜索"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:173
+msgid "Find _Again"
+msgstr "重复搜索(_A)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:173
+msgid "Iterate the Last Find Operation"
+msgstr "重复上次的搜索操作"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:174
+msgid "Find _Back"
+msgstr "反向搜索(_B)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:174
+msgid "Iterate the Last Find Operation in Opposite Direction"
+msgstr "反方向重复上次搜索"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:175
+msgid "_Replace in Node Content"
+msgstr "在节点内容中替换(_R)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:175
+msgid "Replace into the Selected Node Content"
+msgstr "在当前已选节点内容中替换"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:176
+msgid "Replace in _All Nodes Contents"
+msgstr "在所有节点内容中替换(_A)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:176
+msgid "Replace into All the Tree Nodes Contents"
+msgstr "在所有树节点内容中替换"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:177
+msgid "Replace in _Selected Node and Subnodes Contents"
+msgstr "在已选节点及子节点内容中替换(_S)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:177
+msgid "Replace into the Selected Node and Subnodes Contents"
+msgstr "替换到已选节点及子节点的内容中"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:178
+msgid "Replace in Nodes _Names"
+msgstr "替换节点名称(_N)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:178
+msgid "Replace in Nodes Names"
+msgstr "替换节点名称"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:179
+msgid "Replace _Again"
+msgstr "重复上次替换(_A)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:179
+msgid "Iterate the Last Replace Operation"
+msgstr "重复上次替换操作"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:180
+msgid "Show _All Matches Dialog"
+msgstr "显示所有已匹配的对话框"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:180
+msgid "Show Search All Matches Dialog"
+msgstr "显示所有已匹配的搜索对话框"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:181
+msgid "View"
+msgstr "视图"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:182
+msgid "Show/Hide _Tree Explorer"
+msgstr "显示/隐藏树资源管理器"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:182
+msgid "Toggle Show/Hide Tree"
+msgstr "切换树的显示"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:183
+msgid "Show/Hide Tool_bar"
+msgstr "显示/隐藏工具栏(_B)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:183
+msgid "Toggle Show/Hide Toolbar"
+msgstr "切换工具栏的显示"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:184
+msgid "Show/Hide Node Name _Header"
+msgstr "显示/隐藏节点标题头(_H)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:184
+msgid "Toggle Show/Hide Node Name Header"
+msgstr "切换节点标题头的显示"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:185
+msgid "Toggle _Focus Tree/Text"
+msgstr "切换树/文本焦点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:185
+msgid "Toggle Focus Between Tree and Text"
+msgstr "在树和文本件切换焦点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:186
+msgid "_Increase Toolbar Icons Size"
+msgstr "增加工具栏图标大小(_I)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:186
+msgid "Increase the Size of the Toolbar Icons"
+msgstr "增加工具栏图标大小"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:187
+msgid "_Decrease Toolbar Icons Size"
+msgstr "减少工具栏图标大小(_D)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:187
+msgid "Decrease the Size of the Toolbar Icons"
+msgstr "减少工具栏图标大小"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:188
+msgid "_Full Screen On/Off"
+msgstr "切换全屏(_F)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:188
+msgid "Toggle Full Screen On/Off"
+msgstr "切换全屏"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:189
+msgid "Import"
+msgstr "导入"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:190
+msgid "From _CherryTree File"
+msgstr "从CherryTree文件(_C)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:190
+msgid "Add Nodes of a CherryTree File to the Current Tree"
+msgstr "从CherryTree文件添加节点到当前树"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:191
+msgid "From _Plain Text File"
+msgstr "从纯文本文件(_P)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:191
+msgid "Add Node from a Plain Text File to the Current Tree"
+msgstr "从纯文本文件添加节点到当前树"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:192
+msgid "From _Folder of Plain Text Files"
+msgstr "从纯文本文件夹(_F)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:192
+msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
+msgstr "从纯文本文件夹添加节点到当前树"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:193
+msgid "From _HTML File"
+msgstr "从HTML文件(_H)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:193
+msgid "Add Node from an HTML File to the Current Tree"
+msgstr "从HTML文件添加节点到当前树"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:194
+msgid "From _Folder of HTML Files"
+msgstr "从HTML文件夹(_F)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:194
+msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
+msgstr "从HTML文件夹添加节点到当前树"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:195
+msgid "From _Markdown File"
+msgstr "来自Markdown文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:195
+msgid "Add a node from a Markdown File to the Current Tree"
+msgstr "将Markdown文件中的节点添加到当前树中"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:196
+msgid "From _Folder of Markdown Files"
+msgstr "来自Markdown文件的_文件夹"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:196
+msgid "Add Nodes from a Folder of Markdown Files to the Current Tree"
+msgstr "将节点从Markdown文件夹添加到当前树"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:197
+msgid "From _Gnote Folder"
+msgstr "从Gnote文件夹(_G)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:197
+msgid "Add Nodes of a Gnote Folder to the Current Tree"
+msgstr "从Gnote文件夹添加节点到当前树"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:198
+msgid "From _KeepNote Folder"
+msgstr "从KeepNote文件夹(_K)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:198
+msgid "Add Nodes of a KeepNote Folder to the Current Tree"
+msgstr "从KeepNote文件夹添加节点到当前树"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:199
+msgid "From _Leo File"
+msgstr "从Leo文件(_L)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:199
+msgid "Add Nodes of a Leo File to the Current Tree"
+msgstr "从Leo文件添加节点到当前树"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:200
+msgid "From _Mempad File"
+msgstr "从Mempad文件(_M)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:200
+msgid "Add Nodes of a Mempad File to the Current Tree"
+msgstr "从Mempad文件添加节点到当前树"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:201
+msgid "From _NoteCase HTML File"
+msgstr "来自备注案例HTML文件(_N)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:201
+msgid "Add Nodes of a NoteCase HTML File to the Current Tree"
+msgstr "将NoteCase HTML文件的节点添加到当前树"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:202
+msgid "From _RedNotebook HTML"
+msgstr "来自RedNotebook HTML(_R)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:202
+msgid "Add Nodes of a RedNotebook HTML file to the Current Tree"
+msgstr "将RedNotebook HTML文件的节点添加到当前树"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:203
+msgid "From T_omboy Folder"
+msgstr "从Tomboy文件夹(_O)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:203
+msgid "Add Nodes of a Tomboy Folder to the Current Tree"
+msgstr "从Tomboy文件夹添加节点到当前树"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:204
+msgid "From T_reepad Lite File"
+msgstr "从Treepad文件(_R)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:204
+msgid "Add Nodes of a Treepad Lite File to the Current Tree"
+msgstr "从Treepad文件添加节点到当前树"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:205
+msgid "From _Zim Folder"
+msgstr "从Zim文件夹(_Z)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:205
+msgid "Add Nodes of a Zim Folder to the Current Tree"
+msgstr "从Zim文件夹添加节点到当前树"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:206
+msgid "From File using _Pandoc"
+msgstr "从文件中使用Pandoc"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:206
+msgid "Add a node to the current tree using Pandoc"
+msgstr "使用Pandoc将节点添加到当前树"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:207
+msgid "Export"
+msgstr "导出"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:208
+msgid "Export To _PDF"
+msgstr "导出到PDF(_P)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:208
+msgid "Export To PDF"
+msgstr "导出到PDF"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:209
+msgid "Export To _HTML"
+msgstr "导出到HTML(_H)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:209
+msgid "Export To HTML"
+msgstr "导出到HTML"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:210
+msgid "Export to Plain _Text"
+msgstr "导出为纯文本(_T)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:210
+msgid "Export to Plain Text"
+msgstr "导出为纯文本"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:211
+msgid "_Export To CherryTree Document"
+msgstr "导出到CherryTree文档(_E)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:211
+msgid "Export To CherryTree Document"
+msgstr "导出到CherryTree文档"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:212
+msgid "Help"
+msgstr "帮助"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:213
+msgid "_Check Newer Version"
+msgstr "检查新版本(_C)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:213
+msgid "Check for a Newer Version"
+msgstr "检查新的版本"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:214
+msgid "Online _Manual"
+msgstr "在线手册(_M)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:214
+msgid "Application's Online Manual"
+msgstr "程序的在线手册"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:215
+msgid "_About"
+msgstr "关于(_A)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:216
+msgid "Open Preferences _Directory"
+msgstr "打开偏好目录(_D)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:216
+msgid "Open the Directory with Preferences Files"
+msgstr "通过偏好文件打开目录"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:218
+msgid "C_ut Anchor"
+msgstr "剪切锚点(_U)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:218
+msgid "Cut the Selected Anchor"
+msgstr "剪切已选中的锚点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:219
+msgid "_Copy Anchor"
+msgstr "复制锚点(_C)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:219
+msgid "Copy the Selected Anchor"
+msgstr "复制已选中的锚点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:220
+msgid "_Delete Anchor"
+msgstr "删除锚点(_D)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:220
+msgid "Delete the Selected Anchor"
+msgstr "删除已选中的锚点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:221
+msgid "Edit _Anchor"
+msgstr "编辑锚点(_A)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:221
+msgid "Edit the Underlying Anchor"
+msgstr "编辑锚点"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:222
+msgid "Copy Anchor Link"
+msgstr "复制Anchor链接"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:222
+msgid "Copy Link to the Underlying Anchor to Clipboard"
+msgstr "将基础Anchor的链接复制到剪贴板"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:223
+msgid "C_ut Embedded File"
+msgstr "剪切嵌入文件(_U)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:223
+msgid "Cut the Selected Embedded File"
+msgstr "剪切已选中的嵌入文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:224
+msgid "_Copy Embedded File"
+msgstr "复制嵌入文件(_C)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:224
+msgid "Copy the Selected Embedded File"
+msgstr "复制已选中的嵌入文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:225
+msgid "_Delete Embedded File"
+msgstr "删除嵌入文件(_D)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:225
+msgid "Delete the Selected Embedded File"
+msgstr "删除已选中的嵌入文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:227
+msgid "Open Embedded File"
+msgstr "打开嵌入文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:228
+msgid "_Rename"
+msgstr "重新命名"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:228
+msgid "Rename Embedded File"
+msgstr "命名嵌入文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:229
+msgid "_Save Image as PNG"
+msgstr "图片另存为PNG(_S)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:229
+msgid "Save the Selected Image as a PNG file"
+msgstr "将选中图片另存为PNG文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:230
+msgid "_Edit Image"
+msgstr "编辑图片(_E)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:230
+msgid "Edit the Selected Image"
+msgstr "编辑选中图片"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:231
+msgid "C_ut Image"
+msgstr "剪切图片(_X)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:231
+msgid "Cut the Selected Image"
+msgstr "剪切已选中图片"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:232
+msgid "_Copy Image"
+msgstr "复制图片(_C)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:232
+msgid "Copy the Selected Image"
+msgstr "复制已选中图片"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:233
+msgid "_Delete Image"
+msgstr "删除图片(_D)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:233
+msgid "Delete the Selected Image"
+msgstr "删除已选中图片"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:234
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:247
+msgid "Edit _Link"
+msgstr "编辑链接(_L)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:234
+msgid "Edit the Link Associated to the Image"
+msgstr "编辑图片所关联的链接"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:235
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:250
+msgid "D_ismiss Link"
+msgstr "取消链接(_D)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:235
+msgid "Dismiss the Link Associated to the Image"
+msgstr "忽略图片所关联的链接"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:247
+msgid "Edit the Underlying Link"
+msgstr "编辑相关链接"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:248
+msgid "C_ut Link"
+msgstr "剪切链接(_U)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:248
+msgid "Cut the Selected Link"
+msgstr "剪切已选择链接"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:249
+msgid "_Copy Link"
+msgstr "复制链接(_C)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:249
+msgid "Copy the Selected Link"
+msgstr "复制已选择链接"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:250
+msgid "Dismiss the Selected Link"
+msgstr "取消选中链接"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:251
+msgid "_Delete Link"
+msgstr "删除链接(_D)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:251
+msgid "Delete the Selected Link"
+msgstr "删除已选择链接"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:253
+msgid "C_ut Table"
+msgstr "剪切表格(_X)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:253
+msgid "Cut the Selected Table"
+msgstr "剪切已选中表格"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:254
+msgid "_Copy Table"
+msgstr "复制表格(_C)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:254
+msgid "Copy the Selected Table"
+msgstr "复制已选中表格"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:255
+msgid "_Delete Table"
+msgstr "删除表格(_D)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:255
+msgid "Delete the Selected Table"
+msgstr "删除已选中表格"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:256
+msgid "_Add Column"
+msgstr "添加列(_A)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:256
+msgid "Add a Table Column"
+msgstr "添加列表"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:257
+msgid "De_lete Column"
+msgstr "删除列(_L)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:257
+msgid "Delete the Selected Table Column"
+msgstr "删除选定的列表"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:258
+msgid "Move Column _Left"
+msgstr "向左移动列(_L)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:258
+msgid "Move the Selected Column Left"
+msgstr "将所选列向左移动"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:259
+msgid "Move Column _Right"
+msgstr "向右移动列(_R)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:259
+msgid "Move the Selected Column Right"
+msgstr "将所选列向右移动"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:260
+msgid "Increase Column Width"
+msgstr "增加列宽"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:260
+msgid "Increase the Width of the Column"
+msgstr "增加列的宽度"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:261
+msgid "Decrease Column Width"
+msgstr "减小列宽"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:261
+msgid "Decrease the Width of the Column"
+msgstr "减小列的宽度"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:262
+msgid "_Add Row"
+msgstr "添加行(_A)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:262
+msgid "Add a Table Row"
+msgstr "添加一行"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:263
+msgid "Cut a Table Row"
+msgstr "剪切一行"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:264
+msgid "Copy a Table Row"
+msgstr "复制一行"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:265
+msgid "_Paste Row"
+msgstr "粘贴行(_P)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:265
+msgid "Paste a Table Row"
+msgstr "粘贴一行"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:266
+msgid "Delete the Selected Table Row"
+msgstr "删除当前所选行"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:267
+msgid "Move Row _Up"
+msgstr "上移行(_U)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:267
+msgid "Move the Selected Row Up"
+msgstr "将当前所选行向上移动"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:268
+msgid "Move Row _Down"
+msgstr "下移行(_D)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:268
+msgid "Move the Selected Row Down"
+msgstr "将当前所选行向下移动"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:269
+msgid "Sort Rows De_scending"
+msgstr "降序排序行(_S)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:269
+msgid "Sort all the Rows Descending"
+msgstr "降序排序所有行"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:270
+msgid "Sort Rows As_cending"
+msgstr "升序排序行(_C)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:270
+msgid "Sort all the Rows Ascending"
+msgstr "升序排序所有行"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:271
+msgid "_Edit Table Properties"
+msgstr "编辑表格属性(_E)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:271
+msgid "Edit the Table Properties"
+msgstr "编辑表格属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:272
+msgid "_Table Export"
+msgstr "导出表格(_T)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:272
+msgid "Export Table as CSV File"
+msgstr "导出表格为CSV文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:274
+msgid "Change CodeBox _Properties"
+msgstr "修改代码框属性(_P)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:274
+msgid "Edit the Properties of the CodeBox"
+msgstr "编辑代码框属性"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:275
+msgid "_Execute CodeBox Code"
+msgstr "_执行CodeBox代码"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:275
+msgid "Execute CodeBox Code"
+msgstr "执行CodeBox代码"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:276
+msgid "CodeBox _Load From Text File"
+msgstr "加载文本文件到代码框"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:276
+msgid "Load the CodeBox Content From a Text File"
+msgstr "加载文本文件到代码框中"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:277
+msgid "CodeBox _Save To Text File"
+msgstr "代码框保存到文本文件(_S)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:277
+msgid "Save the CodeBox Content To a Text File"
+msgstr "保存代码框内容到文本文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:278
+msgid "C_ut CodeBox"
+msgstr "剪切代码框(_U)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:278
+msgid "Cut the Selected CodeBox"
+msgstr "剪切当前所选的代码框"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:279
+msgid "_Copy CodeBox"
+msgstr "复制代码框(_C)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:279
+msgid "Copy the Selected CodeBox"
+msgstr "复制当前所选的代码框"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:280
+msgid "_Delete CodeBox"
+msgstr "删除代码框(_D)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:280
+msgid "Delete the Selected CodeBox"
+msgstr "删除当前所选的代码框"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:281
+msgid "Delete CodeBox _Keep Content"
+msgstr "删除代码框但保留其内容(_ K)"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:281
+msgid "Delete the Selected CodeBox But Keep Its Content"
+msgstr "删除所选的代码框但保留其内容"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:282
+msgid "Increase CodeBox Width"
+msgstr "增加代码框宽度"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:282
+msgid "Increase the Width of the CodeBox"
+msgstr "增加代码框的宽度"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:283
+msgid "Decrease CodeBox Width"
+msgstr "减少代码框宽度"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:283
+msgid "Decrease the Width of the CodeBox"
+msgstr "减少代码框的宽度"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:284
+msgid "Increase CodeBox Height"
+msgstr "增加代码框高度"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:284
+msgid "Increase the Height of the CodeBox"
+msgstr "增加代码框的高度"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:285
+msgid "Decrease CodeBox Height"
+msgstr "减少代码框高度"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:285
+msgid "Decrease the Height of the CodeBox"
+msgstr "减少代码框的高度"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:182
+msgid "Markdown Document"
+msgstr "Markdown文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:216
+msgid "Mempad Document"
+msgstr "Mempad文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:225
+msgid "Treepad Document"
+msgstr "Treepad文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:235
+msgid "Leo Document"
+msgstr "Leo文件"
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.h:63
+msgid "Are you sure to Reset to Default?"
+msgstr "您确定要重置为默认值吗？"
+
+#~ msgid "From _Basket Folder"
+#~ msgstr "从Basket文件夹(_B)"
+
+#~ msgid "Add Nodes of a Basket Folder to the Current Tree"
+#~ msgstr "从Basket文件夹添加节点到当前树"
+
+#~ msgid "From _EssentialPIM HTML File"
+#~ msgstr "从EPIM HTML文件(_E)"
+
+#~ msgid "Add Node from an EssentialPIM HTML File to the Current Tree"
+#~ msgstr "从EPIM HTML文件添加节点到当前树"
+
+#~ msgid "From K_eyNote File"
+#~ msgstr "从KeyNote文件(_e)"
+
+#~ msgid "Add Nodes of a KeyNote File to the Current Tree"
+#~ msgstr "从KeyNote文件添加节点到当前树"
+
+#~ msgid "From K_nowit File"
+#~ msgstr "从Knowit文件(_N)"
+
+#~ msgid "Add Nodes of a Knowit File to the Current Tree"
+#~ msgstr "从Knowit文件添加节点到当前树"
+
+#~ msgid "From _TuxCards File"
+#~ msgstr "从TuxCards文件(_T)"
+
+#~ msgid "Add Nodes of a TuxCards File to the Current Tree"
+#~ msgstr "从TuxCards文件添加节点到当前树"
+
+#~ msgid "Export to Multiple Plain _Text Files"
+#~ msgstr "导出到多个文本文件(_T)"
+
+#~ msgid "Export to Multiple Plain Text Files"
+#~ msgstr "导出到多个文本文件"
+
+#~ msgid "Export to _Single Plain Text File"
+#~ msgstr "导出到独个文本文件(_S)"
+
+#~ msgid "For_matting"
+#~ msgstr "格式化(_M)"
+
+#~ msgid "Nodes _Import"
+#~ msgstr "导入节点(_I)"
+
+#~ msgid "Nodes E_xport"
+#~ msgstr "导出节点(_X)"
+
+#~ msgid "E_xport"
+#~ msgstr "导出(_X)"
+
+#~ msgid "Insert _NewLine"
+#~ msgstr "插入新行(_N)"
+
+#~ msgid "Insert NewLine Char"
+#~ msgstr "插入换行字符"
+
+#~ msgid "Cancel"
+#~ msgstr "取消"
+
+#~ msgid "Yes"
+#~ msgstr "是"
+
+#~ msgid "No"
+#~ msgstr "否"
+
+#~ msgid "Unknown"
+#~ msgstr "未知"
+
+#~ msgid "(no suggestions)"
+#~ msgstr "(无建议)"
+
+#~ msgid "Add \"{}\" to Dictionary"
+#~ msgstr "把 \"{}\" 加入到字典"
+
+#~ msgid "Ignore All"
+#~ msgstr "全部忽略"
+
+#~ msgid "Languages"
+#~ msgstr "语言"
+
+#~ msgid "Suggestions"
+#~ msgstr "建议"
+
+#~ msgid "Text Font"
+#~ msgstr "文本字体"
+
+#~ msgid "Editor"
+#~ msgstr "编辑者"
+
+#~ msgid "Use AppIndicator for Docking"
+#~ msgstr "采用窗口停靠模式"
+
+#~ msgid "Text"
+#~ msgstr "文字"
+
+#~ msgid "Min Width"
+#~ msgstr "最小宽度"
+
+#~ msgid "Max Width"
+#~ msgstr "最大宽度"
+
+#~ msgid "Click to Edit the Column Settings"
+#~ msgstr "点击设置表格列"
+
+#~ msgid "Table Column Action"
+#~ msgstr "表格列操作"
+
+#~ msgid "NoteCase Document"
+#~ msgstr "NoteCase 文档"
+
+#~ msgid "EPIM HTML Document"
+#~ msgstr "EPIM HTML 文档"
+
+#~ msgid "HTML Document"
+#~ msgstr "HTML 文档"
+
+#~ msgid "KeyNote Document"
+#~ msgstr "KeyNote 文档"
+
+#~ msgid "Knowit Document"
+#~ msgstr "Knowit 文档"
+
+#~ msgid "The Characters  %s  are Not Allowed"
+#~ msgstr "%s 字符被禁用"
+
+#~ msgid ""
+#~ "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be "
+#~ "Installed Properly"
+#~ msgstr "二进制可执行文件'7za'未找到请检查'p7zip-full'是否已被正确安装"
+
+#~ msgid "Wrong Password"
+#~ msgstr "密码错误"
+
+#~ msgid "Not Any H1, H2 or H3 Formatting Found"
+#~ msgstr "未找到任何H1，H2或H3格式"
 
 #~ msgid "Toggle Node _Expanded/Collapsed"
 #~ msgstr "切换节点的展开/收起状态(_E)"
@@ -2881,9 +3475,6 @@ msgstr "正在下载"
 
 #~ msgid "C_opy Row"
 #~ msgstr "复制行(_O)"
-
-#~ msgid "_Find in Node"
-#~ msgstr "在当前节点中搜索(_F)"
 
 #~ msgid "Find into the Selected Node"
 #~ msgstr "在当前已选节点中搜索"
