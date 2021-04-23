@@ -196,6 +196,7 @@ public:
 
     // [misc]
     std::string                                 toolbarUiList{CtConst::TOOLBAR_VEC_DEFAULT};
+    bool                                        bookmarksInTopMenu{false};
     bool                                        systrayOn{false};
     bool                                        startOnSystray{false};
     bool                                        useAppInd{false};

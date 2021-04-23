@@ -125,9 +125,15 @@ Gtk::MenuBar* CtMenu::build_menubar()
 }
 
 Gtk::Menu* CtMenu::build_bookmarks_menu(std::list<std::pair<gint64, std::string>>& bookmarks,
-                                        sigc::slot<void, gint64>& bookmark_action)
+                                        sigc::slot<void, gint64>& bookmark_action,
+                                        const bool isTopMenu)
 {
     Gtk::Menu* pMenu = Gtk::manage(new Gtk::Menu());
+    if (isTopMenu) {
+        _add_menu_item(pMenu, find_action("node_bookmark"));
+        _add_menu_item(pMenu, find_action("node_unbookmark"));
+        _add_menu_separator(pMenu);
+    }
     _add_menu_item(pMenu, find_action("handle_bookmarks"));
     _add_menu_separator(pMenu);
     for (const auto& bookmark : bookmarks) {

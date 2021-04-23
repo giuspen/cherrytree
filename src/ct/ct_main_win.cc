@@ -84,6 +84,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
             }
         }
     }
+    _pBookmarksSubmenus[2] = CtMenu::find_menu_item(_pMenuBar, "BookmarksMenu");
     _pRecentDocsSubmenu = CtMenu::find_menu_item(_pMenuBar, "RecentDocsSubMenu");
     _pMenuBar->show_all();
     add_accel_group(_uCtMenu->get_accel_group());
@@ -136,6 +137,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
 
     menu_set_items_recent_documents();
     _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(false);
+    menu_top_optional_bookmarks_enforce();
 
     if (_no_gui) {
         set_visible(false);
@@ -423,12 +425,20 @@ void CtMainWin::window_header_update()
 
 void CtMainWin::window_header_update_lock_icon(bool show)
 {
-    show ? _ctWinHeader.lockIcon.show() : _ctWinHeader.lockIcon.hide();
+    _ctWinHeader.lockIcon.set_visible(show);
 }
 
 void CtMainWin::window_header_update_bookmark_icon(bool show)
 {
-    show ? _ctWinHeader.bookmarkIcon.show() : _ctWinHeader.bookmarkIcon.hide();
+    _ctWinHeader.bookmarkIcon.set_visible(show);
+}
+
+void CtMainWin::menu_top_optional_bookmarks_enforce()
+{
+    auto pBookmarksMenu = dynamic_cast<Gtk::Widget*>(_pBookmarksSubmenus[2]);
+    if (pBookmarksMenu) {
+        pBookmarksMenu->set_visible(_pCtConfig->bookmarksInTopMenu);
+    }
 }
 
 void CtMainWin::menu_update_bookmark_menu_item(bool is_bookmarked)
@@ -450,9 +460,10 @@ void CtMainWin::menu_set_bookmark_menu_items()
             _uCtTreeview->set_cursor_safe(tree_iter);
         }
     };
-    _pBookmarksSubmenus[0]->set_submenu(*_uCtMenu->build_bookmarks_menu(bookmarks, bookmark_action));
-    if (_pBookmarksSubmenus[1]) {
-        _pBookmarksSubmenus[1]->set_submenu(*_uCtMenu->build_bookmarks_menu(bookmarks, bookmark_action));
+    for (unsigned i = 0; i < _pBookmarksSubmenus.size(); ++i) {
+        if (_pBookmarksSubmenus[i]) {
+            _pBookmarksSubmenus[i]->set_submenu(*_uCtMenu->build_bookmarks_menu(bookmarks, bookmark_action, 2== i/*isTopMenu*/));
+        }
     }
 }
 
@@ -576,6 +587,7 @@ void CtMainWin::reset()
     window_header_update_bookmark_icon(false);
     menu_set_bookmark_menu_items();
     _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(false);
+    menu_top_optional_bookmarks_enforce();
 
     update_window_save_not_needed();
     _ctTextview.set_buffer(Glib::RefPtr<Gtk::TextBuffer>{});

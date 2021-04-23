@@ -46,6 +46,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{"", "ToolsMenu", None, _("_Tools"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "SearchMenu", None, _("_Search"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "ViewMenu", None, _("_View"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "BookmarksMenu", None, _("_Bookmarks"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "HelpMenu", None, _("_Help"), None, None, sigc::signal<void>()});
 
     // stubs for sumenu bar

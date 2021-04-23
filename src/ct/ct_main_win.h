@@ -173,6 +173,7 @@ public:
 
     void menu_update_bookmark_menu_item(bool is_bookmarked);
     void menu_set_bookmark_menu_items();
+    void menu_top_optional_bookmarks_enforce();
 
     void menu_set_items_recent_documents();
     void menu_set_visible_exit_app(bool visible);
@@ -253,7 +254,7 @@ private:
     std::vector<Gtk::Toolbar*>   _pToolbars;
     CtStatusBar                  _ctStatusBar;
     CtWinHeader                  _ctWinHeader;
-    Gtk::MenuItem*               _pBookmarksSubmenus[2]{nullptr,nullptr};
+    std::array<Gtk::MenuItem*,3> _pBookmarksSubmenus{nullptr,nullptr,nullptr};
     Gtk::MenuItem*               _pRecentDocsSubmenu{nullptr};
     Gtk::MenuToolButton*         _pRecentDocsMenuToolButton{nullptr};
     Gtk::ScrolledWindow          _scrolledwindowTree;

@@ -27,8 +27,8 @@
 Gtk::Widget* CtPrefDlg::build_tab_misc()
 {
     auto vbox_system_tray = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
-    Gtk::CheckButton* checkbutton_systray = Gtk::manage(new Gtk::CheckButton{_("Enable System Tray Docking")});
-    Gtk::CheckButton* checkbutton_start_on_systray = Gtk::manage(new Gtk::CheckButton{_("Start Minimized in the System Tray")});
+    auto checkbutton_systray = Gtk::manage(new Gtk::CheckButton{_("Enable System Tray Docking")});
+    auto checkbutton_start_on_systray = Gtk::manage(new Gtk::CheckButton{_("Start Minimized in the System Tray")});
     vbox_system_tray->pack_start(*checkbutton_systray, false, false);
     vbox_system_tray->pack_start(*checkbutton_start_on_systray, false, false);
 
@@ -40,25 +40,25 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
 
     auto vbox_saving = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
     auto hbox_autosave = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
-    Gtk::CheckButton* checkbutton_autosave = Gtk::manage(new Gtk::CheckButton{_("Autosave Every")});
+    auto checkbutton_autosave = Gtk::manage(new Gtk::CheckButton{_("Autosave Every")});
     Glib::RefPtr<Gtk::Adjustment> adjustment_autosave = Gtk::Adjustment::create(_pConfig->autosaveVal, 1, 1000, 1);
-    Gtk::SpinButton* spinbutton_autosave = Gtk::manage(new Gtk::SpinButton(adjustment_autosave));
-    Gtk::Label* label_autosave = Gtk::manage(new Gtk::Label{_("Minutes")});
+    auto spinbutton_autosave = Gtk::manage(new Gtk::SpinButton(adjustment_autosave));
+    auto label_autosave = Gtk::manage(new Gtk::Label{_("Minutes")});
     hbox_autosave->pack_start(*checkbutton_autosave, false, false);
     hbox_autosave->pack_start(*spinbutton_autosave, false, false);
     hbox_autosave->pack_start(*label_autosave, false, false);
-    Gtk::CheckButton* checkbutton_autosave_on_quit = Gtk::manage(new Gtk::CheckButton{_("Autosave on Quit")});
-    Gtk::CheckButton* checkbutton_backup_before_saving = Gtk::manage(new Gtk::CheckButton{_("Create a Backup Copy Before Saving")});
+    auto checkbutton_autosave_on_quit = Gtk::manage(new Gtk::CheckButton{_("Autosave on Quit")});
+    auto checkbutton_backup_before_saving = Gtk::manage(new Gtk::CheckButton{_("Create a Backup Copy Before Saving")});
     auto hbox_num_backups = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
-    Gtk::Label* label_num_backups = Gtk::manage(new Gtk::Label{_("Number of Backups to Keep")});
+    auto label_num_backups = Gtk::manage(new Gtk::Label{_("Number of Backups to Keep")});
     Glib::RefPtr<Gtk::Adjustment> adjustment_num_backups = Gtk::Adjustment::create(_pConfig->backupNum, 1, 100, 1);
-    Gtk::SpinButton* spinbutton_num_backups = Gtk::manage(new Gtk::SpinButton{adjustment_num_backups});
+    auto spinbutton_num_backups = Gtk::manage(new Gtk::SpinButton{adjustment_num_backups});
     spinbutton_num_backups->set_sensitive(_pConfig->backupCopy);
     spinbutton_num_backups->set_value(_pConfig->backupNum);
-    Gtk::CheckButton* checkbutton_custom_backup_dir = Gtk::manage(new Gtk::CheckButton{_("Custom Backup Directory")});
-    Gtk::Entry* entry_custom_backup_dir = Gtk::manage(new Gtk::Entry{});
+    auto checkbutton_custom_backup_dir = Gtk::manage(new Gtk::CheckButton{_("Custom Backup Directory")});
+    auto entry_custom_backup_dir = Gtk::manage(new Gtk::Entry{});
     entry_custom_backup_dir->property_editable() = false;
-    Gtk::Button* button_custom_backup_dir = Gtk::manage(new Gtk::Button{"..."});
+    auto button_custom_backup_dir = Gtk::manage(new Gtk::Button{"..."});
     auto hbox_custom_backup_dir = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
 
     hbox_num_backups->pack_start(*label_num_backups, false, false);
@@ -86,22 +86,25 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     Gtk::Frame* frame_saving = new_managed_frame_with_align(_("Saving"), vbox_saving);
 
     auto vbox_misc_misc = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
-    Gtk::CheckButton* checkbutton_newer_version = Gtk::manage(new Gtk::CheckButton{_("Automatically Check for Newer Version")});
-    Gtk::CheckButton* checkbutton_word_count = Gtk::manage(new Gtk::CheckButton{_("Enable Word Count in Statusbar")});
-    Gtk::CheckButton* checkbutton_reload_doc_last = Gtk::manage(new Gtk::CheckButton{_("Reload Document From Last Session")});
-    Gtk::CheckButton* checkbutton_mod_time_sentinel = Gtk::manage(new Gtk::CheckButton{_("Reload After External Update to CT* File")});
-    Gtk::CheckButton* checkbutton_win_title_doc_dir = Gtk::manage(new Gtk::CheckButton{_("Show the Document Directory in the Window Title")});
+    auto checkbutton_newer_version = Gtk::manage(new Gtk::CheckButton{_("Automatically Check for Newer Version")});
+    auto checkbutton_word_count = Gtk::manage(new Gtk::CheckButton{_("Enable Word Count in Statusbar")});
+    auto checkbutton_reload_doc_last = Gtk::manage(new Gtk::CheckButton{_("Reload Document From Last Session")});
+    auto checkbutton_mod_time_sentinel = Gtk::manage(new Gtk::CheckButton{_("Reload After External Update to CT* File")});
+    auto checkbutton_win_title_doc_dir = Gtk::manage(new Gtk::CheckButton{_("Show the Document Directory in the Window Title")});
+    auto checkbutton_bookmarks_top_menu = Gtk::manage(new Gtk::CheckButton{_("Dedicated Bookmarks Menu in Top Menu Bar")});
     vbox_misc_misc->pack_start(*checkbutton_newer_version, false, false);
     vbox_misc_misc->pack_start(*checkbutton_word_count, false, false);
     vbox_misc_misc->pack_start(*checkbutton_reload_doc_last, false, false);
     vbox_misc_misc->pack_start(*checkbutton_mod_time_sentinel, false, false);
     vbox_misc_misc->pack_start(*checkbutton_win_title_doc_dir, false, false);
+    vbox_misc_misc->pack_start(*checkbutton_bookmarks_top_menu, false, false);
 
     checkbutton_newer_version->set_active(_pConfig->checkVersion);
     checkbutton_word_count->set_active(_pConfig->wordCountOn);
     checkbutton_reload_doc_last->set_active(_pConfig->reloadDocLast);
     checkbutton_mod_time_sentinel->set_active(_pConfig->modTimeSentinel);
     checkbutton_win_title_doc_dir->set_active(_pConfig->winTitleShowDocDir);
+    checkbutton_bookmarks_top_menu->set_active(_pConfig->bookmarksInTopMenu);
 
     Gtk::Frame* frame_misc_misc = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc_misc);
 
@@ -199,6 +202,10 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_win_title_doc_dir->signal_toggled().connect([this, checkbutton_win_title_doc_dir](){
         _pConfig->winTitleShowDocDir = checkbutton_win_title_doc_dir->get_active();
         _pCtMainWin->window_title_update();
+    });
+    checkbutton_bookmarks_top_menu->signal_toggled().connect([this, checkbutton_bookmarks_top_menu](){
+        _pConfig->bookmarksInTopMenu = checkbutton_bookmarks_top_menu->get_active();
+        _pCtMainWin->menu_top_optional_bookmarks_enforce();
     });
     checkbutton_newer_version->signal_toggled().connect([this, checkbutton_newer_version](){
         _pConfig->checkVersion = checkbutton_newer_version->get_active();

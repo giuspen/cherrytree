@@ -231,7 +231,6 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='child_nodes_inherit_syntax'/>
     <separator/>
     <menu action='BookmarksSubMenu'>
-      <menuitem action='handle_bookmarks'/>
     </menu>
     <menuitem action='node_bookmark'/>
     <menuitem action='node_unbookmark'/>
@@ -289,6 +288,9 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='toolbar_icons_size_m'/>
     <separator/>
     <menuitem action='toggle_fullscreen'/>
+  </menu>
+
+  <menu action='BookmarksMenu'>
   </menu>
 
   <menu action='HelpMenu'>
