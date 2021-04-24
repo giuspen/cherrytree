@@ -43,6 +43,7 @@ public:
 
     bool load_from_file();
     bool write_to_file();
+    void move_from_tmp();
 
     void update_user_style(const unsigned num);
     static std::string get_user_style_id(const unsigned num);

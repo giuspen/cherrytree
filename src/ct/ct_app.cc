@@ -320,6 +320,7 @@ bool CtApp::_quit_or_hide_window(CtMainWin* pCtMainWin, const bool from_delete, 
     _uCtCfg->write_to_file();
 
     if (not fromKillCallback) {
+        _uCtCfg->move_from_tmp();
         if (_uCtCfg->systrayOn and not pCtMainWin->force_exit()) {
             pCtMainWin->save_position();
             pCtMainWin->set_visible(false);

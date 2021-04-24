@@ -42,13 +42,18 @@ CtConfig::CtConfig()
     _ensure_user_styles_exist();
 }
 
-bool CtConfig::load_from_file()
+void CtConfig::move_from_tmp()
 {
     if (fs::exists(_configFilepathTmp)) {
         if (not fs::move_file(_configFilepathTmp, _configFilepath)) {
             spdlog::error("{} -> {}", _configFilepathTmp, _configFilepath);
         }
     }
+}
+
+bool CtConfig::load_from_file()
+{
+    move_from_tmp();
 #ifdef _WIN32
     // compatibility with old pygtk2 version
     if (not fs::exists(_configFilepath)) {
