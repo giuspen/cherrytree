@@ -94,7 +94,9 @@ private:
     void                    _walk_menu_xml(Gtk::MenuShell* pMenuShell, const char* document, const char* xpath);
     void                    _walk_menu_xml(Gtk::MenuShell* pMenuShell, xmlpp::Node* pNode);
     Gtk::Menu*              _add_menu_submenu(Gtk::MenuShell* pMenuShell, const char* id, const char* name, const char* image);
-    Gtk::MenuItem*          _add_menu_item(Gtk::MenuShell* pMenuShell, CtMenuAction* pAction);
+    Gtk::MenuItem*          _add_menu_item(Gtk::MenuShell* pMenuShell,
+                                           CtMenuAction* pAction,
+                                           std::list<sigc::connection>* pListConnections = nullptr);
     static Gtk::MenuItem*   _add_menu_item(Gtk::MenuShell* pMenuShell,
                                            const char* name,
                                            const char* image,
@@ -104,6 +106,7 @@ private:
                                            gpointer action_data,
                                            sigc::signal<void, bool>* signal_set_sensitive,
                                            sigc::signal<void, bool>* signal_set_visible,
+                                           std::list<sigc::connection>* pListConnections = nullptr,
                                            const bool use_underline = true);
     static void             _add_menu_item_image_or_label(Gtk::MenuItem* pMenuItem, const char* image, Gtk::AccelLabel* label);
     Gtk::SeparatorMenuItem* _add_menu_separator(Gtk::MenuShell* pMenuShell);
@@ -122,4 +125,5 @@ private:
     Glib::RefPtr<Gtk::Builder>    _rGtkBuilder;
     Glib::RefPtr<Gtk::AccelGroup> _pAccelGroup;
     Gtk::Menu*                    _popupMenus[POPUP_MENU_TYPE::PopupMenuNum] = {};
+    std::list<sigc::connection>   _curr_bookm_submenu_sigc_conn;
 };

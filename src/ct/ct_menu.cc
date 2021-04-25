@@ -128,10 +128,15 @@ Gtk::Menu* CtMenu::build_bookmarks_menu(std::list<std::pair<gint64, std::string>
                                         sigc::slot<void, gint64>& bookmark_action,
                                         const bool isTopMenu)
 {
-    Gtk::Menu* pMenu = Gtk::manage(new Gtk::Menu());
+    Gtk::Menu* pMenu = Gtk::manage(new Gtk::Menu{});
     if (isTopMenu) {
-        _add_menu_item(pMenu, find_action("node_bookmark"));
-        _add_menu_item(pMenu, find_action("node_unbookmark"));
+        // disconnect signals connected to prev submenu
+        for (sigc::connection& sigc_conn : _curr_bookm_submenu_sigc_conn) {
+            sigc_conn.disconnect();
+        }
+        _curr_bookm_submenu_sigc_conn.clear();
+        _add_menu_item(pMenu, find_action("node_bookmark"), &_curr_bookm_submenu_sigc_conn);
+        _add_menu_item(pMenu, find_action("node_unbookmark"), &_curr_bookm_submenu_sigc_conn);
         _add_menu_separator(pMenu);
     }
     _add_menu_item(pMenu, find_action("handle_bookmarks"));
@@ -152,7 +157,7 @@ Gtk::Menu* CtMenu::build_recent_docs_menu(const CtRecentDocsFilepaths& recentDoc
     Gtk::Menu* pMenu = Gtk::manage(new Gtk::Menu());
     for (const fs::path& filepath : recentDocsFilepaths) {
         bool file_exists = fs::exists(filepath);
-        Gtk::MenuItem* pMenuItem = _add_menu_item(pMenu, filepath.c_str(), file_exists ? "ct_open" : "ct_urgent", nullptr, _pAccelGroup, filepath.c_str(), nullptr, nullptr, nullptr, false/*use_underline*/);
+        Gtk::MenuItem* pMenuItem = _add_menu_item(pMenu, filepath.c_str(), file_exists ? "ct_open" : "ct_urgent", nullptr, _pAccelGroup, filepath.c_str(), nullptr, nullptr, nullptr, nullptr, false/*use_underline*/);
         pMenuItem->signal_activate().connect(sigc::bind(recent_doc_open_action, filepath.string()));
     }
     Gtk::MenuItem* pMenuItemRm = _add_menu_item(pMenu, _("Remove from list"), "ct_edit_delete", nullptr, _pAccelGroup, _("Remove from list"), nullptr, nullptr, nullptr);
@@ -316,7 +321,9 @@ Gtk::Menu* CtMenu::_add_menu_submenu(Gtk::MenuShell* pMenuShell, const char* id,
     return pSubMenu;
 }
 
-Gtk::MenuItem* CtMenu::_add_menu_item(Gtk::MenuShell* pMenuShell, CtMenuAction* pAction)
+Gtk::MenuItem* CtMenu::_add_menu_item(Gtk::MenuShell* pMenuShell,
+                                      CtMenuAction* pAction,
+                                      std::list<sigc::connection>* pListConnections/*= nullptr*/)
 {
     std::string shortcut = pAction->get_shortcut(_pCtConfig);
     Gtk::MenuItem* pMenuItem = _add_menu_item(pMenuShell,
@@ -327,7 +334,8 @@ Gtk::MenuItem* CtMenu::_add_menu_item(Gtk::MenuShell* pMenuShell, CtMenuAction* 
                                               pAction->desc.c_str(),
                                               (gpointer)pAction,
                                               &pAction->signal_set_sensitive,
-                                              &pAction->signal_set_visible);
+                                              &pAction->signal_set_visible,
+                                              pListConnections);
     pMenuItem->get_child()->set_name(pAction->id); // for find_menu_item();
     return pMenuItem;
 }
@@ -342,6 +350,7 @@ Gtk::MenuItem* CtMenu::_add_menu_item(Gtk::MenuShell* pMenuShell, CtMenuAction* 
                                                  gpointer action_data,
                                                  sigc::signal<void, bool>* signal_set_sensitive,
                                                  sigc::signal<void, bool>* signal_set_visible,
+                                                 std::list<sigc::connection>* pListConnections/*= nullptr*/,
                                                  const bool use_underline/*= true*/)
 {
     Gtk::MenuItem* pMenuItem = Gtk::manage(new Gtk::MenuItem{});
@@ -360,17 +369,24 @@ Gtk::MenuItem* CtMenu::_add_menu_item(Gtk::MenuShell* pMenuShell, CtMenuAction* 
 
     _add_menu_item_image_or_label(pMenuItem, image, pLabel);
 
-    if (signal_set_sensitive)
-        signal_set_sensitive->connect(
+    if (signal_set_sensitive) {
+        sigc::connection conn = signal_set_sensitive->connect(
             sigc::bind<0>(
                 sigc::ptr_fun(&gtk_widget_set_sensitive),
                 GTK_WIDGET(pMenuItem->gobj())));
-    if (signal_set_visible)
-        signal_set_visible->connect(
+        if (pListConnections) {
+            pListConnections->push_back(std::move(conn));
+        }
+    }
+    if (signal_set_visible) {
+        sigc::connection conn = signal_set_visible->connect(
             sigc::bind<0>(
                 sigc::ptr_fun(&gtk_widget_set_visible),
                 GTK_WIDGET(pMenuItem->gobj())));
-
+        if (pListConnections) {
+            pListConnections->push_back(std::move(conn));
+        }
+    }
     if (action_data) {
         gtk_widget_set_events(GTK_WIDGET(pMenuItem->gobj()), GDK_KEY_PRESS_MASK);
         g_signal_connect(G_OBJECT(pMenuItem->gobj()), "activate", G_CALLBACK(on_menu_activate), action_data);
