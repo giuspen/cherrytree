@@ -340,9 +340,30 @@ fs::path get_cherrytree_configdir()
     return Glib::build_filename(Glib::get_user_config_dir(), CtConst::APP_NAME);
 }
 
-fs::path get_cherrytree_lang_filepath()
+std::optional<fs::path> get_cherrytree_logdir()
+{
+    const fs::path logcfgFilepath = fs::get_cherrytree_logcfg_filepath();
+    if (not fs::is_regular_file(logcfgFilepath)) {
+        return std::nullopt; // file missing => no log
+    }
+    const std::string logDirpath = str::trim(Glib::file_get_contents(logcfgFilepath.string()));
+    if (logDirpath.empty()) {
+        return get_cherrytree_configdir(); // file empty => log in config dir
+    }
+    if (fs::is_directory(logDirpath)) {
+        return fs::path{logDirpath}; // valid directory => OK return it
+    }
+    return std::nullopt; // invalid directory => no log
+}
+
+fs::path get_cherrytree_langcfg_filepath()
 {
     return fs::canonical(get_cherrytree_configdir() / CtConfig::LangFilename);
+}
+
+fs::path get_cherrytree_logcfg_filepath()
+{
+    return fs::canonical(get_cherrytree_configdir() / CtConfig::LogFilename);
 }
 
 fs::path get_cherrytree_config_filepath()

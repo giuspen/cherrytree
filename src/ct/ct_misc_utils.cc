@@ -135,16 +135,14 @@ void table_to_csv(const CtStringTable& table, std::ostream& output) {
 std::string CtMiscUtil::get_ct_language()
 {
     std::string retLang{CtConst::LANG_DEFAULT};
-    if (fs::is_regular_file(fs::get_cherrytree_lang_filepath()))
-    {
-        const std::string langTxt = str::trim(Glib::file_get_contents(fs::get_cherrytree_lang_filepath().string()));
-        if (vec::exists(CtConst::AVAILABLE_LANGS, langTxt))
-        {
+    const fs::path langcfgFilepath = fs::get_cherrytree_langcfg_filepath();
+    if (fs::is_regular_file(langcfgFilepath)) {
+        const std::string langTxt = str::trim(Glib::file_get_contents(langcfgFilepath.string()));
+        if (vec::exists(CtConst::AVAILABLE_LANGS, langTxt)) {
             retLang = langTxt;
         }
-        else
-        {
-            g_critical("Unexpected %s file content %s", fs::get_cherrytree_lang_filepath().c_str(), langTxt.c_str());
+        else {
+            g_critical("Unexpected %s file content %s", langcfgFilepath.c_str(), langTxt.c_str());
         }
     }
     return retLang;

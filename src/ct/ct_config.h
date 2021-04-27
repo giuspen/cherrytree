@@ -37,6 +37,7 @@ public:
 
     static const fs::path ConfigFilename;
     static const fs::path LangFilename;
+    static const fs::path LogFilename;
     static const fs::path ConfigLanguageSpecsDirname;
     static const fs::path ConfigStylesDirname;
     static const fs::path UserStyleTemplate;
@@ -197,7 +198,7 @@ public:
 
     // [misc]
     std::string                                 toolbarUiList{CtConst::TOOLBAR_VEC_DEFAULT};
-    bool                                        bookmarksInTopMenu{false};
+    bool                                        bookmarksInTopMenu{true};
     bool                                        systrayOn{false};
     bool                                        startOnSystray{false};
     bool                                        useAppInd{false};
