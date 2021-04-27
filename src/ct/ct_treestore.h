@@ -103,6 +103,9 @@ public:
     std::string   get_node_foreground() const;
     std::string   get_node_syntax_highlighting() const;
     bool          get_node_is_rich_text() const;
+    bool          get_node_is_plain_text() const;
+    bool          get_node_is_text() const;
+    bool          get_node_is_code() const { return not get_node_is_text(); }
     gint64        get_node_creating_time() const;
     gint64        get_node_modification_time() const;
     void          set_node_modification_time(const gint64 modification_time);

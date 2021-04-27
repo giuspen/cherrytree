@@ -115,14 +115,14 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
         _pConfig->enableSpellCheck = checkbutton_spell_check->get_active();
         combobox_spell_check_lang->set_sensitive(_pConfig->enableSpellCheck);
         apply_for_each_window([](CtMainWin* win) {
-            win->get_text_view().set_spell_check(win->curr_tree_iter().get_node_is_rich_text());
+            win->get_text_view().set_spell_check(win->curr_tree_iter().get_node_is_text());
             win->update_selected_node_statusbar_info();
         });
     });
     combobox_spell_check_lang->signal_changed().connect([this, combobox_spell_check_lang](){
         _pConfig->spellCheckLang = combobox_spell_check_lang->get_active_id();
         apply_for_each_window([](CtMainWin* win) {
-            win->get_text_view().set_spell_check(win->curr_tree_iter().get_node_is_rich_text());
+            win->get_text_view().set_spell_check(win->curr_tree_iter().get_node_is_text());
             win->update_selected_node_statusbar_info();
         });
     });

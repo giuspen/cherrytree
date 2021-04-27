@@ -128,6 +128,17 @@ bool CtTreeIter::get_node_is_rich_text() const
     return get_node_syntax_highlighting() == CtConst::RICH_TEXT_ID;
 }
 
+bool CtTreeIter::get_node_is_plain_text() const
+{
+    return get_node_syntax_highlighting() == CtConst::PLAIN_TEXT_ID;
+}
+
+bool CtTreeIter::get_node_is_text() const
+{
+    const auto syntaxHighl = get_node_syntax_highlighting();
+    return syntaxHighl == CtConst::PLAIN_TEXT_ID or syntaxHighl == CtConst::RICH_TEXT_ID;
+}
+
 gint64 CtTreeIter::get_node_creating_time() const
 {
     return (*this) ? (*this)->get_value(_pColumns->colTsCreation) : 0;
@@ -475,8 +486,7 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
     _pCtMainWin->apply_syntax_highlighting(rTextBuffer, treeIter.get_node_syntax_highlighting(), false/*forceReApply*/);
     pTextView->setup_for_syntax(treeIter.get_node_syntax_highlighting());
     pTextView->set_buffer(rTextBuffer);
-    const bool node_is_rich_text = treeIter.get_node_is_rich_text();
-    pTextView->set_spell_check(node_is_rich_text);
+    pTextView->set_spell_check(treeIter.get_node_is_text());
     pTextView->set_sensitive(true);
     pTextView->set_editable(not treeIter.get_node_read_only());
 
@@ -518,7 +528,7 @@ void CtTreeStore::text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* p
     _curr_node_sigc_conn.push_back(
         rTextBuffer->signal_mark_set().connect(sigc::mem_fun(*this, &CtTreeStore::_on_textbuffer_mark_set), false)
     );
-    if (node_is_rich_text) {
+    if (treeIter.get_node_is_rich_text()) {
         const auto nodeId = treeIter.get_node_id();
         _curr_node_sigc_conn.push_back(
             _pCtMainWin->getScrolledwindowText().get_vadjustment()->signal_value_changed().connect([this, nodeId](){

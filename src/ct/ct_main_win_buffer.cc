@@ -457,7 +457,7 @@ void CtMainWin::load_buffer_from_state(std::shared_ptr<CtNodeState> state, CtTre
     _uCtTreestore->text_view_apply_textbuffer(tree_iter, &_ctTextview);
     _ctTextview.grab_focus();
 
-    _ctTextview.set_spell_check(curr_tree_iter().get_node_is_rich_text());
+    _ctTextview.set_spell_check(curr_tree_iter().get_node_is_text());
 
     text_buffer->place_cursor(text_buffer->get_iter_at_offset(state->cursor_pos));
     (void)_try_move_focus_to_anchored_widget_if_on_it();

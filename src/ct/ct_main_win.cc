@@ -620,7 +620,7 @@ void CtMainWin::update_selected_node_statusbar_info()
         if (not treeIter.get_node_tags().empty()) {
             statusbar_text += separator_text + _("Tags") + _(": ") + treeIter.get_node_tags();
         }
-        if (_pCtConfig->enableSpellCheck && curr_tree_iter().get_node_is_rich_text()) {
+        if (_pCtConfig->enableSpellCheck && curr_tree_iter().get_node_is_text()) {
             statusbar_text += separator_text + _("Spell Check") + _(": ") + _pCtConfig->spellCheckLang;
         }
         if (_pCtConfig->wordCountOn) {
