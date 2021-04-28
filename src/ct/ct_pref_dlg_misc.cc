@@ -89,12 +89,29 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     auto checkbutton_mod_time_sentinel = Gtk::manage(new Gtk::CheckButton{_("Reload After External Update to CT* File")});
     auto checkbutton_win_title_doc_dir = Gtk::manage(new Gtk::CheckButton{_("Show the Document Directory in the Window Title")});
     auto checkbutton_bookmarks_top_menu = Gtk::manage(new Gtk::CheckButton{_("Dedicated Bookmarks Menu in Top Menu Bar")});
+    auto checkbutton_debug_log = Gtk::manage(new Gtk::CheckButton{_("Enable Debug Log")});
+    auto file_chooser_button_debug_log_dir = Gtk::manage(new Gtk::FileChooserButton{_("Debug Log Directory"),
+                                                                                    Gtk::FileChooserAction::FILE_CHOOSER_ACTION_SELECT_FOLDER});
+    auto hbox_debug_log = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    std::optional<fs::path> optLogdir = fs::get_cherrytree_logdir();
+    checkbutton_debug_log->set_active(optLogdir.has_value());
+    if (optLogdir.has_value()) {
+        file_chooser_button_debug_log_dir->set_filename(optLogdir.value().string());
+    }
+    else {
+        file_chooser_button_debug_log_dir->set_filename(fs::get_cherrytree_configdir().string());
+        file_chooser_button_debug_log_dir->set_sensitive(false);
+    }
+
+    hbox_debug_log->pack_start(*checkbutton_debug_log, false, false);
+    hbox_debug_log->pack_start(*file_chooser_button_debug_log_dir);
     vbox_misc_misc->pack_start(*checkbutton_newer_version, false, false);
     vbox_misc_misc->pack_start(*checkbutton_word_count, false, false);
     vbox_misc_misc->pack_start(*checkbutton_reload_doc_last, false, false);
     vbox_misc_misc->pack_start(*checkbutton_mod_time_sentinel, false, false);
     vbox_misc_misc->pack_start(*checkbutton_win_title_doc_dir, false, false);
     vbox_misc_misc->pack_start(*checkbutton_bookmarks_top_menu, false, false);
+    vbox_misc_misc->pack_start(*hbox_debug_log, false, false);
 
     checkbutton_newer_version->set_active(_pConfig->checkVersion);
     checkbutton_word_count->set_active(_pConfig->wordCountOn);
@@ -183,6 +200,21 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     });
     file_chooser_button_backup_dir->signal_file_set().connect([this, file_chooser_button_backup_dir](){
         _pConfig->customBackupDir = file_chooser_button_backup_dir->get_filename();
+    });
+    checkbutton_debug_log->signal_toggled().connect([this, checkbutton_debug_log, file_chooser_button_debug_log_dir](){
+        if (checkbutton_debug_log->get_active()) {
+            Glib::file_set_contents(fs::get_cherrytree_logcfg_filepath().string(), "");
+        }
+        else {
+            fs::remove(fs::get_cherrytree_logcfg_filepath());
+        }
+        file_chooser_button_debug_log_dir->set_sensitive(checkbutton_debug_log->get_active());
+        need_restart(RESTART_REASON::DEBUG_LOG);
+    });
+    file_chooser_button_debug_log_dir->signal_file_set().connect([this, file_chooser_button_debug_log_dir](){
+        Glib::file_set_contents(fs::get_cherrytree_logcfg_filepath().string(),
+                                file_chooser_button_debug_log_dir->get_filename());
+        need_restart(RESTART_REASON::DEBUG_LOG);
     });
     checkbutton_reload_doc_last->signal_toggled().connect([this, checkbutton_reload_doc_last](){
         _pConfig->reloadDocLast = checkbutton_reload_doc_last->get_active();
