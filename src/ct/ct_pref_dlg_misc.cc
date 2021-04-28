@@ -56,20 +56,18 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     spinbutton_num_backups->set_sensitive(_pConfig->backupCopy);
     spinbutton_num_backups->set_value(_pConfig->backupNum);
     auto checkbutton_custom_backup_dir = Gtk::manage(new Gtk::CheckButton{_("Custom Backup Directory")});
-    auto entry_custom_backup_dir = Gtk::manage(new Gtk::Entry{});
-    entry_custom_backup_dir->property_editable() = false;
-    auto button_custom_backup_dir = Gtk::manage(new Gtk::Button{"..."});
+    auto file_chooser_button_backup_dir = Gtk::manage(new Gtk::FileChooserButton{_("Custom Backup Directory"),
+                                                                                 Gtk::FileChooserAction::FILE_CHOOSER_ACTION_SELECT_FOLDER});
     auto hbox_custom_backup_dir = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
 
     hbox_num_backups->pack_start(*label_num_backups, false, false);
     hbox_num_backups->pack_start(*spinbutton_num_backups, false, false);
-    hbox_custom_backup_dir->pack_start(*entry_custom_backup_dir);
-    hbox_custom_backup_dir->pack_start(*button_custom_backup_dir, false, false);
+    hbox_custom_backup_dir->pack_start(*checkbutton_custom_backup_dir, false, false);
+    hbox_custom_backup_dir->pack_start(*file_chooser_button_backup_dir);
     vbox_saving->pack_start(*hbox_autosave, false, false);
     vbox_saving->pack_start(*checkbutton_autosave_on_quit, false, false);
     vbox_saving->pack_start(*checkbutton_backup_before_saving, false, false);
     vbox_saving->pack_start(*hbox_num_backups, false, false);
-    vbox_saving->pack_start(*checkbutton_custom_backup_dir, false, false);
     vbox_saving->pack_start(*hbox_custom_backup_dir, false, false);
 
     checkbutton_autosave->set_active(_pConfig->autosaveOn);
@@ -79,9 +77,8 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_backup_before_saving->set_active(_pConfig->backupCopy);
     checkbutton_custom_backup_dir->set_sensitive(_pConfig->backupCopy);
     checkbutton_custom_backup_dir->set_active(_pConfig->customBackupDirOn);
-    entry_custom_backup_dir->set_text(_pConfig->customBackupDir);
-    entry_custom_backup_dir->set_sensitive(_pConfig->backupCopy && _pConfig->customBackupDirOn);
-    button_custom_backup_dir->set_sensitive(_pConfig->backupCopy && _pConfig->customBackupDirOn);
+    file_chooser_button_backup_dir->set_filename(_pConfig->customBackupDir);
+    file_chooser_button_backup_dir->set_sensitive(_pConfig->backupCopy and _pConfig->customBackupDirOn);
 
     Gtk::Frame* frame_saving = new_managed_frame_with_align(_("Saving"), vbox_saving);
 
@@ -171,26 +168,21 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_autosave_on_quit->signal_toggled().connect([this, checkbutton_autosave_on_quit](){
         _pConfig->autosaveOnQuit = checkbutton_autosave_on_quit->get_active();
     });
-    checkbutton_backup_before_saving->signal_toggled().connect([this, checkbutton_backup_before_saving, spinbutton_num_backups, checkbutton_custom_backup_dir, entry_custom_backup_dir, button_custom_backup_dir](){
+    checkbutton_backup_before_saving->signal_toggled().connect([this, checkbutton_backup_before_saving, spinbutton_num_backups, checkbutton_custom_backup_dir, file_chooser_button_backup_dir](){
         _pConfig->backupCopy = checkbutton_backup_before_saving->get_active();
         spinbutton_num_backups->set_sensitive(_pConfig->backupCopy);
         checkbutton_custom_backup_dir->set_sensitive(_pConfig->backupCopy);
-        entry_custom_backup_dir->set_sensitive(_pConfig->backupCopy && _pConfig->customBackupDirOn);
-        button_custom_backup_dir->set_sensitive(_pConfig->backupCopy && _pConfig->customBackupDirOn);
+        file_chooser_button_backup_dir->set_sensitive(_pConfig->backupCopy and _pConfig->customBackupDirOn);
     });
     spinbutton_num_backups->signal_value_changed().connect([this, spinbutton_num_backups](){
         _pConfig->backupNum = spinbutton_num_backups->get_value_as_int();
     });
-    checkbutton_custom_backup_dir->signal_toggled().connect([this, checkbutton_custom_backup_dir, entry_custom_backup_dir, button_custom_backup_dir](){
+    checkbutton_custom_backup_dir->signal_toggled().connect([this, checkbutton_custom_backup_dir, file_chooser_button_backup_dir](){
         _pConfig->customBackupDirOn = checkbutton_custom_backup_dir->get_active();
-        entry_custom_backup_dir->set_sensitive(checkbutton_custom_backup_dir->get_active());
-        button_custom_backup_dir->set_sensitive(checkbutton_custom_backup_dir->get_active());
+        file_chooser_button_backup_dir->set_sensitive(checkbutton_custom_backup_dir->get_active());
     });
-    button_custom_backup_dir->signal_clicked().connect([this, entry_custom_backup_dir](){
-        auto dir_place = CtDialogs::folder_select_dialog(_pConfig->customBackupDir, _pCtMainWin);
-        if (dir_place.empty()) return;
-        entry_custom_backup_dir->set_text(dir_place);
-        _pConfig->customBackupDir = dir_place;
+    file_chooser_button_backup_dir->signal_file_set().connect([this, file_chooser_button_backup_dir](){
+        _pConfig->customBackupDir = file_chooser_button_backup_dir->get_filename();
     });
     checkbutton_reload_doc_last->signal_toggled().connect([this, checkbutton_reload_doc_last](){
         _pConfig->reloadDocLast = checkbutton_reload_doc_last->get_active();
