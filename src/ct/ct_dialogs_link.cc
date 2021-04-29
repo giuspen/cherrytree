@@ -214,7 +214,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
             dialog.response(Gtk::RESPONSE_ACCEPT);
     });
     button_browse_file.signal_clicked().connect([&](){
-        file_select_args args(&dialog);
+        CtDialogs::FileSelectArgs args{&dialog};
         args.curr_folder=ctMainWin.get_ct_config()->pickDirFile;
         std::string filepath = file_select_dialog(args);
         if (filepath.empty()) {

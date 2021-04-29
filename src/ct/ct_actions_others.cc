@@ -134,7 +134,7 @@ void CtActions::embfile_delete()
 // Embedded File Save Dialog
 void CtActions::embfile_save()
 {
-    CtDialogs::file_select_args args{_pCtMainWin};
+    CtDialogs::FileSelectArgs args{_pCtMainWin};
     args.curr_folder = _pCtMainWin->get_ct_config()->pickDirFile;
     args.curr_file_name = curr_file_anchor->get_file_name();
 
@@ -193,7 +193,7 @@ void CtActions::embfile_rename()
 // Save to Disk the selected Image
 void CtActions::image_save()
 {
-    CtDialogs::file_select_args args(_pCtMainWin);
+    CtDialogs::FileSelectArgs args{_pCtMainWin};
     args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImg;
     args.curr_file_name = "";
     args.filter_name = _("PNG Image");
@@ -485,7 +485,7 @@ void CtActions::exec_code()
 void CtActions::codebox_load_from_file()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
-    CtDialogs::file_select_args args(_pCtMainWin);
+    CtDialogs::FileSelectArgs args{_pCtMainWin};
     args.curr_folder = _pCtMainWin->get_ct_config()->pickDirCbox;
 
     std::string filepath = CtDialogs::file_select_dialog(args);
@@ -499,7 +499,7 @@ void CtActions::codebox_load_from_file()
 // Save the CodeBox Content To a Text File
 void CtActions::codebox_save_to_file()
 {
-    CtDialogs::file_select_args args(_pCtMainWin);
+    CtDialogs::FileSelectArgs args{_pCtMainWin};
     args.curr_folder=_pCtMainWin->get_ct_config()->pickDirCbox;
 
     std::string filepath = CtDialogs::file_save_as_dialog(args);
@@ -713,7 +713,7 @@ void CtActions::table_edit_properties()
 
 void CtActions::table_export()
 {
-    CtDialogs::file_select_args args{_pCtMainWin};
+    CtDialogs::FileSelectArgs args{_pCtMainWin};
     args.curr_folder = _pCtMainWin->get_ct_config()->pickDirCsv;
     args.curr_file_name = "";
     args.filter_name = _("CSV File");

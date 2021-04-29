@@ -1,7 +1,7 @@
 /*
  * ct_actions_file.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -70,7 +70,7 @@ void CtActions::file_save_as()
     {
         return;
     }
-    CtDialogs::file_select_args fileSelArgs(_pCtMainWin);
+    CtDialogs::FileSelectArgs fileSelArgs{_pCtMainWin};
     if (not currDocFilepath.empty())
     {
         fileSelArgs.curr_folder = currDocFilepath.parent_path();
@@ -92,7 +92,7 @@ void CtActions::file_save_as()
 
 void CtActions::file_open()
 {
-    CtDialogs::file_select_args args(_pCtMainWin);
+    CtDialogs::FileSelectArgs args{_pCtMainWin};
     args.curr_folder = _pCtMainWin->get_ct_storage()->get_file_dir();
     args.filter_name = _("CherryTree Document");
     args.filter_pattern.push_back("*.ctb"); // macos doesn't understand *.ct*

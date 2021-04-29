@@ -96,7 +96,7 @@ void CtActions::import_node_from_html_directory() noexcept
 void CtActions::import_nodes_from_ct_file() noexcept
 {
     try {
-        CtDialogs::file_select_args args(_pCtMainWin);
+        CtDialogs::FileSelectArgs args{_pCtMainWin};
         args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImport;
         args.filter_name = _("CherryTree Document");
         args.filter_pattern.push_back("*.ctb"); // macos doesn't understand *.ct*
@@ -242,7 +242,7 @@ void CtActions::import_nodes_from_notecase_html() noexcept
 
 void CtActions::_import_from_file(CtImporterInterface* importer, const bool dummy_root) noexcept
 {
-    CtDialogs::file_select_args args(_pCtMainWin);
+    CtDialogs::FileSelectArgs args{_pCtMainWin};
     args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImport;
     args.filter_name = importer->file_pattern_name();
     args.filter_pattern = importer->file_patterns();
@@ -251,7 +251,7 @@ void CtActions::_import_from_file(CtImporterInterface* importer, const bool dumm
     _pCtMainWin->get_ct_config()->pickDirImport = Glib::path_get_dirname(filepath);
 
     try {
-        std::unique_ptr<ct_imported_node> node = importer->import_file(filepath);
+        std::unique_ptr<CtImportedNode> node = importer->import_file(filepath);
         if (!node) return;
         _create_imported_nodes(node.get(), dummy_root);
     }
@@ -279,11 +279,11 @@ void CtActions::_import_from_dir(CtImporterInterface* importer, const std::strin
     }
 }
 
-void CtActions::_create_imported_nodes(ct_imported_node* imported_nodes, const bool dummy_root)
+void CtActions::_create_imported_nodes(CtImportedNode* imported_nodes, const bool dummy_root)
 {
     // to apply functions to nodes
-    std::function<void(ct_imported_node*, std::function<void(ct_imported_node*)>)> foreach_nodes;
-    foreach_nodes = [&](ct_imported_node* imported_node, std::function<void(ct_imported_node*)> fun_apply) {
+    std::function<void(CtImportedNode*, std::function<void(CtImportedNode*)>)> foreach_nodes;
+    foreach_nodes = [&](CtImportedNode* imported_node, std::function<void(CtImportedNode*)> fun_apply) {
         fun_apply(imported_node);
         for (auto& node : imported_node->children)
             foreach_nodes(node.get(), fun_apply);
@@ -292,20 +292,20 @@ void CtActions::_create_imported_nodes(ct_imported_node* imported_nodes, const b
     // setup node id
     std::map<Glib::ustring, gint64> node_ids;
     gint64 max_node_id = _pCtMainWin->get_tree_store().node_id_get();
-    foreach_nodes(imported_nodes, [&](ct_imported_node* node) {
+    foreach_nodes(imported_nodes, [&](CtImportedNode* node) {
         node->node_id = max_node_id++;
         node_ids[node->node_name] = node->node_id;
     });
 
     // fix broken links, node name -> node id
-    foreach_nodes(imported_nodes, [&](ct_imported_node* node) {
+    foreach_nodes(imported_nodes, [&](CtImportedNode* node) {
         for (auto& broken_link : node->content_broken_links)
             if (node_ids.count(broken_link.first))
                 for (xmlpp::Element* link_el : broken_link.second)
                     link_el->set_attribute(CtConst::TAG_LINK, "node " + std::to_string(node_ids[broken_link.first]));
     });
 
-    auto create_node = [&](ct_imported_node* imported_node, Gtk::TreeIter curr_iter, bool is_child) {
+    auto create_node = [&](CtImportedNode* imported_node, Gtk::TreeIter curr_iter, bool is_child) {
         CtNodeData node_data;
         node_data.name = imported_node->node_name;
         node_data.nodeId = imported_node->node_id;
@@ -347,8 +347,8 @@ void CtActions::_create_imported_nodes(ct_imported_node* imported_nodes, const b
     };
 
     // just create nodes
-    std::function<void(Gtk::TreeIter, ct_imported_node*)> create_nodes;
-    create_nodes = [&](Gtk::TreeIter curr_iter, ct_imported_node* imported_node) {
+    std::function<void(Gtk::TreeIter, CtImportedNode*)> create_nodes;
+    create_nodes = [&](Gtk::TreeIter curr_iter, CtImportedNode* imported_node) {
         auto iter = create_node(imported_node, curr_iter, true);
         for (auto& child : imported_node->children)
             create_nodes(iter, child.get());

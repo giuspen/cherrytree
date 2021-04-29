@@ -224,26 +224,26 @@ bool link_handle_dialog(CtMainWin& ctMainWin,
                         Gtk::TreeIter sel_tree_iter,
                         CtLinkEntry& link_entries);
 
-struct file_select_args
+struct FileSelectArgs
 {
+    FileSelectArgs(Gtk::Window* win) : pParentWin{win} {}
+
     Gtk::Window*                pParentWin{nullptr};
     fs::path                    curr_folder;
     fs::path                    curr_file_name;
     Glib::ustring               filter_name;
-    std::vector<std::string>    filter_pattern;
-    // std::vector<std::string>    filter_mime; doesn't work with native dialog
-
-    file_select_args(Gtk::Window* win) : pParentWin(win) {}
+    std::vector<Glib::ustring>  filter_pattern;
+    std::vector<Glib::ustring>  filter_mime;
 };
 
 // The Select file dialog, Returns the retrieved filepath or None
-std::string file_select_dialog(const file_select_args& args);
+std::string file_select_dialog(const FileSelectArgs& args);
 
 // The Select folder dialog, returns the retrieved folderpath or None
 std::string folder_select_dialog(const std::string& curr_folder, Gtk::Window* pParentWin);
 
 // The Save file as dialog, Returns the retrieved filepath or None
-std::string file_save_as_dialog(const file_select_args& args);
+std::string file_save_as_dialog(const FileSelectArgs& args);
 
 // Insert/Edit Image
 Glib::RefPtr<Gdk::Pixbuf> image_handle_dialog(Gtk::Window& father_win,

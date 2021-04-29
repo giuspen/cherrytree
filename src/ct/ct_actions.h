@@ -34,7 +34,7 @@
 
 class CtMainWin;
 class CtImporterInterface;
-struct ct_imported_node;
+struct CtImportedNode;
 struct TocEntry;
 class CtActions
 {
@@ -382,7 +382,7 @@ private:
     // helper for import actions
     void _import_from_file(CtImporterInterface* importer, const bool dummy_root = false) noexcept;
     void _import_from_dir(CtImporterInterface* importer, const std::string& custom_dir) noexcept;
-    void _create_imported_nodes(ct_imported_node* imported_nodes, const bool dummy_root = false);
+    void _create_imported_nodes(CtImportedNode* imported_nodes, const bool dummy_root = false);
 
 public:
     // import actions

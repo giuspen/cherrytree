@@ -324,20 +324,23 @@ void CtDialogs::error_dialog(const Glib::ustring& message,
 }
 
 // Returns the retrieved filepath or None
-std::string CtDialogs::file_select_dialog(const file_select_args& args)
+std::string CtDialogs::file_select_dialog(const FileSelectArgs& args)
 {
     auto chooser = Gtk::FileChooserNative::create(_("Select File"), *args.pParentWin, Gtk::FILE_CHOOSER_ACTION_OPEN);
-    if (args.curr_folder.empty() || !fs::is_directory(args.curr_folder)) {
-        chooser->set_current_folder(g_get_home_dir());
+    if (args.curr_folder.empty() or not fs::is_directory(args.curr_folder)) {
+        chooser->set_current_folder(Glib::get_home_dir());
     }
     else {
         chooser->set_current_folder(args.curr_folder.string());
     }
-    if (!args.filter_pattern.empty()) {
+    if (not args.filter_pattern.empty() or not args.filter_mime.empty()) {
         Glib::RefPtr<Gtk::FileFilter> rFileFilter = Gtk::FileFilter::create();
         rFileFilter->set_name(args.filter_name);
-        for (const std::string& element : args.filter_pattern) {
+        for (const auto& element : args.filter_pattern) {
             rFileFilter->add_pattern(element);
+        }
+        for (const auto& element : args.filter_mime) {
+            rFileFilter->add_mime_type(element);
         }
         chooser->add_filter(rFileFilter);
     }
@@ -358,7 +361,7 @@ std::string CtDialogs::folder_select_dialog(const std::string& curr_folder, Gtk:
 }
 
 // Returns the retrieved filepath or None
-std::string CtDialogs::file_save_as_dialog(const file_select_args& args)
+std::string CtDialogs::file_save_as_dialog(const FileSelectArgs& args)
 {
     auto chooser = Gtk::FileChooserNative::create(_("Save File as"), *args.pParentWin, Gtk::FILE_CHOOSER_ACTION_SAVE);
     chooser->set_do_overwrite_confirmation(true);

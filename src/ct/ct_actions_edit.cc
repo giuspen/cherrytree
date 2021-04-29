@@ -73,7 +73,7 @@ void CtActions::image_handle()
     if (not _node_sel_and_rich_text()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
 
-    CtDialogs::file_select_args args{_pCtMainWin};
+    CtDialogs::FileSelectArgs args{_pCtMainWin};
     args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImg;
 
     std::string filename = CtDialogs::file_select_dialog(args);
@@ -105,7 +105,7 @@ void CtActions::table_handle()
     }
     CtTable* pCtTable{nullptr};
     if (res == CtDialogs::TableHandleResp::OkFromFile) {
-        CtDialogs::file_select_args args{_pCtMainWin};
+        CtDialogs::FileSelectArgs args{_pCtMainWin};
         args.curr_folder = _pCtMainWin->get_ct_config()->pickDirCsv;
         args.curr_file_name = "";
         args.filter_name = _("CSV File");
@@ -187,7 +187,7 @@ void CtActions::embfile_insert()
     if (!_is_curr_node_not_read_only_or_error()) return;
     auto iter_insert = _curr_buffer()->get_insert()->get_iter();
 
-    CtDialogs::file_select_args args{_pCtMainWin};
+    CtDialogs::FileSelectArgs args{_pCtMainWin};
     args.curr_folder = _pCtMainWin->get_ct_config()->pickDirFile;
 
     std::string filepath = CtDialogs::file_select_dialog(args);

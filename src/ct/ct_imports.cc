@@ -170,9 +170,9 @@ std::vector<std::pair<size_t, size_t>> CtImports::get_web_links_offsets_from_pla
     return web_links;
 }
 
-std::unique_ptr<ct_imported_node> CtImports::traverse_dir(const fs::path& dir, CtImporterInterface* importer)
+std::unique_ptr<CtImportedNode> CtImports::traverse_dir(const fs::path& dir, CtImporterInterface* importer)
 {
-    auto dir_node = std::make_unique<ct_imported_node>(dir, dir.filename().string());
+    auto dir_node = std::make_unique<CtImportedNode>(dir, dir.filename().string());
     for (const auto& dir_item: fs::get_dir_entries(dir))
     {
         if (fs::is_directory(dir_item))
@@ -193,8 +193,8 @@ std::unique_ptr<ct_imported_node> CtImports::traverse_dir(const fs::path& dir, C
     // 1. children with the same names, one with content and other as dir, join them
     // 2. dir contains  note with the same name, join them (from keepnote)
 
-    std::function<void(std::unique_ptr<ct_imported_node>&)> join_subdir_subnote;
-    join_subdir_subnote = [&](std::unique_ptr<ct_imported_node>& node) {
+    std::function<void(std::unique_ptr<CtImportedNode>&)> join_subdir_subnote;
+    join_subdir_subnote = [&](std::unique_ptr<CtImportedNode>& node) {
         for (auto iter1 = node->children.begin(); iter1 != node->children.end(); ++iter1)
         {
             if ((*iter1)->has_content() && (*iter1)->children.empty()) // node with content
@@ -218,8 +218,8 @@ std::unique_ptr<ct_imported_node> CtImports::traverse_dir(const fs::path& dir, C
             join_subdir_subnote(child);
     };
 
-    std::function<void(std::unique_ptr<ct_imported_node>&)> join_parent_dir_subnote;
-    join_parent_dir_subnote = [&](std::unique_ptr<ct_imported_node>& node) {
+    std::function<void(std::unique_ptr<CtImportedNode>&)> join_parent_dir_subnote;
+    join_parent_dir_subnote = [&](std::unique_ptr<CtImportedNode>& node) {
         if (!node->has_content())
         {
             for (auto iter = node->children.begin(); iter != node->children.end(); ++iter)
@@ -247,13 +247,13 @@ CtHtmlImport::CtHtmlImport(CtConfig* config) : _config{config}
 {
 }
 
-std::unique_ptr<ct_imported_node> CtHtmlImport::import_file(const fs::path& file)
+std::unique_ptr<CtImportedNode> CtHtmlImport::import_file(const fs::path& file)
 {
     if (file.extension() != ".html" && file.extension() != ".htm") {
         return nullptr;
     }
     std::string htmlStr = Glib::file_get_contents(file.string());
-    auto node = std::make_unique<ct_imported_node>(file, file.stem().string());
+    auto node = std::make_unique<CtImportedNode>(file, file.stem().string());
     CtHtml2Xml html2xml{_config};
     html2xml.set_local_dir(file.parent_path().string());
     html2xml.set_outter_xml_doc(node->xml_content.get());
@@ -265,7 +265,7 @@ CtTomboyImport::CtTomboyImport(CtConfig* config) : _config{config}
 {
 }
 
-std::unique_ptr<ct_imported_node> CtTomboyImport::import_file(const fs::path& file)
+std::unique_ptr<CtImportedNode> CtTomboyImport::import_file(const fs::path& file)
 {
     xmlpp::DomParser tomboy_doc;
     try { tomboy_doc.parse_file(file.string());}
@@ -302,8 +302,8 @@ std::unique_ptr<ct_imported_node> CtTomboyImport::import_file(const fs::path& fi
     if (xmlpp::Node* text_el = note_el->get_first_child("text"))
         if (xmlpp::Node* content_el = text_el->get_first_child("note-content"))
         {
-            auto parent_node = std::make_unique<ct_imported_node>(file, parent_name);
-            auto node = std::make_unique<ct_imported_node>(file, node_name);
+            auto parent_node = std::make_unique<CtImportedNode>(file, parent_name);
+            auto node = std::make_unique<CtImportedNode>(file, node_name);
 
             _current_node = node->xml_content->create_root_node("root")->add_child("slot");
             _curr_attributes.clear();
@@ -318,7 +318,7 @@ std::unique_ptr<ct_imported_node> CtTomboyImport::import_file(const fs::path& fi
     return nullptr;
 }
 
-void CtTomboyImport::_iterate_tomboy_note(xmlpp::Element* iter, std::unique_ptr<ct_imported_node>& node)
+void CtTomboyImport::_iterate_tomboy_note(xmlpp::Element* iter, std::unique_ptr<CtImportedNode>& node)
 {
     for (auto dom_iter: iter->get_children())
     {
@@ -400,13 +400,13 @@ xmlpp::Element* CtTomboyImport::_rich_text_serialize(const Glib::ustring& text_d
 
 CtZimImport::CtZimImport(CtConfig* config) : _zim_parser{std::make_unique<CtZimParser>(config)} {}
 
-std::unique_ptr<ct_imported_node> CtZimImport::import_file(const fs::path& file)
+std::unique_ptr<CtImportedNode> CtZimImport::import_file(const fs::path& file)
 {
     if (file.extension() != ".txt") return nullptr;
 
     _ensure_notebook_file_in_dir(file.parent_path());
 
-    std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, file.stem().string());
+    std::unique_ptr<CtImportedNode> node = std::make_unique<CtImportedNode>(file, file.stem().string());
 
     std::ifstream stream;
     stream.exceptions(std::ios::failbit);
@@ -440,7 +440,7 @@ void CtZimImport::_ensure_notebook_file_in_dir(const fs::path& dir)
 
 CtMDImport::~CtMDImport() = default;
 
-std::unique_ptr<ct_imported_node> CtPlainTextImport::import_file(const fs::path& file)
+std::unique_ptr<CtImportedNode> CtPlainTextImport::import_file(const fs::path& file)
 {
     if (!CtMiscUtil::mime_type_contains(file.string(), "text/")) {
         return nullptr;
@@ -451,7 +451,7 @@ std::unique_ptr<ct_imported_node> CtPlainTextImport::import_file(const fs::path&
         if (CtStrUtil::is_codeset_not_utf8(codeset)) {
             converted = Glib::convert_with_fallback(converted, "UTF-8", codeset);
         }
-        auto node = std::make_unique<ct_imported_node>(file, file.stem().string());
+        auto node = std::make_unique<CtImportedNode>(file, file.stem().string());
         node->xml_content->create_root_node("root")->add_child("slot")->add_child("rich_text")->add_child_text(converted);
         node->node_syntax = CtConst::PLAIN_TEXT_ID;
         return node;
@@ -466,7 +466,7 @@ CtMDImport::CtMDImport(CtConfig* config) : _parser{std::make_unique<CtMDParser>(
 {
 }
 
-std::unique_ptr<ct_imported_node> CtMDImport::import_file(const fs::path& file)
+std::unique_ptr<CtImportedNode> CtMDImport::import_file(const fs::path& file)
 {
     if (file.extension() != ".md")
         return nullptr;
@@ -476,7 +476,7 @@ std::unique_ptr<ct_imported_node> CtMDImport::import_file(const fs::path& file)
     _parser->wipe_doc();
     _parser->feed(infile);
 
-    std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, file.stem().string());
+    std::unique_ptr<CtImportedNode> node = std::make_unique<CtImportedNode>(file, file.stem().string());
     node->xml_content = _parser->doc().document();
 
     return node;
@@ -486,12 +486,12 @@ CtPandocImport::CtPandocImport(CtConfig* config): _config(config)
 {
 }
 
-std::unique_ptr<ct_imported_node> CtPandocImport::import_file(const fs::path& file)
+std::unique_ptr<CtImportedNode> CtPandocImport::import_file(const fs::path& file)
 {
     std::stringstream html_buff;
     CtPandoc::to_html(file, html_buff);
 
-    std::unique_ptr<ct_imported_node> node = std::make_unique<ct_imported_node>(file, file.stem().string());
+    std::unique_ptr<CtImportedNode> node = std::make_unique<CtImportedNode>(file, file.stem().string());
 
     CtHtml2Xml parser(_config);
     parser.set_outter_xml_doc(node->xml_content.get());
@@ -500,7 +500,7 @@ std::unique_ptr<ct_imported_node> CtPandocImport::import_file(const fs::path& fi
     return node;
 }
 
-std::unique_ptr<ct_imported_node> CtKeepnoteImport::import_file(const fs::path& file)
+std::unique_ptr<CtImportedNode> CtKeepnoteImport::import_file(const fs::path& file)
 {
     for (auto ignore: {"__TRASH__", "__NOTEBOOK__"})
         if (file.string().find(ignore) != std::string::npos)
@@ -512,7 +512,7 @@ std::unique_ptr<ct_imported_node> CtKeepnoteImport::import_file(const fs::path& 
     CtHtml2Xml parser{_config};
     parser.set_local_dir(file.parent_path().string());
     parser.feed(keepnoteStr);
-    auto node = std::make_unique<ct_imported_node>(file, file.parent_path().stem().string());
+    auto node = std::make_unique<CtImportedNode>(file, file.parent_path().stem().string());
     node->xml_content->create_root_node_by_import(parser.doc().get_root_node());
     //spdlog::debug(keepnoteStr);
     //spdlog::debug(node->xml_content->write_to_string());
@@ -521,9 +521,9 @@ std::unique_ptr<ct_imported_node> CtKeepnoteImport::import_file(const fs::path& 
 
 namespace {
 
-std::unique_ptr<ct_imported_node> mempad_page_to_node(const CtMempadParser::page& page, const fs::path& path)
+std::unique_ptr<CtImportedNode> mempad_page_to_node(const CtMempadParser::page& page, const fs::path& path)
 {
-    auto node = std::make_unique<ct_imported_node>(path, page.name);
+    auto node = std::make_unique<CtImportedNode>(path, page.name);
     auto& doc = node->xml_content;
     create_root_plaintext_text_el(*doc, page.contents);
 
@@ -542,7 +542,7 @@ ITER up_to_same_level(ITER start, ITER upper_bound, int level)
     return start;
 }
 
-std::unique_ptr<ct_imported_node> mempad_pages_to_nodes(const CtMempadParser::page& page,
+std::unique_ptr<CtImportedNode> mempad_pages_to_nodes(const CtMempadParser::page& page,
                                                         const std::vector<CtMempadParser::page>& child_pages,
                                                         const fs::path& path)
 {
@@ -561,7 +561,7 @@ std::unique_ptr<ct_imported_node> mempad_pages_to_nodes(const CtMempadParser::pa
     return node;
 }
 
-std::unique_ptr<ct_imported_node> mempad_tree_to_node(const std::vector<CtMempadParser::page>& pages, const fs::path& path)
+std::unique_ptr<CtImportedNode> mempad_tree_to_node(const std::vector<CtMempadParser::page>& pages, const fs::path& path)
 {
     CtMempadParser::page dummy_page{
         .level = 0,
@@ -575,7 +575,7 @@ std::unique_ptr<ct_imported_node> mempad_tree_to_node(const std::vector<CtMempad
 
 } // namespace (anonymous)
 
-std::unique_ptr<ct_imported_node> CtMempadImporter::import_file(const fs::path& file)
+std::unique_ptr<CtImportedNode> CtMempadImporter::import_file(const fs::path& file)
 {
     std::ifstream infile{file.string()};
 
@@ -590,7 +590,7 @@ std::unique_ptr<ct_imported_node> CtMempadImporter::import_file(const fs::path& 
     return node;
 }
 
-std::unique_ptr<ct_imported_node> CtTreepadImporter::import_file(const fs::path& file)
+std::unique_ptr<CtImportedNode> CtTreepadImporter::import_file(const fs::path& file)
 {
     std::ifstream infile{file.string()};
 
@@ -607,8 +607,8 @@ std::unique_ptr<ct_imported_node> CtTreepadImporter::import_file(const fs::path&
 
 namespace {
 
-std::unique_ptr<ct_imported_node> to_ct_node(const CtLeoParser::leo_node& leo_node, const fs::path& path) {
-    auto node = std::make_unique<ct_imported_node>(path, leo_node.name);
+std::unique_ptr<CtImportedNode> to_ct_node(const CtLeoParser::leo_node& leo_node, const fs::path& path) {
+    auto node = std::make_unique<CtImportedNode>(path, leo_node.name);
     node->xml_content = std::make_shared<xmlpp::Document>();
     create_root_plaintext_text_el(*node->xml_content, leo_node.content);
 
@@ -619,7 +619,7 @@ std::unique_ptr<ct_imported_node> to_ct_node(const CtLeoParser::leo_node& leo_no
     return node;
 }
 
-std::unique_ptr<ct_imported_node> generate_leo_root_node(std::vector<CtLeoParser::leo_node> leo_nodes, const fs::path& path) {
+std::unique_ptr<CtImportedNode> generate_leo_root_node(std::vector<CtLeoParser::leo_node> leo_nodes, const fs::path& path) {
     CtLeoParser::leo_node dummy_node;
     dummy_node.name = "Leo Root";
     dummy_node.children = std::move(leo_nodes);
@@ -627,9 +627,9 @@ std::unique_ptr<ct_imported_node> generate_leo_root_node(std::vector<CtLeoParser
     return to_ct_node(dummy_node, path);
 }
 
-std::unique_ptr<ct_imported_node> node_to_ct_node(const CtRedNotebookParser::node& node, const fs::path& path)
+std::unique_ptr<CtImportedNode> node_to_ct_node(const CtRedNotebookParser::node& node, const fs::path& path)
 {
-    auto ct_node = std::make_unique<ct_imported_node>(path, node.name);
+    auto ct_node = std::make_unique<CtImportedNode>(path, node.name);
 
     if (!node.doc) {
         ct_node->xml_content = std::make_shared<xmlpp::Document>();
@@ -641,7 +641,7 @@ std::unique_ptr<ct_imported_node> node_to_ct_node(const CtRedNotebookParser::nod
     return ct_node;
 }
 
-std::unique_ptr<ct_imported_node> generate_ct_node_hierarchy(std::string&& root_name, const std::vector<CtRedNotebookParser::node>& nodes, const fs::path& path)
+std::unique_ptr<CtImportedNode> generate_ct_node_hierarchy(std::string&& root_name, const std::vector<CtRedNotebookParser::node>& nodes, const fs::path& path)
 {
     CtRedNotebookParser::node root { std::move(root_name) };
     auto ct_root = node_to_ct_node(root, path);
@@ -654,7 +654,7 @@ std::unique_ptr<ct_imported_node> generate_ct_node_hierarchy(std::string&& root_
 
 } // namespace (anonymous)
 
-std::unique_ptr<ct_imported_node> CtLeoImporter::import_file(const fs::path& path)
+std::unique_ptr<CtImportedNode> CtLeoImporter::import_file(const fs::path& path)
 {
     std::ifstream in{path.string()};
     if (!in) {
@@ -667,7 +667,7 @@ std::unique_ptr<ct_imported_node> CtLeoImporter::import_file(const fs::path& pat
     return generate_leo_root_node(parser.nodes(), path);
 }
 
-std::unique_ptr<ct_imported_node> CtRedNotebookImporter::import_file(const fs::path& path)
+std::unique_ptr<CtImportedNode> CtRedNotebookImporter::import_file(const fs::path& path)
 {
     std::ifstream in{path.string()};
     if (!in) {
@@ -677,7 +677,7 @@ std::unique_ptr<ct_imported_node> CtRedNotebookImporter::import_file(const fs::p
     return _parse_input(in, path);
 }
 
-std::unique_ptr<ct_imported_node> CtRedNotebookImporter::_parse_input(std::ifstream& infile, const fs::path& path)
+std::unique_ptr<CtImportedNode> CtRedNotebookImporter::_parse_input(std::ifstream& infile, const fs::path& path)
 {
     CtRedNotebookParser p{_ct_config};
 
@@ -687,7 +687,7 @@ std::unique_ptr<ct_imported_node> CtRedNotebookImporter::_parse_input(std::ifstr
     return generate_ct_node_hierarchy("RedNotebook Root", nodes, path);
 }
 
-std::unique_ptr<ct_imported_node> CtNoteCaseHTMLImporter::import_file(const fs::path& path)
+std::unique_ptr<CtImportedNode> CtNoteCaseHTMLImporter::import_file(const fs::path& path)
 {
     std::ifstream in{path.string()};
     if (!in) {
