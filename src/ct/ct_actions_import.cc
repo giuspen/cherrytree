@@ -246,7 +246,8 @@ void CtActions::_import_from_file(CtImporterInterface* importer, const bool dumm
     args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImport;
     args.filter_name = importer->file_pattern_name();
     args.filter_pattern = importer->file_patterns();
-    auto filepath = CtDialogs::file_select_dialog(args);
+    args.filter_mime = importer->file_mime_types();
+    const std::string filepath = CtDialogs::file_select_dialog(args);
     if (filepath.empty()) return;
     _pCtMainWin->get_ct_config()->pickDirImport = Glib::path_get_dirname(filepath);
 

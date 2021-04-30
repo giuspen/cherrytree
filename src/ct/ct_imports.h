@@ -76,8 +76,12 @@ public:
 class CtHtmlImporterInterface: public CtImporterInterface
 {
 public:
-    std::string                 file_pattern_name() override { return "HTML Document"; }
+    std::string                 file_pattern_name() override { return _("HTML Document"); }
+#ifdef _WIN32
     std::vector<Glib::ustring>  file_patterns() override { return {"*.html", "*.htm"}; }
+#else
+    std::vector<Glib::ustring>  file_mime_types() { return {"text/html"}; }
+#endif
 };
 
 namespace CtImports {
@@ -174,8 +178,12 @@ public:
 public:
     // virtuals of CtImporterInterface
     std::unique_ptr<CtImportedNode> import_file(const fs::path& file) override;
-    std::string                       file_pattern_name() override { return _("Plain Text Document"); }
-    std::vector<Glib::ustring>        file_patterns() override { return {"*.txt"}; };
+    std::string                     file_pattern_name() override { return _("Plain Text Document"); }
+#ifdef _WIN32
+    std::vector<Glib::ustring>      file_patterns() override { return {"*.txt"}; }
+#else
+    std::vector<Glib::ustring>      file_mime_types() { return {"text/*"}; }
+#endif
 };
 
 class CtMDParser;
