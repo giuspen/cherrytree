@@ -125,7 +125,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
 #ifdef HAVE_NLS
     auto f_getButtonLabel = [this](const std::string langCode)->Glib::ustring{
         auto it = _mapCountryLanguages.find(langCode);
-        return it != _mapCountryLanguages.end() ? it->second : "-";
+        return it != _mapCountryLanguages.end() ? it->second : _("System Default");
     };
     auto f_getStockId = [](const std::string langCode)->std::string{
         return langCode == CtConst::LANG_DEFAULT ? "ct_node_no_icon" : "ct_" + langCode;
@@ -242,7 +242,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     button_country_language->signal_clicked().connect([this, button_country_language, f_getStockId, f_getButtonLabel](){
         Glib::RefPtr<CtChooseDialogListStore> rItemStore = CtChooseDialogListStore::create();
         const std::string currLang = CtMiscUtil::get_ct_language();
-        rItemStore->add_row(f_getStockId(CtConst::LANG_DEFAULT), CtConst::LANG_DEFAULT, "-");
+        rItemStore->add_row(f_getStockId(CtConst::LANG_DEFAULT), CtConst::LANG_DEFAULT, _("System Default"));
         unsigned pathSelectIdx{0};
         unsigned pathCurrIdx{1};
         for (const auto& currPair : _mapCountryLanguages) {
