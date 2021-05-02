@@ -281,16 +281,21 @@ CtLinkEntry CtMiscUtil::get_link_entry(const Glib::ustring& link)
     return link_entry;
 }
 
-bool CtMiscUtil::mime_type_contains(const std::string &filepath, const std::string& type)
+bool CtMiscUtil::mime_type_contains(const std::string &filepath, const char* type)
 {
-    using gchar_ptr = std::unique_ptr<gchar, decltype(&g_free)>;
+    GFile* pGFile = g_file_new_for_path(filepath.c_str());
+    g_autoptr(GError) pGError{nullptr};
+    GFileInfo* pGFileInfo = g_file_query_info(pGFile,
+                                              "standard::*",
+                                              G_FILE_QUERY_INFO_NONE,
+                                              NULL,
+                                              &pGError);
+    const char* content_type = g_file_info_get_content_type(pGFileInfo);
+    g_autofree gchar* mime_type = g_content_type_get_mime_type(content_type);
+    g_object_unref(pGFileInfo);
+    g_object_unref(pGFile);
 
-    // Note that these return gchar* which must be freed with g_free()
-    gchar_ptr type_guess(g_content_type_guess(filepath.c_str(), nullptr, 0, nullptr), g_free);
-    gchar_ptr p_mime_type(g_content_type_get_mime_type(type_guess.get()), g_free);
-    std::string mime_type = p_mime_type.get();
-
-    return mime_type.find(type) != std::string::npos;
+    return strstr(mime_type, type);
 }
 
 namespace CtMiscUtil {

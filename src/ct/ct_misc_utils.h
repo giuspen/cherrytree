@@ -62,7 +62,7 @@ CtLinkEntry get_link_entry(const Glib::ustring& link);
  * @brief Check if the the mime for a file contains a given string
  * @return
  */
-bool mime_type_contains(const std::string& filepath, const std::string& type);
+bool mime_type_contains(const std::string& filepath, const char* type);
 
 enum class URI_TYPE { LOCAL_FILEPATH, WEB_URL, UNKNOWN };
 URI_TYPE get_uri_type(const std::string& uri);
