@@ -88,6 +88,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     auto checkbutton_reload_doc_last = Gtk::manage(new Gtk::CheckButton{_("Reload Document From Last Session")});
     auto checkbutton_mod_time_sentinel = Gtk::manage(new Gtk::CheckButton{_("Reload After External Update to CT* File")});
     auto checkbutton_win_title_doc_dir = Gtk::manage(new Gtk::CheckButton{_("Show the Document Directory in the Window Title")});
+    auto checkbutton_nn_header_full_path = Gtk::manage(new Gtk::CheckButton{_("Show the Full Path in the Node Name Header")});
     auto checkbutton_bookmarks_top_menu = Gtk::manage(new Gtk::CheckButton{_("Dedicated Bookmarks Menu in Top Menu Bar")});
     auto checkbutton_debug_log = Gtk::manage(new Gtk::CheckButton{_("Enable Debug Log")});
     auto file_chooser_button_debug_log_dir = Gtk::manage(new Gtk::FileChooserButton{_("Debug Log Directory"),
@@ -110,6 +111,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     vbox_misc_misc->pack_start(*checkbutton_reload_doc_last, false, false);
     vbox_misc_misc->pack_start(*checkbutton_mod_time_sentinel, false, false);
     vbox_misc_misc->pack_start(*checkbutton_win_title_doc_dir, false, false);
+    vbox_misc_misc->pack_start(*checkbutton_nn_header_full_path, false, false);
     vbox_misc_misc->pack_start(*checkbutton_bookmarks_top_menu, false, false);
     vbox_misc_misc->pack_start(*hbox_debug_log, false, false);
 
@@ -118,6 +120,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_reload_doc_last->set_active(_pConfig->reloadDocLast);
     checkbutton_mod_time_sentinel->set_active(_pConfig->modTimeSentinel);
     checkbutton_win_title_doc_dir->set_active(_pConfig->winTitleShowDocDir);
+    checkbutton_nn_header_full_path->set_active(_pConfig->nodeNameHeaderShowFullPath);
     checkbutton_bookmarks_top_menu->set_active(_pConfig->bookmarksInTopMenu);
 
     Gtk::Frame* frame_misc_misc = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc_misc);
@@ -226,6 +229,10 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     checkbutton_win_title_doc_dir->signal_toggled().connect([this, checkbutton_win_title_doc_dir](){
         _pConfig->winTitleShowDocDir = checkbutton_win_title_doc_dir->get_active();
         _pCtMainWin->window_title_update();
+    });
+    checkbutton_nn_header_full_path->signal_toggled().connect([this, checkbutton_nn_header_full_path](){
+        _pConfig->nodeNameHeaderShowFullPath = checkbutton_nn_header_full_path->get_active();
+        _pCtMainWin->window_header_update();
     });
     checkbutton_bookmarks_top_menu->signal_toggled().connect([this, checkbutton_bookmarks_top_menu](){
         _pConfig->bookmarksInTopMenu = checkbutton_bookmarks_top_menu->get_active();

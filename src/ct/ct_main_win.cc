@@ -361,13 +361,15 @@ Gtk::EventBox& CtMainWin::_init_window_header()
 
 void CtMainWin::window_header_update()
 {
+    if (_no_gui) return;
+
     // based on update_node_name_header
-    std::string name = curr_tree_iter().get_node_name();
+    std::string name = _pCtConfig->nodeNameHeaderShowFullPath ?
+        CtMiscUtil::get_node_hierarchical_name(curr_tree_iter(), " / ", false).c_str() : curr_tree_iter().get_node_name().c_str();
     std::string foreground = curr_tree_iter().get_node_foreground();
     foreground = foreground.empty() ? _pCtConfig->ttDefFg : foreground;
     _ctWinHeader.nameLabel.set_markup(
-                "<b><span foreground=\"" + foreground + "\" size=\"xx-large\">"
-                + str::xml_escape(name) + "</span></b>");
+        "<b><span foreground=\"" + foreground + "\" size=\"large\">" + str::xml_escape(name) + "</span></b>");
 
     // update last visited buttons
     if (_pCtConfig->nodesOnNodeNameHeader == 0) {

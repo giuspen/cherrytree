@@ -208,13 +208,14 @@ public:
     bool                                        wordCountOn{false};
     bool                                        reloadDocLast{true};
     bool                                        winTitleShowDocDir{true};
+    bool                                        nodeNameHeaderShowFullPath{true};
     bool                                        modTimeSentinel{false};
     bool                                        backupCopy{true};
     int                                         backupNum{3};
     bool                                        autosaveOnQuit{false};
     bool                                        customBackupDirOn{false};
     std::string                                 customBackupDir{""};
-    int                                         limitUndoableSteps{20};
+    int                                         limitUndoableSteps{10};
     bool                                        usePandoc{true}; // Whether to use Pandoc for exporting
 
     // [keyboard]
@@ -230,8 +231,7 @@ public:
     std::map<std::string, std::string>          customCodexecExt;
 
 protected:
-    template<class String> bool _populate_string_from_keyfile(std::string key, String* pTarget)
-    {
+    template<class String> bool _populate_string_from_keyfile(std::string key, String* pTarget) {
         bool gotIt{false};
         if (_uKeyFile->has_group(_currentGroup) && _uKeyFile->has_key(_currentGroup, key)) {
             try {
