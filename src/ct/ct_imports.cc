@@ -144,10 +144,8 @@ std::vector<std::pair<size_t, size_t>> CtImports::get_web_links_offsets_from_pla
     size_t max_start_offset = max_end_offset - 7;
     size_t start_offset = 0;
     unsigned lastCharBeforeURL = 0;
-    while (start_offset < max_start_offset)
-    {
-        if (str::startswith_any(plain_text.substr(start_offset), CtConst::WEB_LINK_STARTERS))
-        {
+    while (start_offset < max_start_offset) {
+        if (str::startswith_any(plain_text.substr(start_offset), CtConst::WEB_LINK_STARTERS)) {
             size_t end_offset = start_offset + 3;
             unsigned closingParenthesisChar = 0;
             if (lastCharBeforeURL == '(') closingParenthesisChar = ')';
@@ -156,7 +154,10 @@ std::vector<std::pair<size_t, size_t>> CtImports::get_web_links_offsets_from_pla
             while (end_offset < max_end_offset and
                    plain_text[end_offset] != ' ' and
                    plain_text[end_offset] != '\n' and
-                   plain_text[end_offset] != closingParenthesisChar) {
+                   plain_text[end_offset] != '\r' and
+                   plain_text[end_offset] != '\t' and
+                   plain_text[end_offset] != closingParenthesisChar)
+            {
                 ++end_offset;
             }
             web_links.push_back(std::make_pair(start_offset, end_offset));
