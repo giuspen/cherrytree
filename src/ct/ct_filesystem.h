@@ -88,6 +88,7 @@ bool remove(const path& p);
 path get_cherrytree_datadir();
 path get_cherrytree_localedir();
 path get_cherrytree_configdir();
+path get_cherrytree_print_page_setup_cfg_filepath();
 path get_cherrytree_langcfg_filepath();
 path get_cherrytree_logcfg_filepath();
 std::optional<path> get_cherrytree_logdir();

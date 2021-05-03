@@ -29,6 +29,7 @@
 #include "ct_filesystem.h"
 
 const fs::path CtConfig::ConfigFilename{"config.cfg"};
+const fs::path CtConfig::PrintPageSetupFilename{"print.cfg"};
 const fs::path CtConfig::LangFilename{"lang"};
 const fs::path CtConfig::LogFilename{"log"};
 const fs::path CtConfig::ConfigLanguageSpecsDirname{"language-specs"};

@@ -321,12 +321,33 @@ CtPrint::CtPrint()
 {
     _pPrintSettings = Gtk::PrintSettings::create();
     _pPageSetup = Gtk::PageSetup::create();
-    _pPageSetup->set_paper_size(Gtk::PaperSize("iso_a4"));
+    const fs::path printPageSetupFilepath = fs::get_cherrytree_print_page_setup_cfg_filepath();
+    bool pageSetupLoadFromFile{false};
+    if (fs::is_regular_file(printPageSetupFilepath)) {
+        Glib::KeyFile keyFile;
+        keyFile.load_from_file(printPageSetupFilepath.string());
+        try {
+            _pPageSetup->load_from_key_file(keyFile);
+            pageSetupLoadFromFile = true;
+        }
+        catch (Glib::KeyFileError& kferror) {}
+        try {
+            _pPrintSettings->load_from_key_file(keyFile);
+        }
+        catch (Glib::KeyFileError& kferror) {}
+    }
+    if (not pageSetupLoadFromFile) {
+        _pPageSetup->set_paper_size(Gtk::PaperSize("iso_a4"));
+    }
 }
 
 void CtPrint::run_page_setup_dialog(Gtk::Window* pWin)
 {
     _pPageSetup = Gtk::run_page_setup_dialog(*pWin, _pPageSetup, _pPrintSettings);
+    Glib::KeyFile keyFile;
+    _pPageSetup->save_to_key_file(keyFile);
+    _pPrintSettings->save_to_key_file(keyFile);
+    keyFile.save_to_file(fs::get_cherrytree_print_page_setup_cfg_filepath().string());
 }
 
 // Start the Print Operations for Text

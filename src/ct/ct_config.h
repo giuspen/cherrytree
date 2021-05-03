@@ -36,6 +36,7 @@ public:
     CtConfig();
 
     static const fs::path ConfigFilename;
+    static const fs::path PrintPageSetupFilename;
     static const fs::path LangFilename;
     static const fs::path LogFilename;
     static const fs::path ConfigLanguageSpecsDirname;

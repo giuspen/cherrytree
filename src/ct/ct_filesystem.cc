@@ -356,6 +356,11 @@ std::optional<fs::path> get_cherrytree_logdir()
     return std::nullopt; // invalid directory => no log
 }
 
+fs::path get_cherrytree_print_page_setup_cfg_filepath()
+{
+    return fs::canonical(get_cherrytree_configdir() / CtConfig::PrintPageSetupFilename);
+}
+
 fs::path get_cherrytree_langcfg_filepath()
 {
     return fs::canonical(get_cherrytree_configdir() / CtConfig::LangFilename);
