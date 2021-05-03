@@ -99,11 +99,17 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     hbox_squote_chars->pack_start(*label_squote_chars, false, false);
     hbox_squote_chars->pack_start(*entry_squote_chars);
 
-    Gtk::VBox* vbox_editor = Gtk::manage(new Gtk::VBox());
-    Gtk::CheckButton* checkbutton_auto_smart_quotes = Gtk::manage(new Gtk::CheckButton(_("Enable Smart Quotes Auto Replacement")));
-    Gtk::CheckButton* checkbutton_enable_symbol_autoreplace = Gtk::manage(new Gtk::CheckButton(_("Enable Symbol Auto Replacement")));
+    auto vbox_editor = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+    auto checkbutton_auto_smart_quotes = Gtk::manage(new Gtk::CheckButton{_("Enable Smart Quotes Auto Replacement")});
     checkbutton_auto_smart_quotes->set_active(_pConfig->autoSmartQuotes);
+    auto hbox_symbol_autoreplace = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto checkbutton_enable_symbol_autoreplace = Gtk::manage(new Gtk::CheckButton{_("Enable Symbol Auto Replacement")});
     checkbutton_enable_symbol_autoreplace->set_active(_pConfig->enableSymbolAutoreplace);
+    auto button_symbol_autoreplace_help = Gtk::manage(new Gtk::Button{});
+    button_symbol_autoreplace_help->set_image(*_pCtMainWin->new_image_from_stock("ct_help", Gtk::ICON_SIZE_BUTTON));
+    button_symbol_autoreplace_help->set_tooltip_text(_("Supported Symbols Auto Replacements"));
+    hbox_symbol_autoreplace->pack_start(*checkbutton_enable_symbol_autoreplace, false, false);
+    hbox_symbol_autoreplace->pack_start(*button_symbol_autoreplace_help, false, false);
 
     vbox_editor->pack_start(*hbox_special_chars, false, false);
     vbox_editor->pack_start(*hbox_bullist_chars, false, false);
@@ -112,7 +118,7 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     vbox_editor->pack_start(*hbox_dquote_chars, false, false);
     vbox_editor->pack_start(*hbox_squote_chars, false, false);
     vbox_editor->pack_start(*checkbutton_auto_smart_quotes, false, false);
-    vbox_editor->pack_start(*checkbutton_enable_symbol_autoreplace, false, false);
+    vbox_editor->pack_start(*hbox_symbol_autoreplace, false, false);
 
     Gtk::Frame* frame_editor = new_managed_frame_with_align(_("Text Editor"), vbox_editor);
 
@@ -201,6 +207,26 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     });
     checkbutton_enable_symbol_autoreplace->signal_toggled().connect([this, checkbutton_enable_symbol_autoreplace](){
         _pConfig->enableSymbolAutoreplace = checkbutton_enable_symbol_autoreplace->get_active();
+    });
+    button_symbol_autoreplace_help->signal_clicked().connect([this](){
+        Glib::ustring helpMsg = Glib::ustring{"<b>"} + _("Supported Symbols Auto Replacements") + "</b>:\n" +
+            str::xml_escape("-->    →\n"
+                            "<--    ←\n"
+                            "==>    ⇒\n"
+                            "<==    ⇐\n"
+                            "<->    ↔\n"
+                            "<=>    ⇔\n"
+                            "(c)    ©\n"
+                            "(r)    ®\n"
+                            "(tm)    ™\n") +
+            Glib::ustring{"\n<b>"} + _("Only at the Start of the Line") + "</b>:\n" +
+            str::xml_escape("*    •\n"
+                            "[]    ☐\n"
+                            "->    →\n"
+                            "=>    ⇒\n"
+                            "<>    ◇\n"
+                            "::    ▪\n");
+        CtDialogs::info_dialog(helpMsg, *this);
     });
 
     return pMainBox;
