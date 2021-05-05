@@ -424,7 +424,7 @@ MA 02110-1301, USA.
     dialog.set_translator_credits(Glib::ustring{} +
  _("Armenian")+" (hy) Seda Stamboltsyan <sedastam@yandex.com>"+CtConst::CHAR_NEWLINE+
  _("Bulgarian")+" (bg) Iliya Nikolaev <iliya.nikolaev@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Chinese Simplified")+" (zh_CN) Channing Wong <channing.wong@qq.com>"+CtConst::CHAR_NEWLINE+
+ _("Chinese Simplified")+" (zh_CN) Fairy China"+CtConst::CHAR_NEWLINE+
  _("Czech")+" (cs) Pavel Fric <fripohled@blogspot.com>"+CtConst::CHAR_NEWLINE+
  _("Dutch")+" (nl) Luuk Geurts, Patrick Vijgeboom <pj.vijgeboom@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Finnish")+" (fi) Henri Kaustinen <hendrix.ks81@gmail.com>"+CtConst::CHAR_NEWLINE+
@@ -438,6 +438,7 @@ MA 02110-1301, USA.
  _("Lithuanian")+" (lt) Zygis <zygimantus@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Polish")+" (pl) Marcin Swierczynski <orneo1212@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Portuguese Brazil")+" (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Romanian")+" (ro) Tudor Sprinceana <tudorsprinceana@yahoo.com>"+CtConst::CHAR_NEWLINE+
  _("Russian")+" (ru) Viktor Polyanskiy <camilot55@yandex.ru>"+CtConst::CHAR_NEWLINE+
  _("Slovenian")+" (sl) Erik Lovrič <erik.lovric@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Spanish")+" (es) UserFav <userfav.post@gmail.com>"+CtConst::CHAR_NEWLINE+
