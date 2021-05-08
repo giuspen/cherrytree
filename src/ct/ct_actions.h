@@ -105,6 +105,8 @@ public:
     void quit_or_hide_window();
     void quit_window();
     void dialog_preferences();
+    void preferences_import();
+    void preferences_export();
     void command_palette();
 
 private:

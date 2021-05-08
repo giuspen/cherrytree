@@ -125,6 +125,16 @@ void CtActions::dialog_preferences()
     prefDlg.run();
 }
 
+void CtActions::preferences_import()
+{
+    spdlog::debug(__FUNCTION__);
+}
+
+void CtActions::preferences_export()
+{
+    spdlog::debug(__FUNCTION__);
+}
+
 void CtActions::command_palette()
 {
     std::string id = CtDialogs::dialog_palette(_pCtMainWin);

@@ -55,7 +55,9 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{"", "BookmarksSubMenu", "ct_pin", _("_Bookmarks"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "ImportSubMenu", CtConst::STR_STOCK_CT_IMP, _("_Import"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "ExportSubMenu", "ct_export_from_cherrytree", _("_Export"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "RecentDocsSubMenu", "ct_open", _("_Recent Documents"), None, _("Open a Recent CherryTree Document"), sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "PrefSubMenu", "ct_preferences", _("_Preferences"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "RecentDocsSubMenu", "ct_open", _("_Recent Documents"), None,
+        _("Open a Recent CherryTree Document"), sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "ChangeCaseSubMenu", "ct_case_toggle", _("C_hange Case"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "ListSubMenu", "ct_list_bulleted", _("_List"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "JustifySubMenu", "ct_justify-center", _("_Justify"), None, None, sigc::signal<void>()});
@@ -85,6 +87,10 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Print"), sigc::mem_fun(*pActions, &CtActions::export_print)});
     _actions.push_back(CtMenuAction{file_cat, "preferences_dlg", "ct_preferences", _("_Preferences"), KB_CONTROL+KB_ALT+"P",
         _("Preferences"), sigc::mem_fun(*pActions, &CtActions::dialog_preferences) });
+    _actions.push_back(CtMenuAction{file_cat, "pref_import", CtConst::STR_STOCK_CT_IMP, _("_Import Preferences"), None,
+        _("Import Preferences"), sigc::mem_fun(*pActions, &CtActions::preferences_import) });
+    _actions.push_back(CtMenuAction{file_cat, "pref_export", "ct_export_from_cherrytree", _("_Export Preferences"), None,
+        _("Export Preferences"), sigc::mem_fun(*pActions, &CtActions::preferences_export) });
     _actions.push_back(CtMenuAction{file_cat, "tree_parse_info", "ct_info", _("Tree _Info"), None,
         _("Tree Summary Information"), sigc::mem_fun(*pActions, &CtActions::tree_info)});
     _actions.push_back(CtMenuAction{file_cat, "quit_app", "ct_quit-app", _("_Quit"), KB_CONTROL+"Q",

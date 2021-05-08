@@ -122,7 +122,11 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='print_page_setup'/>
     <menuitem action='do_print'/>
     <separator/>
-    <menuitem action='preferences_dlg'/>
+    <menu action='PrefSubMenu'>
+      <menuitem action='preferences_dlg'/>
+      <menuitem action='pref_import'/>
+      <menuitem action='pref_export'/>
+    </menu>
     <menuitem action='tree_parse_info'/>
     <separator/>
     <menuitem action='quit_app'/>
