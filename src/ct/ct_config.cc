@@ -40,20 +40,26 @@ CtConfig::CtConfig()
  : _configFilepath{fs::get_cherrytree_config_filepath()}
  , _configFilepathTmp{_configFilepath.string() + ".tmp"}
 {
-    (void)load_from_file();
+    _initLoadFromFileOk = _load_from_file();
     _ensure_user_styles_exist();
+}
+
+CtConfig::CtConfig(const std::string filepath)
+ : _configFilepath{filepath}
+{
+    _initLoadFromFileOk = _load_from_file();
 }
 
 void CtConfig::move_from_tmp()
 {
-    if (fs::exists(_configFilepathTmp)) {
+    if (not _configFilepathTmp.string().empty() and fs::exists(_configFilepathTmp)) {
         if (not fs::move_file(_configFilepathTmp, _configFilepath)) {
             spdlog::error("{} -> {}", _configFilepathTmp, _configFilepath);
         }
     }
 }
 
-bool CtConfig::load_from_file()
+bool CtConfig::_load_from_file()
 {
     move_from_tmp();
 #ifdef _WIN32

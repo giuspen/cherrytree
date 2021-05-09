@@ -34,6 +34,7 @@ class CtConfig
 {
 public:
     CtConfig();
+    CtConfig(const std::string filepath);
 
     static const fs::path ConfigFilename;
     static const fs::path PrintPageSetupFilename;
@@ -43,7 +44,7 @@ public:
     static const fs::path ConfigStylesDirname;
     static const fs::path UserStyleTemplate;
 
-    bool load_from_file();
+    bool getInitLoadFromFileOk() { return _initLoadFromFileOk; }
     bool write_to_file(const std::string filepath = "");
     void move_from_tmp();
 
@@ -254,6 +255,7 @@ protected:
     void _populate_keyfile_from_data();
     void _unexpected_keyfile_error(const gchar* key, const Glib::KeyFileError& kferror);
 
+    bool _load_from_file();
     void _ensure_user_styles_exist();
 
     static const size_t _maxTempKeySize{20};
@@ -261,6 +263,7 @@ protected:
     gchar _tempKey[_maxTempKeySize];
     std::unique_ptr<Glib::KeyFile> _uKeyFile;
     std::string _currentGroup;
+    bool _initLoadFromFileOk{false};
 
     const fs::path _configFilepath;
     const fs::path _configFilepathTmp;
