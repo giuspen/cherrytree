@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-08 20:37+0100\n"
 "PO-Revision-Date: 2021-04-23 15:11+0800\n"
-"Last-Translator: Channing Wong <mamimoluo@gmail.com>\n"
+"Last-Translator: Wang yu <krwy0330@gmail.com>\n"
 "Language-Team: Chinese (simplified)\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -564,7 +564,7 @@ msgstr "树型字体"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:177
 msgid "Enable Custom Web Link Clicked Action"
-msgstr "启用并定义Web链接点击动作"
+msgstr "启用并定义网页链接点击动作"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:179
 msgid "Enable Custom File Link Clicked Action"
@@ -751,7 +751,7 @@ msgstr "如果导出路径已经存在，则覆盖"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:388
 msgid "Export to a single file (for HTML or TXT)"
-msgstr "Export to a single file (for HTML or TXT)"
+msgstr "导出成单一文件(网页或文本)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:389
 msgid "Create a new window"
@@ -772,7 +772,7 @@ msgstr "已选择的节点"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:157
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:168
 msgid "Pandoc executable could not be found, please ensure it is in your path"
-msgstr "Pandoc executable could not be found, please ensure it is in your path"
+msgstr "无法找到可执行的Pandoc，请确认你的PATH路径配置"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:82
 msgid "No Previous Text Format Was Performed During This Session"
@@ -1125,7 +1125,7 @@ msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:252
 msgid "Enter the New Password Twice"
-msgstr "输入两次密码"
+msgstr "输入两次新密码"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:333
 msgid "The Password Fields Must be Filled"
@@ -1701,60 +1701,60 @@ msgstr "工具栏图标已经最小"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:41
 msgid "_File"
-msgstr "_文件"
+msgstr "文件(_F)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:42
 msgid "_Edit"
-msgstr "_编辑"
+msgstr "编辑(_E)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:43
 msgid "_Insert"
-msgstr "_插入"
+msgstr "插入(_I)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:44
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:67
 msgid "_Format"
-msgstr "_格式"
+msgstr "格式(_F)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:45
 msgid "_Tree"
-msgstr "_树型"
+msgstr "树型(_T)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:46
 msgid "_Tools"
-msgstr "_工具"
+msgstr "工具(_T)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:47
 msgid "_Search"
-msgstr "_搜索"
+msgstr "搜索(_S)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:48
 msgid "_View"
-msgstr "_查看"
+msgstr "查看(_V)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:49
 msgid "_Help"
-msgstr "_帮助"
+msgstr "帮助(_H)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:52
 msgid "Node _Move"
-msgstr "节点_移动"
+msgstr "节点移动(_M)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:53
 msgid "Nodes _Sort"
-msgstr "节点_排序"
+msgstr "节点排序(_S)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:54
 msgid "_Bookmarks"
-msgstr "_书签"
+msgstr "书签(_B)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:55
 msgid "_Import"
-msgstr "_导入"
+msgstr "导入(_I)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:56
 msgid "_Export"
-msgstr "_导出"
+msgstr "导出(_E)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:57
 msgid "_Recent Documents"
@@ -1774,27 +1774,27 @@ msgstr "对齐(_J)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:61
 msgid "_Toggle Font Property"
-msgstr "_切换字体属性"
+msgstr "切换字体属性(_T)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:62
 msgid "_Toggle Heading Property"
-msgstr "_切换标题属性"
+msgstr "切换标题属性(_T)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:63
 msgid "I_nsert"
-msgstr "_植入"
+msgstr "植入(_N)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:64
 msgid "_Find"
-msgstr "_查找"
+msgstr "查找(_F)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:65
 msgid "_Replace"
-msgstr "_替换"
+msgstr "替换(_R)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:66
 msgid "_Row"
-msgstr "_行"
+msgstr "行(_R)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:70
 msgid "File"
@@ -1823,7 +1823,7 @@ msgstr "保存文件"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:74
 msgid "Save and _Vacuum"
-msgstr "保存并清理"
+msgstr "保存并清理(_V)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:74
 msgid "Save File and Vacuum"
@@ -2248,11 +2248,11 @@ msgstr "前端段落左对齐"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:131
 msgid "Justify _Center"
-msgstr "居中对其(_C)"
+msgstr "居中对齐(_C)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:131
 msgid "Justify Center the Current Paragraph"
-msgstr "当前段落居中对其"
+msgstr "当前段落居中对齐"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:132
 msgid "Justify _Right"
@@ -2372,7 +2372,7 @@ msgstr "复制带有子节点的选定节点"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:147
 msgid "Duplicate the Selected Node With SubNodes"
-msgstr "Duplicate the Selected Node With SubNodes"
+msgstr "复制选中的节点及其子节点"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:148
 msgid "Insert Today's Node"
@@ -2626,7 +2626,7 @@ msgstr "重复上次替换操作"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:180
 msgid "Show _All Matches Dialog"
-msgstr "显示所有已匹配的对话框"
+msgstr "显示所有已匹配的对话框(_A)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:180
 msgid "Show Search All Matches Dialog"
@@ -2638,7 +2638,7 @@ msgstr "视图"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:182
 msgid "Show/Hide _Tree Explorer"
-msgstr "显示/隐藏树资源管理器"
+msgstr "显示/隐藏树资源管理器(_T)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:182
 msgid "Toggle Show/Hide Tree"
@@ -2662,7 +2662,7 @@ msgstr "切换节点标题头的显示"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:185
 msgid "Toggle _Focus Tree/Text"
-msgstr "切换树/文本焦点"
+msgstr "切换树/文本焦点(_F)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:185
 msgid "Toggle Focus Between Tree and Text"
@@ -2698,43 +2698,43 @@ msgstr "导入"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:190
 msgid "From _CherryTree File"
-msgstr "从CherryTree文件(_C)"
+msgstr "来自CherryTree文件(_C)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:190
 msgid "Add Nodes of a CherryTree File to the Current Tree"
-msgstr "从CherryTree文件添加节点到当前树"
+msgstr "将CherryTree文件添加节点到当前树"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:191
 msgid "From _Plain Text File"
-msgstr "从纯文本文件(_P)"
+msgstr "来自纯文本文件(_P)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:191
 msgid "Add Node from a Plain Text File to the Current Tree"
-msgstr "从纯文本文件添加节点到当前树"
+msgstr "将纯文本文件添加节点到当前树"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:192
 msgid "From _Folder of Plain Text Files"
-msgstr "从纯文本文件夹(_F)"
+msgstr "来自纯文本文件夹(_F)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:192
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
-msgstr "从纯文本文件夹添加节点到当前树"
+msgstr "将纯文本文件夹添加节点到当前树"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:193
 msgid "From _HTML File"
-msgstr "从HTML文件(_H)"
+msgstr "来自HTML文件(_H)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:193
 msgid "Add Node from an HTML File to the Current Tree"
-msgstr "从HTML文件添加节点到当前树"
+msgstr "将HTML文件添加节点到当前树"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:194
 msgid "From _Folder of HTML Files"
-msgstr "从HTML文件夹(_F)"
+msgstr "来自HTML文件夹(_F)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:194
 msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
-msgstr "从HTML文件夹添加节点到当前树"
+msgstr "将HTML文件夹添加节点到当前树"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:195
 msgid "From _Markdown File"
@@ -2746,7 +2746,7 @@ msgstr "将Markdown文件中的节点添加到当前树中"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:196
 msgid "From _Folder of Markdown Files"
-msgstr "来自Markdown文件的_文件夹"
+msgstr "来自Markdown文件的文件夹(_F)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:196
 msgid "Add Nodes from a Folder of Markdown Files to the Current Tree"
@@ -2802,35 +2802,35 @@ msgstr "将RedNotebook HTML文件的节点添加到当前树"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:203
 msgid "From T_omboy Folder"
-msgstr "从Tomboy文件夹(_O)"
+msgstr "来自Tomboy文件夹(_O)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:203
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
-msgstr "从Tomboy文件夹添加节点到当前树"
+msgstr "将Tomboy文件夹添加节点到当前树"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:204
 msgid "From T_reepad Lite File"
-msgstr "从Treepad文件(_R)"
+msgstr "来自Treepad文件(_R)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:204
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
-msgstr "从Treepad文件添加节点到当前树"
+msgstr "将Treepad文件添加节点到当前树"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:205
 msgid "From _Zim Folder"
-msgstr "从Zim文件夹(_Z)"
+msgstr "来自Zim文件夹(_Z)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:205
 msgid "Add Nodes of a Zim Folder to the Current Tree"
-msgstr "从Zim文件夹添加节点到当前树"
+msgstr "将Zim文件夹添加节点到当前树"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:206
 msgid "From File using _Pandoc"
-msgstr "从文件中使用Pandoc"
+msgstr "来自使用了Pandoc的文件(_P)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:206
 msgid "Add a node to the current tree using Pandoc"
-msgstr "使用Pandoc将节点添加到当前树"
+msgstr "将使用了Pandoc的节点添加到当前树"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:207
 msgid "Export"
@@ -2970,7 +2970,7 @@ msgstr "打开嵌入文件"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:228
 msgid "_Rename"
-msgstr "重新命名"
+msgstr "重命名(_R)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:228
 msgid "Rename Embedded File"
@@ -3224,15 +3224,15 @@ msgstr "编辑代码框属性"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:275
 msgid "_Execute CodeBox Code"
-msgstr "_执行CodeBox代码"
+msgstr "执行代码框中的代码(_E)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:275
 msgid "Execute CodeBox Code"
-msgstr "执行CodeBox代码"
+msgstr "执行代码框代码"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:276
 msgid "CodeBox _Load From Text File"
-msgstr "加载文本文件到代码框"
+msgstr "加载文本文件到代码框(_L)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:276
 msgid "Load the CodeBox Content From a Text File"
@@ -3343,7 +3343,7 @@ msgstr "您确定要重置为默认值吗？"
 #~ msgstr "从EPIM HTML文件添加节点到当前树"
 
 #~ msgid "From K_eyNote File"
-#~ msgstr "从KeyNote文件(_e)"
+#~ msgstr "从KeyNote文件(_E)"
 
 #~ msgid "Add Nodes of a KeyNote File to the Current Tree"
 #~ msgstr "从KeyNote文件添加节点到当前树"
