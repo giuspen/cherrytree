@@ -132,7 +132,14 @@ void CtActions::preferences_import()
 
 void CtActions::preferences_export()
 {
-    spdlog::debug(__FUNCTION__);
+    CtDialogs::FileSelectArgs args{_pCtMainWin};
+    const time_t time = std::time(nullptr);
+    args.curr_file_name = std::string{"config_"} + str::time_format("%Y.%m.%d_%H.%M.%S", time) + ".cfg";
+    args.filter_name = _("Preferences File");
+    args.filter_pattern = {"*.cfg"};
+    const std::string filepath = CtDialogs::file_save_as_dialog(args);
+    _pCtMainWin->config_update_data_from_curr_status();
+    _pCtMainWin->get_ct_config()->write_to_file(filepath);
 }
 
 void CtActions::command_palette()

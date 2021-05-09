@@ -83,11 +83,11 @@ bool CtConfig::load_from_file()
     return false;
 }
 
-bool CtConfig::write_to_file()
+bool CtConfig::write_to_file(const std::string filepath/*= ""*/)
 {
     _uKeyFile = std::make_unique<Glib::KeyFile>();
     _populate_keyfile_from_data();
-    const bool writeSucceeded = _uKeyFile->save_to_file(_configFilepathTmp.string());
+    const bool writeSucceeded = _uKeyFile->save_to_file(filepath.empty() ? _configFilepathTmp.string() : filepath);
     _uKeyFile.reset(nullptr);
     return writeSucceeded;
 }

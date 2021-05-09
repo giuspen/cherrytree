@@ -44,7 +44,7 @@ public:
     static const fs::path UserStyleTemplate;
 
     bool load_from_file();
-    bool write_to_file();
+    bool write_to_file(const std::string filepath = "");
     void move_from_tmp();
 
     void update_user_style(const unsigned num);
