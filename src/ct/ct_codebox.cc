@@ -42,22 +42,23 @@ CtTextCell::CtTextCell(CtMainWin* pCtMainWin,
     _ctTextview.set_buffer(_rTextBuffer);
     _ctTextview.setup_for_syntax(_syntaxHighlighting);
 
-    _rTextBuffer->signal_insert().connect([&](const Gtk::TextIter& pos, const Glib::ustring& text, int /*bytes*/) {
-        if (_ctTextview.getCtMainWin()->user_active() and not _ctTextview.own_insert_delete_active()) {
+    _rTextBuffer->signal_insert().connect([pCtMainWin, this](const Gtk::TextIter& pos, const Glib::ustring& text, int /*bytes*/) {
+        if (pCtMainWin->user_active() and not _ctTextview.own_insert_delete_active()) {
             _ctTextview.text_inserted(pos, text);
-            _ctTextview.getCtMainWin()->get_state_machine().text_variation(_ctTextview.getCtMainWin()->curr_tree_iter().get_node_id(), text);
-            _ctTextview.getCtMainWin()->update_window_save_needed(CtSaveNeededUpdType::nbuf);
+            pCtMainWin->get_state_machine().text_variation(pCtMainWin->curr_tree_iter().get_node_id(), text);
+            pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
         }
     }, false);
-    _rTextBuffer->signal_erase().connect([&](const Gtk::TextIter& range_start, const Gtk::TextIter& range_end) {
-        if (_ctTextview.getCtMainWin()->user_active() and not _ctTextview.own_insert_delete_active()) {
+    _rTextBuffer->signal_erase().connect([pCtMainWin, this](const Gtk::TextIter& range_start, const Gtk::TextIter& range_end) {
+        if (pCtMainWin->user_active() and not _ctTextview.own_insert_delete_active()) {
             _ctTextview.text_removed(range_start, range_end);
-            _ctTextview.getCtMainWin()->get_state_machine().text_variation(_ctTextview.getCtMainWin()->curr_tree_iter().get_node_id(), range_start.get_text(range_end));
-            _ctTextview.getCtMainWin()->update_window_save_needed(CtSaveNeededUpdType::nbuf);
+            pCtMainWin->get_state_machine().text_variation(pCtMainWin->curr_tree_iter().get_node_id(), range_start.get_text(range_end));
+            pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf);
         }
     }, false);
-    _rTextBuffer->signal_mark_set().connect([&](const Gtk::TextIter& /*iter*/, const Glib::RefPtr<Gtk::TextMark>& rMark){
-        if (_ctTextview.getCtMainWin()->user_active()) {
+    _rTextBuffer->signal_mark_set().connect([pCtMainWin, this](const Gtk::TextIter& /*iter*/, const Glib::RefPtr<Gtk::TextMark>& rMark){
+        if (pCtMainWin->user_active()) {
+            _ctTextview.set_editable(not pCtMainWin->curr_tree_iter().get_node_read_only());
             if (rMark->get_name() == "insert") {
                 _ctTextview.selection_update();
             }
@@ -125,8 +126,6 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
     _frame.signal_size_allocate().connect(sigc::mem_fun(*this, &CtCodebox::_on_size_allocate_frame));
     show_all();
 
-    _ctTextview.set_monospace(true); // todo: remove than styles are implemented
-
     set_width_in_pixels(widthInPixels);
     set_highlight_brackets(highlightBrackets);
     set_show_line_numbers(showLineNumbers);
@@ -161,7 +160,6 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
     });
     _ctTextview.signal_motion_notify_event().connect([this](GdkEventMotion* event){
         if (not _pCtMainWin->user_active()) return false;
-        _ctTextview.set_editable(!_pCtMainWin->curr_tree_iter().get_node_read_only());
         int x, y;
         _ctTextview.window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, int(event->x), int(event->y), x, y);
         _ctTextview.cursor_and_tooltips_handler(x, y);
