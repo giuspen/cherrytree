@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-08 20:37+0100\n"
+"POT-Creation-Date: 2021-05-11 20:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,11 +42,11 @@ msgstr ""
 msgid "Select File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:350
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:353
 msgid "Select Folder"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:363
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:366
 msgid "Save File as"
 msgstr ""
 
@@ -55,6 +55,16 @@ msgstr ""
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:101
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_export.cc:108
 msgid "CherryTree Document"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_file.cc:131
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_file.cc:290
+msgid "Preferences File"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_file.cc:282
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:314
+msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:55
@@ -152,7 +162,7 @@ msgid "Line Content"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:291
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:329
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:336
 #, c-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
 msgstr ""
@@ -214,57 +224,79 @@ msgid "Number of Backups to Keep"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:58
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:59
 msgid "Custom Backup Directory"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:86
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:83
 msgid "Saving"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:89
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:86
 msgid "Automatically Check for Newer Version"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:90
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:87
 msgid "Enable Word Count in Statusbar"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:91
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:88
 msgid "Reload Document From Last Session"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:92
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:89
 msgid "Reload After External Update to CT* File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:93
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:90
 msgid "Show the Document Directory in the Window Title"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:106
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:70
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:247
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:91
+msgid "Show the Full Path in the Node Name Header"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:92
+msgid "Dedicated Bookmarks Menu in Top Menu Bar"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:93
+msgid "Enable Debug Log"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:94
+msgid "Debug Log Directory"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:126
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:71
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:248
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:131
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:106
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:261
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:349
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:105
 msgid "Miscellaneous"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:121
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:225
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:131
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:252
+msgid "System Default"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:141
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:263
 msgid "Language"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:138
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:158
 msgid "Has the System Tray appeared on the panel?"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:144
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:164
 msgid "Your system does not support the System Tray"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:233
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:271
 msgid "The New Language will be Available Only After Restarting CherryTree"
 msgstr ""
 
@@ -279,8 +311,8 @@ msgid "Height"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:164
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:102
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:583
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:103
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:617
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:77
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:84
 msgid "Plain Text"
@@ -369,7 +401,7 @@ msgid "Split Toolbar"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:129
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:72
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:77
 msgid "Open a CherryTree Document"
 msgstr ""
 
@@ -379,7 +411,7 @@ msgid "Select Element to Add"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:28
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:78
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:89
 msgid "Preferences"
 msgstr ""
 
@@ -408,7 +440,7 @@ msgid "English"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:38
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:443
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:444
 msgid "Spanish"
 msgstr ""
 
@@ -469,153 +501,154 @@ msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:50
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:441
-msgid "Russian"
+msgid "Romanian"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:51
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:442
-msgid "Slovenian"
+msgid "Russian"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:52
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:444
-msgid "Swedish"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:443
+msgid "Slovenian"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:53
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:445
-msgid "Turkish"
+msgid "Swedish"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:54
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:446
-msgid "Ukrainian"
+msgid "Turkish"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:55
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:447
+msgid "Ukrainian"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:56
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:427
 msgid "Chinese Simplified"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:59
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:60
 msgid "Text and Code"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:60
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:97
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:580
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:61
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:98
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:614
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:70
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:82
 msgid "Rich Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:61
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:107
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:62
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:149
 msgid "Format"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:62
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:63
 msgid "Plain Text and Code"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:63
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:64
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:463
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:32
 msgid "Special Characters"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:64
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:65
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:49
 msgid "Tree Explorer"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:65
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:66
 msgid "Theme"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:66
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:133
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:67
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:134
 msgid "Fonts"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:67
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:68
 msgid "Links"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:68
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:69
 msgid "Toolbar"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:69
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:70
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:99
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:100
 msgid "Monospace"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:104
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:105
 msgid "Code Font"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:106
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:107
 msgid "Tree Font"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:177
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:178
 msgid "Enable Custom Web Link Clicked Action"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:179
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:180
 msgid "Enable Custom File Link Clicked Action"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:181
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:182
 msgid "Enable Custom Folder Link Clicked Action"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:190
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:191
 msgid "Custom Actions"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:207
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:208
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:49
 msgid "To WebSite"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:209
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:210
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:90
 msgid "To Node"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:211
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:212
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:60
 msgid "To File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:213
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:214
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:75
 msgid "To Folder"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:228
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:229
 msgid "Colors"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:231
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:232
 msgid "Underline Links"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:233
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:234
 msgid "Use Relative Paths for Files And Folders"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:237
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:238
 msgid "Anchor Size"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg.cc:313
-msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:130
@@ -646,7 +679,7 @@ msgstr ""
 msgid "The Document was Reloaded After External Update to CT* File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:152
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:163
 msgid "Remove from list"
 msgstr ""
 
@@ -703,55 +736,55 @@ msgstr ""
 msgid "CherryTree Hierarchical Note Taking"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:120
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:236
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:121
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:409
 msgid "Show/Hide _CherryTree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:120
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:236
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:121
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:410
 msgid "Toggle Show/Hide CherryTree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:122
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:81
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:123
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:98
 msgid "_Exit CherryTree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:122
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:81
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:123
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:99
 msgid "Exit from CherryTree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:382
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:390
 msgid "Print CherryTree version"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:383
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:391
 msgid "Node name to focus"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:384
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:392
 msgid "Export to HTML at specified directory path"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:385
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:393
 msgid "Export to Text at specified directory path"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:386
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:394
 msgid "Export to PDF at specified directory path"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:387
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:395
 msgid "Overwrite if export path already exists"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:388
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:396
 msgid "Export to a single file (for HTML or TXT)"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:389
+#: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:397
 msgid "Create a new window"
 msgstr ""
 
@@ -828,71 +861,71 @@ msgstr ""
 msgid "You Are Using a Development Version"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:449
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:482
 #, c-format
 msgid "The Document %s was Not Found"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:467
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:57
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:500
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:60
 msgid "Open a Recent CherryTree Document"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:479
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:512
 msgid "Hide"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:479
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:512
 msgid "Quit"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:480
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:513
 msgid "Hide the Window"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:480
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:80
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:513
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:97
 msgid "Quit the Application"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:573
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:607
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_link.cc:242
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:35
 msgid "No Node is Selected"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:577
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:611
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:110
 msgid "Node Type"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:577
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:589
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:592
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:595
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:599
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:603
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:611
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:623
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:626
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:629
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:633
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:637
 msgid ": "
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:589
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:623
 msgid "Tags"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:592
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:626
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:47
 msgid "Spell Check"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:595
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:629
 msgid "Word Count"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:599
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:633
 msgid "Date Created"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:603
+#: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:637
 msgid "Date Modified"
 msgstr ""
 
@@ -968,12 +1001,12 @@ msgid "Insert Table"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:111
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:712
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:719
 msgid "CSV File"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:155
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:87
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:110
 msgid "Insert a CodeBox"
 msgstr ""
 
@@ -1027,7 +1060,7 @@ msgid "Vertical Space in Wrapped Lines"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:91
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:117
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:123
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:42
 msgid "Text Editor"
 msgstr ""
@@ -1067,7 +1100,7 @@ msgid "Enter Password for %s"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:33
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:153
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:240
 msgid "Handle the Bookmarks List"
 msgstr ""
 
@@ -1163,45 +1196,45 @@ msgid ""
 "MA 02110-1301, USA.\n"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:448
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:215
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:449
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:369
 msgid "About CherryTree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:463
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:79
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:464
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:95
 msgid "Tree Summary Information"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:475
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:476
 msgid "Number of Rich Text Nodes"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:480
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:481
 msgid "Number of Plain Text Nodes"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:485
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:486
 msgid "Number of Code Nodes"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:490
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:491
 msgid "Number of Images"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:495
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:496
 msgid "Number of Embedded Files"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:500
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:501
 msgid "Number of Tables"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:505
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:506
 msgid "Number of CodeBoxes"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:510
+#: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:511
 msgid "Number of Anchors"
 msgstr ""
 
@@ -1269,7 +1302,7 @@ msgstr ""
 msgid "Style Scheme Editor"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_export2pdf.cc:420
+#: /home/giuseppe/git/cherrytree/src/ct/ct_export2pdf.cc:441
 msgid "Warning: One or More Images Were Reduced to Enter the Page"
 msgstr ""
 
@@ -1340,7 +1373,7 @@ msgid "PDF File"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_export.cc:373
-#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:167
+#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:181
 msgid "Plain Text Document"
 msgstr ""
 
@@ -1368,8 +1401,17 @@ msgstr ""
 msgid "Enable Smart Quotes Auto Replacement"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:104
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:106
 msgid "Enable Symbol Auto Replacement"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:110
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:212
+msgid "Supported Symbols Auto Replacements"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:222
+msgid "Only at the Start of the Line"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:31
@@ -1395,7 +1437,7 @@ msgid "Code Execution"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:48
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:208
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:218
 msgid "Bold"
 msgstr ""
 
@@ -1486,63 +1528,64 @@ msgstr ""
 msgid "Write to %s Failed"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:307
-#, c-format
-msgid "The File Link '%s' is Not Valid"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:318
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:309
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:328
 #, c-format
 msgid "The Folder Link '%s' is Not Valid"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:350
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:316
+#, c-format
+msgid "The File Link '%s' is Not Valid"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:357
 #, c-format
 msgid "No anchor named '%s' found"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:410
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:417
 msgid "Edit CodeBox"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:434
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:441
 msgid "No CodeBox is Selected"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:442
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:449
 #, c-format
 msgid ""
 "You must associate a command to '%s'.\n"
 "Do so in the Preferences Dialog"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:454
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:461
 msgid "Do you want to Execute the Code?"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:471
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:478
 msgid ""
 "Install the package 'xterm' or configure a different terminal in the "
 "Preferences Dialog"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:701
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:708
 msgid "Edit Table Properties"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:737
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:744
 msgid "Insert Anchor"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:737
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:744
 msgid "Edit Anchor"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:773
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:780
 msgid "Cannot Edit Embedded File in Read Only Node"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:786
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:793
 msgid "Embedded File Automatically Updated:"
 msgstr ""
 
@@ -1582,35 +1625,35 @@ msgstr ""
 msgid "Enable Markdown Auto Replacement (Experimental)"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:204
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:214
 msgid "Scale"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:209
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:219
 msgid "Italic"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:210
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:220
 msgid "Underline"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:225
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:235
 msgid "Text Color Foreground"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:228
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:238
 msgid "Text Color Background"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:244
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:254
 msgid "Small"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:249
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:337
 msgid "Monospace Text Color Background"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:260
+#: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:348
 msgid "Scalable Tags"
 msgstr ""
 
@@ -1691,7 +1734,7 @@ msgid "_Insert"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:44
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:67
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:70
 msgid "_Format"
 msgstr ""
 
@@ -1712,1596 +1755,1618 @@ msgid "_View"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:49
-msgid "_Help"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:52
-msgid "Node _Move"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:53
-msgid "Nodes _Sort"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:54
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:55
 msgid "_Bookmarks"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:55
-msgid "_Import"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:50
+msgid "_Help"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:53
+msgid "Node _Move"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:54
+msgid "Nodes _Sort"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:56
-msgid "_Export"
+msgid "_Import"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:57
-msgid "_Recent Documents"
+msgid "_Export"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:58
-msgid "C_hange Case"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:59
-msgid "_List"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:60
-msgid "_Justify"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:61
-msgid "_Toggle Font Property"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:62
-msgid "_Toggle Heading Property"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:63
-msgid "I_nsert"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:64
-msgid "_Find"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:65
-msgid "_Replace"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:66
-msgid "_Row"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:70
-msgid "File"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:71
-msgid "New _Instance"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:71
-msgid "Start a New Instance of CherryTree"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:72
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:227
-msgid "_Open File"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:73
-msgid "_Save"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:73
-msgid "Save File"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:74
-msgid "Save and _Vacuum"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:74
-msgid "Save File and Vacuum"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:75
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:226
-msgid "Save _As"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:75
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:226
-msgid "Save File As"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:76
-msgid "Pa_ge Setup"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:76
-msgid "Set up the Page for Printing"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:77
-msgid "_Print"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:77
-msgid "Print"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:78
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:88
 msgid "_Preferences"
 msgstr ""
 
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:59
+msgid "_Recent Documents"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:61
+msgid "C_hange Case"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:62
+msgid "_List"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:63
+msgid "_Justify"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:64
+msgid "_Toggle Font Property"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:65
+msgid "_Toggle Heading Property"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:66
+msgid "I_nsert"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:67
+msgid "_Find"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:68
+msgid "_Replace"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:69
+msgid "_Row"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:73
+msgid "File"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:74
+msgid "New _Instance"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:75
+msgid "Start a New Instance of CherryTree"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:76
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:391
+msgid "_Open File"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:78
+msgid "_Save"
+msgstr ""
+
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:79
-msgid "Tree _Info"
+msgid "Save File"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:80
-msgid "_Quit"
+msgid "Save and _Vacuum"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:81
+msgid "Save File and Vacuum"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:82
-msgid "Edit/Insert"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:389
+msgid "Save _As"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:83
-msgid "_Undo"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:83
-msgid "Undo Last Operation"
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:390
+msgid "Save File As"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:84
-msgid "_Redo"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:84
-msgid "Redo Previously Discarded Operation"
+msgid "Pa_ge Setup"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:85
-msgid "Insert I_mage"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:85
-msgid "Insert an Image"
+msgid "Set up the Page for Printing"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:86
-msgid "Insert _Table"
-msgstr ""
-
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:86
-msgid "Insert a Table"
+msgid "_Print"
 msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:87
+msgid "Print"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:90
+msgid "_Import Preferences"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:91
+msgid "Import Preferences"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:92
+msgid "_Export Preferences"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:93
+msgid "Export Preferences"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:94
+msgid "Tree _Info"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:96
+msgid "_Quit"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:100
+msgid "Edit/Insert"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:101
+msgid "_Undo"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:102
+msgid "Undo Last Operation"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:103
+msgid "_Redo"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:104
+msgid "Redo Previously Discarded Operation"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:105
+msgid "Insert I_mage"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:106
+msgid "Insert an Image"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:107
+msgid "Insert _Table"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:108
+msgid "Insert a Table"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:109
 msgid "Insert _CodeBox"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:88
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:111
 msgid "Insert _File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:88
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:112
 msgid "Insert File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:89
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:113
 msgid "Insert/Edit _Link"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:89
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:114
 msgid "Insert a Link/Edit the Underlying Link"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:90
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:115
 msgid "Insert _Anchor"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:90
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:116
 msgid "Insert an Anchor"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:91
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:117
 msgid "Insert T_OC"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:91
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:118
 msgid "Insert Table of Contents"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:92
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:119
 msgid "Insert Ti_mestamp"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:92
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:120
 msgid "Insert Timestamp"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:93
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:121
 msgid "Insert _Special Character"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:93
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:122
 msgid "Insert a Special Character"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:94
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:123
 msgid "Insert _Horizontal Rule"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:94
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:124
 msgid "Insert Horizontal Rule"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:95
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:125
 msgid "_Lower Case of Selection/Word"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:95
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:126
 msgid "Lower the Case of the Selection/the Underlying Word"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:96
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:127
 msgid "_Upper Case of Selection/Word"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:96
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:128
 msgid "Upper the Case of the Selection/the Underlying Word"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:97
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:129
 msgid "_Toggle Case of Selection/Word"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:97
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:130
 msgid "Toggle the Case of the Selection/the Underlying Word"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:98
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:131
 msgid "Cu_t as Plain Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:98
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:132
 msgid "Cut as Plain Text, Discard the Rich Text Formatting"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:99
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:133
 msgid "_Copy as Plain Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:99
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:134
 msgid "Copy as Plain Text, Discard the Rich Text Formatting"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:100
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:135
 msgid "_Paste as Plain Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:100
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:136
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:101
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:263
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:137
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:454
 msgid "Cu_t Row"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:101
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:138
 msgid "Cut the Current Row/Selected Rows"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:102
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:264
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:139
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:456
 msgid "_Copy Row"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:102
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:140
 msgid "Copy the Current Row/Selected Rows"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:103
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:266
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:141
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:460
 msgid "De_lete Row"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:103
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:142
 msgid "Delete the Current Row/Selected Rows"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:104
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:143
 msgid "_Duplicate Row"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:104
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:144
 msgid "Duplicate the Current Row/Selection"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:105
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:145
 msgid "Move _Up Row"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:105
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:146
 msgid "Move Up the Current Row/Selected Rows"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:106
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:147
 msgid "Move _Down Row"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:106
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:148
 msgid "Move Down the Current Row/Selected Rows"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:108
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:150
 msgid "Format C_lone"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:108
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:151
 msgid "Clone the Text Format Type at Cursor"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:109
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:152
 msgid "Format _Latest"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:109
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:153
 msgid "Memory of Latest Text Format Type"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:110
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:154
 msgid "_Remove Formatting"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:110
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:155
 msgid "Remove the Formatting from the Selected Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:111
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:156
 msgid "Text _Color Foreground"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:111
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:157
 msgid "Change the Color of the Selected Text Foreground"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:112
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:158
 msgid "Text C_olor Background"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:112
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:159
 msgid "Change the Color of the Selected Text Background"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:113
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:160
 msgid "Toggle _Bold Property"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:113
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:161
 msgid "Toggle Bold Property of the Selected Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:114
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:162
 msgid "Toggle _Italic Property"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:114
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:163
 msgid "Toggle Italic Property of the Selected Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:115
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:164
 msgid "Toggle _Underline Property"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:115
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:165
 msgid "Toggle Underline Property of the Selected Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:116
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:166
 msgid "Toggle Stri_kethrough Property"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:116
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:167
 msgid "Toggle Strikethrough Property of the Selected Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:117
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:168
 msgid "Toggle h_1 Property"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:117
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:169
 msgid "Toggle h1 Property of the Selected Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:118
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:170
 msgid "Toggle h_2 Property"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:118
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:171
 msgid "Toggle h2 Property of the Selected Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:119
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:172
 msgid "Toggle h_3 Property"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:119
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:173
 msgid "Toggle h3 Property of the Selected Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:120
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:174
 msgid "Toggle h_4 Property"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:120
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:175
 msgid "Toggle h4 Property of the Selected Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:121
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:176
 msgid "Toggle h_5 Property"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:121
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:177
 msgid "Toggle h5 Property of the Selected Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:122
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:178
 msgid "Toggle h_6 Property"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:122
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:179
 msgid "Toggle h6 Property of the Selected Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:123
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:180
 msgid "Toggle _Small Property"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:123
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:181
 msgid "Toggle Small Property of the Selected Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:124
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:182
 msgid "Toggle Su_perscript Property"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:124
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:183
 msgid "Toggle Superscript Property of the Selected Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:125
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:184
 msgid "Toggle Su_bscript Property"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:125
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:185
 msgid "Toggle Subscript Property of the Selected Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:126
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:186
 msgid "Toggle _Monospace Property"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:126
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:187
 msgid "Toggle Monospace Property of the Selected Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:127
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:188
 msgid "Set/Unset _Bulleted List"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:127
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:189
 msgid "Set/Unset the Current Paragraph/Selection as a Bulleted List"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:128
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:190
 msgid "Set/Unset _Numbered List"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:128
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:191
 msgid "Set/Unset the Current Paragraph/Selection as a Numbered List"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:129
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:192
 msgid "Set/Unset _To-Do List"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:129
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:193
 msgid "Set/Unset the Current Paragraph/Selection as a To-Do List"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:130
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:194
 msgid "Justify _Left"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:130
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:195
 msgid "Justify Left the Current Paragraph"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:131
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:196
 msgid "Justify _Center"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:131
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:197
 msgid "Justify Center the Current Paragraph"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:132
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:198
 msgid "Justify _Right"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:132
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:199
 msgid "Justify Right the Current Paragraph"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:133
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:200
 msgid "Justify _Fill"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:133
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:201
 msgid "Justify Fill the Current Paragraph"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:134
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:202
 msgid "Indent Paragraph"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:134
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:203
 msgid "Indent the Current Paragraph"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:135
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:204
 msgid "Unindent Paragraph"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:135
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:205
 msgid "Unindent the Current Paragraph"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:136
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:206
 msgid "Tools"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:137
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:207
 msgid "Enable/Disable _Spell Check"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:137
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:208
 msgid "Toggle Enable/Disable Spell Check"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:138
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:209
 msgid "Stri_p Trailing Spaces"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:138
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:210
 msgid "Strip Trailing Spaces"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:139
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:211
 msgid "_Command Palette"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:139
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:212
 msgid "Command Palette"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:140
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:213
 msgid "_Execute Code"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:140
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:214
 msgid "Execute Code"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:141
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:215
 msgid "Tree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:142
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:216
 msgid "Go _Back"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:142
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:217
 msgid "Go to the Previous Visited Node"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:143
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:218
 msgid "Go _Forward"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:143
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:219
 msgid "Go to the Next Visited Node"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:144
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:220
 msgid "Add _Node"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:144
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:221
 msgid "Add a Node having the same Parent of the Selected Node"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:145
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:222
 msgid "Add _SubNode"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:145
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:223
 msgid "Add a Child Node to the Selected Node"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:146
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:224
 msgid "_Duplicate Node"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:146
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:225
 msgid "Duplicate the Selected Node"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:147
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:226
 msgid "_Duplicate Node and Sub Nodes"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:147
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:227
 msgid "Duplicate the Selected Node With SubNodes"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:148
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:228
 msgid "Insert Today's Node"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:148
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:229
 msgid "Insert a Node with Hierarchy Year/Month/Day"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:149
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:230
 msgid "Change Node _Properties"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:149
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:231
 msgid "Edit the Properties of the Selected Node"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:150
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:232
 msgid "Toggle _Read Only"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:150
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:233
 msgid "Toggle the Read Only Property of the Selected Node"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:151
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:234
 msgid "Copy Link to Node"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:151
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:235
 msgid "Copy Link to the Selected Node to Clipboard"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:152
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:236
 msgid "_Inherit Syntax"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:152
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:237
 msgid ""
 "Change the Selected Node's Children Syntax Highlighting to the Parent's "
 "Syntax Highlighting"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:153
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:239
 msgid "_Handle Bookmarks"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:154
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:241
 msgid "Add to _Bookmarks"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:154
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:242
 msgid "Add the Current Node to the Bookmarks List"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:155
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:243
 msgid "_Remove from Bookmarks"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:155
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:244
 msgid "Remove the Current Node from the Bookmarks List"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:156
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:245
 msgid "E_xpand All Nodes"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:156
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:246
 msgid "Expand All the Tree Nodes"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:157
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:247
 msgid "_Collapse All Nodes"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:157
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:248
 msgid "Collapse All the Tree Nodes"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:158
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:249
 msgid "Node _Up"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:158
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:250
 msgid "Move the Selected Node Up"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:159
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:251
 msgid "Node _Down"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:159
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:252
 msgid "Move the Selected Node Down"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:160
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:253
 msgid "Node _Left"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:160
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:254
 msgid "Move the Selected Node Left"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:161
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:255
 msgid "Node _Right"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:161
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:256
 msgid "Move the Selected Node Right"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:162
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:257
 msgid "Node Change _Parent"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:162
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:258
 msgid "Change the Selected Node's Parent"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:163
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:259
 msgid "Sort Tree _Ascending"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:163
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:260
 msgid "Sort the Tree Ascending"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:164
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:261
 msgid "Sort Tree _Descending"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:164
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:262
 msgid "Sort the Tree Descending"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:165
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:263
 msgid "Sort Siblings A_scending"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:165
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:264
 msgid "Sort all the Siblings of the Selected Node Ascending"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:166
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:265
 msgid "Sort Siblings D_escending"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:166
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:266
 msgid "Sort all the Siblings of the Selected Node Descending"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:167
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:267
 msgid "De_lete Node"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:167
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:268
 msgid "Delete the Selected Node"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:168
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:269
 msgid "Find/Replace"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:169
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:270
 msgid "_Find in Node Content"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:169
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:271
 msgid "Find into the Selected Node Content"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:170
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:272
 msgid "Find in _All Nodes Contents"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:170
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:273
 msgid "Find into All the Tree Nodes Contents"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:171
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:275
 msgid "Find in _Selected Node and Subnodes Contents"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:171
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:276
 msgid "Find into the Selected Node and Subnodes Contents"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:172
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:277
 msgid "Find in _Nodes Names and Tags"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:172
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:278
 msgid "Find in Nodes Names and Tags"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:173
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:279
 msgid "Find _Again"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:173
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:280
 msgid "Iterate the Last Find Operation"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:174
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:281
 msgid "Find _Back"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:174
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:282
 msgid "Iterate the Last Find Operation in Opposite Direction"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:175
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:283
 msgid "_Replace in Node Content"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:175
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:284
 msgid "Replace into the Selected Node Content"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:176
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:286
 msgid "Replace in _All Nodes Contents"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:176
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:287
 msgid "Replace into All the Tree Nodes Contents"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:177
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:289
 msgid "Replace in _Selected Node and Subnodes Contents"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:177
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:290
 msgid "Replace into the Selected Node and Subnodes Contents"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:178
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:291
 msgid "Replace in Nodes _Names"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:178
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:292
 msgid "Replace in Nodes Names"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:179
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:293
 msgid "Replace _Again"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:179
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:294
 msgid "Iterate the Last Replace Operation"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:180
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:296
 msgid "Show _All Matches Dialog"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:180
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:297
 msgid "Show Search All Matches Dialog"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:181
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:298
 msgid "View"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:182
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:299
 msgid "Show/Hide _Tree Explorer"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:182
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:300
 msgid "Toggle Show/Hide Tree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:183
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:301
 msgid "Show/Hide Tool_bar"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:183
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:302
 msgid "Toggle Show/Hide Toolbar"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:184
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:303
 msgid "Show/Hide Node Name _Header"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:184
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:304
 msgid "Toggle Show/Hide Node Name Header"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:185
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:305
 msgid "Toggle _Focus Tree/Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:185
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:306
 msgid "Toggle Focus Between Tree and Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:186
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:307
 msgid "_Increase Toolbar Icons Size"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:186
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:308
 msgid "Increase the Size of the Toolbar Icons"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:187
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:309
 msgid "_Decrease Toolbar Icons Size"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:187
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:310
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:188
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:311
 msgid "_Full Screen On/Off"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:188
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:312
 msgid "Toggle Full Screen On/Off"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:189
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:313
 msgid "Import"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:190
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:314
 msgid "From _CherryTree File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:190
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:315
 msgid "Add Nodes of a CherryTree File to the Current Tree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:191
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:316
 msgid "From _Plain Text File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:191
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:317
 msgid "Add Node from a Plain Text File to the Current Tree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:192
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:318
 msgid "From _Folder of Plain Text Files"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:192
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:319
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:193
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:321
 msgid "From _HTML File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:193
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:322
 msgid "Add Node from an HTML File to the Current Tree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:194
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:323
 msgid "From _Folder of HTML Files"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:194
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:324
 msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:195
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:326
 msgid "From _Markdown File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:195
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:327
 msgid "Add a node from a Markdown File to the Current Tree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:196
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:328
 msgid "From _Folder of Markdown Files"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:196
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:329
 msgid "Add Nodes from a Folder of Markdown Files to the Current Tree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:197
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:331
 msgid "From _Gnote Folder"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:197
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:332
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:198
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:333
 msgid "From _KeepNote Folder"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:198
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:334
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:199
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:336
 msgid "From _Leo File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:199
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:337
 msgid "Add Nodes of a Leo File to the Current Tree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:200
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:338
 msgid "From _Mempad File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:200
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:339
 msgid "Add Nodes of a Mempad File to the Current Tree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:201
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:340
 msgid "From _NoteCase HTML File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:201
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:341
 msgid "Add Nodes of a NoteCase HTML File to the Current Tree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:202
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:342
 msgid "From _RedNotebook HTML"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:202
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:343
 msgid "Add Nodes of a RedNotebook HTML file to the Current Tree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:203
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:345
 msgid "From T_omboy Folder"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:203
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:346
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:204
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:347
 msgid "From T_reepad Lite File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:204
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:348
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:205
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:349
 msgid "From _Zim Folder"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:205
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:350
 msgid "Add Nodes of a Zim Folder to the Current Tree"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:206
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:352
 msgid "From File using _Pandoc"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:206
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:353
 msgid "Add a node to the current tree using Pandoc"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:207
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:354
 msgid "Export"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:208
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:355
 msgid "Export To _PDF"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:208
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:356
 msgid "Export To PDF"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:209
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:357
 msgid "Export To _HTML"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:209
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:358
 msgid "Export To HTML"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:210
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:359
 msgid "Export to Plain _Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:210
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:360
 msgid "Export to Plain Text"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:211
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:361
 msgid "_Export To CherryTree Document"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:211
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:362
 msgid "Export To CherryTree Document"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:212
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:363
 msgid "Help"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:213
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:364
 msgid "_Check Newer Version"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:213
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:365
 msgid "Check for a Newer Version"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:214
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:366
 msgid "Online _Manual"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:214
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:367
 msgid "Application's Online Manual"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:215
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:368
 msgid "_About"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:216
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:370
 msgid "Open Preferences _Directory"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:216
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:371
 msgid "Open the Directory with Preferences Files"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:218
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:373
 msgid "C_ut Anchor"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:218
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:374
 msgid "Cut the Selected Anchor"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:219
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:375
 msgid "_Copy Anchor"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:219
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:376
 msgid "Copy the Selected Anchor"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:220
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:377
 msgid "_Delete Anchor"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:220
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:378
 msgid "Delete the Selected Anchor"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:221
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:379
 msgid "Edit _Anchor"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:221
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:380
 msgid "Edit the Underlying Anchor"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:222
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:381
 msgid "Copy Anchor Link"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:222
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:382
 msgid "Copy Link to the Underlying Anchor to Clipboard"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:223
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:383
 msgid "C_ut Embedded File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:223
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:384
 msgid "Cut the Selected Embedded File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:224
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:385
 msgid "_Copy Embedded File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:224
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:386
 msgid "Copy the Selected Embedded File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:225
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:387
 msgid "_Delete Embedded File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:225
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:388
 msgid "Delete the Selected Embedded File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:227
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:392
 msgid "Open Embedded File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:228
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:393
 msgid "_Rename"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:228
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:394
 msgid "Rename Embedded File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:229
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:395
 msgid "_Save Image as PNG"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:229
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:396
 msgid "Save the Selected Image as a PNG file"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:230
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:397
 msgid "_Edit Image"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:230
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:398
 msgid "Edit the Selected Image"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:231
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:399
 msgid "C_ut Image"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:231
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:400
 msgid "Cut the Selected Image"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:232
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:401
 msgid "_Copy Image"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:232
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:402
 msgid "Copy the Selected Image"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:233
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:403
 msgid "_Delete Image"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:233
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:404
 msgid "Delete the Selected Image"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:234
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:247
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:405
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:421
 msgid "Edit _Link"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:234
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:406
 msgid "Edit the Link Associated to the Image"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:235
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:250
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:407
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:427
 msgid "D_ismiss Link"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:235
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:408
 msgid "Dismiss the Link Associated to the Image"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:247
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:422
 msgid "Edit the Underlying Link"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:248
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:423
 msgid "C_ut Link"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:248
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:424
 msgid "Cut the Selected Link"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:249
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:425
 msgid "_Copy Link"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:249
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:426
 msgid "Copy the Selected Link"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:250
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:428
 msgid "Dismiss the Selected Link"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:251
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:429
 msgid "_Delete Link"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:251
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:430
 msgid "Delete the Selected Link"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:253
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:432
 msgid "C_ut Table"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:253
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:433
 msgid "Cut the Selected Table"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:254
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:434
 msgid "_Copy Table"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:254
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:435
 msgid "Copy the Selected Table"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:255
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:436
 msgid "_Delete Table"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:255
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:437
 msgid "Delete the Selected Table"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:256
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:438
 msgid "_Add Column"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:256
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:439
 msgid "Add a Table Column"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:257
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:440
 msgid "De_lete Column"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:257
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:441
 msgid "Delete the Selected Table Column"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:258
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:442
 msgid "Move Column _Left"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:258
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:443
 msgid "Move the Selected Column Left"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:259
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:444
 msgid "Move Column _Right"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:259
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:445
 msgid "Move the Selected Column Right"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:260
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:447
 msgid "Increase Column Width"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:260
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:448
 msgid "Increase the Width of the Column"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:261
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:450
 msgid "Decrease Column Width"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:261
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:451
 msgid "Decrease the Width of the Column"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:262
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:452
 msgid "_Add Row"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:262
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:453
 msgid "Add a Table Row"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:263
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:455
 msgid "Cut a Table Row"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:264
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:457
 msgid "Copy a Table Row"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:265
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:458
 msgid "_Paste Row"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:265
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:459
 msgid "Paste a Table Row"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:266
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:461
 msgid "Delete the Selected Table Row"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:267
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:462
 msgid "Move Row _Up"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:267
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:463
 msgid "Move the Selected Row Up"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:268
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:465
 msgid "Move Row _Down"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:268
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:466
 msgid "Move the Selected Row Down"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:269
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:467
 msgid "Sort Rows De_scending"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:269
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:468
 msgid "Sort all the Rows Descending"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:270
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:469
 msgid "Sort Rows As_cending"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:270
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:470
 msgid "Sort all the Rows Ascending"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:271
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:471
 msgid "_Edit Table Properties"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:271
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:472
 msgid "Edit the Table Properties"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:272
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:473
 msgid "_Table Export"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:272
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:474
 msgid "Export Table as CSV File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:274
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:476
 msgid "Change CodeBox _Properties"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:274
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:477
 msgid "Edit the Properties of the CodeBox"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:275
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:478
 msgid "_Execute CodeBox Code"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:275
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:479
 msgid "Execute CodeBox Code"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:276
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:480
 msgid "CodeBox _Load From Text File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:276
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:481
 msgid "Load the CodeBox Content From a Text File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:277
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:482
 msgid "CodeBox _Save To Text File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:277
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:483
 msgid "Save the CodeBox Content To a Text File"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:278
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:484
 msgid "C_ut CodeBox"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:278
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:485
 msgid "Cut the Selected CodeBox"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:279
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:486
 msgid "_Copy CodeBox"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:279
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:487
 msgid "Copy the Selected CodeBox"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:280
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:488
 msgid "_Delete CodeBox"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:280
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:489
 msgid "Delete the Selected CodeBox"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:281
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:490
 msgid "Delete CodeBox _Keep Content"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:281
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:491
 msgid "Delete the Selected CodeBox But Keep Its Content"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:282
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:493
 msgid "Increase CodeBox Width"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:282
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:494
 msgid "Increase the Width of the CodeBox"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:283
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:496
 msgid "Decrease CodeBox Width"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:283
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:497
 msgid "Decrease the Width of the CodeBox"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:284
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:499
 msgid "Increase CodeBox Height"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:284
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:500
 msgid "Increase the Height of the CodeBox"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:285
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:502
 msgid "Decrease CodeBox Height"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:285
+#: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:503
 msgid "Decrease the Height of the CodeBox"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:182
+#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:79
+msgid "HTML Document"
+msgstr ""
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:200
 msgid "Markdown Document"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:216
+#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:234
 msgid "Mempad Document"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:225
+#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:243
 msgid "Treepad Document"
 msgstr ""
 
-#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:235
+#: /home/giuseppe/git/cherrytree/src/ct/ct_imports.h:253
 msgid "Leo Document"
 msgstr ""
 
