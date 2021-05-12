@@ -126,6 +126,7 @@ const char* CtMenu::_get_ui_str_menu()
       <menuitem action='preferences_dlg'/>
       <menuitem action='pref_import'/>
       <menuitem action='pref_export'/>
+      <menuitem action='open_cfg_folder'/>
     </menu>
     <menuitem action='tree_parse_info'/>
     <separator/>
@@ -301,8 +302,6 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='ct_check_newer'/>
     <separator/>
     <menuitem action='ct_help'/>
-    <separator/>
-    <menuitem action='open_cfg_folder'/>
     <separator/>
     <menuitem action='ct_about'/>
   </menu>
