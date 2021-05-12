@@ -499,21 +499,15 @@ bool CtTable::_on_key_press_event_cell(GdkEventKey* event)
             }
             return true;
         }
-        if (event->keyval == GDK_KEY_Up) {
+        if (event->keyval == GDK_KEY_parenleft) {
             if (rowIdx > 0) {
                 index = (rowIdx-1) * _tableMatrix.front().size() + colIdx;
             }
         }
-        else if (event->keyval == GDK_KEY_Down) {
+        else if (event->keyval == GDK_KEY_parenright) {
             if (rowIdx+1 < _tableMatrix.size()) {
                 index = (rowIdx+1) * _tableMatrix.front().size() + colIdx;
             }
-        }
-        else if (event->keyval == GDK_KEY_Left) {
-            index = rowIdx * _tableMatrix.front().size() + colIdx - 1;
-        }
-        else if (event->keyval == GDK_KEY_Right) {
-            index = rowIdx * _tableMatrix.front().size() + colIdx + 1;
         }
     }
     if (index >= 0) {
