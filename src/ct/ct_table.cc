@@ -513,6 +513,14 @@ bool CtTable::_on_key_press_event_cell(GdkEventKey* event)
             _pCtMainWin->get_ct_actions()->table_row_down();
             return true;
         }
+        if (event->keyval == GDK_KEY_braceleft) {
+            _pCtMainWin->get_ct_actions()->table_column_left();
+            return true;
+        }
+        if (event->keyval == GDK_KEY_braceright) {
+            _pCtMainWin->get_ct_actions()->table_column_right();
+            return true;
+        }
         if (event->keyval == GDK_KEY_parenleft) {
             if (rowIdx > 0) {
                 index = (rowIdx-1) * _tableMatrix.front().size() + colIdx;

@@ -439,9 +439,9 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Add a Table Column"), sigc::mem_fun(*pActions, &CtActions::table_column_add)});
     _actions.push_back(CtMenuAction{table_cat, "table_column_delete", "ct_edit_delete", _("De_lete Column"), None,
         _("Delete the Selected Table Column"), sigc::mem_fun(*pActions, &CtActions::table_column_delete)});
-    _actions.push_back(CtMenuAction{table_cat, "table_column_left", "ct_go-back", _("Move Column _Left"), None,
+    _actions.push_back(CtMenuAction{table_cat, "table_column_left", "ct_go-back", _("Move Column _Left"), KB_CONTROL+"braceleft",
         _("Move the Selected Column Left"), sigc::mem_fun(*pActions, &CtActions::table_column_left)});
-    _actions.push_back(CtMenuAction{table_cat, "table_column_right", "ct_go-forward", _("Move Column _Right"), None,
+    _actions.push_back(CtMenuAction{table_cat, "table_column_right", "ct_go-forward", _("Move Column _Right"), KB_CONTROL+"braceright",
         _("Move the Selected Column Right"), sigc::mem_fun(*pActions, &CtActions::table_column_right)});
     _actions.push_back(CtMenuAction{table_cat, "table_column_increase_width", "ct_go-forward",
         _("Increase Column Width"), KB_CONTROL+"period",
