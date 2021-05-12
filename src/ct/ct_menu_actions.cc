@@ -459,10 +459,10 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Paste a Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_paste)});
     _actions.push_back(CtMenuAction{table_cat, "table_row_delete", "ct_edit_delete", _("De_lete Row"), KB_CONTROL+KB_ALT+"comma",
         _("Delete the Selected Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_delete)});
-    _actions.push_back(CtMenuAction{table_cat, "table_row_up", "ct_go-up", _("Move Row _Up"), None,
+    _actions.push_back(CtMenuAction{table_cat, "table_row_up", "ct_go-up", _("Move Row _Up"), KB_CONTROL+"bracketleft",
         _("Move the Selected Row Up"),
         sigc::mem_fun(*pActions, &CtActions::table_row_up)});
-    _actions.push_back(CtMenuAction{table_cat, "table_row_down", "ct_go-down", _("Move Row _Down"), None,
+    _actions.push_back(CtMenuAction{table_cat, "table_row_down", "ct_go-down", _("Move Row _Down"), KB_CONTROL+"bracketright",
         _("Move the Selected Row Down"), sigc::mem_fun(*pActions, &CtActions::table_row_down)});
     _actions.push_back(CtMenuAction{table_cat, "table_rows_sort_descending", "ct_sort-desc", _("Sort Rows De_scending"), None,
         _("Sort all the Rows Descending"), sigc::mem_fun(*pActions, &CtActions::table_rows_sort_descending)});

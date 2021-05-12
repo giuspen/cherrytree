@@ -289,7 +289,10 @@ void CtTable::column_move_right(const size_t colIdx)
     if (colIdx == _tableMatrix.front().size()-1) {
         return;
     }
-    column_move_left(colIdx+1);
+    const size_t colIdxRight = colIdx + 1;
+    column_move_left(colIdxRight);
+    _currentColumn = colIdxRight;
+    _tableMatrix.at(_currentRow).at(_currentColumn)->get_text_view().grab_focus();
 }
 
 void CtTable::row_add(const size_t afterRowIdx, const std::vector<Glib::ustring>* pNewRow/*= nullptr*/)
@@ -364,7 +367,10 @@ void CtTable::row_move_down(const size_t rowIdx)
     if (rowIdx == _tableMatrix.size()-1) {
         return;
     }
-    row_move_up(rowIdx+1);
+    const size_t rowIdxDown = rowIdx + 1;
+    row_move_up(rowIdxDown);
+    _currentRow = rowIdxDown;
+    _tableMatrix.at(_currentRow).at(_currentColumn)->get_text_view().grab_focus();
 }
 
 bool CtTable::_row_sort(const bool sortAsc)
@@ -497,6 +503,14 @@ bool CtTable::_on_key_press_event_cell(GdkEventKey* event)
             else {
                 _pCtMainWin->get_ct_actions()->table_row_add();
             }
+            return true;
+        }
+        if (event->keyval == GDK_KEY_bracketleft) {
+            _pCtMainWin->get_ct_actions()->table_row_up();
+            return true;
+        }
+        if (event->keyval == GDK_KEY_bracketright) {
+            _pCtMainWin->get_ct_actions()->table_row_down();
             return true;
         }
         if (event->keyval == GDK_KEY_parenleft) {
