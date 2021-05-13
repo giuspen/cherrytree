@@ -384,6 +384,9 @@ void CtStateMachine::update_state(CtTreeIter tree_iter)
         }
     }
 
+    new_state->cursor_pos = _pCtMainWin->curr_buffer()->property_cursor_position();
+    new_state->v_adj_val = round(_pCtMainWin->getScrolledwindowText().get_vadjustment()->get_value());
+
     node_states.states.push_back(new_state);
     while ((int)node_states.states.size() > _pCtMainWin->get_ct_config()->limitUndoableSteps) {
         node_states.states.erase(node_states.states.begin());
