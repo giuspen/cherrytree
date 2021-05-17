@@ -268,10 +268,7 @@ std::unique_ptr<xmlpp::DomParser> CtStorageXml::_get_parser(const fs::path& file
         spdlog::error("{} {} {}", __FUNCTION__, file_path.string(), e.what());
 
         std::string buffer = Glib::file_get_contents(file_path.string());
-        const std::string codeset = CtStrUtil::get_encoding(buffer.c_str(), buffer.size());
-        if (CtStrUtil::is_codeset_not_utf8(codeset)) {
-            buffer = Glib::convert_with_fallback(buffer, "UTF-8", codeset);
-        }
+        CtStrUtil::convert_if_not_utf8(buffer, true/*sanitise*/);
         parseOk = CtXmlHelper::safe_parse_memory(*parser, buffer);
     }
 

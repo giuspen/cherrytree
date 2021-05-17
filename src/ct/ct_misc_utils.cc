@@ -716,13 +716,22 @@ bool CtStrUtil::is_codeset_not_utf8(const std::string& codeset)
     return not codeset.empty() and codeset != "ASCII" and codeset != "UTF-8";
 }
 
-Glib::ustring CtStrUtil::convert_raw_to_utf8(const std::string& rawText)
+void CtStrUtil::convert_if_not_utf8(std::string& inOutText, const bool sanitise)
 {
-    const std::string codeset = CtStrUtil::get_encoding(rawText.c_str(), rawText.size());
+    const std::string codeset = CtStrUtil::get_encoding(inOutText.c_str(), inOutText.size());
     if (CtStrUtil::is_codeset_not_utf8(codeset)) {
-        return Glib::convert_with_fallback(rawText, "UTF-8", codeset);
+        gsize bytes_read, bytes_written;
+        g_autofree gchar* pConverted = g_convert_with_fallback(
+            inOutText.c_str(), inOutText.size(), "UTF-8", codeset.c_str(), "?"/*fallback*/,
+            &bytes_read, &bytes_written, NULL);
+        if (pConverted) {
+            // ok converted
+            inOutText = std::string{pConverted, bytes_written};
+        }
     }
-    return rawText;
+    if (sanitise) {
+        inOutText = str::sanitize_bad_symbols(inOutText);
+    }
 }
 
 Glib::ustring CtFontUtil::get_font_family(const Glib::ustring& fontStr)
@@ -940,7 +949,9 @@ Glib::ustring str::time_format(const std::string& format, const time_t& time)
     if (date) return date;
 
     const std::string codeset = CtStrUtil::get_encoding(buffer, len);
-    return Glib::convert_with_fallback(buffer, "UTF-8", codeset);
+    std::string converted{buffer, len};
+    CtStrUtil::convert_if_not_utf8(converted, true/*sanitise*/);
+    return converted;
 }
 
 int str::symb_pos_to_byte_pos(const Glib::ustring& text, int symb_pos)

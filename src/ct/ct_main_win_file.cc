@@ -356,10 +356,7 @@ bool CtMainWin::file_insert_plain_text(const fs::path& filepath)
     try {
         std::string node_contents = Glib::file_get_contents(filepath.string());
         if (not node_contents.empty()) {
-            const std::string codeset = CtStrUtil::get_encoding(node_contents.c_str(), node_contents.size());
-            if (CtStrUtil::is_codeset_not_utf8(codeset)) {
-                node_contents = Glib::convert_with_fallback(node_contents, "UTF-8", codeset);
-            }
+            CtStrUtil::convert_if_not_utf8(node_contents, true/*sanitise*/);
             std::string name = filepath.filename().string();
             _uCtActions->node_child_exist_or_create(Gtk::TreeIter{}, name);
             _ctTextview.get_buffer()->insert(_ctTextview.get_buffer()->end(), node_contents);

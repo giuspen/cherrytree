@@ -193,7 +193,7 @@ std::string get_encoding(const char* const pData, const size_t dataLen);
 
 bool is_codeset_not_utf8(const std::string& codeset);
 
-Glib::ustring convert_raw_to_utf8(const std::string& rawData);
+void convert_if_not_utf8(std::string& inOutText, const bool sanitise);
 
 } // namespace CtStrUtil
 

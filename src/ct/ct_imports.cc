@@ -448,10 +448,7 @@ std::unique_ptr<CtImportedNode> CtPlainTextImport::import_file(const fs::path& f
     }
     try {
         std::string converted = Glib::file_get_contents(file.string());
-        const std::string codeset = CtStrUtil::get_encoding(converted.c_str(), converted.size());
-        if (CtStrUtil::is_codeset_not_utf8(codeset)) {
-            converted = Glib::convert_with_fallback(converted, "UTF-8", codeset);
-        }
+        CtStrUtil::convert_if_not_utf8(converted, true/*sanitise*/);
         auto node = std::make_unique<CtImportedNode>(file, file.stem().string());
         node->xml_content->create_root_node("root")->add_child("slot")->add_child("rich_text")->add_child_text(converted);
         node->node_syntax = CtConst::PLAIN_TEXT_ID;

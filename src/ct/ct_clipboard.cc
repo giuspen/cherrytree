@@ -462,10 +462,10 @@ void  CtClipboard::_on_clip_data_get(Gtk::SelectionData& selection_data, CtClipb
 // From Clipboard to Plain Text
 void CtClipboard::_on_received_to_plain_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool force_plain_text)
 {
-    Glib::ustring plain_text = selection_data.get_text(); // returns UTF-8 string if text type recognised and could be converted to UTF-8; empty otherwise
+    std::string plain_text = selection_data.get_text(); // returns UTF-8 string if text type recognised and could be converted to UTF-8; empty otherwise
     if (plain_text.empty()) {
-        const std::string rawData = selection_data.get_data_as_string();
-        plain_text = CtStrUtil::convert_raw_to_utf8(rawData);
+        plain_text = selection_data.get_data_as_string();
+        CtStrUtil::convert_if_not_utf8(plain_text, false/*sanitise*/);
     }
     plain_text = str::sanitize_bad_symbols(plain_text);
 
@@ -630,13 +630,13 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
 // From Clipboard to HTML Text
 void CtClipboard::_on_received_to_html(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
-    Glib::ustring html_content = selection_data.get_text(); // returns UTF-8 string if text type recognised and could be converted to UTF-8; empty otherwise
+    std::string html_content = selection_data.get_text(); // returns UTF-8 string if text type recognised and could be converted to UTF-8; empty otherwise
     if (html_content.empty()) {
-        const std::string rawData = selection_data.get_data_as_string();
+        html_content = selection_data.get_data_as_string();
 #ifdef _WIN32
-        html_content = Win32HtmlFormat().convert_from_ms_clipboard(rawData);
+        html_content = Win32HtmlFormat().convert_from_ms_clipboard(html_content);
 #else
-        html_content = CtStrUtil::convert_raw_to_utf8(rawData);
+        CtStrUtil::convert_if_not_utf8(html_content, false/*sanitise*/);
 #endif
     }
     html_content = str::sanitize_bad_symbols(html_content);
@@ -665,10 +665,10 @@ void CtClipboard::_on_received_to_image(const Gtk::SelectionData& selection_data
 // From Clipboard to URI list
 void CtClipboard::_on_received_to_uri_list(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
-    Glib::ustring uri_content = selection_data.get_text(); // returns UTF-8 string if text type recognised and could be converted to UTF-8; empty otherwise
+    std::string uri_content = selection_data.get_text(); // returns UTF-8 string if text type recognised and could be converted to UTF-8; empty otherwise
     if (uri_content.empty()) {
-        const std::string rawData = selection_data.get_data_as_string();
-        uri_content = CtStrUtil::convert_raw_to_utf8(rawData);
+        uri_content = selection_data.get_data_as_string();
+        CtStrUtil::convert_if_not_utf8(uri_content, false/*sanitise*/);
     }
     uri_content = str::sanitize_bad_symbols(uri_content);
 
