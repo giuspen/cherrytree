@@ -1,4 +1,26 @@
 
+0.99.37 (May 18th, 2021)
+  * added configurable option to have bookmarks also under dedicated menu in top menu bar (#1643)
+  * added configurable option to show the full node path in the node name header (#1399)
+  * new configurable scalable tags h1,h2,...,small - allow partial bold/italic/underline when not configured on (#1633)
+  * added preferences file import/export under top menu File--Preferences
+  * Help--Open Preferences Directory moved under File--Preferences
+  * added dialog listing all available symbols auto replacements (#1659)
+  * fix after undo, redo jumps to the top of the document (#1151)
+  * fix crash on imports (#1593)
+  * fix URL detection doesn't recognize Tab as a delimiter (#1654)
+  * fixed import of text files with extension not .txt on linux (#1656)
+  * configurability of log enable/disable + directory in preferences dialog, tab miscellaneous (#1614)
+  * fix content in the table can be modified while the node is read only (#1674)
+  * fix Shift+Enter able to modify locked nodes with lists (#1640)
+  * fix system tray icon on windows not hiding at click (#1631)
+  * Ctrl+Arrows in tables disconnected from cells navigation. Ctrl+( and Ctrl+) to navigate Up/Down; Tab and Shift+Tab for navigate Right/Left (#194)
+  * assigned keyboard shortcut to move table rows Up/Down: Ctrl+[ and Ctrl+] (#1626)
+  * assigned keyboard shortcut to move table columns Left/Right: Ctrl+{ and Ctrl+}
+  * preserve print page setup settings between sessions (#1664)
+  * spell check enabled also for plain text (#1651)
+  * added Romanian language (work of Tudor Sprinceana)
+
 0.99.36 (April 17th, 2021)
   * fix segfault on startup when configured to start on systray (in 0.99.34,0.99.35 - #1610, #1619)
   * updated Japanese language (Piyo)
