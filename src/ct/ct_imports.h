@@ -80,7 +80,7 @@ public:
 #ifdef _WIN32
     std::vector<Glib::ustring>  file_patterns() override { return {"*.html", "*.htm"}; }
 #else
-    std::vector<Glib::ustring>  file_mime_types() { return {"text/html"}; }
+    std::vector<Glib::ustring>  file_mime_types() override { return {"text/html"}; }
 #endif
 };
 
@@ -182,7 +182,7 @@ public:
 #ifdef _WIN32
     std::vector<Glib::ustring>      file_patterns() override { return {"*.txt"}; }
 #else
-    std::vector<Glib::ustring>      file_mime_types() { return {"text/*"}; }
+    std::vector<Glib::ustring>      file_mime_types() override { return {"text/*"}; }
 #endif
 };
 
