@@ -377,7 +377,7 @@ std::string CtDialogs::file_save_as_dialog(const FileSelectArgs& args)
     if (!args.filter_pattern.empty()) {
         Glib::RefPtr<Gtk::FileFilter> rFileFilter = Gtk::FileFilter::create();
         rFileFilter->set_name(args.filter_name);
-        for (const std::string& element : args.filter_pattern) {
+        for (const Glib::ustring& element : args.filter_pattern) {
             rFileFilter->add_pattern(element);
         }
         chooser->add_filter(rFileFilter);
