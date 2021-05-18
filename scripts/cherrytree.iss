@@ -5,8 +5,8 @@
 #define MyAppPublisher "Giuseppe Penone"
 #define MyAppURL "https://www.giuspen.com/cherrytree/"
 #define MyAppExeName "cherrytree.exe"
-#define Username "Vanessa"
-#define MyAppVersion GetFileVersion('C:\msys64\home\Vanessa\git\cherrytree\build\cherrytree.exe')
+#define Username "giusp"
+#define MyAppVersion GetFileVersion('C:\msys64\home\giusp\git\cherrytree\build\cherrytree.exe')
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
