@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-11 20:17+0100\n"
-"PO-Revision-Date: 2021-03-23 17:35+0900\n"
+"POT-Creation-Date: 2021-05-25 09:17+0100\n"
+"PO-Revision-Date: 2021-05-25 10:59+0900\n"
 "Last-Translator: sean.lee <icarusean@gmail.com>\n"
 "Language-Team: Korean\n"
 "Language: ko\n"
@@ -49,7 +49,7 @@ msgstr "폴더 선택"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:366
 msgid "Save File as"
-msgstr "파일을 다른 이름으로 저장"
+msgstr "다른 이름으로 저장"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_file.cc:80
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_file.cc:97
@@ -147,7 +147,7 @@ msgstr "검색"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:267
 #, c-format
 msgid "Hide (Restore with '%s')"
-msgstr "숨기기 ( '% s'에서 복원)"
+msgstr "숨기기 ( '%s'에서 복원)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:271
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:78
@@ -166,7 +166,7 @@ msgstr "줄 내용"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:336
 #, c-format
 msgid "The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"
-msgstr "링크 참조는 이미 존재하지 않는 노트입니다 (Id = % s)"
+msgstr "링크 참조는 이미 존재하지 않는 노트입니다 (Id = %s)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_find.cc:344
 msgid "Iterate Latest Find/Replace"
@@ -680,7 +680,7 @@ msgstr "외부 응용프로그램을 종료했습니까?"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_main_win_file.cc:345
 msgid "The Document was Reloaded After External Update to CT* File"
-msgstr "The Document was Reloaded After External Update to CT* File"
+msgstr "CT* 파일이 외부 업데이트된 후 문서를 다시 읽어 왔습니다"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu.cc:163
 msgid "Remove from list"
@@ -699,7 +699,7 @@ msgstr "이 노트를 검색 ..."
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:319
 #, c-format
 msgid "The pattern '%s' was not found"
-msgstr "'% s'를 찾을 수 없습니다"
+msgstr "'%s'를 찾을 수 없습니다"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:103
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:239
@@ -737,7 +737,7 @@ msgstr "아직이 세션에서는 검색이 실행되고 있지 않습니다"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:113
 msgid "CherryTree Hierarchical Note Taking"
-msgstr "CherryTree Hierarchical Note Taking"
+msgstr "CherryTree 계층적 메모 작성"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_app.cc:121
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:409
@@ -806,7 +806,7 @@ msgstr "선택된 노트"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:157
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_import.cc:168
 msgid "Pandoc executable could not be found, please ensure it is in your path"
-msgstr "Pandoc가 없습니다. Path를 통해서 있는지 확인하십시오"
+msgstr "Pandoc이 없습니다. 해당 경로에 있는지 확인하십시오"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_format.cc:82
 msgid "No Previous Text Format Was Performed During This Session"
@@ -867,7 +867,7 @@ msgstr "개발 버전을 사용하고 있습니다"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:482
 #, c-format
 msgid "The Document %s was Not Found"
-msgstr "문서 % s를 찾을 수 없습니다"
+msgstr "문서 %s를 찾을 수 없습니다"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_main_win.cc:500
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:60
@@ -939,12 +939,12 @@ msgstr "선택 변경"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:123
 #, c-format
 msgid "The Keyboard Shortcut '%s' is already in use"
-msgstr "키보드 단축키 '% s'는 이미 사용하고 있습니다"
+msgstr "키보드 단축키 '%s'는 이미 사용하고 있습니다"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:124
 #, c-format
 msgid "The current associated action is '%s'"
-msgstr "현재 연관된 작업 '% s'입니다"
+msgstr "현재 연관된 작업 '%s'입니다"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:125
 msgid "Do you want to steal the shortcut?"
@@ -982,21 +982,21 @@ msgstr "다운로드합니다"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_storage_sqlite.cc:159
 #, c-format
 msgid "The database file %s is corrupt, see log for more details"
-msgstr "데이터베이스 % s 파일이 손상되어 있습니다. 자세한 내용은 로그 파일 참조"
+msgstr "데이터베이스 %s 파일이 손상되어 있습니다. 자세한 내용은 로그 파일 참조"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_storage_sqlite.cc:207
 #, c-format
 msgid "%s write failed - file is missing. Reattach usb driver or shared resource"
-msgstr "% s의 쓰기 실패 - 파일이 존재하지 않습니다. USB 드라이버/공유 리소스에 다시 연결하십시오"
+msgstr "%s의 쓰기 실패 - 파일이 존재하지 않습니다. USB 드라이버/공유 리소스에 다시 연결하십시오"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_storage_sqlite.cc:210
 #, c-format
 msgid "%s write failed - is file blocked by a sync program?"
-msgstr "% s의 쓰기 실패 - 동기화 프로그램 파일이 차단되어 있지 않습니까?"
+msgstr "%s의 쓰기 실패 - 동기화 프로그램 파일이 차단되어 있지 않습니까?"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:87
 msgid "Image Format Not Recognized"
-msgstr "알 수없는 이미지 형식입니다"
+msgstr "알 수 없는 이미지 형식입니다"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:95
 msgid "Insert Table"
@@ -1015,7 +1015,7 @@ msgstr "코드상자 삽입"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:199
 #, c-format
 msgid "The Maximum Size for Embedded Files is %s MB"
-msgstr "첨부 파일의 최대 용량은 % s MB입니다"
+msgstr "첨부 파일의 최대 용량은 %s MB입니다"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_edit.cc:201
 msgid "Do you want to Continue?"
@@ -1055,11 +1055,11 @@ msgstr "마지막 행을 넘어 스크롤"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:58
 msgid "Vertical Space Around Lines"
-msgstr "은행의 상하 여백 (px)"
+msgstr "행의 상하 여백 (px)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:68
 msgid "Vertical Space in Wrapped Lines"
-msgstr "되풀이 해 행의 상하 여백"
+msgstr "줄 바꿈 행의 상하 여백"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:91
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:123
@@ -1094,12 +1094,12 @@ msgstr "디스크에 기록하고 있습니다 ..."
 #: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:339
 #, c-format
 msgid "You Have No Write Access to %s"
-msgstr "% s에 쓰기 권한이 없습니다"
+msgstr "%s 에 쓰기 권한이 없습니다"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_storage_control.cc:255
 #, c-format
 msgid "Enter Password for %s"
-msgstr "% s의 암호를 입력하십시오"
+msgstr "%s 의 암호를 입력하십시오"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:33
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:240
@@ -1120,7 +1120,7 @@ msgstr "선택 북마크 삭제"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:70
 msgid "Sort the Bookmarks Descending"
-msgstr "즐겨 찾기 내림차순으로 정렬"
+msgstr "북마크 내림차순으로 정렬"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs.cc:73
 msgid "Sort the Bookmarks Ascending"
@@ -1351,7 +1351,7 @@ msgstr "서식있는 텍스트에서 변경하면이 노트의 모든 서식을 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:404
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "<b> '% s'노트를 삭제 하시겠습니까? </ b>"
+msgstr "<b> '%s' 노트를 삭제 하시겠습니까? </ b>"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:406
 msgid "The node <b>has Children, they will be Deleted too!</b>"
@@ -1534,23 +1534,23 @@ msgstr "PNG 이미지"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:211
 #, c-format
 msgid "Write to %s Failed"
-msgstr "'% s' 로 내보내기에 실패했습니다"
+msgstr "'%s' 로 내보내기에 실패했습니다"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:309
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:328
 #, c-format
 msgid "The Folder Link '%s' is Not Valid"
-msgstr "폴더 '% s'잘못된 링크입니다"
+msgstr "폴더 '%s' 잘못된 링크입니다"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:316
 #, c-format
 msgid "The File Link '%s' is Not Valid"
-msgstr "파일 '% s'잘못된 링크입니다"
+msgstr "파일 '%s' 잘못된 링크입니다"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:357
 #, c-format
 msgid "No anchor named '%s' found"
-msgstr "'% s' 앵커 이름은 찾을 수 없습니다"
+msgstr "'%s' 앵커 이름은 찾을 수 없습니다"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:417
 msgid "Edit CodeBox"
@@ -1566,8 +1566,8 @@ msgid ""
 "You must associate a command to '%s'.\n"
 "Do so in the Preferences Dialog"
 msgstr ""
-"'%s' にコマンドを関連付けてください。\n"
-"設定ダイアログで設定できます"
+"'%s' 명령을 연결하십시오.\n"
+"설정 대화 상자에서 설정할 수 있습니다"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_others.cc:461
 msgid "Do you want to Execute the Code?"
@@ -1627,7 +1627,7 @@ msgstr "노트 당 되돌릴 제한 횟수"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:86
 msgid "At Triple Click Select the Whole Paragraph"
-msgstr "3 번으로 전체 단락을 선택"
+msgstr "3번 클릭으로 전체 단락을 선택"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:89
 msgid "Enable Markdown Auto Replacement (Experimental)"
@@ -1695,7 +1695,7 @@ msgstr "모든 노트 축소"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:62
 msgid "Nodes in Bookmarks Always Visible"
-msgstr "즐겨 찾기 노트를 항상 표시"
+msgstr "북마크 노트를 항상 표시"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:70
 msgid "Nodes Status at Startup"
@@ -2204,7 +2204,7 @@ msgstr "제목 h3로 설정/해제(_3)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:173
 msgid "Toggle h3 Property of the Selected Text"
-msgstr "제목 h3으로 설정/해제"
+msgstr "제목 h3로 설정/해제"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:174
 msgid "Toggle h_4 Property"
@@ -2472,15 +2472,15 @@ msgstr "북마크에 추가(_B)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:242
 msgid "Add the Current Node to the Bookmarks List"
-msgstr "현재 노트를 즐겨 찾기 목록에 추가"
+msgstr "현재 노트를 북마크 목록에 추가"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:243
 msgid "_Remove from Bookmarks"
-msgstr "즐겨 찾기에서 삭제(_R)"
+msgstr "북마크에서 삭제(_R)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:244
 msgid "Remove the Current Node from the Bookmarks List"
-msgstr "현재 노트를 즐겨 찾기 목록에서 삭제"
+msgstr "현재 노트를 북마크 목록에서 삭제"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:245
 msgid "E_xpand All Nodes"
@@ -2614,7 +2614,7 @@ msgstr "노트 이름 및 태그를 검색(_N)"
 msgid "Find in Nodes Names and Tags"
 msgstr "노트 이름 및 태그를 검색"
 
-# 全体から検索する場合、常に先頭の一致のみを検索するので、「次を検索」にはしなかった
+# 전체에서 검색하는 경우 항상 첫 번째 일치만을 검색하기 때문에 "다음 찾기"는하지 않았다
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:279
 msgid "Find _Again"
 msgstr "다시 검색(_A)"
@@ -2623,7 +2623,7 @@ msgstr "다시 검색(_A)"
 msgid "Iterate the Last Find Operation"
 msgstr "마지막 찾기 작업을 반복"
 
-# 検索設定が後方検索の場合、後方の「逆」で前方への検索になる。このため「前を検索」にはしなかった
+# 검색 설정이 반대 방향 검색의 경우, 반대 방향의 역으로 전방에 검색하기 때문에 '이전 찾기'는 하지 않았다
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:281
 msgid "Find _Back"
 msgstr "반대 방향 검색(_B)"
@@ -2746,59 +2746,59 @@ msgstr "가져 오기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:314
 msgid "From _CherryTree File"
-msgstr "CherryTree 파일(_C)"
+msgstr "CherryTree파일 불러오기(_C)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:315
 msgid "Add Nodes of a CherryTree File to the Current Tree"
-msgstr "CherryTree 파일에서 Tree에 노트를 추가"
+msgstr "현재 Tree에 CherryTree파일을 불러와 노트로 추가하기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:316
 msgid "From _Plain Text File"
-msgstr "텍스트 파일 불러오기(_P)"
+msgstr "텍스트파일 불러오기(_P)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:317
 msgid "Add Node from a Plain Text File to the Current Tree"
-msgstr "현재 Tree 노트에 텍스트 파일 불러오기"
+msgstr "현재 Tree에 텍스트파일을 불러와 노트로 추가하기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:318
 msgid "From _Folder of Plain Text Files"
-msgstr "폴더 전체 텍스트 파일 불러오기(_F)"
+msgstr "폴더 내부 모든 텍스트파일 불러오기(_F)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:319
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
-msgstr "현재 Tree 노트에 폴더 전체 텍스트 파일 불러오기"
+msgstr "현재 Tree에 폴더 내부 모든 텍스트파일을 불러와 노트로 추가하기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:321
 msgid "From _HTML File"
-msgstr "HTML파일 불어오기(_H)"
+msgstr "HTML 파일 불어오기(_H)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:322
 msgid "Add Node from an HTML File to the Current Tree"
-msgstr "현재 Tree 노트에 HTML파일 불러오기"
+msgstr "현재 Tree에 HTML파일을 불러와 노트로 추가하기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:323
 msgid "From _Folder of HTML Files"
-msgstr "폴더 전체 HTML파일 불러오기(_F)"
+msgstr "폴더 내부 모든 HTML 파일 불러오기(_F)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:324
 msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
-msgstr "현재 Tree 노트에 폴더 전체  HTML 파일 불러오기"
+msgstr "현재 Tree에 폴더 내부 모든 HTML파일을 불러와 노트로 추가하기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:326
 msgid "From _Markdown File"
-msgstr "Markdown파일 불러오기(_M)"
+msgstr "Markdown 파일 불러오기(_M)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:327
 msgid "Add a node from a Markdown File to the Current Tree"
-msgstr "현재 Tree 노트에 Markdown파일 불러오기"
+msgstr "현재 Tree에 Markdown파일을 불러와 노트로 추가하기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:328
 msgid "From _Folder of Markdown Files"
-msgstr "폴더 전체 Markdown파일 불러오기(_F)"
+msgstr "폴더 내부 모든 Markdown 파일 불러오기(_F)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:329
 msgid "Add Nodes from a Folder of Markdown Files to the Current Tree"
-msgstr "현재 Tree 노트에 폴더 전체 Markdown파일 불러오기"
+msgstr "현재 Tree에 폴더 내부 모든 Markdown파일을 불러와 노트로 추가하기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:331
 msgid "From _Gnote Folder"
@@ -2806,7 +2806,7 @@ msgstr "Gnote 폴더 불러오기(_G)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:332
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
-msgstr "현재 Tree 노트에 Gnote 폴더 불러오기"
+msgstr "현재 Tree에 Gnote폴더를 불러와 노트로 추가하기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:333
 msgid "From _KeepNote Folder"
@@ -2814,7 +2814,7 @@ msgstr "KeepNote 폴더 불러오기(_K)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:334
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
-msgstr "현재 Tree 노트에 KeepNote 폴더 불러오기"
+msgstr "현재 Tree에 KeepNote폴더를 불러와 노트로 추가하기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:336
 msgid "From _Leo File"
@@ -2822,31 +2822,31 @@ msgstr "Leo 파일 불러오기(_L)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:337
 msgid "Add Nodes of a Leo File to the Current Tree"
-msgstr "현재 Tree 노트에 Leo 파일 불러오기"
+msgstr "현재 Tree에 Leo파일을 불러와 노트로 추가하기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:338
 msgid "From _Mempad File"
-msgstr "Mempad파일 불러오기(_M)"
+msgstr "Mempad 파일 불러오기(_M)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:339
 msgid "Add Nodes of a Mempad File to the Current Tree"
-msgstr "현재 Tree 노트에 Mempad파일 불러오기"
+msgstr "현재 Tree에 Mempad파일을 불러와 노트로 추가하기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:340
 msgid "From _NoteCase HTML File"
-msgstr "NoteCase HTML파일 불러오기(_N)"
+msgstr "NoteCase HTML 파일 불러오기(_N)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:341
 msgid "Add Nodes of a NoteCase HTML File to the Current Tree"
-msgstr "현재 Tree 노트에 NoteCase HTML파일 불러오기"
+msgstr "현재 Tree에 NoteCase HTML파일을 불러와 노트로 추가하기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:342
 msgid "From _RedNotebook HTML"
-msgstr "RedNotebook HTML파일 블러오기(_R)"
+msgstr "RedNotebook HTML파일 불러오기(_R)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:343
 msgid "Add Nodes of a RedNotebook HTML file to the Current Tree"
-msgstr "현재 Tree 노트에 RedNotebook HTML파일 불러오기"
+msgstr "현재 Tree에 RedNotebook HTML파일을 불러와 노트로 추가하기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:345
 msgid "From T_omboy Folder"
@@ -2854,7 +2854,7 @@ msgstr "Tomboy 폴더 불러오기(_O)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:346
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
-msgstr "현재 Tree 노트에 Tomboy 폴더 불러오기"
+msgstr "현재 Tree에 Tomboy 폴더 불러와 노트로 추가하기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:347
 msgid "From T_reepad Lite File"
@@ -2862,7 +2862,7 @@ msgstr "Treepad Lite 파일 불러오기(_R)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:348
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
-msgstr "현재 Tree 노트에 Treepad Lite 파일 불러오기"
+msgstr "현재 Tree에 Treepad Lite 파일 불러와 노트로 추가하기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:349
 msgid "From _Zim Folder"
@@ -2870,7 +2870,7 @@ msgstr "Zim 폴더 불러오기(_Z)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:350
 msgid "Add Nodes of a Zim Folder to the Current Tree"
-msgstr "현재 Tree 노트에 Zim 폴더 불러오기"
+msgstr "현재 Tree에 Zim 폴더를 불러와 노트로 추가하기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:352
 msgid "From File using _Pandoc"
@@ -2878,7 +2878,7 @@ msgstr "Pandoc을 이용하여 불러오기(_P)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:353
 msgid "Add a node to the current tree using Pandoc"
-msgstr "현재 Tree 노트에 Pandoc를 이용하여 불러오기"
+msgstr "현재 Tree에 Pandoc를 이용하여 불러와 노트로 추가하기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:354
 msgid "Export"
@@ -3084,15 +3084,15 @@ msgstr "이미지에 연결된 링크를 해제"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:422
 msgid "Edit the Underlying Link"
-msgstr "바로 아래의 링크 편집"
+msgstr "연결 링크 편집"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:423
 msgid "C_ut Link"
-msgstr "링크를 잘라내기(_U)"
+msgstr "링크 잘라내기(_U)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:424
 msgid "Cut the Selected Link"
-msgstr "선택 링크를 잘라 내기"
+msgstr "선택한 링크 잘라 내기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:425
 msgid "_Copy Link"
@@ -3152,23 +3152,23 @@ msgstr "열 제거(_L)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:441
 msgid "Delete the Selected Table Column"
-msgstr "테이블에서 선택 열을 제거"
+msgstr "테이블의 선택 열을 제거"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:442
 msgid "Move Column _Left"
-msgstr "열을 왼쪽으로 이동(_L)"
+msgstr "열 왼쪽 이동(_L)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:443
 msgid "Move the Selected Column Left"
-msgstr "선택 열을 왼쪽으로 이동"
+msgstr "선택 열 왼쪽으로 이동"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:444
 msgid "Move Column _Right"
-msgstr "열을 오른쪽으로 이동(_R)"
+msgstr "열 오른쪽 이동(_R)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:445
 msgid "Move the Selected Column Right"
-msgstr "선택 열을 오른쪽으로 이동"
+msgstr "선택 열 오른쪽으로 이동"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:447
 msgid "Increase Column Width"
@@ -3188,31 +3188,31 @@ msgstr "열 폭을 축소"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:452
 msgid "_Add Row"
-msgstr "줄을 추가(_A)"
+msgstr "열 추가(_A)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:453
 msgid "Add a Table Row"
-msgstr "테이블의 선택 행의 아래에 행 추가"
+msgstr "테이블의 선택한 행 아래에 행 추가"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:455
 msgid "Cut a Table Row"
-msgstr "테이블에서 행을 잘라 내기"
+msgstr "테이블의 행 잘라내기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:457
 msgid "Copy a Table Row"
-msgstr "테이블의 행을 복사"
+msgstr "테이블의 행 복사"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:458
 msgid "_Paste Row"
-msgstr "행을 붙여 넣기(_P)"
+msgstr "행 붙여넣기(_P)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:459
 msgid "Paste a Table Row"
-msgstr "테이블에 행을 붙여 넣기"
+msgstr "테이블에 행 붙여넣기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:461
 msgid "Delete the Selected Table Row"
-msgstr "테이블에서 선택 행 삭제"
+msgstr "테이블에 선택한 행 삭제"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:462
 msgid "Move Row _Up"
@@ -3220,7 +3220,7 @@ msgstr "행 위로 이동(_U)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:463
 msgid "Move the Selected Row Up"
-msgstr "선택 행을 하나 위로 이동"
+msgstr "선택한 행을 하나 위로 이동"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:465
 msgid "Move Row _Down"
@@ -3228,7 +3228,7 @@ msgstr "줄을 아래로 이동(_D)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:466
 msgid "Move the Selected Row Down"
-msgstr "선택 한 줄을 아래로 이동"
+msgstr "선택한 줄을 아래로 이동"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:467
 msgid "Sort Rows De_scending"
@@ -3434,7 +3434,7 @@ msgstr "기본값으로 초기화 하겠습니까?"
 #~ msgstr "Knowit 문서"
 
 #~ msgid "Binary Executable '7za' Not Found, Check The Package 'p7zip-full' to be Installed Properly"
-#~ msgstr "실행 파일 형태의 7za 을 찾을 수 없습니다 p7zip 설치되었는지 확인해보세요"
+#~ msgstr "실행 파일 형태의 7za을 찾을 수 없습니다 p7zip-full이 설치되었는지 확인해보세요"
 
 #~ msgid "Wrong Password"
 #~ msgstr "비밀번호가 맞지 않습니다"
@@ -3446,7 +3446,7 @@ msgstr "기본값으로 초기화 하겠습니까?"
 #~ msgstr "명령어 이름"
 
 #~ msgid "Not Any H1, H2 or H3 Formatting Found"
-#~ msgstr "제목 태크 형태가 없습니다. "
+#~ msgstr "제목 태크 형태가 없습니다"
 
 #~ msgid "Min Width"
 #~ msgstr "최소폭"
@@ -3455,40 +3455,40 @@ msgstr "기본값으로 초기화 하겠습니까?"
 #~ msgstr "최대폭"
 
 #~ msgid "Click to Edit the Column Settings"
-#~ msgstr "열 설정을 편집하려면 클릭하십쇼"
+#~ msgstr "열 설정을 편집하려면 클릭하세요"
 
 #~ msgid "Table Column Action"
 #~ msgstr "테이블 열 작업"
 
 #~ msgid "From _Basket Folder"
-#~ msgstr "Basket 폴더에서(_B)"
+#~ msgstr "Basket 폴더 불러오기(_B)"
 
 #~ msgid "Add Nodes of a Basket Folder to the Current Tree"
-#~ msgstr "현재 Tree에 Basket 폴더 노트 추가 "
+#~ msgstr "현재 Tree에 Basket 폴더를 불러와 노트로 추가하기"
 
 #~ msgid "From _EssentialPIM HTML File"
-#~ msgstr "EssentialPIM HTML 파일에서(_E)"
+#~ msgstr "EssentialPIM HTML 파일 불러오기(_E)"
 
 #~ msgid "Add Node from an EssentialPIM HTML File to the Current Tree"
-#~ msgstr "현재 Tree에 EssentialPIM HTML 파일을 노트를 추가"
+#~ msgstr "현재 Tree에 EssentialPIM HTML 파일을 불러와 노트로 추가하기"
 
 #~ msgid "From K_eyNote File"
-#~ msgstr "KeyNote 파일(_E)"
+#~ msgstr "KeyNote 파일 불러오기(_E)"
 
 #~ msgid "Add Nodes of a KeyNote File to the Current Tree"
-#~ msgstr "현재 Tree에 KeyNote 파일을 노트를 추가"
- 
+#~ msgstr "현재 Tree에 KeyNote 파일을 불러와 노트로 추가하기"
+
 #~ msgid "From K_nowit File"
-#~ msgstr "Knowit 파일(_N)"
+#~ msgstr "Knowit 파일 불러오기(_N)"
 
 #~ msgid "Add Nodes of a Knowit File to the Current Tree"
-#~ msgstr "현재 Tree에 Knowit 파일을 노트를 추가"
+#~ msgstr "현재 Tree에 Knowit 파일을 불러와 노트로 추가하기"
 
 #~ msgid "From _TuxCards File"
-#~ msgstr "TuxCards 파일(_T)"
+#~ msgstr "TuxCards 파일 불러오기(_T)"
 
 #~ msgid "Add Nodes of a TuxCards File to the Current Tree"
-#~ msgstr "TuxCards 파일에서 Tree에 노트를 추가"
+#~ msgstr "현재 Tree에 TuxCards 파일을 불러와 노트로 추가하기"
 
 #~ msgid "Export to Multiple Plain _Text Files"
 #~ msgstr "노트 단위로 텍스트 파일로 내보내기(_T)"
@@ -3521,7 +3521,7 @@ msgstr "기본값으로 초기화 하겠습니까?"
 #~ msgstr "아니오"
 
 #~ msgid "The Characters  %s  are Not Allowed"
-#~ msgstr "% s의 문자는 사용할 수 없습니다"
+#~ msgstr "%s의 문자는 사용할 수 없습니다"
 
 #~ msgid "Text Font"
 #~ msgstr "텍스트의 글꼴"
@@ -3533,7 +3533,7 @@ msgstr "기본값으로 초기화 하겠습니까?"
 #~ msgstr "선택 노트의 Tree를 열기/닫기(_E)"
 
 #~ msgid "Toggle Expanded/Collapsed Status of the Selected Node"
-#~ msgstr "선택 노트의 Tree의 열림/닫기 상태 전환"
+#~ msgstr "선택 노트의 Tree의 열기/닫기 상태 전환"
 
 #~ msgid "C_opy Row"
 #~ msgstr "줄 복사(_O)"
@@ -3548,16 +3548,16 @@ msgstr "기본값으로 초기화 하겠습니까?"
 #~ msgstr "모든 노트를 검색"
 
 #~ msgid "_Replace in Node"
-#~ msgstr "선택 노트를 대체(_R)"
+#~ msgstr "선택 노트를 치환(_R)"
 
 #~ msgid "Replace into the Selected Node"
-#~ msgstr "선택 노트를 대체"
+#~ msgstr "선택 노트를 치환"
 
 #~ msgid "Replace in Node_s"
-#~ msgstr "모든 노트를 대체(_S)"
+#~ msgstr "모든 노트를 치환(_S)"
 
 #~ msgid "Replace into all the Tree Nodes"
-#~ msgstr "모든 노트를 대체"
+#~ msgstr "모든 노트를 치환"
 
 #~ msgid "Code Nodes"
 #~ msgstr "코드 노트"
@@ -3566,7 +3566,7 @@ msgstr "기본값으로 초기화 하겠습니까?"
 #~ msgstr "체리의 이미지를 표시"
 
 #~ msgid "Do Not Display Nodes Icons"
-#~ msgstr "노트 아이콘을 표시하지않기"
+#~ msgstr "노트 아이콘을 표시하지 않음"
 
 #~ msgid "All Nodes"
 #~ msgstr "모든 노트"
@@ -3582,4 +3582,4 @@ msgstr "기본값으로 초기화 하겠습니까?"
 #~ "Giuseppe Penone <giuspen@gmail.com>"
 
 #~ msgid "Sort with Drag and Drop, Delete with the Delete Key"
-#~ msgstr "드래그 앤 드롭으로 정렬 후 Delete 키로 삭제"
+#~ msgstr "드래그 앤 드롭으로 정렬후 Delete 키로 삭제"
