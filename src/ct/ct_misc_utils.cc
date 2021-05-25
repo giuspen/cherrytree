@@ -726,7 +726,13 @@ void CtStrUtil::convert_if_not_utf8(std::string& inOutText, const bool sanitise)
             &bytes_read, &bytes_written, NULL);
         if (pConverted) {
             // ok converted
-            inOutText = std::string{pConverted, bytes_written};
+            if (g_str_has_prefix(pConverted, "\xEF\xBB\xBF")) {
+                // remove UTF-8 BOM
+                inOutText = std::string{pConverted+3, bytes_written-3};
+            }
+            else {
+                inOutText = std::string{pConverted, bytes_written};
+            }
         }
     }
     if (sanitise) {
