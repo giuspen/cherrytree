@@ -27,13 +27,32 @@
 #include "tests_common.h"
 #include <thread>
 
-TEST(MiscUtilsGroup, files_encodings)
+TEST(MiscUtilsGroup, get_encoding)
 {
     auto _get_file_encoding = [](const std::string& inFilepath)->std::string{
         std::string inString = Glib::file_get_contents(inFilepath);
         return CtStrUtil::get_encoding(inString.c_str(), inString.size());
     };
     ASSERT_STREQ("UTF-8", _get_file_encoding(UT::testCtdDocPath).c_str());
+    ASSERT_STREQ("UTF-8", _get_file_encoding(UT::testBomUtf8Path).c_str());
+    ASSERT_STREQ("UTF-32BE", _get_file_encoding(UT::testBomUtf32BEPath).c_str());
+    ASSERT_STREQ("UTF-32LE", _get_file_encoding(UT::testBomUtf32LEPath).c_str());
+    ASSERT_STREQ("UTF-16BE", _get_file_encoding(UT::testBomUtf16BEPath).c_str());
+    ASSERT_STREQ("UTF-16LE", _get_file_encoding(UT::testBomUtf16LEPath).c_str());
+}
+
+TEST(MiscUtilsGroup, convert_if_not_utf8)
+{
+    auto _get_file_converted = [](const std::string& inFilepath)->std::string{
+        std::string ioString = Glib::file_get_contents(inFilepath);
+        CtStrUtil::convert_if_not_utf8(ioString, true/*sanitise*/);
+        return ioString;
+    };
+    ASSERT_STREQ("Привет\n", _get_file_converted(UT::testBomUtf8Path).c_str());
+    ASSERT_STREQ("Привет\n", _get_file_converted(UT::testBomUtf32BEPath).c_str());
+    ASSERT_STREQ("Привет\n", _get_file_converted(UT::testBomUtf32LEPath).c_str());
+    ASSERT_STREQ("Привет\n", _get_file_converted(UT::testBomUtf16BEPath).c_str());
+    ASSERT_STREQ("Привет\n", _get_file_converted(UT::testBomUtf16LEPath).c_str());
 }
 
 TEST(MiscUtilsGroup, is_str_true)

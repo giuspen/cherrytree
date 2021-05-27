@@ -41,6 +41,11 @@ const std::string testCtbDocPath{Glib::build_filename(unitTestsDataDir, "test.ct
 const std::string testCtdDocPath{Glib::build_filename(unitTestsDataDir, "test.ctd")};
 const std::string testCtxDocPath{Glib::build_filename(unitTestsDataDir, "test.ctx")};
 const std::string testCtzDocPath{Glib::build_filename(unitTestsDataDir, "test.ctz")};
+const std::string testBomUtf8Path{Glib::build_filename(unitTestsDataDir, "bom_utf8.txt")};
+const std::string testBomUtf32BEPath{Glib::build_filename(unitTestsDataDir, "bom_utf32be.txt")};
+const std::string testBomUtf32LEPath{Glib::build_filename(unitTestsDataDir, "bom_utf32le.txt")};
+const std::string testBomUtf16BEPath{Glib::build_filename(unitTestsDataDir, "bom_utf16be.txt")};
+const std::string testBomUtf16LEPath{Glib::build_filename(unitTestsDataDir, "bom_utf16le.txt")};
 const gchar testPassword[]{"7zr"};
 const gchar testPasswordBis[]{"7zr2"};
 

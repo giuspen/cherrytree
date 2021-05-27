@@ -684,22 +684,21 @@ std::string CtStrUtil::get_internal_link_from_http_url(std::string link_url)
 std::string CtStrUtil::get_encoding(const char* const pData, const size_t dataLen)
 {
     std::string charset;
-    if (dataLen >=4 && memcmp(pData, "\x84\x31\x95\x33", 4) == 0) {
-        charset = "GB-18030";
-    }
-    else if (dataLen >= 4 && memcmp(pData, "\x00\x00\xFE\xFF", 4) == 0) {
-        charset = "UTF-32BE";
-    }
-    else if (dataLen>= 4 && memcmp(pData, "\xFF\xFE\x00\x00", 4) == 0) {
-        charset = "UTF-32LE";
-    }
-    else if (dataLen >= 2 && memcmp(pData, "\xFE\xFF", 2) == 0) {
-        charset = "UTF-16BE";
-    }
-    else if (dataLen >= 2 && memcmp(pData, "\xFF\xFE", 2) == 0) {
-        charset = "UTF-16LE";
-    }
+    // look at the BOM first if present
+    // https://en.wikipedia.org/wiki/Byte_order_mark
+    if      (g_str_has_prefix(pData,             "\xEF\xBB\xBF"))        { charset = "UTF-8"; }
+    else if (dataLen >= 4 and 0 == memcmp(pData, "\x00\x00\xFE\xFF", 4)) { charset = "UTF-32BE"; }
+    else if (dataLen >= 4 and 0 == memcmp(pData, "\xFF\xFE\x00\x00", 4)) { charset = "UTF-32LE"; }
+    else if (g_str_has_prefix(pData,             "\xFE\xFF"))            { charset = "UTF-16BE"; }
+    else if (g_str_has_prefix(pData,             "\xFF\xFE"))            { charset = "UTF-16LE"; }
+    else if (g_str_has_prefix(pData,             "\x2B\x2F\x76"))        { charset = "UTF-7"; }
+    else if (g_str_has_prefix(pData,             "\xF7\x64\x4C"))        { charset = "UTF-1"; }
+    else if (g_str_has_prefix(pData,             "\xDD\x73\x66\x73"))    { charset = "UTF-EBCDIC"; }
+    else if (g_str_has_prefix(pData,             "\x0E\xFE\xFF"))        { charset = "SCSU"; }
+    else if (g_str_has_prefix(pData,             "\xFB\xEE\x28"))        { charset = "BOCU-1"; }
+    else if (g_str_has_prefix(pData,             "\x84\x31\x95\x33"))    { charset = "GB-18030"; }
     else {
+        // no BOM, try with uchardet
         uchardet_t handle = uchardet_new();
         if (0 == uchardet_handle_data(handle, pData, dataLen)) {
             uchardet_data_end(handle);
@@ -734,6 +733,10 @@ void CtStrUtil::convert_if_not_utf8(std::string& inOutText, const bool sanitise)
                 inOutText = std::string{pConverted, bytes_written};
             }
         }
+    }
+    else if (Glib::str_has_prefix(inOutText, "\xEF\xBB\xBF")) {
+        // remove UTF-8 BOM
+        inOutText = inOutText.substr(3);
     }
     if (sanitise) {
         inOutText = str::sanitize_bad_symbols(inOutText);
