@@ -144,6 +144,17 @@ CtMainWin::CtMainWin(bool                            no_gui,
     }
     else {
         if (_pCtConfig->systrayOn and _pCtConfig->startOnSystray) {
+            /* Calling the 'present()' function apparently sets up selected
+               node visibility within the TreeView panel, whereas this
+               node setup is skipped when only calling 'set_visible(false)'.
+               Calling 'present()' and then hiding the window with
+               'set_visible(false)' works to place the selected node within
+               the visible portion of the TreeView panel but does not seem
+               like the correct way to achieve this. Is there a function
+               that specifically sets the selected node to the top row of
+               the visible area in the panel?
+            */
+            present();
             set_visible(false);
         }
         else {

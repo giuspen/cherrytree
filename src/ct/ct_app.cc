@@ -107,8 +107,12 @@ void CtApp::_on_startup()
 
     if (not _no_gui) {
         _rStatusIcon = Gtk::StatusIcon::create(CtConst::APP_NAME);
-        _rStatusIcon->set_visible(false);
-        _rStatusIcon->set_name(CtConst::APP_NAME);
+        /* The following two lines of original code, when active, cause the
+           StatusIcon to fail to properly appear in the system tray. A blank
+           placeholder, or sometimes a poorly rendered icon, appear in its 
+           place. */
+        //_rStatusIcon->set_visible(false);
+        //_rStatusIcon->set_name(CtConst::APP_NAME);
         _rStatusIcon->set_title(CtConst::APP_NAME);
         _rStatusIcon->set_tooltip_markup(_("CherryTree Hierarchical Note Taking"));
         _rStatusIcon->signal_button_press_event().connect([&](GdkEventButton* event) {
