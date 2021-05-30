@@ -431,13 +431,13 @@ MA 02110-1301, USA.
  _("French")+" (fr) Klaus Becker <colonius@free.fr>"+CtConst::CHAR_NEWLINE+
  _("German")+" (de) Matthias Hoffmann <MHoffi@web.de>"+CtConst::CHAR_NEWLINE+
  _("Greek")+" (el) Delphina <delphina.2009@yahoo.gr>"+CtConst::CHAR_NEWLINE+
- _("Italian")+" (it) Vincenzo Reale <smart2128@baslug.org>"+CtConst::CHAR_NEWLINE+
+ _("Italian")+" (it) Giuseppe Penone <giuspen@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Japanese")+" (ja) Piyo <py2@live.jp>"+CtConst::CHAR_NEWLINE+
  _("Kazakh")+" (kk_KZ) Viktor Polyanskiy <camilot55@yandex.ru>"+CtConst::CHAR_NEWLINE+
  _("Korean")+" (ko) Sean Lee <icarusean@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Lithuanian")+" (lt) Zygis <zygimantus@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Polish")+" (pl) Marcin Swierczynski <orneo1212@gmail.com>"+CtConst::CHAR_NEWLINE+
- _("Portuguese Brazil")+" (pt_BR) Vinicius Schmidt <viniciussm@rocketmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Portuguese Brazil")+" (pt_BR) Allan Felicio <allan_felicio@hotmail.com>"+CtConst::CHAR_NEWLINE+
  _("Romanian")+" (ro) Tudor Sprinceana <tudorsprinceana@yahoo.com>"+CtConst::CHAR_NEWLINE+
  _("Russian")+" (ru) Viktor Polyanskiy <camilot55@yandex.ru>"+CtConst::CHAR_NEWLINE+
  _("Slovenian")+" (sl) Erik Lovrič <erik.lovric@gmail.com>"+CtConst::CHAR_NEWLINE+
