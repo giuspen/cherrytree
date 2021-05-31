@@ -40,6 +40,25 @@ static fs::path _exePath;
 static fs::path _portableConfigDir;
 static std::unordered_map<std::string, std::pair<std::string,std::string>> _alteredLocaleEnvVars;
 
+// replacement of Glib::canonicalize_filename for Glibmm < 2.64
+std::string legacy_canonicalize_filename(const std::string& filename, const std::string& relative_to/*= ""*/)
+{
+    std::string retFilepath;
+    GFile* pGFile = g_file_new_for_path(filename.c_str());
+    if (not relative_to.empty()) {
+        GFile* pGFile2 = g_file_resolve_relative_path(pGFile, relative_to.c_str());
+        g_autofree gchar* pAbsPath = g_file_get_path(pGFile2);
+        g_object_unref(pGFile2);
+        retFilepath = pAbsPath;
+    }
+    else {
+        g_autofree gchar* pAbsPath = g_file_get_path(pGFile);
+        retFilepath = pAbsPath;
+    }
+    g_object_unref(pGFile);
+    return retFilepath;
+}
+
 void _locale_env_vars_set_for_external_cmd(const bool isPre)
 {
     for (const auto& currPair : _alteredLocaleEnvVars) {
@@ -101,8 +120,7 @@ bool is_directory(const fs::path& p)
 
 bool copy_file(const path& from, const path& to)
 {
-    try
-    {
+    try {
         Glib::RefPtr<Gio::File> rFileFrom = Gio::File::create_for_path(from.string());
         Glib::RefPtr<Gio::File> rFileTo = Gio::File::create_for_path(to.string());
         return rFileFrom->copy(rFileTo, Gio::FILE_COPY_OVERWRITE);
@@ -115,8 +133,7 @@ bool copy_file(const path& from, const path& to)
 
 bool move_file(const path& from, const path& to)
 {
-    try
-    {
+    try {
         Glib::RefPtr<Gio::File> rFileFrom = Gio::File::create_for_path(from.string());
         Glib::RefPtr<Gio::File> rFileTo = Gio::File::create_for_path(to.string());
         return rFileFrom->move(rFileTo, Gio::FILE_COPY_OVERWRITE);
@@ -320,7 +337,7 @@ fs::path get_cherrytree_localedir()
 {
     if (_exePath.parent_path() == fs::canonical(_CMAKE_BINARY_DIR)) {
         // we're running from the build sources
-        return Glib::canonicalize_filename(Glib::build_filename(_CMAKE_SOURCE_DIR, "po"));
+        return fs_canonicalize_filename(Glib::build_filename(_CMAKE_SOURCE_DIR, "po"));
     }
 #ifdef _WIN32
     // e.g. cherrytree_0.99.9_win64_portable\mingw64\bin\cherrytree.exe
@@ -467,17 +484,17 @@ path canonical(const path& p, const bool resolveSymlink)
         g_autofree gchar* pOutStr = g_file_read_link(p.c_str(), &pError);
         if (pOutStr) {
             if (g_path_is_absolute(pOutStr)) {
-                return Glib::canonicalize_filename(pOutStr);
+                return fs_canonicalize_filename(pOutStr);
             }
-            return Glib::canonicalize_filename(pOutStr, Glib::path_get_dirname(p.string()));
+            return fs_canonicalize_filename(pOutStr, Glib::path_get_dirname(p.string()));
         }
     }
-    return Glib::canonicalize_filename(p.string());
+    return fs_canonicalize_filename(p.string());
 }
 
 path canonical(const path& p, const path& base)
 {
-    return Glib::canonicalize_filename(p.string(), base.string());
+    return fs_canonicalize_filename(p.string(), base.string());
 }
 
 path relative(const path& p, const path& base)

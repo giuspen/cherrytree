@@ -485,14 +485,14 @@ void CtMainWin::menu_set_items_recent_documents()
     sigc::slot<void, const std::string&> recent_doc_open_action = [&](const std::string& filepath){
         if (Glib::file_test(filepath, Glib::FILE_TEST_IS_REGULAR)) {
             if (file_open(filepath, "")) {
-                _pCtConfig->recentDocsFilepaths.move_or_push_front(Glib::canonicalize_filename(filepath));
+                _pCtConfig->recentDocsFilepaths.move_or_push_front(fs_canonicalize_filename(filepath));
                 menu_set_items_recent_documents();
             }
         }
         else {
             g_autofree gchar* title = g_strdup_printf(_("The Document %s was Not Found"), filepath.c_str());
             CtDialogs::error_dialog(Glib::ustring{title}, *this);
-            _pCtConfig->recentDocsFilepaths.move_or_push_back(Glib::canonicalize_filename(filepath));
+            _pCtConfig->recentDocsFilepaths.move_or_push_back(fs_canonicalize_filename(filepath));
             menu_set_items_recent_documents();
         }
     };

@@ -326,7 +326,13 @@ void CtDialogs::error_dialog(const Glib::ustring& message,
 // Returns the retrieved filepath or None
 std::string CtDialogs::file_select_dialog(const FileSelectArgs& args)
 {
+#if GTKMM_MAJOR_VERSION > 3 || (GTKMM_MAJOR_VERSION == 3 && GTKMM_MINOR_VERSION >= 24)
     auto chooser = Gtk::FileChooserNative::create(_("Select File"), *args.pParentWin, Gtk::FILE_CHOOSER_ACTION_OPEN);
+#else
+    auto chooser = std::make_unique<Gtk::FileChooserDialog>(*args.pParentWin, _("Select File"), Gtk::FILE_CHOOSER_ACTION_OPEN);
+    chooser->add_button(Gtk::StockID{GTK_STOCK_CANCEL}, Gtk::RESPONSE_CANCEL);
+    chooser->add_button(Gtk::StockID{GTK_STOCK_OPEN}, Gtk::RESPONSE_ACCEPT);
+#endif
     if (args.curr_folder.empty() or not fs::is_directory(args.curr_folder)) {
         chooser->set_current_folder(Glib::get_home_dir());
     }
@@ -350,7 +356,13 @@ std::string CtDialogs::file_select_dialog(const FileSelectArgs& args)
 // Returns the retrieved folderpath or None
 std::string CtDialogs::folder_select_dialog(const std::string& curr_folder, Gtk::Window* pParentWin)
 {
+#if GTKMM_MAJOR_VERSION > 3 || (GTKMM_MAJOR_VERSION == 3 && GTKMM_MINOR_VERSION >= 24)
     auto chooser = Gtk::FileChooserNative::create(_("Select Folder"), *pParentWin, Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
+#else
+    auto chooser = std::make_unique<Gtk::FileChooserDialog>(*pParentWin, _("Select Folder"), Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
+    chooser->add_button(Gtk::StockID{GTK_STOCK_CANCEL}, Gtk::RESPONSE_CANCEL);
+    chooser->add_button(Gtk::StockID{GTK_STOCK_OPEN}, Gtk::RESPONSE_ACCEPT);
+#endif
     if (curr_folder.empty() || !Glib::file_test(curr_folder, Glib::FILE_TEST_IS_DIR)) {
         chooser->set_current_folder(g_get_home_dir());
     }
@@ -363,7 +375,13 @@ std::string CtDialogs::folder_select_dialog(const std::string& curr_folder, Gtk:
 // Returns the retrieved filepath or None
 std::string CtDialogs::file_save_as_dialog(const FileSelectArgs& args)
 {
+#if GTKMM_MAJOR_VERSION > 3 || (GTKMM_MAJOR_VERSION == 3 && GTKMM_MINOR_VERSION >= 24)
     auto chooser = Gtk::FileChooserNative::create(_("Save File as"), *args.pParentWin, Gtk::FILE_CHOOSER_ACTION_SAVE);
+#else
+    auto chooser = std::make_unique<Gtk::FileChooserDialog>(*args.pParentWin, _("Save File as"), Gtk::FILE_CHOOSER_ACTION_SAVE);
+    chooser->add_button(Gtk::StockID{GTK_STOCK_CANCEL}, Gtk::RESPONSE_CANCEL);
+    chooser->add_button(Gtk::StockID{GTK_STOCK_SAVE_AS}, Gtk::RESPONSE_ACCEPT);
+#endif
     chooser->set_do_overwrite_confirmation(true);
     if (args.curr_folder.empty() || !fs::is_directory(args.curr_folder)) {
         chooser->set_current_folder(g_get_home_dir());

@@ -30,11 +30,19 @@
 #include "ct_logging.h"
 #include <glibmm/miscutils.h>
 
+#if GLIBMM_MAJOR_VERSION > 2 || (GLIBMM_MAJOR_VERSION == 2 && GLIBMM_MINOR_VERSION >= 64)
+#define fs_canonicalize_filename Glib::canonicalize_filename
+#else
+#define fs_canonicalize_filename fs::legacy_canonicalize_filename
+#endif
+
 class CtConfig;
 
 namespace fs {
 
 class path;
+
+std::string legacy_canonicalize_filename(const std::string& filename, const std::string& relative_to = "");
 
 void register_exe_path_detect_if_portable(const char* exe_path);
 bool alter_locale_env_var(const std::string& key, const std::string& val);
