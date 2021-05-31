@@ -107,14 +107,16 @@ void CtApp::_on_startup()
 
     _uCtStatusIcon.reset(new CtStatusIcon{*this});
 
-    _pCtApp = this;
-    signal(SIGTERM, kill_callback_handler); // kill/killall
-    signal(SIGINT, kill_callback_handler);  // Ctrl+C
+    if (not _no_gui) {
+        _pCtApp = this;
+        signal(SIGTERM, kill_callback_handler); // kill/killall
+        signal(SIGINT, kill_callback_handler);  // Ctrl+C
 #ifndef _WIN32
-    signal(SIGQUIT, kill_callback_handler); // Ctrl+Backslash
-    signal(SIGHUP, kill_callback_handler);  // user’s terminal disconnected
+        signal(SIGQUIT, kill_callback_handler); // Ctrl+Backslash
+        signal(SIGHUP, kill_callback_handler);  // user’s terminal disconnected
 #endif // not _WIN32
-    // SIGKILL cannot be handled or ignored, and is therefore always fatal
+        // SIGKILL cannot be handled or ignored, and is therefore always fatal
+    }
 }
 
 void CtApp::on_activate()
