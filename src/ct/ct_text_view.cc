@@ -21,8 +21,8 @@
  * MA 02110-1301, USA.
  */
 
-#include "ct_text_view.h"
 #include "ct_main_win.h"
+#include "ct_text_view.h"
 #include "ct_actions.h"
 #include "ct_list.h"
 

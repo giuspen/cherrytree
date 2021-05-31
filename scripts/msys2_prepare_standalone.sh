@@ -15,7 +15,7 @@ GIT_CT_LICENSE="${GIT_CT_FOLDER}/license.txt"
 GIT_CT_HUNSPELL="${GIT_CT_FOLDER}/hunspell"
 GIT_CT_CONFIG_H="${GIT_CT_FOLDER}/config.h"
 DOWNGRADE_PACKAGE_LOCATION="http://repo.msys2.org/mingw/x86_64"
-DOWNGRADE_PACKAGE_NAME="mingw-w64-x86_64-gtkmm3-3.24.2-1-any.pkg.tar.xz"
+DOWNGRADE_PACKAGE_NAME=""
 
 if [ -n ${DOWNGRADE_PACKAGE_NAME} ]
 then
