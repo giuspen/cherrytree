@@ -34,7 +34,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
                      Glib::RefPtr<Gtk::CssProvider>  rGtkCssProvider,
                      Gsv::LanguageManager*           pGsvLanguageManager,
                      Gsv::StyleSchemeManager*        pGsvStyleSchemeManager,
-                     Gtk::StatusIcon*                pGtkStatusIcon)
+                     CtStatusIcon*                   pCtStatusIcon)
  : Gtk::ApplicationWindow{}
  , _no_gui{no_gui}
  , _pCtConfig{pCtConfig}
@@ -44,7 +44,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
  , _rGtkCssProvider{rGtkCssProvider}
  , _pGsvLanguageManager{pGsvLanguageManager}
  , _pGsvStyleSchemeManager{pGsvStyleSchemeManager}
- , _pGtkStatusIcon{pGtkStatusIcon}
+ , _pCtStatusIcon{pCtStatusIcon}
  , _ctTextview{this}
  , _ctStateMachine{this}
 {
@@ -164,9 +164,9 @@ CtMainWin::CtMainWin(bool                            no_gui,
         _ctTextview.signal_size_allocate().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_size_allocate));
         signal_configure_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_window_configure_event), false);
 
-        // show status icon if it's needed and also check if systray exists
+        // show status icon if needed
         if (_pCtConfig->systrayOn) {
-            _pGtkStatusIcon->set_visible(true);
+            get_status_icon()->set_visible(true);
         }
     }
 }

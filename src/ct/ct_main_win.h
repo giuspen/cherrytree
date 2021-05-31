@@ -88,7 +88,7 @@ public:
         Glib::RefPtr<Gtk::CssProvider> rGtkCssProvider,
         Gsv::LanguageManager*    pGsvLanguageManager,
         Gsv::StyleSchemeManager* pGsvStyleSchemeManager,
-        Gtk::StatusIcon*         pGtkStatusIcon
+        CtStatusIcon*            pCtStatusIcon
     );
     virtual ~CtMainWin();
 
@@ -138,7 +138,7 @@ public:
     Glib::RefPtr<Gtk::CssProvider>&   get_css_provider()   { return _rGtkCssProvider; }
     Gsv::LanguageManager*             get_language_manager() { return _pGsvLanguageManager; }
     Gsv::StyleSchemeManager*          get_style_scheme_manager() { return _pGsvStyleSchemeManager; }
-    Gtk::StatusIcon*                  get_status_icon() { return _pGtkStatusIcon; }
+    Gtk::StatusIcon*                  get_status_icon() { return _pCtStatusIcon->get(); }
     Gtk::ScrolledWindow&              getScrolledwindowText() { return _scrolledwindowText; }
 
     bool&         user_active()      { return _userActive; } // use as a function, because it's easier to put breakpoint
@@ -240,7 +240,7 @@ private:
     Glib::RefPtr<Gtk::CssProvider>  _rGtkCssProvider;
     Gsv::LanguageManager*        _pGsvLanguageManager;
     Gsv::StyleSchemeManager*     _pGsvStyleSchemeManager;
-    Gtk::StatusIcon*             _pGtkStatusIcon;
+    CtStatusIcon*                _pCtStatusIcon;
 
     std::unique_ptr<CtActions>        _uCtActions;
     std::unique_ptr<CtMenu>           _uCtMenu;

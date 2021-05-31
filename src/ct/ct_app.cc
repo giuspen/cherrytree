@@ -105,40 +105,16 @@ void CtApp::_on_startup()
 
     _rCssProvider = Gtk::CssProvider::create();
 
-    if (not _no_gui) {
-        _rStatusIcon = Gtk::StatusIcon::create(CtConst::APP_NAME);
-        /* The following two lines of original code, when active, cause the
-           StatusIcon to fail to properly appear in the system tray. A blank
-           placeholder, or sometimes a poorly rendered icon, appear in its 
-           place. */
-        //_rStatusIcon->set_visible(false);
-        //_rStatusIcon->set_name(CtConst::APP_NAME);
-        _rStatusIcon->set_title(CtConst::APP_NAME);
-        _rStatusIcon->set_tooltip_markup(_("CherryTree Hierarchical Note Taking"));
-        _rStatusIcon->signal_button_press_event().connect([&](GdkEventButton* event) {
-            if (event->button == 1) { _systray_show_hide_windows(); }
-            return false;
-        });
-        _rStatusIcon->signal_popup_menu().connect([&](guint button, guint32 activate_time){
-            if (not _uStatusIconMenu) {
-                _uStatusIconMenu = std::make_unique<Gtk::Menu>();
-                auto item1 = CtMenu::create_menu_item(_uStatusIconMenu.get(), _("Show/Hide _CherryTree"), CtConst::APP_NAME, _("Toggle Show/Hide CherryTree"));
-                item1->signal_activate().connect([&](){ _systray_show_hide_windows(); });
-                auto item2 = CtMenu::create_menu_item(_uStatusIconMenu.get(), _("_Exit CherryTree"), "ct_quit-app", _("Exit from CherryTree"));
-                item2->signal_activate().connect([&](){ close_all_windows(false/*fromKillCallback*/); });
-            }
-            _uStatusIconMenu->show_all();
-            _uStatusIconMenu->popup(button, activate_time);
-        });
-        _pCtApp = this;
-        signal(SIGTERM, kill_callback_handler); // kill/killall
-        signal(SIGINT, kill_callback_handler);  // Ctrl+C
+    _uCtStatusIcon.reset(new CtStatusIcon{*this});
+
+    _pCtApp = this;
+    signal(SIGTERM, kill_callback_handler); // kill/killall
+    signal(SIGINT, kill_callback_handler);  // Ctrl+C
 #ifndef _WIN32
-        signal(SIGQUIT, kill_callback_handler); // Ctrl+Backslash
-        signal(SIGHUP, kill_callback_handler);  // user’s terminal disconnected
+    signal(SIGQUIT, kill_callback_handler); // Ctrl+Backslash
+    signal(SIGHUP, kill_callback_handler);  // user’s terminal disconnected
 #endif // not _WIN32
-        // SIGKILL cannot be handled or ignored, and is therefore always fatal
-    }
+    // SIGKILL cannot be handled or ignored, and is therefore always fatal
 }
 
 void CtApp::on_activate()
@@ -184,7 +160,7 @@ void CtApp::on_activate()
             else {
                 // all windows are hidden, show them
                 // also it fixes an issue with a missing systray
-                _systray_show_hide_windows();
+                systray_show_hide_windows();
             }
         }
     }
@@ -275,7 +251,7 @@ CtMainWin* CtApp::_create_window(const bool no_gui)
                                           _rCssProvider,
                                           _rLanguageManager.get(),
                                           _rStyleSchemeManager.get(),
-                                          _rStatusIcon.get());
+                                          _uCtStatusIcon.get());
     add_window(*pCtMainWin);
 
     pCtMainWin->signal_app_new_instance.connect([this]() {
@@ -299,7 +275,7 @@ CtMainWin* CtApp::_create_window(const bool no_gui)
         _quit_or_hide_window(win, false/*fromDelete*/, false/*fromKillCallback*/);
     });
     pCtMainWin->signal_show_hide_main_win.connect([&]() {
-        _systray_show_hide_windows();
+        systray_show_hide_windows();
     });
 
     return pCtMainWin;
@@ -347,11 +323,9 @@ bool CtApp::_quit_or_hide_window(CtMainWin* pCtMainWin, const bool from_delete, 
     return true; // keep deleting window
 }
 
-void CtApp::_systray_show_hide_windows()
+void CtApp::systray_show_hide_windows()
 {
-    if (_uStatusIconMenu) {
-        _uStatusIconMenu->hide();
-    }
+    _uCtStatusIcon->ensure_menu_hidden();
     while (gtk_events_pending()) gtk_main_iteration();
     bool to_show{true};
     for (Gtk::Window* pWin : get_windows()) {

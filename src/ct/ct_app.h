@@ -30,9 +30,9 @@
 
 #include "ct_config.h"
 #include "ct_main_win.h"
-#include "ct_menu.h"
 #include "ct_actions.h"
 #include "ct_export2pdf.h"
+#include "ct_widgets.h"
 
 class CtMainWin;
 class CtApp : public Gtk::Application
@@ -43,17 +43,17 @@ protected:
 public:
     static Glib::RefPtr<CtApp> create();
     void                       close_all_windows(const bool userCanInteract = true);
+    void                       systray_show_hide_windows();
 
 protected:
     std::unique_ptr<CtConfig> _uCtCfg;
     std::unique_ptr<CtTmp> _uCtTmp;
-    std::unique_ptr<Gtk::Menu> _uStatusIconMenu;
     Glib::RefPtr<Gtk::IconTheme> _rIcontheme;
     Glib::RefPtr<Gtk::TextTagTable> _rTextTagTable;
     Glib::RefPtr<Gtk::CssProvider> _rCssProvider;
     Glib::RefPtr<Gsv::LanguageManager> _rLanguageManager;
     Glib::RefPtr<Gsv::StyleSchemeManager> _rStyleSchemeManager;
-    Glib::RefPtr<Gtk::StatusIcon> _rStatusIcon;
+    std::unique_ptr<CtStatusIcon> _uCtStatusIcon;
 
 protected:
     Glib::ustring _node_to_focus;
@@ -81,5 +81,4 @@ protected:
     CtMainWin*  _get_window_by_path(const std::string& filepath);
     bool        _quit_or_hide_window(CtMainWin* pCtMainWin, const bool fromDelete, const bool fromKillCallback);
     int         _on_handle_local_options(const Glib::RefPtr<Glib::VariantDict>& rOptions);
-    void        _systray_show_hide_windows();
 };

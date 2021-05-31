@@ -27,6 +27,7 @@
 #include <gtksourceviewmm.h>
 #include "ct_const.h"
 #include "ct_widgets.h"
+#include "ct_text_view.h"
 
 class CtTextCell
 {

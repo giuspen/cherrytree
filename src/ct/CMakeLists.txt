@@ -74,6 +74,7 @@ set(CT_SHARED_FILES
   ct_table.cc
   ct_treestore.cc
   ct_widgets.cc
+  ct_text_view.cc
   ct_parser_text.cc
   ct_parser_md.cc
   ct_parser_html.cc
