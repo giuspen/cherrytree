@@ -24,6 +24,7 @@
 #include "ct_types.h"
 #include "ct_filesystem.h"
 #include "tests_common.h"
+#include <thread>
 
 TEST(TestTypesGroup, ctMaxSizedList)
 {

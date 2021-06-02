@@ -1,7 +1,7 @@
 /*
  * ct_logging.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -23,9 +23,15 @@
 
 #pragma once
 
+#ifdef SHARED_FMT_SPDLOG
 #include <spdlog/spdlog.h>
 #include <fmt/core.h>
 #include <fmt/printf.h>
+#else // not SHARED_FMT_SPDLOG
+#include "spdlog/spdlog.h"
+#include "spdlog/fmt/bundled/core.h"
+#include "spdlog/fmt/bundled/printf.h"
+#endif // not SHARED_FMT_SPDLOG
 #include <glibmm/ustring.h>
 
 // ostream works badly on Win32 due to locale encoding

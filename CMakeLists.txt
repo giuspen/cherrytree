@@ -20,6 +20,7 @@ if(NOT PYTHON_EXEC)
 endif(NOT PYTHON_EXEC)
 
 option(USE_NLS "Add locales support" ON)
+option(USE_SHARED_FMT_SPDLOG "Use shared fmt and spdlog (not those bundled)" ON)
 
 # used to install locale, packagers might overwrite this
 if(USE_NLS)
@@ -48,7 +49,11 @@ set(CPACK_CREATE_DESKTOP_LINKS ${CPACK_PACKAGE_CONTACT})
 set(CPACK_PACKAGE_INSTALL_DIRECTORY ${CPACK_PACKAGE_CONTACT})
 set(CPACK_STRIP_FILES TRUE)
 
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgtkmm-3.0-1v5, libgtksourceviewmm-3.0-0v5, libxml++2.6-2v5, libsqlite3-0, libgspell-1-2, libcurl4, libuchardet0, libspdlog1, gnome-icon-theme")
+if(USE_SHARED_FMT_SPDLOG)
+  set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgtkmm-3.0-1v5, libgtksourceviewmm-3.0-0v5, libxml++2.6-2v5, libsqlite3-0, libgspell-1-2, libcurl4, libuchardet0, libspdlog1, gnome-icon-theme")
+else()
+  set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgtkmm-3.0-1v5, libgtksourceviewmm-3.0-0v5, libxml++2.6-2v5, libsqlite3-0, libgspell-1-1, libcurl4, libuchardet0, gnome-icon-theme")
+endif()
 set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://www.giuspen.com/cherrytree/")
 #set(CPACK_DEBIAN_PACKAGE_SECTION "graphics") which one?
 set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
@@ -57,7 +62,9 @@ include(CPack)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_definitions(-DSPDLOG_FMT_EXTERNAL)
+if(USE_SHARED_FMT_SPDLOG)
+  add_definitions(-DSPDLOG_FMT_EXTERNAL)
+endif()
 add_definitions(-DSPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_DEBUG)
 
 # temporarily disable these warnings: Only <gtksourceview/gtksource.h> can be included directly.
@@ -111,8 +118,14 @@ pkg_check_modules(LIBXML libxml++-2.6 REQUIRED)
 pkg_check_modules(SQLITE sqlite3 REQUIRED)
 pkg_check_modules(CURL libcurl REQUIRED)
 pkg_check_modules(UCHARDET uchardet REQUIRED)
-pkg_check_modules(FMT fmt REQUIRED)
-pkg_check_modules(SPDLOG spdlog REQUIRED)
+if(USE_SHARED_FMT_SPDLOG)
+  message("Using fmt, spdlog from: SHARED LIB")
+  pkg_check_modules(FMT fmt>=6.0 REQUIRED)
+  pkg_check_modules(SPDLOG spdlog>=1.5 REQUIRED)
+else()
+  message("Using fmt, spdlog from: BUNDLED SRC")
+  add_subdirectory(src/spdlog)
+endif()
 
 add_subdirectory(src/7za)
 
@@ -129,10 +142,18 @@ include_directories(
   SYSTEM ${SQLITE_INCLUDE_DIRS}
   SYSTEM ${CURL_INCLUDE_DIRS}
   SYSTEM ${UCHARDET_INCLUDE_DIRS}
-  SYSTEM ${FMT_INCLUDE_DIRS}
-  SYSTEM ${SPDLOG_INCLUDE_DIRS}
-  include_directories(.) # config.h
+  . # config.h
 )
+if(USE_SHARED_FMT_SPDLOG)
+  include_directories(
+    SYSTEM ${FMT_INCLUDE_DIRS}
+    SYSTEM ${SPDLOG_INCLUDE_DIRS}
+  )
+else()
+  include_directories(
+    src/spdlog/include
+  )
+endif()
 
 add_subdirectory(src/ct)
 

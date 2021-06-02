@@ -23,17 +23,33 @@ else
   fi
 fi
 
+if [ -f /etc/lsb-release ]
+then
+  DISTRIB_ID="$(grep DISTRIB_ID /etc/lsb-release | awk -F= '{print $2}')"
+  DISTRIB_RELEASE="$(grep DISTRIB_RELEASE /etc/lsb-release | awk -F= '{print $2}')"
+fi
+
 echo "CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
 
+if [ -n "${DISTRIB_ID}" ] && [ -n "${DISTRIB_RELEASE}" ]
+then
+  echo "Building on ${DISTRIB_ID} ${DISTRIB_RELEASE}"
+  if [ "${DISTRIB_ID}${DISTRIB_RELEASE}" == "Ubuntu18.04" ]
+  then
+    EXTRA_CMAKE_FLAGS="-DUSE_SHARED_FMT_SPDLOG=''"
+  fi
+fi
+
 cd ${BUILD_DIR}
-cmake .. -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DINSTALL_GTEST='' -GNinja
+cmake .. -DCMAKE_C_COMPILER=gcc \
+         -DCMAKE_CXX_COMPILER=g++ \
+         -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
+         ${EXTRA_CMAKE_FLAGS} -DINSTALL_GTEST='' -GNinja
 ninja
 
 if [ -n "${MAKE_DEB}" ]
 then
   cpack -G DEB
-  DISTRIB_ID="$(grep DISTRIB_ID /etc/lsb-release | awk -F= '{print $2}')"
-  DISTRIB_RELEASE="$(grep DISTRIB_RELEASE /etc/lsb-release | awk -F= '{print $2}')"
   PACKAGE_VERSION="$(grep 'PACKAGE_VERSION ' ../config.h | awk -F\" '{print $2}')"
   TARGET_PACKAGE_NAME="cherrytree-${PACKAGE_VERSION}~${DISTRIB_ID}${DISTRIB_RELEASE}_amd64.deb"
   mv -v cherrytree-${PACKAGE_VERSION}-Linux.deb ${TARGET_PACKAGE_NAME}

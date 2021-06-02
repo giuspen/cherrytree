@@ -4,6 +4,9 @@ add_compile_options(-Wall -Wextra -Wunreachable-code -Wuninitialized)
 if(USE_NLS)
   add_definitions(-DHAVE_NLS)
 endif()
+if(USE_SHARED_FMT_SPDLOG)
+  add_definitions(-DSHARED_FMT_SPDLOG)
+endif()
 
 # Generating icons
 execute_process(
@@ -95,11 +98,19 @@ target_link_libraries(cherrytree_shared
   ${SQLITE_LIBRARIES}
   ${CURL_LIBRARIES}
   ${UCHARDET_LIBRARIES}
-  ${FMT_LIBRARIES}
-  ${SPDLOG_LIBRARIES}
   pthread
   7za_static
 )
+if(USE_SHARED_FMT_SPDLOG)
+  target_link_libraries(cherrytree_shared
+    ${FMT_LIBRARIES}
+    ${SPDLOG_LIBRARIES}
+  )
+else()
+  target_link_libraries(cherrytree_shared
+    spdlog::spdlog
+  )
+endif()
 
 add_executable(cherrytree ct_main.cc icons.gresource.cc ${CHERRY_EXE_RC})
 target_link_libraries(cherrytree cherrytree_shared)

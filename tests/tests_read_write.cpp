@@ -37,8 +37,8 @@ public:
 
     struct ExpectedTag {
         Glib::ustring text_slot;
-        bool found{false};
         CtCurrAttributesMap attr_map;
+        bool found{false};
     };
 
 private:
