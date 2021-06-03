@@ -4,7 +4,7 @@ The project home page is [giuspen.com/cherrytree](https://www.giuspen.com/cherry
 
 # Installation Guide
 
-- [Debian/Linux Mint/Ubuntu](#building-cherrytree-on-ubuntu-2004)
+- [Debian/Linux Mint/Ubuntu](#building-cherrytree-on-ubuntu)
 - [Arch Linux/Manjaro Linux](#building-cherrytree-on-arch)
 - [Gentoo](#building-cherrytree-on-gentoo)
 - [Fedora](#building-cherrytree-on-fedora)
@@ -52,19 +52,18 @@ This works on any operating system that supports Docker.
 4. Run the *Remote-Containers: Open Folder in Container...* command.
 5. See previous section for Build and Debug instructions.
 
-## To test install locally and create a package
+## To create a debian package
 ```sh
-cmake -DCMAKE_INSTALL_PREFIX=./local_usr ../
-make -j$(nproc --all) && make install
-cpack -G DEB
+./build.sh deb
 ```
 
-## Building Cherrytree on Ubuntu 20.04+
+## Building Cherrytree on Ubuntu
 
 Install dependencies:
 ```sh
 sudo apt install build-essential cmake ninja-build libgtkmm-3.0-dev libgtksourceviewmm-3.0-dev libxml++2.6-dev libsqlite3-dev gettext libgspell-1-dev libcurl4-openssl-dev libuchardet-dev libfmt-dev libspdlog-dev gnome-icon-theme
 ```
+Note: On Debian10 / Ubuntu 18.04 libfmt-dev and libspdlog-dev are not used since too old; bundled source code is built instead
 Get cherrytree source, compile and run:
 ```sh
 git clone https://github.com/giuspen/cherrytree.git
@@ -118,7 +117,7 @@ git submodule update --init
 ./build/cherrytree
 ```
 
-## Building Cherrytree on Fedora 33+
+## Building Cherrytree on Fedora
 
 Install dependencies:
 ```sh
@@ -223,10 +222,10 @@ console settings
 nano ~/.bashrc
 ```
 ```sh
-export LC_ALL=C
 CHERRYTREE_CONFIG_FOLDER="C:/Users/${USER}/AppData/Local/cherrytree"
 [ -d ${CHERRYTREE_CONFIG_FOLDER} ] || mkdir -p ${CHERRYTREE_CONFIG_FOLDER}
 alias l="ls -lah --color"
+alias g=git
 bind '"\e[A":history-search-backward'
 bind '"\e[B":history-search-forward'
 ```
@@ -243,4 +242,4 @@ git submodule update --init
 Troubleshooting:
 - Cannot build: make sure to start 64-bit terminal
 - Cannot build: remove `cherrytree/build` folder and start `build.sh` script again
-- Cannot start cherrytree: you either have to run cherrytree from the msys2 mingw64 terminal or copy and replace cherrytree in `cherrytree_0.99.X_win64_portable` folder (downloaded from the site) by the new one, so dependencies are fulfilled 
+- Cannot start cherrytree: you either have to run cherrytree from the msys2 mingw64 terminal or copy and replace cherrytree in `cherrytree_0.99.X_win64_portable` folder (downloaded from the site) by the new one, so dependencies are fulfilled

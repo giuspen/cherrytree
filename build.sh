@@ -27,6 +27,10 @@ if [ -f /etc/lsb-release ]
 then
   DISTRIB_ID="$(grep DISTRIB_ID /etc/lsb-release | awk -F= '{print $2}')"
   DISTRIB_RELEASE="$(grep DISTRIB_RELEASE /etc/lsb-release | awk -F= '{print $2}')"
+elif [ -f /etc/debian_version ]
+then
+  DISTRIB_ID="Debian"
+  DISTRIB_RELEASE="$(cat /etc/debian_version | awk -F. '{print $1}' | tr -d '\n')"
 fi
 
 echo "CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
@@ -34,7 +38,7 @@ echo "CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
 if [ -n "${DISTRIB_ID}" ] && [ -n "${DISTRIB_RELEASE}" ]
 then
   echo "Building on ${DISTRIB_ID} ${DISTRIB_RELEASE}"
-  if [ "${DISTRIB_ID}${DISTRIB_RELEASE}" == "Ubuntu18.04" ]
+  if [ "${DISTRIB_ID}${DISTRIB_RELEASE}" == "Ubuntu18.04" ] || [ "${DISTRIB_ID}${DISTRIB_RELEASE}" == "Debian10" ]
   then
     EXTRA_CMAKE_FLAGS="-DUSE_SHARED_FMT_SPDLOG=''"
   fi
