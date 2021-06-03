@@ -63,9 +63,13 @@ include(CPack)
 set(CMAKE_CXX_STANDARD 17)
 
 if(USE_SHARED_FMT_SPDLOG)
+  add_definitions(-DSHARED_FMT_SPDLOG)
   add_definitions(-DSPDLOG_FMT_EXTERNAL)
 endif()
 add_definitions(-DSPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_DEBUG)
+if(USE_NLS)
+  add_definitions(-DHAVE_NLS)
+endif()
 
 # temporarily disable these warnings: Only <gtksourceview/gtksource.h> can be included directly.
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")

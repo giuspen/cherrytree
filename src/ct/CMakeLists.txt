@@ -1,13 +1,6 @@
 
 add_compile_options(-Wall -Wextra -Wunreachable-code -Wuninitialized)
 
-if(USE_NLS)
-  add_definitions(-DHAVE_NLS)
-endif()
-if(USE_SHARED_FMT_SPDLOG)
-  add_definitions(-DSHARED_FMT_SPDLOG)
-endif()
-
 # Generating icons
 execute_process(
   COMMAND ${PYTHON_EXEC} ${CMAKE_SOURCE_DIR}/scripts/gresource_to_c.py
