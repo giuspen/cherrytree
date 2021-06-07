@@ -488,13 +488,11 @@ void CtClipboard::_on_received_to_plain_text(const Gtk::SelectionData& selection
     if (_pCtMainWin->curr_tree_iter().get_node_syntax_highlighting() == CtConst::RICH_TEXT_ID and !force_plain_text)
     {
         auto web_links_offsets = CtImports::get_web_links_offsets_from_plain_text(plain_text);
-        if (web_links_offsets.size())
-        {
-            for (auto& offset: web_links_offsets)
-            {
+        if (web_links_offsets.size()) {
+            for (auto& offset : web_links_offsets) {
                 Gtk::TextIter iter_sel_start = curr_buffer->get_iter_at_offset(start_offset + offset.first);
                 Gtk::TextIter iter_sel_end = curr_buffer->get_iter_at_offset(start_offset + offset.second);
-                Glib::ustring link_url = plain_text.substr((size_t)offset.first, (size_t)(offset.second - offset.first));
+                Glib::ustring link_url = iter_sel_start.get_text(iter_sel_end);
                 if (not str::startswith(link_url, "htt") and not str::startswith(link_url, "ftp"))
                     link_url = "http://" + link_url;
                 Glib::ustring property_value = "webs " + link_url;
