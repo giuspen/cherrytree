@@ -44,18 +44,16 @@ static std::unordered_map<std::string, std::pair<std::string,std::string>> _alte
 std::string legacy_canonicalize_filename(const std::string& filename, const std::string& relative_to/*= ""*/)
 {
     std::string retFilepath;
-    GFile* pGFile = g_file_new_for_path(filename.c_str());
-    if (not relative_to.empty()) {
-        GFile* pGFile2 = g_file_resolve_relative_path(pGFile, relative_to.c_str());
-        g_autofree gchar* pAbsPath = g_file_get_path(pGFile2);
-        g_object_unref(pGFile2);
-        retFilepath = pAbsPath;
+    GFile* pGFile{nullptr};
+    if (not Glib::path_is_absolute(filename) and not relative_to.empty()) {
+        pGFile = g_file_new_for_path(Glib::build_filename(relative_to, filename).c_str());
     }
     else {
-        g_autofree gchar* pAbsPath = g_file_get_path(pGFile);
-        retFilepath = pAbsPath;
+        pGFile = g_file_new_for_path(filename.c_str());
     }
+    g_autofree gchar* pAbsPath = g_file_get_path(pGFile);
     g_object_unref(pGFile);
+    retFilepath = pAbsPath;
     return retFilepath;
 }
 

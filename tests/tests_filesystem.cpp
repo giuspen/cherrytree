@@ -192,3 +192,18 @@ TEST(FileSystemGroup, relative)
     ASSERT_STREQ("../../test.txt", fs::relative("/tmp/test.txt", "/tmp/one/two").c_str());
 #endif // _WIN32
 }
+
+TEST(FileSystemGroup, canonicalize_filename)
+{
+#ifdef _WIN32
+    ASSERT_STREQ("C:\\opt\\one\\two\\three.txt", fs_canonicalize_filename("two\\three.txt", "C:\\opt\\one").c_str());
+    ASSERT_STREQ("C:\\opt\\one\\two\\three.txt", fs_canonicalize_filename(".\\two\\three.txt", "C:\\opt\\one").c_str());
+    ASSERT_STREQ("C:\\opt\\one\\two\\three.txt", fs_canonicalize_filename("..\\two\\three.txt", "C:\\opt\\one\\four").c_str());
+    ASSERT_STREQ("C:\\opt\\one\\two\\three.txt", fs_canonicalize_filename("C:\\opt\\one\\two\\three.txt", "C:\\four\\five").c_str());
+#else
+    ASSERT_STREQ("/opt/one/two/three.txt", fs_canonicalize_filename("two/three.txt", "/opt/one").c_str());
+    ASSERT_STREQ("/opt/one/two/three.txt", fs_canonicalize_filename("./two/three.txt", "/opt/one").c_str());
+    ASSERT_STREQ("/opt/one/two/three.txt", fs_canonicalize_filename("../two/three.txt", "/opt/one/four").c_str());
+    ASSERT_STREQ("/opt/one/two/three.txt", fs_canonicalize_filename("/opt/one/two/three.txt", "/four/five").c_str());
+#endif
+}
