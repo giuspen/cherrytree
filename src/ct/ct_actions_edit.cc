@@ -80,7 +80,13 @@ void CtActions::image_handle()
     if (filename.empty()) return;
     _pCtMainWin->get_ct_config()->pickDirImg = Glib::path_get_dirname(filename);
 
-    Glib::RefPtr<Gdk::Pixbuf> rPixbuf = Gdk::Pixbuf::create_from_file(filename);
+    Glib::RefPtr<Gdk::Pixbuf> rPixbuf;
+    try {
+        rPixbuf = Gdk::Pixbuf::create_from_file(filename);
+    }
+    catch (Glib::Error& error) {
+        spdlog::error("{} {}", __FUNCTION__, error.what());
+    }
     if (rPixbuf)
         _image_edit_dialog(rPixbuf, _curr_buffer()->get_insert()->get_iter(), nullptr);
     else
