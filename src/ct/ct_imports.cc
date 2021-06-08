@@ -150,12 +150,8 @@ std::vector<std::pair<size_t, size_t>> CtImports::get_web_links_offsets_from_pla
             unsigned closingParenthesisChar = 0;
             if (lastCharBeforeURL == '(') closingParenthesisChar = ')';
             else if (lastCharBeforeURL == '[') closingParenthesisChar = ']';
-            else if (lastCharBeforeURL == '{') closingParenthesisChar = '}';
             while (end_offset < max_end_offset and
-                   plain_text[end_offset] != ' ' and
-                   plain_text[end_offset] != '\n' and
-                   plain_text[end_offset] != '\r' and
-                   plain_text[end_offset] != '\t' and
+                   not strchr(CtConst::URL_INVALID_CHARS, plain_text[end_offset]) and
                    plain_text[end_offset] != closingParenthesisChar)
             {
                 ++end_offset;
