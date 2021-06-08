@@ -1847,7 +1847,7 @@ msgstr "새 저장소로 CherryTree 시작"
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:76
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:391
 msgid "_Open File"
-msgstr "파일열기(_O)"
+msgstr "파일 열기(_O)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:78
 msgid "_Save"
@@ -1855,7 +1855,7 @@ msgstr "저장(_S)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:79
 msgid "Save File"
-msgstr "파일저장"
+msgstr "파일 저장"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:80
 msgid "Save and _Vacuum"
@@ -2037,11 +2037,11 @@ msgstr "선택/단어의 대소문자를 토글 변환"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:131
 msgid "Cu_t as Plain Text"
-msgstr "텍스트 형식으로 잘라 내기(_T)"
+msgstr "텍스트 형식으로 잘라내기(_T)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:132
 msgid "Cut as Plain Text, Discard the Rich Text Formatting"
-msgstr "텍스트 형식으로 잘라 내기, 서식있는 텍스트 서식이 손실됩니다"
+msgstr "텍스트 형식으로 잘라내기, 서식있는 텍스트 서식이 손실됩니다"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:133
 msgid "_Copy as Plain Text"
@@ -2053,11 +2053,11 @@ msgstr "텍스트로 복사 서식있는 텍스트 서식이 손실됩니다"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:135
 msgid "_Paste as Plain Text"
-msgstr "텍스트로 붙여 넣기(_P)"
+msgstr "텍스트로 붙여넣기(_P)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:136
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
-msgstr "텍스트로 붙여 넣기 서식있는 텍스트 서식이 손실됩니다"
+msgstr "텍스트로 붙여넣기 서식있는 텍스트 서식이 손실됩니다"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:137
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:454
@@ -2104,7 +2104,7 @@ msgstr "현재 줄/선택 줄을 위로 이동"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:147
 msgid "Move _Down Row"
-msgstr "줄을 아래로 이동(_D)"
+msgstr "줄 아래로 이동(_D)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:148
 msgid "Move Down the Current Row/Selected Rows"
@@ -2376,7 +2376,7 @@ msgstr "Tree"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:216
 msgid "Go _Back"
-msgstr "전노트로 이동(_B)"
+msgstr "이전 열린 노트로 이동(_B)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:217
 msgid "Go to the Previous Visited Node"
@@ -2384,7 +2384,7 @@ msgstr "전에 열린 노트로 이동"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:218
 msgid "Go _Forward"
-msgstr "앞노트로 이동(_F)"
+msgstr "다음 열린 노트로 이동(_F)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:219
 msgid "Go to the Next Visited Node"
@@ -2666,11 +2666,11 @@ msgstr "노트 이름 바꾸기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:293
 msgid "Replace _Again"
-msgstr "마지막 치환을 반복한다(_A)"
+msgstr "마지막 치환을 반복(_A)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:294
 msgid "Iterate the Last Replace Operation"
-msgstr "마지막 치환 작업을 반복"
+msgstr "마지막 치환 작업을 반복 한다"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:296
 msgid "Show _All Matches Dialog"
@@ -2694,11 +2694,11 @@ msgstr "Tree 표시/숨기기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:301
 msgid "Show/Hide Tool_bar"
-msgstr "도구모음 표시/숨기기(_B)"
+msgstr "도구 모음 표시/숨기기(_B)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:302
 msgid "Toggle Show/Hide Toolbar"
-msgstr "도구모음 표시/숨기기"
+msgstr "도구 모음 표시/숨기기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:303
 msgid "Show/Hide Node Name _Header"
@@ -2762,7 +2762,7 @@ msgstr "현재 Tree에 텍스트파일을 불러와 노트로 추가하기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:318
 msgid "From _Folder of Plain Text Files"
-msgstr "폴더 내부 모든 텍스트파일 불러오기(_F)"
+msgstr "폴더에서 텍스트파일 모두 불러오기(_F)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:319
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
@@ -2778,7 +2778,7 @@ msgstr "현재 Tree에 HTML파일을 불러와 노트로 추가하기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:323
 msgid "From _Folder of HTML Files"
-msgstr "폴더 내부 모든 HTML 파일 불러오기(_F)"
+msgstr "폴더에서 HTML 파일 모두 불러오기(_F)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:324
 msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
@@ -2794,7 +2794,7 @@ msgstr "현재 Tree에 Markdown파일을 불러와 노트로 추가하기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:328
 msgid "From _Folder of Markdown Files"
-msgstr "폴더 내부 모든 Markdown 파일 불러오기(_F)"
+msgstr "폴더에서 Markdown 파일 모두 불러오기(_F)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:329
 msgid "Add Nodes from a Folder of Markdown Files to the Current Tree"
@@ -2842,7 +2842,7 @@ msgstr "현재 Tree에 NoteCase HTML파일을 불러와 노트로 추가하기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:342
 msgid "From _RedNotebook HTML"
-msgstr "RedNotebook HTML파일 불러오기(_R)"
+msgstr "RedNotebook HTML 파일 불러오기(_R)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:343
 msgid "Add Nodes of a RedNotebook HTML file to the Current Tree"
@@ -3092,7 +3092,7 @@ msgstr "링크 잘라내기(_U)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:424
 msgid "Cut the Selected Link"
-msgstr "선택한 링크 잘라 내기"
+msgstr "선택한 링크 잘라내기"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:425
 msgid "_Copy Link"
@@ -3224,7 +3224,7 @@ msgstr "선택한 행을 하나 위로 이동"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:465
 msgid "Move Row _Down"
-msgstr "줄을 아래로 이동(_D)"
+msgstr "줄 아래로 이동(_D)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:466
 msgid "Move the Selected Row Down"
@@ -3582,4 +3582,4 @@ msgstr "기본값으로 초기화 하겠습니까?"
 #~ "Giuseppe Penone <giuspen@gmail.com>"
 
 #~ msgid "Sort with Drag and Drop, Delete with the Delete Key"
-#~ msgstr "드래그 앤 드롭으로 정렬후 Delete 키로 삭제"
+#~ msgstr "드래그 앤 드롭으로 정렬하고 Delete 키로 삭제"
