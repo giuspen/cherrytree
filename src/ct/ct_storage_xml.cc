@@ -551,17 +551,24 @@ void CtXmlHelper::table_to_xml(xmlpp::Element* p_parent,
 
 bool CtXmlHelper::safe_parse_memory(xmlpp::DomParser& parser, const Glib::ustring& xml_content)
 {
+    bool parseOk{false};
     try {
         parser.parse_memory(xml_content);
+        parseOk = true;
     }
     catch (xmlpp::parse_error& e) {
-        spdlog::error("{} {}", __FUNCTION__, e.what());
+        spdlog::error("{} [1] {}", __FUNCTION__, e.what());
+    }
+    if (not parseOk) {
+        g_autofree gchar* pMadeValid = g_utf8_make_valid(xml_content.c_str(), xml_content.bytes());
         try {
-            parser.parse_memory(str::sanitize_bad_symbols(xml_content));
-            spdlog::info("{} xml sanitised", __FUNCTION__);
+            parser.parse_memory(pMadeValid);
+            parseOk = true;
         }
-        catch (std::exception& e) {
-            spdlog::error("{} {}", __FUNCTION__, e.what());
+        catch (xmlpp::parse_error& e) {
+            spdlog::error("{} [2] {}", __FUNCTION__, e.what());
+        }
+        if (not parseOk) {
             return false;
         }
     }
