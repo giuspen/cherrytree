@@ -569,7 +569,17 @@ bool CtXmlHelper::safe_parse_memory(xmlpp::DomParser& parser, const Glib::ustrin
             spdlog::error("{} [2] {}", __FUNCTION__, e.what());
         }
         if (not parseOk) {
-            return false;
+            auto sanitised = str::sanitize_bad_symbols(pMadeValid);
+            try {
+                parser.parse_memory(sanitised);
+                parseOk = true;
+            }
+            catch (xmlpp::parse_error& e) {
+                spdlog::error("{} [3] {}", __FUNCTION__, e.what());
+            }
+            if (not parseOk) {
+                return false;
+            }
         }
     }
     return parser.get_document() and parser.get_document()->get_root_node();
