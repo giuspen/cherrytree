@@ -39,10 +39,10 @@ struct TocEntry;
 class CtActions
 {
 public:
-    CtActions(CtMainWin* pCtMainWin)
-    {
+    CtActions(CtMainWin* pCtMainWin) {
         _pCtMainWin = pCtMainWin;
         _find_init();
+        _validate_enable_spell_check();
     }
 
 public:
@@ -53,6 +53,7 @@ public:
     CtImageEmbFile* curr_file_anchor{nullptr};
 
 private:
+    void _validate_enable_spell_check();
     CtLinkEntry _link_entry;
 
 private:

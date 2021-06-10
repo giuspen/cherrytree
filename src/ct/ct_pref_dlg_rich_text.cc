@@ -29,6 +29,7 @@ Gtk::Widget* CtPrefDlg::build_tab_rich_text()
     Gtk::VBox* vbox_spell_check = Gtk::manage(new Gtk::VBox());
     Gtk::CheckButton* checkbutton_spell_check = Gtk::manage(new Gtk::CheckButton(_("Enable Spell Check")));
     checkbutton_spell_check->set_active(_pConfig->enableSpellCheck);
+    checkbutton_spell_check->set_sensitive(gspell_language_get_available());
     Gtk::HBox* hbox_spell_check_lang = Gtk::manage(new Gtk::HBox());
     hbox_spell_check_lang->set_spacing(4);
     Gtk::Label* label_spell_check_lang = Gtk::manage(new Gtk::Label(_("Spell Check Language")));

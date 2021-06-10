@@ -506,8 +506,19 @@ void CtActions::text_selection_toggle_case()
 
 void CtActions::toggle_ena_dis_spellcheck()
 {
-    _pCtMainWin->get_ct_config()->enableSpellCheck = !_pCtMainWin->get_ct_config()->enableSpellCheck;
+    auto pCtConfig = _pCtMainWin->get_ct_config();
+    pCtConfig->enableSpellCheck = not pCtConfig->enableSpellCheck;
+    _validate_enable_spell_check();
     _pCtMainWin->get_text_view().set_spell_check(_pCtMainWin->curr_tree_iter().get_node_is_text());
+}
+
+void CtActions::_validate_enable_spell_check()
+{
+    auto pCtConfig = _pCtMainWin->get_ct_config();
+    if (pCtConfig->enableSpellCheck and not gspell_language_get_available()) {
+        pCtConfig->enableSpellCheck = false;
+        spdlog::debug("disabled spell check as no languages available");
+    }
 }
 
 // Copy as Plain Text
