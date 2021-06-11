@@ -1,4 +1,16 @@
 
+0.99.38 (June 11th, 2021)
+  * fix crash visiting node with a corrupted/invalid utf-8 character (#1337)
+  * fix crash when trying to insert image from file with format not supported from Glib such as .webp (#1709)
+  * fix unwanted characters found after copy/paste (#1687)
+  * fix status icon missing / bad rendered in tray (#1703)
+  * fixed tree node visibility issue when starting minimised on system tray (#1704)
+  * fix link markdown paste broken link (#1714)
+  * fix issues with spell check enabled and no languages available (#1718)
+  * improved web link recognition (#1713)
+  * updated languages Finnish, Korean, Brazilian Portuguese
+  * this (gtkmm3) version can now build on older distributions such as debian 10 / ubuntu 18.04
+
 0.99.37 (May 18th, 2021)
   * added configurable option to have bookmarks also under dedicated menu in top menu bar (#1643)
   * added configurable option to show the full node path in the node name header (#1399)

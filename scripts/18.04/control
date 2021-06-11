@@ -14,8 +14,6 @@ Build-Depends:
  libgspell-1-dev,
  libcurl4-openssl-dev,
  libuchardet-dev,
- libfmt-dev,
- libspdlog-dev
 Standards-Version: 3.9.5
 Homepage: https://www.giuspen.com/cherrytree/
 Vcs-Git: https://github.com/giuspen/cherrytree.git
@@ -28,10 +26,9 @@ Depends:
  libgtksourceviewmm-3.0-0v5,
  libxml++2.6-2v5,
  libsqlite3-0,
- libgspell-1-2,
+ libgspell-1-1,
  libcurl4,
  libuchardet0,
- libspdlog1,
  gnome-icon-theme,
  ${misc:Depends},
  ${shlibs:Depends}
