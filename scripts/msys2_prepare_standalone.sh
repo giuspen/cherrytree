@@ -17,7 +17,7 @@ GIT_CT_CONFIG_H="${GIT_CT_FOLDER}/config.h"
 DOWNGRADE_PACKAGE_LOCATION="http://repo.msys2.org/mingw/x86_64"
 DOWNGRADE_PACKAGE_NAME=""
 
-if [ -n ${DOWNGRADE_PACKAGE_NAME} ]
+if [ -n "${DOWNGRADE_PACKAGE_NAME}" ]
 then
   wget "${DOWNGRADE_PACKAGE_LOCATION}/${DOWNGRADE_PACKAGE_NAME}"
   pacman -U --noconfirm ${DOWNGRADE_PACKAGE_NAME}
@@ -69,7 +69,7 @@ if [ "$_result" -ne "0" ]; then
   echo "failed to create base data via command 'pacman -S <packages names list> --noconfirm --root ${NEW_MSYS2_FOLDER}'"
   exit 1
 fi
-if [ -n ${DOWNGRADE_PACKAGE_NAME} ]
+if [ -n "${DOWNGRADE_PACKAGE_NAME}" ]
 then
   wget "${DOWNGRADE_PACKAGE_LOCATION}/${DOWNGRADE_PACKAGE_NAME}"
   pacman -U --noconfirm --root ${NEW_MSYS2_FOLDER} ${DOWNGRADE_PACKAGE_NAME}
