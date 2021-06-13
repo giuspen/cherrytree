@@ -38,8 +38,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/mm-common/1.0/mm-common-1.0.2.tar.xz",
-                    "sha256": "a2a99f3fa943cf662f189163ed39a2cfc19a428d906dd4f92b387d3659d1641d"
+                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/mm-common/1.0/mm-common-1.0.3.tar.xz",
+                    "sha256": "e81596625899aacf1d0bf27ccc2fcc7f373405ec48735ca1c7273c0fbcdc1ef5"
                 }
             ],
             "cleanup": [
@@ -54,8 +54,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/libsigc++/2.10/libsigc++-2.10.6.tar.xz",
-                    "sha256": "dda176dc4681bda9d5a2ac1bc55273bdd381662b7a6d49e918267d13e8774e1b"
+                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/libsigc++/2.10/libsigc++-2.10.7.tar.xz",
+                    "sha256": "d082a2ce72c750f66b1a415abe3e852df2eae1e8af53010f4ac2ea261a478832"
                 }
             ]
         },
@@ -70,8 +70,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://www.cairographics.org/releases/cairomm-1.14.2.tar.xz",
-                    "sha256": "0126b9cc295dc36bc9c0860d5b720cb5469fd78d5620c8f10cc5f0c07b928de3"
+                    "url": "https://www.cairographics.org/releases/cairomm-1.14.3.tar.xz",
+                    "sha256": "0d37e067c5c4ca7808b7ceddabfe1932c5bd2a750ad64fb321e1213536297e78"
                 }
             ]
         },
@@ -84,8 +84,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/glibmm/2.66/glibmm-2.66.0.tar.xz",
-                    "sha256": "9e1db7d43d2e2d4dfa2771354e21a69a6beec7c446b711619cf8c779e13a581e"
+                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/glibmm/2.66/glibmm-2.66.1.tar.xz",
+                    "sha256": "69bd6b5327716ca2f511ab580a969fd7bf0cd2c24ce15e1d0e530592d3ff209c"
                 }
             ]
         },
@@ -95,8 +95,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/pangomm/2.46/pangomm-2.46.0.tar.xz",
-                    "sha256": "d3787d04d6198b606f3efa357b3b452a7140e2a7dee56f9f9ce516d7d5fcec1b"
+                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/pangomm/2.46/pangomm-2.46.1.tar.xz",
+                    "sha256": "c885013fe61a4c5117fda395770d507563411c63e49f4a3aced4c9efe34d9975"
                 }
             ]
         },
@@ -109,8 +109,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/atkmm/2.28/atkmm-2.28.1.tar.xz",
-                    "sha256": "116876604770641a450e39c1f50302884848ce9cc48d43c5dc8e8efc31f31bad"
+                    "url": "https://ftp.acc.umu.se/pub/GNOME/sources/atkmm/2.28/atkmm-2.28.2.tar.xz",
+                    "sha256": "a0bb49765ceccc293ab2c6735ba100431807d384ffa14c2ebd30e07993fd2fa4"
                 }
             ]
         },
@@ -123,8 +123,8 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/gtkmm/3.24/gtkmm-3.24.4.tar.xz",
-                    "sha256" : "9beb71c3e90cfcfb790396b51e3f5e7169966751efd4f3ef9697114be3be6743"
+                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/gtkmm/3.24/gtkmm-3.24.5.tar.xz",
+                    "sha256" : "856333de86689f6a81c123f2db15d85db9addc438bc3574c36f15736aeae22e6"
                 }
             ]
         },
@@ -162,8 +162,8 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/libxml++/2.42/libxml++-2.42.0.tar.xz",
-                    "sha256" : "3d032aede98a033eb5e815b4bfa9fa7b4e745268e6fd1ce8b1d0f70bcaf4736d"
+                    "url" : "https://ftp.acc.umu.se/pub/GNOME/sources/libxml++/2.42/libxml++-2.42.1.tar.xz",
+                    "sha256" : "9b59059abe5545d28ceb388a55e341095f197bd219c73e6623aeb6d801e00be8"
                 }
             ]
         },
@@ -208,8 +208,8 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://github.com/gabime/spdlog/archive/v1.8.2.tar.gz",
-                    "sha256" : "e20e6bd8f57e866eaf25a5417f0a38a116e537f1a77ac7b5409ca2b180cec0d5"
+                    "url" : "https://github.com/gabime/spdlog/archive/refs/tags/v1.8.5.tar.gz",
+                    "sha256" : "944d0bd7c763ac721398dca2bb0f3b5ed16f67cef36810ede5061f35a543b4b8"
                 }
             ]
         },
@@ -219,8 +219,8 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://www.giuspen.com/software/cherrytree_0.99.33.tar.xz",
-                    "sha256" : "a1d264ded32d8b4c256b98721eda91d119573e2b35fd474bc0010d039a101edf"
+                    "url" : "https://www.giuspen.com/software/cherrytree_0.99.38.tar.xz",
+                    "sha256" : "788a64566b14b0f390111cbadc50c6dcb410c4dac90cabffbf0a191f14a46b60"
                 }
             ]
         }
