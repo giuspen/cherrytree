@@ -2018,19 +2018,19 @@ msgstr ""
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:90
 msgid "_Import Preferences"
-msgstr "Сохранить настройки..."
+msgstr "Импорт настройки..."
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:91
 msgid "Import Preferences"
-msgstr "Сохранить резервную копию настроек СherryТree"
+msgstr "Восстановить настройки СherryТree из резервной копии"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:92
 msgid "_Export Preferences"
-msgstr "Восстановить настройки..."
+msgstr "Экспорт настройки..."
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:93
 msgid "Export Preferences"
-msgstr "Восстановить настройки СherryТree из резервной копии"
+msgstr "Сохранить резервную копию настроек СherryТree"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:94
 msgid "Tree _Info"
