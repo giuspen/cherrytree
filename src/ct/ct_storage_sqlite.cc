@@ -185,12 +185,15 @@ void CtStorageSqlite::test_connection()
     if (_file_path.empty()) return;
 
     auto test_readwrite = [&]() {
-        try
-        {
+        try {
             _exec_no_callback("CREATE TABLE IF NOT EXISTS test_table (id)");
             _exec_no_callback("DROP TABLE IF EXISTS test_table");
             return true;
-        } catch (std::exception&) { return false; }
+        }
+        catch (std::exception& e) {
+            spdlog::debug("{} {}", __FUNCTION__, e.what());
+            return false;
+        }
         return true;
     };
 
@@ -203,7 +206,9 @@ void CtStorageSqlite::test_connection()
 
     try {
         _open_db(_file_path);
-    } catch(std::exception&) {
+    }
+    catch(std::exception& e) {
+        spdlog::debug("{} {}", __FUNCTION__, e.what());
         throw std::runtime_error(str::format(_("%s write failed - file is missing. Reattach usb driver or shared resource"), _file_path));
     }
     if (!test_readwrite())
@@ -245,8 +250,7 @@ bool CtStorageSqlite::populate_treestore(const fs::path& file_path, Glib::ustrin
         // keep db open for lazy node buffer loading
         return true;
     }
-    catch (std::exception& e)
-    {
+    catch (std::exception& e) {
         _close_db();
         error = e.what();
         return false;
@@ -343,8 +347,7 @@ bool CtStorageSqlite::save_treestore(const fs::path& file_path,
 
         return true;
     }
-    catch (std::exception& e)
-    {
+    catch (std::exception& e) {
         error = e.what();
         return false;
     }
