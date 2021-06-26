@@ -1,7 +1,7 @@
 /*
  * ct_p7za_iface.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -53,32 +53,21 @@ static void register_codecs()
     cherrytree_register_lzma();
 }
 
-#ifdef _WIN32
-static void _slashes_convert(std::string& path)
-{
-    std::replace(path.begin(), path.end(), '\\', '/');
-}
-#endif // _WIN32
-
 int CtP7zaIface::p7za_extract(const gchar* input_path, const gchar* out_dir, const gchar* passwd, bool suppress_error)
 {
     std::vector<std::string> args {
                 "7za",
                 "e",
-                "-p" + std::string(passwd),
-                "-w" + std::string(g_get_tmp_dir()),
+                "-p" + std::string{passwd},
+                "-w" + fs::path{g_get_tmp_dir()}.string_unix(),
                 "-bd",   // Disable progress indicator
                 "-bso0", // Disable standard output, error output is turn on
                 "-bsp0", // Disable progress output
                 suppress_error ? "-bse0" : "-bse1", // redirect error output into standard output
                 "-y",
-                "-o" + std::string(out_dir),
-                input_path
+                "-o" + fs::path{out_dir}.string_unix(),
+                fs::path{input_path}.string_unix()
     };
-#ifdef _WIN32
-    for (size_t i = 0; i < args.size(); ++i)
-        _slashes_convert(args[i]);
-#endif // _WIN32
     gchar** pp_args = CtStrUtil::vector_to_array(args);
 
     register_codecs();
@@ -97,8 +86,8 @@ int CtP7zaIface::p7za_archive(const gchar* input_path, const gchar* output_path,
     std::vector<std::string> args {
                 "7za",
                 "a",
-                "-p" + std::string(passwd),
-                "-w" + std::string(p_workspace_dir),
+                "-p" + std::string{passwd},
+                "-w" + fs::path{p_workspace_dir}.string_unix(),
                 "-t7z",
                 "-m0=LZMA2:d64k:fb32",
                 "-ms=8m",
@@ -109,13 +98,9 @@ int CtP7zaIface::p7za_archive(const gchar* input_path, const gchar* output_path,
                 "-bsp0", // Disable progress output
                 "-y",
                 "--",
-                output_path,
-                input_path
+                fs::path{output_path}.string_unix(),
+                fs::path{input_path}.string_unix()
     };
-#ifdef _WIN32
-    for (size_t i = 0; i < args.size(); ++i)
-        _slashes_convert(args[i]);
-#endif // _WIN32
     gchar** pp_args = CtStrUtil::vector_to_array(args);
 
     register_codecs();

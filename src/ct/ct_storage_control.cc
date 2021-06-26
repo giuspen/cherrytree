@@ -128,7 +128,7 @@ std::unique_ptr<CtStorageEntity> get_entity_by_type(CtMainWin* pCtMainWin, CtDoc
         // encrypt the file
         if (file_path != extracted_file_path)
         {
-            storage->close_connect(); // temporary, because of sqlite keepig the file
+            storage->close_connect(); // temporary, because of sqlite keeping the file
             if (!_package_file(extracted_file_path, file_path, password))
                 throw std::runtime_error("couldn't encrypt the file");
             storage->reopen_connect();
@@ -206,7 +206,7 @@ bool CtStorageControl::save(bool need_vacuum, Glib::ustring &error)
         // encrypt the file
         if (_file_path != _extracted_file_path)
         {
-            _storage->close_connect(); // temporary, because of sqlite keepig the file
+            _storage->close_connect(); // temporary, because of sqlite keeping the file
             if (!_package_file(_extracted_file_path, _file_path, _password))
                 throw std::runtime_error("couldn't encrypt the file");
             _storage->reopen_connect();
@@ -280,10 +280,17 @@ Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64
     }
 }
 
-/*static*/ bool CtStorageControl::_package_file(const fs::path& file_from, const fs::path& file_to, const Glib::ustring& password)
+/*static*/bool CtStorageControl::_package_file(const fs::path& file_from, const fs::path& file_to, const Glib::ustring& password)
 {
-    return 0 == CtP7zaIface::p7za_archive(file_from.c_str(), file_to.c_str(), password.c_str())
-            && fs::is_regular_file(file_to);
+    if (0 != CtP7zaIface::p7za_archive(file_from.c_str(), file_to.c_str(), password.c_str())) {
+        spdlog::debug("!! p7za_archive {} -> {}", file_from.c_str(), file_to.c_str());
+        return false;
+    }
+    if (not fs::is_regular_file(file_to)) {
+        spdlog::debug("!! is_regular_file {}", file_to);
+        return false;
+    }
+    return true;
 }
 
 void CtStorageControl::_put_in_backup(const fs::path& main_backup)
