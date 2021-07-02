@@ -289,7 +289,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
     if (link_entry.type == CtConst::LINK_TYPE_WEBS) { // link to webpage
         Glib::ustring clean_weblink = str::replace(link_entry.webs, "amp;", "");
         if (_pCtMainWin->get_ct_config()->weblinkCustomOn) {
-            std::string cmd = fmt::sprintf(_pCtMainWin->get_ct_config()->weblinkCustomAct, clean_weblink);
+            std::string cmd = fmt::sprintf(_pCtMainWin->get_ct_config()->weblinkCustomAct, clean_weblink.raw());
             int retr = std::system(cmd.c_str());
             if (retr == -1) {
                 // Internal std::system error
