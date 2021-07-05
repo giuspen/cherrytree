@@ -21,14 +21,9 @@ using namespace NName;
 #include "myPrivate.h"
 #include "Windows/Synchronization.h"
 
-#include <unistd.h> // rmdir
 #include <errno.h>
 
-#ifdef _WIN32
-#include <direct.h> // mkdir
-#else
-#include <sys/stat.h> // mkdir
-#endif // _WIN32
+#include <glib/gstdio.h>
 #include <sys/types.h>
 #include <fcntl.h>
 
@@ -386,7 +381,7 @@ bool RemoveDir(CFSTR path)
   AString name = nameWindowToUnix2(path);
   TRACEN((printf("RemoveDirectoryA(%s)\n",(const char *)name)))
 
-  if (rmdir( (const char *)name ) != 0) {
+  if (g_rmdir ( (const char *)name ) != 0) {
     return FALSE;
   }
   return TRUE;
@@ -404,7 +399,7 @@ bool MyMoveFile(CFSTR existFileName, CFSTR newFileName)
 
   TRACEN((printf("MyMoveFile(%s,%s)\n",(const char *)src,(const char *)dst)))
 
-  int ret = rename(src,dst);
+  int ret = g_rename(src,dst);
   if (ret != 0)
   {
 #ifndef _LIB_FOR_CHERRYTREE
@@ -443,11 +438,7 @@ bool CreateDir(CFSTR path)
   const char * name = nameWindowToUnix(path);
 #endif
   bool bret = false;
-#ifdef _WIN32
-  if (mkdir(name) == 0) bret = true;
-#else
-  if (mkdir( name, 0700 ) == 0) bret = true;
-#endif // _WIN32
+  if (g_mkdir( name, 0700 ) == 0) bret = true;
   TRACEN((printf("CreateDir(%s)=%d\n",(const char *)name,(int)bret)))
   return bret;
 }
@@ -509,7 +500,7 @@ bool DeleteFileAlways(CFSTR name)
    const char * unixname = nameWindowToUnix(name);
 #endif
    bool bret = false;
-   if (remove(unixname) == 0) bret = true;
+   if (g_remove(unixname) == 0) bret = true;
    TRACEN((printf("DeleteFileAlways(%s)=%d\n",(const char *)unixname,(int)bret)))
    return bret;
 }

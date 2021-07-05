@@ -18,6 +18,8 @@
 #include <sys/types.h>
 #include <utime.h>
 
+#include <glib/gstdio.h>
+
 #ifdef ENV_HAVE_LSTAT
 #define FD_LINK (-2)
 #endif
@@ -102,7 +104,7 @@ bool CFileBase::Create(CFSTR filename, DWORD dwDesiredAccess,
 #endif
 
   if (_fd == -1) {
-    _fd = open(name,flags, mode);
+    _fd = g_open(name,flags, mode);
   }
 
   if ((_fd == -1) && (global_use_utf16_conversion)) {
@@ -120,7 +122,7 @@ bool CFileBase::Create(CFSTR filename, DWORD dwDesiredAccess,
       }
     }
     if (is_good) {
-      _fd = open((const char *)resultString,flags, mode);
+      _fd = g_open((const char *)resultString,flags, mode);
     }
   }
 
