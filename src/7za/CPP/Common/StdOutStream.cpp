@@ -2,6 +2,7 @@
 
 #include "StdAfx.h"
 
+#include <glib/gstdio.h>
 #include <tchar.h>
 
 #include "IntToString.h"
@@ -21,7 +22,7 @@ CStdOutStream g_StdErr(stderr);
 bool CStdOutStream::Open(const char *fileName) throw()
 {
   Close();
-  _stream = fopen(fileName, kFileOpenMode);
+  _stream = g_fopen(fileName, kFileOpenMode);
   _streamIsOpen = (_stream != 0);
   return _streamIsOpen;
 }

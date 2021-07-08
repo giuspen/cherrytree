@@ -1,7 +1,6 @@
 #include "StdAfx.h"
 
-#include <sys/types.h>
-#include <sys/stat.h>
+#include <glib/gstdio.h>
 
 #include <windows.h>
 
@@ -15,6 +14,6 @@ void myAddExeFlag(const UString &u_name)
 	AString filename = UnicodeStringToMultiByte(u_name, CP_ACP); // FIXME
 	const char * name = nameWindowToUnix(filename);
 	// printf("myAddExeFlag(%s)\n",name);
-	chmod(name,0700);
+	g_chmod(name,0700);
 }
 

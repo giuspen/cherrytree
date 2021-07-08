@@ -12,7 +12,6 @@
 extern bool g_IsNT;
 #endif
 
-#include <sys/stat.h>
 #include <unistd.h>
 #include <errno.h>
 
@@ -181,15 +180,11 @@ static void ConvertWIN32_FIND_DATA_To_FileInfo(const WIN32_FIND_DATA &fd, CFileI
 
 bool CFindFile::Close()
 {
-  if(_dirp == 0)
-    return true;
-  int ret = closedir(_dirp);
-  if (ret == 0)
-  {
+  if (_dirp != 0) {
+    g_dir_close(_dirp);
     _dirp = 0;
-    return true;
   }
-  return false;
+  return true;
 }
 
 
@@ -217,11 +212,11 @@ static int fillin_CFileInfo(CFileInfo &fileInfo,const char *filename,bool ignore
   int ret;
 #ifdef ENV_HAVE_LSTAT
   if ( (global_use_lstat) && (ignoreLink == false)) {
-    ret = lstat(filename,&stat_info);
+    ret = g_lstat(filename,&stat_info);
   } else
 #endif
   {
-     ret = stat(filename,&stat_info);
+     ret = g_stat(filename,&stat_info);
   }
 
   // printf("fillin_CFileInfo(%s,%d)=%d  mode=%o\n",filename,(int)ignoreLink,ret,(unsigned)stat_info.st_mode);
@@ -308,7 +303,7 @@ bool CFindFile::FindFirst(CFSTR cfWildcard, CFileInfo &fi, bool ignoreLink)
   
   TRACEN((printf("CFindFile::FindFirst : %s (dirname=%s,pattern=%s)\n",wildcard,(const char *)_directory,(const char *)_pattern)))
 
-  _dirp = ::opendir((const char *)_directory);
+  _dirp = g_dir_open((const char *)_directory, 0, NULL);
   TRACEN((printf("CFindFile::FindFirst : opendir=%p\n",_dirp)))
 
   if ((_dirp == 0) && (global_use_utf16_conversion)) {
@@ -317,21 +312,21 @@ bool CFindFile::FindFirst(CFSTR cfWildcard, CFileInfo &fi, bool ignoreLink)
     AString resultString;
     bool is_good = originalFilename(ustr, resultString);
     if (is_good) {
-      _dirp = ::opendir((const char *)resultString);
+      _dirp = g_dir_open((const char *)resultString, 0, NULL);
       _directory = resultString;
     }
   }
 
   if (_dirp == 0) return false;
 
-  struct dirent *dp;
-  while ((dp = readdir(_dirp)) != NULL) {
-    if (filter_pattern(dp->d_name,(const char *)_pattern,0) == 1) {
-      int retf = fillin_CFileInfo(fi,(const char *)_directory,dp->d_name,ignoreLink);
+  const gchar* d_name;
+  while ((d_name = g_dir_read_name(_dirp)) != NULL) {
+    if (filter_pattern(d_name,(const char *)_pattern,0) == 1) {
+      int retf = fillin_CFileInfo(fi,(const char *)_directory,d_name,ignoreLink);
       if (retf)
       {
          TRACEN((printf("CFindFile::FindFirst : closedir-1(dirp=%p)\n",_dirp)))
-         closedir(_dirp);
+         g_dir_close(_dirp);
          _dirp = 0;
          SetLastError( ERROR_NO_MORE_FILES );
          return false;
@@ -342,7 +337,7 @@ bool CFindFile::FindFirst(CFSTR cfWildcard, CFileInfo &fi, bool ignoreLink)
   }
 
   TRACEN((printf("CFindFile::FindFirst : closedir-2(dirp=%p)\n",_dirp)))
-  closedir(_dirp);
+  g_dir_close(_dirp);
   _dirp = 0;
   SetLastError( ERROR_NO_MORE_FILES );
   return false;
@@ -357,17 +352,17 @@ bool CFindFile::FindNext(CFileInfo &fi)
     return false;
   }
 
-  struct dirent *dp;
-  while ((dp = readdir(_dirp)) != NULL) {
-      if (filter_pattern(dp->d_name,(const char *)_pattern,0) == 1) {
-        int retf = fillin_CFileInfo(fi,(const char *)_directory,dp->d_name,false);
+  const gchar* d_name;
+  while ((d_name = g_dir_read_name(_dirp)) != NULL) {
+      if (filter_pattern(d_name,(const char *)_pattern,0) == 1) {
+        int retf = fillin_CFileInfo(fi,(const char *)_directory,d_name,false);
         if (retf)
         {
-           TRACEN((printf("FindNextFileA -%s- ret_handle=FALSE (errno=%d)\n",dp->d_name,errno)))
+           TRACEN((printf("FindNextFileA -%s- ret_handle=FALSE (errno=%d)\n",d_name,errno)))
            return false;
 
         }
-        TRACEN((printf("FindNextFileA -%s- true\n",dp->d_name)))
+        TRACEN((printf("FindNextFileA -%s- true\n",d_name)))
         return true;
       }
     }

@@ -97,7 +97,7 @@ bool CFileBase::Create(CFSTR filename, DWORD dwDesiredAccess,
          _buffer[_size]=0;
        } else if (dwDesiredAccess & GENERIC_WRITE) {
          // does not overwrite the file pointed by symbolic link
-         if (!unlink(name)) return false;
+         if (!g_unlink(name)) return false;
        }
      }
   }
@@ -172,7 +172,7 @@ bool CFileBase::Close()
     /* On some OS (mingwin, MacOSX ...), you must close the file before updating times */
     if ((buf.actime != (time_t)-1) || (buf.modtime != (time_t)-1)) {
       struct stat    oldbuf;
-      int ret = stat((const char*)(_unix_filename),&oldbuf);
+      int ret = g_stat((const char*)(_unix_filename),&oldbuf);
       if (ret == 0) {
         if (buf.actime  == (time_t)-1) buf.actime  = oldbuf.st_atime;
         if (buf.modtime == (time_t)-1) buf.modtime = oldbuf.st_mtime;
@@ -181,7 +181,7 @@ bool CFileBase::Close()
         if (buf.actime  == (time_t)-1) buf.actime  = current_time;
         if (buf.modtime == (time_t)-1) buf.modtime = current_time;
       }
-      /* ret = */ utime((const char *)(_unix_filename), &buf);
+      /* ret = */ g_utime((const char *)(_unix_filename), &buf);
     }
     return true;
   }

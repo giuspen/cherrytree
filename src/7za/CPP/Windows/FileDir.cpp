@@ -186,10 +186,10 @@ static BOOL CopyFile(const char *src,const char *dst)
 #endif
 
   // printf("##DBG CopyFile(%s,%s)\n",src,dst);
-  int fout = open(dst,O_CREAT | O_WRONLY | O_EXCL | flags, 0600);
+  int fout = g_open(dst,O_CREAT | O_WRONLY | O_EXCL | flags, 0600);
   if (fout != -1)
   {
-    int fin = open(src,O_RDONLY | flags , 0600);
+    int fin = g_open(src,O_RDONLY | flags , 0600);
     if (fin != -1)
     {
       ret = copy_fd(fin,fout);
@@ -229,7 +229,7 @@ bool SetDirTime(CFSTR fileName, const FILETIME * /* cTime */ , const FILETIME *a
   struct utimbuf buf;
 
   struct stat    oldbuf;
-  int ret = stat(unix_filename,&oldbuf);
+  int ret = g_stat(unix_filename,&oldbuf);
   if (ret == 0) {
     buf.actime  = oldbuf.st_atime;
     buf.modtime = oldbuf.st_mtime;
@@ -259,7 +259,7 @@ bool SetDirTime(CFSTR fileName, const FILETIME * /* cTime */ , const FILETIME *a
     buf.modtime = dw;
   }
 
-  /* ret = */ utime(unix_filename, &buf);
+  /* ret = */ g_utime(unix_filename, &buf);
 
   return true;
 }
@@ -282,13 +282,13 @@ bool GetLongPaths(CFSTR s1, CFSTR s2, UString &d1, UString &d2)
 #ifndef _LIB_FOR_CHERRYTREE
 static int convert_to_symlink(const char * name) {
   TRACEN(printf("LINK(%s)\n",name))
-  FILE *file = fopen(name,"rb");
+  FILE *file = g_fopen(name,"rb");
   if (file) {
     char buf[MAX_PATHNAME_LEN+1];
     char * ret = fgets(buf,sizeof(buf)-1,file);
     fclose(file);
     if (ret) {
-      int ir = unlink(name);
+      int ir = g_unlink(name);
       if (ir == 0) {
         ir = symlink(buf,name);
         TRACEN(printf("TO(%s)\n",buf))
@@ -314,14 +314,14 @@ bool SetFileAttrib(CFSTR fileName, DWORD fileAttributes,CObjectVector<CDelayedSy
   struct stat stat_info;
 #ifdef ENV_HAVE_LSTAT
   if (global_use_lstat) {
-    if(lstat(name,&stat_info)!=0) {
+    if(g_lstat(name,&stat_info)!=0) {
       TRACEN((printf("SetFileAttrib(%s,%d) : false-2-1\n",(const char *)name,fileAttributes)))
       return false;
     }
   } else
 #endif
   {
-    if(stat(name,&stat_info)!=0) {
+    if(g_stat(name,&stat_info)!=0) {
       TRACEN((printf("SetFileAttrib(%s,%d) : false-2-2\n",(const char *)name,fileAttributes)))
       return false;
     }
@@ -341,12 +341,12 @@ bool SetFileAttrib(CFSTR fileName, DWORD fileAttributes,CObjectVector<CDelayedSy
 #endif
      if (S_ISREG(stat_info.st_mode)) {
        TRACEN((printf("##DBG chmod-2(%s,%o)\n",(const char *)name,(unsigned)stat_info.st_mode & gbl_umask.mask)))
-       chmod(name,stat_info.st_mode & gbl_umask.mask);
+       g_chmod(name,stat_info.st_mode & gbl_umask.mask);
      } else if (S_ISDIR(stat_info.st_mode)) {
        // user/7za must be able to create files in this directory
        stat_info.st_mode |= (S_IRUSR | S_IWUSR | S_IXUSR);
        TRACEN((printf("##DBG chmod-3(%s,%o)\n",(const char *)name,(unsigned)stat_info.st_mode & gbl_umask.mask)))
-       chmod(name,stat_info.st_mode & gbl_umask.mask);
+       g_chmod(name,stat_info.st_mode & gbl_umask.mask);
      }
 #ifdef ENV_HAVE_LSTAT
   } else if (!S_ISLNK(stat_info.st_mode)) {
@@ -359,11 +359,11 @@ bool SetFileAttrib(CFSTR fileName, DWORD fileAttributes,CObjectVector<CDelayedSy
     if( S_ISDIR(stat_info.st_mode)) {
        /* Remark : FILE_ATTRIBUTE_READONLY ignored for directory. */
        TRACEN((printf("##DBG chmod-4(%s,%o)\n",(const char *)name,(unsigned)stat_info.st_mode & gbl_umask.mask)))
-       chmod(name,stat_info.st_mode & gbl_umask.mask);
+       g_chmod(name,stat_info.st_mode & gbl_umask.mask);
     } else {
        if (fileAttributes & FILE_ATTRIBUTE_READONLY) stat_info.st_mode &= ~0222; /* octal!, clear write permission bits */
        TRACEN((printf("##DBG chmod-5(%s,%o)\n",(const char *)name,(unsigned)stat_info.st_mode & gbl_umask.mask)))
-       chmod(name,stat_info.st_mode & gbl_umask.mask);
+       g_chmod(name,stat_info.st_mode & gbl_umask.mask);
     }
   }
   TRACEN((printf("SetFileAttrib(%s,%d) : true\n",(const char *)name,fileAttributes)))
@@ -409,13 +409,13 @@ bool MyMoveFile(CFSTR existFileName, CFSTR newFileName)
       if (bret == FALSE) return false;
 
       struct stat info_file;
-      ret = stat(src,&info_file);
+      ret = g_stat(src,&info_file);
       if (ret == 0) {
     TRACEN((printf("##DBG chmod-1(%s,%o)\n",(const char *)dst,(unsigned)info_file.st_mode & gbl_umask.mask)))
-        ret = chmod(dst,info_file.st_mode & gbl_umask.mask);
+        ret = g_chmod(dst,info_file.st_mode & gbl_umask.mask);
       }
       if (ret == 0) {
-         ret = unlink(src);
+         ret = g_unlink(src);
       }
       if (ret == 0) return true;
     }
@@ -594,7 +594,7 @@ bool SetCurrentDir(CFSTR path)
 {
    AString apath = UnicodeStringToMultiByte(path);
 
-   return chdir((const char*)apath) == 0;
+   return g_chdir((const char*)apath) == 0;
 }
 
 bool GetCurrentDir(FString &path)
@@ -771,7 +771,7 @@ CDelayedSymLink::CDelayedSymLink(const char * source)
 {
   struct stat st;
 
-  if (lstat(_source, &st) == 0) {
+  if (g_lstat(_source, &st) == 0) {
     _dev = st.st_dev;
     _ino = st.st_ino;
   } else {
@@ -787,7 +787,7 @@ bool CDelayedSymLink::Create()
     errno = EPERM;
     return false;
   }
-  if (lstat(_source, &st) != 0)
+  if (g_lstat(_source, &st) != 0)
     return false;
   if (_dev != st.st_dev || _ino != st.st_ino) {
     // Placeholder file has been overwritten or moved by another

@@ -100,7 +100,7 @@ namespace NWindows
 			bool isDefined = true;
 
 #ifdef linux
-	 		FILE * f = fopen( "/proc/meminfo", "r" );
+	 		FILE * f = g_fopen( "/proc/meminfo", "r" );
 	 		if (f)
 	 		{
 				char buffer[256];

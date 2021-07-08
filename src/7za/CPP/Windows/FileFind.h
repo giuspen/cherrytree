@@ -7,8 +7,8 @@
 #include "../Common/MyTypes.h"
 #include "Defs.h"
 
-#include <sys/types.h> /* for DIR */
-#include <dirent.h>
+#include <glib.h>
+#include <glib/gstdio.h>
 
 namespace NWindows {
 namespace NFile {
@@ -75,7 +75,7 @@ struct CFileInfo: public CFileInfoBase
 class CFindFile
 {
   friend class CEnumerator;
-  DIR *_dirp;
+  GDir *_dirp;
   AString _pattern;
   AString _directory;  
 public:

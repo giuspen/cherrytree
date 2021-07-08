@@ -2,6 +2,7 @@
 
 #include "StdAfx.h"
 
+#include <glib/gstdio.h>
 #include <tchar.h>
 
 #include "StdInStream.h"
@@ -35,7 +36,7 @@ bool CStdInStream::Open(LPCTSTR fileName) throw()
 #else
   const char * name = nameWindowToUnix(fileName);
 #endif
-  _stream = fopen(name, "r");
+  _stream = g_fopen(name, "r");
   _streamIsOpen = (_stream != 0);
   return _streamIsOpen;
 }
