@@ -23,7 +23,7 @@
 
 #include "ct_filesystem.h"
 #include "tests_common.h"
-#include <fstream>
+#include <glibmm.h>
 
 TEST(FileSystemGroup, path_stem)
 {
@@ -145,11 +145,7 @@ TEST(FileSystemGroup, remove)
 {
     // file remove
     fs::path test_file_path = fs::path{UT::unitTestsDataDir} / fs::path{"test_file.txt"};
-    {
-        std::ofstream test_file_ofstr{test_file_path.string()};
-        test_file_ofstr << "blabla";
-        test_file_ofstr.close();
-    }
+    Glib::file_set_contents(test_file_path.string(), "blabla");
     ASSERT_TRUE(fs::exists(test_file_path));
 
     ASSERT_TRUE(fs::remove(test_file_path));
@@ -167,11 +163,7 @@ TEST(FileSystemGroup, remove)
     // non empty dir remove
     ASSERT_EQ(0, g_mkdir_with_parents(test_dir_path.c_str(), 0777));
     fs::path test_file_in_dir = test_dir_path / fs::path{"test_file.txt"};
-    {
-        std::ofstream test_file_in_dir_ofstr{test_file_in_dir.string()};
-        test_file_in_dir_ofstr << "blabla";
-        test_file_in_dir_ofstr.close();
-    }
+    Glib::file_set_contents(test_file_in_dir.string(), "blabla");
     ASSERT_TRUE(fs::exists(test_file_in_dir));
     ASSERT_EQ(2, fs::remove_all(test_dir_path));
     ASSERT_FALSE(fs::exists(test_dir_path));
