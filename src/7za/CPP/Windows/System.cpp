@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <glib/gstdio.h>
 
 #if defined (__NetBSD__) || defined(__OpenBSD__) || defined (__FreeBSD__) || defined (__FreeBSD_kernel__) || defined (__APPLE__)
 #include <sys/param.h>

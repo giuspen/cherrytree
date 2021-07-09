@@ -67,8 +67,8 @@ TEST(FileSystemGroup, get_cherrytree_localedir)
 
 TEST(FileSystemGroup, is_regular_file)
 {
-    ASSERT_TRUE(fs::is_regular_file(UT::unitTestsDataDir + "/test.ctd"));
-    ASSERT_TRUE(fs::is_regular_file(UT::unitTestsDataDir + "/test.ctb"));
+    ASSERT_TRUE(fs::is_regular_file(UT::testCtdDocPath));
+    ASSERT_TRUE(fs::is_regular_file(UT::testCtbDocPath));
     ASSERT_TRUE(fs::is_regular_file(UT::unitTestsDataDir + "/md_testfile.md"));
     ASSERT_FALSE(fs::is_regular_file(UT::unitTestsDataDir));
     ASSERT_FALSE(fs::is_regular_file(fs::absolute(UT::unitTestsDataDir)));
@@ -78,15 +78,15 @@ TEST(FileSystemGroup, is_regular_file)
 TEST(FileSystemGroup, is_directory)
 {
     ASSERT_TRUE(fs::is_directory(UT::unitTestsDataDir));
-    ASSERT_FALSE(fs::is_directory(UT::unitTestsDataDir + "/test.ctd"));
+    ASSERT_FALSE(fs::is_directory(UT::testCtdDocPath));
     ASSERT_TRUE(fs::is_directory(fs::path(UT::unitTestsDataDir).parent_path()));
     ASSERT_FALSE(fs::is_directory(fs::path(UT::unitTestsDataDir).parent_path() / "test_consts.h"));
 }
 
 TEST(FileSystemGroup, get_doc_type)
 {
-    ASSERT_TRUE(CtDocType::SQLite == fs::get_doc_type(UT::unitTestsDataDir + "/test.ctb"));
-    ASSERT_TRUE(CtDocType::XML == fs::get_doc_type(UT::unitTestsDataDir + "/test.ctd"));
+    ASSERT_TRUE(CtDocType::SQLite == fs::get_doc_type(UT::testCtbDocPath));
+    ASSERT_TRUE(CtDocType::XML == fs::get_doc_type(UT::testCtdDocPath));
     ASSERT_TRUE(CtDocType::None == fs::get_doc_type(UT::unitTestsDataDir + "/md_testfile.md"));
     ASSERT_TRUE(CtDocType::SQLite == fs::get_doc_type(UT::unitTestsDataDir + "/mimetype_ctb.ctb"));
     ASSERT_TRUE(CtDocType::XML == fs::get_doc_type(UT::unitTestsDataDir + "/7zr.ctz"));
@@ -95,8 +95,8 @@ TEST(FileSystemGroup, get_doc_type)
 
 TEST(FileSystemGroup, get_doc_encrypt)
 {
-    ASSERT_TRUE(fs::get_doc_encrypt(UT::unitTestsDataDir + "/test.ctb") == CtDocEncrypt::False);
-    ASSERT_TRUE(fs::get_doc_encrypt(UT::unitTestsDataDir + "/test.ctz") == CtDocEncrypt::True);
+    ASSERT_TRUE(fs::get_doc_encrypt(UT::testCtbDocPath) == CtDocEncrypt::False);
+    ASSERT_TRUE(fs::get_doc_encrypt(UT::testCtzDocPath) == CtDocEncrypt::True);
     ASSERT_TRUE(fs::get_doc_encrypt(UT::unitTestsDataDir + "/mimetype_txt.txt") == CtDocEncrypt::None);
 }
 
