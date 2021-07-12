@@ -414,11 +414,10 @@ Gtk::MenuItem* CtMenu::_add_menu_item(Gtk::MenuShell* pMenuShell,
 
         // to fix image placement in MenuBar /context menu
         // based on inkscape: src/ui/desktop/menu-icon-shift.cpp
-        // we don't know which MenuItem will be first mapped, so connect  all of them
+        // we don't know which MenuItem will be first mapped, so connect all of them
         static std::list<sigc::connection>* static_map_connectons = new std::list<sigc::connection>();
         if (static_map_connectons != nullptr) { // if null then the fix was applied
-            static_map_connectons->push_back(pMenuItem->signal_map().connect([pMenuItem]
-            {
+            static_map_connectons->push_back(pMenuItem->signal_map().connect([pMenuItem, pIcon]{
                 spdlog::debug("shift images in MenuBar/context menu");
                 int shift = CtMenu::calculate_image_shift(pMenuItem);
                 if (shift != 0) {
@@ -430,9 +429,11 @@ Gtk::MenuItem* CtMenu::_add_menu_item(Gtk::MenuShell* pMenuShell,
                     } else {
                         provider->load_from_data("menuitem box image {margin-left:" + std::to_string(shift) + "px;}");
                     }
+                    pIcon->show_all();
+                    pIcon->queue_draw();
                 }
                 // we don't need to call this again, so kill all map connections
-                for (auto& connections: *static_map_connectons)
+                for (auto& connections : *static_map_connectons)
                     connections.disconnect();
                 delete static_map_connectons;
                 static_map_connectons = nullptr;
