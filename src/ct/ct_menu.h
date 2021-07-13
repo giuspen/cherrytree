@@ -75,7 +75,6 @@ public:
 
     static Gtk::MenuItem*   find_menu_item(Gtk::MenuShell* menuShell, std::string name);
     static Gtk::AccelLabel* get_accel_label(Gtk::MenuItem* item);
-    static int              calculate_image_shift(Gtk::MenuItem* menuItem);
 
     std::vector<Gtk::Toolbar*> build_toolbars(Gtk::MenuToolButton*& pRecentDocsMenuToolButton);
     Gtk::MenuBar*              build_menubar();

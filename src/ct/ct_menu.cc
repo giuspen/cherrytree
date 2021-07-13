@@ -85,23 +85,6 @@ CtMenu::CtMenu(CtConfig* pCtConfig, CtActions* pActions)
     return nullptr;
 }
 
-/*static*/ int CtMenu::calculate_image_shift(Gtk::MenuItem* menuItem)
-{
-    if (menuItem)
-        if (auto box = dynamic_cast<Gtk::Box *>(menuItem->get_child()))
-            if (auto image = dynamic_cast<Gtk::Image *>(box->get_children()[0])) {
-                auto allocation_menuitem = menuItem->get_allocation();
-                auto allocation_image = image->get_allocation();
-
-                int shift = -allocation_image.get_x();
-                if (menuItem->get_direction() == Gtk::TEXT_DIR_RTL) {
-                    shift += (allocation_menuitem.get_width() - allocation_image.get_width());
-                }
-                return shift;
-            }
-    return 0;
-}
-
 std::vector<Gtk::Toolbar*> CtMenu::build_toolbars(Gtk::MenuToolButton*& pRecentDocsMenuToolButton)
 {
     pRecentDocsMenuToolButton = nullptr;
@@ -402,43 +385,17 @@ Gtk::MenuItem* CtMenu::_add_menu_item(Gtk::MenuShell* pMenuShell,
 {
     if (image && strlen(image)) {
         pMenuItem->set_name("ImageMenuItem");  // custom name to identify our "ImageMenuItems"
-        Gtk::Image *pIcon = Gtk::manage(new Gtk::Image{});
+        Gtk::Image* pIcon = Gtk::manage(new Gtk::Image{});
         pIcon->set_from_icon_name(image, Gtk::ICON_SIZE_MENU);
 
         // create a box to hold icon and label as GtkMenuItem derives from GtkBin and can only hold one child
-        auto const box = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL});
-        box->pack_start(*pIcon, false, false, 0);
-        box->pack_start(*pLabel, true, true, 0);
-
+        auto const box = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 8/*spacing*/});
+        box->pack_start(*pIcon, false, false);
+        box->pack_start(*pLabel, true, true);
         pMenuItem->add(*box);
-
-        // to fix image placement in MenuBar /context menu
-        // based on inkscape: src/ui/desktop/menu-icon-shift.cpp
-        // we don't know which MenuItem will be first mapped, so connect all of them
-        static std::list<sigc::connection>* static_map_connectons = new std::list<sigc::connection>();
-        if (static_map_connectons != nullptr) { // if null then the fix was applied
-            static_map_connectons->push_back(pMenuItem->signal_map().connect([pMenuItem, pIcon]{
-                spdlog::debug("shift images in MenuBar/context menu");
-                int shift = CtMenu::calculate_image_shift(pMenuItem);
-                if (shift != 0) {
-                    auto provider = Gtk::CssProvider::create();
-                    auto const screen = Gdk::Screen::get_default();
-                    Gtk::StyleContext::add_provider_for_screen(screen, provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-                    if (pMenuItem->get_direction() == Gtk::TEXT_DIR_RTL) {
-                        provider->load_from_data("menuitem box image {margin-right:" + std::to_string(shift) + "px;}");
-                    } else {
-                        provider->load_from_data("menuitem box image {margin-left:" + std::to_string(shift) + "px;}");
-                    }
-                    pIcon->show_all();
-                    pIcon->queue_draw();
-                }
-                // we don't need to call this again, so kill all map connections
-                for (auto& connections : *static_map_connectons)
-                    connections.disconnect();
-                delete static_map_connectons;
-                static_map_connectons = nullptr;
-            }));
-        }
+        pMenuItem->signal_realize().connect([pIcon]{
+            pIcon->grab_focus();
+        });
     }
     else {
         pMenuItem->add(*pLabel);
