@@ -389,13 +389,10 @@ Gtk::MenuItem* CtMenu::_add_menu_item(Gtk::MenuShell* pMenuShell,
         pIcon->set_from_icon_name(image, Gtk::ICON_SIZE_MENU);
 
         // create a box to hold icon and label as GtkMenuItem derives from GtkBin and can only hold one child
-        auto const box = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 8/*spacing*/});
-        box->pack_start(*pIcon, false, false);
-        box->pack_start(*pLabel, true, true);
-        pMenuItem->add(*box);
-        pMenuItem->signal_realize().connect([pIcon]{
-            pIcon->grab_focus();
-        });
+        auto pBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 8/*spacing*/});
+        pBox->pack_start(*pIcon, false, false);
+        pBox->pack_start(*pLabel, true, true);
+        pMenuItem->add(*pBox);
     }
     else {
         pMenuItem->add(*pLabel);
