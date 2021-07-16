@@ -104,5 +104,4 @@ private:
     bool _highlightBrackets{true};
     bool _showLineNumbers{false};
     Gtk::ScrolledWindow _scrolledwindow;
-    bool _key_down{false};
 };

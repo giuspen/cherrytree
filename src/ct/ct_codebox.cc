@@ -64,6 +64,32 @@ CtTextCell::CtTextCell(CtMainWin* pCtMainWin,
             }
         }
     }, false);
+
+    _ctTextview.signal_event_after().connect([pCtMainWin, this](GdkEvent* event){
+        if (not pCtMainWin->user_active()) return;
+        if (event->type == GDK_2BUTTON_PRESS and event->button.button == 1)
+            _ctTextview.for_event_after_double_click_button1(event);
+        else if (event->type == GDK_BUTTON_PRESS)
+            _ctTextview.for_event_after_button_press(event);
+        else if (event->type == GDK_KEY_PRESS)
+            _ctTextview.for_event_after_key_press(event, _syntaxHighlighting);
+    });
+    _ctTextview.signal_motion_notify_event().connect([pCtMainWin, this](GdkEventMotion* event){
+        if (not pCtMainWin->user_active()) return false;
+        int x, y;
+        _ctTextview.window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, int(event->x), int(event->y), x, y);
+        _ctTextview.cursor_and_tooltips_handler(x, y);
+        return false;
+    });
+    _ctTextview.signal_scroll_event().connect([this](GdkEventScroll* event){
+        if (!(event->state & GDK_CONTROL_MASK))
+            return false;
+        if  (event->direction == GDK_SCROLL_UP || event->direction == GDK_SCROLL_DOWN)
+            _ctTextview.zoom_text(event->direction == GDK_SCROLL_DOWN, _syntaxHighlighting);
+        if  (event->direction == GDK_SCROLL_SMOOTH && event->delta_y != 0)
+            _ctTextview.zoom_text(event->delta_y < 0, _syntaxHighlighting);
+        return true;
+    });
 }
 
 Glib::ustring CtTextCell::get_text_content() const
@@ -138,7 +164,6 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
         _pCtMainWin->get_ct_menu().build_popup_menu(menu, CtMenu::POPUP_MENU_TYPE::Codebox);
     });
     _ctTextview.signal_key_press_event().connect(sigc::mem_fun(*this, &CtCodebox::_on_key_press_event), false);
-    _ctTextview.signal_key_release_event().connect([this](GdkEventKey*) { _key_down = false; return false; }, false);
     _ctTextview.signal_button_press_event().connect([this](GdkEventButton* event){
         if (not _pCtMainWin->user_active()) return false;
         _pCtMainWin->get_ct_actions()->curr_codebox_anchor = this;
@@ -148,31 +173,6 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
             _pCtMainWin->get_ct_actions()->object_set_selection(this);
         }
         return false;
-    });
-    _ctTextview.signal_event_after().connect([this](GdkEvent* event){
-        if (not _pCtMainWin->user_active()) return;
-        if (event->type == GDK_2BUTTON_PRESS and event->button.button == 1)
-            _ctTextview.for_event_after_double_click_button1(event);
-        else if (event->type == GDK_BUTTON_PRESS)
-            _ctTextview.for_event_after_button_press(event);
-        else if (event->type == GDK_KEY_PRESS)
-            _ctTextview.for_event_after_key_press(event, _syntaxHighlighting);
-    });
-    _ctTextview.signal_motion_notify_event().connect([this](GdkEventMotion* event){
-        if (not _pCtMainWin->user_active()) return false;
-        int x, y;
-        _ctTextview.window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, int(event->x), int(event->y), x, y);
-        _ctTextview.cursor_and_tooltips_handler(x, y);
-        return false;
-    });
-    _ctTextview.signal_scroll_event().connect([this](GdkEventScroll* event){
-        if (!(event->state & GDK_CONTROL_MASK))
-            return false;
-        if  (event->direction == GDK_SCROLL_UP || event->direction == GDK_SCROLL_DOWN)
-            _ctTextview.zoom_text(event->direction == GDK_SCROLL_DOWN, get_syntax_highlighting());
-        if  (event->direction == GDK_SCROLL_SMOOTH && event->delta_y != 0)
-            _ctTextview.zoom_text(event->delta_y < 0, get_syntax_highlighting());
-        return true;
     });
     _uCtPairCodeboxMainWin.reset(new CtPairCodeboxMainWin{this, _pCtMainWin});
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "cut-clipboard", G_CALLBACK(CtClipboard::on_cut_clipboard), _uCtPairCodeboxMainWin.get());
@@ -279,7 +279,6 @@ void CtCodebox::apply_cursor_pos(const int cursorPos)
 // Catches CodeBox Key Presses
 bool CtCodebox::_on_key_press_event(GdkEventKey* event)
 {
-    _key_down = true;
     if (not _pCtMainWin->user_active())
         return false;
     if (event->state & Gdk::CONTROL_MASK) {

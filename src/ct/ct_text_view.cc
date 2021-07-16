@@ -306,7 +306,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
     }
     auto text_buffer = get_buffer();
     auto config = _pCtMainWin->get_ct_config();
-    bool is_code = syntaxHighlighting != CtConst::RICH_TEXT_ID and syntaxHighlighting != CtConst::PLAIN_TEXT_ID;
+    bool is_code = syntaxHighlighting != CtConst::RICH_TEXT_ID and syntaxHighlighting != CtConst::PLAIN_TEXT_ID and syntaxHighlighting != CtConst::TABLE_CELL_TEXT_ID;
 
     if (not is_code and
         config->autoSmartQuotes and
@@ -614,9 +614,10 @@ void CtTextView::zoom_text(const bool is_increase, const std::string& syntaxHigh
     if (size < 6) size = 6;
     fontDesc.set_size(size * Pango::SCALE);
 
-    if (syntaxHighlighting == CtConst::RICH_TEXT_ID) {
-        auto pCtConfig = _pCtMainWin->get_ct_config();
+    auto pCtConfig = _pCtMainWin->get_ct_config();
+    if (syntaxHighlighting == CtConst::RICH_TEXT_ID or syntaxHighlighting == CtConst::TABLE_CELL_TEXT_ID) {
         pCtConfig->rtFont = CtFontUtil::get_font_str(fontDesc);
+        spdlog::debug("rtFont {}", pCtConfig->rtFont);
         // also fix monospace font size
         if (pCtConfig->msDedicatedFont and not pCtConfig->monospaceFont.empty()) {
             Pango::FontDescription monoFontDesc(pCtConfig->monospaceFont);
@@ -631,10 +632,12 @@ void CtTextView::zoom_text(const bool is_increase, const std::string& syntaxHigh
         }
     }
     else if (syntaxHighlighting == CtConst::PLAIN_TEXT_ID) {
-        _pCtMainWin->get_ct_config()->ptFont = CtFontUtil::get_font_str(fontDesc);
+        pCtConfig->ptFont = CtFontUtil::get_font_str(fontDesc);
+        spdlog::debug("ptFont {}", pCtConfig->ptFont);
     }
     else {
-        _pCtMainWin->get_ct_config()->codeFont = CtFontUtil::get_font_str(fontDesc);
+        pCtConfig->codeFont = CtFontUtil::get_font_str(fontDesc);
+        spdlog::debug("codeFont {}", pCtConfig->codeFont);
     }
     _pCtMainWin->signal_app_apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
 }
