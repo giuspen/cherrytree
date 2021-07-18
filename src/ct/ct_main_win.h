@@ -191,6 +191,12 @@ public:
     void save_position()                    { get_position(_savedXpos, _savedYpos); }
     void restore_position()                 { if (_savedXpos != -1) move(_savedXpos, _savedYpos); }
 
+    bool start_on_systray_is_active() const;
+    void start_on_systray_delayed_file_open_set(const std::string& filepath, const std::string& nodename);
+    bool start_on_systray_delayed_file_open_kick();
+    void set_systray_can_hide(const bool systrayCanHide) { _systrayCanHide = systrayCanHide; }
+    bool get_systray_can_hide() const { return _systrayCanHide; }
+
 private:
     bool _on_window_key_press_event(GdkEventKey* event);
     bool _on_window_configure_event(GdkEventConfigure* configure_event);
@@ -283,6 +289,9 @@ private:
     bool                _tree_just_auto_expanded{false};
     std::unordered_map<gint64, int> _nodesCursorPos;
     std::unordered_map<gint64, int> _nodesVScrollPos;
+    std::string         _startOnSystray_delayedFilepath;
+    std::string         _startOnSystray_delayedNodeName;
+    bool                _systrayCanHide{true};
 
 public:
     sigc::signal<void>             signal_app_new_instance = sigc::signal<void>();

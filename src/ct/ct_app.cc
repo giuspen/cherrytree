@@ -130,12 +130,17 @@ void CtApp::on_activate()
             Glib::RefPtr<Gio::File> r_file = Gio::File::create_for_path(CtApp::_uCtCfg->recentDocsFilepaths.front().string());
             if (r_file->query_exists()) {
                 const std::string canonicalPath = fs::canonical(r_file->get_path()).string();
-                if (not pAppWindow->file_open(canonicalPath, "")) {
-                    spdlog::warn("Couldn't open file: %s", canonicalPath);
+                if (not pAppWindow->start_on_systray_is_active()) {
+                    if (not pAppWindow->file_open(canonicalPath, "")) {
+                        spdlog::warn("%s Couldn't open file: %s", __FUNCTION__, canonicalPath);
+                    }
+                }
+                else {
+                    pAppWindow->start_on_systray_delayed_file_open_set(canonicalPath, "");
                 }
             }
             else {
-                spdlog::info("Last doc not found: {}", CtApp::_uCtCfg->recentDocsFilepaths.front());
+                spdlog::info("%s Last doc not found: {}", __FUNCTION__, CtApp::_uCtCfg->recentDocsFilepaths.front());
                 CtApp::_uCtCfg->recentDocsFilepaths.move_or_push_back(CtApp::_uCtCfg->recentDocsFilepaths.front());
                 pAppWindow->menu_set_items_recent_documents();
             }
@@ -215,8 +220,13 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
             // there is not a window already running with that document
             pAppWindow = _create_window();
             const std::string canonicalPath = fs::canonical(r_file->get_path()).string();
-            if (not pAppWindow->file_open(canonicalPath, _node_to_focus)) {
-                spdlog::warn("Couldn't open file: {}", canonicalPath);
+            if (not pAppWindow->start_on_systray_is_active()) {
+                if (not pAppWindow->file_open(canonicalPath, _node_to_focus)) {
+                    spdlog::warn("%s Couldn't open file: {}", __FUNCTION__, canonicalPath);
+                }
+            }
+            else {
+                pAppWindow->start_on_systray_delayed_file_open_set(canonicalPath, _node_to_focus);
             }
             if (get_windows().size() == 1) {
                 // start of main instance
@@ -331,12 +341,23 @@ void CtApp::systray_show_hide_windows()
     while (gtk_events_pending()) gtk_main_iteration();
     bool to_show{true};
     for (Gtk::Window* pWin : get_windows()) {
+        // if any window is visible, we will hide
 #ifdef _WIN32
         if (pWin->get_visible()) {
 #else
         if (pWin->has_toplevel_focus()) {
 #endif
             to_show = false;
+            break;
+        }
+    }
+    if (not to_show) {
+        // check if any window should not be hidden
+        for (Gtk::Window* pWin : get_windows()) {
+            if (not dynamic_cast<CtMainWin*>(pWin)->get_systray_can_hide()) {
+                to_show = true;
+                break;
+            }
         }
     }
     for (Gtk::Window* pWin : get_windows()) {
@@ -345,6 +366,7 @@ void CtApp::systray_show_hide_windows()
             win->present();
             win->restore_position();
             win->set_visible(true);
+            (void)win->start_on_systray_delayed_file_open_kick();
         }
         else {
             win->save_position();

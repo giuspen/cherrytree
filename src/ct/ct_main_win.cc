@@ -143,7 +143,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
         set_visible(false);
     }
     else {
-        if (_pCtConfig->systrayOn and _pCtConfig->startOnSystray) {
+        if (start_on_systray_is_active()) {
             /* Calling the 'present()' function apparently sets up selected
                node visibility within the TreeView panel, whereas this
                node setup is skipped when only calling 'set_visible(false)'.
@@ -176,6 +176,32 @@ CtMainWin::~CtMainWin()
     _autosave_timout_connection.disconnect();
     _mod_time_sentinel_timout_connection.disconnect();
     //std::cout << "~CtMainWin" << std::endl;
+}
+
+bool CtMainWin::start_on_systray_is_active() const
+{
+    return _pCtConfig->systrayOn and _pCtConfig->startOnSystray;
+}
+
+void CtMainWin::start_on_systray_delayed_file_open_set(const std::string& filepath, const std::string& nodename)
+{
+    _startOnSystray_delayedFilepath = filepath;
+    _startOnSystray_delayedNodeName = nodename;
+}
+
+bool CtMainWin::start_on_systray_delayed_file_open_kick()
+{
+    if (not _startOnSystray_delayedFilepath.empty()) {
+        const std::string startOnSystray_delayedFilepath = _startOnSystray_delayedFilepath;
+        const std::string startOnSystray_delayedNodeName = _startOnSystray_delayedNodeName;
+        _startOnSystray_delayedFilepath.clear();
+        _startOnSystray_delayedNodeName.clear();
+        if (file_open(startOnSystray_delayedFilepath, startOnSystray_delayedNodeName)) {
+            return true;
+        }
+        spdlog::warn("%s Couldn't open file: %s", __FUNCTION__, _startOnSystray_delayedFilepath);
+    }
+    return false;
 }
 
 std::string CtMainWin::get_code_icon_name(std::string code_type)
