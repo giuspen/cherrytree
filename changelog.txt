@@ -1,4 +1,15 @@
 
+0.99.39 (July 19th, 2021)
+  * fixed Menu element icons not always visible (#1410)
+  * fixed File links in exported PDF do not work when path isn't relative (#1749)
+  * fixed TODO lists not working in table cells (#194)
+  * fixed bug in password protected archives on windows a backslash character in the password was replaced with a slash character
+  * fixed issue with p7zip on windows and non ascii characters in document path - p7zip is now using glib (#1736)
+  * fixed build with fmt 8.0.0 (#1744, Luca Weiss)
+  * when system tray and start hidden on system tray are enabled, load document only after the user clicks the systray icon to show cherrytree (#1751)
+  * fixed codebox plain text wrongly using code font instead of plain text font
+  * fixed error in translation ru.po
+
 0.99.38 (June 11th, 2021)
   * fix crash visiting node with a corrupted/invalid utf-8 character (#1337)
   * fix crash when trying to insert image from file with format not supported from Glib such as .webp (#1709)
