@@ -237,13 +237,6 @@ const inline static gchar* TOOLBAR_VEC_DEFAULT {
     "fmt_h1,fmt_h2,fmt_h3,fmt_small,fmt_superscript,fmt_subscript,fmt_monospace"
 };
 
-const inline static std::array<const gchar*, 18>  TOOLBAR_VEC_BLACKLIST {
-    "anch_cut", "anch_copy", "anch_del", "anch_edit", "emb_file_cut",
-    "emb_file_copy", "emb_file_del", "emb_file_save", "emb_file_open", "emb_file_rename",
-    "img_save", "img_edit", "img_cut", "img_copy", "img_del",
-    "img_link_edit", "img_link_dismiss", "toggle_show_mainwin"
-};
-
 const inline static gchar* LANG_DEFAULT{"default"};
 
 const inline static std::array<const gchar*, 25> AVAILABLE_LANGS {

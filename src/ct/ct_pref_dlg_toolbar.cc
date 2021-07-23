@@ -148,8 +148,8 @@ bool CtPrefDlg::add_new_item_in_toolbar_model(Gtk::TreeView* treeview, Glib::Ref
     for (const CtMenuAction& action: _pCtMenu->get_actions())
     {
         if (action.desc.empty()) continue; // skip stub menu entries
+        if (action.category.empty()) continue; // skip popup menu entries
         if (action.id == "ct_open_file" && _pCtMainWin->get_ct_config()->toolbarUiList.find(CtConst::CHAR_STAR) != std::string::npos) continue;
-        if (vec::exists(CtConst::TOOLBAR_VEC_BLACKLIST, action.id)) continue;
         Glib::ustring id = action.id == "ct_open_file" ? CtConst::CHAR_STAR : action.id;
         itemStore->add_row(action.image, id, action.desc);
     }

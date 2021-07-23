@@ -97,6 +97,7 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Quit the Application"), sigc::mem_fun(*pActions, &CtActions::quit_or_hide_window)});
     _actions.push_back(CtMenuAction{file_cat, "exit_app", "ct_quit-app", _("_Exit CherryTree"), KB_CONTROL+KB_SHIFT+"Q",
         _("Exit from CherryTree"), sigc::mem_fun(*pActions, &CtActions::quit_window)});
+
     const char* editor_cat = _("Edit/Insert");
     _actions.push_back(CtMenuAction{editor_cat, "act_undo", "ct_undo", _("_Undo"), KB_CONTROL+"Z",
         _("Undo Last Operation"), sigc::mem_fun(*pActions, &CtActions::requested_step_back)});
@@ -146,6 +147,7 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Move Up the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_up)});
     _actions.push_back(CtMenuAction{editor_cat, "mv_down_row", "ct_go-down", _("Move _Down Row"), KB_ALT+CtConst::STR_KEY_DOWN,
         _("Move Down the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_down)});
+
     const char* fmt_cat = _("Format");
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_clone", "ct_fmt-txt-clone", _("Format C_lone"), None,
         _("Clone the Text Format Type at Cursor"), sigc::mem_fun(*pActions, &CtActions::save_tags_at_cursor_as_latest)});
@@ -203,6 +205,7 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Indent the Current Paragraph"), sigc::mem_fun(*pActions, &CtActions::apply_tag_indent)});
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_unindent", "ct_fmt-unindent", _("Unindent Paragraph"), KB_CONTROL+KB_SHIFT+"less",
         _("Unindent the Current Paragraph"), sigc::mem_fun(*pActions, &CtActions::reduce_tag_indent)});
+
     const char* tools_cat = _("Tools");
     _actions.push_back(CtMenuAction{tools_cat, "spellcheck_toggle", "ct_spell-check", _("Enable/Disable _Spell Check"), KB_CONTROL+KB_ALT+"S",
         _("Toggle Enable/Disable Spell Check"), sigc::mem_fun(*pActions, &CtActions::toggle_ena_dis_spellcheck)});
@@ -212,6 +215,7 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Command Palette"), sigc::mem_fun(*pActions, &CtActions::command_palette)});
     _actions.push_back(CtMenuAction{tools_cat, "exec_code", "ct_execute", _("_Execute Code"), "F5",
         _("Execute Code"), sigc::mem_fun(*pActions, &CtActions::exec_code)});
+
     const char* tree_cat = _("Tree");
     _actions.push_back(CtMenuAction{tree_cat, "go_node_prev", "ct_go-back", _("Go _Back"), KB_ALT+CtConst::STR_KEY_LEFT,
         _("Go to the Previous Visited Node"), sigc::mem_fun(*pActions, &CtActions::node_go_back)});
@@ -266,6 +270,7 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Sort all the Siblings of the Selected Node Descending"), sigc::mem_fun(*pActions, &CtActions::node_siblings_sort_descending)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_del", "ct_edit_delete", _("De_lete Node"), None,
         _("Delete the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_delete)});
+
     const char* find_cat = _("Find/Replace");
     _actions.push_back(CtMenuAction{find_cat, "find_in_node", "ct_find_sel", _("_Find in Node Content"), KB_CONTROL+"F",
         _("Find into the Selected Node Content"), sigc::mem_fun(*pActions, &CtActions::find_in_selected_node)});
@@ -295,6 +300,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{find_cat, "toggle_show_allmatches_dlg", "ct_find",
         _("Show _All Matches Dialog"), KB_CONTROL+KB_SHIFT+"A",
         _("Show Search All Matches Dialog"), sigc::mem_fun(*pActions, &CtActions::find_allmatchesdialog_restore)});
+
     const char* view_cat = _("View");
     _actions.push_back(CtMenuAction{view_cat, "toggle_show_tree", "ct_cherries", _("Show/Hide _Tree Explorer"), "F9",
         _("Toggle Show/Hide Tree"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_tree)});
@@ -310,6 +316,7 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Decrease the Size of the Toolbar Icons"), sigc::mem_fun(*pActions, &CtActions::toolbar_icons_size_decrease)});
     _actions.push_back(CtMenuAction{view_cat, "toggle_fullscreen", "ct_fullscreen", _("_Full Screen On/Off"), "F11",
         _("Toggle Full Screen On/Off"), sigc::mem_fun(*pActions, &CtActions::fullscreen_toggle)});
+
     const char* import_cat = _("Import");
     _actions.push_back(CtMenuAction{import_cat, "import_cherrytree", "ct_from_cherrytree", _("From _CherryTree File"), None,
         _("Add Nodes of a CherryTree File to the Current Tree"), sigc::mem_fun(*pActions, &CtActions::import_nodes_from_ct_file)});
@@ -351,6 +358,7 @@ void CtMenu::init_actions(CtActions* pActions)
         sigc::mem_fun(*pActions, &CtActions::import_nodes_from_zim_directory) /* dad.nodes_add_from_zim_folder */});
     _actions.push_back(CtMenuAction{import_cat, "import_pandoc_file", CtConst::STR_STOCK_CT_IMP, _("From File using _Pandoc"), None,
         _("Add a node to the current tree using Pandoc"), sigc::mem_fun(*pActions, &CtActions::import_node_from_pandoc) });
+
     const char* export_cat = _("Export");
     _actions.push_back(CtMenuAction{export_cat, "export_pdf", "ct_to_pdf", _("Export To _PDF"), None,
         _("Export To PDF"), sigc::mem_fun(*pActions, &CtActions::export_to_pdf)});
@@ -360,6 +368,7 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Export to Plain Text"), sigc::mem_fun(*pActions, &CtActions::export_to_txt)});
     _actions.push_back(CtMenuAction{export_cat, "export_ctd", "ct_to_cherrytree", _("_Export To CherryTree Document"), None,
         _("Export To CherryTree Document"), sigc::mem_fun(*pActions, &CtActions::export_to_ctd)});
+
     const char* help_cat = _("Help");
     _actions.push_back(CtMenuAction{help_cat, "ct_check_newer", "ct_network", _("_Check Newer Version"), None,
         _("Check for a Newer Version"), sigc::mem_fun(*pActions, &CtActions::check_for_newer_version)});
@@ -369,6 +378,14 @@ void CtMenu::init_actions(CtActions* pActions)
         _("About CherryTree"), sigc::mem_fun(*pActions, &CtActions::dialog_about)});
     _actions.push_back(CtMenuAction{help_cat, "open_cfg_folder", "ct_directory", _("Open Preferences _Directory"), None,
         _("Open the Directory with Preferences Files"), sigc::mem_fun(*pActions, &CtActions::folder_cfg_open)});
+
+    // add actions in the Windows for the toolbar
+    // by default actions will have prefix 'win.'
+    // (the menu uses not actions, but accelerators)
+    for (const CtMenuAction& action : _actions) {
+        pActions->getCtMainWin()->add_action(action.id, action.run_action);
+    }
+
     const char* others_cat = "";
     _actions.push_back(CtMenuAction{others_cat, "anch_cut", "ct_edit_cut", _("C_ut Anchor"), None,
         _("Cut the Selected Anchor"), sigc::mem_fun(*pActions, &CtActions::anchor_cut)});
@@ -409,14 +426,6 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{others_cat, "toggle_show_mainwin", CtConst::APP_NAME, _("Show/Hide _CherryTree"), None,
         _("Toggle Show/Hide CherryTree"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_main_window)});
 
-    // add actions in the Windows for the toolbar
-    // by default actions will have prefix 'win.'
-    // (the menu uses not actions, but accelerators)
-    for (const CtMenuAction& action : _actions) {
-        pActions->getCtMainWin()->add_action(action.id, action.run_action);
-    }
-
-    // for popup menus
     const char* link_cat = "";
     _actions.push_back(CtMenuAction{link_cat, "apply_tag_link", "ct_link_handle", _("Edit _Link"), None,
         _("Edit the Underlying Link"), sigc::mem_fun(*pActions, &CtActions::apply_tag_link)});
@@ -428,6 +437,7 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Dismiss the Selected Link"), sigc::mem_fun(*pActions, &CtActions::link_dismiss)});
     _actions.push_back(CtMenuAction{link_cat, "link_delete", "ct_edit_delete", _("_Delete Link"), None,
         _("Delete the Selected Link"), sigc::mem_fun(*pActions, &CtActions::link_delete)});
+
     const char* table_cat = "";
     _actions.push_back(CtMenuAction{table_cat, "table_cut", "ct_edit_cut", _("C_ut Table"), None,
         _("Cut the Selected Table"), sigc::mem_fun(*pActions, &CtActions::table_cut)});
@@ -460,8 +470,7 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{table_cat, "table_row_delete", "ct_edit_delete", _("De_lete Row"), KB_CONTROL+KB_ALT+"comma",
         _("Delete the Selected Table Row"), sigc::mem_fun(*pActions, &CtActions::table_row_delete)});
     _actions.push_back(CtMenuAction{table_cat, "table_row_up", "ct_go-up", _("Move Row _Up"), KB_CONTROL+"bracketleft",
-        _("Move the Selected Row Up"),
-        sigc::mem_fun(*pActions, &CtActions::table_row_up)});
+        _("Move the Selected Row Up"), sigc::mem_fun(*pActions, &CtActions::table_row_up)});
     _actions.push_back(CtMenuAction{table_cat, "table_row_down", "ct_go-down", _("Move Row _Down"), KB_CONTROL+"bracketright",
         _("Move the Selected Row Down"), sigc::mem_fun(*pActions, &CtActions::table_row_down)});
     _actions.push_back(CtMenuAction{table_cat, "table_rows_sort_descending", "ct_sort-desc", _("Sort Rows De_scending"), None,
@@ -472,11 +481,10 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Edit the Table Properties"), sigc::mem_fun(*pActions, &CtActions::table_edit_properties)});
     _actions.push_back(CtMenuAction{table_cat, "table_export", "ct_table_save", _("_Table Export"), None,
         _("Export Table as CSV File"), sigc::mem_fun(*pActions, &CtActions::table_export)});
+
     const char* codebox_cat = "";
     _actions.push_back(CtMenuAction{codebox_cat, "codebox_change_properties", "ct_codebox_edit", _("Change CodeBox _Properties"), None,
         _("Edit the Properties of the CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_change_properties)});
-    _actions.push_back(CtMenuAction{codebox_cat, "exec_code", "ct_execute", _("_Execute CodeBox Code"), None,
-        _("Execute CodeBox Code"), sigc::mem_fun(*pActions, &CtActions::exec_code)});
     _actions.push_back(CtMenuAction{codebox_cat, "codebox_load_from_file", "ct_from_txt", _("CodeBox _Load From Text File"), None,
         _("Load the CodeBox Content From a Text File"), sigc::mem_fun(*pActions, &CtActions::codebox_load_from_file)});
     _actions.push_back(CtMenuAction{codebox_cat, "codebox_save_to_file", "ct_to_txt", _("CodeBox _Save To Text File"), None,
