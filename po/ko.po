@@ -1346,16 +1346,16 @@ msgstr "노트의 속성"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:300
 msgid "Leaving the Node Type Rich Text you will Lose all Formatting for This Node, Do you want to Continue?"
-msgstr "서식있는 텍스트에서 변경하면이 노트의 모든 서식을 잃게됩니다. 정말 실행 하시겠습니까?"
+msgstr "서식있는 텍스트에서 변경하면 이 노트의 모든 서식을 잃게됩니다. 정말 실행 하시겠습니까?"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:404
 #, c-format
 msgid "Are you sure to <b>Delete the node '%s'?</b>"
-msgstr "<b> '%s' 노트를 삭제 하시겠습니까? </ b>"
+msgstr "<b> '%s' 노트를 삭제 하시겠습니까? </b>"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:406
 msgid "The node <b>has Children, they will be Deleted too!</b>"
-msgstr "<b> 하위 노트도 모두 삭제됩니다! </ b>"
+msgstr "<b> 하위 노트도 모두 삭제됩니다! </b>"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_actions_tree.cc:530
 msgid "Select the New Parent"
@@ -1497,7 +1497,7 @@ msgstr "선택 텍스트"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:374
 msgid "Selected Node Only"
-msgstr "선택 노트 만"
+msgstr "선택 노트만"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_dialogs_tree.cc:375
 msgid "Selected Node and Subnodes"
@@ -1623,11 +1623,11 @@ msgstr "첨부 파일 아이콘에 파일 이름을 표시하려면"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:80
 msgid "Limit of Undoable Steps Per Node"
-msgstr "노트 당 되돌릴 제한 횟수"
+msgstr "노트당 되돌릴 제한 횟수"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:86
 msgid "At Triple Click Select the Whole Paragraph"
-msgstr "3번 클릭으로 전체 단락을 선택"
+msgstr "트리플 클릭시 전체 단락을 선택함"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:89
 msgid "Enable Markdown Auto Replacement (Experimental)"
@@ -2013,27 +2013,27 @@ msgstr "구분선 삽입"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:125
 msgid "_Lower Case of Selection/Word"
-msgstr "선택/단어를 소문자로 변환(_L)"
+msgstr "선택 단어를 소문자로 변환(_L)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:126
 msgid "Lower the Case of the Selection/the Underlying Word"
-msgstr "선택/단어를 소문자로 변환"
+msgstr "선택 단어를 소문자로 변환"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:127
 msgid "_Upper Case of Selection/Word"
-msgstr "선택/단어를 대문자로 변환(_U)"
+msgstr "선택 단어를 대문자로 변환(_U)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:128
 msgid "Upper the Case of the Selection/the Underlying Word"
-msgstr "선택/단어를 대문자로 변환"
+msgstr "선택 단어를 대문자로 변환"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:129
 msgid "_Toggle Case of Selection/Word"
-msgstr "선택/단어의 대소 문자를 토글 변환(_T)"
+msgstr "선택 단어를 대/소문자로 토글 변환(_T)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:130
 msgid "Toggle the Case of the Selection/the Underlying Word"
-msgstr "선택/단어의 대소문자를 토글 변환"
+msgstr "선택 단어를 대/소문자로 토글 변환"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:131
 msgid "Cu_t as Plain Text"
