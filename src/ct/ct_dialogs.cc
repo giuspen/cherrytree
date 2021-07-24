@@ -425,6 +425,7 @@ MA 02110-1301, USA.
  _("Armenian")+" (hy) Seda Stamboltsyan <sedastam@yandex.com>"+CtConst::CHAR_NEWLINE+
  _("Bulgarian")+" (bg) Iliya Nikolaev <iliya.nikolaev@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Chinese Simplified")+" (zh_CN) Wang Yu <krwy0330@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Croatian")+" (hr) Filip Bakula <filip.test46@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Czech")+" (cs) Pavel Fric <fripohled@blogspot.com>"+CtConst::CHAR_NEWLINE+
  _("Dutch")+" (nl) Luuk Geurts, Patrick Vijgeboom <pj.vijgeboom@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Finnish")+" (fi) Henri Kaustinen <hendrix.ks81@gmail.com>"+CtConst::CHAR_NEWLINE+
