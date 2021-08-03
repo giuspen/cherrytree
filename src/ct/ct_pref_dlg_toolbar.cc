@@ -44,13 +44,13 @@ Gtk::Widget* CtPrefDlg::build_tab_toolbar()
     scrolledwindow->add(*treeview);
 
     Gtk::Button* button_add = Gtk::manage(new Gtk::Button());
-    button_add->set_image(*_pCtMainWin->new_image_from_stock("ct_add",  Gtk::ICON_SIZE_BUTTON));
+    button_add->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_add",  Gtk::ICON_SIZE_BUTTON));
     button_add->set_tooltip_text(_("Add"));
     Gtk::Button* button_remove = Gtk::manage(new Gtk::Button());
-    button_remove->set_image(*_pCtMainWin->new_image_from_stock("ct_remove", Gtk::ICON_SIZE_BUTTON));
+    button_remove->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_remove", Gtk::ICON_SIZE_BUTTON));
     button_remove->set_tooltip_text(_("Remove Selected"));
     Gtk::Button* button_reset = Gtk::manage(new Gtk::Button());
-    button_reset->set_image(*_pCtMainWin->new_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
     button_reset->set_tooltip_text(_("Reset to Default"));
 
     Gtk::HBox* hbox = Gtk::manage(new Gtk::HBox());

@@ -58,10 +58,10 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
 
     auto vbox_buttons = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
     auto button_edit = Gtk::manage(new Gtk::Button{});
-    button_edit->set_image(*_pCtMainWin->new_image_from_stock("ct_edit",  Gtk::ICON_SIZE_BUTTON));
+    button_edit->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_edit",  Gtk::ICON_SIZE_BUTTON));
     button_edit->set_tooltip_text(_("Change Selected"));
     auto button_reset = Gtk::manage(new Gtk::Button{});
-    button_reset->set_image(*_pCtMainWin->new_image_from_stock("ct_undo",  Gtk::ICON_SIZE_BUTTON));
+    button_reset->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo",  Gtk::ICON_SIZE_BUTTON));
     button_reset->set_tooltip_text(_("Reset to Default"));
     vbox_buttons->pack_start(*button_edit, false, false);
     vbox_buttons->pack_start(*Gtk::manage(new Gtk::Label{}), true, true);

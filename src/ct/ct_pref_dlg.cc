@@ -91,29 +91,29 @@ Gtk::Frame* CtPrefDlg::new_managed_frame_with_align(const Glib::ustring& frameLa
 
 Gtk::Widget* CtPrefDlg::build_tab_fonts()
 {
-    Gtk::Image* image_rt = _pCtMainWin->new_image_from_stock("ct_fonts", Gtk::ICON_SIZE_MENU);
-    Gtk::Image* image_ms = _pCtMainWin->new_image_from_stock("ct_fmt-txt-monospace", Gtk::ICON_SIZE_MENU);
-    Gtk::Image* image_pt = _pCtMainWin->new_image_from_stock("ct_fonts", Gtk::ICON_SIZE_MENU);
-    Gtk::Image* image_code = _pCtMainWin->new_image_from_stock("ct_code", Gtk::ICON_SIZE_MENU);
-    Gtk::Image* image_tree = _pCtMainWin->new_image_from_stock("ct_cherries", Gtk::ICON_SIZE_MENU);
-    Gtk::Label* label_rt = Gtk::manage(new Gtk::Label(_("Rich Text")));
+    Gtk::Image* image_rt = _pCtMainWin->new_managed_image_from_stock("ct_fonts", Gtk::ICON_SIZE_MENU);
+    Gtk::Image* image_ms = _pCtMainWin->new_managed_image_from_stock("ct_fmt-txt-monospace", Gtk::ICON_SIZE_MENU);
+    Gtk::Image* image_pt = _pCtMainWin->new_managed_image_from_stock("ct_fonts", Gtk::ICON_SIZE_MENU);
+    Gtk::Image* image_code = _pCtMainWin->new_managed_image_from_stock("ct_code", Gtk::ICON_SIZE_MENU);
+    Gtk::Image* image_tree = _pCtMainWin->new_managed_image_from_stock("ct_cherries", Gtk::ICON_SIZE_MENU);
+    auto label_rt = Gtk::manage(new Gtk::Label{_("Rich Text")});
     label_rt->set_halign(Gtk::Align::ALIGN_END);
-    Gtk::CheckButton* checkbutton_ms = Gtk::manage(new Gtk::CheckButton(_("Monospace")));
+    auto checkbutton_ms = Gtk::manage(new Gtk::CheckButton{_("Monospace")});
     checkbutton_ms->set_halign(Gtk::Align::ALIGN_END);
     checkbutton_ms->set_active(_pConfig->msDedicatedFont);
-    Gtk::Label* label_pt = Gtk::manage(new Gtk::Label(_("Plain Text")));
+    auto label_pt = Gtk::manage(new Gtk::Label{_("Plain Text")});
     label_pt->set_halign(Gtk::Align::ALIGN_END);
-    Gtk::Label* label_code = Gtk::manage(new Gtk::Label(_("Code Font")));
+    auto label_code = Gtk::manage(new Gtk::Label{_("Code Font")});
     label_code->set_halign(Gtk::Align::ALIGN_END);
-    Gtk::Label* label_tree = Gtk::manage(new Gtk::Label(_("Tree Font")));
+    auto label_tree = Gtk::manage(new Gtk::Label{_("Tree Font")});
     label_tree->set_halign(Gtk::Align::ALIGN_END);
-    Gtk::FontButton* fontbutton_rt = Gtk::manage(new Gtk::FontButton(_pConfig->rtFont));
-    Gtk::FontButton* fontbutton_ms = Gtk::manage(new Gtk::FontButton(_pConfig->monospaceFont));
+    auto fontbutton_rt = Gtk::manage(new Gtk::FontButton{_pConfig->rtFont});
+    auto fontbutton_ms = Gtk::manage(new Gtk::FontButton{_pConfig->monospaceFont});
     fontbutton_ms->set_sensitive(_pConfig->msDedicatedFont);
-    Gtk::FontButton* fontbutton_pt = Gtk::manage(new Gtk::FontButton(_pConfig->ptFont));
-    Gtk::FontButton* fontbutton_code = Gtk::manage(new Gtk::FontButton(_pConfig->codeFont));
-    Gtk::FontButton* fontbutton_tree = Gtk::manage(new Gtk::FontButton(_pConfig->treeFont));
-    Gtk::Grid* grid_fonts = Gtk::manage(new Gtk::Grid());
+    auto fontbutton_pt = Gtk::manage(new Gtk::FontButton{_pConfig->ptFont});
+    auto fontbutton_code = Gtk::manage(new Gtk::FontButton{_pConfig->codeFont});
+    auto fontbutton_tree = Gtk::manage(new Gtk::FontButton{_pConfig->treeFont});
+    auto grid_fonts = Gtk::manage(new Gtk::Grid{});
     grid_fonts->set_row_spacing(2);
     grid_fonts->set_column_spacing(4);
     grid_fonts->set_row_homogeneous(true);
@@ -134,8 +134,7 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
     grid_fonts->attach(*fontbutton_tree, 2, 4, 1, 1);
     Gtk::Frame* frame_fonts = new_managed_frame_with_align(_("Fonts"), grid_fonts);
 
-    Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
-    pMainBox->set_spacing(3);
+    auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
     pMainBox->set_margin_left(6);
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_fonts, false, false);
@@ -175,13 +174,13 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
 
 Gtk::Widget* CtPrefDlg::build_tab_links()
 {
-    Gtk::VBox* vbox_links_actions = Gtk::manage(new Gtk::VBox());
-    Gtk::CheckButton* checkbutton_custom_weblink_cmd = Gtk::manage(new Gtk::CheckButton(_("Enable Custom Web Link Clicked Action")));
-    Gtk::Entry* entry_custom_weblink_cmd = Gtk::manage(new Gtk::Entry());
-    Gtk::CheckButton* checkbutton_custom_filelink_cmd = Gtk::manage(new Gtk::CheckButton(_("Enable Custom File Link Clicked Action")));
-    Gtk::Entry* entry_custom_filelink_cmd = Gtk::manage(new Gtk::Entry());
-    Gtk::CheckButton* checkbutton_custom_folderlink_cmd = Gtk::manage(new Gtk::CheckButton(_("Enable Custom Folder Link Clicked Action")));
-    Gtk::Entry* entry_custom_folderlink_cmd = Gtk::manage(new Gtk::Entry());
+    auto vbox_links_actions = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+    auto checkbutton_custom_weblink_cmd = Gtk::manage(new Gtk::CheckButton{_("Enable Custom Web Link Clicked Action")});
+    auto entry_custom_weblink_cmd = Gtk::manage(new Gtk::Entry{});
+    auto checkbutton_custom_filelink_cmd = Gtk::manage(new Gtk::CheckButton{_("Enable Custom File Link Clicked Action")});
+    auto entry_custom_filelink_cmd = Gtk::manage(new Gtk::Entry{});
+    auto checkbutton_custom_folderlink_cmd = Gtk::manage(new Gtk::CheckButton{_("Enable Custom Folder Link Clicked Action")});
+    auto entry_custom_folderlink_cmd = Gtk::manage(new Gtk::Entry{});
     vbox_links_actions->pack_start(*checkbutton_custom_weblink_cmd, false, false);
     vbox_links_actions->pack_start(*entry_custom_weblink_cmd, false, false);
     vbox_links_actions->pack_start(*checkbutton_custom_filelink_cmd, false, false);
@@ -201,19 +200,19 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
     entry_custom_folderlink_cmd->set_sensitive(_pConfig->folderlinkCustomOn);
     entry_custom_folderlink_cmd->set_text(_pConfig->folderlinkCustomAct);
 
-    Gtk::Grid* grid_links_colors = Gtk::manage(new Gtk::Grid());
+    auto grid_links_colors = Gtk::manage(new Gtk::Grid{});
     grid_links_colors->set_row_spacing(2);
     grid_links_colors->set_column_spacing(15);
     grid_links_colors->set_row_homogeneous(true);
 
-    Gtk::Label* label_col_link_webs = Gtk::manage(new Gtk::Label(_("To WebSite")));
-    Gtk::ColorButton* colorbutton_col_link_webs = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(_pConfig->colLinkWebs)));
-    Gtk::Label* label_col_link_node = Gtk::manage(new Gtk::Label(_("To Node")));
-    Gtk::ColorButton* colorbutton_col_link_node = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(_pConfig->colLinkNode)));
-    Gtk::Label* label_col_link_file = Gtk::manage(new Gtk::Label(_("To File")));
-    Gtk::ColorButton* colorbutton_col_link_file = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(_pConfig->colLinkFile)));
-    Gtk::Label* label_col_link_fold = Gtk::manage(new Gtk::Label(_("To Folder")));
-    Gtk::ColorButton* colorbutton_col_link_fold = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA(_pConfig->colLinkFold)));
+    auto label_col_link_webs = Gtk::manage(new Gtk::Label{_("To WebSite")});
+    auto colorbutton_col_link_webs = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA(_pConfig->colLinkWebs)});
+    auto label_col_link_node = Gtk::manage(new Gtk::Label{_("To Node")});
+    auto colorbutton_col_link_node = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA(_pConfig->colLinkNode)});
+    auto label_col_link_file = Gtk::manage(new Gtk::Label{_("To File")});
+    auto colorbutton_col_link_file = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA(_pConfig->colLinkFile)});
+    auto label_col_link_fold = Gtk::manage(new Gtk::Label{_("To Folder")});
+    auto colorbutton_col_link_fold = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA(_pConfig->colLinkFold)});
 
     grid_links_colors->attach(*label_col_link_webs, 0, 0, 1, 1);
     grid_links_colors->attach(*colorbutton_col_link_webs, 1, 0, 1, 1);
@@ -229,16 +228,15 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
 
     Gtk::Frame* frame_links_colors = new_managed_frame_with_align(_("Colors"), grid_links_colors);
 
-    Gtk::VBox* vbox_links_misc = Gtk::manage(new Gtk::VBox());
-    Gtk::CheckButton* checkbutton_links_underline = Gtk::manage(new Gtk::CheckButton(_("Underline Links")));
+    auto vbox_links_misc = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+    auto checkbutton_links_underline = Gtk::manage(new Gtk::CheckButton{_("Underline Links")});
     checkbutton_links_underline->set_active(_pConfig->linksUnderline);
-    Gtk::CheckButton* checkbutton_links_relative = Gtk::manage(new Gtk::CheckButton(_("Use Relative Paths for Files And Folders")));
+    auto checkbutton_links_relative = Gtk::manage(new Gtk::CheckButton{_("Use Relative Paths for Files And Folders")});
     checkbutton_links_relative->set_active(_pConfig->linksRelative);
-    Gtk::HBox* hbox_anchor_size = Gtk::manage(new Gtk::HBox());
-    hbox_anchor_size->set_spacing(4);
-    Gtk::Label* label_anchor_size = Gtk::manage(new Gtk::Label(_("Anchor Size")));
+    auto hbox_anchor_size = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    auto label_anchor_size = Gtk::manage(new Gtk::Label{_("Anchor Size")});
     Glib::RefPtr<Gtk::Adjustment> adj_anchor_size = Gtk::Adjustment::create(_pConfig->anchorSize, 1, 1000, 1);
-    Gtk::SpinButton* spinbutton_anchor_size = Gtk::manage(new Gtk::SpinButton(adj_anchor_size));
+    auto spinbutton_anchor_size = Gtk::manage(new Gtk::SpinButton{adj_anchor_size});
     spinbutton_anchor_size->set_value(_pConfig->anchorSize);
     hbox_anchor_size->pack_start(*label_anchor_size, false, false);
     hbox_anchor_size->pack_start(*spinbutton_anchor_size, false, false);
@@ -248,8 +246,7 @@ Gtk::Widget* CtPrefDlg::build_tab_links()
 
     Gtk::Frame* frame_links_misc = new_managed_frame_with_align(_("Miscellaneous"), vbox_links_misc);
 
-    Gtk::VBox* pMainBox = Gtk::manage(new Gtk::VBox());
-    pMainBox->set_spacing(3);
+    auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
     pMainBox->set_margin_left(6);
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_links_actions, false, false);

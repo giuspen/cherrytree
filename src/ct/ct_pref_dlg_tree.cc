@@ -37,7 +37,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree()
     checkbutton_aux_icon_hide->set_active(_pConfig->auxIconHide);
 
     auto c_icon_button = Gtk::manage(new Gtk::Button{});
-    c_icon_button->set_image(*_pCtMainWin->new_image_from_stock(CtConst::NODE_CUSTOM_ICONS.at(_pConfig->defaultIconText), Gtk::ICON_SIZE_BUTTON));
+    c_icon_button->set_image(*_pCtMainWin->new_managed_image_from_stock(CtConst::NODE_CUSTOM_ICONS.at(_pConfig->defaultIconText), Gtk::ICON_SIZE_BUTTON));
     auto c_icon_hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 2/*spacing*/});
     c_icon_hbox->pack_start(*radiobutton_node_icon_custom, false, false);
     c_icon_hbox->pack_start(*c_icon_button, false, false);
@@ -163,7 +163,7 @@ Gtk::Widget* CtPrefDlg::build_tab_tree()
                                                  std::to_string(_pConfig->defaultIconText-1));
         if (res) {
             _pConfig->defaultIconText = std::stoi(res->get_value(itemStore->columns.key));
-            c_icon_button->set_image(*_pCtMainWin->new_image_from_stock(res->get_value(itemStore->columns.stock_id), Gtk::ICON_SIZE_BUTTON));
+            c_icon_button->set_image(*_pCtMainWin->new_managed_image_from_stock(res->get_value(itemStore->columns.stock_id), Gtk::ICON_SIZE_BUTTON));
             apply_for_each_window([](CtMainWin* win) { win->get_tree_store().update_nodes_icon(Gtk::TreeIter(), false);});
         }
     });

@@ -173,7 +173,7 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
         pLabelLineNumbersBg[i] = Gtk::manage(new Gtk::Label{_("Line Numbers Background")});
         pColorButtonLineNumbersBg[i] = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{_pConfig->userStyleLineNumbersBg[i]}});
         pButtonsResetToDefault[i] = Gtk::manage(new Gtk::Button{});
-        pButtonsResetToDefault[i]->set_image(*_pCtMainWin->new_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
+        pButtonsResetToDefault[i]->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
         pButtonsResetToDefault[i]->set_tooltip_text(_("Reset to Default"));
 
         pGridThemeEditor[i]->attach(*pLabelTextFg[i],              0, 0, 1, 1);

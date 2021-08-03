@@ -214,11 +214,11 @@ std::string CtMainWin::get_code_icon_name(std::string code_type)
     return CtConst::NODE_CUSTOM_ICONS.at(CtConst::NODE_ICON_CODE_ID);
 }
 
-Gtk::Image* CtMainWin::new_image_from_stock(const std::string& stockImage, Gtk::BuiltinIconSize size)
+Gtk::Image* CtMainWin::new_managed_image_from_stock(const std::string& stockImage, Gtk::BuiltinIconSize size)
 {
-    Gtk::Image* image = Gtk::manage(new Gtk::Image{});
-    image->set_from_icon_name(stockImage, size);
-    return image;
+    auto pImage = Gtk::manage(new Gtk::Image{});
+    pImage->set_from_icon_name(stockImage, size);
+    return pImage;
 }
 
 void CtMainWin::_reset_CtTreestore_CtTreeview()

@@ -149,7 +149,7 @@ public:
 
 public:
     std::string               get_code_icon_name(std::string code_type);
-    Gtk::Image*               new_image_from_stock(const std::string& stockImage, Gtk::BuiltinIconSize size);
+    Gtk::Image*               new_managed_image_from_stock(const std::string& stockImage, Gtk::BuiltinIconSize size);
     void                      apply_syntax_highlighting(Glib::RefPtr<Gsv::Buffer> text_buffer, const std::string& syntax, const bool forceReApply);
     void                      reapply_syntax_highlighting(const char target/*'r':RichText, 'p':PlainTextNCode, 't':Table*/);
     void                      resetup_for_syntax(const char target/*'r':RichText, 'p':PlainTextNCode*/);

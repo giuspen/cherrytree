@@ -136,7 +136,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     const auto currLangId = CtMiscUtil::get_ct_language();
     auto button_country_language = Gtk::manage(new Gtk::Button{});
     button_country_language->set_label(f_getButtonLabel(currLangId));
-    button_country_language->set_image(*_pCtMainWin->new_image_from_stock(f_getStockId(currLangId), Gtk::ICON_SIZE_MENU));
+    button_country_language->set_image(*_pCtMainWin->new_managed_image_from_stock(f_getStockId(currLangId), Gtk::ICON_SIZE_MENU));
     button_country_language->set_always_show_image(true);
     Gtk::Frame* frame_language = new_managed_frame_with_align(_("Language"), button_country_language);
 #endif
@@ -267,7 +267,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
         if (res) {
             const Glib::ustring selLangId = res->get_value(rItemStore->columns.key);
             button_country_language->set_label(f_getButtonLabel(selLangId));
-            button_country_language->set_image(*_pCtMainWin->new_image_from_stock(f_getStockId(selLangId), Gtk::ICON_SIZE_MENU));
+            button_country_language->set_image(*_pCtMainWin->new_managed_image_from_stock(f_getStockId(selLangId), Gtk::ICON_SIZE_MENU));
             need_restart(RESTART_REASON::LANG, _("The New Language will be Available Only After Restarting CherryTree"));
             g_file_set_contents(fs::get_cherrytree_langcfg_filepath().c_str(),
                                 selLangId.c_str(), (gssize)selLangId.bytes(), nullptr);

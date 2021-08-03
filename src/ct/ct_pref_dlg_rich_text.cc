@@ -206,11 +206,11 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
         vboxTab->set_margin_left(6);
         vboxTab->set_margin_top(6);
 
-        Gtk::Image* pImageBold = _pCtMainWin->new_image_from_stock("ct_fmt-txt-bold", Gtk::ICON_SIZE_MENU);
-        Gtk::Image* pImageItalic = _pCtMainWin->new_image_from_stock("ct_fmt-txt-italic", Gtk::ICON_SIZE_MENU);
-        Gtk::Image* pImageUnderline = _pCtMainWin->new_image_from_stock("ct_fmt-txt-underline", Gtk::ICON_SIZE_MENU);
-        Gtk::Image* pImageFg = _pCtMainWin->new_image_from_stock("ct_color_fg", Gtk::ICON_SIZE_MENU);
-        Gtk::Image* pImageBg = _pCtMainWin->new_image_from_stock("ct_color_bg", Gtk::ICON_SIZE_MENU);
+        Gtk::Image* pImageBold = _pCtMainWin->new_managed_image_from_stock("ct_fmt-txt-bold", Gtk::ICON_SIZE_MENU);
+        Gtk::Image* pImageItalic = _pCtMainWin->new_managed_image_from_stock("ct_fmt-txt-italic", Gtk::ICON_SIZE_MENU);
+        Gtk::Image* pImageUnderline = _pCtMainWin->new_managed_image_from_stock("ct_fmt-txt-underline", Gtk::ICON_SIZE_MENU);
+        Gtk::Image* pImageFg = _pCtMainWin->new_managed_image_from_stock("ct_color_fg", Gtk::ICON_SIZE_MENU);
+        Gtk::Image* pImageBg = _pCtMainWin->new_managed_image_from_stock("ct_color_bg", Gtk::ICON_SIZE_MENU);
 
         auto pLabel_scaleTab = Gtk::manage(new Gtk::Label{_("Scale")});
         auto pAdj_scaleTab = Gtk::Adjustment::create(pScalableCfg->scale, 0.1, 10.0, 0.1);
@@ -334,7 +334,7 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
         });
     }
 
-    Gtk::Image* pImageMsBg = _pCtMainWin->new_image_from_stock("ct_color_bg", Gtk::ICON_SIZE_MENU);
+    Gtk::Image* pImageMsBg = _pCtMainWin->new_managed_image_from_stock("ct_color_bg", Gtk::ICON_SIZE_MENU);
     auto checkbutton_monospace_bg = Gtk::manage(new Gtk::CheckButton{_("Monospace Text Color Background")});
     std::string mono_color = _pConfig->monospaceBg.empty() ? CtConst::DEFAULT_MONOSPACE_BG : _pConfig->monospaceBg;
     auto colorbutton_monospace_bg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{mono_color}});

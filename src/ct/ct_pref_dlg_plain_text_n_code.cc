@@ -61,13 +61,13 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     scrolledwindow->add(*treeview);
 
     Gtk::Button* button_add = Gtk::manage(new Gtk::Button());
-    button_add->set_image(*_pCtMainWin->new_image_from_stock("ct_add", Gtk::ICON_SIZE_BUTTON));
+    button_add->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_add", Gtk::ICON_SIZE_BUTTON));
     button_add->set_tooltip_text(_("Add"));
     Gtk::Button* button_remove = Gtk::manage(new Gtk::Button());
-    button_remove->set_image(*_pCtMainWin->new_image_from_stock("ct_remove", Gtk::ICON_SIZE_BUTTON));
+    button_remove->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_remove", Gtk::ICON_SIZE_BUTTON));
     button_remove->set_tooltip_text(_("Remove Selected"));
     Gtk::Button* button_reset_cmds = Gtk::manage(new Gtk::Button());
-    button_reset_cmds->set_image(*_pCtMainWin->new_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset_cmds->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
     button_reset_cmds->set_tooltip_text(_("Reset to Default"));
     Gtk::VBox* vbox_buttons = Gtk::manage(new Gtk::VBox());
     vbox_buttons->pack_start(*button_add, false, false);
@@ -80,7 +80,7 @@ Gtk::Widget* CtPrefDlg::build_tab_plain_text_n_code()
     Gtk::Entry* entry_term_run = Gtk::manage(new Gtk::Entry());
     entry_term_run->set_text(get_code_exec_term_run(_pCtMainWin));
     Gtk::Button* button_reset_term = Gtk::manage(new Gtk::Button());
-    button_reset_term->set_image(*_pCtMainWin->new_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset_term->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
     button_reset_term->set_tooltip_text(_("Reset to Default"));
     hbox_term_run->pack_start(*entry_term_run, true, true);
     hbox_term_run->pack_start(*button_reset_term, false, false);

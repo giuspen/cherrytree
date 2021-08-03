@@ -160,7 +160,7 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
     const Glib::ustring syntax_hl_id = pConfig->codeboxSynHighl != CtConst::PLAIN_TEXT_ID ? pConfig->codeboxSynHighl : pConfig->autoSynHighl;
     const std::string stock_id = pCtMainWin->get_code_icon_name(syntax_hl_id);
     button_prog_lang.set_label(syntax_hl_id);
-    button_prog_lang.set_image(*pCtMainWin->new_image_from_stock(stock_id, Gtk::ICON_SIZE_MENU));
+    button_prog_lang.set_image(*pCtMainWin->new_managed_image_from_stock(stock_id, Gtk::ICON_SIZE_MENU));
     Gtk::RadioButton radiobutton_plain_text{_("Plain Text")};
     Gtk::RadioButton radiobutton_auto_syntax_highl{_("Automatic Syntax Highlighting")};
     radiobutton_auto_syntax_highl.join_group(radiobutton_plain_text);
@@ -261,7 +261,7 @@ bool CtDialogs::codeboxhandle_dialog(CtMainWin* pCtMainWin,
             const Glib::ustring syntax_hl_id = res->get_value(rItemStore->columns.desc);
             const std::string stock_id = pCtMainWin->get_code_icon_name(syntax_hl_id);
             button_prog_lang.set_label(syntax_hl_id);
-            button_prog_lang.set_image(*pCtMainWin->new_image_from_stock(stock_id, Gtk::ICON_SIZE_MENU));
+            button_prog_lang.set_image(*pCtMainWin->new_managed_image_from_stock(stock_id, Gtk::ICON_SIZE_MENU));
         }
     });
     radiobutton_auto_syntax_highl.signal_toggled().connect([&radiobutton_auto_syntax_highl, &button_prog_lang](){

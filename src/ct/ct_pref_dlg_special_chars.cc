@@ -32,7 +32,7 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     Gtk::Label* label_special_chars = Gtk::manage(new Gtk::Label(_("Special Characters")));
     Gtk::HBox* hbox_reset = Gtk::manage(new Gtk::HBox());
     Gtk::Button* button_reset = Gtk::manage(new Gtk::Button());
-    button_reset->set_image(*_pCtMainWin->new_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
     button_reset->set_tooltip_text(_("Reset to Default"));
     hbox_reset->pack_start(*Gtk::manage(new Gtk::Label()), true, false);
     hbox_reset->pack_start(*button_reset, false, false);
@@ -106,7 +106,7 @@ Gtk::Widget* CtPrefDlg::build_tab_special_characters()
     auto checkbutton_enable_symbol_autoreplace = Gtk::manage(new Gtk::CheckButton{_("Enable Symbol Auto Replacement")});
     checkbutton_enable_symbol_autoreplace->set_active(_pConfig->enableSymbolAutoreplace);
     auto button_symbol_autoreplace_help = Gtk::manage(new Gtk::Button{});
-    button_symbol_autoreplace_help->set_image(*_pCtMainWin->new_image_from_stock("ct_help", Gtk::ICON_SIZE_BUTTON));
+    button_symbol_autoreplace_help->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_help", Gtk::ICON_SIZE_BUTTON));
     button_symbol_autoreplace_help->set_tooltip_text(_("Supported Symbols Auto Replacements"));
     hbox_symbol_autoreplace->pack_start(*checkbutton_enable_symbol_autoreplace, false, false);
     hbox_symbol_autoreplace->pack_start(*button_symbol_autoreplace_help, false, false);

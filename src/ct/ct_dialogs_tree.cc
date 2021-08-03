@@ -59,7 +59,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     c_icon_checkbutton.set_active(nodeData.customIconId > 0 && nodeData.customIconId < CtConst::NODE_CUSTOM_ICONS.size());
     Gtk::Button c_icon_button;
     if (c_icon_checkbutton.get_active()) {
-        c_icon_button.set_image(*pCtMainWin->new_image_from_stock(CtConst::NODE_CUSTOM_ICONS.at((int)nodeData.customIconId), Gtk::ICON_SIZE_BUTTON));
+        c_icon_button.set_image(*pCtMainWin->new_managed_image_from_stock(CtConst::NODE_CUSTOM_ICONS.at((int)nodeData.customIconId), Gtk::ICON_SIZE_BUTTON));
     }
     else {
         c_icon_button.set_label(_("click me"));
@@ -90,7 +90,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     }
     std::string stock_id = pCtMainWin->get_code_icon_name(syntax_hl_id);
     button_prog_lang.set_label(syntax_hl_id);
-    button_prog_lang.set_image(*pCtMainWin->new_image_from_stock(stock_id, Gtk::ICON_SIZE_MENU));
+    button_prog_lang.set_image(*pCtMainWin->new_managed_image_from_stock(stock_id, Gtk::ICON_SIZE_MENU));
     if (nodeData.syntax == CtConst::RICH_TEXT_ID) {
         radiobutton_rich_text.set_active(true);
         button_prog_lang.set_sensitive(false);
@@ -117,7 +117,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     Gtk::Entry tags_entry;
     tags_entry.set_text(nodeData.tags);
     Gtk::Button button_browse_tags;
-    button_browse_tags.set_image(*pCtMainWin->new_image_from_stock("ct_find", Gtk::ICON_SIZE_BUTTON));
+    button_browse_tags.set_image(*pCtMainWin->new_managed_image_from_stock("ct_find", Gtk::ICON_SIZE_BUTTON));
     button_browse_tags.set_sensitive(!tags_set.empty());
     tags_hbox.pack_start(tags_entry);
     tags_hbox.pack_start(button_browse_tags, false, false);
@@ -158,7 +158,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
             const Glib::ustring syntax_hl_id = treeIter->get_value(itemStore->columns.desc);
             const std::string stock_id = pCtMainWin->get_code_icon_name(syntax_hl_id);
             button_prog_lang.set_label(syntax_hl_id);
-            button_prog_lang.set_image(*pCtMainWin->new_image_from_stock(stock_id, Gtk::ICON_SIZE_MENU));
+            button_prog_lang.set_image(*pCtMainWin->new_managed_image_from_stock(stock_id, Gtk::ICON_SIZE_MENU));
         }
     });
     radiobutton_auto_syntax_highl.signal_toggled().connect([&radiobutton_auto_syntax_highl, &button_prog_lang](){
@@ -210,7 +210,7 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
             nodeData.customIconId = static_cast<guint32>(std::stoi(treeIter->get_value(itemStore->columns.key)));
             c_icon_button.set_label("");
             c_icon_button.property_always_show_image() = true; // to fix not showing image on Win32
-            c_icon_button.set_image(*pCtMainWin->new_image_from_stock(treeIter->get_value(itemStore->columns.stock_id), Gtk::ICON_SIZE_BUTTON));
+            c_icon_button.set_image(*pCtMainWin->new_managed_image_from_stock(treeIter->get_value(itemStore->columns.stock_id), Gtk::ICON_SIZE_BUTTON));
         }
     });
     auto on_key_press_dialog = [&](GdkEventKey* pEventKey)->bool{
