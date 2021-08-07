@@ -1,4 +1,10 @@
 
+0.99.40 (August 7th, 2021)
+  * new supported language Croatian (Filip Bakula)
+  * language Spanish to 100% (UserFav)
+  * updated Korean (Sean Lee)
+  * fixed blacklist of action that cannot be part of the configurable toolbar
+
 0.99.39 (July 19th, 2021)
   * fixed Menu element icons not always visible (#1410)
   * fixed File links in exported PDF do not work when path isn't relative (#1749)
