@@ -255,6 +255,9 @@ const std::string CtMainWin::get_text_tag_name_exist_or_create(const std::string
         }
         else if (CtConst::TAG_FAMILY == propertyName and CtConst::TAG_PROP_VAL_MONOSPACE == propertyValue) {
             rTextTag->property_family() = CtConst::TAG_PROP_VAL_MONOSPACE;
+            if (not _pCtConfig->monospaceFg.empty()) {
+                rTextTag->property_foreground() = _pCtConfig->monospaceFg;
+            }
             if (not _pCtConfig->monospaceBg.empty()) {
                 rTextTag->property_background() = _pCtConfig->monospaceBg;
             }

@@ -234,10 +234,10 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
         pCheckButton_underlineTab->set_active(pScalableCfg->underline);
 
         auto pCheckButton_fgTab = Gtk::manage(new Gtk::CheckButton{_("Text Color Foreground")});
-        std::string fgTab_color = pScalableCfg->foreground.empty() ? CtConst::COLOR_24_GRAY : pScalableCfg->foreground;
+        std::string fgTab_color = pScalableCfg->foreground.empty() ? CtConst::COLOR_24_LGRAY : pScalableCfg->foreground;
         auto pColorButton_fgTab = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{fgTab_color}});
         auto pCheckButton_bgTab = Gtk::manage(new Gtk::CheckButton{_("Text Color Background")});
-        std::string bgTab_color = pScalableCfg->background.empty() ? CtConst::COLOR_24_GRAY : pScalableCfg->background;
+        std::string bgTab_color = pScalableCfg->background.empty() ? CtConst::COLOR_24_LGRAY : pScalableCfg->background;
         auto pColorButton_bgTab = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{bgTab_color}});
         auto hboxFgBgTab = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
         hboxFgBgTab->pack_start(*pImageFg, false, false);
@@ -334,10 +334,22 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
         });
     }
 
+    Gtk::Image* pImageMsFg = _pCtMainWin->new_managed_image_from_stock("ct_color_fg", Gtk::ICON_SIZE_MENU);
+    auto checkbutton_monospace_fg = Gtk::manage(new Gtk::CheckButton{_("Text Color Foreground")});
+    std::string mono_color_fg = _pConfig->monospaceFg.empty() ? CtConst::DEFAULT_MONOSPACE_FG : _pConfig->monospaceFg;
+    auto colorbutton_monospace_fg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{mono_color_fg}});
+    auto hbox_monospace_fg = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
+    hbox_monospace_fg->pack_start(*pImageMsFg, false, false);
+    hbox_monospace_fg->pack_start(*checkbutton_monospace_fg, false, false);
+    hbox_monospace_fg->pack_start(*colorbutton_monospace_fg, false, false);
+    vbox_misc->pack_start(*hbox_monospace_fg, false, false);
+    checkbutton_monospace_fg->set_active(not _pConfig->monospaceFg.empty());
+    colorbutton_monospace_fg->set_sensitive(not _pConfig->monospaceFg.empty());
+
     Gtk::Image* pImageMsBg = _pCtMainWin->new_managed_image_from_stock("ct_color_bg", Gtk::ICON_SIZE_MENU);
-    auto checkbutton_monospace_bg = Gtk::manage(new Gtk::CheckButton{_("Monospace Text Color Background")});
-    std::string mono_color = _pConfig->monospaceBg.empty() ? CtConst::DEFAULT_MONOSPACE_BG : _pConfig->monospaceBg;
-    auto colorbutton_monospace_bg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{mono_color}});
+    auto checkbutton_monospace_bg = Gtk::manage(new Gtk::CheckButton{_("Text Color Background")});
+    std::string mono_color_bg = _pConfig->monospaceBg.empty() ? CtConst::DEFAULT_MONOSPACE_BG : _pConfig->monospaceBg;
+    auto colorbutton_monospace_bg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{mono_color_bg}});
     auto hbox_monospace_bg = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     hbox_monospace_bg->pack_start(*pImageMsBg, false, false);
     hbox_monospace_bg->pack_start(*checkbutton_monospace_bg, false, false);
@@ -347,8 +359,27 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
     colorbutton_monospace_bg->set_sensitive(not _pConfig->monospaceBg.empty());
 
     Gtk::Frame* pFrameScalable = new_managed_frame_with_align(_("Scalable Tags"), pNotebookScalable);
-    Gtk::Frame* pFrameMisc = new_managed_frame_with_align(_("Miscellaneous"), vbox_misc);
+    Gtk::Frame* pFrameMs = new_managed_frame_with_align(_("Monospace"), vbox_misc);
 
+    checkbutton_monospace_fg->signal_toggled().connect([this, checkbutton_monospace_fg, colorbutton_monospace_fg](){
+        _pConfig->monospaceFg = checkbutton_monospace_fg->get_active() ?
+            CtRgbUtil::rgb_any_to_24(colorbutton_monospace_fg->get_rgba()) : "";
+        colorbutton_monospace_fg->set_sensitive(not _pConfig->monospaceFg.empty());
+        if (not _pConfig->monospaceFg.empty()) {
+            if (auto tag = _pCtMainWin->get_text_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
+                tag->property_foreground() = _pConfig->monospaceFg;
+            }
+        }
+        else {
+            need_restart(RESTART_REASON::MONOSPACE);
+        }
+    });
+    colorbutton_monospace_fg->signal_color_set().connect([this, colorbutton_monospace_fg](){
+        _pConfig->monospaceFg = CtRgbUtil::rgb_any_to_24(colorbutton_monospace_fg->get_rgba());
+        if (auto tag = _pCtMainWin->get_text_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
+            tag->property_foreground() = _pConfig->monospaceFg;
+        }
+    });
     checkbutton_monospace_bg->signal_toggled().connect([this, checkbutton_monospace_bg, colorbutton_monospace_bg](){
         _pConfig->monospaceBg = checkbutton_monospace_bg->get_active() ?
             CtRgbUtil::rgb_any_to_24(colorbutton_monospace_bg->get_rgba()) : "";
@@ -370,7 +401,7 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
     });
 
     pMainBox->pack_start(*pFrameScalable, false, false);
-    pMainBox->pack_start(*pFrameMisc, false, false);
+    pMainBox->pack_start(*pFrameMs, false, false);
 
     return pMainBox;
 }

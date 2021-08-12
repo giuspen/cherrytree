@@ -320,6 +320,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_string(_currentGroup, "scalable_h5", scalableH5.serialise());
     _uKeyFile->set_string(_currentGroup, "scalable_h6", scalableH6.serialise());
     _uKeyFile->set_string(_currentGroup, "scalable_small", scalableSmall.serialise());
+    _uKeyFile->set_string(_currentGroup, "monospace_fg", monospaceFg);
     _uKeyFile->set_string(_currentGroup, "monospace_bg", monospaceBg);
     _uKeyFile->set_boolean(_currentGroup, "ms_dedic_font", msDedicatedFont);
     _uKeyFile->set_string(_currentGroup, "monospace_font", monospaceFont);
@@ -616,6 +617,7 @@ void CtConfig::_populate_data_from_keyfile()
     scalableH6.deserialise(tmpScalable.c_str(), CtConst::SCALABLE_H6_DEFAULT);
     _populate_string_from_keyfile("scalable_small", &tmpScalable);
     scalableSmall.deserialise(tmpScalable.c_str(), CtConst::SCALABLE_SMALL_DEFAULT);
+    _populate_string_from_keyfile("monospace_fg", &monospaceFg);
     _populate_string_from_keyfile("monospace_bg", &monospaceBg);
     _populate_bool_from_keyfile("ms_dedic_font", &msDedicatedFont);
     _populate_string_from_keyfile("monospace_font", &monospaceFont);

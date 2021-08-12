@@ -229,6 +229,7 @@ void CtActions::preferences_import()
     pConfig->scalableH5.deserialise(ctConfigImported.scalableH5.serialise().c_str());
     pConfig->scalableH6.deserialise(ctConfigImported.scalableH6.serialise().c_str());
     pConfig->scalableSmall.deserialise(ctConfigImported.scalableSmall.serialise().c_str());
+    pConfig->monospaceFg = ctConfigImported.monospaceFg;
     pConfig->monospaceBg = ctConfigImported.monospaceBg;
     pConfig->msDedicatedFont = ctConfigImported.msDedicatedFont;
     pConfig->monospaceFont = ctConfigImported.monospaceFont;

@@ -171,6 +171,7 @@ public:
     // [colors]
     std::string                                 ttDefFg{CtConst::TREE_TEXT_LIGHT_FG};
     std::string                                 ttDefBg{CtConst::TREE_TEXT_LIGHT_BG};
+    std::string                                 monospaceFg{CtConst::DEFAULT_MONOSPACE_FG};
     std::string                                 monospaceBg{CtConst::DEFAULT_MONOSPACE_BG};
     bool                                        msDedicatedFont{false};
     Glib::ustring                               monospaceFont{"Monospace 9"};
