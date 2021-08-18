@@ -233,6 +233,11 @@ public:
     // [codexec_ext]
     std::map<std::string, std::string>          customCodexecExt;
 
+    // helpers
+    const std::array<CtScalableTag*,7>          scalablesTags{&scalableH1, &scalableH2, &scalableH3,
+                                                              &scalableH4, &scalableH5, &scalableH6,
+                                                              &scalableSmall};
+
 protected:
     template<class String> bool _populate_string_from_keyfile(std::string key, String* pTarget) {
         bool gotIt{false};

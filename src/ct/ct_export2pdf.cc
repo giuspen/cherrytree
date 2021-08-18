@@ -120,17 +120,27 @@ Glib::ustring CtExport2Pango::pango_get_from_code_buffer(Glib::RefPtr<Gsv::Buffe
 }
 
 // Process a Single Pango Slot
-void CtExport2Pango::_pango_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer, std::vector<CtPangoObjectPtr>& out_slots)
+void CtExport2Pango::_pango_process_slot(int start_offset,
+                                         int end_offset,
+                                         Glib::RefPtr<Gtk::TextBuffer> curr_buffer,
+                                         std::vector<CtPangoObjectPtr>& out_slots)
 {
-    CtTextIterUtil::generic_process_slot(start_offset, end_offset, curr_buffer,
-                                         [&](Gtk::TextIter& start_iter, Gtk::TextIter& curr_iter, CtCurrAttributesMap& curr_attributes) {
-            _pango_text_serialize(start_iter, curr_iter, curr_attributes, out_slots);
-    });
+    CtTextIterUtil::SerializeFunc f_pango_serialize = [&](Gtk::TextIter& start_iter,
+                                                          Gtk::TextIter& end_iter,
+                                                          CtCurrAttributesMap& curr_attributes) {
+        _pango_text_serialize(start_iter, end_iter, curr_attributes, out_slots);
+    };
+    CtTextIterUtil::generic_process_slot(start_offset,
+                                         end_offset,
+                                         curr_buffer,
+                                         f_pango_serialize);
 }
 
 // Adds a slice to the Pango Text
-void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter, Gtk::TextIter end_iter,
-                                           const CtCurrAttributesMap& curr_attributes, std::vector<CtPangoObjectPtr>& out_slots)
+void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
+                                           Gtk::TextIter end_iter,
+                                           const CtCurrAttributesMap& curr_attributes,
+                                           std::vector<CtPangoObjectPtr>& out_slots)
 {
     Glib::ustring pango_attrs;
     bool superscript_active = false;
@@ -150,21 +160,25 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter, Gtk:
                     superscript_active = true;
                     continue;
                 }
-                else if (property_value == CtConst::TAG_PROP_VAL_SUB) {
+                if (property_value == CtConst::TAG_PROP_VAL_SUB) {
                     subscript_active = true;
                     continue;
                 }
-                else {
-                    tag_property = "size";
-                }
+                CtConfig* pConfig = _pCtMainWin->get_ct_config();
+                tag_property = "size";
                 // TODO apply user defined scalable tag properies
-                if (property_value == CtConst::TAG_PROP_VAL_SMALL) property_value = "x-small";
-                else if (property_value == CtConst::TAG_PROP_VAL_H1) property_value = "xx-large";
-                else if (property_value == CtConst::TAG_PROP_VAL_H2) property_value = "x-large";
-                else if (property_value == CtConst::TAG_PROP_VAL_H3 or
-                         property_value == CtConst::TAG_PROP_VAL_H4 or
-                         property_value == CtConst::TAG_PROP_VAL_H5 or
-                         property_value == CtConst::TAG_PROP_VAL_H6) property_value = "large";
+                size_t sIdx{pConfig->scalablesTags.size()};
+                if (property_value == CtConst::TAG_PROP_VAL_SMALL) sIdx = 6;
+                else if (property_value == CtConst::TAG_PROP_VAL_H1) sIdx = 0;
+                else if (property_value == CtConst::TAG_PROP_VAL_H2) sIdx = 1;
+                else if (property_value == CtConst::TAG_PROP_VAL_H3) sIdx = 2;
+                else if (property_value == CtConst::TAG_PROP_VAL_H4) sIdx = 3;
+                else if (property_value == CtConst::TAG_PROP_VAL_H5) sIdx = 4;
+                else if (property_value == CtConst::TAG_PROP_VAL_H6) sIdx = 5;
+                if (sIdx < pConfig->scalablesTags.size()) {
+                    const auto fontSize = Pango::FontDescription{pConfig->rtFont}.get_size();
+                    property_value = std::to_string(static_cast<unsigned>(fontSize * pConfig->scalablesTags.at(sIdx)->scale));
+                }
             }
             else if (tag_property == CtConst::TAG_FAMILY) {
                 monospace_active = true;
@@ -190,8 +204,7 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter, Gtk:
 
     // split by \n to use Layout::set_indent properly
     std::vector<Glib::ustring> lines = str::split(start_iter.get_text(end_iter), "\n");
-    for (size_t i = 0; i < lines.size(); ++ i)
-    {
+    for (size_t i = 0; i < lines.size(); ++i) {
         Glib::ustring tagged_text = str::xml_escape(lines[i]);
         if (!pango_attrs.empty())
             tagged_text = "<span" + pango_attrs + ">" + tagged_text + "</span>";
@@ -242,9 +255,9 @@ void CtExport2Pdf::node_export_print(const fs::path& pdf_filepath, CtTreeIter tr
 {
     std::vector<CtPangoObjectPtr> pango_slots;
     if (tree_iter.get_node_is_rich_text())
-        CtExport2Pango().pango_get_from_treestore_node(tree_iter, sel_start, sel_end, pango_slots);
+        CtExport2Pango{_pCtMainWin}.pango_get_from_treestore_node(tree_iter, sel_start, sel_end, pango_slots);
     else {
-        Glib::ustring text = CtExport2Pango().pango_get_from_code_buffer(tree_iter.get_node_text_buffer(), sel_start, sel_end);
+        Glib::ustring text = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(tree_iter.get_node_text_buffer(), sel_start, sel_end);
         pango_slots.push_back(std::make_shared<CtPangoText>(text, tree_iter.get_node_syntax_highlighting(), 0));
     }
 
@@ -278,9 +291,9 @@ void CtExport2Pdf::_nodes_all_export_print_iter(CtTreeIter tree_iter, const CtEx
 {
     std::vector<CtPangoObjectPtr> node_pango_slots;
     if (tree_iter.get_node_is_rich_text())
-        CtExport2Pango().pango_get_from_treestore_node(tree_iter, -1, -1, node_pango_slots);
+        CtExport2Pango{_pCtMainWin}.pango_get_from_treestore_node(tree_iter, -1, -1, node_pango_slots);
     else {
-        Glib::ustring text = CtExport2Pango().pango_get_from_code_buffer(tree_iter.get_node_text_buffer(), -1, -1);
+        Glib::ustring text = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(tree_iter.get_node_text_buffer(), -1, -1);
         node_pango_slots.push_back(std::make_shared<CtPangoText>(text, tree_iter.get_node_syntax_highlighting(), 0));
     }
 
@@ -641,7 +654,7 @@ void CtPrint::_process_pango_codebox(CtPrintData* print_data, CtCodebox* codebox
     CtPrintPages& pages = print_data->pages;
 
     codebox->apply_syntax_highlighting(false/*forceReApply*/);
-    Glib::ustring original_content = CtExport2Pango().pango_get_from_code_buffer(codebox->get_buffer(), -1, -1);
+    Glib::ustring original_content = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(codebox->get_buffer(), -1, -1);
     while (true)
     {
         // use content if it's ok

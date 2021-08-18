@@ -185,10 +185,6 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
     auto pNotebookScalable = Gtk::manage(new Gtk::Notebook{});
     auto vbox_misc = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
 
-    const std::array<CtScalableTag*,7> scalablesCfg{
-        &_pConfig->scalableH1, &_pConfig->scalableH2, &_pConfig->scalableH3,
-        &_pConfig->scalableH4, &_pConfig->scalableH5, &_pConfig->scalableH6,
-        &_pConfig->scalableSmall};
     const Glib::ustring tagPrefix = Glib::ustring{CtConst::TAG_SCALE} + CtConst::CHAR_USCORE;
     static const std::array<Glib::ustring,7> scalablesTagId{
         tagPrefix + CtConst::TAG_PROP_VAL_H1,
@@ -199,8 +195,8 @@ Gtk::Widget* CtPrefDlg::build_tab_format()
         tagPrefix + CtConst::TAG_PROP_VAL_H6,
         tagPrefix + CtConst::TAG_PROP_VAL_SMALL};
 
-    for (unsigned i = 0; i < scalablesCfg.size(); ++i) {
-        CtScalableTag* pScalableCfg = scalablesCfg.at(i);
+    for (unsigned i = 0; i < _pConfig->scalablesTags.size(); ++i) {
+        CtScalableTag* pScalableCfg = _pConfig->scalablesTags.at(i);
         const Glib::ustring* pScalableTagId = &scalablesTagId.at(i);
         auto vboxTab = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
         vboxTab->set_margin_left(6);

@@ -65,13 +65,29 @@ using CtPangoObjectPtr = std::shared_ptr<CtPangoObject>;
 class CtExport2Pango
 {
 public:
-    Glib::ustring pango_get_from_code_buffer(Glib::RefPtr<Gsv::Buffer> code_buffer, int sel_start, int sel_end);
-    void pango_get_from_treestore_node(CtTreeIter node_iter, int sel_start, int sel_end, std::vector<CtPangoObjectPtr>& out_slots);
+    CtExport2Pango(CtMainWin* pCtMainWin) : _pCtMainWin{pCtMainWin} {}
+
+    Glib::ustring pango_get_from_code_buffer(Glib::RefPtr<Gsv::Buffer> code_buffer,
+                                             int sel_start,
+                                             int sel_end);
+    void pango_get_from_treestore_node(CtTreeIter node_iter,
+                                       int sel_start,
+                                       int sel_end,
+                                       std::vector<CtPangoObjectPtr>& out_slots);
 
 private:
-    void                         _pango_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer, std::vector<CtPangoObjectPtr>& out_slots);
-    void                         _pango_text_serialize(const Gtk::TextIter& start_iter, Gtk::TextIter end_iter, const CtCurrAttributesMap& curr_attributes, std::vector<CtPangoObjectPtr>& out_slots);
+    void                         _pango_process_slot(int start_offset,
+                                                     int end_offset,
+                                                     Glib::RefPtr<Gtk::TextBuffer> curr_buffer,
+                                                     std::vector<CtPangoObjectPtr>& out_slots);
+    void                         _pango_text_serialize(const Gtk::TextIter& start_iter,
+                                                       Gtk::TextIter end_iter,
+                                                       const CtCurrAttributesMap& curr_attributes,
+                                                       std::vector<CtPangoObjectPtr>& out_slots);
     std::shared_ptr<CtPangoText> _pango_link_url(const Glib::ustring& tagged_text, const Glib::ustring& link, int indent);
+
+private:
+    CtMainWin* const _pCtMainWin;
 };
 
 
@@ -79,18 +95,28 @@ private:
 class CtExport2Pdf
 {
 public:
-    CtExport2Pdf(CtMainWin* pCtMainWin) { _pCtMainWin = pCtMainWin; }
+    CtExport2Pdf(CtMainWin* pCtMainWin) : _pCtMainWin{pCtMainWin} {}
 
-    void node_export_print(const fs::path& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options, int sel_start, int sel_end);
-    void node_and_subnodes_export_print(const fs::path& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options);
-    void tree_export_print(const fs::path& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options);
+    void node_export_print(const fs::path& pdf_filepath,
+                           CtTreeIter tree_iter,
+                           const CtExportOptions& options,
+                           int sel_start,
+                           int sel_end);
+    void node_and_subnodes_export_print(const fs::path& pdf_filepath,
+                                        CtTreeIter tree_iter,
+                                        const CtExportOptions& options);
+    void tree_export_print(const fs::path& pdf_filepath,
+                           CtTreeIter tree_iter,
+                           const CtExportOptions& options);
 
 private:
-    void             _nodes_all_export_print_iter(CtTreeIter tree_iter, const CtExportOptions& options, std::vector<CtPangoObjectPtr>& tree_pango_slots);
+    void             _nodes_all_export_print_iter(CtTreeIter tree_iter,
+                                                  const CtExportOptions& options,
+                                                  std::vector<CtPangoObjectPtr>& tree_pango_slots);
     CtPangoObjectPtr _generate_pango_node_name(CtTreeIter tree_iter);
 
 private:
-    CtMainWin* _pCtMainWin;
+    CtMainWin* const _pCtMainWin;
 };
 
 
