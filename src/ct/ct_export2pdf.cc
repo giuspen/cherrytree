@@ -143,10 +143,9 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
                                            std::vector<CtPangoObjectPtr>& out_slots)
 {
     Glib::ustring pango_attrs;
-    bool superscript_active = false;
-    bool subscript_active = false;
-    bool monospace_active = false;
-    int indent = 0;
+    bool superscript_active{false};
+    bool subscript_active{false};
+    int indent{0};
     std::string link_url;
     for (auto tag_property : CtConst::TAG_PROPERTIES) {
         if (tag_property != CtConst::TAG_JUSTIFICATION and
@@ -165,9 +164,7 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
                     continue;
                 }
                 CtConfig* pConfig = _pCtMainWin->get_ct_config();
-                tag_property = "size";
-                // TODO apply user defined scalable tag properies
-                size_t sIdx{pConfig->scalablesTags.size()};
+                size_t sIdx;
                 if (property_value == CtConst::TAG_PROP_VAL_SMALL) sIdx = 6;
                 else if (property_value == CtConst::TAG_PROP_VAL_H1) sIdx = 0;
                 else if (property_value == CtConst::TAG_PROP_VAL_H2) sIdx = 1;
@@ -175,14 +172,48 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
                 else if (property_value == CtConst::TAG_PROP_VAL_H4) sIdx = 3;
                 else if (property_value == CtConst::TAG_PROP_VAL_H5) sIdx = 4;
                 else if (property_value == CtConst::TAG_PROP_VAL_H6) sIdx = 5;
-                if (sIdx < pConfig->scalablesTags.size()) {
-                    const auto fontSize = Pango::FontDescription{pConfig->rtFont}.get_size();
-                    property_value = std::to_string(static_cast<unsigned>(fontSize * pConfig->scalablesTags.at(sIdx)->scale));
+                else {
+                    spdlog::debug("!! unexp property_value {}", property_value);
+                    continue;
+                }
+                tag_property = "font_size";
+                const auto fontSize = Pango::FontDescription{pConfig->rtFont}.get_size();
+                const auto pCtScalableTag = pConfig->scalablesTags.at(sIdx);
+                property_value = std::to_string(static_cast<unsigned>(fontSize * pCtScalableTag->scale));
+                // check if other optional configuration is applied to this scalable tag
+                if (not pCtScalableTag->foreground.empty()) {
+                    pango_attrs += std::string{" "} + CtConst::TAG_FOREGROUND + "=\"" + pCtScalableTag->foreground + "\"";
+                }
+                if (not pCtScalableTag->background.empty()) {
+                    pango_attrs += std::string{" "} + CtConst::TAG_BACKGROUND + "=\"" + pCtScalableTag->background + "\"";
+                }
+                if (pCtScalableTag->bold) {
+                    pango_attrs += std::string{" "} + CtConst::TAG_WEIGHT + "=\"" + CtConst::TAG_PROP_VAL_HEAVY + "\"";
+                }
+                if (pCtScalableTag->italic) {
+                    pango_attrs += std::string{" "} + CtConst::TAG_STYLE + "=\"" + CtConst::TAG_PROP_VAL_ITALIC + "\"";
+                }
+                if (pCtScalableTag->underline) {
+                    pango_attrs += std::string{" "} + CtConst::TAG_UNDERLINE + "=\"" + CtConst::TAG_PROP_VAL_SINGLE + "\"";
                 }
             }
             else if (tag_property == CtConst::TAG_FAMILY) {
-                monospace_active = true;
-                continue;
+                tag_property = "font_family";
+                CtConfig* pConfig = _pCtMainWin->get_ct_config();
+                if (not pConfig->monospaceFg.empty()) {
+                    pango_attrs += std::string{" "} + CtConst::TAG_FOREGROUND + "=\"" + pConfig->monospaceFg + "\"";
+                }
+                if (not pConfig->monospaceBg.empty()) {
+                    pango_attrs += std::string{" "} + CtConst::TAG_BACKGROUND + "=\"" + pConfig->monospaceBg + "\"";
+                }
+                if (pConfig->msDedicatedFont and not pConfig->monospaceFont.empty()) {
+                    auto fontDesc = Pango::FontDescription{pConfig->monospaceFont};
+                    property_value = fontDesc.get_family();
+                    pango_attrs += std::string{" font_size=\""} + std::to_string(fontDesc.get_size()) + "\"";
+                }
+                else {
+                    property_value = CtConst::TAG_PROP_VAL_MONOSPACE;
+                }
             }
             else if (tag_property == CtConst::TAG_INDENT) {
                 indent = not property_value.empty() ? CtConst::INDENT_MARGIN * std::stoi(property_value) : 0;
@@ -211,7 +242,6 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
 
         if (superscript_active) tagged_text = "<sup>" + tagged_text + "</sup>";
         if (subscript_active) tagged_text = "<sub>" + tagged_text + "</sub>";
-        if (monospace_active) tagged_text = "<tt>" + tagged_text + "</tt>";
 
         if (!link_url.empty()) {
             out_slots.emplace_back(_pango_link_url(tagged_text, link_url, indent));
