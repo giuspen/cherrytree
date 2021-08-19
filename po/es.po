@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.9.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-05-11 20:17+0100\n"
-"PO-Revision-Date: 2021-07-25 22:39-0300\n"
+"PO-Revision-Date: 2021-08-18 21:32-0300\n"
 "Last-Translator: User Fav <userfav.post@gmail.com>\n"
 "Language-Team: Spanish <>\n"
 "Language: es\n"
@@ -231,7 +231,7 @@ msgstr "Directorio de Copia de Seguridad Personalizado"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:83
 msgid "Saving"
-msgstr "Guardando"
+msgstr "Guardado"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:86
 msgid "Automatically Check for Newer Version"
@@ -259,7 +259,7 @@ msgstr "Mostrar la ruta completa en la cabecera del nombre del nodo"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:92
 msgid "Dedicated Bookmarks Menu in Top Menu Bar"
-msgstr "Menú de marcadores dedicado en la barra de menú superior"
+msgstr "Mostrar menú de Marcadores en la barra de menús superior"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:93
 msgid "Enable Debug Log"
@@ -1650,11 +1650,11 @@ msgstr "Tamaño de icono de Archivo incrustado"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:71
 msgid "Embedded File Size Limit"
-msgstr "Tamaño Límite de Archivo incrustado"
+msgstr "Tamaño límite de archivo incrustado (en MB)"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:78
 msgid "Show File Name on Top of Embedded File Icon"
-msgstr "Mostrar el nombre de archivo encima del icono de archivo incrustado"
+msgstr "Mostrar nombre del archivo incrustado sobre su icono"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:80
 msgid "Limit of Undoable Steps Per Node"
@@ -2151,7 +2151,7 @@ msgstr "Clonar formato"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:151
 msgid "Clone the Text Format Type at Cursor"
-msgstr "Clonar el formato del texto bajo el cursor"
+msgstr "Guardar en memoria formato del texto bajo el cursor"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:152
 msgid "Format _Latest"
@@ -2159,7 +2159,7 @@ msgstr "_Formatear como la última vez"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:153
 msgid "Memory of Latest Text Format Type"
-msgstr "Memoria del último tipo de formato de texto"
+msgstr "Aplicar formato de texto guardado en memoria"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:154
 msgid "_Remove Formatting"
@@ -2299,11 +2299,11 @@ msgstr "Activar/Desactivar subíndice para el texto seleccionado"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:186
 msgid "Toggle _Monospace Property"
-msgstr "Activar _monospace"
+msgstr "Activar _monoespaciado"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:187
 msgid "Toggle Monospace Property of the Selected Text"
-msgstr "Activar monospace para el texto seleccionado"
+msgstr "Activar monoespaciado para el texto seleccionado"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:188
 msgid "Set/Unset _Bulleted List"
@@ -2439,7 +2439,7 @@ msgstr "Añadir _nodo"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:221
 msgid "Add a Node having the same Parent of the Selected Node"
-msgstr "Añadir un nodo que tenga el mismo padre que el nodo seleccionado"
+msgstr "Añadir un nodo hermano al nodo seleccionado"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:222
 msgid "Add _SubNode"
@@ -2731,7 +2731,7 @@ msgstr "Ver"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:299
 msgid "Show/Hide _Tree Explorer"
-msgstr "Mostrar/Ocultar Explorador del Árbol"
+msgstr "Mostrar/Ocultar árbol de nodos"
 
 #: /home/giuseppe/git/cherrytree/src/ct/ct_menu_actions.cc:300
 msgid "Toggle Show/Hide Tree"
