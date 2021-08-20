@@ -28,3 +28,4 @@ Type=Application
 StartupNotify=true
 Categories=GNOME;GTK;Utility;
 Keywords=editor;notes;note-taking;
+X-Purism-FormFactor=Workstation;Mobile;
