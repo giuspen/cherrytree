@@ -1,7 +1,7 @@
 /*
  * ct_export2pdf.h
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -154,9 +154,16 @@ struct CtPageCodebox : public CtPageElement
 struct CtPageTable : public CtPageElement
 {
     using TableLayouts = std::vector<std::vector<Glib::RefPtr<Pango::Layout>>>;
-    CtPageTable(int x, TableLayouts layouts, int col_min) : CtPageElement(x), layouts(layouts), col_min(col_min) {}
+    CtPageTable(const int x, const TableLayouts layouts, const CtTableColWidths& col_widths, const double page_dpi_scale)
+     : CtPageElement{x}
+     , layouts{layouts}
+    {
+        for (auto col_width : col_widths) {
+            colWidths.push_back(col_width*page_dpi_scale);
+        }
+    }
     TableLayouts layouts;
-    int          col_min;
+    CtTableColWidths colWidths;
 };
 using CtPageElementPtr = std::shared_ptr<CtPageElement>;
 
@@ -241,9 +248,15 @@ private:
                                                        Glib::ustring& first_split, Glib::ustring& second_split);
 
     CtPageTable::TableLayouts   _table_get_layouts(CtTable* table, const int first_row, const int last_row, const Glib::RefPtr<Gtk::PrintContext>& context);
-    void                        _table_get_grid(const CtPageTable::TableLayouts& table_layouts, const int col_min, std::vector<double>& rows_h, std::vector<double>& cols_w);
+    void                        _table_get_grid(const CtPageTable::TableLayouts& table_layouts,
+                                                const CtTableColWidths& col_widths,
+                                                std::vector<double>& rows_h,
+                                                std::vector<double>& cols_w);
     double                      _table_get_width_height(std::vector<double>& data);
-    int                         _table_split_content(CtTable* table, const int start_row, const int check_height, const Glib::RefPtr<Gtk::PrintContext>& context);
+    int                         _table_split_content(CtTable* table,
+                                                     const int start_row,
+                                                     const int check_height,
+                                                     const Glib::RefPtr<Gtk::PrintContext>& context);
 
     void _draw_codebox_box(Cairo::RefPtr<Cairo::Context> cairo_context, double x0, double y0, double codebox_width, double codebox_height);
     void _draw_codebox_code(Cairo::RefPtr<Cairo::Context> cairo_context, Glib::RefPtr<Pango::Layout> codebox_layout, double x0, double y0);

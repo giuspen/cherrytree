@@ -68,11 +68,18 @@ public:
     std::shared_ptr<CtAnchoredWidgetState> get_state() override;
 
     const CtTableMatrix& get_table_matrix() const { return _tableMatrix; }
-    const CtTableColWidths& get_col_widths() const { return _colWidths; }
+    const CtTableColWidths& get_col_widths_raw() const { return _colWidths; }
     int get_col_width_default() const { return _colWidthDefault; }
     int get_col_width(const std::optional<size_t> optColIdx = std::nullopt) const {
         const size_t colIdx = optColIdx.value_or(_currentColumn);
         return _colWidths.at(colIdx) != 0 ? _colWidths.at(colIdx) : _colWidthDefault;
+    }
+    CtTableColWidths get_col_widths() const {
+        CtTableColWidths colWidths;
+        for (size_t colIdx = 0; colIdx < _colWidths.size(); ++colIdx) {
+            colWidths.push_back(get_col_width(colIdx));
+        }
+        return colWidths;
     }
 
 public:

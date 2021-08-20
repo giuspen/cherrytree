@@ -545,7 +545,7 @@ void CtPrint::_on_draw_page_text(const Glib::RefPtr<Gtk::PrintContext>& context,
             else if (CtPageTable* page_table = dynamic_cast<CtPageTable*>(element.get()))
             {
                 std::vector<double> rows_h, cols_w;
-                _table_get_grid(page_table->layouts, page_table->col_min, rows_h, cols_w);
+                _table_get_grid(page_table->layouts, page_table->colWidths, rows_h, cols_w);
                 double table_width = _table_get_width_height(cols_w);
                 double table_height = _table_get_width_height(rows_h);
                 _draw_table_grid(cairo_context, rows_h, cols_w, page_table->x, line.y - table_height, table_width, table_height);
@@ -737,14 +737,14 @@ void CtPrint::_process_pango_table(CtPrintData *print_data, CtTable *table, int 
         // use table is length is ok
         std::vector<double> rows_h, cols_w;
         auto table_layouts = _table_get_layouts(table, first_row, -1, context);
-        _table_get_grid(table_layouts, table->get_col_width_default(), rows_h, cols_w);
+        _table_get_grid(table_layouts, table->get_col_widths(), rows_h, cols_w);
         double table_height = _table_get_width_height(rows_h);
         if (pages.last_line().test_element_height(table_height + (BOX_OFFSET * _page_dpi_scale), _page_height))
         {
             if (pages.last_line().cur_x == 0)
                 pages.last_line().cur_x = indent;
             pages.last_line().set_height(table_height + (BOX_OFFSET * _page_dpi_scale));
-            pages.last_line().elements.push_back(std::make_shared<CtPageTable>(pages.last_line().cur_x, table_layouts, table->get_col_width_default() * _page_dpi_scale));
+            pages.last_line().elements.push_back(std::make_shared<CtPageTable>(pages.last_line().cur_x, table_layouts, table->get_col_widths(), _page_dpi_scale));
             pages.last_line().cur_x += _table_get_width_height(cols_w);
             return;
         }
@@ -758,12 +758,12 @@ void CtPrint::_process_pango_table(CtPrintData *print_data, CtTable *table, int 
         else
         {
             auto split_layouts = _table_get_layouts(table, first_row, split_row, context);
-            _table_get_grid(split_layouts, table->get_col_width_default(), rows_h, cols_w);
+            _table_get_grid(split_layouts, table->get_col_widths(), rows_h, cols_w);
             double table_height = _table_get_width_height(rows_h);
             if (pages.last_line().cur_x == 0)
                 pages.last_line().cur_x = indent;
             pages.last_line().set_height(table_height + (BOX_OFFSET * _page_dpi_scale));
-            pages.last_line().elements.push_back(std::make_shared<CtPageTable>(pages.last_line().cur_x, split_layouts, table->get_col_width_default() * _page_dpi_scale));
+            pages.last_line().elements.push_back(std::make_shared<CtPageTable>(pages.last_line().cur_x, split_layouts, table->get_col_widths(), _page_dpi_scale));
             pages.new_page();
 
             // go to to check the second part
@@ -850,7 +850,7 @@ CtPageTable::TableLayouts CtPrint::_table_get_layouts(CtTable* table, const int 
             if (row == 0) text = "<b>" + text + "</b>";
             auto cell_layout = context->create_pango_layout();
             cell_layout->set_font_description(_rich_font);
-            cell_layout->set_width(int((table->get_col_width_default() * _page_dpi_scale) * Pango::SCALE));
+            cell_layout->set_width(int((table->get_col_width(col) * _page_dpi_scale) * Pango::SCALE));
             cell_layout->set_wrap(Pango::WRAP_WORD_CHAR);
             cell_layout->set_markup(text);
             layouts.push_back(cell_layout);
@@ -861,23 +861,24 @@ CtPageTable::TableLayouts CtPrint::_table_get_layouts(CtTable* table, const int 
     return table_layouts;
 }
 
-void CtPrint::_table_get_grid(const CtPageTable::TableLayouts& table_layouts, const int col_min, std::vector<double>& rows_h, std::vector<double>& cols_w)
+void CtPrint::_table_get_grid(const CtPageTable::TableLayouts& table_layouts,
+                              const CtTableColWidths& col_widths,
+                              std::vector<double>& rows_h,
+                              std::vector<double>& cols_w)
 {
     rows_h = std::vector<double>(table_layouts.size(), 0);
-    cols_w = std::vector<double>(table_layouts[0].size(), col_min);
-    for (size_t row = 0; row < table_layouts.size(); ++row)
-    {
-        for (size_t col = 0; col < table_layouts[0].size(); ++col)
-        {
+    cols_w = std::vector<double>(table_layouts[0].size(), 0);
+    for (size_t row = 0; row < table_layouts.size(); ++row) {
+        for (size_t col = 0; col < table_layouts[0].size(); ++col) {
             auto cell_layout = table_layouts[row][col];
             double cell_height = 0;
-            for (int layout_line_idx = 0; layout_line_idx < cell_layout->get_line_count(); ++ layout_line_idx)
-            {
+            for (int layout_line_idx = 0; layout_line_idx < cell_layout->get_line_count(); ++layout_line_idx) {
                 auto line_size = _get_width_height_from_layout_line(cell_layout->get_line(layout_line_idx));
                 cell_height += line_size.height;
-                cols_w[col] = std::max(cols_w[col], line_size.width);
+                if (line_size.width > cols_w[col]) cols_w[col] = line_size.width;
             }
-            rows_h[row] = std::max(rows_h[row], cell_height);
+            if (col_widths.at(col) > cols_w[col]) cols_w[col] = col_widths.at(col);
+            if (cell_height > rows_h[row]) rows_h[row] = cell_height;
         }
     }
 }
@@ -897,7 +898,7 @@ int CtPrint::_table_split_content(CtTable* table, const int start_row, const int
     {
         std::vector<double> rows_h, cols_w;
         auto table_layouts = _table_get_layouts(table, start_row, last_row, context);
-        _table_get_grid(table_layouts, table->get_col_width_default(), rows_h, cols_w);
+        _table_get_grid(table_layouts, table->get_col_widths(), rows_h, cols_w);
         double table_height = _table_get_width_height(rows_h);
         if (table_height > check_height)
         {
@@ -930,8 +931,13 @@ void CtPrint::_draw_codebox_code(Cairo::RefPtr<Cairo::Context> cairo_context, Gl
     }
 }
 
-void CtPrint::_draw_table_grid(Cairo::RefPtr<Cairo::Context> cairo_context, const std::vector<double>& rows_h, const std::vector<double>& cols_w,
-                               double x0, double y0, double table_width, double table_height)
+void CtPrint::_draw_table_grid(Cairo::RefPtr<Cairo::Context> cairo_context,
+                               const std::vector<double>& rows_h,
+                               const std::vector<double>& cols_w,
+                               double x0,
+                               double y0,
+                               double table_width,
+                               double table_height)
 {
     double x = x0;
     double y = y0;
@@ -939,8 +945,7 @@ void CtPrint::_draw_table_grid(Cairo::RefPtr<Cairo::Context> cairo_context, cons
     // draw lines
     cairo_context->move_to(x, y);
     cairo_context->line_to(x + table_width, y);
-    for (auto& row_h: rows_h)
-    {
+    for (auto& row_h : rows_h) {
         y += row_h + (_table_line_thickness * _page_dpi_scale);
         cairo_context->move_to(x, y);
         cairo_context->line_to(x + table_width, y);
@@ -949,8 +954,7 @@ void CtPrint::_draw_table_grid(Cairo::RefPtr<Cairo::Context> cairo_context, cons
     y = y0;
     cairo_context->move_to(x, y);
     cairo_context->line_to(x, y + table_height);
-    for (auto& col_w: cols_w)
-    {
+    for (auto& col_w : cols_w) {
         x += col_w + (_table_line_thickness * _page_dpi_scale);
         cairo_context->move_to(x, y);
         cairo_context->line_to(x, y + table_height);
@@ -958,8 +962,12 @@ void CtPrint::_draw_table_grid(Cairo::RefPtr<Cairo::Context> cairo_context, cons
     cairo_context->stroke();
 }
 
-void CtPrint::_draw_table_text(Cairo::RefPtr<Cairo::Context> cairo_context, const std::vector<double>& rows_h, const std::vector<double>& cols_w,
-                               const CtPageTable::TableLayouts& table_layouts, double x0, double y0)
+void CtPrint::_draw_table_text(Cairo::RefPtr<Cairo::Context> cairo_context,
+                               const std::vector<double>& rows_h,
+                               const std::vector<double>& cols_w,
+                               const CtPageTable::TableLayouts& table_layouts,
+                               double x0,
+                               double y0)
 {
     cairo_context->set_source_rgb(0, 0, 0);
     double y = y0;
@@ -967,8 +975,7 @@ void CtPrint::_draw_table_text(Cairo::RefPtr<Cairo::Context> cairo_context, cons
     {
         double row_h = rows_h[i];
         double x = x0 + (CtConst::GRID_SLIP_OFFSET * _page_dpi_scale);
-        for (size_t j = 0; j < cols_w.size(); ++j)
-        {
+        for (size_t j = 0; j < cols_w.size(); ++j) {
             double col_w = cols_w[j];
             auto layout_cell = table_layouts[i][j];
             double local_y = y;

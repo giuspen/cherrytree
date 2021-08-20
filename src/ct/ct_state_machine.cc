@@ -143,7 +143,7 @@ CtAnchoredWidget* CtAnchoredWidgetState_Codebox::to_widget(CtMainWin* pCtMainWin
 CtAnchoredWidgetState_Table::CtAnchoredWidgetState_Table(CtTable* table)
  : CtAnchoredWidgetState{table->getOffset(), table->getJustification()}
  , colWidthDefault{table->get_col_width_default()}
- , colWidths{table->get_col_widths()}
+ , colWidths{table->get_col_widths_raw()}
  , currRow{table->current_row()}
  , currCol{table->current_column()}
 {
