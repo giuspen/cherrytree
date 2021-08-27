@@ -1,7 +1,7 @@
 {
     "app-id": "com.giuspen.cherrytree",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "3.38",
+    "runtime-version": "40",
     "sdk": "org.gnome.Sdk",
     "command": "cherrytree",
     "rename-desktop-file": "cherrytree.desktop",
@@ -9,11 +9,11 @@
     "finish-args": [
         "--share=ipc",
         "--share=network",
-        "--socket=x11",
+        "--socket=fallback-x11",
         "--socket=wayland",
         "--filesystem=host",
         "--filesystem=xdg-run/gvfs",
-        "--talk-name=org.gtk.vfs",
+        "--filesystem=xdg-run/gvfsd",
         "--talk-name=org.gtk.vfs.*"
     ],
     "cleanup": [
@@ -219,8 +219,8 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://www.giuspen.com/software/cherrytree_0.99.38.tar.xz",
-                    "sha256" : "788a64566b14b0f390111cbadc50c6dcb410c4dac90cabffbf0a191f14a46b60"
+                    "url" : "https://www.giuspen.com/software/cherrytree_0.99.40.tar.xz",
+                    "sha256" : "8460284d76d6a1fd555a13903abb10e0473757f6ce09a98c10220de9713bb3ed"
                 }
             ]
         }
