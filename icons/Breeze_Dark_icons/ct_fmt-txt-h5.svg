@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 16 16"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="ct_fmt-txt-h5.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview8"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="true"
+     inkscape:zoom="52.625"
+     inkscape:cx="8.0570071"
+     inkscape:cy="8.7030879"
+     inkscape:window-width="1824"
+     inkscape:window-height="1046"
+     inkscape:window-x="85"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg6">
+    <inkscape:grid
+       type="xygrid"
+       id="grid825" />
+  </sodipodi:namedview>
+  <defs
+     id="defs3051">
+    <style
+       type="text/css"
+       id="current-color-scheme">
+      .ColorScheme-Text {
+        color:#eff0f1;
+      }
+      </style>
+  </defs>
+  <path
+     d="m 12.358467,7.0002979 q -0.147602,0 -0.315801,-0.013101 -0.168198,-0.013101 -0.336396,-0.039305 -0.171632,-0.026203 -0.346695,-0.065507 -0.17163,-0.04258 -0.339829,-0.09171 V 5.9194296 q 0.154468,0.072057 0.291772,0.1179129 0.137305,0.045855 0.295206,0.081884 0.288339,0.068782 0.597275,0.068782 0.545786,0 0.816963,-0.219449 0.278043,-0.2227243 0.278043,-0.6190428 0,-0.4159705 -0.271178,-0.6354196 -0.267744,-0.2227243 -0.755175,-0.2227243 -0.120143,0 -0.257447,0.016376 -0.133872,0.013101 -0.271176,0.045855 -0.140738,0.032754 -0.28834,0.08516 -0.144171,0.052406 -0.264312,0.1080869 V 2.015202 h 2.783853 v 0.8515932 h -1.963457 v 0.9072744 q 0.03433,-0.013101 0.109844,-0.032754 0.07552,-0.022927 0.154467,-0.036029 0.06179,-0.00983 0.147603,-0.013101 0.08582,-0.00655 0.1579,-0.00655 0.363858,0 0.683091,0.1179129 0.319233,0.1146376 0.549219,0.337362 0.22312,0.2161737 0.346694,0.5207821 0.123575,0.3046082 0.123575,0.6812745 0,0.7697093 -0.508028,1.2151581 -0.504595,0.4421734 -1.417671,0.4421734 z"
+     style="font-weight:bold;font-size:6.86708px;line-height:1.25;font-family:Hack;-inkscape-font-specification:'Hack Bold';letter-spacing:0px;word-spacing:0px;fill:#eff0f1;stroke-width:0.171677"
+     id="path826" />
+  <path
+     d="M 1.9955047,6.0000001 H 3.0839051 V 9.2793034 H 6.0488579 V 6.0000001 H 7.1372583 V 14 H 6.0488579 V 10.190221 H 3.0839051 V 14 H 1.9955047 Z"
+     id="path1760"
+     style="font-size:15.065px;line-height:1.25;font-family:Hack;-inkscape-font-specification:Hack;letter-spacing:0px;word-spacing:0px;fill:#eff0f1;stroke-width:0.27443" />
+</svg>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 16 16"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="ct_fmt-txt-h2.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview8"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="true"
+     inkscape:zoom="52.625"
+     inkscape:cx="8.0570071"
+     inkscape:cy="8.0190024"
+     inkscape:window-width="1824"
+     inkscape:window-height="1046"
+     inkscape:window-x="85"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg6">
+    <inkscape:grid
+       type="xygrid"
+       id="grid825" />
+  </sodipodi:namedview>
+  <defs
+     id="defs3051">
+    <style
+       type="text/css"
+       id="current-color-scheme">
+      .ColorScheme-Text {
+        color:#eff0f1;
+      }
+      </style>
+  </defs>
+  <path
+     style="color:#000000;font-size:6.77662px;font-family:Hack;-inkscape-font-specification:'Hack Bold';letter-spacing:0px;word-spacing:0px;fill:#eff0f1;stroke-width:0.169416;-inkscape-stroke:none"
+     d="m 11.015069,6.2897061 q 0,-0.1112345 0.08366,-0.2028395 l 0.451795,-0.471111 q 0.371475,-0.3925926 0.589004,-0.6183332 0.21753,-0.2257407 0.341354,-0.3598766 0.123826,-0.1341357 0.22757,-0.2453703 0.123825,-0.1406789 0.214184,-0.2551851 0.09036,-0.1177778 0.147251,-0.2388271 0.110438,-0.2191975 0.110438,-0.4416666 0,-0.314074 -0.204143,-0.4940122 -0.204144,-0.1799383 -0.572271,-0.1799383 -0.27777,0 -0.592351,0.1014198 -0.163984,0.052345 -0.338007,0.1275925 -0.170678,0.071976 -0.351396,0.173395 V 2.2852623 q 0.200797,-0.071975 0.381515,-0.1210493 0.180717,-0.049074 0.321275,-0.075247 0.344701,-0.065432 0.669322,-0.065432 0.364782,0 0.679363,0.088333 0.317928,0.085061 0.555538,0.2715432 0.214183,0.1701234 0.331314,0.4154938 0.120479,0.2453703 0.120479,0.5856171 0,0.2682716 -0.100402,0.5267283 -0.123824,0.2911728 -0.338008,0.5594443 -0.117131,0.1439507 -0.341354,0.3729629 -0.224223,0.2290124 -0.632511,0.6281481 -0.244302,0.2420987 -0.38486,0.3566049 -0.140557,0.1112345 -0.22757,0.1701234 -0.08701,0.058889 -0.174023,0.1472222 h 2.205418 v 0.8506171 h -3.17259 z"
+     id="path826"
+     clip-path="none" />
+  <path
+     d="M 1.9955047,3.0000002 H 3.4920552 V 7.5090423 H 7.5688653 V 3.0000002 H 9.0654158 V 14.000001 H 7.5688653 V 8.7615541 H 3.4920552 V 14.000001 H 1.9955047 Z"
+     id="path1760"
+     style="font-size:15.065px;line-height:1.25;font-family:Hack;-inkscape-font-specification:Hack;letter-spacing:0px;word-spacing:0px;fill:#eff0f1;stroke-width:0.377341" />
+</svg>
