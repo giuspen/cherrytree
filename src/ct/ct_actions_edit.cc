@@ -234,6 +234,20 @@ void CtActions::embfile_insert()
 void CtActions::apply_tag_link()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
+    if (_curr_buffer()->get_has_selection()) {
+        Gtk::TextIter iter_sel_start, iter_sel_end;
+        _curr_buffer()->get_selection_bounds(iter_sel_start, iter_sel_end);
+        if (1 == (iter_sel_end.get_offset() - iter_sel_start.get_offset())) {
+            auto widgets = _pCtMainWin->curr_tree_iter().get_anchored_widgets(iter_sel_start.get_offset(), iter_sel_start.get_offset());
+            if (not widgets.empty()) {
+                if (CtImagePng* image = dynamic_cast<CtImagePng*>(widgets.front())) {
+                    curr_image_anchor = image;
+                    image_link_edit();
+                    return;
+                }
+            }
+        }
+    }
     apply_tag(CtConst::TAG_LINK);
 }
 
