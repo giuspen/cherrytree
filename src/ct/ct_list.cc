@@ -372,18 +372,19 @@ bool CtList::is_list_todo_beginning(Gtk::TextIter square_bracket_open_iter)
 void CtList::todo_list_rotate_status(Gtk::TextIter todo_char_iter)
 {
     int iter_offset = todo_char_iter.get_offset();
-    Glib::ustring todo_str(1, todo_char_iter.get_char());
-    if (todo_str == _pCtMainWin->get_ct_config()->charsTodo[0]) {
+    const gunichar todo_char_val = todo_char_iter.get_char();
+    auto pConfig = _pCtMainWin->get_ct_config();
+    if (todo_char_val == pConfig->charsTodo.item()[0]) {
         _curr_buffer->erase(todo_char_iter, _curr_buffer->get_iter_at_offset(iter_offset+1));
-        _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), _pCtMainWin->get_ct_config()->charsTodo[1]);
+        _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), pConfig->charsTodo[1]);
     }
-    else if (todo_str == _pCtMainWin->get_ct_config()->charsTodo[1]) {
+    else if (todo_char_val == pConfig->charsTodo.item()[1]) {
         _curr_buffer->erase(todo_char_iter, _curr_buffer->get_iter_at_offset(iter_offset+1));
-        _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), _pCtMainWin->get_ct_config()->charsTodo[2]);
+        _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), pConfig->charsTodo[2]);
     }
-    else if (todo_str == _pCtMainWin->get_ct_config()->charsTodo[2]) {
+    else if (todo_char_val == pConfig->charsTodo.item()[2]) {
         _curr_buffer->erase(todo_char_iter, _curr_buffer->get_iter_at_offset(iter_offset+1));
-        _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), _pCtMainWin->get_ct_config()->charsTodo[0]);
+        _curr_buffer->insert(_curr_buffer->get_iter_at_offset(iter_offset), pConfig->charsTodo[0]);
     }
 }
 
