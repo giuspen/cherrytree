@@ -205,7 +205,7 @@ const inline static std::array<std::string_view, 4> WEB_LINK_STARTERS {
     "ftp://"
 };
 // https://stackoverflow.com/questions/1547899/which-characters-make-a-url-invalid
-const inline static char URL_INVALID_CHARS[]{" \n\r\t\"<>\\^`{|}"};
+const inline static char URL_INVALID_CHARS[]{" \n\r\t\"<>\\^`{}"};
 
 const inline static std::array<std::string_view, 11> TAG_PROPERTIES {
     TAG_WEIGHT,
