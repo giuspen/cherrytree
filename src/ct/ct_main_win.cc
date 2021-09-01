@@ -63,12 +63,12 @@ CtMainWin::CtMainWin(bool                            no_gui,
     _vboxText.pack_start(_init_window_header(), false, false);
     _vboxText.pack_start(_scrolledwindowText);
     if (_pCtConfig->treeRightSide) {
-        _hPaned.add1(_vboxText);
-        _hPaned.add2(_scrolledwindowTree);
+        _hPaned.pack1(_vboxText, Gtk::EXPAND);
+        _hPaned.pack2(_scrolledwindowTree, Gtk::FILL);
     }
     else {
-        _hPaned.add1(_scrolledwindowTree);
-        _hPaned.add2(_vboxText);
+        _hPaned.pack1(_scrolledwindowTree, Gtk::FILL);
+        _hPaned.pack2(_vboxText, Gtk::EXPAND);
     }
     _hPaned.property_wide_handle() = true;
 
@@ -584,15 +584,16 @@ void CtMainWin::config_switch_tree_side()
     _hPaned.remove(_scrolledwindowTree);
     _hPaned.remove(_vboxText);
     if (_pCtConfig->treeRightSide) {
-        _hPaned.add1(_vboxText);
-        _hPaned.add2(_scrolledwindowTree);
+        _hPaned.pack1(_vboxText, Gtk::EXPAND);
+        _hPaned.pack2(_scrolledwindowTree, Gtk::FILL);
         _hPaned.property_position() = text_width;
     }
     else {
-        _hPaned.add1(_scrolledwindowTree);
-        _hPaned.add2(_vboxText);
+        _hPaned.pack1(_scrolledwindowTree, Gtk::FILL);
+        _hPaned.pack2(_vboxText, Gtk::EXPAND);
         _hPaned.property_position() = tree_width;
     }
+    _pCtConfig->hpanedPos = _hPaned.property_position();
 }
 
 void CtMainWin::_zoom_tree(bool is_increase)
