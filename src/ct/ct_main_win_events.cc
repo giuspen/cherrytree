@@ -360,10 +360,19 @@ bool CtMainWin::_on_textview_visibility_notify_event(GdkEventVisibility*)
 
 bool CtMainWin::_on_window_configure_event(GdkEventConfigure*/*configure_event*/)
 {
-    _pCtConfig->winIsMaximised = is_maximized();
-    if (not _pCtConfig->winIsMaximised) {
-        get_position(_pCtConfig->winRect[0], _pCtConfig->winRect[1]);
-        get_size(_pCtConfig->winRect[2], _pCtConfig->winRect[3]);
+    auto f_update_configs = [this](){
+        _pCtConfig->winIsMaximised = is_maximized();
+        if (not _pCtConfig->winIsMaximised) {
+            get_position(_pCtConfig->winRect[0], _pCtConfig->winRect[1]);
+            get_size(_pCtConfig->winRect[2], _pCtConfig->winRect[3]);
+        }
+    };
+    f_update_configs();
+    if (_pCtConfig->winIsMaximised) {
+        // when unmaximising, the maximised flag takes a moment to go down
+        Glib::signal_idle().connect_once([this, f_update_configs](){
+            f_update_configs();
+        });
     }
     return false;
 }
