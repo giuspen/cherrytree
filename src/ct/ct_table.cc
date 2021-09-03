@@ -375,9 +375,15 @@ void CtTable::row_move_down(const size_t rowIdx)
 
 bool CtTable::_row_sort(const bool sortAsc)
 {
-    auto f_tableCompare = [sortAsc](CtTableRow& l, CtTableRow& r)->bool{
-        auto cmpResult = CtStrUtil::natural_compare(l.front()->get_text_content(), r.front()->get_text_content());
-        return sortAsc ? cmpResult < 0 : cmpResult > 0;
+    auto f_tableCompare = [sortAsc](const CtTableRow& l, const CtTableRow& r)->bool{
+        const size_t minCols = std::min(l.size(), r.size());
+        for (size_t i = 0; i < minCols; ++i) {
+            const int cmpResult = CtStrUtil::natural_compare(l.at(i)->get_text_content(), r.at(i)->get_text_content());
+            if (0 != cmpResult) {
+                return sortAsc ? cmpResult < 0 : cmpResult > 0;
+            }
+        }
+        return sortAsc; // if we get here means that the rows are equal, so just use one rule and stick to it
     };
     auto pPrevState = std::static_pointer_cast<CtAnchoredWidgetState_Table>(get_state());
     std::sort(_tableMatrix.begin()+1, _tableMatrix.end(), f_tableCompare);

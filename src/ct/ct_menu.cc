@@ -236,8 +236,8 @@ void CtMenu::build_popup_menu_table_cell(Gtk::Menu* pMenu,
     _add_menu_separator(pMenu);
     if (not first_row) _add_menu_item(pMenu, find_action("table_row_up"));
     if (not last_row) _add_menu_item(pMenu, find_action("table_row_down"));
-    _add_menu_item(pMenu, find_action("table_rows_sort_descending"));
     _add_menu_item(pMenu, find_action("table_rows_sort_ascending"));
+    _add_menu_item(pMenu, find_action("table_rows_sort_descending"));
     _add_menu_separator(pMenu);
     _add_menu_item(pMenu, find_action("table_edit_properties"));
     _add_menu_item(pMenu, find_action("table_export"));
