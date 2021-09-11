@@ -167,7 +167,7 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
     });
     fontbutton_tree->signal_font_set().connect([this, fontbutton_tree](){
         _pConfig->treeFont = fontbutton_tree->get_font_name();
-        apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
+        apply_for_each_window([](CtMainWin* win) { win->update_theme(); win->window_header_update(); });
     });
     return pMainBox;
 }

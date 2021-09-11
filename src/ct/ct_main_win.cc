@@ -406,7 +406,7 @@ void CtMainWin::window_header_update()
     std::string foreground = curr_tree_iter().get_node_foreground();
     foreground = foreground.empty() ? _pCtConfig->ttDefFg : foreground;
     _ctWinHeader.nameLabel.set_markup(
-        "<b><span foreground=\"" + foreground + "\" size=\"large\">" + str::xml_escape(name) + "</span></b>");
+        "<span foreground=\"" + foreground + "\" font_desc=\"" + _pCtConfig->treeFont + "\" font_weight=\"bold\">" + str::xml_escape(name) + "</span>");
 
     // update last visited buttons
     if (_pCtConfig->nodesOnNodeNameHeader == 0) {
@@ -439,7 +439,7 @@ void CtMainWin::window_header_update()
         for (auto iter = nodes.rbegin(); iter != nodes.rend(); ++iter) {
             if (*iter == curr_node) continue;
             if (CtTreeIter node = get_tree_store().get_node_from_node_id(*iter)) {
-                Glib::ustring name = "<small>" + str::xml_escape(node.get_node_name()) + "</small>";
+                Glib::ustring name = "<span font_desc=\"" + _pCtConfig->treeFont + "\">" + str::xml_escape(node.get_node_name()) + "</span>";
                 Glib::ustring tooltip = CtMiscUtil::get_node_hierarchical_name(node, "/", false);
                 if (auto button = dynamic_cast<Gtk::Button*>(buttons[button_idx])) {
                     if (auto label = dynamic_cast<Gtk::Label*>(button->get_child())) {
@@ -604,7 +604,7 @@ void CtMainWin::_zoom_tree(bool is_increase)
     if (size < 6) size = 6;
     fontDesc.set_size(size * Pango::SCALE);
     _pCtConfig->treeFont = CtFontUtil::get_font_str(fontDesc);
-    signal_app_apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
+    signal_app_apply_for_each_window([](CtMainWin* win) { win->update_theme(); win->window_header_update(); });
 }
 
 void CtMainWin::reset()

@@ -329,7 +329,7 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     auto update_tree_color = [this, colorbutton_tree_fg, colorbutton_tree_bg]() {
         _pConfig->ttDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_fg->get_rgba());
         _pConfig->ttDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_bg->get_rgba());
-        apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
+        apply_for_each_window([](CtMainWin* win) { win->update_theme(); win->window_header_update(); });
     };
 
     colorbutton_tree_fg->signal_color_set().connect([update_tree_color, radiobutton_tt_col_custom](){
