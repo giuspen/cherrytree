@@ -367,10 +367,11 @@ bool CtMainWin::_on_window_configure_event(GdkEventConfigure*/*configure_event*/
             get_size(_pCtConfig->winRect[2], _pCtConfig->winRect[3]);
         }
     };
+    const bool prevWinIsMaximised = _pCtConfig->winIsMaximised;
     f_update_configs();
-    if (_pCtConfig->winIsMaximised) {
+    if (prevWinIsMaximised and _pCtConfig->winIsMaximised) {
         // when unmaximising, the maximised flag takes a moment to go down
-        Glib::signal_idle().connect_once([this, f_update_configs](){
+        Glib::signal_idle().connect_once([f_update_configs](){
             f_update_configs();
         });
     }
