@@ -45,13 +45,23 @@ CtTable::CtTable(CtMainWin* pCtMainWin,
  , _currentRow{currRow}
  , _currentColumn{currCol}
 {
+    // enforce same number of columns per row
+    size_t numCols{0};
+    const size_t numRows = _tableMatrix.size();
+    for (size_t r = 0; r < numRows; ++r) {
+        if (_tableMatrix[r].size() > numCols) { numCols = _tableMatrix[r].size(); }
+    }
+    for (size_t r = 0; r < numRows; ++r) {
+        while (_tableMatrix[r].size() < numCols) { _tableMatrix[r].push_back(new CtTextCell{pCtMainWin, "", CtConst::TABLE_CELL_TEXT_ID}); }
+    }
+
     // column widths can be empty or wrong, trying to fix it
     // so we don't need to check it again and again
-    while (_colWidths.size() < tableMatrix[0].size())
+    while (_colWidths.size() < numCols)
         _colWidths.push_back(0); // 0 means we use default width
 
-    for (size_t rowIdx = 0; rowIdx < _tableMatrix.size(); ++rowIdx) {
-        for (size_t colIdx = 0; colIdx < _tableMatrix[rowIdx].size(); ++colIdx) {
+    for (size_t rowIdx = 0; rowIdx < numRows; ++rowIdx) {
+        for (size_t colIdx = 0; colIdx < numCols; ++colIdx) {
             _new_text_cell_attach(rowIdx, colIdx, _tableMatrix.at(rowIdx).at(colIdx));
         }
     }

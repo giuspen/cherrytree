@@ -1,7 +1,7 @@
 /*
  * ct_parser.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -79,7 +79,7 @@ void CtDocumentBuilder::add_subscript_tag(std::optional<std::string> text)
 void CtDocumentBuilder::add_codebox(const std::string& language, const std::string& text)
 {
     close_current_tag();
-    xmlpp::Element* p_codebox_node = CtXML::codebox_to_xml(_current_element->get_parent(), CtConst::TAG_PROP_VAL_LEFT, 0, 300, 150, true, language, false, false);
+    xmlpp::Element* p_codebox_node = CtXML::codebox_to_xml(_current_element->get_parent(), CtConst::TAG_PROP_VAL_LEFT, 0, _pCtConfig->codeboxWidth, _pCtConfig->codeboxHeight, true, language, false, false);
     p_codebox_node->add_child_text(text);
     close_current_tag();
 }
@@ -88,7 +88,6 @@ void CtDocumentBuilder::add_ordered_list(unsigned int level, const std::string &
 {
     add_text(fmt::format("{}. {}", level, data));
 }
-
 
 void CtDocumentBuilder::add_todo_list(checkbox_state state, const std::string& text)
 {
@@ -214,7 +213,7 @@ void CtDocumentBuilder::add_tag_data(std::string_view tag, std::string data)
 
 void CtDocumentBuilder::add_table(const std::vector<std::vector<Glib::ustring>>& table_matrix)
 {
-    CtXmlHelper::table_to_xml(_current_element->get_parent(), table_matrix, 0, CtConst::TAG_PROP_VAL_LEFT, 400, "");
+    CtXmlHelper::table_to_xml(_current_element->get_parent(), table_matrix, 0, CtConst::TAG_PROP_VAL_LEFT, _pCtConfig->tableColWidthDefault, "");
     close_current_tag();
 }
 

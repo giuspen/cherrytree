@@ -1,7 +1,9 @@
 /*
- * ct_handler_md.cc
+ * ct_parser_md.cc
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2021
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,15 +29,12 @@
 
 CtMDParser::CtMDParser(CtConfig* config) : CtDocBuildingParser{config}, _text_parser{std::make_unique<CtTextParser>(_token_schemas())} {}
 
-
 void CtMDParser::_add_scale_to_last(int level) {
     doc_builder().with_last_element([this, level]{ doc_builder().add_scale_tag(level, std::nullopt); });
 }
 
-
 std::vector<CtTextParser::token_schema> CtMDParser::_token_schemas()
 {
-   
     auto add_codebox = [this](const std::string& data) {
         auto data_iter = data.begin();
         while (data_iter != data.end() && *data_iter != '\n') {
@@ -45,11 +44,10 @@ std::vector<CtTextParser::token_schema> CtMDParser::_token_schemas()
         std::string lang;
         if (data_iter != data.begin()) {
             lang.append(data.begin(), data_iter);
-
         }
         spdlog::debug("CODEBOX: {}, lang: {}", text, lang);
         doc_builder().add_codebox(lang, text);
-        
+
     };
     auto add_h3 = [this](const std::string& text) {
         doc_builder().close_current_tag();
@@ -98,7 +96,7 @@ std::vector<CtTextParser::token_schema> CtMDParser::_token_schemas()
 
             std::string title(data.begin(), data.begin() + last_pos);
             std::string url(data.begin() + last_pos + 2, data.end());
-            
+
             doc_builder().add_text(title, false);
             doc_builder().add_link(url);
         }, ")", true},
@@ -118,7 +116,7 @@ std::vector<CtTextParser::token_schema> CtMDParser::_token_schemas()
         {"* ", true, false, add_list, "\n", true},
         // Also list
         {"- ", true, false, add_list, "\n", true},
-    
+
         // Passthroughs for lists
         {" -", true, false, [](const std::string&){}, " "},
         {"-", true, true, [](const std::string&){}},
@@ -143,7 +141,7 @@ std::vector<CtTextParser::token_schema> CtMDParser::_token_schemas()
         {"#### ",  true, false,  add_h3, "\n"},
         {"##### ",  true, false,  add_h3, "\n"},
         {"###### ",  true, false,  add_h3, "\n"},
-        
+
         // H1
         {"\n==", true, false, [this](const std::string&){
             _add_scale_to_last(1);
@@ -159,7 +157,7 @@ std::vector<CtTextParser::token_schema> CtMDParser::_token_schemas()
             doc_builder().add_hrule();
         }, " "},
         // Tables
-        
+
         // Table row
         {"|", true, false, [this](const std::string& data){
             spdlog::debug("Got end: {}", data);
@@ -189,11 +187,10 @@ std::vector<CtTextParser::token_schema> CtMDParser::_token_schemas()
             doc_builder().add_text(data, false);
             doc_builder().add_link(data);
         }, ">", true}
-        
     };
 }
 
-void CtMDParser::_place_free_text() 
+void CtMDParser::_place_free_text()
 {
     std::string free_txt = _free_text.str();
     if (!free_txt.empty()) {
@@ -213,17 +210,15 @@ void CtMDParser::_place_free_text()
 
 void CtMDParser::feed(std::istream& stream)
 {
-
-    
     std::string line;
     std::ostringstream in_stream;
     in_stream << stream.rdbuf();
-    
+
     // Feed the line
     try {
         auto tokens_raw = _text_parser->tokenize(in_stream.str());
         auto tokens     = _text_parser->parse_tokens(tokens_raw);
-        
+
         for (auto iter = tokens.begin(); iter != tokens.end(); ++iter) {
             if (iter->first) {
                 _place_free_text();
@@ -234,11 +229,11 @@ void CtMDParser::feed(std::istream& stream)
                         iter->first->action(iter->second + ")");
                         ++iter;
                         if ((iter + 1) != tokens.end()) ++iter;
-    
+
                         continue;
                     }
                 }
-                
+
                 iter->first->action(iter->second);
             } else {
                 if (!iter->second.empty()) {
@@ -252,10 +247,9 @@ void CtMDParser::feed(std::istream& stream)
     } catch (std::exception& e) {
         spdlog::error("Exception while parsing line: '{}': {}", line, e.what());
     }
-    
 }
 
-void CtMDParser::_add_table_cell(std::string text) 
+void CtMDParser::_add_table_cell(std::string text)
 {
     if (!text.empty()) {
         // Parse it to see if a cell or end of row
@@ -269,22 +263,19 @@ void CtMDParser::_add_table_cell(std::string text)
             _current_table_row.emplace_back(text);
         }
     } else {
-        _pop_table_row();
+        if (not _current_table_row.empty()) { _pop_table_row(); }
         //spdlog::warn("_add_table_cell called without text, the document may contain invalid or unknown formatting");
     }
 }
 
-void CtMDParser::_pop_table() 
+void CtMDParser::_pop_table()
 {
     doc_builder().add_table(_current_table);
     _current_table.clear();
 }
 
-void CtMDParser::_pop_table_row() 
+void CtMDParser::_pop_table_row()
 {
     _current_table.emplace_back(_current_table_row);
     _current_table_row.clear();
 }
-
-
-

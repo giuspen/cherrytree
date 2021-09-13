@@ -116,7 +116,7 @@ public:
     void wipe();
 
 private:
-    const CtConfig* _pCtConfig = nullptr;
+    const CtConfig* const _pCtConfig;
     std::unordered_map<std::string_view, bool> _open_tags;
 
     xmlpp::Element* _build_root_el();
