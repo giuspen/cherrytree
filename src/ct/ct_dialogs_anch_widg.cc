@@ -56,20 +56,28 @@ Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& parent_win
     hbox_1.pack_start(button_rotate_90_ccw, false, false);
     hbox_1.pack_start(scrolledwindow);
     hbox_1.pack_start(button_rotate_90_cw, false, false);
+    Gtk::Button button_flip_horizontal;
+    button_flip_horizontal.set_image_from_icon_name("ct_flip-horizontal", Gtk::ICON_SIZE_DND);
+    Gtk::Button button_flip_vertical;
+    button_flip_vertical.set_image_from_icon_name("ct_flip-vertical", Gtk::ICON_SIZE_DND);
+    Gtk::Box hbox_2{Gtk::ORIENTATION_HORIZONTAL, 2/*spacing*/};
+    hbox_2.pack_start(button_flip_horizontal, true, true);
+    hbox_2.pack_start(button_flip_vertical, true, true);
     Gtk::Label label_width{_("Width")};
     Glib::RefPtr<Gtk::Adjustment> rAdj_width = Gtk::Adjustment::create(width, 1, 10000, 1);
     Gtk::SpinButton spinbutton_width{rAdj_width};
     Gtk::Label label_height{_("Height")};
     Glib::RefPtr<Gtk::Adjustment> rAdj_height = Gtk::Adjustment::create(height, 1, 10000, 1);
     Gtk::SpinButton spinbutton_height{rAdj_height};
-    Gtk::Box hbox_2{Gtk::ORIENTATION_HORIZONTAL};
-    hbox_2.pack_start(label_width);
-    hbox_2.pack_start(spinbutton_width);
-    hbox_2.pack_start(label_height);
-    hbox_2.pack_start(spinbutton_height);
+    Gtk::Box hbox_3{Gtk::ORIENTATION_HORIZONTAL};
+    hbox_3.pack_start(label_width);
+    hbox_3.pack_start(spinbutton_width);
+    hbox_3.pack_start(label_height);
+    hbox_3.pack_start(spinbutton_height);
     Gtk::Box* pContentArea = dialog.get_content_area();
     pContentArea->pack_start(hbox_1);
     pContentArea->pack_start(hbox_2, false, false);
+    pContentArea->pack_start(hbox_3, false, false);
     pContentArea->set_spacing(6);
 
     bool stop_update = false;
@@ -108,6 +116,14 @@ Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& parent_win
         rOriginalPixbuf = rOriginalPixbuf->rotate_simple(Gdk::PixbufRotation::PIXBUF_ROTATE_COUNTERCLOCKWISE);
         image_w_h_ration = 1./image_w_h_ration;
         std::swap(width, height); // new width is the former height and vice versa
+        image_load_into_dialog();
+    });
+    button_flip_horizontal.signal_clicked().connect([&](){
+        rOriginalPixbuf = rOriginalPixbuf->flip(true);
+        image_load_into_dialog();
+    });
+    button_flip_vertical.signal_clicked().connect([&](){
+        rOriginalPixbuf = rOriginalPixbuf->flip(false);
         image_load_into_dialog();
     });
     spinbutton_width.signal_value_changed().connect([&](){
