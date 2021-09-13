@@ -325,7 +325,7 @@ void CtActions::_create_imported_nodes(CtImportedNode* imported_nodes, const boo
                 for (xmlpp::Node* child: xml_slot->get_children())
                 {
                     Gtk::TextIter insert_iter = buffer->get_insert()->get_iter();
-                    CtStorageXmlHelper(_pCtMainWin).get_text_buffer_one_slot_from_xml(buffer, child, node_data.anchoredWidgets, &insert_iter, insert_iter.get_offset());
+                    CtStorageXmlHelper(_pCtMainWin).get_text_buffer_one_slot_from_xml(buffer, child, node_data.anchoredWidgets, &insert_iter, -1);
                 }
             buffer->end_not_undoable_action();
             buffer->set_modified(false);

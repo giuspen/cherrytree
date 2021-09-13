@@ -35,6 +35,7 @@ void CtDocumentBuilder::wipe()
 {
     _document = std::make_shared<xmlpp::Document>();
     _current_element = _build_root_el();
+    _currOffset = 0;
 }
 
 xmlpp::Element* CtDocumentBuilder::_build_root_el()
@@ -50,8 +51,9 @@ CtDocumentBuilder::CtDocumentBuilder(const CtConfig* pCtConfig)
 void CtDocumentBuilder::add_image(const std::string& path) noexcept
 {
     try {
-        CtXML::image_to_xml(_current_element->get_parent(), path, 0, CtConst::TAG_PROP_VAL_LEFT);
+        CtXML::image_to_xml(_current_element->get_parent(), path, _currOffset, CtConst::TAG_PROP_VAL_LEFT);
         close_current_tag();
+        ++_currOffset;
     } catch(std::exception& e) {
         spdlog::error("Exception occured while adding image: {}", e.what());
     }
@@ -79,9 +81,10 @@ void CtDocumentBuilder::add_subscript_tag(std::optional<std::string> text)
 void CtDocumentBuilder::add_codebox(const std::string& language, const std::string& text)
 {
     close_current_tag();
-    xmlpp::Element* p_codebox_node = CtXML::codebox_to_xml(_current_element->get_parent(), CtConst::TAG_PROP_VAL_LEFT, 0, _pCtConfig->codeboxWidth, _pCtConfig->codeboxHeight, true, language, false, false);
+    xmlpp::Element* p_codebox_node = CtXML::codebox_to_xml(_current_element->get_parent(), CtConst::TAG_PROP_VAL_LEFT, _currOffset, _pCtConfig->codeboxWidth, _pCtConfig->codeboxHeight, true, language, false, false);
     p_codebox_node->add_child_text(text);
     close_current_tag();
+    ++_currOffset;
 }
 
 void CtDocumentBuilder::add_ordered_list(unsigned int level, const std::string &data)
@@ -141,6 +144,8 @@ void CtDocumentBuilder::add_strikethrough_tag(std::optional<std::string> data)
 void CtDocumentBuilder::add_text(std::string text, bool close_tag /* = true */)
 {
     if (!text.empty()) {
+        _currOffset += text.size();
+        //spdlog::debug("_currOffset {} '{}'", _currOffset, text);
         if (close_tag) close_current_tag();
 
         auto curr_text = _current_element->get_child_text();
@@ -213,8 +218,9 @@ void CtDocumentBuilder::add_tag_data(std::string_view tag, std::string data)
 
 void CtDocumentBuilder::add_table(const std::vector<std::vector<Glib::ustring>>& table_matrix)
 {
-    CtXmlHelper::table_to_xml(_current_element->get_parent(), table_matrix, 0, CtConst::TAG_PROP_VAL_LEFT, _pCtConfig->tableColWidthDefault, "");
+    CtXmlHelper::table_to_xml(_current_element->get_parent(), table_matrix, _currOffset, CtConst::TAG_PROP_VAL_LEFT, _pCtConfig->tableColWidthDefault, "");
     close_current_tag();
+    ++_currOffset;
 }
 
 #ifdef MD_AUTO_REPLACEMENT

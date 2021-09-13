@@ -127,6 +127,7 @@ private:
     xmlpp::Element* _current_element = nullptr;
     xmlpp::Element* _last_element = nullptr;
     broken_links_t _broken_links;
+    int _currOffset{0};
 };
 
 /**

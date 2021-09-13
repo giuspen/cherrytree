@@ -160,7 +160,7 @@ std::vector<CtTextParser::token_schema> CtMDParser::_token_schemas()
 
         // Table row
         {"|", true, false, [this](const std::string& data){
-            spdlog::debug("Got end: {}", data);
+            //spdlog::debug("Got end: {}", data);
             _add_table_cell(data);
         }, "\n"},
         // Table header divider
@@ -237,12 +237,18 @@ void CtMDParser::feed(std::istream& stream)
                 iter->first->action(iter->second);
             } else {
                 if (!iter->second.empty()) {
-                    if (!_current_table.empty() && iter->second == "\n") _pop_table();
-                    _free_text.write(iter->second.c_str(), iter->second.size());
+                    if (!_current_table.empty() && iter->second == "\n") {
+                        _pop_table();
+                        doc_builder().add_newline();
+                    }
+                    if (_current_table.empty()) {
+                        _free_text.write(iter->second.c_str(), iter->second.size());
+                    }
                 }
             }
             _last_encountered_token = iter->first;
         }
+        if (!_current_table.empty()) _pop_table();
         _place_free_text();
     } catch (std::exception& e) {
         spdlog::error("Exception while parsing line: '{}': {}", line, e.what());
