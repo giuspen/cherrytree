@@ -1103,20 +1103,28 @@ def dialog_image_handle(father_win, title, original_pixbuf):
     hbox_1.pack_start(scrolledwindow)
     hbox_1.pack_start(button_rotate_90_cw, expand=False)
     hbox_1.set_spacing(2)
+    button_flip_horizontal = gtk.Button()
+    button_flip_horizontal.set_image(gtk.image_new_from_stock("object-flip-horizontal", gtk.ICON_SIZE_DND))
+    button_flip_vertical = gtk.Button()
+    button_flip_vertical.set_image(gtk.image_new_from_stock("object-flip-vertical", gtk.ICON_SIZE_DND))
+    hbox_2 = gtk.HBox()
+    hbox_2.pack_start(button_flip_horizontal)
+    hbox_2.pack_start(button_flip_vertical)
+    hbox_2.set_spacing(2)
     label_width = gtk.Label(_("Width"))
     adj_width = gtk.Adjustment(value=img_parms.width, lower=1, upper=10000, step_incr=1)
     spinbutton_width = gtk.SpinButton(adj_width)
     label_height = gtk.Label(_("Height"))
     adj_height = gtk.Adjustment(value=img_parms.height, lower=1, upper=10000, step_incr=1)
     spinbutton_height = gtk.SpinButton(adj_height)
-    hbox_2 = gtk.HBox()
-    hbox_2.pack_start(label_width)
-    hbox_2.pack_start(spinbutton_width)
-    hbox_2.pack_start(label_height)
-    hbox_2.pack_start(spinbutton_height)
+    hbox_3.pack_start(label_width)
+    hbox_3.pack_start(spinbutton_width)
+    hbox_3.pack_start(label_height)
+    hbox_3.pack_start(spinbutton_height)
     content_area = dialog.get_content_area()
     content_area.pack_start(hbox_1)
     content_area.pack_start(hbox_2, expand=False)
+    content_area.pack_start(hbox_3, expand=False)
     content_area.set_spacing(6)
     def image_load_into_dialog():
         # spin update calls image_load_into_dialog again
@@ -1152,6 +1160,12 @@ def dialog_image_handle(father_win, title, original_pixbuf):
         img_parms.height = img_parms.width
         img_parms.width = new_width
         image_load_into_dialog()
+    def on_button_flip_horizontal_clicked(*args):
+        img_parms.original_pixbuf = img_parms.original_pixbuf.flip(true)
+        image_load_into_dialog()
+    def on_button_flip_vertical_clicked(*args):
+        img_parms.original_pixbuf = img_parms.original_pixbuf.flip(false)
+        image_load_into_dialog()
     def on_spinbutton_image_width_value_changed(spinbutton):
         img_parms.width = spinbutton_width.get_value()
         if cons.IS_WIN_OS: # scale works really bad for small numbers
@@ -1177,6 +1191,8 @@ def dialog_image_handle(father_win, title, original_pixbuf):
         return False
     button_rotate_90_ccw.connect('clicked', on_button_rotate_90_ccw_clicked)
     button_rotate_90_cw.connect('clicked', on_button_rotate_90_cw_clicked)
+    button_flip_horizontal.connect('clicked', on_button_flip_horizontal_clicked)
+    button_flip_vertical.connect('clicked', on_button_flip_vertical_clicked)
     spinbutton_width.connect('value-changed', on_spinbutton_image_width_value_changed)
     spinbutton_height.connect('value-changed', on_spinbutton_image_height_value_changed)
     dialog.connect('key_press_event', on_key_press_imagehandledialog)
