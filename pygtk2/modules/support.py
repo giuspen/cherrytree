@@ -1164,7 +1164,7 @@ def dialog_image_handle(father_win, title, original_pixbuf):
         img_parms.original_pixbuf = img_parms.original_pixbuf.flip(true)
         image_load_into_dialog()
     def on_button_flip_vertical_clicked(*args):
-        img_parms.original_pixbuf = img_parms.original_pixbuf.false(false)
+        img_parms.original_pixbuf = img_parms.original_pixbuf.flip(false)
         image_load_into_dialog()
     def on_spinbutton_image_width_value_changed(spinbutton):
         img_parms.width = spinbutton_width.get_value()
