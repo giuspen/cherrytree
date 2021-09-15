@@ -1,9 +1,19 @@
-cherrytree (0.99.40-1) focal; urgency=low
+cherrytree (0.99.41-1) focal; urgency=low
 
-  * new supported language Croatian (Filip Bakula)
-  * language Spanish to 100% (UserFav)
-  * updated Korean (Sean Lee)
-  * fixed blacklist of action that cannot be part of the configurable toolbar
+  * added flip image buttons to image properties dialog (#1791, work of @v31l)
+  * rich text tag monospace: added configurability of the foreground colour (#1745)
+  * fix incorrect insertion from plain text clipboard of link with pipe char (#1781)
+  * fix apply link to image via toolbar button rather than right click (#1782)
+  * fix after unmaximise main window, close, reopen -> still maximised
+  * fix fullscreen expands the width of tree explorer rather than the editing frame when tree on the right (#1785)
+  * fix segfault/crash from exporting imported markdown file with a table (#1790)
+  * fix todo lists in ubuntu 18.04 not cycling through available mark choices (#1775)
+  * fix print/export to pdf of table columns widths (#1760)
+  * print/export to pdf of scalable tags (h1..h6,small) and monospace use configured properties (#1650)
+  * node name header font size/family to follow the tree font (#1764)
+  * improved table sorting to use not only first column (#1784)
+  * improved import from markdown of a table with or without pre/post text (#1790)
+  * updated es.po (UserFav)
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sat, 07 Aug 2021 10:54:06 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Wed, 15 Sep 2021 21:32:03 +0100
