@@ -177,10 +177,10 @@ void CtActions::_node_add(bool duplicate, bool add_child)
         if (not CtDialogs::node_prop_dialog(title, _pCtMainWin, nodeData, _pCtMainWin->get_tree_store().get_used_tags()))
             return;
     }
-    _node_add_with_data(_pCtMainWin->curr_tree_iter(), nodeData, add_child, node_state);
+    (void)_node_add_with_data(_pCtMainWin->curr_tree_iter(), nodeData, add_child, node_state);
 }
 
-void CtActions::_node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeData, bool add_child, std::shared_ptr<CtNodeState> node_state)
+Gtk::TreeIter CtActions::_node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeData, bool add_child, std::shared_ptr<CtNodeState> node_state)
 {
     if (!nodeData.rTextBuffer)
         nodeData.rTextBuffer = _pCtMainWin->get_new_text_buffer();
@@ -206,23 +206,27 @@ void CtActions::_node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeDat
     _pCtMainWin->get_tree_store().update_node_aux_icon(nodeIter);
     _pCtMainWin->get_tree_view().set_cursor_safe(nodeIter);
     _pCtMainWin->get_text_view().grab_focus();
+    return nodeIter;
 }
 
-void CtActions::node_child_exist_or_create(Gtk::TreeIter parentIter, const std::string& nodeName)
+Gtk::TreeIter CtActions::node_child_exist_or_create(Gtk::TreeIter parentIter, const std::string& nodeName, const bool focusIfExisting)
 {
     Gtk::TreeIter childIter = parentIter ? parentIter->children().begin() : _pCtMainWin->get_tree_store().get_iter_first();
-    for (; childIter; ++childIter)
+    for (; childIter; ++childIter) {
         if (_pCtMainWin->get_tree_store().to_ct_tree_iter(childIter).get_node_name() == nodeName) {
-            _pCtMainWin->get_tree_view().set_cursor_safe(childIter);
-            return;
+            if (focusIfExisting) {
+                _pCtMainWin->get_tree_view().set_cursor_safe(childIter);
+            }
+            return childIter;
         }
+    }
     CtNodeData nodeData;
     nodeData.name = nodeName;
     nodeData.isBold = false;
     nodeData.customIconId = 0;
     nodeData.syntax = CtConst::RICH_TEXT_ID;
     nodeData.isRO = false;
-    _node_add_with_data(parentIter, nodeData, true, nullptr);
+    return _node_add_with_data(parentIter, nodeData, true, nullptr);
 }
 
 // Move a node to a parent and after a sibling
@@ -459,17 +463,16 @@ void CtActions::node_toggle_read_only()
 
 void CtActions::node_date()
 {
-    time_t time = std::time(nullptr);
+    const time_t time = std::time(nullptr);
+    const Glib::ustring year = str::time_format("%Y", time);
+    const Glib::ustring month = str::time_format("%B", time);
+    const Glib::ustring day = str::time_format("%d %a", time);
 
-    Glib::ustring year = str::time_format("%Y", time);
-    Glib::ustring month = str::time_format("%B", time);
-    Glib::ustring day = str::time_format("%d %a", time);
-
-    _pCtMainWin->get_state_machine().set_go_bk_fw_click(true); // so nodes don't be in the list of visited
-    node_child_exist_or_create(Gtk::TreeIter(), year);
-    node_child_exist_or_create(_pCtMainWin->curr_tree_iter(), month);
+    _pCtMainWin->get_state_machine().set_go_bk_fw_click(true); // so nodes won't be in the list of visited
+    Gtk::TreeIter treeIterYear = node_child_exist_or_create(Gtk::TreeIter{}, year, false/*focusIfExisting*/);
+    Gtk::TreeIter treeIterMonth = node_child_exist_or_create(treeIterYear, month, false/*focusIfExisting*/);
     _pCtMainWin->get_state_machine().set_go_bk_fw_click(false);
-    node_child_exist_or_create(_pCtMainWin->curr_tree_iter(), day);
+    (void)node_child_exist_or_create(treeIterMonth, day, true/*focusIfExisting*/);
 }
 
 void CtActions::node_up()

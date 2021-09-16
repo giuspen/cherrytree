@@ -113,10 +113,10 @@ public:
 private:
     // helpers for tree actions
     void          _node_add(bool duplicate, bool add_child);
-    void          _node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeData, bool add_child, std::shared_ptr<CtNodeState> node_state);
+    Gtk::TreeIter _node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeData, bool add_child, std::shared_ptr<CtNodeState> node_state);
 
 public:
-    void          node_child_exist_or_create(Gtk::TreeIter parentIter, const std::string& nodeName);
+    Gtk::TreeIter node_child_exist_or_create(Gtk::TreeIter parentIter, const std::string& nodeName, const bool focusIfExisting = true);
     void          node_move_after(Gtk::TreeIter iter_to_move,
                                   Gtk::TreeIter father_iter,
                                   Gtk::TreeIter brother_iter = Gtk::TreeIter{},
