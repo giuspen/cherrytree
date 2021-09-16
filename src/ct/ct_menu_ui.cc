@@ -251,10 +251,11 @@ const char* CtMenu::_get_ui_str_menu()
       <menuitem action='tree_node_new_father'/>
     </menu>
     <menu action='TreeSortSubMenu'>
-      <menuitem action='tree_all_sort_asc'/>
-      <menuitem action='tree_all_sort_desc'/>
       <menuitem action='tree_sibl_sort_asc'/>
       <menuitem action='tree_sibl_sort_desc'/>
+      <separator/>
+      <menuitem action='tree_all_sort_asc'/>
+      <menuitem action='tree_all_sort_desc'/>
     </menu>
     <separator/>
     <menuitem action='tree_node_del'/>
