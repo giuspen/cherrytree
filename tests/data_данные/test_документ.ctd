@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cherrytree>
   <bookmarks list="1,2"/>
-  <node name="йцукенгшщз" unique_id="1" prog_lang="plain-text" tags="йцукенгшщз" readonly="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1564836930" ts_lastsave="0">
+  <node name="йцукенгшщз" unique_id="1" prog_lang="plain-text" tags="йцукенгшщз" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1564836930" ts_lastsave="0">
     <rich_text>ciao plain
 йцукенгшщз</rich_text>
   </node>
-  <node name="b" unique_id="2" prog_lang="custom-colors" tags="" readonly="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1564932982" ts_lastsave="1617718637">
+  <node name="b" unique_id="2" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1564932982" ts_lastsave="1617718637">
     <rich_text justification="fill">ciao rich</rich_text>
     <rich_text>
 </rich_text>
@@ -59,33 +59,33 @@
     <rich_text family="monospace">mono</rich_text>
     <rich_text>
 </rich_text>
-    <node name="c" unique_id="3" prog_lang="c" tags="" readonly="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1564988027" ts_lastsave="0">
+    <node name="c" unique_id="3" prog_lang="c" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1564988027" ts_lastsave="0">
       <rich_text>int main(int argc, char *argv[])
 {
     return 0;
 }
 </rich_text>
     </node>
-    <node name="sh" unique_id="6" prog_lang="sh" tags="" readonly="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1593795066" ts_lastsave="0">
+    <node name="sh" unique_id="6" prog_lang="sh" tags="" readonly="0" nosearch_me="1" nosearch_ch="1" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1593795066" ts_lastsave="0">
       <rich_text>echo "ciao!"</rich_text>
-      <node name="html" unique_id="8" prog_lang="html" tags="" readonly="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1593795273" ts_lastsave="0">
+      <node name="html" unique_id="8" prog_lang="html" tags="" readonly="0" nosearch_me="1" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1593795273" ts_lastsave="0">
         <rich_text>&lt;head&gt;
 &lt;title&gt;NO&lt;/title&gt;
 &lt;/head&gt;</rich_text>
       </node>
-      <node name="xml" unique_id="9" prog_lang="xml" tags="" readonly="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1593795405" ts_lastsave="0">
+      <node name="xml" unique_id="9" prog_lang="xml" tags="" readonly="0" nosearch_me="0" nosearch_ch="1" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1593795405" ts_lastsave="0">
         <rich_text>&lt;?xml version="1.0" encoding="UTF-8"?&gt;</rich_text>
       </node>
     </node>
-    <node name="py" unique_id="7" prog_lang="python3" tags="" readonly="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1593795143" ts_lastsave="0">
+    <node name="py" unique_id="7" prog_lang="python3" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1593795143" ts_lastsave="0">
       <rich_text>print("ciao!")</rich_text>
     </node>
   </node>
-  <node name="d" unique_id="4" prog_lang="custom-colors" tags="ciao" readonly="1" custom_icon_id="45" is_bold="1" foreground="#ff0000" ts_creation="1565002032" ts_lastsave="0">
+  <node name="d" unique_id="4" prog_lang="custom-colors" tags="ciao" readonly="1" nosearch_me="0" nosearch_ch="0" custom_icon_id="45" is_bold="1" foreground="#ff0000" ts_creation="1565002032" ts_lastsave="0">
     <rich_text>second rich
 </rich_text>
   </node>
-  <node name="e" unique_id="5" prog_lang="custom-colors" tags="" readonly="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1565008774" ts_lastsave="1604697748">
+  <node name="e" unique_id="5" prog_lang="custom-colors" tags="" readonly="0" nosearch_me="0" nosearch_ch="0" custom_icon_id="0" is_bold="0" foreground="" ts_creation="1565008774" ts_lastsave="1604697748">
     <rich_text>anchored widgets:
 
 codebox:

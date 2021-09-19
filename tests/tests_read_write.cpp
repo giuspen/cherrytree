@@ -159,6 +159,8 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         ASSERT_STREQ("0", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
         ASSERT_FALSE(ctTreeIter.get_node_is_bold());
         ASSERT_FALSE(ctTreeIter.get_node_read_only());
+        ASSERT_FALSE(ctTreeIter.get_node_is_excluded_from_search());
+        ASSERT_FALSE(ctTreeIter.get_node_children_are_excluded_from_search());
         ASSERT_EQ(0, ctTreeIter.get_node_custom_icon_id());
         ASSERT_STREQ("йцукенгшщз", ctTreeIter.get_node_tags().c_str());
         ASSERT_STREQ("", ctTreeIter.get_node_foreground().c_str());
@@ -177,6 +179,8 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         ASSERT_STREQ("1", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
         ASSERT_FALSE(ctTreeIter.get_node_is_bold());
         ASSERT_FALSE(ctTreeIter.get_node_read_only());
+        ASSERT_FALSE(ctTreeIter.get_node_is_excluded_from_search());
+        ASSERT_FALSE(ctTreeIter.get_node_children_are_excluded_from_search());
         ASSERT_EQ(0, ctTreeIter.get_node_custom_icon_id());
         ASSERT_STREQ("", ctTreeIter.get_node_tags().c_str());
         ASSERT_STREQ("", ctTreeIter.get_node_foreground().c_str());
@@ -272,6 +276,8 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         ASSERT_STREQ("1:0", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
         ASSERT_FALSE(ctTreeIter.get_node_is_bold());
         ASSERT_FALSE(ctTreeIter.get_node_read_only());
+        ASSERT_FALSE(ctTreeIter.get_node_is_excluded_from_search());
+        ASSERT_FALSE(ctTreeIter.get_node_children_are_excluded_from_search());
         ASSERT_EQ(0, ctTreeIter.get_node_custom_icon_id());
         ASSERT_STREQ("", ctTreeIter.get_node_tags().c_str());
         ASSERT_STREQ("", ctTreeIter.get_node_foreground().c_str());
@@ -291,6 +297,8 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         ASSERT_STREQ("1:1", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
         ASSERT_FALSE(ctTreeIter.get_node_is_bold());
         ASSERT_FALSE(ctTreeIter.get_node_read_only());
+        ASSERT_TRUE(ctTreeIter.get_node_is_excluded_from_search());
+        ASSERT_TRUE(ctTreeIter.get_node_children_are_excluded_from_search());
         ASSERT_EQ(0, ctTreeIter.get_node_custom_icon_id());
         ASSERT_STREQ("", ctTreeIter.get_node_tags().c_str());
         ASSERT_STREQ("", ctTreeIter.get_node_foreground().c_str());
@@ -307,6 +315,8 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         ASSERT_STREQ("1:1:0", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
         ASSERT_FALSE(ctTreeIter.get_node_is_bold());
         ASSERT_FALSE(ctTreeIter.get_node_read_only());
+        ASSERT_TRUE(ctTreeIter.get_node_is_excluded_from_search());
+        ASSERT_FALSE(ctTreeIter.get_node_children_are_excluded_from_search());
         ASSERT_EQ(0, ctTreeIter.get_node_custom_icon_id());
         ASSERT_STREQ("", ctTreeIter.get_node_tags().c_str());
         ASSERT_STREQ("", ctTreeIter.get_node_foreground().c_str());
@@ -325,6 +335,8 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         ASSERT_STREQ("1:1:1", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
         ASSERT_FALSE(ctTreeIter.get_node_is_bold());
         ASSERT_FALSE(ctTreeIter.get_node_read_only());
+        ASSERT_FALSE(ctTreeIter.get_node_is_excluded_from_search());
+        ASSERT_TRUE(ctTreeIter.get_node_children_are_excluded_from_search());
         ASSERT_EQ(0, ctTreeIter.get_node_custom_icon_id());
         ASSERT_STREQ("", ctTreeIter.get_node_tags().c_str());
         ASSERT_STREQ("", ctTreeIter.get_node_foreground().c_str());
@@ -341,6 +353,8 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         ASSERT_STREQ("1:2", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
         ASSERT_FALSE(ctTreeIter.get_node_is_bold());
         ASSERT_FALSE(ctTreeIter.get_node_read_only());
+        ASSERT_FALSE(ctTreeIter.get_node_is_excluded_from_search());
+        ASSERT_FALSE(ctTreeIter.get_node_children_are_excluded_from_search());
         ASSERT_EQ(0, ctTreeIter.get_node_custom_icon_id());
         ASSERT_STREQ("", ctTreeIter.get_node_tags().c_str());
         ASSERT_STREQ("", ctTreeIter.get_node_foreground().c_str());
@@ -360,6 +374,8 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         ASSERT_STREQ("2", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
         ASSERT_TRUE(ctTreeIter.get_node_is_bold());
         ASSERT_TRUE(ctTreeIter.get_node_read_only());
+        ASSERT_FALSE(ctTreeIter.get_node_is_excluded_from_search());
+        ASSERT_FALSE(ctTreeIter.get_node_children_are_excluded_from_search());
         ASSERT_EQ(45, ctTreeIter.get_node_custom_icon_id());
         ASSERT_STREQ("ciao", ctTreeIter.get_node_tags().c_str());
         ASSERT_STREQ("#ff0000", ctTreeIter.get_node_foreground().c_str());
@@ -379,6 +395,8 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         ASSERT_STREQ("3", pWin->get_tree_store().get_path(ctTreeIter).to_string().c_str());
         ASSERT_FALSE(ctTreeIter.get_node_is_bold());
         ASSERT_FALSE(ctTreeIter.get_node_read_only());
+        ASSERT_FALSE(ctTreeIter.get_node_is_excluded_from_search());
+        ASSERT_FALSE(ctTreeIter.get_node_children_are_excluded_from_search());
         ASSERT_EQ(0, ctTreeIter.get_node_custom_icon_id());
         ASSERT_STREQ("", ctTreeIter.get_node_tags().c_str());
         ASSERT_STREQ("", ctTreeIter.get_node_foreground().c_str());
