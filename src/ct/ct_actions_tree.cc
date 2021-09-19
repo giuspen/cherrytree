@@ -170,10 +170,7 @@ void CtActions::_node_add(bool duplicate, bool add_child)
     {
         if (add_child && !_is_there_selected_node_or_error()) return;
         std::string title = add_child ? _("New Child Node Properties") : _("New Node Properties");
-        nodeData.isBold = false;
-        nodeData.customIconId = 0;
         nodeData.syntax = _pCtMainWin->curr_tree_iter() ? _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting() : CtConst::RICH_TEXT_ID;
-        nodeData.isRO = false;
         if (not CtDialogs::node_prop_dialog(title, _pCtMainWin, nodeData, _pCtMainWin->get_tree_store().get_used_tags()))
             return;
     }
@@ -222,10 +219,7 @@ Gtk::TreeIter CtActions::node_child_exist_or_create(Gtk::TreeIter parentIter, co
     }
     CtNodeData nodeData;
     nodeData.name = nodeName;
-    nodeData.isBold = false;
-    nodeData.customIconId = 0;
     nodeData.syntax = CtConst::RICH_TEXT_ID;
-    nodeData.isRO = false;
     return _node_add_with_data(parentIter, nodeData, true, nullptr);
 }
 
@@ -324,11 +318,12 @@ void CtActions::node_edit()
         }
     }
 
-    _pCtMainWin->get_text_view().set_editable(!newData.isRO);
+    _pCtMainWin->get_text_view().set_editable(!newData.isReadOnly);
     _pCtMainWin->update_selected_node_statusbar_info();
     _pCtMainWin->get_tree_store().update_node_aux_icon(_pCtMainWin->curr_tree_iter());
     _pCtMainWin->window_header_update();
-    _pCtMainWin->window_header_update_lock_icon(newData.isRO);
+    _pCtMainWin->window_header_update_lock_icon(newData.isReadOnly);
+    _pCtMainWin->window_header_update_ghost_icon(newData.excludeMeFromSearch or newData.excludeChildrenFromSearch);
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::npro);
     _pCtMainWin->get_text_view().grab_focus();
 }

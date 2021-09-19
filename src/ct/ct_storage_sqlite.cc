@@ -382,10 +382,10 @@ void CtStorageSqlite::_close_db()
 
 Gtk::TreeIter CtStorageSqlite::_node_from_db(gint64 node_id, gint64 sequence, Gtk::TreeIter parent_iter, gint64 new_id)
 {
-    auto uStmt = std::make_unique<Sqlite3StmtAuto>(_pDb, "SELECT name, syntax, tags, is_ro, is_richtxt, ts_creation, ts_lastsave FROM node WHERE node_id=?");
+    auto uStmt = std::make_unique<Sqlite3StmtAuto>(_pDb, "SELECT name, syntax, tags, is_ro, is_richtxt, level, ts_creation, ts_lastsave FROM node WHERE node_id=?");
     if (uStmt->is_bad()) {
         // an older version of the SQLite db didn't have ts_creation, ts_lastsave
-        uStmt.reset(new Sqlite3StmtAuto{_pDb, "SELECT name, syntax, tags, is_ro, is_richtxt FROM node WHERE node_id=?"});
+        uStmt.reset(new Sqlite3StmtAuto{_pDb, "SELECT name, syntax, tags, is_ro, is_richtxt, level FROM node WHERE node_id=?"});
         if (uStmt->is_bad()) {
             throw std::runtime_error(ERR_SQLITE_PREPV2 + sqlite3_errmsg(_pDb));
         }
@@ -401,10 +401,10 @@ Gtk::TreeIter CtStorageSqlite::_node_from_db(gint64 node_id, gint64 sequence, Gt
     nodeData.name = safe_sqlite3_column_text(*uStmt, 0);
     nodeData.syntax = safe_sqlite3_column_text(*uStmt, 1);
     nodeData.tags = safe_sqlite3_column_text(*uStmt, 2);
-    gint64 readonly_n_custom_icon_id = sqlite3_column_int64(*uStmt, 3);
-    nodeData.isRO = static_cast<bool>(readonly_n_custom_icon_id & 0x01);
+    const gint64 readonly_n_custom_icon_id = sqlite3_column_int64(*uStmt, 3);
+    nodeData.isReadOnly = static_cast<bool>(readonly_n_custom_icon_id & 0x01);
     nodeData.customIconId = readonly_n_custom_icon_id >> 1;
-    gint64 richtxt_bold_foreground = sqlite3_column_int64(*uStmt, 4);
+    const gint64 richtxt_bold_foreground = sqlite3_column_int64(*uStmt, 4);
     nodeData.isBold = static_cast<bool>((richtxt_bold_foreground >> 1) & 0x01);
     nodeData.sequence = sequence;
     if (static_cast<bool>((richtxt_bold_foreground >> 2) & 0x01)) {
@@ -412,8 +412,11 @@ Gtk::TreeIter CtStorageSqlite::_node_from_db(gint64 node_id, gint64 sequence, Gt
         CtRgbUtil::set_rgb24str_from_rgb24int((richtxt_bold_foreground >> 3) & 0xffffff, foregroundRgb24);
         nodeData.foregroundRgb24 = foregroundRgb24;
     }
-    nodeData.tsCreation = sqlite3_column_int64(*uStmt, 5);
-    nodeData.tsLastSave = sqlite3_column_int64(*uStmt, 6);
+    const gint64 exclude_from_search = sqlite3_column_int64(*uStmt, 5);
+    nodeData.excludeMeFromSearch = exclude_from_search & 0x01;
+    nodeData.excludeChildrenFromSearch = exclude_from_search & 0x02;
+    nodeData.tsCreation = sqlite3_column_int64(*uStmt, 6);
+    nodeData.tsLastSave = sqlite3_column_int64(*uStmt, 7);
 
     // buffer for imported node should be loaded now because file will be closed
     if (new_id != -1) {
@@ -620,18 +623,21 @@ void CtStorageSqlite::_write_node_to_db(CtTreeIter* ct_tree_iter,
 {
     const gint64 node_id = ct_tree_iter->get_node_id();
     // is_ro is packed with additional bitfield data
-    gint64 is_ro = ct_tree_iter->get_node_read_only() ? 0x01 : 0x00;
+    gint64 is_ro = ct_tree_iter->get_node_read_only();
     is_ro |= ct_tree_iter->get_node_custom_icon_id() << 1;
     // is_richtxt is packed with additional bitfield data
-    gint64 is_richtxt = ct_tree_iter->get_node_is_rich_text() ? 0x01 : 0x00;
-    if (ct_tree_iter->get_node_is_bold())
-    {
+    gint64 is_richtxt = ct_tree_iter->get_node_is_rich_text();
+    if (ct_tree_iter->get_node_is_bold()) {
         is_richtxt |= 0x02;
     }
-    if (!ct_tree_iter->get_node_foreground().empty())
-    {
+    if (not ct_tree_iter->get_node_foreground().empty()) {
         is_richtxt |= 0x04;
         is_richtxt |= CtRgbUtil::get_rgb24int_from_str_any(ct_tree_iter->get_node_foreground().c_str()+1) << 3;
+    }
+    // level is an abandoned field which is now used for bitfield data
+    gint64 exclude_from_search = ct_tree_iter->get_node_is_excluded_from_search();
+    if (ct_tree_iter->get_node_children_are_excluded_from_search()) {
+        exclude_from_search |= 0x02;
     }
 
     bool remove_prev_widgets = node_state.upd && node_state.buff;
@@ -686,7 +692,7 @@ void CtStorageSqlite::_write_node_to_db(CtTreeIter* ct_tree_iter,
     // if only node prop to write
     if (node_state.prop && !node_state.buff)
     {
-        Sqlite3StmtAuto stmt{_pDb, "UPDATE node SET name=?, syntax=?, tags=?, is_ro=?, is_richtxt=? WHERE node_id=?"};
+        Sqlite3StmtAuto stmt{_pDb, "UPDATE node SET name=?, syntax=?, tags=?, is_ro=?, is_richtxt=?, level=? WHERE node_id=?"};
         if (stmt.is_bad())
             throw std::runtime_error(ERR_SQLITE_PREPV2 + sqlite3_errmsg(_pDb));
 
@@ -698,7 +704,8 @@ void CtStorageSqlite::_write_node_to_db(CtTreeIter* ct_tree_iter,
         sqlite3_bind_text(stmt, 3, node_tags.c_str(), node_tags.size(), SQLITE_STATIC);
         sqlite3_bind_int64(stmt, 4, is_ro);
         sqlite3_bind_int64(stmt, 5, is_richtxt);
-        sqlite3_bind_int64(stmt, 6, node_id);
+        sqlite3_bind_int64(stmt, 6, exclude_from_search);
+        sqlite3_bind_int64(stmt, 7, node_id);
         if (sqlite3_step(stmt) != SQLITE_DONE)
             throw std::runtime_error(ERR_SQLITE_STEP + sqlite3_errmsg(_pDb));
     }
@@ -745,7 +752,7 @@ void CtStorageSqlite::_write_node_to_db(CtTreeIter* ct_tree_iter,
             sqlite3_bind_int64(stmt, 8, has_codebox);
             sqlite3_bind_int64(stmt, 9, has_table);
             sqlite3_bind_int64(stmt, 10, has_image);
-            sqlite3_bind_int64(stmt, 11, 0); // todo: get rid of unused column 'level'
+            sqlite3_bind_int64(stmt, 11, exclude_from_search);
             sqlite3_bind_int64(stmt, 12, ct_tree_iter->get_node_creating_time());
             sqlite3_bind_int64(stmt, 13, ct_tree_iter->get_node_modification_time());
             if (sqlite3_step(stmt) != SQLITE_DONE)

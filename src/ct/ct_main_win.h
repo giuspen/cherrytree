@@ -65,6 +65,7 @@ struct CtWinHeader
     Gtk::Label       nameLabel;
     Gtk::Image       lockIcon;
     Gtk::Image       bookmarkIcon;
+    Gtk::Image       ghostIcon;
     Gtk::EventBox    eventBox;
     std::map<Gtk::Button*, gint64> button_to_node_id;
 };
@@ -168,8 +169,9 @@ public:
     void window_title_update(std::optional<bool> saveNeeded = std::nullopt);
 
     void window_header_update();
-    void window_header_update_lock_icon(bool show);
-    void window_header_update_bookmark_icon(bool show);
+    void window_header_update_lock_icon(const bool show);
+    void window_header_update_ghost_icon(const bool show);
+    void window_header_update_bookmark_icon(const bool show);
 
     void menu_update_bookmark_menu_item(bool is_bookmarked);
     void menu_set_bookmark_menu_items();

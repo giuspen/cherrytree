@@ -227,8 +227,8 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Add a Child Node to the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_child_add)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_dup_node", "ct_tree-node-dupl", _("_Duplicate Node"), KB_CONTROL+KB_SHIFT+"D",
         _("Duplicate the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_duplicate)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_dup_node_subnodes", "ct_tree-nodesub-dupl", _("_Duplicate Node and Sub Nodes"), None,
-        _("Duplicate the Selected Node With SubNodes"), sigc::mem_fun(*pActions, &CtActions::node_subnodes_duplicate)});
+    _actions.push_back(CtMenuAction{tree_cat, "tree_dup_node_subnodes", "ct_tree-nodesub-dupl", _("_Duplicate Node and Subnodes"), None,
+        _("Duplicate the Selected Node and the Subnodes"), sigc::mem_fun(*pActions, &CtActions::node_subnodes_duplicate)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_date", "ct_calendar", _("Insert Today's Node"), "F8",
         _("Insert a Node with Hierarchy Year/Month/Day"), sigc::mem_fun(*pActions, &CtActions::node_date)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_prop", "ct_cherry_edit", _("Change Node _Properties"), "F2",

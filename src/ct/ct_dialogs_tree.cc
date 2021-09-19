@@ -71,11 +71,11 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     grid_icons->attach(c_icon_checkbutton, 0, 2, 1, 1);
     grid_icons->attach(c_icon_button, 1, 2, 1, 1);
 
-    Gtk::VBox name_vbox;
+    Gtk::Box name_vbox{Gtk::ORIENTATION_VERTICAL};
     name_vbox.pack_start(name_entry);
     name_vbox.pack_start(is_bold_checkbutton);
     name_vbox.pack_start(*grid_icons);
-    Gtk::Frame name_frame{Glib::ustring("<b>")+_("Node Name")+"</b>"};
+    Gtk::Frame name_frame{Glib::ustring{"<b>"}+_("Node Name")+"</b>"};
     dynamic_cast<Gtk::Label*>(name_frame.get_label_widget())->set_use_markup(true);
     name_frame.set_shadow_type(Gtk::SHADOW_NONE);
     name_frame.add(name_vbox);
@@ -102,18 +102,18 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     else {
         radiobutton_auto_syntax_highl.set_active(true);
     }
-    Gtk::VBox type_vbox;
+    Gtk::Box type_vbox{Gtk::ORIENTATION_VERTICAL};
     type_vbox.pack_start(radiobutton_rich_text);
     type_vbox.pack_start(radiobutton_plain_text);
     type_vbox.pack_start(radiobutton_auto_syntax_highl);
     type_vbox.pack_start(button_prog_lang);
-    Gtk::Frame type_frame{Glib::ustring("<b>")+_("Node Type")+"</b>"};
+    Gtk::Frame type_frame{Glib::ustring{"<b>"}+_("Node Type")+"</b>"};
     dynamic_cast<Gtk::Label*>(type_frame.get_label_widget())->set_use_markup(true);
     type_frame.set_shadow_type(Gtk::SHADOW_NONE);
     type_frame.add(type_vbox);
-    type_frame.set_sensitive(!nodeData.isRO);
-    Gtk::HBox tags_hbox;
-    tags_hbox.set_spacing(2);
+    type_frame.set_sensitive(!nodeData.isReadOnly);
+
+    Gtk::Box tags_hbox{Gtk::ORIENTATION_HORIZONTAL, 2/*spacing*/};
     Gtk::Entry tags_entry;
     tags_entry.set_text(nodeData.tags);
     Gtk::Button button_browse_tags;
@@ -121,18 +121,31 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     button_browse_tags.set_sensitive(!tags_set.empty());
     tags_hbox.pack_start(tags_entry);
     tags_hbox.pack_start(button_browse_tags, false, false);
-    Gtk::Frame tags_frame(Glib::ustring("<b>")+_("Tags for Searching")+"</b>");
+    Gtk::Frame tags_frame{Glib::ustring{"<b>"}+_("Tags for Searching")+"</b>"};
     dynamic_cast<Gtk::Label*>(tags_frame.get_label_widget())->set_use_markup(true);
     tags_frame.set_shadow_type(Gtk::SHADOW_NONE);
     tags_frame.add(tags_hbox);
+
+    Gtk::Label excl_label{_("Exclude from Searches:")};
+    Gtk::Box excl_hbox{Gtk::ORIENTATION_HORIZONTAL, 2/*spacing*/};
+    excl_hbox.set_margin_left(5);
+    Gtk::CheckButton excl_me_checkbutton{_("This Node")};
+    excl_me_checkbutton.set_active(nodeData.excludeMeFromSearch);
+    Gtk::CheckButton excl_ch_checkbutton{_("The Subnodes")};
+    excl_ch_checkbutton.set_active(nodeData.excludeChildrenFromSearch);
+    excl_hbox.pack_start(excl_label);
+    excl_hbox.pack_start(excl_me_checkbutton);
+    excl_hbox.pack_start(excl_ch_checkbutton);
+
     Gtk::CheckButton ro_checkbutton{_("Read Only")};
-    ro_checkbutton.set_active(nodeData.isRO);
+    ro_checkbutton.set_active(nodeData.isReadOnly);
 
     Gtk::Box* pContentArea = dialog.get_content_area();
     pContentArea->set_spacing(5);
     pContentArea->pack_start(name_frame);
     pContentArea->pack_start(type_frame);
     pContentArea->pack_start(tags_frame);
+    pContentArea->pack_start(excl_hbox);
     pContentArea->pack_start(ro_checkbutton);
     pContentArea->show_all();
     name_entry.grab_focus();
@@ -253,7 +266,9 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
         pCtMainWin->get_ct_config()->autoSynHighl = nodeData.syntax;
     }
     nodeData.tags = tags_entry.get_text();
-    nodeData.isRO = ro_checkbutton.get_active();
+    nodeData.isReadOnly = ro_checkbutton.get_active();
+    nodeData.excludeMeFromSearch = excl_me_checkbutton.get_active();
+    nodeData.excludeChildrenFromSearch = excl_ch_checkbutton.get_active();
     nodeData.customIconId = c_icon_checkbutton.get_active() ? nodeData.customIconId : 0;
     nodeData.isBold = is_bold_checkbutton.get_active();
     if (fg_checkbutton.get_active()) {

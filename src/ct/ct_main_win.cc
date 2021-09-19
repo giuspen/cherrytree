@@ -273,6 +273,7 @@ void CtMainWin::config_apply()
     show_hide_win_header(_pCtConfig->showNodeNameHeader);
     _ctWinHeader.lockIcon.hide();
     _ctWinHeader.bookmarkIcon.hide();
+    _ctWinHeader.ghostIcon.hide();
 
     menu_rebuild_toolbars(false);
 
@@ -387,10 +388,13 @@ Gtk::EventBox& CtMainWin::_init_window_header()
     _ctWinHeader.lockIcon.hide();
     _ctWinHeader.bookmarkIcon.set_from_icon_name("ct_pin", Gtk::ICON_SIZE_MENU);
     _ctWinHeader.bookmarkIcon.hide();
+    _ctWinHeader.ghostIcon.set_from_icon_name("ct_ghost", Gtk::ICON_SIZE_MENU);
+    _ctWinHeader.ghostIcon.hide();
     _ctWinHeader.headerBox.pack_start(_ctWinHeader.buttonBox, false, false);
     _ctWinHeader.headerBox.pack_start(_ctWinHeader.nameLabel, true, true);
     _ctWinHeader.headerBox.pack_start(_ctWinHeader.lockIcon, false, false);
     _ctWinHeader.headerBox.pack_start(_ctWinHeader.bookmarkIcon, false, false);
+    _ctWinHeader.headerBox.pack_start(_ctWinHeader.ghostIcon, false, false);
     _ctWinHeader.eventBox.add(_ctWinHeader.headerBox);
     _ctWinHeader.eventBox.get_style_context()->add_class("ct-header-panel");
     return _ctWinHeader.eventBox;
@@ -462,12 +466,17 @@ void CtMainWin::window_header_update()
     }
 }
 
-void CtMainWin::window_header_update_lock_icon(bool show)
+void CtMainWin::window_header_update_lock_icon(const bool show)
 {
     _ctWinHeader.lockIcon.set_visible(show);
 }
 
-void CtMainWin::window_header_update_bookmark_icon(bool show)
+void CtMainWin::window_header_update_ghost_icon(const bool show)
+{
+    _ctWinHeader.ghostIcon.set_visible(show);
+}
+
+void CtMainWin::window_header_update_bookmark_icon(const bool show)
 {
     _ctWinHeader.bookmarkIcon.set_visible(show);
 }
@@ -624,6 +633,7 @@ void CtMainWin::reset()
     }
     _ctWinHeader.nameLabel.set_markup("");
     window_header_update_lock_icon(false);
+    window_header_update_ghost_icon(false);
     window_header_update_bookmark_icon(false);
     menu_set_bookmark_menu_items();
     _uCtMenu->find_action("ct_vacuum")->signal_set_visible.emit(false);

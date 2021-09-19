@@ -48,12 +48,12 @@ CtTreeIter CtTreeIter::first_child() const
 
 bool CtTreeIter::get_node_read_only() const
 {
-    return (*this) and (*this)->get_value(_pColumns->colNodeRO);
+    return (*this) and (*this)->get_value(_pColumns->colNodeIsReadOnly);
 }
 
-void CtTreeIter::set_node_read_only(bool val)
+void CtTreeIter::set_node_read_only(const bool val)
 {
-    (*this)->set_value(_pColumns->colNodeRO, val);
+    (*this)->set_value(_pColumns->colNodeIsReadOnly, val);
 }
 
 gint64 CtTreeIter::get_node_id() const
@@ -91,6 +91,26 @@ gint64 CtTreeIter::get_node_sequence() const
 bool CtTreeIter::get_node_is_bold() const
 {
     return (*this) and get_is_bold_from_pango_weight((*this)->get_value(_pColumns->colWeight));
+}
+
+bool CtTreeIter::get_node_is_excluded_from_search() const
+{
+    return (*this) and (*this)->get_value(_pColumns->colNodeIsExcludedFromSearch);
+}
+
+void CtTreeIter::set_node_is_excluded_from_search(const bool val)
+{
+    (*this)->set_value(_pColumns->colNodeIsExcludedFromSearch, val);
+}
+
+bool CtTreeIter::get_node_children_are_excluded_from_search() const
+{
+    return (*this) and (*this)->get_value(_pColumns->colNodeChildrenAreExcludedFromSearch);
+}
+
+void CtTreeIter::set_node_children_are_excluded_from_search(const bool val)
+{
+    (*this)->set_value(_pColumns->colNodeChildrenAreExcludedFromSearch, val);
 }
 
 guint16 CtTreeIter::get_node_custom_icon_id() const
@@ -583,7 +603,9 @@ void CtTreeStore::get_node_data(const Gtk::TreeIter& treeIter, CtNodeData& nodeD
     nodeData.syntax = row[_columns.colSyntaxHighlighting];
     nodeData.sequence = row[_columns.colNodeSequence];
     nodeData.tags = row[_columns.colNodeTags];
-    nodeData.isRO = row[_columns.colNodeRO];
+    nodeData.isReadOnly = row[_columns.colNodeIsReadOnly];
+    nodeData.excludeMeFromSearch = row[_columns.colNodeIsExcludedFromSearch];
+    nodeData.excludeChildrenFromSearch = row[_columns.colNodeChildrenAreExcludedFromSearch];
     //row[_columns.rColPixbufAux] = ;
     nodeData.customIconId = row[_columns.colCustomIconId];
     nodeData.isBold = CtTreeIter::get_is_bold_from_pango_weight(row[_columns.colWeight]);
@@ -603,7 +625,9 @@ void CtTreeStore::update_node_data(const Gtk::TreeIter& treeIter, const CtNodeDa
     row[_columns.colSyntaxHighlighting] = nodeData.syntax;
     row[_columns.colNodeSequence] = nodeData.sequence;
     row[_columns.colNodeTags] = nodeData.tags;
-    row[_columns.colNodeRO] = nodeData.isRO;
+    row[_columns.colNodeIsReadOnly] = nodeData.isReadOnly;
+    row[_columns.colNodeIsExcludedFromSearch] = nodeData.excludeMeFromSearch;
+    row[_columns.colNodeChildrenAreExcludedFromSearch] = nodeData.excludeChildrenFromSearch;
     //row[_columns.rColPixbufAux] = ;  // will be updated by update_node_aux_icon
     row[_columns.colCustomIconId] = (guint16)nodeData.customIconId;
     row[_columns.colWeight] = CtTreeIter::get_pango_weight_from_is_bold(nodeData.isBold);
@@ -638,13 +662,36 @@ void CtTreeStore::update_nodes_icon(Gtk::TreeIter father_iter, bool cherry_only)
 
 void CtTreeStore::update_node_aux_icon(const Gtk::TreeIter& treeIter)
 {
-    bool is_ro = treeIter->get_value(_columns.colNodeRO);
-    bool is_bookmark = vec::exists(_bookmarks, treeIter->get_value(_columns.colNodeUniqueId));
-    std::string stock_id;
-    if (is_ro and is_bookmark) stock_id = "ct_lockpin";
-    else if (is_ro)           stock_id = "ct_locked";
-    else if (is_bookmark)     stock_id = "ct_pin";
+    const bool is_ro = treeIter->get_value(_columns.colNodeIsReadOnly);
+    const bool is_bookmark = vec::exists(_bookmarks, treeIter->get_value(_columns.colNodeUniqueId));
+    const bool is_excl_search = treeIter->get_value(_columns.colNodeIsExcludedFromSearch) or
+                                treeIter->get_value(_columns.colNodeChildrenAreExcludedFromSearch);
+    auto f_getAuxStock = [is_ro, is_bookmark, is_excl_search]()->std::string{
+        if (is_ro) {
+            if (is_bookmark) {
+                if (is_excl_search) {
+                    return "ct_ghostlockpin";
+                }
+                return "ct_lockpin";
+            }
+            if (is_excl_search) {
+                return "ct_ghostlock";
+            }
+            return "ct_locked";
+        }
+        if (is_bookmark) {
+            if (is_excl_search) {
+                return "ct_ghostpin";
+            }
+            return "ct_pin";
+        }
+        if (is_excl_search) {
+            return "ct_ghost";
+        }
+        return "";
+    };
 
+    auto stock_id = f_getAuxStock();
     if (stock_id.empty())
         treeIter->set_value(_columns.rColPixbufAux, Glib::RefPtr<Gdk::Pixbuf>());
     else

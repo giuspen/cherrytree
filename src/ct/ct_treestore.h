@@ -39,9 +39,11 @@ struct CtNodeData
     Glib::ustring  name;
     std::string    syntax;
     Glib::ustring  tags;
-    bool           isRO{false};
+    bool           isReadOnly{false};
     guint32        customIconId{0};
     bool           isBold{false};
+    bool           excludeMeFromSearch{false};
+    bool           excludeChildrenFromSearch{false};
     std::string    foregroundRgb24;
     gint64         tsCreation{0};
     gint64         tsLastSave{0};
@@ -56,7 +58,8 @@ public:
     CtTreeModelColumns()
     {
         add(rColPixbuf); add(colNodeName); add(rColTextBuffer); add(colNodeUniqueId);
-        add(colSyntaxHighlighting); add(colNodeSequence); add(colNodeTags); add(colNodeRO);
+        add(colSyntaxHighlighting); add(colNodeSequence); add(colNodeTags); add(colNodeIsReadOnly);
+        add(colNodeIsExcludedFromSearch); add(colNodeChildrenAreExcludedFromSearch);
         add(rColPixbufAux); add(colCustomIconId); add(colWeight); add(colForeground);
         add(colTsCreation); add(colTsLastSave); add(colAnchoredWidgets);
     }
@@ -68,7 +71,9 @@ public:
     Gtk::TreeModelColumn<std::string>                colSyntaxHighlighting;
     Gtk::TreeModelColumn<gint64>                     colNodeSequence;
     Gtk::TreeModelColumn<Glib::ustring>              colNodeTags;
-    Gtk::TreeModelColumn<bool>                       colNodeRO;
+    Gtk::TreeModelColumn<bool>                       colNodeIsReadOnly;
+    Gtk::TreeModelColumn<bool>                       colNodeIsExcludedFromSearch;
+    Gtk::TreeModelColumn<bool>                       colNodeChildrenAreExcludedFromSearch;
     Gtk::TreeModelColumn<Glib::RefPtr<Gdk::Pixbuf>>  rColPixbufAux;
     Gtk::TreeModelColumn<guint16>                    colCustomIconId;
     Gtk::TreeModelColumn<int>                        colWeight;
@@ -89,9 +94,13 @@ public:
     CtTreeIter  parent() const;
     CtTreeIter  first_child() const;
 
+    bool          get_node_is_excluded_from_search() const;
+    void          set_node_is_excluded_from_search(const bool val);
+    bool          get_node_children_are_excluded_from_search() const;
+    void          set_node_children_are_excluded_from_search(const bool val);
     bool          get_node_is_bold() const;
     bool          get_node_read_only() const;
-    void          set_node_read_only(bool val);
+    void          set_node_read_only(const bool val);
     gint64        get_node_sequence() const;
     gint64        get_node_id() const;
     void          set_node_id(const gint64 new_id);

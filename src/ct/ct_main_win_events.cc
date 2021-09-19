@@ -63,6 +63,7 @@ void CtMainWin::_on_treeview_cursor_changed()
         menu_update_bookmark_menu_item(_uCtTreestore->is_node_bookmarked(nodeId));
         window_header_update();
         window_header_update_lock_icon(treeIter.get_node_read_only());
+        window_header_update_ghost_icon(treeIter.get_node_is_excluded_from_search() or treeIter.get_node_children_are_excluded_from_search());
         window_header_update_bookmark_icon(_uCtTreestore->is_node_bookmarked(nodeId));
         update_selected_node_statusbar_info();
     }

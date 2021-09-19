@@ -196,7 +196,9 @@ Gtk::TreeIter CtStorageXml::_node_from_xml(xmlpp::Element* xml_element, gint64 s
     node_data.name = xml_element->get_attribute_value("name");
     node_data.syntax = xml_element->get_attribute_value("prog_lang");
     node_data.tags = xml_element->get_attribute_value("tags");
-    node_data.isRO = CtStrUtil::is_str_true(xml_element->get_attribute_value("readonly"));
+    node_data.isReadOnly = CtStrUtil::is_str_true(xml_element->get_attribute_value("readonly"));
+    node_data.excludeMeFromSearch = CtStrUtil::is_str_true(xml_element->get_attribute_value("nosearch_me"));
+    node_data.excludeChildrenFromSearch = CtStrUtil::is_str_true(xml_element->get_attribute_value("nosearch_ch"));
     node_data.customIconId = (guint32)CtStrUtil::gint64_from_gstring(xml_element->get_attribute_value("custom_icon_id").c_str());
     node_data.isBold = CtStrUtil::is_str_true(xml_element->get_attribute_value("is_bold"));
     node_data.foregroundRgb24 = xml_element->get_attribute_value("foreground");
@@ -302,6 +304,8 @@ xmlpp::Element* CtStorageXmlHelper::node_to_xml(CtTreeIter* ct_tree_iter,
     p_node_node->set_attribute("prog_lang", ct_tree_iter->get_node_syntax_highlighting());
     p_node_node->set_attribute("tags", ct_tree_iter->get_node_tags());
     p_node_node->set_attribute("readonly", std::to_string(ct_tree_iter->get_node_read_only()));
+    p_node_node->set_attribute("nosearch_me", std::to_string(ct_tree_iter->get_node_is_excluded_from_search()));
+    p_node_node->set_attribute("nosearch_ch", std::to_string(ct_tree_iter->get_node_children_are_excluded_from_search()));
     p_node_node->set_attribute("custom_icon_id", std::to_string(ct_tree_iter->get_node_custom_icon_id()));
     p_node_node->set_attribute("is_bold", std::to_string(ct_tree_iter->get_node_is_bold()));
     p_node_node->set_attribute("foreground", ct_tree_iter->get_node_foreground());
