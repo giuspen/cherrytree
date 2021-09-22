@@ -43,16 +43,16 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
     dialog.set_default_size(400, -1);
 
     Gtk::Entry search_entry{};
-    search_entry.set_text(s_options.search_replace_dict_find);
+    search_entry.set_text(s_options.str_find);
 
     auto button_ok = dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT);
     if (pattern_required) {
-        button_ok->set_sensitive(s_options.search_replace_dict_find.length() != 0);
+        button_ok->set_sensitive(s_options.str_find.length() != 0);
         search_entry.signal_changed().connect([&button_ok, &search_entry](){
             button_ok->set_sensitive(search_entry.get_text().length() != 0);
         });
     }
-    auto search_frame = Gtk::Frame(std::string("<b>")+_("Search for")+"</b>");
+    auto search_frame = Gtk::Frame{std::string("<b>")+_("Search for")+"</b>"};
     dynamic_cast<Gtk::Label*>(search_frame.get_label_widget())->set_use_markup(true);
     search_frame.set_shadow_type(Gtk::SHADOW_NONE);
     search_frame.add(search_entry);
@@ -61,7 +61,7 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
     Gtk::Entry* replace_entry{nullptr};
     if (replace_on) {
         replace_entry = Gtk::manage(new Gtk::Entry{});
-        replace_entry->set_text(s_options.search_replace_dict_replace);
+        replace_entry->set_text(s_options.str_replace);
         replace_frame = Gtk::manage(new Gtk::Frame{std::string("<b>")+_("Replace with")+"</b>"});
         dynamic_cast<Gtk::Label*>(replace_frame->get_label_widget())->set_use_markup(true);
         replace_frame->set_shadow_type(Gtk::SHADOW_NONE);
@@ -78,26 +78,26 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
     three_hbox.set_homogeneous(true);
     Gtk::Box three_vbox{Gtk::ORIENTATION_VERTICAL};
     Gtk::CheckButton match_case_checkbutton{_("Match Case")};
-    match_case_checkbutton.set_active(s_options.search_replace_dict_match_case);
+    match_case_checkbutton.set_active(s_options.match_case);
     Gtk::CheckButton reg_exp_checkbutton{_("Regular Expression")};
-    reg_exp_checkbutton.set_active(s_options.search_replace_dict_reg_exp);
+    reg_exp_checkbutton.set_active(s_options.reg_exp);
     Gtk::CheckButton whole_word_checkbutton{_("Whole Word")};
-    whole_word_checkbutton.set_active(s_options.search_replace_dict_whole_word);
+    whole_word_checkbutton.set_active(s_options.whole_word);
     Gtk::CheckButton start_word_checkbutton{_("Start Word")};
-    start_word_checkbutton.set_active(s_options.search_replace_dict_start_word);
+    start_word_checkbutton.set_active(s_options.start_word);
     Gtk::RadioButton fw_radiobutton{_("Forward")};
-    fw_radiobutton.set_active(s_options.search_replace_dict_fw);
+    fw_radiobutton.set_active(s_options.direction_fw);
     Gtk::RadioButton bw_radiobutton{_("Backward")};
     bw_radiobutton.join_group(fw_radiobutton);
-    bw_radiobutton.set_active(!s_options.search_replace_dict_fw);
+    bw_radiobutton.set_active(!s_options.direction_fw);
     Gtk::RadioButton all_radiobutton{_("All, List Matches")};
-    all_radiobutton.set_active(s_options.search_replace_dict_a_ff_fa == 0);
+    all_radiobutton.set_active(s_options.all_firstsel_firstall == 0);
     Gtk::RadioButton first_from_radiobutton{_("First From Selection")};
     first_from_radiobutton.join_group(all_radiobutton);
-    first_from_radiobutton.set_active(s_options.search_replace_dict_a_ff_fa == 1);
+    first_from_radiobutton.set_active(s_options.all_firstsel_firstall == 1);
     Gtk::RadioButton first_all_radiobutton{_("First in All Range")};
     first_all_radiobutton.join_group(all_radiobutton);
-    first_all_radiobutton.set_active(s_options.search_replace_dict_a_ff_fa == 2);
+    first_all_radiobutton.set_active(s_options.all_firstsel_firstall == 2);
 
     Gtk::Frame* ts_frame{nullptr};
     Gtk::CheckButton* ts_node_created_after_checkbutton{nullptr};
@@ -228,23 +228,23 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
     if (dialog.run() != Gtk::RESPONSE_ACCEPT) {
         return "";
     }
-    s_options.search_replace_dict_find = search_entry.get_text();
+    s_options.str_find = search_entry.get_text();
     if (replace_on)
-        s_options.search_replace_dict_replace = replace_entry->get_text();
-    s_options.search_replace_dict_match_case = match_case_checkbutton.get_active();
-    s_options.search_replace_dict_reg_exp = reg_exp_checkbutton.get_active();
-    s_options.search_replace_dict_whole_word = whole_word_checkbutton.get_active();
-    s_options.search_replace_dict_start_word = start_word_checkbutton.get_active();
-    s_options.search_replace_dict_fw = fw_radiobutton.get_active();
-    if (all_radiobutton.get_active())              s_options.search_replace_dict_a_ff_fa = 0;
-    else if (first_from_radiobutton.get_active())  s_options.search_replace_dict_a_ff_fa = 1;
-    else                                           s_options.search_replace_dict_a_ff_fa = 2;
+        s_options.str_replace = replace_entry->get_text();
+    s_options.match_case = match_case_checkbutton.get_active();
+    s_options.reg_exp = reg_exp_checkbutton.get_active();
+    s_options.whole_word = whole_word_checkbutton.get_active();
+    s_options.start_word = start_word_checkbutton.get_active();
+    s_options.direction_fw = fw_radiobutton.get_active();
+    if (all_radiobutton.get_active())              s_options.all_firstsel_firstall = 0;
+    else if (first_from_radiobutton.get_active())  s_options.all_firstsel_firstall = 1;
+    else                                           s_options.all_firstsel_firstall = 2;
     s_options.ts_cre_after.on = multiple_nodes ? ts_node_created_after_checkbutton->get_active() : false;
     s_options.ts_cre_before.on = multiple_nodes ? ts_node_created_before_checkbutton->get_active() : false;
     s_options.ts_mod_after.on = multiple_nodes ? ts_node_modified_after_checkbutton->get_active() : false;
     s_options.ts_mod_before.on = multiple_nodes ? ts_node_modified_before_checkbutton->get_active() : false;
     s_options.search_replace_dict_idialog = iter_dialog_checkbutton.get_active();
-    return s_options.search_replace_dict_find;
+    return s_options.str_find;
 }
 
 void CtDialogs::match_dialog(const Glib::ustring& title,

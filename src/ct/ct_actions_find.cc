@@ -55,7 +55,7 @@ void CtActions::find_in_selected_node()
         auto iter_bound = curr_buffer->get_iter_at_mark(curr_buffer->get_selection_bound());
         auto entry_predefined_text = curr_buffer->get_text(iter_insert, iter_bound);
         if (entry_predefined_text.length())
-            _s_options.search_replace_dict_find = entry_predefined_text;
+            _s_options.str_find = entry_predefined_text;
         std::string title = _s_state.replace_active ? _("Replace in Current Node...") : _("Search in Current Node...");
         pattern = CtDialogs::dialog_search(_pCtMainWin, title, _s_options, _s_state.replace_active, false, true);
         if (entry_predefined_text.length()) {
@@ -72,13 +72,13 @@ void CtActions::find_in_selected_node()
     Glib::RefPtr<Glib::Regex> re_pattern = _create_re_pattern(pattern);
     if (!re_pattern) return;
 
-    bool forward = _s_options.search_replace_dict_fw;
+    bool forward = _s_options.direction_fw;
     if (_s_state.from_find_back) {
         forward = !forward;
         _s_state.from_find_back = false;
     }
-    bool first_fromsel = _s_options.search_replace_dict_a_ff_fa == 1;
-    bool all_matches = _s_options.search_replace_dict_a_ff_fa == 0;
+    bool first_fromsel = _s_options.all_firstsel_firstall == 1;
+    bool all_matches = _s_options.all_firstsel_firstall == 0;
     _s_state.matches_num = 0;
 
     // searching start
@@ -115,7 +115,7 @@ static int _count_nodes(const Gtk::TreeNodeChildren& children)
     return count;
 }
 
-void CtActions::_find_in_all_nodes(bool for_current_node)
+void CtActions::_find_in_all_nodes(bool only_sel_nod_n_sub)
 {
     if (!_is_there_selected_node_or_error()) return;
     Glib::RefPtr<Gtk::TextBuffer> curr_buffer = _pCtMainWin->get_text_view().get_buffer();
@@ -129,11 +129,11 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
         Gtk::TextIter iter_bound = curr_buffer->get_selection_bound()->get_iter();
         Glib::ustring entry_predefined_text = curr_buffer->get_text(iter_insert, iter_bound);
         if (!entry_predefined_text.empty())
-            _s_options.search_replace_dict_find = entry_predefined_text;
+            _s_options.str_find = entry_predefined_text;
         if (_s_state.replace_active)
-            title = for_current_node ? _("Replace in Selected Node and Subnodes") : _("Replace in All Nodes");
+            title = only_sel_nod_n_sub ? _("Replace in Selected Node and Subnodes") : _("Replace in All Nodes");
         else
-            title = for_current_node ? _("Search in Selected Node and Subnodes") : _("Search in All Nodes");
+            title = only_sel_nod_n_sub ? _("Search in Selected Node and Subnodes") : _("Search in All Nodes");
         pattern = CtDialogs::dialog_search(_pCtMainWin, title, _s_options, _s_state.replace_active, true, true);
         if (!entry_predefined_text.empty()) {
             curr_buffer->move_mark(curr_buffer->get_insert(), iter_insert);
@@ -141,7 +141,7 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
         }
         if (!pattern.empty()) {
             _s_state.curr_find_pattern = pattern;
-            _s_state.curr_find_where = for_current_node ? "in_sel_nod_n_sub" : "in_all_nodes";
+            _s_state.curr_find_where = only_sel_nod_n_sub ? "in_sel_nod_n_sub" : "in_all_nodes";
         }
         else {
             return;
@@ -156,14 +156,14 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
     CtTreeIter starting_tree_iter = _pCtMainWin->curr_tree_iter();
     Gtk::TreeIter node_iter;
     int current_cursor_pos = curr_buffer->property_cursor_position();
-    bool forward = _s_options.search_replace_dict_fw;
+    bool forward = _s_options.direction_fw;
     if (_s_state.from_find_back) {
         forward = !forward;
         _s_state.from_find_back = false;
     }
-    bool first_fromsel = _s_options.search_replace_dict_a_ff_fa == 1;
-    bool all_matches = _s_options.search_replace_dict_a_ff_fa == 0;
-    if (first_fromsel || for_current_node) {
+    bool first_fromsel = _s_options.all_firstsel_firstall == 1;
+    bool all_matches = _s_options.all_firstsel_firstall == 0;
+    if (first_fromsel || only_sel_nod_n_sub) {
         _s_state.first_useful_node = false; // no one node content was parsed yet
         node_iter = _pCtMainWin->curr_tree_iter();
     }
@@ -183,7 +183,7 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
     _pCtMainWin->user_active() = false;
     _s_state.processed_nodes = 0;
     _s_state.latest_matches = 0;
-    _s_state.counted_nodes = for_current_node ? _count_nodes(_pCtMainWin->curr_tree_iter()->children()) : (_count_nodes(_pCtMainWin->get_tree_store().get_store()->children()) - 1);
+    _s_state.counted_nodes = only_sel_nod_n_sub ? _count_nodes(_pCtMainWin->curr_tree_iter()->children()) : (_count_nodes(_pCtMainWin->get_tree_store().get_store()->children()) - 1);
     if (all_matches) {
         ctStatusBar.progressBar.set_text("0");
         ctStatusBar.progressBar.show();
@@ -201,11 +201,11 @@ void CtActions::_find_in_all_nodes(bool for_current_node)
         }
         _s_state.processed_nodes += 1;
         if (_s_state.matches_num == 1 && !all_matches) break;
-        if (for_current_node && !_s_state.from_find_iterated) break;
+        if (only_sel_nod_n_sub && !_s_state.from_find_iterated) break;
         Gtk::TreeIter last_top_node_iter = node_iter; // we need this if we start from a node that is not in top level
         if (forward) node_iter = ++node_iter;
         else         node_iter = --node_iter;
-        if (!node_iter || for_current_node) break;
+        if (!node_iter || only_sel_nod_n_sub) break;
         // code that, in case we start from a node that is not top level, climbs towards the top
         while (!node_iter) {
             node_iter = last_top_node_iter->parent();
@@ -269,13 +269,13 @@ void CtActions::find_a_node()
     Glib::RefPtr<Glib::Regex> re_pattern = _create_re_pattern(pattern);
     if (!re_pattern) return;
 
-    bool forward = _s_options.search_replace_dict_fw;
+    bool forward = _s_options.direction_fw;
     if (_s_state.from_find_back) {
         forward = !forward;
         _s_state.from_find_back = false;
     }
-    bool first_fromsel = _s_options.search_replace_dict_a_ff_fa == 1;
-    bool all_matches = _s_options.search_replace_dict_a_ff_fa == 0;
+    bool first_fromsel = _s_options.all_firstsel_firstall == 1;
+    bool all_matches = _s_options.all_firstsel_firstall == 0;
     Gtk::TreeIter node_iter;
     CtTreeStore& ct_tree_store = _pCtMainWin->get_tree_store();
     if (first_fromsel) {
@@ -424,7 +424,7 @@ bool CtActions::_parse_node_name(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex>
                 _s_state.match_store->add_row(node_id, node_name, str::xml_escape(node_hier_name), 0, 0, 1, line_content);
             }
             if (_s_state.replace_active && !node_iter.get_node_read_only()) {
-                std::string replacer_text = _s_options.search_replace_dict_replace;
+                std::string replacer_text = _s_options.str_replace;
                 Glib::ustring text_name = node_iter.get_node_name();
                 //str::replace(text_name, _s_state.curr_find_pattern.c_str(), replacer_text.c_str());
                 text_name = re_pattern->replace(text_name, 0, replacer_text, static_cast<Glib::RegexMatchFlags>(0));
@@ -601,15 +601,15 @@ bool CtActions::_is_node_within_time_filter(const CtTreeIter& node_iter)
 
 Glib::RefPtr<Glib::Regex> CtActions::_create_re_pattern(Glib::ustring pattern)
 {
-    if (!_s_options.search_replace_dict_reg_exp) { // NOT REGULAR EXPRESSION
+    if (!_s_options.reg_exp) { // NOT REGULAR EXPRESSION
         pattern = Glib::Regex::escape_string(pattern);     // backslashes all non alphanum chars => to not spoil re
-        if (_s_options.search_replace_dict_whole_word)      // WHOLE WORD
+        if (_s_options.whole_word)      // WHOLE WORD
             pattern = "\\b" + pattern + "\\b";
-        else if (_s_options.search_replace_dict_start_word) // START WORD
+        else if (_s_options.start_word) // START WORD
             pattern = "\\b" + pattern;
     }
     try {
-        if (_s_options.search_replace_dict_match_case) // CASE SENSITIVE
+        if (_s_options.match_case) // CASE SENSITIVE
             return Glib::Regex::create(pattern, Glib::RegexCompileFlags::REGEX_MULTILINE);
         else
             return Glib::Regex::create(pattern, Glib::RegexCompileFlags::REGEX_MULTILINE | Glib::RegexCompileFlags::REGEX_CASELESS);
@@ -702,10 +702,10 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         text_buffer->get_selection_bounds(sel_start, sel_end);
 
         Glib::ustring origin_text = sel_start.get_text(sel_end);
-        Glib::ustring replacer_text = _s_options.search_replace_dict_replace; /* should be Glib::ustring to count symbols */
+        Glib::ustring replacer_text = _s_options.str_replace; /* should be Glib::ustring to count symbols */
 
         // use re_pattern->replace for the cases with \n, maybe it even helps with groups
-        if (_s_options.search_replace_dict_reg_exp)
+        if (_s_options.reg_exp)
             replacer_text = re_pattern->replace(origin_text, 0, replacer_text, static_cast<Glib::RegexMatchFlags>(0));
 
         text_buffer->erase(sel_start, sel_end);

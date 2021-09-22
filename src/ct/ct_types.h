@@ -343,15 +343,18 @@ struct CtSearchOptions {
     time_search ts_cre_before;
     time_search ts_mod_after;
     time_search ts_mod_before;
-    std::string search_replace_dict_find;
-    std::string search_replace_dict_replace;
-    bool        search_replace_dict_match_case{false};
-    bool        search_replace_dict_reg_exp{false};
-    bool        search_replace_dict_whole_word{false};
-    bool        search_replace_dict_start_word{false};
-    bool        search_replace_dict_fw{true};
-    int         search_replace_dict_a_ff_fa{0};
+    std::string str_find;
+    std::string str_replace;
+    bool        match_case{false};
+    bool        reg_exp{false};
+    bool        whole_word{false};
+    bool        start_word{false};
+    bool        direction_fw{true};
+    int         all_firstsel_firstall{0};
     bool        search_replace_dict_idialog{true};
+    bool        only_sel_n_subnodes{false};
+    bool        node_content{true};
+    bool        node_name_n_tags{true};
 };
 
 namespace Gtk { class Dialog; }
