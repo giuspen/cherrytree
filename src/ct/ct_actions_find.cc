@@ -57,7 +57,7 @@ void CtActions::find_in_selected_node()
         if (entry_predefined_text.length())
             _s_options.str_find = entry_predefined_text;
         std::string title = _s_state.replace_active ? _("Replace in Current Node...") : _("Search in Current Node...");
-        pattern = CtDialogs::dialog_search(_pCtMainWin, title, _s_options, _s_state.replace_active, false, true);
+        pattern = CtDialogs::dialog_search(_pCtMainWin, title, _s_options, _s_state.replace_active, false/*multiple_nodes*/, true);
         if (entry_predefined_text.length()) {
             curr_buffer->move_mark(curr_buffer->get_insert(), iter_insert);
             curr_buffer->move_mark(curr_buffer->get_selection_bound(), iter_bound);
@@ -115,7 +115,7 @@ static int _count_nodes(const Gtk::TreeNodeChildren& children)
     return count;
 }
 
-void CtActions::_find_in_all_nodes(bool only_sel_nod_n_sub)
+void CtActions::find_in_multiple_nodes()
 {
     if (!_is_there_selected_node_or_error()) return;
     Glib::RefPtr<Gtk::TextBuffer> curr_buffer = _pCtMainWin->get_text_view().get_buffer();
@@ -128,20 +128,18 @@ void CtActions::_find_in_all_nodes(bool only_sel_nod_n_sub)
         Gtk::TextIter iter_insert = curr_buffer->get_insert()->get_iter();
         Gtk::TextIter iter_bound = curr_buffer->get_selection_bound()->get_iter();
         Glib::ustring entry_predefined_text = curr_buffer->get_text(iter_insert, iter_bound);
-        if (!entry_predefined_text.empty())
+        if (!entry_predefined_text.empty()) {
             _s_options.str_find = entry_predefined_text;
-        if (_s_state.replace_active)
-            title = only_sel_nod_n_sub ? _("Replace in Selected Node and Subnodes") : _("Replace in All Nodes");
-        else
-            title = only_sel_nod_n_sub ? _("Search in Selected Node and Subnodes") : _("Search in All Nodes");
-        pattern = CtDialogs::dialog_search(_pCtMainWin, title, _s_options, _s_state.replace_active, true, true);
+        }
+        title = _s_state.replace_active ? _("Replace in Multiple Nodes") : _("Find in Multiple Nodes");
+        pattern = CtDialogs::dialog_search(_pCtMainWin, title, _s_options, _s_state.replace_active, true/*multiple_nodes*/, true);
         if (!entry_predefined_text.empty()) {
             curr_buffer->move_mark(curr_buffer->get_insert(), iter_insert);
             curr_buffer->move_mark(curr_buffer->get_selection_bound(), iter_bound);
         }
         if (!pattern.empty()) {
             _s_state.curr_find_pattern = pattern;
-            _s_state.curr_find_where = only_sel_nod_n_sub ? "in_sel_nod_n_sub" : "in_all_nodes";
+            _s_state.curr_find_where = "in_mult_nodes";
         }
         else {
             return;
@@ -163,7 +161,7 @@ void CtActions::_find_in_all_nodes(bool only_sel_nod_n_sub)
     }
     bool first_fromsel = _s_options.all_firstsel_firstall == 1;
     bool all_matches = _s_options.all_firstsel_firstall == 0;
-    if (first_fromsel || only_sel_nod_n_sub) {
+    if (first_fromsel || _s_options.only_sel_n_subnodes) {
         _s_state.first_useful_node = false; // no one node content was parsed yet
         node_iter = _pCtMainWin->curr_tree_iter();
     }
@@ -183,7 +181,7 @@ void CtActions::_find_in_all_nodes(bool only_sel_nod_n_sub)
     _pCtMainWin->user_active() = false;
     _s_state.processed_nodes = 0;
     _s_state.latest_matches = 0;
-    _s_state.counted_nodes = only_sel_nod_n_sub ? _count_nodes(_pCtMainWin->curr_tree_iter()->children()) : (_count_nodes(_pCtMainWin->get_tree_store().get_store()->children()) - 1);
+    _s_state.counted_nodes = _s_options.only_sel_n_subnodes ? _count_nodes(_pCtMainWin->curr_tree_iter()->children()) : (_count_nodes(_pCtMainWin->get_tree_store().get_store()->children()) - 1);
     if (all_matches) {
         ctStatusBar.progressBar.set_text("0");
         ctStatusBar.progressBar.show();
@@ -201,11 +199,11 @@ void CtActions::_find_in_all_nodes(bool only_sel_nod_n_sub)
         }
         _s_state.processed_nodes += 1;
         if (_s_state.matches_num == 1 && !all_matches) break;
-        if (only_sel_nod_n_sub && !_s_state.from_find_iterated) break;
+        if (_s_options.only_sel_n_subnodes && !_s_state.from_find_iterated) break;
         Gtk::TreeIter last_top_node_iter = node_iter; // we need this if we start from a node that is not in top level
         if (forward) node_iter = ++node_iter;
         else         node_iter = --node_iter;
-        if (!node_iter || only_sel_nod_n_sub) break;
+        if (!node_iter || _s_options.only_sel_n_subnodes) break;
         // code that, in case we start from a node that is not top level, climbs towards the top
         while (!node_iter) {
             node_iter = last_top_node_iter->parent();
@@ -258,7 +256,7 @@ void CtActions::find_a_node()
     Glib::ustring pattern;
     if (!_s_state.from_find_iterated) {
         std::string title = _s_state.replace_active ? _("Replace in Node Names...") : _("Search For a Node Name...");
-        pattern = CtDialogs::dialog_search(_pCtMainWin, title, _s_options, _s_state.replace_active, true, false);
+        pattern = CtDialogs::dialog_search(_pCtMainWin, title, _s_options, _s_state.replace_active, true/*multiple_nodes*/, false);
         if (pattern.empty()) return;
         _s_state.curr_find_where = "a_node";
         _s_state.curr_find_pattern = pattern;
@@ -337,8 +335,7 @@ void CtActions::find_again_iter(const bool fromIterativeDialog)
     _s_state.from_find_iterated = true;
     if (_s_state.curr_find_where.empty()) CtDialogs::warning_dialog(_("No Previous Search Was Performed During This Session"), *_pCtMainWin);
     else if (_s_state.curr_find_where == "in_selected_node") find_in_selected_node();
-    else if (_s_state.curr_find_where == "in_all_nodes")     _find_in_all_nodes(false);
-    else if (_s_state.curr_find_where == "in_sel_nod_n_sub") _find_in_all_nodes(true);
+    else if (_s_state.curr_find_where == "in_mult_nodes")    find_in_multiple_nodes();
     else if (_s_state.curr_find_where == "a_node")           find_a_node();
     _s_state.from_find_iterated = false;
     _s_options.search_replace_dict_idialog = restore_search_replace_dict_idialog;
@@ -362,20 +359,11 @@ void CtActions::replace_in_selected_node()
 }
 
 // Replace the pattern in all the Tree Nodes
-void CtActions::replace_in_all_nodes()
+void CtActions::replace_in_multiple_nodes()
 {
     if (!_is_tree_not_empty_or_error()) return;
     _s_state.replace_active = true;
-    _find_in_all_nodes(false);
-    _s_state.replace_active = false;
-}
-
-// Replace the pattern Selected Node and Subnodes
-void CtActions::replace_in_sel_node_and_subnodes()
-{
-    if (!_is_tree_not_empty_or_error()) return;
-    _s_state.replace_active = true;
-    _find_in_all_nodes(true);
+    find_in_multiple_nodes();
     _s_state.replace_active = false;
 }
 
@@ -476,6 +464,12 @@ bool CtActions::_parse_given_node_content(CtTreeIter node_iter,
             // not first_fromsel or first_fromsel with first_node already parsed
             if (_parse_node_content_iter(node_iter, text_buffer, re_pattern, forward, first_fromsel, all_matches, false))
                 return true; // not first_node node
+        }
+    }
+    else if (!_s_state.first_useful_node) {
+        // first_fromsel plus first_node not already parsed
+        if (!_pCtMainWin->curr_tree_iter() || node_iter.get_node_id() == _pCtMainWin->curr_tree_iter().get_node_id()) {
+            _s_state.first_useful_node = true; // a first_node was parsed
         }
     }
 

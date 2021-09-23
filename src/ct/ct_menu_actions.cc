@@ -274,11 +274,8 @@ void CtMenu::init_actions(CtActions* pActions)
     const char* find_cat = _("Find/Replace");
     _actions.push_back(CtMenuAction{find_cat, "find_in_node", "ct_find_sel", _("_Find in Node Content"), KB_CONTROL+"F",
         _("Find into the Selected Node Content"), sigc::mem_fun(*pActions, &CtActions::find_in_selected_node)});
-    _actions.push_back(CtMenuAction{find_cat, "find_in_allnodes", "ct_find_all", _("Find in _All Nodes Contents"), KB_CONTROL+KB_SHIFT+"F",
-        _("Find into All the Tree Nodes Contents"), sigc::mem_fun(*pActions, &CtActions::find_in_all_nodes)});
-    _actions.push_back(CtMenuAction{find_cat, "find_in_node_n_sub", "ct_find_selnsub",
-        _("Find in _Selected Node and Subnodes Contents"), KB_CONTROL+KB_ALT+"F",
-        _("Find into the Selected Node and Subnodes Contents"), sigc::mem_fun(*pActions, &CtActions::find_in_sel_node_and_subnodes)});
+    _actions.push_back(CtMenuAction{find_cat, "find_in_allnodes", "ct_find_all", _("Find _in Multiple Nodes"), KB_CONTROL+KB_SHIFT+"F",
+        _("Find in Multiple Nodes"), sigc::mem_fun(*pActions, &CtActions::find_in_multiple_nodes)});
     _actions.push_back(CtMenuAction{find_cat, "find_in_node_names", "ct_find", _("Find in _Nodes Names and Tags"), KB_CONTROL+"T",
         _("Find in Nodes Names and Tags"), sigc::mem_fun(*pActions, &CtActions::find_a_node)});
     _actions.push_back(CtMenuAction{find_cat, "find_iter_fw", "ct_find_again", _("Find _Again"), "F3",
@@ -288,11 +285,8 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{find_cat, "replace_in_node", "ct_replace_sel", _("_Replace in Node Content"), KB_CONTROL+"H",
         _("Replace into the Selected Node Content"), sigc::mem_fun(*pActions, &CtActions::replace_in_selected_node)});
     _actions.push_back(CtMenuAction{find_cat, "replace_in_allnodes", "ct_replace_all",
-        _("Replace in _All Nodes Contents"), KB_CONTROL+KB_SHIFT+"H",
-        _("Replace into All the Tree Nodes Contents"), sigc::mem_fun(*pActions, &CtActions::replace_in_all_nodes)});
-    _actions.push_back(CtMenuAction{find_cat, "replace_in_node_n_sub", "ct_replace_selnsub",
-        _("Replace in _Selected Node and Subnodes Contents"), KB_CONTROL+KB_ALT+"H",
-        _("Replace into the Selected Node and Subnodes Contents"), sigc::mem_fun(*pActions, &CtActions::replace_in_sel_node_and_subnodes)});
+        _("Replace in _Multiple Nodes"), KB_CONTROL+KB_SHIFT+"H",
+        _("Replace in Multiple Nodes"), sigc::mem_fun(*pActions, &CtActions::replace_in_multiple_nodes)});
     _actions.push_back(CtMenuAction{find_cat, "replace_in_node_names", "ct_find_replace", _("Replace in Nodes _Names"), KB_CONTROL+KB_SHIFT+"T",
         _("Replace in Nodes Names"), sigc::mem_fun(*pActions, &CtActions::replace_in_nodes_names)});
     _actions.push_back(CtMenuAction{find_cat, "replace_iter_fw", "ct_replace_again", _("Replace _Again"), "F6",

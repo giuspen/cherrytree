@@ -159,7 +159,6 @@ public:
 private:
     // helpers for find actions
     void                _find_init();
-    void                _find_in_all_nodes(bool only_sel_nod_n_sub);
     bool                _parse_node_name(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex> re_pattern, bool forward, bool all_matches);
     bool                _parse_given_node_content(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex> re_pattern, bool forward, bool first_fromsel, bool all_matches);
     bool                _parse_node_content_iter(const CtTreeIter& tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, Glib::RefPtr<Glib::Regex> re_pattern,
@@ -185,14 +184,12 @@ private:
 public:
     // find actions
     void find_in_selected_node();
-    void find_in_all_nodes()             { _find_in_all_nodes(false); }
-    void find_in_sel_node_and_subnodes() { _find_in_all_nodes(true); }
+    void find_in_multiple_nodes();
     void find_a_node();
     void find_again() { find_again_iter(false/*fromIterativeDialog*/); }
     void find_back() { find_back_iter(false/*fromIterativeDialog*/); }
     void replace_in_selected_node();
-    void replace_in_all_nodes();
-    void replace_in_sel_node_and_subnodes();
+    void replace_in_multiple_nodes();
     void replace_in_nodes_names();
     void replace_again();
     void find_allmatchesdialog_restore();

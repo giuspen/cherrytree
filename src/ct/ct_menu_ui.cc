@@ -265,13 +265,11 @@ const char* CtMenu::_get_ui_str_menu()
     <menu action='FindSubMenu'>
       <menuitem action='find_in_node'/>
       <menuitem action='find_in_allnodes'/>
-      <menuitem action='find_in_node_n_sub'/>
       <menuitem action='find_in_node_names'/>
     </menu>
     <menu action='ReplaceSubMenu'>
       <menuitem action='replace_in_node'/>
       <menuitem action='replace_in_allnodes'/>
-      <menuitem action='replace_in_node_n_sub'/>
       <menuitem action='replace_in_node_names'/>
     </menu>
     <separator/>
@@ -393,7 +391,6 @@ const char* CtMenu::_get_popup_menu_ui_str_text()
   <menu action='FindSubMenu'>
     <menuitem action='find_in_node'/>
     <menuitem action='find_in_allnodes'/>
-    <menuitem action='find_in_node_n_sub'/>
     <menuitem action='find_in_node_names'/>
     <menuitem action='find_iter_fw'/>
     <menuitem action='find_iter_bw'/>
@@ -401,7 +398,6 @@ const char* CtMenu::_get_popup_menu_ui_str_text()
   <menu action='ReplaceSubMenu'>
     <menuitem action='replace_in_node'/>
     <menuitem action='replace_in_allnodes'/>
-    <menuitem action='replace_in_node_n_sub'/>
     <menuitem action='replace_in_node_names'/>
     <menuitem action='replace_iter_fw'/>
   </menu>
@@ -442,7 +438,6 @@ const char* CtMenu::_get_popup_menu_ui_str_code()
   <menu action='FindSubMenu'>
     <menuitem action='find_in_node'/>
     <menuitem action='find_in_allnodes'/>
-    <menuitem action='find_in_node_n_sub'/>
     <menuitem action='find_in_node_names'/>
     <menuitem action='find_iter_fw'/>
     <menuitem action='find_iter_bw'/>
@@ -450,7 +445,6 @@ const char* CtMenu::_get_popup_menu_ui_str_code()
   <menu action='ReplaceSubMenu'>
     <menuitem action='replace_in_node'/>
     <menuitem action='replace_in_allnodes'/>
-    <menuitem action='replace_in_node_n_sub'/>
     <menuitem action='replace_in_node_names'/>
     <menuitem action='replace_iter_fw'/>
   </menu>

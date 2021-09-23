@@ -177,6 +177,8 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
                        _("Node Modified Before"),
                        &s_options.ts_mod_before.time));
     }
+    Gtk::CheckButton only_sel_n_subnodes_checkbutton{_("Only Selected Node and Subnodes")};
+    only_sel_n_subnodes_checkbutton.set_active(s_options.only_sel_n_subnodes);
     Gtk::CheckButton iter_dialog_checkbutton{_("Show Iterated Find/Replace Dialog")};
     iter_dialog_checkbutton.set_active(s_options.search_replace_dict_idialog);
     four_1_hbox.pack_start(match_case_checkbutton);
@@ -199,6 +201,7 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
     if (multiple_nodes) {
         opt_vbox.pack_start(*ts_frame);
         opt_vbox.pack_start(*Gtk::manage(new Gtk::HSeparator{}));
+        opt_vbox.pack_start(only_sel_n_subnodes_checkbutton);
     }
     opt_vbox.pack_start(iter_dialog_checkbutton);
     Gtk::Frame opt_frame{std::string("<b>")+_("Search options")+"</b>"};
@@ -243,6 +246,7 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
     s_options.ts_cre_before.on = multiple_nodes ? ts_node_created_before_checkbutton->get_active() : false;
     s_options.ts_mod_after.on = multiple_nodes ? ts_node_modified_after_checkbutton->get_active() : false;
     s_options.ts_mod_before.on = multiple_nodes ? ts_node_modified_before_checkbutton->get_active() : false;
+    s_options.only_sel_n_subnodes = only_sel_n_subnodes_checkbutton.get_active();
     s_options.search_replace_dict_idialog = iter_dialog_checkbutton.get_active();
     return s_options.str_find;
 }
