@@ -195,7 +195,7 @@ void CtActions::find_in_multiple_nodes()
         CtTreeIter ct_node_iter = _pCtMainWin->get_tree_store().to_ct_tree_iter(node_iter);
         while (_parse_given_node_content(ct_node_iter, re_pattern, forward, first_fromsel, all_matches)) {
             _s_state.matches_num += 1;
-            if (!all_matches ||  ctStatusBar.is_progress_stop()) break;
+            if (!all_matches || ctStatusBar.is_progress_stop()) break;
         }
         _s_state.processed_nodes += 1;
         if (_s_state.matches_num == 1 && !all_matches) break;
@@ -249,84 +249,6 @@ void CtActions::find_in_multiple_nodes()
         ctStatusBar.set_progress_stop(false);
     }
 }
-
-void CtActions::find_a_node()
-{
-    if (!_is_tree_not_empty_or_error()) return;
-    Glib::ustring pattern;
-    if (!_s_state.from_find_iterated) {
-        std::string title = _s_state.replace_active ? _("Replace in Node Names...") : _("Search For a Node Name...");
-        pattern = CtDialogs::dialog_search(_pCtMainWin, title, _s_options, _s_state.replace_active, true/*multiple_nodes*/, false);
-        if (pattern.empty()) return;
-        _s_state.curr_find_where = "a_node";
-        _s_state.curr_find_pattern = pattern;
-    }
-    else {
-        pattern = _s_state.curr_find_pattern;
-    }
-    Glib::RefPtr<Glib::Regex> re_pattern = _create_re_pattern(pattern);
-    if (!re_pattern) return;
-
-    bool forward = _s_options.direction_fw;
-    if (_s_state.from_find_back) {
-        forward = !forward;
-        _s_state.from_find_back = false;
-    }
-    bool first_fromsel = _s_options.all_firstsel_firstall == 1;
-    bool all_matches = _s_options.all_firstsel_firstall == 0;
-    Gtk::TreeIter node_iter;
-    CtTreeStore& ct_tree_store = _pCtMainWin->get_tree_store();
-    if (first_fromsel) {
-        node_iter = forward ? ++_pCtMainWin->curr_tree_iter() : --_pCtMainWin->curr_tree_iter();
-        Gtk::TreeIter top_node_iter = _pCtMainWin->curr_tree_iter();
-        while (!node_iter) {
-            node_iter = top_node_iter;
-            node_iter = forward ? ++node_iter : --node_iter;
-            top_node_iter = top_node_iter->parent();
-            if (!top_node_iter) break;
-        }
-    }
-    else {
-        node_iter = forward ? ct_tree_store.get_iter_first() : ct_tree_store.get_tree_iter_last_sibling(ct_tree_store.get_store()->children());
-    }
-
-    _s_state.matches_num = 0;
-    if (all_matches) {
-        _s_state.match_store->clear();
-        _s_state.match_store->saved_path.clear();
-    }
-    // searching start
-    while (node_iter) {
-        if (_parse_node_name(ct_tree_store.to_ct_tree_iter(node_iter), re_pattern, forward, all_matches)) {
-            _s_state.matches_num += 1;
-            if (!all_matches) break;
-        }
-        Gtk::TreeIter last_top_node_iter = node_iter; //  we need this if we start from a node that is not in top level
-        node_iter = forward ? ++node_iter : --node_iter;
-        //  code that, in case we start from a node that is not top level, climbs towards the top
-        while (!node_iter) {
-            node_iter = last_top_node_iter->parent();
-            if (node_iter) {
-                last_top_node_iter = node_iter;
-                // we do not check the parent on purpose, only the uncles in the proper direction
-                node_iter = forward ? ++node_iter : --node_iter;
-            }
-            else
-                break;
-        }
-    }
-    if (_s_state.matches_num == 0)
-        CtDialogs::info_dialog(str::format(_("The pattern '%s' was not found"), pattern.c_str()), *_pCtMainWin);
-    else if (all_matches) {
-        _s_state.match_dialog_title = std::to_string(_s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
-        CtDialogs::match_dialog(_s_state.match_dialog_title, _pCtMainWin, _s_state.match_store);
-    }
-    else if (_s_options.search_replace_dict_idialog)
-        CtDialogs::iterated_find_dialog(_pCtMainWin, _s_state);
-    if (_s_state.matches_num && _s_state.replace_active)
-        _pCtMainWin->update_window_save_needed();
-}
-
 // Continue the previous search (a_node/in_selected_node/in_all_nodes)
 void CtActions::find_again_iter(const bool fromIterativeDialog)
 {
@@ -336,7 +258,6 @@ void CtActions::find_again_iter(const bool fromIterativeDialog)
     if (_s_state.curr_find_where.empty()) CtDialogs::warning_dialog(_("No Previous Search Was Performed During This Session"), *_pCtMainWin);
     else if (_s_state.curr_find_where == "in_selected_node") find_in_selected_node();
     else if (_s_state.curr_find_where == "in_mult_nodes")    find_in_multiple_nodes();
-    else if (_s_state.curr_find_where == "a_node")           find_a_node();
     _s_state.from_find_iterated = false;
     _s_options.search_replace_dict_idialog = restore_search_replace_dict_idialog;
 }
@@ -367,15 +288,6 @@ void CtActions::replace_in_multiple_nodes()
     _s_state.replace_active = false;
 }
 
-// Search for a pattern between all the Node's Names
-void CtActions::replace_in_nodes_names()
-{
-    if (!_is_tree_not_empty_or_error()) return;
-    _s_state.replace_active = true;
-    find_a_node();
-    _s_state.replace_active = false;
-}
-
 // Continue the previous replace (a_node/in_selected_node/in_all_nodes)
 void CtActions::replace_again()
 {
@@ -392,57 +304,6 @@ void CtActions::find_allmatchesdialog_restore()
     CtDialogs::match_dialog(_s_state.match_dialog_title, _pCtMainWin, _s_state.match_store);
 }
 
-// Recursive function that searchs for the given pattern
-bool CtActions::_parse_node_name(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex> re_pattern, bool forward, bool all_matches)
-{
-    if (not node_iter.get_node_is_excluded_from_search() and _is_node_within_time_filter(node_iter)) {
-        Glib::MatchInfo match;
-        Glib::ustring text_name = node_iter.get_node_name();
-        if (!re_pattern->match(text_name, match)) {
-            Glib::ustring text_tags = node_iter.get_node_tags();
-            re_pattern->match(text_tags, match);
-        }
-
-        if (match.matches()) {
-            if (all_matches) {
-                gint64 node_id = node_iter.get_node_id();
-                Glib::ustring node_name = node_iter.get_node_name();
-                Glib::ustring node_hier_name = CtMiscUtil::get_node_hierarchical_name(node_iter, " << ", false, false);
-                Glib::ustring line_content = _get_first_line_content(node_iter.get_node_text_buffer());
-                _s_state.match_store->add_row(node_id, node_name, str::xml_escape(node_hier_name), 0, 0, 1, line_content);
-            }
-            if (_s_state.replace_active && !node_iter.get_node_read_only()) {
-                std::string replacer_text = _s_options.str_replace;
-                Glib::ustring text_name = node_iter.get_node_name();
-                //str::replace(text_name, _s_state.curr_find_pattern.c_str(), replacer_text.c_str());
-                text_name = re_pattern->replace(text_name, 0, replacer_text, static_cast<Glib::RegexMatchFlags>(0));
-                node_iter.set_node_name(text_name);
-                node_iter.pending_edit_db_node_prop();
-            }
-            if (!all_matches) {
-                _pCtMainWin->get_tree_view().set_cursor_safe(node_iter);
-                _pCtMainWin->get_text_view().grab_focus();
-                return true;
-            }
-            else
-                _s_state.matches_num += 1;
-        }
-    }
-
-    if (not node_iter.get_node_children_are_excluded_from_search()) {
-        // check for children
-        if (!node_iter->children().empty()) {
-            Gtk::TreeIter child_iter = forward ? node_iter->children().begin() : --node_iter->children().end();
-            while (child_iter) {
-                if (_parse_node_name(_pCtMainWin->get_tree_store().to_ct_tree_iter(child_iter), re_pattern, forward, all_matches) and !all_matches)
-                    return true;
-                child_iter = forward ? ++child_iter : --child_iter;
-            }
-        }
-    }
-    return false;
-}
-
 // Returns True if pattern was found, False otherwise
 bool CtActions::_parse_given_node_content(CtTreeIter node_iter,
                                           Glib::RefPtr<Glib::Regex> re_pattern,
@@ -450,40 +311,42 @@ bool CtActions::_parse_given_node_content(CtTreeIter node_iter,
                                           bool first_fromsel,
                                           bool all_matches)
 {
-    if (not node_iter.get_node_is_excluded_from_search()) {
-        auto text_buffer = node_iter.get_node_text_buffer();
-        if (!_s_state.first_useful_node) {
-            // first_fromsel plus first_node not already parsed
-            if (!_pCtMainWin->curr_tree_iter() || node_iter.get_node_id() == _pCtMainWin->curr_tree_iter().get_node_id()) {
-                _s_state.first_useful_node = true; // a first_node was parsed
-                if (_parse_node_content_iter(node_iter, text_buffer, re_pattern, forward, first_fromsel, all_matches, true))
-                    return true; // first_node node, first_fromsel
-            }
-        }
-        else {
-            // not first_fromsel or first_fromsel with first_node already parsed
-            if (_parse_node_content_iter(node_iter, text_buffer, re_pattern, forward, first_fromsel, all_matches, false))
-                return true; // not first_node node
+    std::optional<bool> optFirstNode;
+    if (not _s_state.first_useful_node) {
+        // first_fromsel plus first_node not already parsed
+        if (not _pCtMainWin->curr_tree_iter() or node_iter.get_node_id() == _pCtMainWin->curr_tree_iter().get_node_id()) {
+            _s_state.first_useful_node = true; // a first_node was parsed
+            optFirstNode = true;
         }
     }
-    else if (!_s_state.first_useful_node) {
-        // first_fromsel plus first_node not already parsed
-        if (!_pCtMainWin->curr_tree_iter() || node_iter.get_node_id() == _pCtMainWin->curr_tree_iter().get_node_id()) {
-            _s_state.first_useful_node = true; // a first_node was parsed
+    else {
+        // not first_fromsel or first_fromsel with first_node already parsed
+        optFirstNode = false;
+    }
+    if (optFirstNode.has_value() and not node_iter.get_node_is_excluded_from_search()) {
+        if (_s_options.node_content) {
+            if (_parse_node_content_iter(node_iter,  node_iter.get_node_text_buffer(), re_pattern, forward, first_fromsel, all_matches, optFirstNode.value())) {
+                return true;
+            }
+        }
+        if (_s_options.node_name_n_tags) {
+            if (_parse_node_name_n_tags_iter(node_iter, re_pattern, all_matches) and not all_matches) {
+                return false;
+            }
         }
     }
 
     if (not node_iter.get_node_children_are_excluded_from_search()) {
         // check for children
-        if (!node_iter->children().empty()) {
+        if (not node_iter->children().empty()) {
             Gtk::TreeIter child_iter = forward ? node_iter->children().begin() : --node_iter->children().end();
-            while (child_iter && !_pCtMainWin->get_status_bar().is_progress_stop()) {
+            while (child_iter and not _pCtMainWin->get_status_bar().is_progress_stop()) {
                 _s_state.all_matches_first_in_node = true;
                 while (_parse_given_node_content(_pCtMainWin->get_tree_store().to_ct_tree_iter(child_iter), re_pattern, forward, first_fromsel, all_matches)) {
                     _s_state.matches_num += 1;
-                    if (!all_matches || _pCtMainWin->get_status_bar().is_progress_stop()) break;
+                    if (not all_matches or _pCtMainWin->get_status_bar().is_progress_stop()) break;
                 }
-                if (_s_state.matches_num == 1 && !all_matches) break;
+                if (_s_state.matches_num == 1 and not all_matches) break;
                 if (forward) child_iter = ++child_iter;
                 else         child_iter = --child_iter;
                 _s_state.processed_nodes += 1;
@@ -495,7 +358,42 @@ bool CtActions::_parse_given_node_content(CtTreeIter node_iter,
     return false;
 }
 
-// Returns True if pattern was find, False otherwise
+// Returns True if pattern was found, False otherwise
+bool CtActions::_parse_node_name_n_tags_iter(CtTreeIter& node_iter,
+                                             Glib::RefPtr<Glib::Regex> re_pattern,
+                                             const bool all_matches)
+{
+    Glib::ustring node_name = node_iter.get_node_name();
+    Glib::MatchInfo match;
+    if (not re_pattern->match(node_name, match)) {
+        Glib::ustring text_tags = node_iter.get_node_tags();
+        re_pattern->match(text_tags, match);
+    }
+
+    if (match.matches()) {
+        if (all_matches) {
+            gint64 node_id = node_iter.get_node_id();
+            Glib::ustring node_hier_name = CtMiscUtil::get_node_hierarchical_name(node_iter, " << ", false, false);
+            Glib::ustring line_content = _get_first_line_content(node_iter.get_node_text_buffer());
+            _s_state.match_store->add_row(node_id, node_name, str::xml_escape(node_hier_name), 0, 0, 1, line_content);
+        }
+        if (_s_state.replace_active and not node_iter.get_node_read_only()) {
+            std::string replacer_text = _s_options.str_replace;
+            node_name = re_pattern->replace(node_name, 0, replacer_text, static_cast<Glib::RegexMatchFlags>(0));
+            node_iter.set_node_name(node_name);
+            node_iter.pending_edit_db_node_prop();
+        }
+        if (not all_matches) {
+            _pCtMainWin->get_tree_view().set_cursor_safe(node_iter);
+            _pCtMainWin->get_text_view().grab_focus();
+        }
+        _s_state.matches_num += 1;
+        return true;
+    }
+    return false;
+}
+
+// Returns True if pattern was found, False otherwise
 bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter,
                                          Glib::RefPtr<Gtk::TextBuffer> text_buffer,
                                          Glib::RefPtr<Glib::Regex> re_pattern,
