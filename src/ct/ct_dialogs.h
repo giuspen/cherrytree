@@ -126,15 +126,16 @@ public:
         rModel->set_column_types(rModel->columns);
         return rModel;
     }
-    void add_row(gint64 node_id,
-                 const Glib::ustring& node_name,
-                 const Glib::ustring& node_hier_name,
-                 int start_offset,
-                 int end_offset,
-                 int line_num,
-                 const Glib::ustring& line_content)
+    Gtk::TreeIter add_row(gint64 node_id,
+                          const Glib::ustring& node_name,
+                          const Glib::ustring& node_hier_name,
+                          int start_offset,
+                          int end_offset,
+                          int line_num,
+                          const Glib::ustring& line_content)
     {
-        Gtk::TreeRow row = *append();
+        Gtk::TreeIter retIter = append();
+        Gtk::TreeRow row = *retIter;
         row[columns.node_id] = node_id;
         row[columns.node_name] = node_name;
         row[columns.node_hier_name] = node_hier_name;
@@ -142,6 +143,7 @@ public:
         row[columns.end_offset] = end_offset;
         row[columns.line_num] = line_num;
         row[columns.line_content] = line_content;
+        return retIter;
     }
 };
 
@@ -209,8 +211,7 @@ std::string dialog_search(Gtk::Window* pParentWin,
                           const std::string& title,
                           CtSearchOptions& s_options,
                           bool replace_on,
-                          bool multiple_nodes,
-                          bool pattern_required);
+                          bool multiple_nodes);
 
 // Insert/Edit Anchor Name
 Glib::ustring img_n_entry_dialog(Gtk::Window& parent,

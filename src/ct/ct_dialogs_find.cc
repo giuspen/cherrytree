@@ -29,8 +29,7 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
                                      const std::string& title,
                                      CtSearchOptions& s_options,
                                      bool replace_on,
-                                     bool multiple_nodes,
-                                     bool pattern_required)
+                                     bool multiple_nodes)
 {
     Gtk::Dialog dialog{title,
                        *pParentWin,
@@ -46,12 +45,10 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
     search_entry.set_text(s_options.str_find);
 
     auto button_ok = dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT);
-    if (pattern_required) {
-        button_ok->set_sensitive(s_options.str_find.length() != 0);
-        search_entry.signal_changed().connect([&button_ok, &search_entry](){
-            button_ok->set_sensitive(search_entry.get_text().length() != 0);
-        });
-    }
+    button_ok->set_sensitive(s_options.str_find.length() != 0);
+    search_entry.signal_changed().connect([&button_ok, &search_entry](){
+        button_ok->set_sensitive(search_entry.get_text().length() != 0);
+    });
     auto search_frame = Gtk::Frame{std::string("<b>")+_("Search for")+"</b>"};
     dynamic_cast<Gtk::Label*>(search_frame.get_label_widget())->set_use_markup(true);
     search_frame.set_shadow_type(Gtk::SHADOW_NONE);
@@ -187,7 +184,7 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
     Gtk::CheckButton only_sel_n_subnodes_checkbutton{_("Only Selected Node and Subnodes")};
     only_sel_n_subnodes_checkbutton.set_active(s_options.only_sel_n_subnodes);
     Gtk::CheckButton iter_dialog_checkbutton{_("Show Iterated Find/Replace Dialog")};
-    iter_dialog_checkbutton.set_active(s_options.search_replace_dict_idialog);
+    iter_dialog_checkbutton.set_active(s_options.iterative_dialog);
     four_1_hbox.pack_start(match_case_checkbutton);
     four_1_hbox.pack_start(reg_exp_checkbutton);
     four_2_hbox.pack_start(whole_word_checkbutton);
@@ -235,6 +232,9 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
     };
     dialog.signal_key_press_event().connect(press_enter);
     search_entry.signal_key_press_event().connect(press_enter, false);
+    if (replace_on) {
+        replace_entry->signal_key_press_event().connect(press_enter, false);
+    }
 
     if (dialog.run() != Gtk::RESPONSE_ACCEPT) {
         return "";
@@ -257,7 +257,7 @@ std::string CtDialogs::dialog_search(Gtk::Window* pParentWin,
     s_options.node_content = node_content_checkbutton.get_active();
     s_options.node_name_n_tags = node_name_n_tags_checkbutton.get_active();
     s_options.only_sel_n_subnodes = only_sel_n_subnodes_checkbutton.get_active();
-    s_options.search_replace_dict_idialog = iter_dialog_checkbutton.get_active();
+    s_options.iterative_dialog = iter_dialog_checkbutton.get_active();
     return s_options.str_find;
 }
 
@@ -296,12 +296,12 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
 
     auto select_found_line = [pTreeview, rModel, pCtMainWin](){
         Gtk::TreeIter list_iter = pTreeview->get_selection()->get_selected();
-        if (!list_iter) {
+        if (not list_iter) {
             return;
         }
         gint64 node_id = list_iter->get_value(rModel->columns.node_id);
         CtTreeIter tree_iter = pCtMainWin->get_tree_store().get_node_from_node_id(node_id);
-        if (!tree_iter) {
+        if (not tree_iter) {
             CtDialogs::error_dialog(str::format(_("The Link Refers to a Node that Does Not Exist Anymore (Id = %s)"), node_id),
                                     *pCtMainWin);
             rModel->erase(list_iter);
@@ -322,7 +322,7 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
             gtk_main_iteration();
     };
 
-    if (!rModel->saved_path.empty()) {
+    if (not rModel->saved_path.empty()) {
         auto iter = rModel->get_iter(rModel->saved_path);
         if (iter) {
             pTreeview->set_cursor(rModel->get_path(iter));
@@ -353,7 +353,7 @@ void CtDialogs::match_dialog(const Glib::ustring& title,
 // Iterated Find/Replace Dialog
 void CtDialogs::iterated_find_dialog(CtMainWin* pCtMainWin, CtSearchState& s_state)
 {
-    if (!s_state.iteratedfinddialog) {
+    if (not s_state.iteratedfinddialog) {
         spdlog::debug("+iteratedfinddialog");
         auto pDialog = new Gtk::Dialog{_("Iterate Latest Find/Replace"),
                                        *pCtMainWin,

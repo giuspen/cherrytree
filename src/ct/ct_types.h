@@ -351,7 +351,7 @@ struct CtSearchOptions {
     bool        start_word{false};
     bool        direction_fw{true};
     int         all_firstsel_firstall{0};
-    bool        search_replace_dict_idialog{true};
+    bool        iterative_dialog{true};
     bool        only_sel_n_subnodes{false};
     bool        node_content{true};
     bool        node_name_n_tags{true};
@@ -360,29 +360,32 @@ struct CtSearchOptions {
 namespace Gtk { class Dialog; }
 class CtMatchDialogStore;
 
+enum class CtCurrFindType { None, SingleNode, MultipleNodes };
+
 struct CtSearchState {
-    bool         replace_active{false};
-    bool         replace_subsequent{false};
-    std::string  curr_find_where;
-    std::string  curr_find_pattern;
-    bool         from_find_iterated{false};
-    bool         from_find_back{false};
-    bool         newline_trick{false};
+    bool           replace_active{false};
+    bool           replace_subsequent{false};
+    CtCurrFindType curr_find_type{CtCurrFindType::None};
+    std::string    curr_find_pattern;
+    bool           from_find_iterated{false};
+    bool           from_find_back{false};
+    bool           newline_trick{false};
 
-    bool         first_useful_node{false};
-    int          counted_nodes{0};
-    int          processed_nodes{0};
-    int          latest_matches{0};
+    bool           first_useful_node{false};
+    int            counted_nodes{0};
+    int            processed_nodes{0};
+    int            latest_matches{0};
 
-    int          matches_num;
-    bool         all_matches_first_in_node{false};
+    int            matches_num;
+    bool           all_matches_first_in_node{false};
 
-    int          latest_node_offset{-1};
-    gint64       latest_node_offset_node_id{-1};
+    int            latest_node_offset{-1};
+    gint64         latest_node_offset_node_id{-1};
 
     std::unique_ptr<Gtk::Dialog> iteratedfinddialog;
-    int          iterDialogPos[2]{-1,-1};
+    int            iterDialogPos[2]{-1,-1};
 
+    std::pair<int,int>               latest_match_offsets{-1,-1};
     Glib::RefPtr<CtMatchDialogStore> match_store;
-    std::string   match_dialog_title;
+    std::string                      match_dialog_title;
 };

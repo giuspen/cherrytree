@@ -62,7 +62,7 @@ private:
         time_t mod_time;
     };
     std::unordered_map<size_t, CtEmbFileOpened> _embfiles_opened;
-    sigc::connection              _embfiles_timeout_connection;
+    sigc::connection _embfiles_timeout_connection;
 
 private:
     CtMainWin*   _pCtMainWin;
@@ -112,19 +112,28 @@ public:
 
 private:
     // helpers for tree actions
-    void          _node_add(bool duplicate, bool add_child);
-    Gtk::TreeIter _node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData& nodeData, bool add_child, std::shared_ptr<CtNodeState> node_state);
+    void          _node_add(bool duplicate,
+                            bool add_child);
+    Gtk::TreeIter _node_add_with_data(Gtk::TreeIter curr_iter,
+                                      CtNodeData& nodeData,
+                                      bool add_child,
+                                      std::shared_ptr<CtNodeState> node_state);
 
 public:
-    Gtk::TreeIter node_child_exist_or_create(Gtk::TreeIter parentIter, const std::string& nodeName, const bool focusIfExisting = true);
-    void          node_move_after(Gtk::TreeIter iter_to_move,
-                                  Gtk::TreeIter father_iter,
-                                  Gtk::TreeIter brother_iter = Gtk::TreeIter{},
-                                  bool set_first = false);
+    Gtk::TreeIter node_child_exist_or_create(Gtk::TreeIter parentIter,
+                                             const std::string& nodeName,
+                                             const bool focusIfExisting = true);
+    void node_move_after(Gtk::TreeIter iter_to_move,
+                         Gtk::TreeIter father_iter,
+                         Gtk::TreeIter brother_iter = Gtk::TreeIter{},
+                         bool set_first = false);
 
 private:
-    bool          _need_node_swap(Gtk::TreeIter& leftIter, Gtk::TreeIter& rightIter, bool ascendings);
-    bool          _tree_sort_level_and_sublevels(const Gtk::TreeNodeChildren& children, bool ascending);
+    bool _need_node_swap(Gtk::TreeIter& leftIter,
+                         Gtk::TreeIter& rightIter,
+                         bool ascendings);
+    bool _tree_sort_level_and_sublevels(const Gtk::TreeNodeChildren& children,
+                                        bool ascending);
 
 public:
     // tree actions
@@ -142,7 +151,9 @@ public:
     void node_right();
     void node_left();
     void node_change_father();
-    bool node_move(Gtk::TreeModel::Path src_path, Gtk::TreeModel::Path dest_path, bool only_test_dest);
+    bool node_move(Gtk::TreeModel::Path src_path,
+                   Gtk::TreeModel::Path dest_path,
+                   bool only_test_dest);
     void tree_sort_ascending();
     void tree_sort_descending();
     void tree_info();
@@ -158,21 +169,38 @@ public:
 
 private:
     // helpers for find actions
-    void                _find_init();
-    bool                _parse_given_node_content(CtTreeIter node_iter, Glib::RefPtr<Glib::Regex> re_pattern, bool forward, bool first_fromsel, bool all_matches);
-    bool                _parse_node_content_iter(const CtTreeIter& tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, Glib::RefPtr<Glib::Regex> re_pattern,
-                                                bool forward, bool first_fromsel, bool all_matches, bool first_node);
-    bool                _parse_node_name_n_tags_iter(CtTreeIter& tree_iter,
-                                                     Glib::RefPtr<Glib::Regex> re_pattern,
-                                                     const bool all_matches);
-    Gtk::TextIter       _get_inner_start_iter(Glib::RefPtr<Gtk::TextBuffer> text_buffer, bool forward, const gint64& node_id);
-    bool                _is_node_within_time_filter(const CtTreeIter& node_iter);
+    void _find_init();
+    bool _parse_given_node_content(CtTreeIter node_iter,
+                                   Glib::RefPtr<Glib::Regex> re_pattern,
+                                   bool forward,
+                                   bool first_fromsel,
+                                   bool all_matches);
+    bool _parse_node_content_iter(const CtTreeIter& tree_iter,
+                                  Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                                  Glib::RefPtr<Glib::Regex> re_pattern,
+                                  bool forward,
+                                  bool first_fromsel,
+                                  bool all_matches,
+                                  bool first_node);
+    bool _parse_node_name_n_tags_iter(CtTreeIter& tree_iter,
+                                      Glib::RefPtr<Glib::Regex> re_pattern,
+                                      const bool all_matches);
+    Gtk::TextIter _get_inner_start_iter(Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                                        bool forward,
+                                        const gint64& node_id);
+    bool _is_node_within_time_filter(const CtTreeIter& node_iter);
     Glib::RefPtr<Glib::Regex> _create_re_pattern(Glib::ustring pattern);
-    bool                _find_pattern(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, Glib::RefPtr<Glib::Regex> re_pattern,
-                                      Gtk::TextIter start_iter, bool forward, bool all_matches);
-    std::string         _get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer, Gtk::TextIter text_iter);
+    bool _find_pattern(CtTreeIter tree_iter,
+                       Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                       Glib::RefPtr<Glib::Regex> re_pattern,
+                       Gtk::TextIter start_iter,
+                       bool forward,
+                       bool all_matches);
+    std::string         _get_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer,
+                                          Gtk::TextIter text_iter);
     std::string         _get_first_line_content(Glib::RefPtr<Gtk::TextBuffer> text_buffer);
-    Glib::ustring       _check_pattern_in_object(Glib::RefPtr<Glib::Regex> pattern, CtAnchoredWidget* obj);
+    Glib::ustring       _check_pattern_in_object(Glib::RefPtr<Glib::Regex> pattern,
+                                                 CtAnchoredWidget* obj);
     std::pair<int, int> _check_pattern_in_object_between(CtTreeIter tree_iter,
                                                          Glib::RefPtr<Gtk::TextBuffer> text_buffer,
                                                          Glib::RefPtr<Glib::Regex> pattern,
@@ -180,8 +208,8 @@ private:
                                                          int end_offset,
                                                          bool forward,
                                                          std::string& obj_content);
-    int                 _get_num_objs_before_offset(Glib::RefPtr<Gtk::TextBuffer> text_buffer, int max_offset);
-    void                _update_all_matches_progress();
+    int  _get_num_objs_before_offset(Glib::RefPtr<Gtk::TextBuffer> text_buffer, int max_offset);
+    void _update_all_matches_progress();
 
 public:
     // find actions
@@ -229,8 +257,10 @@ private:
     text_view_n_buffer_codebox_proof _get_text_view_n_buffer_codebox_proof();
     CtCodebox* _codebox_in_use();
     CtTable* _table_in_use();
-    void _save_tags_at_cursor_as_latest(Glib::RefPtr<Gtk::TextBuffer> rTextBuffer, int cursorOffset);
-    bool _links_entries_pre_dialog(const Glib::ustring& curr_link, CtLinkEntry& link_entry);
+    void _save_tags_at_cursor_as_latest(Glib::RefPtr<Gtk::TextBuffer> rTextBuffer,
+                                        int cursorOffset);
+    bool _links_entries_pre_dialog(const Glib::ustring& curr_link,
+                                   CtLinkEntry& link_entry);
     Glib::ustring _links_entries_post_dialog(CtLinkEntry& link_entry);
     Glib::ustring _link_check_around_cursor();
 
@@ -275,9 +305,13 @@ private:
     void _apply_tag_hN(const char* tagPropScaleVal);
 
 public:
-    void image_insert_png(Gtk::TextIter iter_insert, Glib::RefPtr<Gdk::Pixbuf> pixbuf,
-                          const Glib::ustring& link, const Glib::ustring& image_justification);
-    void image_insert_anchor(Gtk::TextIter iter_insert, const Glib::ustring& name, const Glib::ustring& image_justification);
+    void image_insert_png(Gtk::TextIter iter_insert,
+                          Glib::RefPtr<Gdk::Pixbuf> pixbuf,
+                          const Glib::ustring& link,
+                          const Glib::ustring& image_justification);
+    void image_insert_anchor(Gtk::TextIter iter_insert,
+                             const Glib::ustring& name,
+                             const Glib::ustring& image_justification);
 
 private:
     void _insert_toc_at_pos(Glib::RefPtr<Gtk::TextBuffer> text_buffer, const std::list<TocEntry>& entries);
@@ -313,7 +347,9 @@ public:
 
 private:
     // helper for others actions
-    void _anchor_edit_dialog(CtImageAnchor* anchor, Gtk::TextIter insert_iter, Gtk::TextIter* iter_bound);
+    void _anchor_edit_dialog(CtImageAnchor* anchor,
+                             Gtk::TextIter insert_iter,
+                             Gtk::TextIter* iter_bound);
     bool _on_embfiles_sentinel_timeout();
 
 public:
