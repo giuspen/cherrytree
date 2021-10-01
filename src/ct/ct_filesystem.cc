@@ -180,7 +180,7 @@ std::list<fs::path> get_dir_entries(const path& dir)
 {
     Glib::Dir gdir(dir.string());
     std::list<fs::path> entries(gdir.begin(), gdir.end());
-    for (auto& entry: entries)
+    for (auto& entry : entries)
         entry = dir / entry;
     return entries;
 }
@@ -399,6 +399,11 @@ fs::path get_cherrytree_config_language_specs_dirpath()
 fs::path get_cherrytree_config_styles_dirpath()
 {
     return get_cherrytree_configdir() / CtConfig::ConfigStylesDirname;
+}
+
+fs::path get_cherrytree_config_icons_dirpath()
+{
+    return get_cherrytree_configdir() / CtConfig::ConfigIconsDirname;
 }
 
 fs::path get_cherrytree_config_user_style_filepath(const unsigned num)

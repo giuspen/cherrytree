@@ -103,6 +103,7 @@ std::optional<path> get_cherrytree_logdir();
 path get_cherrytree_config_filepath();
 path get_cherrytree_config_language_specs_dirpath();
 path get_cherrytree_config_styles_dirpath();
+path get_cherrytree_config_icons_dirpath();
 path get_cherrytree_config_user_style_filepath(const unsigned num);
 // Filepath is a url so not an fs::path
 std::string download_file(const std::string& filepath);

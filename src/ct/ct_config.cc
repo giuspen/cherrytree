@@ -34,6 +34,7 @@ const fs::path CtConfig::LangFilename{"lang"};
 const fs::path CtConfig::LogFilename{"log"};
 const fs::path CtConfig::ConfigLanguageSpecsDirname{"language-specs"};
 const fs::path CtConfig::ConfigStylesDirname{"styles"};
+const fs::path CtConfig::ConfigIconsDirname{"icons"};
 const fs::path CtConfig::UserStyleTemplate{"user-style.xml"};
 
 CtConfig::CtConfig()

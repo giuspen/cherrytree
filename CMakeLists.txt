@@ -229,6 +229,10 @@ if(${CMAKE_SYSTEM_NAME} MATCHES Linux|.*BSD|DragonFly|Darwin)
   install(FILES
           "${CMAKE_SOURCE_DIR}/icons/ct_home.svg"
           DESTINATION "${CHERRYTREE_SHARE_INSTALL}/icons")
+  install(DIRECTORY "${CMAKE_SOURCE_DIR}/icons/Breeze_Dark_icons"
+          DESTINATION "${CHERRYTREE_SHARE_INSTALL}/icons")
+  install(DIRECTORY "${CMAKE_SOURCE_DIR}/icons/Breeze_Light_icons"
+          DESTINATION "${CHERRYTREE_SHARE_INSTALL}/icons")
 
   # locale data
   if(USE_NLS)

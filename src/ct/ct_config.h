@@ -42,6 +42,7 @@ public:
     static const fs::path LogFilename;
     static const fs::path ConfigLanguageSpecsDirname;
     static const fs::path ConfigStylesDirname;
+    static const fs::path ConfigIconsDirname;
     static const fs::path UserStyleTemplate;
 
     bool getInitLoadFromFileOk() { return _initLoadFromFileOk; }

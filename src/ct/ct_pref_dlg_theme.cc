@@ -23,6 +23,7 @@
 
 #include "ct_pref_dlg.h"
 #include "ct_main_win.h"
+#include <glib/gstdio.h>
 
 Gtk::Widget* CtPrefDlg::build_tab_theme()
 {
@@ -319,12 +320,49 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
 
     Gtk::Frame* frame_theme_editor = new_managed_frame_with_align(_("Style Scheme Editor"), pNotebook);
 
+    // Icon Theme
+    auto pVBoxIconTheme = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
+    auto pButtonBreezeDarkIcons = Gtk::manage(new Gtk::Button{_("Set Dark Theme Icons")});
+    auto pButtonBreezeLightIcons = Gtk::manage(new Gtk::Button{_("Set Light Theme Icons")});
+    auto pButtonDefaultIcons = Gtk::manage(new Gtk::Button{_("Set Default Icons")});
+    pVBoxIconTheme->pack_start(*pButtonBreezeDarkIcons, false, false);
+    pVBoxIconTheme->pack_start(*pButtonBreezeLightIcons, false, false);
+    pVBoxIconTheme->pack_start(*pButtonDefaultIcons, false, false);
+
+    auto f_removeConfigIconsAndCopyFrom = [this](const char* folderName){
+        fs::path ConfigIcons_dst = fs::get_cherrytree_config_icons_dirpath();
+        if (fs::exists(ConfigIcons_dst)) {
+            fs::remove_all(ConfigIcons_dst);
+        }
+        if (folderName) {
+            g_mkdir(ConfigIcons_dst.c_str(), 0744);
+            fs::path InstalledIcons_src = fs::get_cherrytree_datadir() / CtConfig::ConfigIconsDirname / folderName;
+            for (const auto& filepath : fs::get_dir_entries(InstalledIcons_src)) {
+                fs::copy_file(filepath, ConfigIcons_dst / filepath.filename());
+            }
+        }
+        Gtk::IconTheme::get_default()->rescan_if_needed();
+    };
+
+    pButtonBreezeDarkIcons->signal_clicked().connect([f_removeConfigIconsAndCopyFrom](){
+        f_removeConfigIconsAndCopyFrom("Breeze_Dark_icons");
+    });
+    pButtonBreezeLightIcons->signal_clicked().connect([f_removeConfigIconsAndCopyFrom](){
+        f_removeConfigIconsAndCopyFrom("Breeze_Light_icons");
+    });
+    pButtonDefaultIcons->signal_clicked().connect([f_removeConfigIconsAndCopyFrom](){
+        f_removeConfigIconsAndCopyFrom(nullptr);
+    });
+
+    Gtk::Frame* frame_icon_theme = new_managed_frame_with_align(_("Icon Theme"), pVBoxIconTheme);
+
     auto pVBoxMain = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL});
     pVBoxMain->set_margin_left(6);
     pVBoxMain->set_margin_top(6);
     pVBoxMain->pack_start(*frame_tt_theme, false, false);
     pVBoxMain->pack_start(*frame_style_schemes, false, false);
     pVBoxMain->pack_start(*frame_theme_editor, false, false);
+    pVBoxMain->pack_start(*frame_icon_theme, false, false);
 
     auto update_tree_color = [this, colorbutton_tree_fg, colorbutton_tree_bg]() {
         _pConfig->ttDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_fg->get_rgba());

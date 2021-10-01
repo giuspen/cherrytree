@@ -209,6 +209,8 @@ done
 # share icons
 mkdir -p ${NEW_CHERRYTREE_SHARE}/icons
 cp -v ${GIT_CT_ICONS_FOLDER}/ct_home.svg ${NEW_CHERRYTREE_SHARE}/icons/
+cp -v ${GIT_CT_ICONS_FOLDER}/Breeze_Dark_icons ${NEW_CHERRYTREE_SHARE}/icons/
+cp -v ${GIT_CT_ICONS_FOLDER}/Breeze_Light_icons ${NEW_CHERRYTREE_SHARE}/icons/
 # i18n languages
 for element_rel in $(ls ${GIT_CT_LANGUAGES_FOLDER})
 do
