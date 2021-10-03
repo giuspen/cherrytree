@@ -137,6 +137,7 @@ void CtActions::preferences_import()
     auto pConfig = _pCtMainWin->get_ct_config();
 
     pConfig->toolbarVisible = ctConfigImported.toolbarVisible;
+    pConfig->statusbarVisible = ctConfigImported.statusbarVisible;
     pConfig->hpanedPos = ctConfigImported.hpanedPos;
     pConfig->treeVisible = ctConfigImported.treeVisible;
     pConfig->linkType = ctConfigImported.linkType;

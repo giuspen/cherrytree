@@ -39,11 +39,18 @@ void CtActions::toggle_show_hide_tree()
     }
 }
 
-// Toggle Show/Hide the Toolbar
 void CtActions::toggle_show_hide_toolbars()
 {
-    _pCtMainWin->get_ct_config()->toolbarVisible = !_pCtMainWin->get_ct_config()->toolbarVisible;
-    _pCtMainWin->show_hide_toolbars(_pCtMainWin->get_ct_config()->toolbarVisible);
+    auto pCtConfig = _pCtMainWin->get_ct_config();
+    pCtConfig->toolbarVisible = not pCtConfig->toolbarVisible;
+    _pCtMainWin->show_hide_toolbars(pCtConfig->toolbarVisible);
+}
+
+void CtActions::toggle_show_hide_statusbar()
+{
+    auto pCtConfig = _pCtMainWin->get_ct_config();
+    pCtConfig->statusbarVisible = not pCtConfig->statusbarVisible;
+    _pCtMainWin->show_hide_statusbar(pCtConfig->statusbarVisible);
 }
 
 void CtActions::toggle_show_hide_node_name_header()

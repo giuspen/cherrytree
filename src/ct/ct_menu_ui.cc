@@ -277,6 +277,7 @@ const char* CtMenu::_get_ui_str_menu()
   <menu action='ViewMenu'>
     <menuitem action='toggle_show_tree'/>
     <menuitem action='toggle_show_toolbar'/>
+    <menuitem action='toggle_show_statusbar'/>
     <menuitem action='toggle_show_node_name_head'/>
     <separator/>
     <menuitem action='toggle_focus_tree_text'/>

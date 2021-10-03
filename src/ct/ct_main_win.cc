@@ -579,6 +579,7 @@ void CtMainWin::menu_rebuild_toolbars(bool new_toolbar)
     }
 
     show_hide_toolbars(_pCtConfig->toolbarVisible);
+    show_hide_statusbar(_pCtConfig->statusbarVisible);
     for (auto pToolbar: _pToolbars) {
         pToolbar->set_toolbar_style(Gtk::ToolbarStyle::TOOLBAR_ICONS);
     }

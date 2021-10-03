@@ -197,6 +197,7 @@ void CtConfig::_populate_keyfile_from_data()
         ++i;
     }
     _uKeyFile->set_boolean(_currentGroup, "toolbar_visible", toolbarVisible);
+    _uKeyFile->set_boolean(_currentGroup, "statusbar_visible", statusbarVisible);
     _uKeyFile->set_boolean(_currentGroup, "win_is_maximized", winIsMaximised);
     _uKeyFile->set_integer(_currentGroup, "win_position_x", winRect[0]);
     _uKeyFile->set_integer(_currentGroup, "win_position_y", winRect[1]);
@@ -423,6 +424,7 @@ void CtConfig::_populate_data_from_keyfile()
         }
     }
     _populate_bool_from_keyfile("toolbar_visible", &toolbarVisible);
+    _populate_bool_from_keyfile("statusbar_visible", &statusbarVisible);
     _populate_bool_from_keyfile("win_is_maximized", &winIsMaximised);
     _populate_int_from_keyfile("win_position_x", &winRect[0]);
     _populate_int_from_keyfile("win_position_y", &winRect[1]);

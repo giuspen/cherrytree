@@ -231,6 +231,7 @@ public:
     // view actions
     void toggle_show_hide_tree();
     void toggle_show_hide_toolbars();
+    void toggle_show_hide_statusbar();
     void toggle_show_hide_node_name_header();
     void toggle_tree_text();
     void nodes_expand_all();
