@@ -74,16 +74,17 @@ void register_exe_path_detect_if_portable(const char* exe_path)
 {
     _exePath = fs::canonical(exe_path);
     //printf("exePath: %s\n", _exePath.c_str());
-
 #ifdef _WIN32
     // e.g. cherrytree_0.99.9_win64_portable\mingw64\bin\cherrytree.exe
     //      cherrytree_0.99.9_win64_portable\config.cfg
     const fs::path portableConfigDir = _exePath.parent_path().parent_path().parent_path();
+#else // !_WIN32
+    const fs::path portableConfigDir = _exePath.parent_path() / "config";
+#endif // !_WIN32
     const fs::path portableConfigFile = portableConfigDir / CtConfig::ConfigFilename;
     if (is_regular_file(portableConfigFile)) {
         _portableConfigDir = portableConfigDir;
     }
-#endif // _WIN32
 }
 
 bool remove(const fs::path& path2rm)
