@@ -138,6 +138,7 @@ void CtActions::preferences_import()
 
     pConfig->toolbarVisible = ctConfigImported.toolbarVisible;
     pConfig->statusbarVisible = ctConfigImported.statusbarVisible;
+    pConfig->treeLinesVisible = ctConfigImported.treeLinesVisible;
     pConfig->hpanedPos = ctConfigImported.hpanedPos;
     pConfig->treeVisible = ctConfigImported.treeVisible;
     pConfig->linkType = ctConfigImported.linkType;

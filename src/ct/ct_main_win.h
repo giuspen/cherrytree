@@ -185,6 +185,7 @@ public:
 
     void show_hide_toolbars(bool visible)   { for (auto pToolbar: _pToolbars) pToolbar->property_visible() = visible; }
     void show_hide_statusbar(bool visible)  { _ctStatusBar.hbox.property_visible() = visible; }
+    void show_hide_tree_lines(bool visible) { _uCtTreeview->set_enable_tree_lines(visible); }
     void set_toolbars_icon_size(int size)   { for (auto pToolbar: _pToolbars) pToolbar->property_icon_size() = CtMiscUtil::getIconSize(size); }
     void show_hide_tree_view(bool visible)  { _scrolledwindowTree.property_visible() = visible; }
     void show_hide_win_header(bool visible) { _ctWinHeader.headerBox.property_visible() = visible; }

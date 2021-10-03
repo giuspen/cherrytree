@@ -298,6 +298,8 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Toggle Show/Hide Toolbar"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_toolbars)});
     _actions.push_back(CtMenuAction{view_cat, "toggle_show_statusbar", "ct_statusbar", _("Show/Hide _Statusbar"), None,
         _("Toggle Show/Hide Statusbar"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_statusbar)});
+    _actions.push_back(CtMenuAction{view_cat, "toggle_show_treelines", "ct_treelines", _("Show/Hide Tree _Lines"), None,
+        _("Toggle Show/Hide Tree Lines"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_tree_lines)});
     _actions.push_back(CtMenuAction{view_cat, "toggle_show_node_name_head", "ct_node_name_header", _("Show/Hide Node Name _Header"), None,
         _("Toggle Show/Hide Node Name Header"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_node_name_header)});
     _actions.push_back(CtMenuAction{view_cat, "toggle_focus_tree_text", "ct_go-jump", _("Toggle _Focus Tree/Text"), KB_CONTROL+"Tab",

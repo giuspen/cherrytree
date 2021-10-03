@@ -56,6 +56,7 @@ public:
     CtRecentDocsRestore                         recentDocsRestore;
     bool                                        toolbarVisible{true};
     bool                                        statusbarVisible{true};
+    bool                                        treeLinesVisible{false};
     bool                                        winIsMaximised{false};
     int                                         winRect[4]{10, 10, 963, 630};
     int                                         hpanedPos{170};

@@ -55,8 +55,16 @@ void CtActions::toggle_show_hide_statusbar()
 
 void CtActions::toggle_show_hide_node_name_header()
 {
-    _pCtMainWin->get_ct_config()->showNodeNameHeader = !_pCtMainWin->get_ct_config()->showNodeNameHeader;
-    _pCtMainWin->show_hide_win_header(_pCtMainWin->get_ct_config()->showNodeNameHeader);
+    auto pCtConfig = _pCtMainWin->get_ct_config();
+    pCtConfig->showNodeNameHeader = not pCtConfig->showNodeNameHeader;
+    _pCtMainWin->show_hide_win_header(pCtConfig->showNodeNameHeader);
+}
+
+void CtActions::toggle_show_hide_tree_lines()
+{
+    auto pCtConfig = _pCtMainWin->get_ct_config();
+    pCtConfig->treeLinesVisible = not pCtConfig->treeLinesVisible;
+    _pCtMainWin->show_hide_tree_lines(pCtConfig->treeLinesVisible);
 }
 
 // Toggle Focus Between Tree and Text

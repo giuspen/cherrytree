@@ -236,6 +236,7 @@ void CtMainWin::_reset_CtTreestore_CtTreeview()
     _uCtTreestore->tree_view_connect(_uCtTreeview.get());
     _uCtTreeview->set_tree_node_name_wrap_width(_pCtConfig->cherryWrapEnabled, _pCtConfig->cherryWrapWidth);
     _uCtTreeview->get_column(CtTreeView::AUX_ICON_COL_NUM)->set_visible(!_pCtConfig->auxIconHide);
+    show_hide_tree_lines(_pCtConfig->treeLinesVisible);
 
     _tree_just_auto_expanded = false;
     _uCtTreeview->signal_cursor_changed().connect(sigc::mem_fun(*this, &CtMainWin::_on_treeview_cursor_changed));
@@ -276,6 +277,7 @@ void CtMainWin::config_apply()
     _ctWinHeader.ghostIcon.hide();
 
     menu_rebuild_toolbars(false);
+    show_hide_statusbar(_pCtConfig->statusbarVisible);
 
     _ctStatusBar.progressBar.hide();
     _ctStatusBar.stopButton.hide();
@@ -579,7 +581,6 @@ void CtMainWin::menu_rebuild_toolbars(bool new_toolbar)
     }
 
     show_hide_toolbars(_pCtConfig->toolbarVisible);
-    show_hide_statusbar(_pCtConfig->statusbarVisible);
     for (auto pToolbar: _pToolbars) {
         pToolbar->set_toolbar_style(Gtk::ToolbarStyle::TOOLBAR_ICONS);
     }
