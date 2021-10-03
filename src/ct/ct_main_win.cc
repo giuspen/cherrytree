@@ -333,7 +333,7 @@ void CtMainWin::update_theme()
     css_str += ".ct-tree-panel" + treeFont;
     css_str += " ";
     css_str += ".ct-tree-panel { color: " + _pCtConfig->ttDefFg + "; background-color: " + _pCtConfig->ttDefBg + "; } ";
-    css_str += ".ct-tree-panel:selected { color: " + _pCtConfig->ttDefBg + "; background: #5294e2; } ";
+    css_str += ".ct-tree-panel:selected { color: " + _pCtConfig->ttSelFg + "; background: " + _pCtConfig->ttSelBg + "; } ";
     css_str += ".ct-tree-scroll-panel { background-color: " + _pCtConfig->ttDefBg + "; } ";
     css_str += ".ct-header-panel { background-color: " + _pCtConfig->ttDefBg + "; } ";
     css_str += ".ct-header-panel button { margin: 2px; padding: 0 4px 0 4px; } ";

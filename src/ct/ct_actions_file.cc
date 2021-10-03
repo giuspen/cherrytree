@@ -223,6 +223,8 @@ void CtActions::preferences_import()
     pConfig->codeFont = ctConfigImported.codeFont;
     pConfig->ttDefFg = ctConfigImported.ttDefFg;
     pConfig->ttDefBg = ctConfigImported.ttDefBg;
+    pConfig->ttSelFg = ctConfigImported.ttSelFg;
+    pConfig->ttSelBg = ctConfigImported.ttSelBg;
     pConfig->scalableH1.deserialise(ctConfigImported.scalableH1.serialise().c_str());
     pConfig->scalableH2.deserialise(ctConfigImported.scalableH2.serialise().c_str());
     pConfig->scalableH3.deserialise(ctConfigImported.scalableH3.serialise().c_str());

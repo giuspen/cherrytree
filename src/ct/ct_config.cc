@@ -315,6 +315,8 @@ void CtConfig::_populate_keyfile_from_data()
     _currentGroup = "colors";
     _uKeyFile->set_string(_currentGroup, "tt_def_fg", ttDefFg);
     _uKeyFile->set_string(_currentGroup, "tt_def_bg", ttDefBg);
+    _uKeyFile->set_string(_currentGroup, "tt_sel_fg", ttSelFg);
+    _uKeyFile->set_string(_currentGroup, "tt_sel_bg", ttSelBg);
     _uKeyFile->set_string(_currentGroup, "scalable_h1", scalableH1.serialise());
     _uKeyFile->set_string(_currentGroup, "scalable_h2", scalableH2.serialise());
     _uKeyFile->set_string(_currentGroup, "scalable_h3", scalableH3.serialise());
@@ -605,6 +607,8 @@ void CtConfig::_populate_data_from_keyfile()
     _currentGroup = "colors";
     _populate_string_from_keyfile("tt_def_fg", &ttDefFg);
     _populate_string_from_keyfile("tt_def_bg", &ttDefBg);
+    _populate_string_from_keyfile("tt_sel_fg", &ttSelFg);
+    _populate_string_from_keyfile("tt_sel_bg", &ttSelBg);
     std::string tmpScalable;
     _populate_string_from_keyfile("scalable_h1", &tmpScalable);
     scalableH1.deserialise(tmpScalable.c_str(), CtConst::SCALABLE_H1_DEFAULT);

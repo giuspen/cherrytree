@@ -106,6 +106,7 @@ const inline static gchar* TREE_TEXT_DARK_FG      {COLOR_24_WHITE};
 const inline static gchar* TREE_TEXT_DARK_BG      {COLOR_24_BLUEBG};
 const inline static gchar* TREE_TEXT_LIGHT_FG     {COLOR_24_LBLACK};
 const inline static gchar* TREE_TEXT_LIGHT_BG     {COLOR_24_LGRAY};
+const inline static gchar* TREE_TEXT_SEL_BG       {"#5294e2"};
 const inline static gchar* DEFAULT_MONOSPACE_FG   {COLOR_24_LGRAY};
 const inline static gchar* DEFAULT_MONOSPACE_BG   {COLOR_24_DGRAY};
 const inline static unsigned NUM_USER_STYLES{2};

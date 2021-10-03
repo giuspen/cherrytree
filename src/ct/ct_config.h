@@ -173,6 +173,8 @@ public:
     // [colors]
     std::string                                 ttDefFg{CtConst::TREE_TEXT_LIGHT_FG};
     std::string                                 ttDefBg{CtConst::TREE_TEXT_LIGHT_BG};
+    std::string                                 ttSelFg{CtConst::TREE_TEXT_LIGHT_BG};
+    std::string                                 ttSelBg{CtConst::TREE_TEXT_SEL_BG};
     std::string                                 monospaceFg{CtConst::DEFAULT_MONOSPACE_FG};
     std::string                                 monospaceBg{CtConst::DEFAULT_MONOSPACE_BG};
     bool                                        msDedicatedFont{false};

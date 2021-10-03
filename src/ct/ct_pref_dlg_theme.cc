@@ -37,31 +37,119 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     radiobutton_tt_col_custom->join_group(*radiobutton_tt_col_light);
     auto hbox_tt_col_custom = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 4/*spacing*/});
     auto colorbutton_tree_bg = Gtk::manage(new Gtk::ColorButton(Gdk::RGBA{_pConfig->ttDefBg}));
-    auto label_tt_col_custom = Gtk::manage(new Gtk::Label{_("and Text")});
+    auto label_tt_col_custom_txt = Gtk::manage(new Gtk::Label{_("Text")});
+    auto label_tt_col_custom_sel_bg = Gtk::manage(new Gtk::Label{_("Selection Background")});
+    auto label_tt_col_custom_sel_txt = Gtk::manage(new Gtk::Label{_("Text")});
     auto colorbutton_tree_fg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{_pConfig->ttDefFg}});
+    auto colorbutton_tree_sel_bg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{_pConfig->ttSelBg}});
+    auto colorbutton_tree_sel_fg = Gtk::manage(new Gtk::ColorButton{Gdk::RGBA{_pConfig->ttSelFg}});
     hbox_tt_col_custom->pack_start(*radiobutton_tt_col_custom, false, false);
     hbox_tt_col_custom->pack_start(*colorbutton_tree_bg, false, false);
-    hbox_tt_col_custom->pack_start(*label_tt_col_custom, false, false);
+    hbox_tt_col_custom->pack_start(*label_tt_col_custom_txt, false, false);
     hbox_tt_col_custom->pack_start(*colorbutton_tree_fg, false, false);
+    hbox_tt_col_custom->pack_start(*label_tt_col_custom_sel_bg, false, false);
+    hbox_tt_col_custom->pack_start(*colorbutton_tree_sel_bg, false, false);
+    hbox_tt_col_custom->pack_start(*label_tt_col_custom_sel_txt, false, false);
+    hbox_tt_col_custom->pack_start(*colorbutton_tree_sel_fg, false, false);
 
     vbox_tt_theme->pack_start(*radiobutton_tt_col_light, false, false);
     vbox_tt_theme->pack_start(*radiobutton_tt_col_dark, false, false);
     vbox_tt_theme->pack_start(*hbox_tt_col_custom, false, false);
     Gtk::Frame* frame_tt_theme = new_managed_frame_with_align(_("Tree Explorer"), vbox_tt_theme);
 
-    if (_pConfig->ttDefFg == CtConst::TREE_TEXT_DARK_FG && _pConfig->ttDefBg == CtConst::TREE_TEXT_DARK_BG) {
+    if (_pConfig->ttDefFg == CtConst::TREE_TEXT_DARK_FG and
+        _pConfig->ttDefBg == CtConst::TREE_TEXT_DARK_BG and
+        _pConfig->ttSelFg == CtConst::TREE_TEXT_DARK_BG and
+        _pConfig->ttSelBg == CtConst::TREE_TEXT_SEL_BG)
+    {
         radiobutton_tt_col_dark->set_active(true);
         colorbutton_tree_fg->set_sensitive(false);
         colorbutton_tree_bg->set_sensitive(false);
+        colorbutton_tree_sel_fg->set_sensitive(false);
+        colorbutton_tree_sel_bg->set_sensitive(false);
     }
-    else if (_pConfig->ttDefFg == CtConst::TREE_TEXT_LIGHT_FG && _pConfig->ttDefBg == CtConst::TREE_TEXT_LIGHT_BG) {
+    else if (_pConfig->ttDefFg == CtConst::TREE_TEXT_LIGHT_FG and
+             _pConfig->ttDefBg == CtConst::TREE_TEXT_LIGHT_BG and
+             _pConfig->ttSelFg == CtConst::TREE_TEXT_LIGHT_BG and
+             _pConfig->ttSelBg == CtConst::TREE_TEXT_SEL_BG)
+    {
         radiobutton_tt_col_light->set_active(true);
         colorbutton_tree_fg->set_sensitive(false);
         colorbutton_tree_bg->set_sensitive(false);
+        colorbutton_tree_sel_fg->set_sensitive(false);
+        colorbutton_tree_sel_bg->set_sensitive(false);
     }
     else {
         radiobutton_tt_col_custom->set_active(true);
     }
+
+    auto _update_tree_color = [this,
+                               colorbutton_tree_fg,
+                               colorbutton_tree_bg,
+                               colorbutton_tree_sel_fg,
+                               colorbutton_tree_sel_bg]() {
+        _pConfig->ttDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_fg->get_rgba());
+        _pConfig->ttDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_bg->get_rgba());
+        _pConfig->ttSelFg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_sel_fg->get_rgba());
+        _pConfig->ttSelBg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_sel_bg->get_rgba());
+        apply_for_each_window([](CtMainWin* win) { win->update_theme(); win->window_header_update(); });
+    };
+    auto update_tree_color = [radiobutton_tt_col_custom,
+                              _update_tree_color]() {
+        if (radiobutton_tt_col_custom->get_active()) {
+            _update_tree_color();
+        }
+    };
+    colorbutton_tree_fg->signal_color_set().connect(update_tree_color);
+    colorbutton_tree_bg->signal_color_set().connect(update_tree_color);
+    colorbutton_tree_sel_fg->signal_color_set().connect(update_tree_color);
+    colorbutton_tree_sel_bg->signal_color_set().connect(update_tree_color);
+
+    radiobutton_tt_col_light->signal_toggled().connect([radiobutton_tt_col_light,
+                                                        colorbutton_tree_fg,
+                                                        colorbutton_tree_bg,
+                                                        colorbutton_tree_sel_fg,
+                                                        colorbutton_tree_sel_bg,
+                                                        _update_tree_color](){
+        if (not radiobutton_tt_col_light->get_active()) return;
+        colorbutton_tree_fg->set_rgba(Gdk::RGBA{CtConst::TREE_TEXT_LIGHT_FG});
+        colorbutton_tree_bg->set_rgba(Gdk::RGBA{CtConst::TREE_TEXT_LIGHT_BG});
+        colorbutton_tree_sel_fg->set_rgba(Gdk::RGBA{CtConst::TREE_TEXT_LIGHT_BG});
+        colorbutton_tree_sel_bg->set_rgba(Gdk::RGBA{CtConst::TREE_TEXT_SEL_BG});
+        colorbutton_tree_fg->set_sensitive(false);
+        colorbutton_tree_bg->set_sensitive(false);
+        colorbutton_tree_sel_fg->set_sensitive(false);
+        colorbutton_tree_sel_bg->set_sensitive(false);
+        _update_tree_color();
+    });
+    radiobutton_tt_col_dark->signal_toggled().connect([radiobutton_tt_col_dark,
+                                                       colorbutton_tree_fg,
+                                                       colorbutton_tree_bg,
+                                                       colorbutton_tree_sel_fg,
+                                                       colorbutton_tree_sel_bg,
+                                                       _update_tree_color](){
+        if (not radiobutton_tt_col_dark->get_active()) return;
+        colorbutton_tree_fg->set_rgba(Gdk::RGBA{CtConst::TREE_TEXT_DARK_FG});
+        colorbutton_tree_bg->set_rgba(Gdk::RGBA{CtConst::TREE_TEXT_DARK_BG});
+        colorbutton_tree_sel_fg->set_rgba(Gdk::RGBA{CtConst::TREE_TEXT_DARK_BG});
+        colorbutton_tree_sel_bg->set_rgba(Gdk::RGBA{CtConst::TREE_TEXT_SEL_BG});
+        colorbutton_tree_fg->set_sensitive(false);
+        colorbutton_tree_bg->set_sensitive(false);
+        colorbutton_tree_sel_fg->set_sensitive(false);
+        colorbutton_tree_sel_bg->set_sensitive(false);
+        _update_tree_color();
+    });
+    radiobutton_tt_col_custom->signal_toggled().connect([radiobutton_tt_col_custom,
+                                                         colorbutton_tree_fg,
+                                                         colorbutton_tree_bg,
+                                                         colorbutton_tree_sel_fg,
+                                                         colorbutton_tree_sel_bg](){
+        if (not radiobutton_tt_col_custom->get_active()) return;
+        colorbutton_tree_fg->set_sensitive(true);
+        colorbutton_tree_bg->set_sensitive(true);
+        colorbutton_tree_sel_fg->set_sensitive(true);
+        colorbutton_tree_sel_bg->set_sensitive(true);
+    });
 
     // Style Schemes
     auto pGridStyleSchemes = Gtk::manage(new Gtk::Grid{});
@@ -363,42 +451,6 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     pVBoxMain->pack_start(*frame_style_schemes, false, false);
     pVBoxMain->pack_start(*frame_theme_editor, false, false);
     pVBoxMain->pack_start(*frame_icon_theme, false, false);
-
-    auto update_tree_color = [this, colorbutton_tree_fg, colorbutton_tree_bg]() {
-        _pConfig->ttDefFg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_fg->get_rgba());
-        _pConfig->ttDefBg = CtRgbUtil::rgb_any_to_24(colorbutton_tree_bg->get_rgba());
-        apply_for_each_window([](CtMainWin* win) { win->update_theme(); win->window_header_update(); });
-    };
-
-    colorbutton_tree_fg->signal_color_set().connect([update_tree_color, radiobutton_tt_col_custom](){
-        if (!radiobutton_tt_col_custom->get_active()) return;
-        update_tree_color();
-    });
-    colorbutton_tree_bg->signal_color_set().connect([update_tree_color, radiobutton_tt_col_custom](){
-        if (!radiobutton_tt_col_custom->get_active()) return;
-        update_tree_color();
-    });
-    radiobutton_tt_col_light->signal_toggled().connect([radiobutton_tt_col_light, colorbutton_tree_fg, colorbutton_tree_bg, update_tree_color](){
-        if (!radiobutton_tt_col_light->get_active()) return;
-        colorbutton_tree_fg->set_rgba(Gdk::RGBA{CtConst::TREE_TEXT_LIGHT_FG});
-        colorbutton_tree_bg->set_rgba(Gdk::RGBA{CtConst::TREE_TEXT_LIGHT_BG});
-        colorbutton_tree_fg->set_sensitive(false);
-        colorbutton_tree_bg->set_sensitive(false);
-        update_tree_color();
-    });
-    radiobutton_tt_col_dark->signal_toggled().connect([radiobutton_tt_col_dark, colorbutton_tree_fg, colorbutton_tree_bg, update_tree_color](){
-        if (!radiobutton_tt_col_dark->get_active()) return;
-        colorbutton_tree_fg->set_rgba(Gdk::RGBA{CtConst::TREE_TEXT_DARK_FG});
-        colorbutton_tree_bg->set_rgba(Gdk::RGBA{CtConst::TREE_TEXT_DARK_BG});
-        colorbutton_tree_fg->set_sensitive(false);
-        colorbutton_tree_bg->set_sensitive(false);
-        update_tree_color();
-    });
-    radiobutton_tt_col_custom->signal_toggled().connect([radiobutton_tt_col_custom, colorbutton_tree_fg, colorbutton_tree_bg](){
-        if (!radiobutton_tt_col_custom->get_active()) return;
-        colorbutton_tree_fg->set_sensitive(true);
-        colorbutton_tree_bg->set_sensitive(true);
-    });
 
     combobox_style_scheme_rt->signal_changed().connect([this, combobox_style_scheme_rt](){
         _pConfig->rtStyleScheme = combobox_style_scheme_rt->get_active_text();
