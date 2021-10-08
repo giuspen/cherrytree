@@ -260,6 +260,7 @@ private:
     Gtk::VBox                    _vboxMain;
     Gtk::VBox                    _vboxText;
     Gtk::HPaned                  _hPaned;
+    Gtk::HeaderBar               _headerBar;
     Gtk::MenuBar*                _pMenuBar{nullptr};
     std::vector<Gtk::Toolbar*>   _pToolbars;
     CtStatusBar                  _ctStatusBar;

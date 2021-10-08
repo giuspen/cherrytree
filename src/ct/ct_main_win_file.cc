@@ -44,7 +44,7 @@ void CtMainWin::window_title_update(std::optional<bool> saveNeeded)
     }
     title += "CherryTree ";
     title += CtConst::CT_VERSION;
-    set_title(title);
+    _headerBar.set_title(title);
 }
 
 void CtMainWin::update_window_save_not_needed()

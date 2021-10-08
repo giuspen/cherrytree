@@ -90,7 +90,11 @@ CtMainWin::CtMainWin(bool                            no_gui,
     add_accel_group(_uCtMenu->get_accel_group());
     _pToolbars = _uCtMenu->build_toolbars(_pRecentDocsMenuToolButton);
 
-    _vboxMain.pack_start(*_pMenuBar, false, false);
+    _headerBar.set_has_subtitle(false);
+    _headerBar.set_show_close_button(true);
+    _headerBar.pack_start(*_pMenuBar);
+    _headerBar.set_visible(true);
+    set_titlebar(_headerBar);
     for (auto pToolbar : _pToolbars) {
         _vboxMain.pack_start(*pToolbar, false, false);
     }
