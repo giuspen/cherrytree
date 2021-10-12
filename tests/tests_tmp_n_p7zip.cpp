@@ -88,8 +88,9 @@ TEST(TmpP7zipGroup, P7zaIfaceMisc)
 
     // extract again from the archive that we created
     ASSERT_EQ(0, CtP7zaIface::p7za_extract(ctzTmpPathBis.c_str(), ctTmp.getHiddenDirPath(UT::ctzInputPath).c_str(), UT::testPasswordBis, false));
-    ASSERT_TRUE(Glib::file_test(ctTmp.getHiddenFilePath(UT::ctzInputPath).string(), Glib::FILE_TEST_EXISTS));
-    std::string xml_txt_bis = Glib::file_get_contents(ctTmp.getHiddenFilePath(UT::ctzInputPath).string());
+    auto expectedExtractedPath = ctTmp.getHiddenDirPath(UT::ctzInputPath) / "7zr2.ctd";
+    ASSERT_TRUE(Glib::file_test(expectedExtractedPath.string(), Glib::FILE_TEST_EXISTS));
+    std::string xml_txt_bis = Glib::file_get_contents(expectedExtractedPath.string());
     ASSERT_STREQ(xml_txt.c_str(), xml_txt_bis.c_str());
 
     // remove alien/unexpected files in temp directory

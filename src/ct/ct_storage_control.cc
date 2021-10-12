@@ -280,6 +280,9 @@ Glib::RefPtr<Gsv::Buffer> CtStorageControl::get_delayed_text_buffer(const gint64
                 return temp_file_path;
             }
         }
+        else {
+            spdlog::debug("!! CtP7zaIface::p7za_extract");
+        }
         password.clear();
     }
 }

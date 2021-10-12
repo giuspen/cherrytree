@@ -543,6 +543,21 @@ HRESULT CArc::GetItemPathToParent(UInt32 index, UInt32 parent, UStringVector &pa
 
 HRESULT CArc::GetItemPath(UInt32 index, UString &result) const
 {
+#ifdef _LIB_FOR_CHERRYTREE
+    UStringVector pathParts;
+    SplitPathToParts(filePath, pathParts);
+    result = pathParts.Back();
+    //wprintf(L"GetItemPath archiveName=%S\n", result.Ptr());
+    if (result.Back() == (wchar_t)'z') {
+        result.ReplaceOneCharAtPos(result.Len()-1, (wchar_t)'d');
+        return S_OK;
+    }
+    if (result.Back() == (wchar_t)'x') {
+        result.ReplaceOneCharAtPos(result.Len()-1, (wchar_t)'b');
+        return S_OK;
+    }
+#endif // !_LIB_FOR_CHERRYTREE
+
   #ifdef MY_CPU_LE
   if (GetRawProps)
   {
@@ -573,7 +588,7 @@ HRESULT CArc::GetItemPath(UInt32 index, UString &result) const
       }
     }
   }
-  #endif
+  #endif // MY_CPU_LE
 
   {
     NCOM::CPropVariant prop;
