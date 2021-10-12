@@ -417,7 +417,7 @@ Gtk::Widget* CtPrefDlg::build_tab_theme()
     pVBoxIconTheme->pack_start(*pButtonBreezeLightIcons, false, false);
     pVBoxIconTheme->pack_start(*pButtonDefaultIcons, false, false);
 
-    auto f_removeConfigIconsAndCopyFrom = [this](const char* folderName){
+    auto f_removeConfigIconsAndCopyFrom = [](const char* folderName){
         fs::path ConfigIcons_dst = fs::get_cherrytree_config_icons_dirpath();
         if (fs::exists(ConfigIcons_dst)) {
             fs::remove_all(ConfigIcons_dst);
