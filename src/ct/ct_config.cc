@@ -213,6 +213,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_string(_currentGroup, "pick_dir_csv", pickDirCsv);
     _uKeyFile->set_string(_currentGroup, "pick_dir_cbox", pickDirCbox);
     _uKeyFile->set_string(_currentGroup, "link_type", linkType);
+    _uKeyFile->set_boolean(_currentGroup, "menubar_in_titlebar", menubarInTitlebar);
     _uKeyFile->set_boolean(_currentGroup, "show_node_name_header", showNodeNameHeader);
     _uKeyFile->set_integer(_currentGroup, "nodes_on_node_name_header", nodesOnNodeNameHeader);
     _uKeyFile->set_integer(_currentGroup, "toolbar_icon_size", toolbarIconSize);
@@ -457,6 +458,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_string_from_keyfile("pick_dir_cbox", &pickDirCbox);
     pickDirCbox = fs_canonicalize_filename(pickDirCbox);
     _populate_string_from_keyfile("link_type", &linkType);
+    _populate_bool_from_keyfile("menubar_in_titlebar", &menubarInTitlebar);
     _populate_bool_from_keyfile("show_node_name_header", &showNodeNameHeader);
     _populate_int_from_keyfile("nodes_on_node_name_header", &nodesOnNodeNameHeader);
     _populate_int_from_keyfile("toolbar_icon_size", &toolbarIconSize);

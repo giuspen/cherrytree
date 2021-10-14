@@ -44,7 +44,20 @@ void CtMainWin::window_title_update(std::optional<bool> saveNeeded)
     }
     title += "CherryTree ";
     title += CtConst::CT_VERSION;
-    _headerBar.set_title(title);
+    if (_pHeaderBar) {
+        auto pCustomTitle = dynamic_cast<Gtk::Label*>(_pHeaderBar->get_custom_title());
+        if (not pCustomTitle) {
+            pCustomTitle = Gtk::manage(new Gtk::Label{});
+            _pHeaderBar->set_custom_title(*pCustomTitle);
+            pCustomTitle->property_ellipsize() = Pango::ELLIPSIZE_END;
+            pCustomTitle->show();
+        }
+        pCustomTitle->set_markup(Glib::ustring{"<b><small>"}+title+"</small></b>");
+        pCustomTitle->set_tooltip_text(title);
+    }
+    else {
+        set_title(title);
+    }
 }
 
 void CtMainWin::update_window_save_not_needed()

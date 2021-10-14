@@ -90,11 +90,17 @@ CtMainWin::CtMainWin(bool                            no_gui,
     add_accel_group(_uCtMenu->get_accel_group());
     _pToolbars = _uCtMenu->build_toolbars(_pRecentDocsMenuToolButton);
 
-    _headerBar.set_has_subtitle(false);
-    _headerBar.set_show_close_button(true);
-    _headerBar.pack_start(*_pMenuBar);
-    _headerBar.set_visible(true);
-    set_titlebar(_headerBar);
+    if (_pCtConfig->menubarInTitlebar) {
+        _pHeaderBar = Gtk::manage(new Gtk::HeaderBar{});
+        _pHeaderBar->set_has_subtitle(false);
+        _pHeaderBar->set_show_close_button(true);
+        _pHeaderBar->pack_start(*_pMenuBar);
+        _pHeaderBar->set_visible(true);
+        set_titlebar(*_pHeaderBar);
+    }
+    else {
+        _vboxMain.pack_start(*_pMenuBar, false, false);
+    }
     for (auto pToolbar : _pToolbars) {
         _vboxMain.pack_start(*pToolbar, false, false);
     }

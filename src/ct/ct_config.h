@@ -69,6 +69,11 @@ public:
     std::string                                 pickDirCsv;
     std::string                                 pickDirCbox;
     std::string                                 linkType{CtConst::LINK_TYPE_WEBS};
+#if defined(_WIN32)
+    bool                                        menubarInTitlebar{false};
+#else
+    bool                                        menubarInTitlebar{true};
+#endif
     bool                                        showNodeNameHeader{true};
     int                                         nodesOnNodeNameHeader{3};
     int                                         toolbarIconSize{1};
@@ -137,11 +142,11 @@ public:
     bool                                        weblinkCustomOn{false};
     bool                                        filelinkCustomOn{false};
     bool                                        folderlinkCustomOn{false};
-#if defined(_WIN32) || defined(_WIN64)
+#if defined(_WIN32)
     std::string                                 weblinkCustomAct{"explorer %s &"};
     std::string                                 filelinkCustomAct{"explorer %s &"};
     std::string                                 folderlinkCustomAct{"explorer %s &"};
-#elif __APPLE__
+#elif defined(__APPLE__)
     std::string                                 weblinkCustomAct{"open %s &"};
     std::string                                 filelinkCustomAct{"open %s &"};
     std::string                                 folderlinkCustomAct{"open %s &"};

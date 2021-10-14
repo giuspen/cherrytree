@@ -142,6 +142,7 @@ void CtActions::preferences_import()
     pConfig->hpanedPos = ctConfigImported.hpanedPos;
     pConfig->treeVisible = ctConfigImported.treeVisible;
     pConfig->linkType = ctConfigImported.linkType;
+    pConfig->menubarInTitlebar = ctConfigImported.menubarInTitlebar;
     pConfig->showNodeNameHeader = ctConfigImported.showNodeNameHeader;
     pConfig->nodesOnNodeNameHeader = ctConfigImported.nodesOnNodeNameHeader;
     pConfig->toolbarIconSize = ctConfigImported.toolbarIconSize;
