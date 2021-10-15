@@ -330,7 +330,6 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_string(_currentGroup, "monospace_bg", monospaceBg);
     _uKeyFile->set_boolean(_currentGroup, "ms_dedic_font", msDedicatedFont);
     _uKeyFile->set_string(_currentGroup, "monospace_font", monospaceFont);
-    _uKeyFile->set_string(_currentGroup, "color_palette", colorPalette);
     _uKeyFile->set_string(_currentGroup, "col_link_webs", colLinkWebs);
     _uKeyFile->set_string(_currentGroup, "col_link_node", colLinkNode);
     _uKeyFile->set_string(_currentGroup, "col_link_file", colLinkFile);
@@ -632,7 +631,6 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_string_from_keyfile("monospace_bg", &monospaceBg);
     _populate_bool_from_keyfile("ms_dedic_font", &msDedicatedFont);
     _populate_string_from_keyfile("monospace_font", &monospaceFont);
-    _populate_string_from_keyfile("color_palette", &colorPalette);
     _populate_string_from_keyfile("col_link_webs", &colLinkWebs);
     _populate_string_from_keyfile("col_link_node", &colLinkNode);
     _populate_string_from_keyfile("col_link_file", &colLinkFile);

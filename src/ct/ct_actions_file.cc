@@ -238,7 +238,6 @@ void CtActions::preferences_import()
     pConfig->monospaceBg = ctConfigImported.monospaceBg;
     pConfig->msDedicatedFont = ctConfigImported.msDedicatedFont;
     pConfig->monospaceFont = ctConfigImported.monospaceFont;
-    pConfig->colorPalette = ctConfigImported.colorPalette;
     pConfig->colLinkWebs = ctConfigImported.colLinkWebs;
     pConfig->colLinkNode = ctConfigImported.colLinkNode;
     pConfig->colLinkFile = ctConfigImported.colLinkFile;

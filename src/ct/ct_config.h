@@ -188,10 +188,6 @@ public:
     CtScalableTag                               scalableH5{CtConst::SCALABLE_H5_DEFAULT};
     CtScalableTag                               scalableH6{CtConst::SCALABLE_H6_DEFAULT};
     CtScalableTag                               scalableSmall{CtConst::SCALABLE_SMALL_DEFAULT};
-    std::string                                 colorPalette{"#000000:#ffffff:#7f7f7f:#ff0000:#a020f0:"
-                                                             "#0000ff:#add8e6:#00ff00:#ffff00:#ffa500:"
-                                                             "#e6e6fa:#a52a2a:#8b6914:#1e90ff:#ffc0cb:"
-                                                             "#90ee90:#1a1a1a:#4d4d4d:#bfbfbf:#e5e5e5"};
     std::string                                 colLinkWebs{CtConst::COLOR_48_LINK_WEBS};
     std::string                                 colLinkNode{CtConst::COLOR_48_LINK_NODE};
     std::string                                 colLinkFile{CtConst::COLOR_48_LINK_FILE};
