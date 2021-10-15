@@ -69,11 +69,7 @@ public:
     std::string                                 pickDirCsv;
     std::string                                 pickDirCbox;
     std::string                                 linkType{CtConst::LINK_TYPE_WEBS};
-#if defined(_WIN32)
     bool                                        menubarInTitlebar{false};
-#else
-    bool                                        menubarInTitlebar{true};
-#endif
     bool                                        showNodeNameHeader{true};
     int                                         nodesOnNodeNameHeader{3};
     int                                         toolbarIconSize{1};
