@@ -41,7 +41,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
     dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
-    dialog.set_default_size(600, 500);
+    dialog.set_default_size(700, 500);
 
     Gtk::HBox hbox_webs;
     Gtk::Image image_webs;
@@ -116,8 +116,12 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
     entry_anchor.set_text(link_entries.anch);
     Gtk::Button button_browse_anchor;
     button_browse_anchor.set_image_from_icon_name("ct_anchor", Gtk::ICON_SIZE_BUTTON);
+    Gtk::Button button_search_anchor;
+    button_search_anchor.set_sensitive(not link_entries.anch.empty());
+    button_search_anchor.set_image_from_icon_name("ct_find", Gtk::ICON_SIZE_BUTTON);
     hbox_anchor.pack_start(entry_anchor);
     hbox_anchor.pack_start(button_browse_anchor, false, false);
+    hbox_anchor.pack_start(button_search_anchor, false, false);
 
     Gtk::Frame frame_anchor{Glib::ustring("<b>")+_("Anchor Name (optional)")+"</b>"};
     dynamic_cast<Gtk::Label*>(frame_anchor.get_label_widget())->set_use_markup(true);
@@ -262,6 +266,55 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
                 Glib::ustring anchName = res->get_value(rItemStore->columns.desc);
                 entry_anchor.set_text(anchName);
             }
+        }
+    });
+    entry_anchor.signal_changed().connect([&](){
+        button_search_anchor.set_sensitive(not entry_anchor.get_text().empty());
+    });
+    entry_anchor.signal_key_press_event().connect([&](GdkEventKey* pEventKey)->bool{
+        if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {
+            button_search_anchor.clicked();
+            return true;
+        }
+        return false;
+    }, false);
+    Gtk::TreeIter lastAnchorSearch;
+    button_search_anchor.signal_clicked().connect([&](){
+        bool pastPrevSearch{not static_cast<bool>(lastAnchorSearch)};
+        const auto anchorName = entry_anchor.get_text();
+        bool foundIt{false};
+        for (unsigned i = 0; i < 2; ++i) {
+            ctTreestore.get_store()->foreach([&](const Gtk::TreePath& /*treePath*/, const Gtk::TreeIter& treeIter)->bool{
+                if (not pastPrevSearch) {
+                    if (treeIter == lastAnchorSearch) {
+                        pastPrevSearch = true;
+                    }
+                }
+                else {
+                    CtTreeIter ctTreeIter = ctTreestore.to_ct_tree_iter(treeIter);
+                    for (CtAnchoredWidget* pAnchoredWidget : ctTreeIter.get_anchored_widgets_fast()) {
+                        if (CtAnchWidgType::ImageAnchor == pAnchoredWidget->get_type()) {
+                            if (anchorName == dynamic_cast<CtImageAnchor*>(pAnchoredWidget)->get_anchor_name()) {
+                                Gtk::TreePath sel_path = ctTreestore.get_path(treeIter);
+                                treeview_2.expand_to_path(sel_path);
+                                treeview_2.set_cursor(sel_path);
+                                treeview_2.scroll_to_row(sel_path);
+                                lastAnchorSearch = treeIter;
+                                foundIt = true;
+                                return true; /* we're done */
+                            }
+                        }
+                    }
+                }
+                return false; /* false for continue */
+            });
+            if (foundIt or not static_cast<bool>(lastAnchorSearch)) {
+                break;
+            }
+            lastAnchorSearch = Gtk::TreeIter{};
+        }
+        if (not foundIt) {
+            CtDialogs::info_dialog(str::format(_("The pattern '%s' was not found"), anchorName), dialog);
         }
     });
     treeview_2.signal_event_after().connect([&](GdkEvent* event){
