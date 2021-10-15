@@ -166,10 +166,10 @@ public:
     int                                         tableColWidthDefault{60};
 
     // [fonts]
-    Glib::ustring                               rtFont{"Sans 9"};
-    Glib::ustring                               ptFont{"Sans 9"};
-    Glib::ustring                               treeFont{"Sans 8"};
-    Glib::ustring                               codeFont{"Monospace 9"};
+    Glib::ustring                               rtFont{CtConst::FONT_RT_DEFAULT};
+    Glib::ustring                               ptFont{CtConst::FONT_PT_DEFAULT};
+    Glib::ustring                               treeFont{CtConst::FONT_TREE_DEFAULT};
+    Glib::ustring                               codeFont{CtConst::FONT_CODE_DEFAULT};
     Glib::ustring                               fallbackFontFamily{"Sans"};
 
     // [colors]
@@ -180,7 +180,7 @@ public:
     std::string                                 monospaceFg{CtConst::DEFAULT_MONOSPACE_FG};
     std::string                                 monospaceBg{CtConst::DEFAULT_MONOSPACE_BG};
     bool                                        msDedicatedFont{false};
-    Glib::ustring                               monospaceFont{"Monospace 9"};
+    Glib::ustring                               monospaceFont{CtConst::FONT_MS_DEFAULT};
     CtScalableTag                               scalableH1{CtConst::SCALABLE_H1_DEFAULT};
     CtScalableTag                               scalableH2{CtConst::SCALABLE_H2_DEFAULT};
     CtScalableTag                               scalableH3{CtConst::SCALABLE_H3_DEFAULT};

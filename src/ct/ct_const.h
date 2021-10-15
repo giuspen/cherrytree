@@ -64,6 +64,11 @@ const inline static gchar* SYN_HIGHL_BASH           {"sh"};
 const inline static gchar* STYLE_SCHEME_LIGHT       {"classic"};
 const inline static gchar* STYLE_SCHEME_DARK        {"cobalt"};
 const inline static gchar* TIMESTAMP_FORMAT_DEFAULT {"%Y/%m/%d - %H:%M"};
+const inline static gchar* FONT_RT_DEFAULT          {"Sans 11"};
+const inline static gchar* FONT_PT_DEFAULT          {"Sans 11"};
+const inline static gchar* FONT_TREE_DEFAULT        {"Sans 10"};
+const inline static gchar* FONT_CODE_DEFAULT        {"Monospace 11"};
+const inline static gchar* FONT_MS_DEFAULT          {"Monospace 11"};
 
 const inline static Glib::ustring SPECIAL_CHARS_DEFAULT {"“”„‘’•◇▪▸☐☑☒★…‰€©®™°↓↑→←↔↵⇓⇑⇒⇐⇔»«▼▲►◄≤≥≠≈±¹²³½¼⅛×÷∞ø∑σ√∫ΔδΠπΣΦΩωαβγεηλμ☺☻☼♥♣♦✔♀♂♪♫✝"};
 const inline static Glib::ustring SPECIAL_CHAR_ARROW_RIGHT   {"→"};

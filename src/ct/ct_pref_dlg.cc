@@ -113,25 +113,46 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
     auto fontbutton_pt = Gtk::manage(new Gtk::FontButton{_pConfig->ptFont});
     auto fontbutton_code = Gtk::manage(new Gtk::FontButton{_pConfig->codeFont});
     auto fontbutton_tree = Gtk::manage(new Gtk::FontButton{_pConfig->treeFont});
+    auto button_reset_rt = Gtk::manage(new Gtk::Button{});
+    button_reset_rt->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset_rt->set_tooltip_text(_("Reset to Default"));
+    auto button_reset_pt = Gtk::manage(new Gtk::Button{});
+    button_reset_pt->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset_pt->set_tooltip_text(_("Reset to Default"));
+    auto button_reset_tree = Gtk::manage(new Gtk::Button{});
+    button_reset_tree->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset_tree->set_tooltip_text(_("Reset to Default"));
+    auto button_reset_code = Gtk::manage(new Gtk::Button{});
+    button_reset_code->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset_code->set_tooltip_text(_("Reset to Default"));
+    auto button_reset_ms = Gtk::manage(new Gtk::Button{});
+    button_reset_ms->set_image(*_pCtMainWin->new_managed_image_from_stock("ct_undo", Gtk::ICON_SIZE_BUTTON));
+    button_reset_ms->set_tooltip_text(_("Reset to Default"));
+
     auto grid_fonts = Gtk::manage(new Gtk::Grid{});
     grid_fonts->set_row_spacing(2);
     grid_fonts->set_column_spacing(4);
     grid_fonts->set_row_homogeneous(true);
-    grid_fonts->attach(*image_rt,        0, 0, 1, 1);
-    grid_fonts->attach(*image_ms,        0, 1, 1, 1);
-    grid_fonts->attach(*image_pt,        0, 2, 1, 1);
-    grid_fonts->attach(*image_code,      0, 3, 1, 1);
-    grid_fonts->attach(*image_tree,      0, 4, 1, 1);
-    grid_fonts->attach(*label_rt,        1, 0, 1, 1);
-    grid_fonts->attach(*checkbutton_ms,  1, 1, 1, 1);
-    grid_fonts->attach(*label_pt,        1, 2, 1, 1);
-    grid_fonts->attach(*label_code,      1, 3, 1, 1);
-    grid_fonts->attach(*label_tree,      1, 4, 1, 1);
-    grid_fonts->attach(*fontbutton_rt,   2, 0, 1, 1);
-    grid_fonts->attach(*fontbutton_ms,   2, 1, 1, 1);
-    grid_fonts->attach(*fontbutton_pt,   2, 2, 1, 1);
-    grid_fonts->attach(*fontbutton_code, 2, 3, 1, 1);
-    grid_fonts->attach(*fontbutton_tree, 2, 4, 1, 1);
+    grid_fonts->attach(*image_rt,          0, 0, 1, 1);
+    grid_fonts->attach(*image_ms,          0, 1, 1, 1);
+    grid_fonts->attach(*image_pt,          0, 2, 1, 1);
+    grid_fonts->attach(*image_code,        0, 3, 1, 1);
+    grid_fonts->attach(*image_tree,        0, 4, 1, 1);
+    grid_fonts->attach(*label_rt,          1, 0, 1, 1);
+    grid_fonts->attach(*checkbutton_ms,    1, 1, 1, 1);
+    grid_fonts->attach(*label_pt,          1, 2, 1, 1);
+    grid_fonts->attach(*label_code,        1, 3, 1, 1);
+    grid_fonts->attach(*label_tree,        1, 4, 1, 1);
+    grid_fonts->attach(*fontbutton_rt,     2, 0, 1, 1);
+    grid_fonts->attach(*fontbutton_ms,     2, 1, 1, 1);
+    grid_fonts->attach(*fontbutton_pt,     2, 2, 1, 1);
+    grid_fonts->attach(*fontbutton_code,   2, 3, 1, 1);
+    grid_fonts->attach(*fontbutton_tree,   2, 4, 1, 1);
+    grid_fonts->attach(*button_reset_rt,   3, 0, 1, 1);
+    grid_fonts->attach(*button_reset_ms,   3, 1, 1, 1);
+    grid_fonts->attach(*button_reset_pt,   3, 2, 1, 1);
+    grid_fonts->attach(*button_reset_code, 3, 3, 1, 1);
+    grid_fonts->attach(*button_reset_tree, 3, 4, 1, 1);
     Gtk::Frame* frame_fonts = new_managed_frame_with_align(_("Fonts"), grid_fonts);
 
     auto pMainBox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 3/*spacing*/});
@@ -139,10 +160,11 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
     pMainBox->set_margin_top(6);
     pMainBox->pack_start(*frame_fonts, false, false);
 
-    fontbutton_rt->signal_font_set().connect([this, fontbutton_rt](){
+    auto f_on_font_rt_set = [this, fontbutton_rt](){
         _pConfig->rtFont = fontbutton_rt->get_font_name();
         apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
-    });
+    };
+    fontbutton_rt->signal_font_set().connect(f_on_font_rt_set);
     checkbutton_ms->signal_toggled().connect([this, checkbutton_ms, fontbutton_ms](){
         _pConfig->msDedicatedFont = checkbutton_ms->get_active();
         fontbutton_ms->set_sensitive(_pConfig->msDedicatedFont);
@@ -151,23 +173,49 @@ Gtk::Widget* CtPrefDlg::build_tab_fonts()
             tag->property_font() = _pConfig->msDedicatedFont ? _pConfig->monospaceFont : "";
         }
     });
-    fontbutton_ms->signal_font_set().connect([this, fontbutton_ms](){
+    auto f_on_font_ms_set = [this, fontbutton_ms](){
         _pConfig->monospaceFont = fontbutton_ms->get_font_name();
-        if (auto tag = _pCtMainWin->get_text_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
-            tag->property_font() = _pConfig->monospaceFont;
+        if (_pConfig->msDedicatedFont) {
+            if (auto tag = _pCtMainWin->get_text_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
+                tag->property_font() = _pConfig->monospaceFont;
+            }
         }
-    });
-    fontbutton_pt->signal_font_set().connect([this, fontbutton_pt](){
+    };
+    fontbutton_ms->signal_font_set().connect(f_on_font_ms_set);
+    auto f_on_font_pt_set = [this, fontbutton_pt](){
         _pConfig->ptFont = fontbutton_pt->get_font_name();
         apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
-    });
-    fontbutton_code->signal_font_set().connect([this, fontbutton_code](){
+    };
+    fontbutton_pt->signal_font_set().connect(f_on_font_pt_set);
+    auto f_on_font_code_set = [this, fontbutton_code](){
         _pConfig->codeFont = fontbutton_code->get_font_name();
         apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
-    });
-    fontbutton_tree->signal_font_set().connect([this, fontbutton_tree](){
+    };
+    fontbutton_code->signal_font_set().connect(f_on_font_code_set);
+    auto f_on_font_tree_set = [this, fontbutton_tree](){
         _pConfig->treeFont = fontbutton_tree->get_font_name();
         apply_for_each_window([](CtMainWin* win) { win->update_theme(); win->window_header_update(); });
+    };
+    fontbutton_tree->signal_font_set().connect(f_on_font_tree_set);
+    button_reset_rt->signal_clicked().connect([fontbutton_rt, f_on_font_rt_set](){
+        fontbutton_rt->set_font_name(CtConst::FONT_RT_DEFAULT);
+        f_on_font_rt_set();
+    });
+    button_reset_pt->signal_clicked().connect([fontbutton_pt, f_on_font_pt_set](){
+        fontbutton_pt->set_font_name(CtConst::FONT_PT_DEFAULT);
+        f_on_font_pt_set();
+    });
+    button_reset_tree->signal_clicked().connect([fontbutton_tree, f_on_font_tree_set](){
+        fontbutton_tree->set_font_name(CtConst::FONT_TREE_DEFAULT);
+        f_on_font_tree_set();
+    });
+    button_reset_code->signal_clicked().connect([fontbutton_code, f_on_font_code_set](){
+        fontbutton_code->set_font_name(CtConst::FONT_CODE_DEFAULT);
+        f_on_font_code_set();
+    });
+    button_reset_ms->signal_clicked().connect([fontbutton_ms, f_on_font_ms_set](){
+        fontbutton_ms->set_font_name(CtConst::FONT_MS_DEFAULT);
+        f_on_font_ms_set();
     });
     return pMainBox;
 }
