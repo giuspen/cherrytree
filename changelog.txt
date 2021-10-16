@@ -1,4 +1,22 @@
 
+0.99.42 (October 16th, 2021)
+  * unified search in nodes name+tags and search in nodes content (#513, #1525)
+  * fixed search in multiple nodes with the option first from selection/first in all range
+  * fixed issue with password protected data extraction on windows and non ascii paths
+  * link to node insert/edit dialog, added search for anchor name in the tree (#1572)
+  * implemented node property to exclude node and/or subnodes from search (#1096, #1761)
+  * applying a colour to foreground/background of text to use default gtk3 palette (#1818)
+  * added in preferenced dialog, tab theme, possibility to choose 2 new icon themes (#1766, artwork of @userfav)
+  * added option to hide the status bar (#1742)
+  * added configurability of selected node's background/foreground colour in the tree (#1809)
+  * tree explorer added view option to show lines connecting the nodes parent-children (#1692)
+  * added syntax highlighting for AutoHotkey (work of Chen Bo)
+  * added in preferences dialog, tab fonts, buttons to reset the fonts to default values (#1819)
+  * at F8/current day node do not visit year/month if already existing, only day (#1796)
+  * support for portable mode in non-windows os looking for config/config.cfg beside cherrytree binary executable (#1811)
+  * tree sorting menu items: moved siblings only sorting first and after separator sorting whole tree (#1797)
+  * added experimantal option menubar_in_titlebar that can be activated in config.cfg, but off by default (#1815)
+
 0.99.41 (September 15th, 2021)
   * added flip image buttons to image properties dialog (#1791, work of @v31l)
   * rich text tag monospace: added configurability of the foreground colour (#1745)
