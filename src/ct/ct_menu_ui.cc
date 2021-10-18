@@ -264,6 +264,7 @@ const char* CtMenu::_get_ui_str_menu()
   <menu action='SearchMenu'>
     <menuitem action='find_in_node'/>
     <menuitem action='find_in_allnodes'/>
+    <menuitem action='find_in_node_names'/>
     <menuitem action='find_iter_fw'/>
     <menuitem action='find_iter_bw'/>
     <separator/>
@@ -386,6 +387,7 @@ const char* CtMenu::_get_popup_menu_ui_str_text()
   <menu action='FindSubMenu'>
     <menuitem action='find_in_node'/>
     <menuitem action='find_in_allnodes'/>
+    <menuitem action='find_in_node_names'/>
     <menuitem action='find_iter_fw'/>
     <menuitem action='find_iter_bw'/>
   </menu>
@@ -431,6 +433,7 @@ const char* CtMenu::_get_popup_menu_ui_str_code()
   <menu action='FindSubMenu'>
     <menuitem action='find_in_node'/>
     <menuitem action='find_in_allnodes'/>
+    <menuitem action='find_in_node_names'/>
     <menuitem action='find_iter_fw'/>
     <menuitem action='find_iter_bw'/>
   </menu>

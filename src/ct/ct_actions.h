@@ -215,6 +215,8 @@ public:
     // find actions
     void find_in_selected_node();
     void find_in_multiple_nodes();
+    void find_in_multiple_nodes_act() { _s_options.node_content = true; find_in_multiple_nodes(); }
+    void find_a_node() { _s_options.node_content = false; _s_options.node_name_n_tags = true; find_in_multiple_nodes(); }
     void find_again() { find_again_iter(false/*fromIterativeDialog*/); }
     void find_back() { find_back_iter(false/*fromIterativeDialog*/); }
     void replace_in_selected_node();

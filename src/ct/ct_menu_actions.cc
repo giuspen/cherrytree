@@ -275,7 +275,9 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{find_cat, "find_in_node", "ct_find_sel", _("_Find in Node Content"), KB_CONTROL+"F",
         _("Find into the Selected Node Content"), sigc::mem_fun(*pActions, &CtActions::find_in_selected_node)});
     _actions.push_back(CtMenuAction{find_cat, "find_in_allnodes", "ct_find_all", _("Find _in Multiple Nodes"), KB_CONTROL+KB_SHIFT+"F",
-        _("Find in Multiple Nodes"), sigc::mem_fun(*pActions, &CtActions::find_in_multiple_nodes)});
+        _("Find in Multiple Nodes"), sigc::mem_fun(*pActions, &CtActions::find_in_multiple_nodes_act)});
+    _actions.push_back(CtMenuAction{find_cat, "find_in_node_names", "ct_find", _("Find in _Nodes Names and Tags"), KB_CONTROL+"T",
+        _("Find in Nodes Names and Tags"), sigc::mem_fun(*pActions, &CtActions::find_a_node)});
     _actions.push_back(CtMenuAction{find_cat, "find_iter_fw", "ct_find_again", _("Find _Again"), "F3",
         _("Iterate the Last Find Operation"), sigc::mem_fun(*pActions, &CtActions::find_again)});
     _actions.push_back(CtMenuAction{find_cat, "find_iter_bw", "ct_find_back", _("Find _Back"), "F4",
