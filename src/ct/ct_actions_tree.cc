@@ -705,8 +705,18 @@ void CtActions::tree_info()
 {
     if (not _is_tree_not_empty_or_error()) return;
     CtSummaryInfo summaryInfo{};
-    _pCtMainWin->get_tree_store().populateSummaryInfo(summaryInfo);
+    _pCtMainWin->get_tree_store().populate_summary_info(summaryInfo);
     CtDialogs::summary_info_dialog(_pCtMainWin, summaryInfo);
+}
+
+void CtActions::tree_clear_property_exclude_from_search()
+{
+    if (not _is_tree_not_empty_or_error()) return;
+    const unsigned nodes_properties_changed = _pCtMainWin->get_tree_store().tree_clear_property_exclude_from_search();
+    if (nodes_properties_changed > 0u) {
+        _pCtMainWin->window_header_update_ghost_icon(false);
+    }
+    CtDialogs::info_dialog(str::format(_("%s Nodes Properties Changed"), std::to_string(nodes_properties_changed)), *_pCtMainWin);
 }
 
 void CtActions::node_link_to_clipboard()

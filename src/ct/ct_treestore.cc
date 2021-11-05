@@ -952,7 +952,28 @@ void CtTreeStore::nodes_sequences_fix(Gtk::TreeIter father_iter,  bool process_c
     }
 }
 
-void CtTreeStore::populateSummaryInfo(CtSummaryInfo& summaryInfo)
+unsigned CtTreeStore::tree_clear_property_exclude_from_search()
+{
+    unsigned nodes_properties_changed{0};
+    _rTreeStore->foreach(
+        [&](const Gtk::TreePath& /*treePath*/, const Gtk::TreeIter& treeIter)->bool{
+            auto ctTreeIter = to_ct_tree_iter(treeIter);
+            if (ctTreeIter.get_node_is_excluded_from_search() or
+                ctTreeIter.get_node_children_are_excluded_from_search())
+            {
+                ctTreeIter.set_node_is_excluded_from_search(false);
+                ctTreeIter.set_node_children_are_excluded_from_search(false);
+                update_node_aux_icon(ctTreeIter);
+                _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::npro, false/*new_machine_state*/, &ctTreeIter);
+                ++nodes_properties_changed;
+            }
+            return false; /* false for continue */
+        }
+    );
+    return nodes_properties_changed;
+}
+
+void CtTreeStore::populate_summary_info(CtSummaryInfo& summaryInfo)
 {
     _rTreeStore->foreach(
         [&](const Gtk::TreePath& /*treePath*/, const Gtk::TreeIter& treeIter)->bool{

@@ -272,6 +272,8 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='replace_in_allnodes'/>
     <menuitem action='replace_iter_fw'/>
     <separator/>
+    <menuitem action='tree_clear_exclude_from_search'/>
+    <separator/>
     <menuitem action='toggle_show_allmatches_dlg'/>
   </menu>
 

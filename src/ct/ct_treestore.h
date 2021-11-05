@@ -155,7 +155,8 @@ public:
     void          text_view_apply_textbuffer(CtTreeIter& treeIter, CtTextView* pTextView);
 
     void          get_node_data(const Gtk::TreeIter& treeIter, CtNodeData& nodeData);
-    void          populateSummaryInfo(CtSummaryInfo& summaryInfo);
+    void          populate_summary_info(CtSummaryInfo& summaryInfo);
+    unsigned      tree_clear_property_exclude_from_search();
 
     void          update_node_data(const Gtk::TreeIter& treeIter, const CtNodeData& nodeData);
     void          update_node_icon(const Gtk::TreeIter& treeIter);

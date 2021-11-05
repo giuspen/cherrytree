@@ -144,7 +144,7 @@ void TestCtApp::_assert_node_text(CtTreeIter& ctTreeIter, const Glib::ustring& e
 void TestCtApp::_assert_tree_data(CtMainWin* pWin)
 {
     CtSummaryInfo summaryInfo{};
-    pWin->get_tree_store().populateSummaryInfo(summaryInfo);
+    pWin->get_tree_store().populate_summary_info(summaryInfo);
     ASSERT_EQ(3, summaryInfo.nodes_rich_text_num);
     ASSERT_EQ(1, summaryInfo.nodes_plain_text_num);
     ASSERT_EQ(5, summaryInfo.nodes_code_num);
