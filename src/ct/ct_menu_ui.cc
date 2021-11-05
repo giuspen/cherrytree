@@ -284,6 +284,8 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='toggle_show_statusbar'/>
     <menuitem action='toggle_show_node_name_head'/>
     <separator/>
+    <menuitem action='menubar_in_titlebar'/>
+    <separator/>
     <menuitem action='toggle_focus_tree_text'/>
     <separator/>
     <menuitem action='toolbar_icons_size_p'/>

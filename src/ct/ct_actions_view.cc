@@ -120,3 +120,9 @@ void CtActions::fullscreen_toggle()
         _pCtMainWin->fullscreen();
     }
 }
+
+void CtActions::_menubar_in_titlebar_set(const bool setOn)
+{
+    _pCtMainWin->get_ct_config()->menubarInTitlebar = setOn;
+    CtDialogs::info_dialog(_("This Change will have Effect Only After Restarting CherryTree"), *_pCtMainWin);
+}

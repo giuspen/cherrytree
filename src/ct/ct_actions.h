@@ -230,6 +230,10 @@ public:
     void find_again_iter(const bool fromIterativeDialog);
     void find_back_iter(const bool fromIterativeDialog);
 
+private:
+    // helper for view actions
+    void _menubar_in_titlebar_set(const bool setOn);
+
 public:
     // view actions
     void toggle_show_hide_tree();
@@ -243,6 +247,8 @@ public:
     void toolbar_icons_size_increase();
     void toolbar_icons_size_decrease();
     void fullscreen_toggle();
+    void disable_menubar_in_titlebar() { _menubar_in_titlebar_set(false); }
+    void enable_menubar_in_titlebar() { _menubar_in_titlebar_set(true); }
 
 public:
     // helper for format actions

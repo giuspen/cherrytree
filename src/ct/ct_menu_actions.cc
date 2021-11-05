@@ -314,6 +314,14 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Decrease the Size of the Toolbar Icons"), sigc::mem_fun(*pActions, &CtActions::toolbar_icons_size_decrease)});
     _actions.push_back(CtMenuAction{view_cat, "toggle_fullscreen", "ct_fullscreen", _("_Full Screen On/Off"), "F11",
         _("Toggle Full Screen On/Off"), sigc::mem_fun(*pActions, &CtActions::fullscreen_toggle)});
+    if (_pCtConfig->menubarInTitlebar) {
+        _actions.push_back(CtMenuAction{view_cat, "menubar_in_titlebar", "", _("Disable _Menubar in Titlebar"), None,
+            _("Do Not Place the Menubar in the Titlebar"), sigc::mem_fun(*pActions, &CtActions::disable_menubar_in_titlebar)});
+    }
+    else {
+        _actions.push_back(CtMenuAction{view_cat, "menubar_in_titlebar", "", _("Enable _Menubar in Titlebar"), None,
+            _("Place the Menubar in the Titlebar"), sigc::mem_fun(*pActions, &CtActions::enable_menubar_in_titlebar)});
+    }
 
     const char* import_cat = _("Import");
     _actions.push_back(CtMenuAction{import_cat, "import_cherrytree", "ct_from_cherrytree", _("From _CherryTree File"), None,
