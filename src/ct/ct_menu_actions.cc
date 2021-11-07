@@ -293,7 +293,7 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Show _All Matches Dialog"), KB_CONTROL+KB_SHIFT+"A",
         _("Show Search All Matches Dialog"), sigc::mem_fun(*pActions, &CtActions::find_allmatchesdialog_restore)});
     _actions.push_back(CtMenuAction{find_cat, "tree_clear_exclude_from_search", "ct_clear", _("_Clear All Exclusions From Search"), None,
-        _("Clear All Exclusions From Search in the Tree Nodes Properties"), sigc::mem_fun(*pActions, &CtActions::tree_clear_property_exclude_from_search)});
+        _("Clear All Tree Nodes Properties of Exclusions From Search"), sigc::mem_fun(*pActions, &CtActions::tree_clear_property_exclude_from_search)});
 
     const char* view_cat = _("View");
     _actions.push_back(CtMenuAction{view_cat, "toggle_show_tree", "ct_cherries", _("Show/Hide _Tree Explorer"), "F9",
