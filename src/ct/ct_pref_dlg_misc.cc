@@ -89,7 +89,7 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     auto checkbutton_mod_time_sentinel = Gtk::manage(new Gtk::CheckButton{_("Reload After External Update to CT* File")});
     auto checkbutton_win_title_doc_dir = Gtk::manage(new Gtk::CheckButton{_("Show the Document Directory in the Window Title")});
     auto checkbutton_nn_header_full_path = Gtk::manage(new Gtk::CheckButton{_("Show the Full Path in the Node Name Header")});
-    auto checkbutton_bookmarks_top_menu = Gtk::manage(new Gtk::CheckButton{_("Dedicated Bookmarks Menu in Top Menu Bar")});
+    auto checkbutton_bookmarks_top_menu = Gtk::manage(new Gtk::CheckButton{_("Dedicated Bookmarks Menu in Menubar")});
     auto checkbutton_debug_log = Gtk::manage(new Gtk::CheckButton{_("Enable Debug Log")});
     auto file_chooser_button_debug_log_dir = Gtk::manage(new Gtk::FileChooserButton{_("Debug Log Directory"),
                                                                                     Gtk::FileChooserAction::FILE_CHOOSER_ACTION_SELECT_FOLDER});

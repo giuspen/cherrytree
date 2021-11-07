@@ -237,6 +237,7 @@ private:
 public:
     // view actions
     void toggle_show_hide_tree();
+    void toggle_show_hide_menubar();
     void toggle_show_hide_toolbars();
     void toggle_show_hide_statusbar();
     void toggle_show_hide_tree_lines();

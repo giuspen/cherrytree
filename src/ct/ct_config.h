@@ -61,6 +61,7 @@ public:
     int                                         winRect[4]{10, 10, 963, 630};
     int                                         hpanedPos{170};
     bool                                        treeVisible{true};
+    bool                                        menubarVisible{true};
     CtRecentDocsFilepaths                       recentDocsFilepaths;
     std::string                                 pickDirImport;
     std::string                                 pickDirExport;

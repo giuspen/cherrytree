@@ -73,6 +73,8 @@ CtMainWin::CtMainWin(bool                            no_gui,
     _hPaned.property_wide_handle() = true;
 
     _pMenuBar = _uCtMenu->build_menubar();
+    _pScrolledWindowMenuBar = Gtk::manage(new Gtk::ScrolledWindow{});
+    _pScrolledWindowMenuBar->add(*_pMenuBar);
     _pMenuBar->set_name("MenuBar");
     _pBookmarksSubmenus[0] = CtMenu::find_menu_item(_pMenuBar, "BookmarksSubMenu");
     auto pPopumMenuTree = _uCtMenu->get_popup_menu(CtMenu::POPUP_MENU_TYPE::Node);
@@ -95,13 +97,13 @@ CtMainWin::CtMainWin(bool                            no_gui,
         _pHeaderBar->set_has_subtitle(false);
         _pHeaderBar->set_show_close_button(true);
         _pHeaderBar->pack_start(*Gtk::manage(new Gtk::Label{" "}));
-        _pHeaderBar->pack_start(*_pMenuBar);
+        _pHeaderBar->pack_start(*_pScrolledWindowMenuBar);
         _pHeaderBar->pack_start(*Gtk::manage(new Gtk::Label{" "}));
         _pHeaderBar->show_all();
         set_titlebar(*_pHeaderBar);
     }
     else {
-        _vboxMain.pack_start(*_pMenuBar, false, false);
+        _vboxMain.pack_start(*_pScrolledWindowMenuBar, false, false);
     }
     for (auto pToolbar : _pToolbars) {
         _vboxMain.pack_start(*pToolbar, false, false);
@@ -283,6 +285,7 @@ void CtMainWin::config_apply()
     }
 
     show_hide_tree_view(_pCtConfig->treeVisible);
+    show_hide_menubar(_pCtConfig->menubarVisible);
     show_hide_win_header(_pCtConfig->showNodeNameHeader);
     _ctWinHeader.lockIcon.hide();
     _ctWinHeader.bookmarkIcon.hide();

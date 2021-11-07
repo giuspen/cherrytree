@@ -29,14 +29,22 @@
 // Toggle Show/Hide the Tree
 void CtActions::toggle_show_hide_tree()
 {
-    _pCtMainWin->get_ct_config()->treeVisible = !_pCtMainWin->get_ct_config()->treeVisible;
-    _pCtMainWin->show_hide_tree_view(_pCtMainWin->get_ct_config()->treeVisible);
-    if (_pCtMainWin->get_ct_config()->treeVisible) {
+    auto pCtConfig = _pCtMainWin->get_ct_config();
+    pCtConfig->treeVisible = not pCtConfig->treeVisible;
+    _pCtMainWin->show_hide_tree_view(pCtConfig->treeVisible);
+    if (pCtConfig->treeVisible) {
         _pCtMainWin->get_tree_view().grab_focus();
     }
     else {
         _pCtMainWin->get_text_view().grab_focus();
     }
+}
+
+void CtActions::toggle_show_hide_menubar()
+{
+    auto pCtConfig = _pCtMainWin->get_ct_config();
+    pCtConfig->menubarVisible = not pCtConfig->menubarVisible;
+    _pCtMainWin->show_hide_menubar(pCtConfig->menubarVisible);
 }
 
 void CtActions::toggle_show_hide_toolbars()

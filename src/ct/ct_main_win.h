@@ -183,7 +183,11 @@ public:
 
     void config_switch_tree_side();
 
-    void show_hide_toolbars(bool visible)   { for (auto pToolbar: _pToolbars) pToolbar->property_visible() = visible; }
+    void show_hide_toolbars(bool visible)   { for (auto pToolbar : _pToolbars) pToolbar->property_visible() = visible; }
+    void show_hide_menubar(bool visible)    {
+        if (visible) _pScrolledWindowMenuBar->set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_NEVER);
+        else _pScrolledWindowMenuBar->set_policy(Gtk::POLICY_EXTERNAL, Gtk::POLICY_EXTERNAL);
+    }
     void show_hide_statusbar(bool visible)  { _ctStatusBar.hbox.property_visible() = visible; }
     void show_hide_tree_lines(bool visible) { _uCtTreeview->set_enable_tree_lines(visible); }
     void set_toolbars_icon_size(int size)   { for (auto pToolbar: _pToolbars) pToolbar->property_icon_size() = CtMiscUtil::getIconSize(size); }
@@ -262,6 +266,7 @@ private:
     Gtk::HPaned                  _hPaned;
     Gtk::HeaderBar*              _pHeaderBar{nullptr};
     Gtk::MenuBar*                _pMenuBar{nullptr};
+    Gtk::ScrolledWindow*         _pScrolledWindowMenuBar{nullptr};
     std::vector<Gtk::Toolbar*>   _pToolbars;
     CtStatusBar                  _ctStatusBar;
     CtWinHeader                  _ctWinHeader;

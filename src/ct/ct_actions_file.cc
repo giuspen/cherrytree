@@ -141,6 +141,7 @@ void CtActions::preferences_import()
     pConfig->treeLinesVisible = ctConfigImported.treeLinesVisible;
     pConfig->hpanedPos = ctConfigImported.hpanedPos;
     pConfig->treeVisible = ctConfigImported.treeVisible;
+    pConfig->menubarVisible = ctConfigImported.menubarVisible;
     pConfig->linkType = ctConfigImported.linkType;
     pConfig->menubarInTitlebar = ctConfigImported.menubarInTitlebar;
     pConfig->showNodeNameHeader = ctConfigImported.showNodeNameHeader;
