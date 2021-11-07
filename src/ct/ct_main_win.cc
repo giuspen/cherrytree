@@ -94,8 +94,10 @@ CtMainWin::CtMainWin(bool                            no_gui,
         _pHeaderBar = Gtk::manage(new Gtk::HeaderBar{});
         _pHeaderBar->set_has_subtitle(false);
         _pHeaderBar->set_show_close_button(true);
+        _pHeaderBar->pack_start(*Gtk::manage(new Gtk::Label{" "}));
         _pHeaderBar->pack_start(*_pMenuBar);
-        _pHeaderBar->set_visible(true);
+        _pHeaderBar->pack_start(*Gtk::manage(new Gtk::Label{" "}));
+        _pHeaderBar->show_all();
         set_titlebar(*_pHeaderBar);
     }
     else {
