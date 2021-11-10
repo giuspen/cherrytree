@@ -612,7 +612,7 @@ bool CtActions::_find_pattern(CtTreeIter tree_iter,
         const std::string node_name = tree_iter.get_node_name();
         const std::string node_hier_name = CtMiscUtil::get_node_hierarchical_name(tree_iter, " << ", false, false);
         const std::string line_content = obj_match_offsets.first != -1 ? obj_content : _get_line_content(text_buffer, iter_insert);
-        int line_num = text_buffer->get_iter_at_offset(start_offset).get_line();
+        int line_num = text_buffer->get_iter_at_offset(_s_state.latest_match_offsets.first).get_line();
         if (not _s_state.newline_trick) { line_num += 1; }
         iterAllMatchesRow = _s_state.match_store->add_row(node_id,
                                                           node_name,
