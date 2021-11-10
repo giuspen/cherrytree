@@ -121,11 +121,22 @@ void CtActions::toolbar_icons_size_decrease()
 // Toggle Fullscreen State
 void CtActions::fullscreen_toggle()
 {
-    if (_pCtMainWin->get_window()->get_state() & GDK_WINDOW_STATE_FULLSCREEN) {
-        _pCtMainWin->unfullscreen();
+    if (_pCtMainWin->get_titlebar()) {
+        // unfullscreen doesn't work with the custom titlebar, so we can only maximise
+        if (_pCtMainWin->property_is_maximized()) {
+            _pCtMainWin->unmaximize();
+        }
+        else {
+            _pCtMainWin->maximize();
+        }
     }
     else {
-        _pCtMainWin->fullscreen();
+        if (_pCtMainWin->get_window()->get_state() & GDK_WINDOW_STATE_FULLSCREEN) {
+            _pCtMainWin->unfullscreen();
+        }
+        else {
+            _pCtMainWin->fullscreen();
+        }
     }
 }
 
