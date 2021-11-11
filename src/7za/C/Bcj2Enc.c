@@ -298,7 +298,8 @@ void Bcj2Enc_Encode(CBcj2Enc *p)
   PRF(printf("++++ ip = %8d   tempPos = %8d   src = %8d\n", p->ip, p->tempPos, p->srcLim - p->src));
 
   Bcj2Enc_Encode_2(p);
-  
+
+#if 0 // warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
   if (p->state == BCJ2_ENC_STATE_ORIG)
   {
     const Byte *src = p->src;
@@ -309,4 +310,5 @@ void Bcj2Enc_Encode(CBcj2Enc *p)
     p->tempPos = rem;
     p->src = src + rem;
   }
+#endif // 0
 }
