@@ -16,17 +16,17 @@ The project home page is [giuspen.com/cherrytree](https://www.giuspen.com/cherry
 ## Links on used libraries
 
 https://www.gtkmm.org/en/documentation.shtml
-https://developer.gnome.org/gtkmm-tutorial/stable/
-https://developer.gnome.org/gtkmm/stable/
-https://developer.gnome.org/gtkmm/stable/hierarchy.html
+https://developer-old.gnome.org/gtkmm-tutorial/3.24/
+https://developer-old.gnome.org/gtkmm/3.24/
+https://developer-old.gnome.org/gtkmm/3.24/hierarchy.html
 
-https://developer.gnome.org/gtksourceviewmm/stable/
+https://developer-old.gnome.org/gtksourceviewmm/stable/
 
-https://developer.gnome.org/libxml++-tutorial/stable/
-https://developer.gnome.org/libxml++/stable/
+https://developer-old.gnome.org/libxml++-tutorial/stable/
+https://developer-old.gnome.org/libxml++/stable/
 
 https://wiki.gnome.org/Projects/gspell
-https://developer.gnome.org/gspell/stable/
+https://developer-old.gnome.org/gspell/stable/
 
 
 ## Build/Debug with Visual Studio Code on Linux
