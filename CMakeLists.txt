@@ -222,7 +222,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES Linux|.*BSD|DragonFly|Darwin)
   # share/cherrytree data
   install(FILES
           "${CMAKE_SOURCE_DIR}/data/script3.js"
-          "${CMAKE_SOURCE_DIR}/data/styles3.css"
+          "${CMAKE_SOURCE_DIR}/data/styles4.css"
           "${CMAKE_SOURCE_DIR}/data/user-style.xml"
           DESTINATION "${CHERRYTREE_SHARE_INSTALL}/data")
   # share/cherrytree icons

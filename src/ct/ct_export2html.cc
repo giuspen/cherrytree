@@ -56,14 +56,14 @@ bool CtExport2Html::prepare_html_folder(fs::path dir_place, fs::path new_folder,
     g_mkdir_with_parents(_res_dir.c_str(), 0777);
 
     fs::path config_dir = fs::get_cherrytree_configdir();
-    fs::path styles_css_filepath = config_dir / "styles3.css";
+    fs::path styles_css_filepath = config_dir / "styles4.css";
     if (!fs::is_regular_file(styles_css_filepath))
     {
-        fs::path styles_css_original = fs::path(fs::get_cherrytree_datadir()) / fs::path("data") / "styles3.css";
+        fs::path styles_css_original = fs::path(fs::get_cherrytree_datadir()) / fs::path("data") / "styles4.css";
         fs::copy_file(styles_css_original, styles_css_filepath);
     }
-    fs::copy_file(styles_css_filepath, _res_dir / "styles3.css");
-    
+    fs::copy_file(styles_css_filepath, _res_dir / "styles4.css");
+
     fs::path styles_js_filepath = config_dir / "script3.js";
     if (!fs::is_regular_file(styles_js_filepath))
     {
@@ -412,14 +412,14 @@ Glib::ustring CtExport2Html::_get_table_html(CtTable* table)
         for (auto cell: row) {
             Glib::ustring content = str::xml_escape(cell->get_text_content());
             if (content.empty()) content = " "; // Otherwise the table will render with squashed cells
-    
+
             if (first) {
                 table_html += "<th>" + content + "</th>";
             } else {
                 table_html += "<td>" + content + "</td>";
             }
         }
-        
+
         if (first) first = false;
         table_html += "</tr>";
     }
@@ -431,7 +431,7 @@ Glib::ustring CtExport2Html::_get_table_html(CtTable* table)
 Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gsv::Buffer>& code_buffer, int sel_start, int sel_end, const std::string& syntax_highlighting)
 {
     Gtk::TextIter curr_iter = sel_start >= 0 ? code_buffer->get_iter_at_offset(sel_start) : code_buffer->begin();
-    code_buffer->ensure_highlight(curr_iter, code_buffer->end());
+
     if (_pCtMainWin->get_ct_config()->usePandoc && CtPandoc::supports_syntax(syntax_highlighting)) {
         if (CtPandoc::has_pandoc()) {
             Gtk::TextIter end_iter = sel_end >= 0 ? code_buffer->get_iter_at_offset(sel_end) : code_buffer->end();
@@ -440,35 +440,32 @@ Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gsv::
             std::ostringstream html_out;
             CtPandoc::to_html(ibuff, html_out, syntax_highlighting);
             return html_out.str();
-        } else {
+        }
+        else {
             spdlog::warn("Exported content is eligible for processing by Pandoc but Pandoc executable could not be found");
         }
     }
-    
-    Glib::ustring html_text      = "";
+
+    code_buffer->ensure_highlight(code_buffer->begin(), code_buffer->end());
+
+    Glib::ustring html_text;
     Glib::ustring former_tag_str = CtConst::COLOR_48_BLACK;
     bool span_opened = false;
-    for (;;)
-    {
+    for (;;) {
         auto curr_tags = curr_iter.get_tags();
-        if (curr_tags.size() > 0)
-        {
+        if (curr_tags.size() > 0) {
             Glib::ustring curr_tag_str = curr_tags[0]->property_foreground_gdk().get_value().to_string();
             int font_weight = curr_tags[0]->property_weight().get_value();
-            if (curr_tag_str == CtConst::COLOR_48_BLACK)
-            {
-                if (former_tag_str != curr_tag_str)
-                {
+            if (curr_tag_str == CtConst::COLOR_48_BLACK) {
+                if (former_tag_str != curr_tag_str) {
                     former_tag_str = curr_tag_str;
                     // end of tag
                     html_text += "</span>";
                     span_opened = false;
                 }
             }
-            else
-            {
-                if (former_tag_str != curr_tag_str)
-                {
+            else {
+                if (former_tag_str != curr_tag_str) {
                     former_tag_str = curr_tag_str;
                     if (span_opened) html_text += "</span>";
                     // start of tag
@@ -479,23 +476,23 @@ Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gsv::
                 }
             }
         }
-        else if (span_opened)
-        {
+        else if (span_opened) {
             span_opened = false;
             former_tag_str = CtConst::COLOR_48_BLACK;
             html_text += "</span>";
         }
         Glib::ustring sym = str::xml_escape(Glib::ustring(1, curr_iter.get_char()));
-        html_text += str::replace(sym, " ", "&nbsp;");
-        if (!curr_iter.forward_char() || (sel_end >= 0 && curr_iter.get_offset() > sel_end))
-        {
+        //html_text += str::replace(sym, " ", "&nbsp;");
+        // let's try and use <pre></pre> instead of '&nbsp;' to preserve the spaces
+        html_text += sym;
+        if (!curr_iter.forward_char() || (sel_end >= 0 && curr_iter.get_offset() > sel_end)) {
             if (span_opened) html_text += "</span>";
             break;
         }
     }
 
     html_text = str::replace(html_text, CtConst::CHAR_NEWLINE, "<br />");
-    return "<div class=\"codebox\">" + html_text + "</div>";
+    return "<pre>" + html_text + "</pre>";
 }
 
 // Given a treestore iter returns the HTML rich text
@@ -732,14 +729,14 @@ std::unique_ptr<CtProcess> pandoc_process() {
 namespace CtPandoc {
 
 // Checks if the specified file is in the PATH environment variable
-bool in_path(const std::string& file) 
+bool in_path(const std::string& file)
 {
     g_autofree gchar* prog_name = g_find_program_in_path(file.c_str());
     return prog_name != nullptr;
 }
 
 
-bool has_pandoc() 
+bool has_pandoc()
 {
     return in_path("pandoc");
 }

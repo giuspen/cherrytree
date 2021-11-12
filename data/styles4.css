@@ -1,14 +1,14 @@
-/* Met Office external website                                                                            
+/* Met Office external website
 
 Colours:
 - black/dark grey: #202A2C
-- dark grey: #666666      
+- dark grey: #666666
 - grey: #DDDDDD (thin lines)
 - light grey: #EEEEEE (background colour)
-- darkish green: #BCDB0C                 
-- green: #CCFF33                         
-- darkish blue: #4BA8BA                  
-- blue: #00ADD0                          
+- darkish green: #BCDB0C
+- green: #CCFF33
+- darkish blue: #4BA8BA
+- blue: #00ADD0
 
 */
 
@@ -61,7 +61,7 @@ div.tree-panel {
     height: 100%;
     overflow: auto;
     border-right: 3px solid;
-    
+
     /*background-color: #EEEEEE;
     border-top: 1px solid #DDDDDD;
     border-bottom: 1px solid #DDDDDD;
@@ -86,7 +86,7 @@ div.page-panel iframe {
 }
 
 div.page {
-    padding: 20px; 
+    padding: 20px;
 }
 
 .clear {
@@ -219,7 +219,7 @@ span.code-node {
     /*color: #FFFF00;  /* yellow */
 }
 
-div.codebox, div.page code, div.page pre {
+div.page code, div.page pre {
     font-family: "Courier New", Courier, monospace;
     font-weight: normal;
     font-size: 13px;
