@@ -431,10 +431,10 @@ Glib::ustring CtExport2Html::_get_table_html(CtTable* table)
 Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gsv::Buffer>& code_buffer, int sel_start, int sel_end, const std::string& syntax_highlighting)
 {
     Gtk::TextIter curr_iter = sel_start >= 0 ? code_buffer->get_iter_at_offset(sel_start) : code_buffer->begin();
+    Gtk::TextIter end_iter = sel_end >= 0 ? code_buffer->get_iter_at_offset(sel_end) : code_buffer->end();
 
     if (_pCtMainWin->get_ct_config()->usePandoc && CtPandoc::supports_syntax(syntax_highlighting)) {
         if (CtPandoc::has_pandoc()) {
-            Gtk::TextIter end_iter = sel_end >= 0 ? code_buffer->get_iter_at_offset(sel_end) : code_buffer->end();
             Glib::ustring      input_txt(curr_iter, end_iter);
             std::istringstream ibuff(input_txt);
             std::ostringstream html_out;
@@ -446,7 +446,8 @@ Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gsv::
         }
     }
 
-    code_buffer->ensure_highlight(code_buffer->begin(), code_buffer->end());
+    _pCtMainWin->apply_syntax_highlighting(code_buffer, syntax_highlighting, false/*forceReApply*/);
+    code_buffer->ensure_highlight(curr_iter, end_iter);
 
     Glib::ustring html_text;
     Glib::ustring former_tag_str = CtConst::COLOR_48_BLACK;

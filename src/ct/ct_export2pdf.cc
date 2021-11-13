@@ -63,10 +63,11 @@ void CtExport2Pango::pango_get_from_treestore_node(CtTreeIter node_iter, int sel
 }
 
 // Get rich text from syntax highlighted code node
-Glib::ustring CtExport2Pango::pango_get_from_code_buffer(Glib::RefPtr<Gsv::Buffer> code_buffer, int sel_start, int sel_end)
+Glib::ustring CtExport2Pango::pango_get_from_code_buffer(Glib::RefPtr<Gsv::Buffer> code_buffer, int sel_start, int sel_end, const std::string& syntax_highlighting)
 {
     Gtk::TextIter curr_iter = sel_start < 0 ? code_buffer->begin() : code_buffer->get_iter_at_offset(sel_start);
     Gtk::TextIter end_iter = sel_start < 0 ? code_buffer->end() : code_buffer->get_iter_at_offset(sel_end);
+    _pCtMainWin->apply_syntax_highlighting(code_buffer, syntax_highlighting, false/*forceReApply*/);
     code_buffer->ensure_highlight(curr_iter, end_iter);
     Glib::ustring pango_text = "";
     Glib::ustring former_tag_str = CtConst::COLOR_48_BLACK;
@@ -287,7 +288,7 @@ void CtExport2Pdf::node_export_print(const fs::path& pdf_filepath, CtTreeIter tr
     if (tree_iter.get_node_is_rich_text())
         CtExport2Pango{_pCtMainWin}.pango_get_from_treestore_node(tree_iter, sel_start, sel_end, pango_slots);
     else {
-        Glib::ustring text = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(tree_iter.get_node_text_buffer(), sel_start, sel_end);
+        Glib::ustring text = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(tree_iter.get_node_text_buffer(), sel_start, sel_end, tree_iter.get_node_syntax_highlighting());
         pango_slots.push_back(std::make_shared<CtPangoText>(text, tree_iter.get_node_syntax_highlighting(), 0));
     }
 
@@ -323,7 +324,7 @@ void CtExport2Pdf::_nodes_all_export_print_iter(CtTreeIter tree_iter, const CtEx
     if (tree_iter.get_node_is_rich_text())
         CtExport2Pango{_pCtMainWin}.pango_get_from_treestore_node(tree_iter, -1, -1, node_pango_slots);
     else {
-        Glib::ustring text = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(tree_iter.get_node_text_buffer(), -1, -1);
+        Glib::ustring text = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(tree_iter.get_node_text_buffer(), -1, -1, tree_iter.get_node_syntax_highlighting());
         node_pango_slots.push_back(std::make_shared<CtPangoText>(text, tree_iter.get_node_syntax_highlighting(), 0));
     }
 
@@ -683,8 +684,7 @@ void CtPrint::_process_pango_codebox(CtPrintData* print_data, CtCodebox* codebox
     auto context = print_data->context;
     CtPrintPages& pages = print_data->pages;
 
-    codebox->apply_syntax_highlighting(false/*forceReApply*/);
-    Glib::ustring original_content = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(codebox->get_buffer(), -1, -1);
+    Glib::ustring original_content = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(codebox->get_buffer(), -1, -1, codebox->get_syntax_highlighting());
     while (true)
     {
         // use content if it's ok

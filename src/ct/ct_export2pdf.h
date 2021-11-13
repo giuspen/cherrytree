@@ -69,7 +69,8 @@ public:
 
     Glib::ustring pango_get_from_code_buffer(Glib::RefPtr<Gsv::Buffer> code_buffer,
                                              int sel_start,
-                                             int sel_end);
+                                             int sel_end,
+                                             const std::string& syntax_highlighting);
     void pango_get_from_treestore_node(CtTreeIter node_iter,
                                        int sel_start,
                                        int sel_end,
