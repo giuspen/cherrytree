@@ -298,7 +298,7 @@ void CtMenu::init_actions(CtActions* pActions)
     const char* view_cat = _("View");
     _actions.push_back(CtMenuAction{view_cat, "toggle_show_tree", "ct_cherries", _("Show/Hide _Tree Explorer"), "F9",
         _("Toggle Show/Hide Tree"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_tree)});
-    _actions.push_back(CtMenuAction{view_cat, "toggle_show_menubar", "", _("Show/Hide _Menubar"), "F12",
+    _actions.push_back(CtMenuAction{view_cat, "toggle_show_menubar", "ct_menubar", _("Show/Hide _Menubar"), "F12",
         _("Toggle Show/Hide Menubar"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_menubar)});
     _actions.push_back(CtMenuAction{view_cat, "toggle_show_toolbar", "ct_toolbar", _("Show/Hide Tool_bar"), None,
         _("Toggle Show/Hide Toolbar"), sigc::mem_fun(*pActions, &CtActions::toggle_show_hide_toolbars)});
@@ -317,11 +317,11 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{view_cat, "toggle_fullscreen", "ct_fullscreen", _("_Full Screen On/Off"), "F11",
         _("Toggle Full Screen On/Off"), sigc::mem_fun(*pActions, &CtActions::fullscreen_toggle)});
     if (_pCtConfig->menubarInTitlebar) {
-        _actions.push_back(CtMenuAction{view_cat, "menubar_in_titlebar", "", _("Disable _Menubar in Titlebar"), None,
+        _actions.push_back(CtMenuAction{view_cat, "menubar_in_titlebar", "ct_mb_in_tb_no", _("Disable _Menubar in Titlebar"), None,
             _("Do Not Place the Menubar in the Titlebar"), sigc::mem_fun(*pActions, &CtActions::disable_menubar_in_titlebar)});
     }
     else {
-        _actions.push_back(CtMenuAction{view_cat, "menubar_in_titlebar", "", _("Enable _Menubar in Titlebar"), None,
+        _actions.push_back(CtMenuAction{view_cat, "menubar_in_titlebar", "ct_mb_in_tb_yes", _("Enable _Menubar in Titlebar"), None,
             _("Place the Menubar in the Titlebar"), sigc::mem_fun(*pActions, &CtActions::enable_menubar_in_titlebar)});
     }
 
