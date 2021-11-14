@@ -1,4 +1,15 @@
 
+0.99.43 (November 14th, 2021)
+* added action under top menu 'search' to clear all exclusions from the search; to be run from users finding unexpected exclusions from the search in tree nodes (auxiliary icons of ghosts, #1837)
+* added action under top menu 'view' to enable/disable placing the menubar in the titlebar (#1815)
+* unfullscreen doesn't work with the custom titlebar active (menubar in titlebar), so in this case we can only maximise/unmaximise when fullscreen/unfullscreen is requested
+* implemented under top menu 'view' toggle show/hide menubar with default keyboard shortcut F12 (#1849)
+* restored Ctrl+T keyboard shortcut to pop up unified search in multiple nodes dialog with only node name and tags selected (#1829)
+* export to html of code do not use '&nbsp;' - use <pre></pre> instead
+* fixed issue of code non syntax highlighted in exported pdf and html
+* fixed wrong line number reported in search all matches dialog
+* added new language Portuguese Portugal (work of Rui Santos)
+
 0.99.42 (October 16th, 2021)
   * unified search in nodes name+tags and search in nodes content (#513, #1525)
   * fixed search in multiple nodes with the option first from selection/first in all range

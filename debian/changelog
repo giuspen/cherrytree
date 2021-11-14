@@ -1,21 +1,14 @@
-cherrytree (0.99.42-1) focal; urgency=low
+cherrytree (0.99.43-1) focal; urgency=low
 
-  * unified search in nodes name+tags and search in nodes content (#513, #1525)
-  * fixed search in multiple nodes with the option first from selection/first in all range
-  * fixed issue with password protected data extraction on windows and non ascii paths
-  * link to node insert/edit dialog, added search for anchor name in the tree (#1572)
-  * implemented node property to exclude node and/or subnodes from search (#1096, #1761)
-  * applying a colour to foreground/background of text to use default gtk3 palette (#1818)
-  * added in preferenced dialog, tab theme, possibility to choose 2 new icon themes (#1766, artwork of @userfav)
-  * added option to hide the status bar (#1742)
-  * added configurability of selected node's background/foreground colour in the tree (#1809)
-  * tree explorer added view option to show lines connecting the nodes parent-children (#1692)
-  * added syntax highlighting for AutoHotkey (work of Chen Bo)
-  * added in preferences dialog, tab fonts, buttons to reset the fonts to default values (#1819)
-  * at F8/current day node do not visit year/month if already existing, only day (#1796)
-  * support for portable mode in non-windows os looking for config/config.cfg beside cherrytree binary executable (#1811)
-  * tree sorting menu items: moved siblings only sorting first and after separator sorting whole tree (#1797)
-  * added experimantal option menubar_in_titlebar that can be activated in config.cfg, but off by default (#1815)
+* added action under top menu 'search' to clear all exclusions from the search; to be run from users finding unexpected exclusions from the search in tree nodes (auxiliary icons of ghosts, #1837)
+* added action under top menu 'view' to enable/disable placing the menubar in the titlebar (#1815)
+* unfullscreen doesn't work with the custom titlebar active (menubar in titlebar), so in this case we can only maximise/unmaximise when fullscreen/unfullscreen is requested
+* implemented under top menu 'view' toggle show/hide menubar with default keyboard shortcut F12 (#1849)
+* restored Ctrl+T keyboard shortcut to pop up unified search in multiple nodes dialog with only node name and tags selected (#1829)
+* export to html of code do not use '&nbsp;' - use <pre></pre> instead
+* fixed issue of code non syntax highlighted in exported pdf and html
+* fixed wrong line number reported in search all matches dialog
+* added new language Portuguese Portugal (work of Rui Santos)
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sat, 16 Oct 2021 18:05:15 +0100
+ -- Giuseppe Penone <giuspen@gmail.com>  Sun, 14 Nov 2021 19:42:44 +0000
