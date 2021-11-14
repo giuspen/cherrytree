@@ -1,14 +1,14 @@
 cherrytree (0.99.43-1) focal; urgency=low
 
-* added action under top menu 'search' to clear all exclusions from the search; to be run from users finding unexpected exclusions from the search in tree nodes (auxiliary icons of ghosts, #1837)
-* added action under top menu 'view' to enable/disable placing the menubar in the titlebar (#1815)
-* unfullscreen doesn't work with the custom titlebar active (menubar in titlebar), so in this case we can only maximise/unmaximise when fullscreen/unfullscreen is requested
-* implemented under top menu 'view' toggle show/hide menubar with default keyboard shortcut F12 (#1849)
-* restored Ctrl+T keyboard shortcut to pop up unified search in multiple nodes dialog with only node name and tags selected (#1829)
-* export to html of code do not use '&nbsp;' - use <pre></pre> instead
-* fixed issue of code non syntax highlighted in exported pdf and html
-* fixed wrong line number reported in search all matches dialog
-* added new language Portuguese Portugal (work of Rui Santos)
+  * added action under top menu 'search' to clear all exclusions from the search; to be run from users finding unexpected exclusions from the search in tree nodes (auxiliary icons of ghosts, #1837)
+  * added action under top menu 'view' to enable/disable placing the menubar in the titlebar (#1815)
+  * unfullscreen doesn't work with the custom titlebar active (menubar in titlebar), so in this case we can only maximise/unmaximise when fullscreen/unfullscreen is requested
+  * implemented under top menu 'view' toggle show/hide menubar with default keyboard shortcut F12 (#1849)
+  * restored Ctrl+T keyboard shortcut to pop up unified search in multiple nodes dialog with only node name and tags selected (#1829)
+  * export to html of code do not use '&nbsp;' - use <pre></pre> instead
+  * fixed issue of code non syntax highlighted in exported pdf and html
+  * fixed wrong line number reported in search all matches dialog
+  * added new language Portuguese Portugal (work of Rui Santos)
 
 
  -- Giuseppe Penone <giuspen@gmail.com>  Sun, 14 Nov 2021 19:42:44 +0000
