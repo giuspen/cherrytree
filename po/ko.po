@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-04 22:17+0100\n"
-"PO-Revision-Date: 2021-10-15 11:38+0900\n"
+"POT-Creation-Date: 2021-11-07 21:38+0000\n"
+"PO-Revision-Date: 2021-11-15 23:59+0900\n"
 "Last-Translator: sean.lee <icarusean@gmail.com>\n"
 "Language-Team: Korean\n"
 "Language: ko\n"
@@ -23,46 +23,53 @@ msgid "Warning: One or More Images Were Reduced to Enter the Page"
 msgstr "경고 : 페이지에 맞게 하나 이상의 이미지가 축소되었습니다"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:49
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:208
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:257
 msgid "To WebSite"
 msgstr "웹사이트"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:60
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:212
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:261
 msgid "To File"
 msgstr "파일"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:75
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:214
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:263
 msgid "To Folder"
 msgstr "폴더"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:90
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:210
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:259
 msgid "To Node"
 msgstr "노트"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:122
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:126
 msgid "Anchor Name (optional)"
 msgstr "앵커 이름 (옵션)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:242
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:657
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:246
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:672
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:35
 msgid "No Node is Selected"
 msgstr "노트가 선택되어 있지 않습니다"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:253
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:257
 msgid "There are No Anchors in the Selected Node"
 msgstr "선택 노트에 앵커가 없습니다"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:260
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:264
 msgid "Choose Existing Anchor"
 msgstr "기존의 앵커 선택"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:260
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:264
 msgid "Anchor Name"
 msgstr "앵커 이름"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_link.cc:317
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:105
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:244
+#, c-format
+msgid "The pattern '%s' was not found"
+msgstr "'%s'를 찾을 수 없습니다"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_export2html.cc:138
 msgid "Index"
@@ -108,12 +115,13 @@ msgid "CherryTree Document"
 msgstr "CherryTree 문서"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:131
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:295
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:296
 msgid "Preferences File"
 msgstr "설정 파일"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:287
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:312
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_file.cc:288
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:135
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:361
 msgid "This Change will have Effect Only After Restarting CherryTree"
 msgstr "변경 사항은 CherryTree를 재 실행한 후에 적용됩니다"
 
@@ -122,12 +130,12 @@ msgid "CherryTree Hierarchical Note Taking"
 msgstr "CherryTree 계층적 메모 작성"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_widgets.cc:167
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:420
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:434
 msgid "Show/Hide _CherryTree"
 msgstr "CherryTree 표시/숨기기(_C)"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_widgets.cc:167
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:421
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:435
 msgid "Toggle Show/Hide CherryTree"
 msgstr "CherryTree 창 표시/숨기기"
 
@@ -209,7 +217,7 @@ msgid "_Recent Documents"
 msgstr "최근 사용한 파일(_R)"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:60
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:548
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:563
 msgid "Open a Recent CherryTree Document"
 msgstr "최근 사용한 CherryTree 문서 열기"
 
@@ -262,7 +270,7 @@ msgid "Start a New Instance of CherryTree"
 msgstr "새 저장소로 CherryTree 시작"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:76
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:402
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:416
 msgid "_Open File"
 msgstr "파일 열기(_O)"
 
@@ -288,12 +296,12 @@ msgid "Save File and Vacuum"
 msgstr "노트북 저장 및 용량 최적화"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:82
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:400
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:414
 msgid "Save _As"
 msgstr "다른 이름으로 저장(_A)"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:83
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:401
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:415
 msgid "Save File As"
 msgstr "파일을 다른 이름으로 저장"
 
@@ -339,7 +347,7 @@ msgid "Tree _Info"
 msgstr "Tree의 정보(_I)"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:95
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:465
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:466
 msgid "Tree Summary Information"
 msgstr "Tree 개요 정보"
 
@@ -348,7 +356,7 @@ msgid "_Quit"
 msgstr "닫기(_Q)"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:97
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:561
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:576
 msgid "Quit the Application"
 msgstr "응용 프로그램 닫기"
 
@@ -502,7 +510,7 @@ msgid "Paste as Plain Text, Discard the Rich Text Formatting"
 msgstr "텍스트로 붙여넣기 서식있는 텍스트 서식이 손실됩니다"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:138
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:458
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:472
 msgid "Cu_t Row"
 msgstr "줄 잘라내기(_T)"
 
@@ -511,7 +519,7 @@ msgid "Cut the Current Row/Selected Rows"
 msgstr "현재 줄/선택 줄을 잘라내기"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:140
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:460
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:474
 msgid "_Copy Row"
 msgstr "줄 복사(_C)"
 
@@ -520,7 +528,7 @@ msgid "Copy the Current Row/Selected Rows"
 msgstr "현재 줄/선택 줄을 복사"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:142
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:464
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:478
 msgid "De_lete Row"
 msgstr "줄 삭제(_L)"
 
@@ -553,7 +561,7 @@ msgid "Move Down the Current Row/Selected Rows"
 msgstr "현재 줄/선택 줄을 아래로 이동"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:151
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:63
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:64
 msgid "Format"
 msgstr "서식"
 
@@ -1053,745 +1061,785 @@ msgstr "모든 노트를 검색(_S)"
 msgid "Find in Multiple Nodes"
 msgstr "모든 노트를 검색(_S)"
 
-# 전체에서 검색하는 경우 항상 첫 번째 일치만을 검색하기 때문에 "다음 찾기"는하지 않았다
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:279
+msgid "Find in _Nodes Names and Tags"
+msgstr "노트 이름 및 태그를 검색(_N)"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:280
+msgid "Find in Nodes Names and Tags"
+msgstr "노트 이름 및 태그를 검색"
+
+# 전체에서 검색하는 경우 항상 첫 번째 일치만을 검색하기 때문에 "다음 찾기"는하지 않았다
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:281
 msgid "Find _Again"
 msgstr "다시 검색(_A)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:280
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:282
 msgid "Iterate the Last Find Operation"
 msgstr "마지막 찾기 작업을 반복"
 
 # 검색 설정이 반대 방향 검색의 경우, 반대 방향의 역으로 전방에 검색하기 때문에 '이전 찾기'는 하지 않았다
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:281
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:283
 msgid "Find _Back"
 msgstr "반대 방향 검색(_B)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:282
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:284
 msgid "Iterate the Last Find Operation in Opposite Direction"
 msgstr "마지막 검색 작업을 반대 방향으로 반복"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:283
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:285
 msgid "_Replace in Node Content"
 msgstr "현재 노트의 내용 치환(_R)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:284
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:286
 msgid "Replace into the Selected Node Content"
 msgstr "선택 노트의 내용을 치환"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:286
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:288
 msgid "Replace in _Multiple Nodes"
 msgstr "모든 노트를 치환"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:287
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:289
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
 msgid "Replace in Multiple Nodes"
 msgstr "모든 노트를 치환"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:288
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:290
 msgid "Replace _Again"
 msgstr "마지막 치환을 반복(_A)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:289
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:291
 msgid "Iterate the Last Replace Operation"
 msgstr "마지막 치환 작업을 반복 한다"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:291
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:293
 msgid "Show _All Matches Dialog"
 msgstr "검색결과 목록 대화상자에 표시(_A)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:292
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:294
 msgid "Show Search All Matches Dialog"
 msgstr "검색결과 목록 대화상자에 표시하기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:294
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:295
+msgid "_Clear All Exclusions From Search"
+msgstr "모든 노트의 검색 제외 속성 지우기(_C)"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:296
+msgid "Clear All Tree Nodes Properties of Exclusions From Search"
+msgstr "모든 노트의 검색 제외 속성 지우기"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:298
 msgid "View"
 msgstr "표시"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:295
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:299
 msgid "Show/Hide _Tree Explorer"
 msgstr "Tree 탐색기 표시/숨기기(_T)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:296
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:300
 msgid "Toggle Show/Hide Tree"
 msgstr "Tree 표시/숨기기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:297
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:301
+msgid "Show/Hide _Menubar"
+msgstr "메뉴바 표시/숨기기(_B)"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:302
+msgid "Toggle Show/Hide Menubar"
+msgstr "메뉴바 표시/숨기기"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:303
 msgid "Show/Hide Tool_bar"
 msgstr "도구 모음 표시/숨기기(_B)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:298
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:304
 msgid "Toggle Show/Hide Toolbar"
 msgstr "도구 모음 표시/숨기기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:299
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:305
 msgid "Show/Hide _Statusbar"
 msgstr "도구 모음 표시/숨기기(_B)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:300
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:306
 msgid "Toggle Show/Hide Statusbar"
 msgstr "도구 모음 표시/숨기기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:301
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:307
 msgid "Show/Hide _Lines Node Parent to Children"
 msgstr "Tree 탐색기 표시/숨기기(_T)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:302
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:308
 msgid "Toggle Show/Hide Lines Between Node Parent and Children"
 msgstr "Tree 표시/숨기기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:303
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:309
 msgid "Show/Hide Node Name _Header"
 msgstr "노트 이름의 헤더 표시/숨기기(_H)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:304
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:310
 msgid "Toggle Show/Hide Node Name Header"
 msgstr "노트 이름의 헤더 표시/숨기기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:305
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:311
 msgid "Toggle _Focus Tree/Text"
 msgstr "Tree/편집기로 창 전환(_F)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:306
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:312
 msgid "Toggle Focus Between Tree and Text"
 msgstr "Tree/편집기 교대로 전환"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:307
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:313
 msgid "_Increase Toolbar Icons Size"
 msgstr "툴바의 아이콘을 확대(_I)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:308
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:314
 msgid "Increase the Size of the Toolbar Icons"
 msgstr "툴바의 아이콘을 확대"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:309
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:315
 msgid "_Decrease Toolbar Icons Size"
 msgstr "툴바의 아이콘을 축소(_D)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:310
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:316
 msgid "Decrease the Size of the Toolbar Icons"
 msgstr "툴바의 아이콘을 축소"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:311
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:317
 msgid "_Full Screen On/Off"
 msgstr "전체 화면 전환(_F)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:312
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:318
 msgid "Toggle Full Screen On/Off"
 msgstr "전체 화면 전환"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:314
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:320
+msgid "Disable _Menubar in Titlebar"
+msgstr "제목 표시줄에서 메뉴바 보이기 비활성화(_M)"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:321
+msgid "Do Not Place the Menubar in the Titlebar"
+msgstr "제목 표시줄에 메뉴바를 배치하지 않습니다"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:324
+msgid "Enable _Menubar in Titlebar"
+msgstr "제목 표시줄에서 메뉴바 보이기 활성화(_M)"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:325
+msgid "Place the Menubar in the Titlebar"
+msgstr "제목 표시줄에 메뉴바를 배치합니다"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:328
 msgid "Import"
 msgstr "가져 오기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:315
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:329
 msgid "From _CherryTree File"
 msgstr "CherryTree파일 불러오기(_C)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:316
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:330
 msgid "Add Nodes of a CherryTree File to the Current Tree"
 msgstr "현재 Tree에 CherryTree파일을 불러와 노트로 추가하기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:317
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:331
 msgid "From _Plain Text File"
 msgstr "텍스트파일 불러오기(_P)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:318
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:332
 msgid "Add Node from a Plain Text File to the Current Tree"
 msgstr "현재 Tree에 텍스트파일을 불러와 노트로 추가하기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:319
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:333
 msgid "From _Folder of Plain Text Files"
 msgstr "폴더에서 텍스트파일 모두 불러오기(_F)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:320
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:334
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
 msgstr "현재 Tree에 폴더 내부 모든 텍스트파일을 불러와 노트로 추가하기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:322
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:336
 msgid "From _HTML File"
 msgstr "HTML 파일 불어오기(_H)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:323
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:337
 msgid "Add Node from an HTML File to the Current Tree"
 msgstr "현재 Tree에 HTML파일을 불러와 노트로 추가하기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:324
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:338
 msgid "From _Folder of HTML Files"
 msgstr "폴더에서 HTML 파일 모두 불러오기(_F)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:325
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:339
 msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
 msgstr "현재 Tree에 폴더 내부 모든 HTML파일을 불러와 노트로 추가하기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:327
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:341
 msgid "From _Markdown File"
 msgstr "Markdown 파일 불러오기(_M)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:328
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:342
 msgid "Add a node from a Markdown File to the Current Tree"
 msgstr "현재 Tree에 Markdown파일을 불러와 노트로 추가하기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:329
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:343
 msgid "From _Folder of Markdown Files"
 msgstr "폴더에서 Markdown 파일 모두 불러오기(_F)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:330
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:344
 msgid "Add Nodes from a Folder of Markdown Files to the Current Tree"
 msgstr "현재 Tree에 폴더 내부 모든 Markdown파일을 불러와 노트로 추가하기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:332
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:346
 msgid "From _Gnote Folder"
 msgstr "Gnote 폴더 불러오기(_G)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:333
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:347
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
 msgstr "현재 Tree에 Gnote폴더를 불러와 노트로 추가하기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:334
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:348
 msgid "From _KeepNote Folder"
 msgstr "KeepNote 폴더 불러오기(_K)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:335
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:349
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
 msgstr "현재 Tree에 KeepNote폴더를 불러와 노트로 추가하기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:337
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:351
 msgid "From _Leo File"
 msgstr "Leo 파일 불러오기(_L)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:338
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:352
 msgid "Add Nodes of a Leo File to the Current Tree"
 msgstr "현재 Tree에 Leo파일을 불러와 노트로 추가하기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:339
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:353
 msgid "From _Mempad File"
 msgstr "Mempad 파일 불러오기(_M)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:340
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:354
 msgid "Add Nodes of a Mempad File to the Current Tree"
 msgstr "현재 Tree에 Mempad파일을 불러와 노트로 추가하기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:341
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:355
 msgid "From _NoteCase HTML File"
 msgstr "NoteCase HTML 파일 불러오기(_N)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:342
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:356
 msgid "Add Nodes of a NoteCase HTML File to the Current Tree"
 msgstr "현재 Tree에 NoteCase HTML파일을 불러와 노트로 추가하기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:343
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:357
 msgid "From _RedNotebook HTML"
 msgstr "RedNotebook HTML 파일 불러오기(_R)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:344
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:358
 msgid "Add Nodes of a RedNotebook HTML file to the Current Tree"
 msgstr "현재 Tree에 RedNotebook HTML파일을 불러와 노트로 추가하기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:346
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:360
 msgid "From T_omboy Folder"
 msgstr "Tomboy 폴더 불러오기(_O)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:347
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:361
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
 msgstr "현재 Tree에 Tomboy 폴더 불러와 노트로 추가하기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:348
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:362
 msgid "From T_reepad Lite File"
 msgstr "Treepad Lite 파일 불러오기(_R)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:349
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:363
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
 msgstr "현재 Tree에 Treepad Lite 파일 불러와 노트로 추가하기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:350
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:364
 msgid "From _Zim Folder"
 msgstr "Zim 폴더 불러오기(_Z)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:351
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:365
 msgid "Add Nodes of a Zim Folder to the Current Tree"
 msgstr "현재 Tree에 Zim 폴더를 불러와 노트로 추가하기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:353
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:367
 msgid "From File using _Pandoc"
 msgstr "Pandoc을 이용하여 불러오기(_P)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:354
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:368
 msgid "Add a node to the current tree using Pandoc"
 msgstr "현재 Tree에 Pandoc를 이용하여 불러와 노트로 추가하기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:356
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:370
 msgid "Export"
 msgstr "내보내기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:357
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:371
 msgid "Export To _PDF"
 msgstr "PDF로 내보내기(_P)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:358
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:372
 msgid "Export To PDF"
 msgstr "PDF로 내보내기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:359
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:373
 msgid "Export To _HTML"
 msgstr "HTML로 내보내기(_H)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:360
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:374
 msgid "Export To HTML"
 msgstr "HTML로 내보내기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:361
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:375
 msgid "Export to Plain _Text"
 msgstr "텍스트 파일로 내보내기(_T)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:362
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:376
 msgid "Export to Plain Text"
 msgstr "텍스트 파일로 내보내기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:363
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:377
 msgid "_Export To CherryTree Document"
 msgstr "CherryTree 문서로 내보내기(_E)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:364
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:378
 msgid "Export To CherryTree Document"
 msgstr "CherryTree 문서로 내보내기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:366
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:380
 msgid "Help"
 msgstr "도움말"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:367
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:381
 msgid "_Check Newer Version"
 msgstr "새 버전 확인(_C)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:368
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:382
 msgid "Check for a Newer Version"
 msgstr "새 버전 확인"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:369
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:383
 msgid "Online _Manual"
 msgstr "온라인 설명서(_M)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:370
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:384
 msgid "Application's Online Manual"
 msgstr "온라인 설명서를 브라우저에서 열기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:371
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:385
 msgid "_About"
 msgstr "CherryTree 소개(_A)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:372
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:450
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:386
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:451
 msgid "About CherryTree"
 msgstr "CherryTree 소개"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:373
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:387
 msgid "Open Preferences _Directory"
 msgstr "설정 디렉토리 열기(_D)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:374
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:388
 msgid "Open the Directory with Preferences Files"
 msgstr "설정 파일이있는 디렉토리를 열기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:384
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:398
 msgid "C_ut Anchor"
 msgstr "앵커 잘라내기(_U)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:385
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:399
 msgid "Cut the Selected Anchor"
 msgstr "선택 앵커 잘라"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:386
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:400
 msgid "_Copy Anchor"
 msgstr "앵커 복사(_C)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:387
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:401
 msgid "Copy the Selected Anchor"
 msgstr "선택 앵커 복사"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:388
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:402
 msgid "_Delete Anchor"
 msgstr "앵커 삭제(_D)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:389
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:403
 msgid "Delete the Selected Anchor"
 msgstr "선택 앵커 삭제"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:390
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:404
 msgid "Edit _Anchor"
 msgstr "앵커 이름 편집(_A)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:391
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:405
 msgid "Edit the Underlying Anchor"
 msgstr "앵커의 이름을 편집"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:392
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:406
 msgid "Copy Anchor Link"
 msgstr "앵커에 대한 링크 복사"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:393
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:407
 msgid "Copy Link to the Underlying Anchor to Clipboard"
 msgstr "앵커에 대한 링크를 클립보드에 복사"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:394
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:408
 msgid "C_ut Embedded File"
 msgstr "첨부 파일 잘라내기(_U)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:395
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:409
 msgid "Cut the Selected Embedded File"
 msgstr "선택 첨부 파일을 잘라내기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:396
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:410
 msgid "_Copy Embedded File"
 msgstr "첨부 파일 복사(_C)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:397
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:411
 msgid "Copy the Selected Embedded File"
 msgstr "선택 첨부 파일을 복사"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:398
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:412
 msgid "_Delete Embedded File"
 msgstr "첨부 파일 삭제(_D)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:399
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:413
 msgid "Delete the Selected Embedded File"
 msgstr "선택 첨부 파일 삭제"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:403
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:417
 msgid "Open Embedded File"
 msgstr "첨부 파일 열기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:404
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:418
 msgid "_Rename"
 msgstr "이름 변경(_R)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:405
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:419
 msgid "Rename Embedded File"
 msgstr "첨부 파일 이름 변경"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:406
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:420
 msgid "_Save Image as PNG"
 msgstr "이미지를 PNG로 저장(_S)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:407
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:421
 msgid "Save the Selected Image as a PNG file"
 msgstr "선택 이미지를 PNG 파일로 저장"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:408
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:422
 msgid "_Edit Image"
 msgstr "이미지 편집(_E)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:409
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:423
 msgid "Edit the Selected Image"
 msgstr "선택 이미지 편집"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:410
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:424
 msgid "C_ut Image"
 msgstr "이미지 잘라내기(_U)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:411
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:425
 msgid "Cut the Selected Image"
 msgstr "선택 이미지 잘라내기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:412
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:426
 msgid "_Copy Image"
 msgstr "이미지 복사(_C)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:413
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:427
 msgid "Copy the Selected Image"
 msgstr "선택 이미지 복사"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:414
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:428
 msgid "_Delete Image"
 msgstr "이미지 삭제(_D)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:415
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:429
 msgid "Delete the Selected Image"
 msgstr "선택 사진 삭제"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:416
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:424
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:430
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:438
 msgid "Edit _Link"
 msgstr "링크 편집(_L)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:417
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:431
 msgid "Edit the Link Associated to the Image"
 msgstr "이미지에 연결된 링크 편집"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:418
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:430
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:432
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:444
 msgid "D_ismiss Link"
 msgstr "링크 해제(_I)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:419
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:433
 msgid "Dismiss the Link Associated to the Image"
 msgstr "이미지에 연결된 링크를 해제"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:425
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:439
 msgid "Edit the Underlying Link"
 msgstr "연결 링크 편집"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:426
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:440
 msgid "C_ut Link"
 msgstr "링크 잘라내기(_U)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:427
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:441
 msgid "Cut the Selected Link"
 msgstr "선택한 링크 잘라내기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:428
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:442
 msgid "_Copy Link"
 msgstr "링크 복사(_C)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:429
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:443
 msgid "Copy the Selected Link"
 msgstr "선택 링크 복사"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:431
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:445
 msgid "Dismiss the Selected Link"
 msgstr "선택 링크 해제"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:432
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:446
 msgid "_Delete Link"
 msgstr "링크 삭제(_D)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:433
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:447
 msgid "Delete the Selected Link"
 msgstr "선택 링크 삭제"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:436
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:450
 msgid "C_ut Table"
 msgstr "표 잘라내기(_U)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:437
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:451
 msgid "Cut the Selected Table"
 msgstr "표 잘라내기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:438
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:452
 msgid "_Copy Table"
 msgstr "표 복사(_C)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:439
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:453
 msgid "Copy the Selected Table"
 msgstr "테이블 복사"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:440
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:454
 msgid "_Delete Table"
 msgstr "테이블 삭제(_D)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:441
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:455
 msgid "Delete the Selected Table"
 msgstr "테이블 삭제"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:442
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:456
 msgid "_Add Column"
 msgstr "열 추가(_A)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:443
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:457
 msgid "Add a Table Column"
 msgstr "테이블에 컬럼을 추가"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:444
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:458
 msgid "De_lete Column"
 msgstr "열 제거(_L)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:445
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:459
 msgid "Delete the Selected Table Column"
 msgstr "테이블의 선택 열을 제거"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:446
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:460
 msgid "Move Column _Left"
 msgstr "열 왼쪽 이동(_L)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:447
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:461
 msgid "Move the Selected Column Left"
 msgstr "선택 열 왼쪽으로 이동"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:448
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:462
 msgid "Move Column _Right"
 msgstr "열 오른쪽 이동(_R)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:449
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:463
 msgid "Move the Selected Column Right"
 msgstr "선택 열 오른쪽으로 이동"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:451
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:465
 msgid "Increase Column Width"
 msgstr "열 폭을 확대"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:452
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:466
 msgid "Increase the Width of the Column"
 msgstr "열 폭을 확대"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:454
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:468
 msgid "Decrease Column Width"
 msgstr "열 폭을 축소"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:455
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:469
 msgid "Decrease the Width of the Column"
 msgstr "열 폭을 축소"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:456
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:470
 msgid "_Add Row"
 msgstr "열 추가(_A)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:457
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:471
 msgid "Add a Table Row"
 msgstr "테이블의 선택한 행 아래에 행 추가"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:459
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:473
 msgid "Cut a Table Row"
 msgstr "테이블의 행 잘라내기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:461
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:475
 msgid "Copy a Table Row"
 msgstr "테이블의 행 복사"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:462
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:476
 msgid "_Paste Row"
 msgstr "행 붙여넣기(_P)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:463
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:477
 msgid "Paste a Table Row"
 msgstr "테이블에 행 붙여넣기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:465
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:479
 msgid "Delete the Selected Table Row"
 msgstr "테이블에 선택한 행 삭제"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:466
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:480
 msgid "Move Row _Up"
 msgstr "행 위로 이동(_U)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:467
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:481
 msgid "Move the Selected Row Up"
 msgstr "선택한 행을 하나 위로 이동"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:468
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:482
 msgid "Move Row _Down"
 msgstr "줄 아래로 이동(_D)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:469
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:483
 msgid "Move the Selected Row Down"
 msgstr "선택한 줄을 아래로 이동"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:470
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:484
 msgid "Sort Rows De_scending"
 msgstr "행을 내림차순으로 정렬(_S)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:471
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:485
 msgid "Sort all the Rows Descending"
 msgstr "테이블의 모든 행을 내림차순으로 정렬"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:472
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:486
 msgid "Sort Rows As_cending"
 msgstr "행을 오름차순으로 정렬(_C)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:473
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:487
 msgid "Sort all the Rows Ascending"
 msgstr "테이블의 모든 행을 오름차순으로 정렬"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:474
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:488
 msgid "_Edit Table Properties"
 msgstr "표 속성을 편집(_E)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:475
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:489
 msgid "Edit the Table Properties"
 msgstr "표 속성 수정"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:476
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:490
 msgid "_Table Export"
 msgstr "테이블 내보내기(_T)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:477
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:491
 msgid "Export Table as CSV File"
 msgstr "표를 CSV 파일로 내보내기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:480
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:494
 msgid "Change CodeBox _Properties"
 msgstr "코드 상자의 속성을 변경(_P)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:481
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:495
 msgid "Edit the Properties of the CodeBox"
 msgstr "코드 상자의 속성을 편집"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:482
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:496
 msgid "CodeBox _Load From Text File"
 msgstr "코드 상자에 텍스트 파일 불러오기(_L)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:483
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:497
 msgid "Load the CodeBox Content From a Text File"
 msgstr "코드 상자의 내용을 텍스트 파일 불러오기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:484
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:498
 msgid "CodeBox _Save To Text File"
 msgstr "코드 상자를 텍스트 파일로 저장(_S)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:485
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:499
 msgid "Save the CodeBox Content To a Text File"
 msgstr "코드 상자의 내용을 텍스트 파일로 저장"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:486
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:500
 msgid "C_ut CodeBox"
 msgstr "코드 상자를 잘라내기(_U)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:487
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:501
 msgid "Cut the Selected CodeBox"
 msgstr "선택 코드 상자를 잘라내기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:488
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:502
 msgid "_Copy CodeBox"
 msgstr "코드 상자를 복사(_C)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:489
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:503
 msgid "Copy the Selected CodeBox"
 msgstr "선택 코드 상자를 복사"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:490
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:504
 msgid "_Delete CodeBox"
 msgstr "코드 상자를 삭제(_D)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:491
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:505
 msgid "Delete the Selected CodeBox"
 msgstr "선택 코드 상자를 제거"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:492
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:506
 msgid "Delete CodeBox _Keep Content"
 msgstr "코드 상자를 제거하고 내용을 유지(_K)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:493
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:507
 msgid "Delete the Selected CodeBox But Keep Its Content"
 msgstr "코드 상자를 제거하고 내용을 유지"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:495
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:509
 msgid "Increase CodeBox Width"
 msgstr "코드 상자의 폭을 확대"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:496
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:510
 msgid "Increase the Width of the CodeBox"
 msgstr "코드 상자의 폭을 확대"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:498
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:512
 msgid "Decrease CodeBox Width"
 msgstr "코드 상자의 폭을 축소"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:499
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:513
 msgid "Decrease the Width of the CodeBox"
 msgstr "코드 상자의 폭을 축소"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:501
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:515
 msgid "Increase CodeBox Height"
 msgstr "코드 상자의 높이를 확대"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:502
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:516
 msgid "Increase the Height of the CodeBox"
 msgstr "코드 상자의 높이를 확대"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:504
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:518
 msgid "Decrease CodeBox Height"
 msgstr "코드 상자의 높이를 축소"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:505
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:519
 msgid "Decrease the Height of the CodeBox"
 msgstr "코드 상자의 높이를 축소"
 
@@ -1861,7 +1909,7 @@ msgid "Show the Full Path in the Node Name Header"
 msgstr "노트 이름 헤더에 전체 경로보기"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:92
-msgid "Dedicated Bookmarks Menu in Top Menu Bar"
+msgid "Dedicated Bookmarks Menu in Menubar"
 msgstr "메뉴바에 북마크를 별도 표시하기"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:93
@@ -1876,8 +1924,8 @@ msgstr "Debug Log 디렉토리"
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_text_n_code.cc:131
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_tree.cc:105
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:107
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:72
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:247
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:73
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:296
 msgid "Miscellaneous"
 msgstr "기타 설정"
 
@@ -1977,7 +2025,7 @@ msgid "The Two Inserted Passwords Do Not Match"
 msgstr "입력 한 두 암호가 일치하지 않습니다"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:348
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:307
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:291
 msgid "Warning"
 msgstr "경고"
 
@@ -2042,7 +2090,7 @@ msgid "Bulgarian"
 msgstr "Bulgarian"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:427
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:57
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:58
 msgid "Chinese Simplified"
 msgstr "Chinese Simplified"
 
@@ -2113,73 +2161,78 @@ msgstr "Polish"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:441
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:50
-msgid "Portuguese Brazil"
-msgstr "Portuguese Brazil"
+msgid "Portuguese"
+msgstr "Portuguese"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:442
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:51
-msgid "Romanian"
-msgstr "Romanian"
+msgid "Portuguese Brazil"
+msgstr "Portuguese Brazil"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:443
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:52
-msgid "Russian"
-msgstr "Russian"
+msgid "Romanian"
+msgstr "Romanian"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:444
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:53
+msgid "Russian"
+msgstr "Russian"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:445
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:54
 msgid "Slovenian"
 msgstr "Slovenian"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:445
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:446
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:38
 msgid "Spanish"
 msgstr "Spanish"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:446
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:54
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:447
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:55
 msgid "Swedish"
 msgstr "Swedish"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:447
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:55
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:448
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:56
 msgid "Turkish"
 msgstr "Turkish"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:448
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:56
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:449
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:57
 msgid "Ukrainian"
 msgstr "Ukrainian"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:477
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:478
 msgid "Number of Rich Text Nodes"
 msgstr "서식있는 텍스트 노트의 수"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:482
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:483
 msgid "Number of Plain Text Nodes"
 msgstr "텍스트 노트의 수"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:487
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:488
 msgid "Number of Code Nodes"
 msgstr "코드 노트의 수"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:492
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:493
 msgid "Number of Images"
 msgstr "그림의 숫자"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:497
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:498
 msgid "Number of Embedded Files"
 msgstr "첨부 파일의 수"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:502
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:503
 msgid "Number of Tables"
 msgstr "테이블 수"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:507
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:508
 msgid "Number of CodeBoxes"
 msgstr "코드 상자의 숫자"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:512
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:513
 msgid "Number of Anchors"
 msgstr "앵커의 수"
 
@@ -2206,22 +2259,22 @@ msgid "Selection Background"
 msgstr "선택 배경색"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:58
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:66
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:67
 msgid "Tree Explorer"
 msgstr "Tree 탐색기"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:159
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:664
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:679
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:82
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:62
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:99
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:63
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:100
 msgid "Rich Text"
 msgstr "형식이 있는 텍스트"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:166
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:667
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:682
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:84
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:104
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:105
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:180
 msgid "Plain Text"
 msgstr "텍스트"
@@ -2270,6 +2323,11 @@ msgstr "행 번호의 배경색"
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_toolbar.cc:54
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:36
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_kb_shortcuts.cc:65
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:119
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:122
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:125
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:128
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:131
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:71
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_plain_text_n_code.cc:84
 msgid "Reset to Default"
@@ -2355,12 +2413,6 @@ msgstr "이 노트를 치환 ..."
 msgid "Search in Current Node..."
 msgstr "이 노트를 검색 ..."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:105
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:244
-#, c-format
-msgid "The pattern '%s' was not found"
-msgstr "'%s'를 찾을 수 없습니다"
-
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:108
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:248
 msgid "Matches"
@@ -2444,12 +2496,12 @@ msgstr "PDF 파일"
 msgid "Plain Text Document"
 msgstr "텍스트 형식 (확장자 지정)"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:130
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:143
 #, c-format
 msgid "\"%s\" is Not a CherryTree Document"
 msgstr "\"%s\" 는 CherryTree 문서가 없습니다"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:146
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:159
 #, c-format
 msgid ""
 "Error Parsing the CherryTree File:\n"
@@ -2458,71 +2510,71 @@ msgstr ""
 "CherryTree 파일 구문 분석 오류:\n"
 "\"%s\""
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:221
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:234
 msgid "Temporary Files were Created and Opened with External Applications."
 msgstr "임시 파일이 생성되고 외부 응용 프로그램에서 열렸습니다."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:222
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:235
 msgid "Quit the External Applications Before Quit CherryTree."
 msgstr "CherryTree를 종료하기 전에 외부 응용프로그램을 종료하십시오."
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:223
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:236
 msgid "Did you Quit the External Applications?"
 msgstr "외부 응용프로그램을 종료했습니까?"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:345
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win_file.cc:358
 msgid "The Document was Reloaded After External Update to CT* File"
 msgstr "CT* 파일이 외부 업데이트된 후 문서를 다시 읽어 왔습니다"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:530
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:545
 #, c-format
 msgid "The Document %s was Not Found"
 msgstr "문서 %s를 찾을 수 없습니다"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:560
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:575
 msgid "Hide"
 msgstr "숨기기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:560
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:575
 msgid "Quit"
 msgstr "닫기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:561
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:576
 msgid "Hide the Window"
 msgstr "창 숨기기"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:661
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:676
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:110
 msgid "Node Type"
 msgstr "노트 유형"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:661
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:673
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:676
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:679
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:683
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:687
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:688
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:691
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:694
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:698
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:702
 msgid ": "
 msgstr ": "
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:673
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:688
 msgid "Tags"
 msgstr "태그"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:676
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:691
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:48
 msgid "Spell Check"
 msgstr "맞춤법 검사"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:679
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:694
 msgid "Word Count"
 msgstr "단어 개수"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:683
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:698
 msgid "Date Created"
 msgstr "만든 날짜"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:687
+#: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:702
 msgid "Date Modified"
 msgstr "수정한 날짜"
 
@@ -2684,7 +2736,7 @@ msgstr "취소"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_special_chars.cc:32
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_edit.cc:483
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:65
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:66
 msgid "Special Characters"
 msgstr "특수 문자"
 
@@ -2809,11 +2861,11 @@ msgstr "최근 사용한 노트를 노트 이름 헤더에 표시"
 msgid "Select Node Icon"
 msgstr "노트 아이콘 선택"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:95
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:103
 msgid "The Size of the Toolbar Icons is already at the Maximum Value"
 msgstr "도구 모음 아이콘은 이미 최대 크기입니다"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:106
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_view.cc:114
 msgid "The Size of the Toolbar Icons is already at the Minimum Value"
 msgstr "도구 모음 아이콘은 이미 최소 크기입니다"
 
@@ -2905,7 +2957,7 @@ msgid "Scalable Tags"
 msgstr "제목 태그 설정"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:358
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:101
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:102
 msgid "Monospace"
 msgstr "글자폭"
 
@@ -2916,8 +2968,8 @@ msgstr "디스크에 기록하고 있습니다 ..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:191
 #: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:197
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:343
-#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:350
+#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:346
+#: /home/giuspen/git/cherrytree/src/ct/ct_storage_control.cc:353
 #, c-format
 msgid "You Have No Write Access to %s"
 msgstr "%s 에 쓰기 권한이 없습니다"
@@ -3070,72 +3122,72 @@ msgstr "단일 파일"
 msgid "English"
 msgstr "English"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:61
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:62
 msgid "Text and Code"
 msgstr "텍스트와 코드"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:64
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:65
 msgid "Plain Text and Code"
 msgstr "형식이 있는 텍스트와 코드"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:67
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:68
 msgid "Theme"
 msgstr "테마"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:68
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:135
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:69
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:157
 msgid "Fonts"
 msgstr "글꼴"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:69
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:70
 msgid "Links"
 msgstr "링크"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:70
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:71
 msgid "Toolbar"
 msgstr "툴바"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:71
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:72
 msgid "Keyboard Shortcuts"
 msgstr "단축키"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:106
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:107
 msgid "Code Font"
 msgstr "코드 글꼴"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:108
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:109
 msgid "Tree Font"
 msgstr "Tree 글꼴"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:178
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:227
 msgid "Enable Custom Web Link Clicked Action"
 msgstr "사용자 지정 웹 링크 클릭 동작 활성화"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:180
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:229
 msgid "Enable Custom File Link Clicked Action"
 msgstr "사용자 지정 파일 링크 클릭 동작 활성화"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:182
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:231
 msgid "Enable Custom Folder Link Clicked Action"
 msgstr "사용자 지정 폴더 링크 클릭 동작 활성화"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:191
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:240
 msgid "Custom Actions"
 msgstr "사용자 설정 동작"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:229
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:278
 msgid "Colors"
 msgstr "색"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:232
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:281
 msgid "Underline Links"
 msgstr "링크 밑줄 표시"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:234
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:283
 msgid "Use Relative Paths for Files And Folders"
 msgstr "파일 및 폴더에 상대 경로 사용"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:237
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:286
 msgid "Anchor Size"
 msgstr "앵커 이미지의 크기"
 
@@ -3303,6 +3355,11 @@ msgstr "자신을 부모 노트가 될 수 없습니다!"
 msgid "The new chosen parent is still the old parent!"
 msgstr "현재 부모 노트가 선택되었습니다 이동하지 않습니다!"
 
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:719
+#, c-format
+msgid "%s Nodes Properties Changed"
+msgstr "%s 노트의 속성이 변경되었습니다"
+
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:66
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:199
 msgid "Width"
@@ -3357,30 +3414,30 @@ msgstr "CSV 파일에서 가져 오기"
 msgid "Remove Color"
 msgstr "Color 제거"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:278
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:262
 msgid "Question"
 msgstr "질문"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:293
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:277
 msgid "Info"
 msgstr "정보"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:321
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:305
 msgid "Error"
 msgstr "오류"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:330
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:332
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:314
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:316
 msgid "Select File"
 msgstr "파일 선택"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:360
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:362
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:344
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:346
 msgid "Select Folder"
 msgstr "폴더 선택"
 
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:379
-#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:381
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:363
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:365
 msgid "Save File as"
 msgstr "다른 이름으로 저장"
 
@@ -3440,9 +3497,6 @@ msgstr "기본값으로 초기화 하겠습니까?"
 
 #~ msgid "Find into the Selected Node and Subnodes Contents"
 #~ msgstr "선택 노트와 하위 노트의 내용 검색"
-
-#~ msgid "Find in _Nodes Names and Tags"
-#~ msgstr "노트 이름 및 태그를 검색(_N)"
 
 #~ msgid "Replace in _All Nodes Contents"
 #~ msgstr "모든 노트의 내용 치환(_A)"
