@@ -29,7 +29,6 @@ Depends:
  libgspell-1-1,
  libcurl4,
  libuchardet0,
- gnome-icon-theme,
  ${misc:Depends},
  ${shlibs:Depends}
 Description: hierarchical note taking application

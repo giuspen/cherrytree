@@ -32,7 +32,6 @@ Depends:
  libcurl4,
  libuchardet0,
  libspdlog1,
- gnome-icon-theme,
  ${misc:Depends},
  ${shlibs:Depends}
 Description: hierarchical note taking application
