@@ -78,14 +78,14 @@ private:
 private:
     void _on_clip_data_get(Gtk::SelectionData& selection_data, CtClipboardData* clip_data);
 
-private:
-    void _on_received_to_plain_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool force_plain_text);
-    void _on_received_to_rich_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
-    void _on_received_to_codebox(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
-    void _on_received_to_table(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool, CtTable* parentTable);
-    void _on_received_to_html(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
-    void _on_received_to_image(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
-    void _on_received_to_uri_list(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
+public:
+    void on_received_to_plain_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool force_plain_text);
+    void on_received_to_rich_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
+    void on_received_to_codebox(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
+    void on_received_to_table(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool, CtTable* parentTable);
+    void on_received_to_html(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
+    void on_received_to_image(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool);
+    void on_received_to_uri_list(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, const bool forcePlain, const bool fromDragNDrop = false);
 
 private:
     Glib::ustring _codebox_to_yaml(CtCodebox* codebox);

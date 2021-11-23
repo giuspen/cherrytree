@@ -460,4 +460,15 @@ const inline static std::vector<std::string> CT_FILE_EXTENSIONS_FILTER = {
     "*.ctb", "*.ctx", "*.ctd", "*.ctz"
 };
 
+const inline static Glib::ustring TARGET_CTD_PLAIN_TEXT = "UTF8_STRING";
+const inline static Glib::ustring TARGET_CTD_RICH_TEXT = "CTD_RICH";
+const inline static Glib::ustring TARGET_CTD_TABLE = "CTD_TABLE";
+const inline static Glib::ustring TARGET_CTD_CODEBOX = "CTD_CODEBOX";
+const inline static Glib::ustring TARGET_WIN_HTML = "HTML Format";
+const inline static std::vector<Glib::ustring> TARGETS_HTML = {"text/html", TARGET_WIN_HTML};
+const inline static Glib::ustring TARGET_URI_LIST = "text/uri-list";
+const inline static std::vector<Glib::ustring> TARGETS_PLAIN_TEXT = {"UTF8_STRING", "COMPOUND_TEXT", "STRING", "TEXT"};
+const inline static std::vector<Glib::ustring> TARGETS_IMAGES = {"image/png", "image/jpeg", "image/bmp", "image/tiff", "image/x-MS-bmp", "image/x-bmp"};
+const inline static Glib::ustring TARGET_WINDOWS_FILE_NAME = "FileName";
+
 }; // struct CtConst

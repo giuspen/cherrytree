@@ -186,20 +186,11 @@ void CtActions::codebox_handle()
     pCtCodebox->get_text_view().grab_focus();
 }
 
-// Embedded File Insert
-void CtActions::embfile_insert()
+void CtActions::embfile_insert_path(const std::string& filepath)
 {
     if (!_node_sel_and_rich_text()) return;
     if (!_is_curr_node_not_read_only_or_error()) return;
-    auto iter_insert = _curr_buffer()->get_insert()->get_iter();
 
-    CtDialogs::FileSelectArgs args{_pCtMainWin};
-    args.curr_folder = _pCtMainWin->get_ct_config()->pickDirFile;
-
-    std::string filepath = CtDialogs::file_select_dialog(args);
-    if (filepath.empty()) return;
-
-    _pCtMainWin->get_ct_config()->pickDirFile = Glib::path_get_dirname(filepath);
     if (fs::file_size(filepath) > static_cast<uintmax_t>(_pCtMainWin->get_ct_config()->embfileMaxSize * 1024 * 1024)) {
         bool is_sqlite = fs::get_doc_type(_pCtMainWin->get_ct_storage()->get_file_path()) == CtDocType::SQLite;
         auto message = str::format(_("The Maximum Size for Embedded Files is %s MB"), _pCtMainWin->get_ct_config()->embfileMaxSize);
@@ -219,7 +210,7 @@ void CtActions::embfile_insert()
                                                            name,
                                                            blob,
                                                            std::time(nullptr),
-                                                           iter_insert.get_offset(),
+                                                           _curr_buffer()->get_insert()->get_iter().get_offset(),
                                                            "",
                                                            CtImageEmbFile::get_next_unique_id()};
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
@@ -228,6 +219,19 @@ void CtActions::embfile_insert()
     _pCtMainWin->get_tree_store().addAnchoredWidgets(_pCtMainWin->curr_tree_iter(),
                                                      {pAnchoredWidget},
                                                      &_pCtMainWin->get_text_view());
+}
+
+void CtActions::embfile_insert()
+{
+    CtDialogs::FileSelectArgs args{_pCtMainWin};
+    args.curr_folder = _pCtMainWin->get_ct_config()->pickDirFile;
+
+    std::string filepath = CtDialogs::file_select_dialog(args);
+    if (filepath.empty()) return;
+
+    _pCtMainWin->get_ct_config()->pickDirFile = Glib::path_get_dirname(filepath);
+
+    embfile_insert_path(filepath);
 }
 
 // The Link Insert Button was Pressed

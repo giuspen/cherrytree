@@ -25,6 +25,7 @@
 #include "ct_text_view.h"
 #include "ct_actions.h"
 #include "ct_list.h"
+#include "ct_clipboard.h"
 
 std::unordered_map<std::string, GspellChecker*> CtTextView::_static_spell_checkers;
 
@@ -50,6 +51,9 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
     {
         set_border_window_size(textWinType, 1);
     }
+
+    signal_drag_data_received().connect(sigc::mem_fun(*this, &CtTextView::_on_drop_drag_data_received));
+
     // column edit signals
     signal_event_after().connect([&](GdkEvent* pEvent){
         switch (pEvent->type) {
@@ -82,22 +86,23 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
 
 void CtTextView::setup_for_syntax(const std::string& syntax)
 {
+    _syntaxHighlighting = syntax;
 #ifdef MD_AUTO_REPLACEMENT
-    if (_markdown_filter_active()) _md_handler->active(syntax == CtConst::RICH_TEXT_ID);
+    if (_markdown_filter_active()) _md_handler->active(_syntaxHighlighting == CtConst::RICH_TEXT_ID);
 #endif // MD_AUTO_REPLACEMENT
 
     std::string new_class;
-    if (CtConst::RICH_TEXT_ID == syntax)         { new_class = "ct-view-rich-text"; }
-    else if (CtConst::PLAIN_TEXT_ID == syntax)   { new_class = "ct-view-plain-text"; }
-    else                                         { new_class = "ct-view-code"; }
+    if (CtConst::RICH_TEXT_ID == _syntaxHighlighting)       { new_class = "ct-view-rich-text"; }
+    else if (CtConst::PLAIN_TEXT_ID == _syntaxHighlighting) { new_class = "ct-view-plain-text"; }
+    else                                                    { new_class = "ct-view-code"; }
 
     if (new_class != "ct-view-rich-text") get_style_context()->remove_class("ct-view-rich-text");
     if (new_class != "ct-view-plain-text") get_style_context()->remove_class("ct-view-plain-text");
     if (new_class != "ct-view-code") get_style_context()->remove_class("ct-view-code");
     get_style_context()->add_class(new_class);
 
-    if ( CtConst::RICH_TEXT_ID == syntax or
-         CtConst::TABLE_CELL_TEXT_ID == syntax )
+    if ( CtConst::RICH_TEXT_ID == _syntaxHighlighting or
+         CtConst::TABLE_CELL_TEXT_ID == _syntaxHighlighting )
     {
         set_highlight_current_line(_pCtMainWin->get_ct_config()->rtHighlCurrLine);
         if (_pCtMainWin->get_ct_config()->rtShowWhiteSpaces) {
@@ -850,4 +855,22 @@ void CtTextView::_special_char_replace(Glib::ustring special_char, Gtk::TextIter
     }
     _static_spell_checkers[lang] = gspell_checker;
     return gspell_checker;
+}
+
+void CtTextView::_on_drop_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
+                                             int /*x*/,
+                                             int /*y*/,
+                                             const Gtk::SelectionData& selection_data,
+                                             guint /*info*/,
+                                             guint /*time*/)
+{
+    if (CtConst::RICH_TEXT_ID == _syntaxHighlighting) {
+        for (const std::string& target : context->list_targets()) {
+            //spdlog::debug("Target: {} {}", target, selection_data.get_data_as_string());
+            if (CtConst::TARGET_URI_LIST == target) {
+                CtClipboard{_pCtMainWin}.on_received_to_uri_list(selection_data, this, false/*forcePlain*/, true/*fromDragNDrop*/);
+                break;
+            }
+        }
+    }
 }

@@ -336,6 +336,7 @@ public:
     void table_handle();
     void codebox_handle();
     void embfile_insert();
+    void embfile_insert_path(const std::string& filepath);
     void apply_tag_link();
     void anchor_handle();
     void toc_insert();

@@ -36,19 +36,6 @@
 #include "ct_logging.h"
 #include "ct_parser.h"
 
-
-// keep defines out of class scope, so _on_clip_data_getl can use them
-const Glib::ustring TARGET_CTD_PLAIN_TEXT = "UTF8_STRING";
-const Glib::ustring TARGET_CTD_RICH_TEXT = "CTD_RICH";
-const Glib::ustring TARGET_CTD_TABLE = "CTD_TABLE";
-const Glib::ustring TARGET_CTD_CODEBOX = "CTD_CODEBOX";
-const Glib::ustring TARGET_WIN_HTML = "HTML Format";
-const std::vector<Glib::ustring> TARGETS_HTML = {"text/html", TARGET_WIN_HTML};
-const Glib::ustring TARGET_URI_LIST = "text/uri-list";
-const std::vector<Glib::ustring> TARGETS_PLAIN_TEXT = {"UTF8_STRING", "COMPOUND_TEXT", "STRING", "TEXT"};
-const std::vector<Glib::ustring> TARGETS_IMAGES = {"image/png", "image/jpeg", "image/bmp", "image/tiff", "image/x-MS-bmp", "image/x-bmp"};
-const Glib::ustring TARGET_WINDOWS_FILE_NAME = "FileName";
-
 bool CtClipboard::_static_force_plain_text{false};
 
 CtClipboard::CtClipboard(CtMainWin* pCtMainWin)
@@ -145,45 +132,45 @@ void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* /*pCodeb
     // need to recreate CtClipboard, because 'this' will be destroyed
     auto get_target = [&](const std::vector<Glib::ustring>& targets) -> std::tuple<Glib::ustring, std::function<void(const Gtk::SelectionData&, CtMainWin*, Gtk::TextView*, bool)>, bool>
     {
-        auto received_plain_text = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard(win)._on_received_to_plain_text(s, v, force);};
-        auto received_rich_text = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard(win)._on_received_to_rich_text(s, v, force);};
-        auto received_codebox = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard(win)._on_received_to_codebox(s, v, force);};
-        auto received_table = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard(win)._on_received_to_table(s, v, force, nullptr);};
-        auto received_html = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard(win)._on_received_to_html(s, v, force);};
-        auto received_image = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard(win)._on_received_to_image(s, v, force);};
-        auto received_uri = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard(win)._on_received_to_uri_list(s, v, force);};
+        auto received_plain_text = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_plain_text(s, v, force); };
+        auto received_rich_text = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_rich_text(s, v, force); };
+        auto received_codebox = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_codebox(s, v, force); };
+        auto received_table = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_table(s, v, force, nullptr); };
+        auto received_html = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_html(s, v, force); };
+        auto received_image = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_image(s, v, force); };
+        auto received_uri = [](const Gtk::SelectionData& s, CtMainWin* win, Gtk::TextView* v, bool force) { CtClipboard{win}.on_received_to_uri_list(s, v, force); };
 
         if (CtClipboard::_static_force_plain_text)
-            for (auto& target: TARGETS_PLAIN_TEXT)
+            for (auto& target : CtConst::TARGETS_PLAIN_TEXT)
                 if (vec::exists(targets, target))
                     return std::make_tuple(target, received_plain_text, true);
         if (_pCtMainWin->curr_tree_iter().get_node_syntax_highlighting() == CtConst::RICH_TEXT_ID)
         {
-            if (vec::exists(targets, TARGET_CTD_RICH_TEXT))
-                return std::make_tuple(TARGET_CTD_RICH_TEXT, received_rich_text, false);
-            if (vec::exists(targets, TARGET_CTD_CODEBOX))
-                return std::make_tuple(TARGET_CTD_CODEBOX, received_codebox, false);
-            if (vec::exists(targets, TARGET_CTD_TABLE))
-                return std::make_tuple(TARGET_CTD_TABLE, received_table, false);
+            if (vec::exists(targets, CtConst::TARGET_CTD_RICH_TEXT))
+                return std::make_tuple(CtConst::TARGET_CTD_RICH_TEXT, received_rich_text, false);
+            if (vec::exists(targets, CtConst::TARGET_CTD_CODEBOX))
+                return std::make_tuple(CtConst::TARGET_CTD_CODEBOX, received_codebox, false);
+            if (vec::exists(targets, CtConst::TARGET_CTD_TABLE))
+                return std::make_tuple(CtConst::TARGET_CTD_TABLE, received_table, false);
 #if defined(_WIN32)
             // on win32 win html has priority
-            if (vec::exists(targets, TARGET_WIN_HTML))
-                return std::make_tuple(TARGET_WIN_HTML, received_html, false);
+            if (vec::exists(targets, CtConst::TARGET_WIN_HTML))
+                return std::make_tuple(CtConst::TARGET_WIN_HTML, received_html, false);
 #endif
-            for (auto& target: TARGETS_HTML)
+            for (auto& target: CtConst::TARGETS_HTML)
                 if (vec::exists(targets, target))
                     return std::make_tuple(target, received_html, false);
-            for (auto& target: TARGETS_IMAGES)
+            for (auto& target: CtConst::TARGETS_IMAGES)
                 if (vec::exists(targets, target))
                     return std::make_tuple(target, received_image, false);
         }
-        if (vec::exists(targets, TARGET_URI_LIST))
-            return std::make_tuple(TARGET_URI_LIST, received_uri, false);
-        for (auto& target: TARGETS_PLAIN_TEXT)
+        if (vec::exists(targets, CtConst::TARGET_URI_LIST))
+            return std::make_tuple(CtConst::TARGET_URI_LIST, received_uri, false);
+        for (auto& target: CtConst::TARGETS_PLAIN_TEXT)
             if (vec::exists(targets, target))
                 return std::make_tuple(target, received_plain_text, false);
-        if (vec::exists(targets, TARGET_WINDOWS_FILE_NAME))
-            return std::make_tuple(TARGET_WINDOWS_FILE_NAME, received_uri, false);
+        if (vec::exists(targets, CtConst::TARGET_WINDOWS_FILE_NAME))
+            return std::make_tuple(CtConst::TARGET_WINDOWS_FILE_NAME, received_uri, false);
         return std::make_tuple(Glib::ustring(), received_plain_text, false);
     };
 
@@ -204,18 +191,18 @@ void CtClipboard::table_row_to_clipboard(CtTable* pTable)
     pTable->to_xml(clip_data->xml_doc.create_root_node("root"), 0, nullptr);
     clip_data->html_text = CtExport2Html(_pCtMainWin).table_export_to_html(pTable);
 
-    _set_clipboard_data({TARGET_CTD_TABLE, TARGETS_HTML[0]}, clip_data);
+    _set_clipboard_data({CtConst::TARGET_CTD_TABLE, CtConst::TARGETS_HTML[0]}, clip_data);
 }
 
 void CtClipboard::table_row_paste(CtTable* pTable)
 {
     std::vector<Glib::ustring> targets = Gtk::Clipboard::get()->wait_for_targets();
-    if (vec::exists(targets, TARGET_CTD_TABLE))
+    if (vec::exists(targets, CtConst::TARGET_CTD_TABLE))
     {
         auto win = _pCtMainWin;
         Gtk::TextView* view = &_pCtMainWin->get_text_view();
-        auto received_table = [win, view, pTable](const Gtk::SelectionData& s) { CtClipboard(win)._on_received_to_table(s, view, false, pTable);};
-        Gtk::Clipboard::get()->request_contents(TARGET_CTD_TABLE, received_table);
+        auto received_table = [win, view, pTable](const Gtk::SelectionData& s) { CtClipboard{win}.on_received_to_table(s, view, false, pTable);};
+        Gtk::Clipboard::get()->request_contents(CtConst::TARGET_CTD_TABLE, received_table);
     }
 }
 
@@ -226,7 +213,7 @@ void CtClipboard::node_link_to_clipboard(CtTreeIter node)
     clip_data->rich_text = fmt::format(tml, node.get_node_id(), str::xml_escape(node.get_node_name()));
     clip_data->plain_text = "node: " + node.get_node_name();
 
-    _set_clipboard_data({TARGET_CTD_RICH_TEXT, TARGET_CTD_PLAIN_TEXT}, clip_data);
+    _set_clipboard_data({CtConst::TARGET_CTD_RICH_TEXT, CtConst::TARGET_CTD_PLAIN_TEXT}, clip_data);
 }
 
 void CtClipboard::anchor_link_to_clipboard(CtTreeIter node, const Glib::ustring& anchor_name)
@@ -236,7 +223,7 @@ void CtClipboard::anchor_link_to_clipboard(CtTreeIter node, const Glib::ustring&
     clip_data->rich_text = fmt::format(tml, node.get_node_id(), str::xml_escape(anchor_name), str::xml_escape(anchor_name));
     clip_data->plain_text = "anchor: " + anchor_name;
 
-    _set_clipboard_data({TARGET_CTD_RICH_TEXT, TARGET_CTD_PLAIN_TEXT}, clip_data);
+    _set_clipboard_data({CtConst::TARGET_CTD_RICH_TEXT, CtConst::TARGET_CTD_PLAIN_TEXT}, clip_data);
 }
 
 // Given text_buffer and selection, returns the rich text xml
@@ -349,7 +336,7 @@ void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buf
                 clip_data->html_text = CtExport2Html(_pCtMainWin).table_export_to_html(table);
                 clip_data->plain_text = CtExport2Txt(_pCtMainWin).get_table_plain(table);
 
-                _set_clipboard_data({TARGET_CTD_TABLE, TARGETS_HTML[0], TARGET_CTD_PLAIN_TEXT}, clip_data);
+                _set_clipboard_data({CtConst::TARGET_CTD_TABLE, CtConst::TARGETS_HTML[0], CtConst::TARGET_CTD_PLAIN_TEXT}, clip_data);
                 return;
             }
             else if (CtCodebox* codebox = dynamic_cast<CtCodebox*>(widget_vector.front()))
@@ -362,7 +349,7 @@ void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buf
                 else
                     clip_data->plain_text = CtExport2Txt(_pCtMainWin).get_codebox_plain(codebox);
 
-                _set_clipboard_data({TARGET_CTD_CODEBOX, TARGETS_HTML[0], TARGET_CTD_PLAIN_TEXT}, clip_data);
+                _set_clipboard_data({CtConst::TARGET_CTD_CODEBOX, CtConst::TARGETS_HTML[0], CtConst::TARGET_CTD_PLAIN_TEXT}, clip_data);
                 return;
             }
         }
@@ -377,15 +364,15 @@ void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buf
         clip_data->rich_text = rich_text_get_from_text_buffer_selection(_pCtMainWin->curr_tree_iter(), text_buffer, iter_sel_start, iter_sel_end);
         if (not CtClipboard::_static_force_plain_text)
         {
-            targets_vector = {TARGET_CTD_PLAIN_TEXT, TARGET_CTD_RICH_TEXT, TARGETS_HTML[0], TARGETS_HTML[1]};
+            targets_vector = {CtConst::TARGET_CTD_PLAIN_TEXT, CtConst::TARGET_CTD_RICH_TEXT, CtConst::TARGETS_HTML[0], CtConst::TARGETS_HTML[1]};
             if (pixbuf_target)
             {
                 clip_data->pix_buf = pixbuf_target->get_pixbuf();
-                targets_vector.push_back(TARGETS_IMAGES[0]);
+                targets_vector.push_back(CtConst::TARGETS_IMAGES[0]);
             }
         }
         else
-            targets_vector = {TARGET_CTD_PLAIN_TEXT};
+            targets_vector = {CtConst::TARGET_CTD_PLAIN_TEXT};
 
         _set_clipboard_data(targets_vector, clip_data);
     }
@@ -394,9 +381,9 @@ void CtClipboard::_selection_to_clipboard(Glib::RefPtr<Gtk::TextBuffer> text_buf
         clip_data->plain_text = text_buffer->get_text(iter_sel_start, iter_sel_end);
         std::vector<std::string> targets_vector;
         if (not CtClipboard::_static_force_plain_text)
-            targets_vector = {TARGET_CTD_PLAIN_TEXT, TARGETS_HTML[0], TARGETS_HTML[1]};
+            targets_vector = {CtConst::TARGET_CTD_PLAIN_TEXT, CtConst::TARGETS_HTML[0], CtConst::TARGETS_HTML[1]};
         else
-            targets_vector = {TARGET_CTD_PLAIN_TEXT};
+            targets_vector = {CtConst::TARGET_CTD_PLAIN_TEXT};
         _set_clipboard_data(targets_vector, clip_data);
     }
 }
@@ -410,7 +397,7 @@ void CtClipboard::_set_clipboard_data(const std::vector<std::string>& targets_li
     CtMainWin*  win = _pCtMainWin;
     // can't use this, because it will invalid, so make a copy
     auto clip_data_get = [win, clip_data](Gtk::SelectionData& selection_data, guint /*info*/){
-        CtClipboard(win)._on_clip_data_get(selection_data, clip_data);
+        CtClipboard{win}._on_clip_data_get(selection_data, clip_data);
     };
     auto clip_data_clear = [clip_data]() {
        delete clip_data;
@@ -422,16 +409,16 @@ void CtClipboard::_set_clipboard_data(const std::vector<std::string>& targets_li
 void  CtClipboard::_on_clip_data_get(Gtk::SelectionData& selection_data, CtClipboardData* clip_data)
 {
     Glib::ustring target = selection_data.get_target();
-    if (target == TARGET_CTD_PLAIN_TEXT)
+    if (target == CtConst::TARGET_CTD_PLAIN_TEXT)
         selection_data.set(target, 8, (const guint8*)clip_data->plain_text.c_str(), (int)clip_data->plain_text.bytes());
-    else if (target == TARGET_CTD_RICH_TEXT)
+    else if (target == CtConst::TARGET_CTD_RICH_TEXT)
         selection_data.set("UTF8_STRING", 8, (const guint8*)clip_data->rich_text.c_str(), (int)clip_data->rich_text.bytes());
-    else if (vec::exists(TARGETS_HTML, target))
+    else if (vec::exists(CtConst::TARGETS_HTML, target))
     {
 #ifndef _WIN32
         selection_data.set(target, 8, (const guint8*)clip_data->html_text.c_str(), (int)clip_data->html_text.bytes());
 #else
-        if (target == TARGETS_HTML[0])
+        if (target == CtConst::TARGETS_HTML[0])
         {
             glong utf16text_len = 0;
             g_autofree gunichar2* utf16text = g_utf8_to_utf16(clip_data->html_text.c_str(), (glong)clip_data->html_text.bytes(), nullptr, &utf16text_len, nullptr);
@@ -445,22 +432,22 @@ void  CtClipboard::_on_clip_data_get(Gtk::SelectionData& selection_data, CtClipb
         }
 #endif // _WIN32
     }
-    else if (target == TARGET_CTD_CODEBOX)
+    else if (target == CtConst::TARGET_CTD_CODEBOX)
     {
         Glib::ustring xml = clip_data->xml_doc.write_to_string();
         selection_data.set("UTF8_STRING", 8, (const guint8*)xml.c_str(), (int)xml.bytes());
     }
-    else if (target == TARGET_CTD_TABLE)
+    else if (target == CtConst::TARGET_CTD_TABLE)
     {
         Glib::ustring xml = clip_data->xml_doc.write_to_string();
         selection_data.set("UTF8_STRING", 8, (const guint8*)xml.c_str(), (int)xml.bytes());
     }
-    else if (target == TARGETS_IMAGES[0])
+    else if (target == CtConst::TARGETS_IMAGES[0])
         selection_data.set_pixbuf(clip_data->pix_buf);
 }
 
 // From Clipboard to Plain Text
-void CtClipboard::_on_received_to_plain_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool force_plain_text)
+void CtClipboard::on_received_to_plain_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool force_plain_text)
 {
     std::string plain_text = selection_data.get_text(); // returns UTF-8 string if text type recognised and could be converted to UTF-8; empty otherwise
     if (plain_text.empty()) {
@@ -525,7 +512,7 @@ void CtClipboard::_on_received_to_plain_text(const Gtk::SelectionData& selection
 }
 
 // From Clipboard to Rich Text
-void CtClipboard::_on_received_to_rich_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
+void CtClipboard::on_received_to_rich_text(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
 #ifdef __APPLE__
     Glib::ustring rich_text = selection_data.get_data_as_string();
@@ -543,7 +530,7 @@ void CtClipboard::_on_received_to_rich_text(const Gtk::SelectionData& selection_
 }
 
 // From Clipboard to CodeBox
-void CtClipboard::_on_received_to_codebox(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
+void CtClipboard::on_received_to_codebox(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
 #ifdef __APPLE__
     Glib::ustring xml_text = selection_data.get_data_as_string();
@@ -560,7 +547,7 @@ void CtClipboard::_on_received_to_codebox(const Gtk::SelectionData& selection_da
 }
 
 // From Clipboard to Table
-void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool, CtTable* parentTable)
+void CtClipboard::on_received_to_table(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool, CtTable* parentTable)
 {
 #ifdef __APPLE__
     Glib::ustring xml_text = selection_data.get_data_as_string();
@@ -626,7 +613,7 @@ void CtClipboard::_on_received_to_table(const Gtk::SelectionData& selection_data
 }
 
 // From Clipboard to HTML Text
-void CtClipboard::_on_received_to_html(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
+void CtClipboard::on_received_to_html(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
     std::string html_content = selection_data.get_text(); // returns UTF-8 string if text type recognised and could be converted to UTF-8; empty otherwise
     if (html_content.empty()) {
@@ -647,7 +634,7 @@ void CtClipboard::_on_received_to_html(const Gtk::SelectionData& selection_data,
 }
 
 // From Clipboard to Image
-void CtClipboard::_on_received_to_image(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
+void CtClipboard::on_received_to_image(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
 {
     Glib::RefPtr<const Gdk::Pixbuf> rPixbuf = selection_data.get_pixbuf();
     if (rPixbuf) {
@@ -661,7 +648,7 @@ void CtClipboard::_on_received_to_image(const Gtk::SelectionData& selection_data
 }
 
 // From Clipboard to URI list
-void CtClipboard::_on_received_to_uri_list(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, bool)
+void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_data, Gtk::TextView* pTextView, const bool /*forcePlain*/, const bool fromDragNDrop/*= false*/)
 {
     std::string uri_content = selection_data.get_text(); // returns UTF-8 string if text type recognised and could be converted to UTF-8; empty otherwise
     if (uri_content.empty()) {
@@ -670,80 +657,84 @@ void CtClipboard::_on_received_to_uri_list(const Gtk::SelectionData& selection_d
     }
     uri_content = str::sanitize_bad_symbols(uri_content);
 
-    if (_pCtMainWin->curr_tree_iter().get_node_syntax_highlighting() != CtConst::RICH_TEXT_ID)
-    {
-        Gtk::TextIter iter_insert = pTextView->get_buffer()->get_insert()->get_iter();
-        pTextView->get_buffer()->insert(iter_insert, uri_content);
+    auto pCtTextView = dynamic_cast<CtTextView*>(pTextView);
+    const std::string syntax_highlighting = pCtTextView ? pCtTextView->get_syntax_highlighting() : _pCtMainWin->curr_tree_iter().get_node_syntax_highlighting();
+    Glib::RefPtr<Gtk::TextBuffer> rTextBuffer = pTextView->get_buffer();
+    if (syntax_highlighting != CtConst::RICH_TEXT_ID) {
+        rTextBuffer->insert(rTextBuffer->get_insert()->get_iter(), uri_content);
     }
-    else
-    {
+    else {
         std::vector<Glib::ustring> uri_list = selection_data.get_uris();
-        for (auto& element: uri_list)
-        {
+        if (uri_list.empty() and not uri_content.empty()) {
+            for (const auto& uri : str::split(uri_content, "\r\n")) {
+                if (uri.size() > 0) {
+                    uri_list.push_back(uri);
+                }
+            }
+        }
+        for (auto& element : uri_list) {
             if (element.empty()) continue;
-            Gtk::TextIter iter_insert = pTextView->get_buffer()->get_insert()->get_iter();
-
             Glib::ustring property_value;
-            if (str::startswith_any(element, CtConst::WEB_LINK_STARTERS))
-            {
+            if (str::startswith_any(element, CtConst::WEB_LINK_STARTERS)) {
                 property_value = "webs " + element;
             }
-            else if (str::startswith(element, "file://"))
-            {
+            else if (str::startswith(element, "file://")) {
                 Glib::ustring file_path = element.substr(7);
                 file_path = str::replace(file_path, "%20", CtConst::CHAR_SPACE);
                 g_autofree gchar* mimetype = g_content_type_guess(file_path.c_str(), nullptr, 0, nullptr);
-                if (mimetype and str::startswith(mimetype, "image/") and Glib::file_test(file_path, Glib::FILE_TEST_IS_REGULAR))
-                {
-                    try
-                    {
+                if (mimetype and str::startswith(mimetype, "image/") and Glib::file_test(file_path, Glib::FILE_TEST_IS_REGULAR)) {
+                    try {
                         auto pixbuf = Gdk::Pixbuf::create_from_file(file_path);
-                        _pCtMainWin->get_ct_actions()->image_insert_png(iter_insert, pixbuf, "", "");
-                        iter_insert = pTextView->get_buffer()->get_insert()->get_iter();
-                        for (int i = 0; i < 3; ++i)
-                            pTextView->get_buffer()->insert(iter_insert, CtConst::CHAR_SPACE);
+                        _pCtMainWin->get_ct_actions()->image_insert_png(rTextBuffer->get_insert()->get_iter(), pixbuf, "", "");
+                        for (int i = 0; i < 3; ++i) {
+                            rTextBuffer->insert(rTextBuffer->get_insert()->get_iter(), CtConst::CHAR_SPACE);
+                        }
                         continue;
                     }
                     catch (...) {}
                 }
-                if (Glib::file_test(file_path, Glib::FILE_TEST_IS_DIR))
-                {
-                    property_value = "fold " + Glib::Base64::encode(file_path);
+                if (Glib::file_test(file_path, Glib::FILE_TEST_IS_DIR)) {
+                    if (not fromDragNDrop) {
+                        property_value = "fold " + Glib::Base64::encode(file_path);
+                    }
                 }
-                else if (Glib::file_test(file_path, Glib::FILE_TEST_IS_REGULAR))
-                {
-                    property_value = "file " + Glib::Base64::encode(file_path);
-                }
-                else
-                {
-                    property_value = "";
-                    //spdlog::error("discarded file uri {}", file_path);
-                }
-            }
-            else
-            {
-                if (Glib::file_test(element, Glib::FILE_TEST_IS_DIR))
-                    property_value = "fold " + Glib::Base64::encode(element);
-                else if (Glib::file_test(element, Glib::FILE_TEST_IS_REGULAR))
-                    property_value = "file " + Glib::Base64::encode(element);
-                else
-                {
-                    property_value = "";
-                    //spdlog::error("discarded ? uri {}", element);
+                else if (Glib::file_test(file_path, Glib::FILE_TEST_IS_REGULAR)) {
+                    if (not fromDragNDrop) {
+                        property_value = "file " + Glib::Base64::encode(file_path);
+                    }
+                    else {
+                        _pCtMainWin->get_ct_actions()->embfile_insert_path(file_path);
+                    }
                 }
             }
-            int start_offset = iter_insert.get_offset();
-            pTextView->get_buffer()->insert(iter_insert, element + CtConst::CHAR_NEWLINE);
-            if (not property_value.empty())
-            {
-                Gtk::TextIter iter_sel_start = pTextView->get_buffer()->get_iter_at_offset(start_offset);
-                Gtk::TextIter iter_sel_end = pTextView->get_buffer()->get_iter_at_offset(start_offset + (int)element.length());
-                pTextView->get_buffer()->apply_tag_by_name(_pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_LINK, property_value),
-                                                           iter_sel_start, iter_sel_end);
+            else {
+                if (Glib::file_test(element, Glib::FILE_TEST_IS_DIR)) {
+                    if (not fromDragNDrop) {
+                        property_value = "fold " + Glib::Base64::encode(element);
+                    }
+                }
+                else if (Glib::file_test(element, Glib::FILE_TEST_IS_REGULAR)) {
+                    if (not fromDragNDrop) {
+                        property_value = "file " + Glib::Base64::encode(element);
+                    }
+                    else {
+                        _pCtMainWin->get_ct_actions()->embfile_insert_path(element);
+                    }
+                }
+            }
+            if (not fromDragNDrop) {
+                int start_offset = rTextBuffer->get_insert()->get_iter().get_offset();
+                rTextBuffer->insert(rTextBuffer->get_insert()->get_iter(), element + CtConst::CHAR_NEWLINE);
+                if (not property_value.empty()) {
+                    Gtk::TextIter iter_sel_start = rTextBuffer->get_iter_at_offset(start_offset);
+                    Gtk::TextIter iter_sel_end = rTextBuffer->get_iter_at_offset(start_offset + (int)element.length());
+                    rTextBuffer->apply_tag_by_name(_pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_LINK, property_value),
+                                                   iter_sel_start, iter_sel_end);
+                }
             }
         }
     }
-    pTextView->scroll_to(pTextView->get_buffer()->get_insert());
+    pTextView->scroll_to(rTextBuffer->get_insert());
 }
 
 Glib::ustring CtClipboard::_codebox_to_yaml(CtCodebox *codebox)

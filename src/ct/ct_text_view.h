@@ -72,6 +72,7 @@ public:
         return _columnEdit.own_insert_delete_active();
     }
     guint64 get_todo_rotate_time() { return _todoRotateTime; }
+    std::string get_syntax_highlighting() { return _syntaxHighlighting; }
 
 private:
     bool          _apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor);
@@ -79,6 +80,13 @@ private:
     void          _special_char_replace(gunichar special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_insert);
     /// Replace the char between iter_start and iter_end with another one
     void          _special_char_replace(Glib::ustring special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
+
+    void _on_drop_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
+                                     int x,
+                                     int y,
+                                     const Gtk::SelectionData& selection_data,
+                                     guint info,
+                                     guint time);
 
 #ifdef MD_AUTO_REPLACEMENT
     bool          _markdown_filter_active();
@@ -98,4 +106,5 @@ private:
     CtMainWin*   _pCtMainWin;
     CtColumnEdit _columnEdit;
     guint32      _todoRotateTime{0};
+    std::string  _syntaxHighlighting;
 };
