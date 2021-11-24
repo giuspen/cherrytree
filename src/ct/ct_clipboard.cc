@@ -672,6 +672,7 @@ void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_da
                 }
             }
         }
+        bool subsequent_insert{false};
         for (auto& element : uri_list) {
             if (element.empty()) continue;
             Glib::ustring property_value;
@@ -694,44 +695,48 @@ void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_da
                     catch (...) {}
                 }
                 if (Glib::file_test(file_path, Glib::FILE_TEST_IS_DIR)) {
-                    if (not fromDragNDrop) {
-                        property_value = "fold " + Glib::Base64::encode(file_path);
-                    }
+                    property_value = "fold " + Glib::Base64::encode(file_path);
                 }
                 else if (Glib::file_test(file_path, Glib::FILE_TEST_IS_REGULAR)) {
                     if (not fromDragNDrop) {
                         property_value = "file " + Glib::Base64::encode(file_path);
                     }
                     else {
+                        if (subsequent_insert) {
+                            rTextBuffer->insert(rTextBuffer->get_insert()->get_iter(), CtConst::CHAR_NEWLINE);
+                        }
                         _pCtMainWin->get_ct_actions()->embfile_insert_path(file_path);
                     }
                 }
             }
             else {
                 if (Glib::file_test(element, Glib::FILE_TEST_IS_DIR)) {
-                    if (not fromDragNDrop) {
-                        property_value = "fold " + Glib::Base64::encode(element);
-                    }
+                    property_value = "fold " + Glib::Base64::encode(element);
                 }
                 else if (Glib::file_test(element, Glib::FILE_TEST_IS_REGULAR)) {
                     if (not fromDragNDrop) {
                         property_value = "file " + Glib::Base64::encode(element);
                     }
                     else {
+                        if (subsequent_insert) {
+                            rTextBuffer->insert(rTextBuffer->get_insert()->get_iter(), CtConst::CHAR_NEWLINE);
+                        }
                         _pCtMainWin->get_ct_actions()->embfile_insert_path(element);
                     }
                 }
             }
-            if (not fromDragNDrop) {
-                int start_offset = rTextBuffer->get_insert()->get_iter().get_offset();
-                rTextBuffer->insert(rTextBuffer->get_insert()->get_iter(), element + CtConst::CHAR_NEWLINE);
-                if (not property_value.empty()) {
-                    Gtk::TextIter iter_sel_start = rTextBuffer->get_iter_at_offset(start_offset);
-                    Gtk::TextIter iter_sel_end = rTextBuffer->get_iter_at_offset(start_offset + (int)element.length());
-                    rTextBuffer->apply_tag_by_name(_pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_LINK, property_value),
-                                                   iter_sel_start, iter_sel_end);
+            if (not property_value.empty()) {
+                if (subsequent_insert) {
+                    rTextBuffer->insert(rTextBuffer->get_insert()->get_iter(), CtConst::CHAR_NEWLINE);
                 }
+                const int start_offset = rTextBuffer->get_insert()->get_iter().get_offset();
+                rTextBuffer->insert(rTextBuffer->get_insert()->get_iter(), element);
+                Gtk::TextIter iter_sel_start = rTextBuffer->get_iter_at_offset(start_offset);
+                Gtk::TextIter iter_sel_end = rTextBuffer->get_iter_at_offset(start_offset + (int)element.length());
+                rTextBuffer->apply_tag_by_name(_pCtMainWin->get_text_tag_name_exist_or_create(CtConst::TAG_LINK, property_value),
+                                               iter_sel_start, iter_sel_end);
             }
+            subsequent_insert = true;
         }
     }
     pTextView->scroll_to(rTextBuffer->get_insert());

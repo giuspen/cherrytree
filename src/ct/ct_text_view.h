@@ -81,12 +81,12 @@ private:
     /// Replace the char between iter_start and iter_end with another one
     void          _special_char_replace(Glib::ustring special_char, Gtk::TextIter iter_start, Gtk::TextIter iter_end);
 
-    void _on_drop_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
-                                     int x,
-                                     int y,
-                                     const Gtk::SelectionData& selection_data,
-                                     guint info,
-                                     guint time);
+    void on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
+                               int x,
+                               int y,
+                               const Gtk::SelectionData& selection_data,
+                               guint info,
+                               guint time) override;
 
 #ifdef MD_AUTO_REPLACEMENT
     bool          _markdown_filter_active();

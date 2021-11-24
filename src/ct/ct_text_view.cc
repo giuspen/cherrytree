@@ -52,8 +52,6 @@ CtTextView::CtTextView(CtMainWin* pCtMainWin)
         set_border_window_size(textWinType, 1);
     }
 
-    signal_drag_data_received().connect(sigc::mem_fun(*this, &CtTextView::_on_drop_drag_data_received));
-
     // column edit signals
     signal_event_after().connect([&](GdkEvent* pEvent){
         switch (pEvent->type) {
@@ -857,20 +855,27 @@ void CtTextView::_special_char_replace(Glib::ustring special_char, Gtk::TextIter
     return gspell_checker;
 }
 
-void CtTextView::_on_drop_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
-                                             int /*x*/,
-                                             int /*y*/,
-                                             const Gtk::SelectionData& selection_data,
-                                             guint /*info*/,
-                                             guint /*time*/)
+void CtTextView::on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& context,
+                                       int x,
+                                       int y,
+                                       const Gtk::SelectionData& selection_data,
+                                       guint /*info*/,
+                                       guint time)
 {
-    if (CtConst::RICH_TEXT_ID == _syntaxHighlighting) {
-        for (const std::string& target : context->list_targets()) {
-            //spdlog::debug("Target: {} {}", target, selection_data.get_data_as_string());
-            if (CtConst::TARGET_URI_LIST == target) {
-                CtClipboard{_pCtMainWin}.on_received_to_uri_list(selection_data, this, false/*forcePlain*/, true/*fromDragNDrop*/);
-                break;
-            }
+    bool success{false};
+    for (const std::string& target : context->list_targets()) {
+        //spdlog::debug("Target: {} {}", target, selection_data.get_data_as_string());
+        if (CtConst::TARGET_URI_LIST == target) {
+            int xb, yb;
+            window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, x, y, xb, yb);
+            Gtk::TextIter text_iter;
+            int trailing;
+            get_iter_at_position(text_iter, trailing, xb, yb); // works better than get_iter_at_location though has an issue
+            get_buffer()->place_cursor(text_iter);
+            CtClipboard{_pCtMainWin}.on_received_to_uri_list(selection_data, this, false/*forcePlain*/, true/*fromDragNDrop*/);
+            success = true;
+            break;
         }
     }
+    context->drag_finish(success, false/*del*/, time);
 }
