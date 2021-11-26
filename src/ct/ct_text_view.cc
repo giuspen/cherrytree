@@ -863,19 +863,16 @@ void CtTextView::on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& con
                                        guint time)
 {
     bool success{false};
-    for (const std::string& target : context->list_targets()) {
-        //spdlog::debug("Target: {} {}", target, selection_data.get_data_as_string());
-        if (CtConst::TARGET_URI_LIST == target) {
-            int xb, yb;
-            window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, x, y, xb, yb);
-            Gtk::TextIter text_iter;
-            int trailing;
-            get_iter_at_position(text_iter, trailing, xb, yb); // works better than get_iter_at_location though has an issue
-            get_buffer()->place_cursor(text_iter);
-            CtClipboard{_pCtMainWin}.on_received_to_uri_list(selection_data, this, false/*forcePlain*/, true/*fromDragNDrop*/);
-            success = true;
-            break;
-        }
+    spdlog::debug("targets: {}", str::join(context->list_targets(), ", "));
+    if (vec::exists(context->list_targets(), CtConst::TARGET_URI_LIST)) {
+        int xb, yb;
+        window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, x, y, xb, yb);
+        Gtk::TextIter text_iter;
+        int trailing;
+        get_iter_at_position(text_iter, trailing, xb, yb); // works better than get_iter_at_location though has an issue
+        get_buffer()->place_cursor(text_iter);
+        CtClipboard{_pCtMainWin}.on_received_to_uri_list(selection_data, this, false/*forcePlain*/, true/*fromDragNDrop*/);
+        success = true;
     }
     context->drag_finish(success, false/*del*/, time);
 }
