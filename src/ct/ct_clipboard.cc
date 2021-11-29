@@ -167,6 +167,10 @@ void CtClipboard::_paste_clipboard(Gtk::TextView* pTextView, CtCodebox* /*pCodeb
         if (vec::exists(targets, CtConst::TARGET_WINDOWS_FILE_NAME))
             return std::make_tuple(CtConst::TARGET_WINDOWS_FILE_NAME, received_uri, false);
 #endif // _WIN32
+#ifdef __APPLE__
+        if (vec::exists(targets, "NSFilenamesPboardType"))
+            return std::make_tuple("NSFilenamesPboardType", received_uri, false);
+#endif // __APPLE__
         if (vec::exists(targets, CtConst::TARGET_URI_LIST))
             return std::make_tuple(CtConst::TARGET_URI_LIST, received_uri, false);
         for (auto& target : CtConst::TARGETS_PLAIN_TEXT)
@@ -670,11 +674,30 @@ void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_da
         std::vector<Glib::ustring> uri_list = selection_data.get_uris();
         //spdlog::debug("3: {}", uri_list.size());
         if (uri_list.empty() and not uri_content.empty()) {
+#ifdef __APPLE__
+            std::string::size_type startOffset{0};
+            const std::string tagStart{"<string>"};
+            const std::string tagEnd{"</string>"};
+            do {
+                startOffset = uri_content.find(tagStart, startOffset);
+                if (std::string::npos == startOffset) {
+                    break;
+                }
+                startOffset += tagStart.size();
+                std::string::size_type endOffset = uri_content.find(tagEnd, startOffset);
+                if (std::string::npos == endOffset) {
+                    break;
+                }
+                uri_list.push_back(uri_content.substr(startOffset, endOffset-startOffset));
+                startOffset = endOffset + tagEnd.size();
+            } while (true);
+#else // !__APPLE__
             for (const auto& uri : str::split(uri_content, "\r\n")) {
-                if (uri.size() > 0) {
+                if (not uri.empty()) {
                     uri_list.push_back(uri);
                 }
             }
+#endif // !__APPLE__
         }
         bool subsequent_insert{false};
         for (auto& element : uri_list) {
@@ -707,6 +730,9 @@ void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_da
                     }
                     _pCtMainWin->get_ct_actions()->embfile_insert_path(file_path);
                 }
+                else {
+                    spdlog::debug("'{}' not dir or file", file_path);
+                }
             }
             else {
                 if (Glib::file_test(element, Glib::FILE_TEST_IS_DIR)) {
@@ -717,6 +743,9 @@ void CtClipboard::on_received_to_uri_list(const Gtk::SelectionData& selection_da
                         rTextBuffer->insert(rTextBuffer->get_insert()->get_iter(), CtConst::CHAR_NEWLINE);
                     }
                     _pCtMainWin->get_ct_actions()->embfile_insert_path(element);
+                }
+                else {
+                    spdlog::debug("'{}' not dir or file", element);
                 }
             }
             if (not property_value.empty()) {
