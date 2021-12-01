@@ -145,7 +145,8 @@ std::optional<std::vector<std::string>> get_quick_check_issues(sqlite3* db)
     return rows;
 }
 
-bool CtStorageSqlite::_check_database_integrity() {
+bool CtStorageSqlite::_check_database_integrity()
+{
     auto corrupted_rows = get_quick_check_issues(_pDb);
     if (!corrupted_rows) return true;
 
@@ -154,9 +155,13 @@ bool CtStorageSqlite::_check_database_integrity() {
     for (const auto& corrupted_row : *corrupted_rows) {
         log_msg += fmt::format(": {}\n", corrupted_row);
     }
-    spdlog::warn(log_msg);
+    spdlog::error(log_msg);
 
-    CtDialogs::warning_dialog(str::format(_("The database file %s is corrupt, see log for more details"), _file_path.string()), *_pCtMainWin);
+    const auto error_msg = _("The database file %s is corrupt, see log for more details") + std::string{"\n\n"} +
+        _("Backup files are by default 3 in the same folder of the corrupted document, with the same name plus trailing tildes (~, ~~, ~~~). Try first the backup with one tilde: copy the file to another directory, remove the trailing tilde and open with cherrytree. If it still fails, try the one with two tildes and if it still fails try the one with three tildes");
+    spdlog::error(error_msg);
+
+    CtDialogs::error_dialog(str::format(error_msg, _file_path.string()), *_pCtMainWin);
     return false;
 }
 
