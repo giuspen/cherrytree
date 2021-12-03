@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg378"
+   height="480"
+   width="640"
+   version="1"
+   y="0"
+   x="0"
+   sodipodi:docname="cn.svg"
+   inkscape:version="0.92.0 r">
+  <defs
+     id="defs10">
+    <clipPath
+       id="clipPath3133"
+       clipPathUnits="userSpaceOnUse">
+      <rect
+         style="fill-opacity:0.67000002"
+         id="rect3135"
+         height="512"
+         width="682.66998"
+         y="7.1053998e-15"
+         x="-85.333" />
+    </clipPath>
+    <clipPath
+       id="clipPath3688"
+       clipPathUnits="userSpaceOnUse">
+      <rect
+         style="fill-opacity:0.67000002"
+         id="rect3690"
+         height="480"
+         width="640"
+         y="32"
+         x="-78.014999" />
+    </clipPath>
+    <clipPath
+       id="clipPath3605"
+       clipPathUnits="userSpaceOnUse">
+      <rect
+         style="fill-opacity:0.67000002"
+         id="rect3607"
+         height="512"
+         width="682.66998"
+         y="-1.9137999e-06"
+         x="-19.451" />
+    </clipPath>
+    <clipPath
+       id="clipPath4935"
+       clipPathUnits="userSpaceOnUse">
+      <rect
+         style="fill-opacity:0.67000002"
+         id="rect4937"
+         height="90"
+         width="120"
+         y="0"
+         x="0" />
+    </clipPath>
+    <clipPath
+       id="clipPath5745"
+       clipPathUnits="userSpaceOnUse">
+      <rect
+         style="fill-opacity:0.67000002"
+         id="rect5747"
+         height="512"
+         width="682.66998"
+         y="1.25e-05"
+         x="-84.948997" />
+    </clipPath>
+    <clipPath
+       id="clipPath5171"
+       clipPathUnits="userSpaceOnUse">
+      <rect
+         style="fill-opacity:0.67000002"
+         id="rect5173"
+         height="480"
+         width="640"
+         y="0"
+         x="0" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3010">
+      <rect
+         style="fill:#000000;stroke:none"
+         id="rect3012"
+         width="26.666668"
+         height="20"
+         x="-5"
+         y="-15.400001" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="733"
+     inkscape:window-height="585"
+     id="namedview8"
+     showgrid="false"
+     inkscape:zoom="0.69532167"
+     inkscape:cx="301.61105"
+     inkscape:cy="274.69909"
+     inkscape:window-x="1154"
+     inkscape:window-y="58"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg378" />
+  <metadata
+     id="metadata4346">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="flag"
+     transform="matrix(23.982044,0,0,23.946089,119.91021,369.84801)"
+     clip-path="url(#clipPath3010)"
+     inkscape:label="#g3000">
+    <rect
+       style="fill:#de2910"
+       id="rect6"
+       height="20"
+       width="30"
+       y="-15.4"
+       x="-5" />
+    <polygon
+       style="fill:#ffde00"
+       transform="matrix(5.84028e-6,0,0,5.84028e-6,0,-10.4)"
+       points="-488533,-158734 488533,-158734 -301930,415571 0,-513674 301930,415571 "
+       id="use11" />
+    <polygon
+       style="fill:#ffde00"
+       transform="matrix(-1.0015999e-6,-1.6693329e-6,1.6693329e-6,-1.0015999e-6,4.9999996,-13.400001)"
+       points="-488533,-158734 488533,-158734 -301930,415571 0,-513674 301930,415571 "
+       id="use13" />
+    <polygon
+       style="fill:#ffde00"
+       transform="matrix(-2.7531343e-7,-1.9271941e-6,1.9271941e-6,-2.7531343e-7,7,-11.4)"
+       points="-488533,-158734 488533,-158734 -301930,415571 0,-513674 301930,415571 "
+       id="use15" />
+    <polygon
+       style="fill:#ffde00"
+       transform="matrix(5.3481611e-7,-1.8718564e-6,1.8718564e-6,5.3481611e-7,6.9999999,-8.4)"
+       points="-488533,-158734 488533,-158734 -301930,415571 0,-513674 301930,415571 "
+       id="use17" />
+    <polygon
+       style="fill:#ffde00"
+       transform="matrix(1.2161313e-6,-1.5201642e-6,1.5201642e-6,1.2161313e-6,5,-6.4)"
+       points="-488533,-158734 488533,-158734 -301930,415571 0,-513674 301930,415571 "
+       id="use19" />
+  </g>
+</svg>

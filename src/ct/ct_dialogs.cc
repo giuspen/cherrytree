@@ -425,6 +425,7 @@ MA 02110-1301, USA.
  _("Armenian")+" (hy) Seda Stamboltsyan <sedastam@yandex.com>"+CtConst::CHAR_NEWLINE+
  _("Bulgarian")+" (bg) Iliya Nikolaev <iliya.nikolaev@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Chinese Simplified")+" (zh_CN) Wang Yu <krwy0330@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Chinese Traditional")+" (zh_TW) Emer Chen <ldsemerchen@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Croatian")+" (hr) Filip Bakula <filip.test46@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Czech")+" (cs) Pavel Fric <fripohled@blogspot.com>"+CtConst::CHAR_NEWLINE+
  _("Dutch")+" (nl) Luuk Geurts, Patrick Vijgeboom <pj.vijgeboom@gmail.com>"+CtConst::CHAR_NEWLINE+
@@ -432,14 +433,14 @@ MA 02110-1301, USA.
  _("French")+" (fr) Klaus Becker <colonius@free.fr>"+CtConst::CHAR_NEWLINE+
  _("German")+" (de) Matthias Hoffmann <MHoffi@web.de>"+CtConst::CHAR_NEWLINE+
  _("Greek")+" (el) Delphina <delphina.2009@yahoo.gr>"+CtConst::CHAR_NEWLINE+
- _("Italian")+" (it) Giuseppe Penone <giuspen@gmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Italian")+" (it) Vincenzo Reale <smart2128vr@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Japanese")+" (ja) Piyo <py2@live.jp>"+CtConst::CHAR_NEWLINE+
  _("Kazakh")+" (kk_KZ) Viktor Polyanskiy <camilot55@yandex.ru>"+CtConst::CHAR_NEWLINE+
  _("Korean")+" (ko) Sean Lee <icarusean@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Lithuanian")+" (lt) Zygis <zygimantus@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Polish")+" (pl) Marcin Swierczynski <orneo1212@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Portuguese")+" (pt) Rui Santos <ruiagfsantos@mail.com>"+CtConst::CHAR_NEWLINE+
- _("Portuguese Brazil")+" (pt_BR) Allan Felicio <allan_felicio@hotmail.com>"+CtConst::CHAR_NEWLINE+
+ _("Portuguese Brazil")+" (pt_BR) Rui Santos <ruiagfsantos@mail.com>"+CtConst::CHAR_NEWLINE+
  _("Romanian")+" (ro) Tudor Sprinceana <tudorsprinceana@yahoo.com>"+CtConst::CHAR_NEWLINE+
  _("Russian")+" (ru) Viktor Polyanskiy <camilot55@yandex.ru>"+CtConst::CHAR_NEWLINE+
  _("Slovenian")+" (sl) Erik Lovrič <erik.lovric@gmail.com>"+CtConst::CHAR_NEWLINE+

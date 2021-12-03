@@ -247,9 +247,9 @@ const inline static gchar* TOOLBAR_VEC_DEFAULT {
 
 const inline static gchar* LANG_DEFAULT{"default"};
 
-const inline static std::array<const gchar*, 27> AVAILABLE_LANGS {
+const inline static std::array<const gchar*, 28> AVAILABLE_LANGS {
     LANG_DEFAULT, "bg", "cs", "de", "el", "en", "es", "fi", "fr", "hr", "hy", "it",
-    "ja", "kk_KZ", "ko", "lt", "nl", "pl", "pt", "pt_BR", "ro", "ru", "sl", "sv", "tr", "uk", "zh_CN"
+    "ja", "kk_KZ", "ko", "lt", "nl", "pl", "pt", "pt_BR", "ro", "ru", "sl", "sv", "tr", "uk", "zh_CN", "zh_TW"
 };
 
 const inline static int NODE_ICON_CODE_ID          {38};

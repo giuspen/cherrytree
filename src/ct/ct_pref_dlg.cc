@@ -55,7 +55,8 @@ CtPrefDlg::CtPrefDlg(CtMainWin* parent)
         {"sv", _("Swedish")},
         {"tr", _("Turkish")},
         {"uk", _("Ukrainian")},
-        {"zh_CN", _("Chinese Simplified")}}
+        {"zh_CN", _("Chinese Simplified")},
+        {"zh_TW", _("Chinese Traditional")}}
 {
     auto pNotebook = Gtk::manage(new Gtk::Notebook{});
     pNotebook->set_tab_pos(Gtk::PositionType::POS_LEFT);
