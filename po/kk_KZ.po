@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-04 22:17+0100\n"
-"PO-Revision-Date: 2021-05-13 00:28+0600\n"
+"PO-Revision-Date: 2021-12-04 19:48+0500\n"
 "Last-Translator: Viktor Polyanskiy <camilot55@yandex.ru>\n"
 "Language-Team: Kazakh<camilot55@yandex.ru>\n"
 "Language: kk_KZ\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Language: kk_KZ\n"
 "X-Source-Language: C\n"
-"X-Generator: Poedit 2.4.3\n"
+"X-Generator: Poedit 3.0\n"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_export2pdf.cc:481
 msgid "Warning: One or More Images Were Reduced to Enter the Page"
@@ -188,7 +188,7 @@ msgstr "Түр"
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:49
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:55
 msgid "_Bookmarks"
-msgstr "Бетбелгiлердi тiзбе"
+msgstr "Бетбелгілер"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:50
 msgid "_Help"
@@ -1222,7 +1222,7 @@ msgstr "Бетбелгiлермен басқару"
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:244
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:33
 msgid "Handle the Bookmarks List"
-msgstr "Бетбелгiлердi тiзбе"
+msgstr "Бетбелгілер"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:245
 msgid "Add to _Bookmarks"
@@ -1407,7 +1407,19 @@ msgstr ""
 "\n"
 "Тармақ мазмұнындағы мәтінді\n"
 "немесе басқа мазмұнды іздеу"
- 
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:279
+msgid "Find in _Nodes Names and Tags"
+msgstr "Бұтақ атымен және тэгтер"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:280
+msgid "Find in Nodes Names and Tags"
+msgstr ""
+"Бұтақ атымен және тэгтер\n"
+"\n"
+"Мәтiннiң iздестiруi немесе бұтақ \n"
+"басқа iшiндегi атымен және тэгтер"
+
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:279
 msgid "Find _Again"
 msgstr "Келесi iзделу..."
@@ -1480,6 +1492,17 @@ msgstr ""
 "табылған iздестiруде көрсетсiн немесе \n"
 "ауыстырудың жанында iшiндегi"
 
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:295
+msgid "_Clear All Exclusions From Search"
+msgstr "Барлық іздеу ерекшеліктерін өшіріңіз"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:296
+msgid "Clear All Tree Nodes Properties of Exclusions From Search"
+msgstr ""
+"Барлық іздеу ерекшеліктерін өшіріңіз\n"
+"\n"
+"Іздеу ерекшеліктерінен ағаш бұтақтарының барлық сипаттарын өшіріңіз"
+
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:294
 msgid "View"
 msgstr "Түр"
@@ -1497,6 +1520,17 @@ msgstr ""
 "ұсынуын қарауға рұқсат берген ағаштың \n"
 "шолушысы, және оның бұтақтары бойымен \n"
 "тез орын ауыстыру"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:301
+msgid "Show/Hide _Menubar"
+msgstr "Басты мәзір"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:302
+msgid "Toggle Show/Hide Menubar"
+msgstr ""
+"Басты мәзір\n"
+"\n"
+"Басты мәзір Көрсету/Жасыру"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:297
 msgid "Show/Hide Tool_bar"
@@ -1539,7 +1573,7 @@ msgstr ""
 "\n"
 "Көрсету/Жасыру байланыс желісі баратын\n"
 "ата-аналар атынан бұтақтары еншілес"
-  
+
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:303
 msgid "Show/Hide Node Name _Header"
 msgstr "Тақырып"
@@ -1595,6 +1629,28 @@ msgstr ""
 "Экран тарт\n"
 "\n"
 "Қолданба жазыл экран тарт"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:320
+msgid "Disable _Menubar in Titlebar"
+msgstr "Басты мәзір..."
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:321
+msgid "Do Not Place the Menubar in the Titlebar"
+msgstr ""
+"Басты мәзір...\n"
+"\n"
+"Негізгі мәзір жолағын терезе тақырыбының астына жылжытыңыз"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:324
+msgid "Enable _Menubar in Titlebar"
+msgstr "Басты мәзір..."
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:325
+msgid "Place the Menubar in the Titlebar"
+msgstr ""
+"Басты мәзір...\n"
+"\n"
+"Негізгі мәзір жолағын терезе тақырыбына жылжытыңыз"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:314
 msgid "Import"
@@ -2518,7 +2574,7 @@ msgid "Show the Full Path in the Node Name Header"
 msgstr "Тақырыпта жол тарал"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:92
-msgid "Dedicated Bookmarks Menu in Top Menu Bar"
+msgid "Dedicated Bookmarks Menu in Menubar"
 msgstr "Бетбелгiлердi басты мәзiрде тiзбе"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_misc.cc:93
@@ -2771,6 +2827,11 @@ msgstr "Литвалық"
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:49
 msgid "Polish"
 msgstr "Поляк"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:441
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:50
+msgid "Portuguese"
+msgstr "Португал"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:441
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:50
@@ -3299,7 +3360,7 @@ msgstr ""
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:184
 msgid "Only Selected Node and Subnodes"
-msgstr "Бұтағы еншілес" 
+msgstr "Бұтағы еншілес"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:186
 msgid "Show Iterated Find/Replace Dialog"
@@ -3698,11 +3759,11 @@ msgstr "Іздеуден шығару: "
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:132
 msgid "This Node"
-msgstr "Бұтақ: "
+msgstr "бұтақ "
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:134
 msgid "The Subnodes"
-msgstr "Еншілес: "
+msgstr "еншілес"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:140
 msgid "Read Only"
@@ -3902,16 +3963,8 @@ msgid "No CodeBox is Selected"
 msgstr "CodeBox таңдалған емес"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:449
-#, c-format
-msgid ""
-"You must associate a command to '%s'.\n"
-"Do so in the Preferences Dialog"
-msgstr ""
-"Сiз тiлмен пәрменге байланысуыңыз керек <b>' %s '</b>.\n"
-"\n"
-"Бұл қолданба теңшелiмдерiндегi жасауға болады"
-
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:461
+#, c-format
 msgid "Do you want to Execute the Code?"
 msgstr "Кодты орындайды ма?"
 
@@ -4011,6 +4064,10 @@ msgstr "Жаңа ата-ана бұтағы мүмкiн емес орын алм
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:538
 msgid "The new chosen parent is still the old parent!"
 msgstr "Атамен болып көрiнiп қойдыларды таңдалған жаңа ата-ана бұтағы!"
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:719
+msgid "%s Nodes Properties Changed"
+msgstr "%s қасиеттері тазартылды"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:66
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:199
@@ -4116,81 +4173,3 @@ msgstr "Leo құжат"
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.h:63
 msgid "Are you sure to Reset to Default?"
 msgstr "Үндемеу бойыншаға мағына қалпына келедi ме?"
-
-#~ msgid "Replace in Selected Node and Subnodes"
-#~ msgstr "Алмастырыл еншiлес тарал..."
-
-#~ msgid "Search in Selected Node and Subnodes"
-#~ msgstr "Табыл еншiлес тарал..."
-
-#~ msgid "Search in All Nodes"
-#~ msgstr "Табыл еншiлес тарал..."
-
-#~ msgid "Replace in Node Names..."
-#~ msgstr "Бұтақ атымен алмастырылу... "
-
-#~ msgid "Search For a Node Name..."
-#~ msgstr "Бұтақ атымен табылсын және тэгтер..."
-
-#~ msgid "Monospace Text Color Background"
-#~ msgstr "Моношрифта фон"
-
-#~ msgid "Find into All the Tree Nodes Contents"
-#~ msgstr ""
-#~ "Бұтақтардағы\n"
-#~ "\n"
-#~ "Мәтiннiң iздестiруi немесе барлық \n"
-#~ "бұтақтарды ұстауда басқа iшiндегi"
-
-#~ msgid "Find in _Selected Node and Subnodes Contents"
-#~ msgstr "Еншiлес тарал"
-
-#~ msgid "Find into the Selected Node and Subnodes Contents"
-#~ msgstr ""
-#~ "Еншiлес тарал\n"
-#~ "\n"
-#~ "Мәтiннiң iздестiруi немесе ұстауда \n"
-#~ "басқа iшiндегi еншiлес тарал"
-
-#~ msgid "Find in _Nodes Names and Tags"
-#~ msgstr "Бұтақ атымен және тэгтер"
-
-#~ msgid "Replace in _All Nodes Contents"
-#~ msgstr "Бұтақтардағы"
-
-#~ msgid "Replace into All the Tree Nodes Contents"
-#~ msgstr ""
-#~ "Бұтақтардағы\n"
-#~ "\n"
-#~ "Мәтiн алмастырылсын немесе \n"
-#~ "барлық бұтақтарда басқа iшiндегi"
-
-#~ msgid "Replace in _Selected Node and Subnodes Contents"
-#~ msgstr "Еншiлес тарал"
-
-#~ msgid "Replace into the Selected Node and Subnodes Contents"
-#~ msgstr ""
-#~ "Еншiлес тарал\n"
-#~ "\n"
-#~ "Мәтiн алмастырылсын немесе \n"
-#~ "басқа iшiндегi еншiлес тарал"
-
-#~ msgid "Replace in Nodes _Names"
-#~ msgstr "Бұтақ атымен"
-
-#~ msgid "Replace in Nodes Names"
-#~ msgstr ""
-#~ "Бұтақ атымен\n"
-#~ "\n"
-#~ "Мәтiн алмастырылсын немесе \n"
-#~ "бұтақ басқа iшiндегi атымен"
-
-#~ msgid "_Execute CodeBox Code"
-#~ msgstr "CodeBox кодты орындау"
-
-#~ msgid "Execute CodeBox Code"
-#~ msgstr ""
-#~ "CodeBox кодты орындау\n"
-#~ "\n"
-#~ "CodeBox код интерпретатордың көмегiмен \n"
-#~ "орындасын немесе компилятор"
