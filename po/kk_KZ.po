@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-04 22:17+0100\n"
-"PO-Revision-Date: 2021-12-04 19:48+0500\n"
+"PO-Revision-Date: 2021-12-05 23:08+0500\n"
 "Last-Translator: Viktor Polyanskiy <camilot55@yandex.ru>\n"
 "Language-Team: Kazakh<camilot55@yandex.ru>\n"
 "Language: kk_KZ\n"
@@ -3352,11 +3352,7 @@ msgstr "Бұл мазмұны бұтақтары"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:179
 msgid "Node Name and Tags"
-msgstr ""
-"Бұтақ атымен және тэгтер\n"
-"\n"
-"Мәтiннiң iздестiруi немесе бұтақ \n"
-"басқа iшiндегi атымен және тэгтер"
+msgstr "Бұтақ атымен және тэгтер"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:184
 msgid "Only Selected Node and Subnodes"

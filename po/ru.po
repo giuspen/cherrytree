@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: CherryTree\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-07 21:38+0000\n"
-"PO-Revision-Date: 2021-12-04 19:48+0500\n"
+"PO-Revision-Date: 2021-12-05 23:05+0500\n"
 "Last-Translator: Viktor Polyanskiy <camilot55@yandex.ru>\n"
 "Language-Team: Russian <camilot55@yandex.ru>\n"
 "Language: ru\n"
@@ -3382,11 +3382,7 @@ msgstr "В содержимом ветви"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:179
 msgid "Node Name and Tags"
-msgstr ""
-"В именах ветвей и тэгах\n"
-"\n"
-"Поиск текста или другого содержимого\n"
-"в именах ветвей и тэгах"
+msgstr "В именах ветвей и тэгах"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:184
 msgid "Only Selected Node and Subnodes"
