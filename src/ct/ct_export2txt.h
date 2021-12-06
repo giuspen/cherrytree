@@ -1,7 +1,9 @@
 /*
  * ct_export2txt.h
  *
- * Copyright 2017-2020 Giuseppe Penone <giuspen@gmail.com>
+ * Copyright 2009-2021
+ * Giuseppe Penone <giuspen@gmail.com>
+ * Evgenii Gurianov <https://github.com/txe>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +36,7 @@ public:
 public:
     Glib::ustring node_export_to_txt(CtTreeIter tree_iter, fs::path filepath, CtExportOptions export_options, int sel_start, int sel_end);
     void          nodes_all_export_to_txt(bool all_tree, fs::path export_dir, fs::path single_txt_filepath, CtExportOptions export_options);
-    Glib::ustring selection_export_to_txt(Glib::RefPtr<Gtk::TextBuffer> text_buffer, int sel_start, int sel_end, bool check_link_target);
+    Glib::ustring selection_export_to_txt(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, int sel_start, int sel_end, bool check_link_target);
 
     Glib::ustring get_table_plain(CtTable* table_orig);
     Glib::ustring get_codebox_plain(CtCodebox* codebox);

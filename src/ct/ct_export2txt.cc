@@ -1,7 +1,7 @@
 /*
  * ct_export2txt.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2021
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -39,7 +39,7 @@ Glib::ustring CtExport2Txt::node_export_to_txt(CtTreeIter tree_iter, fs::path fi
         }
         plain_text += CtConst::CHAR_SPACE + tree_iter.get_node_name() + CtConst::CHAR_NEWLINE;
     }
-    plain_text += selection_export_to_txt(tree_iter.get_node_text_buffer(), sel_start, sel_end, false);
+    plain_text += selection_export_to_txt(tree_iter, tree_iter.get_node_text_buffer(), sel_start, sel_end, false);
     plain_text += str::repeat(CtConst::CHAR_NEWLINE, 2);
     if (filepath != "")
         g_file_set_contents(filepath.c_str(), plain_text.c_str(), (gssize)plain_text.bytes(), nullptr);
@@ -76,10 +76,10 @@ void CtExport2Txt::nodes_all_export_to_txt(bool all_tree, fs::path export_dir, f
 }
 
 // Export the Buffer To Txt
-Glib::ustring CtExport2Txt::selection_export_to_txt(Glib::RefPtr<Gtk::TextBuffer> text_buffer, int sel_start, int sel_end, bool check_link_target)
+Glib::ustring CtExport2Txt::selection_export_to_txt(CtTreeIter tree_iter, Glib::RefPtr<Gtk::TextBuffer> text_buffer, int sel_start, int sel_end, bool check_link_target)
 {
     Glib::ustring plain_text;
-    std::list<CtAnchoredWidget*> widgets = _pCtMainWin->curr_tree_iter().get_anchored_widgets(sel_start, sel_end);
+    std::list<CtAnchoredWidget*> widgets = tree_iter.get_anchored_widgets(sel_start, sel_end);
 
     int start_offset = sel_start >= 0 ? sel_start : 0;
     for (CtAnchoredWidget* widget: widgets)

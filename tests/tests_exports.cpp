@@ -102,6 +102,7 @@ TEST_P(ExportsMultipleParametersTests, ChecksExports)
         std::string expectTxt = Glib::file_get_contents(expectTxt_path);
         std::string resultTxt = Glib::file_get_contents(tmpFilepath.string());
         ASSERT_FALSE(resultTxt.empty());
+        //g_file_set_contents(Glib::build_filename(UT::unitTestsDataDir, "test.export.txtt").c_str(), resultTxt.c_str(), -1, NULL);
         ASSERT_STREQ(expectTxt.c_str(), resultTxt.c_str());
     }
     else if (ExportType::Pdf == exportType) {

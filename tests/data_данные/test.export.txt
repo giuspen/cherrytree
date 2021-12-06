@@ -52,11 +52,20 @@ anchored widgets:
 
 codebox:
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def test_function:
+    print "hi there йцукенгшщз"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 anchor:
 
 
 table:
+
+| h1 | h2 |
+| йцукенгшщз | 2 |
+| 3 | 4 |
 
 
 image:
