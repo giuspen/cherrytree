@@ -276,7 +276,7 @@ void CtExport2Html::nodes_all_export_to_single_html(bool all_tree, const CtExpor
 // Creating the Tree Links Text - iter
 void CtExport2Html::_tree_links_text_iter(CtTreeIter tree_iter, Glib::ustring& tree_links_text, int tree_count_level, bool index_in_page)
 {
-    Glib::ustring href = _get_html_filename(tree_iter);
+    Glib::ustring href = str::replace(_get_html_filename(tree_iter), "'", "\\'");
     Glib::ustring node_name = tree_iter.get_node_name();
     if (tree_iter->children().empty())
     {
