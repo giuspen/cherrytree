@@ -843,7 +843,12 @@ void CtActions::text_row_down()
 // Remove trailing spaces/tabs
 void CtActions::strip_trailing_spaces()
 {
-    Glib::RefPtr<Gtk::TextBuffer> text_buffer = _curr_buffer();
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    if (not proof.text_view->get_buffer()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
+
+    auto text_buffer = proof.text_view->get_buffer();
+
     int cleaned_lines = 0;
     bool removed_something = true;
     while (removed_something) {
