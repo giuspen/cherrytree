@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-07 21:38+0000\n"
-"PO-Revision-Date: 2021-11-10 08:43+0100\n"
+"PO-Revision-Date: 2021-12-06 21:43+0100\n"
 "Last-Translator: Mr. Update\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -645,7 +645,7 @@ msgstr "Überschrift _1"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:171
 msgid "Toggle h1 Property of the Selected Text"
-msgstr "Überschrift 1 des markierten Textes umschalten"
+msgstr "Überschrift 1 im markierten Text umschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:172
 msgid "Toggle h_2 Property"
@@ -653,7 +653,7 @@ msgstr "Überschrift _2"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:173
 msgid "Toggle h2 Property of the Selected Text"
-msgstr "Überschrift 2 des markierten Textes umschalten"
+msgstr "Überschrift 2 im markierten Text umschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:174
 msgid "Toggle h_3 Property"
@@ -661,7 +661,7 @@ msgstr "Überschrift _3"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:175
 msgid "Toggle h3 Property of the Selected Text"
-msgstr "Überschrift 3 des markierten Textes umschalten"
+msgstr "Überschrift 3 im markierten Text umschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:176
 msgid "Toggle h_4 Property"
@@ -669,7 +669,7 @@ msgstr "Überschrift _4"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:177
 msgid "Toggle h4 Property of the Selected Text"
-msgstr "Überschrift _4 des markierten Textes umschalten"
+msgstr "Überschrift _4 im markierten Text umschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:178
 msgid "Toggle h_5 Property"
@@ -677,7 +677,7 @@ msgstr "Überschrift _5"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:179
 msgid "Toggle h5 Property of the Selected Text"
-msgstr "Überschrift _5 des markierten Textes umschalten"
+msgstr "Überschrift _5 im markierten Text umschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:180
 msgid "Toggle h_6 Property"
@@ -685,7 +685,7 @@ msgstr "Überschrift _6"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:181
 msgid "Toggle h6 Property of the Selected Text"
-msgstr "Überschrift _6 des markierten Textes umschalten"
+msgstr "Überschrift _6 im markierten Text umschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:182
 msgid "Toggle _Small Property"
@@ -797,7 +797,7 @@ msgstr "Werkzeuge"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:210
 msgid "Enable/Disable _Spell Check"
-msgstr "Rechtschreibprüfung ein/aus"
+msgstr "_Rechtschreibprüfung ein/aus"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:211
 msgid "Toggle Enable/Disable Spell Check"
@@ -805,7 +805,7 @@ msgstr "Rechtschreibprüfung ein/aus umschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:212
 msgid "Stri_p Trailing Spaces"
-msgstr "Leer_zeichen am Zeilenende löschen"
+msgstr "_Leerzeichen am Zeilenende löschen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:213
 msgid "Strip Trailing Spaces"
@@ -813,7 +813,7 @@ msgstr "Leerzeichen am Zeilenende löschen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:214
 msgid "_Command Palette"
-msgstr "Befehlspalette..."
+msgstr "_Befehlspalette..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:215
 msgid "Command Palette"
@@ -1069,7 +1069,7 @@ msgstr "In Knotennamen und Tags suchen..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:280
 msgid "Find in Nodes Names and Tags"
-msgstr "In Knotennamen und Tags suchen..."
+msgstr "In Knotennamen und Tags suchen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:281
 msgid "Find _Again"
@@ -1106,7 +1106,7 @@ msgstr "In mehreren Knoten ersetzen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:290
 msgid "Replace _Again"
-msgstr "_Weiter ersetzen"
+msgstr "_Erneut ersetzen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:291
 msgid "Iterate the Last Replace Operation"
@@ -1122,11 +1122,11 @@ msgstr "Dialog für mehrfaches Suchen/Ersetzen anzeigen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:295
 msgid "_Clear All Exclusions From Search"
-msgstr "Lösche alle Suchausnahmen"
+msgstr "Alle Suchausnahmen löschen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:296
 msgid "Clear All Tree Nodes Properties of Exclusions From Search"
-msgstr "Lösche alle Knoteneigenschaften aus den Suchausnahmen"
+msgstr "Alle Knoteneigenschaften aus den Suchausnahmen löschen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:298
 msgid "View"
@@ -1218,7 +1218,7 @@ msgstr "Menüleiste in Titelleiste abschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:321
 msgid "Do Not Place the Menubar in the Titlebar"
-msgstr "Keine Menüleiste in Titelleiste platzieren"
+msgstr "Menüleiste nicht in Titelleiste platzieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:324
 msgid "Enable _Menubar in Titlebar"
@@ -1250,7 +1250,7 @@ msgstr "Knoten aus einer Textdatei im aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:333
 msgid "From _Folder of Plain Text Files"
-msgstr "_Verzeichnis mit Textdateien"
+msgstr "_Ordner mit Textdateien"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:334
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
@@ -1329,7 +1329,7 @@ msgstr "_NoteCase-HTML-Datei"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:356
 msgid "Add Nodes of a NoteCase HTML File to the Current Tree"
-msgstr "Knoten aus einer NoteCase HTML-Datei im aktuellen Baum einfügen"
+msgstr "Knoten aus einer NoteCase-HTML-Datei im aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:357
 msgid "From _RedNotebook HTML"
@@ -1349,15 +1349,15 @@ msgstr "Knoten aus einem Tomboy-Ordner im aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:362
 msgid "From T_reepad Lite File"
-msgstr "_Treepad Lite-Datei"
+msgstr "_Treepad-Lite-Datei"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:363
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
-msgstr "Knoten aus einer Treepad Lite-Datei im aktuellen Baum einfügen"
+msgstr "Knoten aus einer Treepad-Lite-Datei im aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:364
 msgid "From _Zim Folder"
-msgstr "_Zim-Verzeichnis"
+msgstr "_Zim-Ordner"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:365
 msgid "Add Nodes of a Zim Folder to the Current Tree"
@@ -1365,11 +1365,11 @@ msgstr "Knoten aus einem Zim-Verzeichnis im aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:367
 msgid "From File using _Pandoc"
-msgstr "Datei mittels Pandoc"
+msgstr "Datei mit Pandoc"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:368
 msgid "Add a node to the current tree using Pandoc"
-msgstr "Knoten mittels Pandoc im aktuellen Baum einfügen"
+msgstr "Knoten im aktuellen Baum mit Pandoc einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:370
 msgid "Export"
@@ -1377,19 +1377,19 @@ msgstr "_Export"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:371
 msgid "Export To _PDF"
-msgstr "_PDF"
+msgstr "_PDF-Datei"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:372
 msgid "Export To PDF"
-msgstr "In PDF exportieren"
+msgstr "In PDF-Datei exportieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:373
 msgid "Export To _HTML"
-msgstr "_HTML"
+msgstr "_HTML-Datei"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:374
 msgid "Export To HTML"
-msgstr "In HTML exportieren"
+msgstr "In HTML-Datei exportieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:375
 msgid "Export to Plain _Text"
@@ -2170,7 +2170,7 @@ msgstr "Polnisch"
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:441
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:50
 msgid "Portuguese"
-msgstr "Portugiesisch (Brasilien)"
+msgstr "Portugiesisch"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:442
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:51
@@ -2415,11 +2415,11 @@ msgstr "Hintergrundfarbe auswählen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:59
 msgid "Replace in Current Node..."
-msgstr "Ersetzen im ausgewählten Knoten..."
+msgstr "Ersetzen im ausgewählten Knoten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:59
 msgid "Search in Current Node..."
-msgstr "Suchen im ausgewählten Knoten..."
+msgstr "Suchen im ausgewählten Knoten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:108
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:248
@@ -3378,7 +3378,7 @@ msgstr "Der neue übergeordnete Knoten ist unverändert!"
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_tree.cc:719
 #, c-format
 msgid "%s Nodes Properties Changed"
-msgstr "Eigenschaften von Knoten %s geändert"
+msgstr "%s Knoteneigenschaften geändert"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:66
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_anch_widg.cc:199
