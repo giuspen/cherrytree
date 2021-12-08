@@ -1,14 +1,13 @@
-cherrytree (0.99.43-1) focal; urgency=low
+cherrytree (0.99.44-2) focal; urgency=low
 
-  * added action under top menu 'search' to clear all exclusions from the search; to be run from users finding unexpected exclusions from the search in tree nodes (auxiliary icons of ghosts, #1837)
-  * added action under top menu 'view' to enable/disable placing the menubar in the titlebar (#1815)
-  * unfullscreen doesn't work with the custom titlebar active (menubar in titlebar), so in this case we can only maximise/unmaximise when fullscreen/unfullscreen is requested
-  * implemented under top menu 'view' toggle show/hide menubar with default keyboard shortcut F12 (#1849)
-  * restored Ctrl+T keyboard shortcut to pop up unified search in multiple nodes dialog with only node name and tags selected (#1829)
-  * export to html of code do not use '&nbsp;' - use <pre></pre> instead
-  * fixed issue of code non syntax highlighted in exported pdf and html
-  * fixed wrong line number reported in search all matches dialog
-  * added new language Portuguese Portugal (work of Rui Santos)
+  * copy and paste of a file from the file manager to rich text results in the file being embedded/bundled in the document; on linux and mac os, multiple copy is also supported
+  * in linux the drag n drop of files from the file manager to rich text also results in the files being embedded/bundled in the document
+  * fix info dialog indicating pattern not found when pattern contains ampersand (#1876)
+  * fix export to html of multiple nodes, link to node/page not working when using an apostrophe in the node name/page title (#1869)
+  * fix export to plain text of multiple nodes with tables and/or codeboxes (#1880)
+  * strip trailing spaces action to work also inside codeboxes
+  * added new language Chinese Traditional (work of Emer Chen)
+  * updated languages: Korean, Turkish, Finnish, Spanish, Russian, Kazakh, German
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sun, 14 Nov 2021 19:42:44 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Wed, 08 Dec 2021 19:02:39 +0000
