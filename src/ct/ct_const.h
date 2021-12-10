@@ -259,7 +259,7 @@ const inline static int NODE_ICON_SIZE             {16};
 const inline static int MAX_TOOLTIP_LINK_CHARS     {150};
 
 // former NODES_STOCK
-const inline static std::array<const gchar*, 128> NODE_CUSTOM_ICONS {
+const inline static std::array<const gchar*, 129> NODE_CUSTOM_ICONS {
     nullptr,            // NEVER USED
     "ct_circle-green",  //  1
     "ct_circle-yellow", //  2
@@ -387,7 +387,8 @@ const inline static std::array<const gchar*, 128> NODE_CUSTOM_ICONS {
     "ct_ro",           // 124
     "ct_hr",           // 125
     "ct_ghost",        // 126
-    "ct_pt"            // 127
+    "ct_pt",           // 127
+    "ct_zh_TW"         // 128
 };
 
 // former NODES_ICONS
