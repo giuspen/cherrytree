@@ -572,7 +572,7 @@ void CtMainWin::menu_set_items_recent_documents()
 void CtMainWin::menu_set_visible_exit_app(bool visible)
 {
     if (auto quit_label = CtMenu::get_accel_label(CtMenu::find_menu_item(_pMenuBar, "quit_app"))) {
-        quit_label->set_label(visible ? _("Hide") : _("Quit"));
+        quit_label->set_label(visible ? _("_Hide") : _("_Quit"));
         quit_label->set_tooltip_markup(visible ?  _("Hide the Window") : _("Quit the Application"));
     }
     CtMenu::find_menu_item(_pMenuBar, "exit_app")->set_visible(visible);

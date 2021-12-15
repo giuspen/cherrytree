@@ -41,9 +41,9 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{"", "FileMenu", None, _("_File"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "EditMenu", None, _("_Edit"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "InsertMenu", None, _("_Insert"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "FormatMenu", None, _("_Format"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "FormatMenu", None, _("F_ormat"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "TreeMenu", None, _("_Tree"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "ToolsMenu", None, _("_Tools"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "ToolsMenu", None, _("Too_ls"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "SearchMenu", None, _("_Search"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "ViewMenu", None, _("_View"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "BookmarksMenu", None, _("_Bookmarks"), None, None, sigc::signal<void>()});
@@ -59,19 +59,19 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{"", "RecentDocsSubMenu", "ct_open", _("_Recent Documents"), None,
         _("Open a Recent CherryTree Document"), sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "ChangeCaseSubMenu", "ct_case_toggle", _("C_hange Case"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "ListSubMenu", "ct_list_bulleted", _("_List"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "ListSubMenu", "ct_list_bulleted", _("L_ist"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "JustifySubMenu", "ct_justify-center", _("_Justify"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "FontSubMenu", "ct_fonts", _("_Toggle Font Property"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "FontSubMenu", "ct_fonts", _("Toggle _Font Property"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "HeadingSubMenu", "ct_fmt-txt-h1", _("_Toggle Heading Property"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "InsertSubMenu", "ct_insert", _("I_nsert"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "FindSubMenu", "ct_find", _("_Find"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "ReplaceSubMenu", "ct_find_replace", _("_Replace"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "RowSubMenu", "ct_edit", _("_Row"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "FormattingSubMenu", "ct_fmt-txt", _("_Format"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "RowSubMenu", "ct_edit", _("Ro_w"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "FormattingSubMenu", "ct_fmt-txt", _("F_ormat"), None, None, sigc::signal<void>()});
 
     // main actions
     const char* file_cat = _("File");
-    _actions.push_back(CtMenuAction{file_cat, "ct_new_inst", "ct_new-instance", _("New _Instance"), None,
+    _actions.push_back(CtMenuAction{file_cat, "ct_new_inst", "ct_new-instance", _("_New Instance"), None,
         _("Start a New Instance of CherryTree"), sigc::mem_fun(*pActions, &CtActions::file_new)});
     _actions.push_back(CtMenuAction{file_cat, "ct_open_file", "ct_open", _("_Open File"), KB_CONTROL+"O",
         _("Open a CherryTree Document"), sigc::mem_fun(*pActions, &CtActions::file_open)});
@@ -83,7 +83,7 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Save File As"), sigc::mem_fun(*pActions, &CtActions::file_save_as)});
     _actions.push_back(CtMenuAction{file_cat, "print_page_setup", "ct_print", _("Pa_ge Setup"), None,
         _("Set up the Page for Printing"), sigc::mem_fun(*pActions, &CtActions::export_print_page_setup)});
-    _actions.push_back(CtMenuAction{file_cat, "do_print", "ct_print", _("_Print"), KB_CONTROL+"P",
+    _actions.push_back(CtMenuAction{file_cat, "do_print", "ct_print", _("P_rint"), KB_CONTROL+"P",
         _("Print"), sigc::mem_fun(*pActions, &CtActions::export_print)});
     _actions.push_back(CtMenuAction{file_cat, "preferences_dlg", "ct_preferences", _("_Preferences"), KB_CONTROL+KB_ALT+"P",
         _("Preferences"), sigc::mem_fun(*pActions, &CtActions::dialog_preferences) });
@@ -91,11 +91,11 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Import Preferences"), sigc::mem_fun(*pActions, &CtActions::preferences_import) });
     _actions.push_back(CtMenuAction{file_cat, "pref_export", "ct_export_from_cherrytree", _("_Export Preferences"), None,
         _("Export Preferences"), sigc::mem_fun(*pActions, &CtActions::preferences_export) });
-    _actions.push_back(CtMenuAction{file_cat, "tree_parse_info", "ct_info", _("Tree _Info"), None,
+    _actions.push_back(CtMenuAction{file_cat, "tree_parse_info", "ct_info", _("Tree In_fo"), None,
         _("Tree Summary Information"), sigc::mem_fun(*pActions, &CtActions::tree_info)});
     _actions.push_back(CtMenuAction{file_cat, "quit_app", "ct_quit-app", _("_Quit"), KB_CONTROL+"Q",
         _("Quit the Application"), sigc::mem_fun(*pActions, &CtActions::quit_or_hide_window)});
-    _actions.push_back(CtMenuAction{file_cat, "exit_app", "ct_quit-app", _("_Exit CherryTree"), KB_CONTROL+KB_SHIFT+"Q",
+    _actions.push_back(CtMenuAction{file_cat, "exit_app", "ct_quit-app", _("E_xit CherryTree"), KB_CONTROL+KB_SHIFT+"Q",
         _("Exit from CherryTree"), sigc::mem_fun(*pActions, &CtActions::quit_window)});
 
     const char* editor_cat = _("Edit/Insert");
@@ -117,7 +117,7 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Insert an Anchor"), sigc::mem_fun(*pActions, &CtActions::anchor_handle)});
     _actions.push_back(CtMenuAction{editor_cat, "insert_toc", "ct_index", _("Insert T_OC"), None,
         _("Insert Table of Contents"), sigc::mem_fun(*pActions, &CtActions::toc_insert)});
-    _actions.push_back(CtMenuAction{editor_cat, "insert_timestamp", "ct_timestamp", _("Insert Ti_mestamp"), KB_CONTROL+KB_ALT+"M",
+    _actions.push_back(CtMenuAction{editor_cat, "insert_timestamp", "ct_timestamp", _("Insert Timestam_p"), KB_CONTROL+KB_ALT+"M",
         _("Insert Timestamp"), sigc::mem_fun(*pActions, &CtActions::timestamp_insert)});
     _actions.push_back(CtMenuAction{editor_cat, "insert_special_char", "ct_insert", _("Insert _Special Character"), None,
         _("Insert a Special Character"), sigc::mem_fun(*pActions, &CtActions::special_char_insert)});
@@ -135,21 +135,21 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Copy as Plain Text, Discard the Rich Text Formatting"), sigc::mem_fun(*pActions, &CtActions::copy_as_plain_text)});
     _actions.push_back(CtMenuAction{editor_cat, "paste_plain", "ct_edit_paste", _("_Paste as Plain Text"), KB_CONTROL+KB_SHIFT+"V",
         _("Paste as Plain Text, Discard the Rich Text Formatting"), sigc::mem_fun(*pActions, &CtActions::paste_as_plain_text)});
-    _actions.push_back(CtMenuAction{editor_cat, "cut_row", "ct_edit_cut", _("Cu_t Row"), KB_SHIFT+KB_ALT+"X",
+    _actions.push_back(CtMenuAction{editor_cat, "cut_row", "ct_edit_cut", _("C_ut Row"), KB_SHIFT+KB_ALT+"X",
         _("Cut the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_cut)});
-    _actions.push_back(CtMenuAction{editor_cat, "copy_row", "ct_edit_copy", _("_Copy Row"), KB_SHIFT+KB_ALT+"C",
+    _actions.push_back(CtMenuAction{editor_cat, "copy_row", "ct_edit_copy", _("C_opy Row"), KB_SHIFT+KB_ALT+"C",
         _("Copy the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_copy)});
     _actions.push_back(CtMenuAction{editor_cat, "del_row", "ct_edit_delete", _("De_lete Row"), KB_CONTROL+"K",
         _("Delete the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_delete)});
     _actions.push_back(CtMenuAction{editor_cat, "dup_row", "ct_add", _("_Duplicate Row"), KB_CONTROL+"D",
         _("Duplicate the Current Row/Selection"), sigc::mem_fun(*pActions, &CtActions::text_row_selection_duplicate)});
-    _actions.push_back(CtMenuAction{editor_cat, "mv_up_row", "ct_go-up", _("Move _Up Row"), KB_ALT+CtConst::STR_KEY_UP,
+    _actions.push_back(CtMenuAction{editor_cat, "mv_up_row", "ct_go-up", _("_Move Up Row"), KB_ALT+CtConst::STR_KEY_UP,
         _("Move Up the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_up)});
-    _actions.push_back(CtMenuAction{editor_cat, "mv_down_row", "ct_go-down", _("Move _Down Row"), KB_ALT+CtConst::STR_KEY_DOWN,
+    _actions.push_back(CtMenuAction{editor_cat, "mv_down_row", "ct_go-down", _("Mo_ve Down Row"), KB_ALT+CtConst::STR_KEY_DOWN,
         _("Move Down the Current Row/Selected Rows"), sigc::mem_fun(*pActions, &CtActions::text_row_down)});
 
     const char* fmt_cat = _("Format");
-    _actions.push_back(CtMenuAction{fmt_cat, "fmt_clone", "ct_fmt-txt-clone", _("Format C_lone"), None,
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_clone", "ct_fmt-txt-clone", _("Format Clo_ne"), None,
         _("Clone the Text Format Type at Cursor"), sigc::mem_fun(*pActions, &CtActions::save_tags_at_cursor_as_latest)});
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_latest", "ct_fmt-txt-latest", _("Format _Latest"), "F7",
         _("Memory of Latest Text Format Type"), sigc::mem_fun(*pActions, &CtActions::apply_tags_latest)});
@@ -201,9 +201,9 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Justify Right the Current Paragraph"), sigc::mem_fun(*pActions, &CtActions::apply_tag_justify_right)});
     _actions.push_back(CtMenuAction{fmt_cat, "fmt_justify_fill", "ct_justify-fill", _("Justify _Fill"), None,
         _("Justify Fill the Current Paragraph"), sigc::mem_fun(*pActions, &CtActions::apply_tag_justify_fill)});
-    _actions.push_back(CtMenuAction{fmt_cat, "fmt_indent", "ct_fmt-indent", _("Indent Paragraph"), KB_CONTROL+KB_SHIFT+"greater",
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_indent", "ct_fmt-indent", _("_Indent Paragraph"), KB_CONTROL+KB_SHIFT+"greater",
         _("Indent the Current Paragraph"), sigc::mem_fun(*pActions, &CtActions::apply_tag_indent)});
-    _actions.push_back(CtMenuAction{fmt_cat, "fmt_unindent", "ct_fmt-unindent", _("Unindent Paragraph"), KB_CONTROL+KB_SHIFT+"less",
+    _actions.push_back(CtMenuAction{fmt_cat, "fmt_unindent", "ct_fmt-unindent", _("_Unindent Paragraph"), KB_CONTROL+KB_SHIFT+"less",
         _("Unindent the Current Paragraph"), sigc::mem_fun(*pActions, &CtActions::reduce_tag_indent)});
 
     const char* tools_cat = _("Tools");
@@ -384,7 +384,7 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Application's Online Manual"), sigc::mem_fun(*pActions, &CtActions::online_help)});
     _actions.push_back(CtMenuAction{help_cat, "ct_about", "ct_about", _("_About"), None,
         _("About CherryTree"), sigc::mem_fun(*pActions, &CtActions::dialog_about)});
-    _actions.push_back(CtMenuAction{help_cat, "open_cfg_folder", "ct_directory", _("Open Preferences _Directory"), None,
+    _actions.push_back(CtMenuAction{help_cat, "open_cfg_folder", "ct_directory", _("_Open Preferences Directory"), None,
         _("Open the Directory with Preferences Files"), sigc::mem_fun(*pActions, &CtActions::folder_cfg_open)});
 
     // add actions in the Windows for the toolbar
