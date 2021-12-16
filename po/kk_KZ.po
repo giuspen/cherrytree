@@ -2774,6 +2774,11 @@ msgstr "Болгарлық"
 msgid "Chinese Simplified"
 msgstr "Қытай жеңiлдетiлгенi"
 
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:427
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:59
+msgid "Chinese Traditional"
+msgstr "Қытай қарапайым"
+
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:428
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:41
 msgid "Croatian"
@@ -3098,6 +3103,14 @@ msgstr "Табыл тарал..."
 msgid "Matches"
 msgstr " сәйкестiктер"
 
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:134
+msgid "Replace in All Nodes..."
+msgstr "Бұтақтардағы алмастырылу..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:136
+msgid "Search in All Nodes..."
+msgstr "Табыл еншiлес тарал..."
+
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:281
 msgid "No Previous Search Was Performed During This Session"
 msgstr "Әлi де сiз iздестiру жүргiзiлдiңiз немесе мәтiннiң ауыстыруын"
@@ -3381,7 +3394,7 @@ msgstr "Орау/Қалпына келу ('%s')"
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:285
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:78
 msgid "Node Name"
-msgstr "Есiм"
+msgstr "Бұтақ"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:286
 msgid "Line"
@@ -3475,6 +3488,11 @@ msgstr ""
 "Файл: <b>\"%s\"</b> - зақымданған.\n"
 "\n"
 "Толық ақпарат үшiн сайға қараңыз."
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_storage_sqlite.cc:161
+#, c-format
+msgid "Backup files are by default 3 in the same folder of the corrupted document, with the same name plus trailing tildes (~, ~~, ~~~). Try first the backup with one tilde: copy the file to another directory, remove the trailing tilde and open with cherrytree. If it still fails, try the one with two tildes and if it still fails try the one with three tildes"
+msgstr "Әдепкі 3 сақтық көшірме файлдары бүлінген құжаттың бір қалтасында бірдей атаумен және соңғы тильдермен (~, ~~, ~~~). Алдымен бір тильдамен сақтық көшірме жасап көріңіз: файлды басқа каталогқа көшіріңіз, соңғы тильданы жойыңыз және cherrytree көмегімен ашыңыз. Егер ол әлі де сәтсіз болса, екі тильдамен опцияны қолданып көріңіз, егер ол әлі де сәтсіз болса, үш тильдамен опцияны қолданып көріңіз"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_storage_sqlite.cc:212
 #, c-format

@@ -2797,6 +2797,11 @@ msgstr "Болгарский"
 msgid "Chinese Simplified"
 msgstr "Китайский (упрощённый)"
 
+#: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:427
+#: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:59
+msgid "Chinese Traditional"
+msgstr "Китайский (традиционный)"
+
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:428
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:41
 msgid "Croatian"
@@ -3121,6 +3126,14 @@ msgstr "Найти в ветви..."
 msgid "Matches"
 msgstr " совпадений"
 
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:134
+msgid "Replace in All Nodes..."
+msgstr "Заменить в ветвях..."
+
+#: /home/giuseppe/git/cherrytree/src/ct/ct_actions_find.cc:136
+msgid "Search in All Nodes..."
+msgstr "Найти в ветвях..."
+
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:281
 msgid "No Previous Search Was Performed During This Session"
 msgstr "Вы ещё не проводили поиск или замену текста"
@@ -3378,7 +3391,7 @@ msgstr "По дате ветви..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:177
 msgid "Node Content"
-msgstr "В содержимом ветви"
+msgstr "В содержании ветви"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:179
 msgid "Node Name and Tags"
@@ -3386,7 +3399,7 @@ msgstr "В именах ветвей и тэгах"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:184
 msgid "Only Selected Node and Subnodes"
-msgstr "Ветвь с дочерними"
+msgstr "Только в выбранной ветви с дочерними"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:186
 msgid "Show Iterated Find/Replace Dialog"
@@ -3404,7 +3417,7 @@ msgstr "Свернуть/Восстановить ('%s')"
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:285
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:78
 msgid "Node Name"
-msgstr "Имя"
+msgstr "Ветвь"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:286
 msgid "Line"
@@ -3412,7 +3425,7 @@ msgstr "Строка"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:287
 msgid "Line Content"
-msgstr "Содержимое"
+msgstr "Содержание"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_find.cc:305
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:336
@@ -3498,6 +3511,11 @@ msgstr ""
 "Файл: <b>\"%s\"</b> - повреждён.\n"
 "\n"
 "Для подробной информации смотрите лог-файл."
+
+#: /home/giuspen/git/cherrytree/src/ct/ct_storage_sqlite.cc:161
+#, c-format
+msgid "Backup files are by default 3 in the same folder of the corrupted document, with the same name plus trailing tildes (~, ~~, ~~~). Try first the backup with one tilde: copy the file to another directory, remove the trailing tilde and open with cherrytree. If it still fails, try the one with two tildes and if it still fails try the one with three tildes"
+msgstr "Файлы резервных копий (по умолчанию 3) находятся в одной папке с повреждённым документом, с таким же именем плюс тильды (~, ~~, ~~~). Попробуйте сначала восстановить повреждённый файл из резервной копии файла с одной тильдой: скопируйте файл в другой каталог, удалите завершающую тильду и откройте с помощью CherryTree. Если не получилось, попробуйте с двумя тильдами, а если снова не получилось, попробуйте с тремя тильдами. Но а если снова не получилось тогда сожалею."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_storage_sqlite.cc:212
 #, c-format
@@ -3789,7 +3807,7 @@ msgstr "ветвь"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:134
 msgid "The Subnodes"
-msgstr "дочерняя ветвь"
+msgstr "дочерние ветви"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_tree.cc:140
 msgid "Read Only"
