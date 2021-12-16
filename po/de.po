@@ -1143,11 +1143,11 @@ msgstr "Baumstruktur anzeigen/ausblenden umschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:301
 msgid "Show/Hide _Menubar"
-msgstr "_Statusleiste anzeigen/ausblenden"
+msgstr "_Menüleiste anzeigen/ausblenden"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:302
 msgid "Toggle Show/Hide Menubar"
-msgstr "_Statusleiste anzeigen/ausblenden umschalten"
+msgstr "_Menüleiste anzeigen/ausblenden umschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:303
 msgid "Show/Hide Tool_bar"
