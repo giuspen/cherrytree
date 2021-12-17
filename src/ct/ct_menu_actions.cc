@@ -51,8 +51,8 @@ void CtMenu::init_actions(CtActions* pActions)
 
     // stubs for sumenu bar
     _actions.push_back(CtMenuAction{"", "TreeMoveSubMenu", "ct_go-jump", _("Node _Move"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "TreeSortSubMenu", "ct_sort-asc", _("Nodes _Sort"), None, None, sigc::signal<void>()});
-    _actions.push_back(CtMenuAction{"", "BookmarksSubMenu", "ct_pin", _("_Bookmarks"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "TreeSortSubMenu", "ct_sort-asc", _("Nod_es Sort"), None, None, sigc::signal<void>()});
+    _actions.push_back(CtMenuAction{"", "BookmarksSubMenu", "ct_pin", _("B_ookmarks"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "ImportSubMenu", CtConst::STR_STOCK_CT_IMP, _("_Import"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "ExportSubMenu", "ct_export_from_cherrytree", _("_Export"), None, None, sigc::signal<void>()});
     _actions.push_back(CtMenuAction{"", "PrefSubMenu", "ct_preferences", _("_Preferences"), None, None, sigc::signal<void>()});
@@ -223,26 +223,26 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Go to the Next Visited Node"), sigc::mem_fun(*pActions, &CtActions::node_go_forward)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_add_node", "ct_tree-node-add", _("Add _Node"), KB_CONTROL+"N",
         _("Add a Node having the same Parent of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_add)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_add_subnode", "ct_tree-subnode-add", _("Add _SubNode"), KB_CONTROL+KB_SHIFT+"N",
+    _actions.push_back(CtMenuAction{tree_cat, "tree_add_subnode", "ct_tree-subnode-add", _("Add _Subnode"), KB_CONTROL+KB_SHIFT+"N",
         _("Add a Child Node to the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_child_add)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_dup_node", "ct_tree-node-dupl", _("_Duplicate Node"), KB_CONTROL+KB_SHIFT+"D",
         _("Duplicate the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_duplicate)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_dup_node_subnodes", "ct_tree-nodesub-dupl", _("_Duplicate Node and Subnodes"), None,
+    _actions.push_back(CtMenuAction{tree_cat, "tree_dup_node_subnodes", "ct_tree-nodesub-dupl", _("Duplicate Node _and Subnodes"), None,
         _("Duplicate the Selected Node and the Subnodes"), sigc::mem_fun(*pActions, &CtActions::node_subnodes_duplicate)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_node_date", "ct_calendar", _("Insert Today's Node"), "F8",
+    _actions.push_back(CtMenuAction{tree_cat, "tree_node_date", "ct_calendar", _("Insert _Today's Node"), "F8",
         _("Insert a Node with Hierarchy Year/Month/Day"), sigc::mem_fun(*pActions, &CtActions::node_date)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_prop", "ct_cherry_edit", _("Change Node _Properties"), "F2",
         _("Edit the Properties of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_edit)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_toggle_ro", "ct_locked", _("Toggle _Read Only"), KB_CONTROL+KB_ALT+"R",
         _("Toggle the Read Only Property of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_toggle_read_only)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_node_link", "ct_node_link", _("Copy Link to Node"), None,
+    _actions.push_back(CtMenuAction{tree_cat, "tree_node_link", "ct_node_link", _("Cop_y Link to Node"), None,
         _("Copy Link to the Selected Node to Clipboard"), sigc::mem_fun(*pActions, &CtActions::node_link_to_clipboard)});
-    _actions.push_back(CtMenuAction{tree_cat, "child_nodes_inherit_syntax", "ct_execute", _("_Inherit Syntax"), None,
+    _actions.push_back(CtMenuAction{tree_cat, "child_nodes_inherit_syntax", "ct_execute", _("Children _Inherit Syntax"), None,
         _("Change the Selected Node's Children Syntax Highlighting to the Parent's Syntax Highlighting"),
         sigc::mem_fun(*pActions, &CtActions::node_inherit_syntax)});
     _actions.push_back(CtMenuAction{tree_cat, "handle_bookmarks", "ct_edit", _("_Handle Bookmarks"), None,
         _("Handle the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmarks_handle)});
-    _actions.push_back(CtMenuAction{tree_cat, "node_bookmark", "ct_pin-add", _("Add to _Bookmarks"), KB_CONTROL+KB_SHIFT+"B",
+    _actions.push_back(CtMenuAction{tree_cat, "node_bookmark", "ct_pin-add", _("Add to Boo_kmarks"), KB_CONTROL+KB_SHIFT+"B",
         _("Add the Current Node to the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmark_curr_node)});
     _actions.push_back(CtMenuAction{tree_cat, "node_unbookmark", "ct_pin-remove", _("_Remove from Bookmarks"), KB_CONTROL+KB_ALT+"B",
         _("Remove the Current Node from the Bookmarks List"), sigc::mem_fun(*pActions, &CtActions::bookmark_curr_node_remove)});
@@ -287,10 +287,10 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{find_cat, "replace_in_allnodes", "ct_replace_all",
         _("Replace in _Multiple Nodes"), KB_CONTROL+KB_SHIFT+"H",
         _("Replace in Multiple Nodes"), sigc::mem_fun(*pActions, &CtActions::replace_in_multiple_nodes)});
-    _actions.push_back(CtMenuAction{find_cat, "replace_iter_fw", "ct_replace_again", _("Replace _Again"), "F6",
+    _actions.push_back(CtMenuAction{find_cat, "replace_iter_fw", "ct_replace_again", _("Replace A_gain"), "F6",
         _("Iterate the Last Replace Operation"), sigc::mem_fun(*pActions, &CtActions::replace_again)});
     _actions.push_back(CtMenuAction{find_cat, "toggle_show_allmatches_dlg", "ct_find",
-        _("Show _All Matches Dialog"), KB_CONTROL+KB_SHIFT+"A",
+        _("Show All Matches _Dialog"), KB_CONTROL+KB_SHIFT+"A",
         _("Show Search All Matches Dialog"), sigc::mem_fun(*pActions, &CtActions::find_allmatchesdialog_restore)});
     _actions.push_back(CtMenuAction{find_cat, "tree_clear_exclude_from_search", "ct_clear", _("_Clear All Exclusions From Search"), None,
         _("Clear All Tree Nodes Properties of Exclusions From Search"), sigc::mem_fun(*pActions, &CtActions::tree_clear_property_exclude_from_search)});
@@ -314,14 +314,14 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Increase the Size of the Toolbar Icons"), sigc::mem_fun(*pActions, &CtActions::toolbar_icons_size_increase)});
     _actions.push_back(CtMenuAction{view_cat, "toolbar_icons_size_m", "ct_remove", _("_Decrease Toolbar Icons Size"), None,
         _("Decrease the Size of the Toolbar Icons"), sigc::mem_fun(*pActions, &CtActions::toolbar_icons_size_decrease)});
-    _actions.push_back(CtMenuAction{view_cat, "toggle_fullscreen", "ct_fullscreen", _("_Full Screen On/Off"), "F11",
+    _actions.push_back(CtMenuAction{view_cat, "toggle_fullscreen", "ct_fullscreen", _("Full Screen _On/Off"), "F11",
         _("Toggle Full Screen On/Off"), sigc::mem_fun(*pActions, &CtActions::fullscreen_toggle)});
     if (_pCtConfig->menubarInTitlebar) {
-        _actions.push_back(CtMenuAction{view_cat, "menubar_in_titlebar", "ct_mb_in_tb_no", _("Disable _Menubar in Titlebar"), None,
+        _actions.push_back(CtMenuAction{view_cat, "menubar_in_titlebar", "ct_mb_in_tb_no", _("Disable Menubar i_n Titlebar"), None,
             _("Do Not Place the Menubar in the Titlebar"), sigc::mem_fun(*pActions, &CtActions::disable_menubar_in_titlebar)});
     }
     else {
-        _actions.push_back(CtMenuAction{view_cat, "menubar_in_titlebar", "ct_mb_in_tb_yes", _("Enable _Menubar in Titlebar"), None,
+        _actions.push_back(CtMenuAction{view_cat, "menubar_in_titlebar", "ct_mb_in_tb_yes", _("Enable Menubar i_n Titlebar"), None,
             _("Place the Menubar in the Titlebar"), sigc::mem_fun(*pActions, &CtActions::enable_menubar_in_titlebar)});
     }
 
