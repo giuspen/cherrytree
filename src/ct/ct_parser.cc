@@ -577,13 +577,14 @@ void CtZimParser::feed(std::istream& data)
     bool found_header = false;
 
     try {
-        while(std::getline(data, line, '\n')) {
-            if (!found_header && line.find("Creation-Date:") != std::string::npos) {
+        while (std::getline(data, line, '\n')) {
+            if (not found_header) {
                 // Creation-Date: .* is the final line of the header
-                // TODO: Read the creation date and use it for ts_creation
-                found_header = true;
-
-            } else {
+                if (line.find("Creation-Date:") != std::string::npos) {
+                    found_header = true;
+                }
+            } 
+            else {
                 _parse_body_line(line);
             }
         }

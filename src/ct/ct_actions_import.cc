@@ -147,8 +147,8 @@ void CtActions::import_nodes_from_md_directory() noexcept
 
 void CtActions::import_nodes_from_zim_directory() noexcept
 {
-    CtZimImport importer(_pCtMainWin->get_ct_config());
-    _import_from_dir(&importer, "");
+    CtZimImport importer{_pCtMainWin->get_ct_config()};
+    _import_from_dir(&importer, Glib::build_filename(Glib::get_home_dir(), "Notebooks", "Notes"));
 }
 
 void CtActions::import_node_from_pandoc() noexcept
