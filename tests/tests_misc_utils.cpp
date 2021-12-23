@@ -430,3 +430,23 @@ TEST(MiscUtilsGroup, get_link_entry)
     ASSERT_STREQ("", CtMiscUtil::get_link_entry("/home/foo/bar").type.c_str());
     ASSERT_STREQ("", CtMiscUtil::get_link_entry("home https://example.com").type.c_str());
 }
+
+TEST(MiscUtilsGroup, get_is_camel_case)
+{
+    Glib::RefPtr<Gtk::TextBuffer> pTextBuffer = Gtk::TextBuffer::create();
+    {
+        const std::string notcamelcase{"notcamelcase"};
+        pTextBuffer->set_text(notcamelcase);
+        ASSERT_FALSE(CtTextIterUtil::get_is_camel_case(pTextBuffer->begin(), notcamelcase.size()));
+    }
+    {
+        const std::string yesCamel1{"yesCamel1"};
+        pTextBuffer->set_text(yesCamel1);
+        ASSERT_TRUE(CtTextIterUtil::get_is_camel_case(pTextBuffer->begin(), yesCamel1.size()));
+    }
+    {
+        const std::string yesCamel2{"YesCamel2"};
+        pTextBuffer->set_text(yesCamel2);
+        ASSERT_TRUE(CtTextIterUtil::get_is_camel_case(pTextBuffer->begin(), yesCamel2.size()));
+    }
+}

@@ -782,7 +782,7 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
             _pCtMainWin->get_ct_actions()->apply_tag(CtConst::TAG_LINK, property_value);
             tag_applied = true;
         }
-        else if (num_chars > 2 and CtTextIterUtil::get_is_camel_case(iter_start, num_chars)) {
+        else if (_pCtMainWin->get_ct_config()->camelCaseAutoLink and num_chars > 2 and CtTextIterUtil::get_is_camel_case(iter_start, num_chars)) {
             if (apply_tag_try_node_name(iter_start, iter_end)) {
                 tag_applied = true;
             }

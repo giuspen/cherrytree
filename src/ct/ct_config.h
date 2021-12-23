@@ -107,6 +107,7 @@ public:
     int                                         embfileMaxSize{10};
     bool                                        lineWrapping{true};
     bool                                        autoSmartQuotes{true};
+    bool                                        camelCaseAutoLink{true};
     bool                                        tripleClickParagraph{false};
     bool                                        enableSymbolAutoreplace{true};
 #ifdef MD_AUTO_REPLACEMENT

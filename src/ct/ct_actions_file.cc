@@ -178,6 +178,7 @@ void CtActions::preferences_import()
     pConfig->embfileMaxSize = ctConfigImported.embfileMaxSize;
     pConfig->lineWrapping = ctConfigImported.lineWrapping;
     pConfig->autoSmartQuotes = ctConfigImported.autoSmartQuotes;
+    pConfig->camelCaseAutoLink = ctConfigImported.camelCaseAutoLink;
     pConfig->tripleClickParagraph = ctConfigImported.tripleClickParagraph;
     pConfig->enableSymbolAutoreplace = ctConfigImported.enableSymbolAutoreplace;
     pConfig->wrappingIndent = ctConfigImported.wrappingIndent;
