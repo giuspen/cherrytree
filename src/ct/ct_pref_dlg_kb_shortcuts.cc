@@ -34,6 +34,7 @@ Gtk::Widget* CtPrefDlg::build_tab_kb_shortcuts()
     treeview->set_reorderable(true);
     treeview->set_size_request(300, 300);
     treeview->set_reorderable(false);
+    treeview->set_search_column(1);
 
     // icon column
     Gtk::CellRendererPixbuf pixbuf_renderer;
