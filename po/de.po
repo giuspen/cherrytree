@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-07 21:38+0000\n"
-"PO-Revision-Date: 2021-12-16 21:55+0100\n"
+"PO-Revision-Date: 2021-12-25 22:55+0100\n"
 "Last-Translator: Mr. Update\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_export2pdf.cc:481
 msgid "Warning: One or More Images Were Reduced to Enter the Page"
@@ -229,7 +229,7 @@ msgstr "_Groß-/Kleinschreibung"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:62
 msgid "_List"
-msgstr "_Liste"
+msgstr "Lis_te"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:63
 msgid "_Justify"
@@ -237,7 +237,7 @@ msgstr "Aus_richtung"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:64
 msgid "_Toggle Font Property"
-msgstr "_Schriftart umschalten auf"
+msgstr "Schriftart _umschalten auf"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:65
 msgid "_Toggle Heading Property"
@@ -330,7 +330,7 @@ msgstr "Einstellungen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:90
 msgid "_Import Preferences"
-msgstr "Einstellungen importieren..."
+msgstr "Einstellungen _importieren..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:91
 msgid "Import Preferences"
@@ -338,7 +338,7 @@ msgstr "Einstellungen importieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:92
 msgid "_Export Preferences"
-msgstr "Einstellungen exportieren..."
+msgstr "Einstellungen e_xportieren..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:93
 msgid "Export Preferences"
@@ -425,7 +425,7 @@ msgstr "Link einfügen/bearbeiten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:116
 msgid "Insert _Anchor"
-msgstr "An_ker einfügen..."
+msgstr "_Anker einfügen..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:117
 msgid "Insert an Anchor"
@@ -441,7 +441,7 @@ msgstr "Inhaltsverzeichnis einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:120
 msgid "Insert Ti_mestamp"
-msgstr "Zeitste_mpel einfügen"
+msgstr "_Zeitstempel einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:121
 msgid "Insert Timestamp"
@@ -457,7 +457,7 @@ msgstr "Sonderzeichen einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:124
 msgid "Insert _Horizontal Rule"
-msgstr "Ho_rizontale Linie einfügen"
+msgstr "_Horizontale Linie einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:125
 msgid "Insert Horizontal Rule"
@@ -465,7 +465,7 @@ msgstr "Horizontale Linie einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:126
 msgid "_Lower Case of Selection/Word"
-msgstr "_Kleinschreibung"
+msgstr "Auswahl/aktuelles Wort in _Kleinbuchstaben wandeln"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:127
 msgid "Lower the Case of the Selection/the Underlying Word"
@@ -473,7 +473,7 @@ msgstr "Auswahl/aktuelles Wort in Kleinbuchstaben wandeln"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:128
 msgid "_Upper Case of Selection/Word"
-msgstr "Auswahl/aktuelles Wort in Großbuchstaben wandeln"
+msgstr "Auswahl/aktuelles Wort in _Großbuchstaben wandeln"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:129
 msgid "Upper the Case of the Selection/the Underlying Word"
@@ -485,7 +485,7 @@ msgstr "Groß-/Kleinbuchstaben _invertieren in Auswahl/Wort"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:131
 msgid "Toggle the Case of the Selection/the Underlying Word"
-msgstr "Groß-/Kleinbuchstaben _invertieren in Auswahl/Wort"
+msgstr "Groß-/Kleinbuchstaben invertieren in Auswahl/Wort"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:132
 msgid "Cu_t as Plain Text"
@@ -570,7 +570,7 @@ msgstr "Format"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:152
 msgid "Format C_lone"
-msgstr "Formatierung übertragen"
+msgstr "_Formatierung übertragen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:153
 msgid "Clone the Text Format Type at Cursor"
@@ -602,7 +602,7 @@ msgstr "Schriftfarbe im markierten Text ändern"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:160
 msgid "Text C_olor Background"
-msgstr "Text-Hintergrundfarbe..."
+msgstr "_Text-Hintergrundfarbe..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:161
 msgid "Change the Color of the Selected Text Background"
@@ -714,7 +714,7 @@ msgstr "Tiefgestellt im markierten Text umschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:188
 msgid "Toggle _Monospace Property"
-msgstr "_Feste Breite"
+msgstr "Feste _Breite"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:189
 msgid "Toggle Monospace Property of the Selected Text"
@@ -778,7 +778,7 @@ msgstr "Aktuellen Absatz in Blocksatz formatieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:204
 msgid "Indent Paragraph"
-msgstr "Absatz einrücken"
+msgstr "Absatz einrü_cken"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:205
 msgid "Indent the Current Paragraph"
@@ -786,7 +786,7 @@ msgstr "Aktuellen Absatz einrücken"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:206
 msgid "Unindent Paragraph"
-msgstr "Absatz ausrücken"
+msgstr "Absatz ausrüc_ken"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:207
 msgid "Unindent the Current Paragraph"
@@ -850,7 +850,7 @@ msgstr "Zum nächsten besuchten Knoten gehen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:224
 msgid "Add _Node"
-msgstr "Knoten _hinzufügen..."
+msgstr "_Knoten hinzufügen..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:225
 msgid "Add a Node having the same Parent of the Selected Node"
@@ -874,7 +874,7 @@ msgstr "Markierten Knoten duplizieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:230
 msgid "_Duplicate Node and Subnodes"
-msgstr "Knoten und Unterknoten _duplizieren"
+msgstr "Kno_ten und Unterknoten duplizieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:231
 msgid "Duplicate the Selected Node and the Subnodes"
@@ -882,7 +882,7 @@ msgstr "Markierten Knoten mit Unterknoten duplizieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:232
 msgid "Insert Today's Node"
-msgstr "Knoten mit heutigem Datum einfügen"
+msgstr "Knoten mit heuti_gem Datum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:233
 msgid "Insert a Node with Hierarchy Year/Month/Day"
@@ -898,7 +898,7 @@ msgstr "Eigenschaften des markierten Knotens bearbeiten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:236
 msgid "Toggle _Read Only"
-msgstr "Schreibschutz ein/aus"
+msgstr "S_chreibschutz ein/aus"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:237
 msgid "Toggle the Read Only Property of the Selected Node"
@@ -933,7 +933,7 @@ msgstr "Lesezeichen verwalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:245
 msgid "Add to _Bookmarks"
-msgstr "_Lesezeichen hinzufügen"
+msgstr "Lesezeichen _hinzufügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:246
 msgid "Add the Current Node to the Bookmarks List"
@@ -989,7 +989,7 @@ msgstr "Ausgewählten Knoten nach links verschieben (hochstufen)"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:259
 msgid "Node _Right"
-msgstr "Knoten nach rechts schieben"
+msgstr "Knoten nach _rechts schieben"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:260
 msgid "Move the Selected Node Right"
@@ -997,7 +997,7 @@ msgstr "Ausgewählten Knoten nach rechts schieben (herabstufen)"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:261
 msgid "Node Change _Parent"
-msgstr "Übergeordneten Knoten ändern"
+msgstr "_Übergeordneten Knoten ändern"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:262
 msgid "Change the Selected Node's Parent"
@@ -1029,7 +1029,7 @@ msgstr "Geschwisterknoten des markierten Knotens aufsteigend sortieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:269
 msgid "Sort Siblings D_escending"
-msgstr "Geschw_isterknoten absteigend sortieren"
+msgstr "G_eschwisterknoten absteigend sortieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:270
 msgid "Sort all the Siblings of the Selected Node Descending"
@@ -1037,7 +1037,7 @@ msgstr "Geschwisterknoten des markierten Knotens absteigend sortieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:271
 msgid "De_lete Node"
-msgstr "Knoten _löschen"
+msgstr "Knoten l_öschen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:272
 msgid "Delete the Selected Node"
@@ -1049,15 +1049,15 @@ msgstr "Suche"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:275
 msgid "_Find in Node Content"
-msgstr "Im Knoten _suchen..."
+msgstr "Im a_ktuellen Knoten suchen..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:276
 msgid "Find into the Selected Node Content"
-msgstr "Im markierten Knoten suchen"
+msgstr "Im aktuellen Knoten suchen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:277
 msgid "Find _in Multiple Nodes"
-msgstr "In mehreren Knoten _suchen..."
+msgstr "In me_hreren Knoten suchen..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:278
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:142
@@ -1066,7 +1066,7 @@ msgstr "In mehreren Knoten suchen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:279
 msgid "Find in _Nodes Names and Tags"
-msgstr "In Knotennamen und Tags suchen..."
+msgstr "In Knotennamen und _Tags suchen..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:280
 msgid "Find in Nodes Names and Tags"
@@ -1094,7 +1094,7 @@ msgstr "Im _aktuellen Knoten ersetzen..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:286
 msgid "Replace into the Selected Node Content"
-msgstr "Im markierten Knoten ersetzen"
+msgstr "Im aktuellen Knoten ersetzen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:288
 msgid "Replace in _Multiple Nodes"
@@ -1115,7 +1115,7 @@ msgstr "Die letzte Ersetzung wiederholen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:293
 msgid "Show _All Matches Dialog"
-msgstr "Dialog für _mehrfaches Suchen/Ersetzen anzeigen..."
+msgstr "_Dialog für mehrfaches Suchen/Ersetzen anzeigen..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:294
 msgid "Show Search All Matches Dialog"
@@ -1123,7 +1123,7 @@ msgstr "Dialog für mehrfaches Suchen/Ersetzen anzeigen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:295
 msgid "_Clear All Exclusions From Search"
-msgstr "Alle Suchausnahmen löschen"
+msgstr "Alle Suchausnahmen _löschen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:296
 msgid "Clear All Tree Nodes Properties of Exclusions From Search"
@@ -1135,7 +1135,7 @@ msgstr "_Ansicht"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:299
 msgid "Show/Hide _Tree Explorer"
-msgstr "Baumstruktur anzeigen/ausblenden"
+msgstr "_Baumstruktur anzeigen/ausblenden"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:300
 msgid "Toggle Show/Hide Tree"
@@ -1147,11 +1147,11 @@ msgstr "_Menüleiste anzeigen/ausblenden"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:302
 msgid "Toggle Show/Hide Menubar"
-msgstr "_Menüleiste anzeigen/ausblenden umschalten"
+msgstr "Menüleiste anzeigen/ausblenden umschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:303
 msgid "Show/Hide Tool_bar"
-msgstr "_Symbolleiste anzeigen/ausblenden"
+msgstr "S_ymbolleiste anzeigen/ausblenden"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:304
 msgid "Toggle Show/Hide Toolbar"
@@ -1163,11 +1163,11 @@ msgstr "_Statusleiste anzeigen/ausblenden"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:306
 msgid "Toggle Show/Hide Statusbar"
-msgstr "_Statusleiste anzeigen/ausblenden umschalten"
+msgstr "Statusleiste anzeigen/ausblenden umschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:307
 msgid "Show/Hide _Lines Node Parent to Children"
-msgstr "Verbindung Knoten zu Unterknoten anzeigen/ausblenden"
+msgstr "Verbindung Knoten zu _Unterknoten anzeigen/ausblenden"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:308
 msgid "Toggle Show/Hide Lines Between Node Parent and Children"
@@ -1175,7 +1175,7 @@ msgstr "Verbindung Knoten zu Unterknoten anzeigen/ausblenden umschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:309
 msgid "Show/Hide Node Name _Header"
-msgstr "Knotennamen in _Kopfzeile anzeigen/ausblenden"
+msgstr "Knotennamen in Kopf_zeile anzeigen/ausblenden"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:310
 msgid "Toggle Show/Hide Node Name Header"
@@ -1215,7 +1215,7 @@ msgstr "Vollbild ein/aus umschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:320
 msgid "Disable _Menubar in Titlebar"
-msgstr "Menüleiste in Titelleiste abschalten"
+msgstr "Menüleiste in _Titelleiste abschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:321
 msgid "Do Not Place the Menubar in the Titlebar"
@@ -1223,7 +1223,7 @@ msgstr "Menüleiste nicht in Titelleiste platzieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:324
 msgid "Enable _Menubar in Titlebar"
-msgstr "Menüleiste in Titelleiste anschalten"
+msgstr "Menüleiste in _Titelleiste anschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:325
 msgid "Place the Menubar in the Titlebar"
@@ -1243,7 +1243,7 @@ msgstr "Knoten aus einer CherryTree-Datei im aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:331
 msgid "From _Plain Text File"
-msgstr "T_extdatei"
+msgstr "Te_xtdatei"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:332
 msgid "Add Node from a Plain Text File to the Current Tree"
@@ -1268,7 +1268,7 @@ msgstr "Knoten aus einer HTML-Datei im aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:338
 msgid "From _Folder of HTML Files"
-msgstr "Ordner mit HTML-Dateien"
+msgstr "Or_dner mit HTML-Dateien"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:339
 msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
@@ -1277,7 +1277,7 @@ msgstr ""
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:341
 msgid "From _Markdown File"
-msgstr "Markdown-Datei"
+msgstr "Markdo_wn-Datei"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:342
 msgid "Add a node from a Markdown File to the Current Tree"
@@ -1285,7 +1285,7 @@ msgstr "Knoten aus einer Markdown-Datei zum aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:343
 msgid "From _Folder of Markdown Files"
-msgstr "Ordner mit Markdown-Dateien"
+msgstr "Ordn_er mit Markdown-Dateien"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:344
 msgid "Add Nodes from a Folder of Markdown Files to the Current Tree"
@@ -1342,7 +1342,7 @@ msgstr "Knoten aus einer RedNotebook-HTML-Datei im aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:360
 msgid "From T_omboy Folder"
-msgstr "T_omboy-Ordner"
+msgstr "Tombo_y-Ordner"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:361
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
@@ -1366,7 +1366,7 @@ msgstr "Knoten aus einem Zim-Verzeichnis im aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:367
 msgid "From File using _Pandoc"
-msgstr "Datei mit Pandoc"
+msgstr "Datei mit _Pandoc"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:368
 msgid "Add a node to the current tree using Pandoc"
@@ -1394,7 +1394,7 @@ msgstr "In HTML-Datei exportieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:375
 msgid "Export to Plain _Text"
-msgstr "Einzelne Textdatei"
+msgstr "_Einzelne Textdatei"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:376
 msgid "Export to Plain Text"
@@ -1439,7 +1439,7 @@ msgstr "Über CherryTree"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:387
 msgid "Open Preferences _Directory"
-msgstr "Ordner mit Einstellungen öffnen"
+msgstr "_Ordner mit Einstellungen öffnen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:388
 msgid "Open the Directory with Preferences Files"
@@ -1447,7 +1447,7 @@ msgstr "Ordner mit Konfigurationsdateien öffnen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:398
 msgid "C_ut Anchor"
-msgstr "Anker ausschneiden"
+msgstr "_Anker ausschneiden"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:399
 msgid "Cut the Selected Anchor"
@@ -1463,7 +1463,7 @@ msgstr "Ausgewählten Anker kopieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:402
 msgid "_Delete Anchor"
-msgstr "Anker löschen"
+msgstr "Anker l_öschen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:403
 msgid "Delete the Selected Anchor"
@@ -1963,7 +1963,7 @@ msgstr "Herunterladen..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu.cc:146
 msgid "Remove from list"
-msgstr "Aus der Liste löschen"
+msgstr "_Aus der Liste löschen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:61
 msgid "Move the Selected Bookmark Up"
@@ -2415,11 +2415,11 @@ msgstr "Hintergrundfarbe auswählen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:59
 msgid "Replace in Current Node..."
-msgstr "Ersetzen im ausgewählten Knoten"
+msgstr "Im aktuellen Knoten ersetzen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:59
 msgid "Search in Current Node..."
-msgstr "Suchen im ausgewählten Knoten"
+msgstr "Im aktuellen Knoten suchen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:108
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_find.cc:248
