@@ -161,7 +161,7 @@ bool CtStorageSqlite::_check_database_integrity()
         _("Backup files are by default 3 in the same folder of the corrupted document, with the same name plus trailing tildes (~, ~~, ~~~). Try first the backup with one tilde: copy the file to another directory, remove the trailing tilde and open with cherrytree. If it still fails, try the one with two tildes and if it still fails try the one with three tildes");
     spdlog::error(error_msg);
 
-    CtDialogs::error_dialog(str::format(error_msg, _file_path.string()), *_pCtMainWin);
+    CtDialogs::error_dialog(str::format(error_msg, str::xml_escape(_file_path.string())), *_pCtMainWin);
     return false;
 }
 

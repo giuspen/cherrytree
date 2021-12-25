@@ -314,7 +314,7 @@ bool CtDialogs::link_handle_dialog(CtMainWin& ctMainWin,
             lastAnchorSearch = Gtk::TreeIter{};
         }
         if (not foundIt) {
-            CtDialogs::info_dialog(str::format(_("The pattern '%s' was not found"), anchorName), dialog);
+            CtDialogs::info_dialog(str::format(_("The pattern '%s' was not found"), str::xml_escape(anchorName)), dialog);
         }
     });
     treeview_2.signal_event_after().connect([&](GdkEvent* event){

@@ -400,10 +400,10 @@ void CtActions::node_delete()
     std::list<gint64> lstNodesIds;
     std::list<std::string> lstNodesWarn;
     collect_children(_pCtMainWin->curr_tree_iter(), 0, lstNodesIds, lstNodesWarn);
-    Glib::ustring warning_label = str::format(_("Are you sure to <b>Delete the node '%s'?</b>"), _pCtMainWin->curr_tree_iter().get_node_name());
+    Glib::ustring warning_label = str::format(_("Are you sure to <b>Delete the node '%s'?</b>"), str::xml_escape(_pCtMainWin->curr_tree_iter().get_node_name()));
     if (!_pCtMainWin->curr_tree_iter()->children().empty()) {
         warning_label += str::repeat(CtConst::CHAR_NEWLINE, 2) + _("The node <b>has Children, they will be Deleted too!</b>");
-        warning_label += str::join(lstNodesWarn, "");
+        warning_label += str::xml_escape(str::join(lstNodesWarn, ""));
     }
     if (!CtDialogs::question_dialog(warning_label, *_pCtMainWin)) {
         return;

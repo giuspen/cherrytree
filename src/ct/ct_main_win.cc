@@ -542,7 +542,7 @@ void CtMainWin::menu_set_items_recent_documents()
             }
         }
         else {
-            g_autofree gchar* title = g_strdup_printf(_("The Document %s was Not Found"), filepath.c_str());
+            g_autofree gchar* title = g_strdup_printf(_("The Document %s was Not Found"), str::xml_escape(filepath).c_str());
             CtDialogs::error_dialog(Glib::ustring{title}, *this);
             _pCtConfig->recentDocsFilepaths.move_or_push_back(fs_canonicalize_filename(filepath));
             menu_set_items_recent_documents();

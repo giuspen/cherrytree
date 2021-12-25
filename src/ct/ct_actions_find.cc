@@ -102,7 +102,7 @@ void CtActions::find_in_selected_node()
         if (not all_matches) break;
     }
     if (0 == _s_state.matches_num) {
-        CtDialogs::info_dialog(str::format(_("The pattern '%s' was not found"), pattern), *_pCtMainWin);
+        CtDialogs::info_dialog(str::format(_("The pattern '%s' was not found"), str::xml_escape(pattern)), *_pCtMainWin);
     }
     else if (all_matches) {
         _s_state.match_dialog_title = std::to_string(_s_state.matches_num) + CtConst::CHAR_SPACE + _("Matches");
@@ -241,7 +241,7 @@ void CtActions::find_in_multiple_nodes()
         ctTextView.scroll_to(curr_buffer->get_insert(), CtTextView::TEXT_SCROLL_MARGIN);
     }
     if (not _s_state.matches_num) {
-        CtDialogs::info_dialog(str::format(_("The pattern '%s' was not found"), std::string(pattern)), *_pCtMainWin);
+        CtDialogs::info_dialog(str::format(_("The pattern '%s' was not found"), str::xml_escape(pattern)), *_pCtMainWin);
     }
     else {
         if (all_matches) {
@@ -538,7 +538,7 @@ Glib::RefPtr<Glib::Regex> CtActions::_create_re_pattern(Glib::ustring pattern)
             return Glib::Regex::create(pattern, Glib::RegexCompileFlags::REGEX_MULTILINE | Glib::RegexCompileFlags::REGEX_CASELESS);
     }
     catch (Glib::RegexError& e) {
-        CtDialogs::error_dialog(e.what(), *_pCtMainWin);
+        CtDialogs::error_dialog(str::xml_escape(e.what()), *_pCtMainWin);
         return Glib::RefPtr<Glib::Regex>();
     }
 }

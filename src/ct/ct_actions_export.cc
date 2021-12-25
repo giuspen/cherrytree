@@ -122,7 +122,7 @@ void CtActions::export_to_ctd()
                                                                             start_offset,
                                                                             end_offset));
     if (not new_storage) {
-        CtDialogs::error_dialog(error, *_pCtMainWin);
+        CtDialogs::error_dialog(str::xml_escape(error), *_pCtMainWin);
     }
 }
 

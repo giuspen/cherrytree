@@ -496,7 +496,7 @@ bool CtActions::_links_entries_pre_dialog(const Glib::ustring& curr_link, CtLink
 {
     const CtLinkEntry new_entry = CtMiscUtil::get_link_entry(curr_link);
     if (new_entry.type.empty()) {
-        CtDialogs::error_dialog(str::format("Tag Name Not Recognized! (%s)", std::string(curr_link)), *_pCtMainWin);
+        CtDialogs::error_dialog(str::format("Tag Name Not Recognized! (%s)", str::xml_escape(curr_link)), *_pCtMainWin);
         link_entry.type = CtConst::LINK_TYPE_WEBS;
         return false;
     }

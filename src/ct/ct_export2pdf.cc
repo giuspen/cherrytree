@@ -419,7 +419,7 @@ void CtPrint::print_text(CtMainWin* pCtMainWin, const fs::path& pdf_filepath, co
     }
     catch (Glib::Error& ex)
     {
-        CtDialogs::error_dialog("Error printing file:\n" + ex.what() + " (exception caught)", *pCtMainWin);
+        CtDialogs::error_dialog("Error printing file:\n" + str::xml_escape(ex.what()) + " (exception caught)", *pCtMainWin);
     }
     if (!print_data.warning.empty())
         _pCtMainWin->get_status_bar().update_status(print_data.warning);

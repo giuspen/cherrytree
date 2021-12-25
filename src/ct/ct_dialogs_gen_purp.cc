@@ -254,7 +254,7 @@ bool CtDialogs::question_dialog(const Glib::ustring& message,
                                 Gtk::Window& parent)
 {
     Gtk::MessageDialog dialog{parent,
-                              str::xml_escape(message),
+                              message,
                               true/*use_markup*/,
                               Gtk::MESSAGE_QUESTION,
                               Gtk::BUTTONS_YES_NO,
@@ -269,7 +269,7 @@ void CtDialogs::info_dialog(const Glib::ustring& message,
                             Gtk::Window& parent)
 {
     Gtk::MessageDialog dialog{parent,
-                              str::xml_escape(message),
+                              message,
                               true/*use_markup*/,
                               Gtk::MESSAGE_INFO,
                               Gtk::BUTTONS_OK,
@@ -283,7 +283,7 @@ void CtDialogs::warning_dialog(const Glib::ustring& message,
                                Gtk::Window& parent)
 {
     Gtk::MessageDialog dialog{parent,
-                              str::xml_escape(message),
+                              message,
                               true/*use_markup*/,
                               Gtk::MESSAGE_WARNING,
                               Gtk::BUTTONS_OK,
@@ -297,7 +297,7 @@ void CtDialogs::error_dialog(const Glib::ustring& message,
                              Gtk::Window& parent)
 {
     Gtk::MessageDialog dialog{parent,
-                              str::xml_escape(message),
+                              message,
                               true/*use_markup*/,
                               Gtk::MESSAGE_ERROR,
                               Gtk::BUTTONS_OK,

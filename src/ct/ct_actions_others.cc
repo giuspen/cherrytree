@@ -208,7 +208,7 @@ void CtActions::image_save()
        curr_image_anchor->save(filename, "png");
     }
     catch (...) {
-        CtDialogs::error_dialog(str::format(_("Write to %s Failed"), std::string(filename)), *_pCtMainWin);
+        CtDialogs::error_dialog(str::format(_("Write to %s Failed"), str::xml_escape(filename)), *_pCtMainWin);
     }
 }
 
@@ -306,14 +306,14 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
         if (from_wheel) {
             filepath = fs::absolute(filepath).parent_path();
             if (not fs::is_directory(filepath)) {
-                CtDialogs::error_dialog(str::format(_("The Folder Link '%s' is Not Valid"), filepath.string()), *_pCtMainWin);
+                CtDialogs::error_dialog(str::format(_("The Folder Link '%s' is Not Valid"), str::xml_escape(filepath.string())), *_pCtMainWin);
                 return;
             }
             fs::open_folderpath(filepath, _pCtMainWin->get_ct_config());
         }
         else {
             if (not Glib::file_test(filepath.string(), Glib::FILE_TEST_IS_REGULAR)) {
-                CtDialogs::error_dialog(str::format(_("The File Link '%s' is Not Valid"), filepath.string()), *_pCtMainWin);
+                CtDialogs::error_dialog(str::format(_("The File Link '%s' is Not Valid"), str::xml_escape(filepath.string())), *_pCtMainWin);
                 return;
             }
             fs::open_filepath(filepath, true, _pCtMainWin->get_ct_config());
@@ -325,7 +325,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
             folderpath = Glib::path_get_dirname(fs::absolute(folderpath).string());
         }
         if (not fs::is_directory(folderpath)) {
-            CtDialogs::error_dialog(str::format(_("The Folder Link '%s' is Not Valid"), folderpath.string()), *_pCtMainWin);
+            CtDialogs::error_dialog(str::format(_("The Folder Link '%s' is Not Valid"), str::xml_escape(folderpath.string())), *_pCtMainWin);
             return;
         }
         fs::open_folderpath(folderpath, _pCtMainWin->get_ct_config());
@@ -354,7 +354,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
                 if (anchor_name.size() > (size_t)CtConst::MAX_TOOLTIP_LINK_CHARS) {
                     anchor_name = anchor_name.substr(0, (size_t)CtConst::MAX_TOOLTIP_LINK_CHARS) + "...";
                 }
-                CtDialogs::warning_dialog(str::format(_("No anchor named '%s' found"), std::string(anchor_name)), *_pCtMainWin);
+                CtDialogs::warning_dialog(str::format(_("No anchor named '%s' found"), str::xml_escape(anchor_name)), *_pCtMainWin);
             }
             else {
                 Gtk::TextIter iter_anchor = _curr_buffer()->get_iter_at_child_anchor(imageAnchor->getTextChildAnchor());
@@ -364,7 +364,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
         }
     }
     else {
-        CtDialogs::error_dialog(str::format("Tag Name Not Recognized! (%s)", std::string(tag_property_value)), *_pCtMainWin);
+        CtDialogs::error_dialog(str::format("Tag Name Not Recognized! (%s)", str::xml_escape(tag_property_value)), *_pCtMainWin);
     }
 }
 
@@ -446,7 +446,7 @@ void CtActions::exec_code()
     }
     std::string binary_cmd = CtPrefDlg::get_code_exec_type_cmd(_pCtMainWin, code_type);
     if (binary_cmd.empty()) {
-        CtDialogs::warning_dialog(str::format(_("You must associate a command to '%s'.\nDo so in the Preferences Dialog"), code_type), *_pCtMainWin);
+        CtDialogs::warning_dialog(str::format(_("You must associate a command to '%s'.\nDo so in the Preferences Dialog"), str::xml_escape(code_type)), *_pCtMainWin);
         return;
     }
     std::string code_type_ext = CtPrefDlg::get_code_exec_ext(_pCtMainWin, code_type);
