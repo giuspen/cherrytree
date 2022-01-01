@@ -229,7 +229,7 @@ msgstr "_Groß-/Kleinschreibung"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:62
 msgid "_List"
-msgstr "Lis_te"
+msgstr "_Liste"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:63
 msgid "_Justify"
@@ -245,11 +245,11 @@ msgstr "_Überschrift umschalten auf"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:66
 msgid "I_nsert"
-msgstr "Einfügen"
+msgstr "Einf_ügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:67
 msgid "_Find"
-msgstr "Suchen"
+msgstr "_Suchen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:68
 msgid "_Replace"
@@ -261,7 +261,7 @@ msgstr "_Zeile"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:73
 msgid "File"
-msgstr "_Datei"
+msgstr "Datei"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:74
 msgid "New _Instance"
@@ -295,7 +295,7 @@ msgstr "Speichern und _komprimieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:81
 msgid "Save File and Vacuum"
-msgstr "Speichern und komprimieren"
+msgstr "Datei speichern und komprimieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:82
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:414
@@ -417,11 +417,11 @@ msgstr "Datei einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:114
 msgid "Insert/Edit _Link"
-msgstr "_Link einfügen/bearbeiten..."
+msgstr "_Verknüpfung einfügen und bearbeiten..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:115
 msgid "Insert a Link/Edit the Underlying Link"
-msgstr "Link einfügen/bearbeiten"
+msgstr "Verknüpfung einfügen und bearbeiten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:116
 msgid "Insert _Anchor"
@@ -449,7 +449,7 @@ msgstr "Zeitstempel einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:122
 msgid "Insert _Special Character"
-msgstr "S_onderzeichen einfügen..."
+msgstr "_Sonderzeichen einfügen..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:123
 msgid "Insert a Special Character"
@@ -498,7 +498,7 @@ msgstr ""
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:134
 msgid "_Copy as Plain Text"
-msgstr "T_ext ohne Formatierung kopieren"
+msgstr "Te_xt ohne Formatierung kopieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:135
 msgid "Copy as Plain Text, Discard the Rich Text Formatting"
@@ -506,7 +506,7 @@ msgstr "Text ohne Formatierung kopieren, die Rich-Text-Formatierung verwerfen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:136
 msgid "_Paste as Plain Text"
-msgstr "Te_xt ohne Formatierung einfügen"
+msgstr "Text o_hne Formatierung einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:137
 msgid "Paste as Plain Text, Discard the Rich Text Formatting"
@@ -670,7 +670,7 @@ msgstr "Überschrift _4"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:177
 msgid "Toggle h4 Property of the Selected Text"
-msgstr "Überschrift _4 im markierten Text umschalten"
+msgstr "Überschrift 4 im markierten Text umschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:178
 msgid "Toggle h_5 Property"
@@ -678,7 +678,7 @@ msgstr "Überschrift _5"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:179
 msgid "Toggle h5 Property of the Selected Text"
-msgstr "Überschrift _5 im markierten Text umschalten"
+msgstr "Überschrift 5 im markierten Text umschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:180
 msgid "Toggle h_6 Property"
@@ -686,11 +686,11 @@ msgstr "Überschrift _6"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:181
 msgid "Toggle h6 Property of the Selected Text"
-msgstr "Überschrift _6 im markierten Text umschalten"
+msgstr "Überschrift 6 im markierten Text umschalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:182
 msgid "Toggle _Small Property"
-msgstr "_Klein"
+msgstr "K_lein"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:183
 msgid "Toggle Small Property of the Selected Text"
@@ -906,11 +906,11 @@ msgstr "Schreibschutz für markierten Knoten ein/aus"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:238
 msgid "Copy Link to Node"
-msgstr "Link zum Knoten ko_pieren"
+msgstr "Verknüpfung zum Knoten ko_pieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:239
 msgid "Copy Link to the Selected Node to Clipboard"
-msgstr "Link zum ausgewählten Knoten in die Zwischenablage kopieren"
+msgstr "Verknüpfung zum ausgewählten Knoten in die Zwischenablage kopieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:240
 msgid "_Inherit Syntax"
@@ -1131,7 +1131,7 @@ msgstr "Alle Knoteneigenschaften aus den Suchausnahmen löschen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:298
 msgid "View"
-msgstr "_Ansicht"
+msgstr "Ansicht"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:299
 msgid "Show/Hide _Tree Explorer"
@@ -1231,7 +1231,7 @@ msgstr "Menüleiste in Titelleiste platzieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:328
 msgid "Import"
-msgstr "_Import"
+msgstr "Import"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:329
 msgid "From _CherryTree File"
@@ -1374,7 +1374,7 @@ msgstr "Knoten im aktuellen Baum mit Pandoc einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:370
 msgid "Export"
-msgstr "_Export"
+msgstr "Export"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:371
 msgid "Export To _PDF"
@@ -1394,11 +1394,11 @@ msgstr "In HTML-Datei exportieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:375
 msgid "Export to Plain _Text"
-msgstr "_Einzelne Textdatei"
+msgstr "_Textdatei"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:376
 msgid "Export to Plain Text"
-msgstr "In einzelne Textdatei exportieren"
+msgstr "In Textdatei exportieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:377
 msgid "_Export To CherryTree Document"
@@ -1410,7 +1410,7 @@ msgstr "In CherryTree-Datei exportieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:380
 msgid "Help"
-msgstr "_Hilfe"
+msgstr "Hilfe"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:381
 msgid "_Check Newer Version"
@@ -1471,7 +1471,7 @@ msgstr "Ausgewählten Anker löschen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:404
 msgid "Edit _Anchor"
-msgstr "An_ker bearbeiten..."
+msgstr "Anker _bearbeiten..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:405
 msgid "Edit the Underlying Anchor"
@@ -1479,7 +1479,7 @@ msgstr "Anker bearbeiten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:406
 msgid "Copy Anchor Link"
-msgstr "Ankerverknüpfung k_opieren"
+msgstr "Ankerverknüpfung _kopieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:407
 msgid "Copy Link to the Underlying Anchor to Clipboard"
@@ -1564,52 +1564,52 @@ msgstr "Ausgewähltes Bild löschen"
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:430
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:438
 msgid "Edit _Link"
-msgstr "_Link bearbeiten..."
+msgstr "_Verknüpfung bearbeiten..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:431
 msgid "Edit the Link Associated to the Image"
-msgstr "Link zum Bild bearbeiten"
+msgstr "Verknüpfung zum Bild bearbeiten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:432
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:444
 msgid "D_ismiss Link"
-msgstr "Hyperlink entfernen"
+msgstr "Verknüpfung ent_fernen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:433
 msgid "Dismiss the Link Associated to the Image"
-msgstr "Link zum Bild entfernen"
+msgstr "Verknüpfung zum Bild entfernen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:439
 msgid "Edit the Underlying Link"
-msgstr "Hyperlink bearbeiten"
+msgstr "Verknüpfung bearbeiten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:440
 msgid "C_ut Link"
-msgstr "Hyperlink _ausschneiden"
+msgstr "Verknüpfung a_usschneiden"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:441
 msgid "Cut the Selected Link"
-msgstr "Ausgewählten Hyperlink ausschneiden"
+msgstr "Ausgewählte Verknüpfung ausschneiden"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:442
 msgid "_Copy Link"
-msgstr "Hyperlink ko_pieren"
+msgstr "Verknüpfung ko_pieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:443
 msgid "Copy the Selected Link"
-msgstr "Ausgewählten Hyperlink kopieren"
+msgstr "Ausgewählte Verknüpfung kopieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:445
 msgid "Dismiss the Selected Link"
-msgstr "Ausgewählten Hyperlink entfernen"
+msgstr "Ausgewählte Verknüpfung entfernen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:446
 msgid "_Delete Link"
-msgstr "Hyperlink löschen"
+msgstr "Verknüpfung l_öschen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:447
 msgid "Delete the Selected Link"
-msgstr "Ausgewählten Hyperlink löschen"
+msgstr "Ausgewählte Verknüpfung löschen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:450
 msgid "C_ut Table"
@@ -1761,7 +1761,7 @@ msgstr "Tabelle als CSV-Datei exportieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:494
 msgid "Change CodeBox _Properties"
-msgstr "CodeBox-_Eigenschaften ändern..."
+msgstr "CodeBox-Eigenschaften _ändern..."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:495
 msgid "Edit the Properties of the CodeBox"
@@ -1809,7 +1809,7 @@ msgstr "Ausgewählte CodeBox löschen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:506
 msgid "Delete CodeBox _Keep Content"
-msgstr "CodeBox _löschen, Text behalten"
+msgstr "CodeBox löschen, Text _behalten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:507
 msgid "Delete the Selected CodeBox But Keep Its Content"
@@ -2403,7 +2403,7 @@ msgstr "Der Cursor befindet sich nicht in einem Absatz."
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:361
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_others.cc:260
 msgid "Insert/Edit Link"
-msgstr "Verknüpfung einfügen/bearbeiten"
+msgstr "Verknüpfung einfügen und bearbeiten"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_actions_format.cc:370
 msgid "Pick a Foreground Color"
