@@ -433,6 +433,7 @@ MA 02110-1301, USA.
  _("French")+" (fr) Klaus Becker <colonius@free.fr>"+CtConst::CHAR_NEWLINE+
  _("German")+" (de) Matthias Hoffmann <MHoffi@web.de>"+CtConst::CHAR_NEWLINE+
  _("Greek")+" (el) Delphina <delphina.2009@yahoo.gr>"+CtConst::CHAR_NEWLINE+
+ _("Hindi India")+" (hi_IN) Paresh Mhatre <pareshmhatrework@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Italian")+" (it) Vincenzo Reale <smart2128vr@gmail.com>"+CtConst::CHAR_NEWLINE+
  _("Japanese")+" (ja) Piyo <py2@live.jp>"+CtConst::CHAR_NEWLINE+
  _("Kazakh")+" (kk_KZ) Viktor Polyanskiy <camilot55@yandex.ru>"+CtConst::CHAR_NEWLINE+

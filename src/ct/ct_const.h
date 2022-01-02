@@ -247,8 +247,8 @@ const inline static gchar* TOOLBAR_VEC_DEFAULT {
 
 const inline static gchar* LANG_DEFAULT{"default"};
 
-const inline static std::array<const gchar*, 28> AVAILABLE_LANGS {
-    LANG_DEFAULT, "bg", "cs", "de", "el", "en", "es", "fi", "fr", "hr", "hy", "it",
+const inline static std::array<const gchar*, 29> AVAILABLE_LANGS {
+    LANG_DEFAULT, "bg", "cs", "de", "el", "en", "es", "fi", "fr", "hi_IN", "hr", "hy", "it",
     "ja", "kk_KZ", "ko", "lt", "nl", "pl", "pt", "pt_BR", "ro", "ru", "sl", "sv", "tr", "uk", "zh_CN", "zh_TW"
 };
 
@@ -259,7 +259,7 @@ const inline static int NODE_ICON_SIZE             {16};
 const inline static int MAX_TOOLTIP_LINK_CHARS     {150};
 
 // former NODES_STOCK
-const inline static std::array<const gchar*, 129> NODE_CUSTOM_ICONS {
+const inline static std::array<const gchar*, 130> NODE_CUSTOM_ICONS {
     nullptr,            // NEVER USED
     "ct_circle-green",  //  1
     "ct_circle-yellow", //  2
@@ -388,7 +388,8 @@ const inline static std::array<const gchar*, 129> NODE_CUSTOM_ICONS {
     "ct_hr",           // 125
     "ct_ghost",        // 126
     "ct_pt",           // 127
-    "ct_zh_TW"         // 128
+    "ct_zh_TW",        // 128
+    "ct_hi_IN"         // 129
 };
 
 // former NODES_ICONS
