@@ -1,7 +1,7 @@
 /*
  * ct_actions.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -357,6 +357,7 @@ public:
     void text_row_up();
     void text_row_down();
     void strip_trailing_spaces();
+    void replace_tabs_with_spaces();
 
 private:
     // helper for others actions

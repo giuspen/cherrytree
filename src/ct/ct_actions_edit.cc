@@ -1,7 +1,7 @@
 /*
  * ct_actions_find.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -840,7 +840,37 @@ void CtActions::text_row_down()
     _pCtMainWin->get_state_machine().update_state();
 }
 
-// Remove trailing spaces/tabs
+void CtActions::replace_tabs_with_spaces()
+{
+    auto proof = _get_text_view_n_buffer_codebox_proof();
+    if (not proof.text_view->get_buffer()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
+
+    auto text_buffer = proof.text_view->get_buffer();
+
+    int replaced_tabs{0};
+    Gtk::TextIter curr_iter = text_buffer->begin();
+    const int tab_width = proof.text_view->get_tab_width();
+    const Glib::ustring replaceStr = str::repeat(CtConst::CHAR_SPACE, tab_width);
+
+    text_buffer->begin_user_action();
+    while (curr_iter) {
+        const gunichar curr_char = curr_iter.get_char();
+        if ('\t' == curr_char) {
+            int curr_offset = curr_iter.get_offset();
+            text_buffer->erase(curr_iter, text_buffer->get_iter_at_offset(curr_offset+1));
+            text_buffer->insert(text_buffer->get_iter_at_offset(curr_offset), replaceStr);
+            curr_iter = text_buffer->get_iter_at_offset(curr_offset + tab_width);
+            ++replaced_tabs;
+        }
+        else if (not curr_iter.forward_char()) {
+            break;
+        }
+    }
+    text_buffer->end_user_action();
+    CtDialogs::info_dialog(std::to_string(replaced_tabs) + " " + _("Tabs Replaced"), *_pCtMainWin);
+}
+
 void CtActions::strip_trailing_spaces()
 {
     auto proof = _get_text_view_n_buffer_codebox_proof();
@@ -849,8 +879,8 @@ void CtActions::strip_trailing_spaces()
 
     auto text_buffer = proof.text_view->get_buffer();
 
-    int cleaned_lines = 0;
-    bool removed_something = true;
+    int cleaned_lines{0};
+    bool removed_something{true};
     while (removed_something) {
         removed_something = false;
         Gtk::TextIter curr_iter = text_buffer->begin();

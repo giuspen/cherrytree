@@ -1,7 +1,7 @@
 /*
  * ct_menu_ui.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -214,10 +214,11 @@ const char* CtMenu::_get_ui_str_menu()
   <menu action='ToolsMenu'>
     <menuitem action='spellcheck_toggle'/>
     <separator/>
+    <menuitem action='exec_code'/>
     <menuitem action='strip_trail_spaces'/>
+    <menuitem action='repl_tabs_spaces'/>
     <separator/>
     <menuitem action='command_palette'/>
-    <menuitem action='exec_code'/>
   </menu>
 
   <menu action='TreeMenu'>
@@ -325,8 +326,6 @@ const char* CtMenu::_get_popup_menu_ui_str_text()
     <menuitem action='mv_up_row'/>
     <menuitem action='mv_down_row'/>
     <menuitem action='del_row'/>
-    <separator/>
-    <menuitem action='strip_trail_spaces'/>
   </menu>
   <menu action='FormattingSubMenu'>
     <menuitem action='fmt_clone'/>
@@ -414,6 +413,8 @@ const char* CtMenu::_get_popup_menu_ui_str_code()
   <menuitem action='copy_plain'/>
   <separator/>
   <menuitem action='exec_code'/>
+  <menuitem action='strip_trail_spaces'/>
+  <menuitem action='repl_tabs_spaces'/>
   <menu action='InsertSubMenu'>
     <menuitem action='insert_timestamp'/>
     <menuitem action='insert_special_char'/>
@@ -431,8 +432,6 @@ const char* CtMenu::_get_popup_menu_ui_str_code()
     <menuitem action='dup_row'/>
     <menuitem action='mv_up_row'/>
     <menuitem action='mv_down_row'/>
-  <separator/>
-    <menuitem action='strip_trail_spaces'/>
   </menu>
   <separator/>
   <menu action='FindSubMenu'>

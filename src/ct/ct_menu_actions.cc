@@ -1,7 +1,7 @@
 /*
  * ct_menu_actions.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -211,9 +211,11 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Toggle Enable/Disable Spell Check"), sigc::mem_fun(*pActions, &CtActions::toggle_ena_dis_spellcheck)});
     _actions.push_back(CtMenuAction{tools_cat, "strip_trail_spaces", "ct_clear", _("Stri_p Trailing Spaces"), None,
         _("Strip Trailing Spaces"), sigc::mem_fun(*pActions, &CtActions::strip_trailing_spaces)});
+    _actions.push_back(CtMenuAction{tools_cat, "repl_tabs_spaces", "ct_find_replace", _("_Replace Tabs with Spaces"), None,
+        _("Replace Tabs with Spaces"), sigc::mem_fun(*pActions, &CtActions::replace_tabs_with_spaces)});
     _actions.push_back(CtMenuAction{tools_cat, "command_palette", "ct_execute", _("_Command Palette"), KB_CONTROL+KB_SHIFT+"P",
         _("Command Palette"), sigc::mem_fun(*pActions, &CtActions::command_palette)});
-    _actions.push_back(CtMenuAction{tools_cat, "exec_code", "ct_execute", _("_Execute Code"), "F5",
+    _actions.push_back(CtMenuAction{tools_cat, "exec_code", "ct_play", _("_Execute Code"), "F5",
         _("Execute Code"), sigc::mem_fun(*pActions, &CtActions::exec_code)});
 
     const char* tree_cat = _("Tree");
