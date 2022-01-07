@@ -1,7 +1,7 @@
 /*
  * ct_text_view.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -274,7 +274,10 @@ void CtTextView::for_event_after_button_press(GdkEvent* event)
         // the issue: get_iter_at_position always gives iter, so we have to check if iter is valid
         Gdk::Rectangle iter_rect;
         get_iter_location(text_iter, iter_rect);
-        if (iter_rect.get_x() <= x && x <= (iter_rect.get_x() + iter_rect.get_width())) {
+        //spdlog::debug("x={} recx={} recw={}", x, iter_rect.get_x(), iter_rect.get_width());
+        if ( (iter_rect.get_width() >= 0/*LTR*/ and iter_rect.get_x() <= x and x <= (iter_rect.get_x() + iter_rect.get_width())) or
+             (iter_rect.get_width() < 0/*RTL*/ and (iter_rect.get_x() + iter_rect.get_width()) <= x and x <= iter_rect.get_x()) )
+        {
             auto tags = text_iter.get_tags();
             // check whether we are hovering a link
             for (auto& tag : tags) {
@@ -556,7 +559,9 @@ void CtTextView::cursor_and_tooltips_handler(int x, int y)
     // the issue: get_iter_at_position always gives iter, so we have to check if iter is valid
     Gdk::Rectangle iter_rect;
     get_iter_location(text_iter, iter_rect);
-    if (iter_rect.get_x() <= x && x <= (iter_rect.get_x() + iter_rect.get_width())) {
+    if ( (iter_rect.get_width() >= 0/*LTR*/ and iter_rect.get_x() <= x and x <= (iter_rect.get_x() + iter_rect.get_width())) or
+         (iter_rect.get_width() < 0/*RTL*/ and (iter_rect.get_x() + iter_rect.get_width()) <= x and x <= iter_rect.get_x()) )
+    {
         if (CtList{_pCtMainWin, get_buffer()}.is_list_todo_beginning(text_iter)) {
             get_window(Gtk::TEXT_WINDOW_TEXT)->set_cursor(Gdk::Cursor::create(Gdk::HAND2)); // Gdk::X_CURSOR doesn't work on Win
             set_tooltip_text("");
