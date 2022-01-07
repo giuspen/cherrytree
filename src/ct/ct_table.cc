@@ -1,7 +1,7 @@
 /*
  * ct_table.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -275,6 +275,10 @@ void CtTable::column_delete(const size_t colIdx)
         delete tableRow.at(colIdx);
         tableRow.erase(tableRow.begin()+colIdx);
     }
+    if (_currentColumn == _tableMatrix.front().size()) {
+        --_currentColumn;
+    }
+    _tableMatrix.at(_currentRow).at(_currentColumn)->get_text_view().grab_focus();
 }
 
 void CtTable::column_move_left(const size_t colIdx)
@@ -329,6 +333,10 @@ void CtTable::row_delete(const size_t rowIdx)
         delete pTextCell;
     }
     _tableMatrix.erase(_tableMatrix.begin()+rowIdx);
+    if (_currentRow == _tableMatrix.size()) {
+        --_currentRow;
+    }
+    _tableMatrix.at(_currentRow).at(_currentColumn)->get_text_view().grab_focus();
 }
 
 void CtTable::_apply_remove_header_style(const bool isApply, CtTextView& textView)
