@@ -1256,7 +1256,7 @@ msgstr "_Ordner mit Textdateien"
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:334
 msgid "Add Nodes from a Folder of Plain Text Files to the Current Tree"
 msgstr ""
-"Knoten aus einem Verzeichnis mit Textdateien im aktuellen Baum einfügen"
+"Knoten aus einem Ordner mit Textdateien im aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:336
 msgid "From _HTML File"
@@ -1273,7 +1273,7 @@ msgstr "Or_dner mit HTML-Dateien"
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:339
 msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
 msgstr ""
-"Knoten aus einem Verzeichnis mit HTML-Dateien im aktuellen Baum einfügen"
+"Knoten aus einem Ordner mit HTML-Dateien im aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:341
 msgid "From _Markdown File"
@@ -1290,7 +1290,7 @@ msgstr "Ordn_er mit Markdown-Dateien"
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:344
 msgid "Add Nodes from a Folder of Markdown Files to the Current Tree"
 msgstr ""
-"Knoten aus einem Verzeichnis mit Markdown-Dateien im aktuellen Baum einfügen"
+"Knoten aus einem Ordner mit Markdown-Dateien im aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:346
 msgid "From _Gnote Folder"
@@ -1298,7 +1298,7 @@ msgstr "_Gnote-Ordner"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:347
 msgid "Add Nodes of a Gnote Folder to the Current Tree"
-msgstr "Knoten aus einem Gnote-Verzeichnis im aktuellen Baum einfügen"
+msgstr "Knoten aus einem Gnote-Ordner im aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:348
 msgid "From _KeepNote Folder"
@@ -1306,7 +1306,7 @@ msgstr "_KeepNote-Ordner"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:349
 msgid "Add Nodes of a KeepNote Folder to the Current Tree"
-msgstr "Knoten aus einem KeepNote-Verzeichnis im aktuellen Baum einfügen"
+msgstr "Knoten aus einem KeepNote-Ordner im aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:351
 msgid "From _Leo File"
@@ -1334,7 +1334,7 @@ msgstr "Knoten aus einer NoteCase-HTML-Datei im aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:357
 msgid "From _RedNotebook HTML"
-msgstr "_RedNotebook-HTML"
+msgstr "_RedNotebook-HTML-Datei"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:358
 msgid "Add Nodes of a RedNotebook HTML file to the Current Tree"
@@ -1362,7 +1362,7 @@ msgstr "_Zim-Ordner"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:365
 msgid "Add Nodes of a Zim Folder to the Current Tree"
-msgstr "Knoten aus einem Zim-Verzeichnis im aktuellen Baum einfügen"
+msgstr "Knoten aus einem Zim-Ordner im aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:367
 msgid "From File using _Pandoc"
@@ -2011,12 +2011,12 @@ msgid ""
 "from the temporary directory. Note that in the case of application or system "
 "crash, the unencrypted document will remain in the temporary folder."
 msgstr ""
-"CherryTree speichert das Dokument in einem verschlüsselten 7-Zip-Archiv. Zum "
-"Lesen oder Editieren extrahiert CherryTree das verschlüsselte Archiv in ein "
-"temporäres Verzeichnis und nutzt dann die unverschlüsselte Kopie. Beim "
-"Schließen wird die unverschlüsselte Kopie aus dem temporären Verzeichnis "
-"gelöscht. Achtung: Im Falle eines Programm- oder Systemabsturzes verbleibt "
-"das unverschlüsselte Dokument im temporären Verzeichnis."
+"CherryTree speichert das Dokument in einem verschlüsselten 7-Zip-Archiv.\n"
+"Zum Lesen oder Editieren extrahiert CherryTree das verschlüsselte Archiv in "
+"einen temporären Ordner und nutzt dann die unverschlüsselte Kopie.\n"
+"Beim Schließen wird die unverschlüsselte Kopie aus dem temporären Ordner "
+"gelöscht.\nACHTUNG: Im Falle eines Programm- oder Systemabsturzes verbleibt "
+"das unverschlüsselte Dokument im temporären Ordner."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:252
 msgid "Enter the New Password Twice"
@@ -2918,11 +2918,11 @@ msgstr "Symbolgröße für eingebettete Datei"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:72
 msgid "Embedded File Size Limit"
-msgstr "Maximale Größe eingebetteter Dateien"
+msgstr "Maximale Größe eingebetteter Dateien (MB)"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:79
 msgid "Show File Name on Top of Embedded File Icon"
-msgstr "Namen eingebetteter Datei über Symbol anzeigen"
+msgstr "Namen über dem Symbol der eingebetteten Datei anzeigen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_rich_text.cc:81
 msgid "Limit of Undoable Steps Per Node"
@@ -3454,7 +3454,7 @@ msgstr "Datei auswählen"
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:344
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:346
 msgid "Select Folder"
-msgstr "Verzeichnis auswählen"
+msgstr "Ordner auswählen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:363
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs_gen_purp.cc:365
