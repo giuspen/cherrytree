@@ -1,7 +1,7 @@
 /*
  * ct_export2pdf.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -65,7 +65,7 @@ using CtPangoObjectPtr = std::shared_ptr<CtPangoObject>;
 class CtExport2Pango
 {
 public:
-    CtExport2Pango(CtMainWin* pCtMainWin) : _pCtMainWin{pCtMainWin} {}
+    CtExport2Pango(CtMainWin* pCtMainWin);
 
     Glib::ustring pango_get_from_code_buffer(Glib::RefPtr<Gsv::Buffer> code_buffer,
                                              int sel_start,
@@ -89,6 +89,7 @@ private:
 
 private:
     CtMainWin* const _pCtMainWin;
+    const CtConfig* const _pCtConfig;
 };
 
 
@@ -228,11 +229,11 @@ public:
     const int LINE_SPACE_OFFSET = 2;
 
 public:
-    CtPrint();
+    CtPrint(CtMainWin* pCtMainWin);
 
 public:
     void run_page_setup_dialog(Gtk::Window* pMainWin);
-    void print_text(CtMainWin* pCtMainWin, const fs::path& pdf_filepath, const std::vector<CtPangoObjectPtr>& slots);
+    void print_text(const fs::path& pdf_filepath, const std::vector<CtPangoObjectPtr>& slots);
 
 private:
     void _on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& context, CtPrintData* print_data);
@@ -272,7 +273,9 @@ private:
 
 
 private:
-    CtMainWin*                       _pCtMainWin;
+    CtMainWin* const _pCtMainWin;
+    const CtConfig* const _pCtConfig;
+
     Glib::RefPtr<Gtk::PrintSettings> _pPrintSettings;
     Glib::RefPtr<Gtk::PageSetup>     _pPageSetup;
 

@@ -1,7 +1,7 @@
 ﻿/*
  * ct_main_win.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -53,7 +53,7 @@ CtMainWin::CtMainWin(bool                            no_gui,
 
     _uCtActions.reset(new CtActions{this});
     _uCtMenu.reset(new CtMenu{pCtConfig, _uCtActions.get()});
-    _uCtPrint.reset(new CtPrint{});
+    _uCtPrint.reset(new CtPrint{this});
     _uCtStorage.reset(CtStorageControl::create_dummy_storage(this));
 
     _scrolledwindowTree.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);

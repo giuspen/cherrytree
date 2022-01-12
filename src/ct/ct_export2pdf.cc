@@ -1,7 +1,7 @@
 /*
  * ct_export2pdf.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -28,6 +28,12 @@
 namespace {
     template<typename NodeIdType>
     Glib::ustring generate_tag(NodeIdType node_id, const Glib::ustring& anchor) { return fmt::format("n.{}.{}", node_id, anchor); }
+}
+
+CtExport2Pango::CtExport2Pango(CtMainWin* pCtMainWin)
+ : _pCtMainWin{pCtMainWin}
+ , _pCtConfig{pCtMainWin->get_ct_config()}
+{
 }
 
 // Given a treestore iter returns the Pango rich text
@@ -164,7 +170,6 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
                     subscript_active = true;
                     continue;
                 }
-                CtConfig* pConfig = _pCtMainWin->get_ct_config();
                 size_t sIdx;
                 if (property_value == CtConst::TAG_PROP_VAL_SMALL) sIdx = 6;
                 else if (property_value == CtConst::TAG_PROP_VAL_H1) sIdx = 0;
@@ -178,8 +183,8 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
                     continue;
                 }
                 tag_property = "font_size";
-                const auto fontSize = Pango::FontDescription{pConfig->rtFont}.get_size();
-                const auto pCtScalableTag = pConfig->scalablesTags.at(sIdx);
+                const auto fontSize = Pango::FontDescription{_pCtConfig->rtFont}.get_size();
+                const auto pCtScalableTag = _pCtConfig->scalablesTags.at(sIdx);
                 property_value = std::to_string(static_cast<unsigned>(fontSize * pCtScalableTag->scale));
                 // check if other optional configuration is applied to this scalable tag
                 if (not pCtScalableTag->foreground.empty()) {
@@ -200,15 +205,14 @@ void CtExport2Pango::_pango_text_serialize(const Gtk::TextIter& start_iter,
             }
             else if (tag_property == CtConst::TAG_FAMILY) {
                 tag_property = "font_family";
-                CtConfig* pConfig = _pCtMainWin->get_ct_config();
-                if (not pConfig->monospaceFg.empty()) {
-                    pango_attrs += std::string{" "} + CtConst::TAG_FOREGROUND + "=\"" + pConfig->monospaceFg + "\"";
+                if (not _pCtConfig->monospaceFg.empty()) {
+                    pango_attrs += std::string{" "} + CtConst::TAG_FOREGROUND + "=\"" + _pCtConfig->monospaceFg + "\"";
                 }
-                if (not pConfig->monospaceBg.empty()) {
-                    pango_attrs += std::string{" "} + CtConst::TAG_BACKGROUND + "=\"" + pConfig->monospaceBg + "\"";
+                if (not _pCtConfig->monospaceBg.empty()) {
+                    pango_attrs += std::string{" "} + CtConst::TAG_BACKGROUND + "=\"" + _pCtConfig->monospaceBg + "\"";
                 }
-                if (pConfig->msDedicatedFont and not pConfig->monospaceFont.empty()) {
-                    auto fontDesc = Pango::FontDescription{pConfig->monospaceFont};
+                if (_pCtConfig->msDedicatedFont and not _pCtConfig->monospaceFont.empty()) {
+                    auto fontDesc = Pango::FontDescription{_pCtConfig->monospaceFont};
                     property_value = fontDesc.get_family();
                     pango_attrs += std::string{" font_size=\""} + std::to_string(fontDesc.get_size()) + "\"";
                 }
@@ -295,7 +299,7 @@ void CtExport2Pdf::node_export_print(const fs::path& pdf_filepath, CtTreeIter tr
     if (options.include_node_name)
         pango_slots.emplace(pango_slots.begin(), _generate_pango_node_name(tree_iter));
 
-    _pCtMainWin->get_ct_print().print_text(_pCtMainWin, pdf_filepath, pango_slots);
+    _pCtMainWin->get_ct_print().print_text(pdf_filepath, pango_slots);
 }
 
 void CtExport2Pdf::node_and_subnodes_export_print(const fs::path& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options)
@@ -303,19 +307,17 @@ void CtExport2Pdf::node_and_subnodes_export_print(const fs::path& pdf_filepath, 
     std::vector<CtPangoObjectPtr> tree_pango_slots;
     _nodes_all_export_print_iter(tree_iter, options, tree_pango_slots);
 
-    _pCtMainWin->get_ct_print().print_text(_pCtMainWin, pdf_filepath, tree_pango_slots);
+    _pCtMainWin->get_ct_print().print_text(pdf_filepath, tree_pango_slots);
 }
 
 void CtExport2Pdf::tree_export_print(const fs::path& pdf_filepath, CtTreeIter tree_iter, const CtExportOptions& options)
 {
     std::vector<CtPangoObjectPtr> tree_pango_slots;
-    Glib::ustring text_font = _pCtMainWin->get_ct_config()->codeFont;
-    while (tree_iter)
-    {
+    while (tree_iter) {
         _nodes_all_export_print_iter(tree_iter, options, tree_pango_slots);
         ++tree_iter;
     }
-    _pCtMainWin->get_ct_print().print_text(_pCtMainWin, pdf_filepath, tree_pango_slots);
+    _pCtMainWin->get_ct_print().print_text(pdf_filepath, tree_pango_slots);
 }
 
 void CtExport2Pdf::_nodes_all_export_print_iter(CtTreeIter tree_iter, const CtExportOptions& options, std::vector<CtPangoObjectPtr>& tree_pango_slots)
@@ -353,12 +355,9 @@ CtPangoObjectPtr CtExport2Pdf::_generate_pango_node_name(CtTreeIter tree_iter)
     return slot;
 }
 
-
-
-
-
-
-CtPrint::CtPrint()
+CtPrint::CtPrint(CtMainWin* pCtMainWin)
+ : _pCtMainWin{pCtMainWin}
+ , _pCtConfig{pCtMainWin->get_ct_config()}
 {
     _pPrintSettings = Gtk::PrintSettings::create();
     _pPageSetup = Gtk::PageSetup::create();
@@ -392,10 +391,8 @@ void CtPrint::run_page_setup_dialog(Gtk::Window* pWin)
 }
 
 // Start the Print Operations for Text
-void CtPrint::print_text(CtMainWin* pCtMainWin, const fs::path& pdf_filepath, const std::vector<CtPangoObjectPtr>& slots)
+void CtPrint::print_text(const fs::path& pdf_filepath, const std::vector<CtPangoObjectPtr>& slots)
 {
-    _pCtMainWin = pCtMainWin;
-
     CtPrintData print_data;
     print_data.slots = slots;
 
@@ -409,17 +406,15 @@ void CtPrint::print_text(CtMainWin* pCtMainWin, const fs::path& pdf_filepath, co
     print_data.operation->signal_begin_print().connect(sigc::bind(fun_begin_print_text, &print_data));
     print_data.operation->signal_draw_page().connect(sigc::bind(fun_draw_page_text, &print_data));
     print_data.operation->set_export_filename(pdf_filepath.string());
-    try
-    {
+    try {
         auto res = print_data.operation->run(!pdf_filepath.empty() ? Gtk::PRINT_OPERATION_ACTION_EXPORT : Gtk::PRINT_OPERATION_ACTION_PRINT_DIALOG);
         if (res == Gtk::PRINT_OPERATION_RESULT_ERROR)
-            CtDialogs::error_dialog("Error printing file: (bad res)", *pCtMainWin);
+            CtDialogs::error_dialog("Error printing file: (bad res)", *_pCtMainWin);
         else if (res == Gtk::PRINT_OPERATION_RESULT_APPLY)
             _pPrintSettings = print_data.operation->get_print_settings();
     }
-    catch (Glib::Error& ex)
-    {
-        CtDialogs::error_dialog("Error printing file:\n" + str::xml_escape(ex.what()) + " (exception caught)", *pCtMainWin);
+    catch (Glib::Error& ex) {
+        CtDialogs::error_dialog("Error printing file:\n" + str::xml_escape(ex.what()) + " (exception caught)", *_pCtMainWin);
     }
     if (!print_data.warning.empty())
         _pCtMainWin->get_status_bar().update_status(print_data.warning);
@@ -439,9 +434,9 @@ void CtPrint::_on_begin_print_text(const Glib::RefPtr<Gtk::PrintContext>& contex
     };
 
     print_data->context = context;
-    _rich_font = get_font_with_fallback_(Pango::FontDescription(_pCtMainWin->get_ct_config()->rtFont), _pCtMainWin->get_ct_config()->fallbackFontFamily);
-    _plain_font = get_font_with_fallback_(Pango::FontDescription(_pCtMainWin->get_ct_config()->ptFont), _pCtMainWin->get_ct_config()->fallbackFontFamily);
-    _code_font = get_font_with_fallback_(Pango::FontDescription(_pCtMainWin->get_ct_config()->codeFont), "monospace");
+    _rich_font = get_font_with_fallback_(Pango::FontDescription(_pCtConfig->rtFont), _pCtConfig->fallbackFontFamily);
+    _plain_font = get_font_with_fallback_(Pango::FontDescription(_pCtConfig->ptFont), _pCtConfig->fallbackFontFamily);
+    _code_font = get_font_with_fallback_(Pango::FontDescription(_pCtConfig->codeFont), "monospace");
     _text_window_width = _pCtMainWin->get_text_view().get_allocation().get_width();
     _table_text_row_height = _rich_font.get_size()/Pango::SCALE;
     _table_line_thickness = 6;
@@ -774,7 +769,7 @@ void CtPrint::_process_pango_table(CtPrintData *print_data, CtTable *table, int 
 
 Glib::RefPtr<Pango::Layout> CtPrint::_codebox_get_layout(CtCodebox* codebox, Glib::ustring content, Glib::RefPtr<Gtk::PrintContext> context)
 {
-    auto layout = context->create_pango_layout();
+    Glib::RefPtr<Pango::Layout> layout = context->create_pango_layout();
     layout->set_font_description(_code_font);
     double codebox_width = codebox->get_width_in_pixels() ? codebox->get_frame_width() : _text_window_width * codebox->get_frame_width()/100.;
     codebox_width *= _page_dpi_scale;
