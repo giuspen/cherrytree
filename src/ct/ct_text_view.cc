@@ -311,11 +311,11 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
         return;
     }
     auto text_buffer = get_buffer();
-    auto config = _pCtMainWin->get_ct_config();
+    auto pCtConfig = _pCtMainWin->get_ct_config();
     bool is_code = syntaxHighlighting != CtConst::RICH_TEXT_ID and syntaxHighlighting != CtConst::PLAIN_TEXT_ID and syntaxHighlighting != CtConst::TABLE_CELL_TEXT_ID;
 
     if (not is_code and
-        config->autoSmartQuotes and
+        pCtConfig->autoSmartQuotes and
         (event->key.keyval == GDK_KEY_quotedbl or event->key.keyval == GDK_KEY_apostrophe))
     {
         Gtk::TextIter iter_insert = text_buffer->get_insert()->get_iter();
@@ -324,13 +324,13 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
             Glib::ustring  start_char, char_0, char_1;
             if (event->key.keyval == GDK_KEY_quotedbl) {
                 start_char = CtConst::CHAR_DQUOTE;
-                char_0 = config->chars_smart_dquote[0];
-                char_1 = config->chars_smart_dquote[1];
+                char_0 = pCtConfig->chars_smart_dquote[0];
+                char_1 = pCtConfig->chars_smart_dquote[1];
             }
             else {
                 start_char = CtConst::CHAR_SQUOTE;
-                char_0 = config->chars_smart_squote[0];
-                char_1 = config->chars_smart_squote[1];
+                char_0 = pCtConfig->chars_smart_squote[0];
+                char_1 = pCtConfig->chars_smart_squote[1];
             }
             Gtk::TextIter iter_start = text_buffer->get_iter_at_offset(offset_1-1);
             int offset_0 = -1;
@@ -388,7 +388,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                 return; // former was an empty row
             CtListInfo list_info = CtList{_pCtMainWin, text_buffer}.get_paragraph_list_info(iter_start);
             if (not list_info) {
-                if (config->autoIndent) {
+                if (pCtConfig->autoIndent) {
                     iter_start = iter_insert;
                     Glib::ustring former_line_indent = _get_former_line_indentation(iter_start);
                     if (not former_line_indent.empty()) text_buffer->insert_at_cursor(former_line_indent);
@@ -422,10 +422,10 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
             int curr_level = list_info.level;
             Glib::ustring pre_spaces = curr_level ? Glib::ustring((size_t)(3*curr_level), CtConst::CHAR_SPACE[0]) : "";
             if (list_info.type == CtListType::Bullet) {
-                text_buffer->insert(iter_insert, pre_spaces+config->charsListbul[(size_t)list_info.num]+CtConst::CHAR_SPACE);
+                text_buffer->insert(iter_insert, pre_spaces+pCtConfig->charsListbul[(size_t)list_info.num]+CtConst::CHAR_SPACE);
             }
             else if (list_info.type == CtListType::Todo) {
-                text_buffer->insert(iter_insert, pre_spaces+config->charsTodo[0]+CtConst::CHAR_SPACE);
+                text_buffer->insert(iter_insert, pre_spaces+pCtConfig->charsTodo[0]+CtConst::CHAR_SPACE);
             }
             else {
                 int new_num = list_info.num + 1;
@@ -451,7 +451,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
             }
         }
         else { // keyname == CtConst::STR_KEY_SPACE
-            if (not is_code and config->enableSymbolAutoreplace and iter_start.backward_chars(2)) {
+            if (not is_code and pCtConfig->enableSymbolAutoreplace and iter_start.backward_chars(2)) {
                 if (iter_start.get_char() == '>' and iter_start.backward_char()) {
                     if (iter_start.get_line_offset() == 0) {
                         // at line start
@@ -531,7 +531,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                 else if (iter_start.get_char() == ']' and iter_start.backward_char()) {
                     if (iter_start.get_line_offset() == 0 and iter_start.get_char() == '[') {
                         // "[] " becoming "☐ " at line start
-                        _special_char_replace(config->charsTodo[0], iter_start, iter_insert);
+                        _special_char_replace(pCtConfig->charsTodo[0], iter_start, iter_insert);
                     }
                 }
                 else if (iter_start.get_char() == ':' and iter_start.backward_char()) {
@@ -779,7 +779,7 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
             }
         }
         int num_chars = iter_end.get_offset() - iter_start.get_offset();
-        if (num_chars > 4 and CtTextIterUtil::startswith_any(iter_start, CtConst::WEB_LINK_STARTERS)) {
+        if (_pCtMainWin->get_ct_config()->urlAutoLink and num_chars > 4 and CtTextIterUtil::startswith_any(iter_start, CtConst::WEB_LINK_STARTERS)) {
             get_buffer()->select_range(iter_start, iter_end);
             Glib::ustring link_url = get_buffer()->get_text(iter_start, iter_end);
             if (not str::startswith(link_url, "htt") and !str::startswith(link_url, "ftp")) link_url = "http://" + link_url;

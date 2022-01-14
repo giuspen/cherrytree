@@ -1,7 +1,7 @@
 /*
  * ct_actions_file.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -178,6 +178,7 @@ void CtActions::preferences_import()
     pConfig->embfileMaxSize = ctConfigImported.embfileMaxSize;
     pConfig->lineWrapping = ctConfigImported.lineWrapping;
     pConfig->autoSmartQuotes = ctConfigImported.autoSmartQuotes;
+    pConfig->urlAutoLink = ctConfigImported.urlAutoLink;
     pConfig->camelCaseAutoLink = ctConfigImported.camelCaseAutoLink;
     pConfig->tripleClickParagraph = ctConfigImported.tripleClickParagraph;
     pConfig->enableSymbolAutoreplace = ctConfigImported.enableSymbolAutoreplace;

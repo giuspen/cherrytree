@@ -1,7 +1,7 @@
 /*
  * ct_config.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -107,6 +107,7 @@ public:
     int                                         embfileMaxSize{10};
     bool                                        lineWrapping{true};
     bool                                        autoSmartQuotes{true};
+    bool                                        urlAutoLink{true};
     bool                                        camelCaseAutoLink{true};
     bool                                        tripleClickParagraph{false};
     bool                                        enableSymbolAutoreplace{true};

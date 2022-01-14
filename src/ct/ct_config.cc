@@ -1,7 +1,7 @@
 /*
  * ct_config.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -256,6 +256,7 @@ void CtConfig::_populate_keyfile_from_data()
     _uKeyFile->set_boolean(_currentGroup, "line_wrapping", lineWrapping);
     _uKeyFile->set_boolean(_currentGroup, "auto_smart_quotes", autoSmartQuotes);
     _uKeyFile->set_boolean(_currentGroup, "camelcase_autolink", camelCaseAutoLink);
+    _uKeyFile->set_boolean(_currentGroup, "url_autolink", urlAutoLink);
     _uKeyFile->set_boolean(_currentGroup, "triple_click_paragraph", tripleClickParagraph);
     _uKeyFile->set_boolean(_currentGroup, "enable_symbol_autoreplace", enableSymbolAutoreplace);
 #ifdef MD_AUTO_REPLACEMENT
@@ -536,6 +537,7 @@ void CtConfig::_populate_data_from_keyfile()
     _populate_bool_from_keyfile("line_wrapping", &lineWrapping);
     _populate_bool_from_keyfile("auto_smart_quotes", &autoSmartQuotes);
     _populate_bool_from_keyfile("camelcase_autolink", &camelCaseAutoLink);
+    _populate_bool_from_keyfile("url_autolink", &urlAutoLink);
     _populate_bool_from_keyfile("triple_click_paragraph", &tripleClickParagraph);
     _populate_bool_from_keyfile("enable_symbol_autoreplace", &enableSymbolAutoreplace);
 #ifdef MD_AUTO_REPLACEMENT
