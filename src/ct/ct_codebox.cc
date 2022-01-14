@@ -1,7 +1,7 @@
 /*
  * ct_codebox.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -114,7 +114,6 @@ void CtTextCell::set_syntax_highlighting(const std::string& syntaxHighlighting, 
     }
 }
 
-
 const Gsv::DrawSpacesFlags CtCodebox::DRAW_SPACES_FLAGS = Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE;
 
 CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
@@ -142,7 +141,8 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
         else {
             _scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
         }
-    } else {
+    }
+    else {
         _scrolledwindow.set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_NEVER);
         _ctTextview.set_wrap_mode(Gtk::WrapMode::WRAP_NONE);
     }
@@ -173,6 +173,16 @@ CtCodebox::CtCodebox(CtMainWin* pCtMainWin,
             _pCtMainWin->get_ct_actions()->object_set_selection(this);
         }
         return false;
+    });
+    _scrolledwindow.get_vscrollbar()->signal_value_changed().connect([this](){
+        if (_pCtMainWin->get_ct_config()->codeboxAutoResize) {
+            _scrolledwindow.get_vscrollbar()->set_value(0);
+        }
+    });
+    _scrolledwindow.get_hscrollbar()->signal_value_changed().connect([this](){
+        if (_pCtMainWin->get_ct_config()->codeboxAutoResize) {
+            _scrolledwindow.get_hscrollbar()->set_value(0);
+        }
     });
     _uCtPairCodeboxMainWin.reset(new CtPairCodeboxMainWin{this, _pCtMainWin});
     g_signal_connect(G_OBJECT(_ctTextview.gobj()), "cut-clipboard", G_CALLBACK(CtClipboard::on_cut_clipboard), _uCtPairCodeboxMainWin.get());
