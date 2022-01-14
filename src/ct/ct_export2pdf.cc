@@ -69,36 +69,40 @@ void CtExport2Pango::pango_get_from_treestore_node(CtTreeIter node_iter, int sel
 }
 
 // Get rich text from syntax highlighted code node
-Glib::ustring CtExport2Pango::pango_get_from_code_buffer(Glib::RefPtr<Gsv::Buffer> code_buffer, int sel_start, int sel_end, const std::string& syntax_highlighting)
+Glib::ustring CtExport2Pango::pango_get_from_code_buffer(Glib::RefPtr<Gsv::Buffer> code_buffer,
+                                                         int sel_start,
+                                                         int sel_end,
+                                                         const std::string& syntax_highlighting)
 {
     Gtk::TextIter curr_iter = sel_start < 0 ? code_buffer->begin() : code_buffer->get_iter_at_offset(sel_start);
     Gtk::TextIter end_iter = sel_start < 0 ? code_buffer->end() : code_buffer->get_iter_at_offset(sel_end);
-    _pCtMainWin->apply_syntax_highlighting(code_buffer, syntax_highlighting, false/*forceReApply*/);
-    code_buffer->ensure_highlight(curr_iter, end_iter);
-    Glib::ustring pango_text = "";
+    Glib::ustring indentation;
+    bool indentation_force_spaces{false};
+    if (syntax_highlighting != CtConst::PLAIN_TEXT_ID) {
+        _pCtMainWin->apply_syntax_highlighting(code_buffer, syntax_highlighting, false/*forceReApply*/);
+        code_buffer->ensure_highlight(curr_iter, end_iter);
+        indentation = str::repeat(CtConst::CHAR_SPACE, _pCtConfig->tabsWidth);
+        indentation_force_spaces = true;
+    }
+    Glib::ustring pango_text;
     Glib::ustring former_tag_str = CtConst::COLOR_48_BLACK;
-    bool span_opened = false;
-    while (true)
-    {
+    bool span_opened{false};
+    bool is_indentation{true};
+    while (true) {
         auto curr_tags = curr_iter.get_tags();
-        if (!curr_tags.empty())
-        {
+        if (not curr_tags.empty()) {
             Glib::ustring curr_tag_str = curr_tags[0]->property_foreground_gdk().get_value().to_string();
             int font_weight = curr_tags[0]->property_weight();
-            if (curr_tag_str == CtConst::COLOR_48_BLACK)
-            {
-                if (former_tag_str != curr_tag_str)
-                {
+            if (curr_tag_str == CtConst::COLOR_48_BLACK) {
+                if (former_tag_str != curr_tag_str) {
                     former_tag_str = curr_tag_str;
                     // end of tag
                     pango_text += "</span>";
                     span_opened = false;
                 }
             }
-            else
-            {
-                if (former_tag_str != curr_tag_str)
-                {
+            else {
+                if (former_tag_str != curr_tag_str) {
                     former_tag_str = curr_tag_str;
                     if (span_opened) pango_text += "</span>";
                     // start of tag
@@ -108,15 +112,32 @@ Glib::ustring CtExport2Pango::pango_get_from_code_buffer(Glib::RefPtr<Gsv::Buffe
                 }
             }
         }
-        else if (span_opened)
-        {
+        else if (span_opened) {
             span_opened = false;
             former_tag_str = CtConst::COLOR_48_BLACK;
             pango_text += "</span>";
         }
-        pango_text += str::xml_escape(Glib::ustring(1, curr_iter.get_char()));
-        if (!curr_iter.forward_char() || (sel_end >= 0 && curr_iter.get_offset() > sel_end))
-        {
+        const auto curr_char = curr_iter.get_char();
+        if (indentation_force_spaces) {
+            if (is_indentation) {
+                if ('\t' == curr_char) {
+                    pango_text += indentation;
+                }
+                else {
+                    is_indentation = false;
+                }
+            }
+            if (not is_indentation) {
+                pango_text += str::xml_escape(Glib::ustring{1, curr_char});
+                if ('\n' == curr_char) {
+                    is_indentation = true;
+                }
+            }
+        }
+        else {
+            pango_text += str::xml_escape(Glib::ustring{1, curr_char});
+        }
+        if (not curr_iter.forward_char() or (sel_end >= 0 && curr_iter.get_offset() > sel_end)) {
             if (span_opened) pango_text += "</span>";
             break;
         }
@@ -292,7 +313,8 @@ void CtExport2Pdf::node_export_print(const fs::path& pdf_filepath, CtTreeIter tr
     if (tree_iter.get_node_is_rich_text())
         CtExport2Pango{_pCtMainWin}.pango_get_from_treestore_node(tree_iter, sel_start, sel_end, pango_slots);
     else {
-        Glib::ustring text = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(tree_iter.get_node_text_buffer(), sel_start, sel_end, tree_iter.get_node_syntax_highlighting());
+        Glib::ustring text = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(
+            tree_iter.get_node_text_buffer(), sel_start, sel_end, tree_iter.get_node_syntax_highlighting());
         pango_slots.push_back(std::make_shared<CtPangoText>(text, tree_iter.get_node_syntax_highlighting(), 0));
     }
 
@@ -326,7 +348,8 @@ void CtExport2Pdf::_nodes_all_export_print_iter(CtTreeIter tree_iter, const CtEx
     if (tree_iter.get_node_is_rich_text())
         CtExport2Pango{_pCtMainWin}.pango_get_from_treestore_node(tree_iter, -1, -1, node_pango_slots);
     else {
-        Glib::ustring text = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(tree_iter.get_node_text_buffer(), -1, -1, tree_iter.get_node_syntax_highlighting());
+        Glib::ustring text = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(
+            tree_iter.get_node_text_buffer(), -1, -1, tree_iter.get_node_syntax_highlighting());
         node_pango_slots.push_back(std::make_shared<CtPangoText>(text, tree_iter.get_node_syntax_highlighting(), 0));
     }
 
@@ -679,7 +702,8 @@ void CtPrint::_process_pango_codebox(CtPrintData* print_data, CtCodebox* codebox
     auto context = print_data->context;
     CtPrintPages& pages = print_data->pages;
 
-    Glib::ustring original_content = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(codebox->get_buffer(), -1, -1, codebox->get_syntax_highlighting());
+    Glib::ustring original_content = CtExport2Pango{_pCtMainWin}.pango_get_from_code_buffer(
+        codebox->get_buffer(), -1, -1, codebox->get_syntax_highlighting());
     while (true)
     {
         // use content if it's ok
@@ -770,7 +794,7 @@ void CtPrint::_process_pango_table(CtPrintData *print_data, CtTable *table, int 
 Glib::RefPtr<Pango::Layout> CtPrint::_codebox_get_layout(CtCodebox* codebox, Glib::ustring content, Glib::RefPtr<Gtk::PrintContext> context)
 {
     Glib::RefPtr<Pango::Layout> layout = context->create_pango_layout();
-    layout->set_font_description(_code_font);
+    layout->set_font_description(codebox->get_syntax_highlighting() != CtConst::PLAIN_TEXT_ID ? _code_font : _plain_font);
     double codebox_width = codebox->get_width_in_pixels() ? codebox->get_frame_width() : _text_window_width * codebox->get_frame_width()/100.;
     codebox_width *= _page_dpi_scale;
     if (codebox_width > _page_width)
