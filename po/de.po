@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: svn_cherrytree 0.12\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-08 19:37+0000\n"
-"PO-Revision-Date: 2022-01-09 12:49+0000\n"
-"Last-Translator: Giuseppe Penone <giuspen@gmail.com>\n"
+"PO-Revision-Date: 2022-01-15 19:59+0000\n"
+"Last-Translator: Mr. Update\n"
 "Language-Team: German\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_export2pdf.cc:482
 msgid "Warning: One or More Images Were Reduced to Enter the Page"
@@ -87,11 +87,11 @@ msgstr "Knotennamen fokussieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:394
 msgid "Export to HTML at specified directory path"
-msgstr "HTML-Export in angegebene Pfad"
+msgstr "HTML-Export in angegebenen Pfad"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:395
 msgid "Export to Text at specified directory path"
-msgstr "Text-Export in angegebene Pfad"
+msgstr "Text-Export in angegebenen Pfad"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_app.cc:396
 msgid "Export to PDF at specified directory path"
@@ -348,7 +348,7 @@ msgstr "Einstellungen exportieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:94
 msgid "Tree In_fo"
-msgstr "Baum _Info"
+msgstr "Baum-_Info"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:95
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:468
@@ -448,7 +448,7 @@ msgstr "Inhaltsverzeichnis einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:120
 msgid "Insert Timestam_p"
-msgstr "Zeitstempel einfügen"
+msgstr "_Zeitstempel einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:121
 msgid "Insert Timestamp"
@@ -819,11 +819,11 @@ msgstr "Leerzeichen am Zeilenende löschen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:214
 msgid "_Replace Tabs with Spaces"
-msgstr "Ersetze Tabs durch Leerzeichen"
+msgstr "Tabs durch Leerzeichen ersetzen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:215
 msgid "Replace Tabs with Spaces"
-msgstr "Ersetze Tabs durch Leerzeichen"
+msgstr "Tabs durch Leerzeichen ersetzen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:216
 msgid "_Command Palette"
@@ -927,7 +927,7 @@ msgstr "Verknüpfung zum ausgewählten Knoten in die Zwischenablage kopieren"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:242
 msgid "Children _Inherit Syntax"
-msgstr "Syntax _vererben"
+msgstr "Syntax an Unterknoten _vererben"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:243
 msgid ""
@@ -1272,7 +1272,7 @@ msgstr "Knoten aus einem Ordner mit Textdateien im aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:338
 msgid "From _HTML File"
-msgstr "aus _HTML-Datei"
+msgstr "Aus _HTML-Datei"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:339
 msgid "Add Node from an HTML File to the Current Tree"
@@ -1280,7 +1280,7 @@ msgstr "Knoten aus einer HTML-Datei im aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:340
 msgid "From _Folder of HTML Files"
-msgstr "aus Or_dner mit HTML-Dateien"
+msgstr "Aus Or_dner mit HTML-Dateien"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:341
 msgid "Add Nodes from a Folder of HTML Files to the Current Tree"
@@ -1296,7 +1296,7 @@ msgstr "Knoten aus einer Markdown-Datei zum aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:345
 msgid "From _Folder of Markdown Files"
-msgstr "Aus einem Ordn_er mit Markdown-Dateien"
+msgstr "Aus Ordn_er mit Markdown-Dateien"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:346
 msgid "Add Nodes from a Folder of Markdown Files to the Current Tree"
@@ -1353,7 +1353,7 @@ msgstr "Knoten aus einer RedNotebook-HTML-Datei im aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:362
 msgid "From T_omboy Folder"
-msgstr "Aus einem Tombo_y-Ordner"
+msgstr "Aus Tombo_y-Ordner"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:363
 msgid "Add Nodes of a Tomboy Folder to the Current Tree"
@@ -1361,7 +1361,7 @@ msgstr "Knoten aus einem Tomboy-Ordner im aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:364
 msgid "From T_reepad Lite File"
-msgstr "Aus einer _Treepad-Lite-Datei"
+msgstr "Aus _Treepad-Lite-Datei"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:365
 msgid "Add Nodes of a Treepad Lite File to the Current Tree"
@@ -1369,7 +1369,7 @@ msgstr "Knoten aus einer Treepad-Lite-Datei im aktuellen Baum einfügen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:366
 msgid "From _Zim Folder"
-msgstr "Aus einem _Zim-Ordner"
+msgstr "Aus _Zim-Ordner"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:367
 msgid "Add Nodes of a Zim Folder to the Current Tree"
@@ -1425,7 +1425,7 @@ msgstr "Hilfe"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:383
 msgid "_Check Newer Version"
-msgstr "auf neuere Version prüfen"
+msgstr "Auf neuere Version prüfen"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_menu_actions.cc:384
 msgid "Check for a Newer Version"
@@ -2068,7 +2068,7 @@ msgid ""
 "A Hierarchical Note Taking Application, featuring Rich Text and Syntax "
 "Highlighting"
 msgstr ""
-"Ein hierarchisches Notizprogramm mit Richtext-Formatierung und "
+"Ein hierarchisches Notizprogramm mit Rich-Text-Formatierung und "
 "Syntaxhervorhebung"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_dialogs.cc:405
@@ -2301,7 +2301,7 @@ msgstr "Hintergrundfarbe der Markierung"
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:58
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg.cc:69
 msgid "Tree Explorer"
-msgstr "Baumstruktur Explorer"
+msgstr "Baumstruktur-Explorer"
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_pref_dlg_theme.cc:159
 #: /home/giuspen/git/cherrytree/src/ct/ct_main_win.cc:679
@@ -2834,9 +2834,9 @@ msgid ""
 "tilde and open with cherrytree. If it still fails, try the one with two "
 "tildes and if it still fails try the one with three tildes"
 msgstr ""
-"Per Vorgabe gibt es 3 Sicherungsdateien im selben Ordner, wie die korrupte "
+"Per Vorgabe gibt es 3 Sicherungsdateien im selben Ordner wie die korrupte "
 "Datei, mit angehängten Tilden im Namen (~. ~~, ~~~). Zuerst die jüngste "
-"Datei (ein ~) in einen anderen Ordner kopieren, und versuchen, diese zu "
+"Datei (eine ~) in einen anderen Ordner kopieren und versuchen, diese zu "
 "öffnen. Wenn dies auch scheitert, die älteren probieren (erst ~~, dann ~~~)."
 
 #: /home/giuspen/git/cherrytree/src/ct/ct_storage_sqlite.cc:217
