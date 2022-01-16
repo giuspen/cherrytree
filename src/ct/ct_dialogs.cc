@@ -1,7 +1,7 @@
 /*
  * ct_dialogs.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -398,7 +398,7 @@ void CtDialogs::dialog_about(Gtk::Window& parent, Glib::RefPtr<Gdk::Pixbuf> icon
     auto dialog = Gtk::AboutDialog();
     dialog.set_program_name("CherryTree");
     dialog.set_version(CtConst::CT_VERSION);
-    dialog.set_copyright("Copyright © 2009-2021\n"
+    dialog.set_copyright("Copyright © 2009-2022\n"
                          "Giuseppe Penone <giuspen@gmail.com>\n"
                          "Evgenii Gurianov <https://github.com/txe>");
     dialog.set_comments(_("A Hierarchical Note Taking Application, featuring Rich Text and Syntax Highlighting"));
