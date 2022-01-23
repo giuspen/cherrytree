@@ -1,7 +1,7 @@
 /*
  * ct_export2html.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -486,7 +486,7 @@ Glib::ustring CtExport2Html::_html_get_from_code_buffer(const Glib::RefPtr<Gsv::
         //html_text += str::replace(sym, " ", "&nbsp;");
         // let's try and use <pre></pre> instead of '&nbsp;' to preserve the spaces
         html_text += sym;
-        if (!curr_iter.forward_char() || (sel_end >= 0 && curr_iter.get_offset() > sel_end)) {
+        if (!curr_iter.forward_char() || (sel_end >= 0 && curr_iter.get_offset() >= sel_end)) {
             if (span_opened) html_text += "</span>";
             break;
         }

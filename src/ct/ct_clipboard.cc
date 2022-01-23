@@ -1,7 +1,7 @@
 /*
  * ct_clipboard.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -433,9 +433,11 @@ void  CtClipboard::_on_clip_data_get(Gtk::SelectionData& selection_data, CtClipb
             if (utf16text and utf16text_len > 0)
                 selection_data.set(target, 8, (guint8*)utf16text, (int)utf16text_len);
         }
-        else
-        {
-            std::string html = Win32HtmlFormat().encode(clip_data->html_text);
+        else {
+            const auto bodyStart = clip_data->html_text.find("<body>");
+            const auto bodyEnd = clip_data->html_text.find("</body>");
+            std::string html = Win32HtmlFormat{}.encode(bodyStart != std::string::npos and bodyEnd != std::string::npos ?
+                clip_data->html_text.substr(bodyStart, bodyEnd - bodyStart) : clip_data->html_text);
             selection_data.set(target, 8, (const guint8*)html.c_str(), (int)html.size());
         }
 #endif // _WIN32

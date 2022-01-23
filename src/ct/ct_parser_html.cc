@@ -1,7 +1,7 @@
 /*
  * ct_parser_html.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -167,9 +167,9 @@ void CtHtml2Xml::feed(const std::string& html)
     _slot_styles_cache.clear();
 
     const Glib::ustring doctype = "<!DOCTYPE HTML";
-    const Glib::ustring html_type = html.size() <= doctype.size() ? "" : html.substr(0, doctype.size());
-    if (html_type.uppercase() == doctype)
+    if (str::startswith(html, doctype) or str::startswith(html, doctype.lowercase())) {
         CtHtmlParser::feed(html);
+    }
     else {
         // if not fixed, we can skip some items
         std::string fixed_html = "<!doctype html><html><head><meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\"</head><body>"
