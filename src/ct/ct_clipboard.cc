@@ -435,7 +435,7 @@ void  CtClipboard::_on_clip_data_get(Gtk::SelectionData& selection_data, CtClipb
         }
         else {
             const auto bodyStart = clip_data->html_text.find("<body>");
-            const auto bodyEnd = clip_data->html_text.find("</body>");
+            const auto bodyEnd = clip_data->html_text.rfind("</body>");
             std::string html = Win32HtmlFormat{}.encode(bodyStart != std::string::npos and bodyEnd != std::string::npos ?
                 clip_data->html_text.substr(bodyStart, bodyEnd - bodyStart) : clip_data->html_text);
             selection_data.set(target, 8, (const guint8*)html.c_str(), (int)html.size());
