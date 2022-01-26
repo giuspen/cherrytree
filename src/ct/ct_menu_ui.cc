@@ -387,6 +387,7 @@ const char* CtMenu::_get_popup_menu_ui_str_text()
       <menuitem action='handle_todo_list'/>
     </menu>
   </menu>
+  <menuitem action='strip_trail_spaces'/>
   <separator/>
   <menu action='FindSubMenu'>
     <menuitem action='find_in_node'/>
