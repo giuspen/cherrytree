@@ -1,7 +1,7 @@
 /*
  * tests_exports.cpp
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -103,7 +103,11 @@ TEST_P(ExportsMultipleParametersTests, ChecksExports)
         std::string resultTxt = Glib::file_get_contents(tmpFilepath.string());
         ASSERT_FALSE(resultTxt.empty());
         //g_file_set_contents(Glib::build_filename(UT::unitTestsDataDir, "test.export.txtt").c_str(), resultTxt.c_str(), -1, NULL);
+#if defined(_WIN32)
+        ASSERT_STREQ(str::replace(expectTxt, "\n", "\r\n").c_str(), resultTxt.c_str());
+#else
         ASSERT_STREQ(expectTxt.c_str(), resultTxt.c_str());
+#endif
     }
     else if (ExportType::Pdf == exportType) {
         ASSERT_NE(0, fs::file_size(tmpFilepath));

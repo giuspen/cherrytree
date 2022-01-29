@@ -1,7 +1,7 @@
 /*
  * tests_misc_utils.cpp
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -370,6 +370,19 @@ TEST(MiscUtilsGroup, mime__type_contains)
 
     ASSERT_TRUE(!CtMiscUtil::mime_type_contains(UT::unitTestsDataDir+"/mimetype_ctb.ctb", "text/"));
 #endif
+}
+
+TEST(MiscUtilsGroup, text_file_set_contents_add_cr_on_win)
+{
+    fs::path test_file_path = fs::path{UT::unitTestsDataDir} / fs::path{"test_file_line_endings.txt"};
+    const std::string text_file_orig{"one\ntwo\nthree\nfour"};
+#if defined(_WIN32)
+    const std::string text_file_expected{"one\r\ntwo\r\nthree\r\nfour"};
+#else // !_WIN32
+    const std::string text_file_expected{text_file_orig};
+#endif // !_WIN32
+    CtMiscUtil::text_file_set_contents_add_cr_on_win(test_file_path.string(), text_file_orig);
+    ASSERT_STREQ(text_file_expected.c_str(), Glib::file_get_contents(test_file_path.string()).c_str());
 }
 
 TEST(MiscUtilsGroup, parallel_for)

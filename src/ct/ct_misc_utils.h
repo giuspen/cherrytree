@@ -1,7 +1,7 @@
 /*
  * ct_misc_utils.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -68,6 +68,8 @@ enum class URI_TYPE { LOCAL_FILEPATH, WEB_URL, UNKNOWN };
 URI_TYPE get_uri_type(const std::string& uri);
 
 void parallel_for(size_t first, size_t last, std::function<void(size_t)> f);
+
+bool text_file_set_contents_add_cr_on_win(const std::string& filepath, const std::string& text_content);
 
 } // namespace CtMiscUtil
 

@@ -1,7 +1,7 @@
 /*
  * ct_export2txt.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -41,8 +41,9 @@ Glib::ustring CtExport2Txt::node_export_to_txt(CtTreeIter tree_iter, fs::path fi
     }
     plain_text += selection_export_to_txt(tree_iter, tree_iter.get_node_text_buffer(), sel_start, sel_end, false);
     plain_text += str::repeat(CtConst::CHAR_NEWLINE, 2);
-    if (filepath != "")
-        g_file_set_contents(filepath.c_str(), plain_text.c_str(), (gssize)plain_text.bytes(), nullptr);
+    if (not filepath.empty()) {
+        CtMiscUtil::text_file_set_contents_add_cr_on_win(filepath.string(), plain_text);
+    }
     return plain_text;
 }
 
@@ -71,8 +72,9 @@ void CtExport2Txt::nodes_all_export_to_txt(bool all_tree, fs::path export_dir, f
         if (!all_tree) break;
     }
 
-    if (single_txt_filepath != "")
-        g_file_set_contents(single_txt_filepath.c_str(), tree_plain_text.c_str(), (gssize)tree_plain_text.bytes(), nullptr);
+    if (not single_txt_filepath.empty()) {
+        CtMiscUtil::text_file_set_contents_add_cr_on_win(single_txt_filepath.string(), tree_plain_text);
+    }
 }
 
 // Export the Buffer To Txt

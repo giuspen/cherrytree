@@ -507,7 +507,7 @@ void CtActions::codebox_save_to_file()
     _pCtMainWin->get_ct_config()->pickDirCbox = Glib::path_get_dirname(filepath);
 
     Glib::ustring text = curr_codebox_anchor->get_text_content();
-    g_file_set_contents(filepath.c_str(), text.c_str(), (gssize)text.bytes(), nullptr);
+    CtMiscUtil::text_file_set_contents_add_cr_on_win(filepath, text);
 }
 
 void CtActions::codebox_increase_width()

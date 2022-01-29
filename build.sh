@@ -49,7 +49,7 @@ cmake .. -DCMAKE_C_COMPILER=gcc \
          -DCMAKE_CXX_COMPILER=g++ \
          -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
          ${EXTRA_CMAKE_FLAGS} -DINSTALL_GTEST='' -GNinja
-ninja
+ninja -j $(nproc --all)
 
 if [ -n "${MAKE_DEB}" ]
 then

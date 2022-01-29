@@ -1,7 +1,7 @@
 /*
  * ct_misc_utils.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -298,17 +298,24 @@ bool CtMiscUtil::mime_type_contains(const std::string &filepath, const char* typ
     return strstr(mime_type, type);
 }
 
-namespace CtMiscUtil {
+bool CtMiscUtil::text_file_set_contents_add_cr_on_win(const std::string& filepath, const std::string& text_content)
+{
+    const char* pTextContent = text_content.c_str();
+#if defined(_WIN32)
+    const std::string mod_text_content = str::replace(text_content, "\n", "\r\n");
+    pTextContent = mod_text_content.c_str();
+#endif // _WIN32
+    return g_file_set_contents(filepath.c_str(), pTextContent, -1, NULL);
+}
 
-URI_TYPE get_uri_type(const std::string &uri) {
+CtMiscUtil::URI_TYPE CtMiscUtil::get_uri_type(const std::string &uri)
+{
     constexpr std::array<std::string_view, 2> http_ids = {"https://", "http://"};
     constexpr std::array<std::string_view, 2> fs_ids = {"/", "C:\\\\"};
     if (str::startswith_any(uri, http_ids)) return URI_TYPE::WEB_URL;
     else if (str::startswith_any(uri, fs_ids) || Glib::file_test(uri, Glib::FILE_TEST_EXISTS)) return URI_TYPE::LOCAL_FILEPATH;
     else return URI_TYPE::UNKNOWN;
 }
-
-} // namespace CtMiscUtil
 
 // analog to tbb::parallel_for
 void CtMiscUtil::parallel_for(size_t first, size_t last, std::function<void(size_t)> f)
