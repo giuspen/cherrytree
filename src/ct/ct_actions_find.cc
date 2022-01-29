@@ -1,7 +1,7 @@
 /*
  * ct_actions_find.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -395,6 +395,10 @@ bool CtActions::_parse_node_name_n_tags_iter(CtTreeIter& node_iter,
                                              Glib::RefPtr<Glib::Regex> re_pattern,
                                              const bool all_matches)
 {
+    if (not _is_node_within_time_filter(node_iter)) {
+        return false;
+    }
+
     Glib::ustring node_name = node_iter.get_node_name();
     Glib::MatchInfo match;
     if (not re_pattern->match(node_name, match)) {
@@ -434,6 +438,10 @@ bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter,
                                          bool all_matches,
                                          bool first_node)
 {
+    if (not _is_node_within_time_filter(tree_iter)) {
+        return false;
+    }
+
     bool restore_modified;
     Gtk::TextIter buff_start_iter = text_buffer->begin();
     if (buff_start_iter.get_char() != '\n') {
@@ -455,9 +463,7 @@ bool CtActions::_parse_node_content_iter(const CtTreeIter& tree_iter,
         if (all_matches) _s_state.all_matches_first_in_node = false;
     }
 
-    bool pattern_found{false};
-    if (_is_node_within_time_filter(tree_iter))
-        pattern_found = _find_pattern(tree_iter, text_buffer, re_pattern, start_iter, forward, all_matches);
+    bool pattern_found = _find_pattern(tree_iter, text_buffer, re_pattern, start_iter, forward, all_matches);
 
     if (_s_state.newline_trick) {
         buff_start_iter = text_buffer->begin();
