@@ -50,7 +50,8 @@ cmake .. -DCMAKE_C_COMPILER=gcc \
          -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
          ${EXTRA_CMAKE_FLAGS} -DINSTALL_GTEST='' -GNinja
 [[ "$OSTYPE" == "darwin"* ]] && NUM_JOBS="$(sysctl -n hw.ncpu)" || NUM_JOBS="$(nproc --all)"
-ninja -v -j ${NUM_JOBS}
+echo "starting ninja build with up to ${NUM_JOBS} parallel jobs..."
+ninja -j ${NUM_JOBS}
 
 if [ -n "${MAKE_DEB}" ]
 then
