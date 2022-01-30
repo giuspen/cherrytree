@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg_misc.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -247,12 +247,20 @@ Gtk::Widget* CtPrefDlg::build_tab_misc()
     });
 #ifdef HAVE_NLS
     button_country_language->signal_clicked().connect([this, button_country_language, f_getStockId, f_getButtonLabel](){
+
+        struct customCompare {
+            bool operator()(const std::pair<std::string, Glib::ustring>& l, const std::pair<std::string, Glib::ustring>& r) const {
+                return l.second < r.second;
+            }
+        };
+        std::set<std::pair<std::string, Glib::ustring>, customCompare> orderedSet{_mapCountryLanguages.begin(), _mapCountryLanguages.end()};
+
         Glib::RefPtr<CtChooseDialogListStore> rItemStore = CtChooseDialogListStore::create();
         const std::string currLang = CtMiscUtil::get_ct_language();
         rItemStore->add_row(f_getStockId(CtConst::LANG_DEFAULT), CtConst::LANG_DEFAULT, _("System Default"));
         unsigned pathSelectIdx{0};
         unsigned pathCurrIdx{1};
-        for (const auto& currPair : _mapCountryLanguages) {
+        for (const auto& currPair : orderedSet) {
             rItemStore->add_row(f_getStockId(currPair.first), currPair.first, currPair.second);
             if (currLang == currPair.first) {
                 pathSelectIdx = pathCurrIdx;

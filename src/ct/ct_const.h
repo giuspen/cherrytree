@@ -1,7 +1,7 @@
 /*
- * ct_extern const.h
+ * ct_const.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -247,8 +247,8 @@ const inline static gchar* TOOLBAR_VEC_DEFAULT {
 
 const inline static gchar* LANG_DEFAULT{"default"};
 
-const inline static std::array<const gchar*, 29> AVAILABLE_LANGS {
-    LANG_DEFAULT, "bg", "cs", "de", "el", "en", "es", "fi", "fr", "hi_IN", "hr", "hy", "it",
+const inline static std::vector<const gchar*> AVAILABLE_LANGS {
+    LANG_DEFAULT, "ar", "bg", "cs", "de", "el", "en", "es", "fi", "fr", "hi_IN", "hr", "hy", "it",
     "ja", "kk_KZ", "ko", "lt", "nl", "pl", "pt", "pt_BR", "ro", "ru", "sl", "sv", "tr", "uk", "zh_CN", "zh_TW"
 };
 
@@ -259,7 +259,7 @@ const inline static int NODE_ICON_SIZE             {16};
 const inline static int MAX_TOOLTIP_LINK_CHARS     {150};
 
 // former NODES_STOCK
-const inline static std::array<const gchar*, 130> NODE_CUSTOM_ICONS {
+const inline static std::vector<const gchar*> NODE_CUSTOM_ICONS {
     nullptr,            // NEVER USED
     "ct_circle-green",  //  1
     "ct_circle-yellow", //  2
@@ -389,7 +389,8 @@ const inline static std::array<const gchar*, 130> NODE_CUSTOM_ICONS {
     "ct_ghost",        // 126
     "ct_pt",           // 127
     "ct_zh_TW",        // 128
-    "ct_hi_IN"         // 129
+    "ct_hi_IN",        // 129
+    "ct_ar"            // 130
 };
 
 // former NODES_ICONS

@@ -1,7 +1,7 @@
 /*
  * ct_pref_dlg.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -30,34 +30,35 @@ CtPrefDlg::CtPrefDlg(CtMainWin* parent)
  , _pCtMenu{&_pCtMainWin->get_ct_menu()}
  , _pConfig{_pCtMainWin->get_ct_config()}
  , _mapCountryLanguages{
-        {"bg", _("Bulgarian")},
-        {"cs", _("Czech")},
-        {"de", _("German")},
-        {"el", _("Greek")},
-        {"en", _("English")},
-        {"es", _("Spanish")},
-        {"fi", _("Finnish")},
-        {"fr", _("French")},
-        {"hi_IN", _("Hindi India")},
-        {"hr", _("Croatian")},
-        {"hy", _("Armenian")},
-        {"it", _("Italian")},
-        {"ja", _("Japanese")},
-        {"kk_KZ", _("Kazakh")},
-        {"ko", _("Korean")},
-        {"lt", _("Lithuanian")},
-        {"nl", _("Dutch")},
-        {"pl", _("Polish")},
-        {"pt", _("Portuguese")},
-        {"pt_BR", _("Portuguese Brazil")},
-        {"ro", _("Romanian")},
-        {"ru", _("Russian")},
-        {"sl", _("Slovenian")},
-        {"sv", _("Swedish")},
-        {"tr", _("Turkish")},
-        {"uk", _("Ukrainian")},
-        {"zh_CN", _("Chinese Simplified")},
-        {"zh_TW", _("Chinese Traditional")}}
+    {"ar",      _("Arabic")},
+    {"hy",      _("Armenian")},
+    {"bg",      _("Bulgarian")},
+    {"zh_CN",   _("Chinese Simplified")},
+    {"zh_TW",   _("Chinese Traditional")},
+    {"hr",      _("Croatian")},
+    {"cs",      _("Czech")},
+    {"nl",      _("Dutch")},
+    {"en",      _("English")},
+    {"fi",      _("Finnish")},
+    {"fr",      _("French")},
+    {"de",      _("German")},
+    {"el",      _("Greek")},
+    {"hi_IN",   _("Hindi India")},
+    {"it",      _("Italian")},
+    {"ja",      _("Japanese")},
+    {"kk_KZ",   _("Kazakh")},
+    {"ko",      _("Korean")},
+    {"lt",      _("Lithuanian")},
+    {"pl",      _("Polish")},
+    {"pt",      _("Portuguese")},
+    {"pt_BR",   _("Portuguese Brazil")},
+    {"ro",      _("Romanian")},
+    {"ru",      _("Russian")},
+    {"sl",      _("Slovenian")},
+    {"es",      _("Spanish")},
+    {"sv",      _("Swedish")},
+    {"tr",      _("Turkish")},
+    {"uk",      _("Ukrainian")}}
 {
     auto pNotebook = Gtk::manage(new Gtk::Notebook{});
     pNotebook->set_tab_pos(Gtk::PositionType::POS_LEFT);
