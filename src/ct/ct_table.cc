@@ -511,7 +511,7 @@ bool CtTable::_on_key_press_event_cell(GdkEventKey* event)
             textView.grab_focus();
             return true;
         }
-        if (event->keyval == GDK_KEY_period) {
+        if (event->keyval == GDK_KEY_backslash) {
             if (event->state & Gdk::MOD1_MASK) {
                 _pCtMainWin->get_ct_actions()->table_column_decrease_width();
             }
