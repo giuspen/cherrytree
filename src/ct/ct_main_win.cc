@@ -174,7 +174,8 @@ CtMainWin::CtMainWin(bool                            no_gui,
         else {
             present();
         }
-        _hPaned.property_position() = _pCtConfig->hpanedPos; // must be after present() (#1534)
+        while (gtk_events_pending()) gtk_main_iteration();
+        _hPaned.property_position() = _pCtConfig->hpanedPos; // must be after present() + process events pending (#1534, #1918)
         _ctTextview.signal_size_allocate().connect(sigc::mem_fun(*this, &CtMainWin::_on_textview_size_allocate));
         signal_configure_event().connect(sigc::mem_fun(*this, &CtMainWin::_on_window_configure_event), false);
 
