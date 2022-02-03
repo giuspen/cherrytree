@@ -1,7 +1,0 @@
-Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
-Creation-Date: 2020-05-24T21:49:33+01:00
-
-====== Sub of home ======
-Created Sunday 24 May 2020
-

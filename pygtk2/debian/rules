@@ -1,8 +1,0 @@
-#!/usr/bin/make -f
-
-%:
-	dh $@ --buildsystem=pybuild
-
-override_dh_clean:
-	rm -rf build/
-	dh_clean

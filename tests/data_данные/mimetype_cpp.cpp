@@ -1,1 +1,0 @@
-#define MESSAGE "Foo - Bar"
