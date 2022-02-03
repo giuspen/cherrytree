@@ -1,6 +1,0 @@
-#!/bin/sh
-# postinst script for cherrytree
-
-update-desktop-database &
-
-#DEBHELPER#
