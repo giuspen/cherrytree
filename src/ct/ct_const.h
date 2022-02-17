@@ -248,7 +248,7 @@ const inline static gchar* TOOLBAR_VEC_DEFAULT {
 const inline static gchar* LANG_DEFAULT{"default"};
 
 const inline static std::vector<const gchar*> AVAILABLE_LANGS {
-    LANG_DEFAULT, "ar", "bg", "cs", "de", "el", "en", "es", "fi", "fr", "hi_IN", "hr", "hy", "it",
+    LANG_DEFAULT, "ar", "bg", "cs", "de", "el", "en", "es", "fi", "fr", "hi_IN", "hr", "hu", "hy", "it",
     "ja", "kk_KZ", "ko", "lt", "nl", "pl", "pt", "pt_BR", "ro", "ru", "sl", "sv", "tr", "uk", "zh_CN", "zh_TW"
 };
 
@@ -390,7 +390,8 @@ const inline static std::vector<const gchar*> NODE_CUSTOM_ICONS {
     "ct_pt",           // 127
     "ct_zh_TW",        // 128
     "ct_hi_IN",        // 129
-    "ct_ar"            // 130
+    "ct_ar",           // 130
+    "ct_hu"            // 131
 };
 
 // former NODES_ICONS
