@@ -1,7 +1,7 @@
 /*
  * ct_app.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -36,7 +36,7 @@ CtApp::CtApp(const char* application_id)
 
     // action to call from second instance
     // user wanted to create a new window from command line
-    add_action("new-window", [&]() {
+    add_action("new_window", [&]() {
         _new_window = true;
     });
 
@@ -131,7 +131,7 @@ void CtApp::on_activate()
             if (r_file->query_exists()) {
                 const std::string canonicalPath = fs::canonical(r_file->get_path()).string();
                 if (not pAppWindow->start_on_systray_is_active()) {
-                    if (not pAppWindow->file_open(canonicalPath, "")) {
+                    if (not pAppWindow->file_open(canonicalPath, "", _password)) {
                         spdlog::warn("%s Couldn't open file: %s", __FUNCTION__, canonicalPath);
                     }
                 }
@@ -189,7 +189,7 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
             spdlog::debug("file to export: {}", r_file->get_path());
             CtMainWin* pWin = _create_window(true/*no_gui*/);
             const std::string canonicalPath = fs::canonical(r_file->get_path()).string();
-            if (pWin->file_open(canonicalPath, "")) {
+            if (pWin->file_open(canonicalPath, "", _password)) {
                 try {
                     if (not _export_to_txt_dir.empty()) {
                         pWin->get_ct_actions()->export_to_txt_auto(_export_to_txt_dir, _export_overwrite, _export_single_file);
@@ -221,7 +221,7 @@ void CtApp::on_open(const Gio::Application::type_vec_files& files, const Glib::u
             pAppWindow = _create_window();
             const std::string canonicalPath = fs::canonical(r_file->get_path()).string();
             if (not pAppWindow->start_on_systray_is_active()) {
-                if (not pAppWindow->file_open(canonicalPath, _node_to_focus)) {
+                if (not pAppWindow->file_open(canonicalPath, _node_to_focus, _password)) {
                     spdlog::warn("%s Couldn't open file: {}", __FUNCTION__, canonicalPath);
                 }
             }
@@ -396,7 +396,8 @@ void CtApp::_add_main_option_entries()
     add_main_option_entry(Gio::Application::OPTION_TYPE_FILENAME, "export_to_pdf_dir",  'p', _("Export to PDF at specified directory path"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "export_overwrite",   'w', _("Overwrite if export path already exists"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "export_single_file", 's', _("Export to a single file (for HTML or TXT)"));
-    add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "new-window",         'N', _("Create a new window"));
+    add_main_option_entry(Gio::Application::OPTION_TYPE_STRING,   "password",           'P', _("Password to open document"));
+    add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "new_window",         'N', _("Create a new window"));
 }
 
 void CtApp::_print_gresource_icons()
@@ -427,10 +428,11 @@ int CtApp::_on_handle_local_options(const Glib::RefPtr<Glib::VariantDict>& rOpti
     rOptions->lookup_value("export_to_pdf_dir", _export_to_pdf_dir);
     rOptions->lookup_value("export_overwrite", _export_overwrite);
     rOptions->lookup_value("export_single_file", _export_single_file);
-    rOptions->lookup_value("new-window", new_window);
+    rOptions->lookup_value("password", _password);
+    rOptions->lookup_value("new_window", new_window);
 
     if (new_window) {
-        activate_action("new-window");
+        activate_action("new_window");
     }
 
     return -1; // Keep going
