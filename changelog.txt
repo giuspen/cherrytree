@@ -1,4 +1,17 @@
 
+0.99.46 (February 18th, 2022)
+  * fixed time created/modified filter on searches for node name and tags (#1858)
+  * changed default keyboard shortcuts using Ctrl+Period to Ctrl+Backslash for clash with latest linux desktops (#1942, #1956)
+  * fixed restore window position on Windows and dual screen (#1943, fix on gtk3 of Luca Bacci)
+  * fixed on Windows copy from codebox and pasting to rich text unwanted additional characters (#1934)
+  * export to txt on Windows set expected line endings [CR][NL] rather than [NL]
+  * added strip trailing spaces action to rich text right click menu (#1935)
+  * fixed issue restoring hpaned tree/text position with tree on the right (#1918)
+  * added command line option to pass the password to open an encrypted document (#1965)
+  * added language Arabic, work of Mohamed Milodi
+  * added language Hungarian, work of Stiener Norbert
+  * updated languages French, Russina, Kazakh
+
 0.99.45 (January 16th, 2022)
   * fixed issue with tags in dialog messages introduced in 0.99.44 (#1890, #1897)
   * fix table cell lose focus after deleting row or column (#194)

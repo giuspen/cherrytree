@@ -1,20 +1,16 @@
-cherrytree (0.99.45-2) focal; urgency=low
+cherrytree (0.99.46-2) focal; urgency=low
 
-  * fixed issue with tags in dialog messages introduced in 0.99.44 (#1890, #1897)
-  * fix table cell lose focus after deleting row or column (#194)
-  * added action to replace tabs with spaces; changed execute code icon to play symbol
-  * fixed print/export to pdf of code indented with tabs using always 8 spaces as tab width ignoring the settings
-  * fixed print/export to pdf of codebox of plain text to use plain text configured font
-  * fixed paste text in codebox with auto resize enabled being left in wrong scrolling position
-  * added configurability of existing feature to automatically try to link CamelCase text to a node with the same name
-  * in preferences dialog added possibility to search for a keyboard shortcut: just focus the list and type part of the description (#1833)
-  * added possibility to disable the auto url link generation as you type - not in preferences dialog yet, look for 'url_autolink' in config.cfg
-  * changed default keyboard shortcuts for indent/unindent from Shift+Ctrl+'>'/'<' to Ctrl+'>'/'<' (#1901)
-  * fixed import from zim dropping unwanted header data in the imported node; added missing default zim notes folder (#1870)
-  * fixed alt access keys in top menu: ensured uniqueness and added missing (#1865)
-  * fixed crash on windows only during search on multiple nodes if codeboxes are set to not expand automatically (#1729)
-  * fix RTL (Arabic) links not working (#1889)
-  * added language Hindi India (work of Paresh Mhatre)
+  * fixed time created/modified filter on searches for node name and tags (#1858)
+  * changed default keyboard shortcuts using Ctrl+Period to Ctrl+Backslash for clash with latest linux desktops (#1942, #1956)
+  * fixed restore window position on Windows and dual screen (#1943, fix on gtk3 of Luca Bacci)
+  * fixed on Windows copy from codebox and pasting to rich text unwanted additional characters (#1934)
+  * export to txt on Windows set expected line endings [CR][NL] rather than [NL]
+  * added strip trailing spaces action to rich text right click menu (#1935)
+  * fixed issue restoring hpaned tree/text position with tree on the right (#1918)
+  * added command line option to pass the password to open an encrypted document (#1965)
+  * added language Arabic, work of Mohamed Milodi
+  * added language Hungarian, work of Stiener Norbert
+  * updated languages French, Russina, Kazakh
 
 
- -- Giuseppe Penone <giuspen@gmail.com>  Sun, 16 Jan 2022 13:44:42 +0000
+ -- Giuseppe Penone <giuspen@gmail.com>  Sat, 19 Feb 2022 10:15:25 +0000
