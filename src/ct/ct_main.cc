@@ -115,6 +115,16 @@ int main(int argc, char *argv[])
 
     g_log_set_default_handler(glib_log_handler, nullptr);  // Redirect Gtk log messages to spdlog
 
-    Glib::RefPtr<CtApp> r_app = CtApp::create();
+    bool is_secondary_session{false};
+    for (int i = 1; i < argc; ++i) {
+        if (0 == strcmp("-S", argv[i]) or
+            0 == strcmp("--secondary_session", argv[i]))
+        {
+            is_secondary_session = true;
+            break;
+        }
+    }
+
+    Glib::RefPtr<CtApp> r_app = CtApp::create(is_secondary_session ? "_2" : "");
     return r_app->run(argc, argv);
 }

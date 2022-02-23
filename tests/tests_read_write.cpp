@@ -1,7 +1,7 @@
 /*
  * tests_read_write.cpp
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -29,7 +29,7 @@ class TestCtApp : public CtApp
 {
 public:
     TestCtApp(const std::vector<std::string>& vec_args)
-     : CtApp{"com.giuspen.cherrytree_test_read_write"},
+     : CtApp{"_test_read_write"},
        _vec_args{vec_args}
     {
         _no_gui = true;

@@ -38,10 +38,10 @@ class CtMainWin;
 class CtApp : public Gtk::Application
 {
 protected:
-    CtApp(const char* application_id = "com.giuspen.cherrytree");
+    CtApp(const Glib::ustring application_id_postfix = Glib::ustring{});
 
 public:
-    static Glib::RefPtr<CtApp> create();
+    static Glib::RefPtr<CtApp> create(const Glib::ustring application_id_postfix = Glib::ustring{});
     void                       close_all_windows(const bool userCanInteract = true);
     void                       systray_show_hide_windows();
 

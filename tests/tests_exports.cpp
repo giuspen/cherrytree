@@ -29,7 +29,7 @@ class TestCtApp : public CtApp
 {
 public:
     TestCtApp()
-     : CtApp{"com.giuspen.cherrytree_test_exports"}
+     : CtApp{"_test_exports"}
     {
         _no_gui = true;
         _on_startup(); // so that _uCtTmp is ready straight away

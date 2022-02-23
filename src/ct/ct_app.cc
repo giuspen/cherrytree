@@ -29,8 +29,8 @@
 #include "ct_logging.h"
 #include <iostream>
 
-CtApp::CtApp(const char* application_id)
- : Gtk::Application{application_id, Gio::APPLICATION_HANDLES_OPEN}
+CtApp::CtApp(const Glib::ustring application_id_postfix)
+ : Gtk::Application{Glib::ustring{"com.giuspen.cherrytree"} + application_id_postfix, Gio::APPLICATION_HANDLES_OPEN}
 {
     Gsv::init();
 
@@ -49,9 +49,9 @@ CtApp::CtApp(const char* application_id)
     register_application();
 }
 
-/*static*/Glib::RefPtr<CtApp> CtApp::create()
+/*static*/Glib::RefPtr<CtApp> CtApp::create(const Glib::ustring application_id_postfix)
 {
-    return Glib::RefPtr<CtApp>(new CtApp{});
+    return Glib::RefPtr<CtApp>(new CtApp{application_id_postfix});
 }
 
 static CtApp* _pCtApp{nullptr};
@@ -308,8 +308,10 @@ bool CtApp::_quit_or_hide_window(CtMainWin* pCtMainWin, const bool from_delete, 
 {
     std::lock_guard<std::mutex> lock(_quitOrHideWinMutex);
 
-    pCtMainWin->config_update_data_from_curr_status();
-    _uCtCfg->write_to_file();
+    if (not _no_gui) {
+        pCtMainWin->config_update_data_from_curr_status();
+        _uCtCfg->write_to_file();
+    }
 
     if (not fromKillCallback) {
         _uCtCfg->move_from_tmp();
@@ -398,6 +400,7 @@ void CtApp::_add_main_option_entries()
     add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "export_single_file", 's', _("Export to a single file (for HTML or TXT)"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_STRING,   "password",           'P', _("Password to open document"));
     add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "new_window",         'N', _("Create a new window"));
+    add_main_option_entry(Gio::Application::OPTION_TYPE_BOOL,     "secondary_session",  'S', _("Run in secondary session, independent from main session"));
 }
 
 void CtApp::_print_gresource_icons()
