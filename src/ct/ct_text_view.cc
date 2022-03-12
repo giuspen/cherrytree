@@ -868,14 +868,32 @@ void CtTextView::on_drag_data_received(const Glib::RefPtr<Gdk::DragContext>& con
                                        guint time)
 {
     bool success{false};
-    spdlog::debug("targets: {}", str::join(context->list_targets(), ", "));
-    if (vec::exists(context->list_targets(), CtConst::TARGET_URI_LIST)) {
-        int xb, yb;
-        window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, x, y, xb, yb);
-        Gtk::TextIter text_iter;
-        int trailing;
-        get_iter_at_position(text_iter, trailing, xb, yb); // works better than get_iter_at_location though has an issue
-        get_buffer()->place_cursor(text_iter);
+    auto text_buffer = get_buffer();
+    int xb, yb;
+    window_to_buffer_coords(Gtk::TEXT_WINDOW_TEXT, x, y, xb, yb);
+    Gtk::TextIter text_iter;
+    int trailing;
+    get_iter_at_position(text_iter, trailing, xb, yb);
+    //spdlog::debug("targets: {}", str::join(context->list_targets(), ", "));
+    if (vec::exists(context->list_targets(), CtConst::TARGET_GTK_TEXT_BUFFER_CONTENTS) and text_buffer->get_has_selection()) {
+        int target_offset = text_iter.get_offset();
+        Gtk::TextIter sel_start, sel_end;
+        text_buffer->get_selection_bounds(sel_start, sel_end);
+        const int start_offset = sel_start.get_offset();
+        const int end_offset = sel_end.get_offset();
+        const int sel_size = end_offset - start_offset;
+        if (target_offset > start_offset) {
+            target_offset -= sel_size;
+        }
+        //spdlog::debug("drop {} from {} to {}", sel_size, start_offset, target_offset);
+        g_signal_emit_by_name(G_OBJECT(gobj()), "cut-clipboard");
+        text_iter = text_buffer->get_iter_at_offset(target_offset);
+        text_buffer->place_cursor(text_iter);
+        g_signal_emit_by_name(G_OBJECT(gobj()), "paste-clipboard");
+        success = true;
+    }
+    else if (vec::exists(context->list_targets(), CtConst::TARGET_URI_LIST)) {
+        text_buffer->place_cursor(text_iter);
         CtClipboard{_pCtMainWin}.on_received_to_uri_list(selection_data, this, false/*forcePlain*/, true/*fromDragNDrop*/);
         success = true;
     }
