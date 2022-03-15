@@ -1,7 +1,7 @@
 /*
  * ct_actions_tree.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -96,6 +96,17 @@ bool CtActions::_node_sel_and_rich_text()
     if (!_is_there_selected_node_or_error()) return false;
     if (!_is_curr_node_not_syntax_highlighting_or_error()) return false;
     return true;
+}
+
+void CtActions::node_subnodes_copy()
+{
+    if (!_is_there_selected_node_or_error()) return;
+    _pCtMainWin->signal_app_tree_node_copy();
+}
+
+void CtActions::node_subnodes_paste()
+{
+    _pCtMainWin->signal_app_tree_node_paste();
 }
 
 void CtActions::node_subnodes_duplicate()

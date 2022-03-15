@@ -705,3 +705,18 @@ void CtMainWin::update_selected_node_statusbar_info()
     }
     _ctStatusBar.update_status(statusbar_text);
 }
+
+void CtMainWin::tree_node_paste_from_other_window(CtMainWin* pWinToCopyFrom, gint64 nodeIdToCopyFrom)
+{
+    if (not pWinToCopyFrom) {
+        CtDialogs::warning_dialog(_("No Previous Node Copy Was Performed During This Session or the Source Tree is No Longer Available"), *this);
+        return;
+    }
+    CtTreeStore& other_ct_tree_store = pWinToCopyFrom->get_tree_store();
+    CtTreeIter   other_ct_tree_iter = other_ct_tree_store.get_node_from_node_id(nodeIdToCopyFrom);
+    if (not other_ct_tree_iter) {
+        CtDialogs::warning_dialog(_("The Source Tree Node is No Longer Available"), *this);
+        return;
+    }
+    
+}

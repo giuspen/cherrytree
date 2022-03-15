@@ -231,9 +231,13 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Duplicate the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_duplicate)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_dup_node_subnodes", "ct_tree-nodesub-dupl", _("Duplicate Node _and Subnodes"), None,
         _("Duplicate the Selected Node and the Subnodes"), sigc::mem_fun(*pActions, &CtActions::node_subnodes_duplicate)});
+    _actions.push_back(CtMenuAction{tree_cat, "tree_copy_node_subnodes", "ct_edit_copy", _("Copy Node and S_ubnodes"), None,
+        _("Copy the Selected Node and the Subnodes"), sigc::mem_fun(*pActions, &CtActions::node_subnodes_copy)});
+    _actions.push_back(CtMenuAction{tree_cat, "tree_paste_node_subnodes", "ct_edit_paste", _("_Paste Node and Subnodes"), None,
+        _("Paste the Copied Node and Subnodes"), sigc::mem_fun(*pActions, &CtActions::node_subnodes_paste)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_date", "ct_calendar", _("Insert _Today's Node"), "F8",
         _("Insert a Node with Hierarchy Year/Month/Day"), sigc::mem_fun(*pActions, &CtActions::node_date)});
-    _actions.push_back(CtMenuAction{tree_cat, "tree_node_prop", "ct_cherry_edit", _("Change Node _Properties"), "F2",
+    _actions.push_back(CtMenuAction{tree_cat, "tree_node_prop", "ct_cherry_edit", _("C_hange Node Properties"), "F2",
         _("Edit the Properties of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_edit)});
     _actions.push_back(CtMenuAction{tree_cat, "tree_node_toggle_ro", "ct_locked", _("Toggle _Read Only"), KB_CONTROL+KB_ALT+"R",
         _("Toggle the Read Only Property of the Selected Node"), sigc::mem_fun(*pActions, &CtActions::node_toggle_read_only)});

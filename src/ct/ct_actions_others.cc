@@ -1,7 +1,7 @@
 /*
  * ct_actions_others.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -279,7 +279,7 @@ void CtActions::image_link_dismiss()
 
 void CtActions::toggle_show_hide_main_window()
 {
-    _pCtMainWin->signal_show_hide_main_win();
+    _pCtMainWin->signal_app_show_hide_main_win();
 }
 
 // Function Called at Every Link Click

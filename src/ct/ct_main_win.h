@@ -1,7 +1,7 @@
 /*
  * ct_main_win.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -118,6 +118,8 @@ public:
     bool get_file_save_needed();
 
     void update_selected_node_statusbar_info();
+
+    void tree_node_paste_from_other_window(CtMainWin* pWinToCopyFrom, gint64 nodeIdToCopyFrom);
 
     Glib::RefPtr<Gtk::TextBuffer>     curr_buffer() { return _ctTextview.get_buffer(); }
     CtTreeIter                        curr_tree_iter()  {
@@ -305,7 +307,9 @@ private:
 
 public:
     sigc::signal<void>             signal_app_new_instance = sigc::signal<void>();
-    sigc::signal<void>             signal_show_hide_main_win = sigc::signal<void>();
+    sigc::signal<void>             signal_app_show_hide_main_win = sigc::signal<void>();
+    sigc::signal<void>             signal_app_tree_node_copy = sigc::signal<void>();
+    sigc::signal<void>             signal_app_tree_node_paste = sigc::signal<void>();
     sigc::signal<void, std::function<void(CtMainWin*)>>
                                    signal_app_apply_for_each_window = sigc::signal<void, std::function<void(CtMainWin*)>>();
 

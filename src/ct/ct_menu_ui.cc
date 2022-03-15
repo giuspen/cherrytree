@@ -229,6 +229,8 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='tree_add_subnode'/>
     <menuitem action='tree_dup_node'/>
     <menuitem action='tree_dup_node_subnodes'/>
+    <menuitem action='tree_copy_node_subnodes'/>
+    <menuitem action='tree_paste_node_subnodes'/>
     <menuitem action='tree_node_date'/>
     <separator/>
     <menuitem action='tree_node_prop'/>

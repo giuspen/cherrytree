@@ -255,7 +255,7 @@ void CtApp::on_window_removed(Gtk::Window* window)
 
 CtMainWin* CtApp::_create_window(const bool no_gui)
 {
-    CtMainWin* pCtMainWin = new CtMainWin(no_gui,
+    CtMainWin* pCtMainWin = new CtMainWin{no_gui,
                                           _uCtCfg.get(),
                                           _uCtTmp.get(),
                                           _rIcontheme.get(),
@@ -263,7 +263,7 @@ CtMainWin* CtApp::_create_window(const bool no_gui)
                                           _rCssProvider,
                                           _rLanguageManager.get(),
                                           _rStyleSchemeManager.get(),
-                                          _uCtStatusIcon.get());
+                                          _uCtStatusIcon.get()};
     add_window(*pCtMainWin);
 
     pCtMainWin->signal_app_new_instance.connect([this]() {
@@ -271,9 +271,11 @@ CtMainWin* CtApp::_create_window(const bool no_gui)
         win->present(); // explicitly show it because it can be hidden by start in systray
     });
     pCtMainWin->signal_app_apply_for_each_window.connect([this](std::function<void(CtMainWin*)> callback) {
-        for (Gtk::Window* pWin : get_windows())
-            if (CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(pWin))
+        for (Gtk::Window* pWin : get_windows()) {
+            if (CtMainWin* pCtMainWin = dynamic_cast<CtMainWin*>(pWin)) {
                 callback(pCtMainWin);
+            }
+        }
     });
     pCtMainWin->signal_app_quit_or_hide_window.connect([&](CtMainWin* win) {
         _quit_or_hide_window(win, false/*fromDelete*/, false/*fromKillCallback*/);
@@ -286,8 +288,24 @@ CtMainWin* CtApp::_create_window(const bool no_gui)
         win->force_exit() = true;
         _quit_or_hide_window(win, false/*fromDelete*/, false/*fromKillCallback*/);
     });
-    pCtMainWin->signal_show_hide_main_win.connect([&]() {
+    pCtMainWin->signal_app_show_hide_main_win.connect([&]() {
         systray_show_hide_windows();
+    });
+    pCtMainWin->signal_app_tree_node_copy.connect([this, pCtMainWin]() {
+        _pWinToCopyFrom = pCtMainWin;
+        _nodeIdToCopyFrom = pCtMainWin->curr_tree_iter().get_node_id();
+    });
+    pCtMainWin->signal_app_tree_node_paste.connect([this, pCtMainWin]() {
+        Gtk::Window* pWinToCopyFromValidated{nullptr};
+        if (_pWinToCopyFrom) {
+            for (Gtk::Window* pWin : get_windows()) {
+                if (pWin == _pWinToCopyFrom) {
+                    pWinToCopyFromValidated = _pWinToCopyFrom;
+                    break;
+                }
+            }
+        }
+        pCtMainWin->tree_node_paste_from_other_window(dynamic_cast<CtMainWin*>(pWinToCopyFromValidated), _nodeIdToCopyFrom);
     });
 
     return pCtMainWin;

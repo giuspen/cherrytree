@@ -141,6 +141,8 @@ public:
     void node_duplicate()          { _node_add(true, false); }
     void node_child_add()          { _node_add(false, true); }
     void node_subnodes_duplicate();
+    void node_subnodes_copy();
+    void node_subnodes_paste();
     void node_edit();
     void node_inherit_syntax();
     void node_delete();

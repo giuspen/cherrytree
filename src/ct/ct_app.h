@@ -23,8 +23,6 @@
 
 #pragma once
 
-#include <unordered_map>
-
 #include <glibmm/i18n.h>
 #include <gtkmm.h>
 
@@ -82,4 +80,8 @@ protected:
     CtMainWin*  _get_window_by_path(const std::string& filepath);
     bool        _quit_or_hide_window(CtMainWin* pCtMainWin, const bool fromDelete, const bool fromKillCallback);
     int         _on_handle_local_options(const Glib::RefPtr<Glib::VariantDict>& rOptions);
+
+private:
+    Gtk::Window* _pWinToCopyFrom{nullptr};
+    gint64       _nodeIdToCopyFrom;
 };
