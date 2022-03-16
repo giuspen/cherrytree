@@ -112,11 +112,13 @@ public:
 
 private:
     // helpers for tree actions
-    void          _node_add(bool duplicate,
-                            bool add_child);
+    void          _node_add(const bool is_duplicate,
+                            const bool add_as_child,
+                            const CtTreeIter* pCtTreeIterFrom = nullptr,
+                            CtMainWin* pWinToCopyFrom = nullptr);
     Gtk::TreeIter _node_add_with_data(Gtk::TreeIter curr_iter,
                                       CtNodeData& nodeData,
-                                      bool add_child,
+                                      bool add_as_child,
                                       std::shared_ptr<CtNodeState> node_state);
 
 public:
@@ -137,12 +139,23 @@ private:
 
 public:
     // tree actions
-    void node_add()                { _node_add(false, false); }
-    void node_duplicate()          { _node_add(true, false); }
-    void node_child_add()          { _node_add(false, true); }
+    void node_add()                {
+        _node_add(false/*is_duplicate*/, false/*add_as_child*/);
+    }
+    void node_duplicate()          {
+        if (not _is_there_selected_node_or_error()) return;
+        CtTreeIter treeIter = _pCtMainWin->curr_tree_iter();
+        _node_add(true/*is_duplicate*/, false/*add_as_child*/, &treeIter, _pCtMainWin);
+    }
+    void node_child_add()          {
+        if (!_is_there_selected_node_or_error()) return;
+        _node_add(false/*is_duplicate*/, true/*add_as_child*/);
+    }
     void node_subnodes_duplicate();
     void node_subnodes_copy();
     void node_subnodes_paste();
+    void node_subnodes_paste2(CtTreeIter& other_ct_tree_iter,
+                              CtMainWin* pWinToCopyFrom);
     void node_edit();
     void node_inherit_syntax();
     void node_delete();

@@ -718,5 +718,5 @@ void CtMainWin::tree_node_paste_from_other_window(CtMainWin* pWinToCopyFrom, gin
         CtDialogs::warning_dialog(_("The Source Tree Node is No Longer Available"), *this);
         return;
     }
-    
+    _uCtActions->node_subnodes_paste2(other_ct_tree_iter, pWinToCopyFrom);
 }
