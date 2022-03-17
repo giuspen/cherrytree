@@ -5,6 +5,7 @@ Syntax highlighting for the HashiCorp Configuration Language language
 <language id="hcl" name="HashiCorp Configuration Language" section="Sources" version="2.0">
   <metadata>
     <property name="globs">*.hcl;*.nomad;*.tf</property>
+    <property name="line-comment-start">#</property>
     <property name="line-comment-start">//</property>
     <property name="block-comment-start">/*</property>
     <property name="block-comment-end">*/</property>
@@ -44,10 +45,6 @@ Syntax highlighting for the HashiCorp Configuration Language language
         <context id="string" style-ref="string">
           <start>"</start>
           <end>"</end>
-        </context>
-        <context id="comment" style-ref="comment">
-          <start>(^[ \t]+)?(?=(#|//))</start>
-          <end>(?!\G)</end>
         </context>
       </include>
     </context>
