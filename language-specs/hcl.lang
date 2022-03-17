@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Syntax highlighting for the HashiCorp Configuration Language language
+-->
+<language id="hcl" name="HashiCorp Configuration Language" section="Sources" version="2.0">
+  <metadata>
+    <property name="globs">*.hcl;*.nomad;*.tf</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="number" name="Number" map-to="def:number"/>
+    <style id="constant" name="Constant" map-to="def:constant"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+  </styles>
+  <definitions>
+    <context id="hcl">
+      <include>
+        <context id="comment_type_0" style-ref="comment">
+          <start>//</start>
+          <end>$</end>
+        </context>
+        <context id="comment_type_1" style-ref="comment">
+          <start>#</start>
+          <end>$</end>
+        </context>
+        <context id="comment_type_2" style-ref="comment">
+          <start>/\*</start>
+          <end>\*/</end>
+        </context>
+        <context id="number" style-ref="number">
+          <match extended="true">-?(?=[1-9]|0(?!\d))\d+(\.\d+)?([eE][+-]?\d+)?</match>
+        </context>
+        <context id="constant" style-ref="constant">
+          <match extended="true">\b(?:true|false|null)\b</match>
+        </context>
+        <context id="keyword" style-ref="keyword">
+          <match extended="true">\b(?:[\w\d_-]+)\b</match>
+        </context>
+        <context id="string" style-ref="string">
+          <start>"</start>
+          <end>"</end>
+        </context>
+        <context id="comment" style-ref="comment">
+          <start>(^[ \t]+)?(?=(#|//))</start>
+          <end>(?!\G)</end>
+        </context>
+      </include>
+    </context>
+  </definitions>
+</language>
