@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_anch_widg.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -23,16 +23,57 @@
 
 #include "ct_dialogs.h"
 #include "ct_main_win.h"
+#include "ct_text_view.h"
+
+Glib::ustring CtDialogs::latex_handle_dialog(CtMainWin* pCtMainWin,
+                                             const Glib::ustring& latex_text)
+{
+    CtTextView textView{pCtMainWin};
+    Glib::RefPtr<Gsv::Buffer> rBuffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(textView.get_buffer());
+    rBuffer->set_text(latex_text);
+    textView.setup_for_syntax("latex");
+    pCtMainWin->apply_syntax_highlighting(rBuffer, "latex", false/*forceReApply*/);
+    Gtk::ScrolledWindow scrolledwindow;
+    scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+    scrolledwindow.add(textView);
+    Gtk::Dialog dialog{_("Latex Text"),
+                       *pCtMainWin,
+                       Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
+    dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);
+    dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
+    dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
+    dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    dialog.set_default_size(300, 300);
+    Gtk::Box* pContentArea = dialog.get_content_area();
+    pContentArea->pack_start(scrolledwindow);
+    auto on_key_press_dialog = [&](GdkEventKey* pEventKey)->bool{
+        if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {
+            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT));
+            pButton->grab_focus();
+            pButton->clicked();
+            return true;
+        }
+        if (GDK_KEY_Escape == pEventKey->keyval) {
+            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_REJECT));
+            pButton->grab_focus();
+            pButton->clicked();
+            return true;
+        }
+        return false;
+    };
+    dialog.signal_key_press_event().connect(on_key_press_dialog, false/*call me before other*/);
+    pContentArea->show_all();
+    return Gtk::RESPONSE_ACCEPT == dialog.run() ? rBuffer->get_text() : "";
+}
 
 Glib::RefPtr<Gdk::Pixbuf> CtDialogs::image_handle_dialog(Gtk::Window& parent_win,
-                                                         const Glib::ustring& title,
                                                          Glib::RefPtr<Gdk::Pixbuf> rOriginalPixbuf)
 {
     int width = rOriginalPixbuf->get_width();
     int height = rOriginalPixbuf->get_height();
     double image_w_h_ration = static_cast<double>(width)/height;
 
-    Gtk::Dialog dialog{title,
+    Gtk::Dialog dialog{_("Image Properties"),
                        parent_win,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
     dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_REJECT);

@@ -39,8 +39,10 @@ struct TocEntry;
 class CtActions
 {
 public:
-    CtActions(CtMainWin* pCtMainWin) {
-        _pCtMainWin = pCtMainWin;
+    CtActions(CtMainWin* pCtMainWin)
+     : _pCtMainWin{pCtMainWin}
+     , _pCtConfig{pCtMainWin->get_ct_config()}
+    {
         _find_init();
         _validate_enable_spell_check();
     }
@@ -49,6 +51,7 @@ public:
     CtCodebox*      curr_codebox_anchor{nullptr};
     CtTable*        curr_table_anchor{nullptr};
     CtImageAnchor*  curr_anchor_anchor{nullptr};
+    CtImageLatex*   curr_latex_anchor{nullptr};
     CtImagePng*     curr_image_anchor{nullptr};
     CtImageEmbFile* curr_file_anchor{nullptr};
 
@@ -65,7 +68,8 @@ private:
     sigc::connection _embfiles_timeout_connection;
 
 private:
-    CtMainWin*   _pCtMainWin;
+    CtMainWin* const _pCtMainWin;
+    CtConfig* const _pCtConfig;
 
 private:
     CtExportOptions _export_options;
@@ -327,6 +331,9 @@ private:
     void _image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
                             Gtk::TextIter insertIter,
                             Gtk::TextIter* pIterBound);
+    void _latex_edit_dialog(const Glib::ustring& latex_text,
+                            Gtk::TextIter insertIter,
+                            Gtk::TextIter* pIterBound);
     void _text_selection_change_case(gchar change_type);
     int  _find_previous_indent_margin();
     void _apply_tag_hN(const char* tagPropScaleVal);
@@ -339,6 +346,9 @@ public:
     void image_insert_anchor(Gtk::TextIter iter_insert,
                              const Glib::ustring& name,
                              const Glib::ustring& image_justification);
+    void image_insert_latex(Gtk::TextIter iter_insert,
+                            const Glib::ustring& latex_text,
+                            const Glib::ustring& image_justification);
 
 private:
     void _insert_toc_at_pos(Glib::RefPtr<Gtk::TextBuffer> text_buffer, const std::list<TocEntry>& entries);
@@ -347,9 +357,10 @@ public:
     // edit actions
     void requested_step_back();
     void requested_step_ahead();
-    void image_handle();
-    void table_handle();
-    void codebox_handle();
+    void image_insert();
+    void latex_insert();
+    void table_insert();
+    void codebox_insert();
     void embfile_insert();
     void embfile_insert_path(const std::string& filepath);
     void apply_tag_link();
@@ -398,6 +409,11 @@ public:
     void embfile_save();
     void embfile_open();
     void embfile_rename();
+    void latex_save();
+    void latex_edit();
+    void latex_cut();
+    void latex_copy();
+    void latex_delete();
     void image_save();
     void image_edit();
     void image_cut();

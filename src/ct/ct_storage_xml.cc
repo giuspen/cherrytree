@@ -1,7 +1,7 @@
 /*
  * ct_storage_xml.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -462,29 +462,27 @@ void CtStorageXmlHelper::_add_rich_text_from_xml(Glib::RefPtr<Gsv::Buffer> buffe
 CtAnchoredWidget* CtStorageXmlHelper::_create_image_from_xml(xmlpp::Element* xml_element, int charOffset, const Glib::ustring& justification)
 {
     const Glib::ustring anchorName = xml_element->get_attribute_value("anchor");
-    if (!anchorName.empty())
-        return new CtImageAnchor(_pCtMainWin, anchorName, charOffset, justification);
-
+    if (!anchorName.empty()) {
+        return new CtImageAnchor{_pCtMainWin, anchorName, charOffset, justification};
+    }
     fs::path file_name = static_cast<std::string>(xml_element->get_attribute_value("filename"));
     xmlpp::TextNode* pTextNode = xml_element->get_child_text();
     const std::string encodedBlob = pTextNode ? pTextNode->get_content() : "";
-    const std::string rawBlob = Glib::Base64::decode(encodedBlob);
-    if (not file_name.empty())
-    {
+    if (not file_name.empty()) {
+        if (file_name == CtImageLatex::LatexSpecialFilename) {
+            return new CtImageLatex{_pCtMainWin, encodedBlob, charOffset, justification, CtImageEmbFile::get_next_unique_id()};
+        }
+        const std::string rawBlob = Glib::Base64::decode(encodedBlob);
         std::string timeStr = xml_element->get_attribute_value("time");
-        if (timeStr.empty())
-        {
+        if (timeStr.empty()) {
             timeStr = "0";
         }
-        double timeDouble = std::stod(timeStr);
-        return new CtImageEmbFile(_pCtMainWin, file_name, rawBlob, timeDouble, charOffset, justification, CtImageEmbFile::get_next_unique_id());
+        const time_t timeInt = std::stoll(timeStr);
+        return new CtImageEmbFile{_pCtMainWin, file_name, rawBlob, timeInt, charOffset, justification, CtImageEmbFile::get_next_unique_id()};
     }
-    else
-    {
-        const Glib::ustring link = xml_element->get_attribute_value("link");
-        return new CtImagePng(_pCtMainWin, rawBlob, link, charOffset, justification);
-    }
-
+    const std::string rawBlob = Glib::Base64::decode(encodedBlob);
+    const Glib::ustring link = xml_element->get_attribute_value("link");
+    return new CtImagePng{_pCtMainWin, rawBlob, link, charOffset, justification};
 }
 
 CtAnchoredWidget* CtStorageXmlHelper::_create_codebox_from_xml(xmlpp::Element* xml_element, int charOffset, const Glib::ustring& justification)

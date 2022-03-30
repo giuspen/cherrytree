@@ -365,25 +365,23 @@ Glib::ustring CtExport2Html::_get_embfile_html(CtImageEmbFile* embfile, CtTreeIt
 // Returns the HTML Image
 Glib::ustring CtExport2Html::_get_image_html(CtImage* image, const fs::path& images_dir, int& images_count, CtTreeIter* tree_iter)
 {
-    if (CtImageAnchor* imageAnchor = dynamic_cast<CtImageAnchor*>(image))
+    if (CtImageAnchor* imageAnchor = dynamic_cast<CtImageAnchor*>(image)) {
         return "<a name=\"" + imageAnchor->get_anchor_name() + "\"></a>";
-
+    }
     images_count += 1;
     Glib::ustring image_name, image_rel_path;
-    if (tree_iter)
-    {
+    if (tree_iter) {
         image_name = std::to_string(tree_iter->get_node_id()) + "-" + std::to_string(images_count) + ".png";
         image_rel_path = (fs::path{"images"} / image_name).string_unix();
     }
-    else
-    {
+    else {
         image_name = std::to_string(images_count) + ".png";
         image_rel_path = "file://" + (images_dir / image_name).string_unix();
     }
 
     Glib::ustring image_html = "<img src=\"" + image_rel_path + "\" alt=\"" + image_rel_path + "\" />";
-    if (CtImagePng* png = dynamic_cast<CtImagePng*>(image))
-    {
+    CtImagePng* png = dynamic_cast<CtImagePng*>(image);
+    if (png and not png->get_link().empty()) {
         Glib::ustring href = _get_href_from_link_prop_val(png->get_link());
         image_html = "<a href=\"" + href + "\">" + image_html + "</a>";
     }

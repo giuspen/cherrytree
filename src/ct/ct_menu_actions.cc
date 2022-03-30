@@ -104,11 +104,13 @@ void CtMenu::init_actions(CtActions* pActions)
     _actions.push_back(CtMenuAction{editor_cat, "act_redo", "ct_redo", _("_Redo"), KB_CONTROL+"Y",
         _("Redo Previously Discarded Operation"), sigc::mem_fun(*pActions, &CtActions::requested_step_ahead)});
     _actions.push_back(CtMenuAction{editor_cat, "handle_image", "ct_image_insert", _("Insert I_mage"), KB_CONTROL+KB_ALT+"I",
-        _("Insert an Image"), sigc::mem_fun(*pActions, &CtActions::image_handle)});
-    _actions.push_back(CtMenuAction{editor_cat, "handle_table", "ct_table_insert", _("Insert _Table"), KB_CONTROL+KB_ALT+"T",
-        _("Insert a Table"), sigc::mem_fun(*pActions, &CtActions::table_handle)});
+        _("Insert an Image"), sigc::mem_fun(*pActions, &CtActions::image_insert)});
+    _actions.push_back(CtMenuAction{editor_cat, "handle_latex", "ct_latex_insert", _("Insert Late_x"), KB_CONTROL+KB_ALT+"X",
+        _("Insert LatexBox"), sigc::mem_fun(*pActions, &CtActions::latex_insert)});
+    _actions.push_back(CtMenuAction{editor_cat, "handle_table", "ct_table_insert", _("Insert _Table"), KB_CONTROL+KB_ALT+"B",
+        _("Insert a Table"), sigc::mem_fun(*pActions, &CtActions::table_insert)});
     _actions.push_back(CtMenuAction{editor_cat, "handle_codebox", "ct_codebox_insert", _("Insert _CodeBox"), KB_CONTROL+KB_ALT+"C",
-        _("Insert a CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_handle)});
+        _("Insert a CodeBox"), sigc::mem_fun(*pActions, &CtActions::codebox_insert)});
     _actions.push_back(CtMenuAction{editor_cat, "handle_embfile", "ct_file_icon", _("Insert _File"), KB_CONTROL+KB_ALT+"E",
         _("Insert File"), sigc::mem_fun(*pActions, &CtActions::embfile_insert)});
     _actions.push_back(CtMenuAction{editor_cat, "handle_link", "ct_link_handle", _("Insert/Edit _Link"), KB_CONTROL+"L",
@@ -423,6 +425,16 @@ void CtMenu::init_actions(CtActions* pActions)
         _("Open Embedded File"), sigc::mem_fun(*pActions, &CtActions::embfile_open)});
     _actions.push_back(CtMenuAction{others_cat, "emb_file_rename", "ct_edit", _("_Rename"), None,
         _("Rename Embedded File"), sigc::mem_fun(*pActions, &CtActions::embfile_rename)});
+    _actions.push_back(CtMenuAction{others_cat, "tex_save", "ct_latex_save", _("_Save LatexBox as PNG"), None,
+        _("Save the Selected LatexBox as a PNG file"), sigc::mem_fun(*pActions, &CtActions::latex_save)});
+    _actions.push_back(CtMenuAction{others_cat, "tex_edit", "ct_latex_edit", _("_Edit LatexBox"), None,
+        _("Edit the Selected LatexBox"), sigc::mem_fun(*pActions, &CtActions::latex_edit)});
+    _actions.push_back(CtMenuAction{others_cat, "tex_cut", "ct_edit_cut", _("C_ut LatexBox"), None,
+        _("Cut the Selected LatexBox"), sigc::mem_fun(*pActions, &CtActions::latex_cut)});
+    _actions.push_back(CtMenuAction{others_cat, "tex_copy", "ct_edit_copy", _("_Copy LatexBox"), None,
+        _("Copy the Selected LatexBox"), sigc::mem_fun(*pActions, &CtActions::latex_copy)});
+    _actions.push_back(CtMenuAction{others_cat, "tex_del", "ct_edit_delete", _("_Delete LatexBox"), None,
+        _("Delete the Selected LatexBox"), sigc::mem_fun(*pActions, &CtActions::latex_delete)});
     _actions.push_back(CtMenuAction{others_cat, "img_save", "ct_image_save", _("_Save Image as PNG"), None,
         _("Save the Selected Image as a PNG file"), sigc::mem_fun(*pActions, &CtActions::image_save)});
     _actions.push_back(CtMenuAction{others_cat, "img_edit", "ct_image_edit", _("_Edit Image"), None,

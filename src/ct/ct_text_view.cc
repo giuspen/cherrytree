@@ -31,14 +31,15 @@ std::unordered_map<std::string, GspellChecker*> CtTextView::_static_spell_checke
 
 CtTextView::CtTextView(CtMainWin* pCtMainWin)
  : _pCtMainWin{pCtMainWin}
+ , _pCtConfig{_pCtMainWin->get_ct_config()}
  , _columnEdit{*this}
 {
     set_smart_home_end(Gsv::SMART_HOME_END_AFTER);
     set_left_margin(7);
     set_right_margin(7);
-    set_insert_spaces_instead_of_tabs(_pCtMainWin->get_ct_config()->spacesInsteadTabs);
-    set_tab_width((guint)_pCtMainWin->get_ct_config()->tabsWidth);
-    if (_pCtMainWin->get_ct_config()->lineWrapping) {
+    set_insert_spaces_instead_of_tabs(_pCtConfig->spacesInsteadTabs);
+    set_tab_width((guint)_pCtConfig->tabsWidth);
+    if (_pCtConfig->lineWrapping) {
         set_wrap_mode(Gtk::WrapMode::WRAP_WORD_CHAR);
     }
     else {
@@ -102,8 +103,8 @@ void CtTextView::setup_for_syntax(const std::string& syntax)
     if ( CtConst::RICH_TEXT_ID == _syntaxHighlighting or
          CtConst::TABLE_CELL_TEXT_ID == _syntaxHighlighting )
     {
-        set_highlight_current_line(_pCtMainWin->get_ct_config()->rtHighlCurrLine);
-        if (_pCtMainWin->get_ct_config()->rtShowWhiteSpaces) {
+        set_highlight_current_line(_pCtConfig->rtHighlCurrLine);
+        if (_pCtConfig->rtShowWhiteSpaces) {
             set_draw_spaces(Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE);
         }
         else {
@@ -111,8 +112,8 @@ void CtTextView::setup_for_syntax(const std::string& syntax)
         }
     }
     else {
-        set_highlight_current_line(_pCtMainWin->get_ct_config()->ptHighlCurrLine);
-        if (_pCtMainWin->get_ct_config()->ptShowWhiteSpaces) {
+        set_highlight_current_line(_pCtConfig->ptHighlCurrLine);
+        if (_pCtConfig->ptShowWhiteSpaces) {
             set_draw_spaces(Gsv::DRAW_SPACES_ALL & ~Gsv::DRAW_SPACES_NEWLINE);
         }
         else {
@@ -168,10 +169,10 @@ void CtTextView::list_change_level(Gtk::TextIter iter_insert, const CtListInfo& 
             }
             else {
                 int idx_old = list_info.num;
-                int idx_offset = idx_old - curr_level % (int)_pCtMainWin->get_ct_config()->charsListbul.size();
-                bull_idx = (next_level + idx_offset) % (int)_pCtMainWin->get_ct_config()->charsListbul.size();
+                int idx_offset = idx_old - curr_level % (int)_pCtConfig->charsListbul.size();
+                bull_idx = (next_level + idx_offset) % (int)_pCtConfig->charsListbul.size();
             }
-            replace_text(_pCtMainWin->get_ct_config()->charsListbul[(size_t)bull_idx], bull_offset, bull_offset+1);
+            replace_text(_pCtConfig->charsListbul[(size_t)bull_idx], bull_offset, bull_offset+1);
         }
         else if (list_info.type == CtListType::Number) {
             int this_num, index;
@@ -241,9 +242,9 @@ void CtTextView::for_event_after_triple_click_button1(GdkEvent* event)
 
 #ifdef MD_AUTO_REPLACEMENT
 bool CtTextView::_markdown_filter_active() {
-    bool is_active = _pCtMainWin->get_ct_config()->enableMdFormatting;
+    bool is_active = _pCtConfig->enableMdFormatting;
     if (is_active && !_md_handler) {
-        _md_handler = std::make_unique<CtMarkdownFilter>(std::make_unique<CtClipboard>(_pCtMainWin), get_buffer(), _pCtMainWin->get_ct_config());
+        _md_handler = std::make_unique<CtMarkdownFilter>(std::make_unique<CtClipboard>(_pCtMainWin), get_buffer(), _pCtConfig);
     }
     return is_active;
 }
@@ -311,11 +312,10 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
         return;
     }
     auto text_buffer = get_buffer();
-    auto pCtConfig = _pCtMainWin->get_ct_config();
     bool is_code = syntaxHighlighting != CtConst::RICH_TEXT_ID and syntaxHighlighting != CtConst::PLAIN_TEXT_ID and syntaxHighlighting != CtConst::TABLE_CELL_TEXT_ID;
 
     if (not is_code and
-        pCtConfig->autoSmartQuotes and
+        _pCtConfig->autoSmartQuotes and
         (event->key.keyval == GDK_KEY_quotedbl or event->key.keyval == GDK_KEY_apostrophe))
     {
         Gtk::TextIter iter_insert = text_buffer->get_insert()->get_iter();
@@ -324,13 +324,13 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
             Glib::ustring  start_char, char_0, char_1;
             if (event->key.keyval == GDK_KEY_quotedbl) {
                 start_char = CtConst::CHAR_DQUOTE;
-                char_0 = pCtConfig->chars_smart_dquote[0];
-                char_1 = pCtConfig->chars_smart_dquote[1];
+                char_0 = _pCtConfig->chars_smart_dquote[0];
+                char_1 = _pCtConfig->chars_smart_dquote[1];
             }
             else {
                 start_char = CtConst::CHAR_SQUOTE;
-                char_0 = pCtConfig->chars_smart_squote[0];
-                char_1 = pCtConfig->chars_smart_squote[1];
+                char_0 = _pCtConfig->chars_smart_squote[0];
+                char_1 = _pCtConfig->chars_smart_squote[1];
             }
             Gtk::TextIter iter_start = text_buffer->get_iter_at_offset(offset_1-1);
             int offset_0 = -1;
@@ -388,7 +388,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                 return; // former was an empty row
             CtListInfo list_info = CtList{_pCtMainWin, text_buffer}.get_paragraph_list_info(iter_start);
             if (not list_info) {
-                if (pCtConfig->autoIndent) {
+                if (_pCtConfig->autoIndent) {
                     iter_start = iter_insert;
                     Glib::ustring former_line_indent = _get_former_line_indentation(iter_start);
                     if (not former_line_indent.empty()) text_buffer->insert_at_cursor(former_line_indent);
@@ -422,10 +422,10 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
             int curr_level = list_info.level;
             Glib::ustring pre_spaces = curr_level ? Glib::ustring((size_t)(3*curr_level), CtConst::CHAR_SPACE[0]) : "";
             if (list_info.type == CtListType::Bullet) {
-                text_buffer->insert(iter_insert, pre_spaces+pCtConfig->charsListbul[(size_t)list_info.num]+CtConst::CHAR_SPACE);
+                text_buffer->insert(iter_insert, pre_spaces+_pCtConfig->charsListbul[(size_t)list_info.num]+CtConst::CHAR_SPACE);
             }
             else if (list_info.type == CtListType::Todo) {
-                text_buffer->insert(iter_insert, pre_spaces+pCtConfig->charsTodo[0]+CtConst::CHAR_SPACE);
+                text_buffer->insert(iter_insert, pre_spaces+_pCtConfig->charsTodo[0]+CtConst::CHAR_SPACE);
             }
             else {
                 int new_num = list_info.num + 1;
@@ -451,7 +451,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
             }
         }
         else { // keyname == CtConst::STR_KEY_SPACE
-            if (not is_code and pCtConfig->enableSymbolAutoreplace and iter_start.backward_chars(2)) {
+            if (not is_code and _pCtConfig->enableSymbolAutoreplace and iter_start.backward_chars(2)) {
                 if (iter_start.get_char() == '>' and iter_start.backward_char()) {
                     if (iter_start.get_line_offset() == 0) {
                         // at line start
@@ -531,7 +531,7 @@ void CtTextView::for_event_after_key_press(GdkEvent* event, const Glib::ustring&
                 else if (iter_start.get_char() == ']' and iter_start.backward_char()) {
                     if (iter_start.get_line_offset() == 0 and iter_start.get_char() == '[') {
                         // "[] " becoming "☐ " at line start
-                        _special_char_replace(pCtConfig->charsTodo[0], iter_start, iter_insert);
+                        _special_char_replace(_pCtConfig->charsTodo[0], iter_start, iter_insert);
                     }
                 }
                 else if (iter_start.get_char() == ':' and iter_start.backward_char()) {
@@ -622,58 +622,55 @@ void CtTextView::zoom_text(const bool is_increase, const std::string& syntaxHigh
     if (size < 6) size = 6;
     fontDesc.set_size(size * Pango::SCALE);
 
-    auto pCtConfig = _pCtMainWin->get_ct_config();
     if (syntaxHighlighting == CtConst::RICH_TEXT_ID or syntaxHighlighting == CtConst::TABLE_CELL_TEXT_ID) {
-        pCtConfig->rtFont = CtFontUtil::get_font_str(fontDesc);
-        spdlog::debug("rtFont {}", pCtConfig->rtFont);
+        _pCtConfig->rtFont = CtFontUtil::get_font_str(fontDesc);
+        spdlog::debug("rtFont {}", _pCtConfig->rtFont);
         // also fix monospace font size
-        if (pCtConfig->msDedicatedFont and not pCtConfig->monospaceFont.empty()) {
-            Pango::FontDescription monoFontDesc(pCtConfig->monospaceFont);
+        if (_pCtConfig->msDedicatedFont and not _pCtConfig->monospaceFont.empty()) {
+            Pango::FontDescription monoFontDesc(_pCtConfig->monospaceFont);
             int monoSize = monoFontDesc.get_size() / Pango::SCALE + (is_increase ? 1 : -1);
             if (monoSize < 6) monoSize = 6;
             monoFontDesc.set_size(monoSize * Pango::SCALE);
 
-            pCtConfig->monospaceFont = CtFontUtil::get_font_str(monoFontDesc);
+            _pCtConfig->monospaceFont = CtFontUtil::get_font_str(monoFontDesc);
             if (auto tag = get_buffer()->get_tag_table()->lookup(CtConst::TAG_ID_MONOSPACE)) {
-                tag->property_font() = pCtConfig->monospaceFont;
+                tag->property_font() = _pCtConfig->monospaceFont;
             }
         }
     }
     else if (syntaxHighlighting == CtConst::PLAIN_TEXT_ID) {
-        pCtConfig->ptFont = CtFontUtil::get_font_str(fontDesc);
-        spdlog::debug("ptFont {}", pCtConfig->ptFont);
+        _pCtConfig->ptFont = CtFontUtil::get_font_str(fontDesc);
+        spdlog::debug("ptFont {}", _pCtConfig->ptFont);
     }
     else {
-        pCtConfig->codeFont = CtFontUtil::get_font_str(fontDesc);
-        spdlog::debug("codeFont {}", pCtConfig->codeFont);
+        _pCtConfig->codeFont = CtFontUtil::get_font_str(fontDesc);
+        spdlog::debug("codeFont {}", _pCtConfig->codeFont);
     }
     _pCtMainWin->signal_app_apply_for_each_window([](CtMainWin* win) { win->update_theme(); });
 }
 
 void CtTextView::set_spell_check(bool allow_on)
 {
-    auto pCtConfig = _pCtMainWin->get_ct_config();
     auto gtk_view = GTK_TEXT_VIEW(gobj());
     auto gtk_buffer = gtk_text_view_get_buffer(gtk_view);
     auto gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer(gtk_buffer);
 
-    auto gspell_checker = _get_spell_checker(pCtConfig->spellCheckLang);
+    auto gspell_checker = _get_spell_checker(_pCtConfig->spellCheckLang);
     auto old_gspell_checker = gspell_text_buffer_get_spell_checker(gspell_buffer);
     if (gspell_checker != old_gspell_checker) {
         gspell_text_buffer_set_spell_checker(gspell_buffer, gspell_checker);
         // g_object_unref (gspell_checker); no need to unref because we keep it global
     }
     auto gspell_view = gspell_text_view_get_from_gtk_text_view(gtk_view);
-    gspell_text_view_set_inline_spell_checking(gspell_view, allow_on && pCtConfig->enableSpellCheck);
-    gspell_text_view_set_enable_language_menu(gspell_view, allow_on && pCtConfig->enableSpellCheck);
+    gspell_text_view_set_inline_spell_checking(gspell_view, allow_on && _pCtConfig->enableSpellCheck);
+    gspell_text_view_set_enable_language_menu(gspell_view, allow_on && _pCtConfig->enableSpellCheck);
 }
 
 void CtTextView::synch_spell_check_change_from_gspell_right_click_menu()
 {
-    auto pCtConfig = _pCtMainWin->get_ct_config();
     auto gtk_view = GTK_TEXT_VIEW(gobj());
     auto gtk_buffer = gtk_text_view_get_buffer(gtk_view);
-    if (not pCtConfig->enableSpellCheck) {
+    if (not _pCtConfig->enableSpellCheck) {
         return;
     }
     auto gspell_buffer = gspell_text_buffer_get_from_gtk_text_buffer(gtk_buffer);
@@ -683,8 +680,8 @@ void CtTextView::synch_spell_check_change_from_gspell_right_click_menu()
         return;
     }
     const std::string currSpellCheckLang = gspell_language_get_code(pGspellLang);
-    if (currSpellCheckLang != pCtConfig->spellCheckLang) {
-        pCtConfig->spellCheckLang = currSpellCheckLang;
+    if (currSpellCheckLang != _pCtConfig->spellCheckLang) {
+        _pCtConfig->spellCheckLang = currSpellCheckLang;
     }
 }
 
@@ -779,7 +776,7 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
             }
         }
         int num_chars = iter_end.get_offset() - iter_start.get_offset();
-        if (_pCtMainWin->get_ct_config()->urlAutoLink and num_chars > 4 and CtTextIterUtil::startswith_any(iter_start, CtConst::WEB_LINK_STARTERS)) {
+        if (_pCtConfig->urlAutoLink and num_chars > 4 and CtTextIterUtil::startswith_any(iter_start, CtConst::WEB_LINK_STARTERS)) {
             get_buffer()->select_range(iter_start, iter_end);
             Glib::ustring link_url = get_buffer()->get_text(iter_start, iter_end);
             if (not str::startswith(link_url, "htt") and !str::startswith(link_url, "ftp")) link_url = "http://" + link_url;
@@ -787,7 +784,7 @@ bool CtTextView::_apply_tag_try_link(Gtk::TextIter iter_end, int offset_cursor)
             _pCtMainWin->get_ct_actions()->apply_tag(CtConst::TAG_LINK, property_value);
             tag_applied = true;
         }
-        else if (_pCtMainWin->get_ct_config()->camelCaseAutoLink and num_chars > 2 and CtTextIterUtil::get_is_camel_case(iter_start, num_chars)) {
+        else if (_pCtConfig->camelCaseAutoLink and num_chars > 2 and CtTextIterUtil::get_is_camel_case(iter_start, num_chars)) {
             if (apply_tag_try_node_name(iter_start, iter_end)) {
                 tag_applied = true;
             }

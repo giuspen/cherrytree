@@ -1,7 +1,7 @@
 /*
  * ct_export2txt.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -28,6 +28,8 @@
 #include "ct_table.h"
 #include "ct_dialogs.h"
 
+class CtImageLatex;
+
 class CtExport2Txt
 {
 public:
@@ -40,6 +42,7 @@ public:
 
     Glib::ustring get_table_plain(CtTable* table_orig);
     Glib::ustring get_codebox_plain(CtCodebox* codebox);
+    Glib::ustring get_latex_plain(CtImageLatex* latex);
 
 private:
     Glib::ustring _plain_process_slot(int start_offset, int end_offset, Glib::RefPtr<Gtk::TextBuffer> curr_buffer, bool check_link_target);

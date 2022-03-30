@@ -210,7 +210,7 @@ Gtk::TreeIter CtActions::_node_add_with_data(Gtk::TreeIter curr_iter, CtNodeData
     nodeData.nodeId = _pCtMainWin->get_tree_store().node_id_get();
 
     _pCtMainWin->update_window_save_needed();
-    _pCtMainWin->get_ct_config()->syntaxHighlighting = nodeData.syntax;
+    _pCtConfig->syntaxHighlighting = nodeData.syntax;
 
     Gtk::TreeIter nodeIter;
     if (add_as_child) {
@@ -320,7 +320,7 @@ void CtActions::node_edit()
     if (not CtDialogs::node_prop_dialog(_("Node Properties"), _pCtMainWin, newData, _pCtMainWin->get_tree_store().get_used_tags()))
         return;
 
-    _pCtMainWin->get_ct_config()->syntaxHighlighting = newData.syntax;
+    _pCtConfig->syntaxHighlighting = newData.syntax;
 
     // leaving rich text
     if (nodeData.syntax != newData.syntax)
@@ -420,7 +420,7 @@ void CtActions::node_delete()
             }
         }
         else {
-            listWarns.push_back(CtConst::CHAR_NEWLINE + str::repeat(CtConst::CHAR_SPACE, level*3) + _pCtMainWin->get_ct_config()->charsListbul[0] + CtConst::CHAR_SPACE + ctTreeIter.get_node_name());
+            listWarns.push_back(CtConst::CHAR_NEWLINE + str::repeat(CtConst::CHAR_SPACE, level*3) + _pCtConfig->charsListbul[0] + CtConst::CHAR_SPACE + ctTreeIter.get_node_name());
             for (auto child : iter->children()) {
                 collect_children(child, level + 1, listIds, listWarns);
             }

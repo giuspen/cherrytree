@@ -1,7 +1,7 @@
 /*
  * ct_actions_help.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -36,7 +36,7 @@ void CtActions::dialog_about()
 
 void CtActions::folder_cfg_open()
 {
-    fs::open_folderpath(fs::get_cherrytree_configdir(), _pCtMainWin->get_ct_config());
+    fs::open_folderpath(fs::get_cherrytree_configdir(), _pCtConfig);
 }
 
 void CtActions::check_for_newer_version()

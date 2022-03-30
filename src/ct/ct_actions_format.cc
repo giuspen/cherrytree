@@ -1,7 +1,7 @@
 /*
  * ct_actions_format.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -62,8 +62,8 @@ void CtActions::_save_tags_at_cursor_as_latest(Glib::RefPtr<Gtk::TextBuffer> rTe
         
     }
     if (not tagProperties.empty()) {
-        _pCtMainWin->get_ct_config()->latestTagProp = str::join(tagProperties, ",");
-        _pCtMainWin->get_ct_config()->latestTagVal = str::join(tagValues, ",");
+        _pCtConfig->latestTagProp = str::join(tagProperties, ",");
+        _pCtConfig->latestTagVal = str::join(tagValues, ",");
     }
 }
 
@@ -78,12 +78,12 @@ void CtActions::apply_tags_latest()
     if (not _is_there_selected_node_or_error()) return;
     if (not _is_curr_node_not_syntax_highlighting_or_error()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
-    if (_pCtMainWin->get_ct_config()->latestTagProp.empty())
+    if (_pCtConfig->latestTagProp.empty())
         CtDialogs::warning_dialog(_("No Previous Text Format Was Performed During This Session"), *_pCtMainWin);
     else {
         remove_text_formatting();
-        std::vector<std::string> tagProperties = str::split(_pCtMainWin->get_ct_config()->latestTagProp, ",");
-        std::vector<std::string> tagValues = str::split(_pCtMainWin->get_ct_config()->latestTagVal, ",");
+        std::vector<std::string> tagProperties = str::split(_pCtConfig->latestTagProp, ",");
+        std::vector<std::string> tagValues = str::split(_pCtConfig->latestTagVal, ",");
         for (size_t i = 0; i < tagProperties.size(); ++i) {
             apply_tag(tagProperties.at(i), tagValues.at(i));
         }
@@ -366,7 +366,7 @@ void CtActions::apply_tag(const Glib::ustring& tag_property,
         }
         else {
             gchar color_for = tag_property[0] == 'f' ? 'f' : 'b';
-            Gdk::RGBA ret_color = Gdk::RGBA(_pCtMainWin->get_ct_config()->currColors.at(color_for));
+            Gdk::RGBA ret_color = Gdk::RGBA(_pCtConfig->currColors.at(color_for));
             Glib::ustring title = tag_property[0] == 'f' ? _("Pick a Foreground Color") : _("Pick a Background Color");
             auto res = CtDialogs::color_pick_dialog(_pCtMainWin, title, ret_color, true);
             if (res == CtDialogs::CtPickDlgState::CANCEL) {
@@ -376,7 +376,7 @@ void CtActions::apply_tag(const Glib::ustring& tag_property,
                 property_value = "-"; // don't use empty because `apply prev tag` command brings a color dialog again
             }
             else {
-                _pCtMainWin->get_ct_config()->currColors[color_for] = CtRgbUtil::rgb_to_string(ret_color);
+                _pCtConfig->currColors[color_for] = CtRgbUtil::rgb_to_string(ret_color);
                 property_value = CtRgbUtil::rgb_to_string(ret_color);
             }
         }

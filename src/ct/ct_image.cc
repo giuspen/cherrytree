@@ -1,7 +1,7 @@
 /*
  * ct_image.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -21,8 +21,8 @@
  * MA 02110-1301, USA.
  */
 
-#include "ct_image.h"
 #include "ct_main_win.h"
+#include "ct_image.h"
 #include "ct_actions.h"
 #include "ct_storage_sqlite.h"
 #include "ct_logging.h"
@@ -33,7 +33,7 @@ CtImage::CtImage(CtMainWin* pCtMainWin,
                  const char* mimeType,
                  const int charOffset,
                  const std::string& justification)
- : CtAnchoredWidget(pCtMainWin, charOffset, justification)
+ : CtAnchoredWidget{pCtMainWin, charOffset, justification}
 {
     Glib::RefPtr<Gdk::PixbufLoader> rPixbufLoader = Gdk::PixbufLoader::create(mimeType, true);
     rPixbufLoader->write(reinterpret_cast<const guint8*>(rawBlob.c_str()), rawBlob.size());
@@ -50,7 +50,7 @@ CtImage::CtImage(CtMainWin* pCtMainWin,
                  const int size,
                  const int charOffset,
                  const std::string& justification)
- : CtAnchoredWidget(pCtMainWin, charOffset, justification)
+ : CtAnchoredWidget{pCtMainWin, charOffset, justification}
 {
     _rPixbuf = _pCtMainWin->get_icon_theme()->load_icon(stockImage, size);
 
@@ -63,7 +63,7 @@ CtImage::CtImage(CtMainWin* pCtMainWin,
                  Glib::RefPtr<Gdk::Pixbuf> pixBuf,
                  const int charOffset,
                  const std::string& justification)
- : CtAnchoredWidget(pCtMainWin, charOffset, justification)
+ : CtAnchoredWidget{pCtMainWin, charOffset, justification}
 {
     _rPixbuf = pixBuf;
 
@@ -72,23 +72,18 @@ CtImage::CtImage(CtMainWin* pCtMainWin,
     show_all();
 }
 
-CtImage::~CtImage()
-{
-}
-
 void CtImage::save(const fs::path& file_name, const Glib::ustring& type)
 {
     _rPixbuf->save(file_name.string(), type);
 }
-
 
 CtImagePng::CtImagePng(CtMainWin* pCtMainWin,
                        const std::string& rawBlob,
                        const Glib::ustring& link,
                        const int charOffset,
                        const std::string& justification)
- : CtImage(pCtMainWin, rawBlob, "image/png", charOffset, justification),
-   _link(link)
+ : CtImage{pCtMainWin, rawBlob, "image/png", charOffset, justification}
+ , _link{link}
 {
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImagePng::_on_button_press_event), false);
     update_label_widget();
@@ -99,8 +94,8 @@ CtImagePng::CtImagePng(CtMainWin* pCtMainWin,
                        const Glib::ustring& link,
                        const int charOffset,
                        const std::string& justification)
- : CtImage(pCtMainWin, pixBuf, charOffset, justification),
-   _link(link)
+ : CtImage{pCtMainWin, pixBuf, charOffset, justification}
+ , _link{link}
 {
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImagePng::_on_button_press_event), false);
     update_label_widget();
@@ -131,13 +126,11 @@ bool CtImagePng::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_
 {
     bool retVal{true};
     sqlite3_stmt *p_stmt;
-    if (sqlite3_prepare_v2(pDb, CtStorageSqlite::TABLE_IMAGE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
-    {
+    if (sqlite3_prepare_v2(pDb, CtStorageSqlite::TABLE_IMAGE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK) {
         spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_PREPV2, sqlite3_errmsg(pDb));
         retVal = false;
     }
-    else
-    {
+    else {
         std::string rawBlob;
         if (!storage_cache || !storage_cache->get_cached_image(this, rawBlob))
            rawBlob = get_raw_blob();
@@ -151,8 +144,7 @@ bool CtImagePng::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_
         sqlite3_bind_text(p_stmt, 6, "", -1, SQLITE_STATIC); // filename
         sqlite3_bind_text(p_stmt, 7, link.c_str(), link.size(), SQLITE_STATIC);
         sqlite3_bind_int64(p_stmt, 8, 0); // time
-        if (sqlite3_step(p_stmt) != SQLITE_DONE)
-        {
+        if (sqlite3_step(p_stmt) != SQLITE_DONE) {
             spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_STEP, sqlite3_errmsg(pDb));
             retVal = false;
         }
@@ -163,19 +155,17 @@ bool CtImagePng::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_
 
 std::shared_ptr<CtAnchoredWidgetState> CtImagePng::get_state()
 {
-    return std::shared_ptr<CtAnchoredWidgetState>(new CtAnchoredWidgetState_ImagePng(this));
+    return std::shared_ptr<CtAnchoredWidgetState>(new CtAnchoredWidgetState_ImagePng{this});
 }
 
 void CtImagePng::update_label_widget()
 {
-    if (!_link.empty())
-    {
+    if (!_link.empty()) {
         _labelWidget.set_markup("<b><small>▲</small></b>");
         _labelWidget.show();
         _frame.set_label_widget(_labelWidget);
     }
-    else
-    {
+    else {
         _labelWidget.hide();
     }
 }
@@ -184,28 +174,25 @@ bool CtImagePng::_on_button_press_event(GdkEventButton* event)
 {
     _pCtMainWin->get_ct_actions()->curr_image_anchor = this;
     _pCtMainWin->get_ct_actions()->object_set_selection(this);
-    if (event->button == 1 || event->button == 2)
-    {
+    if (event->button == 1 || event->button == 2) {
         if (event->type == GDK_2BUTTON_PRESS)
             _pCtMainWin->get_ct_actions()->image_edit();
         else if(!_link.empty())
             _pCtMainWin->get_ct_actions()->link_clicked(_link, event->button == 2);
     }
-    else if (event->button == 3)
-    {
+    else if (event->button == 3) {
         _pCtMainWin->get_ct_menu().find_action("img_link_dismiss")->signal_set_visible.emit(!_link.empty());
         _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Image)->popup(event->button, event->time);
     }
     return true; // do not propagate the event
 }
 
-
 CtImageAnchor::CtImageAnchor(CtMainWin* pCtMainWin,
                              const Glib::ustring& anchorName,
                              const int charOffset,
                              const std::string& justification)
- : CtImage(pCtMainWin, "ct_anchor", pCtMainWin->get_ct_config()->anchorSize, charOffset, justification),
-   _anchorName(anchorName)
+ : CtImage{pCtMainWin, "ct_anchor", pCtMainWin->get_ct_config()->anchorSize, charOffset, justification}
+ , _anchorName{anchorName}
 {
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageAnchor::_on_button_press_event), false);
     update_tooltip();
@@ -223,13 +210,11 @@ bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offs
 {
     bool retVal{true};
     sqlite3_stmt *p_stmt;
-    if (sqlite3_prepare_v2(pDb, CtStorageSqlite::TABLE_IMAGE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
-    {
+    if (sqlite3_prepare_v2(pDb, CtStorageSqlite::TABLE_IMAGE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK) {
         spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_PREPV2, sqlite3_errmsg(pDb));
         retVal = false;
     }
-    else
-    {
+    else {
         const std::string anchor_name = _anchorName;
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
@@ -239,9 +224,8 @@ bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offs
         sqlite3_bind_text(p_stmt, 6, "", -1, SQLITE_STATIC); // filename
         sqlite3_bind_text(p_stmt, 7, "", -1, SQLITE_STATIC); // link
         sqlite3_bind_int64(p_stmt, 8, 0); // time
-        if (sqlite3_step(p_stmt) != SQLITE_DONE)
-        {
-             spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_STEP, sqlite3_errmsg(pDb));
+        if (sqlite3_step(p_stmt) != SQLITE_DONE) {
+            spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_STEP, sqlite3_errmsg(pDb));
             retVal = false;
         }
         sqlite3_finalize(p_stmt);
@@ -251,7 +235,7 @@ bool CtImageAnchor::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offs
 
 std::shared_ptr<CtAnchoredWidgetState> CtImageAnchor::get_state()
 {
-    return std::shared_ptr<CtAnchoredWidgetState>(new CtAnchoredWidgetState_Anchor(this));
+    return std::shared_ptr<CtAnchoredWidgetState>(new CtAnchoredWidgetState_Anchor{this});
 }
 
 void CtImageAnchor::update_tooltip()
@@ -259,7 +243,6 @@ void CtImageAnchor::update_tooltip()
     set_tooltip_text(_anchorName);
 }
 
-// Catches mouse buttons clicks upon anchor images
 bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
 {
     _pCtMainWin->get_ct_actions()->curr_anchor_anchor = this;
@@ -272,7 +255,125 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
     return true; // do not propagate the event
 }
 
-/*static*/ size_t CtImageEmbFile::get_next_unique_id()
+/*static*/const std::string CtImageLatex::LatexSpecialFilename{"__ct_special.tex"};
+/*static*/const Glib::ustring CtImageLatex::LatexTextDefault{"\\documentclass{article}\n"
+                                                             "\\pagestyle{empty}\n"
+                                                             "\\begin{document}\n"
+                                                             "$a^2+b^2=c^2$\n"
+                                                             "\\end{document}"};
+
+CtImageLatex::CtImageLatex(CtMainWin* pCtMainWin,
+                           const Glib::ustring& latexText,
+                           const int charOffset,
+                           const std::string& justification,
+                           const size_t uniqueId)
+ : CtImage{pCtMainWin, _get_latex_image(pCtMainWin, latexText, uniqueId), charOffset, justification}
+ , _latexText{latexText}
+ , _uniqueId{uniqueId}
+{
+    signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageLatex::_on_button_press_event), false);
+    update_tooltip();
+}
+
+void CtImageLatex::to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache*)
+{
+    xmlpp::Element* p_image_node = p_node_parent->add_child("encoded_png");
+    p_image_node->set_attribute("char_offset", std::to_string(_charOffset+offset_adjustment));
+    p_image_node->set_attribute(CtConst::TAG_JUSTIFICATION, _justification);
+    p_image_node->set_attribute("filename", CtImageLatex::LatexSpecialFilename);
+    p_image_node->add_child_text(_latexText);
+}
+
+bool CtImageLatex::to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache*)
+{
+    bool retVal{true};
+    sqlite3_stmt *p_stmt;
+    if (sqlite3_prepare_v2(pDb, CtStorageSqlite::TABLE_IMAGE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK) {
+        spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_PREPV2, sqlite3_errmsg(pDb));
+        retVal = false;
+    }
+    else {
+        sqlite3_bind_int64(p_stmt, 1, node_id);
+        sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
+        sqlite3_bind_text(p_stmt, 3, _justification.c_str(), _justification.size(), SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 4, "", -1, SQLITE_STATIC); // anchor
+        sqlite3_bind_blob(p_stmt, 5, _latexText.c_str(), _latexText.size(), SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 6, CtImageLatex::LatexSpecialFilename.c_str(), CtImageLatex::LatexSpecialFilename.size(), SQLITE_STATIC);
+        sqlite3_bind_text(p_stmt, 7, "", -1, SQLITE_STATIC); // link
+        sqlite3_bind_int64(p_stmt, 8, 0); // time
+        if (sqlite3_step(p_stmt) != SQLITE_DONE) {
+            spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_STEP, sqlite3_errmsg(pDb));
+            retVal = false;
+        }
+        sqlite3_finalize(p_stmt);
+    }
+    return retVal;
+}
+
+std::shared_ptr<CtAnchoredWidgetState> CtImageLatex::get_state()
+{
+    return std::shared_ptr<CtAnchoredWidgetState>(new CtAnchoredWidgetState_Latex{this});
+}
+
+void CtImageLatex::update_tooltip()
+{
+    set_tooltip_text(_latexText);
+}
+
+/*static*/Glib::RefPtr<Gdk::Pixbuf> CtImageLatex::_get_latex_image(CtMainWin* pCtMainWin, const Glib::ustring& latexText, const size_t uniqueId)
+{
+    const fs::path filename = std::to_string(uniqueId) +
+                              CtConst::CHAR_MINUS + std::to_string(getpid()) +
+                              CtConst::CHAR_MINUS + CtImageLatex::LatexSpecialFilename;
+    const fs::path tmp_filepath_tex = pCtMainWin->get_ct_tmp()->getHiddenFilePath(filename);
+    Glib::file_set_contents(tmp_filepath_tex.string(), latexText);
+    const fs::path tmp_dirpath = tmp_filepath_tex.parent_path();
+    std::string cmd = fmt::sprintf("latex --interaction=batchmode -output-directory=%s %s", tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
+    int retVal = std::system(cmd.c_str());
+    if (retVal != 0) {
+        spdlog::error("system({}) returned {}", cmd, retVal);
+    }
+    else {
+        std::string tmp_filepath_noext = tmp_filepath_tex.string();
+        tmp_filepath_noext = tmp_filepath_noext.substr(0, tmp_filepath_noext.size() - 3);
+        const fs::path tmp_filepath_dvi = tmp_filepath_noext + "dvi";
+        const fs::path tmp_filepath_png = tmp_filepath_noext + "png";
+        cmd = fmt::sprintf("dvipng -q -T tight -x 1200 -z 9 %s -o %s", tmp_filepath_dvi.c_str(), tmp_filepath_png.c_str());
+        retVal = std::system(cmd.c_str());
+        if (retVal != 0) {
+            spdlog::error("system({}) returned {}", cmd, retVal);
+        }
+        else {
+            Glib::RefPtr<Gdk::Pixbuf> rPixbuf;
+            try {
+                rPixbuf = Gdk::Pixbuf::create_from_file(tmp_filepath_png.c_str());
+            }
+            catch (Glib::Error& error) {
+                spdlog::error("{} {}", __FUNCTION__, error.what());
+            }
+            if (rPixbuf) {
+                // success
+                return rPixbuf;
+            }
+        }
+    }
+    // fallback
+    return pCtMainWin->get_icon_theme()->load_icon("ct_warning", 48);
+}
+
+bool CtImageLatex::_on_button_press_event(GdkEventButton* event)
+{
+    _pCtMainWin->get_ct_actions()->curr_latex_anchor = this;
+    _pCtMainWin->get_ct_actions()->object_set_selection(this);
+    if (event->button == 3)
+        _pCtMainWin->get_ct_menu().get_popup_menu(CtMenu::POPUP_MENU_TYPE::Latex)->popup(event->button, event->time);
+    else if (event->type == GDK_2BUTTON_PRESS)
+        _pCtMainWin->get_ct_actions()->latex_edit();
+
+    return true; // do not propagate the event
+}
+
+/*static*/size_t CtImageEmbFile::get_next_unique_id()
 {
     static size_t next_unique_id{1};
     return next_unique_id++;
@@ -285,11 +386,11 @@ CtImageEmbFile::CtImageEmbFile(CtMainWin* pCtMainWin,
                                const int charOffset,
                                const std::string& justification,
                                const size_t uniqueId)
- : CtImage(pCtMainWin, _get_file_icon(pCtMainWin, fileName), charOffset, justification)
- , _fileName(fileName)
- , _rawBlob(rawBlob)
- , _timeSeconds(timeSeconds)
- , _uniqueId(uniqueId)
+ : CtImage{pCtMainWin, _get_file_icon(pCtMainWin, fileName), charOffset, justification}
+ , _fileName{fileName}
+ , _rawBlob{rawBlob}
+ , _timeSeconds{timeSeconds}
+ , _uniqueId{uniqueId}
 {
     signal_button_press_event().connect(sigc::mem_fun(*this, &CtImageEmbFile::_on_button_press_event), false);
     update_tooltip();
@@ -311,13 +412,11 @@ bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int off
 {
     bool retVal{true};
     sqlite3_stmt *p_stmt;
-    if (sqlite3_prepare_v2(pDb, CtStorageSqlite::TABLE_IMAGE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK)
-    {
-         spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_PREPV2, sqlite3_errmsg(pDb));
+    if (sqlite3_prepare_v2(pDb, CtStorageSqlite::TABLE_IMAGE_INSERT, -1, &p_stmt, nullptr) != SQLITE_OK) {
+        spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_PREPV2, sqlite3_errmsg(pDb));
         retVal = false;
     }
-    else
-    {
+    else {
         const std::string file_name = _fileName.string();
         sqlite3_bind_int64(p_stmt, 1, node_id);
         sqlite3_bind_int64(p_stmt, 2, _charOffset+offset_adjustment);
@@ -327,9 +426,8 @@ bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int off
         sqlite3_bind_text(p_stmt, 6, file_name.c_str(), file_name.size(), SQLITE_STATIC);
         sqlite3_bind_text(p_stmt, 7, "", -1, SQLITE_STATIC); // link
         sqlite3_bind_int64(p_stmt, 8, _timeSeconds);
-        if (sqlite3_step(p_stmt) != SQLITE_DONE)
-        {
-             spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_STEP, sqlite3_errmsg(pDb));
+        if (sqlite3_step(p_stmt) != SQLITE_DONE) {
+            spdlog::error("{}: {}", CtStorageSqlite::ERR_SQLITE_STEP, sqlite3_errmsg(pDb));
             retVal = false;
         }
         sqlite3_finalize(p_stmt);
@@ -339,19 +437,17 @@ bool CtImageEmbFile::to_sqlite(sqlite3* pDb, const gint64 node_id, const int off
 
 std::shared_ptr<CtAnchoredWidgetState> CtImageEmbFile::get_state()
 {
-    return std::shared_ptr<CtAnchoredWidgetState>(new CtAnchoredWidgetState_EmbFile(this));
+    return std::shared_ptr<CtAnchoredWidgetState>(new CtAnchoredWidgetState_EmbFile{this});
 }
 
 void CtImageEmbFile::update_label_widget()
 {
-    if (_pCtMainWin->get_ct_config()->embfileShowFileName)
-    {
+    if (_pCtMainWin->get_ct_config()->embfileShowFileName) {
         _labelWidget.set_markup("<b><small>"+str::xml_escape(_fileName.string())+"</small></b>");
         _labelWidget.show();
         _frame.set_label_widget(_labelWidget);
     }
-    else
-    {
+    else {
         _labelWidget.hide();
     }
 }
@@ -362,32 +458,28 @@ void CtImageEmbFile::update_tooltip()
     const size_t embfileBytes{_rawBlob.size()};
     const double embfileKbytes{static_cast<double>(embfileBytes)/1024};
     const double embfileMbytes{embfileKbytes/1024};
-    if (embfileMbytes > 1)
-    {
+    if (embfileMbytes > 1) {
         snprintf(humanReadableSize, 16, "%.1f MB", embfileMbytes);
     }
-    else
-    {
+    else {
         snprintf(humanReadableSize, 16, "%.1f KB", embfileKbytes);
     }
     const Glib::DateTime dateTime{Glib::DateTime::create_now_local(static_cast<gint64>(_timeSeconds))};
     const Glib::ustring strDateTime = dateTime.format(_pCtMainWin->get_ct_config()->timestampFormat);
     char buffTooltip[128];
-    snprintf(buffTooltip, 128, "%s\n%s (%ld Bytes)\n%s", _fileName.c_str(), humanReadableSize, embfileBytes, strDateTime.c_str());
+    snprintf(buffTooltip, 128, "%s\n%s (%zu Bytes)\n%s", _fileName.c_str(), humanReadableSize, embfileBytes, strDateTime.c_str());
     set_tooltip_text(buffTooltip);
 }
 
-/*static*/ Glib::RefPtr<Gdk::Pixbuf> CtImageEmbFile::_get_file_icon(CtMainWin* pCtMainWin, const fs::path& fileName)
+/*static*/Glib::RefPtr<Gdk::Pixbuf> CtImageEmbFile::_get_file_icon(CtMainWin* pCtMainWin, const fs::path& fileName)
 {
     Glib::RefPtr<Gdk::Pixbuf> result;
 #ifndef _WIN32
     g_autofree gchar* ctype = g_content_type_guess(fileName.c_str(), NULL, 0, NULL);
-    if (ctype && !g_content_type_is_unknown(ctype))
-    {
-        if (GIcon* icon = g_content_type_get_icon(ctype)) // Glib::wrap will unref object
-        {
-           Gtk::IconInfo info = pCtMainWin->get_icon_theme()->lookup_icon(Glib::wrap(icon), pCtMainWin->get_ct_config()->embfileIconSize, Gtk::ICON_LOOKUP_USE_BUILTIN);
-           result = info.load_icon();
+    if (ctype && !g_content_type_is_unknown(ctype)) {
+        if (GIcon* icon = g_content_type_get_icon(ctype)) { // Glib::wrap will unref object
+            Gtk::IconInfo info = pCtMainWin->get_icon_theme()->lookup_icon(Glib::wrap(icon), pCtMainWin->get_ct_config()->embfileIconSize, Gtk::ICON_LOOKUP_USE_BUILTIN);
+            result = info.load_icon();
         }
     }
 #else

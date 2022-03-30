@@ -1,7 +1,7 @@
 /*
  * ct_state_machine.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -74,6 +74,19 @@ public:
 
 public:
     Glib::ustring name;
+};
+
+class CtAnchoredWidgetState_Latex : public CtAnchoredWidgetState
+{
+public:
+    CtAnchoredWidgetState_Latex(CtImageLatex* latex);
+
+    bool equal(std::shared_ptr<CtAnchoredWidgetState> state) override;
+    CtAnchoredWidget* to_widget(CtMainWin* pCtMainWin) override;
+
+public:
+    Glib::ustring text;
+    const size_t  uniqueId;
 };
 
 class CtAnchoredWidgetState_EmbFile : public CtAnchoredWidgetState

@@ -1,7 +1,7 @@
 /*
  * ct_actions_view.cc
  *
- * Copyright 2009-2020
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -29,10 +29,9 @@
 // Toggle Show/Hide the Tree
 void CtActions::toggle_show_hide_tree()
 {
-    auto pCtConfig = _pCtMainWin->get_ct_config();
-    pCtConfig->treeVisible = not pCtConfig->treeVisible;
-    _pCtMainWin->show_hide_tree_view(pCtConfig->treeVisible);
-    if (pCtConfig->treeVisible) {
+    _pCtConfig->treeVisible = not _pCtConfig->treeVisible;
+    _pCtMainWin->show_hide_tree_view(_pCtConfig->treeVisible);
+    if (_pCtConfig->treeVisible) {
         _pCtMainWin->get_tree_view().grab_focus();
     }
     else {
@@ -42,37 +41,32 @@ void CtActions::toggle_show_hide_tree()
 
 void CtActions::toggle_show_hide_menubar()
 {
-    auto pCtConfig = _pCtMainWin->get_ct_config();
-    pCtConfig->menubarVisible = not pCtConfig->menubarVisible;
-    _pCtMainWin->show_hide_menubar(pCtConfig->menubarVisible);
+    _pCtConfig->menubarVisible = not _pCtConfig->menubarVisible;
+    _pCtMainWin->show_hide_menubar(_pCtConfig->menubarVisible);
 }
 
 void CtActions::toggle_show_hide_toolbars()
 {
-    auto pCtConfig = _pCtMainWin->get_ct_config();
-    pCtConfig->toolbarVisible = not pCtConfig->toolbarVisible;
-    _pCtMainWin->show_hide_toolbars(pCtConfig->toolbarVisible);
+    _pCtConfig->toolbarVisible = not _pCtConfig->toolbarVisible;
+    _pCtMainWin->show_hide_toolbars(_pCtConfig->toolbarVisible);
 }
 
 void CtActions::toggle_show_hide_statusbar()
 {
-    auto pCtConfig = _pCtMainWin->get_ct_config();
-    pCtConfig->statusbarVisible = not pCtConfig->statusbarVisible;
-    _pCtMainWin->show_hide_statusbar(pCtConfig->statusbarVisible);
+    _pCtConfig->statusbarVisible = not _pCtConfig->statusbarVisible;
+    _pCtMainWin->show_hide_statusbar(_pCtConfig->statusbarVisible);
 }
 
 void CtActions::toggle_show_hide_node_name_header()
 {
-    auto pCtConfig = _pCtMainWin->get_ct_config();
-    pCtConfig->showNodeNameHeader = not pCtConfig->showNodeNameHeader;
-    _pCtMainWin->show_hide_win_header(pCtConfig->showNodeNameHeader);
+    _pCtConfig->showNodeNameHeader = not _pCtConfig->showNodeNameHeader;
+    _pCtMainWin->show_hide_win_header(_pCtConfig->showNodeNameHeader);
 }
 
 void CtActions::toggle_show_hide_tree_lines()
 {
-    auto pCtConfig = _pCtMainWin->get_ct_config();
-    pCtConfig->treeLinesVisible = not pCtConfig->treeLinesVisible;
-    _pCtMainWin->show_hide_tree_lines(pCtConfig->treeLinesVisible);
+    _pCtConfig->treeLinesVisible = not _pCtConfig->treeLinesVisible;
+    _pCtMainWin->show_hide_tree_lines(_pCtConfig->treeLinesVisible);
 }
 
 // Toggle Focus Between Tree and Text
@@ -99,23 +93,23 @@ void CtActions::nodes_collapse_all()
 // Increase the Size of the Toolbar Icons
 void CtActions::toolbar_icons_size_increase()
 {
-    if (_pCtMainWin->get_ct_config()->toolbarIconSize == 5) {
+    if (_pCtConfig->toolbarIconSize == 5) {
         CtDialogs::info_dialog(_("The Size of the Toolbar Icons is already at the Maximum Value"), *_pCtMainWin);
         return;
     }
-    _pCtMainWin->get_ct_config()->toolbarIconSize += 1;
-    _pCtMainWin->set_toolbars_icon_size(_pCtMainWin->get_ct_config()->toolbarIconSize);
+    _pCtConfig->toolbarIconSize += 1;
+    _pCtMainWin->set_toolbars_icon_size(_pCtConfig->toolbarIconSize);
 }
 
 // Decrease the Size of the Toolbar Icons
 void CtActions::toolbar_icons_size_decrease()
 {
-    if (_pCtMainWin->get_ct_config()->toolbarIconSize == 1) {
+    if (_pCtConfig->toolbarIconSize == 1) {
         CtDialogs::info_dialog(_("The Size of the Toolbar Icons is already at the Minimum Value"), *_pCtMainWin);
         return;
     }
-    _pCtMainWin->get_ct_config()->toolbarIconSize -= 1;
-    _pCtMainWin->set_toolbars_icon_size(_pCtMainWin->get_ct_config()->toolbarIconSize);
+    _pCtConfig->toolbarIconSize -= 1;
+    _pCtMainWin->set_toolbars_icon_size(_pCtConfig->toolbarIconSize);
 }
 
 // Toggle Fullscreen State
@@ -142,6 +136,6 @@ void CtActions::fullscreen_toggle()
 
 void CtActions::_menubar_in_titlebar_set(const bool setOn)
 {
-    _pCtMainWin->get_ct_config()->menubarInTitlebar = setOn;
+    _pCtConfig->menubarInTitlebar = setOn;
     CtDialogs::info_dialog(_("This Change will have Effect Only After Restarting CherryTree"), *_pCtMainWin);
 }

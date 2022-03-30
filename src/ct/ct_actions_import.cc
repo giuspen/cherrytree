@@ -1,7 +1,7 @@
 /*
  * ct_actions_import.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -82,14 +82,14 @@ static std::optional<Gtk::TreeIter> select_parent_dialog(CtMainWin* pCtMainWin)
 // Import a node from a html file
 void CtActions::import_node_from_html_file() noexcept
 {
-    CtHtmlImport importer(_pCtMainWin->get_ct_config());
+    CtHtmlImport importer(_pCtConfig);
     _import_from_file(&importer);
 }
 
 // Import a directory of html files - non recursive
 void CtActions::import_node_from_html_directory() noexcept
 {
-    CtHtmlImport importer(_pCtMainWin->get_ct_config());
+    CtHtmlImport importer(_pCtConfig);
     _import_from_dir(&importer, "");
 }
 
@@ -97,7 +97,7 @@ void CtActions::import_nodes_from_ct_file() noexcept
 {
     try {
         CtDialogs::FileSelectArgs args{_pCtMainWin};
-        args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImport;
+        args.curr_folder = _pCtConfig->pickDirImport;
         args.filter_name = _("CherryTree Document");
         args.filter_pattern.push_back("*.ctb"); // macos doesn't understand *.ct*
         args.filter_pattern.push_back("*.ctx");
@@ -106,7 +106,7 @@ void CtActions::import_nodes_from_ct_file() noexcept
 
         auto fpath = CtDialogs::file_select_dialog(args);
         if (fpath.empty()) return; // No file selected
-        _pCtMainWin->get_ct_config()->pickDirImport = Glib::path_get_dirname(fpath);
+        _pCtConfig->pickDirImport = Glib::path_get_dirname(fpath);
 
         std::optional<Gtk::TreeIter> parent_iter = select_parent_dialog(_pCtMainWin);
         if (not parent_iter.has_value()) {
@@ -123,31 +123,31 @@ void CtActions::import_nodes_from_ct_file() noexcept
 
 void CtActions::import_node_from_plaintext_file() noexcept
 {
-    CtPlainTextImport importer(_pCtMainWin->get_ct_config());
+    CtPlainTextImport importer(_pCtConfig);
     _import_from_file(&importer);
 }
 
 void CtActions::import_nodes_from_plaintext_directory() noexcept
 {
-    CtPlainTextImport importer(_pCtMainWin->get_ct_config());
+    CtPlainTextImport importer(_pCtConfig);
     _import_from_dir(&importer, "");
 }
 
 void CtActions::import_node_from_md_file() noexcept
 {
-    CtMDImport importer(_pCtMainWin->get_ct_config());
+    CtMDImport importer(_pCtConfig);
     _import_from_file(&importer);
 }
 
 void CtActions::import_nodes_from_md_directory() noexcept
 {
-    CtMDImport importer(_pCtMainWin->get_ct_config());
+    CtMDImport importer(_pCtConfig);
     _import_from_dir(&importer, "");
 }
 
 void CtActions::import_nodes_from_zim_directory() noexcept
 {
-    CtZimImport importer{_pCtMainWin->get_ct_config()};
+    CtZimImport importer{_pCtConfig};
     _import_from_dir(&importer, Glib::build_filename(Glib::get_home_dir(), "Notebooks", "Notes"));
 }
 
@@ -158,7 +158,7 @@ void CtActions::import_node_from_pandoc() noexcept
         return;
     }
 
-    CtPandocImport importer(_pCtMainWin->get_ct_config());
+    CtPandocImport importer(_pCtConfig);
     _import_from_file(&importer);
 }
 
@@ -169,25 +169,25 @@ void CtActions::import_directory_from_pandoc() noexcept
         return;
     }
 
-    CtPandocImport importer(_pCtMainWin->get_ct_config());
+    CtPandocImport importer(_pCtConfig);
     _import_from_dir(&importer, "");
 };
 
 void CtActions::import_nodes_from_gnote_directory() noexcept
 {
-    CtTomboyImport importer(_pCtMainWin->get_ct_config());
+    CtTomboyImport importer(_pCtConfig);
     _import_from_dir(&importer, Glib::build_filename(g_get_user_data_dir(), "gnote"));
 }
 
 void CtActions::import_nodes_from_tomboy_directory() noexcept
 {
-    CtTomboyImport importer(_pCtMainWin->get_ct_config());
+    CtTomboyImport importer(_pCtConfig);
     _import_from_dir(&importer, Glib::build_filename(g_get_user_data_dir(), "tomboy"));
 }
 
 void CtActions::import_nodes_from_keepnote_directory() noexcept {
     try {
-        CtKeepnoteImport importer(_pCtMainWin->get_ct_config());
+        CtKeepnoteImport importer(_pCtConfig);
         _import_from_dir(&importer, "");
     } catch(const std::exception& e) {
         spdlog::error("Exception caught while importing from keepnote: {}", e.what());
@@ -227,7 +227,7 @@ void CtActions::import_nodes_from_leo_file() noexcept
 void CtActions::import_nodes_from_rednotebook_html() noexcept
 {
     try {
-        CtRedNotebookImporter importer{_pCtMainWin->get_ct_config()};
+        CtRedNotebookImporter importer{_pCtConfig};
         _import_from_file(&importer);
     } catch(const std::exception& e) {
         spdlog::error("Exception caught while importing from Leo: {}", e.what());
@@ -236,20 +236,20 @@ void CtActions::import_nodes_from_rednotebook_html() noexcept
 
 void CtActions::import_nodes_from_notecase_html() noexcept
 {
-    CtNoteCaseHTMLImporter importer{_pCtMainWin->get_ct_config()};
+    CtNoteCaseHTMLImporter importer{_pCtConfig};
     _import_from_file(&importer);
 }
 
 void CtActions::_import_from_file(CtImporterInterface* importer, const bool dummy_root) noexcept
 {
     CtDialogs::FileSelectArgs args{_pCtMainWin};
-    args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImport;
+    args.curr_folder = _pCtConfig->pickDirImport;
     args.filter_name = importer->file_pattern_name();
     args.filter_pattern = importer->file_patterns();
     args.filter_mime = importer->file_mime_types();
     const std::string filepath = CtDialogs::file_select_dialog(args);
     if (filepath.empty()) return;
-    _pCtMainWin->get_ct_config()->pickDirImport = Glib::path_get_dirname(filepath);
+    _pCtConfig->pickDirImport = Glib::path_get_dirname(filepath);
 
     try {
         std::unique_ptr<CtImportedNode> node = importer->import_file(filepath);
@@ -263,11 +263,11 @@ void CtActions::_import_from_file(CtImporterInterface* importer, const bool dumm
 
 void CtActions::_import_from_dir(CtImporterInterface* importer, const std::string& custom_dir) noexcept
 {
-    std::string start_dir = custom_dir.empty() ? _pCtMainWin->get_ct_config()->pickDirImport : custom_dir;
+    std::string start_dir = custom_dir.empty() ? _pCtConfig->pickDirImport : custom_dir;
     std::string import_dir = CtDialogs::folder_select_dialog(start_dir, _pCtMainWin);
     if (import_dir.empty()) return;
     if (custom_dir.empty())
-        _pCtMainWin->get_ct_config()->pickDirImport = import_dir;
+        _pCtConfig->pickDirImport = import_dir;
 
     try
     {

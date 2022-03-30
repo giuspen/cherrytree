@@ -588,7 +588,12 @@ void CtMainWin::menu_rebuild_toolbars(bool new_toolbar)
         _pToolbars = _uCtMenu->build_toolbars(_pRecentDocsMenuToolButton);
         for (auto toolbar = _pToolbars.rbegin(); toolbar != _pToolbars.rend(); ++toolbar) {
             _vboxMain.pack_start(*(*toolbar), false, false);
-            _vboxMain.reorder_child(*(*toolbar), 1);
+            if (not _pCtConfig->menubarInTitlebar) {
+                _vboxMain.reorder_child(*(*toolbar), 1);
+            }
+            else {
+                _vboxMain.reorder_child(*(*toolbar), 0);
+            }
         }
         menu_set_items_recent_documents();
         for (auto pToolbar: _pToolbars) {

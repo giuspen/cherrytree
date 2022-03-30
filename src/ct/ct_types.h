@@ -1,7 +1,7 @@
 /*
  * ct_types.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -45,7 +45,7 @@ enum class CtDocType { None, XML, SQLite };
 
 enum class CtDocEncrypt { None, True, False };
 
-enum class CtAnchWidgType { CodeBox, Table, ImagePng, ImageAnchor, ImageEmbFile };
+enum class CtAnchWidgType { CodeBox, Table, ImagePng, ImageAnchor, ImageLatex, ImageEmbFile };
 
 enum class CtPixTabCBox { Pixbuf, Table, CodeBox };
 
@@ -277,6 +277,7 @@ struct CtSummaryInfo
     size_t nodes_plain_text_num{0};
     size_t nodes_code_num{0};
     size_t images_num{0};
+    size_t latexes_num{0};
     size_t embfile_num{0};
     size_t tables_num{0};
     size_t codeboxes_num{0};

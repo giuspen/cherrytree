@@ -1,7 +1,7 @@
 /*
  * ct_dialogs.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -248,8 +248,10 @@ std::string file_save_as_dialog(const FileSelectArgs& args);
 
 // Insert/Edit Image
 Glib::RefPtr<Gdk::Pixbuf> image_handle_dialog(Gtk::Window& father_win,
-                                              const Glib::ustring& title,
                                               Glib::RefPtr<Gdk::Pixbuf> rOriginalPixbuf);
+// Insert/Edit Latex
+Glib::ustring latex_handle_dialog(CtMainWin* pCtMainWin,
+                                  const Glib::ustring& latex_text);
 
 // Opens the CodeBox Handle Dialog
 bool codeboxhandle_dialog(CtMainWin* pCtMainWin,

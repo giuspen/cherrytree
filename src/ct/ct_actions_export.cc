@@ -1,7 +1,7 @@
 ﻿/*
  * ct_actions_export.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -274,7 +274,7 @@ void CtActions::_export_to_html(const fs::path& auto_path, bool auto_overwrite)
             export2html.node_export_to_html(_pCtMainWin->curr_tree_iter(), _export_options, "", iter_start.get_offset(), iter_end.get_offset());
     }
     if (!ret_html_path.empty() && auto_path.empty()) {
-       fs::open_folderpath(ret_html_path, _pCtMainWin->get_ct_config());
+       fs::open_folderpath(ret_html_path, _pCtConfig);
     }
 }
 
@@ -347,7 +347,7 @@ void CtActions::_export_to_txt(const fs::path& auto_path, bool auto_overwrite)
 fs::path CtActions::_get_pdf_filepath(const fs::path& proposed_name)
 {
     CtDialogs::FileSelectArgs args{_pCtMainWin};
-    args.curr_folder = _pCtMainWin->get_ct_config()->pickDirExport;
+    args.curr_folder = _pCtConfig->pickDirExport;
     args.curr_file_name = proposed_name.string() + ".pdf";
     args.filter_name = _("PDF File");
     args.filter_pattern = {"*.pdf"};
@@ -356,7 +356,7 @@ fs::path CtActions::_get_pdf_filepath(const fs::path& proposed_name)
     if (!filename.empty())
     {
         if (filename.extension() != ".pdf") filename += ".pdf";
-        _pCtMainWin->get_ct_config()->pickDirExport = filename.parent_path().string();
+        _pCtConfig->pickDirExport = filename.parent_path().string();
     }
     return filename;
 }
@@ -368,7 +368,7 @@ fs::path CtActions::_get_txt_filepath(const fs::path& dir_place, const fs::path&
     if (dir_place.empty())
     {
         CtDialogs::FileSelectArgs args{_pCtMainWin};
-        args.curr_folder = _pCtMainWin->get_ct_config()->pickDirExport;
+        args.curr_folder = _pCtConfig->pickDirExport;
         args.curr_file_name = proposed_name.string() + ".txt";
         args.filter_name = _("Plain Text Document");
         args.filter_pattern = {"*.txt"};
@@ -383,7 +383,7 @@ fs::path CtActions::_get_txt_filepath(const fs::path& dir_place, const fs::path&
     if (!filename.empty())
     {
         if (filename.extension() != ".txt") filename += ".txt";
-        _pCtMainWin->get_ct_config()->pickDirExport = filename.parent_path().string();
+        _pCtConfig->pickDirExport = filename.parent_path().string();
 
         if (fs::is_regular_file(filename)) fs::remove(filename);
     }
@@ -394,7 +394,7 @@ fs::path CtActions::_get_txt_folder(fs::path dir_place, fs::path new_folder, boo
 {
     if (dir_place.empty())
     {
-        dir_place = CtDialogs::folder_select_dialog(_pCtMainWin->get_ct_config()->pickDirExport, _pCtMainWin);
+        dir_place = CtDialogs::folder_select_dialog(_pCtConfig->pickDirExport, _pCtMainWin);
         if (dir_place.empty())
             return "";
     }

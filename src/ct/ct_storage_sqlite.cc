@@ -1,7 +1,7 @@
 /*
  * ct_storage_sqlite.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -480,40 +480,49 @@ Glib::RefPtr<Gsv::Buffer> CtStorageSqlite::get_delayed_text_buffer(const gint64&
 void CtStorageSqlite::_image_from_db(const gint64& nodeId, std::list<CtAnchoredWidget*>& anchoredWidgets) const
 {
     Sqlite3StmtAuto stmt{_pDb, "SELECT * FROM image WHERE node_id=? ORDER BY offset ASC"};
-    if (stmt.is_bad())
-    {
+    if (stmt.is_bad()) {
         spdlog::error("{}: {}", ERR_SQLITE_PREPV2, sqlite3_errmsg(_pDb));
         return;
     }
     sqlite3_bind_int64(stmt, 1, nodeId);
 
-    while (SQLITE_ROW == sqlite3_step(stmt))
-    {
+    while (SQLITE_ROW == sqlite3_step(stmt)) {
         int charOffset = sqlite3_column_int64(stmt, 1);
         Glib::ustring justification = safe_sqlite3_column_text(stmt, 2);
         if (justification.empty()) justification = CtConst::TAG_PROP_VAL_LEFT;
 
         // image
         const Glib::ustring anchorName = safe_sqlite3_column_text(stmt, 3);
-        if (!anchorName.empty())
-        {
-            anchoredWidgets.push_back(new CtImageAnchor(_pCtMainWin, anchorName, charOffset, justification));
+        if (!anchorName.empty()) {
+            anchoredWidgets.push_back(new CtImageAnchor{_pCtMainWin, anchorName, charOffset, justification});
         }
-        else
-        {
+        else {
             fs::path fileName = safe_sqlite3_column_text(stmt, 5);
             const void* pBlob = sqlite3_column_blob(stmt, 4);
             const int blobSize = sqlite3_column_bytes(stmt, 4);
             const std::string rawBlob(reinterpret_cast<const char*>(pBlob), static_cast<size_t>(blobSize));
-            if (!fileName.empty())
-            {
-                const time_t timeSeconds = sqlite3_column_int64(stmt, 7);
-                anchoredWidgets.push_back(new CtImageEmbFile(_pCtMainWin, fileName, rawBlob, timeSeconds, charOffset, justification, CtImageEmbFile::get_next_unique_id()));
+            if (!fileName.empty()) {
+                if (fileName == CtImageLatex::LatexSpecialFilename) {
+                    anchoredWidgets.push_back(new CtImageLatex{_pCtMainWin,
+                                                               rawBlob,
+                                                               charOffset,
+                                                               justification,
+                                                               CtImageEmbFile::get_next_unique_id()});
+                }
+                else {
+                    const time_t timeSeconds = sqlite3_column_int64(stmt, 7);
+                    anchoredWidgets.push_back(new CtImageEmbFile{_pCtMainWin,
+                                                                 fileName,
+                                                                 rawBlob,
+                                                                 timeSeconds,
+                                                                 charOffset,
+                                                                 justification,
+                                                                 CtImageEmbFile::get_next_unique_id()});
+                }
             }
-            else
-            {
+            else {
                 const Glib::ustring link = safe_sqlite3_column_text(stmt, 6);
-                anchoredWidgets.push_back(new CtImagePng(_pCtMainWin, rawBlob, link, charOffset, justification));
+                anchoredWidgets.push_back(new CtImagePng{_pCtMainWin, rawBlob, link, charOffset, justification});
             }
         }
     }

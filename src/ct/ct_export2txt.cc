@@ -91,13 +91,13 @@ Glib::ustring CtExport2Txt::selection_export_to_txt(CtTreeIter tree_iter, Glib::
         plain_text += text_slot;
         if (CtTable* ctTable = dynamic_cast<CtTable*>(widget)) plain_text += get_table_plain(ctTable);
         else if (CtCodebox* ctCodebox = dynamic_cast<CtCodebox*>(widget)) plain_text += get_codebox_plain(ctCodebox);
+        else if (CtImageLatex* ctLatex = dynamic_cast<CtImageLatex*>(widget)) plain_text += get_latex_plain(ctLatex);
         start_offset = end_offset;
     }
     plain_text += _plain_process_slot(start_offset, sel_end, text_buffer, check_link_target && widgets.empty());
     return plain_text;
 }
 
-// Returns the plain Table
 Glib::ustring CtExport2Txt::get_table_plain(CtTable* table_orig)
 {
     Glib::ustring table_plain = CtConst::CHAR_NEWLINE;
@@ -111,13 +111,29 @@ Glib::ustring CtExport2Txt::get_table_plain(CtTable* table_orig)
     return table_plain;
 }
 
-// Returns the plain CodeBox
 Glib::ustring CtExport2Txt::get_codebox_plain(CtCodebox* codebox)
 {
     Glib::ustring codebox_plain = CtConst::CHAR_NEWLINE + _pCtMainWin->get_ct_config()->hRule + CtConst::CHAR_NEWLINE;
     codebox_plain += codebox->get_text_content();
     codebox_plain += CtConst::CHAR_NEWLINE + _pCtMainWin->get_ct_config()->hRule + CtConst::CHAR_NEWLINE;
     return codebox_plain;
+}
+
+Glib::ustring CtExport2Txt::get_latex_plain(CtImageLatex* latex)
+{
+    Glib::ustring latex_plain = CtConst::CHAR_NEWLINE + _pCtMainWin->get_ct_config()->hRule + CtConst::CHAR_NEWLINE;
+    Glib::ustring latex_text = latex->get_latex_text();
+    const Glib::ustring::size_type begin_doc = latex_text.find("\\begin{document}");
+    if (std::string::npos != begin_doc) {
+        const Glib::ustring::size_type end_doc = latex_text.rfind("\\end{document}");
+        if (std::string::npos != end_doc and end_doc > begin_doc) {
+            const auto begin_doc2 = begin_doc + 17;
+            latex_text = latex_text.substr(begin_doc2, end_doc - begin_doc2 - 1);
+        }
+    }
+    latex_plain += latex_text;
+    latex_plain += CtConst::CHAR_NEWLINE + _pCtMainWin->get_ct_config()->hRule + CtConst::CHAR_NEWLINE;
+    return latex_plain;
 }
 
 // Process a Single plain Slot

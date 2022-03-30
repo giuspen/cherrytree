@@ -1,7 +1,7 @@
 /*
  * ct_text_view.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -37,8 +37,6 @@ class CtTextView : public Gsv::View
 {
 public:
     CtTextView(CtMainWin* pCtMainWin);
-
-    CtMainWin*   getCtMainWin() { return _pCtMainWin; }
 
     void setup_for_syntax(const std::string& syntaxHighlighting); // pygtk: sourceview_set_properties
     void set_pixels_inside_wrap(int space_around_lines, int relative_wrapped_space);
@@ -103,7 +101,8 @@ private:
 #ifdef MD_AUTO_REPLACEMENT
     std::unique_ptr<CtMarkdownFilter> _md_handler;
 #endif // MD_AUTO_REPLACEMENT
-    CtMainWin*   _pCtMainWin;
+    CtMainWin* const _pCtMainWin;
+    CtConfig* const _pCtConfig;
     CtColumnEdit _columnEdit;
     guint32      _todoRotateTime{0};
     std::string  _syntaxHighlighting;

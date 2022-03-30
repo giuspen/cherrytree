@@ -153,6 +153,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
     ASSERT_EQ(1, summaryInfo.tables_num);
     ASSERT_EQ(1, summaryInfo.codeboxes_num);
     ASSERT_EQ(1, summaryInfo.anchors_num);
+    ASSERT_EQ(1, summaryInfo.latexes_num);
     {
         CtTreeIter ctTreeIter = pWin->get_tree_store().get_node_from_node_name("йцукенгшщз");
         ASSERT_TRUE(ctTreeIter);
@@ -421,6 +422,9 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
             "embedded file:" _NL
             _NL
             _NL
+            "latex equation:" _NL
+            _NL
+            _NL
             "link to web ansa.it" _NL
             "link to node ‘d’" _NL
             "link to node ‘e’ + anchor" _NL
@@ -458,7 +462,7 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
         }
         // assert anchored widgets
         std::list<CtAnchoredWidget*> anchoredWidgets = ctTreeIter.get_anchored_widgets();
-        ASSERT_EQ(5, anchoredWidgets.size());
+        ASSERT_EQ(6, anchoredWidgets.size());
         for (CtAnchoredWidget* pAnchWidget : anchoredWidgets) {
             switch (pAnchWidget->get_type()) {
                 case CtAnchWidgType::CodeBox: {
@@ -552,6 +556,17 @@ void TestCtApp::_assert_tree_data(CtMainWin* pWin)
                     ASSERT_EQ(embedded_file.size(), pImageEmbFile->get_raw_blob().size());
                     ASSERT_EQ(embedded_file, pImageEmbFile->get_raw_blob());
                     ASSERT_EQ(1565442560, pImageEmbFile->get_time());
+                } break;
+                case CtAnchWidgType::ImageLatex: {
+                    ASSERT_EQ(96, pAnchWidget->getOffset());
+                    ASSERT_STREQ(CtConst::TAG_PROP_VAL_LEFT, pAnchWidget->getJustification().c_str());
+                    auto pImageLatex = dynamic_cast<CtImageLatex*>(pAnchWidget);
+                    ASSERT_TRUE(pImageLatex);
+                    ASSERT_STREQ("\\documentclass{article}\n"
+                                 "\\pagestyle{empty}\n"
+                                 "\\begin{document}\n"
+                                 "$a^2+b^2=c^2$\n"
+                                 "\\end{document}", pImageLatex->get_latex_text().c_str());
                 } break;
             }
         }

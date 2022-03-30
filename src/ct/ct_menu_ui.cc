@@ -154,6 +154,7 @@ const char* CtMenu::_get_ui_str_menu()
     <menuitem action='handle_image'/>
     <menuitem action='handle_table'/>
     <menuitem action='handle_codebox'/>
+    <menuitem action='handle_latex'/>
     <menuitem action='handle_embfile'/>
     <menuitem action='handle_link'/>
     <menuitem action='handle_anchor'/>
@@ -376,6 +377,7 @@ const char* CtMenu::_get_popup_menu_ui_str_text()
     <menuitem action='handle_image'/>
     <menuitem action='handle_table'/>
     <menuitem action='handle_codebox'/>
+    <menuitem action='handle_latex'/>
     <menuitem action='handle_embfile'/>
     <menuitem action='handle_link'/>
     <menuitem action='handle_anchor'/>
@@ -466,6 +468,20 @@ const char* CtMenu::_get_popup_menu_ui_str_image()
   <separator/>
   <menuitem action='img_link_edit'/>
   <menuitem action='img_link_dismiss'/>
+</popup>
+    )MARKUP";
+}
+
+const char* CtMenu::_get_popup_menu_ui_str_latex()
+{
+    return R"MARKUP(
+<popup>
+  <menuitem action='tex_cut'/>
+  <menuitem action='tex_copy'/>
+  <menuitem action='tex_del'/>
+  <separator/>
+  <menuitem action='tex_edit'/>
+  <menuitem action='tex_save'/>
 </popup>
     )MARKUP";
 }

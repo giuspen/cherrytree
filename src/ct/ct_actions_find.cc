@@ -233,7 +233,7 @@ void CtActions::find_in_multiple_nodes()
 
     _pCtMainWin->user_active() = user_active_restore;
     auto last_iterated_node = _pCtMainWin->curr_tree_iter();
-    ctTreeStore.treeview_set_tree_expanded_collapsed_string(tree_expanded_collapsed_string, ctTreeView, _pCtMainWin->get_ct_config()->nodesBookmExp);
+    ctTreeStore.treeview_set_tree_expanded_collapsed_string(tree_expanded_collapsed_string, ctTreeView, _pCtConfig->nodesBookmExp);
     if (not _s_state.matches_num or all_matches) {
         ctTreeView.set_cursor_safe(starting_tree_iter);
         ctTextView.grab_focus();

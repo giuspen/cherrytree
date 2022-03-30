@@ -74,6 +74,13 @@ image:
 embedded file:
 
 
+latex equation:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$a^2+b^2=c^2$
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 link to web ansa.it
 link to node ‘d’
 link to node ‘e’ + anchor

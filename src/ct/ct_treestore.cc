@@ -1,7 +1,7 @@
 /*
  * ct_treestore.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -993,6 +993,7 @@ void CtTreeStore::populate_summary_info(CtSummaryInfo& summaryInfo)
                 switch (pAnchoredWidget->get_type()) {
                     case CtAnchWidgType::CodeBox: ++summaryInfo.codeboxes_num; break;
                     case CtAnchWidgType::ImageAnchor: ++summaryInfo.anchors_num; break;
+                    case CtAnchWidgType::ImageLatex: ++summaryInfo.latexes_num; break;
                     case CtAnchWidgType::ImageEmbFile: ++summaryInfo.embfile_num; break;
                     case CtAnchWidgType::ImagePng: ++summaryInfo.images_num; break;
                     case CtAnchWidgType::Table: ++summaryInfo.tables_num; break;

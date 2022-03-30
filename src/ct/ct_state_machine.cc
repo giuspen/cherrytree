@@ -1,7 +1,7 @@
 /*
  * ct_state_machine.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -70,13 +70,36 @@ CtAnchoredWidget* CtAnchoredWidgetState_Anchor::to_widget(CtMainWin* pCtMainWin)
     return new CtImageAnchor{pCtMainWin, name, charOffset, justification};
 }
 
+// ImageLatex
+CtAnchoredWidgetState_Latex::CtAnchoredWidgetState_Latex(CtImageLatex* latex)
+ : CtAnchoredWidgetState{latex->getOffset(), latex->getJustification()}
+ , text{latex->get_latex_text()}
+ , uniqueId{latex->get_unique_id()}
+{
+}
+
+bool CtAnchoredWidgetState_Latex::equal(std::shared_ptr<CtAnchoredWidgetState> state)
+{
+    CtAnchoredWidgetState_Latex* other_state = dynamic_cast<CtAnchoredWidgetState_Latex*>(state.get());
+    return other_state and
+           charOffset == other_state->charOffset and
+           justification == other_state->justification and
+           text == other_state->text and
+           uniqueId == other_state->uniqueId;
+}
+
+CtAnchoredWidget* CtAnchoredWidgetState_Latex::to_widget(CtMainWin* pCtMainWin)
+{
+    return new CtImageLatex{pCtMainWin, text, charOffset, justification, uniqueId};
+}
+
 // ImageEmbFile
 CtAnchoredWidgetState_EmbFile::CtAnchoredWidgetState_EmbFile(CtImageEmbFile* embFile)
- : CtAnchoredWidgetState(embFile->getOffset(), embFile->getJustification())
- , fileName(embFile->get_file_name())
- , rawBlob(embFile->get_raw_blob())
- , timeSeconds(embFile->get_time())
- , uniqueId(embFile->get_unique_id())
+ : CtAnchoredWidgetState{embFile->getOffset(), embFile->getJustification()}
+ , fileName{embFile->get_file_name()}
+ , rawBlob{embFile->get_raw_blob()}
+ , timeSeconds{embFile->get_time()}
+ , uniqueId{embFile->get_unique_id()}
 {
 }
 
@@ -94,7 +117,7 @@ bool CtAnchoredWidgetState_EmbFile::equal(std::shared_ptr<CtAnchoredWidgetState>
 
 CtAnchoredWidget* CtAnchoredWidgetState_EmbFile::to_widget(CtMainWin* pCtMainWin)
 {
-    return new CtImageEmbFile(pCtMainWin, fileName, rawBlob, timeSeconds, charOffset, justification, uniqueId);
+    return new CtImageEmbFile{pCtMainWin, fileName, rawBlob, timeSeconds, charOffset, justification, uniqueId};
 }
 
 // Codebox

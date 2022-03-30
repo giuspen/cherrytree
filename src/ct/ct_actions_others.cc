@@ -135,13 +135,13 @@ void CtActions::embfile_delete()
 void CtActions::embfile_save()
 {
     CtDialogs::FileSelectArgs args{_pCtMainWin};
-    args.curr_folder = _pCtMainWin->get_ct_config()->pickDirFile;
+    args.curr_folder = _pCtConfig->pickDirFile;
     args.curr_file_name = curr_file_anchor->get_file_name();
 
     std::string filepath = CtDialogs::file_save_as_dialog(args);
     if (filepath.empty()) return;
 
-    _pCtMainWin->get_ct_config()->pickDirFile = Glib::path_get_dirname(filepath);
+    _pCtConfig->pickDirFile = Glib::path_get_dirname(filepath);
     g_file_set_contents(filepath.c_str(), curr_file_anchor->get_raw_blob().c_str(), (gssize)curr_file_anchor->get_raw_blob().size(), nullptr);
 }
 
@@ -168,7 +168,7 @@ void CtActions::embfile_open()
     }
 
     g_file_set_contents(tmp_filepath.c_str(), curr_file_anchor->get_raw_blob().c_str(), (gssize)curr_file_anchor->get_raw_blob().size(), nullptr);
-    fs::open_filepath(tmp_filepath.c_str(), false, _pCtMainWin->get_ct_config());
+    fs::open_filepath(tmp_filepath.c_str(), false, _pCtConfig);
     mapIter->second.mod_time = fs::getmtime(tmp_filepath);
 
     if (not _embfiles_timeout_connection) {
@@ -190,11 +190,11 @@ void CtActions::embfile_rename()
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
-// Save to Disk the selected Image
-void CtActions::image_save()
+// Save to Disk the selected LatexBox Image
+void CtActions::latex_save()
 {
     CtDialogs::FileSelectArgs args{_pCtMainWin};
-    args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImg;
+    args.curr_folder = _pCtConfig->pickDirImg;
     args.curr_file_name = "";
     args.filter_name = _("PNG Image");
     args.filter_pattern = {"*.png"};
@@ -202,7 +202,62 @@ void CtActions::image_save()
     std::string filename = CtDialogs::file_save_as_dialog(args);
     if (filename.empty()) return;
 
-    _pCtMainWin->get_ct_config()->pickDirImg = Glib::path_get_dirname(filename);
+    _pCtConfig->pickDirImg = Glib::path_get_dirname(filename);
+    if (not str::endswith(filename, ".png")) filename += ".png";
+    try {
+       curr_latex_anchor->save(filename, "png");
+    }
+    catch (...) {
+        CtDialogs::error_dialog(str::format(_("Write to %s Failed"), str::xml_escape(filename)), *_pCtMainWin);
+    }
+}
+
+// Edit the selected LatexBox
+void CtActions::latex_edit()
+{
+    if (not _is_curr_node_not_read_only_or_error()) return;
+    Gtk::TextIter iter_insert = _curr_buffer()->get_iter_at_child_anchor(curr_latex_anchor->getTextChildAnchor());
+    Gtk::TextIter iter_bound = iter_insert;
+    iter_bound.forward_char();
+    _latex_edit_dialog(curr_latex_anchor->get_latex_text(), iter_insert, &iter_bound);
+}
+
+// Cut LatexBox
+void CtActions::latex_cut()
+{
+    object_set_selection(curr_latex_anchor);
+    g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "cut-clipboard");
+}
+
+// Copy LatexBox
+void CtActions::latex_copy()
+{
+    object_set_selection(curr_latex_anchor);
+    g_signal_emit_by_name(G_OBJECT(_pCtMainWin->get_text_view().gobj()), "copy-clipboard");
+}
+
+// Delete LatexBox
+void CtActions::latex_delete()
+{
+    object_set_selection(curr_latex_anchor);
+    _curr_buffer()->erase_selection(true, _pCtMainWin->get_text_view().get_editable());
+    curr_latex_anchor = nullptr;
+    _pCtMainWin->get_text_view().grab_focus();
+}
+
+// Save to Disk the selected Image
+void CtActions::image_save()
+{
+    CtDialogs::FileSelectArgs args{_pCtMainWin};
+    args.curr_folder = _pCtConfig->pickDirImg;
+    args.curr_file_name = "";
+    args.filter_name = _("PNG Image");
+    args.filter_pattern = {"*.png"};
+
+    std::string filename = CtDialogs::file_save_as_dialog(args);
+    if (filename.empty()) return;
+
+    _pCtConfig->pickDirImg = Glib::path_get_dirname(filename);
     if (not str::endswith(filename, ".png")) filename += ".png";
     try {
        curr_image_anchor->save(filename, "png");
@@ -288,8 +343,8 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
     CtLinkEntry link_entry = CtMiscUtil::get_link_entry(tag_property_value);
     if (link_entry.type == CtConst::LINK_TYPE_WEBS) { // link to webpage
         Glib::ustring clean_weblink = str::replace(link_entry.webs, "amp;", "");
-        if (_pCtMainWin->get_ct_config()->weblinkCustomOn) {
-            std::string cmd = fmt::sprintf(_pCtMainWin->get_ct_config()->weblinkCustomAct, clean_weblink.raw());
+        if (_pCtConfig->weblinkCustomOn) {
+            std::string cmd = fmt::sprintf(_pCtConfig->weblinkCustomAct, clean_weblink.raw());
             int retr = std::system(cmd.c_str());
             if (retr == -1) {
                 // Internal std::system error
@@ -309,14 +364,14 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
                 CtDialogs::error_dialog(str::format(_("The Folder Link '%s' is Not Valid"), str::xml_escape(filepath.string())), *_pCtMainWin);
                 return;
             }
-            fs::open_folderpath(filepath, _pCtMainWin->get_ct_config());
+            fs::open_folderpath(filepath, _pCtConfig);
         }
         else {
             if (not Glib::file_test(filepath.string(), Glib::FILE_TEST_IS_REGULAR)) {
                 CtDialogs::error_dialog(str::format(_("The File Link '%s' is Not Valid"), str::xml_escape(filepath.string())), *_pCtMainWin);
                 return;
             }
-            fs::open_filepath(filepath, true, _pCtMainWin->get_ct_config());
+            fs::open_filepath(filepath, true, _pCtConfig);
         }
     }
     else if (link_entry.type == CtConst::LINK_TYPE_FOLD) { // link to folder
@@ -328,7 +383,7 @@ void CtActions::link_clicked(const Glib::ustring& tag_property_value, bool from_
             CtDialogs::error_dialog(str::format(_("The Folder Link '%s' is Not Valid"), str::xml_escape(folderpath.string())), *_pCtMainWin);
             return;
         }
-        fs::open_folderpath(folderpath, _pCtMainWin->get_ct_config());
+        fs::open_folderpath(folderpath, _pCtConfig);
     }
     else if (link_entry.type == CtConst::LINK_TYPE_NODE) { // link to a tree node
         CtTreeIter tree_iter = _pCtMainWin->get_tree_store().get_node_from_node_id(link_entry.node_id);
@@ -407,21 +462,21 @@ void CtActions::codebox_delete_keeping_text()
 void CtActions::codebox_change_properties()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
-    _pCtMainWin->get_ct_config()->codeboxWidth = curr_codebox_anchor->get_frame_width();
-    _pCtMainWin->get_ct_config()->codeboxWidthPixels = curr_codebox_anchor->get_width_in_pixels();
-    _pCtMainWin->get_ct_config()->codeboxHeight = curr_codebox_anchor->get_frame_height();
-    _pCtMainWin->get_ct_config()->codeboxLineNum = curr_codebox_anchor->get_show_line_numbers();
-    _pCtMainWin->get_ct_config()->codeboxMatchBra = curr_codebox_anchor->get_highlight_brackets();
-    _pCtMainWin->get_ct_config()->codeboxSynHighl = curr_codebox_anchor->get_syntax_highlighting();
+    _pCtConfig->codeboxWidth = curr_codebox_anchor->get_frame_width();
+    _pCtConfig->codeboxWidthPixels = curr_codebox_anchor->get_width_in_pixels();
+    _pCtConfig->codeboxHeight = curr_codebox_anchor->get_frame_height();
+    _pCtConfig->codeboxLineNum = curr_codebox_anchor->get_show_line_numbers();
+    _pCtConfig->codeboxMatchBra = curr_codebox_anchor->get_highlight_brackets();
+    _pCtConfig->codeboxSynHighl = curr_codebox_anchor->get_syntax_highlighting();
 
     if (not CtDialogs::codeboxhandle_dialog(_pCtMainWin, _("Edit CodeBox"))) return;
 
-    curr_codebox_anchor->set_syntax_highlighting(_pCtMainWin->get_ct_config()->codeboxSynHighl,
+    curr_codebox_anchor->set_syntax_highlighting(_pCtConfig->codeboxSynHighl,
                                                  _pCtMainWin->get_language_manager());
-    curr_codebox_anchor->set_width_in_pixels(_pCtMainWin->get_ct_config()->codeboxWidthPixels);
-    curr_codebox_anchor->set_width_height((int)_pCtMainWin->get_ct_config()->codeboxWidth, (int)_pCtMainWin->get_ct_config()->codeboxHeight);
-    curr_codebox_anchor->set_show_line_numbers(_pCtMainWin->get_ct_config()->codeboxLineNum);
-    curr_codebox_anchor->set_highlight_brackets(_pCtMainWin->get_ct_config()->codeboxMatchBra);
+    curr_codebox_anchor->set_width_in_pixels(_pCtConfig->codeboxWidthPixels);
+    curr_codebox_anchor->set_width_height((int)_pCtConfig->codeboxWidth, (int)_pCtConfig->codeboxHeight);
+    curr_codebox_anchor->set_show_line_numbers(_pCtConfig->codeboxLineNum);
+    curr_codebox_anchor->set_highlight_brackets(_pCtConfig->codeboxMatchBra);
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
@@ -486,11 +541,11 @@ void CtActions::codebox_load_from_file()
 {
     if (not _is_curr_node_not_read_only_or_error()) return;
     CtDialogs::FileSelectArgs args{_pCtMainWin};
-    args.curr_folder = _pCtMainWin->get_ct_config()->pickDirCbox;
+    args.curr_folder = _pCtConfig->pickDirCbox;
 
     std::string filepath = CtDialogs::file_select_dialog(args);
     if (filepath.empty()) return;
-    _pCtMainWin->get_ct_config()->pickDirCbox = Glib::path_get_dirname(filepath);
+    _pCtConfig->pickDirCbox = Glib::path_get_dirname(filepath);
 
     std::string buffer = Glib::file_get_contents(filepath);
     curr_codebox_anchor->get_buffer()->set_text(buffer);
@@ -500,11 +555,11 @@ void CtActions::codebox_load_from_file()
 void CtActions::codebox_save_to_file()
 {
     CtDialogs::FileSelectArgs args{_pCtMainWin};
-    args.curr_folder=_pCtMainWin->get_ct_config()->pickDirCbox;
+    args.curr_folder=_pCtConfig->pickDirCbox;
 
     std::string filepath = CtDialogs::file_save_as_dialog(args);
     if (filepath.empty()) return;
-    _pCtMainWin->get_ct_config()->pickDirCbox = Glib::path_get_dirname(filepath);
+    _pCtConfig->pickDirCbox = Glib::path_get_dirname(filepath);
 
     Glib::ustring text = curr_codebox_anchor->get_text_content();
     CtMiscUtil::text_file_set_contents_add_cr_on_win(filepath, text);
@@ -515,7 +570,7 @@ void CtActions::codebox_increase_width()
     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
     int prevFrameWidth = curr_codebox_anchor->get_frame_width();
     if (curr_codebox_anchor->get_width_in_pixels()) {
-        if (_pCtMainWin->get_ct_config()->codeboxAutoResize and prevFrameWidth < curr_codebox_anchor->get_text_view().get_allocated_width() ) {
+        if (_pCtConfig->codeboxAutoResize and prevFrameWidth < curr_codebox_anchor->get_text_view().get_allocated_width() ) {
             prevFrameWidth = curr_codebox_anchor->get_text_view().get_allocated_width();
         }
         curr_codebox_anchor->set_width_height(prevFrameWidth + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX, 0);
@@ -550,7 +605,7 @@ void CtActions::codebox_increase_height()
 {
     if (_pCtMainWin->curr_tree_iter().get_node_read_only()) return;
     int prevFrameHeight = curr_codebox_anchor->get_frame_height();
-    if (_pCtMainWin->get_ct_config()->codeboxAutoResize and prevFrameHeight < curr_codebox_anchor->get_text_view().get_allocated_height() ) {
+    if (_pCtConfig->codeboxAutoResize and prevFrameHeight < curr_codebox_anchor->get_text_view().get_allocated_height() ) {
         prevFrameHeight = curr_codebox_anchor->get_text_view().get_allocated_height();
     }
     curr_codebox_anchor->set_width_height(0, prevFrameHeight + CtCodebox::CB_WIDTH_HEIGHT_STEP_PIX);
@@ -704,17 +759,17 @@ void CtActions::table_rows_sort_ascending()
 void CtActions::table_edit_properties()
 {
     if (!_is_curr_node_not_read_only_or_error()) return;
-    _pCtMainWin->get_ct_config()->tableColWidthDefault = curr_table_anchor->get_col_width_default();
+    _pCtConfig->tableColWidthDefault = curr_table_anchor->get_col_width_default();
     if (CtDialogs::TableHandleResp::Cancel == CtDialogs::table_handle_dialog(_pCtMainWin, _("Edit Table Properties"), false/*is_insert*/))
         return;
-    curr_table_anchor->set_col_width_default(_pCtMainWin->get_ct_config()->tableColWidthDefault);
+    curr_table_anchor->set_col_width_default(_pCtConfig->tableColWidthDefault);
     _pCtMainWin->update_window_save_needed(CtSaveNeededUpdType::nbuf, true/*new_machine_state*/);
 }
 
 void CtActions::table_export()
 {
     CtDialogs::FileSelectArgs args{_pCtMainWin};
-    args.curr_folder = _pCtMainWin->get_ct_config()->pickDirCsv;
+    args.curr_folder = _pCtConfig->pickDirCsv;
     args.curr_file_name = "";
     args.filter_name = _("CSV File");
     args.filter_pattern = {"*.csv"};
@@ -722,7 +777,7 @@ void CtActions::table_export()
     Glib::ustring filename = CtDialogs::file_save_as_dialog(args);
     if (filename.empty()) return;
     if (!str::endswith(filename, ".csv")) filename += ".csv";
-    _pCtMainWin->get_ct_config()->pickDirCsv = Glib::path_get_dirname(filename);
+    _pCtConfig->pickDirCsv = Glib::path_get_dirname(filename);
 
     try {
         std::stringstream buffer;

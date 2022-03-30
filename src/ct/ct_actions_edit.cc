@@ -67,18 +67,25 @@ void CtActions::requested_step_ahead()
     }
 }
 
-// Insert/Edit Image
-void CtActions::image_handle()
+void CtActions::latex_insert()
+{
+    if (not _node_sel_and_rich_text()) return;
+    if (not _is_curr_node_not_read_only_or_error()) return;
+
+    _latex_edit_dialog(CtImageLatex::LatexTextDefault, _curr_buffer()->get_insert()->get_iter(), nullptr/*pIterBound*/);
+}
+
+void CtActions::image_insert()
 {
     if (not _node_sel_and_rich_text()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
 
     CtDialogs::FileSelectArgs args{_pCtMainWin};
-    args.curr_folder = _pCtMainWin->get_ct_config()->pickDirImg;
+    args.curr_folder = _pCtConfig->pickDirImg;
 
     std::string filename = CtDialogs::file_select_dialog(args);
     if (filename.empty()) return;
-    _pCtMainWin->get_ct_config()->pickDirImg = Glib::path_get_dirname(filename);
+    _pCtConfig->pickDirImg = Glib::path_get_dirname(filename);
 
     Glib::RefPtr<Gdk::Pixbuf> rPixbuf;
     try {
@@ -88,38 +95,37 @@ void CtActions::image_handle()
         spdlog::error("{} {}", __FUNCTION__, error.what());
     }
     if (rPixbuf)
-        _image_edit_dialog(rPixbuf, _curr_buffer()->get_insert()->get_iter(), nullptr);
+        _image_edit_dialog(rPixbuf, _curr_buffer()->get_insert()->get_iter(), nullptr/*pIterBound*/);
     else
         CtDialogs::error_dialog(_("Image Format Not Recognized"), *_pCtMainWin);
 }
 
-// Insert Table
-void CtActions::table_handle()
+void CtActions::table_insert()
 {
     if (!_node_sel_and_rich_text()) return;
     if (!_is_curr_node_not_read_only_or_error()) return;
     CtDialogs::TableHandleResp res = CtDialogs::table_handle_dialog(_pCtMainWin, _("Insert Table"), true/*is_insert*/);
     if (res == CtDialogs::TableHandleResp::Cancel) return;
 
-    const int col_width = _pCtMainWin->get_ct_config()->tableColWidthDefault;
+    const int col_width = _pCtConfig->tableColWidthDefault;
     std::list<std::vector<std::string>> rows;
     if (res == CtDialogs::TableHandleResp::Ok) {
-        std::vector<std::string> empty_row(_pCtMainWin->get_ct_config()->tableColumns, "");
-        while ((int)rows.size() < _pCtMainWin->get_ct_config()->tableRows) {
+        std::vector<std::string> empty_row(_pCtConfig->tableColumns, "");
+        while ((int)rows.size() < _pCtConfig->tableRows) {
             rows.push_back(empty_row);
         }
     }
     CtTable* pCtTable{nullptr};
     if (res == CtDialogs::TableHandleResp::OkFromFile) {
         CtDialogs::FileSelectArgs args{_pCtMainWin};
-        args.curr_folder = _pCtMainWin->get_ct_config()->pickDirCsv;
+        args.curr_folder = _pCtConfig->pickDirCsv;
         args.curr_file_name = "";
         args.filter_name = _("CSV File");
         args.filter_pattern = {"*.csv"};
 
         std::string filepath = CtDialogs::file_select_dialog(args);
         if (filepath.empty()) return;
-        _pCtMainWin->get_ct_config()->pickDirCsv = Glib::path_get_dirname(filepath);
+        _pCtConfig->pickDirCsv = Glib::path_get_dirname(filepath);
         pCtTable = CtTable::from_csv(filepath, _pCtMainWin, _curr_buffer()->get_insert()->get_iter().get_offset(), "").release();
     }
 
@@ -146,8 +152,7 @@ void CtActions::table_handle()
     //pCtTable->get_text_view().grab_focus();
 }
 
-// Insert Code Box
-void CtActions::codebox_handle()
+void CtActions::codebox_insert()
 {
     if (not _node_sel_and_rich_text()) return;
     if (not _is_curr_node_not_read_only_or_error()) return;
@@ -166,17 +171,16 @@ void CtActions::codebox_handle()
     }
     Gtk::TextIter iter_insert = _curr_buffer()->get_insert()->get_iter();
 
-    auto pCtConfig = _pCtMainWin->get_ct_config();
     CtCodebox* pCtCodebox = new CtCodebox{_pCtMainWin,
                                           textContent,
-                                          pCtConfig->codeboxSynHighl,
-                                          (int)pCtConfig->codeboxWidth,
-                                          (int)pCtConfig->codeboxHeight,
+                                          _pCtConfig->codeboxSynHighl,
+                                          (int)_pCtConfig->codeboxWidth,
+                                          (int)_pCtConfig->codeboxHeight,
                                           iter_insert.get_offset(),
                                           justification,
-                                          pCtConfig->codeboxWidthPixels,
-                                          pCtConfig->codeboxMatchBra,
-                                          pCtConfig->codeboxLineNum};
+                                          _pCtConfig->codeboxWidthPixels,
+                                          _pCtConfig->codeboxMatchBra,
+                                          _pCtConfig->codeboxLineNum};
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
     pCtCodebox->insertInTextBuffer(gsv_buffer);
 
@@ -191,9 +195,9 @@ void CtActions::embfile_insert_path(const std::string& filepath)
     if (!_node_sel_and_rich_text()) return;
     if (!_is_curr_node_not_read_only_or_error()) return;
 
-    if (fs::file_size(filepath) > static_cast<uintmax_t>(_pCtMainWin->get_ct_config()->embfileMaxSize * 1024 * 1024)) {
+    if (fs::file_size(filepath) > static_cast<uintmax_t>(_pCtConfig->embfileMaxSize * 1024 * 1024)) {
         bool is_sqlite = fs::get_doc_type(_pCtMainWin->get_ct_storage()->get_file_path()) == CtDocType::SQLite;
-        auto message = str::format(_("The Maximum Size for Embedded Files is %s MB"), _pCtMainWin->get_ct_config()->embfileMaxSize);
+        auto message = str::format(_("The Maximum Size for Embedded Files is %s MB"), _pCtConfig->embfileMaxSize);
         if (is_sqlite) {
             if (!CtDialogs::question_dialog(message + "\n" + _("Do you want to Continue?"), *_pCtMainWin))
                 return;
@@ -224,12 +228,12 @@ void CtActions::embfile_insert_path(const std::string& filepath)
 void CtActions::embfile_insert()
 {
     CtDialogs::FileSelectArgs args{_pCtMainWin};
-    args.curr_folder = _pCtMainWin->get_ct_config()->pickDirFile;
+    args.curr_folder = _pCtConfig->pickDirFile;
 
     std::string filepath = CtDialogs::file_select_dialog(args);
     if (filepath.empty()) return;
 
-    _pCtMainWin->get_ct_config()->pickDirFile = Glib::path_get_dirname(filepath);
+    _pCtConfig->pickDirFile = Glib::path_get_dirname(filepath);
 
     embfile_insert_path(filepath);
 }
@@ -365,7 +369,7 @@ void CtActions::_insert_toc_at_pos(Glib::RefPtr<Gtk::TextBuffer> text_buffer, co
 {
     for (const auto& entry : entries) {
         Glib::ustring bullet_char;
-        CtStringSplittable& bullets_list = _pCtMainWin->get_ct_config()->charsToc;
+        CtStringSplittable& bullets_list = _pCtConfig->charsToc;
         auto nb_indents = entry.depth;
         if (entry.is_node) {
             bullet_char = bullets_list[0];
@@ -460,7 +464,7 @@ void CtActions::timestamp_insert()
     if (not proof.text_view->get_buffer()) return;
 
     time_t time = std::time(nullptr);
-    Glib::ustring timestamp = str::time_format(_pCtMainWin->get_ct_config()->timestampFormat, time);
+    Glib::ustring timestamp = str::time_format(_pCtConfig->timestampFormat, time);
     proof.text_view->get_buffer()->insert_at_cursor(timestamp);
 }
 
@@ -474,8 +478,8 @@ void CtActions::special_char_insert()
     auto itemStore = CtChooseDialogListStore::create();
     unsigned pathSelectIdx{0};
     unsigned pathCurrIdx{0};
-    const Glib::ustring lastSpecialChar = _pCtMainWin->get_ct_config()->lastSpecialChar;
-    for (gunichar ch : _pCtMainWin->get_ct_config()->specialChars.item()) {
+    const Glib::ustring lastSpecialChar = _pCtConfig->lastSpecialChar;
+    for (gunichar ch : _pCtConfig->specialChars.item()) {
         const Glib::ustring specialChar{1, ch};
         itemStore->add_row("", "", specialChar);
         if (lastSpecialChar == specialChar) {
@@ -491,7 +495,7 @@ void CtActions::special_char_insert()
     if (treeIter) {
         const Glib::ustring specialChar = treeIter->get_value(itemStore->columns.desc);
         proof.text_view->get_buffer()->insert_at_cursor(specialChar);
-        _pCtMainWin->get_ct_config()->lastSpecialChar = specialChar;
+        _pCtConfig->lastSpecialChar = specialChar;
     }
 }
 
@@ -501,7 +505,7 @@ void CtActions::horizontal_rule_insert()
     if (not _is_curr_node_not_read_only_or_error()) return;
     text_view_n_buffer_codebox_proof proof = _get_text_view_n_buffer_codebox_proof();
     if (not proof.text_view->get_buffer()) return;
-    proof.text_view->get_buffer()->insert_at_cursor(_pCtMainWin->get_ct_config()->hRule + CtConst::CHAR_NEWLINE);
+    proof.text_view->get_buffer()->insert_at_cursor(_pCtConfig->hRule + CtConst::CHAR_NEWLINE);
 }
 
 // Lowers the Case of the Selected Text/the Underlying Word
@@ -524,17 +528,15 @@ void CtActions::text_selection_toggle_case()
 
 void CtActions::toggle_ena_dis_spellcheck()
 {
-    auto pCtConfig = _pCtMainWin->get_ct_config();
-    pCtConfig->enableSpellCheck = not pCtConfig->enableSpellCheck;
+    _pCtConfig->enableSpellCheck = not _pCtConfig->enableSpellCheck;
     _validate_enable_spell_check();
     _pCtMainWin->get_text_view().set_spell_check(_pCtMainWin->curr_tree_iter().get_node_is_text());
 }
 
 void CtActions::_validate_enable_spell_check()
 {
-    auto pCtConfig = _pCtMainWin->get_ct_config();
-    if (pCtConfig->enableSpellCheck and not gspell_language_get_available()) {
-        pCtConfig->enableSpellCheck = false;
+    if (_pCtConfig->enableSpellCheck and not gspell_language_get_available()) {
+        _pCtConfig->enableSpellCheck = false;
         spdlog::debug("disabled spell check as no languages available");
     }
 }
@@ -917,18 +919,49 @@ void CtActions::strip_trailing_spaces()
     CtDialogs::info_dialog(std::to_string(cleaned_lines) + " " + _("Lines Stripped"), *_pCtMainWin);
 }
 
+// Insert/Edit LatexBox Dialog
+void CtActions:: _latex_edit_dialog(const Glib::ustring& latex_text,
+                                    Gtk::TextIter insert_iter,
+                                    Gtk::TextIter* pIterBound)
+{
+    const Glib::ustring ret_latex_text = CtDialogs::latex_handle_dialog(_pCtMainWin, latex_text);
+    if (ret_latex_text.empty()) return;
+    Glib::ustring image_justification;
+    if (pIterBound) { // only in case of modify
+        image_justification = CtTextIterUtil::get_text_iter_alignment(insert_iter, _pCtMainWin);
+        int image_offset = insert_iter.get_offset();
+        _curr_buffer()->erase(insert_iter, *pIterBound);
+        insert_iter = _curr_buffer()->get_iter_at_offset(image_offset);
+    }
+    image_insert_latex(insert_iter, ret_latex_text, image_justification);
+}
+
+void CtActions::image_insert_latex(Gtk::TextIter iter_insert,
+                                   const Glib::ustring& latex_text,
+                                   const Glib::ustring& justification)
+{
+    if (latex_text.empty()) return;
+    const int charOffset = iter_insert.get_offset();
+    CtAnchoredWidget* pAnchoredWidget = new CtImageLatex{_pCtMainWin, latex_text, charOffset, justification, CtImageEmbFile::get_next_unique_id()};
+    Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
+    pAnchoredWidget->insertInTextBuffer(gsv_buffer);
+    _pCtMainWin->get_tree_store().addAnchoredWidgets(_pCtMainWin->curr_tree_iter(),
+                                                     {pAnchoredWidget},
+                                                     &_pCtMainWin->get_text_view());
+}
+
 // Insert/Edit Image Dialog
 void CtActions::_image_edit_dialog(Glib::RefPtr<Gdk::Pixbuf> rPixbuf,
                                    Gtk::TextIter insert_iter,
-                                   Gtk::TextIter* iter_bound)
+                                   Gtk::TextIter* pIterBound)
 {
-    Glib::RefPtr<Gdk::Pixbuf> ret_pixbuf = CtDialogs::image_handle_dialog(*_pCtMainWin, _("Image Properties"), rPixbuf);
+    Glib::RefPtr<Gdk::Pixbuf> ret_pixbuf = CtDialogs::image_handle_dialog(*_pCtMainWin, rPixbuf);
     if (not ret_pixbuf) return;
     Glib::ustring image_justification;
-    if (iter_bound) { // only in case of modify
+    if (pIterBound) { // only in case of modify
         image_justification = CtTextIterUtil::get_text_iter_alignment(insert_iter, _pCtMainWin);
         int image_offset = insert_iter.get_offset();
-        _curr_buffer()->erase(insert_iter, *iter_bound);
+        _curr_buffer()->erase(insert_iter, *pIterBound);
         insert_iter = _curr_buffer()->get_iter_at_offset(image_offset);
     }
     image_insert_png(insert_iter, ret_pixbuf, ""/*link*/, image_justification);
@@ -940,11 +973,10 @@ void CtActions::image_insert_png(Gtk::TextIter iter_insert,
                                  const Glib::ustring& image_justification)
 {
     if (not rPixbuf) return;
-    int charOffset = iter_insert.get_offset();
+    const int charOffset = iter_insert.get_offset();
     CtAnchoredWidget* pAnchoredWidget = new CtImagePng{_pCtMainWin, rPixbuf, link, charOffset, image_justification};
     Glib::RefPtr<Gsv::Buffer> gsv_buffer = Glib::RefPtr<Gsv::Buffer>::cast_dynamic(_curr_buffer());
     pAnchoredWidget->insertInTextBuffer(gsv_buffer);
-
     _pCtMainWin->get_tree_store().addAnchoredWidgets(_pCtMainWin->curr_tree_iter(),
                                                      {pAnchoredWidget},
                                                      &_pCtMainWin->get_text_view());

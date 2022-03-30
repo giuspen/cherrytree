@@ -119,7 +119,6 @@ TEST_P(ExportsMultipleParametersTests, ChecksExports)
                                               Glib::path_get_basename(inDocPath));
         std::string resultHtml = Glib::file_get_contents(tmpFilepath.string());
         ASSERT_FALSE(resultHtml.empty());
-        ASSERT_EQ(expectHtml.size(), resultHtml.size());
         //g_file_set_contents(Glib::build_filename(UT::unitTestsDataDir, "test.export.htmll").c_str(), resultHtml.c_str(), -1, NULL);
         ASSERT_STREQ(expectHtml.c_str(), resultHtml.c_str());
     }

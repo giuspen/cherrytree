@@ -1,7 +1,7 @@
 /*
  * ct_image.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -45,7 +45,7 @@ public:
             Glib::RefPtr<Gdk::Pixbuf> pixBuf,
             const int charOffset,
             const std::string& justification);
-    ~CtImage() override;
+    ~CtImage() override {}
 
     void apply_width_height(const int /*parentTextWidth*/) override {}
     void apply_syntax_highlighting(const bool /*forceReApply*/) override {}
@@ -114,6 +114,40 @@ private:
 
 protected:
     Glib::ustring _anchorName;
+};
+
+class CtImageLatex : public CtImage
+{
+public:
+    CtImageLatex(CtMainWin* pCtMainWin,
+                 const Glib::ustring& latexText,
+                 const int charOffset,
+                 const std::string& justification,
+                 const size_t uniqueId);
+    ~CtImageLatex() override {}
+
+    static const std::string LatexSpecialFilename;
+    static const Glib::ustring LatexTextDefault;
+
+    void to_xml(xmlpp::Element* p_node_parent, const int offset_adjustment, CtStorageCache* cache) override;
+    bool to_sqlite(sqlite3* pDb, const gint64 node_id, const int offset_adjustment, CtStorageCache* cache) override;
+    CtAnchWidgType get_type() override { return CtAnchWidgType::ImageLatex; }
+    std::shared_ptr<CtAnchoredWidgetState> get_state() override;
+
+    const Glib::ustring& get_latex_text() { return _latexText; }
+    size_t               get_unique_id() { return _uniqueId; }
+
+    void update_tooltip();
+
+private:
+    static Glib::RefPtr<Gdk::Pixbuf> _get_latex_image(CtMainWin* pCtMainWin, const Glib::ustring& latexText, const size_t uniqueId);
+
+private:
+    bool _on_button_press_event(GdkEventButton* event);
+
+protected:
+    Glib::ustring _latexText;
+    const size_t  _uniqueId;
 };
 
 class CtImageEmbFile : public CtImage
