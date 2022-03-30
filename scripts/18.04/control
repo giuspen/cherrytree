@@ -29,6 +29,8 @@ Depends:
  libgspell-1-1,
  libcurl4,
  libuchardet0,
+ texlive-latex-base,
+ dvipng,
  ${misc:Depends},
  ${shlibs:Depends}
 Description: hierarchical note taking application
