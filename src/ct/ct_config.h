@@ -102,6 +102,7 @@ public:
     bool                                        spacesInsteadTabs{false};
     int                                         tabsWidth{4};
     int                                         anchorSize{16};
+    int                                         latexSizeDpi{140};
     int                                         embfileIconSize{48};
     bool                                        embfileShowFileName{true};
     int                                         embfileMaxSize{10};

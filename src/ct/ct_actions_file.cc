@@ -172,6 +172,7 @@ void CtActions::preferences_import()
     _pCtConfig->spacesInsteadTabs = ctConfigImported.spacesInsteadTabs;
     _pCtConfig->tabsWidth = ctConfigImported.tabsWidth;
     _pCtConfig->anchorSize = ctConfigImported.anchorSize;
+    _pCtConfig->latexSizeDpi = ctConfigImported.latexSizeDpi;
     _pCtConfig->embfileIconSize = ctConfigImported.embfileIconSize;
     _pCtConfig->embfileShowFileName = ctConfigImported.embfileShowFileName;
     _pCtConfig->embfileMaxSize = ctConfigImported.embfileMaxSize;

@@ -33,9 +33,9 @@ Glib::ustring CtDialogs::latex_handle_dialog(CtMainWin* pCtMainWin,
     rBuffer->set_text(latex_text);
     textView.setup_for_syntax("latex");
     pCtMainWin->apply_syntax_highlighting(rBuffer, "latex", false/*forceReApply*/);
-    Gtk::ScrolledWindow scrolledwindow;
-    scrolledwindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-    scrolledwindow.add(textView);
+    auto scrolledwindow = Gtk::manage(new Gtk::ScrolledWindow{});
+    scrolledwindow->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+    scrolledwindow->add(textView);
     Gtk::Dialog dialog{_("Latex Text"),
                        *pCtMainWin,
                        Gtk::DialogFlags::DIALOG_MODAL | Gtk::DialogFlags::DIALOG_DESTROY_WITH_PARENT};
@@ -43,16 +43,41 @@ Glib::ustring CtDialogs::latex_handle_dialog(CtMainWin* pCtMainWin,
     dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
     dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
-    dialog.set_default_size(300, 200);
+    dialog.set_default_size(400, 250);
     Gtk::Box* pContentArea = dialog.get_content_area();
-    pContentArea->pack_start(scrolledwindow);
+    auto hbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_HORIZONTAL, 2/*spacing*/});
+    auto vbox = Gtk::manage(new Gtk::Box{Gtk::ORIENTATION_VERTICAL, 2/*spacing*/});
+    hbox->pack_start(*scrolledwindow);
+    hbox->pack_start(*vbox, false, false);
+    auto pCtConfig = pCtMainWin->get_ct_config();
+    auto label_latex_size = Gtk::manage(new Gtk::Label{_("Image Size dpi")});
+    Glib::RefPtr<Gtk::Adjustment> adj_latex_size = Gtk::Adjustment::create(pCtConfig->latexSizeDpi, 1, 10000, 10);
+    auto spinbutton_latex_size = Gtk::manage(new Gtk::SpinButton{adj_latex_size});
+    vbox->pack_end(*spinbutton_latex_size, false, false);
+    vbox->pack_end(*label_latex_size, false, false);
+    auto button_latex_tutorial = Gtk::manage(new Gtk::Button{});
+    auto button_latex_reference = Gtk::manage(new Gtk::Button{});
+    button_latex_tutorial->set_label(_("Tutorial"));
+    button_latex_reference->set_label(_("Reference"));
+    button_latex_tutorial->set_image_from_icon_name("ct_link_website", Gtk::ICON_SIZE_MENU);
+    button_latex_reference->set_image_from_icon_name("ct_link_website", Gtk::ICON_SIZE_MENU);
+    button_latex_tutorial->set_tooltip_text(_("LaTeX Math and Equations Tutorial"));
+    button_latex_reference->set_tooltip_text(_("LaTeX Math Symbols Reference"));
+    button_latex_tutorial->set_always_show_image(true);
+    button_latex_reference->set_always_show_image(true);
+    vbox->pack_start(*button_latex_tutorial, false, false);
+    vbox->pack_start(*button_latex_reference, false, false);
+    pContentArea->pack_start(*hbox);
+    spinbutton_latex_size->signal_value_changed().connect([pCtMainWin, spinbutton_latex_size](){
+        pCtMainWin->get_ct_config()->latexSizeDpi = spinbutton_latex_size->get_value_as_int();
+    });
+    button_latex_tutorial->signal_clicked().connect([](){
+        fs::open_weblink("https://latex-tutorial.com/tutorials/amsmath/");
+    });
+    button_latex_reference->signal_clicked().connect([](){
+        fs::open_weblink("https://latex-tutorial.com/symbols/math-symbols/");
+    });
     auto on_key_press_dialog = [&](GdkEventKey* pEventKey)->bool{
-        if (GDK_KEY_Return == pEventKey->keyval or GDK_KEY_KP_Enter == pEventKey->keyval) {
-            Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_ACCEPT));
-            pButton->grab_focus();
-            pButton->clicked();
-            return true;
-        }
         if (GDK_KEY_Escape == pEventKey->keyval) {
             Gtk::Button* pButton = static_cast<Gtk::Button*>(dialog.get_widget_for_response(Gtk::RESPONSE_REJECT));
             pButton->grab_focus();

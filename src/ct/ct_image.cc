@@ -258,8 +258,13 @@ bool CtImageAnchor::_on_button_press_event(GdkEventButton* event)
 /*static*/const std::string CtImageLatex::LatexSpecialFilename{"__ct_special.tex"};
 /*static*/const Glib::ustring CtImageLatex::LatexTextDefault{"\\documentclass{article}\n"
                                                              "\\pagestyle{empty}\n"
+                                                             "\\usepackage{amsmath}\n"
                                                              "\\begin{document}\n"
-                                                             "$a^2+b^2=c^2$\n"
+                                                             "\\begin{align*}\n"
+                                                             "f(x) &= x^2\\\\\n"
+                                                             "g(x) &= \\frac{1}{x}\\\\\n"
+                                                             "F(x) &= \\int^a_b \\frac{1}{3}x^3\n"
+                                                             "\\end{align*}\n"
                                                              "\\end{document}"};
 
 CtImageLatex::CtImageLatex(CtMainWin* pCtMainWin,
@@ -363,8 +368,8 @@ void CtImageLatex::update_tooltip()
         tmp_filepath_noext = tmp_filepath_noext.substr(0, tmp_filepath_noext.size() - 3);
         const fs::path tmp_filepath_dvi = tmp_filepath_noext + "dvi";
         const fs::path tmp_filepath_png = tmp_filepath_noext + "png";
-        cmd = fmt::sprintf("dvipng -q -T tight -x 1200 -z 9 %s -o %s" CONSOLE_SILENCE_OUTPUT,
-                           tmp_filepath_dvi.c_str(), tmp_filepath_png.c_str());
+        cmd = fmt::sprintf("dvipng -q -T tight -D %d %s -o %s" CONSOLE_SILENCE_OUTPUT,
+                           pCtMainWin->get_ct_config()->latexSizeDpi, tmp_filepath_dvi.c_str(), tmp_filepath_png.c_str());
 #if 0 // defined(_WIN32)
         utf16text = g_utf8_to_utf16(cmd.c_str(), (glong)Glib::ustring{cmd.c_str()}.bytes(), nullptr, &utf16text_len, nullptr);
         ZeroMemory(&si, sizeof(si));
