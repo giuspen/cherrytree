@@ -320,6 +320,11 @@ void CtImageLatex::update_tooltip()
     set_tooltip_text(_latexText);
 }
 
+#if defined(_WIN32)
+#define CONSOLE_SILENCE_OUTPUT  " > nul"
+#else
+#define CONSOLE_SILENCE_OUTPUT  " > /dev/null"
+#endif
 /*static*/Glib::RefPtr<Gdk::Pixbuf> CtImageLatex::_get_latex_image(CtMainWin* pCtMainWin, const Glib::ustring& latexText, const size_t uniqueId)
 {
     const fs::path filename = std::to_string(uniqueId) +
@@ -328,20 +333,56 @@ void CtImageLatex::update_tooltip()
     const fs::path tmp_filepath_tex = pCtMainWin->get_ct_tmp()->getHiddenFilePath(filename);
     Glib::file_set_contents(tmp_filepath_tex.string(), latexText);
     const fs::path tmp_dirpath = tmp_filepath_tex.parent_path();
-    std::string cmd = fmt::sprintf("latex --interaction=batchmode -output-directory=%s %s", tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
+    std::string cmd = fmt::sprintf("latex --interaction=batchmode -output-directory=%s %s" CONSOLE_SILENCE_OUTPUT,
+                                   tmp_dirpath.c_str(), tmp_filepath_tex.c_str());
+#if defined(_WIN32)
+    glong utf16text_len = 0;
+    g_autofree gunichar2* utf16text = g_utf8_to_utf16(cmd.c_str(), (glong)Glib::ustring{cmd.c_str()}.bytes(), nullptr, &utf16text_len, nullptr);
+    STARTUPINFOW si;
+    PROCESS_INFORMATION pi;
+    ZeroMemory(&si, sizeof(si));
+    si.cb = sizeof(si);
+    ZeroMemory(&pi, sizeof(pi));
+    bool success = CreateProcessW(NULL, (LPWSTR)utf16text, NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi);
+    if (success) {
+        WaitForSingleObject(pi.hProcess, INFINITE);
+        CloseHandle(pi.hProcess);
+        CloseHandle(pi.hThread);
+    }
+    int retVal;
+    if (not success) {
+        spdlog::error("!! CreateProcessW({})", cmd);
+#else
     int retVal = std::system(cmd.c_str());
     if (retVal != 0) {
         spdlog::error("system({}) returned {}", cmd, retVal);
+#endif
     }
     else {
         std::string tmp_filepath_noext = tmp_filepath_tex.string();
         tmp_filepath_noext = tmp_filepath_noext.substr(0, tmp_filepath_noext.size() - 3);
         const fs::path tmp_filepath_dvi = tmp_filepath_noext + "dvi";
         const fs::path tmp_filepath_png = tmp_filepath_noext + "png";
-        cmd = fmt::sprintf("dvipng -q -T tight -x 1200 -z 9 %s -o %s", tmp_filepath_dvi.c_str(), tmp_filepath_png.c_str());
+        cmd = fmt::sprintf("dvipng -q -T tight -x 1200 -z 9 %s -o %s" CONSOLE_SILENCE_OUTPUT,
+                           tmp_filepath_dvi.c_str(), tmp_filepath_png.c_str());
+#if 0 // defined(_WIN32)
+        utf16text = g_utf8_to_utf16(cmd.c_str(), (glong)Glib::ustring{cmd.c_str()}.bytes(), nullptr, &utf16text_len, nullptr);
+        ZeroMemory(&si, sizeof(si));
+        si.cb = sizeof(si);
+        ZeroMemory(&pi, sizeof(pi));
+        success = CreateProcessW(NULL, (LPWSTR)utf16text, NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi);
+        if (success) {
+            WaitForSingleObject(pi.hProcess, INFINITE);
+            CloseHandle(pi.hProcess);
+            CloseHandle(pi.hThread);
+        }
+        if (not success) {
+            spdlog::error("!! CreateProcessW({})", cmd);
+#else
         retVal = std::system(cmd.c_str());
         if (retVal != 0) {
             spdlog::error("system({}) returned {}", cmd, retVal);
+#endif
         }
         else {
             Glib::RefPtr<Gdk::Pixbuf> rPixbuf;

@@ -43,7 +43,7 @@ Glib::ustring CtDialogs::latex_handle_dialog(CtMainWin* pCtMainWin,
     dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_ACCEPT);
     dialog.set_default_response(Gtk::RESPONSE_ACCEPT);
     dialog.set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
-    dialog.set_default_size(300, 300);
+    dialog.set_default_size(300, 200);
     Gtk::Box* pContentArea = dialog.get_content_area();
     pContentArea->pack_start(scrolledwindow);
     auto on_key_press_dialog = [&](GdkEventKey* pEventKey)->bool{
