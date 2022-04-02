@@ -14,6 +14,7 @@ GIT_CT_STYLES_FOLDER="${GIT_CT_FOLDER}/styles"
 GIT_CT_LICENSE="${GIT_CT_FOLDER}/license.txt"
 GIT_CT_HUNSPELL="${GIT_CT_FOLDER}/hunspell"
 GIT_CT_CONFIG_H="${GIT_CT_FOLDER}/config.h"
+OLD_MINGW64_FOLDER="/mingw64"
 DOWNGRADE_PACKAGE_LOCATION="http://repo.msys2.org/mingw/x86_64"
 DOWNGRADE_PACKAGE_NAME=""
 
@@ -113,6 +114,7 @@ rm -rf ${NEW_MINGW64_FOLDER}/bin/py*
 rm -rf ${NEW_MINGW64_FOLDER}/bin/*-config
 rm -f ${NEW_MINGW64_FOLDER}/bin/tcl86.dll
 rm -f ${NEW_MINGW64_FOLDER}/bin/tk86.dll
+rm -rf ${NEW_MINGW64_FOLDER}/sbin
 # remove other useless folders/files
 rm -rf ${NEW_MINGW64_FOLDER}/var
 rm -rf ${NEW_MINGW64_FOLDER}/include
@@ -202,7 +204,9 @@ cp -v ${GIT_CT_LICENSE} ${NEW_ROOT_FOLDER}/
 mkdir -p ${NEW_CHERRYTREE_SHARE}/data
 cp -rv ${GIT_CT_LANGUAGE_SPECS_FOLDER} ${NEW_CHERRYTREE_SHARE}/
 cp -rv ${GIT_CT_STYLES_FOLDER} ${NEW_CHERRYTREE_SHARE}/
-for element_rel in script3.js styles4.css user-style.xml
+for element_rel in script3.js \
+                   styles4.css \
+                   user-style.xml
 do
   cp -v ${GIT_CT_DATA_FOLDER}/${element_rel} ${NEW_CHERRYTREE_SHARE}/data/
 done
@@ -221,3 +225,30 @@ done
 mkdir -p ${NEW_HUNSPELL_FOLDER}
 cp -v ${GIT_CT_HUNSPELL}/*.aff ${NEW_HUNSPELL_FOLDER}/
 cp -v ${GIT_CT_HUNSPELL}/*.dic ${NEW_HUNSPELL_FOLDER}/
+# latex.exe
+for element_rel in latex.exe \
+                   libkpathsea-6.dll \
+                   mktexfmt.exe \
+                   runscript.dll \
+                   runscript.tlu
+do
+  cp -v ${OLD_MINGW64_FOLDER}/bin/${element_rel} ${NEW_MINGW64_FOLDER}/bin/
+done
+cp -v ${OLD_MINGW64_FOLDER}/var/lib/texmf/web2c/pdftex/latex.fmt ${NEW_MINGW64_FOLDER}/bin/
+cp -rv ${OLD_MINGW64_FOLDER}/share/texmf-dist ${NEW_MINGW64_FOLDER}/share/
+# dvipng.exe
+for element_rel in dvipng.exe \
+                   libgd.dll \
+                   libheif.dll \
+                   libavif.dll \
+                   imagequant.dll \
+                   libXpm-noX4.dll \
+                   libaom.dll \
+                   libdav1d.dll \
+                   rav1e.dll \
+                   libde265-0.dll \
+                   libx265.dll
+do
+  cp -v ${OLD_MINGW64_FOLDER}/bin/${element_rel} ${NEW_MINGW64_FOLDER}/bin/
+done
+cp -v ${OLD_MINGW64_FOLDER}/var/lib/texmf/fonts/map/dvips/updmap/ps2pk.map ${NEW_MINGW64_FOLDER}/bin/

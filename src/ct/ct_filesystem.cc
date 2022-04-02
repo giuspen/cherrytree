@@ -1,7 +1,7 @@
 /*
   ct_filesystem.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -39,6 +39,9 @@ namespace fs {
 static fs::path _exePath;
 static fs::path _portableConfigDir;
 static std::unordered_map<std::string, std::pair<std::string,std::string>> _alteredLocaleEnvVars;
+#if defined(_WIN32)
+static fs::path _mingw64Dir;
+#endif // _WIN32
 
 // replacement of Glib::canonicalize_filename for Glibmm < 2.64
 std::string legacy_canonicalize_filename(const std::string& filename, const std::string& relative_to/*= ""*/)
@@ -70,14 +73,32 @@ bool alter_locale_env_var(const std::string& key, const std::string& val)
     return Glib::setenv(key, val, true/*overwrite*/);
 }
 
+#if defined(_WIN32)
+bool alter_TEXMFROOT_env_var()
+{
+    if (not _mingw64Dir.empty()) {
+        const fs::path TEXMFROOT = _mingw64Dir / "share";
+        const bool retVal = Glib::setenv("TEXMFROOT", TEXMFROOT.string_unix(), true/*overwrite*/);
+        spdlog::debug("set TEXMFROOT={} {}", TEXMFROOT.string_unix(), retVal ? "OK":"FAIL !!");
+        return retVal;
+    }
+    spdlog::debug("running from sources");
+    return false;
+}
+#endif // _WIN32
+
 void register_exe_path_detect_if_portable(const char* exe_path)
 {
     _exePath = fs::canonical(exe_path);
     //printf("exePath: %s\n", _exePath.c_str());
-#ifdef _WIN32
+#if defined(_WIN32)
     // e.g. cherrytree_0.99.9_win64_portable\mingw64\bin\cherrytree.exe
     //      cherrytree_0.99.9_win64_portable\config.cfg
-    const fs::path portableConfigDir = _exePath.parent_path().parent_path().parent_path();
+    _mingw64Dir = _exePath.parent_path().parent_path();
+    if (_mingw64Dir.filename() != "mingw64") {
+        _mingw64Dir.clear();
+    }
+    const fs::path portableConfigDir = _mingw64Dir.parent_path();
 #else // !_WIN32
     const fs::path portableConfigDir = _exePath.parent_path() / "config";
 #endif // !_WIN32

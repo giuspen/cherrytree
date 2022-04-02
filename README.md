@@ -208,7 +208,7 @@ pacman -S --needed --noconfirm mingw-w64-x86_64-gtkmm3 mingw-w64-x86_64-gtksourc
 # gspell, curl, uchardet, fmt, spdlog
 pacman -S --needed --noconfirm mingw-w64-x86_64-gspell mingw-w64-x86_64-curl mingw-w64-x86_64-uchardet mingw-w64-x86_64-fmt mingw-w64-x86_64-spdlog
 # latex, dvipng, gettext, git, nano, meld3
-pacman -S --needed --noconfirm mingw-w64-x86_64-texlive-latex-recommended mingw-w64-x86_64-gettext git nano mingw-w64-x86_64-meld3
+pacman -S --needed --noconfirm mingw-w64-x86_64-texlive-core mingw-w64-x86_64-gettext git nano mingw-w64-x86_64-meld3
 ```
 
 use native windows theme

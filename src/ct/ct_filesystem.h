@@ -1,7 +1,7 @@
 /*
  * ct_filesystem.h
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -46,6 +46,9 @@ std::string legacy_canonicalize_filename(const std::string& filename, const std:
 
 void register_exe_path_detect_if_portable(const char* exe_path);
 bool alter_locale_env_var(const std::string& key, const std::string& val);
+#if defined(_WIN32)
+bool alter_TEXMFROOT_env_var();
+#endif // _WIN32
 
 bool copy_file(const path& from, const path& to);
 
@@ -158,17 +161,18 @@ public:
     friend void operator+=(path& lhs, const std::string& rhs) { lhs._path += rhs; }
     friend void operator+=(path& lhs, const char* rhs) { lhs._path += rhs; }
 
-    [[nodiscard]] const char* c_str() const { return _path.c_str(); }
-    [[nodiscard]] std::string string() const { return _path; }
-    [[nodiscard]] bool is_absolute() const { return Glib::path_is_absolute(_path); }
-    [[nodiscard]] bool is_relative() const { return !is_absolute(); }
-    [[nodiscard]] bool empty() const noexcept { return _path.empty(); }
-    [[nodiscard]] path filename() const { return Glib::path_get_basename(_path); }
-    [[nodiscard]] path parent_path() const { return Glib::path_get_dirname(_path); }
-    [[nodiscard]] path extension() const;
-    [[nodiscard]] path stem() const;
-    [[nodiscard]] std::string string_native() const;
-    [[nodiscard]] std::string string_unix() const;
+    const char* c_str() const { return _path.c_str(); }
+    std::string string() const { return _path; }
+    bool is_absolute() const { return Glib::path_is_absolute(_path); }
+    bool is_relative() const { return !is_absolute(); }
+    void clear() { _path.clear(); }
+    bool empty() const noexcept { return _path.empty(); }
+    path filename() const { return Glib::path_get_basename(_path); }
+    path parent_path() const { return Glib::path_get_dirname(_path); }
+    path extension() const;
+    path stem() const;
+    std::string string_native() const;
+    std::string string_unix() const;
 
 private:
     std::string _path;
