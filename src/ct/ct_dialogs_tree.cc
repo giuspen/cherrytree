@@ -1,7 +1,7 @@
 /*
  * ct_dialogs_tree.cc
  *
- * Copyright 2009-2021
+ * Copyright 2009-2022
  * Giuseppe Penone <giuspen@gmail.com>
  * Evgenii Gurianov <https://github.com/txe>
  *
@@ -58,13 +58,9 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     Gtk::CheckButton c_icon_checkbutton{_("Use Selected Icon")};
     c_icon_checkbutton.set_active(nodeData.customIconId > 0 && nodeData.customIconId < CtConst::NODE_CUSTOM_ICONS.size());
     Gtk::Button c_icon_button;
-    if (c_icon_checkbutton.get_active()) {
-        c_icon_button.set_image(*pCtMainWin->new_managed_image_from_stock(CtConst::NODE_CUSTOM_ICONS.at((int)nodeData.customIconId), Gtk::ICON_SIZE_BUTTON));
-    }
-    else {
-        c_icon_button.set_label(_("click me"));
-        c_icon_button.set_sensitive(false);
-    }
+    int customIconId = c_icon_checkbutton.get_active() ? nodeData.customIconId : CtConst::NODE_CUSTOM_ICONS_ORDERED.at(0);
+    c_icon_button.set_image(*pCtMainWin->new_managed_image_from_stock(CtConst::NODE_CUSTOM_ICONS.at(customIconId), Gtk::ICON_SIZE_BUTTON));
+    c_icon_button.set_sensitive(c_icon_checkbutton.get_active());
 
     grid_icons->attach(fg_checkbutton, 0, 1, 1, 1);
     grid_icons->attach(fg_colorbutton, 1, 1, 1, 1);
@@ -210,15 +206,20 @@ bool CtDialogs::node_prop_dialog(const Glib::ustring &title,
     });
     c_icon_button.signal_clicked().connect([&dialog, &pCtMainWin, &c_icon_button, &nodeData](){
         auto itemStore = CtChooseDialogListStore::create();
-        for (size_t i = 1 /*skip 0*/; i < CtConst::NODE_CUSTOM_ICONS.size(); ++i) {
+        int pathCurrIdx{0};
+        int pathSelectIdx{0};
+        for (const auto i : CtConst::NODE_CUSTOM_ICONS_ORDERED) {
             itemStore->add_row(CtConst::NODE_CUSTOM_ICONS[i], std::to_string(i), "");
+            if (static_cast<int>(nodeData.customIconId) == i) {
+                pathSelectIdx = pathCurrIdx;
+            }
+            ++pathCurrIdx;
         }
-        const unsigned iconIdToSelect = nodeData.customIconId > 0 ? nodeData.customIconId - 1 : 0;
         const Gtk::TreeIter treeIter = CtDialogs::choose_item_dialog(dialog,
                                                                      _("Select Node Icon"),
                                                                      itemStore,
                                                                      nullptr/*single_column_name*/,
-                                                                     std::to_string(iconIdToSelect));
+                                                                     std::to_string(pathSelectIdx));
         if (treeIter) {
             nodeData.customIconId = static_cast<guint32>(std::stoi(treeIter->get_value(itemStore->columns.key)));
             c_icon_button.set_label("");

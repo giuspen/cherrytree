@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 16 16"
+   version="1.1"
+   id="svg15"
+   sodipodi:docname="ct_heart_ukraine.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   width="16"
+   height="16"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sodipodi:namedview
+     id="namedview17"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="8.34386"
+     inkscape:cx="38.171781"
+     inkscape:cy="1.1385618"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg15"
+     width="16px" />
+  <desc
+     id="desc2">Heart Symbol
+    Example of an SVG symbol definition that can be inserted into an SVG image then scaled and positioned where desired.
+    Written by Jay Nick
+    Handcoding SVG since 2001
+    Author of eBook, Learn SVG Interactively, published by Catto Creations, LLC
+    http://www.jaynick.com
+    Image used in children's eBooks, published by Catto Creations, LLC
+    Catto Creations mission is Family, Literacy, and Enrichment
+    Visit http://www.cattocreations.com for award winning children's eBooks
+    Free ePub3 eBooks at http://www.cattocreations.com/ePub3.html</desc>
+  <defs
+     id="defs7">
+    <symbol
+       id="Heart"
+       viewBox="0 0 280 270">
+      <path
+         d="M 140,58 C 170,-2 250,-2 270,58 300,158 160,208 140,268 M 140,58 C 110,-2 30,-2 10,58 -20,158 120,208 140,268"
+         id="path4" />
+    </symbol>
+  </defs>
+  <metadata
+     id="metadata13">
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://creativecommons.org/publicdomain/zero/1.0/" />
+        <dc:publisher>
+          <cc:Agent
+             rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>Heart Symbol</dc:title>
+        <dc:date>2013-09-06T19:05:58</dc:date>
+        <dc:description>An SVG symbol definition that can be inserted into an SVG image then scaled and positioned where desired. Handcoded SVG for simplicity.</dc:description>
+        <dc:source>https://openclipart.org/detail/183129/heart-symbol-by-jaynick-183129</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>JayNick</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>cards</rdf:li>
+            <rdf:li>handcoded</rdf:li>
+            <rdf:li>heart</rdf:li>
+            <rdf:li>hearts</rdf:li>
+            <rdf:li>icon</rdf:li>
+            <rdf:li>love</rdf:li>
+            <rdf:li>symbol</rdf:li>
+            <rdf:li>valentine</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/publicdomain/zero/1.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="g834"
+     transform="matrix(0.05886686,9.4964191e-4,-0.00100312,0.06181287,-0.07589398,-0.68981865)">
+    <g
+       stroke="#000000"
+       stroke-width="1px"
+       fill="red"
+       id="g11"
+       style="fill:#fedd00;fill-opacity:1">
+      <use
+         y="0"
+         x="0"
+         xlink:href="#Heart"
+         width="280"
+         height="270"
+         id="use9"
+         style="fill:#fedd00;fill-opacity:1" />
+    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 22.719892,138.489 236.903098,-4.30019 0.40184,0.33956 z"
+       id="path2296" />
+    <path
+       style="fill:#2a7fff;fill-opacity:1;stroke:#ffffa4;stroke-width:0.338983"
+       d="M 20.906132,134.43295 C 13.045061,121.16278 8.3424395,107.54796 6.9233618,93.950647 6.4131822,89.06221 6.70484,76.976932 7.4441047,72.372881 9.0062275,62.644169 10.976589,56.254373 14.76114,48.644068 24.201624,29.660317 40.520888,17.736091 61.694915,14.350308 c 4.669678,-0.746694 14.404583,-0.731674 19.322034,0.02981 18.183936,2.815851 34.322401,11.875274 46.545091,26.128355 3.49508,4.075669 8.35455,11.160494 10.43657,15.215915 1.76088,3.429888 2.2419,3.429888 4.00278,0 2.08202,-4.055421 6.94149,-11.140246 10.43657,-15.215915 12.22381,-14.254396 28.40265,-23.335029 46.54509,-26.12419 4.59956,-0.707121 14.05148,-0.801018 18.30509,-0.181845 10.04811,1.462647 18.99511,4.812182 26.76916,10.021714 9.26564,6.209073 15.93925,13.898986 21.19255,24.419914 5.28136,10.577101 7.68461,20.827634 8.03926,34.28963 0.42918,16.291394 -2.6002,29.075664 -10.65087,44.947664 l -2.88,5.67796 -1.57403,10e-4 c -0.86573,6.8e-4 -22.09099,0.38002 -47.16726,0.84264 -25.07627,0.46262 -75.26271,1.37044 -111.525425,2.01737 -36.262711,0.64693 -68.323862,1.23291 -71.247001,1.30217 l -5.314798,0.12593 -2.023594,-3.416 z"
+       id="path2409" />
+    <path
+       style="fill:#3771c8;fill-opacity:1;stroke:#ffffa4;stroke-width:0.338983"
+       d="M 21.525999,134.71414 C 15.090738,123.81901 10.764056,112.97453 8.6582204,102.4621 6.9390568,93.879953 6.6104065,87.990271 7.2928775,77.994041 8.4194183,61.493468 14.545365,46.126033 24.566444,34.661889 34.005279,23.863836 48.089519,16.50007 63.029892,14.551766 c 4.711349,-0.614385 16.449054,-0.238038 20.760661,0.665652 21.124707,4.427624 37.748427,15.854416 49.974687,34.351541 1.44534,2.186655 3.11293,4.885766 3.70575,5.998024 1.35862,2.549024 2.1895,3.350353 2.96603,2.860532 0.31175,-0.196651 1.56401,-2.020746 2.78278,-4.053549 4.50317,-7.510847 7.91776,-12.075534 12.86478,-17.197833 11.06123,-11.453169 24.18148,-18.61414 40.31446,-22.003445 3.17854,-0.667765 4.61498,-0.757061 12.24503,-0.761209 7.77913,-0.0042 9.01717,0.07453 12.37288,0.787129 16.9841,3.60664 30.58277,12.587126 39.51212,26.093591 7.37267,11.151828 11.1179,22.670669 12.21151,37.557723 1.26676,17.244186 -1.76363,31.417848 -10.41065,48.692448 l -2.84217,5.67797 -1.26931,1.7e-4 c -0.69811,8e-5 -13.39642,0.22504 -28.21845,0.49989 -54.70735,1.01447 -106.23529,1.94642 -158.983051,2.87541 -20.974576,0.3694 -40.312726,0.73681 -42.973666,0.81647 l -4.838072,0.14482 z"
+       id="path2485" />
+  </g>
+</svg>
